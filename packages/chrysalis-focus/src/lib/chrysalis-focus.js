@@ -43,7 +43,11 @@ export default class Focus {
     }
 
     command(cmd, args = []) {
-        return this._commands[cmd](this, args)
+        if (typeof this._commands[cmd] == 'function') {
+            return this._commands[cmd](this, args)
+        } else {
+            return this.request(cmd, args)
+        }
     }
 
     addCommands(cmds) {

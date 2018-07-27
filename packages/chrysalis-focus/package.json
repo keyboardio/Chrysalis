@@ -1,0 +1,29 @@
+{
+    "name": "chrysalis-focus",
+    "version": "0.0.1",
+    "description": "Chrysalis Focus protocol library",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Lepidopterarium/chrysalis-focus"
+    },
+    "author": {
+        "name": "Gergely Nagy",
+        "email": "<algernon@keyboard.io>",
+        "url": "https://asylum.madhouse-project.org"
+    },
+    "license": "GPL-3.0+",
+    "scripts": {
+        "build": "babel src/lib -d lib && babel src/test -d test",
+        "test": "eslint src/lib && mocha"
+    },
+    "dependencies": {
+        "serialport": "latest"
+    },
+    "devDependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-preset-env": "^1.7.0",
+        "chai": "^4.1.2",
+        "eslint": "^4.19.1",
+        "mocha": "^5.2.0"
+    }
+}

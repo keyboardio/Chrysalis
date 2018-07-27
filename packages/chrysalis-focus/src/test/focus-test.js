@@ -97,6 +97,23 @@ describe("Focus", () => {
                 done()
             })
         })
+
+        it ("can add and call a custom command object", (done) => {
+            emitData(port, "add-command-object")
+
+            class MyCommand {
+                call(s) {
+                    return s.request("test-command")
+                }
+            }
+
+            focus.addCommands({myCommand: new MyCommand()})
+            focus.command("myCommand").then((data) => {
+                expect(data).to.be.a("string")
+                expect(data).to.equal("add-command-object")
+                done()
+            })
+        })
     })
 
     describe("#unknown-command", () => {

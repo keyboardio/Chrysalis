@@ -14,6 +14,7 @@
     },
     "license": "GPL-3.0+",
     "scripts": {
+        "install": "babel src/lib -d lib",
         "build": "babel src/lib -d lib && babel src/test -d test",
         "test": "eslint src/lib && mocha"
     },

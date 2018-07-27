@@ -98,4 +98,16 @@ describe("Focus", () => {
             })
         })
     })
+
+    describe("#unknown-command", () => {
+        it ("falls back to dumping data when calling with an unknown command", (done) => {
+            emitData(port, "fallback")
+
+            focus.command("unknown-command").then((data) => {
+                expect(data).to.be.a("string")
+                expect(data).to.equal("fallback")
+                done()
+            })
+        })
+    })
 })

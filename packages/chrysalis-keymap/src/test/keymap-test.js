@@ -53,7 +53,16 @@ describe("Keymap", () => {
         })
 
         it ("correctly supports additional key parsers", (done) => {
-            keymap.addKeyParsers([(k) => { return "Key_" + k.toString() }])
+            class KeyPrefixer {
+                parse(k) {
+                    return "Key_" + k.toString()
+                }
+
+                serialize(k) {
+                    return k.substring(4)
+                }
+            }
+            keymap.addKeyTransformers([new KeyPrefixer()])
             emitData(port, "1 2 3 4")
             focus.command("keymap").then((keymap) => {
                 expect(keymap).to.have.deep.ordered.members([["Key_1", "Key_2", "Key_3", "Key_4"]])

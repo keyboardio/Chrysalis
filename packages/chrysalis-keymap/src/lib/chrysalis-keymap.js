@@ -38,7 +38,7 @@ export default class Keymap {
         }, k)
     }
 
-    call(s) {
+    focus(s) {
         return new Promise((resolve) => {
             s.request("keymap.map").then((data) => {
                 let keymap = data.split(" ").filter(v => v.length > 0).map(k => this._parseKey(k))

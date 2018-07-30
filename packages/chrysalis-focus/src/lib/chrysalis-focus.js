@@ -46,7 +46,7 @@ export default class Focus {
         if (typeof this._commands[cmd] == "function") {
             return this._commands[cmd](this, args)
         } else if (typeof this._commands[cmd] == "object") {
-            return this._commands[cmd].call(this, args)
+            return this._commands[cmd].focus(this, args)
         } else {
             return this.request(cmd, args)
         }

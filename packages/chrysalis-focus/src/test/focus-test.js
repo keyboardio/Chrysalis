@@ -102,7 +102,7 @@ describe("Focus", () => {
             emitData(port, "add-command-object")
 
             class MyCommand {
-                call(s) {
+                focus(s) {
                     return s.request("test-command")
                 }
             }

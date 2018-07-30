@@ -18,7 +18,12 @@
 export default class Keymap {
     constructor(layerSize) {
         this._layerSize = layerSize
-        this._keyParsers = [parseInt]
+        this._keyTransformers = [{
+            parse: parseInt,
+            serialize: function (k) {
+                return k.toString()
+            }
+        }]
     }
 
     _chunk(a, chunkSize) {
@@ -28,13 +33,13 @@ export default class Keymap {
         return R
     }
 
-    addKeyParsers(parsers) {
-        this._keyParsers = this._keyParsers.concat(parsers)
+    addKeyTransformers(transformers) {
+        this._keyTransformers = this._keyTransformers.concat(transformers)
     }
 
     _parseKey(k) {
-        return this._keyParsers.reduce((value, parser) => {
-            return parser(value)
+        return this._keyTransformers.reduce((value, transformer) => {
+            return transformer.parse(value)
         }, k)
     }
 

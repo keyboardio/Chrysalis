@@ -43,12 +43,32 @@ export default class Keymap {
         }, k)
     }
 
-    focus(s) {
-        return new Promise((resolve) => {
-            s.request("keymap.map").then((data) => {
-                let keymap = data.split(" ").filter(v => v.length > 0).map(k => this._parseKey(k))
-                resolve(this._chunk(keymap, this._layerSize))
+    _serializeKey(t, k) {
+        return t.reduce((value, transformer) => {
+            return transformer.serialize(value)
+        }, k)
+    }
+
+    focus(s, keymap) {
+        if (keymap) {
+            let flatten = (arr) => {
+                return [].concat(...arr)
+            },
+                t = this._keyTransformers.slice().reverse()
+
+            return new Promise((resolve) => {
+                s.request("keymap.map",
+                          flatten(keymap).map(k => this._serializeKey(t, k))).then((data) => {
+                              resolve(data)
+                          })
             })
-        })
+        } else {
+            return new Promise((resolve) => {
+                s.request("keymap.map").then((data) => {
+                    let keymap = data.split(" ").filter(v => v.length > 0).map(k => this._parseKey(k))
+                    resolve(this._chunk(keymap, this._layerSize))
+                })
+            })
+        }
     }
 }

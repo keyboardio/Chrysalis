@@ -17,22 +17,21 @@
 
 import "chai/register-expect"
 
-import SerialPort from "serialport/test"
 import Focus from "../lib/chrysalis-focus"
+
+import SerialPort from "serialport/test"
 const MockBinding = SerialPort.Binding
 
 describe("Focus", () => {
-    let port, focus
+    let focus = new Focus()
 
-    function emitData(port, response) {
-        port.binding.emitData(Buffer.from(response + "\r\n.\r\n"))
+    function emitData(response) {
+        focus._port.binding.emitData(Buffer.from(response + "\r\n.\r\n"))
     }
 
     beforeEach(() => {
         MockBinding.createPort("/dev/ttyFake")
-
-        port = new SerialPort("/dev/ttyFake")
-        focus = new Focus(port)
+        focus.open("/dev/ttyFake")
     })
 
     afterEach(() => {
@@ -41,7 +40,7 @@ describe("Focus", () => {
 
     describe("#help", () => {
         it ("parses the help correctly", (done) => {
-            emitData(port, "help\r\nversion")
+            emitData("help\r\nversion")
             focus.command("help").then((commands) => {
                 expect(commands).to.be.an("array").that.has.lengthOf(2)
                 expect(commands).to.have.ordered.members(["help", "version"])
@@ -52,7 +51,7 @@ describe("Focus", () => {
 
     describe("#version", () => {
         it("parses the version correctly", (done) => {
-            emitData(port, "Kaleidoscope/latest Fake/Device | today")
+            emitData("Kaleidoscope/latest Fake/Device | today")
             focus.command("version").then((version) => {
                 expect(version).to.be.a("object")
                 expect(version).to.deep.equal({
@@ -73,7 +72,7 @@ describe("Focus", () => {
 
     describe("#command", () => {
         it("should return a single response", (done) => {
-            emitData(port, "A response.")
+            emitData("A response.")
             focus.request("test.command").then((data) => {
                 expect(data).to.be.a("string")
                 expect(data).to.equal("A response.")
@@ -84,7 +83,7 @@ describe("Focus", () => {
 
     describe("#addCommand", () => {
         it ("can add and call custom commands", (done) => {
-            emitData(port, "add-command")
+            emitData("add-command")
 
             const myCommand = (s) => {
                 return s.request("test-command")
@@ -99,7 +98,7 @@ describe("Focus", () => {
         })
 
         it ("can add and call a custom command object", (done) => {
-            emitData(port, "add-command-object")
+            emitData("add-command-object")
 
             class MyCommand {
                 focus(s) {
@@ -118,7 +117,7 @@ describe("Focus", () => {
 
     describe("#unknown-command", () => {
         it ("falls back to dumping data when calling with an unknown command", (done) => {
-            emitData(port, "fallback")
+            emitData("fallback")
 
             focus.command("unknown-command").then((data) => {
                 expect(data).to.be.a("string")

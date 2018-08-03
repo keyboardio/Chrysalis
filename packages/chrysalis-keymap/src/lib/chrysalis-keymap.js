@@ -16,14 +16,25 @@
  */
 
 export default class Keymap {
-    constructor(layerSize) {
-        this._layerSize = layerSize
+    constructor(opts) {
         this._keyTransformers = [{
             parse: parseInt,
             serialize: function (k) {
                 return k.toString()
             }
         }]
+        this.setLayerSize(opts)
+    }
+
+    setLayerSize(opts) {
+        if (!opts)
+            return
+
+        if (typeof opts == "number") {
+            this._layerSize = layerSize
+        } else if (typeof opts == "object") {
+            this._layerSize = opts.keyboard.rows * opts.keyboard.columns
+        }
     }
 
     _chunk(a, chunkSize) {

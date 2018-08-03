@@ -15,14 +15,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import SerialPort from "serialport"
 import Delimiter from "@serialport/parser-delimiter"
 
 export default class Focus {
-    constructor(port) {
-        this._port = port
+    constructor() {
         this._commands = {
             help: this._help,
             version: this._version
+        }
+    }
+
+    open(opts) {
+        if (typeof opts == "string") {
+            this._port = new SerialPort(opts)
+        } else if (typeof opts == "object") {
+            if (opts.hasOwnProperty("binding")) {
+                this._port = opts
+            } else {
+                SerialPort.list().then((portList) => {
+                    for (let port of portList) {
+                        if (parseInt("0x" + port.productId) == opts.usb.productId &&
+                            parseInt("0x" + port.vendorId) == opts.usb.vendorId) {
+                            this._port = new SerialPort(port.comName)
+                            break
+                        }
+                    }
+                })
+            }
         }
     }
 

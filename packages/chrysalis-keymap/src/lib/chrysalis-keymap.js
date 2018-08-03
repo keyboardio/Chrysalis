@@ -50,7 +50,7 @@ export default class Keymap {
     }
 
     focus(s, keymap) {
-        if (keymap) {
+        if (keymap && keymap.length > 0) {
             let flatten = (arr) => {
                 return [].concat(...arr)
             },

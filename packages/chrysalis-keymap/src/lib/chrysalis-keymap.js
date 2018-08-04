@@ -62,16 +62,16 @@ export default class Keymap {
 
     focus(s, keymap) {
         if (keymap && keymap.length > 0) {
-            let flatten = (arr) => {
-                return [].concat(...arr)
-            },
-                t = this._keyTransformers.slice().reverse()
+            let t = this._keyTransformers.slice().reverse(),
+                flatten = (arr) => {
+                    return [].concat(...arr)
+                },
+                args = flatten(keymap).map(k => this._serializeKey(t, k))
 
             return new Promise((resolve) => {
-                s.request("keymap.map",
-                          flatten(keymap).map(k => this._serializeKey(t, k))).then((data) => {
-                              resolve(data)
-                          })
+                s.request("keymap.map", ...args).then((data) => {
+                    resolve(data)
+                })
             })
         } else {
             return new Promise((resolve) => {

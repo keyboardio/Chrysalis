@@ -34,7 +34,8 @@ export default class Focus {
                     for (let device of devices) {
                         if (parseInt("0x" + port.productId) == device.usb.productId &&
                             parseInt("0x" + port.vendorId) == device.usb.vendorId) {
-                            found_devices.push(port)
+                            if (!found_devices.includes(port))
+                                found_devices.push(port)
                         }
                     }
                 }

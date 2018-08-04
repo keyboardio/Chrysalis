@@ -67,7 +67,7 @@ class Focus {
      * }
      * ```
      *
-     * @param {DEVICE} devices... - List of supported, or sought-after devices.
+     * @param {DEVICE} devices - List of supported, or sought-after devices.
      *
      * @returns {Promise<Array>} A list of port descriptors for matching
      * devices.
@@ -116,6 +116,21 @@ class Focus {
         }
     }
 
+    /**
+     * Send a low-level request, and return the (mostly) unprocessed response.
+     *
+     * This method is close to the wire, as all it does, is format its
+     * arguments, send the command, and return the results. The only processing
+     * done on the results is making sure we don't read too much.
+     *
+     * @param {String} cmd - the command to send.
+     * @param {String} args - optional arguments for the command.
+     *
+     * @returns {Promise<String>} The unprocessed response.
+     *
+     * @throws Will throw an error if the instance isn't connected to the
+     * keyboard yet.
+     */
     request(cmd, ...args) {
         if (!this._port)
             throw "Device not connected!"
@@ -135,6 +150,22 @@ class Focus {
         })
     }
 
+    /**
+     * Send a high-level command, and return a processed response.
+     *
+     * Commands registered with `addCommands` can be called by using this
+     * method. If the command to be sent is recognised, it will send the command
+     * through the registered handler. If it isn't known, falls back to
+     * `request()`.
+     *
+     * @param {String} cmd - the command to send.
+     * @param {String} args - optional arguments for the command.
+     *
+     * @returns {Promise<object>} The processed response.
+     *
+     * @throws Will throw an error if the instance isn't connected to the
+     * keyboard yet.
+     */
     command(cmd, ...args) {
         if (typeof this._commands[cmd] == "function") {
             return this._commands[cmd](this, ...args)
@@ -145,6 +176,22 @@ class Focus {
         }
     }
 
+    /**
+     * Register new commands with the system.
+     *
+     * Commands can either be functions, or objects with a `.focus` method. Both
+     * `.focus` and the command-function take the same arguments: `self` (the
+     * `Focus` instance running the handler; to have access to the `request`
+     * method) and any number of arguments, which are supposed to be the
+     * arguments of the command the handler is executing.
+     *
+     * Handlers **must** return promises, the result of their commands,
+     * post-processed in whatever way is most practical for the command in
+     * question.
+     *
+     * @param {object} cmds - The command functions / objects to register, as
+     * name-value pairs.
+     */
     addCommands(cmds) {
         Object.assign(this._commands, cmds)
     }

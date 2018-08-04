@@ -108,7 +108,7 @@ class Focus {
             if (opts.hasOwnProperty("binding")) {
                 this._port = opts
             } else {
-                this.find([opts]).then((devices) => {
+                this.find(opts).then((devices) => {
                     if (devices && devices.length >= 1)
                         this._port = new SerialPort(devices[0].comName)
                 })
@@ -116,9 +116,9 @@ class Focus {
         }
     }
 
-    request(cmd, args = []) {
+    request(cmd, ...args) {
         let request = cmd
-        if (args) {
+        if (args && args.length > 0) {
             request = request + " " + args.join(" ")
         }
         request += "\n"
@@ -132,13 +132,13 @@ class Focus {
         })
     }
 
-    command(cmd, args = []) {
+    command(cmd, ...args) {
         if (typeof this._commands[cmd] == "function") {
-            return this._commands[cmd](this, args)
+            return this._commands[cmd](this, ...args)
         } else if (typeof this._commands[cmd] == "object") {
-            return this._commands[cmd].focus(this, args)
+            return this._commands[cmd].focus(this, ...args)
         } else {
-            return this.request(cmd, args)
+            return this.request(cmd, ...args)
         }
     }
 

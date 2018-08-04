@@ -26,6 +26,23 @@ export default class Focus {
         }
     }
 
+    find(devices) {
+        return new Promise((resolve) => {
+            let found_devices = []
+            SerialPort.list().then((portList) => {
+                for (let port of portList) {
+                    for (let device of devices) {
+                        if (parseInt("0x" + port.productId) == device.usb.productId &&
+                            parseInt("0x" + port.vendorId) == device.usb.vendorId) {
+                            found_devices.push(port)
+                        }
+                    }
+                }
+                resolve(found_devices)
+            })
+        })
+    }
+
     open(opts) {
         if (typeof opts == "string") {
             this._port = new SerialPort(opts)
@@ -33,14 +50,9 @@ export default class Focus {
             if (opts.hasOwnProperty("binding")) {
                 this._port = opts
             } else {
-                SerialPort.list().then((portList) => {
-                    for (let port of portList) {
-                        if (parseInt("0x" + port.productId) == opts.usb.productId &&
-                            parseInt("0x" + port.vendorId) == opts.usb.vendorId) {
-                            this._port = new SerialPort(port.comName)
-                            break
-                        }
-                    }
+                this.find([opts]).then((devices) => {
+                    if (devices && devices.length >= 1)
+                        this._port = new SerialPort(devices[0].comName)
                 })
             }
         }

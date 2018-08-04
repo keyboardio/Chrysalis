@@ -15,10 +15,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * The heart of Chrysalis, what binds every other piece together.
+ *
+ * @module chrysalis/focus
+ */
+
 import SerialPort from "serialport"
 import Delimiter from "@serialport/parser-delimiter"
 
-export default class Focus {
+/** Class implementing the Focus protocol.
+ *
+ * The primary purpose of this class is to implement the Focus protocol, with a
+ * way to extend it from the outside, without requiring one to subclass.
+ */
+class Focus {
+    /**
+     * Create a new Focus object.
+     *
+     * Ideally, there should only be one instance in a single application.
+     *
+     * @constructor
+     */
     constructor() {
         this._commands = {
             help: this._help,
@@ -26,6 +44,21 @@ export default class Focus {
         }
     }
 
+    /**
+     * Find devices that match certain criteria.
+     *
+     * Given a list of supported devices, look through the system and find
+     * matching ones. Each argument must be an object with an `usb` property,
+     * which in turn must have `productId` and `vendorId` properties. The method
+     * will match these with USB devices on the system, and return a list of
+     * matches.
+     *
+     * @param {DEVICE} devices... - List of supported, or sought-after devices.
+     *
+     * @returns {Promise<Array>} A list of port descriptors for matching
+     * devices.
+     *
+     */
     find(...devices) {
         return new Promise((resolve) => {
             let found_devices = []
@@ -121,3 +154,5 @@ export default class Focus {
         })
     }
 }
+
+export default Focus

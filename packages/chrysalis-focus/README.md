@@ -23,3 +23,7 @@ focus.command("help").then((response) => {
   console.log(response)
 })
 ```
+
+[Full API documentation][api-docs]
+
+ [api-docs]: https://lepidopterarium.github.io/chrysalis-focus/

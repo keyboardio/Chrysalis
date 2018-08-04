@@ -53,6 +53,20 @@ class Focus {
      * will match these with USB devices on the system, and return a list of
      * matches.
      *
+     * For example, a `device` descriptor may look like this:
+     * ```json
+     * const Model01 = {
+     *   usb: {
+     *     vendorId: 0x1209,
+     *     productId: 0x2301
+     *   },
+     *   keyboard: {
+     *     rows: 4,
+     *     columns: 16
+     *   }
+     * }
+     * ```
+     *
      * @param {DEVICE} devices... - List of supported, or sought-after devices.
      *
      * @returns {Promise<Array>} A list of port descriptors for matching

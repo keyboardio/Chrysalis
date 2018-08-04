@@ -26,7 +26,7 @@ export default class Focus {
         }
     }
 
-    find(devices) {
+    find(...devices) {
         return new Promise((resolve) => {
             let found_devices = []
             SerialPort.list().then((portList) => {

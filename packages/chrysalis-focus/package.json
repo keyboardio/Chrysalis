@@ -17,7 +17,7 @@
         "install": "babel src/lib -d lib",
         "build": "babel src/lib -d lib && babel src/test -d test",
         "test": "eslint src/lib && mocha",
-        "docs": "jsdoc -r -d docs/html -R README.md package.json src/lib"
+        "docs": "jsdoc -c .jsdoc.json -r -d docs/html -R README.md package.json src/lib"
     },
     "dependencies": {
         "serialport": "latest"

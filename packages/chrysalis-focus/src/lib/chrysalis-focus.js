@@ -117,6 +117,9 @@ class Focus {
     }
 
     request(cmd, ...args) {
+        if (!this._port)
+            throw "Device not connected!"
+
         let request = cmd
         if (args && args.length > 0) {
             request = request + " " + args.join(" ")

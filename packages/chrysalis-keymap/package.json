@@ -15,8 +15,8 @@
     "license": "GPL-3.0+",
     "scripts": {
         "install": "babel src/lib -d lib",
-        "build": "babel src/lib -d lib && babel src/test -d test",
-        "test": "eslint src/lib && mocha"
+        "build": "babel src/lib -d lib",
+        "test": "eslint src/lib"
     },
     "dependencies": {},
     "devDependencies": {
@@ -24,8 +24,6 @@
         "serialport": "latest",
         "babel-cli": "^6.26.0",
         "babel-preset-env": "^1.7.0",
-        "chai": "^4.1.2",
-        "eslint": "^4.19.1",
-        "mocha": "^5.2.0"
+        "eslint": "^4.19.1"
     }
 }

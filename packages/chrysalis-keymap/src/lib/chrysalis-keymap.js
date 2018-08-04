@@ -27,11 +27,11 @@ export default class Keymap {
     }
 
     setLayerSize(opts) {
-        if (!opts)
+        if (!opts || opts == undefined)
             return
 
         if (typeof opts == "number") {
-            this._layerSize = layerSize
+            this._layerSize = opts
         } else if (typeof opts == "object") {
             this._layerSize = opts.keyboard.rows * opts.keyboard.columns
         }

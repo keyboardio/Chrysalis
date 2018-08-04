@@ -1,6 +1,8 @@
 chrysalis-focus
 ===============
 
+[![Build Status](https://travis-ci.org/Lepidopterarium/chrysalis-focus.svg?branch=master)](https://travis-ci.org/Lepidopterarium/chrysalis-focus)
+
 This is the heart of the Chrysalis libraries, the one thing that binds
 everything together. It implements the `Focus` protocol used by
 [Kaleidoscope][k:focus] for bi-directional communication, and on top of that, it

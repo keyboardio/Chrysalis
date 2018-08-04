@@ -91,6 +91,16 @@ class Focus {
         })
     }
 
+    /**
+     * Open a device. This is a **required** step before doing any of the other
+     * operations (save `find`).
+     *
+     * The argument can either be a `string`, a `SerialPort` object, or a device
+     * descriptor (see `find` above).
+     *
+     * @param {OPTIONS} opts - Either a path to the device, or a `SerialPort`
+     * object, or a device descriptor.
+     */
     open(opts) {
         if (typeof opts == "string") {
             this._port = new SerialPort(opts)

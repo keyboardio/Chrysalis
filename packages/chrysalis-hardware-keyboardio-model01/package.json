@@ -15,11 +15,13 @@
     "license": "GPL-3.0+",
     "scripts": {
         "install": "babel src/lib -d lib",
-        "build": "babel src/lib -d lib"
+        "build": "babel src/lib -d lib",
+        "docs": "jsdoc -c .jsdoc.json -r -d docs/html -R README.md package.json src/lib"
     },
     "dependencies": {},
     "devDependencies": {
         "babel-cli": "^6.26.0",
-        "babel-preset-env": "^1.7.0"
+        "babel-preset-env": "^1.7.0",
+        "jsdoc": "^3.5.5"
     }
 }

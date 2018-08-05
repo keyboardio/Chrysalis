@@ -15,7 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export const Model01 = {
+/**
+ * [Keyboardio Model01][m01] hardware descriptor.
+ *
+ * Can be used with `Focus.find()`, `Focus.open()`, and so on. Describes the
+ * Model01.
+ *
+ * Supports the `chrysalis-keymap` package too.
+ *
+ * [m01]: https://shop.keyboard.io/
+ */
+const Model01 = {
     usb: {
         vendorId: 0x1209,
         productId: 0x2301
@@ -25,3 +35,5 @@ export const Model01 = {
         columns: 16
     }
 }
+
+export { Model01 }

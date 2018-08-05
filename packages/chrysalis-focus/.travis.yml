@@ -1,10 +1,16 @@
 language: node_js
 node_js:
   - "node"
+install:
+  - npm install
+  - npm install --no-save got
+before_script:
+  - wget https://raw.githubusercontent.com/Lepidopterarium/chrysalis-api/source/tools/travis-trigger.js
 script:
   - npm run build
   - npm run test
   - npm run docs
+  - node travis-trigger.js
 deploy:
   provider: pages
   github-token: $GITHUB_TOKEN

@@ -15,12 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * The heart of Chrysalis, what binds every other piece together.
- *
- * @module chrysalis/focus
- */
-
 import SerialPort from "serialport"
 import Delimiter from "@serialport/parser-delimiter"
 

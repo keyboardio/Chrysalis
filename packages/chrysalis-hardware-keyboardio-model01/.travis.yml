@@ -8,6 +8,7 @@ before_script:
   - wget https://raw.githubusercontent.com/Lepidopterarium/chrysalis-api/source/tools/travis-trigger.js
 script:
   - npm run build
+  - npm run docs
   - node travis-trigger.js
 deploy:
   provider: pages

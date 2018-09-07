@@ -18,10 +18,12 @@
         "build": "babel src/lib -d lib",
         "docs": "jsdoc -c .jsdoc.json -r -d docs/html -R README.md package.json src/lib"
     },
-    "dependencies": {},
+    "dependencies": {
+        "@babel/cli": "^7.0.0",
+        "@babel/core": "7.0.0",
+        "@babel/preset-env": "7.0.0"
+    },
     "devDependencies": {
-        "babel-cli": "^6.26.0",
-        "babel-preset-env": "^1.7.0",
-        "jsdoc": "^3.5.5"
+         "jsdoc": "^3.5.5"
     }
 }

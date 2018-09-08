@@ -66,22 +66,22 @@ class Focus {
      * devices.
      *
      */
-    find(...devices) {
-        return new Promise((resolve) => {
-            let found_devices = []
-            SerialPort.list().then((portList) => {
-                for (let port of portList) {
-                    for (let device of devices) {
-                        if (parseInt("0x" + port.productId) == device.usb.productId &&
-                            parseInt("0x" + port.vendorId) == device.usb.vendorId) {
-                            if (!found_devices.includes(port))
-                                found_devices.push(port)
-                        }
-                    }
+    async find(...devices) {
+        let portList = await SerialPort.list()
+
+        let found_devices = []
+
+        for (let port of portList) {
+            for (let device of devices) {
+                if (parseInt("0x" + port.productId) == device.usb.productId &&
+                    parseInt("0x" + port.vendorId) == device.usb.vendorId) {
+                    if (!found_devices.includes(port))
+                        found_devices.push(port)
                 }
-                resolve(found_devices)
-            })
-        })
+            }
+        }
+
+        return found_devices
     }
 
     /**
@@ -94,17 +94,17 @@ class Focus {
      * @param {OPTIONS} opts - Either a path to the device, or a `SerialPort`
      * object, or a device descriptor.
      */
-    open(opts) {
+    async open(opts) {
         if (typeof opts == "string") {
             this._port = new SerialPort(opts)
         } else if (typeof opts == "object") {
             if (opts.hasOwnProperty("binding")) {
                 this._port = opts
             } else {
-                this.find(opts).then((devices) => {
-                    if (devices && devices.length >= 1)
-                        this._port = new SerialPort(devices[0].comName)
-                })
+                let devices = await this.find(opts)
+                if (devices && devices.length >= 1) {
+                    this._port = new SerialPort(devices[0].comName)
+                }
             }
         }
     }
@@ -124,7 +124,7 @@ class Focus {
      * @throws Will throw an error if the instance isn't connected to the
      * keyboard yet.
      */
-    request(cmd, ...args) {
+    async request(cmd, ...args) {
         if (!this._port)
             throw "Device not connected!"
 
@@ -137,7 +137,7 @@ class Focus {
 
         const parser = this._port.pipe(new Delimiter({ delimiter: "\r\n.\r\n" }))
         return new Promise((resolve) => {
-            parser.once("data", function(data) {
+            parser.once("data", (data) => {
                 resolve(data.toString("utf-8"))
             })
         })
@@ -159,7 +159,7 @@ class Focus {
      * @throws Will throw an error if the instance isn't connected to the
      * keyboard yet.
      */
-    command(cmd, ...args) {
+    async command(cmd, ...args) {
         if (typeof this._commands[cmd] == "function") {
             return this._commands[cmd](this, ...args)
         } else if (typeof this._commands[cmd] == "object") {
@@ -189,36 +189,31 @@ class Focus {
         Object.assign(this._commands, cmds)
     }
 
-    _help(s) {
-        return new Promise((resolve) => {
-            s.request("help").then((data) => {
-                resolve(data.split(/\r?\n/))
-            })
-        })
+    async _help(s) {
+        let data = await s.request("help")
+        return data.split(/\r?\n/)
     }
 
-    _version(s) {
-        return new Promise((resolve) => {
-            s.request("version").then((data) => {
-                let [fv, ...r] = data.split(" ")
-                let [vp, date] = r.join(" ").split(" | ")
+    async _version(s) {
+        let data = await s.request("version")
 
-                fv = fv.split("/")
-                vp = vp.split("/")
+        let [fv, ...r] = data.split(" ")
+        let [vp, date] = r.join(" ").split(" | ")
 
-                resolve({
-                    board: {
-                        vendor: vp[0],
-                        product: vp[1]
-                    },
-                    firmware: {
-                        name: fv[0],
-                        version: fv[1],
-                        date: date
-                    }
-                })
-            })
-        })
+        fv = fv.split("/")
+        vp = vp.split("/")
+
+        return {
+            board: {
+                vendor: vp[0],
+                product: vp[1]
+            },
+            firmware: {
+                name: fv[0],
+                version: fv[1],
+                date: date
+            }
+        }
     }
 }
 

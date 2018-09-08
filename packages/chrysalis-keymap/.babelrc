@@ -1,1 +1,14 @@
-{"presets": ["env"]}
+{
+    "presets": [
+        [
+            "@babel/preset-env",
+            {
+                "debug": false,
+                "targets": {
+                    "node": "current",
+                    "electron": "2.0"
+                }
+            }
+        ]
+    ]
+}

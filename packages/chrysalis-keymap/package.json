@@ -25,7 +25,7 @@
     },
     "devDependencies": {
         "chrysalis-focus": "git://github.com/Lepidopterarium/chrysalis-focus.git#master",
-        "serialport": "latest",
+        "serialport": "^6.2.2",
         "eslint": "^4.19.1"
     }
 }

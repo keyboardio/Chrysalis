@@ -107,6 +107,7 @@ class Focus {
                 }
             }
         }
+        return this._port
     }
 
     /**

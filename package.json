@@ -1,0 +1,41 @@
+{
+    "name": "chrysalis-bundle-keyboardio",
+    "version": "0.0.0",
+    "license": "GPL-3.0",
+    "author": {
+        "name": "Gergely Nagy",
+        "email": "algernon@keyboard.io"
+    },
+    "homepage": "https://github.com/keyboardio/chrysalis-bundle-keyboardio",
+    "scripts": {
+        "start": "electron-webpack dev",
+        "compile": "electron-webpack",
+        "build:mac": "yarn compile && electron-builder -m",
+        "build:win": "yarn compile && electron-builder -w",
+        "build:linux": "yarn compile && electron-builder -l"
+    },
+    "build": {
+        "appId": "keyboardio.chrysalis",
+        "productName": "Chrysalis",
+        "copyright": "Copyright © 2018 Keyboardio Inc.; distributed under the GPLv3"
+    },
+    "dependencies": {
+        "@babel/cli": "^7.0.0",
+        "@babel/core": "7.0.0",
+        "@babel/preset-env": "^7.0.0",
+        "@babel/plugin-proposal-class-properties": "^7.0.0",
+        "@babel/preset-react": "^7.0.0",
+        "babel-loader": "^8.0.2",
+        "chrysalis-focus": "../chrysalis-focus",
+        "chrysalis-hardware-keyboardio-model01": "../chrysalis-hardware-keyboardio-model01",
+        "react": "^16.4.2",
+        "react-dom": "^16.4.2",
+        "source-map-support": "^0.5.5"
+    },
+    "devDependencies": {
+        "electron": "2.0.0",
+        "electron-builder": "^20.11.1",
+        "electron-webpack": "^2.0.1",
+        "webpack": "^4.8.1"
+    }
+}

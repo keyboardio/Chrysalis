@@ -28,6 +28,7 @@
         "babel-loader": "^8.0.2",
         "chrysalis-focus": "../chrysalis-focus",
         "chrysalis-hardware-keyboardio-model01": "../chrysalis-hardware-keyboardio-model01",
+        "chrysalis-keymap": "../chrysalis-keymap",
         "react": "^16.4.2",
         "react-dom": "^16.4.2",
         "source-map-support": "^0.5.5"

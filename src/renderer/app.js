@@ -18,15 +18,19 @@
 import React from 'react'
 
 import Focus from "chrysalis-focus"
+import Keymap from "chrysalis-keymap"
 import { Model01 } from "chrysalis-hardware-keyboardio-model01"
 
 class App extends React.Component {
     focus = new Focus()
+    keymap = new Keymap()
 
     constructor(props) {
         super(props)
         this.state = {device: {}}
 
+        this.focus.addCommands({keymap: this.keymap})
+        this.keymap.setLayerSize(Model01)
         this.openKeyboard = this.openKeyboard.bind(this)
     }
 

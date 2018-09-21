@@ -60,15 +60,13 @@ class KeyLayout extends React.Component {
 
 class App extends React.Component {
     focus = new Focus()
-    keymap = new Keymap()
 
     constructor(props) {
         super(props)
         this.state = {device: {},
                       keymap: []}
 
-        this.focus.addCommands({keymap: this.keymap})
-        this.keymap.setLayerSize(Model01)
+        this.focus.addCommands({keymap: new Keymap().setLayerSize(Model01)})
         this.openKeyboard = this.openKeyboard.bind(this)
     }
 

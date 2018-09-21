@@ -111,6 +111,16 @@ class Focus {
     }
 
     /**
+     * Close the currently opened device, if any.
+     */
+    close() {
+        if (this._port) {
+            this._port.close()
+        }
+        this._port = null
+    }
+
+    /**
      * Send a low-level request, and return the (mostly) unprocessed response.
      *
      * This method is close to the wire, as all it does, is format its

@@ -34,6 +34,8 @@ export default class Keymap {
         } else if (typeof opts == "object") {
             this._layerSize = opts.keyboard.rows * opts.keyboard.columns
         }
+
+        return this
     }
 
     _chunk(a, chunkSize) {

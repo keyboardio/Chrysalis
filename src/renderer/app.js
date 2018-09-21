@@ -26,7 +26,7 @@ class Layer extends React.Component {
         let keys = this.props.keymap.map((key, index) => {
             let keyName = "key-" + this.props.index.toString() + "-" + index.toString()
             return (
-                <input type="text" defaultValue={key} key={keyName} />
+                <input type="text" defaultValue={key} key={keyName} size="5" />
             )
         })
 

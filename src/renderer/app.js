@@ -21,18 +21,19 @@ import Focus from "chrysalis-focus"
 import { Model01 } from "chrysalis-hardware-keyboardio-model01"
 
 class App extends React.Component {
+    focus = new Focus()
+
     constructor(props) {
         super(props)
-        this.state = {focus: new Focus(),
-                      device: {}}
+        this.state = {device: {}}
 
-        this.openKeyboard = this.openKeyboard.bind(this);
+        this.openKeyboard = this.openKeyboard.bind(this)
     }
 
     openKeyboard(event) {
         event.preventDefault()
 
-        this.state.focus.open(Model01).then((port) => {
+        this.focus.open(Model01).then((port) => {
             this.setState({device: port})
         })
     }

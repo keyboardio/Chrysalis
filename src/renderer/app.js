@@ -21,13 +21,51 @@ import Focus from "chrysalis-focus"
 import Keymap from "chrysalis-keymap"
 import { Model01 } from "chrysalis-hardware-keyboardio-model01"
 
+class Layer extends React.Component {
+    render() {
+        let keys = this.props.keymap.map((key, index) => {
+            let keyName = "key-" + this.props.index.toString() + "-" + index.toString()
+            return (
+                <input type="text" defaultValue={key} key={keyName} />
+            )
+        })
+
+        return (
+            <div>
+              <h1>Layer #{this.props.index}</h1>
+              {keys}
+              <hr/>
+            </div>
+        )
+    }
+}
+
+class KeyLayout extends React.Component {
+    render() {
+        let layers = this.props.keymap.map((layer, index) => {
+            let layerName = "layer-" + index.toString()
+            return (
+                <div key={layerName}>
+                  <Layer index={index} keymap={layer} />
+                </div>
+            )
+        })
+        return (
+            <form>
+              {layers}
+            </form>
+        )
+    }
+}
+
 class App extends React.Component {
     focus = new Focus()
     keymap = new Keymap()
 
     constructor(props) {
         super(props)
-        this.state = {device: {}}
+        this.state = {device: {},
+                      keymap: []}
 
         this.focus.addCommands({keymap: this.keymap})
         this.keymap.setLayerSize(Model01)
@@ -37,15 +75,19 @@ class App extends React.Component {
     openKeyboard(event) {
         event.preventDefault()
 
+        this.focus.close()
         this.focus.open(Model01).then((port) => {
             this.setState({device: port})
+            this.focus.command("keymap").then((keymap) => {
+                this.setState({keymap: keymap})
+            })
         })
     }
 
     render() {
         return (
             <main>
-              {this.state.device.path}
+              <KeyLayout keymap={this.state.keymap} />
 
               <div>
                 <button onClick={this.openKeyboard}>Probe for Model01</button>

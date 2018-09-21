@@ -20,9 +20,9 @@
         "docs": "jsdoc -c .jsdoc.json -r -d docs/html -R README.md package.json src/lib"
     },
     "dependencies": {
-        "@babel/cli": "^7.0.0",
-        "@babel/core": "7.0.0",
-        "@babel/preset-env": "7.0.0",
+        "@babel/cli": "^7.1.0",
+        "@babel/core": "7.1.0",
+        "@babel/preset-env": "7.1.0",
         "serialport": "^6.2.2"
     },
     "devDependencies": {

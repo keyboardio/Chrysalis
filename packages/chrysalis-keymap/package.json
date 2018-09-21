@@ -19,9 +19,9 @@
         "test": "eslint src/lib"
     },
     "dependencies": {
-        "@babel/cli": "^7.0.0",
-        "@babel/core": "7.0.0",
-        "@babel/preset-env": "7.0.0"
+        "@babel/cli": "^7.1.0",
+        "@babel/core": "7.1.0",
+        "@babel/preset-env": "7.1.0"
     },
     "devDependencies": {
         "chrysalis-focus": "git://github.com/Lepidopterarium/chrysalis-focus.git#master",

@@ -26,7 +26,10 @@ class Layer extends React.Component {
         let keys = this.props.keymap.map((key, index) => {
             let keyName = "key-" + this.props.index.toString() + "-" + index.toString()
             return (
-                <input type="text" defaultValue={key} key={keyName} size="5" />
+                <input type="text" value={key} key={keyName} size="5"
+                       data-layer={this.props.index}
+                       data-key-index={index}
+                       onChange={this.props.onKeyChange} />
             )
         })
 
@@ -46,15 +49,21 @@ class KeyLayout extends React.Component {
             let layerName = "layer-" + index.toString()
             return (
                 <div key={layerName}>
-                  <Layer index={index} keymap={layer} />
+                  <Layer index={index} keymap={layer} onKeyChange={this.props.onKeyChange} />
                 </div>
             )
         })
-        return (
-            <form>
-              {layers}
-            </form>
-        )
+
+        if (layers.length > 0) {
+            return (
+                <form>
+                  {layers}
+                  <button onClick={this.props.onApply}>Apply</button>
+                </form>
+            )
+        } else {
+            return null
+        }
     }
 }
 
@@ -68,6 +77,25 @@ class App extends React.Component {
 
         this.focus.addCommands({keymap: new Keymap().setLayerSize(Model01)})
         this.openKeyboard = this.openKeyboard.bind(this)
+        this.onKeyChange = this.onKeyChange.bind(this)
+        this.onApply = this.onApply.bind(this)
+    }
+
+    onKeyChange(event) {
+        event.persist()
+        this.setState((state, props) => {
+            let keymap = state.keymap.slice(),
+                layer = event.target.getAttribute("data-layer"),
+                keyIndex = event.target.getAttribute("data-key-index")
+            keymap[layer][keyIndex] = event.target.value
+            return keymap
+        })
+    }
+
+    onApply(event) {
+        event.preventDefault()
+        this.focus.command("keymap", this.state.keymap)
+        console.log("keymap updated")
     }
 
     openKeyboard(event) {
@@ -85,7 +113,9 @@ class App extends React.Component {
     render() {
         return (
             <main>
-              <KeyLayout keymap={this.state.keymap} />
+              <KeyLayout keymap={this.state.keymap}
+                         onKeyChange={this.onKeyChange}
+                         onApply={this.onApply} />
 
               <div>
                 <button onClick={this.openKeyboard}>Probe for Model01</button>

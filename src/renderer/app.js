@@ -423,6 +423,7 @@ class KeyLayout extends React.Component {
 
 class App extends React.Component {
     focus = new Focus()
+    displayTransformer = new DisplayTransformer()
 
     constructor(props) {
         super(props)
@@ -430,7 +431,7 @@ class App extends React.Component {
                       keymap: []}
 
         let keymap = new Keymap().setLayerSize(Model01)
-        keymap.addKeyTransformers([new DisplayTransformer()])
+        keymap.addKeyTransformers([this.displayTransformer])
 
         this.focus.addCommands({keymap: keymap})
         this.openKeyboard = this.openKeyboard.bind(this)
@@ -439,10 +440,9 @@ class App extends React.Component {
     }
 
     onKeyChange(layer, keyIndex, value) {
-        console.log("onKeyChange", layer, keyIndex, value)
         this.setState((state, props) => {
             let keymap = state.keymap.slice()
-            keymap[layer][keyIndex] = value
+            keymap[layer][keyIndex] = this.displayTransformer.parse(value)
             return keymap
         })
     }

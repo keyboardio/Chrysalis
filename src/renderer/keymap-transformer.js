@@ -89,7 +89,7 @@ constructor() {
             "F11",
             "F12",
             "PrintScreen",
-            "ScrollLock",
+            "ScrlLK",
             "Pause",
             "Insert",
             "Home",

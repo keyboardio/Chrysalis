@@ -29,6 +29,7 @@
         "chrysalis-focus": "git://github.com/Lepidopterarium/chrysalis-focus.git#master",
         "chrysalis-hardware-keyboardio-model01": "git://github.com/Lepidopterarium/chrysalis-hardware-keyboardio-model01.git#master",
         "chrysalis-keymap": "git://github.com/Lepidopterarium/chrysalis-keymap.git#master",
+        "rc-tabs": "^9.4.6",
         "react": "^16.4.2",
         "react-dom": "^16.4.2",
         "source-map-support": "^0.5.5"

@@ -254,17 +254,120 @@ constructor() {
     }
 
     parse(keyCode) {
-        let label = keyCode.toString()
+        let label = keyCode.toString(),
+            extraLabel = null
 
         if (keyCode <= this.hid_code_map.length) {
             label = this.hid_code_map[keyCode]
-        }
-        if (keyCode == 65535) {
+        } else if (keyCode == 65535) {
             label = "[Trns]"
+        } else if (keyCode & 0b1000000000000000) {
+            // Reserved keys
+
+            label = "SPEC"
+
+            if (keyCode >= 0xc001 && keyCode <= 0xc008) {
+                // OSM
+                let modifier = keyCode - 0xc000 + this.hid_code_map.indexOf('LCtrl')
+                label = this.hid_code_map[modifier];
+                extraLabel = "OneShot"
+            }
+            if (keyCode >= 0xc009 && keyCode <= 0xc010) {
+                // OSL
+                label = "L#" + (keyCode - 0xc009).toString()
+                extraLabel = "OneShot"
+            }
+            if (keyCode >= 0xc011 && keyCode <= 0xc811) {
+                // TODO: DUM
+                extraLabel = "DualUse"
+                label = "??"
+            }
+            if (keyCode >= 0xc812 && keyCode <= 0xd012) {
+                // TODO: DUL
+                extraLabel = "DualUse"
+                label = "??"
+            }
+            if (keyCode >= 0xd013 && keyCode <= 0xd022) {
+                // TD
+                extraLabel = "TD"
+                label = "(" + (keyCode - 0xd013).toString() + ")"
+            }
+            if (keyCode >= 0xd023 && keyCode <= 0xd02a) {
+                // LEAD
+                extraLabel = "Leader"
+                label = "(" + (keyCode - 0xd023).toString() + ")"
+            }
+            if (keyCode == 0xd02b) {
+                // CYCLE
+                label = "CYCLE"
+            }
+            if (keyCode == 0xd02c) {
+                // Syster
+                label = "SYSTER"
+            }
+            if (keyCode >= 0xd02d && keyCode <= 0xd12c) {
+                // Topsy
+                extraLabel = "Topsy"
+                let topsyKeyCode = keyCode - 0xd02d
+                label = this.hid_code_map[topsyKeyCode]
+            }
+            if (keyCode >= 0xd12d && keyCode <= 0xd157) {
+                // TODO: Steno
+                extraLabel = "Steno"
+                label = "??"
+            }
+            if (keyCode >= 0xd158 && keyCode <= 0xd159) {
+                // TODO: SpaceCadet
+                extraLabel="SC"
+                label = "??"
+            }
+        } else {
+            // Core keys
+            let key = keyCode % 256,
+                flags = (keyCode - key) / 256
+
+            extraLabel = flags.toString()
+            label = key.toString()
+
+            if (flags & 0b01000000) {
+                // Synthetic
+            } else if (flags & 0b00100000) {
+                // Macros
+            } else {
+                // Held keys
+                extraLabel = ""
+
+                let hold = (mod) => {
+                    if (extraLabel) {
+                        extraLabel += "+" + mod
+                    } else {
+                        extraLabel = mod
+                    }
+                }
+
+                if (flags & 0b00000001) {
+                    hold("Ctrl")
+                }
+                if (flags & 0b00000010) {
+                    hold("Alt")
+                }
+                if (flags & 0b00000100) {
+                    hold("AltGr")
+                }
+                if (flags & 0b00001000) {
+                    hold("Shift")
+                }
+                if (flags & 0b00010000) {
+                    hold("GUI")
+                }
+
+                label = this.hid_code_map[key]
+            }
         }
 
         return {keyCode: keyCode,
-                label: label }
+                label: label,
+                extraLabel: extraLabel}
     }
 
     serialize(key) {

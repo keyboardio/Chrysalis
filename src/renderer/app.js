@@ -438,19 +438,6 @@ class App extends React.Component {
         this.onApply = this.onApply.bind(this)
     }
 
-    /*
-    onKeyChange(event) {
-        event.persist()
-        this.setState((state, props) => {
-            let keymap = state.keymap.slice(),
-                layer = event.target.getAttribute("data-layer"),
-                keyIndex = event.target.getAttribute("data-key-index")
-            keymap[layer][keyIndex] = event.target.value
-            return keymap
-        })
-    }
-    */
-
     onKeyChange(layer, keyIndex, value) {
         console.log("onKeyChange", layer, keyIndex, value)
         this.setState((state, props) => {

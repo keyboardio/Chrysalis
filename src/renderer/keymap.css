@@ -20,6 +20,11 @@
     font-weight: 700;
 }
 
+.extraKey {
+    font-family: "SourceCodePro-Bold", "Source Code Pro", "monospace";
+    font-size: 8px;
+}
+
 .key:hover {
     cursor: pointer;
 }

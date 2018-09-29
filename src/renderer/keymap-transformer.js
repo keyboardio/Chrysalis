@@ -18,7 +18,7 @@
 class DisplayTransformer {
 constructor() {
         this.hid_code_map = [
-            "XXX",
+            "",
             undefined,
             undefined,
             undefined,

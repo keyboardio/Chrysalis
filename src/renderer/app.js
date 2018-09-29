@@ -27,7 +27,7 @@ import TabContent from "rc-tabs/lib/TabContent"
 import ScrollableInkTabBar from "rc-tabs/lib/ScrollableInkTabBar"
 
 import './keymap.css'
-
+import DisplayTransformer from "./keymap-transformer"
 
 class Key extends React.Component {
     render() {
@@ -59,7 +59,7 @@ class Key extends React.Component {
               {shape}
               <g transform={this.props.transform}>
                 <text x={this.props.x} y={this.props.y}>
-                  {this.props.label}
+                  {this.props.label.label}
                 </text>
               </g>
             </g>
@@ -368,7 +368,7 @@ class KeyLayout extends React.Component {
         let layer = parseInt(this.state.currentLayer),
             keyIndex = parseInt(this.state.currentKeyIndex)
 
-        return this.props.keymap[layer][keyIndex]
+        return this.props.keymap[layer][keyIndex].keyCode
     }
 
     onChange(event) {
@@ -429,7 +429,10 @@ class App extends React.Component {
         this.state = {device: {},
                       keymap: []}
 
-        this.focus.addCommands({keymap: new Keymap().setLayerSize(Model01)})
+        let keymap = new Keymap().setLayerSize(Model01)
+        keymap.addKeyTransformers([new DisplayTransformer()])
+
+        this.focus.addCommands({keymap: keymap})
         this.openKeyboard = this.openKeyboard.bind(this)
         this.onKeyChange = this.onKeyChange.bind(this)
         this.onApply = this.onApply.bind(this)

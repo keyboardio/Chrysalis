@@ -8,8 +8,9 @@
     },
     "homepage": "https://github.com/keyboardio/chrysalis-bundle-keyboardio",
     "scripts": {
-        "start": "electron-webpack dev",
-        "compile": "electron-webpack",
+        "rebuild": "yarn electron-rebuild -w serialport",
+        "start": "yarn rebuild && electron-webpack dev",
+        "compile": "yarn rebuild && electron-webpack",
         "build:mac": "yarn compile && electron-builder -m",
         "build:win": "yarn compile && electron-builder -w",
         "build:linux": "yarn compile && electron-builder -l"
@@ -30,6 +31,7 @@
         "chrysalis-focus": "git://github.com/Lepidopterarium/chrysalis-focus.git#master",
         "chrysalis-hardware-keyboardio-model01": "git://github.com/Lepidopterarium/chrysalis-hardware-keyboardio-model01.git#master",
         "chrysalis-keymap": "git://github.com/Lepidopterarium/chrysalis-keymap.git#master",
+        "electron-rebuild": "^1.8.2",
         "rc-tabs": "^9.4.6",
         "react": "^16.4.2",
         "react-dom": "^16.4.2",

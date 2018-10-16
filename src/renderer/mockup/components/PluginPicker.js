@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import Dropdown from "react-dropdown";
 import deleteWhite from "../img/delete_white_24px.svg";
 
-export class PluginPicker extends Component {
+export class PluginPicker extends React.Component {
   render() {
     const macroOptions = ["My Macro", "↳ New"];
     const macroDefault = macroOptions[0];

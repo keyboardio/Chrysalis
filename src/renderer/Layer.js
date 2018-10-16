@@ -1,18 +1,17 @@
-import React, { Component } from "react";
+import React from "react";
 import Key from "./Key";
 
 class Layer extends React.Component {
   render() {
-    let _ = 0,
-      getLabel = (row, col) => {
-        let keyIndex = parseInt(row) * 16 + parseInt(col),
-          keyCode = this.props.keymap[keyIndex];
-        return keyCode;
-      },
-      isActive = (row, col) => {
-        let keyIndex = parseInt(row) * 16 + parseInt(col);
-        return this.props.selectedKey == keyIndex;
-      };
+    let getLabel = (row, col) => {
+      let keyIndex = parseInt(row) * 16 + parseInt(col),
+        keyCode = this.props.keymap[keyIndex];
+      return keyCode;
+    };
+    let isActive = (row, col) => {
+      let keyIndex = parseInt(row) * 16 + parseInt(col);
+      return this.props.selectedKey == keyIndex;
+    };
 
     return (
       <svg

@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import { ChromePicker, GithubPicker } from "react-color";
 import dygma from "../img/dygma-raise.svg";
 
-export class LedEditor extends Component {
+export class LedEditor extends React.Component {
   render() {
     const col = [
       "#FF6900",

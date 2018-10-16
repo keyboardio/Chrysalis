@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Dropdown from "react-dropdown";
 import dygma from "../img/dygma-raise.svg";
 
@@ -52,7 +52,7 @@ const keyOptions = [
 ];
 const keyDefault = "";
 
-export class KeymapEditor extends Component {
+export class KeymapEditor extends React.Component {
   render() {
     return (
       <div className="keymap-editor">

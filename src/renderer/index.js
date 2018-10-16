@@ -15,8 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react"
-import ReactDOM from "react-dom"
-import App from "./app.js"
+import React from "react";
+import ReactDOM from "react-dom";
 
-ReactDOM.render(<App />, app)
+// Use this App file for the main Chrysalis app
+import App from "./App.js";
+
+// Use the following for the new UI mockup
+// import "./styles/reset.css";
+// import "./mockup/scss/app.scss";
+// import App from "./mockup/components/App";
+
+ReactDOM.render(<App />, app);

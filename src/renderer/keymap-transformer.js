@@ -71,7 +71,7 @@ class DisplayTransformer {
       "NonUsPound",
       ";",
       "'",
-      "\`",
+      "`",
       ",",
       ".",
       "/",

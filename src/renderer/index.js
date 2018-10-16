@@ -26,4 +26,4 @@ import App from "./App.js";
 // import "./mockup/scss/app.scss";
 // import App from "./mockup/components/App";
 
-ReactDOM.render(<App />, app);
+ReactDOM.render(<App />, document.getElementById("app"));

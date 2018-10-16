@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 
-export class TabButton extends Component {
+export class TabButton extends React.Component {
   render() {
     const img = this.props.image;
     const isActive = this.props.active;

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 import Tabs, { TabPane } from "rc-tabs";
 import TabContent from "rc-tabs/lib/TabContent";

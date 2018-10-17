@@ -1,0 +1,38 @@
+.tab {
+  display: flex;
+  flex-direction: column;
+  margin: 0 40px 0 30px;
+  flex-grow: 1;
+
+  .title p {
+    font-size: 1em;
+  }
+
+  .top-controls {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .top-bar {
+    margin: 15px 0;
+    display: flex;
+  }
+
+  h1 {
+    margin-bottom: 10px;
+    color: var(--feature);
+    font-size: 1.7em;
+  }
+
+  p {
+    font-size: 0.9em;
+    font-weight: 300;
+  }
+
+  .tab-contents {
+    margin: 0 0px;
+    margin-top: 15px;
+  }
+}

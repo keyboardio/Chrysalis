@@ -1,0 +1,99 @@
+.macro-plugin {
+  button {
+    border-radius: 4px;
+    // min-width: 1px;
+    height: 33px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 0.9em;
+    font-weight: 300;
+    font-family: "Roboto";
+    padding: 0 12px;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+  }
+
+  justify-content: right;
+  display: flex;
+  flex-direction: row;
+  margin-right: 230px;
+}
+
+.step-list {
+  width: 150px;
+  // background-color: black;
+  margin-left: 50px;
+}
+.key-adder {
+  margin-bottom: 50px;
+
+  .key-picker {
+    width: 90px;
+  }
+
+  .category-picker {
+    width: 162px;
+    margin-bottom: 20px;
+  }
+}
+
+.key-selection-container {
+  display: flex;
+  button {
+    align-self: end;
+    margin-right: 0;
+    margin-left: auto;
+  }
+}
+
+.pause-length {
+  > input {
+    height: 32px;
+    border-radius: 4px;
+    width: 90px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 0.9em;
+    font-weight: 300;
+    font-family: "Roboto";
+    padding-left: 12px;
+    float: left;
+  }
+}
+
+.pause-adder-controls {
+  button {
+    float: right;
+  }
+}
+.steps {
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  height: 100%;
+  padding: 10px 10px 0px 10px;
+  border-radius: 4px;
+  p {
+    margin-bottom: 5px;
+    border-radius: 4px;
+    padding: 5px 10px;
+
+    background: rgba(255, 255, 255, 0.2);
+    &:hover {
+      .del-step {
+        opacity: 1;
+      }
+      background: rgba(255, 255, 255, 0.3);
+    }
+  }
+}
+
+.del-step {
+  opacity: 0;
+  float: right;
+  height: 18px;
+  margin-right: -6px;
+  margin-top: -1px;
+}

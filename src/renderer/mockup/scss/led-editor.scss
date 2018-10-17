@@ -1,0 +1,31 @@
+.keymap-editor {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.controls {
+  margin-left: 30px;
+  // background: black;
+}
+.keymap {
+  // background: grey;
+  // margin-top: 30px;
+  flex-grow: 1;
+  max-width: 754px;
+  // margin: 0 20px;
+}
+
+.colour-picker {
+  border: 5px white solid;
+  border-radius: 5px;
+}
+.chrome-picker {
+  width: 152px !important;
+  border-radius: 0px !important;
+  box-shadow: none !important;
+  // background: #efefef !important;
+}
+
+.colour-history {
+  margin-top: 20px;
+}

@@ -1,6 +1,3 @@
 {
-  "title": "Chrysalis (Keyboardio Bundle)",
-  "renderer": {
-    "dll": ["react", "react-dom"]
-  }
+  "title": "Chrysalis (Keyboardio Bundle)"
 }

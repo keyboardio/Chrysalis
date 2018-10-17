@@ -36,8 +36,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       device: {},
-      keymap: [],
-      keyboardConnected: null
+      keymap: []
     };
 
     let keymap = new Keymap().setLayerSize(Model01);

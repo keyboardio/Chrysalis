@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import Dropdown from "react-dropdown";
 import closeWhite from "../img/close_white_24px.svg";
 
-export class Plugins extends Component {
+export class Plugins extends React.Component {
   render() {
     const typeOptions = [
       "Alphanumeric",

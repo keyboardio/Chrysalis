@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import TabButton from "./TabButton";
 // import App from "./App";
 import dygmaLogo from "../img/dygma-logo.svg";
@@ -8,7 +8,7 @@ import settingsInput from "../img/ic_settings_input_composite_white_24px.svg";
 import updateWhite from "../img/ic_update_white_24px.svg";
 import importExportWhite from "../img/ic_import_export_white_24px.svg";
 
-export class TabBar extends Component {
+export class TabBar extends React.Component {
   render() {
     const activeTab = this.props.activeTab;
     function isActive(tab) {

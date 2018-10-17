@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import Dropdown from "react-dropdown";
 
-export class LayerControls extends Component {
+export class LayerControls extends React.Component {
   render() {
     const options = ["1 | Default", "2 | Macros", "3 | Media", "4"];
     const defaultOption = options[0];

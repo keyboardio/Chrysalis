@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import Dropdown from "react-dropdown";
 
-export class Update extends Component {
+export class Update extends React.Component {
   render() {
     const options = ["2018-09-26--revision-005"];
     const defaultOption = options[0];

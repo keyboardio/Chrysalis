@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import Dropdown from "react-dropdown";
-export class ImportExport extends Component {
+
+export class ImportExport extends React.Component {
   render() {
     const options = ["settings.xml"];
     const defaultOption = options[0];

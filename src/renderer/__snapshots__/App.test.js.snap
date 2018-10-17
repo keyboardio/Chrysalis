@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders without crashing 1`] = `
+<div>
+  <main>
+    <div>
+      <button>
+        Probe for Model01
+      </button>
+    </div>
+  </main>
+</div>
+`;

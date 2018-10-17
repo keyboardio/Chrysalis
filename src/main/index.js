@@ -15,69 +15,69 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { app, BrowserWindow, Menu } from "electron"
-import { format as formatUrl } from "url"
-import * as path from "path"
+import { app, BrowserWindow, Menu } from "electron";
+import { format as formatUrl } from "url";
+import * as path from "path";
 
-const isDevelopment = process.env.NODE_ENV !== "production"
+const isDevelopment = process.env.NODE_ENV !== "production";
 
-let mainWindow
+let mainWindow;
 
 function createMainWindow() {
-    const window = new BrowserWindow({
-        minHeight: 490,
-        minWidth: 700,
-        resizable: true
-    })
+  const window = new BrowserWindow({
+    minHeight: 490,
+    minWidth: 700,
+    resizable: true
+  });
 
-    if (isDevelopment) {
-        window.webContents.openDevTools()
-    }
+  if (isDevelopment) {
+    window.webContents.openDevTools();
+  }
 
-    if (isDevelopment) {
-        window.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`)
-    } else {
-        window.loadURL(
-            formatUrl({
-                pathname: path.join(__dirname, "index.html"),
-                protocol: "file",
-                slashes: true
-            })
-        )
-    }
+  if (isDevelopment) {
+    window.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`);
+  } else {
+    window.loadURL(
+      formatUrl({
+        pathname: path.join(__dirname, "index.html"),
+        protocol: "file",
+        slashes: true
+      })
+    );
+  }
 
-    window.on("closed", () => {
-        mainWindow = null
-    })
+  window.on("closed", () => {
+    mainWindow = null;
+  });
 
-    window.webContents.on("devtools-opened", () => {
-        window.focus()
-        setImmediate(() => {
-            window.focus()
-        })
-    })
+  window.webContents.on("devtools-opened", () => {
+    window.focus();
+    setImmediate(() => {
+      window.focus();
+    });
+  });
 
-    Menu.setApplicationMenu(null)
+  Menu.setApplicationMenu(null);
 
-    return window
+  return window;
 }
 
 // quit application when all windows are closed
 app.on("window-all-closed", () => {
-    // on macOS it is common for applications to stay open until the user explicitly quits
-    if (process.platform !== "darwin") {
-        app.quit()
-    }
-})
+  // on macOS it is common for applications to stay open until the user explicitly quits
+  if (process.platform !== "darwin") {
+    app.quit();
+  }
+});
 
 app.on("activate", () => {
-    // on macOS it is common to re-create a window even after all windows have been closed
-    if (mainWindow === null) {
-        mainWindow = createMainWindow()
-    }
-})
+  // on macOS it is common to re-create a window even after all windows have been closed
+  if (mainWindow === null) {
+    mainWindow = createMainWindow();
+  }
+});
 
 // create main BrowserWindow when electron is ready
 app.on("ready", () => {
-    mainWindow = createMainWindow()
-})
+  mainWindow = createMainWindow();
+});

@@ -15,16 +15,16 @@
 */
 
 .layer {
-    font-family: "OpenSans-Bold", "Open Sans", "sans-serif";
-    font-size: 13px;
-    font-weight: 700;
+  font-family: "OpenSans-Bold", "Open Sans", "sans-serif";
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .extraKey {
-    font-family: "SourceCodePro-Bold", "Source Code Pro", "monospace";
-    font-size: 8px;
+  font-family: "SourceCodePro-Bold", "Source Code Pro", "monospace";
+  font-size: 8px;
 }
 
 .key:hover {
-    cursor: pointer;
+  cursor: pointer;
 }

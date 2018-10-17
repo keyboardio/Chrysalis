@@ -49,7 +49,7 @@ class App extends React.Component {
   }
 
   onKeyChange(layer, keyIndex, value) {
-    this.setState((state, props) => {
+    this.setState(state => {
       let keymap = state.keymap.slice();
       keymap[layer][keyIndex] = this.displayTransformer.parse(value);
       return keymap;
@@ -59,7 +59,7 @@ class App extends React.Component {
   onApply(event) {
     event.preventDefault();
     this.focus.command("keymap", this.state.keymap);
-    console.log("keymap updated");
+    console.log("keymap updated"); // eslint-disable-line
   }
 
   openKeyboard(event) {
@@ -86,6 +86,9 @@ class App extends React.Component {
         <div>
           <button onClick={this.openKeyboard}>Probe for Model01</button>
         </div>
+        {this.state.device === null && (
+          <div style={{ color: "red" }}>Please connect your Model01</div>
+        )}
       </main>
     );
   }

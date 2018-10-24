@@ -50,7 +50,12 @@ class App extends React.Component {
   }
 
   onKeyChange(layer, keyIndex, value) {
-    this.setState(state => {
+    if (keyIndex === -1) {
+        console.warn(ErrorMessages.noKeySelected);
+        return;
+    }
+
+    this.setState((state, props) => {
       let keymap = state.keymap.slice();
       keymap[layer][keyIndex] = this.displayTransformer.parse(value);
       return keymap;

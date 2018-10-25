@@ -51,11 +51,11 @@ class App extends React.Component {
 
   onKeyChange(layer, keyIndex, value) {
     if (keyIndex === -1) {
-        console.warn(ErrorMessages.noKeySelected);
-        return;
+      console.warn(ErrorMessages.noKeySelected); // eslint-disable-line
+      return;
     }
 
-    this.setState((state, props) => {
+    this.setState(state => {
       let keymap = state.keymap.slice();
       keymap[layer][keyIndex] = this.displayTransformer.parse(value);
       return keymap;
@@ -72,14 +72,17 @@ class App extends React.Component {
     event.preventDefault();
 
     this.focus.close();
-    this.focus.open(Model01).then(port => {
-      this.setState({ device: port });
-      this.focus.command("keymap").then(keymap => {
-        this.setState({ keymap: keymap });
+    this.focus
+      .open(Model01)
+      .then(port => {
+        this.setState({ device: port });
+        this.focus.command("keymap").then(keymap => {
+          this.setState({ keymap: keymap });
+        });
+      })
+      .catch(() => {
+        console.log(ErrorMessages.firmware); // eslint-disable-line
       });
-    }).catch((error) => {
-        console.log(ErrorMessages.firmware)
-    });
   }
 
   render() {

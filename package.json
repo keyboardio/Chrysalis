@@ -11,14 +11,15 @@
     "rebuild": "yarn electron-rebuild -w serialport",
     "start": "yarn rebuild && electron-webpack dev",
     "compile": "yarn rebuild && electron-webpack",
+    "build:all": "npm-run-all compile --parallel 'electron-builder -m' 'electron-builder -w' 'electron-builder -l'",
     "build:mac": "yarn compile && electron-builder -m",
     "build:win": "yarn compile && electron-builder -w",
     "build:linux": "yarn compile && electron-builder -l",
-    "prettify": "prettier --write \"src/**/*.{js,json,css,scss,md}\"",
+    "prettier": "prettier --write \"src/**/*.{js,json,css,scss,md}\"",
     "lint:all": "npm-run-all lint:js lint:css",
     "lint:js": "eslint src/**/*.js",
     "lint:css": "stylelint \"src/**/*.js src/**/*.css\"",
-    "clean:code": "npm-run-all prettify lint:all",
+    "clean:code": "npm-run-all prettier lint:all",
     "test": "ELECTRON_RUN_AS_NODE=true ./node_modules/.bin/electron ./node_modules/.bin/jest",
     "test:watch": "jest --watchAll"
   },
@@ -78,6 +79,7 @@
     "react-testing-library": "^5.2.0",
     "sass-loader": "^7.1.0",
     "stylelint": "^9.6.0",
+    "stylelint-config-standard": "^18.2.0",
     "webpack": "^4.8.1"
   }
 }

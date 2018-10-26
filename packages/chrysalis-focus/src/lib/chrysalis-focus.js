@@ -120,6 +120,20 @@ class Focus {
         this._port = null
     }
 
+    async _write(parts, cb) {
+        if (!parts || parts.length == 0) {
+            cb()
+            return
+        }
+
+        let part = parts.shift()
+        part += " "
+        this._port.write(part)
+        this._port.drain(() => {
+            this._write(parts, cb)
+        })
+    }
+
     /**
      * Send a low-level request, and return the (mostly) unprocessed response.
      *
@@ -144,12 +158,15 @@ class Focus {
             request = request + " " + args.join(" ")
         }
         request += "\n"
-        this._port.write(request)
+
+        let parts = request.split(" ")
 
         const parser = this._port.pipe(new Delimiter({ delimiter: "\r\n.\r\n" }))
         return new Promise((resolve) => {
-            parser.once("data", (data) => {
-                resolve(data.toString("utf-8"))
+            this._write(parts, () => {
+                parser.once("data", (data) => {
+                    resolve(data.toString("utf-8"))
+                })
             })
         })
     }

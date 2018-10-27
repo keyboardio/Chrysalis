@@ -64,8 +64,10 @@ class App extends React.Component {
 
   onApply(event) {
     event.preventDefault();
-    this.focus.command("keymap", this.state.keymap);
-    console.log("keymap updated"); // eslint-disable-line
+    console.log("Starting keymap update, this might take a while...", this.state.keymap); // eslint-disable-line
+    this.focus.command("keymap", this.state.keymap).then(() => {
+      console.log("keymap update finished!"); // eslint-disable-line
+    });
   }
 
   openKeyboard(event) {
@@ -77,7 +79,9 @@ class App extends React.Component {
       .open(Model01)
       .then(port => {
         this.setState({ device: port });
+        console.log("Pulling the keymap..."); // eslint-disable-line
         this.focus.command("keymap").then(keymap => {
+          console.log("Keymap pulled!"); // eslint-disable-line
           this.setState({ keymap: keymap });
         });
       })

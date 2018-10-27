@@ -69,6 +69,7 @@ class App extends React.Component {
   }
 
   openKeyboard(event) {
+    console.log("Probing the keyboard..."); // eslint-disable-line
     event.preventDefault();
 
     this.focus.close();

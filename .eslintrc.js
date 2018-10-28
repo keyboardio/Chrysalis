@@ -18,7 +18,7 @@ module.exports = {
     __static: true
   },
   rules: {
-    "no-console": 1,
+    "no-console": 0,
     "react/prop-types": 0
   }
 };

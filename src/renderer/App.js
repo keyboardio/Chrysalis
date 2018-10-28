@@ -51,7 +51,7 @@ class App extends React.Component {
 
   onKeyChange(layer, keyIndex, value) {
     if (keyIndex === -1) {
-      console.warn(ErrorMessages.noKeySelected); // eslint-disable-line
+      console.warn(ErrorMessages.noKeySelected);
       return;
     }
 
@@ -64,14 +64,17 @@ class App extends React.Component {
 
   onApply(event) {
     event.preventDefault();
-    console.log("Starting keymap update, this might take a while...", this.state.keymap); // eslint-disable-line
+    console.log(
+      "Starting keymap update, this might take a while...",
+      this.state.keymap
+    );
     this.focus.command("keymap", this.state.keymap).then(() => {
-      console.log("keymap update finished!"); // eslint-disable-line
+      console.log("keymap update finished!");
     });
   }
 
   openKeyboard(event) {
-    console.log("Probing the keyboard..."); // eslint-disable-line
+    console.log("Probing the keyboard...");
     event.preventDefault();
 
     this.focus.close();
@@ -79,14 +82,14 @@ class App extends React.Component {
       .open(Model01)
       .then(port => {
         this.setState({ device: port });
-        console.log("Pulling the keymap..."); // eslint-disable-line
+        console.log("Pulling the keymap...");
         this.focus.command("keymap").then(keymap => {
-          console.log("Keymap pulled!"); // eslint-disable-line
+          console.log("Keymap pulled!");
           this.setState({ keymap: keymap });
         });
       })
       .catch(() => {
-        console.log(ErrorMessages.firmware); // eslint-disable-line
+        console.log(ErrorMessages.firmware);
       });
   }
 

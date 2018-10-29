@@ -15,13 +15,13 @@ class App extends React.Component {
   };
 
   activateTab = tab => {
-    var activeTab = { ...this.state.activeTab };
+    let activeTab = { ...this.state.activeTab };
     activeTab = tab;
     this.setState({ activeTab: activeTab });
   };
 
   render() {
-    var topControls, tabContents, tabTitle, tabDesc;
+    let topControls, tabContents, tabTitle, tabDesc;
 
     if (this.state.activeTab === "led") {
       topControls = <LayerControls />;

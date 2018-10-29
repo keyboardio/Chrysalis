@@ -24,12 +24,12 @@ class App extends React.Component {
     var topControls, tabContents, tabTitle, tabDesc;
 
     if (this.state.activeTab === "led") {
-      const topControls = <LayerControls />;
+      topControls = <LayerControls />;
     }
 
     switch (this.state.activeTab) {
       case "keymap":
-        var topControls = <LayerControls />;
+        topControls = <LayerControls />;
         tabContents = <KeymapEditor />;
         tabTitle = "Keymap Editor";
         tabDesc = "Keyboard layout configuration";

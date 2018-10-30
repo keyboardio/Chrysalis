@@ -37,7 +37,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       device: {},
-      keymap: []
+      keymap: [],
+      roLayers: 0
     };
 
     let keymap = new Keymap().setLayerSize(Model01);
@@ -82,18 +83,26 @@ class App extends React.Component {
       .open(Model01)
       .then(port => {
         this.setState({ device: port });
-        console.log("Probing for Focus support...");
-        this.focus
-          .probe().then(() => { // eslint-disable-line
-            console.log("Pulling the keymap...");
-            this.focus.command("keymap").then(keymap => {
-              console.log("Keymap pulled!");
-              this.setState({ keymap: keymap });
+        setTimeout(() => {
+          console.log("Probing for Focus support...");
+          this.focus
+            .probe().then(() => { // eslint-disable-line
+              console.log("Pulling the keymap...");
+              this.focus.command("keymap").then(keymap => {
+                console.log("Keymap pulled!");
+                this.setState({ keymap: keymap });
+                console.log("Checking for read-only layers...");
+                this.focus.command("keymap.roLayers").then(roLayers => {
+                  if (roLayers == ".") roLayers = "0";
+                  console.log("roLayers =", parseInt(roLayers));
+                  this.setState({ roLayers: parseInt(roLayers) });
+                });
+              });
+            })
+            .catch(() => {
+              console.error(ErrorMessages.firmware);
             });
-          })
-          .catch(() => {
-            console.error(ErrorMessages.firmware);
-          });
+        }, 500);
       })
       .catch(() => {
         console.log(ErrorMessages.firmware);

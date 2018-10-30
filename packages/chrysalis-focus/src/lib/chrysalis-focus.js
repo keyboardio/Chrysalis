@@ -120,6 +120,26 @@ class Focus {
         this._port = null
     }
 
+    /**
+     * Probe for Focus support on an opened device.
+     *
+     * @returns {Promise} with no payload. If the probe fails, the promise is
+     * rejected.
+     */
+    async probe() {
+        return new Promise((resolve, reject) => {
+            let timer = setTimeout(() => {
+                reject()
+            }, 1000)
+            this.command("help").then(() => {
+                clearTimeout(timer)
+                setTimeout(() => {
+                    resolve()
+                }, 1000)
+            })
+        })
+    }
+
     async _write(parts, cb) {
         if (!parts || parts.length == 0) {
             cb()

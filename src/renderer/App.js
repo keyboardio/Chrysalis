@@ -74,7 +74,7 @@ class App extends React.Component {
   }
 
   openKeyboard(event) {
-    console.log("Probing the keyboard...");
+    console.log("Searching for the keyboard...");
     event.preventDefault();
 
     this.focus.close();
@@ -82,11 +82,18 @@ class App extends React.Component {
       .open(Model01)
       .then(port => {
         this.setState({ device: port });
-        console.log("Pulling the keymap...");
-        this.focus.command("keymap").then(keymap => {
-          console.log("Keymap pulled!");
-          this.setState({ keymap: keymap });
-        });
+        console.log("Probing for Focus support...");
+        this.focus
+          .probe().then(() => { // eslint-disable-line
+            console.log("Pulling the keymap...");
+            this.focus.command("keymap").then(keymap => {
+              console.log("Keymap pulled!");
+              this.setState({ keymap: keymap });
+            });
+          })
+          .catch(() => {
+            console.error(ErrorMessages.firmware);
+          });
       })
       .catch(() => {
         console.log(ErrorMessages.firmware);

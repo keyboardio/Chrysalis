@@ -1,8 +1,12 @@
+// -*- mode: js-jsx -*-
+
 import React from "react";
 import Key from "./Key";
 
 class Layer extends React.Component {
   render() {
+    if (!this.props.keymap) return null;
+
     let getLabel = (row, col) => {
       let keyIndex = parseInt(row) * 16 + parseInt(col),
         keyCode = this.props.keymap[keyIndex];

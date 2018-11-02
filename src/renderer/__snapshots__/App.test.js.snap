@@ -8,6 +8,9 @@ exports[`renders without crashing 1`] = `
         Probe for Model01
       </button>
     </div>
+    <div
+      class="Toastify"
+    />
   </main>
 </div>
 `;

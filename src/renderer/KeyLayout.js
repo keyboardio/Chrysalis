@@ -2,22 +2,20 @@
 
 import React from "react";
 
-import Tabs, { TabPane } from "rc-tabs";
-import TabContent from "rc-tabs/lib/TabContent";
-import ScrollableInkTabBar from "rc-tabs/lib/ScrollableInkTabBar";
 import Layer from "./Layer";
 
 class KeyLayout extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentLayer: -1,
+      currentLayer: 0,
       currentKeyIndex: -1
     };
 
     this.onChange = this.onChange.bind(this);
     this.getCurrentKey = this.getCurrentKey.bind(this);
     this.onKeySelect = this.onKeySelect.bind(this);
+    this.selectLayer = this.selectLayer.bind(this);
   }
 
   getCurrentKey() {
@@ -49,46 +47,54 @@ class KeyLayout extends React.Component {
     });
   }
 
+  selectLayer(event) {
+    event.preventDefault();
+    this.setState({
+      currentLayer: event.currentTarget.selectedIndex
+    });
+  }
+
   render() {
-    let layers = this.props.keymap.map((layer, index) => {
-      let layerKey = "layer-" + index.toString(),
-        layerName = "Layer #" + index.toString();
+    if (this.props.keymap.length == 0) return null;
+
+    let layerIndex = this.state.currentLayer,
+      layerData = this.props.keymap[layerIndex],
+      layer = (
+        <Layer
+          index={layerIndex}
+          keymap={layerData}
+          onKeyChange={this.props.onKeyChange}
+          onKeySelect={this.onKeySelect}
+          selectedKey={this.state.currentKeyIndex}
+        />
+      );
+
+    let options = this.props.keymap.map((layer, index) => {
+      let optionKey = "layer-" + index.toString();
       return (
-        <TabPane tab={layerName} key={layerKey}>
-          <Layer
-            index={index}
-            keymap={layer}
-            onKeyChange={this.props.onKeyChange}
-            onKeySelect={this.onKeySelect}
-            selectedKey={this.state.currentKeyIndex}
-          />
-        </TabPane>
+        <option value={index} key={optionKey}>
+          Layer #{index}
+        </option>
       );
     });
 
-    if (layers.length > 0) {
-      return (
-        <div>
-          <Tabs
-            renderTabBar={() => <ScrollableInkTabBar />}
-            renderTabContent={() => <TabContent />}
-          >
-            {layers}
-          </Tabs>
-          <hr />
-          New keycode:{" "}
-          <input
-            type="text"
-            value={this.getCurrentKey()}
-            onChange={this.onChange}
-          />
-          <br />
-          <button onClick={this.props.onApply}>Apply</button>
-        </div>
-      );
-    } else {
-      return null;
-    }
+    return (
+      <div>
+        <h1>Layer #{this.state.currentLayer}</h1>
+        {layer}
+        <hr />
+        New keycode:{" "}
+        <input
+          type="text"
+          value={this.getCurrentKey()}
+          onChange={this.onChange}
+        />
+        <br />
+        <button onClick={this.props.onApply}>Apply</button>
+        <br />
+        <select onChange={this.selectLayer}>{options}</select>
+      </div>
+    );
   }
 }
 

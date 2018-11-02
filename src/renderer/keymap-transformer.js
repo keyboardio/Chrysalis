@@ -75,7 +75,7 @@ class DisplayTransformer {
       ",",
       ".",
       "/",
-      "CapsLock",
+      "CapsLK",
       "F1",
       "F2",
       "F3",
@@ -88,7 +88,7 @@ class DisplayTransformer {
       "F10",
       "F11",
       "F12",
-      "PrintScreen",
+      "PrnScr",
       "ScrlLK",
       "Pause",
       "Insert",
@@ -119,7 +119,7 @@ class DisplayTransformer {
       "Keypad0",
       "KeypadDot",
       "KeypadNonUsBackslashAndPipe",
-      "PcApplication",
+      "App",
       "Power",
       "KeypadEquals",
       "F13",
@@ -259,6 +259,10 @@ class DisplayTransformer {
 
     if (keyCode <= this.hid_code_map.length) {
       label = this.hid_code_map[keyCode];
+      if (label && label.startsWith("Keypad")) {
+        extraLabel = "Keypad";
+        label = label.substr(6);
+      }
     } else if (keyCode == 65535) {
       label = "[Trns]";
     } else if (keyCode & 0b1000000000000000) {
@@ -331,8 +335,108 @@ class DisplayTransformer {
 
       if (flags & 0b01000000) {
         // Synthetic
-      } else if (flags & 0b00100000) {
-        // Macros
+
+        if (flags & 0b00100000) {
+          // Macros
+          extraLabel = "Macro";
+          label = "(" + key.toString() + ")";
+        } else if (flags & 0b00001000) {
+          // Consumer
+          extraLabel = "Consumer";
+          let consumerKey = keyCode & 0x03ff;
+          label = consumerKey.toString();
+
+          // TODO: Implement the full consumer lookup table a'la the HID map.
+          if (consumerKey == 181) label = "N. Track";
+          if (consumerKey == 182) label = "P. Track";
+          if (consumerKey == 205) label = "Play";
+          if (consumerKey == 226) label = "Mute";
+          if (consumerKey == 233) label = "Vol-";
+          if (consumerKey == 234) label = "Vol+";
+        } else if (flags & 0b00000100) {
+          // Layer keys
+          let layer = key;
+          if (layer >= 42) {
+            extraLabel = "ShiftTo";
+            label = (layer - 42).toString();
+          } else {
+            label = layer.toString();
+            extraLabel = "LockTo";
+          }
+        } else if (flags & 0b00000011) {
+          // LED Next / prev
+          if (key == 0) {
+            label = "Next";
+          } else {
+            label = "Prev";
+          }
+          extraLabel = "LEDEff.";
+        } else if (flags & 0b00010000) {
+          // MouseKeys
+          extraLabel = "Mouse";
+
+          if (key & 0b0100000) {
+            // warp
+            extraLabel = "M. Warp";
+            label = "";
+            if (key & 0b0000001) {
+              label += "N";
+            }
+            if (key & 0b0000010) {
+              label += "S";
+            }
+            if (key & 0b0000100) {
+              label += "W";
+            }
+            if (key & 0b0001000) {
+              label += "E";
+            }
+
+            if (key & 0b1000000) {
+              label = "WarpEnd";
+            }
+          } else if (key & 0b0010000) {
+            // wheel
+            extraLabel = "M. wheel";
+
+            if (key & 0b0000001) {
+              label += "Up";
+            }
+            if (key & 0b0000010) {
+              label += "Down";
+            }
+            if (key & 0b0000100) {
+              label += "Left";
+            }
+            if (key & 0b0001000) {
+              label += "Right";
+            }
+          } else if (key & 0b1000000) {
+            // buttons
+            extraLabel = "M. Btn";
+            let button = key;
+            if (button & (1 << 0)) label = "Left";
+            if (button & (1 << 1)) label = "Right";
+            if (button & (1 << 2)) label = "Middle";
+            if (button & (1 << 3)) label = "Next";
+            if (button & (1 << 4)) label = "Prev";
+          } else {
+            // Movement
+            label = "";
+            if (key & 0b0000001) {
+              label += "Up";
+            }
+            if (key & 0b0000010) {
+              label += "Down";
+            }
+            if (key & 0b0000100) {
+              label += "Left";
+            }
+            if (key & 0b0001000) {
+              label += "Right";
+            }
+          }
+        }
       } else {
         // Held keys
         extraLabel = "";

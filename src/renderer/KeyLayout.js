@@ -99,10 +99,18 @@ class KeyLayout extends React.Component {
         <br />
         <button onClick={this.props.onApply}>Apply</button>
         <br />
+        Edit layer:
         <Dropdown
           options={options}
           onChange={this.selectLayer}
           value={options[this.state.currentLayer]}
+        />
+        <br />
+        Default layer:
+        <Dropdown
+          options={options}
+          onChange={this.props.onSelectDefaultLayer}
+          value={options[this.props.defaultLayer]}
         />
       </div>
     );

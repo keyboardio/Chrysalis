@@ -43,6 +43,7 @@ class App extends React.Component {
       device: {},
       keymap: [],
       roLayers: 0,
+      defaultLayer: 0,
       loading: false
     };
 
@@ -53,6 +54,7 @@ class App extends React.Component {
     this.openKeyboard = this.openKeyboard.bind(this);
     this.onKeyChange = this.onKeyChange.bind(this);
     this.onApply = this.onApply.bind(this);
+    this.onSelectDefaultLayer = this.onSelectDefaultLayer.bind(this);
   }
 
   onKeyChange(layer, keyIndex, value) {
@@ -80,6 +82,22 @@ class App extends React.Component {
       this.setState({ loading: false });
       toast.update(toastId, {
         render: "✓ Keymap updated",
+        type: toast.TYPE.SUCCESS,
+        autoClose: 1000
+      });
+    });
+  }
+
+  onSelectDefaultLayer(option) {
+    this.setState({
+      defaultLayer: option.value,
+      loading: true
+    });
+    let toastId = toast("Setting the default layer...");
+    this.focus.command("settings.defaultLayer", option.value).then(() => {
+      this.setState({ loading: false });
+      toast.update(toastId, {
+        render: "✓ Default layer set to #" + option.value.toString(),
         type: toast.TYPE.SUCCESS,
         autoClose: 1000
       });
@@ -117,15 +135,24 @@ class App extends React.Component {
                 });
                 this.focus.command("keymap.roLayers").then(roLayers => {
                   if (roLayers == ".") roLayers = "0";
-                  toast.update(searchToast, {
-                    type: toast.TYPE.SUCCESS,
-                    render: "✓ Keyboard found",
-                    position: toast.POSITION.TOP_RIGHT,
-                    autoClose: 1000
-                  });
                   this.setState({
-                    roLayers: parseInt(roLayers),
-                    loading: false
+                    roLayers: parseInt(roLayers)
+                  });
+                  toast.update(searchToast, {
+                    render: "Checking which later is the default..."
+                  });
+                  this.focus.command("settings.defaultLayer").then(defLayer => {
+                    if (defLayer == ".") defLayer = "0";
+                    this.setState({
+                      loading: false,
+                      defaultLayer: parseInt(defLayer)
+                    });
+                    toast.update(searchToast, {
+                      type: toast.TYPE.SUCCESS,
+                      render: "✓ Keyboard found",
+                      position: toast.POSITION.TOP_RIGHT,
+                      autoClose: 1000
+                    });
                   });
                 });
               });
@@ -171,7 +198,9 @@ class App extends React.Component {
         <KeyLayout
           keymap={this.state.keymap}
           roLayers={this.state.roLayers}
+          defaultLayer={this.state.defaultLayer}
           onKeyChange={this.onKeyChange}
+          onSelectDefaultLayer={this.onSelectDefaultLayer}
           onApply={this.onApply}
         />
 

@@ -61,9 +61,11 @@ class KeyLayout extends React.Component {
     if (this.props.keymap.length == 0) return null;
 
     let layerIndex = this.state.currentLayer,
+      isReadOnly = layerIndex < this.props.roLayers,
       layerData = this.props.keymap[layerIndex],
       layer = (
         <Layer
+          readOnly={isReadOnly}
           index={layerIndex}
           keymap={layerData}
           onKeyChange={this.props.onKeyChange}
@@ -76,13 +78,20 @@ class KeyLayout extends React.Component {
       return { value: index, label: "Layer #" + index.toString() };
     });
 
+    let readOnlyMark = null;
+    if (isReadOnly) {
+      readOnlyMark = <h4>Read only</h4>;
+    }
+
     return (
       <div>
         <h1>Layer #{this.state.currentLayer}</h1>
+        {readOnlyMark}
         {layer}
         <hr />
         New keycode:{" "}
         <input
+          disabled={isReadOnly}
           type="text"
           value={this.getCurrentKey()}
           onChange={this.onChange}

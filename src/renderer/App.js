@@ -117,7 +117,6 @@ class App extends React.Component {
                 });
                 this.focus.command("keymap.roLayers").then(roLayers => {
                   if (roLayers == ".") roLayers = "0";
-                  console.log("roLayers =", parseInt(roLayers));
                   toast.update(searchToast, {
                     type: toast.TYPE.SUCCESS,
                     render: "✓ Keyboard found",
@@ -171,6 +170,7 @@ class App extends React.Component {
 
         <KeyLayout
           keymap={this.state.keymap}
+          roLayers={this.state.roLayers}
           onKeyChange={this.onKeyChange}
           onApply={this.onApply}
         />

@@ -21,8 +21,6 @@ import Focus from "chrysalis-focus";
 import Keymap from "chrysalis-keymap";
 import { Model01 } from "chrysalis-hardware-keyboardio-model01";
 
-import "rc-tabs/assets/index.css";
-
 import KeyLayout from "./KeyLayout";
 
 import "./keymap.css";

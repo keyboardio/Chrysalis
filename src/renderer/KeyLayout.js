@@ -4,6 +4,9 @@ import React from "react";
 
 import Layer from "./Layer";
 
+import Dropdown from "react-dropdown";
+import "react-dropdown/style.css";
+
 class KeyLayout extends React.Component {
   constructor(props) {
     super(props);
@@ -47,10 +50,10 @@ class KeyLayout extends React.Component {
     });
   }
 
-  selectLayer(event) {
-    event.preventDefault();
+  selectLayer(option) {
     this.setState({
-      currentLayer: event.currentTarget.selectedIndex
+      currentLayer: option.value,
+      currentKeyIndex: -1
     });
   }
 
@@ -70,12 +73,7 @@ class KeyLayout extends React.Component {
       );
 
     let options = this.props.keymap.map((layer, index) => {
-      let optionKey = "layer-" + index.toString();
-      return (
-        <option value={index} key={optionKey}>
-          Layer #{index}
-        </option>
-      );
+      return { value: index, label: "Layer #" + index.toString() };
     });
 
     return (
@@ -92,7 +90,11 @@ class KeyLayout extends React.Component {
         <br />
         <button onClick={this.props.onApply}>Apply</button>
         <br />
-        <select onChange={this.selectLayer}>{options}</select>
+        <Dropdown
+          options={options}
+          onChange={this.selectLayer}
+          value={options[this.state.currentLayer]}
+        />
       </div>
     );
   }

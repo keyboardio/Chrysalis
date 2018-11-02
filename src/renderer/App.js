@@ -29,6 +29,12 @@ import "./keymap.css";
 import DisplayTransformer from "./keymap-transformer";
 import ErrorMessages from "../errors/errors";
 
+import { css } from "react-emotion";
+import { BarLoader } from "react-spinners";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 class App extends React.Component {
   focus = new Focus();
   displayTransformer = new DisplayTransformer();
@@ -38,7 +44,8 @@ class App extends React.Component {
     this.state = {
       device: {},
       keymap: [],
-      roLayers: 0
+      roLayers: 0,
+      loading: false
     };
 
     let keymap = new Keymap().setLayerSize(Model01);
@@ -52,7 +59,11 @@ class App extends React.Component {
 
   onKeyChange(layer, keyIndex, value) {
     if (keyIndex === -1) {
-      console.warn(ErrorMessages.noKeySelected);
+      toast(ErrorMessages.noKeySelected, {
+        type: toast.TYPE.WARNING,
+        autoClose: 5000,
+        toastId: "noKeySelected"
+      });
       return;
     }
 
@@ -65,18 +76,27 @@ class App extends React.Component {
 
   onApply(event) {
     event.preventDefault();
-    console.log(
-      "Starting keymap update, this might take a while...",
-      this.state.keymap
-    );
+    this.setState({ loading: true });
+    let toastId = toast("Updating the keymap...");
     this.focus.command("keymap", this.state.keymap).then(() => {
-      console.log("keymap update finished!");
+      this.setState({ loading: false });
+      toast.update(toastId, {
+        render: "✓ Keymap updated",
+        type: toast.TYPE.SUCCESS,
+        autoClose: 1000
+      });
     });
   }
 
   openKeyboard(event) {
-    console.log("Searching for the keyboard...");
     event.preventDefault();
+
+    this.setState({ loading: true });
+    let searchToast = toast("Searching for the keyboard...", {
+      type: toast.TYPE.INFO,
+      position: toast.POSITION.TOP_CENTER,
+      closeButton: false
+    });
 
     this.focus.close();
     this.focus
@@ -84,34 +104,73 @@ class App extends React.Component {
       .then(port => {
         this.setState({ device: port });
         setTimeout(() => {
-          console.log("Probing for Focus support...");
+          toast.update(searchToast, {
+            render: "Probing for Focus support..."
+          });
           this.focus
             .probe().then(() => { // eslint-disable-line
-              console.log("Pulling the keymap...");
+              toast.update(searchToast, {
+                render: "Pulling the keymap..."
+              });
               this.focus.command("keymap").then(keymap => {
-                console.log("Keymap pulled!");
                 this.setState({ keymap: keymap });
-                console.log("Checking for read-only layers...");
+                toast.update(searchToast, {
+                  render: "Checking for read-only layers..."
+                });
                 this.focus.command("keymap.roLayers").then(roLayers => {
                   if (roLayers == ".") roLayers = "0";
                   console.log("roLayers =", parseInt(roLayers));
-                  this.setState({ roLayers: parseInt(roLayers) });
+                  toast.update(searchToast, {
+                    type: toast.TYPE.SUCCESS,
+                    render: "✓ Keyboard found",
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 1000
+                  });
+                  this.setState({
+                    roLayers: parseInt(roLayers),
+                    loading: false
+                  });
                 });
               });
             })
             .catch(() => {
-              console.error(ErrorMessages.firmware);
+              this.setState({ loading: false });
+              toast.dismiss(searchToast);
+              toast(ErrorMessages.firmware, {
+                type: toast.TYPE.ERROR
+              });
             });
         }, 500);
       })
       .catch(() => {
-        console.log(ErrorMessages.firmware);
+        this.setState({ loading: false });
+        toast.dismiss(searchToast);
+
+        toast(ErrorMessages.firmware, {
+          type: toast.TYPE.ERROR
+        });
       });
   }
 
   render() {
+    const override = css`
+      position: fixed !important;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    `;
+
     return (
       <main>
+        <BarLoader
+          className={override}
+          widthUnit={"%"}
+          width={100}
+          height={8}
+          color={"#ef5022"}
+          loading={this.state.loading}
+        />
+
         <KeyLayout
           keymap={this.state.keymap}
           onKeyChange={this.onKeyChange}
@@ -119,11 +178,15 @@ class App extends React.Component {
         />
 
         <div>
-          <button onClick={this.openKeyboard}>Probe for Model01</button>
+          <button onClick={this.openKeyboard} disabled={this.state.loading}>
+            Probe for Model01
+          </button>
         </div>
         {this.state.device === null && (
           <div style={{ color: "red" }}>Please connect your Model01</div>
         )}
+
+        <ToastContainer autoClose={false} />
       </main>
     );
   }

@@ -398,6 +398,7 @@ class DisplayTransformer {
           } else if (key & 0b0010000) {
             // wheel
             extraLabel = "M. wheel";
+            label = "";
 
             if (key & 0b0000001) {
               label += "Up";

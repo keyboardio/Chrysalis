@@ -47,6 +47,34 @@ const MouseControlTable = {
       }
     },
     {
+      code: 20497,
+      labels: {
+        top: "M. Wheel",
+        primary: "Up"
+      }
+    },
+    {
+      code: 20498,
+      labels: {
+        top: "M. Wheel",
+        primary: "Down"
+      }
+    },
+    {
+      code: 20500,
+      labels: {
+        top: "M. Wheel",
+        primary: "Left"
+      }
+    },
+    {
+      code: 20504,
+      labels: {
+        top: "M. Wheel",
+        primary: "Right"
+      }
+    },
+    {
       code: 20545,
       labels: {
         top: "M. Btn",

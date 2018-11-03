@@ -32,6 +32,7 @@ import FunctionKeyTable from "./keys/fxs.js";
 
 //import MediaControlTable from "./keys/mediacontrol.js"
 //import MouseControlTable from "./keys/mousecontrol.js"
+//import OtherTable from "./keys/other.js"
 
 const keyCodeTable = [
   LetterTable,
@@ -42,6 +43,7 @@ const keyCodeTable = [
   NavigationTable,
   FunctionKeyTable,
   NumpadTable,
+  // OtherTable,
 
   ShiftedPunctuationTable,
 

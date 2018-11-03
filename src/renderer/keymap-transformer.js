@@ -96,4 +96,4 @@ class DisplayTransformer {
   }
 }
 
-export default DisplayTransformer;
+export { DisplayTransformer as default, keyCodeTable };

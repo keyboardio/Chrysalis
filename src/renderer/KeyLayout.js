@@ -203,6 +203,7 @@ ${option.label.key.labels.primary}`;
           </div>
           New keycode:
           <Select
+            isDisabled={isReadOnly}
             options={this.keyCodeOptions}
             onChange={this.onChange}
             formatOptionLabel={this.formatKeyLabel}

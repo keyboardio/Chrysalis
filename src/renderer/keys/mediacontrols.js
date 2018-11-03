@@ -57,7 +57,7 @@ const MediaControlTable = {
       code: 23786,
       labels: {
         top: "Media",
-        primary: "Volr-+"
+        primary: "Vol-"
       }
     }
   ]

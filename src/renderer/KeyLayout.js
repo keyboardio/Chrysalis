@@ -89,12 +89,19 @@ class KeyLayout extends React.Component {
   }
 
   formatKeyLabel(option) {
-    let mainLabel;
-    if (option.data.key.labels.top) {
-      mainLabel = `${option.data.key.labels.top}
-${option.data.key.labels.primary}`;
+    let mainLabel, key;
+
+    if (option.data) {
+      key = option.data.key;
     } else {
-      mainLabel = option.data.key.labels.primary;
+      key = option.key;
+    }
+
+    if (key.labels.top) {
+      mainLabel = `${key.labels.top}
+${key.labels.primary}`;
+    } else {
+      mainLabel = key.labels.primary;
     }
     return (
       <div>

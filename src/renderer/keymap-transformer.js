@@ -78,6 +78,8 @@ class DisplayTransformer {
   parse(keyCode) {
     let key;
 
+    if (!keyCode) keyCode = 0;
+
     if (keyCode < this.keymapCodeTable.length) {
       key = this.keymapCodeTable[keyCode];
     }

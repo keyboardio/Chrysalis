@@ -203,6 +203,8 @@ ${option.label.key.labels.primary}`;
           </div>
           New keycode:
           <Select
+            menuIsOpen={true}
+            maxMenuHeight={500}
             isDisabled={isReadOnly}
             options={this.keyCodeOptions}
             onChange={this.onChange}

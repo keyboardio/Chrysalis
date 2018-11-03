@@ -21,17 +21,38 @@ class KeyLayout extends React.Component {
     this.getCurrentKey = this.getCurrentKey.bind(this);
     this.onKeySelect = this.onKeySelect.bind(this);
     this.selectLayer = this.selectLayer.bind(this);
+    this.filterKeyOption = this.filterKeyOption.bind(this);
 
     this.keyCodeOptions = keyCodeTable.map(group => {
       return {
         label: group.groupName,
         options: group.keys.map(key => {
-          if (key && key.labels)
-            return { value: key.code, label: key.labels.primary };
+          if (key)
+            return {
+              value: key.code,
+              label: {
+                key: key,
+                group: group.groupName
+              }
+            };
         })
       };
     });
-    console.log(this.keyCodeOptions);
+  }
+
+  getCurrentKeyCodeOption() {
+    if (this.state.currentLayer < 0 || this.state.currentKeyIndex < 0)
+      return null;
+
+    let layer = parseInt(this.state.currentLayer),
+      keyIndex = parseInt(this.state.currentKeyIndex),
+      keyCode = this.props.keymap[layer][keyIndex].keyCode;
+
+    for (let group of this.keyCodeOptions) {
+      for (let option of group.options) {
+        if (option.value == keyCode) return option;
+      }
+    }
   }
 
   getCurrentKey() {
@@ -67,6 +88,36 @@ class KeyLayout extends React.Component {
       currentLayer: option.value,
       currentKeyIndex: -1
     });
+  }
+
+  formatKeyLabel(option) {
+    return (
+      <div>
+        <span className="dim">{option.label.group}</span>{" "}
+        {option.label.key.labels.primary}
+      </div>
+    );
+  }
+
+  fuzzyMatch(s1, s2) {
+    var hay = s1.toLowerCase(),
+      i = 0,
+      n = -1,
+      l;
+    s2 = s2.toLowerCase();
+    for (; (l = s2[i++]); ) {
+      if (!~(n = hay.indexOf(l, n + 1))) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  filterKeyOption(option, filterString) {
+    //const label = this.formatKeyLabel(option);
+    const label = `${option.label.group} ${option.label.key.labels.primary}`;
+
+    return this.fuzzyMatch(label, filterString);
   }
 
   render() {
@@ -130,7 +181,13 @@ class KeyLayout extends React.Component {
         {layer}
         <hr />
         New keycode:
-        <Select options={this.keyCodeOptions} onChange={this.onChange} />
+        <Select
+          options={this.keyCodeOptions}
+          onChange={this.onChange}
+          formatOptionLabel={this.formatKeyLabel}
+          filterOption={this.filterKeyOption}
+          value={this.getCurrentKeyCodeOption()}
+        />
         <br />
         <button onClick={this.props.onApply}>Apply</button>
         <br />

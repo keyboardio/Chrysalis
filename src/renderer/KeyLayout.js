@@ -30,10 +30,8 @@ class KeyLayout extends React.Component {
           if (key)
             return {
               value: key.code,
-              label: {
-                key: key,
-                group: group.groupName
-              }
+              group: group.groupName,
+              key: key
             };
         })
       };
@@ -92,15 +90,15 @@ class KeyLayout extends React.Component {
 
   formatKeyLabel(option) {
     let mainLabel;
-    if (option.label.key.labels.top) {
-      mainLabel = `${option.label.key.labels.top}
-${option.label.key.labels.primary}`;
+    if (option.data.key.labels.top) {
+      mainLabel = `${option.data.key.labels.top}
+${option.data.key.labels.primary}`;
     } else {
-      mainLabel = option.label.key.labels.primary;
+      mainLabel = option.data.key.labels.primary;
     }
     return (
       <div>
-        <span className="dim">{option.label.group}</span>
+        <span className="dim">{option.group}</span>
         &nbsp;
         {mainLabel}
       </div>
@@ -123,11 +121,11 @@ ${option.label.key.labels.primary}`;
 
   filterKeyOption(option, filterString) {
     let label;
-    if (option.label.top) {
-      label = `${option.label.group} ${option.label.key.labels.top}
- ${option.label.key.labels.primary}`;
+    if (option.data.key.labels.top) {
+      label = `${option.data.group} ${option.data.key.labels.top}
+ ${option.data.key.labels.primary}`;
     } else {
-      label = `${option.label.group} ${option.label.key.labels.primary}`;
+      label = `${option.data.group} ${option.data.key.labels.primary}`;
     }
 
     return this.fuzzyMatch(label, filterString);

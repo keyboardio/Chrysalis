@@ -19,42 +19,6 @@ const PunctuationTable = {
   groupName: "Punctuation",
   keys: [
     {
-      code: 53,
-      labels: {
-        primary: "`"
-      }
-    },
-    {
-      code: 51,
-      labels: {
-        primary: ";"
-      }
-    },
-    {
-      code: 52,
-      labels: {
-        primary: '"'
-      }
-    },
-    {
-      code: 54,
-      labels: {
-        primary: ","
-      }
-    },
-    {
-      code: 55,
-      labels: {
-        primary: "."
-      }
-    },
-    {
-      code: 56,
-      labels: {
-        primary: "/"
-      }
-    },
-    {
       code: 45,
       labels: {
         primary: "-"
@@ -82,6 +46,42 @@ const PunctuationTable = {
       code: 49,
       labels: {
         primary: "\\"
+      }
+    },
+    {
+      code: 51,
+      labels: {
+        primary: ";"
+      }
+    },
+    {
+      code: 52,
+      labels: {
+        primary: '"'
+      }
+    },
+    {
+      code: 53,
+      labels: {
+        primary: "`"
+      }
+    },
+    {
+      code: 54,
+      labels: {
+        primary: ","
+      }
+    },
+    {
+      code: 55,
+      labels: {
+        primary: "."
+      }
+    },
+    {
+      code: 56,
+      labels: {
+        primary: "/"
       }
     },
     {

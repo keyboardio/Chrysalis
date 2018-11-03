@@ -103,6 +103,13 @@ class KeyLayout extends React.Component {
       return { value: index, label: "Layer #" + index.toString() };
     });
     let editLayerOptions = [roLayerOptions, rwLayerOptions];
+    let defaultEditLayer;
+
+    if (this.props.roLayers > 0) {
+      defaultEditLayer = roLayerOptions.options[0];
+    } else {
+      defaultEditLayer = rwLayerOptions.options[0];
+    }
 
     return (
       <div>
@@ -123,7 +130,7 @@ class KeyLayout extends React.Component {
         Edit layer:
         <Select
           options={editLayerOptions}
-          defaultValue={editLayerOptions[0].options[0]}
+          defaultValue={defaultEditLayer}
           onChange={this.selectLayer}
         />
         <br />

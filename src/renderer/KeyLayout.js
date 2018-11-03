@@ -4,6 +4,8 @@ import React from "react";
 
 import Layer from "./Layer";
 
+import { keyCodeTable } from "./keymap-transformer";
+
 import Select from "react-select";
 import "react-dropdown/style.css";
 
@@ -19,6 +21,17 @@ class KeyLayout extends React.Component {
     this.getCurrentKey = this.getCurrentKey.bind(this);
     this.onKeySelect = this.onKeySelect.bind(this);
     this.selectLayer = this.selectLayer.bind(this);
+
+    this.keyCodeOptions = keyCodeTable.map(group => {
+      return {
+        label: group.groupName,
+        options: group.keys.map(key => {
+          if (key && key.labels)
+            return { value: key.code, label: key.labels.primary };
+        })
+      };
+    });
+    console.log(this.keyCodeOptions);
   }
 
   getCurrentKey() {
@@ -31,12 +44,11 @@ class KeyLayout extends React.Component {
     return this.props.keymap[layer][keyIndex].keyCode;
   }
 
-  onChange(event) {
-    event.preventDefault();
+  onChange(option) {
     this.props.onKeyChange(
       this.state.currentLayer,
       this.state.currentKeyIndex,
-      event.target.value
+      option.value
     );
   }
 
@@ -117,13 +129,8 @@ class KeyLayout extends React.Component {
         {readOnlyMark}
         {layer}
         <hr />
-        New keycode:{" "}
-        <input
-          disabled={isReadOnly}
-          type="text"
-          value={this.getCurrentKey()}
-          onChange={this.onChange}
-        />
+        New keycode:
+        <Select options={this.keyCodeOptions} onChange={this.onChange} />
         <br />
         <button onClick={this.props.onApply}>Apply</button>
         <br />

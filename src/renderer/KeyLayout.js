@@ -4,7 +4,7 @@ import React from "react";
 
 import Layer from "./Layer";
 
-import Dropdown from "react-dropdown";
+import Select from "react-select";
 import "react-dropdown/style.css";
 
 class KeyLayout extends React.Component {
@@ -74,14 +74,35 @@ class KeyLayout extends React.Component {
         />
       );
 
-    let options = this.props.keymap.map((layer, index) => {
-      return { value: index, label: "Layer #" + index.toString() };
-    });
-
     let readOnlyMark = null;
     if (isReadOnly) {
       readOnlyMark = <h4>Read only</h4>;
     }
+
+    let roLayerOptions = {
+        label: "Read-only",
+        options: []
+      },
+      rwLayerOptions = {
+        label: "Read-write",
+        options: []
+      };
+
+    let defaultLayerOptions = this.props.keymap.map((layer, index) => {
+      if (index < this.props.roLayers) {
+        roLayerOptions.options.push({
+          value: index,
+          label: "Layer #" + index.toString()
+        });
+      } else {
+        rwLayerOptions.options.push({
+          value: index,
+          label: "Layer #" + index.toString()
+        });
+      }
+      return { value: index, label: "Layer #" + index.toString() };
+    });
+    let editLayerOptions = [roLayerOptions, rwLayerOptions];
 
     return (
       <div>
@@ -100,18 +121,19 @@ class KeyLayout extends React.Component {
         <button onClick={this.props.onApply}>Apply</button>
         <br />
         Edit layer:
-        <Dropdown
-          options={options}
+        <Select
+          options={editLayerOptions}
+          defaultValue={editLayerOptions[0].options[0]}
           onChange={this.selectLayer}
-          value={options[this.state.currentLayer]}
         />
         <br />
         Default layer:
-        <Dropdown
-          options={options}
+        <Select
+          options={defaultLayerOptions}
+          defaultValue={defaultLayerOptions[this.props.defaultLayer]}
           onChange={this.props.onSelectDefaultLayer}
-          value={options[this.props.defaultLayer]}
         />
+        <br />
       </div>
     );
   }

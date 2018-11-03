@@ -91,10 +91,18 @@ class KeyLayout extends React.Component {
   }
 
   formatKeyLabel(option) {
+    let mainLabel;
+    if (option.label.key.labels.top) {
+      mainLabel = `${option.label.key.labels.top}
+${option.label.key.labels.primary}`;
+    } else {
+      mainLabel = option.label.key.labels.primary;
+    }
     return (
       <div>
-        <span className="dim">{option.label.group}</span>{" "}
-        {option.label.key.labels.primary}
+        <span className="dim">{option.label.group}</span>
+        &nbsp;
+        {mainLabel}
       </div>
     );
   }
@@ -114,8 +122,13 @@ class KeyLayout extends React.Component {
   }
 
   filterKeyOption(option, filterString) {
-    //const label = this.formatKeyLabel(option);
-    const label = `${option.label.group} ${option.label.key.labels.primary}`;
+    let label;
+    if (option.label.top) {
+      label = `${option.label.group} ${option.label.key.labels.top}
+ ${option.label.key.labels.primary}`;
+    } else {
+      label = `${option.label.group} ${option.label.key.labels.primary}`;
+    }
 
     return this.fuzzyMatch(label, filterString);
   }

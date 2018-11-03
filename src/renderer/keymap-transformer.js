@@ -60,9 +60,14 @@ class DisplayTransformer {
         let value;
 
         if (key.labels) {
-          value = key.labels;
+          value = key;
         } else {
-          value = "#" + key.code.toString();
+          value = {
+            code: key.code,
+            labels: {
+              primary: "#" + key.code.toString()
+            }
+          };
         }
 
         this.keymapCodeTable[key.code] = value;
@@ -80,14 +85,16 @@ class DisplayTransformer {
     if (!key) {
       key = {
         code: keyCode,
-        primary: "#" + keyCode.toString()
+        labels: {
+          primary: "#" + keyCode.toString()
+        }
       };
     }
 
     return {
       keyCode: key.code,
-      label: key.primary,
-      extraLabel: key.top
+      label: key.labels.primary,
+      extraLabel: key.labels.top
     };
   }
 

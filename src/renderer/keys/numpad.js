@@ -21,136 +21,106 @@ const NumpadTable = {
     {
       code: 89,
       labels: {
-        keymap: {
-          top: "Numpad",
-          primary: "1"
-        }
+        top: "Numpad",
+        primary: "1"
       }
     },
     {
       code: 90,
       labels: {
-        keymap: {
-          top: "Numpad",
-          primary: "2"
-        }
+        top: "Numpad",
+        primary: "2"
       }
     },
     {
       code: 91,
       labels: {
-        keymap: {
-          top: "Numpad",
-          primary: "3"
-        }
+        top: "Numpad",
+        primary: "3"
       }
     },
     {
       code: 92,
       labels: {
-        keymap: {
-          top: "Numpad",
-          primary: "4"
-        }
+        top: "Numpad",
+        primary: "4"
       }
     },
     {
       code: 93,
       labels: {
-        keymap: {
-          top: "Numpad",
-          primary: "5"
-        }
+        top: "Numpad",
+        primary: "5"
       }
     },
     {
       code: 94,
       labels: {
-        keymap: {
-          top: "Numpad",
-          primary: "6"
-        }
+        top: "Numpad",
+        primary: "6"
       }
     },
     {
       code: 95,
       labels: {
-        keymap: {
-          top: "Numpad",
-          primary: "7"
-        }
+        top: "Numpad",
+        primary: "7"
       }
     },
     {
       code: 96,
       labels: {
-        keymap: {
-          top: "Numpad",
-          primary: "8"
-        }
+        top: "Numpad",
+        primary: "8"
       }
     },
     {
       code: 97,
       labels: {
-        keymap: {
-          top: "Numpad",
-          primary: "9"
-        }
+        top: "Numpad",
+        primary: "9"
       }
     },
     {
       code: 98,
       labels: {
-        keymap: {
-          top: "Numpad",
-          primary: "0"
-        }
+        top: "Numpad",
+        primary: "0"
       }
     },
     {
       code: 99,
       labels: {
-        keymap: {
-          top: "Numpad",
-          primary: "."
-        }
+        top: "Numpad",
+        primary: "."
       }
     },
     {
       code: 85,
       labels: {
-        keymap: {
-          top: "Numpad",
-          primary: "*"
-        }
+        top: "Numpad",
+        primary: "*"
       }
     },
     {
       code: 86,
       labels: {
-        keymap: {
-          top: "Numpad",
-          primary: "-"
-        }
+        top: "Numpad",
+        primary: "-"
       }
     },
     {
       code: 87,
       labels: {
-        keymap: {
-          top: "Numpad",
-          primary: "+"
-        }
+        top: "Numpad",
+        primary: "+"
       }
     },
     {
       code: 84,
       labels: {
-        keymap: {
-          top: "Numpad",
-          primary: "/"
-        }
+        top: "Numpad",
+        primary: "/"
       }
     }
   ]

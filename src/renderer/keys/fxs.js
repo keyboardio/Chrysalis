@@ -21,97 +21,73 @@ const FunctionKeyTable = {
     {
       code: 58,
       labels: {
-        keymap: {
-          primary: "F1"
-        }
+        primary: "F1"
       }
     },
     {
       code: 59,
       labels: {
-        keymap: {
-          primary: "F2"
-        }
+        primary: "F2"
       }
     },
     {
       code: 60,
       labels: {
-        keymap: {
-          primary: "F3"
-        }
+        primary: "F3"
       }
     },
     {
       code: 61,
       labels: {
-        keymap: {
-          primary: "F4"
-        }
+        primary: "F4"
       }
     },
     {
       code: 62,
       labels: {
-        keymap: {
-          primary: "F5"
-        }
+        primary: "F5"
       }
     },
     {
       code: 63,
       labels: {
-        keymap: {
-          primary: "F6"
-        }
+        primary: "F6"
       }
     },
     {
       code: 64,
       labels: {
-        keymap: {
-          primary: "F7"
-        }
+        primary: "F7"
       }
     },
     {
       code: 65,
       labels: {
-        keymap: {
-          primary: "F8"
-        }
+        primary: "F8"
       }
     },
     {
       code: 66,
       labels: {
-        keymap: {
-          primary: "F9"
-        }
+        primary: "F9"
       }
     },
     {
       code: 67,
       labels: {
-        keymap: {
-          primary: "F10"
-        }
+        primary: "F10"
       }
     },
     {
       code: 68,
       labels: {
-        keymap: {
-          primary: "F11"
-        }
+        primary: "F11"
       }
     },
     {
       code: 69,
       labels: {
-        keymap: {
-          primary: "F12"
-        }
+        primary: "F12"
       }
     }
   ]

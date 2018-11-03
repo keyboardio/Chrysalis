@@ -21,19 +21,15 @@ const LEDEffectsTable = {
     {
       code: 17152,
       labels: {
-        keymap: {
-          primary: "Next",
-          top: "LEDEff."
-        }
+        primary: "Next",
+        top: "LEDEff."
       }
     },
     {
       code: 17153,
       labels: {
-        keymap: {
-          primary: "Prev.",
-          top: "LEDEff."
-        }
+        primary: "Prev.",
+        top: "LEDEff."
       }
     }
   ]

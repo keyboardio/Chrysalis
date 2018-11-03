@@ -59,10 +59,8 @@ class DisplayTransformer {
       for (let key of group.keys) {
         let value;
 
-        if (key.labels.keymap) {
-          value = key.labels.keymap;
-        } else if (key.labels.all) {
-          value = key.labels.all;
+        if (key.labels) {
+          value = key.labels;
         } else {
           value = "#" + key.code.toString();
         }

@@ -21,209 +21,157 @@ const LetterTable = {
     {
       code: 4,
       labels: {
-        all: {
-          primary: "A"
-        }
+        primary: "A"
       }
     },
     {
       code: 5,
       labels: {
-        all: {
-          primary: "B"
-        }
+        primary: "B"
       }
     },
     {
       code: 6,
       labels: {
-        all: {
-          primary: "C"
-        }
+        primary: "C"
       }
     },
     {
       code: 7,
       labels: {
-        all: {
-          primary: "D"
-        }
+        primary: "D"
       }
     },
     {
       code: 8,
       labels: {
-        all: {
-          primary: "E"
-        }
+        primary: "E"
       }
     },
     {
       code: 9,
       labels: {
-        all: {
-          primary: "F"
-        }
+        primary: "F"
       }
     },
     {
       code: 10,
       labels: {
-        all: {
-          primary: "G"
-        }
+        primary: "G"
       }
     },
     {
       code: 11,
       labels: {
-        all: {
-          primary: "H"
-        }
+        primary: "H"
       }
     },
     {
       code: 12,
       labels: {
-        all: {
-          primary: "I"
-        }
+        primary: "I"
       }
     },
     {
       code: 13,
       labels: {
-        all: {
-          primary: "J"
-        }
+        primary: "J"
       }
     },
     {
       code: 14,
       labels: {
-        all: {
-          primary: "K"
-        }
+        primary: "K"
       }
     },
     {
       code: 15,
       labels: {
-        all: {
-          primary: "L"
-        }
+        primary: "L"
       }
     },
     {
       code: 16,
       labels: {
-        all: {
-          primary: "M"
-        }
+        primary: "M"
       }
     },
     {
       code: 17,
       labels: {
-        all: {
-          primary: "N"
-        }
+        primary: "N"
       }
     },
     {
       code: 18,
       labels: {
-        all: {
-          primary: "O"
-        }
+        primary: "O"
       }
     },
     {
       code: 19,
       labels: {
-        all: {
-          primary: "P"
-        }
+        primary: "P"
       }
     },
     {
       code: 20,
       labels: {
-        all: {
-          primary: "Q"
-        }
+        primary: "Q"
       }
     },
     {
       code: 21,
       labels: {
-        all: {
-          primary: "R"
-        }
+        primary: "R"
       }
     },
     {
       code: 22,
       labels: {
-        all: {
-          primary: "S"
-        }
+        primary: "S"
       }
     },
     {
       code: 23,
       labels: {
-        all: {
-          primary: "T"
-        }
+        primary: "T"
       }
     },
     {
       code: 24,
       labels: {
-        all: {
-          primary: "U"
-        }
+        primary: "U"
       }
     },
     {
       code: 25,
       labels: {
-        all: {
-          primary: "V"
-        }
+        primary: "V"
       }
     },
     {
       code: 26,
       labels: {
-        all: {
-          primary: "W"
-        }
+        primary: "W"
       }
     },
     {
       code: 27,
       labels: {
-        all: {
-          primary: "X"
-        }
+        primary: "X"
       }
     },
     {
       code: 28,
       labels: {
-        all: {
-          primary: "Y"
-        }
+        primary: "Y"
       }
     },
     {
       code: 29,
       labels: {
-        all: {
-          primary: "Z"
-        }
+        primary: "Z"
       }
     }
   ]

@@ -21,97 +21,73 @@ const PunctuationTable = {
     {
       code: 53,
       labels: {
-        keymap: {
-          primary: "`"
-        }
+        primary: "`"
       }
     },
     {
       code: 51,
       labels: {
-        keymap: {
-          primary: ";"
-        }
+        primary: ";"
       }
     },
     {
       code: 52,
       labels: {
-        keymap: {
-          primary: '"'
-        }
+        primary: '"'
       }
     },
     {
       code: 54,
       labels: {
-        keymap: {
-          primary: ","
-        }
+        primary: ","
       }
     },
     {
       code: 55,
       labels: {
-        keymap: {
-          primary: "."
-        }
+        primary: "."
       }
     },
     {
       code: 56,
       labels: {
-        keymap: {
-          primary: "/"
-        }
+        primary: "/"
       }
     },
     {
       code: 45,
       labels: {
-        keymap: {
-          primary: "-"
-        }
+        primary: "-"
       }
     },
     {
       code: 46,
       labels: {
-        keymap: {
-          primary: "="
-        }
+        primary: "="
       }
     },
     {
       code: 47,
       labels: {
-        keymap: {
-          primary: "["
-        }
+        primary: "["
       }
     },
     {
       code: 48,
       labels: {
-        keymap: {
-          primary: "]"
-        }
+        primary: "]"
       }
     },
     {
       code: 49,
       labels: {
-        keymap: {
-          primary: "\\"
-        }
+        primary: "\\"
       }
     },
     {
       code: 57,
       labels: {
-        keymap: {
-          primary: "CapsLK"
-        }
+        primary: "CapsLK"
       }
     }
   ]

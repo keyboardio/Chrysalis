@@ -21,65 +21,49 @@ const ModifiersTable = {
     {
       code: 224,
       labels: {
-        keymap: {
-          primary: "LCtrl"
-        }
+        primary: "LCtrl"
       }
     },
     {
       code: 225,
       labels: {
-        keymap: {
-          primary: "LShift"
-        }
+        primary: "LShift"
       }
     },
     {
       code: 226,
       labels: {
-        keymap: {
-          primary: "LAlt"
-        }
+        primary: "LAlt"
       }
     },
     {
       code: 227,
       labels: {
-        keymap: {
-          primary: "LGui"
-        }
+        primary: "LGui"
       }
     },
     {
       code: 228,
       labels: {
-        keymap: {
-          primary: "RCtrl"
-        }
+        primary: "RCtrl"
       }
     },
     {
       code: 229,
       labels: {
-        keymap: {
-          primary: "RShift"
-        }
+        primary: "RShift"
       }
     },
     {
       code: 230,
       labels: {
-        keymap: {
-          primary: "RAlt"
-        }
+        primary: "RAlt"
       }
     },
     {
       code: 231,
       labels: {
-        keymap: {
-          primary: "RGui"
-        }
+        primary: "RGui"
       }
     }
   ]

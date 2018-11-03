@@ -21,57 +21,43 @@ const SpacingTable = {
     {
       code: 44,
       labels: {
-        keymap: {
-          primary: "Space"
-        }
+        primary: "Space"
       }
     },
     {
       code: 40,
       labels: {
-        keymap: {
-          primary: "Enter"
-        }
+        primary: "Enter"
       }
     },
     {
       code: 43,
       labels: {
-        keymap: {
-          primary: "Tab"
-        }
+        primary: "Tab"
       }
     },
     {
       code: 41,
       labels: {
-        keymap: {
-          primary: "Esc"
-        }
+        primary: "Esc"
       }
     },
     {
       code: 42,
       labels: {
-        keymap: {
-          primary: "BSpc"
-        }
+        primary: "BSpc"
       }
     },
     {
       code: 76,
       labels: {
-        keymap: {
-          primary: "Del"
-        }
+        primary: "Del"
       }
     },
     {
       code: 73,
       labels: {
-        keymap: {
-          primary: "Insert"
-        }
+        primary: "Insert"
       }
     }
   ]

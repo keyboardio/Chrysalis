@@ -30,9 +30,9 @@ import MacrosTable from "./keys/macros.js";
 import NumpadTable from "./keys/numpad.js";
 import FunctionKeyTable from "./keys/fxs.js";
 
-//import MediaControlTable from "./keys/mediacontrol.js"
+import MediaControlTable from "./keys/mediacontrols.js";
 import MouseControlTable from "./keys/mousecontrols.js";
-//import OtherTable from "./keys/other.js"
+import MiscellaneousTable from "./keys/miscellaneous.js";
 
 const keyCodeTable = [
   LetterTable,
@@ -43,7 +43,7 @@ const keyCodeTable = [
   NavigationTable,
   FunctionKeyTable,
   NumpadTable,
-  // OtherTable,
+  MiscellaneousTable,
 
   ShiftedPunctuationTable,
 
@@ -51,7 +51,7 @@ const keyCodeTable = [
 
   LEDEffectsTable,
   MacrosTable,
-  // MediaControlTable,
+  MediaControlTable,
   MouseControlTable,
 
   BlankTable

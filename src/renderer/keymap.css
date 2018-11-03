@@ -19,6 +19,9 @@
   font-size: 10px;
   font-weight: 700;
   width: 1024px;
+  min-width: 1024px;
+  height: 523px;
+  min-height: 523px;
 }
 
 .extraKey {
@@ -32,4 +35,31 @@
 
 .dim {
     color: #888;
+}
+
+#keymap-editor {
+    display: flex;
+}
+
+#editor-controls {
+    margin-left: 2em;
+    width: 100%;
+}
+
+.layer-selection {
+    display: flex;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid black;
+}
+
+.layer-selection > label {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.layer-selection > div {
+    width: 8em;
+    margin-left: 1em;
+    margin-right: 1em;
 }

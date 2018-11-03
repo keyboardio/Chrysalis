@@ -19,7 +19,9 @@ import BlankTable from "./keys/blanks.js";
 import LetterTable from "./keys/letters.js";
 import DigitTable from "./keys/digits.js";
 import LayerSwitchTable from "./keys/layerswitch.js";
-import PunctuationTable from "./keys/punctuation.js";
+import PunctuationTable, {
+  ShiftedPunctuationTable
+} from "./keys/punctuation.js";
 import SpacingTable from "./keys/spacing.js";
 import ModifiersTable from "./keys/modifiers.js";
 import NavigationTable from "./keys/navigation.js";
@@ -40,6 +42,8 @@ const keyCodeTable = [
   NavigationTable,
   FunctionKeyTable,
   NumpadTable,
+
+  ShiftedPunctuationTable,
 
   LayerSwitchTable,
 

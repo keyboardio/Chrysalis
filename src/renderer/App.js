@@ -141,7 +141,7 @@ class App extends React.Component {
                         roLayers: parseInt(roLayers)
                       });
                       toast.update(searchToast, {
-                        render: "Checking which later is the default..."
+                        render: "Checking which layer is the default..."
                       });
                       setTimeout(() => {
                         this.focus

@@ -34,6 +34,8 @@ import MediaControlTable from "./keys/mediacontrols.js";
 import MouseControlTable from "./keys/mousecontrols.js";
 import MiscellaneousTable from "./keys/miscellaneous.js";
 
+import { OneShotModifierTable, OneShotLayerTable } from "./keys/oneshot.js";
+
 const keyCodeTable = [
   LetterTable,
   DigitTable,
@@ -54,6 +56,9 @@ const keyCodeTable = [
   MacrosTable,
   MediaControlTable,
   MouseControlTable,
+
+  OneShotModifierTable,
+  OneShotLayerTable,
 
   BlankTable
 ];

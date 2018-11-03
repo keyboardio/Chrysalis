@@ -17,7 +17,7 @@
 
 import BlankTable from "./keys/blanks.js";
 import LetterTable from "./keys/letters.js";
-import DigitTable from "./keys/digits.js";
+import DigitTable, { ShiftedDigitTable } from "./keys/digits.js";
 import LayerSwitchTable from "./keys/layerswitch.js";
 import PunctuationTable, {
   ShiftedPunctuationTable
@@ -45,6 +45,7 @@ const keyCodeTable = [
   NumpadTable,
   MiscellaneousTable,
 
+  ShiftedDigitTable,
   ShiftedPunctuationTable,
 
   LayerSwitchTable,

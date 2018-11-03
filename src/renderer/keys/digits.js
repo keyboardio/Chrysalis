@@ -81,4 +81,70 @@ const DigitTable = {
   ]
 };
 
-export default DigitTable;
+const ShiftedDigitTable = {
+  groupName: "Shifted Digits",
+  keys: [
+    {
+      code: 2078,
+      labels: {
+        primary: "!"
+      }
+    },
+    {
+      code: 2079,
+      labels: {
+        primary: "@"
+      }
+    },
+    {
+      code: 2080,
+      labels: {
+        primary: "#"
+      }
+    },
+    {
+      code: 2081,
+      labels: {
+        primary: "$"
+      }
+    },
+    {
+      code: 2082,
+      labels: {
+        primary: "%"
+      }
+    },
+    {
+      code: 2083,
+      labels: {
+        primary: "^"
+      }
+    },
+    {
+      code: 2084,
+      labels: {
+        primary: "&"
+      }
+    },
+    {
+      code: 2085,
+      labels: {
+        primary: "*"
+      }
+    },
+    {
+      code: 2086,
+      labels: {
+        primary: "("
+      }
+    },
+    {
+      code: 2087,
+      labels: {
+        primary: ")"
+      }
+    }
+  ]
+};
+
+export { DigitTable as default, ShiftedDigitTable };

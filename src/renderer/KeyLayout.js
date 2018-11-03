@@ -137,11 +137,6 @@ class KeyLayout extends React.Component {
         />
       );
 
-    let readOnlyMark = null;
-    if (isReadOnly) {
-      readOnlyMark = <h4>Read only</h4>;
-    }
-
     let roLayerOptions = {
         label: "Read-only",
         options: []
@@ -175,36 +170,35 @@ class KeyLayout extends React.Component {
     }
 
     return (
-      <div>
-        <h1>Layer #{this.state.currentLayer}</h1>
-        {readOnlyMark}
+      <div id="keymap-editor">
         {layer}
-        <hr />
-        New keycode:
-        <Select
-          options={this.keyCodeOptions}
-          onChange={this.onChange}
-          formatOptionLabel={this.formatKeyLabel}
-          filterOption={this.filterKeyOption}
-          value={this.getCurrentKeyCodeOption()}
-        />
-        <br />
-        <button onClick={this.props.onApply}>Apply</button>
-        <br />
-        Edit layer:
-        <Select
-          options={editLayerOptions}
-          defaultValue={defaultEditLayer}
-          onChange={this.selectLayer}
-        />
-        <br />
-        Default layer:
-        <Select
-          options={defaultLayerOptions}
-          defaultValue={defaultLayerOptions[this.props.defaultLayer]}
-          onChange={this.props.onSelectDefaultLayer}
-        />
-        <br />
+        <div id="editor-controls">
+          <div className="layer-selection">
+            <label>Layer</label>
+            <Select
+              options={editLayerOptions}
+              defaultValue={defaultEditLayer}
+              onChange={this.selectLayer}
+            />
+
+            <label>Default layer</label>
+            <Select
+              options={defaultLayerOptions}
+              defaultValue={defaultLayerOptions[this.props.defaultLayer]}
+              onChange={this.props.onSelectDefaultLayer}
+            />
+          </div>
+          New keycode:
+          <Select
+            options={this.keyCodeOptions}
+            onChange={this.onChange}
+            formatOptionLabel={this.formatKeyLabel}
+            filterOption={this.filterKeyOption}
+            value={this.getCurrentKeyCodeOption()}
+          />
+          <br />
+          <button onClick={this.props.onApply}>Apply</button>
+        </div>
       </div>
     );
   }

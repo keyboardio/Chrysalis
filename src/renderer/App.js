@@ -110,7 +110,7 @@ class App extends React.Component {
     this.setState({ loading: true });
     let searchToast = toast("Searching for the keyboard...", {
       type: toast.TYPE.INFO,
-      position: toast.POSITION.TOP_CENTER,
+      position: toast.POSITION.BOTTOM_CENTER,
       closeButton: false
     });
 
@@ -155,7 +155,7 @@ class App extends React.Component {
                             toast.update(searchToast, {
                               type: toast.TYPE.SUCCESS,
                               render: "✓ Keyboard found",
-                              position: toast.POSITION.TOP_RIGHT,
+                              position: toast.POSITION.BOTTOM_RIGHT,
                               autoClose: 1000
                             });
                           });

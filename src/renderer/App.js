@@ -128,34 +128,42 @@ class App extends React.Component {
               toast.update(searchToast, {
                 render: "Pulling the keymap..."
               });
-              this.focus.command("keymap").then(keymap => {
-                this.setState({ keymap: keymap });
-                toast.update(searchToast, {
-                  render: "Checking for read-only layers..."
-                });
-                this.focus.command("keymap.roLayers").then(roLayers => {
-                  if (roLayers == ".") roLayers = "0";
-                  this.setState({
-                    roLayers: parseInt(roLayers)
-                  });
+              setTimeout(() => {
+                this.focus.command("keymap").then(keymap => {
+                  this.setState({ keymap: keymap });
                   toast.update(searchToast, {
-                    render: "Checking which later is the default..."
+                    render: "Checking for read-only layers..."
                   });
-                  this.focus.command("settings.defaultLayer").then(defLayer => {
-                    if (defLayer == ".") defLayer = "0";
-                    this.setState({
-                      loading: false,
-                      defaultLayer: parseInt(defLayer)
+                  setTimeout(() => {
+                    this.focus.command("keymap.roLayers").then(roLayers => {
+                      if (roLayers == ".") roLayers = "0";
+                      this.setState({
+                        roLayers: parseInt(roLayers)
+                      });
+                      toast.update(searchToast, {
+                        render: "Checking which later is the default..."
+                      });
+                      setTimeout(() => {
+                        this.focus
+                          .command("settings.defaultLayer")
+                          .then(defLayer => {
+                            if (defLayer == ".") defLayer = "0";
+                            this.setState({
+                              loading: false,
+                              defaultLayer: parseInt(defLayer)
+                            });
+                            toast.update(searchToast, {
+                              type: toast.TYPE.SUCCESS,
+                              render: "✓ Keyboard found",
+                              position: toast.POSITION.TOP_RIGHT,
+                              autoClose: 1000
+                            });
+                          });
+                      }, 500);
                     });
-                    toast.update(searchToast, {
-                      type: toast.TYPE.SUCCESS,
-                      render: "✓ Keyboard found",
-                      position: toast.POSITION.TOP_RIGHT,
-                      autoClose: 1000
-                    });
-                  });
+                  }, 500);
                 });
-              });
+              }, 500);
             })
             .catch(() => {
               this.setState({ loading: false });

@@ -7,6 +7,9 @@ exports[`renders without crashing 1`] = `
       <button>
         Probe for Model01
       </button>
+      <button>
+        Close the connection
+      </button>
     </div>
     <div
       class="Toastify"

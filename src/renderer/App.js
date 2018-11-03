@@ -52,6 +52,7 @@ class App extends React.Component {
 
     this.focus.addCommands({ keymap: keymap });
     this.openKeyboard = this.openKeyboard.bind(this);
+    this.closeKeyboard = this.closeKeyboard.bind(this);
     this.onKeyChange = this.onKeyChange.bind(this);
     this.onApply = this.onApply.bind(this);
     this.onSelectDefaultLayer = this.onSelectDefaultLayer.bind(this);
@@ -102,6 +103,15 @@ class App extends React.Component {
         autoClose: 1000
       });
     });
+  }
+
+  closeKeyboard(event) {
+    event.preventDefault();
+    this.setState({
+      device: {},
+      keymap: []
+    });
+    this.focus.close();
   }
 
   openKeyboard(event) {
@@ -215,6 +225,9 @@ class App extends React.Component {
         <div>
           <button onClick={this.openKeyboard} disabled={this.state.loading}>
             Probe for Model01
+          </button>
+          <button onClick={this.closeKeyboard} disabled={this.state.loading}>
+            Close the connection
           </button>
         </div>
         {this.state.device === null && (

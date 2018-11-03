@@ -22,20 +22,17 @@ const BlankTable = {
       // NoKey
       code: 0,
       labels: {
-        keymap: {
-          primary: ""
-        }
-      }
+        primary: ""
+      },
+      description: "Disabled key"
     },
     {
       // Transparent
       code: 65535,
       labels: {
-        keymap: {
-          primary: "[Trns]"
-        },
-        select: "Transparent"
-      }
+        primary: "[Trns]"
+      },
+      description: "Transparent key"
     }
   ]
 };

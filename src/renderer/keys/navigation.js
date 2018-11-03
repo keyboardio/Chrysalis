@@ -21,73 +21,55 @@ const NavigationTable = {
     {
       code: 75,
       labels: {
-        keymap: {
-          primary: "PgUp"
-        }
+        primary: "PgUp"
       }
     },
     {
       code: 78,
       labels: {
-        keymap: {
-          primary: "PgDn"
-        }
+        primary: "PgDn"
       }
     },
     {
       code: 74,
       labels: {
-        keymap: {
-          primary: "Home"
-        }
+        primary: "Home"
       }
     },
     {
       code: 77,
       labels: {
-        keymap: {
-          primary: "End"
-        }
+        primary: "End"
       }
     },
     {
       code: 80,
       labels: {
-        keymap: {
-          primary: "Left"
-        }
+        primary: "Left"
       }
     },
     {
       code: 81,
       labels: {
-        keymap: {
-          primary: "Down"
-        }
+        primary: "Down"
       }
     },
     {
       code: 82,
       labels: {
-        keymap: {
-          primary: "Up"
-        }
+        primary: "Up"
       }
     },
     {
       code: 79,
       labels: {
-        keymap: {
-          primary: "Right"
-        }
+        primary: "Right"
       }
     },
     {
       code: 101,
       labels: {
-        keymap: {
-          primary: "App"
-        }
+        primary: "App"
       }
     }
   ]

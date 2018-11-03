@@ -21,19 +21,15 @@ const MacrosTable = {
     {
       code: 24576,
       labels: {
-        keymap: {
-          primary: "#0",
-          top: "Macro"
-        }
+        primary: "#0",
+        top: "Macro"
       }
     },
     {
       code: 24577,
       labels: {
-        keymap: {
-          primary: "#1",
-          top: "Macro"
-        }
+        primary: "#1",
+        top: "Macro"
       }
     }
     // TODO: There are 256 macro keys

@@ -80,15 +80,24 @@ class KeySelector extends React.Component {
     }
 
     this.state = {
-      items: this.keys
+      items: this.keys,
+      searchTerm: ""
     };
 
     this.onChange = this.onChange.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
+    this.onKeyUp = this.onKeyUp.bind(this);
+    this.onKeySelect = this.onKeySelect.bind(this);
+    this.updateFilter = this.updateFilter.bind(this);
   }
 
   onChange(event) {
-    let filteredList = this.keys;
-    let filterString = event.target.value;
+    this.updateFilter(event.target.value);
+  }
+
+  updateFilter(filterString) {
+    let filteredList = this.keys,
+      searchTerm = filterString;
 
     if (
       filterString.length == 1 &&
@@ -102,18 +111,61 @@ class KeySelector extends React.Component {
       return fuzzyMatch(label, filterString);
     });
 
-    this.setState({ items: filteredList });
+    this.setState({
+      items: filteredList,
+      searchTerm: searchTerm
+    });
+  }
+
+  onKeySelect(key) {
+    this.updateFilter(
+      `${key.group} ${key.labels.verbose || key.labels.primary}`
+    );
+    this.props.onChange(key);
+  }
+
+  onKeyUp(event) {
+    if (event.keyCode == 27) {
+      event.preventDefault();
+      this.updateFilter("");
+    } else if (event.keyCode == 13) {
+      event.preventDefault();
+      if (this.state.items.length > 0) {
+        this.onKeySelect(this.state.items[0]);
+      }
+    }
+  }
+
+  onKeyDown(event) {
+    if (event.keyCode == 9) {
+      event.preventDefault();
+
+      if (this.state.items.length <= 0) return;
+
+      const key = this.state.items[0];
+      this.updateFilter(
+        `${key.group} ${key.labels.verbose || key.labels.primary}`
+      );
+    }
   }
 
   render() {
     const { isDisabled, onChange, currentKeyCode, ...props } = this.props; // eslint-disable-line
     return (
       <div {...props}>
-        <input type="text" placeholder="Search" onChange={this.onChange} />
+        <input
+          id="keyselector-search"
+          value={this.state.searchTerm}
+          type="text"
+          placeholder="Search"
+          onChange={this.onChange}
+          onKeyUp={this.onKeyUp}
+          onKeyDown={this.onKeyDown}
+        />
         <KeyList
           keys={this.state.items}
           className="keylist"
-          onKeySelect={onChange}
+          onKeySelect={this.onKeySelect}
         />
       </div>
     );

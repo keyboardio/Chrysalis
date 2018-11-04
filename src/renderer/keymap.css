@@ -102,8 +102,13 @@ button {
 
 .select-keycode ul li:hover {
     cursor: pointer;
+    background: #ef5022;
 }
 
 .select-keycode ul li em {
     color: #888;
+}
+
+.select-keycode ul li.highlight {
+    font-weight: bold;
 }

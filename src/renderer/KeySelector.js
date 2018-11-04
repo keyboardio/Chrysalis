@@ -34,15 +34,19 @@ class KeyList extends React.Component {
   }
 
   render() {
-    const { keys, ...props } = this.props;
+    const { keys, currentKeyCode, ...props } = this.props;
     delete props["onKeySelect"];
-    delete props["currentKeyCode"];
 
     return (
       <ul {...props}>
         {keys.map((key, index) => {
+          let isHighlighted = key.code == currentKeyCode;
           return (
-            <li key={`keylist-${index}`} onClick={this.onClick(key)}>
+            <li
+              key={`keylist-${index}`}
+              className={isHighlighted ? "highlight" : null}
+              onClick={this.onClick(key)}
+            >
               <em>{key.group}</em>
               &nbsp;
               {key.labels.verbose || key.labels.primary}

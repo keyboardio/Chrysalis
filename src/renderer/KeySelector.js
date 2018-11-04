@@ -87,7 +87,7 @@ class KeySelector extends React.Component {
 
   filterKeyOption(option, filterString) {
     let label = `${option.data.group}
-${option.data.key.labels.verbose || option.data.key.labels.primary}`;
+ ${option.data.key.labels.verbose || option.data.key.labels.primary}`;
 
     if (filterString.length == 1) filterString = `letter ${filterString}`;
 

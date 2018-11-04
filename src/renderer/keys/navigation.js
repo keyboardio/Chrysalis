@@ -21,13 +21,15 @@ const NavigationTable = {
     {
       code: 75,
       labels: {
-        primary: "PgUp"
+        primary: "PgUp",
+        verbose: "Page Up"
       }
     },
     {
       code: 78,
       labels: {
-        primary: "PgDn"
+        primary: "PgDn",
+        verbose: "Page Down"
       }
     },
     {

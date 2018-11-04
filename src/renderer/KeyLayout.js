@@ -101,7 +101,7 @@ class KeyLayout extends React.Component {
       <div>
         <span className="dim">{option.group}</span>
         &nbsp;
-        {key.labels.primary}
+        {key.labels.verbose || key.labels.primary}
       </div>
     );
   }
@@ -121,7 +121,8 @@ class KeyLayout extends React.Component {
   }
 
   filterKeyOption(option, filterString) {
-    let label = `${option.data.group} ${option.data.key.labels.primary}`;
+    let label = `${option.data.group}
+${option.data.key.labels.verbose || option.data.key.labels.primary}`;
 
     if (filterString.length == 1) filterString = `letter ${filterString}`;
 

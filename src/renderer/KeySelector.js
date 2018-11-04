@@ -67,15 +67,6 @@ function fuzzyMatch(s1, s2) {
   return true;
 }
 
-/*
- * TODO:
- * - Update the searcher with clicked results
- * - default to the current key
- * - ESC should clear the field
- * - Tab should complete the topmost one
- * - up/down should scroll the list below (nice to have)
- */
-
 class KeySelector extends React.Component {
   constructor(props) {
     super(props);

@@ -89,7 +89,7 @@ class KeyLayout extends React.Component {
   }
 
   formatKeyLabel(option) {
-    let mainLabel, key;
+    let key;
 
     if (option.data) {
       key = option.data.key;
@@ -97,17 +97,11 @@ class KeyLayout extends React.Component {
       key = option.key;
     }
 
-    if (key.labels.top) {
-      mainLabel = `${key.labels.top}
-${key.labels.primary}`;
-    } else {
-      mainLabel = key.labels.primary;
-    }
     return (
       <div>
         <span className="dim">{option.group}</span>
         &nbsp;
-        {mainLabel}
+        {key.labels.primary}
       </div>
     );
   }
@@ -127,13 +121,7 @@ ${key.labels.primary}`;
   }
 
   filterKeyOption(option, filterString) {
-    let label;
-    if (option.data.key.labels.top) {
-      label = `${option.data.group} ${option.data.key.labels.top}
- ${option.data.key.labels.primary}`;
-    } else {
-      label = `${option.data.group} ${option.data.key.labels.primary}`;
-    }
+    let label = `${option.data.group} ${option.data.key.labels.primary}`;
 
     if (filterString.length == 1) filterString = `letter ${filterString}`;
 

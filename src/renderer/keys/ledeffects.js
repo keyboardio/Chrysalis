@@ -16,7 +16,7 @@
  */
 
 const LEDEffectsTable = {
-  groupName: "LED Effects",
+  groupName: "LED Effect",
   keys: [
     {
       code: 17152,

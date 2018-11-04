@@ -72,3 +72,38 @@ button {
     margin-left: 1em;
     margin-right: 1em;
 }
+
+.keylist {
+    height: 384px;
+    overflow-y: scroll;
+}
+
+.select-keycode input {
+    line-height: 1.5;
+    font-size: 18px;
+    height: auto;
+    padding-left: 20px;
+    margin-bottom: 0;
+    width: -webkit-fill-available;
+}
+
+.select-keycode ul {
+    margin: 0;
+}
+
+.select-keycode ul li {
+    list-style: none;
+    border: 1px solid #ccc;
+    margin-top: -1px;
+    line-height: 2;
+    padding: 5px 20px;
+    background: #f8f8f8;
+}
+
+.select-keycode ul li:hover {
+    cursor: pointer;
+}
+
+.select-keycode ul li em {
+    color: #888;
+}

@@ -36,6 +36,7 @@ class KeyList extends React.Component {
   render() {
     const { keys, ...props } = this.props;
     delete props["onKeySelect"];
+    delete props["currentKeyCode"];
 
     return (
       <ul {...props}>
@@ -162,10 +163,12 @@ class KeySelector extends React.Component {
   }
 
   render() {
-    const { isDisabled, onChange, currentKeyCode, ...props } = this.props; // eslint-disable-line
+    const { isDisabled, currentKeyCode, ...props } = this.props; // eslint-disable-line
+    delete props["onChange"];
     return (
       <div {...props}>
         <input
+          disabled={isDisabled}
           id="keyselector-search"
           value={this.state.searchTerm}
           type="text"
@@ -177,6 +180,7 @@ class KeySelector extends React.Component {
         <KeyList
           keys={this.state.items}
           className="keylist"
+          currentKeyCode={currentKeyCode}
           onKeySelect={this.onKeySelect}
         />
       </div>

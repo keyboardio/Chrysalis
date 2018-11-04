@@ -46,6 +46,7 @@ class KeyLayout extends React.Component {
       currentLayer: layer,
       currentKeyIndex: keyIndex
     });
+    document.getElementById("keyselector-search").focus();
   }
 
   selectLayer(option) {

@@ -208,6 +208,7 @@ ${key.labels.primary}`;
           </div>
           New keycode:
           <Select
+            className="select-keycode"
             maxMenuHeight={500}
             isDisabled={isReadOnly}
             options={this.keyCodeOptions}

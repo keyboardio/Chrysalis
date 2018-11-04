@@ -217,8 +217,7 @@ ${key.labels.primary}`;
             filterOption={this.filterKeyOption}
             value={this.getCurrentKeyCodeOption()}
           />
-          <br />
-          <button onClick={this.props.onApply}>Apply</button>
+          <button onClick={this.props.onApply}>Save Changes</button>
         </div>
       </div>
     );

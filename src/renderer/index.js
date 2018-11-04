@@ -22,7 +22,8 @@ import ReactDOM from "react-dom";
 import App from "./App.js";
 
 // Use the following for the new UI mockup
-// import "../styles/reset.css";
+import "../styles/reset.css";
+import "../styles/keymap.css";
 // import "./mockup/scss/app.scss";
 // import App from "./mockup/components/App";
 

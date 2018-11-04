@@ -34,7 +34,7 @@ class KeyLayout extends React.Component {
     this.props.onKeyChange(
       this.state.currentLayer,
       this.state.currentKeyIndex,
-      option.value
+      option.code
     );
   }
 

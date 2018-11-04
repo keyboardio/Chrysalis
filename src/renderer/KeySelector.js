@@ -19,96 +19,109 @@ import React from "react";
 
 import { keyCodeTable } from "./keymap-transformer";
 
-import Select from "react-select";
+class KeyList extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.onClick = this.onClick.bind(this);
+  }
+
+  onClick(key) {
+    return event => {
+      event.preventDefault();
+      this.props.onKeySelect(key);
+    };
+  }
+
+  render() {
+    const { keys, ...props } = this.props;
+    delete props["onKeySelect"];
+
+    return (
+      <ul {...props}>
+        {keys.map((key, index) => {
+          return (
+            <li key={`keylist-${index}`} onClick={this.onClick(key)}>
+              <em>{key.group}</em>
+              &nbsp;
+              {key.labels.verbose || key.labels.primary}
+            </li>
+          );
+        })}
+      </ul>
+    );
+  }
+}
+
+function fuzzyMatch(s1, s2) {
+  var hay = s1.toLowerCase(),
+    i = 0,
+    n = -1,
+    l;
+  s2 = s2.toLowerCase();
+  for (; (l = s2[i++]); ) {
+    if (!~(n = hay.indexOf(l, n + 1))) {
+      return false;
+    }
+  }
+  return true;
+}
+
+/*
+ * TODO:
+ * - Update the searcher with clicked results
+ * - default to the current key
+ * - ESC should clear the field
+ * - Tab should complete the topmost one
+ * - up/down should scroll the list below (nice to have)
+ */
 
 class KeySelector extends React.Component {
   constructor(props) {
     super(props);
 
-    this.keyCodeOptions = keyCodeTable.map(group => {
-      return {
-        label: group.groupName,
-        options: group.keys.map(key => {
-          if (key)
-            return {
-              value: key.code,
-              group: group.groupName,
-              key: key
-            };
-        })
-      };
-    });
-
-    this.filterKeyOption = this.filterKeyOption.bind(this);
-    this.getCurrentKeyCodeOption = this.getCurrentKeyCodeOption.bind(this);
-  }
-
-  getCurrentKeyCodeOption() {
-    if (this.props.currentKeyCode == "") return null;
-
-    for (let group of this.keyCodeOptions) {
-      for (let option of group.options) {
-        if (option.value == this.props.currentKeyCode) return option;
+    this.keys = [];
+    for (let group of keyCodeTable) {
+      for (let key of group.keys) {
+        key.group = group.groupName;
+        this.keys.push(key);
       }
     }
+
+    this.state = {
+      items: this.keys
+    };
+
+    this.onChange = this.onChange.bind(this);
   }
 
-  formatKeyLabel(option) {
-    let key;
-
-    if (option.data) {
-      key = option.data.key;
-    } else {
-      key = option.key;
-    }
-
-    return (
-      <div>
-        <span className="dim">{option.group}</span>
-        &nbsp;
-        {key.labels.verbose || key.labels.primary}
-      </div>
-    );
-  }
-
-  fuzzyMatch(s1, s2) {
-    var hay = s1.toLowerCase(),
-      i = 0,
-      n = -1,
-      l;
-    s2 = s2.toLowerCase();
-    for (; (l = s2[i++]); ) {
-      if (!~(n = hay.indexOf(l, n + 1))) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  filterKeyOption(option, filterString) {
-    let label = `${option.data.group}
- ${option.data.key.labels.verbose || option.data.key.labels.primary}`;
+  onChange(event) {
+    let filteredList = this.keys;
+    let filterString = event.target.value;
 
     if (filterString.length == 1) filterString = `letter ${filterString}`;
 
-    return this.fuzzyMatch(label, filterString);
+    filteredList = filteredList.filter(item => {
+      let label = `${item.group} ${item.labels.verbose || item.labels.primary}`;
+      return fuzzyMatch(label, filterString);
+    });
+
+    this.setState({ items: filteredList });
   }
 
   render() {
+    const { isDisabled, onChange, currentKeyCode, ...props } = this.props; // eslint-disable-line
     return (
-      <div>
-        <label>New keycode:</label>
-        <Select
-          {...this.props}
-          maxMenuHeight={500}
-          options={this.keyCodeOptions}
-          formatOptionLabel={this.formatKeyLabel}
-          filterOption={this.filterKeyOption}
-          value={this.getCurrentKeyCodeOption()}
+      <div {...props}>
+        <input type="text" placeholder="Search" onChange={this.onChange} />
+        <KeyList
+          keys={this.state.items}
+          className="keylist"
+          onKeySelect={onChange}
         />
       </div>
     );
   }
 }
 
-export default KeySelector;
+export { KeySelector as default };

@@ -18,7 +18,7 @@
 import BlankTable from "./keys/blanks.js";
 import LetterTable from "./keys/letters.js";
 import DigitTable, { ShiftedDigitTable } from "./keys/digits.js";
-import LayerSwitchTable from "./keys/layerswitch.js";
+import { LockLayerTable, ShiftToLayerTable } from "./keys/layerswitch.js";
 import PunctuationTable, {
   ShiftedPunctuationTable
 } from "./keys/punctuation.js";
@@ -31,7 +31,12 @@ import NumpadTable from "./keys/numpad.js";
 import FunctionKeyTable from "./keys/fxs.js";
 
 import MediaControlTable from "./keys/mediacontrols.js";
-import MouseControlTable from "./keys/mousecontrols.js";
+import {
+  MouseMovementTable,
+  MouseWheelTable,
+  MouseButtonTable,
+  MouseWarpTable
+} from "./keys/mousecontrols.js";
 import MiscellaneousTable from "./keys/miscellaneous.js";
 
 import { OneShotModifierTable, OneShotLayerTable } from "./keys/oneshot.js";
@@ -50,12 +55,16 @@ const keyCodeTable = [
   ShiftedDigitTable,
   ShiftedPunctuationTable,
 
-  LayerSwitchTable,
+  ShiftToLayerTable,
+  LockLayerTable,
 
   LEDEffectsTable,
   MacrosTable,
   MediaControlTable,
-  MouseControlTable,
+  MouseMovementTable,
+  MouseButtonTable,
+  MouseWheelTable,
+  MouseWarpTable,
 
   OneShotModifierTable,
   OneShotLayerTable,

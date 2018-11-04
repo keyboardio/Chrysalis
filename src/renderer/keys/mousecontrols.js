@@ -15,8 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const MouseControlTable = {
-  groupName: "Mouse",
+const MouseMovementTable = {
+  groupName: "Mouse movement",
   keys: [
     {
       code: 20481,
@@ -45,7 +45,13 @@ const MouseControlTable = {
         top: "Mouse",
         primary: "Right"
       }
-    },
+    }
+  ]
+};
+
+const MouseWheelTable = {
+  groupName: "Mouse wheel",
+  keys: [
     {
       code: 20497,
       labels: {
@@ -73,7 +79,13 @@ const MouseControlTable = {
         top: "M. Wheel",
         primary: "Right"
       }
-    },
+    }
+  ]
+};
+
+const MouseButtonTable = {
+  groupName: "Mouse button",
+  keys: [
     {
       code: 20545,
       labels: {
@@ -94,7 +106,13 @@ const MouseControlTable = {
         top: "M. Btn",
         primary: "Middle"
       }
-    },
+    }
+  ]
+};
+
+const MouseWarpTable = {
+  groupName: "Mouse warp",
+  keys: [
     {
       code: 20576,
       labels: {
@@ -133,4 +151,9 @@ const MouseControlTable = {
   ]
 };
 
-export default MouseControlTable;
+export {
+  MouseMovementTable,
+  MouseWheelTable,
+  MouseButtonTable,
+  MouseWarpTable
+};

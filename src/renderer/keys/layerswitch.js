@@ -15,10 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const LayerSwitchTable = {
-  groupName: "Layer switch",
+const LockLayerTable = {
+  groupName: "Lock layer to",
   keys: [
-    // Lock Layers
     {
       code: 17408,
       labels: {
@@ -249,8 +248,13 @@ const LayerSwitchTable = {
         primary: "32",
         top: "LockTo"
       }
-    },
-    // Momentary layers
+    }
+  ]
+};
+
+const ShiftToLayerTable = {
+  groupName: "Shift to layer",
+  keys: [
     {
       code: 17450,
       labels: {
@@ -485,4 +489,4 @@ const LayerSwitchTable = {
   ]
 };
 
-export default LayerSwitchTable;
+export { LockLayerTable, ShiftToLayerTable };

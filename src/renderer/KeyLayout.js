@@ -135,6 +135,8 @@ ${key.labels.primary}`;
       label = `${option.data.group} ${option.data.key.labels.primary}`;
     }
 
+    if (filterString.length == 1) filterString = `letter ${filterString}`;
+
     return this.fuzzyMatch(label, filterString);
   }
 

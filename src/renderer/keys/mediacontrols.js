@@ -29,35 +29,40 @@ const MediaControlTable = {
       code: 22709,
       labels: {
         top: "Media",
-        primary: "Next Trk"
+        primary: "Next Trk",
+        verbose: "Next track"
       }
     },
     {
       code: 22710,
       labels: {
         top: "Media",
-        primary: "Prev Trk"
+        primary: "Prev Trk",
+        verbose: "Previous track"
       }
     },
     {
       code: 22733,
       labels: {
         top: "Media",
-        primary: "Play"
+        primary: "Play",
+        verbose: "Play / pause"
       }
     },
     {
       code: 23785,
       labels: {
         top: "Media",
-        primary: "Vol+"
+        primary: "Vol+",
+        verbose: "Volume increase"
       }
     },
     {
       code: 23786,
       labels: {
         top: "Media",
-        primary: "Vol-"
+        primary: "Vol-",
+        verbose: "Volume decrease"
       }
     }
   ]

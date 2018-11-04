@@ -22,56 +22,64 @@ const OneShotModifierTable = {
       code: 49153,
       labels: {
         top: "OSM",
-        primary: "LCtrl"
+        primary: "LCtrl",
+        verbose: "Left Control"
       }
     },
     {
       code: 49154,
       labels: {
         top: "OSM",
-        primary: "LShift"
+        primary: "LShift",
+        verbose: "Left Shift"
       }
     },
     {
       code: 49155,
       labels: {
         top: "OSM",
-        primary: "LAlt"
+        primary: "LAlt",
+        verbose: "Left Alt"
       }
     },
     {
       code: 49156,
       labels: {
         top: "OSM",
-        primary: "LGui"
+        primary: "LGui",
+        verbose: "Left Gui"
       }
     },
     {
       code: 49157,
       labels: {
         top: "OSM",
-        primary: "RCtrl"
+        primary: "RCtrl",
+        verbose: "Right Control"
       }
     },
     {
       code: 49158,
       labels: {
         top: "OSM",
-        primary: "RShift"
+        primary: "RShift",
+        verbose: "Right Shift"
       }
     },
     {
       code: 49159,
       labels: {
         top: "OSM",
-        primary: "RAlt"
+        primary: "RAlt",
+        verbose: "Right Alt / AltGr"
       }
     },
     {
       code: 49160,
       labels: {
         top: "OSM",
-        primary: "RGui"
+        primary: "RGui",
+        verbose: "Right Gui"
       }
     }
   ]

@@ -124,28 +124,32 @@ const MouseWarpTable = {
       code: 20517,
       labels: {
         top: "M. Warp",
-        primary: "NW"
+        primary: "NW",
+        verbose: "North-West"
       }
     },
     {
       code: 20518,
       labels: {
         top: "M. Warp",
-        primary: "SW"
+        primary: "SW",
+        verbose: "South-West"
       }
     },
     {
       code: 20521,
       labels: {
         top: "M. Warp",
-        primary: "NE"
+        primary: "NE",
+        verbose: "North-East"
       }
     },
     {
       code: 20522,
       labels: {
         top: "M. Warp",
-        primary: "SE"
+        primary: "SE",
+        verbose: "South-East"
       }
     }
   ]

@@ -21,7 +21,8 @@ const MiscellaneousTable = {
     {
       code: 70,
       labels: {
-        primary: "PrnScr"
+        primary: "PrnScr",
+        verbose: "Print Screen"
       }
     }
   ]

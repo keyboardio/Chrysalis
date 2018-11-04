@@ -1,13 +1,10 @@
 // -*- mode: js-jsx -*-
 
 import React from "react";
+import Select from "react-select";
 
 import Layer from "./Layer";
-
-import { keyCodeTable } from "./keymap-transformer";
-
-import Select from "react-select";
-import "react-dropdown/style.css";
+import KeySelector from "./KeySelector";
 
 class KeyLayout extends React.Component {
   constructor(props) {
@@ -21,36 +18,6 @@ class KeyLayout extends React.Component {
     this.getCurrentKey = this.getCurrentKey.bind(this);
     this.onKeySelect = this.onKeySelect.bind(this);
     this.selectLayer = this.selectLayer.bind(this);
-    this.filterKeyOption = this.filterKeyOption.bind(this);
-
-    this.keyCodeOptions = keyCodeTable.map(group => {
-      return {
-        label: group.groupName,
-        options: group.keys.map(key => {
-          if (key)
-            return {
-              value: key.code,
-              group: group.groupName,
-              key: key
-            };
-        })
-      };
-    });
-  }
-
-  getCurrentKeyCodeOption() {
-    if (this.state.currentLayer < 0 || this.state.currentKeyIndex < 0)
-      return null;
-
-    let layer = parseInt(this.state.currentLayer),
-      keyIndex = parseInt(this.state.currentKeyIndex),
-      keyCode = this.props.keymap[layer][keyIndex].keyCode;
-
-    for (let group of this.keyCodeOptions) {
-      for (let option of group.options) {
-        if (option.value == keyCode) return option;
-      }
-    }
   }
 
   getCurrentKey() {
@@ -86,47 +53,6 @@ class KeyLayout extends React.Component {
       currentLayer: option.value,
       currentKeyIndex: -1
     });
-  }
-
-  formatKeyLabel(option) {
-    let key;
-
-    if (option.data) {
-      key = option.data.key;
-    } else {
-      key = option.key;
-    }
-
-    return (
-      <div>
-        <span className="dim">{option.group}</span>
-        &nbsp;
-        {key.labels.verbose || key.labels.primary}
-      </div>
-    );
-  }
-
-  fuzzyMatch(s1, s2) {
-    var hay = s1.toLowerCase(),
-      i = 0,
-      n = -1,
-      l;
-    s2 = s2.toLowerCase();
-    for (; (l = s2[i++]); ) {
-      if (!~(n = hay.indexOf(l, n + 1))) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  filterKeyOption(option, filterString) {
-    let label = `${option.data.group}
-${option.data.key.labels.verbose || option.data.key.labels.primary}`;
-
-    if (filterString.length == 1) filterString = `letter ${filterString}`;
-
-    return this.fuzzyMatch(label, filterString);
   }
 
   render() {
@@ -197,18 +123,14 @@ ${option.data.key.labels.verbose || option.data.key.labels.primary}`;
               onChange={this.props.onSelectDefaultLayer}
             />
           </div>
-          New keycode:
-          <Select
-            className="select-keycode"
-            maxMenuHeight={500}
-            isDisabled={isReadOnly}
-            options={this.keyCodeOptions}
-            onChange={this.onChange}
-            formatOptionLabel={this.formatKeyLabel}
-            filterOption={this.filterKeyOption}
-            value={this.getCurrentKeyCodeOption()}
-          />
           <button onClick={this.props.onApply}>Save Changes</button>
+          <hr />
+          <KeySelector
+            className="select-keycode"
+            isDisabled={isReadOnly}
+            onChange={this.onChange}
+            currentKeyCode={this.getCurrentKey()}
+          />
         </div>
       </div>
     );

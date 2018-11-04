@@ -129,10 +129,10 @@ ${key.labels.primary}`;
   filterKeyOption(option, filterString) {
     let label;
     if (option.data.key.labels.top) {
-      label = `${option.data.key.labels.top}
+      label = `${option.data.group} ${option.data.key.labels.top}
  ${option.data.key.labels.primary}`;
     } else {
-      label = `${option.data.key.labels.primary}`;
+      label = `${option.data.group} ${option.data.key.labels.primary}`;
     }
 
     return this.fuzzyMatch(label, filterString);

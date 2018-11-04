@@ -91,6 +91,18 @@ class KeySelector extends React.Component {
     this.updateFilter = this.updateFilter.bind(this);
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.currentKeyCode != this.props.currentKeyCode) {
+      for (let key of this.keys) {
+        if (key.code == this.props.currentKeyCode) {
+          let searchTerm = `${key.group}`;
+          searchTerm += ` ${key.labels.verbose || key.labels.primary}`;
+          this.updateFilter(searchTerm);
+        }
+      }
+    }
+  }
+
   onChange(event) {
     this.updateFilter(event.target.value);
   }

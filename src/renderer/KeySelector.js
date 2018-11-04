@@ -99,7 +99,12 @@ class KeySelector extends React.Component {
     let filteredList = this.keys;
     let filterString = event.target.value;
 
-    if (filterString.length == 1) filterString = `letter ${filterString}`;
+    if (
+      filterString.length == 1 &&
+      filterString.toLowerCase() >= "a" &&
+      filterString.toLowerCase() <= "z"
+    )
+      filterString = `letter ${filterString}`;
 
     filteredList = filteredList.filter(item => {
       let label = `${item.group} ${item.labels.verbose || item.labels.primary}`;

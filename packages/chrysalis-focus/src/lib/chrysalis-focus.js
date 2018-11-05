@@ -183,12 +183,14 @@ class Focus {
 
         const parser = this._port.pipe(new Delimiter({ delimiter: "\r\n.\r\n" }))
         return new Promise((resolve) => {
-            this._port.flush()
-            this._write(parts, () => {
-                parser.once("data", (data) => {
-                    resolve(data.toString("utf-8"))
+          setTimeout(() => {
+                this._port.flush()
+                this._write(parts, () => {
+                    parser.once("data", (data) => {
+                        resolve(data.toString("utf-8"))
+                    })
                 })
-            })
+            }, 500)
         })
     }
 

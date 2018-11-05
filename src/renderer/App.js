@@ -164,17 +164,6 @@ class App extends React.Component {
       position: toast.POSITION.BOTTOM_RIGHT,
       autoClose: 1000
     });
-
-    /*
-      .catch(() => {
-        this.setState({ loading: false });
-        toast.dismiss(searchToast);
-
-        toast(ErrorMessages.firmware, {
-          type: toast.TYPE.ERROR
-        });
-      });
-      */
   }
 
   render() {

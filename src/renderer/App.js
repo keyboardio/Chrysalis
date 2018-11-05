@@ -134,12 +134,6 @@ class App extends React.Component {
     await this.focus.probe();
 
     toast.update(searchToast, {
-      render: "Pulling the keymap..."
-    });
-    let keymap = await this.focus.command("keymap");
-    this.setState({ keymap: keymap });
-
-    toast.update(searchToast, {
       render: "Checking for read-only layers..."
     });
     let roLayers = await this.focus.command("keymap.roLayers");
@@ -154,9 +148,16 @@ class App extends React.Component {
     let defLayer = await this.focus.command("settings.defaultLayer");
     if (defLayer == ".") defLayer = "0";
     this.setState({
-      loading: false,
       defaultLayer: parseInt(defLayer)
     });
+
+    toast.update(searchToast, {
+      render: "Pulling the keymap..."
+    });
+    let keymap = await this.focus.command("keymap");
+    this.setState({ keymap: keymap });
+
+    this.setState({ loading: false });
     toast.update(searchToast, {
       type: toast.TYPE.SUCCESS,
       render: "✓ Keyboard found",

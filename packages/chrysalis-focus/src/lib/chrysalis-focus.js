@@ -123,21 +123,17 @@ class Focus {
     /**
      * Probe for Focus support on an opened device.
      *
-     * @returns {Promise} with no payload. If the probe fails, the promise is
-     * rejected.
+     * @returns {Promise<Boolean>}, signaling whether the probe was successful
+     * or not.
      */
     async probe() {
-        return new Promise((resolve, reject) => {
-            let timer = setTimeout(() => {
-                reject()
-            }, 1000)
-            this.command("help").then(() => {
-                clearTimeout(timer)
-                setTimeout(() => {
-                    resolve()
-                }, 1000)
-            })
-        })
+        let timeOut = false;
+        let timer = setTimeout(() => {
+            timeOut = true;
+        }, 5000);
+        await this.command("help");
+        clearTimeout(timer);
+        return timeOut;
     }
 
     async _write(parts, cb) {

@@ -114,76 +114,57 @@ class App extends React.Component {
     this.focus.close();
   }
 
-  openKeyboard(event) {
+  async openKeyboard(event) {
     event.preventDefault();
 
     this.setState({ loading: true });
+    this.focus.close();
+
     let searchToast = toast("Searching for the keyboard...", {
       type: toast.TYPE.INFO,
       position: toast.POSITION.BOTTOM_CENTER,
       closeButton: false
     });
+    let port = await this.focus.open(Model01);
+    this.setState({ device: port });
 
-    this.focus.close();
-    this.focus
-      .open(Model01)
-      .then(port => {
-        this.setState({ device: port });
-        setTimeout(() => {
-          toast.update(searchToast, {
-            render: "Probing for Focus support..."
-          });
-          this.focus
-            .probe().then(() => { // eslint-disable-line
-              toast.update(searchToast, {
-                render: "Pulling the keymap..."
-              });
-              setTimeout(() => {
-                this.focus.command("keymap").then(keymap => {
-                  this.setState({ keymap: keymap });
-                  toast.update(searchToast, {
-                    render: "Checking for read-only layers..."
-                  });
-                  setTimeout(() => {
-                    this.focus.command("keymap.roLayers").then(roLayers => {
-                      if (roLayers == ".") roLayers = "0";
-                      this.setState({
-                        roLayers: parseInt(roLayers)
-                      });
-                      toast.update(searchToast, {
-                        render: "Checking which layer is the default..."
-                      });
-                      setTimeout(() => {
-                        this.focus
-                          .command("settings.defaultLayer")
-                          .then(defLayer => {
-                            if (defLayer == ".") defLayer = "0";
-                            this.setState({
-                              loading: false,
-                              defaultLayer: parseInt(defLayer)
-                            });
-                            toast.update(searchToast, {
-                              type: toast.TYPE.SUCCESS,
-                              render: "✓ Keyboard found",
-                              position: toast.POSITION.BOTTOM_RIGHT,
-                              autoClose: 1000
-                            });
-                          });
-                      }, 500);
-                    });
-                  }, 500);
-                });
-              }, 500);
-            })
-            .catch(() => {
-              this.setState({ loading: false });
-              toast.dismiss(searchToast);
-              toast(ErrorMessages.firmware, {
-                type: toast.TYPE.ERROR
-              });
-            });
-        }, 500);
-      })
+    toast.update(searchToast, {
+      render: "Probing for Focus support..."
+    });
+    await this.focus.probe();
+
+    toast.update(searchToast, {
+      render: "Pulling the keymap..."
+    });
+    let keymap = await this.focus.command("keymap");
+    this.setState({ keymap: keymap });
+
+    toast.update(searchToast, {
+      render: "Checking for read-only layers..."
+    });
+    let roLayers = await this.focus.command("keymap.roLayers");
+    if (roLayers == ".") roLayers = "0";
+    this.setState({
+      roLayers: parseInt(roLayers)
+    });
+
+    toast.update(searchToast, {
+      render: "Checking which layer is the default..."
+    });
+    let defLayer = await this.focus.command("settings.defaultLayer");
+    if (defLayer == ".") defLayer = "0";
+    this.setState({
+      loading: false,
+      defaultLayer: parseInt(defLayer)
+    });
+    toast.update(searchToast, {
+      type: toast.TYPE.SUCCESS,
+      render: "✓ Keyboard found",
+      position: toast.POSITION.BOTTOM_RIGHT,
+      autoClose: 1000
+    });
+
+    /*
       .catch(() => {
         this.setState({ loading: false });
         toast.dismiss(searchToast);
@@ -192,6 +173,7 @@ class App extends React.Component {
           type: toast.TYPE.ERROR
         });
       });
+      */
   }
 
   render() {

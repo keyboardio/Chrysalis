@@ -133,7 +133,7 @@ class Focus {
         }, 5000);
         await this.command("help");
         clearTimeout(timer);
-        return timeOut;
+        return !timeOut;
     }
 
     async _write(parts, cb) {

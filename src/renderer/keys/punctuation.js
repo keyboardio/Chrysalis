@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { withModifiers } from "./utils";
+
 const PunctuationTable = {
   groupName: "Punctuation",
   keys: [
@@ -166,4 +168,69 @@ const ShiftedPunctuationTable = {
   ]
 };
 
-export { PunctuationTable as default, ShiftedPunctuationTable };
+const ModifiedPunctuationTables = [
+  // Single
+  withModifiers(PunctuationTable, "Control +", "C+", 256),
+  withModifiers(PunctuationTable, "Alt +", "A+", 512),
+  withModifiers(PunctuationTable, "AltGr +", "AGr+", 1024),
+  ShiftedPunctuationTable,
+  withModifiers(PunctuationTable, "Gui +", "G+", 4096),
+
+  // Double
+  withModifiers(PunctuationTable, "Control + Alt +", "C+A+", 768),
+  withModifiers(PunctuationTable, "Control + AltGr +", "C+AGr+", 1280),
+  withModifiers(PunctuationTable, "Control + Shift +", "C+S+", 2304),
+  withModifiers(PunctuationTable, "Control + Gui +", "C+G+", 4352),
+  withModifiers(PunctuationTable, "Alt + AltGr +", "A+AGr+", 1536),
+  withModifiers(PunctuationTable, "Alt + Shift +", "A+S+", 2560),
+  withModifiers(PunctuationTable, "Alt + Gui +", "A+G+", 4608),
+  withModifiers(PunctuationTable, "AltGr + Shift +", "AGr+S+", 3072),
+  withModifiers(PunctuationTable, "AltGr + Gui +", "AGr+G+", 5120),
+
+  // Triple
+  withModifiers(PunctuationTable, "Control + Alt + AltGr +", "C+A+AGr+", 1792),
+  withModifiers(PunctuationTable, "Control + Alt + Shift +", "C+A+S+", 2816),
+  withModifiers(PunctuationTable, "Control + Alt + Gui +", "C+A+G+", 4864),
+  withModifiers(
+    PunctuationTable,
+    "Control + AltGr + Shift +",
+    "C+AGr+S+",
+    3328
+  ),
+  withModifiers(PunctuationTable, "Control + AltGr + Gui +", "C+AGr+G+", 5376),
+  withModifiers(PunctuationTable, "Control + Shift + Gui +", "C+S+G+", 6400),
+  withModifiers(PunctuationTable, "Alt + AltGr + Shift +", "A+AGr+S+", 3584),
+  withModifiers(PunctuationTable, "Alt + AltGr + Gui +", "A+AGr+G+", 5632),
+  withModifiers(PunctuationTable, "Alt + Shift + Gui +", "A+S+G+", 6656),
+  withModifiers(PunctuationTable, "AltGr + Shift + Gui +", "AGr+S+G+", 7168),
+
+  // Quad
+  withModifiers(
+    PunctuationTable,
+    "Control + Alt + AltGr + Shift +",
+    "C+A+AGr+S+",
+    3840
+  ),
+  withModifiers(
+    PunctuationTable,
+    "Control + Alt + AltGr + Gui +",
+    "C+A+AGr+G+",
+    5888
+  ),
+  withModifiers(
+    PunctuationTable,
+    "Alt + AltGr + Shift + Gui +",
+    "A+AGr+S+G+",
+    7680
+  ),
+
+  // All
+  withModifiers(
+    PunctuationTable,
+    "Control + Alt + AltGr + Shift + Gui +",
+    "C+A+AGr+S+G+",
+    7936
+  )
+];
+
+export { PunctuationTable as default, ModifiedPunctuationTables };

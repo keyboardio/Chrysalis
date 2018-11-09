@@ -107,6 +107,7 @@ class Focus {
                 }
             }
         }
+        this.parser = this._port.pipe(new Delimiter({ delimiter: "\r\n" }))
         return this._port
     }
 
@@ -176,14 +177,18 @@ class Focus {
         request += "\n"
 
         let parts = request.split(" ")
-
-        const parser = this._port.pipe(new Delimiter({ delimiter: "\r\n.\r\n" }))
         return new Promise((resolve) => {
-          setTimeout(() => {
+            setTimeout(() => {
                 this._port.flush()
                 this._write(parts, () => {
-                    parser.once("data", (data) => {
-                        resolve(data.toString("utf-8"))
+                    let result = ""
+                    this.parser.on("data", (data) => {
+                        data = data.toString("utf-8")
+                        if (data == ".") {
+                            resolve(result)
+                        } else {
+                            result += "\r\n" + data
+                        }
                     })
                 })
             }, 500)

@@ -24,6 +24,18 @@ const MiscellaneousTable = {
         primary: "PrnScr",
         verbose: "Print Screen"
       }
+    },
+    {
+      code: 53291,
+      labels: {
+        primary: "Cycle"
+      }
+    },
+    {
+      code: 53292,
+      labels: {
+        primary: "Syster"
+      }
     }
   ]
 };

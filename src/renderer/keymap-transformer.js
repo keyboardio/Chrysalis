@@ -40,6 +40,8 @@ import {
 import MiscellaneousTable from "./keys/miscellaneous.js";
 
 import { OneShotModifierTable, OneShotLayerTable } from "./keys/oneshot.js";
+import TapDanceTable from "./keys/tapdance.js";
+import LeaderTable from "./keys/leader.js";
 
 const keyCodeTable = [
   LetterTable,
@@ -68,6 +70,8 @@ const keyCodeTable = [
 
   OneShotModifierTable,
   OneShotLayerTable,
+  TapDanceTable,
+  LeaderTable,
 
   BlankTable
 ];

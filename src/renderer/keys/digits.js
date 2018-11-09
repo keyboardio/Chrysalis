@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { withModifiers } from "./utils";
+
 const DigitTable = {
   groupName: "Digits",
   keys: [
@@ -147,4 +149,59 @@ const ShiftedDigitTable = {
   ]
 };
 
-export { DigitTable as default, ShiftedDigitTable };
+const ModifiedDigitTables = [
+  // Single
+  withModifiers(DigitTable, "Control +", "C+", 256),
+  withModifiers(DigitTable, "Alt +", "A+", 512),
+  withModifiers(DigitTable, "AltGr +", "AGr+", 1024),
+  ShiftedDigitTable,
+  withModifiers(DigitTable, "Gui +", "G+", 4096),
+
+  // Double
+  withModifiers(DigitTable, "Control + Alt +", "C+A+", 768),
+  withModifiers(DigitTable, "Control + AltGr +", "C+AGr+", 1280),
+  withModifiers(DigitTable, "Control + Shift +", "C+S+", 2304),
+  withModifiers(DigitTable, "Control + Gui +", "C+G+", 4352),
+  withModifiers(DigitTable, "Alt + AltGr +", "A+AGr+", 1536),
+  withModifiers(DigitTable, "Alt + Shift +", "A+S+", 2560),
+  withModifiers(DigitTable, "Alt + Gui +", "A+G+", 4608),
+  withModifiers(DigitTable, "AltGr + Shift +", "AGr+S+", 3072),
+  withModifiers(DigitTable, "AltGr + Gui +", "AGr+G+", 5120),
+
+  // Triple
+  withModifiers(DigitTable, "Control + Alt + AltGr +", "C+A+AGr+", 1792),
+  withModifiers(DigitTable, "Control + Alt + Shift +", "C+A+S+", 2816),
+  withModifiers(DigitTable, "Control + Alt + Gui +", "C+A+G+", 4864),
+  withModifiers(DigitTable, "Control + AltGr + Shift +", "C+AGr+S+", 3328),
+  withModifiers(DigitTable, "Control + AltGr + Gui +", "C+AGr+G+", 5376),
+  withModifiers(DigitTable, "Control + Shift + Gui +", "C+S+G+", 6400),
+  withModifiers(DigitTable, "Alt + AltGr + Shift +", "A+AGr+S+", 3584),
+  withModifiers(DigitTable, "Alt + AltGr + Gui +", "A+AGr+G+", 5632),
+  withModifiers(DigitTable, "Alt + Shift + Gui +", "A+S+G+", 6656),
+  withModifiers(DigitTable, "AltGr + Shift + Gui +", "AGr+S+G+", 7168),
+
+  // Quad
+  withModifiers(
+    DigitTable,
+    "Control + Alt + AltGr + Shift +",
+    "C+A+AGr+S+",
+    3840
+  ),
+  withModifiers(
+    DigitTable,
+    "Control + Alt + AltGr + Gui +",
+    "C+A+AGr+G+",
+    5888
+  ),
+  withModifiers(DigitTable, "Alt + AltGr + Shift + Gui +", "A+AGr+S+G+", 7680),
+
+  // All
+  withModifiers(
+    DigitTable,
+    "Control + Alt + AltGr + Shift + Gui +",
+    "C+A+AGr+S+G+",
+    7936
+  )
+];
+
+export { DigitTable as default, ModifiedDigitTables };

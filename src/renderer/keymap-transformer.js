@@ -17,12 +17,12 @@
 
 import BlankTable from "./keys/blanks.js";
 import LetterTable, { ModifiedLetterTables } from "./keys/letters.js";
-import DigitTable, { ShiftedDigitTable } from "./keys/digits.js";
+import DigitTable, { ModifiedDigitTables } from "./keys/digits.js";
 import { LockLayerTable, ShiftToLayerTable } from "./keys/layerswitch.js";
 import PunctuationTable, {
-  ShiftedPunctuationTable
+  ModifiedPunctuationTables
 } from "./keys/punctuation.js";
-import SpacingTable from "./keys/spacing.js";
+import SpacingTable, { ModifiedSpacingTables } from "./keys/spacing.js";
 import ModifiersTable from "./keys/modifiers.js";
 import NavigationTable from "./keys/navigation.js";
 import LEDEffectsTable from "./keys/ledeffects.js";
@@ -55,9 +55,6 @@ const keyCodeTable = [
   NumpadTable,
   MiscellaneousTable,
 
-  ShiftedDigitTable,
-  ShiftedPunctuationTable,
-
   ShiftToLayerTable,
   LockLayerTable,
 
@@ -76,7 +73,11 @@ const keyCodeTable = [
   StenoTable,
 
   BlankTable
-].concat(ModifiedLetterTables);
+]
+  .concat(ModifiedLetterTables)
+  .concat(ModifiedDigitTables)
+  .concat(ModifiedPunctuationTables)
+  .concat(ModifiedSpacingTables);
 
 class DisplayTransformer {
   constructor() {

@@ -16,8 +16,7 @@
  */
 
 const StenoTable = {
-  groupName: "Blank",
-  // 53549 | 53591
+  groupName: "Steno",
   keys: [
     {
       code: 53549,

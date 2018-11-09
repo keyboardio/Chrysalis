@@ -16,7 +16,7 @@
  */
 
 import BlankTable from "./keys/blanks.js";
-import LetterTable from "./keys/letters.js";
+import LetterTable, { ModifiedLetterTables } from "./keys/letters.js";
 import DigitTable, { ShiftedDigitTable } from "./keys/digits.js";
 import { LockLayerTable, ShiftToLayerTable } from "./keys/layerswitch.js";
 import PunctuationTable, {
@@ -76,7 +76,7 @@ const keyCodeTable = [
   StenoTable,
 
   BlankTable
-];
+].concat(ModifiedLetterTables);
 
 class DisplayTransformer {
   constructor() {

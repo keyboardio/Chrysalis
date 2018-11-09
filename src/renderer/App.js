@@ -137,18 +137,18 @@ class App extends React.Component {
       render: "Checking for read-only layers..."
     });
     let roLayers = await this.focus.command("keymap.roLayers");
-    if (roLayers == ".") roLayers = "0";
+    roLayers = parseInt(roLayers) || 0;
     this.setState({
-      roLayers: parseInt(roLayers)
+      roLayers: roLayers
     });
 
     toast.update(searchToast, {
       render: "Checking which layer is the default..."
     });
     let defLayer = await this.focus.command("settings.defaultLayer");
-    if (defLayer == ".") defLayer = "0";
+    defLayer = parseInt(defLayer) || 0;
     this.setState({
-      defaultLayer: parseInt(defLayer)
+      defaultLayer: defLayer
     });
 
     toast.update(searchToast, {

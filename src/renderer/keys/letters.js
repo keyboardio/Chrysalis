@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { withModifiers } from "./utils";
+
 const LetterTable = {
   groupName: "Letters",
   keys: [
@@ -178,20 +180,6 @@ const LetterTable = {
 };
 
 /* Modifier tables */
-function withModifiers(table, groupName, top, base) {
-  return {
-    groupName: groupName,
-    keys: LetterTable.keys.map(key => {
-      return {
-        code: key.code + base,
-        labels: {
-          top: top,
-          primary: key.labels.primary
-        }
-      };
-    })
-  };
-}
 
 // Single
 const CtrlLetterTable = withModifiers(LetterTable, "Control +", "C+", 256);

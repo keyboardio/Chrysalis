@@ -42,6 +42,7 @@ import MiscellaneousTable from "./keys/miscellaneous.js";
 import { OneShotModifierTable, OneShotLayerTable } from "./keys/oneshot.js";
 import TapDanceTable from "./keys/tapdance.js";
 import LeaderTable from "./keys/leader.js";
+import StenoTable from "./keys/steno.js";
 
 const keyCodeTable = [
   LetterTable,
@@ -72,6 +73,7 @@ const keyCodeTable = [
   OneShotLayerTable,
   TapDanceTable,
   LeaderTable,
+  StenoTable,
 
   BlankTable
 ];

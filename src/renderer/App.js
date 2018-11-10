@@ -23,7 +23,6 @@ import { Model01 } from "chrysalis-hardware-keyboardio-model01";
 
 import KeyLayout from "./KeyLayout";
 
-import "./keymap.css";
 import DisplayTransformer from "./keymap-transformer";
 import ErrorMessages from "../errors/errors";
 

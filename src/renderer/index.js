@@ -19,7 +19,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 // Use this App file for the main Chrysalis app
-import App from "./App.js";
+import App from "./App";
 
 // Use the following for the new UI mockup
 import "../styles/reset.css";

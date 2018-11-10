@@ -15,35 +15,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import BlankTable from "./keys/blanks.js";
-import LetterTable, { ModifiedLetterTables } from "./keys/letters.js";
-import DigitTable, { ModifiedDigitTables } from "./keys/digits.js";
-import { LockLayerTable, ShiftToLayerTable } from "./keys/layerswitch.js";
+import BlankTable from "./keys/blanks";
+import LetterTable, { ModifiedLetterTables } from "./keys/letters";
+import DigitTable, { ModifiedDigitTables } from "./keys/digits";
+import { LockLayerTable, ShiftToLayerTable } from "./keys/layerswitch";
 import PunctuationTable, {
   ModifiedPunctuationTables
-} from "./keys/punctuation.js";
-import SpacingTable, { ModifiedSpacingTables } from "./keys/spacing.js";
-import ModifiersTable from "./keys/modifiers.js";
-import NavigationTable from "./keys/navigation.js";
-import LEDEffectsTable from "./keys/ledeffects.js";
-import MacrosTable from "./keys/macros.js";
-import NumpadTable from "./keys/numpad.js";
-import FunctionKeyTable from "./keys/fxs.js";
+} from "./keys/punctuation";
+import SpacingTable, { ModifiedSpacingTables } from "./keys/spacing";
+import ModifiersTable from "./keys/modifiers";
+import NavigationTable from "./keys/navigation";
+import LEDEffectsTable from "./keys/ledeffects";
+import MacrosTable from "./keys/macros";
+import NumpadTable from "./keys/numpad";
+import FunctionKeyTable from "./keys/fxs";
 
-import MediaControlTable from "./keys/mediacontrols.js";
+import MediaControlTable from "./keys/mediacontrols";
 import {
   MouseMovementTable,
   MouseWheelTable,
   MouseButtonTable,
   MouseWarpTable
-} from "./keys/mousecontrols.js";
-import MiscellaneousTable from "./keys/miscellaneous.js";
+} from "./keys/mousecontrols";
+import MiscellaneousTable from "./keys/miscellaneous";
 
-import { OneShotModifierTable, OneShotLayerTable } from "./keys/oneshot.js";
-import TapDanceTable from "./keys/tapdance.js";
-import LeaderTable from "./keys/leader.js";
-import StenoTable from "./keys/steno.js";
-import SpaceCadetTable from "./keys/spacecadet.js";
+import { OneShotModifierTable, OneShotLayerTable } from "./keys/oneshot";
+import TapDanceTable from "./keys/tapdance";
+import LeaderTable from "./keys/leader";
+import StenoTable from "./keys/steno";
+import SpaceCadetTable from "./keys/spacecadet";
 
 const keyCodeTable = [
   LetterTable,

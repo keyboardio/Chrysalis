@@ -17,7 +17,7 @@
 
 import React from "react";
 
-import { keyCodeTable } from "./keymap-transformer";
+import { keyCodeTable } from "chrysalis-keymap-transformer-core";
 
 class KeyList extends React.Component {
   constructor(props) {

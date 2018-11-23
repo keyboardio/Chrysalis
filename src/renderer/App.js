@@ -19,11 +19,11 @@ import React from "react";
 
 import Focus from "chrysalis-focus";
 import Keymap from "chrysalis-keymap";
+import CoreTransformer from "chrysalis-keymap-transformer-core";
 import { Model01 } from "chrysalis-hardware-keyboardio-model01";
 
 import KeyLayout from "./KeyLayout";
 
-import DisplayTransformer from "./keymap-transformer";
 import ErrorMessages from "../errors/errors";
 
 import { css } from "react-emotion";
@@ -34,7 +34,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 class App extends React.Component {
   focus = new Focus();
-  displayTransformer = new DisplayTransformer();
+  coreTransformer = new CoreTransformer();
 
   constructor(props) {
     super(props);
@@ -47,7 +47,7 @@ class App extends React.Component {
     };
 
     let keymap = new Keymap().setLayerSize(Model01);
-    keymap.addKeyTransformers([this.displayTransformer]);
+    keymap.addKeyTransformers([this.coreTransformer]);
 
     this.focus.addCommands({ keymap: keymap });
     this.openKeyboard = this.openKeyboard.bind(this);
@@ -69,7 +69,7 @@ class App extends React.Component {
 
     this.setState(state => {
       let keymap = state.keymap.slice();
-      keymap[layer][keyIndex] = this.displayTransformer.parse(value);
+      keymap[layer][keyIndex] = this.coreTransformer.parse(value);
       return keymap;
     });
   }

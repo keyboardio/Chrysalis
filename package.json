@@ -34,7 +34,7 @@
     "copyright": "Copyright © 2018 Keyboardio Inc.; distributed under the GPLv3"
   },
   "dependencies": {
-    "@material-ui/core": "^3.2.2",
+    "@material-ui/core": "^3.6.0",
     "@material-ui/icons": "^3.0.1",
     "chrysalis-focus": "git://github.com/Lepidopterarium/chrysalis-focus.git#master",
     "chrysalis-hardware-keyboardio-model01": "git://github.com/Lepidopterarium/chrysalis-hardware-keyboardio-model01.git#master",

@@ -14,10 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#app {
-    padding: 1em;
-}
-
 button {
     margin-left: 0.5em;
     margin-right: 0.5em;
@@ -44,15 +40,6 @@ button {
 
 .dim {
     color: #888;
-}
-
-#keymap-editor {
-    display: flex;
-}
-
-#editor-controls {
-    margin-left: 2em;
-    width: 100%;
 }
 
 .layer-selection {

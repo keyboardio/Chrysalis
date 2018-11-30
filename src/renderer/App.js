@@ -19,6 +19,7 @@ import React from "react";
 
 import Focus from "chrysalis-focus";
 import Keymap from "chrysalis-keymap";
+import Colormap from "./focus/chrysalis-colormap";
 import CoreTransformer from "chrysalis-keymap-transformer-core";
 import { Model01 } from "chrysalis-hardware-keyboardio-model01";
 
@@ -27,9 +28,13 @@ import Dashboard from "./components/Dashboard";
 
 let focus = new Focus();
 let keymap = new Keymap().setLayerSize(Model01);
+let colormap = new Colormap().setLayerSize(Model01);
 let coreTransformer = new CoreTransformer();
 keymap.addKeyTransformers([coreTransformer]);
-focus.addCommands({ keymap: keymap });
+focus.addCommands({
+  keymap: keymap,
+  colormap: colormap
+});
 
 class App extends React.Component {
   state = {

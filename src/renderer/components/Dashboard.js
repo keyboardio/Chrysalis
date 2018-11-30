@@ -35,6 +35,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 
 import { withStyles } from "@material-ui/core/styles";
 
+import ColormapEditor from "./ColormapEditor";
 import LayoutEditor from "./LayoutEditor";
 
 const drawerWidth = 240;
@@ -83,7 +84,8 @@ const styles = theme => ({
 
 class Dashboard extends React.Component {
   state = {
-    open: false
+    open: false,
+    page: "keymap"
   };
 
   handleDrawerToggle = () => {
@@ -100,6 +102,14 @@ class Dashboard extends React.Component {
     let chevron = <ChevronLeftIcon />;
     if (!this.state.open) {
       chevron = <ChevronRightIcon />;
+    }
+
+    let page;
+    if (this.state.page == "keymap") {
+      page = <LayoutEditor />;
+    }
+    if (this.state.page == "colormap") {
+      page = <ColormapEditor />;
     }
 
     return (
@@ -120,13 +130,25 @@ class Dashboard extends React.Component {
           </div>
           <Divider />
           <List>
-            <ListItem button selected>
+            <ListItem
+              button
+              selected={this.state.page == "keymap"}
+              onClick={() => {
+                this.setState({ page: "keymap" });
+              }}
+            >
               <ListItemIcon>
                 <KeyboardIcon />
               </ListItemIcon>
               <ListItemText primary="Layout editor" />
             </ListItem>
-            <ListItem button disabled>
+            <ListItem
+              button
+              selected={this.state.page == "colormap"}
+              onClick={() => {
+                this.setState({ page: "colormap" });
+              }}
+            >
               <ListItemIcon>
                 <HighlightIcon />
               </ListItemIcon>
@@ -143,9 +165,7 @@ class Dashboard extends React.Component {
             </ListItem>
           </List>
         </Drawer>
-        <main className={classes.content}>
-          <LayoutEditor />
-        </main>
+        <main className={classes.content}> {page} </main>
       </div>
     );
   }

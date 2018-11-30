@@ -140,7 +140,12 @@ class ColormapEditor extends React.Component {
     const { classes } = this.props;
     let saveButtonContent = "Save changes";
     if (this.state.saving) {
-      saveButtonContent = <CircularProgress color="inherit" size={16} />;
+      saveButtonContent = (
+        <div>
+          <CircularProgress color="inherit" size={16} />
+          &nbsp; Saving...
+        </div>
+      );
     }
 
     let tabs = this.state.colorMap.map((_, index) => {

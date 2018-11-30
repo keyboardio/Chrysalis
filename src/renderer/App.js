@@ -22,192 +22,41 @@ import Keymap from "chrysalis-keymap";
 import CoreTransformer from "chrysalis-keymap-transformer-core";
 import { Model01 } from "chrysalis-hardware-keyboardio-model01";
 
-import KeyLayout from "./KeyLayout";
+import KeyboardSelect from "./components/KeyboardSelect";
+import Dashboard from "./components/Dashboard";
 
-import ErrorMessages from "../errors/errors";
-
-import { css } from "react-emotion";
-import { BarLoader } from "react-spinners";
-
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+let focus = new Focus();
+let keymap = new Keymap().setLayerSize(Model01);
+let coreTransformer = new CoreTransformer();
+keymap.addKeyTransformers([coreTransformer]);
+focus.addCommands({ keymap: keymap });
 
 class App extends React.Component {
-  focus = new Focus();
-  coreTransformer = new CoreTransformer();
+  state = {
+    keyboardOpen: false
+  };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      device: {},
-      keymap: [],
-      roLayers: 0,
-      defaultLayer: 0,
-      loading: false
-    };
+  onKeyboardConnect = async portName => {
+    focus.close();
 
-    let keymap = new Keymap().setLayerSize(Model01);
-    keymap.addKeyTransformers([this.coreTransformer]);
+    console.log("Connecting to", portName);
+    await focus.open(portName);
+    console.log("Probing for Focus support...");
+    await focus.probe();
+    this.setState({ keyboardOpen: true });
+    return true;
+  };
 
-    this.focus.addCommands({ keymap: keymap });
-    this.openKeyboard = this.openKeyboard.bind(this);
-    this.closeKeyboard = this.closeKeyboard.bind(this);
-    this.onKeyChange = this.onKeyChange.bind(this);
-    this.onApply = this.onApply.bind(this);
-    this.onSelectDefaultLayer = this.onSelectDefaultLayer.bind(this);
-  }
-
-  onKeyChange(layer, keyIndex, value) {
-    if (keyIndex === -1) {
-      toast(ErrorMessages.noKeySelected, {
-        type: toast.TYPE.WARNING,
-        autoClose: 5000,
-        toastId: "noKeySelected"
-      });
-      return;
-    }
-
-    this.setState(state => {
-      let keymap = state.keymap.slice();
-      keymap[layer][keyIndex] = this.coreTransformer.parse(value);
-      return keymap;
-    });
-  }
-
-  onApply(event) {
-    event.preventDefault();
-    this.setState({ loading: true });
-    let toastId = toast("Updating the keymap...");
-    this.focus.command("keymap", this.state.keymap).then(() => {
-      this.setState({ loading: false });
-      toast.update(toastId, {
-        render: "✓ Keymap updated",
-        type: toast.TYPE.SUCCESS,
-        autoClose: 1000
-      });
-    });
-  }
-
-  onSelectDefaultLayer(option) {
-    this.setState({
-      defaultLayer: option.value,
-      loading: true
-    });
-    let toastId = toast("Setting the default layer...");
-    this.focus.command("settings.defaultLayer", option.value).then(() => {
-      this.setState({ loading: false });
-      toast.update(toastId, {
-        render: "✓ Default layer set to #" + option.value.toString(),
-        type: toast.TYPE.SUCCESS,
-        autoClose: 1000
-      });
-    });
-  }
-
-  closeKeyboard(event) {
-    event.preventDefault();
-    this.setState({
-      device: {},
-      keymap: []
-    });
-    this.focus.close();
-  }
-
-  async openKeyboard(event) {
-    event.preventDefault();
-
-    this.setState({ loading: true });
-    this.focus.close();
-
-    let searchToast = toast("Searching for the keyboard...", {
-      type: toast.TYPE.INFO,
-      position: toast.POSITION.BOTTOM_CENTER,
-      closeButton: false
-    });
-    let port = await this.focus.open(Model01);
-    this.setState({ device: port });
-
-    toast.update(searchToast, {
-      render: "Probing for Focus support..."
-    });
-    await this.focus.probe();
-
-    toast.update(searchToast, {
-      render: "Checking for read-only layers..."
-    });
-    let roLayers = await this.focus.command("keymap.roLayers");
-    roLayers = parseInt(roLayers) || 0;
-    this.setState({
-      roLayers: roLayers
-    });
-
-    toast.update(searchToast, {
-      render: "Checking which layer is the default..."
-    });
-    let defLayer = await this.focus.command("settings.defaultLayer");
-    defLayer = parseInt(defLayer) || 0;
-    this.setState({
-      defaultLayer: defLayer
-    });
-
-    toast.update(searchToast, {
-      render: "Pulling the keymap..."
-    });
-    let keymap = await this.focus.command("keymap");
-    this.setState({ keymap: keymap });
-
-    this.setState({ loading: false });
-    toast.update(searchToast, {
-      type: toast.TYPE.SUCCESS,
-      render: "✓ Keyboard found",
-      position: toast.POSITION.BOTTOM_RIGHT,
-      autoClose: 1000
-    });
-  }
+  onKeyboardDisconnect = () => {
+    focus.close();
+    this.setState({ keyboardOpen: false });
+  };
 
   render() {
-    const override = css`
-      position: fixed !important;
-      bottom: 0;
-      left: 0;
-      right: 0;
-    `;
-
-    return (
-      <main>
-        <BarLoader
-          className={override}
-          widthUnit={"%"}
-          width={100}
-          height={8}
-          color={"#ef5022"}
-          loading={this.state.loading}
-        />
-
-        <KeyLayout
-          keymap={this.state.keymap}
-          roLayers={this.state.roLayers}
-          defaultLayer={this.state.defaultLayer}
-          onKeyChange={this.onKeyChange}
-          onSelectDefaultLayer={this.onSelectDefaultLayer}
-          onApply={this.onApply}
-        />
-
-        <div>
-          <button onClick={this.openKeyboard} disabled={this.state.loading}>
-            Probe for Model01
-          </button>
-          <button onClick={this.closeKeyboard} disabled={this.state.loading}>
-            Close the connection
-          </button>
-        </div>
-        {this.state.device === null && (
-          <div style={{ color: "red" }}>Please connect your Model01</div>
-        )}
-
-        <ToastContainer autoClose={false} />
-      </main>
-    );
+    if (!this.state.keyboardOpen) {
+      return <KeyboardSelect onConnect={this.onKeyboardConnect} />;
+    }
+    return <Dashboard onDisconnect={this.onKeyboardDisconnect} />;
   }
 }
 

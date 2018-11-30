@@ -2,18 +2,76 @@
 
 exports[`renders without crashing 1`] = `
 <div>
-  <main>
-    <div>
-      <button>
-        Probe for Model01
-      </button>
-      <button>
-        Close the connection
+  <main
+    class="KeyboardSelect-main-140"
+  >
+    <div
+      class="MuiPaper-root-143 MuiPaper-elevation2-147 MuiPaper-rounded-144 KeyboardSelect-paper-141"
+    >
+      <div
+        class="MuiAvatar-root-170 MuiAvatar-colorDefault-171 KeyboardSelect-avatar-142"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root-173"
+          focusable="false"
+          role="presentation"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zm-1 2H5v-2h2v2zm0-3H5V8h2v2zm9 7H8v-2h8v2zm0-4h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z"
+          />
+          <path
+            d="M0 0h24v24H0zm0 0h24v24H0z"
+            fill="none"
+          />
+        </svg>
+      </div>
+      <h1
+        class="MuiTypography-root-182 MuiTypography-h5-198"
+      >
+        Select a keyboard
+      </h1>
+      <nav
+        class="MuiList-root-217 MuiList-padding-218"
+      >
+        <div
+          class="MuiButtonBase-root-233 MuiListItem-root-221 MuiListItem-default-224 MuiListItem-gutters-229 MuiListItem-button-230"
+          role="button"
+          tabindex="0"
+        >
+          <div
+            class="MuiListItemText-root-236"
+          >
+            <span
+              class="MuiTypography-root-182 MuiTypography-subheading-189 MuiListItemText-primary-239"
+            >
+              Keyboard.io Model01
+            </span>
+            <p
+              class="MuiTypography-root-182 MuiTypography-body1-191 MuiTypography-colorTextSecondary-215 MuiListItemText-secondary-240"
+            />
+          </div>
+          <span
+            class="MuiTouchRipple-root-272"
+          />
+        </div>
+      </nav>
+      <button
+        class="MuiButtonBase-root-233 MuiButton-root-246 MuiButton-contained-257 MuiButton-containedPrimary-258 MuiButton-raised-260 MuiButton-raisedPrimary-261 MuiButton-fullWidth-271"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="MuiButton-label-247"
+        >
+          Connect
+        </span>
+        <span
+          class="MuiTouchRipple-root-272"
+        />
       </button>
     </div>
-    <div
-      class="Toastify"
-    />
   </main>
 </div>
 `;

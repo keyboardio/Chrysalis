@@ -17,6 +17,8 @@
 import SerialPort from "serialport"
 import Delimiter from "@serialport/parser-delimiter"
 
+let instance = null
+
 /** Class implementing the Focus protocol.
  *
  * The primary purpose of this class is to implement the Focus protocol, with a
@@ -31,10 +33,15 @@ class Focus {
      * @constructor
      */
     constructor() {
-        this._commands = {
-            help: this._help,
-            version: this._version
+        if (!instance) {
+            instance = this
+            this._commands = {
+                help: this._help,
+                version: this._version
+            }
         }
+
+        return instance
     }
 
     /**

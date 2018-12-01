@@ -36,8 +36,7 @@ const styles = theme => ({
     flexGrow: 1
   },
   editor: {
-    marginTop: theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit * 3
+    margin: theme.spacing.unit * 3
   },
   palette: {
     marginTop: theme.spacing.unit * 3
@@ -189,6 +188,7 @@ class ColormapEditor extends React.Component {
           />
         </div>
         <Button
+          className={classes.editor}
           onClick={this.onApply}
           variant="contained"
           color="secondary"

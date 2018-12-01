@@ -44,7 +44,7 @@ const styles = theme => ({
   },
   editor: {
     display: "flex",
-    marginTop: theme.spacing.unit * 3
+    margin: theme.spacing.unit * 3
   },
   editorControls: {
     marginLeft: "2em"
@@ -243,6 +243,7 @@ class LayoutEditor extends React.Component {
           </div>
         </div>
         <Button
+          className={classes.editor}
           onClick={this.onApply}
           variant="contained"
           color="secondary"

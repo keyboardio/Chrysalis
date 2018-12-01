@@ -165,7 +165,7 @@ class KeyboardSelect extends React.Component {
           </Avatar>
           {port}
           <Button
-            disabled={this.state.opening}
+            disabled={this.state.opening || this.state.devices.length == 0}
             fullWidth
             variant="contained"
             color="primary"

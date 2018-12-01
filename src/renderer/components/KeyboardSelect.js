@@ -103,29 +103,20 @@ class KeyboardSelect extends React.Component {
     const { classes } = this.props;
     const { anchorEl } = this.state;
 
-    let port = "";
+    let port = null;
     if (this.state.devices.length > 0) {
-      port = this.state.devices[this.state.selectedPortIndex].comName;
-    }
-
-    let connectContent = "Connect";
-    if (this.state.opening) {
-      connectContent = <CircularProgress color="secondary" size={16} />;
-    }
-
-    return (
-      <main className={classes.main}>
-        <CssBaseline />
-        <Paper className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <KeyboardIcon />
-          </Avatar>
+      let portName = this.state.devices[this.state.selectedPortIndex].comName;
+      port = (
+        <div>
           <Typography component="h1" variant="h5">
             Select a keyboard
           </Typography>
           <List component="nav">
             <ListItem button onClick={this.handleClickListItem}>
-              <ListItemText primary="Keyboard.io Model01" secondary={port} />
+              <ListItemText
+                primary="Keyboard.io Model01"
+                secondary={portName}
+              />
             </ListItem>
           </List>
           <Menu
@@ -144,6 +135,23 @@ class KeyboardSelect extends React.Component {
               </MenuItem>
             ))}
           </Menu>
+        </div>
+      );
+    }
+
+    let connectContent = "Connect";
+    if (this.state.opening) {
+      connectContent = <CircularProgress color="secondary" size={16} />;
+    }
+
+    return (
+      <main className={classes.main}>
+        <CssBaseline />
+        <Paper className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <KeyboardIcon />
+          </Avatar>
+          {port}
           <Button
             disabled={this.state.opening}
             fullWidth

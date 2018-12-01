@@ -78,6 +78,14 @@ class ColorBox extends React.Component {
           open={this.state.picker}
           anchorEl={this.state.anchorEl}
           onClose={this.onPopoverClose}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "center"
+          }}
+          transformOrigin={{
+            vertical: "bottom",
+            horizontal: "center"
+          }}
         >
           <ChromePicker
             color={color}

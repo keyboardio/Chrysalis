@@ -81,6 +81,7 @@ class KeyboardSelect extends React.Component {
 
     let focus = new Focus();
     focus.find(Model01).then(devices => {
+      if (devices.length == 0) return;
       this.setState({
         devices: [{ comName: "Please select a port:" }].concat(devices)
       });

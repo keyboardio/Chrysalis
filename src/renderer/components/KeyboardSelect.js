@@ -65,6 +65,9 @@ const styles = theme => ({
     flexDirection: "column",
     alignItems: "center",
     marginTop: theme.spacing.unit * 2
+  },
+  error: {
+    color: theme.palette.error.dark
   }
 });
 
@@ -73,19 +76,28 @@ class KeyboardSelect extends React.Component {
     anchorEl: null,
     selectedPortIndex: 1,
     opening: false,
-    devices: []
+    devices: [],
+    error: null
   };
 
   constructor(props) {
     super(props);
 
     let focus = new Focus();
-    focus.find(Model01).then(devices => {
-      if (devices.length == 0) return;
-      this.setState({
-        devices: [{ comName: "Please select a port:" }].concat(devices)
+    focus
+      .find(Model01)
+      .then(devices => {
+        if (devices.length == 0) {
+          this.setState({ error: "No devices found." });
+          return;
+        }
+        this.setState({
+          devices: [{ comName: "Please select a port:" }].concat(devices)
+        });
+      })
+      .catch(() => {
+        this.setState({ error: "No devices found." });
       });
-    });
   }
 
   handleClickListItem = event => {
@@ -149,6 +161,9 @@ class KeyboardSelect extends React.Component {
           </Menu>
         </div>
       );
+    }
+    if (this.state.error != null) {
+      port = <p className={classes.error}> {this.state.error} </p>;
     }
 
     let connectContent = "Connect";

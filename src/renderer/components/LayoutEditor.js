@@ -124,6 +124,12 @@ class LayoutEditor extends React.Component {
     event.preventDefault();
     let layer = parseInt(event.currentTarget.getAttribute("data-layer")),
       keyIndex = parseInt(event.currentTarget.getAttribute("data-key-index"));
+
+    if (keyIndex == this.state.currentKeyIndex) {
+      this.setState({ currentKeyIndex: -1 });
+      return;
+    }
+
     this.setState({
       currentLayer: layer,
       currentKeyIndex: keyIndex

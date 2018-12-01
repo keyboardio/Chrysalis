@@ -24,6 +24,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 import Focus from "chrysalis-focus";
@@ -40,6 +41,9 @@ const styles = theme => ({
   },
   palette: {
     marginTop: theme.spacing.unit * 3
+  },
+  layerRoot: {
+    width: "100%"
   }
 });
 
@@ -154,13 +158,15 @@ class ColormapEditor extends React.Component {
     });
 
     let colormap = (
-      <Layer
-        index={this.state.currentLayer}
-        palette={this.state.palette}
-        colormap={this.state.colorMap[this.state.currentLayer]}
-        onKeySelect={this.onKeySelect}
-        selectedKey={this.state.currentKeyIndex}
-      />
+      <Typography component="div" className={classes.layerRoot}>
+        <Layer
+          index={this.state.currentLayer}
+          palette={this.state.palette}
+          colormap={this.state.colorMap[this.state.currentLayer]}
+          onKeySelect={this.onKeySelect}
+          selectedKey={this.state.currentKeyIndex}
+        />
+      </Typography>
     );
 
     return (

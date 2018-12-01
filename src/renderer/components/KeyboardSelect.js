@@ -17,6 +17,7 @@
 
 import React from "react";
 import PropTypes from "prop-types";
+import Electron from "electron";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -58,6 +59,12 @@ const styles = theme => ({
   avatar: {
     margin: theme.spacing.unit,
     backgroundColor: theme.palette.secondary.main
+  },
+  exit: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    marginTop: theme.spacing.unit * 2
   }
 });
 
@@ -97,6 +104,10 @@ class KeyboardSelect extends React.Component {
     await this.props.onConnect(
       this.state.devices[this.state.selectedPortIndex].comName
     );
+  };
+
+  exit = () => {
+    Electron.remote.app.exit(0);
   };
 
   render() {
@@ -162,6 +173,9 @@ class KeyboardSelect extends React.Component {
             {connectContent}
           </Button>
         </Paper>
+        <div className={classes.exit}>
+          <Button onClick={this.exit}>Exit</Button>
+        </div>
       </main>
     );
   }

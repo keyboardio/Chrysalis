@@ -37,10 +37,14 @@ const styles = theme => ({
     flexGrow: 1
   },
   editor: {
-    margin: theme.spacing.unit * 3
+    margin: theme.spacing.unit * 3,
+    display: "flex"
   },
   palette: {
-    marginTop: theme.spacing.unit * 3
+    marginTop: theme.spacing.unit * 3,
+    display: "inline",
+    marginRight: theme.spacing.unit * 4,
+    marginLeft: theme.spacing.unit * 8
   },
   layerRoot: {
     width: "100%"

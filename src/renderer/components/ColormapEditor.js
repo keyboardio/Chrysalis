@@ -113,6 +113,12 @@ class ColormapEditor extends React.Component {
       col = parseInt(event.currentTarget.getAttribute("data-key-col")),
       keyIndex = row * 16 + col,
       ledIndex = led_map[row][col];
+
+    if (keyIndex == this.state.currentKeyIndex) {
+      this.setState({ currentKeyIndex: -1 });
+      return;
+    }
+
     this.setState({
       currentLayer: layer,
       currentKeyIndex: keyIndex

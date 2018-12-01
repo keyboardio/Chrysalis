@@ -2710,7 +2710,7 @@ chromium-pickle-js@^0.2.0:
 
 "chrysalis-focus@git://github.com/Lepidopterarium/chrysalis-focus.git#master":
   version "0.0.1"
-  resolved "git://github.com/Lepidopterarium/chrysalis-focus.git#3831167267a73871fa9f1de4404261a750c517f3"
+  resolved "git://github.com/Lepidopterarium/chrysalis-focus.git#58568899fe516431df406e89f76a92ae6db60687"
   dependencies:
     "@babel/cli" "^7.1.0"
     "@babel/core" "7.1.0"

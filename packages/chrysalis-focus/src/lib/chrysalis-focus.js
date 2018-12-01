@@ -36,8 +36,7 @@ class Focus {
         if (!instance) {
             instance = this
             this._commands = {
-                help: this._help,
-                version: this._version
+                help: this._help
             }
         }
 
@@ -251,28 +250,6 @@ class Focus {
     async _help(s) {
         let data = await s.request("help")
         return data.split(/\r?\n/)
-    }
-
-    async _version(s) {
-        let data = await s.request("version")
-
-        let [fv, ...r] = data.split(" ")
-        let [vp, date] = r.join(" ").split(" | ")
-
-        fv = fv.split("/")
-        vp = vp.split("/")
-
-        return {
-            board: {
-                vendor: vp[0],
-                product: vp[1]
-            },
-            firmware: {
-                name: fv[0],
-                version: fv[1],
-                date: date
-            }
-        }
     }
 }
 

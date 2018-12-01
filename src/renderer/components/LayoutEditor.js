@@ -51,6 +51,9 @@ const styles = theme => ({
   },
   selectDefaultLayer: {
     color: theme.palette.common.white
+  },
+  layerRoot: {
+    width: "100%"
   }
 });
 
@@ -162,11 +165,13 @@ class LayoutEditor extends React.Component {
       );
     }
 
+    const { classes } = this.props;
+
     let layerIndex = this.state.currentLayer,
       isReadOnly = layerIndex < this.props.roLayers,
       layerData = this.state.keymap[layerIndex],
       layer = (
-        <Typography component="div">
+        <Typography component="div" className={classes.layerRoot}>
           <Layer
             readOnly={isReadOnly}
             index={layerIndex}
@@ -192,7 +197,6 @@ class LayoutEditor extends React.Component {
       );
     });
 
-    const { classes } = this.props;
     let saveButtonContent = "Save changes";
     if (this.state.saving) {
       saveButtonContent = (

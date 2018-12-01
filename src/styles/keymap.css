@@ -23,10 +23,8 @@ button {
   font-family: "OpenSans-Bold", "Open Sans", "sans-serif";
   font-size: 10px;
   font-weight: 700;
-  width: 1024px;
-  min-width: 1024px;
-  height: 523px;
-  min-height: 523px;
+  min-width: 550px;
+  min-height: 280px;
 }
 
 .extraKey {

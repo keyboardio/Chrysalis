@@ -18,12 +18,15 @@
 import { app, BrowserWindow, Menu } from "electron";
 import { format as formatUrl } from "url";
 import * as path from "path";
+import installExtension, {
+  REACT_DEVELOPER_TOOLS
+} from "electron-devtools-installer";
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 let mainWindow;
 
-function createMainWindow() {
+async function createMainWindow() {
   const window = new BrowserWindow({
     minHeight: 800,
     minWidth: 1400,
@@ -78,6 +81,12 @@ app.on("activate", () => {
 });
 
 // create main BrowserWindow when electron is ready
-app.on("ready", () => {
+app.on("ready", async () => {
+  if (isDevelopment) {
+    await installExtension(REACT_DEVELOPER_TOOLS)
+      .then(name => console.log(`Added Extension:  ${name}`))
+      .catch(err => console.log("An error occurred: ", err));
+  }
+
   mainWindow = createMainWindow();
 });

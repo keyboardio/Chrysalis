@@ -249,7 +249,7 @@ class Focus {
 
     async _help(s) {
         let data = await s.request("help")
-        return data.split(/\r?\n/)
+        return data.split(/\r?\n/).filter(v => v.length > 0)
     }
 }
 

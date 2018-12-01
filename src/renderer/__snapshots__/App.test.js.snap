@@ -3,17 +3,17 @@
 exports[`renders without crashing 1`] = `
 <div>
   <main
-    class="KeyboardSelect-main-140"
+    class="KeyboardSelect-main-80"
   >
     <div
-      class="MuiPaper-root-143 MuiPaper-elevation2-147 MuiPaper-rounded-144 KeyboardSelect-paper-141"
+      class="MuiPaper-root-84 MuiPaper-elevation2-88 MuiPaper-rounded-85 KeyboardSelect-paper-81"
     >
       <div
-        class="MuiAvatar-root-170 MuiAvatar-colorDefault-171 KeyboardSelect-avatar-142"
+        class="MuiAvatar-root-111 MuiAvatar-colorDefault-112 KeyboardSelect-avatar-82"
       >
         <svg
           aria-hidden="true"
-          class="MuiSvgIcon-root-173"
+          class="MuiSvgIcon-root-114"
           focusable="false"
           role="presentation"
           viewBox="0 0 24 24"
@@ -27,48 +27,36 @@ exports[`renders without crashing 1`] = `
           />
         </svg>
       </div>
-      <h1
-        class="MuiTypography-root-182 MuiTypography-h5-198"
-      >
-        Select a keyboard
-      </h1>
-      <nav
-        class="MuiList-root-217 MuiList-padding-218"
-      >
-        <div
-          class="MuiButtonBase-root-233 MuiListItem-root-221 MuiListItem-default-224 MuiListItem-gutters-229 MuiListItem-button-230"
-          role="button"
-          tabindex="0"
-        >
-          <div
-            class="MuiListItemText-root-236"
-          >
-            <span
-              class="MuiTypography-root-182 MuiTypography-subheading-189 MuiListItemText-primary-239"
-            >
-              Keyboard.io Model01
-            </span>
-            <p
-              class="MuiTypography-root-182 MuiTypography-body1-191 MuiTypography-colorTextSecondary-215 MuiListItemText-secondary-240"
-            />
-          </div>
-          <span
-            class="MuiTouchRipple-root-272"
-          />
-        </div>
-      </nav>
       <button
-        class="MuiButtonBase-root-233 MuiButton-root-246 MuiButton-contained-257 MuiButton-containedPrimary-258 MuiButton-raised-260 MuiButton-raisedPrimary-261 MuiButton-fullWidth-271"
+        class="MuiButtonBase-root-149 MuiButton-root-123 MuiButton-contained-134 MuiButton-containedPrimary-135 MuiButton-raised-137 MuiButton-raisedPrimary-138 MuiButton-fullWidth-148"
         tabindex="0"
         type="button"
       >
         <span
-          class="MuiButton-label-247"
+          class="MuiButton-label-124"
         >
           Connect
         </span>
         <span
-          class="MuiTouchRipple-root-272"
+          class="MuiTouchRipple-root-152"
+        />
+      </button>
+    </div>
+    <div
+      class="KeyboardSelect-exit-83"
+    >
+      <button
+        class="MuiButtonBase-root-149 MuiButton-root-123 MuiButton-text-125 MuiButton-flat-128"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="MuiButton-label-124"
+        >
+          Exit
+        </span>
+        <span
+          class="MuiTouchRipple-root-152"
         />
       </button>
     </div>

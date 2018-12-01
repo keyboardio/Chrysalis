@@ -21,6 +21,7 @@ import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -66,6 +67,10 @@ class LayoutEditor extends React.Component {
     keymap: []
   };
   coreTransformer = new CoreTransformer();
+
+  clickAway = () => {
+    this.setState({ currentKeyIndex: -1 });
+  };
 
   scanKeyboard = async () => {
     let focus = new Focus();
@@ -172,13 +177,15 @@ class LayoutEditor extends React.Component {
       layerData = this.state.keymap[layerIndex],
       layer = (
         <Typography component="div" className={classes.layerRoot}>
-          <Layer
-            readOnly={isReadOnly}
-            index={layerIndex}
-            keymap={layerData}
-            onKeySelect={this.onKeySelect}
-            selectedKey={this.state.currentKeyIndex}
-          />
+          <ClickAwayListener onClickAway={this.clickAway}>
+            <Layer
+              readOnly={isReadOnly}
+              index={layerIndex}
+              keymap={layerData}
+              onKeySelect={this.onKeySelect}
+              selectedKey={this.state.currentKeyIndex}
+            />
+          </ClickAwayListener>
         </Typography>
       );
 

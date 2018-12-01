@@ -32,11 +32,13 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import SettingsIcon from "@material-ui/icons/Settings";
 
 import { withStyles } from "@material-ui/core/styles";
 
 import ColormapEditor from "./ColormapEditor";
 import LayoutEditor from "./LayoutEditor";
+import Settings from "./Settings";
 
 const drawerWidth = 240;
 
@@ -111,6 +113,9 @@ class Dashboard extends React.Component {
     if (this.state.page == "colormap") {
       page = <ColormapEditor />;
     }
+    if (this.state.page == "settings") {
+      page = <Settings />;
+    }
 
     return (
       <div className={classes.root}>
@@ -157,6 +162,18 @@ class Dashboard extends React.Component {
           </List>
           <Divider />
           <List>
+            <ListItem
+              button
+              selected={this.state.page == "settings"}
+              onClick={() => {
+                this.setState({ page: "settings" });
+              }}
+            >
+              <ListItemIcon>
+                <SettingsIcon />
+              </ListItemIcon>
+              <ListItemText primary="Settings" />
+            </ListItem>
             <ListItem button onClick={this.disconnect}>
               <ListItemIcon>
                 <ExitToAppIcon />

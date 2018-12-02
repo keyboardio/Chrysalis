@@ -41,23 +41,15 @@ class App extends React.Component {
     keyboardOpen: false
   };
 
-  onKeyboardConnect = portName => {
+  onKeyboardConnect = async portName => {
     focus.close();
 
     console.log("Connecting to", portName);
-    focus.open(portName);
+    await focus.open(portName);
     console.log("Probing for Focus support...");
-    return new Promise((resolve, reject) => {
-      focus
-        .probe()
-        .then(() => {
-          this.setState({ keyboardOpen: true });
-          resolve("");
-        })
-        .catch(err => {
-          reject(err);
-        });
-    });
+    await focus.probe();
+
+    this.setState({ keyboardOpen: true });
   };
 
   onKeyboardDisconnect = () => {

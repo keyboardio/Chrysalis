@@ -96,7 +96,7 @@ class SaveChangesButton extends React.Component {
 
   render() {
     const { inProgress, success } = this.state;
-    const { classes } = this.props;
+    const { classes, successMessage } = this.props;
     const buttonClassname = classNames({
       [classes.buttonSuccess]: success
     });
@@ -125,7 +125,7 @@ class SaveChangesButton extends React.Component {
             disabled={inProgress || (this.props.disabled && !success)}
             onClick={this.handleButtonClick}
           >
-            {success ? "Saved!" : this.props.children}
+            {success ? successMessage || "Saved!" : this.props.children}
           </Button>
         </div>
       </div>

@@ -175,6 +175,7 @@ class KeyboardInfo extends React.Component {
             <SaveChangesButton
               onClick={this.upload}
               disabled={this.state.firmwareFile.length == 0}
+              successMessage="Uploaded!"
             >
               Upload
             </SaveChangesButton>

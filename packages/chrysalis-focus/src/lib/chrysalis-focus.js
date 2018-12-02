@@ -154,16 +154,8 @@ class Focus {
      * @returns {Promise<Boolean>}, signaling whether the probe was successful
      * or not.
      */
-    probe() {
-        return new Promise((resolve, reject) => {
-            let timer = setTimeout(() => {
-                reject("Probe timed out");
-            }, 5000);
-            this.command("help").then(() => {
-                clearTimeout(timer);
-                resolve();
-            });
-        })
+    async probe() {
+        return await this.request("help");
     }
 
     async _write(parts, cb) {
@@ -195,7 +187,19 @@ class Focus {
      * @throws Will throw an error if the instance isn't connected to the
      * keyboard yet.
      */
-    async request(cmd, ...args) {
+    request(cmd, ...args) {
+        return new Promise((resolve, reject) => {
+            let timer = setTimeout(() => {
+                reject("Communication timeout");
+            }, 5000);
+            this._request(cmd, ...args).then(data => {
+                clearTimeout(timer);
+                resolve(data);
+            });
+        })
+    }
+
+    async _request(cmd, ...args) {
         if (!this._port)
             throw "Device not connected!"
 

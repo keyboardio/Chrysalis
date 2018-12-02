@@ -100,7 +100,7 @@ class Dashboard extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, pages } = this.props;
 
     let chevron = <ChevronLeftIcon />;
     if (!this.state.open) {
@@ -151,30 +151,34 @@ class Dashboard extends React.Component {
               </ListItemIcon>
               <ListItemText primary="Information" />
             </ListItem>
-            <ListItem
-              button
-              selected={this.state.page == "keymap"}
-              onClick={() => {
-                this.setState({ page: "keymap" });
-              }}
-            >
-              <ListItemIcon>
-                <KeyboardIcon />
-              </ListItemIcon>
-              <ListItemText primary="Layout editor" />
-            </ListItem>
-            <ListItem
-              button
-              selected={this.state.page == "colormap"}
-              onClick={() => {
-                this.setState({ page: "colormap" });
-              }}
-            >
-              <ListItemIcon>
-                <HighlightIcon />
-              </ListItemIcon>
-              <ListItemText primary="Colormap editor" />
-            </ListItem>
+            {pages.keymap && (
+              <ListItem
+                button
+                selected={this.state.page == "keymap"}
+                onClick={() => {
+                  this.setState({ page: "keymap" });
+                }}
+              >
+                <ListItemIcon>
+                  <KeyboardIcon />
+                </ListItemIcon>
+                <ListItemText primary="Layout editor" />
+              </ListItem>
+            )}
+            {pages.colormap && (
+              <ListItem
+                button
+                selected={this.state.page == "colormap"}
+                onClick={() => {
+                  this.setState({ page: "colormap" });
+                }}
+              >
+                <ListItemIcon>
+                  <HighlightIcon />
+                </ListItemIcon>
+                <ListItemText primary="Colormap editor" />
+              </ListItem>
+            )}
           </List>
           <Divider />
           <List>

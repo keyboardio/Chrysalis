@@ -47,9 +47,18 @@ class App extends React.Component {
     console.log("Connecting to", portName);
     await focus.open(portName);
     console.log("Probing for Focus support...");
-    await focus.probe();
+    let commands = await focus.probe();
 
-    this.setState({ keyboardOpen: true });
+    this.setState({
+      keyboardOpen: true,
+      supportedPages: {
+        info: true,
+        keymap: commands.includes("keymap.map") > 0,
+        colormap:
+          commands.includes("colormap.map") > 0 &&
+          commands.includes("palette") > 0
+      }
+    });
   };
 
   onKeyboardDisconnect = () => {
@@ -61,7 +70,12 @@ class App extends React.Component {
     if (!this.state.keyboardOpen) {
       return <KeyboardSelect onConnect={this.onKeyboardConnect} />;
     }
-    return <Dashboard onDisconnect={this.onKeyboardDisconnect} />;
+    return (
+      <Dashboard
+        pages={this.state.supportedPages}
+        onDisconnect={this.onKeyboardDisconnect}
+      />
+    );
   }
 }
 

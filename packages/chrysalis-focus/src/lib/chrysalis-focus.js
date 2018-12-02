@@ -158,7 +158,7 @@ class Focus {
         return new Promise((resolve, reject) => {
             let timer = setTimeout(() => {
                 reject("Probe timed out");
-            }, 500);
+            }, 5000);
             this.command("help").then(() => {
                 clearTimeout(timer);
                 resolve();

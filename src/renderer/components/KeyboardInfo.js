@@ -80,7 +80,7 @@ class KeyboardInfo extends React.Component {
         }
       ]
     });
-    this.setState({ firmwareFile: files[0] });
+    if (files) this.setState({ firmwareFile: files[0] });
   };
 
   _flashDebug = (message, ...args) => {

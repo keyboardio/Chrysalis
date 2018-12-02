@@ -24,6 +24,7 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
+import LinearProgress from "@material-ui/core/LinearProgress";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -50,15 +51,19 @@ const styles = theme => ({
 class KeyboardInfo extends React.Component {
   state = {
     firmwareFile: "",
-    version: ""
+    version: "",
+    inProgress: false
   };
 
   updateVersion = async () => {
+    await this.setState({ inProgress: true });
+
     let focus = new Focus(),
       version = await focus.command("version");
 
     this.setState({
-      version: version
+      version: version,
+      inProgress: false
     });
   };
 
@@ -158,30 +163,33 @@ class KeyboardInfo extends React.Component {
     }
 
     return (
-      <div className={classes.root}>
-        <Card className={classes.card}>
-          <CardHeader title="Flashing" />
-          <CardContent>
-            <List>
-              <ListItem button onClick={this.selectFirmware}>
-                <ListItemText
-                  primary="Selected firmware"
-                  secondary={filename}
-                />
-              </ListItem>
-            </List>
-          </CardContent>
-          <CardActions>
-            <SaveChangesButton
-              onClick={this.upload}
-              disabled={this.state.firmwareFile.length == 0}
-              successMessage="Uploaded!"
-            >
-              Upload
-            </SaveChangesButton>
-          </CardActions>
-        </Card>
-        {version}
+      <div>
+        {this.state.inProgress && <LinearProgress variant="query" />}
+        <div className={classes.root}>
+          <Card className={classes.card}>
+            <CardHeader title="Flashing" />
+            <CardContent>
+              <List>
+                <ListItem button onClick={this.selectFirmware}>
+                  <ListItemText
+                    primary="Selected firmware"
+                    secondary={filename}
+                  />
+                </ListItem>
+              </List>
+            </CardContent>
+            <CardActions>
+              <SaveChangesButton
+                onClick={this.upload}
+                disabled={this.state.firmwareFile.length == 0}
+                successMessage="Uploaded!"
+              >
+                Upload
+              </SaveChangesButton>
+            </CardActions>
+          </Card>
+          {version}
+        </div>
       </div>
     );
   }

@@ -107,10 +107,10 @@ class Dashboard extends React.Component {
 
     let page;
     if (this.state.page == "keymap") {
-      page = <LayoutEditor />;
+      page = <LayoutEditor onDisconnect={this.disconnect} />;
     }
     if (this.state.page == "colormap") {
-      page = <ColormapEditor />;
+      page = <ColormapEditor onDisconnect={this.disconnect} />;
     }
     if (this.state.page == "settings") {
       page = <Settings />;

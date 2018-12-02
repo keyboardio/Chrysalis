@@ -28,6 +28,8 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
+import { withSnackbar } from "notistack";
+
 import Focus from "chrysalis-focus";
 
 import Palette from "./ColormapEditor/Palette";
@@ -70,15 +72,19 @@ class ColormapEditor extends React.Component {
   scanKeyboard = async () => {
     let focus = new Focus();
 
-    console.log("Pulling the colormap...");
-    let colormap = await focus.command("colormap");
+    try {
+      console.log("Pulling the colormap...");
+      let colormap = await focus.command("colormap");
 
-    this.setState({
-      palette: colormap.palette,
-      colorMap: colormap.colorMap
-    });
-
-    console.log("done!");
+      this.setState({
+        palette: colormap.palette,
+        colorMap: colormap.colorMap
+      });
+      console.log("done!");
+    } catch (error) {
+      this.props.enqueueSnackbar(error, { variant: "error" });
+      this.props.onDisconnect();
+    }
   };
 
   selectLayer = (event, value) => {
@@ -228,4 +234,4 @@ ColormapEditor.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(ColormapEditor);
+export default withSnackbar(withStyles(styles)(ColormapEditor));

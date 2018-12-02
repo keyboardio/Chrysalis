@@ -28,6 +28,8 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
+import { withSnackbar } from "notistack";
+
 import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
@@ -75,23 +77,29 @@ class LayoutEditor extends React.Component {
   scanKeyboard = async () => {
     let focus = new Focus();
 
-    console.log("Looking for read-only layers...");
-    let roLayers = await focus.command("keymap.roLayers");
-    roLayers = parseInt(roLayers) || 0;
+    try {
+      console.log("Looking for read-only layers...");
+      let roLayers = await focus.command("keymap.roLayers");
+      roLayers = parseInt(roLayers) || 0;
 
-    console.log("Retrieving the default layer index...");
-    let defLayer = await focus.command("settings.defaultLayer");
-    defLayer = parseInt(defLayer) || 0;
+      console.log("Retrieving the default layer index...");
+      let defLayer = await focus.command("settings.defaultLayer");
+      defLayer = parseInt(defLayer) || 0;
 
-    console.log("Pulling the keymap...");
-    let keymap = await focus.command("keymap");
-    this.setState({
-      roLayers: roLayers,
-      defaultLayer: defLayer,
-      keymap: keymap
-    });
+      console.log("Pulling the keymap...");
+      let keymap = await focus.command("keymap");
 
-    console.log("done!");
+      this.setState({
+        roLayers: roLayers,
+        defaultLayer: defLayer,
+        keymap: keymap
+      });
+
+      console.log("done!");
+    } catch (e) {
+      this.props.enqueueSnackbar(e, { variant: "error" });
+      this.props.onDisconnect();
+    }
   };
 
   getCurrentKey() {
@@ -277,4 +285,4 @@ LayoutEditor.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(LayoutEditor);
+export default withSnackbar(withStyles(styles)(LayoutEditor));

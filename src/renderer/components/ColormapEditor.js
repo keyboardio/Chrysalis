@@ -46,7 +46,7 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 3,
     display: "inline",
     marginRight: theme.spacing.unit * 4,
-    marginLeft: theme.spacing.unit * 8
+    marginLeft: theme.spacing.unit * 24
   },
   layerRoot: {
     width: "100%"

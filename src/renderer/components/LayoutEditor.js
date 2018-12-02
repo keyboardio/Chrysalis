@@ -20,6 +20,9 @@ import PropTypes from "prop-types";
 
 import AppBar from "@material-ui/core/AppBar";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import Step from "@material-ui/core/Step";
+import StepLabel from "@material-ui/core/StepLabel";
+import Stepper from "@material-ui/core/Stepper";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -65,42 +68,38 @@ class LayoutEditor extends React.Component {
     currentKeyIndex: -1,
     modified: false,
     saving: false,
-    keymap: []
+    keymap: [],
+    loadingStep: 0
   };
   coreTransformer = new CoreTransformer();
 
   scanKeyboard = async () => {
     let focus = new Focus(),
-      snack = async (message, variant = "info") => {
-        let logger = console.log;
-        if (variant == "error") logger = console.error;
-        logger(message);
-        await this.props.enqueueSnackbar(message, {
-          variant: variant
-        });
+      nextStep = async () => {
+        await this.setState(state => ({
+          loadingStep: state.loadingStep + 1
+        }));
       };
 
     try {
-      snack("Looking for read-only layers...");
       let roLayers = await focus.command("keymap.roLayers");
       roLayers = parseInt(roLayers) || 0;
+      nextStep();
 
-      snack("Retrieving the default layer index...");
       let defLayer = await focus.command("settings.defaultLayer");
       defLayer = parseInt(defLayer) || 0;
+      nextStep();
 
-      snack("Pulling the keymap...");
       let keymap = await focus.command("keymap");
+      nextStep();
 
       this.setState({
         roLayers: roLayers,
         defaultLayer: defLayer,
         keymap: keymap
       });
-
-      snack("Keymap information pulled", "success");
     } catch (e) {
-      snack(e, "error");
+      this.props.enqueueSnackbar(e, { variant: "error" });
       this.props.onDisconnect();
     }
   };
@@ -186,6 +185,17 @@ class LayoutEditor extends React.Component {
       return (
         <main>
           <LinearProgress variant="query" />
+          <Stepper activeStep={this.state.loadingStep} alternativeLabel>
+            <Step>
+              <StepLabel>Check the number of read-only layers</StepLabel>
+            </Step>
+            <Step>
+              <StepLabel>Read the default layer index</StepLabel>
+            </Step>
+            <Step>
+              <StepLabel>Read the keymap</StepLabel>
+            </Step>
+          </Stepper>
         </main>
       );
     }

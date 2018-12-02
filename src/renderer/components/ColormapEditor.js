@@ -22,6 +22,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import LinearProgress from "@material-ui/core/LinearProgress";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -156,7 +157,7 @@ class ColormapEditor extends React.Component {
       this.scanKeyboard();
       return (
         <main>
-          <CircularProgress />
+          <LinearProgress variant="query" />
         </main>
       );
     }

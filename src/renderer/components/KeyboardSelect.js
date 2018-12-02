@@ -113,16 +113,18 @@ class KeyboardSelect extends React.Component {
     this.setState({ anchorEl: null });
   };
 
-  onKeyboardConnect = () => {
+  onKeyboardConnect = async () => {
     this.setState({ opening: true });
-    this.props
-      .onConnect(this.state.devices[this.state.selectedPortIndex].comName)
-      .catch(err => {
-        this.setState({
-          opening: false
-        });
-        this.props.enqueueSnackbar(err, { variant: "error" });
+    try {
+      await this.props.onConnect(
+        this.state.devices[this.state.selectedPortIndex].comName
+      );
+    } catch (err) {
+      this.setState({
+        opening: false
       });
+      this.props.enqueueSnackbar(err, { variant: "error" });
+    }
   };
 
   exit = () => {

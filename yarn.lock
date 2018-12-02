@@ -1818,12 +1818,17 @@ async-limiter@~1.0.0:
   resolved "https://registry.yarnpkg.com/async-limiter/-/async-limiter-1.0.0.tgz#78faed8c3d074ab81f22b4e985d79e8738f720f8"
   integrity sha512-jp/uFnooOiO+L211eZOoSyzpOITMXx1rBITauYykG3BRYPu8h0UcxsPNB04RR5vo4Tyz3+ay17tR6JVf9qzYWg==
 
+async@^0.9.0:
+  version "0.9.2"
+  resolved "https://registry.yarnpkg.com/async/-/async-0.9.2.tgz#aea74d5e61c1f899613bf64bda66d4c78f2fd17d"
+  integrity sha1-rqdNXmHB+JlhO/ZL2mbUx48v0X0=
+
 async@^1.5.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
   integrity sha1-7GphrlZIDAw8skHJVhjiCJL5Zyo=
 
-async@^2.1.4, async@^2.5.0:
+async@^2.1.2, async@^2.1.4, async@^2.5.0:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/async/-/async-2.6.1.tgz#b245a23ca71930044ec53fa46aa00a3e87c6a610"
   integrity sha512-fNEiL2+AZt6AlAw/29Cr0UDe4sRAHCpEHh54WMz+Bb7QfNcFw4h3loofyJpLeQs4Yx7yuqu/2dLgM5hKOs6HlQ==
@@ -1864,6 +1869,23 @@ autoprefixer@^9.0.0:
     postcss "^7.0.5"
     postcss-value-parser "^3.3.1"
 
+avrgirl-arduino@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/avrgirl-arduino/-/avrgirl-arduino-3.0.0.tgz#b1de69de8f46b5972ee0c4381e32c6f27a7c15c5"
+  integrity sha512-rEZiJ5yHgQ+/WD07cJu/Y/7fWII/fiMzqpxxCz4/x4Cwym5yLZiO49u5RYW6u+lQp8cT05/pUbdkk+RQkPRE/w==
+  dependencies:
+    async "^2.1.2"
+    awty "^0.1.0"
+    browser-serialport "https://github.com/noopkat/browser-serialport#c8628c41c11890d3058875994c15f83f2df8185b"
+    chip.avr.avr109 "^1.1.0"
+    colors "^1.1.2"
+    graceful-fs "^4.1.2"
+    intel-hex "^0.1.1"
+    minimist "^1.2.0"
+    serialport "^6.2.1"
+    stk500 "^2.0.0"
+    stk500-v2 "^1.0.3"
+
 aws-sign2@~0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/aws-sign2/-/aws-sign2-0.7.0.tgz#b46e890934a9591f2d2f6f86d7e6a9f1b3fe76a8"
@@ -1873,6 +1895,13 @@ aws4@^1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.8.0.tgz#f0e003d9ca9e7f59c7a508945d7b2ef9a04a542f"
   integrity sha512-ReZxvNHIOv88FlT7rxcXIIC0fPt4KZqZbOlivyWtXLt8ESx84zd3kMC6iK5jVeS2qt+g7ftS7ye4fi06X5rtRQ==
+
+awty@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/awty/-/awty-0.1.0.tgz#8b705c1ee3139f8d6e9f29409d90b74f93e840ba"
+  integrity sha1-i3BcHuMTn41unylAnZC3T5PoQLo=
+  dependencies:
+    isval "0.0.2"
 
 axobject-query@^2.0.1:
   version "2.0.2"
@@ -2286,6 +2315,10 @@ browser-resolve@^1.11.3:
   dependencies:
     resolve "1.1.7"
 
+"browser-serialport@git+https://github.com/noopkat/browser-serialport.git#c8628c41c11890d3058875994c15f83f2df8185b":
+  version "2.0.3"
+  resolved "git+https://github.com/noopkat/browser-serialport.git#c8628c41c11890d3058875994c15f83f2df8185b"
+
 browserify-aes@^1.0.0, browserify-aes@^1.0.4:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/browserify-aes/-/browserify-aes-1.2.0.tgz#326734642f403dabc3003209853bb70ad428ef48"
@@ -2381,6 +2414,11 @@ buffer-alloc@^1.2.0:
   dependencies:
     buffer-alloc-unsafe "^1.1.0"
     buffer-fill "^1.0.0"
+
+buffer-equal@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/buffer-equal/-/buffer-equal-0.0.1.tgz#91bc74b11ea405bc916bc6aa908faafa5b4aac4b"
+  integrity sha1-kbx0sR6kBbyRa8aqkI+q+ltKrEs=
 
 buffer-fill@^1.0.0:
   version "1.0.0"
@@ -2661,6 +2699,13 @@ chardet@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
   integrity sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
+
+chip.avr.avr109@^1.1.0:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/chip.avr.avr109/-/chip.avr.avr109-1.1.1.tgz#68b04b125d61d18bd5c0451db894310b46acd609"
+  integrity sha512-+0+cvkHDsy/gizui/zFirTtDpvTQumJSs2SE9lT2BAzyE+CslXWQN9blfjMjhChcyNdZT8mFUQjETVne1gxBBQ==
+  dependencies:
+    intel-hex "*"
 
 choices-separator@^2.0.0:
   version "2.0.0"
@@ -2969,7 +3014,7 @@ colormin@^1.0.5:
     css-color-names "0.0.4"
     has "^1.0.1"
 
-colors@^1.2.0:
+colors@^1.1.2, colors@^1.2.0:
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/colors/-/colors-1.3.2.tgz#2df8ff573dfbf255af562f8ce7181d6b971a359b"
   integrity sha512-rhP0JSBGYvpcNQj4s5AdShMeE5ahMop96cTeDl/v9qQQm2fYClE2QXZRi8wLzc+GmXSxdIqqbOIAhyObEXDbfQ==
@@ -5738,6 +5783,11 @@ inquirer@^6.1.0:
     strip-ansi "^5.0.0"
     through "^2.3.6"
 
+intel-hex@*, intel-hex@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/intel-hex/-/intel-hex-0.1.1.tgz#825445dbabdab8d7988c6dfdb470dfbbb19fd494"
+  integrity sha1-glRF26vauNeYjG39tHDfu7Gf1JQ=
+
 internal-ip@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/internal-ip/-/internal-ip-3.0.1.tgz#df5c99876e1d2eb2ea2d74f520e3f669a00ece27"
@@ -6289,6 +6339,11 @@ istanbul-reports@^1.5.1:
   integrity sha512-+cfoZ0UXzWjhAdzosCPP3AN8vvef8XDkWtTfgaN+7L3YTpNYITnCaEkceo5SEYy644VkHka/P1FvkWvrG/rrJw==
   dependencies:
     handlebars "^4.0.3"
+
+isval@0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/isval/-/isval-0.0.2.tgz#1ceb0171c89113e3f5098a4f7336caaf33bef03f"
+  integrity sha1-HOsBcciRE+P1CYpPczbKrzO+8D8=
 
 jest-changed-files@^23.4.2:
   version "23.4.2"
@@ -10165,7 +10220,7 @@ serialize-javascript@^1.4.0:
   resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-1.5.0.tgz#1aa336162c88a890ddad5384baebc93a655161fe"
   integrity sha512-Ga8c8NjAAp46Br4+0oZ2WxJCwIzwP60Gq1YPgU+39PiTVxyed/iKE/zyZI6+UlVYH5Q4PaQdHhcegIFPZTUfoQ==
 
-serialport@^6.2.2:
+serialport@^6.2.1, serialport@^6.2.2:
   version "6.2.2"
   resolved "https://registry.yarnpkg.com/serialport/-/serialport-6.2.2.tgz#75532312571578b060eb29cbdf8f2f3e8ba03063"
   integrity sha512-BQqTR06ZXKwKB6rUjeANm3aIZo0rqNbQsrQX5zKEDcNY4rxiu5dvdcfIOaAGuZkhW7jAKJsgKC5TjeURtLVuOQ==
@@ -10631,6 +10686,22 @@ stealthy-require@^1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/stealthy-require/-/stealthy-require-1.1.1.tgz#35b09875b4ff49f26a777e509b3090a3226bf24b"
   integrity sha1-NbCYdbT/SfJqd35QmzCQoyJr8ks=
+
+stk500-v2@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/stk500-v2/-/stk500-v2-1.0.3.tgz#c2d0d31900a44f4e3abb9bf1cf40a0eeb360afd3"
+  integrity sha512-r7iL4uvz07sP9R0VHgJbpEokDW3dgZVXUHntEjM+5JtRWKA5sv/3Oi5UdlD1LisRa6ZOVf+Y08WZNzjsn173DQ==
+  dependencies:
+    async "^0.9.0"
+    buffer-equal "0.0.1"
+
+stk500@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/stk500/-/stk500-2.0.0.tgz#26cc01daa1a9ad684ad8296d31b9ce3e54d3d814"
+  integrity sha512-vTj0tRANVjbFVORFsTc6QNb/DUDDAqGwydj/m/tpBN2ak3QbBiF3AJmu+XbCylsjg1OKGF/f2z8BJa1wYvVsyw==
+  dependencies:
+    async "^0.9.0"
+    buffer-equal "0.0.1"
 
 stream-browserify@^2.0.1:
   version "2.0.1"

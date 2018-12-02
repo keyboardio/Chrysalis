@@ -38,6 +38,7 @@ class Focus {
             this._commands = {
                 help: this._help
             }
+            this.timeout = 5000;
         }
 
         return instance
@@ -191,7 +192,7 @@ class Focus {
         return new Promise((resolve, reject) => {
             let timer = setTimeout(() => {
                 reject("Communication timeout");
-            }, 5000);
+            }, this.timeout);
             this._request(cmd, ...args).then(data => {
                 clearTimeout(timer);
                 resolve(data);

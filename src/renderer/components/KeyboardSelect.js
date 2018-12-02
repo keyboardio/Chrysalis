@@ -33,10 +33,10 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 
+import { withSnackbar } from "notistack";
+
 import Focus from "chrysalis-focus";
 import { Model01 } from "chrysalis-hardware-keyboardio-model01";
-
-import Error from "../Error";
 
 const styles = theme => ({
   main: {
@@ -121,7 +121,7 @@ class KeyboardSelect extends React.Component {
         this.setState({
           opening: false
         });
-        new Error(err);
+        this.props.enqueueSnackbar(err, { variant: "error" });
       });
   };
 
@@ -211,4 +211,4 @@ KeyboardSelect.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(KeyboardSelect);
+export default withSnackbar(withStyles(styles)(KeyboardSelect));

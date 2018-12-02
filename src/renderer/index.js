@@ -17,6 +17,7 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
+import { SnackbarProvider } from "notistack";
 
 // Use this App file for the main Chrysalis app
 import App from "./App";
@@ -27,4 +28,9 @@ import "../styles/keymap.css";
 // import "./mockup/scss/app.scss";
 // import App from "./mockup/components/App";
 
-ReactDOM.render(<App />, document.getElementById("app"));
+ReactDOM.render(
+  <SnackbarProvider maxSnack={3}>
+    <App />
+  </SnackbarProvider>,
+  document.getElementById("app")
+);

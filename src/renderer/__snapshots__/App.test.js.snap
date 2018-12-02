@@ -3,17 +3,17 @@
 exports[`renders without crashing 1`] = `
 <div>
   <main
-    class="KeyboardSelect-main-80"
+    class="KeyboardSelect-main-81"
   >
     <div
-      class="MuiPaper-root-84 MuiPaper-elevation2-88 MuiPaper-rounded-85 KeyboardSelect-paper-81"
+      class="MuiPaper-root-86 MuiPaper-elevation2-90 MuiPaper-rounded-87 KeyboardSelect-paper-82"
     >
       <div
-        class="MuiAvatar-root-111 MuiAvatar-colorDefault-112 KeyboardSelect-avatar-82"
+        class="MuiAvatar-root-113 MuiAvatar-colorDefault-114 KeyboardSelect-avatar-83"
       >
         <svg
           aria-hidden="true"
-          class="MuiSvgIcon-root-114"
+          class="MuiSvgIcon-root-116"
           focusable="false"
           role="presentation"
           viewBox="0 0 24 24"
@@ -28,35 +28,35 @@ exports[`renders without crashing 1`] = `
         </svg>
       </div>
       <button
-        class="MuiButtonBase-root-149 MuiButton-root-123 MuiButton-contained-134 MuiButton-containedPrimary-135 MuiButton-raised-137 MuiButton-raisedPrimary-138 MuiButton-fullWidth-148"
+        class="MuiButtonBase-root-151 MuiButton-root-125 MuiButton-contained-136 MuiButton-containedPrimary-137 MuiButton-raised-139 MuiButton-raisedPrimary-140 MuiButton-fullWidth-150"
         tabindex="0"
         type="button"
       >
         <span
-          class="MuiButton-label-124"
+          class="MuiButton-label-126"
         >
           Connect
         </span>
         <span
-          class="MuiTouchRipple-root-152"
+          class="MuiTouchRipple-root-154"
         />
       </button>
     </div>
     <div
-      class="KeyboardSelect-exit-83"
+      class="KeyboardSelect-exit-84"
     >
       <button
-        class="MuiButtonBase-root-149 MuiButton-root-123 MuiButton-text-125 MuiButton-flat-128"
+        class="MuiButtonBase-root-151 MuiButton-root-125 MuiButton-text-127 MuiButton-flat-130"
         tabindex="0"
         type="button"
       >
         <span
-          class="MuiButton-label-124"
+          class="MuiButton-label-126"
         >
           Exit
         </span>
         <span
-          class="MuiTouchRipple-root-152"
+          class="MuiTouchRipple-root-154"
         />
       </button>
     </div>

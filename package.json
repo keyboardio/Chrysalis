@@ -40,6 +40,7 @@
     "chrysalis-hardware-keyboardio-model01": "git://github.com/Lepidopterarium/chrysalis-hardware-keyboardio-model01.git#master",
     "chrysalis-keymap": "git://github.com/Lepidopterarium/chrysalis-keymap.git#master",
     "chrysalis-keymap-transformer-core": "git://github.com/Lepidopterarium/chrysalis-keymap-transformer-core.git#master",
+    "notistack": "^0.4.0",
     "react": "^16.5.2",
     "react-color": "^2.14.1",
     "react-dom": "^16.5.2",

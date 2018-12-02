@@ -36,6 +36,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Focus from "chrysalis-focus";
 import { Model01 } from "chrysalis-hardware-keyboardio-model01";
 
+import Error from "../Error";
+
 const styles = theme => ({
   main: {
     width: "auto",
@@ -76,8 +78,7 @@ class KeyboardSelect extends React.Component {
     anchorEl: null,
     selectedPortIndex: 1,
     opening: false,
-    devices: [],
-    error: null
+    devices: null
   };
 
   constructor(props) {
@@ -88,7 +89,7 @@ class KeyboardSelect extends React.Component {
       .find(Model01)
       .then(devices => {
         if (devices.length == 0) {
-          this.setState({ error: "No devices found." });
+          this.setState({ devices: devices });
           return;
         }
         this.setState({
@@ -96,7 +97,7 @@ class KeyboardSelect extends React.Component {
         });
       })
       .catch(() => {
-        this.setState({ error: "No devices found." });
+        this.setState({ devices: [] });
       });
   }
 
@@ -112,11 +113,16 @@ class KeyboardSelect extends React.Component {
     this.setState({ anchorEl: null });
   };
 
-  onKeyboardConnect = async () => {
+  onKeyboardConnect = () => {
     this.setState({ opening: true });
-    await this.props.onConnect(
-      this.state.devices[this.state.selectedPortIndex].comName
-    );
+    this.props
+      .onConnect(this.state.devices[this.state.selectedPortIndex].comName)
+      .catch(err => {
+        this.setState({
+          opening: false
+        });
+        new Error(err);
+      });
   };
 
   exit = () => {
@@ -128,7 +134,7 @@ class KeyboardSelect extends React.Component {
     const { anchorEl } = this.state;
 
     let port = null;
-    if (this.state.devices.length > 0) {
+    if (this.state.devices && this.state.devices.length > 0) {
       let portName = this.state.devices[this.state.selectedPortIndex].comName;
       port = (
         <div>
@@ -162,8 +168,9 @@ class KeyboardSelect extends React.Component {
         </div>
       );
     }
-    if (this.state.error != null) {
-      port = <p className={classes.error}> {this.state.error} </p>;
+
+    if (this.state.devices && this.state.devices.length == 0) {
+      port = <p className={classes.error}> No devices found! </p>;
     }
 
     let connectContent = "Connect";
@@ -180,7 +187,10 @@ class KeyboardSelect extends React.Component {
           </Avatar>
           {port}
           <Button
-            disabled={this.state.opening || this.state.devices.length == 0}
+            disabled={
+              this.state.opening ||
+              (this.state.devices && this.state.devices.length == 0)
+            }
             fullWidth
             variant="contained"
             color="primary"

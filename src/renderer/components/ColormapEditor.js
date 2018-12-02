@@ -21,7 +21,6 @@ import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
@@ -64,10 +63,6 @@ class ColormapEditor extends React.Component {
     selectedPaletteColor: -1,
     palette: [],
     colorMap: []
-  };
-
-  clickAway = () => {
-    this.setState({ currentKeyIndex: -1 });
   };
 
   scanKeyboard = async () => {
@@ -181,15 +176,13 @@ class ColormapEditor extends React.Component {
 
     let colormap = (
       <Typography component="div" className={classes.layerRoot}>
-        <ClickAwayListener onClickAway={this.clickAway}>
-          <Layer
-            index={this.state.currentLayer}
-            palette={this.state.palette}
-            colormap={this.state.colorMap[this.state.currentLayer]}
-            onKeySelect={this.onKeySelect}
-            selectedKey={this.state.currentKeyIndex}
-          />
-        </ClickAwayListener>
+        <Layer
+          index={this.state.currentLayer}
+          palette={this.state.palette}
+          colormap={this.state.colorMap[this.state.currentLayer]}
+          onKeySelect={this.onKeySelect}
+          selectedKey={this.state.currentKeyIndex}
+        />
       </Typography>
     );
 

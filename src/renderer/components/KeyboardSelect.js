@@ -38,6 +38,8 @@ import { withSnackbar } from "notistack";
 import Focus from "chrysalis-focus";
 import { Model01 } from "chrysalis-hardware-keyboardio-model01";
 
+import usb from "usb";
+
 const styles = theme => ({
   main: {
     width: "auto",
@@ -81,9 +83,7 @@ class KeyboardSelect extends React.Component {
     devices: null
   };
 
-  constructor(props) {
-    super(props);
-
+  findKeyboards() {
     let focus = new Focus();
     focus
       .find(Model01)
@@ -99,6 +99,20 @@ class KeyboardSelect extends React.Component {
       .catch(() => {
         this.setState({ devices: [] });
       });
+  }
+
+  componentDidMount() {
+    this.finder = () => {
+      this.findKeyboards();
+    };
+    this.findKeyboards();
+    usb.on("attach", this.finder);
+    usb.on("detach", this.finder);
+  }
+
+  componentWillUnmount() {
+    usb.off("attach", this.finder);
+    usb.off("detach", this.finder);
   }
 
   handleClickListItem = event => {

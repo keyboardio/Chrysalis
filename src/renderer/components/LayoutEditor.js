@@ -70,18 +70,26 @@ class LayoutEditor extends React.Component {
   coreTransformer = new CoreTransformer();
 
   scanKeyboard = async () => {
-    let focus = new Focus();
+    let focus = new Focus(),
+      snack = async (message, variant = "info") => {
+        let logger = console.log;
+        if (variant == "error") logger = console.error;
+        logger(message);
+        await this.props.enqueueSnackbar(message, {
+          variant: variant
+        });
+      };
 
     try {
-      console.log("Looking for read-only layers...");
+      snack("Looking for read-only layers...");
       let roLayers = await focus.command("keymap.roLayers");
       roLayers = parseInt(roLayers) || 0;
 
-      console.log("Retrieving the default layer index...");
+      snack("Retrieving the default layer index...");
       let defLayer = await focus.command("settings.defaultLayer");
       defLayer = parseInt(defLayer) || 0;
 
-      console.log("Pulling the keymap...");
+      snack("Pulling the keymap...");
       let keymap = await focus.command("keymap");
 
       this.setState({
@@ -90,9 +98,9 @@ class LayoutEditor extends React.Component {
         keymap: keymap
       });
 
-      console.log("done!");
+      snack("Keymap information pulled", "success");
     } catch (e) {
-      this.props.enqueueSnackbar(e, { variant: "error" });
+      snack(e, "error");
       this.props.onDisconnect();
     }
   };
@@ -171,7 +179,11 @@ class LayoutEditor extends React.Component {
 
   render() {
     if (this.state.keymap.length == 0) {
-      this.scanKeyboard();
+      if (!this.timer) {
+        this.timer = setTimeout(() => {
+          this.scanKeyboard();
+        }, 1000);
+      }
       return (
         <main>
           <LinearProgress variant="query" />

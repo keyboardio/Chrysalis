@@ -65,19 +65,27 @@ class ColormapEditor extends React.Component {
   };
 
   scanKeyboard = async () => {
-    let focus = new Focus();
+    let focus = new Focus(),
+      snack = async (message, variant = "info") => {
+        let logger = console.log;
+        if (variant == "error") logger = console.error;
+        logger(message);
+        await this.props.enqueueSnackbar(message, {
+          variant: variant
+        });
+      };
 
     try {
-      console.log("Pulling the colormap...");
+      snack("Pulling the colormap...");
       let colormap = await focus.command("colormap");
 
       this.setState({
         palette: colormap.palette,
         colorMap: colormap.colorMap
       });
-      console.log("done!");
+      snack("Colormap & palette pulled", "success");
     } catch (error) {
-      this.props.enqueueSnackbar(error, { variant: "error" });
+      snack(error, "error");
       this.props.onDisconnect();
     }
   };
@@ -148,7 +156,11 @@ class ColormapEditor extends React.Component {
 
   render() {
     if (this.state.colorMap.length == 0) {
-      this.scanKeyboard();
+      if (!this.timer) {
+        this.timer = setTimeout(() => {
+          this.scanKeyboard();
+        }, 1000);
+      }
       return (
         <main>
           <LinearProgress variant="query" />

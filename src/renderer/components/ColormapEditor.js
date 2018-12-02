@@ -154,13 +154,12 @@ class ColormapEditor extends React.Component {
     console.log("colormap updated");
   };
 
+  componentDidMount() {
+    this.scanKeyboard();
+  }
+
   render() {
     if (this.state.colorMap.length == 0) {
-      if (!this.timer) {
-        this.timer = setTimeout(() => {
-          this.scanKeyboard();
-        }, 1000);
-      }
       return (
         <main>
           <LinearProgress variant="query" />

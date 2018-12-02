@@ -177,13 +177,12 @@ class LayoutEditor extends React.Component {
     console.log("default layer set to", defLayer);
   };
 
+  componentDidMount() {
+    this.scanKeyboard();
+  }
+
   render() {
     if (this.state.keymap.length == 0) {
-      if (!this.timer) {
-        this.timer = setTimeout(() => {
-          this.scanKeyboard();
-        }, 1000);
-      }
       return (
         <main>
           <LinearProgress variant="query" />

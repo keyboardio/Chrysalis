@@ -58,7 +58,7 @@ const styles = theme => ({
     marginLeft: -12
   },
   icon: {
-    marginRight: -20,
+    marginRight: -16,
     zIndex: 1
   },
   disabled: {

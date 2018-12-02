@@ -154,14 +154,16 @@ class Focus {
      * @returns {Promise<Boolean>}, signaling whether the probe was successful
      * or not.
      */
-    async probe() {
-        let timeOut = false;
-        let timer = setTimeout(() => {
-            timeOut = true;
-        }, 5000);
-        await this.command("help");
-        clearTimeout(timer);
-        return !timeOut;
+    probe() {
+        return new Promise((resolve, reject) => {
+            let timer = setTimeout(() => {
+                reject("Probe timed out");
+            }, 500);
+            this.command("help").then(() => {
+                clearTimeout(timer);
+                resolve();
+            });
+        })
     }
 
     async _write(parts, cb) {

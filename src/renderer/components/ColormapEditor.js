@@ -65,27 +65,17 @@ class ColormapEditor extends React.Component {
   };
 
   scanKeyboard = async () => {
-    let focus = new Focus(),
-      snack = async (message, variant = "info") => {
-        let logger = console.log;
-        if (variant == "error") logger = console.error;
-        logger(message);
-        await this.props.enqueueSnackbar(message, {
-          variant: variant
-        });
-      };
+    let focus = new Focus();
 
     try {
-      snack("Pulling the colormap...");
       let colormap = await focus.command("colormap");
 
       this.setState({
         palette: colormap.palette,
         colorMap: colormap.colorMap
       });
-      snack("Colormap & palette pulled", "success");
     } catch (error) {
-      snack(error, "error");
+      this.props.enqueueSnackbar(error, { variant: "error" });
       this.props.onDisconnect();
     }
   };

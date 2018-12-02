@@ -29,7 +29,7 @@ import "../styles/keymap.css";
 // import App from "./mockup/components/App";
 
 ReactDOM.render(
-  <SnackbarProvider maxSnack={3}>
+  <SnackbarProvider maxSnack={4}>
     <App />
   </SnackbarProvider>,
   document.getElementById("app")

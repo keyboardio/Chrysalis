@@ -19,8 +19,6 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import AppBar from "@material-ui/core/AppBar";
-import Button from "@material-ui/core/Button";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
@@ -40,6 +38,7 @@ import CoreTransformer from "chrysalis-keymap-transformer-core";
 
 import Layer from "./LayoutEditor/Layer";
 import KeySelector from "./LayoutEditor/KeySelector";
+import SaveChangesButton from "./SaveChangesButton";
 
 const styles = theme => ({
   tabs: {
@@ -212,16 +211,6 @@ class LayoutEditor extends React.Component {
       );
     });
 
-    let saveButtonContent = "Save changes";
-    if (this.state.saving) {
-      saveButtonContent = (
-        <div>
-          <CircularProgress color="inherit" size={16} />
-          &nbsp; Saving...
-        </div>
-      );
-    }
-
     return (
       <div>
         <AppBar position="static">
@@ -261,15 +250,12 @@ class LayoutEditor extends React.Component {
             />
           </div>
         </div>
-        <Button
-          className={classes.editor}
+        <SaveChangesButton
           onClick={this.onApply}
-          variant="contained"
-          color="secondary"
           disabled={!this.state.modified}
         >
-          {saveButtonContent}
-        </Button>
+          Save Changes
+        </SaveChangesButton>
       </div>
     );
   }

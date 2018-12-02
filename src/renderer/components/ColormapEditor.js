@@ -19,8 +19,6 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import AppBar from "@material-ui/core/AppBar";
-import Button from "@material-ui/core/Button";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
@@ -34,6 +32,7 @@ import Focus from "chrysalis-focus";
 
 import Palette from "./ColormapEditor/Palette";
 import Layer, { led_map } from "./ColormapEditor/Layer";
+import SaveChangesButton from "./SaveChangesButton";
 
 const styles = theme => ({
   tabs: {
@@ -158,15 +157,6 @@ class ColormapEditor extends React.Component {
     }
 
     const { classes } = this.props;
-    let saveButtonContent = "Save changes";
-    if (this.state.saving) {
-      saveButtonContent = (
-        <div>
-          <CircularProgress color="inherit" size={16} />
-          &nbsp; Saving...
-        </div>
-      );
-    }
 
     let tabs = this.state.colorMap.map((_, index) => {
       let label = "Layer #" + index.toString(),
@@ -210,15 +200,12 @@ class ColormapEditor extends React.Component {
             onColorPick={this.onColorPick}
           />
         </div>
-        <Button
-          className={classes.editor}
+        <SaveChangesButton
           onClick={this.onApply}
-          variant="contained"
-          color="secondary"
           disabled={!this.state.modified}
         >
-          {saveButtonContent}
-        </Button>
+          Save Changes
+        </SaveChangesButton>
       </div>
     );
   }

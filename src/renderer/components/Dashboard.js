@@ -27,6 +27,7 @@ import Divider from "@material-ui/core/Divider";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import HighlightIcon from "@material-ui/icons/Highlight";
 import IconButton from "@material-ui/core/IconButton";
+import InfoIcon from "@material-ui/icons/Info";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -37,6 +38,7 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import { withStyles } from "@material-ui/core/styles";
 
 import ColormapEditor from "./ColormapEditor";
+import KeyboardInfo from "./KeyboardInfo";
 import LayoutEditor from "./LayoutEditor";
 import Settings from "./Settings";
 
@@ -86,7 +88,7 @@ const styles = theme => ({
 class Dashboard extends React.Component {
   state = {
     open: false,
-    page: "keymap"
+    page: "info"
   };
 
   handleDrawerToggle = () => {
@@ -115,6 +117,9 @@ class Dashboard extends React.Component {
     if (this.state.page == "settings") {
       page = <Settings />;
     }
+    if (this.state.page == "info") {
+      page = <KeyboardInfo onDisconnect={this.disconnect} />;
+    }
 
     return (
       <div className={classes.root}>
@@ -134,6 +139,18 @@ class Dashboard extends React.Component {
           </div>
           <Divider />
           <List>
+            <ListItem
+              button
+              selected={this.state.page == "info"}
+              onClick={() => {
+                this.setState({ page: "info" });
+              }}
+            >
+              <ListItemIcon>
+                <InfoIcon />
+              </ListItemIcon>
+              <ListItemText primary="Information" />
+            </ListItem>
             <ListItem
               button
               selected={this.state.page == "keymap"}

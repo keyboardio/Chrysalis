@@ -123,7 +123,8 @@ class KeyboardInfo extends React.Component {
   };
 
   upload = async () => {
-    let focus = new Focus();
+    let focus = new Focus(),
+      hwInfo = focus.device;
 
     await focus.close();
 
@@ -138,7 +139,7 @@ class KeyboardInfo extends React.Component {
     }
 
     console.log("Reattaching to", this._portName);
-    await focus.open(this._portName);
+    await focus.open(this._portName, hwInfo);
     await this.updateVersion();
   };
 

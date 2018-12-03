@@ -25,6 +25,11 @@
  * [m01]: https://shop.keyboard.io/
  */
 const Model01 = {
+    info: {
+        vendor: "Keyboard.io",
+        product: "Model01",
+        url: "https://shop.keyboard.io/"
+    },
     usb: {
         vendorId: 0x1209,
         productId: 0x2301

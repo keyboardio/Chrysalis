@@ -60,6 +60,16 @@ async function createMainWindow() {
     });
   });
 
+  let handleRedirect = (e, url) => {
+    if (url != window.webContents.getURL()) {
+      e.preventDefault();
+      require("electron").shell.openExternal(url);
+    }
+  };
+
+  window.webContents.on("will-navigate", handleRedirect);
+  window.webContents.on("new-window", handleRedirect);
+
   Menu.setApplicationMenu(null);
 
   return window;

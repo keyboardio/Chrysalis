@@ -2772,7 +2772,7 @@ chromium-pickle-js@^0.2.0:
 
 "chrysalis-hardware-keyboardio-model01@git://github.com/Lepidopterarium/chrysalis-hardware-keyboardio-model01.git#master":
   version "0.0.1"
-  resolved "git://github.com/Lepidopterarium/chrysalis-hardware-keyboardio-model01.git#5d368ee116abfb8fe1e91b5fbbea20726323ddfa"
+  resolved "git://github.com/Lepidopterarium/chrysalis-hardware-keyboardio-model01.git#1d49740d0ccb39354248304a6ff11af833548544"
   dependencies:
     "@babel/cli" "^7.1.0"
     "@babel/core" "7.1.0"

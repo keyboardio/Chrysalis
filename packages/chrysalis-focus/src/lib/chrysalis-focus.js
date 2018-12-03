@@ -150,6 +150,40 @@ class Focus {
     }
 
     /**
+     * Identify the opened device.
+     *
+     * Given a list of supported devices, identify which one of them the currently open device is. Each argument must be an object with an `usb` property,
+     * which in turn must have `productId` and `vendorId` properties. The method
+     * will match these with that of the open device, and return the matching descriptor.
+     *
+     * @param {DEVICE} devices - List of supported, or sought-after devices.
+     *
+     * @returns {Promise<Device>} The matching device, if any.
+     */
+    async identify(...devices) {
+        let portList = await SerialPort.list(),
+            open_port;
+
+        if (!this._port)
+            return null;
+
+        for (let port of portList) {
+            if (port.comName == this._port.path) {
+                open_port = port;
+                break;
+            }
+        }
+
+        for (let device of devices) {
+            if (parseInt("0x" + open_port.productId) == device.usb.productId &&
+                parseInt("0x" + open_port.vendorId) == device.usb.vendorId) {
+                return device;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Probe for Focus support on an opened device.
      *
      * @returns {Promise<Boolean>}, signaling whether the probe was successful

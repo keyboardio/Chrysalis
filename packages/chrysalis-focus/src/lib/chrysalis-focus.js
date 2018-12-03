@@ -82,6 +82,7 @@ class Focus {
             for (let device of devices) {
                 if (parseInt("0x" + port.productId) == device.usb.productId &&
                     parseInt("0x" + port.vendorId) == device.usb.vendorId) {
+                    port.device = device
                     if (!found_devices.includes(port))
                         found_devices.push(port)
                 }
@@ -98,22 +99,31 @@ class Focus {
      * The argument can either be a `string`, a `SerialPort` object, or a device
      * descriptor (see `find` above).
      *
-     * @param {OPTIONS} opts - Either a path to the device, or a `SerialPort`
+     * @param {OPTIONS} device - Either a path to the device, or a `SerialPort`
      * object, or a device descriptor.
+     * @param {OPTIONS} info - The device descriptor, mandatory unless given as
+     * the first argument.
      */
-    async open(opts) {
-        if (typeof opts == "string") {
-            this._port = new SerialPort(opts)
-        } else if (typeof opts == "object") {
-            if (opts.hasOwnProperty("binding")) {
-                this._port = opts
+    async open(device, info) {
+        if (typeof device == "string") {
+            if (!info) throw new Error("Device descriptor argument is mandatory")
+            this._port = new SerialPort(device)
+        } else if (typeof device == "object") {
+            if (device.hasOwnProperty("binding")) {
+                if (!info) throw new Error("Device descriptor argument is mandatory")
+                this._port = device
             } else {
-                let devices = await this.find(opts)
+                let devices = await this.find(device)
                 if (devices && devices.length >= 1) {
                     this._port = new SerialPort(devices[0].comName)
                 }
+                info = device
             }
+        } else {
+            throw new Error("Invalid argument")
         }
+
+        this.device = info
         this.parser = this._port.pipe(new Delimiter({ delimiter: "\r\n" }))
         this.result = ""
         this.callbacks = []
@@ -147,6 +157,7 @@ class Focus {
             this._port.close()
         }
         this._port = null
+        this.device = null
     }
 
     /**

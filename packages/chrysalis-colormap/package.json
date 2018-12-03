@@ -1,0 +1,28 @@
+{
+    "name": "chrysalis-colormap",
+    "version": "0.0.1",
+    "description": "Chrysalis colormap library",
+    "main": "lib",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Lepidopterarium/chrysalis-colormap"
+    },
+    "author": {
+        "name": "Gergely Nagy",
+        "email": "<algernon@keyboard.io>",
+        "url": "https://asylum.madhouse-project.org"
+    },
+    "license": "GPL-3.0+",
+    "scripts": {
+        "install": "babel src/lib -d lib",
+        "build": "babel src/lib -d lib"
+    },
+    "dependencies": {
+        "@babel/cli": "^7.1.0",
+        "@babel/core": "7.1.0",
+        "@babel/preset-env": "7.1.0"
+    },
+    "devDependencies": {
+        "chrysalis-focus": "git://github.com/Lepidopterarium/chrysalis-focus.git#master"
+    }
+}

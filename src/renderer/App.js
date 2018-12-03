@@ -19,7 +19,7 @@ import React from "react";
 
 import Focus from "chrysalis-focus";
 import Keymap from "chrysalis-keymap";
-import Colormap from "./focus/chrysalis-colormap";
+import Colormap from "chrysalis-colormap";
 import CoreTransformer from "chrysalis-keymap-transformer-core";
 import { Model01 } from "chrysalis-hardware-keyboardio-model01";
 

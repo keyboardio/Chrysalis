@@ -56,7 +56,6 @@ const styles = theme => ({
 class ColormapEditor extends React.Component {
   state = {
     currentLayer: 0,
-    currentKeyIndex: -1,
     modified: false,
     saving: false,
     selectedPaletteColor: -1,
@@ -82,8 +81,7 @@ class ColormapEditor extends React.Component {
 
   selectLayer = (event, value) => {
     this.setState({
-      currentLayer: value,
-      currentKeyIndex: -1
+      currentLayer: value
     });
   };
 
@@ -110,18 +108,8 @@ class ColormapEditor extends React.Component {
     let layer = parseInt(event.currentTarget.getAttribute("data-layer")),
       row = parseInt(event.currentTarget.getAttribute("data-key-row")),
       col = parseInt(event.currentTarget.getAttribute("data-key-col")),
-      keyIndex = row * 16 + col,
       ledIndex = led_map[row][col];
 
-    if (keyIndex == this.state.currentKeyIndex) {
-      this.setState({ currentKeyIndex: -1 });
-      return;
-    }
-
-    this.setState({
-      currentLayer: layer,
-      currentKeyIndex: keyIndex
-    });
     if (this.state.selectedPaletteColor != -1) {
       this.setState(state => {
         let colormap = state.colorMap.slice();
@@ -172,7 +160,6 @@ class ColormapEditor extends React.Component {
           palette={this.state.palette}
           colormap={this.state.colorMap[this.state.currentLayer]}
           onKeySelect={this.onKeySelect}
-          selectedKey={this.state.currentKeyIndex}
         />
       </Typography>
     );

@@ -37,11 +37,6 @@ class Layer extends React.Component {
       return color;
     };
 
-    let isActive = (row, col) => {
-      let keyIndex = parseInt(row) * 16 + parseInt(col);
-      return this.props.selectedKey == keyIndex;
-    };
-
     return (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +54,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(3, 15)}
-            active={isActive(3, 15)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.898734,0.047723,-0.0530256,0.998593,806.052,113.617)"
             extraLabelTransform="matrix(0.998593,0.0530256,-0.0530256,0.998593,798.755,102.062)"
@@ -72,7 +66,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(3, 14)}
-            active={isActive(3, 14)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.898852,0.0454426,-0.0504917,0.998724,747.949,111.208)"
             extraLabelTransform="matrix(0.998724,0.0504917,-0.0504917,0.998724,740.622,99.6718)"
@@ -85,7 +78,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(3, 13)}
-            active={isActive(3, 13)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899972,0.00706251,-0.00784723,0.999969,683.842,83.4691)"
             extraLabelTransform="matrix(0.999969,0.00784723,-0.00784723,0.999969,676.03,72.2559)"
@@ -98,7 +90,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(3, 12)}
-            active={isActive(3, 12)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899852,-0.0163275,0.0181417,0.999835,621.133,73.2385)"
             extraLabelTransform="matrix(0.999835,-0.0181417,0.0181417,0.999835,613.032,62.2322)"
@@ -111,7 +102,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(3, 11)}
-            active={isActive(3, 11)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899447,-0.0315391,0.0350435,0.999386,561.36,79.7391)"
             extraLabelTransform="matrix(0.999386,-0.0350435,0.0350435,0.999386,553.074,68.8713)"
@@ -124,7 +114,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(3, 10)}
-            active={isActive(3, 10)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899399,-0.0328901,0.0365445,0.999332,504.642,93.5118)"
             extraLabelTransform="matrix(0.999332,-0.0365445,0.0365445,0.999332,497.311,81.7374)"
@@ -137,7 +126,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(3, 9)}
-            active={isActive(3, 9)}
             onClick={this.props.onKeySelect}
             palmKey="1"
             primaryLabelTransform="matrix(0.872421,-0.221093,0.245659,0.969356,520.161,285.476)"
@@ -151,7 +139,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(3, 8)}
-            active={isActive(3, 8)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.788746,-0.433451,0.481612,0.876385,385.56,263.116)"
             extraLabelTransform="matrix(0.876385,-0.481612,0.481612,0.876385,373.266,257.148)"
@@ -164,7 +151,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(3, 7)}
-            active={isActive(3, 7)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.788746,0.433451,-0.481612,0.876385,443.053,161.774)"
             extraLabelTransform="matrix(0.876385,0.481612,-0.481612,0.876385,438.258,146.414)"
@@ -177,7 +163,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(3, 6)}
-            active={isActive(3, 6)}
             onClick={this.props.onKeySelect}
             palmKey="1"
             primaryLabelTransform="matrix(0.872421,0.221093,-0.245659,0.969356,287.696,233.273)"
@@ -191,7 +176,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(3, 5)}
-            active={isActive(3, 5)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899399,0.0328901,-0.0365445,0.999332,296.845,85.7461)"
             extraLabelTransform="matrix(0.999332,0.0365445,-0.0365445,0.999332,285.661,74.1781)"
@@ -204,7 +188,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(3, 4)}
-            active={isActive(3, 4)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899447,0.0315391,-0.0350435,0.999386,239.646,72.2924)"
             extraLabelTransform="matrix(0.999386,0.0350435,-0.0350435,0.999386,228.444,60.7412)"
@@ -217,7 +200,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(3, 3)}
-            active={isActive(3, 3)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899852,0.0163275,-0.0181417,0.999835,179.833,69.3834)"
             extraLabelTransform="matrix(0.999835,0.0181417,-0.0181417,0.999835,168.437,58.0233)"
@@ -230,7 +212,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(3, 2)}
-            active={isActive(3, 2)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899972,-0.00706251,0.00784723,0.999969,116.816,85.1367)"
             extraLabelTransform="matrix(0.999969,-0.00784723,0.00784723,0.999969,105.128,74.0765)"
@@ -243,7 +224,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(3, 1)}
-            active={isActive(3, 1)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.898852,-0.0454426,0.0504917,0.998724,53.6672,121.938)"
             extraLabelTransform="matrix(0.998724,-0.0504917,0.0504917,0.998724,41.519,111.386)"
@@ -256,7 +236,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(3, 0)}
-            active={isActive(3, 0)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.898734,-0.047723,0.0530256,0.998593,-4.4081,124.885)"
             extraLabelTransform="matrix(0.998593,-0.0530256,0.0530256,0.998593,-16.5831,114.364)"
@@ -270,7 +249,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(2, 15)}
-            active={isActive(2, 15)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.898866,0.0451617,-0.0501797,0.99874,809.161,58.8284)"
             extraLabelTransform="matrix(0.99874,0.0501797,-0.0501797,0.99874,801.831,47.2945)"
@@ -283,7 +261,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(2, 14)}
-            active={isActive(2, 14)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.898935,0.0437677,-0.0486308,0.998817,749.273,56.3083)"
             extraLabelTransform="matrix(0.998817,0.0486308,-0.0486308,0.998817,741.925,44.7858)"
@@ -296,7 +273,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(2, 13)}
-            active={isActive(2, 13)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899998,-0.0017242,0.00191578,0.999998,681.374,29.3429)"
             extraLabelTransform="matrix(0.999998,-0.00191578,0.00191578,0.999998,673.453,18.2065)"
@@ -309,7 +285,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(2, 12)}
-            active={isActive(2, 12)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899835,-0.017257,0.0191745,0.999816,620.111,18.0479)"
             extraLabelTransform="matrix(0.999816,-0.0191745,0.0191745,0.999816,611.999,7.04994)"
@@ -322,7 +297,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(2, 11)}
-            active={isActive(2, 11)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899393,-0.0330486,0.0367206,0.999326,559.684,24.9224)"
             extraLabelTransform="matrix(0.999326,-0.0367206,0.0367206,0.999326,551.38,14.0684)"
@@ -335,7 +309,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(2, 10)}
-            active={isActive(2, 10)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.89936,-0.0339334,0.0377038,0.999289,502.394,39.0343)"
             extraLabelTransform="matrix(0.999289,-0.0377038,0.0377038,0.999289,494.08,28.1886)"
@@ -348,7 +321,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(2, 9)}
-            active={isActive(2, 9)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899368,-0.0337152,0.0374614,0.999298,447.175,101.276)"
             extraLabelTransform="matrix(0.999298,-0.0374614,0.0374614,0.999298,438.863,90.4284)"
@@ -361,7 +333,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(2, 8)}
-            active={isActive(2, 8)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.851721,-0.290811,0.323124,0.946357,457.758,213.893)"
             extraLabelTransform="matrix(0.946357,-0.323124,0.323124,0.946357,446.679,205.893)"
@@ -374,7 +345,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(2, 7)}
-            active={isActive(2, 7)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.851721,0.290811,-0.323124,0.946357,354.986,145.23)"
             extraLabelTransform="matrix(0.946357,0.323124,-0.323124,0.946357,347.612,130.928)"
@@ -387,7 +357,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(2, 6)}
-            active={isActive(2, 6)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899368,0.0337152,-0.0374614,0.999298,353.651,93.3157)"
             extraLabelTransform="matrix(0.999298,0.0374614,-0.0374614,0.999298,342.476,81.7374)"
@@ -400,7 +369,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(2, 5)}
-            active={isActive(2, 5)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.89936,0.0339334,-0.0377038,0.999289,299.102,31.0223)"
             extraLabelTransform="matrix(0.999289,0.0377038,-0.0377038,0.999289,287.931,19.4413)"
@@ -413,7 +381,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(2, 4)}
-            active={isActive(2, 4)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899393,0.0330486,-0.0367206,0.999326,241.619,17.1192)"
             extraLabelTransform="matrix(0.999326,0.0367206,-0.0367206,0.999326,230.436,5.54926)"
@@ -426,7 +393,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(2, 3)}
-            active={isActive(2, 3)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899835,0.017257,-0.0191745,0.999816,180.736,13.9734)"
             extraLabelTransform="matrix(0.999816,0.0191745,-0.0191745,0.999816,169.352,2.60146)"
@@ -439,7 +405,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(2, 2)}
-            active={isActive(2, 2)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899998,0.0017242,-0.00191578,0.999998,118.119,28.9358)"
             extraLabelTransform="matrix(0.999998,0.00191578,-0.00191578,0.999998,106.54,17.7621)"
@@ -452,7 +417,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(2, 1)}
-            active={isActive(2, 1)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.898935,-0.0437677,0.0486308,0.998817,51.5348,66.6423)"
             extraLabelTransform="matrix(0.998817,-0.0486308,0.0486308,0.998817,39.4062,56.0681)"
@@ -465,7 +429,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(2, 0)}
-            active={isActive(2, 0)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.898866,-0.0451617,0.0501797,0.99874,-7.54853,69.4916)"
             extraLabelTransform="matrix(0.99874,-0.0501797,0.0501797,0.99874,-19.6935,58.9362)"
@@ -479,7 +442,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(1, 15)}
-            active={isActive(1, 15)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.898866,0.0451617,-0.0501797,0.99874,811.933,4.92264)"
             extraLabelTransform="matrix(0.99874,0.0501797,-0.0501797,0.99874,804.603,-6.61125)"
@@ -492,7 +454,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(1, 14)}
-            active={isActive(1, 14)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.89896,0.0432529,-0.0480588,0.998845,751.11,2.28101)"
             extraLabelTransform="matrix(0.998845,0.0480588,-0.0480588,0.998845,743.755,-9.2373)"
@@ -505,7 +466,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(1, 13)}
-            active={isActive(1, 13)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899998,-0.0017242,0.00191578,0.999998,681.282,-24.6434)"
             extraLabelTransform="matrix(0.999998,-0.00191578,0.00191578,0.999998,673.361,-35.7798)"
@@ -518,7 +478,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(1, 12)}
-            active={isActive(1, 12)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899835,-0.017257,0.0191745,0.999816,618.535,-35.8131)"
             extraLabelTransform="matrix(0.999816,-0.0191745,0.0191745,0.999816,610.422,-46.8111)"
@@ -531,7 +490,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(1, 11)}
-            active={isActive(1, 11)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.89968,-0.0239904,0.026656,0.999645,559.413,-29.6255)"
             extraLabelTransform="matrix(0.999645,-0.026656,0.026656,0.999645,551.219,-40.5624)"
@@ -544,7 +502,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(1, 10)}
-            active={isActive(1, 10)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899448,-0.0315052,0.0350057,0.999387,500.899,-14.9371)"
             extraLabelTransform="matrix(0.999387,-0.0350057,0.0350057,0.999387,492.614,-25.8053)"
@@ -557,7 +514,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(1, 9)}
-            active={isActive(1, 9)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899401,-0.0328385,0.0364872,0.999334,445.079,39.2222)"
             extraLabelTransform="matrix(0.999334,-0.0364872,0.0364872,0.999334,436.778,28.3664)"
@@ -570,7 +526,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(1, 8)}
-            active={isActive(1, 8)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.889818,-0.134996,0.149995,0.988687,540.033,177.119)"
             extraLabelTransform="matrix(0.988687,-0.149995,0.149995,0.988687,530.55,167.279)"
@@ -583,7 +538,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(1, 7)}
-            active={isActive(1, 7)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.889818,0.134996,-0.149995,0.988687,263.716,145.245)"
             extraLabelTransform="matrix(0.988687,0.149995,-0.149995,0.988687,253.92,132.48)"
@@ -596,7 +550,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(1, 6)}
-            active={isActive(1, 6)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899401,0.0328385,-0.0364872,0.999334,355.407,31.4687)"
             extraLabelTransform="matrix(0.999334,0.0364872,-0.0364872,0.999334,344.222,19.9014)"
@@ -609,7 +562,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(1, 5)}
-            active={isActive(1, 5)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899448,0.0315052,-0.0350057,0.999387,300.576,-22.3758)"
             extraLabelTransform="matrix(0.999387,0.0350057,-0.0350057,0.999387,289.374,-33.9266)"
@@ -622,7 +574,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(1, 4)}
-            active={isActive(1, 4)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.89968,0.0239904,-0.026656,0.999645,241.325,-35.2899)"
             extraLabelTransform="matrix(0.999645,0.026656,-0.026656,0.999645,230.027,-46.7467)"
@@ -635,7 +586,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(1, 3)}
-            active={isActive(1, 3)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899835,0.017257,-0.0191745,0.999816,181.284,-39.8876)"
             extraLabelTransform="matrix(0.999816,0.0191745,-0.0191745,0.999816,169.9,-51.2595)"
@@ -648,7 +598,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(1, 2)}
-            active={isActive(1, 2)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899998,0.0017242,-0.00191578,0.999998,117.422,-25.0505)"
             extraLabelTransform="matrix(0.999998,0.00191578,-0.00191578,0.999998,105.844,-36.2243)"
@@ -661,7 +610,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(1, 1)}
-            active={isActive(1, 1)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.89896,-0.0432529,0.0480588,0.998845,49.228,12.4935)"
             extraLabelTransform="matrix(0.998845,-0.0480588,0.0480588,0.998845,37.1055,1.91234)"
@@ -674,7 +622,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(1, 0)}
-            active={isActive(1, 0)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.898866,-0.0451617,0.0501797,0.99874,-10.3571,15.5858)"
             extraLabelTransform="matrix(0.99874,-0.0501797,0.0501797,0.99874,-22.502,5.03044)"
@@ -688,7 +635,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(0, 15)}
-            active={isActive(0, 15)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.898948,0.0434984,-0.0483315,0.998831,812.704,-48.9935)"
             extraLabelTransform="matrix(0.998831,0.0483315,-0.0483315,0.998831,805.353,-60.5139)"
@@ -701,7 +647,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(0, 14)}
-            active={isActive(0, 14)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.898858,0.0453278,-0.0503642,0.998731,753.366,-54.0866)"
             extraLabelTransform="matrix(0.998731,0.0503642,-0.0503642,0.998731,746.038,-65.6219)"
@@ -714,7 +659,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(0, 13)}
-            active={isActive(0, 13)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899998,-0.0017242,0.00191578,0.999998,681.242,-79.5663)"
             extraLabelTransform="matrix(0.999998,-0.00191578,0.00191578,0.999998,673.321,-90.7027)"
@@ -727,7 +671,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(0, 12)}
-            active={isActive(0, 12)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899835,-0.017257,0.0191745,0.999816,617.437,-89.6613)"
             extraLabelTransform="matrix(0.999816,-0.0191745,0.0191745,0.999816,609.325,-100.659)"
@@ -740,7 +683,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(0, 11)}
-            active={isActive(0, 11)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899644,-0.0252947,0.0281052,0.999605,557.038,-84.3739)"
             extraLabelTransform="matrix(0.999605,-0.0281052,0.0281052,0.999605,548.828,-95.2989)"
@@ -753,7 +695,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(0, 10)}
-            active={isActive(0, 10)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899448,-0.0315052,0.0350057,0.999387,499.328,-68.9256)"
             extraLabelTransform="matrix(0.999387,-0.0350057,0.0350057,0.999387,491.043,-79.7938)"
@@ -766,7 +707,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(0, 9)}
-            active={isActive(0, 9)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899448,-0.0315052,0.0350057,0.999387,443.056,-23.4824)"
             extraLabelTransform="matrix(0.999387,-0.0350057,0.0350057,0.999387,434.77,-34.3506)"
@@ -779,7 +719,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(0, 8)}
-            active={isActive(0, 8)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.89979,0.0194631,-0.0216256,0.999766,625.543,155.938)"
             extraLabelTransform="matrix(0.999766,0.0216256,-0.0216256,0.999766,617.886,144.619)"
@@ -792,7 +731,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(0, 7)}
-            active={isActive(0, 7)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.89979,-0.0194631,0.0216256,0.999766,176.22,160.534)"
             extraLabelTransform="matrix(0.999766,-0.0216256,0.0216256,0.999766,164.381,149.636)"
@@ -805,7 +743,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(0, 6)}
-            active={isActive(0, 6)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899448,0.0315052,-0.0350057,0.999387,357.632,-30.9212)"
             extraLabelTransform="matrix(0.999387,0.0350057,-0.0350057,0.999387,346.429,-42.4719)"
@@ -818,7 +755,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(0, 5)}
-            active={isActive(0, 5)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899448,0.0315052,-0.0350057,0.999387,302.147,-76.3643)"
             extraLabelTransform="matrix(0.999387,0.0350057,-0.0350057,0.999387,290.945,-87.9151)"
@@ -831,7 +767,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(0, 4)}
-            active={isActive(0, 4)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899644,0.0252947,-0.0281052,0.999605,243.74,-90.3462)"
             extraLabelTransform="matrix(0.999605,0.0281052,-0.0281052,0.999605,232.458,-101.819)"
@@ -844,7 +779,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(0, 3)}
-            active={isActive(0, 3)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899835,0.017257,-0.0191745,0.999816,182.132,-93.7359)"
             extraLabelTransform="matrix(0.999816,0.0191745,-0.0191745,0.999816,170.748,-105.108)"
@@ -857,7 +791,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(0, 2)}
-            active={isActive(0, 2)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899998,0.0017242,-0.00191578,0.999998,117.422,-79.9734)"
             extraLabelTransform="matrix(0.999998,0.00191578,-0.00191578,0.999998,105.844,-91.1471)"
@@ -870,7 +803,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(0, 1)}
-            active={isActive(0, 1)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.898858,-0.0453278,0.0503642,0.998731,47.1874,-43.323)"
             extraLabelTransform="matrix(0.998731,-0.0503642,0.0503642,0.998731,35.0405,-53.8762)"
@@ -883,7 +815,6 @@ class Layer extends React.Component {
             y="177.877"
             layer={this.props.index}
             color={getColor(0, 0)}
-            active={isActive(0, 0)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.898948,-0.0434984,0.0483315,0.998831,-10.1108,-38.7231)"
             extraLabelTransform="matrix(0.998831,-0.0483315,0.0483315,0.998831,-22.2362,-49.3009)"

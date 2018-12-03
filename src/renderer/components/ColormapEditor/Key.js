@@ -22,10 +22,6 @@ class Key extends React.Component {
     let shape,
       stroke = "#b3b3b3";
 
-    if (this.props.active) {
-      stroke = "#f3b3b3";
-    }
-
     if (this.props.palmKey) {
       shape = (
         <ellipse

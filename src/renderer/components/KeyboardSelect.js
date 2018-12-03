@@ -131,7 +131,7 @@ class KeyboardSelect extends React.Component {
     this.setState({ opening: true });
     try {
       await this.props.onConnect(
-        this.state.devices[this.state.selectedPortIndex].comName
+        this.state.devices[this.state.selectedPortIndex]
       );
     } catch (err) {
       this.setState({
@@ -151,7 +151,8 @@ class KeyboardSelect extends React.Component {
 
     let port = null;
     if (this.state.devices && this.state.devices.length > 0) {
-      let portName = this.state.devices[this.state.selectedPortIndex].comName;
+      let portDesc = this.state.devices[this.state.selectedPortIndex],
+        portInfo = portDesc.device.info;
       port = (
         <div>
           <Typography component="h1" variant="h5">
@@ -160,8 +161,8 @@ class KeyboardSelect extends React.Component {
           <List component="nav">
             <ListItem button onClick={this.handleClickListItem}>
               <ListItemText
-                primary="Keyboard.io Model01"
-                secondary={portName}
+                primary={`${portInfo.vendor} ${portInfo.product}`}
+                secondary={portDesc.comName}
               />
             </ListItem>
           </List>

@@ -2315,9 +2315,9 @@ browser-resolve@^1.11.3:
   dependencies:
     resolve "1.1.7"
 
-"browser-serialport@git+https://github.com/noopkat/browser-serialport.git#c8628c41c11890d3058875994c15f83f2df8185b":
+"browser-serialport@https://github.com/noopkat/browser-serialport#c8628c41c11890d3058875994c15f83f2df8185b":
   version "2.0.3"
-  resolved "git+https://github.com/noopkat/browser-serialport.git#c8628c41c11890d3058875994c15f83f2df8185b"
+  resolved "https://github.com/noopkat/browser-serialport#c8628c41c11890d3058875994c15f83f2df8185b"
 
 browserify-aes@^1.0.0, browserify-aes@^1.0.4:
   version "1.2.0"
@@ -2752,6 +2752,14 @@ chromium-pickle-js@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/chromium-pickle-js/-/chromium-pickle-js-0.2.0.tgz#04a106672c18b085ab774d983dfa3ea138f22205"
   integrity sha1-BKEGZywYsIWrd02YPfo+oTjyIgU=
+
+"chrysalis-colormap@git://github.com/Lepidopterarium/chrysalis-colormap.git#master":
+  version "0.0.1"
+  resolved "git://github.com/Lepidopterarium/chrysalis-colormap.git#7beefa4cb1e8adc6beb041507a96f6e3c9edc01e"
+  dependencies:
+    "@babel/cli" "^7.1.0"
+    "@babel/core" "7.1.0"
+    "@babel/preset-env" "7.1.0"
 
 "chrysalis-focus@git://github.com/Lepidopterarium/chrysalis-focus.git#master":
   version "0.0.1"

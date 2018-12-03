@@ -62,7 +62,7 @@
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.2",
-    "electron": "3.0.4",
+    "electron": "3.0.10",
     "electron-builder": "^20.11.1",
     "electron-devtools-installer": "^2.2.4",
     "electron-rebuild": "^1.8.2",

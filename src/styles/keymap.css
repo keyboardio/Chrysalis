@@ -27,6 +27,36 @@ button {
   min-height: 280px;
 }
 
+@media (min-width: 1024px) {
+    .layer {
+        width: 768px;
+    }
+}
+
+@meida (min-width: 1280px) {
+    .layer {
+        width: 840px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .layer {
+        width: 1000px;
+    }
+}
+
+@media (min-width: 1600px) {
+    .layer {
+        width: 1160px;
+    }
+}
+
+@media (min-width: 1920px) {
+    .layer {
+        width: 1440px;
+    }
+}
+
 .extraKey {
   font-family: "SourceCodePro-Bold", "Source Code Pro", "monospace";
   font-size: 8px;

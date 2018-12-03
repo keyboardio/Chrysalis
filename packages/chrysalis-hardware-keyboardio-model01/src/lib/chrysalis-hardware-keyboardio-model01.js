@@ -28,7 +28,20 @@ const Model01 = {
     info: {
         vendor: "Keyboard.io",
         product: "Model01",
-        url: "https://shop.keyboard.io/"
+        urls: [
+            {
+                name: "Homepage",
+                url: "https://shop.keyboard.io/"
+            },
+            {
+                name: "Forum",
+                url: "https://community.keyboard.io/"
+            },
+            {
+                name: "Chat",
+                url: "https://discord.gg/4az77sf"
+            }
+        ]
     },
     usb: {
         vendorId: 0x1209,

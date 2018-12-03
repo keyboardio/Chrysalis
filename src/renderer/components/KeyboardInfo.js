@@ -20,6 +20,7 @@ import PropTypes from "prop-types";
 import Electron from "electron";
 import AvrGirl from "avrgirl-arduino";
 
+import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -44,7 +45,13 @@ const styles = theme => ({
     display: "flex"
   },
   card: {
-    margin: theme.spacing.unit * 2
+    margin: theme.spacing.unit * 2,
+    display: "flex",
+    flexDirection: "column"
+  },
+  cardContent: {
+    display: "flex",
+    flex: "1 0 auto"
   }
 });
 
@@ -163,10 +170,32 @@ class KeyboardInfo extends React.Component {
       );
     }
 
+    let focus = new Focus(),
+      device = focus.device.info;
+
+    let urls =
+      device.urls &&
+      device.urls.map(({ name, url }) => {
+        return (
+          <Button color="primary" key={name} href={url}>
+            {name}
+          </Button>
+        );
+      });
+
     return (
       <div>
         {this.state.inProgress && <LinearProgress variant="query" />}
         <div className={classes.root}>
+          <Card className={classes.card}>
+            <CardHeader title={`${device.vendor} ${device.product}`} />
+            <CardContent className={classes.cardContent}>
+              <Typography color="textSecondary">
+                Open on {focus._port.path}
+              </Typography>
+            </CardContent>
+            {urls && <CardActions>{urls}</CardActions>}
+          </Card>
           <Card className={classes.card}>
             <CardHeader title="Flashing" />
             <CardContent>

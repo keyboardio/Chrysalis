@@ -44,7 +44,7 @@ import LeaderTable from "./keys/leader";
 import StenoTable from "./keys/steno";
 import SpaceCadetTable from "./keys/spacecadet";
 
-const keyCodeTable = [
+const baseKeyCodeTable = [
   LetterTable,
   DigitTable,
   PunctuationTable,
@@ -74,7 +74,8 @@ const keyCodeTable = [
   SpaceCadetTable,
 
   BlankTable
-]
+];
+const keyCodeTable = baseKeyCodeTable
   .concat(ModifiedLetterTables)
   .concat(ModifiedDigitTables)
   .concat(ModifiedPunctuationTables)
@@ -134,4 +135,4 @@ class CoreTransformer {
   }
 }
 
-export { CoreTransformer as default, keyCodeTable };
+export { CoreTransformer as default, baseKeyCodeTable, keyCodeTable };

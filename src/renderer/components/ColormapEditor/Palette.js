@@ -43,7 +43,11 @@ class Palette extends React.Component {
   render() {
     if (!this.props.palette) return null;
 
-    let palette = this.props.palette.map((color, index) => {
+    const { classes, palette } = this.props;
+
+    let [lowHalf, highHalf] = [palette.slice(0, 8), palette.slice(8)];
+
+    let lowWidget = lowHalf.map((color, index) => {
       let itemKey = "palette-index-" + index.toString();
       return (
         <ColorBox
@@ -56,12 +60,28 @@ class Palette extends React.Component {
         />
       );
     });
-
-    const { classes } = this.props;
+    let highWidget = highHalf.map((color, index) => {
+      let itemKey = "palette-index-" + (index + 8).toString();
+      return (
+        <ColorBox
+          selected={index + 8 == this.state.selectedColor}
+          key={itemKey}
+          color={color}
+          colorIndex={index + 8}
+          onColorSelect={this.onColorSelect}
+          onColorPick={this.props.onColorPick}
+        />
+      );
+    });
 
     return (
-      <div className={classNames(classes.palette, this.props.className)}>
-        {palette}
+      <div className={classes.palette}>
+        <div className={classNames(classes.palette, this.props.className)}>
+          {lowWidget}
+        </div>
+        <div className={classNames(classes.palette, this.props.className)}>
+          {highWidget}
+        </div>
       </div>
     );
   }

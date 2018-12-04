@@ -44,9 +44,7 @@ const styles = theme => ({
   },
   palette: {
     marginTop: theme.spacing.unit * 3,
-    display: "inline",
-    marginRight: theme.spacing.unit * 4,
-    marginLeft: theme.spacing.unit * 24
+    display: "inline"
   },
   layerRoot: {
     width: "100%"

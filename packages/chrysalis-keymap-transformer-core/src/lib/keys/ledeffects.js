@@ -29,7 +29,8 @@ const LEDEffectsTable = {
       code: 17153,
       labels: {
         primary: "Prev.",
-        top: "LEDEff."
+        top: "LEDEff.",
+        verbose: "Previous"
       }
     }
   ]

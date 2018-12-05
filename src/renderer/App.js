@@ -24,6 +24,9 @@ import Colormap from "chrysalis-colormap";
 import CoreTransformer from "chrysalis-keymap-transformer-core";
 import { Model01 } from "chrysalis-hardware-keyboardio-model01";
 
+import usb from "usb";
+import { withSnackbar } from "notistack";
+
 import BugReportIcon from "@material-ui/icons/BugReport";
 import CameraIcon from "@material-ui/icons/Camera";
 import CodeIcon from "@material-ui/icons/Code";
@@ -31,8 +34,6 @@ import SpeedDial from "@material-ui/lab/SpeedDial";
 import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
 import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
 import { withStyles } from "@material-ui/core/styles";
-
-import { withSnackbar } from "notistack";
 
 import { isDevelopment } from "./config";
 import KeyboardSelect from "./components/KeyboardSelect";
@@ -62,6 +63,27 @@ class App extends React.Component {
     toolsOpen: false,
     toolsClicked: false
   };
+
+  componentDidMount() {
+    usb.on("detach", device => {
+      if (!focus.device) return;
+
+      if (
+        focus.device.usb.vendorId != device.deviceDescriptor.idVendor ||
+        focus.device.usb.productId != device.deviceDescriptor.idProduct
+      ) {
+        return;
+      }
+
+      if (!focus._port.isOpen) {
+        this.props.enqueueSnackbar("Device disconnected.", {
+          variant: "warning"
+        });
+        focus.close();
+        this.setState({ keyboardOpen: false });
+      }
+    });
+  }
 
   onKeyboardConnect = async port => {
     focus.close();

@@ -52,7 +52,8 @@ const styles = theme => ({
     margin: theme.spacing.unit * 3
   },
   editorControls: {
-    marginLeft: "2em"
+    marginLeft: "2em",
+    width: "100%"
   },
   selectDefaultLayer: {
     color: theme.palette.common.white
@@ -106,7 +107,7 @@ class LayoutEditor extends React.Component {
 
   getCurrentKey() {
     if (this.state.currentLayer < 0 || this.state.currentKeyIndex < 0)
-      return "";
+      return -1;
 
     let layer = parseInt(this.state.currentLayer),
       keyIndex = parseInt(this.state.currentKeyIndex);
@@ -114,7 +115,7 @@ class LayoutEditor extends React.Component {
     return this.state.keymap[layer][keyIndex].keyCode;
   }
 
-  onChange = option => {
+  onKeyChange = keyCode => {
     let layer = this.state.currentLayer,
       keyIndex = this.state.currentKeyIndex;
 
@@ -124,7 +125,7 @@ class LayoutEditor extends React.Component {
 
     this.setState(state => {
       let keymap = state.keymap.slice();
-      keymap[layer][keyIndex] = this.coreTransformer.parse(option.code);
+      keymap[layer][keyIndex] = this.coreTransformer.parse(keyCode);
       return keymap;
     });
     this.setState({ modified: true });
@@ -144,7 +145,6 @@ class LayoutEditor extends React.Component {
       currentLayer: layer,
       currentKeyIndex: keyIndex
     });
-    document.getElementById("keyselector-search").focus();
   };
 
   selectLayer = (event, value) => {
@@ -265,8 +265,8 @@ class LayoutEditor extends React.Component {
           <div className={classes.editorControls}>
             <KeySelector
               className="select-keycode"
-              isDisabled={isReadOnly}
-              onChange={this.onChange}
+              disabled={isReadOnly}
+              onKeySelect={this.onKeyChange}
               currentKeyCode={this.getCurrentKey()}
             />
           </div>

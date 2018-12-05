@@ -367,6 +367,7 @@ class KeySelector extends React.Component {
   };
 
   onKeySelect = keyCode => {
+    this.setState({ selectedGroup: -1 });
     this.props.onKeySelect(keyCode);
   };
 

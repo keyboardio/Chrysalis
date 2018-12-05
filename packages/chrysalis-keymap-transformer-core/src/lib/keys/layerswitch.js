@@ -241,13 +241,6 @@ const LockLayerTable = {
         primary: "31",
         top: "LockTo"
       }
-    },
-    {
-      code: 17440,
-      labels: {
-        primary: "32",
-        top: "LockTo"
-      }
     }
   ]
 };
@@ -476,13 +469,6 @@ const ShiftToLayerTable = {
       code: 17481,
       labels: {
         primary: "31",
-        top: "ShiftTo"
-      }
-    },
-    {
-      code: 17482,
-      labels: {
-        primary: "32",
         top: "ShiftTo"
       }
     }

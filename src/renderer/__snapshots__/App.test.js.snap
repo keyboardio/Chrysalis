@@ -3,60 +3,84 @@
 exports[`renders without crashing 1`] = `
 <div>
   <main
-    class="KeyboardSelect-main-81"
+    class="KeyboardSelect-main-89"
   >
     <div
-      class="MuiPaper-root-86 MuiPaper-elevation2-90 MuiPaper-rounded-87 KeyboardSelect-paper-82"
+      class="MuiPaper-root-96 MuiPaper-elevation2-100 MuiPaper-rounded-97 KeyboardSelect-paper-90"
     >
-      <div
-        class="MuiAvatar-root-113 MuiAvatar-colorDefault-114 KeyboardSelect-avatar-83"
+      <a
+        class="MuiBadge-root-123"
+        href="https://github.com/keyboardio/chrysalis-bundle-keyboardio/issues"
       >
-        <svg
-          aria-hidden="true"
-          class="MuiSvgIcon-root-116"
-          focusable="false"
-          role="presentation"
-          viewBox="0 0 24 24"
+        <div
+          class="MuiAvatar-root-129 MuiAvatar-colorDefault-130 KeyboardSelect-avatar-91"
         >
-          <path
-            d="M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zm-1 2H5v-2h2v2zm0-3H5V8h2v2zm9 7H8v-2h8v2zm0-4h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z"
-          />
-          <path
-            d="M0 0h24v24H0zm0 0h24v24H0z"
-            fill="none"
-          />
-        </svg>
-      </div>
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root-132"
+            focusable="false"
+            role="presentation"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zm-1 2H5v-2h2v2zm0-3H5V8h2v2zm9 7H8v-2h8v2zm0-4h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z"
+            />
+            <path
+              d="M0 0h24v24H0zm0 0h24v24H0z"
+              fill="none"
+            />
+          </svg>
+        </div>
+        <span
+          class="MuiBadge-badge-124 KeyboardSelect-bugReport-94 MuiBadge-colorPrimary-125"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root-132 KeyboardSelect-bugReportIcon-95"
+            focusable="false"
+            role="presentation"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M0 0h24v24H0z"
+              fill="none"
+            />
+            <path
+              d="M20 8h-2.81c-.45-.78-1.07-1.45-1.82-1.96L17 4.41 15.59 3l-2.17 2.17C12.96 5.06 12.49 5 12 5c-.49 0-.96.06-1.41.17L8.41 3 7 4.41l1.62 1.63C7.88 6.55 7.26 7.22 6.81 8H4v2h2.09c-.05.33-.09.66-.09 1v1H4v2h2v1c0 .34.04.67.09 1H4v2h2.81c1.04 1.79 2.97 3 5.19 3s4.15-1.21 5.19-3H20v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1H20V8zm-6 8h-4v-2h4v2zm0-4h-4v-2h4v2z"
+            />
+          </svg>
+        </span>
+      </a>
       <button
-        class="MuiButtonBase-root-151 MuiButton-root-125 MuiButton-contained-136 MuiButton-containedPrimary-137 MuiButton-raised-139 MuiButton-raisedPrimary-140 MuiButton-fullWidth-150"
+        class="MuiButtonBase-root-167 MuiButton-root-141 MuiButton-contained-152 MuiButton-containedPrimary-153 MuiButton-raised-155 MuiButton-raisedPrimary-156 MuiButton-fullWidth-166"
         tabindex="0"
         type="button"
       >
         <span
-          class="MuiButton-label-126"
+          class="MuiButton-label-142"
         >
           Connect
         </span>
         <span
-          class="MuiTouchRipple-root-154"
+          class="MuiTouchRipple-root-170"
         />
       </button>
     </div>
     <div
-      class="KeyboardSelect-exit-84"
+      class="KeyboardSelect-exit-92"
     >
       <button
-        class="MuiButtonBase-root-151 MuiButton-root-125 MuiButton-text-127 MuiButton-flat-130"
+        class="MuiButtonBase-root-167 MuiButton-root-141 MuiButton-text-143 MuiButton-flat-146"
         tabindex="0"
         type="button"
       >
         <span
-          class="MuiButton-label-126"
+          class="MuiButton-label-142"
         >
           Exit
         </span>
         <span
-          class="MuiTouchRipple-root-154"
+          class="MuiTouchRipple-root-170"
         />
       </button>
     </div>

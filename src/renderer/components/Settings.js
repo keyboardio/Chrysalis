@@ -17,7 +17,11 @@
 
 import React from "react";
 import PropTypes from "prop-types";
+import Electron from "electron";
 
+import FormGroup from "@material-ui/core/FormGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Switch from "@material-ui/core/Switch";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
@@ -32,17 +36,50 @@ const styles = theme => ({
 });
 
 class Settings extends React.Component {
+  state = {
+    devTools: false
+  };
+
+  componentDidMount() {
+    const webContents = Electron.remote.getCurrentWebContents();
+    this.setState({ devTools: webContents.isDevToolsOpened() });
+    webContents.on("devtools-opened", () => {
+      this.setState({ devTools: true });
+    });
+    webContents.on("devtools-closed", () => {
+      this.setState({ devTools: false });
+    });
+  }
+
+  toggleDevTools = event => {
+    this.setState({ devTools: event.target.checked });
+    if (event.target.checked) {
+      Electron.remote.getCurrentWebContents().openDevTools();
+    } else {
+      Electron.remote.getCurrentWebContents().closeDevTools();
+    }
+  };
+
   render() {
     const { classes } = this.props;
 
     return (
       <Paper elevation={1} className={classes.root}>
         <Typography variant="h5" component="h3">
-          Chrysalis 0.0.6
+          Settings
         </Typography>
-        <Typography component="p">
-          This is alpha software. Things will break.
-        </Typography>
+        <FormGroup row>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={this.state.devTools}
+                onChange={this.toggleDevTools}
+                value="devtools"
+              />
+            }
+            label="Developer tools"
+          />
+        </FormGroup>
       </Paper>
     );
   }

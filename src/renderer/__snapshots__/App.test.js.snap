@@ -3,21 +3,21 @@
 exports[`renders without crashing 1`] = `
 <div>
   <main
-    class="KeyboardSelect-main-89"
+    class="KeyboardSelect-main-96"
   >
     <div
-      class="MuiPaper-root-96 MuiPaper-elevation2-100 MuiPaper-rounded-97 KeyboardSelect-paper-90"
+      class="MuiPaper-root-104 MuiPaper-elevation2-108 MuiPaper-rounded-105 KeyboardSelect-paper-97"
     >
       <a
-        class="MuiBadge-root-123"
+        class="MuiBadge-root-131"
         href="https://github.com/keyboardio/chrysalis-bundle-keyboardio/issues"
       >
         <div
-          class="MuiAvatar-root-129 MuiAvatar-colorDefault-130 KeyboardSelect-avatar-91"
+          class="MuiAvatar-root-137 MuiAvatar-colorDefault-138 KeyboardSelect-avatar-98"
         >
           <svg
             aria-hidden="true"
-            class="MuiSvgIcon-root-132"
+            class="MuiSvgIcon-root-140"
             focusable="false"
             role="presentation"
             viewBox="0 0 24 24"
@@ -32,11 +32,11 @@ exports[`renders without crashing 1`] = `
           </svg>
         </div>
         <span
-          class="MuiBadge-badge-124 KeyboardSelect-bugReport-94 MuiBadge-colorPrimary-125"
+          class="MuiBadge-badge-132 KeyboardSelect-bugReport-101 MuiBadge-colorPrimary-133"
         >
           <svg
             aria-hidden="true"
-            class="MuiSvgIcon-root-132 KeyboardSelect-bugReportIcon-95"
+            class="MuiSvgIcon-root-140 KeyboardSelect-bugReportIcon-102"
             focusable="false"
             role="presentation"
             viewBox="0 0 24 24"
@@ -52,35 +52,57 @@ exports[`renders without crashing 1`] = `
         </span>
       </a>
       <button
-        class="MuiButtonBase-root-167 MuiButton-root-141 MuiButton-contained-152 MuiButton-containedPrimary-153 MuiButton-raised-155 MuiButton-raisedPrimary-156 MuiButton-fullWidth-166"
+        class="MuiButtonBase-root-175 MuiButton-root-149 MuiButton-contained-160 MuiButton-containedPrimary-161 MuiButton-raised-163 MuiButton-raisedPrimary-164 MuiButton-fullWidth-174"
         tabindex="0"
         type="button"
       >
         <span
-          class="MuiButton-label-142"
+          class="MuiButton-label-150"
         >
           Connect
         </span>
         <span
-          class="MuiTouchRipple-root-170"
+          class="MuiTouchRipple-root-184"
         />
       </button>
     </div>
     <div
-      class="KeyboardSelect-exit-92"
+      class="KeyboardSelect-exit-99"
     >
       <button
-        class="MuiButtonBase-root-167 MuiButton-root-141 MuiButton-text-143 MuiButton-flat-146"
+        class="MuiButtonBase-root-175 MuiButton-root-149 MuiButton-text-151 MuiButton-flat-154"
         tabindex="0"
         type="button"
       >
         <span
-          class="MuiButton-label-142"
+          class="MuiButton-label-150"
         >
           Exit
         </span>
         <span
-          class="MuiTouchRipple-root-170"
+          class="MuiTouchRipple-root-184"
+        />
+      </button>
+    </div>
+    <div
+      class="MuiBottomNavigation-root-178 KeyboardSelect-bottom-103"
+    >
+      <button
+        class="MuiButtonBase-root-175 MuiBottomNavigationAction-root-179"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="MuiBottomNavigationAction-wrapper-182"
+        >
+          <span
+            class="MuiBottomNavigationAction-label-183"
+          >
+            Developer Tools
+          </span>
+        </span>
+        <span
+          class="MuiTouchRipple-root-184"
         />
       </button>
     </div>

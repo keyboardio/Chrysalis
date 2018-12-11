@@ -19,7 +19,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import BugReportIcon from "@material-ui/icons/BugReport";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -183,16 +182,6 @@ class Dashboard extends React.Component {
           </List>
           <Divider />
           <List>
-            <ListItem
-              component="a"
-              button
-              href="https://github.com/keyboardio/chrysalis-bundle-keyboardio/issues"
-            >
-              <ListItemIcon>
-                <BugReportIcon />
-              </ListItemIcon>
-              <ListItemText primary="Report a bug" />
-            </ListItem>
             <ListItem
               button
               selected={this.state.page == "settings"}

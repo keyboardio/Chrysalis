@@ -20,11 +20,7 @@ import PropTypes from "prop-types";
 import Electron from "electron";
 
 import Avatar from "@material-ui/core/Avatar";
-import Badge from "@material-ui/core/Badge";
-import BottomNavigation from "@material-ui/core/BottomNavigation";
-import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import Button from "@material-ui/core/Button";
-import BugReportIcon from "@material-ui/icons/BugReport";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
@@ -76,18 +72,6 @@ const styles = theme => ({
   },
   error: {
     color: theme.palette.error.dark
-  },
-  bugReport: {
-    margin: theme.spacing.unit * 1.5
-  },
-  bugReportIcon: {
-    width: "16px",
-    height: "16px"
-  },
-  bottom: {
-    position: "absolute",
-    bottom: theme.spacing.unit * 2,
-    right: theme.spacing.unit * 2
   }
 });
 
@@ -161,16 +145,6 @@ class KeyboardSelect extends React.Component {
     Electron.remote.app.exit(0);
   };
 
-  toggleDevTools = () => {
-    const webContents = Electron.remote.getCurrentWebContents();
-
-    if (webContents.isDevToolsOpened()) {
-      webContents.closeDevTools();
-    } else {
-      webContents.openDevTools();
-    }
-  };
-
   render() {
     const { classes } = this.props;
     const { anchorEl } = this.state;
@@ -225,17 +199,9 @@ class KeyboardSelect extends React.Component {
       <main className={classes.main}>
         <CssBaseline />
         <Paper className={classes.paper}>
-          <Badge
-            component="a"
-            href="https://github.com/keyboardio/chrysalis-bundle-keyboardio/issues"
-            badgeContent={<BugReportIcon className={classes.bugReportIcon} />}
-            color="primary"
-            classes={{ badge: classes.bugReport }}
-          >
-            <Avatar className={classes.avatar}>
-              <KeyboardIcon />
-            </Avatar>
-          </Badge>
+          <Avatar className={classes.avatar}>
+            <KeyboardIcon />
+          </Avatar>
           {port}
           <Button
             disabled={
@@ -253,13 +219,6 @@ class KeyboardSelect extends React.Component {
         <div className={classes.exit}>
           <Button onClick={this.exit}>Exit</Button>
         </div>
-        <BottomNavigation
-          showLabels
-          onChange={this.toggleDevTools}
-          className={classes.bottom}
-        >
-          <BottomNavigationAction label="Developer Tools" />
-        </BottomNavigation>
       </main>
     );
   }

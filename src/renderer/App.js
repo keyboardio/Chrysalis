@@ -25,11 +25,14 @@ import CoreTransformer from "chrysalis-keymap-transformer-core";
 import { Model01 } from "chrysalis-hardware-keyboardio-model01";
 
 import BugReportIcon from "@material-ui/icons/BugReport";
+import CameraIcon from "@material-ui/icons/Camera";
 import CodeIcon from "@material-ui/icons/Code";
 import SpeedDial from "@material-ui/lab/SpeedDial";
 import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
 import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
 import { withStyles } from "@material-ui/core/styles";
+
+import { withSnackbar } from "notistack";
 
 import KeyboardSelect from "./components/KeyboardSelect";
 import Dashboard from "./components/Dashboard";
@@ -107,6 +110,27 @@ class App extends React.Component {
     }));
   };
 
+  saveScreenshot = async () => {
+    const w = Electron.remote.getCurrentWindow(),
+      webContents = Electron.remote.getCurrentWebContents(),
+      fs = Electron.remote.require("fs"),
+      fileName = "chrysalis-" + Date.now().toString() + ".png",
+      devToolsOpen = webContents.isDevToolsOpened();
+
+    if (devToolsOpen) await webContents.closeDevTools();
+
+    setTimeout(() => {
+      w.capturePage(img => {
+        fs.writeFile(fileName, img.toPNG(), () => {
+          this.props.enqueueSnackbar("Screenshot saved to " + fileName, {
+            variant: "success",
+            autoHideDuration: 1000
+          });
+          if (devToolsOpen) webContents.openDevTools();
+        });
+      });
+    }, 1000);
+  };
 
   render() {
     const { classes } = this.props;
@@ -153,10 +177,15 @@ class App extends React.Component {
             tooltipTitle="Report a bug"
             href="https://github.com/keyboardio/chrysalis-bundle-keyboardio/issues"
           />
+          <SpeedDialAction
+            icon={<CameraIcon />}
+            tooltipTitle="Save a screenshot"
+            onClick={this.saveScreenshot}
+          />
         </SpeedDial>
       </div>
     );
   }
 }
 
-export default withStyles(styles)(App);
+export default withSnackbar(withStyles(styles)(App));

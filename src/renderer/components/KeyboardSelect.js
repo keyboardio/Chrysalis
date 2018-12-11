@@ -21,8 +21,6 @@ import Electron from "electron";
 
 import Avatar from "@material-ui/core/Avatar";
 import Badge from "@material-ui/core/Badge";
-import BottomNavigation from "@material-ui/core/BottomNavigation";
-import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import Button from "@material-ui/core/Button";
 import BugReportIcon from "@material-ui/icons/BugReport";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -83,11 +81,6 @@ const styles = theme => ({
   bugReportIcon: {
     width: "16px",
     height: "16px"
-  },
-  bottom: {
-    position: "absolute",
-    bottom: theme.spacing.unit * 2,
-    right: theme.spacing.unit * 2
   }
 });
 
@@ -159,16 +152,6 @@ class KeyboardSelect extends React.Component {
 
   exit = () => {
     Electron.remote.app.exit(0);
-  };
-
-  toggleDevTools = () => {
-    const webContents = Electron.remote.getCurrentWebContents();
-
-    if (webContents.isDevToolsOpened()) {
-      webContents.closeDevTools();
-    } else {
-      webContents.openDevTools();
-    }
   };
 
   render() {
@@ -253,13 +236,6 @@ class KeyboardSelect extends React.Component {
         <div className={classes.exit}>
           <Button onClick={this.exit}>Exit</Button>
         </div>
-        <BottomNavigation
-          showLabels
-          onChange={this.toggleDevTools}
-          className={classes.bottom}
-        >
-          <BottomNavigationAction label="Developer Tools" />
-        </BottomNavigation>
       </main>
     );
   }

@@ -16,12 +16,17 @@
  */
 
 import React from "react";
+import Electron from "electron";
 
 import Focus from "chrysalis-focus";
 import Keymap from "chrysalis-keymap";
 import Colormap from "chrysalis-colormap";
 import CoreTransformer from "chrysalis-keymap-transformer-core";
 import { Model01 } from "chrysalis-hardware-keyboardio-model01";
+
+import Fab from "@material-ui/core/Fab";
+import CodeIcon from "@material-ui/icons/Code";
+import { withStyles } from "@material-ui/core/styles";
 
 import KeyboardSelect from "./components/KeyboardSelect";
 import Dashboard from "./components/Dashboard";
@@ -34,6 +39,14 @@ keymap.addKeyTransformers([coreTransformer]);
 focus.addCommands({
   keymap: keymap,
   colormap: colormap
+});
+
+const styles = theme => ({
+  tools: {
+    position: "fixed",
+    bottom: theme.spacing.unit * 2,
+    right: theme.spacing.unit * 2
+  }
 });
 
 class App extends React.Component {
@@ -66,17 +79,51 @@ class App extends React.Component {
     this.setState({ keyboardOpen: false });
   };
 
-  render() {
-    if (!this.state.keyboardOpen) {
-      return <KeyboardSelect onConnect={this.onKeyboardConnect} />;
+  toggleDevTools = () => {
+    const webContents = Electron.remote.getCurrentWebContents();
+
+    if (webContents.isDevToolsOpened()) {
+      webContents.closeDevTools();
+    } else {
+      webContents.openDevTools();
     }
+  };
+
+  render() {
+    const { classes } = this.props;
+
+    let content;
+    if (!this.state.keyboardOpen) {
+      content = <KeyboardSelect onConnect={this.onKeyboardConnect} />;
+    } else {
+      content = (
+        <Dashboard
+          pages={this.state.supportedPages}
+          onDisconnect={this.onKeyboardDisconnect}
+        />
+      );
+    }
+
+    let toolsButton = null;
+    if (process.env.NODE_ENV !== "production") {
+      toolsButton = (
+        <Fab
+          color="primary"
+          className={classes.tools}
+          onClick={this.toggleDevTools}
+        >
+          <CodeIcon />
+        </Fab>
+      );
+    }
+
     return (
-      <Dashboard
-        pages={this.state.supportedPages}
-        onDisconnect={this.onKeyboardDisconnect}
-      />
+      <div>
+        {content}
+        {toolsButton}
+      </div>
     );
   }
 }
 
-export default App;
+export default withStyles(styles)(App);

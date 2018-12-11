@@ -16,12 +16,23 @@
  */
 
 import React from "react";
+import Electron from "electron";
 
 import Focus from "chrysalis-focus";
 import Keymap from "chrysalis-keymap";
 import Colormap from "chrysalis-colormap";
 import CoreTransformer from "chrysalis-keymap-transformer-core";
 import { Model01 } from "chrysalis-hardware-keyboardio-model01";
+
+import BugReportIcon from "@material-ui/icons/BugReport";
+import CameraIcon from "@material-ui/icons/Camera";
+import CodeIcon from "@material-ui/icons/Code";
+import SpeedDial from "@material-ui/lab/SpeedDial";
+import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
+import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
+import { withStyles } from "@material-ui/core/styles";
+
+import { withSnackbar } from "notistack";
 
 import KeyboardSelect from "./components/KeyboardSelect";
 import Dashboard from "./components/Dashboard";
@@ -36,9 +47,18 @@ focus.addCommands({
   colormap: colormap
 });
 
+const styles = theme => ({
+  tools: {
+    position: "fixed",
+    bottom: theme.spacing.unit * 2,
+    right: theme.spacing.unit * 2
+  }
+});
+
 class App extends React.Component {
   state = {
-    keyboardOpen: false
+    keyboardOpen: false,
+    toolsOpen: false
   };
 
   onKeyboardConnect = async port => {
@@ -66,17 +86,106 @@ class App extends React.Component {
     this.setState({ keyboardOpen: false });
   };
 
-  render() {
-    if (!this.state.keyboardOpen) {
-      return <KeyboardSelect onConnect={this.onKeyboardConnect} />;
+  toggleDevTools = () => {
+    const webContents = Electron.remote.getCurrentWebContents();
+
+    if (webContents.isDevToolsOpened()) {
+      webContents.closeDevTools();
+    } else {
+      webContents.openDevTools();
     }
+  };
+
+  onToolsOpen = () => {
+    this.setState({ toolsOpen: true });
+  };
+
+  onToolsClose = () => {
+    this.setState({ toolsOpen: false });
+  };
+
+  onToolsToggle = () => {
+    this.setState(state => ({
+      toolsOpen: !state.toolsOpen
+    }));
+  };
+
+  saveScreenshot = async () => {
+    const w = Electron.remote.getCurrentWindow(),
+      webContents = Electron.remote.getCurrentWebContents(),
+      fs = Electron.remote.require("fs"),
+      fileName = "chrysalis-" + Date.now().toString() + ".png",
+      devToolsOpen = webContents.isDevToolsOpened();
+
+    if (devToolsOpen) await webContents.closeDevTools();
+
+    setTimeout(() => {
+      w.capturePage(img => {
+        fs.writeFile(fileName, img.toPNG(), () => {
+          this.props.enqueueSnackbar("Screenshot saved to " + fileName, {
+            variant: "success",
+            autoHideDuration: 1000
+          });
+          if (devToolsOpen) webContents.openDevTools();
+        });
+      });
+    }, 1000);
+  };
+
+  render() {
+    const { classes } = this.props;
+
+    let content;
+    if (!this.state.keyboardOpen) {
+      content = <KeyboardSelect onConnect={this.onKeyboardConnect} />;
+    } else {
+      content = (
+        <Dashboard
+          pages={this.state.supportedPages}
+          onDisconnect={this.onKeyboardDisconnect}
+        />
+      );
+    }
+
+    const isDevelopment = process.env.NODE_ENV !== "production";
+
     return (
-      <Dashboard
-        pages={this.state.supportedPages}
-        onDisconnect={this.onKeyboardDisconnect}
-      />
+      <div>
+        {content}
+        <SpeedDial
+          ariaLabel="Tools"
+          className={classes.tools}
+          icon={<SpeedDialIcon />}
+          open={this.state.toolsOpen}
+          direction="up"
+          onBlur={this.onToolsClose}
+          onClose={this.onToolsClose}
+          onMouseLeave={this.onToolsClose}
+          onFocus={this.onToolsOpen}
+          onMouseEnter={this.onToolsOpen}
+          onClick={this.onToolsToggle}
+        >
+          {isDevelopment && (
+            <SpeedDialAction
+              icon={<CodeIcon />}
+              tooltipTitle="Toggle DevTools"
+              onClick={this.toggleDevTools}
+            />
+          )}
+          <SpeedDialAction
+            icon={<BugReportIcon />}
+            tooltipTitle="Report a bug"
+            href="https://github.com/keyboardio/chrysalis-bundle-keyboardio/issues"
+          />
+          <SpeedDialAction
+            icon={<CameraIcon />}
+            tooltipTitle="Save a screenshot"
+            onClick={this.saveScreenshot}
+          />
+        </SpeedDial>
+      </div>
     );
   }
 }
 
-export default App;
+export default withSnackbar(withStyles(styles)(App));

@@ -170,20 +170,6 @@ class Focus {
         return await this.request("help");
     }
 
-    async _write(parts, cb) {
-        if (!parts || parts.length == 0) {
-            cb()
-            return
-        }
-
-        let part = parts.shift()
-        part += " "
-        this._port.write(part)
-        this._port.drain(() => {
-            this._write(parts, cb)
-        })
-    }
-
     /**
      * Send a low-level request, and return the (mostly) unprocessed response.
      *
@@ -221,14 +207,10 @@ class Focus {
         }
         request += "\n"
 
-        let parts = request.split(" ")
-        return new Promise((resolve, reject) => {
-            setTimeout(async () => {
-                await this._port.flush()
-                this.callbacks.push(resolve)
-                await this._write(parts, () => {})
-            }, 500)
-        })
+        return new Promise(resolve => {
+            this.callbacks.push(resolve);
+            this._port.write(request);
+        });
     }
 
     /**

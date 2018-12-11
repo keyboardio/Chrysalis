@@ -20,9 +20,7 @@ import PropTypes from "prop-types";
 import Electron from "electron";
 
 import Avatar from "@material-ui/core/Avatar";
-import Badge from "@material-ui/core/Badge";
 import Button from "@material-ui/core/Button";
-import BugReportIcon from "@material-ui/icons/BugReport";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
@@ -74,13 +72,6 @@ const styles = theme => ({
   },
   error: {
     color: theme.palette.error.dark
-  },
-  bugReport: {
-    margin: theme.spacing.unit * 1.5
-  },
-  bugReportIcon: {
-    width: "16px",
-    height: "16px"
   }
 });
 
@@ -208,17 +199,9 @@ class KeyboardSelect extends React.Component {
       <main className={classes.main}>
         <CssBaseline />
         <Paper className={classes.paper}>
-          <Badge
-            component="a"
-            href="https://github.com/keyboardio/chrysalis-bundle-keyboardio/issues"
-            badgeContent={<BugReportIcon className={classes.bugReportIcon} />}
-            color="primary"
-            classes={{ badge: classes.bugReport }}
-          >
-            <Avatar className={classes.avatar}>
-              <KeyboardIcon />
-            </Avatar>
-          </Badge>
+          <Avatar className={classes.avatar}>
+            <KeyboardIcon />
+          </Avatar>
           {port}
           <Button
             disabled={

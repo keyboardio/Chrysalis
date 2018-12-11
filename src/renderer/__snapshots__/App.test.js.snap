@@ -4,40 +4,149 @@ exports[`renders without crashing 1`] = `
 <div>
   <div>
     <main
-      class="KeyboardSelect-main-101"
+      class="KeyboardSelect-main-116"
     >
       <div
-        class="MuiPaper-root-108 MuiPaper-elevation2-112 MuiPaper-rounded-109 KeyboardSelect-paper-102"
+        class="MuiPaper-root-121 MuiPaper-elevation2-125 MuiPaper-rounded-122 KeyboardSelect-paper-117"
       >
-        <a
-          class="MuiBadge-root-135"
-          href="https://github.com/keyboardio/chrysalis-bundle-keyboardio/issues"
+        <div
+          class="MuiAvatar-root-148 MuiAvatar-colorDefault-149 KeyboardSelect-avatar-118"
         >
-          <div
-            class="MuiAvatar-root-141 MuiAvatar-colorDefault-142 KeyboardSelect-avatar-103"
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root-151"
+            focusable="false"
+            role="presentation"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zm-1 2H5v-2h2v2zm0-3H5V8h2v2zm9 7H8v-2h8v2zm0-4h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z"
+            />
+            <path
+              d="M0 0h24v24H0zm0 0h24v24H0z"
+              fill="none"
+            />
+          </svg>
+        </div>
+        <button
+          class="MuiButtonBase-root-186 MuiButton-root-160 MuiButton-contained-171 MuiButton-containedPrimary-172 MuiButton-raised-174 MuiButton-raisedPrimary-175 MuiButton-fullWidth-185"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="MuiButton-label-161"
+          >
+            Connect
+          </span>
+          <span
+            class="MuiTouchRipple-root-222"
+          />
+        </button>
+      </div>
+      <div
+        class="KeyboardSelect-exit-119"
+      >
+        <button
+          class="MuiButtonBase-root-186 MuiButton-root-160 MuiButton-text-162 MuiButton-flat-165"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="MuiButton-label-161"
+          >
+            Exit
+          </span>
+          <span
+            class="MuiTouchRipple-root-222"
+          />
+        </button>
+      </div>
+    </main>
+    <div
+      class="MuiSpeedDial-root-189 MuiSpeedDial-directionUp-191 App-tools-115"
+    >
+      <button
+        aria-controls="Tools-actions"
+        aria-expanded="false"
+        aria-haspopup="true"
+        aria-label="Tools"
+        class="MuiButtonBase-root-186 MuiFab-root-197 MuiFab-primary-199 MuiSpeedDial-fab-190"
+        style="transform: scale(1); -webkit-transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="MuiFab-label-198"
+        >
+          <span
+            class="MuiSpeedDialIcon-root-207"
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root-144"
+              class="MuiSvgIcon-root-151 MuiSpeedDialIcon-icon-208"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"
             >
               <path
-                d="M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zm-1 2H5v-2h2v2zm0-3H5V8h2v2zm9 7H8v-2h8v2zm0-4h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z"
-              />
-              <path
-                d="M0 0h24v24H0zm0 0h24v24H0z"
-                fill="none"
+                d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
               />
             </svg>
-          </div>
+          </span>
+        </span>
+        <span
+          class="MuiTouchRipple-root-222"
+        />
+      </button>
+      <div
+        aria-orientation="vertical"
+        class="MuiSpeedDial-actions-195 MuiSpeedDial-actionsClosed-196 MuiSpeedDial-directionUp-191"
+        id="Tools-actions"
+        role="menu"
+      >
+        <button
+          class="MuiButtonBase-root-186 MuiFab-root-197 MuiFab-sizeSmall-205 MuiSpeedDialAction-button-213 MuiSpeedDialAction-buttonClosed-214"
+          role="menuitem"
+          tabindex="-1"
+          title="Toggle DevTools"
+          type="button"
+        >
           <span
-            class="MuiBadge-badge-136 KeyboardSelect-bugReport-106 MuiBadge-colorPrimary-137"
+            class="MuiFab-label-198"
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root-144 KeyboardSelect-bugReportIcon-107"
+              class="MuiSvgIcon-root-151"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M0 0h24v24H0V0z"
+                fill="none"
+              />
+              <path
+                d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"
+              />
+            </svg>
+          </span>
+          <span
+            class="MuiTouchRipple-root-222"
+          />
+        </button>
+        <a
+          class="MuiButtonBase-root-186 MuiFab-root-197 MuiFab-sizeSmall-205 MuiSpeedDialAction-button-213 MuiSpeedDialAction-buttonClosed-214"
+          href="https://github.com/keyboardio/chrysalis-bundle-keyboardio/issues"
+          role="menuitem"
+          tabindex="-1"
+          title="Report a bug"
+        >
+          <span
+            class="MuiFab-label-198"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root-151"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"
@@ -51,69 +160,12 @@ exports[`renders without crashing 1`] = `
               />
             </svg>
           </span>
+          <span
+            class="MuiTouchRipple-root-222"
+          />
         </a>
-        <button
-          class="MuiButtonBase-root-179 MuiButton-root-153 MuiButton-contained-164 MuiButton-containedPrimary-165 MuiButton-raised-167 MuiButton-raisedPrimary-168 MuiButton-fullWidth-178"
-          tabindex="0"
-          type="button"
-        >
-          <span
-            class="MuiButton-label-154"
-          >
-            Connect
-          </span>
-          <span
-            class="MuiTouchRipple-root-192"
-          />
-        </button>
       </div>
-      <div
-        class="KeyboardSelect-exit-104"
-      >
-        <button
-          class="MuiButtonBase-root-179 MuiButton-root-153 MuiButton-text-155 MuiButton-flat-158"
-          tabindex="0"
-          type="button"
-        >
-          <span
-            class="MuiButton-label-154"
-          >
-            Exit
-          </span>
-          <span
-            class="MuiTouchRipple-root-192"
-          />
-        </button>
-      </div>
-    </main>
-    <button
-      class="MuiButtonBase-root-179 MuiFab-root-182 MuiFab-primary-184 App-tools-100"
-      tabindex="0"
-      type="button"
-    >
-      <span
-        class="MuiFab-label-183"
-      >
-        <svg
-          aria-hidden="true"
-          class="MuiSvgIcon-root-144"
-          focusable="false"
-          role="presentation"
-          viewBox="0 0 24 24"
-        >
-          <path
-            d="M0 0h24v24H0V0z"
-            fill="none"
-          />
-          <path
-            d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"
-          />
-        </svg>
-      </span>
-      <span
-        class="MuiTouchRipple-root-192"
-      />
-    </button>
+    </div>
   </div>
 </div>
 `;

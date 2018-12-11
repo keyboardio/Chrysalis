@@ -2789,7 +2789,7 @@ chromium-pickle-js@^0.2.0:
 
 "chrysalis-keymap-transformer-core@git://github.com/Lepidopterarium/chrysalis-keymap-transformer-core.git#master":
   version "0.0.1"
-  resolved "git://github.com/Lepidopterarium/chrysalis-keymap-transformer-core.git#f29e4646dbc59264ac401a06c737248e5bb4a207"
+  resolved "git://github.com/Lepidopterarium/chrysalis-keymap-transformer-core.git#3695340632d30193d9d28f2ac13c07e46e658417"
   dependencies:
     "@babel/cli" "^7.1.0"
     "@babel/core" "7.1.0"

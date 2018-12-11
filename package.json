@@ -36,6 +36,7 @@
   "dependencies": {
     "@material-ui/core": "^3.6.0",
     "@material-ui/icons": "^3.0.1",
+    "@material-ui/lab": "^3.0.0-alpha.25",
     "avrgirl-arduino": "^3.0.0",
     "chrysalis-colormap": "git://github.com/Lepidopterarium/chrysalis-colormap.git#master",
     "chrysalis-focus": "git://github.com/Lepidopterarium/chrysalis-focus.git#master",

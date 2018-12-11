@@ -24,8 +24,11 @@ import Colormap from "chrysalis-colormap";
 import CoreTransformer from "chrysalis-keymap-transformer-core";
 import { Model01 } from "chrysalis-hardware-keyboardio-model01";
 
-import Fab from "@material-ui/core/Fab";
+import BugReportIcon from "@material-ui/icons/BugReport";
 import CodeIcon from "@material-ui/icons/Code";
+import SpeedDial from "@material-ui/lab/SpeedDial";
+import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
+import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
 import { withStyles } from "@material-ui/core/styles";
 
 import KeyboardSelect from "./components/KeyboardSelect";
@@ -51,7 +54,8 @@ const styles = theme => ({
 
 class App extends React.Component {
   state = {
-    keyboardOpen: false
+    keyboardOpen: false,
+    toolsOpen: false
   };
 
   onKeyboardConnect = async port => {
@@ -89,6 +93,21 @@ class App extends React.Component {
     }
   };
 
+  onToolsOpen = () => {
+    this.setState({ toolsOpen: true });
+  };
+
+  onToolsClose = () => {
+    this.setState({ toolsOpen: false });
+  };
+
+  onToolsToggle = () => {
+    this.setState(state => ({
+      toolsOpen: !state.toolsOpen
+    }));
+  };
+
+
   render() {
     const { classes } = this.props;
 
@@ -104,23 +123,37 @@ class App extends React.Component {
       );
     }
 
-    let toolsButton = null;
-    if (process.env.NODE_ENV !== "production") {
-      toolsButton = (
-        <Fab
-          color="primary"
-          className={classes.tools}
-          onClick={this.toggleDevTools}
-        >
-          <CodeIcon />
-        </Fab>
-      );
-    }
+    const isDevelopment = process.env.NODE_ENV !== "production";
 
     return (
       <div>
         {content}
-        {toolsButton}
+        <SpeedDial
+          ariaLabel="Tools"
+          className={classes.tools}
+          icon={<SpeedDialIcon />}
+          open={this.state.toolsOpen}
+          direction="up"
+          onBlur={this.onToolsClose}
+          onClose={this.onToolsClose}
+          onMouseLeave={this.onToolsClose}
+          onFocus={this.onToolsOpen}
+          onMouseEnter={this.onToolsOpen}
+          onClick={this.onToolsToggle}
+        >
+          {isDevelopment && (
+            <SpeedDialAction
+              icon={<CodeIcon />}
+              tooltipTitle="Toggle DevTools"
+              onClick={this.toggleDevTools}
+            />
+          )}
+          <SpeedDialAction
+            icon={<BugReportIcon />}
+            tooltipTitle="Report a bug"
+            href="https://github.com/keyboardio/chrysalis-bundle-keyboardio/issues"
+          />
+        </SpeedDial>
       </div>
     );
   }

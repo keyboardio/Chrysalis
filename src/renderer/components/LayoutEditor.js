@@ -261,7 +261,15 @@ class LayoutEditor extends React.Component {
           </Toolbar>
         </AppBar>
         <div className={classes.editor}>
-          {layer}
+          <div>
+            {layer}
+            <SaveChangesButton
+              onClick={this.onApply}
+              disabled={!this.state.modified}
+            >
+              Save Changes
+            </SaveChangesButton>
+          </div>
           <div className={classes.editorControls}>
             <KeySelector
               className="select-keycode"
@@ -271,12 +279,6 @@ class LayoutEditor extends React.Component {
             />
           </div>
         </div>
-        <SaveChangesButton
-          onClick={this.onApply}
-          disabled={!this.state.modified}
-        >
-          Save Changes
-        </SaveChangesButton>
       </div>
     );
   }

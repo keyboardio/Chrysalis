@@ -178,7 +178,15 @@ class ColormapEditor extends React.Component {
           </Toolbar>
         </AppBar>
         <div className={classes.editor}>
-          {colormap}
+          <div>
+            {colormap}
+            <SaveChangesButton
+              onClick={this.onApply}
+              disabled={!this.state.modified}
+            >
+              Save Changes
+            </SaveChangesButton>
+          </div>
           <Palette
             palette={this.state.palette}
             className={classes.palette}
@@ -186,12 +194,6 @@ class ColormapEditor extends React.Component {
             onColorPick={this.onColorPick}
           />
         </div>
-        <SaveChangesButton
-          onClick={this.onApply}
-          disabled={!this.state.modified}
-        >
-          Save Changes
-        </SaveChangesButton>
       </div>
     );
   }

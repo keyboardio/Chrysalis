@@ -20,9 +20,6 @@ import PropTypes from "prop-types";
 
 import AppBar from "@material-ui/core/AppBar";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import Step from "@material-ui/core/Step";
-import StepLabel from "@material-ui/core/StepLabel";
-import Stepper from "@material-ui/core/Stepper";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -69,30 +66,21 @@ class LayoutEditor extends React.Component {
     currentKeyIndex: -1,
     modified: false,
     saving: false,
-    keymap: [],
-    loadingStep: 0
+    keymap: []
   };
   coreTransformer = new CoreTransformer();
 
   scanKeyboard = async () => {
-    let focus = new Focus(),
-      nextStep = async () => {
-        await this.setState(state => ({
-          loadingStep: state.loadingStep + 1
-        }));
-      };
+    let focus = new Focus();
 
     try {
       let roLayers = await focus.command("keymap.roLayers");
       roLayers = parseInt(roLayers) || 0;
-      nextStep();
 
       let defLayer = await focus.command("settings.defaultLayer");
       defLayer = parseInt(defLayer) || 0;
-      nextStep();
 
       let keymap = await focus.command("keymap");
-      nextStep();
 
       this.setState({
         roLayers: roLayers,
@@ -185,17 +173,6 @@ class LayoutEditor extends React.Component {
       return (
         <main>
           <LinearProgress variant="query" />
-          <Stepper activeStep={this.state.loadingStep} alternativeLabel>
-            <Step>
-              <StepLabel>Check the number of read-only layers</StepLabel>
-            </Step>
-            <Step>
-              <StepLabel>Read the default layer index</StepLabel>
-            </Step>
-            <Step>
-              <StepLabel>Read the keymap</StepLabel>
-            </Step>
-          </Stepper>
         </main>
       );
     }

@@ -64,11 +64,11 @@ const styles = theme => ({
     margin: theme.spacing.unit,
     backgroundColor: theme.palette.secondary.main
   },
-  exit: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+  bottomButtons: {
     marginTop: theme.spacing.unit * 2
+  },
+  exit: {
+    float: "right"
   },
   error: {
     color: theme.palette.error.dark
@@ -83,7 +83,7 @@ class KeyboardSelect extends React.Component {
     devices: null
   };
 
-  findKeyboards() {
+  findKeyboards = () => {
     let focus = new Focus();
     focus
       .find(Model01)
@@ -99,7 +99,7 @@ class KeyboardSelect extends React.Component {
       .catch(() => {
         this.setState({ devices: [] });
       });
-  }
+  };
 
   componentDidMount() {
     this.finder = () => {
@@ -216,8 +216,11 @@ class KeyboardSelect extends React.Component {
             {connectContent}
           </Button>
         </Paper>
-        <div className={classes.exit}>
-          <Button onClick={this.exit}>Exit</Button>
+        <div className={classes.bottomButtons}>
+          <Button onClick={this.findKeyboards}>Scan devices</Button>
+          <div className={classes.exit}>
+            <Button onClick={this.exit}>Exit</Button>
+          </div>
         </div>
       </main>
     );

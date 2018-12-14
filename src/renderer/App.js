@@ -59,7 +59,8 @@ const styles = theme => ({
 class App extends React.Component {
   state = {
     keyboardOpen: false,
-    toolsOpen: false
+    toolsOpen: false,
+    toolsClicked: false
   };
 
   onKeyboardConnect = async port => {
@@ -102,12 +103,15 @@ class App extends React.Component {
   };
 
   onToolsClose = () => {
+    if (this.state.toolsClicked) return;
+
     this.setState({ toolsOpen: false });
   };
 
-  onToolsToggle = () => {
+  onToolsClick = () => {
     this.setState(state => ({
-      toolsOpen: !state.toolsOpen
+      toolsOpen: state.toolsClicked ? !state.toolsOpen : true,
+      toolsClicked: !state.toolsClicked
     }));
   };
 
@@ -162,7 +166,7 @@ class App extends React.Component {
           onMouseLeave={this.onToolsClose}
           onFocus={this.onToolsOpen}
           onMouseEnter={this.onToolsOpen}
-          onClick={this.onToolsToggle}
+          onClick={this.onToolsClick}
         >
           {isDevelopment && (
             <SpeedDialAction

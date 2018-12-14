@@ -34,6 +34,7 @@ import { withStyles } from "@material-ui/core/styles";
 
 import { withSnackbar } from "notistack";
 
+import { isDevelopment } from "./config";
 import KeyboardSelect from "./components/KeyboardSelect";
 import Dashboard from "./components/Dashboard";
 
@@ -146,8 +147,6 @@ class App extends React.Component {
         />
       );
     }
-
-    const isDevelopment = process.env.NODE_ENV !== "production";
 
     return (
       <div>

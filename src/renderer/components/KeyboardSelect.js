@@ -24,6 +24,7 @@ import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
+import LinearProgress from "@material-ui/core/LinearProgress";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -41,6 +42,12 @@ import { Model01 } from "chrysalis-hardware-keyboardio-model01";
 import usb from "usb";
 
 const styles = theme => ({
+  loader: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0
+  },
   main: {
     width: "auto",
     display: "block",
@@ -80,10 +87,12 @@ class KeyboardSelect extends React.Component {
     anchorEl: null,
     selectedPortIndex: 1,
     opening: false,
-    devices: null
+    devices: null,
+    loading: false
   };
 
   findKeyboards = () => {
+    this.setState({ loading: true });
     let focus = new Focus();
     focus
       .find(Model01)
@@ -93,11 +102,15 @@ class KeyboardSelect extends React.Component {
           return;
         }
         this.setState({
+          loading: false,
           devices: [{ comName: "Please select a port:" }].concat(devices)
         });
       })
       .catch(() => {
-        this.setState({ devices: [] });
+        this.setState({
+          loading: false,
+          devices: []
+        });
       });
   };
 
@@ -149,6 +162,11 @@ class KeyboardSelect extends React.Component {
     const { classes } = this.props;
     const { anchorEl } = this.state;
 
+    let loader = null;
+    if (this.state.loading) {
+      loader = <LinearProgress variant="query" className={classes.loader} />;
+    }
+
     let port = null;
     if (this.state.devices && this.state.devices.length > 0) {
       let portDesc = this.state.devices[this.state.selectedPortIndex],
@@ -198,6 +216,7 @@ class KeyboardSelect extends React.Component {
     return (
       <main className={classes.main}>
         <CssBaseline />
+        {loader}
         <Paper className={classes.paper}>
           <Avatar className={classes.avatar}>
             <KeyboardIcon />
@@ -217,7 +236,9 @@ class KeyboardSelect extends React.Component {
           </Button>
         </Paper>
         <div className={classes.bottomButtons}>
-          <Button onClick={this.findKeyboards}>Scan devices</Button>
+          <Button onClick={this.findKeyboards} disabled={this.state.loading}>
+            Scan devices
+          </Button>
           <div className={classes.exit}>
             <Button onClick={this.exit}>Exit</Button>
           </div>

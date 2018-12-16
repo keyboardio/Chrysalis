@@ -17,6 +17,7 @@
 
 import React from "react";
 import Electron from "electron";
+import { spawn } from "child_process";
 
 import Focus from "chrysalis-focus";
 import Keymap from "chrysalis-keymap";
@@ -91,6 +92,9 @@ class App extends React.Component {
 
     console.log("Connecting to", port.comName);
     await focus.open(port.comName, port.device);
+    if (process.platform == "darwin") {
+      await spawn("stty", ["-f", port.comName, "clocal"]);
+    }
     console.log("Probing for Focus support...");
     let commands = await focus.probe();
 

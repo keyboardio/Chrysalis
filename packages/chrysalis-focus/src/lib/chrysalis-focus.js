@@ -170,6 +170,20 @@ class Focus {
         return await this.request("help");
     }
 
+    async _write_parts(parts, cb) {
+        if (!parts || parts.length == 0) {
+            cb()
+            return
+        }
+
+        let part = parts.shift()
+        part += " "
+        this._port.write(part)
+        this._port.drain(() => {
+            this._write(parts, cb)
+        })
+    }
+
     /**
      * Send a low-level request, and return the (mostly) unprocessed response.
      *
@@ -207,10 +221,21 @@ class Focus {
         }
         request += "\n"
 
-        return new Promise(resolve => {
-            this.callbacks.push(resolve);
-            this._port.write(request);
-        });
+        if (process.platform == "darwin") {
+            let parts = request.split(" ")
+            return new Promise((resolve, reject) => {
+                setTimeout(async () => {
+                    await this._port.flush()
+                    this.callbacks.push(resolve)
+                    await this._write_parts(parts, () => {})
+                }, 500)
+            })
+        } else {
+            return new Promise(resolve => {
+                this.callbacks.push(resolve)
+                this._port.write(request)
+            })
+        }
     }
 
     /**

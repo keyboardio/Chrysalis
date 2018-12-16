@@ -4,17 +4,28 @@ exports[`renders without crashing 1`] = `
 <div>
   <div>
     <main
-      class="KeyboardSelect-main-117"
+      class="KeyboardSelect-main-135"
     >
       <div
-        class="MuiPaper-root-123 MuiPaper-elevation2-127 MuiPaper-rounded-124 KeyboardSelect-paper-118"
+        class="MuiLinearProgress-root-242 MuiLinearProgress-colorPrimary-243 MuiLinearProgress-query-246 KeyboardSelect-loader-134"
+        role="progressbar"
       >
         <div
-          class="MuiAvatar-root-150 MuiAvatar-colorDefault-151 KeyboardSelect-avatar-119"
+          class="MuiLinearProgress-bar-250 MuiLinearProgress-barColorPrimary-251 MuiLinearProgress-bar1Indeterminate-253"
+        />
+        <div
+          class="MuiLinearProgress-bar-250 MuiLinearProgress-barColorPrimary-251 MuiLinearProgress-bar2Indeterminate-256"
+        />
+      </div>
+      <div
+        class="MuiPaper-root-141 MuiPaper-elevation2-145 MuiPaper-rounded-142 KeyboardSelect-paper-136"
+      >
+        <div
+          class="MuiAvatar-root-168 MuiAvatar-colorDefault-169 KeyboardSelect-avatar-137"
         >
           <svg
             aria-hidden="true"
-            class="MuiSvgIcon-root-153"
+            class="MuiSvgIcon-root-171"
             focusable="false"
             role="presentation"
             viewBox="0 0 24 24"
@@ -29,79 +40,77 @@ exports[`renders without crashing 1`] = `
           </svg>
         </div>
         <button
-          class="MuiButtonBase-root-188 MuiButton-root-162 MuiButton-contained-173 MuiButton-containedPrimary-174 MuiButton-raised-176 MuiButton-raisedPrimary-177 MuiButton-fullWidth-187"
+          class="MuiButtonBase-root-206 MuiButton-root-180 MuiButton-contained-191 MuiButton-containedPrimary-192 MuiButton-raised-194 MuiButton-raisedPrimary-195 MuiButton-fullWidth-205"
           tabindex="0"
           type="button"
         >
           <span
-            class="MuiButton-label-163"
+            class="MuiButton-label-181"
           >
             Connect
           </span>
           <span
-            class="MuiTouchRipple-root-224"
+            class="MuiTouchRipple-root-258"
           />
         </button>
       </div>
       <div
-        class="KeyboardSelect-bottomButtons-120"
+        class="KeyboardSelect-bottomButtons-138"
       >
         <button
-          class="MuiButtonBase-root-188 MuiButton-root-162 MuiButton-text-164 MuiButton-flat-167"
-          tabindex="0"
+          class="MuiButtonBase-root-206 MuiButtonBase-disabled-207 MuiButton-root-180 MuiButton-text-182 MuiButton-flat-185 MuiButton-disabled-200"
+          disabled=""
+          tabindex="-1"
           type="button"
         >
           <span
-            class="MuiButton-label-163"
+            class="MuiButton-label-181"
           >
             Scan devices
           </span>
-          <span
-            class="MuiTouchRipple-root-224"
-          />
         </button>
         <div
-          class="KeyboardSelect-exit-121"
+          class="KeyboardSelect-exit-139"
         >
           <button
-            class="MuiButtonBase-root-188 MuiButton-root-162 MuiButton-text-164 MuiButton-flat-167"
+            class="MuiButtonBase-root-206 MuiButton-root-180 MuiButton-text-182 MuiButton-flat-185"
             tabindex="0"
             type="button"
           >
             <span
-              class="MuiButton-label-163"
+              class="MuiButton-label-181"
             >
               Exit
             </span>
             <span
-              class="MuiTouchRipple-root-224"
+              class="MuiTouchRipple-root-258"
             />
           </button>
         </div>
       </div>
     </main>
     <div
-      class="MuiSpeedDial-root-191 MuiSpeedDial-directionUp-193 App-tools-116"
+      class="MuiSpeedDial-root-209 MuiSpeedDial-directionUp-211 App-tools-133"
     >
       <button
         aria-controls="Tools-actions"
         aria-expanded="false"
         aria-haspopup="true"
         aria-label="Tools"
-        class="MuiButtonBase-root-188 MuiFab-root-199 MuiFab-primary-201 MuiSpeedDial-fab-192"
+        class="MuiButtonBase-root-206 MuiFab-root-217 MuiFab-primary-219 MuiSpeedDial-fab-210"
         style="transform: scale(1); -webkit-transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
         tabindex="0"
         type="button"
       >
         <span
-          class="MuiFab-label-200"
+          class="MuiFab-label-218"
         >
           <span
-            class="MuiSpeedDialIcon-root-209"
+            class="MuiSpeedDialIcon-root-227"
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root-153 MuiSpeedDialIcon-icon-210"
+              class="MuiSvgIcon-root-171 MuiSpeedDialIcon-icon-228"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"
@@ -113,28 +122,28 @@ exports[`renders without crashing 1`] = `
           </span>
         </span>
         <span
-          class="MuiTouchRipple-root-224"
+          class="MuiTouchRipple-root-258"
         />
       </button>
       <div
         aria-orientation="vertical"
-        class="MuiSpeedDial-actions-197 MuiSpeedDial-actionsClosed-198 MuiSpeedDial-directionUp-193"
+        class="MuiSpeedDial-actions-215 MuiSpeedDial-actionsClosed-216 MuiSpeedDial-directionUp-211"
         id="Tools-actions"
         role="menu"
       >
         <button
-          class="MuiButtonBase-root-188 MuiFab-root-199 MuiFab-sizeSmall-207 MuiSpeedDialAction-button-215 MuiSpeedDialAction-buttonClosed-216"
+          class="MuiButtonBase-root-206 MuiFab-root-217 MuiFab-sizeSmall-225 MuiSpeedDialAction-button-233 MuiSpeedDialAction-buttonClosed-234"
           role="menuitem"
           tabindex="-1"
           title="Toggle DevTools"
           type="button"
         >
           <span
-            class="MuiFab-label-200"
+            class="MuiFab-label-218"
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root-153"
+              class="MuiSvgIcon-root-171"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"
@@ -149,22 +158,22 @@ exports[`renders without crashing 1`] = `
             </svg>
           </span>
           <span
-            class="MuiTouchRipple-root-224"
+            class="MuiTouchRipple-root-258"
           />
         </button>
         <a
-          class="MuiButtonBase-root-188 MuiFab-root-199 MuiFab-sizeSmall-207 MuiSpeedDialAction-button-215 MuiSpeedDialAction-buttonClosed-216"
+          class="MuiButtonBase-root-206 MuiFab-root-217 MuiFab-sizeSmall-225 MuiSpeedDialAction-button-233 MuiSpeedDialAction-buttonClosed-234"
           href="https://github.com/keyboardio/chrysalis-bundle-keyboardio/issues"
           role="menuitem"
           tabindex="-1"
           title="Report a bug"
         >
           <span
-            class="MuiFab-label-200"
+            class="MuiFab-label-218"
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root-153"
+              class="MuiSvgIcon-root-171"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"
@@ -179,22 +188,22 @@ exports[`renders without crashing 1`] = `
             </svg>
           </span>
           <span
-            class="MuiTouchRipple-root-224"
+            class="MuiTouchRipple-root-258"
           />
         </a>
         <button
-          class="MuiButtonBase-root-188 MuiFab-root-199 MuiFab-sizeSmall-207 MuiSpeedDialAction-button-215 MuiSpeedDialAction-buttonClosed-216"
+          class="MuiButtonBase-root-206 MuiFab-root-217 MuiFab-sizeSmall-225 MuiSpeedDialAction-button-233 MuiSpeedDialAction-buttonClosed-234"
           role="menuitem"
           tabindex="-1"
           title="Save a screenshot"
           type="button"
         >
           <span
-            class="MuiFab-label-200"
+            class="MuiFab-label-218"
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root-153"
+              class="MuiSvgIcon-root-171"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"
@@ -209,7 +218,7 @@ exports[`renders without crashing 1`] = `
             </svg>
           </span>
           <span
-            class="MuiTouchRipple-root-224"
+            class="MuiTouchRipple-root-258"
           />
         </button>
       </div>

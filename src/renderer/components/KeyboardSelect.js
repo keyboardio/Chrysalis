@@ -236,9 +236,7 @@ class KeyboardSelect extends React.Component {
           </Button>
         </Paper>
         <div className={classes.bottomButtons}>
-          <Button onClick={this.findKeyboards} disabled={this.state.loading}>
-            Scan devices
-          </Button>
+          <Button onClick={this.findKeyboards}>Scan devices</Button>
           <div className={classes.exit}>
             <Button onClick={this.exit}>Exit</Button>
           </div>

@@ -146,7 +146,11 @@ const KeyGroupGrid = withStyles(styles)(props => {
     modSelector = (
       <div>
         <Divider variant="middle" />
-        <FormControl component="fieldset" className={props.classes.keygroup}>
+        <FormControl
+          component="fieldset"
+          className={props.classes.keygroup}
+          disabled
+        >
           <GridList cellHeight="auto" cols={2}>
             <GridListTile>
               <FormControlLabel control={<Checkbox />} label="Control" />

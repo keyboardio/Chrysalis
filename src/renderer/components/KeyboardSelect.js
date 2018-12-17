@@ -98,7 +98,10 @@ class KeyboardSelect extends React.Component {
       .find(Model01)
       .then(devices => {
         if (devices.length == 0) {
-          this.setState({ devices: devices });
+          this.setState({
+            loading: false,
+            devices: devices
+          });
           return;
         }
         this.setState({

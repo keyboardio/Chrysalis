@@ -58,9 +58,8 @@ exports[`renders without crashing 1`] = `
         class="KeyboardSelect-bottomButtons-138"
       >
         <button
-          class="MuiButtonBase-root-206 MuiButtonBase-disabled-207 MuiButton-root-180 MuiButton-text-182 MuiButton-flat-185 MuiButton-disabled-200"
-          disabled=""
-          tabindex="-1"
+          class="MuiButtonBase-root-206 MuiButton-root-180 MuiButton-text-182 MuiButton-flat-185"
+          tabindex="0"
           type="button"
         >
           <span
@@ -68,6 +67,9 @@ exports[`renders without crashing 1`] = `
           >
             Scan devices
           </span>
+          <span
+            class="MuiTouchRipple-root-258"
+          />
         </button>
         <div
           class="KeyboardSelect-exit-139"

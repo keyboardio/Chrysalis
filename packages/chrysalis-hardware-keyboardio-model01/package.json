@@ -17,9 +17,9 @@
         "access": "public"
     },
     "scripts": {
-        "install": "babel src/lib -d lib",
         "build": "babel src/lib -d lib",
-        "docs": "jsdoc -c .jsdoc.json -r -d docs/html -R README.md package.json src/lib"
+        "docs": "jsdoc -c .jsdoc.json -r -d docs/html -R README.md package.json src/lib",
+        "prepublish": "npm run build"
     },
     "devDependencies": {
         "@babel/cli": "^7.1.0",
@@ -28,6 +28,6 @@
         "jsdoc": "^3.5.5"
     },
     "peerDependencies": {
-        "@chrysalis-api/focus": "^0.0.1"
+        "@chrysalis-api/focus": "^0.0.2"
     }
 }

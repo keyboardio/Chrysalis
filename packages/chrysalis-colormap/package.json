@@ -17,8 +17,8 @@
         "access": "public"
     },
     "scripts": {
-        "install": "babel src/lib -d lib",
-        "build": "babel src/lib -d lib"
+        "build": "babel src/lib -d lib",
+        "prepublish": "npm run build"
     },
     "devDependencies": {
         "@babel/cli": "^7.1.0",
@@ -26,6 +26,6 @@
         "@babel/preset-env": "7.1.0"
     },
     "peerDependencies": {
-        "@chrysalis-api/focus": "^0.0.1"
+        "@chrysalis-api/focus": "^0.0.2"
     }
 }

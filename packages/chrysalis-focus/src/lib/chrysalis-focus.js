@@ -26,7 +26,7 @@ class Focus {
             this._commands = {
                 help: this._help
             }
-            this.timeout = 5000;
+            this.timeout = 5000
         }
 
         return instance
@@ -134,7 +134,7 @@ class Focus {
     }
 
     async probe() {
-        return await this.request("help");
+        return await this.request("help")
     }
 
     async _write_parts(parts, cb) {
@@ -154,12 +154,12 @@ class Focus {
     request(cmd, ...args) {
         return new Promise((resolve, reject) => {
             let timer = setTimeout(() => {
-                reject("Communication timeout");
-            }, this.timeout);
+                reject("Communication timeout")
+            }, this.timeout)
             this._request(cmd, ...args).then(data => {
-                clearTimeout(timer);
-                resolve(data);
-            });
+                clearTimeout(timer)
+                resolve(data)
+            })
         })
     }
 
@@ -175,7 +175,7 @@ class Focus {
 
         if (process.platform == "darwin") {
             let parts = request.split(" ")
-            return new Promise((resolve, reject) => {
+            return new Promise(resolve => {
                 setTimeout(async () => {
                     await this._port.flush()
                     this.callbacks.push(resolve)

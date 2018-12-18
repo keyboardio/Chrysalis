@@ -1,5 +1,5 @@
 {
-    "name": "@chrysalis/focus",
+    "name": "@chrysalis-api/focus",
     "version": "0.0.1",
     "description": "Chrysalis Focus protocol library",
     "main": "lib",

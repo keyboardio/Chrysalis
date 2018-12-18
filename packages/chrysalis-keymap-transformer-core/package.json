@@ -1,5 +1,5 @@
 {
-    "name": "@chrysalis/keymap-transformer-core",
+    "name": "@chrysalis-api/keymap-transformer-core",
     "version": "0.0.1",
     "description": "Chrysalis keymap transformer",
     "main": "lib",
@@ -30,7 +30,7 @@
         "eslint": "^4.19.1"
     },
     "peerDependencies": {
-        "@chrysalis/focus": "^0.0.1",
-        "@chrysalis/keymap": "^0.0.1"
+        "@chrysalis-api/focus": "^0.0.1",
+        "@chrysalis-api/keymap": "^0.0.1"
     }
 }

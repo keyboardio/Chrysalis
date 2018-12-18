@@ -1,5 +1,5 @@
 {
-    "name": "@chrysalis/colormap",
+    "name": "@chrysalis-api/colormap",
     "version": "0.0.1",
     "description": "Chrysalis colormap library",
     "main": "lib",
@@ -26,6 +26,6 @@
         "@babel/preset-env": "7.1.0"
     },
     "peerDependencies": {
-        "@chrysalis/focus": "^0.0.1"
+        "@chrysalis-api/focus": "^0.0.1"
     }
 }

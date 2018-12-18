@@ -1,5 +1,5 @@
 {
-    "name": "@chrysalis/hardware-keyboardio-model01",
+    "name": "@chrysalis-api/hardware-keyboardio-model01",
     "version": "0.0.1",
     "description": "Chrysalis Keyboardio Model01 support",
     "main": "lib",
@@ -28,6 +28,6 @@
          "jsdoc": "^3.5.5"
     },
     "peerDependencies": {
-        "@chrysalis/focus": "^0.0.1"
+        "@chrysalis-api/focus": "^0.0.1"
     }
 }

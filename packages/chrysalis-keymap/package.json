@@ -1,5 +1,5 @@
 {
-    "name": "@chrysalis/keymap",
+    "name": "@chrysalis-api/keymap",
     "version": "0.0.1",
     "description": "Chrysalis keymap library",
     "main": "lib",
@@ -28,6 +28,6 @@
         "eslint": "^4.19.1"
     },
     "peerDependencies": {
-        "@chrysalis/focus": "^0.0.1"
+        "@chrysalis-api/focus": "^0.0.1"
     }
 }

@@ -18,7 +18,6 @@
     },
     "scripts": {
         "build": "babel src/lib -d lib",
-        "docs": "jsdoc -c .jsdoc.json -r -d docs/html -R README.md package.json src/lib",
         "prepublish": "npm run build"
     },
     "dependencies": {
@@ -28,7 +27,6 @@
         "@babel/cli": "^7.1.0",
         "@babel/core": "7.1.0",
         "@babel/preset-env": "7.1.0",
-        "eslint": "^4.19.1",
-        "jsdoc": "^3.5.5"
+        "eslint": "^4.19.1"
     }
 }

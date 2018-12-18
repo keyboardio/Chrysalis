@@ -16,65 +16,65 @@
  */
 
 const NavigationTable = {
-  groupName: "Navigation",
-  keys: [
-    {
-      code: 75,
-      labels: {
-        primary: "PgUp",
-        verbose: "Page Up"
-      }
-    },
-    {
-      code: 78,
-      labels: {
-        primary: "PgDn",
-        verbose: "Page Down"
-      }
-    },
-    {
-      code: 74,
-      labels: {
-        primary: "Home"
-      }
-    },
-    {
-      code: 77,
-      labels: {
-        primary: "End"
-      }
-    },
-    {
-      code: 80,
-      labels: {
-        primary: "Left"
-      }
-    },
-    {
-      code: 81,
-      labels: {
-        primary: "Down"
-      }
-    },
-    {
-      code: 82,
-      labels: {
-        primary: "Up"
-      }
-    },
-    {
-      code: 79,
-      labels: {
-        primary: "Right"
-      }
-    },
-    {
-      code: 101,
-      labels: {
-        primary: "App"
-      }
-    }
-  ]
-};
+    groupName: "Navigation",
+    keys: [
+        {
+            code: 75,
+            labels: {
+                primary: "PgUp",
+                verbose: "Page Up"
+            }
+        },
+        {
+            code: 78,
+            labels: {
+                primary: "PgDn",
+                verbose: "Page Down"
+            }
+        },
+        {
+            code: 74,
+            labels: {
+                primary: "Home"
+            }
+        },
+        {
+            code: 77,
+            labels: {
+                primary: "End"
+            }
+        },
+        {
+            code: 80,
+            labels: {
+                primary: "Left"
+            }
+        },
+        {
+            code: 81,
+            labels: {
+                primary: "Down"
+            }
+        },
+        {
+            code: 82,
+            labels: {
+                primary: "Up"
+            }
+        },
+        {
+            code: 79,
+            labels: {
+                primary: "Right"
+            }
+        },
+        {
+            code: 101,
+            labels: {
+                primary: "App"
+            }
+        }
+    ]
+}
 
-export default NavigationTable;
+export default NavigationTable

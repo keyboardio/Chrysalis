@@ -16,65 +16,65 @@
  */
 
 const ModifiersTable = {
-  groupName: "Modifiers",
-  keys: [
-    {
-      code: 224,
-      labels: {
-        primary: "LCtrl",
-        verbose: "Left Control"
-      }
-    },
-    {
-      code: 225,
-      labels: {
-        primary: "LShift",
-        verbose: "Left Shift"
-      }
-    },
-    {
-      code: 226,
-      labels: {
-        primary: "LAlt",
-        verbose: "Left Alt"
-      }
-    },
-    {
-      code: 227,
-      labels: {
-        primary: "LGui",
-        verbose: "Left Gui"
-      }
-    },
-    {
-      code: 228,
-      labels: {
-        primary: "RCtrl",
-        verbose: "Right Control"
-      }
-    },
-    {
-      code: 229,
-      labels: {
-        primary: "RShift",
-        verbose: "Right Shift"
-      }
-    },
-    {
-      code: 230,
-      labels: {
-        primary: "RAlt",
-        verbose: "Right Alt / AltGr"
-      }
-    },
-    {
-      code: 231,
-      labels: {
-        primary: "RGui",
-        verbose: "Right Gui"
-      }
-    }
-  ]
-};
+    groupName: "Modifiers",
+    keys: [
+        {
+            code: 224,
+            labels: {
+                primary: "LCtrl",
+                verbose: "Left Control"
+            }
+        },
+        {
+            code: 225,
+            labels: {
+                primary: "LShift",
+                verbose: "Left Shift"
+            }
+        },
+        {
+            code: 226,
+            labels: {
+                primary: "LAlt",
+                verbose: "Left Alt"
+            }
+        },
+        {
+            code: 227,
+            labels: {
+                primary: "LGui",
+                verbose: "Left Gui"
+            }
+        },
+        {
+            code: 228,
+            labels: {
+                primary: "RCtrl",
+                verbose: "Right Control"
+            }
+        },
+        {
+            code: 229,
+            labels: {
+                primary: "RShift",
+                verbose: "Right Shift"
+            }
+        },
+        {
+            code: 230,
+            labels: {
+                primary: "RAlt",
+                verbose: "Right Alt / AltGr"
+            }
+        },
+        {
+            code: 231,
+            labels: {
+                primary: "RGui",
+                verbose: "Right Gui"
+            }
+        }
+    ]
+}
 
-export default ModifiersTable;
+export default ModifiersTable

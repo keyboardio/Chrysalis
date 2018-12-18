@@ -6,14 +6,12 @@ This is a collection of libraries to make it easier to work with keyboards that 
  [kaleidoscope]: https://github.com/keyboardio/Kaleidoscope
  [kaleidoscope:focus]: https://github.com/keyboardio/Kaleidoscope/blob/master/doc/plugin/FocusSerial.md
 
-```javascript
-import Focus from "@chrysalis-api/focus";
-import { Model01 } from "@chrysalis-api/hardware-keyboardio-model01";
+To get started, install the core package and a hardware description:
 
-let focus = new Focus();
-focus.open(Model01).then(() => {
-  focus.command("help").then((response) => {
-    console.log(response);
-  });
-});
 ```
+$ yarn add @chrysalis-api/focus
+$ yarn add @chrysalis-api/hardware-keyboardio-model01
+```
+
+Packages in the repository include:
+ - [`@chrysalis-api/focus`](focus.md)

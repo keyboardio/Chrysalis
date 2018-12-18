@@ -19,22 +19,7 @@ import Delimiter from "@serialport/parser-delimiter"
 
 let instance = null
 
-/** Class implementing the Focus protocol.
- *
- * The primary purpose of this class is to implement the Focus protocol, with a
- * way to extend it from the outside, without requiring one to subclass.
- *
- * ```javascript
- * import Focus from "@chrysalis-api/focus";
- * let focus = new Focus();
- * ```
- */
 class Focus {
-    /**
-     * Return (or create a new) Focus singleton object.
-     *
-     * @constructor
-     */
     constructor() {
         if (!instance) {
             instance = this
@@ -95,18 +80,6 @@ class Focus {
         return found_devices
     }
 
-    /**
-     * Open a device. This is a **required** step before doing any of the other
-     * operations (save `find`).
-     *
-     * The argument can either be a `string`, a `SerialPort` object, or a device
-     * descriptor (see `find` above).
-     *
-     * @param {OPTIONS} device - Either a path to the device, or a `SerialPort`
-     * object, or a device descriptor.
-     * @param {OPTIONS} info - The device descriptor, mandatory unless given as
-     * the first argument.
-     */
     async open(device, info) {
         if (typeof device == "string") {
             if (!info) throw new Error("Device descriptor argument is mandatory")
@@ -152,9 +125,6 @@ class Focus {
         return this._port
     }
 
-    /**
-     * Close the currently opened device, if any.
-     */
     close() {
         if (this._port) {
             this._port.close()
@@ -163,12 +133,6 @@ class Focus {
         this.device = null
     }
 
-    /**
-     * Probe for Focus support on an opened device.
-     *
-     * @returns {Promise<Boolean>}, signaling whether the probe was successful
-     * or not.
-     */
     async probe() {
         return await this.request("help");
     }
@@ -187,21 +151,6 @@ class Focus {
         })
     }
 
-    /**
-     * Send a low-level request, and return the (mostly) unprocessed response.
-     *
-     * This method is close to the wire, as all it does, is format its
-     * arguments, send the command, and return the results. The only processing
-     * done on the results is making sure we don't read too much.
-     *
-     * @param {String} cmd - the command to send.
-     * @param {String} args - optional arguments for the command.
-     *
-     * @returns {Promise<String>} The unprocessed response.
-     *
-     * @throws Will throw an error if the instance isn't connected to the
-     * keyboard yet.
-     */
     request(cmd, ...args) {
         return new Promise((resolve, reject) => {
             let timer = setTimeout(() => {
@@ -241,22 +190,6 @@ class Focus {
         }
     }
 
-    /**
-     * Send a high-level command, and return a processed response.
-     *
-     * Commands registered with `addCommands` can be called by using this
-     * method. If the command to be sent is recognised, it will send the command
-     * through the registered handler. If it isn't known, falls back to
-     * `request()`.
-     *
-     * @param {String} cmd - the command to send.
-     * @param {String} args - optional arguments for the command.
-     *
-     * @returns {Promise<object>} The processed response.
-     *
-     * @throws Will throw an error if the instance isn't connected to the
-     * keyboard yet.
-     */
     async command(cmd, ...args) {
         if (typeof this._commands[cmd] == "function") {
             return this._commands[cmd](this, ...args)
@@ -267,22 +200,6 @@ class Focus {
         }
     }
 
-    /**
-     * Register new commands with the system.
-     *
-     * Commands can either be functions, or objects with a `.focus` method. Both
-     * `.focus` and the command-function take the same arguments: `self` (the
-     * `Focus` instance running the handler; to have access to the `request`
-     * method) and any number of arguments, which are supposed to be the
-     * arguments of the command the handler is executing.
-     *
-     * Handlers **must** return promises, the result of their commands,
-     * post-processed in whatever way is most practical for the command in
-     * question.
-     *
-     * @param {object} cmds - The command functions / objects to register, as
-     * name-value pairs.
-     */
     addCommands(cmds) {
         Object.assign(this._commands, cmds)
     }

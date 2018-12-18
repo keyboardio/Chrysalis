@@ -23,12 +23,15 @@ let instance = null
  *
  * The primary purpose of this class is to implement the Focus protocol, with a
  * way to extend it from the outside, without requiring one to subclass.
+ *
+ * ```javascript
+ * import Focus from "@chrysalis-api/focus";
+ * let focus = new Focus();
+ * ```
  */
 class Focus {
     /**
-     * Create a new Focus object.
-     *
-     * Ideally, there should only be one instance in a single application.
+     * Return (or create a new) Focus singleton object.
      *
      * @constructor
      */

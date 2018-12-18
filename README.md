@@ -17,3 +17,5 @@ focus.open(Model01).then(() => {
   });
 });
 ```
+
+[Documentation](https://lepidopterarium.github.io/chrysalis-api/)

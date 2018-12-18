@@ -1,11 +1,11 @@
 {
-    "name": "chrysalis-hardware-keyboardio-model01",
+    "name": "@chrysalis/hardware-keyboardio-model01",
     "version": "0.0.1",
     "description": "Chrysalis Keyboardio Model01 support",
     "main": "lib",
     "repository": {
         "type": "git",
-        "url": "https://github.com/Lepidopterarium/chrysalis-hardware-keyboardio-model01"
+        "url": "git://github.com/Lepidopterarium/chrysalis-api"
     },
     "author": {
         "name": "Gergely Nagy",
@@ -18,12 +18,13 @@
         "build": "babel src/lib -d lib",
         "docs": "jsdoc -c .jsdoc.json -r -d docs/html -R README.md package.json src/lib"
     },
-    "dependencies": {
+    "devDependencies": {
         "@babel/cli": "^7.1.0",
         "@babel/core": "7.1.0",
-        "@babel/preset-env": "7.1.0"
-    },
-    "devDependencies": {
+        "@babel/preset-env": "7.1.0",
          "jsdoc": "^3.5.5"
+    },
+    "peerDependencies": {
+        "@chrysalis/focus": "^0.0.1"
     }
 }

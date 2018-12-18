@@ -1,11 +1,11 @@
 {
-    "name": "chrysalis-keymap",
+    "name": "@chrysalis/keymap",
     "version": "0.0.1",
     "description": "Chrysalis keymap library",
     "main": "lib",
     "repository": {
         "type": "git",
-        "url": "https://github.com/Lepidopterarium/chrysalis-keymap"
+        "url": "git://github.com/Lepidopterarium/chrysalis-api.git"
     },
     "author": {
         "name": "Gergely Nagy",
@@ -18,14 +18,13 @@
         "build": "babel src/lib -d lib",
         "test": "eslint src/lib"
     },
-    "dependencies": {
+    "devDependencies": {
         "@babel/cli": "^7.1.0",
         "@babel/core": "7.1.0",
-        "@babel/preset-env": "7.1.0"
-    },
-    "devDependencies": {
-        "chrysalis-focus": "git://github.com/Lepidopterarium/chrysalis-focus.git#master",
-        "serialport": "^6.2.2",
+        "@babel/preset-env": "7.1.0",
         "eslint": "^4.19.1"
+    },
+    "peerDependencies": {
+        "@chrysalis/focus": "^0.0.1"
     }
 }

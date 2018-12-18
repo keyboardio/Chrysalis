@@ -16,24 +16,24 @@
  */
 
 const LEDEffectsTable = {
-  groupName: "LED Effect",
-  keys: [
-    {
-      code: 17152,
-      labels: {
-        primary: "Next",
-        top: "LEDEff."
-      }
-    },
-    {
-      code: 17153,
-      labels: {
-        primary: "Prev.",
-        top: "LEDEff.",
-        verbose: "Previous"
-      }
-    }
-  ]
-};
+    groupName: "LED Effect",
+    keys: [
+        {
+            code: 17152,
+            labels: {
+                primary: "Next",
+                top: "LEDEff."
+            }
+        },
+        {
+            code: 17153,
+            labels: {
+                primary: "Prev.",
+                top: "LEDEff.",
+                verbose: "Previous"
+            }
+        }
+    ]
+}
 
-export default LEDEffectsTable;
+export default LEDEffectsTable

@@ -16,25 +16,25 @@
  */
 
 const BlankTable = {
-  groupName: "Blank",
-  keys: [
-    {
-      // NoKey
-      code: 0,
-      labels: {
-        primary: "",
-        verbose: "Disabled key"
-      }
-    },
-    {
-      // Transparent
-      code: 65535,
-      labels: {
-        primary: "[Trns]",
-        verbose: "Transparent key"
-      }
-    }
-  ]
-};
+    groupName: "Blank",
+    keys: [
+        {
+            // NoKey
+            code: 0,
+            labels: {
+                primary: "",
+                verbose: "Disabled key"
+            }
+        },
+        {
+            // Transparent
+            code: 65535,
+            labels: {
+                primary: "[Trns]",
+                verbose: "Transparent key"
+            }
+        }
+    ]
+}
 
-export default BlankTable;
+export default BlankTable

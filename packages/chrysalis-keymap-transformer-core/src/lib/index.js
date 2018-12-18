@@ -14,125 +14,125 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import BlankTable from "./keys/blanks";
-import LetterTable, { ModifiedLetterTables } from "./keys/letters";
-import DigitTable, { ModifiedDigitTables } from "./keys/digits";
-import { LockLayerTable, ShiftToLayerTable } from "./keys/layerswitch";
+import BlankTable from "./keys/blanks"
+import LetterTable, { ModifiedLetterTables } from "./keys/letters"
+import DigitTable, { ModifiedDigitTables } from "./keys/digits"
+import { LockLayerTable, ShiftToLayerTable } from "./keys/layerswitch"
 import PunctuationTable, {
-  ModifiedPunctuationTables
-} from "./keys/punctuation";
-import SpacingTable, { ModifiedSpacingTables } from "./keys/spacing";
-import ModifiersTable from "./keys/modifiers";
-import NavigationTable from "./keys/navigation";
-import LEDEffectsTable from "./keys/ledeffects";
-import MacrosTable from "./keys/macros";
-import NumpadTable from "./keys/numpad";
-import FunctionKeyTable from "./keys/fxs";
+    ModifiedPunctuationTables
+} from "./keys/punctuation"
+import SpacingTable, { ModifiedSpacingTables } from "./keys/spacing"
+import ModifiersTable from "./keys/modifiers"
+import NavigationTable from "./keys/navigation"
+import LEDEffectsTable from "./keys/ledeffects"
+import MacrosTable from "./keys/macros"
+import NumpadTable from "./keys/numpad"
+import FunctionKeyTable from "./keys/fxs"
 
-import MediaControlTable from "./keys/mediacontrols";
+import MediaControlTable from "./keys/mediacontrols"
 import {
-  MouseMovementTable,
-  MouseWheelTable,
-  MouseButtonTable,
-  MouseWarpTable
-} from "./keys/mousecontrols";
-import MiscellaneousTable from "./keys/miscellaneous";
+    MouseMovementTable,
+    MouseWheelTable,
+    MouseButtonTable,
+    MouseWarpTable
+} from "./keys/mousecontrols"
+import MiscellaneousTable from "./keys/miscellaneous"
 
-import { OneShotModifierTable, OneShotLayerTable } from "./keys/oneshot";
-import TapDanceTable from "./keys/tapdance";
-import LeaderTable from "./keys/leader";
-import StenoTable from "./keys/steno";
-import SpaceCadetTable from "./keys/spacecadet";
+import { OneShotModifierTable, OneShotLayerTable } from "./keys/oneshot"
+import TapDanceTable from "./keys/tapdance"
+import LeaderTable from "./keys/leader"
+import StenoTable from "./keys/steno"
+import SpaceCadetTable from "./keys/spacecadet"
 
 const baseKeyCodeTable = [
-  LetterTable,
-  DigitTable,
-  PunctuationTable,
-  SpacingTable,
-  ModifiersTable,
-  NavigationTable,
-  FunctionKeyTable,
-  NumpadTable,
-  MiscellaneousTable,
+    LetterTable,
+    DigitTable,
+    PunctuationTable,
+    SpacingTable,
+    ModifiersTable,
+    NavigationTable,
+    FunctionKeyTable,
+    NumpadTable,
+    MiscellaneousTable,
 
-  ShiftToLayerTable,
-  LockLayerTable,
+    ShiftToLayerTable,
+    LockLayerTable,
 
-  LEDEffectsTable,
-  MacrosTable,
-  MediaControlTable,
-  MouseMovementTable,
-  MouseButtonTable,
-  MouseWheelTable,
-  MouseWarpTable,
+    LEDEffectsTable,
+    MacrosTable,
+    MediaControlTable,
+    MouseMovementTable,
+    MouseButtonTable,
+    MouseWheelTable,
+    MouseWarpTable,
 
-  OneShotModifierTable,
-  OneShotLayerTable,
-  TapDanceTable,
-  LeaderTable,
-  StenoTable,
-  SpaceCadetTable,
+    OneShotModifierTable,
+    OneShotLayerTable,
+    TapDanceTable,
+    LeaderTable,
+    StenoTable,
+    SpaceCadetTable,
 
-  BlankTable
-];
+    BlankTable
+]
 const keyCodeTable = baseKeyCodeTable
-  .concat(ModifiedLetterTables)
-  .concat(ModifiedDigitTables)
-  .concat(ModifiedPunctuationTables)
-  .concat(ModifiedSpacingTables);
+    .concat(ModifiedLetterTables)
+    .concat(ModifiedDigitTables)
+    .concat(ModifiedPunctuationTables)
+    .concat(ModifiedSpacingTables)
 
 class CoreTransformer {
-  constructor() {
-    this.keymapCodeTable = [];
+    constructor() {
+        this.keymapCodeTable = []
 
-    for (let group of keyCodeTable) {
-      for (let key of group.keys) {
-        let value;
+        for (let group of keyCodeTable) {
+            for (let key of group.keys) {
+                let value
 
-        if (key.labels) {
-          value = key;
-        } else {
-          value = {
-            code: key.code,
-            labels: {
-              primary: "#" + key.code.toString()
+                if (key.labels) {
+                    value = key
+                } else {
+                    value = {
+                        code: key.code,
+                        labels: {
+                            primary: "#" + key.code.toString()
+                        }
+                    }
+                }
+
+                this.keymapCodeTable[key.code] = value
             }
-          };
+        }
+    }
+
+    parse(keyCode) {
+        let key
+
+        if (!keyCode) keyCode = 0
+
+        if (keyCode < this.keymapCodeTable.length) {
+            key = this.keymapCodeTable[keyCode]
         }
 
-        this.keymapCodeTable[key.code] = value;
-      }
-    }
-  }
-
-  parse(keyCode) {
-    let key;
-
-    if (!keyCode) keyCode = 0;
-
-    if (keyCode < this.keymapCodeTable.length) {
-      key = this.keymapCodeTable[keyCode];
-    }
-
-    if (!key) {
-      key = {
-        code: keyCode,
-        labels: {
-          primary: "#" + keyCode.toString()
+        if (!key) {
+            key = {
+                code: keyCode,
+                labels: {
+                    primary: "#" + keyCode.toString()
+                }
+            }
         }
-      };
+
+        return {
+            keyCode: key.code,
+            label: key.labels.primary,
+            extraLabel: key.labels.top
+        }
     }
 
-    return {
-      keyCode: key.code,
-      label: key.labels.primary,
-      extraLabel: key.labels.top
-    };
-  }
-
-  serialize(key) {
-    return key.keyCode;
-  }
+    serialize(key) {
+        return key.keyCode
+    }
 }
 
-export { CoreTransformer as default, baseKeyCodeTable, keyCodeTable };
+export { CoreTransformer as default, baseKeyCodeTable, keyCodeTable }

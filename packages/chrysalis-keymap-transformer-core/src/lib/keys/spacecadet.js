@@ -16,23 +16,23 @@
  */
 
 const SpaceCadetTable = {
-  groupName: "SpaceCadet",
-  keys: [
-    {
-      code: 53591,
-      labels: {
-        top: "SCadet",
-        primary: "Left"
-      }
-    },
-    {
-      code: 53592,
-      labels: {
-        top: "SCadet",
-        primary: "Right"
-      }
-    }
-  ]
-};
+    groupName: "SpaceCadet",
+    keys: [
+        {
+            code: 53591,
+            labels: {
+                top: "SCadet",
+                primary: "Left"
+            }
+        },
+        {
+            code: 53592,
+            labels: {
+                top: "SCadet",
+                primary: "Right"
+            }
+        }
+    ]
+}
 
-export default SpaceCadetTable;
+export default SpaceCadetTable

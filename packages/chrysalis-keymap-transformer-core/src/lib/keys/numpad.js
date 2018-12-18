@@ -16,114 +16,114 @@
  */
 
 const NumpadTable = {
-  groupName: "Numpad",
-  keys: [
-    {
-      code: 89,
-      labels: {
-        top: "Numpad",
-        primary: "1"
-      }
-    },
-    {
-      code: 90,
-      labels: {
-        top: "Numpad",
-        primary: "2"
-      }
-    },
-    {
-      code: 91,
-      labels: {
-        top: "Numpad",
-        primary: "3"
-      }
-    },
-    {
-      code: 92,
-      labels: {
-        top: "Numpad",
-        primary: "4"
-      }
-    },
-    {
-      code: 93,
-      labels: {
-        top: "Numpad",
-        primary: "5"
-      }
-    },
-    {
-      code: 94,
-      labels: {
-        top: "Numpad",
-        primary: "6"
-      }
-    },
-    {
-      code: 95,
-      labels: {
-        top: "Numpad",
-        primary: "7"
-      }
-    },
-    {
-      code: 96,
-      labels: {
-        top: "Numpad",
-        primary: "8"
-      }
-    },
-    {
-      code: 97,
-      labels: {
-        top: "Numpad",
-        primary: "9"
-      }
-    },
-    {
-      code: 98,
-      labels: {
-        top: "Numpad",
-        primary: "0"
-      }
-    },
-    {
-      code: 99,
-      labels: {
-        top: "Numpad",
-        primary: "."
-      }
-    },
-    {
-      code: 85,
-      labels: {
-        top: "Numpad",
-        primary: "*"
-      }
-    },
-    {
-      code: 86,
-      labels: {
-        top: "Numpad",
-        primary: "-"
-      }
-    },
-    {
-      code: 87,
-      labels: {
-        top: "Numpad",
-        primary: "+"
-      }
-    },
-    {
-      code: 84,
-      labels: {
-        top: "Numpad",
-        primary: "/"
-      }
-    }
-  ]
-};
+    groupName: "Numpad",
+    keys: [
+        {
+            code: 89,
+            labels: {
+                top: "Numpad",
+                primary: "1"
+            }
+        },
+        {
+            code: 90,
+            labels: {
+                top: "Numpad",
+                primary: "2"
+            }
+        },
+        {
+            code: 91,
+            labels: {
+                top: "Numpad",
+                primary: "3"
+            }
+        },
+        {
+            code: 92,
+            labels: {
+                top: "Numpad",
+                primary: "4"
+            }
+        },
+        {
+            code: 93,
+            labels: {
+                top: "Numpad",
+                primary: "5"
+            }
+        },
+        {
+            code: 94,
+            labels: {
+                top: "Numpad",
+                primary: "6"
+            }
+        },
+        {
+            code: 95,
+            labels: {
+                top: "Numpad",
+                primary: "7"
+            }
+        },
+        {
+            code: 96,
+            labels: {
+                top: "Numpad",
+                primary: "8"
+            }
+        },
+        {
+            code: 97,
+            labels: {
+                top: "Numpad",
+                primary: "9"
+            }
+        },
+        {
+            code: 98,
+            labels: {
+                top: "Numpad",
+                primary: "0"
+            }
+        },
+        {
+            code: 99,
+            labels: {
+                top: "Numpad",
+                primary: "."
+            }
+        },
+        {
+            code: 85,
+            labels: {
+                top: "Numpad",
+                primary: "*"
+            }
+        },
+        {
+            code: 86,
+            labels: {
+                top: "Numpad",
+                primary: "-"
+            }
+        },
+        {
+            code: 87,
+            labels: {
+                top: "Numpad",
+                primary: "+"
+            }
+        },
+        {
+            code: 84,
+            labels: {
+                top: "Numpad",
+                primary: "/"
+            }
+        }
+    ]
+}
 
-export default NumpadTable;
+export default NumpadTable

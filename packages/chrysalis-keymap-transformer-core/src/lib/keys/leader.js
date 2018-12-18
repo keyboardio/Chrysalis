@@ -16,65 +16,65 @@
  */
 
 const LeaderTable = {
-  groupName: "Leader",
-  keys: [
-    {
-      code: 53283,
-      labels: {
-        top: "Leader",
-        primary: "#0"
-      }
-    },
-    {
-      code: 53284,
-      labels: {
-        top: "Leader",
-        primary: "#1"
-      }
-    },
-    {
-      code: 53285,
-      labels: {
-        top: "Leader",
-        primary: "#2"
-      }
-    },
-    {
-      code: 53286,
-      labels: {
-        top: "Leader",
-        primary: "#3"
-      }
-    },
-    {
-      code: 53287,
-      labels: {
-        top: "Leader",
-        primary: "#4"
-      }
-    },
-    {
-      code: 53288,
-      labels: {
-        top: "Leader",
-        primary: "#5"
-      }
-    },
-    {
-      code: 53289,
-      labels: {
-        top: "Leader",
-        primary: "#6"
-      }
-    },
-    {
-      code: 53290,
-      labels: {
-        top: "Leader",
-        primary: "#7"
-      }
-    }
-  ]
-};
+    groupName: "Leader",
+    keys: [
+        {
+            code: 53283,
+            labels: {
+                top: "Leader",
+                primary: "#0"
+            }
+        },
+        {
+            code: 53284,
+            labels: {
+                top: "Leader",
+                primary: "#1"
+            }
+        },
+        {
+            code: 53285,
+            labels: {
+                top: "Leader",
+                primary: "#2"
+            }
+        },
+        {
+            code: 53286,
+            labels: {
+                top: "Leader",
+                primary: "#3"
+            }
+        },
+        {
+            code: 53287,
+            labels: {
+                top: "Leader",
+                primary: "#4"
+            }
+        },
+        {
+            code: 53288,
+            labels: {
+                top: "Leader",
+                primary: "#5"
+            }
+        },
+        {
+            code: 53289,
+            labels: {
+                top: "Leader",
+                primary: "#6"
+            }
+        },
+        {
+            code: 53290,
+            labels: {
+                top: "Leader",
+                primary: "#7"
+            }
+        }
+    ]
+}
 
-export { LeaderTable as default };
+export { LeaderTable as default }

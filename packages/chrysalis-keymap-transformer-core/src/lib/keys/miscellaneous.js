@@ -16,28 +16,28 @@
  */
 
 const MiscellaneousTable = {
-  groupName: "Miscellaneous",
-  keys: [
-    {
-      code: 70,
-      labels: {
-        primary: "PrnScr",
-        verbose: "Print Screen"
-      }
-    },
-    {
-      code: 53291,
-      labels: {
-        primary: "Cycle"
-      }
-    },
-    {
-      code: 53292,
-      labels: {
-        primary: "Syster"
-      }
-    }
-  ]
-};
+    groupName: "Miscellaneous",
+    keys: [
+        {
+            code: 70,
+            labels: {
+                primary: "PrnScr",
+                verbose: "Print Screen"
+            }
+        },
+        {
+            code: 53291,
+            labels: {
+                primary: "Cycle"
+            }
+        },
+        {
+            code: 53292,
+            labels: {
+                primary: "Syster"
+            }
+        }
+    ]
+}
 
-export default MiscellaneousTable;
+export default MiscellaneousTable

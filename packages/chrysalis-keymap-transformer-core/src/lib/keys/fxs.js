@@ -16,81 +16,81 @@
  */
 
 const FunctionKeyTable = {
-  groupName: "Fx keys",
-  keys: [
-    {
-      code: 58,
-      labels: {
-        primary: "F1"
-      }
-    },
-    {
-      code: 59,
-      labels: {
-        primary: "F2"
-      }
-    },
-    {
-      code: 60,
-      labels: {
-        primary: "F3"
-      }
-    },
-    {
-      code: 61,
-      labels: {
-        primary: "F4"
-      }
-    },
-    {
-      code: 62,
-      labels: {
-        primary: "F5"
-      }
-    },
-    {
-      code: 63,
-      labels: {
-        primary: "F6"
-      }
-    },
-    {
-      code: 64,
-      labels: {
-        primary: "F7"
-      }
-    },
-    {
-      code: 65,
-      labels: {
-        primary: "F8"
-      }
-    },
-    {
-      code: 66,
-      labels: {
-        primary: "F9"
-      }
-    },
-    {
-      code: 67,
-      labels: {
-        primary: "F10"
-      }
-    },
-    {
-      code: 68,
-      labels: {
-        primary: "F11"
-      }
-    },
-    {
-      code: 69,
-      labels: {
-        primary: "F12"
-      }
-    }
-  ]
-};
+    groupName: "Fx keys",
+    keys: [
+        {
+            code: 58,
+            labels: {
+                primary: "F1"
+            }
+        },
+        {
+            code: 59,
+            labels: {
+                primary: "F2"
+            }
+        },
+        {
+            code: 60,
+            labels: {
+                primary: "F3"
+            }
+        },
+        {
+            code: 61,
+            labels: {
+                primary: "F4"
+            }
+        },
+        {
+            code: 62,
+            labels: {
+                primary: "F5"
+            }
+        },
+        {
+            code: 63,
+            labels: {
+                primary: "F6"
+            }
+        },
+        {
+            code: 64,
+            labels: {
+                primary: "F7"
+            }
+        },
+        {
+            code: 65,
+            labels: {
+                primary: "F8"
+            }
+        },
+        {
+            code: 66,
+            labels: {
+                primary: "F9"
+            }
+        },
+        {
+            code: 67,
+            labels: {
+                primary: "F10"
+            }
+        },
+        {
+            code: 68,
+            labels: {
+                primary: "F11"
+            }
+        },
+        {
+            code: 69,
+            labels: {
+                primary: "F12"
+            }
+        }
+    ]
+}
 
-export default FunctionKeyTable;
+export default FunctionKeyTable

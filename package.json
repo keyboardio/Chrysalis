@@ -2,7 +2,7 @@
   "name": "chrysalis-api",
   "private": true,
   "version": "0.0.0",
-  "license": "GPL-3",
+  "license": "GPL-3.0+",
   "repository": {
     "type": "git",
     "url": "git://github.com/Lepidopterarium/chrysalis-api.git"

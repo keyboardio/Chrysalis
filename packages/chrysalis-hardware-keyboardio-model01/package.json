@@ -12,7 +12,15 @@
         "email": "<algernon@keyboard.io>",
         "url": "https://asylum.madhouse-project.org"
     },
-    "license": "GPL-3.0+",
+    "license": "GPL-3.0-only",
+    "homepage": "https://github.com/Lepidopterarium/chrysalis-api#readme",
+    "bugs": {
+        "url": "https://github.com/Lepidopterarium/chrysalis-api/issues"
+    },
+    "keywords": [
+        "chrysalis",
+        "kaleidoscope"
+    ],
     "publishConfig": {
         "access": "public"
     },

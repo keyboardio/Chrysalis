@@ -28,7 +28,7 @@ import { withStyles } from "@material-ui/core/styles";
 
 import { withSnackbar } from "notistack";
 
-import Focus from "chrysalis-focus";
+import Focus from "@chrysalis-api/focus";
 
 import Palette from "./ColormapEditor/Palette";
 import Layer, { led_map } from "./ColormapEditor/Layer";

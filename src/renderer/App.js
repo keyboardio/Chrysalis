@@ -19,11 +19,11 @@ import React from "react";
 import Electron from "electron";
 import { spawn } from "child_process";
 
-import Focus from "chrysalis-focus";
-import Keymap from "chrysalis-keymap";
-import Colormap from "chrysalis-colormap";
-import CoreTransformer from "chrysalis-keymap-transformer-core";
-import { Model01 } from "chrysalis-hardware-keyboardio-model01";
+import Focus from "@chrysalis-api/focus";
+import Keymap from "@chrysalis-api/keymap";
+import Colormap from "@chrysalis-api/colormap";
+import CoreTransformer from "@chrysalis-api/keymap-transformer-core";
+import { Model01 } from "@chrysalis-api/hardware-keyboardio-model01";
 
 import usb from "usb";
 import { withSnackbar } from "notistack";

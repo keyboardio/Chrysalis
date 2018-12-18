@@ -1,21 +1,34 @@
 module.exports = {
-  extends: [
-    "eslint:recommended",
-    "plugin:prettier/recommended"
-  ],
-  parser: "babel-eslint",
-  parserOptions: {
-    sourceType: "module"
-  },
-  env: {
-    browser: true,
-    node: true
-  },
-  globals: {
-    __static: true
-  },
-  rules: {
-    "no-console": 0,
-    "react/prop-types": 0
-  }
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true
+        },
+        "ecmaVersion": 2017,
+        "sourceType": "module"
+    },
+    "rules": {
+	      "no-console": 0,
+        "indent": [
+            "error",
+            4
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "double"
+        ],
+        "semi": [
+            "error",
+            "never"
+        ]
+    }
 };

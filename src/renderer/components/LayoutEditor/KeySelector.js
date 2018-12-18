@@ -51,7 +51,7 @@ const styles = theme => ({
   }
 });
 
-import { baseKeyCodeTable } from "chrysalis-keymap-transformer-core";
+import { baseKeyCodeTable } from "@chrysalis-api/keymap-transformer-core";
 
 const keyGroups = baseKeyCodeTable.map(item => {
   return item.groupName;

@@ -36,8 +36,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 
 import { withSnackbar } from "notistack";
 
-import Focus from "chrysalis-focus";
-import { Model01 } from "chrysalis-hardware-keyboardio-model01";
+import Focus from "@chrysalis-api/focus";
+import { Model01 } from "@chrysalis-api/hardware-keyboardio-model01";
 
 import usb from "usb";
 

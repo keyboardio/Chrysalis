@@ -33,8 +33,8 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 
-import Focus from "chrysalis-focus";
-import CoreTransformer from "chrysalis-keymap-transformer-core";
+import Focus from "@chrysalis-api/focus";
+import CoreTransformer from "@chrysalis-api/keymap-transformer-core";
 
 import Layer from "./LayoutEditor/Layer";
 import KeySelector from "./LayoutEditor/KeySelector";

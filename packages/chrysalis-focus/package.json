@@ -1,6 +1,6 @@
 {
     "name": "@chrysalis-api/focus",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Chrysalis Focus protocol library",
     "main": "lib",
     "repository": {

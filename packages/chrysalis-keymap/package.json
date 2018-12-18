@@ -26,6 +26,7 @@
     },
     "scripts": {
         "build": "babel src/lib -d lib",
+        "lint": "eslint src/lib",
         "prepublishOnly": "npm run build"
     },
     "devDependencies": {

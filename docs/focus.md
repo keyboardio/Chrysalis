@@ -54,6 +54,12 @@ const Model01 = {
 
 **Returns** A list of port descriptors for matching devices, or an empty list.
 
+> ```javascript
+> focus.find(Model01).then(devices => {
+>   console.log("Found the following devices:", devices);
+> });
+> ```
+
 ### .open(device[, info])
 
 Opens a device, where `device` is either a device descriptor (see above), a
@@ -69,9 +75,19 @@ If `device` is a descriptor, then the first device found will be opened.
 
 **Note**: All methods below require an opened device.
 
+> ```javascript
+> focus.open(Model01);
+> focus.open(new SerialPort("/dev/model01"), Model01);
+> focus.open("/dev/model01", Model01);
+> ```
+
 ### .close()
 
 Close the connection to the device, if there was any open.
+
+> ```javascript
+> focus.close();
+> ```
 
 ### .probe()
 
@@ -80,10 +96,32 @@ Probes the device for Focus support.
 **Returns** the result of the `help` command, or an exception if Focus is not
 supported by the opened device.
 
+> ```javascript
+> focus.probe()
+>   .then(() => {
+>     console.log("Focus support detected!");
+>   })
+>   .catch(e => {
+>     console.error("Focus not found.");
+>   })
+> ```
+
 ### .request(command[, ...args])
 
-Sends a low-level command (with optional arguments), and returns the result
+Sends a low-level command (with optional arguments, and returns the result
 as-is. There is no post-processing done on the result.
+
+**Returns** the raw, unprocessed response as a string.
+
+> ```javascript
+> focus.request("help").then(result => {
+>   console.log("help:", result);
+> });
+>
+> focus.request("settings.defaultLayer", "0").then(() => {
+>   console.log("Default layer set to 0.");
+> });
+> ```
 
 ### .addCommands(commands)
 
@@ -102,6 +140,22 @@ the same way.
 In either case, the callback must return a `Promise`, wrapping whatever data
 structure is most convenient for the command in question.
 
+> ```javascript
+> async function testCommand(s, arg) {
+>   if (arg) {
+>     return s.request("test", arg + 1);
+>   } else {
+>     let data = await s.request("test");
+>     data = parseInt(data) - 1;
+>     return data;
+>   }
+> }
+>
+> focus.addCommands({
+>   test: testCommand
+> });
+> ```
+
 ### .command(command[, ...args])
 
 The high-level interface to talk with the connected keyboard. Sends a command -
@@ -110,3 +164,9 @@ the response is processed by any hooks registered for the given `command` (see
 `.addCommands()` above).
 
 **Returns** The processed response.
+
+> ```javascript
+> focus.command("help").then(commands => {
+>   console.log(commands[0]);
+> });
+> ```

@@ -18,14 +18,12 @@
     },
     "scripts": {
         "build": "babel src/lib -d lib",
-        "docs": "jsdoc -c .jsdoc.json -r -d docs/html -R README.md package.json src/lib",
         "prepublish": "npm run build"
     },
     "devDependencies": {
         "@babel/cli": "^7.1.0",
         "@babel/core": "7.1.0",
-        "@babel/preset-env": "7.1.0",
-        "jsdoc": "^3.5.5"
+        "@babel/preset-env": "7.1.0"
     },
     "peerDependencies": {
         "@chrysalis-api/focus": "^0.0.2"

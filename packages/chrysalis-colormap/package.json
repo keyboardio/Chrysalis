@@ -1,6 +1,6 @@
 {
     "name": "@chrysalis-api/colormap",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Chrysalis colormap library",
     "main": "lib",
     "repository": {

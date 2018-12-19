@@ -8,6 +8,13 @@
     "url": "git://github.com/Lepidopterarium/chrysalis-api.git"
   },
   "devDependencies": {
+    "@babel/core": "7.1.0",
+    "@babel/preset-env": "7.1.0",
+    "@babel/cli": "^7.1.0",
+    "eslint": "^4.19.1",
     "lerna": "^3.6.0"
-  }
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }

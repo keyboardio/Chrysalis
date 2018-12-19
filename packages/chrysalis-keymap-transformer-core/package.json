@@ -30,7 +30,7 @@
         "prepublishOnly": "npm run build"
     },
     "peerDependencies": {
-        "@chrysalis-api/focus": "^0.0.2",
-        "@chrysalis-api/keymap": "^0.0.2"
+        "@chrysalis-api/focus": "~0.0.2",
+        "@chrysalis-api/keymap": "~0.0.2"
     }
 }

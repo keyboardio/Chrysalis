@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - 10
+before_install:
+  - yarn global add lerna
+install:
+  - lerna bootstrap
+script:
+  - lerna run build
+  - lerna run lint

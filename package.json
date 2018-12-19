@@ -5,7 +5,7 @@
   "license": "GPL-3.0+",
   "repository": {
     "type": "git",
-    "url": "git://github.com/Lepidopterarium/chrysalis-api.git"
+    "url": "git://github.com/keyboardio/chrysalis-api.git"
   },
   "devDependencies": {
     "@babel/core": "7.1.0",

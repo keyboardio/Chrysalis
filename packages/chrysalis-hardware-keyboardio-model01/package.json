@@ -5,7 +5,7 @@
     "main": "lib",
     "repository": {
         "type": "git",
-        "url": "git://github.com/Lepidopterarium/chrysalis-api"
+        "url": "git://github.com/keyboardio/chrysalis-api"
     },
     "author": {
         "name": "Gergely Nagy",
@@ -13,9 +13,9 @@
         "url": "https://asylum.madhouse-project.org"
     },
     "license": "GPL-3.0-only",
-    "homepage": "https://github.com/Lepidopterarium/chrysalis-api#readme",
+    "homepage": "https://github.com/keyboardio/chrysalis-api#readme",
     "bugs": {
-        "url": "https://github.com/Lepidopterarium/chrysalis-api/issues"
+        "url": "https://github.com/keyboardio/chrysalis-api/issues"
     },
     "keywords": [
         "chrysalis",

@@ -18,4 +18,4 @@ focus.open(Model01).then(() => {
 });
 ```
 
-[Documentation](https://lepidopterarium.github.io/chrysalis-api/)
+[Documentation](https://keyboardio.github.io/chrysalis-api/)

@@ -7,6 +7,8 @@
 
 Can be used with `Focus.find()`, `Focus.open()`, and so on.
 
+[![@chrysalis-api/hardware-keyboardio-model01](https://img.shields.io/npm/v/@chrysalis-api/hardware-keyboardio-model01.svg?style=for-the-badge&label=@chrysalis-api/hardware-keyboardio-model01&logo=npm)](https://www.npmjs.com/package/@chrysalis-api/hardware-keyboardio-model01)
+
 ```
 yarn add @chrysalis-api/hardware-keyboardio-model01
 ```

@@ -31,11 +31,5 @@
     },
     "dependencies": {
         "serialport": "^6.2.2"
-    },
-    "devDependencies": {
-        "@babel/cli": "^7.1.0",
-        "@babel/core": "7.1.0",
-        "@babel/preset-env": "7.1.0",
-        "eslint": "^4.19.1"
     }
 }

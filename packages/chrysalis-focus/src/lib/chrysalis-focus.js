@@ -32,35 +32,6 @@ class Focus {
         return instance
     }
 
-    /**
-     * Find devices that match certain criteria.
-     *
-     * Given a list of supported devices, look through the system and find
-     * matching ones. Each argument must be an object with an `usb` property,
-     * which in turn must have `productId` and `vendorId` properties. The method
-     * will match these with USB devices on the system, and return a list of
-     * matches.
-     *
-     * For example, a `device` descriptor may look like this:
-     * ```json
-     * const Model01 = {
-     *   usb: {
-     *     vendorId: 0x1209,
-     *     productId: 0x2301
-     *   },
-     *   keyboard: {
-     *     rows: 4,
-     *     columns: 16
-     *   }
-     * }
-     * ```
-     *
-     * @param {DEVICE} devices - List of supported, or sought-after devices.
-     *
-     * @returns {Promise<Array>} A list of port descriptors for matching
-     * devices.
-     *
-     */
     async find(...devices) {
         let portList = await SerialPort.list()
 

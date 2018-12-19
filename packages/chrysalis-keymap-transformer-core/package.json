@@ -1,6 +1,6 @@
 {
     "name": "@chrysalis-api/keymap-transformer-core",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "Chrysalis keymap transformer",
     "main": "lib",
     "repository": {

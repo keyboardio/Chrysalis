@@ -19,3 +19,5 @@ Packages in the repository include:
  - `@chrysalis-api/keymap`
  - `@chrysalis-api/keymap-transformer-core`
  - `@chrysalis-api/colormap`
+
+[Source code](https://github.com/Lepidopterarium/chrysalis-api)

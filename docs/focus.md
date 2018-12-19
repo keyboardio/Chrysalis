@@ -8,6 +8,8 @@ provides hooks and methods to build complex applications on top.
 
  [k:focus]: https://github.com/keyboardio/Kaleidoscope-Focus
 
+[![@chrysalis-api/focus](https://img.shields.io/npm/v/@chrysalis-api/focus.svg?style=for-the-badge&label=@chrysalis-api/focus&logo=npm)](https://www.npmjs.com/package/@chrysalis-api/focus)
+
 ```
 yarn add @chrysalis-api/focus
 ```

@@ -20,4 +20,4 @@ Packages in the repository include:
  - `@chrysalis-api/keymap-transformer-core`
  - `@chrysalis-api/colormap`
 
-[Source code](https://github.com/Lepidopterarium/chrysalis-api)
+[Source code](https://github.com/keyboardio/chrysalis-api)

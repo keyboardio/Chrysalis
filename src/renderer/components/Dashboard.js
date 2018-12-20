@@ -86,10 +86,14 @@ const styles = theme => ({
 });
 
 class Dashboard extends React.Component {
-  state = {
-    open: false,
-    page: "info"
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      open: false,
+      page: props.pages.keymap ? "keymap" : "info"
+    };
+  }
 
   handleDrawerToggle = () => {
     this.setState({ open: !this.state.open });

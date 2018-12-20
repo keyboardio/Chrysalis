@@ -23,6 +23,8 @@
 import React from "react";
 import classNames from "classnames";
 
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import Divider from "@material-ui/core/Divider";
@@ -48,6 +50,9 @@ const styles = theme => ({
   },
   centered: {
     textAlign: "center"
+  },
+  typeSelector: {
+    color: theme.palette.primary.main
   }
 });
 
@@ -411,10 +416,17 @@ class KeySelector extends React.Component {
     return (
       <Paper className={classes.root}>
         <List>
-          <ListItem button>
+          <ListItem button className={classes.typeSelector}>
             <ListItemText
               onClick={this.onListItemClick}
-              primary="Key type"
+              primary={
+                <span>
+                  Key type
+                  <span style={{ float: "right" }}>
+                    {anchorEl ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+                  </span>
+                </span>
+              }
               secondary={keyGroups[groupIndex]}
             />
           </ListItem>

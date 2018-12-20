@@ -837,32 +837,32 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@chrysalis-api/colormap@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/colormap/-/colormap-0.0.2.tgz#47495c607a802a2b0ee10fd1e585035b3511c578"
-  integrity sha512-kNRUnoFzdzgV88kq+UlCgQkaKyX17ACF2ObC7cRwEFuciOgdSMAhnl5XTcT0NYmwrpCHEv1pdqpz0a8+QveF+A==
+"@chrysalis-api/colormap@~0.0.2":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/colormap/-/colormap-0.0.5.tgz#d5bd2626aacbc45e5f40be880113ca4a31388c7a"
+  integrity sha512-vMzqymaEMgvDQfrzPiDd7YCOGJL1THwfD4Ufqby/y6c07DALbO6k4ZdWNoVw9bQKgP4fc6+U4YQ6oBjlcG2dcg==
 
-"@chrysalis-api/focus@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/focus/-/focus-0.0.2.tgz#10da86c524e5ff8ba62ed1de8f839c51811775aa"
-  integrity sha512-WVdeHzzYubZoHfWIKHPRNgr2wGVXtCNyZJzp5xwUa6CMfI/A8ZsvW7MSmtkcudXRGfPDMCZbwrFxvJO8slTvxA==
+"@chrysalis-api/focus@~0.0.2":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/focus/-/focus-0.0.5.tgz#acbf3caab4a62081f6ab509d6367780146318843"
+  integrity sha512-yPipumPSQBu5v+sYAAzwAh8IqdLG68wNR7bmj5mxwHIY94RSgJVrW0OysRqX8dDiAsZ5TXVRdf6SSLlqXB2A2w==
   dependencies:
     serialport "^6.2.2"
 
-"@chrysalis-api/hardware-keyboardio-model01@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-keyboardio-model01/-/hardware-keyboardio-model01-0.0.2.tgz#6959f793218d93594832afba31d1beba52195324"
-  integrity sha512-dWDE4oAimuRKnQRu3AMWI9ZAjYsMFkAzk8uMoD0n4kxs/FoQE9BZrjY9ODWEO9+VCSJPSkJ7rMe9r9/3Pat5IA==
+"@chrysalis-api/hardware-keyboardio-model01@~0.0.2":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-keyboardio-model01/-/hardware-keyboardio-model01-0.0.5.tgz#c625103d66662e85c406264b3c01308f5f6bd977"
+  integrity sha512-rn0bvlV64CPyCKM0oUVkshmsTCd9IuGB5yUXhl4BBXYOV8R6SZHlsrg49ZyW28/RYssoaVDhtQd1Xlh0gEQSfg==
 
-"@chrysalis-api/keymap-transformer-core@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/keymap-transformer-core/-/keymap-transformer-core-0.0.2.tgz#e17672a75eefb7cdf2a344e5d50251bc45326bdc"
-  integrity sha512-UsoOO7ve/o/d85WKiFiPGd7eadJx4eFCKYm/4Hj9eKoDZP2wstTaPobRkwTg2j8KXLbs0gHPU3DgjNfSiO3Nhg==
+"@chrysalis-api/keymap-transformer-core@~0.0.2":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/keymap-transformer-core/-/keymap-transformer-core-0.0.5.tgz#d397c1aa12e094d9a195e5986a699ff7aa532609"
+  integrity sha512-7XZdKdP/j/TW2uqMQMGU4EAndb5s8Ae/i36WQyziS71AHQZmAxcdiJQ7v9ZoSYWbJ5IrS+RUuYzdEtU2Yg9Fpw==
 
-"@chrysalis-api/keymap@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/keymap/-/keymap-0.0.2.tgz#ad977670fcf7ec477c495befc55d1510f819d904"
-  integrity sha512-Btlppyr/yxi8+3ddfemJl06oIlS4iDFk0Is2uCDGML1dA7JWztFhxj6DEJKqHyIv7V4hGCn1tPzhaegVCXSfAw==
+"@chrysalis-api/keymap@~0.0.2":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/keymap/-/keymap-0.0.5.tgz#064f556015f0e6dd67d8c568eb6900991260a289"
+  integrity sha512-dQl5vkw1kgG1L8aRw8Q1iwhEs9whpiMXiJAiRkgDtXn9rN+VoFzU70IWjvo+/SmOg5Ha2vPy4xv/o84XBLy5Ig==
 
 "@material-ui/core@^3.6.0":
   version "3.6.1"
@@ -7560,10 +7560,15 @@ mute-stream@0.0.7:
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.7.tgz#3075ce93bc21b8fab43e1bc4da7e8115ed1e7bab"
   integrity sha1-MHXOk7whuPq0PhvE2n6BFe0ee6s=
 
-nan@^2.10.0, nan@^2.8.0, nan@^2.9.2:
+nan@^2.10.0, nan@^2.8.0:
   version "2.11.1"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.11.1.tgz#90e22bccb8ca57ea4cd37cc83d3819b52eea6766"
   integrity sha512-iji6k87OSXa0CcrLl9z+ZiYSuR2o+c0bGuNmXdrhTQTakxytAFsC56SArGYoiHlJlFoHSnvmhpceZJaXkVuOtA==
+
+nan@^2.9.2:
+  version "2.12.1"
+  resolved "https://registry.yarnpkg.com/nan/-/nan-2.12.1.tgz#7b1aa193e9aa86057e3c7bbd0ac448e770925552"
+  integrity sha512-JY7V6lRkStKcKTvHO5NVSQRv+RV+FIL5pvDoLiAtSL9pKlC5x9PKQcZDsq7m4FO4d57mkhC6Z+QhAh3Jdk5JFw==
 
 nanomatch@^1.2.9:
   version "1.2.13"

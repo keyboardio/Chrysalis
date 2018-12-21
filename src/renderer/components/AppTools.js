@@ -69,12 +69,8 @@ class AppTools extends React.Component {
 
   saveScreenshot = async () => {
     const w = Electron.remote.getCurrentWindow(),
-      webContents = Electron.remote.getCurrentWebContents(),
       fs = Electron.remote.require("fs"),
-      fileName = "chrysalis-" + Date.now().toString() + ".png",
-      devToolsOpen = webContents.isDevToolsOpened();
-
-    if (devToolsOpen) await webContents.closeDevTools();
+      fileName = "chrysalis-" + Date.now().toString() + ".png";
 
     this.closeMenu();
 
@@ -85,7 +81,6 @@ class AppTools extends React.Component {
             variant: "success",
             autoHideDuration: 1000
           });
-          if (devToolsOpen) webContents.openDevTools();
         });
       });
     }, 1000);

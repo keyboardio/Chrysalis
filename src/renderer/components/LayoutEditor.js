@@ -180,7 +180,7 @@ class LayoutEditor extends React.Component {
     const { classes } = this.props;
 
     let layerIndex = this.state.currentLayer,
-      isReadOnly = layerIndex < this.props.roLayers,
+      isReadOnly = layerIndex < this.state.roLayers,
       layerData = this.state.keymap[layerIndex],
       layer = (
         <Typography component="div" className={classes.layerRoot}>
@@ -196,7 +196,12 @@ class LayoutEditor extends React.Component {
 
     let tabs = this.state.keymap.map((_, index) => {
       let label = "Layer #" + index.toString(),
-        tabKey = "tab-layer-" + index.toString();
+        tabKey = "tab-layer-" + index.toString(),
+        isReadOnly = index < this.state.roLayers;
+
+      if (isReadOnly) {
+        label = <em>{label} (RO)</em>;
+      }
       return <Tab label={label} key={tabKey} />;
     });
 

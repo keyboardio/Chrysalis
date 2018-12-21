@@ -4,10 +4,10 @@ exports[`renders without crashing 1`] = `
 <div>
   <div>
     <main
-      class="KeyboardSelect-main-135"
+      class="KeyboardSelect-main-134"
     >
       <div
-        class="MuiLinearProgress-root-242 MuiLinearProgress-colorPrimary-243 MuiLinearProgress-query-246 KeyboardSelect-loader-134"
+        class="MuiLinearProgress-root-242 MuiLinearProgress-colorPrimary-243 MuiLinearProgress-query-246 KeyboardSelect-loader-133"
         role="progressbar"
       >
         <div
@@ -18,14 +18,14 @@ exports[`renders without crashing 1`] = `
         />
       </div>
       <div
-        class="MuiPaper-root-141 MuiPaper-elevation2-145 MuiPaper-rounded-142 KeyboardSelect-paper-136"
+        class="MuiPaper-root-140 MuiPaper-elevation2-144 MuiPaper-rounded-141 KeyboardSelect-paper-135"
       >
         <div
-          class="MuiAvatar-root-168 MuiAvatar-colorDefault-169 KeyboardSelect-avatar-137"
+          class="MuiAvatar-root-167 MuiAvatar-colorDefault-168 KeyboardSelect-avatar-136"
         >
           <svg
             aria-hidden="true"
-            class="MuiSvgIcon-root-171"
+            class="MuiSvgIcon-root-170"
             focusable="false"
             role="presentation"
             viewBox="0 0 24 24"
@@ -40,12 +40,12 @@ exports[`renders without crashing 1`] = `
           </svg>
         </div>
         <button
-          class="MuiButtonBase-root-206 MuiButton-root-180 MuiButton-contained-191 MuiButton-containedPrimary-192 MuiButton-raised-194 MuiButton-raisedPrimary-195 MuiButton-fullWidth-205"
+          class="MuiButtonBase-root-205 MuiButton-root-179 MuiButton-contained-190 MuiButton-containedPrimary-191 MuiButton-raised-193 MuiButton-raisedPrimary-194 MuiButton-fullWidth-204"
           tabindex="0"
           type="button"
         >
           <span
-            class="MuiButton-label-181"
+            class="MuiButton-label-180"
           >
             Connect
           </span>
@@ -55,15 +55,15 @@ exports[`renders without crashing 1`] = `
         </button>
       </div>
       <div
-        class="KeyboardSelect-bottomButtons-138"
+        class="KeyboardSelect-bottomButtons-137"
       >
         <button
-          class="MuiButtonBase-root-206 MuiButton-root-180 MuiButton-text-182 MuiButton-flat-185"
+          class="MuiButtonBase-root-205 MuiButton-root-179 MuiButton-text-181 MuiButton-flat-184"
           tabindex="0"
           type="button"
         >
           <span
-            class="MuiButton-label-181"
+            class="MuiButton-label-180"
           >
             Scan devices
           </span>
@@ -72,15 +72,15 @@ exports[`renders without crashing 1`] = `
           />
         </button>
         <div
-          class="KeyboardSelect-exit-139"
+          class="KeyboardSelect-exit-138"
         >
           <button
-            class="MuiButtonBase-root-206 MuiButton-root-180 MuiButton-text-182 MuiButton-flat-185"
+            class="MuiButtonBase-root-205 MuiButton-root-179 MuiButton-text-181 MuiButton-flat-184"
             tabindex="0"
             type="button"
           >
             <span
-              class="MuiButton-label-181"
+              class="MuiButton-label-180"
             >
               Exit
             </span>
@@ -92,14 +92,14 @@ exports[`renders without crashing 1`] = `
       </div>
     </main>
     <div
-      class="MuiSpeedDial-root-209 MuiSpeedDial-directionUp-211 App-tools-133"
+      class="MuiSpeedDial-root-209 MuiSpeedDial-directionUp-211 AppTools-tools-208"
     >
       <button
         aria-controls="Tools-actions"
         aria-expanded="false"
         aria-haspopup="true"
         aria-label="Tools"
-        class="MuiButtonBase-root-206 MuiFab-root-217 MuiFab-primary-219 MuiSpeedDial-fab-210"
+        class="MuiButtonBase-root-205 MuiFab-root-217 MuiFab-primary-219 MuiSpeedDial-fab-210"
         style="transform: scale(1); -webkit-transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
         tabindex="0"
         type="button"
@@ -112,7 +112,7 @@ exports[`renders without crashing 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root-171 MuiSpeedDialIcon-icon-228"
+              class="MuiSvgIcon-root-170 MuiSpeedDialIcon-icon-228"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"
@@ -134,7 +134,7 @@ exports[`renders without crashing 1`] = `
         role="menu"
       >
         <button
-          class="MuiButtonBase-root-206 MuiFab-root-217 MuiFab-sizeSmall-225 MuiSpeedDialAction-button-233 MuiSpeedDialAction-buttonClosed-234"
+          class="MuiButtonBase-root-205 MuiFab-root-217 MuiFab-sizeSmall-225 MuiSpeedDialAction-button-233 MuiSpeedDialAction-buttonClosed-234"
           role="menuitem"
           tabindex="-1"
           title="Toggle DevTools"
@@ -145,7 +145,7 @@ exports[`renders without crashing 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root-171"
+              class="MuiSvgIcon-root-170"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"
@@ -164,7 +164,7 @@ exports[`renders without crashing 1`] = `
           />
         </button>
         <a
-          class="MuiButtonBase-root-206 MuiFab-root-217 MuiFab-sizeSmall-225 MuiSpeedDialAction-button-233 MuiSpeedDialAction-buttonClosed-234"
+          class="MuiButtonBase-root-205 MuiFab-root-217 MuiFab-sizeSmall-225 MuiSpeedDialAction-button-233 MuiSpeedDialAction-buttonClosed-234"
           href="https://github.com/keyboardio/chrysalis-bundle-keyboardio/issues"
           role="menuitem"
           tabindex="-1"
@@ -175,7 +175,7 @@ exports[`renders without crashing 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root-171"
+              class="MuiSvgIcon-root-170"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"
@@ -194,7 +194,7 @@ exports[`renders without crashing 1`] = `
           />
         </a>
         <button
-          class="MuiButtonBase-root-206 MuiFab-root-217 MuiFab-sizeSmall-225 MuiSpeedDialAction-button-233 MuiSpeedDialAction-buttonClosed-234"
+          class="MuiButtonBase-root-205 MuiFab-root-217 MuiFab-sizeSmall-225 MuiSpeedDialAction-button-233 MuiSpeedDialAction-buttonClosed-234"
           role="menuitem"
           tabindex="-1"
           title="Save a screenshot"
@@ -205,7 +205,7 @@ exports[`renders without crashing 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root-171"
+              class="MuiSvgIcon-root-170"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"

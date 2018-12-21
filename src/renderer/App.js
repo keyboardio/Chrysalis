@@ -16,7 +16,6 @@
  */
 
 import React from "react";
-import Electron from "electron";
 import { spawn } from "child_process";
 
 import Focus from "@chrysalis-api/focus";
@@ -28,15 +27,7 @@ import { Model01 } from "@chrysalis-api/hardware-keyboardio-model01";
 import usb from "usb";
 import { withSnackbar } from "notistack";
 
-import BugReportIcon from "@material-ui/icons/BugReport";
-import CameraIcon from "@material-ui/icons/Camera";
-import CodeIcon from "@material-ui/icons/Code";
-import SpeedDial from "@material-ui/lab/SpeedDial";
-import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
-import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
-import { withStyles } from "@material-ui/core/styles";
-
-import { isDevelopment } from "./config";
+import AppTools from "./components/AppTools";
 import KeyboardSelect from "./components/KeyboardSelect";
 import Dashboard from "./components/Dashboard";
 
@@ -51,19 +42,9 @@ focus.addCommands({
 });
 focus.timeout = 15000;
 
-const styles = theme => ({
-  tools: {
-    position: "fixed",
-    bottom: theme.spacing.unit * 2,
-    right: theme.spacing.unit * 2
-  }
-});
-
 class App extends React.Component {
   state = {
-    keyboardOpen: false,
-    toolsOpen: false,
-    toolsClicked: false
+    keyboardOpen: false
   };
 
   componentDidMount() {
@@ -120,58 +101,7 @@ class App extends React.Component {
     this.setState({ keyboardOpen: false });
   };
 
-  toggleDevTools = () => {
-    const webContents = Electron.remote.getCurrentWebContents();
-
-    if (webContents.isDevToolsOpened()) {
-      webContents.closeDevTools();
-    } else {
-      webContents.openDevTools();
-    }
-  };
-
-  onToolsOpen = () => {
-    this.setState({ toolsOpen: true });
-  };
-
-  onToolsClose = () => {
-    if (this.state.toolsClicked) return;
-
-    this.setState({ toolsOpen: false });
-  };
-
-  onToolsClick = () => {
-    this.setState(state => ({
-      toolsOpen: state.toolsClicked ? !state.toolsOpen : true,
-      toolsClicked: !state.toolsClicked
-    }));
-  };
-
-  saveScreenshot = async () => {
-    const w = Electron.remote.getCurrentWindow(),
-      webContents = Electron.remote.getCurrentWebContents(),
-      fs = Electron.remote.require("fs"),
-      fileName = "chrysalis-" + Date.now().toString() + ".png",
-      devToolsOpen = webContents.isDevToolsOpened();
-
-    if (devToolsOpen) await webContents.closeDevTools();
-
-    setTimeout(() => {
-      w.capturePage(img => {
-        fs.writeFile(fileName, img.toPNG(), () => {
-          this.props.enqueueSnackbar("Screenshot saved to " + fileName, {
-            variant: "success",
-            autoHideDuration: 1000
-          });
-          if (devToolsOpen) webContents.openDevTools();
-        });
-      });
-    }, 1000);
-  };
-
   render() {
-    const { classes } = this.props;
-
     let content;
     if (!this.state.keyboardOpen) {
       content = <KeyboardSelect onConnect={this.onKeyboardConnect} />;
@@ -187,40 +117,10 @@ class App extends React.Component {
     return (
       <div>
         {content}
-        <SpeedDial
-          ariaLabel="Tools"
-          className={classes.tools}
-          icon={<SpeedDialIcon />}
-          open={this.state.toolsOpen}
-          direction="up"
-          onBlur={this.onToolsClose}
-          onClose={this.onToolsClose}
-          onMouseLeave={this.onToolsClose}
-          onFocus={this.onToolsOpen}
-          onMouseEnter={this.onToolsOpen}
-          onClick={this.onToolsClick}
-        >
-          {isDevelopment && (
-            <SpeedDialAction
-              icon={<CodeIcon />}
-              tooltipTitle="Toggle DevTools"
-              onClick={this.toggleDevTools}
-            />
-          )}
-          <SpeedDialAction
-            icon={<BugReportIcon />}
-            tooltipTitle="Report a bug"
-            href="https://github.com/keyboardio/chrysalis-bundle-keyboardio/issues"
-          />
-          <SpeedDialAction
-            icon={<CameraIcon />}
-            tooltipTitle="Save a screenshot"
-            onClick={this.saveScreenshot}
-          />
-        </SpeedDial>
+        <AppTools />
       </div>
     );
   }
 }
 
-export default withSnackbar(withStyles(styles)(App));
+export default withSnackbar(App);

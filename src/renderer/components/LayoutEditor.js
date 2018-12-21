@@ -196,7 +196,12 @@ class LayoutEditor extends React.Component {
 
     let tabs = this.state.keymap.map((_, index) => {
       let label = "Layer #" + index.toString(),
-        tabKey = "tab-layer-" + index.toString();
+        tabKey = "tab-layer-" + index.toString(),
+        isReadOnly = index < this.state.roLayers;
+
+      if (isReadOnly) {
+        label = <em>{label} (RO)</em>;
+      }
       return <Tab label={label} key={tabKey} />;
     });
 

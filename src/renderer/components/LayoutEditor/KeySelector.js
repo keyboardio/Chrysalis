@@ -98,7 +98,7 @@ const KeyGroupMouseWarp = withStyles(styles)(props => {
 });
 
 const KeyButton = props => {
-  const { keyInfo, selectedKey, onKeySelect } = props;
+  const { keyInfo, selectedKey, onKeySelect, disabled } = props;
 
   return (
     <Button
@@ -106,6 +106,7 @@ const KeyButton = props => {
       color={keyInfo.code == selectedKey ? "primary" : "default"}
       variant={keyInfo.code == selectedKey ? "outlined" : "text"}
       onClick={() => onKeySelect(keyInfo.code)}
+      disabled={disabled}
     >
       {keyInfo.labels.verbose || keyInfo.labels.primary}
     </Button>
@@ -120,7 +121,8 @@ const KeyGroupGrid = withStyles(styles)(props => {
     onKeySelect,
     className,
     cols,
-    withModifiers
+    withModifiers,
+    disabled
   } = props;
 
   const itemList = items || baseKeyCodeTable[group].keys;
@@ -136,6 +138,7 @@ const KeyGroupGrid = withStyles(styles)(props => {
     return (
       <GridListTile key={key.code} cols={itemCols}>
         <KeyButton
+          disabled={disabled}
           keyInfo={key}
           selectedKey={selectedKey}
           onKeySelect={onKeySelect}
@@ -221,6 +224,7 @@ const KeyGroupT = withStyles(styles)(props => {
     >
       <GridListTile cols={3}>
         <KeyButton
+          disabled={this.props.disabled}
           keyInfo={keys[0]}
           selectedKey={selectedKey}
           onKeySelect={onKeySelect}
@@ -228,6 +232,7 @@ const KeyGroupT = withStyles(styles)(props => {
       </GridListTile>
       <GridListTile>
         <KeyButton
+          disabled={this.props.disabled}
           keyInfo={keys[2]}
           selectedKey={selectedKey}
           onKeySelect={onKeySelect}
@@ -235,6 +240,7 @@ const KeyGroupT = withStyles(styles)(props => {
       </GridListTile>
       <GridListTile>
         <KeyButton
+          disabled={this.props.disabled}
           keyInfo={keys[1]}
           selectedKey={selectedKey}
           onKeySelect={onKeySelect}
@@ -242,6 +248,7 @@ const KeyGroupT = withStyles(styles)(props => {
       </GridListTile>
       <GridListTile>
         <KeyButton
+          disabled={this.props.disabled}
           keyInfo={keys[3]}
           selectedKey={selectedKey}
           onKeySelect={onKeySelect}
@@ -253,10 +260,11 @@ const KeyGroupT = withStyles(styles)(props => {
 
 class KeyGroupDial extends React.Component {
   render() {
-    const { group, className } = this.props;
+    const { group, className, disabled } = this.props;
 
     let keyList = (
       <TextField
+        disabled={disabled}
         className={className}
         type="number"
         inputProps={{ min: 0, max: baseKeyCodeTable[group].keys.length - 1 }}
@@ -269,7 +277,7 @@ class KeyGroupDial extends React.Component {
 
 class KeyGroup extends React.Component {
   render() {
-    const { group, className, keyCode, onKeySelect } = this.props;
+    const { group, className, keyCode, onKeySelect, ...props } = this.props;
 
     const groupName = keyGroups[group],
       withModifiers = moddableGroups.includes(groupName);
@@ -283,6 +291,7 @@ class KeyGroup extends React.Component {
             selectedKey={keyCode}
             className={className}
             onKeySelect={onKeySelect}
+            {...props}
           />
         );
       }
@@ -299,6 +308,7 @@ class KeyGroup extends React.Component {
             selectedKey={keyCode}
             className={className}
             onKeySelect={onKeySelect}
+            {...props}
           />
         );
       }
@@ -309,6 +319,7 @@ class KeyGroup extends React.Component {
             selectedKey={keyCode}
             className={className}
             onKeySelect={onKeySelect}
+            {...props}
           />
         );
       }
@@ -319,6 +330,7 @@ class KeyGroup extends React.Component {
             selectedKey={keyCode}
             className={className}
             onKeySelect={onKeySelect}
+            {...props}
           />
         );
       }
@@ -329,6 +341,7 @@ class KeyGroup extends React.Component {
             selectedKey={keyCode}
             className={className}
             onKeySelect={onKeySelect}
+            {...props}
           />
         );
       }
@@ -349,6 +362,7 @@ class KeyGroup extends React.Component {
         className={className}
         cols={cols}
         onKeySelect={onKeySelect}
+        {...props}
       />
     );
   }
@@ -381,7 +395,7 @@ class KeySelector extends React.Component {
   };
 
   render() {
-    const { classes, currentKeyCode } = this.props;
+    const { classes, currentKeyCode, disabled } = this.props;
     const { anchorEl, selectedGroup } = this.state;
 
     if (currentKeyCode == -1) {
@@ -416,7 +430,7 @@ class KeySelector extends React.Component {
     return (
       <Paper className={classes.root}>
         <List>
-          <ListItem button className={classes.typeSelector}>
+          <ListItem button className={classes.typeSelector} disabled={disabled}>
             <ListItemText
               onClick={this.onListItemClick}
               primary={
@@ -432,6 +446,7 @@ class KeySelector extends React.Component {
           </ListItem>
         </List>
         <Menu
+          disabled
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
           onClose={this.onMenuClose}
@@ -441,6 +456,7 @@ class KeySelector extends React.Component {
         <Divider variant="middle" />
         <div className={classes.keygroup}>
           <KeyGroup
+            disabled={disabled}
             group={groupIndex}
             keyCode={currentKeyCode}
             onKeySelect={this.onKeySelect}

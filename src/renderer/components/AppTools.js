@@ -18,28 +18,26 @@
 import React from "react";
 import Electron from "electron";
 
-import BugReportIcon from "@material-ui/icons/BugReport";
-import CameraIcon from "@material-ui/icons/Camera";
-import CodeIcon from "@material-ui/icons/Code";
-import SpeedDial from "@material-ui/lab/SpeedDial";
-import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
-import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
+import Button from "@material-ui/core/Button";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 import { withStyles } from "@material-ui/core/styles";
+
+import { withSnackbar } from "notistack";
 
 import { isDevelopment } from "../config";
 
-const styles = theme => ({
+const styles = () => ({
   tools: {
     position: "fixed",
-    bottom: theme.spacing.unit * 2,
-    right: theme.spacing.unit * 2
+    bottom: 0,
+    right: 0
   }
 });
 
 class AppTools extends React.Component {
   state = {
-    toolsOpen: false,
-    toolsClicked: false
+    anchorEl: null
   };
 
   toggleDevTools = () => {
@@ -50,23 +48,23 @@ class AppTools extends React.Component {
     } else {
       webContents.openDevTools();
     }
+    this.closeMenu();
   };
 
-  onToolsOpen = () => {
-    this.setState({ toolsOpen: true });
+  openMenu = event => {
+    this.setState({ anchorEl: event.currentTarget });
   };
 
-  onToolsClose = () => {
-    if (this.state.toolsClicked) return;
-
-    this.setState({ toolsOpen: false });
+  closeMenu = () => {
+    this.setState({ anchorEl: null });
   };
 
-  onToolsClick = () => {
-    this.setState(state => ({
-      toolsOpen: state.toolsClicked ? !state.toolsOpen : true,
-      toolsClicked: !state.toolsClicked
-    }));
+  reportBug = () => {
+    const shell = Electron.remote.shell;
+    shell.openExternal(
+      "https://github.com/keyboardio/chrysalis-bundle-keyboardio/issues"
+    );
+    this.closeMenu();
   };
 
   saveScreenshot = async () => {
@@ -77,6 +75,8 @@ class AppTools extends React.Component {
       devToolsOpen = webContents.isDevToolsOpened();
 
     if (devToolsOpen) await webContents.closeDevTools();
+
+    this.closeMenu();
 
     setTimeout(() => {
       w.capturePage(img => {
@@ -93,41 +93,27 @@ class AppTools extends React.Component {
 
   render() {
     const { classes } = this.props;
+    const { anchorEl } = this.state;
 
     return (
-      <SpeedDial
-        ariaLabel="Tools"
-        className={classes.tools}
-        icon={<SpeedDialIcon />}
-        open={this.state.toolsOpen}
-        direction="up"
-        onBlur={this.onToolsClose}
-        onClose={this.onToolsClose}
-        onMouseLeave={this.onToolsClose}
-        onFocus={this.onToolsOpen}
-        onMouseEnter={this.onToolsOpen}
-        onClick={this.onToolsClick}
-      >
-        {isDevelopment && (
-          <SpeedDialAction
-            icon={<CodeIcon />}
-            tooltipTitle="Toggle DevTools"
-            onClick={this.toggleDevTools}
-          />
-        )}
-        <SpeedDialAction
-          icon={<BugReportIcon />}
-          tooltipTitle="Report a bug"
-          href="https://github.com/keyboardio/chrysalis-bundle-keyboardio/issues"
-        />
-        <SpeedDialAction
-          icon={<CameraIcon />}
-          tooltipTitle="Save a screenshot"
-          onClick={this.saveScreenshot}
-        />
-      </SpeedDial>
+      <div className={classes.tools}>
+        <Button onClick={this.openMenu} variant="contained">
+          QA Tools
+        </Button>
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={this.closeMenu}
+        >
+          {isDevelopment && (
+            <MenuItem onClick={this.toggleDevTools}>Toggle DevTools</MenuItem>
+          )}
+          <MenuItem onClick={this.reportBug}>Report a bug</MenuItem>
+          <MenuItem onClick={this.saveScreenshot}>Save a screenshot</MenuItem>
+        </Menu>
+      </div>
     );
   }
 }
 
-export default withStyles(styles)(AppTools);
+export default withSnackbar(withStyles(styles)(AppTools));

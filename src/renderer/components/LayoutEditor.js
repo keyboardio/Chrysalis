@@ -180,7 +180,7 @@ class LayoutEditor extends React.Component {
     const { classes } = this.props;
 
     let layerIndex = this.state.currentLayer,
-      isReadOnly = layerIndex < this.props.roLayers,
+      isReadOnly = layerIndex < this.state.roLayers,
       layerData = this.state.keymap[layerIndex],
       layer = (
         <Typography component="div" className={classes.layerRoot}>

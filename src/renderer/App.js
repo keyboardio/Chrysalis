@@ -46,10 +46,12 @@ class App extends React.Component {
   state = {
     keyboardOpen: false
   };
+  flashing = false;
 
   componentDidMount() {
     usb.on("detach", device => {
       if (!focus.device) return;
+      if (this.flashing) return;
 
       if (
         focus.device.usb.vendorId != device.deviceDescriptor.idVendor ||
@@ -67,6 +69,10 @@ class App extends React.Component {
       }
     });
   }
+
+  toggleFlashing = () => {
+    this.flashing = !this.flashing;
+  };
 
   onKeyboardConnect = async port => {
     focus.close();
@@ -110,6 +116,7 @@ class App extends React.Component {
         <Dashboard
           pages={this.state.supportedPages}
           onDisconnect={this.onKeyboardDisconnect}
+          toggleFlashing={this.toggleFlashing}
         />
       );
     }

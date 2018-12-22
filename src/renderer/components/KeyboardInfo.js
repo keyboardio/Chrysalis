@@ -18,6 +18,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Electron from "electron";
+import path from "path";
 
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
@@ -35,6 +36,7 @@ import { withSnackbar } from "notistack";
 
 import Focus from "@chrysalis-api/focus";
 
+import { getStaticPath } from "../config";
 import UploadDialog from "./KeyboardInfo/UploadDialog";
 
 const styles = theme => ({
@@ -49,8 +51,10 @@ const styles = theme => ({
     flexDirection: "column"
   },
   cardContent: {
-    display: "flex",
-    flex: "1 0 auto"
+    display: "block",
+    "& p": {
+      marginTop: theme.spacing.unit * 2
+    }
   }
 });
 
@@ -136,6 +140,8 @@ class KeyboardInfo extends React.Component {
         );
       });
 
+    let factoryFirmware = path.join(getStaticPath(), "/Model01-Firmware.hex");
+
     return (
       <div>
         {this.state.inProgress && <LinearProgress variant="query" />}
@@ -145,6 +151,22 @@ class KeyboardInfo extends React.Component {
             <CardContent className={classes.cardContent}>
               <Typography color="textSecondary">
                 Open on {focus._port.path}
+              </Typography>
+              <Typography>
+                <Button
+                  color="secondary"
+                  variant="outlined"
+                  onClick={this.initiateUpload}
+                >
+                  Flash factory firmware
+                </Button>
+                <UploadDialog
+                  onClose={this.cleanupUpload}
+                  onDisconnect={this.props.onDisconnect}
+                  toggleFlashing={this.props.toggleFlashing}
+                  filename={factoryFirmware}
+                  open={this.state.uploadInitiated}
+                />
               </Typography>
             </CardContent>
             {urls && <CardActions>{urls}</CardActions>}

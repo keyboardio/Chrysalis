@@ -17,6 +17,7 @@
 
 import React from "react";
 import AvrGirl from "avrgirl-arduino";
+import path from "path";
 
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -30,6 +31,7 @@ import { withSnackbar } from "notistack";
 
 import Focus from "@chrysalis-api/focus";
 
+import { getStaticPath } from "../../config";
 import SaveChangesButton from "../SaveChangesButton";
 
 const styles = theme => ({
@@ -68,6 +70,9 @@ class UploadDialog extends React.Component {
     };
 
     let port = this.focus._port;
+    const filename =
+      this.props.filename ||
+      path.join(getStaticPath(), "/Model01-Firmware.hex");
 
     return new Promise((resolve, reject) => {
       port.update({ baudRate: 1200 }, () => {
@@ -87,7 +92,7 @@ class UploadDialog extends React.Component {
                   });
                   avrgirl.connection.debug = this._flashDebug;
 
-                  avrgirl.flash(this.props.filename, error => {
+                  avrgirl.flash(filename, error => {
                     if (error) {
                       console.log(error);
                       try {

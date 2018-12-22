@@ -176,7 +176,6 @@ class KeyboardInfo extends React.Component {
               <UploadDialog
                 onClose={this.cleanupUpload}
                 onDisconnect={this.props.onDisconnect}
-                onSuccess={this.props.onDisconnect}
                 toggleFlashing={this.props.toggleFlashing}
                 filename={this.state.firmwareFile}
                 open={this.state.uploadInitiated}

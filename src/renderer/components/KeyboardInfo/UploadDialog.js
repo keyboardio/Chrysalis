@@ -46,6 +46,11 @@ class UploadDialog extends React.Component {
     inProgress: false
   };
 
+  constructor(props) {
+    super(props);
+    this.focus = new Focus();
+  }
+
   _flashDebug = (message, ...args) => {
     if (message == "found port on") {
       this._portName = args[0];
@@ -53,29 +58,54 @@ class UploadDialog extends React.Component {
     console.log(message, ...args);
   };
 
-  _flash = () => {
-    let avrgirl = new AvrGirl({
-      board: {
-        name: "Keyboard.io Model 01",
-        baud: 9600,
-        productId: ["0x2300", "0x2301"],
-        protocol: "avr109",
-        signature: new Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e])
-      },
-      debug: this._flashDebug
-    });
-    avrgirl.connection.debug = this._flashDebug;
+  _flash = async () => {
+    const board = {
+      name: "Keyboard.io Model 01",
+      baud: 9600,
+      productId: ["0x2300", "0x2301"],
+      protocol: "avr109",
+      signature: new Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e])
+    };
+
+    let port = this.focus._port;
 
     return new Promise((resolve, reject) => {
-      avrgirl.flash(this.props.filename, error => {
-        if (error) {
-          avrgirl.connection.serialPort.close();
-          reject(error);
-        } else {
-          setTimeout(() => {
-            resolve();
-          }, 2000);
-        }
+      port.update({ baudRate: 1200 }, () => {
+        console.log("baud update");
+        setTimeout(() => {
+          port.set({ dtr: true }, () => {
+            console.log("dtr on");
+            setTimeout(() => {
+              port.set({ dtr: false }, () => {
+                console.log("dtr off");
+                setTimeout(() => {
+                  focus._port = null;
+                  let avrgirl = new AvrGirl({
+                    board: board,
+                    debug: this._flashDebug,
+                    manualReset: true
+                  });
+                  avrgirl.connection.debug = this._flashDebug;
+
+                  avrgirl.flash(this.props.filename, error => {
+                    if (error) {
+                      console.log(error);
+                      try {
+                        avrgirl.connection.serialPort.close();
+                      } catch (e) {} // eslint-disable-line
+                      reject(error);
+                    } else {
+                      setTimeout(() => {
+                        avrgirl.connection.serialPort.close();
+                        resolve();
+                      }, 500);
+                    }
+                  });
+                }, 1000);
+              });
+            }, 250);
+          });
+        }, 250);
       });
     });
   };
@@ -83,12 +113,11 @@ class UploadDialog extends React.Component {
   upload = async () => {
     await this.props.toggleFlashing();
     await this.setState({ inProgress: true });
-    let focus = new Focus();
-    await focus.close();
 
     try {
       await this._flash();
     } catch (e) {
+      console.error(e);
       this.props.enqueueSnackbar("Error flashing the firmware", {
         variant: "error"
       });
@@ -97,11 +126,16 @@ class UploadDialog extends React.Component {
       return;
     }
 
-    setTimeout(() => {
-      this.props.toggleFlashing();
-      this.props.onSuccess();
-      this.props.onClose();
-    }, 5000);
+    return new Promise(resolve => {
+      setTimeout(() => {
+        this.props.enqueueSnackbar("Firmware flashed successfully!", {
+          variant: "success"
+        });
+
+        this.props.toggleFlashing();
+        resolve();
+      }, 1000);
+    });
   };
 
   onClose = () => {

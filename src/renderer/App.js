@@ -72,6 +72,9 @@ class App extends React.Component {
 
   toggleFlashing = () => {
     this.flashing = !this.flashing;
+    if (!this.flashing) {
+      this.setState({ keyboardOpen: false });
+    }
   };
 
   onKeyboardConnect = async port => {

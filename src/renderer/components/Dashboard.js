@@ -122,7 +122,12 @@ class Dashboard extends React.Component {
       page = <Settings />;
     }
     if (this.state.page == "info") {
-      page = <KeyboardInfo onDisconnect={this.disconnect} />;
+      page = (
+        <KeyboardInfo
+          onDisconnect={this.disconnect}
+          toggleFlashing={this.props.toggleFlashing}
+        />
+      );
     }
 
     return (

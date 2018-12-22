@@ -18,7 +18,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Electron from "electron";
-import AvrGirl from "avrgirl-arduino";
 
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
@@ -36,7 +35,7 @@ import { withSnackbar } from "notistack";
 
 import Focus from "@chrysalis-api/focus";
 
-import SaveChangesButton from "./SaveChangesButton";
+import UploadDialog from "./KeyboardInfo/UploadDialog";
 
 const styles = theme => ({
   root: {
@@ -59,7 +58,8 @@ class KeyboardInfo extends React.Component {
   state = {
     firmwareFile: "",
     version: "",
-    inProgress: false
+    inProgress: false,
+    uploadInitiated: false
   };
 
   updateVersion = async () => {
@@ -95,59 +95,12 @@ class KeyboardInfo extends React.Component {
     if (files) this.setState({ firmwareFile: files[0] });
   };
 
-  _flashDebug = (message, ...args) => {
-    if (message == "found port on") {
-      this._portName = args[0];
-    }
-    console.log(message, ...args);
+  initiateUpload = () => {
+    this.setState({ uploadInitiated: true });
   };
 
-  _flash = () => {
-    let avrgirl = new AvrGirl({
-      board: {
-        name: "Keyboard.io Model 01",
-        baud: 9600,
-        productId: ["0x2300", "0x2301"],
-        protocol: "avr109",
-        signature: new Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e])
-      },
-      debug: this._flashDebug
-    });
-    avrgirl.connection.debug = this._flashDebug;
-
-    return new Promise((resolve, reject) => {
-      avrgirl.flash(this.state.firmwareFile, error => {
-        if (error) {
-          avrgirl.connection.serialPort.close();
-          reject(error);
-        } else {
-          setTimeout(() => {
-            resolve();
-          }, 2000);
-        }
-      });
-    });
-  };
-
-  upload = async () => {
-    let focus = new Focus(),
-      hwInfo = focus.device;
-
-    await focus.close();
-
-    try {
-      await this._flash();
-    } catch (e) {
-      this.props.enqueueSnackbar("Error flashing the firmware", {
-        variant: "error"
-      });
-      this.props.onDisconnect();
-      return;
-    }
-
-    console.log("Reattaching to", this._portName);
-    await focus.open(this._portName, hwInfo);
-    await this.updateVersion();
+  cleanupUpload = () => {
+    this.setState({ uploadInitiated: false });
   };
 
   render() {
@@ -209,13 +162,25 @@ class KeyboardInfo extends React.Component {
               </List>
             </CardContent>
             <CardActions>
-              <SaveChangesButton
-                onClick={this.upload}
-                disabled={this.state.firmwareFile.length == 0}
-                successMessage="Uploaded!"
+              <Button
+                color="primary"
+                variant="contained"
+                onClick={this.initiateUpload}
+                disabled={
+                  this.state.firmwareFile.length == 0 ||
+                  this.state.uploadInitiated
+                }
               >
                 Upload
-              </SaveChangesButton>
+              </Button>
+              <UploadDialog
+                onClose={this.cleanupUpload}
+                onDisconnect={this.props.onDisconnect}
+                onSuccess={this.props.onDisconnect}
+                toggleFlashing={this.props.toggleFlashing}
+                filename={this.state.firmwareFile}
+                open={this.state.uploadInitiated}
+              />
             </CardActions>
           </Card>
           {version}

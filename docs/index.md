@@ -17,7 +17,6 @@ Packages in the repository include:
  - [`@chrysalis-api/focus`](focus.md)
  - [`@chrysalis-api/hardware-keyboardio-model01`](hardware-keyboardio-model01.md)
  - `@chrysalis-api/keymap`
- - `@chrysalis-api/keymap-transformer-core`
  - `@chrysalis-api/colormap`
 
 [Source code](https://github.com/keyboardio/chrysalis-api)

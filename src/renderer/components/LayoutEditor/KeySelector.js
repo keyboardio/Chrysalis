@@ -309,23 +309,6 @@ const KeyGroupT = withStyles(styles)(props => {
   );
 });
 
-class KeyGroupDial extends React.Component {
-  render() {
-    const { group, className, disabled } = this.props;
-
-    let keyList = (
-      <TextField
-        disabled={disabled}
-        className={className}
-        type="number"
-        inputProps={{ min: 0, max: baseKeyCodeTable[group].keys.length - 1 }}
-      />
-    );
-
-    return keyList;
-  }
-}
-
 class KeyGroup extends React.Component {
   render() {
     const { group, className, keyCode, onKeySelect, ...props } = this.props;
@@ -335,17 +318,6 @@ class KeyGroup extends React.Component {
     let cols = 3;
 
     switch (groupName) {
-      case "Macros": {
-        return (
-          <KeyGroupDial
-            group={group}
-            selectedKey={keyCode}
-            className={className}
-            onKeySelect={onKeySelect}
-            {...props}
-          />
-        );
-      }
       case "Punctuation":
       case "Spacing": {
         cols = 2;

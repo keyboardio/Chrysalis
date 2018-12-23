@@ -37,7 +37,6 @@ focus.addCommands({
   keymap: keymap,
   colormap: colormap
 });
-focus.timeout = 15000;
 
 class App extends React.Component {
   state = {

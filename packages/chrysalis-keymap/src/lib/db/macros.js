@@ -121,6 +121,125 @@ const MacrosTable = {
                 primary: "#14",
                 top: "Macro"
             }
+        },
+        {
+            code: 24591,
+            labels: {
+                primary: "#15",
+                top: "Macro"
+            }
+        },
+        {
+            code: 24592,
+            labels: {
+                primary: "#16",
+                top: "Macro"
+            }
+        },
+        {
+            code: 24593,
+            labels: {
+                primary: "#17",
+                top: "Macro"
+            }
+        },
+        {
+            code: 24594,
+            labels: {
+                primary: "#18",
+                top: "Macro"
+            }
+        },
+        {
+            code: 24595,
+            labels: {
+                primary: "#19",
+                top: "Macro"
+            }
+        },
+        {
+            code: 24596,
+            labels: {
+                primary: "#20",
+                top: "Macro"
+            }
+        },
+        {
+            code: 24597,
+            labels: {
+                primary: "#21",
+                top: "Macro"
+            }
+        },
+        {
+            code: 24598,
+            labels: {
+                primary: "#22",
+                top: "Macro"
+            }
+        },
+        {
+            code: 24599,
+            labels: {
+                primary: "#23",
+                top: "Macro"
+            }
+        },
+        {
+            code: 24600,
+            labels: {
+                primary: "#24",
+                top: "Macro"
+            }
+        },
+        {
+            code: 24601,
+            labels: {
+                primary: "#25",
+                top: "Macro"
+            }
+        },
+        {
+            code: 24602,
+            labels: {
+                primary: "#26",
+                top: "Macro"
+            }
+        },
+        {
+            code: 24603,
+            labels: {
+                primary: "#27",
+                top: "Macro"
+            }
+        },
+        {
+            code: 24604,
+            labels: {
+                primary: "#28",
+                top: "Macro"
+            }
+        },
+        {
+            code: 24605,
+            labels: {
+                primary: "#29",
+                top: "Macro"
+            }
+        },
+        {
+            code: 24606,
+            labels: {
+                primary: "#30",
+                top: "Macro"
+            }
+        },
+        {
+            code: 24607,
+            labels: {
+                primary: "#31",
+                top: "Macro"
+            }
         }
         // TODO: There are 256 macro keys
     ]

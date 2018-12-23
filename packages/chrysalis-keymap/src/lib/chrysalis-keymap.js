@@ -14,15 +14,12 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import KeymapDB from "./db"
+
 export default class Keymap {
     constructor(opts) {
-        this._keyTransformers = [{
-            parse: parseInt,
-            serialize: function (k) {
-                return k.toString()
-            }
-        }]
         this.setLayerSize(opts)
+        this.db = new KeymapDB()
     }
 
     setLayerSize(opts) {
@@ -45,34 +42,21 @@ export default class Keymap {
         return R
     }
 
-    addKeyTransformers(transformers) {
-        this._keyTransformers = this._keyTransformers.concat(transformers)
-    }
-
-    _parseKey(k) {
-        return this._keyTransformers.reduce((value, transformer) => {
-            return transformer.parse(value)
-        }, k)
-    }
-
-    _serializeKey(t, k) {
-        return t.reduce((value, transformer) => {
-            return transformer.serialize(value)
-        }, k)
-    }
-
     async focus(s, keymap) {
         if (keymap && keymap.length > 0) {
-            let t = this._keyTransformers.slice().reverse(),
-                flatten = (arr) => {
+            let flatten = (arr) => {
                     return [].concat(...arr)
                 },
-                args = flatten(keymap).map(k => this._serializeKey(t, k))
+                args = flatten(keymap)
+                .map(k => this.db.serialize(k))
 
             return await s.request("keymap.map", ...args)
         } else {
             let data = await s.request("keymap.map")
-            let keymap = data.split(" ").filter(v => v.length > 0).map(k => this._parseKey(k))
+            let keymap = data
+                .split(" ")
+                .filter(v => v.length > 0)
+                .map(k => this.db.parse(parseInt(k)))
             return this._chunk(keymap, this._layerSize)
         }
     }

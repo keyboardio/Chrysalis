@@ -1,5 +1,4 @@
-// -*- mode: js-jsx -*-
-/* chrysalis-keymap-transformer-core -- Chrysalis keymap transformer library
+/* chrysalis-keymap -- Chrysalis keymap library
  * Copyright (C) 2018  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -15,26 +14,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const BlankTable = {
-    groupName: "Blank",
+const MiscellaneousTable = {
+    groupName: "Miscellaneous",
     keys: [
         {
-            // NoKey
-            code: 0,
+            code: 70,
             labels: {
-                primary: "",
-                verbose: "Disabled key"
+                primary: "PrnScr",
+                verbose: "Print Screen"
             }
         },
         {
-            // Transparent
-            code: 65535,
+            code: 53291,
             labels: {
-                primary: "[Trns]",
-                verbose: "Transparent key"
+                primary: "Cycle"
+            }
+        },
+        {
+            code: 53292,
+            labels: {
+                primary: "Syster"
             }
         }
     ]
 }
 
-export default BlankTable
+export default MiscellaneousTable

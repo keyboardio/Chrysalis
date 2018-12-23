@@ -1,5 +1,4 @@
-// -*- mode: js-jsx -*-
-/* chrysalis-keymap-transformer-core -- Chrysalis keymap transformer library
+/* chrysalis-keymap -- Chrysalis keymap library
  * Copyright (C) 2018  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -15,66 +14,66 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const LeaderTable = {
-    groupName: "Leader",
+const NavigationTable = {
+    groupName: "Navigation",
     keys: [
         {
-            code: 53283,
+            code: 75,
             labels: {
-                top: "Leader",
-                primary: "#0"
+                primary: "PgUp",
+                verbose: "Page Up"
             }
         },
         {
-            code: 53284,
+            code: 78,
             labels: {
-                top: "Leader",
-                primary: "#1"
+                primary: "PgDn",
+                verbose: "Page Down"
             }
         },
         {
-            code: 53285,
+            code: 74,
             labels: {
-                top: "Leader",
-                primary: "#2"
+                primary: "Home"
             }
         },
         {
-            code: 53286,
+            code: 77,
             labels: {
-                top: "Leader",
-                primary: "#3"
+                primary: "End"
             }
         },
         {
-            code: 53287,
+            code: 80,
             labels: {
-                top: "Leader",
-                primary: "#4"
+                primary: "Left"
             }
         },
         {
-            code: 53288,
+            code: 81,
             labels: {
-                top: "Leader",
-                primary: "#5"
+                primary: "Down"
             }
         },
         {
-            code: 53289,
+            code: 82,
             labels: {
-                top: "Leader",
-                primary: "#6"
+                primary: "Up"
             }
         },
         {
-            code: 53290,
+            code: 79,
             labels: {
-                top: "Leader",
-                primary: "#7"
+                primary: "Right"
+            }
+        },
+        {
+            code: 101,
+            labels: {
+                primary: "App"
             }
         }
     ]
 }
 
-export { LeaderTable as default }
+export default NavigationTable

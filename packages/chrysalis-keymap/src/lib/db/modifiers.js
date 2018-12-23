@@ -1,5 +1,4 @@
-// -*- mode: js-jsx -*-
-/* chrysalis-keymap-transformer-core -- Chrysalis keymap transformer library
+/* chrysalis-keymap -- Chrysalis keymap library
  * Copyright (C) 2018  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -15,66 +14,66 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const NavigationTable = {
-    groupName: "Navigation",
+const ModifiersTable = {
+    groupName: "Modifiers",
     keys: [
         {
-            code: 75,
+            code: 224,
             labels: {
-                primary: "PgUp",
-                verbose: "Page Up"
+                primary: "LCtrl",
+                verbose: "Left Control"
             }
         },
         {
-            code: 78,
+            code: 225,
             labels: {
-                primary: "PgDn",
-                verbose: "Page Down"
+                primary: "LShift",
+                verbose: "Left Shift"
             }
         },
         {
-            code: 74,
+            code: 226,
             labels: {
-                primary: "Home"
+                primary: "LAlt",
+                verbose: "Left Alt"
             }
         },
         {
-            code: 77,
+            code: 227,
             labels: {
-                primary: "End"
+                primary: "LGui",
+                verbose: "Left Gui"
             }
         },
         {
-            code: 80,
+            code: 228,
             labels: {
-                primary: "Left"
+                primary: "RCtrl",
+                verbose: "Right Control"
             }
         },
         {
-            code: 81,
+            code: 229,
             labels: {
-                primary: "Down"
+                primary: "RShift",
+                verbose: "Right Shift"
             }
         },
         {
-            code: 82,
+            code: 230,
             labels: {
-                primary: "Up"
+                primary: "RAlt",
+                verbose: "Right Alt / AltGr"
             }
         },
         {
-            code: 79,
+            code: 231,
             labels: {
-                primary: "Right"
-            }
-        },
-        {
-            code: 101,
-            labels: {
-                primary: "App"
+                primary: "RGui",
+                verbose: "Right Gui"
             }
         }
     ]
 }
 
-export default NavigationTable
+export default ModifiersTable

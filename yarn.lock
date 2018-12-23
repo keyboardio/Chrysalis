@@ -854,15 +854,10 @@
   resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-keyboardio-model01/-/hardware-keyboardio-model01-0.0.5.tgz#c625103d66662e85c406264b3c01308f5f6bd977"
   integrity sha512-rn0bvlV64CPyCKM0oUVkshmsTCd9IuGB5yUXhl4BBXYOV8R6SZHlsrg49ZyW28/RYssoaVDhtQd1Xlh0gEQSfg==
 
-"@chrysalis-api/keymap-transformer-core@~0.0.2":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/keymap-transformer-core/-/keymap-transformer-core-0.0.5.tgz#d397c1aa12e094d9a195e5986a699ff7aa532609"
-  integrity sha512-7XZdKdP/j/TW2uqMQMGU4EAndb5s8Ae/i36WQyziS71AHQZmAxcdiJQ7v9ZoSYWbJ5IrS+RUuYzdEtU2Yg9Fpw==
-
-"@chrysalis-api/keymap@~0.0.2":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/keymap/-/keymap-0.0.5.tgz#064f556015f0e6dd67d8c568eb6900991260a289"
-  integrity sha512-dQl5vkw1kgG1L8aRw8Q1iwhEs9whpiMXiJAiRkgDtXn9rN+VoFzU70IWjvo+/SmOg5Ha2vPy4xv/o84XBLy5Ig==
+"@chrysalis-api/keymap@~0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/keymap/-/keymap-0.0.6.tgz#404020a606b75477f41908e4edc47bdebb42ebb1"
+  integrity sha512-jmrpvMzPQ3GySrbtvt4Ozgg7GZdlJAOEEIPK8GL+pJvqBbDR3ZT+98WlUPlVJU7aoDsKNj2IU9BAxRYqpskauQ==
 
 "@material-ui/core@^3.6.0":
   version "3.6.1"

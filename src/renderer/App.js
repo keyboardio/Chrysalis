@@ -21,7 +21,6 @@ import { spawn } from "child_process";
 import Focus from "@chrysalis-api/focus";
 import Keymap from "@chrysalis-api/keymap";
 import Colormap from "@chrysalis-api/colormap";
-import CoreTransformer from "@chrysalis-api/keymap-transformer-core";
 import { Model01 } from "@chrysalis-api/hardware-keyboardio-model01";
 
 import usb from "usb";
@@ -34,8 +33,6 @@ import Dashboard from "./components/Dashboard";
 let focus = new Focus();
 let keymap = new Keymap().setLayerSize(Model01);
 let colormap = new Colormap().setLayerSize(Model01);
-let coreTransformer = new CoreTransformer();
-keymap.addKeyTransformers([coreTransformer]);
 focus.addCommands({
   keymap: keymap,
   colormap: colormap

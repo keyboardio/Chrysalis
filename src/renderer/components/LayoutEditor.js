@@ -34,7 +34,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 
 import Focus from "@chrysalis-api/focus";
-import CoreTransformer from "@chrysalis-api/keymap-transformer-core";
+import { KeymapDB } from "@chrysalis-api/keymap";
 
 import Layer from "./LayoutEditor/Layer";
 import KeySelector from "./LayoutEditor/KeySelector";
@@ -68,7 +68,7 @@ class LayoutEditor extends React.Component {
     saving: false,
     keymap: []
   };
-  coreTransformer = new CoreTransformer();
+  keymapDB = new KeymapDB();
 
   scanKeyboard = async () => {
     let focus = new Focus();
@@ -113,7 +113,7 @@ class LayoutEditor extends React.Component {
 
     this.setState(state => {
       let keymap = state.keymap.slice();
-      keymap[layer][keyIndex] = this.coreTransformer.parse(keyCode);
+      keymap[layer][keyIndex] = this.keymapDB.parse(keyCode);
       return keymap;
     });
     this.setState({ modified: true });

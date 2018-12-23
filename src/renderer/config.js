@@ -18,4 +18,17 @@
 // TODO: const isDevelopment = process.env.NODE_ENV !== "production";
 const isDevelopment = true;
 
-export { isDevelopment };
+import path from "path";
+
+function getStaticPath() {
+  if (process.env.NODE_ENV !== "production") {
+    // The `__static` global doesn't match what it should in development.
+    // Instead, it includes an unexpected `node_modules` path, specifically:
+    // node_modules/electron/dist/Electron.app/Contents/Resources/static
+    return path.join(path.resolve(__dirname), "..", "..", "static");
+  } else {
+    return __static;
+  }
+}
+
+export { isDevelopment, getStaticPath };

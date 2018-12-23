@@ -1,5 +1,4 @@
-// -*- mode: js-jsx -*-
-/* chrysalis-keymap-transformer-core -- Chrysalis keymap transformer library
+/* chrysalis-keymap -- Chrysalis keymap library
  * Copyright (C) 2018  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under

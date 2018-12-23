@@ -1,5 +1,4 @@
-// -*- mode: js-jsx -*-
-/* chrysalis-keymap-transformer-core -- Chrysalis keymap transformer library
+/* chrysalis-keymap -- Chrysalis keymap library
  * Copyright (C) 2018  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -15,82 +14,66 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const FunctionKeyTable = {
-    groupName: "Fx keys",
+const LeaderTable = {
+    groupName: "Leader",
     keys: [
         {
-            code: 58,
+            code: 53283,
             labels: {
-                primary: "F1"
+                top: "Leader",
+                primary: "#0"
             }
         },
         {
-            code: 59,
+            code: 53284,
             labels: {
-                primary: "F2"
+                top: "Leader",
+                primary: "#1"
             }
         },
         {
-            code: 60,
+            code: 53285,
             labels: {
-                primary: "F3"
+                top: "Leader",
+                primary: "#2"
             }
         },
         {
-            code: 61,
+            code: 53286,
             labels: {
-                primary: "F4"
+                top: "Leader",
+                primary: "#3"
             }
         },
         {
-            code: 62,
+            code: 53287,
             labels: {
-                primary: "F5"
+                top: "Leader",
+                primary: "#4"
             }
         },
         {
-            code: 63,
+            code: 53288,
             labels: {
-                primary: "F6"
+                top: "Leader",
+                primary: "#5"
             }
         },
         {
-            code: 64,
+            code: 53289,
             labels: {
-                primary: "F7"
+                top: "Leader",
+                primary: "#6"
             }
         },
         {
-            code: 65,
+            code: 53290,
             labels: {
-                primary: "F8"
-            }
-        },
-        {
-            code: 66,
-            labels: {
-                primary: "F9"
-            }
-        },
-        {
-            code: 67,
-            labels: {
-                primary: "F10"
-            }
-        },
-        {
-            code: 68,
-            labels: {
-                primary: "F11"
-            }
-        },
-        {
-            code: 69,
-            labels: {
-                primary: "F12"
+                top: "Leader",
+                primary: "#7"
             }
         }
     ]
 }
 
-export default FunctionKeyTable
+export { LeaderTable as default }

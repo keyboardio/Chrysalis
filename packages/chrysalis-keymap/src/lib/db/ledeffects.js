@@ -1,5 +1,4 @@
-// -*- mode: js-jsx -*-
-/* chrysalis-keymap-transformer-core -- Chrysalis keymap transformer library
+/* chrysalis-keymap -- Chrysalis keymap library
  * Copyright (C) 2018  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -15,19 +14,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function withModifiers(table, groupName, top, base) {
-    return {
-        groupName: groupName,
-        keys: table.keys.map(key => {
-            return {
-                code: key.code + base,
-                labels: {
-                    top: top,
-                    primary: key.labels.primary
-                }
+const LEDEffectsTable = {
+    groupName: "LED Effect",
+    keys: [
+        {
+            code: 17152,
+            labels: {
+                primary: "Next",
+                top: "LEDEff."
             }
-        })
-    }
+        },
+        {
+            code: 17153,
+            labels: {
+                primary: "Prev.",
+                top: "LEDEff.",
+                verbose: "Previous"
+            }
+        }
+    ]
 }
 
-export { withModifiers }
+export default LEDEffectsTable

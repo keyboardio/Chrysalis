@@ -1,4 +1,4 @@
-/* chrysalis-keymap-transformer-core -- Chrysalis keymap transformer library
+/* chrysalis-keymap -- Chrysalis keymap library
  * Copyright (C) 2018  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -14,35 +14,35 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import BlankTable from "./keys/blanks"
-import LetterTable, { ModifiedLetterTables } from "./keys/letters"
-import DigitTable, { ModifiedDigitTables } from "./keys/digits"
-import { LockLayerTable, ShiftToLayerTable } from "./keys/layerswitch"
+import BlankTable from "./db/blanks"
+import LetterTable, { ModifiedLetterTables } from "./db/letters"
+import DigitTable, { ModifiedDigitTables } from "./db/digits"
+import { LockLayerTable, ShiftToLayerTable } from "./db/layerswitch"
 import PunctuationTable, {
     ModifiedPunctuationTables
-} from "./keys/punctuation"
-import SpacingTable, { ModifiedSpacingTables } from "./keys/spacing"
-import ModifiersTable from "./keys/modifiers"
-import NavigationTable from "./keys/navigation"
-import LEDEffectsTable from "./keys/ledeffects"
-import MacrosTable from "./keys/macros"
-import NumpadTable from "./keys/numpad"
-import FunctionKeyTable from "./keys/fxs"
+} from "./db/punctuation"
+import SpacingTable, { ModifiedSpacingTables } from "./db/spacing"
+import ModifiersTable from "./db/modifiers"
+import NavigationTable from "./db/navigation"
+import LEDEffectsTable from "./db/ledeffects"
+import MacrosTable from "./db/macros"
+import NumpadTable from "./db/numpad"
+import FunctionKeyTable from "./db/fxs"
 
-import MediaControlTable from "./keys/mediacontrols"
+import MediaControlTable from "./db/mediacontrols"
 import {
     MouseMovementTable,
     MouseWheelTable,
     MouseButtonTable,
     MouseWarpTable
-} from "./keys/mousecontrols"
-import MiscellaneousTable from "./keys/miscellaneous"
+} from "./db/mousecontrols"
+import MiscellaneousTable from "./db/miscellaneous"
 
-import { OneShotModifierTable, OneShotLayerTable } from "./keys/oneshot"
-import TapDanceTable from "./keys/tapdance"
-import LeaderTable from "./keys/leader"
-import StenoTable from "./keys/steno"
-import SpaceCadetTable from "./keys/spacecadet"
+import { OneShotModifierTable, OneShotLayerTable } from "./db/oneshot"
+import TapDanceTable from "./db/tapdance"
+import LeaderTable from "./db/leader"
+import StenoTable from "./db/steno"
+import SpaceCadetTable from "./db/spacecadet"
 
 const baseKeyCodeTable = [
     LetterTable,
@@ -81,7 +81,7 @@ const keyCodeTable = baseKeyCodeTable
     .concat(ModifiedPunctuationTables)
     .concat(ModifiedSpacingTables)
 
-class CoreTransformer {
+class KeymapDB {
     constructor() {
         this.keymapCodeTable = []
 
@@ -135,4 +135,4 @@ class CoreTransformer {
     }
 }
 
-export { CoreTransformer as default, baseKeyCodeTable, keyCodeTable }
+export { KeymapDB as default, baseKeyCodeTable, keyCodeTable }

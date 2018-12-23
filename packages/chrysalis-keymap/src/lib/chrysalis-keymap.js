@@ -48,7 +48,7 @@ export default class Keymap {
                     return [].concat(...arr)
                 },
                 args = flatten(keymap)
-                .map(k => this.db.serialize(k))
+                    .map(k => this.db.serialize(k))
 
             return await s.request("keymap.map", ...args)
         } else {

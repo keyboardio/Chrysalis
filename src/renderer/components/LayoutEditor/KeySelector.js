@@ -15,11 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// TODO:
-//  - Macros (dial, or limited to 32)
-//  - Unknown keys (number input, special group)
-//  - Modifier agumented keys
-
 import React from "react";
 import classNames from "classnames";
 
@@ -58,9 +53,11 @@ const styles = theme => ({
 
 import { baseKeyCodeTable } from "@chrysalis-api/keymap";
 
-const keyGroups = baseKeyCodeTable.map(item => {
-  return item.groupName;
-});
+const keyGroups = baseKeyCodeTable
+  .map(item => {
+    return item.groupName;
+  })
+  .concat(["Unknown keycodes"]);
 
 const moddableGroups = [
   "Letters",
@@ -71,6 +68,60 @@ const moddableGroups = [
   "Fx keys",
   "Numpad"
 ];
+
+class KeyGroupCode extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      keyCode: props.selectedKey,
+      modified: false
+    };
+  }
+
+  componentWillUnmount() {
+    if (this.timer) clearTimeout(this.timer);
+  }
+
+  onChange = event => {
+    this.setState({
+      keyCode: event.target.value,
+      modified: true
+    });
+    if (this.timer) clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      this.setState({ modified: false });
+      this.props.onKeySelect(this.state.keyCode);
+    }, 2500);
+  };
+
+  onKeyDown = event => {
+    if (event.key == "Enter") {
+      this.props.onKeySelect(event.target.value);
+      this.setState({ modified: false });
+    }
+  };
+
+  render() {
+    const { className, disabled } = this.props;
+
+    const value = this.state.modified
+      ? this.state.keyCode
+      : this.props.selectedKey;
+
+    return (
+      <TextField
+        onChange={this.onChange}
+        onKeyDown={this.onKeyDown}
+        label="Key code"
+        variant="outlined"
+        disabled={disabled}
+        className={className}
+        type="number"
+        value={value}
+      />
+    );
+  }
+}
 
 const KeyGroupMouseButtons = props => {
   const mouseKeys = baseKeyCodeTable[props.group].keys;
@@ -351,6 +402,18 @@ class KeyGroup extends React.Component {
       case "Miscellaneous":
       case "Blank": {
         cols = 1;
+        break;
+      }
+      case "Unknown keycodes": {
+        return (
+          <KeyGroupCode
+            group={group}
+            selectedKey={keyCode}
+            className={className}
+            onKeySelect={onKeySelect}
+            {...props}
+          />
+        );
       }
     }
 
@@ -404,7 +467,7 @@ class KeySelector extends React.Component {
 
     let groupIndex = selectedGroup;
     if (groupIndex == -1) {
-      groupIndex = 0; // FIXME: Handle modified stuff here
+      groupIndex = keyGroups.length - 1;
       baseKeyCodeTable.forEach((group, index) => {
         for (let key of group.keys) {
           if (key.code == currentKeyCode) {

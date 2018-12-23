@@ -70,7 +70,11 @@ class KeyboardInfo extends React.Component {
     await this.setState({ inProgress: true });
 
     let focus = new Focus(),
+      version = "";
+
+    try {
       version = await focus.command("version");
+    } catch (e ) {} // eslint-disable-line
 
     this.setState({
       version: version,

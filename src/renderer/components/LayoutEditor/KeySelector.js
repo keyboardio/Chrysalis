@@ -224,7 +224,7 @@ const KeyGroupT = withStyles(styles)(props => {
     >
       <GridListTile cols={3}>
         <KeyButton
-          disabled={this.props.disabled}
+          disabled={props.disabled}
           keyInfo={keys[0]}
           selectedKey={selectedKey}
           onKeySelect={onKeySelect}
@@ -232,7 +232,7 @@ const KeyGroupT = withStyles(styles)(props => {
       </GridListTile>
       <GridListTile>
         <KeyButton
-          disabled={this.props.disabled}
+          disabled={props.disabled}
           keyInfo={keys[2]}
           selectedKey={selectedKey}
           onKeySelect={onKeySelect}
@@ -240,7 +240,7 @@ const KeyGroupT = withStyles(styles)(props => {
       </GridListTile>
       <GridListTile>
         <KeyButton
-          disabled={this.props.disabled}
+          disabled={props.disabled}
           keyInfo={keys[1]}
           selectedKey={selectedKey}
           onKeySelect={onKeySelect}
@@ -248,7 +248,7 @@ const KeyGroupT = withStyles(styles)(props => {
       </GridListTile>
       <GridListTile>
         <KeyButton
-          disabled={this.props.disabled}
+          disabled={props.disabled}
           keyInfo={keys[3]}
           selectedKey={selectedKey}
           onKeySelect={onKeySelect}

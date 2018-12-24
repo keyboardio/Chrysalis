@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@chrysalis-api/colormap": "~0.0.2",
-    "@chrysalis-api/focus": "~0.0.2",
+    "@chrysalis-api/focus": "~0.0.6",
     "@chrysalis-api/hardware-keyboardio-model01": "~0.0.2",
     "@chrysalis-api/keymap": "~0.0.7",
     "@material-ui/core": "^3.6.0",

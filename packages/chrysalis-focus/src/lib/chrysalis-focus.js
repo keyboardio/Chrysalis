@@ -117,8 +117,8 @@ class Focus {
         let part = parts.shift()
         part += " "
         this._port.write(part)
-        this._port.drain(() => {
-            this._write(parts, cb)
+        this._port.drain(async () => {
+            await this._write_parts(parts, cb)
         })
     }
 

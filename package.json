@@ -1,7 +1,7 @@
 {
   "name": "chrysalis-bundle-keyboardio",
   "version": "0.0.6",
-  "license": "GPL-3.0",
+  "license": "GPL-3.0-only",
   "author": {
     "name": "Gergely Nagy",
     "email": "algernon@keyboard.io"

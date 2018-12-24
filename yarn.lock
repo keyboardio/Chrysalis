@@ -842,10 +842,10 @@
   resolved "https://registry.yarnpkg.com/@chrysalis-api/colormap/-/colormap-0.0.5.tgz#d5bd2626aacbc45e5f40be880113ca4a31388c7a"
   integrity sha512-vMzqymaEMgvDQfrzPiDd7YCOGJL1THwfD4Ufqby/y6c07DALbO6k4ZdWNoVw9bQKgP4fc6+U4YQ6oBjlcG2dcg==
 
-"@chrysalis-api/focus@~0.0.2":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/focus/-/focus-0.0.5.tgz#acbf3caab4a62081f6ab509d6367780146318843"
-  integrity sha512-yPipumPSQBu5v+sYAAzwAh8IqdLG68wNR7bmj5mxwHIY94RSgJVrW0OysRqX8dDiAsZ5TXVRdf6SSLlqXB2A2w==
+"@chrysalis-api/focus@~0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/focus/-/focus-0.0.6.tgz#247eeb07ea8980d9a18f5554af36f633403bcdf1"
+  integrity sha512-3Eh1f9844ARmyUulWB4wvxgWhLjlBle7Gn15FwTvoQ5AcGSsstP9I0cwYQpcB5FPbSwP7r7alqHiiBYRPNWw6Q==
   dependencies:
     serialport "^6.2.2"
 

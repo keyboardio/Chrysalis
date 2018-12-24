@@ -2,7 +2,7 @@
   "name": "chrysalis-api",
   "private": true,
   "version": "0.0.0",
-  "license": "GPL-3.0+",
+  "license": "GPL-3.0-only",
   "repository": {
     "type": "git",
     "url": "git://github.com/keyboardio/chrysalis-api.git"

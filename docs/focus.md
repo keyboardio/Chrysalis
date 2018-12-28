@@ -172,3 +172,11 @@ the response is processed by any hooks registered for the given `command` (see
 >   console.log(commands[0]);
 > });
 > ```
+
+## Properties
+
+### .commands
+
+A map of commands and their handlers, registered via `.addCommands()`. The
+primary use for the map is to provide access to the handler objects, such as
+`keymap` and `color`.

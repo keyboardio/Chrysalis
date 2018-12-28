@@ -14,6 +14,8 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import Focus from "@chrysalis-api/focus"
+
 let instance = null
 
 export default class Colormap {
@@ -104,3 +106,6 @@ export default class Colormap {
         if (colormap) await this._updateColormap(s, colormap)
     }
 }
+
+let focus = new Focus()
+focus.addCommands({ colormap: new Colormap() })

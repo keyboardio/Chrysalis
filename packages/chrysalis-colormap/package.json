@@ -29,7 +29,7 @@
         "lint": "eslint src/lib",
         "prepublishOnly": "npm run build"
     },
-    "peerDependencies": {
-        "@chrysalis-api/focus": "~0.0.2"
+    "dependencies": {
+        "@chrysalis-api/focus": "~0.0.6"
     }
 }

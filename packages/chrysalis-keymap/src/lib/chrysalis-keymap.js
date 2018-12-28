@@ -14,6 +14,8 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import Focus from "@chrysalis-api/focus"
+
 import KeymapDB from "./db"
 
 let instance = null
@@ -68,3 +70,6 @@ export default class Keymap {
         }
     }
 }
+
+let focus = new Focus()
+focus.addCommands({ keymap: new Keymap() })

@@ -1,6 +1,6 @@
 {
     "name": "@chrysalis-api/keymap",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "description": "Chrysalis keymap library",
     "main": "lib",
     "repository": {
@@ -30,6 +30,6 @@
         "prepublishOnly": "npm run build"
     },
     "dependencies": {
-        "@chrysalis-api/focus": "~0.0.6"
+        "@chrysalis-api/focus": "^0.0.7"
     }
 }

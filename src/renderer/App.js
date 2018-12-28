@@ -19,9 +19,9 @@ import React from "react";
 import { spawn } from "child_process";
 
 import Focus from "@chrysalis-api/focus";
-import Keymap from "@chrysalis-api/keymap";
-import Colormap from "@chrysalis-api/colormap";
 import { Model01 } from "@chrysalis-api/hardware-keyboardio-model01";
+import "@chrysalis-api/keymap";
+import "@chrysalis-api/colormap";
 
 import usb from "usb";
 import { withSnackbar } from "notistack";
@@ -31,12 +31,8 @@ import KeyboardSelect from "./components/KeyboardSelect";
 import Dashboard from "./components/Dashboard";
 
 let focus = new Focus();
-let keymap = new Keymap().setLayerSize(Model01);
-let colormap = new Colormap().setLayerSize(Model01);
-focus.addCommands({
-  keymap: keymap,
-  colormap: colormap
-});
+focus.commands.keymap.setLayerSize(Model01);
+focus.commands.colormap.setLayerSize(Model01);
 
 class App extends React.Component {
   state = {

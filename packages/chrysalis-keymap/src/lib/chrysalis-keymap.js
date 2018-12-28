@@ -16,10 +16,17 @@
 
 import KeymapDB from "./db"
 
+let instance = null
+
 export default class Keymap {
     constructor(opts) {
-        this.setLayerSize(opts)
-        this.db = new KeymapDB()
+        if (!instance) {
+            instance = this
+            this.db = new KeymapDB()
+        }
+        instance.setLayerSize(opts)
+
+        return instance
     }
 
     setLayerSize(opts) {

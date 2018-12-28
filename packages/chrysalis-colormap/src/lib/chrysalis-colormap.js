@@ -14,9 +14,16 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+let instance = null
+
 export default class Colormap {
     constructor(opts) {
-        this.setLayerSize(opts)
+        if (!instance) {
+            instance = this
+        }
+        instance.setLayerSize(opts)
+
+        return instance
     }
 
     setLayerSize(opts) {

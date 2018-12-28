@@ -23,7 +23,7 @@ class Focus {
     constructor() {
         if (!instance) {
             instance = this
-            this._commands = {
+            this.commands = {
                 help: this._help
             }
             this.timeout = 5000
@@ -162,17 +162,17 @@ class Focus {
     }
 
     async command(cmd, ...args) {
-        if (typeof this._commands[cmd] == "function") {
-            return this._commands[cmd](this, ...args)
-        } else if (typeof this._commands[cmd] == "object") {
-            return this._commands[cmd].focus(this, ...args)
+        if (typeof this.commands[cmd] == "function") {
+            return this.commands[cmd](this, ...args)
+        } else if (typeof this.commands[cmd] == "object") {
+            return this.commands[cmd].focus(this, ...args)
         } else {
             return this.request(cmd, ...args)
         }
     }
 
     addCommands(cmds) {
-        Object.assign(this._commands, cmds)
+        Object.assign(this.commands, cmds)
     }
 
     async _help(s) {

@@ -173,6 +173,23 @@ the response is processed by any hooks registered for the given `command` (see
 > });
 > ```
 
+### .addMethod(methodName, commandName)
+
+Adds (or extends, if it already exists) a new method to the Focus instance, that
+will call the same method on the `commandName` command object registered with
+`addCommands`. Such calls are chained, so if `.addMethod()` is called with the
+same `methodName`, but different `commandName` arguments, `Focus.methodName`
+will dispatch to all commands.
+
+```javascript
+focus.addMethod("setLayerSize", "keymap");
+focus.addMethod("setLayerSize", "colormap");
+
+// This will dispatch to both keymap.setLayerSize() and
+// colormap.setLayerSize():
+focus.setLayerSize(Model01);
+```
+
 ## Properties
 
 ### .commands

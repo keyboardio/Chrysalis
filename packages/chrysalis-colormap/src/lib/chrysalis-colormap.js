@@ -109,3 +109,4 @@ export default class Colormap {
 
 let focus = new Focus()
 focus.addCommands({ colormap: new Colormap() })
+focus.addMethod("setLayerSize", "colormap")

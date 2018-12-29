@@ -175,6 +175,20 @@ class Focus {
         Object.assign(this.commands, cmds)
     }
 
+    addMethod(methodName, command) {
+        if (this[methodName]) {
+            let tmp = this[methodName]
+            this[methodName] = (...args) => {
+                tmp(...args)
+                this.commands[command][methodName](...args)
+            }
+        } else {
+            this[methodName] = (...args) => {
+                this.commands[command][methodName](...args)
+            }
+        }
+    }
+
     async _help(s) {
         let data = await s.request("help")
         return data.split(/\r?\n/).filter(v => v.length > 0)

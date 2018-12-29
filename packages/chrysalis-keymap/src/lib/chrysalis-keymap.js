@@ -73,3 +73,4 @@ export default class Keymap {
 
 let focus = new Focus()
 focus.addCommands({ keymap: new Keymap() })
+focus.addMethod("setLayerSize", "keymap")

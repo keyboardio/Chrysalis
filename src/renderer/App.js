@@ -31,8 +31,7 @@ import KeyboardSelect from "./components/KeyboardSelect";
 import Dashboard from "./components/Dashboard";
 
 let focus = new Focus();
-focus.commands.keymap.setLayerSize(Model01);
-focus.commands.colormap.setLayerSize(Model01);
+focus.setLayerSize(Model01);
 
 class App extends React.Component {
   state = {

@@ -34,10 +34,10 @@
     "copyright": "Copyright © 2018 Keyboardio Inc.; distributed under the GPLv3"
   },
   "dependencies": {
-    "@chrysalis-api/colormap": "~0.0.6",
-    "@chrysalis-api/focus": "~0.0.7",
+    "@chrysalis-api/colormap": "~0.0.7",
+    "@chrysalis-api/focus": "~0.0.8",
     "@chrysalis-api/hardware-keyboardio-model01": "~0.0.2",
-    "@chrysalis-api/keymap": "~0.0.8",
+    "@chrysalis-api/keymap": "~0.0.9",
     "@material-ui/core": "^3.6.0",
     "@material-ui/icons": "^3.0.1",
     "@material-ui/lab": "^3.0.0-alpha.25",

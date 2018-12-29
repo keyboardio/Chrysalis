@@ -837,17 +837,17 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@chrysalis-api/colormap@~0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/colormap/-/colormap-0.0.6.tgz#5b075f5ecff9e9283eb92adddc3753f6016204c1"
-  integrity sha512-uu+V6Y7n0RD0sXtMP5hZ5lyGFyvK2k7zX2APbwSNqfYoUNmr/0TCPzJheMDvP6xlAfJ2crfCKZTmqBXEXY/xFg==
-  dependencies:
-    "@chrysalis-api/focus" "^0.0.7"
-
-"@chrysalis-api/focus@^0.0.7", "@chrysalis-api/focus@~0.0.7":
+"@chrysalis-api/colormap@~0.0.7":
   version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/focus/-/focus-0.0.7.tgz#f9401e905d34a6c7422d21d70ce2bc537b08c3d9"
-  integrity sha512-gWz9aCzN9EN6ZyMKeywiklgLx7cxhktQx67KJyOpFCqEjd4igC59pV86+qQlhiIfBITPJkrA5Ezr/80DcKhxfw==
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/colormap/-/colormap-0.0.7.tgz#807d3907010c6c78153b7b82445fe3e9df90dd77"
+  integrity sha512-EF1mKojhFWT4G9uwh0C2wy4kJbEWpuNssvWE5x4bKAN/3ndZQMva4sfK3AhhspqeaG5Kn5Z8hpsKin2gnSP1JQ==
+  dependencies:
+    "@chrysalis-api/focus" "~0.0.8"
+
+"@chrysalis-api/focus@~0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/focus/-/focus-0.0.8.tgz#9312caba321d33c27ea1a7cca65b9b1081c5192d"
+  integrity sha512-oAUJrKam3voc4+4JUfOyzitlTwDR0opXUry8SbYO6ajHgq8ho1K0PRDYW76tAvLOIHTb2Jo+PmTFuTKdrDStXA==
   dependencies:
     serialport "^6.2.2"
 
@@ -856,12 +856,12 @@
   resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-keyboardio-model01/-/hardware-keyboardio-model01-0.0.5.tgz#c625103d66662e85c406264b3c01308f5f6bd977"
   integrity sha512-rn0bvlV64CPyCKM0oUVkshmsTCd9IuGB5yUXhl4BBXYOV8R6SZHlsrg49ZyW28/RYssoaVDhtQd1Xlh0gEQSfg==
 
-"@chrysalis-api/keymap@~0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/keymap/-/keymap-0.0.8.tgz#610e0f1a71b40afd06327f2b0ebcae405e243837"
-  integrity sha512-i/9RqC0d7wVO+FjJbMjCsoH/HCOBkYlUKP2m1pzjhzRc4+9OV7WKrJyk0U6Dq/sYU2aes4QgFmoayOgH1O6sJg==
+"@chrysalis-api/keymap@~0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/keymap/-/keymap-0.0.9.tgz#496fb5f9e5af3996aaad6417c29347e2d157db1a"
+  integrity sha512-6CCa/w6/HtMzTg24fG7LtKmWgVHo/qiEfjCGFGa960vf1wEIzk88BAP/tZENqz6FRf0QuNINvG5+EOi6UA3vyA==
   dependencies:
-    "@chrysalis-api/focus" "^0.0.7"
+    "@chrysalis-api/focus" "~0.0.8"
 
 "@material-ui/core@^3.6.0":
   version "3.6.1"

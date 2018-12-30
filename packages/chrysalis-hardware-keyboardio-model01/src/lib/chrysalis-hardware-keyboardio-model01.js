@@ -14,6 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import AvrGirl from "avrgirl-arduino"
+
 const Model01 = {
     info: {
         vendor: "Keyboard.io",
@@ -40,6 +42,55 @@ const Model01 = {
     keyboard: {
         rows: 4,
         columns: 16
+    },
+
+    flash: async (port, filename) => {
+        const board = {
+            name: "Keyboard.io Model 01",
+            baud: 9600,
+            productId: ["0x2300", "0x2301"],
+            protocol: "avr109",
+            signature: new Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e])
+        }
+
+        return new Promise((resolve, reject) => {
+            port.update({ baudRate: 1200 }, () => {
+                console.log("baud update")
+                setTimeout(() => {
+                    port.set({ dtr: true }, () => {
+                        console.log("dtr on")
+                        setTimeout(() => {
+                            port.set({ dtr: false }, () => {
+                                console.log("dtr off")
+                                setTimeout(() => {
+                                    focus._port = null
+                                    let avrgirl = new AvrGirl({
+                                        board: board,
+                                        debug: true,
+                                        manualReset: true
+                                    })
+
+                                    avrgirl.flash(filename, error => {
+                                        if (error) {
+                                            console.log(error)
+                                            try {
+                                                avrgirl.connection.serialPort.close()
+                                            } catch (e) {} // eslint-disable-line
+                                            reject(error)
+                                        } else {
+                                            setTimeout(() => {
+                                                avrgirl.connection.serialPort.close()
+                                                resolve()
+                                            }, 500)
+                                        }
+                                    })
+                                }, 1000)
+                            })
+                        }, 250)
+                    })
+                }, 250)
+            })
+        })
     }
 }
 

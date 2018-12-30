@@ -1,0 +1,39 @@
+{
+  "name": "@chrysalis-api/hardware-technomancy-atreus",
+  "version": "0.0.0",
+  "description": "Chrysalis Atreus support",
+  "main": "lib",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/keyboardio/chrysalis-api"
+  },
+  "author": {
+    "name": "Gergely Nagy",
+    "email": "<algernon@keyboard.io>",
+    "url": "https://asylum.madhouse-project.org"
+  },
+  "license": "GPL-3.0-only",
+  "homepage": "https://github.com/keyboardio/chrysalis-api#readme",
+  "bugs": {
+    "url": "https://github.com/keyboardio/chrysalis-api/issues"
+  },
+  "keywords": [
+    "chrysalis",
+    "kaleidoscope"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "babel src/lib -d lib",
+    "lint": "eslint src/lib",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@babel/preset-react": "^7.0.0",
+    "eslint-plugin-react": "^7.11.1"
+  },
+  "peerDependencies": {
+    "@chrysalis-api/focus": "~0.0.2"
+  }
+}

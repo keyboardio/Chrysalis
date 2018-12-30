@@ -53,7 +53,7 @@ const Atreus = {
                 child.kill();
                 reject("teensy_loader_cli timed out");
             }, 15000);
-            child.on("exit", code => {
+            child.on("exit", () => {
                 clearTimeout(timer);
                 resolve();
             });

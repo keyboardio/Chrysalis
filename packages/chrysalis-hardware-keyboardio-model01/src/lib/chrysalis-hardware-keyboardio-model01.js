@@ -15,6 +15,7 @@
  */
 
 import AvrGirl from "avrgirl-arduino"
+import Keymap from "./components/Keymap"
 
 const Model01 = {
     info: {
@@ -46,6 +47,9 @@ const Model01 = {
     messages: {
         preFlash:"If you wish to proceed, press and hold the " +
             "Prog key on your keyboard, and click the 'Upload' button."
+    },
+    components: {
+        keymap: Keymap
     },
 
     flash: async (port, filename) => {

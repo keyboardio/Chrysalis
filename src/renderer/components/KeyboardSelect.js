@@ -38,6 +38,7 @@ import { withSnackbar } from "notistack";
 
 import Focus from "@chrysalis-api/focus";
 import { Model01 } from "@chrysalis-api/hardware-keyboardio-model01";
+import { Atreus } from "@chrysalis-api/hardware-technomancy-atreus";
 
 import usb from "usb";
 
@@ -95,7 +96,7 @@ class KeyboardSelect extends React.Component {
     this.setState({ loading: true });
     let focus = new Focus();
     focus
-      .find(Model01)
+      .find(Model01, Atreus)
       .then(devices => {
         if (devices.length == 0) {
           this.setState({
@@ -106,7 +107,7 @@ class KeyboardSelect extends React.Component {
         }
         this.setState({
           loading: false,
-          devices: [{ comName: "Please select a port:" }].concat(devices)
+          devices: [{ comName: "Please select a keyboard:" }].concat(devices)
         });
       })
       .catch(() => {
@@ -192,16 +193,28 @@ class KeyboardSelect extends React.Component {
             open={Boolean(anchorEl)}
             onClose={this.handleClose}
           >
-            {this.state.devices.map((option, index) => (
-              <MenuItem
-                key={option.comName}
-                disabled={index === 0}
-                selected={index === this.state.selectedPortIndex}
-                onClick={event => this.handleMenuItemClick(event, index)}
-              >
-                {option.comName}
-              </MenuItem>
-            ))}
+            {this.state.devices.map((option, index) => {
+              let label = option.comName;
+              if (option.device && option.device.info) {
+                const { vendor, product } = option.device.info;
+                label = (
+                  <ListItemText
+                    primary={`${vendor} ${product}`}
+                    secondary={option.comName}
+                  />
+                );
+              }
+              return (
+                <MenuItem
+                  key={option.comName}
+                  disabled={index === 0}
+                  selected={index === this.state.selectedPortIndex}
+                  onClick={event => this.handleMenuItemClick(event, index)}
+                >
+                  {label}
+                </MenuItem>
+              );
+            })}
           </Menu>
         </div>
       );

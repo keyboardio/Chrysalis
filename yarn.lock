@@ -851,12 +851,17 @@
   dependencies:
     serialport "^6.2.2"
 
-"@chrysalis-api/hardware-keyboardio-model01@~0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-keyboardio-model01/-/hardware-keyboardio-model01-0.0.6.tgz#0d59c62d879d7802ca22d9ef57c71d70acb3b664"
-  integrity sha512-lIMBdcjwGA0gPAWV25cqDFkFW7yV6XoFztolDNfMbznJIezqR5/BuDm4mDeOuQU0nnikH7ab+Xet9KGNHy7GIA==
+"@chrysalis-api/hardware-keyboardio-model01@~0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-keyboardio-model01/-/hardware-keyboardio-model01-0.0.7.tgz#4bdb6c2598eab11cd4baab0c56c58e366069c681"
+  integrity sha512-LMi1bAtKqutp/FwcWgfYObFwkSeMO7IgDLWPJ2/tq47iW5lC11vH4no3ZN9O/DDZiGOia5pDC35Fk99M9keJvA==
   dependencies:
     avrgirl-arduino "^3.0.0"
+
+"@chrysalis-api/hardware-technomancy-atreus@~0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-technomancy-atreus/-/hardware-technomancy-atreus-0.0.2.tgz#9750163946108eebb40b22dca160e2f39472b1f2"
+  integrity sha512-a5R0MOoizD7mWN3PI2su6152lV9HokxEI28jpVb6RGiSRudWM27gQi4L7PXCN4mb5XJz3O/mBb2J+3gByUrnRw==
 
 "@chrysalis-api/keymap@~0.0.9":
   version "0.0.9"

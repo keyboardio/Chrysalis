@@ -36,7 +36,6 @@ import Select from "@material-ui/core/Select";
 import Focus from "@chrysalis-api/focus";
 import { KeymapDB } from "@chrysalis-api/keymap";
 
-import Layer from "./LayoutEditor/Layer";
 import KeySelector from "./LayoutEditor/KeySelector";
 import SaveChangesButton from "./SaveChangesButton";
 
@@ -178,6 +177,8 @@ class LayoutEditor extends React.Component {
     }
 
     const { classes } = this.props;
+    let focus = new Focus();
+    const Layer = focus.device.components.keymap;
 
     let layerIndex = this.state.currentLayer,
       isReadOnly = layerIndex < this.state.roLayers,

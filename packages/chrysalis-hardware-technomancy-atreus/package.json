@@ -1,6 +1,6 @@
 {
   "name": "@chrysalis-api/hardware-technomancy-atreus",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Chrysalis Atreus support",
   "main": "lib",
   "repository": {

@@ -1,6 +1,6 @@
 {
   "name": "@chrysalis-api/hardware-keyboardio-model01",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Chrysalis Keyboardio Model01 support",
   "main": "lib",
   "repository": {

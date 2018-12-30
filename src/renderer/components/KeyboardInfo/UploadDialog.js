@@ -16,7 +16,6 @@
  */
 
 import React from "react";
-import AvrGirl from "avrgirl-arduino";
 import path from "path";
 
 import Button from "@material-ui/core/Button";
@@ -53,66 +52,13 @@ class UploadDialog extends React.Component {
     this.focus = new Focus();
   }
 
-  _flashDebug = (message, ...args) => {
-    if (message == "found port on") {
-      this._portName = args[0];
-    }
-    console.log(message, ...args);
-  };
-
   _flash = async () => {
-    const board = {
-      name: "Keyboard.io Model 01",
-      baud: 9600,
-      productId: ["0x2300", "0x2301"],
-      protocol: "avr109",
-      signature: new Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e])
-    };
-
     let port = this.focus._port;
     const filename =
       this.props.filename ||
       path.join(getStaticPath(), "/Model01-Firmware.hex");
 
-    return new Promise((resolve, reject) => {
-      port.update({ baudRate: 1200 }, () => {
-        console.log("baud update");
-        setTimeout(() => {
-          port.set({ dtr: true }, () => {
-            console.log("dtr on");
-            setTimeout(() => {
-              port.set({ dtr: false }, () => {
-                console.log("dtr off");
-                setTimeout(() => {
-                  focus._port = null;
-                  let avrgirl = new AvrGirl({
-                    board: board,
-                    debug: this._flashDebug,
-                    manualReset: true
-                  });
-                  avrgirl.connection.debug = this._flashDebug;
-
-                  avrgirl.flash(filename, error => {
-                    if (error) {
-                      console.log(error);
-                      try {
-                        avrgirl.connection.serialPort.close();
-                      } catch (e) {} // eslint-disable-line
-                      reject(error);
-                    } else {
-                      setTimeout(() => {
-                        avrgirl.connection.serialPort.close();
-                        resolve();
-                      }, 500);
-                    }
-                  });
-                }, 1000);
-              });
-            }, 250);
-          });
-        }, 250);
-      });
-    });
+    return this.focus.device.flash(port, filename);
   };
 
   upload = async () => {
@@ -165,9 +111,7 @@ class UploadDialog extends React.Component {
             }
           </DialogContentText>
           <DialogContentText className={classes.p}>
-            {"If you wish to proceed, press and hold the "}
-            <kbd>Prog</kbd>
-            {" key on your keyboard, and click the 'Upload' button."}
+            {this.focus.device.messages.preFlash}
           </DialogContentText>
           <DialogContentText className={classes.p}>
             {

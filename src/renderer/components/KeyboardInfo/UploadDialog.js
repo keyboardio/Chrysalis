@@ -54,9 +54,10 @@ class UploadDialog extends React.Component {
 
   _flash = async () => {
     let port = this.focus._port;
+    const { vendor, product } = this.focus.device.info;
     const filename =
       this.props.filename ||
-      path.join(getStaticPath(), "/Model01-Firmware.hex");
+      path.join(getStaticPath(), vendor, product, "default.hex");
 
     return this.focus.device.flash(port, filename);
   };
@@ -107,7 +108,7 @@ class UploadDialog extends React.Component {
         <DialogContent>
           <DialogContentText className={classes.p}>
             {
-              "This will overwrite the firmware already present on the keyboard. But do not worry, updating is safe, you can't brick your keyboard, not even with bad firmware."
+              "This will overwrite the firmware already present on the keyboard. But do not worry, updating is safe, you can't brick your keyboard, not even with bad firmware"
             }
           </DialogContentText>
           <DialogContentText className={classes.p}>

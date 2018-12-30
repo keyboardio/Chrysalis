@@ -29,6 +29,9 @@
         "lint": "eslint src/lib",
         "prepublishOnly": "npm run build"
     },
+    "dependencies": {
+        "avrgirl-arduino": "^3.0.0"
+    },
     "peerDependencies": {
         "@chrysalis-api/focus": "~0.0.2"
     }

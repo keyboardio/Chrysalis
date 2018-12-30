@@ -43,6 +43,10 @@ const Model01 = {
         rows: 4,
         columns: 16
     },
+    messages: {
+        preFlash:"If you wish to proceed, press and hold the " +
+            "Prog key on your keyboard, and click the 'Upload' button."
+    },
 
     flash: async (port, filename) => {
         const board = {

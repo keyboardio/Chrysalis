@@ -15,6 +15,7 @@
  */
 
 import Keymap from "./components/Keymap"
+import { spawn } from "child_process";
 
 const Atreus = {
     info: {
@@ -38,10 +39,25 @@ const Atreus = {
     components: {
         keymap: Keymap
     },
-    messages: {},
+    messages: {
+        preFlash: "If you wish to proceed, press the 'Upload' button, and then " +
+            "reset your keyboard within 15 seconds."
+    },
 
-    flash: async () => {
-        console.log("Not implemented yet.")
+    flash: async (_, filename) => {
+        return new Promise((resolve, reject) => {
+            let child = spawn(
+                "teensy_loader_cli", ["--mcu", "atmega32u4", "-w", filename]
+            );
+            let timer = setTimeout(() => {
+                child.kill();
+                reject("teensy_loader_cli timed out");
+            }, 15000);
+            child.on("exit", code => {
+                clearTimeout(timer);
+                resolve();
+            });
+        });
     }
 }
 

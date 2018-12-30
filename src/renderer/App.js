@@ -19,7 +19,6 @@ import React from "react";
 import { spawn } from "child_process";
 
 import Focus from "@chrysalis-api/focus";
-import { Model01 } from "@chrysalis-api/hardware-keyboardio-model01";
 import "@chrysalis-api/keymap";
 import "@chrysalis-api/colormap";
 
@@ -31,7 +30,6 @@ import KeyboardSelect from "./components/KeyboardSelect";
 import Dashboard from "./components/Dashboard";
 
 let focus = new Focus();
-focus.setLayerSize(Model01);
 
 class App extends React.Component {
   state = {
@@ -83,6 +81,8 @@ class App extends React.Component {
     } catch (e) {
       commands = [];
     }
+
+    focus.setLayerSize(focus.device);
 
     this.setState({
       keyboardOpen: true,

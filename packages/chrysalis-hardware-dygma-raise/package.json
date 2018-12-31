@@ -29,6 +29,9 @@
     "lint": "eslint src/lib",
     "prepublishOnly": "npm run build"
   },
+  "dependencies": {
+    "react": "^16.5.2"
+  },
   "devDependencies": {
     "@babel/preset-react": "^7.0.0",
     "eslint-plugin-react": "^7.11.1"

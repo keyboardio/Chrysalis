@@ -19,7 +19,7 @@ import Keymap from "./components/Keymap"
 
 const Model01 = {
     info: {
-        vendor: "Keyboard.io",
+        vendor: "Keyboardio",
         product: "Model01",
         urls: [
             {
@@ -54,7 +54,7 @@ const Model01 = {
 
     flash: async (port, filename) => {
         const board = {
-            name: "Keyboard.io Model 01",
+            name: "Keyboardio Model 01",
             baud: 9600,
             productId: ["0x2300", "0x2301"],
             protocol: "avr109",

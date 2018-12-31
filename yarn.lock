@@ -851,10 +851,15 @@
   dependencies:
     serialport "^6.2.2"
 
-"@chrysalis-api/hardware-keyboardio-model01@~0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-keyboardio-model01/-/hardware-keyboardio-model01-0.0.7.tgz#4bdb6c2598eab11cd4baab0c56c58e366069c681"
-  integrity sha512-LMi1bAtKqutp/FwcWgfYObFwkSeMO7IgDLWPJ2/tq47iW5lC11vH4no3ZN9O/DDZiGOia5pDC35Fk99M9keJvA==
+"@chrysalis-api/hardware-dygma-raise@~0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-dygma-raise/-/hardware-dygma-raise-0.0.1.tgz#6ac63748aa36d88c9f8b4c1153698ce9c88c434d"
+  integrity sha512-Fxtizno9zAQ6iUg2eHeWfNOMLM/4SozpsBWL60r1ivd3RSqEfMUdlTO+GaLacICRSNdTjBV8HaQPJt4SVOsmpg==
+
+"@chrysalis-api/hardware-keyboardio-model01@~0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-keyboardio-model01/-/hardware-keyboardio-model01-0.0.8.tgz#476b7a5050ec1d629abe4c1c0ab0e1ca10322920"
+  integrity sha512-qPuzhv1+8bNajKqbOwo5n4cZlFXvaAG/yampyPPxZEbzsAqyzQbTKx3rmgpvbaAYTa3dkEpWGvxPzd+NZfJIAw==
   dependencies:
     avrgirl-arduino "^3.0.0"
 

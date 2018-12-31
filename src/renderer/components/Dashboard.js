@@ -38,9 +38,9 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import { withStyles } from "@material-ui/core/styles";
 
 import ColormapEditor from "./ColormapEditor";
-import KeyboardInfo from "./KeyboardInfo";
 import LayoutEditor from "./LayoutEditor";
 import Settings from "./Settings";
+import Welcome from "./Welcome";
 
 const drawerWidth = 240;
 
@@ -91,7 +91,7 @@ class Dashboard extends React.Component {
 
     this.state = {
       open: false,
-      page: props.pages.keymap ? "keymap" : "info"
+      page: props.pages.keymap ? "keymap" : "welcome"
     };
   }
 
@@ -113,22 +113,47 @@ class Dashboard extends React.Component {
 
     let page;
     if (this.state.page == "keymap") {
-      page = <LayoutEditor onDisconnect={this.disconnect} />;
-    }
-    if (this.state.page == "colormap") {
-      page = <ColormapEditor onDisconnect={this.disconnect} />;
-    }
-    if (this.state.page == "settings") {
-      page = <Settings />;
-    }
-    if (this.state.page == "info") {
       page = (
-        <KeyboardInfo
+        <LayoutEditor
           onDisconnect={this.disconnect}
           toggleFlashing={this.props.toggleFlashing}
         />
       );
     }
+    if (this.state.page == "colormap") {
+      page = (
+        <ColormapEditor
+          onDisconnect={this.disconnect}
+          toggleFlashing={this.props.toggleFlashing}
+        />
+      );
+    }
+    if (this.state.page == "settings") {
+      page = <Settings />;
+    }
+    if (this.state.page == "welcome") {
+      page = (
+        <Welcome
+          onDisconnect={this.disconnect}
+          toggleFlashing={this.props.toggleFlashing}
+        />
+      );
+    }
+
+    const welcomeMenu = !pages.keymap && !pages.colormap && (
+      <ListItem
+        button
+        selected={this.state.page == "welcome"}
+        onClick={() => {
+          this.setState({ page: "welcome" });
+        }}
+      >
+        <ListItemIcon>
+          <InfoIcon />
+        </ListItemIcon>
+        <ListItemText primary="Welcome!" />
+      </ListItem>
+    );
 
     return (
       <div className={classes.root}>
@@ -147,19 +172,8 @@ class Dashboard extends React.Component {
             <IconButton onClick={this.handleDrawerToggle}>{chevron}</IconButton>
           </div>
           <Divider />
+          {welcomeMenu}
           <List>
-            <ListItem
-              button
-              selected={this.state.page == "info"}
-              onClick={() => {
-                this.setState({ page: "info" });
-              }}
-            >
-              <ListItemIcon>
-                <InfoIcon />
-              </ListItemIcon>
-              <ListItemText primary="Information" />
-            </ListItem>
             {pages.keymap && (
               <ListItem
                 button

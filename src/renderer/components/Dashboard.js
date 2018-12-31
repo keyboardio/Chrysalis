@@ -27,6 +27,7 @@ import Divider from "@material-ui/core/Divider";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import HighlightIcon from "@material-ui/icons/Highlight";
 import IconButton from "@material-ui/core/IconButton";
+import InfoIcon from "@material-ui/icons/Info";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -39,6 +40,7 @@ import { withStyles } from "@material-ui/core/styles";
 import ColormapEditor from "./ColormapEditor";
 import LayoutEditor from "./LayoutEditor";
 import Settings from "./Settings";
+import Welcome from "./Welcome";
 
 const drawerWidth = 240;
 
@@ -89,7 +91,7 @@ class Dashboard extends React.Component {
 
     this.state = {
       open: false,
-      page: "keymap"
+      page: props.pages.keymap ? "keymap" : "welcome"
     };
   }
 
@@ -129,6 +131,29 @@ class Dashboard extends React.Component {
     if (this.state.page == "settings") {
       page = <Settings />;
     }
+    if (this.state.page == "welcome") {
+      page = (
+        <Welcome
+          onDisconnect={this.disconnect}
+          toggleFlashing={this.props.toggleFlashing}
+        />
+      );
+    }
+
+    const welcomeMenu = !pages.keymap && !pages.colormap && (
+      <ListItem
+        button
+        selected={this.state.page == "welcome"}
+        onClick={() => {
+          this.setState({ page: "welcome" });
+        }}
+      >
+        <ListItemIcon>
+          <InfoIcon />
+        </ListItemIcon>
+        <ListItemText primary="Welcome!" />
+      </ListItem>
+    );
 
     return (
       <div className={classes.root}>
@@ -147,6 +172,7 @@ class Dashboard extends React.Component {
             <IconButton onClick={this.handleDrawerToggle}>{chevron}</IconButton>
           </div>
           <Divider />
+          {welcomeMenu}
           <List>
             {pages.keymap && (
               <ListItem

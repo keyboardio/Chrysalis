@@ -177,7 +177,7 @@ class KeyboardSelect extends React.Component {
       let portDesc = this.state.devices[this.state.selectedPortIndex],
         portInfo = portDesc.device.info;
       port = (
-        <div>
+        <React.Fragment>
           <Typography component="h1" variant="h5">
             Select a keyboard
           </Typography>
@@ -217,7 +217,7 @@ class KeyboardSelect extends React.Component {
               );
             })}
           </Menu>
-        </div>
+        </React.Fragment>
       );
     }
 

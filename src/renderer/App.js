@@ -116,10 +116,10 @@ class App extends React.Component {
     }
 
     return (
-      <div>
+      <React.Fragment>
         {content}
         <AppTools />
-      </div>
+      </React.Fragment>
     );
   }
 }

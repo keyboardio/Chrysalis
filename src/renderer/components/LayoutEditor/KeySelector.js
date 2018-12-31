@@ -203,7 +203,7 @@ const KeyGroupGrid = withStyles(styles)(props => {
   let modSelector;
   if (withModifiers) {
     modSelector = (
-      <div>
+      <React.Fragment>
         <Divider variant="middle" />
         <FormControl
           component="fieldset"
@@ -228,12 +228,12 @@ const KeyGroupGrid = withStyles(styles)(props => {
             </GridListTile>
           </GridList>
         </FormControl>
-      </div>
+      </React.Fragment>
     );
   }
 
   return (
-    <div>
+    <React.Fragment>
       <GridList
         cellHeight="auto"
         cols={cols || 3}
@@ -242,7 +242,7 @@ const KeyGroupGrid = withStyles(styles)(props => {
         {keyList}
       </GridList>
       {modSelector}
-    </div>
+    </React.Fragment>
   );
 });
 
@@ -253,13 +253,13 @@ const KeyGroupNav = withStyles(styles)(props => {
   const rest = baseKeyCodeTable[group].keys.slice(8);
 
   return (
-    <div>
+    <React.Fragment>
       <KeyGroupT items={jumpKeys} {...props} />
       <Divider light />
       <KeyGroupT items={navKeys} {...props} />
       <Divider light />
       <KeyGroupGrid items={rest} {...props} />
-    </div>
+    </React.Fragment>
   );
 });
 

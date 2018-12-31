@@ -164,7 +164,7 @@ class ColormapEditor extends React.Component {
     );
 
     return (
-      <div>
+      <React.Fragment>
         <AppBar position="static">
           <Toolbar>
             <Tabs
@@ -199,7 +199,7 @@ class ColormapEditor extends React.Component {
           onDisconnect={this.props.onDisconnect}
           toggleFlashing={this.props.toggleFlashing}
         />
-      </div>
+      </React.Fragment>
     );
   }
 }

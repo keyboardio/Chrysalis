@@ -1,6 +1,6 @@
 Chrysalis 0.2.0
 ===============
-**UNRELEASED**
+Released on 2018-12-31
 
 ## Hardware support
 
@@ -19,6 +19,8 @@ work, but it is untested on real hardware at this time.
 
 ## UI/UX changes
 
+* The dropdown on the keyboard selection page will now list not only the ports,
+  but which keyboard they belong to, too.
 * The previous "Information" page was replaced by a bottom bar, providing the
   same functionality, in a more accessible place.
 

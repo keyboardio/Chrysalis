@@ -39,6 +39,7 @@ import { withSnackbar } from "notistack";
 import Focus from "@chrysalis-api/focus";
 import { Model01 } from "@chrysalis-api/hardware-keyboardio-model01";
 import { Atreus } from "@chrysalis-api/hardware-technomancy-atreus";
+import { Raise } from "@chrysalis-api/hardware-dygma-raise";
 
 import usb from "usb";
 
@@ -96,7 +97,7 @@ class KeyboardSelect extends React.Component {
     this.setState({ loading: true });
     let focus = new Focus();
     focus
-      .find(Model01, Atreus)
+      .find(Model01, Atreus, Raise)
       .then(devices => {
         if (devices.length == 0) {
           this.setState({

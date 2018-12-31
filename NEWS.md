@@ -12,6 +12,11 @@ Chrysalis-enabled [Kaleidoscope][kaleidoscope] firmware. We ship with
  [kaleidoscope]: https://github.com/keyboardio/Kaleidoscope
  [chrysalis-bundle:atreus]: https://github.com/keyboardio/Chrysalis-Firmware-Bundle/tree/master/Technomancy/Atreus
 
+Chrysalis also has preliminary support for [Dygma Raise][raise] - it should
+work, but it is untested on real hardware at this time.
+
+ [raise]: https://www.dygma.com/raise/
+
 ## UI/UX changes
 
 * The previous "Information" page was replaced by a bottom bar, providing the

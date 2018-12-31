@@ -30,6 +30,7 @@ import { withSnackbar } from "notistack";
 
 import Focus from "@chrysalis-api/focus";
 
+import BottomBar from "./BottomBar";
 import Palette from "./ColormapEditor/Palette";
 import Layer, { led_map } from "./ColormapEditor/Layer";
 import SaveChangesButton from "./SaveChangesButton";
@@ -194,6 +195,10 @@ class ColormapEditor extends React.Component {
             onColorPick={this.onColorPick}
           />
         </div>
+        <BottomBar
+          onDisconnect={this.props.onDisconnect}
+          toggleFlashing={this.props.toggleFlashing}
+        />
       </div>
     );
   }

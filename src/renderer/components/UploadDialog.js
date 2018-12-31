@@ -30,8 +30,8 @@ import { withSnackbar } from "notistack";
 
 import Focus from "@chrysalis-api/focus";
 
-import { getStaticPath } from "../../config";
-import SaveChangesButton from "../SaveChangesButton";
+import { getStaticPath } from "../config";
+import SaveChangesButton from "./SaveChangesButton";
 
 const styles = theme => ({
   dialog: {

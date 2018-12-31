@@ -36,6 +36,7 @@ import Select from "@material-ui/core/Select";
 import Focus from "@chrysalis-api/focus";
 import { KeymapDB } from "@chrysalis-api/keymap";
 
+import BottomBar from "./BottomBar";
 import KeySelector from "./LayoutEditor/KeySelector";
 import SaveChangesButton from "./SaveChangesButton";
 
@@ -45,7 +46,8 @@ const styles = theme => ({
   },
   editor: {
     display: "flex",
-    margin: theme.spacing.unit * 3
+    margin: theme.spacing.unit * 3,
+    marginBottom: 64
   },
   editorControls: {
     marginLeft: "2em",
@@ -262,6 +264,10 @@ class LayoutEditor extends React.Component {
             />
           </div>
         </div>
+        <BottomBar
+          onDisconnect={this.props.onDisconnect}
+          toggleFlashing={this.props.toggleFlashing}
+        />
       </div>
     );
   }

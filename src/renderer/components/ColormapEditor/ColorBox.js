@@ -97,7 +97,7 @@ class ColorBox extends React.Component {
     }
 
     return (
-      <div>
+      <React.Fragment>
         <div
           className={classNames(classes.box, selected && classes.selected)}
           style={{ backgroundColor: color.rgb }}
@@ -107,7 +107,7 @@ class ColorBox extends React.Component {
           onContextMenu={this.onContext}
         />
         {picker}
-      </div>
+      </React.Fragment>
     );
   }
 }

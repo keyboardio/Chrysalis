@@ -2,60 +2,76 @@
 
 exports[`renders without crashing 1`] = `
 <div>
-  <div>
-    <main
-      class="KeyboardSelect-main-105"
+  <main
+    class="KeyboardSelect-main-105"
+  >
+    <div
+      class="MuiLinearProgress-root-184 MuiLinearProgress-colorPrimary-185 MuiLinearProgress-query-188 KeyboardSelect-loader-104"
+      role="progressbar"
     >
       <div
-        class="MuiLinearProgress-root-184 MuiLinearProgress-colorPrimary-185 MuiLinearProgress-query-188 KeyboardSelect-loader-104"
-        role="progressbar"
-      >
-        <div
-          class="MuiLinearProgress-bar-192 MuiLinearProgress-barColorPrimary-193 MuiLinearProgress-bar1Indeterminate-195"
-        />
-        <div
-          class="MuiLinearProgress-bar-192 MuiLinearProgress-barColorPrimary-193 MuiLinearProgress-bar2Indeterminate-198"
-        />
-      </div>
+        class="MuiLinearProgress-bar-192 MuiLinearProgress-barColorPrimary-193 MuiLinearProgress-bar1Indeterminate-195"
+      />
       <div
-        class="MuiPaper-root-111 MuiPaper-elevation2-115 MuiPaper-rounded-112 KeyboardSelect-paper-106"
+        class="MuiLinearProgress-bar-192 MuiLinearProgress-barColorPrimary-193 MuiLinearProgress-bar2Indeterminate-198"
+      />
+    </div>
+    <div
+      class="MuiPaper-root-111 MuiPaper-elevation2-115 MuiPaper-rounded-112 KeyboardSelect-paper-106"
+    >
+      <div
+        class="MuiAvatar-root-138 MuiAvatar-colorDefault-139 KeyboardSelect-avatar-107"
       >
-        <div
-          class="MuiAvatar-root-138 MuiAvatar-colorDefault-139 KeyboardSelect-avatar-107"
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root-141"
+          focusable="false"
+          role="presentation"
+          viewBox="0 0 24 24"
         >
-          <svg
-            aria-hidden="true"
-            class="MuiSvgIcon-root-141"
-            focusable="false"
-            role="presentation"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zm-1 2H5v-2h2v2zm0-3H5V8h2v2zm9 7H8v-2h8v2zm0-4h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z"
-            />
-            <path
-              d="M0 0h24v24H0zm0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </div>
-        <button
-          class="MuiButtonBase-root-176 MuiButton-root-150 MuiButton-contained-161 MuiButton-containedPrimary-162 MuiButton-raised-164 MuiButton-raisedPrimary-165 MuiButton-fullWidth-175"
-          tabindex="0"
-          type="button"
-        >
-          <span
-            class="MuiButton-label-151"
-          >
-            Connect
-          </span>
-          <span
-            class="MuiTouchRipple-root-200"
+          <path
+            d="M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zm-1 2H5v-2h2v2zm0-3H5V8h2v2zm9 7H8v-2h8v2zm0-4h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z"
           />
-        </button>
+          <path
+            d="M0 0h24v24H0zm0 0h24v24H0z"
+            fill="none"
+          />
+        </svg>
       </div>
+      <button
+        class="MuiButtonBase-root-176 MuiButton-root-150 MuiButton-contained-161 MuiButton-containedPrimary-162 MuiButton-raised-164 MuiButton-raisedPrimary-165 MuiButton-fullWidth-175"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="MuiButton-label-151"
+        >
+          Connect
+        </span>
+        <span
+          class="MuiTouchRipple-root-200"
+        />
+      </button>
+    </div>
+    <div
+      class="KeyboardSelect-bottomButtons-108"
+    >
+      <button
+        class="MuiButtonBase-root-176 MuiButton-root-150 MuiButton-text-152 MuiButton-flat-155"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="MuiButton-label-151"
+        >
+          Scan devices
+        </span>
+        <span
+          class="MuiTouchRipple-root-200"
+        />
+      </button>
       <div
-        class="KeyboardSelect-bottomButtons-108"
+        class="KeyboardSelect-exit-109"
       >
         <button
           class="MuiButtonBase-root-176 MuiButton-root-150 MuiButton-text-152 MuiButton-flat-155"
@@ -65,50 +81,32 @@ exports[`renders without crashing 1`] = `
           <span
             class="MuiButton-label-151"
           >
-            Scan devices
+            Exit
           </span>
           <span
             class="MuiTouchRipple-root-200"
           />
         </button>
-        <div
-          class="KeyboardSelect-exit-109"
-        >
-          <button
-            class="MuiButtonBase-root-176 MuiButton-root-150 MuiButton-text-152 MuiButton-flat-155"
-            tabindex="0"
-            type="button"
-          >
-            <span
-              class="MuiButton-label-151"
-            >
-              Exit
-            </span>
-            <span
-              class="MuiTouchRipple-root-200"
-            />
-          </button>
-        </div>
       </div>
-    </main>
-    <div
-      class="AppTools-tools-179"
-    >
-      <button
-        class="MuiButtonBase-root-176 MuiButton-root-150 MuiButton-contained-161 MuiButton-raised-164"
-        tabindex="0"
-        type="button"
-      >
-        <span
-          class="MuiButton-label-151"
-        >
-          QA Tools
-        </span>
-        <span
-          class="MuiTouchRipple-root-200"
-        />
-      </button>
     </div>
+  </main>
+  <div
+    class="AppTools-tools-179"
+  >
+    <button
+      class="MuiButtonBase-root-176 MuiButton-root-150 MuiButton-contained-161 MuiButton-raised-164"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiButton-label-151"
+      >
+        QA Tools
+      </span>
+      <span
+        class="MuiTouchRipple-root-200"
+      />
+    </button>
   </div>
 </div>
 `;

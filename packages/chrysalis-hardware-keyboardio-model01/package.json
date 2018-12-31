@@ -30,7 +30,8 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "avrgirl-arduino": "^3.0.0"
+    "avrgirl-arduino": "^3.0.0",
+    "react": "^16.5.2"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.0.0",

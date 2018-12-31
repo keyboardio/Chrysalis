@@ -12,6 +12,11 @@ Chrysalis-enabled [Kaleidoscope][kaleidoscope] firmware. We ship with
  [kaleidoscope]: https://github.com/keyboardio/Kaleidoscope
  [chrysalis-bundle:atreus]: https://github.com/keyboardio/Chrysalis-Firmware-Bundle/tree/master/Technomancy/Atreus
 
+## UI/UX changes
+
+* The previous "Information" page was replaced by a bottom bar, providing the
+  same functionality, in a more accessible place.
+
 Chrysalis 0.1.0
 ===============
 Released on 2018-12-24

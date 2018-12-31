@@ -27,7 +27,6 @@ import Divider from "@material-ui/core/Divider";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import HighlightIcon from "@material-ui/icons/Highlight";
 import IconButton from "@material-ui/core/IconButton";
-import InfoIcon from "@material-ui/icons/Info";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -38,7 +37,6 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import { withStyles } from "@material-ui/core/styles";
 
 import ColormapEditor from "./ColormapEditor";
-import KeyboardInfo from "./KeyboardInfo";
 import LayoutEditor from "./LayoutEditor";
 import Settings from "./Settings";
 
@@ -91,7 +89,7 @@ class Dashboard extends React.Component {
 
     this.state = {
       open: false,
-      page: props.pages.keymap ? "keymap" : "info"
+      page: "keymap"
     };
   }
 
@@ -113,21 +111,23 @@ class Dashboard extends React.Component {
 
     let page;
     if (this.state.page == "keymap") {
-      page = <LayoutEditor onDisconnect={this.disconnect} />;
-    }
-    if (this.state.page == "colormap") {
-      page = <ColormapEditor onDisconnect={this.disconnect} />;
-    }
-    if (this.state.page == "settings") {
-      page = <Settings />;
-    }
-    if (this.state.page == "info") {
       page = (
-        <KeyboardInfo
+        <LayoutEditor
           onDisconnect={this.disconnect}
           toggleFlashing={this.props.toggleFlashing}
         />
       );
+    }
+    if (this.state.page == "colormap") {
+      page = (
+        <ColormapEditor
+          onDisconnect={this.disconnect}
+          toggleFlashing={this.props.toggleFlashing}
+        />
+      );
+    }
+    if (this.state.page == "settings") {
+      page = <Settings />;
     }
 
     return (
@@ -148,18 +148,6 @@ class Dashboard extends React.Component {
           </div>
           <Divider />
           <List>
-            <ListItem
-              button
-              selected={this.state.page == "info"}
-              onClick={() => {
-                this.setState({ page: "info" });
-              }}
-            >
-              <ListItemIcon>
-                <InfoIcon />
-              </ListItemIcon>
-              <ListItemText primary="Information" />
-            </ListItem>
             {pages.keymap && (
               <ListItem
                 button

@@ -31,7 +31,8 @@ const styles = () => ({
   tools: {
     position: "fixed",
     bottom: 0,
-    right: 0
+    right: 0,
+    zIndex: 1200
   }
 });
 

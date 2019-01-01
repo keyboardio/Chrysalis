@@ -102,7 +102,7 @@ class SaveChangesButton extends React.Component {
     });
 
     return (
-      <div className={classes.root}>
+      <div className={classNames(classes.root, this.props.className)}>
         <div className={classNames(classes.wrapper, classes.icon)}>
           <Fab
             disabled={inProgress || (this.props.disabled && !success)}

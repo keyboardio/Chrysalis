@@ -25,9 +25,8 @@ import "@chrysalis-api/colormap";
 import usb from "usb";
 import { withSnackbar } from "notistack";
 
-import AppTools from "./components/AppTools";
 import KeyboardSelect from "./components/KeyboardSelect";
-import Dashboard from "./components/Dashboard";
+import Connected from "./components/Connected";
 
 let focus = new Focus();
 
@@ -102,25 +101,17 @@ class App extends React.Component {
   };
 
   render() {
-    let content;
     if (!this.state.keyboardOpen) {
-      content = <KeyboardSelect onConnect={this.onKeyboardConnect} />;
+      return <KeyboardSelect onConnect={this.onKeyboardConnect} />;
     } else {
-      content = (
-        <Dashboard
+      return (
+        <Connected
           pages={this.state.supportedPages}
           onDisconnect={this.onKeyboardDisconnect}
           toggleFlashing={this.toggleFlashing}
         />
       );
     }
-
-    return (
-      <React.Fragment>
-        {content}
-        <AppTools />
-      </React.Fragment>
-    );
   }
 }
 

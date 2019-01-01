@@ -55,6 +55,11 @@ const styles = theme => ({
   },
   layerRoot: {
     width: "100%"
+  },
+  fab: {
+    position: "absolute",
+    bottom: theme.spacing.unit * 3,
+    right: theme.spacing.unit * 3
   }
 });
 
@@ -241,15 +246,7 @@ class LayoutEditor extends React.Component {
           </Toolbar>
         </Portal>
         <div className={classes.editor}>
-          <div>
-            {layer}
-            <SaveChangesButton
-              onClick={this.onApply}
-              disabled={!this.state.modified}
-            >
-              Save Changes
-            </SaveChangesButton>
-          </div>
+          {layer}
           <div className={classes.editorControls}>
             <KeySelector
               className="select-keycode"
@@ -259,6 +256,13 @@ class LayoutEditor extends React.Component {
             />
           </div>
         </div>
+        <SaveChangesButton
+          className={classes.fab}
+          onClick={this.onApply}
+          disabled={!this.state.modified}
+        >
+          Save Changes
+        </SaveChangesButton>
       </React.Fragment>
     );
   }

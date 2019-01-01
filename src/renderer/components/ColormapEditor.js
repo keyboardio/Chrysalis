@@ -48,6 +48,11 @@ const styles = theme => ({
   },
   layerRoot: {
     width: "100%"
+  },
+  fab: {
+    position: "absolute",
+    bottom: theme.spacing.unit * 3,
+    right: theme.spacing.unit * 3
   }
 });
 
@@ -177,15 +182,7 @@ class ColormapEditor extends React.Component {
           </Toolbar>
         </Portal>
         <div className={classes.editor}>
-          <div>
-            {colormap}
-            <SaveChangesButton
-              onClick={this.onApply}
-              disabled={!this.state.modified}
-            >
-              Save Changes
-            </SaveChangesButton>
-          </div>
+          {colormap}
           <Palette
             palette={this.state.palette}
             className={classes.palette}
@@ -193,6 +190,13 @@ class ColormapEditor extends React.Component {
             onColorPick={this.onColorPick}
           />
         </div>
+        <SaveChangesButton
+          className={classes.fab}
+          onClick={this.onApply}
+          disabled={!this.state.modified}
+        >
+          Save Changes
+        </SaveChangesButton>
       </React.Fragment>
     );
   }

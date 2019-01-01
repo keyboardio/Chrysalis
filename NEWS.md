@@ -27,6 +27,11 @@ work, but it is untested on real hardware at this time.
 
  [raise]: https://www.dygma.com/raise/
 
+The [ErgoDox EZ][ergodox:ez] (and any other ErgoDox that is compatible with the
+original) is also supported.
+
+ [ergodox:ez]: https://ergodox-ez.com/
+
 ## UI/UX changes
 
 * The dropdown on the keyboard selection page will now list not only the ports,

@@ -18,8 +18,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import AppBar from "@material-ui/core/AppBar";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import Portal from "@material-ui/core/Portal";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -30,7 +30,6 @@ import { withSnackbar } from "notistack";
 
 import Focus from "@chrysalis-api/focus";
 
-import BottomBar from "./BottomBar";
 import Palette from "./ColormapEditor/Palette";
 import Layer, { led_map } from "./ColormapEditor/Layer";
 import SaveChangesButton from "./SaveChangesButton";
@@ -103,7 +102,6 @@ class ColormapEditor extends React.Component {
   };
 
   onKeySelect = event => {
-    event.preventDefault();
     let layer = parseInt(event.currentTarget.getAttribute("data-layer")),
       row = parseInt(event.currentTarget.getAttribute("data-key-row")),
       col = parseInt(event.currentTarget.getAttribute("data-key-col")),
@@ -119,8 +117,7 @@ class ColormapEditor extends React.Component {
     }
   };
 
-  onApply = async event => {
-    event.preventDefault();
+  onApply = async () => {
     this.setState({ saving: true });
     let focus = new Focus();
     await focus.command("colormap", this.state.palette, this.state.colorMap);
@@ -165,7 +162,8 @@ class ColormapEditor extends React.Component {
 
     return (
       <React.Fragment>
-        <AppBar position="static">
+        <Portal container={this.props.titleElement}>Colormap Editor</Portal>
+        <Portal container={this.props.appBarElement}>
           <Toolbar>
             <Tabs
               className={classes.tabs}
@@ -177,7 +175,7 @@ class ColormapEditor extends React.Component {
               {tabs}
             </Tabs>
           </Toolbar>
-        </AppBar>
+        </Portal>
         <div className={classes.editor}>
           <div>
             {colormap}
@@ -195,10 +193,6 @@ class ColormapEditor extends React.Component {
             onColorPick={this.onColorPick}
           />
         </div>
-        <BottomBar
-          onDisconnect={this.props.onDisconnect}
-          toggleFlashing={this.props.toggleFlashing}
-        />
       </React.Fragment>
     );
   }

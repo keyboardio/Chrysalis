@@ -27,6 +27,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import FeedbackIcon from "@material-ui/icons/Feedback";
 import HighlightIcon from "@material-ui/icons/Highlight";
 import IconButton from "@material-ui/core/IconButton";
 import InfoIcon from "@material-ui/icons/Info";
@@ -212,6 +213,20 @@ class Connected extends React.Component {
       </ListItem>
     );
 
+    const feedbackMenuItem = (
+      <ListItem
+        button
+        onClick={this.openURL(
+          "https://github.com/keyboardio/chrysalis-bundle-keyboardio/issues"
+        )}
+      >
+        <ListItemIcon>
+          <FeedbackIcon />
+        </ListItemIcon>
+        <ListItemText primary="Send feedback" />
+      </ListItem>
+    );
+
     const settingsMenuItem = (
       <ListItem
         button
@@ -300,6 +315,7 @@ class Connected extends React.Component {
             </List>
             <Divider />
             <List className={classes.drawer}>
+              {feedbackMenuItem}
               {settingsMenuItem}
               {disconnectMenuItem}
             </List>

@@ -19,18 +19,30 @@ import React from "react";
 
 import Focus from "@chrysalis-api/focus";
 
+import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
-import Paper from "@material-ui/core/Paper";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardHeader from "@material-ui/core/CardHeader";
+import KeyboardIcon from "@material-ui/icons/Keyboard";
+import Portal from "@material-ui/core/Portal";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
-import BottomBar from "./BottomBar";
-import UploadDialog from "./UploadDialog";
+import FirmwareUpdate from "./FirmwareUpdate";
 
 const styles = theme => ({
-  paper: {
-    height: "100%",
-    padding: theme.spacing.unit * 2
+  root: {
+    display: "flex",
+    justifyContent: "center"
+  },
+  card: {
+    margin: theme.spacing.unit * 4,
+    maxWidth: "50%"
+  },
+  actions: {
+    justifyContent: "center"
   }
 });
 
@@ -52,39 +64,40 @@ class Welcome extends React.Component {
     const { vendor, product } = focus.device.info;
 
     return (
-      <React.Fragment>
-        <Paper elevation={0} square className={classes.paper}>
-          <Typography variant="h2" gutterBottom>
-            Welcome to Chrysalis!
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            {"Your keyboard ("}
-            <em>
-              {vendor} {product}
-            </em>
-            {
-              ") is supported by Chrysalis, but the firmware it is using appears to be missing essential features. You can flash a firmware with reasonable defaults - including features essential for Chrysalis - by pressing the button below. By uploading this firmware, the currently used one will be replaced. Before continuing, please make sure you understand the consequences."
+      <div className={classes.root}>
+        <Portal container={this.props.titleElement}>
+          Welcome to Chrysalis
+        </Portal>
+        <Card className={classes.card}>
+          <CardHeader
+            avatar={
+              <Avatar>
+                <KeyboardIcon />
+              </Avatar>
             }
-          </Typography>
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={this.startFactoryReset}
-          >
-            Flash a firmware update
-          </Button>
-          <UploadDialog
-            onDisconnect={this.props.onDisconnect}
-            toggleFlashing={this.props.toggleFlashing}
-            onClose={this.cancelFactoryReset}
-            open={this.state.factoryResetStarted}
+            title={`${vendor} ${product}`}
+            subheader={focus._port.path}
           />
-        </Paper>
-        <BottomBar
-          onDisconnect={this.props.onDisconnect}
-          toggleFlashing={this.props.toggleFlashing}
-        />
-      </React.Fragment>
+          <CardContent>
+            <Typography component="p" gutterBottom>
+              {
+                'Your keyboard is supported by Chrysalis, but the firmware it is using appears to be missing essential features. You can flash a firmware with reasonable defaults - including features essential for Chrysalis - by visiting the "Firmware update" page.'
+              }
+            </Typography>
+          </CardContent>
+          <CardActions className={classes.actions}>
+            <Button
+              color="primary"
+              variant="outlined"
+              onClick={() => {
+                this.props.openPage(FirmwareUpdate);
+              }}
+            >
+              Go to the Firmware update page
+            </Button>
+          </CardActions>
+        </Card>
+      </div>
     );
   }
 }

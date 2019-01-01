@@ -18,8 +18,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import AppBar from "@material-ui/core/AppBar";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControl from "@material-ui/core/FormControl";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import MenuItem from "@material-ui/core/MenuItem";
+import Portal from "@material-ui/core/Portal";
+import Select from "@material-ui/core/Select";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -28,15 +32,9 @@ import { withStyles } from "@material-ui/core/styles";
 
 import { withSnackbar } from "notistack";
 
-import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-
 import Focus from "@chrysalis-api/focus";
 import { KeymapDB } from "@chrysalis-api/keymap";
 
-import BottomBar from "./BottomBar";
 import KeySelector from "./LayoutEditor/KeySelector";
 import SaveChangesButton from "./SaveChangesButton";
 
@@ -44,17 +42,16 @@ const styles = theme => ({
   tabs: {
     flexGrow: 1
   },
+  grow: {
+    flexGrow: 1
+  },
   editor: {
     display: "flex",
-    margin: theme.spacing.unit * 3,
-    marginBottom: 64
+    margin: theme.spacing.unit * 3
   },
   editorControls: {
     marginLeft: "2em",
     width: "100%"
-  },
-  selectDefaultLayer: {
-    color: theme.palette.common.white
   },
   layerRoot: {
     width: "100%"
@@ -121,7 +118,6 @@ class LayoutEditor extends React.Component {
   };
 
   onKeySelect = event => {
-    event.preventDefault();
     let layer = parseInt(event.currentTarget.getAttribute("data-layer")),
       keyIndex = parseInt(event.currentTarget.getAttribute("data-key-index"));
 
@@ -143,8 +139,7 @@ class LayoutEditor extends React.Component {
     });
   };
 
-  onApply = async event => {
-    event.preventDefault();
+  onApply = async () => {
     this.setState({ saving: true });
     let focus = new Focus();
     await focus.command("keymap", this.state.keymap);
@@ -219,7 +214,8 @@ class LayoutEditor extends React.Component {
 
     return (
       <React.Fragment>
-        <AppBar position="static">
+        <Portal container={this.props.titleElement}> Layout Editor </Portal>
+        <Portal container={this.props.appBarElement}>
           <Toolbar>
             <Tabs
               className={classes.tabs}
@@ -235,7 +231,6 @@ class LayoutEditor extends React.Component {
                 value={this.state.defaultLayer}
                 onChange={this.onDefaultLayerChange}
                 displayEmpty
-                className={classes.selectDefaultLayer}
               >
                 {layerMenu}
               </Select>
@@ -244,7 +239,7 @@ class LayoutEditor extends React.Component {
               </FormHelperText>
             </FormControl>
           </Toolbar>
-        </AppBar>
+        </Portal>
         <div className={classes.editor}>
           <div>
             {layer}
@@ -264,10 +259,6 @@ class LayoutEditor extends React.Component {
             />
           </div>
         </div>
-        <BottomBar
-          onDisconnect={this.props.onDisconnect}
-          toggleFlashing={this.props.toggleFlashing}
-        />
       </React.Fragment>
     );
   }

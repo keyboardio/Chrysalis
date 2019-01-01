@@ -21,9 +21,9 @@ import Electron from "electron";
 
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
 import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
+import Portal from "@material-ui/core/Portal";
+import Switch from "@material-ui/core/Switch";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
@@ -65,9 +65,7 @@ class Settings extends React.Component {
 
     return (
       <Paper elevation={1} className={classes.root}>
-        <Typography variant="h5" component="h3">
-          Settings
-        </Typography>
+        <Portal container={this.props.titleElement}>Settings</Portal>
         <FormGroup row>
           <FormControlLabel
             control={

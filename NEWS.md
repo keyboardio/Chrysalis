@@ -1,3 +1,13 @@
+Chrysalis 0.3.0
+===============
+**UNRELEASED**
+
+## UI/UX changes
+
+The user interface underwent a major overhaul, in an attempt to follow the Material Guidelines more closely. The new interface should be simpler, cleaner, and more discoverable. See [#116][prs:116] for more information and screenshots.
+
+ [prs:116]: https://github.com/keyboardio/chrysalis-bundle-keyboardio/pull/116
+
 Chrysalis 0.2.0
 ===============
 Released on 2018-12-31

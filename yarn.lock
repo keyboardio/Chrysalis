@@ -856,6 +856,13 @@
   resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-dygma-raise/-/hardware-dygma-raise-0.0.1.tgz#6ac63748aa36d88c9f8b4c1153698ce9c88c434d"
   integrity sha512-Fxtizno9zAQ6iUg2eHeWfNOMLM/4SozpsBWL60r1ivd3RSqEfMUdlTO+GaLacICRSNdTjBV8HaQPJt4SVOsmpg==
 
+"@chrysalis-api/hardware-ez-ergodox@~0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-ez-ergodox/-/hardware-ez-ergodox-0.0.1.tgz#5d05bd6797de179b459f164aac9c37d955638b7e"
+  integrity sha512-2CaNU61LqSjMGOxOLF18x+3LHzMg9UEFxCJur4+PFYEi2BEhi2NUvosGINcXPq502Gz+50Xp6vwlWGHEuiLHtA==
+  dependencies:
+    react "^16.5.2"
+
 "@chrysalis-api/hardware-keyboardio-model01@~0.0.8":
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-keyboardio-model01/-/hardware-keyboardio-model01-0.0.8.tgz#476b7a5050ec1d629abe4c1c0ab0e1ca10322920"

@@ -18,6 +18,7 @@
 import React from "react";
 import Electron from "electron";
 import path from "path";
+import fs from "fs";
 
 import Focus from "@chrysalis-api/focus";
 
@@ -100,12 +101,16 @@ class FirmwareUpdate extends React.Component {
     }
   };
 
-  _flash = async () => {
+  _defaultFirmwareFilename = () => {
     let focus = new Focus();
     const { vendor, product } = focus.device.info;
+    return path.join(getStaticPath(), vendor, product, "default.hex");
+  };
+
+  _flash = async () => {
+    let focus = new Focus();
     const filename =
-      this.state.firmwareFilename ||
-      path.join(getStaticPath(), vendor, product, "default.hex");
+      this.props.firmwareFilename || this._defaultFirmwareFilename();
 
     return focus.device.flash(focus._port, filename);
   };
@@ -146,9 +151,29 @@ class FirmwareUpdate extends React.Component {
       filename = firmwareFilename.split(/[\\/]/);
       filename = filename[filename.length - 1];
     }
-    const selectedFirmware = filename || "Default firmware";
 
     let focus = new Focus();
+
+    const defaultFirmwareItem = (
+      <MenuItem
+        selected={firmwareFilename == ""}
+        onClick={this.selectDefaultFirmware}
+      >
+        <ListItemIcon>
+          <SettingsBackupRestoreIcon />
+        </ListItemIcon>
+        <ListItemText primary="Default firmware" />
+      </MenuItem>
+    );
+    let hasDefaultFirmware = true;
+    try {
+      fs.accessSync(this._defaultFirmwareFilename(), fs.constants.R_OK);
+    } catch (_) {
+      hasDefaultFirmware = false;
+    }
+
+    const selectedFirmware =
+      filename || (hasDefaultFirmware ? "Default firmware" : "");
 
     return (
       <div className={classes.root}>
@@ -185,15 +210,7 @@ class FirmwareUpdate extends React.Component {
               open={Boolean(anchorEl)}
               onClose={this.closeFirmwareMenu}
             >
-              <MenuItem
-                selected={firmwareFilename == ""}
-                onClick={this.selectDefaultFirmware}
-              >
-                <ListItemIcon>
-                  <SettingsBackupRestoreIcon />
-                </ListItemIcon>
-                <ListItemText primary="Default firmware" />
-              </MenuItem>
+              {hasDefaultFirmware && defaultFirmwareItem}
               <MenuItem
                 selected={firmwareFilename != ""}
                 onClick={this.selectCustomFirmware}

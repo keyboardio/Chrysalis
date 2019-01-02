@@ -1,6 +1,11 @@
 // -*- mode: js-jsx -*-
 /* chrysalis-bundle-keyboardio -- Chrysalis Bundle for Keyboard.io
  * Copyright (C) 2018  Keyboardio, Inc.
+ * Copyright (C) 2017, 2018  Simon-Claudius Wystrach
+ *
+ * Based on the SVG done by Simon-Claudius for the previous incarnation of
+ * Chrysalis:
+ *   https://github.com/Lepidopterarium/Chrysalis/blob/ab7ec1ffba6f79da97c1eb27877195423875fbc2/src/chrysalis/plugin/hardware/model01/model01.svg
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software

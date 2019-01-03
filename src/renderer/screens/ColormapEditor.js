@@ -32,7 +32,7 @@ import Focus from "@chrysalis-api/focus";
 
 import Palette from "./ColormapEditor/Palette";
 import Layer, { led_map } from "./ColormapEditor/Layer";
-import SaveChangesButton from "./SaveChangesButton";
+import SaveChangesButton from "../components/SaveChangesButton";
 
 const styles = theme => ({
   tabs: {

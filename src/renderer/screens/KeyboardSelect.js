@@ -17,12 +17,15 @@
 
 import React from "react";
 import PropTypes from "prop-types";
-import Electron from "electron";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardHeader from "@material-ui/core/CardHeader";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import Divider from "@material-ui/core/Divider";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import List from "@material-ui/core/List";
@@ -30,8 +33,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
+import Portal from "@material-ui/core/Portal";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 import { withSnackbar } from "notistack";
@@ -56,29 +58,31 @@ const styles = theme => ({
     display: "block",
     marginLeft: theme.spacing.unit * 3,
     marginRight: theme.spacing.unit * 3,
-    [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
-      width: 400,
+    [theme.breakpoints.up(500 + theme.spacing.unit * 3 * 2)]: {
+      width: 500,
       marginLeft: "auto",
       marginRight: "auto"
-    }
-  },
-  paper: {
-    marginTop: theme.spacing.unit * 8,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    },
     padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px
  ${theme.spacing.unit * 3}px`
   },
+  card: {
+    marginTop: theme.spacing.unit * 5,
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px
+ ${theme.spacing.unit * 3}px`
+  },
+  content: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    paddingTop: 0,
+    paddingBottom: 0
+  },
   avatar: {
-    margin: theme.spacing.unit,
     backgroundColor: theme.palette.secondary.main
   },
-  bottomButtons: {
-    marginTop: theme.spacing.unit * 2
-  },
-  exit: {
-    float: "right"
+  grow: {
+    flexGrow: 1
   },
   error: {
     color: theme.palette.error.dark
@@ -160,10 +164,6 @@ class KeyboardSelect extends React.Component {
     }
   };
 
-  exit = () => {
-    Electron.remote.app.exit(0);
-  };
-
   render() {
     const { classes } = this.props;
     const { anchorEl } = this.state;
@@ -179,9 +179,6 @@ class KeyboardSelect extends React.Component {
         portInfo = portDesc.device.info;
       port = (
         <React.Fragment>
-          <Typography component="h1" variant="h5">
-            Select a keyboard
-          </Typography>
           <List component="nav">
             <ListItem button onClick={this.handleClickListItem}>
               <ListItemText
@@ -231,35 +228,37 @@ class KeyboardSelect extends React.Component {
       connectContent = <CircularProgress color="secondary" size={16} />;
     }
 
+    const avatar = (
+      <Avatar className={classes.avatar}>
+        <KeyboardIcon />
+      </Avatar>
+    );
+
     return (
-      <main className={classes.main}>
-        <CssBaseline />
+      <div className={classes.main}>
+        <Portal container={this.props.titleElement}>Select a keyboard</Portal>
         {loader}
-        <Paper className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <KeyboardIcon />
-          </Avatar>
-          {port}
-          <Button
-            disabled={
-              this.state.opening ||
-              (this.state.devices && this.state.devices.length == 0)
-            }
-            fullWidth
-            variant="contained"
-            color="primary"
-            onClick={this.onKeyboardConnect}
-          >
-            {connectContent}
-          </Button>
-        </Paper>
-        <div className={classes.bottomButtons}>
-          <Button onClick={this.findKeyboards}>Scan devices</Button>
-          <div className={classes.exit}>
-            <Button onClick={this.exit}>Exit</Button>
-          </div>
-        </div>
-      </main>
+        <Card className={classes.card}>
+          <CardHeader className={classes.content} avatar={avatar} />
+          <CardContent className={classes.content}>{port}</CardContent>
+          <Divider variant="middle" />
+          <CardActions className={classes.cardActions}>
+            <Button onClick={this.findKeyboards}>Scan devices</Button>
+            <div className={classes.grow} />
+            <Button
+              disabled={
+                this.state.opening ||
+                (this.state.devices && this.state.devices.length == 0)
+              }
+              variant="contained"
+              color="primary"
+              onClick={this.onKeyboardConnect}
+            >
+              {connectContent}
+            </Button>
+          </CardActions>
+        </Card>
+      </div>
     );
   }
 }

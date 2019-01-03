@@ -48,12 +48,6 @@ const styles = theme => ({
   },
   layerRoot: {
     width: "100%"
-  },
-  fab: {
-    position: "static",
-    justifyContent: "flex-end",
-    marginBottom: theme.spacing.unit * 2,
-    marginRight: theme.spacing.unit * 2
   }
 });
 
@@ -192,7 +186,7 @@ class ColormapEditor extends React.Component {
           />
         </div>
         <SaveChangesButton
-          className={classes.fab}
+          floating
           onClick={this.onApply}
           disabled={!this.state.modified}
         >

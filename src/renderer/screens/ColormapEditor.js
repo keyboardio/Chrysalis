@@ -50,9 +50,10 @@ const styles = theme => ({
     width: "100%"
   },
   fab: {
-    position: "absolute",
-    bottom: theme.spacing.unit * 3,
-    right: theme.spacing.unit * 3
+    position: "static",
+    justifyContent: "flex-end",
+    marginBottom: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit * 2
   }
 });
 

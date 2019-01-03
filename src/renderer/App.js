@@ -25,6 +25,7 @@ import "@chrysalis-api/colormap";
 
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
+import ChatIcon from "@material-ui/icons/Chat";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Divider from "@material-ui/core/Divider";
@@ -310,6 +311,15 @@ class App extends React.Component {
       </ListItem>
     );
 
+    const chatMenuItem = (
+      <ListItem button onClick={this.openURL("https://discord.gg/GP473Fv")}>
+        <ListItemIcon>
+          <ChatIcon />
+        </ListItemIcon>
+        <ListItemText primary="Real-time chat" />
+      </ListItem>
+    );
+
     const feedbackMenuItem = (
       <ListItem
         button
@@ -430,6 +440,10 @@ class App extends React.Component {
             <List className={classes.drawer}>
               {settingsMenuItem}
               {keyboardSelectMenuItem}
+            </List>
+            <Divider />
+            <List className={classes.drawer}>
+              {chatMenuItem}
               {feedbackMenuItem}
               {exitMenuItem}
             </List>

@@ -50,12 +50,12 @@ import { withStyles } from "@material-ui/core/styles";
 import usb from "usb";
 import { withSnackbar } from "notistack";
 
-import KeyboardSelect from "./components/KeyboardSelect";
-import ColormapEditor from "./components/ColormapEditor";
-import FirmwareUpdate from "./components/FirmwareUpdate";
-import LayoutEditor from "./components/LayoutEditor";
-import Settings from "./components/Settings";
-import Welcome from "./components/Welcome";
+import KeyboardSelect from "./screens/KeyboardSelect";
+import ColormapEditor from "./screens/ColormapEditor";
+import FirmwareUpdate from "./screens/FirmwareUpdate";
+import LayoutEditor from "./screens/LayoutEditor";
+import Settings from "./screens/Settings";
+import Welcome from "./screens/Welcome";
 import logo from "./logo-small.png";
 
 let focus = new Focus();

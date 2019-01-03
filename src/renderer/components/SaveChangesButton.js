@@ -63,6 +63,12 @@ const styles = theme => ({
   },
   disabled: {
     backgroundColor: "#ddd !important"
+  },
+  fab: {
+    position: "static",
+    justifyContent: "flex-end",
+    marginBottom: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit * 2
   }
 });
 
@@ -102,7 +108,13 @@ class SaveChangesButton extends React.Component {
     });
 
     return (
-      <div className={classNames(classes.root, this.props.className)}>
+      <div
+        className={classNames(
+          classes.root,
+          this.props.className,
+          this.props.floating && classes.fab
+        )}
+      >
         <div className={classNames(classes.wrapper, classes.icon)}>
           <Fab
             disabled={inProgress || (this.props.disabled && !success)}

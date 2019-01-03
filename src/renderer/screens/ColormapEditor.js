@@ -48,11 +48,6 @@ const styles = theme => ({
   },
   layerRoot: {
     width: "100%"
-  },
-  fab: {
-    position: "absolute",
-    bottom: theme.spacing.unit * 3,
-    right: theme.spacing.unit * 3
   }
 });
 
@@ -191,7 +186,7 @@ class ColormapEditor extends React.Component {
           />
         </div>
         <SaveChangesButton
-          className={classes.fab}
+          floating
           onClick={this.onApply}
           disabled={!this.state.modified}
         >

@@ -36,7 +36,7 @@ import Focus from "@chrysalis-api/focus";
 import { KeymapDB } from "@chrysalis-api/keymap";
 
 import KeySelector from "./LayoutEditor/KeySelector";
-import SaveChangesButton from "./SaveChangesButton";
+import SaveChangesButton from "../components/SaveChangesButton";
 
 const styles = theme => ({
   tabs: {

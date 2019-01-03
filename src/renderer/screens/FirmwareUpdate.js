@@ -41,7 +41,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { withSnackbar } from "notistack";
 
 import { getStaticPath } from "../config";
-import SaveChangesButton from "./SaveChangesButton";
+import SaveChangesButton from "../components/SaveChangesButton";
 
 const styles = theme => ({
   root: {

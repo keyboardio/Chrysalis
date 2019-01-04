@@ -30,7 +30,8 @@ class Keymap extends React.Component {
     let Key = props => {
       const { x, y, row, col, transform } = props;
       const width = (props.width || 1),
-            height = (props.height || 1);
+            height = (props.height || 1),
+            bottom = y + height * 40 - 4;
 
       const labels = keymap[keyIndex(row, col)],
             stroke = this.props.selectedKey == keyIndex(row, col) ? "#f3b3b3" : "#b3b3b3";
@@ -49,10 +50,10 @@ class Keymap extends React.Component {
           <rect x={x + 6} y={y + 3}
                 width={width * 40} height={height * 40}
                 rx="5" fill="#fcfcfc" />
-          <text x={x + 12} y={y + 14}>
+          <text x={x + 9} y={y + 14}>
             {labels.extraLabel}
           </text>
-          <text x={x + 12} y={y + 34}>
+          <text x={x + 9} y={bottom}>
             {labels.label}
           </text>
         </g>

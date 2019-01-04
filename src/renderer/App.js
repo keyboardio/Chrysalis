@@ -247,7 +247,7 @@ class App extends React.Component {
         color="inherit"
         className={classes.button}
       >
-        Device: {device.vendor} {device.product}
+        Device: {device.displayName}
       </Button>
     );
 

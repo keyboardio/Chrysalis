@@ -28,7 +28,7 @@ const MediaControlTable = {
             code: 22709,
             labels: {
                 top: "Media",
-                primary: "Next Trk",
+                primary: "Track+",
                 verbose: "Next track"
             }
         },
@@ -36,7 +36,7 @@ const MediaControlTable = {
             code: 22710,
             labels: {
                 top: "Media",
-                primary: "Prev Trk",
+                primary: "Track",
                 verbose: "Previous track"
             }
         },

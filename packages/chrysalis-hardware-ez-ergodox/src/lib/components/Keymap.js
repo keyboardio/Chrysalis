@@ -19,9 +19,7 @@ import React from "react";
 
 class Keymap extends React.Component {
   render() {
-    const { keymap } = this.props;
-
-    if (!keymap) return null;
+    const keymap = this.props.keymap || Array(84).fill().map(() => 0);
 
     let keyIndex = (row, col) => {
       return row * 6 + col;

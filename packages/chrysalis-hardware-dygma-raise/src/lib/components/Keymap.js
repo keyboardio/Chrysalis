@@ -24,13 +24,13 @@ import React from "react";
 
 class Keymap extends React.Component {
   render() {
-    if (!this.props.keymap) return null;
+    const keymap = this.props.keymap || Array(80).fill().map(() => 0);
 
     let keyIndex = (row, col) => {
       return row * 16 + col;
     };
     let getLabel = (row, col) => {
-      return this.props.keymap[keyIndex(row, col)];
+      return keymap[keyIndex(row, col)];
     };
     let stroke = (row, col) => {
       return this.props.selectedKey == keyIndex(row, col) ? "#f3b3b3" : "#b3b3b3";

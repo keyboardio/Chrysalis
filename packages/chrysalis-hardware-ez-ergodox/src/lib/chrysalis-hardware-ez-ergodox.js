@@ -21,6 +21,7 @@ const ErgoDox = {
     info: {
         vendor: "EZ",
         product: "ErgoDox",
+        displayName: "ErgoDox EZ",
         urls: [
             {
                 name: "Homepage",

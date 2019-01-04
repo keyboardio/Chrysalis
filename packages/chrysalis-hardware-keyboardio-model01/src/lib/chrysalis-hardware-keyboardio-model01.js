@@ -21,6 +21,7 @@ const Model01 = {
     info: {
         vendor: "Keyboardio",
         product: "Model01",
+        displayName: "Keyboardio Model01",
         urls: [
             {
                 name: "Homepage",

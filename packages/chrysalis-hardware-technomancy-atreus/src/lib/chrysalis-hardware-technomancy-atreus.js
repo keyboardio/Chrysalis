@@ -21,6 +21,7 @@ const Atreus = {
     info: {
         vendor: "Technomancy",
         product: "Atreus",
+        displayName: "Atreus",
         urls: [
             {
                 name: "Homepage",

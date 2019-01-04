@@ -20,6 +20,7 @@ const Raise = {
   info: {
     vendor: "Dygma",
     product: "Raise",
+    displayName: "Dygma Raise",
     urls: [
       {
         name: "Homepage",

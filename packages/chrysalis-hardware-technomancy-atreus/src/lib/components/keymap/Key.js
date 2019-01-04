@@ -35,19 +35,11 @@ class Key extends React.Component {
         <rect x={x} y={y}
               width="52" height={height}
               rx="5" fill={stroke} />
-        <rect x={x} y={y}
-              width="52" height={height}
-              rx="5" fill={stroke} />
         <rect x={x + 6} y={y + 3}
               width="40" height={height - 12}
-              rx="5" fill="#fcfcfc"/>
-        <g>
-          <rect x={x + 6} y={y + 3}
-                width="40" height={height - 12}
-                rx="5" fill="#ffffff"/>
-          <text x={x + 12} y={bottom - 16}>{label.extraLabel}</text>
-          <text x={x + 12} y={bottom}>{label.label}</text>
-        </g>
+              rx="5" fill="#ffffff"/>
+        <text x={x + 12} y={bottom - 16}>{label.extraLabel}</text>
+        <text x={x + 12} y={bottom}>{label.label}</text>
       </g>
     );
   }

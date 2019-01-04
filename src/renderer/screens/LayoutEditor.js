@@ -218,18 +218,20 @@ class LayoutEditor extends React.Component {
             >
               {tabs}
             </Tabs>
-            <FormControl>
-              <Select
-                value={this.state.defaultLayer}
-                onChange={this.onDefaultLayerChange}
-                displayEmpty
-              >
-                {layerMenu}
-              </Select>
-              <FormHelperText className={classes.selectDefaultLayer}>
-                Default layer
-              </FormHelperText>
-            </FormControl>
+            {this.state.keymap.length > 0 && (
+              <FormControl>
+                <Select
+                  value={this.state.defaultLayer}
+                  onChange={this.onDefaultLayerChange}
+                  displayEmpty
+                >
+                  {layerMenu}
+                </Select>
+                <FormHelperText className={classes.selectDefaultLayer}>
+                  Default layer
+                </FormHelperText>
+              </FormControl>
+            )}
           </Toolbar>
         </Portal>
         {this.state.keymap.length == 0 && <LinearProgress variant="query" />}

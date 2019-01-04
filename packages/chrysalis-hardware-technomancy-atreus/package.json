@@ -1,6 +1,6 @@
 {
   "name": "@chrysalis-api/hardware-technomancy-atreus",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Chrysalis Atreus support",
   "main": "lib",
   "repository": {
@@ -30,7 +30,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@chrysalis-api/flash": "~0.0.0",
+    "@chrysalis-api/flash": "^0.0.1",
     "react": "^16.5.2"
   },
   "devDependencies": {

@@ -61,7 +61,6 @@ class Welcome extends React.Component {
   render() {
     let focus = new Focus();
     const { classes } = this.props;
-    const { vendor, product } = focus.device.info;
 
     return (
       <div className={classes.root}>
@@ -75,7 +74,7 @@ class Welcome extends React.Component {
                 <KeyboardIcon />
               </Avatar>
             }
-            title={`${vendor} ${product}`}
+            title={focus.device.info.displayName}
             subheader={focus._port.path}
           />
           <CardContent>

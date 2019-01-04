@@ -182,7 +182,7 @@ class KeyboardSelect extends React.Component {
           <List component="nav">
             <ListItem button onClick={this.handleClickListItem}>
               <ListItemText
-                primary={`${portInfo.vendor} ${portInfo.product}`}
+                primary={portInfo.displayName}
                 secondary={portDesc.comName}
               />
             </ListItem>
@@ -195,10 +195,9 @@ class KeyboardSelect extends React.Component {
             {this.state.devices.map((option, index) => {
               let label = option.comName;
               if (option.device && option.device.info) {
-                const { vendor, product } = option.device.info;
                 label = (
                   <ListItemText
-                    primary={`${vendor} ${product}`}
+                    primary={option.device.info.displayName}
                     secondary={option.comName}
                   />
                 );

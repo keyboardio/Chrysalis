@@ -844,6 +844,13 @@
   dependencies:
     "@chrysalis-api/focus" "~0.0.8"
 
+"@chrysalis-api/flash@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/flash/-/flash-0.0.1.tgz#3a0148e680ab6a44640c4b6b17bb6155daba5210"
+  integrity sha512-lNgV2MNTObecOseBlhpLPIDPvb+PEyMpTKZ8SGrSiFHQaiaMx7WsrmDpf6WzaXuyAQS1c1KfE0WExQva+jVidQ==
+  dependencies:
+    avrgirl-arduino "^3.0.0"
+
 "@chrysalis-api/focus@~0.0.8":
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/@chrysalis-api/focus/-/focus-0.0.8.tgz#9312caba321d33c27ea1a7cca65b9b1081c5192d"
@@ -851,34 +858,41 @@
   dependencies:
     serialport "^6.2.2"
 
-"@chrysalis-api/hardware-dygma-raise@~0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-dygma-raise/-/hardware-dygma-raise-0.0.1.tgz#6ac63748aa36d88c9f8b4c1153698ce9c88c434d"
-  integrity sha512-Fxtizno9zAQ6iUg2eHeWfNOMLM/4SozpsBWL60r1ivd3RSqEfMUdlTO+GaLacICRSNdTjBV8HaQPJt4SVOsmpg==
-
-"@chrysalis-api/hardware-ez-ergodox@~0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-ez-ergodox/-/hardware-ez-ergodox-0.0.1.tgz#5d05bd6797de179b459f164aac9c37d955638b7e"
-  integrity sha512-2CaNU61LqSjMGOxOLF18x+3LHzMg9UEFxCJur4+PFYEi2BEhi2NUvosGINcXPq502Gz+50Xp6vwlWGHEuiLHtA==
+"@chrysalis-api/hardware-dygma-raise@~0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-dygma-raise/-/hardware-dygma-raise-0.0.3.tgz#802355802f702fc35c9a94913f1620d9c19dccbc"
+  integrity sha512-AeNUkvRqmJnj2NI/dPl2DQDAvKu6OnmS80CaQLWndyzrpDmQQkFFJjnmA6blatDZ49B8Rd6NdOefaNFtLBly8Q==
   dependencies:
     react "^16.5.2"
 
-"@chrysalis-api/hardware-keyboardio-model01@~0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-keyboardio-model01/-/hardware-keyboardio-model01-0.0.8.tgz#476b7a5050ec1d629abe4c1c0ab0e1ca10322920"
-  integrity sha512-qPuzhv1+8bNajKqbOwo5n4cZlFXvaAG/yampyPPxZEbzsAqyzQbTKx3rmgpvbaAYTa3dkEpWGvxPzd+NZfJIAw==
-  dependencies:
-    avrgirl-arduino "^3.0.0"
-
-"@chrysalis-api/hardware-technomancy-atreus@~0.0.2":
+"@chrysalis-api/hardware-ez-ergodox@~0.0.2":
   version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-technomancy-atreus/-/hardware-technomancy-atreus-0.0.2.tgz#9750163946108eebb40b22dca160e2f39472b1f2"
-  integrity sha512-a5R0MOoizD7mWN3PI2su6152lV9HokxEI28jpVb6RGiSRudWM27gQi4L7PXCN4mb5XJz3O/mBb2J+3gByUrnRw==
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-ez-ergodox/-/hardware-ez-ergodox-0.0.2.tgz#340f12c5c3a54fcddaf537e0293af917d578433d"
+  integrity sha512-f7FUtvqsKOVs8yWk510wk4AxWDhA0DNXqjA4vMvXyUm04Po9/iXjmgLp1TSQyk/B4E+yEb3r2pCtueIeWZUKbA==
+  dependencies:
+    "@chrysalis-api/flash" "^0.0.1"
+    react "^16.5.2"
 
-"@chrysalis-api/keymap@~0.0.9":
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/keymap/-/keymap-0.0.9.tgz#496fb5f9e5af3996aaad6417c29347e2d157db1a"
-  integrity sha512-6CCa/w6/HtMzTg24fG7LtKmWgVHo/qiEfjCGFGa960vf1wEIzk88BAP/tZENqz6FRf0QuNINvG5+EOi6UA3vyA==
+"@chrysalis-api/hardware-keyboardio-model01@~0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-keyboardio-model01/-/hardware-keyboardio-model01-0.0.10.tgz#04474a39073dac35c5dbe0404d7abc0bb007c074"
+  integrity sha512-helAP3qg7u1I75bpbMsrbx/bmwmTTRGAZJFhVStdFNDo9zCYp+lJ+nqqi7SbnE6xiI4lAmItQ1kK4K5H2MGBWQ==
+  dependencies:
+    "@chrysalis-api/flash" "^0.0.1"
+    react "^16.5.2"
+
+"@chrysalis-api/hardware-technomancy-atreus@~0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-technomancy-atreus/-/hardware-technomancy-atreus-0.0.4.tgz#afdfaaff1fb33df03a4a45742cf6a16e472a9a07"
+  integrity sha512-EgsHhqlsZ6S1zSxhN5/+itJrSDZ+ImMCc2A6ZySRL3HiVmalPc6C+NM+fERZ0o4A5IcWj49MfIzNZz5DNHYDMg==
+  dependencies:
+    "@chrysalis-api/flash" "^0.0.1"
+    react "^16.5.2"
+
+"@chrysalis-api/keymap@~0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/keymap/-/keymap-0.0.10.tgz#051f187bee58db399a66f8aaceb67500d02bf963"
+  integrity sha512-DMjZb6FmcbYIaEQsEU7suuY+yJ9lRyE5LwilUKQinbJ3a+r72pZOssUsZRAAzSgBEeMICjvih6+wnvvS+AcKNw==
   dependencies:
     "@chrysalis-api/focus" "~0.0.8"
 

@@ -1,5 +1,5 @@
 /* chrysalis-hardware-technomancy-Atreus -- Chrysalis Atreus support
- * Copyright (C) 2018  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -15,7 +15,7 @@
  */
 
 import Keymap from "./components/Keymap"
-import { spawn } from "child_process";
+import { teensy } from "@chrysalis-api/flash"
 
 const Atreus = {
     info: {
@@ -46,19 +46,7 @@ const Atreus = {
     },
 
     flash: async (_, filename) => {
-        return new Promise((resolve, reject) => {
-            let child = spawn(
-                "teensy_loader_cli", ["--mcu", "atmega32u4", "-w", filename]
-            );
-            let timer = setTimeout(() => {
-                child.kill();
-                reject("teensy_loader_cli timed out");
-            }, 15000);
-            child.on("exit", () => {
-                clearTimeout(timer);
-                resolve();
-            });
-        });
+        return teensy(filename)
     }
 }
 

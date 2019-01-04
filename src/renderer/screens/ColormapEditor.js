@@ -133,14 +133,6 @@ class ColormapEditor extends React.Component {
   }
 
   render() {
-    if (this.state.colorMap.length == 0) {
-      return (
-        <main>
-          <LinearProgress variant="query" />
-        </main>
-      );
-    }
-
     const { classes } = this.props;
 
     let tabs = this.state.colorMap.map((_, index) => {
@@ -176,6 +168,7 @@ class ColormapEditor extends React.Component {
             </Tabs>
           </Toolbar>
         </Portal>
+        {this.state.colorMap.length == 0 && <LinearProgress variant="query" />}
         <div className={classes.editor}>
           {colormap}
           <Palette

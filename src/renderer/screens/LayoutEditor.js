@@ -165,14 +165,6 @@ class LayoutEditor extends React.Component {
   }
 
   render() {
-    if (this.state.keymap.length == 0) {
-      return (
-        <main>
-          <LinearProgress variant="query" />
-        </main>
-      );
-    }
-
     const { classes } = this.props;
     let focus = new Focus();
     const Layer = focus.device.components.keymap;
@@ -220,26 +212,29 @@ class LayoutEditor extends React.Component {
             <Tabs
               className={classes.tabs}
               value={this.state.currentLayer}
-              scrollable
+              scrollable={this.state.keymap.length != 0}
               scrollButtons="auto"
               onChange={this.selectLayer}
             >
               {tabs}
             </Tabs>
-            <FormControl>
-              <Select
-                value={this.state.defaultLayer}
-                onChange={this.onDefaultLayerChange}
-                displayEmpty
-              >
-                {layerMenu}
-              </Select>
-              <FormHelperText className={classes.selectDefaultLayer}>
-                Default layer
-              </FormHelperText>
-            </FormControl>
+            {this.state.keymap.length > 0 && (
+              <FormControl>
+                <Select
+                  value={this.state.defaultLayer}
+                  onChange={this.onDefaultLayerChange}
+                  displayEmpty
+                >
+                  {layerMenu}
+                </Select>
+                <FormHelperText className={classes.selectDefaultLayer}>
+                  Default layer
+                </FormHelperText>
+              </FormControl>
+            )}
           </Toolbar>
         </Portal>
+        {this.state.keymap.length == 0 && <LinearProgress variant="query" />}
         <div className={classes.editor}>
           {layer}
           <div className={classes.editorControls}>

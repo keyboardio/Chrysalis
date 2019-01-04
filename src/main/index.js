@@ -114,3 +114,16 @@ app.on("gpu-process-crashed", () => {
     app.exit(1);
   }, 5000);
 });
+
+app.on("web-contents-created", (_, wc) => {
+  wc.on("before-input-event", (_, input) => {
+    if (
+      input.type == "keyDown" &&
+        input.shift &&
+        input.control &&
+        input.code == "KeyI"
+    ) {
+      wc.openDevTools();
+    }
+  });
+});

@@ -20,11 +20,11 @@ import Key from "./keymap/Key";
 
 class Keymap extends React.Component {
   render() {
-    if (!this.props.keymap) return null;
+    const keymap = this.props.keymap || Array(44).fill().map(() => 0);
 
     let getLabel = (row, col) => {
       let keyIndex = parseInt(row) * 11 + parseInt(col),
-        keyCode = this.props.keymap[keyIndex];
+        keyCode = keymap[keyIndex];
       return keyCode;
     };
     let isActive = (row, col) => {

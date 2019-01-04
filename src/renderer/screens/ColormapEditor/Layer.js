@@ -27,12 +27,24 @@ const led_map = [
 
 class Layer extends React.Component {
   render() {
-    if (!this.props.colormap || !this.props.palette) return null;
+    const colormap =
+      this.props.colormap ||
+      Array(64)
+        .fill()
+        .map(() => 0);
+    const palette =
+      this.props.palette.length > 0
+        ? this.props.palette
+        : Array(16)
+            .fill()
+            .map(() => ({
+              rgb: "#000000"
+            }));
 
     let getColor = (row, col) => {
       let ledIndex = led_map[parseInt(row)][parseInt(col)],
-        colorIndex = this.props.colormap[ledIndex],
-        color = this.props.palette[colorIndex].rgb;
+        colorIndex = colormap[ledIndex],
+        color = palette[colorIndex].rgb;
 
       return color;
     };

@@ -26,6 +26,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Divider from "@material-ui/core/Divider";
+import green from "@material-ui/core/colors/green";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import List from "@material-ui/core/List";
@@ -34,6 +35,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Portal from "@material-ui/core/Portal";
+import red from "@material-ui/core/colors/red";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 import { withSnackbar } from "notistack";
@@ -86,6 +88,12 @@ const styles = theme => ({
   },
   error: {
     color: theme.palette.error.dark
+  },
+  found: {
+    color: green[500]
+  },
+  notFound: {
+    color: red[500]
   }
 });
 
@@ -98,30 +106,44 @@ class KeyboardSelect extends React.Component {
     loading: false
   };
 
-  findKeyboards = () => {
+  findKeyboards = async () => {
     this.setState({ loading: true });
     let focus = new Focus();
-    focus
-      .find(Model01, Atreus, Raise, ErgoDox)
-      .then(devices => {
-        if (devices.length == 0) {
+
+    return new Promise(resolve => {
+      focus
+        .find(Model01, Atreus, Raise, ErgoDox)
+        .then(devices => {
+          if (devices.length == 0) {
+            this.setState({
+              loading: false,
+              devices: devices
+            });
+            resolve(false);
+            return;
+          }
           this.setState({
             loading: false,
-            devices: devices
+            devices: [{ comName: "Please select a keyboard:" }].concat(devices)
           });
-          return;
-        }
-        this.setState({
-          loading: false,
-          devices: [{ comName: "Please select a keyboard:" }].concat(devices)
+          resolve(true);
+        })
+        .catch(() => {
+          this.setState({
+            loading: false,
+            devices: []
+          });
+          resolve(false);
         });
-      })
-      .catch(() => {
-        this.setState({
-          loading: false,
-          devices: []
-        });
-      });
+    });
+  };
+
+  scanDevices = async () => {
+    let found = await this.findKeyboards();
+    this.setState({ scanFoundDevices: found });
+    setTimeout(() => {
+      this.setState({ scanFoundDevices: undefined });
+    }, 1000);
   };
 
   componentDidMount() {
@@ -166,7 +188,7 @@ class KeyboardSelect extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { anchorEl } = this.state;
+    const { anchorEl, scanFoundDevices } = this.state;
 
     let loader = null;
     if (this.state.loading) {
@@ -233,6 +255,19 @@ class KeyboardSelect extends React.Component {
       </Avatar>
     );
 
+    let scanDevicesButton;
+    if (scanFoundDevices == undefined) {
+      scanDevicesButton = (
+        <Button onClick={this.scanDevices}>Scan devices</Button>
+      );
+    } else {
+      scanDevicesButton = (
+        <Button className={scanFoundDevices ? classes.found : classes.notFound}>
+          Scan devices
+        </Button>
+      );
+    }
+
     return (
       <div className={classes.main}>
         <Portal container={this.props.titleElement}>Select a keyboard</Portal>
@@ -242,7 +277,7 @@ class KeyboardSelect extends React.Component {
           <CardContent className={classes.content}>{port}</CardContent>
           <Divider variant="middle" />
           <CardActions className={classes.cardActions}>
-            <Button onClick={this.findKeyboards}>Scan devices</Button>
+            {scanDevicesButton}
             <div className={classes.grow} />
             <Button
               disabled={

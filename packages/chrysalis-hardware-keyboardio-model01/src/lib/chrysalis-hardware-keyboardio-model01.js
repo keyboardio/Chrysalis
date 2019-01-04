@@ -1,5 +1,5 @@
 /* chrysalis-hardware-keyboardio-model01 -- Chrysalis Keyboardio Model01 support
- * Copyright (C) 2018  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -14,8 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import AvrGirl from "avrgirl-arduino"
 import Keymap from "./components/Keymap"
+import { Avr109 } from "@chrysalis-api/flash"
 
 const Model01 = {
     info: {
@@ -61,45 +61,7 @@ const Model01 = {
             protocol: "avr109",
             signature: new Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e])
         }
-
-        return new Promise((resolve, reject) => {
-            port.update({ baudRate: 1200 }, () => {
-                console.log("baud update")
-                setTimeout(() => {
-                    port.set({ dtr: true }, () => {
-                        console.log("dtr on")
-                        setTimeout(() => {
-                            port.set({ dtr: false }, () => {
-                                console.log("dtr off")
-                                setTimeout(() => {
-                                    focus._port = null
-                                    let avrgirl = new AvrGirl({
-                                        board: board,
-                                        debug: true,
-                                        manualReset: true
-                                    })
-
-                                    avrgirl.flash(filename, error => {
-                                        if (error) {
-                                            console.log(error)
-                                            try {
-                                                avrgirl.connection.serialPort.close()
-                                            } catch (e) {} // eslint-disable-line
-                                            reject(error)
-                                        } else {
-                                            setTimeout(() => {
-                                                avrgirl.connection.serialPort.close()
-                                                resolve()
-                                            }, 500)
-                                        }
-                                    })
-                                }, 1000)
-                            })
-                        }, 250)
-                    })
-                }, 250)
-            })
-        })
+        return Avr109(board, port, filename)
     }
 }
 

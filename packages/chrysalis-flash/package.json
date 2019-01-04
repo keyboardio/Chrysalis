@@ -1,7 +1,7 @@
 {
-  "name": "@chrysalis-api/hardware-keyboardio-model01",
-  "version": "0.0.9",
-  "description": "Chrysalis Keyboardio Model01 support",
+  "name": "@chrysalis-api/flash",
+  "version": "0.0.0",
+  "description": "Keyboard flash helpers for Chrysalis",
   "main": "lib",
   "repository": {
     "type": "git",
@@ -30,14 +30,6 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@chrysalis-api/flash": "~0.0.0",
-    "react": "^16.5.2"
-  },
-  "devDependencies": {
-    "@babel/preset-react": "^7.0.0",
-    "eslint-plugin-react": "^7.11.1"
-  },
-  "peerDependencies": {
-    "@chrysalis-api/focus": "~0.0.2"
+    "avrgirl-arduino": "^3.0.0"
   }
 }

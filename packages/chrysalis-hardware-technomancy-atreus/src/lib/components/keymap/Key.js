@@ -38,8 +38,8 @@ class Key extends React.Component {
         <rect x={x + 6} y={y + 3}
               width="40" height={height - 12}
               rx="5" fill="#ffffff"/>
-        <text x={x + 12} y={bottom - 16}>{label.extraLabel}</text>
-        <text x={x + 12} y={bottom}>{label.label}</text>
+        <text x={x + 9} y={y + 14}>{label.extraLabel}</text>
+        <text x={x + 9} y={bottom}>{label.label}</text>
       </g>
     );
   }

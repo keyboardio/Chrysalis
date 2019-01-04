@@ -3,26 +3,26 @@
 exports[`renders without crashing 1`] = `
 <div>
   <div
-    class="App-root-183"
+    class="App-root-185"
   >
     <header
-      class="MuiPaper-root-199 MuiPaper-elevation4-205 MuiAppBar-root-190 MuiAppBar-positionStatic-194"
+      class="MuiPaper-root-201 MuiPaper-elevation4-207 MuiAppBar-root-192 MuiAppBar-positionStatic-196"
       id="appbar"
     >
       <div
-        class="MuiToolbar-root-226 MuiToolbar-dense-229 MuiToolbar-gutters-227"
+        class="MuiToolbar-root-228 MuiToolbar-dense-231 MuiToolbar-gutters-229"
       >
         <button
-          class="MuiButtonBase-root-256 MuiButton-root-230 MuiButton-text-232 MuiButton-flat-235 MuiButton-colorInherit-251 App-menuButton-186"
+          class="MuiButtonBase-root-258 MuiButton-root-232 MuiButton-text-234 MuiButton-flat-237 MuiButton-colorInherit-253 App-menuButton-188"
           tabindex="0"
           type="button"
         >
           <span
-            class="MuiButton-label-231"
+            class="MuiButton-label-233"
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root-259"
+              class="MuiSvgIcon-root-261"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"
@@ -36,53 +36,53 @@ exports[`renders without crashing 1`] = `
               />
             </svg>
             <h6
-              class="MuiTypography-root-268 MuiTypography-h6-285 MuiTypography-colorInherit-297 App-pageMenu-185"
+              class="MuiTypography-root-270 MuiTypography-h6-287 MuiTypography-colorInherit-299 App-pageMenu-187"
               id="page-title"
             >
               Select a keyboard
             </h6>
           </span>
           <span
-            class="MuiTouchRipple-root-342"
+            class="MuiTouchRipple-root-346"
           />
         </button>
         <div
-          class="App-grow-187"
+          class="App-grow-189"
         />
       </div>
     </header>
     <main
-      class="App-content-184"
+      class="App-content-186"
     >
       <div
-        class="KeyboardSelect-main-304"
+        class="KeyboardSelect-main-306"
       >
         <div
-          class="MuiLinearProgress-root-349 MuiLinearProgress-colorPrimary-350 MuiLinearProgress-query-353 KeyboardSelect-loader-303"
+          class="MuiLinearProgress-root-353 MuiLinearProgress-colorPrimary-354 MuiLinearProgress-query-357 KeyboardSelect-loader-305"
           role="progressbar"
         >
           <div
-            class="MuiLinearProgress-bar-357 MuiLinearProgress-barColorPrimary-358 MuiLinearProgress-bar1Indeterminate-360"
+            class="MuiLinearProgress-bar-361 MuiLinearProgress-barColorPrimary-362 MuiLinearProgress-bar1Indeterminate-364"
           />
           <div
-            class="MuiLinearProgress-bar-357 MuiLinearProgress-barColorPrimary-358 MuiLinearProgress-bar2Indeterminate-363"
+            class="MuiLinearProgress-bar-361 MuiLinearProgress-barColorPrimary-362 MuiLinearProgress-bar2Indeterminate-367"
           />
         </div>
         <div
-          class="MuiPaper-root-199 MuiPaper-elevation1-202 MuiPaper-rounded-200 MuiCard-root-310 KeyboardSelect-card-305"
+          class="MuiPaper-root-201 MuiPaper-elevation1-204 MuiPaper-rounded-202 MuiCard-root-314 KeyboardSelect-card-307"
         >
           <div
-            class="MuiCardHeader-root-311 KeyboardSelect-content-306"
+            class="MuiCardHeader-root-315 KeyboardSelect-content-308"
           >
             <div
-              class="MuiCardHeader-avatar-312"
+              class="MuiCardHeader-avatar-316"
             >
               <div
-                class="MuiAvatar-root-317 MuiAvatar-colorDefault-318 KeyboardSelect-avatar-307"
+                class="MuiAvatar-root-321 MuiAvatar-colorDefault-322 KeyboardSelect-avatar-309"
               >
                 <svg
                   aria-hidden="true"
-                  class="MuiSvgIcon-root-259"
+                  class="MuiSvgIcon-root-261"
                   focusable="false"
                   role="presentation"
                   viewBox="0 0 24 24"
@@ -98,47 +98,47 @@ exports[`renders without crashing 1`] = `
               </div>
             </div>
             <div
-              class="MuiCardHeader-content-314"
+              class="MuiCardHeader-content-318"
             />
           </div>
           <div
-            class="MuiCardContent-root-320 KeyboardSelect-content-306"
+            class="MuiCardContent-root-324 KeyboardSelect-content-308"
           />
           <hr
-            class="MuiDivider-root-321 MuiDivider-middle-325"
+            class="MuiDivider-root-325 MuiDivider-middle-329"
           />
           <div
-            class="MuiCardActions-root-326"
+            class="MuiCardActions-root-330"
           >
             <button
-              class="MuiButtonBase-root-256 MuiButton-root-230 MuiButton-text-232 MuiButton-flat-235 MuiCardActions-action-327"
+              class="MuiButtonBase-root-258 MuiButton-root-232 MuiButton-text-234 MuiButton-flat-237 MuiCardActions-action-331"
               tabindex="0"
               type="button"
             >
               <span
-                class="MuiButton-label-231"
+                class="MuiButton-label-233"
               >
                 Scan devices
               </span>
               <span
-                class="MuiTouchRipple-root-342"
+                class="MuiTouchRipple-root-346"
               />
             </button>
             <div
-              class="KeyboardSelect-grow-308 MuiCardActions-action-327"
+              class="KeyboardSelect-grow-310 MuiCardActions-action-331"
             />
             <button
-              class="MuiButtonBase-root-256 MuiButton-root-230 MuiButton-contained-241 MuiButton-containedPrimary-242 MuiButton-raised-244 MuiButton-raisedPrimary-245 MuiCardActions-action-327"
+              class="MuiButtonBase-root-258 MuiButton-root-232 MuiButton-contained-243 MuiButton-containedPrimary-244 MuiButton-raised-246 MuiButton-raisedPrimary-247 MuiCardActions-action-331"
               tabindex="0"
               type="button"
             >
               <span
-                class="MuiButton-label-231"
+                class="MuiButton-label-233"
               >
                 Connect
               </span>
               <span
-                class="MuiTouchRipple-root-342"
+                class="MuiTouchRipple-root-346"
               />
             </button>
           </div>

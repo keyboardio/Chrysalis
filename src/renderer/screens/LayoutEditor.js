@@ -27,7 +27,6 @@ import Select from "@material-ui/core/Select";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 import { withSnackbar } from "notistack";
@@ -46,15 +45,9 @@ const styles = theme => ({
     flexGrow: 1
   },
   editor: {
-    display: "flex",
-    margin: theme.spacing.unit * 3
-  },
-  editorControls: {
-    marginLeft: "2em",
-    width: "100%"
-  },
-  layerRoot: {
-    width: "100%"
+    margin: theme.spacing.unit * 3,
+    marginBottom: 150,
+    textAlign: "center"
   }
 });
 
@@ -173,15 +166,13 @@ class LayoutEditor extends React.Component {
       isReadOnly = layerIndex < this.state.roLayers,
       layerData = this.state.keymap[layerIndex],
       layer = (
-        <Typography component="div" className={classes.layerRoot}>
-          <Layer
-            readOnly={isReadOnly}
-            index={layerIndex}
-            keymap={layerData}
-            onKeySelect={this.onKeySelect}
-            selectedKey={this.state.currentKeyIndex}
-          />
-        </Typography>
+        <Layer
+          readOnly={isReadOnly}
+          index={layerIndex}
+          keymap={layerData}
+          onKeySelect={this.onKeySelect}
+          selectedKey={this.state.currentKeyIndex}
+        />
       );
 
     let tabs = this.state.keymap.map((_, index) => {
@@ -235,17 +226,12 @@ class LayoutEditor extends React.Component {
           </Toolbar>
         </Portal>
         {this.state.keymap.length == 0 && <LinearProgress variant="query" />}
-        <div className={classes.editor}>
-          {layer}
-          <div className={classes.editorControls}>
-            <KeySelector
-              className="select-keycode"
-              disabled={isReadOnly}
-              onKeySelect={this.onKeyChange}
-              currentKeyCode={this.getCurrentKey()}
-            />
-          </div>
-        </div>
+        <div className={classes.editor}>{layer}</div>
+        <KeySelector
+          disabled={isReadOnly}
+          onKeySelect={this.onKeyChange}
+          currentKeyCode={this.getCurrentKey()}
+        />
         <SaveChangesButton
           floating
           onClick={this.onApply}

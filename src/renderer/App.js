@@ -100,6 +100,7 @@ class App extends React.Component {
       boardAnchor: null,
       pageMenu: false,
       connected: false,
+      device: null,
       pages: {},
       Page: KeyboardSelect
     };
@@ -125,6 +126,7 @@ class App extends React.Component {
         focus.close();
         this.setState({
           connected: false,
+          device: null,
           pages: {},
           Page: KeyboardSelect
         });
@@ -137,6 +139,7 @@ class App extends React.Component {
     if (!this.flashing) {
       this.setState({
         connected: false,
+        device: null,
         pages: {},
         Page: KeyboardSelect
       });
@@ -145,6 +148,16 @@ class App extends React.Component {
 
   onKeyboardConnect = async port => {
     focus.close();
+
+    if (!port.comName) {
+      this.setState({
+        connected: true,
+        pages: {},
+        Page: Welcome,
+        device: port.device
+      });
+      return;
+    }
 
     console.log("Connecting to", port.comName);
     await focus.open(port.comName, port.device);
@@ -163,6 +176,7 @@ class App extends React.Component {
 
     this.setState({
       connected: true,
+      device: null,
       pages: {
         keymap: commands.includes("keymap.map") > 0,
         colormap:
@@ -177,6 +191,7 @@ class App extends React.Component {
     focus.close();
     this.setState({
       connected: false,
+      device: null,
       pages: {},
       Page: KeyboardSelect
     });
@@ -216,7 +231,9 @@ class App extends React.Component {
     const { connected, pages, Page } = this.state;
 
     let focus = new Focus(),
-      device = focus.device && focus.device.info;
+      device =
+        (focus.device && focus.device.info) ||
+        (this.state.device && this.state.device.info);
 
     const { boardAnchor } = this.state;
     const boardOpen = Boolean(boardAnchor);
@@ -232,9 +249,7 @@ class App extends React.Component {
       });
     const boardMenu = boardMenuItems && (
       <Menu anchorEl={boardAnchor} open={boardOpen} onClose={this.boardClose}>
-        <MenuItem disabled>
-          {device.vendor} {device.product}
-        </MenuItem>
+        <MenuItem disabled>{device.displayName}</MenuItem>
         <Divider variant="middle" />
         {boardMenuItems}
       </Menu>
@@ -407,6 +422,7 @@ class App extends React.Component {
         </AppBar>
         <main className={classes.content}>
           <Page
+            device={this.state.device}
             appBarElement={() => document.querySelector("#appbar")}
             titleElement={() => document.querySelector("#page-title")}
             onConnect={this.onKeyboardConnect}

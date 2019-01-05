@@ -62,6 +62,8 @@ class Welcome extends React.Component {
     let focus = new Focus();
     const { classes } = this.props;
 
+    const device = this.props.device || focus.device;
+
     return (
       <div className={classes.root}>
         <Portal container={this.props.titleElement}>
@@ -74,8 +76,8 @@ class Welcome extends React.Component {
                 <KeyboardIcon />
               </Avatar>
             }
-            title={focus.device.info.displayName}
-            subheader={focus._port.path}
+            title={device.info.displayName}
+            subheader={focus._port && focus._port.path}
           />
           <CardContent>
             <Typography component="p" gutterBottom>

@@ -58,10 +58,17 @@ const styles = theme => ({
 });
 
 class FirmwareUpdate extends React.Component {
-  state = {
-    anchorEl: null,
-    firmwareFilename: ""
-  };
+  constructor(props) {
+    super(props);
+
+    let focus = new Focus();
+
+    this.state = {
+      anchorEl: null,
+      firmwareFilename: "",
+      device: props.device || focus.device
+    };
+  }
 
   openFirmwareMenu = event => {
     this.setState({ anchorEl: event.currentTarget });
@@ -102,8 +109,7 @@ class FirmwareUpdate extends React.Component {
   };
 
   _defaultFirmwareFilename = () => {
-    let focus = new Focus();
-    const { vendor, product } = focus.device.info;
+    const { vendor, product } = this.state.device.info;
     return path.join(getStaticPath(), vendor, product, "default.hex");
   };
 
@@ -112,7 +118,7 @@ class FirmwareUpdate extends React.Component {
     const filename =
       this.props.firmwareFilename || this._defaultFirmwareFilename();
 
-    return focus.device.flash(focus._port, filename);
+    return this.state.device.flash(focus._port, filename);
   };
 
   upload = async () => {
@@ -152,8 +158,6 @@ class FirmwareUpdate extends React.Component {
       filename = filename[filename.length - 1];
     }
 
-    let focus = new Focus();
-
     const defaultFirmwareItem = (
       <MenuItem
         selected={firmwareFilename == ""}
@@ -187,7 +191,7 @@ class FirmwareUpdate extends React.Component {
               {
                 "Updating the firmware is a safe process, it's very hard to brick your keyboard even with bad firmware, as most keyboards provide a way to go stay in bootloader mode, where new firmware can be flashed. Nevertheless, updating the firmware will overwrite the previous one. If you customised your firmware, make sure you're flashing one that you are comfortable with. "
               }
-              {focus.device.messages.preFlash}
+              {this.state.device.messages.preFlash}
             </Typography>
             <Typography component="p">
               {

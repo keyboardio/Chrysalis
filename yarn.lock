@@ -873,10 +873,10 @@
     "@chrysalis-api/flash" "^0.0.1"
     react "^16.5.2"
 
-"@chrysalis-api/hardware-keyboardio-model01@~0.0.10":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-keyboardio-model01/-/hardware-keyboardio-model01-0.0.10.tgz#04474a39073dac35c5dbe0404d7abc0bb007c074"
-  integrity sha512-helAP3qg7u1I75bpbMsrbx/bmwmTTRGAZJFhVStdFNDo9zCYp+lJ+nqqi7SbnE6xiI4lAmItQ1kK4K5H2MGBWQ==
+"@chrysalis-api/hardware-keyboardio-model01@~0.0.11":
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-keyboardio-model01/-/hardware-keyboardio-model01-0.0.11.tgz#c54568cc295d11d1a88bb2bca5128c51eb2543eb"
+  integrity sha512-fYmKRi7Zxw6U1xC6Juer3xEu8+Lp1vErkYbkb3NdqJth/Te9wFYbgY7BjnOt1qPx/t5FOIOuGY9PTZvYkgWHuA==
   dependencies:
     "@chrysalis-api/flash" "^0.0.1"
     react "^16.5.2"

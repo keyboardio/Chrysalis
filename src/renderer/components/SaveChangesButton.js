@@ -65,10 +65,10 @@ const styles = theme => ({
     backgroundColor: "#ddd !important"
   },
   fab: {
-    position: "static",
+    position: "fixed",
     justifyContent: "flex-end",
-    marginBottom: theme.spacing.unit * 2,
-    marginRight: theme.spacing.unit * 2
+    bottom: 0,
+    right: 0
   }
 });
 

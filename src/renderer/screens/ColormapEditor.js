@@ -23,7 +23,6 @@ import Portal from "@material-ui/core/Portal";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 import { withSnackbar } from "notistack";
@@ -39,14 +38,8 @@ const styles = theme => ({
   },
   editor: {
     margin: theme.spacing.unit * 3,
-    display: "flex"
-  },
-  palette: {
-    marginTop: theme.spacing.unit * 3,
-    display: "inline"
-  },
-  layerRoot: {
-    width: "100%"
+    marginBottom: 150,
+    textAlign: "center"
   }
 });
 
@@ -141,14 +134,12 @@ class ColormapEditor extends React.Component {
     });
 
     let colormap = (
-      <Typography component="div" className={classes.layerRoot}>
-        <Layer
-          index={this.state.currentLayer}
-          palette={this.state.palette}
-          colormap={this.state.colorMap[this.state.currentLayer]}
-          onKeySelect={this.onKeySelect}
-        />
-      </Typography>
+      <Layer
+        index={this.state.currentLayer}
+        palette={this.state.palette}
+        colormap={this.state.colorMap[this.state.currentLayer]}
+        onKeySelect={this.onKeySelect}
+      />
     );
 
     return (
@@ -168,15 +159,12 @@ class ColormapEditor extends React.Component {
           </Toolbar>
         </Portal>
         {this.state.colorMap.length == 0 && <LinearProgress variant="query" />}
-        <div className={classes.editor}>
-          {colormap}
-          <Palette
-            palette={this.state.palette}
-            className={classes.palette}
-            onColorSelect={this.onColorSelect}
-            onColorPick={this.onColorPick}
-          />
-        </div>
+        <div className={classes.editor}>{colormap}</div>
+        <Palette
+          palette={this.state.palette}
+          onColorSelect={this.onColorSelect}
+          onColorPick={this.onColorPick}
+        />
         <SaveChangesButton
           floating
           onClick={this.onApply}

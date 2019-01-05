@@ -8,6 +8,13 @@ The user interface underwent a major overhaul, in an attempt to follow the Mater
 
  [prs:116]: https://github.com/keyboardio/chrysalis-bundle-keyboardio/pull/116
 
+## Hardware support
+
+Chrysalis now supports the same hardware it did in previous versions, but it no
+longer requires a Kaleidoscope-based firmware to be present. For devices that
+come with different firmware, Chrysalis will detect them, and offer to flash a
+reasonable, Kaleidoscope-based and Chrysalis-ready default.
+
 Chrysalis 0.2.0
 ===============
 Released on 2018-12-31

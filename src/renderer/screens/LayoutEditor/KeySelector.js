@@ -16,17 +16,13 @@
  */
 
 import React from "react";
-import classNames from "classnames";
 
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
-import Divider from "@material-ui/core/Divider";
-import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import GridList from "@material-ui/core/GridList";
-import GridListTile from "@material-ui/core/GridListTile";
+import FormGroup from "@material-ui/core/FormGroup";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -38,10 +34,29 @@ import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
   root: {
-    height: "100%"
+    display: "flex",
+    position: "fixed",
+    left: 0,
+    right: 0,
+    bottom: 0,
+    height: 150
+  },
+  type: {
+    width: 225
+  },
+  key: {
+    margin: theme.spacing.unit / 2,
+    padding: "4px 8px",
+    minWidth: "auto",
+    minHeight: "auto",
+    whiteSpace: "nowrap"
   },
   keygroup: {
     margin: theme.spacing.unit
+  },
+  keylist: {
+    display: "flex",
+    flexWrap: "wrap"
   },
   centered: {
     textAlign: "center"
@@ -69,7 +84,7 @@ const moddableGroups = [
   "Numpad"
 ];
 
-class KeyGroupCode extends React.Component {
+class KeyGroupCodeUnwrapped extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -102,7 +117,7 @@ class KeyGroupCode extends React.Component {
   };
 
   render() {
-    const { className, disabled } = this.props;
+    const { disabled, classes } = this.props;
 
     const value = this.state.modified
       ? this.state.keyCode
@@ -110,292 +125,104 @@ class KeyGroupCode extends React.Component {
 
     return (
       <TextField
+        className={classes.keygroup}
         onChange={this.onChange}
         onKeyDown={this.onKeyDown}
         label="Key code"
         variant="outlined"
         disabled={disabled}
-        className={className}
         type="number"
         value={value}
       />
     );
   }
 }
+const KeyGroupCode = withStyles(styles)(KeyGroupCodeUnwrapped);
 
-const KeyGroupMouseButtons = props => {
-  const mouseKeys = baseKeyCodeTable[props.group].keys;
-  const items = [mouseKeys[0], mouseKeys[2], mouseKeys[1]];
-  return <KeyGroupGrid items={items} {...props} />;
-};
-
-const KeyGroupMouseWarp = withStyles(styles)(props => {
-  const warpKeys = baseKeyCodeTable[props.group].keys;
-  const items = [
-    warpKeys[1],
-    warpKeys[3],
-    warpKeys[2],
-    warpKeys[4],
-    warpKeys[0]
-  ];
-  return (
-    <KeyGroupGrid
-      className={props.classes.centered}
-      cols={2}
-      items={items}
-      {...props}
-    />
-  );
-});
-
-const KeyButton = props => {
+const KeyButton = withStyles(styles)(props => {
   const { keyInfo, selectedKey, onKeySelect, disabled } = props;
 
   return (
     <Button
-      size="small"
+      className={props.classes.key}
       color={keyInfo.code == selectedKey ? "primary" : "default"}
-      variant={keyInfo.code == selectedKey ? "outlined" : "text"}
+      variant={keyInfo.code == selectedKey ? "contained" : "outlined"}
       onClick={() => onKeySelect(keyInfo.code)}
       disabled={disabled}
     >
       {keyInfo.labels.verbose || keyInfo.labels.primary}
     </Button>
   );
-};
+});
 
-const KeyGroupGrid = withStyles(styles)(props => {
+const KeyGroupList = withStyles(styles)(props => {
   const {
     group,
     items,
     selectedKey,
     onKeySelect,
-    className,
-    cols,
     withModifiers,
     disabled
   } = props;
 
   const itemList = items || baseKeyCodeTable[group].keys;
-  let centered = (itemList.length - 1) % (cols || 3) == 0 && (cols || 3) > 1;
 
-  const keyList = itemList.map((key, index) => {
-    let itemCols = 1;
-
-    if (index == itemList.length - 1 && centered) {
-      itemCols = cols || 3;
-    }
-
+  const keyList = itemList.map(key => {
     return (
-      <GridListTile key={key.code} cols={itemCols}>
-        <KeyButton
-          disabled={disabled}
-          keyInfo={key}
-          selectedKey={selectedKey}
-          onKeySelect={onKeySelect}
-        />
-      </GridListTile>
+      <KeyButton
+        key={key.code}
+        disabled={disabled}
+        keyInfo={key}
+        selectedKey={selectedKey}
+        onKeySelect={onKeySelect}
+      />
     );
   });
-
-  const centeredClass = centered ? props.classes.centered : null;
 
   let modSelector;
   if (withModifiers) {
     modSelector = (
-      <React.Fragment>
-        <Divider variant="middle" />
-        <FormControl
-          component="fieldset"
-          className={props.classes.keygroup}
-          disabled
-        >
-          <GridList cellHeight="auto" cols={2}>
-            <GridListTile>
-              <FormControlLabel control={<Checkbox />} label="Control" />
-            </GridListTile>
-            <GridListTile>
-              <FormControlLabel control={<Checkbox />} label="Shift" />
-            </GridListTile>
-            <GridListTile>
-              <FormControlLabel control={<Checkbox />} label="Alt" />
-            </GridListTile>
-            <GridListTile>
-              <FormControlLabel control={<Checkbox />} label="Gui" />
-            </GridListTile>
-            <GridListTile>
-              <FormControlLabel control={<Checkbox />} label="AltGr" />
-            </GridListTile>
-          </GridList>
-        </FormControl>
-      </React.Fragment>
+      <FormGroup row>
+        <FormControlLabel control={<Checkbox />} label="Control" disabled />
+        <FormControlLabel control={<Checkbox />} label="Shift" disabled />
+        <FormControlLabel control={<Checkbox />} label="Alt" disabled />
+        <FormControlLabel control={<Checkbox />} label="Gui" disabled />
+        <FormControlLabel control={<Checkbox />} label="AltGr" disabled />
+      </FormGroup>
     );
   }
 
   return (
     <React.Fragment>
-      <GridList
-        cellHeight="auto"
-        cols={cols || 3}
-        className={classNames(className, centeredClass)}
-      >
-        {keyList}
-      </GridList>
+      <div className={props.classes.keylist}> {keyList} </div>
       {modSelector}
     </React.Fragment>
   );
 });
 
-const KeyGroupNav = withStyles(styles)(props => {
-  const { group } = props;
-  const jumpKeys = baseKeyCodeTable[group].keys.slice(0, 4);
-  const navKeys = baseKeyCodeTable[group].keys.slice(4, 8);
-  const rest = baseKeyCodeTable[group].keys.slice(8);
-
-  return (
-    <React.Fragment>
-      <KeyGroupT items={jumpKeys} {...props} />
-      <Divider light />
-      <KeyGroupT items={navKeys} {...props} />
-      <Divider light />
-      <KeyGroupGrid items={rest} {...props} />
-    </React.Fragment>
-  );
-});
-
-const KeyGroupT = withStyles(styles)(props => {
-  const { group, className, selectedKey, onKeySelect, classes, items } = props;
-  const keys = items || baseKeyCodeTable[group].keys;
-
-  return (
-    <GridList
-      cellHeight="auto"
-      cols={3}
-      className={classNames(className, classes.centered)}
-    >
-      <GridListTile cols={3}>
-        <KeyButton
-          disabled={props.disabled}
-          keyInfo={keys[0]}
-          selectedKey={selectedKey}
-          onKeySelect={onKeySelect}
-        />
-      </GridListTile>
-      <GridListTile>
-        <KeyButton
-          disabled={props.disabled}
-          keyInfo={keys[2]}
-          selectedKey={selectedKey}
-          onKeySelect={onKeySelect}
-        />
-      </GridListTile>
-      <GridListTile>
-        <KeyButton
-          disabled={props.disabled}
-          keyInfo={keys[1]}
-          selectedKey={selectedKey}
-          onKeySelect={onKeySelect}
-        />
-      </GridListTile>
-      <GridListTile>
-        <KeyButton
-          disabled={props.disabled}
-          keyInfo={keys[3]}
-          selectedKey={selectedKey}
-          onKeySelect={onKeySelect}
-        />
-      </GridListTile>
-    </GridList>
-  );
-});
-
 class KeyGroup extends React.Component {
   render() {
-    const { group, className, keyCode, onKeySelect, ...props } = this.props;
+    const { group, keyCode, onKeySelect, ...props } = this.props;
 
     const groupName = keyGroups[group],
       withModifiers = moddableGroups.includes(groupName);
-    let cols = 3;
 
-    switch (groupName) {
-      case "Punctuation":
-      case "Spacing": {
-        cols = 2;
-        break;
-      }
-      case "Mouse movement":
-      case "Mouse wheel": {
-        return (
-          <KeyGroupT
-            group={group}
-            selectedKey={keyCode}
-            className={className}
-            onKeySelect={onKeySelect}
-            {...props}
-          />
-        );
-      }
-      case "Navigation": {
-        return (
-          <KeyGroupNav
-            group={group}
-            selectedKey={keyCode}
-            className={className}
-            onKeySelect={onKeySelect}
-            {...props}
-          />
-        );
-      }
-      case "Mouse button": {
-        return (
-          <KeyGroupMouseButtons
-            group={group}
-            selectedKey={keyCode}
-            className={className}
-            onKeySelect={onKeySelect}
-            {...props}
-          />
-        );
-      }
-      case "Mouse warp": {
-        return (
-          <KeyGroupMouseWarp
-            group={group}
-            selectedKey={keyCode}
-            className={className}
-            onKeySelect={onKeySelect}
-            {...props}
-          />
-        );
-      }
-      case "Modifiers":
-      case "Media":
-      case "OneShot modifiers":
-      case "Miscellaneous":
-      case "Blank": {
-        cols = 1;
-        break;
-      }
-      case "Unknown keycodes": {
-        return (
-          <KeyGroupCode
-            group={group}
-            selectedKey={keyCode}
-            className={className}
-            onKeySelect={onKeySelect}
-            {...props}
-          />
-        );
-      }
+    if (groupName == "Unknown keycodes") {
+      return (
+        <KeyGroupCode
+          group={group}
+          selectedKey={keyCode}
+          onKeySelect={onKeySelect}
+          {...props}
+        />
+      );
     }
 
     return (
-      <KeyGroupGrid
+      <KeyGroupList
         withModifiers={withModifiers}
         group={group}
         selectedKey={keyCode}
-        className={className}
-        cols={cols}
         onKeySelect={onKeySelect}
         {...props}
       />
@@ -433,9 +260,7 @@ class KeySelector extends React.Component {
     const { classes, currentKeyCode, disabled } = this.props;
     const { anchorEl, selectedGroup } = this.state;
 
-    if (currentKeyCode == -1) {
-      return <Paper className={classes.root} />;
-    }
+    if (currentKeyCode == -1) return null;
 
     let groupIndex = selectedGroup;
     if (groupIndex == -1) {
@@ -464,7 +289,7 @@ class KeySelector extends React.Component {
 
     return (
       <Paper className={classes.root}>
-        <List>
+        <List className={classes.type}>
           <ListItem button className={classes.typeSelector} disabled={disabled}>
             <ListItemText
               onClick={this.onListItemClick}
@@ -488,7 +313,6 @@ class KeySelector extends React.Component {
         >
           {keyGroupItems}
         </Menu>
-        <Divider variant="middle" />
         <div className={classes.keygroup}>
           <KeyGroup
             disabled={disabled}

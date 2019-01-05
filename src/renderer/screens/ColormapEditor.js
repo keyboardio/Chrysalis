@@ -31,7 +31,6 @@ import { withSnackbar } from "notistack";
 import Focus from "@chrysalis-api/focus";
 
 import Palette from "./ColormapEditor/Palette";
-import Layer, { led_map } from "./ColormapEditor/Layer";
 import SaveChangesButton from "../components/SaveChangesButton";
 
 const styles = theme => ({
@@ -103,9 +102,7 @@ class ColormapEditor extends React.Component {
 
   onKeySelect = event => {
     let layer = parseInt(event.currentTarget.getAttribute("data-layer")),
-      row = parseInt(event.currentTarget.getAttribute("data-key-row")),
-      col = parseInt(event.currentTarget.getAttribute("data-key-col")),
-      ledIndex = led_map[row][col];
+      ledIndex = parseInt(event.currentTarget.getAttribute("data-led-index"));
 
     if (this.state.selectedPaletteColor != -1) {
       this.setState(state => {
@@ -134,6 +131,8 @@ class ColormapEditor extends React.Component {
 
   render() {
     const { classes } = this.props;
+    let focus = new Focus();
+    const Layer = focus.device.components.keymap;
 
     let tabs = this.state.colorMap.map((_, index) => {
       let label = "Layer #" + index.toString(),

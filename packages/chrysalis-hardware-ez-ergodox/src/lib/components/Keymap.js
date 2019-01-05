@@ -42,16 +42,13 @@ class Keymap extends React.Component {
           data-key-index={keyIndex(row, col)}
           className="key"
         >
-          <rect x={x} y={y}
-                width={width * 40 + 12} height={height * 40 + 12}
-                rx="5" fill={stroke} />
-          <rect x={x + 6} y={y + 3}
-                width={width * 40} height={height * 40}
-                rx="5" fill="#fcfcfc" />
-          <text x={x + 9} y={y + 14}>
+          <rect x={x} y={y} rx={3}
+                width={width * 40 + 8} height={height * 40 + 8}
+                stroke={stroke} strokeWidth="1.55" fill="#ffffff" />
+          <text x={x + 7} y={y + 14}>
             {labels.extraLabel}
           </text>
-          <text x={x + 9} y={bottom}>
+          <text x={x + 7} y={bottom}>
             {labels.label}
           </text>
         </g>
@@ -60,8 +57,6 @@ class Keymap extends React.Component {
 
     return (
       <svg
-        width='1083px'
-        height='434.03074360871943px'
         viewBox='0 0 1083 434.03074360871943'
         xmlns='http://www.w3.org/2000/svg'
         className="layer"

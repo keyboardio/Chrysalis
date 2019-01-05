@@ -18,12 +18,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Portal from "@material-ui/core/Portal";
-import Select from "@material-ui/core/Select";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -55,8 +53,61 @@ const styles = theme => ({
   },
   layerRoot: {
     width: "100%"
+  },
+  menu: {
+    marginTop: theme.spacing.unit * 6,
+    marginLeft: theme.spacing.unit * 6
   }
 });
+
+class LayerTabUnwrapped extends React.Component {
+  state = {
+    anchorEl: null
+  };
+
+  menu = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  closeMenu = () => {
+    this.setState({ anchorEl: null });
+  };
+
+  setDefault = () => {
+    this.closeMenu();
+    this.props.onSetDefault(this.props.layer);
+  };
+
+  render() {
+    const {
+      readOnly,
+      layer,
+      isDefault,
+      classes,
+      onSetDefault, // eslint-disable-line
+      ...props
+    } = this.props;
+    const { anchorEl } = this.state;
+    const ro = readOnly ? " (RO)" : "";
+    const def = isDefault ? "*" : "";
+    const label = `Layer #${layer}${def}${ro}`;
+
+    return (
+      <React.Fragment>
+        <Tab label={label} onContextMenu={this.menu} {...props} />
+        <Menu
+          className={classes.menu}
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={this.closeMenu}
+        >
+          <MenuItem onClick={this.setDefault}>Set as default</MenuItem>
+        </Menu>
+      </React.Fragment>
+    );
+  }
+}
+const LayerTab = withStyles(styles)(LayerTabUnwrapped);
 
 class LayoutEditor extends React.Component {
   state = {
@@ -150,14 +201,13 @@ class LayoutEditor extends React.Component {
     console.log("keymap updated");
   };
 
-  onDefaultLayerChange = async event => {
-    const defLayer = event.target.value;
+  onDefaultLayerChange = layer => {
     this.setState({
-      defaultLayer: defLayer
+      defaultLayer: layer
     });
     let focus = new Focus();
-    focus.command("settings.defaultLayer", defLayer);
-    console.log("default layer set to", defLayer);
+    focus.command("settings.defaultLayer", layer);
+    console.log("default layer set to", layer);
   };
 
   componentDidMount() {
@@ -185,22 +235,16 @@ class LayoutEditor extends React.Component {
       );
 
     let tabs = this.state.keymap.map((_, index) => {
-      let label = "Layer #" + index.toString(),
-        tabKey = "tab-layer-" + index.toString(),
+      const tabKey = "tab-layer-" + index.toString(),
         isReadOnly = index < this.state.roLayers;
-
-      if (isReadOnly) {
-        label = <em>{label} (RO)</em>;
-      }
-      return <Tab label={label} key={tabKey} />;
-    });
-
-    let layerMenu = this.state.keymap.map((_, index) => {
-      let itemKey = "deflayer-item-" + index.toString();
       return (
-        <MenuItem value={index} key={itemKey}>
-          Layer #{index}
-        </MenuItem>
+        <LayerTab
+          isDefault={this.state.defaultLayer == index}
+          onSetDefault={this.onDefaultLayerChange}
+          layer={index}
+          key={tabKey}
+          readOnly={isReadOnly}
+        />
       );
     });
 
@@ -218,20 +262,6 @@ class LayoutEditor extends React.Component {
             >
               {tabs}
             </Tabs>
-            {this.state.keymap.length > 0 && (
-              <FormControl>
-                <Select
-                  value={this.state.defaultLayer}
-                  onChange={this.onDefaultLayerChange}
-                  displayEmpty
-                >
-                  {layerMenu}
-                </Select>
-                <FormHelperText className={classes.selectDefaultLayer}>
-                  Default layer
-                </FormHelperText>
-              </FormControl>
-            )}
           </Toolbar>
         </Portal>
         {this.state.keymap.length == 0 && <LinearProgress variant="query" />}

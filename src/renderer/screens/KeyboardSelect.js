@@ -100,10 +100,35 @@ const styles = theme => ({
 class KeyboardSelect extends React.Component {
   state = {
     anchorEl: null,
-    selectedPortIndex: 1,
+    selectedPortIndex: 0,
     opening: false,
     devices: null,
     loading: false
+  };
+
+  findNonSerialKeyboards = deviceList => {
+    const devices = usb.getDeviceList().map(device => device.deviceDescriptor);
+    const supportedDevices = [Atreus, ErgoDox];
+    devices.forEach(desc => {
+      supportedDevices.forEach(device => {
+        if (
+          desc.idVendor == device.usb.vendorId &&
+          desc.idProduct == device.usb.productId
+        ) {
+          let found = false;
+          deviceList.forEach(sDevice => {
+            if (
+              sDevice.device.usb.vendorId == desc.idVendor &&
+              sDevice.device.usb.productId == desc.idProduct
+            ) {
+              found = true;
+            }
+          });
+          if (!found) deviceList.push({ device: device });
+        }
+      });
+    });
+    return deviceList;
   };
 
   findKeyboards = async () => {
@@ -114,26 +139,20 @@ class KeyboardSelect extends React.Component {
       focus
         .find(Model01, Atreus, Raise, ErgoDox)
         .then(devices => {
-          if (devices.length == 0) {
-            this.setState({
-              loading: false,
-              devices: devices
-            });
-            resolve(false);
-            return;
-          }
+          const list = this.findNonSerialKeyboards(devices);
           this.setState({
             loading: false,
-            devices: [{ comName: "Please select a keyboard:" }].concat(devices)
+            devices: list
           });
-          resolve(true);
+          resolve(list.length > 0);
         })
         .catch(() => {
+          const list = this.findNonSerialKeyboards([]);
           this.setState({
             loading: false,
-            devices: []
+            devices: list
           });
-          resolve(false);
+          resolve(list.length > 0);
         });
     });
   };
@@ -150,7 +169,7 @@ class KeyboardSelect extends React.Component {
     this.finder = () => {
       this.findKeyboards();
     };
-    this.findKeyboards();
+    this.finder();
     usb.on("attach", this.finder);
     usb.on("detach", this.finder);
   }
@@ -174,38 +193,64 @@ class KeyboardSelect extends React.Component {
 
   onKeyboardConnect = async () => {
     this.setState({ opening: true });
+
+    const { devices } = this.state;
+
     try {
-      await this.props.onConnect(
-        this.state.devices[this.state.selectedPortIndex]
-      );
+      await this.props.onConnect(devices[this.state.selectedPortIndex]);
     } catch (err) {
       this.setState({
         opening: false
       });
-      this.props.enqueueSnackbar(err, { variant: "error" });
+      this.props.enqueueSnackbar(err.toString(), { variant: "error" });
     }
   };
 
   render() {
     const { classes } = this.props;
-    const { anchorEl, scanFoundDevices } = this.state;
+    const { anchorEl, scanFoundDevices, devices } = this.state;
 
     let loader = null;
     if (this.state.loading) {
       loader = <LinearProgress variant="query" className={classes.loader} />;
     }
 
+    let deviceItems = null;
     let port = null;
-    if (this.state.devices && this.state.devices.length > 0) {
-      let portDesc = this.state.devices[this.state.selectedPortIndex],
-        portInfo = portDesc.device.info;
+    if (devices && devices.length > 0) {
+      deviceItems = devices.map((option, index) => {
+        let label = option.comName;
+        if (option.device && option.device.info) {
+          label = (
+            <ListItemText
+              primary={option.device.info.displayName}
+              secondary={option.comName || "Unknown"}
+            />
+          );
+        } else if (option.info) {
+          label = <ListItemText primary={option.info.displayName} />;
+        }
+        return (
+          <MenuItem
+            key={`device-${index}`}
+            selected={index === this.state.selectedPortIndex}
+            onClick={event => this.handleMenuItemClick(event, index)}
+          >
+            {label}
+          </MenuItem>
+        );
+      });
+
+      let portDesc = devices[this.state.selectedPortIndex],
+        portInfo = portDesc.device ? portDesc.device.info : portDesc.info;
+
       port = (
         <React.Fragment>
           <List component="nav">
             <ListItem button onClick={this.handleClickListItem}>
               <ListItemText
                 primary={portInfo.displayName}
-                secondary={portDesc.comName}
+                secondary={portDesc.comName || "Unknown"}
               />
             </ListItem>
           </List>
@@ -214,33 +259,14 @@ class KeyboardSelect extends React.Component {
             open={Boolean(anchorEl)}
             onClose={this.handleClose}
           >
-            {this.state.devices.map((option, index) => {
-              let label = option.comName;
-              if (option.device && option.device.info) {
-                label = (
-                  <ListItemText
-                    primary={option.device.info.displayName}
-                    secondary={option.comName}
-                  />
-                );
-              }
-              return (
-                <MenuItem
-                  key={option.comName}
-                  disabled={index === 0}
-                  selected={index === this.state.selectedPortIndex}
-                  onClick={event => this.handleMenuItemClick(event, index)}
-                >
-                  {label}
-                </MenuItem>
-              );
-            })}
+            <MenuItem disabled>Please select a keyboard:</MenuItem>
+            {deviceItems}
           </Menu>
         </React.Fragment>
       );
     }
 
-    if (this.state.devices && this.state.devices.length == 0) {
+    if (devices && devices.length == 0) {
       port = <p className={classes.error}> No devices found! </p>;
     }
 

@@ -29,7 +29,7 @@ class Key extends React.Component {
     if (this.props.palmKey) {
       shape = (
         <ellipse
-          fill="#ffffff"
+          fill={this.props.color}
           stroke={stroke}
           strokeWidth="2.73"
           cx="610.765"
@@ -42,7 +42,7 @@ class Key extends React.Component {
     } else {
       shape = (
         <path
-          fill="#ffffff"
+          fill={this.props.color}
           stroke={stroke}
           strokeWidth="1.55"
           d={this.props.shape}
@@ -69,6 +69,7 @@ class Key extends React.Component {
         className="key"
         data-key-index={keyIndex}
         data-layer={this.props.layer}
+        data-led-index={this.props.ledIndex}
       >
         {shape}
         <g transform={this.props.primaryLabelTransform}>

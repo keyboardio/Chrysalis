@@ -23,10 +23,41 @@
 import React from "react"
 import Key from "./keymap/Key"
 
+const led_map = [
+  [3, 4, 11, 12, 19, 20, 26, 27, 36, 37, 43, 44, 51, 52, 59, 60],
+  [2, 5, 10, 13, 18, 21, 25, 28, 35, 38, 42, 45, 50, 53, 58, 61],
+  [1, 6, 9, 14, 17, 22, 24, 29, 34, 39, 41, 46, 49, 54, 57, 62],
+  [0, 7, 8, 15, 16, 23, 31, 30, 33, 32, 40, 47, 48, 55, 56, 63]
+];
+
 class Keymap extends React.Component {
   render() {
     const keymap = this.props.keymap || Array(64).fill().map(() => 0);
 
+    const colormap =
+      this.props.colormap ||
+      Array(64)
+        .fill()
+        .map(() => 0);
+    const palette =
+      (this.props.palette && this.props.palette.length > 0)
+      ? this.props.palette
+      : Array(16)
+        .fill()
+        .map(() => ({
+          rgb: "#ffffff"
+        }));
+
+    let getColor = (row, col) => {
+      let ledIndex = led_map[parseInt(row)][parseInt(col)],
+        colorIndex = colormap[ledIndex],
+        color = palette[colorIndex].rgb;
+
+      return color;
+    };
+    let getLEDIndex = (row, col) => {
+      return led_map[parseInt(row)][parseInt(col)];
+    };
     let getLabel = (row, col) => {
       let keyIndex = parseInt(row) * 16 + parseInt(col),
           keyCode = keymap[keyIndex];
@@ -53,7 +84,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 15)}
+            label={getLabel(3, 15)} color={getColor(3, 15)} ledIndex={getLEDIndex(3, 15)}
             active={isActive(3, 15)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.898734,0.047723,-0.0530256,0.998593,806.052,113.617)"
@@ -66,7 +97,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 14)}
+            label={getLabel(3, 14)} color={getColor(3, 14)} ledIndex={getLEDIndex(3, 14)}
             active={isActive(3, 14)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.898852,0.0454426,-0.0504917,0.998724,747.949,111.208)"
@@ -79,7 +110,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 13)}
+            label={getLabel(3, 13)} color={getColor(3, 13)} ledIndex={getLEDIndex(3, 13)}
             active={isActive(3, 13)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899972,0.00706251,-0.00784723,0.999969,683.842,83.4691)"
@@ -92,7 +123,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 12)}
+            label={getLabel(3, 12)} color={getColor(3, 12)} ledIndex={getLEDIndex(3, 12)}
             active={isActive(3, 12)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899852,-0.0163275,0.0181417,0.999835,621.133,73.2385)"
@@ -105,7 +136,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 11)}
+            label={getLabel(3, 11)} color={getColor(3, 11)} ledIndex={getLEDIndex(3, 11)}
             active={isActive(3, 11)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899447,-0.0315391,0.0350435,0.999386,561.36,79.7391)"
@@ -118,7 +149,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 10)}
+            label={getLabel(3, 10)} color={getColor(3, 10)} ledIndex={getLEDIndex(3, 10)}
             active={isActive(3, 10)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899399,-0.0328901,0.0365445,0.999332,504.642,93.5118)"
@@ -131,7 +162,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 9)}
+            label={getLabel(3, 9)} color={getColor(3, 9)} ledIndex={getLEDIndex(3, 9)}
             active={isActive(3, 9)}
             onClick={this.props.onKeySelect}
             palmKey="1"
@@ -145,7 +176,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 8)}
+            label={getLabel(3, 8)} color={getColor(3, 8)} ledIndex={getLEDIndex(3, 8)}
             active={isActive(3, 8)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.788746,-0.433451,0.481612,0.876385,385.56,263.116)"
@@ -158,7 +189,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 7)}
+            label={getLabel(3, 7)} color={getColor(3, 7)} ledIndex={getLEDIndex(3, 7)}
             active={isActive(3, 7)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.788746,0.433451,-0.481612,0.876385,443.053,161.774)"
@@ -171,7 +202,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 6)}
+            label={getLabel(3, 6)} color={getColor(3, 6)} ledIndex={getLEDIndex(3, 6)}
             active={isActive(3, 6)}
             onClick={this.props.onKeySelect}
             palmKey="1"
@@ -185,7 +216,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 5)}
+            label={getLabel(3, 5)} color={getColor(3, 5)} ledIndex={getLEDIndex(3, 5)}
             active={isActive(3, 5)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899399,0.0328901,-0.0365445,0.999332,296.845,85.7461)"
@@ -198,7 +229,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 4)}
+            label={getLabel(3, 4)} color={getColor(3, 4)} ledIndex={getLEDIndex(3, 4)}
             active={isActive(3, 4)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899447,0.0315391,-0.0350435,0.999386,239.646,72.2924)"
@@ -211,7 +242,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 3)}
+            label={getLabel(3, 3)} color={getColor(3, 3)} ledIndex={getLEDIndex(3, 3)}
             active={isActive(3, 3)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899852,0.0163275,-0.0181417,0.999835,179.833,69.3834)"
@@ -224,7 +255,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 2)}
+            label={getLabel(3, 2)} color={getColor(3, 2)} ledIndex={getLEDIndex(3, 2)}
             active={isActive(3, 2)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899972,-0.00706251,0.00784723,0.999969,116.816,85.1367)"
@@ -237,7 +268,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 1)}
+            label={getLabel(3, 1)} color={getColor(3, 1)} ledIndex={getLEDIndex(3, 1)}
             active={isActive(3, 1)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.898852,-0.0454426,0.0504917,0.998724,53.6672,121.938)"
@@ -250,7 +281,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 0)}
+            label={getLabel(3, 0)} color={getColor(3, 0)} ledIndex={getLEDIndex(3, 0)}
             active={isActive(3, 0)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.898734,-0.047723,0.0530256,0.998593,-4.4081,124.885)"
@@ -264,7 +295,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 15)}
+            label={getLabel(2, 15)} color={getColor(2, 15)} ledIndex={getLEDIndex(2, 15)}
             active={isActive(2, 15)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.898866,0.0451617,-0.0501797,0.99874,809.161,58.8284)"
@@ -277,7 +308,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 14)}
+            label={getLabel(2, 14)} color={getColor(2, 14)} ledIndex={getLEDIndex(2, 14)}
             active={isActive(2, 14)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.898935,0.0437677,-0.0486308,0.998817,749.273,56.3083)"
@@ -290,7 +321,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 13)}
+            label={getLabel(2, 13)} color={getColor(2, 13)} ledIndex={getLEDIndex(2, 13)}
             active={isActive(2, 13)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899998,-0.0017242,0.00191578,0.999998,681.374,29.3429)"
@@ -303,7 +334,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 12)}
+            label={getLabel(2, 12)} color={getColor(2, 12)} ledIndex={getLEDIndex(2, 12)}
             active={isActive(2, 12)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899835,-0.017257,0.0191745,0.999816,620.111,18.0479)"
@@ -316,7 +347,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 11)}
+            label={getLabel(2, 11)} color={getColor(2, 11)} ledIndex={getLEDIndex(2, 11)}
             active={isActive(2, 11)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899393,-0.0330486,0.0367206,0.999326,559.684,24.9224)"
@@ -329,7 +360,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 10)}
+            label={getLabel(2, 10)} color={getColor(2, 10)} ledIndex={getLEDIndex(2, 10)}
             active={isActive(2, 10)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.89936,-0.0339334,0.0377038,0.999289,502.394,39.0343)"
@@ -342,7 +373,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 9)}
+            label={getLabel(2, 9)} color={getColor(2, 9)} ledIndex={getLEDIndex(2, 9)}
             active={isActive(2, 9)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899368,-0.0337152,0.0374614,0.999298,447.175,101.276)"
@@ -355,7 +386,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 8)}
+            label={getLabel(2, 8)} color={getColor(2, 8)} ledIndex={getLEDIndex(2, 8)}
             active={isActive(2, 8)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.851721,-0.290811,0.323124,0.946357,457.758,213.893)"
@@ -368,7 +399,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 7)}
+            label={getLabel(2, 7)} color={getColor(2, 7)} ledIndex={getLEDIndex(2, 7)}
             active={isActive(2, 7)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.851721,0.290811,-0.323124,0.946357,354.986,145.23)"
@@ -381,7 +412,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 6)}
+            label={getLabel(2, 6)} color={getColor(2, 6)} ledIndex={getLEDIndex(2, 6)}
             active={isActive(2, 6)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899368,0.0337152,-0.0374614,0.999298,353.651,93.3157)"
@@ -394,7 +425,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 5)}
+            label={getLabel(2, 5)} color={getColor(2, 5)} ledIndex={getLEDIndex(2, 5)}
             active={isActive(2, 5)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.89936,0.0339334,-0.0377038,0.999289,299.102,31.0223)"
@@ -407,7 +438,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 4)}
+            label={getLabel(2, 4)} color={getColor(2, 4)} ledIndex={getLEDIndex(2, 4)}
             active={isActive(2, 4)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899393,0.0330486,-0.0367206,0.999326,241.619,17.1192)"
@@ -420,7 +451,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 3)}
+            label={getLabel(2, 3)} color={getColor(2, 3)} ledIndex={getLEDIndex(2, 3)}
             active={isActive(2, 3)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899835,0.017257,-0.0191745,0.999816,180.736,13.9734)"
@@ -433,7 +464,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 2)}
+            label={getLabel(2, 2)} color={getColor(2, 2)} ledIndex={getLEDIndex(2, 2)}
             active={isActive(2, 2)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899998,0.0017242,-0.00191578,0.999998,118.119,28.9358)"
@@ -446,7 +477,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 1)}
+            label={getLabel(2, 1)} color={getColor(2, 1)} ledIndex={getLEDIndex(2, 1)}
             active={isActive(2, 1)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.898935,-0.0437677,0.0486308,0.998817,51.5348,66.6423)"
@@ -459,7 +490,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 0)}
+            label={getLabel(2, 0)} color={getColor(2, 0)} ledIndex={getLEDIndex(2, 0)}
             active={isActive(2, 0)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.898866,-0.0451617,0.0501797,0.99874,-7.54853,69.4916)"
@@ -473,7 +504,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 15)}
+            label={getLabel(1, 15)} color={getColor(1, 15)} ledIndex={getLEDIndex(1, 15)}
             active={isActive(1, 15)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.898866,0.0451617,-0.0501797,0.99874,811.933,4.92264)"
@@ -486,7 +517,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 14)}
+            label={getLabel(1, 14)} color={getColor(1, 14)} ledIndex={getLEDIndex(1, 14)}
             active={isActive(1, 14)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.89896,0.0432529,-0.0480588,0.998845,751.11,2.28101)"
@@ -499,7 +530,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 13)}
+            label={getLabel(1, 13)} color={getColor(1, 13)} ledIndex={getLEDIndex(1, 13)}
             active={isActive(1, 13)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899998,-0.0017242,0.00191578,0.999998,681.282,-24.6434)"
@@ -512,7 +543,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 12)}
+            label={getLabel(1, 12)} color={getColor(1, 12)} ledIndex={getLEDIndex(1, 12)}
             active={isActive(1, 12)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899835,-0.017257,0.0191745,0.999816,618.535,-35.8131)"
@@ -525,7 +556,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 11)}
+            label={getLabel(1, 11)} color={getColor(1, 11)} ledIndex={getLEDIndex(1, 11)}
             active={isActive(1, 11)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.89968,-0.0239904,0.026656,0.999645,559.413,-29.6255)"
@@ -538,7 +569,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 10)}
+            label={getLabel(1, 10)} color={getColor(1, 10)} ledIndex={getLEDIndex(1, 10)}
             active={isActive(1, 10)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899448,-0.0315052,0.0350057,0.999387,500.899,-14.9371)"
@@ -551,7 +582,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 9)}
+            label={getLabel(1, 9)} color={getColor(1, 9)} ledIndex={getLEDIndex(1, 9)}
             active={isActive(1, 9)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899401,-0.0328385,0.0364872,0.999334,445.079,39.2222)"
@@ -564,7 +595,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 8)}
+            label={getLabel(1, 8)} color={getColor(1, 8)} ledIndex={getLEDIndex(1, 8)}
             active={isActive(1, 8)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.889818,-0.134996,0.149995,0.988687,540.033,177.119)"
@@ -577,7 +608,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 7)}
+            label={getLabel(1, 7)} color={getColor(1, 7)} ledIndex={getLEDIndex(1, 7)}
             active={isActive(1, 7)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.889818,0.134996,-0.149995,0.988687,263.716,145.245)"
@@ -590,7 +621,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 6)}
+            label={getLabel(1, 6)} color={getColor(1, 6)} ledIndex={getLEDIndex(1, 6)}
             active={isActive(1, 6)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899401,0.0328385,-0.0364872,0.999334,355.407,31.4687)"
@@ -603,7 +634,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 5)}
+            label={getLabel(1, 5)} color={getColor(1, 5)} ledIndex={getLEDIndex(1, 5)}
             active={isActive(1, 5)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899448,0.0315052,-0.0350057,0.999387,300.576,-22.3758)"
@@ -616,7 +647,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 4)}
+            label={getLabel(1, 4)} color={getColor(1, 4)} ledIndex={getLEDIndex(1, 4)}
             active={isActive(1, 4)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.89968,0.0239904,-0.026656,0.999645,241.325,-35.2899)"
@@ -629,7 +660,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 3)}
+            label={getLabel(1, 3)} color={getColor(1, 3)} ledIndex={getLEDIndex(1, 3)}
             active={isActive(1, 3)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899835,0.017257,-0.0191745,0.999816,181.284,-39.8876)"
@@ -642,7 +673,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 2)}
+            label={getLabel(1, 2)} color={getColor(1, 2)} ledIndex={getLEDIndex(1, 2)}
             active={isActive(1, 2)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899998,0.0017242,-0.00191578,0.999998,117.422,-25.0505)"
@@ -655,7 +686,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 1)}
+            label={getLabel(1, 1)} color={getColor(1, 1)} ledIndex={getLEDIndex(1, 1)}
             active={isActive(1, 1)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.89896,-0.0432529,0.0480588,0.998845,49.228,12.4935)"
@@ -668,7 +699,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 0)}
+            label={getLabel(1, 0)} color={getColor(1, 0)} ledIndex={getLEDIndex(1, 0)}
             active={isActive(1, 0)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.898866,-0.0451617,0.0501797,0.99874,-10.3571,15.5858)"
@@ -682,7 +713,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 15)}
+            label={getLabel(0, 15)} color={getColor(0, 15)} ledIndex={getLEDIndex(0, 15)}
             active={isActive(0, 15)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.898948,0.0434984,-0.0483315,0.998831,812.704,-48.9935)"
@@ -695,7 +726,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 14)}
+            label={getLabel(0, 14)} color={getColor(0, 14)} ledIndex={getLEDIndex(0, 14)}
             active={isActive(0, 14)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.898858,0.0453278,-0.0503642,0.998731,753.366,-54.0866)"
@@ -708,7 +739,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 13)}
+            label={getLabel(0, 13)} color={getColor(0, 13)} ledIndex={getLEDIndex(0, 13)}
             active={isActive(0, 13)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899998,-0.0017242,0.00191578,0.999998,681.242,-79.5663)"
@@ -721,7 +752,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 12)}
+            label={getLabel(0, 12)} color={getColor(0, 12)} ledIndex={getLEDIndex(0, 12)}
             active={isActive(0, 12)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899835,-0.017257,0.0191745,0.999816,617.437,-89.6613)"
@@ -734,7 +765,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 11)}
+            label={getLabel(0, 11)} color={getColor(0, 11)} ledIndex={getLEDIndex(0, 11)}
             active={isActive(0, 11)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899644,-0.0252947,0.0281052,0.999605,557.038,-84.3739)"
@@ -747,7 +778,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 10)}
+            label={getLabel(0, 10)} color={getColor(0, 10)} ledIndex={getLEDIndex(0, 10)}
             active={isActive(0, 10)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899448,-0.0315052,0.0350057,0.999387,499.328,-68.9256)"
@@ -760,7 +791,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 9)}
+            label={getLabel(0, 9)} color={getColor(0, 9)} ledIndex={getLEDIndex(0, 9)}
             active={isActive(0, 9)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899448,-0.0315052,0.0350057,0.999387,443.056,-23.4824)"
@@ -773,7 +804,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 8)}
+            label={getLabel(0, 8)} color={getColor(0, 8)} ledIndex={getLEDIndex(0, 8)}
             active={isActive(0, 8)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.89979,0.0194631,-0.0216256,0.999766,625.543,155.938)"
@@ -786,7 +817,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 7)}
+            label={getLabel(0, 7)} color={getColor(0, 7)} ledIndex={getLEDIndex(0, 7)}
             active={isActive(0, 7)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.89979,-0.0194631,0.0216256,0.999766,176.22,160.534)"
@@ -799,7 +830,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 6)}
+            label={getLabel(0, 6)} color={getColor(0, 6)} ledIndex={getLEDIndex(0, 6)}
             active={isActive(0, 6)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899448,0.0315052,-0.0350057,0.999387,357.632,-30.9212)"
@@ -812,7 +843,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 5)}
+            label={getLabel(0, 5)} color={getColor(0, 5)} ledIndex={getLEDIndex(0, 5)}
             active={isActive(0, 5)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899448,0.0315052,-0.0350057,0.999387,302.147,-76.3643)"
@@ -825,7 +856,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 4)}
+            label={getLabel(0, 4)} color={getColor(0, 4)} ledIndex={getLEDIndex(0, 4)}
             active={isActive(0, 4)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899644,0.0252947,-0.0281052,0.999605,243.74,-90.3462)"
@@ -838,7 +869,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 3)}
+            label={getLabel(0, 3)} color={getColor(0, 3)} ledIndex={getLEDIndex(0, 3)}
             active={isActive(0, 3)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899835,0.017257,-0.0191745,0.999816,182.132,-93.7359)"
@@ -851,7 +882,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 2)}
+            label={getLabel(0, 2)} color={getColor(0, 2)} ledIndex={getLEDIndex(0, 2)}
             active={isActive(0, 2)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.899998,0.0017242,-0.00191578,0.999998,117.422,-79.9734)"
@@ -864,7 +895,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 1)}
+            label={getLabel(0, 1)} color={getColor(0, 1)} ledIndex={getLEDIndex(0, 1)}
             active={isActive(0, 1)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.898858,-0.0453278,0.0503642,0.998731,47.1874,-43.323)"
@@ -877,7 +908,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 0)}
+            label={getLabel(0, 0)} color={getColor(0, 0)} ledIndex={getLEDIndex(0, 0)}
             active={isActive(0, 0)}
             onClick={this.props.onKeySelect}
             primaryLabelTransform="matrix(0.898948,-0.0434984,0.0483315,0.998831,-10.1108,-38.7231)"

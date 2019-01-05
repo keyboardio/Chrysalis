@@ -49,7 +49,7 @@ class Keymap extends React.Component {
             {labels.extraLabel}
           </text>
           <text x={x + 7} y={bottom}>
-            {labels.label}
+            {width > 1 ? labels.verbose || labels.label : labels.label}
           </text>
         </g>
       );

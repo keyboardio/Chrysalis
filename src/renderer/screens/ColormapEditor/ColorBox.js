@@ -19,95 +19,45 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import { ChromePicker } from "react-color";
-
-import Popover from "@material-ui/core/Popover";
 import { withStyles } from "@material-ui/core/styles";
 
-const styles = () => ({
+const styles = theme => ({
   box: {
-    border: "1px black solid",
     height: "30px",
     width: "30px",
-    borderRadius: "5px",
-    margin: "3px",
+    borderRadius: "50%",
+    margin: theme.spacing.unit,
+    transform: "scale(1)",
+    transition: "200ms transform ease",
     "&:hover": {
-      cursor: "pointer"
+      transform: "scale(1.2)",
+      cursor: "pointer",
+      borderRadius: "25%"
     }
   },
   selected: {
-    border: "3px red solid"
+    transform: "scale(1.2)",
+    borderRadius: "25%",
+    boxShadow: "0 0 8px 0px #aaa"
   }
 });
 
 class ColorBox extends React.Component {
-  state = {
-    picker: false,
-    anchorEl: null
-  };
-
   onClick = colorIndex => {
     this.props.onColorSelect(colorIndex);
-  };
-
-  onContext = event => {
-    this.setState({
-      anchorEl: event.currentTarget,
-      picker: true
-    });
-  };
-
-  onColorPick = ({ rgb: { r, g, b } }) => {
-    this.props.onColorPick(this.props.colorIndex, r, g, b);
-  };
-
-  onPopoverClose = () => {
-    this.setState({
-      anchorEl: null,
-      picker: false
-    });
   };
 
   render() {
     const { classes, color, colorIndex, selected } = this.props;
 
-    let picker = null;
-    if (this.state.picker) {
-      picker = (
-        <Popover
-          open={this.state.picker}
-          anchorEl={this.state.anchorEl}
-          onClose={this.onPopoverClose}
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "left"
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "right"
-          }}
-        >
-          <ChromePicker
-            color={color}
-            disableAlpha
-            onChangeComplete={this.onColorPick}
-          />
-        </Popover>
-      );
-    }
-
     return (
-      <React.Fragment>
-        <div
-          className={classNames(classes.box, selected && classes.selected)}
-          style={{ backgroundColor: color.rgb }}
-          onClick={() => {
-            this.onClick(colorIndex);
-          }}
-          onContextMenu={this.onContext}
-        />
-        {picker}
-      </React.Fragment>
+      <div
+        className={classNames(classes.box, selected && classes.selected)}
+        style={{ backgroundColor: color.rgb }}
+        onClick={() => {
+          this.onClick(colorIndex);
+        }}
+      />
     );
   }
 }

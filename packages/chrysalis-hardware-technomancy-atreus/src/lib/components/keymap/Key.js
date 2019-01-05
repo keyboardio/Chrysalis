@@ -22,7 +22,7 @@ class Key extends React.Component {
     const { x, y, label, row, col, layer, onClick } = this.props;
     const keyIndex = parseInt(row) * 11 + parseInt(col);
     const stroke = this.props.active ? "#f3b3b3" : "#b3b3b3";
-    const height = this.props.height || 52;
+    const height = this.props.height || 48;
     const bottom = y + height - 16;
 
     return (
@@ -32,14 +32,11 @@ class Key extends React.Component {
         data-key-index={keyIndex}
         data-layer={layer}
       >
-        <rect x={x} y={y}
-              width="52" height={height}
-              rx="5" fill={stroke} />
-        <rect x={x + 6} y={y + 3}
-              width="40" height={height - 12}
-              rx="5" fill="#ffffff"/>
-        <text x={x + 9} y={y + 14}>{label.extraLabel}</text>
-        <text x={x + 9} y={bottom}>{label.label}</text>
+        <rect x={x} y={y} rx={3}
+              width="48" height={height}
+              stroke={stroke} strokeWidth={1.55} fill="#ffffff" />
+        <text x={x + 7} y={y + 14}>{label.extraLabel}</text>
+        <text x={x + 7} y={bottom}>{label.label}</text>
       </g>
     );
   }

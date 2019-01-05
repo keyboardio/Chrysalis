@@ -97,24 +97,6 @@ app.on("ready", async () => {
   mainWindow = createMainWindow();
 });
 
-app.on("gpu-process-crashed", () => {
-  console.error(`
-*********************************************************************
-* Unfortunately the renderer process has crashed.                   *
-*                                                                   *
-* Please set the ELECTRON_ENABLE_LOGGING environment variable       *
-* to "1", and re-run the application from a terminal or console,    *
-* and submit the output to our issue tracker at:                    *
-*  https://github.com/keyboardio/chrysalis-bundle-keyboardio/issues *
-*                                                                   *
-* Thank you!                                                        *
-*********************************************************************
-`);
-  setTimeout(() => {
-    app.exit(1);
-  }, 5000);
-});
-
 app.on("web-contents-created", (_, wc) => {
   wc.on("before-input-event", (_, input) => {
     if (

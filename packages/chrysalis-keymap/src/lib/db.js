@@ -126,7 +126,8 @@ class KeymapDB {
         return {
             keyCode: key.code,
             label: key.labels.primary,
-            extraLabel: key.labels.top
+            extraLabel: key.labels.top,
+            verbose: key.labels.verbose
         }
     }
 

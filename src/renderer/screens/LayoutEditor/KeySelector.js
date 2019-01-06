@@ -214,6 +214,7 @@ class KeyGroupListUnwrapped extends React.Component {
       modSelector = (
         <FormGroup row>
           <FormControlLabel
+            disabled={disabled}
             className={classes.checkbox}
             control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
             checked={Boolean(selectedKey & CTRL_HELD)}
@@ -221,6 +222,7 @@ class KeyGroupListUnwrapped extends React.Component {
             label="Control"
           />
           <FormControlLabel
+            disabled={disabled}
             className={classes.checkbox}
             control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
             checked={Boolean(selectedKey & SHIFT_HELD)}
@@ -228,6 +230,7 @@ class KeyGroupListUnwrapped extends React.Component {
             label="Shift"
           />
           <FormControlLabel
+            disabled={disabled}
             className={classes.checkbox}
             control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
             checked={Boolean(selectedKey & LALT_HELD)}
@@ -235,6 +238,7 @@ class KeyGroupListUnwrapped extends React.Component {
             label="Alt"
           />
           <FormControlLabel
+            disabled={disabled}
             className={classes.checkbox}
             control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
             checked={Boolean(selectedKey & RALT_HELD)}
@@ -242,6 +246,7 @@ class KeyGroupListUnwrapped extends React.Component {
             label="AltGr"
           />
           <FormControlLabel
+            disabled={disabled}
             className={classes.checkbox}
             control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
             checked={Boolean(selectedKey & GUI_HELD)}

@@ -193,7 +193,8 @@ class KeyGroupListUnwrapped extends React.Component {
     } = this.props;
 
     const keyCode = withModifiers ? selectedKey % 256 : selectedKey;
-    const mask = withModifiers ? selectedKey - keyCode : 0;
+    const mask =
+      selectedKey == 65535 ? 0 : withModifiers ? selectedKey - keyCode : 0;
     const itemList = items || baseKeyCodeTable[group].keys;
 
     const keyList = itemList.map(key => {
@@ -217,7 +218,7 @@ class KeyGroupListUnwrapped extends React.Component {
             disabled={disabled}
             className={classes.checkbox}
             control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
-            checked={Boolean(selectedKey & CTRL_HELD)}
+            checked={Boolean(mask & CTRL_HELD)}
             onChange={this.toggleMask(CTRL_HELD)}
             label="Control"
           />
@@ -225,7 +226,7 @@ class KeyGroupListUnwrapped extends React.Component {
             disabled={disabled}
             className={classes.checkbox}
             control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
-            checked={Boolean(selectedKey & SHIFT_HELD)}
+            checked={Boolean(mask & SHIFT_HELD)}
             onChange={this.toggleMask(SHIFT_HELD)}
             label="Shift"
           />
@@ -233,7 +234,7 @@ class KeyGroupListUnwrapped extends React.Component {
             disabled={disabled}
             className={classes.checkbox}
             control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
-            checked={Boolean(selectedKey & LALT_HELD)}
+            checked={Boolean(mask & LALT_HELD)}
             onChange={this.toggleMask(LALT_HELD)}
             label="Alt"
           />
@@ -241,7 +242,7 @@ class KeyGroupListUnwrapped extends React.Component {
             disabled={disabled}
             className={classes.checkbox}
             control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
-            checked={Boolean(selectedKey & RALT_HELD)}
+            checked={Boolean(mask & RALT_HELD)}
             onChange={this.toggleMask(RALT_HELD)}
             label="AltGr"
           />
@@ -249,7 +250,7 @@ class KeyGroupListUnwrapped extends React.Component {
             disabled={disabled}
             className={classes.checkbox}
             control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
-            checked={Boolean(selectedKey & GUI_HELD)}
+            checked={Boolean(mask & GUI_HELD)}
             onChange={this.toggleMask(GUI_HELD)}
             label="Gui"
           />

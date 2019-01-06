@@ -889,10 +889,10 @@
     "@chrysalis-api/flash" "^0.0.1"
     react "^16.5.2"
 
-"@chrysalis-api/keymap@~0.0.10":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/keymap/-/keymap-0.0.10.tgz#051f187bee58db399a66f8aaceb67500d02bf963"
-  integrity sha512-DMjZb6FmcbYIaEQsEU7suuY+yJ9lRyE5LwilUKQinbJ3a+r72pZOssUsZRAAzSgBEeMICjvih6+wnvvS+AcKNw==
+"@chrysalis-api/keymap@~0.0.11":
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/keymap/-/keymap-0.0.11.tgz#328d99113a2e8a444cf61522dd4e7809ddc626df"
+  integrity sha512-vq3/7LJVuG5c0K9g9uzfdc0qwvb16iXIApf4OvPxmOR5iXhxKJ0GXo5ruqWWZ1EDaVsO4vulFDKXoqihKHdKGw==
   dependencies:
     "@chrysalis-api/focus" "~0.0.8"
 

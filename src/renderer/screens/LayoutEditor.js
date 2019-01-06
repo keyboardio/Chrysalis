@@ -18,15 +18,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
+import EditIcon from "@material-ui/icons/Edit";
+import IconButton from "@material-ui/core/IconButton";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import MenuItem from "@material-ui/core/MenuItem";
 import Portal from "@material-ui/core/Portal";
-import Select from "@material-ui/core/Select";
+import SaveIcon from "@material-ui/icons/SaveAlt";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Toolbar from "@material-ui/core/Toolbar";
+import Tooltip from "@material-ui/core/Tooltip";
 import { withStyles } from "@material-ui/core/styles";
 
 import { withSnackbar } from "notistack";
@@ -132,6 +132,21 @@ class LayoutEditor extends React.Component {
     });
   };
 
+  selectDefaultLayer = async (event, value) => {
+    this.setState({
+      newDefaultLayer: value
+    });
+  };
+
+  onSaveDefaultLayer = () => {
+    const layer = this.state.newDefaultLayer;
+    let focus = new Focus();
+    focus.command("settings.defaultLayer", layer);
+    console.log("default layer set to", layer);
+    this.setState({ defaultLayer: layer });
+    this.props.toggleContextual();
+  };
+
   onApply = async () => {
     this.setState({ saving: true });
     let focus = new Focus();
@@ -143,14 +158,9 @@ class LayoutEditor extends React.Component {
     console.log("keymap updated");
   };
 
-  onDefaultLayerChange = async event => {
-    const defLayer = event.target.value;
-    this.setState({
-      defaultLayer: defLayer
-    });
-    let focus = new Focus();
-    focus.command("settings.defaultLayer", defLayer);
-    console.log("default layer set to", defLayer);
+  toggleContextual = async () => {
+    await this.setState(state => ({ newDefaultLayer: state.defaultLayer }));
+    this.props.toggleContextual();
   };
 
   componentDidMount() {
@@ -158,11 +168,13 @@ class LayoutEditor extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, contextual } = this.props;
+    const { currentLayer } = this.state;
     let focus = new Focus();
     const Layer = focus.device.components.keymap;
 
-    let layerIndex = this.state.currentLayer,
+    const altDefaultLayer = this.state.newDefaultLayer;
+    let layerIndex = contextual ? altDefaultLayer : currentLayer,
       isReadOnly = layerIndex < this.state.roLayers,
       layerData = this.state.keymap[layerIndex],
       layer = (
@@ -186,45 +198,48 @@ class LayoutEditor extends React.Component {
       return <Tab label={label} key={tabKey} />;
     });
 
-    let layerMenu = this.state.keymap.map((_, index) => {
-      let itemKey = "deflayer-item-" + index.toString();
-      return (
-        <MenuItem value={index} key={itemKey}>
-          Layer #{index}
-        </MenuItem>
-      );
-    });
+    const normalToolbar = (
+      <Toolbar>
+        <Tabs
+          className={classes.tabs}
+          value={this.state.currentLayer}
+          scrollable={this.state.keymap.length != 0}
+          scrollButtons="auto"
+          onChange={this.selectLayer}
+        >
+          {tabs}
+        </Tabs>
+        <Tooltip title="Select a new default layer" enterDelay={1500}>
+          <IconButton onClick={this.toggleContextual}>
+            <EditIcon />
+          </IconButton>
+        </Tooltip>
+      </Toolbar>
+    );
+    const alternativeToolbar = (
+      <Toolbar>
+        <Tabs
+          className={classes.tabs}
+          value={altDefaultLayer}
+          scrollable={this.state.keymap.length != 0}
+          scrollButtons="auto"
+          onChange={this.selectDefaultLayer}
+        >
+          {tabs}
+        </Tabs>
+        <Tooltip title="Save the new default layer" enterDelay={1500}>
+          <IconButton onClick={this.onSaveDefaultLayer} color="inherit">
+            <SaveIcon />
+          </IconButton>
+        </Tooltip>
+      </Toolbar>
+    );
+    const toolbar = this.props.contextual ? alternativeToolbar : normalToolbar;
 
     return (
       <React.Fragment>
-        <Portal container={this.props.titleElement}> Layout Editor </Portal>
-        <Portal container={this.props.appBarElement}>
-          <Toolbar>
-            <Tabs
-              className={classes.tabs}
-              value={this.state.currentLayer}
-              scrollable={this.state.keymap.length != 0}
-              scrollButtons="auto"
-              onChange={this.selectLayer}
-            >
-              {tabs}
-            </Tabs>
-            {this.state.keymap.length > 0 && (
-              <FormControl>
-                <Select
-                  value={this.state.defaultLayer}
-                  onChange={this.onDefaultLayerChange}
-                  displayEmpty
-                >
-                  {layerMenu}
-                </Select>
-                <FormHelperText className={classes.selectDefaultLayer}>
-                  Default layer
-                </FormHelperText>
-              </FormControl>
-            )}
-          </Toolbar>
-        </Portal>
+        <Portal container={this.props.titleElement}>Layout Editor</Portal>
+        <Portal container={this.props.appBarElement}>{toolbar}</Portal>
         {this.state.keymap.length == 0 && <LinearProgress variant="query" />}
         <div className={classes.editor}>{layer}</div>
         <KeySelector

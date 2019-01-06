@@ -26,6 +26,7 @@ import "@chrysalis-api/colormap";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import ChatIcon from "@material-ui/icons/Chat";
+import CloseIcon from "@material-ui/icons/Close";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Divider from "@material-ui/core/Divider";
@@ -102,6 +103,7 @@ class App extends React.Component {
       connected: false,
       device: null,
       pages: {},
+      contextual: false,
       Page: KeyboardSelect
     };
   }
@@ -226,9 +228,15 @@ class App extends React.Component {
     this.setState({ Page: page });
   };
 
+  toggleContextual = () => {
+    this.setState(state => ({
+      contextual: !state.contextual
+    }));
+  };
+
   render() {
     const { classes } = this.props;
-    const { connected, pages, Page } = this.state;
+    const { connected, pages, Page, contextual } = this.state;
 
     let focus = new Focus(),
       device =
@@ -400,14 +408,18 @@ class App extends React.Component {
     return (
       <div className={classes.root}>
         <CssBaseline />
-        <AppBar position="static" color="inherit" id="appbar">
+        <AppBar
+          position="static"
+          color={contextual ? "primary" : "inherit"}
+          id="appbar"
+        >
           <Toolbar variant="dense">
             <Button
               className={classes.menuButton}
               color="inherit"
-              onClick={this.pageMenu}
+              onClick={contextual ? this.toggleContextual : this.pageMenu}
             >
-              <MenuIcon />
+              {contextual ? <CloseIcon /> : <MenuIcon />}
               <Typography
                 variant="h6"
                 color="inherit"
@@ -429,6 +441,8 @@ class App extends React.Component {
             onDisconnect={this.onKeyboardDisconnect}
             openPage={this.openPage}
             toggleFlashing={this.toggleFlashing}
+            toggleContextual={this.toggleContextual}
+            contextual={contextual}
           />
         </main>
         <Drawer open={this.state.pageMenu} onClose={this.closePageMenu}>

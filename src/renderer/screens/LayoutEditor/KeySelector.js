@@ -85,6 +85,7 @@ const moddableGroups = [
   "Digits",
   "Punctuation",
   "Spacing",
+  "Modifiers",
   "Navigation",
   "Fx keys",
   "Numpad"

@@ -37,7 +37,7 @@ const MediaControlTable = {
             labels: {
                 top: "Media",
                 primary: "Track-",
-                verbose: "Previous track"
+                verbose: "Prev. track"
             }
         },
         {
@@ -53,7 +53,7 @@ const MediaControlTable = {
             labels: {
                 top: "Media",
                 primary: "Vol+",
-                verbose: "Volume increase"
+                verbose: "Volume up"
             }
         },
         {
@@ -61,7 +61,7 @@ const MediaControlTable = {
             labels: {
                 top: "Media",
                 primary: "Vol-",
-                verbose: "Volume decrease"
+                verbose: "Volume down"
             }
         }
     ]

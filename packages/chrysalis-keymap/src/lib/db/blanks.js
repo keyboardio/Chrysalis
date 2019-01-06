@@ -22,7 +22,7 @@ const BlankTable = {
             code: 0,
             labels: {
                 primary: "",
-                verbose: "Disabled key"
+                verbose: "Disabled"
             }
         },
         {
@@ -30,7 +30,7 @@ const BlankTable = {
             code: 65535,
             labels: {
                 primary: "[Trns]",
-                verbose: "Transparent key"
+                verbose: "Transparent"
             }
         }
     ]

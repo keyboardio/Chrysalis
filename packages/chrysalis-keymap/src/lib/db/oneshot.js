@@ -70,7 +70,7 @@ const OneShotModifierTable = {
             labels: {
                 top: "OSM",
                 primary: "RAlt",
-                verbose: "Right Alt / AltGr"
+                verbose: "AltGr"
             }
         },
         {

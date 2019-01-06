@@ -20,7 +20,7 @@ button {
 }
 
 .layer {
-  font-family: "OpenSans-Bold", "Open Sans", "sans-serif";
+  font-family: "Input Mono", "monospace";
   font-size: 10px;
   font-weight: 700;
   min-width: 550px;
@@ -58,7 +58,6 @@ button {
 }
 
 .extraKey {
-  font-family: "SourceCodePro-Bold", "Source Code Pro", "monospace";
   font-size: 8px;
 }
 

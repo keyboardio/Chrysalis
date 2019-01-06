@@ -63,6 +63,12 @@ const styles = theme => ({
   },
   typeSelector: {
     color: theme.palette.primary.main
+  },
+  checkbox: {
+    marginRight: theme.spacing.unit * 4
+  },
+  checkboxRoot: {
+    padding: "12px 4px 12px 12px"
   }
 });
 
@@ -207,31 +213,36 @@ class KeyGroupListUnwrapped extends React.Component {
       modSelector = (
         <FormGroup row>
           <FormControlLabel
-            control={<Checkbox />}
+            className={classes.checkbox}
+            control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
             checked={Boolean(selectedKey & CTRL_HELD)}
             onChange={this.toggleMask(CTRL_HELD)}
             label="Control"
           />
           <FormControlLabel
-            control={<Checkbox />}
+            className={classes.checkbox}
+            control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
             checked={Boolean(selectedKey & SHIFT_HELD)}
             onChange={this.toggleMask(SHIFT_HELD)}
             label="Shift"
           />
           <FormControlLabel
-            control={<Checkbox />}
+            className={classes.checkbox}
+            control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
             checked={Boolean(selectedKey & LALT_HELD)}
             onChange={this.toggleMask(LALT_HELD)}
             label="Alt"
           />
           <FormControlLabel
-            control={<Checkbox />}
+            className={classes.checkbox}
+            control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
             checked={Boolean(selectedKey & RALT_HELD)}
             onChange={this.toggleMask(RALT_HELD)}
             label="AltGr"
           />
           <FormControlLabel
-            control={<Checkbox />}
+            className={classes.checkbox}
+            control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
             checked={Boolean(selectedKey & GUI_HELD)}
             onChange={this.toggleMask(GUI_HELD)}
             label="Gui"

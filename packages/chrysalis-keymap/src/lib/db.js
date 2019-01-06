@@ -43,6 +43,7 @@ import {
 import MiscellaneousTable from "./db/miscellaneous"
 
 import { OneShotModifierTable, OneShotLayerTable } from "./db/oneshot"
+import { DualUseModifierTables, DualUseLayerTables } from "./db/dualuse"
 import TapDanceTable from "./db/tapdance"
 import LeaderTable from "./db/leader"
 import StenoTable from "./db/steno"
@@ -86,6 +87,8 @@ const keyCodeTable = baseKeyCodeTable
     .concat(ModifiedSpacingTables)
     .concat(ModifiedModifiersTables)
     .concat(ModifiedFunctionKeyTables)
+    .concat(DualUseModifierTables)
+    .concat(DualUseLayerTables)
 
 class KeymapDB {
     constructor() {

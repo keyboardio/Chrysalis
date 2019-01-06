@@ -8,6 +8,12 @@ The user interface underwent a major overhaul, in an attempt to follow the Mater
 
  [prs:116]: https://github.com/keyboardio/chrysalis-bundle-keyboardio/pull/116
 
+## New features
+
+It is now possible to augment keys with modifiers, to have a key that sends -
+for example - `Shift+2`. We had the UI in place for this, but not the supporting
+code. We now have both.
+
 ## Hardware support
 
 Chrysalis now supports the same hardware it did in previous versions, but it no

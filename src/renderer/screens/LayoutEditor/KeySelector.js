@@ -63,6 +63,12 @@ const styles = theme => ({
   },
   typeSelector: {
     color: theme.palette.primary.main
+  },
+  checkbox: {
+    marginRight: theme.spacing.unit * 4
+  },
+  checkboxRoot: {
+    padding: "12px 4px 12px 12px"
   }
 });
 
@@ -79,6 +85,7 @@ const moddableGroups = [
   "Digits",
   "Punctuation",
   "Spacing",
+  "Modifiers",
   "Navigation",
   "Fx keys",
   "Numpad"
@@ -140,14 +147,14 @@ class KeyGroupCodeUnwrapped extends React.Component {
 const KeyGroupCode = withStyles(styles)(KeyGroupCodeUnwrapped);
 
 const KeyButton = withStyles(styles)(props => {
-  const { keyInfo, selectedKey, onKeySelect, disabled } = props;
+  const { keyInfo, selected, onKeySelect, disabled, mask } = props;
 
   return (
     <Button
       className={props.classes.key}
-      color={keyInfo.code == selectedKey ? "primary" : "default"}
-      variant={keyInfo.code == selectedKey ? "contained" : "outlined"}
-      onClick={() => onKeySelect(keyInfo.code)}
+      color={selected ? "primary" : "default"}
+      variant={selected ? "contained" : "outlined"}
+      onClick={() => onKeySelect(keyInfo.code | mask)}
       disabled={disabled}
     >
       {keyInfo.labels.verbose || keyInfo.labels.primary}
@@ -155,50 +162,111 @@ const KeyButton = withStyles(styles)(props => {
   );
 });
 
-const KeyGroupList = withStyles(styles)(props => {
-  const {
-    group,
-    items,
-    selectedKey,
-    onKeySelect,
-    withModifiers,
-    disabled
-  } = props;
+const CTRL_HELD = (1 << 0) << 8;
+const LALT_HELD = (1 << 1) << 8;
+const RALT_HELD = (1 << 2) << 8;
+const SHIFT_HELD = (1 << 3) << 8;
+const GUI_HELD = (1 << 4) << 8;
 
-  const itemList = items || baseKeyCodeTable[group].keys;
+class KeyGroupListUnwrapped extends React.Component {
+  toggleMask = mask => {
+    return () => {
+      const { onKeySelect, selectedKey } = this.props;
 
-  const keyList = itemList.map(key => {
+      if (selectedKey & mask) {
+        onKeySelect(selectedKey & ~mask);
+      } else {
+        onKeySelect(selectedKey | mask);
+      }
+    };
+  };
+
+  render() {
+    const {
+      classes,
+      group,
+      items,
+      selectedKey,
+      onKeySelect,
+      withModifiers,
+      disabled
+    } = this.props;
+
+    const keyCode = withModifiers ? selectedKey % 256 : selectedKey;
+    const mask =
+      selectedKey == 65535 ? 0 : withModifiers ? selectedKey - keyCode : 0;
+    const itemList = items || baseKeyCodeTable[group].keys;
+
+    const keyList = itemList.map(key => {
+      return (
+        <KeyButton
+          key={key.code}
+          disabled={disabled}
+          keyInfo={key}
+          selected={key.code == keyCode}
+          onKeySelect={onKeySelect}
+          mask={mask}
+        />
+      );
+    });
+
+    let modSelector;
+    if (withModifiers) {
+      modSelector = (
+        <FormGroup row>
+          <FormControlLabel
+            disabled={disabled}
+            className={classes.checkbox}
+            control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
+            checked={Boolean(mask & CTRL_HELD)}
+            onChange={this.toggleMask(CTRL_HELD)}
+            label="Control"
+          />
+          <FormControlLabel
+            disabled={disabled}
+            className={classes.checkbox}
+            control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
+            checked={Boolean(mask & SHIFT_HELD)}
+            onChange={this.toggleMask(SHIFT_HELD)}
+            label="Shift"
+          />
+          <FormControlLabel
+            disabled={disabled}
+            className={classes.checkbox}
+            control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
+            checked={Boolean(mask & LALT_HELD)}
+            onChange={this.toggleMask(LALT_HELD)}
+            label="Alt"
+          />
+          <FormControlLabel
+            disabled={disabled}
+            className={classes.checkbox}
+            control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
+            checked={Boolean(mask & RALT_HELD)}
+            onChange={this.toggleMask(RALT_HELD)}
+            label="AltGr"
+          />
+          <FormControlLabel
+            disabled={disabled}
+            className={classes.checkbox}
+            control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
+            checked={Boolean(mask & GUI_HELD)}
+            onChange={this.toggleMask(GUI_HELD)}
+            label="Gui"
+          />
+        </FormGroup>
+      );
+    }
+
     return (
-      <KeyButton
-        key={key.code}
-        disabled={disabled}
-        keyInfo={key}
-        selectedKey={selectedKey}
-        onKeySelect={onKeySelect}
-      />
-    );
-  });
-
-  let modSelector;
-  if (withModifiers) {
-    modSelector = (
-      <FormGroup row>
-        <FormControlLabel control={<Checkbox />} label="Control" disabled />
-        <FormControlLabel control={<Checkbox />} label="Shift" disabled />
-        <FormControlLabel control={<Checkbox />} label="Alt" disabled />
-        <FormControlLabel control={<Checkbox />} label="Gui" disabled />
-        <FormControlLabel control={<Checkbox />} label="AltGr" disabled />
-      </FormGroup>
+      <React.Fragment>
+        <div className={classes.keylist}> {keyList} </div>
+        {modSelector}
+      </React.Fragment>
     );
   }
-
-  return (
-    <React.Fragment>
-      <div className={props.classes.keylist}> {keyList} </div>
-      {modSelector}
-    </React.Fragment>
-  );
-});
+}
+const KeyGroupList = withStyles(styles)(KeyGroupListUnwrapped);
 
 class KeyGroup extends React.Component {
   render() {
@@ -262,12 +330,19 @@ class KeySelector extends React.Component {
 
     if (currentKeyCode == -1) return null;
 
-    let groupIndex = selectedGroup;
+    let groupIndex = selectedGroup,
+      keyCode = currentKeyCode;
+
+    if (currentKeyCode >= 256 && currentKeyCode <= 8191) {
+      groupIndex = -1;
+      keyCode = keyCode % 256;
+    }
+
     if (groupIndex == -1) {
       groupIndex = keyGroups.length - 1;
       baseKeyCodeTable.forEach((group, index) => {
         for (let key of group.keys) {
-          if (key.code == currentKeyCode) {
+          if (key.code == keyCode) {
             groupIndex = index;
             break;
           }

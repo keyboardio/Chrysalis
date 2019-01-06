@@ -1,5 +1,5 @@
 /* chrysalis-keymap -- Chrysalis keymap library
- * Copyright (C) 2018  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -13,6 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+import { withModifiers } from "./utils"
 
 const ModifiersTable = {
     groupName: "Modifiers",
@@ -76,4 +78,59 @@ const ModifiersTable = {
     ]
 }
 
-export default ModifiersTable
+const ModifiedModifiersTables = [
+    // Single
+    withModifiers(ModifiersTable, "Control +", "C+", 256),
+    withModifiers(ModifiersTable, "Alt +", "A+", 512),
+    withModifiers(ModifiersTable, "AltGr +", "AGr+", 1024),
+    withModifiers(ModifiersTable, "Shift +", "S+", 2048),
+    withModifiers(ModifiersTable, "Gui +", "G+", 4096),
+
+    // Double
+    withModifiers(ModifiersTable, "Control + Alt +", "C+A+", 768),
+    withModifiers(ModifiersTable, "Control + AltGr +", "C+AGr+", 1280),
+    withModifiers(ModifiersTable, "Control + Shift +", "C+S+", 2304),
+    withModifiers(ModifiersTable, "Control + Gui +", "C+G+", 4352),
+    withModifiers(ModifiersTable, "Alt + AltGr +", "A+AGr+", 1536),
+    withModifiers(ModifiersTable, "Alt + Shift +", "A+S+", 2560),
+    withModifiers(ModifiersTable, "Alt + Gui +", "A+G+", 4608),
+    withModifiers(ModifiersTable, "AltGr + Shift +", "AGr+S+", 3072),
+    withModifiers(ModifiersTable, "AltGr + Gui +", "AGr+G+", 5120),
+
+    // Triple
+    withModifiers(ModifiersTable, "Control + Alt + AltGr +", "C+A+AGr+", 1792),
+    withModifiers(ModifiersTable, "Control + Alt + Shift +", "C+A+S+", 2816),
+    withModifiers(ModifiersTable, "Control + Alt + Gui +", "C+A+G+", 4864),
+    withModifiers(ModifiersTable, "Control + AltGr + Shift +", "C+AGr+S+", 3328),
+    withModifiers(ModifiersTable, "Control + AltGr + Gui +", "C+AGr+G+", 5376),
+    withModifiers(ModifiersTable, "Control + Shift + Gui +", "C+S+G+", 6400),
+    withModifiers(ModifiersTable, "Alt + AltGr + Shift +", "A+AGr+S+", 3584),
+    withModifiers(ModifiersTable, "Alt + AltGr + Gui +", "A+AGr+G+", 5632),
+    withModifiers(ModifiersTable, "Alt + Shift + Gui +", "A+S+G+", 6656),
+    withModifiers(ModifiersTable, "AltGr + Shift + Gui +", "AGr+S+G+", 7168),
+
+    // Quad
+    withModifiers(
+        ModifiersTable,
+        "Control + Alt + AltGr + Shift +",
+        "C+A+AGr+S+",
+        3840
+    ),
+    withModifiers(
+        ModifiersTable,
+        "Control + Alt + AltGr + Gui +",
+        "C+A+AGr+G+",
+        5888
+    ),
+    withModifiers(ModifiersTable, "Alt + AltGr + Shift + Gui +", "A+AGr+S+G+", 7680),
+
+    // All
+    withModifiers(
+        ModifiersTable,
+        "Control + Alt + AltGr + Shift + Gui +",
+        "C+A+AGr+S+G+",
+        7936
+    )
+]
+
+export { ModifiersTable as default, ModifiedModifiersTables }

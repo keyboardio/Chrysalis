@@ -1,5 +1,5 @@
 /* chrysalis-keymap -- Chrysalis keymap library
- * Copyright (C) 2018  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -22,12 +22,16 @@ import PunctuationTable, {
     ModifiedPunctuationTables
 } from "./db/punctuation"
 import SpacingTable, { ModifiedSpacingTables } from "./db/spacing"
-import ModifiersTable from "./db/modifiers"
+import ModifiersTable, {
+    ModifiedModifiersTables
+} from "./db/modifiers"
 import NavigationTable from "./db/navigation"
 import LEDEffectsTable from "./db/ledeffects"
 import MacrosTable from "./db/macros"
 import NumpadTable from "./db/numpad"
-import FunctionKeyTable from "./db/fxs"
+import FunctionKeyTable, {
+    ModifiedFunctionKeyTables
+} from "./db/fxs"
 
 import MediaControlTable from "./db/mediacontrols"
 import {
@@ -80,6 +84,8 @@ const keyCodeTable = baseKeyCodeTable
     .concat(ModifiedDigitTables)
     .concat(ModifiedPunctuationTables)
     .concat(ModifiedSpacingTables)
+    .concat(ModifiedModifiersTables)
+    .concat(ModifiedFunctionKeyTables)
 
 class KeymapDB {
     constructor() {

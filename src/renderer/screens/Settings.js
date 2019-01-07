@@ -21,9 +21,11 @@ import Electron from "electron";
 
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import MenuItem from "@material-ui/core/MenuItem";
 import Paper from "@material-ui/core/Paper";
 import Portal from "@material-ui/core/Portal";
 import Switch from "@material-ui/core/Switch";
+import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
 
 import i18n from "../i18n";
@@ -62,8 +64,22 @@ class Settings extends React.Component {
     }
   };
 
+  setLanguage = event => {
+    i18n.setLanguage(event.target.value);
+    this.setState({});
+  };
+
   render() {
     const { classes } = this.props;
+
+    const language = i18n.getLanguage();
+    const languages = i18n.getAvailableLanguages().map(code => {
+      return (
+        <MenuItem value={code} key={code}>
+          {i18n.getString("language", code)}
+        </MenuItem>
+      );
+    });
 
     return (
       <Paper elevation={1} className={classes.root}>
@@ -81,6 +97,15 @@ class Settings extends React.Component {
             }
             label={i18n.settings.devtools}
           />
+          <TextField
+            select
+            value={language}
+            helperText={i18n.settings.selectLanguage}
+            variant="outlined"
+            onChange={this.setLanguage}
+          >
+            {languages}
+          </TextField>
         </FormGroup>
       </Paper>
     );

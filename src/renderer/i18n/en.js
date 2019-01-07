@@ -16,6 +16,7 @@
  */
 
 const English = {
+  language: "English",
   errors: {
     deviceDisconnected: "Device disconnected"
   },
@@ -45,7 +46,8 @@ const English = {
     defaultLayer: "Default layer"
   },
   settings: {
-    devtools: "Developer tools"
+    devtools: "Developer tools",
+    selectLanguage: "Please select a language"
   },
   keyboardSelect: {
     unknown: "Unknown",

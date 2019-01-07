@@ -31,6 +31,7 @@ import Focus from "@chrysalis-api/focus";
 
 import Palette from "./ColormapEditor/Palette";
 import SaveChangesButton from "../components/SaveChangesButton";
+import i18n from "../i18n";
 
 const styles = theme => ({
   tabs: {
@@ -128,7 +129,7 @@ class ColormapEditor extends React.Component {
     const Layer = focus.device.components.keymap;
 
     let tabs = this.state.colorMap.map((_, index) => {
-      let label = "Layer #" + index.toString(),
+      let label = i18n.formatString(i18n.components.layer, index),
         tabKey = "tab-layer-" + index.toString();
       return <Tab label={label} key={tabKey} />;
     });
@@ -144,7 +145,9 @@ class ColormapEditor extends React.Component {
 
     return (
       <React.Fragment>
-        <Portal container={this.props.titleElement}>Colormap Editor</Portal>
+        <Portal container={this.props.titleElement}>
+          {i18n.app.menu.colormapEditor}
+        </Portal>
         <Portal container={this.props.appBarElement}>
           <Toolbar>
             <Tabs
@@ -170,7 +173,7 @@ class ColormapEditor extends React.Component {
           onClick={this.onApply}
           disabled={!this.state.modified}
         >
-          Save Changes
+          {i18n.components.save.saveChanges}
         </SaveChangesButton>
       </React.Fragment>
     );

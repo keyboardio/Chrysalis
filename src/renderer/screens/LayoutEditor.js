@@ -36,6 +36,7 @@ import { KeymapDB } from "@chrysalis-api/keymap";
 
 import KeySelector from "./LayoutEditor/KeySelector";
 import SaveChangesButton from "../components/SaveChangesButton";
+import i18n from "../i18n";
 
 const styles = theme => ({
   tabs: {
@@ -176,7 +177,7 @@ class LayoutEditor extends React.Component {
       );
 
     let tabs = this.state.keymap.map((_, index) => {
-      let label = "Layer #" + index.toString(),
+      let label = i18n.formatString(i18n.components.layer, index),
         tabKey = "tab-layer-" + index.toString(),
         isReadOnly = index < this.state.roLayers;
 
@@ -190,14 +191,16 @@ class LayoutEditor extends React.Component {
       let itemKey = "deflayer-item-" + index.toString();
       return (
         <MenuItem value={index} key={itemKey}>
-          Layer #{index}
+          {i18n.formatString(i18n.components.layer, index)}
         </MenuItem>
       );
     });
 
     return (
       <React.Fragment>
-        <Portal container={this.props.titleElement}> Layout Editor </Portal>
+        <Portal container={this.props.titleElement}>
+          {i18n.app.menu.layoutEditor}
+        </Portal>
         <Portal container={this.props.appBarElement}>
           <Toolbar>
             <Tabs
@@ -219,7 +222,7 @@ class LayoutEditor extends React.Component {
                   {layerMenu}
                 </Select>
                 <FormHelperText className={classes.selectDefaultLayer}>
-                  Default layer
+                  {i18n.layoutEditor.defaultLayer}
                 </FormHelperText>
               </FormControl>
             )}
@@ -237,7 +240,7 @@ class LayoutEditor extends React.Component {
           onClick={this.onApply}
           disabled={!this.state.modified}
         >
-          Save Changes
+          {i18n.components.save.saveChanges}
         </SaveChangesButton>
       </React.Fragment>
     );

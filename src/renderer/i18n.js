@@ -18,9 +18,11 @@
 import LocalizedStrings from "react-localization";
 
 import English from "./i18n/en";
+import Hungarian from "./i18n/hu";
 
 let i18n = new LocalizedStrings({
-  en: English
+  en: English,
+  hu: Hungarian
 });
 
 export { i18n as default };

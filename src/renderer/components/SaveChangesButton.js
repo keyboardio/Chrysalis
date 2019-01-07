@@ -24,7 +24,7 @@ import green from "@material-ui/core/colors/green";
 import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
 import CheckIcon from "@material-ui/icons/Check";
-import SaveIcon from "@material-ui/icons/Save";
+import SaveIcon from "@material-ui/icons/SaveAlt";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({

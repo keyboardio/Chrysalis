@@ -31,6 +31,7 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 import FirmwareUpdate from "./FirmwareUpdate";
+import i18n from "../i18n";
 
 const styles = theme => ({
   root: {
@@ -67,7 +68,7 @@ class Welcome extends React.Component {
     return (
       <div className={classes.root}>
         <Portal container={this.props.titleElement}>
-          Welcome to Chrysalis
+          {i18n.welcome.title}
         </Portal>
         <Card className={classes.card}>
           <CardHeader
@@ -81,9 +82,10 @@ class Welcome extends React.Component {
           />
           <CardContent>
             <Typography component="p" gutterBottom>
-              {
-                'Your keyboard is supported by Chrysalis, but the firmware it is using appears to be missing essential features. You can flash a firmware with reasonable defaults - including features essential for Chrysalis - by visiting the "Firmware update" page.'
-              }
+              {i18n.formatString(
+                i18n.welcome.contents,
+                i18n.app.menu.firmwareUpdate
+              )}
             </Typography>
           </CardContent>
           <CardActions className={classes.actions}>
@@ -94,7 +96,10 @@ class Welcome extends React.Component {
                 this.props.openPage(FirmwareUpdate);
               }}
             >
-              Go to the Firmware update page
+              {i18n.formatString(
+                i18n.welcome.gotoUpdate,
+                i18n.app.menu.firmwareUpdate
+              )}
             </Button>
           </CardActions>
         </Card>

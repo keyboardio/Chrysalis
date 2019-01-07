@@ -48,6 +48,8 @@ import { ErgoDox } from "@chrysalis-api/hardware-ez-ergodox";
 
 import usb from "usb";
 
+import i18n from "../i18n";
+
 const styles = theme => ({
   loader: {
     position: "fixed",
@@ -224,7 +226,7 @@ class KeyboardSelect extends React.Component {
           label = (
             <ListItemText
               primary={option.device.info.displayName}
-              secondary={option.comName || "Unknown"}
+              secondary={option.comName || i18n.keyboardSelect.unknown}
             />
           );
         } else if (option.info) {
@@ -250,7 +252,7 @@ class KeyboardSelect extends React.Component {
             <ListItem button onClick={this.handleClickListItem}>
               <ListItemText
                 primary={portInfo.displayName}
-                secondary={portDesc.comName || "Unknown"}
+                secondary={portDesc.comName || i18n.keyboardSelect.unknown}
               />
             </ListItem>
           </List>
@@ -259,7 +261,7 @@ class KeyboardSelect extends React.Component {
             open={Boolean(anchorEl)}
             onClose={this.handleClose}
           >
-            <MenuItem disabled>Please select a keyboard:</MenuItem>
+            <MenuItem disabled>{i18n.keyboardSelect.selectPrompt}</MenuItem>
             {deviceItems}
           </Menu>
         </React.Fragment>
@@ -267,10 +269,10 @@ class KeyboardSelect extends React.Component {
     }
 
     if (devices && devices.length == 0) {
-      port = <p className={classes.error}> No devices found! </p>;
+      port = <p className={classes.error}>{i18n.keyboardSelect.noDevices}</p>;
     }
 
-    let connectContent = "Connect";
+    let connectContent = i18n.keyboardSelect.connect;
     if (this.state.opening) {
       connectContent = <CircularProgress color="secondary" size={16} />;
     }
@@ -284,19 +286,21 @@ class KeyboardSelect extends React.Component {
     let scanDevicesButton;
     if (scanFoundDevices == undefined) {
       scanDevicesButton = (
-        <Button onClick={this.scanDevices}>Scan devices</Button>
+        <Button onClick={this.scanDevices}>{i18n.keyboardSelect.scan}</Button>
       );
     } else {
       scanDevicesButton = (
         <Button className={scanFoundDevices ? classes.found : classes.notFound}>
-          Scan devices
+          {i18n.keyboardSelect.scan}
         </Button>
       );
     }
 
     return (
       <div className={classes.main}>
-        <Portal container={this.props.titleElement}>Select a keyboard</Portal>
+        <Portal container={this.props.titleElement}>
+          {i18n.app.menu.selectAKeyboard}
+        </Portal>
         {loader}
         <Card className={classes.card}>
           <CardHeader className={classes.content} avatar={avatar} />

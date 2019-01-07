@@ -42,6 +42,7 @@ import { withSnackbar } from "notistack";
 
 import { getStaticPath } from "../config";
 import SaveChangesButton from "../components/SaveChangesButton";
+import i18n from "../i18n";
 
 const styles = theme => ({
   root: {
@@ -86,14 +87,14 @@ class FirmwareUpdate extends React.Component {
 
   selectCustomFirmware = () => {
     let files = Electron.remote.dialog.showOpenDialog({
-      title: "Select a firmware",
+      title: i18n.firmwareUpdate.dialog.selectFirmware,
       filters: [
         {
-          name: "Firmware files",
+          name: i18n.firmwareUpdate.dialog.firmwareFiles,
           extensions: ["hex"]
         },
         {
-          name: "All files",
+          name: i18n.firmwareUpdate.dialog.allFiles,
           extensions: ["*"]
         }
       ]
@@ -128,7 +129,7 @@ class FirmwareUpdate extends React.Component {
       await this._flash();
     } catch (e) {
       console.error(e);
-      this.props.enqueueSnackbar("Error flashing the firmware", {
+      this.props.enqueueSnackbar(i18n.firmwareUpdate.flashing.error, {
         variant: "error"
       });
       this.props.toggleFlashing();
@@ -138,7 +139,7 @@ class FirmwareUpdate extends React.Component {
 
     return new Promise(resolve => {
       setTimeout(() => {
-        this.props.enqueueSnackbar("Firmware flashed successfully!", {
+        this.props.enqueueSnackbar(i18n.firmwareUpdate.flashing.success, {
           variant: "success"
         });
 
@@ -166,7 +167,7 @@ class FirmwareUpdate extends React.Component {
         <ListItemIcon>
           <SettingsBackupRestoreIcon />
         </ListItemIcon>
-        <ListItemText primary="Default firmware" />
+        <ListItemText primary={i18n.firmwareUpdate.defaultFirmware} />
       </MenuItem>
     );
     let hasDefaultFirmware = true;
@@ -177,26 +178,25 @@ class FirmwareUpdate extends React.Component {
     }
 
     const selectedFirmware =
-      filename || (hasDefaultFirmware ? "Default firmware" : "");
+      filename ||
+      (hasDefaultFirmware ? i18n.firmwareUpdate.defaultFirmware : "");
 
     return (
       <div className={classes.root}>
-        <Portal container={this.props.titleElement}>Firmware update</Portal>
+        <Portal container={this.props.titleElement}>
+          {i18n.app.menu.firmwareUpdate}
+        </Portal>
         <Card className={classes.card}>
           <CardContent>
             <Typography variant="h5" component="h2" gutterBottom>
-              Updating the firmware
+              {i18n.firmwareUpdate.updatingTitle}
             </Typography>
             <Typography component="p" gutterBottom>
-              {
-                "Updating the firmware is a safe process, it's very hard to brick your keyboard even with bad firmware, as most keyboards provide a way to go stay in bootloader mode, where new firmware can be flashed. Nevertheless, updating the firmware will overwrite the previous one. If you customised your firmware, make sure you're flashing one that you are comfortable with. "
-              }
+              {i18n.firmwareUpdate.description}{" "}
               {this.state.device.messages.preFlash}
             </Typography>
             <Typography component="p">
-              {
-                "Once the upload is finished - either successfully or with errors -, you will be taken back to the initial keyboard selection screen. This is normal."
-              }
+              {i18n.firmwareUpdate.postUpload}
             </Typography>
           </CardContent>
           <Divider variant="middle" />
@@ -204,7 +204,7 @@ class FirmwareUpdate extends React.Component {
             <List component="nav">
               <ListItem button onClick={this.openFirmwareMenu}>
                 <ListItemText
-                  primary="Selected firmware"
+                  primary={i18n.firmwareUpdate.selected}
                   secondary={selectedFirmware}
                 />
               </ListItem>
@@ -222,12 +222,15 @@ class FirmwareUpdate extends React.Component {
                 <ListItemIcon>
                   <BuildIcon />
                 </ListItemIcon>
-                <ListItemText primary="Custom firmware" />
+                <ListItemText primary={i18n.firmwareUpdate.custom} />
               </MenuItem>
             </Menu>
             <div className={classes.grow} />
-            <SaveChangesButton onClick={this.upload} successMessage="Updated!">
-              Update
+            <SaveChangesButton
+              onClick={this.upload}
+              successMessage={i18n.firmwareUpdate.flashing.buttonSuccess}
+            >
+              {i18n.firmwareUpdate.flashing.button}
             </SaveChangesButton>
           </CardActions>
         </Card>

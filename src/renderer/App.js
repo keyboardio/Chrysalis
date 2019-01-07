@@ -58,6 +58,7 @@ import LayoutEditor from "./screens/LayoutEditor";
 import Settings from "./screens/Settings";
 import Welcome from "./screens/Welcome";
 import logo from "./logo-small.png";
+import i18n from "./i18n";
 
 let focus = new Focus();
 
@@ -120,7 +121,7 @@ class App extends React.Component {
       }
 
       if (!focus._port.isOpen) {
-        this.props.enqueueSnackbar("Device disconnected.", {
+        this.props.enqueueSnackbar(i18n.errors.deviceDisconnected, {
           variant: "warning"
         });
         focus.close();
@@ -262,7 +263,7 @@ class App extends React.Component {
         color="inherit"
         className={classes.button}
       >
-        Device: {device.displayName}
+        {i18n.app.device}: {device.displayName}
       </Button>
     );
 
@@ -277,7 +278,7 @@ class App extends React.Component {
         <ListItemIcon>
           <InfoIcon />
         </ListItemIcon>
-        <ListItemText primary="Welcome!" />
+        <ListItemText primary={i18n.app.menu.welcome} />
       </ListItem>
     );
 
@@ -292,7 +293,7 @@ class App extends React.Component {
         <ListItemIcon>
           <KeyboardIcon />
         </ListItemIcon>
-        <ListItemText primary="Layout editor" />
+        <ListItemText primary={i18n.app.menu.layoutEditor} />
       </ListItem>
     );
 
@@ -307,7 +308,7 @@ class App extends React.Component {
         <ListItemIcon>
           <HighlightIcon />
         </ListItemIcon>
-        <ListItemText primary="Colormap editor" />
+        <ListItemText primary={i18n.app.menu.colormapEditor} />
       </ListItem>
     );
 
@@ -322,7 +323,7 @@ class App extends React.Component {
         <ListItemIcon>
           <CloudUploadIcon />
         </ListItemIcon>
-        <ListItemText primary="Firmware update" />
+        <ListItemText primary={i18n.app.menu.firmwareUpdate} />
       </ListItem>
     );
 
@@ -331,7 +332,7 @@ class App extends React.Component {
         <ListItemIcon>
           <ChatIcon />
         </ListItemIcon>
-        <ListItemText primary="Real-time chat" />
+        <ListItemText primary={i18n.app.menu.chat} />
       </ListItem>
     );
 
@@ -343,7 +344,7 @@ class App extends React.Component {
         <ListItemIcon>
           <FeedbackIcon />
         </ListItemIcon>
-        <ListItemText primary="Send feedback" />
+        <ListItemText primary={i18n.app.menu.feedback} />
       </ListItem>
     );
 
@@ -358,13 +359,13 @@ class App extends React.Component {
         <ListItemIcon>
           <SettingsIcon />
         </ListItemIcon>
-        <ListItemText primary="Settings" />
+        <ListItemText primary={i18n.app.menu.settings} />
       </ListItem>
     );
 
     const keyboardSelectText = connected
-      ? "Select another keyboard"
-      : "Select a keyboard";
+      ? i18n.app.menu.selectAnotherKeyboard
+      : i18n.app.menu.selectAKeyboard;
     const keyboardSelectMenuItem = (
       <ListItem
         button
@@ -385,7 +386,7 @@ class App extends React.Component {
         <ListItemIcon>
           <ExitToAppIcon />
         </ListItemIcon>
-        <ListItemText primary="Exit Chrysalis" />
+        <ListItemText primary={i18n.app.menu.exit} />
       </ListItem>
     );
 

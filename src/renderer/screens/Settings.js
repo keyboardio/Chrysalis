@@ -26,6 +26,8 @@ import Portal from "@material-ui/core/Portal";
 import Switch from "@material-ui/core/Switch";
 import { withStyles } from "@material-ui/core/styles";
 
+import i18n from "../i18n";
+
 const styles = theme => ({
   root: {
     ...theme.mixins.gutters(),
@@ -65,7 +67,9 @@ class Settings extends React.Component {
 
     return (
       <Paper elevation={1} className={classes.root}>
-        <Portal container={this.props.titleElement}>Settings</Portal>
+        <Portal container={this.props.titleElement}>
+          {i18n.app.menu.settings}
+        </Portal>
         <FormGroup row>
           <FormControlLabel
             control={
@@ -75,7 +79,7 @@ class Settings extends React.Component {
                 value="devtools"
               />
             }
-            label="Developer tools"
+            label={i18n.settings.devtools}
           />
         </FormGroup>
       </Paper>

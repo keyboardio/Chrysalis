@@ -15,13 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export default {
-  firmware: `Could not communicate with your Model01.
+import LocalizedStrings from "react-localization";
 
-This could be because your firmware is out of date.
-Flash with updated firmware from https://github.com/keyboardio/Model01-Firmware
+import English from "./i18n/en";
 
-If you have a customized sketch take a look at
-https://github.com/keyboardio/Model01-Firmware/pull/65/files to see how to manually update.`,
-  noKeySelected: `Please click on a key to select one, then enter the keycode for that key and click 'Apply'`
-};
+let i18n = new LocalizedStrings({
+  en: English
+});
+
+export { i18n as default };

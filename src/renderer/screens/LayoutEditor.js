@@ -18,12 +18,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import MenuItem from "@material-ui/core/MenuItem";
 import Portal from "@material-ui/core/Portal";
-import Select from "@material-ui/core/Select";
+import Switch from "@material-ui/core/Switch";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -145,7 +143,7 @@ class LayoutEditor extends React.Component {
   };
 
   onDefaultLayerChange = async event => {
-    const defLayer = event.target.value;
+    const defLayer = event.target.checked ? event.target.value : 255;
     this.setState({
       defaultLayer: defLayer
     });
@@ -160,6 +158,8 @@ class LayoutEditor extends React.Component {
 
   render() {
     const { classes } = this.props;
+    const { currentLayer, defaultLayer } = this.state;
+
     let focus = new Focus();
     const Layer = focus.device.components.keymap;
 
@@ -187,14 +187,19 @@ class LayoutEditor extends React.Component {
       return <Tab label={label} key={tabKey} />;
     });
 
-    let layerMenu = this.state.keymap.map((_, index) => {
-      let itemKey = "deflayer-item-" + index.toString();
-      return (
-        <MenuItem value={index} key={itemKey}>
-          {i18n.formatString(i18n.components.layer, index)}
-        </MenuItem>
-      );
-    });
+    const defaultLayerSwitch = (
+      <FormControlLabel
+        label={i18n.layoutEditor.defaultLayer}
+        control={
+          <Switch
+            checked={currentLayer == defaultLayer}
+            onChange={this.onDefaultLayerChange}
+            value={currentLayer}
+            color="secondary"
+          />
+        }
+      />
+    );
 
     return (
       <React.Fragment>
@@ -212,20 +217,7 @@ class LayoutEditor extends React.Component {
             >
               {tabs}
             </Tabs>
-            {this.state.keymap.length > 0 && (
-              <FormControl>
-                <Select
-                  value={this.state.defaultLayer}
-                  onChange={this.onDefaultLayerChange}
-                  displayEmpty
-                >
-                  {layerMenu}
-                </Select>
-                <FormHelperText className={classes.selectDefaultLayer}>
-                  {i18n.layoutEditor.defaultLayer}
-                </FormHelperText>
-              </FormControl>
-            )}
+            {defaultLayerSwitch}
           </Toolbar>
         </Portal>
         {this.state.keymap.length == 0 && <LinearProgress variant="query" />}

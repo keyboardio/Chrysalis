@@ -27,6 +27,8 @@ import CheckIcon from "@material-ui/icons/Check";
 import SaveIcon from "@material-ui/icons/SaveAlt";
 import { withStyles } from "@material-ui/core/styles";
 
+import i18n from "../i18n";
+
 const styles = theme => ({
   root: {
     display: "flex",
@@ -137,7 +139,9 @@ class SaveChangesButton extends React.Component {
             disabled={inProgress || (this.props.disabled && !success)}
             onClick={this.handleButtonClick}
           >
-            {success ? successMessage || "Saved!" : this.props.children}
+            {success
+              ? successMessage || i18n.components.save.success
+              : this.props.children}
           </Button>
         </div>
       </div>

@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
-/* chrysalis-bundle-keyboardio -- Chrysalis Bundle for Keyboard.io
- * Copyright (C) 2018  Keyboardio, Inc.
+/* Chrysalis -- Kaleidoscope Command Center
+ * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -24,7 +24,7 @@ class Error extends React.Component {
         <h1>An error occurred!</h1>
         <p>
           Please see the errors on the development console, and{" "}
-          <a href="https://github.com/keyboardio/chrysalis-bundle-keyboardio/issues/new">
+          <a href="https://github.com/keyboardio/Chrysalis/issues/new">
             report the issue
           </a>
           .

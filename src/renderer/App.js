@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
-/* chrysalis-bundle-keyboardio -- Chrysalis Bundle for Keyboard.io
- * Copyright (C) 2018  Keyboardio, Inc.
+/* Chrysalis -- Kaleidoscope Command Center
+ * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -338,9 +338,7 @@ class App extends React.Component {
     const feedbackMenuItem = (
       <ListItem
         button
-        onClick={this.openURL(
-          "https://github.com/keyboardio/chrysalis-bundle-keyboardio/issues"
-        )}
+        onClick={this.openURL("https://github.com/keyboardio/Chrysalis/issues")}
       >
         <ListItemIcon>
           <FeedbackIcon />

@@ -16,6 +16,7 @@
  */
 
 const Hungarian = {
+  language: "Magyar",
   errors: {
     deviceDisconnected: "Az eszköz lecsatlakozott"
   },
@@ -45,7 +46,8 @@ const Hungarian = {
     defaultLayer: "Alapértelmezett réteg"
   },
   settings: {
-    devtools: "Fejlesztői eszközök"
+    devtools: "Fejlesztői eszközök",
+    selectLanguage: "Válasszon nyelvet"
   },
   keyboardSelect: {
     unknown: "Ismeretlen",

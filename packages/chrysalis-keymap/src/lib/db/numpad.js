@@ -166,8 +166,8 @@ const ModifiedNumpadTables = [
     // Quad
     withModifiers(
         NumpadTable,
-        "Control + Alt + AltGr + Shift +",
-        "C+A+AGr+S+",
+        "Meh + AltGr +",
+        "M+AGr+",
         3840
     ),
     withModifiers(
@@ -187,8 +187,8 @@ const ModifiedNumpadTables = [
     // All
     withModifiers(
         NumpadTable,
-        "Control + Alt + AltGr + Shift + Gui +",
-        "C+A+AGr+S+G+",
+        "Hyper + AltGr +",
+        "H+AGr+",
         7936
     )
 ]

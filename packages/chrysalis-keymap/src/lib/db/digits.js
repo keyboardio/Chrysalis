@@ -182,8 +182,8 @@ const ModifiedDigitTables = [
     // Quad
     withModifiers(
         DigitTable,
-        "Control + Alt + AltGr + Shift +",
-        "C+A+AGr+S+",
+        "Meh + AltGr +",
+        "M+AGr+",
         3840
     ),
     withModifiers(
@@ -198,8 +198,8 @@ const ModifiedDigitTables = [
     // All
     withModifiers(
         DigitTable,
-        "Control + Alt + AltGr + Shift + Gui +",
-        "C+A+AGr+S+G+",
+        "Hyper + AltGr +",
+        "H+AGr",
         7936
     )
 ]

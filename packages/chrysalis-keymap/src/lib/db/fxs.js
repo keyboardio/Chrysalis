@@ -128,8 +128,8 @@ const ModifiedFunctionKeyTables = [
     // Quad
     withModifiers(
         FunctionKeyTable,
-        "Control + Alt + AltGr + Shift +",
-        "C+A+AGr+S+",
+        "Meh + AltGr +",
+        "M+AGr+",
         3840
     ),
     withModifiers(
@@ -144,8 +144,8 @@ const ModifiedFunctionKeyTables = [
     // All
     withModifiers(
         FunctionKeyTable,
-        "Control + Alt + AltGr + Shift + Gui +",
-        "C+A+AGr+S+G+",
+        "Hyper + AltGr +",
+        "H+AGr+",
         7936
     )
 ]

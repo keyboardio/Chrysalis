@@ -99,8 +99,8 @@ const ModifiedSpacingTables = [
     // Quad
     withModifiers(
         SpacingTable,
-        "Control + Alt + AltGr + Shift +",
-        "C+A+AGr+S+",
+        "Meh + AltGr +",
+        "M+AGr+",
         3840
     ),
     withModifiers(
@@ -120,8 +120,8 @@ const ModifiedSpacingTables = [
     // All
     withModifiers(
         SpacingTable,
-        "Control + Alt + AltGr + Shift + Gui +",
-        "C+A+AGr+S+G+",
+        "Hyper + AltGr +",
+        "H+AGr+",
         7936
     )
 ]

@@ -313,8 +313,8 @@ const AGSGLetterTable = withModifiers(
 
 const CAAGrSLetterTable = withModifiers(
     LetterTable,
-    "Control + Alt + AltGr + Shift +",
-    "C+A+AGr+S+",
+    "Meh + AltGr +",
+    "M+AGr+",
     3840
 )
 
@@ -334,8 +334,8 @@ const AAGrSGLetterTable = withModifiers(
 
 const AllModLetterTable = withModifiers(
     LetterTable,
-    "Control + Alt + AltGr + Shift + Gui +",
-    "C+A+AGr+S+G+",
+    "Hyper + AltGr +",
+    "H+AGr+",
     7936
 )
 

@@ -53,7 +53,8 @@ const English = {
   settings: {
     devtools: "Developer tools",
     language: "Language",
-    interface: "Interface"
+    interface: "Interface",
+    advanced: "Advanced"
   },
   keyboardSelect: {
     unknown: "Unknown",

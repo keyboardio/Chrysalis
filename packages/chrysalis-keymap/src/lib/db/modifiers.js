@@ -80,13 +80,13 @@ const BasicModifiersTable = {
 
 let ModifiersTable = BasicModifiersTable
 ModifiersTable.keys.push({
-    code: 1792,
+    code: 2816,
     labels: {
         primary: "Meh"
     }
 })
 ModifiersTable.keys.push({
-    code: 5888,
+    code: 6912,
     labels: {
         primary: "Hyper"
     }

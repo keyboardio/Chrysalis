@@ -244,7 +244,7 @@ class App extends React.Component {
       device.urls.map(({ name, url }) => {
         return (
           <MenuItem key={name} onClick={this.openURL(url)}>
-            {name}
+            {i18n.app.deviceMenu[name] || name}
           </MenuItem>
         );
       });

@@ -40,6 +40,11 @@ const Hungarian = {
       chat: "Csevegőszoba",
       feedback: "Visszajelzés küldése",
       exit: "Kilépés"
+    },
+    deviceMenu: {
+      Homepage: "Honlap",
+      Forum: "Fórum",
+      Chat: "Csevegőszoba"
     }
   },
   layoutEditor: {
@@ -72,7 +77,7 @@ const Hungarian = {
     updatingTitle: "Vezérlő frissítés",
     selected: "Kiválasztott vezérlő",
     custom: "Egyedi vezérlő",
-    description: `A vezérlő frissítés egy biztonságos folyamat, nagyon nehéz téglásítani a billentyűzetet, még akkor is, ha hibás vezérlőt töltünk rá. A legtöbb billentyűzettel megoldható, hogy programozható módban maradjon csatlakozáskor, függetlenül attól, milyen vezérlő van rajta. A vezérlő frissítése azzal jár, hogy a meglévő program felülíródik. Ha testre szabta a programját, kérjük győződjön meg róla, hogy amire frissíteni akar, megfelelő.`,
+    description: `A vezérlő frissítés egy biztonságos folyamat, nagyon nehéz téglásítani a billentyűzetet, még akkor is, ha hibás vezérlőt töltünk rá. A legtöbb billentyűzettel megoldható, hogy programozható módban maradjon csatlakozáskor, függetlenül attól, milyen vezérlő van rajta. A vezérlő frissítése azzal jár, hogy a meglévő program felülíródik. Ha testre szabta a programját, kérjük győződjön meg róla, hogy amire frissíteni akar, megfelelő. Amennyiben folytatni kívánja, kérjük olvassa el a billentyűzete dokumentációjának vezérlő frissítésről szóló részét, majd nyomja meg a {0} gombot.`,
     postUpload: `Amint a feltöltés befejeződött - sikeresen, vagy sikertelenül -, visszatérünk a kezdeti billentyűzet választó oldalra. Ez az elvárt működés.`
   },
   welcome: {

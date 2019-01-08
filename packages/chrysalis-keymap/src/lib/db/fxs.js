@@ -115,7 +115,7 @@ const ModifiedFunctionKeyTables = [
 
     // Triple
     withModifiers(FunctionKeyTable, "Control + Alt + AltGr +", "C+A+AGr+", 1792),
-    withModifiers(FunctionKeyTable, "Control + Alt + Shift +", "C+A+S+", 2816),
+    withModifiers(FunctionKeyTable, "Meh +", "Meh+", 2816),
     withModifiers(FunctionKeyTable, "Control + Alt + Gui +", "C+A+G+", 4864),
     withModifiers(FunctionKeyTable, "Control + AltGr + Shift +", "C+AGr+S+", 3328),
     withModifiers(FunctionKeyTable, "Control + AltGr + Gui +", "C+AGr+G+", 5376),
@@ -138,6 +138,7 @@ const ModifiedFunctionKeyTables = [
         "C+A+AGr+G+",
         5888
     ),
+    withModifiers(FunctionKeyTable, "Hyper +", "Hyper+", 6912),
     withModifiers(FunctionKeyTable, "Alt + AltGr + Shift + Gui +", "A+AGr+S+G+", 7680),
 
     // All

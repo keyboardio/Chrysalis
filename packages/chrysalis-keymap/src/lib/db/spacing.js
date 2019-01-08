@@ -1,5 +1,5 @@
 /* chrysalis-keymap -- Chrysalis keymap library
- * Copyright (C) 2018  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -86,7 +86,7 @@ const ModifiedSpacingTables = [
 
     // Triple
     withModifiers(SpacingTable, "Control + Alt + AltGr +", "C+A+AGr+", 1792),
-    withModifiers(SpacingTable, "Control + Alt + Shift +", "C+A+S+", 2816),
+    withModifiers(SpacingTable, "Meh +", "Meh+", 2816),
     withModifiers(SpacingTable, "Control + Alt + Gui +", "C+A+G+", 4864),
     withModifiers(SpacingTable, "Control + AltGr + Shift +", "C+AGr+S+", 3328),
     withModifiers(SpacingTable, "Control + AltGr + Gui +", "C+AGr+G+", 5376),
@@ -109,6 +109,7 @@ const ModifiedSpacingTables = [
         "C+A+AGr+G+",
         5888
     ),
+    withModifiers(SpacingTable, "Hyper +", "Hyper+", 6912),
     withModifiers(
         SpacingTable,
         "Alt + AltGr + Shift + Gui +",

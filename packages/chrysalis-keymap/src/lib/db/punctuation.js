@@ -1,5 +1,5 @@
 /* chrysalis-keymap -- Chrysalis keymap library
- * Copyright (C) 2018  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -188,7 +188,7 @@ const ModifiedPunctuationTables = [
 
     // Triple
     withModifiers(PunctuationTable, "Control + Alt + AltGr +", "C+A+AGr+", 1792),
-    withModifiers(PunctuationTable, "Control + Alt + Shift +", "C+A+S+", 2816),
+    withModifiers(PunctuationTable, "Meh +", "Meh+", 2816),
     withModifiers(PunctuationTable, "Control + Alt + Gui +", "C+A+G+", 4864),
     withModifiers(
         PunctuationTable,
@@ -216,6 +216,7 @@ const ModifiedPunctuationTables = [
         "C+A+AGr+G+",
         5888
     ),
+    withModifiers(PunctuationTable, "Hyper +", "Hyper+", 6912),
     withModifiers(
         PunctuationTable,
         "Alt + AltGr + Shift + Gui +",

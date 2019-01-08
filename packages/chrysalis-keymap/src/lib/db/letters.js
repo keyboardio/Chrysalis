@@ -1,5 +1,5 @@
 /* chrysalis-keymap -- Chrysalis keymap library
- * Copyright (C) 2018  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -251,12 +251,7 @@ const CAAGLetterTable = withModifiers(
     1792
 )
 
-const CASLetterTable = withModifiers(
-    LetterTable,
-    "Control + Alt + Shift +",
-    "C+A+S+",
-    2816
-)
+const CASLetterTable = withModifiers(LetterTable, "Meh +", "Meh+", 2816)
 
 const CAGLetterTable = withModifiers(
     LetterTable,
@@ -371,6 +366,7 @@ const ModifiedLetterTables = [
     AGSGLetterTable,
     CAAGrSLetterTable,
     CAAGrGLetterTable,
+    withModifiers(LetterTable, "Hyper +", "Hyper+", 6912),
     AAGrSGLetterTable,
     AllModLetterTable
 ]

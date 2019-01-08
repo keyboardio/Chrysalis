@@ -1,6 +1,6 @@
 {
   "name": "@chrysalis-api/hardware-ez-ergodox",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Chrysalis ErgoDox support",
   "main": "lib",
   "repository": {

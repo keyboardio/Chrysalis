@@ -44,18 +44,8 @@ const styles = theme => ({
 });
 
 class Palette extends React.Component {
-  state = {
-    selectedColor: -1
-  };
-
-  onColorSelect = colorIndex => {
-    if (colorIndex == this.state.selectedColor) colorIndex = -1;
-    this.setState({ selectedColor: colorIndex });
-    this.props.onColorSelect(colorIndex);
-  };
-
   onColorPick = ({ rgb: { r, g, b } }) => {
-    this.props.onColorPick(this.state.selectedColor, r, g, b);
+    this.props.onColorPick(this.props.selected, r, g, b);
   };
 
   render() {
@@ -68,11 +58,11 @@ class Palette extends React.Component {
       const itemKey = "palette-index-" + index.toString();
       return (
         <ColorBox
-          selected={index == this.state.selectedColor}
+          selected={index == this.props.selected}
           key={itemKey}
           color={color}
           colorIndex={index}
-          onColorSelect={this.onColorSelect}
+          onColorSelect={this.props.onColorSelect}
         />
       );
     });
@@ -80,17 +70,17 @@ class Palette extends React.Component {
       const itemKey = "palette-index-" + (index + 8).toString();
       return (
         <ColorBox
-          selected={index + 8 == this.state.selectedColor}
+          selected={index + 8 == this.props.selected}
           key={itemKey}
           color={color}
           colorIndex={index + 8}
-          onColorSelect={this.onColorSelect}
+          onColorSelect={this.props.onColorSelect}
         />
       );
     });
 
-    const color = this.props.palette[this.state.selectedColor];
-    const picker = this.state.selectedColor != -1 && (
+    const color = this.props.palette[this.props.selected];
+    const picker = this.props.selected != -1 && (
       <MaterialPicker color={color} onChangeComplete={this.onColorPick} />
     );
 

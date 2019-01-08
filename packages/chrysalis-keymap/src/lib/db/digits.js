@@ -1,5 +1,5 @@
 /* chrysalis-keymap -- Chrysalis keymap library
- * Copyright (C) 2018  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -169,7 +169,7 @@ const ModifiedDigitTables = [
 
     // Triple
     withModifiers(DigitTable, "Control + Alt + AltGr +", "C+A+AGr+", 1792),
-    withModifiers(DigitTable, "Control + Alt + Shift +", "C+A+S+", 2816),
+    withModifiers(DigitTable, "Meh +", "Meh+", 2816),
     withModifiers(DigitTable, "Control + Alt + Gui +", "C+A+G+", 4864),
     withModifiers(DigitTable, "Control + AltGr + Shift +", "C+AGr+S+", 3328),
     withModifiers(DigitTable, "Control + AltGr + Gui +", "C+AGr+G+", 5376),
@@ -192,6 +192,7 @@ const ModifiedDigitTables = [
         "C+A+AGr+G+",
         5888
     ),
+    withModifiers(DigitTable, "Hyper +", "Hyper+", 6912),
     withModifiers(DigitTable, "Alt + AltGr + Shift + Gui +", "A+AGr+S+G+", 7680),
 
     // All

@@ -192,8 +192,10 @@ class FirmwareUpdate extends React.Component {
               {i18n.firmwareUpdate.updatingTitle}
             </Typography>
             <Typography component="p" gutterBottom>
-              {i18n.firmwareUpdate.description}{" "}
-              {this.state.device.messages.preFlash}
+              {i18n.formatString(
+                i18n.firmwareUpdate.description,
+                i18n.firmwareUpdate.flashing.button
+              )}
             </Typography>
             <Typography component="p">
               {i18n.firmwareUpdate.postUpload}

@@ -19,8 +19,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import Electron from "electron";
 
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
+import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
+import Collapse from "@material-ui/core/Collapse";
 import FilledInput from "@material-ui/core/FilledInput";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -52,12 +56,24 @@ const styles = theme => ({
   select: {
     paddingTop: theme.spacing.unit * 1,
     width: 200
+  },
+  advanced: {
+    display: "flex",
+    justifyContent: "center",
+    marginTop: theme.spacing.unit * 4,
+    "& button": {
+      textTransform: "none",
+      "& span svg": {
+        marginLeft: "1.5em"
+      }
+    }
   }
 });
 
 class Settings extends React.Component {
   state = {
-    devTools: false
+    devTools: false,
+    advanced: false
   };
 
   componentDidMount() {
@@ -83,6 +99,12 @@ class Settings extends React.Component {
   setLanguage = event => {
     i18n.setLanguage(event.target.value);
     this.setState({});
+  };
+
+  toggleAdvanced = () => {
+    this.setState(state => ({
+      advanced: !state.advanced
+    }));
   };
 
   render() {
@@ -139,24 +161,32 @@ class Settings extends React.Component {
             />
           </CardContent>
         </Card>
-        <Typography
-          variant="subtitle1"
-          component="h2"
-          className={classes.title}
-        >
-          {i18n.settings.devtools}
-        </Typography>
-        <Card>
-          <CardContent>
-            <FormControlLabel
-              className={classes.control}
-              classes={{ label: classes.grow }}
-              control={devToolsSwitch}
-              labelPlacement="start"
-              label={i18n.settings.devtools}
-            />
-          </CardContent>
-        </Card>
+        <div className={classes.advanced}>
+          <Button onClick={this.toggleAdvanced}>
+            {i18n.settings.advanced}
+            {this.state.advanced ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+          </Button>
+        </div>
+        <Collapse in={this.state.advanced} timeout="auto" unmountOnExit>
+          <Typography
+            variant="subtitle1"
+            component="h2"
+            className={classes.title}
+          >
+            {i18n.settings.devtools}
+          </Typography>
+          <Card>
+            <CardContent>
+              <FormControlLabel
+                className={classes.control}
+                classes={{ label: classes.grow }}
+                control={devToolsSwitch}
+                labelPlacement="start"
+                label={i18n.settings.devtools}
+              />
+            </CardContent>
+          </Card>
+        </Collapse>
       </div>
     );
   }

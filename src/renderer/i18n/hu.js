@@ -53,7 +53,8 @@ const Hungarian = {
   settings: {
     devtools: "Fejlesztői eszközök",
     language: "Nyelv",
-    interface: "Felhasználói felület"
+    interface: "Felhasználói felület",
+    advanced: "Haladó beállítások"
   },
   keyboardSelect: {
     unknown: "Ismeretlen",

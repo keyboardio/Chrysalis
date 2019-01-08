@@ -19,13 +19,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import Electron from "electron";
 
-import FormGroup from "@material-ui/core/FormGroup";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import FilledInput from "@material-ui/core/FilledInput";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import Paper from "@material-ui/core/Paper";
 import Portal from "@material-ui/core/Portal";
+import Select from "@material-ui/core/Select";
 import Switch from "@material-ui/core/Switch";
-import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 import i18n from "../i18n";
@@ -35,7 +37,21 @@ const styles = theme => ({
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
-    margin: theme.spacing.unit * 3
+    margin: `0px ${theme.spacing.unit * 8}px`
+  },
+  title: {
+    marginTop: theme.spacing.unit * 4,
+    marginBottom: theme.spacing.unit
+  },
+  control: {
+    width: "100%"
+  },
+  grow: {
+    flexGrow: 1
+  },
+  select: {
+    paddingTop: theme.spacing.unit * 1,
+    width: 200
   }
 });
 
@@ -81,33 +97,67 @@ class Settings extends React.Component {
       );
     });
 
+    const languageSelect = (
+      <Select
+        value={language}
+        variant="filled"
+        onChange={this.setLanguage}
+        input={<FilledInput classes={{ input: classes.select }} />}
+      >
+        {languages}
+      </Select>
+    );
+
+    const devToolsSwitch = (
+      <Switch
+        checked={this.state.devTools}
+        onChange={this.toggleDevTools}
+        value="devtools"
+      />
+    );
+
     return (
-      <Paper elevation={1} className={classes.root}>
+      <div className={classes.root}>
         <Portal container={this.props.titleElement}>
           {i18n.app.menu.settings}
         </Portal>
-        <FormGroup row>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={this.state.devTools}
-                onChange={this.toggleDevTools}
-                value="devtools"
-              />
-            }
-            label={i18n.settings.devtools}
-          />
-          <TextField
-            select
-            value={language}
-            helperText={i18n.settings.selectLanguage}
-            variant="outlined"
-            onChange={this.setLanguage}
-          >
-            {languages}
-          </TextField>
-        </FormGroup>
-      </Paper>
+        <Typography
+          variant="subtitle1"
+          component="h2"
+          className={classes.title}
+        >
+          {i18n.settings.interface}
+        </Typography>
+        <Card>
+          <CardContent>
+            <FormControlLabel
+              className={classes.control}
+              classes={{ label: classes.grow }}
+              control={languageSelect}
+              labelPlacement="start"
+              label={i18n.settings.language}
+            />
+          </CardContent>
+        </Card>
+        <Typography
+          variant="subtitle1"
+          component="h2"
+          className={classes.title}
+        >
+          {i18n.settings.devtools}
+        </Typography>
+        <Card>
+          <CardContent>
+            <FormControlLabel
+              className={classes.control}
+              classes={{ label: classes.grow }}
+              control={devToolsSwitch}
+              labelPlacement="start"
+              label={i18n.settings.devtools}
+            />
+          </CardContent>
+        </Card>
+      </div>
     );
   }
 }

@@ -52,7 +52,8 @@ const Hungarian = {
   },
   settings: {
     devtools: "Fejlesztői eszközök",
-    selectLanguage: "Válasszon nyelvet"
+    language: "Nyelv",
+    interface: "Felhasználói felület"
   },
   keyboardSelect: {
     unknown: "Ismeretlen",

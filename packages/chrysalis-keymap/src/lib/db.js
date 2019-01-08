@@ -25,10 +25,14 @@ import SpacingTable, { ModifiedSpacingTables } from "./db/spacing"
 import ModifiersTable, {
     ModifiedModifiersTables
 } from "./db/modifiers"
-import NavigationTable from "./db/navigation"
+import NavigationTable, {
+    ModifiedNavigationTables
+} from "./db/navigation"
 import LEDEffectsTable from "./db/ledeffects"
 import MacrosTable from "./db/macros"
-import NumpadTable from "./db/numpad"
+import NumpadTable, {
+    ModifiedNumpadTables
+} from "./db/numpad"
 import FunctionKeyTable, {
     ModifiedFunctionKeyTables
 } from "./db/fxs"
@@ -85,8 +89,10 @@ const keyCodeTable = baseKeyCodeTable
     .concat(ModifiedDigitTables)
     .concat(ModifiedPunctuationTables)
     .concat(ModifiedSpacingTables)
+    .concat(ModifiedNavigationTables)
     .concat(ModifiedModifiersTables)
     .concat(ModifiedFunctionKeyTables)
+    .concat(ModifiedNumpadTables)
     .concat(DualUseModifierTables)
     .concat(DualUseLayerTables)
 

@@ -115,7 +115,9 @@ class KeymapDB {
                     }
                 }
 
-                this.keymapCodeTable[key.code] = value
+                if (!this.keymapCodeTable[key.code]) {
+                    this.keymapCodeTable[key.code] = value
+                }
             }
         }
     }

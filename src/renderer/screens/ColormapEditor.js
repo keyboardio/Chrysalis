@@ -77,6 +77,7 @@ class ColormapEditor extends React.Component {
   };
 
   onColorSelect = colorIndex => {
+    if (colorIndex == this.state.selectedPaletteColor) colorIndex = -1;
     this.setState({ selectedPaletteColor: colorIndex });
   };
 
@@ -105,6 +106,10 @@ class ColormapEditor extends React.Component {
         return colormap;
       });
       this.setState({ modified: true });
+    } else {
+      this.setState({
+        selectedPaletteColor: this.state.colorMap[layer][ledIndex]
+      });
     }
   };
 
@@ -167,6 +172,7 @@ class ColormapEditor extends React.Component {
           palette={this.state.palette}
           onColorSelect={this.onColorSelect}
           onColorPick={this.onColorPick}
+          selected={this.state.selectedPaletteColor}
         />
         <SaveChangesButton
           floating

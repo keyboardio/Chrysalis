@@ -300,9 +300,20 @@ class KeyGroup extends React.Component {
 }
 
 class KeySelector extends React.Component {
-  state = {
-    anchorEl: null,
-    selectedGroup: -1
+  constructor(props) {
+    super(props);
+    this.state = {
+      anchorEl: null,
+      selectedGroup: -1,
+      actualKeycode: props.currentKeyCode
+    };
+  }
+
+  UNSAFE_componentWillReceiveProps = nextProps => {
+    this.setState({
+      actualKeycode: nextProps.currentKeyCode,
+      selectedGroup: -1
+    });
   };
 
   onListItemClick = event => {
@@ -316,30 +327,29 @@ class KeySelector extends React.Component {
   onMenuItemClick = (_, index) => {
     this.setState({
       anchorEl: null,
-      selectedGroup: index
+      selectedGroup: index,
+      actualKeycode: 0
     });
   };
 
   onKeySelect = keyCode => {
-    this.setState({ selectedGroup: -1 });
     this.props.onKeySelect(keyCode);
   };
 
   render() {
     const { classes, currentKeyCode, disabled } = this.props;
-    const { anchorEl, selectedGroup } = this.state;
+    const { anchorEl, selectedGroup, actualKeycode } = this.state;
 
     if (currentKeyCode == -1) return null;
 
     let groupIndex = selectedGroup,
       keyCode = currentKeyCode;
 
-    if (currentKeyCode >= 256 && currentKeyCode <= 8191) {
-      groupIndex = -1;
-      keyCode = keyCode % 256;
-    }
-
     if (groupIndex == -1) {
+      if (currentKeyCode >= 256 && currentKeyCode <= 8191) {
+        keyCode = keyCode % 256;
+      }
+
       groupIndex = keyGroups.length - 1;
       baseKeyCodeTable.forEach((group, index) => {
         for (let key of group.keys) {
@@ -393,7 +403,7 @@ class KeySelector extends React.Component {
           <KeyGroup
             disabled={disabled}
             group={groupIndex}
-            keyCode={currentKeyCode}
+            keyCode={actualKeycode}
             onKeySelect={this.onKeySelect}
           />
         </div>

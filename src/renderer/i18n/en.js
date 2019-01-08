@@ -40,6 +40,11 @@ const English = {
       chat: "Real-time chat",
       feedback: "Send feedback",
       exit: "Exit Chrysalis"
+    },
+    deviceMenu: {
+      Homepage: "Homepage",
+      Forum: "Forum",
+      Chat: "Chat"
     }
   },
   layoutEditor: {

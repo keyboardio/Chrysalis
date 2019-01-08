@@ -40,6 +40,11 @@ const Hungarian = {
       chat: "Csevegőszoba",
       feedback: "Visszajelzés küldése",
       exit: "Kilépés"
+    },
+    deviceMenu: {
+      Homepage: "Honlap",
+      Forum: "Fórum",
+      Chat: "Csevegőszoba"
     }
   },
   layoutEditor: {

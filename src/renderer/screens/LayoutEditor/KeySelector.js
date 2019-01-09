@@ -340,8 +340,6 @@ class KeySelector extends React.Component {
     const { classes, currentKeyCode, disabled } = this.props;
     const { anchorEl, selectedGroup, actualKeycode } = this.state;
 
-    if (currentKeyCode == -1) return null;
-
     let groupIndex = selectedGroup,
       keyCode = currentKeyCode;
 

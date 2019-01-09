@@ -18,6 +18,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import Fade from "@material-ui/core/Fade";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Portal from "@material-ui/core/Portal";
 import Tab from "@material-ui/core/Tab";
@@ -140,12 +141,16 @@ class ColormapEditor extends React.Component {
     });
 
     let colormap = (
-      <Layer
-        index={this.state.currentLayer}
-        palette={this.state.palette}
-        colormap={this.state.colorMap[this.state.currentLayer]}
-        onKeySelect={this.onKeySelect}
-      />
+      <Fade in appear key={this.state.currentLayer}>
+        <div className={classes.editor}>
+          <Layer
+            index={this.state.currentLayer}
+            palette={this.state.palette}
+            colormap={this.state.colorMap[this.state.currentLayer]}
+            onKeySelect={this.onKeySelect}
+          />
+        </div>
+      </Fade>
     );
 
     return (
@@ -167,7 +172,7 @@ class ColormapEditor extends React.Component {
           </Toolbar>
         </Portal>
         {this.state.colorMap.length == 0 && <LinearProgress variant="query" />}
-        <div className={classes.editor}>{colormap}</div>
+        {colormap}
         <Palette
           palette={this.state.palette}
           onColorSelect={this.onColorSelect}

@@ -18,6 +18,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import Fade from "@material-ui/core/Fade";
 import Paper from "@material-ui/core/Paper";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -80,14 +81,15 @@ class Palette extends React.Component {
     });
 
     const color = this.props.palette[this.props.selected];
-    const picker = this.props.selected != -1 && (
-      <MaterialPicker color={color} onChangeComplete={this.onColorPick} />
-    );
 
     return (
       <Paper className={classes.root} square>
         {lowWidget}
-        <div className={classes.picker}>{picker}</div>
+        <Fade in={this.props.selected != -1} unMountOnExit>
+          <div className={classes.picker}>
+            <MaterialPicker color={color} onChangeComplete={this.onColorPick} />
+          </div>
+        </Fade>
         {highWidget}
       </Paper>
     );

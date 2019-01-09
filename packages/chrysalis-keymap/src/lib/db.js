@@ -23,7 +23,8 @@ import PunctuationTable, {
 } from "./db/punctuation"
 import SpacingTable, { ModifiedSpacingTables } from "./db/spacing"
 import ModifiersTable, {
-    ModifiedModifiersTables
+    ModifiedModifiersTables,
+    HyperMehTable
 } from "./db/modifiers"
 import NavigationTable, {
     ModifiedNavigationTables
@@ -91,6 +92,7 @@ const keyCodeTable = baseKeyCodeTable
     .concat(ModifiedSpacingTables)
     .concat(ModifiedNavigationTables)
     .concat(ModifiedModifiersTables)
+    .concat(HyperMehTable)
     .concat(ModifiedFunctionKeyTables)
     .concat(ModifiedNumpadTables)
     .concat(DualUseModifierTables)
@@ -115,9 +117,7 @@ class KeymapDB {
                     }
                 }
 
-                if (!this.keymapCodeTable[key.code]) {
-                    this.keymapCodeTable[key.code] = value
-                }
+                this.keymapCodeTable[key.code] = value
             }
         }
     }

@@ -14,6 +14,9 @@ It is now possible to augment keys with modifiers, to have a key that sends -
 for example - `Shift+2`. We had the UI in place for this, but not the supporting
 code. We now have both.
 
+Chrysalis also supports localisation now, and is available in English and
+Hungarian.
+
 ## Hardware support
 
 Chrysalis now supports the same hardware it did in previous versions, but it no

@@ -18,9 +18,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import Fade from "@material-ui/core/Fade";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Portal from "@material-ui/core/Portal";
+import Slide from "@material-ui/core/Slide";
 import Switch from "@material-ui/core/Switch";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
@@ -167,13 +169,17 @@ class LayoutEditor extends React.Component {
       isReadOnly = layerIndex < this.state.roLayers,
       layerData = this.state.keymap[layerIndex],
       layer = (
-        <Layer
-          readOnly={isReadOnly}
-          index={layerIndex}
-          keymap={layerData}
-          onKeySelect={this.onKeySelect}
-          selectedKey={this.state.currentKeyIndex}
-        />
+        <Fade in appear key={layerIndex}>
+          <div className={classes.editor}>
+            <Layer
+              readOnly={isReadOnly}
+              index={layerIndex}
+              keymap={layerData}
+              onKeySelect={this.onKeySelect}
+              selectedKey={this.state.currentKeyIndex}
+            />
+          </div>
+        </Fade>
       );
 
     let tabs = this.state.keymap.map((_, index) => {
@@ -221,12 +227,14 @@ class LayoutEditor extends React.Component {
           </Toolbar>
         </Portal>
         {this.state.keymap.length == 0 && <LinearProgress variant="query" />}
-        <div className={classes.editor}>{layer}</div>
-        <KeySelector
-          disabled={isReadOnly}
-          onKeySelect={this.onKeyChange}
-          currentKeyCode={this.getCurrentKey()}
-        />
+        {layer}
+        <Slide in={this.getCurrentKey() != -1} direction="up" unMountOnExit>
+          <KeySelector
+            disabled={isReadOnly}
+            onKeySelect={this.onKeyChange}
+            currentKeyCode={this.getCurrentKey()}
+          />
+        </Slide>
         <SaveChangesButton
           floating
           onClick={this.onApply}

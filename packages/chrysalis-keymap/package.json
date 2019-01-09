@@ -1,6 +1,6 @@
 {
     "name": "@chrysalis-api/keymap",
-    "version": "0.0.12",
+    "version": "0.0.13",
     "description": "Chrysalis keymap library",
     "main": "lib",
     "repository": {

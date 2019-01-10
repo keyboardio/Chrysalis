@@ -19,10 +19,15 @@ Hungarian.
 
 ## Hardware support
 
-Chrysalis now supports the same hardware it did in previous versions, but it no
-longer requires a Kaleidoscope-based firmware to be present. For devices that
-come with different firmware, Chrysalis will detect them, and offer to flash a
-reasonable, Kaleidoscope-based and Chrysalis-ready default.
+The [ErgoDox EZ][ergodox:ez] (and any other ErgoDox that is compatible with the
+original) is now also supported.
+
+ [ergodox:ez]: https://ergodox-ez.com/
+
+For all hardware that does not come with Kaleidoscope as its default firmware,
+we no longer require them to be flashed with Kaleidoscope prior to using
+Chrysalis. Instead, we offer a firmware upgrade, with reasonable defaults - just
+like we do for boards that do come with Kaleidoscope by default.
 
 Chrysalis 0.2.0
 ===============
@@ -42,11 +47,6 @@ Chrysalis also has preliminary support for [Dygma Raise][raise] - it should
 work, but it is untested on real hardware at this time.
 
  [raise]: https://www.dygma.com/raise/
-
-The [ErgoDox EZ][ergodox:ez] (and any other ErgoDox that is compatible with the
-original) is also supported.
-
- [ergodox:ez]: https://ergodox-ez.com/
 
 ## UI/UX changes
 

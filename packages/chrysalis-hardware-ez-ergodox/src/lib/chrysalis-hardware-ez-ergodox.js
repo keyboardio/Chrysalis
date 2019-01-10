@@ -40,10 +40,6 @@ const ErgoDox = {
     components: {
         keymap: Keymap
     },
-    messages: {
-        preFlash: "If you wish to proceed, press the 'Upload' button, and then " +
-            "reset your keyboard within 15 seconds."
-    },
 
     flash: async (_, filename) => {
         return teensy(filename)

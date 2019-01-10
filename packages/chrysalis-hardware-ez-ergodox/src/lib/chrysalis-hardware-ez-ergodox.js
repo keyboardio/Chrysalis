@@ -43,7 +43,8 @@ const ErgoDox = {
 
     flash: async (_, filename) => {
         return teensy(filename)
-    }
+    },
+    flashTool: "teensy_loader_cli"
 }
 
 export { ErgoDox }

@@ -80,6 +80,7 @@ const English = {
     selected: "Selected firmware",
     custom: "Custom firmware",
     description: `Updating the firmware is a safe process, it's very hard to brick your keyboard even with bad firmware, as most keyboards provide a way to go stay in bootloader mode, where new firmware can be flashed. Nevertheless, updating the firmware will overwrite the previous one. If you customised your firmware, make sure you're flashing one that you are comfortable with. If you wish to proceed, please consult the documentation of your keyboard to see how to enable uploading new firmware, and then press the {0} button to continue.`,
+    tooling: `Your keyboard requires an external tool ({0}) for flashing. Please make sure that it is available, and on the PATH, otherwise Chrysalis will not be able to upload new firmware.`,
     postUpload: `Once the upload is finished - either successfully or with errors -, you will be taken back to the initial keyboard selection screen. This is normal.`
   },
   welcome: {

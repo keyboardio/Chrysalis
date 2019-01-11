@@ -45,7 +45,7 @@ const styles = theme => ({
     width: 225
   },
   key: {
-    fontFamily: "Input Mono, monospace",
+    fontFamily: '"Source Code Pro", monospace',
     margin: theme.spacing.unit / 2,
     padding: "4px 8px",
     minWidth: "auto",

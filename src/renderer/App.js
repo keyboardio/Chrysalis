@@ -22,6 +22,8 @@ import { spawn } from "child_process";
 import Focus from "@chrysalis-api/focus";
 import "@chrysalis-api/keymap";
 import "@chrysalis-api/colormap";
+import "typeface-roboto/index.css";
+import "typeface-source-code-pro/index.css";
 
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";

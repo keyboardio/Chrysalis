@@ -57,7 +57,7 @@ async function Avr109(board, port, filename) {
   })
 }
 
-async function teensy(filename, timeout = 15000, mcu = "atmega32u4") {
+async function teensy(filename) {
   return TeensyLoader.upload(0x16C0, 0x0478, filename)
 }
 

@@ -109,6 +109,7 @@ class LayoutEditor extends React.Component {
       return keymap;
     });
     this.setState({ modified: true });
+    this.props.startContext();
   };
 
   onKeySelect = event => {
@@ -142,6 +143,7 @@ class LayoutEditor extends React.Component {
       saving: false
     });
     console.log("keymap updated");
+    this.props.cancelContext();
   };
 
   onDefaultLayerChange = async event => {
@@ -157,6 +159,13 @@ class LayoutEditor extends React.Component {
   componentDidMount() {
     this.scanKeyboard();
   }
+
+  UNSAFE_componentWillReceiveProps = nextProps => {
+    if (this.props.inContext && !nextProps.inContext) {
+      this.scanKeyboard();
+      this.setState({ modified: false });
+    }
+  };
 
   render() {
     const { classes } = this.props;

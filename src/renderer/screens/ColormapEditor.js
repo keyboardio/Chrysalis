@@ -94,6 +94,7 @@ class ColormapEditor extends React.Component {
       palette: newPalette,
       modified: true
     });
+    this.props.startContext();
   };
 
   onKeySelect = event => {
@@ -107,6 +108,7 @@ class ColormapEditor extends React.Component {
         return colormap;
       });
       this.setState({ modified: true });
+      this.props.startContext();
     } else {
       this.setState({
         selectedPaletteColor: this.state.colorMap[layer][ledIndex]
@@ -123,11 +125,19 @@ class ColormapEditor extends React.Component {
       saving: false
     });
     console.log("colormap updated");
+    this.props.cancelContext();
   };
 
   componentDidMount() {
     this.scanKeyboard();
   }
+
+  UNSAFE_componentWillReceiveProps = nextProps => {
+    if (this.props.inContext && !nextProps.inContext) {
+      this.scanKeyboard();
+      this.setState({ modified: false });
+    }
+  };
 
   render() {
     const { classes } = this.props;

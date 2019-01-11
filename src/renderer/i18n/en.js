@@ -48,7 +48,13 @@ const English = {
     }
   },
   layoutEditor: {
-    defaultLayer: "Default layer"
+    defaultLayer: "Default layer",
+    clearLayer: "Clear layer...",
+    copyTo: "Copy to layer..."
+  },
+  colormapEditor: {
+    clearLayer: "Clear layer...",
+    copyTo: "Copy to layer..."
   },
   settings: {
     devtools: "Developer tools",

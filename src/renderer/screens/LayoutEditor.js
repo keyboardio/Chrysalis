@@ -18,9 +18,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import Collapse from "@material-ui/core/Collapse";
+import ExpandLessIcon from "@material-ui/icons/ExpandLess";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Fade from "@material-ui/core/Fade";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import IconButton from "@material-ui/core/IconButton";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import MoreVerticalIcon from "@material-ui/icons/MoreVert";
 import Portal from "@material-ui/core/Portal";
 import Slide from "@material-ui/core/Slide";
 import Switch from "@material-ui/core/Switch";
@@ -49,6 +56,12 @@ const styles = theme => ({
     margin: theme.spacing.unit * 3,
     marginBottom: 150,
     textAlign: "center"
+  },
+  moreMenu: {
+    marginTop: theme.spacing.unit * 4
+  },
+  layerItem: {
+    paddingLeft: theme.spacing.unit * 4
   }
 });
 
@@ -58,6 +71,8 @@ class LayoutEditor extends React.Component {
     currentKeyIndex: -1,
     modified: false,
     saving: false,
+    moreAnchorEl: null,
+    copyMenuExpanded: false,
     keymap: []
   };
   keymapDB = new KeymapDB();
@@ -167,9 +182,55 @@ class LayoutEditor extends React.Component {
     }
   };
 
+  moreMenu = event => {
+    this.setState({ moreAnchorEl: event.currentTarget });
+  };
+  moreMenuClose = () => {
+    this.setState({ moreAnchorEl: null });
+  };
+
+  copyToLayerMenu = () => {
+    this.setState(state => ({
+      copyMenuExpanded: !state.copyMenuExpanded
+    }));
+  };
+
+  copyToLayer = layer => {
+    this.setState(state => {
+      let newKeymap = state.keymap.slice();
+      newKeymap[layer] = state.keymap[state.currentLayer];
+      return {
+        keymap: newKeymap,
+        copyMenuExpanded: false,
+        moreAnchorEl: null,
+        currentLayer: layer,
+        modified: true
+      };
+    });
+  };
+
+  clearLayer = () => {
+    this.setState(state => {
+      let newKeymap = state.keymap.slice();
+      newKeymap[state.currentLayer] = Array(newKeymap[0].length)
+        .fill()
+        .map(() => 0);
+      return {
+        keymap: newKeymap,
+        modified: true,
+        moreAnchorEl: null
+      };
+    });
+  };
+
   render() {
     const { classes } = this.props;
-    const { currentLayer, defaultLayer } = this.state;
+    const {
+      currentLayer,
+      defaultLayer,
+      moreAnchorEl,
+      copyMenuExpanded
+    } = this.state;
 
     let focus = new Focus();
     const Layer = focus.device.components.keymap;
@@ -216,6 +277,50 @@ class LayoutEditor extends React.Component {
       />
     );
 
+    let copyItems = this.state.keymap.map((_, index) => {
+      const label = i18n.formatString(i18n.components.layer, index),
+        key = "copy-layer-" + index.toString();
+
+      if (index < this.state.roLayers) return null;
+
+      return (
+        <MenuItem
+          className={classes.layerItem}
+          key={key}
+          disabled={index == currentLayer}
+          onClick={() => this.copyToLayer(index)}
+        >
+          {label}
+        </MenuItem>
+      );
+    });
+    const moreMenu = (
+      <React.Fragment>
+        <IconButton onClick={this.moreMenu}>
+          <MoreVerticalIcon />
+        </IconButton>
+        <Menu
+          anchorEl={moreAnchorEl}
+          open={Boolean(moreAnchorEl)}
+          onClose={this.moreMenuClose}
+        >
+          <MenuItem
+            onClick={this.clearLayer}
+            disabled={currentLayer < this.state.roLayers}
+          >
+            {i18n.layoutEditor.clearLayer}
+          </MenuItem>
+          <MenuItem onClick={this.copyToLayerMenu}>
+            <span style={{ marginRight: "1em" }}>
+              {i18n.layoutEditor.copyTo}
+            </span>
+            {copyMenuExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          </MenuItem>
+          <Collapse in={copyMenuExpanded}>{copyItems}</Collapse>
+        </Menu>
+      </React.Fragment>
+    );
+
     return (
       <React.Fragment>
         <Portal container={this.props.titleElement}>
@@ -233,11 +338,12 @@ class LayoutEditor extends React.Component {
               {tabs}
             </Tabs>
             {defaultLayerSwitch}
+            {moreMenu}
           </Toolbar>
         </Portal>
         {this.state.keymap.length == 0 && <LinearProgress variant="query" />}
         {layer}
-        <Slide in={this.getCurrentKey() != -1} direction="up" unMountOnExit>
+        <Slide in={this.getCurrentKey() != -1} direction="up" unmountOnExit>
           <KeySelector
             disabled={isReadOnly}
             onKeySelect={this.onKeyChange}

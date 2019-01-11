@@ -193,9 +193,16 @@ class KeyGroupListUnwrapped extends React.Component {
       disabled
     } = this.props;
 
-    const keyCode = withModifiers ? selectedKey % 256 : selectedKey;
-    const mask =
-      selectedKey == 65535 ? 0 : withModifiers ? selectedKey - keyCode : 0;
+    let keyCode = selectedKey;
+    let mask = 0;
+
+    if (withModifiers) {
+      keyCode = selectedKey % 256 ? selectedKey % 256 : selectedKey;
+      if (selectedKey != 65535) {
+        mask = selectedKey - keyCode;
+      }
+    }
+
     const itemList = items || baseKeyCodeTable[group].keys;
 
     const keyList = itemList.map(key => {
@@ -216,7 +223,7 @@ class KeyGroupListUnwrapped extends React.Component {
       modSelector = (
         <FormGroup row>
           <FormControlLabel
-            disabled={disabled}
+            disabled={disabled || keyCode == 0}
             className={classes.checkbox}
             control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
             checked={Boolean(mask & CTRL_HELD)}
@@ -224,7 +231,7 @@ class KeyGroupListUnwrapped extends React.Component {
             label="Control"
           />
           <FormControlLabel
-            disabled={disabled}
+            disabled={disabled || keyCode == 0}
             className={classes.checkbox}
             control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
             checked={Boolean(mask & SHIFT_HELD)}
@@ -232,7 +239,7 @@ class KeyGroupListUnwrapped extends React.Component {
             label="Shift"
           />
           <FormControlLabel
-            disabled={disabled}
+            disabled={disabled || keyCode == 0}
             className={classes.checkbox}
             control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
             checked={Boolean(mask & LALT_HELD)}
@@ -240,7 +247,7 @@ class KeyGroupListUnwrapped extends React.Component {
             label="Alt"
           />
           <FormControlLabel
-            disabled={disabled}
+            disabled={disabled || keyCode == 0}
             className={classes.checkbox}
             control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
             checked={Boolean(mask & RALT_HELD)}
@@ -248,7 +255,7 @@ class KeyGroupListUnwrapped extends React.Component {
             label="AltGr"
           />
           <FormControlLabel
-            disabled={disabled}
+            disabled={disabled || keyCode == 0}
             className={classes.checkbox}
             control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
             checked={Boolean(mask & GUI_HELD)}
@@ -344,7 +351,7 @@ class KeySelector extends React.Component {
       keyCode = currentKeyCode;
 
     if (groupIndex == -1) {
-      if (currentKeyCode >= 256 && currentKeyCode <= 8191) {
+      if (currentKeyCode >= 256 && currentKeyCode <= 8191 && keyCode % 256) {
         keyCode = keyCode % 256;
       }
 

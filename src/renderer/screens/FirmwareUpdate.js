@@ -117,7 +117,7 @@ class FirmwareUpdate extends React.Component {
   _flash = async () => {
     let focus = new Focus();
     const filename =
-      this.props.firmwareFilename || this._defaultFirmwareFilename();
+      this.state.firmwareFilename || this._defaultFirmwareFilename();
 
     return this.state.device.flash(focus._port, filename);
   };

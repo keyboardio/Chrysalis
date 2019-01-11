@@ -86,7 +86,9 @@ const Hungarian = {
   welcome: {
     title: "Üdvözöljük!",
     contents: `A billentyűzetét támogatja ugyan a Chrysalis, de a rajta lévő vezérlőből a jelek szerint hiányzik néhány elengedhetetlen funkcionalitás. Van lehetőség azonban egy ésszerű alapértelmezett, Chrysalis használatát lehetővé tevő funkciókkal ellátott vezérlőre frissíteni. Ehhez látogasson el a "{0}" oldalra.`,
-    gotoUpdate: "Irány a {0} oldal"
+    gotoUpdate: "Irány a {0} oldal",
+    reconnect: "Újracsatlakozás",
+    reconnectDescription: `Elképzelhető, hogy hibásan ismertük fel a billentyűzet által kínált funkcionalitást, vagy az is, hogy a billentyűzet még nem állt teljesen rendelkezésre mikor csatlakozni próbáltunk. Ebben az esetben az "{0}" gombra kattintva újra megpróbálunk csatlakozni.`
   }
 };
 

@@ -844,12 +844,13 @@
   dependencies:
     "@chrysalis-api/focus" "~0.0.8"
 
-"@chrysalis-api/flash@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/flash/-/flash-0.0.1.tgz#3a0148e680ab6a44640c4b6b17bb6155daba5210"
-  integrity sha512-lNgV2MNTObecOseBlhpLPIDPvb+PEyMpTKZ8SGrSiFHQaiaMx7WsrmDpf6WzaXuyAQS1c1KfE0WExQva+jVidQ==
+"@chrysalis-api/flash@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/flash/-/flash-0.0.2.tgz#d0fd773dcf81ea01cd91f8b8a43c259d346d26b5"
+  integrity sha512-aa9cIAkTmzPuTFdyKTO7x4MWefeOJSUGHfnN+tqeAfMFniT+5SF//d+3t/hJ7EEnI30gc7el8bIy7Eb3qqGPlw==
   dependencies:
     avrgirl-arduino "^3.0.0"
+    teensy-loader "https://github.com/keyboardio/teensy-loader.js.git"
 
 "@chrysalis-api/focus@~0.0.8":
   version "0.0.8"
@@ -858,35 +859,35 @@
   dependencies:
     serialport "^6.2.2"
 
-"@chrysalis-api/hardware-dygma-raise@~0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-dygma-raise/-/hardware-dygma-raise-0.0.3.tgz#802355802f702fc35c9a94913f1620d9c19dccbc"
-  integrity sha512-AeNUkvRqmJnj2NI/dPl2DQDAvKu6OnmS80CaQLWndyzrpDmQQkFFJjnmA6blatDZ49B8Rd6NdOefaNFtLBly8Q==
+"@chrysalis-api/hardware-dygma-raise@~0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-dygma-raise/-/hardware-dygma-raise-0.0.4.tgz#05b86581806675fd7496c1573803dca7a3494a68"
+  integrity sha512-kMilC89g2yhFNdKZrMUbuZgyEj7tLR7myFsJDa7/7PVP7qA4Ew83H5kyOG71pAfkaba9CWxQORbKsxUlcqiucQ==
   dependencies:
     react "^16.5.2"
 
-"@chrysalis-api/hardware-ez-ergodox@~0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-ez-ergodox/-/hardware-ez-ergodox-0.0.6.tgz#ee3e29418fe38c7be48fcf32f96d714d9d9831e0"
-  integrity sha512-AHKtwvQCUv90S3NBDcLST5PEUox/DjvnCIDcXXV/J0ik8mDLEJC6MBsTTz20O4PWV6dQQt1U09Jsco8rWMFQnw==
-  dependencies:
-    "@chrysalis-api/flash" "^0.0.1"
-    react "^16.5.2"
-
-"@chrysalis-api/hardware-keyboardio-model01@~0.0.11":
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-keyboardio-model01/-/hardware-keyboardio-model01-0.0.11.tgz#c54568cc295d11d1a88bb2bca5128c51eb2543eb"
-  integrity sha512-fYmKRi7Zxw6U1xC6Juer3xEu8+Lp1vErkYbkb3NdqJth/Te9wFYbgY7BjnOt1qPx/t5FOIOuGY9PTZvYkgWHuA==
-  dependencies:
-    "@chrysalis-api/flash" "^0.0.1"
-    react "^16.5.2"
-
-"@chrysalis-api/hardware-technomancy-atreus@~0.0.7":
+"@chrysalis-api/hardware-ez-ergodox@~0.0.7":
   version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-technomancy-atreus/-/hardware-technomancy-atreus-0.0.7.tgz#6ddb04099388d76ede8389cd536f1f9317f99d8d"
-  integrity sha512-aUeJfY3C3dxEB+zbdm2cP5KVwlvhwE8JhkwnfsFTBNfOJcJYjisK7zSYgXkS3HiMgxm1k20AHAERTCZaFi5NdA==
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-ez-ergodox/-/hardware-ez-ergodox-0.0.7.tgz#6c2ba5f2aab2ba48bc391eae8adb2107c20b4080"
+  integrity sha512-1HHb7kxqhm0hrH2dGguE3ExU+lVvmZcnSHqDO0VB2kXbUbudZkaT9UiYG1eKlGwaFmMHhgd+hWX5BIIxw2JAfA==
   dependencies:
-    "@chrysalis-api/flash" "^0.0.1"
+    "@chrysalis-api/flash" "^0.0.2"
+    react "^16.5.2"
+
+"@chrysalis-api/hardware-keyboardio-model01@~0.0.13":
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-keyboardio-model01/-/hardware-keyboardio-model01-0.0.13.tgz#6fa1f58b814cbc4db1556730bc5ca24792e64c8b"
+  integrity sha512-EkBp897AgVkXL7cefRC9UqqIpDhiETqxomn6Vs8WcEe6ePBJbVOHNsoSqfVG2JWpjEWpICamalwPSKg43tPkiw==
+  dependencies:
+    "@chrysalis-api/flash" "^0.0.2"
+    react "^16.5.2"
+
+"@chrysalis-api/hardware-technomancy-atreus@~0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-technomancy-atreus/-/hardware-technomancy-atreus-0.0.8.tgz#9ed3aa00d34915eb9659a46112109766a5b017a8"
+  integrity sha512-dOPlkDMqSf4h8BY+HJPxnZfAWMKrN80cHruW/cByWsIP77arlP89BqcV4erkPb9f86TEsaKtiO2cI3XS1POHTg==
+  dependencies:
+    "@chrysalis-api/flash" "^0.0.2"
     react "^16.5.2"
 
 "@chrysalis-api/keymap@~0.0.11":
@@ -10809,6 +10810,13 @@ tar@^4:
     mkdirp "^0.5.0"
     safe-buffer "^5.1.2"
     yallist "^3.0.2"
+
+"teensy-loader@https://github.com/keyboardio/teensy-loader.js.git":
+  version "0.1.0"
+  resolved "https://github.com/keyboardio/teensy-loader.js.git#2f6027f1818e38b1b68399f3e3ddc4ee0cfa7cbe"
+  dependencies:
+    intel-hex "^0.1.1"
+    usb "^1.5.0"
 
 temp-file@^3.3.2:
   version "3.3.2"

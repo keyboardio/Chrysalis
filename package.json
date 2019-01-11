@@ -40,7 +40,7 @@
     "@chrysalis-api/hardware-ez-ergodox": "~0.0.7",
     "@chrysalis-api/hardware-keyboardio-model01": "~0.0.13",
     "@chrysalis-api/hardware-technomancy-atreus": "~0.0.8",
-    "@chrysalis-api/keymap": "~0.0.11",
+    "@chrysalis-api/keymap": "~0.0.13",
     "@material-ui/core": "^3.6.0",
     "@material-ui/icons": "^3.0.1",
     "@material-ui/lab": "^3.0.0-alpha.25",

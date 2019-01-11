@@ -18,8 +18,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import Collapse from "@material-ui/core/Collapse";
+import ExpandLessIcon from "@material-ui/icons/ExpandLess";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Fade from "@material-ui/core/Fade";
+import IconButton from "@material-ui/core/IconButton";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import MoreVerticalIcon from "@material-ui/icons/MoreVert";
 import Portal from "@material-ui/core/Portal";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
@@ -52,7 +59,9 @@ class ColormapEditor extends React.Component {
     saving: false,
     selectedPaletteColor: -1,
     palette: [],
-    colorMap: []
+    colorMap: [],
+    moreAnchorEl: null,
+    copyMenuExpanded: false
   };
 
   scanKeyboard = async () => {
@@ -139,8 +148,51 @@ class ColormapEditor extends React.Component {
     }
   };
 
+  moreMenu = event => {
+    this.setState({ moreAnchorEl: event.currentTarget });
+  };
+  moreMenuClose = () => {
+    this.setState({ moreAnchorEl: null });
+  };
+
+  copyToLayerMenu = () => {
+    this.setState(state => ({
+      copyMenuExpanded: !state.copyMenuExpanded
+    }));
+  };
+
+  copyToLayer = layer => {
+    this.setState(state => {
+      let newMap = state.colorMap.slice();
+      newMap[layer] = state.colorMap[state.currentLayer];
+      return {
+        colorMap: newMap,
+        copyMenuExpanded: false,
+        moreAnchorEl: null,
+        currentLayer: layer,
+        modified: true
+      };
+    });
+  };
+
+  clearLayer = () => {
+    this.setState(state => {
+      let newMap = state.colorMap.slice();
+      newMap[state.currentLayer] = Array(newMap[0].length)
+        .fill()
+        .map(() => 0);
+      return {
+        colorMap: newMap,
+        modified: true,
+        moreAnchorEl: null
+      };
+    });
+  };
+
   render() {
     const { classes } = this.props;
+    const { currentLayer, moreAnchorEl, copyMenuExpanded } = this.state;
+
     let focus = new Focus();
     const Layer = focus.device.components.keymap;
 
@@ -163,6 +215,45 @@ class ColormapEditor extends React.Component {
       </Fade>
     );
 
+    let copyItems = this.state.colorMap.map((_, index) => {
+      const label = i18n.formatString(i18n.components.layer, index),
+        key = "copy-layer-" + index.toString();
+
+      return (
+        <MenuItem
+          className={classes.layerItem}
+          key={key}
+          disabled={index == currentLayer}
+          onClick={() => this.copyToLayer(index)}
+        >
+          {label}
+        </MenuItem>
+      );
+    });
+    const moreMenu = (
+      <React.Fragment>
+        <IconButton onClick={this.moreMenu}>
+          <MoreVerticalIcon />
+        </IconButton>
+        <Menu
+          anchorEl={moreAnchorEl}
+          open={Boolean(moreAnchorEl)}
+          onClose={this.moreMenuClose}
+        >
+          <MenuItem onClick={this.clearLayer}>
+            {i18n.colormapEditor.clearLayer}
+          </MenuItem>
+          <MenuItem onClick={this.copyToLayerMenu}>
+            <span style={{ marginRight: "1em" }}>
+              {i18n.colormapEditor.copyTo}
+            </span>
+            {copyMenuExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          </MenuItem>
+          <Collapse in={copyMenuExpanded}>{copyItems}</Collapse>
+        </Menu>
+      </React.Fragment>
+    );
+
     return (
       <React.Fragment>
         <Portal container={this.props.titleElement}>
@@ -179,6 +270,7 @@ class ColormapEditor extends React.Component {
             >
               {tabs}
             </Tabs>
+            {moreMenu}
           </Toolbar>
         </Portal>
         {this.state.colorMap.length == 0 && <LinearProgress variant="query" />}

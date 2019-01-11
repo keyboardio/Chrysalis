@@ -17,6 +17,8 @@ code. We now have both.
 Chrysalis also supports localisation now, and is available in English and
 Hungarian.
 
+Layers can now be cleared (to start from scratch), and copied to another layer.
+
 ## Hardware support
 
 The [ErgoDox EZ][ergodox:ez] (and any other ErgoDox that is compatible with the

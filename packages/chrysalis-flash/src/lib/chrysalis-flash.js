@@ -15,7 +15,7 @@
  */
 
 import AvrGirl from "avrgirl-arduino"
-import { spawn } from "child_process"
+import TeensyLoader from "teensy-loader"
 
 async function Avr109(board, port, filename) {
   return new Promise((resolve, reject) => {
@@ -58,19 +58,7 @@ async function Avr109(board, port, filename) {
 }
 
 async function teensy(filename, timeout = 15000, mcu = "atmega32u4") {
-  return new Promise((resolve, reject) => {
-    let child = spawn(
-      "teensy_loader_cli", ["--mcu", mcu, "-w", filename]
-    )
-    let timer = setTimeout(() => {
-      child.kill()
-      reject("teensy_loader_cli timed out")
-    }, timeout)
-    child.on("exit", () => {
-      clearTimeout(timer)
-      resolve()
-    })
-  })
+  return TeensyLoader.upload(0x16C0, 0x0478, filename)
 }
 
 export { Avr109, teensy }

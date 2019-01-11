@@ -30,6 +30,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "avrgirl-arduino": "^3.0.0"
+    "avrgirl-arduino": "^3.0.0",
+    "teensy-loader": "https://github.com/keyboardio/teensy-loader.js.git"
   }
 }

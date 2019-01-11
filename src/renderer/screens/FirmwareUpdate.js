@@ -152,6 +152,7 @@ class FirmwareUpdate extends React.Component {
   render() {
     const { classes } = this.props;
     const { anchorEl, firmwareFilename } = this.state;
+    let focus = new Focus();
 
     let filename = null;
     if (firmwareFilename) {
@@ -181,6 +182,12 @@ class FirmwareUpdate extends React.Component {
       filename ||
       (hasDefaultFirmware ? i18n.firmwareUpdate.defaultFirmware : "");
 
+    const tooling = focus.device && focus.device.flashTool && (
+      <Typography component="p" gutterBottom>
+        {i18n.formatString(i18n.firmwareUpdate.tooling, focus.device.flashTool)}
+      </Typography>
+    );
+
     return (
       <div className={classes.root}>
         <Portal container={this.props.titleElement}>
@@ -197,6 +204,7 @@ class FirmwareUpdate extends React.Component {
                 i18n.firmwareUpdate.flashing.button
               )}
             </Typography>
+            {tooling}
             <Typography component="p">
               {i18n.firmwareUpdate.postUpload}
             </Typography>

@@ -1,6 +1,10 @@
 language: node_js
 node_js:
   - 10
+addons:
+  apt:
+    packages:
+      - libudev-dev
 before_install:
   - yarn global add lerna
 install:

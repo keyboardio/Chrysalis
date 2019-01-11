@@ -30,6 +30,8 @@ import Portal from "@material-ui/core/Portal";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
+import { withSnackbar } from "notistack";
+
 import FirmwareUpdate from "./FirmwareUpdate";
 import i18n from "../i18n";
 
@@ -42,8 +44,8 @@ const styles = theme => ({
     margin: theme.spacing.unit * 4,
     maxWidth: "50%"
   },
-  actions: {
-    justifyContent: "center"
+  grow: {
+    flexGrow: 1
   }
 });
 
@@ -59,11 +61,39 @@ class Welcome extends React.Component {
     this.setState({ factoryResetStarted: false });
   };
 
+  reconnect = async () => {
+    let focus = new Focus();
+    const device = {
+      comName: focus._port.path,
+      device: focus.device
+    };
+
+    try {
+      await this.props.onConnect(device);
+    } catch (err) {
+      this.props.enqueueSnackbar(err.toString(), { variant: "error" });
+    }
+  };
+
   render() {
     let focus = new Focus();
     const { classes } = this.props;
 
     const device = this.props.device || focus.device;
+
+    const reconnectButton = focus._port && (
+      <Button color="secondary" onClick={this.reconnect}>
+        {i18n.welcome.reconnect}
+      </Button>
+    );
+    const reconnectText = focus._port && (
+      <Typography component="p" gutterBottom>
+        {i18n.formatString(
+          i18n.welcome.reconnectDescription,
+          i18n.welcome.reconnect
+        )}
+      </Typography>
+    );
 
     return (
       <div className={classes.root}>
@@ -87,8 +117,11 @@ class Welcome extends React.Component {
                 i18n.app.menu.firmwareUpdate
               )}
             </Typography>
+            {reconnectText}
           </CardContent>
-          <CardActions className={classes.actions}>
+          <CardActions>
+            {reconnectButton}
+            <div className={classes.grow} />
             <Button
               color="primary"
               variant="outlined"
@@ -108,4 +141,4 @@ class Welcome extends React.Component {
   }
 }
 
-export default withStyles(styles)(Welcome);
+export default withSnackbar(withStyles(styles)(Welcome));

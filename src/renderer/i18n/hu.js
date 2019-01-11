@@ -48,7 +48,13 @@ const Hungarian = {
     }
   },
   layoutEditor: {
-    defaultLayer: "Alapértelmezett réteg"
+    defaultLayer: "Alapértelmezett réteg",
+    clearLayer: "Réteg ürítése...",
+    copyTo: "Réteg másolás..."
+  },
+  colormapEditor: {
+    clearLayer: "Réteg ürítése...",
+    copyTo: "Réteg másolás..."
   },
   settings: {
     devtools: "Fejlesztői eszközök",

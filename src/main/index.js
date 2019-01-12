@@ -28,8 +28,6 @@ let mainWindow;
 
 async function createMainWindow() {
   const window = new BrowserWindow({
-    minHeight: 768,
-    minWidth: 1024,
     resizable: true
   });
 

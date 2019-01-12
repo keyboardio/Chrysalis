@@ -125,6 +125,8 @@ class SaveChangesButton extends React.Component {
       </div>
     );
 
+    const icon = this.props.icon || <SaveIcon />;
+
     return (
       <div
         className={classNames(
@@ -141,7 +143,7 @@ class SaveChangesButton extends React.Component {
             classes={{ disabled: classes.disabled }}
             onClick={this.handleButtonClick}
           >
-            {success ? <CheckIcon /> : <SaveIcon />}
+            {success ? <CheckIcon /> : icon}
           </Fab>
           {inProgress && (
             <CircularProgress size={68} className={classes.fabProgress} />

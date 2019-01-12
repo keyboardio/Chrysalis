@@ -26,6 +26,7 @@ import BuildIcon from "@material-ui/icons/Build";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -237,6 +238,7 @@ class FirmwareUpdate extends React.Component {
             </Menu>
             <div className={classes.grow} />
             <SaveChangesButton
+              icon={<CloudUploadIcon />}
               onClick={this.upload}
               successMessage={i18n.firmwareUpdate.flashing.buttonSuccess}
             >

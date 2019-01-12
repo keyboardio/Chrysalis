@@ -50,7 +50,9 @@ const Hungarian = {
   layoutEditor: {
     defaultLayer: "Alapértelmezett réteg",
     clearLayer: "Réteg ürítése...",
-    copyTo: "Réteg másolás..."
+    copyTo: "Réteg másolás...",
+    dualUse: "Nyomvatartáskor módosító, normál gomb egyébként",
+    dualUseLayer: "Nyomvatartáskor réteg váltó, normál gomb egyébként"
   },
   colormapEditor: {
     clearLayer: "Réteg ürítése...",

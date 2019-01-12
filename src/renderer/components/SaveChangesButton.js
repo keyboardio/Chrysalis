@@ -24,7 +24,7 @@ import green from "@material-ui/core/colors/green";
 import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
 import CheckIcon from "@material-ui/icons/Check";
-import SaveIcon from "@material-ui/icons/SaveAlt";
+import SyncIcon from "@material-ui/icons/Sync";
 import { withStyles } from "@material-ui/core/styles";
 
 import i18n from "../i18n";
@@ -125,7 +125,7 @@ class SaveChangesButton extends React.Component {
       </div>
     );
 
-    const icon = this.props.icon || <SaveIcon />;
+    const icon = this.props.icon || <SyncIcon />;
 
     return (
       <div

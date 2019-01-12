@@ -882,6 +882,13 @@
     "@chrysalis-api/flash" "^0.0.2"
     react "^16.5.2"
 
+"@chrysalis-api/hardware-olkb-planck@~0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-olkb-planck/-/hardware-olkb-planck-0.0.1.tgz#13a82d5068e0f3d516f87817f5a9bc39e13b7448"
+  integrity sha512-piPhC7DLKUyD2YqA/Qgnq5Xw6gEQiQnqH0PvSmpjCERfBSkqBKnnwHhIdGfjaLzCJzsjdbJKTdmzuwH9wHEhew==
+  dependencies:
+    react "^16.5.2"
+
 "@chrysalis-api/hardware-technomancy-atreus@~0.0.8":
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-technomancy-atreus/-/hardware-technomancy-atreus-0.0.8.tgz#9ed3aa00d34915eb9659a46112109766a5b017a8"

@@ -70,7 +70,7 @@ const styles = theme => ({
     position: "fixed",
     justifyContent: "flex-end",
     bottom: 0,
-    right: 0
+    right: theme.spacing.unit * 4
   }
 });
 
@@ -109,6 +109,22 @@ class SaveChangesButton extends React.Component {
       [classes.buttonSuccess]: success
     });
 
+    const textPart = !this.props.floating && (
+      <div className={classes.wrapper}>
+        <Button
+          variant="contained"
+          color="secondary"
+          className={buttonClassname}
+          disabled={inProgress || (this.props.disabled && !success)}
+          onClick={this.handleButtonClick}
+        >
+          {success
+            ? successMessage || i18n.components.save.success
+            : this.props.children}
+        </Button>
+      </div>
+    );
+
     return (
       <div
         className={classNames(
@@ -131,19 +147,7 @@ class SaveChangesButton extends React.Component {
             <CircularProgress size={68} className={classes.fabProgress} />
           )}
         </div>
-        <div className={classes.wrapper}>
-          <Button
-            variant="contained"
-            color="secondary"
-            className={buttonClassname}
-            disabled={inProgress || (this.props.disabled && !success)}
-            onClick={this.handleButtonClick}
-          >
-            {success
-              ? successMessage || i18n.components.save.success
-              : this.props.children}
-          </Button>
-        </div>
+        {textPart}
       </div>
     );
   }

@@ -164,7 +164,7 @@ class ColormapEditor extends React.Component {
   copyToLayer = layer => {
     this.setState(state => {
       let newMap = state.colorMap.slice();
-      newMap[layer] = state.colorMap[state.currentLayer];
+      newMap[layer] = state.colorMap[state.currentLayer].slice();
       return {
         colorMap: newMap,
         copyMenuExpanded: false,

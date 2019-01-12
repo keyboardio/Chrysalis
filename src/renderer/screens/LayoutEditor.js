@@ -198,7 +198,7 @@ class LayoutEditor extends React.Component {
   copyToLayer = layer => {
     this.setState(state => {
       let newKeymap = state.keymap.slice();
-      newKeymap[layer] = state.keymap[state.currentLayer];
+      newKeymap[layer] = state.keymap[state.currentLayer].slice();
       return {
         keymap: newKeymap,
         copyMenuExpanded: false,

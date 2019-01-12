@@ -1,6 +1,6 @@
 {
   "name": "@chrysalis-api/hardware-olkb-planck",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Chrysalis OLKB Planck Hardware library",
   "main": "lib",
   "repository": {

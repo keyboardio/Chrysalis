@@ -844,13 +844,13 @@
   dependencies:
     "@chrysalis-api/focus" "~0.0.8"
 
-"@chrysalis-api/flash@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/flash/-/flash-0.0.2.tgz#d0fd773dcf81ea01cd91f8b8a43c259d346d26b5"
-  integrity sha512-aa9cIAkTmzPuTFdyKTO7x4MWefeOJSUGHfnN+tqeAfMFniT+5SF//d+3t/hJ7EEnI30gc7el8bIy7Eb3qqGPlw==
+"@chrysalis-api/flash@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/flash/-/flash-0.0.3.tgz#e9da222c85fb0c0de4cbf358fe573cdd36e1fe43"
+  integrity sha512-0A8vYlWR2PukhWEBX76FEtVOI8y5Fml0CWZvD+b2DGeFcGzKNu/SDJIN8mLVTec/b0J0Lx54JEZRv7oMlwl1QQ==
   dependencies:
     avrgirl-arduino "^3.0.0"
-    teensy-loader "https://github.com/keyboardio/teensy-loader.js.git"
+    teensy-loader "^0.1.0"
 
 "@chrysalis-api/focus@~0.0.8":
   version "0.0.8"
@@ -866,28 +866,28 @@
   dependencies:
     react "^16.5.2"
 
-"@chrysalis-api/hardware-ez-ergodox@~0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-ez-ergodox/-/hardware-ez-ergodox-0.0.7.tgz#6c2ba5f2aab2ba48bc391eae8adb2107c20b4080"
-  integrity sha512-1HHb7kxqhm0hrH2dGguE3ExU+lVvmZcnSHqDO0VB2kXbUbudZkaT9UiYG1eKlGwaFmMHhgd+hWX5BIIxw2JAfA==
-  dependencies:
-    "@chrysalis-api/flash" "^0.0.2"
-    react "^16.5.2"
-
-"@chrysalis-api/hardware-keyboardio-model01@~0.0.13":
-  version "0.0.13"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-keyboardio-model01/-/hardware-keyboardio-model01-0.0.13.tgz#6fa1f58b814cbc4db1556730bc5ca24792e64c8b"
-  integrity sha512-EkBp897AgVkXL7cefRC9UqqIpDhiETqxomn6Vs8WcEe6ePBJbVOHNsoSqfVG2JWpjEWpICamalwPSKg43tPkiw==
-  dependencies:
-    "@chrysalis-api/flash" "^0.0.2"
-    react "^16.5.2"
-
-"@chrysalis-api/hardware-technomancy-atreus@~0.0.8":
+"@chrysalis-api/hardware-ez-ergodox@~0.0.8":
   version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-technomancy-atreus/-/hardware-technomancy-atreus-0.0.8.tgz#9ed3aa00d34915eb9659a46112109766a5b017a8"
-  integrity sha512-dOPlkDMqSf4h8BY+HJPxnZfAWMKrN80cHruW/cByWsIP77arlP89BqcV4erkPb9f86TEsaKtiO2cI3XS1POHTg==
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-ez-ergodox/-/hardware-ez-ergodox-0.0.8.tgz#e91046df0a9790b6a4df4dffd2aabab43e728cf9"
+  integrity sha512-TuzVYBp7ZFwPez3CgL+bURHg1dBmNuUnLGMwwslK7iHfb91j+pgUCNhY/SBUtfcC1cw+PVDSneeuPnIBs9LdhQ==
   dependencies:
-    "@chrysalis-api/flash" "^0.0.2"
+    "@chrysalis-api/flash" "^0.0.3"
+    react "^16.5.2"
+
+"@chrysalis-api/hardware-keyboardio-model01@~0.0.14":
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-keyboardio-model01/-/hardware-keyboardio-model01-0.0.14.tgz#e9481557e6d852fb91174a6a4d996b08267456e0"
+  integrity sha512-A7R6gh5WsGNYTNC1/wjv+gwQ593OXrEU7NJ078inrZYNlGgLQJEdk2Dq3VC/Q3ICOpdmyBTSEQ95JTMXMe9c9g==
+  dependencies:
+    "@chrysalis-api/flash" "^0.0.3"
+    react "^16.5.2"
+
+"@chrysalis-api/hardware-technomancy-atreus@~0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-technomancy-atreus/-/hardware-technomancy-atreus-0.0.9.tgz#ee7fc31fc7ca2e1ce96e5cdd73f2c986e6ce171f"
+  integrity sha512-COoHh9RMFZWuDbLb7ByChBiqXYLUipDax16Y5dOTgaj9eqA6fm3JT3b7rfmJjgsgqMINfQkXa8IJcS0ijJnFAQ==
+  dependencies:
+    "@chrysalis-api/flash" "^0.0.3"
     react "^16.5.2"
 
 "@chrysalis-api/keymap@~0.0.13":
@@ -10811,9 +10811,10 @@ tar@^4:
     safe-buffer "^5.1.2"
     yallist "^3.0.2"
 
-"teensy-loader@https://github.com/keyboardio/teensy-loader.js.git":
+teensy-loader@^0.1.0:
   version "0.1.0"
-  resolved "https://github.com/keyboardio/teensy-loader.js.git#2f6027f1818e38b1b68399f3e3ddc4ee0cfa7cbe"
+  resolved "https://registry.yarnpkg.com/teensy-loader/-/teensy-loader-0.1.0.tgz#b42a65658c418784a0f788fc3c57d97cad266a04"
+  integrity sha512-e2zZk5jqTP8BBG4JncXzRYTzh6ZcNmRwHMtbMBQw9B18BN0FFnq58hVxA7UM1oJXyHGt0bAA314L4Q2O2fMNnw==
   dependencies:
     intel-hex "^0.1.1"
     usb "^1.5.0"

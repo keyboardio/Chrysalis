@@ -50,7 +50,9 @@ const English = {
   layoutEditor: {
     defaultLayer: "Default layer",
     clearLayer: "Clear layer...",
-    copyTo: "Copy to layer..."
+    copyTo: "Copy to layer...",
+    dualUse: "Modifier when held, normal key otherwise",
+    dualUseLayer: "Layer shift when held, normal key otherwise"
   },
   colormapEditor: {
     clearLayer: "Clear layer...",

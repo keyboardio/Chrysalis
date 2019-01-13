@@ -29,8 +29,11 @@ import ListItemText from "@material-ui/core/ListItemText";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Paper from "@material-ui/core/Paper";
+import Switch from "@material-ui/core/Switch";
 import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
+
+import i18n from "../../i18n";
 
 const styles = theme => ({
   root: {
@@ -170,16 +173,89 @@ const SHIFT_HELD = (1 << 3) << 8;
 const GUI_HELD = (1 << 4) << 8;
 
 class KeyGroupListUnwrapped extends React.Component {
-  toggleMask = mask => {
+  toggleMask = (mask, dualUseModifier) => {
     return () => {
       const { onKeySelect, selectedKey } = this.props;
 
-      if (selectedKey & mask) {
-        onKeySelect(selectedKey & ~mask);
+      let modifier;
+      if (dualUseModifier) {
+        switch (mask) {
+          case CTRL_HELD:
+            modifier = 0;
+            break;
+          case SHIFT_HELD:
+            modifier = 1;
+            break;
+          case LALT_HELD:
+            modifier = 2;
+            break;
+          case GUI_HELD:
+            modifier = 3;
+            break;
+        }
+
+        const result = ((selectedKey - 49169) % 256) + (modifier << 8) + 49169;
+
+        if (result == selectedKey) {
+          onKeySelect((selectedKey - 49169) % 256);
+        } else {
+          onKeySelect(result);
+        }
       } else {
-        onKeySelect(selectedKey | mask);
+        if (selectedKey & mask) {
+          onKeySelect(selectedKey & ~mask);
+        } else {
+          onKeySelect(selectedKey | mask);
+        }
       }
     };
+  };
+
+  toggleDualUse = () => {
+    const { selectedKey } = this.props;
+
+    if (selectedKey >= 49169 && selectedKey <= 51217) {
+      const keyCode = (selectedKey - 49169) % 256;
+      const modifier = (selectedKey - 49169 - keyCode) >> 8;
+      let mask;
+
+      switch (modifier) {
+        case 0:
+          mask = CTRL_HELD;
+          break;
+        case 1:
+          mask = SHIFT_HELD;
+          break;
+        case 2:
+          mask = LALT_HELD;
+          break;
+        case 3:
+          mask = GUI_HELD;
+          break;
+      }
+      this.props.onKeySelect(keyCode | mask);
+    } else {
+      const keyCode = selectedKey % 256 ? selectedKey % 256 : selectedKey;
+      const mask = selectedKey - keyCode;
+      let modifier;
+
+      switch (mask) {
+        case CTRL_HELD:
+          modifier = 0;
+          break;
+        case SHIFT_HELD:
+          modifier = 1;
+          break;
+        case LALT_HELD:
+          modifier = 2;
+          break;
+        case GUI_HELD:
+          modifier = 3;
+          break;
+      }
+      const result = keyCode + (modifier << 8) + 49169;
+      this.props.onKeySelect(result);
+    }
   };
 
   render() {
@@ -195,12 +271,91 @@ class KeyGroupListUnwrapped extends React.Component {
 
     let keyCode = selectedKey;
     let mask = 0;
+    let dualUseModifier = false;
+    let invalidDualUse = true;
+    let dualUseLayer = null;
+    let dualUseLayerSwitch = null;
 
     if (withModifiers) {
-      keyCode = selectedKey % 256 ? selectedKey % 256 : selectedKey;
-      if (selectedKey != 65535) {
-        mask = selectedKey - keyCode;
+      if (keyCode >= 256 && keyCode <= 8191 && keyCode % 256) {
+        keyCode = selectedKey % 256 ? selectedKey % 256 : selectedKey;
+        if (selectedKey != 65535) {
+          mask = selectedKey - keyCode;
+        }
+        if (
+          mask == CTRL_HELD ||
+          mask == SHIFT_HELD ||
+          mask == LALT_HELD ||
+          mask == GUI_HELD
+        ) {
+          invalidDualUse = false;
+        }
       }
+
+      if (keyCode >= 49169 && keyCode <= 51217) {
+        invalidDualUse = false;
+        keyCode = (selectedKey - 49169) % 256;
+        const modifier = (selectedKey - 49169 - keyCode) >> 8;
+        dualUseModifier = true;
+        switch (modifier) {
+          case 0:
+            mask = CTRL_HELD;
+            break;
+          case 1:
+            mask = SHIFT_HELD;
+            break;
+          case 2:
+            mask = LALT_HELD;
+            break;
+          case 3:
+            mask = GUI_HELD;
+            break;
+        }
+      }
+
+      if (keyCode >= 51218 && keyCode <= 53266) {
+        keyCode = (selectedKey - 51218) % 256;
+        const layer = (selectedKey - 51218) >> 8;
+        dualUseLayer = Array(8)
+          .fill(0)
+          .map((_, index) => {
+            const keyInfo = {
+              code: 51218 + (index << 8) + keyCode,
+              labels: {
+                primary: `#${index}`
+              }
+            };
+            return (
+              <KeyButton
+                disabled={disabled}
+                keyInfo={keyInfo}
+                mask={0}
+                selected={layer == index}
+                key={index}
+                onKeySelect={onKeySelect}
+              />
+            );
+          });
+      }
+
+      dualUseLayerSwitch = (
+        <div>
+          <FormControlLabel
+            disabled={disabled || keyCode == 0 || Boolean(mask)}
+            className={classes.checkbox}
+            control={<Switch />}
+            checked={Boolean(dualUseLayer)}
+            onChange={() => {
+              if (dualUseLayer) {
+                onKeySelect(keyCode);
+              } else {
+                onKeySelect(keyCode + 51218);
+              }
+            }}
+            label={i18n.layoutEditor.dualUseLayer}
+          />
+        </div>
+      );
     }
 
     const itemList = items || baseKeyCodeTable[group].keys;
@@ -227,7 +382,7 @@ class KeyGroupListUnwrapped extends React.Component {
             className={classes.checkbox}
             control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
             checked={Boolean(mask & CTRL_HELD)}
-            onChange={this.toggleMask(CTRL_HELD)}
+            onChange={this.toggleMask(CTRL_HELD, dualUseModifier)}
             label="Control"
           />
           <FormControlLabel
@@ -235,7 +390,7 @@ class KeyGroupListUnwrapped extends React.Component {
             className={classes.checkbox}
             control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
             checked={Boolean(mask & SHIFT_HELD)}
-            onChange={this.toggleMask(SHIFT_HELD)}
+            onChange={this.toggleMask(SHIFT_HELD, dualUseModifier)}
             label="Shift"
           />
           <FormControlLabel
@@ -243,15 +398,15 @@ class KeyGroupListUnwrapped extends React.Component {
             className={classes.checkbox}
             control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
             checked={Boolean(mask & LALT_HELD)}
-            onChange={this.toggleMask(LALT_HELD)}
+            onChange={this.toggleMask(LALT_HELD, dualUseModifier)}
             label="Alt"
           />
           <FormControlLabel
-            disabled={disabled || keyCode == 0}
+            disabled={disabled || keyCode == 0 || dualUseModifier}
             className={classes.checkbox}
             control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
             checked={Boolean(mask & RALT_HELD)}
-            onChange={this.toggleMask(RALT_HELD)}
+            onChange={this.toggleMask(RALT_HELD, dualUseModifier)}
             label="AltGr"
           />
           <FormControlLabel
@@ -259,8 +414,16 @@ class KeyGroupListUnwrapped extends React.Component {
             className={classes.checkbox}
             control={<Checkbox classes={{ root: classes.checkboxRoot }} />}
             checked={Boolean(mask & GUI_HELD)}
-            onChange={this.toggleMask(GUI_HELD)}
+            onChange={this.toggleMask(GUI_HELD, dualUseModifier)}
             label="Gui"
+          />
+          <FormControlLabel
+            disabled={disabled || keyCode == 0 || invalidDualUse}
+            className={classes.checkbox}
+            control={<Switch />}
+            checked={dualUseModifier}
+            onChange={this.toggleDualUse}
+            label={i18n.layoutEditor.dualUse}
           />
         </FormGroup>
       );
@@ -269,7 +432,8 @@ class KeyGroupListUnwrapped extends React.Component {
     return (
       <React.Fragment>
         <div className={classes.keylist}> {keyList} </div>
-        {modSelector}
+        {dualUseLayer || modSelector}
+        {dualUseLayerSwitch}
       </React.Fragment>
     );
   }
@@ -351,8 +515,17 @@ class KeySelector extends React.Component {
       keyCode = currentKeyCode;
 
     if (groupIndex == -1) {
+      // Modified keys
       if (currentKeyCode >= 256 && currentKeyCode <= 8191 && keyCode % 256) {
         keyCode = keyCode % 256;
+      }
+      // DualUse, Modifiers
+      if (currentKeyCode >= 49169 && currentKeyCode <= 51217) {
+        keyCode = (keyCode - 49169) % 256;
+      }
+      // DualUse, layers
+      if (currentKeyCode >= 51218 && currentKeyCode <= 53266) {
+        keyCode = (keyCode - 51218) % 256;
       }
 
       groupIndex = keyGroups.length - 1;

@@ -99,13 +99,16 @@ app.on("ready", async () => {
 
 app.on("web-contents-created", (_, wc) => {
   wc.on("before-input-event", (_, input) => {
-    if (
-      input.type == "keyDown" &&
-      input.shift &&
-      input.control &&
-      input.code == "KeyI"
-    ) {
-      wc.openDevTools();
+    if (input.type == "keyDown" && input.control) {
+      if (input.shift && input.code == "KeyI") {
+        wc.openDevTools();
+      }
+      if (input.code == "KeyR") {
+        wc.reload();
+      }
+      if (input.code == "KeyQ") {
+        app.quit();
+      }
     }
   });
 });

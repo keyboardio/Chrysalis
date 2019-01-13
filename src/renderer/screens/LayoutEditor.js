@@ -92,6 +92,7 @@ class LayoutEditor extends React.Component {
       this.setState({
         roLayers: roLayers,
         defaultLayer: defLayer,
+        currentLayer: defLayer < keymap.length ? defLayer : 0,
         keymap: keymap
       });
     } catch (e) {

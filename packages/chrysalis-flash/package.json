@@ -31,6 +31,6 @@
   },
   "dependencies": {
     "avrgirl-arduino": "^3.0.0",
-    "teensy-loader": "https://github.com/keyboardio/teensy-loader.js.git"
+    "teensy-loader": "^0.1.0"
   }
 }

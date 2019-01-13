@@ -26,6 +26,18 @@ We already had UI in place for showing modifier-augmented keys, such as
 `Shift+2`, but the controls were disabled - they no longer are. We can now put
 keys on the keymap with modifiers applied to them.
 
+### Support for dual-use keys
+
+Chrysalis now supports dual-use keys, both modifiers and layer keys. Dual-use
+keys perform one function when held (usually act as either a modifier or a layer
+shift key), and another when tapped. They're often used on smaller keyboards,
+and Chrysalis knows now how to handle them, and present them in a useful way.
+
+### Improved default layer support
+
+When opening the layout editor, it will now start with the default layer
+selected instead of the first one.
+
 ### Canceling pending changes
 
 When there are unsaved, pending changes, the top bar will change color, and the

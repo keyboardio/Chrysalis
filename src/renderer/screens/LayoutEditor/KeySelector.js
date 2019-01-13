@@ -32,6 +32,8 @@ import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
 
+import i18n from "../../i18n";
+
 const styles = theme => ({
   root: {
     display: "flex",
@@ -136,7 +138,7 @@ class KeyGroupCodeUnwrapped extends React.Component {
         className={classes.keygroup}
         onChange={this.onChange}
         onKeyDown={this.onKeyDown}
-        label="Key code"
+        label={i18n.layoutEditor.keyCode}
         variant="outlined"
         disabled={disabled}
         type="number"
@@ -373,7 +375,7 @@ class KeySelector extends React.Component {
           selected={index == groupIndex}
           onClick={event => this.onMenuItemClick(event, index)}
         >
-          {group}
+          {i18n.layoutEditor.groups[group] || group}
         </MenuItem>
       );
     });
@@ -386,13 +388,16 @@ class KeySelector extends React.Component {
               onClick={this.onListItemClick}
               primary={
                 <span>
-                  Key type
+                  {i18n.layoutEditor.keyType}
                   <span style={{ float: "right" }}>
                     {anchorEl ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
                   </span>
                 </span>
               }
-              secondary={keyGroups[groupIndex]}
+              secondary={
+                i18n.layoutEditor.groups[keyGroups[groupIndex]] ||
+                keyGroups[groupIndex]
+              }
             />
           </ListItem>
         </List>

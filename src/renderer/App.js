@@ -471,8 +471,8 @@ class App extends React.Component {
             </List>
             <Divider />
             <List className={classes.drawer}>
-              {settingsMenuItem}
               {keyboardSelectMenuItem}
+              {settingsMenuItem}
             </List>
             <Divider />
             <List className={classes.drawer}>

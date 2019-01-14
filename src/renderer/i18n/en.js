@@ -99,6 +99,7 @@ const English = {
     selectPrompt: "Please select a keyboard:",
     noDevices: "No devices found!",
     connect: "Connect",
+    disconnect: "Disconnect",
     scan: "Scan devices"
   },
   firmwareUpdate: {

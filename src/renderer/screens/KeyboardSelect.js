@@ -311,6 +311,44 @@ class KeyboardSelect extends React.Component {
       );
     }
 
+    let connectionButton;
+    let focus = new Focus();
+    const selectedDevice = devices && devices[this.state.selectedPortIndex];
+
+    if (
+      focus._port &&
+      selectedDevice &&
+      selectedDevice.comName == focus._port.path
+    ) {
+      connectionButton = (
+        <Button
+          disabled={
+            this.state.opening ||
+            (this.state.devices && this.state.devices.length == 0)
+          }
+          variant="outlined"
+          color="secondary"
+          onClick={this.props.onDisconnect}
+        >
+          {i18n.keyboardSelect.disconnect}
+        </Button>
+      );
+    } else {
+      connectionButton = (
+        <Button
+          disabled={
+            this.state.opening ||
+            (this.state.devices && this.state.devices.length == 0)
+          }
+          variant="contained"
+          color="primary"
+          onClick={this.onKeyboardConnect}
+        >
+          {connectContent}
+        </Button>
+      );
+    }
+
     return (
       <div className={classes.main}>
         <Portal container={this.props.titleElement}>
@@ -324,17 +362,7 @@ class KeyboardSelect extends React.Component {
           <CardActions className={classes.cardActions}>
             {scanDevicesButton}
             <div className={classes.grow} />
-            <Button
-              disabled={
-                this.state.opening ||
-                (this.state.devices && this.state.devices.length == 0)
-              }
-              variant="contained"
-              color="primary"
-              onClick={this.onKeyboardConnect}
-            >
-              {connectContent}
-            </Button>
+            {connectionButton}
           </CardActions>
         </Card>
       </div>

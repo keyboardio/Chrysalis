@@ -99,6 +99,7 @@ const Hungarian = {
     selectPrompt: "Kérem válasszon billentyűzetet:",
     noDevices: "Nincs ismert eszköz csatlakoztatva!",
     connect: "Kapcsolódás",
+    disconnect: "Lecsatlakozás",
     scan: "Eszköz keresés"
   },
   firmwareUpdate: {

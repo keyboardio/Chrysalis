@@ -171,9 +171,24 @@ class KeyboardSelect extends React.Component {
     this.finder = () => {
       this.findKeyboards();
     };
-    this.finder();
     usb.on("attach", this.finder);
     usb.on("detach", this.finder);
+
+    this.findKeyboards().then(() => {
+      let focus = new Focus();
+      if (!focus._port) return;
+
+      for (let device of this.state.devices) {
+        if (!device.comName) continue;
+
+        if (device.comName == focus._port.path) {
+          this.setState(state => ({
+            selectedPortIndex: state.devices.indexOf(device)
+          }));
+          break;
+        }
+      }
+    });
   }
 
   componentWillUnmount() {

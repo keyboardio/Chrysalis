@@ -92,7 +92,6 @@ class LayoutEditor extends React.Component {
       this.setState({
         roLayers: roLayers,
         defaultLayer: defLayer,
-        currentLayer: defLayer < keymap.length ? defLayer : 0,
         keymap: keymap
       });
     } catch (e) {
@@ -173,7 +172,12 @@ class LayoutEditor extends React.Component {
   };
 
   componentDidMount() {
-    this.scanKeyboard();
+    this.scanKeyboard().then(() => {
+      this.setState(state => ({
+        currentLayer:
+          state.defaultLayer < state.keymap.length ? state.defaultLayer : 0
+      }));
+    });
   }
 
   UNSAFE_componentWillReceiveProps = nextProps => {

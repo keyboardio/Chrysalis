@@ -35,8 +35,6 @@ import { withStyles } from "@material-ui/core/styles";
 
 import i18n from "../../i18n";
 
-import Focus from "@chrysalis-api/focus";
-
 const styles = theme => ({
   root: {
     display: "flex",
@@ -259,68 +257,6 @@ class KeyGroupListUnwrapped extends React.Component {
       this.props.onKeySelect(result);
     }
   };
-
-  onKeyDown = event => {
-    const { onKeySelect } = this.props;
-    const focus = new Focus();
-    const itemList = focus.commands.keymap.db.keymapCodeTable;
-
-    let key = event.key;
-
-    switch (event.code) {
-      case "ControlLeft":
-        key = "LCtrl";
-        break;
-      case "ControlRight":
-        key = "RCtrl";
-        break;
-      case "ShiftLeft":
-        key = "LShift";
-        break;
-      case "ShiftRight":
-        key = "RShift";
-        break;
-      case "AltLeft":
-        key = "LAlt";
-        break;
-      case "AltRight":
-        key = "RAlt";
-        break;
-      case "MetaLeft":
-        key = "LGui";
-        break;
-      case "MetaRight":
-        key = "RGui";
-        break;
-    }
-
-    for (let item of itemList) {
-      if (!item) continue;
-      if (
-        item.labels.primary == key ||
-        item.labels.primary == key.toUpperCase()
-      ) {
-        let code = item.code;
-        if (event.ctrlKey && key != "LCtrl" && key != "RCtrl")
-          code |= CTRL_HELD;
-        if (event.altKey && key != "LAlt") code |= LALT_HELD;
-        if (event.shiftKey && key != "LShift" && key != "RShift")
-          code |= SHIFT_HELD;
-        if (event.metaKey && key != "LGui" && key != "RGui") code |= GUI_HELD;
-
-        event.preventDefault();
-        return onKeySelect(code);
-      }
-    }
-  };
-
-  componentDidMount() {
-    document.addEventListener("keydown", this.onKeyDown);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener("keydown", this.onKeyDown);
-  }
 
   render() {
     const {

@@ -113,6 +113,7 @@ const English = {
       button: "Update",
       buttonSuccess: "Updated!"
     },
+    repo: `To see what is included in the default firmware, please see the {0} repository.`,
     defaultFirmware: "Default firmware",
     updatingTitle: "Updating the firmware",
     selected: "Selected firmware",

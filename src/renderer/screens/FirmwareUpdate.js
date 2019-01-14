@@ -206,8 +206,16 @@ class FirmwareUpdate extends React.Component {
               )}
             </Typography>
             {tooling}
-            <Typography component="p">
+            <Typography component="p" gutterBottom>
               {i18n.firmwareUpdate.postUpload}
+            </Typography>
+            <Typography component="p">
+              {i18n.formatString(
+                i18n.firmwareUpdate.repo,
+                <a href="https://github.com/keyboardio/Chrysalis-Firmware-Bundle#readme">
+                  Chrysalis-Firmware-Bundle
+                </a>
+              )}
             </Typography>
           </CardContent>
           <Divider variant="middle" />

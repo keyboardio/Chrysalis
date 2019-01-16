@@ -165,6 +165,7 @@ class ColormapEditor extends React.Component {
     this.setState(state => {
       let newMap = state.colorMap.slice();
       newMap[layer] = state.colorMap[state.currentLayer].slice();
+      this.props.startContext();
       return {
         colorMap: newMap,
         copyMenuExpanded: false,
@@ -181,6 +182,7 @@ class ColormapEditor extends React.Component {
       newMap[state.currentLayer] = Array(newMap[0].length)
         .fill()
         .map(() => 0);
+      this.props.startContext();
       return {
         colorMap: newMap,
         modified: true,

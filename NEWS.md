@@ -9,6 +9,13 @@ Chrysalis 0.3.1
 When clearing or copying a layer, the top bar will switch to its contextual
 cancel mode, allowing us to cancel the clear.
 
+### Colormap editor usability fixes
+
+The palette colors now have a border, so any bright white colored swatches will
+be visible too. We also made the color picker slightly wider, so the text on it
+fits better, and we made the two halves of the palette stay in place, whether
+the picker is shown or not.
+
 Chrysalis 0.3.0
 ===============
 Released on 2019-01-15

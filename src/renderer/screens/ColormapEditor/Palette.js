@@ -88,7 +88,7 @@ class Palette extends React.Component {
     return (
       <Paper className={classes.root} square>
         {lowWidget}
-        <Fade in={this.props.selected != -1} unmountOnExit>
+        <Fade in={this.props.selected != -1}>
           <div className={classes.picker}>
             <MaterialPicker
               className={classes.pickerInner}

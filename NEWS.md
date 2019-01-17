@@ -16,6 +16,11 @@ be visible too. We also made the color picker slightly wider, so the text on it
 fits better, and we made the two halves of the palette stay in place, whether
 the picker is shown or not.
 
+### Model01 firmware update
+
+The firmware Chrysalis ships with for the Keyboardio Model01 has been updated,
+to fix a bug related to the `Colormap` plugin.
+
 Chrysalis 0.3.0
 ===============
 Released on 2019-01-15

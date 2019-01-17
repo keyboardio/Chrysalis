@@ -33,7 +33,8 @@ const styles = theme => ({
       transform: "scale(1.2)",
       cursor: "pointer",
       borderRadius: "25%"
-    }
+    },
+    border: "1px solid #000"
   },
   selected: {
     transform: "scale(1.2)",

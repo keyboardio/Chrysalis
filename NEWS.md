@@ -21,6 +21,11 @@ the picker is shown or not.
 The firmware Chrysalis ships with for the Keyboardio Model01 has been updated,
 to fix a bug related to the `Colormap` plugin.
 
+### Fixed firmware update on Windows and OSX
+
+Updating the firmware of the Atreus and the ErgoDox should now work on Windows
+and OSX too, alongside Linux where it already worked before.
+
 Chrysalis 0.3.0
 ===============
 Released on 2019-01-15

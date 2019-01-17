@@ -38,9 +38,12 @@ const styles = theme => ({
     justifyContent: "center"
   },
   picker: {
-    width: 124,
+    margin: `0px ${theme.spacing.unit * 2}px`,
     display: "flex",
     justifyContent: "center"
+  },
+  pickerInner: {
+    width: "130px !important"
   }
 });
 
@@ -87,7 +90,11 @@ class Palette extends React.Component {
         {lowWidget}
         <Fade in={this.props.selected != -1} unmountOnExit>
           <div className={classes.picker}>
-            <MaterialPicker color={color} onChangeComplete={this.onColorPick} />
+            <MaterialPicker
+              className={classes.pickerInner}
+              color={color}
+              onChangeComplete={this.onColorPick}
+            />
           </div>
         </Fade>
         {highWidget}

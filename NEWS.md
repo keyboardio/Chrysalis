@@ -1,3 +1,14 @@
+Chrysalis 0.3.1
+===============
+**UNRELEASED**
+
+## Bugfixes
+
+### Clearing or copying a layer will allow us to cancel the clear
+
+When clearing or copying a layer, the top bar will switch to its contextual
+cancel mode, allowing us to cancel the clear.
+
 Chrysalis 0.3.0
 ===============
 Released on 2019-01-15

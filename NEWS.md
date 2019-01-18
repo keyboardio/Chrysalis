@@ -1,3 +1,28 @@
+Chrysalis 0.4.0
+===============
+**UNRELEASED**
+
+## UI/UX Improvements
+
+A number of screens were simplified and otherwise updated to be easier to
+discover and understand. Dropdown menus now look like drop downs, buttons are
+more prominent, and to the point.
+
+### Layer copy direction is now copy from
+
+Copying from another layer to the currently selected one turns out to be easier
+to work with, less surprising, and much less error prone. So the previous "Copy
+layer to..." feature was reversed, and now we can copy a layer from another
+instead.
+
+## Bugfixes
+
+### Clearing layers will restore the EEPROM default
+
+When clearing a layer, Chrysalis will now restore the default EEPROM value,
+instead of zeros. In practice, this means that when we clear a keymap layer,
+we'll get transparent keys instead of blanks.
+
 Chrysalis 0.3.1
 ===============
 Released on 2019-01-17

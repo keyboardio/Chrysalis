@@ -149,7 +149,6 @@ class FirmwareUpdate extends React.Component {
   render() {
     const { classes } = this.props;
     const { firmwareFilename } = this.state;
-    let focus = new Focus();
 
     let filename = null;
     if (firmwareFilename) {
@@ -179,12 +178,6 @@ class FirmwareUpdate extends React.Component {
     } catch (_) {
       hasDefaultFirmware = false;
     }
-
-    const tooling = focus.device && focus.device.flashTool && (
-      <Typography component="p" gutterBottom>
-        {i18n.formatString(i18n.firmwareUpdate.tooling, focus.device.flashTool)}
-      </Typography>
-    );
 
     const firmwareSelect = (
       <FormControl>
@@ -226,7 +219,6 @@ class FirmwareUpdate extends React.Component {
                 Chrysalis-Firmware-Bundle
               </a>
             </Typography>
-            {tooling}
             <Typography component="p" gutterBottom>
               {i18n.firmwareUpdate.postUpload}
             </Typography>

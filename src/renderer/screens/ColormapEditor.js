@@ -180,7 +180,7 @@ class ColormapEditor extends React.Component {
       let newMap = state.colorMap.slice();
       newMap[state.currentLayer] = Array(newMap[0].length)
         .fill()
-        .map(() => 0);
+        .map(() => 0xf);
       this.props.startContext();
       return {
         colorMap: newMap,

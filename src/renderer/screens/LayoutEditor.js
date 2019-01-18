@@ -219,7 +219,7 @@ class LayoutEditor extends React.Component {
       let newKeymap = state.keymap.slice();
       newKeymap[state.currentLayer] = Array(newKeymap[0].length)
         .fill()
-        .map(() => ({ keyCode: 0 }));
+        .map(() => ({ keyCode: 0xffff }));
       this.props.startContext();
       return {
         keymap: newKeymap,

@@ -194,22 +194,21 @@ class LayoutEditor extends React.Component {
     this.setState({ moreAnchorEl: null });
   };
 
-  copyToLayerMenu = () => {
+  copyFromLayerMenu = () => {
     this.setState(state => ({
       copyMenuExpanded: !state.copyMenuExpanded
     }));
   };
 
-  copyToLayer = layer => {
+  copyFromLayer = layer => {
     this.setState(state => {
       let newKeymap = state.keymap.slice();
-      newKeymap[layer] = state.keymap[state.currentLayer].slice();
+      newKeymap[state.currentLayer] = state.keymap[layer].slice();
       this.props.startContext();
       return {
         keymap: newKeymap,
         copyMenuExpanded: false,
         moreAnchorEl: null,
-        currentLayer: layer,
         modified: true
       };
     });
@@ -288,14 +287,12 @@ class LayoutEditor extends React.Component {
       const label = i18n.formatString(i18n.components.layer, index),
         key = "copy-layer-" + index.toString();
 
-      if (index < this.state.roLayers) return null;
-
       return (
         <MenuItem
           className={classes.layerItem}
           key={key}
           disabled={index == currentLayer}
-          onClick={() => this.copyToLayer(index)}
+          onClick={() => this.copyFromLayer(index)}
         >
           {label}
         </MenuItem>
@@ -317,9 +314,12 @@ class LayoutEditor extends React.Component {
           >
             {i18n.layoutEditor.clearLayer}
           </MenuItem>
-          <MenuItem onClick={this.copyToLayerMenu}>
+          <MenuItem
+            onClick={this.copyFromLayerMenu}
+            disabled={currentLayer < this.state.roLayers}
+          >
             <span style={{ marginRight: "1em" }}>
-              {i18n.layoutEditor.copyTo}
+              {i18n.layoutEditor.copyFrom}
             </span>
             {copyMenuExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </MenuItem>

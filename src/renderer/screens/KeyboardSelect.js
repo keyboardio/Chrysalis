@@ -298,18 +298,16 @@ class KeyboardSelect extends React.Component {
       </Avatar>
     );
 
-    let scanDevicesButton;
-    if (scanFoundDevices == undefined) {
-      scanDevicesButton = (
-        <Button onClick={this.scanDevices}>{i18n.keyboardSelect.scan}</Button>
-      );
-    } else {
-      scanDevicesButton = (
-        <Button className={scanFoundDevices ? classes.found : classes.notFound}>
-          {i18n.keyboardSelect.scan}
-        </Button>
-      );
-    }
+    const scanDevicesButton = (
+      <Button
+        variant={devices && devices.length ? "outlined" : "contained"}
+        color={devices && devices.length ? "default" : "primary"}
+        className={scanFoundDevices && classes.found}
+        onClick={scanFoundDevices ? null : this.scanDevices}
+      >
+        {i18n.keyboardSelect.scan}
+      </Button>
+    );
 
     let connectionButton;
     let focus = new Focus();

@@ -29,13 +29,14 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import Divider from "@material-ui/core/Divider";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
+import FormControl from "@material-ui/core/FormControl";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Portal from "@material-ui/core/Portal";
+import Select from "@material-ui/core/Select";
 import SettingsBackupRestoreIcon from "@material-ui/icons/SettingsBackupRestore";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
@@ -57,6 +58,13 @@ const styles = theme => ({
   },
   grow: {
     flexGrow: 1
+  },
+  dropdown: {
+    display: "flex"
+  },
+  custom: {
+    marginTop: "auto",
+    marginBottom: "auto"
   }
 });
 
@@ -67,27 +75,16 @@ class FirmwareUpdate extends React.Component {
     let focus = new Focus();
 
     this.state = {
-      anchorEl: null,
       firmwareFilename: "",
       device: props.device || focus.device
     };
   }
 
-  openFirmwareMenu = event => {
-    this.setState({ anchorEl: event.currentTarget });
-  };
-  closeFirmwareMenu = () => {
-    this.setState({ anchorEl: null });
-  };
+  selectFirmware = event => {
+    if (event.target.value != "custom") {
+      return this.setState({ firmwareFilename: "" });
+    }
 
-  selectDefaultFirmware = () => {
-    this.setState({
-      anchorEl: null,
-      firmwareFilename: ""
-    });
-  };
-
-  selectCustomFirmware = () => {
     let files = Electron.remote.dialog.showOpenDialog({
       title: i18n.firmwareUpdate.dialog.selectFirmware,
       filters: [
@@ -102,12 +99,7 @@ class FirmwareUpdate extends React.Component {
       ]
     });
     if (files) {
-      this.setState({
-        firmwareFilename: files[0],
-        anchorEl: null
-      });
-    } else {
-      this.setState({ anchorEl: null });
+      this.setState({ firmwareFilename: files[0] });
     }
   };
 
@@ -153,7 +145,7 @@ class FirmwareUpdate extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { anchorEl, firmwareFilename } = this.state;
+    const { firmwareFilename } = this.state;
     let focus = new Focus();
 
     let filename = null;
@@ -168,6 +160,7 @@ class FirmwareUpdate extends React.Component {
     );
     const defaultFirmwareItem = (
       <MenuItem
+        value="default"
         selected={firmwareFilename == ""}
         onClick={this.selectDefaultFirmware}
       >
@@ -184,13 +177,35 @@ class FirmwareUpdate extends React.Component {
       hasDefaultFirmware = false;
     }
 
-    const selectedFirmware =
-      filename || (hasDefaultFirmware ? defaultFirmwareItemText : "");
-
     const tooling = focus.device && focus.device.flashTool && (
       <Typography component="p" gutterBottom>
         {i18n.formatString(i18n.firmwareUpdate.tooling, focus.device.flashTool)}
       </Typography>
+    );
+
+    const firmwareSelect = (
+      <FormControl>
+        <InputLabel shrink htmlFor="selected-firmware">
+          {i18n.firmwareUpdate.selected}
+        </InputLabel>
+        <Select
+          classes={{ select: classes.dropdown }}
+          value={firmwareFilename ? "custom" : "default"}
+          input={<Input id="selected-firmware" />}
+          onChange={this.selectFirmware}
+        >
+          {hasDefaultFirmware && defaultFirmwareItem}
+          <MenuItem selected={firmwareFilename != ""} value="custom">
+            <ListItemIcon className={classes.custom}>
+              <BuildIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary={i18n.firmwareUpdate.custom}
+              secondary={filename}
+            />
+          </MenuItem>
+        </Select>
+      </FormControl>
     );
 
     return (
@@ -224,30 +239,7 @@ class FirmwareUpdate extends React.Component {
           </CardContent>
           <Divider variant="middle" />
           <CardActions>
-            <List component="nav">
-              <ListItem button onClick={this.openFirmwareMenu}>
-                <ListItemText
-                  primary={i18n.firmwareUpdate.selected}
-                  secondary={selectedFirmware}
-                />
-              </ListItem>
-            </List>
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={this.closeFirmwareMenu}
-            >
-              {hasDefaultFirmware && defaultFirmwareItem}
-              <MenuItem
-                selected={firmwareFilename != ""}
-                onClick={this.selectCustomFirmware}
-              >
-                <ListItemIcon>
-                  <BuildIcon />
-                </ListItemIcon>
-                <ListItemText primary={i18n.firmwareUpdate.custom} />
-              </MenuItem>
-            </Menu>
+            {firmwareSelect}
             <div className={classes.grow} />
             <SaveChangesButton
               icon={<CloudUploadIcon />}

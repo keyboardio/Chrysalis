@@ -141,6 +141,7 @@ class FirmwareUpdate extends React.Component {
         });
 
         this.props.toggleFlashing();
+        this.props.onDisconnect();
         resolve();
       }, 1000);
     });

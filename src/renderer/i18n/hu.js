@@ -21,7 +21,7 @@ const Hungarian = {
     deviceDisconnected: "Az billentyűzet lecsatlakozott"
   },
   components: {
-    layer: "#{0}. réteg",
+    layer: "{0}. réteg",
     save: {
       success: "Elmentve!",
       saveChanges: "Mentés"

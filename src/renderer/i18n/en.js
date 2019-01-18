@@ -21,7 +21,7 @@ const English = {
     deviceDisconnected: "Device disconnected"
   },
   components: {
-    layer: "Layer #{0}",
+    layer: "Layer {0}",
     save: {
       success: "Saved!",
       saveChanges: "Save Changes"

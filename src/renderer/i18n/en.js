@@ -114,14 +114,11 @@ const English = {
       button: "Update",
       buttonSuccess: "Updated!"
     },
-    repo: `To see what is included in the default firmware, please see the {0} repository.`,
-    defaultFirmware: "Default firmware",
-    updatingTitle: "Updating the firmware",
+    defaultFirmware: "Chrysalis {0} default",
     selected: "Selected firmware",
     custom: "Custom firmware",
-    description: `Updating the firmware is a safe process, it's very hard to brick your keyboard even with bad firmware, as most keyboards provide a way to go stay in bootloader mode, where new firmware can be flashed. Nevertheless, updating the firmware will overwrite the previous one. If you customised your firmware, make sure you're flashing one that you are comfortable with. If you wish to proceed, please consult the documentation of your keyboard to see how to enable uploading new firmware, and then press the {0} button to continue.`,
-    tooling: `Your keyboard requires an external tool ({0}) for flashing. Please make sure that it is available, and on the PATH, otherwise Chrysalis will not be able to upload new firmware.`,
-    postUpload: `Once the upload is finished - either successfully or with errors -, you will be taken back to the initial keyboard selection screen. This is normal.`
+    description: `Updating or "flashing" your keyboard's firmware is how we teach it new tricks. Chrysalis will install a new version of your keyboard's firmware which includes support for customizing the key layout, as well as other features. If you've previously customized your keyboard's firmware, this will overwrite your custom firmware. You can always find the source code of the firmware Chrysalis is installing here:`,
+    postUpload: `Once the upload is done, Chrysalis will take you back to the keyboard selection screen.`
   },
   welcome: {
     title: "Welcome to Chrysalis",

@@ -115,7 +115,7 @@ const English = {
       buttonSuccess: "Updated!"
     },
     repo: `To see what is included in the default firmware, please see the {0} repository.`,
-    defaultFirmware: "Default firmware",
+    defaultFirmware: "Chrysalis {0} default",
     updatingTitle: "Updating the firmware",
     selected: "Selected firmware",
     custom: "Custom firmware",

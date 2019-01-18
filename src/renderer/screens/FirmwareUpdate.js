@@ -19,6 +19,7 @@ import React from "react";
 import Electron from "electron";
 import path from "path";
 import fs from "fs";
+import { version } from "../../../package.json";
 
 import Focus from "@chrysalis-api/focus";
 
@@ -161,6 +162,10 @@ class FirmwareUpdate extends React.Component {
       filename = filename[filename.length - 1];
     }
 
+    const defaultFirmwareItemText = i18n.formatString(
+      i18n.firmwareUpdate.defaultFirmware,
+      version
+    );
     const defaultFirmwareItem = (
       <MenuItem
         selected={firmwareFilename == ""}
@@ -169,7 +174,7 @@ class FirmwareUpdate extends React.Component {
         <ListItemIcon>
           <SettingsBackupRestoreIcon />
         </ListItemIcon>
-        <ListItemText primary={i18n.firmwareUpdate.defaultFirmware} />
+        <ListItemText primary={defaultFirmwareItemText} />
       </MenuItem>
     );
     let hasDefaultFirmware = true;
@@ -180,8 +185,7 @@ class FirmwareUpdate extends React.Component {
     }
 
     const selectedFirmware =
-      filename ||
-      (hasDefaultFirmware ? i18n.firmwareUpdate.defaultFirmware : "");
+      filename || (hasDefaultFirmware ? defaultFirmwareItemText : "");
 
     const tooling = focus.device && focus.device.flashTool && (
       <Typography component="p" gutterBottom>

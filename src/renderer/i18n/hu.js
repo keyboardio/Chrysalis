@@ -115,7 +115,7 @@ const Hungarian = {
       buttonSuccess: "Frissítve!"
     },
     repo: `Látogasson el a {0} gyűjtemény oldalára, ha kiváncsi pontosan mit tartalmaz az alapértelmezett vezérlő.`,
-    defaultFirmware: "Alapértelmezett vezérlő",
+    defaultFirmware: "Chrysalis {0} alapértelmezett",
     updatingTitle: "Vezérlő frissítés",
     selected: "Kiválasztott vezérlő",
     custom: "Egyedi vezérlő",

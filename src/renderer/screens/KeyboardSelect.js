@@ -35,7 +35,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Portal from "@material-ui/core/Portal";
-import red from "@material-ui/core/colors/red";
+import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 import { withSnackbar } from "notistack";
@@ -89,13 +89,12 @@ const styles = theme => ({
     flexGrow: 1
   },
   error: {
-    color: theme.palette.error.dark
+    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 2,
+    textAlign: "center"
   },
   found: {
     color: green[500]
-  },
-  notFound: {
-    color: red[500]
   }
 });
 
@@ -284,7 +283,11 @@ class KeyboardSelect extends React.Component {
     }
 
     if (devices && devices.length == 0) {
-      port = <p className={classes.error}>{i18n.keyboardSelect.noDevices}</p>;
+      port = (
+        <Typography variant="body1" color="error" className={classes.error}>
+          {i18n.keyboardSelect.noDevices}
+        </Typography>
+      );
     }
 
     let connectContent = i18n.keyboardSelect.connect;

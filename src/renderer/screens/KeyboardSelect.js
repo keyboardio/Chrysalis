@@ -23,19 +23,18 @@ import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import CardHeader from "@material-ui/core/CardHeader";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Divider from "@material-ui/core/Divider";
+import FormControl from "@material-ui/core/FormControl";
 import green from "@material-ui/core/colors/green";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
 import Portal from "@material-ui/core/Portal";
-import red from "@material-ui/core/colors/red";
+import Select from "@material-ui/core/Select";
+import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 import { withSnackbar } from "notistack";
@@ -76,32 +75,37 @@ const styles = theme => ({
  ${theme.spacing.unit * 3}px`
   },
   content: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    paddingTop: 0,
-    paddingBottom: 0
+    display: "inline-block",
+    width: "100%"
   },
-  avatar: {
+  selectControl: {
+    display: "flex"
+  },
+  connect: {
+    verticalAlign: "bottom",
+    marginLeft: 65
+  },
+  cardActions: {
+    justifyContent: "center"
+  },
+  supported: {
     backgroundColor: theme.palette.secondary.main
   },
   grow: {
     flexGrow: 1
   },
   error: {
-    color: theme.palette.error.dark
+    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 2,
+    textAlign: "center"
   },
   found: {
     color: green[500]
-  },
-  notFound: {
-    color: red[500]
   }
 });
 
 class KeyboardSelect extends React.Component {
   state = {
-    anchorEl: null,
     selectedPortIndex: 0,
     opening: false,
     devices: null,
@@ -196,16 +200,8 @@ class KeyboardSelect extends React.Component {
     usb.off("detach", this.finder);
   }
 
-  handleClickListItem = event => {
-    this.setState({ anchorEl: event.currentTarget });
-  };
-
-  handleMenuItemClick = (event, index) => {
-    this.setState({ selectedPortIndex: index, anchorEl: null });
-  };
-
-  handleClose = () => {
-    this.setState({ anchorEl: null });
+  selectPort = event => {
+    this.setState({ selectedPortIndex: event.target.value });
   };
 
   onKeyboardConnect = async () => {
@@ -225,7 +221,7 @@ class KeyboardSelect extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { anchorEl, scanFoundDevices, devices } = this.state;
+    const { scanFoundDevices, devices } = this.state;
 
     let loader = null;
     if (this.state.loading) {
@@ -247,44 +243,46 @@ class KeyboardSelect extends React.Component {
         } else if (option.info) {
           label = <ListItemText primary={option.info.displayName} />;
         }
+
+        const icon = (
+          <ListItemIcon>
+            <Avatar className={option.comName && classes.supported}>
+              <KeyboardIcon />
+            </Avatar>
+          </ListItemIcon>
+        );
+
         return (
           <MenuItem
             key={`device-${index}`}
+            value={index}
             selected={index === this.state.selectedPortIndex}
-            onClick={event => this.handleMenuItemClick(event, index)}
           >
+            {icon}
             {label}
           </MenuItem>
         );
       });
 
-      let portDesc = devices[this.state.selectedPortIndex],
-        portInfo = portDesc.device ? portDesc.device.info : portDesc.info;
-
       port = (
-        <React.Fragment>
-          <List component="nav">
-            <ListItem button onClick={this.handleClickListItem}>
-              <ListItemText
-                primary={portInfo.displayName}
-                secondary={portDesc.comName || i18n.keyboardSelect.unknown}
-              />
-            </ListItem>
-          </List>
-          <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={this.handleClose}
+        <FormControl className={classes.selectControl}>
+          <Select
+            value={this.state.selectedPortIndex}
+            classes={{ select: classes.selectControl }}
+            onChange={this.selectPort}
           >
-            <MenuItem disabled>{i18n.keyboardSelect.selectPrompt}</MenuItem>
             {deviceItems}
-          </Menu>
-        </React.Fragment>
+          </Select>
+        </FormControl>
       );
     }
 
     if (devices && devices.length == 0) {
-      port = <p className={classes.error}>{i18n.keyboardSelect.noDevices}</p>;
+      port = (
+        <Typography variant="body1" color="error" className={classes.error}>
+          {i18n.keyboardSelect.noDevices}
+        </Typography>
+      );
     }
 
     let connectContent = i18n.keyboardSelect.connect;
@@ -292,24 +290,16 @@ class KeyboardSelect extends React.Component {
       connectContent = <CircularProgress color="secondary" size={16} />;
     }
 
-    const avatar = (
-      <Avatar className={classes.avatar}>
-        <KeyboardIcon />
-      </Avatar>
+    const scanDevicesButton = (
+      <Button
+        variant={devices && devices.length ? "outlined" : "contained"}
+        color={devices && devices.length ? "default" : "primary"}
+        className={scanFoundDevices && classes.found}
+        onClick={scanFoundDevices ? null : this.scanDevices}
+      >
+        {i18n.keyboardSelect.scan}
+      </Button>
     );
-
-    let scanDevicesButton;
-    if (scanFoundDevices == undefined) {
-      scanDevicesButton = (
-        <Button onClick={this.scanDevices}>{i18n.keyboardSelect.scan}</Button>
-      );
-    } else {
-      scanDevicesButton = (
-        <Button className={scanFoundDevices ? classes.found : classes.notFound}>
-          {i18n.keyboardSelect.scan}
-        </Button>
-      );
-    }
 
     let connectionButton;
     let focus = new Focus();
@@ -343,6 +333,7 @@ class KeyboardSelect extends React.Component {
           variant="contained"
           color="primary"
           onClick={this.onKeyboardConnect}
+          className={classes.connect}
         >
           {connectContent}
         </Button>
@@ -356,7 +347,6 @@ class KeyboardSelect extends React.Component {
         </Portal>
         {loader}
         <Card className={classes.card}>
-          <CardHeader className={classes.content} avatar={avatar} />
           <CardContent className={classes.content}>{port}</CardContent>
           <Divider variant="middle" />
           <CardActions className={classes.cardActions}>

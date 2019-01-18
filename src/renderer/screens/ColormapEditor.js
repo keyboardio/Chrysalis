@@ -155,22 +155,21 @@ class ColormapEditor extends React.Component {
     this.setState({ moreAnchorEl: null });
   };
 
-  copyToLayerMenu = () => {
+  copyFromLayerMenu = () => {
     this.setState(state => ({
       copyMenuExpanded: !state.copyMenuExpanded
     }));
   };
 
-  copyToLayer = layer => {
+  copyFromLayer = layer => {
     this.setState(state => {
       let newMap = state.colorMap.slice();
-      newMap[layer] = state.colorMap[state.currentLayer].slice();
+      newMap[state.currentLayer] = state.colorMap[layer].slice();
       this.props.startContext();
       return {
         colorMap: newMap,
         copyMenuExpanded: false,
         moreAnchorEl: null,
-        currentLayer: layer,
         modified: true
       };
     });
@@ -226,7 +225,7 @@ class ColormapEditor extends React.Component {
           className={classes.layerItem}
           key={key}
           disabled={index == currentLayer}
-          onClick={() => this.copyToLayer(index)}
+          onClick={() => this.copyFromLayer(index)}
         >
           {label}
         </MenuItem>
@@ -245,9 +244,9 @@ class ColormapEditor extends React.Component {
           <MenuItem onClick={this.clearLayer}>
             {i18n.colormapEditor.clearLayer}
           </MenuItem>
-          <MenuItem onClick={this.copyToLayerMenu}>
+          <MenuItem onClick={this.copyFromLayerMenu}>
             <span style={{ marginRight: "1em" }}>
-              {i18n.colormapEditor.copyTo}
+              {i18n.colormapEditor.copyFrom}
             </span>
             {copyMenuExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </MenuItem>

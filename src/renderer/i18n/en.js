@@ -80,13 +80,13 @@ const English = {
     },
     defaultLayer: "Default layer",
     clearLayer: "Clear layer...",
-    copyTo: "Copy to layer...",
+    copyFrom: "Copy from layer...",
     dualUse: "Modifier when held, normal key otherwise",
     dualUseLayer: "Layer shift when held, normal key otherwise"
   },
   colormapEditor: {
     clearLayer: "Clear layer...",
-    copyTo: "Copy to layer..."
+    copyFrom: "Copy from layer..."
   },
   settings: {
     devtools: "Developer tools",

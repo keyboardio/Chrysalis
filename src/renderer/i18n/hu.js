@@ -118,8 +118,7 @@ const Hungarian = {
     selected: "Kiválasztott vezérlő",
     custom: "Egyedi vezérlő",
     description: `A billentyűzet vezérlő frissítésevel tanítjuk új trükkökre. A Chrysalis olyan új vezérlőt fog telepíteni, mely tartalmazza az eszközöket melyek lehetővé teszik a kiosztás szerkesztését, és még más dolgokat is. Ha korábban már testreszabta a vezérlőt, akkor ez a művelet felül fogja azt írni. A Chrysalis által telepíthető vezérlő forrása mindig megtalálható az alábbi címen:`,
-    postUpload: `Amint a frissítés befejeződött, a Chrysalis vissza fogja vinni a billentyűzet választó képernyőre.`,
-    tooling: `A billentyűzet vezérlőjének frissítéséhez külső programra ({0}) van szükség. Kérjük tegye a programot elérhetővé a Chrysalis számára, különben nem fog tudni vezérlő frissítést feltölteni.`
+    postUpload: `Amint a frissítés befejeződött, a Chrysalis vissza fogja vinni a billentyűzet választó képernyőre.`
   },
   welcome: {
     title: "Üdvözöljük!",

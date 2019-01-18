@@ -80,13 +80,13 @@ const Hungarian = {
     },
     defaultLayer: "Alapértelmezett réteg",
     clearLayer: "Réteg ürítése...",
-    copyTo: "Réteg másolás...",
+    copyFrom: "Réteg másolás máshonnan...",
     dualUse: "Nyomvatartáskor módosító, normál gomb egyébként",
     dualUseLayer: "Nyomvatartáskor réteg váltó, normál gomb egyébként"
   },
   colormapEditor: {
     clearLayer: "Réteg ürítése...",
-    copyTo: "Réteg másolás..."
+    copyFrom: "Réteg másolás máshonnan..."
   },
   settings: {
     devtools: "Fejlesztői eszközök",

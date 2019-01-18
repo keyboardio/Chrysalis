@@ -18,7 +18,7 @@
 const English = {
   language: "English",
   errors: {
-    deviceDisconnected: "Device disconnected"
+    deviceDisconnected: "Keyboard disconnected"
   },
   components: {
     layer: "Layer #{0}",
@@ -28,7 +28,7 @@ const English = {
     }
   },
   app: {
-    device: "Device",
+    device: "Keyboard",
     menu: {
       welcome: "Welcome",
       layoutEditor: "Layout Editor",
@@ -97,10 +97,10 @@ const English = {
   keyboardSelect: {
     unknown: "Unknown",
     selectPrompt: "Please select a keyboard:",
-    noDevices: "No devices found!",
+    noDevices: "No keyboards found!",
     connect: "Connect",
     disconnect: "Disconnect",
-    scan: "Scan devices"
+    scan: "Scan keyboards"
   },
   firmwareUpdate: {
     dialog: {

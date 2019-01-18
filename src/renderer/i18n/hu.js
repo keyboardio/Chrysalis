@@ -18,7 +18,7 @@
 const Hungarian = {
   language: "Magyar",
   errors: {
-    deviceDisconnected: "Az eszköz lecsatlakozott"
+    deviceDisconnected: "Az billentyűzet lecsatlakozott"
   },
   components: {
     layer: "#{0}. réteg",
@@ -28,7 +28,7 @@ const Hungarian = {
     }
   },
   app: {
-    device: "Eszköz",
+    device: "Billentyűzet",
     menu: {
       welcome: "Üdvözlet",
       layoutEditor: "Kiosztás szerkesztő",
@@ -97,10 +97,10 @@ const Hungarian = {
   keyboardSelect: {
     unknown: "Ismeretlen",
     selectPrompt: "Kérem válasszon billentyűzetet:",
-    noDevices: "Nincs ismert eszköz csatlakoztatva!",
+    noDevices: "Nincs ismert billentyűzet csatlakoztatva!",
     connect: "Kapcsolódás",
     disconnect: "Lecsatlakozás",
-    scan: "Eszköz keresés"
+    scan: "Billentyűzet keresés"
   },
   firmwareUpdate: {
     dialog: {

@@ -65,6 +65,9 @@ const styles = theme => ({
   custom: {
     marginTop: "auto",
     marginBottom: "auto"
+  },
+  repo: {
+    textAlign: "center"
   }
 });
 
@@ -215,26 +218,17 @@ class FirmwareUpdate extends React.Component {
         </Portal>
         <Card className={classes.card}>
           <CardContent>
-            <Typography variant="h5" component="h2" gutterBottom>
-              {i18n.firmwareUpdate.updatingTitle}
-            </Typography>
             <Typography component="p" gutterBottom>
-              {i18n.formatString(
-                i18n.firmwareUpdate.description,
-                i18n.firmwareUpdate.flashing.button
-              )}
+              {i18n.firmwareUpdate.description}
+            </Typography>
+            <Typography component="p" gutterBottom className={classes.repo}>
+              <a href="https://github.com/keyboardio/Chrysalis-Firmware-Bundle#readme">
+                Chrysalis-Firmware-Bundle
+              </a>
             </Typography>
             {tooling}
             <Typography component="p" gutterBottom>
               {i18n.firmwareUpdate.postUpload}
-            </Typography>
-            <Typography component="p">
-              {i18n.formatString(
-                i18n.firmwareUpdate.repo,
-                <a href="https://github.com/keyboardio/Chrysalis-Firmware-Bundle#readme">
-                  Chrysalis-Firmware-Bundle
-                </a>
-              )}
             </Typography>
           </CardContent>
           <Divider variant="middle" />

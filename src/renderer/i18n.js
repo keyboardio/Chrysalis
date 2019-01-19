@@ -20,9 +20,22 @@ import LocalizedStrings from "react-localization";
 import English from "./i18n/en";
 import Hungarian from "./i18n/hu";
 
-let i18n = new LocalizedStrings({
+let strings = {
   en: English,
   hu: Hungarian
-});
+};
+
+let i18n = new LocalizedStrings(strings);
+i18n.refreshHardware = ({ device }) => {
+  i18n.getAvailableLanguages().forEach(code => {
+    strings[code].hardware = device.instructions
+      ? device.instructions[code]
+      : {};
+  });
+
+  const language = i18n.getLanguage();
+  Object.assign(i18n, new LocalizedStrings(strings));
+  i18n.setLanguage(language);
+};
 
 export { i18n as default };

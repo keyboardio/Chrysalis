@@ -20,13 +20,26 @@ import ReactDOM from "react-dom";
 import Electron from "electron";
 import { SnackbarProvider } from "notistack";
 
+import CloseIcon from "@material-ui/icons/Close";
+import IconButton from "@material-ui/core/IconButton";
+
 import App from "./App";
 import Error from "./Error";
 import "../styles/keymap.css";
 
+const dismissButton = (
+  <IconButton color="inherit" size="small">
+    <CloseIcon />
+  </IconButton>
+);
+
 try {
   ReactDOM.render(
-    <SnackbarProvider maxSnack={4}>
+    <SnackbarProvider
+      action={dismissButton}
+      maxSnack={4}
+      autoHideDuration={null}
+    >
       <App />
     </SnackbarProvider>,
     document.getElementById("app")

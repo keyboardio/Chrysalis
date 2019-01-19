@@ -1,6 +1,6 @@
 {
   "name": "@chrysalis-api/hardware-pjrc-teensy",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Chrysalis hardware library for generic PJRC Teensy devices",
   "main": "lib",
   "repository": {

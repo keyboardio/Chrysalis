@@ -59,7 +59,7 @@ class Keymap extends React.Component {
       <svg
         viewBox='0 0 1083 434.03074360871943'
         xmlns='http://www.w3.org/2000/svg'
-        className="layer"
+        className={this.props.className || "layer"}
       >
         <g transform='translate(10,10)'>
           <g transform='translate(5,5)'>

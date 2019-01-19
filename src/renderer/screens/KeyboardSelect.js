@@ -40,7 +40,10 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { withSnackbar } from "notistack";
 
 import Focus from "@chrysalis-api/focus";
-import { Model01 } from "@chrysalis-api/hardware-keyboardio-model01";
+import {
+  Model01,
+  Model01Bootloader
+} from "@chrysalis-api/hardware-keyboardio-model01";
 import { Atreus } from "@chrysalis-api/hardware-technomancy-atreus";
 import { Raise } from "@chrysalis-api/hardware-dygma-raise";
 import { ErgoDox } from "@chrysalis-api/hardware-ez-ergodox";
@@ -114,7 +117,7 @@ class KeyboardSelect extends React.Component {
 
   findNonSerialKeyboards = deviceList => {
     const devices = usb.getDeviceList().map(device => device.deviceDescriptor);
-    const supportedDevices = [Atreus, ErgoDox];
+    const supportedDevices = [Model01Bootloader, Atreus, ErgoDox];
     devices.forEach(desc => {
       supportedDevices.forEach(device => {
         if (

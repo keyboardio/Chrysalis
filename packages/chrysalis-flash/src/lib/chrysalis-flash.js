@@ -19,11 +19,7 @@ import TeensyLoader from "teensy-loader"
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
-async function Avr109Bootloader(board, port, filename, timeouts) {
-  timeouts = timeouts || {
-    close: 500 // Time to wait (ms) between the end of flash and closing the
-               // device
-  }
+async function Avr109Bootloader(board, port, filename) {
   const avrgirl = new AvrGirl({
     board: board,
     debug: true,
@@ -39,8 +35,6 @@ async function Avr109Bootloader(board, port, filename, timeouts) {
         } catch (_) { /* ignore the error */ }
         reject(error)
       } else {
-        await delay(timeouts.close);
-        avrgirl.connection.serialPort.close()
         resolve()
       }
     })

@@ -21,6 +21,7 @@ import * as path from "path";
 import installExtension, {
   REACT_DEVELOPER_TOOLS
 } from "electron-devtools-installer";
+import { getStaticPath } from "../renderer/config";
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
@@ -28,7 +29,8 @@ let mainWindow;
 
 async function createMainWindow() {
   const window = new BrowserWindow({
-    resizable: true
+    resizable: true,
+    icon: path.join(getStaticPath(), "/logo.png")
   });
 
   if (isDevelopment) {

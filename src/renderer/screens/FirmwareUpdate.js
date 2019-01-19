@@ -60,7 +60,8 @@ const styles = theme => ({
     flexGrow: 1
   },
   dropdown: {
-    display: "flex"
+    display: "flex",
+    minWidth: "15em"
   },
   custom: {
     marginTop: "auto",

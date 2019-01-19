@@ -73,6 +73,13 @@ const styles = theme => ({
     padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px
  ${theme.spacing.unit * 3}px`
   },
+  preview: {
+    maxWidth: 128,
+    marginBottom: theme.spacing.unit * 2,
+    "& .key rect, & .key path, & .key ellipse": {
+      stroke: "#000000"
+    }
+  },
   card: {
     marginTop: theme.spacing.unit * 5,
     padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px
@@ -80,7 +87,8 @@ const styles = theme => ({
   },
   content: {
     display: "inline-block",
-    width: "100%"
+    width: "100%",
+    textAlign: "center"
   },
   selectControl: {
     display: "flex"
@@ -349,6 +357,18 @@ class KeyboardSelect extends React.Component {
       );
     }
 
+    let preview;
+    if (
+      devices &&
+      devices[this.state.selectedPortIndex] &&
+      devices[this.state.selectedPortIndex].device &&
+      devices[this.state.selectedPortIndex].device.components
+    ) {
+      const Keymap =
+        devices[this.state.selectedPortIndex].device.components.keymap;
+      preview = <Keymap index={0} className={classes.preview} />;
+    }
+
     return (
       <div className={classes.main}>
         <Portal container={this.props.titleElement}>
@@ -356,7 +376,10 @@ class KeyboardSelect extends React.Component {
         </Portal>
         {loader}
         <Card className={classes.card}>
-          <CardContent className={classes.content}>{port}</CardContent>
+          <CardContent className={classes.content}>
+            {preview}
+            {port}
+          </CardContent>
           <Divider variant="middle" />
           <CardActions className={classes.cardActions}>
             {scanDevicesButton}

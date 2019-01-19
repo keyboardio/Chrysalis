@@ -39,6 +39,7 @@
     "@chrysalis-api/hardware-dygma-raise": "~0.0.4",
     "@chrysalis-api/hardware-ez-ergodox": "~0.0.10",
     "@chrysalis-api/hardware-keyboardio-model01": "~0.0.16",
+    "@chrysalis-api/hardware-pjrc-teensy": "^0.0.1",
     "@chrysalis-api/hardware-technomancy-atreus": "~0.0.11",
     "@chrysalis-api/keymap": "~0.0.13",
     "@material-ui/core": "^3.6.0",

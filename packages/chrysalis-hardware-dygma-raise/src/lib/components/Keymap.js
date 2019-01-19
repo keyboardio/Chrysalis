@@ -47,7 +47,7 @@ class Keymap extends React.Component {
            strokeMiterlimit="1.5"
            clipRule="evenodd"
            viewBox="0 0 909 351"
-           className="layer"
+           className={this.props.className || "layer"}
       >
         <g transform="translate(-525.807 -86.074)">
           <g id="keyshapes">

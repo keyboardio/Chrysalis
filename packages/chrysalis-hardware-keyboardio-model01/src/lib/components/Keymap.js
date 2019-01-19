@@ -75,7 +75,7 @@ class Keymap extends React.Component {
         strokeLinecap="round"
         clipRule="evenodd"
         viewBox="0 0 833 425"
-        className="layer"
+        className={this.props.className || "layer"}
         >
         <g transform="matrix(1,0,0,1,-90.5869,-55.1936)">
           <Key

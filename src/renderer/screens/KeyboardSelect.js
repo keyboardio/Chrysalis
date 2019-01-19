@@ -47,6 +47,7 @@ import {
 import { Atreus } from "@chrysalis-api/hardware-technomancy-atreus";
 import { Raise } from "@chrysalis-api/hardware-dygma-raise";
 import { ErgoDox } from "@chrysalis-api/hardware-ez-ergodox";
+import { GenericTeensy } from "@chrysalis-api/hardware-pjrc-teensy";
 
 import usb from "usb";
 
@@ -117,7 +118,12 @@ class KeyboardSelect extends React.Component {
 
   findNonSerialKeyboards = deviceList => {
     const devices = usb.getDeviceList().map(device => device.deviceDescriptor);
-    const supportedDevices = [Model01Bootloader, Atreus, ErgoDox];
+    const supportedDevices = [
+      Model01Bootloader,
+      Atreus,
+      ErgoDox,
+      GenericTeensy
+    ];
     devices.forEach(desc => {
       supportedDevices.forEach(device => {
         if (

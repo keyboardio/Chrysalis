@@ -1,6 +1,6 @@
 {
   "name": "@chrysalis-api/hardware",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Collection of Chrysalis hardware support libraries",
   "main": "lib",
   "repository": {
@@ -32,9 +32,9 @@
   "dependencies": {
     "@chrysalis-api/hardware-dygma-raise": "^0.0.4",
     "@chrysalis-api/hardware-ez-ergodox": "^0.0.10",
-    "@chrysalis-api/hardware-keyboardio-model01": "^0.0.16",
+    "@chrysalis-api/hardware-keyboardio-model01": "^0.0.17",
     "@chrysalis-api/hardware-olkb-planck": "^0.0.1",
-    "@chrysalis-api/hardware-pjrc-teensy": "^0.0.1",
+    "@chrysalis-api/hardware-pjrc-teensy": "^0.0.2",
     "@chrysalis-api/hardware-technomancy-atreus": "^0.0.11"
   },
   "peerDependencies": {

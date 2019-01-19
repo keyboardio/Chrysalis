@@ -31,7 +31,10 @@
   "build": {
     "appId": "keyboardio.chrysalis",
     "productName": "Chrysalis",
-    "copyright": "Copyright © 2018, 2019 Keyboardio Inc.; distributed under the GPLv3"
+    "copyright": "Copyright © 2018, 2019 Keyboardio Inc.; distributed under the GPLv3",
+    "linux": {
+      "target": ["AppImage"]
+    }
   },
   "dependencies": {
     "@chrysalis-api/colormap": "~0.0.7",

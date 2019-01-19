@@ -882,6 +882,13 @@
     "@chrysalis-api/flash" "^0.0.5"
     react "^16.5.2"
 
+"@chrysalis-api/hardware-pjrc-teensy@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-pjrc-teensy/-/hardware-pjrc-teensy-0.0.1.tgz#e3dfdd992b7d319d7db556101855d5c150918d19"
+  integrity sha512-6oxEfNoGW51OOK40WxD23plGfQ2pVXS/zFqf7WhVF1LqZpxjYeRJZq9rqyR0wvIHNSeWC5URggIAGHWMYpHh8Q==
+  dependencies:
+    "@chrysalis-api/flash" "^0.0.5"
+
 "@chrysalis-api/hardware-technomancy-atreus@~0.0.11":
   version "0.0.11"
   resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-technomancy-atreus/-/hardware-technomancy-atreus-0.0.11.tgz#86800eb5217baaf5cc9131f820f1f1dd7fad2e89"

@@ -15,7 +15,7 @@
  */
 
 import Keymap from "./components/Keymap"
-import { Avr109 } from "@chrysalis-api/flash"
+import { Avr109, Avr109Bootloader } from "@chrysalis-api/flash"
 
 const Model01 = {
     info: {
@@ -61,4 +61,41 @@ const Model01 = {
     }
 }
 
-export { Model01 }
+const Model01Bootloader = {
+    info: {
+        vendor: "Keyboardio",
+        product: "Model01",
+        displayName: "Keyboardio Model01",
+        urls: [
+            {
+                name: "Homepage",
+                url: "https://shop.keyboard.io/"
+            },
+            {
+                name: "Forum",
+                url: "https://community.keyboard.io/"
+            },
+            {
+                name: "Chat",
+                url: "https://discord.gg/4az77sf"
+            }
+        ]
+    },
+    usb: {
+        vendorId: 0x1209,
+        productId: 0x2300
+    },
+
+    flash: async (port, filename) => {
+        const board = {
+            name: "Keyboardio Model 01",
+            baud: 9600,
+            productId: ["0x2300"],
+            protocol: "avr109",
+            signature: new Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e])
+        }
+        return Avr109Bootloader(board, port, filename)
+    }
+}
+
+export { Model01, Model01Bootloader }

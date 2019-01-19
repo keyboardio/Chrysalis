@@ -17,6 +17,8 @@
 import AvrGirl from "avrgirl-arduino"
 import TeensyLoader from "teensy-loader"
 
+const delay = ms => new Promise(res => setTimeout(res, ms));
+
 async function Avr109Bootloader(board, port, filename, timeouts) {
   timeouts = timeouts || {
     close: 500 // Time to wait (ms) between the end of flash and closing the
@@ -29,7 +31,7 @@ async function Avr109Bootloader(board, port, filename, timeouts) {
   })
 
   return new Promise((resolve, reject) => {
-    avrgirl.flash(filename, error => {
+    avrgirl.flash(filename, async error => {
       if (error) {
         console.log(error)
         try {
@@ -37,10 +39,9 @@ async function Avr109Bootloader(board, port, filename, timeouts) {
         } catch (_) { /* ignore the error */ }
         reject(error)
       } else {
-        setTimeout(() => {
-          avrgirl.connection.serialPort.close()
-          resolve()
-        }, timeouts.close)
+        await delay(timeouts.close);
+        avrgirl.connection.serialPort.close()
+        resolve()
       }
     })
   })
@@ -53,26 +54,23 @@ async function Avr109(board, port, filename, timeouts) {
   }
 
   return new Promise((resolve, reject) => {
-    port.update({ baudRate: 1200 }, () => {
+    port.update({ baudRate: 1200 }, async () => {
       console.log("baud update")
-      setTimeout(() => {
-        port.set({ dtr: true }, () => {
-          console.log("dtr on")
-          setTimeout(() => {
-            port.set({ dtr: false }, () => {
-              console.log("dtr off")
-              setTimeout(() => {
-                try {
-                  Avr109Bootloader(board, port, filename, timeouts)
-                  resolve()
-                } catch (e) {
-                  reject(e)
-                }
-              }, timeouts.bootLoaderUp)
-            })
-          }, timeouts.dtrToggle)
+      await delay(timeouts.dtrToggle)
+      port.set({ dtr: true }, async () => {
+        console.log("dtr on")
+        await delay(timeouts.dtrToggle)
+        port.set({ dtr: false }, async () => {
+          console.log("dtr off")
+          await delay(timeouts.bootLoaderUp)
+          try {
+            await Avr109Bootloader(board, port, filename, timeouts)
+            resolve()
+          } catch (e) {
+            reject(e)
+          }
         })
-      }, timeouts.dtrToggle)
+      })
     })
   })
 }

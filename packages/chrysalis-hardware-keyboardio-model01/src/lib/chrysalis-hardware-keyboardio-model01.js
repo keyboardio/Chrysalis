@@ -48,6 +48,14 @@ const Model01 = {
     components: {
         keymap: Keymap
     },
+    instructions: {
+        en: {
+            updateInstructions: `Hold down the PROG key (in the upper left corner of the keyboard), and continue holding it while you click the Update button. Once the keys start flashing red across the board, you can release the PROG key.`
+        },
+        hu: {
+            updateInstructions: `Nyomja meg a PROG gombot (a billentyűzet bal felső sarkában található), és tartsa nyomva miközben a Frissítés gombra kattint. Amikor a billentyűzeten piros fények kezdenek el szaladgálni, elengedheti a gombot.`
+        }
+    },
 
     flash: async (port, filename) => {
         const board = {

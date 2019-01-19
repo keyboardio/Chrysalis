@@ -1,0 +1,43 @@
+{
+  "name": "@chrysalis-api/hardware",
+  "version": "0.0.0",
+  "description": "Collection of Chrysalis hardware support libraries",
+  "main": "lib",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/keyboardio/chrysalis-api"
+  },
+  "author": {
+    "name": "Gergely Nagy",
+    "email": "<algernon@keyboard.io>",
+    "url": "https://asylum.madhouse-project.org"
+  },
+  "license": "GPL-3.0-only",
+  "homepage": "https://github.com/keyboardio/chrysalis-api#readme",
+  "bugs": {
+    "url": "https://github.com/keyboardio/chrysalis-api/issues"
+  },
+  "keywords": [
+    "chrysalis",
+    "kaleidoscope"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "babel src/lib -d lib",
+    "lint": "eslint src/lib",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@chrysalis-api/hardware-dygma-raise": "^0.0.4",
+    "@chrysalis-api/hardware-ez-ergodox": "^0.0.10",
+    "@chrysalis-api/hardware-keyboardio-model01": "^0.0.16",
+    "@chrysalis-api/hardware-olkb-planck": "^0.0.1",
+    "@chrysalis-api/hardware-pjrc-teensy": "^0.0.1",
+    "@chrysalis-api/hardware-technomancy-atreus": "^0.0.11"
+  },
+  "peerDependencies": {
+    "@chrysalis-api/focus": "~0.0.2"
+  }
+}

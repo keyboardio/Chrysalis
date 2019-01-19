@@ -234,6 +234,8 @@ class KeyboardSelect extends React.Component {
       });
       this.props.enqueueSnackbar(err.toString(), { variant: "error" });
     }
+
+    i18n.refreshHardware(devices[this.state.selectedPortIndex]);
   };
 
   render() {

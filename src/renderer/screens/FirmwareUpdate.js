@@ -222,6 +222,9 @@ class FirmwareUpdate extends React.Component {
               </a>
             </Typography>
             <Typography component="p" gutterBottom>
+              {i18n.hardware.updateInstructions}
+            </Typography>
+            <Typography component="p" gutterBottom>
               {i18n.firmwareUpdate.postUpload}
             </Typography>
           </CardContent>

@@ -115,6 +115,9 @@ const English = {
       buttonSuccess: "Updated!"
     },
     defaultFirmware: "Chrysalis {0} default",
+    defaultFirmwareDescription: "Minimal, without bells and whistles",
+    experimentalFirmware: "Chrysalis {0} experimental",
+    experimentalFirmwareDescription: "Experimental, with more plugins enabled",
     selected: "Selected firmware",
     custom: "Custom firmware",
     description: `Updating or "flashing" your keyboard's firmware is how we teach it new tricks. Chrysalis will install a new version of your keyboard's firmware which includes support for customizing the key layout, as well as other features. If you've previously customized your keyboard's firmware, this will overwrite your custom firmware. You can always find the source code of the firmware Chrysalis is installing here:`,

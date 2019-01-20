@@ -115,6 +115,9 @@ const Hungarian = {
       buttonSuccess: "Frissítve!"
     },
     defaultFirmware: "Chrysalis {0} alapértelmezett",
+    defaultFirmwareDescription: "Minimális, extrák nélkül",
+    experimentalFirmware: "Chrysalis {0} kísérleti",
+    experimentalFirmwareDescription: "Experimental, extra kiegészítőkkel",
     selected: "Kiválasztott vezérlő",
     custom: "Egyedi vezérlő",
     description: `A billentyűzet vezérlő frissítésevel tanítjuk új trükkökre. A Chrysalis olyan új vezérlőt fog telepíteni, mely tartalmazza az eszközöket melyek lehetővé teszik a kiosztás szerkesztését, és még más dolgokat is. Ha korábban már testreszabta a vezérlőt, akkor ez a művelet felül fogja azt írni. A Chrysalis által telepíthető vezérlő forrása mindig megtalálható az alábbi címen:`,

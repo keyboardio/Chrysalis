@@ -60,7 +60,8 @@ const styles = theme => ({
     flexGrow: 1
   },
   dropdown: {
-    display: "flex"
+    display: "flex",
+    minWidth: "15em"
   },
   custom: {
     marginTop: "auto",
@@ -219,6 +220,9 @@ class FirmwareUpdate extends React.Component {
               <a href="https://github.com/keyboardio/Chrysalis-Firmware-Bundle#readme">
                 Chrysalis-Firmware-Bundle
               </a>
+            </Typography>
+            <Typography component="p" gutterBottom>
+              {i18n.hardware.updateInstructions}
             </Typography>
             <Typography component="p" gutterBottom>
               {i18n.firmwareUpdate.postUpload}

@@ -69,6 +69,9 @@ const styles = theme => ({
   },
   repo: {
     textAlign: "center"
+  },
+  firmwareSelect: {
+    marginLeft: theme.spacing.unit * 2
   }
 });
 
@@ -182,7 +185,7 @@ class FirmwareUpdate extends React.Component {
     }
 
     const firmwareSelect = (
-      <FormControl>
+      <FormControl className={classes.firmwareSelect}>
         <InputLabel shrink htmlFor="selected-firmware">
           {i18n.firmwareUpdate.selected}
         </InputLabel>

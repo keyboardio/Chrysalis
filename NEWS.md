@@ -1,12 +1,17 @@
-Chrysalis 0.4.0
+Chrysalis 0.3.2
 ===============
-**UNRELEASED**
+Released on 2019-01-21
 
 ## UI/UX Improvements
 
 A number of screens were simplified and otherwise updated to be easier to
 discover and understand. Dropdown menus now look like drop downs, buttons are
 more prominent, and to the point.
+
+### The firmware update screen is now more informative
+
+The firmware update screen now displays device-specific instructions, when
+available.
 
 ### Layer copy direction is now copy from
 
@@ -15,6 +20,24 @@ to work with, less surprising, and much less error prone. So the previous "Copy
 layer to..." feature was reversed, and now we can copy a layer from another
 instead.
 
+### The keyboard select screen has previews
+
+When selecting a keyboard from the dropdown, we will now display the keyboard's
+image, if available.
+
+## New features
+
+### Improved Keyboardio Model01 support
+
+It is now possible to connect to and update the firmware of a Keyboardio Model01
+which is already in programmable mode, in the bootloader.
+
+### Minimal support for generic Teensy devices
+
+Similarly to the above, it is now possible to connect to any Teensy device in
+programmable mode, and upload custom firmware. Since we can't detect the
+keyboard in this case, Chrysalis will only offer the custom firmware option.
+
 ## Bugfixes
 
 ### Clearing layers will restore the EEPROM default
@@ -22,6 +45,19 @@ instead.
 When clearing a layer, Chrysalis will now restore the default EEPROM value,
 instead of zeros. In practice, this means that when we clear a keymap layer,
 we'll get transparent keys instead of blanks.
+
+### Updated firmware
+
+Chrysalis now ships with two firmware variants for all boards:
+
+- A default one, which is as close to the factory firmware as possible. It only
+  has the essential plugins enabled, just enough to mimic the factory firmware
+  and also work with Chrysalis.
+- The experimental one, which still follows the factory firmware closely, but
+  has a few extra plugins enabled.
+
+The idea is that the default firmware shouldn't be surprising. We now have the
+experimental variant for testing features not in the original.
 
 Chrysalis 0.3.1
 ===============

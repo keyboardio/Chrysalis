@@ -40,14 +40,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { withSnackbar } from "notistack";
 
 import Focus from "@chrysalis-api/focus";
-import {
-  Model01,
-  Model01Bootloader
-} from "@chrysalis-api/hardware-keyboardio-model01";
-import { Atreus } from "@chrysalis-api/hardware-technomancy-atreus";
-import { Raise } from "@chrysalis-api/hardware-dygma-raise";
-import { ErgoDox } from "@chrysalis-api/hardware-ez-ergodox";
-import { GenericTeensy } from "@chrysalis-api/hardware-pjrc-teensy";
+import Hardware from "@chrysalis-api/hardware";
 
 import usb from "usb";
 
@@ -126,14 +119,8 @@ class KeyboardSelect extends React.Component {
 
   findNonSerialKeyboards = deviceList => {
     const devices = usb.getDeviceList().map(device => device.deviceDescriptor);
-    const supportedDevices = [
-      Model01Bootloader,
-      Atreus,
-      ErgoDox,
-      GenericTeensy
-    ];
     devices.forEach(desc => {
-      supportedDevices.forEach(device => {
+      Hardware.nonSerial.forEach(device => {
         if (
           desc.idVendor == device.usb.vendorId &&
           desc.idProduct == device.usb.productId
@@ -160,7 +147,7 @@ class KeyboardSelect extends React.Component {
 
     return new Promise(resolve => {
       focus
-        .find(Model01, Atreus, Raise, ErgoDox)
+        .find(...Hardware.serial)
         .then(devices => {
           const list = this.findNonSerialKeyboards(devices);
           this.setState({
@@ -234,6 +221,8 @@ class KeyboardSelect extends React.Component {
       });
       this.props.enqueueSnackbar(err.toString(), { variant: "error" });
     }
+
+    i18n.refreshHardware(devices[this.state.selectedPortIndex]);
   };
 
   render() {

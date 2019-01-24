@@ -909,10 +909,10 @@
     "@chrysalis-api/hardware-pjrc-teensy" "^0.0.3"
     "@chrysalis-api/hardware-technomancy-atreus" "^0.0.12"
 
-"@chrysalis-api/keymap@~0.0.13":
-  version "0.0.13"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/keymap/-/keymap-0.0.13.tgz#73f9fed994d65f6cfd38c0ecfd8b1a6989e50bf3"
-  integrity sha512-nulBQQ4jlsM3U/LwICROqatSBcBht4Xb21Jui/Dv9qK7QGoWs1aDoHH2BA+oTTUjbPweYtdfwF+NDZJRwrnE6w==
+"@chrysalis-api/keymap@~0.0.14":
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/keymap/-/keymap-0.0.14.tgz#b12557a793e6ac2a656904f165f6a16b58d31832"
+  integrity sha512-JqTG29MBPlgzwOFf7N/qOnk9nouFQwIQrM9LjsW/u5mceybnZ+dD5/dOcOAR1hysYqCwK29Vg1feUDPp+T7czg==
   dependencies:
     "@chrysalis-api/focus" "~0.0.8"
 
@@ -2376,9 +2376,9 @@ browser-resolve@^1.11.3:
   dependencies:
     resolve "1.1.7"
 
-"browser-serialport@git+https://github.com/noopkat/browser-serialport.git#c8628c41c11890d3058875994c15f83f2df8185b":
+"browser-serialport@https://github.com/noopkat/browser-serialport#c8628c41c11890d3058875994c15f83f2df8185b":
   version "2.0.3"
-  resolved "git+https://github.com/noopkat/browser-serialport.git#c8628c41c11890d3058875994c15f83f2df8185b"
+  resolved "https://github.com/noopkat/browser-serialport#c8628c41c11890d3058875994c15f83f2df8185b"
 
 browserify-aes@^1.0.0, browserify-aes@^1.0.4:
   version "1.2.0"

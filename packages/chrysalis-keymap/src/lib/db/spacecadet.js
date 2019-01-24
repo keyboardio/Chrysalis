@@ -1,5 +1,5 @@
 /* chrysalis-keymap -- Chrysalis keymap library
- * Copyright (C) 2018  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -21,14 +21,14 @@ const SpaceCadetTable = {
             code: 53591,
             labels: {
                 top: "SCadet",
-                primary: "Left"
+                primary: "Enable"
             }
         },
         {
             code: 53592,
             labels: {
                 top: "SCadet",
-                primary: "Right"
+                primary: "Disable"
             }
         }
     ]

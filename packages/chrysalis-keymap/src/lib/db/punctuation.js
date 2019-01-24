@@ -91,6 +91,13 @@ const PunctuationTable = {
                 primary: "CapsLK",
                 verbose: "Caps Lock"
             }
+        },
+        {
+            code: 100,
+            labels: {
+                primary: "Alt. \\",
+                verbose: "Non-US \\"
+            }
         }
     ]
 }
@@ -162,6 +169,13 @@ const ShiftedPunctuationTable = {
             code: 2103,
             labels: {
                 primary: "?"
+            }
+        },
+        {
+            code: 2148,
+            labels: {
+                primary: "Alt. |",
+                verbose: "Non-US |"
             }
         }
     ]

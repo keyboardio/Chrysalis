@@ -1,3 +1,26 @@
+Chrysalis 0.3.3
+===============
+**UNRELEASED**
+
+## Bugfixes
+
+### It is now possible to flash the experimental firmware
+
+The previous release shipped with experimental firmware, but when it came to
+deciding what to upload to the keyboard, Chrysalis erroneously chose the default
+firmware even if the experimental was asked for. This has been corrected, and
+one can now upgrade to the experimental one.
+
+### Changed transparent and disabled key display
+
+Having transparent keys labeled `[Trns]` was both confusing and ugly. We now
+show them as blank keys. To not confuse them with disabled keys, those are shown
+with an "XXX" label until we implement a better way to distinguish the two.
+
+### Key label updates
+
+Chrysalis can now properly display the non-US backslash / pipe keycode. It will also correctly label the SpaceCadet enable / disable keys (they were previously labeled SpaceCadet left/right, which was wrong).
+
 Chrysalis 0.3.2
 ===============
 Released on 2019-01-21

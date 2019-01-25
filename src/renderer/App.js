@@ -63,6 +63,8 @@ import Welcome from "./screens/Welcome";
 import logo from "./logo-small.png";
 import i18n from "./i18n";
 
+import { version } from "../../package.json";
+
 let focus = new Focus();
 
 const styles = theme => ({
@@ -86,6 +88,9 @@ const styles = theme => ({
   },
   drawer: {
     width: 350
+  },
+  version: {
+    textAlign: "right"
   },
   toolbarIcon: {
     display: "flex",
@@ -479,6 +484,15 @@ class App extends React.Component {
               {chatMenuItem}
               {feedbackMenuItem}
               {exitMenuItem}
+            </List>
+            <Divider />
+            <List>
+              <ListItem disabled>
+                <ListItemText
+                  primary={`Chrysalis ${version}`}
+                  className={classes.version}
+                />
+              </ListItem>
             </List>
           </div>
         </Drawer>

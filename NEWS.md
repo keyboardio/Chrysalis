@@ -1,6 +1,6 @@
 Chrysalis 0.3.3
 ===============
-**UNRELEASED**
+Released on 2019-01-25
 
 ## Bugfixes
 

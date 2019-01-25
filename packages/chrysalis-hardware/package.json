@@ -32,6 +32,7 @@
   "dependencies": {
     "@chrysalis-api/hardware-dygma-raise": "^0.0.5",
     "@chrysalis-api/hardware-ez-ergodox": "^0.0.11",
+    "@chrysalis-api/hardware-kbdfans-kbd4x": "^0.0.0",
     "@chrysalis-api/hardware-keyboardio-model01": "^0.0.18",
     "@chrysalis-api/hardware-olkb-planck": "^0.0.2",
     "@chrysalis-api/hardware-pjrc-teensy": "^0.0.3",

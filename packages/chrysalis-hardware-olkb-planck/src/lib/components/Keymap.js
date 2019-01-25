@@ -57,59 +57,63 @@ class Keymap extends React.Component {
 
     return (
       <svg
-        viewBox='0 0 620 240'
+        viewBox='0 0 650 240'
         xmlns='http://www.w3.org/2000/svg'
         className={this.props.className || "layer"}
       >
         <g transform='translate(10,10)'>
           <g transform='translate(5,5)'>
             <Key x={1} y={1} row={0} col={0} />
-            <Key x={55} y={1} row={0} col={2} />
-            <Key x={109} y={1} row={0} col={3} />
-            <Key x={163} y={1} row={0} col={4} />
-            <Key x={217} y={1} row={0} col={5} />
-            <Key x={271} y={1} row={0} col={6} />
-            <Key x={325} y={1} row={0} col={7} />
-            <Key x={379} y={1} row={0} col={8} />
-            <Key x={433} y={1} row={0} col={9} />
-            <Key x={487} y={1} row={0} col={10} />
-            <Key x={541} y={1} row={0} col={11} />
+            <Key x={55} y={1} row={0} col={1} />
+            <Key x={109} y={1} row={0} col={2} />
+            <Key x={163} y={1} row={0} col={3} />
+            <Key x={217} y={1} row={0} col={4} />
+            <Key x={271} y={1} row={0} col={5} />
+            <Key x={325} y={1} row={0} col={6} />
+            <Key x={379} y={1} row={0} col={7} />
+            <Key x={433} y={1} row={0} col={8} />
+            <Key x={487} y={1} row={0} col={9} />
+            <Key x={541} y={1} row={0} col={10} />
+            <Key x={595} y={1} row={0} col={11} />
 
             <Key x={1} y={55} row={1} col={0} />
-            <Key x={55} y={55} row={1} col={2} />
-            <Key x={109} y={55} row={1} col={3} />
-            <Key x={163} y={55} row={1} col={4} />
-            <Key x={217} y={55} row={1} col={5} />
-            <Key x={271} y={55} row={1} col={6} />
-            <Key x={325} y={55} row={1} col={7} />
-            <Key x={379} y={55} row={1} col={8} />
-            <Key x={433} y={55} row={1} col={9} />
-            <Key x={487} y={55} row={1} col={10} />
-            <Key x={541} y={55} row={1} col={11} />
+            <Key x={55} y={55} row={1} col={1} />
+            <Key x={109} y={55} row={1} col={2} />
+            <Key x={163} y={55} row={1} col={3} />
+            <Key x={217} y={55} row={1} col={4} />
+            <Key x={271} y={55} row={1} col={5} />
+            <Key x={325} y={55} row={1} col={6} />
+            <Key x={379} y={55} row={1} col={7} />
+            <Key x={433} y={55} row={1} col={8} />
+            <Key x={487} y={55} row={1} col={9} />
+            <Key x={541} y={55} row={1} col={10} />
+            <Key x={595} y={55} row={1} col={11} />
 
             <Key x={1} y={109} row={2} col={0} />
-            <Key x={55} y={109} row={2} col={2} />
-            <Key x={109} y={109} row={2} col={3} />
-            <Key x={163} y={109} row={2} col={4} />
-            <Key x={217} y={109} row={2} col={5} />
-            <Key x={271} y={109} row={2} col={6} />
-            <Key x={325} y={109} row={2} col={7} />
-            <Key x={379} y={109} row={2} col={8} />
-            <Key x={433} y={109} row={2} col={9} />
-            <Key x={487} y={109} row={2} col={10} />
-            <Key x={541} y={109} row={2} col={11} />
+            <Key x={55} y={109} row={2} col={1} />
+            <Key x={109} y={109} row={2} col={2} />
+            <Key x={163} y={109} row={2} col={3} />
+            <Key x={217} y={109} row={2} col={4} />
+            <Key x={271} y={109} row={2} col={5} />
+            <Key x={325} y={109} row={2} col={6} />
+            <Key x={379} y={109} row={2} col={7} />
+            <Key x={433} y={109} row={2} col={8} />
+            <Key x={487} y={109} row={2} col={9} />
+            <Key x={541} y={109} row={2} col={10} />
+            <Key x={595} y={109} row={2} col={11} />
 
             <Key x={1} y={163} row={3} col={0} />
-            <Key x={55} y={163} row={3} col={2} />
-            <Key x={109} y={163} row={3} col={3} />
-            <Key x={163} y={163} row={3} col={4} />
-            <Key x={217} y={163} row={3} col={5} />
-            <Key x={271} y={163} row={3} col={6} />
-            <Key x={325} y={163} row={3} col={7} />
-            <Key x={379} y={163} row={3} col={8} />
-            <Key x={433} y={163} row={3} col={9} />
-            <Key x={487} y={163} row={3} col={10} />
-            <Key x={541} y={163} row={3} col={11} />
+            <Key x={55} y={163} row={3} col={1} />
+            <Key x={109} y={163} row={3} col={2} />
+            <Key x={163} y={163} row={3} col={3} />
+            <Key x={217} y={163} row={3} col={4} />
+            <Key x={271} y={163} row={3} col={5} />
+            <Key x={325} y={163} row={3} col={6} />
+            <Key x={379} y={163} row={3} col={7} />
+            <Key x={433} y={163} row={3} col={8} />
+            <Key x={487} y={163} row={3} col={9} />
+            <Key x={541} y={163} row={3} col={10} />
+            <Key x={595} y={163} row={3} col={11} />
           </g>
         </g>
       </svg>

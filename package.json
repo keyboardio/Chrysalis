@@ -25,7 +25,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm-run-all -p lint:all test"
+      "pre-commit": "npm-run-all -p lint:all"
     }
   },
   "build": {
@@ -33,7 +33,9 @@
     "productName": "Chrysalis",
     "copyright": "Copyright © 2018, 2019 Keyboardio Inc.; distributed under the GPLv3",
     "linux": {
-      "target": ["AppImage"]
+      "target": [
+        "AppImage"
+      ]
     }
   },
   "dependencies": {
@@ -41,11 +43,13 @@
     "@chrysalis-api/focus": "~0.0.8",
     "@chrysalis-api/hardware": "^0.0.2",
     "@chrysalis-api/keymap": "~0.0.14",
-    "@material-ui/core": "^3.6.0",
+    "@material-ui/core": "^3.9.1",
     "@material-ui/icons": "^3.0.1",
     "@material-ui/lab": "^3.0.0-alpha.25",
+    "classnames": "^2.2.6",
     "electron-devtools-installer": "^2.2.4",
     "notistack": "^0.4.0",
+    "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-color": "^2.14.1",
     "react-dom": "^16.5.2",
@@ -57,10 +61,10 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.1.0",
-    "@babel/core": "7.1.2",
-    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/core": "7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.3.0",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
-    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
@@ -73,18 +77,18 @@
     "eslint": "^5.7.0",
     "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-jest": "^21.25.1",
-    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-jsx-a11y": "^6.2.0",
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-react": "^7.11.1",
     "husky": "^1.1.2",
     "jest": "^23.6.0",
     "lint-staged": "^7.3.0",
     "npm-run-all": "^4.1.3",
-    "prettier": "^1.14.3",
+    "prettier": "^1.16.1",
     "react-testing-library": "^5.2.0",
     "stylelint": "^9.6.0",
     "stylelint-config-standard": "^18.2.0",
-    "webpack": "^4.8.1",
+    "webpack": "^4.29.0",
     "yarn": "^1.12.1"
   }
 }

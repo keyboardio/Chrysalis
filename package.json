@@ -70,7 +70,7 @@
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.0.0",
     "babel-loader": "^8.0.2",
-    "electron": "3.0.10",
+    "electron": "4.0.2",
     "electron-builder": "^20.11.1",
     "electron-webpack": "^2.0.1",
     "electron-webpack-eslint": "^4.0.1",

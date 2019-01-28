@@ -66,8 +66,6 @@ async function createMainWindow() {
   window.webContents.on("will-navigate", handleRedirect);
   window.webContents.on("new-window", handleRedirect);
 
-  Menu.setApplicationMenu(null);
-
   return window;
 }
 
@@ -94,6 +92,7 @@ app.on("ready", async () => {
       .catch(err => console.log("An error occurred: ", err));
   }
 
+  Menu.setApplicationMenu(null);
   mainWindow = createMainWindow();
 });
 

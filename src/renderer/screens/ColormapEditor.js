@@ -265,7 +265,7 @@ class ColormapEditor extends React.Component {
             <Tabs
               className={classes.tabs}
               value={this.state.currentLayer}
-              scrollable
+              variant="scrollable"
               scrollButtons="auto"
               onChange={this.selectLayer}
             >

@@ -43,8 +43,6 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 import MenuIcon from "@material-ui/icons/Menu";
 import SettingsIcon from "@material-ui/icons/Settings";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -64,6 +62,8 @@ import logo from "./logo-small.png";
 import i18n from "./i18n";
 
 import { version } from "../../package.json";
+import DeviceMenu from "./components/DeviceMenu";
+import BoardMenu from "./components/BoardMenu";
 
 let focus = new Focus();
 
@@ -252,37 +252,6 @@ class App extends React.Component {
         (focus.device && focus.device.info) ||
         (this.state.device && this.state.device.info);
 
-    const { boardAnchor } = this.state;
-    const boardOpen = Boolean(boardAnchor);
-    const boardMenuItems =
-      device &&
-      device.urls &&
-      device.urls.map(({ name, url }) => {
-        return (
-          <MenuItem key={name} onClick={this.openURL(url)}>
-            {i18n.app.deviceMenu[name] || name}
-          </MenuItem>
-        );
-      });
-    const boardMenu = boardMenuItems && (
-      <Menu anchorEl={boardAnchor} open={boardOpen} onClose={this.boardClose}>
-        <MenuItem disabled>{device.displayName}</MenuItem>
-        <Divider variant="middle" />
-        {boardMenuItems}
-      </Menu>
-    );
-
-    const deviceMenu = device && (
-      <Button
-        onClick={this.boardMenu}
-        disabled={!boardMenu}
-        color="inherit"
-        className={classes.button}
-      >
-        {i18n.app.device}: {device.displayName}
-      </Button>
-    );
-
     const welcomeMenu = connected && !pages.keymap && !pages.colormap && (
       <ListItem
         button
@@ -435,8 +404,20 @@ class App extends React.Component {
               />
             </Button>
             <div className={classes.grow} />
-            {deviceMenu}
-            {boardMenu}
+            {device && (
+              <DeviceMenu
+                openBoardMenu={this.boardMenu}
+                device={device}
+                classes={classes}
+              />
+            )}
+            {device && device.urls && (
+              <BoardMenu
+                boardAnchor={this.state.boardAnchor}
+                boardClose={this.boardClose}
+                device={device}
+              />
+            )}
           </Toolbar>
         </AppBar>
         <main className={classes.content}>

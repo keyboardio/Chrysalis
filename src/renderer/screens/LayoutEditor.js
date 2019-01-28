@@ -338,7 +338,7 @@ class LayoutEditor extends React.Component {
             <Tabs
               className={classes.tabs}
               value={this.state.currentLayer}
-              scrollable={this.state.keymap.length != 0}
+              variant="scrollable"
               scrollButtons="auto"
               onChange={this.selectLayer}
             >

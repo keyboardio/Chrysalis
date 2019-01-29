@@ -405,11 +405,7 @@ class App extends React.Component {
             </Button>
             <div className={classes.grow} />
             {device && (
-              <DeviceMenu
-                openBoardMenu={this.boardMenu}
-                device={device}
-                classes={classes}
-              />
+              <DeviceMenu openBoardMenu={this.boardMenu} device={device} />
             )}
             {device && device.urls && (
               <BoardMenu

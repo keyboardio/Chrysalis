@@ -19,13 +19,13 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import i18n from "../i18n";
 
-export default function DeviceMenu({ openBoardMenu, device, classes }) {
+export default function DeviceMenu({ openBoardMenu, device }) {
   return (
     <Button
       onClick={openBoardMenu}
       disabled={!device.urls}
       color="inherit"
-      className={classes.button}
+      className="button"
     >
       {i18n.app.device}: {device.displayName}
     </Button>

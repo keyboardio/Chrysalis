@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeviceMenu renders a button with the proper device name 1`] = `
+<span
+  class="MuiButton-label-2"
+>
+  Keyboard
+  : 
+  Keyboardio Model01
+</span>
+`;

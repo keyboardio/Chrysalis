@@ -37,7 +37,6 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import FeedbackIcon from "@material-ui/icons/Feedback";
 import HighlightIcon from "@material-ui/icons/Highlight";
 import IconButton from "@material-ui/core/IconButton";
-import InfoIcon from "@material-ui/icons/Info";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -64,6 +63,7 @@ import i18n from "./i18n";
 import { version } from "../../package.json";
 import DeviceMenu from "./components/DeviceMenu";
 import BoardMenu from "./components/BoardMenu";
+import WelcomeMenu from "./components/WelcomeMenu";
 
 let focus = new Focus();
 
@@ -221,6 +221,10 @@ class App extends React.Component {
     this.setState({ pageMenu: false });
   };
 
+  welcomeMenuOnClick = () => {
+    this.setState({ Page: Welcome });
+  };
+
   openURL = url => {
     const shell = Electron.remote && Electron.remote.shell;
 
@@ -251,21 +255,6 @@ class App extends React.Component {
       device =
         (focus.device && focus.device.info) ||
         (this.state.device && this.state.device.info);
-
-    const welcomeMenu = connected && !pages.keymap && !pages.colormap && (
-      <ListItem
-        button
-        selected={this.state.Page == Welcome}
-        onClick={() => {
-          this.setState({ Page: Welcome });
-        }}
-      >
-        <ListItemIcon>
-          <InfoIcon />
-        </ListItemIcon>
-        <ListItemText primary={i18n.app.menu.welcome} />
-      </ListItem>
-    );
 
     const keymapMenuItem = pages.keymap && (
       <ListItem
@@ -446,7 +435,12 @@ class App extends React.Component {
               </IconButton>
             </div>
             <List className={classes.drawer}>
-              {welcomeMenu}
+              {connected && !pages.keymap && !pages.colormap && (
+                <WelcomeMenu
+                  selected={this.state.Page == Welcome}
+                  onClick={this.welcomeMenuOnClick}
+                />
+              )}
               {keymapMenuItem}
               {colormapMenuItem}
               {flashMenuItem}

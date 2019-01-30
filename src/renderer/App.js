@@ -27,26 +27,15 @@ import "typeface-source-code-pro/index.css";
 
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
-import ChatIcon from "@material-ui/icons/Chat";
 import CloseIcon from "@material-ui/icons/Close";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import FeedbackIcon from "@material-ui/icons/Feedback";
-import HighlightIcon from "@material-ui/icons/Highlight";
 import IconButton from "@material-ui/core/IconButton";
-import InfoIcon from "@material-ui/icons/Info";
-import KeyboardIcon from "@material-ui/icons/Keyboard";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 import MenuIcon from "@material-ui/icons/Menu";
-import SettingsIcon from "@material-ui/icons/Settings";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
@@ -64,6 +53,17 @@ import logo from "./logo-small.png";
 import i18n from "./i18n";
 
 import { version } from "../../package.json";
+import DeviceMenu from "./components/DeviceMenu";
+import BoardMenu from "./components/BoardMenu";
+import WelcomeMenu from "./components/WelcomeMenu";
+import KeymapMenuItem from "./components/KeymapMenuItem";
+import ColormapMenuItem from "./components/ColormapMenuItem";
+import FlashMenuItem from "./components/FlashMenuItem";
+import ChatMenuItem from "./components/ChatMenuItem";
+import FeedbackMenuItem from "./components/FeedbackMenuItem";
+import ExitMenuItem from "./components/ExitMenuItem";
+import KeyboardMenuItem from "./components/KeyboardSelectMenuItem";
+import SettingsMenuItem from "./components/SettingsMenuItem";
 
 let focus = new Focus();
 
@@ -210,6 +210,7 @@ class App extends React.Component {
   boardMenu = event => {
     this.setState({ boardAnchor: event.currentTarget });
   };
+
   boardClose = () => {
     this.setState({ boardAnchor: null });
   };
@@ -217,8 +218,33 @@ class App extends React.Component {
   pageMenu = () => {
     this.setState({ pageMenu: true });
   };
+
   closePageMenu = () => {
     this.setState({ pageMenu: false });
+  };
+
+  welcomeMenuOnClick = () => {
+    this.setState({ Page: Welcome });
+  };
+
+  keymapMenuItemOnClick = () => {
+    this.setState({ Page: LayoutEditor });
+  };
+
+  colormapMenuItemOnClick = () => {
+    this.setState({ Page: ColormapEditor });
+  };
+
+  flashMenuItemOnClick = () => {
+    this.setState({ Page: FirmwareUpdate });
+  };
+
+  keyboardMenuItemOnClick = () => {
+    this.setState({ Page: KeyboardSelect });
+  };
+
+  settingsMenuItemOnClick = () => {
+    this.setState({ Page: Settings });
   };
 
   openURL = url => {
@@ -252,160 +278,6 @@ class App extends React.Component {
         (focus.device && focus.device.info) ||
         (this.state.device && this.state.device.info);
 
-    const { boardAnchor } = this.state;
-    const boardOpen = Boolean(boardAnchor);
-    const boardMenuItems =
-      device &&
-      device.urls &&
-      device.urls.map(({ name, url }) => {
-        return (
-          <MenuItem key={name} onClick={this.openURL(url)}>
-            {i18n.app.deviceMenu[name] || name}
-          </MenuItem>
-        );
-      });
-    const boardMenu = boardMenuItems && (
-      <Menu anchorEl={boardAnchor} open={boardOpen} onClose={this.boardClose}>
-        <MenuItem disabled>{device.displayName}</MenuItem>
-        <Divider variant="middle" />
-        {boardMenuItems}
-      </Menu>
-    );
-
-    const deviceMenu = device && (
-      <Button
-        onClick={this.boardMenu}
-        disabled={!boardMenu}
-        color="inherit"
-        className={classes.button}
-      >
-        {i18n.app.device}: {device.displayName}
-      </Button>
-    );
-
-    const welcomeMenu = connected && !pages.keymap && !pages.colormap && (
-      <ListItem
-        button
-        selected={this.state.Page == Welcome}
-        onClick={() => {
-          this.setState({ Page: Welcome });
-        }}
-      >
-        <ListItemIcon>
-          <InfoIcon />
-        </ListItemIcon>
-        <ListItemText primary={i18n.app.menu.welcome} />
-      </ListItem>
-    );
-
-    const keymapMenuItem = pages.keymap && (
-      <ListItem
-        button
-        selected={this.state.Page == LayoutEditor}
-        onClick={() => {
-          this.setState({ Page: LayoutEditor });
-        }}
-      >
-        <ListItemIcon>
-          <KeyboardIcon />
-        </ListItemIcon>
-        <ListItemText primary={i18n.app.menu.layoutEditor} />
-      </ListItem>
-    );
-
-    const colormapMenuItem = pages.colormap && (
-      <ListItem
-        button
-        selected={this.state.Page == ColormapEditor}
-        onClick={() => {
-          this.setState({ Page: ColormapEditor });
-        }}
-      >
-        <ListItemIcon>
-          <HighlightIcon />
-        </ListItemIcon>
-        <ListItemText primary={i18n.app.menu.colormapEditor} />
-      </ListItem>
-    );
-
-    const flashMenuItem = connected && (
-      <ListItem
-        button
-        selected={this.state.Page == FirmwareUpdate}
-        onClick={() => {
-          this.setState({ Page: FirmwareUpdate });
-        }}
-      >
-        <ListItemIcon>
-          <CloudUploadIcon />
-        </ListItemIcon>
-        <ListItemText primary={i18n.app.menu.firmwareUpdate} />
-      </ListItem>
-    );
-
-    const chatMenuItem = (
-      <ListItem button onClick={this.openURL("https://discord.gg/GP473Fv")}>
-        <ListItemIcon>
-          <ChatIcon />
-        </ListItemIcon>
-        <ListItemText primary={i18n.app.menu.chat} />
-      </ListItem>
-    );
-
-    const feedbackMenuItem = (
-      <ListItem
-        button
-        onClick={this.openURL("https://github.com/keyboardio/Chrysalis/issues")}
-      >
-        <ListItemIcon>
-          <FeedbackIcon />
-        </ListItemIcon>
-        <ListItemText primary={i18n.app.menu.feedback} />
-      </ListItem>
-    );
-
-    const settingsMenuItem = (
-      <ListItem
-        button
-        selected={this.state.Page == Settings}
-        onClick={() => {
-          this.setState({ Page: Settings });
-        }}
-      >
-        <ListItemIcon>
-          <SettingsIcon />
-        </ListItemIcon>
-        <ListItemText primary={i18n.app.menu.settings} />
-      </ListItem>
-    );
-
-    const keyboardSelectText = connected
-      ? i18n.app.menu.selectAnotherKeyboard
-      : i18n.app.menu.selectAKeyboard;
-    const keyboardSelectMenuItem = (
-      <ListItem
-        button
-        selected={this.state.Page == KeyboardSelect}
-        onClick={() => {
-          this.setState({ Page: KeyboardSelect });
-        }}
-      >
-        <ListItemIcon>
-          <KeyboardIcon />
-        </ListItemIcon>
-        <ListItemText primary={keyboardSelectText} />
-      </ListItem>
-    );
-
-    const exitMenuItem = (
-      <ListItem button onClick={() => Electron.remote.app.exit(0)}>
-        <ListItemIcon>
-          <ExitToAppIcon />
-        </ListItemIcon>
-        <ListItemText primary={i18n.app.menu.exit} />
-      </ListItem>
-    );
-
     const homePage = connected
       ? this.state.pages.keymap
         ? LayoutEditor
@@ -435,8 +307,16 @@ class App extends React.Component {
               />
             </Button>
             <div className={classes.grow} />
-            {deviceMenu}
-            {boardMenu}
+            {device && (
+              <DeviceMenu openBoardMenu={this.boardMenu} device={device} />
+            )}
+            {device && device.urls && (
+              <BoardMenu
+                boardAnchor={this.state.boardAnchor}
+                boardClose={this.boardClose}
+                device={device}
+              />
+            )}
           </Toolbar>
         </AppBar>
         <main className={classes.content}>
@@ -469,21 +349,58 @@ class App extends React.Component {
               </IconButton>
             </div>
             <List className={classes.drawer}>
-              {welcomeMenu}
-              {keymapMenuItem}
-              {colormapMenuItem}
-              {flashMenuItem}
+              {connected && !pages.keymap && !pages.colormap && (
+                <WelcomeMenu
+                  selected={this.state.Page == Welcome}
+                  onClick={this.welcomeMenuOnClick}
+                />
+              )}
+              {pages.keymap && (
+                <KeymapMenuItem
+                  selected={this.state.Page == LayoutEditor}
+                  onClick={this.keymapMenuItemOnClick}
+                />
+              )}
+              {pages.colormap && (
+                <ColormapMenuItem
+                  selected={this.state.Page == ColormapEditor}
+                  onClick={this.colormapMenuItemOnClick}
+                />
+              )}
+              {connected && (
+                <FlashMenuItem
+                  selected={this.state.Page == FirmwareUpdate}
+                  onClick={this.flashMenuItemOnClick}
+                />
+              )}
             </List>
             <Divider />
             <List className={classes.drawer}>
-              {keyboardSelectMenuItem}
-              {settingsMenuItem}
+              <KeyboardMenuItem
+                keyboardSelectText={
+                  connected
+                    ? i18n.app.menu.selectAnotherKeyboard
+                    : i18n.app.menu.selectAKeyboard
+                }
+                selected={this.state.Page == KeyboardSelect}
+                onClick={this.keyboardMenuItemOnClick}
+              />
+              <SettingsMenuItem
+                selected={this.state.Page == Settings}
+                onClick={this.settingsMenuItemOnClick}
+              />
             </List>
             <Divider />
             <List className={classes.drawer}>
-              {chatMenuItem}
-              {feedbackMenuItem}
-              {exitMenuItem}
+              <ChatMenuItem
+                onClick={this.openURL("https://discord.gg/GP473Fv")}
+              />
+              <FeedbackMenuItem
+                onClick={this.openURL(
+                  "https://github.com/keyboardio/Chrysalis/issues"
+                )}
+              />
+              <ExitMenuItem onClick={() => Electron.remote.app.exit(0)} />
             </List>
             <Divider />
             <List>

@@ -27,13 +27,10 @@ import "typeface-source-code-pro/index.css";
 
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
-import ChatIcon from "@material-ui/icons/Chat";
 import CloseIcon from "@material-ui/icons/Close";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import FeedbackIcon from "@material-ui/icons/Feedback";
 import IconButton from "@material-ui/core/IconButton";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
 import List from "@material-ui/core/List";
@@ -65,6 +62,9 @@ import WelcomeMenu from "./components/WelcomeMenu";
 import KeymapMenuItem from "./components/KeymapMenuItem";
 import ColormapMenuItem from "./components/ColormapMenuItem";
 import FlashMenuItem from "./components/FlashMenuItem";
+import ChatMenuItem from "./components/ChatMenuItem";
+import FeedbackMenuItem from "./components/FeedbackMenuItem";
+import ExitMenuItem from "./components/ExitMenuItem";
 
 let focus = new Focus();
 
@@ -269,27 +269,6 @@ class App extends React.Component {
         (focus.device && focus.device.info) ||
         (this.state.device && this.state.device.info);
 
-    const chatMenuItem = (
-      <ListItem button onClick={this.openURL("https://discord.gg/GP473Fv")}>
-        <ListItemIcon>
-          <ChatIcon />
-        </ListItemIcon>
-        <ListItemText primary={i18n.app.menu.chat} />
-      </ListItem>
-    );
-
-    const feedbackMenuItem = (
-      <ListItem
-        button
-        onClick={this.openURL("https://github.com/keyboardio/Chrysalis/issues")}
-      >
-        <ListItemIcon>
-          <FeedbackIcon />
-        </ListItemIcon>
-        <ListItemText primary={i18n.app.menu.feedback} />
-      </ListItem>
-    );
-
     const settingsMenuItem = (
       <ListItem
         button
@@ -320,15 +299,6 @@ class App extends React.Component {
           <KeyboardIcon />
         </ListItemIcon>
         <ListItemText primary={keyboardSelectText} />
-      </ListItem>
-    );
-
-    const exitMenuItem = (
-      <ListItem button onClick={() => Electron.remote.app.exit(0)}>
-        <ListItemIcon>
-          <ExitToAppIcon />
-        </ListItemIcon>
-        <ListItemText primary={i18n.app.menu.exit} />
       </ListItem>
     );
 
@@ -435,9 +405,15 @@ class App extends React.Component {
             </List>
             <Divider />
             <List className={classes.drawer}>
-              {chatMenuItem}
-              {feedbackMenuItem}
-              {exitMenuItem}
+              <ChatMenuItem
+                onClick={this.openURL("https://discord.gg/GP473Fv")}
+              />
+              <FeedbackMenuItem
+                onClick={this.openURL(
+                  "https://github.com/keyboardio/Chrysalis/issues"
+                )}
+              />
+              <ExitMenuItem onClick={() => Electron.remote.app.exit(0)} />
             </List>
             <Divider />
             <List>

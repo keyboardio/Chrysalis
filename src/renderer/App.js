@@ -29,7 +29,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import ChatIcon from "@material-ui/icons/Chat";
 import CloseIcon from "@material-ui/icons/Close";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
@@ -65,6 +64,7 @@ import BoardMenu from "./components/BoardMenu";
 import WelcomeMenu from "./components/WelcomeMenu";
 import KeymapMenuItem from "./components/KeymapMenuItem";
 import ColormapMenuItem from "./components/ColormapMenuItem";
+import FlashMenuItem from "./components/FlashMenuItem";
 
 let focus = new Focus();
 
@@ -234,6 +234,10 @@ class App extends React.Component {
     this.setState({ Page: ColormapEditor });
   };
 
+  flashMenuItemOnClick = () => {
+    this.setState({ Page: FirmwareUpdate });
+  };
+
   openURL = url => {
     const shell = Electron.remote && Electron.remote.shell;
 
@@ -264,21 +268,6 @@ class App extends React.Component {
       device =
         (focus.device && focus.device.info) ||
         (this.state.device && this.state.device.info);
-
-    const flashMenuItem = connected && (
-      <ListItem
-        button
-        selected={this.state.Page == FirmwareUpdate}
-        onClick={() => {
-          this.setState({ Page: FirmwareUpdate });
-        }}
-      >
-        <ListItemIcon>
-          <CloudUploadIcon />
-        </ListItemIcon>
-        <ListItemText primary={i18n.app.menu.firmwareUpdate} />
-      </ListItem>
-    );
 
     const chatMenuItem = (
       <ListItem button onClick={this.openURL("https://discord.gg/GP473Fv")}>
@@ -432,7 +421,12 @@ class App extends React.Component {
                   onClick={this.colormapMenuItemOnClick}
                 />
               )}
-              {flashMenuItem}
+              {connected && (
+                <FlashMenuItem
+                  selected={this.state.Page == FirmwareUpdate}
+                  onClick={this.flashMenuItemOnClick}
+                />
+              )}
             </List>
             <Divider />
             <List className={classes.drawer}>

@@ -63,7 +63,7 @@ import ChatMenuItem from "./components/ChatMenuItem";
 import FeedbackMenuItem from "./components/FeedbackMenuItem";
 import ExitMenuItem from "./components/ExitMenuItem";
 import KeyboardMenuItem from "./components/KeyboardSelectMenuItem";
-import SettingsMenuItem from "./i18n/SettingsMenuItem";
+import SettingsMenuItem from "./components/SettingsMenuItem";
 
 let focus = new Focus();
 
@@ -210,6 +210,7 @@ class App extends React.Component {
   boardMenu = event => {
     this.setState({ boardAnchor: event.currentTarget });
   };
+
   boardClose = () => {
     this.setState({ boardAnchor: null });
   };
@@ -217,6 +218,7 @@ class App extends React.Component {
   pageMenu = () => {
     this.setState({ pageMenu: true });
   };
+
   closePageMenu = () => {
     this.setState({ pageMenu: false });
   };

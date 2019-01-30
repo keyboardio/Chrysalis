@@ -32,13 +32,10 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import IconButton from "@material-ui/core/IconButton";
-import KeyboardIcon from "@material-ui/icons/Keyboard";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import MenuIcon from "@material-ui/icons/Menu";
-import SettingsIcon from "@material-ui/icons/Settings";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
@@ -65,6 +62,8 @@ import FlashMenuItem from "./components/FlashMenuItem";
 import ChatMenuItem from "./components/ChatMenuItem";
 import FeedbackMenuItem from "./components/FeedbackMenuItem";
 import ExitMenuItem from "./components/ExitMenuItem";
+import KeyboardMenuItem from "./components/KeyboardSelectMenuItem";
+import SettingsMenuItem from "./i18n/SettingsMenuItem";
 
 let focus = new Focus();
 
@@ -238,6 +237,14 @@ class App extends React.Component {
     this.setState({ Page: FirmwareUpdate });
   };
 
+  keyboardMenuItemOnClick = () => {
+    this.setState({ Page: KeyboardSelect });
+  };
+
+  settingsMenuItemOnClick = () => {
+    this.setState({ Page: Settings });
+  };
+
   openURL = url => {
     const shell = Electron.remote && Electron.remote.shell;
 
@@ -268,39 +275,6 @@ class App extends React.Component {
       device =
         (focus.device && focus.device.info) ||
         (this.state.device && this.state.device.info);
-
-    const settingsMenuItem = (
-      <ListItem
-        button
-        selected={this.state.Page == Settings}
-        onClick={() => {
-          this.setState({ Page: Settings });
-        }}
-      >
-        <ListItemIcon>
-          <SettingsIcon />
-        </ListItemIcon>
-        <ListItemText primary={i18n.app.menu.settings} />
-      </ListItem>
-    );
-
-    const keyboardSelectText = connected
-      ? i18n.app.menu.selectAnotherKeyboard
-      : i18n.app.menu.selectAKeyboard;
-    const keyboardSelectMenuItem = (
-      <ListItem
-        button
-        selected={this.state.Page == KeyboardSelect}
-        onClick={() => {
-          this.setState({ Page: KeyboardSelect });
-        }}
-      >
-        <ListItemIcon>
-          <KeyboardIcon />
-        </ListItemIcon>
-        <ListItemText primary={keyboardSelectText} />
-      </ListItem>
-    );
 
     const homePage = connected
       ? this.state.pages.keymap
@@ -400,8 +374,19 @@ class App extends React.Component {
             </List>
             <Divider />
             <List className={classes.drawer}>
-              {keyboardSelectMenuItem}
-              {settingsMenuItem}
+              <KeyboardMenuItem
+                keyboardSelectText={
+                  connected
+                    ? i18n.app.menu.selectAnotherKeyboard
+                    : i18n.app.menu.selectAKeyboard
+                }
+                selected={this.state.Page == KeyboardSelect}
+                onClick={this.keyboardMenuItemOnClick}
+              />
+              <SettingsMenuItem
+                selected={this.state.Page == Settings}
+                onClick={this.settingsMenuItemOnClick}
+              />
             </List>
             <Divider />
             <List className={classes.drawer}>

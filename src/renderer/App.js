@@ -64,6 +64,7 @@ import { version } from "../../package.json";
 import DeviceMenu from "./components/DeviceMenu";
 import BoardMenu from "./components/BoardMenu";
 import WelcomeMenu from "./components/WelcomeMenu";
+import KeymapMenuItem from "./components/KeymapMenuItem";
 
 let focus = new Focus();
 
@@ -225,6 +226,10 @@ class App extends React.Component {
     this.setState({ Page: Welcome });
   };
 
+  keymapMenuItemOnClick = () => {
+    this.setState({ Page: LayoutEditor });
+  };
+
   openURL = url => {
     const shell = Electron.remote && Electron.remote.shell;
 
@@ -255,21 +260,6 @@ class App extends React.Component {
       device =
         (focus.device && focus.device.info) ||
         (this.state.device && this.state.device.info);
-
-    const keymapMenuItem = pages.keymap && (
-      <ListItem
-        button
-        selected={this.state.Page == LayoutEditor}
-        onClick={() => {
-          this.setState({ Page: LayoutEditor });
-        }}
-      >
-        <ListItemIcon>
-          <KeyboardIcon />
-        </ListItemIcon>
-        <ListItemText primary={i18n.app.menu.layoutEditor} />
-      </ListItem>
-    );
 
     const colormapMenuItem = pages.colormap && (
       <ListItem
@@ -441,7 +431,12 @@ class App extends React.Component {
                   onClick={this.welcomeMenuOnClick}
                 />
               )}
-              {keymapMenuItem}
+              {pages.keymap && (
+                <KeymapMenuItem
+                  selected={this.state.Page == LayoutEditor}
+                  onClick={this.keymapMenuItemOnClick}
+                />
+              )}
               {colormapMenuItem}
               {flashMenuItem}
             </List>

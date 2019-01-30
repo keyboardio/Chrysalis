@@ -35,7 +35,6 @@ import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import FeedbackIcon from "@material-ui/icons/Feedback";
-import HighlightIcon from "@material-ui/icons/Highlight";
 import IconButton from "@material-ui/core/IconButton";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
 import List from "@material-ui/core/List";
@@ -65,6 +64,7 @@ import DeviceMenu from "./components/DeviceMenu";
 import BoardMenu from "./components/BoardMenu";
 import WelcomeMenu from "./components/WelcomeMenu";
 import KeymapMenuItem from "./components/KeymapMenuItem";
+import ColormapMenuItem from "./components/ColormapMenuItem";
 
 let focus = new Focus();
 
@@ -230,6 +230,10 @@ class App extends React.Component {
     this.setState({ Page: LayoutEditor });
   };
 
+  colormapMenuItemOnClick = () => {
+    this.setState({ Page: ColormapEditor });
+  };
+
   openURL = url => {
     const shell = Electron.remote && Electron.remote.shell;
 
@@ -260,21 +264,6 @@ class App extends React.Component {
       device =
         (focus.device && focus.device.info) ||
         (this.state.device && this.state.device.info);
-
-    const colormapMenuItem = pages.colormap && (
-      <ListItem
-        button
-        selected={this.state.Page == ColormapEditor}
-        onClick={() => {
-          this.setState({ Page: ColormapEditor });
-        }}
-      >
-        <ListItemIcon>
-          <HighlightIcon />
-        </ListItemIcon>
-        <ListItemText primary={i18n.app.menu.colormapEditor} />
-      </ListItem>
-    );
 
     const flashMenuItem = connected && (
       <ListItem
@@ -437,7 +426,12 @@ class App extends React.Component {
                   onClick={this.keymapMenuItemOnClick}
                 />
               )}
-              {colormapMenuItem}
+              {pages.colormap && (
+                <ColormapMenuItem
+                  selected={this.state.Page == ColormapEditor}
+                  onClick={this.colormapMenuItemOnClick}
+                />
+              )}
               {flashMenuItem}
             </List>
             <Divider />

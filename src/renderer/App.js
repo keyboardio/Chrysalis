@@ -24,20 +24,15 @@ import "@chrysalis-api/keymap";
 import "@chrysalis-api/colormap";
 import "typeface-roboto/index.css";
 import "typeface-source-code-pro/index.css";
+import {
+  createMemorySource,
+  createHistory,
+  LocationProvider,
+  Router,
+  navigate
+} from "@reach/router";
 
-import AppBar from "@material-ui/core/AppBar";
-import Button from "@material-ui/core/Button";
-import CloseIcon from "@material-ui/icons/Close";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Divider from "@material-ui/core/Divider";
-import Drawer from "@material-ui/core/Drawer";
-import IconButton from "@material-ui/core/IconButton";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import MenuIcon from "@material-ui/icons/Menu";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 import usb from "usb";
@@ -49,21 +44,9 @@ import FirmwareUpdate from "./screens/FirmwareUpdate";
 import LayoutEditor from "./screens/LayoutEditor";
 import Settings from "./screens/Settings";
 import Welcome from "./screens/Welcome";
-import logo from "./logo-small.png";
 import i18n from "./i18n";
 
-import { version } from "../../package.json";
-import DeviceMenu from "./components/DeviceMenu";
-import BoardMenu from "./components/BoardMenu";
-import WelcomeMenu from "./components/WelcomeMenu";
-import KeymapMenuItem from "./components/KeymapMenuItem";
-import ColormapMenuItem from "./components/ColormapMenuItem";
-import FlashMenuItem from "./components/FlashMenuItem";
-import ChatMenuItem from "./components/ChatMenuItem";
-import FeedbackMenuItem from "./components/FeedbackMenuItem";
-import ExitMenuItem from "./components/ExitMenuItem";
-import KeyboardMenuItem from "./components/KeyboardSelectMenuItem";
-import SettingsMenuItem from "./components/SettingsMenuItem";
+import Header from "./components/Header";
 
 let focus = new Focus();
 
@@ -100,6 +83,9 @@ const styles = theme => ({
     ...theme.mixins.toolbar
   }
 });
+
+const source = createMemorySource("/keyboard-select");
+const history = createHistory(source);
 
 class App extends React.Component {
   constructor(props) {
@@ -243,6 +229,7 @@ class App extends React.Component {
 
   flashMenuItemOnClick = () => {
     this.setState({ Page: FirmwareUpdate });
+    navigate("/firmware-update");
   };
 
   keyboardMenuItemOnClick = () => {
@@ -277,7 +264,7 @@ class App extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { connected, pages, Page, contextBar } = this.state;
+    const { connected, pages, contextBar } = this.state;
 
     let focus = new Focus(),
       device =
@@ -286,139 +273,76 @@ class App extends React.Component {
 
     const homePage = connected
       ? this.state.pages.keymap
-        ? LayoutEditor
-        : Welcome
-      : KeyboardSelect;
+        ? "/layout-editor"
+        : "/welcome"
+      : "/keyboard-select";
 
     return (
       <div className={classes.root}>
-        <CssBaseline />
-        <AppBar
-          position="static"
-          color={contextBar ? "primary" : "inherit"}
-          id="appbar"
-        >
-          <Toolbar variant="dense">
-            <Button
-              className={classes.menuButton}
-              color="inherit"
-              onClick={contextBar ? this.cancelContext : this.pageMenu}
-            >
-              {contextBar ? <CloseIcon /> : <MenuIcon />}
-              <Typography
-                variant="h6"
-                color="inherit"
-                className={classes.pageMenu}
-                id="page-title"
-              />
-            </Button>
-            <div className={classes.grow} />
-            {device && (
-              <DeviceMenu openBoardMenu={this.boardMenu} device={device} />
-            )}
-            {device && device.urls && (
-              <BoardMenu
-                boardAnchor={this.state.boardAnchor}
-                boardClose={this.boardClose}
-                device={device}
-              />
-            )}
-          </Toolbar>
-        </AppBar>
-        <main className={classes.content}>
-          <Page
-            device={this.state.device}
-            appBarElement={() => document.querySelector("#appbar")}
-            titleElement={() => document.querySelector("#page-title")}
-            onConnect={this.onKeyboardConnect}
-            onDisconnect={this.onKeyboardDisconnect}
-            openPage={this.openPage}
-            toggleFlashing={this.toggleFlashing}
-            inContext={this.state.contextBar}
-            startContext={this.startContext}
+        <LocationProvider history={history}>
+          <CssBaseline />
+          <Header
+            contextBar={contextBar}
+            homePage={homePage}
+            connected={connected}
+            pages={pages}
+            device={device}
+            openURL={this.openURL}
             cancelContext={this.cancelContext}
+            openPageMenu={this.pageMenu}
+            pageMenu={this.state.pageMenu}
+            closePageMenu={this.closePageMenu}
+            boardAnchor={this.state.boardAnchor}
+            boardClose={this.boardClose}
+            openBoardMenu={this.boardMenu}
           />
-        </main>
-        <Drawer open={this.state.pageMenu} onClose={this.closePageMenu}>
-          <div
-            onClick={this.closePageMenu}
-            role="button"
-            onKeyDown={this.closePageMenu}
-          >
-            <div className={classes.toolbarIcon}>
-              <IconButton
-                onClick={() => {
-                  this.openPage(homePage);
-                }}
-              >
-                <img src={logo} />
-              </IconButton>
-            </div>
-            <List className={classes.drawer}>
-              {connected && !pages.keymap && !pages.colormap && (
-                <WelcomeMenu
-                  selected={this.state.Page == Welcome}
-                  onClick={this.welcomeMenuOnClick}
-                />
-              )}
-              {pages.keymap && (
-                <KeymapMenuItem
-                  selected={this.state.Page == LayoutEditor}
-                  onClick={this.keymapMenuItemOnClick}
-                />
-              )}
-              {pages.colormap && (
-                <ColormapMenuItem
-                  selected={this.state.Page == ColormapEditor}
-                  onClick={this.colormapMenuItemOnClick}
-                />
-              )}
-              {connected && (
-                <FlashMenuItem
-                  selected={this.state.Page == FirmwareUpdate}
-                  onClick={this.flashMenuItemOnClick}
-                />
-              )}
-            </List>
-            <Divider />
-            <List className={classes.drawer}>
-              <KeyboardMenuItem
-                keyboardSelectText={
-                  connected
-                    ? i18n.app.menu.selectAnotherKeyboard
-                    : i18n.app.menu.selectAKeyboard
-                }
-                selected={this.state.Page == KeyboardSelect}
-                onClick={this.keyboardMenuItemOnClick}
+          <main className={classes.content}>
+            <Router>
+              <Welcome
+                path="/welcome"
+                device={this.state.device}
+                onConnect={this.onKeyboardConnect}
+                titleElement={() => document.querySelector("#page-title")}
+                openPage={this.openPage}
               />
-              <SettingsMenuItem
-                selected={this.state.Page == Settings}
-                onClick={this.settingsMenuItemOnClick}
+              <KeyboardSelect
+                path="/keyboard-select"
+                onConnect={this.onKeyboardConnect}
+                onDisconnect={this.onKeyboardDisconnect}
+                titleElement={() => document.querySelector("#page-title")}
               />
-            </List>
-            <Divider />
-            <List className={classes.drawer}>
-              <ChatMenuItem
-                onClick={this.openURL("https://discord.gg/GP473Fv")}
+              <LayoutEditor
+                path="/layout-editor"
+                onDisconnect={this.onKeyboardDisconnect}
+                startContext={this.startContext}
+                cancelContext={this.cancelContext}
+                inContext={this.state.contextBar}
+                titleElement={() => document.querySelector("#page-title")}
+                appBarElement={() => document.querySelector("#appbar")}
               />
-              <FeedbackMenuItem
-                onClick={this.openURL(
-                  "https://github.com/keyboardio/Chrysalis/issues"
-                )}
+              <ColormapEditor
+                path="/colormap-editor"
+                device={this.state.device}
+                startContext={this.startContext}
+                cancelContext={this.cancelContext}
+                inContext={this.state.contextBar}
+                titleElement={() => document.querySelector("#page-title")}
+                appBarElement={() => document.querySelector("#appbar")}
               />
-              <ExitMenuItem onClick={() => Electron.remote.app.exit(0)} />
-            </List>
-            <Divider />
-            <List>
-              <ListItem disabled>
-                <ListItemText
-                  primary={`Chrysalis ${version}`}
-                  className={classes.version}
-                />
-              </ListItem>
-            </List>
-          </div>
-        </Drawer>
+              <FirmwareUpdate
+                path="/firmware-update"
+                device={this.state.device}
+                toggleFlashing={this.toggleFlashing}
+                onDisconnect={this.onKeyboardDisconnect}
+                titleElement={() => document.querySelector("#page-title")}
+              />
+              <Settings
+                path="/settings"
+                titleElement={() => document.querySelector("#page-title")}
+              />
+            </Router>
+          </main>
+        </LocationProvider>
       </div>
     );
   }

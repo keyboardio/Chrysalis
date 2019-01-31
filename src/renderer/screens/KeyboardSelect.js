@@ -17,6 +17,7 @@
 
 import React from "react";
 import PropTypes from "prop-types";
+import { Redirect } from "@reach/router";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -114,7 +115,8 @@ class KeyboardSelect extends React.Component {
     selectedPortIndex: 0,
     opening: false,
     devices: null,
-    loading: false
+    loading: false,
+    redirect: false
   };
 
   findNonSerialKeyboards = deviceList => {
@@ -215,6 +217,7 @@ class KeyboardSelect extends React.Component {
 
     try {
       await this.props.onConnect(devices[this.state.selectedPortIndex]);
+      this.setState({ redirect: true });
     } catch (err) {
       this.setState({
         opening: false
@@ -360,6 +363,7 @@ class KeyboardSelect extends React.Component {
 
     return (
       <div className={classes.main}>
+        {this.state.redirect ? <Redirect to="/layout-editor" noThrow /> : null}
         <Portal container={this.props.titleElement}>
           {i18n.app.menu.selectAKeyboard}
         </Portal>

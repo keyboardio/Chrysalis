@@ -84,8 +84,6 @@ function Header({
   boardAnchor,
   boardClose
 }) {
-  console.log("TCL: device", device);
-
   return (
     <AppBar
       position="static"

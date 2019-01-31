@@ -136,37 +136,37 @@ const ShiftedPunctuationTable = {
             }
         },
         {
-            code: 2098,
+            code: 2099,
             labels: {
                 primary: ":"
             }
         },
         {
-            code: 2099,
+            code: 2100,
             labels: {
                 primary: "\""
             }
         },
         {
-            code: 2100,
+            code: 2101,
             labels: {
                 primary: "~"
             }
         },
         {
-            code: 2101,
+            code: 2102,
             labels: {
                 primary: "<"
             }
         },
         {
-            code: 2102,
+            code: 2103,
             labels: {
                 primary: ">"
             }
         },
         {
-            code: 2103,
+            code: 2104,
             labels: {
                 primary: "?"
             }

@@ -20,7 +20,7 @@ import KeymapDB from "./db"
 
 let instance = null
 
-export default class Keymap {
+class Keymap {
     constructor(opts) {
         if (!instance) {
             instance = this
@@ -52,25 +52,53 @@ export default class Keymap {
     }
 
     async focus(s, keymap) {
-        if (keymap && keymap.length > 0) {
-            let flatten = (arr) => {
-                    return [].concat(...arr)
-                },
-                args = flatten(keymap)
-                    .map(k => this.db.serialize(k))
+        if (keymap && keymap.custom && keymap.custom.length > 0) {
+            const flatten = (arr) => {
+                return [].concat(...arr)
+            }
+            const args = flatten(keymap.custom)
+                .map(k => this.db.serialize(k))
 
-            return await s.request("keymap.map", ...args)
+            await s.request("keymap.onlyCustom", keymap.onlyCustom ? "1" : "0")
+            return await s.request("keymap.custom", ...args)
         } else {
-            let data = await s.request("keymap.map")
-            let keymap = data
+            const defaults = await s.request("keymap.default")
+            const custom = await s.request("keymap.custom")
+            const onlyCustom = Boolean(parseInt(await s.request("keymap.onlyCustom")))
+
+            const defaultKeymap = defaults
                 .split(" ")
                 .filter(v => v.length > 0)
                 .map(k => this.db.parse(parseInt(k)))
-            return this._chunk(keymap, this._layerSize)
+            const customKeymap = custom
+                .split(" ")
+                .filter(v => v.length > 0)
+                .map(k => this.db.parse(parseInt(k)))
+
+            return {
+                onlyCustom: onlyCustom,
+                custom: this._chunk(customKeymap, this._layerSize),
+                default: this._chunk(defaultKeymap, this._layerSize)
+            }
         }
     }
 }
 
+class OnlyCustom {
+    async focus (s, onlyCustom) {
+        if (onlyCustom === undefined) {
+            return Boolean(parseInt(await s.request("keymap.onlyCustom")))
+        }
+
+        return await s.request("keymap.onlyCustom", onlyCustom ? "1" : "0")
+    }
+}
+
 let focus = new Focus()
-focus.addCommands({ keymap: new Keymap() })
+focus.addCommands({
+    keymap: new Keymap(),
+    "keymap.onlyCustom": new OnlyCustom()
+})
 focus.addMethod("setLayerSize", "keymap")
+
+export { Keymap as default }

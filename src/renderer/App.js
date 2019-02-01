@@ -188,12 +188,12 @@ class App extends React.Component {
       connected: true,
       device: null,
       pages: {
-        keymap: commands.includes("keymap.map") > 0,
+        keymap: commands.includes("keymap.custom") > 0,
         colormap:
           commands.includes("colormap.map") > 0 &&
           commands.includes("palette") > 0
       },
-      Page: commands.includes("keymap.map") > 0 ? LayoutEditor : Welcome
+      Page: commands.includes("keymap.custom") > 0 ? LayoutEditor : Welcome
     });
   };
 

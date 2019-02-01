@@ -78,6 +78,7 @@ const English = {
       Blank: "Blank",
       "Unknown keycodes": "Unknown keycodes"
     },
+    useCustom: "Use custom layers only",
     defaultLayer: "Default layer",
     clearLayer: "Clear layer...",
     copyFrom: "Copy from layer...",

@@ -19,12 +19,14 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import Collapse from "@material-ui/core/Collapse";
+import Divider from "@material-ui/core/Divider";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Fade from "@material-ui/core/Fade";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import IconButton from "@material-ui/core/IconButton";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import LockIcon from "@material-ui/icons/Lock";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import MoreVerticalIcon from "@material-ui/icons/MoreVert";
@@ -33,7 +35,10 @@ import Slide from "@material-ui/core/Slide";
 import Switch from "@material-ui/core/Switch";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
+import ToggleButton from "@material-ui/lab/ToggleButton";
 import Toolbar from "@material-ui/core/Toolbar";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import { withStyles } from "@material-ui/core/styles";
 
 import { withSnackbar } from "notistack";
@@ -62,6 +67,20 @@ const styles = theme => ({
   },
   layerItem: {
     paddingLeft: theme.spacing.unit * 4
+  },
+  defaultLayer: {
+    whiteSpace: "nowrap"
+  },
+  tabWrapper: {
+    flexDirection: "row",
+    "& svg": {
+      position: "relative",
+      top: -theme.spacing.unit / 2
+    }
+  },
+  tabLabelContainer: {
+    width: "auto",
+    padding: `6px ${theme.spacing.unit}px`
   }
 });
 
@@ -73,7 +92,12 @@ class LayoutEditor extends React.Component {
     saving: false,
     moreAnchorEl: null,
     copyMenuExpanded: false,
-    keymap: []
+    keymap: {
+      custom: [],
+      default: [],
+      onlyCustom: false
+    },
+    showDefaults: true
   };
   keymapDB = new KeymapDB();
 
@@ -81,18 +105,34 @@ class LayoutEditor extends React.Component {
     let focus = new Focus();
 
     try {
-      let roLayers = await focus.command("keymap.roLayers");
-      roLayers = parseInt(roLayers) || 0;
-
       let defLayer = await focus.command("settings.defaultLayer");
       defLayer = parseInt(defLayer) || 0;
 
       let keymap = await focus.command("keymap");
 
+      let empty = true;
+      for (let layer of keymap.custom) {
+        for (let i of layer) {
+          if (i.keyCode != 65535) {
+            empty = false;
+            break;
+          }
+        }
+      }
+
+      if (empty && !keymap.onlyCustom) {
+        console.log("Custom keymap is empty, copying defaults");
+        for (let i = 0; i < keymap.default.length; i++) {
+          keymap.custom[i] = keymap.default[i].slice();
+        }
+        keymap.onlyCustom = true;
+        await focus.command("keymap", keymap);
+      }
+
       this.setState({
-        roLayers: roLayers,
         defaultLayer: defLayer,
-        keymap: keymap
+        keymap: keymap,
+        showDefaults: !keymap.onlyCustom
       });
     } catch (e) {
       this.props.enqueueSnackbar(e, { variant: "error" });
@@ -101,16 +141,22 @@ class LayoutEditor extends React.Component {
   };
 
   getCurrentKey() {
-    if (this.state.currentLayer < 0 || this.state.currentKeyIndex < 0)
-      return -1;
+    if (this.state.currentKeyIndex < 0) return -1;
 
     let layer = parseInt(this.state.currentLayer),
       keyIndex = parseInt(this.state.currentKeyIndex);
 
-    return this.state.keymap[layer][keyIndex].keyCode;
+    if (layer < 0) {
+      layer += this.state.keymap.default.length;
+      return this.state.keymap.default[layer][keyIndex].keyCode;
+    }
+
+    return this.state.keymap.custom[layer][keyIndex].keyCode;
   }
 
   onKeyChange = keyCode => {
+    // Keys can only change on the custom layers
+
     let layer = this.state.currentLayer,
       keyIndex = this.state.currentKeyIndex;
 
@@ -119,11 +165,17 @@ class LayoutEditor extends React.Component {
     }
 
     this.setState(state => {
-      let keymap = state.keymap.slice();
+      let keymap = state.keymap.custom.slice();
       keymap[layer][keyIndex] = this.keymapDB.parse(keyCode);
-      return keymap;
+      return {
+        keymap: {
+          default: state.keymap.default,
+          onlyCustom: state.keymap.onlyCustom,
+          custom: keymap
+        },
+        modified: true
+      };
     });
-    this.setState({ modified: true });
     this.props.startContext();
   };
 
@@ -162,7 +214,7 @@ class LayoutEditor extends React.Component {
   };
 
   onDefaultLayerChange = async event => {
-    const defLayer = event.target.checked ? event.target.value : 255;
+    const defLayer = event.target.checked ? event.target.value : 127;
     this.setState({
       defaultLayer: defLayer
     });
@@ -174,8 +226,7 @@ class LayoutEditor extends React.Component {
   componentDidMount() {
     this.scanKeyboard().then(() => {
       this.setState(state => ({
-        currentLayer:
-          state.defaultLayer < state.keymap.length ? state.defaultLayer : 0
+        currentLayer: state.defaultLayer == 127 ? 0 : state.defaultLayer
       }));
     });
   }
@@ -202,11 +253,35 @@ class LayoutEditor extends React.Component {
 
   copyFromLayer = layer => {
     this.setState(state => {
-      let newKeymap = state.keymap.slice();
-      newKeymap[state.currentLayer] = state.keymap[layer].slice();
+      let newKeymap;
+
+      if (state.keymap.onlyCustom) {
+        newKeymap =
+          layer < 0
+            ? state.keymap.default.slice()
+            : state.keymap.custom.slice();
+        newKeymap[state.currentLayer] =
+          layer < 0
+            ? state.keymap.default[layer + state.keymap.default.length].slice()
+            : state.keymap.custom[layer].slice();
+      } else {
+        newKeymap =
+          layer < state.keymap.default.length
+            ? state.keymap.default.slice()
+            : state.keymap.custom.slice();
+        newKeymap[state.currentLayer] =
+          layer < state.keymap.default.length
+            ? state.keymap.default[layer].slice()
+            : state.keymap.custom[layer - state.keymap.default.length].slice();
+      }
+
       this.props.startContext();
       return {
-        keymap: newKeymap,
+        keymap: {
+          default: state.keymap.default,
+          onlyCustom: state.keymap.onlyCustom,
+          custom: newKeymap
+        },
         copyMenuExpanded: false,
         moreAnchorEl: null,
         modified: true
@@ -216,15 +291,67 @@ class LayoutEditor extends React.Component {
 
   clearLayer = () => {
     this.setState(state => {
-      let newKeymap = state.keymap.slice();
-      newKeymap[state.currentLayer] = Array(newKeymap[0].length)
+      let newKeymap = state.keymap.custom.slice();
+      const idx = state.keymap.onlyCustom
+        ? state.currentLayer
+        : state.currentLayer - state.keymap.default.length;
+      newKeymap[idx] = Array(newKeymap[0].length)
         .fill()
         .map(() => ({ keyCode: 0xffff }));
       this.props.startContext();
       return {
-        keymap: newKeymap,
+        keymap: {
+          default: state.keymap.default,
+          onlyCustom: state.keymap.onlyCustom,
+          custom: newKeymap
+        },
         modified: true,
         moreAnchorEl: null
+      };
+    });
+  };
+
+  toggleShowDefaults = () => {
+    this.setState(state => {
+      let newCurrentLayer = state.currentLayer;
+      if (state.keymap.onlyCustom) {
+        if (newCurrentLayer < 0) newCurrentLayer = 0;
+      } else {
+        if (newCurrentLayer < state.keymap.default.length)
+          newCurrentLayer = state.keymap.default.length;
+      }
+
+      return {
+        currentLayer: newCurrentLayer,
+        showDefaults: !state.showDefaults
+      };
+    });
+  };
+
+  toggleUseCustom = async event => {
+    let focus = new Focus();
+
+    event.preventDefault();
+
+    const onlyCustom = !this.state.keymap.onlyCustom;
+    await focus.command("keymap.onlyCustom", onlyCustom);
+
+    this.setState(state => {
+      let newCurrentLayer = state.currentLayer;
+      if (!onlyCustom) {
+        newCurrentLayer = newCurrentLayer + state.keymap.default.length;
+      } else {
+        newCurrentLayer = newCurrentLayer - state.keymap.default.length;
+      }
+
+      return {
+        currentLayer: newCurrentLayer,
+        moreAnchorEl: null,
+        keymap: {
+          custom: state.keymap.custom,
+          default: state.keymap.default,
+          onlyCustom: onlyCustom
+        }
       };
     });
   };
@@ -235,45 +362,95 @@ class LayoutEditor extends React.Component {
       currentLayer,
       defaultLayer,
       moreAnchorEl,
-      copyMenuExpanded
+      keymap,
+      showDefaults
     } = this.state;
 
     let focus = new Focus();
     const Layer = focus.device.components.keymap;
 
-    let layerIndex = this.state.currentLayer,
-      isReadOnly = layerIndex < this.state.roLayers,
-      layerData = this.state.keymap[layerIndex],
-      layer = (
-        <Fade in appear key={layerIndex}>
-          <div className={classes.editor}>
-            <Layer
-              readOnly={isReadOnly}
-              index={layerIndex}
-              keymap={layerData}
-              onKeySelect={this.onKeySelect}
-              selectedKey={this.state.currentKeyIndex}
-            />
-          </div>
-        </Fade>
+    let layerData, isReadOnly;
+    if (keymap.onlyCustom) {
+      isReadOnly = currentLayer < 0;
+      layerData = isReadOnly
+        ? keymap.default[currentLayer + keymap.default.length]
+        : keymap.custom[currentLayer];
+    } else {
+      isReadOnly = currentLayer < keymap.default.length;
+      layerData = isReadOnly
+        ? keymap.default[currentLayer]
+        : keymap.custom[currentLayer - keymap.default.length];
+    }
+
+    const layer = (
+      <Fade in appear key={currentLayer}>
+        <div className={classes.editor}>
+          <Layer
+            readOnly={isReadOnly}
+            index={currentLayer}
+            keymap={layerData}
+            onKeySelect={this.onKeySelect}
+            selectedKey={this.state.currentKeyIndex}
+          />
+        </div>
+      </Fade>
+    );
+
+    const tabClasses = {
+      wrapper: classes.tabWrapper,
+      labelContainer: classes.tabLabelContainer
+    };
+
+    let defaultTabs =
+      showDefaults &&
+      keymap.default.map((_, index) => {
+        const idx = index - (keymap.onlyCustom ? keymap.default.length : 0),
+          tabKey = "tab-layer-" + idx.toString();
+
+        const label = (
+          <span> {i18n.formatString(i18n.components.layer, idx)} </span>
+        );
+        const icon = <LockIcon />;
+
+        return (
+          <Tab
+            label={label}
+            key={tabKey}
+            value={idx}
+            icon={icon}
+            classes={tabClasses}
+          />
+        );
+      });
+    let customTabs = keymap.custom.map((_, index) => {
+      const idx = index + (keymap.onlyCustom ? 0 : keymap.default.length);
+      const label = (
+          <span>{i18n.formatString(i18n.components.layer, idx)}</span>
+        ),
+        tabKey = "tab-layer-" + idx.toString();
+
+      const icon = <div />;
+
+      return (
+        <Tab
+          label={label}
+          key={tabKey}
+          value={idx}
+          icon={icon}
+          classes={tabClasses}
+        />
       );
-
-    let tabs = this.state.keymap.map((_, index) => {
-      let label = i18n.formatString(i18n.components.layer, index),
-        tabKey = "tab-layer-" + index.toString(),
-        isReadOnly = index < this.state.roLayers;
-
-      if (isReadOnly) {
-        label = <em>{label} (RO)</em>;
-      }
-      return <Tab label={label} key={tabKey} />;
     });
+
+    let tabs = (defaultTabs || []).concat(customTabs);
 
     const defaultLayerSwitch = (
       <FormControlLabel
+        className={classes.defaultLayer}
         label={i18n.layoutEditor.defaultLayer}
         control={
           <Switch
+            disabled={currentLayer < 0}
             checked={currentLayer == defaultLayer}
             onChange={this.onDefaultLayerChange}
             value={currentLayer}
@@ -283,21 +460,45 @@ class LayoutEditor extends React.Component {
       />
     );
 
-    let copyItems = this.state.keymap.map((_, index) => {
-      const label = i18n.formatString(i18n.components.layer, index),
-        key = "copy-layer-" + index.toString();
+    const copyCustomItems = this.state.keymap.custom.map((_, index) => {
+      const idx = index + (keymap.onlyCustom ? 0 : keymap.default.length);
+      const label = i18n.formatString(i18n.components.layer, idx),
+        key = "copy-layer-" + idx.toString();
 
       return (
         <MenuItem
           className={classes.layerItem}
           key={key}
-          disabled={index == currentLayer}
-          onClick={() => this.copyFromLayer(index)}
+          disabled={idx == currentLayer}
+          onClick={() => this.copyFromLayer(idx)}
         >
           {label}
         </MenuItem>
       );
     });
+    const copyDefaultItems =
+      showDefaults &&
+      keymap.default.map((_, index) => {
+        const idx = index - (keymap.onlyCustom ? keymap.default.length : 0),
+          label = i18n.formatString(i18n.components.layer, idx),
+          key = "copy-layer-" + idx.toString();
+
+        return (
+          <MenuItem
+            className={classes.layerItem}
+            key={key}
+            onClick={() => this.copyFromLayer(idx)}
+          >
+            {label}
+          </MenuItem>
+        );
+      });
+    const copyItems = (copyDefaultItems || []).concat(copyCustomItems);
+
+    const copyMenuExpanded =
+      this.state.copyMenuExpanded && this.state.currentLayer >= 0;
+
+    const useCustomSwitch = <Switch checked={keymap.onlyCustom} />;
     const moreMenu = (
       <React.Fragment>
         <IconButton onClick={this.moreMenu}>
@@ -308,15 +509,12 @@ class LayoutEditor extends React.Component {
           open={Boolean(moreAnchorEl)}
           onClose={this.moreMenuClose}
         >
-          <MenuItem
-            onClick={this.clearLayer}
-            disabled={currentLayer < this.state.roLayers}
-          >
+          <MenuItem onClick={this.clearLayer} disabled={currentLayer < 0}>
             {i18n.layoutEditor.clearLayer}
           </MenuItem>
           <MenuItem
             onClick={this.copyFromLayerMenu}
-            disabled={currentLayer < this.state.roLayers}
+            disabled={currentLayer < 0}
           >
             <span style={{ marginRight: "1em" }}>
               {i18n.layoutEditor.copyFrom}
@@ -324,6 +522,13 @@ class LayoutEditor extends React.Component {
             {copyMenuExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </MenuItem>
           <Collapse in={copyMenuExpanded}>{copyItems}</Collapse>
+          <Divider />
+          <MenuItem onClick={this.toggleUseCustom}>
+            <FormControlLabel
+              control={useCustomSwitch}
+              label={i18n.layoutEditor.useCustom}
+            />
+          </MenuItem>
         </Menu>
       </React.Fragment>
     );
@@ -335,10 +540,17 @@ class LayoutEditor extends React.Component {
         </Portal>
         <Portal container={this.props.appBarElement}>
           <Toolbar>
+            <ToggleButton
+              onClick={this.toggleShowDefaults}
+              selected={showDefaults}
+              value="showDefaults"
+            >
+              {showDefaults ? <VisibilityIcon /> : <VisibilityOffIcon />}
+            </ToggleButton>
             <Tabs
               className={classes.tabs}
               value={this.state.currentLayer}
-              variant="scrollable"
+              variant={keymap.custom.length != 0 ? "scrollable" : "standard"}
               scrollButtons="auto"
               onChange={this.selectLayer}
             >
@@ -348,7 +560,9 @@ class LayoutEditor extends React.Component {
             {moreMenu}
           </Toolbar>
         </Portal>
-        {this.state.keymap.length == 0 && <LinearProgress variant="query" />}
+        {this.state.keymap.custom.length == 0 && (
+          <LinearProgress variant="query" />
+        )}
         {layer}
         <Slide in={this.getCurrentKey() != -1} direction="up" unmountOnExit>
           <KeySelector

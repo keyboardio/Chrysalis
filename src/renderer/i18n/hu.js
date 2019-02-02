@@ -78,6 +78,7 @@ const Hungarian = {
       Blank: "Üres gombok",
       "Unknown keycodes": "Ismeretlen kódok"
     },
+    useCustom: "Kizárólag testreszabott rétegek használata",
     defaultLayer: "Alapértelmezett réteg",
     clearLayer: "Réteg ürítése...",
     copyFrom: "Réteg másolás máshonnan...",

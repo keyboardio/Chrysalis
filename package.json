@@ -42,7 +42,7 @@
     "@chrysalis-api/colormap": "~0.0.7",
     "@chrysalis-api/focus": "~0.0.8",
     "@chrysalis-api/hardware": "^0.0.2",
-    "@chrysalis-api/keymap": "~0.0.14",
+    "@chrysalis-api/keymap": "~0.0.15",
     "@material-ui/core": "^3.9.1",
     "@material-ui/icons": "^3.0.1",
     "@material-ui/lab": "^3.0.0-alpha.29",

@@ -8,12 +8,15 @@
   },
   "homepage": "https://github.com/keyboardio/Chrysalis",
   "scripts": {
+    "preinstall": "node tools/preinstall.js",
     "postinstall": "electron-builder install-app-deps",
     "start": "electron-webpack dev",
     "compile": "electron-webpack",
     "build:all": "npm-run-all compile --parallel 'electron-builder -m' 'electron-builder -w' 'electron-builder -l'",
-    "build:mac": "yarn compile && electron-builder -m",
-    "build:win": "yarn compile && electron-builder -w",
+    "build:osx": "yarn compile && electron-builder -m",
+    "build:mac": "yarn run build:osx",
+    "build:windows": "yarn compile && electron-builder -w",
+    "build:win": "yarn run build:windows",
     "build:linux": "yarn compile && electron-builder -l",
     "prettier": "prettier --write \"src/**/*.{js,json,css,scss,md}\"",
     "lint:all": "npm-run-all lint:js lint:css",
@@ -31,6 +34,7 @@
   "build": {
     "appId": "keyboardio.chrysalis",
     "productName": "Chrysalis",
+    "artifactName": "${productName}-${version}.${ext}",
     "copyright": "Copyright © 2018, 2019 Keyboardio Inc.; distributed under the GPLv3",
     "linux": {
       "target": [

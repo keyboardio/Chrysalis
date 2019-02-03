@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
+import React, { useState } from "react";
 
 import "@chrysalis-api/keymap";
 import "@chrysalis-api/colormap";
@@ -30,19 +30,11 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
-import DeviceMenu from "./DeviceMenu";
+import i18n from "../i18n";
 import BoardMenu from "./BoardMenu";
 import MainMenu from "./MainMenu";
 
 const styles = theme => ({
-  root: {
-    display: "flex",
-    flexDirection: "column"
-  },
-  content: {
-    flexGrow: 1,
-    overflow: "auto"
-  },
   pageMenu: {
     marginLeft: theme.spacing.unit * 2
   },
@@ -52,38 +44,36 @@ const styles = theme => ({
   },
   grow: {
     flexGrow: 1
-  },
-  drawer: {
-    width: 350
-  },
-  version: {
-    textAlign: "right"
-  },
-  toolbarIcon: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "0 8px",
-    ...theme.mixins.toolbar
   }
 });
 
 function Header({
   classes,
   contextBar,
-  homePage,
   connected,
   pages,
   device,
-  cancelContext,
-  openPageMenu,
-  pageMenu,
-  closePageMenu,
-  openURL,
-  openBoardMenu,
-  boardAnchor,
-  boardClose
+  cancelContext
 }) {
+  const [mainMenu, setMainMenuOpen] = useState(false);
+  const [boardAnchor, setBoardMenuAnchor] = useState(null);
+
+  function openMainMenu() {
+    setMainMenuOpen(true);
+  }
+
+  function closeMainMenu() {
+    setMainMenuOpen(false);
+  }
+
+  function openBoardMenu(event) {
+    setBoardMenuAnchor(event.currentTarget);
+  }
+
+  function closeBoardMenu() {
+    setBoardMenuAnchor(null);
+  }
+
   return (
     <AppBar
       position="static"
@@ -94,7 +84,7 @@ function Header({
         <Button
           className={classes.menuButton}
           color="inherit"
-          onClick={contextBar ? cancelContext : openPageMenu}
+          onClick={contextBar ? cancelContext : openMainMenu}
         >
           {contextBar ? <CloseIcon /> : <MenuIcon />}
           <Typography
@@ -105,19 +95,26 @@ function Header({
           />
         </Button>
         <MainMenu
-          homePage={homePage}
           connected={connected}
           pages={pages}
-          open={pageMenu}
-          closeMenu={closePageMenu}
-          openURL={openURL}
+          open={mainMenu}
+          closeMenu={closeMainMenu}
         />
         <div className={classes.grow} />
-        {device && <DeviceMenu openBoardMenu={openBoardMenu} device={device} />}
+        {device && (
+          <Button
+            onClick={openBoardMenu}
+            disabled={!device.urls}
+            color="inherit"
+            className="button"
+          >
+            {i18n.app.device}: {device.displayName}
+          </Button>
+        )}
         {device && device.urls && (
           <BoardMenu
             boardAnchor={boardAnchor}
-            boardClose={boardClose}
+            boardClose={closeBoardMenu}
             device={device}
           />
         )}

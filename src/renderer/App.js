@@ -16,7 +16,6 @@
  */
 
 import React from "react";
-import Electron from "electron";
 import { spawn } from "child_process";
 
 import Focus from "@chrysalis-api/focus";
@@ -24,13 +23,7 @@ import "@chrysalis-api/keymap";
 import "@chrysalis-api/colormap";
 import "typeface-roboto/index.css";
 import "typeface-source-code-pro/index.css";
-import {
-  createMemorySource,
-  createHistory,
-  LocationProvider,
-  Router,
-  navigate
-} from "@reach/router";
+import { LocationProvider, Router } from "@reach/router";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { withStyles } from "@material-ui/core/styles";
@@ -47,10 +40,11 @@ import Welcome from "./screens/Welcome";
 import i18n from "./i18n";
 
 import Header from "./components/Header";
+import { history, navigate } from "./routerHistory";
 
 let focus = new Focus();
 
-const styles = theme => ({
+const styles = () => ({
   root: {
     display: "flex",
     flexDirection: "column"
@@ -58,53 +52,24 @@ const styles = theme => ({
   content: {
     flexGrow: 1,
     overflow: "auto"
-  },
-  pageMenu: {
-    marginLeft: theme.spacing.unit * 2
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20
-  },
-  grow: {
-    flexGrow: 1
-  },
-  drawer: {
-    width: 350
-  },
-  version: {
-    textAlign: "right"
-  },
-  toolbarIcon: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "0 8px",
-    ...theme.mixins.toolbar
   }
 });
-
-const source = createMemorySource("/keyboard-select");
-const history = createHistory(source);
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      boardAnchor: null,
-      pageMenu: false,
       connected: false,
       device: null,
       pages: {},
-      contextBar: false,
-      Page: KeyboardSelect
+      contextBar: false
     };
   }
   flashing = false;
 
   componentDidMount() {
-    usb.on("detach", device => {
+    usb.on("detach", async device => {
       if (!focus.device) return;
       if (this.flashing) return;
 
@@ -115,6 +80,10 @@ class App extends React.Component {
         return;
       }
 
+      // Must await this to stop re-render of components reliant on `focus.device`
+      // However, it only renders a blank screen. New route is rendered below.
+      await navigate("./");
+
       if (!focus._port.isOpen) {
         this.props.enqueueSnackbar(i18n.errors.deviceDisconnected, {
           variant: "warning"
@@ -123,9 +92,10 @@ class App extends React.Component {
         this.setState({
           connected: false,
           device: null,
-          pages: {},
-          Page: KeyboardSelect
+          pages: {}
         });
+        // Second call to `navigate` will actually render the proper route
+        navigate("/keyboard-select");
       }
     });
   }
@@ -180,13 +150,11 @@ class App extends React.Component {
         colormap:
           commands.includes("colormap.map") > 0 &&
           commands.includes("palette") > 0
-      },
-      Page:
-        commands.includes("keymap.custom") > 0 ||
-        commands.includes("keymap.map") > 0
-          ? LayoutEditor
-          : Welcome
+      }
     });
+    navigate(
+      commands.includes("keymap.custom") > 0 ? "./layout-editor" : "./welcome"
+    );
   };
 
   onKeyboardDisconnect = () => {
@@ -194,65 +162,9 @@ class App extends React.Component {
     this.setState({
       connected: false,
       device: null,
-      pages: {},
-      Page: KeyboardSelect
+      pages: {}
     });
-  };
-
-  boardMenu = event => {
-    this.setState({ boardAnchor: event.currentTarget });
-  };
-
-  boardClose = () => {
-    this.setState({ boardAnchor: null });
-  };
-
-  pageMenu = () => {
-    this.setState({ pageMenu: true });
-  };
-
-  closePageMenu = () => {
-    this.setState({ pageMenu: false });
-  };
-
-  welcomeMenuOnClick = () => {
-    this.setState({ Page: Welcome });
-  };
-
-  keymapMenuItemOnClick = () => {
-    this.setState({ Page: LayoutEditor });
-  };
-
-  colormapMenuItemOnClick = () => {
-    this.setState({ Page: ColormapEditor });
-  };
-
-  flashMenuItemOnClick = () => {
-    this.setState({ Page: FirmwareUpdate });
-    navigate("/firmware-update");
-  };
-
-  keyboardMenuItemOnClick = () => {
-    this.setState({ Page: KeyboardSelect });
-  };
-
-  settingsMenuItemOnClick = () => {
-    this.setState({ Page: Settings });
-  };
-
-  openURL = url => {
-    const shell = Electron.remote && Electron.remote.shell;
-
-    if (!shell) return;
-
-    return () => {
-      shell.openExternal(url);
-      this.boardClose();
-    };
-  };
-
-  openPage = page => {
-    this.setState({ Page: page });
+    navigate("/keyboard-select");
   };
 
   cancelContext = () => {
@@ -266,16 +178,10 @@ class App extends React.Component {
     const { classes } = this.props;
     const { connected, pages, contextBar } = this.state;
 
-    let focus = new Focus(),
-      device =
-        (focus.device && focus.device.info) ||
-        (this.state.device && this.state.device.info);
-
-    const homePage = connected
-      ? this.state.pages.keymap
-        ? "/layout-editor"
-        : "/welcome"
-      : "/keyboard-select";
+    let focus = new Focus();
+    let device =
+      (focus.device && focus.device.info) ||
+      (this.state.device && this.state.device.info);
 
     return (
       <div className={classes.root}>
@@ -283,18 +189,10 @@ class App extends React.Component {
           <CssBaseline />
           <Header
             contextBar={contextBar}
-            homePage={homePage}
             connected={connected}
             pages={pages}
             device={device}
-            openURL={this.openURL}
             cancelContext={this.cancelContext}
-            openPageMenu={this.pageMenu}
-            pageMenu={this.state.pageMenu}
-            closePageMenu={this.closePageMenu}
-            boardAnchor={this.state.boardAnchor}
-            boardClose={this.boardClose}
-            openBoardMenu={this.boardMenu}
           />
           <main className={classes.content}>
             <Router>
@@ -303,7 +201,6 @@ class App extends React.Component {
                 device={this.state.device}
                 onConnect={this.onKeyboardConnect}
                 titleElement={() => document.querySelector("#page-title")}
-                openPage={this.openPage}
               />
               <KeyboardSelect
                 path="/keyboard-select"

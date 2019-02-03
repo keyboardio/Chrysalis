@@ -16,7 +16,6 @@
  */
 
 import React from "react";
-import { Redirect } from "@reach/router";
 
 import Focus from "@chrysalis-api/focus";
 
@@ -34,6 +33,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { withSnackbar } from "notistack";
 
 import i18n from "../i18n";
+import { navigate } from "../routerHistory";
 
 const styles = theme => ({
   root: {
@@ -51,8 +51,7 @@ const styles = theme => ({
 
 class Welcome extends React.Component {
   state = {
-    factoryResetStarted: false,
-    redirect: false
+    factoryResetStarted: false
   };
 
   startFactoryReset = () => {
@@ -123,15 +122,10 @@ class Welcome extends React.Component {
           <CardActions>
             {reconnectButton}
             <div className={classes.grow} />
-            {this.state.redirect ? (
-              <Redirect to="/firmware-update" noThrow />
-            ) : null}
             <Button
               color="primary"
               variant="outlined"
-              onClick={() => {
-                this.setState({ redirect: true });
-              }}
+              onClick={navigate("/firmware-update")}
             >
               {i18n.formatString(
                 i18n.welcome.gotoUpdate,

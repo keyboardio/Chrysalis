@@ -16,21 +16,34 @@
  */
 
 import React from "react";
+import Electron from "electron";
 
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Divider from "@material-ui/core/Divider";
+import i18n from "../i18n";
 
-import BoardMenuItem from "./BoardMenuItem";
+const openURL = (url, closeMenu) => {
+  const shell = Electron.remote && Electron.remote.shell;
+
+  if (!shell) return;
+
+  return () => {
+    shell.openExternal(url);
+    closeMenu();
+  };
+};
 
 export default function BoardMenu({ boardAnchor, boardClose, device }) {
   return (
     <Menu anchorEl={boardAnchor} open={!!boardAnchor} onClose={boardClose}>
       <MenuItem disabled>{device.displayName}</MenuItem>
       <Divider variant="middle" />
-      {device.urls.map(url => {
+      {device.urls.map(({ url, name }) => {
         return (
-          <BoardMenuItem key={url.name} url={url} closeMenu={boardClose} />
+          <MenuItem key={name} onClick={openURL(url, boardClose)}>
+            {i18n.app.deviceMenu[name] || name}
+          </MenuItem>
         );
       })}
     </Menu>

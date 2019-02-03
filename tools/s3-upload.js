@@ -37,6 +37,13 @@ fileStream.on("open", () => {
       throw error;
     }
     if (data) {
+      s3.putObject({
+        Key: "Chrysalis/latest/Chrysalis." + extensions[process.env['TRAVIS_OS_NAME']],
+        WebsiteRedirectLocation: data.Location
+      }, error => {
+        if (error)
+          throw error;
+      });
       console.log("  ", data.Location)
     }
   });

@@ -25,6 +25,19 @@ const MiscellaneousTable = {
             }
         },
         {
+            code: 71,
+            labels: {
+                primary: "ScrlLK",
+                verbose: "Scroll Lock"
+            }
+        },
+        {
+            code: 72,
+            labels: {
+                primary: "Pause"
+            }
+        },
+        {
             code: 53291,
             labels: {
                 primary: "Cycle"

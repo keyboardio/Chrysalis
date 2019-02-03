@@ -1,7 +1,7 @@
 {
-  "name": "@chrysalis-api/hardware",
-  "version": "0.0.3",
-  "description": "Collection of Chrysalis hardware support libraries",
+  "name": "@chrysalis-api/hardware-softhruf-splitography",
+  "version": "0.0.0",
+  "description": "Chrysalis SOFT/HRUF Splitography Hardware library",
   "main": "lib",
   "repository": {
     "type": "git",
@@ -30,14 +30,11 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@chrysalis-api/hardware-dygma-raise": "^0.0.5",
-    "@chrysalis-api/hardware-ez-ergodox": "^0.0.11",
-    "@chrysalis-api/hardware-kbdfans-kbd4x": "^0.0.1",
-    "@chrysalis-api/hardware-keyboardio-model01": "^0.0.18",
-    "@chrysalis-api/hardware-olkb-planck": "^0.0.3",
-    "@chrysalis-api/hardware-pjrc-teensy": "^0.0.3",
-    "@chrysalis-api/hardware-softhruf-splitography": "^0.0.0",
-    "@chrysalis-api/hardware-technomancy-atreus": "^0.0.12"
+    "react": "^16.5.2"
+  },
+  "devDependencies": {
+    "@babel/preset-react": "^7.0.0",
+    "eslint-plugin-react": "^7.11.1"
   },
   "peerDependencies": {
     "@chrysalis-api/focus": "~0.0.2"

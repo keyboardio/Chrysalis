@@ -1,0 +1,28 @@
+language: node_js
+node_js:
+  - 10
+os:
+  - linux
+  - osx
+  - windows
+matrix:
+  allow_failures:
+    - os: windows
+env:
+  - YARN_GPG=no
+branches:
+  only:
+    - master
+dist: xenial
+addons:
+  apt:
+    packages:
+      - libudev-dev
+cache: yarn
+install:
+  - yarn install --network-timeout 1000000
+script:
+  - yarn run build:$TRAVIS_OS_NAME
+after_script:
+  - yarn add --dev aws-sdk
+  - tools/s3-upload.js

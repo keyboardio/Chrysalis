@@ -1,0 +1,22 @@
+#! /bin/bash
+
+set -e
+
+travis() {
+    curl -s "https://api.travis-ci.org${1}" -H "Travis-API-Version: 3"
+}
+
+if [ -z "$1" ]; then
+    REPO_ID=$(travis "/owner/keyboardio/repos" | jq '.repositories[] | select(.name == "Chrysalis") | .id')
+    LAST_PASSED_BUILD=$(travis "/repo/${REPO_ID}/builds?state=passed&sort_by=id:desc&limit=1" | jq -r '.builds[].number')
+    BUILD_NUMBER=${LAST_PASSED_BUILD}
+else
+    BUILD_NUMBER="$1"
+fi
+
+EXTENSION="${2:-AppImage}"
+
+VERSION="$(curl -s -f https://kaleidoscope-builds.s3.amazonaws.com/Chrysalis/${BUILD_NUMBER}/version.txt)"
+
+curl -o Chrysalis-${VERSION}.${EXTENSION} \
+     https://kaleidoscope-builds.s3.amazonaws.com/Chrysalis/${BUILD_NUMBER}/Chrysalis-${VERSION}.${EXTENSION}

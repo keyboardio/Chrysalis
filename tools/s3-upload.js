@@ -38,6 +38,7 @@ fileStream.on("open", () => {
     }
     if (data) {
       s3.putObject({
+        Bucket: process.env['ARTIFACTS_BUCKET'],
         Key: "Chrysalis/latest/Chrysalis." + extensions[process.env['TRAVIS_OS_NAME']],
         WebsiteRedirectLocation: data.Location
       }, error => {

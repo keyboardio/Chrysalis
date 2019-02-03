@@ -1,6 +1,6 @@
 {
   "name": "@chrysalis-api/hardware",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Collection of Chrysalis hardware support libraries",
   "main": "lib",
   "repository": {
@@ -36,7 +36,7 @@
     "@chrysalis-api/hardware-keyboardio-model01": "^0.0.18",
     "@chrysalis-api/hardware-olkb-planck": "^0.0.3",
     "@chrysalis-api/hardware-pjrc-teensy": "^0.0.3",
-    "@chrysalis-api/hardware-softhruf-splitography": "^0.0.0",
+    "@chrysalis-api/hardware-softhruf-splitography": "^0.0.1",
     "@chrysalis-api/hardware-technomancy-atreus": "^0.0.12"
   },
   "peerDependencies": {

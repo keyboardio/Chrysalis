@@ -146,12 +146,20 @@ class LayoutEditor extends React.Component {
     let layer = parseInt(this.state.currentLayer),
       keyIndex = parseInt(this.state.currentKeyIndex);
 
-    if (layer < 0) {
-      layer += this.state.keymap.default.length;
-      return this.state.keymap.default[layer][keyIndex].keyCode;
-    }
+    if (this.state.keymap.useCustom) {
+      if (layer < 0) {
+        layer += this.state.keymap.default.length;
+        return this.state.keymap.default[layer][keyIndex].keyCode;
+      }
 
-    return this.state.keymap.custom[layer][keyIndex].keyCode;
+      return this.state.keymap.custom[layer][keyIndex].keyCode;
+    } else {
+      const offset = this.state.keymap.default.length;
+      if (layer < this.state.keymap.default.length)
+        return this.state.keymap.default[layer][keyIndex].keyCode;
+
+      return this.state.keymap.custom[layer - offset][keyIndex].keyCode;
+    }
   }
 
   onKeyChange = keyCode => {
@@ -166,7 +174,10 @@ class LayoutEditor extends React.Component {
 
     this.setState(state => {
       let keymap = state.keymap.custom.slice();
-      keymap[layer][keyIndex] = this.keymapDB.parse(keyCode);
+      const l = state.keymap.useCustom
+        ? layer
+        : layer - state.keymap.default.length;
+      keymap[l][keyIndex] = this.keymapDB.parse(keyCode);
       return {
         keymap: {
           default: state.keymap.default,

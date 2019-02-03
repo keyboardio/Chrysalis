@@ -225,7 +225,7 @@ class LayoutEditor extends React.Component {
   };
 
   onDefaultLayerChange = async event => {
-    const defLayer = event.target.checked ? event.target.value : 127;
+    const defLayer = event.target.checked ? event.target.value : 126;
     this.setState({
       defaultLayer: defLayer
     });
@@ -237,7 +237,7 @@ class LayoutEditor extends React.Component {
   componentDidMount() {
     this.scanKeyboard().then(() => {
       this.setState(state => ({
-        currentLayer: state.defaultLayer == 127 ? 0 : state.defaultLayer
+        currentLayer: state.defaultLayer >= 126 ? 0 : state.defaultLayer
       }));
     });
   }

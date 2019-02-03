@@ -312,9 +312,9 @@ class KeyboardSelect extends React.Component {
     const selectedDevice = devices && devices[this.state.selectedPortIndex];
 
     if (
-      focus._port &&
+      focus.device &&
       selectedDevice &&
-      selectedDevice.comName == focus._port.path
+      selectedDevice.device == focus.device
     ) {
       connectionButton = (
         <Button

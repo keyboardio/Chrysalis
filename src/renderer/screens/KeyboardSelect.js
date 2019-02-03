@@ -17,7 +17,6 @@
 
 import React from "react";
 import PropTypes from "prop-types";
-import { Redirect } from "@reach/router";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -46,6 +45,7 @@ import Hardware from "@chrysalis-api/hardware";
 import usb from "usb";
 
 import i18n from "../i18n";
+import { navigate } from "../routerHistory";
 
 const styles = theme => ({
   loader: {
@@ -115,8 +115,7 @@ class KeyboardSelect extends React.Component {
     selectedPortIndex: 0,
     opening: false,
     devices: null,
-    loading: false,
-    redirect: false
+    loading: false
   };
 
   findNonSerialKeyboards = deviceList => {
@@ -217,7 +216,7 @@ class KeyboardSelect extends React.Component {
 
     try {
       await this.props.onConnect(devices[this.state.selectedPortIndex]);
-      this.setState({ redirect: true });
+      navigate("/layout-editor");
     } catch (err) {
       this.setState({
         opening: false
@@ -363,7 +362,6 @@ class KeyboardSelect extends React.Component {
 
     return (
       <div className={classes.main}>
-        {this.state.redirect ? <Redirect to="/layout-editor" noThrow /> : null}
         <Portal container={this.props.titleElement}>
           {i18n.app.menu.selectAKeyboard}
         </Portal>

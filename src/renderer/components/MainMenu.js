@@ -23,6 +23,7 @@ import FeedbackMenuItem from "./FeedbackMenuItem";
 import ExitMenuItem from "./ExitMenuItem";
 import KeyboardMenuItem from "./KeyboardSelectMenuItem";
 import SettingsMenuItem from "./SettingsMenuItem";
+import openURL from "../utils/openURL";
 
 const styles = theme => ({
   drawer: {
@@ -43,16 +44,14 @@ const styles = theme => ({
   }
 });
 
-function MainMenu({
-  open,
-  closeMenu,
-  openURL,
-  homePage,
-  classes,
-  connected,
-  pages
-}) {
+function MainMenu({ open, closeMenu, classes, connected, pages }) {
   const [currentPage, setCurrentPage] = useState("/keyboard-select");
+
+  const homePage = connected
+    ? pages.keymap
+      ? "/layout-editor"
+      : "/welcome"
+    : "/keyboard-select";
 
   return (
     <Drawer open={open} onClose={closeMenu}>

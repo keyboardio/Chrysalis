@@ -41,9 +41,9 @@ class Focus {
             for (let device of devices) {
                 if (parseInt("0x" + port.productId) == device.usb.productId &&
                     parseInt("0x" + port.vendorId) == device.usb.vendorId) {
-                    port.device = device
-                    if (!found_devices.includes(port))
-                        found_devices.push(port)
+                    let newPort = Object.assign({}, port)
+                    newPort.device = device
+                    found_devices.push(newPort)
                 }
             }
         }

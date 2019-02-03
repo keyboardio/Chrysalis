@@ -20,11 +20,12 @@ import { Raise } from "@chrysalis-api/hardware-dygma-raise"
 import { ErgoDox } from "@chrysalis-api/hardware-ez-ergodox"
 import { Planck } from "@chrysalis-api/hardware-olkb-planck"
 import { KBD4x } from "@chrysalis-api/hardware-kbdfans-kbd4x"
+import { Splitography } from "@chrysalis-api/hardware-softhruf-splitography"
 import { GenericTeensy } from "@chrysalis-api/hardware-pjrc-teensy"
 
 const Hardware = {
-  serial: [Model01, Raise, ErgoDox, Atreus, Planck, KBD4x],
-  nonSerial: [Model01Bootloader, ErgoDox, Atreus, Planck, KBD4x, GenericTeensy]
+  serial: [Model01, Raise, ErgoDox, Atreus, Planck, Splitography, KBD4x],
+  nonSerial: [Model01Bootloader, ErgoDox, Atreus, Planck, Splitography, KBD4x, GenericTeensy]
 }
 
 export { Hardware as default }

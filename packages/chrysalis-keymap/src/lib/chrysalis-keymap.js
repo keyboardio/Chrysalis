@@ -25,6 +25,7 @@ class Keymap {
         if (!instance) {
             instance = this
             this.db = new KeymapDB()
+            this.legacyInterface = false
         }
         instance.setLayerSize(opts)
 
@@ -56,16 +57,40 @@ class Keymap {
             const flatten = (arr) => {
                 return [].concat(...arr)
             }
+
+            if (this.legacyInterface) {
+                const args = flatten(keymap.default.concat(keymap.custom))
+                    .map(k => this.db.serialize(k))
+
+                return await s.request("keymap.map", ...args)
+            }
+
             const args = flatten(keymap.custom)
                 .map(k => this.db.serialize(k))
 
             await s.request("keymap.onlyCustom", keymap.onlyCustom ? "1" : "0")
             return await s.request("keymap.custom", ...args)
         } else {
-            const defaults = await s.request("keymap.default")
-            const custom = await s.request("keymap.custom")
-            const onlyCustom = Boolean(parseInt(await s.request("keymap.onlyCustom")))
+            let defaults, custom, onlyCustom
 
+            if (!this.legacyInterface) {
+                defaults = await s.request("keymap.default")
+                custom = await s.request("keymap.custom")
+                onlyCustom = Boolean(parseInt(await s.request("keymap.onlyCustom")))
+            }
+
+            if (!defaults && !custom) {
+                const keymap = (await s.request("keymap.map"))
+                    .split(" ")
+                    .filter(v => v.length > 0)
+                const roLayers = parseInt(await s.request("keymap.roLayers") || "0")
+
+                defaults = keymap.slice(0, this._layerSize * roLayers).join(" ")
+                custom = keymap.slice(this._layerSize * roLayers, keymap.length).join(" ")
+
+                onlyCustom = false
+                this.legacyInterface = true
+            }
             const defaultKeymap = defaults
                 .split(" ")
                 .filter(v => v.length > 0)

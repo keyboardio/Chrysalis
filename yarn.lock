@@ -741,7 +741,7 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@chrysalis-api/colormap@~0.0.7":
+"@chrysalis-api/colormap@^0.0.7":
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/@chrysalis-api/colormap/-/colormap-0.0.7.tgz#807d3907010c6c78153b7b82445fe3e9df90dd77"
   integrity sha512-EF1mKojhFWT4G9uwh0C2wy4kJbEWpuNssvWE5x4bKAN/3ndZQMva4sfK3AhhspqeaG5Kn5Z8hpsKin2gnSP1JQ==
@@ -827,10 +827,10 @@
     "@chrysalis-api/hardware-pjrc-teensy" "^0.0.3"
     "@chrysalis-api/hardware-technomancy-atreus" "^0.0.12"
 
-"@chrysalis-api/keymap@~0.0.15":
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/keymap/-/keymap-0.0.15.tgz#a141a36840b09ff2a3867e46b7f65d2e3095bcc9"
-  integrity sha512-nvgEFONCBC18P7d9S9K0eUzqUmPhkYkY0SLPg5Y8TjHgoecqoDGmXIm+L9wfgQOKEE7V7HcZ6/eDTaURYtbixw==
+"@chrysalis-api/keymap@^0.0.16":
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/keymap/-/keymap-0.0.16.tgz#1ecb3c57bbe15dfc5575a609b22538859021f163"
+  integrity sha512-kHlIQwZTmPosn/x9ieC/YvLFvYDymYGcg3o2nQwmkdybVRrM1hs3qgVxqHLVg2NV67FQLvA6iQYxUIEn8Zr5yw==
   dependencies:
     "@chrysalis-api/focus" "~0.0.8"
 

@@ -756,17 +756,10 @@
     avrgirl-arduino "^3.0.0"
     teensy-loader "^0.1.1"
 
-"@chrysalis-api/focus@^0.0.9":
+"@chrysalis-api/focus@^0.0.9", "@chrysalis-api/focus@~0.0.8":
   version "0.0.9"
   resolved "https://registry.yarnpkg.com/@chrysalis-api/focus/-/focus-0.0.9.tgz#5ac1ee6a7936f9493a66d785d09d5e268b5e9f8e"
   integrity sha512-/mSGoNmQ0jHf87bAOtgLtNexmHKunbJoLxRd/ZESkJBuNQGw8NC+AMIUuBTlbLIe7MQX1wtUgPXVHaX/zU6AaQ==
-  dependencies:
-    serialport "^6.2.2"
-
-"@chrysalis-api/focus@~0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/focus/-/focus-0.0.8.tgz#9312caba321d33c27ea1a7cca65b9b1081c5192d"
-  integrity sha512-oAUJrKam3voc4+4JUfOyzitlTwDR0opXUry8SbYO6ajHgq8ho1K0PRDYW76tAvLOIHTb2Jo+PmTFuTKdrDStXA==
   dependencies:
     serialport "^6.2.2"
 
@@ -7381,9 +7374,9 @@ no-case@^2.2.0:
     lower-case "^1.1.1"
 
 node-abi@^2.2.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-2.6.0.tgz#3adc69b28b334a0556fbadca378c7d18b8c82397"
-  integrity sha512-kCnEh6af6Z6DB7RFI/7LHNwqRjvJW7rgrv3lhIFoQ/+XhLPI/lJYwsk5vzvkldPWWgqnAMcuPF5S8/jj56kVOA==
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-2.7.0.tgz#e2f814088ab97c85504ae2bacb8f93d5d77cbc2b"
+  integrity sha512-egTtvNoZLMjwxkL/5iiJKYKZgn2im0zP+G+PncMxICYGiD3aZtXUvEsDmu0pF8gpASvLZyD8v53qi1/ELaRZpg==
   dependencies:
     semver "^5.4.1"
 

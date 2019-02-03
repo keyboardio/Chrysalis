@@ -756,6 +756,13 @@
     avrgirl-arduino "^3.0.0"
     teensy-loader "^0.1.1"
 
+"@chrysalis-api/focus@^0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/focus/-/focus-0.0.9.tgz#5ac1ee6a7936f9493a66d785d09d5e268b5e9f8e"
+  integrity sha512-/mSGoNmQ0jHf87bAOtgLtNexmHKunbJoLxRd/ZESkJBuNQGw8NC+AMIUuBTlbLIe7MQX1wtUgPXVHaX/zU6AaQ==
+  dependencies:
+    serialport "^6.2.2"
+
 "@chrysalis-api/focus@~0.0.8":
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/@chrysalis-api/focus/-/focus-0.0.8.tgz#9312caba321d33c27ea1a7cca65b9b1081c5192d"

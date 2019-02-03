@@ -41,6 +41,13 @@ const MediaControlTable = {
             }
         },
         {
+            code: 22711,
+            labels: {
+                top: "Media",
+                primary: "Stop"
+            }
+        },
+        {
             code: 22733,
             labels: {
                 top: "Media",

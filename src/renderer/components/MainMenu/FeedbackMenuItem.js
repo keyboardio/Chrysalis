@@ -19,16 +19,16 @@ import React from "react";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-import i18n from "../i18n";
+import FeedbackIcon from "@material-ui/icons/Feedback";
+import i18n from "../../i18n";
 
-export default function FlashMenuItem({ selected, onClick }) {
+export default function FeedbackMenuItem({ onClick }) {
   return (
-    <ListItem button selected={selected} onClick={onClick}>
+    <ListItem button onClick={onClick}>
       <ListItemIcon>
-        <CloudUploadIcon />
+        <FeedbackIcon />
       </ListItemIcon>
-      <ListItemText primary={i18n.app.menu.firmwareUpdate} />
+      <ListItemText primary={i18n.app.menu.feedback} />
     </ListItem>
   );
 }

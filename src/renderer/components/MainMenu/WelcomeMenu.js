@@ -19,16 +19,16 @@ import React from "react";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import FeedbackIcon from "@material-ui/icons/Feedback";
-import i18n from "../i18n";
+import InfoIcon from "@material-ui/icons/Info";
+import i18n from "../../i18n";
 
-export default function FeedbackMenuItem({ onClick }) {
+export default function WelcomeMenu({ selected, onClick }) {
   return (
-    <ListItem button onClick={onClick}>
+    <ListItem button selected={selected} onClick={onClick}>
       <ListItemIcon>
-        <FeedbackIcon />
+        <InfoIcon />
       </ListItemIcon>
-      <ListItemText primary={i18n.app.menu.feedback} />
+      <ListItemText primary={i18n.app.menu.welcome} />
     </ListItem>
   );
 }

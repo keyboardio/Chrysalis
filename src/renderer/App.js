@@ -106,9 +106,9 @@ class App extends React.Component {
       this.setState({
         connected: false,
         device: null,
-        pages: {},
-        Page: KeyboardSelect
+        pages: {}
       });
+      navigate("/keyboard-select");
     }
   };
 
@@ -119,9 +119,9 @@ class App extends React.Component {
       this.setState({
         connected: true,
         pages: {},
-        Page: Welcome,
         device: port.device
       });
+      navigate("./welcome");
       return;
     }
 

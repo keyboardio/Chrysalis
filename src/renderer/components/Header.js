@@ -32,7 +32,7 @@ import { withStyles } from "@material-ui/core/styles";
 
 import i18n from "../i18n";
 import BoardMenu from "./BoardMenu";
-import MainMenu from "./MainMenu";
+import MainMenu from "./MainMenu/MainMenu";
 
 const styles = theme => ({
   pageMenu: {

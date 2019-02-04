@@ -10,10 +10,10 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { withStyles } from "@material-ui/core/styles";
 
-import logo from "../logo-small.png";
-import i18n from "../i18n";
+import logo from "../../logo-small.png";
+import i18n from "../../i18n";
 
-import { version } from "../../../package.json";
+import { version } from "../../../../package.json";
 import WelcomeMenu from "./WelcomeMenu";
 import KeymapMenuItem from "./KeymapMenuItem";
 import ColormapMenuItem from "./ColormapMenuItem";
@@ -23,7 +23,7 @@ import FeedbackMenuItem from "./FeedbackMenuItem";
 import ExitMenuItem from "./ExitMenuItem";
 import KeyboardMenuItem from "./KeyboardSelectMenuItem";
 import SettingsMenuItem from "./SettingsMenuItem";
-import openURL from "../utils/openURL";
+import openURL from "../../utils/openURL";
 
 const styles = theme => ({
   drawer: {

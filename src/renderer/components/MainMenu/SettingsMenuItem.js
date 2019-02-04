@@ -19,16 +19,16 @@ import React from "react";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import i18n from "../i18n";
+import SettingsIcon from "@material-ui/icons/Settings";
+import i18n from "../../i18n";
 
-export default function ExitMenuItem({ onClick }) {
+export default function SettingsMenuItem({ selected, onClick }) {
   return (
-    <ListItem button onClick={onClick}>
+    <ListItem button selected={selected} onClick={onClick}>
       <ListItemIcon>
-        <ExitToAppIcon />
+        <SettingsIcon />
       </ListItemIcon>
-      <ListItemText primary={i18n.app.menu.exit} />
+      <ListItemText primary={i18n.app.menu.settings} />
     </ListItem>
   );
 }

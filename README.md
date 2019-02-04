@@ -2,7 +2,16 @@ Chrysalis
 =========
 
 ![Chrysalis screenshot](data/screenshot.png)
+
 [![](https://img.shields.io/github/release-pre/keyboardio/Chrysalis.svg?style=for-the-badge)](https://github.com/keyboardio/Chrysalis/releases)
+
+[![Latest Linux build][badge:appimage]][build:appimage]
+[![Latest OSX build][badge:dmg]][build:dmg]
+
+ [badge:appimage]: https://img.shields.io/badge/AppImage-latest-blue.svg?logo=linux&style=for-the-badge&logoColor=ffffff
+ [badge:dmg]: https://img.shields.io/badge/dmg-latest-blue.svg?logo=apple&style=for-the-badge&logoColor=ffffff
+ [build:appimage]: http://kaleidoscope-builds.s3-website-us-west-2.amazonaws.com/Chrysalis/latest/Chrysalis.AppImage
+ [build:dmg]: http://kaleidoscope-builds.s3-website-us-west-2.amazonaws.com/Chrysalis/latest/Chrysalis.dmg
 
 Chrysalis is a graphical configurator for [Kaleidoscope][kaleidoscope]-powered
 keyboards. While still heavily under development, it's at a stage where it is

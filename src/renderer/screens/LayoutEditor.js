@@ -146,7 +146,7 @@ class LayoutEditor extends React.Component {
     let layer = parseInt(this.state.currentLayer),
       keyIndex = parseInt(this.state.currentKeyIndex);
 
-    if (this.state.keymap.useCustom) {
+    if (this.state.keymap.onlyCustom) {
       if (layer < 0) {
         layer += this.state.keymap.default.length;
         return this.state.keymap.default[layer][keyIndex].keyCode;
@@ -174,7 +174,7 @@ class LayoutEditor extends React.Component {
 
     this.setState(state => {
       let keymap = state.keymap.custom.slice();
-      const l = state.keymap.useCustom
+      const l = state.keymap.onlyCustom
         ? layer
         : layer - state.keymap.default.length;
       keymap[l][keyIndex] = this.keymapDB.parse(keyCode);

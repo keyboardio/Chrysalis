@@ -32,8 +32,8 @@ import { withStyles } from "@material-ui/core/styles";
 
 import { withSnackbar } from "notistack";
 
-import FirmwareUpdate from "./FirmwareUpdate";
 import i18n from "../i18n";
+import { navigate } from "../routerHistory";
 
 const styles = theme => ({
   root: {
@@ -125,9 +125,7 @@ class Welcome extends React.Component {
             <Button
               color="primary"
               variant="outlined"
-              onClick={() => {
-                this.props.openPage(FirmwareUpdate);
-              }}
+              onClick={navigate("/firmware-update")}
             >
               {i18n.formatString(
                 i18n.welcome.gotoUpdate,

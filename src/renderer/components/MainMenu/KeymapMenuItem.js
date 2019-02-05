@@ -16,27 +16,19 @@
  */
 
 import React from "react";
-import Electron from "electron";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import KeyboardIcon from "@material-ui/icons/Keyboard";
+import i18n from "../../i18n";
 
-import MenuItem from "@material-ui/core/MenuItem";
-
-import i18n from "../i18n";
-
-const openURL = (url, closeMenu) => {
-  const shell = Electron.remote && Electron.remote.shell;
-
-  if (!shell) return;
-
-  return () => {
-    shell.openExternal(url);
-    closeMenu();
-  };
-};
-
-export default function BoardMenuItem({ url: { url, name }, closeMenu }) {
+export default function KeymapMenuItem({ selected, onClick }) {
   return (
-    <MenuItem key={name} onClick={openURL(url, closeMenu)}>
-      {i18n.app.deviceMenu[name] || name}
-    </MenuItem>
+    <ListItem button selected={selected} onClick={onClick}>
+      <ListItemIcon>
+        <KeyboardIcon />
+      </ListItemIcon>
+      <ListItemText primary={i18n.app.menu.layoutEditor} />
+    </ListItem>
   );
 }

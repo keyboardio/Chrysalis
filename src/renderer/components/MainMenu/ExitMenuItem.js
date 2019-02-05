@@ -16,18 +16,19 @@
  */
 
 import React from "react";
-import Button from "@material-ui/core/Button";
-import i18n from "../i18n";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import i18n from "../../i18n";
 
-export default function DeviceMenu({ openBoardMenu, device }) {
+export default function ExitMenuItem({ onClick }) {
   return (
-    <Button
-      onClick={openBoardMenu}
-      disabled={!device.urls}
-      color="inherit"
-      className="button"
-    >
-      {i18n.app.device}: {device.displayName}
-    </Button>
+    <ListItem button onClick={onClick}>
+      <ListItemIcon>
+        <ExitToAppIcon />
+      </ListItemIcon>
+      <ListItemText primary={i18n.app.menu.exit} />
+    </ListItem>
   );
 }

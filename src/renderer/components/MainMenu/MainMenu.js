@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- import React, { useState } from "react";
+import React, { useState } from "react";
 import Electron from "electron";
 import { Link } from "@reach/router";
 

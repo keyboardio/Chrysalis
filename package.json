@@ -53,6 +53,7 @@
     "@reach/router": "^1.2.1",
     "classnames": "^2.2.6",
     "electron-devtools-installer": "^2.2.4",
+    "electron-settings": "^3.2.0",
     "notistack": "^0.4.0",
     "prop-types": "^15.6.2",
     "react": "16.8.0-alpha.1",

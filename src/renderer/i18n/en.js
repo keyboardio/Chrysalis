@@ -78,8 +78,6 @@ const English = {
       Blank: "Blank",
       "Unknown keycodes": "Unknown keycodes"
     },
-    useCustom: "Use custom layers only",
-    defaultLayer: "Default layer",
     clearLayer: "Clear layer...",
     copyFrom: "Copy from layer...",
     dualUse: "Modifier when held, normal key otherwise",
@@ -93,7 +91,14 @@ const English = {
     devtools: "Developer tools",
     language: "Language",
     interface: "Interface",
-    advanced: "Advanced"
+    advanced: "Advanced",
+    keymap: {
+      title: "Keymap settings",
+      noDefault: "No default",
+      showDefaults: "Show default layers",
+      onlyCustom: "Use custom layers only",
+      defaultLayer: "Default layer"
+    }
   },
   keyboardSelect: {
     unknown: "Unknown",

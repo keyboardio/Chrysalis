@@ -78,8 +78,6 @@ const Hungarian = {
       Blank: "Üres gombok",
       "Unknown keycodes": "Ismeretlen kódok"
     },
-    useCustom: "Kizárólag testreszabott rétegek használata",
-    defaultLayer: "Alapértelmezett réteg",
     clearLayer: "Réteg ürítése...",
     copyFrom: "Réteg másolás máshonnan...",
     dualUse: "Nyomvatartáskor módosító, normál gomb egyébként",
@@ -93,7 +91,14 @@ const Hungarian = {
     devtools: "Fejlesztői eszközök",
     language: "Nyelv",
     interface: "Felhasználói felület",
-    advanced: "Haladó beállítások"
+    advanced: "Haladó beállítások",
+    keymap: {
+      title: "Kiosztás beállításai",
+      noDefault: "Nincs alapértelmezett réteg",
+      showDefaults: "Beépített rétegek mutatása",
+      onlyCustom: "Kizárólag testreszabott rétegek használata",
+      defaultLayer: "Alapértelmezett réteg"
+    }
   },
   keyboardSelect: {
     unknown: "Ismeretlen",

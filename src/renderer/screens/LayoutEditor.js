@@ -19,11 +19,9 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import Collapse from "@material-ui/core/Collapse";
-import Divider from "@material-ui/core/Divider";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Fade from "@material-ui/core/Fade";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import IconButton from "@material-ui/core/IconButton";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import LockIcon from "@material-ui/icons/Lock";
@@ -32,13 +30,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import MoreVerticalIcon from "@material-ui/icons/MoreVert";
 import Portal from "@material-ui/core/Portal";
 import Slide from "@material-ui/core/Slide";
-import Switch from "@material-ui/core/Switch";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
-import ToggleButton from "@material-ui/lab/ToggleButton";
 import Toolbar from "@material-ui/core/Toolbar";
-import VisibilityIcon from "@material-ui/icons/Visibility";
-import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import { withStyles } from "@material-ui/core/styles";
 
 import { withSnackbar } from "notistack";
@@ -49,6 +43,7 @@ import { KeymapDB } from "@chrysalis-api/keymap";
 import KeySelector from "./LayoutEditor/KeySelector";
 import SaveChangesButton from "../components/SaveChangesButton";
 import i18n from "../i18n";
+import settings from "electron-settings";
 
 const styles = theme => ({
   tabs: {
@@ -67,9 +62,6 @@ const styles = theme => ({
   },
   layerItem: {
     paddingLeft: theme.spacing.unit * 4
-  },
-  defaultLayer: {
-    whiteSpace: "nowrap"
   },
   tabWrapper: {
     flexDirection: "row",
@@ -96,8 +88,7 @@ class LayoutEditor extends React.Component {
       custom: [],
       default: [],
       onlyCustom: false
-    },
-    showDefaults: true
+    }
   };
   keymapDB = new KeymapDB();
 
@@ -224,16 +215,6 @@ class LayoutEditor extends React.Component {
     this.props.cancelContext();
   };
 
-  onDefaultLayerChange = async event => {
-    const defLayer = event.target.checked ? event.target.value : 126;
-    this.setState({
-      defaultLayer: defLayer
-    });
-    let focus = new Focus();
-    focus.command("settings.defaultLayer", defLayer);
-    console.log("default layer set to", defLayer);
-  };
-
   componentDidMount() {
     this.scanKeyboard().then(() => {
       this.setState(state => ({
@@ -322,63 +303,13 @@ class LayoutEditor extends React.Component {
     });
   };
 
-  toggleShowDefaults = () => {
-    this.setState(state => {
-      let newCurrentLayer = state.currentLayer;
-      if (state.keymap.onlyCustom) {
-        if (newCurrentLayer < 0) newCurrentLayer = 0;
-      } else {
-        if (newCurrentLayer < state.keymap.default.length)
-          newCurrentLayer = state.keymap.default.length;
-      }
-
-      return {
-        currentLayer: newCurrentLayer,
-        showDefaults: !state.showDefaults
-      };
-    });
-  };
-
-  toggleUseCustom = async event => {
-    let focus = new Focus();
-
-    event.preventDefault();
-
-    const onlyCustom = !this.state.keymap.onlyCustom;
-    await focus.command("keymap.onlyCustom", onlyCustom);
-
-    this.setState(state => {
-      let newCurrentLayer = state.currentLayer;
-      if (!onlyCustom) {
-        newCurrentLayer = newCurrentLayer + state.keymap.default.length;
-      } else {
-        newCurrentLayer = newCurrentLayer - state.keymap.default.length;
-      }
-
-      return {
-        currentLayer: newCurrentLayer,
-        moreAnchorEl: null,
-        keymap: {
-          custom: state.keymap.custom,
-          default: state.keymap.default,
-          onlyCustom: onlyCustom
-        }
-      };
-    });
-  };
-
   render() {
     const { classes } = this.props;
-    const {
-      currentLayer,
-      defaultLayer,
-      moreAnchorEl,
-      keymap,
-      showDefaults
-    } = this.state;
+    const { currentLayer, moreAnchorEl, keymap } = this.state;
 
     let focus = new Focus();
     const Layer = focus.device.components.keymap;
+    const showDefaults = settings.get("keymap.showDefaults");
 
     let layerData, isReadOnly;
     if (keymap.onlyCustom) {
@@ -455,22 +386,6 @@ class LayoutEditor extends React.Component {
 
     let tabs = (defaultTabs || []).concat(customTabs);
 
-    const defaultLayerSwitch = (
-      <FormControlLabel
-        className={classes.defaultLayer}
-        label={i18n.layoutEditor.defaultLayer}
-        control={
-          <Switch
-            disabled={currentLayer < 0}
-            checked={currentLayer == defaultLayer}
-            onChange={this.onDefaultLayerChange}
-            value={currentLayer}
-            color="secondary"
-          />
-        }
-      />
-    );
-
     const copyCustomItems = this.state.keymap.custom.map((_, index) => {
       const idx = index + (keymap.onlyCustom ? 0 : keymap.default.length);
       const label = i18n.formatString(i18n.components.layer, idx),
@@ -509,7 +424,6 @@ class LayoutEditor extends React.Component {
     const copyMenuExpanded =
       this.state.copyMenuExpanded && this.state.currentLayer >= 0;
 
-    const useCustomSwitch = <Switch checked={keymap.onlyCustom} />;
     const moreMenu = (
       <React.Fragment>
         <IconButton onClick={this.moreMenu}>
@@ -533,13 +447,6 @@ class LayoutEditor extends React.Component {
             {copyMenuExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </MenuItem>
           <Collapse in={copyMenuExpanded}>{copyItems}</Collapse>
-          <Divider />
-          <MenuItem onClick={this.toggleUseCustom}>
-            <FormControlLabel
-              control={useCustomSwitch}
-              label={i18n.layoutEditor.useCustom}
-            />
-          </MenuItem>
         </Menu>
       </React.Fragment>
     );
@@ -551,13 +458,6 @@ class LayoutEditor extends React.Component {
         </Portal>
         <Portal container={this.props.appBarElement}>
           <Toolbar>
-            <ToggleButton
-              onClick={this.toggleShowDefaults}
-              selected={showDefaults}
-              value="showDefaults"
-            >
-              {showDefaults ? <VisibilityIcon /> : <VisibilityOffIcon />}
-            </ToggleButton>
             <Tabs
               className={classes.tabs}
               value={this.state.currentLayer}
@@ -567,7 +467,6 @@ class LayoutEditor extends React.Component {
             >
               {tabs}
             </Tabs>
-            {defaultLayerSwitch}
             {moreMenu}
           </Toolbar>
         </Portal>

@@ -7,11 +7,14 @@ Chrysalis
 
 [![Latest Linux build][badge:appimage]][build:appimage]
 [![Latest OSX build][badge:dmg]][build:dmg]
+[![Latest Windows build][badge:exe]][build:exe]
 
  [badge:appimage]: https://img.shields.io/badge/AppImage-latest-blue.svg?logo=linux&style=for-the-badge&logoColor=ffffff
  [badge:dmg]: https://img.shields.io/badge/dmg-latest-blue.svg?logo=apple&style=for-the-badge&logoColor=ffffff
+ [badge:exe]: https://img.shields.io/badge/exe-latest-blue.svg?logo=windows&style=for-the-badge&logoColor=ffffff
  [build:appimage]: http://kaleidoscope-builds.s3-website-us-west-2.amazonaws.com/Chrysalis/latest/Chrysalis.AppImage
  [build:dmg]: http://kaleidoscope-builds.s3-website-us-west-2.amazonaws.com/Chrysalis/latest/Chrysalis.dmg
+ [build:exe]: http://kaleidoscope-builds.s3-website-us-west-2.amazonaws.com/Chrysalis/latest/Chrysalis.exe
 
 Chrysalis is a graphical configurator for [Kaleidoscope][kaleidoscope]-powered
 keyboards. While still heavily under development, it's at a stage where it is

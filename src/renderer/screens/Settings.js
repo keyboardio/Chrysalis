@@ -23,9 +23,12 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Collapse from "@material-ui/core/Collapse";
+import Divider from "@material-ui/core/Divider";
 import FilledInput from "@material-ui/core/FilledInput";
+import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Portal from "@material-ui/core/Portal";
@@ -34,7 +37,12 @@ import Switch from "@material-ui/core/Switch";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
+import Focus from "@chrysalis-api/focus";
+
+import SaveChangesButton from "../components/SaveChangesButton";
 import i18n from "../i18n";
+
+import settings from "electron-settings";
 
 const styles = theme => ({
   root: {
@@ -48,10 +56,17 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit
   },
   control: {
-    width: "100%"
+    display: "flex",
+    marginRight: theme.spacing.unit * 2
+  },
+  group: {
+    display: "block"
   },
   grow: {
     flexGrow: 1
+  },
+  flex: {
+    display: "flex"
   },
   select: {
     paddingTop: theme.spacing.unit * 1,
@@ -73,7 +88,15 @@ const styles = theme => ({
 class Settings extends React.Component {
   state = {
     devTools: false,
-    advanced: false
+    advanced: false,
+    keymap: {
+      custom: [],
+      default: [],
+      onlyCustom: false
+    },
+    defaultLayer: 126,
+    modified: false,
+    showDefaults: false
   };
 
   componentDidMount() {
@@ -84,6 +107,19 @@ class Settings extends React.Component {
     });
     webContents.on("devtools-closed", () => {
       this.setState({ devTools: false });
+    });
+
+    const focus = new Focus();
+    focus.command("keymap").then(keymap => {
+      this.setState({ keymap: keymap });
+    });
+    focus.command("settings.defaultLayer").then(layer => {
+      layer = layer ? parseInt(layer) : 126;
+      this.setState({ defaultLayer: layer <= 126 ? layer : 126 });
+    });
+
+    this.setState({
+      showDefaults: settings.get("keymap.showDefaults")
     });
   }
 
@@ -105,6 +141,43 @@ class Settings extends React.Component {
     this.setState(state => ({
       advanced: !state.advanced
     }));
+  };
+
+  setOnlyCustom = event => {
+    const checked = event.target.checked;
+    this.setState(state => ({
+      modified: true,
+      keymap: {
+        custom: state.keymap.custom,
+        default: state.keymap.default,
+        onlyCustom: checked
+      }
+    }));
+  };
+
+  selectDefaultLayer = event => {
+    this.setState({
+      defaultLayer: event.target.value,
+      modified: true
+    });
+  };
+
+  setShowDefaults = event => {
+    this.setState({
+      showDefaults: event.target.checked,
+      modified: true
+    });
+  };
+
+  saveKeymapChanges = async () => {
+    const focus = new Focus();
+
+    const { keymap, defaultLayer, showDefaults } = this.state;
+
+    await focus.command("keymap.onlyCustom", keymap.onlyCustom);
+    await focus.command("settings.defaultLayer", defaultLayer);
+    settings.set("keymap.showDefaults", showDefaults);
+    this.setState({ modified: false });
   };
 
   render() {
@@ -136,6 +209,100 @@ class Settings extends React.Component {
         onChange={this.toggleDevTools}
         value="devtools"
       />
+    );
+
+    const { keymap, defaultLayer, modified, showDefaults } = this.state;
+    const onlyCustomSwitch = (
+      <Switch
+        checked={keymap.onlyCustom}
+        value="onlyCustom"
+        onClick={this.setOnlyCustom}
+      />
+    );
+    const showDefaultLayersSwitch = (
+      <Switch
+        checked={showDefaults}
+        value="showDefaults"
+        onClick={this.setShowDefaults}
+      />
+    );
+    let layers;
+    if (keymap.onlyCustom) {
+      layers = keymap.custom.map((_, index) => {
+        return (
+          <MenuItem value={index} key={index}>
+            {i18n.formatString(i18n.components.layer, index)}
+          </MenuItem>
+        );
+      });
+    } else {
+      layers = keymap.default.concat(keymap.custom).map((_, index) => {
+        return (
+          <MenuItem value={index} key={index}>
+            {i18n.formatString(i18n.components.layer, index)}
+          </MenuItem>
+        );
+      });
+    }
+    const defaultLayerSelect = (
+      <Select
+        onChange={this.selectDefaultLayer}
+        value={defaultLayer}
+        variant="filled"
+        input={<FilledInput classes={{ input: classes.select }} />}
+      >
+        <MenuItem value={126}>{i18n.settings.keymap.noDefault}</MenuItem>
+        {layers}
+      </Select>
+    );
+    const focus = new Focus();
+    const keymapSettings = focus._port && (
+      <React.Fragment>
+        <Typography
+          variant="subtitle1"
+          component="h2"
+          className={classes.title}
+        >
+          {i18n.settings.keymap.title}
+        </Typography>
+        <Card>
+          <CardContent>
+            <FormControl className={classes.group}>
+              <FormControlLabel
+                className={classes.control}
+                control={showDefaultLayersSwitch}
+                classes={{ label: classes.grow }}
+                labelPlacement="start"
+                label={i18n.settings.keymap.showDefaults}
+              />
+              <Divider />
+              <FormControlLabel
+                className={classes.control}
+                control={onlyCustomSwitch}
+                classes={{ label: classes.grow }}
+                labelPlacement="start"
+                label={i18n.settings.keymap.onlyCustom}
+              />
+              <FormControlLabel
+                className={classes.control}
+                classes={{ label: classes.grow }}
+                control={defaultLayerSelect}
+                labelPlacement="start"
+                label={i18n.settings.keymap.defaultLayer}
+              />
+            </FormControl>
+          </CardContent>
+          <CardActions className={classes.flex}>
+            <span className={classes.grow} />
+            <SaveChangesButton
+              onClick={this.saveKeymapChanges}
+              disabled={!modified}
+            >
+              {i18n.components.save.saveChanges}
+            </SaveChangesButton>
+          </CardActions>
+        </Card>
+      </React.Fragment>
     );
 
     return (
@@ -186,6 +353,7 @@ class Settings extends React.Component {
               />
             </CardContent>
           </Card>
+          {keymapSettings}
         </Collapse>
       </div>
     );

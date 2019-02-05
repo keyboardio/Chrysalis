@@ -14,9 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-button {
-    margin-left: 0.5em;
-    margin-right: 0.5em;
+ button {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
 }
 
 .layer {
@@ -25,36 +25,7 @@ button {
   font-weight: 700;
   min-width: 550px;
   min-height: 280px;
-}
-
-@media (min-width: 1024px) {
-    .layer {
-        width: 640px;
-    }
-}
-
-@meida (min-width: 1280px) {
-    .layer {
-        width: 840px;
-    }
-}
-
-@media (min-width: 1440px) {
-    .layer {
-        width: 1000px;
-    }
-}
-
-@media (min-width: 1600px) {
-    .layer {
-        width: 1160px;
-    }
-}
-
-@media (min-width: 1920px) {
-    .layer {
-        width: 1440px;
-    }
+  max-width: 85%;
 }
 
 .extraKey {
@@ -66,63 +37,63 @@ button {
 }
 
 .dim {
-    color: #888;
+  color: #888;
 }
 
 .layer-selection {
-    display: flex;
-    margin-bottom: 1em;
-    padding-bottom: 0.5em;
-    border-bottom: 1px solid black;
+  display: flex;
+  margin-bottom: 1em;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid black;
 }
 
 .layer-selection > label {
-    margin-top: auto;
-    margin-bottom: auto;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .layer-selection > div {
-    width: 8em;
-    margin-left: 1em;
-    margin-right: 1em;
+  width: 8em;
+  margin-left: 1em;
+  margin-right: 1em;
 }
 
 .keylist {
-    height: 384px;
-    overflow-y: scroll;
+  height: 384px;
+  overflow-y: scroll;
 }
 
 .select-keycode input {
-    line-height: 1.5;
-    font-size: 18px;
-    height: auto;
-    padding-left: 20px;
-    margin-bottom: 0;
-    width: -webkit-fill-available;
+  line-height: 1.5;
+  font-size: 18px;
+  height: auto;
+  padding-left: 20px;
+  margin-bottom: 0;
+  width: -webkit-fill-available;
 }
 
 .select-keycode ul {
-    margin: 0;
+  margin: 0;
 }
 
 .select-keycode ul li {
-    list-style: none;
-    border: 1px solid #ccc;
-    margin-top: -1px;
-    line-height: 2;
-    padding: 5px 20px;
-    background: #f8f8f8;
+  list-style: none;
+  border: 1px solid #ccc;
+  margin-top: -1px;
+  line-height: 2;
+  padding: 5px 20px;
+  background: #f8f8f8;
 }
 
 .select-keycode ul li:hover {
-    cursor: pointer;
-    background: #ef5022;
+  cursor: pointer;
+  background: #ef5022;
 }
 
 .select-keycode ul li em {
-    color: #888;
+  color: #888;
 }
 
 .select-keycode ul li.highlight {
-    font-weight: bold;
+  font-weight: bold;
 }

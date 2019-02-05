@@ -16,7 +16,6 @@
  */
 
 import React from "react";
-import Electron from "electron";
 import { spawn } from "child_process";
 
 import Focus from "@chrysalis-api/focus";
@@ -24,20 +23,9 @@ import "@chrysalis-api/keymap";
 import "@chrysalis-api/colormap";
 import "typeface-roboto/index.css";
 import "typeface-source-code-pro/index.css";
+import { LocationProvider, Router } from "@reach/router";
 
-import AppBar from "@material-ui/core/AppBar";
-import Button from "@material-ui/core/Button";
-import CloseIcon from "@material-ui/icons/Close";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Divider from "@material-ui/core/Divider";
-import Drawer from "@material-ui/core/Drawer";
-import IconButton from "@material-ui/core/IconButton";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import MenuIcon from "@material-ui/icons/Menu";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 import usb from "usb";
@@ -49,25 +37,14 @@ import FirmwareUpdate from "./screens/FirmwareUpdate";
 import LayoutEditor from "./screens/LayoutEditor";
 import Settings from "./screens/Settings";
 import Welcome from "./screens/Welcome";
-import logo from "./logo-small.png";
 import i18n from "./i18n";
 
-import { version } from "../../package.json";
-import DeviceMenu from "./components/DeviceMenu";
-import BoardMenu from "./components/BoardMenu";
-import WelcomeMenu from "./components/WelcomeMenu";
-import KeymapMenuItem from "./components/KeymapMenuItem";
-import ColormapMenuItem from "./components/ColormapMenuItem";
-import FlashMenuItem from "./components/FlashMenuItem";
-import ChatMenuItem from "./components/ChatMenuItem";
-import FeedbackMenuItem from "./components/FeedbackMenuItem";
-import ExitMenuItem from "./components/ExitMenuItem";
-import KeyboardMenuItem from "./components/KeyboardSelectMenuItem";
-import SettingsMenuItem from "./components/SettingsMenuItem";
+import Header from "./components/Header";
+import { history, navigate } from "./routerHistory";
 
 let focus = new Focus();
 
-const styles = theme => ({
+const styles = () => ({
   root: {
     display: "flex",
     flexDirection: "column"
@@ -75,29 +52,6 @@ const styles = theme => ({
   content: {
     flexGrow: 1,
     overflow: "auto"
-  },
-  pageMenu: {
-    marginLeft: theme.spacing.unit * 2
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20
-  },
-  grow: {
-    flexGrow: 1
-  },
-  drawer: {
-    width: 350
-  },
-  version: {
-    textAlign: "right"
-  },
-  toolbarIcon: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "0 8px",
-    ...theme.mixins.toolbar
   }
 });
 
@@ -106,19 +60,16 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      boardAnchor: null,
-      pageMenu: false,
       connected: false,
       device: null,
       pages: {},
-      contextBar: false,
-      Page: KeyboardSelect
+      contextBar: false
     };
   }
   flashing = false;
 
   componentDidMount() {
-    usb.on("detach", device => {
+    usb.on("detach", async device => {
       if (!focus.device) return;
       if (this.flashing) return;
 
@@ -129,6 +80,10 @@ class App extends React.Component {
         return;
       }
 
+      // Must await this to stop re-render of components reliant on `focus.device`
+      // However, it only renders a blank screen. New route is rendered below.
+      await navigate("./");
+
       if (!focus._port.isOpen) {
         this.props.enqueueSnackbar(i18n.errors.deviceDisconnected, {
           variant: "warning"
@@ -137,9 +92,10 @@ class App extends React.Component {
         this.setState({
           connected: false,
           device: null,
-          pages: {},
-          Page: KeyboardSelect
+          pages: {}
         });
+        // Second call to `navigate` will actually render the proper route
+        navigate("/keyboard-select");
       }
     });
   }
@@ -150,9 +106,9 @@ class App extends React.Component {
       this.setState({
         connected: false,
         device: null,
-        pages: {},
-        Page: KeyboardSelect
+        pages: {}
       });
+      navigate("/keyboard-select");
     }
   };
 
@@ -163,9 +119,9 @@ class App extends React.Component {
       this.setState({
         connected: true,
         pages: {},
-        Page: Welcome,
         device: port.device
       });
+      navigate("./welcome");
       return;
     }
 
@@ -194,13 +150,11 @@ class App extends React.Component {
         colormap:
           commands.includes("colormap.map") > 0 &&
           commands.includes("palette") > 0
-      },
-      Page:
-        commands.includes("keymap.custom") > 0 ||
-        commands.includes("keymap.map") > 0
-          ? LayoutEditor
-          : Welcome
+      }
     });
+    navigate(
+      commands.includes("keymap.custom") > 0 ? "./layout-editor" : "./welcome"
+    );
   };
 
   onKeyboardDisconnect = () => {
@@ -208,64 +162,9 @@ class App extends React.Component {
     this.setState({
       connected: false,
       device: null,
-      pages: {},
-      Page: KeyboardSelect
+      pages: {}
     });
-  };
-
-  boardMenu = event => {
-    this.setState({ boardAnchor: event.currentTarget });
-  };
-
-  boardClose = () => {
-    this.setState({ boardAnchor: null });
-  };
-
-  pageMenu = () => {
-    this.setState({ pageMenu: true });
-  };
-
-  closePageMenu = () => {
-    this.setState({ pageMenu: false });
-  };
-
-  welcomeMenuOnClick = () => {
-    this.setState({ Page: Welcome });
-  };
-
-  keymapMenuItemOnClick = () => {
-    this.setState({ Page: LayoutEditor });
-  };
-
-  colormapMenuItemOnClick = () => {
-    this.setState({ Page: ColormapEditor });
-  };
-
-  flashMenuItemOnClick = () => {
-    this.setState({ Page: FirmwareUpdate });
-  };
-
-  keyboardMenuItemOnClick = () => {
-    this.setState({ Page: KeyboardSelect });
-  };
-
-  settingsMenuItemOnClick = () => {
-    this.setState({ Page: Settings });
-  };
-
-  openURL = url => {
-    const shell = Electron.remote && Electron.remote.shell;
-
-    if (!shell) return;
-
-    return () => {
-      shell.openExternal(url);
-      this.boardClose();
-    };
-  };
-
-  openPage = page => {
-    this.setState({ Page: page });
+    navigate("/keyboard-select");
   };
 
   cancelContext = () => {
@@ -277,148 +176,70 @@ class App extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { connected, pages, Page, contextBar } = this.state;
+    const { connected, pages, contextBar } = this.state;
 
-    let focus = new Focus(),
-      device =
-        (focus.device && focus.device.info) ||
-        (this.state.device && this.state.device.info);
-
-    const homePage = connected
-      ? this.state.pages.keymap
-        ? LayoutEditor
-        : Welcome
-      : KeyboardSelect;
+    let focus = new Focus();
+    let device =
+      (focus.device && focus.device.info) ||
+      (this.state.device && this.state.device.info);
 
     return (
       <div className={classes.root}>
-        <CssBaseline />
-        <AppBar
-          position="static"
-          color={contextBar ? "primary" : "inherit"}
-          id="appbar"
-        >
-          <Toolbar variant="dense">
-            <Button
-              className={classes.menuButton}
-              color="inherit"
-              onClick={contextBar ? this.cancelContext : this.pageMenu}
-            >
-              {contextBar ? <CloseIcon /> : <MenuIcon />}
-              <Typography
-                variant="h6"
-                color="inherit"
-                className={classes.pageMenu}
-                id="page-title"
-              />
-            </Button>
-            <div className={classes.grow} />
-            {device && (
-              <DeviceMenu openBoardMenu={this.boardMenu} device={device} />
-            )}
-            {device && device.urls && (
-              <BoardMenu
-                boardAnchor={this.state.boardAnchor}
-                boardClose={this.boardClose}
-                device={device}
-              />
-            )}
-          </Toolbar>
-        </AppBar>
-        <main className={classes.content}>
-          <Page
-            device={this.state.device}
-            appBarElement={() => document.querySelector("#appbar")}
-            titleElement={() => document.querySelector("#page-title")}
-            onConnect={this.onKeyboardConnect}
-            onDisconnect={this.onKeyboardDisconnect}
-            openPage={this.openPage}
-            toggleFlashing={this.toggleFlashing}
-            inContext={this.state.contextBar}
-            startContext={this.startContext}
+        <LocationProvider history={history}>
+          <CssBaseline />
+          <Header
+            contextBar={contextBar}
+            connected={connected}
+            pages={pages}
+            device={device}
             cancelContext={this.cancelContext}
           />
-        </main>
-        <Drawer open={this.state.pageMenu} onClose={this.closePageMenu}>
-          <div
-            onClick={this.closePageMenu}
-            role="button"
-            onKeyDown={this.closePageMenu}
-          >
-            <div className={classes.toolbarIcon}>
-              <IconButton
-                onClick={() => {
-                  this.openPage(homePage);
-                }}
-              >
-                <img src={logo} />
-              </IconButton>
-            </div>
-            <List className={classes.drawer}>
-              {connected && !pages.keymap && !pages.colormap && (
-                <WelcomeMenu
-                  selected={this.state.Page == Welcome}
-                  onClick={this.welcomeMenuOnClick}
-                />
-              )}
-              {pages.keymap && (
-                <KeymapMenuItem
-                  selected={this.state.Page == LayoutEditor}
-                  onClick={this.keymapMenuItemOnClick}
-                />
-              )}
-              {pages.colormap && (
-                <ColormapMenuItem
-                  selected={this.state.Page == ColormapEditor}
-                  onClick={this.colormapMenuItemOnClick}
-                />
-              )}
-              {connected && (
-                <FlashMenuItem
-                  selected={this.state.Page == FirmwareUpdate}
-                  onClick={this.flashMenuItemOnClick}
-                />
-              )}
-            </List>
-            <Divider />
-            <List className={classes.drawer}>
-              <KeyboardMenuItem
-                keyboardSelectText={
-                  connected
-                    ? i18n.app.menu.selectAnotherKeyboard
-                    : i18n.app.menu.selectAKeyboard
-                }
-                selected={this.state.Page == KeyboardSelect}
-                onClick={this.keyboardMenuItemOnClick}
+          <main className={classes.content}>
+            <Router>
+              <Welcome
+                path="/welcome"
+                device={this.state.device}
+                onConnect={this.onKeyboardConnect}
+                titleElement={() => document.querySelector("#page-title")}
               />
-              <SettingsMenuItem
-                selected={this.state.Page == Settings}
-                onClick={this.settingsMenuItemOnClick}
+              <KeyboardSelect
+                path="/keyboard-select"
+                onConnect={this.onKeyboardConnect}
+                onDisconnect={this.onKeyboardDisconnect}
+                titleElement={() => document.querySelector("#page-title")}
               />
-            </List>
-            <Divider />
-            <List className={classes.drawer}>
-              <ChatMenuItem
-                onClick={this.openURL("https://discord.gg/GP473Fv")}
+              <LayoutEditor
+                path="/layout-editor"
+                onDisconnect={this.onKeyboardDisconnect}
+                startContext={this.startContext}
+                cancelContext={this.cancelContext}
+                inContext={this.state.contextBar}
+                titleElement={() => document.querySelector("#page-title")}
+                appBarElement={() => document.querySelector("#appbar")}
               />
-              <FeedbackMenuItem
-                onClick={this.openURL(
-                  "https://github.com/keyboardio/Chrysalis/issues"
-                )}
+              <ColormapEditor
+                path="/colormap-editor"
+                device={this.state.device}
+                startContext={this.startContext}
+                cancelContext={this.cancelContext}
+                inContext={this.state.contextBar}
+                titleElement={() => document.querySelector("#page-title")}
+                appBarElement={() => document.querySelector("#appbar")}
               />
-              <ExitMenuItem onClick={() => Electron.remote.app.exit(0)} />
-            </List>
-            <Divider />
-            <List>
-              <ListItem disabled>
-                <ListItemText
-                  primary={`Chrysalis ${version}`}
-                  className={classes.version}
-                />
-              </ListItem>
-            </List>
-          </div>
-        </Drawer>
+              <FirmwareUpdate
+                path="/firmware-update"
+                device={this.state.device}
+                toggleFlashing={this.toggleFlashing}
+                onDisconnect={this.onKeyboardDisconnect}
+                titleElement={() => document.querySelector("#page-title")}
+              />
+              <Settings
+                path="/settings"
+                titleElement={() => document.querySelector("#page-title")}
+              />
+            </Router>
+          </main>
+        </LocationProvider>
       </div>
     );
   }

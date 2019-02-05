@@ -19,16 +19,16 @@ import React from "react";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import KeyboardIcon from "@material-ui/icons/Keyboard";
-import i18n from "../i18n";
+import ChatIcon from "@material-ui/icons/Chat";
+import i18n from "../../i18n";
 
-export default function KeymapMenuItem({ selected, onClick }) {
+export default function ChatMenuItem({ onClick }) {
   return (
-    <ListItem button selected={selected} onClick={onClick}>
+    <ListItem button onClick={onClick}>
       <ListItemIcon>
-        <KeyboardIcon />
+        <ChatIcon />
       </ListItemIcon>
-      <ListItemText primary={i18n.app.menu.layoutEditor} />
+      <ListItemText primary={i18n.app.menu.chat} />
     </ListItem>
   );
 }

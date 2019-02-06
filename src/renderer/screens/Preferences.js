@@ -85,7 +85,7 @@ const styles = theme => ({
   }
 });
 
-class Settings extends React.Component {
+class Preferences extends React.Component {
   state = {
     devTools: false,
     advanced: false,
@@ -251,7 +251,7 @@ class Settings extends React.Component {
         variant="filled"
         input={<FilledInput classes={{ input: classes.select }} />}
       >
-        <MenuItem value={126}>{i18n.settings.keymap.noDefault}</MenuItem>
+        <MenuItem value={126}>{i18n.preferences.keymap.noDefault}</MenuItem>
         {layers}
       </Select>
     );
@@ -263,7 +263,7 @@ class Settings extends React.Component {
           component="h2"
           className={classes.title}
         >
-          {i18n.settings.keymap.title}
+          {i18n.preferences.keymap.title}
         </Typography>
         <Card>
           <CardContent>
@@ -273,7 +273,7 @@ class Settings extends React.Component {
                 control={showDefaultLayersSwitch}
                 classes={{ label: classes.grow }}
                 labelPlacement="start"
-                label={i18n.settings.keymap.showDefaults}
+                label={i18n.preferences.keymap.showDefaults}
               />
               <Divider />
               <FormControlLabel
@@ -281,14 +281,14 @@ class Settings extends React.Component {
                 control={onlyCustomSwitch}
                 classes={{ label: classes.grow }}
                 labelPlacement="start"
-                label={i18n.settings.keymap.onlyCustom}
+                label={i18n.preferences.keymap.onlyCustom}
               />
               <FormControlLabel
                 className={classes.control}
                 classes={{ label: classes.grow }}
                 control={defaultLayerSelect}
                 labelPlacement="start"
-                label={i18n.settings.keymap.defaultLayer}
+                label={i18n.preferences.keymap.defaultLayer}
               />
             </FormControl>
           </CardContent>
@@ -308,14 +308,14 @@ class Settings extends React.Component {
     return (
       <div className={classes.root}>
         <Portal container={this.props.titleElement}>
-          {i18n.app.menu.settings}
+          {i18n.app.menu.preferences}
         </Portal>
         <Typography
           variant="subtitle1"
           component="h2"
           className={classes.title}
         >
-          {i18n.settings.interface}
+          {i18n.preferences.interface}
         </Typography>
         <Card>
           <CardContent>
@@ -324,13 +324,13 @@ class Settings extends React.Component {
               classes={{ label: classes.grow }}
               control={languageSelect}
               labelPlacement="start"
-              label={i18n.settings.language}
+              label={i18n.preferences.language}
             />
           </CardContent>
         </Card>
         <div className={classes.advanced}>
           <Button onClick={this.toggleAdvanced}>
-            {i18n.settings.advanced}
+            {i18n.preferences.advanced}
             {this.state.advanced ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
           </Button>
         </div>
@@ -340,7 +340,7 @@ class Settings extends React.Component {
             component="h2"
             className={classes.title}
           >
-            {i18n.settings.devtools}
+            {i18n.preferences.devtools}
           </Typography>
           <Card>
             <CardContent>
@@ -349,7 +349,7 @@ class Settings extends React.Component {
                 classes={{ label: classes.grow }}
                 control={devToolsSwitch}
                 labelPlacement="start"
-                label={i18n.settings.devtools}
+                label={i18n.preferences.devtools}
               />
             </CardContent>
           </Card>
@@ -360,8 +360,8 @@ class Settings extends React.Component {
   }
 }
 
-Settings.propTypes = {
+Preferences.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Settings);
+export default withStyles(styles)(Preferences);

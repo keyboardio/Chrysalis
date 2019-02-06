@@ -34,7 +34,7 @@ const Hungarian = {
       layoutEditor: "Kiosztás szerkesztő",
       colormapEditor: "Színtérkép szerkesztő",
       firmwareUpdate: "Vezérlő frissítés",
-      settings: "Beállítások",
+      preferences: "Beállítások",
       selectAKeyboard: "Billentyűzet választás",
       selectAnotherKeyboard: "Másik billentyűzet választás",
       chat: "Csevegőszoba",
@@ -90,7 +90,7 @@ const Hungarian = {
     clearLayer: "Réteg ürítése...",
     copyFrom: "Réteg másolás máshonnan..."
   },
-  settings: {
+  preferences: {
     devtools: "Fejlesztői eszközök",
     language: "Nyelv",
     interface: "Felhasználói felület",

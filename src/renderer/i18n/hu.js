@@ -34,6 +34,7 @@ const Hungarian = {
       layoutEditor: "Kiosztás szerkesztő",
       colormapEditor: "Színtérkép szerkesztő",
       firmwareUpdate: "Vezérlő frissítés",
+      keyboardSettings: "Billentyűzet beállítások",
       preferences: "Beállítások",
       selectAKeyboard: "Billentyűzet választás",
       selectAnotherKeyboard: "Másik billentyűzet választás",
@@ -94,6 +95,9 @@ const Hungarian = {
     devtools: "Fejlesztői eszközök",
     language: "Nyelv",
     interface: "Felhasználói felület",
+    advanced: "Haladó beállítások"
+  },
+  keyboardSettings: {
     advanced: "Haladó beállítások",
     keymap: {
       title: "Kiosztás beállításai",

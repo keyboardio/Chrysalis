@@ -34,6 +34,7 @@ const English = {
       layoutEditor: "Layout Editor",
       colormapEditor: "Colormap Editor",
       firmwareUpdate: "Firmware Update",
+      keyboardSettings: "Keyboard Settings",
       preferences: "Preferences",
       selectAKeyboard: "Select a keyboard",
       selectAnotherKeyboard: "Select another keyboard",
@@ -94,6 +95,9 @@ const English = {
     devtools: "Developer tools",
     language: "Language",
     interface: "Interface",
+    advanced: "Advanced"
+  },
+  keyboardSettings: {
     advanced: "Advanced",
     keymap: {
       title: "Keymap settings",

@@ -41,6 +41,7 @@ import FeedbackMenuItem from "./FeedbackMenuItem";
 import ExitMenuItem from "./ExitMenuItem";
 import KeyboardMenuItem from "./KeyboardSelectMenuItem";
 import PreferencesMenuItem from "./PreferencesMenuItem";
+import KeyboardSettingsMenuItem from "./KeyboardSettingsMenuItem";
 import openURL from "../../utils/openURL";
 
 const styles = theme => ({
@@ -129,11 +130,18 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
                 />
               </Link>
             )}
-            <Link to="firmware-update" className={classes.link}>
+            <Link to="/firmware-update" className={classes.link}>
               <FlashMenuItem
-                selected={currentPage == "firmware-update"}
+                selected={currentPage == "/firmware-update"}
                 className={classes.menuItem}
-                onClick={() => setCurrentPage("firmware-update")}
+                onClick={() => setCurrentPage("/firmware-update")}
+              />
+            </Link>
+            <Link to="/keyboard-settings" className={classes.link}>
+              <KeyboardSettingsMenuItem
+                selected={currentPage == "/keyboard-settings"}
+                className={classes.menuItem}
+                onClick={() => setCurrentPage("/keyboard-settings")}
               />
             </Link>
           </List>

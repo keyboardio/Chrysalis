@@ -19,10 +19,10 @@ import React from "react";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import HighlightIcon from "@material-ui/icons/Highlight";
+import SettingsIcon from "@material-ui/icons/Settings";
 import i18n from "../../i18n";
 
-export default function ColormapMenuItem({ selected, onClick, className }) {
+export default function PreferencesMenuItem({ selected, onClick, className }) {
   return (
     <ListItem
       button
@@ -31,9 +31,9 @@ export default function ColormapMenuItem({ selected, onClick, className }) {
       className={className}
     >
       <ListItemIcon>
-        <HighlightIcon />
+        <SettingsIcon />
       </ListItemIcon>
-      <ListItemText primary={i18n.app.menu.colormapEditor} />
+      <ListItemText primary={i18n.app.menu.preferences} />
     </ListItem>
   );
 }

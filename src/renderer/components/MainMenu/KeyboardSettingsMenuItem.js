@@ -19,16 +19,25 @@ import React from "react";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import SettingsIcon from "@material-ui/icons/Settings";
+import USBIcon from "@material-ui/icons/Usb";
 import i18n from "../../i18n";
 
-export default function SettingsMenuItem({ selected, onClick }) {
+export default function KeyboardSettingsMenuItem({
+  selected,
+  onClick,
+  className
+}) {
   return (
-    <ListItem button selected={selected} onClick={onClick}>
+    <ListItem
+      button
+      selected={selected}
+      onClick={onClick}
+      className={className}
+    >
       <ListItemIcon>
-        <SettingsIcon />
+        <USBIcon />
       </ListItemIcon>
-      <ListItemText primary={i18n.app.menu.settings} />
+      <ListItemText primary={i18n.app.menu.keyboardSettings} />
     </ListItem>
   );
 }

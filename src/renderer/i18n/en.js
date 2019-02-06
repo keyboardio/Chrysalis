@@ -34,12 +34,16 @@ const English = {
       layoutEditor: "Layout Editor",
       colormapEditor: "Colormap Editor",
       firmwareUpdate: "Firmware Update",
-      settings: "Settings",
+      keyboardSettings: "Keyboard Settings",
+      preferences: "Preferences",
       selectAKeyboard: "Select a keyboard",
       selectAnotherKeyboard: "Select another keyboard",
       chat: "Real-time chat",
       feedback: "Send feedback",
-      exit: "Exit Chrysalis"
+      exit: "Exit Chrysalis",
+      keyboardSection: "Keyboard",
+      chrysalisSection: "Chrysalis",
+      miscSection: "Miscellaneous"
     },
     deviceMenu: {
       Homepage: "Homepage",
@@ -87,15 +91,18 @@ const English = {
     clearLayer: "Clear layer...",
     copyFrom: "Copy from layer..."
   },
-  settings: {
+  preferences: {
     devtools: "Developer tools",
     language: "Language",
     interface: "Interface",
+    advanced: "Advanced"
+  },
+  keyboardSettings: {
     advanced: "Advanced",
     keymap: {
       title: "Keymap settings",
       noDefault: "No default",
-      showDefaults: "Show default layers",
+      showHardcoded: "Show hardcoded layers",
       onlyCustom: "Use custom layers only",
       defaultLayer: "Default layer"
     }

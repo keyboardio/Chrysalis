@@ -232,7 +232,7 @@ class KeyboardSettings extends React.Component {
                   control={showDefaultLayersSwitch}
                   classes={{ label: classes.grow }}
                   labelPlacement="start"
-                  label={i18n.keyboardSettings.keymap.showDefaults}
+                  label={i18n.keyboardSettings.keymap.showHardcoded}
                 />
                 <Divider />
                 <FormControlLabel

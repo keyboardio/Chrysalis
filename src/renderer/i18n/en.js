@@ -39,7 +39,10 @@ const English = {
       selectAnotherKeyboard: "Select another keyboard",
       chat: "Real-time chat",
       feedback: "Send feedback",
-      exit: "Exit Chrysalis"
+      exit: "Exit Chrysalis",
+      keyboardSection: "Keyboard",
+      chrysalisSection: "Chrysalis",
+      miscSection: "Miscellaneous"
     },
     deviceMenu: {
       Homepage: "Homepage",

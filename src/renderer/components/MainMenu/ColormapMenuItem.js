@@ -22,9 +22,14 @@ import ListItemText from "@material-ui/core/ListItemText";
 import HighlightIcon from "@material-ui/icons/Highlight";
 import i18n from "../../i18n";
 
-export default function ColormapMenuItem({ selected, onClick }) {
+export default function ColormapMenuItem({ selected, onClick, className }) {
   return (
-    <ListItem button selected={selected} onClick={onClick}>
+    <ListItem
+      button
+      selected={selected}
+      onClick={onClick}
+      className={className}
+    >
       <ListItemIcon>
         <HighlightIcon />
       </ListItemIcon>

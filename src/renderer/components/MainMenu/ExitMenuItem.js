@@ -22,9 +22,9 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import i18n from "../../i18n";
 
-export default function ExitMenuItem({ onClick }) {
+export default function ExitMenuItem({ onClick, className }) {
   return (
-    <ListItem button onClick={onClick}>
+    <ListItem button onClick={onClick} className={className}>
       <ListItemIcon>
         <ExitToAppIcon />
       </ListItemIcon>

@@ -22,9 +22,14 @@ import ListItemText from "@material-ui/core/ListItemText";
 import InfoIcon from "@material-ui/icons/Info";
 import i18n from "../../i18n";
 
-export default function WelcomeMenu({ selected, onClick }) {
+export default function WelcomeMenu({ selected, onClick, className }) {
   return (
-    <ListItem button selected={selected} onClick={onClick}>
+    <ListItem
+      button
+      selected={selected}
+      onClick={onClick}
+      className={className}
+    >
       <ListItemIcon>
         <InfoIcon />
       </ListItemIcon>

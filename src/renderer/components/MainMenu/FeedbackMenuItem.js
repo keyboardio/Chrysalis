@@ -22,9 +22,9 @@ import ListItemText from "@material-ui/core/ListItemText";
 import FeedbackIcon from "@material-ui/icons/Feedback";
 import i18n from "../../i18n";
 
-export default function FeedbackMenuItem({ onClick }) {
+export default function FeedbackMenuItem({ onClick, className }) {
   return (
-    <ListItem button onClick={onClick}>
+    <ListItem button onClick={onClick} className={className}>
       <ListItemIcon>
         <FeedbackIcon />
       </ListItemIcon>

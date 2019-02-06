@@ -25,6 +25,7 @@ import IconButton from "@material-ui/core/IconButton";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import ListSubheader from "@material-ui/core/ListSubheader";
 import { withStyles } from "@material-ui/core/styles";
 
 import logo from "../../logo-small.png";
@@ -39,7 +40,8 @@ import ChatMenuItem from "./ChatMenuItem";
 import FeedbackMenuItem from "./FeedbackMenuItem";
 import ExitMenuItem from "./ExitMenuItem";
 import KeyboardMenuItem from "./KeyboardSelectMenuItem";
-import SettingsMenuItem from "./SettingsMenuItem";
+import PreferencesMenuItem from "./PreferencesMenuItem";
+import KeyboardSettingsMenuItem from "./KeyboardSettingsMenuItem";
 import openURL from "../../utils/openURL";
 
 const styles = theme => ({
@@ -58,6 +60,9 @@ const styles = theme => ({
   },
   link: {
     textDecoration: "none"
+  },
+  menuItem: {
+    paddingLeft: theme.spacing.unit * 4
   }
 });
 
@@ -84,49 +89,75 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
             </IconButton>
           </Link>
         </div>
-        <List className={classes.drawer}>
-          {connected && !pages.keymap && !pages.colormap && (
-            <Link to="/welcome" className={classes.link}>
-              <WelcomeMenu
-                selected={currentPage == "/welcome"}
-                onClick={() => setCurrentPage("/welcome")}
-              />
-            </Link>
-          )}
-          {pages.keymap && (
-            <Link
-              to="/layout-editor"
-              style={{
-                textDecoration: "none"
-              }}
-            >
-              <KeymapMenuItem
-                selected={currentPage == "/layout-editor"}
-                onClick={() => setCurrentPage("/layout-editor")}
-              />
-            </Link>
-          )}
-          {pages.colormap && (
-            <Link to="/colormap-editor" className={classes.link}>
-              <ColormapMenuItem
-                selected={currentPage == "/colormap-editor"}
-                onClick={() => setCurrentPage("/colormap-editor")}
-              />
-            </Link>
-          )}
-          {connected && (
-            <Link to="firmware-update" className={classes.link}>
+        {connected && (
+          <List
+            className={classes.drawer}
+            subheader={
+              <ListSubheader disableSticky>
+                {i18n.app.menu.keyboardSection}
+              </ListSubheader>
+            }
+          >
+            {!pages.keymap && !pages.colormap && (
+              <Link to="/welcome" className={classes.link}>
+                <WelcomeMenu
+                  selected={currentPage == "/welcome"}
+                  className={classes.menuItem}
+                  onClick={() => setCurrentPage("/welcome")}
+                />
+              </Link>
+            )}
+            {pages.keymap && (
+              <Link
+                to="/layout-editor"
+                style={{
+                  textDecoration: "none"
+                }}
+              >
+                <KeymapMenuItem
+                  selected={currentPage == "/layout-editor"}
+                  className={classes.menuItem}
+                  onClick={() => setCurrentPage("/layout-editor")}
+                />
+              </Link>
+            )}
+            {pages.colormap && (
+              <Link to="/colormap-editor" className={classes.link}>
+                <ColormapMenuItem
+                  selected={currentPage == "/colormap-editor"}
+                  className={classes.menuItem}
+                  onClick={() => setCurrentPage("/colormap-editor")}
+                />
+              </Link>
+            )}
+            <Link to="/firmware-update" className={classes.link}>
               <FlashMenuItem
-                selected={currentPage == "firmware-update"}
-                onClick={() => setCurrentPage("firmware-update")}
+                selected={currentPage == "/firmware-update"}
+                className={classes.menuItem}
+                onClick={() => setCurrentPage("/firmware-update")}
               />
             </Link>
-          )}
-        </List>
-        <Divider />
-        <List className={classes.drawer}>
+            <Link to="/keyboard-settings" className={classes.link}>
+              <KeyboardSettingsMenuItem
+                selected={currentPage == "/keyboard-settings"}
+                className={classes.menuItem}
+                onClick={() => setCurrentPage("/keyboard-settings")}
+              />
+            </Link>
+          </List>
+        )}
+        {connected && <Divider />}
+        <List
+          className={classes.drawer}
+          subheader={
+            <ListSubheader disableSticky>
+              {i18n.app.menu.chrysalisSection}
+            </ListSubheader>
+          }
+        >
           <Link to="/keyboard-select" className={classes.link}>
             <KeyboardMenuItem
+              className={classes.menuItem}
               keyboardSelectText={
                 connected
                   ? i18n.app.menu.selectAnotherKeyboard
@@ -136,20 +167,35 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
               onClick={() => setCurrentPage("/keyboard-select")}
             />
           </Link>
-          <Link to="/settings" className={classes.link}>
-            <SettingsMenuItem
-              selected={currentPage == "/settings"}
-              onClick={() => setCurrentPage("/settings")}
+          <Link to="/preferences" className={classes.link}>
+            <PreferencesMenuItem
+              className={classes.menuItem}
+              selected={currentPage == "/preferences"}
+              onClick={() => setCurrentPage("/preferences")}
             />
           </Link>
         </List>
         <Divider />
-        <List className={classes.drawer}>
-          <ChatMenuItem onClick={openURL("https://discord.gg/GP473Fv")} />
+        <List
+          className={classes.drawer}
+          subheader={
+            <ListSubheader disableSticky>
+              {i18n.app.menu.miscSection}
+            </ListSubheader>
+          }
+        >
+          <ChatMenuItem
+            className={classes.menuItem}
+            onClick={openURL("https://discord.gg/GP473Fv")}
+          />
           <FeedbackMenuItem
+            className={classes.menuItem}
             onClick={openURL("https://github.com/keyboardio/Chrysalis/issues")}
           />
-          <ExitMenuItem onClick={() => Electron.remote.app.exit(0)} />
+          <ExitMenuItem
+            className={classes.menuItem}
+            onClick={() => Electron.remote.app.exit(0)}
+          />
         </List>
         <Divider />
         <List>

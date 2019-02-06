@@ -22,9 +22,9 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ChatIcon from "@material-ui/icons/Chat";
 import i18n from "../../i18n";
 
-export default function ChatMenuItem({ onClick }) {
+export default function ChatMenuItem({ onClick, className }) {
   return (
-    <ListItem button onClick={onClick}>
+    <ListItem button onClick={onClick} className={className}>
       <ListItemIcon>
         <ChatIcon />
       </ListItemIcon>

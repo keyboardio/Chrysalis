@@ -34,12 +34,16 @@ const Hungarian = {
       layoutEditor: "Kiosztás szerkesztő",
       colormapEditor: "Színtérkép szerkesztő",
       firmwareUpdate: "Vezérlő frissítés",
-      settings: "Beállítások",
+      keyboardSettings: "Billentyűzet beállítások",
+      preferences: "Beállítások",
       selectAKeyboard: "Billentyűzet választás",
       selectAnotherKeyboard: "Másik billentyűzet választás",
       chat: "Csevegőszoba",
       feedback: "Visszajelzés küldése",
-      exit: "Kilépés"
+      exit: "Kilépés",
+      keyboardSection: "Billentyűzet",
+      chrysalisSection: "Chrysalis",
+      miscSection: "Egyéb"
     },
     deviceMenu: {
       Homepage: "Honlap",
@@ -87,15 +91,18 @@ const Hungarian = {
     clearLayer: "Réteg ürítése...",
     copyFrom: "Réteg másolás máshonnan..."
   },
-  settings: {
+  preferences: {
     devtools: "Fejlesztői eszközök",
     language: "Nyelv",
     interface: "Felhasználói felület",
+    advanced: "Haladó beállítások"
+  },
+  keyboardSettings: {
     advanced: "Haladó beállítások",
     keymap: {
       title: "Kiosztás beállításai",
       noDefault: "Nincs alapértelmezett réteg",
-      showDefaults: "Beépített rétegek mutatása",
+      showHardcoded: "Beépített rétegek mutatása",
       onlyCustom: "Kizárólag testreszabott rétegek használata",
       defaultLayer: "Alapértelmezett réteg"
     }

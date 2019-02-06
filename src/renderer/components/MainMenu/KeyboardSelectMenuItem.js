@@ -24,10 +24,16 @@ import KeyboardIcon from "@material-ui/icons/Keyboard";
 export default function KeyboardMenuItem({
   keyboardSelectText,
   selected,
-  onClick
+  onClick,
+  className
 }) {
   return (
-    <ListItem button selected={selected} onClick={onClick}>
+    <ListItem
+      button
+      selected={selected}
+      onClick={onClick}
+      className={className}
+    >
       <ListItemIcon>
         <KeyboardIcon />
       </ListItemIcon>

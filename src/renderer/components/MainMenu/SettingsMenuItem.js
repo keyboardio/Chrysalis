@@ -22,9 +22,14 @@ import ListItemText from "@material-ui/core/ListItemText";
 import SettingsIcon from "@material-ui/icons/Settings";
 import i18n from "../../i18n";
 
-export default function SettingsMenuItem({ selected, onClick }) {
+export default function SettingsMenuItem({ selected, onClick, className }) {
   return (
-    <ListItem button selected={selected} onClick={onClick}>
+    <ListItem
+      button
+      selected={selected}
+      onClick={onClick}
+      className={className}
+    >
       <ListItemIcon>
         <SettingsIcon />
       </ListItemIcon>

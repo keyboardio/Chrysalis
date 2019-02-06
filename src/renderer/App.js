@@ -131,7 +131,7 @@ class App extends React.Component {
       await spawn("stty", ["-f", port.comName, "clocal"]);
     }
     console.log("Probing for Focus support...");
-    let commands = await focus.probe;
+    let commands;
     try {
       commands = await focus.probe();
     } catch (e) {

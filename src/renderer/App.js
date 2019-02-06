@@ -152,7 +152,7 @@ class App extends React.Component {
           commands.includes("palette") > 0
       }
     });
-    navigate(
+    await navigate(
       commands.includes("keymap.custom") > 0 ? "./layout-editor" : "./welcome"
     );
   };

@@ -37,6 +37,7 @@ import FirmwareUpdate from "./screens/FirmwareUpdate";
 import LayoutEditor from "./screens/LayoutEditor";
 import Preferences from "./screens/Preferences";
 import Welcome from "./screens/Welcome";
+import KeyboardSettings from "./screens/KeyboardSettings";
 import i18n from "./i18n";
 
 import Header from "./components/Header";
@@ -231,6 +232,10 @@ class App extends React.Component {
                 device={this.state.device}
                 toggleFlashing={this.toggleFlashing}
                 onDisconnect={this.onKeyboardDisconnect}
+                titleElement={() => document.querySelector("#page-title")}
+              />
+              <KeyboardSettings
+                path="/keyboard-settings"
                 titleElement={() => document.querySelector("#page-title")}
               />
               <Preferences

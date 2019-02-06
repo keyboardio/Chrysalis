@@ -1,3 +1,34 @@
+Chrysalis 0.4.0
+===============
+Released on 2019-02-06
+
+## UI/UX improvements
+
+We have made major progress in all areas of Chrysalis, it should be much simpler
+and friendlier by now. We've received some amazing feedback, and tried to adjust
+the user experience accordingly. Please keep them coming!
+
+The major highlight of this release is how the new layout editor works. It now
+tries its best to hide uninteresting details, and present you with an editable
+keymap out of the box. Hardcoded layers are not shown by default anymore, they
+are copied into editable memory on first use. This made it possible to move a
+number of knobs that were making the layout editor feel crowded, elsewhere.
+
+Setting the default layer, whether to show hardcoded layers, and whether to use
+custom layers only all moved to the new "Keyboard settings" screen.
+
+## Contributors
+
+Major contributors to this release were [@TreTuna][u:TreTuna], [@obra][u:obra],
+and [@algernon][u:algernon].
+
+ [u:TreTuna]: https://github.com/TreTuna
+ [u:obra]: https://github.com/obra
+ [u:algernon]: https://github.com/algernon
+
+Thanks to everyone who tried Chrysalis, gave feedback, or reported issues - your
+guidance drives Chrysalis forward.
+
 Chrysalis 0.3.3
 ===============
 Released on 2019-01-25

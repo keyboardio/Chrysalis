@@ -34,7 +34,7 @@ const English = {
       layoutEditor: "Layout Editor",
       colormapEditor: "Colormap Editor",
       firmwareUpdate: "Firmware Update",
-      settings: "Settings",
+      preferences: "Preferences",
       selectAKeyboard: "Select a keyboard",
       selectAnotherKeyboard: "Select another keyboard",
       chat: "Real-time chat",
@@ -90,7 +90,7 @@ const English = {
     clearLayer: "Clear layer...",
     copyFrom: "Copy from layer..."
   },
-  settings: {
+  preferences: {
     devtools: "Developer tools",
     language: "Language",
     interface: "Interface",

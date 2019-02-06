@@ -22,7 +22,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import SettingsIcon from "@material-ui/icons/Settings";
 import i18n from "../../i18n";
 
-export default function SettingsMenuItem({ selected, onClick, className }) {
+export default function PreferencesMenuItem({ selected, onClick, className }) {
   return (
     <ListItem
       button
@@ -33,7 +33,7 @@ export default function SettingsMenuItem({ selected, onClick, className }) {
       <ListItemIcon>
         <SettingsIcon />
       </ListItemIcon>
-      <ListItemText primary={i18n.app.menu.settings} />
+      <ListItemText primary={i18n.app.menu.preferences} />
     </ListItem>
   );
 }

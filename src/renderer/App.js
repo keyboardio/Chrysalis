@@ -35,7 +35,7 @@ import KeyboardSelect from "./screens/KeyboardSelect";
 import ColormapEditor from "./screens/ColormapEditor";
 import FirmwareUpdate from "./screens/FirmwareUpdate";
 import LayoutEditor from "./screens/LayoutEditor";
-import Settings from "./screens/Settings";
+import Preferences from "./screens/Preferences";
 import Welcome from "./screens/Welcome";
 import i18n from "./i18n";
 
@@ -233,8 +233,8 @@ class App extends React.Component {
                 onDisconnect={this.onKeyboardDisconnect}
                 titleElement={() => document.querySelector("#page-title")}
               />
-              <Settings
-                path="/settings"
+              <Preferences
+                path="/preferences"
                 titleElement={() => document.querySelector("#page-title")}
               />
             </Router>

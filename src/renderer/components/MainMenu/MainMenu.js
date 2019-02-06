@@ -40,7 +40,7 @@ import ChatMenuItem from "./ChatMenuItem";
 import FeedbackMenuItem from "./FeedbackMenuItem";
 import ExitMenuItem from "./ExitMenuItem";
 import KeyboardMenuItem from "./KeyboardSelectMenuItem";
-import SettingsMenuItem from "./SettingsMenuItem";
+import PreferencesMenuItem from "./PreferencesMenuItem";
 import openURL from "../../utils/openURL";
 
 const styles = theme => ({
@@ -159,11 +159,11 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
               onClick={() => setCurrentPage("/keyboard-select")}
             />
           </Link>
-          <Link to="/settings" className={classes.link}>
-            <SettingsMenuItem
+          <Link to="/preferences" className={classes.link}>
+            <PreferencesMenuItem
               className={classes.menuItem}
-              selected={currentPage == "/settings"}
-              onClick={() => setCurrentPage("/settings")}
+              selected={currentPage == "/preferences"}
+              onClick={() => setCurrentPage("/preferences")}
             />
           </Link>
         </List>

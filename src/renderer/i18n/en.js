@@ -102,7 +102,7 @@ const English = {
     keymap: {
       title: "Keymap settings",
       noDefault: "No default",
-      showDefaults: "Show default layers",
+      showHardcoded: "Show hardcoded layers",
       onlyCustom: "Use custom layers only",
       defaultLayer: "Default layer"
     }

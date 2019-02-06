@@ -102,7 +102,7 @@ const Hungarian = {
     keymap: {
       title: "Kiosztás beállításai",
       noDefault: "Nincs alapértelmezett réteg",
-      showDefaults: "Beépített rétegek mutatása",
+      showHardcoded: "Beépített rétegek mutatása",
       onlyCustom: "Kizárólag testreszabott rétegek használata",
       defaultLayer: "Alapértelmezett réteg"
     }

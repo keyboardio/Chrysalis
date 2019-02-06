@@ -97,5 +97,8 @@
     "stylelint-config-standard": "^18.2.0",
     "webpack": "^4.29.0",
     "yarn": "^1.12.1"
+  },
+  "resolutions": {
+    "terser": "3.16.1"
   }
 }

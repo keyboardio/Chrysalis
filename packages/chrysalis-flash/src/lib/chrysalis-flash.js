@@ -16,6 +16,7 @@
 
 import AvrGirl from "avrgirl-arduino"
 import TeensyLoader from "teensy-loader"
+import { spawn } from "child_process"
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
@@ -73,4 +74,44 @@ async function teensy(filename) {
   return TeensyLoader.upload(0x16C0, 0x0478, filename)
 }
 
-export { Avr109, Avr109Bootloader, teensy }
+async function DFUProgrammer(filename, mcu = "atmega32u4", timeout = 10000) {
+  const runCommand = async args => {
+    return new Promise((resolve, reject) => {
+      let child = spawn("dfu-programmer", args)
+      child.stdout.on("data", data => {
+        console.log("dfu-programmer:stdout:", data.toString())
+      })
+      child.stderr.on("data", data => {
+        console.log("dfu-programmer:stderr:", data.toString())
+      })
+      let timer = setTimeout(() => {
+        child.kill()
+        reject("dfu-programmer timed out")
+      }, timeout)
+      child.on("exit", code => {
+        clearTimeout(timer)
+        if (code == 0) {
+          resolve()
+        } else {
+          reject("dfu-programmer exited abnormally")
+        }
+      })
+    })
+  }
+
+  const delay = ms => new Promise(res => setTimeout(res, ms))
+
+  for (let i = 0; i < 10; i++) {
+    try {
+      await runCommand([mcu, "erase"])
+    } catch (_) {
+      await delay(1000)
+      continue
+    }
+    break
+  }
+  await runCommand([mcu, "flash", filename])
+  await runCommand([mcu, "start"])
+}
+
+export { Avr109, Avr109Bootloader, teensy, DFUProgrammer }

@@ -30,6 +30,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
+    "@chrysalis-api/flash": "^0.0.7",
     "react": "^16.5.2"
   },
   "devDependencies": {

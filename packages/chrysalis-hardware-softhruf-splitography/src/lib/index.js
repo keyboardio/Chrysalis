@@ -15,6 +15,7 @@
  */
 
 import Keymap from "./components/Keymap"
+import { DFUProgrammer } from "@chrysalis-api/flash"
 
 const Splitography = {
   info: {
@@ -40,8 +41,8 @@ const Splitography = {
     keymap: Keymap
   },
 
-  flash: async () => {
-    console.log("Not implemented yet.")
+  flash: async (_, filename) => {
+    return await DFUProgrammer(filename)
   }
 }
 

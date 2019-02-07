@@ -1,6 +1,6 @@
 {
   "name": "@chrysalis-api/hardware-softhruf-splitography",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Chrysalis SOFT/HRUF Splitography Hardware library",
   "main": "lib",
   "repository": {

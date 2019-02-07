@@ -96,12 +96,12 @@ class App extends React.Component {
           pages: {}
         });
         // Second call to `navigate` will actually render the proper route
-        navigate("/keyboard-select");
+        await navigate("/keyboard-select");
       }
     });
   }
 
-  toggleFlashing = () => {
+  toggleFlashing = async () => {
     this.flashing = !this.flashing;
     if (!this.flashing) {
       this.setState({
@@ -109,7 +109,7 @@ class App extends React.Component {
         device: null,
         pages: {}
       });
-      navigate("/keyboard-select");
+      await navigate("/keyboard-select");
     }
   };
 
@@ -122,7 +122,7 @@ class App extends React.Component {
         pages: {},
         device: port.device
       });
-      navigate("./welcome");
+      await navigate("./welcome");
       return;
     }
 
@@ -158,14 +158,14 @@ class App extends React.Component {
     );
   };
 
-  onKeyboardDisconnect = () => {
+  onKeyboardDisconnect = async () => {
     focus.close();
     this.setState({
       connected: false,
       device: null,
       pages: {}
     });
-    navigate("/keyboard-select");
+    await navigate("/keyboard-select");
   };
 
   cancelContext = () => {

@@ -24,7 +24,8 @@ import green from "@material-ui/core/colors/green";
 import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
 import CheckIcon from "@material-ui/icons/Check";
-import SyncIcon from "@material-ui/icons/Sync";
+import SaveAltIcon from "@material-ui/icons/SaveAlt";
+import Tooltip from "@material-ui/core/Tooltip";
 import { withStyles } from "@material-ui/core/styles";
 
 import i18n from "../i18n";
@@ -105,7 +106,7 @@ class SaveChangesButton extends React.Component {
   render() {
     const { inProgress, success } = this.state;
     const { classes, successMessage } = this.props;
-    const buttonClassname = classNames({
+    let buttonClassname = classNames({
       [classes.buttonSuccess]: success
     });
 
@@ -113,7 +114,7 @@ class SaveChangesButton extends React.Component {
       <div className={classes.wrapper}>
         <Button
           variant="contained"
-          color="secondary"
+          color="primary"
           className={buttonClassname}
           disabled={inProgress || (this.props.disabled && !success)}
           onClick={this.handleButtonClick}
@@ -125,32 +126,41 @@ class SaveChangesButton extends React.Component {
       </div>
     );
 
-    const icon = this.props.icon || <SyncIcon />;
+    const icon = this.props.icon || <SaveAltIcon />;
+
+    const OptionalTooltip = props => {
+      if (this.props.floating) {
+        return <Tooltip title={this.props.children}>{props.children}</Tooltip>;
+      }
+      return props.children;
+    };
 
     return (
-      <div
-        className={classNames(
-          classes.root,
-          this.props.className,
-          this.props.floating && classes.fab
-        )}
-      >
-        <div className={classNames(classes.wrapper, classes.icon)}>
-          <Fab
-            disabled={inProgress || (this.props.disabled && !success)}
-            color="secondary"
-            className={buttonClassname}
-            classes={{ disabled: classes.disabled }}
-            onClick={this.handleButtonClick}
-          >
-            {success ? <CheckIcon /> : icon}
-          </Fab>
-          {inProgress && (
-            <CircularProgress size={68} className={classes.fabProgress} />
+      <OptionalTooltip>
+        <div
+          className={classNames(
+            classes.root,
+            this.props.className,
+            this.props.floating && classes.fab
           )}
+        >
+          <div className={classNames(classes.wrapper, classes.icon)}>
+            <Fab
+              disabled={inProgress || (this.props.disabled && !success)}
+              color="primary"
+              className={buttonClassname}
+              classes={{ disabled: classes.disabled }}
+              onClick={this.handleButtonClick}
+            >
+              {success ? <CheckIcon /> : icon}
+            </Fab>
+            {inProgress && (
+              <CircularProgress size={68} className={classes.fabProgress} />
+            )}
+          </div>
+          {textPart}
         </div>
-        {textPart}
-      </div>
+      </OptionalTooltip>
     );
   }
 }

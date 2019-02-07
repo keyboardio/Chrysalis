@@ -57,6 +57,14 @@ testing is done on **Ubuntu** 18.04 LTS, **Windows** 10, and **OSX** Mojave.
 The protocol Chrysalis uses to communicate with the keyboard requires USB serial
 support, which is known to be problematic on Windows prior to Windows 10.
 
+## Reporting issues
+
+Chrysalis is alpha quality software. There will be bugs, missing features and
+non-obvious things. Reporting any and all of these help us make the software
+better, please feel free to [open issues][issues] liberally!
+
+ [issues]: https://github.com/keyboardio/Chrysalis/issues
+
 ## Development
 
 To launch the development environment, simply type `yarn && yarn start`. To do a

@@ -77,7 +77,7 @@ function Header({
   return (
     <AppBar
       position="static"
-      color={contextBar ? "primary" : "inherit"}
+      color={contextBar ? "secondary" : "inherit"}
       id="appbar"
     >
       <Toolbar variant="dense">

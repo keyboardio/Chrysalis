@@ -216,7 +216,7 @@ class KeyboardSelect extends React.Component {
 
     try {
       await this.props.onConnect(devices[this.state.selectedPortIndex]);
-      navigate("/layout-editor");
+      await navigate("/layout-editor");
     } catch (err) {
       this.setState({
         opening: false

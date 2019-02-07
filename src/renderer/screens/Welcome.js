@@ -125,7 +125,9 @@ class Welcome extends React.Component {
             <Button
               color="primary"
               variant="outlined"
-              onClick={navigate("/firmware-update")}
+              onClick={async () => {
+                await navigate("/firmware-update");
+              }}
             >
               {i18n.formatString(
                 i18n.welcome.gotoUpdate,

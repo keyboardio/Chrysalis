@@ -323,8 +323,8 @@ class LayoutEditor extends React.Component {
     let currentLayer = this.state.currentLayer;
 
     if (!showDefaults) {
-      if (currentLayer < keymap.default.length) {
-        currentLayer = keymap.onlyCustom ? 0 : keymap.default.length;
+      if (currentLayer < keymap.default.length && !keymap.onlyCustom) {
+        currentLayer = 0;
       }
     }
 

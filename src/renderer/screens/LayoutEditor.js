@@ -217,9 +217,18 @@ class LayoutEditor extends React.Component {
 
   componentDidMount() {
     this.scanKeyboard().then(() => {
-      this.setState(state => ({
-        currentLayer: state.defaultLayer >= 126 ? 0 : state.defaultLayer
-      }));
+      const { keymap } = this.state;
+      const defLayer =
+        this.state.defaultLayer >= 126 ? 0 : this.state.defaultLayer;
+      let initialLayer = 0;
+
+      if (!settings.get("keymap.showDefaults")) {
+        if (defLayer < keymap.default.length) {
+          initialLayer = keymap.useCustom ? 0 : keymap.default.length;
+        }
+      }
+
+      this.setState({ currentLayer: initialLayer });
     });
   }
 
@@ -305,11 +314,19 @@ class LayoutEditor extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { currentLayer, moreAnchorEl, keymap } = this.state;
+    const { moreAnchorEl, keymap } = this.state;
 
     let focus = new Focus();
     const Layer = focus.device.components.keymap;
     const showDefaults = settings.get("keymap.showDefaults");
+
+    let currentLayer = this.state.currentLayer;
+
+    if (!showDefaults) {
+      if (currentLayer < keymap.default.length) {
+        currentLayer = keymap.useCustom ? 0 : keymap.default.length;
+      }
+    }
 
     let layerData, isReadOnly;
     if (keymap.onlyCustom) {
@@ -460,7 +477,7 @@ class LayoutEditor extends React.Component {
           <Toolbar>
             <Tabs
               className={classes.tabs}
-              value={this.state.currentLayer}
+              value={currentLayer}
               variant={keymap.custom.length != 0 ? "scrollable" : "standard"}
               scrollButtons="auto"
               onChange={this.selectLayer}

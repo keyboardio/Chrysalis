@@ -154,7 +154,7 @@ class App extends React.Component {
       }
     });
     await navigate(
-      commands.includes("keymap.custom") > 0 ? "./layout-editor" : "./welcome"
+      commands.includes("keymap.custom") > 0 ? "/layout-editor" : "/welcome"
     );
   };
 

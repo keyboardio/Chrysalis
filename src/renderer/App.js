@@ -122,8 +122,7 @@ class App extends React.Component {
         pages: {},
         device: port.device
       });
-      await navigate("./welcome");
-      return;
+      return [];
     }
 
     console.log("Connecting to", port.comName);
@@ -153,9 +152,8 @@ class App extends React.Component {
           commands.includes("palette") > 0
       }
     });
-    await navigate(
-      commands.includes("keymap.custom") > 0 ? "/layout-editor" : "/welcome"
-    );
+    await navigate("./");
+    return commands;
   };
 
   onKeyboardDisconnect = async () => {

@@ -45,6 +45,7 @@ import Hardware from "@chrysalis-api/hardware";
 import usb from "usb";
 
 import i18n from "../i18n";
+import { navigate } from "../routerHistory";
 
 const styles = theme => ({
   loader: {
@@ -214,7 +215,12 @@ class KeyboardSelect extends React.Component {
     const { devices } = this.state;
 
     try {
-      await this.props.onConnect(devices[this.state.selectedPortIndex]);
+      const commands = await this.props.onConnect(
+        devices[this.state.selectedPortIndex]
+      );
+      await navigate(
+        commands.includes("keymap.custom") > 0 ? "/layout-editor" : "/welcome"
+      );
     } catch (err) {
       this.setState({
         opening: false

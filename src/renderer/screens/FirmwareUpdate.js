@@ -115,11 +115,15 @@ class FirmwareUpdate extends React.Component {
 
   _defaultFirmwareFilename = () => {
     const { vendor, product } = this.state.device.info;
-    return path.join(getStaticPath(), vendor, product, "default.hex");
+    const cVendor = vendor.replace("/", ""),
+      cProduct = product.replace("/", "");
+    return path.join(getStaticPath(), cVendor, cProduct, "default.hex");
   };
   _experimentalFirmwareFilename = () => {
     const { vendor, product } = this.state.device.info;
-    return path.join(getStaticPath(), vendor, product, "experimental.hex");
+    const cVendor = vendor.replace("/", ""),
+      cProduct = product.replace("/", "");
+    return path.join(getStaticPath(), cVendor, cProduct, "experimental.hex");
   };
 
   _flash = async () => {

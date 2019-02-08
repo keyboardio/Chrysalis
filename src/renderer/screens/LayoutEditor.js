@@ -224,7 +224,7 @@ class LayoutEditor extends React.Component {
 
       if (!settings.get("keymap.showDefaults")) {
         if (defLayer < keymap.default.length) {
-          initialLayer = keymap.useCustom ? 0 : keymap.default.length;
+          initialLayer = keymap.onlyCustom ? 0 : keymap.default.length;
         }
       }
 
@@ -324,7 +324,7 @@ class LayoutEditor extends React.Component {
 
     if (!showDefaults) {
       if (currentLayer < keymap.default.length) {
-        currentLayer = keymap.useCustom ? 0 : keymap.default.length;
+        currentLayer = keymap.onlyCustom ? 0 : keymap.default.length;
       }
     }
 

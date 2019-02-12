@@ -1,0 +1,38 @@
+{
+  "name": "@chrysalis-examples/model01-load",
+  "version": "0.0.0",
+  "description": "A chrysalis-api example",
+  "main": "bin",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/keyboardio/chrysalis-api.git"
+  },
+  "author": {
+    "name": "Gergely Nagy",
+    "email": "<algernon@keyboard.io>",
+    "url": "https://asylum.madhouse-project.org"
+  },
+  "license": "GPL-3.0-only",
+  "homepage": "https://github.com/keyboardio/chrysalis-api#readme",
+  "bugs": {
+    "url": "https://github.com/keyboardio/chrysalis-api/issues"
+  },
+  "keywords": [
+    "chrysalis",
+    "kaleidoscope"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "babel src -d bin",
+    "lint": "eslint src",
+    "demo": "node bin/model01-load.js simulate",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@chrysalis-api/focus": "^0.0.9",
+    "@chrysalis-api/hardware-keyboardio-model01": "^0.0.19",
+    "color-convert": "^2.0.0"
+  }
+}

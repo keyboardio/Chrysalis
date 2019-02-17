@@ -20,11 +20,13 @@ import React from "react";
 class Key extends React.Component {
   render() {
     let shape,
-      stroke = "#b3b3b3";
+        stroke = "#b3b3b3";
 
     if (this.props.active) {
       stroke = "#f3b3b3";
     }
+
+    const { getContrastText } = this.props;
 
     if (this.props.palmKey) {
       shape = (
@@ -56,7 +58,12 @@ class Key extends React.Component {
     if (this.props.extraLabelTransform && this.props.label.extraLabel) {
       extraLabel = (
         <g transform={this.props.extraLabelTransform}>
-          <text x={this.props.x} y={this.props.y - 3} className="extraKey">
+          <text
+            x={this.props.x}
+            y={this.props.y - 3}
+            className="extraKey"
+            fill={getContrastText(this.props.color)}
+          >
             {this.props.label.extraLabel}
           </text>
         </g>
@@ -73,7 +80,11 @@ class Key extends React.Component {
       >
         {shape}
         <g transform={this.props.primaryLabelTransform}>
-          <text x={this.props.x} y={this.props.y}>
+          <text
+            x={this.props.x}
+            y={this.props.y}
+            fill={getContrastText(this.props.color)}
+          >
             {this.props.label.label}
           </text>
         </g>

@@ -139,7 +139,7 @@ class KeyGroupCodeUnwrapped extends React.Component {
         className={classes.keygroup}
         onChange={this.onChange}
         onKeyDown={this.onKeyDown}
-        label={i18n.layoutEditor.keyCode}
+        label={i18n.editor.keyCode}
         variant="outlined"
         disabled={disabled}
         type="number"
@@ -352,7 +352,7 @@ class KeyGroupListUnwrapped extends React.Component {
                 onKeySelect(keyCode + 51218);
               }
             }}
-            label={i18n.layoutEditor.dualUseLayer}
+            label={i18n.editor.dualUseLayer}
           />
         </div>
       );
@@ -423,7 +423,7 @@ class KeyGroupListUnwrapped extends React.Component {
             control={<Switch />}
             checked={dualUseModifier}
             onChange={this.toggleDualUse}
-            label={i18n.layoutEditor.dualUse}
+            label={i18n.editor.dualUse}
           />
         </FormGroup>
       );
@@ -546,7 +546,7 @@ class KeySelector extends React.Component {
           selected={index == groupIndex}
           onClick={event => this.onMenuItemClick(event, index)}
         >
-          {i18n.layoutEditor.groups[group] || group}
+          {i18n.editor.groups[group] || group}
         </MenuItem>
       );
     });
@@ -559,14 +559,14 @@ class KeySelector extends React.Component {
               onClick={this.onListItemClick}
               primary={
                 <span>
-                  {i18n.layoutEditor.keyType}
+                  {i18n.editor.keyType}
                   <span style={{ float: "right" }}>
                     {anchorEl ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
                   </span>
                 </span>
               }
               secondary={
-                i18n.layoutEditor.groups[keyGroups[groupIndex]] ||
+                i18n.editor.groups[keyGroups[groupIndex]] ||
                 keyGroups[groupIndex]
               }
             />

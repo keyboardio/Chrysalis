@@ -32,9 +32,8 @@ import usb from "usb";
 import { withSnackbar } from "notistack";
 
 import KeyboardSelect from "./screens/KeyboardSelect";
-import ColormapEditor from "./screens/ColormapEditor";
 import FirmwareUpdate from "./screens/FirmwareUpdate";
-import LayoutEditor from "./screens/LayoutEditor";
+import Editor from "./screens/Editor";
 import Preferences from "./screens/Preferences";
 import Welcome from "./screens/Welcome";
 import KeyboardSettings from "./screens/KeyboardSettings";
@@ -207,18 +206,9 @@ class App extends React.Component {
                 onDisconnect={this.onKeyboardDisconnect}
                 titleElement={() => document.querySelector("#page-title")}
               />
-              <LayoutEditor
-                path="/layout-editor"
+              <Editor
+                path="/editor"
                 onDisconnect={this.onKeyboardDisconnect}
-                startContext={this.startContext}
-                cancelContext={this.cancelContext}
-                inContext={this.state.contextBar}
-                titleElement={() => document.querySelector("#page-title")}
-                appBarElement={() => document.querySelector("#appbar")}
-              />
-              <ColormapEditor
-                path="/colormap-editor"
-                device={this.state.device}
                 startContext={this.startContext}
                 cancelContext={this.cancelContext}
                 inContext={this.state.contextBar}

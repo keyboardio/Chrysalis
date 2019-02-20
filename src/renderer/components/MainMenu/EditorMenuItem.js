@@ -22,7 +22,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
 import i18n from "../../i18n";
 
-export default function KeymapMenuItem({ selected, onClick, className }) {
+export default function EditorMenuItem({ selected, onClick, className }) {
   return (
     <ListItem
       button
@@ -33,7 +33,7 @@ export default function KeymapMenuItem({ selected, onClick, className }) {
       <ListItemIcon>
         <KeyboardIcon />
       </ListItemIcon>
-      <ListItemText primary={i18n.app.menu.layoutEditor} />
+      <ListItemText primary={i18n.app.menu.editor} />
     </ListItem>
   );
 }

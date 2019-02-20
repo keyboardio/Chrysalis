@@ -27,12 +27,15 @@ const English = {
       saveChanges: "Save Changes"
     }
   },
+  dialog: {
+    ok: "Ok",
+    cancel: "Cancel"
+  },
   app: {
     device: "Keyboard",
     menu: {
       welcome: "Welcome",
-      layoutEditor: "Layout Editor",
-      colormapEditor: "Colormap Editor",
+      editor: "Layout & Colormap Editor",
       firmwareUpdate: "Firmware Update",
       keyboardSettings: "Keyboard Settings",
       preferences: "Preferences",
@@ -51,7 +54,7 @@ const English = {
       Chat: "Chat"
     }
   },
-  layoutEditor: {
+  editor: {
     keyType: "Key type",
     keyCode: "Key code",
     groups: {
@@ -83,13 +86,14 @@ const English = {
       "Unknown keycodes": "Unknown keycodes"
     },
     clearLayer: "Clear layer...",
+    clearLayerQuestion: "Clear layer?",
+    clearLayerPrompt: "This will reset the layer to its default state.",
     copyFrom: "Copy from layer...",
+    pleaseSelectLayer: "Please select a layer...",
     dualUse: "Modifier when held, normal key otherwise",
-    dualUseLayer: "Layer shift when held, normal key otherwise"
-  },
-  colormapEditor: {
-    clearLayer: "Clear layer...",
-    copyFrom: "Copy from layer..."
+    dualUseLayer: "Layer shift when held, normal key otherwise",
+    layoutMode: "Edit the keyboard layout",
+    colormapMode: "Edit the colormap"
   },
   preferences: {
     devtools: "Developer tools",

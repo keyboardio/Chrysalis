@@ -219,7 +219,7 @@ class KeyboardSelect extends React.Component {
         devices[this.state.selectedPortIndex]
       );
       await navigate(
-        commands.includes("keymap.custom") > 0 ? "/layout-editor" : "/welcome"
+        commands.includes("keymap.custom") > 0 ? "/editor" : "/welcome"
       );
     } catch (err) {
       this.setState({

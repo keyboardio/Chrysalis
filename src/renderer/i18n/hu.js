@@ -27,12 +27,15 @@ const Hungarian = {
       saveChanges: "Mentés"
     }
   },
+  dialog: {
+    ok: "Ok",
+    cancel: "Mégsem"
+  },
   app: {
     device: "Billentyűzet",
     menu: {
       welcome: "Üdvözlet",
-      layoutEditor: "Kiosztás szerkesztő",
-      colormapEditor: "Színtérkép szerkesztő",
+      editor: "Kiosztás & színtérkép szerkesztő",
       firmwareUpdate: "Vezérlő frissítés",
       keyboardSettings: "Billentyűzet beállítások",
       preferences: "Beállítások",
@@ -51,7 +54,7 @@ const Hungarian = {
       Chat: "Csevegőszoba"
     }
   },
-  layoutEditor: {
+  editor: {
     keyType: "Gomb tipus",
     keyCode: "Gomb kód",
     groups: {
@@ -83,13 +86,14 @@ const Hungarian = {
       "Unknown keycodes": "Ismeretlen kódok"
     },
     clearLayer: "Réteg ürítése...",
+    clearLayerQuestion: "Ürítsük a réteget?",
+    clearLayerPrompt: "Ez visszaállítja a réteget annak alapbeállításaira.",
     copyFrom: "Réteg másolás máshonnan...",
+    pleaseSelectLayer: "Válasszon réteget...",
     dualUse: "Nyomvatartáskor módosító, normál gomb egyébként",
-    dualUseLayer: "Nyomvatartáskor réteg váltó, normál gomb egyébként"
-  },
-  colormapEditor: {
-    clearLayer: "Réteg ürítése...",
-    copyFrom: "Réteg másolás máshonnan..."
+    dualUseLayer: "Nyomvatartáskor réteg váltó, normál gomb egyébként",
+    layoutMode: "Billentyűzetkiosztás szerkesztése",
+    colormapMode: "Színtérkép szerkesztése"
   },
   preferences: {
     devtools: "Fejlesztői eszközök",

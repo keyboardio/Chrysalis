@@ -33,8 +33,7 @@ import i18n from "../../i18n";
 
 import { version } from "../../../../package.json";
 import WelcomeMenu from "./WelcomeMenu";
-import KeymapMenuItem from "./KeymapMenuItem";
-import ColormapMenuItem from "./ColormapMenuItem";
+import EditorMenuItem from "./EditorMenuItem";
 import FlashMenuItem from "./FlashMenuItem";
 import ChatMenuItem from "./ChatMenuItem";
 import FeedbackMenuItem from "./FeedbackMenuItem";
@@ -71,7 +70,7 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
 
   const homePage = connected
     ? pages.keymap
-      ? "/layout-editor"
+      ? "/editor"
       : "/welcome"
     : "/keyboard-select";
 
@@ -109,24 +108,15 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
             )}
             {pages.keymap && (
               <Link
-                to="/layout-editor"
+                to="/editor"
                 style={{
                   textDecoration: "none"
                 }}
               >
-                <KeymapMenuItem
-                  selected={currentPage == "/layout-editor"}
+                <EditorMenuItem
+                  selected={currentPage == "/editor"}
                   className={classes.menuItem}
-                  onClick={() => setCurrentPage("/layout-editor")}
-                />
-              </Link>
-            )}
-            {pages.colormap && (
-              <Link to="/colormap-editor" className={classes.link}>
-                <ColormapMenuItem
-                  selected={currentPage == "/colormap-editor"}
-                  className={classes.menuItem}
-                  onClick={() => setCurrentPage("/colormap-editor")}
+                  onClick={() => setCurrentPage("/editor")}
                 />
               </Link>
             )}

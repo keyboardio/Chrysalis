@@ -43,7 +43,8 @@ const English = {
       exit: "Exit Chrysalis",
       keyboardSection: "Keyboard",
       chrysalisSection: "Chrysalis",
-      miscSection: "Miscellaneous"
+      miscSection: "Miscellaneous",
+      upgradeAvailable: "An upgrade is available!"
     },
     deviceMenu: {
       Homepage: "Homepage",

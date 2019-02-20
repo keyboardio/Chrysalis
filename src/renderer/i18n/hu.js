@@ -46,7 +46,8 @@ const Hungarian = {
       exit: "Kilépés",
       keyboardSection: "Billentyűzet",
       chrysalisSection: "Chrysalis",
-      miscSection: "Egyéb"
+      miscSection: "Egyéb",
+      upgradeAvailable: "Frissítés érhető el!"
     },
     deviceMenu: {
       Homepage: "Honlap",

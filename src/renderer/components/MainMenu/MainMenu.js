@@ -41,6 +41,7 @@ import ExitMenuItem from "./ExitMenuItem";
 import KeyboardMenuItem from "./KeyboardSelectMenuItem";
 import PreferencesMenuItem from "./PreferencesMenuItem";
 import KeyboardSettingsMenuItem from "./KeyboardSettingsMenuItem";
+import UpgradeMenuItem from "./UpgradeMenuItem";
 import openURL from "../../utils/openURL";
 
 const styles = theme => ({
@@ -195,6 +196,7 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
               className={classes.version}
             />
           </ListItem>
+          <UpgradeMenuItem />
         </List>
       </div>
     </Drawer>

@@ -236,6 +236,9 @@ class App extends React.Component {
               <KeyboardSettings
                 path="/keyboard-settings"
                 titleElement={() => document.querySelector("#page-title")}
+                startContext={this.startContext}
+                cancelContext={this.cancelContext}
+                inContext={this.state.contextBar}
               />
               <Preferences
                 path="/preferences"

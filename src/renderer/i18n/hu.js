@@ -110,6 +110,13 @@ const Hungarian = {
       showHardcoded: "Beépített rétegek mutatása",
       onlyCustom: "Kizárólag testreszabott rétegek használata",
       defaultLayer: "Alapértelmezett réteg"
+    },
+    advancedOps: "Haladó billentyűzet beállítások és műveletek",
+    resetEEPROM: {
+      button: "EEPROM visszaállítása gyári alapbeállításokra",
+      dialogTitle: "Visszaállítja az EEPROM-ot gyári alapbeállításokra?",
+      dialogContents: `Ez visszaállítja az EEPROM-ot gyári alapbeállításokra.
+Minden testreszabott beállítás el fog veszni.`
     }
   },
   keyboardSelect: {

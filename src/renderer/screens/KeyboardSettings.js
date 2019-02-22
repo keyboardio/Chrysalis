@@ -29,6 +29,7 @@ import Divider from "@material-ui/core/Divider";
 import FilledInput from "@material-ui/core/FilledInput";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import LinearProgress from "@material-ui/core/LinearProgress";
 import MenuItem from "@material-ui/core/MenuItem";
 import Portal from "@material-ui/core/Portal";
 import Select from "@material-ui/core/Select";
@@ -38,6 +39,7 @@ import { withStyles } from "@material-ui/core/styles";
 
 import Focus from "@chrysalis-api/focus";
 
+import ConfirmationDialog from "../components/ConfirmationDialog";
 import SaveChangesButton from "../components/SaveChangesButton";
 import i18n from "../i18n";
 
@@ -86,7 +88,7 @@ const styles = theme => ({
 
 class KeyboardSettings extends React.Component {
   state = {
-    advanced: true,
+    advanced: false,
     keymap: {
       custom: [],
       default: [],
@@ -94,7 +96,9 @@ class KeyboardSettings extends React.Component {
     },
     defaultLayer: 126,
     modified: false,
-    showDefaults: false
+    showDefaults: false,
+    EEPROMClearConfirmationOpen: false,
+    working: false
   };
 
   componentDidMount() {
@@ -155,6 +159,28 @@ class KeyboardSettings extends React.Component {
     this.setState({ modified: false });
   };
 
+  clearEEPROM = async () => {
+    const focus = new Focus();
+
+    await this.setState({ working: true });
+    this.closeEEPROMClearConfirmation();
+
+    let eeprom = await focus.command("eeprom.contents");
+    eeprom = eeprom
+      .split(" ")
+      .filter(v => v.length > 0)
+      .map(() => 255)
+      .join(" ");
+    await focus.command("eeprom.contents", eeprom);
+    this.setState({ working: false });
+  };
+  openEEPROMClearConfirmation = () => {
+    this.setState({ EEPROMClearConfirmationOpen: true });
+  };
+  closeEEPROMClearConfirmation = () => {
+    this.setState({ EEPROMClearConfirmationOpen: false });
+  };
+
   render() {
     const { classes } = this.props;
     const { keymap, defaultLayer, modified, showDefaults } = this.state;
@@ -206,17 +232,12 @@ class KeyboardSettings extends React.Component {
     );
 
     return (
-      <div className={classes.root}>
-        <Portal container={this.props.titleElement}>
-          {i18n.app.menu.keyboardSettings}
-        </Portal>
-        <div className={classes.advanced}>
-          <Button onClick={this.toggleAdvanced}>
-            {i18n.keyboardSettings.advanced}
-            {this.state.advanced ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-          </Button>
-        </div>
-        <Collapse in={this.state.advanced} timeout="auto" unmountOnExit>
+      <React.Fragment>
+        {this.state.working && <LinearProgress variant="query" />}
+        <div className={classes.root}>
+          <Portal container={this.props.titleElement}>
+            {i18n.app.menu.keyboardSettings}
+          </Portal>
           <Typography
             variant="subtitle1"
             component="h2"
@@ -261,8 +282,47 @@ class KeyboardSettings extends React.Component {
               </SaveChangesButton>
             </CardActions>
           </Card>
-        </Collapse>
-      </div>
+          <div className={classes.advanced}>
+            <Button onClick={this.toggleAdvanced}>
+              {i18n.keyboardSettings.advanced}
+              {this.state.advanced ? (
+                <ArrowDropUpIcon />
+              ) : (
+                <ArrowDropDownIcon />
+              )}
+            </Button>
+          </div>
+          <Collapse in={this.state.advanced} timeout="auto" unmountOnExit>
+            <Typography
+              variant="subtitle1"
+              component="h2"
+              className={classes.title}
+            >
+              {i18n.keyboardSettings.advancedOps}
+            </Typography>
+            <Card>
+              <CardActions>
+                <Button
+                  disabled={this.state.working}
+                  variant="contained"
+                  color="secondary"
+                  onClick={this.openEEPROMClearConfirmation}
+                >
+                  {i18n.keyboardSettings.resetEEPROM.button}
+                </Button>
+              </CardActions>
+            </Card>
+          </Collapse>
+          <ConfirmationDialog
+            title={i18n.keyboardSettings.resetEEPROM.dialogTitle}
+            open={this.state.EEPROMClearConfirmationOpen}
+            onConfirm={this.clearEEPROM}
+            onCancel={this.closeEEPROMClearConfirmation}
+          >
+            {i18n.keyboardSettings.resetEEPROM.dialogContents}
+          </ConfirmationDialog>
+        </div>
+      </React.Fragment>
     );
   }
 }

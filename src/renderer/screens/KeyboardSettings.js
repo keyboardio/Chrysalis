@@ -116,6 +116,13 @@ class KeyboardSettings extends React.Component {
     });
   }
 
+  UNSAFE_componentWillReceiveProps = nextProps => {
+    if (this.props.inContext && !nextProps.inContext) {
+      this.componentDidMount();
+      this.setState({ modified: false });
+    }
+  };
+
   toggleAdvanced = () => {
     this.setState(state => ({
       advanced: !state.advanced
@@ -132,6 +139,7 @@ class KeyboardSettings extends React.Component {
         onlyCustom: checked
       }
     }));
+    this.props.startContext();
   };
 
   selectDefaultLayer = event => {
@@ -139,6 +147,7 @@ class KeyboardSettings extends React.Component {
       defaultLayer: event.target.value,
       modified: true
     });
+    this.props.startContext();
   };
 
   setShowDefaults = event => {
@@ -146,6 +155,7 @@ class KeyboardSettings extends React.Component {
       showDefaults: event.target.checked,
       modified: true
     });
+    this.props.startContext();
   };
 
   saveKeymapChanges = async () => {
@@ -157,6 +167,7 @@ class KeyboardSettings extends React.Component {
     await focus.command("settings.defaultLayer", defaultLayer);
     settings.set("keymap.showDefaults", showDefaults);
     this.setState({ modified: false });
+    this.props.cancelContext();
   };
 
   clearEEPROM = async () => {

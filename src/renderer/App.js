@@ -40,6 +40,7 @@ import KeyboardSettings from "./screens/KeyboardSettings";
 import i18n from "./i18n";
 
 import Header from "./components/Header";
+import ConfirmationDialog from "./components/ConfirmationDialog";
 import { history, navigate } from "./routerHistory";
 
 let focus = new Focus();
@@ -63,7 +64,8 @@ class App extends React.Component {
       connected: false,
       device: null,
       pages: {},
-      contextBar: false
+      contextBar: false,
+      cancelPendingOpen: false
     };
   }
   flashing = false;
@@ -166,7 +168,16 @@ class App extends React.Component {
   };
 
   cancelContext = () => {
-    this.setState({ contextBar: false });
+    this.setState({ cancelPendingOpen: true });
+  };
+  doCancelContext = () => {
+    this.setState({
+      contextBar: false,
+      cancelPendingOpen: false
+    });
+  };
+  cancelContextCancellation = () => {
+    this.setState({ cancelPendingOpen: false });
   };
   startContext = () => {
     this.setState({ contextBar: true });
@@ -233,6 +244,14 @@ class App extends React.Component {
             </Router>
           </main>
         </LocationProvider>
+        <ConfirmationDialog
+          title={i18n.app.cancelPending.title}
+          open={this.state.cancelPendingOpen}
+          onConfirm={this.doCancelContext}
+          onCancel={this.cancelContextCancellation}
+        >
+          {i18n.app.cancelPending.content}
+        </ConfirmationDialog>
       </div>
     );
   }

@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useState } from "react";
+import React from "react";
 import Electron from "electron";
 import { Link } from "@reach/router";
 
@@ -44,6 +44,8 @@ import KeyboardSettingsMenuItem from "./KeyboardSettingsMenuItem";
 import UpgradeMenuItem from "./UpgradeMenuItem";
 import openURL from "../../utils/openURL";
 
+import { history } from "../../routerHistory";
+
 const styles = theme => ({
   drawer: {
     width: 350
@@ -67,7 +69,8 @@ const styles = theme => ({
 });
 
 function MainMenu({ open, closeMenu, classes, connected, pages }) {
-  const [currentPage, setCurrentPage] = useState("/keyboard-select");
+  const currentPage = history.location.pathname,
+    setCurrentPage = history.navigate;
 
   const homePage = connected
     ? pages.keymap

@@ -110,6 +110,13 @@ const English = {
       showHardcoded: "Show hardcoded layers",
       onlyCustom: "Use custom layers only",
       defaultLayer: "Default layer"
+    },
+    advancedOps: "Advanced keyboard settings & operations",
+    resetEEPROM: {
+      button: "Reset EEPROM to factory defaults",
+      dialogTitle: "Reset EEPROM to factory defaults?",
+      dialogContents: `This will reset the EEPROM to factory defaults.
+ You will lose all customizations made.`
     }
   },
   keyboardSelect: {

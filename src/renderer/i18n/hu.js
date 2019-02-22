@@ -53,6 +53,11 @@ const Hungarian = {
       Homepage: "Honlap",
       Forum: "Fórum",
       Chat: "Csevegőszoba"
+    },
+    cancelPending: {
+      title: "Eldobja a függőben lévő változtatásokat?",
+      content: `Függőben lévő változásokat észleltünk.
+ Ha folytatja, ezek elvesznek.`
     }
   },
   editor: {

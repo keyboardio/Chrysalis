@@ -86,7 +86,7 @@ const styles = theme => ({
 
 class KeyboardSettings extends React.Component {
   state = {
-    advanced: true,
+    advanced: false,
     keymap: {
       custom: [],
       default: [],
@@ -210,58 +210,57 @@ class KeyboardSettings extends React.Component {
         <Portal container={this.props.titleElement}>
           {i18n.app.menu.keyboardSettings}
         </Portal>
+        <Typography
+          variant="subtitle1"
+          component="h2"
+          className={classes.title}
+        >
+          {i18n.keyboardSettings.keymap.title}
+        </Typography>
+        <Card>
+          <CardContent>
+            <FormControl className={classes.group}>
+              <FormControlLabel
+                className={classes.control}
+                control={showDefaultLayersSwitch}
+                classes={{ label: classes.grow }}
+                labelPlacement="start"
+                label={i18n.keyboardSettings.keymap.showHardcoded}
+              />
+              <Divider />
+              <FormControlLabel
+                className={classes.control}
+                control={onlyCustomSwitch}
+                classes={{ label: classes.grow }}
+                labelPlacement="start"
+                label={i18n.keyboardSettings.keymap.onlyCustom}
+              />
+              <FormControlLabel
+                className={classes.control}
+                classes={{ label: classes.grow }}
+                control={defaultLayerSelect}
+                labelPlacement="start"
+                label={i18n.keyboardSettings.keymap.defaultLayer}
+              />
+            </FormControl>
+          </CardContent>
+          <CardActions className={classes.flex}>
+            <span className={classes.grow} />
+            <SaveChangesButton
+              onClick={this.saveKeymapChanges}
+              disabled={!modified}
+            >
+              {i18n.components.save.saveChanges}
+            </SaveChangesButton>
+          </CardActions>
+        </Card>
         <div className={classes.advanced}>
           <Button onClick={this.toggleAdvanced}>
             {i18n.keyboardSettings.advanced}
             {this.state.advanced ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
           </Button>
         </div>
-        <Collapse in={this.state.advanced} timeout="auto" unmountOnExit>
-          <Typography
-            variant="subtitle1"
-            component="h2"
-            className={classes.title}
-          >
-            {i18n.keyboardSettings.keymap.title}
-          </Typography>
-          <Card>
-            <CardContent>
-              <FormControl className={classes.group}>
-                <FormControlLabel
-                  className={classes.control}
-                  control={showDefaultLayersSwitch}
-                  classes={{ label: classes.grow }}
-                  labelPlacement="start"
-                  label={i18n.keyboardSettings.keymap.showHardcoded}
-                />
-                <Divider />
-                <FormControlLabel
-                  className={classes.control}
-                  control={onlyCustomSwitch}
-                  classes={{ label: classes.grow }}
-                  labelPlacement="start"
-                  label={i18n.keyboardSettings.keymap.onlyCustom}
-                />
-                <FormControlLabel
-                  className={classes.control}
-                  classes={{ label: classes.grow }}
-                  control={defaultLayerSelect}
-                  labelPlacement="start"
-                  label={i18n.keyboardSettings.keymap.defaultLayer}
-                />
-              </FormControl>
-            </CardContent>
-            <CardActions className={classes.flex}>
-              <span className={classes.grow} />
-              <SaveChangesButton
-                onClick={this.saveKeymapChanges}
-                disabled={!modified}
-              >
-                {i18n.components.save.saveChanges}
-              </SaveChangesButton>
-            </CardActions>
-          </Card>
-        </Collapse>
+        <Collapse in={this.state.advanced} timeout="auto" unmountOnExit />
       </div>
     );
   }

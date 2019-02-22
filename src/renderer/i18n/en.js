@@ -53,6 +53,10 @@ const English = {
       Homepage: "Homepage",
       Forum: "Forum",
       Chat: "Chat"
+    },
+    cancelPending: {
+      title: "Cancel pending changes?",
+      content: "You have unsaved changes. If you proceed, they will be lost."
     }
   },
   editor: {

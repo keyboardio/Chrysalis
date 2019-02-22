@@ -25,7 +25,8 @@
   font-weight: 700;
   min-width: 550px;
   min-height: 280px;
-  max-width: 85%;
+  height: calc(100vh - 300px);
+  max-width: calc(100vw - 128px);
 }
 
 .extraKey {

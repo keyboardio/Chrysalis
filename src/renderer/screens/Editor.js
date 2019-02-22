@@ -55,6 +55,7 @@ import { KeymapDB } from "@chrysalis-api/keymap";
 import Palette from "./Editor/Palette";
 import KeySelector from "./Editor/KeySelector";
 import SaveChangesButton from "../components/SaveChangesButton";
+import ConfirmationDialog from "../components/ConfirmationDialog";
 import i18n from "../i18n";
 import settings from "electron-settings";
 
@@ -91,28 +92,6 @@ const styles = theme => ({
     padding: `6px ${theme.spacing.unit}px`
   }
 });
-
-const ConfirmationDialog = props => {
-  return (
-    <Dialog
-      disableBackdropClick
-      open={props.open}
-      onClose={props.onCancel}
-      fullWidth
-    >
-      <DialogTitle>{props.title}</DialogTitle>
-      <DialogContent>{props.children}</DialogContent>
-      <DialogActions>
-        <Button onClick={props.onCancel} color="primary">
-          {i18n.dialog.cancel}
-        </Button>
-        <Button onClick={props.onConfirm} color="primary">
-          {i18n.dialog.ok}
-        </Button>
-      </DialogActions>
-    </Dialog>
-  );
-};
 
 const CopyFromDialog = props => {
   const [selectedLayer, setSelectedLayer] = useState(-1);

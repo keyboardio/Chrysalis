@@ -36,6 +36,8 @@ import { withStyles } from "@material-ui/core/styles";
 
 import i18n from "../i18n";
 
+import settings from "electron-settings";
+
 const styles = theme => ({
   root: {
     ...theme.mixins.gutters(),
@@ -103,9 +105,10 @@ class Preferences extends React.Component {
     }
   };
 
-  setLanguage = event => {
+  setLanguage = async event => {
     i18n.setLanguage(event.target.value);
-    this.setState({});
+    await this.setState({});
+    settings.set("ui.language", event.target.value);
   };
 
   toggleAdvanced = () => {

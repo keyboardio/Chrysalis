@@ -17,6 +17,7 @@
 
 import React from "react";
 import { spawn } from "child_process";
+import settings from "electron-settings";
 
 import Focus from "@chrysalis-api/focus";
 import "@chrysalis-api/keymap";
@@ -44,6 +45,8 @@ import ConfirmationDialog from "./components/ConfirmationDialog";
 import { history, navigate } from "./routerHistory";
 
 let focus = new Focus();
+
+if (settings.get("ui.language")) i18n.setLanguage(settings.get("ui.language"));
 
 const styles = () => ({
   root: {

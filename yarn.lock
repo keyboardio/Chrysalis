@@ -779,10 +779,10 @@
     "@chrysalis-api/flash" "^0.0.7"
     react "^16.5.2"
 
-"@chrysalis-api/hardware-keyboardio-model01@^0.0.19":
-  version "0.0.19"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-keyboardio-model01/-/hardware-keyboardio-model01-0.0.19.tgz#83d824a0e233d777d867f5d4f4a4d1b617a0e9d7"
-  integrity sha512-3T7zc9/s0qCV5mawiqR0usoxfCfu3fzEARpAkO/rlnMZdzP1mN8HwgN2/17eu5tBlbJhPSGMNgqXYLgSs+ARqQ==
+"@chrysalis-api/hardware-keyboardio-model01@^0.0.20":
+  version "0.0.20"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-keyboardio-model01/-/hardware-keyboardio-model01-0.0.20.tgz#ed78707faad4e401b95c7e569fd465fbf52c5ca1"
+  integrity sha512-6vzFi0Q3r+NyH5DZM7j7JOY8or6ycquybtiaIek66A5J6SamKqxJcOm+52YS2OtEVCtSIUs1Zg4zNFUgfH0QtQ==
   dependencies:
     "@chrysalis-api/flash" "^0.0.7"
     react "^16.5.2"
@@ -817,15 +817,15 @@
     "@chrysalis-api/flash" "^0.0.7"
     react "^16.5.2"
 
-"@chrysalis-api/hardware@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware/-/hardware-0.0.6.tgz#4e73064e586d6b276bf39c06ccf061e7bdd8f7c8"
-  integrity sha512-lfSzAo0+YEXgEcNFcFEs1h26uEAkDGnc1Tw4tWB+fFZaWuu4hxgLgf0ArojOYVaWHRG+bgSDPCdhmqUDukNKOA==
+"@chrysalis-api/hardware@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware/-/hardware-0.0.7.tgz#6ac8d1360a4214f3227b0875ef8067252c4e8e4d"
+  integrity sha512-WV63/Z/t2CEJ8RLP2QB0ESJQJoCpXjuSx2y5cQZc+CYf70XsxD3XlwaMuik/p4Lu1ebkZn8AR9XMK+voC/BgdA==
   dependencies:
     "@chrysalis-api/hardware-dygma-raise" "^0.0.5"
     "@chrysalis-api/hardware-ez-ergodox" "^0.0.12"
     "@chrysalis-api/hardware-kbdfans-kbd4x" "^0.0.2"
-    "@chrysalis-api/hardware-keyboardio-model01" "^0.0.19"
+    "@chrysalis-api/hardware-keyboardio-model01" "^0.0.20"
     "@chrysalis-api/hardware-olkb-planck" "^0.0.3"
     "@chrysalis-api/hardware-pjrc-teensy" "^0.0.4"
     "@chrysalis-api/hardware-softhruf-splitography" "^0.0.3"

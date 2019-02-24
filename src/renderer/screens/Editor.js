@@ -17,6 +17,7 @@
 
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -90,6 +91,10 @@ const styles = theme => ({
   tabLabelContainer: {
     width: "auto",
     padding: `6px ${theme.spacing.unit}px`
+  },
+  disabledLayer: {
+    opacity: 0.5,
+    filter: "saturate(25%)"
   }
 });
 
@@ -498,6 +503,7 @@ class Editor extends React.Component {
       <Fade in appear key={currentLayer}>
         <div className={classes.editor}>
           <Layer
+            className={classNames("layer", isReadOnly && classes.disabledLayer)}
             readOnly={isReadOnly}
             index={currentLayer}
             keymap={layerData}

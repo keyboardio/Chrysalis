@@ -40,7 +40,7 @@ required, just Chrysalis itself.
 
 Chrysalis supports the [Keyboardio Model01][hw:model01], the [ErgoDox
 EZ][hw:ergodox-ez] (and any other keyboard wired like the original ErgoDox), the
-[Atreus][hw:atreus], and has perliminary support for [Dygma's Raise][hw:raise].
+[Atreus][hw:atreus], and has preliminary support for [Dygma's Raise][hw:raise].
 Support for more keyboards are under development.
 
  [hw:model01]: https://shop.keyboard.io/

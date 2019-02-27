@@ -170,8 +170,12 @@ class App extends React.Component {
     await navigate("/keyboard-select");
   };
 
-  cancelContext = () => {
-    this.setState({ cancelPendingOpen: true });
+  cancelContext = dirty => {
+    if (dirty) {
+      this.setState({ cancelPendingOpen: true });
+    } else {
+      this.doCancelContext();
+    }
   };
   doCancelContext = () => {
     this.setState({

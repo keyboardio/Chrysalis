@@ -74,6 +74,14 @@ function Header({
     setBoardMenuAnchor(null);
   }
 
+  function contextOnClick() {
+    if (contextBar) {
+      cancelContext(true);
+    } else {
+      openMainMenu();
+    }
+  }
+
   return (
     <AppBar
       position="static"
@@ -84,7 +92,7 @@ function Header({
         <Button
           className={classes.menuButton}
           color="inherit"
-          onClick={contextBar ? cancelContext : openMainMenu}
+          onClick={contextOnClick}
         >
           {contextBar ? <CloseIcon /> : <MenuIcon />}
           <Typography

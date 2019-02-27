@@ -143,20 +143,21 @@ class App extends React.Component {
     }
 
     focus.setLayerSize(focus.device);
+    const pages = {
+      keymap:
+        commands.includes("keymap.custom") > 0 ||
+        commands.includes("keymap.map") > 0,
+      colormap:
+        commands.includes("colormap.map") > 0 &&
+        commands.includes("palette") > 0
+    };
 
     this.setState({
       connected: true,
       device: null,
-      pages: {
-        keymap:
-          commands.includes("keymap.custom") > 0 ||
-          commands.includes("keymap.map") > 0,
-        colormap:
-          commands.includes("colormap.map") > 0 &&
-          commands.includes("palette") > 0
-      }
+      pages: pages
     });
-    await navigate("./");
+    await navigate(pages.keymap ? "/editor" : "/welcome");
     return commands;
   };
 

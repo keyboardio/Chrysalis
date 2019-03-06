@@ -284,7 +284,11 @@ class Editor extends React.Component {
     }
 
     this.setState(state => {
-      if (state.colorMap.length > 0) {
+      if (
+        state.colorMap.length > 0 &&
+        layer > 0 &&
+        layer < state.colorMap.length
+      ) {
         return {
           currentLayer: layer,
           currentKeyIndex: keyIndex,
@@ -441,9 +445,11 @@ class Editor extends React.Component {
       return;
     }
 
+    const { currentLayer, currentLedIndex } = this.state;
+    if (currentLayer < 0 || currentLayer >= this.state.colorMap.length) return;
+
     this.setState(state => {
       let colormap = state.colorMap.slice();
-      const { currentLayer, currentLedIndex } = this.state;
       colormap[currentLayer][currentLedIndex] = colorIndex;
 
       return {
@@ -642,6 +648,9 @@ class Editor extends React.Component {
           )) ||
             (mode == "colormap" && (
               <Palette
+                disabled={
+                  isReadOnly || currentLayer > this.state.colorMap.length
+                }
                 palette={this.state.palette}
                 onColorSelect={this.onColorSelect}
                 onColorPick={this.onColorPick}

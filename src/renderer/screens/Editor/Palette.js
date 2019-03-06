@@ -62,6 +62,7 @@ class Palette extends React.Component {
       const itemKey = "palette-index-" + index.toString();
       return (
         <ColorBox
+          disabled={this.props.disabled}
           selected={index == this.props.selected}
           key={itemKey}
           color={color}
@@ -74,6 +75,7 @@ class Palette extends React.Component {
       const itemKey = "palette-index-" + (index + 8).toString();
       return (
         <ColorBox
+          disabled={this.props.disabled}
           selected={index + 8 == this.props.selected}
           key={itemKey}
           color={color}
@@ -91,6 +93,7 @@ class Palette extends React.Component {
         <Fade in={this.props.selected != -1}>
           <div className={classes.picker}>
             <MaterialPicker
+              disabled={this.props.disabled}
               className={classes.pickerInner}
               color={color}
               onChangeComplete={this.onColorPick}

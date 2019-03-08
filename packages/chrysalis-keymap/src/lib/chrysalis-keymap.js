@@ -100,6 +100,10 @@ class Keymap {
                 .filter(v => v.length > 0)
                 .map(k => this.db.parse(parseInt(k)))
 
+            if (customKeymap.length == 0) {
+                onlyCustom = false;
+            }
+
             return {
                 onlyCustom: onlyCustom,
                 custom: this._chunk(customKeymap, this._layerSize),

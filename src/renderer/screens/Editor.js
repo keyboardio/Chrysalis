@@ -29,6 +29,7 @@ import FileCopyIcon from "@material-ui/icons/FileCopy";
 import FormControl from "@material-ui/core/FormControl";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import IconButton from "@material-ui/core/IconButton";
+import ImportExportIcon from "@material-ui/icons/ImportExport";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import List from "@material-ui/core/List";
@@ -41,6 +42,7 @@ import PaletteIcon from "@material-ui/icons/Palette";
 import Portal from "@material-ui/core/Portal";
 import Select from "@material-ui/core/Select";
 import Slide from "@material-ui/core/Slide";
+import TextField from "@material-ui/core/TextField";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -96,6 +98,72 @@ const styles = theme => ({
     opacity: 0.5,
     filter: "saturate(25%)"
   }
+});
+
+const ImportExportDialog = withSnackbar(props => {
+  const [dataState, setData] = useState();
+
+  const data =
+    dataState != undefined
+      ? dataState
+      : JSON.stringify(
+          {
+            keymap: props.keymap,
+            colormap: props.colormap,
+            palette: props.palette
+          },
+          null,
+          2
+        );
+
+  const onConfirm = () => {
+    try {
+      props.onConfirm(JSON.parse(data));
+      setData(undefined);
+    } catch (e) {
+      props.enqueueSnackbar(e.toString(), { variant: "error" });
+    }
+  };
+
+  const onCancel = () => {
+    setData(undefined);
+    props.onCancel();
+  };
+
+  return (
+    <Dialog
+      disableBackdropClick
+      open={props.open}
+      onClose={onCancel}
+      fullScreen
+    >
+      <DialogTitle>{i18n.editor.importExport}</DialogTitle>
+      <DialogContent>
+        <Typography variant="body1">
+          {i18n.editor.importExportDescription}
+        </Typography>
+        <TextField
+          disabled={props.isReadOnly}
+          multiline
+          fullWidth
+          value={data}
+          onChange={event => {
+            setData(event.target.value);
+          }}
+          variant="outlined"
+          margin="normal"
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button color="primary" onClick={onCancel}>
+          Cancel
+        </Button>
+        <Button color="primary" onClick={onConfirm}>
+          Ok
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
 });
 
 const CopyFromDialog = props => {
@@ -173,7 +241,8 @@ class Editor extends React.Component {
     colorMap: [],
     mode: "layout",
     clearConfirmationOpen: false,
-    copyFromOpen: false
+    copyFromOpen: false,
+    importExportDialogOpen: false
   };
   keymapDB = new KeymapDB();
 
@@ -476,6 +545,60 @@ class Editor extends React.Component {
     this.props.startContext();
   };
 
+  importExportDialog = () => {
+    this.setState({ importExportDialogOpen: true });
+  };
+  cancelImport = () => {
+    this.setState({ importExportDialogOpen: false });
+  };
+  importLayer = data => {
+    if (data.colormap.length > 0) this.setState({ colorMap: data.colormap });
+    if (data.palette.length > 0) this.setState({ palette: data.palette });
+    if (data.keymap.length > 0) {
+      const { currentLayer } = this.state;
+      if (this.state.keymap.onlyCustom) {
+        if (currentLayer >= 0) {
+          this.setState(state => {
+            let newKeymap = this.state.keymap.custom[currentLayer].slice();
+            newKeymap[currentLayer] = data.keymap.slice();
+            console.log(currentLayer, newKeymap);
+            return {
+              keymap: {
+                default: state.keymap.default,
+                custom: newKeymap,
+                onlyCustom: state.keymap.onlyCustom
+              }
+            };
+          });
+        }
+      } else {
+        if (currentLayer >= this.state.keymap.default.length) {
+          this.setState(state => {
+            const defLength = this.state.keymap.default.length;
+            let newKeymap = this.state.keymap.custom[
+              currentLayer - defLength
+            ].slice();
+            newKeymap[currentLayer - defLength] = data.keymap;
+
+            return {
+              keymap: {
+                default: state.keymap.default,
+                custom: newKeymap,
+                onlyCustom: state.keymap.onlyCustom
+              }
+            };
+          });
+        }
+      }
+    }
+
+    this.setState({
+      modified: true,
+      importExportDialogOpen: false
+    });
+    this.props.startContext();
+  };
+
   render() {
     const { classes } = this.props;
     const { keymap, palette } = this.state;
@@ -621,6 +744,11 @@ class Editor extends React.Component {
             </FormControl>
             <div className={classes.grow} />
             <div>
+              <Tooltip title={i18n.editor.importExport}>
+                <IconButton onClick={this.importExportDialog}>
+                  <ImportExportIcon />
+                </IconButton>
+              </Tooltip>
               <Tooltip title={i18n.editor.copyFrom}>
                 <IconButton disabled={isReadOnly} onClick={this.copyFromDialog}>
                   <FileCopyIcon />
@@ -679,6 +807,15 @@ class Editor extends React.Component {
           onCancel={this.cancelCopyFrom}
           layers={copyFromLayerOptions}
           currentLayer={currentLayer}
+        />
+        <ImportExportDialog
+          open={this.state.importExportDialogOpen}
+          keymap={layerData}
+          palette={this.state.palette}
+          colormap={this.state.colorMap}
+          isReadOnly={isReadOnly}
+          onConfirm={this.importLayer}
+          onCancel={this.cancelImport}
         />
       </React.Fragment>
     );

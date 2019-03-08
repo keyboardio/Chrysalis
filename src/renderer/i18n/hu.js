@@ -99,7 +99,9 @@ const Hungarian = {
     dualUse: "Nyomvatartáskor módosító, normál gomb egyébként",
     dualUseLayer: "Nyomvatartáskor réteg váltó, normál gomb egyébként",
     layoutMode: "Billentyűzetkiosztás szerkesztése",
-    colormapMode: "Színtérkép szerkesztése"
+    colormapMode: "Színtérkép szerkesztése",
+    importExport: "Aktuális réteg importálása/exportálása",
+    importExportDescription: `Az alábbi adatok szabadon szerkeszthetőek, vagy máshova másolhatóak, hogy később vissza lehessen illeszteni. Ezek az adatok a Chrysalis belső adatszerkezetét tükrözik, óvatosan szerkessze.`
   },
   preferences: {
     devtools: "Fejlesztői eszközök",

@@ -101,7 +101,7 @@ class Keymap {
                 .map(k => this.db.parse(parseInt(k)))
 
             if (customKeymap.length == 0) {
-                onlyCustom = false;
+                onlyCustom = false
             }
 
             return {

@@ -1,3 +1,57 @@
+Chrysalis 0.5.0
+===============
+Released on 2019-03-08
+
+## UI/UX improvements
+
+The biggest change in this release is that we merged the layout and colormap
+editors, they're available on the same screen now. Them being on separate
+screens turned out to be both confusing, and prone to errors. On the same
+screen, we have tighter integration, and editing one or the other requires far
+less clicking around.
+
+Another important change is that we now ask for confirmation (instead of just
+dropping the changes on the floor) if we're about to throw away pending changes
+or do something destructive like clearing the layer. We hope this allows
+everyone to experiment more freely, as the chance of losing one's changes. We
+also changed the icon of the save button, to one that better conveys its meaning
+(it also has a tooltip now).
+
+In spirit of making the Chrysalis experience less confusing, read-only layers
+are now visibly dimmed, to make it easier to see at a glance that they're not
+meant to be modified.
+
+## New features
+
+Because Chrysalis is still alpha-quality software, it sometimes gets confused if
+it encounters an EEPROM state it can't figure out, for one reason or the other.
+To make it easier to get out of this situation, it is now possible to clear the
+EEPROM, and reset it to factory settings.
+
+For similar reasons, the sidebar will now show if there's a new version of
+Chrysalis available: if one's running a tagged release, and there's a new one,
+it will show that. If one's running a snapshot build, the update notice will
+show any new snapshot builds. It will not suggest upgrading from a release to a
+snapshot build, however.
+
+We also added a way to export and import keymaps, colormaps and the palette. The
+interface for that is very, very minimal, and is in no way final. It does make
+it possible to transfer layers and colormaps from one keyboard to another.
+
+## New hardware support
+
+Chrysalis now supports the [Splitography][splitography] keyboard, one designed
+to be used for Steno with [Plover][plover].
+
+ [splitography]: https://softhruf.love/collections/writers
+ [plover]: http://www.openstenoproject.org/plover/
+
+## Bugfixes
+
+We fixed a fair amount of bugs, ranging from navigation issues to small subtle
+things that were confusing, like the keyboard image's strange jumps in size when
+resizing the window - that should be much smoother now.
+
 Chrysalis 0.4.0
 ===============
 Released on 2019-02-06

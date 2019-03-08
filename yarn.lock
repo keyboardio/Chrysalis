@@ -831,10 +831,10 @@
     "@chrysalis-api/hardware-softhruf-splitography" "^0.0.3"
     "@chrysalis-api/hardware-technomancy-atreus" "^0.0.13"
 
-"@chrysalis-api/keymap@~0.0.17":
-  version "0.0.17"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/keymap/-/keymap-0.0.17.tgz#e15f4e5b13e89f38097f1e005ea36aa2689a057a"
-  integrity sha512-/OBdPI7YtwNX1dojxxE1aRxDRGd74q9yLEBrGFL7/PyH9L49JiNIZsOtUNLFTALcUZN96iimAaByIcbcA+i6tw==
+"@chrysalis-api/keymap@^0.0.18":
+  version "0.0.18"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/keymap/-/keymap-0.0.18.tgz#3425ae71a6ee9d7ed81accff330f3e2bb807d977"
+  integrity sha512-dRH0ZTgT57aNWl3y3nTrEZEhvoInC6oCgecSQ5bNaXcMO/oBj8L3n2hK8vsFcVinWLInJ9mFkpGVU3rH1wLKgA==
   dependencies:
     "@chrysalis-api/focus" "^0.0.9"
 

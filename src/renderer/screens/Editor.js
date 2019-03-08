@@ -196,7 +196,7 @@ class Editor extends React.Component {
         }
       }
 
-      if (empty && !keymap.onlyCustom) {
+      if (empty && !keymap.onlyCustom && keymap.custom.length > 0) {
         console.log("Custom keymap is empty, copying defaults");
         for (let i = 0; i < keymap.default.length; i++) {
           keymap.custom[i] = keymap.default[i].slice();
@@ -634,9 +634,10 @@ class Editor extends React.Component {
             </div>
           </Toolbar>
         </Portal>
-        {this.state.keymap.custom.length == 0 && (
-          <LinearProgress variant="query" />
-        )}
+        {this.state.keymap.custom.length == 0 &&
+          this.state.keymap.default.length == 0 && (
+            <LinearProgress variant="query" />
+          )}
         {layer}
         <Slide in={this.getCurrentKey() != -1} direction="up" unmountOnExit>
           {(mode == "layout" && (

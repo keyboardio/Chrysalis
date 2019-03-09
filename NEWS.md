@@ -1,6 +1,6 @@
 Chrysalis 0.5.0
 ===============
-Released on 2019-03-08
+Released on 2019-03-09
 
 ## UI/UX improvements
 

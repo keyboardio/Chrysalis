@@ -158,7 +158,7 @@ Minden testreszabott beállítás el fog veszni.`
     contents: `A Chrysalis felismerte a billentyűzetét, de a folytatáshoz frissíteni kell a vezérlőjét.`,
     gotoUpdate: "Vezérlő frissítés",
     reconnect: "Újracsatlakozás",
-    reconnectDescription: `Elképzelhető, hogy hibásan ismertük fel a billentyűzet által kínált funkcionalitást, vagy az is, hogy a billentyűzet még nem állt teljesen rendelkezésre mikor csatlakozni próbáltunk. Ebben az esetben az "{0}" gombra kattintva újra megpróbálunk csatlakozni.`
+    reconnectDescription: `Elképzelhető, hogy hibásan ismertük fel a billentyűzet által kínált funkcionalitást, vagy az is, hogy a billentyűzet még nem állt teljesen rendelkezésre mikor csatlakozni próbáltunk. Ebben az esetben az "{0}" gombra kattintva újra megpróbálunk csatlakozni. Az újracsatlakozás akkor hasznos, ha biztosak vagyunk benne, hogy átmeneti hiba állt fenn, és azóta megoldódott.`
   }
 };
 

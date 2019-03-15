@@ -90,6 +90,78 @@ const FunctionKeyTable = {
             labels: {
                 primary: "F12"
             }
+        },
+        {
+            code: 104,
+            labels: {
+                primary: "F13"
+            }
+        },
+        {
+            code: 105,
+            labels: {
+                primary: "F14"
+            }
+        },
+        {
+            code: 106,
+            labels: {
+                primary: "F15"
+            }
+        },
+        {
+            code: 107,
+            labels: {
+                primary: "F16"
+            }
+        },
+        {
+            code: 108,
+            labels: {
+                primary: "F17"
+            }
+        },
+        {
+            code: 109,
+            labels: {
+                primary: "F18"
+            }
+        },
+        {
+            code: 110,
+            labels: {
+                primary: "F19"
+            }
+        },
+        {
+            code: 111,
+            labels: {
+                primary: "F20"
+            }
+        },
+        {
+            code: 112,
+            labels: {
+                primary: "F21"
+            }
+        },
+        {
+            code: 113,
+            labels: {
+                primary: "F22"
+            }
+        },
+        {
+            code: 114,
+            labels: {
+                primary: "F23"
+            }
+        },
+        {
+            code: 115,
+            labels: {
+                primary: "F24"
+            }
         }
     ]
 }

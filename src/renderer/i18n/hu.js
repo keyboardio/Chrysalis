@@ -107,7 +107,8 @@ const Hungarian = {
     devtools: "Fejlesztői eszközök",
     language: "Nyelv",
     interface: "Felhasználói felület",
-    advanced: "Haladó beállítások"
+    advanced: "Haladó beállítások",
+    darkMode: "Sötét mód"
   },
   keyboardSettings: {
     advanced: "Haladó beállítások",

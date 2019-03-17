@@ -106,7 +106,8 @@ const English = {
     devtools: "Developer tools",
     language: "Language",
     interface: "Interface",
-    advanced: "Advanced"
+    advanced: "Advanced",
+    darkMode: "Dark mode"
   },
   keyboardSettings: {
     advanced: "Advanced",

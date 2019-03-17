@@ -355,7 +355,7 @@ class Editor extends React.Component {
     this.setState(state => {
       if (
         state.colorMap.length > 0 &&
-        layer > 0 &&
+        layer >= 0 &&
         layer < state.colorMap.length
       ) {
         return {

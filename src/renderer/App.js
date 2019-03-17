@@ -28,6 +28,9 @@ import { LocationProvider, Router } from "@reach/router";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { withStyles } from "@material-ui/core/styles";
+import { MuiThemeProvider } from "@material-ui/core/styles";
+import { lightTheme } from "../styles/lightTheme";
+import { darkTheme } from "../styles/darkTheme";
 
 import usb from "usb";
 import { withSnackbar } from "notistack";
@@ -64,6 +67,7 @@ class App extends React.Component {
     super(props);
 
     this.state = {
+      darkMode: settings.get("ui.darkMode"),
       connected: false,
       device: null,
       pages: {},
@@ -104,6 +108,14 @@ class App extends React.Component {
       }
     });
   }
+
+  toggleDarkMode = () => {
+    const nextDarkModeState = !this.state.darkMode;
+    this.setState({
+      darkMode: nextDarkModeState
+    });
+    settings.set("ui.darkMode", nextDarkModeState);
+  };
 
   toggleFlashing = async () => {
     this.flashing = !this.flashing;
@@ -201,69 +213,73 @@ class App extends React.Component {
       (this.state.device && this.state.device.info);
 
     return (
-      <div className={classes.root}>
-        <LocationProvider history={history}>
-          <CssBaseline />
-          <Header
-            contextBar={contextBar}
-            connected={connected}
-            pages={pages}
-            device={device}
-            cancelContext={this.cancelContext}
-          />
-          <main className={classes.content}>
-            <Router>
-              <Welcome
-                path="/welcome"
-                device={this.state.device}
-                onConnect={this.onKeyboardConnect}
-                titleElement={() => document.querySelector("#page-title")}
-              />
-              <KeyboardSelect
-                path="/keyboard-select"
-                onConnect={this.onKeyboardConnect}
-                onDisconnect={this.onKeyboardDisconnect}
-                titleElement={() => document.querySelector("#page-title")}
-              />
-              <Editor
-                path="/editor"
-                onDisconnect={this.onKeyboardDisconnect}
-                startContext={this.startContext}
-                cancelContext={this.cancelContext}
-                inContext={this.state.contextBar}
-                titleElement={() => document.querySelector("#page-title")}
-                appBarElement={() => document.querySelector("#appbar")}
-              />
-              <FirmwareUpdate
-                path="/firmware-update"
-                device={this.state.device}
-                toggleFlashing={this.toggleFlashing}
-                onDisconnect={this.onKeyboardDisconnect}
-                titleElement={() => document.querySelector("#page-title")}
-              />
-              <KeyboardSettings
-                path="/keyboard-settings"
-                titleElement={() => document.querySelector("#page-title")}
-                startContext={this.startContext}
-                cancelContext={this.cancelContext}
-                inContext={this.state.contextBar}
-              />
-              <Preferences
-                path="/preferences"
-                titleElement={() => document.querySelector("#page-title")}
-              />
-            </Router>
-          </main>
-        </LocationProvider>
-        <ConfirmationDialog
-          title={i18n.app.cancelPending.title}
-          open={this.state.cancelPendingOpen}
-          onConfirm={this.doCancelContext}
-          onCancel={this.cancelContextCancellation}
-        >
-          {i18n.app.cancelPending.content}
-        </ConfirmationDialog>
-      </div>
+      <MuiThemeProvider theme={this.state.darkMode ? darkTheme : lightTheme}>
+        <div className={classes.root}>
+          <LocationProvider history={history}>
+            <CssBaseline />
+            <Header
+              contextBar={contextBar}
+              connected={connected}
+              pages={pages}
+              device={device}
+              cancelContext={this.cancelContext}
+            />
+            <main className={classes.content}>
+              <Router>
+                <Welcome
+                  path="/welcome"
+                  device={this.state.device}
+                  onConnect={this.onKeyboardConnect}
+                  titleElement={() => document.querySelector("#page-title")}
+                />
+                <KeyboardSelect
+                  path="/keyboard-select"
+                  onConnect={this.onKeyboardConnect}
+                  onDisconnect={this.onKeyboardDisconnect}
+                  titleElement={() => document.querySelector("#page-title")}
+                />
+                <Editor
+                  path="/editor"
+                  onDisconnect={this.onKeyboardDisconnect}
+                  startContext={this.startContext}
+                  cancelContext={this.cancelContext}
+                  inContext={this.state.contextBar}
+                  titleElement={() => document.querySelector("#page-title")}
+                  appBarElement={() => document.querySelector("#appbar")}
+                />
+                <FirmwareUpdate
+                  path="/firmware-update"
+                  device={this.state.device}
+                  toggleFlashing={this.toggleFlashing}
+                  onDisconnect={this.onKeyboardDisconnect}
+                  titleElement={() => document.querySelector("#page-title")}
+                />
+                <KeyboardSettings
+                  path="/keyboard-settings"
+                  titleElement={() => document.querySelector("#page-title")}
+                  startContext={this.startContext}
+                  cancelContext={this.cancelContext}
+                  inContext={this.state.contextBar}
+                />
+                <Preferences
+                  path="/preferences"
+                  titleElement={() => document.querySelector("#page-title")}
+                  darkMode={this.state.darkMode}
+                  toggleDarkMode={this.toggleDarkMode}
+                />
+              </Router>
+            </main>
+          </LocationProvider>
+          <ConfirmationDialog
+            title={i18n.app.cancelPending.title}
+            open={this.state.cancelPendingOpen}
+            onConfirm={this.doCancelContext}
+            onCancel={this.cancelContextCancellation}
+          >
+            {i18n.app.cancelPending.content}
+          </ConfirmationDialog>
+        </div>
+      </MuiThemeProvider>
     );
   }
 }

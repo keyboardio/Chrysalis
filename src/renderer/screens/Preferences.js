@@ -118,7 +118,7 @@ class Preferences extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, darkMode, toggleDarkMode } = this.props;
 
     const language = i18n.getLanguage();
     const languages = i18n.getAvailableLanguages().map(code => {
@@ -138,6 +138,10 @@ class Preferences extends React.Component {
       >
         {languages}
       </Select>
+    );
+
+    const darkModeSwitch = (
+      <Switch checked={darkMode} onChange={toggleDarkMode} value="devtools" />
     );
 
     const devToolsSwitch = (
@@ -168,6 +172,13 @@ class Preferences extends React.Component {
               control={languageSelect}
               labelPlacement="start"
               label={i18n.preferences.language}
+            />
+            <FormControlLabel
+              className={classes.control}
+              classes={{ label: classes.grow }}
+              control={darkModeSwitch}
+              labelPlacement="start"
+              label={i18n.preferences.darkMode}
             />
           </CardContent>
         </Card>

@@ -36,6 +36,9 @@
     "productName": "Chrysalis",
     "artifactName": "${productName}-${version}.${ext}",
     "copyright": "Copyright © 2018, 2019 Keyboardio Inc.; distributed under the GPLv3",
+    "mac": {
+      "darkModeSupport": true
+    },
     "linux": {
       "target": [
         "AppImage"

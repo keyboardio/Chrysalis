@@ -46,13 +46,13 @@ import { withSnackbar } from "notistack";
 import Focus from "@chrysalis-api/focus";
 import { KeymapDB } from "@chrysalis-api/keymap";
 
-import Palette from "./Editor/Palette";
-import KeySelector from "./Editor/KeySelector";
-import SaveChangesButton from "../components/SaveChangesButton";
-import ConfirmationDialog from "../components/ConfirmationDialog";
-import i18n from "../i18n";
+import Palette from "./Palette";
+import KeySelector from "./KeySelector";
+import SaveChangesButton from "../../components/SaveChangesButton";
+import ConfirmationDialog from "../../components/ConfirmationDialog";
+import i18n from "../../i18n";
 import settings from "electron-settings";
-import { ImportExportDialog } from "./Editor/ImportExportDialog";
+import { ImportExportDialog } from "./ImportExportDialog";
 import { CopyFromDialog } from "./CopyFromDialog";
 
 const styles = theme => ({

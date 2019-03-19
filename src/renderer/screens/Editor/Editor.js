@@ -15,15 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import Fade from "@material-ui/core/Fade";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 import FormControl from "@material-ui/core/FormControl";
@@ -32,8 +27,6 @@ import IconButton from "@material-ui/core/IconButton";
 import ImportExportIcon from "@material-ui/icons/ImportExport";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import LockIcon from "@material-ui/icons/Lock";
@@ -42,12 +35,10 @@ import PaletteIcon from "@material-ui/icons/Palette";
 import Portal from "@material-ui/core/Portal";
 import Select from "@material-ui/core/Select";
 import Slide from "@material-ui/core/Slide";
-import TextField from "@material-ui/core/TextField";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import Toolbar from "@material-ui/core/Toolbar";
 import Tooltip from "@material-ui/core/Tooltip";
-import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 import { withSnackbar } from "notistack";
@@ -55,12 +46,14 @@ import { withSnackbar } from "notistack";
 import Focus from "@chrysalis-api/focus";
 import { KeymapDB } from "@chrysalis-api/keymap";
 
-import Palette from "./Editor/Palette";
-import KeySelector from "./Editor/KeySelector";
-import SaveChangesButton from "../components/SaveChangesButton";
-import ConfirmationDialog from "../components/ConfirmationDialog";
-import i18n from "../i18n";
+import Palette from "./Palette";
+import KeySelector from "./KeySelector";
+import SaveChangesButton from "../../components/SaveChangesButton";
+import ConfirmationDialog from "../../components/ConfirmationDialog";
+import i18n from "../../i18n";
 import settings from "electron-settings";
+import { ImportExportDialog } from "./ImportExportDialog";
+import { CopyFromDialog } from "./CopyFromDialog";
 
 const styles = theme => ({
   tbg: {
@@ -99,131 +92,6 @@ const styles = theme => ({
     filter: "saturate(25%)"
   }
 });
-
-const ImportExportDialog = withSnackbar(props => {
-  const [dataState, setData] = useState();
-
-  const data =
-    dataState != undefined
-      ? dataState
-      : JSON.stringify(
-          {
-            keymap: props.keymap,
-            colormap: props.colormap,
-            palette: props.palette
-          },
-          null,
-          2
-        );
-
-  const onConfirm = () => {
-    try {
-      props.onConfirm(JSON.parse(data));
-      setData(undefined);
-    } catch (e) {
-      props.enqueueSnackbar(e.toString(), { variant: "error" });
-    }
-  };
-
-  const onCancel = () => {
-    setData(undefined);
-    props.onCancel();
-  };
-
-  return (
-    <Dialog
-      disableBackdropClick
-      open={props.open}
-      onClose={onCancel}
-      fullScreen
-    >
-      <DialogTitle>{i18n.editor.importExport}</DialogTitle>
-      <DialogContent>
-        <Typography variant="body1">
-          {i18n.editor.importExportDescription}
-        </Typography>
-        <TextField
-          disabled={props.isReadOnly}
-          multiline
-          fullWidth
-          value={data}
-          onChange={event => {
-            setData(event.target.value);
-          }}
-          variant="outlined"
-          margin="normal"
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button color="primary" onClick={onCancel}>
-          Cancel
-        </Button>
-        <Button color="primary" onClick={onConfirm}>
-          Ok
-        </Button>
-      </DialogActions>
-    </Dialog>
-  );
-});
-
-const CopyFromDialog = props => {
-  const [selectedLayer, setSelectedLayer] = useState(-1);
-
-  return (
-    <Dialog
-      disableBackdropClick
-      open={props.open}
-      onClose={props.onCancel}
-      fullWidth
-    >
-      <DialogTitle>{i18n.editor.copyFrom}</DialogTitle>
-      <DialogContent>
-        <Typography variant="body1" gutterBottom>
-          {i18n.editor.pleaseSelectLayer}
-        </Typography>
-        <List>
-          {props.layers.map(layer => {
-            return (
-              <ListItem
-                key={layer.index}
-                button
-                disabled={layer.index == props.currentLayer}
-                selected={layer.index == selectedLayer}
-                onClick={() => {
-                  setSelectedLayer(layer.index);
-                }}
-              >
-                <ListItemText inset primary={layer.label} />
-              </ListItem>
-            );
-          })}
-        </List>
-      </DialogContent>
-      <DialogActions>
-        <Button
-          color="primary"
-          onClick={() => {
-            setSelectedLayer(-1);
-            props.onCancel();
-          }}
-        >
-          {i18n.dialog.cancel}
-        </Button>
-        <Button
-          onClick={() => {
-            const layer = selectedLayer;
-            setSelectedLayer(-1);
-            props.onCopy(layer);
-          }}
-          color="primary"
-          disabled={selectedLayer == -1}
-        >
-          {i18n.dialog.ok}
-        </Button>
-      </DialogActions>
-    </Dialog>
-  );
-};
 
 class Editor extends React.Component {
   state = {

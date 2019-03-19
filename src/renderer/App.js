@@ -37,7 +37,7 @@ import { withSnackbar } from "notistack";
 
 import KeyboardSelect from "./screens/KeyboardSelect";
 import FirmwareUpdate from "./screens/FirmwareUpdate";
-import Editor from "./screens/Editor";
+import Editor from "./screens/Editor/Editor";
 import Preferences from "./screens/Preferences";
 import Welcome from "./screens/Welcome";
 import KeyboardSettings from "./screens/KeyboardSettings";

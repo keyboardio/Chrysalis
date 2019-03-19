@@ -27,7 +27,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
 
-import i18n from "../i18n";
+import i18n from "../../i18n";
 
 export const CopyFromDialog = props => {
   const [selectedLayer, setSelectedLayer] = useState(-1);

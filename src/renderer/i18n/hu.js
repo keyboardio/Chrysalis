@@ -102,9 +102,9 @@ const Hungarian = {
     colormapMode: "Színtérkép szerkesztése",
     importExport: "Aktuális réteg importálása/exportálása",
     importExportDescription: `Az alábbi adatok szabadon szerkeszthetőek, vagy máshova másolhatóak, hogy később vissza lehessen illeszteni. Ezek az adatok a Chrysalis belső adatszerkezetét tükrözik, óvatosan szerkessze.`,
-    copyToClipboard: `Másolja a vágólapra`,
-    copySuccess: `Másolt!`,
-    pasteFromClipboard: `Illessze be a vágólapból`,
+    copyToClipboard: `Másolás a vágólapra`,
+    copySuccess: `Másolva!`,
+    pasteFromClipboard: `Beillesztés a vágólapról`,
     pasteSuccess: `Beillesztve!`
   },
   preferences: {

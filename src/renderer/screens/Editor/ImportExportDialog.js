@@ -15,7 +15,6 @@ import i18n from "../../i18n";
 
 export const ImportExportDialog = withSnackbar(props => {
   const [dataState, setData] = useState();
-  const [copySuccess, setCopySuccess] = useState(false);
 
   const data =
     dataState != undefined
@@ -45,10 +44,19 @@ export const ImportExportDialog = withSnackbar(props => {
   }
 
   function onCopySuccess() {
-    setCopySuccess(true);
-    setTimeout(() => {
-      setCopySuccess(false);
-    }, 3000);
+    props.enqueueSnackbar(i18n.editor.copySuccess, { variant: "success" });
+  }
+
+  function pasteFromClipboard() {
+    navigator.clipboard
+      .readText()
+      .then(text => {
+        setData(text);
+        props.enqueueSnackbar(i18n.editor.pasteSuccess, { variant: "success" });
+      })
+      .catch(err => {
+        console.log("Something went wrong", err);
+      });
   }
 
   return (
@@ -71,14 +79,12 @@ export const ImportExportDialog = withSnackbar(props => {
             alignItems: "center"
           }}
         >
-          {copySuccess && (
-            <div style={{ color: "#00BE00", padding: "0px 10px" }}>
-              {i18n.editor.copySuccess}
-            </div>
-          )}
           <CopyToClipboard text={data} onCopy={onCopySuccess}>
             <Button color="primary">{i18n.editor.copyToClipboard}</Button>
           </CopyToClipboard>
+          <Button color="primary" onClick={pasteFromClipboard}>
+            {i18n.editor.pasteFromClipboard}
+          </Button>
         </div>
         <TextField
           disabled={props.isReadOnly}

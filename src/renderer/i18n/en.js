@@ -100,7 +100,9 @@ const English = {
     layoutMode: "Edit the keyboard layout",
     colormapMode: "Edit the colormap",
     importExport: "Import/Export the current layer",
-    importExportDescription: `The data below can be freely edited, or copied elsewhere to be pasted back for importing. This is the internal representation of Chrysalis state, handle with care.`
+    importExportDescription: `The data below can be freely edited, or copied elsewhere to be pasted back for importing. This is the internal representation of Chrysalis state, handle with care.`,
+    copyToClipboard: `Copy to clipboard`,
+    copySuccess: `Copied!`
   },
   preferences: {
     devtools: "Developer tools",

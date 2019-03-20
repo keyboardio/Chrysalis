@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -14,6 +15,8 @@ import i18n from "../../i18n";
 
 export const ImportExportDialog = withSnackbar(props => {
   const [dataState, setData] = useState();
+  const [copySuccess, setCopySuccess] = useState(false);
+
   const data =
     dataState != undefined
       ? dataState
@@ -26,18 +29,28 @@ export const ImportExportDialog = withSnackbar(props => {
           null,
           2
         );
-  const onConfirm = () => {
+
+  function onConfirm() {
     try {
       props.onConfirm(JSON.parse(data));
       setData(undefined);
     } catch (e) {
       props.enqueueSnackbar(e.toString(), { variant: "error" });
     }
-  };
-  const onCancel = () => {
+  }
+
+  function onCancel() {
     setData(undefined);
     props.onCancel();
-  };
+  }
+
+  function onCopySuccess() {
+    setCopySuccess(true);
+    setTimeout(() => {
+      setCopySuccess(false);
+    }, 3000);
+  }
+
   return (
     <Dialog
       disableBackdropClick
@@ -50,6 +63,23 @@ export const ImportExportDialog = withSnackbar(props => {
         <Typography variant="body1">
           {i18n.editor.importExportDescription}
         </Typography>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "flex-end",
+            alignItems: "center"
+          }}
+        >
+          {copySuccess && (
+            <div style={{ color: "#00BE00", padding: "0px 10px" }}>
+              {i18n.editor.copySuccess}
+            </div>
+          )}
+          <CopyToClipboard text={data} onCopy={onCopySuccess}>
+            <Button color="primary">{i18n.editor.copyToClipboard}</Button>
+          </CopyToClipboard>
+        </div>
         <TextField
           disabled={props.isReadOnly}
           multiline

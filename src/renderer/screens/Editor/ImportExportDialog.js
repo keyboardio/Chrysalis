@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -14,6 +15,7 @@ import i18n from "../../i18n";
 
 export const ImportExportDialog = withSnackbar(props => {
   const [dataState, setData] = useState();
+
   const data =
     dataState != undefined
       ? dataState
@@ -26,18 +28,37 @@ export const ImportExportDialog = withSnackbar(props => {
           null,
           2
         );
-  const onConfirm = () => {
+
+  function onConfirm() {
     try {
       props.onConfirm(JSON.parse(data));
       setData(undefined);
     } catch (e) {
       props.enqueueSnackbar(e.toString(), { variant: "error" });
     }
-  };
-  const onCancel = () => {
+  }
+
+  function onCancel() {
     setData(undefined);
     props.onCancel();
-  };
+  }
+
+  function onCopySuccess() {
+    props.enqueueSnackbar(i18n.editor.copySuccess, { variant: "success" });
+  }
+
+  function pasteFromClipboard() {
+    navigator.clipboard
+      .readText()
+      .then(text => {
+        setData(text);
+        props.enqueueSnackbar(i18n.editor.pasteSuccess, { variant: "success" });
+      })
+      .catch(err => {
+        console.log("Something went wrong", err);
+      });
+  }
+
   return (
     <Dialog
       disableBackdropClick
@@ -50,6 +71,21 @@ export const ImportExportDialog = withSnackbar(props => {
         <Typography variant="body1">
           {i18n.editor.importExportDescription}
         </Typography>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "flex-end",
+            alignItems: "center"
+          }}
+        >
+          <CopyToClipboard text={data} onCopy={onCopySuccess}>
+            <Button color="primary">{i18n.editor.copyToClipboard}</Button>
+          </CopyToClipboard>
+          <Button color="primary" onClick={pasteFromClipboard}>
+            {i18n.editor.pasteFromClipboard}
+          </Button>
+        </div>
         <TextField
           disabled={props.isReadOnly}
           multiline

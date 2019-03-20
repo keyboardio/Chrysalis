@@ -103,7 +103,9 @@ const Hungarian = {
     importExport: "Aktuális réteg importálása/exportálása",
     importExportDescription: `Az alábbi adatok szabadon szerkeszthetőek, vagy máshova másolhatóak, hogy később vissza lehessen illeszteni. Ezek az adatok a Chrysalis belső adatszerkezetét tükrözik, óvatosan szerkessze.`,
     copyToClipboard: `Másolja a vágólapra`,
-    copySuccess: `Másolt!`
+    copySuccess: `Másolt!`,
+    pasteFromClipboard: `Illessze be a vágólapból`,
+    pasteSuccess: `Beillesztve!`
   },
   preferences: {
     devtools: "Fejlesztői eszközök",

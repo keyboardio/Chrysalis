@@ -102,7 +102,9 @@ const English = {
     importExport: "Import/Export the current layer",
     importExportDescription: `The data below can be freely edited, or copied elsewhere to be pasted back for importing. This is the internal representation of Chrysalis state, handle with care.`,
     copyToClipboard: `Copy to clipboard`,
-    copySuccess: `Copied!`
+    copySuccess: `Copied!`,
+    pasteFromClipboard: `Paste from clipboard`,
+    pasteSuccess: `Pasted!`
   },
   preferences: {
     devtools: "Developer tools",

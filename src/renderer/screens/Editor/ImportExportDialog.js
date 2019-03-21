@@ -44,7 +44,10 @@ export const ImportExportDialog = withSnackbar(props => {
   }
 
   function onCopySuccess() {
-    props.enqueueSnackbar(i18n.editor.copySuccess, { variant: "success" });
+    props.enqueueSnackbar(i18n.editor.copySuccess, {
+      variant: "success",
+      autoHideDuration: 2000
+    });
   }
 
   function pasteFromClipboard() {
@@ -52,7 +55,10 @@ export const ImportExportDialog = withSnackbar(props => {
       .readText()
       .then(text => {
         setData(text);
-        props.enqueueSnackbar(i18n.editor.pasteSuccess, { variant: "success" });
+        props.enqueueSnackbar(i18n.editor.pasteSuccess, {
+          variant: "success",
+          autoHideDuration: 2000
+        });
       })
       .catch(err => {
         console.log("Something went wrong", err);

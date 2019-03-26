@@ -1,3 +1,20 @@
+// -*- mode: js-jsx -*-
+/* Chrysalis -- Kaleidoscope Command Center
+ * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, version 3.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 import React, { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
@@ -12,6 +29,9 @@ import Typography from "@material-ui/core/Typography";
 import { withSnackbar } from "notistack";
 
 import i18n from "../../i18n";
+import qwerty from "../../../../static/Keyboardio/Model01/qwerty";
+import colemak from "../../../../static/Keyboardio/Model01/colemak";
+import dvorak from "../../../../static/Keyboardio/Model01/dvorak";
 
 export const ImportExportDialog = withSnackbar(props => {
   const [dataState, setData] = useState();
@@ -65,6 +85,10 @@ export const ImportExportDialog = withSnackbar(props => {
       });
   }
 
+  function loadDefault(layout) {
+    setData(JSON.stringify(layout));
+  }
+
   return (
     <Dialog
       disableBackdropClick
@@ -81,16 +105,30 @@ export const ImportExportDialog = withSnackbar(props => {
           style={{
             display: "flex",
             flexWrap: "wrap",
-            justifyContent: "flex-end",
+            justifyContent: "space-between",
             alignItems: "center"
           }}
         >
-          <CopyToClipboard text={data} onCopy={onCopySuccess}>
-            <Button color="primary">{i18n.editor.copyToClipboard}</Button>
-          </CopyToClipboard>
-          <Button color="primary" onClick={pasteFromClipboard}>
-            {i18n.editor.pasteFromClipboard}
-          </Button>
+          <div style={{ display: "flex" }}>
+            <h3>Load a default:</h3>
+            <Button color="primary" onClick={() => loadDefault(qwerty)}>
+              Qwerty
+            </Button>
+            <Button color="primary" onClick={() => loadDefault(colemak)}>
+              Colemak
+            </Button>
+            <Button color="primary" onClick={() => loadDefault(dvorak)}>
+              Dvorak
+            </Button>
+          </div>
+          <div>
+            <CopyToClipboard text={data} onCopy={onCopySuccess}>
+              <Button color="primary">{i18n.editor.copyToClipboard}</Button>
+            </CopyToClipboard>
+            <Button color="primary" onClick={pasteFromClipboard}>
+              {i18n.editor.pasteFromClipboard}
+            </Button>
+          </div>
         </div>
         <TextField
           disabled={props.isReadOnly}

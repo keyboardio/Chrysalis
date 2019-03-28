@@ -29,6 +29,8 @@ let mainWindow;
 
 async function createMainWindow() {
   const window = new BrowserWindow({
+    width: 1200,
+    height: 900,
     resizable: true,
     icon: path.join(getStaticPath(), "/logo.png")
   });

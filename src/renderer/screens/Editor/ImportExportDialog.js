@@ -16,7 +16,7 @@
  */
 
 import React, { useState } from "react";
-import { CopyToClipboard } from "react-copy-to-clipboard";
+const { clipboard } = require("electron");
 
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -63,7 +63,8 @@ export const ImportExportDialog = withSnackbar(props => {
     props.onCancel();
   }
 
-  function onCopySuccess() {
+  function copyToClipboard(data) {
+    clipboard.writeText(data);
     props.enqueueSnackbar(i18n.editor.copySuccess, {
       variant: "success",
       autoHideDuration: 2000
@@ -71,18 +72,11 @@ export const ImportExportDialog = withSnackbar(props => {
   }
 
   function pasteFromClipboard() {
-    navigator.clipboard
-      .readText()
-      .then(text => {
-        setData(text);
-        props.enqueueSnackbar(i18n.editor.pasteSuccess, {
-          variant: "success",
-          autoHideDuration: 2000
-        });
-      })
-      .catch(err => {
-        console.log("Something went wrong", err);
-      });
+    setData(clipboard.readText());
+    props.enqueueSnackbar(i18n.editor.pasteSuccess, {
+      variant: "success",
+      autoHideDuration: 2000
+    });
   }
 
   function loadDefault(layout) {
@@ -122,9 +116,9 @@ export const ImportExportDialog = withSnackbar(props => {
             </Button>
           </div>
           <div>
-            <CopyToClipboard text={data} onCopy={onCopySuccess}>
-              <Button color="primary">{i18n.editor.copyToClipboard}</Button>
-            </CopyToClipboard>
+            <Button color="primary" onClick={() => copyToClipboard(data)}>
+              {i18n.editor.copyToClipboard}
+            </Button>
             <Button color="primary" onClick={pasteFromClipboard}>
               {i18n.editor.pasteFromClipboard}
             </Button>

@@ -17,6 +17,7 @@
 
 import React, { useState } from "react";
 const { clipboard } = require("electron");
+const fs = require("fs");
 
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -28,10 +29,8 @@ import Typography from "@material-ui/core/Typography";
 
 import { withSnackbar } from "notistack";
 
-import i18n from "../../i18n";
-import qwerty from "../../../../static/Keyboardio/Model01/qwerty";
-import colemak from "../../../../static/Keyboardio/Model01/colemak";
-import dvorak from "../../../../static/Keyboardio/Model01/dvorak";
+import i18n from "../../../i18n";
+import LoadDefaultKeymap from "./LoadDefaultKeymap";
 
 export const ImportExportDialog = withSnackbar(props => {
   const [dataState, setData] = useState();
@@ -79,8 +78,16 @@ export const ImportExportDialog = withSnackbar(props => {
     });
   }
 
-  function loadDefault(layout) {
-    setData(JSON.stringify(layout));
+  function loadDefault(path) {
+    fs.readFile(path, "utf-8", (err, layoutData) => {
+      if (err) {
+        props.enqueueSnackbar(i18n.editor.pasteSuccess, {
+          variant: "error",
+          autoHideDuration: 2000
+        });
+      }
+      setData(layoutData);
+    });
   }
 
   return (
@@ -103,18 +110,7 @@ export const ImportExportDialog = withSnackbar(props => {
             alignItems: "center"
           }}
         >
-          <div style={{ display: "flex" }}>
-            <h3>Load a default:</h3>
-            <Button color="primary" onClick={() => loadDefault(qwerty)}>
-              Qwerty
-            </Button>
-            <Button color="primary" onClick={() => loadDefault(colemak)}>
-              Colemak
-            </Button>
-            <Button color="primary" onClick={() => loadDefault(dvorak)}>
-              Dvorak
-            </Button>
-          </div>
+          <LoadDefaultKeymap loadDefault={loadDefault} />
           <div>
             <Button color="primary" onClick={() => copyToClipboard(data)}>
               {i18n.editor.copyToClipboard}

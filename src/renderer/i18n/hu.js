@@ -101,11 +101,13 @@ const Hungarian = {
     layoutMode: "Billentyűzetkiosztás szerkesztése",
     colormapMode: "Színtérkép szerkesztése",
     importExport: "Aktuális réteg importálása/exportálása",
-    importExportDescription: `Az alábbi adatok szabadon szerkeszthetőek, vagy máshova másolhatóak, hogy később vissza lehessen illeszteni. Ezek az adatok a Chrysalis belső adatszerkezetét tükrözik, óvatosan szerkessze.`,
-    copyToClipboard: `Másolás a vágólapra`,
-    copySuccess: `Másolva!`,
-    pasteFromClipboard: `Beillesztés a vágólapról`,
-    pasteSuccess: `Beillesztve!`
+    importExportDescription:
+      "Az alábbi adatok szabadon szerkeszthetőek, vagy máshova másolhatóak, hogy később vissza lehessen illeszteni. Ezek az adatok a Chrysalis belső adatszerkezetét tükrözik, óvatosan szerkessze.",
+    loadDefault: "Alapértelmezett kiosztás betöltése:",
+    copyToClipboard: "Másolás a vágólapra",
+    copySuccess: "Másolva!",
+    pasteFromClipboard: "Beillesztés a vágólapról",
+    pasteSuccess: "Beillesztve!"
   },
   preferences: {
     devtools: "Fejlesztői eszközök",

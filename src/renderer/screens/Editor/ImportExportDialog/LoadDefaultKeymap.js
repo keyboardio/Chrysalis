@@ -24,6 +24,7 @@ import Focus from "@chrysalis-api/focus";
 import Button from "@material-ui/core/Button";
 
 import { getStaticPath } from "../../../config";
+import i18n from "../../../i18n";
 
 export default function LoadDefaultKeymap({ loadDefault }) {
   let focus = new Focus();
@@ -52,7 +53,7 @@ export default function LoadDefaultKeymap({ loadDefault }) {
     <div style={{ display: "flex" }}>
       {deviceLayouts.length > 0 && (
         <React.Fragment>
-          <h3>Load a default:</h3>
+          <h3>{i18n.editor.loadDefault}</h3>
           {deviceLayouts.map(({ name, path }, i) => (
             <Button
               key={name + i}

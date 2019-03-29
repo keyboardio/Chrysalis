@@ -52,7 +52,7 @@ import SaveChangesButton from "../../components/SaveChangesButton";
 import ConfirmationDialog from "../../components/ConfirmationDialog";
 import i18n from "../../i18n";
 import settings from "electron-settings";
-import { ImportExportDialog } from "./ImportExportDialog";
+import ImportExportDialog from "./ImportExportDialog";
 import { CopyFromDialog } from "./CopyFromDialog";
 
 const styles = theme => ({

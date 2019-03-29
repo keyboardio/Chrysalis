@@ -24,7 +24,6 @@ import Focus from "@chrysalis-api/focus";
 import Button from "@material-ui/core/Button";
 
 import { getStaticPath } from "../../../config";
-import capitalize from "../../../utils/capitalize";
 
 export default function LoadDefaultKeymap({ loadDefault }) {
   let focus = new Focus();
@@ -36,14 +35,14 @@ export default function LoadDefaultKeymap({ loadDefault }) {
   const layoutPath = layout =>
     path.join(getStaticPath(), cVendor, cProduct, `${layout}.json`);
 
-  const defaultLayouts = ["qwerty", "dvorak", "colemak"];
+  const defaultLayouts = ["Qwerty", "Dvorak", "Colemak"];
   const deviceLayouts = [];
 
   defaultLayouts.map(layout => {
     const path = layoutPath(layout);
     try {
       fs.accessSync(path);
-      deviceLayouts.push({ name: capitalize(layout), path });
+      deviceLayouts.push({ name: layout, path });
     } catch (err) {
       console.log(`${vendor} ${layout} does not exist`);
     }

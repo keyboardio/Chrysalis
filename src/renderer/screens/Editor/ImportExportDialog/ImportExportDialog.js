@@ -1,5 +1,23 @@
+// -*- mode: js-jsx -*-
+/* Chrysalis -- Kaleidoscope Command Center
+ * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, version 3.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 import React, { useState } from "react";
-import { CopyToClipboard } from "react-copy-to-clipboard";
+const { clipboard } = require("electron");
+const fs = require("fs");
 
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -11,7 +29,8 @@ import Typography from "@material-ui/core/Typography";
 
 import { withSnackbar } from "notistack";
 
-import i18n from "../../i18n";
+import i18n from "../../../i18n";
+import LoadDefaultKeymap from "./LoadDefaultKeymap";
 
 export const ImportExportDialog = withSnackbar(props => {
   const [dataState, setData] = useState();
@@ -43,7 +62,8 @@ export const ImportExportDialog = withSnackbar(props => {
     props.onCancel();
   }
 
-  function onCopySuccess() {
+  function copyToClipboard(data) {
+    clipboard.writeText(data);
     props.enqueueSnackbar(i18n.editor.copySuccess, {
       variant: "success",
       autoHideDuration: 2000
@@ -51,18 +71,23 @@ export const ImportExportDialog = withSnackbar(props => {
   }
 
   function pasteFromClipboard() {
-    navigator.clipboard
-      .readText()
-      .then(text => {
-        setData(text);
+    setData(clipboard.readText());
+    props.enqueueSnackbar(i18n.editor.pasteSuccess, {
+      variant: "success",
+      autoHideDuration: 2000
+    });
+  }
+
+  function loadDefault(path) {
+    fs.readFile(path, "utf-8", (err, layoutData) => {
+      if (err) {
         props.enqueueSnackbar(i18n.editor.pasteSuccess, {
-          variant: "success",
+          variant: "error",
           autoHideDuration: 2000
         });
-      })
-      .catch(err => {
-        console.log("Something went wrong", err);
-      });
+      }
+      setData(layoutData);
+    });
   }
 
   return (
@@ -81,16 +106,19 @@ export const ImportExportDialog = withSnackbar(props => {
           style={{
             display: "flex",
             flexWrap: "wrap",
-            justifyContent: "flex-end",
+            justifyContent: "space-between",
             alignItems: "center"
           }}
         >
-          <CopyToClipboard text={data} onCopy={onCopySuccess}>
-            <Button color="primary">{i18n.editor.copyToClipboard}</Button>
-          </CopyToClipboard>
-          <Button color="primary" onClick={pasteFromClipboard}>
-            {i18n.editor.pasteFromClipboard}
-          </Button>
+          <LoadDefaultKeymap loadDefault={loadDefault} />
+          <div>
+            <Button color="primary" onClick={() => copyToClipboard(data)}>
+              {i18n.editor.copyToClipboard}
+            </Button>
+            <Button color="primary" onClick={pasteFromClipboard}>
+              {i18n.editor.pasteFromClipboard}
+            </Button>
+          </div>
         </div>
         <TextField
           disabled={props.isReadOnly}

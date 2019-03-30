@@ -18,6 +18,7 @@
 import { app, BrowserWindow, Menu } from "electron";
 import { format as formatUrl } from "url";
 import * as path from "path";
+import windowStateKeeper from "electron-window-state";
 import installExtension, {
   REACT_DEVELOPER_TOOLS
 } from "electron-devtools-installer";
@@ -28,10 +29,21 @@ const isDevelopment = process.env.NODE_ENV !== "production";
 let mainWindow;
 
 async function createMainWindow() {
+  let mainWindowState = windowStateKeeper({
+    defaultWidth: 1200,
+    defaultHeight: 900
+  });
+
   const window = new BrowserWindow({
+    x: mainWindowState.x,
+    y: mainWindowState.y,
+    width: mainWindowState.width,
+    height: mainWindowState.height,
     resizable: true,
     icon: path.join(getStaticPath(), "/logo.png")
   });
+
+  mainWindowState.manage(window);
 
   if (isDevelopment) {
     window.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`);

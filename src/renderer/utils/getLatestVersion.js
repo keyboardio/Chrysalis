@@ -19,7 +19,7 @@ import http from "http";
 import https from "https";
 import { version } from "../../../package.json";
 
-let __latestVersion; // foobar
+let __latestVersion;
 
 const getLatestVersionFromS3 = async () => {
   const extensions = {
@@ -35,21 +35,33 @@ const getLatestVersionFromS3 = async () => {
   };
 
   return new Promise(resolve => {
-    const req = http.request(options, result => {
-      const uri = decodeURIComponent(
-        result.headers["x-amz-website-redirect-location"]
-      ).split("/");
-      let version = uri[uri.length - 1].split("-")[1];
-      version = version.substring(
-        0,
-        version.length - extensions[process.platform].length - 1
-      );
-      resolve({
-        version: version,
-        url: result.headers["x-amz-website-redirect-location"]
+    try {
+      const req = http.request(options, result => {
+        try {
+          const uri = decodeURIComponent(
+            result.headers["x-amz-website-redirect-location"]
+          ).split("/");
+          let version = uri[uri.length - 1].split("-")[1];
+          version = null;
+          version = version.substring(
+            0,
+            version.length - extensions[process.platform].length - 1
+          );
+          resolve({
+            version: version,
+            url: result.headers["x-amz-website-redirect-location"]
+          });
+        } catch (_) {
+          resolve(null);
+        }
       });
-    });
-    req.end();
+      req.on("error", () => {
+        resolve(null);
+      });
+      req.end();
+    } catch (_) {
+      resolve(null);
+    }
   });
 };
 
@@ -72,30 +84,45 @@ const getLatestVersionFromGitHub = async () => {
 
   return new Promise(resolve => {
     let data = "";
-    const req = https.request(options, response => {
-      response.on("data", chunk => {
-        data += chunk;
-      });
-      response.on("end", () => {
-        data = JSON.parse(data)[0];
-        const release = data.name.split(" ")[1];
-        resolve({
-          version: release,
-          url: `https://github.com/keyboardio/Chrysalis/releases/download/chrysalis-${release}/Chrysalis-${release}.${extension}`
+    try {
+      const req = https.request(options, response => {
+        response.on("data", chunk => {
+          data += chunk;
+        });
+        response.on("end", () => {
+          try {
+            data = JSON.parse(data)[0];
+            const release = data.name.split(" ")[1];
+            resolve({
+              version: release,
+              url: `https://github.com/keyboardio/Chrysalis/releases/download/chrysalis-${release}/Chrysalis-${release}.${extension}`
+            });
+          } catch (_) {
+            resolve(null);
+          }
         });
       });
-    });
-    req.end();
+      req.on("error", () => {
+        resolve(null);
+      });
+      req.end();
+    } catch (_) {
+      resolve(null);
+    }
   });
 };
 
 const getLatestVersion = async () => {
   if (__latestVersion) return __latestVersion;
 
-  if (version.indexOf("+") > 0) {
-    __latestVersion = await getLatestVersionFromS3();
-  } else {
-    __latestVersion = await getLatestVersionFromGitHub();
+  try {
+    if (version.indexOf("+") > 0) {
+      __latestVersion = await getLatestVersionFromS3();
+    } else {
+      __latestVersion = await getLatestVersionFromGitHub();
+    }
+  } catch (_) {
+    return null;
   }
 
   return __latestVersion;

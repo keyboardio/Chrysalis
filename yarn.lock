@@ -759,10 +759,10 @@
   dependencies:
     serialport "^6.2.2"
 
-"@chrysalis-api/hardware-dygma-raise@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-dygma-raise/-/hardware-dygma-raise-0.0.5.tgz#701aae2acc94a5fcb0a1beaae0b2e91ee8452bdc"
-  integrity sha512-gLbr9ydLxwe7WsvpHGjep7f6TkTssIjMviI+IhczNGMBa7+7mg9XqefXqaMdmBDEc5GGvcxKRc8yBtfdc//EsA==
+"@chrysalis-api/hardware-dygma-raise@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-dygma-raise/-/hardware-dygma-raise-0.0.6.tgz#2da18ac5d3b9774677602b43e11ce92734d4d426"
+  integrity sha512-wgCkqaNpkqS5D246k+UNP4nthgUZHx/eHpeS04KUDINZypU9uKhzQwKWsCZrYr0dR8f4MlruMYOUPOzXwncj7A==
   dependencies:
     react "^16.5.2"
 
@@ -820,12 +820,12 @@
     "@chrysalis-api/flash" "^0.0.7"
     react "^16.5.2"
 
-"@chrysalis-api/hardware@^0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware/-/hardware-0.0.7.tgz#6ac8d1360a4214f3227b0875ef8067252c4e8e4d"
-  integrity sha512-WV63/Z/t2CEJ8RLP2QB0ESJQJoCpXjuSx2y5cQZc+CYf70XsxD3XlwaMuik/p4Lu1ebkZn8AR9XMK+voC/BgdA==
+"@chrysalis-api/hardware@^0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware/-/hardware-0.0.8.tgz#1ee0e05ebeb87de23429739358623f66454276e2"
+  integrity sha512-O/MLq3RrkAw/SHbE+n6PJ/BqGvNiTBmCsvGSO/T3tuxK8odTtf5v8cDCsjREh26O67klUU+by5VcOGvd/XtzbA==
   dependencies:
-    "@chrysalis-api/hardware-dygma-raise" "^0.0.5"
+    "@chrysalis-api/hardware-dygma-raise" "^0.0.6"
     "@chrysalis-api/hardware-ez-ergodox" "^0.0.12"
     "@chrysalis-api/hardware-kbdfans-kbd4x" "^0.0.2"
     "@chrysalis-api/hardware-keyboardio-model01" "^0.0.20"
@@ -834,10 +834,10 @@
     "@chrysalis-api/hardware-softhruf-splitography" "^0.0.3"
     "@chrysalis-api/hardware-technomancy-atreus" "^0.0.13"
 
-"@chrysalis-api/keymap@^0.0.18":
-  version "0.0.18"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/keymap/-/keymap-0.0.18.tgz#3425ae71a6ee9d7ed81accff330f3e2bb807d977"
-  integrity sha512-dRH0ZTgT57aNWl3y3nTrEZEhvoInC6oCgecSQ5bNaXcMO/oBj8L3n2hK8vsFcVinWLInJ9mFkpGVU3rH1wLKgA==
+"@chrysalis-api/keymap@^0.0.19":
+  version "0.0.19"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/keymap/-/keymap-0.0.19.tgz#0872bb4ed95720571620c7d6bc34f5bac6e0aeaa"
+  integrity sha512-yQqqbnlsc3DncPcZ+hYk7B02nwAAFaffdsrIdXuhQ1dKAYLwfqifeUD+JM4IsqS0Q5HHkdrrZZPNHC9WwLs3Ag==
   dependencies:
     "@chrysalis-api/focus" "^0.0.9"
 
@@ -2362,9 +2362,9 @@ browser-resolve@^1.11.3:
   dependencies:
     resolve "1.1.7"
 
-"browser-serialport@git+https://github.com/noopkat/browser-serialport.git#c8628c41c11890d3058875994c15f83f2df8185b":
+"browser-serialport@https://github.com/noopkat/browser-serialport#c8628c41c11890d3058875994c15f83f2df8185b":
   version "2.0.3"
-  resolved "git+https://github.com/noopkat/browser-serialport.git#c8628c41c11890d3058875994c15f83f2df8185b"
+  resolved "https://github.com/noopkat/browser-serialport#c8628c41c11890d3058875994c15f83f2df8185b"
 
 browserify-aes@^1.0.0, browserify-aes@^1.0.4:
   version "1.2.0"

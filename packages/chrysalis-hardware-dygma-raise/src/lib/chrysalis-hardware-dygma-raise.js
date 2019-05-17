@@ -30,7 +30,7 @@ const Raise = {
   },
   usb: {
     vendorId: 0x1209,
-    productId: 0x2202
+    productId: 0x2201
   },
   keyboard: {
     rows: 5,

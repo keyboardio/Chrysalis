@@ -76,6 +76,9 @@ const styles = theme => ({
   layerItem: {
     paddingLeft: theme.spacing.unit * 4
   },
+  layerSelect: {
+    marginRight: theme.spacing.unit * 4
+  },
   tabWrapper: {
     flexDirection: "row",
     "& svg": {
@@ -600,7 +603,8 @@ class Editor extends React.Component {
                 </ToggleButton>
               )}
             </ToggleButtonGroup>
-            <FormControl>
+            <div className={classes.grow} />
+            <FormControl className={classes.layerSelect}>
               <Select
                 value={currentLayer}
                 classes={{ selectMenu: classes.layerSelectItem }}
@@ -610,7 +614,6 @@ class Editor extends React.Component {
                 {layerMenu}
               </Select>
             </FormControl>
-            <div className={classes.grow} />
             <div>
               <Tooltip title={i18n.editor.importExport}>
                 <IconButton onClick={this.importExportDialog}>

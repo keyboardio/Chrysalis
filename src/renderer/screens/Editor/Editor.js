@@ -22,10 +22,10 @@ import classNames from "classnames";
 import Fade from "@material-ui/core/Fade";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 import FormControl from "@material-ui/core/FormControl";
+import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import IconButton from "@material-ui/core/IconButton";
 import ImportExportIcon from "@material-ui/icons/ImportExport";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
-import LayersClearIcon from "@material-ui/icons/LayersClear";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -46,7 +46,7 @@ import { withSnackbar } from "notistack";
 import Focus from "@chrysalis-api/focus";
 import { KeymapDB } from "@chrysalis-api/keymap";
 
-import Palette from "./Palette";
+import ColorPalette from "../ColorPalette";
 import KeySelector from "./KeySelector";
 import SaveChangesButton from "../../components/SaveChangesButton";
 import ConfirmationDialog from "../../components/ConfirmationDialog";
@@ -75,9 +75,6 @@ const styles = theme => ({
   },
   layerItem: {
     paddingLeft: theme.spacing.unit * 4
-  },
-  layerSelect: {
-    marginRight: theme.spacing.unit * 4
   },
   tabWrapper: {
     flexDirection: "row",
@@ -603,8 +600,7 @@ class Editor extends React.Component {
                 </ToggleButton>
               )}
             </ToggleButtonGroup>
-            <div className={classes.grow} />
-            <FormControl className={classes.layerSelect}>
+            <FormControl>
               <Select
                 value={currentLayer}
                 classes={{ selectMenu: classes.layerSelectItem }}
@@ -614,6 +610,7 @@ class Editor extends React.Component {
                 {layerMenu}
               </Select>
             </FormControl>
+            <div className={classes.grow} />
             <div>
               <Tooltip title={i18n.editor.importExport}>
                 <IconButton onClick={this.importExportDialog}>
@@ -627,7 +624,7 @@ class Editor extends React.Component {
               </Tooltip>
               <Tooltip title={i18n.editor.clearLayer}>
                 <IconButton disabled={isReadOnly} onClick={this.confirmClear}>
-                  <LayersClearIcon />
+                  <HighlightOffIcon />
                 </IconButton>
               </Tooltip>
             </div>
@@ -647,12 +644,12 @@ class Editor extends React.Component {
             />
           )) ||
             (mode == "colormap" && (
-              <Palette
+              <ColorPalette
                 disabled={
                   isReadOnly || currentLayer > this.state.colorMap.length
                 }
-                palette={this.state.palette}
                 onColorSelect={this.onColorSelect}
+                palette={this.state.palette}
                 onColorPick={this.onColorPick}
                 selected={this.state.selectedPaletteColor}
               />

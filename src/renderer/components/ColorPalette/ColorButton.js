@@ -14,13 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 /**
  * This is Reactjs functional component that create color button
  */
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 
 ColorButton.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -33,16 +33,12 @@ ColorButton.propTypes = {
 
 const styles = theme => ({
   root: {
-    padding: 5
-  },
-  button: {
-    width: 40,
-    height: 40,
+    ...setButtonSizeTamplate(40),
+    margin: 5,
     borderRadius: 5,
     cursor: "pointer",
     [theme.breakpoints.down("sm")]: {
-      width: 35,
-      height: 35
+      ...setButtonSizeTamplate(35)
     }
   }
 });
@@ -55,6 +51,23 @@ const styleDisabled = {
 
 ///Minimum value for rendering border on white button
 const minWhiteColorValue = 220;
+
+/**
+ * Use to reduce the amount of code
+ * @param {number} value Size in pixels
+ */
+const setButtonSizeTamplate = value => ({
+  minWidth: value,
+  minHeight: value,
+  maxWidth: value,
+  maxHeight: value
+});
+
+/**
+ * Use to reduce the amount of code
+ * @param {object} color Object with keys that defining colors using the Red-green-blue (RGB) model
+ */
+const setColorTamplate = color => `rgb(${color.r}, ${color.g}, ${color.b})`;
 
 /**
  * Reactjs functional component that create color button
@@ -75,27 +88,25 @@ function ColorButton(props) {
     color.b >= minWhiteColorValue;
 
   const style = {
-    background: `rgb(${color.r}, ${color.g}, ${color.b})`,
-    border: !isWhiteColor
-      ? `1px solid rgb(${color.r}, ${color.g}, ${color.b})`
-      : "1px solid rgb(155, 155, 155)"
+    background: setColorTamplate(color)
   };
 
   const styleInFocus = {
-    background: `rgb(${color.r}, ${color.g}, ${color.b})`,
+    background: setColorTamplate(color),
     boxShadow: !isWhiteColor
-      ? `0px 0px 26px 4px rgb(${color.r}, ${color.g}, ${color.b})`
+      ? `0px 0px 26px 4px ${setColorTamplate(color)}`
       : `0px 0px 26px 4px rgb(155, 155, 155)`
   };
 
   return (
-    <div className={classes.root}>
-      <div
-        className={classes.button}
-        style={disabled ? styleDisabled : isFocus ? styleInFocus : style}
-        onClick={setIsFocus.bind(this, index, color)}
-      />
-    </div>
+    <Button
+      variant="contained"
+      className={classes.root}
+      style={disabled ? styleDisabled : isFocus ? styleInFocus : style}
+      onClick={setIsFocus.bind(this, index, color)}
+    >
+      {""}
+    </Button>
   );
 }
 

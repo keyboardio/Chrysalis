@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 /**
  * This is Reactjs functional component that create palette for change buttons color on keyboard
  */
@@ -22,7 +21,6 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
 import ColorButtonsArea from "./ColorButtonsArea";
 import PickerColorButton from "./PickerColorButton";
 
@@ -39,8 +37,8 @@ const styles = theme => ({
   root: {
     display: "flex",
     position: "fixed",
-    left: 0,
-    right: 0,
+    left: 28,
+    right: 28,
     bottom: 0,
     height: 150,
     justifyContent: "center",
@@ -48,21 +46,26 @@ const styles = theme => ({
   },
   palette: {
     display: "flex",
-    height: 70,
     justifyContent: "space-between",
     alignItems: "center",
     padding: 10,
     border: "1px solid black",
     [theme.breakpoints.down("sm")]: {
-      width: 450,
-      height: 112
+      width: 470
     }
   }
 });
 
-/// number of panels that render
-const numberFirstPanel = 0;
-const numberSecondPanel = 8;
+/**
+ * Use to reduce the amount of code
+ * @param {object} color Object with keys that defining colors using the Red-green-blue-alpha (RGBA) model
+ */
+const setColorTamplate = color => ({
+  r: color.r,
+  g: color.g,
+  b: color.b,
+  rgb: `rgb(${color.r}, ${color.g}, ${color.b})`
+});
 
 /**
  * Reactjs functional component that create palette for change buttons color on keyboard
@@ -90,14 +93,21 @@ function ColorPalette(props) {
   const [indexFocusButton, setIndexFocusButton] = useState(selected);
 
   /**
-   * This is Hook that lets add React state "colorFocusButton" to functional components
-   * @param {object} [initialState] - Sets initial state for "colorFocusButton" (selected element in palette or in keyboard)
+   * Use variable to reduce the amount of code
    */
-  const [colorFocusButton, setColorFocusButton] = useState({
+  const colorForFocusButton = {
     r: palette[selected].r,
     g: palette[selected].g,
     b: palette[selected].b,
     rgb: palette[selected].rgb
+  };
+
+  /**
+   * This is Hook that lets add React state "colorFocusButton" to functional components
+   * @param {object} [initialState] - Sets initial state for "colorFocusButton" (selected element in palette or in keyboard)
+   */
+  const [colorFocusButton, setColorFocusButton] = useState({
+    ...colorForFocusButton
   });
 
   /**
@@ -106,10 +116,7 @@ function ColorPalette(props) {
   useEffect(() => {
     setIndexFocusButton(selected);
     setColorFocusButton({
-      r: palette[selected].r,
-      g: palette[selected].g,
-      b: palette[selected].b,
-      rgb: palette[selected].rgb
+      ...colorForFocusButton
     });
   }, [selected]);
 
@@ -118,12 +125,7 @@ function ColorPalette(props) {
    * @param {object} color Object with keys that defining colors using the Red-green-blue-alpha (RGBA) model
    */
   const toSetColorFocusButton = color => {
-    setColorFocusButton({
-      r: color.r,
-      g: color.g,
-      b: color.b,
-      rgb: `rgb(${color.r}, ${color.g}, ${color.b})`
-    });
+    setColorFocusButton(setColorTamplate(color));
     onColorPick(indexFocusButton, color.r, color.g, color.b);
   };
 
@@ -133,15 +135,10 @@ function ColorPalette(props) {
    * @param {object} color Object with keys that defining colors using the Red-green-blue-alpha (RGBA) model
    * @param {object} e This property is actually an object containing information about the action that just happened
    */
-  const setIsFocus = (index, color, e) => {
+  const setIsFocus = (index, color) => {
     setIndexFocusButton(index);
-    setColorFocusButton({
-      r: color.r,
-      g: color.g,
-      b: color.b,
-      rgb: `rgb(${color.r}, ${color.g}, ${color.b})`
-    });
-    if (e.shiftKey || e.ctrlKey) onColorSelect(index);
+    setColorFocusButton(setColorTamplate(color));
+    onColorSelect(index);
   };
 
   const propsToChild = {
@@ -155,22 +152,7 @@ function ColorPalette(props) {
   return (
     <div className={classes.root}>
       <Paper className={classes.palette}>
-        <Paper className={classes.grid}>
-          <Grid container alignContent="center">
-            <Grid item xs={12} md={6}>
-              <ColorButtonsArea
-                {...propsToChild}
-                panelNumber={numberFirstPanel}
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <ColorButtonsArea
-                {...propsToChild}
-                panelNumber={numberSecondPanel}
-              />
-            </Grid>
-          </Grid>
-        </Paper>
+        <ColorButtonsArea {...propsToChild} />
         <PickerColorButton
           setColorFocusButton={toSetColorFocusButton}
           colorFocusButton={colorFocusButton}

@@ -14,41 +14,47 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 /**
  * This is Reactjs functional component that create area for color buttons
  */
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
 import ColorButton from "./ColorButton";
 
 ColorButtonsArea.propTypes = {
   classes: PropTypes.object.isRequired,
   colorFocusButton: PropTypes.object.isRequired,
-  panelNumber: PropTypes.number.isRequired,
   indexFocusButton: PropTypes.number.isRequired,
   setIsFocus: PropTypes.func.isRequired,
   palette: PropTypes.array.isRequired,
   disabled: PropTypes.bool.isRequired
 };
 
-const styles = {
+const styles = theme => ({
   palette: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    [theme.breakpoints.down("sm")]: {
+      padding: 7
+    }
   }
+});
+
+const isIdentity = (a, b) => {
+  if (a === b) return true;
+  return false;
 };
 
-///Number of buttons in one area
-const colorButtonsArrayLength = 8;
+const fullArrayLength = 16;
 
 /**
  * Reactjs functional component that create area for color buttons
  * @param {object} classes Property that sets up CSS classes that adding to HTML elements
  * @param {object} colorFocusButton Object with keys that defining colors using the Red-green-blue-alpha (RGBA) model for focus button
- * @param {number} panelNumber Number of panel (0 or 8)
  * @param {number} indexFocusButton Number of focus button (from 0 to 15)
  * @param {function} setIsFocus Callback function from ColorPalette component. Parameters are: first - index of color button in palette (from 0 to 15), second - object with keys that defining colors using the Red-green-blue-alpha (RGBA) model, third - event
  * @param {array} palette Array of colors. Format [{r: 200, g: 200, b: 200, rgb: "rgb(200, 200, 200)"}, ...]
@@ -58,7 +64,6 @@ function ColorButtonsArea(props) {
   const {
     classes,
     colorFocusButton,
-    panelNumber,
     indexFocusButton,
     setIsFocus,
     palette,
@@ -67,11 +72,35 @@ function ColorButtonsArea(props) {
 
   /**
    * This is Hook that lets add React state "colorButtonsAmount" to functional components
-   * @param {array} [state] Array with eight color elements
+   * @param {array} [state] Array with color elements
    */
-  const [colorButtonsAmount] = useState(
-    palette.slice(panelNumber, colorButtonsArrayLength + panelNumber)
-  );
+  const [colorButtonsAmount, setColorButtonsAmount] = useState(palette);
+
+  /**
+   * This is Hook that lets add React state "innerWidth" to functional components
+   * @param {array} [state] Value of window.innerWidth
+   */
+  const [innerWidth, setInnerWidth] = useState(window.innerWidth);
+
+  /**
+   * This is Hook that lets add React state "grids" to functional components
+   * @param {number} [state] Amount of grids
+   */
+  const [grids, setGrids] = useState(innerWidth < 960 ? 2 : 1);
+
+  // /**
+  //  * Change "innerWidth"
+  //  */
+  useEffect(() => {
+    setInnerWidth(window.innerWidth);
+  });
+
+  /**
+   * Change "grids", if prop "innerWidth" is different
+   */
+  useEffect(() => {
+    setGrids(innerWidth < 960 ? 2 : 1);
+  }, [innerWidth]);
 
   /**
    * Change "colorButtonsAmount", if prop "colorFocusButton" is different
@@ -85,33 +114,59 @@ function ColorButtonsArea(props) {
         colorFocusButton.b
       })`
     };
-    if (indexFocusButton < colorButtonsArrayLength && panelNumber === 0) {
-      colorButtonsAmount.splice(indexFocusButton, 1, { ...color });
-    }
-    if (indexFocusButton >= colorButtonsArrayLength && panelNumber === 8) {
-      colorButtonsAmount.splice(indexFocusButton - colorButtonsArrayLength, 1, {
-        ...color
-      });
-    }
+    colorButtonsAmount[indexFocusButton] = { ...color };
+    setColorButtonsAmount(colorButtonsAmount);
   }, [colorFocusButton]);
 
+  /**
+   * Use variable to reduce the amount of code
+   */
+  const propsToChild = {
+    setIsFocus,
+    disabled
+  };
+
+  /**
+   * Render color buttons area
+   * @param {number} grids Amount of grids (from 1 to 2)
+   */
+  const displayGrids = grids => {
+    const gridsArray = new Array(grids).fill(0);
+    const arrayLength = fullArrayLength / grids;
+    return gridsArray.map((_, i) => {
+      const firstIndex = i * arrayLength;
+      const lastIndex = arrayLength + firstIndex;
+      return (
+        <Grid item sm={grids === 1 ? 12 : 6} key={i}>
+          {colorButtonsAmount
+            .slice(firstIndex, lastIndex)
+            .map((colorButton, j) => {
+              const buttonIndex = i === 1 ? j + arrayLength : j;
+              return (
+                <ColorButton
+                  key={buttonIndex}
+                  isFocus={isIdentity(buttonIndex, indexFocusButton)}
+                  index={buttonIndex}
+                  color={
+                    isIdentity(buttonIndex, indexFocusButton)
+                      ? colorFocusButton
+                      : colorButton
+                  }
+                  {...propsToChild}
+                />
+              );
+            })}
+        </Grid>
+      );
+    });
+  };
+
   return (
-    <div className={classes.palette}>
-      {colorButtonsAmount.map((colorButton, i) => {
-        const indexButton = i + panelNumber;
-        const isIdentity = indexButton === indexFocusButton;
-        return (
-          <ColorButton
-            key={indexButton}
-            isFocus={isIdentity}
-            setIsFocus={setIsFocus}
-            index={indexButton}
-            color={isIdentity ? colorFocusButton : colorButton}
-            disabled={disabled}
-          />
-        );
-      })}
-    </div>
+    <Paper className={classes.palette}>
+      <Grid container alignContent="center">
+        {displayGrids(grids)}
+      </Grid>
+    </Paper>
   );
 }
 

@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 /**
  * This is Reactjs functional component that create button to choose colors from Color Picker
  */
@@ -22,7 +21,8 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { SketchPicker } from "react-color";
-import paletteIcon from "./palette.svg";
+import Fab from "@material-ui/core/Fab";
+import PaletteIcon from "@material-ui/icons/Palette";
 
 PickerColorButton.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -34,34 +34,26 @@ PickerColorButton.propTypes = {
 const styles = theme => ({
   root: {
     position: "relative",
-    margin: "0 20px",
-    [theme.breakpoints.down("sm")]: {
-      marginLeft: 10,
-      marginRight: 0
-    }
+    marginLeft: 10
   },
-  swatch: {
-    padding: 5,
-    width: 40,
-    height: 40,
-    borderRadius: "50%",
-    cursor: "pointer",
-    backgroundColor: "blue",
-    background: `url(${paletteIcon}) no-repeat center center`,
-    backgroundSize: "50% auto",
-    boxShadow: "0px 11px 21px -9px rgba(0,0,0,0.75)"
+  fab: {
+    width: 60,
+    height: 60
+  },
+  icon: {
+    fontSize: 32
   },
   popover: {
     position: "absolute",
-    zIndex: "2",
-    bottom: 45,
+    zIndex: 204,
+    bottom: 65,
     left: -130,
     [theme.breakpoints.up(1320)]: {
-      bottom: 0,
-      left: 45
+      bottom: 60,
+      left: 60
     },
     [theme.breakpoints.down("sm")]: {
-      bottom: 45,
+      bottom: 65,
       left: 0
     },
     [theme.breakpoints.down(800)]: {
@@ -71,18 +63,17 @@ const styles = theme => ({
   },
   cover: {
     position: "fixed",
-    top: 0,
-    right: 0,
+    left: 0,
     bottom: 0,
-    left: 0
+    height: "100vh",
+    width: "100vw",
+    zIndex: 203
+  },
+  picker: {
+    zIndex: 205,
+    position: "relative"
   }
 });
-
-const styleDisabled = {
-  background: `url(${paletteIcon}) no-repeat center center`,
-  backgroundSize: "50% auto",
-  pointerEvents: "none"
-};
 
 /**
  * Reactjs functional component that create button to choose colors from Color Picker
@@ -121,20 +112,25 @@ function PickerColorButton(props) {
 
   return (
     <div className={classes.root}>
-      <div
-        className={classes.swatch}
+      <Fab
+        color="primary"
+        aria-label="Add"
+        className={classes.fab}
         onClick={handleClick}
-        style={disabled ? styleDisabled : null}
-      />
+        disabled={disabled}
+      >
+        <PaletteIcon className={classes.icon} />
+      </Fab>
       {displayColorPicker ? (
         <div className={classes.popover}>
-          <div className={classes.cover} onClick={handleClose} />
           <SketchPicker
+            className={classes.picker}
             color={color}
             onChange={color => {
               setColorFocusButton(color.rgb);
             }}
           />
+          <div className={classes.cover} onClick={handleClose} />
         </div>
       ) : null}
     </div>

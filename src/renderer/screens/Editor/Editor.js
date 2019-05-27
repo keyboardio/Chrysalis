@@ -22,10 +22,10 @@ import classNames from "classnames";
 import Fade from "@material-ui/core/Fade";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 import FormControl from "@material-ui/core/FormControl";
-import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import IconButton from "@material-ui/core/IconButton";
 import ImportExportIcon from "@material-ui/icons/ImportExport";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
+import LayersClearIcon from "@material-ui/icons/LayersClear";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -46,7 +46,7 @@ import { withSnackbar } from "notistack";
 import Focus from "@chrysalis-api/focus";
 import { KeymapDB } from "@chrysalis-api/keymap";
 
-import ColorPalette from "../ColorPalette";
+import ColorPalette from "../../components/ColorPalette";
 import KeySelector from "./KeySelector";
 import SaveChangesButton from "../../components/SaveChangesButton";
 import ConfirmationDialog from "../../components/ConfirmationDialog";
@@ -75,6 +75,9 @@ const styles = theme => ({
   },
   layerItem: {
     paddingLeft: theme.spacing.unit * 4
+  },
+  layerSelect: {
+    marginRight: theme.spacing.unit * 4
   },
   tabWrapper: {
     flexDirection: "row",
@@ -376,9 +379,9 @@ class Editor extends React.Component {
 
   onColorSelect = colorIndex => {
     if (colorIndex == this.state.selectedPaletteColor) colorIndex = -1;
-
     if (colorIndex == -1) {
-      this.setState({ selectedPaletteColor: colorIndex });
+      ///This function was commented cause it looks like errors will occurs in case of second click in the button 
+      // this.setState({ selectedPaletteColor: colorIndex });
       return;
     }
 
@@ -624,7 +627,7 @@ class Editor extends React.Component {
               </Tooltip>
               <Tooltip title={i18n.editor.clearLayer}>
                 <IconButton disabled={isReadOnly} onClick={this.confirmClear}>
-                  <HighlightOffIcon />
+                  <LayersClearIcon />
                 </IconButton>
               </Tooltip>
             </div>

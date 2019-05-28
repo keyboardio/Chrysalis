@@ -46,7 +46,7 @@ import { withSnackbar } from "notistack";
 import Focus from "@chrysalis-api/focus";
 import { KeymapDB } from "@chrysalis-api/keymap";
 
-import Palette from "./Palette";
+import ColorPalette from "../../components/ColorPalette";
 import KeySelector from "./KeySelector";
 import SaveChangesButton from "../../components/SaveChangesButton";
 import ConfirmationDialog from "../../components/ConfirmationDialog";
@@ -378,12 +378,12 @@ class Editor extends React.Component {
   };
 
   onColorSelect = colorIndex => {
-    if (colorIndex == this.state.selectedPaletteColor) colorIndex = -1;
-
-    if (colorIndex == -1) {
-      this.setState({ selectedPaletteColor: colorIndex });
-      return;
-    }
+    ///This function was commented cause it looks like errors will occurs in case of second click in the button
+    // if (colorIndex == this.state.selectedPaletteColor) colorIndex = -1;
+    // if (colorIndex == -1) {
+    // this.setState({ selectedPaletteColor: colorIndex });
+    //   return;
+    // }
 
     const { currentLayer, currentLedIndex } = this.state;
     if (currentLayer < 0 || currentLayer >= this.state.colorMap.length) return;
@@ -603,8 +603,7 @@ class Editor extends React.Component {
                 </ToggleButton>
               )}
             </ToggleButtonGroup>
-            <div className={classes.grow} />
-            <FormControl className={classes.layerSelect}>
+            <FormControl>
               <Select
                 value={currentLayer}
                 classes={{ selectMenu: classes.layerSelectItem }}
@@ -614,6 +613,7 @@ class Editor extends React.Component {
                 {layerMenu}
               </Select>
             </FormControl>
+            <div className={classes.grow} />
             <div>
               <Tooltip title={i18n.editor.importExport}>
                 <IconButton onClick={this.importExportDialog}>
@@ -647,12 +647,12 @@ class Editor extends React.Component {
             />
           )) ||
             (mode == "colormap" && (
-              <Palette
+              <ColorPalette
                 disabled={
                   isReadOnly || currentLayer > this.state.colorMap.length
                 }
-                palette={this.state.palette}
                 onColorSelect={this.onColorSelect}
+                palette={this.state.palette}
                 onColorPick={this.onColorPick}
                 selected={this.state.selectedPaletteColor}
               />

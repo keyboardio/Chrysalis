@@ -35,21 +35,12 @@ ColorButtonsArea.propTypes = {
 
 const styles = theme => ({
   palette: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    padding: 5,
     [theme.breakpoints.down("sm")]: {
-      padding: 7
+      padding: "7px 10px"
     }
   }
 });
-
-const isIdentity = (a, b) => {
-  if (a === b) return true;
-  return false;
-};
-
-const fullArrayLength = 16;
 
 /**
  * Reactjs functional component that create area for color buttons
@@ -77,32 +68,6 @@ function ColorButtonsArea(props) {
   const [colorButtonsAmount, setColorButtonsAmount] = useState(palette);
 
   /**
-   * This is Hook that lets add React state "innerWidth" to functional components
-   * @param {array} [state] Value of window.innerWidth
-   */
-  const [innerWidth, setInnerWidth] = useState(window.innerWidth);
-
-  /**
-   * This is Hook that lets add React state "grids" to functional components
-   * @param {number} [state] Amount of grids
-   */
-  const [grids, setGrids] = useState(innerWidth < 960 ? 2 : 1);
-
-  // /**
-  //  * Change "innerWidth"
-  //  */
-  useEffect(() => {
-    setInnerWidth(window.innerWidth);
-  });
-
-  /**
-   * Change "grids", if prop "innerWidth" is different
-   */
-  useEffect(() => {
-    setGrids(innerWidth < 960 ? 2 : 1);
-  }, [innerWidth]);
-
-  /**
    * Change "colorButtonsAmount", if prop "colorFocusButton" is different
    */
   useEffect(() => {
@@ -127,45 +92,27 @@ function ColorButtonsArea(props) {
   };
 
   /**
-   * Render color buttons area
-   * @param {number} grids Amount of grids (from 1 to 2)
+   * Render color buttons area by two arrays from prop "pallete"
    */
-  const displayGrids = grids => {
-    const gridsArray = new Array(grids).fill(0);
-    const arrayLength = fullArrayLength / grids;
-    return gridsArray.map((_, i) => {
-      const firstIndex = i * arrayLength;
-      const lastIndex = arrayLength + firstIndex;
-      return (
-        <Grid item sm={grids === 1 ? 12 : 6} key={i}>
-          {colorButtonsAmount
-            .slice(firstIndex, lastIndex)
-            .map((colorButton, j) => {
-              const buttonIndex = i === 1 ? j + arrayLength : j;
-              return (
-                <ColorButton
-                  key={buttonIndex}
-                  isFocus={isIdentity(buttonIndex, indexFocusButton)}
-                  index={buttonIndex}
-                  color={
-                    isIdentity(buttonIndex, indexFocusButton)
-                      ? colorFocusButton
-                      : colorButton
-                  }
-                  {...propsToChild}
-                />
-              );
-            })}
-        </Grid>
-      );
-    });
+  const displayGrids = () => {
+    return (
+      <Grid item>
+        {palette.map((colorButton, i) => (
+          <ColorButton
+            key={i}
+            isFocus={i === indexFocusButton}
+            index={i}
+            color={i === indexFocusButton ? colorFocusButton : colorButton}
+            {...propsToChild}
+          />
+        ))}
+      </Grid>
+    );
   };
 
   return (
     <Paper className={classes.palette}>
-      <Grid container alignContent="center">
-        {displayGrids(grids)}
-      </Grid>
+      <Grid container>{displayGrids()}</Grid>
     </Paper>
   );
 }

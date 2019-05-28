@@ -22,6 +22,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { SketchPicker } from "react-color";
 import Fab from "@material-ui/core/Fab";
+import Popover from "@material-ui/core/Popover";
 import PaletteIcon from "@material-ui/icons/Palette";
 
 PickerColorButton.propTypes = {
@@ -31,7 +32,7 @@ PickerColorButton.propTypes = {
   disabled: PropTypes.bool.isRequired
 };
 
-const styles = theme => ({
+const styles = {
   root: {
     position: "relative",
     marginLeft: 10
@@ -42,38 +43,8 @@ const styles = theme => ({
   },
   icon: {
     fontSize: 32
-  },
-  popover: {
-    position: "absolute",
-    zIndex: 204,
-    bottom: 65,
-    left: -130,
-    [theme.breakpoints.up(1320)]: {
-      bottom: 60,
-      left: 60
-    },
-    [theme.breakpoints.down("sm")]: {
-      bottom: 65,
-      left: 0
-    },
-    [theme.breakpoints.down(800)]: {
-      top: -300,
-      left: -220
-    }
-  },
-  cover: {
-    position: "fixed",
-    left: 0,
-    bottom: 0,
-    height: "100vh",
-    width: "100vw",
-    zIndex: 203
-  },
-  picker: {
-    zIndex: 205,
-    position: "relative"
   }
-});
+};
 
 /**
  * Reactjs functional component that create button to choose colors from Color Picker
@@ -91,48 +62,61 @@ function PickerColorButton(props) {
   } = props;
 
   /**
-   * This is Hook that lets add React state "displayColorPicker" to functional components
-   * @param {boolean} [initialState=false] - Sets initial state for "displayColorPicker".
+   * This is Hook that lets add React state "anchorEl" to functional components
+   * @param {object} [initialState=null] - Sets initial state for "anchorEl".
    */
-  const [displayColorPicker, setDisplayColorPicker] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   /**
-   * Change "displayColorPicker" in functional component state to open(close) Color Picker
+   * Change "anchorEl" in functional component state to open Color Picker
    */
-  const handleClick = () => {
-    setDisplayColorPicker(!displayColorPicker);
+  const handleClick = e => {
+    setAnchorEl(e.currentTarget);
   };
 
   /**
-   * Change "displayColorPicker" in functional component state to close Color Picker
+   * Change "anchorEl" in functional component state to close Color Picker
    */
   const handleClose = () => {
-    setDisplayColorPicker(false);
+    setAnchorEl(null);
   };
+
+  /// Set the value to open (close) Popover element
+  const open = Boolean(anchorEl);
+  /// Set the value to id Popover element
+  const id = open ? "simple-popover" : null;
 
   return (
     <div className={classes.root}>
       <Fab
         color="primary"
-        aria-label="Add"
         className={classes.fab}
         onClick={handleClick}
         disabled={disabled}
       >
         <PaletteIcon className={classes.icon} />
       </Fab>
-      {displayColorPicker ? (
-        <div className={classes.popover}>
-          <SketchPicker
-            className={classes.picker}
-            color={color}
-            onChange={color => {
-              setColorFocusButton(color.rgb);
-            }}
-          />
-          <div className={classes.cover} onClick={handleClose} />
-        </div>
-      ) : null}
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "left"
+        }}
+        transformOrigin={{
+          vertical: "bottom",
+          horizontal: "right"
+        }}
+      >
+        <SketchPicker
+          color={color}
+          onChange={color => {
+            setColorFocusButton(color.rgb);
+          }}
+        />
+      </Popover>
     </div>
   );
 }

@@ -37,19 +37,17 @@ const styles = theme => ({
   root: {
     display: "flex",
     position: "fixed",
-    left: 28,
-    right: 28,
+    left: 0,
+    right: 0,
     bottom: 0,
     height: 150,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "flex-start"
   },
   palette: {
     display: "flex",
-    justifyContent: "space-between",
     alignItems: "center",
     padding: 10,
-    border: "1px solid black",
     [theme.breakpoints.down("sm")]: {
       width: 470
     }

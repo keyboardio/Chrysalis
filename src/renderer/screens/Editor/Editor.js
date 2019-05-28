@@ -378,12 +378,12 @@ class Editor extends React.Component {
   };
 
   onColorSelect = colorIndex => {
-    if (colorIndex == this.state.selectedPaletteColor) colorIndex = -1;
-    if (colorIndex == -1) {
-      ///This function was commented cause it looks like errors will occurs in case of second click in the button 
-      // this.setState({ selectedPaletteColor: colorIndex });
-      return;
-    }
+    ///This function was commented cause it looks like errors will occurs in case of second click in the button
+    // if (colorIndex == this.state.selectedPaletteColor) colorIndex = -1;
+    // if (colorIndex == -1) {
+    // this.setState({ selectedPaletteColor: colorIndex });
+    //   return;
+    // }
 
     const { currentLayer, currentLedIndex } = this.state;
     if (currentLayer < 0 || currentLayer >= this.state.colorMap.length) return;

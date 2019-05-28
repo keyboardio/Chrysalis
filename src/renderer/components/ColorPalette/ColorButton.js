@@ -79,7 +79,7 @@ const setColorTamplate = color => `rgb(${color.r}, ${color.g}, ${color.b})`;
  * @param {boolean} disabled Property that disable component
  */
 function ColorButton(props) {
-  const { classes, isFocus, setIsFocus, index, color, disabled } = props;
+  const { classes, setIsFocus, isFocus, index, color, disabled } = props;
 
   ///Checks background is white or not
   const isWhiteColor =

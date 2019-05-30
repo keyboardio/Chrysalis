@@ -24,14 +24,12 @@ import "typeface-source-code-pro/index.css";
 
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
-import CloseIcon from "@material-ui/icons/Close";
 import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 import i18n from "../i18n";
-import BoardMenu from "./BoardMenu";
 import MainMenu from "./MainMenu/MainMenu";
 
 const styles = theme => ({
@@ -47,16 +45,8 @@ const styles = theme => ({
   }
 });
 
-function Header({
-  classes,
-  contextBar,
-  connected,
-  pages,
-  device,
-  cancelContext
-}) {
+function Header({ classes, contextBar, connected, pages, device }) {
   const [mainMenu, setMainMenuOpen] = useState(false);
-  const [boardAnchor, setBoardMenuAnchor] = useState(null);
 
   function openMainMenu() {
     setMainMenuOpen(true);
@@ -64,22 +54,6 @@ function Header({
 
   function closeMainMenu() {
     setMainMenuOpen(false);
-  }
-
-  function openBoardMenu(event) {
-    setBoardMenuAnchor(event.currentTarget);
-  }
-
-  function closeBoardMenu() {
-    setBoardMenuAnchor(null);
-  }
-
-  function contextOnClick() {
-    if (contextBar) {
-      cancelContext(true);
-    } else {
-      openMainMenu();
-    }
   }
 
   return (
@@ -92,9 +66,9 @@ function Header({
         <Button
           className={classes.menuButton}
           color="inherit"
-          onClick={contextOnClick}
+          onClick={openMainMenu}
         >
-          {contextBar ? <CloseIcon /> : <MenuIcon />}
+          <MenuIcon />
           <Typography
             variant="h6"
             color="inherit"
@@ -110,21 +84,14 @@ function Header({
         />
         <div className={classes.grow} />
         {device && (
-          <Button
-            onClick={openBoardMenu}
-            disabled={!device.urls}
+          <Typography
+            variant="subtitle1"
             color="inherit"
-            className="button"
+            className={classes.pageMenu}
+            id="page-title"
           >
-            {i18n.app.device}: {device.displayName}
-          </Button>
-        )}
-        {device && device.urls && (
-          <BoardMenu
-            boardAnchor={boardAnchor}
-            boardClose={closeBoardMenu}
-            device={device}
-          />
+            {i18n.app.device.toUpperCase()}: {device.displayName.toUpperCase()}
+          </Typography>
         )}
       </Toolbar>
     </AppBar>

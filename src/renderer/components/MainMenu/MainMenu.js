@@ -42,6 +42,7 @@ import KeyboardMenuItem from "./KeyboardSelectMenuItem";
 import PreferencesMenuItem from "./PreferencesMenuItem";
 import KeyboardSettingsMenuItem from "./KeyboardSettingsMenuItem";
 import UpgradeMenuItem from "./UpgradeMenuItem";
+import HomepageItem from "./HomepageItem";
 import openURL from "../../utils/openURL";
 
 import { history } from "../../routerHistory";
@@ -185,6 +186,10 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
           <FeedbackMenuItem
             className={classes.menuItem}
             onClick={openURL("https://github.com/keyboardio/Chrysalis/issues")}
+          />
+          <HomepageItem
+            className={classes.menuItem}
+            onClick={openURL("https://www.dygma.com/raise/")}
           />
           <ExitMenuItem
             className={classes.menuItem}

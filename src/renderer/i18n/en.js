@@ -25,7 +25,8 @@ const English = {
     save: {
       success: "Saved!",
       saveChanges: "Save Changes"
-    }
+    },
+    cancelChanges: "Cancel Changes"
   },
   dialog: {
     ok: "Ok",
@@ -47,7 +48,8 @@ const English = {
       keyboardSection: "Keyboard",
       chrysalisSection: "Chrysalis",
       miscSection: "Miscellaneous",
-      upgradeAvailable: "An upgrade is available!"
+      upgradeAvailable: "An upgrade is available!",
+      homepage: "Homepage"
     },
     deviceMenu: {
       Homepage: "Homepage",

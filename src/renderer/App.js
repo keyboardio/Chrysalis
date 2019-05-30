@@ -222,7 +222,6 @@ class App extends React.Component {
               connected={connected}
               pages={pages}
               device={device}
-              cancelContext={this.cancelContext}
             />
             <main className={classes.content}>
               <Router>

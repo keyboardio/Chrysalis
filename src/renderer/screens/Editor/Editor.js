@@ -22,10 +22,10 @@ import classNames from "classnames";
 import Fade from "@material-ui/core/Fade";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 import FormControl from "@material-ui/core/FormControl";
+import LayersClearIcon from "@material-ui/icons/LayersClear";
 import IconButton from "@material-ui/core/IconButton";
 import ImportExportIcon from "@material-ui/icons/ImportExport";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
-import LayersClearIcon from "@material-ui/icons/LayersClear";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -49,6 +49,7 @@ import { KeymapDB } from "@chrysalis-api/keymap";
 import Palette from "./Palette";
 import KeySelector from "./KeySelector";
 import SaveChangesButton from "../../components/SaveChangesButton";
+import CancelChangesButton from "../../components/CancelChangesButton";
 import ConfirmationDialog from "../../components/ConfirmationDialog";
 import i18n from "../../i18n";
 import settings from "electron-settings";
@@ -75,9 +76,6 @@ const styles = theme => ({
   },
   layerItem: {
     paddingLeft: theme.spacing.unit * 4
-  },
-  layerSelect: {
-    marginRight: theme.spacing.unit * 4
   },
   tabWrapper: {
     flexDirection: "row",
@@ -146,14 +144,23 @@ class Editor extends React.Component {
       }
 
       let colormap = await focus.command("colormap");
-
-      this.setState({
-        defaultLayer: defLayer,
-        keymap: keymap,
-        showDefaults: !keymap.onlyCustom,
-        palette: colormap.palette,
-        colorMap: colormap.colorMap
-      });
+      this.setState(
+        () => ({
+          defaultLayer: defLayer,
+          keymap: keymap,
+          showDefaults: !keymap.onlyCustom,
+          palette: colormap.palette,
+          colorMap: colormap.colorMap,
+          currentKeyIndex: 0,
+          currentLedIndex: 0
+        }),
+        () => {
+          const { colorMap, currentLayer, currentLedIndex } = this.state;
+          this.setState({
+            selectedPaletteColor: colorMap[currentLayer][currentLedIndex]
+          });
+        }
+      );
     } catch (e) {
       this.props.enqueueSnackbar(e, { variant: "error" });
       this.props.onDisconnect();
@@ -246,9 +253,12 @@ class Editor extends React.Component {
 
   selectLayer = event => {
     if (event.target.value === undefined) return;
+    const { colorMap, currentLedIndex } = this.state;
     this.setState({
       currentLayer: event.target.value,
-      currentKeyIndex: -1
+      currentKeyIndex: 0,
+      currentLedIndex: 0,
+      selectedPaletteColor: colorMap[event.target.value][currentLedIndex]
     });
   };
 
@@ -471,7 +481,7 @@ class Editor extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, inContext, cancelContext } = this.props;
     const { keymap, palette } = this.state;
 
     let focus = new Focus();
@@ -604,7 +614,7 @@ class Editor extends React.Component {
               )}
             </ToggleButtonGroup>
             <div className={classes.grow} />
-            <FormControl className={classes.layerSelect}>
+            <FormControl>
               <Select
                 value={currentLayer}
                 classes={{ selectMenu: classes.layerSelectItem }}
@@ -658,6 +668,11 @@ class Editor extends React.Component {
               />
             ))}
         </Slide>
+        {inContext && (
+          <CancelChangesButton cancelContext={cancelContext}>
+            {i18n.components.cancelChanges}
+          </CancelChangesButton>
+        )}
         <SaveChangesButton
           floating
           onClick={this.onApply}

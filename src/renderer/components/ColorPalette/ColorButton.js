@@ -21,6 +21,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import { setButtonSizeTamplate } from "../../../renderer/utils/setTemplates";
 
 ColorButton.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -53,23 +54,6 @@ const styleDisabled = {
 const minWhiteColorValue = 220;
 
 /**
- * Use to reduce the amount of code
- * @param {number} value Size in pixels
- */
-const setButtonSizeTamplate = value => ({
-  minWidth: value,
-  minHeight: value,
-  maxWidth: value,
-  maxHeight: value
-});
-
-/**
- * Use to reduce the amount of code
- * @param {object} color Object with keys that defining colors using the Red-green-blue (RGB) model
- */
-const setColorTamplate = color => `rgb(${color.r}, ${color.g}, ${color.b})`;
-
-/**
  * Reactjs functional component that create color button
  * @param {object} classes Property that sets up CSS classes that adding to HTML elements
  * @param {boolean} isFocus Change CSS styles
@@ -88,13 +72,13 @@ function ColorButton(props) {
     color.b >= minWhiteColorValue;
 
   const style = {
-    background: setColorTamplate(color)
+    background: `rgb(${color.r}, ${color.g}, ${color.b})`
   };
 
   const styleInFocus = {
-    background: setColorTamplate(color),
+    ...style,
     boxShadow: !isWhiteColor
-      ? `0px 0px 26px 4px ${setColorTamplate(color)}`
+      ? `0px 0px 26px 4px rgb(${color.r}, ${color.g}, ${color.b})`
       : `0px 0px 26px 4px rgb(155, 155, 155)`
   };
 

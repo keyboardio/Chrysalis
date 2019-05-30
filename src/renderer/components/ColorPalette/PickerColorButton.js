@@ -83,8 +83,6 @@ function PickerColorButton(props) {
 
   /// Set the value to open (close) Popover element
   const open = Boolean(anchorEl);
-  /// Set the value to id Popover element
-  const id = open ? "simple-popover" : null;
 
   return (
     <div className={classes.root}>
@@ -97,7 +95,7 @@ function PickerColorButton(props) {
         <PaletteIcon className={classes.icon} />
       </Fab>
       <Popover
-        id={id}
+        id={"simple-popover"}
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}

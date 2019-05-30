@@ -18,6 +18,7 @@
  * This is Reactjs functional component that create area for color buttons
  */
 import React, { useState, useEffect } from "react";
+import uuid from "uuid";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -71,25 +72,9 @@ function ColorButtonsArea(props) {
    * Change "colorButtonsAmount", if prop "colorFocusButton" is different
    */
   useEffect(() => {
-    const color = {
-      r: colorFocusButton.r,
-      g: colorFocusButton.g,
-      b: colorFocusButton.b,
-      rgb: `rgb(${colorFocusButton.r}, ${colorFocusButton.g}, ${
-        colorFocusButton.b
-      })`
-    };
-    colorButtonsAmount[indexFocusButton] = { ...color };
+    colorButtonsAmount[indexFocusButton] = { ...colorFocusButton };
     setColorButtonsAmount(colorButtonsAmount);
   }, [colorFocusButton]);
-
-  /**
-   * Use variable to reduce the amount of code
-   */
-  const propsToChild = {
-    setIsFocus,
-    disabled
-  };
 
   /**
    * Render color buttons area by two arrays from prop "pallete"
@@ -99,11 +84,12 @@ function ColorButtonsArea(props) {
       <Grid item>
         {palette.map((colorButton, i) => (
           <ColorButton
-            key={i}
+            key={uuid()}
             isFocus={i === indexFocusButton}
             index={i}
             color={i === indexFocusButton ? colorFocusButton : colorButton}
-            {...propsToChild}
+            setIsFocus={setIsFocus}
+            disabled={disabled}
           />
         ))}
       </Grid>

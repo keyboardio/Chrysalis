@@ -23,6 +23,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import ColorButtonsArea from "./ColorButtonsArea";
 import PickerColorButton from "./PickerColorButton";
+import { setColorTamplate } from "../../../renderer/utils/setTemplates";
 
 ColorPalette.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -48,21 +49,11 @@ const styles = theme => ({
     display: "flex",
     alignItems: "center",
     padding: 10,
+    minHeight: 80,
     [theme.breakpoints.down("sm")]: {
       width: 470
     }
   }
-});
-
-/**
- * Use to reduce the amount of code
- * @param {object} color Object with keys that defining colors using the Red-green-blue-alpha (RGBA) model
- */
-const setColorTamplate = color => ({
-  r: color.r,
-  g: color.g,
-  b: color.b,
-  rgb: `rgb(${color.r}, ${color.g}, ${color.b})`
 });
 
 /**
@@ -91,21 +82,11 @@ function ColorPalette(props) {
   const [indexFocusButton, setIndexFocusButton] = useState(selected);
 
   /**
-   * Use variable to reduce the amount of code
-   */
-  const colorForFocusButton = {
-    r: palette[selected].r,
-    g: palette[selected].g,
-    b: palette[selected].b,
-    rgb: palette[selected].rgb
-  };
-
-  /**
    * This is Hook that lets add React state "colorFocusButton" to functional components
    * @param {object} [initialState] - Sets initial state for "colorFocusButton" (selected element in palette or in keyboard)
    */
   const [colorFocusButton, setColorFocusButton] = useState({
-    ...colorForFocusButton
+    ...palette[selected]
   });
 
   /**
@@ -114,7 +95,7 @@ function ColorPalette(props) {
   useEffect(() => {
     setIndexFocusButton(selected);
     setColorFocusButton({
-      ...colorForFocusButton
+      ...palette[selected]
     });
   }, [selected]);
 
@@ -131,7 +112,6 @@ function ColorPalette(props) {
    * Change "indexFocusButton" in its state, "colorFocusButton" in ColorPalette's state, and call function onColorSelect from props, if ctrl or shift key is clicked.
    * @param {number} index Number of value in array that focusing by mouse
    * @param {object} color Object with keys that defining colors using the Red-green-blue-alpha (RGBA) model
-   * @param {object} e This property is actually an object containing information about the action that just happened
    */
   const setIsFocus = (index, color) => {
     setIndexFocusButton(index);

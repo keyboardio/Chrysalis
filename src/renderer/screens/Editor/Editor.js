@@ -378,12 +378,11 @@ class Editor extends React.Component {
   };
 
   onColorSelect = colorIndex => {
-    ///This function was commented cause it looks like errors will occurs in case of second click in the button
-    // if (colorIndex == this.state.selectedPaletteColor) colorIndex = -1;
-    // if (colorIndex == -1) {
-    // this.setState({ selectedPaletteColor: colorIndex });
-    //   return;
-    // }
+    if (colorIndex == this.state.selectedPaletteColor) colorIndex = -1;
+    if (colorIndex == -1) {
+      this.setState({ selectedPaletteColor: this.state.selectedPaletteColor });
+      return;
+    }
 
     const { currentLayer, currentLedIndex } = this.state;
     if (currentLayer < 0 || currentLayer >= this.state.colorMap.length) return;
@@ -603,6 +602,7 @@ class Editor extends React.Component {
                 </ToggleButton>
               )}
             </ToggleButtonGroup>
+            <div className={classes.grow} />
             <FormControl>
               <Select
                 value={currentLayer}
@@ -613,7 +613,6 @@ class Editor extends React.Component {
                 {layerMenu}
               </Select>
             </FormControl>
-            <div className={classes.grow} />
             <div>
               <Tooltip title={i18n.editor.importExport}>
                 <IconButton onClick={this.importExportDialog}>

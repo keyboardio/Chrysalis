@@ -51,7 +51,7 @@ const styles = theme => ({
     padding: 10,
     minHeight: 80,
     [theme.breakpoints.down("sm")]: {
-      width: 470
+      width: 455
     }
   }
 });

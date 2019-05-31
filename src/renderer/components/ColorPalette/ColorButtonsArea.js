@@ -21,7 +21,6 @@ import React, { useState, useEffect } from "react";
 import uuid from "uuid";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import ColorButton from "./ColorButton";
 
@@ -36,9 +35,9 @@ ColorButtonsArea.propTypes = {
 
 const styles = theme => ({
   palette: {
-    padding: 5,
+    padding: "5px 0",
     [theme.breakpoints.down("sm")]: {
-      padding: "7px 10px"
+      padding: 0
     }
   }
 });
@@ -97,9 +96,9 @@ function ColorButtonsArea(props) {
   };
 
   return (
-    <Paper className={classes.palette}>
+    <div className={classes.palette}>
       <Grid container>{displayGrids()}</Grid>
-    </Paper>
+    </div>
   );
 }
 

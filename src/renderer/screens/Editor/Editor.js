@@ -603,7 +603,7 @@ class Editor extends React.Component {
               )}
             </ToggleButtonGroup>
             <div className={classes.grow} />
-            <FormControl>
+            <FormControl className={classes.layerSelect}>
               <Select
                 value={currentLayer}
                 classes={{ selectMenu: classes.layerSelectItem }}

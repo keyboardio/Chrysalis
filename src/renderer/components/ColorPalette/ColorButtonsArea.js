@@ -30,7 +30,8 @@ ColorButtonsArea.propTypes = {
   indexFocusButton: PropTypes.number.isRequired,
   setIsFocus: PropTypes.func.isRequired,
   palette: PropTypes.array.isRequired,
-  disabled: PropTypes.bool.isRequired
+  disabled: PropTypes.bool.isRequired,
+  colorButtonIsSelected: PropTypes.bool.isRequired
 };
 
 const styles = theme => ({
@@ -50,6 +51,7 @@ const styles = theme => ({
  * @param {function} setIsFocus Callback function from ColorPalette component. Parameters are: first - index of color button in palette (from 0 to 15), second - object with keys that defining colors using the Red-green-blue-alpha (RGBA) model, third - event
  * @param {array} palette Array of colors. Format [{r: 200, g: 200, b: 200, rgb: "rgb(200, 200, 200)"}, ...]
  * @param {boolean} disabled Property that disable component
+ * @param {boolean} colorButtonIsSelected Prop is true if color button signalise for multiple select LEDs
  */
 function ColorButtonsArea(props) {
   const {
@@ -58,7 +60,8 @@ function ColorButtonsArea(props) {
     indexFocusButton,
     setIsFocus,
     palette,
-    disabled
+    disabled,
+    colorButtonIsSelected
   } = props;
 
   /**
@@ -89,6 +92,7 @@ function ColorButtonsArea(props) {
             color={i === indexFocusButton ? colorFocusButton : colorButton}
             setIsFocus={setIsFocus}
             disabled={disabled}
+            isSelected={colorButtonIsSelected}
           />
         ))}
       </Grid>

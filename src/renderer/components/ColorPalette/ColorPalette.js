@@ -31,7 +31,9 @@ ColorPalette.propTypes = {
   palette: PropTypes.array.isRequired,
   onColorPick: PropTypes.func.isRequired,
   disabled: PropTypes.bool.isRequired,
-  selected: PropTypes.number.isRequired
+  selected: PropTypes.number.isRequired,
+  onColorButtonSelect: PropTypes.func.isRequired,
+  colorButtonIsSelected: PropTypes.bool.isRequired
 };
 
 const styles = theme => ({
@@ -64,6 +66,8 @@ const styles = theme => ({
  * @param {function} onColorPick Callback function from Editor component for change color of buttons in ColorPalette. Parameters are: first - index of color button in palette (from 0 to 15), second - index of color (r: from 0 to 255), third - index of color (g: from 0 to 255), fourth - index of color (b: from 0 to 255)
  * @param {boolean} disabled Property that disable component
  * @param {number} selected Number of selected color button in palette (from 0 to 15)
+ * @param {function} onColorButtonSelect Callback function from Editor component for change state of color button
+ * @param {boolean} colorButtonIsSelected Prop is true if color button signalise for multiple select LEDs
  */
 function ColorPalette(props) {
   const {
@@ -72,7 +76,9 @@ function ColorPalette(props) {
     palette,
     onColorPick,
     disabled,
-    selected
+    selected,
+    onColorButtonSelect,
+    colorButtonIsSelected
   } = props;
 
   /**
@@ -113,10 +119,11 @@ function ColorPalette(props) {
    * @param {number} index Number of value in array that focusing by mouse
    * @param {object} color Object with keys that defining colors using the Red-green-blue-alpha (RGBA) model
    */
-  const setIsFocus = (index, color) => {
+  const setIsFocus = (index, color, e) => {
+    if (e.ctrlKey || e.shiftKey) onColorButtonSelect(index);
+    onColorSelect(index);
     setIndexFocusButton(index);
     setColorFocusButton(setColorTamplate(color));
-    onColorSelect(index);
   };
 
   const propsToChild = {
@@ -124,7 +131,8 @@ function ColorPalette(props) {
     indexFocusButton,
     setIsFocus,
     palette,
-    disabled
+    disabled,
+    colorButtonIsSelected
   };
 
   return (

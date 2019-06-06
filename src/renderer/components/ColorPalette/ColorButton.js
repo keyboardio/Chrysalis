@@ -21,6 +21,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import ColorizeIcon from "@material-ui/icons/Colorize";
 import { setButtonSizeTamplate } from "../../../renderer/utils/setTemplates";
 
 ColorButton.propTypes = {
@@ -29,7 +30,8 @@ ColorButton.propTypes = {
   setIsFocus: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
   color: PropTypes.object.isRequired,
-  disabled: PropTypes.bool.isRequired
+  disabled: PropTypes.bool.isRequired,
+  isSelected: PropTypes.bool
 };
 
 const styles = theme => ({
@@ -38,20 +40,24 @@ const styles = theme => ({
     margin: 5,
     borderRadius: 5,
     cursor: "pointer",
+    color: "white",
     [theme.breakpoints.down("sm")]: {
       ...setButtonSizeTamplate(35)
     }
+  },
+  whiteButton: {
+    color: "black"
   }
 });
 
 const styleDisabled = {
-  background: `rgb(155, 155, 155)`,
+  background: "rgb(155, 155, 155)",
   pointerEvents: "none",
   cursor: "default"
 };
 
 ///Minimum value for rendering border on white button
-const minWhiteColorValue = 220;
+const minWhiteColorValue = 140;
 
 /**
  * Reactjs functional component that create color button
@@ -61,15 +67,23 @@ const minWhiteColorValue = 220;
  * @param {number} index Current index of button
  * @param {object} color Current color of button
  * @param {boolean} disabled Property that disable component
+ * @param {boolean} isSelected Property is true if multiple select LEDs
  */
 function ColorButton(props) {
-  const { classes, setIsFocus, isFocus, index, color, disabled } = props;
+  const {
+    classes,
+    setIsFocus,
+    isFocus,
+    index,
+    color,
+    disabled,
+    isSelected
+  } = props;
 
   ///Checks background is white or not
   const isWhiteColor =
     color.r >= minWhiteColorValue &&
-    color.g >= minWhiteColorValue &&
-    color.b >= minWhiteColorValue;
+    (color.g >= minWhiteColorValue && color.b >= minWhiteColorValue);
 
   const style = {
     background: `rgb(${color.r}, ${color.g}, ${color.b})`
@@ -89,7 +103,9 @@ function ColorButton(props) {
       style={disabled ? styleDisabled : isFocus ? styleInFocus : style}
       onClick={setIsFocus.bind(this, index, color)}
     >
-      {""}
+      {isFocus && isSelected && (
+        <ColorizeIcon className={isWhiteColor ? classes.whiteButton : null} />
+      )}
     </Button>
   );
 }

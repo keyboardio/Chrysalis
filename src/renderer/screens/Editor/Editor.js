@@ -113,7 +113,8 @@ class Editor extends React.Component {
     mode: "layout",
     clearConfirmationOpen: false,
     copyFromOpen: false,
-    importExportDialogOpen: false
+    importExportDialogOpen: false,
+    colorButtonIsSelected: false
   };
   keymapDB = new KeymapDB();
 
@@ -223,25 +224,52 @@ class Editor extends React.Component {
       return;
     }
 
-    this.setState(state => {
-      if (
-        state.colorMap.length > 0 &&
-        layer >= 0 &&
-        layer < state.colorMap.length
-      ) {
+    if (this.state.colorButtonIsSelected && this.state.currentKeyIndex !== -1) {
+      this.setState(state => {
+        const { selectedPaletteColor } = this.state;
+        let colormap = state.colorMap.slice();
+        colormap[layer][ledIndex] = selectedPaletteColor;
         return {
-          currentLayer: layer,
+          colorMap: colormap,
+          modified: true,
           currentKeyIndex: keyIndex,
-          currentLedIndex: ledIndex,
-          selectedPaletteColor: state.colorMap[layer][ledIndex]
+          currentLedIndex: ledIndex
         };
-      } else {
-        return {
-          currentLayer: layer,
-          currentKeyIndex: keyIndex
-        };
-      }
-    });
+      });
+      this.props.startContext();
+    } else {
+      this.setState(state => {
+        if (
+          state.colorMap.length > 0 &&
+          layer >= 0 &&
+          layer < state.colorMap.length
+        ) {
+          return {
+            currentLayer: layer,
+            currentKeyIndex: keyIndex,
+            currentLedIndex: ledIndex,
+            selectedPaletteColor: state.colorMap[layer][ledIndex]
+          };
+        } else {
+          return {
+            currentLayer: layer,
+            currentKeyIndex: keyIndex
+          };
+        }
+      });
+    }
+  };
+
+  onColorButtonSelect = colorButtonIndex => {
+    if (colorButtonIndex !== this.state.selectedPaletteColor) {
+      this.setState({
+        colorButtonIsSelected: false
+      });
+    } else {
+      this.setState({
+        colorButtonIsSelected: !this.state.colorButtonIsSelected
+      });
+    }
   };
 
   selectLayer = event => {
@@ -651,6 +679,8 @@ class Editor extends React.Component {
                   isReadOnly || currentLayer > this.state.colorMap.length
                 }
                 onColorSelect={this.onColorSelect}
+                onColorButtonSelect={this.onColorButtonSelect}
+                colorButtonIsSelected={this.state.colorButtonIsSelected}
                 palette={this.state.palette}
                 onColorPick={this.onColorPick}
                 selected={this.state.selectedPaletteColor}

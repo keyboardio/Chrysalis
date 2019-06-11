@@ -26,12 +26,11 @@ import ColorButton from "./ColorButton";
 
 ColorButtonsArea.propTypes = {
   classes: PropTypes.object.isRequired,
-  colorFocusButton: PropTypes.object.isRequired,
-  indexFocusButton: PropTypes.number.isRequired,
+  colorFocusButton: PropTypes.object,
+  indexFocusButton: PropTypes.any,
   setIsFocus: PropTypes.func.isRequired,
   palette: PropTypes.array.isRequired,
-  disabled: PropTypes.bool.isRequired,
-  colorButtonIsSelected: PropTypes.bool.isRequired
+  disabled: PropTypes.bool.isRequired
 };
 
 const styles = theme => ({
@@ -51,7 +50,6 @@ const styles = theme => ({
  * @param {function} setIsFocus Callback function from ColorPalette component. Parameters are: first - index of color button in palette (from 0 to 15), second - object with keys that defining colors using the Red-green-blue-alpha (RGBA) model, third - event
  * @param {array} palette Array of colors. Format [{r: 200, g: 200, b: 200, rgb: "rgb(200, 200, 200)"}, ...]
  * @param {boolean} disabled Property that disable component
- * @param {boolean} colorButtonIsSelected Prop is true if color button signalise for multiple select LEDs
  */
 function ColorButtonsArea(props) {
   const {
@@ -60,8 +58,7 @@ function ColorButtonsArea(props) {
     indexFocusButton,
     setIsFocus,
     palette,
-    disabled,
-    colorButtonIsSelected
+    disabled
   } = props;
 
   /**
@@ -74,8 +71,10 @@ function ColorButtonsArea(props) {
    * Change "colorButtonsAmount", if prop "colorFocusButton" is different
    */
   useEffect(() => {
-    colorButtonsAmount[indexFocusButton] = { ...colorFocusButton };
-    setColorButtonsAmount(colorButtonsAmount);
+    if (indexFocusButton !== null) {
+      colorButtonsAmount[indexFocusButton] = { ...colorFocusButton };
+      setColorButtonsAmount(colorButtonsAmount);
+    }
   }, [colorFocusButton]);
 
   /**
@@ -92,7 +91,6 @@ function ColorButtonsArea(props) {
             color={i === indexFocusButton ? colorFocusButton : colorButton}
             setIsFocus={setIsFocus}
             disabled={disabled}
-            isSelected={colorButtonIsSelected}
           />
         ))}
       </Grid>

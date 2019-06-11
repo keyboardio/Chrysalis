@@ -31,9 +31,9 @@ ColorPalette.propTypes = {
   palette: PropTypes.array.isRequired,
   onColorPick: PropTypes.func.isRequired,
   disabled: PropTypes.bool.isRequired,
-  selected: PropTypes.number.isRequired,
-  onColorButtonSelect: PropTypes.func.isRequired,
-  colorButtonIsSelected: PropTypes.bool.isRequired
+  selected: PropTypes.any,
+  isMultiSelected: PropTypes.bool.isRequired,
+  isColorButtonSelected: PropTypes.bool.isRequired
 };
 
 const styles = theme => ({
@@ -66,8 +66,8 @@ const styles = theme => ({
  * @param {function} onColorPick Callback function from Editor component for change color of buttons in ColorPalette. Parameters are: first - index of color button in palette (from 0 to 15), second - index of color (r: from 0 to 255), third - index of color (g: from 0 to 255), fourth - index of color (b: from 0 to 255)
  * @param {boolean} disabled Property that disable component
  * @param {number} selected Number of selected color button in palette (from 0 to 15)
- * @param {function} onColorButtonSelect Callback function from Editor component for change state of color button
- * @param {boolean} colorButtonIsSelected Prop is true if color button signalise for multiple select LEDs
+ * @param {boolean} isMultiSelected Property of state Editor.js component, that gives a possibility to change colors of keyboard
+ * @param {boolean} isColorButtonSelected Property for disabled PickerColorButton
  */
 function ColorPalette(props) {
   const {
@@ -77,8 +77,8 @@ function ColorPalette(props) {
     onColorPick,
     disabled,
     selected,
-    onColorButtonSelect,
-    colorButtonIsSelected
+    isMultiSelected,
+    isColorButtonSelected
   } = props;
 
   /**
@@ -91,18 +91,24 @@ function ColorPalette(props) {
    * This is Hook that lets add React state "colorFocusButton" to functional components
    * @param {object} [initialState] - Sets initial state for "colorFocusButton" (selected element in palette or in keyboard)
    */
-  const [colorFocusButton, setColorFocusButton] = useState({
-    ...palette[selected]
-  });
+  const [colorFocusButton, setColorFocusButton] = useState(
+    selected !== null
+      ? {
+          ...palette[selected]
+        }
+      : null
+  );
 
   /**
    * Change "indexFocusButton" and "colorFocusButton", if prop "selected" is different
    */
   useEffect(() => {
     setIndexFocusButton(selected);
-    setColorFocusButton({
-      ...palette[selected]
-    });
+    if (selected !== null) {
+      setColorFocusButton({
+        ...palette[selected]
+      });
+    }
   }, [selected]);
 
   /**
@@ -110,8 +116,10 @@ function ColorPalette(props) {
    * @param {object} color Object with keys that defining colors using the Red-green-blue-alpha (RGBA) model
    */
   const toSetColorFocusButton = color => {
+    if (isMultiSelected) {
+      onColorPick(indexFocusButton, color.r, color.g, color.b);
+    }
     setColorFocusButton(setColorTamplate(color));
-    onColorPick(indexFocusButton, color.r, color.g, color.b);
   };
 
   /**
@@ -120,29 +128,55 @@ function ColorPalette(props) {
    * @param {object} color Object with keys that defining colors using the Red-green-blue-alpha (RGBA) model
    */
   const setIsFocus = (index, color, e) => {
-    if (e.ctrlKey || e.shiftKey) onColorButtonSelect(index);
-    onColorSelect(index);
-    setIndexFocusButton(index);
-    setColorFocusButton(setColorTamplate(color));
+    if (e.ctrlKey || e.shiftKey) return;
+    if (index === indexFocusButton) {
+      setIndexFocusButton(!indexFocusButton);
+      onColorSelect("");
+      return;
+    }
+    if (isMultiSelected && index !== indexFocusButton) {
+      setIndexFocusButton(index);
+      setColorFocusButton(setColorTamplate(color));
+      onColorSelect(index, "second");
+      return;
+    }
+    if (!isMultiSelected) {
+      setIndexFocusButton(index);
+      setColorFocusButton(setColorTamplate(color));
+      onColorSelect("");
+    }
+    if (!isMultiSelected && index !== indexFocusButton) {
+      onColorSelect(index, "second");
+      return;
+    }
+    if (isMultiSelected) {
+      onColorSelect(index);
+    }
   };
 
-  const propsToChild = {
+  const propsToArea = {
     colorFocusButton,
     indexFocusButton,
     setIsFocus,
     palette,
-    disabled,
-    colorButtonIsSelected
+    disabled
+  };
+
+  const propsToPicker = {
+    colorFocusButton,
+    onColorSelect,
+    onColorPick,
+    indexFocusButton
   };
 
   return (
     <div className={classes.root}>
       <Paper className={classes.palette}>
-        <ColorButtonsArea {...propsToChild} />
+        <ColorButtonsArea {...propsToArea} />
         <PickerColorButton
           setColorFocusButton={toSetColorFocusButton}
-          colorFocusButton={colorFocusButton}
-          disabled={disabled}
+          disabled={disabled || !isColorButtonSelected}
+          {...propsToPicker}
         />
       </Paper>
     </div>

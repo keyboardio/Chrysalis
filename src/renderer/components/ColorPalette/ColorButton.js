@@ -21,7 +21,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import ColorizeIcon from "@material-ui/icons/Colorize";
 import { setButtonSizeTamplate } from "../../../renderer/utils/setTemplates";
 
 ColorButton.propTypes = {
@@ -67,18 +66,9 @@ const minWhiteColorValue = 140;
  * @param {number} index Current index of button
  * @param {object} color Current color of button
  * @param {boolean} disabled Property that disable component
- * @param {boolean} isSelected Property is true if multiple select LEDs
  */
 function ColorButton(props) {
-  const {
-    classes,
-    setIsFocus,
-    isFocus,
-    index,
-    color,
-    disabled,
-    isSelected
-  } = props;
+  const { classes, setIsFocus, isFocus, index, color, disabled } = props;
 
   ///Checks background is white or not
   const isWhiteColor =
@@ -103,9 +93,7 @@ function ColorButton(props) {
       style={disabled ? styleDisabled : isFocus ? styleInFocus : style}
       onClick={setIsFocus.bind(this, index, color)}
     >
-      {isFocus && isSelected && (
-        <ColorizeIcon className={isWhiteColor ? classes.whiteButton : null} />
-      )}
+      {""}
     </Button>
   );
 }

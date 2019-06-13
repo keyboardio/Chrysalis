@@ -22,6 +22,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { SketchPicker } from "react-color";
 import Fab from "@material-ui/core/Fab";
+import Tooltip from "@material-ui/core/Tooltip";
 import Popover from "@material-ui/core/Popover";
 import PaletteIcon from "@material-ui/icons/Palette";
 
@@ -29,10 +30,7 @@ PickerColorButton.propTypes = {
   classes: PropTypes.object.isRequired,
   setColorFocusButton: PropTypes.func.isRequired,
   colorFocusButton: PropTypes.object,
-  disabled: PropTypes.bool.isRequired,
-  onColorSelect: PropTypes.func.isRequired,
-  onColorPick: PropTypes.func.isRequired,
-  indexFocusButton: PropTypes.any
+  disabled: PropTypes.bool.isRequired
 };
 
 const styles = {
@@ -55,19 +53,13 @@ const styles = {
  * @param {function} setColorFocusButton Callback function from ColorPalette component
  * @param {object} colorFocusButton Object with keys that defining colors using the Red-green-blue-alpha (RGBA) model for focus button
  * @param {boolean} disabled Property that disable component
- * @param {function} onColorSelect Callback function from Editor component for change color of buttons in keyboard. Parameter is index of color button in palette (from 0 to 15)
- * @param {function} onColorPick Callback function from Editor component for change color of buttons in ColorPalette. Parameters are: first - index of color button in palette (from 0 to 15), second - index of color (r: from 0 to 255), third - index of color (g: from 0 to 255), fourth - index of color (b: from 0 to 255)
- * @param {number, null} indexFocusButton Number of focus button (from 0 to 15)
  */
 function PickerColorButton(props) {
   const {
     classes,
     setColorFocusButton,
     colorFocusButton: color,
-    disabled,
-    onColorSelect,
-    onColorPick,
-    indexFocusButton
+    disabled
   } = props;
 
   /**
@@ -77,57 +69,56 @@ function PickerColorButton(props) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   /**
-   * Change "anchorEl" in functional component state to open Color Picker and elements of state Editor.js by onColorSelect function
+   * Change "anchorEl" in functional component state to open Color Picker
    */
   const handleClick = e => {
     setAnchorEl(e.currentTarget);
-    onColorSelect("picker");
   };
 
   /**
-   * Change "anchorEl" in functional component state to close Color Picker pick color of button in state Editor.js by onColorPick function
+   * Change "anchorEl" in functional component state to close Color Picker pick color of button
    */
   const handleClose = () => {
     setAnchorEl(null);
-    if (indexFocusButton !== null)
-      onColorPick(indexFocusButton, color.r, color.g, color.b);
   };
 
   /// Set the value to open (close) Popover element
   const open = Boolean(anchorEl);
 
   return (
-    <div className={classes.root}>
-      <Fab
-        color="primary"
-        className={classes.fab}
-        onClick={handleClick}
-        disabled={disabled}
-      >
-        <PaletteIcon className={classes.icon} />
-      </Fab>
-      <Popover
-        id={"simple-popover"}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "left"
-        }}
-        transformOrigin={{
-          vertical: "bottom",
-          horizontal: "right"
-        }}
-      >
-        <SketchPicker
-          color={color}
-          onChange={color => {
-            setColorFocusButton(color.rgb);
+    <Tooltip placement="top-start" title={props.children}>
+      <div className={classes.root}>
+        <Fab
+          color="primary"
+          className={classes.fab}
+          onClick={handleClick}
+          disabled={disabled}
+        >
+          <PaletteIcon className={classes.icon} />
+        </Fab>
+        <Popover
+          id={"simple-popover"}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "left"
           }}
-        />
-      </Popover>
-    </div>
+          transformOrigin={{
+            vertical: "bottom",
+            horizontal: "right"
+          }}
+        >
+          <SketchPicker
+            color={color}
+            onChange={color => {
+              setColorFocusButton(color.rgb);
+            }}
+          />
+        </Popover>
+      </div>
+    </Tooltip>
   );
 }
 

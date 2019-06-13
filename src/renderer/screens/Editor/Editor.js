@@ -216,6 +216,24 @@ class Editor extends React.Component {
     this.props.startContext();
   };
 
+  /**
+   * Verificate that colors in keyboard button and in color palette is equal
+   * @param {number} colorIndex Number of palette index
+   * @param {number} currentLayer Number of current layer
+   * @param {number} currentLedIndex Number of current selected keyboard button
+   */
+
+  onVerificationColor = (colorIndex, currentLayer, currentLedIndex) => {
+    const { colorMap } = this.state;
+    const currentIndexKeyButton = colorMap[currentLayer][currentLedIndex];
+    return currentIndexKeyButton === colorIndex;
+  };
+
+  /**
+   * Change state if click control or shift button
+   * @param {number} layer Number of current layer
+   * @param {number} ledIndex Number of current selected keyboard button
+   */
   onCtrlShiftPress = (layer, ledIndex) => {
     this.setState({
       selectedPaletteColor: this.state.colorMap[layer][ledIndex],
@@ -224,16 +242,33 @@ class Editor extends React.Component {
     });
   };
 
+  /**
+   * Change state if color buton selected
+   * @param {number} layer Number of layer in attribute of keyboard button
+   * @param {number} currentLayer Number of current layer from state
+   * @param {number} ledIndex Number of current selected keyboard button
+   */
   onButtonKeyboardColorChange = (currentLayer, layer, ledIndex) => {
-    this.setState(state => {
-      let colormap = state.colorMap.slice();
-      colormap[currentLayer][ledIndex] = this.state.selectedPaletteColor;
-      return {
-        selectedPaletteColor: this.state.colorMap[layer][ledIndex],
-        colorMap: colormap,
-        modified: true
-      };
-    });
+    const { selectedPaletteColor, modified } = this.state;
+    const isEqualColor = this.onVerificationColor(
+      selectedPaletteColor,
+      currentLayer,
+      ledIndex
+    );
+    if (!modified && isEqualColor) {
+      return;
+    } else {
+      this.setState(state => {
+        let colormap = state.colorMap.slice();
+        colormap[currentLayer][ledIndex] = this.state.selectedPaletteColor;
+        this.props.startContext();
+        return {
+          selectedPaletteColor: this.state.colorMap[layer][ledIndex],
+          colorMap: colormap,
+          modified: true
+        };
+      });
+    }
   };
 
   onKeySelect = event => {
@@ -241,29 +276,12 @@ class Editor extends React.Component {
       selectedPaletteColor,
       currentLayer,
       isMultiSelected,
-      isColorButtonSelected,
-      currentKeyIndex
+      isColorButtonSelected
     } = this.state;
     const currentTarget = event.currentTarget;
     let layer = parseInt(currentTarget.getAttribute("data-layer")),
       keyIndex = parseInt(currentTarget.getAttribute("data-key-index")),
       ledIndex = parseInt(currentTarget.getAttribute("data-led-index"));
-
-    if (keyIndex == currentKeyIndex) {
-      if (event.ctrlKey || (event.shiftKey && !isColorButtonSelected)) {
-        this.onCtrlShiftPress(layer, ledIndex);
-        return;
-      } else {
-        this.setState({
-          currentKeyIndex: -1,
-          currentLedIndex: -1,
-          selectedPaletteColor: null,
-          isMultiSelected: false,
-          isColorButtonSelected: false
-        });
-        return;
-      }
-    }
 
     this.setState(state => {
       if (
@@ -294,7 +312,6 @@ class Editor extends React.Component {
         isColorButtonSelected
       ) {
         this.onButtonKeyboardColorChange(currentLayer, layer, ledIndex);
-        this.props.startContext();
       }
       if (isColorButtonSelected && !isMultiSelected) {
         this.setState(
@@ -307,7 +324,6 @@ class Editor extends React.Component {
             this.onButtonKeyboardColorChange(currentLayer, layer, ledIndex);
           }
         );
-        this.props.startContext();
       }
     }
   };
@@ -456,34 +472,38 @@ class Editor extends React.Component {
     });
   };
 
-  onColorSelect = (colorIndex, type) => {
-    const {
-      currentLayer,
-      currentLedIndex,
-      colorMap,
-      isColorButtonSelected,
-      selectedPaletteColor
-    } = this.state;
-    if (colorIndex === "") {
+  onColorButtonSelect = (action, colorIndex) => {
+    const { isColorButtonSelected } = this.state;
+    if (action === "one_button_click") {
       this.setState({
         isMultiSelected: false,
         isColorButtonSelected: !isColorButtonSelected
       });
       return;
     }
-    if (type === "second") {
+    if (action === "another_button_click") {
       this.setState({
         selectedPaletteColor: colorIndex,
         isColorButtonSelected: true
       });
       return;
     }
-    if (colorIndex === "picker") {
-      this.setState({
-        isMultiSelected: false
-      });
-      return;
-    }
+  };
+
+  onColorSelect = colorIndex => {
+    const {
+      currentLayer,
+      currentLedIndex,
+      colorMap,
+      selectedPaletteColor
+    } = this.state;
+
+    const isEqualColor = this.onVerificationColor(
+      colorIndex,
+      currentLayer,
+      currentLedIndex
+    );
+
     // if (colorIndex == this.state.selectedPaletteColor) colorIndex = -1;
     if (colorIndex == -1) {
       this.setState({ selectedPaletteColor: selectedPaletteColor });
@@ -492,18 +512,23 @@ class Editor extends React.Component {
 
     if (currentLayer < 0 || currentLayer >= colorMap.length) return;
 
-    this.setState(state => {
-      let colormap = state.colorMap.slice();
-      colormap[currentLayer][currentLedIndex] = colorIndex;
-
-      return {
-        isMultiSelected: true,
-        colorMap: colormap,
-        selectedPaletteColor: colorIndex,
-        modified: true
-      };
-    });
-    this.props.startContext();
+    if (!isEqualColor) {
+      this.setState(state => {
+        let colormap = state.colorMap.slice();
+        colormap[currentLayer][currentLedIndex] = colorIndex;
+        return {
+          isMultiSelected: true,
+          colorMap: colormap,
+          selectedPaletteColor: colorIndex,
+          modified: true
+        };
+      });
+      this.props.startContext();
+    } else {
+      this.setState({
+        selectedPaletteColor: colorIndex
+      });
+    }
   };
 
   onColorPick = (colorIndex, r, g, b) => {
@@ -575,14 +600,35 @@ class Editor extends React.Component {
     this.props.startContext();
   };
 
+  /**
+   * Open bottom menu if click keyboard button and close if click another space around keyboard
+   */
+  onBottomMenuOpenClose = (e, type) => {
+    const target = e.target;
+    const { currentKeyIndex } = this.state;
+    const isLines =
+      target.id === "neuron_led" || target.id === "underglow_outline";
+    const isPath = target.nodeName === "path";
+    if (target.id === "color-palette" || (!type && !isPath)) {
+      this.setState({
+        currentKeyIndex: -1,
+        currentLedIndex: -1,
+        selectedPaletteColor: null,
+        isMultiSelected: false,
+        isColorButtonSelected: false
+      });
+    }
+    if (isPath && !isLines && currentKeyIndex === -1) {
+      this.setState({
+        currentKeyIndex: target.attributes[7].value,
+        currentLedIndex: target.attributes[6].value
+      });
+    }
+  };
+
   render() {
     const { classes } = this.props;
-    const {
-      keymap,
-      palette,
-      isMultiSelected,
-      isColorButtonSelected
-    } = this.state;
+    const { keymap, palette, isColorButtonSelected } = this.state;
 
     let focus = new Focus();
     const Layer = focus.device.components.keymap;
@@ -611,7 +657,7 @@ class Editor extends React.Component {
 
     const layer = (
       <Fade in appear key={currentLayer}>
-        <div className={classes.editor}>
+        <div className={classes.editor} onClick={this.onBottomMenuOpenClose}>
           <Layer
             className={classNames("layer", isReadOnly && classes.disabledLayer)}
             readOnly={isReadOnly}
@@ -762,13 +808,13 @@ class Editor extends React.Component {
                   isReadOnly || currentLayer > this.state.colorMap.length
                 }
                 onColorSelect={this.onColorSelect}
-                onColorButtonSelect={this.onColorButtonSelect}
                 colorButtonIsSelected={this.state.colorButtonIsSelected}
                 palette={this.state.palette}
                 onColorPick={this.onColorPick}
                 selected={this.state.selectedPaletteColor}
-                isMultiSelected={isMultiSelected}
                 isColorButtonSelected={isColorButtonSelected}
+                onColorButtonSelect={this.onColorButtonSelect}
+                onBottomMenuOpenClose={this.onBottomMenuOpenClose}
               />
             ))}
         </Slide>

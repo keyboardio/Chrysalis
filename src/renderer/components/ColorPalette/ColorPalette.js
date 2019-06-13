@@ -24,6 +24,7 @@ import Paper from "@material-ui/core/Paper";
 import ColorButtonsArea from "./ColorButtonsArea";
 import PickerColorButton from "./PickerColorButton";
 import { setColorTamplate } from "../../../renderer/utils/setTemplates";
+import i18n from "../../i18n";
 
 ColorPalette.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -32,8 +33,9 @@ ColorPalette.propTypes = {
   onColorPick: PropTypes.func.isRequired,
   disabled: PropTypes.bool.isRequired,
   selected: PropTypes.any,
-  isMultiSelected: PropTypes.bool.isRequired,
-  isColorButtonSelected: PropTypes.bool.isRequired
+  isColorButtonSelected: PropTypes.bool.isRequired,
+  onColorButtonSelect: PropTypes.func.isRequired,
+  onBottomMenuOpenClose: PropTypes.func.isRequired
 };
 
 const styles = theme => ({
@@ -68,6 +70,8 @@ const styles = theme => ({
  * @param {number} selected Number of selected color button in palette (from 0 to 15)
  * @param {boolean} isMultiSelected Property of state Editor.js component, that gives a possibility to change colors of keyboard
  * @param {boolean} isColorButtonSelected Property for disabled PickerColorButton
+ * @param {function} onColorButtonSelect Callback function from Editor component for change state of selected color button in palette
+ * @param {function} onBottomMenuOpenClose Callback function from Editor component for open(close) bottom menu
  */
 function ColorPalette(props) {
   const {
@@ -77,8 +81,9 @@ function ColorPalette(props) {
     onColorPick,
     disabled,
     selected,
-    isMultiSelected,
-    isColorButtonSelected
+    isColorButtonSelected,
+    onColorButtonSelect,
+    onBottomMenuOpenClose
   } = props;
 
   /**
@@ -116,9 +121,7 @@ function ColorPalette(props) {
    * @param {object} color Object with keys that defining colors using the Red-green-blue-alpha (RGBA) model
    */
   const toSetColorFocusButton = color => {
-    if (isMultiSelected) {
-      onColorPick(indexFocusButton, color.r, color.g, color.b);
-    }
+    onColorPick(indexFocusButton, color.r, color.g, color.b);
     setColorFocusButton(setColorTamplate(color));
   };
 
@@ -131,27 +134,13 @@ function ColorPalette(props) {
     if (e.ctrlKey || e.shiftKey) return;
     if (index === indexFocusButton) {
       setIndexFocusButton(!indexFocusButton);
-      onColorSelect("");
+      onColorButtonSelect("one_button_click");
       return;
     }
-    if (isMultiSelected && index !== indexFocusButton) {
-      setIndexFocusButton(index);
-      setColorFocusButton(setColorTamplate(color));
-      onColorSelect(index, "second");
-      return;
-    }
-    if (!isMultiSelected) {
-      setIndexFocusButton(index);
-      setColorFocusButton(setColorTamplate(color));
-      onColorSelect("");
-    }
-    if (!isMultiSelected && index !== indexFocusButton) {
-      onColorSelect(index, "second");
-      return;
-    }
-    if (isMultiSelected) {
-      onColorSelect(index);
-    }
+    onColorButtonSelect("another_button_click");
+    setIndexFocusButton(index);
+    setColorFocusButton(setColorTamplate(color));
+    onColorSelect(index);
   };
 
   const propsToArea = {
@@ -162,22 +151,23 @@ function ColorPalette(props) {
     disabled
   };
 
-  const propsToPicker = {
-    colorFocusButton,
-    onColorSelect,
-    onColorPick,
-    indexFocusButton
-  };
-
   return (
-    <div className={classes.root}>
+    <div
+      className={classes.root}
+      id="color-palette"
+      onClick={e => {
+        onBottomMenuOpenClose(e, "color_palette");
+      }}
+    >
       <Paper className={classes.palette}>
         <ColorButtonsArea {...propsToArea} />
         <PickerColorButton
           setColorFocusButton={toSetColorFocusButton}
           disabled={disabled || !isColorButtonSelected}
-          {...propsToPicker}
-        />
+          colorFocusButton={colorFocusButton}
+        >
+          {i18n.components.pickerColorButton}
+        </PickerColorButton>
       </Paper>
     </div>
   );

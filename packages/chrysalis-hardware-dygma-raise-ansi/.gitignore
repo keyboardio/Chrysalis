@@ -1,0 +1,7 @@
+/bin/
+/docs/html/
+/lib/
+/node_modules/
+/package-lock.json
+/test/
+/yarn.lock

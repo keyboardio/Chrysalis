@@ -109,7 +109,7 @@ class Focus {
     }
 
     async getKeyboardType() {
-        return await this.request("hardware.ansi_iso")
+        return await this.request("hardware.layout")
     }
 
     async _write_parts(parts, cb) {

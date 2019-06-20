@@ -22,10 +22,10 @@ import classNames from "classnames";
 import Fade from "@material-ui/core/Fade";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 import FormControl from "@material-ui/core/FormControl";
-import LayersClearIcon from "@material-ui/icons/LayersClear";
 import IconButton from "@material-ui/core/IconButton";
 import ImportExportIcon from "@material-ui/icons/ImportExport";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
+import LayersClearIcon from "@material-ui/icons/LayersClear";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -46,10 +46,9 @@ import { withSnackbar } from "notistack";
 import Focus from "@chrysalis-api/focus";
 import { KeymapDB } from "@chrysalis-api/keymap";
 
-import Palette from "./Palette";
+import ColorPalette from "../../components/ColorPalette";
 import KeySelector from "./KeySelector";
 import SaveChangesButton from "../../components/SaveChangesButton";
-import CancelChangesButton from "../../components/CancelChangesButton";
 import ConfirmationDialog from "../../components/ConfirmationDialog";
 import i18n from "../../i18n";
 import settings from "electron-settings";
@@ -76,6 +75,9 @@ const styles = theme => ({
   },
   layerItem: {
     paddingLeft: theme.spacing.unit * 4
+  },
+  layerSelect: {
+    marginRight: theme.spacing.unit * 4
   },
   tabWrapper: {
     flexDirection: "row",
@@ -115,6 +117,24 @@ class Editor extends React.Component {
   };
   keymapDB = new KeymapDB();
 
+  bottomMenuNeverHide = () => {
+    this.setState(
+      state => ({
+        currentKeyIndex:
+          state.currentKeyIndex !== -1 ? state.currentKeyIndex : 0,
+        currentLedIndex:
+          state.currentLedIndex !== -1 ? state.currentLedIndex : 0
+      }),
+      () => {
+        this.setState({
+          selectedPaletteColor: this.state.colorMap[this.state.currentLayer][
+            this.state.currentLedIndex
+          ]
+        });
+      }
+    );
+  };
+
   scanKeyboard = async () => {
     let focus = new Focus();
 
@@ -144,23 +164,15 @@ class Editor extends React.Component {
       }
 
       let colormap = await focus.command("colormap");
-      this.setState(
-        () => ({
-          defaultLayer: defLayer,
-          keymap: keymap,
-          showDefaults: !keymap.onlyCustom,
-          palette: colormap.palette,
-          colorMap: colormap.colorMap,
-          currentKeyIndex: 0,
-          currentLedIndex: 0
-        }),
-        () => {
-          const { colorMap, currentLayer, currentLedIndex } = this.state;
-          this.setState({
-            selectedPaletteColor: colorMap[currentLayer][currentLedIndex]
-          });
-        }
-      );
+
+      this.setState({
+        defaultLayer: defLayer,
+        keymap: keymap,
+        showDefaults: !keymap.onlyCustom,
+        palette: colormap.palette,
+        colorMap: colormap.colorMap
+      });
+      this.bottomMenuNeverHide();
     } catch (e) {
       this.props.enqueueSnackbar(e, { variant: "error" });
       this.props.onDisconnect();
@@ -253,13 +265,10 @@ class Editor extends React.Component {
 
   selectLayer = event => {
     if (event.target.value === undefined) return;
-    const { colorMap, currentLedIndex } = this.state;
     this.setState({
-      currentLayer: event.target.value,
-      currentKeyIndex: 0,
-      currentLedIndex: 0,
-      selectedPaletteColor: colorMap[event.target.value][currentLedIndex]
+      currentLayer: event.target.value
     });
+    this.bottomMenuNeverHide();
   };
 
   onApply = async () => {
@@ -385,13 +394,13 @@ class Editor extends React.Component {
 
   setMode = mode => {
     this.setState({ mode: mode });
+    this.bottomMenuNeverHide();
   };
 
   onColorSelect = colorIndex => {
     if (colorIndex == this.state.selectedPaletteColor) colorIndex = -1;
-
     if (colorIndex == -1) {
-      this.setState({ selectedPaletteColor: colorIndex });
+      this.setState({ selectedPaletteColor: this.state.selectedPaletteColor });
       return;
     }
 
@@ -481,7 +490,7 @@ class Editor extends React.Component {
   };
 
   render() {
-    const { classes, inContext, cancelContext } = this.props;
+    const { classes } = this.props;
     const { keymap, palette } = this.state;
 
     let focus = new Focus();
@@ -614,7 +623,7 @@ class Editor extends React.Component {
               )}
             </ToggleButtonGroup>
             <div className={classes.grow} />
-            <FormControl>
+            <FormControl className={classes.layerSelect}>
               <Select
                 value={currentLayer}
                 classes={{ selectMenu: classes.layerSelectItem }}
@@ -657,22 +666,17 @@ class Editor extends React.Component {
             />
           )) ||
             (mode == "colormap" && (
-              <Palette
+              <ColorPalette
                 disabled={
                   isReadOnly || currentLayer > this.state.colorMap.length
                 }
-                palette={this.state.palette}
                 onColorSelect={this.onColorSelect}
+                palette={this.state.palette}
                 onColorPick={this.onColorPick}
                 selected={this.state.selectedPaletteColor}
               />
             ))}
         </Slide>
-        {inContext && (
-          <CancelChangesButton cancelContext={cancelContext}>
-            {i18n.components.cancelChanges}
-          </CancelChangesButton>
-        )}
         <SaveChangesButton
           floating
           onClick={this.onApply}

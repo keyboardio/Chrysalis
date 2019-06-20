@@ -34,8 +34,7 @@ ColorPalette.propTypes = {
   disabled: PropTypes.bool.isRequired,
   selected: PropTypes.any,
   isColorButtonSelected: PropTypes.bool.isRequired,
-  onColorButtonSelect: PropTypes.func.isRequired,
-  onBottomMenuOpenClose: PropTypes.func.isRequired
+  onColorButtonSelect: PropTypes.func.isRequired
 };
 
 const styles = theme => ({
@@ -71,7 +70,6 @@ const styles = theme => ({
  * @param {boolean} isMultiSelected Property of state Editor.js component, that gives a possibility to change colors of keyboard
  * @param {boolean} isColorButtonSelected Property for disabled PickerColorButton
  * @param {function} onColorButtonSelect Callback function from Editor component for change state of selected color button in palette
- * @param {function} onBottomMenuOpenClose Callback function from Editor component for open(close) bottom menu
  */
 function ColorPalette(props) {
   const {
@@ -82,8 +80,7 @@ function ColorPalette(props) {
     disabled,
     selected,
     isColorButtonSelected,
-    onColorButtonSelect,
-    onBottomMenuOpenClose
+    onColorButtonSelect
   } = props;
 
   /**
@@ -152,13 +149,7 @@ function ColorPalette(props) {
   };
 
   return (
-    <div
-      className={classes.root}
-      id="color-palette"
-      onClick={e => {
-        onBottomMenuOpenClose(e, "color_palette");
-      }}
-    >
+    <div className={classes.root}>
       <Paper className={classes.palette}>
         <ColorButtonsArea {...propsToArea} />
         <PickerColorButton

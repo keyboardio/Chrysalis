@@ -154,11 +154,7 @@ class Editor extends React.Component {
         keymap: keymap,
         showDefaults: !keymap.onlyCustom,
         palette: colormap.palette,
-        colorMap: colormap.colorMap,
-        currentKeyIndex:
-          this.state.currentKeyIndex !== -1 ? this.state.currentKeyIndex : 0,
-        currentLedIndex:
-          this.state.currentLedIndex !== -1 ? this.state.currentLedIndex : 0
+        colorMap: colormap.colorMap
       });
     } catch (e) {
       this.props.enqueueSnackbar(e, { variant: "error" });
@@ -276,12 +272,29 @@ class Editor extends React.Component {
       selectedPaletteColor,
       currentLayer,
       isMultiSelected,
-      isColorButtonSelected
+      isColorButtonSelected,
+      currentKeyIndex
     } = this.state;
     const currentTarget = event.currentTarget;
     let layer = parseInt(currentTarget.getAttribute("data-layer")),
       keyIndex = parseInt(currentTarget.getAttribute("data-key-index")),
       ledIndex = parseInt(currentTarget.getAttribute("data-led-index"));
+
+    if (keyIndex == currentKeyIndex) {
+      if (event.ctrlKey || (event.shiftKey && !isColorButtonSelected)) {
+        this.onCtrlShiftPress(layer, ledIndex);
+        return;
+      } else {
+        this.setState({
+          currentKeyIndex: -1,
+          currentLedIndex: -1,
+          selectedPaletteColor: null,
+          isMultiSelected: false,
+          isColorButtonSelected: false
+        });
+        return;
+      }
+    }
 
     this.setState(state => {
       if (
@@ -332,8 +345,7 @@ class Editor extends React.Component {
     if (event.target.value === undefined) return;
     this.setState({
       currentLayer: event.target.value,
-      currentKeyIndex: 0,
-      currentLedIndex: 0
+      currentKeyIndex: -1
     });
   };
 
@@ -462,14 +474,7 @@ class Editor extends React.Component {
   };
 
   setMode = mode => {
-    this.setState({
-      mode: mode,
-      selectedPaletteColor: null,
-      currentKeyIndex:
-        this.state.currentKeyIndex !== -1 ? this.state.currentKeyIndex : 0,
-      currentLedIndex:
-        this.state.currentLedIndex !== -1 ? this.state.currentLedIndex : 0
-    });
+    this.setState({ mode: mode });
   };
 
   onColorButtonSelect = (action, colorIndex) => {
@@ -504,7 +509,7 @@ class Editor extends React.Component {
       currentLedIndex
     );
 
-    // if (colorIndex == this.state.selectedPaletteColor) colorIndex = -1;
+    if (colorIndex == this.state.selectedPaletteColor) colorIndex = -1;
     if (colorIndex == -1) {
       this.setState({ selectedPaletteColor: selectedPaletteColor });
       return;
@@ -532,8 +537,7 @@ class Editor extends React.Component {
   };
 
   onColorPick = (colorIndex, r, g, b) => {
-    const { palette } = this.state;
-    let newPalette = palette.slice();
+    let newPalette = this.state.palette.slice();
     newPalette[colorIndex] = {
       r: r,
       g: g,
@@ -600,32 +604,6 @@ class Editor extends React.Component {
     this.props.startContext();
   };
 
-  /**
-   * Open bottom menu if click keyboard button and close if click another space around keyboard
-   */
-  onBottomMenuOpenClose = (e, type) => {
-    const target = e.target;
-    const { currentKeyIndex } = this.state;
-    const isLines =
-      target.id === "neuron_led" || target.id === "underglow_outline";
-    const isPath = target.nodeName === "path";
-    if (target.id === "color-palette" || (!type && !isPath)) {
-      this.setState({
-        currentKeyIndex: -1,
-        currentLedIndex: -1,
-        selectedPaletteColor: null,
-        isMultiSelected: false,
-        isColorButtonSelected: false
-      });
-    }
-    if (isPath && !isLines && currentKeyIndex === -1) {
-      this.setState({
-        currentKeyIndex: target.attributes[7].value,
-        currentLedIndex: target.attributes[6].value
-      });
-    }
-  };
-
   render() {
     const { classes } = this.props;
     const { keymap, palette, isColorButtonSelected } = this.state;
@@ -657,7 +635,7 @@ class Editor extends React.Component {
 
     const layer = (
       <Fade in appear key={currentLayer}>
-        <div className={classes.editor} onClick={this.onBottomMenuOpenClose}>
+        <div className={classes.editor}>
           <Layer
             className={classNames("layer", isReadOnly && classes.disabledLayer)}
             readOnly={isReadOnly}
@@ -814,7 +792,6 @@ class Editor extends React.Component {
                 selected={this.state.selectedPaletteColor}
                 isColorButtonSelected={isColorButtonSelected}
                 onColorButtonSelect={this.onColorButtonSelect}
-                onBottomMenuOpenClose={this.onBottomMenuOpenClose}
               />
             ))}
         </Slide>

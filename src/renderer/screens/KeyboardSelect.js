@@ -141,6 +141,49 @@ class KeyboardSelect extends React.Component {
     return deviceList;
   };
 
+  /**
+   * Check that have devices list keyboard type "Raise" or no
+   * @returns {boolean} true or false
+   */
+  isRaise = devices =>
+    devices.some(item => item.device.info.product === "Raise");
+
+  /**
+   * Finds in devices list the desired keyboard type and delete not needed type from it
+   * @param {array} devices List of supported devices
+   */
+  filterTypeKeyboard = async devices => {
+    let allDevices = [],
+      focus = new Focus();
+    if (devices !== undefined || devices !== []) {
+      let raiseDevices = devices.filter(
+        item => item.device.info.product === "Raise"
+      );
+      let raisePorts = raiseDevices.reduce(
+        (accum, item) =>
+          accum.indexOf(item.comName) !== -1 ? accum : [...accum, item.comName],
+        []
+      );
+      //select current keyboard type
+      if (raisePorts !== [] || raisePorts !== undefined) {
+        for (const port of raisePorts) {
+          let raiseInPort = raiseDevices.filter(item => item.comName === port);
+          if (!this.props.connected || !focus.device)
+            await focus.open(port, raiseInPort[0]);
+          let keyboardType = await focus.getKeyboardType();
+          if (!this.props.connected || !focus.device) await focus.close();
+          allDevices = devices.filter(
+            item =>
+              (keyboardType.trim() === item.device.info.keyboardType &&
+                port === item.comName) ||
+              item.device.info.product !== "Raise"
+          );
+        }
+      }
+    }
+    return allDevices;
+  };
+
   findKeyboards = async () => {
     this.setState({ loading: true });
     let focus = new Focus();
@@ -149,14 +192,10 @@ class KeyboardSelect extends React.Component {
       focus
         .find(...Hardware.serial)
         .then(async devices => {
-          let newDevices;
-          await focus.open(devices[0].comName, devices[0]);
-          let keyboardType = await focus.getKeyboardType();
-          focus.close();
-          newDevices = devices.filter(
-            item => keyboardType.trim() === item.device.info.keyboardType
-          );
-          const list = this.findNonSerialKeyboards(newDevices);
+          const allDevices = this.findNonSerialKeyboards(devices);
+          const list = this.isRaise(allDevices)
+            ? await this.filterTypeKeyboard(allDevices)
+            : allDevices;
           this.setState({
             loading: false,
             devices: list
@@ -209,6 +248,7 @@ class KeyboardSelect extends React.Component {
   componentWillUnmount() {
     usb.off("attach", this.finder);
     usb.off("detach", this.finder);
+    if (focus.device) focus.close();
   }
 
   selectPort = event => {

@@ -237,6 +237,7 @@ class App extends React.Component {
                   onConnect={this.onKeyboardConnect}
                   onDisconnect={this.onKeyboardDisconnect}
                   titleElement={() => document.querySelector("#page-title")}
+                  connected={this.state.connected}
                 />
                 <Editor
                   path="/editor"

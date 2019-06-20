@@ -39,13 +39,9 @@ const styles = theme => ({
     margin: 5,
     borderRadius: 5,
     cursor: "pointer",
-    color: "white",
     [theme.breakpoints.down("sm")]: {
       ...setButtonSizeTamplate(35)
     }
-  },
-  whiteButton: {
-    color: "black"
   }
 });
 

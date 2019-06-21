@@ -46,7 +46,7 @@ import { withSnackbar } from "notistack";
 import Focus from "@chrysalis-api/focus";
 import { KeymapDB } from "@chrysalis-api/keymap";
 
-import Palette from "./Palette";
+import ColorPalette from "../../components/ColorPalette";
 import KeySelector from "./KeySelector";
 import SaveChangesButton from "../../components/SaveChangesButton";
 import ConfirmationDialog from "../../components/ConfirmationDialog";
@@ -379,9 +379,8 @@ class Editor extends React.Component {
 
   onColorSelect = colorIndex => {
     if (colorIndex == this.state.selectedPaletteColor) colorIndex = -1;
-
     if (colorIndex == -1) {
-      this.setState({ selectedPaletteColor: colorIndex });
+      this.setState({ selectedPaletteColor: this.state.selectedPaletteColor });
       return;
     }
 
@@ -647,12 +646,12 @@ class Editor extends React.Component {
             />
           )) ||
             (mode == "colormap" && (
-              <Palette
+              <ColorPalette
                 disabled={
                   isReadOnly || currentLayer > this.state.colorMap.length
                 }
-                palette={this.state.palette}
                 onColorSelect={this.onColorSelect}
+                palette={this.state.palette}
                 onColorPick={this.onColorPick}
                 selected={this.state.selectedPaletteColor}
               />

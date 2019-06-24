@@ -35,6 +35,12 @@ import LoadDefaultKeymap from "./LoadDefaultKeymap";
 export const ImportExportDialog = withSnackbar(props => {
   const [dataState, setData] = useState();
 
+  /**
+   * This is Hook that lets add React state "isChange" for change tracking in this dialog
+   * @param {boolean} [initialState=false] - Sets initial state for "isChange"
+   */
+  const [isChange, setIsChange] = useState(false);
+
   const data =
     dataState != undefined
       ? dataState
@@ -50,8 +56,9 @@ export const ImportExportDialog = withSnackbar(props => {
 
   function onConfirm() {
     try {
-      props.onConfirm(JSON.parse(data));
+      props.onConfirm(JSON.parse(data), isChange);
       setData(undefined);
+      setIsChange(false);
     } catch (e) {
       props.enqueueSnackbar(e.toString(), { variant: "error" });
     }
@@ -59,11 +66,13 @@ export const ImportExportDialog = withSnackbar(props => {
 
   function onCancel() {
     setData(undefined);
+    setIsChange(false);
     props.onCancel();
   }
 
   function copyToClipboard(data) {
     clipboard.writeText(data);
+    setIsChange(true);
     props.enqueueSnackbar(i18n.editor.copySuccess, {
       variant: "success",
       autoHideDuration: 2000
@@ -72,6 +81,7 @@ export const ImportExportDialog = withSnackbar(props => {
 
   function pasteFromClipboard() {
     setData(clipboard.readText());
+    setIsChange(true);
     props.enqueueSnackbar(i18n.editor.pasteSuccess, {
       variant: "success",
       autoHideDuration: 2000
@@ -127,6 +137,7 @@ export const ImportExportDialog = withSnackbar(props => {
           value={data}
           onChange={event => {
             setData(event.target.value);
+            setIsChange(true);
           }}
           variant="outlined"
           margin="normal"

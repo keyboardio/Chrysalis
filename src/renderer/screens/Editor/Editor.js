@@ -117,6 +117,27 @@ class Editor extends React.Component {
   };
   keymapDB = new KeymapDB();
 
+  /**
+   * Bottom menu never hide and automatically select a key at launch and have this shown in the bottom menu
+   */
+  bottomMenuNeverHide = () => {
+    this.setState(
+      state => ({
+        currentKeyIndex:
+          state.currentKeyIndex !== -1 ? state.currentKeyIndex : 0,
+        currentLedIndex:
+          state.currentLedIndex !== -1 ? state.currentLedIndex : 0
+      }),
+      () => {
+        this.setState({
+          selectedPaletteColor: this.state.colorMap[this.state.currentLayer][
+            this.state.currentLedIndex
+          ]
+        });
+      }
+    );
+  };
+
   scanKeyboard = async () => {
     let focus = new Focus();
 
@@ -154,6 +175,7 @@ class Editor extends React.Component {
         palette: colormap.palette,
         colorMap: colormap.colorMap
       });
+      this.bottomMenuNeverHide();
     } catch (e) {
       this.props.enqueueSnackbar(e, { variant: "error" });
       this.props.onDisconnect();
@@ -247,9 +269,9 @@ class Editor extends React.Component {
   selectLayer = event => {
     if (event.target.value === undefined) return;
     this.setState({
-      currentLayer: event.target.value,
-      currentKeyIndex: -1
+      currentLayer: event.target.value
     });
+    this.bottomMenuNeverHide();
   };
 
   onApply = async () => {
@@ -375,6 +397,7 @@ class Editor extends React.Component {
 
   setMode = mode => {
     this.setState({ mode: mode });
+    this.bottomMenuNeverHide();
   };
 
   onColorSelect = colorIndex => {

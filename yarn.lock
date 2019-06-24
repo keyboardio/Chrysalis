@@ -1114,10 +1114,10 @@
   dependencies:
     serialport "^6.2.2"
 
-"@chrysalis-api/hardware-dygma-raise@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-dygma-raise/-/hardware-dygma-raise-0.0.6.tgz#2da18ac5d3b9774677602b43e11ce92734d4d426"
-  integrity sha512-wgCkqaNpkqS5D246k+UNP4nthgUZHx/eHpeS04KUDINZypU9uKhzQwKWsCZrYr0dR8f4MlruMYOUPOzXwncj7A==
+"@chrysalis-api/hardware-dygma-raise@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-dygma-raise/-/hardware-dygma-raise-0.0.7.tgz#834b0d264bf54ece6201047fc050fe7cc0736637"
+  integrity sha512-EFrrJUWbEKp51DgekP6acLlxdBx3AokVYB16gBERVr0zeyKdgFnaCx9l2mL/aNlEA3LBVQYLRLonOhnQwWHVug==
   dependencies:
     react "^16.5.2"
 
@@ -1175,12 +1175,12 @@
     "@chrysalis-api/flash" "^0.0.7"
     react "^16.5.2"
 
-"@chrysalis-api/hardware@^0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware/-/hardware-0.0.8.tgz#1ee0e05ebeb87de23429739358623f66454276e2"
-  integrity sha512-O/MLq3RrkAw/SHbE+n6PJ/BqGvNiTBmCsvGSO/T3tuxK8odTtf5v8cDCsjREh26O67klUU+by5VcOGvd/XtzbA==
+"@chrysalis-api/hardware@^0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware/-/hardware-0.0.9.tgz#fe82373492e66d0cae2cfaf0efc0b4e2f52b57ee"
+  integrity sha512-h+NuLp0hb3N4NYob/zzbbvuiDdACCNh9xZkKv8TMI2nau0DAi2LhsXicm97bo+Lp30K0dThl0yBKPzUDcE74bg==
   dependencies:
-    "@chrysalis-api/hardware-dygma-raise" "^0.0.6"
+    "@chrysalis-api/hardware-dygma-raise" "^0.0.7"
     "@chrysalis-api/hardware-ez-ergodox" "^0.0.12"
     "@chrysalis-api/hardware-kbdfans-kbd4x" "^0.0.2"
     "@chrysalis-api/hardware-keyboardio-model01" "^0.0.20"

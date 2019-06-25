@@ -447,9 +447,7 @@ class Editor extends React.Component {
         if (currentLayer >= this.state.keymap.default.length) {
           this.setState(state => {
             const defLength = this.state.keymap.default.length;
-            let newKeymap = this.state.keymap.custom[
-              currentLayer - defLength
-            ].slice();
+            let newKeymap = this.state.keymap.custom.slice();
             newKeymap[currentLayer - defLength] = data.keymap;
             let newColormap = this.state.colorMap.slice();
             newColormap[currentLayer - defLength] = data.colormap.slice();

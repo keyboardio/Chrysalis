@@ -558,15 +558,14 @@ class Editor extends React.Component {
     this.setState({ importExportDialogOpen: false });
   };
   importLayer = data => {
-    const { keymap } = this.state;
     if (data.colormap.length > 0) this.setState({ colorMap: data.colormap });
     if (data.palette.length > 0) this.setState({ palette: data.palette });
     if (data.keymap.length > 0) {
       const { currentLayer } = this.state;
-      if (keymap.onlyCustom) {
+      if (this.state.keymap.onlyCustom) {
         if (currentLayer >= 0) {
           this.setState(state => {
-            let newKeymap = keymap.custom[currentLayer].slice();
+            let newKeymap = this.state.keymap.custom[currentLayer].slice();
             newKeymap[currentLayer] = data.keymap.slice();
             console.log(currentLayer, newKeymap);
             return {
@@ -579,10 +578,12 @@ class Editor extends React.Component {
           });
         }
       } else {
-        if (currentLayer >= keymap.default.length) {
+        if (currentLayer >= this.state.keymap.default.length) {
           this.setState(state => {
-            const defLength = keymap.default.length;
-            let newKeymap = keymap.custom[currentLayer - defLength].slice();
+            const defLength = this.state.keymap.default.length;
+            let newKeymap = this.state.keymap.custom[
+              currentLayer - defLength
+            ].slice();
             newKeymap[currentLayer - defLength] = data.keymap;
 
             return {

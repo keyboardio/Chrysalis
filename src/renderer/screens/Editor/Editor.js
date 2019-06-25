@@ -132,7 +132,9 @@ class Editor extends React.Component {
         this.setState({
           selectedPaletteColor: this.state.colorMap[this.state.currentLayer][
             this.state.currentLedIndex
-          ]
+          ],
+          isMultiSelected: true,
+          isColorButtonSelected: true
         });
       }
     );

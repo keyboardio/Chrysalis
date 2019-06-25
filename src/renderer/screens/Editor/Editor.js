@@ -421,50 +421,55 @@ class Editor extends React.Component {
   cancelImport = () => {
     this.setState({ importExportDialogOpen: false });
   };
-  importLayer = (data, isChange) => {
-    if (isChange) {
-      if (data.colormap.length > 0) this.setState({ colorMap: data.colormap });
-      if (data.palette.length > 0) this.setState({ palette: data.palette });
-      if (data.keymap.length > 0) {
-        const { currentLayer } = this.state;
-        if (this.state.keymap.onlyCustom) {
-          if (currentLayer >= 0) {
-            this.setState(state => {
-              let newKeymap = this.state.keymap.custom[currentLayer].slice();
-              newKeymap[currentLayer] = data.keymap.slice();
-              console.log(currentLayer, newKeymap);
-              return {
-                keymap: {
-                  default: state.keymap.default,
-                  custom: newKeymap,
-                  onlyCustom: state.keymap.onlyCustom
-                }
-              };
-            });
-          }
-        } else {
-          if (currentLayer >= this.state.keymap.default.length) {
-            this.setState(state => {
-              const defLength = this.state.keymap.default.length;
-              let newKeymap = this.state.keymap.custom[
-                currentLayer - defLength
-              ].slice();
-              newKeymap[currentLayer - defLength] = data.keymap;
+  importLayer = data => {
+    if (data.colormap.length > 0) this.setState({ colorMap: data.colormap });
+    if (data.palette.length > 0) this.setState({ palette: data.palette });
+    if (data.keymap.length > 0) {
+      const { currentLayer } = this.state;
+      if (this.state.keymap.onlyCustom) {
+        if (currentLayer >= 0) {
+          this.setState(state => {
+            let newKeymap = this.state.keymap.custom[currentLayer].slice();
+            newKeymap[currentLayer] = data.keymap.slice();
+            console.log(currentLayer, newKeymap);
+            return {
+              keymap: {
+                default: state.keymap.default,
+                custom: newKeymap,
+                onlyCustom: state.keymap.onlyCustom
+              }
+            };
+          });
+        }
+      } else {
+        if (currentLayer >= this.state.keymap.default.length) {
+          this.setState(state => {
+            const defLength = this.state.keymap.default.length;
+            let newKeymap = this.state.keymap.custom[
+              currentLayer - defLength
+            ].slice();
+            newKeymap[currentLayer - defLength] = data.keymap;
 
-              return {
-                keymap: {
-                  default: state.keymap.default,
-                  custom: newKeymap,
-                  onlyCustom: state.keymap.onlyCustom
-                }
-              };
-            });
-          }
+            return {
+              keymap: {
+                default: state.keymap.default,
+                custom: newKeymap,
+                onlyCustom: state.keymap.onlyCustom
+              }
+            };
+          });
         }
       }
-      this.setState({ modified: true });
-      this.props.startContext();
     }
+    this.setState({ modified: true });
+    this.props.startContext();
+    this.toCloseImportExportDialog();
+  };
+
+  /**
+   * Close ImportExportDialog component
+   */
+  toCloseImportExportDialog = () => {
     this.setState({ importExportDialogOpen: false });
   };
 
@@ -686,6 +691,7 @@ class Editor extends React.Component {
           isReadOnly={isReadOnly}
           onConfirm={this.importLayer}
           onCancel={this.cancelImport}
+          toCloseImportExportDialog={this.toCloseImportExportDialog}
         />
       </React.Fragment>
     );

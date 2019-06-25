@@ -33,6 +33,8 @@ import i18n from "../../../i18n";
 import LoadDefaultKeymap from "./LoadDefaultKeymap";
 
 export const ImportExportDialog = withSnackbar(props => {
+  const { toCloseImportExportDialog } = props;
+
   const [dataState, setData] = useState();
 
   /**
@@ -56,7 +58,9 @@ export const ImportExportDialog = withSnackbar(props => {
 
   function onConfirm() {
     try {
-      props.onConfirm(JSON.parse(data), isChange);
+      isChange
+        ? props.onConfirm(JSON.parse(data))
+        : toCloseImportExportDialog();
       setData(undefined);
       setIsChange(false);
     } catch (e) {

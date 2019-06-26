@@ -15,6 +15,8 @@
  */
 
 import KeymapISO from "./components/Keymap-ISO";
+import Focus from "@chrysalis-api/focus";
+
 const Raise_ISO = {
   info: {
     vendor: "Dygma",
@@ -42,6 +44,17 @@ const Raise_ISO = {
 
   flash: async () => {
     console.log("Not implemented yet.");
+  },
+
+  isDeviceSupported: async port => {
+    let focus = new Focus();
+    await focus.open(port.comName);
+    const layout = await focus.command("hardware.layout");
+    focus.close();
+    if (layout == "iso") {
+      return true;
+    }
+    return false;
   }
 };
 

@@ -1,6 +1,6 @@
 {
   "name": "@chrysalis-api/hardware-dygma-raise-ansi",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Chrysalis support for Dygma's Raise",
   "main": "lib",
   "repository": {

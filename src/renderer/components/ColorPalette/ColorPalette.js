@@ -111,7 +111,7 @@ function ColorPalette(props) {
         ...palette[selected]
       });
     }
-  }, [selected]);
+  }, [selected, palette]);
 
   /**
    * Change "colorFocusButton" and pick color of button from PickerColorButton component in functional component state

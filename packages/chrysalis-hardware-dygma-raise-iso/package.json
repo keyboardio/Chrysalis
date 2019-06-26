@@ -1,6 +1,6 @@
 {
-  "name": "@chrysalis-api/hardware-dygma-raise",
-  "version": "0.0.7",
+  "name": "@chrysalis-api/hardware-dygma-raise-iso",
+  "version": "0.0.1",
   "description": "Chrysalis support for Dygma's Raise",
   "main": "lib",
   "repository": {
@@ -8,9 +8,9 @@
     "url": "git://github.com/keyboardio/chrysalis-api"
   },
   "author": {
-    "name": "Gergely Nagy",
-    "email": "<algernon@keyboard.io>",
-    "url": "https://asylum.madhouse-project.org"
+    "name": "Roman Danilov",
+    "email": "<zzzdlbzzz@gmail.com>",
+    "url": "https://github.com/0957758592"
   },
   "license": "GPL-3.0-only",
   "homepage": "https://github.com/keyboardio/chrysalis-api#readme",

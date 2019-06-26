@@ -108,6 +108,10 @@ class Focus {
         return await this.request("help")
     }
 
+    async getKeyboardType() {
+        return await this.request("hardware.layout")
+    }
+
     async _write_parts(parts, cb) {
         if (!parts || parts.length == 0) {
             cb()

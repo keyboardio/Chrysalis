@@ -121,23 +121,12 @@ class Editor extends React.Component {
    * Bottom menu never hide and automatically select a key at launch and have this shown in the bottom menu
    */
   bottomMenuNeverHide = () => {
-    this.setState(
-      state => ({
-        currentKeyIndex:
-          state.currentKeyIndex !== -1 ? state.currentKeyIndex : 0,
-        currentLedIndex:
-          state.currentLedIndex !== -1 ? state.currentLedIndex : 0
-      }),
-      () => {
-        this.setState({
-          selectedPaletteColor: this.state.colorMap[this.state.currentLayer][
-            this.state.currentLedIndex
-          ],
-          isMultiSelected: true,
-          isColorButtonSelected: true
-        });
-      }
-    );
+    this.setState(state => ({
+      currentKeyIndex: state.currentKeyIndex !== -1 ? state.currentKeyIndex : 0,
+      currentLedIndex: state.currentLedIndex !== -1 ? state.currentLedIndex : 0,
+      selectedPaletteColor: null,
+      isColorButtonSelected: false
+    }));
   };
 
   scanKeyboard = async () => {

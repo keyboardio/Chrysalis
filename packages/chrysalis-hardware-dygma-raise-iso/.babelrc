@@ -1,0 +1,24 @@
+{
+    "presets": [
+        [
+            "@babel/preset-env",
+            {
+                "debug": false,
+                "targets": {
+                    "node": "current",
+                    "electron": "2.0"
+                }
+            }
+        ],
+        [
+            "@babel/preset-react",
+            {
+                "debug": false,
+                "targets": {
+                    "node": "current",
+                    "electron": "3.0"
+                }
+            }
+        ]
+    ]
+}

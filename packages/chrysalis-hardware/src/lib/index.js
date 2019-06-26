@@ -16,7 +16,8 @@
 
 import { Model01, Model01Bootloader } from "@chrysalis-api/hardware-keyboardio-model01"
 import { Atreus } from "@chrysalis-api/hardware-technomancy-atreus"
-import { Raise } from "@chrysalis-api/hardware-dygma-raise"
+import { Raise_ANSI } from "@chrysalis-api/hardware-dygma-raise-ansi";
+import { Raise_ISO } from "@chrysalis-api/hardware-dygma-raise-iso";
 import { ErgoDox } from "@chrysalis-api/hardware-ez-ergodox"
 import { Planck } from "@chrysalis-api/hardware-olkb-planck"
 import { KBD4x } from "@chrysalis-api/hardware-kbdfans-kbd4x"
@@ -24,7 +25,7 @@ import { Splitography } from "@chrysalis-api/hardware-softhruf-splitography"
 import { GenericTeensy } from "@chrysalis-api/hardware-pjrc-teensy"
 
 const Hardware = {
-  serial: [Model01, Raise, ErgoDox, Atreus, Planck, Splitography, KBD4x],
+  serial: [Model01, Raise_ANSI, Raise_ISO, ErgoDox, Atreus, Planck, Splitography, KBD4x],
   nonSerial: [Model01Bootloader, ErgoDox, Atreus, Planck, Splitography, KBD4x, GenericTeensy]
 }
 

@@ -30,6 +30,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
+    "@chrysalis-api/focus": "^0.0.10",
     "react": "^16.5.2"
   },
   "devDependencies": {

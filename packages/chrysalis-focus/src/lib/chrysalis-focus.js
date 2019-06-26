@@ -104,12 +104,15 @@ class Focus {
         this.device = null
     }
 
-    async probe() {
-        return await this.request("help")
+    async isDeviceSupported(port) {
+        if (!port.device.isDeviceSupported) {
+            return true
+        }
+        return await port.device.isDeviceSupported(port)
     }
 
-    async getKeyboardType() {
-        return await this.request("hardware.layout")
+    async probe() {
+        return await this.request("help")
     }
 
     async _write_parts(parts, cb) {

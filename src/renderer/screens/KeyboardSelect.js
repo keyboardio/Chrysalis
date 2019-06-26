@@ -148,8 +148,14 @@ class KeyboardSelect extends React.Component {
     return new Promise(resolve => {
       focus
         .find(...Hardware.serial)
-        .then(devices => {
-          const list = this.findNonSerialKeyboards(devices);
+        .then(async devices => {
+          let supported_devices = [];
+          for (const device of devices) {
+            if (await focus.isDeviceSupported(device)) {
+              supported_devices.push(device);
+            }
+          }
+          const list = this.findNonSerialKeyboards(supported_devices);
           this.setState({
             loading: false,
             devices: list

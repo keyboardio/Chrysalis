@@ -1,6 +1,6 @@
 {
   "name": "@chrysalis-api/hardware",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Collection of Chrysalis hardware support libraries",
   "main": "lib",
   "repository": {

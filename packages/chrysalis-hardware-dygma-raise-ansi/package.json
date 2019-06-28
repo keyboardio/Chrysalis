@@ -1,6 +1,6 @@
 {
   "name": "@chrysalis-api/hardware-dygma-raise-ansi",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Chrysalis support for Dygma's Raise",
   "main": "lib",
   "repository": {
@@ -30,7 +30,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@chrysalis-api/focus": "^0.0.10",
+    "@chrysalis-api/focus": "^0.0.11",
     "react": "^16.5.2"
   },
   "devDependencies": {

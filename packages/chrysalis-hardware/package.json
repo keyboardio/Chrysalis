@@ -30,7 +30,8 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@chrysalis-api/hardware-dygma-raise": "^0.0.7",
+    "@chrysalis-api/hardware-dygma-raise-ansi": "^0.0.3",
+    "@chrysalis-api/hardware-dygma-raise-iso": "^0.0.3",
     "@chrysalis-api/hardware-ez-ergodox": "^0.0.12",
     "@chrysalis-api/hardware-kbdfans-kbd4x": "^0.0.2",
     "@chrysalis-api/hardware-keyboardio-model01": "^0.0.20",

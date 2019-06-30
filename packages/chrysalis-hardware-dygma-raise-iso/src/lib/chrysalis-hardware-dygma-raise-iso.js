@@ -51,10 +51,7 @@ const Raise_ISO = {
     await focus.open(port.comName);
     const layout = await focus.command("hardware.layout");
     focus.close();
-    if (layout == "iso") {
-      return true;
-    }
-    return false;
+    return layout.trim() === "ISO" ? true : false;
   }
 };
 

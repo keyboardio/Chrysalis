@@ -51,10 +51,7 @@ const Raise_ANSI = {
     await focus.open(port.comName);
     const layout = await focus.command("hardware.layout");
     focus.close();
-    if (layout == "ansi") {
-      return true;
-    }
-    return false;
+    return layout.trim() === "ANSI" ? true : false;
   }
 };
 

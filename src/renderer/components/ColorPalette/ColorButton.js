@@ -29,7 +29,8 @@ ColorButton.propTypes = {
   setIsFocus: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
   color: PropTypes.object.isRequired,
-  disabled: PropTypes.bool.isRequired
+  disabled: PropTypes.bool.isRequired,
+  isSelected: PropTypes.bool
 };
 
 const styles = theme => ({
@@ -45,13 +46,13 @@ const styles = theme => ({
 });
 
 const styleDisabled = {
-  background: `rgb(155, 155, 155)`,
+  background: "rgb(155, 155, 155)",
   pointerEvents: "none",
   cursor: "default"
 };
 
 ///Minimum value for rendering border on white button
-const minWhiteColorValue = 220;
+const minWhiteColorValue = 140;
 
 /**
  * Reactjs functional component that create color button
@@ -68,8 +69,7 @@ function ColorButton(props) {
   ///Checks background is white or not
   const isWhiteColor =
     color.r >= minWhiteColorValue &&
-    color.g >= minWhiteColorValue &&
-    color.b >= minWhiteColorValue;
+    (color.g >= minWhiteColorValue && color.b >= minWhiteColorValue);
 
   const style = {
     background: `rgb(${color.r}, ${color.g}, ${color.b})`

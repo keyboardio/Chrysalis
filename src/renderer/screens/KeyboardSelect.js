@@ -150,8 +150,8 @@ class KeyboardSelect extends React.Component {
         .find(...Hardware.serial)
         .then(async devices => {
           let supported_devices = [];
-          for (const device of devices) {
-            if (await focus.isDeviceSupported(device)) {
+          for (let device of devices) {
+            if (await focus.isDeviceSupported(device, device.device)) {
               supported_devices.push(device);
             }
           }

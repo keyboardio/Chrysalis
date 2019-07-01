@@ -158,7 +158,7 @@ class Focus {
                     await this._port.flush()
                     this.callbacks.push(resolve)
                     await this._write_parts(parts, () => {})
-                }, 500)
+                }, this.timeout)
             })
         } else {
             return new Promise(resolve => {

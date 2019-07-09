@@ -74,6 +74,7 @@ class App extends React.Component {
       contextBar: false,
       cancelPendingOpen: false
     };
+    localStorage.clear();
   }
   flashing = false;
 
@@ -180,6 +181,7 @@ class App extends React.Component {
       device: null,
       pages: {}
     });
+    localStorage.clear();
     await navigate("/keyboard-select");
   };
 

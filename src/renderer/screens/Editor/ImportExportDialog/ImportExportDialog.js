@@ -76,7 +76,7 @@ export const ImportExportDialog = withSnackbar(props => {
 
   function copyToClipboard(data) {
     clipboard.writeText(data);
-    setIsChange(true);
+    setIsChange(false);
     props.enqueueSnackbar(i18n.editor.copySuccess, {
       variant: "success",
       autoHideDuration: 2000

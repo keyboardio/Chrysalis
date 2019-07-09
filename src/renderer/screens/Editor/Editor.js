@@ -751,17 +751,17 @@ class Editor extends React.Component {
             </FormControl>
             <div>
               <Tooltip title={i18n.editor.importExport}>
-                <IconButton onClick={this.importExportDialog}>
+                <IconButton onClick={this.importExportDialog} disabled>
                   <ImportExportIcon />
                 </IconButton>
               </Tooltip>
               <Tooltip title={i18n.editor.copyFrom}>
-                <IconButton disabled={isReadOnly} onClick={this.copyFromDialog}>
+                <IconButton disabled onClick={this.copyFromDialog}>
                   <FileCopyIcon />
                 </IconButton>
               </Tooltip>
               <Tooltip title={i18n.editor.clearLayer}>
-                <IconButton disabled={isReadOnly} onClick={this.confirmClear}>
+                <IconButton disabled onClick={this.confirmClear}>
                   <LayersClearIcon />
                 </IconButton>
               </Tooltip>

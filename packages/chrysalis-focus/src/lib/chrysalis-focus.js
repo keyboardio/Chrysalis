@@ -105,10 +105,20 @@ class Focus {
     }
 
     async isDeviceSupported(port) {
-        if (!port.device.isDeviceSupported) {
+        if (!port.device.info.keyboardType) {
             return true
         }
-        return await port.device.isDeviceSupported(port)
+    
+        let layout = localStorage.getItem(port.serialNumber)
+    
+        if (!layout) {
+            await this.open(port.comName, port.device)
+            layout = await this.command("hardware.layout")
+            this.close()
+            localStorage.setItem(port.serialNumber, layout)
+        }
+    
+        return layout.trim() === port.device.info.keyboardType
     }
 
     async probe() {

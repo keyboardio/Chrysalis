@@ -25,7 +25,8 @@ const English = {
     save: {
       success: "Saved!",
       saveChanges: "Save Changes"
-    }
+    },
+    pickerColorButton: "Change color"
   },
   dialog: {
     ok: "Ok",

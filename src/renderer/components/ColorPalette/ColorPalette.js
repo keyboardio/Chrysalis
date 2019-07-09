@@ -24,6 +24,7 @@ import Paper from "@material-ui/core/Paper";
 import ColorButtonsArea from "./ColorButtonsArea";
 import PickerColorButton from "./PickerColorButton";
 import { setColorTamplate } from "../../../renderer/utils/setTemplates";
+import i18n from "../../i18n";
 
 ColorPalette.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -31,7 +32,9 @@ ColorPalette.propTypes = {
   palette: PropTypes.array.isRequired,
   onColorPick: PropTypes.func.isRequired,
   disabled: PropTypes.bool.isRequired,
-  selected: PropTypes.number.isRequired
+  selected: PropTypes.any,
+  isColorButtonSelected: PropTypes.bool.isRequired,
+  onColorButtonSelect: PropTypes.func.isRequired
 };
 
 const styles = theme => ({
@@ -64,6 +67,9 @@ const styles = theme => ({
  * @param {function} onColorPick Callback function from Editor component for change color of buttons in ColorPalette. Parameters are: first - index of color button in palette (from 0 to 15), second - index of color (r: from 0 to 255), third - index of color (g: from 0 to 255), fourth - index of color (b: from 0 to 255)
  * @param {boolean} disabled Property that disable component
  * @param {number} selected Number of selected color button in palette (from 0 to 15)
+ * @param {boolean} isMultiSelected Property of state Editor.js component, that gives a possibility to change colors of keyboard
+ * @param {boolean} isColorButtonSelected Property for disabled PickerColorButton
+ * @param {function} onColorButtonSelect Callback function from Editor component for change state of selected color button in palette
  */
 function ColorPalette(props) {
   const {
@@ -72,7 +78,9 @@ function ColorPalette(props) {
     palette,
     onColorPick,
     disabled,
-    selected
+    selected,
+    isColorButtonSelected,
+    onColorButtonSelect
   } = props;
 
   /**
@@ -85,27 +93,33 @@ function ColorPalette(props) {
    * This is Hook that lets add React state "colorFocusButton" to functional components
    * @param {object} [initialState] - Sets initial state for "colorFocusButton" (selected element in palette or in keyboard)
    */
-  const [colorFocusButton, setColorFocusButton] = useState({
-    ...palette[selected]
-  });
+  const [colorFocusButton, setColorFocusButton] = useState(
+    selected !== null
+      ? {
+          ...palette[selected]
+        }
+      : null
+  );
 
   /**
    * Change "indexFocusButton" and "colorFocusButton", if prop "selected" is different
    */
   useEffect(() => {
     setIndexFocusButton(selected);
-    setColorFocusButton({
-      ...palette[selected]
-    });
-  }, [selected]);
+    if (selected !== null) {
+      setColorFocusButton({
+        ...palette[selected]
+      });
+    }
+  }, [selected, palette]);
 
   /**
    * Change "colorFocusButton" and pick color of button from PickerColorButton component in functional component state
    * @param {object} color Object with keys that defining colors using the Red-green-blue-alpha (RGBA) model
    */
   const toSetColorFocusButton = color => {
-    setColorFocusButton(setColorTamplate(color));
     onColorPick(indexFocusButton, color.r, color.g, color.b);
+    setColorFocusButton(setColorTamplate(color));
   };
 
   /**
@@ -113,13 +127,20 @@ function ColorPalette(props) {
    * @param {number} index Number of value in array that focusing by mouse
    * @param {object} color Object with keys that defining colors using the Red-green-blue-alpha (RGBA) model
    */
-  const setIsFocus = (index, color) => {
+  const setIsFocus = (index, color, e) => {
+    if (e.ctrlKey || e.shiftKey) return;
+    if (index === indexFocusButton) {
+      setIndexFocusButton(!indexFocusButton);
+      onColorButtonSelect("one_button_click");
+      return;
+    }
+    onColorButtonSelect("another_button_click");
     setIndexFocusButton(index);
     setColorFocusButton(setColorTamplate(color));
     onColorSelect(index);
   };
 
-  const propsToChild = {
+  const propsToArea = {
     colorFocusButton,
     indexFocusButton,
     setIsFocus,
@@ -130,12 +151,14 @@ function ColorPalette(props) {
   return (
     <div className={classes.root}>
       <Paper className={classes.palette}>
-        <ColorButtonsArea {...propsToChild} />
+        <ColorButtonsArea {...propsToArea} />
         <PickerColorButton
           setColorFocusButton={toSetColorFocusButton}
+          disabled={disabled || !isColorButtonSelected}
           colorFocusButton={colorFocusButton}
-          disabled={disabled}
-        />
+        >
+          {i18n.components.pickerColorButton}
+        </PickerColorButton>
       </Paper>
     </div>
   );

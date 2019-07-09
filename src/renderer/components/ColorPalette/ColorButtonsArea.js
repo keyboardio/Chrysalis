@@ -26,8 +26,8 @@ import ColorButton from "./ColorButton";
 
 ColorButtonsArea.propTypes = {
   classes: PropTypes.object.isRequired,
-  colorFocusButton: PropTypes.object.isRequired,
-  indexFocusButton: PropTypes.number.isRequired,
+  colorFocusButton: PropTypes.object,
+  indexFocusButton: PropTypes.any,
   setIsFocus: PropTypes.func.isRequired,
   palette: PropTypes.array.isRequired,
   disabled: PropTypes.bool.isRequired
@@ -71,8 +71,10 @@ function ColorButtonsArea(props) {
    * Change "colorButtonsAmount", if prop "colorFocusButton" is different
    */
   useEffect(() => {
-    colorButtonsAmount[indexFocusButton] = { ...colorFocusButton };
-    setColorButtonsAmount(colorButtonsAmount);
+    if (indexFocusButton !== null) {
+      colorButtonsAmount[indexFocusButton] = { ...colorFocusButton };
+      setColorButtonsAmount(colorButtonsAmount);
+    }
   }, [colorFocusButton]);
 
   /**

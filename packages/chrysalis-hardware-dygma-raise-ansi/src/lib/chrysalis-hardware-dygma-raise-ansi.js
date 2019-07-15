@@ -48,10 +48,14 @@ const Raise_ANSI = {
 
   isDeviceSupported: async port => {
     let focus = new Focus();
-    await focus.open(port.comName);
-    const layout = await focus.command("hardware.layout");
-    focus.close();
-    return layout.trim() === "ANSI" ? true : false;
+    let layout = localStorage.getItem(port.serialNumber);
+    if (!layout) {
+      await focus.open(port.comName, port.device);
+      layout = await focus.command("hardware.layout");
+      focus.close();
+      localStorage.setItem(port.serialNumber, layout);
+    }
+    return layout.trim() === "ANSI";
   }
 };
 

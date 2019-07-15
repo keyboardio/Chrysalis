@@ -15,6 +15,7 @@
  */
 
 import KeymapANSI from "./components/Keymap-ANSI";
+import Focus from "@chrysalis-api/focus";
 
 const Raise_ANSI = {
   info: {
@@ -43,6 +44,18 @@ const Raise_ANSI = {
 
   flash: async () => {
     console.log("Not implemented yet.");
+  },
+
+  isDeviceSupported: async port => {
+    let focus = new Focus();
+    let layout = localStorage.getItem(port.serialNumber);
+    if (!layout) {
+      await focus.open(port.comName, port.device);
+      layout = await focus.command("hardware.layout");
+      focus.close();
+      localStorage.setItem(port.serialNumber, layout);
+    }
+    return layout.trim() === "ANSI";
   }
 };
 

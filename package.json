@@ -46,10 +46,10 @@
     }
   },
   "dependencies": {
-    "@chrysalis-api/colormap": "^0.0.10",
-    "@chrysalis-api/focus": "^0.0.11",
-    "@chrysalis-api/hardware": "^0.0.13",
-    "@chrysalis-api/keymap": "^0.0.21",
+    "@chrysalis-api/colormap": "^0.0.11",
+    "@chrysalis-api/focus": "^0.0.12",
+    "@chrysalis-api/hardware": "^0.0.14",
+    "@chrysalis-api/keymap": "^0.0.22",
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.1",
     "@material-ui/lab": "^3.0.0-alpha.30",

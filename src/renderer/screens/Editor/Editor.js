@@ -599,12 +599,16 @@ class Editor extends React.Component {
         }
       }
     }
-
-    this.setState({
-      modified: true,
-      importExportDialogOpen: false
-    });
+    this.setState({ modified: true });
     this.props.startContext();
+    this.toCloseImportExportDialog();
+  };
+
+  /**
+   * Close ImportExportDialog component
+   */
+  toCloseImportExportDialog = () => {
+    this.setState({ importExportDialogOpen: false });
   };
 
   render() {
@@ -752,12 +756,12 @@ class Editor extends React.Component {
               </Select>
             </FormControl>
             <div>
-              <Tooltip title={i18n.editor.importExport}>
+              <Tooltip disableFocusListener title={i18n.editor.importExport}>
                 <IconButton onClick={this.importExportDialog}>
                   <ImportExportIcon />
                 </IconButton>
               </Tooltip>
-              <Tooltip title={i18n.editor.copyFrom}>
+              <Tooltip disableFocusListener title={i18n.editor.copyFrom}>
                 <IconButton disabled={isReadOnly} onClick={this.copyFromDialog}>
                   <FileCopyIcon />
                 </IconButton>
@@ -828,6 +832,7 @@ class Editor extends React.Component {
           isReadOnly={isReadOnly}
           onConfirm={this.importLayer}
           onCancel={this.cancelImport}
+          toCloseImportExportDialog={this.toCloseImportExportDialog}
         />
       </React.Fragment>
     );

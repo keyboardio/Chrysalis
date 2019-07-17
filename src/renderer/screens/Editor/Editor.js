@@ -558,22 +558,24 @@ class Editor extends React.Component {
     this.setState({ importExportDialogOpen: false });
   };
   importLayer = data => {
-    if (data.colormap.length > 0) this.setState({ colorMap: data.colormap });
     if (data.palette.length > 0) this.setState({ palette: data.palette });
-    if (data.keymap.length > 0) {
+    if (data.keymap.length > 0 && data.colormap.length > 0) {
       const { currentLayer } = this.state;
       if (this.state.keymap.onlyCustom) {
         if (currentLayer >= 0) {
           this.setState(state => {
-            let newKeymap = this.state.keymap.custom[currentLayer].slice();
+            let newKeymap = this.state.keymap.custom.slice();
             newKeymap[currentLayer] = data.keymap.slice();
+            let newColormap = this.state.colorMap.slice();
+            newColormap[currentLayer] = data.colormap.slice();
             console.log(currentLayer, newKeymap);
             return {
               keymap: {
                 default: state.keymap.default,
                 custom: newKeymap,
                 onlyCustom: state.keymap.onlyCustom
-              }
+              },
+              colorMap: newColormap
             };
           });
         }
@@ -581,17 +583,17 @@ class Editor extends React.Component {
         if (currentLayer >= this.state.keymap.default.length) {
           this.setState(state => {
             const defLength = this.state.keymap.default.length;
-            let newKeymap = this.state.keymap.custom[
-              currentLayer - defLength
-            ].slice();
+            let newKeymap = this.state.keymap.custom.slice();
             newKeymap[currentLayer - defLength] = data.keymap;
-
+            let newColormap = this.state.colorMap.slice();
+            newColormap[currentLayer - defLength] = data.colormap.slice();
             return {
               keymap: {
                 default: state.keymap.default,
                 custom: newKeymap,
                 onlyCustom: state.keymap.onlyCustom
-              }
+              },
+              colorMap: newColormap
             };
           });
         }
@@ -822,7 +824,7 @@ class Editor extends React.Component {
           open={this.state.importExportDialogOpen}
           keymap={layerData}
           palette={this.state.palette}
-          colormap={this.state.colorMap}
+          colormap={this.state.colorMap[this.state.currentLayer]}
           isReadOnly={isReadOnly}
           onConfirm={this.importLayer}
           onCancel={this.cancelImport}

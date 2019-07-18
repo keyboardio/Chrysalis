@@ -149,6 +149,7 @@ const English = {
     },
     flashing: {
       error: "Error flashing the firmware",
+      troubleshooting: "Troubleshooting",
       success: "Firmware flashed successfully!",
       button: "Update",
       buttonSuccess: "Updated!"

@@ -149,6 +149,7 @@ Minden testreszabott beállítás el fog veszni.`
     },
     flashing: {
       error: "Hiba a vezérlő frissítése közben",
+      troubleshooting: "Hibaelhárítás",
       success: "Vezérlő sikeresen frissítve!",
       button: "Frissítés",
       buttonSuccess: "Frissítve!"

@@ -1,3 +1,34 @@
+Chrysalis 0.6.0
+===============
+Released on 2019-07-19
+
+## UI/UX improvements
+
+The most visible change in this release is the redesigned color picker. The new
+one should be considerably friendlier, and easier to use. The bottom bar, where
+the palette colors and the key selector are, is now visible by default too.
+Apart from these, we now have a rudimentary dark mode - far from polished, but a
+usable dark mode nevertheless.
+
+We also made some small changes like moving the layer selection dropdown on the
+Editor screen to the right side, and changing the "clear layer" icon to
+something that conveys the intended meaning better.
+
+To aid in troubleshooting, when flashing fails, we now display a button that
+opens the Troubleshooting page on our Wiki.
+
+## Bugfixes
+
+Plenty of bugs since the last release have been squashed, the color editor is
+much more stable and reliable now, copy-pasting and exporting-importing layers
+have also been fixed.
+
+## Miscellaneous
+
+We also made sure that pre-built binaries work correctly on all platforms. The
+default and experimental firmware files were updated to their latest versions
+too, bringing in plenty of improvements and bugfixes.
+
 Chrysalis 0.5.0
 ===============
 Released on 2019-03-09

@@ -119,6 +119,18 @@ class Editor extends React.Component {
   };
   keymapDB = new KeymapDB();
 
+  /**
+   * Bottom menu never hide and automatically select a key at launch and have this shown in the bottom menu
+   */
+  bottomMenuNeverHide = () => {
+    this.setState(state => ({
+      currentKeyIndex: state.currentKeyIndex !== -1 ? state.currentKeyIndex : 0,
+      currentLedIndex: state.currentLedIndex !== -1 ? state.currentLedIndex : 0,
+      selectedPaletteColor: null,
+      isColorButtonSelected: false
+    }));
+  };
+
   scanKeyboard = async () => {
     let focus = new Focus();
 
@@ -156,6 +168,7 @@ class Editor extends React.Component {
         palette: colormap.palette,
         colorMap: colormap.colorMap
       });
+      this.bottomMenuNeverHide();
     } catch (e) {
       this.props.enqueueSnackbar(e, { variant: "error" });
       this.props.onDisconnect();
@@ -344,9 +357,9 @@ class Editor extends React.Component {
   selectLayer = event => {
     if (event.target.value === undefined) return;
     this.setState({
-      currentLayer: event.target.value,
-      currentKeyIndex: -1
+      currentLayer: event.target.value
     });
+    this.bottomMenuNeverHide();
   };
 
   onApply = async () => {
@@ -475,6 +488,7 @@ class Editor extends React.Component {
 
   setMode = mode => {
     this.setState({ mode: mode });
+    this.bottomMenuNeverHide();
   };
 
   onColorButtonSelect = (action, colorIndex) => {
@@ -558,22 +572,24 @@ class Editor extends React.Component {
     this.setState({ importExportDialogOpen: false });
   };
   importLayer = data => {
-    if (data.colormap.length > 0) this.setState({ colorMap: data.colormap });
     if (data.palette.length > 0) this.setState({ palette: data.palette });
-    if (data.keymap.length > 0) {
+    if (data.keymap.length > 0 && data.colormap.length > 0) {
       const { currentLayer } = this.state;
       if (this.state.keymap.onlyCustom) {
         if (currentLayer >= 0) {
           this.setState(state => {
-            let newKeymap = this.state.keymap.custom[currentLayer].slice();
+            let newKeymap = this.state.keymap.custom.slice();
             newKeymap[currentLayer] = data.keymap.slice();
+            let newColormap = this.state.colorMap.slice();
+            newColormap[currentLayer] = data.colormap.slice();
             console.log(currentLayer, newKeymap);
             return {
               keymap: {
                 default: state.keymap.default,
                 custom: newKeymap,
                 onlyCustom: state.keymap.onlyCustom
-              }
+              },
+              colorMap: newColormap
             };
           });
         }
@@ -581,28 +597,32 @@ class Editor extends React.Component {
         if (currentLayer >= this.state.keymap.default.length) {
           this.setState(state => {
             const defLength = this.state.keymap.default.length;
-            let newKeymap = this.state.keymap.custom[
-              currentLayer - defLength
-            ].slice();
+            let newKeymap = this.state.keymap.custom.slice();
             newKeymap[currentLayer - defLength] = data.keymap;
-
+            let newColormap = this.state.colorMap.slice();
+            newColormap[currentLayer - defLength] = data.colormap.slice();
             return {
               keymap: {
                 default: state.keymap.default,
                 custom: newKeymap,
                 onlyCustom: state.keymap.onlyCustom
-              }
+              },
+              colorMap: newColormap
             };
           });
         }
       }
     }
-
-    this.setState({
-      modified: true,
-      importExportDialogOpen: false
-    });
+    this.setState({ modified: true });
     this.props.startContext();
+    this.toCloseImportExportDialog();
+  };
+
+  /**
+   * Close ImportExportDialog component
+   */
+  toCloseImportExportDialog = () => {
+    this.setState({ importExportDialogOpen: false });
   };
 
   render() {
@@ -750,12 +770,12 @@ class Editor extends React.Component {
               </Select>
             </FormControl>
             <div>
-              <Tooltip title={i18n.editor.importExport}>
+              <Tooltip disableFocusListener title={i18n.editor.importExport}>
                 <IconButton onClick={this.importExportDialog}>
                   <ImportExportIcon />
                 </IconButton>
               </Tooltip>
-              <Tooltip title={i18n.editor.copyFrom}>
+              <Tooltip disableFocusListener title={i18n.editor.copyFrom}>
                 <IconButton disabled={isReadOnly} onClick={this.copyFromDialog}>
                   <FileCopyIcon />
                 </IconButton>
@@ -822,10 +842,11 @@ class Editor extends React.Component {
           open={this.state.importExportDialogOpen}
           keymap={layerData}
           palette={this.state.palette}
-          colormap={this.state.colorMap}
+          colormap={this.state.colorMap[this.state.currentLayer]}
           isReadOnly={isReadOnly}
           onConfirm={this.importLayer}
           onCancel={this.cancelImport}
+          toCloseImportExportDialog={this.toCloseImportExportDialog}
         />
       </React.Fragment>
     );

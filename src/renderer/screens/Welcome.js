@@ -79,7 +79,7 @@ class Welcome extends React.Component {
     let focus = new Focus();
     const { classes } = this.props;
 
-    const device = this.props.device || focus.device;
+    const device = this.props.device.device || focus.device;
 
     const reconnectButton = focus._port && (
       <Button color="secondary" onClick={this.reconnect}>

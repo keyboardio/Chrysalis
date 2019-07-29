@@ -1,3 +1,12 @@
+Chrysalis 0.6.1
+===============
+Released on 2019-07-29
+
+## Bugfixes
+
+Fixed an issue affecting OSX users, which prevented Chrysalis from being able to
+connect to the keyboard.
+
 Chrysalis 0.6.0
 ===============
 Released on 2019-07-19

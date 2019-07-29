@@ -22,7 +22,7 @@ import fs from "fs";
 import { version } from "../../../package.json";
 
 import Focus from "@chrysalis-api/focus";
-import FlashRaise from "@chrysalis-api/flash";
+import FlashRaise from "@chrysalis-api/flash/lib/chrysalis-flash-raise";
 
 import BuildIcon from "@material-ui/icons/Build";
 import Button from "@material-ui/core/Button";
@@ -154,6 +154,7 @@ class FirmwareUpdate extends React.Component {
   _flash = async () => {
     let focus = new Focus();
     let filename;
+    const delay = ms => new Promise(res => setTimeout(res, ms));
 
     if (this.state.selected == "default") {
       filename = this._defaultFirmwareFilename();
@@ -169,6 +170,7 @@ class FirmwareUpdate extends React.Component {
           ? clearInterval(count)
           : this.setState({ countdown: countdown - 1 });
       }, 1000);
+      await delay(500);
       await this.fleshRaise.resetKeyboard(focus._port);
       this.setState({ countdown: "" });
     }

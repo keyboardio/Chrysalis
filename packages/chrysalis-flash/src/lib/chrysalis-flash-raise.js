@@ -294,6 +294,7 @@ export default class FlashRaise {
             }
           })
           .catch(e => {
+            console.log(e);
             throw new Error(errorMessage);
           });
         this.backupFileData.log.push("Restoring all settings");

@@ -69,6 +69,7 @@ function write_cb(buffer, cb) {
   //execute!
   async.series(send, function(err, result) {
     cb(err);
+    console.log(result);
   });
 }
 
@@ -221,7 +222,7 @@ export var arduino = {
       return;
     }
 
-    var i = 0;
+    i = 0;
 
     while (total > 0) {
       var bufferSize = total < PACKET_SIZE ? total : PACKET_SIZE;
@@ -246,7 +247,7 @@ export var arduino = {
           if (bufferTotal > 0) {
             //break early, we're going to move to a different memory vector.
             bufferSize = bufferTotal;
-            var t = buffer.slice(0, bufferTotal);
+            t = buffer.slice(0, bufferTotal);
             buffer = t;
             break;
           }

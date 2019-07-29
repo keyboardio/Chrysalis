@@ -38,7 +38,7 @@ export default class FlashRaise {
       backup: {},
       log: ["Neuron detected"],
       serialNumber: device.serialNumber,
-      firmwareFile: null
+      firmwareFile: "File has not being selected"
     };
     this.delay = ms => new Promise(res => setTimeout(res, ms));
   }
@@ -76,7 +76,7 @@ export default class FlashRaise {
         }
       }
     });
-    return isFindDevice ? true : false;
+    return isFindDevice;
   }
 
   /**
@@ -121,7 +121,9 @@ export default class FlashRaise {
   }
 
   /**
-   * Saves backup file in directory, what user selected. If user click "Close" button in save dialog, nothing will happen.
+  * Saves backup file in directory: 
+  * windows: C:\Users\<Your_User_Namer>\AppData\Local\Programs\chrysalis, 
+  * linux: in directory, where the app is located.
    */
   saveBackupFile() {
     fs.writeFile(
@@ -145,7 +147,7 @@ export default class FlashRaise {
     let timeouts = {
       dtrToggle: 250, // Time to wait (ms) between toggling DTR
       waitingClose: 2750, // Time to wait for boot loader
-      bootLoaderUp: 2000 // Time to wait for the boot loader to come up
+      bootLoaderUp: 2500 // Time to wait for the boot loader to come up
     };
     return new Promise((resolve, reject) => {
       port.update({ baudRate: 1200 }, async () => {

@@ -259,6 +259,7 @@ class Editor extends React.Component {
    */
   onButtonKeyboardColorChange = (currentLayer, layer, ledIndex) => {
     const { selectedPaletteColor, modified } = this.state;
+    currentLayer = this.setLayerForColormap(currentLayer);
     const isEqualColor = this.onVerificationColor(
       selectedPaletteColor,
       currentLayer,
@@ -272,12 +273,22 @@ class Editor extends React.Component {
         colormap[currentLayer][ledIndex] = this.state.selectedPaletteColor;
         this.props.startContext();
         return {
-          selectedPaletteColor: this.state.colorMap[layer][ledIndex],
+          selectedPaletteColor: this.state.colorMap[currentLayer][ledIndex],
           colorMap: colormap,
           modified: true
         };
       });
     }
+  };
+
+  /**
+   * Converts a layer to a colorMap layer (used parameter keymap.onlyCustom)
+   * @param {number} layer Number of current layer
+   * @returns {number} Number of colorMap layer. This is keymap.default item, if number is < 0.
+   */
+  setLayerForColormap = layer => {
+    const { keymap } = this.state;
+    return keymap.onlyCustom ? layer : layer - keymap.default.length;
   };
 
   onKeySelect = event => {
@@ -292,10 +303,11 @@ class Editor extends React.Component {
     let layer = parseInt(currentTarget.getAttribute("data-layer")),
       keyIndex = parseInt(currentTarget.getAttribute("data-key-index")),
       ledIndex = parseInt(currentTarget.getAttribute("data-led-index"));
+    const colormapLayer = this.setLayerForColormap(layer);
 
     if (keyIndex == currentKeyIndex) {
       if (event.ctrlKey || (event.shiftKey && !isColorButtonSelected)) {
-        this.onCtrlShiftPress(layer, ledIndex);
+        this.onCtrlShiftPress(colormapLayer, ledIndex);
         return;
       } else {
         this.setState({
@@ -313,7 +325,7 @@ class Editor extends React.Component {
       if (
         state.colorMap.length > 0 &&
         layer >= 0 &&
-        layer < state.colorMap.length
+        colormapLayer < state.colorMap.length
       ) {
         return {
           currentLayer: layer,
@@ -329,7 +341,7 @@ class Editor extends React.Component {
     });
 
     if (event.ctrlKey || event.shiftKey) {
-      this.onCtrlShiftPress(layer, ledIndex);
+      this.onCtrlShiftPress(colormapLayer, ledIndex);
       return;
     } else {
       if (
@@ -411,6 +423,8 @@ class Editor extends React.Component {
   copyFromLayer = layer => {
     this.setState(state => {
       let newKeymap, newColormap;
+      const colormapLayer = this.setLayerForColormap(layer);
+      const currentLayer = this.setLayerForColormap(state.currentLayer);
 
       if (state.keymap.onlyCustom) {
         newKeymap =
@@ -426,14 +440,17 @@ class Editor extends React.Component {
           layer < state.keymap.default.length
             ? state.keymap.default.slice()
             : state.keymap.custom.slice();
-        newKeymap[state.currentLayer] =
+        newKeymap[currentLayer] =
           layer < state.keymap.default.length
             ? state.keymap.default[layer].slice()
             : state.keymap.custom[layer - state.keymap.default.length].slice();
       }
       newColormap = state.colorMap.slice();
       if (newColormap.length > 0)
-        newColormap[state.currentLayer] = state.colorMap[layer].slice();
+        newColormap[currentLayer] =
+          layer < 0 || colormapLayer < 0
+            ? state.colorMap[state.currentLayer]
+            : state.colorMap[colormapLayer].slice();
 
       this.props.startContext();
       return {
@@ -516,10 +533,10 @@ class Editor extends React.Component {
       colorMap,
       selectedPaletteColor
     } = this.state;
-
+    let layer = this.setLayerForColormap(currentLayer);
     const isEqualColor = this.onVerificationColor(
       colorIndex,
-      currentLayer,
+      layer,
       currentLedIndex
     );
 
@@ -529,12 +546,12 @@ class Editor extends React.Component {
       return;
     }
 
-    if (currentLayer < 0 || currentLayer >= colorMap.length) return;
+    if (currentLayer < 0 || layer >= colorMap.length) return;
 
     if (!isEqualColor) {
       this.setState(state => {
         let colormap = state.colorMap.slice();
-        colormap[currentLayer][currentLedIndex] = colorIndex;
+        colormap[layer][currentLedIndex] = colorIndex;
         return {
           isMultiSelected: true,
           colorMap: colormap,
@@ -665,7 +682,11 @@ class Editor extends React.Component {
             onKeySelect={this.onKeySelect}
             selectedKey={this.state.currentKeyIndex}
             palette={this.state.palette}
-            colormap={this.state.colorMap[this.state.currentLayer]}
+            colormap={
+              keymap.onlyCustom
+                ? this.state.colorMap[currentLayer]
+                : this.state.colorMap[currentLayer - keymap.default.length]
+            }
             theme={this.props.theme}
           />
         </div>
@@ -803,9 +824,7 @@ class Editor extends React.Component {
           )) ||
             (mode == "colormap" && (
               <ColorPalette
-                disabled={
-                  isReadOnly || currentLayer > this.state.colorMap.length
-                }
+                disabled={isReadOnly}
                 onColorSelect={this.onColorSelect}
                 colorButtonIsSelected={this.state.colorButtonIsSelected}
                 palette={this.state.palette}

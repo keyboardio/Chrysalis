@@ -26,15 +26,10 @@ import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
 
 const styles = theme => ({
-  root: {
-    margin: 0,
-    padding: theme.spacing.unit * 2
-  },
   closeButton: {
     position: "absolute",
     right: theme.spacing.unit * 2,
-    top: theme.spacing.unit * 2,
-    color: theme.palette.grey[500]
+    top: theme.spacing.unit * 2
   }
 });
 
@@ -45,7 +40,6 @@ const DialogTitle = withStyles(styles)(props => {
       <Typography variant="h6">{children}</Typography>
       {onClose ? (
         <IconButton
-          aria-label="Close"
           className={classes.closeButton}
           disabled={disabled}
           onClick={onClose}
@@ -91,25 +85,14 @@ class CustomDialog extends React.Component {
 
   render() {
     return (
-      <Dialog
-        onClose={this.handleClose}
-        aria-labelledby="customized-dialog-title"
-        open={this.props.open}
-        maxWidth="md"
-      >
-        <DialogTitle
-          id="customized-dialog-title"
-          onClose={this.handleClose}
-          disabled={this.props.disabled}
-        >
+      <Dialog onClose={this.handleClose} open={this.props.open} maxWidth="md">
+        <DialogTitle onClose={this.handleClose} disabled={this.props.disabled}>
           {this.props.title}
         </DialogTitle>
         <DialogContent>{this.props.children}</DialogContent>
         {this.props.countdown !== null && (
           <DialogActions>
-            <Countdown disabled={this.props.countdown === 0}>
-              {this.props.countdown}
-            </Countdown>
+            <Countdown>{this.props.countdown}</Countdown>
             <Countbutton
               onClick={this.props.countdown !== 0 ? this.props.upload : null}
               variant="contained"

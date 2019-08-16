@@ -1092,12 +1092,12 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@chrysalis-api/colormap@^0.0.12":
-  version "0.0.12"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/colormap/-/colormap-0.0.12.tgz#88a4ef0b8ccf2f97a06ce703a0e554bcdec408f0"
-  integrity sha512-pZi6zyLiBDdq/G5njFMna85R+uU6QmyjmTlpnGy/FmuIepq168T1gV7hbTC7bAAZWCVaBMk0zsMbUC30MOMEfw==
+"@chrysalis-api/colormap@^0.0.13":
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/colormap/-/colormap-0.0.13.tgz#b6499603b0b0e3e0bc40aea95300ad81d465fd1e"
+  integrity sha512-tcZCRRjHz/14+F+aUYhDTKbI9Xtb4pcPxXbyXluC1afoIo7dB0DMtDeyNeookktAC8Js+JmxkkHnBJVbYkaXDQ==
   dependencies:
-    "@chrysalis-api/focus" "^0.0.13"
+    "@chrysalis-api/focus" "^0.0.14"
 
 "@chrysalis-api/flash@^0.0.7":
   version "0.0.7"
@@ -1107,27 +1107,27 @@
     avrgirl-arduino "^3.0.0"
     teensy-loader "^0.1.1"
 
-"@chrysalis-api/focus@^0.0.13":
-  version "0.0.13"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/focus/-/focus-0.0.13.tgz#a8a8488a60957658882eff1e6cceea713f3bdcd4"
-  integrity sha512-SU71nKPxGStEFYp5Ca7Kyf/ZPS4fnkerU/09h5NeJsgVf8neq9nQWhRTfVB6cYxhV2YNvYUDVdF7yfeiQBnBPA==
+"@chrysalis-api/focus@^0.0.14":
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/focus/-/focus-0.0.14.tgz#6af973e31bcf9f7bbad60a6941d5256dbd261e06"
+  integrity sha512-E/f6xc0HKKYkGQXuZPLDVP+zDDfW4eucxNb2Wt2Elon84PsiTjsmqgQIX6Z9SY5dkKak75hI94D+Jmn/L+RfVA==
   dependencies:
     serialport "^6.2.2"
 
-"@chrysalis-api/hardware-dygma-raise-ansi@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-dygma-raise-ansi/-/hardware-dygma-raise-ansi-0.0.5.tgz#fbc13c533541685de59f6a00d6264f6701e8a10d"
-  integrity sha512-795SGvLroXhjNJmP2UorApfNzAGe25GAEbplNOSzE01IQ9kHkh3Y6BGTNtAR0dlh0stEtbTM67CIe362OLYoUg==
+"@chrysalis-api/hardware-dygma-raise-ansi@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-dygma-raise-ansi/-/hardware-dygma-raise-ansi-0.0.6.tgz#d5d20802d97969a13ae701d2e7c11b7750c7c690"
+  integrity sha512-xU+Zn2hW/V2pwOfXMwY/scXRTsqk2OENJ+iklm6LC10NOsJfR31bF+ZbJgdxWkrIe89J5Gl65CUG6S2ObeINXA==
   dependencies:
-    "@chrysalis-api/focus" "^0.0.13"
+    "@chrysalis-api/focus" "^0.0.14"
     react "^16.5.2"
 
-"@chrysalis-api/hardware-dygma-raise-iso@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-dygma-raise-iso/-/hardware-dygma-raise-iso-0.0.5.tgz#5eb932d4de2a99676f0a5b6f6c6283cb6a71d249"
-  integrity sha512-qXqeC7tp/8NtZqgUJH+VXiGAkSBqN8vMTzw5OdxORVOIu2BVO7FwmkReQCA869VMwsvTNnA3qvxalFMYszca9A==
+"@chrysalis-api/hardware-dygma-raise-iso@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-dygma-raise-iso/-/hardware-dygma-raise-iso-0.0.6.tgz#76431e8e74b3c2b936a842bf31235446f259430e"
+  integrity sha512-apHJnFQD0tTFV5yW76NEtoFIIo7O94DKkvvSwzp2p3QtNOQth9iMVEfhO4lXmQsV8DlUEVEPVN7JKjYx7kLULA==
   dependencies:
-    "@chrysalis-api/focus" "^0.0.13"
+    "@chrysalis-api/focus" "^0.0.14"
     react "^16.5.2"
 
 "@chrysalis-api/hardware-ez-ergodox@^0.0.12":
@@ -1184,13 +1184,13 @@
     "@chrysalis-api/flash" "^0.0.7"
     react "^16.5.2"
 
-"@chrysalis-api/hardware@^0.0.15":
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware/-/hardware-0.0.15.tgz#2d91df553a1c3b4eeedcc819a4a0ecc3590b77f7"
-  integrity sha512-gOgC47iVnnWvRuoGHFLgFkNPuREtQUztqorj73uGcuvago7RLhTuAs/bC9qL5BySJN3dyT55WZqCVrHXNzeu6A==
+"@chrysalis-api/hardware@^0.0.16":
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware/-/hardware-0.0.16.tgz#6ac1d3d064453abb9fd0b7832010c37c98106aef"
+  integrity sha512-Iz2JcJayOy6yCf+dZFc87Y3vNGp8MpyfPXjvDbwy20C0z90W3WwC836cpqHk63ZL84q9okY1ug87a6Rz3p+JGQ==
   dependencies:
-    "@chrysalis-api/hardware-dygma-raise-ansi" "^0.0.5"
-    "@chrysalis-api/hardware-dygma-raise-iso" "^0.0.5"
+    "@chrysalis-api/hardware-dygma-raise-ansi" "^0.0.6"
+    "@chrysalis-api/hardware-dygma-raise-iso" "^0.0.6"
     "@chrysalis-api/hardware-ez-ergodox" "^0.0.12"
     "@chrysalis-api/hardware-kbdfans-kbd4x" "^0.0.2"
     "@chrysalis-api/hardware-keyboardio-model01" "^0.0.20"
@@ -1199,12 +1199,12 @@
     "@chrysalis-api/hardware-softhruf-splitography" "^0.0.3"
     "@chrysalis-api/hardware-technomancy-atreus" "^0.0.13"
 
-"@chrysalis-api/keymap@^0.0.23":
-  version "0.0.23"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/keymap/-/keymap-0.0.23.tgz#ccca434034017c900cd08e9b941972b331e9f562"
-  integrity sha512-WfPi1V7HxgjGbQ90+bdujrPd5923E92+WgxSEEvgSd0U3Eh4/qmmc2sSStrr3RyFhaSIwLzO0LLrpnCcpWQReg==
+"@chrysalis-api/keymap@^0.0.24":
+  version "0.0.24"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/keymap/-/keymap-0.0.24.tgz#e65851970c944f4a00dd32f00befeb347f179355"
+  integrity sha512-MmeZxhOnZGdifkzntfv4usH9Ukkl5AyJJr7+Wu5iErDAbYrfglWg+wprbMfXR2FxafdLdKj/GsJ9MF3IR3SY3w==
   dependencies:
-    "@chrysalis-api/focus" "^0.0.13"
+    "@chrysalis-api/focus" "^0.0.14"
 
 "@cnakazawa/watch@^1.0.3":
   version "1.0.3"

@@ -44,8 +44,8 @@ async function Avr109Bootloader(board, port, filename) {
 
 async function Avr109(board, port, filename, timeouts) {
   timeouts = timeouts || {
-    dtrToggle: 250,    // Time to wait (ms) between toggling DTR
-    bootLoaderUp: 2000 // Time to wait for the boot loader to come up
+    dtrToggle: 500,    // Time to wait (ms) between toggling DTR
+    bootLoaderUp: 4000 // Time to wait for the boot loader to come up
   }
 
   return new Promise((resolve, reject) => {

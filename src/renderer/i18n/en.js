@@ -114,7 +114,8 @@ const English = {
     language: "Language",
     interface: "Interface",
     advanced: "Advanced",
-    darkMode: "Dark mode"
+    darkMode: "Dark mode",
+    verboseFocus: "Verbose logging"
   },
   keyboardSettings: {
     advanced: "Advanced",

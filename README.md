@@ -63,6 +63,19 @@ testing is done on **Ubuntu** 18.04 LTS, **Windows** 10, and **OSX** Mojave.
 The protocol Chrysalis uses to communicate with the keyboard requires USB serial
 support, which is known to be problematic on Windows prior to Windows 10.
 
+## Installation
+
+### From installer packages
+
+Click on the badge for your operating system's packaging system above
+
+
+### macOS Homebrew
+
+brew update && brew upgrade
+brew cask install chrysalis
+
+
 ## Reporting issues
 
 Chrysalis is alpha quality software. There will be bugs, missing features and

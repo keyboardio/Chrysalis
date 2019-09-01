@@ -36,6 +36,7 @@ import { withStyles } from "@material-ui/core/styles";
 
 import i18n from "../i18n";
 
+import Focus from "@chrysalis-api/focus";
 import settings from "electron-settings";
 
 const styles = theme => ({
@@ -82,7 +83,8 @@ const styles = theme => ({
 class Preferences extends React.Component {
   state = {
     devTools: false,
-    advanced: false
+    advanced: false,
+    verboseFocus: false
   };
 
   componentDidMount() {
@@ -94,6 +96,9 @@ class Preferences extends React.Component {
     webContents.on("devtools-closed", () => {
       this.setState({ devTools: false });
     });
+
+    let focus = new Focus();
+    this.setState({ verboseFocus: focus.debug });
   }
 
   toggleDevTools = event => {
@@ -115,6 +120,12 @@ class Preferences extends React.Component {
     this.setState(state => ({
       advanced: !state.advanced
     }));
+  };
+
+  toggleVerboseFocus = event => {
+    this.setState({ verboseFocus: event.target.checked });
+    let focus = new Focus();
+    focus.debug = event.target.checked;
   };
 
   render() {
@@ -149,6 +160,14 @@ class Preferences extends React.Component {
         checked={this.state.devTools}
         onChange={this.toggleDevTools}
         value="devtools"
+      />
+    );
+
+    const verboseSwitch = (
+      <Switch
+        checked={this.state.verboseFocus}
+        onChange={this.toggleVerboseFocus}
+        value="verboseFocus"
       />
     );
 
@@ -204,6 +223,13 @@ class Preferences extends React.Component {
                 control={devToolsSwitch}
                 labelPlacement="start"
                 label={i18n.preferences.devtools}
+              />
+              <FormControlLabel
+                className={classes.control}
+                classes={{ label: classes.grow }}
+                control={verboseSwitch}
+                labelPlacement="start"
+                label={i18n.preferences.verboseFocus}
               />
             </CardContent>
           </Card>

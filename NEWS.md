@@ -1,3 +1,21 @@
+Chrysalis 0.6.2
+===============
+Released on 2019-08-23
+
+## New features
+
+We added an option to the preferences screen (under the "Advanced" section) to
+enable verbose logging. This is intended to aid us in discovering what's
+happening behind the scenes if something goes wrong. The logs are available on
+the developer console, which can be toggled in the same preferences section.
+
+## Bugfixes
+
+A number of timeouts were increased, in an attempt to fix flashing on OSX, when
+doing so via a Hub. The bundled firmwares were also updated to use a version of
+Kaleidoscope with a number of important issues fixed (such as the Colormap
+plugin coloring the wrong keys).
+
 Chrysalis 0.6.1
 ===============
 Released on 2019-07-29

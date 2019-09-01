@@ -1,5 +1,5 @@
 /* chrysalis-focus -- Chrysalis Focus protocol library
- * Copyright (C) 2018  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -27,15 +27,24 @@ class Focus {
                 help: this._help
             }
             this.timeout = 5000
+            this.debug = false
         }
 
         return instance
+    }
+
+    debugLog(...args) {
+        if (!this.debug)
+            return
+        console.log(...args)
     }
 
     async find(...devices) {
         let portList = await SerialPort.list()
 
         let found_devices = []
+
+        this.debugLog("focus.find: portList:", portList, "devices:", devices)
 
         for (let port of portList) {
             for (let device of devices) {
@@ -47,6 +56,8 @@ class Focus {
                 }
             }
         }
+
+        this.debugLog("focus.find: found_devices:", found_devices)
 
         return found_devices
     }
@@ -76,6 +87,8 @@ class Focus {
         this.callbacks = []
         this.parser.on("data", (data) => {
             data = data.toString("utf-8")
+            this.debugLog("focus: incoming data:", data)
+
             if (data == ".") {
                 let result = this.result,
                     resolve = this.callbacks.shift()
@@ -108,7 +121,9 @@ class Focus {
         if (!port.device.isDeviceSupported) {
             return true
         }
-        return await port.device.isDeviceSupported(port)
+        const supported = await port.device.isDeviceSupported(port)
+        this.debugLog("focus.isDeviceSupported: port=", port, "supported=", supported)
+        return supported
     }
 
     async probe() {
@@ -130,6 +145,7 @@ class Focus {
     }
 
     request(cmd, ...args) {
+        this.debugLog("focus.request:", cmd, ...args)
         return new Promise((resolve, reject) => {
             let timer = setTimeout(() => {
                 reject("Communication timeout")

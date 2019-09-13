@@ -243,6 +243,7 @@ class App extends React.Component {
                 <Editor
                   path="/editor"
                   onDisconnect={this.onKeyboardDisconnect}
+                  doCancelContext={this.doCancelContext}
                   startContext={this.startContext}
                   cancelContext={this.cancelContext}
                   inContext={this.state.contextBar}

@@ -44,7 +44,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { withSnackbar } from "notistack";
 
 import Focus from "@chrysalis-api/focus";
-import { KeymapDB } from "@chrysalis-api/keymap";
+import Keymap, { KeymapDB } from "@chrysalis-api/keymap";
 
 import ColorPalette from "../../components/ColorPalette";
 import KeySelector from "./KeySelector";
@@ -115,10 +115,11 @@ class Editor extends React.Component {
     copyFromOpen: false,
     importExportDialogOpen: false,
     isMultiSelected: false,
-    isColorButtonSelected: false
+    isColorButtonSelected: false,
+    currentLanguageLayout: localStorage.getItem("language") || "english",
+    newLanguageLayout: localStorage.getItem("language") || "english"
   };
   keymapDB = new KeymapDB();
-
   /**
    * Bottom menu never hide and automatically select a key at launch and have this shown in the bottom menu
    */
@@ -133,8 +134,13 @@ class Editor extends React.Component {
 
   scanKeyboard = async () => {
     let focus = new Focus();
-
     try {
+      /**
+       * Create property language to the object 'options', to call KeymapDB in Keymap and modify languagu layout
+       */
+      let deviceLeng = { ...focus.device, language: true };
+      focus.commands.keymap = new Keymap(deviceLeng);
+      this.keymapDB = new KeymapDB();
       let defLayer = await focus.command("settings.defaultLayer");
       defLayer = parseInt(defLayer) || 0;
 
@@ -372,10 +378,25 @@ class Editor extends React.Component {
       saving: false,
       isMultiSelected: false,
       selectedPaletteColor: null,
-      isColorButtonSelected: false
+      isColorButtonSelected: false,
+      currentLanguageLayout: localStorage.getItem("language") || "english"
     });
+    console.log(this.state.currentLanguageLayout);
     console.log("Changes saved.");
     this.props.cancelContext();
+  };
+  //Creacte func to open Contextbar and SaveButton
+  onModified = () => {
+    this.setState({
+      modified: true
+    });
+    this.props.startContext();
+  };
+  // Callback function to set State of new Language
+  onNewLanguageLayout = () => {
+    this.setState({
+      newLanguageLayout: localStorage.getItem("language") || "english"
+    });
   };
 
   componentDidMount() {
@@ -397,6 +418,9 @@ class Editor extends React.Component {
 
   UNSAFE_componentWillReceiveProps = nextProps => {
     if (this.props.inContext && !nextProps.inContext) {
+      //Set local Storage to return previous language layout
+      localStorage.setItem("language", this.state.currentLanguageLayout);
+      this.onNewLanguageLayout();
       this.scanKeyboard();
       this.setState({ modified: false });
     }
@@ -799,6 +823,12 @@ class Editor extends React.Component {
               disabled={isReadOnly}
               onKeySelect={this.onKeyChange}
               currentKeyCode={this.getCurrentKey()}
+              scanKeyboard={this.scanKeyboard}
+              currentLanguageLayout={this.state.currentLanguageLayout}
+              newLanguageLayout={this.state.newLanguageLayout}
+              onNewLanguageLayout={this.onNewLanguageLayout}
+              doCancelContext={this.props.doCancelContext}
+              onModified={this.onModified}
             />
           )) ||
             (mode == "colormap" && (

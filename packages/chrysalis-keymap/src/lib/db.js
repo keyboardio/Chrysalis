@@ -54,7 +54,13 @@ import LeaderTable from "./db/leader"
 import StenoTable from "./db/steno"
 import SpaceCadetTable from "./db/spacecadet"
 
-const baseKeyCodeTable = [
+// Spanish - is an Array of objects of values that have to be modified
+import spanish from "./languages/spanish/spanish";
+
+// newLanguageLayout - is a function that modify language layout
+import newLanguageLayout from "./languages/newLanguageLayout";
+
+const defaultBaseKeyCodeTable = [
     LetterTable,
     DigitTable,
     PunctuationTable,
@@ -85,7 +91,7 @@ const baseKeyCodeTable = [
 
     BlankTable
 ]
-const keyCodeTable = baseKeyCodeTable
+const defaultKeyCodeTable = defaultBaseKeyCodeTable
     .concat(ModifiedLetterTables)
     .concat(ModifiedDigitTables)
     .concat(ModifiedPunctuationTables)
@@ -98,9 +104,31 @@ const keyCodeTable = baseKeyCodeTable
     .concat(DualUseModifierTables)
     .concat(DualUseLayerTables)
 
+// DataBase of languages 
+const languagesDB = {
+    english: "english",
+    spanish
+  };
+ // Create cache for language layout
+const map = new Map(); 
+
+let baseKeyCodeTable, keyCodeTable;
+
 class KeymapDB {
     constructor() {
         this.keymapCodeTable = []
+        //create variable that get language from the local storage
+        this.language = localStorage.getItem("language") || "english";
+
+        //Modify our baseKeyCodeTable, depending on the language selected by the static methods and by inside function newLanguageLayout
+        baseKeyCodeTable = KeymapDB.updateBaseKeyCode();
+
+        //Modify our baseKeyCodeTable, depending on the language selected through function newLanguageLayout
+        keyCodeTable = baseKeyCodeTable.concat(newLanguageLayout(
+            defaultKeyCodeTable.slice(defaultBaseKeyCodeTable.length),
+            this.language,
+            languagesDB[this.language]
+        ));
 
         for (let group of keyCodeTable) {
             for (let key of group.keys) {
@@ -151,6 +179,26 @@ class KeymapDB {
     serialize(key) {
         return key.keyCode
     }
+
+    static updateBaseKeyCode() {
+        this.language = localStorage.getItem("language") || "english";
+        //Checking language in the cache
+        if(map.has(this.language)){
+           //Return language layout from the cache 
+            return map.get(this.language);
+        } else {
+            //Creating language layout and add it into cache 
+            const newBase = newLanguageLayout(
+                defaultBaseKeyCodeTable,
+                this.language,
+                languagesDB[this.language]
+            );
+            map.set(this.language, newBase);
+            //Return new language layout
+            return newBase;
+        }
+
+    }
 }
 
-export { KeymapDB as default, baseKeyCodeTable, keyCodeTable }
+export { KeymapDB as default, baseKeyCodeTable, keyCodeTable, languagesDB }

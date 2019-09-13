@@ -14,12 +14,13 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Keymap from "./chrysalis-keymap.js"
-import KeymapDB, { baseKeyCodeTable, keyCodeTable } from "./db.js"
+import Keymap from "./chrysalis-keymap.js";
+import KeymapDB, { baseKeyCodeTable, keyCodeTable, languagesDB } from "./db.js";
 
 export {
-    Keymap as default,
-    KeymapDB,
-    baseKeyCodeTable,
-    keyCodeTable
-}
+  Keymap as default,
+  KeymapDB,
+  baseKeyCodeTable,
+  keyCodeTable,
+  languagesDB
+};

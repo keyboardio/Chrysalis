@@ -22,13 +22,13 @@ let instance = null
 
 class Keymap {
     constructor(opts) {
-        if (!instance) {
+        //Add checking of language existing to call KeymapDB and change language from the local storage
+       if (!instance || opts.language) {
             instance = this
             this.db = new KeymapDB()
             this.legacyInterface = false
         }
         instance.setLayerSize(opts)
-
         return instance
     }
 

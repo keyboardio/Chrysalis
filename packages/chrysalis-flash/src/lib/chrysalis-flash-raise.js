@@ -1,5 +1,5 @@
-/* chrysalis-colormap -- Chrysalis colormap library
- * Copyright (C) 2019  Keyboardio, Inc.
+/* chrysalis-flash-raise -- Dygma Raise flash helper for Chrysalis
+ * Copyright (C) 2019  DygmaLab SE
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -121,8 +121,8 @@ export default class FlashRaise {
   }
 
   /**
-  * Saves backup file in directory: 
-  * windows: C:\Users\<Your_User_Namer>\AppData\Local\Programs\chrysalis, 
+  * Saves backup file in directory:
+  * windows: C:\Users\<Your_User_Namer>\AppData\Local\Programs\chrysalis,
   * linux: in directory, where the app is located.
    */
   saveBackupFile() {

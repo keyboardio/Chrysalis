@@ -211,12 +211,12 @@ class KeymapISO extends React.Component {
         <text fill={getContrastText(getColor(3, 4))} id="R3C4_t_extra" x="315.864" y="216.939">{getLabel(3, 4).extraLabel}</text>
         <text fill={getContrastText(getColor(3, 3))} id="R3C3_t_primary" x="256.806" y="230.984">{getLabel(3, 3).label}</text>
         <text fill={getContrastText(getColor(3, 3))} id="R3C3_t_extra" x="256.806" y="216.939">{getLabel(3, 3).extraLabel}</text>
-        <text fill={getContrastText(getColor(3, 0))} id="R3C2_t_primary" x="197.748" y="230.984">{getLabel(3, 2).label}</text>
-        <text fill={getContrastText(getColor(3, 0))} id="R3C2_t_extra" x="197.748" y="216.939">{getLabel(3, 2).extraLabel}</text>
-        <text fill={getContrastText(getColor(3, 2))} id="R3C1_t_primary" x="138.69" y="230.984">{getLabel(3, 1).label}</text>
-        <text fill={getContrastText(getColor(3, 2))} id="R3C1_t_extra" x="138.69" y="216.939">{getLabel(3, 1).extraLabel}</text>
-        <text fill={getContrastText(getColor(3, 1))} id="R3C0_t_primary" x="67.69" y="230.984">{getLabel(3, 0).label}</text>
-        <text fill={getContrastText(getColor(3, 1))} id="R3C0_t_extra" x="67.69" y="216.939">{getLabel(3, 0).extraLabel}</text>
+        <text fill={getContrastText(getColor(3, 2))} id="R3C2_t_primary" x="197.748" y="230.984">{getLabel(3, 2).label}</text>
+        <text fill={getContrastText(getColor(3, 2))} id="R3C2_t_extra" x="197.748" y="216.939">{getLabel(3, 2).extraLabel}</text>
+        <text fill={getContrastText(getColor(3, 1))} id="R3C1_t_primary" x="138.69" y="230.984">{getLabel(3, 1).label}</text>
+        <text fill={getContrastText(getColor(3, 1))} id="R3C1_t_extra" x="138.69" y="216.939">{getLabel(3, 1).extraLabel}</text>
+        <text fill={getContrastText(getColor(3, 0))} id="R3C0_t_primary" x="67.69" y="230.984">{getLabel(3, 0).label}</text>
+        <text fill={getContrastText(getColor(3, 0))} id="R3C0_t_extra" x="67.69" y="216.939">{getLabel(3, 0).extraLabel}</text>
         <text fill={getContrastText(getColor(2, 15))} id="R2C15_t_primary" x="851.394" y="171.383">{getLabel(2, 15).label}</text>
         <text fill={getContrastText(getColor(2, 15))} id="R2C15_t_extra" x="851.395" y="157.338">{getLabel(2, 15).extraLabel}</text>
         <text fill={getContrastText(getColor(2, 14))} id="R2C14_t_primary" x="792.334" y="171.383">{getLabel(2, 14).label}</text>

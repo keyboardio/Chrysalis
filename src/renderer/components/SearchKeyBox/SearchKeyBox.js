@@ -55,7 +55,7 @@ const styles = theme => ({
     cursor: "pointer"
   },
   margin: {
-    margin: "15px 10px",
+    margin: 15,
     width: 170
   },
   extendedIcon: {

@@ -16,12 +16,13 @@
  */
 import React from "react";
 import PropTypes from "prop-types";
+import settings from "electron-settings";
 
 import { withStyles } from "@material-ui/core/styles";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 
-const styles = theme => ({
+const styles = () => ({
   root: {
     minWidth: 130,
     maxWidth: 360
@@ -34,10 +35,7 @@ const styles = theme => ({
  * @param {string} language String value, that become new language layout and set local storage
  * @param {function} onClose Callback function from SelectLanguage component. Close current language list.
  * @param {function} scanKeyboard Callback function from Editor -> KeySelector components. Without parametrs, this function call KeymapDB in Keymap and modify languagu layout
- * @param {function} doCancelContext Callback function from App -> Editor -> KeySelector components. Close ContextBar
- * @param {function} onModified Callback function from Editor -> KeySelector components. Open ContextBar and activate saveButton
- * @param {string} currentLanguageLayout String value, that passes the state of Editor of saved language
- * @param {string} onNewLanguageLayout Callback function from Editor -> KeySelector components to to set State of new Language
+ * @param {string} onChangeLanguageLayout Callback function from Editor -> KeySelector components to to set State of new Language
  */
 
 function LanguageItem(props) {
@@ -46,21 +44,14 @@ function LanguageItem(props) {
     language,
     onClose,
     scanKeyboard,
-    onModified,
-    doCancelContext,
-    currentLanguageLayout,
-    onNewLanguageLayout,
+    onChangeLanguageLayout,
     selected
   } = props;
   const onItemClick = () => {
-    localStorage.setItem("language", `${language}`);
-    scanKeyboard();
+    settings.set("keyboard.language", `${language}`);
+    scanKeyboard(language);
     //Callback to change state of chosen language is Editor.js
-    onNewLanguageLayout();
-
-    //doCancelContext/onModified - callbacks  to close/open contextBar and saveButton
-    //currentLanguageLayout - is state in Editor of saved language by saveButton
-    language == currentLanguageLayout ? doCancelContext() : onModified();
+    onChangeLanguageLayout();
     onClose();
   };
   return (
@@ -79,12 +70,9 @@ LanguageItem.propTypes = {
   classes: PropTypes.object.isRequired,
   language: PropTypes.any,
   onClose: PropTypes.func.isRequired,
-  onNewLanguageLayout: PropTypes.func.isRequired,
-  doCancelContext: PropTypes.func.isRequired,
-  onModified: PropTypes.func.isRequired,
+  onChangeLanguageLayout: PropTypes.func.isRequired,
   scanKeyboard: PropTypes.func.isRequired,
-  currentLanguageLayout: PropTypes.any,
-  newLanguageLayout: PropTypes.any
+  currentLanguageLayout: PropTypes.string.isRequired
 };
 
 export default withStyles(styles)(LanguageItem);

@@ -116,8 +116,7 @@ class Editor extends React.Component {
     importExportDialogOpen: false,
     isMultiSelected: false,
     isColorButtonSelected: false,
-    currentLanguageLayout: localStorage.getItem("language") || "english",
-    newLanguageLayout: localStorage.getItem("language") || "english"
+    currentLanguageLayout: ""
   };
   keymapDB = new KeymapDB();
   /**
@@ -132,15 +131,18 @@ class Editor extends React.Component {
     }));
   };
 
-  scanKeyboard = async () => {
+  scanKeyboard = async lang => {
     let focus = new Focus();
     try {
       /**
        * Create property language to the object 'options', to call KeymapDB in Keymap and modify languagu layout
        */
-      let deviceLeng = { ...focus.device, language: true };
-      focus.commands.keymap = new Keymap(deviceLeng);
-      this.keymapDB = new KeymapDB();
+      if (lang) {
+        let deviceLeng = { ...focus.device, language: true };
+        focus.commands.keymap = new Keymap(deviceLeng);
+        this.keymapDB = focus.commands.keymap.db;
+      }
+
       let defLayer = await focus.command("settings.defaultLayer");
       defLayer = parseInt(defLayer) || 0;
 
@@ -378,24 +380,16 @@ class Editor extends React.Component {
       saving: false,
       isMultiSelected: false,
       selectedPaletteColor: null,
-      isColorButtonSelected: false,
-      currentLanguageLayout: localStorage.getItem("language") || "english"
+      isColorButtonSelected: false
     });
-    console.log(this.state.currentLanguageLayout);
     console.log("Changes saved.");
     this.props.cancelContext();
   };
-  //Creacte func to open Contextbar and SaveButton
-  onModified = () => {
-    this.setState({
-      modified: true
-    });
-    this.props.startContext();
-  };
+
   // Callback function to set State of new Language
-  onNewLanguageLayout = () => {
+  onChangeLanguageLayout = () => {
     this.setState({
-      newLanguageLayout: localStorage.getItem("language") || "english"
+      currentLanguageLayout: settings.get("keyboard.language") || "english"
     });
   };
 
@@ -414,13 +408,11 @@ class Editor extends React.Component {
 
       this.setState({ currentLayer: initialLayer });
     });
+    this.onChangeLanguageLayout();
   }
 
   UNSAFE_componentWillReceiveProps = nextProps => {
     if (this.props.inContext && !nextProps.inContext) {
-      //Set local Storage to return previous language layout
-      localStorage.setItem("language", this.state.currentLanguageLayout);
-      this.onNewLanguageLayout();
       this.scanKeyboard();
       this.setState({ modified: false });
     }
@@ -825,10 +817,7 @@ class Editor extends React.Component {
               currentKeyCode={this.getCurrentKey()}
               scanKeyboard={this.scanKeyboard}
               currentLanguageLayout={this.state.currentLanguageLayout}
-              newLanguageLayout={this.state.newLanguageLayout}
-              onNewLanguageLayout={this.onNewLanguageLayout}
-              doCancelContext={this.props.doCancelContext}
-              onModified={this.onModified}
+              onChangeLanguageLayout={this.onChangeLanguageLayout}
             />
           )) ||
             (mode == "colormap" && (

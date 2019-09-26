@@ -30,6 +30,7 @@ import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 
+import Focus from "@chrysalis-api/focus";
 import { getStaticPath } from "../../config";
 
 const styles = theme => ({
@@ -40,10 +41,8 @@ const styles = theme => ({
   },
   button: {
     margin: 15,
-    minWidth: 145
-  },
-  rightIcon: {
-    marginLeft: theme.spacing.unit * 1
+    width: 170,
+    padding: "5px 5px 0"
   },
   menu: {
     width: "100%"
@@ -58,10 +57,8 @@ const styles = theme => ({
  * @param {object} classes Property that sets up CSS classes that adding to HTML elements
  * @param {HTMLAnchorElement} anchorEl HTMLAnchorElement which is a relative element for our list of languages
  * @param {function} scanKeyboard Callback function from Editor -> KeySelector components. Without parametrs, this function call KeymapDB in Keymap and modify languagu layout
- * @param {function} doCancelContext Callback function from App -> Editor -> KeySelector components. Close ContextBar
- * @param {function} onModified Callback function from Editor -> KeySelector components. Open ContextBar and activate saveButton
  * @param {string} currentLanguageLayout String value, that passes the state of Editor of saved language
- * @param {string} onNewLanguageLayout String value, that passes the state of Editor of new language layout to compare it with currentLanguageLayout  
+ * @param {string} onChangeLanguageLayout String value, that passes the state of Editor of new language layout to compare it with currentLanguageLayout  
  
  */
 
@@ -88,46 +85,46 @@ class SelectLanguage extends Component {
     const {
       classes,
       scanKeyboard,
-      doCancelContext,
-      onModified,
       currentLanguageLayout,
-      onNewLanguageLayout
+      onChangeLanguageLayout
     } = this.props;
-    let currentLanguage = localStorage.getItem("language") || "english";
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
-    const childrenItems = item => (
-      <Grid container>
-        <Grid item sm={4}>
-          <img
-            src={
-              this.isDevelopment
-                ? `./${item}.png`
-                : path.join(getStaticPath(), `${item}.png`)
-            }
-            className={classes.img}
-            alt="press_esc"
-          />
+    let focus = new Focus();
+    const isISO = focus.device && focus.device.info.keyboardType === "ISO";
+    const childrenItems = item => {
+      let name = item;
+      if (item === "english") {
+        name = isISO ? `${item}-UK` : `${item}-US`;
+      }
+      return (
+        <Grid container>
+          <Grid item xs={3}>
+            <img
+              src={
+                this.isDevelopment
+                  ? `./${name}.png`
+                  : path.join(getStaticPath(), `${name}.png`)
+              }
+              className={classes.img}
+              alt="flag"
+            />
+          </Grid>
+          <Grid item xs={9}>
+            {name}
+          </Grid>
         </Grid>
-        <Grid item sm={8}>
-          {item}
-        </Grid>
-      </Grid>
-    );
+      );
+    };
     const languageList = Object.keys(languagesDB).map(item => (
       <div key={item.toString()}>
         <LanguageItem
           language={item}
           onClose={this.handleCloseLanguage}
           scanKeyboard={scanKeyboard}
-          selected={item === currentLanguage}
-          //doCancelContext/onModified - callbacks  to close/open contextBar and saveButton
-          //currentLanguageLayout - is state in Editor of saved language by saveButton
+          selected={item === currentLanguageLayout}
           currentLanguageLayout={currentLanguageLayout}
-          onModified={onModified}
-          doCancelContext={doCancelContext}
-          //Callback to change state of chosen language is Editor.js
-          onNewLanguageLayout={onNewLanguageLayout}
+          onChangeLanguageLayout={onChangeLanguageLayout}
         >
           {childrenItems(item)}
         </LanguageItem>
@@ -136,29 +133,30 @@ class SelectLanguage extends Component {
     ));
 
     return (
-      <div>
+      <React.Fragment>
         <Button
           variant="contained"
-          color="default"
+          color="primary"
           className={classes.button}
           onClick={this.handleOpenLanguage}
         >
-          {this.props.newLanguageLayout}
-          <TranslateIcon className={classes.rightIcon} />
+          <Grid container>
+            <Grid item xs={10}>
+              {childrenItems(currentLanguageLayout)}
+            </Grid>
+            <Grid item xs={2}>
+              <TranslateIcon />
+            </Grid>
+          </Grid>
         </Button>
-        <Popper
-          open={open}
-          anchorEl={anchorEl}
-          placement="top-start"
-          disablePortal={true}
-        >
+        <Popper open={open} anchorEl={anchorEl} placement="top">
           <ClickAwayListener onClickAway={this.handleCloseLanguage}>
             <List component="nav" className={classes.root}>
               {languageList}
             </List>
           </ClickAwayListener>
         </Popper>
-      </div>
+      </React.Fragment>
     );
   }
 }
@@ -166,11 +164,8 @@ class SelectLanguage extends Component {
 SelectLanguage.propTypes = {
   classes: PropTypes.object.isRequired,
   scanKeyboard: PropTypes.func.isRequired,
-  onNewLanguageLayout: PropTypes.func.isRequired,
-  doCancelContext: PropTypes.func.isRequired,
-  onModified: PropTypes.func.isRequired,
-  currentLanguageLayout: PropTypes.any,
-  newLanguageLayout: PropTypes.any
+  onChangeLanguageLayout: PropTypes.func.isRequired,
+  currentLanguageLayout: PropTypes.string.isRequired
 };
 
 export default withStyles(styles)(SelectLanguage);

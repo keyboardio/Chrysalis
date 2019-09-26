@@ -93,7 +93,7 @@ class SaveChangesButton extends React.Component {
       async () => {
         await this.props.onClick(event);
         this.setState({
-          success: true,
+          success: this.props.isBeginUpdate ? !this.props.isBeginUpdate : true,
           inProgress: false
         });
         this.timer = setTimeout(() => {

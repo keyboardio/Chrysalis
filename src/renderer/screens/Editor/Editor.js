@@ -44,7 +44,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { withSnackbar } from "notistack";
 
 import Focus from "@chrysalis-api/focus";
-import { KeymapDB } from "@chrysalis-api/keymap";
+import Keymap, { KeymapDB } from "@chrysalis-api/keymap";
 
 import ColorPalette from "../../components/ColorPalette";
 import KeySelector from "./KeySelector";
@@ -115,10 +115,10 @@ class Editor extends React.Component {
     copyFromOpen: false,
     importExportDialogOpen: false,
     isMultiSelected: false,
-    isColorButtonSelected: false
+    isColorButtonSelected: false,
+    currentLanguageLayout: ""
   };
   keymapDB = new KeymapDB();
-
   /**
    * Bottom menu never hide and automatically select a key at launch and have this shown in the bottom menu
    */
@@ -131,10 +131,18 @@ class Editor extends React.Component {
     }));
   };
 
-  scanKeyboard = async () => {
+  scanKeyboard = async lang => {
     let focus = new Focus();
-
     try {
+      /**
+       * Create property language to the object 'options', to call KeymapDB in Keymap and modify languagu layout
+       */
+      if (lang) {
+        let deviceLeng = { ...focus.device, language: true };
+        focus.commands.keymap = new Keymap(deviceLeng);
+        this.keymapDB = focus.commands.keymap.db;
+      }
+
       let defLayer = await focus.command("settings.defaultLayer");
       defLayer = parseInt(defLayer) || 0;
 
@@ -378,6 +386,13 @@ class Editor extends React.Component {
     this.props.cancelContext();
   };
 
+  // Callback function to set State of new Language
+  onChangeLanguageLayout = () => {
+    this.setState({
+      currentLanguageLayout: settings.get("keyboard.language") || "english"
+    });
+  };
+
   componentDidMount() {
     this.scanKeyboard().then(() => {
       const { keymap } = this.state;
@@ -393,6 +408,7 @@ class Editor extends React.Component {
 
       this.setState({ currentLayer: initialLayer });
     });
+    this.onChangeLanguageLayout();
   }
 
   UNSAFE_componentWillReceiveProps = nextProps => {
@@ -799,6 +815,9 @@ class Editor extends React.Component {
               disabled={isReadOnly}
               onKeySelect={this.onKeyChange}
               currentKeyCode={this.getCurrentKey()}
+              scanKeyboard={this.scanKeyboard}
+              currentLanguageLayout={this.state.currentLanguageLayout}
+              onChangeLanguageLayout={this.onChangeLanguageLayout}
             />
           )) ||
             (mode == "colormap" && (

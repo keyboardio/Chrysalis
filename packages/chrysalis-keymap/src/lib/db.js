@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
+import settings from "electron-settings";
 import BlankTable from "./db/blanks"
 import LetterTable, { ModifiedLetterTables } from "./db/letters"
 import DigitTable, { ModifiedDigitTables } from "./db/digits"
@@ -30,7 +30,6 @@ import NavigationTable, {
     ModifiedNavigationTables
 } from "./db/navigation"
 import LEDEffectsTable from "./db/ledeffects"
-import MacrosTable from "./db/macros"
 import NumpadTable, {
     ModifiedNumpadTables
 } from "./db/numpad"
@@ -49,12 +48,17 @@ import MiscellaneousTable from "./db/miscellaneous"
 
 import { OneShotModifierTable, OneShotLayerTable } from "./db/oneshot"
 import { DualUseModifierTables, DualUseLayerTables } from "./db/dualuse"
-import TapDanceTable from "./db/tapdance"
 import LeaderTable from "./db/leader"
 import StenoTable from "./db/steno"
 import SpaceCadetTable from "./db/spacecadet"
 
-const baseKeyCodeTable = [
+// Spanish - is an Array of objects of values that have to be modified
+import spanish from "./languages/spanish/spanish";
+
+// newLanguageLayout - is a function that modify language layout
+import newLanguageLayout from "./languages/newLanguageLayout";
+
+const defaultBaseKeyCodeTable = [
     LetterTable,
     DigitTable,
     PunctuationTable,
@@ -69,7 +73,6 @@ const baseKeyCodeTable = [
     LockLayerTable,
 
     LEDEffectsTable,
-    MacrosTable,
     MediaControlTable,
     MouseMovementTable,
     MouseButtonTable,
@@ -78,14 +81,13 @@ const baseKeyCodeTable = [
 
     OneShotModifierTable,
     OneShotLayerTable,
-    TapDanceTable,
     LeaderTable,
     StenoTable,
     SpaceCadetTable,
 
     BlankTable
 ]
-const keyCodeTable = baseKeyCodeTable
+const defaultKeyCodeTable = defaultBaseKeyCodeTable
     .concat(ModifiedLetterTables)
     .concat(ModifiedDigitTables)
     .concat(ModifiedPunctuationTables)
@@ -98,9 +100,31 @@ const keyCodeTable = baseKeyCodeTable
     .concat(DualUseModifierTables)
     .concat(DualUseLayerTables)
 
+// DataBase of languages 
+const languagesDB = {
+    english: "english",
+    spanish
+  };
+ // Create cache for language layout
+const map = new Map(); 
+
+let baseKeyCodeTable, keyCodeTable;
+
 class KeymapDB {
     constructor() {
         this.keymapCodeTable = []
+        //create variable that get language from the local storage
+        this.language = settings.get("keyboard.language");
+
+        //Modify our baseKeyCodeTable, depending on the language selected by the static methods and by inside function newLanguageLayout
+        baseKeyCodeTable = KeymapDB.updateBaseKeyCode();
+
+        //Modify our baseKeyCodeTable, depending on the language selected through function newLanguageLayout
+        keyCodeTable = baseKeyCodeTable.concat(newLanguageLayout(
+            defaultKeyCodeTable.slice(defaultBaseKeyCodeTable.length),
+            this.language,
+            languagesDB[this.language]
+        ));
 
         for (let group of keyCodeTable) {
             for (let key of group.keys) {
@@ -151,6 +175,26 @@ class KeymapDB {
     serialize(key) {
         return key.keyCode
     }
+
+    static updateBaseKeyCode() {
+        this.language = settings.get("keyboard.language") || "english";
+        //Checking language in the cache
+        if(map.has(this.language)){
+           //Return language layout from the cache 
+            return map.get(this.language);
+        } else {
+            //Creating language layout and add it into cache 
+            const newBase = newLanguageLayout(
+                defaultBaseKeyCodeTable,
+                this.language,
+                languagesDB[this.language]
+            );
+            map.set(this.language, newBase);
+            //Return new language layout
+            return newBase;
+        }
+
+    }
 }
 
-export { KeymapDB as default, baseKeyCodeTable, keyCodeTable }
+export { KeymapDB as default, baseKeyCodeTable, keyCodeTable, languagesDB }

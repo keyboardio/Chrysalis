@@ -67,7 +67,9 @@ const Raise_ANSI = {
     let focus = new Focus();
     let layout = localStorage.getItem(port.serialNumber);
     if (!layout) {
-      await focus.open(port.comName, port.device);
+      focus._port && focus._port.path === port.comName
+        ? await focus.open(focus._port, port.device)
+        : await focus.open(port.comName, port.device);
       layout = await focus.command("hardware.layout");
       focus.close();
       localStorage.setItem(port.serialNumber, layout);

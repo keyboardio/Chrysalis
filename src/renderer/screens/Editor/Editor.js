@@ -131,6 +131,13 @@ class Editor extends React.Component {
     }));
   };
 
+  bottomMenuNeverHideFromUnderglow = () => {
+    this.setState(state => ({
+      currentKeyIndex: state.currentKeyIndex !== -1 ? state.currentKeyIndex : 0,
+      currentLedIndex: state.currentLedIndex !== -1 ? state.currentLedIndex : 0
+    }));
+  };
+
   scanKeyboard = async () => {
     let focus = new Focus();
 
@@ -180,6 +187,8 @@ class Editor extends React.Component {
 
     let layer = parseInt(this.state.currentLayer),
       keyIndex = parseInt(this.state.currentKeyIndex);
+
+    if (keyIndex >= 80) return 0;
 
     if (this.state.keymap.onlyCustom) {
       if (layer < 0) {
@@ -433,7 +442,9 @@ class Editor extends React.Component {
       }
       newColormap = state.colorMap.slice();
       if (newColormap.length > 0)
-        newColormap[state.currentLayer] = state.colorMap[layer].slice();
+        newColormap[state.currentLayer] = state.colorMap[
+          layer >= 0 ? layer : state.currentLayer
+        ].slice();
 
       this.props.startContext();
       return {
@@ -486,9 +497,11 @@ class Editor extends React.Component {
     this.setState({ clearConfirmationOpen: false });
   };
 
-  setMode = mode => {
+  setMode = (mode, isUnderglow) => {
     this.setState({ mode: mode });
-    this.bottomMenuNeverHide();
+    !isUnderglow
+      ? this.bottomMenuNeverHide()
+      : this.bottomMenuNeverHideFromUnderglow();
   };
 
   onColorButtonSelect = (action, colorIndex) => {
@@ -625,6 +638,28 @@ class Editor extends React.Component {
     this.setState({ importExportDialogOpen: false });
   };
 
+  /**
+   * Changes color of all keyboard underglows
+   */
+  toChangeAllUnderglowsColor = colorIndex => {
+    const { currentLayer } = this.state;
+    const beginForChange = 69;
+    const endForChange = 131;
+    this.setState(state => {
+      let colormap = state.colorMap.slice();
+      colormap[currentLayer] = colormap[currentLayer].fill(
+        colorIndex,
+        beginForChange,
+        endForChange
+      );
+      return {
+        colorMap: colormap,
+        modified: true
+      };
+    });
+    this.props.startContext();
+  };
+
   render() {
     const { classes } = this.props;
     const { keymap, palette, isColorButtonSelected } = this.state;
@@ -667,6 +702,7 @@ class Editor extends React.Component {
             palette={this.state.palette}
             colormap={this.state.colorMap[this.state.currentLayer]}
             theme={this.props.theme}
+            setMode={this.setMode}
           />
         </div>
       </Fade>
@@ -745,7 +781,10 @@ class Editor extends React.Component {
                 this.setMode(mode);
               }}
             >
-              <ToggleButton value="layout" disabled={mode == "layout"}>
+              <ToggleButton
+                value="layout"
+                disabled={this.state.currentKeyIndex >= 80 || mode == "layout"}
+              >
                 <Tooltip title={i18n.editor.layoutMode}>
                   <KeyboardIcon />
                 </Tooltip>
@@ -813,6 +852,8 @@ class Editor extends React.Component {
                 selected={this.state.selectedPaletteColor}
                 isColorButtonSelected={isColorButtonSelected}
                 onColorButtonSelect={this.onColorButtonSelect}
+                theme={this.props.theme}
+                toChangeAllUnderglowsColor={this.toChangeAllUnderglowsColor}
               />
             ))}
         </Slide>

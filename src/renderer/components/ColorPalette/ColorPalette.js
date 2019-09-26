@@ -23,6 +23,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import ColorButtonsArea from "./ColorButtonsArea";
 import PickerColorButton from "./PickerColorButton";
+import UndeglowColorButton from "./UndeglowColorButton";
 import { setColorTamplate } from "../../../renderer/utils/setTemplates";
 import i18n from "../../i18n";
 
@@ -34,7 +35,9 @@ ColorPalette.propTypes = {
   disabled: PropTypes.bool.isRequired,
   selected: PropTypes.any,
   isColorButtonSelected: PropTypes.bool.isRequired,
-  onColorButtonSelect: PropTypes.func.isRequired
+  onColorButtonSelect: PropTypes.func.isRequired,
+  theme: PropTypes.object.isRequired,
+  toChangeAllUnderglowsColor: PropTypes.func.isRequired
 };
 
 const styles = theme => ({
@@ -54,7 +57,7 @@ const styles = theme => ({
     padding: 10,
     minHeight: 80,
     [theme.breakpoints.down("sm")]: {
-      width: 455
+      width: 505
     }
   }
 });
@@ -70,6 +73,8 @@ const styles = theme => ({
  * @param {boolean} isMultiSelected Property of state Editor.js component, that gives a possibility to change colors of keyboard
  * @param {boolean} isColorButtonSelected Property for disabled PickerColorButton
  * @param {function} onColorButtonSelect Callback function from Editor component for change state of selected color button in palette
+ * @param {number} theme To use theme object from Material UI
+ * @param {object} toChangeAllUnderglowsColor Callback function from Editor component. Parameter is index of color palette from 0 to 15
  */
 function ColorPalette(props) {
   const {
@@ -80,7 +85,9 @@ function ColorPalette(props) {
     disabled,
     selected,
     isColorButtonSelected,
-    onColorButtonSelect
+    onColorButtonSelect,
+    theme,
+    toChangeAllUnderglowsColor
   } = props;
 
   /**
@@ -159,6 +166,15 @@ function ColorPalette(props) {
         >
           {i18n.components.pickerColorButton}
         </PickerColorButton>
+        <UndeglowColorButton
+          colorFocusButton={colorFocusButton}
+          indexFocusButton={indexFocusButton}
+          disabled={disabled}
+          theme={theme}
+          toChangeAllUnderglowsColor={toChangeAllUnderglowsColor}
+        >
+          {i18n.components.underglowColorButton}
+        </UndeglowColorButton>
       </Paper>
     </div>
   );

@@ -26,7 +26,8 @@ const English = {
       success: "Saved!",
       saveChanges: "Save Changes"
     },
-    pickerColorButton: "Change color"
+    pickerColorButton: "Change color",
+    underglowColorButton: "Change color of all underglows"
   },
   dialog: {
     ok: "Ok",

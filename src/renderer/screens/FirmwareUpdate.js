@@ -22,6 +22,7 @@ import fs from "fs";
 import { version } from "../../../package.json";
 
 import Focus from "@chrysalis-api/focus";
+import FlashRaise from "@chrysalis-api/flash/lib/chrysalis-flash-raise";
 
 import BuildIcon from "@material-ui/icons/Build";
 import Button from "@material-ui/core/Button";
@@ -39,6 +40,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import MenuItem from "@material-ui/core/MenuItem";
 import Portal from "@material-ui/core/Portal";
 import Select from "@material-ui/core/Select";
+import Grid from "@material-ui/core/Grid";
 import SettingsBackupRestoreIcon from "@material-ui/icons/SettingsBackupRestore";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
@@ -47,6 +49,7 @@ import { withSnackbar } from "notistack";
 
 import { getStaticPath } from "../config";
 import SaveChangesButton from "../components/SaveChangesButton";
+import CustomDialog from "../components/CustomDialog";
 import i18n from "../i18n";
 
 const styles = theme => ({
@@ -74,6 +77,16 @@ const styles = theme => ({
   },
   firmwareSelect: {
     marginLeft: theme.spacing.unit * 2
+  },
+  grid: {
+    width: "70%"
+  },
+  img: {
+    width: "100%"
+  },
+  paper: {
+    color: theme.palette.getContrastText(theme.palette.background.paper),
+    marginBottom: theme.spacing.unit * 2
   }
 });
 
@@ -82,11 +95,22 @@ class FirmwareUpdate extends React.Component {
     super(props);
 
     let focus = new Focus();
+    this.fleshRaise = null;
+    this.isDevelopment = process.env.NODE_ENV !== "production";
 
     this.state = {
       firmwareFilename: "",
       selected: "default",
-      device: props.device || focus.device
+      device: props.device || focus.device,
+      confirmationOpen: false,
+      countdown: null,
+      buttonText: {
+        "": "Uploading ...",
+        3: "Start countdown",
+        2: "Wait",
+        1: "Wait",
+        0: "Press"
+      }
     };
   }
 
@@ -115,13 +139,13 @@ class FirmwareUpdate extends React.Component {
   };
 
   _defaultFirmwareFilename = () => {
-    const { vendor, product } = this.state.device.info;
+    const { vendor, product } = this.state.device.device.info;
     const cVendor = vendor.replace("/", ""),
       cProduct = product.replace("/", "");
     return path.join(getStaticPath(), cVendor, cProduct, "default.hex");
   };
   _experimentalFirmwareFilename = () => {
-    const { vendor, product } = this.state.device.info;
+    const { vendor, product } = this.state.device.device.info;
     const cVendor = vendor.replace("/", ""),
       cProduct = product.replace("/", "");
     return path.join(getStaticPath(), cVendor, cProduct, "experimental.hex");
@@ -130,6 +154,7 @@ class FirmwareUpdate extends React.Component {
   _flash = async () => {
     let focus = new Focus();
     let filename;
+    const delay = ms => new Promise(res => setTimeout(res, ms));
 
     if (this.state.selected == "default") {
       filename = this._defaultFirmwareFilename();
@@ -138,8 +163,23 @@ class FirmwareUpdate extends React.Component {
     } else {
       filename = this.state.firmwareFilename;
     }
+    if (this.state.device.device.info.product === "Raise") {
+      let count = setInterval(() => {
+        const { countdown } = this.state;
+        countdown === 0
+          ? clearInterval(count)
+          : this.setState({ countdown: countdown - 1 });
+      }, 1000);
+      await delay(500);
+      await this.fleshRaise.resetKeyboard(focus._port);
+      this.setState({ countdown: "" });
+    }
 
-    return this.state.device.flash(focus._port, filename);
+    return this.state.device.device.flash(
+      focus._port,
+      filename,
+      this.fleshRaise
+    );
   };
 
   upload = async () => {
@@ -149,7 +189,56 @@ class FirmwareUpdate extends React.Component {
       await this._flash();
     } catch (e) {
       console.error(e);
-      this.props.enqueueSnackbar(i18n.firmwareUpdate.flashing.error, {
+      this.props.enqueueSnackbar(
+        this.state.device.device.info.product === "Raise"
+          ? e.message
+          : i18n.firmwareUpdate.flashing.error,
+        {
+          variant: "error",
+          action: (
+            <Button
+              variant="contained"
+              onClick={() => {
+                const shell = Electron.remote && Electron.remote.shell;
+                shell.openExternal(
+                  "https://github.com/keyboardio/Chrysalis/wiki/Troubleshooting"
+                );
+              }}
+            >
+              Troubleshooting
+            </Button>
+          )
+        }
+      );
+      this.props.toggleFlashing();
+      this.props.onDisconnect();
+      this.setState({ confirmationOpen: false });
+      return;
+    }
+
+    return new Promise(resolve => {
+      setTimeout(() => {
+        this.props.enqueueSnackbar(i18n.firmwareUpdate.flashing.success, {
+          variant: "success"
+        });
+
+        this.props.toggleFlashing();
+        this.props.onDisconnect();
+        this.setState({ confirmationOpen: false });
+        resolve();
+      }, 1000);
+    });
+  };
+
+  uploadRaise = async () => {
+    this.setState({ confirmationOpen: true, isBeginUpdate: true });
+    try {
+      this.fleshRaise = new FlashRaise(this.props.device);
+      await this.fleshRaise.backupSettings();
+      this.setState({ countdown: 3 });
+    } catch (e) {
+      console.error(e);
+      this.props.enqueueSnackbar(e.message, {
         variant: "error",
         action: (
           <Button
@@ -165,27 +254,22 @@ class FirmwareUpdate extends React.Component {
           </Button>
         )
       });
-      this.props.toggleFlashing();
-      this.props.onDisconnect();
-      return;
+      this.setState({ confirmationOpen: false });
     }
+  };
 
-    return new Promise(resolve => {
-      setTimeout(() => {
-        this.props.enqueueSnackbar(i18n.firmwareUpdate.flashing.success, {
-          variant: "success"
-        });
-
-        this.props.toggleFlashing();
-        this.props.onDisconnect();
-        resolve();
-      }, 1000);
-    });
+  cancelDialog = () => {
+    this.setState({ confirmationOpen: false });
   };
 
   render() {
     const { classes } = this.props;
-    const { firmwareFilename } = this.state;
+    const {
+      firmwareFilename,
+      buttonText,
+      countdown,
+      isBeginUpdate
+    } = this.state;
 
     let filename = null;
     if (firmwareFilename) {
@@ -267,6 +351,25 @@ class FirmwareUpdate extends React.Component {
       </FormControl>
     );
 
+    const dialogChildren = (
+      <React.Fragment>
+        <div className={classes.paper}>{i18n.hardware.updateInstructions}</div>
+        <Grid container direction="row" justify="center">
+          <Grid item className={classes.grid}>
+            <img
+              src={
+                this.isDevelopment
+                  ? "./press_esc.png"
+                  : path.join(getStaticPath(), "press_esc.png")
+              }
+              className={classes.img}
+              alt="press_esc"
+            />
+          </Grid>
+        </Grid>
+      </React.Fragment>
+    );
+
     return (
       <div className={classes.root}>
         <Portal container={this.props.titleElement}>
@@ -295,13 +398,29 @@ class FirmwareUpdate extends React.Component {
             <div className={classes.grow} />
             <SaveChangesButton
               icon={<CloudUploadIcon />}
-              onClick={this.upload}
+              onClick={
+                this.state.device.device.info.product === "Raise"
+                  ? this.uploadRaise
+                  : this.upload
+              }
               successMessage={i18n.firmwareUpdate.flashing.buttonSuccess}
+              isBeginUpdate={isBeginUpdate}
             >
               {i18n.firmwareUpdate.flashing.button}
             </SaveChangesButton>
           </CardActions>
         </Card>
+        <CustomDialog
+          title={i18n.firmwareUpdate.raise.reset}
+          open={this.state.confirmationOpen}
+          buttonText={buttonText[countdown]}
+          handleClose={this.cancelDialog}
+          upload={this.upload}
+          countdown={countdown}
+          disabled={countdown !== 3}
+        >
+          {dialogChildren}
+        </CustomDialog>
       </div>
     );
   }

@@ -34,7 +34,7 @@ export default class Colormap {
         if (typeof opts == "number") {
             this._layerSize = opts
         } else if (typeof opts == "object") {
-            this._layerSize = opts.keyboard.rows * opts.keyboard.columns
+            this._layerSize = opts.keyboardUnderglow ? opts.keyboardUnderglow.rows * opts.keyboardUnderglow.columns : opts.keyboard.rows * opts.keyboard.columns
         }
 
         return this

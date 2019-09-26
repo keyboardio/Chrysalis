@@ -38,6 +38,10 @@ const Raise_ISO = {
     rows: 5,
     columns: 16
   },
+  keyboardUnderglow: {
+    rows: 6,
+    columns: 22
+  },
   components: {
     keymap: KeymapISO
   },

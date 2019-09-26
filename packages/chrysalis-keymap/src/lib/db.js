@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
+import settings from "electron-settings";
 import BlankTable from "./db/blanks"
 import LetterTable, { ModifiedLetterTables } from "./db/letters"
 import DigitTable, { ModifiedDigitTables } from "./db/digits"
@@ -30,7 +30,6 @@ import NavigationTable, {
     ModifiedNavigationTables
 } from "./db/navigation"
 import LEDEffectsTable from "./db/ledeffects"
-import MacrosTable from "./db/macros"
 import NumpadTable, {
     ModifiedNumpadTables
 } from "./db/numpad"
@@ -49,7 +48,6 @@ import MiscellaneousTable from "./db/miscellaneous"
 
 import { OneShotModifierTable, OneShotLayerTable } from "./db/oneshot"
 import { DualUseModifierTables, DualUseLayerTables } from "./db/dualuse"
-import TapDanceTable from "./db/tapdance"
 import LeaderTable from "./db/leader"
 import StenoTable from "./db/steno"
 import SpaceCadetTable from "./db/spacecadet"
@@ -75,7 +73,6 @@ const defaultBaseKeyCodeTable = [
     LockLayerTable,
 
     LEDEffectsTable,
-    MacrosTable,
     MediaControlTable,
     MouseMovementTable,
     MouseButtonTable,
@@ -84,7 +81,6 @@ const defaultBaseKeyCodeTable = [
 
     OneShotModifierTable,
     OneShotLayerTable,
-    TapDanceTable,
     LeaderTable,
     StenoTable,
     SpaceCadetTable,
@@ -118,7 +114,7 @@ class KeymapDB {
     constructor() {
         this.keymapCodeTable = []
         //create variable that get language from the local storage
-        this.language = localStorage.getItem("language") || "english";
+        this.language = settings.get("keyboard.language");
 
         //Modify our baseKeyCodeTable, depending on the language selected by the static methods and by inside function newLanguageLayout
         baseKeyCodeTable = KeymapDB.updateBaseKeyCode();
@@ -181,7 +177,7 @@ class KeymapDB {
     }
 
     static updateBaseKeyCode() {
-        this.language = localStorage.getItem("language") || "english";
+        this.language = settings.get("keyboard.language") || "english";
         //Checking language in the cache
         if(map.has(this.language)){
            //Return language layout from the cache 

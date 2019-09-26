@@ -42,21 +42,21 @@ const spanish = [
     labels: {
       primary: "+"
     },
-    groupName: "Numpad"
+    newGroupName: "Numpad"
   },
   {
     code: 49,
     labels: {
       primary: "Ç"
     },
-    groupName: "Letters"
+    newGroupName: "Letters"
   },
   {
     code: 51,
     labels: {
       primary: "Ñ"
     },
-    groupName: "Letters"
+    newGroupName: "Letters"
   },
   {
     code: 52,
@@ -81,24 +81,24 @@ const spanish = [
     labels: {
       primary: '"'
     },
-    groupName: "Shifted Digits"
+    newGroupName: "Shifted Digits"
   },
   {
     code: 2080,
     labels: {
       primary: "·"
     },
-    groupName: "Shifted Digits"
+    newGroupName: "Shifted Digits"
   },
   {
     code: 2083,
     labels: {
       primary: "&"
     },
-    groupName: "Shifted Digits"
+    newGroupName: "Shifted Digits"
   },
   {
-    groupName: "Shifted Digits",
+    newGroupName: "Shifted Digits",
     code: 2084,
     labels: {
       primary: "/"
@@ -109,35 +109,35 @@ const spanish = [
     labels: {
       primary: "("
     },
-    groupName: "Shifted Digits"
+    newGroupName: "Shifted Digits"
   },
   {
     code: 2086,
     labels: {
       primary: ")"
     },
-    groupName: "Shifted Digits"
+    newGroupName: "Shifted Digits"
   },
   {
     code: 2087,
     labels: {
       primary: "="
     },
-    groupName: "Shifted Digits"
+    newGroupName: "Shifted Digits"
   },
   {
     code: 2093,
     labels: {
       primary: "?"
     },
-    groupName: "Shifted Digits"
+    newGroupName: "Shifted Digits"
   },
   {
     code: 2094,
     labels: {
       primary: "¿"
     },
-    groupName: "Shifted Digits"
+    newGroupName: "Shifted Digits"
   },
   {
     code: 2095,
@@ -154,16 +154,16 @@ const spanish = [
   {
     code: 2097,
     labels: {
-      primary: "S+Ç"
-    },
-    groupName: "Letters"
+      primary: "Ç",
+      top: "S+"
+    }
   },
   {
     code: 2099,
     labels: {
-      primary: "S+Ñ"
-    },
-    groupName: "Letters"
+      primary: "Ñ",
+      top: "S+"
+    }
   },
   {
     code: 2100,
@@ -218,7 +218,7 @@ const spanish = [
     labels: {
       primary: "€"
     },
-    groupName: "Shifted Digits"
+    newGroupName: "Shifted Digits"
   },
   {
     code: 803,

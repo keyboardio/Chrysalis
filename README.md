@@ -72,8 +72,10 @@ Click on the badge for your operating system's packaging system above
 
 ### macOS Homebrew
 
+```
 brew update && brew upgrade
 brew cask install chrysalis
+```
 
 
 ## Reporting issues

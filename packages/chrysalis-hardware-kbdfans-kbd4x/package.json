@@ -1,6 +1,6 @@
 {
   "name": "@chrysalis-api/hardware-kbdfans-kbd4x",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Chrysalis KBDFans KBD4x Hardware library",
   "main": "lib",
   "repository": {
@@ -30,7 +30,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@chrysalis-api/flash": "^0.0.8",
+    "@chrysalis-api/flash": "^0.0.9",
     "react": "^16.5.2"
   },
   "devDependencies": {

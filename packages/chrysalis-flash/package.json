@@ -1,6 +1,6 @@
 {
   "name": "@chrysalis-api/flash",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Keyboard flash helpers for Chrysalis",
   "main": "lib",
   "repository": {

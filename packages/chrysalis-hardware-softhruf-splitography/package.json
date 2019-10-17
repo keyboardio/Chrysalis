@@ -1,6 +1,6 @@
 {
   "name": "@chrysalis-api/hardware-softhruf-splitography",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Chrysalis SOFT/HRUF Splitography Hardware library",
   "main": "lib",
   "repository": {
@@ -30,7 +30,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@chrysalis-api/flash": "^0.0.8",
+    "@chrysalis-api/flash": "^0.0.9",
     "react": "^16.5.2"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 {
   "name": "@chrysalis-api/hardware-pjrc-teensy",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Chrysalis hardware library for generic PJRC Teensy devices",
   "main": "lib",
   "repository": {
@@ -30,7 +30,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@chrysalis-api/flash": "^0.0.8"
+    "@chrysalis-api/flash": "^0.0.9"
   },
   "peerDependencies": {
     "@chrysalis-api/focus": "~0.0.2"

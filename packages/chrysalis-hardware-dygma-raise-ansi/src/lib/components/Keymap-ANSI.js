@@ -1,12 +1,6 @@
 // -*- mode: js-jsx -*-
 /* chrysalis-hardware-dygma-raise -- Chrysalis support for Dygma Raise
- * Copyright (C) 2018  Keyboardio, Inc.
- * Copyright (C) 2019  Simon-Claudius Wystrach
- *
- * Based on the SVG done by Simon-Claudius for the previous incarnation of
- * Chrysalis:
- *   https://github.com/Lepidopterarium/Chrysalis/blob/ab7ec1ffba6f79da97c1eb27877195423875fbc2/src/chrysalis/plugin/hardware/raise/dygma-raise.svg
- *
+ * Copyright (C) 2019  DygmaLab SE
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, version 3.

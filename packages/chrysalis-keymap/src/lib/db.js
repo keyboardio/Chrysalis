@@ -1,5 +1,5 @@
 /* chrysalis-keymap -- Chrysalis keymap library
- * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ * Copyright (C) 2019  DygmaLab SE
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -55,6 +55,18 @@ import SpaceCadetTable from "./db/spacecadet"
 // Spanish - is an Array of objects of values that have to be modified
 import spanish from "./languages/spanish/spanish";
 
+// Deutsch - is an Array of objects of values that have to be modified
+import deutsch, {deutschModifiedTables} from "./languages/deutsch/deutsch";
+
+// French - is an Array of objects of values that have to be modified
+import french, {frenchModifiedTables} from "./languages/french/french";
+
+// Norwegian - is an Array of objects of values that have to be modified
+import norwegian, {norwegianModifiedTables} from "./languages/norwegian/norwegian";
+
+// Japanese - is an Array of objects of values that have to be modified
+import japanese, {japaneseModifiedTables} from "./languages/japanese/japanese";
+
 // newLanguageLayout - is a function that modify language layout
 import newLanguageLayout from "./languages/newLanguageLayout";
 
@@ -87,6 +99,14 @@ const defaultBaseKeyCodeTable = [
 
     BlankTable
 ]
+
+const supportModifiedTables = {
+    deutsch: deutschModifiedTables,
+    french: frenchModifiedTables,
+    norwegian: norwegianModifiedTables,
+    japanese: japaneseModifiedTables
+}
+
 const defaultKeyCodeTable = defaultBaseKeyCodeTable
     .concat(ModifiedLetterTables)
     .concat(ModifiedDigitTables)
@@ -100,13 +120,17 @@ const defaultKeyCodeTable = defaultBaseKeyCodeTable
     .concat(DualUseModifierTables)
     .concat(DualUseLayerTables)
 
-// DataBase of languages 
+// DataBase of languages
 const languagesDB = {
     english: "english",
-    spanish
+    spanish,
+    deutsch,
+    french,
+    norwegian,
+    japanese
   };
  // Create cache for language layout
-const map = new Map(); 
+const map = new Map();
 
 let baseKeyCodeTable, keyCodeTable;
 
@@ -118,10 +142,12 @@ class KeymapDB {
 
         //Modify our baseKeyCodeTable, depending on the language selected by the static methods and by inside function newLanguageLayout
         baseKeyCodeTable = KeymapDB.updateBaseKeyCode();
-
+        const keyCodeTableWithModifiers = this.language !== "english" && supportModifiedTables[this.language]
+            ? defaultKeyCodeTable.concat(supportModifiedTables[this.language])
+            : defaultKeyCodeTable;
         //Modify our baseKeyCodeTable, depending on the language selected through function newLanguageLayout
         keyCodeTable = baseKeyCodeTable.concat(newLanguageLayout(
-            defaultKeyCodeTable.slice(defaultBaseKeyCodeTable.length),
+            keyCodeTableWithModifiers.slice(defaultBaseKeyCodeTable.length),
             this.language,
             languagesDB[this.language]
         ));
@@ -180,10 +206,10 @@ class KeymapDB {
         this.language = settings.get("keyboard.language") || "english";
         //Checking language in the cache
         if(map.has(this.language)){
-           //Return language layout from the cache 
+           //Return language layout from the cache
             return map.get(this.language);
         } else {
-            //Creating language layout and add it into cache 
+            //Creating language layout and add it into cache
             const newBase = newLanguageLayout(
                 defaultBaseKeyCodeTable,
                 this.language,

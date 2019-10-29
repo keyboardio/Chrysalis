@@ -1,12 +1,6 @@
 // -*- mode: js-jsx -*-
 /* chrysalis-hardware-dygma-raise -- Chrysalis support for Dygma Raise
- * Copyright (C) 2018  Keyboardio, Inc.
- * Copyright (C) 2019  Simon-Claudius Wystrach
- *
- * Based on the SVG done by Simon-Claudius for the previous incarnation of
- * Chrysalis:
- *   https://github.com/Lepidopterarium/Chrysalis/blob/ab7ec1ffba6f79da97c1eb27877195423875fbc2/src/chrysalis/plugin/hardware/raise/dygma-raise.svg
- *
+ * Copyright (C) 2019  DygmaLab SE
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, version 3.
@@ -490,6 +484,18 @@ class KeymapISO extends React.Component {
 		c0,2.9-2.4,5.3-5.3,5.3h-40.8c-2.9,0-5.3-2.4-5.3-5.3L175.7,203.6L175.7,203.6z"
           />
           <path
+            id="R3C1_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(3, 1)}
+            stroke={stroke(3, 1)}
+            strokeWidth={getStrokeWidth(3, 1)}
+            data-led-index={getLEDIndex(3, 1)}
+            data-key-index={keyIndex(3, 1)}
+            data-layer={layer}
+            d="m 117.34415,203.43457 c 0,-2.89054 2.37459,-5.26975 5.25952,-5.26975 H 163.483 c 2.88592,0 5.25951,2.37921 5.25951,5.26975 v 40.95886 c 0,2.89054 -2.37359,5.26975 -5.25951,5.26975 h -40.87933 c -2.88493,0 -5.25952,-2.37921 -5.25952,-5.26975 z"
+          />
+          <path
             id="R3C0_keyshape"
             onClick={onClick}
             className="key"
@@ -499,8 +505,7 @@ class KeymapISO extends React.Component {
             data-led-index={getLEDIndex(3, 0)}
             data-key-index={keyIndex(3, 0)}
             data-layer={layer}
-            d="M57.7,203.6c0-2.9,2.1-5.3,4.7-5.3h100.9c2.6,0,4.7,2.4,4.7,5.3v40.9
-		c0,2.9-2.1,5.3-4.7,5.3H62.4c-2.6,0-4.7-2.4-4.7-5.3V203.6z"
+            d="m 58.503972,203.39762 a 4.2762893,5.2806465 0 0 1 4.275476,-5.28064 h 42.945112 a 4.2762893,5.2806465 0 0 1 4.27547,5.28064 v 41.03477 a 4.2762893,5.2806465 0 0 1 -4.27547,5.28065 H 62.779448 a 4.2762893,5.2806465 0 0 1 -4.275476,-5.28065 z"
           />
           <path
             id="R2C15_keyshape"
@@ -2337,6 +2342,22 @@ class KeymapISO extends React.Component {
               fill={getContrastText(getColor(3, 2))}
             >
               {getLabel(3, 2).extraLabel}
+            </text>
+            <text
+              id="R3C1_t_primary"
+              x="121.69"
+              y="227.98399"
+              fill={getContrastText(getColor(3, 1))}
+            >
+              {getLabel(3, 1).label}
+            </text>
+            <text
+              id="R3C1_t_extra"
+              x="121.69"
+              y="213.939"
+              fill={getContrastText(getColor(3, 1))}
+            >
+              {getLabel(3, 1).extraLabel}
             </text>
             <text
               id="R3C0_t_primary"

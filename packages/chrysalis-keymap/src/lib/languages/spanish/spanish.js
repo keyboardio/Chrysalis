@@ -1,5 +1,5 @@
 /* chrysalis-keymap -- Chrysalis keymap library
- * Copyright (C) 2018  Keyboardio, Inc.
+ * Copyright (C) 2019  DygmaLab SE
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software

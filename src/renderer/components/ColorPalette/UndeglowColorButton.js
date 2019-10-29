@@ -81,7 +81,9 @@ function UndeglowColorButton(props) {
   const style = {
     background:
       colorFocusButton !== null &&
-      `rgb(${colorFocusButton.r}, ${colorFocusButton.g}, ${colorFocusButton.b})`,
+      `rgb(${colorFocusButton.r}, ${colorFocusButton.g}, ${
+      colorFocusButton.b
+      })`,
     color:
       colorFocusButton !== null &&
       theme.palette.getContrastText(colorFocusButton.rgb)

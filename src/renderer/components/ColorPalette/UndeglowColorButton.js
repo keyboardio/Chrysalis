@@ -82,7 +82,7 @@ function UndeglowColorButton(props) {
     background:
       colorFocusButton !== null &&
       `rgb(${colorFocusButton.r}, ${colorFocusButton.g}, ${
-      colorFocusButton.b
+        colorFocusButton.b
       })`,
     color:
       colorFocusButton !== null &&

@@ -98,3 +98,11 @@
 .select-keycode ul li.highlight {
   font-weight: bold;
 }
+
+.key-config {
+  font-size: 14px;
+}
+
+.letter-config {
+  font-size: 16px;
+}

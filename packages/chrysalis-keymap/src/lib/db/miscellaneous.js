@@ -20,33 +20,33 @@ const MiscellaneousTable = {
         {
             code: 70,
             labels: {
-                primary: "PrnScr",
+                primary: "PRINT SCREEN",
                 verbose: "Print Screen"
             }
         },
         {
             code: 71,
             labels: {
-                primary: "ScrlLK",
+                primary: "SCROLL LOCK",
                 verbose: "Scroll Lock"
             }
         },
         {
             code: 72,
             labels: {
-                primary: "Pause"
+                primary: "PAUSE"
             }
         },
         {
             code: 53291,
             labels: {
-                primary: "Cycle"
+                primary: "CYCLE"
             }
         },
         {
             code: 53292,
             labels: {
-                primary: "Syster"
+                primary: "SYSTEM"
             }
         }
     ]

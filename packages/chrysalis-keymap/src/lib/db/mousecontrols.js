@@ -21,28 +21,28 @@ const MouseMovementTable = {
             code: 20481,
             labels: {
                 top: "Mouse",
-                primary: "Up"
+                primary: "UP"
             }
         },
         {
             code: 20482,
             labels: {
                 top: "Mouse",
-                primary: "Down"
+                primary: "DOWN"
             }
         },
         {
             code: 20484,
             labels: {
                 top: "Mouse",
-                primary: "Left"
+                primary: "LEFT"
             }
         },
         {
             code: 20488,
             labels: {
                 top: "Mouse",
-                primary: "Right"
+                primary: "RIGHT"
             }
         }
     ]
@@ -55,28 +55,28 @@ const MouseWheelTable = {
             code: 20497,
             labels: {
                 top: "M. Wheel",
-                primary: "Up"
+                primary: "UP"
             }
         },
         {
             code: 20498,
             labels: {
                 top: "M. Wheel",
-                primary: "Down"
+                primary: "DOWN"
             }
         },
         {
             code: 20500,
             labels: {
                 top: "M. Wheel",
-                primary: "Left"
+                primary: "LEFT"
             }
         },
         {
             code: 20504,
             labels: {
                 top: "M. Wheel",
-                primary: "Right"
+                primary: "RIGHT"
             }
         }
     ]
@@ -89,21 +89,21 @@ const MouseButtonTable = {
             code: 20545,
             labels: {
                 top: "M. Btn",
-                primary: "Left"
+                primary: "LEFT"
             }
         },
         {
             code: 20546,
             labels: {
                 top: "M. Btn",
-                primary: "Right"
+                primary: "RIGHT"
             }
         },
         {
             code: 20548,
             labels: {
                 top: "M. Btn",
-                primary: "Middle"
+                primary: "MIDDLE"
             }
         }
     ]
@@ -116,7 +116,7 @@ const MouseWarpTable = {
             code: 20576,
             labels: {
                 top: "M. Warp",
-                primary: "End"
+                primary: "END"
             }
         },
         {

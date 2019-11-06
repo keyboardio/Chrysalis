@@ -22,56 +22,56 @@ const ModifiersTable = {
         {
             code: 224,
             labels: {
-                primary: "LCtrl",
+                primary: "LCTRL",
                 verbose: "Left Control"
             }
         },
         {
             code: 225,
             labels: {
-                primary: "LShift",
+                primary: "LSHIFT",
                 verbose: "Left Shift"
             }
         },
         {
             code: 226,
             labels: {
-                primary: "LAlt",
+                primary: "LALT",
                 verbose: "Left Alt"
             }
         },
         {
             code: 227,
             labels: {
-                primary: "LGui",
+                primary: "LEFT GUI",
                 verbose: "Left Gui"
             }
         },
         {
             code: 228,
             labels: {
-                primary: "RCtrl",
+                primary: "RCTRL",
                 verbose: "Right Control"
             }
         },
         {
             code: 229,
             labels: {
-                primary: "RShift",
+                primary: "RSHIFT",
                 verbose: "Right Shift"
             }
         },
         {
             code: 230,
             labels: {
-                primary: "RAlt",
+                primary: "RALT",
                 verbose: "AltGr"
             }
         },
         {
             code: 231,
             labels: {
-                primary: "RGui",
+                primary: "RIGHT GUI",
                 verbose: "Right Gui"
             }
         }

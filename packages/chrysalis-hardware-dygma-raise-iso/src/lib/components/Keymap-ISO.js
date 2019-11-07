@@ -2011,7 +2011,7 @@ class KeymapISO extends React.Component {
   </text>
     <text
     id="R4C7_t_primary"
-    x="425.7598"
+    x="427.7598"
     y="343.64575"
     fill={getContrastText(getColor(4, 7))}
   >
@@ -2026,7 +2026,7 @@ class KeymapISO extends React.Component {
   </text>
     <text
     id="R4C6_t_primary"
-    x="346.13226"
+    x="343.13226"
     y="343.64575"
     fill={getContrastText(getColor(4, 6))}
   >
@@ -2041,7 +2041,7 @@ class KeymapISO extends React.Component {
   </text>
     <text
     id="R4C15_t_primary"
-    x="920.87189"
+    x="922.92963"
     y="288.27594"
     fill={getContrastText(getColor(4, 15))}
   >
@@ -2367,7 +2367,7 @@ class KeymapISO extends React.Component {
   </text>
     <text
     id="R3C2_t_primary"
-    x="192.06839"
+    x="197.06839"
     y="228.66875"
     fill={getContrastText(getColor(3, 2))}
     className="letter-config"
@@ -2383,8 +2383,8 @@ class KeymapISO extends React.Component {
   </text>
     <text
     id="R3C1_t_primary"
-    x="151.91844"
-    y="217.66762"
+    x="138.96411"
+    y="228.66875"
     fill={getContrastText(getColor(3, 1))}
     className="key-config"
         >
@@ -2393,14 +2393,14 @@ class KeymapISO extends React.Component {
     <text
     id="R3C1_t_extra"
     x="151.91844"
-    y="228.66875"
+    y="216.73546"
     fill={getContrastText(getColor(3, 1))}
   >
     {getLabel(3, 1).extraLabel}
   </text>
     <text
     id="R3C0_t_primary"
-    x="68.22266"
+    x="66.22266"
     y="227.71767"
     fill={getContrastText(getColor(3, 0))}
   >
@@ -2415,8 +2415,8 @@ class KeymapISO extends React.Component {
   </text>
     <text
     id="R2C15_t_primary"
-    x="885.9444"
-    y="157.56905"
+    x="869.38745"
+    y="168.383"
     fill={getContrastText(getColor(2, 15))}
     className="key-config"
         >
@@ -2431,8 +2431,8 @@ class KeymapISO extends React.Component {
   </text>
     <text
     id="R2C14_t_primary"
-    x="829.79822"
-    y="158.78621"
+    x="812.51373"
+    y="168.383"
     fill={getContrastText(getColor(2, 14))}
     className="key-config"
         >
@@ -2447,8 +2447,8 @@ class KeymapISO extends React.Component {
   </text>
     <text
     id="R2C13_t_primary"
-    x="772.23834"
-    y="155.60457"
+    x="756.39331"
+    y="168.383"
     fill={getContrastText(getColor(2, 13))}
     className="key-config"
         >
@@ -2495,7 +2495,7 @@ class KeymapISO extends React.Component {
   </text>
     <text
     id="R2C10_t_primary"
-    x="586.53107"
+    x="583.53107"
     y="168.383"
     fill={getContrastText(getColor(2, 10))}
     className="letter-config"
@@ -2511,7 +2511,7 @@ class KeymapISO extends React.Component {
   </text>
     <text
     id="R2C9_t_primary"
-    x="523.72925"
+    x="525.72925"
     y="168.383"
     fill={getContrastText(getColor(2, 9))}
     className="letter-config"
@@ -2637,8 +2637,8 @@ class KeymapISO extends React.Component {
   </text>
     <text
     id="R1C14_t_primary"
-    x="872.1778"
-    y="99.930794"
+    x="856.32159"
+    y="110.91264"
     fill={getContrastText(getColor(1, 14))}
     className="key-config"
         >
@@ -2653,8 +2653,8 @@ class KeymapISO extends React.Component {
   </text>
     <text
     id="R1C13_t_primary"
-    x="814.81976"
-    y="99.930794"
+    x="801.33112"
+    y="110.91264"
     fill={getContrastText(getColor(1, 13))}
     className="key-config"
         >
@@ -2701,7 +2701,7 @@ class KeymapISO extends React.Component {
   </text>
     <text
     id="R1C10_t_primary"
-    x="629.40076"
+    x="626.40076"
     y="110.91264"
     fill={getContrastText(getColor(1, 10))}
     className="letter-config"
@@ -2717,7 +2717,7 @@ class KeymapISO extends React.Component {
   </text>
     <text
     id="R1C9_t_primary"
-    x="567.91718"
+    x="568.91718"
     y="110.91264"
     fill={getContrastText(getColor(1, 9))}
     className="letter-config"
@@ -2859,8 +2859,8 @@ class KeymapISO extends React.Component {
   </text>
     <text
     id="R0C14_t_primary"
-    x="811.5073"
-    y="38.048481"
+    x="824.71515"
+    y="50.029457"
     fill={getContrastText(getColor(0, 14))}
     className="key-config"
         >
@@ -2875,8 +2875,8 @@ class KeymapISO extends React.Component {
   </text>
     <text
     id="R0C13_t_primary"
-    x="752.5073"
-    y="38.048481"
+    x="765.58154"
+    y="50.029457"
     fill={getContrastText(getColor(0, 13))}
     className="key-config"
         >
@@ -2891,8 +2891,8 @@ class KeymapISO extends React.Component {
   </text>
     <text
     id="R0C12_t_primary"
-    x="693.5073"
-    y="39.048481"
+    x="707.0073"
+    y="50.029457"
     fill={getContrastText(getColor(0, 12))}
     className="key-config"
         >
@@ -2907,8 +2907,8 @@ class KeymapISO extends React.Component {
   </text>
     <text
     id="R0C11_t_primary"
-    x="634.5073"
-    y="39.048481"
+    x="648.0073"
+    y="50.029457"
     fill={getContrastText(getColor(0, 11))}
     className="key-config"
         >
@@ -2923,8 +2923,8 @@ class KeymapISO extends React.Component {
   </text>
     <text
     id="R0C10_t_primary"
-    x="575.5073"
-    y="39.048481"
+    x="589.0073"
+    y="50.029457"
     fill={getContrastText(getColor(0, 10))}
     className="key-config"
         >
@@ -2939,8 +2939,8 @@ class KeymapISO extends React.Component {
   </text>
     <text
     id="R0C9_t_primary"
-    x="516.05963"
-    y="39.048481"
+    x="530.55371"
+    y="50.029457"
     fill={getContrastText(getColor(0, 9))}
     className="key-config"
         >
@@ -2955,8 +2955,8 @@ class KeymapISO extends React.Component {
   </text>
     <text
     id="R0C6_t_primary"
-    x="418.5073"
-    y="39.048481"
+    x="430.85852"
+    y="50.029457"
     fill={getContrastText(getColor(0, 6))}
     className="key-config"
         >
@@ -2971,8 +2971,8 @@ class KeymapISO extends React.Component {
   </text>
     <text
     id="R0C5_t_primary"
-    x="359.5073"
-    y="39.048481"
+    x="371.53659"
+    y="50.029457"
     fill={getContrastText(getColor(0, 5))}
     className="key-config"
         >
@@ -2987,8 +2987,8 @@ class KeymapISO extends React.Component {
   </text>
     <text
     id="R0C4_t_primary"
-    x="300.5073"
-    y="39.048481"
+    x="313.15628"
+    y="50.029457"
     fill={getContrastText(getColor(0, 4))}
     className="key-config"
         >
@@ -3003,8 +3003,8 @@ class KeymapISO extends React.Component {
   </text>
     <text
     id="R0C3_t_primary"
-    x="241.5073"
-    y="39.048481"
+    x="253.92854"
+    y="50.029457"
     fill={getContrastText(getColor(0, 3))}
     className="key-config"
         >
@@ -3019,8 +3019,8 @@ class KeymapISO extends React.Component {
   </text>
     <text
     id="R0C2_t_primary"
-    x="182.5073"
-    y="39.048481"
+    x="196.1132"
+    y="50.029457"
     fill={getContrastText(getColor(0, 2))}
     className="key-config"
         >
@@ -3035,8 +3035,8 @@ class KeymapISO extends React.Component {
   </text>
     <text
     id="R0C1_t_primary"
-    x="123.5073"
-    y="39.048481"
+    x="137.82706"
+    y="50.029457"
     fill={getContrastText(getColor(0, 1))}
     className="key-config"
         >

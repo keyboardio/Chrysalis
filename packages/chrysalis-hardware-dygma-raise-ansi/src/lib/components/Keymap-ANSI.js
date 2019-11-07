@@ -1970,7 +1970,8 @@ class KeymapANSI extends React.Component {
             <text
               id="R4C9_t_primary"
               fill={getContrastText(getColor(4, 9))}
-              transform="matrix(1 0 0 1 569.925 347.018)"
+              x="580.70465"
+              y="345.88806"
             >
               {getLabel(4, 9).label}
             </text>
@@ -1984,7 +1985,8 @@ class KeymapANSI extends React.Component {
             <text
               id="R4C8_t_primary"
               fill={getContrastText(getColor(4, 8))}
-              transform="matrix(1 0 0 1 511.613 347.018)"
+              x="519.88605"
+              y="345.88806"
             >
               {getLabel(4, 8).label}
             </text>
@@ -1997,7 +1999,8 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R4C7_t_primary"
-              transform="matrix(1 0 0 1 416.585 347.018)"
+              x="425.7598"
+              y="343.64575"
               fill={getContrastText(getColor(4, 7))}
             >
               {getLabel(4, 7).label}
@@ -2011,7 +2014,8 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R4C6_t_primary"
-              transform="matrix(1 0 0 1 342.272 347.018)"
+              x="346.13226"
+              y="343.64575"
               fill={getContrastText(getColor(4, 6))}
             >
               {getLabel(4, 6).label}
@@ -2025,7 +2029,8 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R4C15_t_primary"
-              transform="matrix(1 0 0 1 908.553 287.539)"
+              x="920.87189"
+              y="288.27594"
               fill={getContrastText(getColor(4, 15))}
             >
               {getLabel(4, 15).label}
@@ -2039,7 +2044,8 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R4C14_t_primary"
-              transform="matrix(1 0 0 1 848.523 287.539)"
+              x="856.80927"
+              y="286.27594"
               fill={getContrastText(getColor(4, 14))}
             >
               {getLabel(4, 14).label}
@@ -2053,21 +2059,24 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R4C13_t_primary"
-              transform="matrix(1 0 0 1 773.493 287.539)"
+              x="818.24677"
+              y="286.27594"
               fill={getContrastText(getColor(4, 13))}
             >
               {getLabel(4, 13).label}
             </text>
             <text
               id="R4C13_t_extra"
-              transform="matrix(1 0 0 1 773.493 273.52)"
+              x="774.24634"
+              y="286.27594"
               fill={getContrastText(getColor(4, 13))}
             >
               {getLabel(4, 13).extraLabel}
             </text>
             <text
               id="R4C12_t_primary"
-              transform="matrix(1 0 0 1 698.473 287.539)"
+              x="713.22632"
+              y="286.27594"
               fill={getContrastText(getColor(4, 12))}
             >
               {getLabel(4, 12).label}
@@ -2081,7 +2090,8 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R4C11_t_primary"
-              transform="matrix(1 0 0 1 615.543 287.539)"
+              x="630.60889"
+              y="287.539"
               fill={getContrastText(getColor(4, 11))}
             >
               {getLabel(4, 11).label}
@@ -2095,7 +2105,8 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R4C10_t_primary"
-              transform="matrix(1 0 0 1 513.613 287.539)"
+              x="540.35492"
+              y="286.27594"
               fill={getContrastText(getColor(4, 10))}
             >
               {getLabel(4, 10).label}
@@ -2109,7 +2120,8 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R4C4_t_primary"
-              transform="matrix(1 0 0 1 372.684 287.539)"
+              x="397.33237"
+              y="286.27594"
               fill={getContrastText(getColor(4, 4))}
             >
               {getLabel(4, 4).label}
@@ -2123,7 +2135,8 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R4C3_t_primary"
-              transform="matrix(1 0 0 1 287.756 287.539)"
+              x="304.31531"
+              y="286.27594"
               fill={getContrastText(getColor(4, 3))}
             >
               {getLabel(4, 3).label}
@@ -2137,7 +2150,8 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R4C2_t_primary"
-              transform="matrix(1 0 0 1 212.728 287.539)"
+              x="227.37772"
+              y="286.27594"
               fill={getContrastText(getColor(4, 2))}
             >
               {getLabel(4, 2).label}
@@ -2151,21 +2165,24 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R4C1_t_primary"
-              transform="matrix(1 0 0 1 137.701 287.539)"
+              x="152.76688"
+              y="286.27594"
               fill={getContrastText(getColor(4, 1))}
             >
               {getLabel(4, 1).label}
             </text>
             <text
               id="R4C1_t_extra"
-              transform="matrix(1 0 0 1 137.701 273.52)"
+              x="144.97406"
+              y="273.51999"
               fill={getContrastText(getColor(4, 1))}
             >
               {getLabel(4, 1).extraLabel}
             </text>
             <text
               id="R4C0_t_primary"
-              transform="matrix(1 0 0 1 61.673 287.539)"
+              x="74.049648"
+              y="286.27594"
               fill={getContrastText(getColor(4, 0))}
             >
               {getLabel(4, 0).label}
@@ -2179,7 +2196,8 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R3C15_t_primary"
-              transform="matrix(1 0 0 1 818.334 227.984)"
+              x="867.14728"
+              y="228.66875"
               fill={getContrastText(getColor(3, 15))}
             >
               {getLabel(3, 15).label}
@@ -2193,8 +2211,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R3C14_t_primary"
-              transform="matrix(1 0 0 1 759.274 227.984)"
+              x="778.82098"
+              y="228.66875"
               fill={getContrastText(getColor(3, 14))}
+              className="key-config"
             >
               {getLabel(3, 14).label}
             </text>
@@ -2207,8 +2227,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R3C13_t_primary"
-              transform="matrix(1 0 0 1 700.214 227.984)"
+              x="719.68738"
+              y="228.66875"
               fill={getContrastText(getColor(3, 13))}
+              className="key-config"
             >
               {getLabel(3, 13).label}
             </text>
@@ -2221,8 +2243,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R3C12_t_primary"
-              transform="matrix(1 0 0 1 641.154 227.984)"
+              x="659.80048"
+              y="228.66875"
               fill={getContrastText(getColor(3, 12))}
+              className="key-config"
             >
               {getLabel(3, 12).label}
             </text>
@@ -2235,8 +2259,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R3C11_t_primary"
-              transform="matrix(1 0 0 1 582.098 227.984)"
+              x="601.21484"
+              y="228.66875"
               fill={getContrastText(getColor(3, 11))}
+              className="letter-config"
             >
               {getLabel(3, 11).label}
             </text>
@@ -2249,8 +2275,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R3C10_t_primary"
-              transform="matrix(1 0 0 1 526.04 227.984)"
+              x="545.28558"
+              y="228.66875"
               fill={getContrastText(getColor(3, 10))}
+              className="letter-config"
             >
               {getLabel(3, 10).label}
             </text>
@@ -2263,8 +2291,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R3C6_t_primary"
-              transform="matrix(1 0 0 1 415.981 227.984)"
+              x="430.76379"
+              y="228.66875"
               fill={getContrastText(getColor(3, 6))}
+              className="letter-config"
             >
               {getLabel(3, 6).label}
             </text>
@@ -2277,8 +2307,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R3C5_t_primary"
-              transform="matrix(1 0 0 1 356.923 227.984)"
+              x="373.10339"
+              y="228.66875"
               fill={getContrastText(getColor(3, 5))}
+              className="letter-config"
             >
               {getLabel(3, 5).label}
             </text>
@@ -2291,8 +2323,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R3C4_t_primary"
-              transform="matrix(1 0 0 1 297.865 227.984)"
+              x="315.57617"
+              y="228.66875"
               fill={getContrastText(getColor(3, 4))}
+              className="letter-config"
             >
               {getLabel(3, 4).label}
             </text>
@@ -2305,8 +2339,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R3C3_t_primary"
-              transform="matrix(1 0 0 1 238.806 227.984)"
+              x="256.71729"
+              y="228.66875"
               fill={getContrastText(getColor(3, 3))}
+              className="letter-config"
             >
               {getLabel(3, 3).label}
             </text>
@@ -2319,8 +2355,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R3C2_t_primary"
-              transform="matrix(1 0 0 1 179.748 227.984)"
+              x="197.06839"
+              y="228.66875"
               fill={getContrastText(getColor(3, 2))}
+              className="letter-config"
             >
               {getLabel(3, 2).label}
             </text>
@@ -2333,7 +2371,8 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R3C0_t_primary"
-              transform="matrix(1 0 0 1 61.69 227.984)"
+              x="66.22266"
+              y="227.71767"
               fill={getContrastText(getColor(3, 0))}
             >
               {getLabel(3, 0).label}
@@ -2347,7 +2386,8 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R2C15_t_primary"
-              transform="matrix(1 0 0 1 865.394 168.383)"
+              x="898.63702"
+              y="168.383"
               fill={getContrastText(getColor(1, 15))}
             >
               {getLabel(1, 15).label}
@@ -2361,8 +2401,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R2C14_t_primary"
-              transform="matrix(1 0 0 1 806.334 168.383)"
+              x="812.51373"
+              y="168.383"
               fill={getContrastText(getColor(2, 14))}
+              className="key-config"
             >
               {getLabel(2, 14).label}
             </text>
@@ -2375,8 +2417,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R2C13_t_primary"
-              transform="matrix(1 0 0 1 747.274 168.383)"
+              x="756.39331"
+              y="168.383"
               fill={getContrastText(getColor(2, 13))}
+              className="key-config"
             >
               {getLabel(2, 13).label}
             </text>
@@ -2389,8 +2433,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R2C12_t_primary"
-              transform="matrix(1 0 0 1 688.214 168.383)"
+              x="696.99744"
+              y="168.383"
               fill={getContrastText(getColor(2, 12))}
+              className="letter-config"
             >
               {getLabel(2, 12).label}
             </text>
@@ -2403,8 +2449,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R2C11_t_primary"
-              transform="matrix(1 0 0 1 629.154 168.383)"
+              x="638.74908"
+              y="168.383"
               fill={getContrastText(getColor(2, 11))}
+              className="letter-config"
             >
               {getLabel(2, 11).label}
             </text>
@@ -2417,8 +2465,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R2C10_t_primary"
-              transform="matrix(1 0 0 1 570.098 168.383)"
+              x="583.53107"
+              y="168.383"
               fill={getContrastText(getColor(2, 10))}
+              className="letter-config"
             >
               {getLabel(2, 10).label}
             </text>
@@ -2431,8 +2481,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R2C9_t_primary"
-              transform="matrix(1 0 0 1 511.04 168.383)"
+              x="525.72925"
+              y="168.383"
               fill={getContrastText(getColor(2, 9))}
+              className="letter-config"
             >
               {getLabel(2, 9).label}
             </text>
@@ -2445,8 +2497,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R2C5_t_primary"
-              transform="matrix(1 0 0 1 393.981 168.383)"
+              x="408.29358"
+              y="168.383"
               fill={getContrastText(getColor(2, 5))}
+              className="letter-config"
             >
               {getLabel(2, 5).label}
             </text>
@@ -2459,8 +2513,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R2C4_t_primary"
-              transform="matrix(1 0 0 1 334.923 168.383)"
+              x="350.37012"
+              y="168.383"
               fill={getContrastText(getColor(2, 4))}
+              className="letter-config"
             >
               {getLabel(2, 4).label}
             </text>
@@ -2473,8 +2529,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R2C3_t_primary"
-              transform="matrix(1 0 0 1 275.865 168.383)"
+              x="291.3121"
+              y="168.383"
               fill={getContrastText(getColor(2, 3))}
+              className="letter-config"
             >
               {getLabel(2, 3).label}
             </text>
@@ -2487,8 +2545,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R2C2_t_primary"
-              transform="matrix(1 0 0 1 216.806 168.383)"
+              x="233.05211"
+              y="168.383"
               fill={getContrastText(getColor(2, 2))}
+              className="letter-config"
             >
               {getLabel(2, 2).label}
             </text>
@@ -2501,8 +2561,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R2C1_t_primary"
-              transform="matrix(1 0 0 1 157.748 168.383)"
+              x="173.46146"
+              y="168.383"
               fill={getContrastText(getColor(2, 1))}
+              className="letter-config"
             >
               {getLabel(2, 1).label}
             </text>
@@ -2515,7 +2577,8 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R2C0_t_primary"
-              transform="matrix(1 0 0 1 61.69 168.383)"
+              x="77.509178"
+              y="168.383"
               fill={getContrastText(getColor(2, 0))}
             >
               {getLabel(2, 0).label}
@@ -2529,8 +2592,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R1C15_t_primary"
-              transform="matrix(1 0 0 1 897.444 108.782)"
+              x="926.29419"
+              y="107.98302"
               fill={getContrastText(getColor(2, 15))}
+              className="key-config"
             >
               {getLabel(2, 15).label}
             </text>
@@ -2543,8 +2608,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R1C14_t_primary"
-              transform="matrix(1 0 0 1 841.394 108.782)"
+              x="856.32159"
+              y="110.91264"
               fill={getContrastText(getColor(1, 14))}
+              className="key-config"
             >
               {getLabel(1, 14).label}
             </text>
@@ -2557,8 +2624,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R1C13_t_primary"
-              transform="matrix(1 0 0 1 782.334 108.782)"
+              x="801.33112"
+              y="110.91264"
               fill={getContrastText(getColor(1, 13))}
+              className="key-config"
             >
               {getLabel(1, 13).label}
             </text>
@@ -2571,8 +2640,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R1C12_t_primary"
-              transform="matrix(1 0 0 1 725.274 108.782)"
+              x="739.86908"
+              y="110.91264"
               fill={getContrastText(getColor(1, 12))}
+              className="letter-config"
             >
               {getLabel(1, 12).label}
             </text>
@@ -2585,8 +2656,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R1C11_t_primary"
-              transform="matrix(1 0 0 1 668.214 108.782)"
+              x="683.18573"
+              y="110.91264"
               fill={getContrastText(getColor(1, 11))}
+              className="letter-config"
             >
               {getLabel(1, 11).label}
             </text>
@@ -2599,8 +2672,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R1C10_t_primary"
-              transform="matrix(1 0 0 1 609.156 108.782)"
+              x="626.40076"
+              y="110.91264"
               fill={getContrastText(getColor(1, 10))}
+              className="letter-config"
             >
               {getLabel(1, 10).label}
             </text>
@@ -2613,8 +2688,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R1C9_t_primary"
-              transform="matrix(1 0 0 1 552.098 108.782)"
+              x="568.91718"
+              y="110.91264"
               fill={getContrastText(getColor(1, 9))}
+              className="letter-config"
             >
               {getLabel(1, 9).label}
             </text>
@@ -2627,8 +2704,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R1C8_t_primary"
-              transform="matrix(1 0 0 1 494.04 108.782)"
+              x="511.51831"
+              y="110.91264"
               fill={getContrastText(getColor(1, 8))}
+              className="letter-config"
             >
               {getLabel(1, 8).label}
             </text>
@@ -2641,8 +2720,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R1C5_t_primary"
-              transform="matrix(1 0 0 1 386.981 108.782)"
+              x="402.2352"
+              y="110.91264"
               fill={getContrastText(getColor(1, 5))}
+              className="letter-config"
             >
               {getLabel(1, 5).label}
             </text>
@@ -2655,8 +2736,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R1C4_t_primary"
-              transform="matrix(1 0 0 1 327.923 108.782)"
+              x="342.75281"
+              y="110.91264"
               fill={getContrastText(getColor(1, 4))}
+              className="letter-config"
             >
               {getLabel(1, 4).label}
             </text>
@@ -2669,8 +2752,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R1C3_t_primary"
-              transform="matrix(1 0 0 1 268.865 108.782)"
+              x="283.36591"
+              y="110.91264"
               fill={getContrastText(getColor(1, 3))}
+              className="letter-config"
             >
               {getLabel(1, 3).label}
             </text>
@@ -2683,8 +2768,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R1C2_t_primary"
-              transform="matrix(1 0 0 1 209.806 108.782)"
+              x="225.32829"
+              y="110.91264"
               fill={getContrastText(getColor(1, 2))}
+              className="letter-config"
             >
               {getLabel(1, 2).label}
             </text>
@@ -2697,8 +2784,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R1C1_t_primary"
-              transform="matrix(1 0 0 1 150.748 108.782)"
+              x="166.32829"
+              y="110.91264"
               fill={getContrastText(getColor(1, 1))}
+              className="letter-config"
             >
               {getLabel(1, 1).label}
             </text>
@@ -2711,7 +2800,8 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R1C0_t_primary"
-              transform="matrix(1 0 0 1 61.69 108.782)"
+              x="90.159172"
+              y="108.40535"
               fill={getContrastText(getColor(1, 0))}
             >
               {getLabel(1, 0).label}
@@ -2725,7 +2815,8 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R0C15_t_primary"
-              transform="matrix(1 0 0 1 865.444 49.182)"
+              x="882.39313"
+              y="46.545471"
               fill={getContrastText(getColor(0, 15))}
             >
               {getLabel(0, 15).label}
@@ -2739,8 +2830,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R0C14_t_primary"
-              transform="matrix(1 0 0 1 807.394 49.182)"
+              x="824.71515"
+              y="50.029457"
               fill={getContrastText(getColor(0, 14))}
+              className="key-config"
             >
               {getLabel(0, 14).label}
             </text>
@@ -2753,8 +2846,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R0C13_t_primary"
-              transform="matrix(1 0 0 1 748.334 49.182)"
+              x="765.58154"
+              y="50.029457"
               fill={getContrastText(getColor(0, 13))}
+              className="key-config"
             >
               {getLabel(0, 13).label}
             </text>
@@ -2767,8 +2862,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R0C12_t_primary"
-              transform="matrix(1 0 0 1 689.274 49.182)"
+              x="707.0073"
+              y="50.029457"
               fill={getContrastText(getColor(0, 12))}
+              className="key-config"
             >
               {getLabel(0, 12).label}
             </text>
@@ -2781,8 +2878,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R0C11_t_primary"
-              transform="matrix(1 0 0 1 630.214 49.182)"
+              x="648.0073"
+              y="50.029457"
               fill={getContrastText(getColor(0, 11))}
+              className="key-config"
             >
               {getLabel(0, 11).label}
             </text>
@@ -2795,8 +2894,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R0C10_t_primary"
-              transform="matrix(1 0 0 1 571.156 49.182)"
+              x="589.0073"
+              y="50.029457"
               fill={getContrastText(getColor(0, 10))}
+              className="key-config"
             >
               {getLabel(0, 10).label}
             </text>
@@ -2809,8 +2910,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R0C9_t_primary"
-              transform="matrix(1 0 0 1 512.098 49.182)"
+              x="530.55371"
+              y="50.029457"
               fill={getContrastText(getColor(0, 9))}
+              className="key-config"
             >
               {getLabel(0, 9).label}
             </text>
@@ -2823,8 +2926,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R0C6_t_primary"
-              transform="matrix(1 0 0 1 415.04 49.182)"
+              x="430.85852"
+              y="50.029457"
               fill={getContrastText(getColor(0, 6))}
+              className="key-config"
             >
               {getLabel(0, 6).label}
             </text>
@@ -2837,8 +2942,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R0C5_t_primary"
-              transform="matrix(1 0 0 1 355.981 49.182)"
+              x="371.53659"
+              y="50.029457"
               fill={getContrastText(getColor(0, 5))}
+              className="key-config"
             >
               {getLabel(0, 5).label}
             </text>
@@ -2851,8 +2958,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R0C4_t_primary"
-              transform="matrix(1 0 0 1 296.923 49.182)"
+              x="313.15628"
+              y="50.029457"
               fill={getContrastText(getColor(0, 4))}
+              className="key-config"
             >
               {getLabel(0, 4).label}
             </text>
@@ -2865,8 +2974,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R0C3_t_primary"
-              transform="matrix(1 0 0 1 237.865 49.182)"
+              x="253.92854"
+              y="50.029457"
               fill={getContrastText(getColor(0, 3))}
+              className="key-config"
             >
               {getLabel(0, 3).label}
             </text>
@@ -2879,8 +2990,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R0C2_t_primary"
-              transform="matrix(1 0 0 1 178.806 49.182)"
+              x="196.1132"
+              y="50.029457"
               fill={getContrastText(getColor(0, 2))}
+              className="key-config"
             >
               {getLabel(0, 2).label}
             </text>
@@ -2893,8 +3006,10 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R0C1_t_primary"
-              transform="matrix(1 0 0 1 119.748 49.182)"
+              x="137.82706"
+              y="50.029457"
               fill={getContrastText(getColor(0, 1))}
+              className="key-config"
             >
               {getLabel(0, 1).label}
             </text>
@@ -2907,7 +3022,8 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R0C0_t_primary"
-              transform="matrix(1 0 0 1 61.69 49.182)"
+              x="72.768761"
+              y="49.181999"
               fill={getContrastText(getColor(0, 0))}
             >
               {getLabel(0, 0).label}

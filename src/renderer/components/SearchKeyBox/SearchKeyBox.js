@@ -55,11 +55,17 @@ const styles = theme => ({
     cursor: "pointer"
   },
   margin: {
-    margin: 15,
-    width: 170
+    display: "flex",
+    justifyContent: "start",
+    margin: "0 0 15px 30px",
+    width: 170,
+    height: 34,
+    borderRadius: 3,
+    padding: 0
   },
   extendedIcon: {
-    marginRight: theme.spacing.unit * 1
+    marginRight: 19,
+    marginLeft: 26
   }
 });
 

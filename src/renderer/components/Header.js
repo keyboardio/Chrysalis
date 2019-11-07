@@ -33,17 +33,28 @@ import { withStyles } from "@material-ui/core/styles";
 import i18n from "../i18n";
 import BoardMenu from "./BoardMenu";
 import MainMenu from "./MainMenu/MainMenu";
+import logo from "../DygmaLogo.png";
 
 const styles = theme => ({
   pageMenu: {
     marginLeft: theme.spacing.unit * 2
   },
   menuButton: {
-    marginLeft: -12,
+    marginLeft: 22,
     marginRight: 20
   },
   grow: {
     flexGrow: 1
+  },
+  navigation: {
+    display: "flex",
+    alignItems: "start",
+    flexDirection: "column"
+  },
+  logo: {
+    width: 17,
+    height: 17,
+    marginRight: 10
   }
 });
 
@@ -88,7 +99,34 @@ function Header({
       color={contextBar ? "secondary" : "inherit"}
       id="appbar"
     >
-      <Toolbar variant="dense">
+      <Toolbar variant="dense" className={classes.navigation}>
+        <MainMenu
+          connected={connected}
+          pages={pages}
+          open={mainMenu}
+          closeMenu={closeMainMenu}
+        />
+        <div className={classes.grow} />
+        {device && (
+          <>
+            <Button
+              onClick={openBoardMenu}
+              disabled={!device.urls}
+              color="inherit"
+              className="button"
+            >
+              <img src={logo} alt="logoDygma" className={classes.logo} />
+              {i18n.app.device}: {device.displayName}
+            </Button>
+          </>
+        )}
+        {device && device.urls && (
+          <BoardMenu
+            boardAnchor={boardAnchor}
+            boardClose={closeBoardMenu}
+            device={device}
+          />
+        )}
         <Button
           className={classes.menuButton}
           color="inherit"
@@ -102,30 +140,6 @@ function Header({
             id="page-title"
           />
         </Button>
-        <MainMenu
-          connected={connected}
-          pages={pages}
-          open={mainMenu}
-          closeMenu={closeMainMenu}
-        />
-        <div className={classes.grow} />
-        {device && (
-          <Button
-            onClick={openBoardMenu}
-            disabled={!device.urls}
-            color="inherit"
-            className="button"
-          >
-            {i18n.app.device}: {device.displayName}
-          </Button>
-        )}
-        {device && device.urls && (
-          <BoardMenu
-            boardAnchor={boardAnchor}
-            boardClose={closeBoardMenu}
-            device={device}
-          />
-        )}
       </Toolbar>
     </AppBar>
   );

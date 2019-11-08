@@ -30,7 +30,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
-import i18n from "../i18n";
+// import i18n from "../i18n";
 import BoardMenu from "./BoardMenu";
 import MainMenu from "./MainMenu/MainMenu";
 import logo from "../DygmaLogo.png";
@@ -116,7 +116,7 @@ function Header({
               className="button"
             >
               <img src={logo} alt="logoDygma" className={classes.logo} />
-              {i18n.app.device}: {device.displayName}
+              <span>BAZECOR</span>
             </Button>
           </>
         )}

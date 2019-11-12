@@ -29,7 +29,7 @@ const OneShotModifierTable = {
             code: 49154,
             labels: {
                 top: "OSM",
-                primary: "LSHIFT",
+                primary: "LEFT SHIFT",
                 verbose: "Left Shift"
             }
         },
@@ -37,7 +37,7 @@ const OneShotModifierTable = {
             code: 49155,
             labels: {
                 top: "OSM",
-                primary: "LALT",
+                primary: "LEFT ALT",
                 verbose: "Left Alt"
             }
         },
@@ -53,7 +53,7 @@ const OneShotModifierTable = {
             code: 49157,
             labels: {
                 top: "OSM",
-                primary: "RCTRL",
+                primary: "RIGHT CTRL",
                 verbose: "Right Control"
             }
         },
@@ -61,7 +61,7 @@ const OneShotModifierTable = {
             code: 49158,
             labels: {
                 top: "OSM",
-                primary: "RSHIFT",
+                primary: "RIGHT SHIFT",
                 verbose: "Right Shift"
             }
         },
@@ -69,7 +69,7 @@ const OneShotModifierTable = {
             code: 49159,
             labels: {
                 top: "OSM",
-                primary: "RALT",
+                primary: "RIGHT ALT",
                 verbose: "AltGr"
             }
         },
@@ -77,7 +77,7 @@ const OneShotModifierTable = {
             code: 49160,
             labels: {
                 top: "OSM",
-                primary: "RGui",
+                primary: "RIGHT Gui",
                 verbose: "Right Gui"
             }
         }

@@ -22,9 +22,9 @@ import uuid from "uuid";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import ColorButton from "./ColorButton";
+import ColorFillButton from "./ColorFillButton";
 
-ColorButtonsArea.propTypes = {
+ColorPaletteArea.propTypes = {
   classes: PropTypes.object.isRequired,
   colorFocusButton: PropTypes.object,
   indexFocusButton: PropTypes.any,
@@ -35,15 +35,13 @@ ColorButtonsArea.propTypes = {
 
 const styles = theme => ({
   palette: {
-    padding: "25px 25px 5px 25px",
+    padding: "40px 25px 25px 25px",
     [theme.breakpoints.down("sm")]: {
       padding: 0
     },
     width: 160,
-    paddingBottom: 25,
-    marginBottom: 25,
-    borderBottomColor: "#dfdfdf",
-    borderBottom: "2px solid"
+    borderTopColor: "#dfdfdf",
+    borderTop: "2px solid"
   }
 });
 
@@ -56,7 +54,7 @@ const styles = theme => ({
  * @param {array} palette Array of colors. Format [{r: 200, g: 200, b: 200, rgb: "rgb(200, 200, 200)"}, ...]
  * @param {boolean} disabled Property that disable component
  */
-function ColorButtonsArea(props) {
+function ColorPaletteArea(props) {
   const {
     classes,
     colorFocusButton,
@@ -90,7 +88,7 @@ function ColorButtonsArea(props) {
       <Grid container justify="center" alignItems="center">
         {palette
           .map((colorButton, i) => (
-            <ColorButton
+            <ColorFillButton
               key={uuid()}
               isFocus={i === indexFocusButton}
               index={i}
@@ -111,4 +109,4 @@ function ColorButtonsArea(props) {
   );
 }
 
-export default withStyles(styles)(ColorButtonsArea);
+export default withStyles(styles)(ColorPaletteArea);

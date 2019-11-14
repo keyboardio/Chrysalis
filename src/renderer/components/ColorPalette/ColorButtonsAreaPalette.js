@@ -20,10 +20,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
 import { setButtonSizeTamplate } from "../../../renderer/utils/setTemplates";
 
-ColorButton.propTypes = {
+ColorButtonsAreaPalette.propTypes = {
   classes: PropTypes.object.isRequired,
   isFocus: PropTypes.bool.isRequired,
   setIsFocus: PropTypes.func.isRequired,
@@ -35,10 +35,8 @@ ColorButton.propTypes = {
 
 const styles = () => ({
   root: {
-    ...setButtonSizeTamplate(25),
-    margin: "0 4px 4px 4px",
-    padding: 0,
-    borderRadius: 5,
+    ...setButtonSizeTamplate(45),
+    borderRadius: "50%",
     cursor: "pointer",
     boxShadow: "-2px 1px 5px 0px rgba(213,213,213,1)"
   }
@@ -62,7 +60,7 @@ const minWhiteColorValue = 140;
  * @param {object} color Current color of button
  * @param {boolean} disabled Property that disable component
  */
-function ColorButton(props) {
+function ColorButtonsAreaPalette(props) {
   const { classes, setIsFocus, isFocus, index, color, disabled } = props;
   ///Checks background is white or not
   const isWhiteColor =
@@ -76,20 +74,19 @@ function ColorButton(props) {
   const styleInFocus = {
     ...style,
     boxShadow: !isWhiteColor
-      ? `0px 0px 26px 4px rgb(${color.r}, ${color.g}, ${color.b})`
-      : `0px 0px 26px 4px rgb(155, 155, 155)`
+      ? `-2px 1px 5px 0px rgb(${color.r}, ${color.g}, ${color.b})`
+      : `-2px 1px 5px 0px rgb(155, 155, 155)`
   };
-
   return (
-    <Button
+    <IconButton
       variant="contained"
       className={classes.root}
       style={disabled ? styleDisabled : isFocus ? styleInFocus : style}
-      onClick={setIsFocus.bind(this, index, color)}
+      onClick={() => {}}
     >
-      {""}
-    </Button>
+      <img src="{}" alt="{}" />
+    </IconButton>
   );
 }
 
-export default withStyles(styles)(ColorButton);
+export default withStyles(styles)(ColorButtonsAreaPalette);

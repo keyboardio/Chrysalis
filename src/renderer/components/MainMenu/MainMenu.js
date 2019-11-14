@@ -1,5 +1,5 @@
 // -*- mode: js-jsx -*-
-/* Chrysalis -- Kaleidoscope Command Center
+/* Bazecor -- Kaleidoscope Command Center
  * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -23,7 +23,6 @@ import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import IconButton from "@material-ui/core/IconButton";
 import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import { withStyles } from "@material-ui/core/styles";
@@ -56,7 +55,7 @@ const styles = theme => ({
   toolbarIcon: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     padding: "0 8px",
     ...theme.mixins.toolbar
   },
@@ -82,14 +81,29 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
     <Drawer open={open} onClose={closeMenu}>
       <div onClick={closeMenu} role="button" onKeyDown={closeMenu}>
         <div className={classes.toolbarIcon}>
-          <Link to={homePage}>
+          <Link
+            to={homePage}
+            style={{
+              display: "flex",
+              textDecoration: "none",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
             <IconButton
               onClick={() => {
                 setCurrentPage(homePage);
               }}
             >
-              <img src={logo} />
+              <img src={logo} style={{ width: 20, padding: "0, 0, 12px, 0" }} />
             </IconButton>
+            <List>
+              <ListItemText
+                primary={`Bazecor ${version}`}
+                className={classes.version}
+              />
+              <UpgradeMenuItem />
+            </List>
           </Link>
         </div>
         {connected && (
@@ -192,15 +206,6 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
           />
         </List>
         <Divider />
-        <List>
-          <ListItem disabled>
-            <ListItemText
-              primary={`Chrysalis ${version}`}
-              className={classes.version}
-            />
-          </ListItem>
-          <UpgradeMenuItem />
-        </List>
       </div>
     </Drawer>
   );

@@ -1,5 +1,5 @@
 // -*- mode: js-jsx -*-
-/* Chrysalis -- Kaleidoscope Command Center
+/* Bazecor -- Kaleidoscope Command Center
  * Copyright (C) 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -45,7 +45,7 @@ const Hungarian = {
       feedback: "Visszajelzés küldése",
       exit: "Kilépés",
       keyboardSection: "Billentyűzet",
-      chrysalisSection: "Chrysalis",
+      chrysalisSection: "Bazecor",
       miscSection: "Egyéb",
       upgradeAvailable: "Frissítés érhető el!"
     },
@@ -102,7 +102,7 @@ const Hungarian = {
     colormapMode: "Színtérkép szerkesztése",
     importExport: "Aktuális réteg importálása/exportálása",
     importExportDescription:
-      "Az alábbi adatok szabadon szerkeszthetőek, vagy máshova másolhatóak, hogy később vissza lehessen illeszteni. Ezek az adatok a Chrysalis belső adatszerkezetét tükrözik, óvatosan szerkessze.",
+      "Az alábbi adatok szabadon szerkeszthetőek, vagy máshova másolhatóak, hogy később vissza lehessen illeszteni. Ezek az adatok a Bazecor belső adatszerkezetét tükrözik, óvatosan szerkessze.",
     loadDefault: "Alapértelmezett kiosztás betöltése:",
     copyToClipboard: "Másolás a vágólapra",
     copySuccess: "Másolva!",
@@ -155,18 +155,18 @@ Minden testreszabott beállítás el fog veszni.`
       button: "Frissítés",
       buttonSuccess: "Frissítve!"
     },
-    defaultFirmware: "Chrysalis {0} alapértelmezett",
+    defaultFirmware: "Bazecor {0} alapértelmezett",
     defaultFirmwareDescription: "Minimális, extrák nélkül",
-    experimentalFirmware: "Chrysalis {0} kísérleti",
+    experimentalFirmware: "Bazecor {0} kísérleti",
     experimentalFirmwareDescription: "Experimental, extra kiegészítőkkel",
     selected: "Kiválasztott vezérlő",
     custom: "Egyedi vezérlő",
-    description: `A billentyűzet vezérlő frissítésevel tanítjuk új trükkökre. A Chrysalis olyan új vezérlőt fog telepíteni, mely tartalmazza az eszközöket melyek lehetővé teszik a kiosztás szerkesztését, és még más dolgokat is. Ha korábban már testreszabta a vezérlőt, akkor ez a művelet felül fogja azt írni. A Chrysalis által telepíthető vezérlő forrása mindig megtalálható az alábbi címen:`,
-    postUpload: `Amint a frissítés befejeződött, a Chrysalis vissza fogja vinni a billentyűzet választó képernyőre.`
+    description: `A billentyűzet vezérlő frissítésevel tanítjuk új trükkökre. A Bazecor olyan új vezérlőt fog telepíteni, mely tartalmazza az eszközöket melyek lehetővé teszik a kiosztás szerkesztését, és még más dolgokat is. Ha korábban már testreszabta a vezérlőt, akkor ez a művelet felül fogja azt írni. A Bazecor által telepíthető vezérlő forrása mindig megtalálható az alábbi címen:`,
+    postUpload: `Amint a frissítés befejeződött, a Bazecor vissza fogja vinni a billentyűzet választó képernyőre.`
   },
   welcome: {
     title: "Üdvözöljük!",
-    contents: `A Chrysalis felismerte a billentyűzetét, de a folytatáshoz frissíteni kell a vezérlőjét.`,
+    contents: `A Bazecor felismerte a billentyűzetét, de a folytatáshoz frissíteni kell a vezérlőjét.`,
     gotoUpdate: "Vezérlő frissítés",
     reconnect: "Újracsatlakozás",
     reconnectDescription: `Elképzelhető, hogy hibásan ismertük fel a billentyűzet által kínált funkcionalitást, vagy az is, hogy a billentyűzet még nem állt teljesen rendelkezésre mikor csatlakozni próbáltunk. Ebben az esetben az "{0}" gombra kattintva újra megpróbálunk csatlakozni. Az újracsatlakozás akkor hasznos, ha biztosak vagyunk benne, hogy átmeneti hiba állt fenn, és azóta megoldódott.`

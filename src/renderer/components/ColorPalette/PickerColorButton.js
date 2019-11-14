@@ -1,5 +1,5 @@
 // -*- mode: js-jsx -*-
-/* Chrysalis -- Kaleidoscope Command Center
+/* Bazecor -- Kaleidoscope Command Center
  * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -36,11 +36,11 @@ PickerColorButton.propTypes = {
 const styles = {
   root: {
     position: "relative",
-    marginLeft: 10
+    marginBottom: 15
   },
   fab: {
-    width: 60,
-    height: 60
+    width: 70,
+    height: 70
   },
   icon: {
     fontSize: 32

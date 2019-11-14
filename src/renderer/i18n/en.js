@@ -1,5 +1,5 @@
 // -*- mode: js-jsx -*-
-/* Chrysalis -- Kaleidoscope Command Center
+/* Bazecor -- Kaleidoscope Command Center
  * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -27,7 +27,8 @@ const English = {
       saveChanges: "Save Changes"
     },
     pickerColorButton: "Change color",
-    underglowColorButton: "Change color of all underglows"
+    underglowColorButton: "Change color of all underglows",
+    keysColorButton: "Change color of all keys"
   },
   dialog: {
     ok: "Ok",
@@ -45,9 +46,9 @@ const English = {
       selectAnotherKeyboard: "Select another keyboard",
       chat: "Real-time chat",
       feedback: "Send feedback",
-      exit: "Exit Chrysalis",
+      exit: "Exit Bazecor",
       keyboardSection: "Keyboard",
-      chrysalisSection: "Chrysalis",
+      chrysalisSection: "Bazecor",
       miscSection: "Miscellaneous",
       upgradeAvailable: "An upgrade is available!"
     },
@@ -103,7 +104,7 @@ const English = {
     colormapMode: "Edit the colormap",
     importExport: "Import/Export the current layer",
     importExportDescription:
-      "The data below can be freely edited, or copied elsewhere to be pasted back for importing. This is the internal representation of Chrysalis state, handle with care.",
+      "The data below can be freely edited, or copied elsewhere to be pasted back for importing. This is the internal representation of Bazecor state, handle with care.",
     loadDefault: "Load a default:",
     copyToClipboard: "Copy to clipboard",
     copySuccess: "Copied!",
@@ -156,21 +157,21 @@ const English = {
       button: "Update",
       buttonSuccess: "Updated!"
     },
-    defaultFirmware: "Chrysalis {0} default",
+    defaultFirmware: "Bazecor {0} default",
     defaultFirmwareDescription: "Minimal, without bells and whistles",
-    experimentalFirmware: "Chrysalis {0} experimental",
+    experimentalFirmware: "Bazecor {0} experimental",
     experimentalFirmwareDescription: "Experimental, with more plugins enabled",
     selected: "Selected firmware",
     custom: "Custom firmware",
-    description: `Updating or "flashing" your keyboard's firmware is how we teach it new tricks. Chrysalis will install a new version of your keyboard's firmware which includes support for customizing the key layout, as well as other features. If you've previously customized your keyboard's firmware, this will overwrite your custom firmware. You can always find the source code of the firmware Chrysalis is installing here:`,
-    postUpload: `Once the upload is done, Chrysalis will take you back to the keyboard selection screen.`,
+    description: `Updating or "flashing" your keyboard's firmware is how we teach it new tricks. Bazecor will install a new version of your keyboard's firmware which includes support for customizing the key layout, as well as other features. If you've previously customized your keyboard's firmware, this will overwrite your custom firmware. You can always find the source code of the firmware Bazecor is installing here:`,
+    postUpload: `Once the upload is done, Bazecor will take you back to the keyboard selection screen.`,
     raise: {
       reset: `Reset message`
     }
   },
   welcome: {
-    title: "Welcome to Chrysalis",
-    contents: `Chrysalis recognizes your keyboard, but needs to update its firmware before you can continue.`,
+    title: "Welcome to Bazecor",
+    contents: `Bazecor recognizes your keyboard, but needs to update its firmware before you can continue.`,
     gotoUpdate: "Update Firmware",
     reconnect: "Reconnect",
     reconnectDescription: `There's a possibility that we misdetected the capabilities of the keyboard, or that the keyboard was starting up while we connected. In this case, you can try clicking the "{0}" button to attempt a reconnect, and look for the necessary features again. Reconnecting is useful if you're sure there was a temporary failure upon previous attempts, and the problem has been resolved.`

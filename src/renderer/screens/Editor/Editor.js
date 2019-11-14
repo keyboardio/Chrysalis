@@ -1,5 +1,5 @@
 // -*- mode: js-jsx -*-
-/* Chrysalis -- Kaleidoscope Command Center
+/* Bazecor -- Kaleidoscope Command Center
  * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -24,23 +24,19 @@ import FileCopyIcon from "@material-ui/icons/FileCopy";
 import FormControl from "@material-ui/core/FormControl";
 import IconButton from "@material-ui/core/IconButton";
 import ImportExportIcon from "@material-ui/icons/ImportExport";
-import KeyboardIcon from "@material-ui/icons/Keyboard";
 import LayersClearIcon from "@material-ui/icons/LayersClear";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import LockIcon from "@material-ui/icons/Lock";
 import MenuItem from "@material-ui/core/MenuItem";
-import PaletteIcon from "@material-ui/icons/Palette";
 import Portal from "@material-ui/core/Portal";
 import Select from "@material-ui/core/Select";
 import Slide from "@material-ui/core/Slide";
-import ToggleButton from "@material-ui/lab/ToggleButton";
-import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import Toolbar from "@material-ui/core/Toolbar";
 import Tooltip from "@material-ui/core/Tooltip";
 import { withStyles } from "@material-ui/core/styles";
-
+import Grid from "@material-ui/core/Grid";
 import { withSnackbar } from "notistack";
 
 import Focus from "@chrysalis-api/focus";
@@ -66,7 +62,7 @@ const styles = theme => ({
     flexGrow: 1
   },
   editor: {
-    margin: theme.spacing.unit * 3,
+    marginTop: 2,
     marginBottom: 150,
     textAlign: "center"
   },
@@ -110,7 +106,6 @@ class Editor extends React.Component {
     },
     palette: [],
     colorMap: [],
-    mode: "layout",
     clearConfirmationOpen: false,
     copyFromOpen: false,
     importExportDialogOpen: false,
@@ -513,13 +508,6 @@ class Editor extends React.Component {
     this.setState({ clearConfirmationOpen: false });
   };
 
-  setMode = (mode, isUnderglow) => {
-    this.setState({ mode: mode });
-    !isUnderglow
-      ? this.bottomMenuNeverHide()
-      : this.bottomMenuNeverHideFromUnderglow();
-  };
-
   onColorButtonSelect = (action, colorIndex) => {
     const { isColorButtonSelected } = this.state;
     if (action === "one_button_click") {
@@ -539,24 +527,13 @@ class Editor extends React.Component {
   };
 
   onColorSelect = colorIndex => {
-    const {
-      currentLayer,
-      currentLedIndex,
-      colorMap,
-      selectedPaletteColor
-    } = this.state;
+    const { currentLayer, currentLedIndex, colorMap } = this.state;
 
     const isEqualColor = this.onVerificationColor(
       colorIndex,
       currentLayer,
       currentLedIndex
     );
-
-    if (colorIndex == this.state.selectedPaletteColor) colorIndex = -1;
-    if (colorIndex == -1) {
-      this.setState({ selectedPaletteColor: selectedPaletteColor });
-      return;
-    }
 
     if (currentLayer < 0 || currentLayer >= colorMap.length) return;
 
@@ -676,6 +653,25 @@ class Editor extends React.Component {
     this.props.startContext();
   };
 
+  toChangeAllKeysColor = colorIndex => {
+    const { currentLayer } = this.state;
+    const beginForChange = 0;
+    const endForChange = 69;
+    this.setState(state => {
+      let colormap = state.colorMap.slice();
+      colormap[currentLayer] = colormap[currentLayer].fill(
+        colorIndex,
+        beginForChange,
+        endForChange
+      );
+      return {
+        colorMap: colormap,
+        modified: true
+      };
+    });
+    this.props.startContext();
+  };
+
   render() {
     const { classes } = this.props;
     const { keymap, palette, isColorButtonSelected } = this.state;
@@ -718,7 +714,6 @@ class Editor extends React.Component {
             palette={this.state.palette}
             colormap={this.state.colorMap[this.state.currentLayer]}
             theme={this.props.theme}
-            setMode={this.setMode}
           />
         </div>
       </Fade>
@@ -780,7 +775,7 @@ class Editor extends React.Component {
     });
 
     const layerMenu = (defaultLayerMenu || []).concat(customLayerMenu);
-    const { mode } = this.state;
+    // const { mode } = this.state;
 
     return (
       <React.Fragment>
@@ -789,30 +784,22 @@ class Editor extends React.Component {
         </Portal>
         <Portal container={this.props.appBarElement}>
           <Toolbar>
-            <ToggleButtonGroup
-              value={mode}
-              exclusive
-              className={classes.tbg}
-              onChange={(_, mode) => {
-                this.setMode(mode);
-              }}
-            >
-              <ToggleButton
-                value="layout"
-                disabled={this.state.currentKeyIndex >= 80 || mode == "layout"}
-              >
-                <Tooltip title={i18n.editor.layoutMode}>
-                  <KeyboardIcon />
-                </Tooltip>
-              </ToggleButton>
-              {palette.length && (
-                <ToggleButton value="colormap" disabled={mode == "colormap"}>
-                  <Tooltip title={i18n.editor.colormapMode}>
-                    <PaletteIcon />
-                  </Tooltip>
-                </ToggleButton>
-              )}
-            </ToggleButtonGroup>
+            {/*<ToggleButtonGroup*/}
+            {/*  value={mode}*/}
+            {/*  exclusive*/}
+            {/*  className={classes.tbg}*/}
+            {/*  onChange={(_, mode) => {*/}
+            {/*    this.setMode(mode);*/}
+            {/*  }}*/}
+            {/*>*/}
+            {/*  {palette.length && (*/}
+            {/*    <ToggleButton value="colormap" disabled={mode == "colormap"}>*/}
+            {/*      <Tooltip title={i18n.editor.colormapMode}>*/}
+            {/*        <PaletteIcon />*/}
+            {/*      </Tooltip>*/}
+            {/*    </ToggleButton>*/}
+            {/*  )}*/}
+            {/*</ToggleButtonGroup>*/}
             <div className={classes.grow} />
             <FormControl className={classes.layerSelect}>
               <Select
@@ -847,34 +834,37 @@ class Editor extends React.Component {
           this.state.keymap.default.length == 0 && (
             <LinearProgress variant="query" />
           )}
-        {layer}
-        <Slide in={this.getCurrentKey() != -1} direction="up" unmountOnExit>
-          {(mode == "layout" && (
-            <KeySelector
-              disabled={isReadOnly}
-              onKeySelect={this.onKeyChange}
-              currentKeyCode={this.getCurrentKey()}
-              scanKeyboard={this.scanKeyboard}
-              currentLanguageLayout={this.state.currentLanguageLayout}
-              onChangeLanguageLayout={this.onChangeLanguageLayout}
+        <Grid container>
+          <Grid item xs={9}>
+            {layer}
+          </Grid>
+          <Grid item xs={3}>
+            <ColorPalette
+              disabled={isReadOnly || currentLayer > this.state.colorMap.length}
+              onColorSelect={this.onColorSelect}
+              colorButtonIsSelected={this.state.colorButtonIsSelected}
+              palette={palette}
+              onColorPick={this.onColorPick}
+              selected={this.state.selectedPaletteColor}
+              isColorButtonSelected={isColorButtonSelected}
+              onColorButtonSelect={this.onColorButtonSelect}
+              theme={this.props.theme}
+              toChangeAllUnderglowsColor={this.toChangeAllUnderglowsColor}
+              toChangeAllKeysColor={this.toChangeAllKeysColor}
+              className="palette"
             />
-          )) ||
-            (mode == "colormap" && (
-              <ColorPalette
-                disabled={
-                  isReadOnly || currentLayer > this.state.colorMap.length
-                }
-                onColorSelect={this.onColorSelect}
-                colorButtonIsSelected={this.state.colorButtonIsSelected}
-                palette={this.state.palette}
-                onColorPick={this.onColorPick}
-                selected={this.state.selectedPaletteColor}
-                isColorButtonSelected={isColorButtonSelected}
-                onColorButtonSelect={this.onColorButtonSelect}
-                theme={this.props.theme}
-                toChangeAllUnderglowsColor={this.toChangeAllUnderglowsColor}
-              />
-            ))}
+          </Grid>
+        </Grid>
+
+        <Slide in={this.getCurrentKey() != -1} direction="up" unmountOnExit>
+          <KeySelector
+            disabled={isReadOnly}
+            onKeySelect={this.onKeyChange}
+            currentKeyCode={this.getCurrentKey()}
+            scanKeyboard={this.scanKeyboard}
+            currentLanguageLayout={this.state.currentLanguageLayout}
+            onChangeLanguageLayout={this.onChangeLanguageLayout}
+          />
         </Slide>
         <SaveChangesButton
           floating

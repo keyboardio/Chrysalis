@@ -20,7 +20,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import Button from "@material-ui/core/Button";
 
-UndeglowColorButton.propTypes = {
+BacklightButton.propTypes = {
   classes: PropTypes.object.isRequired,
   colorFocusButton: PropTypes.object,
   indexFocusButton: PropTypes.oneOfType([
@@ -30,7 +30,7 @@ UndeglowColorButton.propTypes = {
   ]),
   theme: PropTypes.object.isRequired,
   disabled: PropTypes.bool.isRequired,
-  toChangeAllUnderglowsColor: PropTypes.func.isRequired
+  toChangeAllKeysColor: PropTypes.func.isRequired
 };
 
 const styles = () => ({
@@ -63,13 +63,15 @@ const styleDisabled = {
  * @param {object} toChangeAllUnderglowsColor Callback function from Editor component. Parameter is index of color palette from 0 to 15
  * @param {boolean} disabled Property that disable component
  */
-function UndeglowColorButton(props) {
+
+function BacklightButton(props) {
   const {
     classes,
     colorFocusButton,
-    toChangeAllUnderglowsColor,
-    indexFocusButton
+    indexFocusButton,
+    toChangeAllKeysColor
   } = props;
+
   const minWhiteColorValue = 140;
   const isWhiteColor =
     colorFocusButton.r >= minWhiteColorValue &&
@@ -80,14 +82,13 @@ function UndeglowColorButton(props) {
     background: `rgb(${colorFocusButton.r}, ${colorFocusButton.g}, ${
       colorFocusButton.b
     })`,
-    color: !isWhiteColor ? "white" : `black`
+    color: !isWhiteColor ? "white" : "black"
   };
   const enable = {
     pointerEvents: "auto",
     cursor: "pointer"
   };
   const [color, setColor] = useState(enable);
-  console.log(indexFocusButton);
   return (
     <Tooltip placement="top-start" title={props.children}>
       <div className={classes.root}>
@@ -98,15 +99,15 @@ function UndeglowColorButton(props) {
             !+indexFocusButton && indexFocusButton !== 0 ? styleDisabled : color
           }
           onClick={() => {
-            toChangeAllUnderglowsColor(indexFocusButton);
+            toChangeAllKeysColor(indexFocusButton);
             setColor(style);
           }}
         >
-          {"UNDERGLOW"}
+          {"BACKLIGHT"}
         </Button>
       </div>
     </Tooltip>
   );
 }
 
-export default withStyles(styles)(UndeglowColorButton);
+export default withStyles(styles)(BacklightButton);

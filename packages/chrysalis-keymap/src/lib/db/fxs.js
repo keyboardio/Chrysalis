@@ -1,4 +1,4 @@
-/* chrysalis-keymap -- Chrysalis keymap library
+/* Bazecor-keymap -- Bazecor keymap library
  * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under

@@ -106,15 +106,95 @@ class KeymapISO extends React.Component {
     /**
      * Divides words on keyboard keys
      * @param {string} str Name of key
-     * @param {string} xCord Cord of the center position each key
+     * @param {string} xCord Cord of the center position horisontal of each key
+     * @param {string} yCord Cord of the center position vertical of each key
+     * @param {boolean} smallKey if the word longer than key switch to true
      */
-    const getDivideKeys = (str, xCord) => {
-      const arr = str.split(' ');
-      return arr.map((word, index) => (
-        <tspan dy={`${index + 0.5}em`} key={index} x={xCord}>
-          {word}
-        </tspan>
-      ))
+    const getDivideKeys = (str, xCord, yCord, smallKey = false) => {
+      const numbers =
+          str.length === 1 && (
+              (str.charCodeAt() >= 48 && str.charCodeAt() <= 57)
+              ||
+              (str.charCodeAt() >= 96 && str.charCodeAt() <= 105)
+          );
+      const characters = str.length === 1;
+      if (numbers) {
+        return str.split('').map((word, index) => (
+          <tspan
+              className="key-config"
+              textAnchor="middle"
+              key={index}
+              x={xCord}
+          >
+            {word}
+          </tspan>
+        ))
+      } else if (characters) {
+        return str.split('').map((word, index) => (
+          <tspan
+              className="letter-config"
+              textAnchor="middle"
+              key={index}
+              x={xCord}
+          >
+            {word}
+          </tspan>
+        ))
+      } else if (str.split(' ').length === 1 && str.split('').length > 7 && smallKey === true) {
+        return str.split(' ').map((word, index) => (
+            <tspan key={index}>
+              <tspan
+                  textAnchor="middle"
+                  x={xCord}
+                  dy="0.5em"
+                  y={String(+yCord - 10)}
+              >
+                {word.slice(0, 4)}
+              </tspan>
+              <tspan
+                  textAnchor="middle"
+                  x={xCord}
+                  dy="1.5em"
+                  y={String(+yCord - 10)}
+              >
+                {word.slice(4)}
+              </tspan>
+            </tspan>
+
+        ))
+      } else if (str.split(' ').length === 1) {
+        return str.split(' ').map((word, index) => (
+            <tspan
+                textAnchor="middle"
+                key={index}
+                x={xCord}
+            >
+              {word}
+            </tspan>
+        ))
+      } else if (str.split(' ').length > 1 && smallKey === true) {
+        return str.split(' ').map((word, index) => (
+            <tspan
+                textAnchor="middle"
+                dy={`${index + 0.5}em`}
+                key={index}
+                x={xCord}
+                y={String(+yCord - 10)}
+            >
+              {word}
+            </tspan>
+        ))
+      } else {
+        return (
+            <tspan
+                textAnchor="middle"
+                x={xCord}
+                y={yCord }
+            >
+              {str}
+            </tspan>
+        )
+      }
     };
 
     const styles = {
@@ -514,7 +594,7 @@ class KeymapISO extends React.Component {
     <path
     id="R3C1_keyshape"
     onClick={onClick}
-    className="key letter-config"
+    className="key"
     fill={getColor(3, 1)}
     stroke={stroke(3, 1)}
     strokeWidth={getStrokeWidth(3, 1)}
@@ -2011,10 +2091,17 @@ class KeymapISO extends React.Component {
         id="R4C9_t_primary"
         fill={getContrastText(getColor(4, 9))}
         x="600"
-        y="340"
-        textAnchor="middle"
+        y="343"
       >
-        {(getLabel(4, 9).label) && getDivideKeys((getLabel(4, 9).label), "600")}
+        {getLabel(4, 9).label
+        &&
+        getDivideKeys(
+            (getLabel(4, 9).label),
+            "600",
+            "343",
+            true
+        )
+        }
       </text>
       <text
         id="R4C9_t_extra"
@@ -2027,10 +2114,17 @@ class KeymapISO extends React.Component {
         id="R4C8_t_primary"
         fill={getContrastText(getColor(4, 8))}
         x="535"
-        y="340"
-        textAnchor="middle"
+        y="343"
       >
-        {getLabel(4, 8).label && getDivideKeys((getLabel(4, 8).label), "535")}
+        {getLabel(4, 8).label
+        &&
+        getDivideKeys(
+            (getLabel(4, 8).label),
+            "535",
+            "343",
+            true
+        )
+        }
       </text>
       <text
         id="R4C8_t_extra"
@@ -2042,11 +2136,19 @@ class KeymapISO extends React.Component {
         <text
         id="R4C7_t_primary"
         x="436"
-        y="343.64575"
+        y="343"
         fill={getContrastText(getColor(4, 7))}
         textAnchor="middle"
       >
-        {getLabel(4, 7).label}
+          {getLabel(4, 7).label
+          &&
+          getDivideKeys(
+              (getLabel(4, 7).label),
+              "436",
+              "343",
+              true
+          )
+          }
       </text>
       <text
         id="R4C7_t_extra"
@@ -2058,11 +2160,18 @@ class KeymapISO extends React.Component {
       <text
         id="R4C6_t_primary"
         x="368"
-        y="343.64575"
+        y="343"
         fill={getContrastText(getColor(4, 6))}
-        textAnchor="middle"
       >
-        {getLabel(4, 6).label}
+        {getLabel(4, 6).label
+        &&
+        getDivideKeys(
+            (getLabel(4, 6).label),
+            "368",
+            "343",
+            true
+        )
+        }
       </text>
       <text
         id="R4C6_t_extra"
@@ -2074,11 +2183,18 @@ class KeymapISO extends React.Component {
         <text
         id="R4C15_t_primary"
         x="937"
-        y="274"
+        y="289"
         fill={getContrastText(getColor(4, 15))}
-        textAnchor="middle"
       >
-        {getLabel(4, 15).label && getDivideKeys((getLabel(4, 15).label), "937")}
+          {getLabel(4, 15).label
+          &&
+          getDivideKeys(
+              (getLabel(4, 15).label),
+              "937",
+              "289",
+              true
+          )
+          }
       </text>
       <text
         id="R4C15_t_extra"
@@ -2091,11 +2207,18 @@ class KeymapISO extends React.Component {
         <text
         id="R4C14_t_primary"
         x="870"
-        y="295"
+        y="289"
         fill={getContrastText(getColor(4, 14))}
-        textAnchor="middle"
       >
-        {getLabel(4, 14).label}
+          {getLabel(4, 14).label
+          &&
+          getDivideKeys(
+              (getLabel(4, 14).label),
+              "870",
+              "289",
+              true
+          )
+          }
       </text>
       <text
         id="R4C14_t_extra"
@@ -2109,11 +2232,18 @@ class KeymapISO extends React.Component {
       <text
         id="R4C13_t_primary"
         x="802"
-        y="295"
+        y="291"
         fill={getContrastText(getColor(4, 13))}
-        textAnchor="middle"
       >
-        {getLabel(4, 13).label}
+        {getLabel(4, 13).label
+        &&
+        getDivideKeys(
+            (getLabel(4, 13).label),
+            "802",
+            "291",
+            true
+        )
+        }
       </text>
       <text
         id="R4C13_t_extra"
@@ -2126,11 +2256,18 @@ class KeymapISO extends React.Component {
       <text
         id="R4C12_t_primary"
         x="730"
-        y="275"
+        y="289"
         fill={getContrastText(getColor(4, 12))}
-        textAnchor="middle"
       >
-        {getLabel(4, 12).label && getDivideKeys((getLabel(4, 12).label), "730")}
+        {getLabel(4, 12).label
+        &&
+        getDivideKeys(
+            (getLabel(4, 12).label),
+            "730",
+            "289",
+            true
+        )
+        }
       </text>
       <text
         id="R4C12_t_extra"
@@ -2143,11 +2280,18 @@ class KeymapISO extends React.Component {
       <text
         id="R4C11_t_primary"
         x="650"
-        y="275"
+        y="289"
         fill={getContrastText(getColor(4, 11))}
-        textAnchor="middle"
       >
-        {getLabel(4, 11).label && getDivideKeys((getLabel(4, 11).label), "650")}
+        {getLabel(4, 11).label
+        &&
+        getDivideKeys(
+            (getLabel(4, 11).label),
+            "650",
+            "289",
+            true
+        )
+        }
       </text>
       <text
         id="R4C11_t_extra"
@@ -2161,11 +2305,17 @@ class KeymapISO extends React.Component {
       <text
         id="R4C10_t_primary"
         x="557"
-        y="285"
+        y="289"
         fill={getContrastText(getColor(4, 10))}
-        textAnchor="middle"
       >
-        {getLabel(4, 10).label}
+        {getLabel(4, 10).label
+        &&
+        getDivideKeys(
+            (getLabel(4, 10).label),
+            "557",
+            "289"
+        )
+        }
       </text>
       <text
         id="R4C10_t_extra"
@@ -2177,11 +2327,17 @@ class KeymapISO extends React.Component {
       <text
         id="R4C4_t_primary"
         x="412"
-        y="285"
+        y="289"
         fill={getContrastText(getColor(4, 4))}
-        textAnchor="middle"
       >
-        {getLabel(4, 4).label}
+        {getLabel(4, 4).label
+        &&
+        getDivideKeys(
+            (getLabel(4, 4).label),
+            "412",
+            "289"
+        )
+        }
       </text>
         <text
         id="R4C4_t_extra"
@@ -2193,11 +2349,18 @@ class KeymapISO extends React.Component {
       <text
         id="R4C3_t_primary"
         x="320"
-        y="285"
+        y="289"
         fill={getContrastText(getColor(4, 3))}
-        textAnchor="middle"
       >
-        {getLabel(4, 3).label}
+        {getLabel(4, 3).label
+        &&
+        getDivideKeys(
+            (getLabel(4, 3).label),
+            "320",
+            "289",
+            true
+        )
+        }
       </text>
       <text
         id="R4C3_t_extra"
@@ -2209,11 +2372,18 @@ class KeymapISO extends React.Component {
       <text
         id="R4C2_t_primary"
         x="240"
-        y="274"
+        y="289"
         fill={getContrastText(getColor(4, 2))}
-        textAnchor="middle"
       >
-        {getLabel(4, 2).label && getDivideKeys((getLabel(4, 2).label), "240")}
+        {getLabel(4, 2).label
+        &&
+        getDivideKeys(
+            (getLabel(4, 2).label),
+            "240",
+            "289",
+            true
+        )
+        }
       </text>
       <text
         id="R4C2_t_extra"
@@ -2228,9 +2398,16 @@ class KeymapISO extends React.Component {
         x="165"
         y="289"
         fill={getContrastText(getColor(4, 1))}
-        textAnchor="middle"
       >
-        {getLabel(4, 1).label && getDivideKeys((getLabel(4, 1).label), "165")}
+          {getLabel(4, 1).label
+          &&
+          getDivideKeys(
+              (getLabel(4, 1).label),
+              "165",
+              "289",
+              true
+          )
+          }
       </text>
         <text
         id="R4C1_t_extra"
@@ -2244,11 +2421,18 @@ class KeymapISO extends React.Component {
       <text
         id="R4C0_t_primary"
         x="90"
-        y="274"
+        y="289"
         fill={getContrastText(getColor(4, 0))}
-        textAnchor="middle"
       >
-        {getLabel(4, 0).label && getDivideKeys((getLabel(4, 0).label), "90")}
+        {getLabel(4, 0).label
+        &&
+        getDivideKeys(
+            (getLabel(4, 0).label),
+            "90",
+            "289",
+            true
+        )
+        }
       </text>
       <text
         id="R4C0_t_extra"
@@ -2261,11 +2445,17 @@ class KeymapISO extends React.Component {
         <text
         id="R3C15_t_primary"
         x="890"
-        y="225"
+        y="229"
         fill={getContrastText(getColor(3, 15))}
-        textAnchor="middle"
       >
-        {getLabel(3, 15).label }
+          {getLabel(3, 15).label
+          &&
+          getDivideKeys(
+              (getLabel(3, 15).label),
+              "890",
+              "229"
+          )
+          }
       </text>
         <text
         id="R3C15_t_extra"
@@ -2277,12 +2467,19 @@ class KeymapISO extends React.Component {
       </text>
         <text
         id="R3C14_t_primary"
-        x="778.82098"
-        y="228.66875"
+        x="783"
+        y="229"
         fill={getContrastText(getColor(3, 14))}
-        className="key-config"
       >
-        {getLabel(3, 14).label}
+          {getLabel(3, 14).label
+          &&
+          getDivideKeys(
+              (getLabel(3, 14).label),
+              "783",
+              "229",
+              true
+          )
+          }
       </text>
         <text
         id="R3C14_t_extra"
@@ -2293,12 +2490,19 @@ class KeymapISO extends React.Component {
       </text>
         <text
         id="R3C13_t_primary"
-        x="719.68738"
-        y="228.66875"
+        x="724"
+        y="229"
         fill={getContrastText(getColor(3, 13))}
-        className="key-config"
       >
-        {getLabel(3, 13).label}
+          {getLabel(3, 13).label
+          &&
+          getDivideKeys(
+              (getLabel(3, 13).label),
+              "724",
+              "229",
+              true
+          )
+          }
       </text>
         <text
         id="R3C13_t_extra"
@@ -2309,12 +2513,19 @@ class KeymapISO extends React.Component {
       </text>
         <text
         id="R3C12_t_primary"
-        x="659.80048"
-        y="228.66875"
+        x="665"
+        y="229"
         fill={getContrastText(getColor(3, 12))}
-        className="key-config"
       >
-        {getLabel(3, 12).label}
+          {getLabel(3, 12).label
+          &&
+          getDivideKeys(
+              (getLabel(3, 12).label),
+              "665",
+              "229",
+              true
+          )
+          }
       </text>
         <text
         id="R3C12_t_extra"
@@ -2325,12 +2536,19 @@ class KeymapISO extends React.Component {
       </text>
         <text
         id="R3C11_t_primary"
-        x="601.21484"
-        y="228.66875"
+        x="605"
+        y="229"
         fill={getContrastText(getColor(3, 11))}
-        className="letter-config"
       >
-        {getLabel(3, 11).label}
+          {getLabel(3, 11).label
+          &&
+          getDivideKeys(
+              (getLabel(3, 11).label),
+              "605",
+              "229",
+              true
+          )
+          }
       </text>
         <text
         id="R3C11_t_extra"
@@ -2341,12 +2559,19 @@ class KeymapISO extends React.Component {
       </text>
         <text
         id="R3C10_t_primary"
-        x="545.28558"
-        y="228.66875"
+        x="549"
+        y="229"
         fill={getContrastText(getColor(3, 10))}
-        className="letter-config"
       >
-        {getLabel(3, 10).label}
+          {getLabel(3, 10).label
+          &&
+          getDivideKeys(
+              (getLabel(3, 10).label),
+              "549",
+              "229",
+              true
+          )
+          }
       </text>
         <text
         id="R3C10_t_extra"
@@ -2357,12 +2582,19 @@ class KeymapISO extends React.Component {
       </text>
         <text
         id="R3C6_t_primary"
-        x="430.76379"
-        y="228.66875"
+        x="437"
+        y="229"
         fill={getContrastText(getColor(3, 6))}
-        className="letter-config"
       >
-        {getLabel(3, 6).label}
+          {getLabel(3, 6).label
+          &&
+          getDivideKeys(
+              (getLabel(3, 6).label),
+              "437",
+              "229",
+              true
+          )
+          }
       </text>
         <text
         id="R3C6_t_extra"
@@ -2373,12 +2605,19 @@ class KeymapISO extends React.Component {
       </text>
         <text
         id="R3C5_t_primary"
-        x="373.10339"
-        y="228.66875"
+        x="377"
+        y="229"
         fill={getContrastText(getColor(3, 5))}
-        className="letter-config"
       >
-        {getLabel(3, 5).label}
+          {getLabel(3, 5).label
+          &&
+          getDivideKeys(
+              (getLabel(3, 5).label),
+              "377",
+              "229",
+              true
+          )
+          }
       </text>
         <text
         id="R3C5_t_extra"
@@ -2389,12 +2628,19 @@ class KeymapISO extends React.Component {
       </text>
         <text
         id="R3C4_t_primary"
-        x="315.57617"
-        y="228.66875"
+        x="320"
+        y="229"
         fill={getContrastText(getColor(3, 4))}
-        className="letter-config"
       >
-        {getLabel(3, 4).label}
+          {getLabel(3, 4).label
+          &&
+          getDivideKeys(
+              (getLabel(3, 4).label),
+              "320",
+              "229",
+              true
+          )
+          }
       </text>
         <text
         id="R3C4_t_extra"
@@ -2405,12 +2651,19 @@ class KeymapISO extends React.Component {
       </text>
         <text
         id="R3C3_t_primary"
-        x="256.71729"
-        y="228.66875"
+        x="261"
+        y="229"
         fill={getContrastText(getColor(3, 3))}
-        className="letter-config"
       >
-        {getLabel(3, 3).label}
+          {getLabel(3, 3).label
+          &&
+          getDivideKeys(
+              (getLabel(3, 3).label),
+              "261",
+              "229",
+              true
+          )
+          }
       </text>
         <text
         id="R3C3_t_extra"
@@ -2421,12 +2674,19 @@ class KeymapISO extends React.Component {
       </text>
         <text
         id="R3C2_t_primary"
-        x="197.06839"
-        y="228.66875"
+        x="201"
+        y="229"
         fill={getContrastText(getColor(3, 2))}
-        className="letter-config"
       >
-        {getLabel(3, 2).label}
+          {getLabel(3, 2).label
+          &&
+          getDivideKeys(
+              (getLabel(3, 2).label),
+              "201",
+              "229",
+              true
+          )
+          }
       </text>
         <text
         id="R3C2_t_extra"
@@ -2437,12 +2697,19 @@ class KeymapISO extends React.Component {
       </text>
         <text
         id="R3C1_t_primary"
-        x="138.96411"
-        y="228.66875"
+        x="143"
+        y="229"
         fill={getContrastText(getColor(3, 1))}
-        className="key-config"
       >
-        {getLabel(3, 1).label}
+          {getLabel(3, 1).label
+          &&
+          getDivideKeys(
+              (getLabel(3, 1).label),
+              "143",
+              "229",
+              true
+          )
+          }
       </text>
         <text
         id="R3C1_t_extra"
@@ -2454,12 +2721,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R3C0_t_primary"
-        x="90"
-        y="215"
+        x="85"
+        y="229"
         fill={getContrastText(getColor(3, 0))}
-        textAnchor="middle"
       >
-        {getLabel(3, 0).label && getDivideKeys((getLabel(3, 0).label), "85")}
+        {getLabel(3, 0).label
+        &&
+        getDivideKeys(
+            (getLabel(3, 0).label),
+            "85",
+            "229",
+            true
+        )
+        }
       </text>
       <text
         id="R3C0_t_extra"
@@ -2471,12 +2745,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R2C15_t_primary"
-        x="869.38745"
-        y="168.383"
+        x="875"
+        y="168"
         fill={getContrastText(getColor(2, 15))}
-        className="key-config"
       >
-        {getLabel(2, 15).label}
+        {getLabel(2, 15).label
+        &&
+        getDivideKeys(
+            (getLabel(2, 15).label),
+            "875",
+            "168",
+            true
+        )
+        }
       </text>
       <text
         id="R2C15_t_extra"
@@ -2487,12 +2768,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R2C14_t_primary"
-        x="812.51373"
-        y="168.383"
+        x="817"
+        y="168"
         fill={getContrastText(getColor(2, 14))}
-        className="key-config"
       >
-        {getLabel(2, 14).label}
+        {getLabel(2, 14).label
+        &&
+        getDivideKeys(
+            (getLabel(2, 14).label),
+            "817",
+            "168",
+            true
+        )
+        }
       </text>
       <text
         id="R2C14_t_extra"
@@ -2503,12 +2791,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R2C13_t_primary"
-        x="756.39331"
-        y="168.383"
+        x="760"
+        y="168"
         fill={getContrastText(getColor(2, 13))}
-        className="key-config"
       >
-        {getLabel(2, 13).label}
+        {getLabel(2, 13).label
+        &&
+        getDivideKeys(
+            (getLabel(2, 13).label),
+            "760",
+            "168",
+            true
+        )
+        }
       </text>
       <text
         id="R2C13_t_extra"
@@ -2519,12 +2814,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R2C12_t_primary"
-        x="696.99744"
-        y="168.383"
+        x="701"
+        y="168"
         fill={getContrastText(getColor(2, 12))}
-        className="letter-config"
       >
-        {getLabel(2, 12).label}
+        {getLabel(2, 12).label
+        &&
+        getDivideKeys(
+            (getLabel(2, 12).label),
+            "701",
+            "168",
+            true
+        )
+        }
       </text>
       <text
         id="R2C12_t_extra"
@@ -2535,12 +2837,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R2C11_t_primary"
-        x="638.74908"
-        y="168.383"
+        x="643"
+        y="168"
         fill={getContrastText(getColor(2, 11))}
-        className="letter-config"
       >
-        {getLabel(2, 11).label}
+        {getLabel(2, 11).label
+        &&
+        getDivideKeys(
+            (getLabel(2, 11).label),
+            "643",
+            "168",
+            true
+        )
+        }
       </text>
       <text
         id="R2C11_t_extra"
@@ -2551,12 +2860,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R2C10_t_primary"
-        x="583.53107"
-        y="168.383"
+        x="588"
+        y="168"
         fill={getContrastText(getColor(2, 10))}
-        className="letter-config"
       >
-        {getLabel(2, 10).label}
+        {getLabel(2, 10).label
+        &&
+        getDivideKeys(
+            (getLabel(2, 10).label),
+            "588",
+            "168",
+            true
+        )
+        }
       </text>
       <text
         id="R2C10_t_extra"
@@ -2567,12 +2883,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R2C9_t_primary"
-        x="525.72925"
-        y="168.383"
+        x="530"
+        y="168"
         fill={getContrastText(getColor(2, 9))}
-        className="letter-config"
       >
-        {getLabel(2, 9).label}
+        {getLabel(2, 9).label
+        &&
+        getDivideKeys(
+            (getLabel(2, 9).label),
+            "530",
+            "168",
+            true
+        )
+        }
       </text>
       <text
         id="R2C9_t_extra"
@@ -2583,12 +2906,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R2C5_t_primary"
-        x="408.29358"
-        y="168.383"
+        x="413"
+        y="168"
         fill={getContrastText(getColor(2, 5))}
-        className="letter-config"
       >
-        {getLabel(2, 5).label}
+        {getLabel(2, 5).label
+        &&
+        getDivideKeys(
+            (getLabel(2, 5).label),
+            "413",
+            "168",
+            true
+        )
+        }
       </text>
       <text
         id="R2C5_t_extra"
@@ -2599,12 +2929,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R2C4_t_primary"
-        x="350.37012"
-        y="168.383"
+        x="355"
+        y="168"
         fill={getContrastText(getColor(2, 4))}
-        className="letter-config"
       >
-        {getLabel(2, 4).label}
+        {getLabel(2, 4).label
+        &&
+        getDivideKeys(
+            (getLabel(2, 4).label),
+            "355",
+            "168",
+            true
+        )
+        }
       </text>
       <text
         id="R2C4_t_extra"
@@ -2615,12 +2952,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R2C3_t_primary"
-        x="291.3121"
-        y="168.383"
+        x="297"
+        y="168"
         fill={getContrastText(getColor(2, 3))}
-        className="letter-config"
       >
-        {getLabel(2, 3).label}
+        {getLabel(2, 3).label
+        &&
+        getDivideKeys(
+            (getLabel(2, 3).label),
+            "297",
+            "168",
+            true
+        )
+        }
       </text>
       <text
         id="R2C3_t_extra"
@@ -2631,12 +2975,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R2C2_t_primary"
-        x="233.05211"
-        y="168.383"
+        x="238"
+        y="168"
         fill={getContrastText(getColor(2, 2))}
-        className="letter-config"
       >
-        {getLabel(2, 2).label}
+        {getLabel(2, 2).label
+        &&
+        getDivideKeys(
+            (getLabel(2, 2).label),
+            "238",
+            "168",
+            true
+        )
+        }
       </text>
       <text
         id="R2C2_t_extra"
@@ -2647,12 +2998,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R2C1_t_primary"
-        x="173.46146"
-        y="168.383"
+        x="180"
+        y="168"
         fill={getContrastText(getColor(2, 1))}
-        className="letter-config"
       >
-        {getLabel(2, 1).label}
+        {getLabel(2, 1).label
+        &&
+        getDivideKeys(
+            (getLabel(2, 1).label),
+            "180",
+            "168",
+            true
+        )
+        }
       </text>
       <text
         id="R2C1_t_extra"
@@ -2663,12 +3021,18 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R2C0_t_primary"
-        x="104"
-        y="168.383"
+        x="103"
+        y="168"
         fill={getContrastText(getColor(2, 0))}
-        textAnchor="middle"
       >
-        {getLabel(2, 0).label}
+        {getLabel(2, 0).label
+        &&
+        getDivideKeys(
+            (getLabel(2, 0).label),
+            "103",
+            "168"
+        )
+        }
       </text>
       <text
         id="R2C0_t_extra"
@@ -2680,11 +3044,18 @@ class KeymapISO extends React.Component {
       <text
         id="R1C15_t_primary"
         x="930"
-        y="107.98302"
+        y="111"
         fill={getContrastText(getColor(1, 15))}
-        textAnchor="middle"
       >
-        {getLabel(1, 15).label}
+        {getLabel(1, 15).label
+        &&
+        getDivideKeys(
+            (getLabel(1, 15).label),
+            "930",
+            "111",
+            false
+        )
+        }
       </text>
       <text
         id="R1C15_t_extra"
@@ -2695,12 +3066,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R1C14_t_primary"
-        x="856.32159"
-        y="110.91264"
+        x="860"
+        y="111"
         fill={getContrastText(getColor(1, 14))}
-        className="key-config"
       >
-        {getLabel(1, 14).label}
+        {getLabel(1, 14).label
+        &&
+        getDivideKeys(
+            (getLabel(1, 14).label),
+            "860",
+            "111",
+            true
+        )
+        }
       </text>
       <text
         id="R1C14_t_extra"
@@ -2711,12 +3089,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R1C13_t_primary"
-        x="801.33112"
-        y="110.91264"
+        x="805"
+        y="111"
         fill={getContrastText(getColor(1, 13))}
-        className="key-config"
       >
-        {getLabel(1, 13).label}
+        {getLabel(1, 13).label
+        &&
+        getDivideKeys(
+            (getLabel(1, 13).label),
+            "805",
+            "111",
+            true
+        )
+        }
       </text>
       <text
         id="R1C13_t_extra"
@@ -2727,12 +3112,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R1C12_t_primary"
-        x="739.86908"
-        y="110.91264"
+        x="745"
+        y="111"
         fill={getContrastText(getColor(1, 12))}
-        className="letter-config"
       >
-        {getLabel(1, 12).label}
+        {getLabel(1, 12).label
+        &&
+        getDivideKeys(
+            (getLabel(1, 12).label),
+            "745",
+            "111",
+            true
+        )
+        }
       </text>
       <text
         id="R1C12_t_extra"
@@ -2743,12 +3135,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R1C11_t_primary"
-        x="683.18573"
-        y="110.91264"
+        x="688"
+        y="111"
         fill={getContrastText(getColor(1, 11))}
-        className="letter-config"
       >
-        {getLabel(1, 11).label}
+        {getLabel(1, 11).label
+        &&
+        getDivideKeys(
+            (getLabel(1, 11).label),
+            "688",
+            "111",
+            true
+        )
+        }
       </text>
       <text
         id="R1C11_t_extra"
@@ -2759,12 +3158,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R1C10_t_primary"
-        x="626.40076"
-        y="110.91264"
+        x="630"
+        y="111"
         fill={getContrastText(getColor(1, 10))}
-        className="letter-config"
       >
-        {getLabel(1, 10).label}
+        {getLabel(1, 10).label
+        &&
+        getDivideKeys(
+            (getLabel(1, 10).label),
+            "630",
+            "111",
+            true
+        )
+        }
       </text>
       <text
         id="R1C10_t_extra"
@@ -2775,12 +3181,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R1C9_t_primary"
-        x="568.91718"
-        y="110.91264"
+        x="574"
+        y="111"
         fill={getContrastText(getColor(1, 9))}
-        className="letter-config"
-        >
-      {getLabel(1, 9).label}
+      >
+        {getLabel(1, 9).label
+        &&
+        getDivideKeys(
+            (getLabel(1, 9).label),
+            "574",
+            "111",
+            true
+        )
+        }
       </text>
       <text
         id="R1C9_t_extra"
@@ -2791,12 +3204,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R1C8_t_primary"
-        x="511.51831"
-        y="110.91264"
+        x="516"
+        y="111"
         fill={getContrastText(getColor(1, 8))}
-        className="letter-config"
       >
-        {getLabel(1, 8).label}
+        {getLabel(1, 8).label
+        &&
+        getDivideKeys(
+            (getLabel(1, 8).label),
+            "516",
+            "111",
+            true
+        )
+        }
       </text>
       <text
         id="R1C8_t_extra"
@@ -2807,12 +3227,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R1C5_t_primary"
-        x="402.2352"
-        y="110.91264"
+        x="407"
+        y="111"
         fill={getContrastText(getColor(1, 5))}
-        className="letter-config"
       >
-        {getLabel(1, 5).label}
+        {getLabel(1, 5).label
+        &&
+        getDivideKeys(
+            (getLabel(1, 5).label),
+            "407",
+            "111",
+            true
+        )
+        }
       </text>
       <text
         id="R1C5_t_extra"
@@ -2823,12 +3250,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R1C4_t_primary"
-        x="342.75281"
-        y="110.91264"
+        x="348"
+        y="111"
         fill={getContrastText(getColor(1, 4))}
-        className="letter-config"
         >
-      {getLabel(1, 4).label}
+        {getLabel(1, 4).label
+        &&
+        getDivideKeys(
+            (getLabel(1, 4).label),
+            "348",
+            "111",
+            true
+        )
+        }
       </text>
         <text
         id="R1C4_t_extra"
@@ -2839,12 +3273,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R1C3_t_primary"
-        x="283.36591"
-        y="110.91264"
+        x="289"
+        y="111"
         fill={getContrastText(getColor(1, 3))}
-        className="letter-config"
       >
-        {getLabel(1, 3).label}
+        {getLabel(1, 3).label
+        &&
+        getDivideKeys(
+            (getLabel(1, 3).label),
+            "289",
+            "111",
+            true
+        )
+        }
       </text>
       <text
         id="R1C3_t_extra"
@@ -2855,12 +3296,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R1C2_t_primary"
-        x="225.32829"
-        y="110.91264"
+        x="230"
+        y="111"
         fill={getContrastText(getColor(1, 2))}
-        className="letter-config"
       >
-        {getLabel(1, 2).label}
+        {getLabel(1, 2).label
+        &&
+        getDivideKeys(
+            (getLabel(1, 2).label),
+            "230",
+            "111",
+            true
+        )
+        }
       </text>
       <text
         id="R1C2_t_extra"
@@ -2871,12 +3319,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R1C1_t_primary"
-        x="166.32829"
-        y="110.91264"
+        x="171"
+        y="111"
         fill={getContrastText(getColor(1, 1))}
-        className="letter-config"
       >
-        {getLabel(1, 1).label}
+        {getLabel(1, 1).label
+        &&
+        getDivideKeys(
+            (getLabel(1, 1).label),
+            "171",
+            "111",
+            true
+        )
+        }
       </text>
       <text
         id="R1C1_t_extra"
@@ -2890,9 +3345,15 @@ class KeymapISO extends React.Component {
         x="100"
         y="108.40535"
         fill={getContrastText(getColor(1, 0))}
-        textAnchor="middle"
       >
-        {getLabel(1, 0).label}
+        {getLabel(1, 0).label
+        &&
+        getDivideKeys(
+            (getLabel(1, 0).label),
+            "100",
+            "111"
+        )
+        }
       </text>
       <text
         id="R1C0_t_extra"
@@ -2904,11 +3365,18 @@ class KeymapISO extends React.Component {
       <text
         id="R0C15_t_primary"
         x="915"
-        y="46.545471"
+        y="50"
         fill={getContrastText(getColor(0, 15))}
-        textAnchor="middle"
         >
-          {getLabel(0, 15).label}
+        {getLabel(0, 15).label
+        &&
+        getDivideKeys(
+            (getLabel(0, 15).label),
+            "915",
+            "46",
+            false
+        )
+        }
       </text>
       <text
         id="R0C15_t_extra"
@@ -2919,13 +3387,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R0C14_t_primary"
-        x="824.71515"
-        y="50.029457"
+        x="828"
+        y="50"
         fill={getContrastText(getColor(0, 14))}
-        className="key-config"
-        textAnchor="middle"
       >
-        {getLabel(0, 14).label}
+        {getLabel(0, 14).label
+        &&
+        getDivideKeys(
+            (getLabel(0, 14).label),
+            "828",
+            "50",
+            true
+        )
+        }
       </text>
       <text
         id="R0C14_t_extra"
@@ -2936,12 +3410,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R0C13_t_primary"
-        x="765.58154"
-        y="50.029457"
+        x="769"
+        y="50"
         fill={getContrastText(getColor(0, 13))}
-        className="key-config"
       >
-        {getLabel(0, 13).label}
+        {getLabel(0, 13).label
+        &&
+        getDivideKeys(
+            (getLabel(0, 13).label),
+            "769",
+            "50",
+            true
+        )
+        }
       </text>
       <text
         id="R0C13_t_extra"
@@ -2952,12 +3433,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R0C12_t_primary"
-        x="707.0073"
-        y="50.029457"
+        x="711"
+        y="50"
         fill={getContrastText(getColor(0, 12))}
-        className="key-config"
       >
-        {getLabel(0, 12).label}
+        {getLabel(0, 12).label
+        &&
+        getDivideKeys(
+            (getLabel(0, 12).label),
+            "711",
+            "50",
+            true
+        )
+        }
       </text>
       <text
         id="R0C12_t_extra"
@@ -2968,12 +3456,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R0C11_t_primary"
-        x="648.0073"
-        y="50.029457"
+        x="652"
+        y="50"
         fill={getContrastText(getColor(0, 11))}
-        className="key-config"
       >
-        {getLabel(0, 11).label}
+        {getLabel(0, 11).label
+        &&
+        getDivideKeys(
+            (getLabel(0, 11).label),
+            "652",
+            "50",
+            true
+        )
+        }
       </text>
       <text
         id="R0C11_t_extra"
@@ -2984,12 +3479,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R0C10_t_primary"
-        x="589.0073"
-        y="50.029457"
+        x="593"
+        y="50"
         fill={getContrastText(getColor(0, 10))}
-        className="key-config"
       >
-        {getLabel(0, 10).label}
+        {getLabel(0, 10).label
+        &&
+        getDivideKeys(
+            (getLabel(0, 10).label),
+            "593",
+            "50",
+            true
+        )
+        }
       </text>
       <text
         id="R0C10_t_extra"
@@ -3000,12 +3502,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R0C9_t_primary"
-        x="530.55371"
-        y="50.029457"
+        x="534"
+        y="50"
         fill={getContrastText(getColor(0, 9))}
-        className="key-config"
       >
-            {getLabel(0, 9).label}
+        {getLabel(0, 9).label
+        &&
+        getDivideKeys(
+            (getLabel(0, 9).label),
+            "534",
+            "50",
+            true
+        )
+        }
       </text>
       <text
         id="R0C9_t_extra"
@@ -3016,12 +3525,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R0C6_t_primary"
-        x="430.85852"
-        y="50.029457"
+        x="434"
+        y="50"
         fill={getContrastText(getColor(0, 6))}
-        className="key-config"
       >
-        {getLabel(0, 6).label}
+        {getLabel(0, 6).label
+        &&
+        getDivideKeys(
+            (getLabel(0, 6).label),
+            "434",
+            "50",
+            true
+        )
+        }
       </text>
       <text
         id="R0C6_t_extra"
@@ -3032,12 +3548,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R0C5_t_primary"
-        x="371.53659"
-        y="50.029457"
+        x="375"
+        y="50"
         fill={getContrastText(getColor(0, 5))}
-        className="key-config"
       >
-        {getLabel(0, 5).label}
+        {getLabel(0, 5).label
+        &&
+        getDivideKeys(
+            (getLabel(0, 5).label),
+            "375",
+            "50",
+            true
+        )
+        }
       </text>
       <text
         id="R0C5_t_extra"
@@ -3048,12 +3571,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R0C4_t_primary"
-        x="313.15628"
-        y="50.029457"
+        x="317"
+        y="50"
         fill={getContrastText(getColor(0, 4))}
-        className="key-config"
       >
-        {getLabel(0, 4).label}
+        {getLabel(0, 4).label
+        &&
+        getDivideKeys(
+            (getLabel(0, 4).label),
+            "317",
+            "50",
+            true
+        )
+        }
       </text>
       <text
         id="R0C4_t_extra"
@@ -3064,12 +3594,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R0C3_t_primary"
-        x="253.92854"
-        y="50.029457"
+        x="257"
+        y="50"
         fill={getContrastText(getColor(0, 3))}
-        className="key-config"
       >
-        {getLabel(0, 3).label}
+        {getLabel(0, 3).label
+        &&
+        getDivideKeys(
+            (getLabel(0, 3).label),
+            "257",
+            "50",
+            true
+        )
+        }
       </text>
       <text
         id="R0C3_t_extra"
@@ -3080,12 +3617,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R0C2_t_primary"
-        x="196.1132"
-        y="50.029457"
+        x="200"
+        y="50"
         fill={getContrastText(getColor(0, 2))}
-        className="key-config"
       >
-        {getLabel(0, 2).label}
+        {getLabel(0, 2).label
+        &&
+        getDivideKeys(
+            (getLabel(0, 2).label),
+            "200",
+            "50",
+            true
+        )
+        }
       </text>
       <text
         id="R0C2_t_extra"
@@ -3096,12 +3640,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R0C1_t_primary"
-        x="137.82706"
-        y="50.029457"
+        x="141"
+        y="50"
         fill={getContrastText(getColor(0, 1))}
-        className="key-config"
       >
-        {getLabel(0, 1).label}
+        {getLabel(0, 1).label
+        &&
+        getDivideKeys(
+            (getLabel(0, 1).label),
+            "141",
+            "50",
+            true
+        )
+        }
       </text>
         <text
         id="R0C1_t_extra"
@@ -3112,12 +3663,19 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R0C0_t_primary"
-        x="83"
-        y="49.181999"
         fill={getContrastText(getColor(0, 0))}
-        textAnchor="middle"
+        x="83"
+        y="49"
       >
-        {getLabel(0, 0).label}
+        {getLabel(0, 0).label
+          &&
+          getDivideKeys(
+              (getLabel(0, 0).label),
+              "83",
+              "49",
+              true
+          )
+        }
       </text>
       <text
         id="R0C0_t_extra"

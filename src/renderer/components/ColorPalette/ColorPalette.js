@@ -122,7 +122,6 @@ function ColorPalette(props) {
       });
     }
   }, [selected, palette]);
-  console.log(indexFocusButton);
   /**
    * Change "colorFocusButton" and pick color of button from PickerColorButton component in functional component state
    * @param {object} color Object with keys that defining colors using the Red-green-blue-alpha (RGBA) model

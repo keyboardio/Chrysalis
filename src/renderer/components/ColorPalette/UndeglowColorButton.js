@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -23,6 +23,7 @@ import Button from "@material-ui/core/Button";
 UndeglowColorButton.propTypes = {
   classes: PropTypes.object.isRequired,
   colorFocusButton: PropTypes.object,
+  palette: PropTypes.array.isRequired,
   indexFocusButton: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.number,
@@ -69,7 +70,8 @@ function UndeglowColorButton(props) {
     colorFocusButton,
     toChangeAllUnderglowsColor,
     disabled,
-    indexFocusButton
+    indexFocusButton,
+    palette
   } = props;
   const minWhiteColorValue = 140;
   const isWhiteColor =
@@ -77,12 +79,17 @@ function UndeglowColorButton(props) {
     (colorFocusButton.g >= minWhiteColorValue &&
       colorFocusButton.b >= minWhiteColorValue);
   const style = {
-    background: `rgb(${colorFocusButton.r}, ${colorFocusButton.g}, ${
-      colorFocusButton.b
-    })`,
+    background: palette[indexFocusButton] && palette[indexFocusButton].rgb,
     color: !isWhiteColor ? "white" : "black"
   };
-
+  const enable = {
+    pointerEvents: "auto",
+    cursor: "pointer"
+  };
+  const [backgroundColor, setBackgroundColor] = useState(enable);
+  useEffect(() => {
+    return () => setBackgroundColor(style);
+  }, []);
   return (
     <Tooltip placement="top-start" title={props.children}>
       <div className={classes.root}>
@@ -92,9 +99,12 @@ function UndeglowColorButton(props) {
           style={
             (!+indexFocusButton && indexFocusButton !== 0) || disabled
               ? styleDisabled
-              : style
+              : backgroundColor
           }
-          onClick={toChangeAllUnderglowsColor.bind(this, indexFocusButton)}
+          onClick={() => {
+            toChangeAllUnderglowsColor(indexFocusButton);
+            setBackgroundColor(style);
+          }}
         >
           {"UNDERGLOW"}
         </Button>

@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -84,6 +84,14 @@ function BacklightButton(props) {
     })`,
     color: !isWhiteColor ? "white" : "black"
   };
+  const enable = {
+    pointerEvents: "auto",
+    cursor: "pointer"
+  };
+  const [backgroundColor, setBackgroundColor] = useState(enable);
+  useEffect(() => {
+    return () => setBackgroundColor(style);
+  }, []);
 
   return (
     <Tooltip placement="top-start" title={props.children}>
@@ -94,9 +102,12 @@ function BacklightButton(props) {
           style={
             (!+indexFocusButton && indexFocusButton !== 0) || disabled
               ? styleDisabled
-              : style
+              : backgroundColor
           }
-          onClick={toChangeAllKeysColor.bind(this, indexFocusButton)}
+          onClick={() => {
+            toChangeAllKeysColor(indexFocusButton);
+            setBackgroundColor(style);
+          }}
         >
           {"BACKLIGHT"}
         </Button>

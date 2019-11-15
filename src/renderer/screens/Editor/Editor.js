@@ -588,7 +588,6 @@ class Editor extends React.Component {
             newKeymap[currentLayer] = data.keymap.slice();
             let newColormap = this.state.colorMap.slice();
             newColormap[currentLayer] = data.colormap.slice();
-            console.log(currentLayer, newKeymap);
             return {
               keymap: {
                 default: state.keymap.default,
@@ -776,7 +775,6 @@ class Editor extends React.Component {
 
     const layerMenu = (defaultLayerMenu || []).concat(customLayerMenu);
     // const { mode } = this.state;
-
     return (
       <React.Fragment>
         <Portal container={this.props.titleElement}>

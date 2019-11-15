@@ -1,5 +1,5 @@
 // -*- mode: js-jsx -*-
-/* Bazecor -- Kaleidoscope Command Center
+/* Chrysalis -- Kaleidoscope Command Center
  * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -71,7 +71,6 @@ function ColorButtonsArea(props) {
    * @param {array} [state] Array with color elements
    */
   const [colorButtonsAmount, setColorButtonsAmount] = useState(palette);
-
   /**
    * Change "colorButtonsAmount", if prop "colorFocusButton" is different
    */

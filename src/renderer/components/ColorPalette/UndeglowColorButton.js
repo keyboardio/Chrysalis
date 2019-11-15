@@ -87,7 +87,7 @@ function UndeglowColorButton(props) {
     cursor: "pointer"
   };
   const [color, setColor] = useState(enable);
-  console.log(indexFocusButton);
+
   return (
     <Tooltip placement="top-start" title={props.children}>
       <div className={classes.root}>

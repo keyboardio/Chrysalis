@@ -115,13 +115,14 @@ function ColorPalette(props) {
    */
   useEffect(() => {
     setIndexFocusButton(selected);
+    setIndexFocusButton(selected);
     if (selected !== null) {
       setColorFocusButton({
         ...palette[selected]
       });
     }
   }, [selected, palette]);
-
+  console.log(indexFocusButton);
   /**
    * Change "colorFocusButton" and pick color of button from PickerColorButton component in functional component state
    * @param {object} color Object with keys that defining colors using the Red-green-blue-alpha (RGBA) model
@@ -138,9 +139,15 @@ function ColorPalette(props) {
   const setIsFocus = (index, color, e) => {
     if (e.ctrlKey || e.shiftKey) return;
     if (index === indexFocusButton) {
-      setIndexFocusButton(!indexFocusButton);
-      onColorButtonSelect("one_button_click");
-      return;
+      if (indexFocusButton === 0) {
+        setIndexFocusButton(!!indexFocusButton);
+        onColorButtonSelect("one_button_click");
+        return;
+      } else {
+        setIndexFocusButton(!indexFocusButton);
+        onColorButtonSelect("one_button_click");
+        return;
+      }
     }
     onColorButtonSelect("another_button_click");
     setIndexFocusButton(index);
@@ -155,7 +162,6 @@ function ColorPalette(props) {
     palette,
     disabled
   };
-
   return (
     <div className={classes.root}>
       <Paper className={classes.palette}>

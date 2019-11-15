@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -68,6 +68,7 @@ function UndeglowColorButton(props) {
     classes,
     colorFocusButton,
     toChangeAllUnderglowsColor,
+    disabled,
     indexFocusButton
   } = props;
   const minWhiteColorValue = 140;
@@ -75,18 +76,12 @@ function UndeglowColorButton(props) {
     colorFocusButton.r >= minWhiteColorValue &&
     (colorFocusButton.g >= minWhiteColorValue &&
       colorFocusButton.b >= minWhiteColorValue);
-
   const style = {
     background: `rgb(${colorFocusButton.r}, ${colorFocusButton.g}, ${
       colorFocusButton.b
     })`,
-    color: !isWhiteColor ? "white" : `black`
+    color: !isWhiteColor ? "white" : "black"
   };
-  const enable = {
-    pointerEvents: "auto",
-    cursor: "pointer"
-  };
-  const [color, setColor] = useState(enable);
 
   return (
     <Tooltip placement="top-start" title={props.children}>
@@ -95,12 +90,11 @@ function UndeglowColorButton(props) {
           variant="contained"
           className={classes.button}
           style={
-            !+indexFocusButton && indexFocusButton !== 0 ? styleDisabled : color
+            (!+indexFocusButton && indexFocusButton !== 0) || disabled
+              ? styleDisabled
+              : style
           }
-          onClick={() => {
-            toChangeAllUnderglowsColor(indexFocusButton);
-            setColor(style);
-          }}
+          onClick={toChangeAllUnderglowsColor.bind(this, indexFocusButton)}
         >
           {"UNDERGLOW"}
         </Button>

@@ -630,28 +630,6 @@ class Editor extends React.Component {
     this.setState({ importExportDialogOpen: false });
   };
 
-  /**
-   * Changes color of all keyboard underglows
-   */
-  toChangeAllUnderglowsColor = colorIndex => {
-    const { currentLayer } = this.state;
-    const beginForChange = 69;
-    const endForChange = 131;
-    this.setState(state => {
-      let colormap = state.colorMap.slice();
-      colormap[currentLayer] = colormap[currentLayer].fill(
-        colorIndex,
-        beginForChange,
-        endForChange
-      );
-      return {
-        colorMap: colormap,
-        modified: true
-      };
-    });
-    this.props.startContext();
-  };
-
   toChangeAllKeysColor = colorIndex => {
     const { currentLayer } = this.state;
     const beginForChange = 0;
@@ -774,7 +752,7 @@ class Editor extends React.Component {
     });
 
     const layerMenu = (defaultLayerMenu || []).concat(customLayerMenu);
-    // const { mode } = this.state;
+
     return (
       <React.Fragment>
         <Portal container={this.props.titleElement}>
@@ -782,22 +760,6 @@ class Editor extends React.Component {
         </Portal>
         <Portal container={this.props.appBarElement}>
           <Toolbar>
-            {/*<ToggleButtonGroup*/}
-            {/*  value={mode}*/}
-            {/*  exclusive*/}
-            {/*  className={classes.tbg}*/}
-            {/*  onChange={(_, mode) => {*/}
-            {/*    this.setMode(mode);*/}
-            {/*  }}*/}
-            {/*>*/}
-            {/*  {palette.length && (*/}
-            {/*    <ToggleButton value="colormap" disabled={mode == "colormap"}>*/}
-            {/*      <Tooltip title={i18n.editor.colormapMode}>*/}
-            {/*        <PaletteIcon />*/}
-            {/*      </Tooltip>*/}
-            {/*    </ToggleButton>*/}
-            {/*  )}*/}
-            {/*</ToggleButtonGroup>*/}
             <div className={classes.grow} />
             <FormControl className={classes.layerSelect}>
               <Select
@@ -847,7 +809,6 @@ class Editor extends React.Component {
               isColorButtonSelected={isColorButtonSelected}
               onColorButtonSelect={this.onColorButtonSelect}
               theme={this.props.theme}
-              toChangeAllUnderglowsColor={this.toChangeAllUnderglowsColor}
               toChangeAllKeysColor={this.toChangeAllKeysColor}
               className="palette"
             />

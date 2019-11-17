@@ -41,6 +41,12 @@ const styles = () => ({
     borderRadius: 5,
     cursor: "pointer",
     boxShadow: "-2px 1px 5px 0px rgba(213,213,213,1)"
+  },
+  underglow: {
+    width: 95,
+    marginBottom: 25,
+    cursor: "pointer",
+    fontSize: 10
   }
 });
 
@@ -63,14 +69,15 @@ const minWhiteColorValue = 140;
  * @param {boolean} disabled Property that disable component
  */
 function ColorButton(props) {
-  const { classes, setIsFocus, isFocus, index, color, disabled } = props;
+  const { classes, setIsFocus, isFocus, index, color, disabled, value } = props;
   ///Checks background is white or not
   const isWhiteColor =
     color.r >= minWhiteColorValue &&
     (color.g >= minWhiteColorValue && color.b >= minWhiteColorValue);
 
   const style = {
-    background: `rgb(${color.r}, ${color.g}, ${color.b})`
+    background: `rgb(${color.r}, ${color.g}, ${color.b})`,
+    color: !isWhiteColor ? "white" : "black"
   };
 
   const styleInFocus = {
@@ -83,11 +90,12 @@ function ColorButton(props) {
   return (
     <Button
       variant="contained"
-      className={classes.root}
+      className={value ? classes.underglow : classes.root}
       style={disabled ? styleDisabled : isFocus ? styleInFocus : style}
       onClick={setIsFocus.bind(this, index, color)}
+      value={value}
     >
-      {""}
+      {value}
     </Button>
   );
 }

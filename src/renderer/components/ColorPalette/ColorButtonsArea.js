@@ -84,7 +84,7 @@ function ColorButtonsArea(props) {
   /**
    * Render color buttons area by two arrays from prop "pallete"
    */
-  const displayGrids = () => {
+  const displayGrids = (start, end, value = "") => {
     return (
       <Grid container justify="center" alignItems="center">
         {palette
@@ -96,16 +96,20 @@ function ColorButtonsArea(props) {
               color={i === indexFocusButton ? colorFocusButton : colorButton}
               setIsFocus={setIsFocus}
               disabled={disabled}
+              value={value}
             />
           ))
-          .slice(0, -1)}
+          .slice(start, end)}
       </Grid>
     );
   };
 
   return (
-    <div className={classes.palette}>
-      <Grid container>{displayGrids()}</Grid>
+    <div>
+      <Grid className={classes.palette} container>
+        {displayGrids(1)}
+      </Grid>
+      <Grid container>{displayGrids(0, 1, "UNDERGLOW")}</Grid>
     </div>
   );
 }

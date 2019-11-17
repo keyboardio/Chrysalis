@@ -27,7 +27,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import { withStyles } from "@material-ui/core/styles";
 
-import logo from "../../logo-small.png";
+import logo from "../../DygmaLogo.png";
 import i18n from "../../i18n";
 
 import { version } from "../../../../package.json";

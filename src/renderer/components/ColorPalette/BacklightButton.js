@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -48,19 +48,12 @@ const styles = () => ({
   }
 });
 
-const styleDisabled = {
-  background: "#e0e0e0",
-  pointerEvents: "none",
-  cursor: "default"
-};
-
 /**
  * This is Reactjs functional component that create button for change color of all undeglow elements
  * @param {object} classes Property that sets up CSS classes that adding to HTML elements
  * @param {boolean} colorFocusButton Set color for UndeglowColorButton if any color button in palette is selected
  * @param {function} indexFocusButton Numder of selected color button in palette from 0 to 15, is not selected - null
  * @param {number} theme To use theme object from Material UI
- * @param {object} toChangeAllUnderglowsColor Callback function from Editor component. Parameter is index of color palette from 0 to 15
  * @param {boolean} disabled Property that disable component
  */
 
@@ -79,19 +72,21 @@ function BacklightButton(props) {
     (colorFocusButton.g >= minWhiteColorValue &&
       colorFocusButton.b >= minWhiteColorValue);
   const style = {
-    background: `rgb(${colorFocusButton.r}, ${colorFocusButton.g}, ${
-      colorFocusButton.b
-    })`,
-    color: !isWhiteColor ? "white" : "black"
-  };
-  const enable = {
+    backgroundColor: `rgb(${colorFocusButton.r}, ${colorFocusButton.g},
+    ${colorFocusButton.b})`,
+    color: !isWhiteColor ? "white" : "black",
+    boxShadow: !isWhiteColor
+      ? `0px 0px 26px 4px rgb(${colorFocusButton.r}, ${colorFocusButton.g}, ${
+          colorFocusButton.b
+        })`
+      : `0px 0px 26px 4px rgb(155, 155, 155)`,
     pointerEvents: "auto",
     cursor: "pointer"
   };
-  const [backgroundColor, setBackgroundColor] = useState(enable);
-  useEffect(() => {
-    return () => setBackgroundColor(style);
-  }, []);
+  const styleDisabled = {
+    pointerEvents: "none",
+    cursor: "default"
+  };
 
   return (
     <Tooltip placement="top-start" title={props.children}>
@@ -102,11 +97,10 @@ function BacklightButton(props) {
           style={
             (!+indexFocusButton && indexFocusButton !== 0) || disabled
               ? styleDisabled
-              : backgroundColor
+              : style
           }
           onClick={() => {
             toChangeAllKeysColor(indexFocusButton);
-            setBackgroundColor(style);
           }}
         >
           {"BACKLIGHT"}

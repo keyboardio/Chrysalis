@@ -23,7 +23,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import ColorButtonsArea from "./ColorButtonsArea";
 import PickerColorButton from "./PickerColorButton";
-import UndeglowColorButton from "./UndeglowColorButton";
+// import UndeglowColorButton from "./UndeglowColorButton";
 import BacklightButton from "./BacklightButton";
 import { setColorTamplate } from "../../../renderer/utils/setTemplates";
 import i18n from "../../i18n";
@@ -39,7 +39,6 @@ ColorPalette.propTypes = {
   isColorButtonSelected: PropTypes.bool.isRequired,
   onColorButtonSelect: PropTypes.func.isRequired,
   theme: PropTypes.object.isRequired,
-  toChangeAllUnderglowsColor: PropTypes.func.isRequired,
   toChangeAllKeysColor: PropTypes.func.isRequired
 };
 
@@ -75,7 +74,6 @@ const styles = () => ({
  * @param {boolean} isColorButtonSelected Property for disabled PickerColorButton
  * @param {function} onColorButtonSelect Callback function from Editor component for change state of selected color button in palette
  * @param {number} theme To use theme object from Material UI
- * @param {object} toChangeAllUnderglowsColor Callback function from Editor component. Parameter is index of color palette from 0 to 15
  * @param {object} toChangeAllKeysColor Callback function from Editor component. Parameter is index of color palette 16
  */
 function ColorPalette(props) {
@@ -89,7 +87,6 @@ function ColorPalette(props) {
     isColorButtonSelected,
     onColorButtonSelect,
     theme,
-    toChangeAllUnderglowsColor,
     toChangeAllKeysColor
   } = props;
 
@@ -171,17 +168,9 @@ function ColorPalette(props) {
         >
           {i18n.components.pickerColorButton}
         </PickerColorButton>
-        <ColorButtonsArea {...propsToArea} />
-        <UndeglowColorButton
-          colorFocusButton={colorFocusButton}
-          indexFocusButton={indexFocusButton}
-          disabled={disabled}
-          theme={theme}
-          toChangeAllUnderglowsColor={toChangeAllUnderglowsColor}
-          palette={palette}
-        >
-          {i18n.components.underglowColorButton}
-        </UndeglowColorButton>
+        <ColorButtonsArea {...propsToArea}>
+          {i18n.components.keysColorButton}
+        </ColorButtonsArea>
         <BacklightButton
           colorFocusButton={colorFocusButton}
           indexFocusButton={indexFocusButton}

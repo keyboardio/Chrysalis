@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-/* chrysalis-hardware -- Chrysalis Hardware library collection
-=======
 /* Bazecor-hardware -- Bazecor Hardware library collection
->>>>>>> 35518b3bc0df7be9e71644f85b38b292126f06d9
  * Copyright (C) 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under

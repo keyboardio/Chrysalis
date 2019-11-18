@@ -44,21 +44,18 @@ ColorPalette.propTypes = {
 
 const styles = () => ({
   root: {
-    display: "flex",
-    left: 0,
     right: 0,
-    bottom: 0,
-    justifyContent: "flex-end"
+    top: 83,
+    position: "absolute"
   },
   palette: {
     display: "flex",
     alignItems: "center",
     padding: "25px 10px 10px 10px",
     flexDirection: "column",
-    minWidth: 140,
-    maxWidth: "50%",
+    width: 180,
     minHeight: 280,
-    height: "calc(100vh - 300px)"
+    height: "92.1vh"
   }
 });
 

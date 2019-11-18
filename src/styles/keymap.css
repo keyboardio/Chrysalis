@@ -25,8 +25,9 @@
   font-weight: 700;
   min-width: 550px;
   min-height: 280px;
-  height: calc(100vh - 300px);
+  height: calc(100vh - 230px);
   max-width: calc(100vw - 128px);
+  margin-right: 180px;
 }
 
 .palette {

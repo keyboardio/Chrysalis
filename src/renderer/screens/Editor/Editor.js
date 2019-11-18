@@ -36,7 +36,6 @@ import Slide from "@material-ui/core/Slide";
 import Toolbar from "@material-ui/core/Toolbar";
 import Tooltip from "@material-ui/core/Tooltip";
 import { withStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
 import { withSnackbar } from "notistack";
 
 import Focus from "@chrysalis-api/focus";
@@ -89,6 +88,11 @@ const styles = theme => ({
   disabledLayer: {
     opacity: 0.5,
     filter: "saturate(25%)"
+  },
+  toolbar: {
+    position: "absolute",
+    right: 0,
+    top: 21
   }
 });
 
@@ -759,7 +763,7 @@ class Editor extends React.Component {
           {i18n.app.menu.editor}
         </Portal>
         <Portal container={this.props.appBarElement}>
-          <Toolbar>
+          <Toolbar className={classes.toolbar}>
             <div className={classes.grow} />
             <FormControl className={classes.layerSelect}>
               <Select
@@ -794,26 +798,20 @@ class Editor extends React.Component {
           this.state.keymap.default.length == 0 && (
             <LinearProgress variant="query" />
           )}
-        <Grid container>
-          <Grid item xs={9}>
-            {layer}
-          </Grid>
-          <Grid item xs={3}>
-            <ColorPalette
-              disabled={isReadOnly || currentLayer > this.state.colorMap.length}
-              onColorSelect={this.onColorSelect}
-              colorButtonIsSelected={this.state.colorButtonIsSelected}
-              palette={palette}
-              onColorPick={this.onColorPick}
-              selected={this.state.selectedPaletteColor}
-              isColorButtonSelected={isColorButtonSelected}
-              onColorButtonSelect={this.onColorButtonSelect}
-              theme={this.props.theme}
-              toChangeAllKeysColor={this.toChangeAllKeysColor}
-              className="palette"
-            />
-          </Grid>
-        </Grid>
+        {layer}
+        <ColorPalette
+          disabled={isReadOnly || currentLayer > this.state.colorMap.length}
+          onColorSelect={this.onColorSelect}
+          colorButtonIsSelected={this.state.colorButtonIsSelected}
+          palette={palette}
+          onColorPick={this.onColorPick}
+          selected={this.state.selectedPaletteColor}
+          isColorButtonSelected={isColorButtonSelected}
+          onColorButtonSelect={this.onColorButtonSelect}
+          theme={this.props.theme}
+          toChangeAllKeysColor={this.toChangeAllKeysColor}
+          className="palette"
+        />
 
         <Slide in={this.getCurrentKey() != -1} direction="up" unmountOnExit>
           <KeySelector

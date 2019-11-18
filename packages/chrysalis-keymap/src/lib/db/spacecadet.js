@@ -21,14 +21,14 @@ const SpaceCadetTable = {
             code: 53591,
             labels: {
                 top: "SCadet",
-                primary: "Enable"
+                primary: "ENABLE"
             }
         },
         {
             code: 53592,
             labels: {
                 top: "SCadet",
-                primary: "Disable"
+                primary: "DISABLE"
             }
         }
     ]

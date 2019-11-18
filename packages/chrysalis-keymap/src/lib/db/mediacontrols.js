@@ -21,14 +21,14 @@ const MediaControlTable = {
             code: 19682,
             labels: {
                 top: "Media",
-                primary: "Mute"
+                primary: "MUTE"
             }
         },
         {
             code: 22709,
             labels: {
                 top: "Media",
-                primary: "Track+",
+                primary: "TRACK+",
                 verbose: "Next track"
             }
         },
@@ -36,7 +36,7 @@ const MediaControlTable = {
             code: 22710,
             labels: {
                 top: "Media",
-                primary: "Track-",
+                primary: "TRACK-",
                 verbose: "Prev. track"
             }
         },
@@ -44,14 +44,14 @@ const MediaControlTable = {
             code: 22711,
             labels: {
                 top: "Media",
-                primary: "Stop"
+                primary: "STOP"
             }
         },
         {
             code: 22733,
             labels: {
                 top: "Media",
-                primary: "Play",
+                primary: "PLAY",
                 verbose: "Play / pause"
             }
         },
@@ -59,7 +59,7 @@ const MediaControlTable = {
             code: 23785,
             labels: {
                 top: "Media",
-                primary: "Vol+",
+                primary: "VOL+",
                 verbose: "Volume up"
             }
         },
@@ -67,7 +67,7 @@ const MediaControlTable = {
             code: 23786,
             labels: {
                 top: "Media",
-                primary: "Vol-",
+                primary: "VOL-",
                 verbose: "Volume down"
             }
         }

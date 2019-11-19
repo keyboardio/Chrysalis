@@ -62,7 +62,6 @@ const styles = theme => ({
   },
   editor: {
     marginTop: 2,
-    marginBottom: 150,
     textAlign: "center"
   },
   moreMenu: {
@@ -560,6 +559,13 @@ class Editor extends React.Component {
     }
   };
 
+  onBacklightColorSelect = colorIndex => {
+    this.setState({
+      selectedPaletteColor: colorIndex,
+      isColorButtonSelected: true
+    });
+  };
+
   onColorPick = (colorIndex, r, g, b) => {
     let newPalette = this.state.palette.slice();
     newPalette[colorIndex] = {
@@ -634,16 +640,14 @@ class Editor extends React.Component {
     this.setState({ importExportDialogOpen: false });
   };
 
-  toChangeAllKeysColor = colorIndex => {
+  toChangeAllKeysColor = (colorIndex, start, end) => {
     const { currentLayer } = this.state;
-    const beginForChange = 0;
-    const endForChange = 69;
     this.setState(state => {
       let colormap = state.colorMap.slice();
       colormap[currentLayer] = colormap[currentLayer].fill(
         colorIndex,
-        beginForChange,
-        endForChange
+        start,
+        end
       );
       return {
         colorMap: colormap,
@@ -810,6 +814,7 @@ class Editor extends React.Component {
           onColorButtonSelect={this.onColorButtonSelect}
           theme={this.props.theme}
           toChangeAllKeysColor={this.toChangeAllKeysColor}
+          onBacklightColorSelect={this.onBacklightColorSelect}
           className="palette"
         />
 

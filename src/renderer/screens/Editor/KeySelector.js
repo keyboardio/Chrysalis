@@ -192,6 +192,9 @@ class KeyGroupListUnwrapped extends React.Component {
           case GUI_HELD:
             modifier = 3;
             break;
+          case RALT_HELD:
+            modifier = 6;
+            break;
         }
 
         const result = ((selectedKey - 49169) % 256) + (modifier << 8) + 49169;
@@ -232,6 +235,8 @@ class KeyGroupListUnwrapped extends React.Component {
         case 3:
           mask = GUI_HELD;
           break;
+        case 6:
+          mask = RALT_HELD;
       }
       this.props.onKeySelect(keyCode | mask);
     } else {
@@ -252,6 +257,8 @@ class KeyGroupListUnwrapped extends React.Component {
         case GUI_HELD:
           modifier = 3;
           break;
+        case RALT_HELD:
+          modifier = 6;
       }
       const result = keyCode + (modifier << 8) + 49169;
       this.props.onKeySelect(result);
@@ -286,7 +293,8 @@ class KeyGroupListUnwrapped extends React.Component {
           mask == CTRL_HELD ||
           mask == SHIFT_HELD ||
           mask == LALT_HELD ||
-          mask == GUI_HELD
+          mask == GUI_HELD ||
+          mask == RALT_HELD
         ) {
           invalidDualUse = false;
         }
@@ -309,6 +317,9 @@ class KeyGroupListUnwrapped extends React.Component {
             break;
           case 3:
             mask = GUI_HELD;
+            break;
+          case 6:
+            mask = RALT_HELD;
             break;
         }
       }

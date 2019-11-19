@@ -55,7 +55,15 @@ const DualUseModifierTables = [
     withModifiers(SpacingTable, "Gui /", "GUI/", 49937),
     withModifiers(NavigationTable, "Gui /", "GUI/", 49937),
     withModifiers(FunctionKeyTable, "Gui /", "GUI/", 49937),
-    withModifiers(NumpadTable, "Gui /", "GUI/", 49937)
+    withModifiers(NumpadTable, "Gui /", "GUI/", 49937),
+
+    withModifiers(LetterTable, "AltGr /", "ALTGR/", 50705),
+    withModifiers(DigitTable, "AltGr /", "ALTGR/", 50705),
+    withModifiers(PunctuationTable, "AltGr /", "ALTGR/", 50705),
+    withModifiers(SpacingTable, "AltGr /", "ALTGR/", 50705),
+    withModifiers(NavigationTable, "AltGr /", "ALTGR/", 50705),
+    withModifiers(FunctionKeyTable, "AltGr /", "ALTGR/", 50705),
+    withModifiers(NumpadTable, "AltGr /", "ALTGR/", 50705)
 ]
 
 const DualUseLayerTables = [

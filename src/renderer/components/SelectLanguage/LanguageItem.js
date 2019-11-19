@@ -25,7 +25,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 const styles = () => ({
   root: {
     minWidth: 130,
-    maxWidth: 360
+    maxWidth: 360,
+    textTransform: "uppercase"
   }
 });
 

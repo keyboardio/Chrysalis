@@ -23,8 +23,6 @@ import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import ColorButtonsArea from "./ColorButtonsArea";
 import PickerColorButton from "./PickerColorButton";
-// import UndeglowColorButton from "./UndeglowColorButton";
-import BacklightButton from "./BacklightButton";
 import { setColorTamplate } from "../../../renderer/utils/setTemplates";
 import i18n from "../../i18n";
 // import ColorPaletteArea from "./ColorPaletteArea";
@@ -55,7 +53,7 @@ const styles = () => ({
     flexDirection: "column",
     width: 180,
     minHeight: 280,
-    height: "92.1vh"
+    height: "calc(100vh - 230px)"
   }
 });
 
@@ -84,7 +82,8 @@ function ColorPalette(props) {
     isColorButtonSelected,
     onColorButtonSelect,
     theme,
-    toChangeAllKeysColor
+    toChangeAllKeysColor,
+    onBacklightColorSelect
   } = props;
 
   /**
@@ -109,7 +108,6 @@ function ColorPalette(props) {
    */
   useEffect(() => {
     setIndexFocusButton(selected);
-    setIndexFocusButton(selected);
     if (selected !== null) {
       setColorFocusButton({
         ...palette[selected]
@@ -131,16 +129,19 @@ function ColorPalette(props) {
    */
   const setIsFocus = (index, color, e) => {
     if (e.ctrlKey || e.shiftKey) return;
+    if (indexFocusButton === 15) {
+      toChangeAllKeysColor(index, 0, 69);
+    }
+    if (index === 15 && indexFocusButton !== index) {
+      setIndexFocusButton(index);
+      onBacklightColorSelect(index);
+      setColorFocusButton(setColorTamplate(color));
+      return;
+    }
     if (index === indexFocusButton) {
-      if (indexFocusButton === 0) {
-        setIndexFocusButton(!!indexFocusButton);
-        onColorButtonSelect("one_button_click");
-        return;
-      } else {
-        setIndexFocusButton(!indexFocusButton);
-        onColorButtonSelect("one_button_click");
-        return;
-      }
+      setIndexFocusButton(!indexFocusButton);
+      onColorButtonSelect("one_button_click");
+      return;
     }
     onColorButtonSelect("another_button_click");
     setIndexFocusButton(index);
@@ -153,7 +154,12 @@ function ColorPalette(props) {
     indexFocusButton,
     setIsFocus,
     palette,
-    disabled
+    disabled,
+    theme,
+    toChangeAllKeysColor,
+    setIndexFocusButton,
+    setColorFocusButton,
+    onBacklightColorSelect
   };
   return (
     <div className={classes.root}>
@@ -165,19 +171,7 @@ function ColorPalette(props) {
         >
           {i18n.components.pickerColorButton}
         </PickerColorButton>
-        <ColorButtonsArea {...propsToArea}>
-          {i18n.components.keysColorButton}
-        </ColorButtonsArea>
-        <BacklightButton
-          colorFocusButton={colorFocusButton}
-          indexFocusButton={indexFocusButton}
-          disabled={disabled}
-          theme={theme}
-          toChangeAllKeysColor={toChangeAllKeysColor}
-        >
-          {i18n.components.keysColorButton}
-        </BacklightButton>
-        {/*<ColorPaletteArea {...propsToArea} />*/}
+        <ColorButtonsArea {...propsToArea} />
       </Paper>
     </div>
   );

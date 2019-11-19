@@ -1,5 +1,5 @@
 // -*- mode: js-jsx -*-
-/* Bazecor -- Kaleidoscope Command Center
+/* Chrysalis -- Kaleidoscope Command Center
  * Copyright (C) 2019  DygmaLab SE
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -14,13 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import Button from "@material-ui/core/Button";
 
-BacklightButton.propTypes = {
+UnderglowColorButton.propTypes = {
   classes: PropTypes.object.isRequired,
   colorFocusButton: PropTypes.object,
   indexFocusButton: PropTypes.oneOfType([
@@ -28,25 +28,33 @@ BacklightButton.propTypes = {
     PropTypes.number,
     PropTypes.oneOf([null])
   ]),
-  theme: PropTypes.object.isRequired,
   disabled: PropTypes.bool.isRequired,
   toChangeAllKeysColor: PropTypes.func.isRequired
 };
 
 const styles = () => ({
   root: {
+    height: "100%",
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 25
+    flexDirection: "column",
+    alignItems: "center"
   },
   button: {
     width: 95,
-    cursor: "pointer",
+    marginBottom: 35,
+    borderRadius: 5,
     fontSize: 10,
-    color: "#797979"
+    cursor: "pointer"
   }
 });
+
+const styleDisabled = {
+  background: "rgb(155, 155, 155)",
+  color: "white",
+  pointerEvents: "none",
+  cursor: "default"
+};
 
 /**
  * This is Reactjs functional component that create button for change color of all undeglow elements
@@ -54,42 +62,41 @@ const styles = () => ({
  * @param {boolean} colorFocusButton Set color for UndeglowColorButton if any color button in palette is selected
  * @param {function} indexFocusButton Numder of selected color button in palette from 0 to 15, is not selected - null
  * @param {number} theme To use theme object from Material UI
+ * @param {object} toChangeAllKeysColor Callback function from Editor component. Parameter is index of color palette from 0 to 15
  * @param {boolean} disabled Property that disable component
  */
-
-function BacklightButton(props) {
+function UnderglowColorButton(props) {
   const {
     classes,
     colorFocusButton,
-    toChangeAllKeysColor,
+    indexFocusButton,
     disabled,
-    indexFocusButton
+    toChangeAllKeysColor,
+    start,
+    end,
+    value
   } = props;
-
   const minWhiteColorValue = 140;
   const isWhiteColor =
     colorFocusButton.r >= minWhiteColorValue &&
     (colorFocusButton.g >= minWhiteColorValue &&
       colorFocusButton.b >= minWhiteColorValue);
   const style = {
-    backgroundColor: `rgb(${colorFocusButton.r}, ${colorFocusButton.g},
-    ${colorFocusButton.b})`,
-    color: !isWhiteColor ? "white" : "black",
-    boxShadow: !isWhiteColor
-      ? `0px 0px 26px 4px rgb(${colorFocusButton.r}, ${colorFocusButton.g}, ${
-          colorFocusButton.b
-        })`
-      : `0px 0px 26px 4px rgb(155, 155, 155)`,
+    background: `${colorFocusButton.rgb}`,
+    color: !isWhiteColor ? "white" : "black"
+  };
+  const enable = {
+    cursor: "pointer",
     pointerEvents: "auto",
-    cursor: "pointer"
+    color: !isWhiteColor ? "white" : "black"
   };
-  const styleDisabled = {
-    pointerEvents: "none",
-    cursor: "default"
-  };
+  const [keyBackground, setKeyBackground] = useState(enable);
+  useEffect(() => {
+    setKeyBackground(style);
+  }, []);
 
   return (
-    <Tooltip placement="top-start" title={props.children}>
+    <Tooltip placement="top" title={props.children}>
       <div className={classes.root}>
         <Button
           variant="contained"
@@ -97,17 +104,19 @@ function BacklightButton(props) {
           style={
             (!+indexFocusButton && indexFocusButton !== 0) || disabled
               ? styleDisabled
-              : style
+              : keyBackground
           }
           onClick={() => {
-            toChangeAllKeysColor(indexFocusButton);
+            toChangeAllKeysColor(indexFocusButton, start, end);
+            setKeyBackground(style);
           }}
+          value={value}
         >
-          {"BACKLIGHT"}
+          {value}
         </Button>
       </div>
     </Tooltip>
   );
 }
 
-export default withStyles(styles)(BacklightButton);
+export default withStyles(styles)(UnderglowColorButton);

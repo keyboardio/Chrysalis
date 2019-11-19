@@ -15,7 +15,7 @@
  */
 
 import Keymap from "./components/Keymap"
-import { Avr109, Avr109Bootloader } from "@chrysalis-api/flash"
+import { Avr109 } from "@chrysalis-api/flash"
 
 const Atreus2 = {
     info: {
@@ -41,7 +41,7 @@ const Atreus2 = {
         keymap: Keymap
     },
 
-    flash: async (_, filename) => {
+    flash: async (port, filename) => {
       const board = {
         name: "Keyboardio Atreus2",
         baud: 9600,

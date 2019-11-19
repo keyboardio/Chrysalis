@@ -17,8 +17,8 @@
 import { Model01, Model01Bootloader } from "@chrysalis-api/hardware-keyboardio-model01"
 import { Atreus } from "@chrysalis-api/hardware-technomancy-atreus"
 import { Atreus2 } from "@chrysalis-api/hardware-keyboardio-atreus2"
-import { Raise_ANSI, Raise_ANSIBootloader } from "@chrysalis-api/hardware-dygma-raise-ansi";
-import { Raise_ISO, Raise_ISOBootloader } from "@chrysalis-api/hardware-dygma-raise-iso";
+import { Raise_ANSI } from "@chrysalis-api/hardware-dygma-raise-ansi";
+import { Raise_ISO } from "@chrysalis-api/hardware-dygma-raise-iso";
 import { ErgoDox } from "@chrysalis-api/hardware-ez-ergodox"
 import { Planck } from "@chrysalis-api/hardware-olkb-planck"
 import { KBD4x } from "@chrysalis-api/hardware-kbdfans-kbd4x"

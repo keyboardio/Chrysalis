@@ -42,7 +42,7 @@ const styles = () => ({
   },
   button: {
     width: 95,
-    marginBottom: 35,
+    marginBottom: 25,
     borderRadius: 5,
     fontSize: 10,
     cursor: "pointer"

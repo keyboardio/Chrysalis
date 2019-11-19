@@ -38,7 +38,7 @@ const English = {
     device: "Keyboard",
     menu: {
       welcome: "Welcome",
-      editor: "Layout & Colormap Editor",
+      editor: "LAYOUT & COLORMAP EDITOR",
       firmwareUpdate: "Firmware Update",
       keyboardSettings: "Keyboard Settings",
       preferences: "Preferences",
@@ -47,7 +47,9 @@ const English = {
       chat: "Real-time chat",
       feedback: "Send feedback",
       exit: "Exit Bazecor",
-      keyboardSection: "Keyboard",
+      keyboardSection: "Raise",
+      keyboardTitle: "WELCOME TO BAZECOR,",
+      keyboardTitleSecondary: "DYGMA RAISE CONFIGURATOR.",
       chrysalisSection: "Bazecor",
       miscSection: "Miscellaneous",
       upgradeAvailable: "An upgrade is available!"

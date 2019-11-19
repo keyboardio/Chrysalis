@@ -43,7 +43,7 @@ ColorPalette.propTypes = {
 const styles = () => ({
   root: {
     right: 0,
-    top: 83,
+    top: 110,
     position: "absolute"
   },
   palette: {

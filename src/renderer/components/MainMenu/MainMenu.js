@@ -26,6 +26,7 @@ import List from "@material-ui/core/List";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import { withStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
 
 import logo from "../../DygmaLogo.png";
 import i18n from "../../i18n";
@@ -34,7 +35,6 @@ import { version } from "../../../../package.json";
 import WelcomeMenu from "./WelcomeMenu";
 import EditorMenuItem from "./EditorMenuItem";
 import FlashMenuItem from "./FlashMenuItem";
-import ChatMenuItem from "./ChatMenuItem";
 import FeedbackMenuItem from "./FeedbackMenuItem";
 import ExitMenuItem from "./ExitMenuItem";
 import KeyboardMenuItem from "./KeyboardSelectMenuItem";
@@ -50,13 +50,14 @@ const styles = theme => ({
     width: 350
   },
   version: {
-    textAlign: "right"
+    textAlign: "right",
+    paddingTop: 20
   },
   toolbarIcon: {
     display: "flex",
-    alignItems: "center",
+    alignItems: "flex-start",
     justifyContent: "flex-start",
-    padding: "0 8px",
+    flexDirection: "column",
     ...theme.mixins.toolbar
   },
   link: {
@@ -64,10 +65,22 @@ const styles = theme => ({
   },
   menuItem: {
     paddingLeft: theme.spacing.unit * 4
+  },
+  keyboardTitle: {
+    display: "block",
+    width: 350,
+    margin: "0 auto",
+    padding: "30px 20px 30px 35px",
+    borderTop: "1px solid rgba(0, 0, 0, 0.14)",
+    borderBottom: "1px solid rgba(0, 0, 0, 0.14)",
+    fontSize: 18,
+    textAlign: "left",
+    lineHeight: "150%",
+    letterSpacing: "0.25em"
   }
 });
 
-function MainMenu({ open, closeMenu, classes, connected, pages }) {
+function MainMenu({ open, closeMenu, classes, connected, pages, themeDark }) {
   const currentPage = history.location.pathname,
     setCurrentPage = history.navigate;
 
@@ -98,13 +111,22 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
               <img src={logo} style={{ width: 20, padding: "0, 0, 12px, 0" }} />
             </IconButton>
             <List>
-              <ListItemText
-                primary={`Bazecor ${version}`}
-                className={classes.version}
-              />
+              <ListItemText primary={`Bazecor`} />
               <UpgradeMenuItem />
             </List>
           </Link>
+          <div className={classes.keyboardTitle}>
+            <Typography
+              style={{ padding: 0, letterSpacing: "0.1em", fontSize: 17 }}
+            >
+              {i18n.app.menu.keyboardTitle}
+            </Typography>
+            <Typography
+              style={{ padding: 0, letterSpacing: "0.1em", fontSize: 17 }}
+            >
+              {i18n.app.menu.keyboardTitleSecondary}
+            </Typography>
+          </div>
         </div>
         {connected && (
           <List
@@ -143,6 +165,7 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
                 selected={currentPage == "/firmware-update"}
                 className={classes.menuItem}
                 onClick={() => setCurrentPage("/firmware-update")}
+                themeDark={themeDark}
               />
             </Link>
             <Link to="/keyboard-settings" className={classes.link}>
@@ -192,13 +215,9 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
             </ListSubheader>
           }
         >
-          <ChatMenuItem
-            className={classes.menuItem}
-            onClick={openURL("https://discord.gg/GP473Fv")}
-          />
           <FeedbackMenuItem
             className={classes.menuItem}
-            onClick={openURL("https://github.com/keyboardio/Chrysalis/issues")}
+            onClick={openURL("https://www.dygma.com/contact/")}
           />
           <ExitMenuItem
             className={classes.menuItem}
@@ -206,6 +225,10 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
           />
         </List>
         <Divider />
+        <ListItemText
+          primary={`Bazecor ${version}`}
+          className={classes.version}
+        />
       </div>
     </Drawer>
   );

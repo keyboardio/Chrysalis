@@ -38,15 +38,12 @@ ColorButtonsArea.propTypes = {
 
 const styles = theme => ({
   palette: {
-    padding: "25px 25px 5px 25px",
+    padding: "25px 25px 0 25px",
     [theme.breakpoints.down("sm")]: {
       padding: 0
     },
     width: 160,
-    paddingBottom: 25,
-    marginBottom: 25,
-    borderBottomColor: "#dfdfdf",
-    borderBottom: "2px solid"
+    marginBottom: 25
   }
 });
 
@@ -69,8 +66,6 @@ function ColorButtonsArea(props) {
     palette,
     theme,
     disabled,
-    setColorFocusButton,
-    setIndexFocusButton,
     onBacklightColorSelect
   } = props;
 
@@ -114,7 +109,7 @@ function ColorButtonsArea(props) {
   return (
     <div>
       <Grid className={classes.palette} container>
-        {displayGrids(0, 15)}
+        {displayGrids(0, 14)}
       </Grid>
       <UndeglowColorButton
         color={colorFocusButton}

@@ -35,8 +35,8 @@ ColorButton.propTypes = {
 
 const styles = () => ({
   root: {
-    ...setButtonSizeTamplate(25),
-    margin: "0 4px 4px 4px",
+    ...setButtonSizeTamplate(35),
+    margin: "4px 6px",
     padding: 0,
     borderRadius: 5,
     cursor: "pointer",

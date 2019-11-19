@@ -19,10 +19,16 @@ import React from "react";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import i18n from "../../i18n";
+import update from "../../update.png";
+import updateWhite from "../../update-white.png";
 
-export default function FlashMenuItem({ selected, onClick, className }) {
+export default function FlashMenuItem({
+  selected,
+  onClick,
+  className,
+  themeDark
+}) {
   return (
     <ListItem
       button
@@ -31,7 +37,19 @@ export default function FlashMenuItem({ selected, onClick, className }) {
       className={className}
     >
       <ListItemIcon>
-        <CloudUploadIcon />
+        {themeDark ? (
+          <img
+            src={updateWhite}
+            alt="update"
+            style={{ width: 24, height: 24 }}
+          />
+        ) : (
+          <img
+            src={update}
+            alt="updateWhite"
+            style={{ width: 24, height: 24 }}
+          />
+        )}
       </ListItemIcon>
       <ListItemText primary={i18n.app.menu.firmwareUpdate} />
     </ListItem>

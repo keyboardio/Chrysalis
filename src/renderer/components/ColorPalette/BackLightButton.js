@@ -42,7 +42,8 @@ const styles = () => ({
     alignItems: "center"
   },
   button: {
-    width: 95,
+    width: 130,
+    padding: 10,
     marginBottom: 25,
     borderRadius: 5,
     fontSize: 10,

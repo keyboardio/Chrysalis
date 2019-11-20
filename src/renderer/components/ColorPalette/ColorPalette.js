@@ -70,6 +70,7 @@ const styles = () => ({
  * @param {function} onColorButtonSelect Callback function from Editor component for change state of selected color button in palette
  * @param {number} theme To use theme object from Material UI
  * @param {object} toChangeAllKeysColor Callback function from Editor component. Parameter is index of color palette 16
+ * @param {function} onBacklightColorSelect Callback function from Editor component for change color of buttons in keyboard. Parameter is index of color button in palette (from 0 to 15)
  */
 function ColorPalette(props) {
   const {
@@ -129,14 +130,19 @@ function ColorPalette(props) {
    */
   const setIsFocus = (index, color, e) => {
     if (e.ctrlKey || e.shiftKey) return;
-    if (indexFocusButton === 15) {
-      toChangeAllKeysColor(index, 0, 69);
-    } else if (indexFocusButton === 14) {
-      toChangeAllKeysColor(index, 69, 142);
+    const underglowButton = 14;
+    const backlightButton = 15;
+    const startKeys = 0;
+    const startUnderglow = 69;
+    const endKeys = 142;
+    if (indexFocusButton === backlightButton) {
+      toChangeAllKeysColor(index, startKeys, startUnderglow);
+    } else if (indexFocusButton === underglowButton) {
+      toChangeAllKeysColor(index, startUnderglow, endKeys);
     }
     if (
-      (index === 15 && indexFocusButton !== index) ||
-      (index === 14 && indexFocusButton !== index)
+      (index === backlightButton && indexFocusButton !== index) ||
+      (index === underglowButton && indexFocusButton !== index)
     ) {
       setIndexFocusButton(index);
       onBacklightColorSelect(index);

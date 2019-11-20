@@ -1196,7 +1196,7 @@ class KeymapISO extends React.Component {
     data-led-index={getLEDIndex(87)}
     data-key-index={keyIndex(87)}
     data-layer={layer}
-    points="319.2,633 319.2,621.4 322.9,621.4 326.1,621.4 329.5,621.4 332.9,621.4 335.7,621.4 338.4,621.4
+    points="319.2,633 319.2,621.4 322.9,621.4 326.1,621.4 329.5,621.4 332.9,621.4 335.7,621.4 348.4,621.4
     340.8,621.4 341.1,621.4 341.4,621.4 341.8,621 343.1,621 344,620.7 345.3,620.3 347.3,619.8 349,619.1 350.3,617.7 351.7,616.7
     352.9,615.3 353.9,613.9 354.5,612.6 355.2,610.8 355.9,608.9 356.2,606.5 356.9,604.1 357.6,601 358.2,598.4 358.9,594.9
     359.6,591.5 360.3,588.2 361.3,584.4 361.9,580.6 372.4,583.7 371.5,588.5 370.5,593.2 369.5,597.7 368.5,601.7 367.5,605.1
@@ -2091,14 +2091,14 @@ class KeymapISO extends React.Component {
         id="R4C9_t_primary"
         fill={getContrastText(getColor(4, 9))}
         x="600"
-        y="343"
+        y="348"
       >
         {getLabel(4, 9).label
         &&
         getDivideKeys(
             (getLabel(4, 9).label),
             "600",
-            "343",
+            "348",
             true
         )
         }
@@ -2114,14 +2114,14 @@ class KeymapISO extends React.Component {
         id="R4C8_t_primary"
         fill={getContrastText(getColor(4, 8))}
         x="535"
-        y="343"
+        y="348"
       >
         {getLabel(4, 8).label
         &&
         getDivideKeys(
             (getLabel(4, 8).label),
             "535",
-            "343",
+            "348",
             true
         )
         }
@@ -2136,16 +2136,15 @@ class KeymapISO extends React.Component {
         <text
         id="R4C7_t_primary"
         x="436"
-        y="343"
+        y="348"
         fill={getContrastText(getColor(4, 7))}
-        textAnchor="middle"
       >
           {getLabel(4, 7).label
           &&
           getDivideKeys(
               (getLabel(4, 7).label),
               "436",
-              "343",
+              "348",
               true
           )
           }
@@ -2160,7 +2159,7 @@ class KeymapISO extends React.Component {
       <text
         id="R4C6_t_primary"
         x="368"
-        y="343"
+        y="348"
         fill={getContrastText(getColor(4, 6))}
       >
         {getLabel(4, 6).label
@@ -2168,7 +2167,7 @@ class KeymapISO extends React.Component {
         getDivideKeys(
             (getLabel(4, 6).label),
             "368",
-            "343",
+            "348",
             true
         )
         }
@@ -2247,7 +2246,7 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R4C13_t_extra"
-        x="781.3844"
+        x="781"
         y="280"
         fill={getContrastText(getColor(4, 13))}
       >
@@ -2271,8 +2270,8 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R4C12_t_extra"
-        x="713.22632"
-        y="273.51999"
+        x="713"
+        y="273"
         fill={getContrastText(getColor(4, 12))}
       >
         {getLabel(4, 12).extraLabel}
@@ -2387,7 +2386,7 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R4C2_t_extra"
-        x="226.37772"
+        x="226"
         y="274"
         fill={getContrastText(getColor(4, 2))}
       >
@@ -2436,8 +2435,8 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R4C0_t_extra"
-        x="74.049648"
-        y="273.51999"
+        x="74"
+        y="273"
         fill={getContrastText(getColor(4, 0))}
       >
         {getLabel(4, 0).extraLabel}
@@ -2459,8 +2458,8 @@ class KeymapISO extends React.Component {
       </text>
         <text
         id="R3C15_t_extra"
-        x="867.14728"
-        y="216.66875"
+        x="867"
+        y="217"
         fill={getContrastText(getColor(3, 15))}
       >
         {getLabel(3, 15).extraLabel}
@@ -2713,8 +2712,8 @@ class KeymapISO extends React.Component {
       </text>
         <text
         id="R3C1_t_extra"
-        x="151.91844"
-        y="216.73546"
+        x="151"
+        y="216"
         fill={getContrastText(getColor(3, 1))}
       >
         {getLabel(3, 1).extraLabel}
@@ -2737,8 +2736,8 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R3C0_t_extra"
-        x="68.22266"
-        y="216.71767"
+        x="68"
+        y="216"
         fill={getContrastText(getColor(3, 0))}
       >
         {getLabel(3, 0).extraLabel}
@@ -2761,7 +2760,7 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R2C15_t_extra"
-        transform="matrix(1 0 0 1 853.385 154.338)"
+        transform="matrix(1 0 0 1 853.385 154.348)"
         fill={getContrastText(getColor(2, 15))}
       >
         {getLabel(2, 15).extraLabel}
@@ -2784,7 +2783,7 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R2C14_t_extra"
-        transform="matrix(1 0 0 1 796.335 154.338)"
+        transform="matrix(1 0 0 1 796.335 154.348)"
         fill={getContrastText(getColor(2, 14))}
       >
         {getLabel(2, 14).extraLabel}
@@ -2807,7 +2806,7 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R2C13_t_extra"
-        transform="matrix(1 0 0 1 739.275 154.338)"
+        transform="matrix(1 0 0 1 739.275 154.348)"
         fill={getContrastText(getColor(2, 13))}
       >
         {getLabel(2, 13).extraLabel}
@@ -2830,7 +2829,7 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R2C12_t_extra"
-        transform="matrix(1 0 0 1 682.215 154.338)"
+        transform="matrix(1 0 0 1 682.215 154.348)"
         fill={getContrastText(getColor(2, 12))}
       >
         {getLabel(2, 12).extraLabel}
@@ -2853,7 +2852,7 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R2C11_t_extra"
-        transform="matrix(1 0 0 1 624.155 154.338)"
+        transform="matrix(1 0 0 1 624.155 154.348)"
         fill={getContrastText(getColor(2, 11))}
       >
         {getLabel(2, 11).extraLabel}
@@ -2876,7 +2875,7 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R2C10_t_extra"
-        transform="matrix(1 0 0 1 566.098 154.338)"
+        transform="matrix(1 0 0 1 566.098 154.348)"
         fill={getContrastText(getColor(2, 10))}
       >
         {getLabel(2, 10).extraLabel}
@@ -2899,7 +2898,7 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R2C9_t_extra"
-        transform="matrix(1 0 0 1 509.039 154.338)"
+        transform="matrix(1 0 0 1 509.039 154.348)"
         fill={getContrastText(getColor(2, 9))}
       >
         {getLabel(2, 9).extraLabel}
@@ -2922,7 +2921,7 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R2C5_t_extra"
-        transform="matrix(1 0 0 1 393.981 154.338)"
+        transform="matrix(1 0 0 1 393.981 154.348)"
         fill={getContrastText(getColor(2, 5))}
       >
         {getLabel(2, 5).extraLabel}
@@ -2945,7 +2944,7 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R2C4_t_extra"
-        transform="matrix(1 0 0 1 334.923 154.338)"
+        transform="matrix(1 0 0 1 334.923 154.348)"
         fill={getContrastText(getColor(2, 4))}
       >
         {getLabel(2, 4).extraLabel}
@@ -2968,7 +2967,7 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R2C3_t_extra"
-        transform="matrix(1 0 0 1 275.864 154.338)"
+        transform="matrix(1 0 0 1 275.864 154.348)"
         fill={getContrastText(getColor(2, 3))}
       >
         {getLabel(2, 3).extraLabel}
@@ -2991,7 +2990,7 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R2C2_t_extra"
-        transform="matrix(1 0 0 1 216.806 154.338)"
+        transform="matrix(1 0 0 1 216.806 154.348)"
         fill={getContrastText(getColor(2, 2))}
       >
         {getLabel(2, 2).extraLabel}
@@ -3014,7 +3013,7 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R2C1_t_extra"
-        transform="matrix(1 0 0 1 157.748 154.338)"
+        transform="matrix(1 0 0 1 157.748 154.348)"
         fill={getContrastText(getColor(2, 1))}
       >
         {getLabel(2, 1).extraLabel}
@@ -3036,7 +3035,7 @@ class KeymapISO extends React.Component {
       </text>
       <text
         id="R2C0_t_extra"
-        transform="matrix(1 0 0 1 61.69 154.338)"
+        transform="matrix(1 0 0 1 61.69 154.348)"
         fill={getContrastText(getColor(2, 0))}
       >
         {getLabel(2, 0).extraLabel}
@@ -3343,7 +3342,7 @@ class KeymapISO extends React.Component {
       <text
         id="R1C0_t_primary"
         x="100"
-        y="108.40535"
+        y="108"
         fill={getContrastText(getColor(1, 0))}
       >
         {getLabel(1, 0).label

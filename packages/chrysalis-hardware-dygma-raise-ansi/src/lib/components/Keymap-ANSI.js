@@ -105,6 +105,99 @@ class KeymapANSI extends React.Component {
       this.props.onKeySelect(e);
     };
 
+    /**
+     * Divides words on keyboard keys
+     * @param {string} str Name of key
+     * @param {string} xCord Cord of the center position horisontal of each key
+     * @param {string} yCord Cord of the center position vertical of each key
+     * @param {boolean} smallKey if the word longer than key switch to true
+     */
+    const getDivideKeys = (str, xCord, yCord, smallKey = false) => {
+      const numbers =
+          str.length === 1 && (
+              (str.charCodeAt() >= 48 && str.charCodeAt() <= 57)
+              ||
+              (str.charCodeAt() >= 96 && str.charCodeAt() <= 105)
+          );
+      const characters = str.length === 1;
+      if (numbers) {
+        return str.split('').map((word, index) => (
+            <tspan
+                className="key-config"
+                textAnchor="middle"
+                key={index}
+                x={xCord}
+            >
+              {word}
+            </tspan>
+        ))
+      } else if (characters) {
+        return str.split('').map((word, index) => (
+            <tspan
+                className="letter-config"
+                textAnchor="middle"
+                key={index}
+                x={xCord}
+            >
+              {word}
+            </tspan>
+        ))
+      } else if (str.split(' ').length === 1 && str.split('').length > 7 && smallKey === true) {
+        return str.split(' ').map((word, index) => (
+            <tspan key={index}>
+              <tspan
+                  textAnchor="middle"
+                  x={xCord}
+                  dy="0.5em"
+                  y={String(+yCord - 10)}
+              >
+                {word.slice(0, 4)}
+              </tspan>
+              <tspan
+                  textAnchor="middle"
+                  x={xCord}
+                  dy="1.5em"
+                  y={String(+yCord - 10)}
+              >
+                {word.slice(4)}
+              </tspan>
+            </tspan>
+
+        ))
+      } else if (str.split(' ').length === 1) {
+        return str.split(' ').map((word, index) => (
+            <tspan
+                textAnchor="middle"
+                key={index}
+                x={xCord}
+            >
+              {word}
+            </tspan>
+        ))
+      } else if (str.split(' ').length > 1 && smallKey === true) {
+        return str.split(' ').map((word, index) => (
+            <tspan
+                textAnchor="middle"
+                dy={`${index + 0.5}em`}
+                key={index}
+                x={xCord}
+                y={String(+yCord - 10)}
+            >
+              {word}
+            </tspan>
+        ))
+      } else {
+        return (
+            <tspan
+                textAnchor="middle"
+                x={xCord}
+                y={yCord }
+            >
+              {str}
+            </tspan>
+        )
+      }
+    };
     return (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -1970,10 +2063,18 @@ class KeymapANSI extends React.Component {
             <text
               id="R4C9_t_primary"
               fill={getContrastText(getColor(4, 9))}
-              x="580.70465"
-              y="345.88806"
+              x="600"
+              y="348"
             >
-              {getLabel(4, 9).label}
+              {getLabel(4, 9).label
+              &&
+              getDivideKeys(
+                  (getLabel(4, 9).label),
+                  "600",
+                  "348",
+                  true
+              )
+              }
             </text>
             <text
               id="R4C9_t_extra"
@@ -1985,10 +2086,18 @@ class KeymapANSI extends React.Component {
             <text
               id="R4C8_t_primary"
               fill={getContrastText(getColor(4, 8))}
-              x="519.88605"
-              y="345.88806"
+              x="535"
+              y="348"
             >
-              {getLabel(4, 8).label}
+              {getLabel(4, 8).label
+              &&
+              getDivideKeys(
+                  (getLabel(4, 8).label),
+                  "535",
+                  "348",
+                  true
+              )
+              }
             </text>
             <text
               id="R4C8_t_extra"
@@ -1999,11 +2108,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R4C7_t_primary"
-              x="425.7598"
-              y="343.64575"
+              x="436"
+              y="348"
               fill={getContrastText(getColor(4, 7))}
             >
-              {getLabel(4, 7).label}
+              {getLabel(4, 7).label
+              &&
+              getDivideKeys(
+                  (getLabel(4, 7).label),
+                  "436",
+                  "348",
+                  true
+              )
+              }
             </text>
             <text
               id="R4C7_t_extra"
@@ -2014,11 +2131,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R4C6_t_primary"
-              x="346.13226"
-              y="343.64575"
+              x="368"
+              y="348"
               fill={getContrastText(getColor(4, 6))}
             >
-              {getLabel(4, 6).label}
+              {getLabel(4, 6).label
+              &&
+              getDivideKeys(
+                  (getLabel(4, 6).label),
+                  "368",
+                  "348",
+                  true
+              )
+              }
             </text>
             <text
               id="R4C6_t_extra"
@@ -2029,11 +2154,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R4C15_t_primary"
-              x="920.87189"
-              y="288.27594"
+              x="937"
+              y="289"
               fill={getContrastText(getColor(4, 15))}
             >
-              {getLabel(4, 15).label}
+              {getLabel(4, 15).label
+              &&
+              getDivideKeys(
+                  (getLabel(4, 15).label),
+                  "937",
+                  "289",
+                  true
+              )
+              }
             </text>
             <text
               id="R4C15_t_extra"
@@ -2044,72 +2177,116 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R4C14_t_primary"
-              x="856.80927"
-              y="286.27594"
+              x="870"
+              y="289"
               fill={getContrastText(getColor(4, 14))}
             >
-              {getLabel(4, 14).label}
+              {getLabel(4, 14).label
+              &&
+              getDivideKeys(
+                  (getLabel(4, 14).label),
+                  "870",
+                  "289",
+                  true
+              )
+              }
             </text>
             <text
               id="R4C14_t_extra"
-              transform="matrix(1 0 0 1 848.523 273.52)"
+              x="870"
+              y="280"
               fill={getContrastText(getColor(4, 14))}
+              textAnchor="middle"
             >
               {getLabel(4, 14).extraLabel}
             </text>
             <text
               id="R4C13_t_primary"
-              x="818.24677"
-              y="286.27594"
+              x="802"
+              y="291"
               fill={getContrastText(getColor(4, 13))}
             >
-              {getLabel(4, 13).label}
+              {getLabel(4, 13).label
+              &&
+              getDivideKeys(
+                  (getLabel(4, 13).label),
+                  "802",
+                  "291",
+                  true
+              )
+              }
             </text>
             <text
               id="R4C13_t_extra"
-              x="774.24634"
-              y="286.27594"
+              x="781"
+              y="280"
               fill={getContrastText(getColor(4, 13))}
             >
               {getLabel(4, 13).extraLabel}
             </text>
             <text
               id="R4C12_t_primary"
-              x="713.22632"
-              y="286.27594"
+              x="730"
+              y="289"
               fill={getContrastText(getColor(4, 12))}
             >
-              {getLabel(4, 12).label}
+              {getLabel(4, 12).label
+              &&
+              getDivideKeys(
+                  (getLabel(4, 12).label),
+                  "730",
+                  "289",
+                  true
+              )
+              }
             </text>
             <text
               id="R4C12_t_extra"
-              transform="matrix(1 0 0 1 698.473 273.52)"
+              x="713"
+              y="273"
               fill={getContrastText(getColor(4, 12))}
             >
               {getLabel(4, 12).extraLabel}
             </text>
             <text
               id="R4C11_t_primary"
-              x="630.60889"
-              y="287.539"
+              x="650"
+              y="289"
               fill={getContrastText(getColor(4, 11))}
             >
-              {getLabel(4, 11).label}
+              {getLabel(4, 11).label
+              &&
+              getDivideKeys(
+                  (getLabel(4, 11).label),
+                  "650",
+                  "289",
+                  true
+              )
+              }
             </text>
             <text
               id="R4C11_t_extra"
-              transform="matrix(1 0 0 1 615.543 273.52)"
+              x="650"
+              y="274"
               fill={getContrastText(getColor(4, 11))}
+              textAnchor="middle"
             >
               {getLabel(4, 11).extraLabel}
             </text>
             <text
               id="R4C10_t_primary"
-              x="540.35492"
-              y="286.27594"
+              x="557"
+              y="289"
               fill={getContrastText(getColor(4, 10))}
             >
-              {getLabel(4, 10).label}
+              {getLabel(4, 10).label
+              &&
+              getDivideKeys(
+                  (getLabel(4, 10).label),
+                  "557",
+                  "289"
+              )
+              }
             </text>
             <text
               id="R4C10_t_extra"
@@ -2120,11 +2297,18 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R4C4_t_primary"
-              x="397.33237"
-              y="286.27594"
+              x="412"
+              y="289"
               fill={getContrastText(getColor(4, 4))}
             >
-              {getLabel(4, 4).label}
+              {getLabel(4, 4).label
+              &&
+              getDivideKeys(
+                  (getLabel(4, 4).label),
+                  "412",
+                  "289"
+              )
+              }
             </text>
             <text
               id="R4C4_t_extra"
@@ -2135,11 +2319,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R4C3_t_primary"
-              x="304.31531"
-              y="286.27594"
+              x="320"
+              y="289"
               fill={getContrastText(getColor(4, 3))}
             >
-              {getLabel(4, 3).label}
+              {getLabel(4, 3).label
+              &&
+              getDivideKeys(
+                  (getLabel(4, 3).label),
+                  "320",
+                  "289",
+                  true
+              )
+              }
             </text>
             <text
               id="R4C3_t_extra"
@@ -2150,73 +2342,115 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R4C2_t_primary"
-              x="227.37772"
-              y="286.27594"
+              x="240"
+              y="289"
               fill={getContrastText(getColor(4, 2))}
             >
-              {getLabel(4, 2).label}
+              {getLabel(4, 2).label
+              &&
+              getDivideKeys(
+                  (getLabel(4, 2).label),
+                  "240",
+                  "289",
+                  true
+              )
+              }
             </text>
             <text
               id="R4C2_t_extra"
-              transform="matrix(1 0 0 1 212.728 273.52)"
+              x="226"
+              y="274"
               fill={getContrastText(getColor(4, 2))}
             >
               {getLabel(4, 2).extraLabel}
             </text>
             <text
               id="R4C1_t_primary"
-              x="152.76688"
-              y="286.27594"
+              x="165"
+              y="289"
               fill={getContrastText(getColor(4, 1))}
             >
-              {getLabel(4, 1).label}
+              {getLabel(4, 1).label
+              &&
+              getDivideKeys(
+                  (getLabel(4, 1).label),
+                  "165",
+                  "289",
+                  true
+              )
+              }
             </text>
             <text
               id="R4C1_t_extra"
-              x="144.97406"
-              y="273.51999"
+              x="165"
+              y="278"
               fill={getContrastText(getColor(4, 1))}
+              textAnchor="middle"
             >
               {getLabel(4, 1).extraLabel}
             </text>
             <text
               id="R4C0_t_primary"
-              x="74.049648"
-              y="286.27594"
+              x="90"
+              y="289"
               fill={getContrastText(getColor(4, 0))}
             >
-              {getLabel(4, 0).label}
+              {getLabel(4, 0).label
+              &&
+              getDivideKeys(
+                  (getLabel(4, 0).label),
+                  "90",
+                  "289",
+                  true
+              )
+              }
             </text>
             <text
               id="R4C0_t_extra"
-              transform="matrix(1 0 0 1 61.673 273.52)"
+              x="74"
+              y="273"
               fill={getContrastText(getColor(4, 0))}
             >
               {getLabel(4, 0).extraLabel}
             </text>
             <text
               id="R3C15_t_primary"
-              x="867.14728"
-              y="228.66875"
+              x="890"
+              y="229"
               fill={getContrastText(getColor(3, 15))}
             >
-              {getLabel(3, 15).label}
+              {getLabel(3, 15).label
+              &&
+              getDivideKeys(
+                  (getLabel(3, 15).label),
+                  "890",
+                  "229"
+              )
+              }
             </text>
             <text
               id="R3C15_t_extra"
-              transform="matrix(1 0 0 1 818.335 213.939)"
+              x="867"
+              y="217"
               fill={getContrastText(getColor(3, 15))}
             >
               {getLabel(3, 15).extraLabel}
             </text>
             <text
               id="R3C14_t_primary"
-              x="778.82098"
-              y="228.66875"
+              x="783"
+              y="229"
               fill={getContrastText(getColor(3, 14))}
-              className="key-config"
             >
-              {getLabel(3, 14).label}
+              {getLabel(3, 14).label
+              &&
+              getDivideKeys(
+                  (getLabel(3, 14).label),
+                  "783",
+                  "229",
+                  true
+              )
+              }
             </text>
             <text
               id="R3C14_t_extra"
@@ -2227,12 +2461,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R3C13_t_primary"
-              x="719.68738"
-              y="228.66875"
+              x="724"
+              y="229"
               fill={getContrastText(getColor(3, 13))}
-              className="key-config"
             >
-              {getLabel(3, 13).label}
+              {getLabel(3, 13).label
+              &&
+              getDivideKeys(
+                  (getLabel(3, 13).label),
+                  "724",
+                  "229",
+                  true
+              )
+              }
             </text>
             <text
               id="R3C13_t_extra"
@@ -2243,12 +2484,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R3C12_t_primary"
-              x="659.80048"
-              y="228.66875"
+              x="665"
+              y="229"
               fill={getContrastText(getColor(3, 12))}
-              className="key-config"
             >
-              {getLabel(3, 12).label}
+              {getLabel(3, 12).label
+              &&
+              getDivideKeys(
+                  (getLabel(3, 12).label),
+                  "665",
+                  "229",
+                  true
+              )
+              }
             </text>
             <text
               id="R3C12_t_extra"
@@ -2259,12 +2507,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R3C11_t_primary"
-              x="601.21484"
-              y="228.66875"
+              x="605"
+              y="229"
               fill={getContrastText(getColor(3, 11))}
-              className="letter-config"
             >
-              {getLabel(3, 11).label}
+              {getLabel(3, 11).label
+              &&
+              getDivideKeys(
+                  (getLabel(3, 11).label),
+                  "605",
+                  "229",
+                  true
+              )
+              }
             </text>
             <text
               id="R3C11_t_extra"
@@ -2275,12 +2530,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R3C10_t_primary"
-              x="545.28558"
-              y="228.66875"
+              x="549"
+              y="229"
               fill={getContrastText(getColor(3, 10))}
-              className="letter-config"
             >
-              {getLabel(3, 10).label}
+              {getLabel(3, 10).label
+              &&
+              getDivideKeys(
+                  (getLabel(3, 10).label),
+                  "549",
+                  "229",
+                  true
+              )
+              }
             </text>
             <text
               id="R3C10_t_extra"
@@ -2291,12 +2553,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R3C6_t_primary"
-              x="430.76379"
-              y="228.66875"
+              x="437"
+              y="229"
               fill={getContrastText(getColor(3, 6))}
-              className="letter-config"
             >
-              {getLabel(3, 6).label}
+              {getLabel(3, 6).label
+              &&
+              getDivideKeys(
+                  (getLabel(3, 6).label),
+                  "437",
+                  "229",
+                  true
+              )
+              }
             </text>
             <text
               id="R3C6_t_extra"
@@ -2307,12 +2576,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R3C5_t_primary"
-              x="373.10339"
-              y="228.66875"
+              x="377"
+              y="229"
               fill={getContrastText(getColor(3, 5))}
-              className="letter-config"
             >
-              {getLabel(3, 5).label}
+              {getLabel(3, 5).label
+              &&
+              getDivideKeys(
+                  (getLabel(3, 5).label),
+                  "377",
+                  "229",
+                  true
+              )
+              }
             </text>
             <text
               id="R3C5_t_extra"
@@ -2323,12 +2599,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R3C4_t_primary"
-              x="315.57617"
-              y="228.66875"
+              x="320"
+              y="229"
               fill={getContrastText(getColor(3, 4))}
-              className="letter-config"
             >
-              {getLabel(3, 4).label}
+              {getLabel(3, 4).label
+              &&
+              getDivideKeys(
+                  (getLabel(3, 4).label),
+                  "320",
+                  "229",
+                  true
+              )
+              }
             </text>
             <text
               id="R3C4_t_extra"
@@ -2339,12 +2622,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R3C3_t_primary"
-              x="256.71729"
-              y="228.66875"
+              x="261"
+              y="229"
               fill={getContrastText(getColor(3, 3))}
-              className="letter-config"
             >
-              {getLabel(3, 3).label}
+              {getLabel(3, 3).label
+              &&
+              getDivideKeys(
+                  (getLabel(3, 3).label),
+                  "261",
+                  "229",
+                  true
+              )
+              }
             </text>
             <text
               id="R3C3_t_extra"
@@ -2355,12 +2645,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R3C2_t_primary"
-              x="197.06839"
-              y="228.66875"
+              x="201"
+              y="229"
               fill={getContrastText(getColor(3, 2))}
-              className="letter-config"
             >
-              {getLabel(3, 2).label}
+              {getLabel(3, 2).label
+              &&
+              getDivideKeys(
+                  (getLabel(3, 2).label),
+                  "201",
+                  "229",
+                  true
+              )
+              }
             </text>
             <text
               id="R3C2_t_extra"
@@ -2371,26 +2668,42 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R3C0_t_primary"
-              x="66.22266"
-              y="227.71767"
+              x="115"
+              y="229"
               fill={getContrastText(getColor(3, 0))}
             >
-              {getLabel(3, 0).label}
+              {getLabel(3, 0).label
+              &&
+              getDivideKeys(
+                  (getLabel(3, 0).label),
+                  "115",
+                  "229"
+              )
+              }
             </text>
             <text
               id="R3C0_t_extra"
-              transform="matrix(1 0 0 1 61.69 213.939)"
+              x="68"
+              y="216"
               fill={getContrastText(getColor(3, 0))}
             >
               {getLabel(3, 0).extraLabel}
             </text>
             <text
               id="R2C15_t_primary"
-              x="898.63702"
-              y="168.383"
-              fill={getContrastText(getColor(1, 15))}
+              x="915"
+              y="168"
+              fill={getContrastText(getColor(2, 15))}
             >
-              {getLabel(1, 15).label}
+              {getLabel(2, 15).label
+              &&
+              getDivideKeys(
+                  (getLabel(2, 15).label),
+                  "915",
+                  "168",
+                  true
+              )
+              }
             </text>
             <text
               id="R2C15_t_extra"
@@ -2401,12 +2714,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R2C14_t_primary"
-              x="812.51373"
-              y="168.383"
+              x="826"
+              y="168"
               fill={getContrastText(getColor(2, 14))}
-              className="key-config"
             >
-              {getLabel(2, 14).label}
+              {getLabel(2, 14).label
+              &&
+              getDivideKeys(
+                  (getLabel(2, 14).label),
+                  "826",
+                  "168",
+                  true
+              )
+              }
             </text>
             <text
               id="R2C14_t_extra"
@@ -2417,12 +2737,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R2C13_t_primary"
-              x="756.39331"
-              y="168.383"
+              x="769"
+              y="168"
               fill={getContrastText(getColor(2, 13))}
-              className="key-config"
             >
-              {getLabel(2, 13).label}
+              {getLabel(2, 13).label
+              &&
+              getDivideKeys(
+                  (getLabel(2, 13).label),
+                  "769",
+                  "168",
+                  true
+              )
+              }
             </text>
             <text
               id="R2C13_t_extra"
@@ -2433,12 +2760,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R2C12_t_primary"
-              x="696.99744"
-              y="168.383"
+              x="710"
+              y="168"
               fill={getContrastText(getColor(2, 12))}
-              className="letter-config"
             >
-              {getLabel(2, 12).label}
+              {getLabel(2, 12).label
+              &&
+              getDivideKeys(
+                  (getLabel(2, 12).label),
+                  "710",
+                  "168",
+                  true
+              )
+              }
             </text>
             <text
               id="R2C12_t_extra"
@@ -2449,12 +2783,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R2C11_t_primary"
-              x="638.74908"
-              y="168.383"
+              x="648"
+              y="168"
               fill={getContrastText(getColor(2, 11))}
-              className="letter-config"
             >
-              {getLabel(2, 11).label}
+              {getLabel(2, 11).label
+              &&
+              getDivideKeys(
+                  (getLabel(2, 11).label),
+                  "648",
+                  "168",
+                  true
+              )
+              }
             </text>
             <text
               id="R2C11_t_extra"
@@ -2465,12 +2806,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R2C10_t_primary"
-              x="583.53107"
-              y="168.383"
+              x="593"
+              y="168"
               fill={getContrastText(getColor(2, 10))}
-              className="letter-config"
             >
-              {getLabel(2, 10).label}
+              {getLabel(2, 10).label
+              &&
+              getDivideKeys(
+                  (getLabel(2, 10).label),
+                  "593",
+                  "168",
+                  true
+              )
+              }
             </text>
             <text
               id="R2C10_t_extra"
@@ -2481,12 +2829,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R2C9_t_primary"
-              x="525.72925"
-              y="168.383"
+              x="535"
+              y="168"
               fill={getContrastText(getColor(2, 9))}
-              className="letter-config"
             >
-              {getLabel(2, 9).label}
+              {getLabel(2, 9).label
+              &&
+              getDivideKeys(
+                  (getLabel(2, 9).label),
+                  "535",
+                  "168",
+                  true
+              )
+              }
             </text>
             <text
               id="R2C9_t_extra"
@@ -2497,12 +2852,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R2C5_t_primary"
-              x="408.29358"
-              y="168.383"
+              x="413"
+              y="168"
               fill={getContrastText(getColor(2, 5))}
-              className="letter-config"
             >
-              {getLabel(2, 5).label}
+              {getLabel(2, 5).label
+              &&
+              getDivideKeys(
+                  (getLabel(2, 5).label),
+                  "413",
+                  "168",
+                  true
+              )
+              }
             </text>
             <text
               id="R2C5_t_extra"
@@ -2513,12 +2875,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R2C4_t_primary"
-              x="350.37012"
-              y="168.383"
+              x="355"
+              y="168"
               fill={getContrastText(getColor(2, 4))}
-              className="letter-config"
             >
-              {getLabel(2, 4).label}
+              {getLabel(2, 4).label
+              &&
+              getDivideKeys(
+                  (getLabel(2, 4).label),
+                  "355",
+                  "168",
+                  true
+              )
+              }
             </text>
             <text
               id="R2C4_t_extra"
@@ -2529,12 +2898,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R2C3_t_primary"
-              x="291.3121"
-              y="168.383"
+              x="297"
+              y="168"
               fill={getContrastText(getColor(2, 3))}
-              className="letter-config"
             >
-              {getLabel(2, 3).label}
+              {getLabel(2, 3).label
+              &&
+              getDivideKeys(
+                  (getLabel(2, 3).label),
+                  "297",
+                  "168",
+                  true
+              )
+              }
             </text>
             <text
               id="R2C3_t_extra"
@@ -2545,12 +2921,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R2C2_t_primary"
-              x="233.05211"
-              y="168.383"
+              x="238"
+              y="168"
               fill={getContrastText(getColor(2, 2))}
-              className="letter-config"
             >
-              {getLabel(2, 2).label}
+              {getLabel(2, 2).label
+              &&
+              getDivideKeys(
+                  (getLabel(2, 2).label),
+                  "238",
+                  "168",
+                  true
+              )
+              }
             </text>
             <text
               id="R2C2_t_extra"
@@ -2561,12 +2944,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R2C1_t_primary"
-              x="173.46146"
-              y="168.383"
+              x="180"
+              y="168"
               fill={getContrastText(getColor(2, 1))}
-              className="letter-config"
             >
-              {getLabel(2, 1).label}
+              {getLabel(2, 1).label
+              &&
+              getDivideKeys(
+                  (getLabel(2, 1).label),
+                  "180",
+                  "168",
+                  true
+              )
+              }
             </text>
             <text
               id="R2C1_t_extra"
@@ -2577,11 +2967,18 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R2C0_t_primary"
-              x="77.509178"
-              y="168.383"
+              x="103"
+              y="168"
               fill={getContrastText(getColor(2, 0))}
             >
-              {getLabel(2, 0).label}
+              {getLabel(2, 0).label
+              &&
+              getDivideKeys(
+                  (getLabel(2, 0).label),
+                  "103",
+                  "168"
+              )
+              }
             </text>
             <text
               id="R2C0_t_extra"
@@ -2592,12 +2989,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R1C15_t_primary"
-              x="926.29419"
-              y="107.98302"
-              fill={getContrastText(getColor(2, 15))}
-              className="key-config"
+              x="930"
+              y="108"
+              fill={getContrastText(getColor(1, 15))}
             >
-              {getLabel(2, 15).label}
+              {getLabel(1, 15).label
+              &&
+              getDivideKeys(
+                  (getLabel(1, 15).label),
+                  "930",
+                  "108",
+                  false
+              )
+              }
             </text>
             <text
               id="R1C15_t_extra"
@@ -2608,12 +3012,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R1C14_t_primary"
-              x="856.32159"
-              y="110.91264"
+              x="860"
+              y="111"
               fill={getContrastText(getColor(1, 14))}
-              className="key-config"
             >
-              {getLabel(1, 14).label}
+              {getLabel(1, 14).label
+              &&
+              getDivideKeys(
+                  (getLabel(1, 14).label),
+                  "860",
+                  "111",
+                  true
+              )
+              }
             </text>
             <text
               id="R1C14_t_extra"
@@ -2624,12 +3035,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R1C13_t_primary"
-              x="801.33112"
-              y="110.91264"
+              x="805"
+              y="111"
               fill={getContrastText(getColor(1, 13))}
-              className="key-config"
             >
-              {getLabel(1, 13).label}
+              {getLabel(1, 13).label
+              &&
+              getDivideKeys(
+                  (getLabel(1, 13).label),
+                  "805",
+                  "111",
+                  true
+              )
+              }
             </text>
             <text
               id="R1C13_t_extra"
@@ -2640,12 +3058,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R1C12_t_primary"
-              x="739.86908"
-              y="110.91264"
+              x="745"
+              y="111"
               fill={getContrastText(getColor(1, 12))}
-              className="letter-config"
             >
-              {getLabel(1, 12).label}
+              {getLabel(1, 12).label
+              &&
+              getDivideKeys(
+                  (getLabel(1, 12).label),
+                  "745",
+                  "111",
+                  true
+              )
+              }
             </text>
             <text
               id="R1C12_t_extra"
@@ -2656,12 +3081,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R1C11_t_primary"
-              x="683.18573"
-              y="110.91264"
+              x="688"
+              y="111"
               fill={getContrastText(getColor(1, 11))}
-              className="letter-config"
             >
-              {getLabel(1, 11).label}
+              {getLabel(1, 11).label
+              &&
+              getDivideKeys(
+                  (getLabel(1, 11).label),
+                  "688",
+                  "111",
+                  true
+              )
+              }
             </text>
             <text
               id="R1C11_t_extra"
@@ -2672,12 +3104,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R1C10_t_primary"
-              x="626.40076"
-              y="110.91264"
+              x="630"
+              y="111"
               fill={getContrastText(getColor(1, 10))}
-              className="letter-config"
             >
-              {getLabel(1, 10).label}
+              {getLabel(1, 10).label
+              &&
+              getDivideKeys(
+                  (getLabel(1, 10).label),
+                  "630",
+                  "111",
+                  true
+              )
+              }
             </text>
             <text
               id="R1C10_t_extra"
@@ -2688,12 +3127,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R1C9_t_primary"
-              x="568.91718"
-              y="110.91264"
+              x="574"
+              y="111"
               fill={getContrastText(getColor(1, 9))}
-              className="letter-config"
             >
-              {getLabel(1, 9).label}
+              {getLabel(1, 9).label
+              &&
+              getDivideKeys(
+                  (getLabel(1, 9).label),
+                  "574",
+                  "111",
+                  true
+              )
+              }
             </text>
             <text
               id="R1C9_t_extra"
@@ -2704,12 +3150,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R1C8_t_primary"
-              x="511.51831"
-              y="110.91264"
+              x="516"
+              y="111"
               fill={getContrastText(getColor(1, 8))}
-              className="letter-config"
             >
-              {getLabel(1, 8).label}
+              {getLabel(1, 8).label
+              &&
+              getDivideKeys(
+                  (getLabel(1, 8).label),
+                  "516",
+                  "111",
+                  true
+              )
+              }
             </text>
             <text
               id="R1C8_t_extra"
@@ -2720,12 +3173,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R1C5_t_primary"
-              x="402.2352"
-              y="110.91264"
+              x="407"
+              y="111"
               fill={getContrastText(getColor(1, 5))}
-              className="letter-config"
             >
-              {getLabel(1, 5).label}
+              {getLabel(1, 5).label
+              &&
+              getDivideKeys(
+                  (getLabel(1, 5).label),
+                  "407",
+                  "111",
+                  true
+              )
+              }
             </text>
             <text
               id="R1C5_t_extra"
@@ -2736,12 +3196,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R1C4_t_primary"
-              x="342.75281"
-              y="110.91264"
+              x="348"
+              y="111"
               fill={getContrastText(getColor(1, 4))}
-              className="letter-config"
             >
-              {getLabel(1, 4).label}
+              {getLabel(1, 4).label
+              &&
+              getDivideKeys(
+                  (getLabel(1, 4).label),
+                  "348",
+                  "111",
+                  true
+              )
+              }
             </text>
             <text
               id="R1C4_t_extra"
@@ -2752,12 +3219,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R1C3_t_primary"
-              x="283.36591"
-              y="110.91264"
+              x="289"
+              y="111"
               fill={getContrastText(getColor(1, 3))}
-              className="letter-config"
             >
-              {getLabel(1, 3).label}
+              {getLabel(1, 3).label
+              &&
+              getDivideKeys(
+                  (getLabel(1, 3).label),
+                  "289",
+                  "111",
+                  true
+              )
+              }
             </text>
             <text
               id="R1C3_t_extra"
@@ -2768,12 +3242,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R1C2_t_primary"
-              x="225.32829"
-              y="110.91264"
+              x="230"
+              y="111"
               fill={getContrastText(getColor(1, 2))}
-              className="letter-config"
             >
-              {getLabel(1, 2).label}
+              {getLabel(1, 2).label
+              &&
+              getDivideKeys(
+                  (getLabel(1, 2).label),
+                  "230",
+                  "111",
+                  true
+              )
+              }
             </text>
             <text
               id="R1C2_t_extra"
@@ -2784,12 +3265,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R1C1_t_primary"
-              x="166.32829"
-              y="110.91264"
+              x="171"
+              y="111"
               fill={getContrastText(getColor(1, 1))}
-              className="letter-config"
             >
-              {getLabel(1, 1).label}
+              {getLabel(1, 1).label
+              &&
+              getDivideKeys(
+                  (getLabel(1, 1).label),
+                  "171",
+                  "111",
+                  true
+              )
+              }
             </text>
             <text
               id="R1C1_t_extra"
@@ -2800,11 +3288,18 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R1C0_t_primary"
-              x="90.159172"
-              y="108.40535"
+              x="100"
+              y="108"
               fill={getContrastText(getColor(1, 0))}
             >
-              {getLabel(1, 0).label}
+              {getLabel(1, 0).label
+              &&
+              getDivideKeys(
+                  (getLabel(1, 0).label),
+                  "100",
+                  "111"
+              )
+              }
             </text>
             <text
               id="R1C0_t_extra"
@@ -2815,11 +3310,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R0C15_t_primary"
-              x="882.39313"
-              y="46.545471"
+              x="915"
+              y="50"
               fill={getContrastText(getColor(0, 15))}
             >
-              {getLabel(0, 15).label}
+              {getLabel(0, 15).label
+              &&
+              getDivideKeys(
+                  (getLabel(0, 15).label),
+                  "915",
+                  "46",
+                  false
+              )
+              }
             </text>
             <text
               id="R0C15_t_extra"
@@ -2830,12 +3333,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R0C14_t_primary"
-              x="824.71515"
-              y="50.029457"
+              x="828"
+              y="50"
               fill={getContrastText(getColor(0, 14))}
-              className="key-config"
             >
-              {getLabel(0, 14).label}
+              {getLabel(0, 14).label
+              &&
+              getDivideKeys(
+                  (getLabel(0, 14).label),
+                  "828",
+                  "50",
+                  true
+              )
+              }
             </text>
             <text
               id="R0C14_t_extra"
@@ -2846,12 +3356,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R0C13_t_primary"
-              x="765.58154"
-              y="50.029457"
+              x="769"
+              y="50"
               fill={getContrastText(getColor(0, 13))}
-              className="key-config"
             >
-              {getLabel(0, 13).label}
+              {getLabel(0, 13).label
+              &&
+              getDivideKeys(
+                  (getLabel(0, 13).label),
+                  "769",
+                  "50",
+                  true
+              )
+              }
             </text>
             <text
               id="R0C13_t_extra"
@@ -2862,12 +3379,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R0C12_t_primary"
-              x="707.0073"
-              y="50.029457"
+              x="711"
+              y="50"
               fill={getContrastText(getColor(0, 12))}
-              className="key-config"
             >
-              {getLabel(0, 12).label}
+              {getLabel(0, 12).label
+              &&
+              getDivideKeys(
+                  (getLabel(0, 12).label),
+                  "711",
+                  "50",
+                  true
+              )
+              }
             </text>
             <text
               id="R0C12_t_extra"
@@ -2878,12 +3402,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R0C11_t_primary"
-              x="648.0073"
-              y="50.029457"
+              x="652"
+              y="50"
               fill={getContrastText(getColor(0, 11))}
-              className="key-config"
             >
-              {getLabel(0, 11).label}
+              {getLabel(0, 11).label
+              &&
+              getDivideKeys(
+                  (getLabel(0, 11).label),
+                  "652",
+                  "50",
+                  true
+              )
+              }
             </text>
             <text
               id="R0C11_t_extra"
@@ -2894,12 +3425,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R0C10_t_primary"
-              x="589.0073"
-              y="50.029457"
+              x="593"
+              y="50"
               fill={getContrastText(getColor(0, 10))}
-              className="key-config"
             >
-              {getLabel(0, 10).label}
+              {getLabel(0, 10).label
+              &&
+              getDivideKeys(
+                  (getLabel(0, 10).label),
+                  "593",
+                  "50",
+                  true
+              )
+              }
             </text>
             <text
               id="R0C10_t_extra"
@@ -2910,12 +3448,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R0C9_t_primary"
-              x="530.55371"
-              y="50.029457"
+              x="534"
+              y="50"
               fill={getContrastText(getColor(0, 9))}
-              className="key-config"
             >
-              {getLabel(0, 9).label}
+              {getLabel(0, 9).label
+              &&
+              getDivideKeys(
+                  (getLabel(0, 9).label),
+                  "534",
+                  "50",
+                  true
+              )
+              }
             </text>
             <text
               id="R0C9_t_extra"
@@ -2926,12 +3471,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R0C6_t_primary"
-              x="430.85852"
-              y="50.029457"
+              x="434"
+              y="50"
               fill={getContrastText(getColor(0, 6))}
-              className="key-config"
             >
-              {getLabel(0, 6).label}
+              {getLabel(0, 6).label
+              &&
+              getDivideKeys(
+                  (getLabel(0, 6).label),
+                  "434",
+                  "50",
+                  true
+              )
+              }
             </text>
             <text
               id="R0C6_t_extra"
@@ -2942,12 +3494,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R0C5_t_primary"
-              x="371.53659"
-              y="50.029457"
+              x="375"
+              y="50"
               fill={getContrastText(getColor(0, 5))}
-              className="key-config"
             >
-              {getLabel(0, 5).label}
+              {getLabel(0, 5).label
+              &&
+              getDivideKeys(
+                  (getLabel(0, 5).label),
+                  "375",
+                  "50",
+                  true
+              )
+              }
             </text>
             <text
               id="R0C5_t_extra"
@@ -2958,12 +3517,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R0C4_t_primary"
-              x="313.15628"
-              y="50.029457"
+              x="317"
+              y="50"
               fill={getContrastText(getColor(0, 4))}
-              className="key-config"
             >
-              {getLabel(0, 4).label}
+              {getLabel(0, 4).label
+              &&
+              getDivideKeys(
+                  (getLabel(0, 4).label),
+                  "317",
+                  "50",
+                  true
+              )
+              }
             </text>
             <text
               id="R0C4_t_extra"
@@ -2974,12 +3540,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R0C3_t_primary"
-              x="253.92854"
-              y="50.029457"
+              x="257"
+              y="50"
               fill={getContrastText(getColor(0, 3))}
-              className="key-config"
             >
-              {getLabel(0, 3).label}
+              {getLabel(0, 3).label
+              &&
+              getDivideKeys(
+                  (getLabel(0, 3).label),
+                  "257",
+                  "50",
+                  true
+              )
+              }
             </text>
             <text
               id="R0C3_t_extra"
@@ -2990,12 +3563,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R0C2_t_primary"
-              x="196.1132"
-              y="50.029457"
+              x="200"
+              y="50"
               fill={getContrastText(getColor(0, 2))}
-              className="key-config"
             >
-              {getLabel(0, 2).label}
+              {getLabel(0, 2).label
+              &&
+              getDivideKeys(
+                  (getLabel(0, 2).label),
+                  "200",
+                  "50",
+                  true
+              )
+              }
             </text>
             <text
               id="R0C2_t_extra"
@@ -3006,12 +3586,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R0C1_t_primary"
-              x="137.82706"
-              y="50.029457"
+              x="141"
+              y="50"
               fill={getContrastText(getColor(0, 1))}
-              className="key-config"
             >
-              {getLabel(0, 1).label}
+              {getLabel(0, 1).label
+              &&
+              getDivideKeys(
+                  (getLabel(0, 1).label),
+                  "141",
+                  "50",
+                  true
+              )
+              }
             </text>
             <text
               id="R0C1_t_extra"
@@ -3022,11 +3609,19 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R0C0_t_primary"
-              x="72.768761"
-              y="49.181999"
+              x="83"
+              y="49"
               fill={getContrastText(getColor(0, 0))}
             >
-              {getLabel(0, 0).label}
+              {getLabel(0, 0).label
+              &&
+              getDivideKeys(
+                  (getLabel(0, 0).label),
+                  "83",
+                  "49",
+                  true
+              )
+              }
             </text>
             <text
               id="R0C0_t_extra"

@@ -40,7 +40,6 @@ import ExitMenuItem from "./ExitMenuItem";
 import KeyboardMenuItem from "./KeyboardSelectMenuItem";
 import PreferencesMenuItem from "./PreferencesMenuItem";
 import KeyboardSettingsMenuItem from "./KeyboardSettingsMenuItem";
-import UpgradeMenuItem from "./UpgradeMenuItem";
 import SupportPage from "./SupportPage";
 import openURL from "../../utils/openURL";
 
@@ -135,9 +134,6 @@ function MainMenu({ open, closeMenu, classes, connected, pages, themeDark }) {
               </IconButton>
             </List>
           </Link>
-          <List style={{ padding: 0 }}>
-            <UpgradeMenuItem />
-          </List>
           <div
             className={
               darkTheme ? classes.keyboardTitleLight : classes.keyboardTitleDark

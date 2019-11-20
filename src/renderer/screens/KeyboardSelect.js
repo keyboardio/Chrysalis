@@ -367,7 +367,7 @@ class KeyboardSelect extends React.Component {
     return (
       <div className={classes.main}>
         <Portal container={this.props.titleElement}>
-          {i18n.app.menu.selectAKeyboard}
+          {i18n.app.menu.softwareUpdate}
         </Portal>
         {loader}
         <Card className={classes.card}>

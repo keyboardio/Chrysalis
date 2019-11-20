@@ -10,7 +10,7 @@ const extensions = {
   windows: "exe"
 };
 const fileName =
-      "Chrysalis-" +
+      "Bazecor-" +
       package.version +
       "." +
       extensions[process.env['TRAVIS_OS_NAME']];

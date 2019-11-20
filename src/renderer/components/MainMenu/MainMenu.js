@@ -41,9 +41,11 @@ import KeyboardMenuItem from "./KeyboardSelectMenuItem";
 import PreferencesMenuItem from "./PreferencesMenuItem";
 import KeyboardSettingsMenuItem from "./KeyboardSettingsMenuItem";
 import UpgradeMenuItem from "./UpgradeMenuItem";
+import SupportPage from "./SupportPage";
 import openURL from "../../utils/openURL";
 
 import { history } from "../../routerHistory";
+import { darkTheme } from "../../../styles/darkTheme";
 
 const styles = theme => ({
   drawer: {
@@ -66,13 +68,25 @@ const styles = theme => ({
   menuItem: {
     paddingLeft: theme.spacing.unit * 4
   },
-  keyboardTitle: {
+  keyboardTitleLight: {
     display: "block",
     width: 350,
     margin: "0 auto",
     padding: "30px 20px 30px 35px",
-    borderTop: "1px solid rgba(0, 0, 0, 0.14)",
-    borderBottom: "1px solid rgba(0, 0, 0, 0.14)",
+    borderTop: "1px solid silver",
+    borderBottom: "1px solid silver",
+    fontSize: 18,
+    textAlign: "left",
+    lineHeight: "150%",
+    letterSpacing: "0.25em"
+  },
+  keyboardTitleDark: {
+    display: "block",
+    width: 350,
+    margin: "0 auto",
+    padding: "30px 20px 30px 35px",
+    borderTop: "1px solid rgba(0, 0, 0, 0.87)",
+    borderBottom: "1px solid rgba(0, 0, 0, 0.87)",
     fontSize: 18,
     textAlign: "left",
     lineHeight: "150%",
@@ -94,28 +108,41 @@ function MainMenu({ open, closeMenu, classes, connected, pages, themeDark }) {
     <Drawer open={open} onClose={closeMenu}>
       <div onClick={closeMenu} role="button" onKeyDown={closeMenu}>
         <div className={classes.toolbarIcon}>
-          <Link
-            to={homePage}
-            style={{
-              display: "flex",
-              textDecoration: "none",
-              justifyContent: "center",
-              alignItems: "center"
-            }}
-          >
-            <IconButton
-              onClick={() => {
-                setCurrentPage(homePage);
+          <Link to={homePage} style={{ textDecoration: "none", width: "100%" }}>
+            <List
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "flex-start",
+                width: "100%",
+                padding: 0
               }}
             >
-              <img src={logo} style={{ width: 20, padding: "0, 0, 12px, 0" }} />
-            </IconButton>
-            <List>
-              <ListItemText primary={`Bazecor`} />
-              <UpgradeMenuItem />
+              <IconButton
+                onClick={() => {
+                  setCurrentPage(homePage);
+                }}
+                style={{ borderRadius: 0, width: "100%", padding: 12 }}
+              >
+                <img
+                  src={logo}
+                  style={{ width: 20, textDecoration: "none", marginRight: 15 }}
+                />
+                <ListItemText
+                  primary={`Bazecor`}
+                  style={{ textAlign: "left" }}
+                />
+              </IconButton>
             </List>
           </Link>
-          <div className={classes.keyboardTitle}>
+          <List style={{ padding: 0 }}>
+            <UpgradeMenuItem />
+          </List>
+          <div
+            className={
+              darkTheme ? classes.keyboardTitleLight : classes.keyboardTitleDark
+            }
+          >
             <Typography
               style={{ padding: 0, letterSpacing: "0.1em", fontSize: 17 }}
             >
@@ -189,13 +216,10 @@ function MainMenu({ open, closeMenu, classes, connected, pages, themeDark }) {
           <Link to="/keyboard-select" className={classes.link}>
             <KeyboardMenuItem
               className={classes.menuItem}
-              keyboardSelectText={
-                connected
-                  ? i18n.app.menu.selectAnotherKeyboard
-                  : i18n.app.menu.selectAKeyboard
-              }
+              keyboardSelectText={i18n.app.menu.softwareUpdate}
               selected={currentPage == "/keyboard-select"}
               onClick={() => setCurrentPage("/keyboard-select")}
+              themeDark={themeDark}
             />
           </Link>
           <Link to="/preferences" className={classes.link}>
@@ -215,9 +239,14 @@ function MainMenu({ open, closeMenu, classes, connected, pages, themeDark }) {
             </ListSubheader>
           }
         >
-          <FeedbackMenuItem
+          <SupportPage
             className={classes.menuItem}
             onClick={openURL("https://www.dygma.com/contact/")}
+            themeDark={themeDark}
+          />
+          <FeedbackMenuItem
+            className={classes.menuItem}
+            onClick={openURL("https://github.com/keyboardio/Chrysalis/issues")}
           />
           <ExitMenuItem
             className={classes.menuItem}

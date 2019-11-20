@@ -43,7 +43,7 @@ ColorPalette.propTypes = {
 const styles = () => ({
   root: {
     right: 0,
-    top: 110,
+    top: 85,
     position: "absolute"
   },
   palette: {
@@ -131,8 +131,13 @@ function ColorPalette(props) {
     if (e.ctrlKey || e.shiftKey) return;
     if (indexFocusButton === 15) {
       toChangeAllKeysColor(index, 0, 69);
+    } else if (indexFocusButton === 14) {
+      toChangeAllKeysColor(index, 69, 142);
     }
-    if (index === 15 && indexFocusButton !== index) {
+    if (
+      (index === 15 && indexFocusButton !== index) ||
+      (index === 14 && indexFocusButton !== index)
+    ) {
       setIndexFocusButton(index);
       onBacklightColorSelect(index);
       setColorFocusButton(setColorTamplate(color));

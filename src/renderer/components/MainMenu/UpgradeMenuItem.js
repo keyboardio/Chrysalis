@@ -44,6 +44,7 @@ function UpgradeMenuItem() {
         <ListItemText
           primary={i18n.app.menu.upgradeAvailable}
           secondary={latestVersion.version}
+          style={{ width: 318 }}
         />
       </ListItem>
     </React.Fragment>

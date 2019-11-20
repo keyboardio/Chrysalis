@@ -33,11 +33,11 @@ import menuWhite from "../menu-white.png";
 
 import BoardMenu from "./BoardMenu";
 import MainMenu from "./MainMenu/MainMenu";
-import logo from "../DygmaLogo.png";
 
 const styles = theme => ({
   pageMenu: {
-    marginLeft: theme.spacing.unit * 5
+    marginLeft: theme.spacing.unit * 5,
+    textTransform: "uppercase"
   },
   menuButton: {
     marginLeft: 22,
@@ -49,8 +49,7 @@ const styles = theme => ({
   navigation: {
     display: "flex",
     alignItems: "start",
-    flexDirection: "column",
-    padding: "10px 0"
+    flexDirection: "column"
   },
   logo: {
     width: 17,
@@ -88,10 +87,6 @@ function Header({
     setMainMenuOpen(false);
   }
 
-  function openBoardMenu(event) {
-    setBoardMenuAnchor(event.currentTarget);
-  }
-
   function closeBoardMenu() {
     setBoardMenuAnchor(null);
   }
@@ -109,6 +104,7 @@ function Header({
       position="static"
       color={contextBar ? "secondary" : "inherit"}
       id="appbar"
+      style={{ padding: "20px 0" }}
     >
       <Toolbar variant="dense" className={classes.navigation}>
         <MainMenu
@@ -119,14 +115,6 @@ function Header({
           themeDark={theme}
         />
         <div className={classes.grow} />
-        {device && (
-          <>
-            <Button onClick={openBoardMenu} disabled={!device.urls}>
-              <img src={logo} alt="logoDygma" className={classes.logo} />
-              <span>BAZECOR</span>
-            </Button>
-          </>
-        )}
         {device && device.urls && (
           <BoardMenu
             boardAnchor={boardAnchor}

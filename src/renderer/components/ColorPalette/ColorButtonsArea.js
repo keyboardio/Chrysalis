@@ -62,14 +62,14 @@ function ColorButtonsArea(props) {
     colorFocusButton,
     indexFocusButton,
     setIsFocus,
-    toChangeAllKeysColor,
     palette,
-    theme,
     disabled,
     onBacklightColorSelect
   } = props;
 
-  const backlightUnderglowButtons = 15;
+  const underglowButton = 14;
+  const backlightButton = 15;
+
   /**
    * This is Hook that lets add React state "colorButtonsAmount" to functional components
    * @param {array} [state] Array with color elements
@@ -111,25 +111,26 @@ function ColorButtonsArea(props) {
       <Grid className={classes.palette} container>
         {displayGrids(0, 14)}
       </Grid>
-      <UndeglowColorButton
-        color={colorFocusButton}
-        colorFocusButton={colorFocusButton}
-        indexFocusButton={indexFocusButton}
-        disabled={disabled}
-        theme={theme}
-        toChangeAllKeysColor={toChangeAllKeysColor}
-        start={69}
-        end={141}
-        value={"UNDERGLOW"}
-      >
-        {i18n.components.underglowColorButton}
-      </UndeglowColorButton>
+      {palette.length > 0 && (
+        <UndeglowColorButton
+          key={uuid()}
+          isFocus={underglowButton === indexFocusButton}
+          index={underglowButton}
+          color={palette[underglowButton]}
+          setIsFocus={setIsFocus}
+          disabled={disabled}
+          onBacklightColorSelect={onBacklightColorSelect}
+          value={"UNDERGLOW"}
+        >
+          {i18n.components.underglowColorButton}
+        </UndeglowColorButton>
+      )}
       {palette.length > 0 && (
         <BacklightButton
           key={uuid()}
-          isFocus={backlightUnderglowButtons === indexFocusButton}
-          index={backlightUnderglowButtons}
-          color={palette[backlightUnderglowButtons]}
+          isFocus={backlightButton === indexFocusButton}
+          index={backlightButton}
+          color={palette[backlightButton]}
           setIsFocus={setIsFocus}
           disabled={disabled}
           onBacklightColorSelect={onBacklightColorSelect}

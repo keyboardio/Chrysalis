@@ -55,6 +55,7 @@ const styles = theme => ({
  * @param {function} setIsFocus Callback function from ColorPalette component. Parameters are: first - index of color button in palette (from 0 to 15), second - object with keys that defining colors using the Red-green-blue-alpha (RGBA) model, third - event
  * @param {array} palette Array of colors. Format [{r: 200, g: 200, b: 200, rgb: "rgb(200, 200, 200)"}, ...]
  * @param {boolean} disabled Property that disable component
+ * @param {function} onBacklightColorSelect Callback function from Editor component for change color of buttons in keyboard. Parameter is index of color button in palette (from 0 to 15)
  */
 function ColorButtonsArea(props) {
   const {
@@ -109,7 +110,7 @@ function ColorButtonsArea(props) {
   return (
     <div>
       <Grid className={classes.palette} container>
-        {displayGrids(0, 14)}
+        {displayGrids(0, underglowButton)}
       </Grid>
       {palette.length > 0 && (
         <UndeglowColorButton

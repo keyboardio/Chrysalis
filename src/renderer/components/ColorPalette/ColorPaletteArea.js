@@ -97,7 +97,7 @@ function ColorPaletteArea(props) {
               disabled={disabled}
             />
           ))
-          .slice(0, -2)}
+          .slice(0, -1)}
       </Grid>
     );
   };

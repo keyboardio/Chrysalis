@@ -26,9 +26,9 @@ import Tooltip from "@material-ui/core/Tooltip";
 BacklightButton.propTypes = {
   classes: PropTypes.object.isRequired,
   isFocus: PropTypes.bool.isRequired,
-  // setIsFocus: PropTypes.func.isRequired,
+  setIsFocus: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
-  // color: PropTypes.object.isRequired,
+  color: PropTypes.object.isRequired,
   disabled: PropTypes.bool.isRequired,
   isSelected: PropTypes.bool
 };

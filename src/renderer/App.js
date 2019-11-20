@@ -278,9 +278,8 @@ class App extends React.Component {
             open={this.state.cancelPendingOpen}
             onConfirm={this.doCancelContext}
             onCancel={this.cancelContextCancellation}
-          >
-            {i18n.app.cancelPending.content}
-          </ConfirmationDialog>
+            text={i18n.app.cancelPending.content}
+          />
         </div>
       </MuiThemeProvider>
     );

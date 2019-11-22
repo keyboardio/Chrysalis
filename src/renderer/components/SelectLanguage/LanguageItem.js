@@ -27,6 +27,13 @@ const styles = () => ({
     minWidth: 130,
     maxWidth: 360,
     textTransform: "uppercase"
+  },
+  languagesText: {
+    fontSize: "0.875rem",
+    fontFamily: "'Source Code Pro', monospace",
+    letterSpacing: "0.02857em",
+    fontWeight: 500,
+    lineHeight: 1.75
   }
 });
 
@@ -62,7 +69,9 @@ function LanguageItem(props) {
       onClick={onItemClick}
       className={classes.root}
     >
-      <ListItemText className={classes.root}>{props.children}</ListItemText>
+      <ListItemText className={classes.root}>
+        <span className={classes.languagesText}>{props.children}</span>
+      </ListItemText>
     </ListItem>
   );
 }

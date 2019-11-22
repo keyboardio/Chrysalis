@@ -129,7 +129,7 @@ function MainMenu({ open, closeMenu, classes, connected, pages, themeDark }) {
                 />
                 <ListItemText
                   primary={`Bazecor`}
-                  style={{ textAlign: "left" }}
+                  style={{ textAlign: "left", textTransform: "uppercase" }}
                 />
               </IconButton>
             </List>
@@ -209,12 +209,12 @@ function MainMenu({ open, closeMenu, classes, connected, pages, themeDark }) {
             </ListSubheader>
           }
         >
-          <Link to="/keyboard-select" className={classes.link}>
+          <Link to="/editor" className={classes.link}>
             <KeyboardMenuItem
               className={classes.menuItem}
               keyboardSelectText={i18n.app.menu.softwareUpdate}
-              selected={currentPage == "/keyboard-select"}
-              onClick={() => setCurrentPage("/keyboard-select")}
+              selected={currentPage == "/editor"}
+              onClick={() => setCurrentPage("/editor")}
               themeDark={themeDark}
             />
           </Link>
@@ -237,12 +237,12 @@ function MainMenu({ open, closeMenu, classes, connected, pages, themeDark }) {
         >
           <SupportPage
             className={classes.menuItem}
-            onClick={openURL("https://www.dygma.com/contact/")}
+            onClick={openURL("https://github.com/keyboardio/Chrysalis/issues")}
             themeDark={themeDark}
           />
           <FeedbackMenuItem
             className={classes.menuItem}
-            onClick={openURL("https://github.com/keyboardio/Chrysalis/issues")}
+            onClick={openURL("https://www.dygma.com/contact/")}
           />
           <ExitMenuItem
             className={classes.menuItem}

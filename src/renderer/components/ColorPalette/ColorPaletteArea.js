@@ -39,7 +39,7 @@ const styles = theme => ({
     [theme.breakpoints.down("sm")]: {
       padding: 0
     },
-    width: 160,
+    width: 130,
     borderTopColor: "#dfdfdf",
     borderTop: "2px solid"
   }

@@ -23,7 +23,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Tooltip from "@material-ui/core/Tooltip";
 
-BacklightButton.propTypes = {
+UnderglowButton.propTypes = {
   classes: PropTypes.object.isRequired,
   isFocus: PropTypes.bool.isRequired,
   setIsFocus: PropTypes.func.isRequired,
@@ -69,7 +69,7 @@ const minWhiteColorValue = 140;
  * @param {object} color Current color of button
  * @param {boolean} disabled Property that disable component
  */
-function BacklightButton(props) {
+function UnderglowButton(props) {
   const { classes, setIsFocus, isFocus, index, color, disabled, value } = props;
   ///Checks background is white or not
   const isWhiteColor =
@@ -86,6 +86,7 @@ function BacklightButton(props) {
       ? `0px 0px 26px 4px rgb(${color.r}, ${color.g}, ${color.b})`
       : `0px 0px 26px 4px rgb(155, 155, 155)`
   };
+
   return (
     <Tooltip placement="top" title={props.children}>
       <div className={classes.root}>
@@ -103,4 +104,4 @@ function BacklightButton(props) {
   );
 }
 
-export default withStyles(styles)(BacklightButton);
+export default withStyles(styles)(UnderglowButton);

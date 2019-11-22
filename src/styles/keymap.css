@@ -26,8 +26,7 @@
   min-width: 550px;
   min-height: 280px;
   height: calc(100vh - 300px);
-  max-width: calc(100vw - 128px);
-  margin-right: 180px;
+  max-width: calc(100vw - 130px);
   margin-top: 20px;
 }
 

@@ -23,12 +23,12 @@ class Keymap extends React.Component {
     const keymap = this.props.keymap || Array(48).fill().map(() => 0);
 
     let getLabel = (row, col) => {
-      let keyIndex = parseInt(row) * 11 + parseInt(col),
+      let keyIndex = parseInt(row) * 12 + parseInt(col),
         keyCode = keymap[keyIndex];
       return keyCode;
     };
     let isActive = (row, col) => {
-      let keyIndex = parseInt(row) * 11 + parseInt(col);
+      let keyIndex = parseInt(row) * 12 + parseInt(col);
       return this.props.selectedKey == keyIndex;
     };
 

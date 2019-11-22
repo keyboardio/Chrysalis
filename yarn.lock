@@ -1146,10 +1146,10 @@
     "@chrysalis-api/flash" "^0.0.9"
     react "^16.5.2"
 
-"@chrysalis-api/hardware-keyboardio-atreus2@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-keyboardio-atreus2/-/hardware-keyboardio-atreus2-0.0.1.tgz#3ce6f45583fbb956af3d46414ef32b1b8c8d1450"
-  integrity sha512-0r8HBcn249/Rg6d0POmiJIUXEtSjtX4ANbtJ25dmoMX3oM31kb0diNsflSmhIUt1zybxeDAHaZ/aTqWbm1zdJg==
+"@chrysalis-api/hardware-keyboardio-atreus2@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware-keyboardio-atreus2/-/hardware-keyboardio-atreus2-0.0.3.tgz#75e81337631d48a3ee1e7ce4c4f514460abe81ef"
+  integrity sha512-zrUag0BaGH+XxgS2NMmx+aH5M2pRw+fe7qspp/uV0C+Y+G2HBRKRtls3p7snEcnxxwDwAo3SMvHD1nqX4evocg==
   dependencies:
     "@chrysalis-api/flash" "^0.0.9"
     react "^16.5.2"
@@ -1192,16 +1192,16 @@
     "@chrysalis-api/flash" "^0.0.9"
     react "^16.5.2"
 
-"@chrysalis-api/hardware@^0.0.18":
-  version "0.0.18"
-  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware/-/hardware-0.0.18.tgz#d119062d253bdd6df8dd50817f9843afe9da2ab0"
-  integrity sha512-zwJzvMDzBYS8cwn9ffPhRcAHpF+i7P2LP5eBTnICXDbVV2Zf9ex1o6PwJjpKyWFCLXbmpkJxWI1sqHuG1OYgLg==
+"@chrysalis-api/hardware@^0.0.20":
+  version "0.0.20"
+  resolved "https://registry.yarnpkg.com/@chrysalis-api/hardware/-/hardware-0.0.20.tgz#a8eb4dc2c22ca037ecf1e95a2fb8eec563bc2449"
+  integrity sha512-K+QBsCY81Wq9yuSRYpe0k7h06xcYktqABC0FqwUrdF3LwoZkPYyTTGL/VfCA99YYeVd2UYGbG5LeXwDIoVLGfQ==
   dependencies:
     "@chrysalis-api/hardware-dygma-raise-ansi" "^0.0.7"
     "@chrysalis-api/hardware-dygma-raise-iso" "^0.0.7"
     "@chrysalis-api/hardware-ez-ergodox" "^0.0.14"
     "@chrysalis-api/hardware-kbdfans-kbd4x" "^0.0.4"
-    "@chrysalis-api/hardware-keyboardio-atreus2" "^0.0.1"
+    "@chrysalis-api/hardware-keyboardio-atreus2" "^0.0.3"
     "@chrysalis-api/hardware-keyboardio-model01" "^0.0.22"
     "@chrysalis-api/hardware-olkb-planck" "^0.0.3"
     "@chrysalis-api/hardware-pjrc-teensy" "^0.0.6"

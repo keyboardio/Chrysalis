@@ -48,7 +48,7 @@
   "dependencies": {
     "@chrysalis-api/colormap": "^0.0.13",
     "@chrysalis-api/focus": "^0.0.14",
-    "@chrysalis-api/hardware": "^0.0.18",
+    "@chrysalis-api/hardware": "^0.0.20",
     "@chrysalis-api/keymap": "^0.0.25",
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.1",

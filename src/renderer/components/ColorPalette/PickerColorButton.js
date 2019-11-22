@@ -35,8 +35,8 @@ PickerColorButton.propTypes = {
 
 const styles = {
   root: {
-    position: "relative",
-    margin: "15px auto 0"
+    textAlign: "center",
+    margin: "15px 0"
   },
   fab: {
     width: 70,

@@ -61,8 +61,8 @@ const styles = theme => ({
     flexGrow: 1
   },
   editor: {
-    marginTop: 2,
-    textAlign: "center"
+    display: "block",
+    margin: "2px auto"
   },
   moreMenu: {
     marginTop: theme.spacing.unit * 4
@@ -802,22 +802,23 @@ class Editor extends React.Component {
           this.state.keymap.default.length == 0 && (
             <LinearProgress variant="query" />
           )}
-        {layer}
-        <ColorPalette
-          disabled={isReadOnly || currentLayer > this.state.colorMap.length}
-          onColorSelect={this.onColorSelect}
-          colorButtonIsSelected={this.state.colorButtonIsSelected}
-          palette={palette}
-          onColorPick={this.onColorPick}
-          selected={this.state.selectedPaletteColor}
-          isColorButtonSelected={isColorButtonSelected}
-          onColorButtonSelect={this.onColorButtonSelect}
-          theme={this.props.theme}
-          toChangeAllKeysColor={this.toChangeAllKeysColor}
-          onBacklightColorSelect={this.onBacklightColorSelect}
-          className="palette"
-        />
-
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          {layer}
+          <ColorPalette
+            disabled={isReadOnly || currentLayer > this.state.colorMap.length}
+            onColorSelect={this.onColorSelect}
+            colorButtonIsSelected={this.state.colorButtonIsSelected}
+            palette={palette}
+            onColorPick={this.onColorPick}
+            selected={this.state.selectedPaletteColor}
+            isColorButtonSelected={isColorButtonSelected}
+            onColorButtonSelect={this.onColorButtonSelect}
+            theme={this.props.theme}
+            toChangeAllKeysColor={this.toChangeAllKeysColor}
+            onBacklightColorSelect={this.onBacklightColorSelect}
+            className="palette"
+          />
+        </div>
         <Slide in={this.getCurrentKey() != -1} direction="up" unmountOnExit>
           <KeySelector
             disabled={isReadOnly}

@@ -42,18 +42,11 @@ ColorPalette.propTypes = {
 
 const styles = () => ({
   root: {
-    right: 0,
-    top: 85,
-    position: "absolute"
-  },
-  palette: {
-    display: "flex",
-    alignItems: "center",
-    padding: "25px 10px 10px 10px",
-    flexDirection: "column",
-    width: 180,
-    minHeight: 280,
-    height: "calc(100vh - 230px)"
+    height: "calc(100vh - 230px)",
+    width: 230,
+    minHeight: 500,
+    minWidth: 130,
+    paddingTop: 25
   }
 });
 
@@ -173,18 +166,16 @@ function ColorPalette(props) {
     onBacklightColorSelect
   };
   return (
-    <div className={classes.root}>
-      <Paper className={classes.palette}>
-        <PickerColorButton
-          setColorFocusButton={toSetColorFocusButton}
-          disabled={disabled || !isColorButtonSelected}
-          colorFocusButton={colorFocusButton}
-        >
-          {i18n.components.pickerColorButton}
-        </PickerColorButton>
-        <ColorButtonsArea {...propsToArea} />
-      </Paper>
-    </div>
+    <Paper className={classes.root}>
+      <PickerColorButton
+        setColorFocusButton={toSetColorFocusButton}
+        disabled={disabled || !isColorButtonSelected}
+        colorFocusButton={colorFocusButton}
+      >
+        {i18n.components.pickerColorButton}
+      </PickerColorButton>
+      <ColorButtonsArea {...propsToArea} />
+    </Paper>
   );
 }
 

@@ -38,11 +38,11 @@ ColorButtonsArea.propTypes = {
 
 const styles = theme => ({
   palette: {
-    padding: "25px 25px 0 25px",
     [theme.breakpoints.down("sm")]: {
       padding: 0
     },
-    width: 160,
+    maxWidth: 95,
+    margin: "0 auto",
     marginBottom: 25
   }
 });

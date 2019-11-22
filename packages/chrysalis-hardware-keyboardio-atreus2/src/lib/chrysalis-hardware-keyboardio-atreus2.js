@@ -20,8 +20,8 @@ import { Avr109 } from "@chrysalis-api/flash"
 const Atreus2 = {
     info: {
         vendor: "Keyboard.io",
-        product: "Atreus2",
-        displayName: "Atreus2",
+        product: "Atreus",
+        displayName: "Keyboardio Atreus",
         urls: [
             {
                 name: "Homepage",
@@ -31,7 +31,7 @@ const Atreus2 = {
     },
     usb: {
         vendorId: 0x1209,
-        productId: 0x2303
+        productId: 0x2301
     },
     keyboard: {
         rows: 4,
@@ -43,9 +43,9 @@ const Atreus2 = {
 
     flash: async (port, filename) => {
       const board = {
-        name: "Keyboardio Atreus2",
+        name: "Keyboardio Atreus",
         baud: 9600,
-        productId: ["0x2302", "0x2303"],
+        productId: ["0x2302", "0x2301"],
         protocol: "avr109",
         signature: new Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e])
       }

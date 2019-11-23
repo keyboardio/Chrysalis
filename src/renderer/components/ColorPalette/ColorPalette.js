@@ -45,7 +45,7 @@ const styles = () => ({
     height: "calc(100vh - 230px)",
     width: 230,
     minHeight: 500,
-    minWidth: 130,
+    minWidth: 140,
     paddingTop: 25
   }
 });
@@ -96,7 +96,6 @@ function ColorPalette(props) {
         }
       : null
   );
-
   /**
    * Change "indexFocusButton" and "colorFocusButton", if prop "selected" is different
    */
@@ -171,6 +170,7 @@ function ColorPalette(props) {
         setColorFocusButton={toSetColorFocusButton}
         disabled={disabled || !isColorButtonSelected}
         colorFocusButton={colorFocusButton}
+        indexFocusButton={indexFocusButton}
       >
         {i18n.components.pickerColorButton}
       </PickerColorButton>

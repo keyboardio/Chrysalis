@@ -96,7 +96,7 @@ function PickerColorButton(props) {
   /// Set the value to open (close) Popover element
   const open = Boolean(anchorEl);
   return (
-    <Tooltip placement="top-start" title={props.children}>
+    <Tooltip placement="top-end" title={props.children}>
       <div className={classes.root}>
         <RootRef rootRef={underGlowButtonOpen}>
           <Fab

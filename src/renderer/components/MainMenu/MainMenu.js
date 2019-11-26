@@ -191,7 +191,7 @@ function MainMenu({ open, closeMenu, classes, connected, pages, themeDark }) {
           }
         >
           <Link
-            to="/#"
+            to="javascript:void(0)"
             className={classes.link}
             onClick={event => event.stopPropagation()}
           >

@@ -190,8 +190,7 @@ function MainMenu({ open, closeMenu, classes, connected, pages, themeDark }) {
             </ListSubheader>
           }
         >
-          <Link
-            to="javascript:void(0)"
+          <div
             className={classes.link}
             onClick={event => event.stopPropagation()}
           >
@@ -202,7 +201,7 @@ function MainMenu({ open, closeMenu, classes, connected, pages, themeDark }) {
               onClick={event => event.stopPropagation()}
               themeDark={themeDark}
             />
-          </Link>
+          </div>
           <Link to="/preferences" className={classes.link}>
             <PreferencesMenuItem
               className={classes.menuItem}

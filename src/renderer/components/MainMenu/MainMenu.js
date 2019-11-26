@@ -221,12 +221,12 @@ function MainMenu({ open, closeMenu, classes, connected, pages, themeDark }) {
         >
           <SupportPage
             className={classes.menuItem}
-            onClick={openURL("https://github.com/keyboardio/Chrysalis/issues")}
+            onClick={openURL("https://www.dygma.com/contact/")}
             themeDark={themeDark}
           />
           <FeedbackMenuItem
             className={classes.menuItem}
-            onClick={openURL("https://www.dygma.com/contact/")}
+            onClick={openURL("https://github.com/keyboardio/Chrysalis/issues")}
           />
           <ExitMenuItem
             className={classes.menuItem}

@@ -29,7 +29,7 @@ export default function KeyboardMenuItem({
   themeDark
 }) {
   return (
-    <ListItem button onClick={onClick} className={className} disabled={true}>
+    <ListItem button onClick={onClick} className={className}>
       <ListItemIcon>
         {themeDark ? (
           <img

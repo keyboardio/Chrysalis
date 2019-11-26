@@ -21,14 +21,12 @@ import { Link } from "@reach/router";
 
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
-import IconButton from "@material-ui/core/IconButton";
 import List from "@material-ui/core/List";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 
-import logo from "../../DygmaLogo.png";
 import i18n from "../../i18n";
 
 import { version } from "../../../../package.json";
@@ -72,7 +70,6 @@ const styles = theme => ({
     width: 350,
     margin: "0 auto",
     padding: "30px 20px 30px 35px",
-    borderTop: "1px solid silver",
     borderBottom: "1px solid silver",
     fontSize: 18,
     textAlign: "left",
@@ -116,23 +113,7 @@ function MainMenu({ open, closeMenu, classes, connected, pages, themeDark }) {
                 width: "100%",
                 padding: 0
               }}
-            >
-              <IconButton
-                onClick={() => {
-                  setCurrentPage(homePage);
-                }}
-                style={{ borderRadius: 0, width: "100%", padding: 12 }}
-              >
-                <img
-                  src={logo}
-                  style={{ width: 20, textDecoration: "none", marginRight: 15 }}
-                />
-                <ListItemText
-                  primary={`Bazecor`}
-                  style={{ textAlign: "left", textTransform: "uppercase" }}
-                />
-              </IconButton>
-            </List>
+            />
           </Link>
           <div
             className={
@@ -209,12 +190,16 @@ function MainMenu({ open, closeMenu, classes, connected, pages, themeDark }) {
             </ListSubheader>
           }
         >
-          <Link to="/editor" className={classes.link}>
+          <Link
+            to="/#"
+            className={classes.link}
+            onClick={event => event.stopPropagation()}
+          >
             <KeyboardMenuItem
               className={classes.menuItem}
               keyboardSelectText={i18n.app.menu.softwareUpdate}
               selected={currentPage == "/editor"}
-              onClick={() => setCurrentPage("/editor")}
+              onClick={event => event.stopPropagation()}
               themeDark={themeDark}
             />
           </Link>

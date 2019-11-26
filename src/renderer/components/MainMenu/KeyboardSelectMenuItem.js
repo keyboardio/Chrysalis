@@ -24,18 +24,12 @@ import update from "../../update.png";
 
 export default function KeyboardMenuItem({
   keyboardSelectText,
-  selected,
   onClick,
   className,
   themeDark
 }) {
   return (
-    <ListItem
-      button
-      selected={selected}
-      onClick={onClick}
-      className={className}
-    >
+    <ListItem button onClick={onClick} className={className}>
       <ListItemIcon>
         {themeDark ? (
           <img

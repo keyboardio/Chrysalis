@@ -2690,16 +2690,16 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R2C15_t_primary"
-              x="915"
-              y="168"
+              x="930"
+              y="108"
               fill={getContrastText(getColor(2, 15))}
             >
               {getLabel(2, 15).label
               &&
               getDivideKeys(
                   (getLabel(2, 15).label),
-                  "915",
-                  "168",
+                  "930",
+                  "108",
                   true
               )
               }
@@ -2988,16 +2988,16 @@ class KeymapANSI extends React.Component {
             </text>
             <text
               id="R1C15_t_primary"
-              x="930"
-              y="108"
+              x="915"
+              y="168"
               fill={getContrastText(getColor(1, 15))}
             >
               {getLabel(1, 15).label
               &&
               getDivideKeys(
                   (getLabel(1, 15).label),
-                  "930",
-                  "108",
+                  "915",
+                  "168",
                   false
               )
               }

@@ -2273,7 +2273,7 @@ class KeymapISO extends React.Component {
               <text
                   id="R4C14_t_extra"
                   x="870"
-                  y="280"
+                  y="270"
                   fill={getContrastText(getColor(4, 14))}
                   textAnchor="middle"
               >

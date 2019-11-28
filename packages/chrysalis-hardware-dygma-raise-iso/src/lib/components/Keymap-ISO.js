@@ -215,7 +215,6 @@ class KeymapISO extends React.Component {
                 textAnchor="middle"
                 x={xCord}
                 y={yCord }
-                textAnchor="middle"
             >
               {str}
             </tspan>
@@ -261,12 +260,12 @@ class KeymapISO extends React.Component {
     getLabel(row, col).extraLabel === "LockTo" ||
     getLabel(row, col).extraLabel === "Numpad"
 
-        ? getLabel(row, col).label
+      ? getLabel(row, col).label
         && getDivideKeys(getLabel(row, col).label, xCord, yCord, smallKey)
         : getLabel(row, col).extraLabel === "SHIFTTO" ?
-          getLabel(row, col).label && getDivideKeys(getLabel(row, col).label, String(+xCord + 8), yCord, smallKey)
+        getLabel(row, col).label && getDivideKeys(getLabel(row, col).label, String(+xCord + 8), yCord, smallKey)
         : getLabel(row, col).label && getDivideKeys(getLabel(row, col).label, xCord, String(yCord - 5), smallKey)
-        : getLabel(row, col).extraLabel === "SHIFTTO"
+      : getLabel(row, col).extraLabel === "SHIFTTO"
         ? getLabel(row, col).label  && getDivideKeys(getLabel(row, col).label, xCord, yCord, smallKey)
         && getDivideKeys(getLabel(row, col).label, String(+xCord + 8), yCord, smallKey)
         : getLabel(row, col).label  && getDivideKeys(getLabel(row, col).label, xCord, String(yCord - 5), smallKey);
@@ -2643,16 +2642,12 @@ class KeymapISO extends React.Component {
               </text>
               <text
                   id="R2C0_t_primary"
-                  x="103"
-                  y="168"
                   fill={getContrastText(getColor(2, 0))}
               >
                 {getCenterPrimary(2,0,103,174)}
               </text>
               <text
                   id="R2C0_t_extra"
-                  x="103"
-                  y="150"
                   fill={getContrastText(getColor(2, 0))}
               >
                 {getCenterExtra(2, 0, 103, 159)}
@@ -2971,8 +2966,6 @@ class KeymapISO extends React.Component {
               </text>
               <text
                   id="R0C1_t_primary"
-                  x="141"
-                  y="50"
                   fill={getContrastText(getColor(0, 1))}
               >
                 {getCenterPrimary(0,1,141,55, true)}

@@ -126,6 +126,7 @@ class KeymapANSI extends React.Component {
                 textAnchor="middle"
                 key={index}
                 x={xCord}
+                y={yCord}
             >
               {word}
             </tspan>
@@ -137,17 +138,40 @@ class KeymapANSI extends React.Component {
                 textAnchor="middle"
                 key={index}
                 x={xCord}
+                y={yCord}
             >
               {word}
             </tspan>
         ))
+      } else if (str === "SHIFTTO"){
+        return str.split(' ').map((word, index) => (
+            <tspan key={index}>
+              <tspan
+                  textAnchor="middle"
+                  x={xCord}
+                  y={String(+yCord + 9)}
+                  dy="0"
+              >
+                {word.slice(0, 5)}
+              </tspan>
+              <tspan
+                  textAnchor="middle"
+                  x={+xCord - 5}
+                  dy="1.5em"
+                  y={String(+yCord + 9)}
+              >
+                {word.slice(5)}
+              </tspan>
+            </tspan>
+
+        ));
       } else if (str.split(' ').length === 1 && str.split('').length > 7 && smallKey === true) {
         return str.split(' ').map((word, index) => (
             <tspan key={index}>
               <tspan
                   textAnchor="middle"
                   x={xCord}
-                  dy="0.5em"
+                  dy="0em"
                   y={String(+yCord - 10)}
               >
                 {word.slice(0, 4)}
@@ -169,6 +193,7 @@ class KeymapANSI extends React.Component {
                 textAnchor="middle"
                 key={index}
                 x={xCord}
+                y={yCord}
             >
               {word}
             </tspan>
@@ -177,7 +202,7 @@ class KeymapANSI extends React.Component {
         return str.split(' ').map((word, index) => (
             <tspan
                 textAnchor="middle"
-                dy={`${index + 0.5}em`}
+                dy={index ? "1.5em" : index}
                 key={index}
                 x={xCord}
                 y={String(+yCord - 10)}
@@ -197,6 +222,55 @@ class KeymapANSI extends React.Component {
         )
       }
     };
+
+    const getCenterExtra = (row,
+                            col,
+                            xCord,
+                            yCord,
+                            smallKey = false
+    ) => getLabel(row, col).extraLabel !== "" ?
+        getLabel(row, col).extraLabel === "LEDEFF." ||
+        getLabel(row, col).extraLabel === "SCadet" ||
+        getLabel(row, col).extraLabel === "Steno" ||
+        getLabel(row, col).extraLabel === "M.Btn" ||
+        getLabel(row, col).extraLabel === "Leader" ||
+        getLabel(row, col).extraLabel === "LockTo" ||
+        getLabel(row, col).extraLabel === "Numpad"
+
+            ? getLabel(row, col).extraLabel
+            && getDivideKeys(getLabel(row, col).extraLabel, xCord, yCord, smallKey)
+            : getLabel(row, col).extraLabel
+            && getDivideKeys(getLabel(row, col).extraLabel, xCord, String(+yCord - 10), smallKey)
+        : getLabel(row, col).extraLabel === "SHIFTTO"
+            ? getLabel(row, col).extraLabel
+            && getDivideKeys(getLabel(row, col).extraLabel, xCord, yCord, smallKey)
+            : getLabel(row, col).extraLabel;
+
+
+    const getCenterPrimary = (row,
+                              col,
+                              xCord,
+                              yCord,
+                              smallKey = false
+    ) => getLabel(row, col).extraLabel !== "" ?
+        getLabel(row, col).extraLabel === "LEDEFF." ||
+        getLabel(row, col).extraLabel === "SCadet" ||
+        getLabel(row, col).extraLabel === "Steno" ||
+        getLabel(row, col).extraLabel === "M.Btn" ||
+        getLabel(row, col).extraLabel === "Leader" ||
+        getLabel(row, col).extraLabel === "LockTo" ||
+        getLabel(row, col).extraLabel === "Numpad"
+
+          ? getLabel(row, col).label
+            && getDivideKeys(getLabel(row, col).label, xCord, yCord, smallKey)
+            : getLabel(row, col).extraLabel === "SHIFTTO" ?
+            getLabel(row, col).label && getDivideKeys(getLabel(row, col).label, String(+xCord + 8), yCord, smallKey)
+            : getLabel(row, col).label && getDivideKeys(getLabel(row, col).label, xCord, String(yCord - 5), smallKey)
+          : getLabel(row, col).extraLabel === "SHIFTTO"
+            ? getLabel(row, col).label  && getDivideKeys(getLabel(row, col).label, xCord, yCord, smallKey)
+            && getDivideKeys(getLabel(row, col).label, String(+xCord + 8), yCord, smallKey)
+            : getLabel(row, col).label  && getDivideKeys(getLabel(row, col).label, xCord, String(yCord - 5), smallKey);
+
     return (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -2062,1572 +2136,819 @@ class KeymapANSI extends React.Component {
             <text
               id="R4C9_t_primary"
               fill={getContrastText(getColor(4, 9))}
-              x="600"
-              y="348"
             >
-              {getLabel(4, 9).label
-              &&
-              getDivideKeys(
-                  (getLabel(4, 9).label),
-                  "600",
-                  "348",
-                  true
-              )
-              }
+              {getCenterPrimary(4,9,600,351,true)}
             </text>
             <text
               id="R4C9_t_extra"
               fill={getContrastText(getColor(4, 9))}
-              transform="matrix(1 0 0 1 569.925 332.999)"
             >
-              {getLabel(4, 9).extraLabel}
+              {getCenterExtra(4, 9, 600, 337, true)}
             </text>
             <text
               id="R4C8_t_primary"
               fill={getContrastText(getColor(4, 8))}
-              x="535"
-              y="348"
             >
-              {getLabel(4, 8).label
-              &&
-              getDivideKeys(
-                  (getLabel(4, 8).label),
-                  "535",
-                  "348",
-                  true
-              )
-              }
+              {getCenterPrimary(4,8,535,351,true)}
             </text>
             <text
               id="R4C8_t_extra"
               fill={getContrastText(getColor(4, 8))}
-              transform="matrix(1 0 0 1 511.613 332.999)"
             >
-              {getLabel(4, 8).extraLabel}
+              {getCenterExtra(4, 8, 535, 337, true)}
             </text>
             <text
               id="R4C7_t_primary"
-              x="436"
-              y="348"
               fill={getContrastText(getColor(4, 7))}
             >
-              {getLabel(4, 7).label
-              &&
-              getDivideKeys(
-                  (getLabel(4, 7).label),
-                  "436",
-                  "348",
-                  true
-              )
-              }
+              {getCenterPrimary(4,7,436,351,true)}
             </text>
             <text
               id="R4C7_t_extra"
-              transform="matrix(1 0 0 1 416.585 332.999)"
               fill={getContrastText(getColor(4, 7))}
             >
-              {getLabel(4, 7).extraLabel}
+              {getCenterExtra(4, 7, 436, 337, true)}
             </text>
             <text
               id="R4C6_t_primary"
-              x="368"
-              y="348"
               fill={getContrastText(getColor(4, 6))}
             >
-              {getLabel(4, 6).label
-              &&
-              getDivideKeys(
-                  (getLabel(4, 6).label),
-                  "368",
-                  "348",
-                  true
-              )
-              }
+              {getCenterPrimary(4,6,368,351,true)}
             </text>
             <text
               id="R4C6_t_extra"
-              transform="matrix(1 0 0 1 342.272 332.999)"
               fill={getContrastText(getColor(4, 6))}
             >
-              {getLabel(4, 6).extraLabel}
+              {getCenterExtra(4, 6, 368, 337, true)}
             </text>
             <text
               id="R4C15_t_primary"
-              x="937"
-              y="289"
               fill={getContrastText(getColor(4, 15))}
             >
-              {getLabel(4, 15).label
-              &&
-              getDivideKeys(
-                  (getLabel(4, 15).label),
-                  "937",
-                  "289",
-                  true
-              )
-              }
+              {getCenterPrimary(4,15,937,294,true)}
             </text>
             <text
               id="R4C15_t_extra"
-              transform="matrix(1 0 0 1 908.553 273.52)"
               fill={getContrastText(getColor(4, 15))}
             >
-              {getLabel(4, 15).extraLabel}
+              {getCenterExtra(4, 15, 937, 280, true)}
             </text>
             <text
               id="R4C14_t_primary"
-              x="870"
-              y="289"
               fill={getContrastText(getColor(4, 14))}
             >
-              {getLabel(4, 14).label
-              &&
-              getDivideKeys(
-                  (getLabel(4, 14).label),
-                  "870",
-                  "289",
-                  true
-              )
-              }
+              {getCenterPrimary(4,14,870,294,true)}
             </text>
             <text
               id="R4C14_t_extra"
-              x="870"
-              y="280"
               fill={getContrastText(getColor(4, 14))}
-              textAnchor="middle"
             >
-              {getLabel(4, 14).extraLabel}
+              {getCenterExtra(4, 14, 870, 280, true)}
             </text>
             <text
               id="R4C13_t_primary"
-              x="802"
-              y="291"
               fill={getContrastText(getColor(4, 13))}
             >
-              {getLabel(4, 13).label
-              &&
-              getDivideKeys(
-                  (getLabel(4, 13).label),
-                  "802",
-                  "291",
-                  true
-              )
-              }
+              {getCenterPrimary(4, 13, 805, 294, true)}
             </text>
             <text
               id="R4C13_t_extra"
-              x="781"
-              y="280"
               fill={getContrastText(getColor(4, 13))}
             >
-              {getLabel(4, 13).extraLabel}
+              {getCenterExtra(4, 13, 805, 280, true)}
             </text>
             <text
               id="R4C12_t_primary"
-              x="730"
-              y="289"
               fill={getContrastText(getColor(4, 12))}
             >
-              {getLabel(4, 12).label
-              &&
-              getDivideKeys(
-                  (getLabel(4, 12).label),
-                  "730",
-                  "289",
-                  true
-              )
-              }
+              {getCenterPrimary(4,12,730,294, true)}
             </text>
             <text
               id="R4C12_t_extra"
-              x="713"
-              y="273"
               fill={getContrastText(getColor(4, 12))}
             >
-              {getLabel(4, 12).extraLabel}
+              {getCenterExtra(4, 12, 730, 280, true)}
             </text>
             <text
               id="R4C11_t_primary"
-              x="650"
-              y="289"
               fill={getContrastText(getColor(4, 11))}
             >
-              {getLabel(4, 11).label
-              &&
-              getDivideKeys(
-                  (getLabel(4, 11).label),
-                  "650",
-                  "289",
-                  true
-              )
-              }
+              {getCenterPrimary(4,11,650,294, true)}
             </text>
             <text
               id="R4C11_t_extra"
-              x="650"
-              y="274"
               fill={getContrastText(getColor(4, 11))}
-              textAnchor="middle"
             >
-              {getLabel(4, 11).extraLabel}
+              {getCenterExtra(4, 11, 650, 280, true)}
             </text>
             <text
               id="R4C10_t_primary"
-              x="557"
-              y="289"
               fill={getContrastText(getColor(4, 10))}
             >
-              {getLabel(4, 10).label
-              &&
-              getDivideKeys(
-                  (getLabel(4, 10).label),
-                  "557",
-                  "289"
-              )
-              }
+              {getCenterPrimary(4,10,557,294)}
             </text>
             <text
               id="R4C10_t_extra"
-              transform="matrix(1 0 0 1 513.613 273.52)"
               fill={getContrastText(getColor(4, 10))}
             >
-              {getLabel(4, 10).extraLabel}
+              {getCenterExtra(4, 10, 557, 280)}
             </text>
             <text
               id="R4C4_t_primary"
-              x="412"
-              y="289"
               fill={getContrastText(getColor(4, 4))}
             >
-              {getLabel(4, 4).label
-              &&
-              getDivideKeys(
-                  (getLabel(4, 4).label),
-                  "412",
-                  "289"
-              )
-              }
+              {getCenterPrimary(4,4,412,294)}
             </text>
             <text
               id="R4C4_t_extra"
-              transform="matrix(1 0 0 1 372.684 273.52)"
               fill={getContrastText(getColor(4, 4))}
             >
-              {getLabel(4, 4).extraLabel}
+              {getCenterExtra(4, 4, 412, 280)}
             </text>
             <text
               id="R4C3_t_primary"
-              x="320"
-              y="289"
               fill={getContrastText(getColor(4, 3))}
             >
-              {getLabel(4, 3).label
-              &&
-              getDivideKeys(
-                  (getLabel(4, 3).label),
-                  "320",
-                  "289",
-                  true
-              )
-              }
+              {getCenterPrimary(4,3,320,294,true)}
             </text>
             <text
               id="R4C3_t_extra"
-              transform="matrix(1 0 0 1 287.756 273.52)"
               fill={getContrastText(getColor(4, 3))}
             >
-              {getLabel(4, 3).extraLabel}
+              {getCenterExtra(4, 3, 320, 280, true)}
             </text>
             <text
               id="R4C2_t_primary"
-              x="240"
-              y="289"
               fill={getContrastText(getColor(4, 2))}
             >
-              {getLabel(4, 2).label
-              &&
-              getDivideKeys(
-                  (getLabel(4, 2).label),
-                  "240",
-                  "289",
-                  true
-              )
-              }
+              {getCenterPrimary(4,2,240,294,true)}
             </text>
             <text
               id="R4C2_t_extra"
-              x="226"
-              y="274"
               fill={getContrastText(getColor(4, 2))}
             >
-              {getLabel(4, 2).extraLabel}
+              {getCenterExtra(4, 2, 240, 280, true)}
             </text>
             <text
               id="R4C1_t_primary"
-              x="165"
-              y="289"
               fill={getContrastText(getColor(4, 1))}
             >
-              {getLabel(4, 1).label
-              &&
-              getDivideKeys(
-                  (getLabel(4, 1).label),
-                  "165",
-                  "289",
-                  true
-              )
-              }
+              {getCenterPrimary(4,1,165,294,true)}
             </text>
             <text
               id="R4C1_t_extra"
-              x="165"
-              y="278"
               fill={getContrastText(getColor(4, 1))}
-              textAnchor="middle"
             >
-              {getLabel(4, 1).extraLabel}
+              {getCenterExtra(4, 1, 165, 280, true)}
             </text>
             <text
               id="R4C0_t_primary"
-              x="90"
-              y="289"
               fill={getContrastText(getColor(4, 0))}
             >
-              {getLabel(4, 0).label
-              &&
-              getDivideKeys(
-                  (getLabel(4, 0).label),
-                  "90",
-                  "289",
-                  true
-              )
-              }
+              {getCenterPrimary(4,0,90,294,true)}
             </text>
             <text
               id="R4C0_t_extra"
-              x="74"
-              y="273"
               fill={getContrastText(getColor(4, 0))}
             >
-              {getLabel(4, 0).extraLabel}
+              {getCenterExtra(4, 0, 90, 280, true)}
             </text>
             <text
               id="R3C15_t_primary"
-              x="890"
-              y="229"
               fill={getContrastText(getColor(3, 15))}
             >
-              {getLabel(3, 15).label
-              &&
-              getDivideKeys(
-                  (getLabel(3, 15).label),
-                  "890",
-                  "229"
-              )
-              }
+              {getCenterPrimary(3,15,890,235)}
             </text>
             <text
               id="R3C15_t_extra"
-              x="867"
-              y="217"
               fill={getContrastText(getColor(3, 15))}
             >
-              {getLabel(3, 15).extraLabel}
+              {getCenterExtra(3, 15, 890, 222, true)}
             </text>
             <text
               id="R3C14_t_primary"
-              x="783"
-              y="229"
               fill={getContrastText(getColor(3, 14))}
             >
-              {getLabel(3, 14).label
-              &&
-              getDivideKeys(
-                  (getLabel(3, 14).label),
-                  "783",
-                  "229",
-                  true
-              )
-              }
+              {getCenterPrimary(3,14,783,235,true)}
             </text>
             <text
               id="R3C14_t_extra"
-              transform="matrix(1 0 0 1 759.275 213.939)"
               fill={getContrastText(getColor(3, 14))}
             >
-              {getLabel(3, 14).extraLabel}
+              {getCenterExtra(3, 14, 783, 222, true)}
             </text>
             <text
               id="R3C13_t_primary"
-              x="724"
-              y="229"
               fill={getContrastText(getColor(3, 13))}
             >
-              {getLabel(3, 13).label
-              &&
-              getDivideKeys(
-                  (getLabel(3, 13).label),
-                  "724",
-                  "229",
-                  true
-              )
-              }
+              {getCenterPrimary(3,13,724,235,true)}
             </text>
             <text
               id="R3C13_t_extra"
-              transform="matrix(1 0 0 1 700.215 213.939)"
               fill={getContrastText(getColor(3, 13))}
             >
-              {getLabel(3, 13).extraLabel}
+              {getCenterExtra(3, 13, 724, 222, true)}
             </text>
             <text
               id="R3C12_t_primary"
-              x="665"
-              y="229"
               fill={getContrastText(getColor(3, 12))}
             >
-              {getLabel(3, 12).label
-              &&
-              getDivideKeys(
-                  (getLabel(3, 12).label),
-                  "665",
-                  "229",
-                  true
-              )
-              }
+              {getCenterPrimary(3,12,665,235,true)}
             </text>
             <text
               id="R3C12_t_extra"
-              transform="matrix(1 0 0 1 641.155 213.939)"
               fill={getContrastText(getColor(3, 12))}
             >
-              {getLabel(3, 12).extraLabel}
+              {getCenterExtra(3, 12, 665, 222, true)}
             </text>
             <text
               id="R3C11_t_primary"
-              x="605"
-              y="229"
               fill={getContrastText(getColor(3, 11))}
             >
-              {getLabel(3, 11).label
-              &&
-              getDivideKeys(
-                  (getLabel(3, 11).label),
-                  "605",
-                  "229",
-                  true
-              )
-              }
+              {getCenterPrimary(3,11,605,235,true)}
             </text>
             <text
               id="R3C11_t_extra"
-              transform="matrix(1 0 0 1 582.098 213.939)"
               fill={getContrastText(getColor(3, 11))}
             >
-              {getLabel(3, 11).extraLabel}
+              {getCenterExtra(3, 11, 605, 222, true)}
             </text>
             <text
               id="R3C10_t_primary"
-              x="549"
-              y="229"
               fill={getContrastText(getColor(3, 10))}
             >
-              {getLabel(3, 10).label
-              &&
-              getDivideKeys(
-                  (getLabel(3, 10).label),
-                  "549",
-                  "229",
-                  true
-              )
-              }
+              {getCenterPrimary(3,10,549,235,true)}
             </text>
             <text
               id="R3C10_t_extra"
-              transform="matrix(1 0 0 1 526.039 213.939)"
               fill={getContrastText(getColor(3, 10))}
             >
-              {getLabel(3, 10).extraLabel}
+              {getCenterExtra(3, 10, 549, 222, true)}
             </text>
             <text
               id="R3C6_t_primary"
-              x="437"
-              y="229"
               fill={getContrastText(getColor(3, 6))}
             >
-              {getLabel(3, 6).label
-              &&
-              getDivideKeys(
-                  (getLabel(3, 6).label),
-                  "437",
-                  "229",
-                  true
-              )
-              }
+              {getCenterPrimary(3,6,437,235,true)}
             </text>
             <text
               id="R3C6_t_extra"
-              transform="matrix(1 0 0 1 415.981 213.939)"
               fill={getContrastText(getColor(3, 6))}
             >
-              {getLabel(3, 6).extraLabel}
+              {getCenterExtra(3, 6, 437, 222, true)}
             </text>
             <text
               id="R3C5_t_primary"
-              x="377"
-              y="229"
               fill={getContrastText(getColor(3, 5))}
             >
-              {getLabel(3, 5).label
-              &&
-              getDivideKeys(
-                  (getLabel(3, 5).label),
-                  "377",
-                  "229",
-                  true
-              )
-              }
+              {getCenterPrimary(3,5,377,235,true)}
             </text>
             <text
               id="R3C5_t_extra"
-              transform="matrix(1 0 0 1 356.923 213.939)"
               fill={getContrastText(getColor(3, 5))}
             >
-              {getLabel(3, 5).extraLabel}
+              {getCenterExtra(3, 5, 377, 222, true)}
             </text>
             <text
               id="R3C4_t_primary"
-              x="320"
-              y="229"
               fill={getContrastText(getColor(3, 4))}
             >
-              {getLabel(3, 4).label
-              &&
-              getDivideKeys(
-                  (getLabel(3, 4).label),
-                  "320",
-                  "229",
-                  true
-              )
-              }
+              {getCenterPrimary(3,4,320,235,true)}
             </text>
             <text
               id="R3C4_t_extra"
-              transform="matrix(1 0 0 1 297.864 213.939)"
               fill={getContrastText(getColor(3, 4))}
             >
-              {getLabel(3, 4).extraLabel}
+              {getCenterExtra(3, 4, 320, 222, true)}
             </text>
             <text
               id="R3C3_t_primary"
-              x="261"
-              y="229"
               fill={getContrastText(getColor(3, 3))}
             >
-              {getLabel(3, 3).label
-              &&
-              getDivideKeys(
-                  (getLabel(3, 3).label),
-                  "261",
-                  "229",
-                  true
-              )
-              }
+              {getCenterPrimary(3,3,261,235,true)}
             </text>
             <text
               id="R3C3_t_extra"
-              transform="matrix(1 0 0 1 238.806 213.939)"
               fill={getContrastText(getColor(3, 3))}
             >
-              {getLabel(3, 3).extraLabel}
+              {getCenterExtra(3, 3, 261, 222, true)}
             </text>
             <text
               id="R3C2_t_primary"
-              x="201"
-              y="229"
               fill={getContrastText(getColor(3, 2))}
             >
-              {getLabel(3, 2).label
-              &&
-              getDivideKeys(
-                  (getLabel(3, 2).label),
-                  "201",
-                  "229",
-                  true
-              )
-              }
+              {getCenterPrimary(3,2,201,235,true)}
             </text>
             <text
               id="R3C2_t_extra"
-              transform="matrix(1 0 0 1 179.748 213.939)"
               fill={getContrastText(getColor(3, 2))}
             >
-              {getLabel(3, 2).extraLabel}
+              {getCenterExtra(3, 2, 201, 222, true)}
             </text>
             <text
               id="R3C0_t_primary"
-              x="115"
-              y="229"
               fill={getContrastText(getColor(3, 0))}
             >
-              {getLabel(3, 0).label
-              &&
-              getDivideKeys(
-                  (getLabel(3, 0).label),
-                  "115",
-                  "229"
-              )
-              }
+              {getCenterPrimary(3,0,115,235)}
             </text>
             <text
               id="R3C0_t_extra"
-              x="68"
-              y="216"
               fill={getContrastText(getColor(3, 0))}
             >
-              {getLabel(3, 0).extraLabel}
+              {getCenterExtra(3, 0, 115, 222, true)}
             </text>
             <text
               id="R2C15_t_primary"
-              x="930"
-              y="108"
               fill={getContrastText(getColor(2, 15))}
             >
-              {getLabel(2, 15).label
-              &&
-              getDivideKeys(
-                  (getLabel(2, 15).label),
-                  "930",
-                  "108",
-                  true
-              )
-              }
+              {getCenterPrimary(1,15,930,115, true)}
             </text>
             <text
               id="R2C15_t_extra"
-              transform="matrix(1 0 0 1 865.385 154.338)"
               fill={getContrastText(getColor(1, 15))}
             >
-              {getLabel(1, 15).extraLabel}
+              {getCenterExtra(1, 15, 930, 100)}
             </text>
             <text
               id="R2C14_t_primary"
-              x="826"
-              y="168"
               fill={getContrastText(getColor(2, 14))}
             >
-              {getLabel(2, 14).label
-              &&
-              getDivideKeys(
-                  (getLabel(2, 14).label),
-                  "826",
-                  "168",
-                  true
-              )
-              }
+              {getCenterPrimary(2,14,828,174,true)}
             </text>
             <text
               id="R2C14_t_extra"
-              transform="matrix(1 0 0 1 806.335 154.338)"
               fill={getContrastText(getColor(2, 14))}
             >
-              {getLabel(2, 14).extraLabel}
+              {getCenterExtra(2, 14, 828, 159)}
             </text>
             <text
               id="R2C13_t_primary"
-              x="769"
-              y="168"
               fill={getContrastText(getColor(2, 13))}
             >
-              {getLabel(2, 13).label
-              &&
-              getDivideKeys(
-                  (getLabel(2, 13).label),
-                  "769",
-                  "168",
-                  true
-              )
-              }
+              {getCenterPrimary(2,13,771,174,true)}
             </text>
             <text
               id="R2C13_t_extra"
-              transform="matrix(1 0 0 1 747.275 154.338)"
               fill={getContrastText(getColor(2, 13))}
             >
-              {getLabel(2, 13).extraLabel}
+              {getCenterExtra(2, 13, 771, 159)}
             </text>
             <text
               id="R2C12_t_primary"
-              x="710"
-              y="168"
               fill={getContrastText(getColor(2, 12))}
             >
-              {getLabel(2, 12).label
-              &&
-              getDivideKeys(
-                  (getLabel(2, 12).label),
-                  "710",
-                  "168",
-                  true
-              )
-              }
+              {getCenterPrimary(2,12,712,174,true)}
             </text>
             <text
               id="R2C12_t_extra"
-              transform="matrix(1 0 0 1 688.215 154.338)"
               fill={getContrastText(getColor(2, 12))}
             >
-              {getLabel(2, 12).extraLabel}
+              {getCenterExtra(2, 12, 712, 159)}
             </text>
             <text
               id="R2C11_t_primary"
-              x="648"
-              y="168"
               fill={getContrastText(getColor(2, 11))}
             >
-              {getLabel(2, 11).label
-              &&
-              getDivideKeys(
-                  (getLabel(2, 11).label),
-                  "648",
-                  "168",
-                  true
-              )
-              }
+              {getCenterPrimary(2,11,654,174,true)}
             </text>
             <text
               id="R2C11_t_extra"
-              transform="matrix(1 0 0 1 629.155 154.338)"
               fill={getContrastText(getColor(2, 11))}
             >
-              {getLabel(2, 11).extraLabel}
+              {getCenterExtra(2, 11, 654, 159)}
             </text>
             <text
               id="R2C10_t_primary"
-              x="593"
-              y="168"
               fill={getContrastText(getColor(2, 10))}
             >
-              {getLabel(2, 10).label
-              &&
-              getDivideKeys(
-                  (getLabel(2, 10).label),
-                  "593",
-                  "168",
-                  true
-              )
-              }
+              {getCenterPrimary(2,10,599,174,true)}
             </text>
             <text
               id="R2C10_t_extra"
-              transform="matrix(1 0 0 1 570.098 154.338)"
               fill={getContrastText(getColor(2, 10))}
             >
-              {getLabel(2, 10).extraLabel}
+              {getCenterExtra(2, 10, 599, 159)}
             </text>
             <text
               id="R2C9_t_primary"
-              x="535"
-              y="168"
               fill={getContrastText(getColor(2, 9))}
             >
-              {getLabel(2, 9).label
-              &&
-              getDivideKeys(
-                  (getLabel(2, 9).label),
-                  "535",
-                  "168",
-                  true
-              )
-              }
+              {getCenterPrimary(2,9,541,174,true)}
             </text>
             <text
               id="R2C9_t_extra"
-              transform="matrix(1 0 0 1 511.039 154.338)"
               fill={getContrastText(getColor(2, 9))}
             >
-              {getLabel(2, 9).extraLabel}
+              {getCenterExtra(2, 9, 541, 159)}
             </text>
             <text
               id="R2C5_t_primary"
-              x="413"
-              y="168"
               fill={getContrastText(getColor(2, 5))}
             >
-              {getLabel(2, 5).label
-              &&
-              getDivideKeys(
-                  (getLabel(2, 5).label),
-                  "413",
-                  "168",
-                  true
-              )
-              }
+              {getCenterPrimary(2,5,413,174,true)}
             </text>
             <text
               id="R2C5_t_extra"
-              transform="matrix(1 0 0 1 393.981 154.338)"
               fill={getContrastText(getColor(2, 5))}
             >
-              {getLabel(2, 5).extraLabel}
+              {getCenterExtra(2, 5, 413, 159)}
             </text>
             <text
               id="R2C4_t_primary"
-              x="355"
-              y="168"
               fill={getContrastText(getColor(2, 4))}
             >
-              {getLabel(2, 4).label
-              &&
-              getDivideKeys(
-                  (getLabel(2, 4).label),
-                  "355",
-                  "168",
-                  true
-              )
-              }
+              {getCenterPrimary(2,4,355,174,true)}
             </text>
             <text
               id="R2C4_t_extra"
-              transform="matrix(1 0 0 1 334.923 154.338)"
               fill={getContrastText(getColor(2, 4))}
             >
-              {getLabel(2, 4).extraLabel}
+              {getCenterExtra(2, 4, 355, 159)}
             </text>
             <text
               id="R2C3_t_primary"
-              x="297"
-              y="168"
               fill={getContrastText(getColor(2, 3))}
             >
-              {getLabel(2, 3).label
-              &&
-              getDivideKeys(
-                  (getLabel(2, 3).label),
-                  "297",
-                  "168",
-                  true
-              )
-              }
+              {getCenterPrimary(2,3,297,174,true)}
             </text>
             <text
               id="R2C3_t_extra"
-              transform="matrix(1 0 0 1 275.864 154.338)"
               fill={getContrastText(getColor(2, 3))}
             >
-              {getLabel(2, 3).extraLabel}
+              {getCenterExtra(2, 3, 297, 159)}
             </text>
             <text
               id="R2C2_t_primary"
-              x="238"
-              y="168"
               fill={getContrastText(getColor(2, 2))}
             >
-              {getLabel(2, 2).label
-              &&
-              getDivideKeys(
-                  (getLabel(2, 2).label),
-                  "238",
-                  "168",
-                  true
-              )
-              }
+              {getCenterPrimary(2,2,238,174,true)}
             </text>
             <text
               id="R2C2_t_extra"
-              transform="matrix(1 0 0 1 216.806 154.338)"
               fill={getContrastText(getColor(2, 2))}
             >
-              {getLabel(2, 2).extraLabel}
+              {getCenterExtra(2, 2, 238, 159)}
             </text>
             <text
               id="R2C1_t_primary"
-              x="180"
-              y="168"
               fill={getContrastText(getColor(2, 1))}
             >
-              {getLabel(2, 1).label
-              &&
-              getDivideKeys(
-                  (getLabel(2, 1).label),
-                  "180",
-                  "168",
-                  true
-              )
-              }
+              {getCenterPrimary(2,1,180,174,true)}
             </text>
             <text
               id="R2C1_t_extra"
-              transform="matrix(1 0 0 1 157.748 154.338)"
               fill={getContrastText(getColor(2, 1))}
             >
-              {getLabel(2, 1).extraLabel}
+              {getCenterExtra(2, 1, 180, 159)}
             </text>
             <text
               id="R2C0_t_primary"
-              x="103"
-              y="168"
               fill={getContrastText(getColor(2, 0))}
             >
-              {getLabel(2, 0).label
-              &&
-              getDivideKeys(
-                  (getLabel(2, 0).label),
-                  "103",
-                  "168"
-              )
-              }
+              {getCenterPrimary(2,0,103,174)}
             </text>
             <text
               id="R2C0_t_extra"
-              transform="matrix(1 0 0 1 61.69 154.338)"
               fill={getContrastText(getColor(2, 0))}
             >
-              {getLabel(2, 0).extraLabel}
+              {getCenterExtra(2, 0, 103, 159)}
             </text>
             <text
               id="R1C15_t_primary"
-              x="915"
-              y="168"
               fill={getContrastText(getColor(1, 15))}
             >
-              {getLabel(1, 15).label
-              &&
-              getDivideKeys(
-                  (getLabel(1, 15).label),
-                  "915",
-                  "168",
-                  false
-              )
-              }
+              {getCenterPrimary(2,15,915,174,true)}
             </text>
             <text
               id="R1C15_t_extra"
-              transform="matrix(1 0 0 1 897.445 94.737)"
               fill={getContrastText(getColor(2, 15))}
             >
-              {getLabel(2, 15).extraLabel}
+              {getCenterExtra(2, 15, 915, 159)}
             </text>
             <text
               id="R1C14_t_primary"
-              x="860"
-              y="111"
               fill={getContrastText(getColor(1, 14))}
             >
-              {getLabel(1, 14).label
-              &&
-              getDivideKeys(
-                  (getLabel(1, 14).label),
-                  "860",
-                  "111",
-                  true
-              )
-              }
+              {getCenterPrimary(1,14,860,115, true)}
             </text>
             <text
               id="R1C14_t_extra"
-              transform="matrix(1 0 0 1 841.385 94.737)"
               fill={getContrastText(getColor(1, 14))}
             >
-              {getLabel(1, 14).extraLabel}
+              {getCenterExtra(1, 14, 860, 100)}
             </text>
             <text
               id="R1C13_t_primary"
-              x="805"
-              y="111"
               fill={getContrastText(getColor(1, 13))}
             >
-              {getLabel(1, 13).label
-              &&
-              getDivideKeys(
-                  (getLabel(1, 13).label),
-                  "805",
-                  "111",
-                  true
-              )
-              }
+              {getCenterPrimary(1,13,805,115, true)}
             </text>
             <text
               id="R1C13_t_extra"
-              transform="matrix(1 0 0 1 782.335 94.737)"
               fill={getContrastText(getColor(1, 13))}
             >
-              {getLabel(1, 13).extraLabel}
+              {getCenterExtra(1, 13, 805, 100)}
             </text>
             <text
               id="R1C12_t_primary"
-              x="745"
-              y="111"
               fill={getContrastText(getColor(1, 12))}
             >
-              {getLabel(1, 12).label
-              &&
-              getDivideKeys(
-                  (getLabel(1, 12).label),
-                  "745",
-                  "111",
-                  true
-              )
-              }
+              {getCenterPrimary(1,12,745,115, true)}
             </text>
             <text
               id="R1C12_t_extra"
-              transform="matrix(1 0 0 1 725.275 94.737)"
               fill={getContrastText(getColor(1, 12))}
             >
-              {getLabel(1, 12).extraLabel}
+              {getCenterExtra(1, 12, 745, 100)}
             </text>
             <text
               id="R1C11_t_primary"
-              x="688"
-              y="111"
               fill={getContrastText(getColor(1, 11))}
             >
-              {getLabel(1, 11).label
-              &&
-              getDivideKeys(
-                  (getLabel(1, 11).label),
-                  "688",
-                  "111",
-                  true
-              )
-              }
+              {getCenterPrimary(1,11,688,115, true)}
             </text>
             <text
               id="R1C11_t_extra"
-              transform="matrix(1 0 0 1 668.215 94.737)"
               fill={getContrastText(getColor(1, 11))}
             >
-              {getLabel(1, 11).extraLabel}
+              {getCenterExtra(1, 11, 688, 100)}
             </text>
             <text
               id="R1C10_t_primary"
-              x="630"
-              y="111"
               fill={getContrastText(getColor(1, 10))}
             >
-              {getLabel(1, 10).label
-              &&
-              getDivideKeys(
-                  (getLabel(1, 10).label),
-                  "630",
-                  "111",
-                  true
-              )
-              }
+              {getCenterPrimary(1,10,630,115, true)}
             </text>
             <text
               id="R1C10_t_extra"
-              transform="matrix(1 0 0 1 609.156 94.737)"
               fill={getContrastText(getColor(1, 10))}
             >
-              {getLabel(1, 10).extraLabel}
+              {getCenterExtra(1, 10, 630, 100)}
             </text>
             <text
               id="R1C9_t_primary"
-              x="574"
-              y="111"
               fill={getContrastText(getColor(1, 9))}
             >
-              {getLabel(1, 9).label
-              &&
-              getDivideKeys(
-                  (getLabel(1, 9).label),
-                  "574",
-                  "111",
-                  true
-              )
-              }
+              {getCenterPrimary(1,9,574,115, true)}
             </text>
             <text
               id="R1C9_t_extra"
-              transform="matrix(1 0 0 1 552.098 94.737)"
               fill={getContrastText(getColor(1, 9))}
             >
-              {getLabel(1, 9).extraLabel}
+              {getCenterExtra(1, 9, 574, 100)}
             </text>
             <text
               id="R1C8_t_primary"
-              x="516"
-              y="111"
               fill={getContrastText(getColor(1, 8))}
             >
-              {getLabel(1, 8).label
-              &&
-              getDivideKeys(
-                  (getLabel(1, 8).label),
-                  "516",
-                  "111",
-                  true
-              )
-              }
+              {getCenterPrimary(1,8,516,115, true)}
             </text>
             <text
               id="R1C8_t_extra"
-              transform="matrix(1 0 0 1 494.039 94.737)"
               fill={getContrastText(getColor(1, 8))}
             >
-              {getLabel(1, 8).extraLabel}
+              {getCenterExtra(1, 8, 516, 100)}
             </text>
             <text
               id="R1C5_t_primary"
-              x="407"
-              y="111"
               fill={getContrastText(getColor(1, 5))}
             >
-              {getLabel(1, 5).label
-              &&
-              getDivideKeys(
-                  (getLabel(1, 5).label),
-                  "407",
-                  "111",
-                  true
-              )
-              }
+              {getCenterPrimary(1,5,407,115, true)}
             </text>
             <text
               id="R1C5_t_extra"
-              transform="matrix(1 0 0 1 386.981 94.737)"
               fill={getContrastText(getColor(1, 5))}
             >
-              {getLabel(1, 5).extraLabel}
+              {getCenterExtra(1, 5, 407, 100)}
             </text>
             <text
               id="R1C4_t_primary"
-              x="348"
-              y="111"
               fill={getContrastText(getColor(1, 4))}
             >
-              {getLabel(1, 4).label
-              &&
-              getDivideKeys(
-                  (getLabel(1, 4).label),
-                  "348",
-                  "111",
-                  true
-              )
-              }
+              {getCenterPrimary(1,4,348,115, true)}
             </text>
             <text
               id="R1C4_t_extra"
-              transform="matrix(1 0 0 1 327.923 94.737)"
               fill={getContrastText(getColor(1, 4))}
             >
-              {getLabel(1, 4).extraLabel}
+              {getCenterExtra(1, 4, 348, 100)}
             </text>
             <text
               id="R1C3_t_primary"
-              x="289"
-              y="111"
               fill={getContrastText(getColor(1, 3))}
             >
-              {getLabel(1, 3).label
-              &&
-              getDivideKeys(
-                  (getLabel(1, 3).label),
-                  "289",
-                  "111",
-                  true
-              )
-              }
+              {getCenterPrimary(1,3,289,115, true)}
             </text>
             <text
               id="R1C3_t_extra"
-              transform="matrix(1 0 0 1 268.864 94.737)"
               fill={getContrastText(getColor(1, 3))}
             >
-              {getLabel(1, 3).extraLabel}
+              {getCenterExtra(1, 3, 289, 100)}
             </text>
             <text
               id="R1C2_t_primary"
-              x="230"
-              y="111"
               fill={getContrastText(getColor(1, 2))}
             >
-              {getLabel(1, 2).label
-              &&
-              getDivideKeys(
-                  (getLabel(1, 2).label),
-                  "230",
-                  "111",
-                  true
-              )
-              }
+              {getCenterPrimary(1,2,230,115, true)}
             </text>
             <text
               id="R1C2_t_extra"
-              transform="matrix(1 0 0 1 209.806 94.737)"
               fill={getContrastText(getColor(1, 2))}
             >
-              {getLabel(1, 2).extraLabel}
+              {getCenterExtra(1, 2, 230, 100)}
             </text>
             <text
               id="R1C1_t_primary"
-              x="171"
-              y="111"
               fill={getContrastText(getColor(1, 1))}
             >
-              {getLabel(1, 1).label
-              &&
-              getDivideKeys(
-                  (getLabel(1, 1).label),
-                  "171",
-                  "111",
-                  true
-              )
-              }
+              {getCenterPrimary(1,1,171,115, true)}
             </text>
             <text
               id="R1C1_t_extra"
-              transform="matrix(1 0 0 1 150.748 94.737)"
               fill={getContrastText(getColor(1, 1))}
             >
-              {getLabel(1, 1).extraLabel}
+              {getCenterExtra(1, 1, 171, 100)}
             </text>
             <text
               id="R1C0_t_primary"
-              x="100"
-              y="108"
               fill={getContrastText(getColor(1, 0))}
             >
-              {getLabel(1, 0).label
-              &&
-              getDivideKeys(
-                  (getLabel(1, 0).label),
-                  "100",
-                  "111"
-              )
-              }
+              {getCenterPrimary(1,0,100,115)}
             </text>
             <text
               id="R1C0_t_extra"
-              transform="matrix(1 0 0 1 61.69 94.737)"
               fill={getContrastText(getColor(1, 0))}
             >
-              {getLabel(1, 0).extraLabel}
+              {getCenterExtra(1, 0, 100, 100)}
             </text>
             <text
               id="R0C15_t_primary"
-              x="915"
-              y="50"
               fill={getContrastText(getColor(0, 15))}
             >
-              {getLabel(0, 15).label
-              &&
-              getDivideKeys(
-                  (getLabel(0, 15).label),
-                  "915",
-                  "46",
-                  false
-              )
-              }
+              {getCenterPrimary(0,15,915,55)}
             </text>
             <text
               id="R0C15_t_extra"
-              transform="matrix(1 0 0 1 865.445 35.136)"
               fill={getContrastText(getColor(0, 15))}
             >
-              {getLabel(0, 15).extraLabel}
+              {getCenterExtra(0, 15, 915, 40)}
             </text>
             <text
               id="R0C14_t_primary"
-              x="828"
-              y="50"
               fill={getContrastText(getColor(0, 14))}
             >
-              {getLabel(0, 14).label
-              &&
-              getDivideKeys(
-                  (getLabel(0, 14).label),
-                  "828",
-                  "50",
-                  true
-              )
-              }
+              {getCenterPrimary(0,14,828,55, true)}
             </text>
             <text
               id="R0C14_t_extra"
-              transform="matrix(1 0 0 1 807.385 35.136)"
               fill={getContrastText(getColor(0, 14))}
             >
-              {getLabel(0, 14).extraLabel}
+              {getCenterExtra(0, 14, 828, 40)}
             </text>
             <text
               id="R0C13_t_primary"
-              x="769"
-              y="50"
               fill={getContrastText(getColor(0, 13))}
             >
-              {getLabel(0, 13).label
-              &&
-              getDivideKeys(
-                  (getLabel(0, 13).label),
-                  "769",
-                  "50",
-                  true
-              )
-              }
+              {getCenterPrimary(0,13,769,55, true)}
             </text>
             <text
               id="R0C13_t_extra"
-              transform="matrix(1 0 0 1 748.335 35.136)"
               fill={getContrastText(getColor(0, 13))}
             >
-              {getLabel(0, 13).extraLabel}
+              {getCenterExtra(0, 13, 769, 40)}
             </text>
             <text
               id="R0C12_t_primary"
-              x="711"
-              y="50"
               fill={getContrastText(getColor(0, 12))}
             >
-              {getLabel(0, 12).label
-              &&
-              getDivideKeys(
-                  (getLabel(0, 12).label),
-                  "711",
-                  "50",
-                  true
-              )
-              }
+              {getCenterPrimary(0,12,711,55, true)}
             </text>
             <text
               id="R0C12_t_extra"
-              transform="matrix(1 0 0 1 689.275 35.136)"
               fill={getContrastText(getColor(0, 12))}
             >
-              {getLabel(0, 12).extraLabel}
+              {getCenterExtra(0, 12, 711, 40)}
             </text>
             <text
               id="R0C11_t_primary"
-              x="652"
-              y="50"
               fill={getContrastText(getColor(0, 11))}
             >
-              {getLabel(0, 11).label
-              &&
-              getDivideKeys(
-                  (getLabel(0, 11).label),
-                  "652",
-                  "50",
-                  true
-              )
-              }
+              {getCenterPrimary(0,11,652,55, true)}
             </text>
             <text
               id="R0C11_t_extra"
-              transform="matrix(1 0 0 1 630.215 35.136)"
               fill={getContrastText(getColor(0, 11))}
             >
-              {getLabel(0, 11).extraLabel}
+              {getCenterExtra(0, 11, 652, 40)}
             </text>
             <text
               id="R0C10_t_primary"
-              x="593"
-              y="50"
               fill={getContrastText(getColor(0, 10))}
             >
-              {getLabel(0, 10).label
-              &&
-              getDivideKeys(
-                  (getLabel(0, 10).label),
-                  "593",
-                  "50",
-                  true
-              )
-              }
+              {getCenterPrimary(0,10,593,55, true)}
             </text>
             <text
               id="R0C10_t_extra"
-              transform="matrix(1 0 0 1 571.156 35.136)"
               fill={getContrastText(getColor(0, 10))}
             >
-              {getLabel(0, 10).extraLabel}
+              {getCenterExtra(0, 10, 593, 40)}
             </text>
             <text
               id="R0C9_t_primary"
-              x="534"
-              y="50"
               fill={getContrastText(getColor(0, 9))}
             >
-              {getLabel(0, 9).label
-              &&
-              getDivideKeys(
-                  (getLabel(0, 9).label),
-                  "534",
-                  "50",
-                  true
-              )
-              }
+              {getCenterPrimary(0,9,534,55, true)}
             </text>
             <text
               id="R0C9_t_extra"
-              transform="matrix(1 0 0 1 512.098 35.136)"
               fill={getContrastText(getColor(0, 9))}
             >
-              {getLabel(0, 9).extraLabel}
+              {getCenterExtra(0, 9, 534, 40)}
             </text>
             <text
               id="R0C6_t_primary"
-              x="434"
-              y="50"
               fill={getContrastText(getColor(0, 6))}
             >
-              {getLabel(0, 6).label
-              &&
-              getDivideKeys(
-                  (getLabel(0, 6).label),
-                  "434",
-                  "50",
-                  true
-              )
-              }
+              {getCenterPrimary(0,6,434,55, true)}
             </text>
             <text
               id="R0C6_t_extra"
-              transform="matrix(1 0 0 1 415.039 35.136)"
               fill={getContrastText(getColor(0, 6))}
             >
-              {getLabel(0, 6).extraLabel}
+              {getCenterExtra(0, 6, 434, 40)}
             </text>
             <text
               id="R0C5_t_primary"
-              x="375"
-              y="50"
               fill={getContrastText(getColor(0, 5))}
             >
-              {getLabel(0, 5).label
-              &&
-              getDivideKeys(
-                  (getLabel(0, 5).label),
-                  "375",
-                  "50",
-                  true
-              )
-              }
+              {getCenterPrimary(0,5,375,55, true)}
             </text>
             <text
               id="R0C5_t_extra"
-              transform="matrix(1 0 0 1 355.981 35.136)"
               fill={getContrastText(getColor(0, 5))}
             >
-              {getLabel(0, 5).extraLabel}
+              {getCenterExtra(0, 5, 375, 40)}
             </text>
             <text
               id="R0C4_t_primary"
-              x="317"
-              y="50"
               fill={getContrastText(getColor(0, 4))}
             >
-              {getLabel(0, 4).label
-              &&
-              getDivideKeys(
-                  (getLabel(0, 4).label),
-                  "317",
-                  "50",
-                  true
-              )
-              }
+              {getCenterPrimary(0,4,317,55, true)}
             </text>
             <text
               id="R0C4_t_extra"
-              transform="matrix(1 0 0 1 296.923 35.136)"
               fill={getContrastText(getColor(0, 4))}
             >
-              {getLabel(0, 4).extraLabel}
+              {getCenterExtra(0, 4, 317, 40)}
             </text>
             <text
               id="R0C3_t_primary"
-              x="257"
-              y="50"
               fill={getContrastText(getColor(0, 3))}
             >
-              {getLabel(0, 3).label
-              &&
-              getDivideKeys(
-                  (getLabel(0, 3).label),
-                  "257",
-                  "50",
-                  true
-              )
-              }
+              {getCenterPrimary(0,3,257,55, true)}
             </text>
             <text
               id="R0C3_t_extra"
-              transform="matrix(1 0 0 1 237.864 35.136)"
               fill={getContrastText(getColor(0, 3))}
             >
-              {getLabel(0, 3).extraLabel}
+              {getCenterExtra(0, 3, 257, 40)}
             </text>
             <text
               id="R0C2_t_primary"
-              x="200"
-              y="50"
               fill={getContrastText(getColor(0, 2))}
             >
-              {getLabel(0, 2).label
-              &&
-              getDivideKeys(
-                  (getLabel(0, 2).label),
-                  "200",
-                  "50",
-                  true
-              )
-              }
+              {getCenterPrimary(0,2,200,55, true)}
             </text>
             <text
               id="R0C2_t_extra"
-              transform="matrix(1 0 0 1 178.806 35.136)"
               fill={getContrastText(getColor(0, 2))}
             >
-              {getLabel(0, 2).extraLabel}
+              {getCenterExtra(0, 2, 200, 40)}
             </text>
             <text
               id="R0C1_t_primary"
-              x="141"
-              y="50"
               fill={getContrastText(getColor(0, 1))}
             >
-              {getLabel(0, 1).label
-              &&
-              getDivideKeys(
-                  (getLabel(0, 1).label),
-                  "141",
-                  "50",
-                  true
-              )
-              }
+              {getCenterPrimary(0,1,141,55, true)}
             </text>
             <text
               id="R0C1_t_extra"
-              transform="matrix(1 0 0 1 119.748 35.136)"
               fill={getContrastText(getColor(0, 1))}
             >
-              {getLabel(0, 1).extraLabel}
+              {getCenterExtra(0, 1, 141, 40)}
             </text>
             <text
               id="R0C0_t_primary"
-              x="83"
-              y="49"
               fill={getContrastText(getColor(0, 0))}
             >
-              {getLabel(0, 0).label
-              &&
-              getDivideKeys(
-                  (getLabel(0, 0).label),
-                  "83",
-                  "49",
-                  true
-              )
-              }
+              {getCenterPrimary(0,0,83,55, true)}
+
             </text>
             <text
               id="R0C0_t_extra"
-              transform="matrix(1 0 0 1 61.69 35.136)"
               fill={getContrastText(getColor(0, 0))}
             >
-              {getLabel(0, 0).extraLabel}
+              {getCenterExtra(0, 0, 83, 40)}
             </text>
           </g>
         </g>

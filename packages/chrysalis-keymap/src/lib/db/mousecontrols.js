@@ -88,21 +88,21 @@ const MouseButtonTable = {
         {
             code: 20545,
             labels: {
-                top: "M. Btn",
+                top: "M.Btn",
                 primary: "LEFT"
             }
         },
         {
             code: 20546,
             labels: {
-                top: "M. Btn",
+                top: "M.Btn",
                 primary: "RIGHT"
             }
         },
         {
             code: 20548,
             labels: {
-                top: "M. Btn",
+                top: "M.Btn",
                 primary: "MIDDLE"
             }
         }

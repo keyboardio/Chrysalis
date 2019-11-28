@@ -2323,7 +2323,7 @@ class KeymapANSI extends React.Component {
               id="R3C15_t_extra"
               fill={getContrastText(getColor(3, 15))}
             >
-              {getCenterExtra(3, 15, 890, 222, true)}
+              {getCenterExtra(3, 15, 890, 219, true)}
             </text>
             <text
               id="R3C14_t_primary"
@@ -2335,7 +2335,7 @@ class KeymapANSI extends React.Component {
               id="R3C14_t_extra"
               fill={getContrastText(getColor(3, 14))}
             >
-              {getCenterExtra(3, 14, 783, 222, true)}
+              {getCenterExtra(3, 14, 783, 219, true)}
             </text>
             <text
               id="R3C13_t_primary"
@@ -2347,7 +2347,7 @@ class KeymapANSI extends React.Component {
               id="R3C13_t_extra"
               fill={getContrastText(getColor(3, 13))}
             >
-              {getCenterExtra(3, 13, 724, 222, true)}
+              {getCenterExtra(3, 13, 724, 219, true)}
             </text>
             <text
               id="R3C12_t_primary"
@@ -2359,7 +2359,7 @@ class KeymapANSI extends React.Component {
               id="R3C12_t_extra"
               fill={getContrastText(getColor(3, 12))}
             >
-              {getCenterExtra(3, 12, 665, 222, true)}
+              {getCenterExtra(3, 12, 665, 219, true)}
             </text>
             <text
               id="R3C11_t_primary"
@@ -2371,7 +2371,7 @@ class KeymapANSI extends React.Component {
               id="R3C11_t_extra"
               fill={getContrastText(getColor(3, 11))}
             >
-              {getCenterExtra(3, 11, 605, 222, true)}
+              {getCenterExtra(3, 11, 605, 219, true)}
             </text>
             <text
               id="R3C10_t_primary"
@@ -2383,7 +2383,7 @@ class KeymapANSI extends React.Component {
               id="R3C10_t_extra"
               fill={getContrastText(getColor(3, 10))}
             >
-              {getCenterExtra(3, 10, 549, 222, true)}
+              {getCenterExtra(3, 10, 549, 219, true)}
             </text>
             <text
               id="R3C6_t_primary"
@@ -2395,7 +2395,7 @@ class KeymapANSI extends React.Component {
               id="R3C6_t_extra"
               fill={getContrastText(getColor(3, 6))}
             >
-              {getCenterExtra(3, 6, 437, 222, true)}
+              {getCenterExtra(3, 6, 437, 219, true)}
             </text>
             <text
               id="R3C5_t_primary"
@@ -2407,7 +2407,7 @@ class KeymapANSI extends React.Component {
               id="R3C5_t_extra"
               fill={getContrastText(getColor(3, 5))}
             >
-              {getCenterExtra(3, 5, 377, 222, true)}
+              {getCenterExtra(3, 5, 377, 219, true)}
             </text>
             <text
               id="R3C4_t_primary"
@@ -2419,7 +2419,7 @@ class KeymapANSI extends React.Component {
               id="R3C4_t_extra"
               fill={getContrastText(getColor(3, 4))}
             >
-              {getCenterExtra(3, 4, 320, 222, true)}
+              {getCenterExtra(3, 4, 320, 219, true)}
             </text>
             <text
               id="R3C3_t_primary"
@@ -2431,7 +2431,7 @@ class KeymapANSI extends React.Component {
               id="R3C3_t_extra"
               fill={getContrastText(getColor(3, 3))}
             >
-              {getCenterExtra(3, 3, 261, 222, true)}
+              {getCenterExtra(3, 3, 261, 219, true)}
             </text>
             <text
               id="R3C2_t_primary"
@@ -2443,7 +2443,7 @@ class KeymapANSI extends React.Component {
               id="R3C2_t_extra"
               fill={getContrastText(getColor(3, 2))}
             >
-              {getCenterExtra(3, 2, 201, 222, true)}
+              {getCenterExtra(3, 2, 201, 219, true)}
             </text>
             <text
               id="R3C0_t_primary"
@@ -2455,19 +2455,19 @@ class KeymapANSI extends React.Component {
               id="R3C0_t_extra"
               fill={getContrastText(getColor(3, 0))}
             >
-              {getCenterExtra(3, 0, 115, 222, true)}
+              {getCenterExtra(3, 0, 115, 219, true)}
             </text>
             <text
               id="R2C15_t_primary"
               fill={getContrastText(getColor(2, 15))}
             >
-              {getCenterPrimary(1,15,930,115, true)}
+              {getCenterPrimary(2,15,930,115, true)}
             </text>
             <text
               id="R2C15_t_extra"
-              fill={getContrastText(getColor(1, 15))}
+              fill={getContrastText(getColor(2, 15))}
             >
-              {getCenterExtra(1, 15, 930, 100)}
+              {getCenterExtra(2, 15, 930, 100)}
             </text>
             <text
               id="R2C14_t_primary"
@@ -2521,25 +2521,25 @@ class KeymapANSI extends React.Component {
               id="R2C10_t_primary"
               fill={getContrastText(getColor(2, 10))}
             >
-              {getCenterPrimary(2,10,599,174,true)}
+              {getCenterPrimary(2,10,594,174,true)}
             </text>
             <text
               id="R2C10_t_extra"
               fill={getContrastText(getColor(2, 10))}
             >
-              {getCenterExtra(2, 10, 599, 159)}
+              {getCenterExtra(2, 10, 594, 159)}
             </text>
             <text
               id="R2C9_t_primary"
               fill={getContrastText(getColor(2, 9))}
             >
-              {getCenterPrimary(2,9,541,174,true)}
+              {getCenterPrimary(2,9,535,174,true)}
             </text>
             <text
               id="R2C9_t_extra"
               fill={getContrastText(getColor(2, 9))}
             >
-              {getCenterExtra(2, 9, 541, 159)}
+              {getCenterExtra(2, 9, 535, 159)}
             </text>
             <text
               id="R2C5_t_primary"
@@ -2617,13 +2617,13 @@ class KeymapANSI extends React.Component {
               id="R1C15_t_primary"
               fill={getContrastText(getColor(1, 15))}
             >
-              {getCenterPrimary(2,15,915,174,true)}
+              {getCenterPrimary(1,15,915,174,true)}
             </text>
             <text
               id="R1C15_t_extra"
-              fill={getContrastText(getColor(2, 15))}
+              fill={getContrastText(getColor(1, 15))}
             >
-              {getCenterExtra(2, 15, 915, 159)}
+              {getCenterExtra(1, 15, 915, 158)}
             </text>
             <text
               id="R1C14_t_primary"

@@ -111,193 +111,210 @@ class KeymapANSI extends React.Component {
      * @param {string} yCord Cord of the center position vertical of each key
      * @param {boolean} smallKey if the word longer than key switch to true
      */
-  const GetCurrentKeyElement = props => {
-  return (
-    <tspan>
-      <tspan
-        className={props.class}
-        textAnchor="middle"
-        key={props.index}
-        x={props.x}
-        y={props.y}
-        dy={props.dy}
-      >
-        {props.word}
-      </tspan>
-    </tspan>
-  );
-};
-
-const getDivideKeys = (str, xCord, yCord, smallKey = false) => {
-  const numbers =
-    (str.charCodeAt() >= 48 && str.charCodeAt() <= 57) ||
-    (str.charCodeAt() >= 96 && str.charCodeAt() <= 105) ||
-    str === "\n".charCodeAt(0);
-  const interval = "1.5em";
-  const longWords = str.split(" ");
-  const shortWords = str.split("");
-  if (numbers) {
-    return (
-      <GetCurrentKeyElement
-        key={new Date() + Math.random()}
-        x={xCord}
-        y={yCord}
-        word={str}
-        class="key-config"
-      />
-    );
-  } else if (str.length === 1) {
-    return shortWords.map((word, index) => (
-      <GetCurrentKeyElement
-        key={index}
-        x={xCord}
-        y={yCord}
-        word={word}
-        class="letter-config"
-      />
-    ));
-  } else if (str.toLowerCase().endsWith("to")) {
-    return longWords.map((word, index) => (
-      <tspan key={index}>
-        <GetCurrentKeyElement
-          x={xCord}
-          y={String(+yCord + 9)}
-          dy={0}
-          word={word.slice(0, word.indexOf("to") - 1)}
-        />
-        <GetCurrentKeyElement
-          x={String(+xCord - 5)}
-          y={String(+yCord + 9)}
-          dy={interval}
-          word={word.slice(-2)}
-        />
-      </tspan>
-    ));
-  } else if (
-    longWords.length === 1 &&
-    shortWords.length > 7 &&
-    smallKey === true
-  ) {
-    return longWords.map((word, index) => (
-      <tspan key={index}>
-        <GetCurrentKeyElement
-          x={xCord}
-          y={String(+yCord - 10)}
-          word={word.slice(0, 4)}
-          dy={"0"}
-        />
-        <GetCurrentKeyElement
-          x={xCord}
-          y={String(+yCord - 10)}
-          word={word.slice(4)}
-          dy={interval}
-        />
-      </tspan>
-    ));
-  } else if (longWords.length === 1) {
-    return longWords.map((word, index) => (
-      <GetCurrentKeyElement key={index} x={xCord} y={yCord} word={word} />
-    ));
-  } else if (longWords.length > 1 && smallKey === true) {
-    return longWords.map((word, index) => (
-      <GetCurrentKeyElement
-        key={index}
-        x={xCord}
-        y={String(+yCord - 10)}
-        word={word}
-        dy={index ? interval : index}
-      />
-    ));
-  } else if (longWords.length > 1) {
-    return (
-      <GetCurrentKeyElement
-        key={new Date() + Math.random()}
-        x={xCord}
-        y={yCord}
-        word={str}
-      />
-    );
-  } else {
-    return (
-      <GetCurrentKeyElement
-        key={new Date() + Math.random()}
-        x={xCord}
-        y={yCord}
-        word={str}
-      />
-    );
-  }
-};
-const topsArr = [
-  "LEDEFF.",
-  "SCadet",
-  "Steno",
-  "M.Btn",
-  "Leader",
-  "Numpad",
-  "Media",
-  "OSL",
-  "Mouse",
-  "M.Wheel",
-  "M.Warp"
-];
-const topsArrTransfer = ["SHIFTTO", "LockTo"];
-const getCenterExtra = (row, col, xCord, yCord, smallKey = false) =>
-  getLabel(row, col).extraLabel !== ""
-    ? topsArr.includes(getLabel(row, col).extraLabel)
-      ? getLabel(row, col).extraLabel &&
-        getDivideKeys(getLabel(row, col).extraLabel, xCord, yCord, smallKey)
-      : getLabel(row, col).extraLabel &&
-        getDivideKeys(
-          getLabel(row, col).extraLabel,
-          xCord,
-          String(+yCord - 10),
-          smallKey
-        )
-    : getLabel(row, col).extraLabel ===
-      getLabel(row, col)
-        .extraLabel.toLowerCase()
-        .endsWith("to")
-    ? getLabel(row, col).extraLabel &&
-      getDivideKeys(getLabel(row, col).extraLabel, xCord, yCord, smallKey)
-    : getLabel(row, col).extraLabel;
-
-const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
-  getLabel(row, col).extraLabel !== ""
-    ? topsArr.includes(getLabel(row, col).extraLabel)
-      ? getLabel(row, col).label &&
-        getDivideKeys(getLabel(row, col).label, xCord, yCord, smallKey)
-      : topsArrTransfer.includes(getLabel(row, col).extraLabel)
-      ? getLabel(row, col).label &&
-        getDivideKeys(
-          getLabel(row, col).label,
-          String(+xCord + 10),
-          yCord,
-          smallKey
-        )
-      : getLabel(row, col).label &&
-        getDivideKeys(
-          getLabel(row, col).label,
-          xCord,
-          String(yCord - 5),
-          smallKey
-        )
-    : topsArrTransfer.includes(getLabel(row, col).extraLabel)
-    ? getLabel(row, col).label &&
-      getDivideKeys(getLabel(row, col).label, xCord, yCord, smallKey) &&
-      getDivideKeys(
-        getLabel(row, col).label,
-        String(+xCord + 10),
-        yCord,
-        smallKey
-      )
-    : getLabel(row, col).label &&
-      getDivideKeys(
-        getLabel(row, col).label,
-        xCord,
-        String(yCord - 5),
-        smallKey
+    const GetCurrentKeyElement = props => {
+      return (
+        <tspan>
+          <tspan
+            className={props.class}
+            textAnchor="middle"
+            key={props.index}
+            x={props.x}
+            y={props.y}
+            dy={props.dy}
+            textLength={props.textLength}
+          >
+            {props.word}
+          </tspan>
+        </tspan>
       );
+    };
+
+    const getDivideKeys = (str, xCord, yCord, smallKey = false) => {
+      const numbers =
+        (str.charCodeAt() >= 48 && str.charCodeAt() <= 57) ||
+        (str.charCodeAt() >= 96 && str.charCodeAt() <= 105) ||
+        str === "\n".charCodeAt(0);
+      const interval = "1.5em";
+      const longWords = str.split(" ");
+      const shortWords = str.split("");
+      if (numbers) {
+        return (
+          <GetCurrentKeyElement
+            key={new Date() + Math.random()}
+            x={xCord}
+            y={yCord}
+            word={str}
+            class="key-config"
+          />
+        );
+      } else if (str.length === 1) {
+        return shortWords.map((word, index) => (
+          <GetCurrentKeyElement
+            key={index}
+            x={xCord}
+            y={yCord}
+            word={word}
+            class="letter-config"
+          />
+        ));
+      } else if (str.toLowerCase().endsWith("to")) {
+        return longWords.map((word, index) => (
+          <tspan key={index}>
+            <GetCurrentKeyElement
+              x={xCord}
+              y={String(+yCord + 9)}
+              dy={0}
+              word={word.slice(0, word.indexOf("to") - 1)}
+            />
+            <GetCurrentKeyElement
+              x={String(+xCord - 5)}
+              y={String(+yCord + 9)}
+              dy={interval}
+              word={word.slice(-2)}
+            />
+          </tspan>
+        ));
+      } else if (
+        str.length > 8 &&
+        smallKey === true &&
+        (str.startsWith("C+") || str.startsWith("A+"))
+      ) {
+        return (
+          <GetCurrentKeyElement
+            key={new Date() + Math.random()}
+            x={xCord}
+            y={yCord}
+            word={str}
+            textLength="50"
+          />
+        );
+      } else if (
+        longWords.length === 1 &&
+        shortWords.length > 7 &&
+        !str.startsWith("C+") &&
+        !str.startsWith("A+") &&
+        smallKey
+      ) {
+        return longWords.map((word, index) => (
+          <tspan key={index}>
+            <GetCurrentKeyElement
+              x={xCord}
+              y={String(+yCord - 10)}
+              word={word.slice(0, 4)}
+              dy={"0"}
+            />
+            <GetCurrentKeyElement
+              x={xCord}
+              y={String(+yCord - 10)}
+              word={word.slice(4)}
+              dy={interval}
+            />
+          </tspan>
+        ));
+      } else if (longWords.length === 1) {
+        return longWords.map((word, index) => (
+          <GetCurrentKeyElement key={index} x={xCord} y={yCord} word={word} />
+        ));
+      } else if (longWords.length > 1 && smallKey === true) {
+        return longWords.map((word, index) => (
+          <GetCurrentKeyElement
+            key={index}
+            x={xCord}
+            y={String(+yCord - 10)}
+            word={word}
+            dy={index ? interval : index}
+          />
+        ));
+      } else if (longWords.length > 1) {
+        return (
+          <GetCurrentKeyElement
+            key={new Date() + Math.random()}
+            x={xCord}
+            y={yCord}
+            word={str}
+          />
+        );
+      } else {
+        return (
+          <GetCurrentKeyElement
+            key={new Date() + Math.random()}
+            x={xCord}
+            y={yCord}
+            word={str}
+          />
+        );
+      }
+    };
+    const topsArr = [
+      "LEDEFF.",
+      "SCadet",
+      "Steno",
+      "M.Btn",
+      "Leader",
+      "Numpad",
+      "Media",
+      "OSL",
+      "Mouse",
+      "M.Wheel",
+      "M.Warp"
+    ];
+    const topsArrTransfer = ["SHIFTTO", "LockTo"];
+    const getCenterExtra = (row, col, xCord, yCord, smallKey = false) =>
+      getLabel(row, col).extraLabel !== ""
+        ? topsArr.includes(getLabel(row, col).extraLabel)
+          ? getLabel(row, col).extraLabel &&
+            getDivideKeys(getLabel(row, col).extraLabel, xCord, yCord, smallKey)
+          : getLabel(row, col).extraLabel &&
+            getDivideKeys(
+              getLabel(row, col).extraLabel,
+              xCord,
+              String(+yCord - 10),
+              smallKey
+            )
+        : getLabel(row, col).extraLabel ===
+          getLabel(row, col)
+            .extraLabel.toLowerCase()
+            .endsWith("to")
+        ? getLabel(row, col).extraLabel &&
+          getDivideKeys(getLabel(row, col).extraLabel, xCord, yCord, smallKey)
+        : getLabel(row, col).extraLabel;
+
+    const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
+      getLabel(row, col).extraLabel !== ""
+        ? topsArr.includes(getLabel(row, col).extraLabel)
+          ? getLabel(row, col).label &&
+            getDivideKeys(getLabel(row, col).label, xCord, yCord, smallKey)
+          : topsArrTransfer.includes(getLabel(row, col).extraLabel)
+          ? getLabel(row, col).label &&
+            getDivideKeys(
+              getLabel(row, col).label,
+              String(+xCord + 10),
+              yCord,
+              smallKey
+            )
+          : getLabel(row, col).label &&
+            getDivideKeys(
+              getLabel(row, col).label,
+              xCord,
+              String(yCord - 5),
+              smallKey
+            )
+        : topsArrTransfer.includes(getLabel(row, col).extraLabel)
+        ? getLabel(row, col).label &&
+          getDivideKeys(getLabel(row, col).label, xCord, yCord, smallKey) &&
+          getDivideKeys(
+            getLabel(row, col).label,
+            String(+xCord + 10),
+            yCord,
+            smallKey
+          )
+        : getLabel(row, col).label &&
+          getDivideKeys(
+            getLabel(row, col).label,
+            xCord,
+            String(yCord - 5),
+            smallKey
+          );
 
     return (
       <svg
@@ -2351,7 +2368,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R3C15_t_extra"
               fill={getContrastText(getColor(3, 15))}
             >
-              {getCenterExtra(3, 15, 890, 219, true)}
+              {getCenterExtra(3, 15, 890, 219)}
             </text>
             <text
               id="R3C14_t_primary"
@@ -2483,7 +2500,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R3C0_t_extra"
               fill={getContrastText(getColor(3, 0))}
             >
-              {getCenterExtra(3, 0, 115, 219, true)}
+              {getCenterExtra(3, 0, 115, 219)}
             </text>
             <text
               id="R2C15_t_primary"
@@ -2507,7 +2524,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R2C14_t_extra"
               fill={getContrastText(getColor(2, 14))}
             >
-              {getCenterExtra(2, 14, 828, 159)}
+              {getCenterExtra(2, 14, 828, 159,true)}
             </text>
             <text
               id="R2C13_t_primary"
@@ -2519,7 +2536,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R2C13_t_extra"
               fill={getContrastText(getColor(2, 13))}
             >
-              {getCenterExtra(2, 13, 771, 159)}
+              {getCenterExtra(2, 13, 771, 159,true)}
             </text>
             <text
               id="R2C12_t_primary"
@@ -2531,7 +2548,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R2C12_t_extra"
               fill={getContrastText(getColor(2, 12))}
             >
-              {getCenterExtra(2, 12, 712, 159)}
+              {getCenterExtra(2, 12, 712, 159,true)}
             </text>
             <text
               id="R2C11_t_primary"
@@ -2543,7 +2560,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R2C11_t_extra"
               fill={getContrastText(getColor(2, 11))}
             >
-              {getCenterExtra(2, 11, 654, 159)}
+              {getCenterExtra(2, 11, 654, 159,true)}
             </text>
             <text
               id="R2C10_t_primary"
@@ -2555,7 +2572,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R2C10_t_extra"
               fill={getContrastText(getColor(2, 10))}
             >
-              {getCenterExtra(2, 10, 594, 159)}
+              {getCenterExtra(2, 10, 594, 159,true)}
             </text>
             <text
               id="R2C9_t_primary"
@@ -2567,7 +2584,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R2C9_t_extra"
               fill={getContrastText(getColor(2, 9))}
             >
-              {getCenterExtra(2, 9, 535, 159)}
+              {getCenterExtra(2, 9, 535, 159,true)}
             </text>
             <text
               id="R2C5_t_primary"
@@ -2579,7 +2596,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R2C5_t_extra"
               fill={getContrastText(getColor(2, 5))}
             >
-              {getCenterExtra(2, 5, 413, 159)}
+              {getCenterExtra(2, 5, 413, 159,true)}
             </text>
             <text
               id="R2C4_t_primary"
@@ -2591,7 +2608,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R2C4_t_extra"
               fill={getContrastText(getColor(2, 4))}
             >
-              {getCenterExtra(2, 4, 355, 159)}
+              {getCenterExtra(2, 4, 355, 159,true)}
             </text>
             <text
               id="R2C3_t_primary"
@@ -2603,7 +2620,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R2C3_t_extra"
               fill={getContrastText(getColor(2, 3))}
             >
-              {getCenterExtra(2, 3, 297, 159)}
+              {getCenterExtra(2, 3, 297, 159,true)}
             </text>
             <text
               id="R2C2_t_primary"
@@ -2615,7 +2632,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R2C2_t_extra"
               fill={getContrastText(getColor(2, 2))}
             >
-              {getCenterExtra(2, 2, 238, 159)}
+              {getCenterExtra(2, 2, 238, 159,true)}
             </text>
             <text
               id="R2C1_t_primary"
@@ -2627,7 +2644,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R2C1_t_extra"
               fill={getContrastText(getColor(2, 1))}
             >
-              {getCenterExtra(2, 1, 180, 159)}
+              {getCenterExtra(2, 1, 180, 159,true)}
             </text>
             <text
               id="R2C0_t_primary"
@@ -2645,7 +2662,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R1C15_t_primary"
               fill={getContrastText(getColor(1, 15))}
             >
-              {getCenterPrimary(1,15,915,174,true)}
+              {getCenterPrimary(1,15,915,174)}
             </text>
             <text
               id="R1C15_t_extra"
@@ -2663,7 +2680,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R1C14_t_extra"
               fill={getContrastText(getColor(1, 14))}
             >
-              {getCenterExtra(1, 14, 860, 100)}
+              {getCenterExtra(1, 14, 860, 100, true)}
             </text>
             <text
               id="R1C13_t_primary"
@@ -2675,7 +2692,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R1C13_t_extra"
               fill={getContrastText(getColor(1, 13))}
             >
-              {getCenterExtra(1, 13, 805, 100)}
+              {getCenterExtra(1, 13, 805, 100, true)}
             </text>
             <text
               id="R1C12_t_primary"
@@ -2687,7 +2704,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R1C12_t_extra"
               fill={getContrastText(getColor(1, 12))}
             >
-              {getCenterExtra(1, 12, 745, 100)}
+              {getCenterExtra(1, 12, 745, 100, true)}
             </text>
             <text
               id="R1C11_t_primary"
@@ -2699,7 +2716,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R1C11_t_extra"
               fill={getContrastText(getColor(1, 11))}
             >
-              {getCenterExtra(1, 11, 688, 100)}
+              {getCenterExtra(1, 11, 688, 100, true)}
             </text>
             <text
               id="R1C10_t_primary"
@@ -2711,7 +2728,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R1C10_t_extra"
               fill={getContrastText(getColor(1, 10))}
             >
-              {getCenterExtra(1, 10, 630, 100)}
+              {getCenterExtra(1, 10, 630, 100, true)}
             </text>
             <text
               id="R1C9_t_primary"
@@ -2723,7 +2740,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R1C9_t_extra"
               fill={getContrastText(getColor(1, 9))}
             >
-              {getCenterExtra(1, 9, 574, 100)}
+              {getCenterExtra(1, 9, 574, 100, true)}
             </text>
             <text
               id="R1C8_t_primary"
@@ -2735,7 +2752,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R1C8_t_extra"
               fill={getContrastText(getColor(1, 8))}
             >
-              {getCenterExtra(1, 8, 516, 100)}
+              {getCenterExtra(1, 8, 516, 100, true)}
             </text>
             <text
               id="R1C5_t_primary"
@@ -2747,7 +2764,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R1C5_t_extra"
               fill={getContrastText(getColor(1, 5))}
             >
-              {getCenterExtra(1, 5, 407, 100)}
+              {getCenterExtra(1, 5, 407, 100, true)}
             </text>
             <text
               id="R1C4_t_primary"
@@ -2759,7 +2776,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R1C4_t_extra"
               fill={getContrastText(getColor(1, 4))}
             >
-              {getCenterExtra(1, 4, 348, 100)}
+              {getCenterExtra(1, 4, 348, 100, true)}
             </text>
             <text
               id="R1C3_t_primary"
@@ -2771,7 +2788,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R1C3_t_extra"
               fill={getContrastText(getColor(1, 3))}
             >
-              {getCenterExtra(1, 3, 289, 100)}
+              {getCenterExtra(1, 3, 289, 100, true)}
             </text>
             <text
               id="R1C2_t_primary"
@@ -2783,7 +2800,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R1C2_t_extra"
               fill={getContrastText(getColor(1, 2))}
             >
-              {getCenterExtra(1, 2, 230, 100)}
+              {getCenterExtra(1, 2, 230, 100, true)}
             </text>
             <text
               id="R1C1_t_primary"
@@ -2831,7 +2848,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R0C14_t_extra"
               fill={getContrastText(getColor(0, 14))}
             >
-              {getCenterExtra(0, 14, 828, 40)}
+              {getCenterExtra(0, 14, 828, 40, true)}
             </text>
             <text
               id="R0C13_t_primary"
@@ -2843,7 +2860,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R0C13_t_extra"
               fill={getContrastText(getColor(0, 13))}
             >
-              {getCenterExtra(0, 13, 769, 40)}
+              {getCenterExtra(0, 13, 769, 40, true)}
             </text>
             <text
               id="R0C12_t_primary"
@@ -2855,7 +2872,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R0C12_t_extra"
               fill={getContrastText(getColor(0, 12))}
             >
-              {getCenterExtra(0, 12, 711, 40)}
+              {getCenterExtra(0, 12, 711, 40, true)}
             </text>
             <text
               id="R0C11_t_primary"
@@ -2867,7 +2884,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R0C11_t_extra"
               fill={getContrastText(getColor(0, 11))}
             >
-              {getCenterExtra(0, 11, 652, 40)}
+              {getCenterExtra(0, 11, 652, 40, true)}
             </text>
             <text
               id="R0C10_t_primary"
@@ -2879,7 +2896,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R0C10_t_extra"
               fill={getContrastText(getColor(0, 10))}
             >
-              {getCenterExtra(0, 10, 593, 40)}
+              {getCenterExtra(0, 10, 593, 40, true)}
             </text>
             <text
               id="R0C9_t_primary"
@@ -2891,7 +2908,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R0C9_t_extra"
               fill={getContrastText(getColor(0, 9))}
             >
-              {getCenterExtra(0, 9, 534, 40)}
+              {getCenterExtra(0, 9, 534, 40, true)}
             </text>
             <text
               id="R0C6_t_primary"
@@ -2903,7 +2920,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R0C6_t_extra"
               fill={getContrastText(getColor(0, 6))}
             >
-              {getCenterExtra(0, 6, 434, 40)}
+              {getCenterExtra(0, 6, 434, 40, true)}
             </text>
             <text
               id="R0C5_t_primary"
@@ -2915,7 +2932,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R0C5_t_extra"
               fill={getContrastText(getColor(0, 5))}
             >
-              {getCenterExtra(0, 5, 375, 40)}
+              {getCenterExtra(0, 5, 375, 40, true)}
             </text>
             <text
               id="R0C4_t_primary"
@@ -2927,7 +2944,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R0C4_t_extra"
               fill={getContrastText(getColor(0, 4))}
             >
-              {getCenterExtra(0, 4, 317, 40)}
+              {getCenterExtra(0, 4, 317, 40, true)}
             </text>
             <text
               id="R0C3_t_primary"
@@ -2939,7 +2956,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R0C3_t_extra"
               fill={getContrastText(getColor(0, 3))}
             >
-              {getCenterExtra(0, 3, 257, 40)}
+              {getCenterExtra(0, 3, 257, 40, true)}
             </text>
             <text
               id="R0C2_t_primary"
@@ -2951,7 +2968,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R0C2_t_extra"
               fill={getContrastText(getColor(0, 2))}
             >
-              {getCenterExtra(0, 2, 200, 40)}
+              {getCenterExtra(0, 2, 200, 40, true)}
             </text>
             <text
               id="R0C1_t_primary"
@@ -2963,7 +2980,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R0C1_t_extra"
               fill={getContrastText(getColor(0, 1))}
             >
-              {getCenterExtra(0, 1, 141, 40)}
+              {getCenterExtra(0, 1, 141, 40, true)}
             </text>
             <text
               id="R0C0_t_primary"
@@ -2976,7 +2993,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R0C0_t_extra"
               fill={getContrastText(getColor(0, 0))}
             >
-              {getCenterExtra(0, 0, 83, 40)}
+              {getCenterExtra(0, 0, 83, 40, true)}
             </text>
           </g>
         </g>

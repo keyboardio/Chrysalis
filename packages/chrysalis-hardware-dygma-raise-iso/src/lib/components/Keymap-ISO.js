@@ -104,11 +104,13 @@ class KeymapISO extends React.Component {
       this.props.onKeySelect(e);
     };
     /**
-     * Divides words on keyboard keys
-     * @param {string} str Name of key
-     * @param {string} xCord Cord of the center position horisontal of each key
-     * @param {string} yCord Cord of the center position vertical of each key
-     * @param {boolean} smallKey if the word longer than key switch to true
+     * GetCurrentKeyElement  on keyboard
+     * @props {string} x - horizontal coordinates of the button
+     * @props {string} y vertical coordinates of the button
+     * @props {string} dy - row spacing
+     * @props {string} word - button text
+     * @props {string} class - className of the button
+     * @props {string} textLength length of the text if the button is small and additional text is longer then button
      */
     const GetCurrentKeyElement = props => {
       return (
@@ -127,7 +129,13 @@ class KeymapISO extends React.Component {
         </tspan>
       );
     };
-
+    /**
+     * getDivideKeys - divides words on keyboard keys
+     * @param {string} str Name of key
+     * @param {string} xCord Cord of the center position horisontal of each key
+     * @param {string} yCord Cord of the center position vertical of each key
+     * @param {boolean} smallKey if the word longer than key switch to true
+     */
     const getDivideKeys = (str, xCord, yCord, smallKey = false) => {
       const numbers =
         (str.charCodeAt() >= 48 && str.charCodeAt() <= 57) ||

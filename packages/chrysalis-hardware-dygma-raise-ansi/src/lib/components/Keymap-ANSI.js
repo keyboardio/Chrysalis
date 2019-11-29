@@ -1488,7 +1488,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
             data-layer={layer}
             points="37.7,103.7 49.7,103.7 49.7,114.6 49.7,125.3 49.7,136.2 49.7,143.1 49.7,149.9 49.7,156.6
 		49.7,163.2 49.7,169.2 49.7,175.3 37.4,175.3 37.4,169.6 37.7,163.5 37.7,157 37.7,150.2 37.7,143.8 37.7,136.6 37.7,125.7
-		37.7,115 	"
+		37.7,114.5 	"
           />
           <polygon
             id="76_undeglow"
@@ -2213,7 +2213,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R4C15_t_primary"
               fill={getContrastText(getColor(4, 15))}
             >
-              {getCenterPrimary(4,15,937,294,true)}
+              {getCenterPrimary(4,15,937,294.5,true)}
             </text>
             <text
               id="R4C15_t_extra"
@@ -2225,7 +2225,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R4C14_t_primary"
               fill={getContrastText(getColor(4, 14))}
             >
-              {getCenterPrimary(4,14,870,294,true)}
+              {getCenterPrimary(4,14,870,294.5,true)}
             </text>
             <text
               id="R4C14_t_extra"
@@ -2237,7 +2237,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R4C13_t_primary"
               fill={getContrastText(getColor(4, 13))}
             >
-              {getCenterPrimary(4, 13, 805, 294, true)}
+              {getCenterPrimary(4, 13, 805, 294.5, true)}
             </text>
             <text
               id="R4C13_t_extra"
@@ -2249,7 +2249,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R4C12_t_primary"
               fill={getContrastText(getColor(4, 12))}
             >
-              {getCenterPrimary(4,12,730,294, true)}
+              {getCenterPrimary(4,12,730,294.5, true)}
             </text>
             <text
               id="R4C12_t_extra"
@@ -2261,7 +2261,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R4C11_t_primary"
               fill={getContrastText(getColor(4, 11))}
             >
-              {getCenterPrimary(4,11,650,294, true)}
+              {getCenterPrimary(4,11,650,294.5, true)}
             </text>
             <text
               id="R4C11_t_extra"
@@ -2273,7 +2273,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R4C10_t_primary"
               fill={getContrastText(getColor(4, 10))}
             >
-              {getCenterPrimary(4,10,557,294)}
+              {getCenterPrimary(4,10,557,294.5)}
             </text>
             <text
               id="R4C10_t_extra"
@@ -2285,7 +2285,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R4C4_t_primary"
               fill={getContrastText(getColor(4, 4))}
             >
-              {getCenterPrimary(4,4,412,294)}
+              {getCenterPrimary(4,4,412,294.5)}
             </text>
             <text
               id="R4C4_t_extra"
@@ -2297,7 +2297,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R4C3_t_primary"
               fill={getContrastText(getColor(4, 3))}
             >
-              {getCenterPrimary(4,3,320,294,true)}
+              {getCenterPrimary(4,3,320,294.5,true)}
             </text>
             <text
               id="R4C3_t_extra"
@@ -2309,7 +2309,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R4C2_t_primary"
               fill={getContrastText(getColor(4, 2))}
             >
-              {getCenterPrimary(4,2,240,294,true)}
+              {getCenterPrimary(4,2,240,294.5,true)}
             </text>
             <text
               id="R4C2_t_extra"
@@ -2321,7 +2321,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R4C1_t_primary"
               fill={getContrastText(getColor(4, 1))}
             >
-              {getCenterPrimary(4,1,165,294,true)}
+              {getCenterPrimary(4,1,165,294.5,true)}
             </text>
             <text
               id="R4C1_t_extra"
@@ -2333,7 +2333,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R4C0_t_primary"
               fill={getContrastText(getColor(4, 0))}
             >
-              {getCenterPrimary(4,0,90,294,true)}
+              {getCenterPrimary(4,0,90,294.5,true)}
             </text>
             <text
               id="R4C0_t_extra"
@@ -2345,7 +2345,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R3C15_t_primary"
               fill={getContrastText(getColor(3, 15))}
             >
-              {getCenterPrimary(3,15,890,235)}
+              {getCenterPrimary(3,15,890,233.5)}
             </text>
             <text
               id="R3C15_t_extra"
@@ -2357,7 +2357,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R3C14_t_primary"
               fill={getContrastText(getColor(3, 14))}
             >
-              {getCenterPrimary(3,14,783,235,true)}
+              {getCenterPrimary(3,14,783,233.5,true)}
             </text>
             <text
               id="R3C14_t_extra"
@@ -2369,7 +2369,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R3C13_t_primary"
               fill={getContrastText(getColor(3, 13))}
             >
-              {getCenterPrimary(3,13,724,235,true)}
+              {getCenterPrimary(3,13,724,233.5,true)}
             </text>
             <text
               id="R3C13_t_extra"
@@ -2381,7 +2381,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R3C12_t_primary"
               fill={getContrastText(getColor(3, 12))}
             >
-              {getCenterPrimary(3,12,665,235,true)}
+              {getCenterPrimary(3,12,665,233.5,true)}
             </text>
             <text
               id="R3C12_t_extra"
@@ -2393,7 +2393,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R3C11_t_primary"
               fill={getContrastText(getColor(3, 11))}
             >
-              {getCenterPrimary(3,11,605,235,true)}
+              {getCenterPrimary(3,11,605,233.5,true)}
             </text>
             <text
               id="R3C11_t_extra"
@@ -2405,7 +2405,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R3C10_t_primary"
               fill={getContrastText(getColor(3, 10))}
             >
-              {getCenterPrimary(3,10,549,235,true)}
+              {getCenterPrimary(3,10,549,233.5,true)}
             </text>
             <text
               id="R3C10_t_extra"
@@ -2417,7 +2417,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R3C6_t_primary"
               fill={getContrastText(getColor(3, 6))}
             >
-              {getCenterPrimary(3,6,437,235,true)}
+              {getCenterPrimary(3,6,437,233.5,true)}
             </text>
             <text
               id="R3C6_t_extra"
@@ -2429,7 +2429,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R3C5_t_primary"
               fill={getContrastText(getColor(3, 5))}
             >
-              {getCenterPrimary(3,5,377,235,true)}
+              {getCenterPrimary(3,5,377,233.5,true)}
             </text>
             <text
               id="R3C5_t_extra"
@@ -2441,7 +2441,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R3C4_t_primary"
               fill={getContrastText(getColor(3, 4))}
             >
-              {getCenterPrimary(3,4,320,235,true)}
+              {getCenterPrimary(3,4,320,233.5,true)}
             </text>
             <text
               id="R3C4_t_extra"
@@ -2453,7 +2453,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R3C3_t_primary"
               fill={getContrastText(getColor(3, 3))}
             >
-              {getCenterPrimary(3,3,261,235,true)}
+              {getCenterPrimary(3,3,261,233.5,true)}
             </text>
             <text
               id="R3C3_t_extra"
@@ -2465,7 +2465,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R3C2_t_primary"
               fill={getContrastText(getColor(3, 2))}
             >
-              {getCenterPrimary(3,2,201,235,true)}
+              {getCenterPrimary(3,2,201,233.5,true)}
             </text>
             <text
               id="R3C2_t_extra"
@@ -2477,7 +2477,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R3C0_t_primary"
               fill={getContrastText(getColor(3, 0))}
             >
-              {getCenterPrimary(3,0,115,235)}
+              {getCenterPrimary(3,0,115,233.5)}
             </text>
             <text
               id="R3C0_t_extra"
@@ -2489,7 +2489,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R2C15_t_primary"
               fill={getContrastText(getColor(2, 15))}
             >
-              {getCenterPrimary(2,15,930,115, true)}
+              {getCenterPrimary(2,15,930,115)}
             </text>
             <text
               id="R2C15_t_extra"
@@ -2657,7 +2657,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R1C14_t_primary"
               fill={getContrastText(getColor(1, 14))}
             >
-              {getCenterPrimary(1,14,860,115, true)}
+              {getCenterPrimary(1,14,860,114.5, true)}
             </text>
             <text
               id="R1C14_t_extra"
@@ -2669,7 +2669,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R1C13_t_primary"
               fill={getContrastText(getColor(1, 13))}
             >
-              {getCenterPrimary(1,13,805,115, true)}
+              {getCenterPrimary(1,13,805,114.5, true)}
             </text>
             <text
               id="R1C13_t_extra"
@@ -2681,7 +2681,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R1C12_t_primary"
               fill={getContrastText(getColor(1, 12))}
             >
-              {getCenterPrimary(1,12,745,115, true)}
+              {getCenterPrimary(1,12,745,114.5, true)}
             </text>
             <text
               id="R1C12_t_extra"
@@ -2693,7 +2693,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R1C11_t_primary"
               fill={getContrastText(getColor(1, 11))}
             >
-              {getCenterPrimary(1,11,688,115, true)}
+              {getCenterPrimary(1,11,688,114.5, true)}
             </text>
             <text
               id="R1C11_t_extra"
@@ -2705,7 +2705,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R1C10_t_primary"
               fill={getContrastText(getColor(1, 10))}
             >
-              {getCenterPrimary(1,10,630,115, true)}
+              {getCenterPrimary(1,10,630,114.5, true)}
             </text>
             <text
               id="R1C10_t_extra"
@@ -2717,7 +2717,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R1C9_t_primary"
               fill={getContrastText(getColor(1, 9))}
             >
-              {getCenterPrimary(1,9,574,115, true)}
+              {getCenterPrimary(1,9,574,114.5, true)}
             </text>
             <text
               id="R1C9_t_extra"
@@ -2729,7 +2729,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R1C8_t_primary"
               fill={getContrastText(getColor(1, 8))}
             >
-              {getCenterPrimary(1,8,516,115, true)}
+              {getCenterPrimary(1,8,516,114.5, true)}
             </text>
             <text
               id="R1C8_t_extra"
@@ -2741,7 +2741,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R1C5_t_primary"
               fill={getContrastText(getColor(1, 5))}
             >
-              {getCenterPrimary(1,5,407,115, true)}
+              {getCenterPrimary(1,5,407,114.5, true)}
             </text>
             <text
               id="R1C5_t_extra"
@@ -2753,7 +2753,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R1C4_t_primary"
               fill={getContrastText(getColor(1, 4))}
             >
-              {getCenterPrimary(1,4,348,115, true)}
+              {getCenterPrimary(1,4,348,114.5, true)}
             </text>
             <text
               id="R1C4_t_extra"
@@ -2765,7 +2765,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R1C3_t_primary"
               fill={getContrastText(getColor(1, 3))}
             >
-              {getCenterPrimary(1,3,289,115, true)}
+              {getCenterPrimary(1,3,289,114.5, true)}
             </text>
             <text
               id="R1C3_t_extra"
@@ -2777,7 +2777,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R1C2_t_primary"
               fill={getContrastText(getColor(1, 2))}
             >
-              {getCenterPrimary(1,2,230,115, true)}
+              {getCenterPrimary(1,2,230,114.5, true)}
             </text>
             <text
               id="R1C2_t_extra"
@@ -2789,7 +2789,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R1C1_t_primary"
               fill={getContrastText(getColor(1, 1))}
             >
-              {getCenterPrimary(1,1,171,115, true)}
+              {getCenterPrimary(1,1,171,114.5, true)}
             </text>
             <text
               id="R1C1_t_extra"
@@ -2801,7 +2801,7 @@ const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
               id="R1C0_t_primary"
               fill={getContrastText(getColor(1, 0))}
             >
-              {getCenterPrimary(1,0,100,115)}
+              {getCenterPrimary(1,0,100,114.5)}
             </text>
             <text
               id="R1C0_t_extra"

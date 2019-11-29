@@ -110,7 +110,7 @@ class KeymapISO extends React.Component {
      * @param {string} yCord Cord of the center position vertical of each key
      * @param {boolean} smallKey if the word longer than key switch to true
      */
-    const GetCurrentKeyElement = props => {
+      const GetCurrentKeyElement = props => {
       return (
         <tspan>
           <tspan
@@ -128,105 +128,118 @@ class KeymapISO extends React.Component {
     };
 
     const getDivideKeys = (str, xCord, yCord, smallKey = false) => {
-    const numbers =
-      (str.charCodeAt() >= 48 && str.charCodeAt() <= 57) ||
-      (str.charCodeAt() >= 96 && str.charCodeAt() <= 105);
-    const interval = "1.5em";
-    const longWords = str.split(" ");
-    const shortWords = str.split("");
-    if (numbers) {
-      return shortWords.map((word, index) => (
-        <GetCurrentKeyElement
-          key={index}
-          x={xCord}
-          y={yCord}
-          word={word}
-          class="key-config"
-        />
-      ));
-    } else if (str.length === 1) {
-      return shortWords.map((word, index) => (
-        <GetCurrentKeyElement
-          key={index}
-          x={xCord}
-          y={yCord}
-          word={word}
-          class="letter-config"
-        />
-      ));
-    } else if (str.toLowerCase().endsWith("to")) {
-      return longWords.map((word, index) => (
-        <tspan key={index}>
+      const numbers =
+        (str.charCodeAt() >= 48 && str.charCodeAt() <= 57) ||
+        (str.charCodeAt() >= 96 && str.charCodeAt() <= 105) ||
+        str === "\n".charCodeAt(0);
+      const interval = "1.5em";
+      const longWords = str.split(" ");
+      const shortWords = str.split("");
+      if (numbers) {
+        return (
           <GetCurrentKeyElement
+            key={new Date() + Math.random()}
             x={xCord}
-            y={String(+yCord + 9)}
-            dy={0}
-            word={word.slice(0, word.indexOf("to") - 1)}
+            y={yCord}
+            word={str}
+            class="key-config"
           />
+        );
+      } else if (str.length === 1) {
+        return shortWords.map((word, index) => (
           <GetCurrentKeyElement
-            x={String(+xCord - 5)}
-            y={String(+yCord + 9)}
-            dy={interval}
-            word={word.slice(-2)}
+            key={index}
+            x={xCord}
+            y={yCord}
+            word={word}
+            class="letter-config"
           />
-        </tspan>
-      ));
-    } else if (
-      longWords.length === 1 &&
-      shortWords.length > 7 &&
-      smallKey === true
-    ) {
-      return longWords.map((word, index) => (
-        <tspan key={index}>
+        ));
+      } else if (str.toLowerCase().endsWith("to")) {
+        return longWords.map((word, index) => (
+          <tspan key={index}>
+            <GetCurrentKeyElement
+              x={xCord}
+              y={String(+yCord + 9)}
+              dy={0}
+              word={word.slice(0, word.indexOf("to") - 1)}
+            />
+            <GetCurrentKeyElement
+              x={String(+xCord - 5)}
+              y={String(+yCord + 9)}
+              dy={interval}
+              word={word.slice(-2)}
+            />
+          </tspan>
+        ));
+      } else if (
+        longWords.length === 1 &&
+        shortWords.length > 7 &&
+        smallKey === true
+      ) {
+        return longWords.map((word, index) => (
+          <tspan key={index}>
+            <GetCurrentKeyElement
+              x={xCord}
+              y={String(+yCord - 10)}
+              word={word.slice(0, 4)}
+              dy={"0"}
+            />
+            <GetCurrentKeyElement
+              x={xCord}
+              y={String(+yCord - 10)}
+              word={word.slice(4)}
+              dy={interval}
+            />
+          </tspan>
+        ));
+      } else if (longWords.length === 1) {
+        return longWords.map((word, index) => (
+          <GetCurrentKeyElement key={index} x={xCord} y={yCord} word={word} />
+        ));
+      } else if (longWords.length > 1 && smallKey === true) {
+        return longWords.map((word, index) => (
           <GetCurrentKeyElement
+            key={index}
             x={xCord}
             y={String(+yCord - 10)}
-            word={word.slice(0, 4)}
-            dy={"0"}
+            word={word}
+            dy={index ? interval : index}
           />
+        ));
+      } else if (longWords.length > 1) {
+        return (
           <GetCurrentKeyElement
+            key={new Date() + Math.random()}
             x={xCord}
-            y={String(+yCord - 10)}
-            word={word.slice(4)}
-            dy={interval}
+            y={yCord}
+            word={str}
           />
-        </tspan>
-      ));
-    } else if (longWords.length === 1) {
-      return longWords.map((word, index) => (
-        <GetCurrentKeyElement key={index} x={xCord} y={yCord} word={word} />
-      ));
-    } else if (longWords.length > 1 && smallKey === true) {
-      return longWords.map((word, index) => (
-        <GetCurrentKeyElement
-          key={index}
-          x={xCord}
-          y={String(+yCord - 10)}
-          word={word}
-          dy={index ? interval : index}
-        />
-      ));
-    } else if (longWords.length > 1) {
-      return (
-        <GetCurrentKeyElement
-          key={new Date() + Math.random()}
-          x={xCord}
-          y={yCord}
-          word={str}
-        />
-      );
-    } else {
-      return (
-        <GetCurrentKeyElement
-          key={new Date() + Math.random()}
-          x={xCord}
-          y={yCord}
-          word={str}
-        />
-      );
-    }
-  };
-    const topsArr = ["LEDEFF.", "SCadet", "Steno", "M.Btn", "Leader", "Numpad"];
+        );
+      } else {
+        return (
+          <GetCurrentKeyElement
+            key={new Date() + Math.random()}
+            x={xCord}
+            y={yCord}
+            word={str}
+          />
+        );
+      }
+    };
+    const topsArr = [
+      "LEDEFF.",
+      "SCadet",
+      "Steno",
+      "M.Btn",
+      "Leader",
+      "Numpad",
+      "Media",
+      "OSL",
+      "Mouse",
+      "M.Wheel",
+      "M.Warp"
+    ];
     const topsArrTransfer = ["SHIFTTO", "LockTo"];
     const getCenterExtra = (row, col, xCord, yCord, smallKey = false) =>
       getLabel(row, col).extraLabel !== ""
@@ -257,7 +270,7 @@ class KeymapISO extends React.Component {
           ? getLabel(row, col).label &&
             getDivideKeys(
               getLabel(row, col).label,
-              String(+xCord + 8),
+              String(+xCord + 10),
               yCord,
               smallKey
             )
@@ -273,7 +286,7 @@ class KeymapISO extends React.Component {
           getDivideKeys(getLabel(row, col).label, xCord, yCord, smallKey) &&
           getDivideKeys(
             getLabel(row, col).label,
-            String(+xCord + 8),
+            String(+xCord + 10),
             yCord,
             smallKey
           )
@@ -2211,7 +2224,7 @@ class KeymapISO extends React.Component {
                   id="R4C15_t_primary"
                   fill={getContrastText(getColor(4, 15))}
               >
-                {getCenterPrimary(4,15,937,294,true)}
+                {getCenterPrimary(4,15,937,294.5,true)}
               </text>
               <text
                   id="R4C15_t_extra"
@@ -2223,7 +2236,7 @@ class KeymapISO extends React.Component {
                   id="R4C14_t_primary"
                   fill={getContrastText(getColor(4, 14))}
               >
-                {getCenterPrimary(4,14,870,294,true)}
+                {getCenterPrimary(4,14,870,294.5,true)}
               </text>
               <text
                   id="R4C14_t_extra"
@@ -2235,7 +2248,7 @@ class KeymapISO extends React.Component {
                   id="R4C13_t_primary"
                   fill={getContrastText(getColor(4, 13))}
               >
-                {getCenterPrimary(4, 13, 805, 294, true)}
+                {getCenterPrimary(4, 13, 805, 294.5, true)}
               </text>
               <text
                   id="R4C13_t_extra"
@@ -2247,7 +2260,7 @@ class KeymapISO extends React.Component {
                   id="R4C12_t_primary"
                   fill={getContrastText(getColor(4, 12))}
               >
-                {getCenterPrimary(4,12,730,294, true)}
+                {getCenterPrimary(4,12,730,294.5, true)}
               </text>
               <text
                   id="R4C12_t_extra"
@@ -2259,7 +2272,7 @@ class KeymapISO extends React.Component {
                   id="R4C11_t_primary"
                   fill={getContrastText(getColor(4, 11))}
               >
-                {getCenterPrimary(4,11,650,294, true)}
+                {getCenterPrimary(4,11,650,294.5, true)}
               </text>
               <text
                   id="R4C11_t_extra"
@@ -2271,7 +2284,7 @@ class KeymapISO extends React.Component {
                   id="R4C10_t_primary"
                   fill={getContrastText(getColor(4, 10))}
               >
-                {getCenterPrimary(4,10,557,294)}
+                {getCenterPrimary(4,10,557,294.5)}
               </text>
               <text
                   id="R4C10_t_extra"
@@ -2283,7 +2296,7 @@ class KeymapISO extends React.Component {
                   id="R4C4_t_primary"
                   fill={getContrastText(getColor(4, 4))}
               >
-                {getCenterPrimary(4,4,412,294)}
+                {getCenterPrimary(4,4,412,294.5)}
               </text>
               <text
                   id="R4C4_t_extra"
@@ -2295,7 +2308,7 @@ class KeymapISO extends React.Component {
                   id="R4C3_t_primary"
                   fill={getContrastText(getColor(4, 3))}
               >
-                {getCenterPrimary(4,3,320,294,true)}
+                {getCenterPrimary(4,3,320,294.5,true)}
               </text>
               <text
                   id="R4C3_t_extra"
@@ -2307,7 +2320,7 @@ class KeymapISO extends React.Component {
                   id="R4C2_t_primary"
                   fill={getContrastText(getColor(4, 2))}
               >
-                {getCenterPrimary(4,2,240,294,true)}
+                {getCenterPrimary(4,2,240,294.5,true)}
               </text>
               <text
                   id="R4C2_t_extra"
@@ -2319,7 +2332,7 @@ class KeymapISO extends React.Component {
                   id="R4C1_t_primary"
                   fill={getContrastText(getColor(4, 1))}
               >
-                {getCenterPrimary(4,1,165,294,true)}
+                {getCenterPrimary(4,1,165,294.5,true)}
               </text>
               <text
                   id="R4C1_t_extra"
@@ -2331,7 +2344,7 @@ class KeymapISO extends React.Component {
                   id="R4C0_t_primary"
                   fill={getContrastText(getColor(4, 0))}
               >
-                {getCenterPrimary(4,0,90,294,true)}
+                {getCenterPrimary(4,0,90,294.5,true)}
               </text>
               <text
                   id="R4C0_t_extra"
@@ -2343,7 +2356,7 @@ class KeymapISO extends React.Component {
                   id="R3C15_t_primary"
                   fill={getContrastText(getColor(3, 15))}
               >
-                {getCenterPrimary(3,15,890,235)}
+                {getCenterPrimary(3,15,890,237)}
               </text>
               <text
                   id="R3C15_t_extra"
@@ -2355,7 +2368,7 @@ class KeymapISO extends React.Component {
                   id="R3C14_t_primary"
                   fill={getContrastText(getColor(3, 14))}
               >
-                {getCenterPrimary(3,14,783,235,true)}
+                {getCenterPrimary(3,14,783,237,true)}
               </text>
               <text
                   id="R3C14_t_extra"
@@ -2367,7 +2380,7 @@ class KeymapISO extends React.Component {
                   id="R3C13_t_primary"
                   fill={getContrastText(getColor(3, 13))}
               >
-                {getCenterPrimary(3,13,724,235,true)}
+                {getCenterPrimary(3,13,724,237,true)}
               </text>
               <text
                   id="R3C13_t_extra"
@@ -2379,7 +2392,7 @@ class KeymapISO extends React.Component {
                   id="R3C12_t_primary"
                   fill={getContrastText(getColor(3, 12))}
               >
-                {getCenterPrimary(3,12,665,235,true)}
+                {getCenterPrimary(3,12,665,237,true)}
               </text>
               <text
                   id="R3C12_t_extra"
@@ -2391,7 +2404,7 @@ class KeymapISO extends React.Component {
                   id="R3C11_t_primary"
                   fill={getContrastText(getColor(3, 11))}
               >
-                {getCenterPrimary(3,11,605,235,true)}
+                {getCenterPrimary(3,11,605,237,true)}
               </text>
               <text
                   id="R3C11_t_extra"
@@ -2403,7 +2416,7 @@ class KeymapISO extends React.Component {
                   id="R3C10_t_primary"
                   fill={getContrastText(getColor(3, 10))}
               >
-                {getCenterPrimary(3,10,549,235,true)}
+                {getCenterPrimary(3,10,549,237,true)}
               </text>
               <text
                   id="R3C10_t_extra"
@@ -2415,7 +2428,7 @@ class KeymapISO extends React.Component {
                   id="R3C6_t_primary"
                   fill={getContrastText(getColor(3, 6))}
               >
-                {getCenterPrimary(3,6,437,235,true)}
+                {getCenterPrimary(3,6,437,237,true)}
               </text>
               <text
                   id="R3C6_t_extra"
@@ -2427,7 +2440,7 @@ class KeymapISO extends React.Component {
                   id="R3C5_t_primary"
                   fill={getContrastText(getColor(3, 5))}
               >
-                {getCenterPrimary(3,5,377,235,true)}
+                {getCenterPrimary(3,5,377,237,true)}
               </text>
               <text
                   id="R3C5_t_extra"
@@ -2439,7 +2452,7 @@ class KeymapISO extends React.Component {
                   id="R3C4_t_primary"
                   fill={getContrastText(getColor(3, 4))}
               >
-                {getCenterPrimary(3,4,320,235,true)}
+                {getCenterPrimary(3,4,320,237,true)}
               </text>
               <text
                   id="R3C4_t_extra"
@@ -2451,7 +2464,7 @@ class KeymapISO extends React.Component {
                   id="R3C3_t_primary"
                   fill={getContrastText(getColor(3, 3))}
               >
-                {getCenterPrimary(3,3,261,235,true)}
+                {getCenterPrimary(3,3,261,237,true)}
               </text>
               <text
                   id="R3C3_t_extra"
@@ -2463,7 +2476,7 @@ class KeymapISO extends React.Component {
                   id="R3C2_t_primary"
                   fill={getContrastText(getColor(3, 2))}
               >
-                {getCenterPrimary(3,2,201,235,true)}
+                {getCenterPrimary(3,2,201,237,true)}
               </text>
               <text
                   id="R3C2_t_extra"
@@ -2475,7 +2488,7 @@ class KeymapISO extends React.Component {
                   id="R3C1_t_primary"
                   fill={getContrastText(getColor(3, 1))}
               >
-                {getCenterPrimary(3,1,143,235,true)}
+                {getCenterPrimary(3,1,143,237,true)}
               </text>
               <text
                   id="R3C1_t_extra"
@@ -2487,7 +2500,7 @@ class KeymapISO extends React.Component {
                   id="R3C0_t_primary"
                   fill={getContrastText(getColor(3, 0))}
               >
-                {getCenterPrimary(3,0,85,235,true)}
+                {getCenterPrimary(3,0,85,237,true)}
               </text>
               <text
                   id="R3C0_t_extra"
@@ -2655,7 +2668,7 @@ class KeymapISO extends React.Component {
                   id="R1C15_t_primary"
                   fill={getContrastText(getColor(1, 15))}
               >
-                {getCenterPrimary(1,15,930,115)}
+                {getCenterPrimary(1,15,930,114.5)}
               </text>
               <text
                   id="R1C15_t_extra"
@@ -2667,7 +2680,7 @@ class KeymapISO extends React.Component {
                   id="R1C14_t_primary"
                   fill={getContrastText(getColor(1, 14))}
               >
-                {getCenterPrimary(1,14,860,115, true)}
+                {getCenterPrimary(1,14,860,114.5, true)}
               </text>
               <text
                   id="R1C14_t_extra"
@@ -2679,7 +2692,7 @@ class KeymapISO extends React.Component {
                   id="R1C13_t_primary"
                   fill={getContrastText(getColor(1, 13))}
               >
-                {getCenterPrimary(1,13,805,115, true)}
+                {getCenterPrimary(1,13,805,114.5, true)}
               </text>
               <text
                   id="R1C13_t_extra"
@@ -2691,7 +2704,7 @@ class KeymapISO extends React.Component {
                   id="R1C12_t_primary"
                   fill={getContrastText(getColor(1, 12))}
               >
-                {getCenterPrimary(1,12,745,115, true)}
+                {getCenterPrimary(1,12,745,114.5, true)}
               </text>
               <text
                   id="R1C12_t_extra"
@@ -2703,7 +2716,7 @@ class KeymapISO extends React.Component {
                   id="R1C11_t_primary"
                   fill={getContrastText(getColor(1, 11))}
               >
-                {getCenterPrimary(1,11,688,115, true)}
+                {getCenterPrimary(1,11,688,114.5, true)}
               </text>
               <text
                   id="R1C11_t_extra"
@@ -2715,7 +2728,7 @@ class KeymapISO extends React.Component {
                   id="R1C10_t_primary"
                   fill={getContrastText(getColor(1, 10))}
               >
-                {getCenterPrimary(1,10,630,115, true)}
+                {getCenterPrimary(1,10,630,114.5, true)}
               </text>
               <text
                   id="R1C10_t_extra"
@@ -2727,7 +2740,7 @@ class KeymapISO extends React.Component {
                   id="R1C9_t_primary"
                   fill={getContrastText(getColor(1, 9))}
               >
-                {getCenterPrimary(1,9,574,115, true)}
+                {getCenterPrimary(1,9,574,114.5, true)}
               </text>
               <text
                   id="R1C9_t_extra"
@@ -2739,7 +2752,7 @@ class KeymapISO extends React.Component {
                   id="R1C8_t_primary"
                   fill={getContrastText(getColor(1, 8))}
               >
-                {getCenterPrimary(1,8,516,115, true)}
+                {getCenterPrimary(1,8,516,114.5, true)}
               </text>
               <text
                   id="R1C8_t_extra"
@@ -2751,7 +2764,7 @@ class KeymapISO extends React.Component {
                   id="R1C5_t_primary"
                   fill={getContrastText(getColor(1, 5))}
               >
-                {getCenterPrimary(1,5,407,115, true)}
+                {getCenterPrimary(1,5,407,114.5, true)}
               </text>
               <text
                   id="R1C5_t_extra"
@@ -2763,7 +2776,7 @@ class KeymapISO extends React.Component {
                   id="R1C4_t_primary"
                   fill={getContrastText(getColor(1, 4))}
               >
-                {getCenterPrimary(1,4,348,115, true)}
+                {getCenterPrimary(1,4,348,114.5, true)}
               </text>
               <text
                   id="R1C4_t_extra"
@@ -2775,7 +2788,7 @@ class KeymapISO extends React.Component {
                   id="R1C3_t_primary"
                   fill={getContrastText(getColor(1, 3))}
               >
-                {getCenterPrimary(1,3,289,115, true)}
+                {getCenterPrimary(1,3,289,114.5, true)}
               </text>
               <text
                   id="R1C3_t_extra"
@@ -2787,7 +2800,7 @@ class KeymapISO extends React.Component {
                   id="R1C2_t_primary"
                   fill={getContrastText(getColor(1, 2))}
               >
-                {getCenterPrimary(1,2,230,115, true)}
+                {getCenterPrimary(1,2,230,114.5, true)}
               </text>
               <text
                   id="R1C2_t_extra"
@@ -2799,7 +2812,7 @@ class KeymapISO extends React.Component {
                   id="R1C1_t_primary"
                   fill={getContrastText(getColor(1, 1))}
               >
-                {getCenterPrimary(1,1,171,115, true)}
+                {getCenterPrimary(1,1,171,114.5, true)}
               </text>
               <text
                   id="R1C1_t_extra"
@@ -2811,7 +2824,7 @@ class KeymapISO extends React.Component {
                   id="R1C0_t_primary"
                   fill={getContrastText(getColor(1, 0))}
               >
-                {getCenterPrimary(1,0,100,115)}
+                {getCenterPrimary(1,0,100,114.5)}
               </text>
               <text
                   id="R1C0_t_extra"

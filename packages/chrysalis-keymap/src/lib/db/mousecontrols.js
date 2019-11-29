@@ -54,28 +54,28 @@ const MouseWheelTable = {
         {
             code: 20497,
             labels: {
-                top: "M. Wheel",
+                top: "M.Wheel",
                 primary: "UP"
             }
         },
         {
             code: 20498,
             labels: {
-                top: "M. Wheel",
+                top: "M.Wheel",
                 primary: "DOWN"
             }
         },
         {
             code: 20500,
             labels: {
-                top: "M. Wheel",
+                top: "M.Wheel",
                 primary: "LEFT"
             }
         },
         {
             code: 20504,
             labels: {
-                top: "M. Wheel",
+                top: "M.Wheel",
                 primary: "RIGHT"
             }
         }
@@ -115,14 +115,14 @@ const MouseWarpTable = {
         {
             code: 20576,
             labels: {
-                top: "M. Warp",
+                top: "M.Warp",
                 primary: "END"
             }
         },
         {
             code: 20517,
             labels: {
-                top: "M. Warp",
+                top: "M.Warp",
                 primary: "NW",
                 verbose: "North-West"
             }
@@ -130,7 +130,7 @@ const MouseWarpTable = {
         {
             code: 20518,
             labels: {
-                top: "M. Warp",
+                top: "M.Warp",
                 primary: "SW",
                 verbose: "South-West"
             }
@@ -138,7 +138,7 @@ const MouseWarpTable = {
         {
             code: 20521,
             labels: {
-                top: "M. Warp",
+                top: "M.Warp",
                 primary: "NE",
                 verbose: "North-East"
             }
@@ -146,7 +146,7 @@ const MouseWarpTable = {
         {
             code: 20522,
             labels: {
-                top: "M. Warp",
+                top: "M.Warp",
                 primary: "SE",
                 verbose: "South-East"
             }

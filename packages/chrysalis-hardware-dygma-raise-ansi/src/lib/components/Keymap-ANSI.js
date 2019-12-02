@@ -101,9 +101,226 @@ class KeymapANSI extends React.Component {
 
     const setUndeglowIndex = (index, e) => {
       this.setState({underglowIndex: keyIndex(index)});
-      this.props.setMode("colormap", true);
       this.props.onKeySelect(e);
     };
+    /**
+     * GetCurrentKeyElement  on keyboard
+     * @props {string} x - horizontal coordinates of the button
+     * @props {string} y vertical coordinates of the button
+     * @props {string} dy - row spacing
+     * @props {string} word - button text
+     * @props {string} class - className of the button
+     * @props {string} textLength length of the text if the button is small and additional text is longer then button
+     */
+    const GetCurrentKeyElement = props => {
+      return (
+        <tspan>
+          <tspan
+            className={props.class}
+            textAnchor="middle"
+            x={props.x}
+            y={props.y}
+            dy={props.dy}
+            textLength={props.textLength}
+          >
+            {props.word}
+          </tspan>
+        </tspan>
+      );
+    };
+    /**
+     * getDivideKeys - divides words on keyboard keys
+     * @param {string} str Name of key
+     * @param {string} xCord Cord of the center position horisontal of each key
+     * @param {string} yCord Cord of the center position vertical of each key
+     * @param {boolean} smallKey if the word longer than key switch to true
+     */
+    const getDivideKeys = (str, xCord, yCord, smallKey = false) => {
+      const numbers =
+        (str.charCodeAt() >= 48 && str.charCodeAt() <= 57) ||
+        (str.charCodeAt() >= 96 && str.charCodeAt() <= 105) ||
+        str === "\n".charCodeAt(0);
+      const interval = "1.5em";
+      const longWords = str.split(" ");
+      const shortWords = str.split("");
+      if (numbers) {
+        return (
+          <GetCurrentKeyElement
+            key={new Date() + Math.random()}
+            x={xCord}
+            y={yCord}
+            word={str}
+            class="key-config"
+          />
+        );
+      } else if (str.length === 1) {
+        return shortWords.map((word, index) => (
+          <GetCurrentKeyElement
+            key={index}
+            x={xCord}
+            y={yCord}
+            word={word}
+            class="letter-config"
+          />
+        ));
+      } else if (str.toLowerCase().endsWith("to")) {
+        return longWords.map((word, index) => (
+          <tspan key={index}>
+            <GetCurrentKeyElement
+              x={xCord}
+              y={String(+yCord + 9)}
+              dy={0}
+              word={word.slice(0, word.indexOf("to") - 1)}
+            />
+            <GetCurrentKeyElement
+              x={String(+xCord - 5)}
+              y={String(+yCord + 9)}
+              dy={interval}
+              word={word.slice(-2)}
+            />
+          </tspan>
+        ));
+      } else if (
+        str.length > 8 &&
+        smallKey === true &&
+        (str.startsWith("C+") || str.startsWith("A+"))
+      ) {
+        return (
+          <GetCurrentKeyElement
+            key={new Date() + Math.random()}
+            x={xCord}
+            y={yCord}
+            word={str}
+            textLength="50"
+          />
+        );
+      } else if (
+        longWords.length === 1 &&
+        shortWords.length > 7 &&
+        !str.startsWith("C+") &&
+        !str.startsWith("A+") &&
+        smallKey
+      ) {
+        return longWords.map((word, index) => (
+          <tspan key={index}>
+            <GetCurrentKeyElement
+              x={xCord}
+              y={String(+yCord - 10)}
+              word={word.slice(0, 4)}
+              dy={"0"}
+            />
+            <GetCurrentKeyElement
+              x={xCord}
+              y={String(+yCord - 10)}
+              word={word.slice(4)}
+              dy={interval}
+            />
+          </tspan>
+        ));
+      } else if (longWords.length === 1) {
+        return longWords.map((word, index) => (
+          <GetCurrentKeyElement key={index} x={xCord} y={yCord} word={word} />
+        ));
+      } else if (longWords.length > 1 && smallKey === true) {
+        return longWords.map((word, index) => (
+          <GetCurrentKeyElement
+            key={index}
+            x={xCord}
+            y={String(+yCord - 10)}
+            word={word}
+            dy={index ? interval : index}
+          />
+        ));
+      } else if (longWords.length > 1) {
+        return (
+          <GetCurrentKeyElement
+            key={new Date() + Math.random()}
+            x={xCord}
+            y={yCord}
+            word={str}
+          />
+        );
+      } else {
+        return (
+          <GetCurrentKeyElement
+            key={new Date() + Math.random()}
+            x={xCord}
+            y={yCord}
+            word={str}
+          />
+        );
+      }
+    };
+    const topsArr = [
+      "LEDEFF.",
+      "SCadet",
+      "Steno",
+      "M.Btn",
+      "Leader",
+      "Numpad",
+      "Media",
+      "OSL",
+      "Mouse",
+      "M.Wheel",
+      "M.Warp"
+    ];
+    const topsArrTransfer = ["SHIFTTO", "LockTo"];
+    const getCenterExtra = (row, col, xCord, yCord, smallKey = false) =>
+      getLabel(row, col).extraLabel !== ""
+        ? topsArr.includes(getLabel(row, col).extraLabel)
+          ? getLabel(row, col).extraLabel &&
+            getDivideKeys(getLabel(row, col).extraLabel, xCord, yCord, smallKey)
+          : getLabel(row, col).extraLabel &&
+            getDivideKeys(
+              getLabel(row, col).extraLabel,
+              xCord,
+              String(+yCord - 10),
+              smallKey
+            )
+        : getLabel(row, col).extraLabel ===
+          getLabel(row, col)
+            .extraLabel.toLowerCase()
+            .endsWith("to")
+        ? getLabel(row, col).extraLabel &&
+          getDivideKeys(getLabel(row, col).extraLabel, xCord, yCord, smallKey)
+        : getLabel(row, col).extraLabel;
+
+    const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
+      getLabel(row, col).extraLabel !== ""
+        ? topsArr.includes(getLabel(row, col).extraLabel)
+          ? getLabel(row, col).label &&
+            getDivideKeys(getLabel(row, col).label, xCord, yCord, smallKey)
+          : topsArrTransfer.includes(getLabel(row, col).extraLabel)
+          ? getLabel(row, col).label &&
+            getDivideKeys(
+              getLabel(row, col).label,
+              String(+xCord + 10),
+              yCord,
+              smallKey
+            )
+          : getLabel(row, col).label &&
+            getDivideKeys(
+              getLabel(row, col).label,
+              xCord,
+              String(yCord - 5),
+              smallKey
+            )
+        : topsArrTransfer.includes(getLabel(row, col).extraLabel)
+        ? getLabel(row, col).label &&
+          getDivideKeys(getLabel(row, col).label, xCord, yCord, smallKey) &&
+          getDivideKeys(
+            getLabel(row, col).label,
+            String(+xCord + 10),
+            yCord,
+            smallKey
+          )
+        : getLabel(row, col).label &&
+          getDivideKeys(
+            getLabel(row, col).label,
+            xCord,
+            String(yCord - 5),
+            smallKey
+          );
 
     return (
       <svg
@@ -1294,7 +1511,7 @@ class KeymapANSI extends React.Component {
             data-layer={layer}
             points="37.7,103.7 49.7,103.7 49.7,114.6 49.7,125.3 49.7,136.2 49.7,143.1 49.7,149.9 49.7,156.6
 		49.7,163.2 49.7,169.2 49.7,175.3 37.4,175.3 37.4,169.6 37.7,163.5 37.7,157 37.7,150.2 37.7,143.8 37.7,136.6 37.7,125.7
-		37.7,115 	"
+		37.7,114.5 	"
           />
           <polygon
             id="76_undeglow"
@@ -1970,29 +2187,45 @@ class KeymapANSI extends React.Component {
             <text
               id="R4C9_t_primary"
               fill={getContrastText(getColor(4, 9))}
+<<<<<<< HEAD
               x="580.70465"
               y="345.88806"
             >
               {getLabel(4, 9).label}
+=======
+            >
+              {getCenterPrimary(4,9,600,351,true)}
+>>>>>>> 95cbd48a482c812c4f6bac7a81f1dfa04734d966
             </text>
             <text
               id="R4C9_t_extra"
               fill={getContrastText(getColor(4, 9))}
+<<<<<<< HEAD
               transform="matrix(1 0 0 1 569.925 332.999)"
             >
               {getLabel(4, 9).extraLabel}
+=======
+            >
+              {getCenterExtra(4, 9, 600, 337, true)}
+>>>>>>> 95cbd48a482c812c4f6bac7a81f1dfa04734d966
             </text>
             <text
               id="R4C8_t_primary"
               fill={getContrastText(getColor(4, 8))}
+<<<<<<< HEAD
               x="519.88605"
               y="345.88806"
             >
               {getLabel(4, 8).label}
+=======
+            >
+              {getCenterPrimary(4,8,535,351,true)}
+>>>>>>> 95cbd48a482c812c4f6bac7a81f1dfa04734d966
             </text>
             <text
               id="R4C8_t_extra"
               fill={getContrastText(getColor(4, 8))}
+<<<<<<< HEAD
               transform="matrix(1 0 0 1 511.613 332.999)"
             >
               {getLabel(4, 8).extraLabel}
@@ -3034,6 +3267,803 @@ class KeymapANSI extends React.Component {
               fill={getContrastText(getColor(0, 0))}
             >
               {getLabel(0, 0).extraLabel}
+=======
+            >
+              {getCenterExtra(4, 8, 535, 337, true)}
+            </text>
+            <text
+              id="R4C7_t_primary"
+              fill={getContrastText(getColor(4, 7))}
+            >
+              {getCenterPrimary(4,7,436,351,true)}
+            </text>
+            <text
+              id="R4C7_t_extra"
+              fill={getContrastText(getColor(4, 7))}
+            >
+              {getCenterExtra(4, 7, 436, 337, true)}
+            </text>
+            <text
+              id="R4C6_t_primary"
+              fill={getContrastText(getColor(4, 6))}
+            >
+              {getCenterPrimary(4,6,368,351,true)}
+            </text>
+            <text
+              id="R4C6_t_extra"
+              fill={getContrastText(getColor(4, 6))}
+            >
+              {getCenterExtra(4, 6, 368, 337, true)}
+            </text>
+            <text
+              id="R4C15_t_primary"
+              fill={getContrastText(getColor(4, 15))}
+            >
+              {getCenterPrimary(4,15,937,294.5,true)}
+            </text>
+            <text
+              id="R4C15_t_extra"
+              fill={getContrastText(getColor(4, 15))}
+            >
+              {getCenterExtra(4, 15, 937, 280, true)}
+            </text>
+            <text
+              id="R4C14_t_primary"
+              fill={getContrastText(getColor(4, 14))}
+            >
+              {getCenterPrimary(4,14,870,294.5,true)}
+            </text>
+            <text
+              id="R4C14_t_extra"
+              fill={getContrastText(getColor(4, 14))}
+            >
+              {getCenterExtra(4, 14, 870, 280, true)}
+            </text>
+            <text
+              id="R4C13_t_primary"
+              fill={getContrastText(getColor(4, 13))}
+            >
+              {getCenterPrimary(4, 13, 805, 294.5, true)}
+            </text>
+            <text
+              id="R4C13_t_extra"
+              fill={getContrastText(getColor(4, 13))}
+            >
+              {getCenterExtra(4, 13, 805, 280, true)}
+            </text>
+            <text
+              id="R4C12_t_primary"
+              fill={getContrastText(getColor(4, 12))}
+            >
+              {getCenterPrimary(4,12,730,294.5, true)}
+            </text>
+            <text
+              id="R4C12_t_extra"
+              fill={getContrastText(getColor(4, 12))}
+            >
+              {getCenterExtra(4, 12, 730, 280, true)}
+            </text>
+            <text
+              id="R4C11_t_primary"
+              fill={getContrastText(getColor(4, 11))}
+            >
+              {getCenterPrimary(4,11,650,294.5, true)}
+            </text>
+            <text
+              id="R4C11_t_extra"
+              fill={getContrastText(getColor(4, 11))}
+            >
+              {getCenterExtra(4, 11, 650, 280, true)}
+            </text>
+            <text
+              id="R4C10_t_primary"
+              fill={getContrastText(getColor(4, 10))}
+            >
+              {getCenterPrimary(4,10,557,294.5)}
+            </text>
+            <text
+              id="R4C10_t_extra"
+              fill={getContrastText(getColor(4, 10))}
+            >
+              {getCenterExtra(4, 10, 557, 280)}
+            </text>
+            <text
+              id="R4C4_t_primary"
+              fill={getContrastText(getColor(4, 4))}
+            >
+              {getCenterPrimary(4,4,412,294.5)}
+            </text>
+            <text
+              id="R4C4_t_extra"
+              fill={getContrastText(getColor(4, 4))}
+            >
+              {getCenterExtra(4, 4, 412, 280)}
+            </text>
+            <text
+              id="R4C3_t_primary"
+              fill={getContrastText(getColor(4, 3))}
+            >
+              {getCenterPrimary(4,3,320,294.5,true)}
+            </text>
+            <text
+              id="R4C3_t_extra"
+              fill={getContrastText(getColor(4, 3))}
+            >
+              {getCenterExtra(4, 3, 320, 280, true)}
+            </text>
+            <text
+              id="R4C2_t_primary"
+              fill={getContrastText(getColor(4, 2))}
+            >
+              {getCenterPrimary(4,2,240,294.5,true)}
+            </text>
+            <text
+              id="R4C2_t_extra"
+              fill={getContrastText(getColor(4, 2))}
+            >
+              {getCenterExtra(4, 2, 240, 280, true)}
+            </text>
+            <text
+              id="R4C1_t_primary"
+              fill={getContrastText(getColor(4, 1))}
+            >
+              {getCenterPrimary(4,1,165,294.5,true)}
+            </text>
+            <text
+              id="R4C1_t_extra"
+              fill={getContrastText(getColor(4, 1))}
+            >
+              {getCenterExtra(4, 1, 165, 280, true)}
+            </text>
+            <text
+              id="R4C0_t_primary"
+              fill={getContrastText(getColor(4, 0))}
+            >
+              {getCenterPrimary(4,0,90,294.5,true)}
+            </text>
+            <text
+              id="R4C0_t_extra"
+              fill={getContrastText(getColor(4, 0))}
+            >
+              {getCenterExtra(4, 0, 90, 280, true)}
+            </text>
+            <text
+              id="R3C15_t_primary"
+              fill={getContrastText(getColor(3, 15))}
+            >
+              {getCenterPrimary(3,15,890,233.5)}
+            </text>
+            <text
+              id="R3C15_t_extra"
+              fill={getContrastText(getColor(3, 15))}
+            >
+              {getCenterExtra(3, 15, 890, 219)}
+            </text>
+            <text
+              id="R3C14_t_primary"
+              fill={getContrastText(getColor(3, 14))}
+            >
+              {getCenterPrimary(3,14,783,233.5,true)}
+            </text>
+            <text
+              id="R3C14_t_extra"
+              fill={getContrastText(getColor(3, 14))}
+            >
+              {getCenterExtra(3, 14, 783, 219, true)}
+            </text>
+            <text
+              id="R3C13_t_primary"
+              fill={getContrastText(getColor(3, 13))}
+            >
+              {getCenterPrimary(3,13,724,233.5,true)}
+            </text>
+            <text
+              id="R3C13_t_extra"
+              fill={getContrastText(getColor(3, 13))}
+            >
+              {getCenterExtra(3, 13, 724, 219, true)}
+            </text>
+            <text
+              id="R3C12_t_primary"
+              fill={getContrastText(getColor(3, 12))}
+            >
+              {getCenterPrimary(3,12,665,233.5,true)}
+            </text>
+            <text
+              id="R3C12_t_extra"
+              fill={getContrastText(getColor(3, 12))}
+            >
+              {getCenterExtra(3, 12, 665, 219, true)}
+            </text>
+            <text
+              id="R3C11_t_primary"
+              fill={getContrastText(getColor(3, 11))}
+            >
+              {getCenterPrimary(3,11,605,233.5,true)}
+            </text>
+            <text
+              id="R3C11_t_extra"
+              fill={getContrastText(getColor(3, 11))}
+            >
+              {getCenterExtra(3, 11, 605, 219, true)}
+            </text>
+            <text
+              id="R3C10_t_primary"
+              fill={getContrastText(getColor(3, 10))}
+            >
+              {getCenterPrimary(3,10,549,233.5,true)}
+            </text>
+            <text
+              id="R3C10_t_extra"
+              fill={getContrastText(getColor(3, 10))}
+            >
+              {getCenterExtra(3, 10, 549, 219, true)}
+            </text>
+            <text
+              id="R3C6_t_primary"
+              fill={getContrastText(getColor(3, 6))}
+            >
+              {getCenterPrimary(3,6,437,233.5,true)}
+            </text>
+            <text
+              id="R3C6_t_extra"
+              fill={getContrastText(getColor(3, 6))}
+            >
+              {getCenterExtra(3, 6, 437, 219, true)}
+            </text>
+            <text
+              id="R3C5_t_primary"
+              fill={getContrastText(getColor(3, 5))}
+            >
+              {getCenterPrimary(3,5,377,233.5,true)}
+            </text>
+            <text
+              id="R3C5_t_extra"
+              fill={getContrastText(getColor(3, 5))}
+            >
+              {getCenterExtra(3, 5, 377, 219, true)}
+            </text>
+            <text
+              id="R3C4_t_primary"
+              fill={getContrastText(getColor(3, 4))}
+            >
+              {getCenterPrimary(3,4,320,233.5,true)}
+            </text>
+            <text
+              id="R3C4_t_extra"
+              fill={getContrastText(getColor(3, 4))}
+            >
+              {getCenterExtra(3, 4, 320, 219, true)}
+            </text>
+            <text
+              id="R3C3_t_primary"
+              fill={getContrastText(getColor(3, 3))}
+            >
+              {getCenterPrimary(3,3,261,233.5,true)}
+            </text>
+            <text
+              id="R3C3_t_extra"
+              fill={getContrastText(getColor(3, 3))}
+            >
+              {getCenterExtra(3, 3, 261, 219, true)}
+            </text>
+            <text
+              id="R3C2_t_primary"
+              fill={getContrastText(getColor(3, 2))}
+            >
+              {getCenterPrimary(3,2,201,233.5,true)}
+            </text>
+            <text
+              id="R3C2_t_extra"
+              fill={getContrastText(getColor(3, 2))}
+            >
+              {getCenterExtra(3, 2, 201, 219, true)}
+            </text>
+            <text
+              id="R3C0_t_primary"
+              fill={getContrastText(getColor(3, 0))}
+            >
+              {getCenterPrimary(3,0,115,233.5)}
+            </text>
+            <text
+              id="R3C0_t_extra"
+              fill={getContrastText(getColor(3, 0))}
+            >
+              {getCenterExtra(3, 0, 115, 219)}
+            </text>
+            <text
+              id="R2C15_t_primary"
+              fill={getContrastText(getColor(2, 15))}
+            >
+              {getCenterPrimary(2,15,930,115)}
+            </text>
+            <text
+              id="R2C15_t_extra"
+              fill={getContrastText(getColor(2, 15))}
+            >
+              {getCenterExtra(2, 15, 930, 100)}
+            </text>
+            <text
+              id="R2C14_t_primary"
+              fill={getContrastText(getColor(2, 14))}
+            >
+              {getCenterPrimary(2,14,828,174,true)}
+            </text>
+            <text
+              id="R2C14_t_extra"
+              fill={getContrastText(getColor(2, 14))}
+            >
+              {getCenterExtra(2, 14, 828, 159,true)}
+            </text>
+            <text
+              id="R2C13_t_primary"
+              fill={getContrastText(getColor(2, 13))}
+            >
+              {getCenterPrimary(2,13,771,174,true)}
+            </text>
+            <text
+              id="R2C13_t_extra"
+              fill={getContrastText(getColor(2, 13))}
+            >
+              {getCenterExtra(2, 13, 771, 159,true)}
+            </text>
+            <text
+              id="R2C12_t_primary"
+              fill={getContrastText(getColor(2, 12))}
+            >
+              {getCenterPrimary(2,12,712,174,true)}
+            </text>
+            <text
+              id="R2C12_t_extra"
+              fill={getContrastText(getColor(2, 12))}
+            >
+              {getCenterExtra(2, 12, 712, 159,true)}
+            </text>
+            <text
+              id="R2C11_t_primary"
+              fill={getContrastText(getColor(2, 11))}
+            >
+              {getCenterPrimary(2,11,654,174,true)}
+            </text>
+            <text
+              id="R2C11_t_extra"
+              fill={getContrastText(getColor(2, 11))}
+            >
+              {getCenterExtra(2, 11, 654, 159,true)}
+            </text>
+            <text
+              id="R2C10_t_primary"
+              fill={getContrastText(getColor(2, 10))}
+            >
+              {getCenterPrimary(2,10,594,174,true)}
+            </text>
+            <text
+              id="R2C10_t_extra"
+              fill={getContrastText(getColor(2, 10))}
+            >
+              {getCenterExtra(2, 10, 594, 159,true)}
+            </text>
+            <text
+              id="R2C9_t_primary"
+              fill={getContrastText(getColor(2, 9))}
+            >
+              {getCenterPrimary(2,9,535,174,true)}
+            </text>
+            <text
+              id="R2C9_t_extra"
+              fill={getContrastText(getColor(2, 9))}
+            >
+              {getCenterExtra(2, 9, 535, 159,true)}
+            </text>
+            <text
+              id="R2C5_t_primary"
+              fill={getContrastText(getColor(2, 5))}
+            >
+              {getCenterPrimary(2,5,413,174,true)}
+            </text>
+            <text
+              id="R2C5_t_extra"
+              fill={getContrastText(getColor(2, 5))}
+            >
+              {getCenterExtra(2, 5, 413, 159,true)}
+            </text>
+            <text
+              id="R2C4_t_primary"
+              fill={getContrastText(getColor(2, 4))}
+            >
+              {getCenterPrimary(2,4,355,174,true)}
+            </text>
+            <text
+              id="R2C4_t_extra"
+              fill={getContrastText(getColor(2, 4))}
+            >
+              {getCenterExtra(2, 4, 355, 159,true)}
+            </text>
+            <text
+              id="R2C3_t_primary"
+              fill={getContrastText(getColor(2, 3))}
+            >
+              {getCenterPrimary(2,3,297,174,true)}
+            </text>
+            <text
+              id="R2C3_t_extra"
+              fill={getContrastText(getColor(2, 3))}
+            >
+              {getCenterExtra(2, 3, 297, 159,true)}
+            </text>
+            <text
+              id="R2C2_t_primary"
+              fill={getContrastText(getColor(2, 2))}
+            >
+              {getCenterPrimary(2,2,238,174,true)}
+            </text>
+            <text
+              id="R2C2_t_extra"
+              fill={getContrastText(getColor(2, 2))}
+            >
+              {getCenterExtra(2, 2, 238, 159,true)}
+            </text>
+            <text
+              id="R2C1_t_primary"
+              fill={getContrastText(getColor(2, 1))}
+            >
+              {getCenterPrimary(2,1,180,174,true)}
+            </text>
+            <text
+              id="R2C1_t_extra"
+              fill={getContrastText(getColor(2, 1))}
+            >
+              {getCenterExtra(2, 1, 180, 159,true)}
+            </text>
+            <text
+              id="R2C0_t_primary"
+              fill={getContrastText(getColor(2, 0))}
+            >
+              {getCenterPrimary(2,0,103,174)}
+            </text>
+            <text
+              id="R2C0_t_extra"
+              fill={getContrastText(getColor(2, 0))}
+            >
+              {getCenterExtra(2, 0, 103, 159)}
+            </text>
+            <text
+              id="R1C15_t_primary"
+              fill={getContrastText(getColor(1, 15))}
+            >
+              {getCenterPrimary(1,15,915,174)}
+            </text>
+            <text
+              id="R1C15_t_extra"
+              fill={getContrastText(getColor(1, 15))}
+            >
+              {getCenterExtra(1, 15, 915, 158)}
+            </text>
+            <text
+              id="R1C14_t_primary"
+              fill={getContrastText(getColor(1, 14))}
+            >
+              {getCenterPrimary(1,14,860,114.5, true)}
+            </text>
+            <text
+              id="R1C14_t_extra"
+              fill={getContrastText(getColor(1, 14))}
+            >
+              {getCenterExtra(1, 14, 860, 100, true)}
+            </text>
+            <text
+              id="R1C13_t_primary"
+              fill={getContrastText(getColor(1, 13))}
+            >
+              {getCenterPrimary(1,13,805,114.5, true)}
+            </text>
+            <text
+              id="R1C13_t_extra"
+              fill={getContrastText(getColor(1, 13))}
+            >
+              {getCenterExtra(1, 13, 805, 100, true)}
+            </text>
+            <text
+              id="R1C12_t_primary"
+              fill={getContrastText(getColor(1, 12))}
+            >
+              {getCenterPrimary(1,12,745,114.5, true)}
+            </text>
+            <text
+              id="R1C12_t_extra"
+              fill={getContrastText(getColor(1, 12))}
+            >
+              {getCenterExtra(1, 12, 745, 100, true)}
+            </text>
+            <text
+              id="R1C11_t_primary"
+              fill={getContrastText(getColor(1, 11))}
+            >
+              {getCenterPrimary(1,11,688,114.5, true)}
+            </text>
+            <text
+              id="R1C11_t_extra"
+              fill={getContrastText(getColor(1, 11))}
+            >
+              {getCenterExtra(1, 11, 688, 100, true)}
+            </text>
+            <text
+              id="R1C10_t_primary"
+              fill={getContrastText(getColor(1, 10))}
+            >
+              {getCenterPrimary(1,10,630,114.5, true)}
+            </text>
+            <text
+              id="R1C10_t_extra"
+              fill={getContrastText(getColor(1, 10))}
+            >
+              {getCenterExtra(1, 10, 630, 100, true)}
+            </text>
+            <text
+              id="R1C9_t_primary"
+              fill={getContrastText(getColor(1, 9))}
+            >
+              {getCenterPrimary(1,9,574,114.5, true)}
+            </text>
+            <text
+              id="R1C9_t_extra"
+              fill={getContrastText(getColor(1, 9))}
+            >
+              {getCenterExtra(1, 9, 574, 100, true)}
+            </text>
+            <text
+              id="R1C8_t_primary"
+              fill={getContrastText(getColor(1, 8))}
+            >
+              {getCenterPrimary(1,8,516,114.5, true)}
+            </text>
+            <text
+              id="R1C8_t_extra"
+              fill={getContrastText(getColor(1, 8))}
+            >
+              {getCenterExtra(1, 8, 516, 100, true)}
+            </text>
+            <text
+              id="R1C5_t_primary"
+              fill={getContrastText(getColor(1, 5))}
+            >
+              {getCenterPrimary(1,5,407,114.5, true)}
+            </text>
+            <text
+              id="R1C5_t_extra"
+              fill={getContrastText(getColor(1, 5))}
+            >
+              {getCenterExtra(1, 5, 407, 100, true)}
+            </text>
+            <text
+              id="R1C4_t_primary"
+              fill={getContrastText(getColor(1, 4))}
+            >
+              {getCenterPrimary(1,4,348,114.5, true)}
+            </text>
+            <text
+              id="R1C4_t_extra"
+              fill={getContrastText(getColor(1, 4))}
+            >
+              {getCenterExtra(1, 4, 348, 100, true)}
+            </text>
+            <text
+              id="R1C3_t_primary"
+              fill={getContrastText(getColor(1, 3))}
+            >
+              {getCenterPrimary(1,3,289,114.5, true)}
+            </text>
+            <text
+              id="R1C3_t_extra"
+              fill={getContrastText(getColor(1, 3))}
+            >
+              {getCenterExtra(1, 3, 289, 100, true)}
+            </text>
+            <text
+              id="R1C2_t_primary"
+              fill={getContrastText(getColor(1, 2))}
+            >
+              {getCenterPrimary(1,2,230,114.5, true)}
+            </text>
+            <text
+              id="R1C2_t_extra"
+              fill={getContrastText(getColor(1, 2))}
+            >
+              {getCenterExtra(1, 2, 230, 100, true)}
+            </text>
+            <text
+              id="R1C1_t_primary"
+              fill={getContrastText(getColor(1, 1))}
+            >
+              {getCenterPrimary(1,1,171,114.5, true)}
+            </text>
+            <text
+              id="R1C1_t_extra"
+              fill={getContrastText(getColor(1, 1))}
+            >
+              {getCenterExtra(1, 1, 171, 100)}
+            </text>
+            <text
+              id="R1C0_t_primary"
+              fill={getContrastText(getColor(1, 0))}
+            >
+              {getCenterPrimary(1,0,100,114.5)}
+            </text>
+            <text
+              id="R1C0_t_extra"
+              fill={getContrastText(getColor(1, 0))}
+            >
+              {getCenterExtra(1, 0, 100, 100)}
+            </text>
+            <text
+              id="R0C15_t_primary"
+              fill={getContrastText(getColor(0, 15))}
+            >
+              {getCenterPrimary(0,15,915,55)}
+            </text>
+            <text
+              id="R0C15_t_extra"
+              fill={getContrastText(getColor(0, 15))}
+            >
+              {getCenterExtra(0, 15, 915, 40)}
+            </text>
+            <text
+              id="R0C14_t_primary"
+              fill={getContrastText(getColor(0, 14))}
+            >
+              {getCenterPrimary(0,14,828,55, true)}
+            </text>
+            <text
+              id="R0C14_t_extra"
+              fill={getContrastText(getColor(0, 14))}
+            >
+              {getCenterExtra(0, 14, 828, 40, true)}
+            </text>
+            <text
+              id="R0C13_t_primary"
+              fill={getContrastText(getColor(0, 13))}
+            >
+              {getCenterPrimary(0,13,769,55, true)}
+            </text>
+            <text
+              id="R0C13_t_extra"
+              fill={getContrastText(getColor(0, 13))}
+            >
+              {getCenterExtra(0, 13, 769, 40, true)}
+            </text>
+            <text
+              id="R0C12_t_primary"
+              fill={getContrastText(getColor(0, 12))}
+            >
+              {getCenterPrimary(0,12,711,55, true)}
+            </text>
+            <text
+              id="R0C12_t_extra"
+              fill={getContrastText(getColor(0, 12))}
+            >
+              {getCenterExtra(0, 12, 711, 40, true)}
+            </text>
+            <text
+              id="R0C11_t_primary"
+              fill={getContrastText(getColor(0, 11))}
+            >
+              {getCenterPrimary(0,11,652,55, true)}
+            </text>
+            <text
+              id="R0C11_t_extra"
+              fill={getContrastText(getColor(0, 11))}
+            >
+              {getCenterExtra(0, 11, 652, 40, true)}
+            </text>
+            <text
+              id="R0C10_t_primary"
+              fill={getContrastText(getColor(0, 10))}
+            >
+              {getCenterPrimary(0,10,593,55, true)}
+            </text>
+            <text
+              id="R0C10_t_extra"
+              fill={getContrastText(getColor(0, 10))}
+            >
+              {getCenterExtra(0, 10, 593, 40, true)}
+            </text>
+            <text
+              id="R0C9_t_primary"
+              fill={getContrastText(getColor(0, 9))}
+            >
+              {getCenterPrimary(0,9,534,55, true)}
+            </text>
+            <text
+              id="R0C9_t_extra"
+              fill={getContrastText(getColor(0, 9))}
+            >
+              {getCenterExtra(0, 9, 534, 40, true)}
+            </text>
+            <text
+              id="R0C6_t_primary"
+              fill={getContrastText(getColor(0, 6))}
+            >
+              {getCenterPrimary(0,6,434,55, true)}
+            </text>
+            <text
+              id="R0C6_t_extra"
+              fill={getContrastText(getColor(0, 6))}
+            >
+              {getCenterExtra(0, 6, 434, 40, true)}
+            </text>
+            <text
+              id="R0C5_t_primary"
+              fill={getContrastText(getColor(0, 5))}
+            >
+              {getCenterPrimary(0,5,375,55, true)}
+            </text>
+            <text
+              id="R0C5_t_extra"
+              fill={getContrastText(getColor(0, 5))}
+            >
+              {getCenterExtra(0, 5, 375, 40, true)}
+            </text>
+            <text
+              id="R0C4_t_primary"
+              fill={getContrastText(getColor(0, 4))}
+            >
+              {getCenterPrimary(0,4,317,55, true)}
+            </text>
+            <text
+              id="R0C4_t_extra"
+              fill={getContrastText(getColor(0, 4))}
+            >
+              {getCenterExtra(0, 4, 317, 40, true)}
+            </text>
+            <text
+              id="R0C3_t_primary"
+              fill={getContrastText(getColor(0, 3))}
+            >
+              {getCenterPrimary(0,3,257,55, true)}
+            </text>
+            <text
+              id="R0C3_t_extra"
+              fill={getContrastText(getColor(0, 3))}
+            >
+              {getCenterExtra(0, 3, 257, 40, true)}
+            </text>
+            <text
+              id="R0C2_t_primary"
+              fill={getContrastText(getColor(0, 2))}
+            >
+              {getCenterPrimary(0,2,200,55, true)}
+            </text>
+            <text
+              id="R0C2_t_extra"
+              fill={getContrastText(getColor(0, 2))}
+            >
+              {getCenterExtra(0, 2, 200, 40, true)}
+            </text>
+            <text
+              id="R0C1_t_primary"
+              fill={getContrastText(getColor(0, 1))}
+            >
+              {getCenterPrimary(0,1,141,55, true)}
+            </text>
+            <text
+              id="R0C1_t_extra"
+              fill={getContrastText(getColor(0, 1))}
+            >
+              {getCenterExtra(0, 1, 141, 40, true)}
+            </text>
+            <text
+              id="R0C0_t_primary"
+              fill={getContrastText(getColor(0, 0))}
+            >
+              {getCenterPrimary(0,0,83,55, true)}
+
+            </text>
+            <text
+              id="R0C0_t_extra"
+              fill={getContrastText(getColor(0, 0))}
+            >
+              {getCenterExtra(0, 0, 83, 40, true)}
+>>>>>>> 95cbd48a482c812c4f6bac7a81f1dfa04734d966
             </text>
           </g>
         </g>

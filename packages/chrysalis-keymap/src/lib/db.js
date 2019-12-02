@@ -55,14 +55,14 @@ import SpaceCadetTable from "./db/spacecadet"
 // Spanish - is an Array of objects of values that have to be modified
 import spanish from "./languages/spanish/spanish";
 
-// Deutsch - is an Array of objects of values that have to be modified
-import deutsch, {deutschModifiedTables} from "./languages/deutsch/deutsch";
+// German - is an Array of objects of values that have to be modified
+import german, {germanModifiedTables} from "./languages/german/german";
 
 // French - is an Array of objects of values that have to be modified
 import french, {frenchModifiedTables} from "./languages/french/french";
 
-// Norwegian - is an Array of objects of values that have to be modified
-import norwegian, {norwegianModifiedTables} from "./languages/norwegian/norwegian";
+// Nordic - is an Array of objects of values that have to be modified
+import nordic, {nordicModifiedTables} from "./languages/nordic/nordic";
 
 // Japanese - is an Array of objects of values that have to be modified
 import japanese, {japaneseModifiedTables} from "./languages/japanese/japanese";
@@ -101,9 +101,9 @@ const defaultBaseKeyCodeTable = [
 ]
 
 const supportModifiedTables = {
-    deutsch: deutschModifiedTables,
+    german: germanModifiedTables,
     french: frenchModifiedTables,
-    norwegian: norwegianModifiedTables,
+    nordic: nordicModifiedTables,
     japanese: japaneseModifiedTables
 }
 
@@ -124,12 +124,12 @@ const defaultKeyCodeTable = defaultBaseKeyCodeTable
 const languagesDB = {
     english: "english",
     spanish,
-    deutsch,
+    german,
     french,
-    norwegian,
+    nordic,
     japanese
-  };
- // Create cache for language layout
+};
+// Create cache for language layout
 const map = new Map();
 
 let baseKeyCodeTable, keyCodeTable;

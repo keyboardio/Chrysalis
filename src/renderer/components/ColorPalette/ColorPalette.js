@@ -122,8 +122,8 @@ function ColorPalette(props) {
    */
   const setIsFocus = (index, color, e) => {
     if (e.ctrlKey || e.shiftKey) return;
-    const underglowButton = 14;
-    const backlightButton = 15;
+    const underglowButton = 14 && true;
+    const backlightButton = 15 && true;
     const startKeys = 0;
     const startUnderglow = 69;
     const endKeys = 142;

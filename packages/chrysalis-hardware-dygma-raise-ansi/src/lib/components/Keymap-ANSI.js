@@ -2264,37 +2264,37 @@ class KeymapANSI extends React.Component {
               id="R4C13_t_primary"
               fill={getContrastText(getColor(4, 13))}
             >
-              {getCenterPrimary(4, 13, 805, 294.5, true)}
+              {getCenterPrimary(4, 13, 803, 294.5, true)}
             </text>
             <text
               id="R4C13_t_extra"
               fill={getContrastText(getColor(4, 13))}
             >
-              {getCenterExtra(4, 13, 805, 280, true)}
+              {getCenterExtra(4, 13, 803, 280, true)}
             </text>
             <text
               id="R4C12_t_primary"
               fill={getContrastText(getColor(4, 12))}
             >
-              {getCenterPrimary(4,12,730,294.5, true)}
+              {getCenterPrimary(4,12,728,294.5, true)}
             </text>
             <text
               id="R4C12_t_extra"
               fill={getContrastText(getColor(4, 12))}
             >
-              {getCenterExtra(4, 12, 730, 280, true)}
+              {getCenterExtra(4, 12, 728, 280, true)}
             </text>
             <text
               id="R4C11_t_primary"
               fill={getContrastText(getColor(4, 11))}
             >
-              {getCenterPrimary(4,11,650,294.5, true)}
+              {getCenterPrimary(4,11,648,294.5, true)}
             </text>
             <text
               id="R4C11_t_extra"
               fill={getContrastText(getColor(4, 11))}
             >
-              {getCenterExtra(4, 11, 650, 280, true)}
+              {getCenterExtra(4, 11, 648, 280, true)}
             </text>
             <text
               id="R4C10_t_primary"
@@ -2312,13 +2312,13 @@ class KeymapANSI extends React.Component {
               id="R4C4_t_primary"
               fill={getContrastText(getColor(4, 4))}
             >
-              {getCenterPrimary(4,4,412,294.5)}
+              {getCenterPrimary(4,4,414,294.5)}
             </text>
             <text
               id="R4C4_t_extra"
               fill={getContrastText(getColor(4, 4))}
             >
-              {getCenterExtra(4, 4, 412, 280)}
+              {getCenterExtra(4, 4, 414, 280)}
             </text>
             <text
               id="R4C3_t_primary"
@@ -2924,25 +2924,25 @@ class KeymapANSI extends React.Component {
               id="R0C6_t_primary"
               fill={getContrastText(getColor(0, 6))}
             >
-              {getCenterPrimary(0,6,434,55, true)}
+              {getCenterPrimary(0,6,435.5,55, true)}
             </text>
             <text
               id="R0C6_t_extra"
               fill={getContrastText(getColor(0, 6))}
             >
-              {getCenterExtra(0, 6, 434, 40, true)}
+              {getCenterExtra(0, 6, 435.5, 40, true)}
             </text>
             <text
               id="R0C5_t_primary"
               fill={getContrastText(getColor(0, 5))}
             >
-              {getCenterPrimary(0,5,375,55, true)}
+              {getCenterPrimary(0,5,376,55, true)}
             </text>
             <text
               id="R0C5_t_extra"
               fill={getContrastText(getColor(0, 5))}
             >
-              {getCenterExtra(0, 5, 375, 40, true)}
+              {getCenterExtra(0, 5, 376, 40, true)}
             </text>
             <text
               id="R0C4_t_primary"

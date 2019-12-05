@@ -183,7 +183,10 @@ class KeymapANSI extends React.Component {
       } else if (
         str.length > 8 &&
         smallKey === true &&
-        (str.startsWith("C+") || str.startsWith("A+"))
+        (str.startsWith("C+")
+          || str.startsWith("A+")
+          || str.startsWith("AGr+")
+        )
       ) {
         return (
           <GetCurrentKeyElement
@@ -197,8 +200,9 @@ class KeymapANSI extends React.Component {
       } else if (
         longWords.length === 1 &&
         shortWords.length > 7 &&
-        !str.startsWith("C+") &&
-        !str.startsWith("A+") &&
+          !str.startsWith("C+") &&
+          !str.startsWith("A+") &&
+          !str.startsWith("AGr+") &&
         smallKey
       ) {
         return longWords.map((word, index) => (

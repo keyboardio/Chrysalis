@@ -184,7 +184,10 @@ class KeymapISO extends React.Component {
       } else if (
         str.length > 8 &&
         smallKey === true &&
-        (str.startsWith("C+") || str.startsWith("A+"))
+        (str.startsWith("C+")
+          || str.startsWith("A+")
+          || str.startsWith("AGr+")
+        )
       ) {
         return (
           <GetCurrentKeyElement
@@ -200,6 +203,7 @@ class KeymapISO extends React.Component {
         shortWords.length > 7 &&
         !str.startsWith("C+") &&
         !str.startsWith("A+") &&
+        !str.startsWith("AGr+") &&
         smallKey
       ) {
         return longWords.map((word, index) => (

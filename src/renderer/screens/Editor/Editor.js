@@ -49,6 +49,7 @@ import i18n from "../../i18n";
 import settings from "electron-settings";
 import ImportExportDialog from "./ImportExportDialog";
 import { CopyFromDialog } from "./CopyFromDialog";
+import { undeglowDefaultColors } from "./initialUndaglowColors";
 
 const styles = theme => ({
   tbg: {
@@ -114,9 +115,11 @@ class Editor extends React.Component {
     importExportDialogOpen: false,
     isMultiSelected: false,
     isColorButtonSelected: false,
-    currentLanguageLayout: ""
+    currentLanguageLayout: "",
+    undeglowColors: null
   };
   keymapDB = new KeymapDB();
+  undeglowCount = 14;
   /**
    * Bottom menu never hide and automatically select a key at launch and have this shown in the bottom menu
    */
@@ -173,14 +176,30 @@ class Editor extends React.Component {
       }
 
       let colormap = await focus.command("colormap");
-
-      this.setState({
-        defaultLayer: defLayer,
-        keymap: keymap,
-        showDefaults: !keymap.onlyCustom,
-        palette: colormap.palette,
-        colorMap: colormap.colorMap
-      });
+      let palette = colormap.palette.slice();
+      const undeglowColors = settings.get("undeglowColors");
+      this.setState(
+        () => {
+          if (!undeglowColors) {
+            settings.set("undeglowColors", undeglowDefaultColors);
+            return { undeglowColors: undeglowDefaultColors };
+          } else {
+            return { undeglowColors };
+          }
+        },
+        () => {
+          palette[this.undeglowCount] = this.state.undeglowColors[
+            this.state.currentLayer
+          ];
+          this.setState({
+            defaultLayer: defLayer,
+            keymap: keymap,
+            showDefaults: !keymap.onlyCustom,
+            palette,
+            colorMap: colormap.colorMap
+          });
+        }
+      );
       this.bottomMenuNeverHide();
     } catch (e) {
       this.props.enqueueSnackbar(e, { variant: "error" });
@@ -371,14 +390,19 @@ class Editor extends React.Component {
 
   selectLayer = event => {
     if (event.target.value === undefined) return;
+    const { palette, undeglowColors } = this.state;
+    let newPalette = palette.slice();
+    newPalette[this.undeglowCount] = undeglowColors[event.target.value];
     this.setState({
-      currentLayer: event.target.value
+      currentLayer: event.target.value,
+      palette: newPalette
     });
     this.bottomMenuNeverHide();
   };
 
   onApply = async () => {
     this.setState({ saving: true });
+    settings.set("undeglowColors", this.state.undeglowColors);
     let focus = new Focus();
     await focus.command("keymap", this.state.keymap);
     await focus.command("colormap", this.state.palette, this.state.colorMap);
@@ -568,16 +592,25 @@ class Editor extends React.Component {
 
   onColorPick = (colorIndex, r, g, b) => {
     let newPalette = this.state.palette.slice();
-    newPalette[colorIndex] = {
-      r: r,
-      g: g,
-      b: b,
+    const setColors = (r, g, b) => ({
+      r,
+      g,
+      b,
       rgb: `rgb(${r}, ${g}, ${b})`
-    };
+    });
+    newPalette[colorIndex] = setColors(r, g, b);
     this.setState({
       palette: newPalette,
       modified: true
     });
+    if (colorIndex === this.undeglowCount) {
+      const { currentLayer } = this.state;
+      let newUndeglowColors = { ...this.state.undeglowColors };
+      newUndeglowColors[currentLayer] = setColors(r, g, b);
+      this.setState({
+        undeglowColors: newUndeglowColors
+      });
+    }
     this.props.startContext();
   };
 

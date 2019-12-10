@@ -104,6 +104,7 @@ const English = {
     importExportDescription:
       "The data below can be freely edited, or copied elsewhere to be pasted back for importing. This is the internal representation of Chrysalis state, handle with care.",
     loadDefault: "Load a default:",
+    loadDefaultSuccess: "Default Loaded!",
     copyToClipboard: "Copy to clipboard",
     copySuccess: "Copied!",
     pasteFromClipboard: "Paste from clipboard",

@@ -15,10 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useState } from "react";
-const { clipboard } = require("electron");
-const fs = require("fs");
-
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -26,11 +22,12 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-
 import { withSnackbar } from "notistack";
-
+import React, { useState } from "react";
 import i18n from "../../../i18n";
 import LoadDefaultKeymap from "./LoadDefaultKeymap";
+const { clipboard } = require("electron");
+const fs = require("fs");
 
 export const ImportExportDialog = withSnackbar(props => {
   const { toCloseImportExportDialog } = props;
@@ -99,8 +96,14 @@ export const ImportExportDialog = withSnackbar(props => {
           variant: "error",
           autoHideDuration: 2000
         });
+      } else {
+        setData(layoutData);
+        setIsChange(true);
+        props.enqueueSnackbar(i18n.editor.loadDefaultSuccess, {
+          variant: "success",
+          autoHideDuration: 2000
+        });
       }
-      setData(layoutData);
     });
   }
 

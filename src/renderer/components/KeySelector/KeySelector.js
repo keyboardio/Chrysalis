@@ -1,5 +1,5 @@
 // -*- mode: js-jsx -*-
-/* Chrysalis -- Kaleidoscope Command Center
+/* Bazecor -- Kaleidoscope Command Center
  * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -41,8 +41,7 @@ const styles = theme => ({
     position: "fixed",
     left: 0,
     right: 0,
-    bottom: 0,
-    height: 150
+    bottom: 0
   },
   type: {
     width: 225

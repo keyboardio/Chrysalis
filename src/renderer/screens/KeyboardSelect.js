@@ -1,5 +1,5 @@
 // -*- mode: js-jsx -*-
-/* Chrysalis -- Kaleidoscope Command Center
+/* Bazecor -- Kaleidoscope Command Center
  * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -367,7 +367,7 @@ class KeyboardSelect extends React.Component {
     return (
       <div className={classes.main}>
         <Portal container={this.props.titleElement}>
-          {i18n.app.menu.selectAKeyboard}
+          {i18n.app.menu.softwareUpdate}
         </Portal>
         {loader}
         <Card className={classes.card}>

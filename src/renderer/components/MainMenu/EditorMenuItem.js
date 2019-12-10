@@ -1,5 +1,5 @@
 // -*- mode: js-jsx -*-
-/* Chrysalis -- Kaleidoscope Command Center
+/* Bazecor -- Kaleidoscope Command Center
  * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -22,14 +22,9 @@ import ListItemText from "@material-ui/core/ListItemText";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
 import i18n from "../../i18n";
 
-export default function EditorMenuItem({ selected, onClick, className }) {
+export default function EditorMenuItem({ onClick, className }) {
   return (
-    <ListItem
-      button
-      selected={selected}
-      onClick={onClick}
-      className={className}
-    >
+    <ListItem button onClick={onClick} className={className}>
       <ListItemIcon>
         <KeyboardIcon />
       </ListItemIcon>

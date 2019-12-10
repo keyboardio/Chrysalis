@@ -1,5 +1,5 @@
 // -*- mode: js-jsx -*-
-/* Chrysalis -- Kaleidoscope Command Center
+/* Bazecor -- Kaleidoscope Command Center
  * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -33,15 +33,14 @@ ColorButton.propTypes = {
   isSelected: PropTypes.bool
 };
 
-const styles = theme => ({
+const styles = () => ({
   root: {
-    ...setButtonSizeTamplate(40),
-    margin: 5,
+    ...setButtonSizeTamplate(35),
+    margin: "4px 6px",
+    padding: 0,
     borderRadius: 5,
     cursor: "pointer",
-    [theme.breakpoints.down("sm")]: {
-      ...setButtonSizeTamplate(35)
-    }
+    boxShadow: "-2px 1px 5px 0px rgba(213,213,213,1)"
   }
 });
 
@@ -65,14 +64,14 @@ const minWhiteColorValue = 140;
  */
 function ColorButton(props) {
   const { classes, setIsFocus, isFocus, index, color, disabled } = props;
-
   ///Checks background is white or not
   const isWhiteColor =
     color.r >= minWhiteColorValue &&
     (color.g >= minWhiteColorValue && color.b >= minWhiteColorValue);
 
   const style = {
-    background: `rgb(${color.r}, ${color.g}, ${color.b})`
+    background: `rgb(${color.r}, ${color.g}, ${color.b})`,
+    color: !isWhiteColor ? "white" : "black"
   };
 
   const styleInFocus = {

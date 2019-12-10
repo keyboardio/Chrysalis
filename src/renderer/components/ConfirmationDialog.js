@@ -1,5 +1,5 @@
 // -*- mode: js-jsx -*-
-/* Chrysalis -- Kaleidoscope Command Center
+/* Bazecor -- Kaleidoscope Command Center
  * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -20,10 +20,11 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
+// import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
 import i18n from "../i18n";
+import { Typography } from "@material-ui/core";
 
 const ConfirmationDialog = props => {
   return (
@@ -34,14 +35,10 @@ const ConfirmationDialog = props => {
       fullWidth
     >
       <DialogTitle>{props.title}</DialogTitle>
-      <DialogContent>{props.children}</DialogContent>
+      <Typography style={{ padding: "0 24px 20px" }}>{props.text}</Typography>
       <DialogActions>
-        <Button onClick={props.onCancel} color="primary">
-          {i18n.dialog.cancel}
-        </Button>
-        <Button onClick={props.onConfirm} color="primary">
-          {i18n.dialog.ok}
-        </Button>
+        <Button onClick={props.onCancel}>{i18n.dialog.cancel}</Button>
+        <Button onClick={props.onConfirm}>{i18n.dialog.ok}</Button>
       </DialogActions>
     </Dialog>
   );

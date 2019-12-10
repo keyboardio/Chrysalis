@@ -1,5 +1,5 @@
 // -*- mode: js-jsx -*-
-/* Chrysalis -- Kaleidoscope Command Center
+/* Bazecor -- Kaleidoscope Command Center
  * Copyright (C) 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -22,7 +22,6 @@ import { withStyles } from "@material-ui/core/styles";
 // languagesDB is data base, typeof object
 import { languagesDB } from "@chrysalis-api/keymap";
 import Button from "@material-ui/core/Button";
-import TranslateIcon from "@material-ui/icons/Translate";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import LanguageItem from "./LanguageItem";
 import Popper from "@material-ui/core/Popper";
@@ -40,15 +39,18 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper
   },
   button: {
-    margin: 15,
     width: 170,
-    padding: "5px 5px 0"
-  },
-  menu: {
-    width: "100%"
+    padding: "5px 5px 5px 26px",
+    marginLeft: "30px"
   },
   img: {
-    width: "70%"
+    width: "auto",
+    height: 20,
+    marginRight: 10
+  },
+  container: {
+    display: "flex",
+    alignItems: "center"
   }
 });
 
@@ -58,8 +60,8 @@ const styles = theme => ({
  * @param {HTMLAnchorElement} anchorEl HTMLAnchorElement which is a relative element for our list of languages
  * @param {function} scanKeyboard Callback function from Editor -> KeySelector components. Without parametrs, this function call KeymapDB in Keymap and modify languagu layout
  * @param {string} currentLanguageLayout String value, that passes the state of Editor of saved language
- * @param {string} onChangeLanguageLayout String value, that passes the state of Editor of new language layout to compare it with currentLanguageLayout  
- 
+ * @param {string} onChangeLanguageLayout String value, that passes the state of Editor of new language layout to compare it with currentLanguageLayout
+
  */
 
 class SelectLanguage extends Component {
@@ -99,7 +101,7 @@ class SelectLanguage extends Component {
       }
       return (
         <Grid container>
-          <Grid item xs={3}>
+          <Grid item xs={3} className={classes.container}>
             <img
               src={
                 this.isDevelopment
@@ -110,7 +112,7 @@ class SelectLanguage extends Component {
               alt="flag"
             />
           </Grid>
-          <Grid item xs={9}>
+          <Grid item xs={9} className={classes.languageText}>
             {name}
           </Grid>
         </Grid>
@@ -143,9 +145,6 @@ class SelectLanguage extends Component {
           <Grid container>
             <Grid item xs={10}>
               {childrenItems(currentLanguageLayout)}
-            </Grid>
-            <Grid item xs={2}>
-              <TranslateIcon />
             </Grid>
           </Grid>
         </Button>

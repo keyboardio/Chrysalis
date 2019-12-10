@@ -1,4 +1,4 @@
-/* Chrysalis -- Kaleidoscope Command Center
+/* Bazecor -- Kaleidoscope Command Center
  * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -26,7 +26,15 @@
   min-width: 550px;
   min-height: 280px;
   height: calc(100vh - 300px);
-  max-width: calc(100vw - 128px);
+  max-width: calc(100vw - 140px);
+  margin-top: 20px;
+}
+
+.palette {
+  min-width: 240px;
+  min-height: 280px;
+  height: calc(100vh - 300px);
+  max-width: calc(100vw - 550px);
 }
 
 .extraKey {
@@ -97,4 +105,12 @@
 
 .select-keycode ul li.highlight {
   font-weight: bold;
+}
+
+.key-config {
+  font-size: 14px;
+}
+
+.letter-config {
+  font-size: 16px;
 }

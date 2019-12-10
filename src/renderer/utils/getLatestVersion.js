@@ -1,5 +1,5 @@
 // -*- mode: js-jsx -*-
-/* Chrysalis -- Kaleidoscope Command Center
+/* Bazecor -- Kaleidoscope Command Center
  * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -72,7 +72,7 @@ const getLatestVersionFromGitHub = async () => {
     path: "/repos/keyboardio/Chrysalis/releases",
     headers: {
       Accept: "application/vnd.github.v3+json",
-      "User-Agent": `Chrysalis/${version}`
+      "User-Agent": `Bazecor/${version}`
     }
   };
   const extensions = {

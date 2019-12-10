@@ -88,14 +88,14 @@ const PunctuationTable = {
         {
             code: 57,
             labels: {
-                primary: "CapsLK",
+                primary: "CAPSLOCK",
                 verbose: "Caps Lock"
             }
         },
         {
             code: 100,
             labels: {
-                primary: "Alt. \\",
+                primary: "ALT \\",
                 verbose: "Non-US \\"
             }
         }

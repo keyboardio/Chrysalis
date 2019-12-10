@@ -20,72 +20,59 @@
 
 import { withModifiers } from "../../db/utils"
 
-const deutschLetters = [
-    {
-        code: 28,
-        labels: {
-            primary: "Z"
-        }
-    },
+const nordicLetters = [
     {
         code: 47,
         labels: {
-            primary: "Ü",
+            primary: "Å"
         },
         newGroupName: "Letters"
     },
     {
         code: 51,
         labels: {
-            primary: "Ö"
+            primary: "Ø"
         },
         newGroupName: "Letters"
     },
     {
         code: 52,
         labels: {
-            primary: "Ä"
+            primary: "Æ"
         },
         newGroupName: "Letters"
-    },
-    {
-        code: 29,
-        labels: {
-            primary: "Y"
-        }
     }
-];
+]
 
-const deutschModifierKeys = [
+const nordicModifierKeys = [
     {
         code: 53,
         labels: {
-            primary: "^"
+            primary: "|"
         }
     },
     {
         code: 45,
         labels: {
-            primary: "ß"
-        },
-        newGroupName: "Letters"
+            primary: "+"
+        }
     },
     {
         code: 46,
         labels: {
-            primary: "´"
+            primary: "\\"
         }
     },
     {
         code: 48,
         labels: {
-            primary: "+"
+            primary: "¨"
         }
     },
     {
         code: 49,
         labels: {
-            primary: "<"
+            primary: "'"
         }
     },
     {
@@ -93,22 +80,34 @@ const deutschModifierKeys = [
         labels: {
             primary: "-"
         }
-    },
-];
+    }
+]
 
-const altCtrlDeutsch = {
-    groupName: "AltCtrl Deutsch",
+const altCtrlNordic = {
+    groupName: "AltCtrl Nordic",
     keys: [
         {
             code: 799,
             labels: {
-                primary: "²"
+                primary: "@"
             }
         },
         {
             code: 800,
             labels: {
-                primary: "³"
+                primary: "£"
+            }
+        },
+        {
+            code: 801,
+            labels: {
+                primary: "$"
+            }
+        },
+        {
+            code: 802,
+            labels: {
+                primary: "€"
             }
         },
         {
@@ -136,15 +135,9 @@ const altCtrlDeutsch = {
             }
         },
         {
-            code: 813,
+            code: 814,
             labels: {
-                primary: "\\"
-            }
-        },
-        {
-            code: 788,
-            labels: {
-                primary: "@"
+                primary: "´"
             }
         },
         {
@@ -160,27 +153,21 @@ const altCtrlDeutsch = {
             }
         },
         {
-            code: 817,
-            labels: {
-                primary: "|"
-            }
-        },
-        {
             code: 784,
             labels: {
                 primary: "µ"
             }
         },
     ]
-};
+}
 
-const shiftModifierDeutsch = {
-    groupName: "Shifted Deutsch",
+const shiftModifierNordic = {
+    groupName: "Shifted Nordic",
     keys: [
         {
             code: 2101,
             labels: {
-                primary: "°"
+                primary: "§"
             }
         },
         {
@@ -190,9 +177,9 @@ const shiftModifierDeutsch = {
             }
         },
         {
-            code: 2080,
+            code: 2081,
             labels: {
-                primary: "§"
+                primary: "¤"
             }
         },
         {
@@ -237,16 +224,17 @@ const shiftModifierDeutsch = {
                 primary: "`"
             }
         },
+
         {
             code: 2096,
             labels: {
-                primary: "*"
+                primary: "^"
             }
         },
         {
             code: 2097,
             labels: {
-                primary: ">"
+                primary: "*"
             }
         },
         {
@@ -270,65 +258,65 @@ const shiftModifierDeutsch = {
     ]
 }
 
-const deutsch = deutschLetters.concat(deutschModifierKeys);
+const nordic = nordicLetters.concat(nordicModifierKeys)
 
-const table = {keys: deutsch};
-const tableWithoutModifier = {keys: deutschLetters};
+const table = {keys: nordicModifierKeys}
+const tableWithoutModifier = {keys: nordicLetters}
 
-const deutschCtrlTable = withModifiers(table, "Control +", "C+", 256)
-const deutschLAltTable = withModifiers(table, "Alt +", "A+", 512)
-const deutschRAltTable = withModifiers(table, "AltGr +", "AGr+", 1024)
-const deutschShiftTable = withModifiers(tableWithoutModifier, "Shift +", "S+", 2048)
-const deutschGuiTable = withModifiers(table, "Gui +", "G+", 4096)
+const nordicCtrlTable = withModifiers(table, "Control +", "C+", 256)
+const nordicLAltTable = withModifiers(table, "Alt +", "A+", 512)
+const nordicRAltTable = withModifiers(table, "AltGr +", "AGr+", 1024)
+const nordicShiftTable = withModifiers(tableWithoutModifier, "Shift +", "S+", 2048)
+const nordicGuiTable = withModifiers(table, "Gui +", "G+", 4096)
 // Double
 
-const deutschCATable = withModifiers(
+const nordicCATable = withModifiers(
     table,
     "Control + Alt +",
     "C+A+",
     768
 )
 
-const deutschCAGrTable = withModifiers(
+const nordicCAGrTable = withModifiers(
     table,
     "Control + AltGr +",
     "C+AGr+",
     1280
 )
 
-const deutschCSTable = withModifiers(
+const nordicCSTable = withModifiers(
     table,
     "Control + Shift +",
     "C+S+",
     2304
 )
 
-const deutschCGTable = withModifiers(
+const nordicCGTable = withModifiers(
     table,
     "Control + Gui +",
     "C+G+",
     4352
 )
 
-const deutschAAGrTable = withModifiers(
+const nordicAAGrTable = withModifiers(
     table,
     "Alt + AltGr +",
     "A+AGr+",
     1536
 )
 
-const deutschASTable = withModifiers(table, "Alt + Shift +", "A+S+", 2560)
+const nordicASTable = withModifiers(table, "Alt + Shift +", "A+S+", 2560)
 
-const deutschAGTable = withModifiers(table, "Alt + Gui +", "A+G+", 4608)
+const nordicAGTable = withModifiers(table, "Alt + Gui +", "A+G+", 4608)
 
-const deutschAGrSTable = withModifiers(
+const nordicAGrSTable = withModifiers(
     table,
     "AltGr + Shift +",
     "AGr+S+",
     3072
 )
 
-const deutschAGrGTable = withModifiers(
+const nordicAGrGTable = withModifiers(
     table,
     "AltGr + Gui +",
     "AGr+G+",
@@ -337,65 +325,65 @@ const deutschAGrGTable = withModifiers(
 
 // Triple
 
-const deutschCAAGTable = withModifiers(
+const nordicCAAGTable = withModifiers(
     table,
     "Control + Alt + AltGr +",
     "C+A+AGr+",
     1792
 )
 
-const deutschCASTable = withModifiers(table, "Meh +", "Meh+", 2816)
+const nordicCASTable = withModifiers(table, "Meh +", "Meh+", 2816)
 
-const deutschCAGTable = withModifiers(
+const nordicCAGTable = withModifiers(
     table,
     "Control + Alt + Gui +",
     "C+A+G+",
     4864
 )
 
-const deutschCAGSTable = withModifiers(
+const nordicCAGSTable = withModifiers(
     table,
     "Control + AltGr + Shift +",
     "C+AGr+S+",
     3328
 )
 
-const deutschCAGGTable = withModifiers(
+const nordicCAGGTable = withModifiers(
     table,
     "Control + AltGr + Gui +",
     "C+AGr+G+",
     5376
 )
 
-const deutschCSGTable = withModifiers(
+const nordicCSGTable = withModifiers(
     table,
     "Control + Shift + Gui +",
     "C+S+G+",
     6400
 )
 
-const deutschAAGSTable = withModifiers(
+const nordicAAGSTable = withModifiers(
     table,
     "Alt + AltGr + Shift +",
     "A+AGr+S+",
     3584
 )
 
-const deutschAAGGTable = withModifiers(
+const nordicAAGGTable = withModifiers(
     table,
     "Alt + AltGr + Gui +",
     "A+AGr+G+",
     5632
 )
 
-const deutschASGTable = withModifiers(
+const nordicASGTable = withModifiers(
     table,
     "Alt + Shift + Gui +",
     "A+S+G+",
     6656
 )
 
-const deutschAGSGTable = withModifiers(
+const nordicAGSGTable = withModifiers(
     table,
     "AltGr + Shift + Gui +",
     "AGr+S+G+",
@@ -404,67 +392,67 @@ const deutschAGSGTable = withModifiers(
 
 // Quad
 
-const deutschCAAGrSTable = withModifiers(
+const nordicCAAGrSTable = withModifiers(
     table,
     "Meh + AltGr +",
     "M+AGr+",
     3840
 )
 
-const deutschCAAGrGTable = withModifiers(
+const nordicCAAGrGTable = withModifiers(
     table,
     "Control + Alt + AltGr + Gui +",
     "C+A+AGr+G+",
     5888
 )
 
-const deutschAAGrSGTable = withModifiers(
+const nordicAAGrSGTable = withModifiers(
     table,
     "Alt + AltGr + Shift + Gui +",
     "A+AGr+S+G+",
     7680
 )
 
-const deutschAllModTable = withModifiers(
+const nordicAllModTable = withModifiers(
     table,
     "Hyper + AltGr +",
     "H+AGr+",
     7936
 )
 
-const deutschModifiedTables = [
-    shiftModifierDeutsch,
-    deutschCtrlTable,
-    deutschLAltTable,
-    deutschRAltTable,
-    deutschShiftTable,
-    deutschGuiTable,
-    deutschCATable,
-    altCtrlDeutsch,
-    deutschCAGrTable,
-    deutschCSTable,
-    deutschCGTable,
-    deutschAAGrTable,
-    deutschASTable,
-    deutschAGTable,
-    deutschAGrSTable,
-    deutschAGrGTable,
-    deutschCAAGTable,
-    deutschCASTable,
-    deutschCAGTable,
-    deutschCAGSTable,
-    deutschCAGGTable,
-    deutschCSGTable,
-    deutschAAGSTable,
-    deutschAAGGTable,
-    deutschASGTable,
-    deutschAGSGTable,
-    deutschCAAGrSTable,
-    deutschCAAGrGTable,
+const nordicModifiedTables = [
+    shiftModifierNordic,
+    nordicCtrlTable,
+    nordicLAltTable,
+    nordicRAltTable,
+    nordicShiftTable,
+    nordicGuiTable,
+    nordicCATable,
+    altCtrlNordic,
+    nordicCAGrTable,
+    nordicCSTable,
+    nordicCGTable,
+    nordicAAGrTable,
+    nordicASTable,
+    nordicAGTable,
+    nordicAGrSTable,
+    nordicAGrGTable,
+    nordicCAAGTable,
+    nordicCASTable,
+    nordicCAGTable,
+    nordicCAGSTable,
+    nordicCAGGTable,
+    nordicCSGTable,
+    nordicAAGSTable,
+    nordicAAGGTable,
+    nordicASGTable,
+    nordicAGSGTable,
+    nordicCAAGrSTable,
+    nordicCAAGrGTable,
     withModifiers(table, "Hyper +", "Hyper+", 6912),
-    deutschAAGrSGTable,
-    deutschAllModTable
+    nordicAAGrSGTable,
+    nordicAllModTable
 ]
 
-export { deutsch as default, deutschModifiedTables }
-// export default deutsch;
+export { nordic as default, nordicModifiedTables }
+// export default nordic;

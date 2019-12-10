@@ -22,57 +22,57 @@ const NavigationTable = {
         {
             code: 75,
             labels: {
-                primary: "PgUp",
+                primary: "PAGE UP",
                 verbose: "Page Up"
             }
         },
         {
             code: 78,
             labels: {
-                primary: "PgDn",
+                primary: "PAGE DOWN",
                 verbose: "Page Down"
             }
         },
         {
             code: 74,
             labels: {
-                primary: "Home"
+                primary: "HOME"
             }
         },
         {
             code: 77,
             labels: {
-                primary: "End"
+                primary: "END"
             }
         },
         {
             code: 80,
             labels: {
-                primary: "Left"
+                primary: "LEFT"
             }
         },
         {
             code: 81,
             labels: {
-                primary: "Down"
+                primary: "DOWN"
             }
         },
         {
             code: 82,
             labels: {
-                primary: "Up"
+                primary: "UP"
             }
         },
         {
             code: 79,
             labels: {
-                primary: "Right"
+                primary: "RIGHT"
             }
         },
         {
             code: 101,
             labels: {
-                primary: "App"
+                primary: "APP"
             }
         }
     ]

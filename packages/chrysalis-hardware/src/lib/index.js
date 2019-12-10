@@ -1,4 +1,4 @@
-/* chrysalis-hardware -- Chrysalis Hardware library collection
+/* Bazecor-hardware -- Bazecor Hardware library collection
  * Copyright (C) 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under

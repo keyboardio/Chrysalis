@@ -1,4 +1,4 @@
-/* chrysalis-keymap -- Chrysalis keymap library
+/* Bazecor keymap library
  * Copyright (C) 2019  DygmaLab SE
  *
  * This program is free software: you can redistribute it and/or modify it under

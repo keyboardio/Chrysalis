@@ -36,7 +36,7 @@ export default function LoadDefaultKeymap({ loadDefault }) {
   const layoutPath = layout =>
     path.join(getStaticPath(), cVendor, cProduct, `${layout}.json`);
 
-  const defaultLayouts = ["Qwerty", "Dvorak", "Colemak"];
+  const defaultLayouts = ["qwerty", "dvorak", "colemak"];
   const deviceLayouts = [];
 
   defaultLayouts.map(layout => {

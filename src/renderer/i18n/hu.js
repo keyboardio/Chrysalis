@@ -104,7 +104,7 @@ const Hungarian = {
     importExportDescription:
       "Az alábbi adatok szabadon szerkeszthetőek, vagy máshova másolhatóak, hogy később vissza lehessen illeszteni. Ezek az adatok a Chrysalis belső adatszerkezetét tükrözik, óvatosan szerkessze.",
     loadDefault: "Alapértelmezett kiosztás betöltése:",
-    loadDefaultSuccess: "Alapértelmezett betöltve!",
+    loadDefaultSuccess: "Alapértelmezett kiosztás betöltve!",
     copyToClipboard: "Másolás a vágólapra",
     copySuccess: "Másolva!",
     pasteFromClipboard: "Beillesztés a vágólapról",

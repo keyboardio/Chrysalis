@@ -23,6 +23,9 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import ColorButton from "./ColorButton";
+import i18n from "../../i18n";
+import UndeglowColorButton from "./UnderglowButton";
+import BacklightButton from "./BackLightButton";
 
 ColorButtonsArea.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -35,10 +38,12 @@ ColorButtonsArea.propTypes = {
 
 const styles = theme => ({
   palette: {
-    padding: "5px 0",
     [theme.breakpoints.down("sm")]: {
       padding: 0
-    }
+    },
+    maxWidth: 95,
+    margin: "0 auto",
+    marginBottom: 25
   }
 });
 
@@ -50,6 +55,7 @@ const styles = theme => ({
  * @param {function} setIsFocus Callback function from ColorPalette component. Parameters are: first - index of color button in palette (from 0 to 15), second - object with keys that defining colors using the Red-green-blue-alpha (RGBA) model, third - event
  * @param {array} palette Array of colors. Format [{r: 200, g: 200, b: 200, rgb: "rgb(200, 200, 200)"}, ...]
  * @param {boolean} disabled Property that disable component
+ * @param {function} onBacklightColorSelect Callback function from Editor component for change color of buttons in keyboard. Parameter is index of color button in palette (from 0 to 15)
  */
 function ColorButtonsArea(props) {
   const {
@@ -58,15 +64,18 @@ function ColorButtonsArea(props) {
     indexFocusButton,
     setIsFocus,
     palette,
-    disabled
+    disabled,
+    onBacklightColorSelect
   } = props;
+
+  const underglowButton = 14;
+  const backlightButton = 15;
 
   /**
    * This is Hook that lets add React state "colorButtonsAmount" to functional components
    * @param {array} [state] Array with color elements
    */
   const [colorButtonsAmount, setColorButtonsAmount] = useState(palette);
-
   /**
    * Change "colorButtonsAmount", if prop "colorFocusButton" is different
    */
@@ -76,30 +85,61 @@ function ColorButtonsArea(props) {
       setColorButtonsAmount(colorButtonsAmount);
     }
   }, [colorFocusButton]);
-
   /**
    * Render color buttons area by two arrays from prop "pallete"
    */
-  const displayGrids = () => {
+  const displayGrids = (start, end) => {
     return (
-      <Grid item>
-        {palette.map((colorButton, i) => (
-          <ColorButton
-            key={uuid()}
-            isFocus={i === indexFocusButton}
-            index={i}
-            color={i === indexFocusButton ? colorFocusButton : colorButton}
-            setIsFocus={setIsFocus}
-            disabled={disabled}
-          />
-        ))}
+      <Grid container justify="center" alignItems="center">
+        {palette
+          .map((colorButton, i) => (
+            <ColorButton
+              key={uuid()}
+              isFocus={i === indexFocusButton}
+              index={i}
+              color={i === indexFocusButton ? colorFocusButton : colorButton}
+              setIsFocus={setIsFocus}
+              disabled={disabled}
+            />
+          ))
+          .slice(start, end)}
       </Grid>
     );
   };
 
   return (
-    <div className={classes.palette}>
-      <Grid container>{displayGrids()}</Grid>
+    <div>
+      <Grid className={classes.palette} container>
+        {displayGrids(0, underglowButton)}
+      </Grid>
+      {palette.length > 0 && (
+        <UndeglowColorButton
+          key={uuid()}
+          isFocus={underglowButton === indexFocusButton}
+          index={underglowButton}
+          color={palette[underglowButton]}
+          setIsFocus={setIsFocus}
+          disabled={disabled}
+          onBacklightColorSelect={onBacklightColorSelect}
+          value={"UNDERGLOW"}
+        >
+          {i18n.components.underglowColorButton}
+        </UndeglowColorButton>
+      )}
+      {palette.length > 0 && (
+        <BacklightButton
+          key={uuid()}
+          isFocus={backlightButton === indexFocusButton}
+          index={backlightButton}
+          color={palette[backlightButton]}
+          setIsFocus={setIsFocus}
+          disabled={disabled}
+          onBacklightColorSelect={onBacklightColorSelect}
+          value={"BACKLIGHT"}
+        >
+          {i18n.components.keysColorButton}
+        </BacklightButton>
+      )}
     </div>
   );
 }

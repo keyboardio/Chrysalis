@@ -1,5 +1,5 @@
 // -*- mode: js-jsx -*-
-/* Chrysalis -- Kaleidoscope Command Center
+/* Bazecor -- Kaleidoscope Command Center
  * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -23,9 +23,9 @@ import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import ColorButtonsArea from "./ColorButtonsArea";
 import PickerColorButton from "./PickerColorButton";
-import UndeglowColorButton from "./UndeglowColorButton";
 import { setColorTamplate } from "../../../renderer/utils/setTemplates";
 import i18n from "../../i18n";
+// import ColorPaletteArea from "./ColorPaletteArea";
 
 ColorPalette.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -37,28 +37,16 @@ ColorPalette.propTypes = {
   isColorButtonSelected: PropTypes.bool.isRequired,
   onColorButtonSelect: PropTypes.func.isRequired,
   theme: PropTypes.object.isRequired,
-  toChangeAllUnderglowsColor: PropTypes.func.isRequired
+  toChangeAllKeysColor: PropTypes.func.isRequired
 };
 
-const styles = theme => ({
+const styles = () => ({
   root: {
-    display: "flex",
-    position: "fixed",
-    left: 0,
-    right: 0,
-    bottom: 0,
-    height: 150,
-    justifyContent: "center",
-    alignItems: "flex-start"
-  },
-  palette: {
-    display: "flex",
-    alignItems: "center",
-    padding: 10,
-    minHeight: 80,
-    [theme.breakpoints.down("sm")]: {
-      width: 505
-    }
+    height: "calc(100vh - 230px)",
+    width: 230,
+    minHeight: 500,
+    minWidth: 140,
+    paddingTop: 25
   }
 });
 
@@ -74,7 +62,8 @@ const styles = theme => ({
  * @param {boolean} isColorButtonSelected Property for disabled PickerColorButton
  * @param {function} onColorButtonSelect Callback function from Editor component for change state of selected color button in palette
  * @param {number} theme To use theme object from Material UI
- * @param {object} toChangeAllUnderglowsColor Callback function from Editor component. Parameter is index of color palette from 0 to 15
+ * @param {object} toChangeAllKeysColor Callback function from Editor component. Parameter is index of color palette 16
+ * @param {function} onBacklightColorSelect Callback function from Editor component for change color of buttons in keyboard. Parameter is index of color button in palette (from 0 to 15)
  */
 function ColorPalette(props) {
   const {
@@ -87,7 +76,8 @@ function ColorPalette(props) {
     isColorButtonSelected,
     onColorButtonSelect,
     theme,
-    toChangeAllUnderglowsColor
+    toChangeAllKeysColor,
+    onBacklightColorSelect
   } = props;
 
   /**
@@ -95,7 +85,6 @@ function ColorPalette(props) {
    * @param {object} [initialState=selected] - Sets initial state for "indexFocusButton"
    */
   const [indexFocusButton, setIndexFocusButton] = useState(selected);
-
   /**
    * This is Hook that lets add React state "colorFocusButton" to functional components
    * @param {object} [initialState] - Sets initial state for "colorFocusButton" (selected element in palette or in keyboard)
@@ -107,7 +96,6 @@ function ColorPalette(props) {
         }
       : null
   );
-
   /**
    * Change "indexFocusButton" and "colorFocusButton", if prop "selected" is different
    */
@@ -119,7 +107,6 @@ function ColorPalette(props) {
       });
     }
   }, [selected, palette]);
-
   /**
    * Change "colorFocusButton" and pick color of button from PickerColorButton component in functional component state
    * @param {object} color Object with keys that defining colors using the Red-green-blue-alpha (RGBA) model
@@ -128,7 +115,6 @@ function ColorPalette(props) {
     onColorPick(indexFocusButton, color.r, color.g, color.b);
     setColorFocusButton(setColorTamplate(color));
   };
-
   /**
    * Change "indexFocusButton" in its state, "colorFocusButton" in ColorPalette's state, and call function onColorSelect from props, if ctrl or shift key is clicked.
    * @param {number} index Number of value in array that focusing by mouse
@@ -136,6 +122,25 @@ function ColorPalette(props) {
    */
   const setIsFocus = (index, color, e) => {
     if (e.ctrlKey || e.shiftKey) return;
+    const underglowButton = 14;
+    const backlightButton = 15;
+    const startKeys = 0;
+    const startUnderglow = 69;
+    const endKeys = 142;
+    if (indexFocusButton === underglowButton) {
+      toChangeAllKeysColor(underglowButton, startKeys, startUnderglow);
+    } else if (indexFocusButton === backlightButton) {
+      toChangeAllKeysColor(backlightButton, startUnderglow, endKeys);
+    }
+    if (
+      (index === backlightButton && indexFocusButton !== index) ||
+      (index === underglowButton && indexFocusButton !== index)
+    ) {
+      setIndexFocusButton(index);
+      onBacklightColorSelect(index);
+      setColorFocusButton(setColorTamplate(color));
+      return;
+    }
     if (index === indexFocusButton) {
       setIndexFocusButton(!indexFocusButton);
       onColorButtonSelect("one_button_click");
@@ -152,31 +157,25 @@ function ColorPalette(props) {
     indexFocusButton,
     setIsFocus,
     palette,
-    disabled
+    disabled,
+    theme,
+    toChangeAllKeysColor,
+    setIndexFocusButton,
+    setColorFocusButton,
+    onBacklightColorSelect
   };
-
   return (
-    <div className={classes.root}>
-      <Paper className={classes.palette}>
-        <ColorButtonsArea {...propsToArea} />
-        <PickerColorButton
-          setColorFocusButton={toSetColorFocusButton}
-          disabled={disabled || !isColorButtonSelected}
-          colorFocusButton={colorFocusButton}
-        >
-          {i18n.components.pickerColorButton}
-        </PickerColorButton>
-        <UndeglowColorButton
-          colorFocusButton={colorFocusButton}
-          indexFocusButton={indexFocusButton}
-          disabled={disabled}
-          theme={theme}
-          toChangeAllUnderglowsColor={toChangeAllUnderglowsColor}
-        >
-          {i18n.components.underglowColorButton}
-        </UndeglowColorButton>
-      </Paper>
-    </div>
+    <Paper className={classes.root}>
+      <PickerColorButton
+        setColorFocusButton={toSetColorFocusButton}
+        disabled={disabled || !isColorButtonSelected}
+        colorFocusButton={colorFocusButton}
+        indexFocusButton={indexFocusButton}
+      >
+        {i18n.components.pickerColorButton}
+      </PickerColorButton>
+      <ColorButtonsArea {...propsToArea} />
+    </Paper>
   );
 }
 

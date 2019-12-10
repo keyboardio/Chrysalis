@@ -1,5 +1,5 @@
 // -*- mode: js-jsx -*-
-/* Chrysalis -- Kaleidoscope Command Center
+/* Bazecor -- Kaleidoscope Command Center
  * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -382,7 +382,7 @@ class FirmwareUpdate extends React.Component {
             </Typography>
             <Typography component="p" gutterBottom className={classes.repo}>
               <a href="https://github.com/keyboardio/Chrysalis-Firmware-Bundle#readme">
-                Chrysalis-Firmware-Bundle
+                Bazecor-Firmware-Bundle
               </a>
             </Typography>
             <Typography component="p" gutterBottom>

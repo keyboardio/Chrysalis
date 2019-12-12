@@ -1,5 +1,5 @@
 // -*- mode: js-jsx -*-
-/* Bazecor -- Kaleidoscope Command Center
+/* Chrysalis -- Kaleidoscope Command Center
  * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -15,39 +15,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useState } from "react";
-
-import Divider from "@material-ui/core/Divider";
+import React from "react";
 import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-
 import i18n from "../../i18n";
-import { version } from "../../../../package.json";
-import getLatestVersion from "../../utils/getLatestVersion";
+import support from "../../support.png";
+import supportWhite from "../../suppport-white.png";
 
-function UpgradeMenuItem() {
-  const [latestVersion, setLatestVersion] = useState(null);
-
-  if (!latestVersion) {
-    getLatestVersion().then(v => {
-      setLatestVersion(v);
-    });
-    return null;
-  }
-
-  if (latestVersion.version <= version) return null;
-
+export default function SupportPage({ onClick, className, themeDark }) {
   return (
-    <React.Fragment>
-      <Divider />
-      <ListItem button component="a" href={latestVersion.url}>
-        <ListItemText
-          primary={i18n.app.menu.upgradeAvailable}
-          secondary={latestVersion.version}
-        />
-      </ListItem>
-    </React.Fragment>
+    <ListItem button onClick={onClick} className={className}>
+      <ListItemIcon>
+        {themeDark ? (
+          <img
+            src={supportWhite}
+            alt="update"
+            style={{ width: 24, height: 24 }}
+          />
+        ) : (
+          <img
+            src={support}
+            alt="updateWhite"
+            style={{ width: 24, height: 24 }}
+          />
+        )}
+      </ListItemIcon>
+      <ListItemText primary={i18n.app.menu.supportPage} />
+    </ListItem>
   );
 }
-
-export { UpgradeMenuItem as default };

@@ -112,7 +112,7 @@ class SelectLanguage extends Component {
               alt="flag"
             />
           </Grid>
-          <Grid item xs={9}>
+          <Grid item xs={9} className={classes.languageText}>
             {name}
           </Grid>
         </Grid>

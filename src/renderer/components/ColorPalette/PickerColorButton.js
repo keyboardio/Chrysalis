@@ -17,7 +17,7 @@
 /**
  * This is Reactjs functional component that create button to choose colors from Color Picker
  */
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { SketchPicker } from "react-color";
@@ -25,6 +25,7 @@ import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
 import Popover from "@material-ui/core/Popover";
 import PaletteIcon from "@material-ui/icons/Palette";
+import RootRef from "@material-ui/core/RootRef";
 
 PickerColorButton.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -35,8 +36,8 @@ PickerColorButton.propTypes = {
 
 const styles = {
   root: {
-    position: "relative",
-    marginBottom: 15
+    textAlign: "center",
+    margin: "15px 0"
   },
   fab: {
     width: 70,
@@ -59,7 +60,8 @@ function PickerColorButton(props) {
     classes,
     setColorFocusButton,
     colorFocusButton: color,
-    disabled
+    disabled,
+    indexFocusButton
   } = props;
 
   /**
@@ -67,7 +69,16 @@ function PickerColorButton(props) {
    * @param {object} [initialState=null] - Sets initial state for "anchorEl".
    */
   const [anchorEl, setAnchorEl] = useState(null);
-
+  const [underglowOpen, setUnderglowOpen] = useState(indexFocusButton);
+  const underGlowButtonOpen = useRef(null);
+  const underglowIndex = 14;
+  const backlightIndex = 15;
+  /**
+   * Change "setUnderglowOpen" in functional component state to open Color Palette
+   */
+  useEffect(() => {
+    setUnderglowOpen(indexFocusButton);
+  }, [indexFocusButton]);
   /**
    * Change "anchorEl" in functional component state to open Color Picker
    */
@@ -80,26 +91,31 @@ function PickerColorButton(props) {
    */
   const handleClose = () => {
     setAnchorEl(null);
+    setUnderglowOpen(null);
   };
-
   /// Set the value to open (close) Popover element
   const open = Boolean(anchorEl);
-
   return (
-    <Tooltip placement="top-start" title={props.children}>
+    <Tooltip placement="top-end" title={props.children}>
       <div className={classes.root}>
-        <Fab
-          color="primary"
-          className={classes.fab}
-          onClick={handleClick}
-          disabled={disabled}
-        >
-          <PaletteIcon className={classes.icon} />
-        </Fab>
+        <RootRef rootRef={underGlowButtonOpen}>
+          <Fab
+            color="primary"
+            className={classes.fab}
+            onClick={handleClick}
+            disabled={disabled}
+          >
+            <PaletteIcon className={classes.icon} />
+          </Fab>
+        </RootRef>
         <Popover
           id={"simple-popover"}
-          open={open}
-          anchorEl={anchorEl}
+          open={
+            open ||
+            underglowOpen === underglowIndex ||
+            underglowOpen === backlightIndex
+          }
+          anchorEl={anchorEl || underGlowButtonOpen.current}
           onClose={handleClose}
           anchorOrigin={{
             vertical: "top",

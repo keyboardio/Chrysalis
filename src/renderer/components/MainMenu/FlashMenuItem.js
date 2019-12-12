@@ -19,8 +19,8 @@ import React from "react";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import i18n from "../../i18n";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 
 export default function FlashMenuItem({ selected, onClick, className }) {
   return (

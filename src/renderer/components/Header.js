@@ -25,19 +25,19 @@ import "typeface-source-code-pro/index.css";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import CloseIcon from "@material-ui/icons/Close";
-import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
+import menu from "../menu.png";
+import menuWhite from "../menu-white.png";
 
-// import i18n from "../i18n";
 import BoardMenu from "./BoardMenu";
 import MainMenu from "./MainMenu/MainMenu";
-import logo from "../DygmaLogo.png";
 
 const styles = theme => ({
   pageMenu: {
-    marginLeft: theme.spacing.unit * 2
+    marginLeft: theme.spacing.unit * 5,
+    textTransform: "uppercase"
   },
   menuButton: {
     marginLeft: 22,
@@ -55,6 +55,15 @@ const styles = theme => ({
     width: 17,
     height: 17,
     marginRight: 10
+  },
+  submenu: {
+    display: "flex",
+    alignItems: "center",
+    margin: "0 0 0 15px",
+    minHeight: 52
+  },
+  menuIcon: {
+    width: 40
   }
 });
 
@@ -64,6 +73,7 @@ function Header({
   connected,
   pages,
   device,
+  theme,
   cancelContext
 }) {
   const [mainMenu, setMainMenuOpen] = useState(false);
@@ -75,10 +85,6 @@ function Header({
 
   function closeMainMenu() {
     setMainMenuOpen(false);
-  }
-
-  function openBoardMenu(event) {
-    setBoardMenuAnchor(event.currentTarget);
   }
 
   function closeBoardMenu() {
@@ -98,6 +104,7 @@ function Header({
       position="static"
       color={contextBar ? "secondary" : "inherit"}
       id="appbar"
+      style={{ padding: "20px 0" }}
     >
       <Toolbar variant="dense" className={classes.navigation}>
         <MainMenu
@@ -105,21 +112,9 @@ function Header({
           pages={pages}
           open={mainMenu}
           closeMenu={closeMainMenu}
+          themeDark={theme}
         />
         <div className={classes.grow} />
-        {device && (
-          <>
-            <Button
-              onClick={openBoardMenu}
-              disabled={!device.urls}
-              color="inherit"
-              className="button"
-            >
-              <img src={logo} alt="logoDygma" className={classes.logo} />
-              <span>BAZECOR</span>
-            </Button>
-          </>
-        )}
         {device && device.urls && (
           <BoardMenu
             boardAnchor={boardAnchor}
@@ -127,19 +122,22 @@ function Header({
             device={device}
           />
         )}
-        <Button
-          className={classes.menuButton}
-          color="inherit"
-          onClick={contextOnClick}
-        >
-          {contextBar ? <CloseIcon /> : <MenuIcon />}
+        <div className={classes.submenu}>
+          <Button onClick={contextOnClick}>
+            {contextBar ? (
+              <CloseIcon />
+            ) : theme ? (
+              <img src={menuWhite} alt="Menu" className={classes.menuIcon} />
+            ) : (
+              <img src={menu} alt="Menu" className={classes.menuIcon} />
+            )}
+          </Button>
           <Typography
             variant="h6"
-            color="inherit"
             className={classes.pageMenu}
             id="page-title"
           />
-        </Button>
+        </div>
       </Toolbar>
     </AppBar>
   );

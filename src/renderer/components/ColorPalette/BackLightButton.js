@@ -21,9 +21,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import { setButtonSizeTamplate } from "../../../renderer/utils/setTemplates";
+import Tooltip from "@material-ui/core/Tooltip";
 
-ColorButton.propTypes = {
+BacklightButton.propTypes = {
   classes: PropTypes.object.isRequired,
   isFocus: PropTypes.bool.isRequired,
   setIsFocus: PropTypes.func.isRequired,
@@ -35,12 +35,19 @@ ColorButton.propTypes = {
 
 const styles = () => ({
   root: {
-    ...setButtonSizeTamplate(35),
-    margin: "4px 6px",
-    padding: 0,
+    height: "100%",
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "column",
+    alignItems: "center"
+  },
+  button: {
+    width: 130,
+    padding: 10,
+    marginBottom: 25,
     borderRadius: 5,
-    cursor: "pointer",
-    boxShadow: "-2px 1px 5px 0px rgba(213,213,213,1)"
+    fontSize: 10,
+    cursor: "pointer"
   }
 });
 
@@ -62,8 +69,8 @@ const minWhiteColorValue = 140;
  * @param {object} color Current color of button
  * @param {boolean} disabled Property that disable component
  */
-function ColorButton(props) {
-  const { classes, setIsFocus, isFocus, index, color, disabled } = props;
+function BacklightButton(props) {
+  const { classes, setIsFocus, isFocus, index, color, disabled, value } = props;
   ///Checks background is white or not
   const isWhiteColor =
     color.r >= minWhiteColorValue &&
@@ -73,24 +80,27 @@ function ColorButton(props) {
     background: `rgb(${color.r}, ${color.g}, ${color.b})`,
     color: !isWhiteColor ? "white" : "black"
   };
-
   const styleInFocus = {
     ...style,
     boxShadow: !isWhiteColor
       ? `0px 0px 26px 4px rgb(${color.r}, ${color.g}, ${color.b})`
       : `0px 0px 26px 4px rgb(155, 155, 155)`
   };
-
   return (
-    <Button
-      variant="contained"
-      className={classes.root}
-      style={disabled ? styleDisabled : isFocus ? styleInFocus : style}
-      onClick={setIsFocus.bind(this, index, color)}
-    >
-      {""}
-    </Button>
+    <Tooltip placement="top" title={props.children}>
+      <div className={classes.root}>
+        <Button
+          variant="contained"
+          className={classes.button}
+          style={disabled ? styleDisabled : isFocus ? styleInFocus : style}
+          onClick={setIsFocus.bind(this, index, color)}
+          value={value}
+        >
+          {value}
+        </Button>
+      </div>
+    </Tooltip>
   );
 }
 
-export default withStyles(styles)(ColorButton);
+export default withStyles(styles)(BacklightButton);

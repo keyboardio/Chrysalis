@@ -207,7 +207,7 @@ class App extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { connected, pages, contextBar } = this.state;
+    const { connected, pages, contextBar, darkMode } = this.state;
 
     let focus = new Focus();
     let device =
@@ -215,7 +215,7 @@ class App extends React.Component {
       (this.state.device && this.state.device.device.info);
 
     return (
-      <MuiThemeProvider theme={this.state.darkMode ? darkTheme : lightTheme}>
+      <MuiThemeProvider theme={darkMode ? darkTheme : lightTheme}>
         <div className={classes.root}>
           <LocationProvider history={history}>
             <CssBaseline />
@@ -225,6 +225,7 @@ class App extends React.Component {
               pages={pages}
               device={device}
               cancelContext={this.cancelContext}
+              theme={darkMode}
             />
             <main className={classes.content}>
               <Router>
@@ -277,9 +278,8 @@ class App extends React.Component {
             open={this.state.cancelPendingOpen}
             onConfirm={this.doCancelContext}
             onCancel={this.cancelContextCancellation}
-          >
-            {i18n.app.cancelPending.content}
-          </ConfirmationDialog>
+            text={i18n.app.cancelPending.content}
+          />
         </div>
       </MuiThemeProvider>
     );

@@ -19,23 +19,31 @@ import React from "react";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import KeyboardIcon from "@material-ui/icons/Keyboard";
+import updateWhite from "../../update-white.png";
+import update from "../../update.png";
 
 export default function KeyboardMenuItem({
   keyboardSelectText,
-  selected,
   onClick,
-  className
+  className,
+  themeDark
 }) {
   return (
-    <ListItem
-      button
-      selected={selected}
-      onClick={onClick}
-      className={className}
-    >
+    <ListItem button onClick={onClick} className={className}>
       <ListItemIcon>
-        <KeyboardIcon />
+        {themeDark ? (
+          <img
+            src={updateWhite}
+            alt="update"
+            style={{ width: 24, height: 24 }}
+          />
+        ) : (
+          <img
+            src={update}
+            alt="updateWhite"
+            style={{ width: 24, height: 24 }}
+          />
+        )}
       </ListItemIcon>
       <ListItemText primary={keyboardSelectText} />
     </ListItem>

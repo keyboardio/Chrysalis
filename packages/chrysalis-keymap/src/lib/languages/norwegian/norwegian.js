@@ -455,4 +455,4 @@ const norwegianModifiedTables = [
 ]
 
 export { norwegian as default, norwegianModifiedTables }
-// export default norwegian;
+// export default norwegian ;

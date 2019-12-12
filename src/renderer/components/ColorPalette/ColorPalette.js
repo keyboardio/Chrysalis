@@ -127,10 +127,10 @@ function ColorPalette(props) {
     const startKeys = 0;
     const startUnderglow = 69;
     const endKeys = 142;
-    if (indexFocusButton === underglowButton) {
-      toChangeAllKeysColor(underglowButton, startKeys, startUnderglow);
-    } else if (indexFocusButton === backlightButton) {
-      toChangeAllKeysColor(backlightButton, startUnderglow, endKeys);
+    if (indexFocusButton === backlightButton) {
+      toChangeAllKeysColor(backlightButton, startKeys, startUnderglow);
+    } else if (indexFocusButton === underglowButton) {
+      toChangeAllKeysColor(underglowButton, startUnderglow, endKeys);
     }
     if (
       (index === backlightButton && indexFocusButton !== index) ||

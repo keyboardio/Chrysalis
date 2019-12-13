@@ -25,7 +25,8 @@ import ColorButtonsArea from "./ColorButtonsArea";
 import PickerColorButton from "./PickerColorButton";
 import { setColorTamplate } from "../../../renderer/utils/setTemplates";
 import i18n from "../../i18n";
-// import ColorPaletteArea from "./ColorPaletteArea";
+import UnderglowButton from "./UnderglowButton";
+import BackLightButton from "./BackLightButton";
 
 ColorPalette.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -46,7 +47,7 @@ const styles = () => ({
     width: 230,
     minHeight: 500,
     minWidth: 140,
-    paddingTop: 25
+    paddingTop: 5
   }
 });
 
@@ -77,7 +78,8 @@ function ColorPalette(props) {
     onColorButtonSelect,
     theme,
     toChangeAllKeysColor,
-    onBacklightColorSelect
+    onBacklightColorSelect,
+    darkMode
   } = props;
 
   /**
@@ -122,25 +124,7 @@ function ColorPalette(props) {
    */
   const setIsFocus = (index, color, e) => {
     if (e.ctrlKey || e.shiftKey) return;
-    const underglowButton = 14;
-    const backlightButton = 15;
-    const startKeys = 0;
-    const startUnderglow = 69;
-    const endKeys = 142;
-    if (indexFocusButton === backlightButton) {
-      toChangeAllKeysColor(backlightButton, startKeys, startUnderglow);
-    } else if (indexFocusButton === underglowButton) {
-      toChangeAllKeysColor(underglowButton, startUnderglow, endKeys);
-    }
-    if (
-      (index === backlightButton && indexFocusButton !== index) ||
-      (index === underglowButton && indexFocusButton !== index)
-    ) {
-      setIndexFocusButton(index);
-      onBacklightColorSelect(index);
-      setColorFocusButton(setColorTamplate(color));
-      return;
-    }
+
     if (index === indexFocusButton) {
       setIndexFocusButton(!indexFocusButton);
       onColorButtonSelect("one_button_click");
@@ -162,7 +146,8 @@ function ColorPalette(props) {
     toChangeAllKeysColor,
     setIndexFocusButton,
     setColorFocusButton,
-    onBacklightColorSelect
+    onBacklightColorSelect,
+    darkMode
   };
   return (
     <Paper className={classes.root}>
@@ -175,6 +160,27 @@ function ColorPalette(props) {
         {i18n.components.pickerColorButton}
       </PickerColorButton>
       <ColorButtonsArea {...propsToArea} />
+      <UnderglowButton
+        colorFocusButton={colorFocusButton}
+        indexFocusButton={indexFocusButton}
+        disabled={disabled}
+        theme={theme}
+        toChangeAllKeysColor={toChangeAllKeysColor}
+        palette={palette}
+        darkMode={darkMode}
+      >
+        {i18n.components.underglowColorButton}
+      </UnderglowButton>
+      <BackLightButton
+        colorFocusButton={colorFocusButton}
+        indexFocusButton={indexFocusButton}
+        disabled={disabled}
+        theme={theme}
+        toChangeAllKeysColor={toChangeAllKeysColor}
+        darkMode={darkMode}
+      >
+        {i18n.components.keysColorButton}
+      </BackLightButton>
     </Paper>
   );
 }

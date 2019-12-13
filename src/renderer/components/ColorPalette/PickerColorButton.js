@@ -17,7 +17,7 @@
 /**
  * This is Reactjs functional component that create button to choose colors from Color Picker
  */
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { SketchPicker } from "react-color";
@@ -60,8 +60,7 @@ function PickerColorButton(props) {
     classes,
     setColorFocusButton,
     colorFocusButton: color,
-    disabled,
-    indexFocusButton
+    disabled
   } = props;
 
   /**
@@ -69,16 +68,8 @@ function PickerColorButton(props) {
    * @param {object} [initialState=null] - Sets initial state for "anchorEl".
    */
   const [anchorEl, setAnchorEl] = useState(null);
-  const [underglowOpen, setUnderglowOpen] = useState(indexFocusButton);
   const underGlowButtonOpen = useRef(null);
-  const underglowIndex = 14;
-  const backlightIndex = 15;
-  /**
-   * Change "setUnderglowOpen" in functional component state to open Color Palette
-   */
-  useEffect(() => {
-    setUnderglowOpen(indexFocusButton);
-  }, [indexFocusButton]);
+
   /**
    * Change "anchorEl" in functional component state to open Color Picker
    */
@@ -91,12 +82,11 @@ function PickerColorButton(props) {
    */
   const handleClose = () => {
     setAnchorEl(null);
-    setUnderglowOpen(null);
   };
   /// Set the value to open (close) Popover element
   const open = Boolean(anchorEl);
   return (
-    <Tooltip placement="top-end" title={props.children}>
+    <Tooltip placement="top" title={props.children}>
       <div className={classes.root}>
         <RootRef rootRef={underGlowButtonOpen}>
           <Fab
@@ -110,12 +100,8 @@ function PickerColorButton(props) {
         </RootRef>
         <Popover
           id={"simple-popover"}
-          open={
-            open ||
-            underglowOpen === underglowIndex ||
-            underglowOpen === backlightIndex
-          }
-          anchorEl={anchorEl || underGlowButtonOpen.current}
+          open={open}
+          anchorEl={anchorEl}
           onClose={handleClose}
           anchorOrigin={{
             vertical: "top",

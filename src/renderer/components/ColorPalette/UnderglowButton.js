@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Bazecor -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ * Copyright (C) 2019  DygmaLab SE
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -14,90 +14,115 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * This is Reactjs functional component that create color button
- */
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 import Tooltip from "@material-ui/core/Tooltip";
+import Button from "@material-ui/core/Button";
 
 UnderglowButton.propTypes = {
   classes: PropTypes.object.isRequired,
-  isFocus: PropTypes.bool.isRequired,
-  setIsFocus: PropTypes.func.isRequired,
-  index: PropTypes.number.isRequired,
-  color: PropTypes.object.isRequired,
+  colorFocusButton: PropTypes.object,
+  palette: PropTypes.array.isRequired,
+  indexFocusButton: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.number,
+    PropTypes.oneOf([null])
+  ]),
+  theme: PropTypes.object.isRequired,
   disabled: PropTypes.bool.isRequired,
-  isSelected: PropTypes.bool
+  toChangeAllKeysColor: PropTypes.func.isRequired
 };
 
 const styles = () => ({
   root: {
-    height: "100%",
     display: "flex",
     justifyContent: "center",
-    flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
+    marginBottom: 25
   },
   button: {
-    width: 130,
-    padding: 10,
-    marginBottom: 25,
-    borderRadius: 5,
+    width: 95,
+    cursor: "pointer",
     fontSize: 10,
-    cursor: "pointer"
+    color: "#fff",
+    backgroundColor: "#303f9f"
   }
 });
 
 const styleDisabled = {
-  background: "rgb(155, 155, 155)",
+  background: "#e0e0e0",
   pointerEvents: "none",
-  cursor: "default"
+  cursor: "default",
+  color: "#797979"
 };
 
-///Minimum value for rendering border on white button
-const minWhiteColorValue = 140;
+const styleDisabledDark = {
+  pointerEvents: "none",
+  cursor: "default",
+  color: "rgba(255, 255, 255, 0.3)",
+  backgroundColor: "rgba(255, 255, 255, 0.12)"
+};
 
 /**
- * Reactjs functional component that create color button
+ * This is Reactjs functional component that create button for change color of all undeglow elements
  * @param {object} classes Property that sets up CSS classes that adding to HTML elements
- * @param {boolean} isFocus Change CSS styles
- * @param {function} setIsFocus Callback function from ColorPalette component. Parameters are: first - index of color button in palette (from 0 to 15), second - object with keys that defining colors using the Red-green-blue-alpha (RGBA) model, third - event
- * @param {number} index Current index of button
- * @param {object} color Current color of button
+ * @param {boolean} colorFocusButton Set color for UndeglowColorButton if any color button in palette is selected
+ * @param {function} indexFocusButton Numder of selected color button in palette from 0 to 15, is not selected - null
+ * @param {number} theme To use theme object from Material UI
+ * @param {object} toChangeAllUnderglowsColor Callback function from Editor component. Parameter is index of color palette from 0 to 15
  * @param {boolean} disabled Property that disable component
  */
 function UnderglowButton(props) {
-  const { classes, setIsFocus, isFocus, index, color, disabled, value } = props;
-  ///Checks background is white or not
+  const {
+    classes,
+    colorFocusButton,
+    toChangeAllKeysColor,
+    disabled,
+    indexFocusButton,
+    palette,
+    darkMode
+  } = props;
+  const minWhiteColorValue = 140;
   const isWhiteColor =
-    color.r >= minWhiteColorValue &&
-    (color.g >= minWhiteColorValue && color.b >= minWhiteColorValue);
-
+    colorFocusButton.r >= minWhiteColorValue &&
+    (colorFocusButton.g >= minWhiteColorValue &&
+      colorFocusButton.b >= minWhiteColorValue);
   const style = {
-    background: `rgb(${color.r}, ${color.g}, ${color.b})`,
+    background: palette[indexFocusButton] && palette[indexFocusButton].rgb,
     color: !isWhiteColor ? "white" : "black"
   };
-  const styleInFocus = {
-    ...style,
-    boxShadow: !isWhiteColor
-      ? `0px 0px 26px 4px rgb(${color.r}, ${color.g}, ${color.b})`
-      : `0px 0px 26px 4px rgb(155, 155, 155)`
+  const enable = {
+    pointerEvents: "auto",
+    cursor: "pointer",
+    color: !isWhiteColor ? "white" : "black",
+    background: `rgb(${colorFocusButton.r}, ${colorFocusButton.g}, ${
+      colorFocusButton.b
+    })`
   };
-
+  const [, setBackgroundColor] = useState(enable);
+  useEffect(() => {
+    return () => setBackgroundColor(style);
+  }, []);
   return (
-    <Tooltip placement="top" title={props.children}>
+    <Tooltip placement="top-start" title={props.children}>
       <div className={classes.root}>
         <Button
           variant="contained"
           className={classes.button}
-          style={disabled ? styleDisabled : isFocus ? styleInFocus : style}
-          onClick={setIsFocus.bind(this, index, color)}
-          value={value}
+          style={
+            (!+indexFocusButton && indexFocusButton !== 0) || disabled
+              ? darkMode
+                ? styleDisabledDark
+                : styleDisabled
+              : styles().button
+          }
+          onClick={() => {
+            toChangeAllKeysColor(indexFocusButton, 69, 142);
+            setBackgroundColor(enable);
+          }}
         >
-          {value}
+          {"UNDERGLOW"}
         </Button>
       </div>
     </Tooltip>

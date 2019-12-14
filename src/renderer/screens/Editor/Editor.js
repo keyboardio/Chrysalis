@@ -850,6 +850,7 @@ class Editor extends React.Component {
             toChangeAllKeysColor={this.toChangeAllKeysColor}
             onBacklightColorSelect={this.onBacklightColorSelect}
             className="palette"
+            darkMode={this.props.darkMode}
           />
         </div>
         <Slide in={this.getCurrentKey() != -1} direction="up" unmountOnExit>

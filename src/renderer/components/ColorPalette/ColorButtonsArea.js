@@ -23,9 +23,6 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import ColorButton from "./ColorButton";
-import i18n from "../../i18n";
-import UndeglowColorButton from "./UnderglowButton";
-import BacklightButton from "./BackLightButton";
 
 ColorButtonsArea.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -64,12 +61,8 @@ function ColorButtonsArea(props) {
     indexFocusButton,
     setIsFocus,
     palette,
-    disabled,
-    onBacklightColorSelect
+    disabled
   } = props;
-
-  const underglowButton = 14;
-  const backlightButton = 15;
 
   /**
    * This is Hook that lets add React state "colorButtonsAmount" to functional components
@@ -88,58 +81,26 @@ function ColorButtonsArea(props) {
   /**
    * Render color buttons area by two arrays from prop "pallete"
    */
-  const displayGrids = (start, end) => {
+  const displayGrids = () => {
     return (
       <Grid container justify="center" alignItems="center">
-        {palette
-          .map((colorButton, i) => (
-            <ColorButton
-              key={uuid()}
-              isFocus={i === indexFocusButton}
-              index={i}
-              color={i === indexFocusButton ? colorFocusButton : colorButton}
-              setIsFocus={setIsFocus}
-              disabled={disabled}
-            />
-          ))
-          .slice(start, end)}
+        {palette.map((colorButton, i) => (
+          <ColorButton
+            key={uuid()}
+            isFocus={i === indexFocusButton}
+            index={i}
+            color={i === indexFocusButton ? colorFocusButton : colorButton}
+            setIsFocus={setIsFocus}
+            disabled={disabled}
+          />
+        ))}
       </Grid>
     );
   };
 
   return (
-    <div>
-      <Grid className={classes.palette} container>
-        {displayGrids(0, underglowButton)}
-      </Grid>
-      {palette.length > 0 && (
-        <UndeglowColorButton
-          key={uuid()}
-          isFocus={underglowButton === indexFocusButton}
-          index={underglowButton}
-          color={palette[underglowButton]}
-          setIsFocus={setIsFocus}
-          disabled={disabled}
-          onBacklightColorSelect={onBacklightColorSelect}
-          value={"UNDERGLOW"}
-        >
-          {i18n.components.underglowColorButton}
-        </UndeglowColorButton>
-      )}
-      {palette.length > 0 && (
-        <BacklightButton
-          key={uuid()}
-          isFocus={backlightButton === indexFocusButton}
-          index={backlightButton}
-          color={palette[backlightButton]}
-          setIsFocus={setIsFocus}
-          disabled={disabled}
-          onBacklightColorSelect={onBacklightColorSelect}
-          value={"BACKLIGHT"}
-        >
-          {i18n.components.keysColorButton}
-        </BacklightButton>
-      )}
+    <div className={classes.palette}>
+      <Grid container>{displayGrids()}</Grid>
     </div>
   );
 }

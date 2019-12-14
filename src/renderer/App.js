@@ -249,6 +249,7 @@ class App extends React.Component {
                   inContext={this.state.contextBar}
                   titleElement={() => document.querySelector("#page-title")}
                   appBarElement={() => document.querySelector("#appbar")}
+                  darkMode={darkMode}
                 />
                 <FirmwareUpdate
                   path="/firmware-update"

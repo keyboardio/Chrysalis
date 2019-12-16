@@ -13,8 +13,8 @@ The primary purpose of the application is to allow one to configure their keyboa
 
 * **Layout editor** to edit the keymap on-the-fly, with the ability to copy one
   layer to another, and to set a default one.
-* **Colormap editor** to edit the per-key LED colormap on boards that support it.
-* **Firmware upgrade** to upload either the default firmware that ships with the application, or a custom one.
+* **Colormap editor** to edit the per-key and underglow LED colormap.
+* **Firmware upgrade** to upload new versions of the firmware that ships with the application.
 
 ## Supported operating systems
 

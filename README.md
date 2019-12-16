@@ -22,18 +22,9 @@ You can download pre-built binaries for the three major operating systems below:
 
 ## About
 
-Chrysalis is a graphical configurator for [Kaleidoscope][kaleidoscope]-powered
-keyboards. While still heavily under development, it's at a stage where it is
-already usable for a number of tasks. To try it, you don't even need to flash
-`Kaleidoscope` beforehand, Chrysalis can do that for you, as it ships with
-reasonable default firmware for each supported board.
+Bazecor is the graphical configurator for the Dygma Raise. While still heavily under development, it's at a stage where it is already usable.
 
- [kaleidoscope]: https://github.com/keyboardio/Kaleidoscope
-
-The primary purpose of the application is to allow one to configure their
-keyboard without having to compile or flash firmware, by storing the
-configuration on the keyboard itself, in EEPROM. There are no external tools
-required, just Chrysalis itself.
+The primary purpose of the application is to allow one to configure their keyboard without having to compile or flash firmware, by storing the configuration on the keyboard itself, in EEPROM. There are no external tools required, just Bazecor itself.
 
 ## Features
 

@@ -4,7 +4,7 @@ TMP=$(mktemp --suffix .png)
 
 echo "Taking screenshot..."
 
-import -silent -window Chrysalis -format png - |                  \
+import -silent -window Bazecor -format png - |                  \
     convert -                                                     \
             -bordercolor white -border 6                          \
             -bordercolor snow  -border 1                          \

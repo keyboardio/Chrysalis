@@ -49,7 +49,7 @@ const English = {
       keyboardSection: "Raise",
       keyboardTitle: "WELCOME TO BAZECOR,",
       keyboardTitleSecondary: "DYGMA RAISE CONFIGURATOR.",
-      chrysalisSection: "Bazecor",
+      bazecorSection: "Bazecor",
       miscSection: "Miscellaneous",
       upgradeAvailable: "An upgrade is available!"
     },

@@ -186,7 +186,7 @@ function MainMenu({ open, closeMenu, classes, connected, pages, themeDark }) {
           className={classes.drawer}
           subheader={
             <ListSubheader disableSticky>
-              {i18n.app.menu.chrysalisSection}
+              {i18n.app.menu.bazecorSection}
             </ListSubheader>
           }
         >

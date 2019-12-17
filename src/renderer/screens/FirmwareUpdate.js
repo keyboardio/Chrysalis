@@ -201,7 +201,7 @@ class FirmwareUpdate extends React.Component {
               onClick={() => {
                 const shell = Electron.remote && Electron.remote.shell;
                 shell.openExternal(
-                  "https://github.com/keyboardio/Chrysalis/wiki/Troubleshooting"
+                  "https://github.com/Dygmalab/Bazecor/wiki/Troubleshooting"
                 );
               }}
             >
@@ -246,7 +246,7 @@ class FirmwareUpdate extends React.Component {
             onClick={() => {
               const shell = Electron.remote && Electron.remote.shell;
               shell.openExternal(
-                "https://github.com/keyboardio/Chrysalis/wiki/Troubleshooting"
+                "https://github.com/Dygmalab/Bazecor/wiki/Troubleshooting"
               );
             }}
           >
@@ -381,8 +381,8 @@ class FirmwareUpdate extends React.Component {
               {i18n.firmwareUpdate.description}
             </Typography>
             <Typography component="p" gutterBottom className={classes.repo}>
-              <a href="https://github.com/keyboardio/Chrysalis-Firmware-Bundle#readme">
-                Bazecor-Firmware-Bundle
+              <a href="https://github.com/Dygmalab/Raise-Firmware#readme">
+                Raise-Firmware
               </a>
             </Typography>
             <Typography component="p" gutterBottom>

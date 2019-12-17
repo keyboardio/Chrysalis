@@ -24,7 +24,7 @@ class Error extends React.Component {
         <h1>An error occurred!</h1>
         <p>
           Please see the errors on the development console, and{" "}
-          <a href="https://github.com/keyboardio/Chrysalis/issues/new">
+          <a href="https://github.com/Dygmalab/Bazecor/issues/new">
             report the issue
           </a>
           .

@@ -3,10 +3,10 @@
   "version": "0.1.1",
   "license": "GPL-3.0-only",
   "author": {
-    "name": "Gergely Nagy",
-    "email": "algernon@keyboard.io"
+    "name": "DygmaLab SE",
+    "email": "contact@dygma.com"
   },
-  "homepage": "https://github.com/keyboardio/Chrysalis",
+  "homepage": "https://github.com/Dygmalab/Bazecor",
   "scripts": {
     "preinstall": "node tools/preinstall.js",
     "postinstall": "electron-builder install-app-deps",
@@ -32,10 +32,10 @@
     }
   },
   "build": {
-    "appId": "keyboardio.chrysalis",
+    "appId": "dygmalab.bazecor",
     "productName": "Bazecor",
     "artifactName": "${productName}-${version}.${ext}",
-    "copyright": "Copyright © 2018, 2019 Keyboardio Inc.; distributed under the GPLv3",
+      "copyright": "Copyright © 2018, 2019 Keyboardio Inc.; Copyright © 2018, 2019 DygmaLab SE; distributed under the GPLv3",
     "mac": {
       "darkModeSupport": true
     },

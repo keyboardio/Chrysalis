@@ -25,7 +25,7 @@ If applicable, add screenshots to help explain your problem. If possible, please
 
 **Desktop (please complete the following information):**
  - OS: [e.g. iOS]
- - Chrysalis Version: [e.g. 0.4.0]
+ - Bazecor Version: [e.g. 0.1.0]
 
 **Additional context**
 Add any other context about the problem here.

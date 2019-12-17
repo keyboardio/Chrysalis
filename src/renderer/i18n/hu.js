@@ -45,7 +45,7 @@ const Hungarian = {
       feedback: "Visszajelzés küldése",
       exit: "Kilépés",
       keyboardSection: "Billentyűzet",
-      chrysalisSection: "Bazecor",
+      bazecorSection: "Bazecor",
       miscSection: "Egyéb",
       upgradeAvailable: "Frissítés érhető el!"
     },

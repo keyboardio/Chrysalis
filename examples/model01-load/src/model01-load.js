@@ -1,5 +1,5 @@
-/* model01-load.js -- A Chrysalis API example
- * Copyright (C) 2019  Keyboardio, Inc.
+/* model01-load.js -- A Bazecor API example
+ * Copyright (C) 2019  DygmaLab SE
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -14,8 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Focus from "@chrysalis-api/focus";
-import { Model01 } from "@chrysalis-api/hardware-keyboardio-model01";
+import Focus from "@bazecor-api/focus";
+import { Model01 } from "@bazecor-api/hardware-keyboardio-model01";
 import convert from "color-convert";
 import os from "os";
 

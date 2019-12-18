@@ -1,14 +1,14 @@
-Chrysalis API
+Bazecor API
 =============
 
-This is a collection of libraries to make it easier to work with keyboards that support [Kaleidoscope][kaleidoscope]'s [Focus][kaleidoscope:focus] protocol.
+This is a collection of libraries to make it easier to work with keyboards that support [Dygmalab][Dygmalab]'s [Focus][Dygmalab:focus] protocol.
 
- [kaleidoscope]: https://github.com/keyboardio/Kaleidoscope
- [kaleidoscope:focus]: https://github.com/keyboardio/Kaleidoscope/blob/master/doc/plugin/FocusSerial.md
+ [Dygmalab]: https://github.com/Dygmalab/Bazecor
+ [Dygmalab:focus]: https://github.com/Dygmalab/Bazecor/blob/master/doc/plugin/FocusSerial.md
 
 ```javascript
-import Focus from "@chrysalis-api/focus";
-import { Model01 } from "@chrysalis-api/hardware-keyboardio-model01";
+import Focus from "@bazecor-api/focus";
+import { Model01 } from "@bazecor-api/hardware-keyboardio-model01";
 
 let focus = new Focus();
 focus.open(Model01).then(() => {
@@ -18,4 +18,4 @@ focus.open(Model01).then(() => {
 });
 ```
 
-[Documentation](https://keyboardio.github.io/chrysalis-api/)
+[Documentation](https://github.com/Dygmalab/Bazecor)

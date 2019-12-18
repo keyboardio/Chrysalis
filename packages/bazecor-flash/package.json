@@ -1,0 +1,36 @@
+{
+  "name": "@bazecor-api/flash",
+  "version": "0.0.1",
+  "description": "Keyboard flash helpers for Bazecor",
+  "main": "lib",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Dygmalab/bazecor-api.git"
+  },
+  "author": {
+    "name": "DygmaLab SE",
+    "email": "contact@dygma.com",
+    "url": "https://dygma.com"
+  },
+  "license": "GPL-3.0-only",
+  "homepage": "https://github.com/Dygmalab/bazecor-api#readme",
+  "bugs": {
+    "url": "https://github.com/Dygmalab/bazecor-api/issues"
+  },
+  "keywords": [
+  "bazecor",
+  "Dygmalab"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "babel src/lib -d lib",
+    "lint": "eslint src/lib",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "avrgirl-arduino": "^3.0.0",
+    "teensy-loader": "^0.1.1"
+  }
+}

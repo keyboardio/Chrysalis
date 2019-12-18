@@ -1,25 +1,25 @@
 {
-  "name": "@chrysalis-examples/model01-load",
+  "name": "@bazecor-examples/model01-load",
   "version": "0.0.0",
-  "description": "A chrysalis-api example",
+  "description": "A bazecor-api example",
   "main": "bin",
   "repository": {
     "type": "git",
-    "url": "git://github.com/keyboardio/chrysalis-api.git"
+    "url": "git://github.com/Dygmalab/bazecor-api.git"
   },
   "author": {
-    "name": "Gergely Nagy",
-    "email": "<algernon@keyboard.io>",
-    "url": "https://asylum.madhouse-project.org"
+      "name": "DygmaLab SE",
+      "email": "contact@dygma.com",
+      "url": "https://dygma.com"
   },
   "license": "GPL-3.0-only",
-  "homepage": "https://github.com/keyboardio/chrysalis-api#readme",
+  "homepage": "https://github.com/Dygmalab/Bazecor#readme",
   "bugs": {
-    "url": "https://github.com/keyboardio/chrysalis-api/issues"
+    "url": "https://github.com/Dygmalab/Bazecor/issues"
   },
   "keywords": [
-    "chrysalis",
-    "kaleidoscope"
+    "bazecor",
+    "Dygmalab"
   ],
   "publishConfig": {
     "access": "public"
@@ -31,8 +31,8 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@chrysalis-api/focus": "^0.0.9",
-    "@chrysalis-api/hardware-keyboardio-model01": "^0.0.19",
+    "@bazecor-api/focus": "^0.0.9",
+    "@bazecor-api/hardware-keyboardio-model01": "^0.0.19",
     "color-convert": "^2.0.0"
   }
 }

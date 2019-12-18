@@ -1,0 +1,43 @@
+{
+  "name": "@bazecor-api/hardware-dygma-raise-iso",
+  "version": "0.0.1",
+  "description": "Bazecor support for Dygma's Raise",
+  "main": "lib",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Dygmalab/bazecor-api.git"
+  },
+  "author": {
+    "name": "DygmaLab SE",
+    "email": "contact@dygma.com",
+    "url": "https://dygma.com"
+  },
+  "license": "GPL-3.0-only",
+  "homepage": "https://github.com/Dygmalab/bazecor-api#readme",
+  "bugs": {
+    "url": "https://github.com/Dygmalab/bazecor-api/issues"
+  },
+  "keywords": [
+    "bazecor",
+    "Dygmalab"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "babel src/lib -d lib",
+    "lint": "eslint src/lib",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@bazecor-api/focus": "^0.0.1",
+    "react": "^16.5.2"
+  },
+  "devDependencies": {
+    "@babel/preset-react": "^7.0.0",
+    "eslint-plugin-react": "^7.11.1"
+  },
+  "peerDependencies": {
+    "@bazecor-api/focus": "~0.0.2"
+  }
+}

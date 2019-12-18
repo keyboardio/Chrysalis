@@ -1,22 +1,22 @@
-Chrysalis API
+Bazecor API
 =============
 
-This is a collection of libraries to make it easier to work with keyboards that support [Kaleidoscope][kaleidoscope]'s [Focus][kaleidoscope:focus] protocol.
+This is a collection of libraries to make it easier to work with keyboards that support [Kaleidoscope][Dygmalab]'s [Focus][Dygmalab:focus] protocol.
 
- [kaleidoscope]: https://github.com/keyboardio/Kaleidoscope
- [kaleidoscope:focus]: https://github.com/keyboardio/Kaleidoscope/blob/master/doc/plugin/FocusSerial.md
+ [Dygmalab]: https://github.com/Dygmalab/Bazecor
+ [Dygmalab:focus]: https://github.com/Dygmalab/Bazecor/blob/master/doc/plugin/FocusSerial.md
 
 To get started, install the core package and a hardware description:
 
 ```
-$ yarn add @chrysalis-api/focus
-$ yarn add @chrysalis-api/hardware-keyboardio-model01
+$ yarn add @bazecor-api/focus
+$ yarn add @bazecor-api/hardware-keyboardio-model01
 ```
 
 Packages in the repository include:
- - [`@chrysalis-api/focus`](focus.md)
- - [`@chrysalis-api/hardware-keyboardio-model01`](hardware-keyboardio-model01.md)
- - `@chrysalis-api/keymap`
- - `@chrysalis-api/colormap`
+ - [`@bazecor-api/focus`](focus.md)
+ - [`@bazecor-api/hardware-keyboardio-model01`](hardware-keyboardio-model01.md)
+ - `@bazecor-api/keymap`
+ - `@bazecor-api/colormap`
 
-[Source code](https://github.com/keyboardio/chrysalis-api)
+[Source code](git://github.com/Dygmalab/bazecor-api)

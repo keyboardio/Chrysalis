@@ -1,17 +1,17 @@
-@chrysalis-api/focus
+@bazecor-api/focus
 ====================
 
-This is the heart of the Chrysalis libraries, the one thing that binds
+This is the heart of the Bazecor libraries, the one thing that binds
 everything together. It implements the `Focus` protocol used by
 [Kaleidoscope][k:focus] for bi-directional communication, and on top of that, it
 provides hooks and methods to build complex applications on top.
 
- [k:focus]: https://github.com/keyboardio/Kaleidoscope-Focus
+ [k:focus]: https://github.com/Dygmalab/Bazecor-Focus
 
-[![@chrysalis-api/focus](https://img.shields.io/npm/v/@chrysalis-api/focus.svg?style=for-the-badge&label=@chrysalis-api/focus&logo=npm)](https://www.npmjs.com/package/@chrysalis-api/focus)
+[![@bazecor-api/focus](https://img.shields.io/npm/v/@bazecor-api/focus.svg?style=for-the-badge&label=@bazecor-api/focus&logo=npm)](https://www.npmjs.com/package/@bazecor-api/focus)
 
 ```
-yarn add @chrysalis-api/focus
+yarn add @bazecor-api/focus
 ```
 
 # Focus
@@ -20,7 +20,7 @@ The module provides a singleton, `Focus`, which implements the Focus protocol,
 and provides hooks to extend it. Unless otherwise noted, all methods except the constructor return their result wrapped in a `Promise`.
 
 ```javascript
-import Focus from "@chrysalis-api/focus";
+import Focus from "@bazecor-api/focus";
 
 let focus = new Focus();
 ```

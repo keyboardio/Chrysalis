@@ -6,7 +6,7 @@ everything together. It implements the `Focus` protocol used by
 [Kaleidoscope][k:focus] for bi-directional communication, and on top of that, it
 provides hooks and methods to build complex applications on top.
 
- [k:focus]: https://github.com/Dygmalab/Bazecor-Focus
+[k:focus]: https://github.com/keyboardio/Kaleidoscope/blob/master/doc/plugin/FocusSerial.md
 
 ```js
 import Focus from "@bazecor/focus";

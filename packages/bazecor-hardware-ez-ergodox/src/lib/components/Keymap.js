@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* bazecor-hardware-ez-ergodox -- Bazecor ErgoDox support
- * Copyright (C) 2019  DygmaLab SE
+ * Copyright (C) 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software

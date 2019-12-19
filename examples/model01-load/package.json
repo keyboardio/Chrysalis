@@ -13,13 +13,13 @@
       "url": "https://dygma.com"
   },
   "license": "GPL-3.0-only",
-  "homepage": "https://github.com/Dygmalab/Bazecor#readme",
+  "homepage": "https://github.com/Dygmalab/bazecor-api#readme",
   "bugs": {
-    "url": "https://github.com/Dygmalab/Bazecor/issues"
+    "url": "https://github.com/Dygmalab/bazecor-api/issues"
   },
   "keywords": [
     "bazecor",
-    "Dygmalab"
+    "kaleidoscope"
   ],
   "publishConfig": {
     "access": "public"

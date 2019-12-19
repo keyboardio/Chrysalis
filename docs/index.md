@@ -1,10 +1,10 @@
 Bazecor API
 =============
 
-This is a collection of libraries to make it easier to work with keyboards that support [Kaleidoscope][Dygmalab]'s [Focus][Dygmalab:focus] protocol.
+This is a collection of libraries to make it easier to work with keyboards that support [Kaleidoscope][kaleidoscope]'s [Focus][kaleidoscope:focus] protocol.
 
- [Dygmalab]: https://github.com/Dygmalab/Bazecor
- [Dygmalab:focus]: https://github.com/Dygmalab/Bazecor/blob/master/doc/plugin/FocusSerial.md
+ [kaleidoscope]: https://github.com/keyboardio/Kaleidoscope
+ [kaleidoscope:focus]: https://github.com/keyboardio/Kaleidoscope/blob/master/doc/plugin/FocusSerial.md
 
 To get started, install the core package and a hardware description:
 

@@ -1,5 +1,5 @@
 /* bazecor-hardware-pjrc-teensy -- A Bazecor hardware library
- * Copyright (C) 2019  DygmaLab SE
+  * Copyright (C) 2019 Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -33,7 +33,7 @@ const GenericTeensy = {
             updateInstructions: `Since this is a Teensy-powered device in programmable mode already, Bazecor has no way of detecting what kind of keyboard it is. Please select a custom firmware appropriate for your keyboard, and continue.`
         },
         hu: {
-            updateInstructions: `Mivel ez egy ismeretlen Teensy-alapú eszköz programozható módban, a Chrysalisnak nincs elég információja ahhoz, hogy kiderítse, milyen billentyűzethez tartozik. Kérjük válasszon egy, a billentyűzetének megfelelő vezérlőt a folytatás előtt.`
+            updateInstructions: `Mivel ez egy ismeretlen Teensy-alapú eszköz programozható módban, a Bazecornak nincs elég információja ahhoz, hogy kiderítse, milyen billentyűzethez tartozik. Kérjük válasszon egy, a billentyűzetének megfelelő vezérlőt a folytatás előtt.`
         }
     },
     usb: {

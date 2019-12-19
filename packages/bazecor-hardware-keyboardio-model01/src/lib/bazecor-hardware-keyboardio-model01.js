@@ -1,5 +1,5 @@
 /* bazecor-hardware-keyboardio-model01 -- Bazecor Keyboardio Model01 support
- * Copyright (C) 2019  DygmaLab SE
+ * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software

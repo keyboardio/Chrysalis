@@ -1,6 +1,6 @@
 {
   "name": "BAZECOR",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "license": "GPL-3.0-only",
   "author": {
     "name": "DygmaLab SE",
@@ -35,7 +35,7 @@
     "appId": "dygmalab.bazecor",
     "productName": "Bazecor",
     "artifactName": "${productName}-${version}.${ext}",
-      "copyright": "Copyright © 2018, 2019 Keyboardio Inc.; Copyright © 2018, 2019 DygmaLab SE; distributed under the GPLv3",
+    "copyright": "Copyright © 2018, 2019 Keyboardio Inc.; Copyright © 2018, 2019 DygmaLab SE; distributed under the GPLv3",
     "mac": {
       "darkModeSupport": true
     },
@@ -46,10 +46,10 @@
     }
   },
   "dependencies": {
-    "@chrysalis-api/colormap": "^0.0.13",
-    "@chrysalis-api/focus": "^0.0.14",
-    "@chrysalis-api/hardware": "^0.0.17",
-    "@chrysalis-api/keymap": "^0.0.24",
+    "@bazecor-api/colormap": "^0.0.1",
+    "@bazecor-api/focus": "^0.0.1",
+    "@bazecor-api/hardware": "^0.0.1",
+    "@bazecor-api/keymap": "^0.0.1",
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.1",
     "@material-ui/lab": "^3.0.0-alpha.30",

@@ -1,6 +1,6 @@
 {
     "name": "@bazecor-api/keymap",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Bazecor keymap library",
     "main": "lib",
     "repository": {
@@ -30,6 +30,6 @@
         "prepublishOnly": "npm run build"
     },
     "dependencies": {
-        "@bazecor-api/focus": "^0.0.1"
+        "@bazecor-api/focus": "^0.0.2"
     }
 }

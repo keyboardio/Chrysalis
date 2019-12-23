@@ -21,8 +21,8 @@ import path from "path";
 import fs from "fs";
 import { version } from "../../../package.json";
 
-import Focus from "@chrysalis-api/focus";
-import FlashRaise from "@chrysalis-api/flash/lib/chrysalis-flash-raise";
+import Focus from "@bazecor-api/focus";
+import FlashRaise from "@bazecor-api/flash/lib/bazecor-flash-raise";
 
 import BuildIcon from "@material-ui/icons/Build";
 import Button from "@material-ui/core/Button";

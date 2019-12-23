@@ -17,8 +17,8 @@
 
 import React, { useState } from "react";
 
-import "@chrysalis-api/keymap";
-import "@chrysalis-api/colormap";
+import "@bazecor-api/keymap";
+import "@bazecor-api/colormap";
 import "typeface-roboto/index.css";
 import "typeface-source-code-pro/index.css";
 

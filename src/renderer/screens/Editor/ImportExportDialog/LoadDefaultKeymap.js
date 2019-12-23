@@ -19,7 +19,7 @@ import React, { useState } from "react";
 import path from "path";
 const fs = require("fs");
 
-import Focus from "@chrysalis-api/focus";
+import Focus from "@bazecor-api/focus";
 
 import Button from "@material-ui/core/Button";
 

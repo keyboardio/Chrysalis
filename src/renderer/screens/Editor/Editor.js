@@ -38,8 +38,8 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { withStyles } from "@material-ui/core/styles";
 import { withSnackbar } from "notistack";
 
-import Focus from "@chrysalis-api/focus";
-import Keymap, { KeymapDB } from "@chrysalis-api/keymap";
+import Focus from "@bazecor-api/focus";
+import Keymap, { KeymapDB } from "@bazecor-api/keymap";
 
 import ColorPalette from "../../components/ColorPalette";
 import KeySelector from "./KeySelector";

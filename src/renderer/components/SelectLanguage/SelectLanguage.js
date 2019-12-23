@@ -20,7 +20,7 @@ import PropTypes from "prop-types";
 import path from "path";
 import { withStyles } from "@material-ui/core/styles";
 // languagesDB is data base, typeof object
-import { languagesDB } from "@chrysalis-api/keymap";
+import { languagesDB } from "@bazecor-api/keymap";
 import Button from "@material-ui/core/Button";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import LanguageItem from "./LanguageItem";
@@ -29,7 +29,7 @@ import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 
-import Focus from "@chrysalis-api/focus";
+import Focus from "@bazecor-api/focus";
 import { getStaticPath } from "../../config";
 
 const styles = theme => ({

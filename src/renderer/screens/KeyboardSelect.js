@@ -39,8 +39,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 
 import { withSnackbar } from "notistack";
 
-import Focus from "@chrysalis-api/focus";
-import Hardware from "@chrysalis-api/hardware";
+import Focus from "@bazecor-api/focus";
+import Hardware from "@bazecor-api/hardware";
 
 import usb from "usb";
 

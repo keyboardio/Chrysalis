@@ -46,10 +46,10 @@
     }
   },
   "dependencies": {
-    "@bazecor-api/colormap": "^0.0.1",
-    "@bazecor-api/focus": "^0.0.1",
-    "@bazecor-api/hardware": "^0.0.1",
-    "@bazecor-api/keymap": "^0.0.1",
+    "@bazecor-api/colormap": "^0.0.2",
+    "@bazecor-api/focus": "^0.0.2",
+    "@bazecor-api/hardware": "^0.0.2",
+    "@bazecor-api/keymap": "^0.0.2",
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.1",
     "@material-ui/lab": "^3.0.0-alpha.30",

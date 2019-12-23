@@ -573,7 +573,7 @@ class Editor extends React.Component {
   };
   importLayer = data => {
     if (data.palette.length > 0) this.setState({ palette: data.palette });
-    if (data.keymap.length > 0 && data.colormap.length > 0) {
+    if (data.keymap.length > 0) {
       const { currentLayer } = this.state;
       if (this.state.keymap.onlyCustom) {
         if (currentLayer >= 0) {
@@ -581,7 +581,9 @@ class Editor extends React.Component {
             let newKeymap = this.state.keymap.custom.slice();
             newKeymap[currentLayer] = data.keymap.slice();
             let newColormap = this.state.colorMap.slice();
-            newColormap[currentLayer] = data.colormap.slice();
+            if (data.colormap.length > 0) {
+              newColormap[currentLayer] = data.colormap.slice();
+            }
             console.log(currentLayer, newKeymap);
             return {
               keymap: {
@@ -600,7 +602,9 @@ class Editor extends React.Component {
             let newKeymap = this.state.keymap.custom.slice();
             newKeymap[currentLayer - defLength] = data.keymap;
             let newColormap = this.state.colorMap.slice();
-            newColormap[currentLayer - defLength] = data.colormap.slice();
+            if (data.colormap.length > 0) {
+              newColormap[currentLayer - defLength] = data.colormap.slice();
+            }
             return {
               keymap: {
                 default: state.keymap.default,

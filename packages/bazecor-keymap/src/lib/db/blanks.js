@@ -22,7 +22,7 @@ const BlankTable = {
             // NoKey
             code: 0,
             labels: {
-                primary: "XXX",
+                primary: "No key",
                 verbose: "Disabled"
             }
         },

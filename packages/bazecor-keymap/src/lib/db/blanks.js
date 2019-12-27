@@ -30,6 +30,7 @@ const BlankTable = {
             // Transparent
             code: 65535,
             labels: {
+                top: "Trans",
                 primary: "",
                 verbose: "Transparent"
             }

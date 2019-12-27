@@ -42,6 +42,8 @@ const English = {
       firmwareUpdate: "Firmware Update",
       keyboardSettings: "Keyboard Settings",
       preferences: "Preferences",
+      selectAKeyboard: "Select a keyboard",
+      selectAnotherKeyboard: "Select another keyboard",
       softwareUpdate: "Software update",
       supportPage: "Bazecor support page",
       feedback: "Send feedback",

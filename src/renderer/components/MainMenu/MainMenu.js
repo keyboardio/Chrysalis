@@ -1,6 +1,7 @@
 // -*- mode: js-jsx -*-
 /* Bazecor -- Kaleidoscope Command Center
  * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ * Copyright (C) 2019  DygmaLab SE
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -190,6 +191,18 @@ function MainMenu({ open, closeMenu, classes, connected, pages, themeDark }) {
             </ListSubheader>
           }
         >
+          <Link to="/keyboard-select" className={classes.link}>
+            <KeyboardMenuItem
+              className={classes.menuItem}
+              keyboardSelectText={
+                connected
+                  ? i18n.app.menu.selectAnotherKeyboard
+                  : i18n.app.menu.selectAKeyboard
+              }
+              selected={currentPage == "/keyboard-select"}
+              onClick={() => setCurrentPage("/keyboard-select")}
+            />
+          </Link>
           <div
             className={classes.link}
             onClick={event => event.stopPropagation()}

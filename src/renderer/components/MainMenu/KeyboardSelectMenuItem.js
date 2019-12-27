@@ -1,6 +1,7 @@
 // -*- mode: js-jsx -*-
 /* Bazecor -- Kaleidoscope Command Center
  * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ * Copyright (C) 2019  DygmaLab SE
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -19,31 +20,23 @@ import React from "react";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import updateWhite from "../../update-white.png";
-import update from "../../update.png";
+import KeyboardIcon from "@material-ui/icons/Keyboard";
 
 export default function KeyboardMenuItem({
   keyboardSelectText,
   onClick,
-  className,
-  themeDark
+  selected,
+  className
 }) {
   return (
-    <ListItem button onClick={onClick} className={className}>
+    <ListItem
+      button
+      onClick={onClick}
+      className={className}
+      selected={selected}
+    >
       <ListItemIcon>
-        {themeDark ? (
-          <img
-            src={updateWhite}
-            alt="update"
-            style={{ width: 24, height: 24 }}
-          />
-        ) : (
-          <img
-            src={update}
-            alt="updateWhite"
-            style={{ width: 24, height: 24 }}
-          />
-        )}
+        <KeyboardIcon />
       </ListItemIcon>
       <ListItemText primary={keyboardSelectText} />
     </ListItem>

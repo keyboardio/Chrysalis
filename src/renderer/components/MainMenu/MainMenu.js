@@ -39,6 +39,7 @@ import ExitMenuItem from "./ExitMenuItem";
 import KeyboardMenuItem from "./KeyboardSelectMenuItem";
 import PreferencesMenuItem from "./PreferencesMenuItem";
 import KeyboardSettingsMenuItem from "./KeyboardSettingsMenuItem";
+import SoftwareUpdateMenuItem from "./SoftwareUpdateMenuItem";
 import SupportPage from "./SupportPage";
 import openURL from "../../utils/openURL";
 
@@ -207,10 +208,10 @@ function MainMenu({ open, closeMenu, classes, connected, pages, themeDark }) {
             className={classes.link}
             onClick={event => event.stopPropagation()}
           >
-            <KeyboardMenuItem
+            <SoftwareUpdateMenuItem
               className={classes.menuItem}
               keyboardSelectText={i18n.app.menu.softwareUpdate}
-              selected={currentPage == "/editor"}
+              selected={currentPage == "/software-update"}
               onClick={event => event.stopPropagation()}
               themeDark={themeDark}
             />

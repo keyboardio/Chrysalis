@@ -37,6 +37,7 @@ const English = {
   app: {
     device: "Keyboard",
     menu: {
+      comingSoon: "Coming soon...",
       welcome: "Welcome",
       editor: "Layout & colormap editor",
       firmwareUpdate: "Firmware Update",

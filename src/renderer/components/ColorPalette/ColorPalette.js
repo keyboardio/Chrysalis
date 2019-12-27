@@ -82,6 +82,15 @@ function ColorPalette(props) {
     darkMode
   } = props;
 
+  /*
+   * TODO(anyone): This is a quick fix to prevent an error when the palette is
+   * used with a negative layer. The proper course of action would be to show
+   * the palette, but in a disabled state.
+   */
+  if (disabled) {
+    return null;
+  }
+
   /**
    * This is Hook that lets add React state "indexFocusButton" to functional components
    * @param {object} [initialState=selected] - Sets initial state for "indexFocusButton"

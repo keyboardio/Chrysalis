@@ -1,6 +1,7 @@
 // -*- mode: js-jsx -*-
 /* Bazecor -- Kaleidoscope Command Center
  * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ * Copyright (C) 2019  DygmaLab SE
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -25,11 +26,8 @@ import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Collapse from "@material-ui/core/Collapse";
-import FilledInput from "@material-ui/core/FilledInput";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import MenuItem from "@material-ui/core/MenuItem";
 import Portal from "@material-ui/core/Portal";
-import Select from "@material-ui/core/Select";
 import Switch from "@material-ui/core/Switch";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
@@ -131,26 +129,6 @@ class Preferences extends React.Component {
   render() {
     const { classes, darkMode, toggleDarkMode } = this.props;
 
-    const language = i18n.getLanguage();
-    const languages = i18n.getAvailableLanguages().map(code => {
-      return (
-        <MenuItem value={code} key={code}>
-          {i18n.getString("language", code)}
-        </MenuItem>
-      );
-    });
-
-    const languageSelect = (
-      <Select
-        value={language}
-        variant="filled"
-        onChange={this.setLanguage}
-        input={<FilledInput classes={{ input: classes.select }} />}
-      >
-        {languages}
-      </Select>
-    );
-
     const darkModeSwitch = (
       <Switch checked={darkMode} onChange={toggleDarkMode} value="devtools" />
     );
@@ -185,13 +163,6 @@ class Preferences extends React.Component {
         </Typography>
         <Card>
           <CardContent>
-            <FormControlLabel
-              className={classes.control}
-              classes={{ label: classes.grow }}
-              control={languageSelect}
-              labelPlacement="start"
-              label={i18n.preferences.language}
-            />
             <FormControlLabel
               className={classes.control}
               classes={{ label: classes.grow }}

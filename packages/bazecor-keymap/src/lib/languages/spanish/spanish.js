@@ -65,6 +65,12 @@ const spanish = [
     }
   },
   {
+    code: 53,
+    labels: {
+      primary: "º"
+    }
+  },
+  {
     code: 56,
     labels: {
       primary: "-"

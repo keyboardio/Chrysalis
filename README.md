@@ -8,10 +8,10 @@ This is a collection of libraries to make it easier to work with keyboards that 
 
 ```javascript
 import Focus from "@bazecor-api/focus";
-import { Model01 } from "@bazecor-api/hardware-keyboardio-model01";
+import { Raise } from "@bazecor-api/hardware-dygma-raise";
 
 let focus = new Focus();
-focus.open(Model01).then(() => {
+focus.open(Raise).then(() => {
   focus.command("help").then((response) => {
     console.log(response);
   });

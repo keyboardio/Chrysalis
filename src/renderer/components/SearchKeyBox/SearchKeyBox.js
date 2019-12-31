@@ -69,6 +69,8 @@ const styles = theme => ({
   }
 });
 
+const disabledGroups = ["Leader", "Space Cadet", "Steno"];
+
 const orderArray = [
   { group: "Letters", isUnite: false, displayName: "Letters" },
   { group: "Digits & Spacing", isUnite: true, displayName: "Digits & Spacing" },
@@ -95,14 +97,11 @@ const orderArray = [
   },
   { group: "LED Effect", isUnite: false, displayName: "Led effects" },
   { group: "OneShot layers", isUnite: false, displayName: "One shot layers" },
-  { group: "Leader", isUnite: false, displayName: "Leader" },
-  { group: "SpaceCadet", isUnite: false, displayName: "Space cadet" },
   {
     group: "Mouse configuration options",
     isUnite: true,
     displayName: "Mouse configuration options"
-  },
-  { group: "Steno", isUnite: false, displayName: "Steno" }
+  }
 ];
 
 /**
@@ -136,21 +135,23 @@ class SearchKeyBox extends Component {
    * Creates array for render keys list
    * The first argument is valid state of baseKeyCodeTable
    */
-  toOrderArrayWithKeys = baseKeyCodeTable =>
-    orderArray.map(item =>
+
+  toOrderArrayWithKeys = baseKeyCodeTable => {
+    let codeTable = baseKeyCodeTable.filter(
+      item => !disabledGroups.includes(item.groupName)
+    );
+    return orderArray.map(item =>
       !item.isUnite
         ? {
             // Change baseKeyCodeTable from props to local variable
-            ...this.baseKeyCodeTable.filter(
-              group => item.group === group.groupName
-            )[0],
+            ...codeTable.filter(group => item.group === group.groupName)[0],
             displayName: item.displayName
           }
         : {
             groupName: item.group,
             displayName: item.displayName,
             //Change baseKeyCodeTable from props to local variable
-            innerGroup: baseKeyCodeTable.filter(
+            innerGroup: codeTable.filter(
               group =>
                 item.group.includes(
                   group.groupName.slice(0, group.groupName.indexOf(" "))
@@ -160,13 +161,17 @@ class SearchKeyBox extends Component {
             )
           }
     );
+  };
 
   /**
    * Opens modal window with keys list
    * Update state of current baseKeyCodeTable and pass it to the state orderArrayWithKeys
    */
   handleOpen = () => {
-    this.baseKeyCodeTable = KeymapDB.updateBaseKeyCode();
+    this.baseKeyCodeTable = KeymapDB.updateBaseKeyCode(); /*.filter(
+      item => !disabledGroups.includes(item.groupName)
+    );*/
+    console.log(this.baseKeyCodeTable);
     this.setState({
       open: true,
       orderArrayWithKeys: this.toOrderArrayWithKeys(this.baseKeyCodeTable)

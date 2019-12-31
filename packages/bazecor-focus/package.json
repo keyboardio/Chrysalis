@@ -1,6 +1,6 @@
 {
     "name": "@bazecor-api/focus",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Bazecor Focus protocol library",
     "main": "lib",
     "repository": {

@@ -98,7 +98,8 @@ const orderArray = [
     group: "Mouse configuration options",
     isUnite: true,
     displayName: "Mouse configuration options"
-  }
+  },
+  { group: "Blank", isUnite: false, displayName: "Blanks" }
 ];
 
 /**

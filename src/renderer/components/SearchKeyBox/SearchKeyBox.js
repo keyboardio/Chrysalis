@@ -80,16 +80,13 @@ const orderArray = [
     isUnite: false,
     displayName: "Punctuation & special letters"
   },
-  {
-    group: "Navigation & Miscellaneous",
-    isUnite: true,
-    displayName: "Navigation & Miscellaneous"
-  },
+  { group: "Navigation", isUnite: false, displayName: "Navigation" },
   { group: "Numpad", isUnite: false, displayName: "Number pad" },
   { group: "Modifiers", isUnite: false, displayName: "Modifiers" },
   { group: "Shift to layer", isUnite: false, displayName: "Shift to layer" },
   { group: "Lock layer to", isUnite: false, displayName: "Lock layer" },
   { group: "Media", isUnite: false, displayName: "Media" },
+  { group: "Miscellaneous", isUnite: false, displayName: "Miscellaneous" },
   {
     group: "OneShot modifiers",
     isUnite: false,

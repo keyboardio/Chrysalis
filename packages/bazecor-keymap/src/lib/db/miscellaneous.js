@@ -37,7 +37,10 @@ const MiscellaneousTable = {
             labels: {
                 primary: "PAUSE"
             }
-        },
+        }
+        /* These are disabled for now, since we don't want to display them in
+         * Bazecor. */
+        /*
         {
             code: 53291,
             labels: {
@@ -47,9 +50,10 @@ const MiscellaneousTable = {
         {
             code: 53292,
             labels: {
-                primary: "SYSTEM"
+                primary: "SYSTER"
             }
         }
+        */
     ]
 }
 

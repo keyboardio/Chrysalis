@@ -1199,10 +1199,10 @@
     "@bazecor-api/hardware-softhruf-splitography" "^0.0.2"
     "@bazecor-api/hardware-technomancy-atreus" "^0.0.2"
 
-"@bazecor-api/keymap@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@bazecor-api/keymap/-/keymap-0.0.5.tgz#a8a504a5ae80b1b4206093627e9a89a027e6031b"
-  integrity sha512-sdJt0WbQMdZgSkwJjo27sX7WODGLUO8uJAHwiAitpOqE6GCZ4DURANbNKRX21HjsiH5QN36BCHmrHCKXvbwjtw==
+"@bazecor-api/keymap@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@bazecor-api/keymap/-/keymap-0.0.6.tgz#64b0a33446f798e3366a25f66587f98fdb338921"
+  integrity sha512-GiMlcc72NIELdxBwFdTgZYZY/JTXzUUHCf6G7afp2sXfuud/w7Bxi3Sc9fCi+Pokv8LXuCErgMOiP1Ju01hzDQ==
   dependencies:
     "@bazecor-api/focus" "^0.0.4"
 

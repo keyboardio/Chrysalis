@@ -119,6 +119,20 @@ const NumpadTable = {
             }
         },
         {
+            code: 88,
+            labels: {
+                top: "Numpad",
+                primary: "Enter"
+            }
+        },
+        {
+            code: 83,
+            labels: {
+                primary: "NUMLOCK",
+                verbose: "Num Lock"
+            }
+        },
+        {
             code: 84,
             labels: {
                 top: "Numpad",

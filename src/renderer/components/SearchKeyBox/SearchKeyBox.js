@@ -166,10 +166,7 @@ class SearchKeyBox extends Component {
    * Update state of current baseKeyCodeTable and pass it to the state orderArrayWithKeys
    */
   handleOpen = () => {
-    this.baseKeyCodeTable = KeymapDB.updateBaseKeyCode(); /*.filter(
-      item => !disabledGroups.includes(item.groupName)
-    );*/
-    console.log(this.baseKeyCodeTable);
+    this.baseKeyCodeTable = KeymapDB.updateBaseKeyCode();
     this.setState({
       open: true,
       orderArrayWithKeys: this.toOrderArrayWithKeys(this.baseKeyCodeTable)

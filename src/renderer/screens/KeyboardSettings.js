@@ -1,6 +1,7 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
  * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ * Copyright (C) 2020  DygmaLab SE.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -33,6 +34,7 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import MenuItem from "@material-ui/core/MenuItem";
 import Portal from "@material-ui/core/Portal";
 import Select from "@material-ui/core/Select";
+import Slider from "@material-ui/lab/Slider";
 import Switch from "@material-ui/core/Switch";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
@@ -73,6 +75,12 @@ const styles = theme => ({
     paddingTop: theme.spacing.unit * 1,
     width: 200
   },
+  slider: {
+    width: 300
+  },
+  sliderContainer: {
+    marginTop: theme.spacing.unit * 2
+  },
   advanced: {
     display: "flex",
     justifyContent: "center",
@@ -94,6 +102,7 @@ class KeyboardSettings extends React.Component {
       default: [],
       onlyCustom: false
     },
+    ledBrightness: 255,
     defaultLayer: 126,
     modified: false,
     showDefaults: false,
@@ -109,6 +118,10 @@ class KeyboardSettings extends React.Component {
     focus.command("settings.defaultLayer").then(layer => {
       layer = layer ? parseInt(layer) : 126;
       this.setState({ defaultLayer: layer <= 126 ? layer : 126 });
+    });
+    focus.command("led.brightness").then(brightness => {
+      brightness = brightness ? parseInt(brightness) : -1;
+      this.setState({ ledBrightness: brightness });
     });
 
     this.setState({
@@ -158,13 +171,22 @@ class KeyboardSettings extends React.Component {
     this.props.startContext();
   };
 
+  setBrightness = (event, value) => {
+    this.setState({
+      ledBrightness: value,
+      modified: true
+    });
+    this.props.startContext();
+  };
+
   saveKeymapChanges = async () => {
     const focus = new Focus();
 
-    const { keymap, defaultLayer, showDefaults } = this.state;
+    const { keymap, defaultLayer, showDefaults, ledBrightness } = this.state;
 
     await focus.command("keymap.onlyCustom", keymap.onlyCustom);
     await focus.command("settings.defaultLayer", defaultLayer);
+    await focus.command("led.brightness", ledBrightness);
     settings.set("keymap.showDefaults", showDefaults);
     this.setState({ modified: false });
     this.props.cancelContext();
@@ -194,7 +216,13 @@ class KeyboardSettings extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { keymap, defaultLayer, modified, showDefaults } = this.state;
+    const {
+      keymap,
+      defaultLayer,
+      modified,
+      showDefaults,
+      ledBrightness
+    } = this.state;
 
     const onlyCustomSwitch = (
       <Switch
@@ -241,6 +269,14 @@ class KeyboardSettings extends React.Component {
         {layers}
       </Select>
     );
+    const brightnessControl = (
+      <Slider
+        max={255}
+        value={ledBrightness}
+        className={classes.slider}
+        onChange={this.setBrightness}
+      />
+    );
 
     return (
       <React.Fragment>
@@ -281,6 +317,18 @@ class KeyboardSettings extends React.Component {
                   labelPlacement="start"
                   label={i18n.keyboardSettings.keymap.defaultLayer}
                 />
+                {ledBrightness >= 0 && (
+                  <FormControlLabel
+                    className={classes.control}
+                    classes={{
+                      label: classes.grow,
+                      root: classes.sliderContainer
+                    }}
+                    control={brightnessControl}
+                    labelPlacement="start"
+                    label={i18n.keyboardSettings.led.brightness}
+                  />
+                )}
               </FormControl>
             </CardContent>
             <CardActions className={classes.flex}>

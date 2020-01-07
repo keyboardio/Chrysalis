@@ -132,6 +132,9 @@ const English = {
       onlyCustom: "Use custom layers only",
       defaultLayer: "Default layer"
     },
+    led: {
+      brightness: "Adjust LED brightness"
+    },
     advancedOps: "Advanced keyboard settings & operations",
     resetEEPROM: {
       button: "Reset EEPROM to factory defaults",

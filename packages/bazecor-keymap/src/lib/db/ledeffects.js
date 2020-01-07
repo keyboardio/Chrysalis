@@ -32,6 +32,13 @@ const LEDEffectsTable = {
                 top: "LEDEFF.",
                 verbose: "Previous"
             }
+        },
+        {
+            code: 17154,
+            labels: {
+                primary: "TOGGLE",
+                top: "LEDEFF.",
+            }
         }
     ]
 }

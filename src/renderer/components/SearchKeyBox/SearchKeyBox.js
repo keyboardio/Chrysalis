@@ -94,12 +94,12 @@ const orderArray = [
   },
   { group: "LED Effect", isUnite: false, displayName: "Led effects" },
   { group: "OneShot layers", isUnite: false, displayName: "One shot layers" },
+  { group: "Blank", isUnite: false, displayName: "Blanks" },
   {
     group: "Mouse configuration options",
     isUnite: true,
     displayName: "Mouse configuration options"
-  },
-  { group: "Blank", isUnite: false, displayName: "Blanks" }
+  }
 ];
 
 /**
@@ -229,7 +229,12 @@ class SearchKeyBox extends Component {
         >
           <div className={classes.wrapper}>
             <CloseIcon className={classes.close} onClick={this.handleClose} />
-            <Grid container className={classes.root} spacing={8}>
+            <Grid
+              container
+              className={classes.root}
+              spacing={8}
+              alignItems="flex-start"
+            >
               {groupeList}
             </Grid>
           </div>

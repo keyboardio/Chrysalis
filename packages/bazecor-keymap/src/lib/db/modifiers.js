@@ -17,6 +17,14 @@
 
 import { withModifiers } from "./utils"
 
+const GuiLabels = {
+  "linux": "Linux",
+  "win32": "Win",
+  "darwin": "Cmd"
+};
+
+const guiLabel = GuiLabels[process.platform] || "Gui";
+
 const ModifiersTable = {
     groupName: "Modifiers",
     keys: [
@@ -44,8 +52,8 @@ const ModifiersTable = {
         {
             code: 227,
             labels: {
-                primary: "LEFT GUI",
-                verbose: "Left Gui"
+                primary: "LEFT " + guiLabel.toUpperCase(),
+                verbose: "Left " + guiLabel
             }
         },
         {
@@ -74,8 +82,8 @@ const ModifiersTable = {
         {
             code: 231,
             labels: {
-                primary: "RIGHT GUI",
-                verbose: "Right Gui"
+                primary: "RIGHT " + guiLabel.toUpperCase(),
+                verbose: "Right " + guiLabel
             }
         }
     ]

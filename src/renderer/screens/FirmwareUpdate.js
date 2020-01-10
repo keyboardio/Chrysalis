@@ -175,7 +175,7 @@ class FirmwareUpdate extends React.Component {
       this.setState({ countdown: "" });
     }
 
-    return this.state.device.device.flash(
+    return await this.state.device.device.flash(
       focus._port,
       filename,
       this.fleshRaise

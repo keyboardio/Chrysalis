@@ -75,6 +75,9 @@ const styles = theme => ({
     paddingTop: theme.spacing.unit * 1,
     width: 200
   },
+  selectContainer: {
+    marginTop: theme.spacing.unit * 2
+  },
   slider: {
     width: 300
   },
@@ -103,6 +106,7 @@ class KeyboardSettings extends React.Component {
       onlyCustom: false
     },
     ledBrightness: 255,
+    ledIdleTimeLimit: 0,
     defaultLayer: 126,
     modified: false,
     showDefaults: false,
@@ -122,6 +126,10 @@ class KeyboardSettings extends React.Component {
     focus.command("led.brightness").then(brightness => {
       brightness = brightness ? parseInt(brightness) : -1;
       this.setState({ ledBrightness: brightness });
+    });
+    focus.command("idleleds.time_limit").then(limit => {
+      limit = limit ? parseInt(limit) : -1;
+      this.setState({ ledIdleTimeLimit: limit });
     });
 
     this.setState({
@@ -163,6 +171,14 @@ class KeyboardSettings extends React.Component {
     this.props.startContext();
   };
 
+  selectIdleLEDTime = event => {
+    this.setState({
+      ledIdleTimeLimit: event.target.value,
+      modified: true
+    });
+    this.props.startContext();
+  };
+
   setShowDefaults = event => {
     this.setState({
       showDefaults: event.target.checked,
@@ -182,11 +198,19 @@ class KeyboardSettings extends React.Component {
   saveKeymapChanges = async () => {
     const focus = new Focus();
 
-    const { keymap, defaultLayer, showDefaults, ledBrightness } = this.state;
+    const {
+      keymap,
+      defaultLayer,
+      showDefaults,
+      ledBrightness,
+      ledIdleTimeLimit
+    } = this.state;
 
     await focus.command("keymap.onlyCustom", keymap.onlyCustom);
     await focus.command("settings.defaultLayer", defaultLayer);
     await focus.command("led.brightness", ledBrightness);
+    if (ledIdleTimeLimit >= 0)
+      await focus.command("idleleds.time_limit", ledIdleTimeLimit);
     settings.set("keymap.showDefaults", showDefaults);
     this.setState({ modified: false });
     this.props.cancelContext();
@@ -221,7 +245,8 @@ class KeyboardSettings extends React.Component {
       defaultLayer,
       modified,
       showDefaults,
-      ledBrightness
+      ledBrightness,
+      ledIdleTimeLimit
     } = this.state;
 
     const onlyCustomSwitch = (
@@ -267,6 +292,53 @@ class KeyboardSettings extends React.Component {
           {i18n.keyboardSettings.keymap.noDefault}
         </MenuItem>
         {layers}
+      </Select>
+    );
+    const idleControl = (
+      <Select
+        onChange={this.selectIdleLEDTime}
+        value={ledIdleTimeLimit}
+        variant="filled"
+        input={
+          <FilledInput
+            classes={{
+              root: classes.selectContainer,
+              input: classes.select
+            }}
+          />
+        }
+      >
+        <MenuItem value={0}>{i18n.keyboardSettings.led.idleDisabled}</MenuItem>
+        <MenuItem value={60}>
+          {i18n.keyboardSettings.led.idle.oneMinute}
+        </MenuItem>
+        <MenuItem value={120}>
+          {i18n.keyboardSettings.led.idle.twoMinutes}
+        </MenuItem>
+        <MenuItem value={180}>
+          {i18n.keyboardSettings.led.idle.threeMinutes}
+        </MenuItem>
+        <MenuItem value={240}>
+          {i18n.keyboardSettings.led.idle.fourMinutes}
+        </MenuItem>
+        <MenuItem value={300}>
+          {i18n.keyboardSettings.led.idle.fiveMinutes}
+        </MenuItem>
+        <MenuItem value={600}>
+          {i18n.keyboardSettings.led.idle.tenMinutes}
+        </MenuItem>
+        <MenuItem value={900}>
+          {i18n.keyboardSettings.led.idle.fifteenMinutes}
+        </MenuItem>
+        <MenuItem value={1200}>
+          {i18n.keyboardSettings.led.idle.twentyMinutes}
+        </MenuItem>
+        <MenuItem value={1800}>
+          {i18n.keyboardSettings.led.idle.thirtyMinutes}
+        </MenuItem>
+        <MenuItem value={3600}>
+          {i18n.keyboardSettings.led.idle.oneHour}
+        </MenuItem>
       </Select>
     );
     const brightnessControl = (
@@ -317,6 +389,15 @@ class KeyboardSettings extends React.Component {
                   labelPlacement="start"
                   label={i18n.keyboardSettings.keymap.defaultLayer}
                 />
+                {ledIdleTimeLimit >= 0 && (
+                  <FormControlLabel
+                    className={classes.control}
+                    classes={{ label: classes.grow }}
+                    control={idleControl}
+                    labelPlacement="start"
+                    label={i18n.keyboardSettings.led.idleTimeLimit}
+                  />
+                )}
                 {ledBrightness >= 0 && (
                   <FormControlLabel
                     className={classes.control}

@@ -38,7 +38,6 @@ import FeedbackMenuItem from "./FeedbackMenuItem";
 import ExitMenuItem from "./ExitMenuItem";
 import KeyboardMenuItem from "./KeyboardSelectMenuItem";
 import PreferencesMenuItem from "./PreferencesMenuItem";
-import KeyboardSettingsMenuItem from "./KeyboardSettingsMenuItem";
 import SoftwareUpdateMenuItem from "./SoftwareUpdateMenuItem";
 import SupportPage from "./SupportPage";
 import openURL from "../../utils/openURL";
@@ -172,13 +171,6 @@ function MainMenu({ open, closeMenu, classes, connected, pages, themeDark }) {
                 className={classes.menuItem}
                 onClick={() => setCurrentPage("/firmware-update")}
                 themeDark={themeDark}
-              />
-            </Link>
-            <Link to="/keyboard-settings" className={classes.link}>
-              <KeyboardSettingsMenuItem
-                selected={currentPage == "/keyboard-settings"}
-                className={classes.menuItem}
-                onClick={() => setCurrentPage("/keyboard-settings")}
               />
             </Link>
           </List>

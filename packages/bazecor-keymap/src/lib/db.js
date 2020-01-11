@@ -45,7 +45,9 @@ import {
     MouseButtonTable,
     MouseWarpTable
 } from "./db/mousecontrols"
-import MiscellaneousTable from "./db/miscellaneous"
+import MiscellaneousTable, {
+  ModifiedMiscellaneousTables
+} from "./db/miscellaneous"
 
 import { OneShotModifierTable, OneShotLayerTable } from "./db/oneshot"
 import { DualUseModifierTables, DualUseLayerTables } from "./db/dualuse"
@@ -118,6 +120,7 @@ const defaultKeyCodeTable = defaultBaseKeyCodeTable
     .concat(HyperMehTable)
     .concat(ModifiedFunctionKeyTables)
     .concat(ModifiedNumpadTables)
+    .concat(ModifiedMiscellaneousTables)
     .concat(DualUseModifierTables)
     .concat(DualUseLayerTables)
 

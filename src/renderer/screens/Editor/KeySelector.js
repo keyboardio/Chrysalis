@@ -90,7 +90,8 @@ const moddableGroups = [
   "Modifiers",
   "Navigation",
   "Fx keys",
-  "Numpad"
+  "Numpad",
+  "Miscellaneous"
 ];
 
 class KeyGroupCodeUnwrapped extends React.Component {

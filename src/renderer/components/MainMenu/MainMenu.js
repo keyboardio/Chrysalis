@@ -196,6 +196,13 @@ function MainMenu({ open, closeMenu, classes, connected, pages, themeDark }) {
               onClick={() => setCurrentPage("/keyboard-select")}
             />
           </Link>
+          <Link to="/preferences" className={classes.link}>
+            <PreferencesMenuItem
+              className={classes.menuItem}
+              selected={currentPage == "/preferences"}
+              onClick={() => setCurrentPage("/preferences")}
+            />
+          </Link>
           <div
             className={classes.link}
             onClick={event => event.stopPropagation()}
@@ -208,13 +215,6 @@ function MainMenu({ open, closeMenu, classes, connected, pages, themeDark }) {
               themeDark={themeDark}
             />
           </div>
-          <Link to="/preferences" className={classes.link}>
-            <PreferencesMenuItem
-              className={classes.menuItem}
-              selected={currentPage == "/preferences"}
-              onClick={() => setCurrentPage("/preferences")}
-            />
-          </Link>
         </List>
         <Divider />
         <List

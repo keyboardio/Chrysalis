@@ -272,6 +272,7 @@ class KeyGroupListUnwrapped extends React.Component {
     let mask = 0;
     let dualUseModifier = false;
     let invalidDualUse = true;
+    let invalidDualUseLayer = false;
     let dualUseLayer = null;
     let dualUseLayerSwitch = null;
 
@@ -337,10 +338,17 @@ class KeyGroupListUnwrapped extends React.Component {
           });
       }
 
+      if (keyCode >= 224 && keyCode <= 231) {
+        invalidDualUse = true;
+        invalidDualUseLayer = true;
+      }
+
       dualUseLayerSwitch = (
         <div>
           <FormControlLabel
-            disabled={disabled || keyCode == 0 || Boolean(mask)}
+            disabled={
+              disabled || keyCode == 0 || Boolean(mask) || invalidDualUseLayer
+            }
             className={classes.checkbox}
             control={<Switch />}
             checked={Boolean(dualUseLayer)}

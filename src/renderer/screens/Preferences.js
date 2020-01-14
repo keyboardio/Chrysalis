@@ -131,11 +131,7 @@ class Preferences extends React.Component {
   };
 
   render() {
-    const { classes, darkMode, toggleDarkMode } = this.props;
-
-    const darkModeSwitch = (
-      <Switch checked={darkMode} onChange={toggleDarkMode} value="devtools" />
-    );
+    const { classes } = this.props;
 
     const devToolsSwitch = (
       <Switch
@@ -158,24 +154,6 @@ class Preferences extends React.Component {
         <Portal container={this.props.titleElement}>
           {i18n.app.menu.preferences}
         </Portal>
-        <Typography
-          variant="subtitle1"
-          component="h2"
-          className={classes.title}
-        >
-          {i18n.preferences.interface}
-        </Typography>
-        <Card>
-          <CardContent>
-            <FormControlLabel
-              className={classes.control}
-              classes={{ label: classes.grow }}
-              control={darkModeSwitch}
-              labelPlacement="start"
-              label={i18n.preferences.darkMode}
-            />
-          </CardContent>
-        </Card>
         {this.props.connected && (
           <KeyboardSettings
             startContext={this.props.startContext}

@@ -175,11 +175,15 @@ class FirmwareUpdate extends React.Component {
       this.setState({ countdown: "" });
     }
 
-    return await this.state.device.device.flash(
-      focus._port,
-      filename,
-      this.fleshRaise
-    );
+    try {
+      return await this.state.device.device.flash(
+        focus._port,
+        filename,
+        this.fleshRaise
+      );
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   upload = async () => {

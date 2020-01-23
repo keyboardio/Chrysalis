@@ -227,7 +227,7 @@ function MainMenu({ open, closeMenu, classes, connected, pages, themeDark }) {
         >
           <SupportPage
             className={classes.menuItem}
-            onClick={openURL("https://www.dygma.com/contact/")}
+            onClick={openURL("https://www.dygma.com/myraise/#opening")}
             themeDark={themeDark}
           />
           <FeedbackMenuItem

@@ -1,6 +1,7 @@
 // -*- mode: js-jsx -*-
 /* Bazecor -- Kaleidoscope Command Center
  * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ * Copyright (C) 2019, 2020  DygmaLab SE
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -171,7 +172,9 @@ class FirmwareUpdate extends React.Component {
           : this.setState({ countdown: countdown - 1 });
       }, 1000);
       await delay(500);
-      await this.fleshRaise.resetKeyboard(focus._port);
+      if (this.props.device.usb.productId == 0x2201) {
+        await this.fleshRaise.resetKeyboard(focus._port);
+      }
       this.setState({ countdown: "" });
     }
 
@@ -246,7 +249,9 @@ class FirmwareUpdate extends React.Component {
     this.setState({ confirmationOpen: true, isBeginUpdate: true });
     try {
       this.fleshRaise = new FlashRaise(this.props.device);
-      await this.fleshRaise.backupSettings();
+      if (this.props.device.usb.productId == 0x2201) {
+        await this.fleshRaise.backupSettings();
+      }
       this.setState({ countdown: 3 });
     } catch (e) {
       console.error(e);

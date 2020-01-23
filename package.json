@@ -58,7 +58,7 @@
     "electron-devtools-installer": "^2.2.4",
     "electron-settings": "^3.2.0",
     "electron-window-state": "^5.0.3",
-    "notistack": "^0.5.1",
+    "notistack": "^0.9.7",
     "prop-types": "^15.7.2",
     "react": "16.8.5",
     "react-color": "^2.14.1",

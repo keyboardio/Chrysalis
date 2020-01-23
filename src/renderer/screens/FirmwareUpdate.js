@@ -193,25 +193,33 @@ class FirmwareUpdate extends React.Component {
       await this._flash();
     } catch (e) {
       console.error(e);
+      const action = key => (
+        <React.Fragment>
+          <Button
+            onClick={() => {
+              const shell = Electron.remote && Electron.remote.shell;
+              shell.openExternal("https://www.dygma.com/contact/");
+              this.props.closeSnackbar(key);
+            }}
+          >
+            Troubleshooting
+          </Button>
+          <Button
+            onClick={() => {
+              this.props.closeSnackbar(key);
+            }}
+          >
+            Dismiss
+          </Button>
+        </React.Fragment>
+      );
       this.props.enqueueSnackbar(
         this.state.device.device.info.product === "Raise"
           ? e.message
           : i18n.firmwareUpdate.flashing.error,
         {
           variant: "error",
-          action: (
-            <Button
-              variant="contained"
-              onClick={() => {
-                const shell = Electron.remote && Electron.remote.shell;
-                shell.openExternal(
-                  "https://github.com/Dygmalab/Bazecor/wiki/Troubleshooting"
-                );
-              }}
-            >
-              Troubleshooting
-            </Button>
-          )
+          action
         }
       );
       this.props.toggleFlashing();

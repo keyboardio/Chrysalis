@@ -105,7 +105,11 @@ function ColorPalette(props) {
       ? {
           ...palette[selected]
         }
-      : null
+      : {
+          r: 0,
+          g: 0,
+          b: 0
+        }
   );
   /**
    * Change "indexFocusButton" and "colorFocusButton", if prop "selected" is different

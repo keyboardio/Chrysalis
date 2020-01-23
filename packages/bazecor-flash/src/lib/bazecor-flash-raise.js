@@ -92,7 +92,6 @@ export default class FlashRaise {
       "keymap.onlyCustom",
       "led.theme",
       "palette",
-      "joint.threshold",
       "colormap.map"
     ];
     this.backupFileName = `Raise-backup-${this.formatedDate()}.json`;

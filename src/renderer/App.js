@@ -133,11 +133,14 @@ class App extends React.Component {
     focus.close();
 
     if (!port.comName) {
+      port.device.device = port.device;
+
       this.setState({
         connected: true,
         pages: {},
         device: port.device
       });
+      await navigate("/welcome");
       return [];
     }
 
@@ -211,7 +214,10 @@ class App extends React.Component {
     let focus = new Focus();
     let device =
       (focus.device && focus.device.info) ||
-      (this.state.device && this.state.device.device.info);
+      (this.state.device &&
+        this.state.device.device &&
+        this.state.device.device.info) ||
+      (this.state.device && this.state.device.info);
 
     return (
       <MuiThemeProvider theme={darkMode ? darkTheme : lightTheme}>

@@ -199,6 +199,7 @@ class FirmwareUpdate extends React.Component {
       const action = key => (
         <React.Fragment>
           <Button
+            color="inherit"
             onClick={() => {
               const shell = Electron.remote && Electron.remote.shell;
               shell.openExternal("https://www.dygma.com/contact/");
@@ -208,6 +209,7 @@ class FirmwareUpdate extends React.Component {
             Troubleshooting
           </Button>
           <Button
+            color="inherit"
             onClick={() => {
               this.props.closeSnackbar(key);
             }}

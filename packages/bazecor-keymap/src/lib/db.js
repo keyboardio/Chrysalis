@@ -90,6 +90,7 @@ const defaultBaseKeyCodeTable = [
 
     ShiftToLayerTable,
     LockLayerTable,
+    MoveToLayerTable,
 
     LEDEffectsTable,
     MediaControlTable,

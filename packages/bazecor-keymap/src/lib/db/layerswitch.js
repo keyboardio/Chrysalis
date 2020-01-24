@@ -1,6 +1,6 @@
 /* bazecor-keymap -- Bazecor keymap library
  * Copyright (C) 2018  Keyboardio, Inc.
- * Copyright (C) 2019  DygmaLab SE
+ * Copyright (C) 2019, 2020  DygmaLab SE
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -167,4 +167,80 @@ const ShiftToLayerTable = {
     ]
 }
 
-export { LockLayerTable, ShiftToLayerTable }
+const MoveToLayerTable = {
+    groupName: "Move to layer",
+    keys: [
+        {
+            code: 17492,
+            labels: {
+                primary: "0",
+                top: "MOVETO"
+            }
+        },
+        {
+            code: 17493,
+            labels: {
+                primary: "1",
+                top: "MOVETO"
+            }
+        },
+        {
+            code: 17494,
+            labels: {
+                primary: "2",
+                top: "MOVETO"
+            }
+        },
+        {
+            code: 17495,
+            labels: {
+                primary: "3",
+                top: "MOVETO"
+            }
+        },
+        {
+            code: 17496,
+            labels: {
+                primary: "4",
+                top: "MOVETO"
+            }
+        },
+        {
+            code: 17497,
+            labels: {
+                primary: "5",
+                top: "MOVETO"
+            }
+        },
+        {
+            code: 17498,
+            labels: {
+                primary: "6",
+                top: "MOVETO"
+            }
+        },
+        {
+            code: 17499,
+            labels: {
+                primary: "7",
+                top: "MOVETO"
+            }
+        },
+        {
+            code: 17500,
+            labels: {
+                primary: "8",
+                top: "MOVETO"
+            }
+        },
+        {
+            code: 17501,
+            labels: {
+                primary: "9",
+                top: "MOVETO"
+            }
+        }
+    ]
+}
+
+export { LockLayerTable, ShiftToLayerTable, MoveToLayerTable }

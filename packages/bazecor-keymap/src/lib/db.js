@@ -1,6 +1,6 @@
 /* bazecor-keymap -- Bazecor keymap library
  * Copyright (C) 2018, 2019  Keyboardio, Inc.
- * Copyright (C) 2019  DygmaLab SE
+ * Copyright (C) 2019, 2020  DygmaLab SE
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -18,7 +18,11 @@ import settings from "electron-settings";
 import BlankTable from "./db/blanks"
 import LetterTable, { ModifiedLetterTables } from "./db/letters"
 import DigitTable, { ModifiedDigitTables } from "./db/digits"
-import { LockLayerTable, ShiftToLayerTable } from "./db/layerswitch"
+import {
+    LockLayerTable,
+    ShiftToLayerTable,
+    MoveToLayerTable
+} from "./db/layerswitch"
 import PunctuationTable, {
     ModifiedPunctuationTables
 } from "./db/punctuation"

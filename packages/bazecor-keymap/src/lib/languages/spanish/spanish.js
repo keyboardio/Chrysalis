@@ -41,8 +41,7 @@ const spanish = [
     code: 48,
     labels: {
       primary: "+"
-    },
-    newGroupName: "Numpad"
+    }
   },
   {
     code: 49,

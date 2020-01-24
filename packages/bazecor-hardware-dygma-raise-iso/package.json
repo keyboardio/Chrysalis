@@ -1,6 +1,6 @@
 {
   "name": "@bazecor-api/hardware-dygma-raise-iso",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Bazecor support for Dygma's Raise",
   "main": "lib",
   "repository": {

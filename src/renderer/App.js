@@ -47,6 +47,8 @@ import ConfirmationDialog from "./components/ConfirmationDialog";
 import { history, navigate } from "./routerHistory";
 
 let focus = new Focus();
+focus.debug = true;
+focus.timeout = 15000;
 
 if (settings.get("ui.language")) i18n.setLanguage(settings.get("ui.language"));
 

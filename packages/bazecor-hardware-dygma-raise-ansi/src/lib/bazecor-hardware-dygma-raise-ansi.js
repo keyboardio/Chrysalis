@@ -100,6 +100,7 @@ const Raise_ANSIBootloader = {
     vendorId: 0x1209,
     productId: 0x2200
   },
+  bootloader: true,
   flash: async (_, filename, flashRaise) => {
     return new Promise(async (resolve, reject) => {
       try {

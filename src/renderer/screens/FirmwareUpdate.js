@@ -179,6 +179,10 @@ class FirmwareUpdate extends React.Component {
     }
 
     try {
+      if (focus.device.bootloader) {
+        this.fleshRaise.currentPort = this.props.device;
+      }
+      await focus.close();
       return await this.state.device.device.flash(
         focus._port,
         filename,

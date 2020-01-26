@@ -151,6 +151,17 @@ class App extends React.Component {
     if (process.platform == "darwin") {
       await spawn("stty", ["-f", port.comName, "clocal"]);
     }
+
+    if (focus.device.bootloader) {
+      this.setState({
+        connected: true,
+        pages: {},
+        device: port
+      });
+      await navigate("/welcome");
+      return [];
+    }
+
     console.log("Probing for Focus support...");
     let commands;
     try {

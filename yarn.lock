@@ -1114,18 +1114,18 @@
   dependencies:
     serialport "^6.2.2"
 
-"@bazecor-api/hardware-dygma-raise-ansi@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@bazecor-api/hardware-dygma-raise-ansi/-/hardware-dygma-raise-ansi-0.0.5.tgz#42d3f094e37914d8186c4eb544c1169b2226d812"
-  integrity sha512-TcsbfN9G7szv4846NApxyUFKIKFSD+IYM/b9umCja5ceehbWPHzH01HCdwenpGMTDyv8aLqT+tOC5/5LcPhB0Q==
+"@bazecor-api/hardware-dygma-raise-ansi@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@bazecor-api/hardware-dygma-raise-ansi/-/hardware-dygma-raise-ansi-0.0.6.tgz#ada04bd9b9d9a31eb7295fa2cd5d916166fd5fb4"
+  integrity sha512-RNxHNcSfmtUG4xdGE/P7wKNeq7Gh1q25V28xEb4NQYpuaCVXKS/YVXmTi0rcllmnqh3RCaxq3Ma4xq/QOgI2Xw==
   dependencies:
     "@bazecor-api/focus" "^0.0.4"
     react "^16.5.2"
 
-"@bazecor-api/hardware-dygma-raise-iso@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@bazecor-api/hardware-dygma-raise-iso/-/hardware-dygma-raise-iso-0.0.5.tgz#9a6a33b512ccc5f28001ec92760a583eacbea79e"
-  integrity sha512-e2c14WSBcn+f0DZgDsjYKC3a81OxeN21B8uy3T/XMiZbOA2vY5HUrcHkCxPDlehKHB20n1rPcuH9HTmiBP1h1Q==
+"@bazecor-api/hardware-dygma-raise-iso@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@bazecor-api/hardware-dygma-raise-iso/-/hardware-dygma-raise-iso-0.0.6.tgz#36d796c51c51560d9942c866d8e1cc3671c3fb63"
+  integrity sha512-P3wKh+yVWf6k4v9ONQhUgnEhcEZ9eZtr8ne2hka/06Leeezqio/jf6jvAJHKGpRsiUUfTEGggOtMGmJZc+7Vcw==
   dependencies:
     "@bazecor-api/focus" "^0.0.4"
     react "^16.5.2"
@@ -1184,13 +1184,13 @@
     "@bazecor-api/flash" "^0.0.3"
     react "^16.5.2"
 
-"@bazecor-api/hardware@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@bazecor-api/hardware/-/hardware-0.0.6.tgz#7453e8f48e6a6b5c60a8dbb035ba3c0322a33fd1"
-  integrity sha512-oU+Qf3GpDN2e3Yl0aKgG6sBM/lr7Xm2S/3svHb1Lsu3VgdOfJxoJpqAEQMGNZsltYM3EDK0fB6hRWY0lqmwgZg==
+"@bazecor-api/hardware@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@bazecor-api/hardware/-/hardware-0.0.7.tgz#caa54d8b290b9fb654dd035aea829e4c0152bcc5"
+  integrity sha512-7yLWUOipzEKBBL/RG8wtI4IivjBjq8Bp34xtD6Ij3d2+5NYV+7cGgIT6i+1BKTmgDeI8w57Eyj+yI7d32IsIlg==
   dependencies:
-    "@bazecor-api/hardware-dygma-raise-ansi" "^0.0.5"
-    "@bazecor-api/hardware-dygma-raise-iso" "^0.0.5"
+    "@bazecor-api/hardware-dygma-raise-ansi" "^0.0.6"
+    "@bazecor-api/hardware-dygma-raise-iso" "^0.0.6"
     "@bazecor-api/hardware-ez-ergodox" "^0.0.3"
     "@bazecor-api/hardware-kbdfans-kbd4x" "^0.0.3"
     "@bazecor-api/hardware-keyboardio-model01" "^0.0.3"

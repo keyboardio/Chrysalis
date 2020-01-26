@@ -26,8 +26,8 @@ import { Splitography } from "@bazecor-api/hardware-softhruf-splitography"
 import { GenericTeensy } from "@bazecor-api/hardware-pjrc-teensy"
 
 const Hardware = {
-  serial: [Model01, Raise_ANSI, Raise_ISO, ErgoDox, Atreus, Planck, Splitography, KBD4x],
-  nonSerial: [Model01Bootloader, Raise_ANSIBootloader, Raise_ISOBootloader, ErgoDox, Atreus, Planck, Splitography, KBD4x, GenericTeensy]
+  serial: [Model01, Raise_ANSI, Raise_ISO, ErgoDox, Atreus, Planck, Splitography, KBD4x, Raise_ANSIBootloader, Raise_ISOBootloader],
+  nonSerial: [Model01Bootloader, ErgoDox, Atreus, Planck, Splitography, KBD4x, GenericTeensy]
 }
 
 export { Hardware as default }

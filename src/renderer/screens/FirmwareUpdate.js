@@ -172,7 +172,7 @@ class FirmwareUpdate extends React.Component {
           : this.setState({ countdown: countdown - 1 });
       }, 1000);
       await delay(500);
-      if (this.props.device.device.usb.productId == 0x2201) {
+      if (!focus.device.bootloader) {
         await this.fleshRaise.resetKeyboard(focus._port);
       }
       this.setState({ countdown: "" });
@@ -252,10 +252,11 @@ class FirmwareUpdate extends React.Component {
   };
 
   uploadRaise = async () => {
+    let focus = new Focus();
     this.setState({ confirmationOpen: true, isBeginUpdate: true });
     try {
       this.fleshRaise = new FlashRaise(this.props.device);
-      if (this.props.device.device.usb.productId == 0x2201) {
+      if (!focus.device.bootloader) {
         await this.fleshRaise.backupSettings();
       }
       this.setState({ countdown: 3 });

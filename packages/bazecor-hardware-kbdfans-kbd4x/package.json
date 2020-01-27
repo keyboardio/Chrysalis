@@ -1,6 +1,6 @@
 {
   "name": "@bazecor-api/hardware-kbdfans-kbd4x",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Bazecor KBDFans KBD4x Hardware library",
   "main": "lib",
   "repository": {
@@ -30,7 +30,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@bazecor-api/flash": "^0.0.3",
+    "@bazecor-api/flash": "^0.0.4",
     "react": "^16.5.2"
   },
   "devDependencies": {

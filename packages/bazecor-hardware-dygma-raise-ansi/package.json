@@ -1,6 +1,6 @@
 {
   "name": "@bazecor-api/hardware-dygma-raise-ansi",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Bazecor support for Dygma's Raise",
   "main": "lib",
   "repository": {

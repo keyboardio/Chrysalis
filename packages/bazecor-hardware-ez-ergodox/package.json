@@ -1,6 +1,6 @@
 {
   "name": "@bazecor-api/hardware-ez-ergodox",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Bazecor ErgoDox support",
   "main": "lib",
   "repository": {
@@ -30,7 +30,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@bazecor-api/flash": "^0.0.4",
+    "@bazecor-api/flash": "^0.0.5",
     "react": "^16.5.2"
   },
   "devDependencies": {

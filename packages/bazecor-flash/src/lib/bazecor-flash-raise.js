@@ -270,6 +270,11 @@ export default class FlashRaise {
     const errorMessage =
       "Firmware update failed, because the settings could not be restore";
     return new Promise(async (resolve, reject) => {
+      let backup = this.backupFileData.backup;
+      if (Object.entries(backup).length === 0 && backup.constructor === Object) {
+        resolve();
+        return;
+      }
       try {
         await focus.open(
           this.currentPort.comName,

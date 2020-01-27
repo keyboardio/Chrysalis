@@ -27,7 +27,8 @@ import { GenericTeensy } from "@bazecor-api/hardware-pjrc-teensy"
 
 const Hardware = {
   serial: [Model01, Raise_ANSI, Raise_ISO, ErgoDox, Atreus, Planck, Splitography, KBD4x, Raise_ANSIBootloader, Raise_ISOBootloader],
-  nonSerial: [Model01Bootloader, ErgoDox, Atreus, Planck, Splitography, KBD4x, GenericTeensy]
+  nonSerial: [Model01Bootloader, ErgoDox, Atreus, Planck, Splitography, KBD4x, GenericTeensy],
+  bootloader: [Model01Bootloader, Raise_ANSIBootloader, Raise_ISOBootloader]
 }
 
 export { Hardware as default }

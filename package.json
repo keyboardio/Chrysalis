@@ -47,8 +47,9 @@
   },
   "dependencies": {
     "@bazecor-api/colormap": "^0.0.4",
+    "@bazecor-api/flash": "^0.0.5",
     "@bazecor-api/focus": "^0.0.4",
-    "@bazecor-api/hardware": "^0.0.9",
+    "@bazecor-api/hardware": "^0.0.10",
     "@bazecor-api/keymap": "^0.0.9",
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.1",

@@ -1099,10 +1099,10 @@
   dependencies:
     "@bazecor-api/focus" "^0.0.4"
 
-"@bazecor-api/flash@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@bazecor-api/flash/-/flash-0.0.4.tgz#881195843ce9d3c1bc72aaf7c5ba6c6f226dc7bb"
-  integrity sha512-eh/gt8o+C26m60NXmON01prQcRO/B++vCtZv9h1GQhr02xfUMc3vgW6XgmC2Cfhc/5VdtxDQTLB/1/o8VsDO0g==
+"@bazecor-api/flash@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@bazecor-api/flash/-/flash-0.0.5.tgz#127c04614a3f62b102920c5b7ee0b4179f7fc0e0"
+  integrity sha512-2ywlk9Frppb050jrre4Tizs+u3mjd83as8fFpkybBs7xDYQ0SWTeq28rWRSoNf7RwaY+97oLpJPlFx95fl9znQ==
   dependencies:
     avrgirl-arduino "^3.0.0"
     teensy-loader "^0.1.1"
@@ -1114,44 +1114,44 @@
   dependencies:
     serialport "^6.2.2"
 
-"@bazecor-api/hardware-dygma-raise-ansi@^0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@bazecor-api/hardware-dygma-raise-ansi/-/hardware-dygma-raise-ansi-0.0.7.tgz#a740e988bfaedcdd2a01259144a62b8e02ef8b53"
-  integrity sha512-RIjjSgzXH4J7dkoLfB0RaQeIjWWAF7p84n1HBZ00vAn2GiC13wgKr9DFzrl7ndXj5tHL3xeuv1g+EFd59+nOjw==
+"@bazecor-api/hardware-dygma-raise-ansi@^0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@bazecor-api/hardware-dygma-raise-ansi/-/hardware-dygma-raise-ansi-0.0.8.tgz#36df52c01d566366d8b1e59123c911d02fd2daee"
+  integrity sha512-3+ZOKRMFpidqDgmBxEV4eMUlHi/gKUF22guvUalvt/VRng03y8mbXqPZT/mbA4QU8B1hsW107pSEdSF3WRdAkw==
   dependencies:
     "@bazecor-api/focus" "^0.0.4"
     react "^16.5.2"
 
-"@bazecor-api/hardware-dygma-raise-iso@^0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@bazecor-api/hardware-dygma-raise-iso/-/hardware-dygma-raise-iso-0.0.7.tgz#416b7d67ec583e4fdb738dd74da62099c2a2d65e"
-  integrity sha512-tVguGNH9dVkRrgVbw55b8/mpdmt8aEYsoqtpQZnZOyNriGT7msUvugkSf/G1f4lKWG/RnIvv1xwcS5PO5+l9ew==
+"@bazecor-api/hardware-dygma-raise-iso@^0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@bazecor-api/hardware-dygma-raise-iso/-/hardware-dygma-raise-iso-0.0.8.tgz#e489ec7c1c5b2f0cea840a1fb841feba3a8f3fd6"
+  integrity sha512-KLYLPy4jsdccIX9oF8HVcpn+/K4D8la/CafIoKFB7Bg4/bjtLOhxN8+lPOy483ha5h9MHWdur7QEUttJMQgQBA==
   dependencies:
     "@bazecor-api/focus" "^0.0.4"
     react "^16.5.2"
 
-"@bazecor-api/hardware-ez-ergodox@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@bazecor-api/hardware-ez-ergodox/-/hardware-ez-ergodox-0.0.4.tgz#1ff0bf013b7e8b09ea6c4014b536cc54c6d23c0b"
-  integrity sha512-zoyYFsIH9rRv4PV11pVAL6ImWEVUxp2ZTlauc3aBXF097CpOEYkEiSFL25qSFgBCgI2Isv/YTib3p9NBFNMBQA==
+"@bazecor-api/hardware-ez-ergodox@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@bazecor-api/hardware-ez-ergodox/-/hardware-ez-ergodox-0.0.5.tgz#4cf094d863cd627c51790248c209ef772d77a8a8"
+  integrity sha512-WXd7UwHUq0djczpWiurAB1QYYWCeEpFcKwYNztfdq4U2OVaXcVDl+L+Gns1/juXrZ3FXZctY95EqBMcGJglJ2g==
   dependencies:
-    "@bazecor-api/flash" "^0.0.4"
+    "@bazecor-api/flash" "^0.0.5"
     react "^16.5.2"
 
-"@bazecor-api/hardware-kbdfans-kbd4x@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@bazecor-api/hardware-kbdfans-kbd4x/-/hardware-kbdfans-kbd4x-0.0.4.tgz#a830f9de08a5656e86354b1a30ec756fcb65d333"
-  integrity sha512-atY/0emW8CihVOHg/MgY4iRvkmMScyGbL75vaHBPgbeaephJkAH+7ZtKvJ/jFaK78bzeAYT2XRqzaRJrl1Fifw==
+"@bazecor-api/hardware-kbdfans-kbd4x@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@bazecor-api/hardware-kbdfans-kbd4x/-/hardware-kbdfans-kbd4x-0.0.5.tgz#bf2717c287551ede9f7f1f38ae52397bdaeb15e6"
+  integrity sha512-Z4f+/KPq0Nkz1puMIigtR3Pp6glGtXtfu3wRKB57CzBCamyuJd9lJkl7zrjJ1DVqtG1Rn0BqTPUzCONPhGCrQQ==
   dependencies:
-    "@bazecor-api/flash" "^0.0.4"
+    "@bazecor-api/flash" "^0.0.5"
     react "^16.5.2"
 
-"@bazecor-api/hardware-keyboardio-model01@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@bazecor-api/hardware-keyboardio-model01/-/hardware-keyboardio-model01-0.0.4.tgz#bb117615cdf887f39ec1e66df6690c72c9a1007f"
-  integrity sha512-1r4Api1VO2e2lFrBfkR6B8TuAH9XWBX6aH3oEGjR4YVQyl9qTJ2jt1e3tAWMIOX3pv/ScnSDlk55vNszVV6VvA==
+"@bazecor-api/hardware-keyboardio-model01@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@bazecor-api/hardware-keyboardio-model01/-/hardware-keyboardio-model01-0.0.5.tgz#fd5208b9c3656040cf28248111ad38ec5853fddc"
+  integrity sha512-9Z+g/r3+OINs8TMdjvm4B22haFG60gi9m3bTCf/U5QY26HEqc/bTTdutuEN06Q/nvqsc2o0xZoiDSvz9fQUd+w==
   dependencies:
-    "@bazecor-api/flash" "^0.0.4"
+    "@bazecor-api/flash" "^0.0.5"
     react "^16.5.2"
 
 "@bazecor-api/hardware-olkb-planck@^0.0.2":
@@ -1161,43 +1161,43 @@
   dependencies:
     react "^16.5.2"
 
-"@bazecor-api/hardware-pjrc-teensy@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@bazecor-api/hardware-pjrc-teensy/-/hardware-pjrc-teensy-0.0.4.tgz#fa4cc4b0258264ed2e770e5e4236c02888f6da47"
-  integrity sha512-9K6RuMCHz59OhRPGC1RMjBwoxwe0SeJZ0J0as/oWA5XsDeHfa74TH8ixv1VOHUAdN+/VO17MxrPKoSyKsFqaeQ==
+"@bazecor-api/hardware-pjrc-teensy@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@bazecor-api/hardware-pjrc-teensy/-/hardware-pjrc-teensy-0.0.5.tgz#f9a6bfb4231c7cbdf811ef65e1cfc03919ff88c4"
+  integrity sha512-yiZ3iDaUWUWzE2BexXHqO18wBKzzlPp5lINLlAqONJBFtnZmVBgpK3ed9FtRvGw7O7ZPPje5x+MTTS2MdXnz0g==
   dependencies:
-    "@bazecor-api/flash" "^0.0.4"
+    "@bazecor-api/flash" "^0.0.5"
 
-"@bazecor-api/hardware-softhruf-splitography@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@bazecor-api/hardware-softhruf-splitography/-/hardware-softhruf-splitography-0.0.4.tgz#feb17674a6a1befcefd39f3f7bcef8022d5645ad"
-  integrity sha512-kb7/DWLkmjgWtMvTcA38Yuh8gCsT/eNsxTQ8P9GtCgX683/3Nicv7ZPehFnH4gcdw7+a1TOk9YITf7C+1BeidQ==
+"@bazecor-api/hardware-softhruf-splitography@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@bazecor-api/hardware-softhruf-splitography/-/hardware-softhruf-splitography-0.0.5.tgz#577e24d8440047b159f7fef94e32872657dd9102"
+  integrity sha512-tonbeHIE9IPbocN8oYbh8jmdDlLPxS95UkP/rpfgBeIXNvqA2hzbLzciUkST14UxwO54G2HgFvi9ovoVZlJbgg==
   dependencies:
-    "@bazecor-api/flash" "^0.0.4"
+    "@bazecor-api/flash" "^0.0.5"
     react "^16.5.2"
 
-"@bazecor-api/hardware-technomancy-atreus@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@bazecor-api/hardware-technomancy-atreus/-/hardware-technomancy-atreus-0.0.4.tgz#8979a4f7da7445a8fcac1bfe2487f47a341d2436"
-  integrity sha512-T4Rne1FqrSBoJ1Ngf3ecDDCuBa4kSHtSDbeVpTeRK6rxUIAEYAIzAibCm3kQQkehHPmRua2vmDnmpb4D6hzmIA==
+"@bazecor-api/hardware-technomancy-atreus@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@bazecor-api/hardware-technomancy-atreus/-/hardware-technomancy-atreus-0.0.5.tgz#29c020692ec93f21abbfa421d817a74c44c1011d"
+  integrity sha512-qizOV4fDjcb5gs8QMw0pBeXg4iFHqBuljDAetbqAkVGXuzP54UhJRwHGB7PSNZJsVaS9pBhpmYgnykFEvRWujw==
   dependencies:
-    "@bazecor-api/flash" "^0.0.4"
+    "@bazecor-api/flash" "^0.0.5"
     react "^16.5.2"
 
-"@bazecor-api/hardware@^0.0.9":
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/@bazecor-api/hardware/-/hardware-0.0.9.tgz#9d19bc52b70205d80ad729ee37e93fc8f02e2688"
-  integrity sha512-r1abbLQWYYstWaBxs0B53wh93WGCoGeGBA7lEUiMsHpguNH6oXMPdVNx5i587OcQttf5h1ZmqCI7/3o7u1N5jA==
+"@bazecor-api/hardware@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@bazecor-api/hardware/-/hardware-0.0.10.tgz#0a79a786a27b2a04cda55d4dff8a12b021cee237"
+  integrity sha512-eCxRoheQ1vkJNQO4jPpTqNJxLaHJlKUhGsJyBMCjZDuB8bT7/Zddvxdrn/NpxgNunk2V9N5fwb+hAIh6OdU8Wg==
   dependencies:
-    "@bazecor-api/hardware-dygma-raise-ansi" "^0.0.7"
-    "@bazecor-api/hardware-dygma-raise-iso" "^0.0.7"
-    "@bazecor-api/hardware-ez-ergodox" "^0.0.4"
-    "@bazecor-api/hardware-kbdfans-kbd4x" "^0.0.4"
-    "@bazecor-api/hardware-keyboardio-model01" "^0.0.4"
+    "@bazecor-api/hardware-dygma-raise-ansi" "^0.0.8"
+    "@bazecor-api/hardware-dygma-raise-iso" "^0.0.8"
+    "@bazecor-api/hardware-ez-ergodox" "^0.0.5"
+    "@bazecor-api/hardware-kbdfans-kbd4x" "^0.0.5"
+    "@bazecor-api/hardware-keyboardio-model01" "^0.0.5"
     "@bazecor-api/hardware-olkb-planck" "^0.0.2"
-    "@bazecor-api/hardware-pjrc-teensy" "^0.0.4"
-    "@bazecor-api/hardware-softhruf-splitography" "^0.0.4"
-    "@bazecor-api/hardware-technomancy-atreus" "^0.0.4"
+    "@bazecor-api/hardware-pjrc-teensy" "^0.0.5"
+    "@bazecor-api/hardware-softhruf-splitography" "^0.0.5"
+    "@bazecor-api/hardware-technomancy-atreus" "^0.0.5"
 
 "@bazecor-api/keymap@^0.0.9":
   version "0.0.9"

@@ -375,22 +375,25 @@ class FirmwareUpdate extends React.Component {
       </FormControl>
     );
 
+    const focus = new Focus();
     const dialogChildren = (
       <React.Fragment>
         <div className={classes.paper}>{i18n.hardware.updateInstructions}</div>
-        <Grid container direction="row" justify="center">
-          <Grid item className={classes.grid}>
-            <img
-              src={
-                this.isDevelopment
-                  ? "./press_esc.png"
-                  : path.join(getStaticPath(), "press_esc.png")
-              }
-              className={classes.img}
-              alt="press_esc"
-            />
+        {!focus.device.bootloader && (
+          <Grid container direction="row" justify="center">
+            <Grid item className={classes.grid}>
+              <img
+                src={
+                  this.isDevelopment
+                    ? "./press_esc.png"
+                    : path.join(getStaticPath(), "press_esc.png")
+                }
+                className={classes.img}
+                alt="press_esc"
+              />
+            </Grid>
           </Grid>
-        </Grid>
+        )}
       </React.Fragment>
     );
 

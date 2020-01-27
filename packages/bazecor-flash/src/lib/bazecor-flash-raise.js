@@ -160,7 +160,7 @@ export default class FlashRaise {
               await this.delay(timeouts.bootLoaderUp);
               if (
                 await this.foundDevices(
-                  Hardware.nonSerial,
+                  Hardware.bootloader,
                   "Bootloader detected"
                 )
               ) {

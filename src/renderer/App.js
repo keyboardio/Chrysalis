@@ -47,7 +47,12 @@ import Header from "./components/Header";
 import ConfirmationDialog from "./components/ConfirmationDialog";
 import { history, navigate } from "./routerHistory";
 
+import { isDevelopment } from "./config";
+
 let focus = new Focus();
+if (isDevelopment) {
+  focus.debug = true;
+}
 
 if (settings.get("ui.language")) i18n.setLanguage(settings.get("ui.language"));
 

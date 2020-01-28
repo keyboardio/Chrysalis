@@ -1,5 +1,5 @@
 /* chrysalis-hardware-keyboardio-atreus2 -- Chrysalis Atreus2 support
- * Copyright (C) 2019  Keyboardio, Inc.
+ * Copyright (C) 2019, 2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -31,7 +31,7 @@ const Atreus2 = {
     },
     usb: {
         vendorId: 0x1209,
-        productId: 0x2301
+        productId: 0x2303
     },
     keyboard: {
         rows: 4,
@@ -45,7 +45,7 @@ const Atreus2 = {
       const board = {
         name: "Keyboardio Atreus",
         baud: 9600,
-        productId: ["0x2302", "0x2301"],
+        productId: ["0x2302", "0x2303"],
         protocol: "avr109",
         signature: new Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e])
       }

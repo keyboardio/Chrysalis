@@ -379,7 +379,7 @@ class FirmwareUpdate extends React.Component {
     const dialogChildren = (
       <React.Fragment>
         <div className={classes.paper}>{i18n.hardware.updateInstructions}</div>
-        {!focus.device.bootloader && (
+        {focus.device && !focus.device.bootloader && (
           <Grid container direction="row" justify="center">
             <Grid item className={classes.grid}>
               <img

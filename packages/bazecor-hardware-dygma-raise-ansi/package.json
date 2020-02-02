@@ -1,6 +1,6 @@
 {
   "name": "@bazecor-api/hardware-dygma-raise-ansi",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Bazecor support for Dygma's Raise",
   "main": "lib",
   "repository": {
@@ -30,7 +30,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@bazecor-api/focus": "^0.0.4",
+    "@bazecor-api/focus": "^0.0.5",
     "react": "^16.5.2"
   },
   "devDependencies": {

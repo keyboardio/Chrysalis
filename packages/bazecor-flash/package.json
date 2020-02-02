@@ -30,7 +30,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "avrgirl-arduino": "^3.0.0",
+    "avrgirl-arduino": "^4.2.1",
     "teensy-loader": "^0.1.1"
   }
 }

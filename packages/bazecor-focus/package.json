@@ -30,6 +30,6 @@
         "prepublishOnly": "npm run build"
     },
     "dependencies": {
-        "serialport": "^6.2.2"
+        "serialport": "^8.0.7"
     }
 }

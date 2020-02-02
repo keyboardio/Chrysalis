@@ -46,11 +46,11 @@
     }
   },
   "dependencies": {
-    "@bazecor-api/colormap": "^0.0.4",
-    "@bazecor-api/flash": "^0.0.5",
-    "@bazecor-api/focus": "^0.0.4",
-    "@bazecor-api/hardware": "^0.0.10",
-    "@bazecor-api/keymap": "^0.0.9",
+    "@bazecor-api/colormap": "^0.0.7",
+    "@bazecor-api/flash": "^0.0.7",
+    "@bazecor-api/focus": "^0.0.7",
+    "@bazecor-api/hardware": "^0.0.13",
+    "@bazecor-api/keymap": "^0.0.12",
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.1",
     "@material-ui/lab": "^3.0.0-alpha.30",
@@ -68,7 +68,7 @@
     "source-map-support": "^0.5.11",
     "typeface-roboto": "^0.0.54",
     "typeface-source-code-pro": "^0.0.71",
-    "usb": "^1.5.0"
+    "usb": "^1.6.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.0",
@@ -81,8 +81,8 @@
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.5.0",
     "babel-loader": "^8.0.2",
-    "electron": "4.1.1",
-    "electron-builder": "^20.39.0",
+    "electron": "7.1.1",
+    "electron-builder": "^22.2.0",
     "electron-webpack": "^2.0.1",
     "electron-webpack-eslint": "^4.0.1",
     "eslint": "^5.15.3",
@@ -105,6 +105,7 @@
     "yarn": "^1.15.2"
   },
   "resolutions": {
-    "terser": "3.16.1"
+    "terser": "3.16.1",
+    "usb": "^1.6.2"
   }
 }

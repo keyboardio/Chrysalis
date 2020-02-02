@@ -73,7 +73,7 @@ class Focus {
             } else {
                 let devices = await this.find(device)
                 if (devices && devices.length >= 1) {
-                    this._port = new SerialPort(devices[0].comName)
+                    this._port = new SerialPort(devices[0].path)
                 }
                 info = device
             }

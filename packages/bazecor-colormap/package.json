@@ -1,6 +1,6 @@
 {
     "name": "@bazecor-api/colormap",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "description": "Bazecor colormap library",
     "main": "lib",
     "repository": {
@@ -30,6 +30,6 @@
         "prepublishOnly": "npm run build"
     },
     "dependencies": {
-        "@bazecor-api/focus": "^0.0.5"
+        "@bazecor-api/focus": "^0.0.6"
     }
 }

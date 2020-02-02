@@ -31,14 +31,7 @@
   },
   "dependencies": {
     "@bazecor-api/hardware-dygma-raise-ansi": "^0.0.9",
-    "@bazecor-api/hardware-dygma-raise-iso": "^0.0.9",
-    "@bazecor-api/hardware-ez-ergodox": "^0.0.6",
-    "@bazecor-api/hardware-kbdfans-kbd4x": "^0.0.6",
-    "@bazecor-api/hardware-keyboardio-model01": "^0.0.6",
-    "@bazecor-api/hardware-olkb-planck": "^0.0.2",
-    "@bazecor-api/hardware-pjrc-teensy": "^0.0.6",
-    "@bazecor-api/hardware-softhruf-splitography": "^0.0.6",
-    "@bazecor-api/hardware-technomancy-atreus": "^0.0.6"
+    "@bazecor-api/hardware-dygma-raise-iso": "^0.0.9"
   },
   "peerDependencies": {
     "@bazecor-api/focus": "~0.0.2"

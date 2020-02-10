@@ -1,6 +1,6 @@
 {
   "name": "@chrysalis-api/hardware-keyboardio-model01",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "Chrysalis Keyboardio Model01 support",
   "main": "lib",
   "repository": {
@@ -30,7 +30,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@chrysalis-api/flash": "^0.0.9",
+    "@chrysalis-api/flash": "^0.0.10",
     "react": "^16.5.2"
   },
   "devDependencies": {

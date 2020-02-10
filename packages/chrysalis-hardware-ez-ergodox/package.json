@@ -1,6 +1,6 @@
 {
   "name": "@chrysalis-api/hardware-ez-ergodox",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "Chrysalis ErgoDox support",
   "main": "lib",
   "repository": {
@@ -30,7 +30,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@chrysalis-api/flash": "^0.0.9",
+    "@chrysalis-api/flash": "^0.0.10",
     "react": "^16.5.2"
   },
   "devDependencies": {

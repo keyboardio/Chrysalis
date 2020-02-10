@@ -1,6 +1,6 @@
 {
     "name": "@chrysalis-api/colormap",
-    "version": "0.0.13",
+    "version": "0.0.14",
     "description": "Chrysalis colormap library",
     "main": "lib",
     "repository": {
@@ -30,6 +30,6 @@
         "prepublishOnly": "npm run build"
     },
     "dependencies": {
-        "@chrysalis-api/focus": "^0.0.14"
+        "@chrysalis-api/focus": "^0.0.15"
     }
 }

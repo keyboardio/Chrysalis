@@ -17,16 +17,16 @@
 
 import Focus from "@bazecor-api/focus"
 
-let instance = null
+global.colormap_instance = null
 
 export default class Colormap {
     constructor(opts) {
-        if (!instance) {
-            instance = this
+        if (!global.colormap_instance) {
+            global.colormap_instance = this
         }
-        instance.setLayerSize(opts)
+        global.colormap_instance.setLayerSize(opts)
 
-        return instance
+        return global.colormap_instance
     }
 
     setLayerSize(opts) {

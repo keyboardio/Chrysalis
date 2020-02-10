@@ -19,18 +19,18 @@ import Focus from "@bazecor-api/focus"
 
 import KeymapDB from "./db"
 
-let instance = null
+global.keymap_instance = null
 
 class Keymap {
     constructor(opts) {
         //Add checking of language existing to call KeymapDB and change language from the local storage
-       if (!instance || opts.language) {
-            instance = this
+       if (!global.keymap_instance || opts.language) {
+            global.keymap_instance = this
             this.db = new KeymapDB()
             this.legacyInterface = false
         }
-        instance.setLayerSize(opts)
-        return instance
+        global.keymap_instance.setLayerSize(opts)
+        return global.keymap_instance
     }
 
     setLayerSize(opts) {

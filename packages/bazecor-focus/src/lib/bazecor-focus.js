@@ -1,6 +1,6 @@
 /* bazecor-focus -- Bazecor Focus protocol library
  * Copyright (C) 2018, 2019  Keyboardio, Inc.
- * Copyright (C) 2019 DygmaLab SE
+ * Copyright (C) 2019, 2020 DygmaLab SE
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -18,19 +18,19 @@
 import SerialPort from "serialport"
 import Delimiter from "@serialport/parser-delimiter"
 
-let instance = null
+global.focus_instance = null;
 
 class Focus {
     constructor() {
-        if (!instance) {
-            instance = this
+        if (!global.focus_instance) {
+            global.focus_instance = this
             this.commands = {
                 help: this._help
             }
             this.timeout = 5000
             this.debug = false
         }
-        return instance
+        return global.focus_instance
     }
 
     debugLog(...args) {

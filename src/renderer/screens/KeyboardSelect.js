@@ -193,9 +193,9 @@ class KeyboardSelect extends React.Component {
       if (!focus._port) return;
 
       for (let device of this.state.devices) {
-        if (!device.comName) continue;
+        if (!device.path) continue;
 
-        if (device.comName == focus._port.path) {
+        if (device.path == focus._port.path) {
           this.setState(state => ({
             selectedPortIndex: state.devices.indexOf(device)
           }));
@@ -244,12 +244,12 @@ class KeyboardSelect extends React.Component {
     let port = null;
     if (devices && devices.length > 0) {
       deviceItems = devices.map((option, index) => {
-        let label = option.comName;
+        let label = option.path;
         if (option.device && option.device.info) {
           label = (
             <ListItemText
               primary={option.device.info.displayName}
-              secondary={option.comName || i18n.keyboardSelect.unknown}
+              secondary={option.path || i18n.keyboardSelect.unknown}
             />
           );
         } else if (option.info) {
@@ -258,7 +258,7 @@ class KeyboardSelect extends React.Component {
 
         const icon = (
           <ListItemIcon>
-            <Avatar className={option.comName && classes.supported}>
+            <Avatar className={option.path && classes.supported}>
               <KeyboardIcon />
             </Avatar>
           </ListItemIcon>

@@ -138,7 +138,7 @@ class App extends React.Component {
   onKeyboardConnect = async port => {
     focus.close();
 
-    if (!port.comName) {
+    if (!port.path) {
       this.setState({
         connected: true,
         pages: {},
@@ -147,10 +147,10 @@ class App extends React.Component {
       return [];
     }
 
-    console.log("Connecting to", port.comName);
-    await focus.open(port.comName, port.device);
+    console.log("Connecting to", port.path);
+    await focus.open(port.path, port.device);
     if (process.platform == "darwin") {
-      await spawn("stty", ["-f", port.comName, "clocal"]);
+      await spawn("stty", ["-f", port.path, "clocal"]);
     }
     console.log("Probing for Focus support...");
     let commands;

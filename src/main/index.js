@@ -40,7 +40,11 @@ async function createMainWindow() {
     width: mainWindowState.width,
     height: mainWindowState.height,
     resizable: true,
-    icon: path.join(getStaticPath(), "/logo.png")
+    icon: path.join(getStaticPath(), "/logo.png"),
+    webPreferences: {
+      sandbox: false,
+      nodeIntegration: true
+    }
   });
 
   mainWindowState.manage(window);

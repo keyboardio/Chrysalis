@@ -64,7 +64,7 @@ class Welcome extends React.Component {
   reconnect = async () => {
     let focus = new Focus();
     const device = {
-      comName: focus._port.path,
+      path: focus._port.path,
       device: focus.device
     };
 

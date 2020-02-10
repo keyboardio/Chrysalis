@@ -195,7 +195,7 @@ export default class FlashRaise {
     this.backupFileData.firmwareFile = filename;
     return new Promise(async (resolve, reject) => {
       try {
-        await focus.open(this.currentPort.comName, this.currentPort.device);
+        await focus.open(this.currentPort.path, this.currentPort.device);
         await arduino.flash(filename, async (err, result) => {
           if (err) throw new Error(`Flash error ${result}`);
           else {
@@ -273,7 +273,7 @@ export default class FlashRaise {
     return new Promise(async (resolve, reject) => {
       try {
         await focus.open(
-          this.currentPort.comName,
+          this.currentPort.path,
           this.currentPort.device.info
         );
         await focus

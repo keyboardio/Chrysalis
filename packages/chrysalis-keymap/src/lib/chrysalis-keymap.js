@@ -18,18 +18,18 @@ import Focus from "@chrysalis-api/focus"
 
 import KeymapDB from "./db"
 
-let instance = null
+global.chrysalis_keymap_instance = null
 
 class Keymap {
     constructor(opts) {
-        if (!instance) {
-            instance = this
+        if (!global.chrysalis_keymap_instance) {
+            global.chrysalis_keymap_instance = this
             this.db = new KeymapDB()
             this.legacyInterface = false
         }
-        instance.setLayerSize(opts)
+        global.chrysalis_keymap_instance.setLayerSize(opts)
 
-        return instance
+        return global.chrysalis_keymap_instance
     }
 
     setLayerSize(opts) {

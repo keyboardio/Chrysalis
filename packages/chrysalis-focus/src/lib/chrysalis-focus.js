@@ -17,12 +17,12 @@
 import SerialPort from "serialport"
 import Delimiter from "@serialport/parser-delimiter"
 
-let instance = null
+global.chrysalis_focus_instance = null
 
 class Focus {
     constructor() {
-        if (!instance) {
-            instance = this
+        if (!global.chrysalis_focus_instance) {
+            global.chrysalis_focus_instance = this
             this.commands = {
                 help: this._help
             }
@@ -30,7 +30,7 @@ class Focus {
             this.debug = false
         }
 
-        return instance
+        return global.chrysalis_focus_instance
     }
 
     debugLog(...args) {

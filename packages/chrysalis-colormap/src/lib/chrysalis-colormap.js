@@ -16,16 +16,16 @@
 
 import Focus from "@chrysalis-api/focus"
 
-let instance = null
+global.chrysalis_colormap_instance = null
 
 export default class Colormap {
     constructor(opts) {
-        if (!instance) {
-            instance = this
+        if (!global.chrysalis_colormap_instance) {
+            global.chrysalis_colormap_instance = this
         }
-        instance.setLayerSize(opts)
+        global.chrysalis_colormap_instance.setLayerSize(opts)
 
-        return instance
+        return global.chrysalis_colormap_instance
     }
 
     setLayerSize(opts) {

@@ -26,3 +26,6 @@ install:
   - yarn install --network-timeout 1000000
 script:
   - yarn run build:$TRAVIS_OS_NAME
+after_script:
+  - yarn add --dev aws-sdk
+  - tools/s3-upload.js

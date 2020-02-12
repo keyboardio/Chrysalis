@@ -19,20 +19,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
-import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import Collapse from "@material-ui/core/Collapse";
 import Divider from "@material-ui/core/Divider";
 import FilledInput from "@material-ui/core/FilledInput";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import MenuItem from "@material-ui/core/MenuItem";
-import Portal from "@material-ui/core/Portal";
 import Select from "@material-ui/core/Select";
 import Slider from "@material-ui/lab/Slider";
 import Switch from "@material-ui/core/Switch";
@@ -41,19 +37,13 @@ import { withStyles } from "@material-ui/core/styles";
 
 import Focus from "@chrysalis-api/focus";
 
-import ConfirmationDialog from "../components/ConfirmationDialog";
-import SaveChangesButton from "../components/SaveChangesButton";
-import i18n from "../i18n";
+import ConfirmationDialog from "../../components/ConfirmationDialog";
+import SaveChangesButton from "../../components/SaveChangesButton";
+import i18n from "../../i18n";
 
 import settings from "electron-settings";
 
 const styles = theme => ({
-  root: {
-    ...theme.mixins.gutters(),
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
-    margin: `0px ${theme.spacing.unit * 8}px`
-  },
   title: {
     marginTop: theme.spacing.unit * 4,
     marginBottom: theme.spacing.unit
@@ -96,7 +86,6 @@ const styles = theme => ({
 
 class KeyboardSettings extends React.Component {
   state = {
-    advanced: false,
     keymap: {
       custom: [],
       default: [],
@@ -106,7 +95,6 @@ class KeyboardSettings extends React.Component {
     defaultLayer: 126,
     modified: false,
     showDefaults: false,
-    EEPROMClearConfirmationOpen: false,
     working: false
   };
 
@@ -134,12 +122,6 @@ class KeyboardSettings extends React.Component {
       this.componentDidMount();
       this.setState({ modified: false });
     }
-  };
-
-  toggleAdvanced = () => {
-    this.setState(state => ({
-      advanced: !state.advanced
-    }));
   };
 
   setOnlyCustom = event => {
@@ -190,28 +172,6 @@ class KeyboardSettings extends React.Component {
     settings.set("keymap.showDefaults", showDefaults);
     this.setState({ modified: false });
     this.props.cancelContext();
-  };
-
-  clearEEPROM = async () => {
-    const focus = new Focus();
-
-    await this.setState({ working: true });
-    this.closeEEPROMClearConfirmation();
-
-    let eeprom = await focus.command("eeprom.contents");
-    eeprom = eeprom
-      .split(" ")
-      .filter(v => v.length > 0)
-      .map(() => 255)
-      .join(" ");
-    await focus.command("eeprom.contents", eeprom);
-    this.setState({ working: false });
-  };
-  openEEPROMClearConfirmation = () => {
-    this.setState({ EEPROMClearConfirmationOpen: true });
-  };
-  closeEEPROMClearConfirmation = () => {
-    this.setState({ EEPROMClearConfirmationOpen: false });
   };
 
   render() {
@@ -281,106 +241,62 @@ class KeyboardSettings extends React.Component {
     return (
       <React.Fragment>
         {this.state.working && <LinearProgress variant="query" />}
-        <div className={classes.root}>
-          <Portal container={this.props.titleElement}>
-            {i18n.app.menu.keyboardSettings}
-          </Portal>
-          <Typography
-            variant="subtitle1"
-            component="h2"
-            className={classes.title}
-          >
-            {i18n.keyboardSettings.keymap.title}
-          </Typography>
-          <Card>
-            <CardContent>
-              <FormControl className={classes.group}>
+        <Typography
+          variant="subtitle1"
+          component="h2"
+          className={classes.title}
+        >
+          {i18n.keyboardSettings.keymap.title}
+        </Typography>
+        <Card>
+          <CardContent>
+            <FormControl className={classes.group}>
+              <FormControlLabel
+                className={classes.control}
+                control={showDefaultLayersSwitch}
+                classes={{ label: classes.grow }}
+                labelPlacement="start"
+                label={i18n.keyboardSettings.keymap.showHardcoded}
+              />
+              <Divider />
+              <FormControlLabel
+                className={classes.control}
+                control={onlyCustomSwitch}
+                classes={{ label: classes.grow }}
+                labelPlacement="start"
+                label={i18n.keyboardSettings.keymap.onlyCustom}
+              />
+              <FormControlLabel
+                className={classes.control}
+                classes={{ label: classes.grow }}
+                control={defaultLayerSelect}
+                labelPlacement="start"
+                label={i18n.keyboardSettings.keymap.defaultLayer}
+              />
+              {ledBrightness >= 0 && (
                 <FormControlLabel
                   className={classes.control}
-                  control={showDefaultLayersSwitch}
-                  classes={{ label: classes.grow }}
+                  classes={{
+                    label: classes.grow,
+                    root: classes.sliderContainer
+                  }}
+                  control={brightnessControl}
                   labelPlacement="start"
-                  label={i18n.keyboardSettings.keymap.showHardcoded}
+                  label={i18n.keyboardSettings.led.brightness}
                 />
-                <Divider />
-                <FormControlLabel
-                  className={classes.control}
-                  control={onlyCustomSwitch}
-                  classes={{ label: classes.grow }}
-                  labelPlacement="start"
-                  label={i18n.keyboardSettings.keymap.onlyCustom}
-                />
-                <FormControlLabel
-                  className={classes.control}
-                  classes={{ label: classes.grow }}
-                  control={defaultLayerSelect}
-                  labelPlacement="start"
-                  label={i18n.keyboardSettings.keymap.defaultLayer}
-                />
-                {ledBrightness >= 0 && (
-                  <FormControlLabel
-                    className={classes.control}
-                    classes={{
-                      label: classes.grow,
-                      root: classes.sliderContainer
-                    }}
-                    control={brightnessControl}
-                    labelPlacement="start"
-                    label={i18n.keyboardSettings.led.brightness}
-                  />
-                )}
-              </FormControl>
-            </CardContent>
-            <CardActions className={classes.flex}>
-              <span className={classes.grow} />
-              <SaveChangesButton
-                onClick={this.saveKeymapChanges}
-                disabled={!modified}
-              >
-                {i18n.components.save.saveChanges}
-              </SaveChangesButton>
-            </CardActions>
-          </Card>
-          <div className={classes.advanced}>
-            <Button onClick={this.toggleAdvanced}>
-              {i18n.keyboardSettings.advanced}
-              {this.state.advanced ? (
-                <ArrowDropUpIcon />
-              ) : (
-                <ArrowDropDownIcon />
               )}
-            </Button>
-          </div>
-          <Collapse in={this.state.advanced} timeout="auto" unmountOnExit>
-            <Typography
-              variant="subtitle1"
-              component="h2"
-              className={classes.title}
+            </FormControl>
+          </CardContent>
+          <CardActions className={classes.flex}>
+            <span className={classes.grow} />
+            <SaveChangesButton
+              onClick={this.saveKeymapChanges}
+              disabled={!modified}
             >
-              {i18n.keyboardSettings.advancedOps}
-            </Typography>
-            <Card>
-              <CardActions>
-                <Button
-                  disabled={this.state.working}
-                  variant="contained"
-                  color="secondary"
-                  onClick={this.openEEPROMClearConfirmation}
-                >
-                  {i18n.keyboardSettings.resetEEPROM.button}
-                </Button>
-              </CardActions>
-            </Card>
-          </Collapse>
-          <ConfirmationDialog
-            title={i18n.keyboardSettings.resetEEPROM.dialogTitle}
-            open={this.state.EEPROMClearConfirmationOpen}
-            onConfirm={this.clearEEPROM}
-            onCancel={this.closeEEPROMClearConfirmation}
-          >
-            {i18n.keyboardSettings.resetEEPROM.dialogContents}
-          </ConfirmationDialog>
-        </div>
+              {i18n.components.save.saveChanges}
+            </SaveChangesButton>
+          </CardActions>
+        </Card>
       </React.Fragment>
     );
   }
@@ -390,4 +306,81 @@ KeyboardSettings.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(KeyboardSettings);
+class AdvancedKeyboardSettings extends React.Component {
+  state = {
+    EEPROMClearConfirmationOpen: false
+  };
+
+  clearEEPROM = async () => {
+    const focus = new Focus();
+
+    await this.setState({ working: true });
+    this.closeEEPROMClearConfirmation();
+
+    let eeprom = await focus.command("eeprom.contents");
+    eeprom = eeprom
+      .split(" ")
+      .filter(v => v.length > 0)
+      .map(() => 255)
+      .join(" ");
+    await focus.command("eeprom.contents", eeprom);
+    this.setState({ working: false });
+  };
+  openEEPROMClearConfirmation = () => {
+    this.setState({ EEPROMClearConfirmationOpen: true });
+  };
+  closeEEPROMClearConfirmation = () => {
+    this.setState({ EEPROMClearConfirmationOpen: false });
+  };
+
+  render() {
+    const { classes } = this.props;
+
+    return (
+      <React.Fragment>
+        {this.state.working && <LinearProgress variant="query" />}
+        <Typography
+          variant="subtitle1"
+          component="h2"
+          className={classes.title}
+        >
+          {i18n.keyboardSettings.advancedOps}
+        </Typography>
+        <Card>
+          <CardActions>
+            <Button
+              disabled={this.state.working}
+              variant="contained"
+              color="secondary"
+              onClick={this.openEEPROMClearConfirmation}
+            >
+              {i18n.keyboardSettings.resetEEPROM.button}
+            </Button>
+          </CardActions>
+        </Card>
+        <ConfirmationDialog
+          title={i18n.keyboardSettings.resetEEPROM.dialogTitle}
+          open={this.state.EEPROMClearConfirmationOpen}
+          onConfirm={this.clearEEPROM}
+          onCancel={this.closeEEPROMClearConfirmation}
+        >
+          {i18n.keyboardSettings.resetEEPROM.dialogContents}
+        </ConfirmationDialog>
+      </React.Fragment>
+    );
+  }
+}
+
+AdvancedKeyboardSettings.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+const StyledKeyboardSettings = withStyles(styles)(KeyboardSettings);
+const StyledAdvancedKeyboardSettings = withStyles(styles)(
+  AdvancedKeyboardSettings
+);
+
+export {
+  StyledKeyboardSettings as KeyboardSettings,
+  StyledAdvancedKeyboardSettings as AdvancedKeyboardSettings
+};

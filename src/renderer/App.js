@@ -40,7 +40,6 @@ import FirmwareUpdate from "./screens/FirmwareUpdate";
 import Editor from "./screens/Editor/Editor";
 import Preferences from "./screens/Preferences";
 import Welcome from "./screens/Welcome";
-import KeyboardSettings from "./screens/KeyboardSettings";
 import i18n from "./i18n";
 
 import Header from "./components/Header";
@@ -261,18 +260,15 @@ class App extends React.Component {
                   onDisconnect={this.onKeyboardDisconnect}
                   titleElement={() => document.querySelector("#page-title")}
                 />
-                <KeyboardSettings
-                  path="/keyboard-settings"
-                  titleElement={() => document.querySelector("#page-title")}
-                  startContext={this.startContext}
-                  cancelContext={this.cancelContext}
-                  inContext={this.state.contextBar}
-                />
                 <Preferences
+                  connected={connected}
                   path="/preferences"
                   titleElement={() => document.querySelector("#page-title")}
                   darkMode={this.state.darkMode}
                   toggleDarkMode={this.toggleDarkMode}
+                  startContext={this.startContext}
+                  cancelContext={this.cancelContext}
+                  inContext={this.state.contextBar}
                 />
               </Router>
             </main>

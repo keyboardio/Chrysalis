@@ -1138,10 +1138,10 @@
     "@bazecor-api/hardware-dygma-raise-ansi" "^0.0.11"
     "@bazecor-api/hardware-dygma-raise-iso" "^0.0.11"
 
-"@bazecor-api/keymap@^0.0.12":
-  version "0.0.12"
-  resolved "https://registry.yarnpkg.com/@bazecor-api/keymap/-/keymap-0.0.12.tgz#13ac525f9ee6657507726609d7f4aa4739a4a7b3"
-  integrity sha512-6OthsSa7d3Vj/xRM25+yUaR0jW4+jjbYyn6ts2g9l/p5E/8YyJmJpgkjwWZRweQdht4+9ATMTocwxow+ID0AdQ==
+"@bazecor-api/keymap@^0.0.13":
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/@bazecor-api/keymap/-/keymap-0.0.13.tgz#fc0f898f951cea90d9c94335889902813d54dffe"
+  integrity sha512-jUEQIWA/SY/Fg1iFNxN3t25LQ6ho64J1XW1GTMPJYYqqLSu89Jwafs+uj6sx8GTeu694QZ1rLW4gwHyp7xD84Q==
   dependencies:
     "@bazecor-api/focus" "^0.0.7"
 

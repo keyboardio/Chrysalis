@@ -27,16 +27,20 @@ import App from "./App";
 import Error from "./Error";
 import "../styles/keymap.css";
 
-const dismissButton = (
-  <IconButton color="inherit" size="small">
-    <CloseIcon />
-  </IconButton>
-);
+const notistackRef = React.createRef();
+const onClickDismiss = key => () => {
+  notistackRef.current.closeSnackbar(key);
+};
 
 try {
   ReactDOM.render(
     <SnackbarProvider
-      action={dismissButton}
+      ref={notistackRef}
+      action={key => (
+        <IconButton color="inherit" size="small" onClick={onClickDismiss(key)}>
+          <CloseIcon />
+        </IconButton>
+      )}
       maxSnack={4}
       autoHideDuration={null}
     >

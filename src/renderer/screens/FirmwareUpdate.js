@@ -149,9 +149,8 @@ class FirmwareUpdate extends React.Component {
       await this._flash();
     } catch (e) {
       console.error(e);
-      this.props.enqueueSnackbar(i18n.firmwareUpdate.flashing.error, {
-        variant: "error",
-        action: (
+      const action = key => (
+        <React.Fragment>
           <Button
             variant="contained"
             onClick={() => {
@@ -163,7 +162,18 @@ class FirmwareUpdate extends React.Component {
           >
             Troubleshooting
           </Button>
-        )
+          <Button
+            onClick={() => {
+              this.props.closeSnackbar(key);
+            }}
+          >
+            Dismiss
+          </Button>
+        </React.Fragment>
+      );
+      this.props.enqueueSnackbar(i18n.firmwareUpdate.flashing.error, {
+        variant: "error",
+        action: action
       });
       this.props.toggleFlashing();
       this.props.onDisconnect();

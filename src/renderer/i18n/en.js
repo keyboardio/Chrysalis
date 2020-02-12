@@ -128,7 +128,21 @@ const English = {
       defaultLayer: "Default layer"
     },
     led: {
-      brightness: "Adjust LED brightness"
+      brightness: "Adjust LED brightness",
+      idleDisabled: "Disabled",
+      idleTimeLimit: "Idle time before LEDs turn off",
+      idle: {
+        oneMinute: "1 minute",
+        twoMinutes: "2 minutes",
+        threeMinutes: "3 minutes",
+        fourMinutes: "4 minutes",
+        fiveMinutes: "5 minutes",
+        tenMinutes: "10 minutes",
+        fifteenMinutes: "15 minutes",
+        twentyMinutes: "20 minutes",
+        thirtyMinutes: "30 minutes",
+        sixtyMinutes: "60 minutes"
+      }
     },
     advancedOps: "Advanced keyboard settings & operations",
     resetEEPROM: {

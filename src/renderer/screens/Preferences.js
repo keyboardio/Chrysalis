@@ -34,6 +34,10 @@ import Switch from "@material-ui/core/Switch";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
+import {
+  KeyboardSettings,
+  AdvancedKeyboardSettings
+} from "./Preferences/KeyboardSettings";
 import i18n from "../i18n";
 
 import Focus from "@chrysalis-api/focus";
@@ -201,6 +205,13 @@ class Preferences extends React.Component {
             />
           </CardContent>
         </Card>
+        {this.props.connected && (
+          <KeyboardSettings
+            startContext={this.props.startContext}
+            cancelContext={this.props.cancelContext}
+            inContext={this.props.inContext}
+          />
+        )}
         <div className={classes.advanced}>
           <Button onClick={this.toggleAdvanced}>
             {i18n.preferences.advanced}
@@ -233,6 +244,13 @@ class Preferences extends React.Component {
               />
             </CardContent>
           </Card>
+          {this.props.connected && (
+            <AdvancedKeyboardSettings
+              startContext={this.props.startContext}
+              cancelContext={this.props.cancelContext}
+              inContext={this.props.inContext}
+            />
+          )}
         </Collapse>
       </div>
     );

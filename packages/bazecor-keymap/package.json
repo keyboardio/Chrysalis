@@ -1,6 +1,6 @@
 {
     "name": "@bazecor-api/keymap",
-    "version": "0.0.12",
+    "version": "0.0.13",
     "description": "Bazecor keymap library",
     "main": "lib",
     "repository": {

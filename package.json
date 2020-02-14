@@ -60,11 +60,11 @@
     "electron-window-state": "^5.0.3",
     "notistack": "^0.9.7",
     "prop-types": "^15.7.2",
-    "react": "16.8.5",
+    "react": "^16.8.5",
     "react-color": "^2.14.1",
     "react-dom": "16.8.5",
     "react-localization": "^1.0.13",
-    "source-map-support": "^0.5.11",
+    "source-map-support": "^0.5.16",
     "typeface-roboto": "^0.0.54",
     "typeface-source-code-pro": "^0.0.71",
     "usb": "^1.6.2"
@@ -81,8 +81,8 @@
     "babel-jest": "^24.5.0",
     "babel-loader": "^8.0.2",
     "electron": "7.1.1",
-    "electron-builder": "^20.39.0",
-    "electron-webpack": "^2.0.1",
+    "electron-builder": "^22.3.2",
+    "electron-webpack": "^2.7.4",
     "electron-webpack-eslint": "^4.0.1",
     "eslint": "^5.15.3",
     "eslint-config-prettier": "^4.1.0",
@@ -101,7 +101,7 @@
     "react-testing-library": "^6.0.3",
     "stylelint": "^9.6.0",
     "stylelint-config-standard": "^18.2.0",
-    "webpack": "^4.29.6",
+    "webpack": "^4.41.6",
     "yarn": "^1.15.2"
   },
   "resolutions": {

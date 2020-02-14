@@ -66,6 +66,7 @@
     "react-localization": "^1.0.13",
     "serialport": "^8.0.7",
     "source-map-support": "^0.5.16",
+    "terser": "^4.6.3",
     "typeface-roboto": "^0.0.54",
     "typeface-source-code-pro": "^0.0.71",
     "usb": "^1.6.2"
@@ -105,8 +106,5 @@
     "webpack": "^4.41.6",
     "yarn": "^1.22.0"
   },
-  "resolutions": {
-    "terser": "3.16.1",
-    "usb": "^1.6.2"
-  }
+  "resolutions": {}
 }

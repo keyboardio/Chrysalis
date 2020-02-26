@@ -84,7 +84,7 @@
     "babel-loader": "^8.0.2",
     "electron": "7.1.1",
     "electron-builder": "^22.3.2",
-    "electron-webpack": "^2.7.4",
+    "electron-webpack": "2.6.1",
     "electron-webpack-eslint": "^4.0.1",
     "eslint": "^5.15.3",
     "eslint-config-prettier": "^4.1.0",

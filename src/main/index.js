@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -14,6 +14,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+import { Environment } from "./dragons";
+
+// This is a workaround for electron-webpack#275[1]. We need to use backticks
+// for NODE_ENV, otherwise the code would fail to compile with webpack. We also
+// grab the correct value of NODE_ENV from a separate module, to avoid webpack
+// optimizing things out.
+//
+// [1]: https://github.com/electron-userland/electron-webpack/issues/275
+process.env[`NODE_ENV`] = Environment.name;
 
 import { app, BrowserWindow, Menu } from "electron";
 import { format as formatUrl } from "url";

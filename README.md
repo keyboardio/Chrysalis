@@ -8,7 +8,7 @@ Chrysalis
 You can download pre-built binaries for the three major operating systems below:
 
 [![Latest Linux build][badge:appimage]][build:appimage]
-[![Latest OSX build][badge:dmg]][build:dmg]
+[![Latest MacOS build][badge:dmg]][build:dmg]
 [![Latest Windows build][badge:exe]][build:exe]
 
 [![](https://img.shields.io/github/release-pre/keyboardio/Chrysalis.svg?style=for-the-badge)](https://github.com/keyboardio/Chrysalis/releases)
@@ -57,8 +57,8 @@ Support for more keyboards are under development.
 ## Supported operating systems
 
 Chrysalis is primarily developed under Linux, but we target all three major
-operating systems, and test our releases on Windows and OSX too. That said, our
-testing is done on **Ubuntu** 18.04 LTS, **Windows** 10, and **OSX** Mojave.
+operating systems, and test our releases on Windows and MacOS too. That said, our
+testing is done on **Ubuntu** 18.04 LTS, **Windows** 10, and **MacOS** Mojave.
 
 The protocol Chrysalis uses to communicate with the keyboard requires USB serial
 support, which is known to be problematic on Windows prior to Windows 10.

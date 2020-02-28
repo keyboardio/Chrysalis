@@ -15,6 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const GuiLabels = {
+  linux: "Linux",
+  win32: "Win",
+  darwin: "Cmd"
+};
+
+const guiLabel = GuiLabels[process.platform] || "Gui";
+
 const OneShotModifierTable = {
   groupName: "OneShot modifiers",
   keys: [
@@ -46,8 +54,8 @@ const OneShotModifierTable = {
       code: 49156,
       labels: {
         top: "OSM",
-        primary: "LEFT GUI",
-        verbose: "Left Gui"
+        primary: "LEFT " + guiLabel.toUpperCase(),
+        verbose: "Left " + guiLabel
       }
     },
     {
@@ -78,8 +86,8 @@ const OneShotModifierTable = {
       code: 49160,
       labels: {
         top: "OSM",
-        primary: "RIGHT Gui",
-        verbose: "Right Gui"
+        primary: "RIGHT " + guiLabel.toUpperCase(),
+        verbose: "Right " + guiLabel
       }
     }
   ]

@@ -24,7 +24,7 @@ import KeyboardIcon from "@material-ui/icons/Keyboard";
 import CloseIcon from "@material-ui/icons/Close";
 import Modal from "@material-ui/core/Modal";
 
-import { KeymapDB } from "@bazecor-api/keymap";
+import { KeymapDB } from "../../../api/keymap";
 import GroupItem from "./GroupItem";
 
 const styles = theme => ({

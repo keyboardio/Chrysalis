@@ -40,8 +40,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 
 import { withSnackbar } from "notistack";
 
-import Focus from "@bazecor-api/focus";
-import Hardware from "@bazecor-api/hardware";
+import Focus from "../../api/focus";
+import Hardware from "../../api/hardware";
 
 import usb from "usb";
 

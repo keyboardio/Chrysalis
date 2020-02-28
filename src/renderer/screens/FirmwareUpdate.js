@@ -22,8 +22,8 @@ import path from "path";
 import fs from "fs";
 import { version } from "../../../package.json";
 
-import Focus from "@bazecor-api/focus";
-import FlashRaise from "@bazecor-api/flash/lib/bazecor-flash-raise";
+import Focus from "../../api/focus";
+import FlashRaise from "../../api/flash";
 
 import BuildIcon from "@material-ui/icons/Build";
 import Button from "@material-ui/core/Button";

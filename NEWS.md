@@ -1,3 +1,28 @@
+Chrysalis 0.7.0
+===============
+Released on 2020-03-02
+
+## New features
+
+The biggest new feature in this release is support for the upcoming Keyboardio
+Atreus keyboard. Chrysalis now ships with full support for it, including a
+recent build of the firmware shipped with it.
+
+Apart from that, for keyboards that support LEDs - like the Keyboardio Model01
+-, Chrysalis now offers brightness controls, and if the `IdleLEDs` plugin is
+enabled, the idle time after which the LEDs turn off can also be configured.
+
+## Miscellaneous
+
+The "Settings" and "Keyboard Preferences" screens have been merged into a single
+"Preferences" screen, because having them split was confusing.
+
+## Bugfixes
+
+* We fixed a number of issues around importing keymaps.
+* Notifications can - once again - be dismissed.
+* One can now use `AltGr` as a modifier when setting up dual-use keys.
+
 Chrysalis 0.6.2
 ===============
 Released on 2019-08-23

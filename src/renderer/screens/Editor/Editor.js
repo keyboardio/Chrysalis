@@ -43,8 +43,8 @@ import { withStyles } from "@material-ui/core/styles";
 
 import { withSnackbar } from "notistack";
 
-import Focus from "@chrysalis-api/focus";
-import { KeymapDB } from "@chrysalis-api/keymap";
+import Focus from "../../../api/focus";
+import { KeymapDB } from "../../../api/keymap";
 
 import ColorPalette from "../../components/ColorPalette";
 import KeySelector from "./KeySelector";

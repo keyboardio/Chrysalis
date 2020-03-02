@@ -76,7 +76,7 @@ const styles = theme => ({
   }
 });
 
-import { baseKeyCodeTable } from "@chrysalis-api/keymap";
+import { baseKeyCodeTable } from "../../../api/keymap";
 
 const keyGroups = baseKeyCodeTable
   .map(item => {

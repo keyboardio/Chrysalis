@@ -10,7 +10,14 @@ First and foremost, we need to update the version in
 If it has considerable amount of new features, bump the middle one and zero the
 last. Until we're in beta, we're keeping the major version at zero.
 
-Once we have the new version in `package.json`, it is time to update
+Once the version is bumped, make sure that the firmware files shipped with
+Chrysalis are up to date. Hop over to the
+[Chrysalis-Firmware-Bundle][repo:bundle] repository, update the sketches if need
+be, compile a new one, and tag it with the same version as Chrysalis. Then copy the firmware hexes over.
+
+ [repo:bundle]: https://github.com/keyboardio/Chrysalis-Firmware-Bundle
+
+With the version bumped and firmware files updated, it is time to update
 [NEWS.md](../NEWS.md) with user-visible or otherwise important changes since the
 last release. Following the practice in earlier versions is the recommended way
 to do that. It is important to keep in mind that the NEWS file is aimed at end

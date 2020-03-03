@@ -21,9 +21,16 @@ class Key extends React.Component {
   render() {
     const { x, y, label, row, col, layer, onClick } = this.props;
     const keyIndex = parseInt(row) * 12 + parseInt(col);
-    const stroke = this.props.active ? "#f3b3b3" : "#b3b3b3";
-    const height = this.props.height || 48;
+    const strokeColor = "transparent" || "#b3b3b3";
+    const stroke = this.props.active ? "#f3b3b3" : strokeColor;
+    const height = this.props.height || 44;
     const bottom = y + height - 16;
+    /*
+    const textColor = "#000000";
+    const buttonColor = "#ffffff";
+    */
+    const textColor = "#ffffff";
+    const buttonColor = "transparent";
 
     return (
       <g
@@ -36,16 +43,16 @@ class Key extends React.Component {
           x={x}
           y={y}
           rx={3}
-          width="48"
+          width="44"
           height={height}
           stroke={stroke}
           strokeWidth={1.55}
-          fill="#ffffff"
+          fill={buttonColor}
         />
-        <text x={x + 3} y={y + 14}>
+        <text x={x + 5} y={y + 14} fill={textColor}>
           {label.extraLabel}
         </text>
-        <text x={x + 3} y={bottom}>
+        <text x={x + 5} y={bottom} fill={textColor}>
           {label.label}
         </text>
       </g>

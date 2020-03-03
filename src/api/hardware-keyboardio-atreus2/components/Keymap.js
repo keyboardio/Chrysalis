@@ -18,6 +18,19 @@
 import React from "react";
 import Key from "./keymap/Key";
 
+import classNames from "classnames";
+import { withStyles } from "@material-ui/core/styles";
+import Atreus from "../data/atreus.png";
+
+const styles = () => ({
+  svg: {
+    background: `url(${Atreus})`,
+    backgroundSize: "100%",
+    backgroundRepeat: "no-repeat",
+    paddingBottom: "10em"
+  }
+});
+
 class Keymap extends React.Component {
   render() {
     const keymap =
@@ -36,13 +49,14 @@ class Keymap extends React.Component {
       return this.props.selectedKey == keyIndex;
     };
 
+    const { classes } = this.props;
     return (
       <svg
         viewBox="0 0 833 335"
         xmlns="http://www.w3.org/2000/svg"
-        className={this.props.className || "layer"}
+        className={classNames(classes.svg, this.props.className || "layer")}
       >
-        <g transform="translate(45,0)">
+        <g transform="translate(80,0)">
           <g transform="rotate(10)">
             <Key
               x={1}
@@ -55,7 +69,7 @@ class Keymap extends React.Component {
               onClick={this.props.onKeySelect}
             />
             <Key
-              x={55}
+              x={60}
               y={19.9}
               row={0}
               col={1}
@@ -65,8 +79,8 @@ class Keymap extends React.Component {
               onClick={this.props.onKeySelect}
             />
             <Key
-              x={109}
-              y={1}
+              x={125}
+              y={6}
               row={0}
               col={2}
               layer={this.props.index}
@@ -75,8 +89,8 @@ class Keymap extends React.Component {
               onClick={this.props.onKeySelect}
             />
             <Key
-              x={163}
-              y={19.9}
+              x={188}
+              y={24.9}
               row={0}
               col={3}
               layer={this.props.index}
@@ -85,8 +99,8 @@ class Keymap extends React.Component {
               onClick={this.props.onKeySelect}
             />
             <Key
-              x={217}
-              y={33.4}
+              x={252}
+              y={38.4}
               row={0}
               col={4}
               layer={this.props.index}
@@ -97,7 +111,7 @@ class Keymap extends React.Component {
 
             <Key
               x={1}
-              y={87.4}
+              y={95.4}
               row={1}
               col={0}
               layer={this.props.index}
@@ -106,8 +120,8 @@ class Keymap extends React.Component {
               onClick={this.props.onKeySelect}
             />
             <Key
-              x={55}
-              y={73.9}
+              x={60}
+              y={83.9}
               row={1}
               col={1}
               layer={this.props.index}
@@ -116,8 +130,8 @@ class Keymap extends React.Component {
               onClick={this.props.onKeySelect}
             />
             <Key
-              x={109}
-              y={55}
+              x={124}
+              y={71}
               row={1}
               col={2}
               layer={this.props.index}
@@ -126,8 +140,8 @@ class Keymap extends React.Component {
               onClick={this.props.onKeySelect}
             />
             <Key
-              x={163}
-              y={73.9}
+              x={188}
+              y={88.9}
               row={1}
               col={3}
               layer={this.props.index}
@@ -136,8 +150,8 @@ class Keymap extends React.Component {
               onClick={this.props.onKeySelect}
             />
             <Key
-              x={217}
-              y={87.4}
+              x={250}
+              y={107.4}
               row={1}
               col={4}
               layer={this.props.index}
@@ -148,7 +162,7 @@ class Keymap extends React.Component {
 
             <Key
               x={1}
-              y={141.4}
+              y={157.4}
               row={2}
               col={0}
               layer={this.props.index}
@@ -157,8 +171,8 @@ class Keymap extends React.Component {
               onClick={this.props.onKeySelect}
             />
             <Key
-              x={55}
-              y={127.9}
+              x={60}
+              y={147.9}
               row={2}
               col={1}
               layer={this.props.index}
@@ -167,8 +181,8 @@ class Keymap extends React.Component {
               onClick={this.props.onKeySelect}
             />
             <Key
-              x={109}
-              y={109}
+              x={129}
+              y={129}
               row={2}
               col={2}
               layer={this.props.index}
@@ -177,8 +191,8 @@ class Keymap extends React.Component {
               onClick={this.props.onKeySelect}
             />
             <Key
-              x={163}
-              y={127.9}
+              x={188}
+              y={152.9}
               row={2}
               col={3}
               layer={this.props.index}
@@ -187,8 +201,8 @@ class Keymap extends React.Component {
               onClick={this.props.onKeySelect}
             />
             <Key
-              x={217}
-              y={141.4}
+              x={252}
+              y={166.4}
               row={2}
               col={4}
               layer={this.props.index}
@@ -199,7 +213,7 @@ class Keymap extends React.Component {
 
             <Key
               x={1}
-              y={195.4}
+              y={219.4}
               row={3}
               col={0}
               layer={this.props.index}
@@ -208,8 +222,8 @@ class Keymap extends React.Component {
               onClick={this.props.onKeySelect}
             />
             <Key
-              x={55}
-              y={181.9}
+              x={60}
+              y={211.9}
               row={3}
               col={1}
               layer={this.props.index}
@@ -218,8 +232,8 @@ class Keymap extends React.Component {
               onClick={this.props.onKeySelect}
             />
             <Key
-              x={109}
-              y={163}
+              x={129}
+              y={193}
               row={3}
               col={2}
               layer={this.props.index}
@@ -228,8 +242,8 @@ class Keymap extends React.Component {
               onClick={this.props.onKeySelect}
             />
             <Key
-              x={163}
-              y={181.9}
+              x={190}
+              y={211.9}
               row={3}
               col={3}
               layer={this.props.index}
@@ -238,8 +252,8 @@ class Keymap extends React.Component {
               onClick={this.props.onKeySelect}
             />
             <Key
-              x={217}
-              y={195.4}
+              x={252}
+              y={230.4}
               row={3}
               col={4}
               layer={this.props.index}
@@ -249,8 +263,8 @@ class Keymap extends React.Component {
             />
 
             <Key
-              x={271}
-              y={127.9}
+              x={311}
+              y={157.9}
               row={2}
               col={5}
               layer={this.props.index}
@@ -259,8 +273,8 @@ class Keymap extends React.Component {
               onClick={this.props.onKeySelect}
             />
             <Key
-              x={271}
-              y={181.9}
+              x={311}
+              y={221.9}
               row={3}
               col={5}
               layer={this.props.index}
@@ -273,8 +287,8 @@ class Keymap extends React.Component {
           <g transform="rotate(-10)">
             <g transform="translate(0, 114)">
               <Key
-                x={392.5}
-                y={33.4}
+                x={368.5}
+                y={43.4}
                 row={0}
                 col={7}
                 layer={this.props.index}
@@ -283,8 +297,8 @@ class Keymap extends React.Component {
                 onClick={this.props.onKeySelect}
               />
               <Key
-                x={446.5}
-                y={19.9}
+                x={430.5}
+                y={24.9}
                 row={0}
                 col={8}
                 layer={this.props.index}
@@ -293,8 +307,8 @@ class Keymap extends React.Component {
                 onClick={this.props.onKeySelect}
               />
               <Key
-                x={500.5}
-                y={1}
+                x={492.5}
+                y={6}
                 row={0}
                 col={9}
                 layer={this.props.index}
@@ -304,7 +318,7 @@ class Keymap extends React.Component {
               />
               <Key
                 x={554.5}
-                y={19.9}
+                y={22.9}
                 row={0}
                 col={10}
                 layer={this.props.index}
@@ -313,7 +327,7 @@ class Keymap extends React.Component {
                 onClick={this.props.onKeySelect}
               />
               <Key
-                x={608.5}
+                x={618.5}
                 y={33.4}
                 row={0}
                 col={11}
@@ -324,8 +338,8 @@ class Keymap extends React.Component {
               />
 
               <Key
-                x={392.5}
-                y={87.4}
+                x={368.5}
+                y={107.4}
                 row={1}
                 col={7}
                 layer={this.props.index}
@@ -334,8 +348,8 @@ class Keymap extends React.Component {
                 onClick={this.props.onKeySelect}
               />
               <Key
-                x={446.5}
-                y={73.9}
+                x={430.5}
+                y={90.9}
                 row={1}
                 col={8}
                 layer={this.props.index}
@@ -344,8 +358,8 @@ class Keymap extends React.Component {
                 onClick={this.props.onKeySelect}
               />
               <Key
-                x={500.5}
-                y={55}
+                x={492.5}
+                y={70}
                 row={1}
                 col={9}
                 layer={this.props.index}
@@ -355,7 +369,7 @@ class Keymap extends React.Component {
               />
               <Key
                 x={554.5}
-                y={73.9}
+                y={84.9}
                 row={1}
                 col={10}
                 layer={this.props.index}
@@ -364,8 +378,8 @@ class Keymap extends React.Component {
                 onClick={this.props.onKeySelect}
               />
               <Key
-                x={608.5}
-                y={87.4}
+                x={618.5}
+                y={97.4}
                 row={1}
                 col={11}
                 layer={this.props.index}
@@ -375,8 +389,8 @@ class Keymap extends React.Component {
               />
 
               <Key
-                x={392.5}
-                y={141.4}
+                x={368.5}
+                y={171.4}
                 row={2}
                 col={7}
                 layer={this.props.index}
@@ -385,8 +399,8 @@ class Keymap extends React.Component {
                 onClick={this.props.onKeySelect}
               />
               <Key
-                x={446.5}
-                y={127.9}
+                x={430.5}
+                y={150.9}
                 row={2}
                 col={8}
                 layer={this.props.index}
@@ -395,8 +409,8 @@ class Keymap extends React.Component {
                 onClick={this.props.onKeySelect}
               />
               <Key
-                x={500.5}
-                y={109}
+                x={492.5}
+                y={134}
                 row={2}
                 col={9}
                 layer={this.props.index}
@@ -406,7 +420,7 @@ class Keymap extends React.Component {
               />
               <Key
                 x={554.5}
-                y={127.9}
+                y={152.9}
                 row={2}
                 col={10}
                 layer={this.props.index}
@@ -415,8 +429,8 @@ class Keymap extends React.Component {
                 onClick={this.props.onKeySelect}
               />
               <Key
-                x={608.5}
-                y={141.4}
+                x={618.5}
+                y={161.4}
                 row={2}
                 col={11}
                 layer={this.props.index}
@@ -426,8 +440,8 @@ class Keymap extends React.Component {
               />
 
               <Key
-                x={392.5}
-                y={195.4}
+                x={368.5}
+                y={232.4}
                 row={3}
                 col={7}
                 layer={this.props.index}
@@ -436,8 +450,8 @@ class Keymap extends React.Component {
                 onClick={this.props.onKeySelect}
               />
               <Key
-                x={446.5}
-                y={181.9}
+                x={430.5}
+                y={216.9}
                 row={3}
                 col={8}
                 layer={this.props.index}
@@ -446,8 +460,8 @@ class Keymap extends React.Component {
                 onClick={this.props.onKeySelect}
               />
               <Key
-                x={500.5}
-                y={163}
+                x={492.5}
+                y={193}
                 row={3}
                 col={9}
                 layer={this.props.index}
@@ -457,7 +471,7 @@ class Keymap extends React.Component {
               />
               <Key
                 x={554.5}
-                y={181.9}
+                y={211.9}
                 row={3}
                 col={10}
                 layer={this.props.index}
@@ -466,8 +480,8 @@ class Keymap extends React.Component {
                 onClick={this.props.onKeySelect}
               />
               <Key
-                x={608.5}
-                y={195.4}
+                x={618.5}
+                y={225.4}
                 row={3}
                 col={11}
                 layer={this.props.index}
@@ -477,8 +491,8 @@ class Keymap extends React.Component {
               />
 
               <Key
-                x={338.5}
-                y={127.9}
+                x={305.5}
+                y={157.9}
                 row={2}
                 col={6}
                 layer={this.props.index}
@@ -487,8 +501,8 @@ class Keymap extends React.Component {
                 onClick={this.props.onKeySelect}
               />
               <Key
-                x={338.5}
-                y={181.9}
+                x={305.5}
+                y={221.9}
                 row={3}
                 col={6}
                 layer={this.props.index}
@@ -504,4 +518,6 @@ class Keymap extends React.Component {
   }
 }
 
-export default Keymap;
+//export default withSnackbar(withStyles(styles, { withTheme: true })(Editor));
+//export default Keymap;
+export default withStyles(styles, { withTheme: true })(Keymap);

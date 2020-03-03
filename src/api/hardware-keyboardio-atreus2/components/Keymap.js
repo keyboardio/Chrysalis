@@ -26,8 +26,7 @@ const styles = () => ({
   svg: {
     background: `url(${Atreus})`,
     backgroundSize: "100%",
-    backgroundRepeat: "no-repeat",
-    paddingBottom: "10em"
+    backgroundRepeat: "no-repeat"
   }
 });
 

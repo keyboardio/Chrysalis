@@ -23,8 +23,9 @@ class Key extends React.Component {
     const keyIndex = parseInt(row) * 12 + parseInt(col);
     const strokeColor = "transparent" || "#b3b3b3";
     const stroke = this.props.active ? "#f3b3b3" : strokeColor;
-    const height = this.props.height || 44;
-    const bottom = y + height - 16;
+    const height = this.props.height || 42;
+    const width = this.props.width || 42;
+    const bottom = y + height - 5;
     /*
     const textColor = "#000000";
     const buttonColor = "#ffffff";
@@ -42,8 +43,8 @@ class Key extends React.Component {
         <rect
           x={x}
           y={y}
-          rx={3}
-          width="44"
+          rx={2}
+          width={width}
           height={height}
           stroke={stroke}
           strokeWidth={1.55}

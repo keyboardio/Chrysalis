@@ -17,6 +17,9 @@ enabled, the idle time after which the LEDs turn off can also be configured.
 The "Settings" and "Keyboard Preferences" screens have been merged into a single
 "Preferences" screen, because having them split was confusing.
 
+All of the shipped firmware files have been updated to use the latest
+Kaleidoscope version, too.
+
 ## Bugfixes
 
 * We fixed a number of issues around importing keymaps.

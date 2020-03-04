@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* chrysalis-hardware-keyboardio-atreus2 -- Chrysalis Atreus2 support
- * Copyright (C) 2019  Keyboardio, Inc.
+ * Copyright (C) 2019, 2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -16,7 +16,6 @@
  */
 
 import React from "react";
-import Key from "./keymap/Key";
 
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
@@ -29,6 +28,50 @@ const styles = () => ({
     backgroundRepeat: "no-repeat"
   }
 });
+
+class Key extends React.Component {
+  render() {
+    const { x, y, label, row, col, layer, onClick } = this.props;
+    const keyIndex = parseInt(row) * 12 + parseInt(col);
+    const strokeColor = "transparent" || "#b3b3b3";
+    const stroke = this.props.active ? "#f3b3b3" : strokeColor;
+    const height = this.props.height || 42;
+    const width = this.props.width || 42;
+    const bottom = y + height - 5;
+    /*
+    const textColor = "#000000";
+    const buttonColor = "#ffffff";
+    */
+    const textColor = "#ffffff";
+    const buttonColor = "transparent";
+
+    return (
+      <g
+        onClick={onClick}
+        className="key"
+        data-key-index={keyIndex}
+        data-layer={layer}
+      >
+        <rect
+          x={x}
+          y={y}
+          rx={2}
+          width={width}
+          height={height}
+          stroke={stroke}
+          strokeWidth={1.55}
+          fill={buttonColor}
+        />
+        <text x={x + 5} y={y + 14} fill={textColor}>
+          {label.extraLabel}
+        </text>
+        <text x={x + 5} y={bottom} fill={textColor}>
+          {label.label}
+        </text>
+      </g>
+    );
+  }
+}
 
 class Keymap extends React.Component {
   render() {

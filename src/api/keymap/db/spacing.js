@@ -46,7 +46,7 @@ const SpacingTable = {
     {
       code: 42,
       labels: {
-        primary: "BSpc",
+        primary: "Bksp",
         verbose: "Backspace"
       }
     },

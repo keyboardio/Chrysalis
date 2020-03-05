@@ -1,5 +1,5 @@
 /* chrysalis-keymap -- Chrysalis keymap library
- * Copyright (C) 2018  Keyboardio, Inc.
+ * Copyright (C) 2018, 2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -13,6 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+import { guiLabel } from "./gui";
 
 const OneShotModifierTable = {
   groupName: "OneShot modifiers",
@@ -45,8 +47,8 @@ const OneShotModifierTable = {
       code: 49156,
       labels: {
         top: "OSM",
-        primary: "LGui",
-        verbose: "Left Gui"
+        primary: "L" + guiLabel,
+        verbose: "Left " + guiLabel
       }
     },
     {
@@ -77,8 +79,8 @@ const OneShotModifierTable = {
       code: 49160,
       labels: {
         top: "OSM",
-        primary: "RGui",
-        verbose: "Right Gui"
+        primary: "R" + guiLabel,
+        verbose: "Right " + guiLabel
       }
     }
   ]

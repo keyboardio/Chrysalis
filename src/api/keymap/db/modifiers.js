@@ -1,5 +1,5 @@
 /* chrysalis-keymap -- Chrysalis keymap library
- * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -15,6 +15,7 @@
  */
 
 import { withModifiers } from "./utils";
+import { guiLabel } from "./gui";
 
 const ModifiersTable = {
   groupName: "Modifiers",
@@ -43,8 +44,8 @@ const ModifiersTable = {
     {
       code: 227,
       labels: {
-        primary: "LGui",
-        verbose: "Left Gui"
+        primary: "L" + guiLabel,
+        verbose: "Left " + guiLabel
       }
     },
     {
@@ -71,8 +72,8 @@ const ModifiersTable = {
     {
       code: 231,
       labels: {
-        primary: "RGui",
-        verbose: "Right Gui"
+        primary: "R" + guiLabel,
+        verbose: "Right " + guiLabel
       }
     }
   ]

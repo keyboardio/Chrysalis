@@ -48,25 +48,25 @@ const NavigationTable = {
     {
       code: 80,
       labels: {
-        primary: "Left"
+        primary: "←"
       }
     },
     {
       code: 81,
       labels: {
-        primary: "Down"
+        primary: "↓"
       }
     },
     {
       code: 82,
       labels: {
-        primary: "Up"
+        primary: "↑"
       }
     },
     {
       code: 79,
       labels: {
-        primary: "Right"
+        primary: "→"
       }
     },
     {

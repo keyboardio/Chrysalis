@@ -63,7 +63,7 @@ const Atreus2 = {
 
 const Atreus2Bootloader = {
   info: {
-    vendor: "Keyboard.io",
+    vendor: "Keyboardio",
     product: "Atreus",
     displayName: "Atreus",
     urls: [

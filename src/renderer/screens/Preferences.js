@@ -40,7 +40,7 @@ import {
 } from "./Preferences/KeyboardSettings";
 import i18n from "../i18n";
 
-import Focus from "@chrysalis-api/focus";
+import Focus from "../../api/focus";
 import settings from "electron-settings";
 
 const styles = theme => ({

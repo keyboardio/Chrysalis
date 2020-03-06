@@ -17,7 +17,7 @@
 
 import React from "react";
 
-import Focus from "@chrysalis-api/focus";
+import Focus from "../../api/focus";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";

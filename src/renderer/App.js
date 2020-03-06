@@ -19,9 +19,9 @@ import React from "react";
 import { spawn } from "child_process";
 import settings from "electron-settings";
 
-import Focus from "@chrysalis-api/focus";
-import "@chrysalis-api/keymap";
-import "@chrysalis-api/colormap";
+import Focus from "../api/focus";
+import "../api/keymap";
+import "../api/colormap";
 import "typeface-roboto/index.css";
 import "typeface-source-code-pro/index.css";
 import { LocationProvider, Router } from "@reach/router";

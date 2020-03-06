@@ -1,3 +1,28 @@
+Chrysalis 0.7.1
+===============
+Released on 2020-03-06
+
+## New features
+
+Major improvements were made to the upcoming [Keyboardio
+Atreus][kickstarter:atreus] support: instead of displaying an outline of the
+keys, we now use an image of the keyboard as a background. This looks much more
+like the real keyboard. The font sizes for most keys were also increased, both
+to match the keycaps, and to make them easier to see.
+
+ [kickstarter:atreus]: https://www.kickstarter.com/projects/keyboardio/atreus
+
+When flashing new firmware onto the keyboard, Chrysalis now displays flashing
+instructions aswell.
+
+## Miscellaneous
+
+A number of improvements were made to the key labels: `Backspace` is now
+shortened to `Bksp`, which is much more standard; the arrow keys are now
+displayed as Unicode arrow symbols; and digits show their shifted symbol on top
+now. Additionally, the "Gui" key is now properly labeled on each operating
+system: `Super` on Linux, `Win` on Windows, and `Cmd` on macOS.
+
 Chrysalis 0.7.0
 ===============
 Released on 2020-03-02

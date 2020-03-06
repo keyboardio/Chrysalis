@@ -137,6 +137,7 @@ class Keymap extends React.Component {
       <svg
         viewBox="0 0 833 335"
         xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="xMidYMin meet"
         className={classNames(classes.svg, this.props.className || "layer")}
       >
         <g transform="translate(80,0)">

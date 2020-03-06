@@ -41,7 +41,7 @@ class Keymap extends React.Component {
     const KeySpacingY = 63;
     const keySpacingX = 62.5;
 
-    const colOffsetY = [32, 22, 6, 26, 42, 32, 32, 42, 26, 6, 22, 32];
+    const colOffsetY = [30, 20, 4, 24, 40, 30, 30, 40, 24, 4, 20, 30];
     const colOffsetX = [
       0,
       0,

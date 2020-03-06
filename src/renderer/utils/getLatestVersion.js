@@ -25,7 +25,7 @@ const getLatestVersionFromS3 = async () => {
   const extensions = {
     linux: "AppImage",
     darwin: "dmg",
-    windows: "exe"
+    win32: "exe"
   };
   const options = {
     method: "HEAD",
@@ -78,7 +78,7 @@ const getLatestVersionFromGitHub = async () => {
   const extensions = {
     linux: "AppImage",
     darwin: "dmg",
-    windows: "exe"
+    win32: "exe"
   };
   const extension = extensions[process.platform];
 

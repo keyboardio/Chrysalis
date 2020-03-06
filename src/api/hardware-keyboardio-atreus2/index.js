@@ -19,7 +19,7 @@ import { Avr109, Avr109Bootloader } from "../flash";
 
 const Atreus2 = {
   info: {
-    vendor: "Keyboard.io",
+    vendor: "Keyboardio",
     product: "Atreus",
     displayName: "Keyboardio Atreus",
     urls: [

@@ -22,61 +22,71 @@ const DigitTable = {
     {
       code: 30,
       labels: {
-        primary: "1"
+        primary: "1",
+        top: "!"
       }
     },
     {
       code: 31,
       labels: {
-        primary: "2"
+        primary: "2",
+        top: "@"
       }
     },
     {
       code: 32,
       labels: {
-        primary: "3"
+        primary: "3",
+        top: "#"
       }
     },
     {
       code: 33,
       labels: {
-        primary: "4"
+        primary: "4",
+        top: "$"
       }
     },
     {
       code: 34,
       labels: {
-        primary: "5"
+        primary: "5",
+        top: "%"
       }
     },
     {
       code: 35,
       labels: {
-        primary: "6"
+        primary: "6",
+        top: "^"
       }
     },
     {
       code: 36,
       labels: {
-        primary: "7"
+        primary: "7",
+        top: "&"
       }
     },
     {
       code: 37,
       labels: {
-        primary: "8"
+        primary: "8",
+        top: "*"
       }
     },
     {
       code: 38,
       labels: {
-        primary: "9"
+        primary: "9",
+        top: "("
       }
     },
     {
       code: 39,
       labels: {
-        primary: "0"
+        primary: "0",
+        top: ")"
       }
     }
   ]

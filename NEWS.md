@@ -1,3 +1,14 @@
+Chrysalis 0.7.3
+===============
+Released on 2020-03-07
+
+## Bugfixes
+
+The issue with flashing the Keyboardio Model01 and the Atreus, where the
+keyboard required an unplug and a replug after flashing to become available
+again, has been fixed. Flashing will now result in a keyboard that's usable
+immediately after.
+
 Chrysalis 0.7.2
 ===============
 Released on 2020-03-07

@@ -1,3 +1,18 @@
+Chrysalis 0.7.2
+===============
+Released on 2020-03-07
+
+## Bugfixes
+
+When there's an update available, Chrysalis will now provide a link to the
+correct location on all platforms. We were previously providing a wrong link on
+Windows.
+
+The flashing screen now correctly shows the default firmware for the upcoming
+Keyboardio Atreus. Additionally, the Atreus keymap image has been fixed to scale
+better to the available space, without the labels getting misaligned from the
+keys.
+
 Chrysalis 0.7.1
 ===============
 Released on 2020-03-06

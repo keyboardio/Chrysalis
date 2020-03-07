@@ -46,7 +46,7 @@
     }
   },
   "dependencies": {
-    "avrgirl-arduino": "^4.2.1",
+    "avrgirl-arduino": "algernon/avrgirl-arduino#avr109-optional-close",
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.1",
     "@material-ui/lab": "^3.0.0-alpha.30",

@@ -55,7 +55,8 @@ const Atreus2 = {
       baud: 9600,
       productId: ["0x2302", "0x2303"],
       protocol: "avr109",
-      signature: new Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e])
+      signature: new Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+      closeOnFlashComplete: false
     };
     return Avr109(board, port, filename);
   }
@@ -91,7 +92,8 @@ const Atreus2Bootloader = {
       baud: 9600,
       productId: ["0x2302"],
       protocol: "avr109",
-      signature: new Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e])
+      signature: new Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+      closeOnFlashComplete: false
     };
     return Avr109Bootloader(board, port, filename);
   }

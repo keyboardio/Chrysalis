@@ -2777,10 +2777,9 @@ autoprefixer@^9.0.0:
     postcss "^7.0.14"
     postcss-value-parser "^3.3.1"
 
-avrgirl-arduino@^4.2.1:
+avrgirl-arduino@algernon/avrgirl-arduino#avr109-optional-close:
   version "4.2.1"
-  resolved "https://registry.yarnpkg.com/avrgirl-arduino/-/avrgirl-arduino-4.2.1.tgz#047c9f2e6ba524559d354e4434a3e2eab4302c99"
-  integrity sha512-9KY2amfHxi182QGc/8D6b+czka0QNqz7Hiywaky88zjF9jhIw7ySmp+INEw0EIe8e6T3VYiC19jKeqdm4jDp6A==
+  resolved "https://codeload.github.com/algernon/avrgirl-arduino/tar.gz/7b21687fd4d034ce905ed95171b1703f7329e941"
   dependencies:
     async "^2.1.2"
     awty "^0.1.0"

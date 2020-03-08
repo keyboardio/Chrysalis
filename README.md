@@ -44,15 +44,23 @@ required, just Chrysalis itself.
 
 ## Supported Hardware
 
-Chrysalis supports the [Keyboardio Model01][hw:model01], the [ErgoDox
-EZ][hw:ergodox-ez] (and any other keyboard wired like the original ErgoDox), the
-[Atreus][hw:atreus], and has preliminary support for [Dygma's Raise][hw:raise].
-Support for more keyboards are under development.
+Chrysalis supports the [Keyboardio Model01][hw:model01] and the [Keyboardio
+Atreus][hw:kbio-atreus], along with the original [Atreus][hw:atreus]. There's
+also preliminary support for the [Dygma Raise][hw:raise].
 
+The [ErgoDox EZ][hw:ergodox-ez] (and any other keyboard wired like it), the
+[SOFT/HRUF Splitography][hw:splitography], [KBDFans KBD4x][hw:kbd4x], and older,
+Teensy-based [OLKB Planck][hw:planck] keyboards are also supported, as long as
+they run suitable firmware.
+
+ [hw:kbio-atreus]: https://www.kickstarter.com/projects/keyboardio/atreus
  [hw:model01]: https://shop.keyboard.io/
  [hw:ergodox-ez]: https://ergodox-ez.com/
  [hw:atreus]: https://atreus.technomancy.us/
  [hw:raise]: https://www.dygma.com/raise/
+ [hw:splitography]: https://softhruf.love/collections/writers/products/soft-hruf-erl
+ [hw:kbd4x]: https://candykeys.com/product/kbd4x-custom
+ [hw:planck]: https://olkb.com/planck
 
 ## Supported operating systems
 

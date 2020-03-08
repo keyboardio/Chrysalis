@@ -734,34 +734,42 @@ class Editor extends React.Component {
     const layerMenu = (defaultLayerMenu || []).concat(customLayerMenu);
     const { mode } = this.state;
 
+    const editorSwitchToggle = palette.length > 0 && keymap.custom.length > 0;
+    let title;
+    if (palette.length > 0) {
+      title = i18n.app.menu.editor;
+    } else {
+      title = i18n.app.menu.layoutEditor;
+    }
+
     return (
       <React.Fragment>
-        <Portal container={this.props.titleElement}>
-          {i18n.app.menu.editor}
-        </Portal>
+        <Portal container={this.props.titleElement}>{title}</Portal>
         <Portal container={this.props.appBarElement}>
           <Toolbar>
-            <ToggleButtonGroup
-              value={mode}
-              exclusive
-              className={classes.tbg}
-              onChange={(_, mode) => {
-                this.setMode(mode);
-              }}
-            >
-              <ToggleButton value="layout" disabled={mode == "layout"}>
-                <Tooltip title={i18n.editor.layoutMode}>
-                  <KeyboardIcon />
-                </Tooltip>
-              </ToggleButton>
-              {palette.length && (
-                <ToggleButton value="colormap" disabled={mode == "colormap"}>
-                  <Tooltip title={i18n.editor.colormapMode}>
-                    <PaletteIcon />
+            {editorSwitchToggle && (
+              <ToggleButtonGroup
+                value={mode}
+                exclusive
+                className={classes.tbg}
+                onChange={(_, mode) => {
+                  this.setMode(mode);
+                }}
+              >
+                <ToggleButton value="layout" disabled={mode == "layout"}>
+                  <Tooltip title={i18n.editor.layoutMode}>
+                    <KeyboardIcon />
                   </Tooltip>
                 </ToggleButton>
-              )}
-            </ToggleButtonGroup>
+                {palette.length && (
+                  <ToggleButton value="colormap" disabled={mode == "colormap"}>
+                    <Tooltip title={i18n.editor.colormapMode}>
+                      <PaletteIcon />
+                    </Tooltip>
+                  </ToggleButton>
+                )}
+              </ToggleButtonGroup>
+            )}
             <div className={classes.grow} />
             <FormControl className={classes.layerSelect}>
               <Select

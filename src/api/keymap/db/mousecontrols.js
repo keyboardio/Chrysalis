@@ -106,6 +106,20 @@ const MouseButtonTable = {
         top: "M.Btn",
         primary: "MIDDLE"
       }
+    },
+    {
+      code: 20552,
+      labels: {
+        top: "M.Btn",
+        primary: "BACK"
+      }
+    },
+    {
+      code: 20560,
+      labels: {
+        top: "M.Btn",
+        primary: "FORW."
+      }
     }
   ]
 };

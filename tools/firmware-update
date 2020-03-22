@@ -1,0 +1,19 @@
+#! /bin/sh
+
+set -e
+
+if [ ! -d firmware-bundle ]; then
+    echo "* Cloning the firmware bundle..."
+    git clone --quiet --recursive \
+        https://github.com/keyboardio/Chrysalis-Firmware-Bundle.git firmware-bundle
+fi
+
+echo "* Updating the firmware bundle..."
+cd firmware-bundle
+git pull --quiet --ff --recurse-submodules=yes
+
+echo "* Building firmware files..."
+make
+
+echo "* Updating the hex files..."
+cp -r output/* ../static/

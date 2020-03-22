@@ -24,7 +24,8 @@
     "lint:css": "stylelint \"src/**/*.js src/**/*.css\"",
     "clean:code": "npm-run-all prettier lint:all",
     "test": "ELECTRON_RUN_AS_NODE=true ./node_modules/.bin/electron ./node_modules/.bin/jest",
-    "test:watch": "jest --watchAll"
+    "test:watch": "jest --watchAll",
+    "firmware:update": "tools/firmware-update"
   },
   "husky": {
     "hooks": {

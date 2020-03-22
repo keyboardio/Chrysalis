@@ -1,4 +1,5 @@
 /dist/
+/firmware-bundle/
 /node_modules/
 /package-lock.json
 /yarn-error.log

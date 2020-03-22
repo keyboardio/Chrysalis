@@ -1,3 +1,22 @@
+Chrysalis 0.7.4
+===============
+Released on 2020-03-22
+
+## UI/UX Improvements
+
+If the connected keyboard does not support LEDs, or the Colormap plugin is not
+enabled, do not display the layout/colormap switch button on the toolbar, and
+only mention "Layout Editor" on the editor screen.
+
+The layout editor now also supports the "Mouse Forward" and "Mouse Backward"
+buttons for mice.
+
+## Bugfixes
+
+The default firmware shipped with Chrysalis for the Keyboardio Atreus has been
+updated to have a default layout that matches the layout card, and the intended
+factory layout for the keyboard.
+
 Chrysalis 0.7.3
 ===============
 Released on 2020-03-07

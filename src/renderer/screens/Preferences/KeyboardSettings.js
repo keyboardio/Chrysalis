@@ -40,6 +40,7 @@ import Focus from "../../../api/focus";
 import ConfirmationDialog from "../../components/ConfirmationDialog";
 import SaveChangesButton from "../../components/SaveChangesButton";
 import i18n from "../../i18n";
+import clearEEPROM from "../../utils/clearEEPROM";
 
 import settings from "electron-settings";
 
@@ -389,29 +390,21 @@ KeyboardSettings.propTypes = {
 
 class AdvancedKeyboardSettings extends React.Component {
   state = {
-    EEPROMClearConfirmationOpen: false
+    EEPROMResetConfirmationOpen: false
   };
 
-  clearEEPROM = async () => {
-    const focus = new Focus();
-
+  resetEEPROM = async () => {
     await this.setState({ working: true });
-    this.closeEEPROMClearConfirmation();
+    this.closeEEPROMResetConfirmation();
 
-    let eeprom = await focus.command("eeprom.contents");
-    eeprom = eeprom
-      .split(" ")
-      .filter(v => v.length > 0)
-      .map(() => 255)
-      .join(" ");
-    await focus.command("eeprom.contents", eeprom);
+    await clearEEPROM();
     this.setState({ working: false });
   };
-  openEEPROMClearConfirmation = () => {
-    this.setState({ EEPROMClearConfirmationOpen: true });
+  openEEPROMResetConfirmation = () => {
+    this.setState({ EEPROMResetConfirmationOpen: true });
   };
-  closeEEPROMClearConfirmation = () => {
-    this.setState({ EEPROMClearConfirmationOpen: false });
+  closeEEPROMResetConfirmation = () => {
+    this.setState({ EEPROMResetConfirmationOpen: false });
   };
 
   render() {
@@ -433,7 +426,7 @@ class AdvancedKeyboardSettings extends React.Component {
               disabled={this.state.working}
               variant="contained"
               color="secondary"
-              onClick={this.openEEPROMClearConfirmation}
+              onClick={this.openEEPROMResetConfirmation}
             >
               {i18n.keyboardSettings.resetEEPROM.button}
             </Button>
@@ -441,9 +434,9 @@ class AdvancedKeyboardSettings extends React.Component {
         </Card>
         <ConfirmationDialog
           title={i18n.keyboardSettings.resetEEPROM.dialogTitle}
-          open={this.state.EEPROMClearConfirmationOpen}
-          onConfirm={this.clearEEPROM}
-          onCancel={this.closeEEPROMClearConfirmation}
+          open={this.state.EEPROMResetConfirmationOpen}
+          onConfirm={this.resetEEPROM}
+          onCancel={this.closeEEPROMResetConfirmation}
         >
           {i18n.keyboardSettings.resetEEPROM.dialogContents}
         </ConfirmationDialog>

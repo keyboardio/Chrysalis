@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -167,12 +167,20 @@ const English = {
       firmwareFiles: "Firmware files",
       allFiles: "All files"
     },
+    options: {
+      onFlash: "Restore to factory defaults when flashing",
+      title: "Firmware update options"
+    },
     flashing: {
       error: "Error flashing the firmware",
       troubleshooting: "Troubleshooting",
       success: "Firmware flashed successfully!",
       button: "Update",
       buttonSuccess: "Updated!"
+    },
+    confirmDialog: {
+      title: "Replace the firmware and reset to factory defaults?",
+      contents: `This will replace the firmware on the device, and reset all settings to factory defaults. You will lose all customizations made.`
     },
     defaultFirmware: "Chrysalis {0} default",
     defaultFirmwareDescription: "Minimal, without bells and whistles",

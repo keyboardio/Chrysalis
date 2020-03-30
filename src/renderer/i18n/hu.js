@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2019  Keyboardio, Inc.
+ * Copyright (C) 2019, 2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -150,12 +150,20 @@ Minden testreszabott beállítás el fog veszni.`
       firmwareFiles: "Vezérlő állományok",
       allFiles: "Minden állomány"
     },
+    options: {
+      onFlash: "Gyári alapbeállításokra visszaállás vezérlő frissítéskor",
+      title: "Vezérlő frissítés beállítások"
+    },
     flashing: {
       error: "Hiba a vezérlő frissítése közben",
       troubleshooting: "Hibaelhárítás",
       success: "Vezérlő sikeresen frissítve!",
       button: "Frissítés",
       buttonSuccess: "Frissítve!"
+    },
+    confirmDialog: {
+      title: "Felülírja a vezérlőt, és visszaáll gyári beállításokra?",
+      contents: `Ezzel felülírja az eszköz vezérlőjét, és visszaáll a gyári beállításokra. Minden testreszabott beállítás el fog veszni.`
     },
     defaultFirmware: "Chrysalis {0} alapértelmezett",
     defaultFirmwareDescription: "Minimális, extrák nélkül",

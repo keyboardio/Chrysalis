@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -32,6 +32,7 @@ import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import Divider from "@material-ui/core/Divider";
 import ExploreIcon from "@material-ui/icons/ExploreOutlined";
 import FormControl from "@material-ui/core/FormControl";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -40,14 +41,18 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Portal from "@material-ui/core/Portal";
 import Select from "@material-ui/core/Select";
 import SettingsBackupRestoreIcon from "@material-ui/icons/SettingsBackupRestore";
+import Switch from "@material-ui/core/Switch";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 import { withSnackbar } from "notistack";
 
 import { getStaticPath } from "../config";
+import ConfirmationDialog from "../components/ConfirmationDialog";
 import SaveChangesButton from "../components/SaveChangesButton";
 import i18n from "../i18n";
+
+import clearEEPROM from "../utils/clearEEPROM";
 
 const styles = theme => ({
   root: {
@@ -74,6 +79,13 @@ const styles = theme => ({
   },
   firmwareSelect: {
     marginLeft: theme.spacing.unit * 2
+  },
+  control: {
+    display: "flex",
+    marginRight: theme.spacing.unit * 2
+  },
+  group: {
+    display: "block"
   }
 });
 
@@ -86,9 +98,24 @@ class FirmwareUpdate extends React.Component {
     this.state = {
       firmwareFilename: "",
       selected: "default",
-      device: props.device || focus.device
+      device: props.device || focus.device,
+      confirmationOpen: false,
+      resetOnFlash: false
     };
   }
+
+  setResetOnFlash = event => {
+    this.setState({
+      resetOnFlash: event.target.checked
+    });
+  };
+
+  openConfirmationDialog = () => {
+    this.setState({ confirmationOpen: true });
+  };
+  closeConfirmationDialog = () => {
+    this.setState({ confirmationOpen: false });
+  };
 
   selectFirmware = event => {
     this.setState({ selected: event.target.value });
@@ -193,6 +220,12 @@ class FirmwareUpdate extends React.Component {
     });
   };
 
+  replace = async () => {
+    this.closeConfirmationDialog();
+    await clearEEPROM();
+    return await this.upload();
+  };
+
   render() {
     const { classes } = this.props;
     const { firmwareFilename } = this.state;
@@ -277,6 +310,14 @@ class FirmwareUpdate extends React.Component {
       </FormControl>
     );
 
+    const resetOnFlashSwitch = (
+      <Switch
+        checked={this.state.resetOnFlash}
+        value="resetOnFlash"
+        onClick={this.setResetOnFlash}
+      />
+    );
+
     return (
       <div className={classes.root}>
         <Portal container={this.props.titleElement}>
@@ -300,18 +341,45 @@ class FirmwareUpdate extends React.Component {
             </Typography>
           </CardContent>
           <Divider variant="middle" />
+          <CardContent>
+            <Typography variant="subtitle1">
+              {i18n.firmwareUpdate.options.title}
+            </Typography>
+            <FormControl className={classes.group}>
+              <FormControlLabel
+                className={classes.control}
+                control={resetOnFlashSwitch}
+                classes={{ label: classes.grow }}
+                labelPlacement="end"
+                label={i18n.firmwareUpdate.options.onFlash}
+              />
+            </FormControl>
+          </CardContent>
+          <Divider variant="middle" />
           <CardActions>
             {firmwareSelect}
             <div className={classes.grow} />
             <SaveChangesButton
               icon={<CloudUploadIcon />}
-              onClick={this.upload}
+              onClick={
+                this.state.resetOnFlash
+                  ? this.openConfirmationDialog
+                  : this.upload
+              }
               successMessage={i18n.firmwareUpdate.flashing.buttonSuccess}
             >
               {i18n.firmwareUpdate.flashing.button}
             </SaveChangesButton>
           </CardActions>
         </Card>
+        <ConfirmationDialog
+          title={i18n.firmwareUpdate.confirmDialog.title}
+          open={this.state.confirmationOpen}
+          onConfirm={this.replace}
+          onCancel={this.closeConfirmationDialog}
+        >
+          {i18n.firmwareUpdate.confirmDialog.contents}
+        </ConfirmationDialog>
       </div>
     );
   }

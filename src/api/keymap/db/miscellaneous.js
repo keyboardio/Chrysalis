@@ -25,6 +25,13 @@ const MiscellaneousTable = {
       }
     },
     {
+      code: 83,
+      labels: {
+        primary: "NumLK",
+        verbose: "Num Lock"
+      }
+    },
+    {
       code: 71,
       labels: {
         primary: "ScrlLK",

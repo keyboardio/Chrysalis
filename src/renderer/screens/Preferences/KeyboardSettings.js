@@ -420,7 +420,7 @@ class AdvancedKeyboardSettings extends React.Component {
           component="h2"
           className={classes.title}
         >
-          {i18n.keyboardSettings.advancedOps}
+          {i18n.t("keyboardSettings.advancedOps")}
         </Typography>
         <Card>
           <CardActions>
@@ -430,17 +430,17 @@ class AdvancedKeyboardSettings extends React.Component {
               color="secondary"
               onClick={this.openEEPROMResetConfirmation}
             >
-              {i18n.keyboardSettings.resetEEPROM.button}
+              {i18n.t("keyboardSettings.resetEEPROM.button")}
             </Button>
           </CardActions>
         </Card>
         <ConfirmationDialog
-          title={i18n.keyboardSettings.resetEEPROM.dialogTitle}
+          title={i18n.t("keyboardSettings.resetEEPROM.dialogTitle")}
           open={this.state.EEPROMResetConfirmationOpen}
           onConfirm={this.resetEEPROM}
           onCancel={this.closeEEPROMResetConfirmation}
         >
-          {i18n.keyboardSettings.resetEEPROM.dialogContents}
+          {i18n.t("keyboardSettings.resetEEPROM.dialogContents")}
         </ConfirmationDialog>
       </React.Fragment>
     );

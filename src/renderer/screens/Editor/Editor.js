@@ -859,7 +859,10 @@ class Editor extends React.Component {
             </div>
           </Toolbar>
         </Portal>
-        {hasKeymap && mode == "layout" && <LinearProgress variant="query" />}
+        {hasKeymap &&
+          mode == "layout" &&
+          keymap.custom.length == 0 &&
+          keymap.default.length == 0 && <LinearProgress variant="query" />}
         {layer}
         <Slide in={showSlider} direction="up" unmountOnExit>
           {(mode == "layout" && (

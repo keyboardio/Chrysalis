@@ -175,7 +175,7 @@ class App extends React.Component {
       device: null,
       pages: pages
     });
-    await navigate(pages.keymap ? "/editor" : "/welcome");
+    await navigate(pages.keymap || pages.colormap ? "/editor" : "/welcome");
     return commands;
   };
 

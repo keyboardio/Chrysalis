@@ -57,6 +57,7 @@
     "electron-settings": "^3.2.0",
     "electron-window-state": "^5.0.3",
     "i18next": "^19.3.4",
+    "i18next-electron-language-detector": "^0.0.10",
     "notistack": "^0.9.7",
     "prop-types": "^15.7.2",
     "react": "^16.8.5",

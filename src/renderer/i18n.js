@@ -17,6 +17,7 @@
 
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
+import LanguageDetector from "i18next-electron-language-detector";
 
 import English from "./i18n/en";
 import Hungarian from "./i18n/hu";
@@ -30,20 +31,23 @@ const resources = {
   }
 };
 
-i18n.use(initReactI18next).init({
-  react: {
-    wait: true
-  },
-  resources: resources,
-  lng: "en",
-  keySeparator: ".",
-  ns: ["messages"],
-  defaultNS: "messages",
-  fallbackLng: "en",
-  interpolation: {
-    escapeValue: false
-  }
-});
+i18n
+  .use(initReactI18next)
+  .use(LanguageDetector)
+  .init({
+    react: {
+      wait: true
+    },
+    resources: resources,
+    lng: "en",
+    keySeparator: ".",
+    ns: ["messages"],
+    defaultNS: "messages",
+    fallbackLng: "en",
+    interpolation: {
+      escapeValue: false
+    }
+  });
 
 i18n.refreshHardware = ({ device }) => {
   Object.keys(i18n.options.resources).forEach(code => {

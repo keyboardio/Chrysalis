@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -53,7 +53,7 @@ export default function LoadDefaultKeymap({ loadDefault }) {
     <div style={{ display: "flex" }}>
       {deviceLayouts.length > 0 && (
         <React.Fragment>
-          <h3>{i18n.editor.loadDefault}</h3>
+          <h3>{i18n.t("editor.loadDefault")}</h3>
           {deviceLayouts.map(({ name, path }, i) => (
             <Button
               key={name + i}

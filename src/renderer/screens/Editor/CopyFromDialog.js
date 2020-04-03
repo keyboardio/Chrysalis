@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -38,10 +38,10 @@ export const CopyFromDialog = props => {
       onClose={props.onCancel}
       fullWidth
     >
-      <DialogTitle>{i18n.editor.copyFrom}</DialogTitle>
+      <DialogTitle>{i18n.t("editor.copyFrom")}</DialogTitle>
       <DialogContent>
         <Typography variant="body1" gutterBottom>
-          {i18n.editor.pleaseSelectLayer}
+          {i18n.t("editor.pleaseSelectLayer")}
         </Typography>
         <List>
           {props.layers.map(layer => {
@@ -69,7 +69,7 @@ export const CopyFromDialog = props => {
             props.onCancel();
           }}
         >
-          {i18n.dialog.cancel}
+          {i18n.t("dialog.cancel")}
         </Button>
         <Button
           onClick={() => {
@@ -80,7 +80,7 @@ export const CopyFromDialog = props => {
           color="primary"
           disabled={selectedLayer == -1}
         >
-          {i18n.dialog.ok}
+          {i18n.t("dialog.ok")}
         </Button>
       </DialogActions>
     </Dialog>

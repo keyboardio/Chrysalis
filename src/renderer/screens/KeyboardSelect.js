@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -249,7 +249,7 @@ class KeyboardSelect extends React.Component {
           label = (
             <ListItemText
               primary={option.device.info.displayName}
-              secondary={option.path || i18n.keyboardSelect.unknown}
+              secondary={option.path || i18n.t("keyboardSelect.unknown")}
             />
           );
         } else if (option.info) {
@@ -292,12 +292,12 @@ class KeyboardSelect extends React.Component {
     if (devices && devices.length == 0) {
       port = (
         <Typography variant="body1" color="error" className={classes.error}>
-          {i18n.keyboardSelect.noDevices}
+          {i18n.t("keyboardSelect.noDevices")}
         </Typography>
       );
     }
 
-    let connectContent = i18n.keyboardSelect.connect;
+    let connectContent = i18n.t("keyboardSelect.connect");
     if (this.state.opening) {
       connectContent = <CircularProgress color="secondary" size={16} />;
     }
@@ -309,7 +309,7 @@ class KeyboardSelect extends React.Component {
         className={scanFoundDevices && classes.found}
         onClick={scanFoundDevices ? null : this.scanDevices}
       >
-        {i18n.keyboardSelect.scan}
+        {i18n.t("keyboardSelect.scan")}
       </Button>
     );
 
@@ -332,7 +332,7 @@ class KeyboardSelect extends React.Component {
           color="secondary"
           onClick={this.props.onDisconnect}
         >
-          {i18n.keyboardSelect.disconnect}
+          {i18n.t("keyboardSelect.disconnect")}
         </Button>
       );
     } else {
@@ -367,7 +367,7 @@ class KeyboardSelect extends React.Component {
     return (
       <div className={classes.main}>
         <Portal container={this.props.titleElement}>
-          {i18n.app.menu.selectAKeyboard}
+          {i18n.t("app.menu.selectAKeyboard")}
         </Portal>
         {loader}
         <Card className={classes.card}>

@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -42,7 +42,7 @@ export default function BoardMenu({ boardAnchor, boardClose, device }) {
       {device.urls.map(({ url, name }) => {
         return (
           <MenuItem key={name} onClick={openURL(url, boardClose)}>
-            {i18n.app.deviceMenu[name] || name}
+            {i18n.t("app.deviceMenu." + name, name)}
           </MenuItem>
         );
       })}

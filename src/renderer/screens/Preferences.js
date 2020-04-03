@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -115,7 +115,7 @@ class Preferences extends React.Component {
   };
 
   setLanguage = async event => {
-    i18n.setLanguage(event.target.value);
+    i18n.changeLanguage(event.target.value);
     await this.setState({});
     settings.set("ui.language", event.target.value);
   };
@@ -135,11 +135,12 @@ class Preferences extends React.Component {
   render() {
     const { classes, darkMode, toggleDarkMode } = this.props;
 
-    const language = i18n.getLanguage();
-    const languages = i18n.getAvailableLanguages().map(code => {
+    const language = i18n.language;
+    const languages = Object.keys(i18n.options.resources).map(code => {
+      const t = i18n.getFixedT(code);
       return (
         <MenuItem value={code} key={code}>
-          {i18n.getString("language", code)}
+          {t("language")}
         </MenuItem>
       );
     });
@@ -178,14 +179,14 @@ class Preferences extends React.Component {
     return (
       <div className={classes.root}>
         <Portal container={this.props.titleElement}>
-          {i18n.app.menu.preferences}
+          {i18n.t("app.menu.preferences")}
         </Portal>
         <Typography
           variant="subtitle1"
           component="h2"
           className={classes.title}
         >
-          {i18n.preferences.interface}
+          {i18n.t("preferences.interface")}
         </Typography>
         <Card>
           <CardContent>
@@ -194,14 +195,14 @@ class Preferences extends React.Component {
               classes={{ label: classes.grow }}
               control={languageSelect}
               labelPlacement="start"
-              label={i18n.preferences.language}
+              label={i18n.t("preferences.language")}
             />
             <FormControlLabel
               className={classes.control}
               classes={{ label: classes.grow }}
               control={darkModeSwitch}
               labelPlacement="start"
-              label={i18n.preferences.darkMode}
+              label={i18n.t("preferences.darkMode")}
             />
           </CardContent>
         </Card>
@@ -214,7 +215,7 @@ class Preferences extends React.Component {
         )}
         <div className={classes.advanced}>
           <Button onClick={this.toggleAdvanced}>
-            {i18n.preferences.advanced}
+            {i18n.t("preferences.advanced")}
             {this.state.advanced ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
           </Button>
         </div>
@@ -224,7 +225,7 @@ class Preferences extends React.Component {
             component="h2"
             className={classes.title}
           >
-            {i18n.preferences.devtools}
+            {i18n.t("preferences.devtools")}
           </Typography>
           <Card>
             <CardContent>
@@ -233,14 +234,14 @@ class Preferences extends React.Component {
                 classes={{ label: classes.grow }}
                 control={devToolsSwitch}
                 labelPlacement="start"
-                label={i18n.preferences.devtools}
+                label={i18n.t("preferences.devtools")}
               />
               <FormControlLabel
                 className={classes.control}
                 classes={{ label: classes.grow }}
                 control={verboseSwitch}
                 labelPlacement="start"
-                label={i18n.preferences.verboseFocus}
+                label={i18n.t("preferences.verboseFocus")}
               />
             </CardContent>
           </Card>

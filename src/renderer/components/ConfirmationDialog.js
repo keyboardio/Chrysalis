@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -37,10 +37,10 @@ const ConfirmationDialog = props => {
       <DialogContent>{props.children}</DialogContent>
       <DialogActions>
         <Button onClick={props.onCancel} color="primary">
-          {i18n.dialog.cancel}
+          {i18n.t("dialog.cancel")}
         </Button>
         <Button onClick={props.onConfirm} color="primary">
-          {i18n.dialog.ok}
+          {i18n.t("dialog.ok")}
         </Button>
       </DialogActions>
     </Dialog>

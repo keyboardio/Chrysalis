@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -15,27 +15,41 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import LocalizedStrings from "react-localization";
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
 
 import English from "./i18n/en";
 import Hungarian from "./i18n/hu";
 
-let strings = {
-  en: English,
-  hu: Hungarian
+const resources = {
+  en: {
+    messages: English
+  },
+  hu: {
+    messages: Hungarian
+  }
 };
 
-let i18n = new LocalizedStrings(strings);
+i18n.use(initReactI18next).init({
+  react: {
+    wait: true
+  },
+  resources: resources,
+  lng: "en",
+  keySeparator: ".",
+  ns: ["messages"],
+  defaultNS: "messages",
+  fallbackLng: "en",
+  interpolation: {
+    escapeValue: false
+  }
+});
+
 i18n.refreshHardware = ({ device }) => {
-  i18n.getAvailableLanguages().forEach(code => {
-    strings[code].hardware = device.instructions
-      ? device.instructions[code]
-      : {};
+  Object.keys(i18n.options.resources).forEach(code => {
+    const instructions = device.instructions ? device.instructions[code] : {};
+    i18n.addResource(code, "messages", "hardware", instructions);
   });
-
-  const language = i18n.getLanguage();
-  Object.assign(i18n, new LocalizedStrings(strings));
-  i18n.setLanguage(language);
 };
 
-export { i18n as default };
+export default i18n;

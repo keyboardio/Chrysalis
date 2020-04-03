@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -28,7 +28,7 @@ export default function ChatMenuItem({ onClick, className }) {
       <ListItemIcon>
         <ChatIcon />
       </ListItemIcon>
-      <ListItemText primary={i18n.app.menu.chat} />
+      <ListItemText primary={i18n.t("app.menu.chat")} />
     </ListItem>
   );
 }

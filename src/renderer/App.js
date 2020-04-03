@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -53,7 +53,8 @@ if (isDevelopment) {
   focus.debug = true;
 }
 
-if (settings.get("ui.language")) i18n.setLanguage(settings.get("ui.language"));
+if (settings.get("ui.language"))
+  i18n.changeLanguage(settings.get("ui.language"));
 
 const styles = () => ({
   root: {
@@ -99,7 +100,7 @@ class App extends React.Component {
       await navigate("./");
 
       if (!focus._port.isOpen) {
-        this.props.enqueueSnackbar(i18n.errors.deviceDisconnected, {
+        this.props.enqueueSnackbar(i18n.t("errors.deviceDisconnected"), {
           variant: "warning"
         });
         focus.close();
@@ -274,12 +275,12 @@ class App extends React.Component {
             </main>
           </LocationProvider>
           <ConfirmationDialog
-            title={i18n.app.cancelPending.title}
+            title={i18n.t("app.cancelPending.title")}
             open={this.state.cancelPendingOpen}
             onConfirm={this.doCancelContext}
             onCancel={this.cancelContextCancellation}
           >
-            {i18n.app.cancelPending.content}
+            {i18n.t("app.cancelPending.content")}
           </ConfirmationDialog>
         </div>
       </MuiThemeProvider>

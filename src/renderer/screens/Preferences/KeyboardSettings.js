@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
  * Copyright (C) 2020  DygmaLab SE.
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -229,7 +229,7 @@ class KeyboardSettings extends React.Component {
       layers = keymap.custom.map((_, index) => {
         return (
           <MenuItem value={index} key={index}>
-            {i18n.formatString(i18n.components.layer, index)}
+            {i18n.t("components.layer", { index: index })}
           </MenuItem>
         );
       });
@@ -237,7 +237,7 @@ class KeyboardSettings extends React.Component {
       layers = keymap.default.concat(keymap.custom).map((_, index) => {
         return (
           <MenuItem value={index} key={index}>
-            {i18n.formatString(i18n.components.layer, index)}
+            {i18n.t("components.layer", { index: index })}
           </MenuItem>
         );
       });
@@ -250,7 +250,7 @@ class KeyboardSettings extends React.Component {
         input={<FilledInput classes={{ input: classes.select }} />}
       >
         <MenuItem value={126}>
-          {i18n.keyboardSettings.keymap.noDefault}
+          {i18n.t("keyboardSettings.keymap.noDefault")}
         </MenuItem>
         {layers}
       </Select>
@@ -277,36 +277,38 @@ class KeyboardSettings extends React.Component {
           />
         }
       >
-        <MenuItem value={0}>{i18n.keyboardSettings.led.idleDisabled}</MenuItem>
+        <MenuItem value={0}>
+          {i18n.t("keyboardSettings.led.idleDisabled")}
+        </MenuItem>
         <MenuItem value={60}>
-          {i18n.keyboardSettings.led.idle.oneMinute}
+          {i18n.t("keyboardSettings.led.idle.oneMinute")}
         </MenuItem>
         <MenuItem value={120}>
-          {i18n.keyboardSettings.led.idle.twoMinutes}
+          {i18n.t("keyboardSettings.led.idle.twoMinutes")}
         </MenuItem>
         <MenuItem value={180}>
-          {i18n.keyboardSettings.led.idle.threeMinutes}
+          {i18n.t("keyboardSettings.led.idle.threeMinutes")}
         </MenuItem>
         <MenuItem value={240}>
-          {i18n.keyboardSettings.led.idle.fourMinutes}
+          {i18n.t("keyboardSettings.led.idle.fourMinutes")}
         </MenuItem>
         <MenuItem value={300}>
-          {i18n.keyboardSettings.led.idle.fiveMinutes}
+          {i18n.t("keyboardSettings.led.idle.fiveMinutes")}
         </MenuItem>
         <MenuItem value={600}>
-          {i18n.keyboardSettings.led.idle.tenMinutes}
+          {i18n.t("keyboardSettings.led.idle.tenMinutes")}
         </MenuItem>
         <MenuItem value={900}>
-          {i18n.keyboardSettings.led.idle.fifteenMinutes}
+          {i18n.t("keyboardSettings.led.idle.fifteenMinutes")}
         </MenuItem>
         <MenuItem value={1200}>
-          {i18n.keyboardSettings.led.idle.twentyMinutes}
+          {i18n.t("keyboardSettings.led.idle.twentyMinutes")}
         </MenuItem>
         <MenuItem value={1800}>
-          {i18n.keyboardSettings.led.idle.thirtyMinutes}
+          {i18n.t("keyboardSettings.led.idle.thirtyMinutes")}
         </MenuItem>
         <MenuItem value={3600}>
-          {i18n.keyboardSettings.led.idle.sixtyMinutes}
+          {i18n.t("keyboardSettings.led.idle.sixtyMinutes")}
         </MenuItem>
       </Select>
     );
@@ -319,7 +321,7 @@ class KeyboardSettings extends React.Component {
           component="h2"
           className={classes.title}
         >
-          {i18n.keyboardSettings.keymap.title}
+          {i18n.t("keyboardSettings.keymap.title")}
         </Typography>
         <Card>
           <CardContent>
@@ -329,7 +331,7 @@ class KeyboardSettings extends React.Component {
                 control={showDefaultLayersSwitch}
                 classes={{ label: classes.grow }}
                 labelPlacement="start"
-                label={i18n.keyboardSettings.keymap.showHardcoded}
+                label={i18n.t("keyboardSettings.keymap.showHardcoded")}
               />
               <Divider />
               <FormControlLabel
@@ -337,14 +339,14 @@ class KeyboardSettings extends React.Component {
                 control={onlyCustomSwitch}
                 classes={{ label: classes.grow }}
                 labelPlacement="start"
-                label={i18n.keyboardSettings.keymap.onlyCustom}
+                label={i18n.t("keyboardSettings.keymap.onlyCustom")}
               />
               <FormControlLabel
                 className={classes.control}
                 classes={{ label: classes.grow }}
                 control={defaultLayerSelect}
                 labelPlacement="start"
-                label={i18n.keyboardSettings.keymap.defaultLayer}
+                label={i18n.t("keyboardSettings.keymap.defaultLayer")}
               />
               {ledIdleTimeLimit >= 0 && (
                 <FormControlLabel
@@ -352,7 +354,7 @@ class KeyboardSettings extends React.Component {
                   classes={{ label: classes.grow }}
                   control={idleControl}
                   labelPlacement="start"
-                  label={i18n.keyboardSettings.led.idleTimeLimit}
+                  label={i18n.t("keyboardSettings.led.idleTimeLimit")}
                 />
               )}
               {ledBrightness >= 0 && (
@@ -364,7 +366,7 @@ class KeyboardSettings extends React.Component {
                   }}
                   control={brightnessControl}
                   labelPlacement="start"
-                  label={i18n.keyboardSettings.led.brightness}
+                  label={i18n.t("keyboardSettings.led.brightness")}
                 />
               )}
             </FormControl>
@@ -375,7 +377,7 @@ class KeyboardSettings extends React.Component {
               onClick={this.saveKeymapChanges}
               disabled={!modified}
             >
-              {i18n.components.save.saveChanges}
+              {i18n.t("components.save.saveChanges")}
             </SaveChangesButton>
           </CardActions>
         </Card>

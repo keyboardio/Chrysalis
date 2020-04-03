@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -96,7 +96,7 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
             className={classes.drawer}
             subheader={
               <ListSubheader disableSticky>
-                {i18n.app.menu.keyboardSection}
+                {i18n.t("app.menu.keyboardSection")}
               </ListSubheader>
             }
           >
@@ -137,7 +137,7 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
           className={classes.drawer}
           subheader={
             <ListSubheader disableSticky>
-              {i18n.app.menu.chrysalisSection}
+              {i18n.t("app.menu.chrysalisSection")}
             </ListSubheader>
           }
         >
@@ -146,8 +146,8 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
               className={classes.menuItem}
               keyboardSelectText={
                 connected
-                  ? i18n.app.menu.selectAnotherKeyboard
-                  : i18n.app.menu.selectAKeyboard
+                  ? i18n.t("app.menu.selectAnotherKeyboard")
+                  : i18n.t("app.menu.selectAKeyboard")
               }
               selected={currentPage == "/keyboard-select"}
               onClick={() => setCurrentPage("/keyboard-select")}
@@ -166,7 +166,7 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
           className={classes.drawer}
           subheader={
             <ListSubheader disableSticky>
-              {i18n.app.menu.miscSection}
+              {i18n.t("app.menu.miscSection")}
             </ListSubheader>
           }
         >

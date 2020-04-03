@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -74,7 +74,7 @@ export const ImportExportDialog = withSnackbar(props => {
   function copyToClipboard(data) {
     clipboard.writeText(data);
     setIsChange(false);
-    props.enqueueSnackbar(i18n.editor.copySuccess, {
+    props.enqueueSnackbar(i18n.t("editor.copySuccess"), {
       variant: "success",
       autoHideDuration: 2000
     });
@@ -83,7 +83,7 @@ export const ImportExportDialog = withSnackbar(props => {
   function pasteFromClipboard() {
     setData(clipboard.readText());
     setIsChange(true);
-    props.enqueueSnackbar(i18n.editor.pasteSuccess, {
+    props.enqueueSnackbar(i18n.t("editor.pasteSuccess"), {
       variant: "success",
       autoHideDuration: 2000
     });
@@ -92,14 +92,14 @@ export const ImportExportDialog = withSnackbar(props => {
   function loadDefault(path) {
     fs.readFile(path, "utf-8", (err, layoutData) => {
       if (err) {
-        props.enqueueSnackbar(i18n.editor.pasteSuccess, {
+        props.enqueueSnackbar(i18n.t("editor.pasteSuccess"), {
           variant: "error",
           autoHideDuration: 2000
         });
       } else {
         setData(layoutData);
         setIsChange(true);
-        props.enqueueSnackbar(i18n.editor.loadDefaultSuccess, {
+        props.enqueueSnackbar(i18n.t("editor.loadDefaultSuccess"), {
           variant: "success",
           autoHideDuration: 2000
         });
@@ -114,10 +114,10 @@ export const ImportExportDialog = withSnackbar(props => {
       onClose={onCancel}
       fullScreen
     >
-      <DialogTitle>{i18n.editor.importExport}</DialogTitle>
+      <DialogTitle>{i18n.t("editor.importExport")}</DialogTitle>
       <DialogContent>
         <Typography variant="body1">
-          {i18n.editor.importExportDescription}
+          {i18n.t("editor.importExportDescription")}
         </Typography>
         <div
           style={{
@@ -130,10 +130,10 @@ export const ImportExportDialog = withSnackbar(props => {
           <LoadDefaultKeymap loadDefault={loadDefault} />
           <div>
             <Button color="primary" onClick={() => copyToClipboard(data)}>
-              {i18n.editor.copyToClipboard}
+              {i18n.t("editor.copyToClipboard")}
             </Button>
             <Button color="primary" onClick={pasteFromClipboard}>
-              {i18n.editor.pasteFromClipboard}
+              {i18n.t("editor.pasteFromClipboard")}
             </Button>
           </div>
         </div>

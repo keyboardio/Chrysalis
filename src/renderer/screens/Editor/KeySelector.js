@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -139,7 +139,7 @@ class KeyGroupCodeUnwrapped extends React.Component {
         className={classes.keygroup}
         onChange={this.onChange}
         onKeyDown={this.onKeyDown}
-        label={i18n.editor.keyCode}
+        label={i18n.t("editor.keyCode")}
         variant="outlined"
         disabled={disabled}
         type="number"
@@ -363,7 +363,7 @@ class KeyGroupListUnwrapped extends React.Component {
                 onKeySelect(keyCode + 51218);
               }
             }}
-            label={i18n.editor.dualUseLayer}
+            label={i18n.t("editor.dualUseLayer")}
           />
         </div>
       );
@@ -434,7 +434,7 @@ class KeyGroupListUnwrapped extends React.Component {
             control={<Switch />}
             checked={dualUseModifier}
             onChange={this.toggleDualUse}
-            label={i18n.editor.dualUse}
+            label={i18n.t("editor.dualUse")}
           />
         </FormGroup>
       );
@@ -557,7 +557,7 @@ class KeySelector extends React.Component {
           selected={index == groupIndex}
           onClick={event => this.onMenuItemClick(event, index)}
         >
-          {i18n.editor.groups[group] || group}
+          {i18n.t("editor.groups." + group, group)}
         </MenuItem>
       );
     });
@@ -570,16 +570,16 @@ class KeySelector extends React.Component {
               onClick={this.onListItemClick}
               primary={
                 <span>
-                  {i18n.editor.keyType}
+                  {i18n.t("editor.keyType")}
                   <span style={{ float: "right" }}>
                     {anchorEl ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
                   </span>
                 </span>
               }
-              secondary={
-                i18n.editor.groups[keyGroups[groupIndex]] ||
+              secondary={i18n.t(
+                "editor.groups." + keyGroups[groupIndex],
                 keyGroups[groupIndex]
-              }
+              )}
             />
           </ListItem>
         </List>

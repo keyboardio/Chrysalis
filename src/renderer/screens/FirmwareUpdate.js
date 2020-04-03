@@ -124,14 +124,14 @@ class FirmwareUpdate extends React.Component {
     }
 
     let files = Electron.remote.dialog.showOpenDialog({
-      title: i18n.firmwareUpdate.dialog.selectFirmware,
+      title: i18n.t("firmwareUpdate.dialog.selectFirmware"),
       filters: [
         {
-          name: i18n.firmwareUpdate.dialog.firmwareFiles,
+          name: i18n.t("firmwareUpdate.dialog.firmwareFiles"),
           extensions: ["hex"]
         },
         {
-          name: i18n.firmwareUpdate.dialog.allFiles,
+          name: i18n.t("firmwareUpdate.dialog.allFiles"),
           extensions: ["*"]
         }
       ]
@@ -198,7 +198,7 @@ class FirmwareUpdate extends React.Component {
           </Button>
         </React.Fragment>
       );
-      this.props.enqueueSnackbar(i18n.firmwareUpdate.flashing.error, {
+      this.props.enqueueSnackbar(i18n.t("firmwareUpdate.flashing.error"), {
         variant: "error",
         action: action
       });
@@ -209,7 +209,7 @@ class FirmwareUpdate extends React.Component {
 
     return new Promise(resolve => {
       setTimeout(() => {
-        this.props.enqueueSnackbar(i18n.firmwareUpdate.flashing.success, {
+        this.props.enqueueSnackbar(i18n.t("firmwareUpdate.flashing.success"), {
           variant: "success"
         });
 
@@ -236,10 +236,9 @@ class FirmwareUpdate extends React.Component {
       filename = filename[filename.length - 1];
     }
 
-    const defaultFirmwareItemText = i18n.formatString(
-      i18n.firmwareUpdate.defaultFirmware,
-      version
-    );
+    const defaultFirmwareItemText = i18n.t("firmwareUpdate.defaultFirmware", {
+      version: version
+    });
     const defaultFirmwareItem = (
       <MenuItem value="default" selected={this.state.selected == "default"}>
         <ListItemIcon>
@@ -247,7 +246,7 @@ class FirmwareUpdate extends React.Component {
         </ListItemIcon>
         <ListItemText
           primary={defaultFirmwareItemText}
-          secondary={i18n.firmwareUpdate.defaultFirmwareDescription}
+          secondary={i18n.t("firmwareUpdate.defaultFirmwareDescription")}
         />
       </MenuItem>
     );
@@ -258,9 +257,9 @@ class FirmwareUpdate extends React.Component {
       hasDefaultFirmware = false;
     }
 
-    const experimentalFirmwareItemText = i18n.formatString(
-      i18n.firmwareUpdate.experimentalFirmware,
-      version
+    const experimentalFirmwareItemText = i18n.t(
+      "firmwareUpdate.experimentalFirmware",
+      { version: version }
     );
     const experimentalFirmwareItem = (
       <MenuItem
@@ -272,7 +271,7 @@ class FirmwareUpdate extends React.Component {
         </ListItemIcon>
         <ListItemText
           primary={experimentalFirmwareItemText}
-          secondary={i18n.firmwareUpdate.experimentalFirmwareDescription}
+          secondary={i18n.t("firmwareUpdate.experimentalFirmwareDescription")}
         />
       </MenuItem>
     );
@@ -287,7 +286,7 @@ class FirmwareUpdate extends React.Component {
     const firmwareSelect = (
       <FormControl className={classes.firmwareSelect}>
         <InputLabel shrink htmlFor="selected-firmware">
-          {i18n.firmwareUpdate.selected}
+          {i18n.t("firmwareUpdate.selected")}
         </InputLabel>
         <Select
           classes={{ select: classes.dropdown }}
@@ -302,7 +301,7 @@ class FirmwareUpdate extends React.Component {
               <BuildIcon />
             </ListItemIcon>
             <ListItemText
-              primary={i18n.firmwareUpdate.custom}
+              primary={i18n.t("firmwareUpdate.custom")}
               secondary={filename}
             />
           </MenuItem>
@@ -321,12 +320,12 @@ class FirmwareUpdate extends React.Component {
     return (
       <div className={classes.root}>
         <Portal container={this.props.titleElement}>
-          {i18n.app.menu.firmwareUpdate}
+          {i18n.t("app.menu.firmwareUpdate")}
         </Portal>
         <Card className={classes.card}>
           <CardContent>
             <Typography component="p" gutterBottom>
-              {i18n.firmwareUpdate.description}
+              {i18n.t("firmwareUpdate.description")}
             </Typography>
             <Typography component="p" gutterBottom className={classes.repo}>
               <a href="https://github.com/keyboardio/Chrysalis-Firmware-Bundle#readme">
@@ -334,16 +333,16 @@ class FirmwareUpdate extends React.Component {
               </a>
             </Typography>
             <Typography component="p" gutterBottom>
-              {i18n.hardware.updateInstructions}
+              {i18n.t("hardware.updateInstructions")}
             </Typography>
             <Typography component="p" gutterBottom>
-              {i18n.firmwareUpdate.postUpload}
+              {i18n.t("firmwareUpdate.postUpload")}
             </Typography>
           </CardContent>
           <Divider variant="middle" />
           <CardContent>
             <Typography variant="subtitle1">
-              {i18n.firmwareUpdate.options.title}
+              {i18n.t("firmwareUpdate.options.title")}
             </Typography>
             <FormControl className={classes.group}>
               <FormControlLabel
@@ -351,7 +350,7 @@ class FirmwareUpdate extends React.Component {
                 control={resetOnFlashSwitch}
                 classes={{ label: classes.grow }}
                 labelPlacement="end"
-                label={i18n.firmwareUpdate.options.onFlash}
+                label={i18n.t("firmwareUpdate.options.onFlash")}
               />
             </FormControl>
           </CardContent>
@@ -366,19 +365,19 @@ class FirmwareUpdate extends React.Component {
                   ? this.openConfirmationDialog
                   : this.upload
               }
-              successMessage={i18n.firmwareUpdate.flashing.buttonSuccess}
+              successMessage={i18n.t("firmwareUpdate.flashing.buttonSuccess")}
             >
-              {i18n.firmwareUpdate.flashing.button}
+              {i18n.t("firmwareUpdate.flashing.button")}
             </SaveChangesButton>
           </CardActions>
         </Card>
         <ConfirmationDialog
-          title={i18n.firmwareUpdate.confirmDialog.title}
+          title={i18n.t("firmwareUpdate.confirmDialog.title")}
           open={this.state.confirmationOpen}
           onConfirm={this.replace}
           onCancel={this.closeConfirmationDialog}
         >
-          {i18n.firmwareUpdate.confirmDialog.contents}
+          {i18n.t("firmwareUpdate.confirmDialog.contents")}
         </ConfirmationDialog>
       </div>
     );

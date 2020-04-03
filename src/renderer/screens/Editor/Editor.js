@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -678,7 +678,7 @@ class Editor extends React.Component {
 
     const copyCustomItems = this.state.keymap.custom.map((_, index) => {
       const idx = index + (keymap.onlyCustom ? 0 : keymap.default.length);
-      const label = i18n.formatString(i18n.components.layer, idx);
+      const label = i18n.t("components.layer", { index: idx });
 
       return {
         index: idx,
@@ -689,7 +689,7 @@ class Editor extends React.Component {
       showDefaults &&
       keymap.default.map((_, index) => {
         const idx = index - (keymap.onlyCustom ? keymap.default.length : 0),
-          label = i18n.formatString(i18n.components.layer, idx);
+          label = i18n.t("components.layer", { index: idx });
 
         return {
           index: idx,
@@ -712,7 +712,7 @@ class Editor extends React.Component {
             </ListItemIcon>
             <ListItemText
               inset
-              primary={i18n.formatString(i18n.components.layer, idx)}
+              primary={i18n.t("components.layer", { index: idx })}
             />
           </MenuItem>
         );
@@ -725,7 +725,7 @@ class Editor extends React.Component {
         <MenuItem value={idx} key={menuKey}>
           <ListItemText
             inset
-            primary={i18n.formatString(i18n.components.layer, idx)}
+            primary={i18n.t("components.layer", { index: idx })}
           />
         </MenuItem>
       );
@@ -737,9 +737,9 @@ class Editor extends React.Component {
     const editorSwitchToggle = palette.length > 0 && keymap.custom.length > 0;
     let title;
     if (palette.length > 0) {
-      title = i18n.app.menu.editor;
+      title = i18n.t("app.menu.editor");
     } else {
-      title = i18n.app.menu.layoutEditor;
+      title = i18n.t("app.menu.layoutEditor");
     }
 
     return (
@@ -757,13 +757,13 @@ class Editor extends React.Component {
                 }}
               >
                 <ToggleButton value="layout" disabled={mode == "layout"}>
-                  <Tooltip title={i18n.editor.layoutMode}>
+                  <Tooltip title={i18n.t("editor.layoutMode")}>
                     <KeyboardIcon />
                   </Tooltip>
                 </ToggleButton>
                 {palette.length && (
                   <ToggleButton value="colormap" disabled={mode == "colormap"}>
-                    <Tooltip title={i18n.editor.colormapMode}>
+                    <Tooltip title={i18n.t("editor.colormapMode")}>
                       <PaletteIcon />
                     </Tooltip>
                   </ToggleButton>
@@ -782,17 +782,20 @@ class Editor extends React.Component {
               </Select>
             </FormControl>
             <div>
-              <Tooltip disableFocusListener title={i18n.editor.importExport}>
+              <Tooltip
+                disableFocusListener
+                title={i18n.t("editor.importExport")}
+              >
                 <IconButton onClick={this.importExportDialog}>
                   <ImportExportIcon />
                 </IconButton>
               </Tooltip>
-              <Tooltip disableFocusListener title={i18n.editor.copyFrom}>
+              <Tooltip disableFocusListener title={i18n.t("editor.copyFrom")}>
                 <IconButton disabled={isReadOnly} onClick={this.copyFromDialog}>
                   <FileCopyIcon />
                 </IconButton>
               </Tooltip>
-              <Tooltip title={i18n.editor.clearLayer}>
+              <Tooltip title={i18n.t("editor.clearLayer")}>
                 <IconButton disabled={isReadOnly} onClick={this.confirmClear}>
                   <LayersClearIcon />
                 </IconButton>
@@ -833,15 +836,15 @@ class Editor extends React.Component {
           onClick={this.onApply}
           disabled={!this.state.modified}
         >
-          {i18n.components.save.saveChanges}
+          {i18n.t("components.save.saveChanges")}
         </SaveChangesButton>
         <ConfirmationDialog
-          title={i18n.editor.clearLayerQuestion}
+          title={i18n.t("editor.clearLayerQuestion")}
           open={this.state.clearConfirmationOpen}
           onConfirm={this.clearLayer}
           onCancel={this.cancelClear}
         >
-          {i18n.editor.clearLayerPrompt}
+          {i18n.t("editor.clearLayerPrompt")}
         </ConfirmationDialog>
         <CopyFromDialog
           open={this.state.copyFromOpen}

@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -83,22 +83,21 @@ class Welcome extends React.Component {
 
     const reconnectButton = focus._port && (
       <Button color="secondary" onClick={this.reconnect}>
-        {i18n.welcome.reconnect}
+        {i18n.t("welcome.reconnect")}
       </Button>
     );
     const reconnectText = focus._port && (
       <Typography component="p" gutterBottom>
-        {i18n.formatString(
-          i18n.welcome.reconnectDescription,
-          i18n.welcome.reconnect
-        )}
+        {i18n.t("welcome.reconnectDescription", {
+          buttonName: i18n.t("welcome.reconnect")
+        })}
       </Typography>
     );
 
     return (
       <div className={classes.root}>
         <Portal container={this.props.titleElement}>
-          {i18n.welcome.title}
+          {i18n.t("welcome.title")}
         </Portal>
         <Card className={classes.card}>
           <CardHeader
@@ -112,10 +111,9 @@ class Welcome extends React.Component {
           />
           <CardContent>
             <Typography component="p" gutterBottom>
-              {i18n.formatString(
-                i18n.welcome.contents,
-                i18n.app.menu.firmwareUpdate
-              )}
+              {i18n.t("welcome.contents", {
+                buttonName: i18n.t("app.menu.firmwareUpdate")
+              })}
             </Typography>
             {reconnectText}
           </CardContent>
@@ -129,10 +127,9 @@ class Welcome extends React.Component {
                 await navigate("/firmware-update");
               }}
             >
-              {i18n.formatString(
-                i18n.welcome.gotoUpdate,
-                i18n.app.menu.firmwareUpdate
-              )}
+              {i18n.t("welcome.gotoUpdate", {
+                buttonName: i18n.t("app.menu.firmwareUpdate")
+              })}
             </Button>
           </CardActions>
         </Card>

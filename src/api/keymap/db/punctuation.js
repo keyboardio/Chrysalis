@@ -1,5 +1,5 @@
 /* chrysalis-keymap -- Chrysalis keymap library
- * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -83,13 +83,6 @@ const PunctuationTable = {
       code: 56,
       labels: {
         primary: "/"
-      }
-    },
-    {
-      code: 57,
-      labels: {
-        primary: "CapsLK",
-        verbose: "Caps Lock"
       }
     },
     {

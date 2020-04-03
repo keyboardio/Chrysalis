@@ -1,5 +1,5 @@
 /* chrysalis-keymap -- Chrysalis keymap library
- * Copyright (C) 2018  Keyboardio, Inc.
+ * Copyright (C) 2018-2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -22,20 +22,6 @@ const MiscellaneousTable = {
       labels: {
         primary: "PrnScr",
         verbose: "Print Screen"
-      }
-    },
-    {
-      code: 83,
-      labels: {
-        primary: "NumLK",
-        verbose: "Num Lock"
-      }
-    },
-    {
-      code: 71,
-      labels: {
-        primary: "ScrlLK",
-        verbose: "Scroll Lock"
       }
     },
     {

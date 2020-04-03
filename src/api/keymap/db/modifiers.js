@@ -18,7 +18,7 @@ import { withModifiers } from "./utils";
 import { guiLabel } from "./gui";
 
 const ModifiersTable = {
-  groupName: "Modifiers",
+  groupName: "Modifiers & Locks",
   keys: [
     {
       code: 224,
@@ -74,6 +74,27 @@ const ModifiersTable = {
       labels: {
         primary: "R" + guiLabel,
         verbose: "Right " + guiLabel
+      }
+    },
+    {
+      code: 57,
+      labels: {
+        primary: "CapsLK",
+        verbose: "Caps Lock"
+      }
+    },
+    {
+      code: 83,
+      labels: {
+        primary: "NumLK",
+        verbose: "Num Lock"
+      }
+    },
+    {
+      code: 71,
+      labels: {
+        primary: "ScrlLK",
+        verbose: "Scroll Lock"
       }
     }
   ]

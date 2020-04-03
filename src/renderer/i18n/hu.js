@@ -37,6 +37,7 @@ const Hungarian = {
       welcome: "Üdvözlet",
       editor: "Kiosztás & színtérkép szerkesztő",
       layoutEditor: "Kiosztás szerkesztő",
+      colormapEditor: "Színtérkép szerkesztő",
       firmwareUpdate: "Vezérlő frissítés",
       keyboardSettings: "Billentyűzet beállítások",
       preferences: "Beállítások",

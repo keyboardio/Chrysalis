@@ -115,7 +115,9 @@ class Editor extends React.Component {
     copyFromOpen: false,
     importExportDialogOpen: false,
     isMultiSelected: false,
-    isColorButtonSelected: false
+    isColorButtonSelected: false,
+    hasKeymap: false,
+    hasColormap: false
   };
   keymapDB = new KeymapDB();
 
@@ -161,12 +163,23 @@ class Editor extends React.Component {
 
       let colormap = await focus.command("colormap");
 
+      let mode = "layout";
+      if (
+        keymap.custom.length == 0 &&
+        keymap.default.length == 0 &&
+        colormap.colorMap.length > 0
+      )
+        mode = "colormap";
+
       this.setState({
         defaultLayer: defLayer,
         keymap: keymap,
         showDefaults: !keymap.onlyCustom,
         palette: colormap.palette,
-        colorMap: colormap.colorMap
+        colorMap: colormap.colorMap,
+        mode: mode,
+        hasKeymap: keymap.default.length + keymap.custom.length > 0,
+        hasColormap: colormap.colorMap.length > 0
       });
       this.bottomMenuNeverHide();
     } catch (e) {
@@ -451,20 +464,28 @@ class Editor extends React.Component {
 
   clearLayer = () => {
     this.setState(state => {
-      let newKeymap = state.keymap.custom.slice();
       const idx = state.keymap.onlyCustom
         ? state.currentLayer
         : state.currentLayer - state.keymap.default.length;
-      newKeymap[idx] = Array(newKeymap[0].length)
-        .fill()
-        .map(() => ({ keyCode: 0xffff }));
 
-      let newColormap = state.colorMap.slice();
-      if (newColormap.length > 0) {
-        newColormap[idx] = Array(newColormap[0].length)
+      let newKeymap;
+      if (state.hasKeymap) {
+        newKeymap = state.keymap.custom.slice();
+        newKeymap[idx] = Array(newKeymap[0].length)
           .fill()
-          .map(() => 15);
+          .map(() => ({ keyCode: 0xffff }));
       }
+
+      let newColormap;
+      if (state.hasColormap) {
+        newColormap = state.colorMap.slice();
+        if (newColormap.length > 0) {
+          newColormap[idx] = Array(newColormap[0].length)
+            .fill()
+            .map(() => 15);
+        }
+      }
+
       this.props.startContext();
       return {
         keymap: {
@@ -631,7 +652,14 @@ class Editor extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { keymap, palette, isColorButtonSelected } = this.state;
+    const {
+      keymap,
+      isColorButtonSelected,
+      hasKeymap,
+      hasColormap,
+      colorMap,
+      mode
+    } = this.state;
 
     let focus = new Focus();
     const Layer = focus.device.components.keymap;
@@ -646,16 +674,18 @@ class Editor extends React.Component {
     }
 
     let layerData, isReadOnly;
-    if (keymap.onlyCustom) {
-      isReadOnly = currentLayer < 0;
-      layerData = isReadOnly
-        ? keymap.default[currentLayer + keymap.default.length]
-        : keymap.custom[currentLayer];
-    } else {
-      isReadOnly = currentLayer < keymap.default.length;
-      layerData = isReadOnly
-        ? keymap.default[currentLayer]
-        : keymap.custom[currentLayer - keymap.default.length];
+    if (hasKeymap) {
+      if (keymap.onlyCustom) {
+        isReadOnly = currentLayer < 0;
+        layerData = isReadOnly
+          ? keymap.default[currentLayer + keymap.default.length]
+          : keymap.custom[currentLayer];
+      } else {
+        isReadOnly = currentLayer < keymap.default.length;
+        layerData = isReadOnly
+          ? keymap.default[currentLayer]
+          : keymap.custom[currentLayer - keymap.default.length];
+      }
     }
 
     const layer = (
@@ -676,40 +706,59 @@ class Editor extends React.Component {
       </Fade>
     );
 
-    const copyCustomItems = this.state.keymap.custom.map((_, index) => {
-      const idx = index + (keymap.onlyCustom ? 0 : keymap.default.length);
-      const label = i18n.t("components.layer", { index: idx });
-
-      return {
-        index: idx,
-        label: label
-      };
-    });
-    const copyDefaultItems =
-      showDefaults &&
-      keymap.default.map((_, index) => {
-        const idx = index - (keymap.onlyCustom ? keymap.default.length : 0),
-          label = i18n.t("components.layer", { index: idx });
+    let copyFromLayerOptions;
+    if (hasKeymap) {
+      const copyCustomItems = this.state.keymap.custom.map((_, index) => {
+        const idx = index + (keymap.onlyCustom ? 0 : keymap.default.length);
+        const label = i18n.t("components.layer", { index: idx });
 
         return {
           index: idx,
           label: label
         };
       });
-    const copyFromLayerOptions = (copyDefaultItems || []).concat(
-      copyCustomItems
-    );
+      const copyDefaultItems =
+        showDefaults &&
+        keymap.default.map((_, index) => {
+          const idx = index - (keymap.onlyCustom ? keymap.default.length : 0),
+            label = i18n.t("components.layer", { index: idx });
 
-    const defaultLayerMenu =
-      showDefaults &&
-      keymap.default.map((_, index) => {
-        const idx = index - (keymap.onlyCustom ? keymap.default.length : 0),
+          return {
+            index: idx,
+            label: label
+          };
+        });
+
+      copyFromLayerOptions = (copyDefaultItems || []).concat(copyCustomItems);
+    } else {
+      copyFromLayerOptions = [];
+    }
+
+    let layerMenu;
+    if (hasKeymap) {
+      const defaultLayerMenu =
+        showDefaults &&
+        keymap.default.map((_, index) => {
+          const idx = index - (keymap.onlyCustom ? keymap.default.length : 0),
+            menuKey = "layer-menu-" + idx.toString();
+          return (
+            <MenuItem value={idx} key={menuKey}>
+              <ListItemIcon>
+                <LockIcon />
+              </ListItemIcon>
+              <ListItemText
+                inset
+                primary={i18n.t("components.layer", { index: idx })}
+              />
+            </MenuItem>
+          );
+        });
+
+      const customLayerMenu = keymap.custom.map((_, index) => {
+        const idx = index + (keymap.onlyCustom ? 0 : keymap.default.length),
           menuKey = "layer-menu-" + idx.toString();
         return (
           <MenuItem value={idx} key={menuKey}>
-            <ListItemIcon>
-              <LockIcon />
-            </ListItemIcon>
             <ListItemText
               inset
               primary={i18n.t("components.layer", { index: idx })}
@@ -717,29 +766,34 @@ class Editor extends React.Component {
           </MenuItem>
         );
       });
-
-    const customLayerMenu = keymap.custom.map((_, index) => {
-      const idx = index + (keymap.onlyCustom ? 0 : keymap.default.length),
-        menuKey = "layer-menu-" + idx.toString();
-      return (
-        <MenuItem value={idx} key={menuKey}>
-          <ListItemText
-            inset
-            primary={i18n.t("components.layer", { index: idx })}
-          />
-        </MenuItem>
-      );
-    });
-
-    const layerMenu = (defaultLayerMenu || []).concat(customLayerMenu);
-    const { mode } = this.state;
-
-    const editorSwitchToggle = palette.length > 0 && keymap.custom.length > 0;
-    let title;
-    if (palette.length > 0) {
-      title = i18n.t("app.menu.editor");
+      layerMenu = (defaultLayerMenu || []).concat(customLayerMenu);
     } else {
+      layerMenu = colorMap.map((_, index) => {
+        const menuKey = "layer-menu-" + index.toString();
+        return (
+          <MenuItem value={index} key={menuKey}>
+            <ListItemText
+              inset
+              primary={i18n.t("components.layer", { index: index })}
+            />
+          </MenuItem>
+        );
+      });
+    }
+
+    const editorSwitchToggle = hasColormap && hasKeymap;
+    let title;
+    if (hasColormap && hasKeymap) {
+      title = i18n.t("app.menu.editor");
+    } else if (hasKeymap) {
       title = i18n.t("app.menu.layoutEditor");
+    } else {
+      title = i18n.t("app.menu.colormapEditor");
+    }
+
+    let showSlider = true;
+    if (hasKeymap) {
+      showSlider = this.getCurrentKey() != -1;
     }
 
     return (
@@ -756,12 +810,14 @@ class Editor extends React.Component {
                   this.setMode(mode);
                 }}
               >
-                <ToggleButton value="layout" disabled={mode == "layout"}>
-                  <Tooltip title={i18n.t("editor.layoutMode")}>
-                    <KeyboardIcon />
-                  </Tooltip>
-                </ToggleButton>
-                {palette.length && (
+                {hasKeymap && (
+                  <ToggleButton value="layout" disabled={mode == "layout"}>
+                    <Tooltip title={i18n.t("editor.layoutMode")}>
+                      <KeyboardIcon />
+                    </Tooltip>
+                  </ToggleButton>
+                )}
+                {hasColormap && (
                   <ToggleButton value="colormap" disabled={mode == "colormap"}>
                     <Tooltip title={i18n.t("editor.colormapMode")}>
                       <PaletteIcon />
@@ -803,12 +859,9 @@ class Editor extends React.Component {
             </div>
           </Toolbar>
         </Portal>
-        {this.state.keymap.custom.length == 0 &&
-          this.state.keymap.default.length == 0 && (
-            <LinearProgress variant="query" />
-          )}
+        {hasKeymap && mode == "layout" && <LinearProgress variant="query" />}
         {layer}
-        <Slide in={this.getCurrentKey() != -1} direction="up" unmountOnExit>
+        <Slide in={showSlider} direction="up" unmountOnExit>
           {(mode == "layout" && (
             <KeySelector
               disabled={isReadOnly}
@@ -818,9 +871,7 @@ class Editor extends React.Component {
           )) ||
             (mode == "colormap" && (
               <ColorPalette
-                disabled={
-                  isReadOnly || currentLayer > this.state.colorMap.length
-                }
+                disabled={isReadOnly || currentLayer > colorMap.length}
                 onColorSelect={this.onColorSelect}
                 colorButtonIsSelected={this.state.colorButtonIsSelected}
                 palette={this.state.palette}

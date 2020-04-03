@@ -38,6 +38,7 @@ const English = {
       welcome: "Welcome",
       editor: "Layout & Colormap Editor",
       layoutEditor: "Layout Editor",
+      colormapEditor: "Colormap Editor",
       firmwareUpdate: "Firmware Update",
       keyboardSettings: "Keyboard Settings",
       preferences: "Preferences",

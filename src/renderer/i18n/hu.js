@@ -160,7 +160,13 @@ Minden testreszabott beállítás el fog veszni.`
       troubleshooting: "Hibaelhárítás",
       success: "Vezérlő sikeresen frissítve!",
       button: "Frissítés",
-      buttonSuccess: "Frissítve!"
+      buttonSuccess: "Frissítve!",
+      steps: {
+        factoryRestore: "Gyári beállítások visszaállítása",
+        bootloaderTrigger: "Programozó indítása",
+        bootloaderWait: "Várakozás a programozóra",
+        flash: "Frissítés"
+      }
     },
     confirmDialog: {
       title: "Felülírja a vezérlőt, és visszaáll gyári beállításokra?",

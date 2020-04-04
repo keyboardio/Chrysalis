@@ -177,7 +177,13 @@ const English = {
       troubleshooting: "Troubleshooting",
       success: "Firmware flashed successfully!",
       button: "Update",
-      buttonSuccess: "Updated!"
+      buttonSuccess: "Updated!",
+      steps: {
+        factoryRestore: "Restoring factory defaults",
+        bootloaderTrigger: "Triggering bootloader",
+        bootloaderWait: "Waiting for bootloader",
+        flash: "Flashing"
+      }
     },
     confirmDialog: {
       title: "Replace the firmware and reset to factory defaults?",

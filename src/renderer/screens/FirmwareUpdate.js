@@ -41,6 +41,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Portal from "@material-ui/core/Portal";
 import Select from "@material-ui/core/Select";
 import SettingsBackupRestoreIcon from "@material-ui/icons/SettingsBackupRestore";
+import Stepper from "@material-ui/core/Stepper";
+import Step from "@material-ui/core/Step";
+import StepLabel from "@material-ui/core/StepLabel";
 import Switch from "@material-ui/core/Switch";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
@@ -100,7 +103,8 @@ class FirmwareUpdate extends React.Component {
       selected: "default",
       device: props.device || focus.device,
       confirmationOpen: false,
-      resetOnFlash: false
+      resetOnFlash: false,
+      activeStep: -1
     };
   }
 
@@ -166,7 +170,16 @@ class FirmwareUpdate extends React.Component {
       filename = this.state.firmwareFilename;
     }
 
-    return this.state.device.flash(focus._port, filename);
+    const _this = this;
+    const nextStep = async () => {
+      return _this.setState(state => ({
+        activeStep: state.activeStep + 1
+      }));
+    };
+
+    return this.state.device.flash(focus._port, filename, {
+      callback: nextStep
+    });
   };
 
   upload = async () => {
@@ -174,6 +187,9 @@ class FirmwareUpdate extends React.Component {
 
     try {
       await this._flash();
+      await this.setState(state => ({
+        activeStep: state.activeStep + 1
+      }));
     } catch (e) {
       console.error(e);
       const action = key => (
@@ -198,6 +214,7 @@ class FirmwareUpdate extends React.Component {
           </Button>
         </React.Fragment>
       );
+      this.setState({ activeStep: -1 });
       this.props.enqueueSnackbar(i18n.t("firmwareUpdate.flashing.error"), {
         variant: "error",
         action: action
@@ -222,6 +239,7 @@ class FirmwareUpdate extends React.Component {
 
   replace = async () => {
     this.closeConfirmationDialog();
+    await this.setState({ activeState: 0 });
     await clearEEPROM();
     return await this.upload();
   };
@@ -317,6 +335,32 @@ class FirmwareUpdate extends React.Component {
       />
     );
 
+    let steps = [];
+    if (this.state.resetOnFlash) {
+      steps = ["factoryRestore"];
+    }
+    if (this.state.device.flashSteps) {
+      steps = steps.concat(this.state.device.flashSteps);
+    } else {
+      steps = steps.concat(["flash"]);
+    }
+
+    steps = steps.map(step => {
+      return i18n.t("firmwareUpdate.flashing.steps." + step);
+    });
+
+    const stepsWidget = (
+      <Stepper activeStep={this.state.activeStep}>
+        {steps.map(label => {
+          return (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+            </Step>
+          );
+        })}
+      </Stepper>
+    );
+
     return (
       <div className={classes.root}>
         <Portal container={this.props.titleElement}>
@@ -370,6 +414,9 @@ class FirmwareUpdate extends React.Component {
               {i18n.t("firmwareUpdate.flashing.button")}
             </SaveChangesButton>
           </CardActions>
+          {this.state.activeStep >= 0 && (
+            <CardContent>{stepsWidget}</CardContent>
+          )}
         </Card>
         <ConfirmationDialog
           title={i18n.t("firmwareUpdate.confirmDialog.title")}

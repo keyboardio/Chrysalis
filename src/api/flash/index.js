@@ -44,13 +44,20 @@ async function Avr109Bootloader(board, port, filename) {
   });
 }
 
-async function Avr109(board, port, filename, timeouts) {
+async function Avr109(board, port, filename, options) {
+  let timeouts = options ? options.timeouts : null;
+  const callback = options
+    ? options.callback
+    : function() {
+        return;
+      };
   timeouts = timeouts || {
     dtrToggle: 500, // Time to wait (ms) between toggling DTR
     bootLoaderUp: 4000 // Time to wait for the boot loader to come up
   };
 
   return new Promise((resolve, reject) => {
+    callback("reset");
     port.update({ baudRate: 1200 }, async () => {
       console.log("baud update");
       await delay(timeouts.dtrToggle);
@@ -59,11 +66,14 @@ async function Avr109(board, port, filename, timeouts) {
         await delay(timeouts.dtrToggle);
         port.set({ dtr: false }, async () => {
           console.log("dtr off");
+          await callback("bootloader");
           await delay(timeouts.bootLoaderUp);
+          await callback("flash");
           try {
             await Avr109Bootloader(board, port, filename, timeouts);
             resolve();
           } catch (e) {
+            await callback("error");
             reject(e);
           }
         });

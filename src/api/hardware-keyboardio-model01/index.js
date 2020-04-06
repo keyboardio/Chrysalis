@@ -57,7 +57,8 @@ const Model01 = {
     }
   },
 
-  flash: async (port, filename) => {
+  flashSteps: ["bootloaderTrigger", "bootloaderWait", "flash"],
+  flash: async (port, filename, options) => {
     const board = {
       name: "Keyboardio Model 01",
       baud: 9600,
@@ -66,7 +67,7 @@ const Model01 = {
       signature: new Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
       closeOnFlashComplete: false
     };
-    return Avr109(board, port, filename);
+    return Avr109(board, port, filename, options);
   }
 };
 

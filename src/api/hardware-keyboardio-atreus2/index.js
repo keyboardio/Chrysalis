@@ -49,7 +49,8 @@ const Atreus2 = {
     }
   },
 
-  flash: async (port, filename) => {
+  flashSteps: ["bootloaderTrigger", "bootloaderWait", "flash"],
+  flash: async (port, filename, options) => {
     const board = {
       name: "Keyboardio Atreus",
       baud: 9600,
@@ -58,7 +59,7 @@ const Atreus2 = {
       signature: new Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
       closeOnFlashComplete: false
     };
-    return Avr109(board, port, filename);
+    return Avr109(board, port, filename, options);
   }
 };
 

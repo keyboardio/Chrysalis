@@ -160,7 +160,8 @@ const English = {
     noDevices: "No keyboards found!",
     connect: "Connect",
     disconnect: "Disconnect",
-    scan: "Scan keyboards"
+    scan: "Scan keyboards",
+    permissionError: `Insufficient permissions, please make sure the device file is read- and writeable!`
   },
   firmwareUpdate: {
     dialog: {

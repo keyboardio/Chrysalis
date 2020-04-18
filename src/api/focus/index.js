@@ -16,6 +16,7 @@
 
 import SerialPort from "serialport";
 import Delimiter from "@serialport/parser-delimiter";
+import fs from "fs";
 
 global.chrysalis_focus_instance = null;
 
@@ -116,6 +117,17 @@ class Focus {
     }
     this._port = null;
     this.device = null;
+  }
+
+  async isDeviceAccessible(port) {
+    if (process.platform !== "linux") return true;
+
+    try {
+      fs.accessSync(port.path, fs.constants.R_OK | fs.constants.W_OK);
+    } catch (e) {
+      return false;
+    }
+    return true;
   }
 
   async isDeviceSupported(port) {

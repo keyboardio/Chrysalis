@@ -151,7 +151,10 @@ class KeyboardSelect extends React.Component {
         .then(async devices => {
           let supported_devices = [];
           for (const device of devices) {
-            if (await focus.isDeviceSupported(device)) {
+            device.accessible = await focus.isDeviceAccessible(device);
+            if (device.accessible && (await focus.isDeviceSupported(device))) {
+              supported_devices.push(device);
+            } else if (!device.accessible) {
               supported_devices.push(device);
             }
           }
@@ -313,9 +316,17 @@ class KeyboardSelect extends React.Component {
       </Button>
     );
 
-    let connectionButton;
+    let connectionButton, permissionWarning;
     let focus = new Focus();
     const selectedDevice = devices && devices[this.state.selectedPortIndex];
+
+    if (selectedDevice && !selectedDevice.accessible) {
+      permissionWarning = (
+        <Typography variant="body1" color="error" className={classes.error}>
+          {i18n.t("keyboardSelect.permissionError")}
+        </Typography>
+      );
+    }
 
     if (
       focus.device &&
@@ -339,6 +350,7 @@ class KeyboardSelect extends React.Component {
       connectionButton = (
         <Button
           disabled={
+            (selectedDevice ? !selectedDevice.accessible : false) ||
             this.state.opening ||
             (this.state.devices && this.state.devices.length == 0)
           }
@@ -374,6 +386,7 @@ class KeyboardSelect extends React.Component {
           <CardContent className={classes.content}>
             {preview}
             {port}
+            {permissionWarning}
           </CardContent>
           <Divider variant="middle" />
           <CardActions className={classes.cardActions}>

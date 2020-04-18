@@ -44,7 +44,14 @@
       "target": [
         "AppImage"
       ]
-    }
+    },
+    "afterPack": "./build/afterPackHook.js",
+    "extraResources": [
+      {
+        "from": "./build/launcher.sh",
+        "to": "launcher.sh"
+      }
+    ]
   },
   "dependencies": {
     "@material-ui/core": "^3.9.2",

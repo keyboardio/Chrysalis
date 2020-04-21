@@ -24,7 +24,7 @@ import i18n from "../i18n";
 
 /**
  * @param {Object} props
- * @prop {function (Array) => void} onConnect
+ * @param {Function} props.onConnect
  */
 export const useKeyboards = ({ onConnect }) => {
   /**

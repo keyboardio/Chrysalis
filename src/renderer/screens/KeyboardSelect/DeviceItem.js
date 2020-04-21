@@ -23,7 +23,7 @@ import {
   ListItemText,
   MenuItem
 } from "@material-ui/core";
-import { KeyboardIcon } from "@material-ui/icons";
+import { Keyboard as KeyboardIcon } from "@material-ui/icons";
 import i18n from "../../i18n";
 
 export const DeviceItem = ({

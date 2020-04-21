@@ -42,14 +42,11 @@ import { ConnectionButton } from "./ConnectionButton";
  * @prop {Function} onDisconnect
  * @prop {Function} titleElement
  * @prop {Object} classes
- *
  */
 /**
- * @typedef {KeyboardSelectProviderProps & withSnackbar} KeyboardSelectProviderPropsWithSnackbar
+ * @typedef {KeyboardSelectProviderProps & import("notistack").WithSnackbarProps} KeyboardSelectProviderPropsWithSnackbar
  */
-
 /**
- *
  * @param {KeyboardSelectProviderPropsWithSnackbar} props
  */
 const _KeyboardSelect = ({
@@ -71,7 +68,7 @@ const _KeyboardSelect = ({
     selectedDeviceIsConnectedDevice,
     selectedPortIndex,
     setSelectedPortIndex
-  } = useKeyboards(onConnect);
+  } = useKeyboards({ onConnect });
 
   useEffect(() => {
     error && enqueueSnackbar(error, { variant: "error" });

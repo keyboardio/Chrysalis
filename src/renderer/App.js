@@ -35,7 +35,7 @@ import { darkTheme } from "../styles/darkTheme";
 import usb from "usb";
 import { withSnackbar } from "notistack";
 
-import KeyboardSelect from "./screens/KeyboardSelect";
+import { KeyboardSelect } from "./screens/KeyboardSelect/index";
 import FirmwareUpdate from "./screens/FirmwareUpdate";
 import Editor from "./screens/Editor/Editor";
 import Preferences from "./screens/Preferences";

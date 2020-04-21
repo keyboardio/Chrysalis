@@ -4,3 +4,5 @@
 /package-lock.json
 /yarn-error.log
 /*.png
+/.vscode
+/.idea

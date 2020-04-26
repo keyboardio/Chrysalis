@@ -100,3 +100,7 @@ To launch the development environment, simply type `yarn && yarn start`. To do a
 production build, use `yarn run build:all`, or limit it to a particular OS:
 `yarn run build:linux`, `yarn run build:mac` or `yarn run build:win`. See the
 `scripts` section of `package.json` for more scripts.
+
+### Debugging
+
+There are sample ENV file & debugging configurations provided in the `dev/sample` directory. There is also an example launch.json for VSCode under the `.vscode` directory under `dev/sample/.vscode/launch.json`. To debug the main process, you _may_ wish to launch from an IDE (without using the above in a terminal), configurations for VSCode are provided.

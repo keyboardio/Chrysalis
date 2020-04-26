@@ -95,6 +95,23 @@ async function createMainWindow() {
   return window;
 }
 
+/**
+ *
+ * Allow remote debugging & set debug parameters on child renderer process.
+ * @see: https://github.com/electron-userland/electron-webpack/issues/76#issuecomment-392201080
+ *
+ * 1. Define an explicit debugger port
+ * 2. Create a new Chrome user so that we don't conflict with browser
+ *    sessions. (@see: https://github.com/microsoft/vscode-chrome-debug#chrome-user-profile-note-cannot-connect-to-the-target-connect-econnrefused)
+ */
+if (isDevelopment && process.env.ELECTRON_WEBPACK_APP_DEBUG_PORT) {
+  app.commandLine.appendSwitch(
+    "remote-debugging-port",
+    process.env.ELECTRON_WEBPACK_APP_DEBUG_PORT
+  ); /* 1 */
+  app.commandLine.appendSwitch("userDataDir", true); /* 2 */
+}
+
 // quit application when all windows are closed
 app.on("window-all-closed", () => {
   // on macOS it is common for applications to stay open until the user explicitly quits

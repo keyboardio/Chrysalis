@@ -23,7 +23,7 @@
       "showAsyncStacks": true,
       "timeout": 30000
     },
-    // Configuration from https://github.com/electron-userland/electron-webpack/issues/80.
+    // Configuration adapted from https://github.com/electron-userland/electron-webpack/issues/80.
     {
       "name": "Electron Webpack: Launch Main",
       "type": "node",

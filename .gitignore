@@ -6,3 +6,5 @@
 /*.png
 /.vscode
 /.idea
+/.env*
+

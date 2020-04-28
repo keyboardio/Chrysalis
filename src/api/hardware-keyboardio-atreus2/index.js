@@ -54,6 +54,7 @@ const Atreus2 = {
   },
 
   flashSteps: ["bootloaderTrigger", "bootloaderWait", "flash"],
+  externalFlasher: "avrdude",
   flash: async (port, filename, options) => {
     const board = {
       name: "Keyboardio Atreus",

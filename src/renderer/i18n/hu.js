@@ -130,6 +130,9 @@ const Hungarian = {
       defaultLayer: "Alapértelmezett réteg"
     },
     advancedOps: "Haladó billentyűzet beállítások és műveletek",
+    flash: {
+      preferExternal: "Külső program használata a vezérlő frissítéséhez"
+    },
     resetEEPROM: {
       button: "EEPROM visszaállítása gyári alapbeállításokra",
       dialogTitle: "Visszaállítja az EEPROM-ot gyári alapbeállításokra?",

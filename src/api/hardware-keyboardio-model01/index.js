@@ -62,6 +62,7 @@ const Model01 = {
   },
 
   flashSteps: ["bootloaderTrigger", "bootloaderWait", "flash"],
+  externalFlasher: "avrdude",
   flash: async (port, filename, options) => {
     const board = {
       name: "Keyboardio Model 01",

@@ -41,6 +41,7 @@ import ConfirmationDialog from "../../components/ConfirmationDialog";
 import SaveChangesButton from "../../components/SaveChangesButton";
 import i18n from "../../i18n";
 import clearEEPROM from "../../utils/clearEEPROM";
+import checkExternalFlasher from "../../utils/checkExternalFlasher";
 
 import settings from "electron-settings";
 
@@ -392,7 +393,9 @@ KeyboardSettings.propTypes = {
 
 class AdvancedKeyboardSettings extends React.Component {
   state = {
-    EEPROMResetConfirmationOpen: false
+    EEPROMResetConfirmationOpen: false,
+    externalFlasherAvailable: false,
+    preferExternalFlasher: false
   };
 
   resetEEPROM = async () => {
@@ -409,8 +412,34 @@ class AdvancedKeyboardSettings extends React.Component {
     this.setState({ EEPROMResetConfirmationOpen: false });
   };
 
+  setPreferExternalFlasher = event => {
+    settings.set("flash.preferExternalFlasher", event.target.checked);
+    this.setState({
+      preferExternalFlasher: event.target.checked
+    });
+  };
+
+  componentDidMount() {
+    const focus = new Focus();
+    checkExternalFlasher(focus.device).then(available => {
+      this.setState({
+        externalFlasherAvailable: available,
+        preferExternalFlasher: settings.get("flash.preferExternalFlasher")
+      });
+    });
+  }
+
   render() {
     const { classes } = this.props;
+    const { externalFlasherAvailable, preferExternalFlasher } = this.state;
+
+    const preferExternalSwitch = (
+      <Switch
+        checked={preferExternalFlasher}
+        value="preferExternalFlasher"
+        onClick={this.setPreferExternalFlasher}
+      />
+    );
 
     return (
       <React.Fragment>
@@ -423,6 +452,19 @@ class AdvancedKeyboardSettings extends React.Component {
           {i18n.t("keyboardSettings.advancedOps")}
         </Typography>
         <Card>
+          {externalFlasherAvailable && (
+            <CardContent>
+              <FormControl className={classes.group}>
+                <FormControlLabel
+                  className={classes.control}
+                  control={preferExternalSwitch}
+                  classes={{ label: classes.grow }}
+                  labelPlacement="start"
+                  label={i18n.t("keyboardSettings.flash.preferExternal")}
+                />
+              </FormControl>
+            </CardContent>
+          )}
           <CardActions>
             <Button
               disabled={this.state.working}

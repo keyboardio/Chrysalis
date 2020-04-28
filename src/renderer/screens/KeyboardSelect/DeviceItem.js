@@ -29,7 +29,8 @@ import i18n from "../../i18n";
 export const DeviceItem = ({
   device: { device, path, info },
   index,
-  classes
+  classes,
+  selected
 }) => {
   let label = path;
   if (device && device.info) {
@@ -52,11 +53,7 @@ export const DeviceItem = ({
   );
 
   return (
-    <MenuItem
-      key={`device-${index}`}
-      value={index}
-      selected={index === this.state.selectedPortIndex}
-    >
+    <MenuItem value={index} selected={selected}>
       {icon}
       {label}
     </MenuItem>

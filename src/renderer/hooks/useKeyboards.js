@@ -53,10 +53,6 @@ export const useKeyboards = ({ onConnect }) => {
   /** @type {[(null|string), import("react").Dispatch<null|string>]} */
   const [error, setError] = useState(null);
 
-  setError(undefined);
-
-  error;
-
   /** @var {boolean} opening */
   const [opening, setOpening] = useState(false);
 

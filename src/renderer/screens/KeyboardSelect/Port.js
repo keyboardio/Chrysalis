@@ -46,8 +46,9 @@ export const Port = ({
           <DeviceItem
             device={device}
             index={index}
-            key={index}
+            key={`device-${index}`}
             classes={classes}
+            selected={index === selectedPortIndex}
           />
         ))}
       </Select>

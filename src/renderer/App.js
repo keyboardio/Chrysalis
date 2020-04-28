@@ -152,23 +152,27 @@ class App extends React.Component {
     if (process.platform == "darwin") {
       await spawn("stty", ["-f", port.path, "clocal"]);
     }
-    console.log("Probing for Focus support...");
-    let commands;
-    try {
-      commands = await focus.probe();
-    } catch (e) {
-      commands = [];
-    }
 
-    focus.setLayerSize(focus.device);
-    const pages = {
-      keymap:
-        commands.includes("keymap.custom") > 0 ||
-        commands.includes("keymap.map") > 0,
-      colormap:
-        commands.includes("colormap.map") > 0 &&
-        commands.includes("palette") > 0
-    };
+    let commands = [];
+    let pages = [];
+    if (!port.device.bootloader) {
+      console.log("Probing for Focus support...");
+      try {
+        commands = await focus.probe();
+      } catch (e) {
+        commands = [];
+      }
+
+      focus.setLayerSize(focus.device);
+      pages = {
+        keymap:
+          commands.includes("keymap.custom") > 0 ||
+          commands.includes("keymap.map") > 0,
+        colormap:
+          commands.includes("colormap.map") > 0 &&
+          commands.includes("palette") > 0
+      };
+    }
 
     this.setState({
       connected: true,

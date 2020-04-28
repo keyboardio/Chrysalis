@@ -178,6 +178,8 @@ class FirmwareUpdate extends React.Component {
     };
 
     return this.state.device.flash(focus._port, filename, {
+      device: this.state.device,
+      focus: focus,
       callback: nextStep
     });
   };

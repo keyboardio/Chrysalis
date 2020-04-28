@@ -39,6 +39,44 @@ class Focus {
     console.log(...args);
   }
 
+  async waitForBootloader(device) {
+    if (!device.usb.bootloader) {
+      this.debugLog("No bootloader defined in the device descriptor.");
+      return null;
+    }
+
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+
+    for (let attempt = 0; attempt < 10; attempt++) {
+      let portList = await SerialPort.list();
+      this.debugLog(
+        "focus.waitForBootloader: portList:",
+        portList,
+        "device:",
+        device
+      );
+
+      for (let port of portList) {
+        const pid = parseInt("0x" + port.productId),
+          vid = parseInt("0x" + port.vendorId),
+          bootloader = device.usb.bootloader;
+
+        if (pid == bootloader.productId && vid == bootloader.vendorId) {
+          let newPort = Object.assign({}, port);
+          newPort.device = device;
+          newPort.device.bootloader = true;
+          this.debugLog("focus.waitForBootloader: found!", newPort);
+          return newPort;
+        }
+      }
+      this.debugLog("focus.waitForBootloader: not found, waiting 2s");
+      await delay(2000);
+    }
+
+    this.debugLog("focus.waitForBootloader: none found");
+    return null;
+  }
+
   async find(...devices) {
     let portList = await SerialPort.list();
 
@@ -48,12 +86,23 @@ class Focus {
 
     for (let port of portList) {
       for (let device of devices) {
+        const pid = parseInt("0x" + port.productId),
+          vid = parseInt("0x" + port.vendorId);
+
+        if (pid == device.usb.productId && vid == device.usb.vendorId) {
+          let newPort = Object.assign({}, port);
+          newPort.device = device;
+          newPort.device.bootloader = false;
+          found_devices.push(newPort);
+        }
         if (
-          parseInt("0x" + port.productId) == device.usb.productId &&
-          parseInt("0x" + port.vendorId) == device.usb.vendorId
+          device.usb.bootloader &&
+          pid == device.usb.bootloader.productId &&
+          vid == device.usb.bootloader.vendorId
         ) {
           let newPort = Object.assign({}, port);
           newPort.device = device;
+          newPort.device.bootloader = true;
           found_devices.push(newPort);
         }
       }

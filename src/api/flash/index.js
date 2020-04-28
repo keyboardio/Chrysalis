@@ -20,13 +20,20 @@ import { spawn } from "child_process";
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
-async function Avr109Bootloader(board, port, filename) {
+async function Avr109Bootloader(board, port, filename, options) {
   const avrgirl = new AvrGirl({
     board: board,
     debug: true,
     manualReset: true
   });
 
+  const callback = options
+    ? options.callback
+    : function() {
+        return;
+      };
+
+  await callback("flash");
   return new Promise((resolve, reject) => {
     try {
       if (port.isOpen) {
@@ -76,10 +83,10 @@ async function Avr109(board, port, filename, options) {
         port.set({ dtr: false }, async () => {
           console.log("dtr off");
           await callback("bootloader");
-          await delay(timeouts.bootLoaderUp);
-          await callback("flash");
+          let bootPort = await options.focus.waitForBootloader(options.device);
+
           try {
-            await Avr109Bootloader(board, port, filename, timeouts);
+            await Avr109Bootloader(board, bootPort, filename, options);
             resolve();
           } catch (e) {
             await callback("error");

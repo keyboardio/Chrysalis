@@ -1,5 +1,4 @@
 // -*- mode: js-jsx -*-
-//@ts-check
 /* Chrysalis -- Kaleidoscope Command Center
  * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
  *
@@ -27,42 +26,38 @@ import i18n from "../i18n";
  * @param {Function} props.onConnect
  */
 export const useKeyboards = ({ onConnect }) => {
-  /**
-   * @var {boolean} loading
-   */
+  /** @var {boolean} loading */
   const [loading, setIsLoading] = useState(false);
-  /**
-   *  @var {array} devices
-   */
+
+  /**  @var {array} devices */
   const [devices, setDevices] = useState([]);
+
   /**
+   * Creates a single reference to focus
    * @var {Focus} focus
    */
   const [focus] = useState(new Focus());
-  /**
-   * @var {boolean} scanFoundDevices
-   */
+
+  /** @var {boolean} scanFoundDevices */
   const [scanFoundDevices, setScanFoundDeviecs] = useState(false);
-  /**
-   * @var {number|null} selectedPortIndex
-   */
-  const [selectedPortIndex, setSelectedPortIndex] = useState(null);
-  /**
-   * @var {Object|null} selecteDevice
-   */
+
+  /** @var {string} selectedPortIndex */
+  const [selectedPortIndex, setSelectedPortIndex] = useState(0);
+
+  /** @var {Object|null} selectedDevice */
   const [selectedDevice, setSelectedDevice] = useState(null);
-  /**
-   * @var {boolean} findInitialDevice
-   */
+
+  /** @var {boolean} findInitialDevice */
   const [findInitialDevice, setFindInitialDevice] = useState(true);
-  /**
-   * @var {string|null} error
-   */
+
+  /** @type {[(null|string), import("react").Dispatch<null|string>]} */
   const [error, setError] = useState(null);
 
-  /**
-   * @var {boolean} opening
-   */
+  setError(undefined);
+
+  error;
+
+  /** @var {boolean} opening */
   const [opening, setOpening] = useState(false);
 
   const onKeyboardConnect = async () => {
@@ -137,6 +132,10 @@ export const useKeyboards = ({ onConnect }) => {
     );
   };
 
+  /**
+   * Bind event listeners to USB attach/detach events, and remove them
+   * when component is unmounted.
+   */
   useEffect(() => {
     usb.on("attach", findKeyboards);
     usb.on("detach", findKeyboards);
@@ -147,6 +146,11 @@ export const useKeyboards = ({ onConnect }) => {
       usb.off("detach", findKeyboards);
     };
   }, []);
+
+  /**
+   * When the devices list changes, update the selected device to be
+   * the device matching the current port from focus.
+   */
   useEffect(() => {
     if (findInitialDevice) {
       if (!focus._port) return;
@@ -157,12 +161,18 @@ export const useKeyboards = ({ onConnect }) => {
     }
   }, [devices]);
 
+  // When the selectedPortIndex is updated, change the selected device
   useEffect(() => {
     if (!focus._port) return;
     setSelectedDevice(
       devices.find(device => !!device.path && device.path == focus._port.path)
     );
   }, [selectedPortIndex]);
+
+  // Search for keyboards on initialization
+  useEffect(() => {
+    findKeyboards();
+  }, []);
 
   return {
     loading,

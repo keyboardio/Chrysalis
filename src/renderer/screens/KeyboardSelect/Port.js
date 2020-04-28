@@ -21,6 +21,13 @@ import { FormControl, Select, Typography } from "@material-ui/core";
 import { DeviceItem } from "./DeviceItem";
 import i18n from "../../i18n";
 
+/**
+ * @param {Object} props
+ * @param {Object[]} props.devices
+ * @param {Object} props.classes
+ * @param {number} props.selectedPortIndex
+ * @param {Function} props.setSelectedPortIndex
+ */
 export const Port = ({
   devices,
   classes,

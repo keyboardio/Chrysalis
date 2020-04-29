@@ -29,6 +29,9 @@ async function Avr109Bootloader(board, port, filename) {
 
   return new Promise((resolve, reject) => {
     try {
+      if (port.isOpen) {
+        port.close();
+      }
       avrgirl.flash(filename, async error => {
         if (error) {
           console.log(error);

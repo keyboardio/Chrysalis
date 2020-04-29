@@ -28,19 +28,25 @@ async function Avr109Bootloader(board, port, filename) {
   });
 
   return new Promise((resolve, reject) => {
-    avrgirl.flash(filename, async error => {
-      if (error) {
-        console.log(error);
-        try {
-          avrgirl.connection.serialPort.close();
-        } catch (_) {
-          /* ignore the error */
+    try {
+      avrgirl.flash(filename, async error => {
+        if (error) {
+          console.log(error);
+          if (avrgirl.connection.serialPort.isOpen) {
+            try {
+              avrgirl.connection.serialPort.close();
+            } catch (_) {
+              /* ignore the error */
+            }
+          }
+          reject(error);
+        } else {
+          resolve();
         }
-        reject(error);
-      } else {
-        resolve();
-      }
-    });
+      });
+    } catch (e) {
+      reject(e);
+    }
   });
 }
 

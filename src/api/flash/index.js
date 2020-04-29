@@ -17,16 +17,95 @@
 import AvrGirl from "avrgirl-arduino";
 import TeensyLoader from "teensy-loader";
 import { spawn } from "child_process";
+import path from "path";
+
+import { getStaticPath } from "../../renderer/config";
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
-async function Avr109Bootloader(board, port, filename) {
+async function AvrDude(_, port, filename, options) {
+  const callback = options
+    ? options.callback
+    : function() {
+        return;
+      };
+
+  const timeout = 1000 * 60 * 5;
+
+  const runCommand = async args => {
+    await callback("flash");
+    return new Promise((resolve, reject) => {
+      const avrdude = path.join(
+        getStaticPath(),
+        "avrdude",
+        process.platform,
+        "avrdude"
+      );
+      let child = spawn(avrdude, args);
+      child.stdout.on("data", data => {
+        console.log("avrdude:stdout:", data.toString());
+      });
+      child.stderr.on("data", data => {
+        console.log("avrdude:stderr:", data.toString());
+      });
+      let timer = setTimeout(() => {
+        child.kill();
+        reject("avrdude timed out");
+      }, timeout);
+      child.on("exit", code => {
+        clearTimeout(timer);
+        if (code == 0) {
+          resolve();
+        } else {
+          reject("avrdude exited abnormally");
+        }
+      });
+    });
+  };
+
+  try {
+    await port.close();
+  } catch (_) {
+    /* ignore the error */
+  }
+  await delay(1000);
+  console.log("launching avrdude...");
+
+  const configFile = path.join(getStaticPath(), "avrdude", "avrdude.conf");
+  await runCommand([
+    "-C",
+    configFile,
+    "-v",
+    "-v",
+    "-patmega32u4",
+    "-cavr109",
+    "-D",
+    "-P",
+    port.path,
+    "-b57600",
+    "-Uflash:w:" + filename + ":i"
+  ]);
+}
+
+async function Avr109Bootloader(board, port, filename, options) {
+  // We do not check if the external flasher exists here. The caller is
+  // responsible for doing that.
+  const preferExternalFlasher = options && options.preferExternalFlasher;
+  if (preferExternalFlasher) return AvrDude(board, port, filename, options);
+
   const avrgirl = new AvrGirl({
     board: board,
     debug: true,
     manualReset: true
   });
 
+  const callback = options
+    ? options.callback
+    : function() {
+        return;
+      };
+
+  await callback("flash");
   return new Promise((resolve, reject) => {
     try {
       if (port.isOpen) {
@@ -65,30 +144,38 @@ async function Avr109(board, port, filename, options) {
     bootLoaderUp: 4000 // Time to wait for the boot loader to come up
   };
 
-  return new Promise((resolve, reject) => {
-    callback("reset");
-    port.update({ baudRate: 1200 }, async () => {
+  const baudUpdate = () => {
+    return new Promise(resolve => {
       console.log("baud update");
-      await delay(timeouts.dtrToggle);
-      port.set({ dtr: true }, async () => {
-        console.log("dtr on");
+      port.update({ baudRate: 1200 }, async () => {
         await delay(timeouts.dtrToggle);
-        port.set({ dtr: false }, async () => {
-          console.log("dtr off");
-          await callback("bootloader");
-          await delay(timeouts.bootLoaderUp);
-          await callback("flash");
-          try {
-            await Avr109Bootloader(board, port, filename, timeouts);
-            resolve();
-          } catch (e) {
-            await callback("error");
-            reject(e);
-          }
-        });
+        resolve();
       });
     });
-  });
+  };
+
+  const dtrToggle = state => {
+    return new Promise(resolve => {
+      console.log("dtr", state ? "on" : "off");
+      port.set({ dtr: state }, async () => {
+        await delay(timeouts.dtrToggle);
+        resolve();
+      });
+    });
+  };
+
+  await callback("bootloaderTrigger");
+  await baudUpdate();
+  await dtrToggle(true);
+  await dtrToggle(false);
+
+  await callback("bootloaderWait");
+  let bootPort = await options.focus.waitForBootloader(options.device);
+
+  if (!bootPort) {
+    throw new Error("Bootloader not found");
+  }
+  await Avr109Bootloader(board, bootPort, filename, options);
 }
 
 async function teensy(filename) {

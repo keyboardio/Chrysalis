@@ -31,7 +31,11 @@ const Atreus2 = {
   },
   usb: {
     vendorId: 0x1209,
-    productId: 0x2303
+    productId: 0x2303,
+    bootloader: {
+      vendorId: 0x1209,
+      productId: 0x2302
+    }
   },
   keyboard: {
     rows: 4,
@@ -50,6 +54,7 @@ const Atreus2 = {
   },
 
   flashSteps: ["bootloaderTrigger", "bootloaderWait", "flash"],
+  externalFlasher: "avrdude",
   flash: async (port, filename, options) => {
     const board = {
       name: "Keyboardio Atreus",
@@ -59,45 +64,12 @@ const Atreus2 = {
       signature: new Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
       closeOnFlashComplete: false
     };
-    return Avr109(board, port, filename, options);
+    if (options.device && options.device.bootloader) {
+      return Avr109Bootloader(board, port, filename, options);
+    } else {
+      return Avr109(board, port, filename, options);
+    }
   }
 };
 
-const Atreus2Bootloader = {
-  info: {
-    vendor: "Keyboardio",
-    product: "Atreus",
-    displayName: "Atreus",
-    urls: [
-      {
-        name: "Homepage",
-        url: "https://atreus.technomancy.us/"
-      }
-    ]
-  },
-  usb: {
-    vendorId: 0x1209,
-    productId: 0x2302
-  },
-  keyboard: {
-    rows: 4,
-    columns: 12
-  },
-  components: {
-    keymap: Keymap
-  },
-
-  flash: async (port, filename) => {
-    const board = {
-      name: "Keyboardio Atreus",
-      baud: 9600,
-      productId: ["0x2302"],
-      protocol: "avr109",
-      signature: new Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
-      closeOnFlashComplete: false
-    };
-    return Avr109Bootloader(board, port, filename);
-  }
-};
-
-export { Atreus2, Atreus2Bootloader };
+export { Atreus2 };

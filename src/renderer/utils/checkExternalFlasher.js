@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
+ * Copyright (C) 2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -15,20 +15,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// TODO: const isDevelopment = process.env.NODE_ENV !== "production";
-const isDevelopment = true;
-
+import fs from "fs";
 import path from "path";
 
-function getStaticPath() {
-  if (process.env.NODE_ENV !== "production") {
-    // The `__static` global doesn't match what it should in development.
-    // Instead, it includes an unexpected `node_modules` path, specifically:
-    // node_modules/electron/dist/Electron.app/Contents/Resources/static
-    return path.join(path.resolve(__dirname), "..", "..", "static");
-  } else {
-    return __static;
-  }
-}
+import { getStaticPath } from "../config";
 
-export { isDevelopment, getStaticPath };
+const checkExternalFlasher = async device => {
+  if (!device.externalFlasher) return false;
+
+  const flasherPath = path.join(
+    getStaticPath(),
+    device.externalFlasher,
+    process.platform
+  );
+
+  let available = true;
+  try {
+    fs.accessSync(flasherPath, fs.constants.R_OK);
+  } catch (_) {
+    available = false;
+  }
+  return available;
+};
+
+export { checkExternalFlasher as default };

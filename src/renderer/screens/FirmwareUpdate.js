@@ -49,6 +49,7 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 import { withSnackbar } from "notistack";
+import settings from "electron-settings";
 
 import { getStaticPath } from "../config";
 import ConfirmationDialog from "../components/ConfirmationDialog";
@@ -56,6 +57,7 @@ import SaveChangesButton from "../components/SaveChangesButton";
 import i18n from "../i18n";
 
 import clearEEPROM from "../utils/clearEEPROM";
+import checkExternalFlasher from "../utils/checkExternalFlasher";
 
 const styles = theme => ({
   root: {
@@ -171,13 +173,25 @@ class FirmwareUpdate extends React.Component {
     }
 
     const _this = this;
-    const nextStep = async () => {
-      return _this.setState(state => ({
-        activeStep: state.activeStep + 1
-      }));
+    const nextStep = async desiredState => {
+      return _this.setState(state => {
+        let activeStep = state.activeStep + 1;
+        _this.state.device.flashSteps.forEach((step, index) => {
+          if (step == desiredState) activeStep = index;
+        });
+        return {
+          activeStep: activeStep
+        };
+      });
     };
 
+    const preferExternalFlasher =
+      settings.get("flash.preferExternalFlasher") &&
+      (await checkExternalFlasher(this.state.device));
     return this.state.device.flash(focus._port, filename, {
+      preferExternalFlasher: preferExternalFlasher,
+      device: this.state.device,
+      focus: focus,
       callback: nextStep
     });
   };

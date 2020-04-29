@@ -144,30 +144,38 @@ async function Avr109(board, port, filename, options) {
     bootLoaderUp: 4000 // Time to wait for the boot loader to come up
   };
 
-  return new Promise((resolve, reject) => {
-    callback("reset");
-    port.update({ baudRate: 1200 }, async () => {
+  const baudUpdate = () => {
+    return new Promise(resolve => {
       console.log("baud update");
-      await delay(timeouts.dtrToggle);
-      port.set({ dtr: true }, async () => {
-        console.log("dtr on");
+      port.update({ baudRate: 1200 }, async () => {
         await delay(timeouts.dtrToggle);
-        port.set({ dtr: false }, async () => {
-          console.log("dtr off");
-          await callback("bootloader");
-          let bootPort = await options.focus.waitForBootloader(options.device);
-
-          try {
-            await Avr109Bootloader(board, bootPort, filename, options);
-            resolve();
-          } catch (e) {
-            await callback("error");
-            reject(e);
-          }
-        });
+        resolve();
       });
     });
-  });
+  };
+
+  const dtrToggle = state => {
+    return new Promise(resolve => {
+      console.log("dtr", state ? "on" : "off");
+      port.set({ dtr: state }, async () => {
+        await delay(timeouts.dtrToggle);
+        resolve();
+      });
+    });
+  };
+
+  await callback("bootloaderTrigger");
+  await baudUpdate();
+  await dtrToggle(true);
+  await dtrToggle(false);
+
+  await callback("bootloaderWait");
+  let bootPort = await options.focus.waitForBootloader(options.device);
+
+  if (!bootPort) {
+    throw new Error("Bootloader not found");
+  }
+  await Avr109Bootloader(board, bootPort, filename, options);
 }
 
 async function teensy(filename) {

@@ -105,6 +105,8 @@ class App extends React.Component {
         });
         focus.close();
         this.setState({
+          contextBar: false,
+          cancelPendingOpen: false,
           connected: false,
           device: null,
           pages: {}

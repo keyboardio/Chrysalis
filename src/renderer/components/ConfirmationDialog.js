@@ -29,6 +29,7 @@ const ConfirmationDialog = props => {
   return (
     <Dialog
       disableBackdropClick
+      disableEscapeKeyDown
       open={props.open}
       onClose={props.onCancel}
       fullWidth

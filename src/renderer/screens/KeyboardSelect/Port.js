@@ -17,8 +17,17 @@
  */
 
 import React from "react";
-import { FormControl, Select, Typography } from "@material-ui/core";
-import { DeviceItem } from "./DeviceItem";
+import {
+  FormControl,
+  Select,
+  Typography,
+  MenuItem,
+  ListItemIcon,
+  ListItemText,
+  Avatar
+} from "@material-ui/core";
+import { Keyboard as KeyboardIcon } from "@material-ui/icons";
+//import { DeviceItem } from "./DeviceItem";
 import i18n from "../../i18n";
 
 /**
@@ -36,24 +45,54 @@ export const Port = ({
 }) => {
   const setPort = e => setSelectedPortIndex(e.target.value);
   return devices.length > 0 ? (
-    <FormControl className={classes.selectControl}>
-      <Select
-        value={selectedPortIndex}
-        classes={{ select: classes.selectControl }}
-        onChange={setPort}
-      >
-        {devices.map((device, index) => (
-          <DeviceItem
-            device={device}
-            index={index}
+    //<FormControl className={classes.selectControl}>
+    <Select
+      value={selectedPortIndex}
+      classes={{ select: classes.selectControl }}
+      onChange={setPort}
+    >
+      {devices.map(({ device: { device, path, info } }, index) => {
+        //<DeviceItem
+        //  device={device}
+        //  index={index}
+        //  key={`device-${index}`}
+        //  classes={classes}
+        //  selected={index === selectedPortIndex}
+        ///>
+        let label = path;
+        if (device && device.info) {
+          label = (
+            <ListItemText
+              primary={device.info.displayName}
+              secondary={path || i18n.t("keyboardSelect.unknown")}
+            />
+          );
+        } else if (info) {
+          label = <ListItemText primary={info.displayName} />;
+        }
+
+        const icon = (
+          <ListItemIcon>
+            <Avatar className={path && classes.supported}>
+              <KeyboardIcon />
+            </Avatar>
+          </ListItemIcon>
+        );
+
+        return (
+          <MenuItem
             key={`device-${index}`}
-            classes={classes}
+            value={index}
             selected={index === selectedPortIndex}
-          />
-        ))}
-      </Select>
-    </FormControl>
+          >
+            {icon}
+            {label}
+          </MenuItem>
+        );
+      })}
+    </Select>
   ) : (
+    //</FormControl>
     <Typography variant="body1" color="error" className={classes.error}>
       {i18n.t("keyboardSelect.noDevices")}
     </Typography>

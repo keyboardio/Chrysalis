@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import usb from "usb";
 import Focus from "../../api/focus";
 import Hardware from "../../api/hardware";
@@ -36,19 +36,16 @@ export const useKeyboards = ({ onConnect }) => {
    * Creates a single reference to focus
    * @var {Focus} focus
    */
-  const [focus] = useState(new Focus());
+  const focus = useRef(new Focus());
 
   /** @var {boolean} scanFoundDevices */
-  const [scanFoundDevices, setScanFoundDeviecs] = useState(false);
+  const [scanFoundDevices, setScanFoundDevices] = useState(false);
 
-  /** @var {string} selectedPortIndex */
+  /** @var {number} selectedPortIndex */
   const [selectedPortIndex, setSelectedPortIndex] = useState(0);
 
   /** @var {Object|null} selectedDevice */
   const [selectedDevice, setSelectedDevice] = useState(null);
-
-  /** @var {boolean} findInitialDevice */
-  const [findInitialDevice, setFindInitialDevice] = useState(true);
 
   /** @type {[(null|string), import("react").Dispatch<null|string>]} */
   const [error, setError] = useState(null);
@@ -65,7 +62,7 @@ export const useKeyboards = ({ onConnect }) => {
       setError(err.toString());
     }
 
-    i18n.refreshHardware(devices[selectedPortIndex]);
+    i18n.refreshHardware(selectedDevice);
   };
 
   const findNonSerialKeyboards = deviceList => {
@@ -94,13 +91,16 @@ export const useKeyboards = ({ onConnect }) => {
 
   const findKeyboards = async () => {
     setIsLoading(true);
-    focus
+    return focus.current
       .find(...Hardware.serial)
       .then(async devices => {
         let supported_devices = [];
         for (const device of devices) {
-          device.accessible = await focus.isDeviceAccessible(device);
-          if (device.accessible && (await focus.isDeviceSupported(device))) {
+          device.accessible = await focus.current.isDeviceAccessible(device);
+          if (
+            device.accessible &&
+            (await focus.current.isDeviceSupported(device))
+          ) {
             supported_devices.push(device);
           } else if (!device.accessible) {
             supported_devices.push(device);
@@ -109,21 +109,23 @@ export const useKeyboards = ({ onConnect }) => {
         const list = findNonSerialKeyboards(supported_devices);
         setDevices(list);
         setIsLoading(false);
-        setScanFoundDeviecs(list.length > 0);
+        setScanFoundDevices(list.length > 0);
+        return list.length > 0;
       })
       .catch(() => {
         // Do something with the error?
         const list = findNonSerialKeyboards([]);
         setDevices(list);
         setIsLoading(false);
-        setScanFoundDeviecs(list.length > 0);
+        setScanFoundDevices(list.length > 0);
+        return list.length > 0;
       });
   };
 
   const scanDevices = () => {
     return findKeyboards().then(() =>
       setTimeout(() => {
-        setScanFoundDeviecs(false);
+        setScanFoundDevices(false);
       }, 1000)
     );
   };
@@ -143,39 +145,36 @@ export const useKeyboards = ({ onConnect }) => {
     };
   }, []);
 
-  /**
-   * When the devices list changes, update the selected device to be
-   * the device matching the current port from focus.
-   */
-  useEffect(() => {
-    if (findInitialDevice) {
-      if (!focus._port) return;
-      setSelectedDevice(
-        devices.find(device => !!device.path && device.path == focus._port.path)
-      );
-      setFindInitialDevice(false);
-    }
-  }, [devices]);
-
   // When the selectedPortIndex is updated, change the selected device
   useEffect(() => {
-    if (!focus._port) return;
-    setSelectedDevice(
-      devices.find(device => !!device.path && device.path == focus._port.path)
-    );
+    if (!focus.current._port) return;
+    setSelectedDevice(devices[selectedPortIndex]);
   }, [selectedPortIndex]);
 
   // Search for keyboards on initialization
   useEffect(() => {
-    findKeyboards();
+    findKeyboards().then(() => {
+      if (!focus.current._port) return;
+      setSelectedDevice(
+        devices.find(
+          device => !!device.path && device.path == focus.current._port.path
+        )
+      );
+    });
   }, []);
+
+  useEffect(() => {
+    console.log("selectedDevice", selectedDevice);
+  }, [selectedDevice]);
 
   return {
     loading,
     devices,
     selectedDevice,
     selectedDeviceIsConnectedDevice:
-      focus.device && selectedDevice && selectedDevice.device == focus.device,
+      focus.current.device &&
+      selectedDevice &&
+      selectedDevice.device == focus.current.device,
     scanDevices,
     scanFoundDevices,
     selectedPortIndex,

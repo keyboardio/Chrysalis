@@ -1,5 +1,4 @@
 // -*- mode: js-jsx -*-
-//@ts-check
 /* Chrysalis -- Kaleidoscope Command Center
  * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
  *
@@ -198,7 +197,6 @@ const _KeyboardSelect = ({
 
   let preview;
   if (
-    devices &&
     selectedDevice &&
     selectedDevice.device &&
     selectedDevice.device.components

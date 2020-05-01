@@ -26,45 +26,42 @@ import i18n from "../i18n";
  * @param {Function} props.onConnect
  */
 export const useKeyboards = ({ onConnect }) => {
-  /** @var {boolean} loading */
   const [loading, setIsLoading] = useState(false);
 
-  /**  @var {array} devices */
-  const [devices, setDevices] = useState([]);
+  const [devices, setDevices] = useState(/** @type {Array<Object>} */ ([]));
 
-  /**
-   * Creates a single reference to focus
-   * @var {Focus} focus
-   */
   const focus = useRef(new Focus());
 
-  /** @var {boolean} scanFoundDevices */
   const [scanFoundDevices, setScanFoundDevices] = useState(false);
 
-  /** @var {number} selectedPortIndex */
   const [selectedPortIndex, setSelectedPortIndex] = useState(0);
 
-  /** @var {Object|null} selectedDevice */
-  const [selectedDevice, setSelectedDevice] = useState(null);
+  const [selectedDevice, setSelectedDevice] = useState(
+    /** @type {?Object} */ (null)
+  );
 
-  /** @type {[(null|string), import("react").Dispatch<null|string>]} */
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(/** @type {?string} */ (null));
 
-  /** @var {boolean} opening */
   const [opening, setOpening] = useState(false);
 
   const onKeyboardConnect = async () => {
     setOpening(true);
-    try {
-      await onConnect(selectedDevice);
-    } catch (err) {
-      setOpening(false);
-      setError(err.toString());
+    if (selectedDevice) {
+      try {
+        await onConnect(selectedDevice);
+      } catch (err) {
+        setOpening(false);
+        setError(err.toString());
+      }
+      i18n.refreshHardware(selectedDevice);
+    } else {
+      //show error;
     }
-
-    i18n.refreshHardware(selectedDevice);
   };
 
+  /**
+   * @param {Array<Object>} deviceList
+   */
   const findNonSerialKeyboards = deviceList => {
     const devices = usb.getDeviceList().map(device => device.deviceDescriptor);
     devices.forEach(desc => {
@@ -91,7 +88,7 @@ export const useKeyboards = ({ onConnect }) => {
 
   const findKeyboards = async () => {
     setIsLoading(true);
-    return focus.current
+    focus.current
       .find(...Hardware.serial)
       .then(async devices => {
         let supported_devices = [];
@@ -110,7 +107,6 @@ export const useKeyboards = ({ onConnect }) => {
         setDevices(list);
         setIsLoading(false);
         setScanFoundDevices(list.length > 0);
-        return list.length > 0;
       })
       .catch(() => {
         // Do something with the error?
@@ -118,7 +114,6 @@ export const useKeyboards = ({ onConnect }) => {
         setDevices(list);
         setIsLoading(false);
         setScanFoundDevices(list.length > 0);
-        return list.length > 0;
       });
   };
 
@@ -145,27 +140,14 @@ export const useKeyboards = ({ onConnect }) => {
     };
   }, []);
 
-  // When the selectedPortIndex is updated, change the selected device
   useEffect(() => {
-    if (!focus.current._port) return;
     setSelectedDevice(devices[selectedPortIndex]);
-  }, [selectedPortIndex]);
+  }, [devices, selectedPortIndex]);
 
   // Search for keyboards on initialization
   useEffect(() => {
-    findKeyboards().then(() => {
-      if (!focus.current._port) return;
-      setSelectedDevice(
-        devices.find(
-          device => !!device.path && device.path == focus.current._port.path
-        )
-      );
-    });
+    findKeyboards();
   }, []);
-
-  useEffect(() => {
-    console.log("selectedDevice", selectedDevice);
-  }, [selectedDevice]);
 
   return {
     loading,

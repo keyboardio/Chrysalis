@@ -89,15 +89,10 @@ function Header({
       id="appbar"
     >
       <Toolbar variant="dense">
-        <Button
-          className={classes.menuButton}
-          color="inherit"
-          onClick={contextOnClick}
-        >
+        <Button className={classes.menuButton} onClick={contextOnClick}>
           {contextBar ? <CloseIcon /> : <MenuIcon />}
           <Typography
             variant="h6"
-            color="inherit"
             className={classes.pageMenu}
             id="page-title"
           />
@@ -113,7 +108,6 @@ function Header({
           <Button
             onClick={openBoardMenu}
             disabled={!device.urls}
-            color="inherit"
             className="button"
           >
             {i18n.t("app.device")}: {device.displayName}

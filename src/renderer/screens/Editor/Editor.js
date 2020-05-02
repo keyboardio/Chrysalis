@@ -870,6 +870,7 @@ class Editor extends React.Component {
               disabled={isReadOnly}
               onKeySelect={this.onKeyChange}
               currentKeyCode={this.getCurrentKey()}
+              keymap={keymap}
             />
           )) ||
             (mode == "colormap" && (

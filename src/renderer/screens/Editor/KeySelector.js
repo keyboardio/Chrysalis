@@ -173,6 +173,15 @@ const SHIFT_HELD = (1 << 3) << 8;
 const GUI_HELD = (1 << 4) << 8;
 
 class KeyGroupListUnwrapped extends React.Component {
+  getNumLayers = () => {
+    const { keymap } = this.props;
+    if (keymap) {
+      let layers = keymap.custom.length;
+      if (!keymap.onlyCustom) layers += keymap.default.length;
+      return layers;
+    }
+  };
+
   toggleMask = (mask, dualUseModifier) => {
     return () => {
       const { onKeySelect, selectedKey } = this.props;
@@ -370,19 +379,22 @@ class KeyGroupListUnwrapped extends React.Component {
     }
 
     const itemList = items || baseKeyCodeTable[group].keys;
+    const isLayersGroup = group === 9 || group === 10 || group === 19;
 
-    const keyList = itemList.map(key => {
-      return (
-        <KeyButton
-          key={key.code}
-          disabled={disabled}
-          keyInfo={key}
-          selected={key.code == keyCode}
-          onKeySelect={onKeySelect}
-          mask={mask}
-        />
-      );
-    });
+    const keyList = itemList
+      .slice(0, isLayersGroup ? this.getNumLayers() : undefined)
+      .map(key => {
+        return (
+          <KeyButton
+            key={key.code}
+            disabled={disabled}
+            keyInfo={key}
+            selected={key.code == keyCode}
+            onKeySelect={onKeySelect}
+            mask={mask}
+          />
+        );
+      });
 
     let modSelector;
     if (withModifiers) {
@@ -519,7 +531,7 @@ class KeySelector extends React.Component {
   };
 
   render() {
-    const { classes, currentKeyCode, disabled } = this.props;
+    const { classes, currentKeyCode, disabled, keymap } = this.props;
     const { anchorEl, selectedGroup, actualKeycode } = this.state;
 
     let groupIndex = selectedGroup,
@@ -597,6 +609,7 @@ class KeySelector extends React.Component {
             group={groupIndex}
             keyCode={actualKeycode}
             onKeySelect={this.onKeySelect}
+            keymap={keymap}
           />
         </div>
       </Paper>

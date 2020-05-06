@@ -64,10 +64,10 @@ const _KeyboardSelect = ({
     loading,
     devices,
     error,
+    findKeyboards,
     selectedDevice,
     onKeyboardConnect,
     opening,
-    scanDevices,
     scanFoundDevices,
     selectedDeviceIsConnectedDevice,
     selectedPortIndex,
@@ -150,7 +150,7 @@ const _KeyboardSelect = ({
       variant={devices && devices.length ? "outlined" : "contained"}
       color={devices && devices.length ? "default" : "primary"}
       className={scanFoundDevices && classes.found}
-      onClick={scanFoundDevices ? null : scanDevices}
+      onClick={scanFoundDevices ? null : findKeyboards}
     >
       {i18n.t("keyboardSelect.scan")}
     </Button>

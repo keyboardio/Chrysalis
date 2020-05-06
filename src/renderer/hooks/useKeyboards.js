@@ -55,7 +55,7 @@ export const useKeyboards = ({ onConnect }) => {
       }
       i18n.refreshHardware(selectedDevice);
     } else {
-      //show error;
+      //show error?
     }
   };
 
@@ -117,13 +117,19 @@ export const useKeyboards = ({ onConnect }) => {
       });
   };
 
-  const scanDevices = () => {
-    return findKeyboards().then(() =>
-      setTimeout(() => {
+  /**
+   * Whenever we find devices, return the state of devices found to
+   * false after a short time to reset UI.
+   */
+  useEffect(() => {
+    let timeout = null;
+    if (scanFoundDevices) {
+      timeout = setTimeout(() => {
         setScanFoundDevices(false);
-      }, 1000)
-    );
-  };
+      }, 1000);
+    }
+    return () => timeout && clearTimeout(timeout);
+  }, [scanFoundDevices]);
 
   /**
    * Bind event listeners to USB attach/detach events, and remove them
@@ -140,6 +146,7 @@ export const useKeyboards = ({ onConnect }) => {
     };
   }, []);
 
+  // Keep selected device in sync if device list _or_ selection changes
   useEffect(() => {
     setSelectedDevice(devices[selectedPortIndex]);
   }, [devices, selectedPortIndex]);
@@ -152,12 +159,12 @@ export const useKeyboards = ({ onConnect }) => {
   return {
     loading,
     devices,
+    findKeyboards,
     selectedDevice,
     selectedDeviceIsConnectedDevice:
       focus.current.device &&
       selectedDevice &&
       selectedDevice.device == focus.current.device,
-    scanDevices,
     scanFoundDevices,
     selectedPortIndex,
     setSelectedPortIndex,

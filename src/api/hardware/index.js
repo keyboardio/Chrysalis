@@ -14,9 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { Model01, Model01Bootloader } from "../hardware-keyboardio-model01";
+import { Model01 } from "../hardware-keyboardio-model01";
 import { Atreus } from "../hardware-technomancy-atreus";
-import { Atreus2, Atreus2Bootloader } from "../hardware-keyboardio-atreus2";
+import { Atreus2 } from "../hardware-keyboardio-atreus2";
 import { Raise_ANSI } from "../hardware-dygma-raise-ansi";
 import { Raise_ISO } from "../hardware-dygma-raise-iso";
 import { ErgoDox } from "../hardware-ez-ergodox";
@@ -37,16 +37,7 @@ const Hardware = {
     Splitography,
     KBD4x
   ],
-  nonSerial: [
-    Model01Bootloader,
-    Atreus2Bootloader,
-    ErgoDox,
-    Atreus,
-    Planck,
-    Splitography,
-    KBD4x,
-    GenericTeensy
-  ]
+  nonSerial: [ErgoDox, Atreus, Planck, Splitography, KBD4x, GenericTeensy]
 };
 
 export { Hardware as default };

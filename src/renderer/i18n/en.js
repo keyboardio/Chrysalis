@@ -147,6 +147,9 @@ const English = {
       }
     },
     advancedOps: "Advanced keyboard settings & operations",
+    flash: {
+      preferExternal: "Use an external program for flashing"
+    },
     resetEEPROM: {
       button: "Reset EEPROM to factory defaults",
       dialogTitle: "Reset EEPROM to factory defaults?",

@@ -1,3 +1,73 @@
+Chrysalis 0.7.5
+===============
+Released on 2020-05-05
+
+## UI/UX improvements
+
+The most important changes in this release are related to the firmware update
+process: it's much more robust and reliable now. First of all, we now try to
+find the serial port of the keyboard in bootloader mode after a reset, instead
+of assuming it will be the same port as prior to the reset. This should fix
+plenty of issues on Windows and macOS, where the assumption usually did not
+hold. Furthermore, we also support flashing with an external (but still bundled)
+program as a fallback measure for the rare case where our built-in flashing
+methods fail to work for one reason or the other.
+
+When flashing, Chrysalis will display a progress bar, showing what step of the
+flashing process it is on, and which other steps are still ahead.
+
+There's also an option to restore factory settings during flashing.
+
+Apart from these improvements in flashing, Chrysalis will now try to auto-detect
+the language of the operating system, and use the same language, if available.
+
+## Bugfixes
+
+### Linux
+
+On Linux, prior to connecting to a keyboard, we now check device permissions,
+and display an error if they are insufficient. This makes it easier to discover
+this issue, without having to look at the developer console or the
+troubleshooting guide.
+
+The AppImage we ship will automatically disable the sandbox if it detects a
+kernel that doesn't have the necessary features for it. This allows people on
+older distros/kernels to run the AppImage without having to add the
+`--no-sandbox` command-line argument.
+
+### Layout & Colormap editor
+
+The Layout & Colormap editor screen now supports keyboards that only have an
+editable colormap, and no editable keymaps.
+
+Also, the `Num Lock` key has been added to the key selector, and all lock keys
+have been moved to the `Modifiers` group.
+
+### Flashing
+
+It is, again, possible to flash a keyboard already in bootloader mode. Chrysalis
+will also ignore the `Esc` key on confirmation dialogs. This latter fix is
+important, because on all of our supported keyboards that require a key to be
+held to enter programmable mode, that key is mapped to `Esc` by default. We
+don't want to cancel any confirmation dialogs while holding the `Prog` key.
+
+### Miscellaneous
+
+* The application header bar should now display its text in white while in dark
+  mode.
+* When a keyboard disconnects while we have pending, unsaved changes, we now
+  forget all about those, and restore the application bar to its normal state.
+* Plenty of internal changes and cleanups were made in order to reduce errors
+  and warnings on the developer console: we catch and handle more (expected)
+  errors.
+
+## Firmware
+
+All shipped firmware files have been updated to use the latest Kaleidoscope,
+with plenty of bugfixes, including, but not limited to, restoring proper 6KRO
+support, so that the firmware will work correctly on the macOS login screen and
+older BIOSes that do not support NKRO.
+
 Chrysalis 0.7.4
 ===============
 Released on 2020-03-22

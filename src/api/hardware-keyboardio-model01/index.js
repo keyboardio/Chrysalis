@@ -39,7 +39,11 @@ const Model01 = {
   },
   usb: {
     vendorId: 0x1209,
-    productId: 0x2301
+    productId: 0x2301,
+    bootloader: {
+      vendorId: 0x1209,
+      productId: 0x2300
+    }
   },
   keyboard: {
     rows: 4,
@@ -58,6 +62,7 @@ const Model01 = {
   },
 
   flashSteps: ["bootloaderTrigger", "bootloaderWait", "flash"],
+  externalFlasher: "avrdude",
   flash: async (port, filename, options) => {
     const board = {
       name: "Keyboardio Model 01",
@@ -67,46 +72,12 @@ const Model01 = {
       signature: new Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
       closeOnFlashComplete: false
     };
-    return Avr109(board, port, filename, options);
+    if (options.device && options.device.bootloader) {
+      return Avr109Bootloader(board, port, filename, options);
+    } else {
+      return Avr109(board, port, filename, options);
+    }
   }
 };
 
-const Model01Bootloader = {
-  info: {
-    vendor: "Keyboardio",
-    product: "Model01",
-    displayName: "Keyboardio Model01",
-    urls: [
-      {
-        name: "Homepage",
-        url: "https://shop.keyboard.io/"
-      },
-      {
-        name: "Forum",
-        url: "https://community.keyboard.io/"
-      },
-      {
-        name: "Chat",
-        url: "https://discord.gg/4az77sf"
-      }
-    ]
-  },
-  usb: {
-    vendorId: 0x1209,
-    productId: 0x2300
-  },
-
-  flash: async (port, filename) => {
-    const board = {
-      name: "Keyboardio Model 01",
-      baud: 9600,
-      productId: ["0x2300"],
-      protocol: "avr109",
-      signature: new Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
-      closeOnFlashComplete: false
-    };
-    return Avr109Bootloader(board, port, filename);
-  }
-};
-
-export { Model01, Model01Bootloader };
+export { Model01 };

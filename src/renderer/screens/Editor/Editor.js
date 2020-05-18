@@ -602,7 +602,7 @@ class Editor extends React.Component {
             let newKeymap = this.state.keymap.custom.slice();
             newKeymap[currentLayer] = data.keymap.slice();
             let newColormap = this.state.colorMap.slice();
-            if (data.colormap.length > 0) {
+            if (data.colormap && data.colormap.length > 0) {
               newColormap[currentLayer] = data.colormap.slice();
             }
             console.log(currentLayer, newKeymap);
@@ -623,7 +623,7 @@ class Editor extends React.Component {
             let newKeymap = this.state.keymap.custom.slice();
             newKeymap[currentLayer - defLength] = data.keymap;
             let newColormap = this.state.colorMap.slice();
-            if (data.colormap.length > 0) {
+            if (data.colormap && data.colormap.length > 0) {
               newColormap[currentLayer - defLength] = data.colormap.slice();
             }
             return {

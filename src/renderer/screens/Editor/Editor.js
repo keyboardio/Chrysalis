@@ -476,7 +476,7 @@ class Editor extends React.Component {
           .map(() => ({ keyCode: 0xffff }));
       }
 
-      let newColormap;
+      let newColormap = [];
       if (state.hasColormap) {
         newColormap = state.colorMap.slice();
         if (newColormap.length > 0) {

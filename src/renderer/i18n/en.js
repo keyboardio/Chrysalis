@@ -58,7 +58,7 @@ const English = {
       Chat: "Chat"
     },
     cancelPending: {
-      title: "Cancel pending changes?",
+      title: "Discard pending changes?",
       content: "You have unsaved changes. If you proceed, they will be lost."
     }
   },

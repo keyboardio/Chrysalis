@@ -268,27 +268,6 @@ class FirmwareUpdate extends React.Component {
       filename = filename[filename.length - 1];
     }
 
-    const defaultFirmwareItemText = i18n.t("firmwareUpdate.defaultFirmware", {
-      version: version
-    });
-    const defaultFirmwareItem = (
-      <MenuItem value="default" selected={this.state.selected == "default"}>
-        <ListItemIcon>
-          <SettingsBackupRestoreIcon />
-        </ListItemIcon>
-        <ListItemText
-          primary={defaultFirmwareItemText}
-          secondary={i18n.t("firmwareUpdate.defaultFirmwareDescription")}
-        />
-      </MenuItem>
-    );
-    let hasDefaultFirmware = true;
-    try {
-      fs.accessSync(this._defaultFirmwareFilename(), fs.constants.R_OK);
-    } catch (_) {
-      hasDefaultFirmware = false;
-    }
-
     const experimentalFirmwareItemText = i18n.t(
       "firmwareUpdate.experimentalFirmware",
       { version: version }
@@ -313,6 +292,30 @@ class FirmwareUpdate extends React.Component {
       fs.accessSync(this._experimentalFirmwareFilename(), fs.constants.R_OK);
     } catch (_) {
       hasExperimentalFirmware = false;
+    }
+
+    const defaultFirmwareItemText = i18n.t("firmwareUpdate.defaultFirmware", {
+      version: version
+    });
+    const defaultFirmwareItem = (
+      <MenuItem value="default" selected={this.state.selected == "default"}>
+        <ListItemIcon>
+          <SettingsBackupRestoreIcon />
+        </ListItemIcon>
+        <ListItemText
+          primary={defaultFirmwareItemText}
+          secondary={
+            hasExperimentalFirmware &&
+            i18n.t("firmwareUpdate.defaultFirmwareDescription")
+          }
+        />
+      </MenuItem>
+    );
+    let hasDefaultFirmware = true;
+    try {
+      fs.accessSync(this._defaultFirmwareFilename(), fs.constants.R_OK);
+    } catch (_) {
+      hasDefaultFirmware = false;
     }
 
     const firmwareSelect = (

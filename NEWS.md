@@ -1,3 +1,37 @@
+Chrysalis 0.7.6
+===============
+Released on 2020-06-17
+
+## UI/UX improvements
+
+### Only showing available layers
+
+When modifying the keymap to set a key up as a layer switch key, only offer
+layers in the selector that the firmware supports. If the firmware is limited to
+five layers, display only as much. If it is limited to ten, display ten.
+
+### Clearer message when discarding changes
+
+When leaving a screen with unsaved changes, the button is now labelled "Discard"
+instead of "Cancel", to make it clearer what it actually does: discard the
+changes, not cancel the operation.
+
+## Bugfixes
+
+### Linux
+
+In the previous release, the AppImage build was modified to try and detect if
+the kernel has the necessary features for sandboxing. This detection wasn't
+entirely bulletproof, and at least on some kernels, the script exited instead of
+disabling the sandbox. This has been fixed, and the AppImage will now start up
+correctly.
+
+### Miscellaneous
+
+Fixed a number of crashes related to not having a colormap when importing, or
+when clearing a layer. These features now correctly ignore the colormap if there
+isn't any to work with.
+
 Chrysalis 0.7.5
 ===============
 Released on 2020-05-05

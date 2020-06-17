@@ -1,3 +1,17 @@
+Chrysalis 0.7.7
+===============
+Released on 2020-06-17
+
+## UI/UX improvements
+
+If a keyboard has only a single firmware variant, Chrysalis will not display a
+description anymore. Chances are, this variant is neither minimal, nor without
+bells and whistles.
+
+## Firmware
+
+All shipped firmware files have been updated to use the latest Kaleidoscope, and the latest layouts.
+
 Chrysalis 0.7.6
 ===============
 Released on 2020-06-17

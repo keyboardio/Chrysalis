@@ -9,10 +9,9 @@ os:
 # so it is acceptable. If we remove the branch restriction, remove this too.
 # If Windows builds on Travis are fixed, and work when secrets are in use,
 # remove this too.
+#
+# See: https://travis-ci.community/t/current-known-issues-please-read-this-before-posting-a-new-topic/264
 filter_secrets: false
-matrix:
-  allow_failures:
-    - os: windows
 env:
   - YARN_GPG=no
 if: branch = master OR tag IS present

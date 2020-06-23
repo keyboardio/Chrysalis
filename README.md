@@ -7,11 +7,11 @@ Chrysalis
 
 You can download pre-built binaries for the three major operating systems below:
 
+Development builds:
+
 [![Latest Linux build][badge:appimage]][build:appimage]
 [![Latest macOS build][badge:dmg]][build:dmg]
 [![Latest Windows build][badge:exe]][build:exe]
-
-[![](https://img.shields.io/github/release-pre/keyboardio/Chrysalis.svg?style=for-the-badge)](https://github.com/keyboardio/Chrysalis/releases)
 
  [badge:appimage]: https://img.shields.io/badge/AppImage-latest-blue.svg?logo=linux&style=for-the-badge&logoColor=ffffff
  [badge:dmg]: https://img.shields.io/badge/dmg-latest-blue.svg?logo=apple&style=for-the-badge&logoColor=ffffff
@@ -19,6 +19,11 @@ You can download pre-built binaries for the three major operating systems below:
  [build:appimage]: http://kaleidoscope-builds.s3-website-us-west-2.amazonaws.com/Chrysalis/latest/Chrysalis.AppImage
  [build:dmg]: http://kaleidoscope-builds.s3-website-us-west-2.amazonaws.com/Chrysalis/latest/Chrysalis.dmg
  [build:exe]: http://kaleidoscope-builds.s3-website-us-west-2.amazonaws.com/Chrysalis/latest/Chrysalis.exe
+
+
+Current release:
+
+[![](https://img.shields.io/github/release-pre/keyboardio/Chrysalis.svg?style=for-the-badge)](https://github.com/keyboardio/Chrysalis/releases)
 
 ## About
 

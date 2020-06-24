@@ -171,7 +171,7 @@ class FirmwareUpdate extends React.Component {
           ? clearInterval(count)
           : this.setState({ countdown: countdown - 1 });
       }, 1000);
-      await delay(500);
+      await delay(3000);
       if (!focus.device.bootloader) {
         await this.fleshRaise.resetKeyboard(focus._port);
       }

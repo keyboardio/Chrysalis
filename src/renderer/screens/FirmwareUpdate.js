@@ -134,9 +134,9 @@ class FirmwareUpdate extends React.Component {
         }
       ]
     });
-    if (files) {
-      this.setState({ firmwareFilename: files[0] });
-    }
+    files.then(result => {
+      this.setState({ firmwareFilename: result.filePaths[0] });
+    });
   };
 
   _defaultFirmwareFilename = () => {

@@ -19,6 +19,74 @@ import Focus from "../focus";
 import Hardware from "../hardware";
 import { arduino } from "./raiseFlasher/arduino-flasher";
 
+import { spawn } from "child_process";
+import path from "path";
+
+import { getStaticPath } from "../../renderer/config";
+
+const delay = ms => new Promise(res => setTimeout(res, ms));
+
+async function Bossac(port, filename, options) {
+  const callback = options
+    ? options.callback
+    : function() {
+        return;
+      };
+
+  const timeout = 1000 * 60 * 5;
+
+  const runCommand = async args => {
+    console.log(args);
+    await callback("flash");
+    return new Promise((resolve, reject) => {
+      const bossac = path.join(
+        getStaticPath(),
+        "tools",
+        "bossac",
+        process.platform,
+        "bossac"
+      );
+      let child = spawn(bossac, args);
+      child.stdout.on("data", data => {
+        console.log("bossac:stdout:", data.toString());
+      });
+      child.stderr.on("data", data => {
+        console.log("bossac:stderr:", data.toString());
+      });
+      let timer = setTimeout(() => {
+        child.kill();
+        reject("bossac timed out");
+      }, timeout);
+      child.on("exit", code => {
+        clearTimeout(timer);
+        if (code == 0) {
+          resolve();
+        } else {
+          reject("bossac exited abnormally");
+        }
+      });
+    });
+  };
+
+  try {
+    await port.close();
+  } catch (_) {
+    /* ignore the error */
+  }
+  await delay(1000);
+  console.log("launching bossac...");
+
+  await runCommand([
+    "-i",
+    "-d",
+    "-e",
+    "-R",
+    "--port=" + port.path,
+    "-w",
+    filename
+  ]);
+}
+
 /**
  * Create a new flash raise object.
  * @class FlashRaise
@@ -29,7 +97,7 @@ import { arduino } from "./raiseFlasher/arduino-flasher";
  * @emits resetKeyboard
  * @emits updateFirmware
  */
-export default class FlashRaise {
+class FlashRaise {
   constructor(device) {
     this.device = device.device;
     this.currentPort = null;
@@ -141,6 +209,7 @@ export default class FlashRaise {
    * @returns {promise}
    */
   async resetKeyboard(port) {
+    console.log("reset start");
     const errorMessage =
       "The Raise bootloader wasn't found. Please try again, make sure you press and hold the Escape key when the Neuron light goes out";
     let timeouts = {
@@ -150,11 +219,13 @@ export default class FlashRaise {
     };
     return new Promise((resolve, reject) => {
       port.update({ baudRate: 1200 }, async () => {
+        console.log("resetting neuron");
         this.backupFileData.log.push("Resetting neuron");
         await this.delay(timeouts.dtrToggle);
         port.set({ dtr: true }, async () => {
           await this.delay(timeouts.waitingClose);
           port.set({ dtr: false }, async () => {
+            console.log("waiting for bootloader");
             this.backupFileData.log.push("Waiting for bootloader");
             try {
               await this.delay(timeouts.bootLoaderUp);
@@ -194,7 +265,8 @@ export default class FlashRaise {
     this.backupFileData.firmwareFile = filename;
     return new Promise(async (resolve, reject) => {
       try {
-        await focus.open(this.currentPort.path, this.currentPort.device);
+        //await focus.open(this.currentPort.path, this.currentPort.device);
+        /*
         await arduino.flash(filename, async (err, result) => {
           if (err) throw new Error(`Flash error ${result}`);
           else {
@@ -205,6 +277,10 @@ export default class FlashRaise {
             resolve();
           }
         });
+        */
+        await Bossac(this.currentPort, filename);
+        await this.detectKeyboard();
+        resolve();
       } catch (e) {
         this.backupFileData.log.push(e);
         reject(e);
@@ -311,3 +387,5 @@ export default class FlashRaise {
     });
   }
 }
+
+export { Bossac, FlashRaise as default };

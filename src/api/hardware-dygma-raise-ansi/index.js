@@ -17,6 +17,7 @@
 
 import KeymapANSI from "./components/Keymap-ANSI";
 import Focus from "../focus";
+import Bossac from "../flash";
 
 const Raise_ANSI = {
   info: {
@@ -53,7 +54,7 @@ const Raise_ANSI = {
     }
   },
 
-  flash: async (_, filename, flashRaise) => {
+  flash: async (port, filename, flashRaise) => {
     return new Promise(async (resolve, reject) => {
       try {
         await flashRaise.updateFirmware(filename);

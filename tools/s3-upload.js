@@ -37,14 +37,18 @@ fileStream.on("open", () => {
       throw error;
     }
     if (data) {
-      s3.upload({
-    	Bucket: process.env['ARTIFACTS_BUCKET'],
-    	Key: "Chrysalis/latest/Chrysalis." + extensions[process.env['TRAVIS_OS_NAME']],
-    	Body: fileStream,
-      }, error => {
-        if (error)
-          throw error;
-      });
+      console.log("  ", data.Location)
+    }
+  });
+  s3.upload({
+  	Bucket: process.env['ARTIFACTS_BUCKET'],
+  	Key: "Chrysalis/latest/Chrysalis." + extensions[process.env['TRAVIS_OS_NAME']],
+  	Body: fileStream,
+  }, (error, data)  => {
+    if (error) {
+      throw error;
+    }
+    if (data) {
       console.log("  ", data.Location)
     }
   });

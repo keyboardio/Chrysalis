@@ -172,7 +172,7 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
         >
           <ChatMenuItem
             className={classes.menuItem}
-            onClick={openURL("https://discord.gg/GP473Fv")}
+            onClick={openURL("https://keyboard.io/discord-invite")}
           />
           <FeedbackMenuItem
             className={classes.menuItem}

@@ -34,6 +34,7 @@ async function Bossac(port, filename, options) {
       };
 
   const timeout = 1000 * 60 * 5;
+  const extension = (process.platform == "win32") ? ".exe" : "";
 
   const runCommand = async args => {
     console.log(args);
@@ -44,7 +45,7 @@ async function Bossac(port, filename, options) {
         "tools",
         "bossac",
         process.platform,
-        "bossac"
+        "bossac" + extension
       );
       let child = spawn(bossac, args);
       child.stdout.on("data", data => {

@@ -17,7 +17,7 @@
 import fs from "fs";
 import Focus from "../focus";
 import Hardware from "../hardware";
-import { arduino } from "./raiseFlasher/arduino-flasher";
+//import { arduino } from "./raiseFlasher/arduino-flasher";
 
 import { spawn } from "child_process";
 import path from "path";
@@ -261,7 +261,6 @@ class FlashRaise {
    * @returns {promise}
    */
   async updateFirmware(filename) {
-    let focus = new Focus();
     this.backupFileData.log.push("Begin update firmware with arduino-flasher");
     this.backupFileData.firmwareFile = filename;
     return new Promise(async (resolve, reject) => {

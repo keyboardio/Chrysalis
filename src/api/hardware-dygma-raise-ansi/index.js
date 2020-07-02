@@ -17,7 +17,6 @@
 
 import KeymapANSI from "./components/Keymap-ANSI";
 import Focus from "../focus";
-import Bossac from "../flash";
 
 const Raise_ANSI = {
   info: {

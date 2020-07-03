@@ -1,4 +1,4 @@
-Chrysalis 0.7.8
+Chrysalis 0.7.9
 ===============
 Released on 2020-07-03
 
@@ -17,6 +17,11 @@ It is once again possible to flash custom firmware with Chrysalis.
 ## Firmware
 
 All shipped firmware files have been updated to use the latest Kaleidoscope, and the latest layouts.
+
+## Miscellaneous
+
+Chrysalis 0.7.8 was the same release as this, but with broken packaging. We
+opted to cut a new release and delisting the broken one.
 
 Chrysalis 0.7.7
 ===============

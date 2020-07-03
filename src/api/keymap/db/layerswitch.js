@@ -1,5 +1,5 @@
 /* chrysalis-keymap -- Chrysalis keymap library
- * Copyright (C) 2018  Keyboardio, Inc.
+ * Copyright (C) 2018-2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -474,4 +474,234 @@ const ShiftToLayerTable = {
   ]
 };
 
-export { LockLayerTable, ShiftToLayerTable };
+const MoveToLayerTable = {
+  groupName: "Move to layer",
+  keys: [
+    {
+      code: 17492,
+      labels: {
+        primary: "0",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17493,
+      labels: {
+        primary: "1",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17494,
+      labels: {
+        primary: "2",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17495,
+      labels: {
+        primary: "3",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17496,
+      labels: {
+        primary: "4",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17497,
+      labels: {
+        primary: "5",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17498,
+      labels: {
+        primary: "6",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17499,
+      labels: {
+        primary: "7",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17500,
+      labels: {
+        primary: "8",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17501,
+      labels: {
+        primary: "9",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17502,
+      labels: {
+        primary: "10",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17503,
+      labels: {
+        primary: "11",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17504,
+      labels: {
+        primary: "12",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17505,
+      labels: {
+        primary: "13",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17506,
+      labels: {
+        primary: "14",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17507,
+      labels: {
+        primary: "15",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17508,
+      labels: {
+        primary: "16",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17509,
+      labels: {
+        primary: "17",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17510,
+      labels: {
+        primary: "18",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17511,
+      labels: {
+        primary: "19",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17512,
+      labels: {
+        primary: "20",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17513,
+      labels: {
+        primary: "21",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17514,
+      labels: {
+        primary: "22",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17515,
+      labels: {
+        primary: "23",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17516,
+      labels: {
+        primary: "24",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17517,
+      labels: {
+        primary: "25",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17518,
+      labels: {
+        primary: "26",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17519,
+      labels: {
+        primary: "27",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17520,
+      labels: {
+        primary: "28",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17521,
+      labels: {
+        primary: "29",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17522,
+      labels: {
+        primary: "30",
+        top: "MoveTo"
+      }
+    },
+    {
+      code: 17523,
+      labels: {
+        primary: "31",
+        top: "MoveTo"
+      }
+    }
+  ]
+};
+
+export { LockLayerTable, ShiftToLayerTable, MoveToLayerTable };

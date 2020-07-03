@@ -17,7 +17,11 @@
 import BlankTable from "./db/blanks";
 import LetterTable, { ModifiedLetterTables } from "./db/letters";
 import DigitTable, { ModifiedDigitTables } from "./db/digits";
-import { LockLayerTable, ShiftToLayerTable } from "./db/layerswitch";
+import {
+  LockLayerTable,
+  ShiftToLayerTable,
+  MoveToLayerTable
+} from "./db/layerswitch";
 import PunctuationTable, { ModifiedPunctuationTables } from "./db/punctuation";
 import SpacingTable, { ModifiedSpacingTables } from "./db/spacing";
 import ModifiersTable, {
@@ -59,6 +63,7 @@ const baseKeyCodeTable = [
 
   ShiftToLayerTable,
   LockLayerTable,
+  MoveToLayerTable,
 
   LEDEffectsTable,
   MacrosTable,

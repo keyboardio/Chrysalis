@@ -66,7 +66,7 @@ const ModifiersTable = {
       code: 230,
       labels: {
         primary: "RAlt",
-        verbose: "AltGr"
+        verbose: "AltGr (Right Alt)"
       }
     },
     {

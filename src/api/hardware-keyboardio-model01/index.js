@@ -33,7 +33,7 @@ const Model01 = {
       },
       {
         name: "Chat",
-        url: "https://discord.gg/4az77sf"
+        url: "https://keyboard.io/discord-invite"
       }
     ]
   },

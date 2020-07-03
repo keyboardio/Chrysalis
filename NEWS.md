@@ -1,3 +1,23 @@
+Chrysalis 0.7.8
+===============
+Released on 2020-07-03
+
+## UI/UX improvements
+
+Chrysalis now ships Colemak, Dvorak, and Qwerty layouts for the Keyboardio
+Atreus, ready to be imported from the Import / export page.
+
+The `MoveToLayer()` family of layer switch keys are also supported starting with
+this release of Chrysalis.
+
+## Bugfixes
+
+It is once again possible to flash custom firmware with Chrysalis.
+
+## Firmware
+
+All shipped firmware files have been updated to use the latest Kaleidoscope, and the latest layouts.
+
 Chrysalis 0.7.7
 ===============
 Released on 2020-06-17

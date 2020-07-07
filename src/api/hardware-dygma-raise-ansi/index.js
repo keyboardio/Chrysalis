@@ -53,7 +53,7 @@ const Raise_ANSI = {
     }
   },
 
-  flash: async (port, filename, flashRaise) => {
+  flash: async (_, filename, flashRaise) => {
     return new Promise(async (resolve, reject) => {
       try {
         await flashRaise.updateFirmware(filename);

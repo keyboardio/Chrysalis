@@ -126,7 +126,7 @@ class FirmwareUpdate extends React.Component {
       filters: [
         {
           name: i18n.firmwareUpdate.dialog.firmwareFiles,
-          extensions: ["bin"]
+          extensions: ["hex"]
         },
         {
           name: i18n.firmwareUpdate.dialog.allFiles,
@@ -143,13 +143,13 @@ class FirmwareUpdate extends React.Component {
     const { vendor, product } = this.state.device.device.info;
     const cVendor = vendor.replace("/", ""),
       cProduct = product.replace("/", "");
-    return path.join(getStaticPath(), cVendor, cProduct, "default.bin");
+    return path.join(getStaticPath(), cVendor, cProduct, "default.hex");
   };
   _experimentalFirmwareFilename = () => {
     const { vendor, product } = this.state.device.device.info;
     const cVendor = vendor.replace("/", ""),
       cProduct = product.replace("/", "");
-    return path.join(getStaticPath(), cVendor, cProduct, "experimental.bin");
+    return path.join(getStaticPath(), cVendor, cProduct, "experimental.hex");
   };
 
   _flash = async () => {
@@ -184,7 +184,7 @@ class FirmwareUpdate extends React.Component {
       }
       await focus.close();
       return await this.state.device.device.flash(
-        this.props.device,
+        focus._port,
         filename,
         this.fleshRaise
       );

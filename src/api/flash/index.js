@@ -17,76 +17,7 @@
 import fs from "fs";
 import Focus from "../focus";
 import Hardware from "../hardware";
-//import { arduino } from "./raiseFlasher/arduino-flasher";
-
-import { spawn } from "child_process";
-import path from "path";
-
-import { getStaticPath } from "../../renderer/config";
-
-const delay = ms => new Promise(res => setTimeout(res, ms));
-
-async function Bossac(port, filename, options) {
-  const callback = options
-    ? options.callback
-    : function() {
-        return;
-      };
-
-  const timeout = 1000 * 60 * 5;
-  const extension = process.platform == "win32" ? ".exe" : "";
-
-  const runCommand = async args => {
-    console.log(args);
-    await callback("flash");
-    return new Promise((resolve, reject) => {
-      const bossac = path.join(
-        getStaticPath(),
-        "tools",
-        "bossac",
-        process.platform,
-        "bossac" + extension
-      );
-      let child = spawn(bossac, args);
-      child.stdout.on("data", data => {
-        console.log("bossac:stdout:", data.toString());
-      });
-      child.stderr.on("data", data => {
-        console.log("bossac:stderr:", data.toString());
-      });
-      let timer = setTimeout(() => {
-        child.kill();
-        reject("bossac timed out");
-      }, timeout);
-      child.on("exit", code => {
-        clearTimeout(timer);
-        if (code == 0) {
-          resolve();
-        } else {
-          reject("bossac exited abnormally");
-        }
-      });
-    });
-  };
-
-  try {
-    await port.close();
-  } catch (_) {
-    /* ignore the error */
-  }
-  await delay(1000);
-  console.log("launching bossac...");
-
-  await runCommand([
-    "-i",
-    "-d",
-    "-e",
-    "-R",
-    "--port=" + port.path,
-    "-w",
-    filename
-  ]);
-}
+import { arduino } from "./raiseFlasher/arduino-flasher";
 
 /**
  * Create a new flash raise object.
@@ -98,7 +29,7 @@ async function Bossac(port, filename, options) {
  * @emits resetKeyboard
  * @emits updateFirmware
  */
-class FlashRaise {
+export default class FlashRaise {
   constructor(device) {
     this.device = device.device;
     this.currentPort = null;
@@ -210,11 +141,11 @@ class FlashRaise {
    * @returns {promise}
    */
   async resetKeyboard(port) {
-    console.log("reset start");
+    console.log("reset start", port);
     const errorMessage =
       "The Raise bootloader wasn't found. Please try again, make sure you press and hold the Escape key when the Neuron light goes out";
     let timeouts = {
-      dtrToggle: 250, // Time to wait (ms) between toggling DTR
+      dtrToggle: 500, // Time to wait (ms) between toggling DTR
       waitingClose: 2750, // Time to wait for boot loader
       bootLoaderUp: 2500 // Time to wait for the boot loader to come up
     };
@@ -224,7 +155,7 @@ class FlashRaise {
         this.backupFileData.log.push("Resetting neuron");
         await this.delay(timeouts.dtrToggle);
         port.set({ dtr: true }, async () => {
-          await this.delay(timeouts.waitingClose);
+          await this.delay(timeouts.dtrToggle);
           port.set({ dtr: false }, async () => {
             console.log("waiting for bootloader");
             this.backupFileData.log.push("Waiting for bootloader");
@@ -261,12 +192,12 @@ class FlashRaise {
    * @returns {promise}
    */
   async updateFirmware(filename) {
+    let focus = new Focus();
     this.backupFileData.log.push("Begin update firmware with arduino-flasher");
     this.backupFileData.firmwareFile = filename;
     return new Promise(async (resolve, reject) => {
       try {
-        //await focus.open(this.currentPort.path, this.currentPort.device);
-        /*
+        await focus.open(this.currentPort.path, this.currentPort.device);
         await arduino.flash(filename, async (err, result) => {
           if (err) throw new Error(`Flash error ${result}`);
           else {
@@ -277,10 +208,6 @@ class FlashRaise {
             resolve();
           }
         });
-        */
-        await Bossac(this.currentPort, filename);
-        await this.detectKeyboard();
-        resolve();
       } catch (e) {
         this.backupFileData.log.push(e);
         reject(e);
@@ -387,5 +314,3 @@ class FlashRaise {
     });
   }
 }
-
-export { Bossac, FlashRaise as default };

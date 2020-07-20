@@ -43,6 +43,7 @@ import Portal from "@material-ui/core/Portal";
 import Select from "@material-ui/core/Select";
 import Grid from "@material-ui/core/Grid";
 import SettingsBackupRestoreIcon from "@material-ui/icons/SettingsBackupRestore";
+import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -111,8 +112,25 @@ class FirmwareUpdate extends React.Component {
         2: "Wait",
         1: "Wait",
         0: "Press"
-      }
+      },
+      versions: null
     };
+  }
+
+  componentDidMount() {
+    const focus = new Focus();
+    let versions;
+
+    focus.command("version").then(v => {
+      let parts = v.split(" ");
+      versions = {
+        bazecor: parts[0],
+        kaleidoscope: parts[1],
+        firmware: parts[2]
+      };
+
+      this.setState({ versions: versions });
+    });
   }
 
   selectFirmware = event => {
@@ -292,7 +310,8 @@ class FirmwareUpdate extends React.Component {
       firmwareFilename,
       buttonText,
       countdown,
-      isBeginUpdate
+      isBeginUpdate,
+      versions
     } = this.state;
 
     let filename = null;
@@ -397,6 +416,29 @@ class FirmwareUpdate extends React.Component {
       </React.Fragment>
     );
 
+    let currentlyRunning;
+    if (versions) {
+      const tooltip =
+        "Kaleidoscope@" +
+        versions.kaleidoscope +
+        " Raise-Firmware@" +
+        versions.firmware;
+      currentlyRunning = (
+        <React.Fragment>
+          <CardContent>
+            <Typography component="p" gutterBottom>
+              Currently running&nbsp;
+              <Tooltip title={tooltip}>
+                <strong>{versions.bazecor}</strong>
+              </Tooltip>
+              .
+            </Typography>
+          </CardContent>
+          <Divider variant="middle" />
+        </React.Fragment>
+      );
+    }
+
     return (
       <div className={classes.root}>
         <Portal container={this.props.titleElement}>
@@ -420,6 +462,7 @@ class FirmwareUpdate extends React.Component {
             </Typography>
           </CardContent>
           <Divider variant="middle" />
+          {currentlyRunning}
           <CardActions>
             {firmwareSelect}
             <div className={classes.grow} />

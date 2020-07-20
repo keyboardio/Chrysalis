@@ -1,3 +1,21 @@
+Bazecor 0.2.1
+=============
+## New features
+
+- Bazecor ships with an updated keyboard firmware, with new features, and plenty
+  of bugfixes. Upgrading the firmware is highly recommended.
+- You can now set keys to be the `Mouse Forward` and `Mouse Backward` buttons.
+- The "Gui" key will now display a platform-specific name (`Win`, `Cmd`, or
+  `Linux`, for Windows, macOS, and Linux, respectively).
+- On Linux, before being able to connect to the Raise, permissions are checked
+  first, and an error is displayed if they are found to be insufficient.
+
+## Bugfixes
+
+- The countdown at the flashing screen is now in sync with the process -
+  pressing and holding the `Esc` key anytime during the countdown will work.
+- It is once again possible to upload custom firmware.
+
 Bazecor 0.2.0
 =============
 

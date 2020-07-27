@@ -43,7 +43,6 @@ import Portal from "@material-ui/core/Portal";
 import Select from "@material-ui/core/Select";
 import Grid from "@material-ui/core/Grid";
 import SettingsBackupRestoreIcon from "@material-ui/icons/SettingsBackupRestore";
-import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -122,6 +121,7 @@ class FirmwareUpdate extends React.Component {
     let versions;
 
     focus.command("version").then(v => {
+      if (!v) return;
       let parts = v.split(" ");
       versions = {
         bazecor: parts[0],
@@ -438,19 +438,12 @@ class FirmwareUpdate extends React.Component {
 
     let currentlyRunning;
     if (versions) {
-      const tooltip =
-        "Kaleidoscope@" +
-        versions.kaleidoscope +
-        " Raise-Firmware@" +
-        versions.firmware;
       currentlyRunning = (
         <React.Fragment>
           <CardContent>
             <Typography component="p" gutterBottom>
               {"Your Raise is currently running version "}
-              <Tooltip title={tooltip}>
-                <strong>{versions.bazecor}</strong>
-              </Tooltip>
+              <strong>{versions.bazecor}</strong>
               {" of the firmware."}
             </Typography>
           </CardContent>

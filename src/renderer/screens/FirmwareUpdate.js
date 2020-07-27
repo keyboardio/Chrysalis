@@ -399,7 +399,7 @@ class FirmwareUpdate extends React.Component {
       <React.Fragment>
         <div className={classes.paper}>
           <ol>
-            <li>{"Make sure your Raise LEDs are on Rainbow mode."}</li>
+            <li>{"Make sure the LEDs on your Raise are on Rainbow mode."}</li>
             <li>
               {`Press "Start Countdown". When the countdown finishes, `}
               <strong>{"press and hold"}</strong>
@@ -407,7 +407,7 @@ class FirmwareUpdate extends React.Component {
             </li>
             <li>
               {
-                "After the countdown finished, the Neuron's light should start a blue pulsing pattern, followed by a quick flashing of multiple colors."
+                "After the countdown finishes, the Neuron's light should start a blue pulsing pattern, followed by a quick flashing of multiple colors."
               }
             </li>
             <li>
@@ -461,7 +461,7 @@ class FirmwareUpdate extends React.Component {
           <CardContent>
             <Typography component="p" gutterBottom>
               {
-                "To install new features in your Raise we need to update the firmware. By clicking on the Update button, Bazecor will install a new version of your keyboard's firmware. This will overwrite your previous firmware."
+                "To install new features on your Raise, we would need to update the firmware. By clicking on the Update button, Bazecor will install a new version of your keyboard's firmware. This will overwrite your previous firmware."
               }
             </Typography>
             <Typography component="p" gutterBottom>
@@ -470,10 +470,8 @@ class FirmwareUpdate extends React.Component {
               {" mode."}
             </Typography>
             <Typography component="p" gutterBottom>
-              {"You can find the LED Rainbow mode with the "}
-              <tt>{"LED Next"}</tt>
               {
-                " key. In the default Dygma layout, you can find it by pressing the right Dygma key."
+                "To put your Raise on LED Rainbow mode, toggle through the LED Next key. If you are using the default layers, the LED Next key is assigned to the Dygma key on the right side of the keyboard."
               }
             </Typography>
           </CardContent>

@@ -397,7 +397,27 @@ class FirmwareUpdate extends React.Component {
     const focus = new Focus();
     const dialogChildren = (
       <React.Fragment>
-        <div className={classes.paper}>{i18n.hardware.updateInstructions}</div>
+        <div className={classes.paper}>
+          <ol>
+            <li>{"Make sure your Raise LEDs are on Rainbow mode."}</li>
+            <li>
+              {`Press "Start Countdown". When the countdown finishes, `}
+              <strong>{"press and hold"}</strong>
+              {" the Escape key. This will start the update process."}
+            </li>
+            <li>
+              {
+                "After the countdown finished, the Neuron's light should start a blue pulsing pattern, followed by a quick flashing of multiple colors."
+              }
+            </li>
+            <li>
+              {
+                "When it finishes, the keyboard lights will go back to your default color mode. At this point, you should "
+              }
+              <strong>{"release the Escape key"}</strong>.
+            </li>
+          </ol>
+        </div>
         {focus.device && !focus.device.bootloader && (
           <Grid container direction="row" justify="center">
             <Grid item className={classes.grid}>
@@ -427,11 +447,11 @@ class FirmwareUpdate extends React.Component {
         <React.Fragment>
           <CardContent>
             <Typography component="p" gutterBottom>
-              Currently running&nbsp;
+              {"Your Raise is currently running version "}
               <Tooltip title={tooltip}>
                 <strong>{versions.bazecor}</strong>
               </Tooltip>
-              .
+              {" of the firmware."}
             </Typography>
           </CardContent>
           <Divider variant="middle" />
@@ -447,18 +467,21 @@ class FirmwareUpdate extends React.Component {
         <Card className={classes.card}>
           <CardContent>
             <Typography component="p" gutterBottom>
-              {i18n.firmwareUpdate.description}
-            </Typography>
-            <Typography component="p" gutterBottom className={classes.repo}>
-              <a href="https://github.com/Dygmalab/Raise-Firmware#readme">
-                Raise-Firmware
-              </a>
+              {
+                "To install new features in your Raise we need to update the firmware. By clicking on the Update button, Bazecor will install a new version of your keyboard's firmware. This will overwrite your previous firmware."
+              }
             </Typography>
             <Typography component="p" gutterBottom>
-              {i18n.hardware.updateInstructions}
+              {"To correctly update the firmware, your Raise has to be on "}
+              <strong>{"LED Rainbow"}</strong>
+              {" mode."}
             </Typography>
             <Typography component="p" gutterBottom>
-              {i18n.firmwareUpdate.postUpload}
+              {"You can find the LED Rainbow mode with the "}
+              <tt>{"LED Next"}</tt>
+              {
+                " key. In the default Dygma layout, you can find it by pressing the right Dygma key."
+              }
             </Typography>
           </CardContent>
           <Divider variant="middle" />

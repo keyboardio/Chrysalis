@@ -185,8 +185,11 @@ const English = {
     experimentalFirmwareDescription: "Experimental, with more plugins enabled",
     selected: "Selected firmware",
     custom: "Custom firmware",
-    description: `Updating or "flashing" your keyboard's firmware is how we teach it new tricks. Bazecor will install a new version of your keyboard's firmware which includes support for customizing the key layout, as well as other features. If you've previously customized your keyboard's firmware, this will overwrite your custom firmware. You can always find the source code of the firmware Bazecor is installing here:`,
-    postUpload: `Once the upload is done, Bazecor will take you back to the keyboard selection screen.`,
+    description: `To install new features in your Raise we need to update the firmware. By clicking on the Update button, Bazecor will install a new version of your keyboard's firmware. This will overwrite your previous firmware.
+
+To correctly update the firmware, your Raise has to be on LED Rainbow mode.
+
+You can find the LED Rainbow mode with the "LED Next" key. In the default Dygma layout, you can find it by pressing the right Dygma key.`,
     raise: {
       reset: `Reset message`
     }

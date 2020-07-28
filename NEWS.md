@@ -1,3 +1,8 @@
+Bazecor 0.2.2
+=============
+
+This is just a tiny update, improving on the update instructions.
+
 Bazecor 0.2.1
 =============
 ## New features

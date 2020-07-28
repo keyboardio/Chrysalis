@@ -38,7 +38,9 @@
     "artifactName": "${productName}-${version}.${ext}",
     "copyright": "Copyright © 2018, 2019, 2020 Keyboardio Inc.; distributed under the GPLv3",
     "mac": {
-      "darkModeSupport": true
+      "darkModeSupport": true,
+      "hardenedRuntime": true,
+      "entitlements": "./build/entitlements.mac.inherit.plist"
     },
     "linux": {
       "target": [

@@ -4,7 +4,7 @@ node_js:
 os:
   - linux
   - osx
-    osx_image: "xcode11.6"
+  - osx_image: "xcode11.6"
   - windows
 # This (filter_secrets) is generally unsafe, but we only run builds for master,
 # so it is acceptable. If we remove the branch restriction, remove this too.

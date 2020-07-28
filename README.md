@@ -27,11 +27,12 @@ Current release:
 
 ## About
 
-Chrysalis is a graphical configurator for [Kaleidoscope][kaleidoscope]-powered
-keyboards. While still heavily under development, it's at a stage where it is
-already usable for a number of tasks. To try it, you don't even need to flash
-`Kaleidoscope` beforehand, Chrysalis can do that for you, as it ships with
-reasonable default firmware for each supported board.
+Chrysalis is a graphical configurator for
+[Kaleidoscope][kaleidoscope]-powered keyboards. While still under
+development, it is already usable for a number of tasks. To try it,
+you don't even need to flash `Kaleidoscope` beforehand, Chrysalis
+can do that for you, as it ships with reasonable default firmware
+for each supported board.
 
  [kaleidoscope]: https://github.com/keyboardio/Kaleidoscope
 

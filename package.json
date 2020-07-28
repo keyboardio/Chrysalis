@@ -62,7 +62,7 @@
     "@material-ui/icons": "^3.0.1",
     "@material-ui/lab": "^3.0.0-alpha.30",
     "@reach/router": "^1.2.1",
-    "avrgirl-arduino": "algernon/avrgirl-arduino#avr109-optional-close",
+    "avrgirl-arduino": "^4.2.2",
     "classnames": "^2.2.6",
     "electron-devtools-installer": "^2.2.4",
     "electron-settings": "^3.2.0",

@@ -1,10 +1,6 @@
 Bazecor 0.2.2
 =============
 
-This is just a tiny update, improving on the update instructions.
-
-Bazecor 0.2.1
-=============
 ## New features
 
 - Bazecor ships with an updated keyboard firmware, with new features, and plenty
@@ -14,6 +10,8 @@ Bazecor 0.2.1
   `Linux`, for Windows, macOS, and Linux, respectively).
 - On Linux, before being able to connect to the Raise, permissions are checked
   first, and an error is displayed if they are found to be insufficient.
+- The update instructions have been substantially improved, they should be much
+  clearer now.
 
 ## Bugfixes
 

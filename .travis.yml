@@ -26,6 +26,9 @@ addons:
     packages:
       - libudev-dev
 cache: yarn
+before_install:
+  - if [ "$TRAVIS_OS_NAME" = osx ]; then chmod +x tools/add-osx-cert.sh; fi
+  - if [ "$TRAVIS_OS_NAME" = osx ]; then ./tools/add-osx-cert.sh; fi
 install:
   - yarn install --network-timeout 1000000
 script:
@@ -33,7 +36,4 @@ script:
 after_script:
   - yarn add --dev aws-sdk
   - tools/s3-upload.js
-before_deploy:
-  - if [ "$TRAVIS_OS_NAME" = osx ]; then chmod +x tools/add-osx-cert.sh; fi
-  - if [ "$TRAVIS_OS_NAME" = osx ]; then ./tools/add-osx-cert.sh; fi
 

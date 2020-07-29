@@ -1,11 +1,15 @@
 language: node_js
 node_js:
   - 12
-os:
-  - linux
-  - osx
-  - osx_image: "xcode11.6"
-  - windows
+
+jobs:
+  include:
+    - os: linux
+      dist: xenial
+    - os: osx
+      osx_image: "xcode11.6"
+    - os: windows
+
 # This (filter_secrets) is generally unsafe, but we only run builds for master,
 # so it is acceptable. If we remove the branch restriction, remove this too.
 # If Windows builds on Travis are fixed, and work when secrets are in use,

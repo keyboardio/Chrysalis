@@ -9,12 +9,12 @@ module.exports = async function (params) {
     if (process.platform !== 'darwin') {
         return;
     }
-    console.log('afterSign hook triggered', params);
+    console.log('afterSign hook triggered');
 
     // Same appId in electron-builder.
     let appId = 'keyboardio.chrysalis'
 
-    let appPath = path.join(params.appOutDir, `${params.packager.appInfo.productFilename}.app`);
+    let appPath = path.join(params.appOutDir, `${params.packager.appInfo.productFilename}.dmg`);
     if (!fs.existsSync(appPath)) {
         throw new Error(`Cannot find application at: ${appPath}`);
     }

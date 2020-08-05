@@ -25,7 +25,8 @@ const Hungarian = {
     save: {
       success: "Elmentve!",
       saveChanges: "Mentés"
-    }
+    },
+    loading: "Adatok olvasása az eszközről..."
   },
   dialog: {
     ok: "Ok",

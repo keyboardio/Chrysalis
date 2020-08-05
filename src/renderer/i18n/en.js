@@ -26,7 +26,8 @@ const English = {
       success: "Saved!",
       saveChanges: "Save Changes"
     },
-    pickerColorButton: "Change color"
+    pickerColorButton: "Change color",
+    loading: "Reading data from device..."
   },
   dialog: {
     ok: "Ok",

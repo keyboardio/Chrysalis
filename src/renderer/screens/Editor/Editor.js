@@ -54,6 +54,7 @@ import i18n from "../../i18n";
 import settings from "electron-settings";
 import ImportExportDialog from "./ImportExportDialog";
 import { CopyFromDialog } from "./CopyFromDialog";
+import LoadingScreen from "../../components/LoadingScreen";
 
 const styles = theme => ({
   tbg: {
@@ -117,7 +118,8 @@ class Editor extends React.Component {
     isMultiSelected: false,
     isColorButtonSelected: false,
     hasKeymap: false,
-    hasColormap: false
+    hasColormap: false,
+    loading: true
   };
   keymapDB = new KeymapDB();
 
@@ -404,7 +406,10 @@ class Editor extends React.Component {
         }
       }
 
-      this.setState({ currentLayer: initialLayer });
+      this.setState({
+        currentLayer: initialLayer,
+        loading: false
+      });
     });
   }
 
@@ -658,8 +663,13 @@ class Editor extends React.Component {
       hasKeymap,
       hasColormap,
       colorMap,
-      mode
+      mode,
+      loading
     } = this.state;
+
+    if (loading) {
+      return <LoadingScreen />;
+    }
 
     let focus = new Focus();
     const Layer = focus.device.components.keymap;

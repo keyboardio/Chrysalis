@@ -19,6 +19,7 @@
 const isDevelopment = true;
 
 import path from "path";
+import * as url from "url";
 
 function getStaticPath() {
   if (process.env.NODE_ENV !== "production") {
@@ -31,4 +32,11 @@ function getStaticPath() {
   }
 }
 
-export { isDevelopment, getStaticPath };
+function getStatic(path) {
+  if (process.env.NODE_ENV !== "production") {
+    return url.resolve(window.location.origin, path);
+  }
+  return path.resolve(__static, path);
+}
+
+export { isDevelopment, getStaticPath, getStatic };

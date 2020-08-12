@@ -114,7 +114,8 @@ class KeyboardSelect extends React.Component {
     selectedPortIndex: 0,
     opening: false,
     devices: null,
-    loading: false
+    loading: false,
+    scanForKeyboards: false
   };
 
   findNonSerialKeyboards = deviceList => {
@@ -161,6 +162,7 @@ class KeyboardSelect extends React.Component {
           const list = this.findNonSerialKeyboards(supported_devices);
           this.setState({
             loading: false,
+            scanForKeyboards: false,
             devices: list
           });
           resolve(list.length > 0);
@@ -169,6 +171,7 @@ class KeyboardSelect extends React.Component {
           const list = this.findNonSerialKeyboards([]);
           this.setState({
             loading: false,
+            scanForKeyboards: false,
             devices: list
           });
           resolve(list.length > 0);
@@ -185,8 +188,14 @@ class KeyboardSelect extends React.Component {
   };
 
   componentDidMount() {
+    setInterval(() => {
+      if (this.state.scanForKeyboards) {
+        this.findKeyboards();
+      }
+    }, 10000);
+
     this.finder = () => {
-      this.findKeyboards();
+      this.setState({ scanForKeyboards: true });
     };
     usb.on("attach", this.finder);
     usb.on("detach", this.finder);

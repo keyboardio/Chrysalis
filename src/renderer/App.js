@@ -103,17 +103,19 @@ class App extends React.Component {
         this.props.enqueueSnackbar(i18n.t("errors.deviceDisconnected"), {
           variant: "warning"
         });
-        focus.close();
-        this.setState({
-          contextBar: false,
-          cancelPendingOpen: false,
-          connected: false,
-          device: null,
-          pages: {}
-        });
-        // Second call to `navigate` will actually render the proper route
-        await navigate("/keyboard-select");
       }
+
+      await focus.close();
+      await this.setState({
+        contextBar: false,
+        cancelPendingOpen: false,
+        connected: false,
+        device: null,
+        pages: {}
+      });
+
+      // Second call to `navigate` will actually render the proper route
+      await navigate("/keyboard-select");
     });
   }
 

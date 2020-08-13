@@ -60,7 +60,7 @@ Teensy-based [OLKB Planck][hw:planck] keyboards are also supported, as long as
 they run suitable firmware.
 
  [hw:kbio-atreus]: https://www.kickstarter.com/projects/keyboardio/atreus
- [hw:model01]: https://shop.keyboard.io/
+ [hw:model01]: https://www.kickstarter.com/projects/keyboardio/the-model-01-an-heirloom-grade-keyboard-for-seriou
  [hw:ergodox-ez]: https://ergodox-ez.com/
  [hw:atreus]: https://atreus.technomancy.us/
  [hw:raise]: https://www.dygma.com/raise/

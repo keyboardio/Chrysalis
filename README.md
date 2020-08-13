@@ -90,6 +90,24 @@ Click on the badge for your operating system's packaging system above
 brew update && brew upgrade
 brew cask install chrysalis
 ```
+### GNU/Linux permissions
+
+To communicate with your keyboard, Chrysalis must access to it's *device descriptor*.
+
+If Chrysalis complain about :
+```bash
+Insufficient permissions, please make sure the device file is read- and writeable!
+```
+
+In most of the case, you want to be part of the *dialout* group, and `sudo adduser $USER dialout` or `sudo usermod -a -G dialout $LOGNAME` should do the job to add your user account to the group that owns the device.
+Note that you surely have to close your session for the change to take effect.
+
+Otherwise, look at the file permissions and ownership :
+```bash
+# With keyboardio plugged in:
+$ ls -al /dev/ttyACM*
+crw-rw---- 1 root dialout 166, 0 Nov 2 12:05 /dev/ttyACM0
+```
 
 
 ## Reporting issues

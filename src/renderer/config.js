@@ -32,11 +32,11 @@ function getStaticPath() {
   }
 }
 
-function getStatic(path) {
+function getStatic(p) {
   if (process.env.NODE_ENV !== "production") {
-    return url.resolve(window.location.origin, path);
+    return url.resolve(window.location.origin, p);
   }
-  return path.resolve(__static, path);
+  return path.resolve(__static, p);
 }
 
 export { isDevelopment, getStaticPath, getStatic };

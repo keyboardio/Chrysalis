@@ -73,7 +73,8 @@ class App extends React.Component {
       device: null,
       pages: {},
       contextBar: false,
-      cancelPendingOpen: false
+      cancelPendingOpen: false,
+      balance: { r: 30, g: 0, b: 15 }
     };
     localStorage.clear();
   }
@@ -219,6 +220,67 @@ class App extends React.Component {
   startContext = () => {
     this.setState({ contextBar: true });
   };
+  rgbString = color => {
+    return `rgb(${color.r},${color.g},${color.b})`;
+  };
+  whiteBalance = (color, type) => {
+    let balance = this.state.balance;
+    let correction =
+      balance[
+        Object.keys(balance).reduce((a, b) => (balance[a] > balance[b] ? a : b))
+      ];
+    if (type === "apply") {
+      console.log("starting whitebalance application");
+      console.log(color, balance, correction);
+      if (
+        correction + 1 < color.r &&
+        correction + 1 < color.g &&
+        correction + 1 < color.b
+      ) {
+        let aux = {
+          r: color.r - balance.r,
+          g: color.g - balance.g,
+          b: color.b - balance.b,
+          rgb: color.rgb
+        };
+        aux.rgb = this.rgbString(aux);
+        console.log(aux);
+        return aux;
+      }
+    }
+    if (type === "revert") {
+      console.log("starting whitebalance restoration");
+      console.log(color, balance, correction);
+      if (color.r > 1 && color.g > 1 && color.b > 1) {
+        let aux = {
+          r: color.r + balance.r,
+          g: color.g + balance.g,
+          b: color.b + balance.b,
+          rgb: color.rgb
+        };
+        aux.rgb = this.rgbString(aux);
+        console.log(aux);
+        return aux;
+      }
+    }
+    return color;
+  };
+  applyBalance = colors => {
+    return colors.map(color => {
+      return this.whiteBalance(color, "apply");
+    });
+  };
+  revertBalance = colors => {
+    return colors.map(color => {
+      return this.whiteBalance(color, "revert");
+    });
+  };
+  testBalance = bal => {
+    console.log(bal, "testing");
+  };
+  setBalance = bal => {
+    this.setState({ balance: bal });
+  };
 
   render() {
     const { classes } = this.props;
@@ -264,6 +326,8 @@ class App extends React.Component {
                   onDisconnect={this.onKeyboardDisconnect}
                   startContext={this.startContext}
                   cancelContext={this.cancelContext}
+                  applyBalance={this.applyBalance}
+                  revertBalance={this.revertBalance}
                   inContext={this.state.contextBar}
                   titleElement={() => document.querySelector("#page-title")}
                   appBarElement={() => document.querySelector("#appbar")}
@@ -281,6 +345,7 @@ class App extends React.Component {
                   path="/preferences"
                   titleElement={() => document.querySelector("#page-title")}
                   darkMode={this.state.darkMode}
+                  setBalance={this.setBalance}
                   toggleDarkMode={this.toggleDarkMode}
                   startContext={this.startContext}
                   cancelContext={this.cancelContext}

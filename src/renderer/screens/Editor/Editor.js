@@ -404,15 +404,15 @@ class Editor extends React.Component {
   onApply = async () => {
     this.setState({ saving: true });
     settings.set("undeglowColors", this.state.undeglowColors);
-    console.log(
-      "Paleta a modificar con función white balance: ",
-      this.state.palette
-    );
+    // console.log(
+    //   "Paleta a modificar con función white balance: ",
+    //   this.state.palette
+    // );
     let focus = new Focus();
     await focus.command("keymap", this.state.keymap);
     await focus.command(
       "colormap",
-      this.props.applyBalance(this.state.palette, "a"),
+      this.props.applyBalance(this.state.palette),
       this.state.colorMap
     );
     this.setState({

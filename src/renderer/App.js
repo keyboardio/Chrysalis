@@ -223,15 +223,12 @@ class App extends React.Component {
   rgbString = color => {
     return `rgb(${color.r},${color.g},${color.b})`;
   };
-  whiteBalance = (color, type) => {
-    let balance = this.state.balance;
+  whiteBalance = (balance, color, type) => {
     let correction =
       balance[
         Object.keys(balance).reduce((a, b) => (balance[a] > balance[b] ? a : b))
       ];
     if (type === "apply") {
-      console.log("starting whitebalance application");
-      console.log(color, balance, correction);
       if (
         correction + 1 < color.r &&
         correction + 1 < color.g &&
@@ -244,13 +241,11 @@ class App extends React.Component {
           rgb: color.rgb
         };
         aux.rgb = this.rgbString(aux);
-        console.log(aux);
+        console.log(color, balance, correction, aux);
         return aux;
       }
     }
     if (type === "revert") {
-      console.log("starting whitebalance restoration");
-      console.log(color, balance, correction);
       if (color.r > 1 && color.g > 1 && color.b > 1) {
         let aux = {
           r: color.r + balance.r,
@@ -259,26 +254,54 @@ class App extends React.Component {
           rgb: color.rgb
         };
         aux.rgb = this.rgbString(aux);
-        console.log(aux);
+        console.log(color, balance, correction, aux);
         return aux;
       }
     }
     return color;
   };
   applyBalance = colors => {
+    console.log("applying whitebalance correction");
     return colors.map(color => {
-      return this.whiteBalance(color, "apply");
+      return this.whiteBalance(this.state.balance, color, "apply");
     });
   };
   revertBalance = colors => {
+    console.log("reverting whitebalance correction");
     return colors.map(color => {
-      return this.whiteBalance(color, "revert");
+      return this.whiteBalance(this.state.balance, color, "revert");
     });
   };
-  testBalance = bal => {
-    console.log(bal, "testing");
+  testBalance = async bal => {
+    console.log("testing white balance: ", bal);
+    let ccolors = this.state.savedColors.map(color => {
+      return this.whiteBalance(bal, color, "apply");
+    });
+    await focus.command("colormap", ccolors, this.state.savedColorMap.colorMap);
+    return "finished";
   };
+  startTestBalance = async () => {
+    let colormap = await focus.command("colormap");
+    let colors = this.revertBalance(colormap.palette.slice());
+    console.log("current colors", colors);
+    this.setState({
+      savedColorMap: colormap,
+      savedColors: colors
+    });
+    return "finished";
+  };
+  stopTestBalance = async () => {
+    console.log("resending colors", this.state.savedColors);
+    await focus.command(
+      "colormap",
+      this.applyBalance(this.state.savedColors),
+      this.state.savedColorMap.colorMap
+    );
+    return "finished";
+  };
+
   setBalance = bal => {
+    console.log("setting Balance to:", bal);
     this.setState({ balance: bal });
   };
 
@@ -346,6 +369,10 @@ class App extends React.Component {
                   titleElement={() => document.querySelector("#page-title")}
                   darkMode={this.state.darkMode}
                   setBalance={this.setBalance}
+                  testBalance={this.testBalance}
+                  startTestBalance={this.startTestBalance}
+                  stopTestBalance={this.stopTestBalance}
+                  balance={this.state.balance}
                   toggleDarkMode={this.toggleDarkMode}
                   startContext={this.startContext}
                   cancelContext={this.cancelContext}

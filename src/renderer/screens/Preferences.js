@@ -170,6 +170,11 @@ class Preferences extends React.Component {
             startContext={this.props.startContext}
             cancelContext={this.props.cancelContext}
             inContext={this.props.inContext}
+            balance={this.props.balance}
+            setBalance={this.props.setBalance}
+            testBalance={this.props.testBalance}
+            startTestBalance={this.props.startTestBalance}
+            stopTestBalance={this.props.stopTestBalance}
           />
         )}
         <div className={classes.advanced}>

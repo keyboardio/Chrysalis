@@ -149,6 +149,17 @@ const English = {
         oneHour: "1 hour"
       }
     },
+    colorSettings: {
+      title: "White Balance",
+      visualizebutton: "VISUALIZE CHANGES",
+      test: {
+        quit: "Quit Test Mode",
+        enter: "Enter Test Mode"
+      },
+      red: "Red Color",
+      green: "Green Color",
+      blue: "Blue Color"
+    },
     advancedOps: "Advanced keyboard settings & operations",
     resetEEPROM: {
       button: "Reset EEPROM to factory defaults",

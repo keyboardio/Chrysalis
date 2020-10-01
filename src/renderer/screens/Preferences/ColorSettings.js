@@ -8,6 +8,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Slider from "@material-ui/lab/Slider";
 import Switch from "@material-ui/core/Switch";
+import Button from "@material-ui/core/Button";
+import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -56,6 +58,11 @@ const styles = theme => ({
         marginLeft: "1.5em"
       }
     }
+  },
+  button: {
+    display: "flex",
+    marginTop: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit * 2
   }
 });
 
@@ -71,12 +78,19 @@ class ColorSettings extends Component {
       BlueColorB: 255 - props.balance.b,
       ledIdleTimeLimit: 0,
       working: false,
-      dragging: false
+      modified: false,
+      modifications: false
     };
   }
-  setBrightness = async (state, value) => {
+
+  componentWillUnmount() {
+    if (this.state.testMode === true) {
+      this.props.stopTestBalance();
+    }
+  }
+  setBrightness = async () => {
     let newBalance = this.state.balance;
-    if (this.state.testMode === true && this.state.dragging === false) {
+    if (this.state.testMode === true && this.state.modified === true) {
       this.setState({
         working: true
       });
@@ -89,14 +103,14 @@ class ColorSettings extends Component {
       this.setState({
         balance: newBalance,
         working: false,
-        dragging: false
+        modified: false,
+        modifications: true
       });
     }
   };
   setTestMode = async e => {
     let check = e.target.checked;
     this.setState({
-      testMode: check,
       working: true
     });
     if (e.target.checked === true) {
@@ -118,6 +132,7 @@ class ColorSettings extends Component {
       await this.props.stopTestBalance();
     }
     this.setState({
+      testMode: check,
       working: false
     });
   };
@@ -127,20 +142,12 @@ class ColorSettings extends Component {
       <Slider
         max={255}
         min={210}
-        disabled={this.state.working}
+        disabled={!this.state.testMode}
         value={this.state.RedColorB}
         className={classes.slider}
         step={3}
         onChange={(e, v) => {
-          this.setState({ RedColorB: v });
-          this.setBrightness("RedColorB", v);
-        }}
-        onDragStart={() => {
-          this.setState({ dragging: true });
-        }}
-        onDragEnd={() => {
-          this.setState({ dragging: false });
-          this.setBrightness("GreenCRedColorBlorB", this.state.RedColorB);
+          this.setState({ RedColorB: v, modified: true });
         }}
       />
     );
@@ -148,20 +155,12 @@ class ColorSettings extends Component {
       <Slider
         max={255}
         min={210}
-        disabled={this.state.working}
+        disabled={!this.state.testMode}
         value={this.state.GreenColorB}
         className={classes.slider}
         step={3}
         onChange={(e, v) => {
-          this.setState({ GreenColorB: v });
-          this.setBrightness("GreenColorB", v);
-        }}
-        onDragStart={() => {
-          this.setState({ dragging: true });
-        }}
-        onDragEnd={() => {
-          this.setState({ dragging: false });
-          this.setBrightness("GreenColorB", this.state.GreenColorB);
+          this.setState({ GreenColorB: v, modified: true });
         }}
       />
     );
@@ -169,31 +168,34 @@ class ColorSettings extends Component {
       <Slider
         max={255}
         min={210}
-        disabled={this.state.working}
+        disabled={!this.state.testMode}
         value={this.state.BlueColorB}
         className={classes.slider}
         step={3}
         onChange={(e, v) => {
-          this.setState({ BlueColorB: v });
-          this.setBrightness("BlueColorB", v);
-        }}
-        onDragStart={() => {
-          this.setState({ dragging: true });
-        }}
-        onDragEnd={() => {
-          this.setState({ dragging: false });
-          this.setBrightness("BlueColorB", this.state.BlueColorB);
+          this.setState({ BlueColorB: v, modified: true });
         }}
       />
     );
-
     const testSwitch = (
       <Switch
         checked={this.state.testMode}
         disabled={this.state.working}
-        value="Test"
+        value={false}
         onClick={this.setTestMode}
       />
+    );
+    const applyButton = (
+      <Button
+        variant="contained"
+        color="primary"
+        disabled={
+          this.state.working || !this.state.testMode || !this.state.modified
+        }
+        onClick={this.setBrightness}
+      >
+        {i18n.keyboardSettings.colorSettings.visualizebutton}
+      </Button>
     );
     return (
       <React.Fragment>
@@ -203,11 +205,23 @@ class ColorSettings extends Component {
           component="h2"
           className={classes.title}
         >
-          {"White Balance"}
+          {i18n.keyboardSettings.colorSettings.title}
         </Typography>
         <Card>
           <CardContent>
             <FormControl className={classes.group}>
+              <FormControlLabel
+                className={classes.control}
+                control={testSwitch}
+                classes={{ label: classes.grow }}
+                labelPlacement="start"
+                label={
+                  this.state.testMode
+                    ? i18n.keyboardSettings.colorSettings.test.quit
+                    : i18n.keyboardSettings.colorSettings.test.enter
+                }
+              />
+              <Divider />
               <FormControlLabel
                 className={classes.control}
                 classes={{
@@ -216,10 +230,10 @@ class ColorSettings extends Component {
                 }}
                 control={redColor}
                 labelPlacement="start"
-                label={`Red Color ${(
-                  (this.state.RedColorB / 255) *
-                  100
-                ).toFixed(1)}%`}
+                label={
+                  i18n.keyboardSettings.colorSettings.red +
+                  ` - ${((this.state.RedColorB / 255) * 100).toFixed(1)}%`
+                }
               />
               <FormControlLabel
                 className={classes.control}
@@ -229,10 +243,10 @@ class ColorSettings extends Component {
                 }}
                 control={greenColor}
                 labelPlacement="start"
-                label={`Green Color ${(
-                  (this.state.GreenColorB / 255) *
-                  100
-                ).toFixed(1)}%`}
+                label={
+                  i18n.keyboardSettings.colorSettings.green +
+                  ` - ${((this.state.GreenColorB / 255) * 100).toFixed(1)}%`
+                }
               />
               <FormControlLabel
                 className={classes.control}
@@ -242,27 +256,32 @@ class ColorSettings extends Component {
                 }}
                 control={blueColor}
                 labelPlacement="start"
-                label={`Blue Color ${(
-                  (this.state.BlueColorB / 255) *
-                  100
-                ).toFixed(1)}%`}
-              />
-              <FormControlLabel
-                className={classes.control}
-                control={testSwitch}
-                classes={{ label: classes.grow }}
-                labelPlacement="start"
-                label={"Test Mode"}
+                label={
+                  i18n.keyboardSettings.colorSettings.blue +
+                  ` - ${((this.state.BlueColorB / 255) * 100).toFixed(1)}%`
+                }
               />
             </FormControl>
+            <FormControlLabel
+              className={classes.button}
+              control={applyButton}
+              classes={{ label: classes.grow }}
+              labelPlacement="start"
+              label={" "}
+            />
           </CardContent>
           <CardActions className={classes.flex}>
             <span className={classes.grow} />
             <SaveChangesButton
               onClick={() => {
+                this.setState({ oldBalance: this.state.balance });
                 this.props.setBalance(this.state.balance);
               }}
-              disabled={this.state.working}
+              disabled={
+                this.state.working ||
+                !this.state.testMode ||
+                !this.state.modifications
+              }
             >
               {i18n.components.save.saveChanges}
             </SaveChangesButton>

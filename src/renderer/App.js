@@ -46,6 +46,9 @@ import Header from "./components/Header";
 import ConfirmationDialog from "./components/ConfirmationDialog";
 import { history, navigate } from "./routerHistory";
 
+const Store = window.require("electron-store");
+const store = new Store();
+
 let focus = new Focus();
 focus.debug = true;
 focus.timeout = 15000;
@@ -74,9 +77,19 @@ class App extends React.Component {
       pages: {},
       contextBar: false,
       cancelPendingOpen: false,
-      balance: { r: 30, g: 0, b: 15 }
+      balance: store.get("balance"),
+      testingPalette: new Array(16).fill({
+        r: 255,
+        g: 255,
+        b: 255,
+        rgb: "rgb(255,255,255)"
+      })
     };
     localStorage.clear();
+    if (store.get("balance") === undefined) {
+      store.set("balance", { r: 30, g: 0, b: 15 });
+      this.setState({ balance: { r: 30, g: 0, b: 15 } });
+    }
   }
   flashing = false;
 
@@ -274,7 +287,7 @@ class App extends React.Component {
   };
   testBalance = async bal => {
     console.log("testing white balance: ", bal);
-    let ccolors = this.state.savedColors.map(color => {
+    let ccolors = this.state.testingPalette.map(color => {
       return this.whiteBalance(bal, color, "apply");
     });
     await focus.command("colormap", ccolors, this.state.savedColorMap.colorMap);
@@ -283,11 +296,16 @@ class App extends React.Component {
   startTestBalance = async () => {
     let colormap = await focus.command("colormap");
     let colors = this.revertBalance(colormap.palette.slice());
-    console.log("current colors", colors);
+    console.log("current colors", colors, colormap.palette);
     this.setState({
       savedColorMap: colormap,
       savedColors: colors
     });
+    await focus.command(
+      "colormap",
+      this.applyBalance(this.state.testingPalette),
+      this.state.savedColorMap.colorMap
+    );
     return "finished";
   };
   stopTestBalance = async () => {
@@ -302,6 +320,7 @@ class App extends React.Component {
 
   setBalance = bal => {
     console.log("setting Balance to:", bal);
+    store.set("balance", bal);
     this.setState({ balance: bal });
   };
 

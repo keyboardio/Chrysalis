@@ -20,6 +20,13 @@ const NumpadTable = {
   groupName: "Numpad",
   keys: [
     {
+      code: 88,
+      labels: {
+        top: "Numpad",
+        primary: "Enter"
+      }
+    },
+    {
       code: 89,
       labels: {
         top: "Numpad",

@@ -18,13 +18,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import Alert from "@material-ui/lab/Alert";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Divider from "@material-ui/core/Divider";
 import FormControl from "@material-ui/core/FormControl";
 import green from "@material-ui/core/colors/green";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
@@ -37,7 +37,7 @@ import Select from "@material-ui/core/Select";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 
-import { withSnackbar } from "notistack";
+import { toast } from "react-toastify";
 
 import Focus from "../../api/focus";
 import Hardware from "../../api/hardware";
@@ -45,6 +45,8 @@ import Hardware from "../../api/hardware";
 import usb from "usb";
 
 import i18n from "../i18n";
+
+import { installUdevRules } from "../utils/installUdevRules";
 
 const styles = theme => ({
   loader: {
@@ -237,10 +239,24 @@ class KeyboardSelect extends React.Component {
       this.setState({
         opening: false
       });
-      this.props.enqueueSnackbar(err.toString(), { variant: "error" });
+      toast.error(err.toString());
     }
 
     i18n.refreshHardware(devices[this.state.selectedPortIndex]);
+  };
+
+  installUdevRules = async () => {
+    const { devices } = this.state;
+    const selectedDevice = devices && devices[this.state.selectedPortIndex];
+
+    try {
+      await installUdevRules(selectedDevice.path);
+    } catch (err) {
+      toast.error(err.toString());
+      return;
+    }
+
+    await this.scanDevices();
   };
 
   render() {
@@ -330,10 +346,22 @@ class KeyboardSelect extends React.Component {
     const selectedDevice = devices && devices[this.state.selectedPortIndex];
 
     if (selectedDevice && !selectedDevice.accessible) {
+      const fixitButton = (
+        <Button onClick={this.installUdevRules} variant="outlined">
+          {i18n.t("keyboardSelect.installUdevRules")}
+        </Button>
+      );
       permissionWarning = (
-        <Typography variant="body1" color="error" className={classes.error}>
-          {i18n.t("keyboardSelect.permissionError")}
-        </Typography>
+        <Alert severity="error" action={fixitButton}>
+          <Typography component="p" gutterBottom>
+            {i18n.t("keyboardSelect.permissionError", {
+              path: selectedDevice.path
+            })}
+          </Typography>
+          <Typography component="p">
+            {i18n.t("keyboardSelect.permissionErrorSuggestion")}
+          </Typography>
+        </Alert>
       );
     }
 
@@ -386,25 +414,27 @@ class KeyboardSelect extends React.Component {
     }
 
     return (
-      <div className={classes.main}>
+      <React.Fragment>
         <Portal container={this.props.titleElement}>
           {i18n.t("app.menu.selectAKeyboard")}
         </Portal>
         {loader}
-        <Card className={classes.card}>
-          <CardContent className={classes.content}>
-            {preview}
-            {port}
-            {permissionWarning}
-          </CardContent>
-          <Divider variant="middle" />
-          <CardActions className={classes.cardActions}>
-            {scanDevicesButton}
-            <div className={classes.grow} />
-            {connectionButton}
-          </CardActions>
-        </Card>
-      </div>
+        {permissionWarning}
+
+        <div className={classes.main}>
+          <Card className={classes.card}>
+            <CardContent className={classes.content}>
+              {preview}
+              {port}
+            </CardContent>
+            <CardActions className={classes.cardActions}>
+              {scanDevicesButton}
+              <div className={classes.grow} />
+              {connectionButton}
+            </CardActions>
+          </Card>
+        </div>
+      </React.Fragment>
     );
   }
 }
@@ -413,4 +443,4 @@ KeyboardSelect.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withSnackbar(withStyles(styles)(KeyboardSelect));
+export default withStyles(styles)(KeyboardSelect);

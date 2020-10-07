@@ -48,7 +48,7 @@ import Switch from "@material-ui/core/Switch";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
-import { withSnackbar } from "notistack";
+import { toast } from "react-toastify";
 import settings from "electron-settings";
 
 import { getStaticPath } from "../config";
@@ -206,7 +206,7 @@ class FirmwareUpdate extends React.Component {
       }));
     } catch (e) {
       console.error(e);
-      const action = key => (
+      const action = ({ closeToast }) => (
         <React.Fragment>
           <Button
             variant="contained"
@@ -219,19 +219,12 @@ class FirmwareUpdate extends React.Component {
           >
             Troubleshooting
           </Button>
-          <Button
-            onClick={() => {
-              this.props.closeSnackbar(key);
-            }}
-          >
-            Dismiss
-          </Button>
+          <Button onClick={closeToast}>Dismiss</Button>
         </React.Fragment>
       );
       this.setState({ activeStep: -1 });
-      this.props.enqueueSnackbar(i18n.t("firmwareUpdate.flashing.error"), {
-        variant: "error",
-        action: action
+      toast.error(i18n.t("firmwareUpdate.flashing.error"), {
+        closeButton: action
       });
       this.props.toggleFlashing();
       this.props.onDisconnect();
@@ -240,9 +233,7 @@ class FirmwareUpdate extends React.Component {
 
     return new Promise(resolve => {
       setTimeout(() => {
-        this.props.enqueueSnackbar(i18n.t("firmwareUpdate.flashing.success"), {
-          variant: "success"
-        });
+        toast.success(i18n.t("firmwareUpdate.flashing.success"));
 
         this.props.toggleFlashing();
         this.props.onDisconnect();
@@ -448,4 +439,4 @@ class FirmwareUpdate extends React.Component {
   }
 }
 
-export default withSnackbar(withStyles(styles)(FirmwareUpdate));
+export default withStyles(styles)(FirmwareUpdate);

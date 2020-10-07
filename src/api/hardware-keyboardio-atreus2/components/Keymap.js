@@ -205,6 +205,4 @@ class Keymap extends React.Component {
   }
 }
 
-//export default withSnackbar(withStyles(styles, { withTheme: true })(Editor));
-//export default Keymap;
 export default withStyles(styles, { withTheme: true })(Keymap);

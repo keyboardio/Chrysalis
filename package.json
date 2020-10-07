@@ -78,6 +78,7 @@
     "react-localization": "^1.0.13",
     "serialport": "^8.0.7",
     "source-map-support": "^0.5.16",
+    "sudo-prompt": "^9.2.1",
     "teensy-loader": "^0.1.1",
     "terser": "^4.6.3",
     "typeface-roboto": "^0.0.54",

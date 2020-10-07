@@ -147,7 +147,10 @@ Minden testreszabott beállítás el fog veszni.`
     noDevices: "Nincs ismert billentyűzet csatlakoztatva!",
     connect: "Kapcsolódás",
     disconnect: "Lecsatlakozás",
-    scan: "Billentyűzet keresés"
+    scan: "Billentyűzet keresés",
+    installUdevRules: "Javítás",
+    permissionError: `A számítógépe nem engedi, hogy a Chrysalis beszéljen a billentyűzetével. (Nincs elegendő jogosultsága a {{path}} állományhoz.)`,
+    permissionErrorSuggestion: `A Chrysalis ezt ki tudja javítani, egy udev szabály állomány /etc/udev/rules.d/ alá másolásával.`
   },
   firmwareUpdate: {
     dialog: {

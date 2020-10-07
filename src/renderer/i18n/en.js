@@ -165,7 +165,9 @@ const English = {
     connect: "Connect",
     disconnect: "Disconnect",
     scan: "Scan keyboards",
-    permissionError: `Insufficient permissions, please make sure the device file is read- and writeable!`
+    installUdevRules: "Fix it",
+    permissionError: `Your computer won't let Chrysalis talk to your keyboard. (You do not have read/write permissions to {{path}}.)`,
+    permissionErrorSuggestion: `Chrysalis can fix this by installing a udev rules file into /etc/udev/rules.d/.`
   },
   firmwareUpdate: {
     dialog: {

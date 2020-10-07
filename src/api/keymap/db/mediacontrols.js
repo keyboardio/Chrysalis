@@ -70,6 +70,22 @@ const MediaControlTable = {
         primary: "Vol-",
         verbose: "Volume down"
       }
+    },
+    {
+      code: 23663,
+      labels: {
+        top: "Media",
+        primary: "Brt+",
+        verbose: "Brightness up"
+      }
+    },
+    {
+      code: 23664,
+      labels: {
+        top: "Media",
+        primary: "Brt-",
+        verbose: "Brightness down"
+      }
     }
   ]
 };

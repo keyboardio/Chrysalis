@@ -96,7 +96,7 @@
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.5.0",
     "babel-loader": "^8.0.2",
-    "electron": "7.1.1",
+    "electron": "7.2.4",
     "electron-builder": "^22.3.2",
     "electron-notarize": "^1.0.0",
     "electron-rebuild": "^2.2.0",

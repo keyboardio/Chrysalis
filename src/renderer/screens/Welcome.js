@@ -30,7 +30,7 @@ import Portal from "@material-ui/core/Portal";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
-import { withSnackbar } from "notistack";
+import { toast } from "react-toastify";
 
 import i18n from "../i18n";
 import { navigate } from "../routerHistory";
@@ -71,7 +71,7 @@ class Welcome extends React.Component {
     try {
       await this.props.onConnect(device);
     } catch (err) {
-      this.props.enqueueSnackbar(err.toString(), { variant: "error" });
+      toast.error(err.toString());
     }
   };
 
@@ -138,4 +138,4 @@ class Welcome extends React.Component {
   }
 }
 
-export default withSnackbar(withStyles(styles)(Welcome));
+export default withStyles(styles)(Welcome);

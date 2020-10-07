@@ -22,14 +22,15 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import { withSnackbar } from "notistack";
+
+import { toast } from "react-toastify";
 import React, { useState } from "react";
 import i18n from "../../../i18n";
 import LoadDefaultKeymap from "./LoadDefaultKeymap";
 const { clipboard } = require("electron");
 const fs = require("fs");
 
-export const ImportExportDialog = withSnackbar(props => {
+export const ImportExportDialog = props => {
   const { toCloseImportExportDialog } = props;
 
   const [dataState, setData] = useState();
@@ -61,7 +62,7 @@ export const ImportExportDialog = withSnackbar(props => {
       setData(undefined);
       setIsChange(false);
     } catch (e) {
-      props.enqueueSnackbar(e.toString(), { variant: "error" });
+      toast.error(e.toString());
     }
   }
 
@@ -74,34 +75,30 @@ export const ImportExportDialog = withSnackbar(props => {
   function copyToClipboard(data) {
     clipboard.writeText(data);
     setIsChange(false);
-    props.enqueueSnackbar(i18n.t("editor.copySuccess"), {
-      variant: "success",
-      autoHideDuration: 2000
+    toast.success(i18n.t("editor.copySuccess"), {
+      autoClose: 2000
     });
   }
 
   function pasteFromClipboard() {
     setData(clipboard.readText());
     setIsChange(true);
-    props.enqueueSnackbar(i18n.t("editor.pasteSuccess"), {
-      variant: "success",
-      autoHideDuration: 2000
+    toast.success(i18n.t("editor.pasteSuccess"), {
+      autoClose: 2000
     });
   }
 
   function loadDefault(path) {
     fs.readFile(path, "utf-8", (err, layoutData) => {
       if (err) {
-        props.enqueueSnackbar(i18n.t("editor.pasteSuccess"), {
-          variant: "error",
-          autoHideDuration: 2000
+        toast.error(err.toString(), {
+          autoClose: 2000
         });
       } else {
         setData(layoutData);
         setIsChange(true);
-        props.enqueueSnackbar(i18n.t("editor.loadDefaultSuccess"), {
-          variant: "success",
-          autoHideDuration: 2000
+        toast.success(i18n.t("editor.loadDefaultSuccess"), {
+          autoClose: 2000
         });
       }
     });
@@ -160,4 +157,4 @@ export const ImportExportDialog = withSnackbar(props => {
       </DialogActions>
     </Dialog>
   );
-});
+};

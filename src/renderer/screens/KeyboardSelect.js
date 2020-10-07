@@ -37,7 +37,7 @@ import Select from "@material-ui/core/Select";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 
-import { withSnackbar } from "notistack";
+import { toast } from "react-toastify";
 
 import Focus from "../../api/focus";
 import Hardware from "../../api/hardware";
@@ -239,7 +239,7 @@ class KeyboardSelect extends React.Component {
       this.setState({
         opening: false
       });
-      this.props.enqueueSnackbar(err.toString(), { variant: "error" });
+      toast.error(err.toString());
     }
 
     i18n.refreshHardware(devices[this.state.selectedPortIndex]);
@@ -252,7 +252,7 @@ class KeyboardSelect extends React.Component {
     try {
       await installUdevRules(selectedDevice.path);
     } catch (err) {
-      this.props.enqueueSnackbar(err.toString(), { variant: "error" });
+      toast.error(err.toString());
       return;
     }
 
@@ -443,4 +443,4 @@ KeyboardSelect.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withSnackbar(withStyles(styles)(KeyboardSelect));
+export default withStyles(styles)(KeyboardSelect);

@@ -41,7 +41,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Tooltip from "@material-ui/core/Tooltip";
 import { withStyles } from "@material-ui/core/styles";
 
-import { withSnackbar } from "notistack";
+import { toast } from "react-toastify";
 
 import Focus from "../../../api/focus";
 import { KeymapDB } from "../../../api/keymap";
@@ -185,7 +185,7 @@ class Editor extends React.Component {
       });
       this.bottomMenuNeverHide();
     } catch (e) {
-      this.props.enqueueSnackbar(e, { variant: "error" });
+      toast.error(e);
       this.props.onDisconnect();
     }
   };
@@ -937,4 +937,4 @@ Editor.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withSnackbar(withStyles(styles, { withTheme: true })(Editor));
+export default withStyles(styles, { withTheme: true })(Editor);

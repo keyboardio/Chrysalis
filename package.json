@@ -69,6 +69,7 @@
     "electron-window-state": "^5.0.3",
     "i18next": "^19.3.4",
     "i18next-electron-language-detector": "^0.0.10",
+    "json-stringify-pretty-compact": "^2.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.5",
     "react-color": "^2.14.1",

@@ -20,6 +20,7 @@ import path from "path";
 const fs = require("fs");
 
 import Focus from "../../../../api/focus";
+import Log from "../../../../api/log";
 
 import Button from "@material-ui/core/Button";
 
@@ -45,7 +46,8 @@ export default function LoadDefaultKeymap({ loadDefault }) {
       fs.accessSync(path);
       deviceLayouts.push({ name: layout, path });
     } catch (err) {
-      console.log(`${vendor} ${layout} does not exist`);
+      let logger = new Log();
+      logger.error(`${vendor} ${layout} does not exist`);
     }
   });
 

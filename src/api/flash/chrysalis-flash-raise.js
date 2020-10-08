@@ -16,6 +16,7 @@
 
 import fs from "fs";
 import Focus from "../focus";
+import Log from "../log";
 import Hardware from "../hardware";
 import { arduino } from "./raiseFlasher/arduino-flasher";
 
@@ -268,6 +269,7 @@ export default class FlashRaise {
    */
   async restoreSettings() {
     let focus = new Focus();
+    let logger = new Log();
     const errorMessage =
       "Firmware update failed, because the settings could not be restore";
     return new Promise(async (resolve, reject) => {
@@ -286,12 +288,12 @@ export default class FlashRaise {
                     : this.backupFileData.backup[command]
                 )
                 .then(() => {
-                  console.log(`${command} set to keyboard`);
+                  logger.log(`${command} set to keyboard`);
                 });
             }
           })
           .catch(e => {
-            console.log(e);
+            logger.error(e);
             throw new Error(errorMessage);
           });
         this.backupFileData.log.push("Restoring all settings");

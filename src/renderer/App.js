@@ -20,6 +20,7 @@ import { spawn } from "child_process";
 import settings from "electron-settings";
 
 import Focus from "../api/focus";
+import Log from "../api/log";
 import "../api/keymap";
 import "../api/colormap";
 import "typeface-roboto/index.css";
@@ -71,6 +72,8 @@ const styles = () => ({
 class App extends React.Component {
   constructor(props) {
     super(props);
+
+    this.logger = new Log();
 
     this.state = {
       darkMode: settings.get("ui.darkMode"),
@@ -158,7 +161,7 @@ class App extends React.Component {
       return [];
     }
 
-    console.log("Connecting to", port.path);
+    this.logger.log("Connecting to", port.path);
     await focus.open(port.path, port.device);
     if (process.platform == "darwin") {
       await spawn("stty", ["-f", port.path, "clocal"]);
@@ -167,7 +170,7 @@ class App extends React.Component {
     let commands = [];
     let pages = [];
     if (!port.device.bootloader) {
-      console.log("Probing for Focus support...");
+      this.logger.log("Probing for Focus support...");
       try {
         commands = await focus.probe();
       } catch (e) {

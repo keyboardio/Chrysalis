@@ -151,6 +151,20 @@ const OneShotLayerTable = {
         top: "OSL",
         primary: "7"
       }
+    },
+    {
+      code: 49169,
+      labels: {
+        top: "OSL",
+        primary: "8"
+      }
+    },
+    {
+      code: 49170,
+      labels: {
+        top: "OSL",
+        primary: "9"
+      }
     }
   ]
 };

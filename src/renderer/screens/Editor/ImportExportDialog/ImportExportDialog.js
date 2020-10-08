@@ -29,6 +29,7 @@ import i18n from "../../../i18n";
 import LoadDefaultKeymap from "./LoadDefaultKeymap";
 const { clipboard } = require("electron");
 const fs = require("fs");
+const jsonStringify = require("json-stringify-pretty-compact");
 
 export const ImportExportDialog = props => {
   const { toCloseImportExportDialog } = props;
@@ -44,15 +45,11 @@ export const ImportExportDialog = props => {
   const data =
     dataState != undefined
       ? dataState
-      : JSON.stringify(
-          {
-            keymap: props.keymap,
-            colormap: props.colormap,
-            palette: props.palette
-          },
-          null,
-          2
-        );
+      : jsonStringify({
+          keymap: props.keymap,
+          colormap: props.colormap,
+          palette: props.palette
+        });
 
   function onConfirm() {
     try {

@@ -20,7 +20,7 @@ else
 fi
 echo "${BUILD_NUMBER}"
 
-EXTENSION="${2:-AppImage}"
+EXTENSION="${2:-amd64.AppImage}"
 
 echo -n "Fetching the version number... "
 VERSION="$(curl -s -f https://kaleidoscope-builds.s3.amazonaws.com/Chrysalis/${BUILD_NUMBER}/version.txt)"

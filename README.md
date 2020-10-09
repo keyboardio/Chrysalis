@@ -9,14 +9,17 @@ You can download pre-built binaries for the three major operating systems below:
 
 Development builds:
 
-[![Latest Linux build][badge:appimage]][build:appimage]
+[![Latest Linux x64 build][badge:appimage-x64]][build:appimage-x64]
+[![Latest Linux amd64 build][badge:appimage-arm64]][build:appimage-arm64]
 [![Latest macOS build][badge:dmg]][build:dmg]
 [![Latest Windows build][badge:exe]][build:exe]
 
- [badge:appimage]: https://img.shields.io/badge/AppImage-latest-blue.svg?logo=linux&style=for-the-badge&logoColor=ffffff
+ [badge:appimage-x64]: https://img.shields.io/badge/AppImage%20x64-latest-blue.svg?logo=linux&style=for-the-badge&logoColor=ffffff
+ [badge:appimage-arm64]: https://img.shields.io/badge/AppImage%20arm64-latest-blue.svg?logo=linux&style=for-the-badge&logoColor=ffffff
  [badge:dmg]: https://img.shields.io/badge/dmg-latest-blue.svg?logo=apple&style=for-the-badge&logoColor=ffffff
  [badge:exe]: https://img.shields.io/badge/exe-latest-blue.svg?logo=windows&style=for-the-badge&logoColor=ffffff
- [build:appimage]: http://kaleidoscope-builds.s3-website-us-west-2.amazonaws.com/Chrysalis/latest/Chrysalis.AppImage
+ [build:appimage-x64]: http://kaleidoscope-builds.s3-website-us-west-2.amazonaws.com/Chrysalis/latest/Chrysalis.amd64.AppImage
+[build:appimage-arm64]: http://kaleidoscope-builds.s3-website-us-west-2.amazonaws.com/Chrysalis/latest/Chrysalis.arm64.AppImage
  [build:dmg]: http://kaleidoscope-builds.s3-website-us-west-2.amazonaws.com/Chrysalis/latest/Chrysalis.dmg
  [build:exe]: http://kaleidoscope-builds.s3-website-us-west-2.amazonaws.com/Chrysalis/latest/Chrysalis.exe
 

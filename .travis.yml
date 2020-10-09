@@ -6,6 +6,9 @@ jobs:
   include:
     - os: linux
       dist: xenial
+    - os: linux
+      dist: xenial
+      arch: arm64
     - os: osx
       osx_image: "xcode11.6"
     - os: windows
@@ -36,4 +39,3 @@ script:
 after_script:
   - yarn add --dev aws-sdk
   - tools/s3-upload.js
-

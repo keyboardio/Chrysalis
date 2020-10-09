@@ -177,7 +177,6 @@ class KeyGroupListUnwrapped extends React.Component {
     const { keymap } = this.props;
     if (keymap) {
       let layers = keymap.custom.length;
-      if (!keymap.onlyCustom) layers += keymap.default.length;
       return layers;
     }
   };

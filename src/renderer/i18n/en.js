@@ -112,7 +112,11 @@ const English = {
     copyToClipboard: "Copy to clipboard",
     copySuccess: "Copied!",
     pasteFromClipboard: "Paste from clipboard",
-    pasteSuccess: "Pasted!"
+    pasteSuccess: "Pasted!",
+    onlyCustom: {
+      warning: `Chrysalis no longer supports configurations containing a mix of hardcoded and EEPROM layers. If this is a feature you need, we'd love to hear more about your use case. Please open a feature request.`,
+      fixItButton: "Fix it"
+    }
   },
   preferences: {
     devtools: "Developer tools",

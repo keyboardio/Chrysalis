@@ -23,7 +23,6 @@ import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import Divider from "@material-ui/core/Divider";
 import FilledInput from "@material-ui/core/FilledInput";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -100,7 +99,6 @@ class KeyboardSettings extends React.Component {
     ledIdleTimeLimit: 0,
     defaultLayer: 126,
     modified: false,
-    showDefaults: false,
     working: false
   };
 
@@ -121,10 +119,6 @@ class KeyboardSettings extends React.Component {
       limit = limit ? parseInt(limit) : -1;
       this.setState({ ledIdleTimeLimit: limit });
     });
-
-    this.setState({
-      showDefaults: settings.get("keymap.showDefaults")
-    });
   }
 
   UNSAFE_componentWillReceiveProps = nextProps => {
@@ -132,19 +126,6 @@ class KeyboardSettings extends React.Component {
       this.componentDidMount();
       this.setState({ modified: false });
     }
-  };
-
-  setOnlyCustom = event => {
-    const checked = event.target.checked;
-    this.setState(state => ({
-      modified: true,
-      keymap: {
-        custom: state.keymap.custom,
-        default: state.keymap.default,
-        onlyCustom: checked
-      }
-    }));
-    this.props.startContext();
   };
 
   selectDefaultLayer = event => {
@@ -163,14 +144,6 @@ class KeyboardSettings extends React.Component {
     this.props.startContext();
   };
 
-  setShowDefaults = event => {
-    this.setState({
-      showDefaults: event.target.checked,
-      modified: true
-    });
-    this.props.startContext();
-  };
-
   setBrightness = (event, value) => {
     this.setState({
       ledBrightness: value,
@@ -182,20 +155,12 @@ class KeyboardSettings extends React.Component {
   saveKeymapChanges = async () => {
     const focus = new Focus();
 
-    const {
-      keymap,
-      defaultLayer,
-      showDefaults,
-      ledBrightness,
-      ledIdleTimeLimit
-    } = this.state;
+    const { defaultLayer, ledBrightness, ledIdleTimeLimit } = this.state;
 
-    await focus.command("keymap.onlyCustom", keymap.onlyCustom);
     await focus.command("settings.defaultLayer", defaultLayer);
     await focus.command("led.brightness", ledBrightness);
     if (ledIdleTimeLimit >= 0)
       await focus.command("idleleds.time_limit", ledIdleTimeLimit);
-    settings.set("keymap.showDefaults", showDefaults);
     this.setState({ modified: false });
     this.props.cancelContext();
   };
@@ -206,43 +171,17 @@ class KeyboardSettings extends React.Component {
       keymap,
       defaultLayer,
       modified,
-      showDefaults,
       ledBrightness,
       ledIdleTimeLimit
     } = this.state;
 
-    const onlyCustomSwitch = (
-      <Switch
-        checked={keymap.onlyCustom}
-        value="onlyCustom"
-        onClick={this.setOnlyCustom}
-      />
-    );
-    const showDefaultLayersSwitch = (
-      <Switch
-        checked={showDefaults}
-        value="showDefaults"
-        onClick={this.setShowDefaults}
-      />
-    );
-    let layers;
-    if (keymap.onlyCustom) {
-      layers = keymap.custom.map((_, index) => {
-        return (
-          <MenuItem value={index} key={index}>
-            {i18n.t("components.layer", { index: index })}
-          </MenuItem>
-        );
-      });
-    } else {
-      layers = keymap.default.concat(keymap.custom).map((_, index) => {
-        return (
-          <MenuItem value={index} key={index}>
-            {i18n.t("components.layer", { index: index })}
-          </MenuItem>
-        );
-      });
-    }
+    const layers = keymap.custom.map((_, index) => {
+      return (
+        <MenuItem value={index} key={index}>
+          {i18n.t("components.layer", { index: index })}
+        </MenuItem>
+      );
+    });
     const defaultLayerSelect = (
       <Select
         onChange={this.selectDefaultLayer}
@@ -327,21 +266,6 @@ class KeyboardSettings extends React.Component {
         <Card>
           <CardContent>
             <FormControl className={classes.group}>
-              <FormControlLabel
-                className={classes.control}
-                control={showDefaultLayersSwitch}
-                classes={{ label: classes.grow }}
-                labelPlacement="start"
-                label={i18n.t("keyboardSettings.keymap.showHardcoded")}
-              />
-              <Divider />
-              <FormControlLabel
-                className={classes.control}
-                control={onlyCustomSwitch}
-                classes={{ label: classes.grow }}
-                labelPlacement="start"
-                label={i18n.t("keyboardSettings.keymap.onlyCustom")}
-              />
               <FormControlLabel
                 className={classes.control}
                 classes={{ label: classes.grow }}

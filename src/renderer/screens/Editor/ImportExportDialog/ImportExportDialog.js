@@ -132,7 +132,6 @@ export const ImportExportDialog = props => {
           </div>
         </div>
         <TextField
-          disabled={props.isReadOnly}
           multiline
           fullWidth
           value={data}

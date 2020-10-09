@@ -62,6 +62,7 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@reach/router": "^1.2.1",
+    "archiver": "^5.0.2",
     "avrgirl-arduino": "^4.2.2",
     "classnames": "^2.2.6",
     "electron-devtools-installer": "^2.2.4",
@@ -80,11 +81,13 @@
     "serialport": "^8.0.7",
     "source-map-support": "^0.5.16",
     "sudo-prompt": "^9.2.1",
+    "systeminformation": "^4.27.7",
     "teensy-loader": "^0.1.1",
     "terser": "^4.6.3",
     "typeface-roboto": "^0.0.54",
     "typeface-source-code-pro": "^0.0.71",
-    "usb": "^1.6.2"
+    "usb": "^1.6.2",
+    "uuid": "^8.3.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.0",

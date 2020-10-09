@@ -44,6 +44,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { toast } from "react-toastify";
 
 import Focus from "../../../api/focus";
+import Log from "../../../api/log";
 import { KeymapDB } from "../../../api/keymap";
 
 import ColorPalette from "../../components/ColorPalette";
@@ -137,6 +138,7 @@ class Editor extends React.Component {
 
   scanKeyboard = async () => {
     let focus = new Focus();
+    let logger = new Log();
 
     try {
       let defLayer = await focus.command("settings.defaultLayer");
@@ -155,7 +157,7 @@ class Editor extends React.Component {
       }
 
       if (empty && !keymap.onlyCustom && keymap.custom.length > 0) {
-        console.log("Custom keymap is empty, copying defaults");
+        logger.log("Custom keymap is empty, copying defaults");
         for (let i = 0; i < keymap.default.length; i++) {
           keymap.custom[i] = keymap.default[i].slice();
         }
@@ -380,6 +382,8 @@ class Editor extends React.Component {
   onApply = async () => {
     this.setState({ saving: true });
     let focus = new Focus();
+    let logger = new Log();
+
     await focus.command("keymap", this.state.keymap);
     await focus.command("colormap", this.state.palette, this.state.colorMap);
     this.setState({
@@ -389,7 +393,7 @@ class Editor extends React.Component {
       selectedPaletteColor: null,
       isColorButtonSelected: false
     });
-    console.log("Changes saved.");
+    logger.log("Changes saved.");
     this.props.cancelContext();
   };
 
@@ -598,6 +602,8 @@ class Editor extends React.Component {
     this.setState({ importExportDialogOpen: false });
   };
   importLayer = data => {
+    let logger = new Log();
+
     if (data.palette.length > 0) this.setState({ palette: data.palette });
     if (data.keymap.length > 0) {
       const { currentLayer } = this.state;
@@ -610,7 +616,14 @@ class Editor extends React.Component {
             if (data.colormap && data.colormap.length > 0) {
               newColormap[currentLayer] = data.colormap.slice();
             }
-            console.log(currentLayer, newKeymap);
+            logger.debug("Importing layer", {
+              currentLayer: currentLayer,
+              keymap: {
+                custom: newKeymap,
+                onlyCustom: state.keymap.onlyCustom
+              },
+              colorMap: newColormap
+            });
             return {
               keymap: {
                 default: state.keymap.default,

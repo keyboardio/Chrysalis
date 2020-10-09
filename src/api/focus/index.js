@@ -18,6 +18,8 @@ import SerialPort from "serialport";
 import Delimiter from "@serialport/parser-delimiter";
 import fs from "fs";
 
+import Log from "../log";
+
 global.chrysalis_focus_instance = null;
 
 class Focus {
@@ -29,6 +31,7 @@ class Focus {
       };
       this.timeout = 5000;
       this.debug = false;
+      this.logger = new Log();
     }
 
     return global.chrysalis_focus_instance;
@@ -36,7 +39,7 @@ class Focus {
 
   debugLog(...args) {
     if (!this.debug) return;
-    console.log(...args);
+    this.logger.debug(...args);
   }
 
   async waitForBootloader(device) {
@@ -82,7 +85,7 @@ class Focus {
 
     let found_devices = [];
 
-    this.debugLog("focus.find: portList:", portList, "devices:", devices);
+    this.debugLog("focus.find: portList:", portList);
 
     for (let port of portList) {
       for (let device of devices) {

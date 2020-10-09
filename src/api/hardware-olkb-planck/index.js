@@ -15,6 +15,7 @@
  */
 
 import Keymap from "./components/Keymap";
+import Log from "../log";
 
 const Planck = {
   info: {
@@ -41,7 +42,8 @@ const Planck = {
   },
 
   flash: async () => {
-    console.log("Not implemented yet.");
+    let logger = new Log();
+    logger.error("Planck flashing not implemented yet.");
   }
 };
 

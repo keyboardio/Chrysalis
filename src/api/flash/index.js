@@ -19,6 +19,8 @@ import TeensyLoader from "teensy-loader";
 import { spawn } from "child_process";
 import path from "path";
 
+import Log from "../log";
+
 import { getStaticPath } from "../../renderer/config";
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
@@ -31,6 +33,7 @@ async function AvrDude(_, port, filename, options) {
       };
 
   const timeout = 1000 * 60 * 5;
+  let logger = new Log();
 
   const runCommand = async args => {
     await callback("flash");
@@ -41,12 +44,13 @@ async function AvrDude(_, port, filename, options) {
         process.platform,
         "avrdude"
       );
+      logger.debug("running avrdude", args);
       let child = spawn(avrdude, args);
       child.stdout.on("data", data => {
-        console.log("avrdude:stdout:", data.toString());
+        logger.debug("avrdude:stdout:", data.toString());
       });
       child.stderr.on("data", data => {
-        console.log("avrdude:stderr:", data.toString());
+        logger.debug("avrdude:stderr:", data.toString());
       });
       let timer = setTimeout(() => {
         child.kill();
@@ -69,7 +73,7 @@ async function AvrDude(_, port, filename, options) {
     /* ignore the error */
   }
   await delay(1000);
-  console.log("launching avrdude...");
+  logger.debug("launching avrdude...");
 
   const configFile = path.join(getStaticPath(), "avrdude", "avrdude.conf");
   await runCommand([
@@ -93,6 +97,8 @@ async function Avr109Bootloader(board, port, filename, options) {
   const preferExternalFlasher = options && options.preferExternalFlasher;
   if (preferExternalFlasher) return AvrDude(board, port, filename, options);
 
+  let logger = new Log();
+
   const avrgirl = new AvrGirl({
     board: board,
     debug: true,
@@ -113,7 +119,7 @@ async function Avr109Bootloader(board, port, filename, options) {
       }
       avrgirl.flash(filename, async error => {
         if (error) {
-          console.log(error);
+          logger.error(error);
           if (avrgirl.connection.serialPort.isOpen) {
             try {
               avrgirl.connection.serialPort.close();
@@ -144,9 +150,11 @@ async function Avr109(board, port, filename, options) {
     bootLoaderUp: 4000 // Time to wait for the boot loader to come up
   };
 
+  let logger = new Log();
+
   const baudUpdate = () => {
     return new Promise(resolve => {
-      console.log("baud update");
+      logger.debug("baud update");
       port.update({ baudRate: 1200 }, async () => {
         await delay(timeouts.dtrToggle);
         resolve();
@@ -156,7 +164,7 @@ async function Avr109(board, port, filename, options) {
 
   const dtrToggle = state => {
     return new Promise(resolve => {
-      console.log("dtr", state ? "on" : "off");
+      logger.debug("dtr", state ? "on" : "off");
       port.set({ dtr: state }, async () => {
         await delay(timeouts.dtrToggle);
         resolve();
@@ -183,14 +191,16 @@ async function teensy(filename) {
 }
 
 async function DFUProgrammer(filename, mcu = "atmega32u4", timeout = 10000) {
+  let logger = new Log();
   const runCommand = async args => {
     return new Promise((resolve, reject) => {
+      logger.debug("Running dfu-programmer", args);
       let child = spawn("dfu-programmer", args);
       child.stdout.on("data", data => {
-        console.log("dfu-programmer:stdout:", data.toString());
+        logger.debug("dfu-programmer:stdout:", data.toString());
       });
       child.stderr.on("data", data => {
-        console.log("dfu-programmer:stderr:", data.toString());
+        logger.debug("dfu-programmer:stderr:", data.toString());
       });
       let timer = setTimeout(() => {
         child.kill();

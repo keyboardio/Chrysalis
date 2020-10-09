@@ -19,6 +19,8 @@ import sudo from "sudo-prompt";
 import path from "path";
 import { getStaticPath } from "../config";
 
+import Log from "../../api/log";
+
 const installUdevRules = async devicePath => {
   const rules = path.join(getStaticPath(), "udev", "60-kaleidoscope.rules");
   const cmd =
@@ -31,7 +33,8 @@ const installUdevRules = async devicePath => {
     "udevadm trigger " +
     devicePath;
   return new Promise(async (resolve, reject) => {
-    console.log("Running:", cmd);
+    let logger = new Log();
+    logger.debug("Running:", cmd);
     sudo.exec(cmd, { name: "Chrysalis" }, error => {
       if (error) {
         reject(error);

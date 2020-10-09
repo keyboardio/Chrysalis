@@ -36,6 +36,7 @@ const Hungarian = {
     device: "Billentyűzet",
     menu: {
       welcome: "Üdvözlet",
+      systemInfo: "Rendszer információ",
       editor: "Kiosztás & színtérkép szerkesztő",
       layoutEditor: "Kiosztás szerkesztő",
       colormapEditor: "Színtérkép szerkesztő",
@@ -194,6 +195,19 @@ Minden testreszabott beállítás el fog veszni.`
     gotoUpdate: "Vezérlő frissítés",
     reconnect: "Újracsatlakozás",
     reconnectDescription: `Elképzelhető, hogy hibásan ismertük fel a billentyűzet által kínált funkcionalitást, vagy az is, hogy a billentyűzet még nem állt teljesen rendelkezésre mikor csatlakozni próbáltunk. Ebben az esetben az "{{buttonName}}" gombra kattintva újra megpróbálunk csatlakozni. Az újracsatlakozás akkor hasznos, ha biztosak vagyunk benne, hogy átmeneti hiba állt fenn, és azóta megoldódott.`
+  },
+  systeminfo: {
+    title: "Rendszer információ",
+    intro: `Ha valami problémája adódik a Chrysalis-szel, a fejlesztő csapat megkérheti, hogy küldjön nekik egy hibakereső csomagot. A Chrysalis tud segíteni a fejlesztőkkel megosztandó információk összegyűjtésében, és csomagolásában is. Ez tartalmazza a hibanaplót, némi információt a használt operációs rendszerről, csatlakoztatott eszközökről, és a Chrysalis-ről magáról is. A billentyűzettel kapcsolatos adatok tartalmazni fognak információt az aktuális vezérlőprogramról, valamint a billentyűkisztásokról, és LED konfigurációkról.`,
+    privacyNote: `Minden tőlünk telhetőt megteszünk, hogy érzékeny adatok ne kerüljenek be a csomagba. Ennek ellenére javasoljuk, hogy nézze át annak tartalmát, mielőtt elküldené.`,
+    createBundle: "Csomag elkészítése",
+    viewBundle: "Csomag megnézése",
+    saveBundle: "Csomag mentése",
+    dialog: {
+      title: "Chrysalis hibakereső csomag mentése",
+      bundleFiles: "Hibakereső csomagok"
+    },
+    bundleSaved: `Chrysalis hibakereső csomag elmentve.`
   }
 };
 

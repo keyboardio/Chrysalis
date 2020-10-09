@@ -33,6 +33,7 @@ import i18n from "../../i18n";
 
 import { version } from "../../../../package.json";
 import WelcomeMenu from "./WelcomeMenu";
+import SystemInfoMenuItem from "./SystemInfoMenuItem";
 import EditorMenuItem from "./EditorMenuItem";
 import FlashMenuItem from "./FlashMenuItem";
 import ChatMenuItem from "./ChatMenuItem";
@@ -179,6 +180,13 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
             className={classes.menuItem}
             onClick={openURL("https://github.com/keyboardio/Chrysalis/issues")}
           />
+          <Link to="/system-info" className={classes.link}>
+            <SystemInfoMenuItem
+              className={classes.menuItem}
+              selected={currentPage == "/system-info"}
+              onClick={() => setCurrentPage("/system-info")}
+            />
+          </Link>
           <ExitMenuItem
             className={classes.menuItem}
             onClick={() => Electron.remote.app.exit(0)}

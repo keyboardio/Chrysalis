@@ -42,6 +42,7 @@ import FirmwareUpdate from "./screens/FirmwareUpdate";
 import Editor from "./screens/Editor/Editor";
 import Preferences from "./screens/Preferences";
 import Welcome from "./screens/Welcome";
+import SystemInfo from "./screens/SystemInfo";
 import i18n from "./i18n";
 
 import Header from "./components/Header";
@@ -288,6 +289,11 @@ class App extends React.Component {
                   startContext={this.startContext}
                   cancelContext={this.cancelContext}
                   inContext={this.state.contextBar}
+                />
+                <SystemInfo
+                  connected={connected}
+                  path="/system-info"
+                  titleElement={() => document.querySelector("#page-title")}
                 />
               </Router>
             </main>

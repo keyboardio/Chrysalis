@@ -85,7 +85,7 @@ class Focus {
 
     let found_devices = [];
 
-    this.debugLog("focus.find: portList:", portList, "devices:", devices);
+    this.debugLog("focus.find: portList:", portList);
 
     for (let port of portList) {
       for (let device of devices) {

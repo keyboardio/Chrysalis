@@ -51,9 +51,9 @@ five layers, display only as much. If it is limited to ten, display ten.
 
 ### Clearer message when discarding changes
 
-When leaving a screen with unsaved changes, the button is now labelled "Discard"
-instead of "Cancel", to make it clearer what it actually does: discard the
-changes, not cancel the operation.
+When leaving a screen with unsaved changes, the dialog now asks if changes
+should be discarded, rather than canceled, to make it clearer what it actually
+does: discard the changes, not cancel the operation.
 
 ## Bugfixes
 

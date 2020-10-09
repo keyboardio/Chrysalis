@@ -21,7 +21,7 @@ Steps to reproduce the behavior:
 A clear and concise description of what you expected to happen.
 
 **Screenshots**
-If applicable, add screenshots to help explain your problem. If possible, please also include a log from the "developer console". You can access it by pressing `Control + Shift + I`. When it appears, right click inside it, and select "Save as", and attach the saved file to this report.
+If applicable, add screenshots to help explain your problem. If possible, please also include the debug bundle you can create on the "System Information" screen. If, for some reason, you are unable to access that screen, please press `Control + Shift + I` to bring up the developer console. Right-clicking inside it will allow you to save its contents to a file - please attach that to the bug report.
 
 **Desktop (please complete the following information):**
  - OS: [e.g. iOS]

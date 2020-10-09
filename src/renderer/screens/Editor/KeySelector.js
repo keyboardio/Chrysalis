@@ -379,7 +379,8 @@ class KeyGroupListUnwrapped extends React.Component {
     }
 
     const itemList = items || baseKeyCodeTable[group].keys;
-    const isLayersGroup = group === 9 || group === 10 || group === 19;
+    const isLayersGroup =
+      group === 9 || group === 10 || group == 11 || group === 20;
 
     const keyList = itemList
       .slice(0, isLayersGroup ? this.getNumLayers() : undefined)

@@ -26,7 +26,6 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import FormControl from "@material-ui/core/FormControl";
-import green from "@material-ui/core/colors/green";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -107,7 +106,7 @@ const styles = theme => ({
     textAlign: "center"
   },
   found: {
-    color: green[500]
+    color: theme.palette.success.main
   }
 });
 

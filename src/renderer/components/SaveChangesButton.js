@@ -20,7 +20,6 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
-import green from "@material-ui/core/colors/green";
 import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
 import CheckIcon from "@material-ui/icons/Check";
@@ -40,20 +39,20 @@ const styles = theme => ({
     position: "relative"
   },
   buttonSuccess: {
-    backgroundColor: green[500],
+    backgroundColor: theme.palette.success.main,
     "&:hover": {
-      backgroundColor: green[700]
+      backgroundColor: theme.palette.success.light
     }
   },
   fabProgress: {
-    color: green[500],
+    color: theme.palette.success.main,
     position: "absolute",
     top: -6,
     left: -6,
     zIndex: 1
   },
   buttonProgress: {
-    color: green[500],
+    color: theme.palette.success.main,
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -65,7 +64,7 @@ const styles = theme => ({
     zIndex: 1
   },
   disabled: {
-    backgroundColor: "#ddd !important"
+    backgroundColor: theme.palette.action.disabled
   },
   fab: {
     position: "fixed",

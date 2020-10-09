@@ -112,7 +112,11 @@ const Hungarian = {
     copyToClipboard: "Másolás a vágólapra",
     copySuccess: "Másolva!",
     pasteFromClipboard: "Beillesztés a vágólapról",
-    pasteSuccess: "Beillesztve!"
+    pasteSuccess: "Beillesztve!",
+    onlyCustom: {
+      warning: `A Chrysalis többé már nem támogatja a beépített- és EEPROM rétegek kevert használatát. Amennyiben erre mégis szüksége lenne, kiváncsiak lennénk miként használja őket keverve. Kérjük, nyisson egy hibajegyet!`,
+      fixItButton: "Javítás"
+    }
   },
   preferences: {
     devtools: "Fejlesztői eszközök",

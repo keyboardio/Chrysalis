@@ -114,8 +114,9 @@ const English = {
     pasteFromClipboard: "Paste from clipboard",
     pasteSuccess: "Pasted!",
     onlyCustom: {
-      warning: `Chrysalis no longer supports configurations containing a mix of hardcoded and EEPROM layers. If this is a feature you need, we'd love to hear more about your use case. Please open a feature request.`,
-      fixItButton: "Fix it"
+      warning: `Chrysalis no longer supports configurations containing a mix of hardcoded and EEPROM layers. If this is a feature you need, we'd love to hear more about your use case.`,
+      fixItButton: "Fix it",
+      openFR: "Open a feature request"
     }
   },
   preferences: {

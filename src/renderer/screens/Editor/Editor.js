@@ -19,6 +19,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import Alert from "@material-ui/lab/Alert";
+import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Fade from "@material-ui/core/Fade";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
@@ -45,6 +46,7 @@ import { toast } from "react-toastify";
 
 import Focus from "../../../api/focus";
 import Log from "../../../api/log";
+import openURL from "../../utils/openURL";
 import { KeymapDB } from "../../../api/keymap";
 
 import ColorPalette from "../../components/ColorPalette";
@@ -610,6 +612,14 @@ class Editor extends React.Component {
     }));
   };
 
+  openFeatureRequest = async () => {
+    const url =
+      "https://github.com/keyboardio/Chrysalis/issues/new?labels=enhancement&template=feature_request.md";
+    const opener = openURL(url);
+
+    await opener();
+  };
+
   render() {
     const { classes } = this.props;
     const {
@@ -710,13 +720,17 @@ class Editor extends React.Component {
     let onlyCustomWarning;
     if (!this.state.keymap.onlyCustom) {
       const fixitButton = (
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={this.enableOnlyCustom}
-        >
-          {i18n.t("editor.onlyCustom.fixItButton")}
-        </Button>
+        <React.Fragment>
+          <Box component="span" mr={1}>
+            <Button color="primary" onClick={this.openFeatureRequest}>
+              {i18n.t("editor.onlyCustom.openFR")}
+            </Button>
+          </Box>
+
+          <Button onClick={this.enableOnlyCustom} color="primary">
+            {i18n.t("editor.onlyCustom.fixItButton")}
+          </Button>
+        </React.Fragment>
       );
 
       onlyCustomWarning = (

@@ -18,7 +18,7 @@
  * This is Reactjs functional component that create area for color buttons
  */
 import React, { useState, useEffect } from "react";
-import uuid from "uuid";
+import { v4 as uuid } from "uuid";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";

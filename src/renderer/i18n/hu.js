@@ -114,8 +114,9 @@ const Hungarian = {
     pasteFromClipboard: "Beillesztés a vágólapról",
     pasteSuccess: "Beillesztve!",
     onlyCustom: {
-      warning: `A Chrysalis többé már nem támogatja a beépített- és EEPROM rétegek kevert használatát. Amennyiben erre mégis szüksége lenne, kiváncsiak lennénk miként használja őket keverve. Kérjük, nyisson egy hibajegyet!`,
-      fixItButton: "Javítás"
+      warning: `A Chrysalis többé már nem támogatja a beépített- és EEPROM rétegek kevert használatát. Amennyiben erre mégis szüksége lenne, kiváncsiak lennénk miként használja őket keverve.`,
+      fixItButton: "Javítás",
+      openFR: "Hibajegy nyitás"
     }
   },
   preferences: {

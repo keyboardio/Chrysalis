@@ -94,6 +94,7 @@ class App extends React.Component {
       closeOnClick: false
     });
   }
+  editorRef = React.createRef();
   flashing = false;
 
   componentDidMount() {
@@ -229,6 +230,14 @@ class App extends React.Component {
     this.setState({ contextBar: true });
   };
 
+  // onKeyPress must be handled in App and propagated to Editor
+  // because the focus is on KeyboardSelect after clicking a key.
+  onKeyPress = event => {
+    if (this.editorRef.current) {
+      this.editorRef.current.onKeyPress(event);
+    }
+  };
+
   render() {
     const { classes } = this.props;
     const { connected, pages, contextBar } = this.state;
@@ -250,7 +259,7 @@ class App extends React.Component {
               device={device}
               cancelContext={this.cancelContext}
             />
-            <main className={classes.content}>
+            <main className={classes.content} onKeyPress={this.onKeyPress}>
               <Router>
                 <Welcome
                   path="/welcome"
@@ -265,6 +274,7 @@ class App extends React.Component {
                   titleElement={() => document.querySelector("#page-title")}
                 />
                 <Editor
+                  ref={this.editorRef}
                   path="/editor"
                   onDisconnect={this.onKeyboardDisconnect}
                   startContext={this.startContext}

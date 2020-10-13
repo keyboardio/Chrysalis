@@ -222,6 +222,13 @@ class Editor extends React.Component {
     this.props.startContext();
   };
 
+  onKeyPress = event => {
+    const key = this.keymapDB.parseJsKey(event.key);
+    if (key) {
+      this.onKeyChange(key.code);
+    }
+  };
+
   /**
    * Verificate that colors in keyboard button and in color palette is equal
    * @param {number} colorIndex Number of palette index

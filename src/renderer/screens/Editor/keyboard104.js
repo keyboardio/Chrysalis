@@ -27,6 +27,8 @@ const db = new NewKeymapDB();
 
 const styles = () => ({
   svg: {
+    fontFamily: '"Source Code Pro", "monospace"',
+    fontWeight: 700,
     fontSize: "12px"
   },
   root: {
@@ -35,7 +37,7 @@ const styles = () => ({
     left: 0,
     right: 0,
     bottom: 0,
-    height: 440,
+    height: 240,
     textAlign: "center"
   }
 });
@@ -175,7 +177,9 @@ class KeymapBase extends React.Component {
         viewBox="0 0 1120 330"
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="xMidYMin meet"
-        className={classNames(classes.svg, this.props.className || "layer")}
+        width="100%"
+        height="100%"
+        className={classNames(classes.svg, this.props.className)}
       >
         <g transform="translate(10, 10)">
           <g>

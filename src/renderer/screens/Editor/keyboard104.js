@@ -50,7 +50,8 @@ class KeymapBase extends React.Component {
     const keySpacingY = 48;
     const keySpacingX = 48;
 
-    const rowOffset = [0, 20, 20, 20, 20, 20];
+    //const rowOffset = [0, 20, 20, 20, 20, 20];
+    const rowOffset = [0, 20, 0, 0, 0, 0];
     const keyOffsetX = [
       [0, 48, 0, 0, 0, 24, 0, 0, 0, 24, 0, 0, 0, 24, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24, 0, 0, 24, 0, 0, 0, 0],
@@ -114,7 +115,11 @@ class KeymapBase extends React.Component {
     };
 
     let getY = row => {
-      return keySpacingY * row + rowOffset[row];
+      let offset = 0;
+      for (let i = 0; i < row; i++) {
+        offset += keySpacingY + rowOffset[i];
+      }
+      return offset + rowOffset[row];
     };
 
     let getKeyWidth = (row, col) => {

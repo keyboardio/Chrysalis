@@ -163,7 +163,7 @@ class KeymapBase extends React.Component {
           <text x={x + 5} y={bottom} fill={textColor}>
             {sizeX < 1.5 && key.label.short ? key.label.short : key.label.base}
           </text>
-          <text x={width - 15} y={bottom} fill={textColor}>
+          <text x={x + width - 15} y={bottom} fill={textColor}>
             {key.label.altgr}
           </text>
         </g>

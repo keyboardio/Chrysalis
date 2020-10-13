@@ -45,7 +45,7 @@ const styles = () => ({
 class KeymapBase extends React.Component {
   render() {
     const keymap = db.getStandardLayout();
-    const { currentKeyCode } = this.props;
+    const { currentKeyCode, onKeySelect } = this.props;
 
     const keySpacingY = 48;
     const keySpacingX = 48;
@@ -131,9 +131,7 @@ class KeymapBase extends React.Component {
       const x = getX(row, col),
         y = getY(row, col),
         key = getKey(row, col),
-        active = key.code == currentKeyCode,
-        onClick = this.props.onKeySelect;
-      const keyIndex = parseInt(row) * 12 + parseInt(col);
+        active = key.code == currentKeyCode;
       const strokeColor = "#b3b3b3";
       const stroke = active ? "#f3b3b3" : strokeColor;
       const height = getKeyHeight(row, col);
@@ -143,10 +141,12 @@ class KeymapBase extends React.Component {
       const buttonColor = "#ffffff";
       const sizeX = getKeySizeX(row, col);
 
-      console.log(row, col, key.code, currentKeyCode);
+      const onClick = event => {
+        return onKeySelect(event.currentTarget.getAttribute("data-key-code"));
+      };
 
       return (
-        <g onClick={onClick} className="key" data-key-index={keyIndex}>
+        <g onClick={onClick} className="key" data-key-code={key.code}>
           <rect
             x={x}
             y={y}
@@ -328,11 +328,11 @@ const Keymap = withStyles(styles, { withTheme: true })(KeymapBase);
 
 class KeySelector extends React.Component {
   render() {
-    const { classes, currentKeyCode } = this.props;
+    const { classes } = this.props;
 
     return (
       <Paper className={classes.root}>
-        <Keymap currentKeyCode={currentKeyCode} />
+        <Keymap {...this.props} />
       </Paper>
     );
   }

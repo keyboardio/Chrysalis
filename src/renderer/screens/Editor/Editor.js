@@ -103,6 +103,7 @@ const styles = theme => ({
 class Editor extends React.Component {
   state = {
     currentLayer: 0,
+    currentLayout: "us-qwerty",
     currentKeyIndex: -1,
     currentLedIndex: -1,
     modified: false,
@@ -136,6 +137,13 @@ class Editor extends React.Component {
       selectedPaletteColor: null,
       isColorButtonSelected: false
     }));
+  };
+
+  setLayout = event => {
+    const layout = event.target.value;
+    const ndb = global.chrysalis_keymapdb_instance;
+    ndb.setLayout(layout);
+    this.setState({ currentLayout: layout });
   };
 
   scanKeyboard = async () => {
@@ -630,7 +638,8 @@ class Editor extends React.Component {
       hasColormap,
       colorMap,
       mode,
-      loading
+      loading,
+      currentLayout
     } = this.state;
 
     if (loading) {
@@ -676,8 +685,25 @@ class Editor extends React.Component {
           };
         });
 
+    let layoutMenu, layoutSelect;
     let layerMenu;
     if (hasKeymap) {
+      const ndb = global.chrysalis_keymapdb_instance;
+      layoutMenu = ndb.getSupportedLayouts().map((layout, index) => {
+        const menuKey = "layout-menu-" + index.toString();
+        return (
+          <MenuItem value={layout} key={menuKey}>
+            <ListItemText inset primary={layout} />
+          </MenuItem>
+        );
+      });
+      layoutSelect = (
+        <FormControl>
+          <Select value={currentLayout} onClick={this.setLayout}>
+            {layoutMenu}
+          </Select>
+        </FormControl>
+      );
       layerMenu = keymap.custom.map((_, index) => {
         const menuKey = "layer-menu-" + index.toString();
         return (
@@ -773,6 +799,7 @@ class Editor extends React.Component {
                 )}
               </ToggleButtonGroup>
             )}
+            {layoutSelect}
             <div className={classes.grow} />
             <FormControl className={classes.layerSelect}>
               <Select

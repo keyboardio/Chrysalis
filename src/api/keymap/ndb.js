@@ -15,6 +15,7 @@
  */
 
 import { USQwerty } from "./ndb/us/qwerty";
+import { HUQwertz } from "./ndb/hu/qwertz";
 
 global.chrysalis_keymapdb_instance = null;
 
@@ -23,14 +24,32 @@ class KeymapDB {
     if (!global.chrysalis_keymapdb_instance) {
       global.chrysalis_keymapdb_instance = this;
 
-      this._codetable = [];
-
-      for (let key of USQwerty.codetable) {
-        this._codetable[key.code] = key;
-      }
+      this.setLayout("us-qwerty");
     }
 
     return global.chrysalis_keymapdb_instance;
+  }
+
+  getSupportedLayouts() {
+    return ["us-qwerty", "hu-qwertz"];
+  }
+
+  setLayout(layout) {
+    /* Default to US Qwerty, as a fallback. */
+    this._layout = USQwerty.layout;
+    this._codetable = [];
+
+    for (let key of USQwerty.codetable) {
+      this._codetable[key.code] = key;
+    }
+
+    if (layout == "us-qwerty") return;
+    if (layout == "hu-qwertz") {
+      for (const key of HUQwertz.codetable) {
+        this._codetable[key.code] = key;
+      }
+      return;
+    }
   }
 
   _lookupFallback(keyCode) {
@@ -90,7 +109,7 @@ class KeymapDB {
   }
 
   getStandardLayout() {
-    return USQwerty.layout;
+    return this._layout;
   }
 }
 

@@ -519,10 +519,14 @@ class KeySelector extends React.Component {
   };
 
   onMenuItemClick = (_, index) => {
-    this.setState({
-      anchorEl: null,
-      selectedGroup: index,
-      actualKeycode: 0
+    this.setState(prevState => {
+      if (prevState.anchorEl) {
+        return {
+          anchorEl: null,
+          selectedGroup: index,
+          actualKeycode: 0
+        };
+      }
     });
   };
 

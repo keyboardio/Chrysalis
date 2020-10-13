@@ -50,7 +50,8 @@ import openURL from "../../utils/openURL";
 import { KeymapDB } from "../../../api/keymap";
 
 import ColorPalette from "../../components/ColorPalette";
-import KeySelector from "./KeySelector";
+//import KeySelector from "./KeySelector";
+import KeySelector from "./keyboard104";
 import SaveChangesButton from "../../components/SaveChangesButton";
 import ConfirmationDialog from "../../components/ConfirmationDialog";
 import i18n from "../../i18n";

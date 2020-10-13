@@ -47,10 +47,9 @@ import { toast } from "react-toastify";
 import Focus from "../../../api/focus";
 import Log from "../../../api/log";
 import openURL from "../../utils/openURL";
-import { KeymapDB } from "../../../api/keymap";
+import { NewKeymapDB } from "../../../api/keymap";
 
 import ColorPalette from "../../components/ColorPalette";
-//import KeySelector from "./KeySelector";
 import KeySelector from "./keyboard104";
 import SaveChangesButton from "../../components/SaveChangesButton";
 import ConfirmationDialog from "../../components/ConfirmationDialog";
@@ -125,7 +124,7 @@ class Editor extends React.Component {
     hasColormap: false,
     loading: true
   };
-  keymapDB = new KeymapDB();
+  keymapDB = new NewKeymapDB();
 
   /**
    * Bottom menu never hide and automatically select a key at launch and have this shown in the bottom menu
@@ -218,7 +217,7 @@ class Editor extends React.Component {
 
     this.setState(state => {
       let keymap = state.keymap.custom.slice();
-      keymap[layer][keyIndex] = this.keymapDB.parse(keyCode);
+      keymap[layer][keyIndex] = this.keymapDB.lookup(keyCode);
       return {
         keymap: {
           default: state.keymap.default,

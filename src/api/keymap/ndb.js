@@ -110,6 +110,10 @@ class KeymapDB {
     return code;
   }
 
+  serialize(key) {
+    return key.code;
+  }
+
   getStandardLayout() {
     return this._layout;
   }

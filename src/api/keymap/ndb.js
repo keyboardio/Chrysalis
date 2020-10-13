@@ -46,7 +46,8 @@ class KeymapDB {
     if (layout == "us-qwerty") return;
     if (layout == "hu-qwertz") {
       for (const key of HUQwertz.codetable) {
-        this._codetable[key.code] = key;
+        const base = this._codetable[key.code];
+        Object.assign(this._codetable[key.code].label, base.label, key.label);
       }
       return;
     }

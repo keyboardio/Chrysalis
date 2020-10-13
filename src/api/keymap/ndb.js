@@ -41,6 +41,7 @@ class KeymapDB {
 
     for (let key of USQwerty.codetable) {
       this._codetable[key.code] = key;
+      this._codetable[key.code].keyCode = key.code;
     }
 
     if (layout == "us-qwerty") return;

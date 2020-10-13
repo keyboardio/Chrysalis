@@ -17,6 +17,7 @@
 import Focus from "../focus";
 
 import KeymapDB from "./db";
+import { KeymapDB as NewKeymapDB } from "./ndb";
 
 global.chrysalis_keymap_instance = null;
 
@@ -25,6 +26,7 @@ class Keymap {
     if (!global.chrysalis_keymap_instance) {
       global.chrysalis_keymap_instance = this;
       this.db = new KeymapDB();
+      this.ndb = new NewKeymapDB();
       this.legacyInterface = false;
     }
     global.chrysalis_keymap_instance.setLayerSize(opts);
@@ -95,11 +97,11 @@ class Keymap {
       const defaultKeymap = defaults
         .split(" ")
         .filter(v => v.length > 0)
-        .map(k => this.db.parse(parseInt(k)));
+        .map(k => this.ndb.lookup(parseInt(k)));
       const customKeymap = custom
         .split(" ")
         .filter(v => v.length > 0)
-        .map(k => this.db.parse(parseInt(k)));
+        .map(k => this.ndb.lookup(parseInt(k)));
 
       if (customKeymap.length == 0) {
         onlyCustom = false;

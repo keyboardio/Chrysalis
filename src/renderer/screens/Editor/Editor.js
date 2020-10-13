@@ -229,6 +229,12 @@ class Editor extends React.Component {
     }
   };
 
+  onKeyUp = event => {
+    if (event.key === "Backspace") {
+      this.onKeyChange(65535); // Transparent
+    }
+  };
+
   /**
    * Verificate that colors in keyboard button and in color palette is equal
    * @param {number} colorIndex Number of palette index

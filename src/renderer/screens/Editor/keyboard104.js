@@ -47,18 +47,19 @@ class KeymapBase extends React.Component {
     const keymap = db.getStandardLayout();
     const { currentKeyCode, onKeySelect } = this.props;
 
-    const keySpacingY = 48;
-    const keySpacingX = 48;
+    const keycapunit = 48;
 
-    //const rowOffset = [0, 20, 20, 20, 20, 20];
-    const rowOffset = [0, 20, 0, 0, 0, 0];
+    const keySpacingX = keycapunit;
+    const keySpacingY = keycapunit;
+
+    const rowOffset = [0, 0.5, 0, 0, 0, 0];
     const keyOffsetX = [
-      [0, 48, 0, 0, 0, 24, 0, 0, 0, 24, 0, 0, 0, 24, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24, 0, 0, 24, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24, 0, 0, 24, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 192],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 72, 72],
-      [0, 0, 0, 0, 0, 0, 0, 0, 24, 0, 0, 24]
+      [0, 1, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0.5, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0.5, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.5, 1.5],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0.5]
     ];
 
     const keySizeX = [
@@ -104,11 +105,11 @@ class KeymapBase extends React.Component {
       for (let i = 0; i < col; i++) {
         offset += getKeySizeX(row, i) * keySpacingX;
         if (keyOffsetX[row] && keyOffsetX[row][i]) {
-          offset += keyOffsetX[row][i];
+          offset += keyOffsetX[row][i] * keySpacingX;
         }
       }
       if (keyOffsetX[row] && keyOffsetX[row][col]) {
-        offset += keyOffsetX[row][col];
+        offset += keyOffsetX[row][col] * keySpacingX;
       }
 
       return offset;
@@ -117,18 +118,18 @@ class KeymapBase extends React.Component {
     let getY = row => {
       let offset = 0;
       for (let i = 0; i < row; i++) {
-        offset += keySpacingY + rowOffset[i];
+        offset += keySpacingY + rowOffset[i] * keycapunit;
       }
-      return offset + rowOffset[row];
+      return offset + rowOffset[row] * keycapunit;
     };
 
     let getKeyWidth = (row, col) => {
       const size = getKeySizeX(row, col);
-      return 42 * size;
+      return keycapunit * size;
     };
 
     let getKeyHeight = (row, col) => {
-      return 42 * getKeySizeY(row, col);
+      return keycapunit * getKeySizeY(row, col);
     };
 
     const Key = props => {

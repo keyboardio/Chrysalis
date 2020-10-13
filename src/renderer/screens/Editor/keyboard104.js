@@ -138,7 +138,7 @@ class KeymapBase extends React.Component {
       const width = getKeyWidth(row, col);
       const bottom = y + height - 5;
       let textColor = "#000000";
-      const buttonColor = "#ffffff";
+      const buttonColor = active ? "#aaaaaa" : "#ffffff";
       const sizeX = getKeySizeX(row, col);
 
       const onClick = event => {

@@ -27,9 +27,13 @@ import { toast } from "react-toastify";
 import React, { useState } from "react";
 import i18n from "../../../i18n";
 import LoadDefaultKeymap from "./LoadDefaultKeymap";
+import { KeymapDB } from "../../../../api/keymap";
+
 const { clipboard } = require("electron");
 const fs = require("fs");
 const jsonStringify = require("json-stringify-pretty-compact");
+
+const keymapDB = new KeymapDB();
 
 export const ImportExportDialog = props => {
   const { toCloseImportExportDialog } = props;
@@ -46,9 +50,14 @@ export const ImportExportDialog = props => {
     dataState != undefined
       ? dataState
       : jsonStringify({
-          keymap: props.keymap,
-          colormap: props.colormap,
-          palette: props.palette
+          configVersion: 1,
+          device: props.deviceInfo,
+          palette: props.palette,
+          defaultLayer: props.defaultLayer,
+          layers: props.keymap.custom.map((m, i) => ({
+            keymap: m.map(k => keymapDB.serialize(k)),
+            colormap: props.colormap[i]
+          }))
         });
 
   function onConfirm() {

@@ -119,7 +119,7 @@ class KeymapDB {
     }
   }
 
-  parse(keyCode) {
+  fromKeycode(keyCode) {
     let key;
 
     if (!keyCode) keyCode = 0;
@@ -145,8 +145,27 @@ class KeymapDB {
     };
   }
 
-  serialize(key) {
+  toKeycode(key) {
     return key.keyCode;
+  }
+
+  serialize(key) {
+    // TODO when possible reduce down into a named key string like "q" or an object with a named key like {key: "q", modifiers: ["alt"]}, otherwise just use the raw db entry
+    return key;
+  }
+
+  parse(input) {
+    if (typeof input === "number") {
+      return this.fromKeycode(input);
+    } else if (typeof input === "string") {
+      // TODO handle named keys like "q", "á", "Á" and "Consumer_Brightness_Up"
+    } else if (input && input.keyCode !== undefined) {
+      // already a raw db entry, just copy it
+      return { ...input, parsed: true };
+    } else if (input && typeof input.key) {
+      // TODO handle an object with a named key and possibly modifiers, labels, etc
+    }
+    return null;
   }
 }
 

@@ -27,7 +27,12 @@ import FormGroup from "@material-ui/core/FormGroup";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import Switch from "@material-ui/core/Switch";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import ListItemText from "@material-ui/core/ListItemText";
 import TextField from "@material-ui/core/TextField";
+import CreateIcon from "@material-ui/icons/Create";
+import DeleteIcon from "@material-ui/icons/Delete";
 import List from "@material-ui/core/List";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -477,6 +482,40 @@ class KeyGroup extends React.Component {
   }
 }
 
+class MacroComboBox extends React.Component {
+  render() {
+    const availableMacros = ["Macro Hola Mundo", "dd", "tengo hambre"].map(
+      (value, index) => {
+        return (
+          <MenuItem value={index} key={`Macro-${index}`}>
+            <div style={{ display: "flex" }}>
+              <ListItemText
+                inset
+                primary={`${("0" + index).substr(-2)} - ${value}`}
+              />
+            </div>
+          </MenuItem>
+        );
+      }
+    );
+
+    return (
+      <div>
+        <Select value={0} fullWidth style={{ margin: "0 0 15px 30px" }}>
+          {availableMacros}
+        </Select>
+        <Button
+          color={"primary"}
+          variant={"contained"}
+          style={{ margin: "0 0 15px 30px" }}
+        >
+          {"Edit Macros"}
+        </Button>
+      </div>
+    );
+  }
+}
+
 class KeySelector extends React.Component {
   constructor(props) {
     super(props);
@@ -555,14 +594,18 @@ class KeySelector extends React.Component {
             doCancelContext={this.props.doCancelContext}
           />
         </List>
-        <div className={classes.keygroup}>
-          <KeyGroup
-            disabled={disabled}
-            group={groupIndex}
-            keyCode={actualKeycode}
-            onKeySelect={this.onKeySelect}
-          />
-        </div>
+        {keyGroups[groupIndex] === "Macros" ? (
+          <MacroComboBox />
+        ) : (
+          <div className={classes.keygroup}>
+            <KeyGroup
+              disabled={disabled}
+              group={groupIndex}
+              keyCode={actualKeycode}
+              onKeySelect={this.onKeySelect}
+            />
+          </div>
+        )}
       </Paper>
     );
   }

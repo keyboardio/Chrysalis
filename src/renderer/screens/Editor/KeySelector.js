@@ -18,7 +18,7 @@
 import React from "react";
 //Import of new component that selects new language layout
 import SelectLanguage from "../../components/SelectLanguage";
-
+import MacroManager from "../../components/MacroManager";
 import SearchKeyBox from "../../components/SearchKeyBox";
 
 import Checkbox from "@material-ui/core/Checkbox";
@@ -31,8 +31,6 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import TextField from "@material-ui/core/TextField";
-import CreateIcon from "@material-ui/icons/Create";
-import DeleteIcon from "@material-ui/icons/Delete";
 import List from "@material-ui/core/List";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -483,34 +481,61 @@ class KeyGroup extends React.Component {
 }
 
 class MacroComboBox extends React.Component {
+  constructor(props) {
+    super(props);
+
+    let aux = [];
+    Array.from({ length: 32 }, (v, k) => k).forEach(element => {
+      aux.push({
+        name: "macro N: " + element,
+        id: element,
+        macro: "hola mundo " + element
+      });
+    });
+    this.state = {
+      macros: aux,
+      selectedMacro: props.keyCode - 24576
+    };
+    this.updateMacros = this.updateMacros.bind(this);
+  }
+
+  updateMacros(macros) {
+    this.setState({
+      macros: macros
+    });
+  }
+
   render() {
-    const availableMacros = ["Macro Hola Mundo", "dd", "tengo hambre"].map(
-      (value, index) => {
-        return (
-          <MenuItem value={index} key={`Macro-${index}`}>
-            <div style={{ display: "flex" }}>
-              <ListItemText
-                inset
-                primary={`${("0" + index).substr(-2)} - ${value}`}
-              />
-            </div>
-          </MenuItem>
-        );
-      }
-    );
+    const availableMacros = this.state.macros.map(macro => {
+      return (
+        <MenuItem value={macro.id} key={`Macro-${macro.id}`}>
+          <div style={{ display: "flex" }}>
+            <ListItemText
+              inset
+              primary={`${("0" + macro.id).substr(-2)} - ${macro.name}`}
+            />
+          </div>
+        </MenuItem>
+      );
+    });
 
     return (
       <div>
-        <Select value={0} fullWidth style={{ margin: "0 0 15px 30px" }}>
+        <Select
+          value={this.state.selectedMacro}
+          fullWidth
+          style={{ margin: "0 0 11px 30px" }}
+          onChange={e => {
+            // console.log("pressed: ", e.target.value);
+            this.props.onKeySelect(e.target.value + 24576);
+          }}
+        >
           {availableMacros}
         </Select>
-        <Button
-          color={"primary"}
-          variant={"contained"}
-          style={{ margin: "0 0 15px 30px" }}
-        >
-          {"Edit Macros"}
-        </Button>
+        <MacroManager
+          macros={this.state.macros}
+          updateMacros={this.updateMacros}
+        />
       </div>
     );
   }
@@ -595,7 +620,13 @@ class KeySelector extends React.Component {
           />
         </List>
         {keyGroups[groupIndex] === "Macros" ? (
-          <MacroComboBox />
+          <div className={classes.keygroup}>
+            <MacroComboBox
+              keyCode={actualKeycode}
+              key={actualKeycode}
+              onKeySelect={this.onKeySelect}
+            />
+          </div>
         ) : (
           <div className={classes.keygroup}>
             <KeyGroup

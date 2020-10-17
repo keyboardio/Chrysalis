@@ -484,16 +484,8 @@ class MacroComboBox extends React.Component {
   constructor(props) {
     super(props);
 
-    let aux = [];
-    Array.from({ length: 32 }, (v, k) => k).forEach(element => {
-      aux.push({
-        name: "macro N: " + element,
-        id: element,
-        macro: "hola mundo " + element
-      });
-    });
     this.state = {
-      macros: aux,
+      macros: props.macros,
       selectedMacro: props.keyCode - 24576
     };
     this.updateMacros = this.updateMacros.bind(this);
@@ -625,6 +617,7 @@ class KeySelector extends React.Component {
               keyCode={actualKeycode}
               key={actualKeycode}
               onKeySelect={this.onKeySelect}
+              macros={this.props.macros}
             />
           </div>
         ) : (

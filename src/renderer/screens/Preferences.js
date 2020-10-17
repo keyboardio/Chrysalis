@@ -36,6 +36,7 @@ import {
   KeyboardSettings,
   AdvancedKeyboardSettings
 } from "./Preferences/KeyboardSettings";
+import ColorSettings from "./Preferences/ColorSettings";
 import i18n from "../i18n";
 
 import Focus from "../../api/focus";
@@ -159,6 +160,21 @@ class Preferences extends React.Component {
             startContext={this.props.startContext}
             cancelContext={this.props.cancelContext}
             inContext={this.props.inContext}
+          />
+        )}
+        <Portal container={this.props.titleElement}>
+          {i18n.app.menu.preferences}
+        </Portal>
+        {this.props.connected && (
+          <ColorSettings
+            startContext={this.props.startContext}
+            cancelContext={this.props.cancelContext}
+            inContext={this.props.inContext}
+            balance={this.props.balance}
+            setBalance={this.props.setBalance}
+            testBalance={this.props.testBalance}
+            startTestBalance={this.props.startTestBalance}
+            stopTestBalance={this.props.stopTestBalance}
           />
         )}
         <div className={classes.advanced}>

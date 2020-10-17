@@ -110,6 +110,7 @@ class Editor extends React.Component {
     },
     palette: [],
     colorMap: [],
+    macros: [],
     clearConfirmationOpen: false,
     copyFromOpen: false,
     importExportDialogOpen: false,
@@ -178,6 +179,12 @@ class Editor extends React.Component {
       let colormap = await focus.command("colormap");
       let palette = colormap.palette.slice();
       const undeglowColors = settings.get("undeglowColors");
+      let rawMacros = await focus.command("macros.map");
+      rawMacros = rawMacros
+        .split(" 0 0")[0]
+        .split(" 0 ")
+        .map(x => x.split(" ").map(Number));
+      const parsedMacros = this.macroTranslator(rawMacros);
       this.setState(
         () => {
           if (!undeglowColors) {
@@ -196,7 +203,8 @@ class Editor extends React.Component {
             keymap: keymap,
             showDefaults: !keymap.onlyCustom,
             palette,
-            colorMap: colormap.colorMap
+            colorMap: colormap.colorMap,
+            macros: parsedMacros
           });
         }
       );
@@ -690,6 +698,28 @@ class Editor extends React.Component {
     this.props.startContext();
   };
 
+  macroTranslator(raw) {
+    let macros = [];
+    raw.forEach((macro, i) => {
+      let types = macro.filter((x, i) => i % 2 == 0);
+      let keyCodes = macro.filter((x, i) => i % 2 == 1);
+      let actions = [];
+      for (const key in types) {
+        actions.push([{ type: types[key], keyCode: keyCodes[key] }]);
+      }
+      macros[i] = {};
+      macros[i].actions = [];
+      macros[i].actions.push(actions);
+      macros[i].id = i;
+      macros[i].name = "";
+      macros[i].macro = keyCodes
+        .map(k => this.keymapDB.parse(k).label)
+        .join("")
+        .replace("SPACE", " ");
+    });
+    return macros;
+  }
+
   render() {
     const { classes } = this.props;
     const { keymap, palette, isColorButtonSelected } = this.state;
@@ -861,6 +891,7 @@ class Editor extends React.Component {
             scanKeyboard={this.scanKeyboard}
             currentLanguageLayout={this.state.currentLanguageLayout}
             onChangeLanguageLayout={this.onChangeLanguageLayout}
+            macros={this.state.macros}
           />
         </Slide>
         <SaveChangesButton

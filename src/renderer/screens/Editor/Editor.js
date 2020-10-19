@@ -51,6 +51,9 @@ import ImportExportDialog from "./ImportExportDialog";
 import { CopyFromDialog } from "./CopyFromDialog";
 import { undeglowDefaultColors } from "./initialUndaglowColors";
 
+const Store = window.require("electron-store");
+const store = new Store();
+
 const styles = theme => ({
   tbg: {
     marginRight: theme.spacing.unit * 4
@@ -97,28 +100,36 @@ const styles = theme => ({
 });
 
 class Editor extends React.Component {
-  state = {
-    currentLayer: 0,
-    currentKeyIndex: -1,
-    currentLedIndex: -1,
-    modified: false,
-    saving: false,
-    keymap: {
-      custom: [],
-      default: [],
-      onlyCustom: false
-    },
-    palette: [],
-    colorMap: [],
-    macros: [],
-    clearConfirmationOpen: false,
-    copyFromOpen: false,
-    importExportDialogOpen: false,
-    isMultiSelected: false,
-    isColorButtonSelected: false,
-    currentLanguageLayout: "",
-    undeglowColors: null
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      currentLayer: 0,
+      currentKeyIndex: -1,
+      currentLedIndex: -1,
+      modified: false,
+      saving: false,
+      keymap: {
+        custom: [],
+        default: [],
+        onlyCustom: false
+      },
+      palette: [],
+      colorMap: [],
+      macros: [],
+      storedMacros: store.get("macros"),
+      clearConfirmationOpen: false,
+      copyFromOpen: false,
+      importExportDialogOpen: false,
+      isMultiSelected: false,
+      isColorButtonSelected: false,
+      currentLanguageLayout: "",
+      undeglowColors: null
+    };
+
+    this.updateMacros = this.updateMacros.bind(this);
+  }
+
   keymapDB = new KeymapDB();
   undeglowCount = 14;
   /**
@@ -708,6 +719,7 @@ class Editor extends React.Component {
   };
 
   macroTranslator(raw) {
+    // Translate received macros to human readable text
     let macros = [];
     raw.forEach((macro, i) => {
       let types = macro.filter((x, i) => i % 2 == 0);
@@ -726,7 +738,13 @@ class Editor extends React.Component {
         .join("")
         .replace("SPACE", " ");
     });
+    // TODO: Check if stored macros match the received ones, if they mach, retrieve name and apply it to current macros
+
     return macros;
+  }
+
+  updateMacros(recievedMacros) {
+    this.setState({ macros: recievedMacros, modified: true });
   }
 
   render() {
@@ -901,6 +919,7 @@ class Editor extends React.Component {
             currentLanguageLayout={this.state.currentLanguageLayout}
             onChangeLanguageLayout={this.onChangeLanguageLayout}
             macros={this.state.macros}
+            updateMacros={this.updateMacros}
           />
         </Slide>
         <SaveChangesButton

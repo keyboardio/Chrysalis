@@ -40,6 +40,7 @@ class MacroForm extends Component {
 
   componentDidMount() {
     const macro = this.props.macros[this.props.selected];
+    console.log("macros arrived with length: ", this.props.macros.length);
     this.setState({
       macro: macro,
       name: macro.name,
@@ -52,13 +53,12 @@ class MacroForm extends Component {
     const aux = this.state.macro;
     aux.name = this.state.name;
     aux.macro = this.state.code;
-    console.log("pressed accept", aux);
     this.setState({ macro: aux });
     this.props.accept(aux, this.props.selected);
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, close, addMacro, macros, maxMacros } = this.props;
     return (
       <React.Fragment>
         <div>
@@ -91,9 +91,18 @@ class MacroForm extends Component {
             variant="outlined"
             color="secondary"
             className={classes.margin}
-            onClick={this.props.close}
+            onClick={close}
           >
             {"Cancel"}
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classNames(classes.margin)}
+            onClick={addMacro}
+            disabled={macros.length === maxMacros}
+          >
+            {"Add Macro"}
           </Button>
           <Button
             variant="contained"

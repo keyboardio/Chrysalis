@@ -118,6 +118,7 @@ class Editor extends React.Component {
       colorMap: [],
       macros: [],
       storedMacros: store.get("macros"),
+      equalMacros: [],
       clearConfirmationOpen: false,
       copyFromOpen: false,
       importExportDialogOpen: false,
@@ -126,8 +127,11 @@ class Editor extends React.Component {
       currentLanguageLayout: "",
       undeglowColors: null
     };
-
+    if (window.localStorage.getItem("EditStateStatus") === "error") {
+      this.state = window.localStorage.getItem("EditStateBackup");
+    }
     this.updateMacros = this.updateMacros.bind(this);
+    this.macroEncoder = this.macroEncoder.bind(this);
   }
 
   keymapDB = new KeymapDB();
@@ -192,10 +196,14 @@ class Editor extends React.Component {
       let palette = this.props.revertBalance(colormap.palette.slice());
       const undeglowColors = settings.get("undeglowColors");
       let rawMacros = await focus.command("macros.map");
-      rawMacros = rawMacros
-        .split(" 0 0")[0]
-        .split(" 0 ")
-        .map(x => x.split(" ").map(Number));
+      if (rawMacros.search("0 0") !== -1) {
+        rawMacros = rawMacros
+          .split(" 0 0")[0]
+          .split(" 0 ")
+          .map(x => x.split(" ").map(Number));
+      } else {
+        rawMacros = "";
+      }
       const parsedMacros = this.macroTranslator(rawMacros);
       this.setState(
         () => {
@@ -434,13 +442,23 @@ class Editor extends React.Component {
       this.props.applyBalance(this.state.palette),
       this.state.colorMap
     );
+    let newMacros = this.state.macros;
+    newMacros = newMacros.map(macro => {
+      let aux = macro;
+      aux.actions = this.macroEncoder(macro.macro);
+      return aux;
+    });
     this.setState({
       modified: false,
       saving: false,
       isMultiSelected: false,
       selectedPaletteColor: null,
-      isColorButtonSelected: false
+      isColorButtonSelected: false,
+      macros: newMacros,
+      storedMacros: newMacros
     });
+    store.set("macros", newMacros);
+    await focus.command("macros.map", this.macrosMap(newMacros));
     console.log("Changes saved.");
     this.props.cancelContext();
   };
@@ -719,6 +737,16 @@ class Editor extends React.Component {
   };
 
   macroTranslator(raw) {
+    if (raw === "") {
+      return [
+        {
+          actions: [],
+          name: "Empty Macro",
+          id: 0,
+          macro: ""
+        }
+      ];
+    }
     // Translate received macros to human readable text
     let macros = [];
     raw.forEach((macro, i) => {
@@ -736,23 +764,99 @@ class Editor extends React.Component {
       macros[i].macro = keyCodes
         .map(k => this.keymapDB.parse(k).label)
         .join("")
-        .replace("SPACE", " ");
+        .split("SPACE")
+        .join(" ");
     });
     // TODO: Check if stored macros match the received ones, if they mach, retrieve name and apply it to current macros
+    let equal = [];
+    const stored = this.state.storedMacros;
+    console.log(macros, stored);
+    let finalMacros = macros.map((macro, i) => {
+      if (stored.length > i && stored.length > 0) {
+        console.log(
+          "compare between: ",
+          macro.macro,
+          stored[i].macro.toUpperCase()
+        );
+        if (macro.macro === stored[i].macro.toUpperCase()) {
+          equal[i] = true;
+          let aux = macro;
+          aux.name = stored[i].name;
+          return aux;
+        } else {
+          equal[i] = false;
+          return macro;
+        }
+      } else {
+        return macro;
+      }
+    });
+    this.setState({ equalMacros: equal });
 
-    return macros;
+    return finalMacros;
+  }
+
+  macroEncoder(macro) {
+    let action = [];
+    for (const char of macro.split("")) {
+      let aux = this.keymapDB.reverse(char.toUpperCase());
+      if (char === " ") {
+        aux = 44;
+      }
+      action.push({ keyCode: aux, type: 8 });
+    }
+    console.log("generated actions: ", action);
+    return action;
   }
 
   updateMacros(recievedMacros) {
+    console.log("Updating Macros", recievedMacros);
     this.setState({ macros: recievedMacros, modified: true });
+    this.props.startContext();
+  }
+
+  macrosMap(macros) {
+    if (macros.length === 1 && macros[0].macro === "") {
+      return "255 255 255 255 255 255 255 255 255 255";
+    }
+    const actionMap = macros.map(macro => {
+      return macro.actions
+        .map(action => {
+          return [[action.type], [action.keyCode]];
+        })
+        .concat([0]);
+    });
+    console.log(
+      [].concat
+        .apply([], actionMap.flat())
+        .concat([0])
+        .join(" ")
+    );
+    return [].concat
+      .apply([], actionMap.flat())
+      .concat([0])
+      .join(" ");
+  }
+
+  getLayout() {
+    let focus = new Focus();
+    let Layer = {};
+    window.localStorage.setItem("EditStateBackup", this.state);
+    window.localStorage.setItem("EditStateStatus", "undergoing");
+    try {
+      Layer = focus.device.components.keymap;
+    } catch (error) {
+      window.localStorage.setItem("EditStateStatus", "error");
+      this.forceUpdate();
+    }
+    window.localStorage.setItem("EditStateStatus", "success");
+    return Layer;
   }
 
   render() {
     const { classes } = this.props;
     const { keymap, palette, isColorButtonSelected } = this.state;
-
-    let focus = new Focus();
-    const Layer = focus.device.components.keymap;
+    let Layer = this.getLayout();
     const showDefaults = settings.get("keymap.showDefaults");
 
     let currentLayer = this.state.currentLayer;
@@ -919,6 +1023,7 @@ class Editor extends React.Component {
             currentLanguageLayout={this.state.currentLanguageLayout}
             onChangeLanguageLayout={this.onChangeLanguageLayout}
             macros={this.state.macros}
+            maxMacros={32}
             updateMacros={this.updateMacros}
           />
         </Slide>

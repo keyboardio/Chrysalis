@@ -97,6 +97,7 @@ class MacroManager extends Component {
     this.changeSelected = this.changeSelected.bind(this);
     this.close = this.close.bind(this);
     this.accept = this.accept.bind(this);
+    this.addMacro = this.addMacro.bind(this);
   }
 
   changeSelected(id) {
@@ -121,8 +122,26 @@ class MacroManager extends Component {
     this.props.updateMacros(aux);
   }
 
+  addMacro() {
+    if (this.state.macros.length <= 31) {
+      let aux = this.state.macros;
+      const newID = aux.length;
+      aux.push({
+        actions: [],
+        name: "Empty Macro",
+        id: newID,
+        macro: ""
+      });
+      this.setState({
+        macros: aux,
+        selected: newID
+      });
+      this.props.updateMacros(aux);
+    }
+  }
+
   render() {
-    const { classes } = this.props;
+    const { classes, maxMacros } = this.props;
 
     return (
       <React.Fragment>
@@ -175,6 +194,8 @@ class MacroManager extends Component {
                     key={this.state.selected}
                     close={this.close}
                     accept={this.accept}
+                    addMacro={this.addMacro}
+                    maxMacros={maxMacros}
                   />
                 </div>
               </CardContent>

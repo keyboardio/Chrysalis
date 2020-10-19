@@ -528,6 +528,7 @@ class MacroComboBox extends React.Component {
         <MacroManager
           macros={this.state.macros}
           updateMacros={this.localMacros}
+          maxMacros={this.props.maxMacros}
         />
       </div>
     );
@@ -620,6 +621,7 @@ class KeySelector extends React.Component {
               onKeySelect={this.onKeySelect}
               macros={this.props.macros}
               updateMacros={this.props.updateMacros}
+              maxMacros={this.props.maxMacros}
             />
           </div>
         ) : (

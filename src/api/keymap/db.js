@@ -204,6 +204,13 @@ class KeymapDB {
     };
   }
 
+  reverse(label) {
+    const answ = this.keymapCodeTable
+      .filter(Boolean)
+      .find(x => x.labels.primary === label);
+    return answ !== undefined ? answ.code : 1;
+  }
+
   serialize(key) {
     return key.keyCode;
   }

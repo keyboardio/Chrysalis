@@ -488,13 +488,14 @@ class MacroComboBox extends React.Component {
       macros: props.macros,
       selectedMacro: props.keyCode - 24576
     };
-    this.updateMacros = this.updateMacros.bind(this);
+    this.localMacros = this.localMacros.bind(this);
   }
 
-  updateMacros(macros) {
+  localMacros(macros) {
     this.setState({
       macros: macros
     });
+    this.props.updateMacros(macros);
   }
 
   render() {
@@ -526,7 +527,7 @@ class MacroComboBox extends React.Component {
         </Select>
         <MacroManager
           macros={this.state.macros}
-          updateMacros={this.updateMacros}
+          updateMacros={this.localMacros}
         />
       </div>
     );
@@ -618,6 +619,7 @@ class KeySelector extends React.Component {
               key={actualKeycode}
               onKeySelect={this.onKeySelect}
               macros={this.props.macros}
+              updateMacros={this.props.updateMacros}
             />
           </div>
         ) : (

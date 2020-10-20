@@ -768,10 +768,14 @@ class Editor extends React.Component {
         .join(" ");
     });
     // TODO: Check if stored macros match the received ones, if they mach, retrieve name and apply it to current macros
-    let equal = [];
+    let equal = [],
+      finalMacros = [];
     const stored = this.state.storedMacros;
     console.log(macros, stored);
-    let finalMacros = macros.map((macro, i) => {
+    if (stored === undefined) {
+      return macros;
+    }
+    finalMacros = macros.map((macro, i) => {
       if (stored.length > i && stored.length > 0) {
         console.log(
           "compare between: ",

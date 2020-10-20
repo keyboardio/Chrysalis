@@ -4,6 +4,8 @@ import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Chip from "@material-ui/core/Chip";
+import Avatar from "@material-ui/core/Avatar";
 
 const styles = theme => ({
   root: {
@@ -21,6 +23,9 @@ const styles = theme => ({
   },
   button: {
     float: "right"
+  },
+  buttonAdd: {
+    marginLeft: "25%"
   }
 });
 
@@ -57,6 +62,8 @@ class MacroForm extends Component {
     this.props.accept(aux, this.props.selected);
   }
 
+  handleDelete() {}
+
   render() {
     const { classes, close, addMacro, macros, maxMacros } = this.props;
     return (
@@ -87,6 +94,18 @@ class MacroForm extends Component {
               this.setState({ code: e.target.value });
             }}
           />
+          <div>
+            {"Macro Test".split("").map((char, i) => (
+              <Chip
+                key={i}
+                label={char}
+                color="primary"
+                onDelete={this.handleDelete}
+                avatar={<Avatar>8</Avatar>}
+                variant="outlined"
+              />
+            ))}
+          </div>
           <Button
             variant="outlined"
             color="secondary"
@@ -98,7 +117,7 @@ class MacroForm extends Component {
           <Button
             variant="contained"
             color="primary"
-            className={classNames(classes.margin)}
+            className={classNames(classes.margin, classes.buttonAdd)}
             onClick={addMacro}
             disabled={macros.length === maxMacros}
           >

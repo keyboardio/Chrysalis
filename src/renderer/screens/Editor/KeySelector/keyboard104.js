@@ -20,7 +20,7 @@ import React from "react";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 
-import { NewKeymapDB } from "../../../api/keymap";
+import { NewKeymapDB } from "../../../../api/keymap";
 
 const db = new NewKeymapDB();
 

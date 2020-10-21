@@ -20,9 +20,9 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 
-// import { NewKeymapDB } from "../../../../api/keymap";
+import { NewKeymapDB } from "../../../../api/keymap";
 
-//const db = new NewKeymapDB();
+const db = new NewKeymapDB();
 
 const styles = theme => ({
   key: {
@@ -56,13 +56,14 @@ const KeyButton = withStyles(styles)(props => {
 
 class FeatureSelector extends React.Component {
   render() {
-    const { classes } = this.props;
+    const { classes, currentKeyCode } = this.props;
 
     return (
       <div className={classes.root}>
-        <Button className={classes.key} color="default" variant="outlined">
-          Layer switch
-        </Button>
+        <KeyButton
+          label="Layer Switch"
+          selected={db.isLayerKey(currentKeyCode)}
+        />
         <Button className={classes.key} color="default" variant="outlined">
           Macro
         </Button>

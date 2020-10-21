@@ -17,6 +17,8 @@
 import { USQwerty } from "./ndb/us/qwerty";
 import { HUQwertz } from "./ndb/hu/qwertz";
 
+import codeRanges from "./ndb/ranges";
+
 global.chrysalis_keymapdb_instance = null;
 
 class KeymapDB {
@@ -63,11 +65,17 @@ class KeymapDB {
     };
   }
 
-  isLayerKey(keyCode) {
-    if (17408 <= keyCode && keyCode <= 17439) {
-      return true;
+  findRange(keyCode) {
+    for (const group of codeRanges) {
+      if (keyCode >= group.min && keyCode <= group.max) {
+        return group.name;
+      }
     }
-    if (17450 <= keyCode && keyCode <= 17481) {
+  }
+
+  isLayerKey(keyCode) {
+    const range = this.findRange(keyCode);
+    if (range == "shifttolayer") {
       return true;
     }
 

@@ -63,8 +63,34 @@ class KeymapDB {
     };
   }
 
+  _lookupLayerKey(keyCode) {
+    if (17408 <= keyCode && keyCode <= 17439) {
+      const layer = keyCode - 17408;
+      return {
+        code: keyCode,
+        label: {
+          base: "#" + layer.toString(),
+          hint: "ShiftTo"
+        },
+        type: "locklayer"
+      };
+    }
+    if (17450 <= keyCode && keyCode <= 17481) {
+      const layer = keyCode - 17450;
+      return {
+        code: keyCode,
+        label: {
+          base: "#" + layer.toString(),
+          hint: "ShiftTo"
+        },
+        type: "shifttolayer"
+      };
+    }
+    return false;
+  }
+
   _lookupByKeycode(keyCode) {
-    return this._codetable[keyCode];
+    return this._lookupLayerKey(keyCode) || this._codetable[keyCode];
   }
 
   _lookupObject(key) {

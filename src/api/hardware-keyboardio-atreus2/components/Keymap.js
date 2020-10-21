@@ -128,7 +128,7 @@ class Keymap extends React.Component {
             fill={buttonColor}
           />
           <text x={x + 5} y={y + 14} fill={textColor} className={legendClass}>
-            {key && key.label && key.label.extra}
+            {key && key.label && (key.label.extra || key.label.hint)}
           </text>
           <text x={x + 5} y={bottom} fill={textColor} className={legendClass}>
             {key && db.format(key).main}

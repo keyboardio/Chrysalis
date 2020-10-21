@@ -734,6 +734,12 @@ const keyCodeTable = [
       base: "Gui"
     },
     location: "right"
+  },
+  {
+    code: 65535,
+    label: {
+      base: ""
+    }
   }
 ];
 

@@ -16,9 +16,19 @@
 
 const codeRanges = [
   {
+    name: "locklayer",
+    min: 17408,
+    max: 17439
+  },
+  {
     name: "shifttolayer",
     min: 17450,
     max: 17481
+  },
+  {
+    name: "movetolayer",
+    min: 17492,
+    max: 17523
   }
 ];
 

@@ -75,8 +75,16 @@ class KeymapDB {
 
   isLayerKey(keyCode) {
     const range = this.findRange(keyCode);
-    if (range == "shifttolayer") {
-      return true;
+
+    const layerRanges = [
+      "locklayer",
+      "shifttolayer",
+      "movetolayer",
+      "oneshotlayer"
+    ];
+
+    for (const r of layerRanges) {
+      if (r === range) return true;
     }
 
     return false;
@@ -105,6 +113,17 @@ class KeymapDB {
           hint: "ShiftTo"
         },
         type: "shifttolayer"
+      };
+    }
+    if (17492 <= keyCode && keyCode <= 17523) {
+      const layer = keyCode - 17492;
+      return {
+        code: keyCode,
+        label: {
+          base: "#" + layer.toString(),
+          hint: "MoveTo"
+        },
+        type: "movetolayer"
       };
     }
     return false;

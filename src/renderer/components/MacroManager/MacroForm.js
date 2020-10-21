@@ -24,7 +24,7 @@ const styles = theme => ({
     float: "right"
   },
   buttonAdd: {
-    marginLeft: "25%"
+    marginLeft: "22.5%"
   }
 });
 

@@ -38,7 +38,7 @@ const styles = theme => ({
   wrapper: {
     width: "90vw",
     position: "relative",
-    maxWidth: "700px"
+    maxWidth: "600px"
   },
   root: {
     width: "100%",
@@ -166,6 +166,7 @@ class MacroManager extends Component {
           open={this.state.open}
           onClose={this.close}
           closeAfterTransition
+          disableEnforceFocus
         >
           <div className={classes.wrapper}>
             <Card className={classes.card}>

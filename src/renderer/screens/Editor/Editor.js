@@ -202,7 +202,7 @@ class Editor extends React.Component {
     let layer = parseInt(this.state.currentLayer),
       keyIndex = parseInt(this.state.currentKeyIndex);
 
-    return this.state.keymap.custom[layer][keyIndex].keyCode;
+    return this.state.keymap.custom[layer][keyIndex].code;
   }
 
   onKeyChange = keyCode => {

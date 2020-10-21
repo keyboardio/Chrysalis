@@ -25,6 +25,10 @@ import { withStyles } from "@material-ui/core/styles";
 import Keyboard104 from "./KeySelector/keyboard104";
 import LayerSwitchSelector from "./KeySelector/LayerSwitchSelector";
 
+import { NewKeymapDB } from "../../../api/keymap";
+
+const db = new NewKeymapDB();
+
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -65,6 +69,15 @@ function TabPanel(props) {
 class KeySelector extends React.Component {
   state = {
     tab: 0
+  };
+
+  UNSAFE_componentWillReceiveProps = nextProps => {
+    let newTab = 0;
+    if (db.isLayerKey(nextProps.currentKeyCode)) {
+      newTab = 1;
+    }
+
+    this.setState({ tab: newTab });
   };
 
   setTab = (event, index) => {

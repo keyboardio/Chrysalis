@@ -60,12 +60,18 @@ class LayerSwitchSelector extends React.Component {
   };
 
   render() {
-    // const { classes } = this.props;
+    const { currentKeyCode } = this.props;
 
     const keyList = Array(this.getNumLayers())
       .fill()
       .map((_, index) => {
-        return <KeyButton label={index} key={`layer-key-${index}`} />;
+        return (
+          <KeyButton
+            label={index}
+            key={`layer-key-${index}`}
+            selected={index + 17450 == currentKeyCode}
+          />
+        );
       });
 
     return <React.Fragment> {keyList} </React.Fragment>;

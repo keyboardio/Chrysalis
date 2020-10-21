@@ -23,7 +23,7 @@ import Tabs from "@material-ui/core/Tabs";
 import { withStyles } from "@material-ui/core/styles";
 
 import Keyboard104 from "./KeySelector/keyboard104";
-import LayerSwitchSelector from "./KeySelector/LayerSwitchSelector";
+import FeatureSelector from "./KeySelector/FeatureSelector";
 
 import { NewKeymapDB } from "../../../api/keymap";
 
@@ -103,7 +103,7 @@ class KeySelector extends React.Component {
           onChange={this.setTab}
         >
           <Tab label="Keyboard" />
-          <Tab label="Layers" />
+          <Tab label="Features" />
           <Tab label="Others..." />
         </Tabs>
         <TabPanel value={tab} index={0} className={classes.tabpanel}>
@@ -115,7 +115,7 @@ class KeySelector extends React.Component {
           />
         </TabPanel>
         <TabPanel value={tab} index={1} className={classes.tabpanel}>
-          <LayerSwitchSelector
+          <FeatureSelector
             onKeySelect={onKeySelect}
             currentKeyCode={currentKeyCode}
             keymap={keymap}

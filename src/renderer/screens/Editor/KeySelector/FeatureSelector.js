@@ -17,7 +17,6 @@
 
 import React from "react";
 
-//import classNames from "classnames";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -33,6 +32,11 @@ const styles = theme => ({
     minWidth: "auto",
     minHeight: "auto",
     whiteSpace: "nowrap"
+  },
+  root: {
+    display: "flex",
+    flexWrap: "wrap",
+    margin: theme.spacing.unit
   }
 });
 
@@ -50,32 +54,23 @@ const KeyButton = withStyles(styles)(props => {
   );
 });
 
-class LayerSwitchSelector extends React.Component {
-  getNumLayers = () => {
-    const { keymap } = this.props;
-    if (keymap) {
-      let layers = keymap.custom.length;
-      return layers;
-    }
-  };
-
+class FeatureSelector extends React.Component {
   render() {
-    const { currentKeyCode } = this.props;
+    const { classes } = this.props;
 
-    const keyList = Array(this.getNumLayers())
-      .fill()
-      .map((_, index) => {
-        return (
-          <KeyButton
-            label={index}
-            key={`layer-key-${index}`}
-            selected={index + 17450 == currentKeyCode}
-          />
-        );
-      });
+    return (
+      <div className={classes.root}>
+        <Button className={classes.key} color="default" variant="outlined">
+          Layer switch
+        </Button>
+        <Button className={classes.key} color="default" variant="outlined">
+          Macro
+        </Button>
+      </div>
+    );
 
-    return <React.Fragment> {keyList} </React.Fragment>;
+    //return <React.Fragment> {keyList} </React.Fragment>;
   }
 }
 
-export default withStyles(styles, { withTheme: true })(LayerSwitchSelector);
+export default withStyles(styles, { withTheme: true })(FeatureSelector);

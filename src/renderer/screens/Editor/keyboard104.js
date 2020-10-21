@@ -37,7 +37,7 @@ const styles = () => ({
     height: keycapunit * 4
   },
   legend1U: {
-    fontSize: Math.round(keycapunit / 2)
+    fontSize: Math.round(keycapunit / 2.5)
   }
 });
 
@@ -164,7 +164,7 @@ class KeymapBase extends React.Component {
 
       const label = db.format(key, 1);
       let keyClasses;
-      if (label.main.length == 1) {
+      if (label.main.length <= 3) {
         keyClasses = classNames("key", classes.legend1U);
       } else {
         keyClasses = "key";

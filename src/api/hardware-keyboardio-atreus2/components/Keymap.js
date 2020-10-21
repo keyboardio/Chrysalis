@@ -21,6 +21,10 @@ import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import Atreus from "../data/atreus.png";
 
+import { NewKeymapDB } from "../../keymap";
+
+const db = new NewKeymapDB();
+
 const styles = () => ({
   svg: {
     background: `url(${Atreus})`,
@@ -127,7 +131,7 @@ class Keymap extends React.Component {
             {key && key.label && key.label.extra}
           </text>
           <text x={x + 5} y={bottom} fill={textColor} className={legendClass}>
-            {key && key.label && key.label.base}
+            {key && db.format(key).main}
           </text>
         </g>
       );

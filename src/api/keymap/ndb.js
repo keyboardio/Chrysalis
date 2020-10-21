@@ -117,6 +117,17 @@ class KeymapDB {
   getStandardLayout() {
     return this._layout;
   }
+
+  format(key) {
+    let label = key.label.base;
+    if (label.length == 1) {
+      label = label.toUpperCase();
+    }
+
+    return {
+      main: label
+    };
+  }
 }
 
 export { KeymapDB };

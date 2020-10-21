@@ -18,7 +18,6 @@
 import React from "react";
 
 import classNames from "classnames";
-import Paper from "@material-ui/core/Paper";
 import { withStyles } from "@material-ui/core/styles";
 
 import { NewKeymapDB } from "../../../api/keymap";
@@ -34,13 +33,8 @@ const styles = () => ({
     fontSize: Math.round(keycapunit / 4)
   },
   root: {
-    display: "block",
-    position: "fixed",
-    left: 0,
-    right: 0,
-    bottom: 0,
-    height: keycapunit * 4,
-    textAlign: "center"
+    textAlign: "center",
+    height: keycapunit * 4
   },
   legend1U: {
     fontSize: Math.round(keycapunit / 2)
@@ -341,9 +335,9 @@ class KeySelector extends React.Component {
     const { classes } = this.props;
 
     return (
-      <Paper className={classes.root}>
+      <div className={classes.root}>
         <Keymap {...this.props} />
-      </Paper>
+      </div>
     );
   }
 }

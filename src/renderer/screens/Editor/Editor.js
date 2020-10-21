@@ -50,7 +50,7 @@ import openURL from "../../utils/openURL";
 import { NewKeymapDB } from "../../../api/keymap";
 
 import ColorPalette from "../../components/ColorPalette";
-import KeySelector from "./keyboard104";
+import KeySelector from "./KeySelector";
 import SaveChangesButton from "../../components/SaveChangesButton";
 import ConfirmationDialog from "../../components/ConfirmationDialog";
 import i18n from "../../i18n";
@@ -844,6 +844,7 @@ class Editor extends React.Component {
               onKeySelect={this.onKeyChange}
               currentKeyCode={this.getCurrentKey()}
               keymap={keymap}
+              currentLayout={currentLayout}
             />
           )) ||
             (mode == "colormap" && (

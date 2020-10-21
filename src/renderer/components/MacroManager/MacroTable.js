@@ -1,25 +1,13 @@
 import React, { Component } from "react";
 import classNames from "classnames";
+import MacroTableRow from "./MacroTableRow";
 
 import { withStyles } from "@material-ui/core/styles";
-import {
-  Input,
-  InputLabel,
-  InputAdornment,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  MenuItem,
-  IconButton,
-  ListItemSecondaryAction
-} from "@material-ui/core";
-import AddCircle from "@material-ui/icons/AddCircle";
-import CloseIcon from "@material-ui/icons/Close";
+import { InputAdornment, TextField, List, IconButton } from "@material-ui/core";
+import GetAppRounded from "@material-ui/icons/GetAppRounded";
 import RootRef from "@material-ui/core/RootRef";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 // import ArrowDownward from "@material-ui/icons/ArrowDownward";
-// https://codesandbox.io/s/4qp6vjp319?file=/index.js
 
 const styles = theme => ({
   root: {
@@ -41,12 +29,7 @@ const styles = theme => ({
   buttonAdd: {
     marginLeft: "25%"
   },
-  table: {
-    minWidth: 700
-  },
-  select: {
-    minWidth: "100px"
-  }
+  list: { maxHeight: "400px", overflow: "auto" }
 });
 
 class MacroTable extends Component {
@@ -54,14 +37,20 @@ class MacroTable extends Component {
     super(props);
 
     this.state = {
-      rows: [
-        { symbol: "h", action: 8, id: 0 },
-        { symbol: "o", action: 8, id: 1 },
-        { symbol: "l", action: 8, id: 2 },
-        { symbol: "a", action: 8, id: 3 }
+      addText: "",
+      rows: [],
+      modifiers: [
+        { id: 0, name: "Shift", color: "lightskyblue" },
+        { id: 1, name: "Control", color: "lightcoral" },
+        { id: 2, name: "Alt", color: "gold" },
+        { id: 3, name: "AltGr", color: "lightseagreen" },
+        { id: 4, name: "Gui", color: "lightgrey" }
       ]
     };
     this.onDragEnd = this.onDragEnd.bind(this);
+    this.onDeleteRow = this.onDeleteRow.bind(this);
+    this.onAddText = this.onAddText.bind(this);
+    this.addModifier = this.addModifier.bind(this);
   }
 
   onDragEnd(result) {
@@ -70,14 +59,14 @@ class MacroTable extends Component {
       return;
     }
 
-    const items = this.reorder(
+    const rows = this.reorder(
       this.state.rows,
       result.source.index,
       result.destination.index
     );
 
     this.setState({
-      items
+      rows
     });
   }
   reorder(list, startIndex, endIndex) {
@@ -88,135 +77,108 @@ class MacroTable extends Component {
     return result;
   }
 
+  onDeleteRow(id) {
+    let aux = this.state.rows;
+    this.setState({
+      rows: aux.filter(x => x.id !== id)
+    });
+  }
+
+  onAddText() {
+    const aux = this.state.addText;
+    let newRows = this.state.rows;
+    newRows = newRows.concat(
+      aux.split("").map((item, index) => {
+        return {
+          symbol: item,
+          action: 8,
+          id: index + newRows.length,
+          color: "lightgreen"
+        };
+      })
+    );
+    this.setState({
+      addText: "",
+      rows: newRows
+    });
+  }
+
+  addModifier(rowID, modifierID) {
+    const modifier = this.state.modifiers[modifierID];
+    let newRows = this.state.rows;
+    newRows.splice(rowID + 1, 0, {
+      symbol: modifier.name,
+      action: 7,
+      id: rowID + 1,
+      color: modifier.color
+    });
+    newRows.splice(rowID, 0, {
+      symbol: modifier.name,
+      action: 6,
+      id: rowID,
+      color: modifier.color
+    });
+    newRows = newRows.map((item, index) => {
+      let aux = item;
+      aux.id = index;
+      return aux;
+    });
+    this.setState({
+      rows: newRows
+    });
+  }
+
   render() {
     const { classes } = this.props;
-    const modifiers = [
-      { id: 0, name: "Shift" },
-      { id: 1, name: "Control" },
-      { id: 2, name: "Alt" },
-      { id: 3, name: "AltGr" },
-      { id: 4, name: "Gui" }
-    ];
-    const selectItems = modifiers.map(item => (
-      <MenuItem value={item.id} key={`item-${item.id}`}>
-        <div style={{ display: "flex" }}>
-          <ListItemText inset primary={item.name} />
-        </div>
-      </MenuItem>
-    ));
-    const actions = [
-      { enum: "MACRO_ACTION_END", id: 0, name: "End macro" },
-      { enum: "MACRO_ACTION_STEP_INTERVAL", id: 1, name: "Step Interval" },
-      { enum: "MACRO_ACTION_STEP_WAIT", id: 2, name: "Step Wait" },
-      { enum: "MACRO_ACTION_STEP_KEYDOWN", id: 3, name: "Step Keydown" },
-      { enum: "MACRO_ACTION_STEP_KEYUP", id: 4, name: "Step KeyUp" },
-      { enum: "MACRO_ACTION_STEP_TAP", id: 5, name: "Step Tap" },
-      {
-        enum: "MACRO_ACTION_STEP_KEYCODEDOWN",
-        id: 6,
-        name: "Step KeyCode Down"
-      },
-      { enum: "MACRO_ACTION_STEP_KEYCODEUP", id: 7, name: "Step KeyCode Up" },
-      { enum: "MACRO_ACTION_STEP_TAPCODE", id: 8, name: "Step Tap Code" },
-      {
-        enum: "MACRO_ACTION_STEP_EXPLICIT_REPORT",
-        id: 9,
-        name: "Explicit Report"
-      },
-      {
-        enum: "MACRO_ACTION_STEP_IMPLICIT_REPORT",
-        id: 10,
-        name: "Implicit Report"
-      },
-      { enum: "MACRO_ACTION_STEP_SEND_REPORT", id: 11, name: "Send Report" },
-      {
-        enum: "MACRO_ACTION_STEP_TAP_SEQUENCE",
-        id: 12,
-        name: "Step Tap Sequence"
-      },
-      {
-        enum: "MACRO_ACTION_STEP_TAP_CODE_SEQUENCE",
-        id: 13,
-        name: "Step Code Sequence"
-      }
-    ];
-    const getItemStyle = (isDragging, draggableStyle) => ({
-      // styles we need to apply on draggables
-      ...draggableStyle,
 
-      ...(isDragging && {
-        background: "rgb(235,235,235)"
-      })
-    });
-
-    const getListStyle = isDraggingOver => ({
-      background: isDraggingOver ? "lightblue" : "lightgrey"
-    });
-    console.log(selectItems, actions);
     return (
       <React.Fragment>
-        <div>
-          <InputLabel
-            className={classNames(
-              classes.margin,
-              classes.textField,
-              classes.code
-            )}
-          >
-            Add text to Macro
-          </InputLabel>
-          <Input
-            id="AddToMacro"
-            className={classNames(
-              classes.margin,
-              classes.textField,
-              classes.code
-            )}
-            multiline
-            endAdornment={
+        {" "}
+        <TextField
+          id="AddTextToMacro"
+          label="Load text into Macro editor"
+          className={classNames(
+            classes.margin,
+            classes.textField,
+            classes.code,
+            classes.textField
+          )}
+          value={this.state.addText}
+          onChange={e => {
+            this.setState({ addText: e.target.value });
+          }}
+          margin="normal"
+          variant="outlined"
+          InputProps={{
+            endAdornment: (
               <InputAdornment position="end">
-                <IconButton>
-                  <AddCircle />
+                <IconButton onClick={this.onAddText}>
+                  <GetAppRounded />
                 </IconButton>
               </InputAdornment>
-            }
-          />
-        </div>
+            )
+          }}
+        />
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId="droppable">
-            {(provided, snapshot) => (
+            {provided => (
               <RootRef rootRef={provided.innerRef}>
-                <List style={getListStyle(snapshot.isDraggingOver)}>
-                  {this.state.items.map((item, index) => (
+                <List className={classes.list} disablePadding dense>
+                  {this.state.rows.map((item, index) => (
                     <Draggable
                       key={item.id}
-                      draggableId={item.id}
+                      draggableId={String(item.id)}
                       index={index}
                     >
                       {(provided, snapshot) => (
-                        <ListItem
-                          ContainerComponent="li"
-                          ContainerProps={{ ref: provided.innerRef }}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          style={getItemStyle(
-                            snapshot.isDragging,
-                            provided.draggableProps.style
-                          )}
-                        >
-                          <ListItemIcon>
-                            <CloseIcon />
-                          </ListItemIcon>
-                          <ListItemText
-                            primary={item.primary}
-                            secondary={item.secondary}
-                          />
-                          <ListItemSecondaryAction>
-                            <IconButton>
-                              <CloseIcon />
-                            </IconButton>
-                          </ListItemSecondaryAction>
-                        </ListItem>
+                        <MacroTableRow
+                          provided={provided}
+                          snapshot={snapshot}
+                          item={item}
+                          modifiers={this.state.modifiers}
+                          onDeleteRow={this.onDeleteRow}
+                          addModifier={this.addModifier}
+                        />
                       )}
                     </Draggable>
                   ))}

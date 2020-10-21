@@ -51,7 +51,7 @@ class KeymapBase extends React.Component {
 
     const keyOffsetX = [
       [
-        -1,
+        0,
         0,
         0,
         0,
@@ -128,6 +128,10 @@ class KeymapBase extends React.Component {
         offset += keyOffsetX[row][col] * keySpacingX;
       }
 
+      if (row > 0) {
+        offset += keySpacingX;
+      }
+
       return offset;
     };
 
@@ -193,7 +197,7 @@ class KeymapBase extends React.Component {
 
     const viewBoxSize =
       "0 0 " +
-      Math.round(28.5 * keycapunit).toString() +
+      Math.round(28.5 * keycapunit + 30).toString() +
       " " +
       (5 * keycapunit + 20).toString();
 

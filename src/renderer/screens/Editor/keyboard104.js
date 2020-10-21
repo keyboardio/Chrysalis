@@ -73,16 +73,16 @@ class KeymapBase extends React.Component {
         0,
         0,
         0,
-        0
+        0.5
       ],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0.5, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0.5, 0, 0, 0, 0.5],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 1.5],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.5, 1.5],
       [0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0.5]
     ];
 
     const keySizeX = [
-      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1],
+      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
       [1.5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.5],
       [1.75, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2.25],
       [2.25, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2.75],
@@ -193,7 +193,7 @@ class KeymapBase extends React.Component {
 
     const viewBoxSize =
       "0 0 " +
-      (24 * keycapunit).toString() +
+      Math.round(28.5 * keycapunit).toString() +
       " " +
       (5 * keycapunit + 20).toString();
 
@@ -233,6 +233,11 @@ class KeymapBase extends React.Component {
             <Key row={0} col={19} />
             <Key row={0} col={20} />
             <Key row={0} col={21} />
+
+            <Key row={0} col={22} />
+            <Key row={0} col={23} />
+            <Key row={0} col={24} />
+            <Key row={0} col={25} />
           </g>
 
           <g>
@@ -259,6 +264,11 @@ class KeymapBase extends React.Component {
             <Key row={1} col={18} />
             <Key row={1} col={19} />
             <Key row={1} col={20} />
+
+            <Key row={1} col={21} />
+            <Key row={1} col={22} />
+            <Key row={1} col={23} />
+            <Key row={1} col={24} />
           </g>
 
           <g>
@@ -279,6 +289,11 @@ class KeymapBase extends React.Component {
             <Key row={2} col={13} />
             <Key row={2} col={14} />
             <Key row={2} col={15} />
+
+            <Key row={2} col={16} />
+            <Key row={2} col={17} />
+            <Key row={2} col={18} />
+            <Key row={2} col={19} />
           </g>
 
           <g>

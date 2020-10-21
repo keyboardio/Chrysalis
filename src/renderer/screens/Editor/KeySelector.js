@@ -40,6 +40,7 @@ const styles = theme => ({
     width: "100%"
   },
   tabs: {
+    minWidth: 170,
     borderRight: `1px solid ${theme.palette.divider}`
   }
 });
@@ -61,6 +62,14 @@ function TabPanel(props) {
 }
 
 class KeySelector extends React.Component {
+  state = {
+    tab: 0
+  };
+
+  setTab = (event, index) => {
+    this.setState({ tab: index });
+  };
+
   render() {
     const {
       classes,
@@ -69,13 +78,21 @@ class KeySelector extends React.Component {
       keymap,
       currentLayout
     } = this.props;
+    const { tab } = this.state;
 
     return (
       <Paper className={classes.root}>
-        <Tabs orientation="vertical" value={0} className={classes.tabs}>
+        <Tabs
+          orientation="vertical"
+          value={tab}
+          className={classes.tabs}
+          onChange={this.setTab}
+        >
           <Tab label="Keyboard" />
+          <Tab label="Layers" />
+          <Tab label="Others..." />
         </Tabs>
-        <TabPanel value={0} index={0} className={classes.tabpanel}>
+        <TabPanel value={tab} index={0} className={classes.tabpanel}>
           <Keyboard104
             onKeySelect={onKeySelect}
             currentKeyCode={currentKeyCode}

@@ -63,7 +63,20 @@ class KeymapDB {
     };
   }
 
+  isLayerKey(keyCode) {
+    if (17408 <= keyCode && keyCode <= 17439) {
+      return true;
+    }
+    if (17450 <= keyCode && keyCode <= 17481) {
+      return true;
+    }
+
+    return false;
+  }
+
   _lookupLayerKey(keyCode) {
+    if (!this.isLayerKey(keyCode)) return false;
+
     if (17408 <= keyCode && keyCode <= 17439) {
       const layer = keyCode - 17408;
       return {

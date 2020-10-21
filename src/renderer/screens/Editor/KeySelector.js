@@ -23,6 +23,7 @@ import Tabs from "@material-ui/core/Tabs";
 import { withStyles } from "@material-ui/core/styles";
 
 import Keyboard104 from "./KeySelector/keyboard104";
+import LayerSwitchSelector from "./KeySelector/LayerSwitchSelector";
 
 const styles = theme => ({
   root: {
@@ -94,6 +95,14 @@ class KeySelector extends React.Component {
         </Tabs>
         <TabPanel value={tab} index={0} className={classes.tabpanel}>
           <Keyboard104
+            onKeySelect={onKeySelect}
+            currentKeyCode={currentKeyCode}
+            keymap={keymap}
+            currentLayout={currentLayout}
+          />
+        </TabPanel>
+        <TabPanel value={tab} index={1} className={classes.tabpanel}>
+          <LayerSwitchSelector
             onKeySelect={onKeySelect}
             currentKeyCode={currentKeyCode}
             keymap={keymap}

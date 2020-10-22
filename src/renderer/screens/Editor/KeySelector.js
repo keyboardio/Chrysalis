@@ -30,6 +30,8 @@ import Switch from "@material-ui/core/Switch";
 import TextField from "@material-ui/core/TextField";
 import List from "@material-ui/core/List";
 import { withStyles } from "@material-ui/core/styles";
+import DeleteForever from "@material-ui/icons/DeleteForever";
+import PlaylistAdd from "@material-ui/icons/PlaylistAdd";
 
 import i18n from "../../i18n";
 
@@ -80,6 +82,19 @@ const styles = theme => ({
     height: 34,
     borderRadius: 3,
     padding: 0
+  },
+  marginBottom: {
+    display: "flex",
+    justifyContent: "start",
+    margin: "0 0 7px 30px",
+    width: 170,
+    height: 34,
+    borderRadius: 3,
+    padding: 0
+  },
+  extendedIcon: {
+    marginRight: 20,
+    marginLeft: 10
   }
 });
 
@@ -496,42 +511,99 @@ class MacroMenu extends React.Component {
     };
     this.localMacros = this.localMacros.bind(this);
     this.changeSelected = this.changeSelected.bind(this);
-  }
-
-  localMacros(macros) {
-    this.setState({
-      macros: macros
-    });
-    this.props.updateMacros(macros);
+    this.addMacro = this.addMacro.bind(this);
+    this.deleteMacro = this.deleteMacro.bind(this);
+    this.updateMacro = this.updateMacro.bind(this);
   }
 
   changeSelected(id) {
     this.props.onKeySelect(id + 24576);
   }
 
+  localMacros(macros, newID) {
+    this.setState({
+      macros: macros
+    });
+    this.props.updateMacros(macros);
+    if (newID !== this.state.selectedMacro) {
+      this.changeSelected(newID);
+    }
+  }
+
+  addMacro() {
+    if (this.state.macros.length <= this.props.maxMacros) {
+      let aux = this.state.macros;
+      const newID = aux.length;
+      aux.push({
+        actions: [],
+        name: "Empty Macro",
+        id: newID,
+        macro: ""
+      });
+      this.localMacros(aux, newID);
+    }
+  }
+
+  deleteMacro() {
+    if (this.state.macros.length > 0) {
+      let aux = this.state.macros;
+      aux.splice(this.state.selectedMacro, 1);
+      let newID = 0;
+      if (this.state.selectedMacro - 1 > 0) {
+        newID = this.state.selectedMacro - 1;
+      }
+      if (this.state.selectedMacro < this.state.macros.length - 1) {
+        newID = this.state.selectedMacro + 1;
+      }
+      this.localMacros(aux, newID);
+    }
+  }
+
+  updateMacro(macro) {
+    let updated = this.state.macros;
+    updated[this.state.selectedMacro] = macro;
+    this.localMacros(updated, this.state.selectedMacro);
+  }
+
   render() {
+    const { classes, maxMacros, keymapDB } = this.props;
     return (
-      <div style={{ display: "inline-flex" }}>
-        <MacroList
-          macros={this.state.macros}
-          changeSelected={this.changeSelected}
-          selected={this.state.selectedMacro}
-        />
-        <div>
-          <MacroManager
+      <div style={{ display: "table-caption" }}>
+        <div style={{ display: "inline-flex" }}>
+          <MacroList
             macros={this.state.macros}
-            updateMacros={this.localMacros}
-            maxMacros={this.props.maxMacros}
+            changeSelected={this.changeSelected}
+            selected={this.state.selectedMacro}
+            updateMacro={this.updateMacro}
           />
-          <Button
-            variant="outlined"
-            color="secondary"
-            className={this.props.classes.margin}
-            onClick={""}
-          >
-            DELETE MACRO
-          </Button>
+          <div style={{ paddingTop: "8px" }}>
+            <MacroManager
+              macro={this.state.macros[this.state.selectedMacro]}
+              maxMacros={maxMacros}
+              updateMacro={this.updateMacro}
+              keymapDB={keymapDB}
+            />
+            <Button
+              variant="outlined"
+              color="secondary"
+              className={classes.marginBottom}
+              onClick={this.deleteMacro}
+            >
+              <DeleteForever className={classes.extendedIcon} />
+              DELETE MACRO
+            </Button>
+          </div>
         </div>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.marginBottom}
+          onClick={this.addMacro}
+          disabled={this.state.macros.length === maxMacros}
+        >
+          <PlaylistAdd className={classes.extendedIcon} />
+          {"Add Macro"}
+        </Button>
       </div>
     );
   }
@@ -572,7 +644,19 @@ class KeySelector extends React.Component {
   };
 
   render() {
-    const { classes, currentKeyCode, disabled } = this.props;
+    const {
+      classes,
+      currentKeyCode,
+      disabled,
+      macros,
+      maxMacros,
+      updateMacros,
+      keymapDB,
+      scanKeyboard,
+      doCancelContext,
+      currentLanguageLayout,
+      onChangeLanguageLayout
+    } = this.props;
     const { selectedGroup, actualKeycode } = this.state;
     let groupIndex = selectedGroup,
       keyCode = currentKeyCode;
@@ -610,10 +694,10 @@ class KeySelector extends React.Component {
             baseKeyCodeTable={baseKeyCodeTable}
           />
           <SelectLanguage
-            scanKeyboard={this.props.scanKeyboard}
-            currentLanguageLayout={this.props.currentLanguageLayout}
-            onChangeLanguageLayout={this.props.onChangeLanguageLayout}
-            doCancelContext={this.props.doCancelContext}
+            scanKeyboard={scanKeyboard}
+            currentLanguageLayout={currentLanguageLayout}
+            onChangeLanguageLayout={onChangeLanguageLayout}
+            doCancelContext={doCancelContext}
           />
         </List>
         {keyGroups[groupIndex] === "Macros" ? (
@@ -622,9 +706,10 @@ class KeySelector extends React.Component {
               keyCode={actualKeycode}
               key={actualKeycode}
               onKeySelect={this.onKeySelect}
-              macros={this.props.macros}
-              updateMacros={this.props.updateMacros}
-              maxMacros={this.props.maxMacros}
+              macros={macros}
+              updateMacros={updateMacros}
+              maxMacros={maxMacros}
+              keymapDB={keymapDB}
             />
           </div>
         ) : (

@@ -88,14 +88,12 @@ class MacroManager extends Component {
     super(props);
 
     this.state = {
-      macros: props.macros,
-      selected: 0,
+      macro: props.macro,
       open: false
     };
 
     this.close = this.close.bind(this);
     this.accept = this.accept.bind(this);
-    this.addMacro = this.addMacro.bind(this);
   }
 
   close() {
@@ -104,36 +102,16 @@ class MacroManager extends Component {
     });
   }
 
-  accept(macro, id) {
-    const aux = this.state.macros;
-    aux[id] = macro;
-
+  accept(macro) {
     this.setState({
-      macros: aux
+      macro: macro,
+      open: false
     });
-    this.props.updateMacros(aux);
-  }
-
-  addMacro() {
-    if (this.state.macros.length <= 31) {
-      let aux = this.state.macros;
-      const newID = aux.length;
-      aux.push({
-        actions: [],
-        name: "Empty Macro",
-        id: newID,
-        macro: ""
-      });
-      this.setState({
-        macros: aux,
-        selected: newID
-      });
-      this.props.updateMacros(aux);
-    }
+    this.props.updateMacro(macro);
   }
 
   render() {
-    const { classes, maxMacros } = this.props;
+    const { classes, keymapDB } = this.props;
 
     return (
       <React.Fragment>
@@ -174,13 +152,11 @@ class MacroManager extends Component {
               />
               <CardContent classes={{ root: classes.cardcontent }}>
                 <MacroForm
-                  macros={this.state.macros}
-                  selected={this.state.selected}
-                  key={this.state.selected}
+                  macro={this.state.macro}
+                  key={this.state.macro.id}
                   close={this.close}
                   accept={this.accept}
-                  addMacro={this.addMacro}
-                  maxMacros={maxMacros}
+                  keymapDB={keymapDB}
                 />
               </CardContent>
             </Card>

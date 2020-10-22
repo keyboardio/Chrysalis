@@ -131,7 +131,6 @@ class Editor extends React.Component {
       this.state = window.localStorage.getItem("EditStateBackup");
     }
     this.updateMacros = this.updateMacros.bind(this);
-    this.macroEncoder = this.macroEncoder.bind(this);
   }
 
   keymapDB = new KeymapDB();
@@ -162,8 +161,8 @@ class Editor extends React.Component {
        * Create property language to the object 'options', to call KeymapDB in Keymap and modify languagu layout
        */
       if (lang) {
-        let deviceLeng = { ...focus.device, language: true };
-        focus.commands.keymap = new Keymap(deviceLeng);
+        let deviceLang = { ...focus.device, language: true };
+        focus.commands.keymap = new Keymap(deviceLang);
         this.keymapDB = focus.commands.keymap.db;
       }
 
@@ -443,11 +442,6 @@ class Editor extends React.Component {
       this.state.colorMap
     );
     let newMacros = this.state.macros;
-    newMacros = newMacros.map(macro => {
-      let aux = macro;
-      aux.actions = this.macroEncoder(macro.macro);
-      return aux;
-    });
     this.setState({
       modified: false,
       saving: false,
@@ -754,22 +748,19 @@ class Editor extends React.Component {
       let keyCodes = macro.filter((x, i) => i % 2 == 1);
       let actions = [];
       for (const key in types) {
-        actions.push([{ type: types[key], keyCode: keyCodes[key] }]);
+        actions.push({ type: types[key], keyCode: keyCodes[key] });
       }
       macros[i] = {};
-      macros[i].actions = [];
-      macros[i].actions.push(actions);
+      macros[i].actions = actions;
       macros[i].id = i;
       macros[i].name = "";
       macros[i].macro = keyCodes
         .map(k => this.keymapDB.parse(k).label)
-        .join("")
-        .split("SPACE")
-        .join(" ");
+        .join("|");
     });
     // TODO: Check if stored macros match the received ones, if they mach, retrieve name and apply it to current macros
-    let equal = [],
-      finalMacros = [];
+    let equal = [];
+    let finalMacros = [];
     const stored = this.state.storedMacros;
     console.log(macros, stored);
     if (stored === undefined) {
@@ -777,12 +768,8 @@ class Editor extends React.Component {
     }
     finalMacros = macros.map((macro, i) => {
       if (stored.length > i && stored.length > 0) {
-        console.log(
-          "compare between: ",
-          macro.macro,
-          stored[i].macro.toUpperCase()
-        );
-        if (macro.macro === stored[i].macro.toUpperCase()) {
+        console.log("compare between: ", macro.actions, stored[i].actions);
+        if (macro.actions === stored[i].actions) {
           equal[i] = true;
           let aux = macro;
           aux.name = stored[i].name;
@@ -798,19 +785,6 @@ class Editor extends React.Component {
     this.setState({ equalMacros: equal });
 
     return finalMacros;
-  }
-
-  macroEncoder(macro) {
-    let action = [];
-    for (const char of macro.split("")) {
-      let aux = this.keymapDB.reverse(char.toUpperCase());
-      if (char === " ") {
-        aux = 44;
-      }
-      action.push({ keyCode: aux, type: 8 });
-    }
-    console.log("generated actions: ", action);
-    return action;
   }
 
   updateMacros(recievedMacros) {
@@ -830,16 +804,12 @@ class Editor extends React.Component {
         })
         .concat([0]);
     });
-    console.log(
-      [].concat
-        .apply([], actionMap.flat())
-        .concat([0])
-        .join(" ")
-    );
-    return [].concat
+    const mapped = [].concat
       .apply([], actionMap.flat())
       .concat([0])
       .join(" ");
+    console.log(mapped);
+    return mapped;
   }
 
   getLayout() {
@@ -1029,6 +999,7 @@ class Editor extends React.Component {
             macros={this.state.macros}
             maxMacros={32}
             updateMacros={this.updateMacros}
+            keymapDB={this.keymapDB}
           />
         </Slide>
         <SaveChangesButton

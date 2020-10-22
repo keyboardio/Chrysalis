@@ -22,9 +22,6 @@ const styles = theme => ({
   },
   button: {
     float: "right"
-  },
-  buttonAdd: {
-    marginLeft: "22.5%"
   }
 });
 
@@ -33,38 +30,37 @@ class MacroForm extends Component {
     super(props);
 
     this.state = {
-      macro: {},
-      name: "",
-      id: "",
-      code: ""
+      macro: props.macro,
+      name: props.macro.name,
+      id: props.macro.id,
+      actions: props.macro.actions
     };
 
     this.updateMacro = this.updateMacro.bind(this);
-  }
-
-  componentDidMount() {
-    const macro = this.props.macros[this.props.selected];
-    console.log("macros arrived with length: ", this.props.macros.length);
-    this.setState({
-      macro: macro,
-      name: macro.name,
-      id: macro.id,
-      code: macro.macro
-    });
+    this.updateActions = this.updateActions.bind(this);
   }
 
   updateMacro() {
     const aux = this.state.macro;
     aux.name = this.state.name;
-    aux.macro = this.state.code;
+    aux.actions = this.state.actions;
+    aux.macro = this.state.actions
+      .map(item => {
+        return item.keycode;
+      })
+      .join(" ");
     this.setState({ macro: aux });
-    this.props.accept(aux, this.props.selected);
+    this.props.accept(aux);
   }
 
-  handleDelete() {}
+  updateActions(actions) {
+    this.setState({
+      actions: actions
+    });
+  }
 
   render() {
-    const { classes, close, addMacro, macros, maxMacros } = this.props;
+    const { classes, close, keymapDB } = this.props;
     return (
       <React.Fragment>
         <div>
@@ -78,7 +74,11 @@ class MacroForm extends Component {
               this.setState({ name: e.target.value });
             }}
           />
-          <MacroTable />
+          <MacroTable
+            macro={this.state.macro}
+            updateActions={this.updateActions}
+            keymapDB={keymapDB}
+          />
           <div>
             <Button
               variant="outlined"
@@ -87,15 +87,6 @@ class MacroForm extends Component {
               onClick={close}
             >
               {"Cancel"}
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classNames(classes.margin, classes.buttonAdd)}
-              onClick={addMacro}
-              disabled={macros.length === maxMacros}
-            >
-              {"Add Macro"}
             </Button>
             <Button
               variant="contained"

@@ -26,7 +26,6 @@ import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 
-import MacroList from "./MacroList";
 import MacroForm from "./MacroForm";
 
 const styles = theme => ({
@@ -94,16 +93,9 @@ class MacroManager extends Component {
       open: false
     };
 
-    this.changeSelected = this.changeSelected.bind(this);
     this.close = this.close.bind(this);
     this.accept = this.accept.bind(this);
     this.addMacro = this.addMacro.bind(this);
-  }
-
-  changeSelected(id) {
-    this.setState({
-      selected: id
-    });
   }
 
   close() {
@@ -181,24 +173,15 @@ class MacroManager extends Component {
                 style={{ backgroundColor: "black" }}
               />
               <CardContent classes={{ root: classes.cardcontent }}>
-                <div>
-                  <MacroList
-                    macros={this.state.macros}
-                    changeSelected={this.changeSelected}
-                    selected={this.state.selected}
-                  />
-                </div>
-                <div>
-                  <MacroForm
-                    macros={this.state.macros}
-                    selected={this.state.selected}
-                    key={this.state.selected}
-                    close={this.close}
-                    accept={this.accept}
-                    addMacro={this.addMacro}
-                    maxMacros={maxMacros}
-                  />
-                </div>
+                <MacroForm
+                  macros={this.state.macros}
+                  selected={this.state.selected}
+                  key={this.state.selected}
+                  close={this.close}
+                  accept={this.accept}
+                  addMacro={this.addMacro}
+                  maxMacros={maxMacros}
+                />
               </CardContent>
             </Card>
           </div>

@@ -15,5 +15,6 @@
  */
 
 import MacroManager from "./MacroManager.js";
+import MacroList from "./MacroList.js";
 
-export default MacroManager;
+export { MacroManager as default, MacroList };

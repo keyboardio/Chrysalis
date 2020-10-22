@@ -51,14 +51,14 @@ class MacroList extends Component {
           value={selected}
           className={classNames(classes.margin, classes.textField)}
           label="Select a Macro"
+          onChange={e => {
+            changeSelected(e.target.value);
+          }}
         >
           {macros.map(item => (
             <MenuItem value={item.id} key={`item-${item.id}`}>
               <div style={{ display: "flex" }}>
                 <ListItemText
-                  onClick={() => {
-                    changeSelected(item.id);
-                  }}
                   inset
                   primary={`${("0" + item.id).substr(-2)} - ${item.name}`}
                   secondary={item.macro}

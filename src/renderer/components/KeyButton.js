@@ -20,37 +20,31 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 
-import LayerSwitchButton from "./Features/LayerSwitchButton";
-
-import { NewKeymapDB } from "../../../../api/keymap";
-const db = new NewKeymapDB();
-
 const styles = theme => ({
-  root: {
-    display: "flex",
-    flexWrap: "wrap",
-    margin: theme.spacing.unit,
-    height: "100%"
+  key: {
+    fontFamily: '"Source Code Pro", monospace',
+    margin: theme.spacing.unit / 2,
+    padding: "4px 8px",
+    minWidth: "auto",
+    minHeight: "auto",
+    whiteSpace: "nowrap",
+    cursor: "context-menu"
   }
 });
 
-class FeatureSelector extends React.Component {
-  render() {
-    const { classes, currentKeyCode } = this.props;
+const KeyButton = withStyles(styles)(props => {
+  const { label, selected, classes, ...other } = props;
 
-    const isLayerKey = db.isLayerKey(currentKeyCode);
+  return (
+    <Button
+      className={classes.key}
+      color={selected ? "primary" : "default"}
+      variant={selected ? "contained" : "outlined"}
+      {...other}
+    >
+      {label}
+    </Button>
+  );
+});
 
-    return (
-      <div className={classes.root}>
-        <div>
-          <LayerSwitchButton keyCode={currentKeyCode} selected={isLayerKey} />
-          <Button className={classes.key} color="default" variant="outlined">
-            Macro
-          </Button>
-        </div>
-      </div>
-    );
-  }
-}
-
-export default withStyles(styles, { withTheme: true })(FeatureSelector);
+export default KeyButton;

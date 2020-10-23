@@ -159,7 +159,9 @@ class MacroTableRow extends Component {
         )}
       >
         <ListItem className={classes.listitem}>
-          <ListItemIcon>{actions[item.action].icon}</ListItemIcon>
+          <ListItemIcon fontSize="large">
+            {actions[item.action].icon}
+          </ListItemIcon>
           <Chip
             label={item.symbol}
             variant="outlined"

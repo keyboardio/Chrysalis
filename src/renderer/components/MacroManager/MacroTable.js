@@ -37,15 +37,15 @@ class MacroTable extends Component {
     super(props);
 
     this.state = {
-      addText: props.macro.macro,
-      rows: props.macro.actions,
+      addText: "",
+      rows: [],
+      macro: props.macro.macro,
       modifiers: [
         { id: 0, name: "Shift", color: "lightskyblue" },
         { id: 1, name: "Control", color: "lightcoral" },
         { id: 2, name: "Alt", color: "gold" },
         { id: 3, name: "AltGr", color: "lightseagreen" },
-        { id: 4, name: "Gui", color: "lightgreen" },
-        { id: 5, name: "commonKeys", color: "lightgrey" }
+        { id: 4, name: "Gui", color: "lightgreen" }
       ]
     };
     this.keymapDB = props.keymapDB;
@@ -60,21 +60,7 @@ class MacroTable extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      rows: this.actionConversion(this.props.macro.actions)
-    });
-  }
-
-  macroEncoder(macro) {
-    let action = [];
-    for (const char of macro.split("")) {
-      let keyCode = this.keymapDB.reverse(char.toUpperCase());
-      if (char === " ") {
-        keyCode = 44;
-      }
-      action.push({ keyCode: keyCode, type: 8 });
-    }
-    return action;
+    this.updateRows(this.actionConversion(this.props.macro.actions));
   }
 
   actionConversion(actions) {
@@ -86,11 +72,7 @@ class MacroTable extends Component {
         color: this.assignColor(action.keyCode)
       };
     });
-    console.log("converted:", converted);
-    this.setState({
-      rows: converted
-    });
-    this.updateRows(converted);
+    return converted;
   }
 
   assignColor(keyCode) {
@@ -115,13 +97,38 @@ class MacroTable extends Component {
         return this.state.modifiers[4].color;
       default:
         // Common keys
-        return this.state.modifiers[5].color;
+        return "lightgrey";
     }
+  }
+
+  assignSymbol(macro) {
+    // TODO: redo the function as assingColor to replace keycodes that are not represented (space, enter, tab, etc.. per icons or altcodes to be shown in their stead)
+    let action = [];
+    for (const char of macro.split("")) {
+      let keyCode = this.keymapDB.reverse(char.toUpperCase());
+      if (char === " ") {
+        keyCode = 44;
+      }
+      action.push({ keyCode: keyCode, type: 8 });
+    }
+    return action;
   }
 
   updateRows(rows) {
     let texted = rows.map(k => this.keymapDB.parse(k.symbol).label).join("|");
     console.log(rows, texted);
+    this.setState({
+      rows,
+      macro: texted
+    });
+  }
+
+  reorder(list, startIndex, endIndex) {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+
+    return result;
   }
 
   onDragEnd(result) {
@@ -136,25 +143,11 @@ class MacroTable extends Component {
       result.destination.index
     );
 
-    this.setState({
-      rows
-    });
     this.updateRows(rows);
-  }
-
-  reorder(list, startIndex, endIndex) {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-
-    return result;
   }
 
   onDeleteRow(id) {
     let aux = this.state.rows.filter(x => x.id !== id);
-    this.setState({
-      rows: aux
-    });
     this.updateRows(aux);
   }
 
@@ -172,10 +165,9 @@ class MacroTable extends Component {
       })
     );
     this.setState({
-      addText: "",
-      rows: newRows
+      addText: ""
     });
-    this.updateRows("addText:", newRows);
+    this.updateRows(newRows);
   }
 
   addModifier(rowID, modifierID) {
@@ -198,15 +190,11 @@ class MacroTable extends Component {
       aux.id = index;
       return aux;
     });
-    this.setState({
-      rows: newRows
-    });
     this.updateRows(newRows);
   }
 
   render() {
     const { classes } = this.props;
-    console.log(this.state.rows);
 
     return (
       <React.Fragment>
@@ -243,8 +231,8 @@ class MacroTable extends Component {
                 <List className={classes.list} disablePadding dense>
                   {this.state.rows.map((item, index) => (
                     <Draggable
-                      key={item.id}
-                      draggableId={String(item.id)}
+                      key={index}
+                      draggableId={String(index)}
                       index={index}
                     >
                       {(provided, snapshot) => (

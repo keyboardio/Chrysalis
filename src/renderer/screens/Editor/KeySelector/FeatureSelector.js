@@ -18,23 +18,34 @@
 import React from "react";
 
 import Button from "@material-ui/core/Button";
+import Divider from "@material-ui/core/Divider";
+import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 
-import LayerSwitchButton from "./Features/LayerSwitchButton";
+import KeyButton from "../../../components/KeyButton";
+import LayerSwitch from "./Features/LayerSwitch";
 
 import { NewKeymapDB } from "../../../../api/keymap";
 const db = new NewKeymapDB();
 
 const styles = theme => ({
   root: {
-    display: "flex",
-    flexWrap: "wrap",
-    margin: theme.spacing.unit,
-    height: "100%"
+    flexGrow: 1,
+    margin: theme.spacing.unit
   }
 });
 
 class FeatureSelector extends React.Component {
+  state = {
+    feature: null
+  };
+
+  setFeature = feature => {
+    return () => {
+      this.setState({ feature: feature });
+    };
+  };
+
   render() {
     const { classes, currentKeyCode } = this.props;
 
@@ -42,12 +53,21 @@ class FeatureSelector extends React.Component {
 
     return (
       <div className={classes.root}>
-        <div>
-          <LayerSwitchButton keyCode={currentKeyCode} selected={isLayerKey} />
-          <Button className={classes.key} color="default" variant="outlined">
-            Macro
-          </Button>
-        </div>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <KeyButton
+              label="Layer switch"
+              selected={isLayerKey}
+              onClick={this.setFeature("layerswitch")}
+            />
+            <KeyButton label="Macro" />
+          </Grid>
+          <Grid item xs={12}>
+            <Divider />
+
+            {isLayerKey && <LayerSwitch keyCode={currentKeyCode} />}
+          </Grid>
+        </Grid>
       </div>
     );
   }

@@ -27,8 +27,7 @@ const styles = theme => ({
     padding: "4px 8px",
     minWidth: "auto",
     minHeight: "auto",
-    whiteSpace: "nowrap",
-    cursor: "context-menu"
+    whiteSpace: "nowrap"
   }
 });
 

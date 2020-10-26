@@ -30,8 +30,6 @@ import Switch from "@material-ui/core/Switch";
 import TextField from "@material-ui/core/TextField";
 import List from "@material-ui/core/List";
 import { withStyles } from "@material-ui/core/styles";
-import DeleteForever from "@material-ui/icons/DeleteForever";
-import PlaylistAdd from "@material-ui/icons/PlaylistAdd";
 
 import i18n from "../../i18n";
 
@@ -511,66 +509,34 @@ class MacroMenu extends React.Component {
     };
     this.localMacros = this.localMacros.bind(this);
     this.changeSelected = this.changeSelected.bind(this);
-    this.addMacro = this.addMacro.bind(this);
-    this.deleteMacro = this.deleteMacro.bind(this);
     this.updateMacro = this.updateMacro.bind(this);
   }
 
   changeSelected(id) {
+    this.setState({
+      selectedMacro: id
+    });
     this.props.onKeySelect(id + 24576);
   }
 
-  localMacros(macros, newID) {
+  localMacros(macros) {
     this.setState({
-      macros: macros
+      macros
     });
     this.props.updateMacros(macros);
-    if (newID !== this.state.selectedMacro) {
-      this.changeSelected(newID);
-    }
   }
 
-  addMacro() {
-    if (this.state.macros.length <= this.props.maxMacros) {
-      let aux = this.state.macros;
-      const newID = aux.length;
-      aux.push({
-        actions: [],
-        name: "Empty Macro",
-        id: newID,
-        macro: ""
-      });
-      this.localMacros(aux, newID);
-    }
-  }
-
-  deleteMacro() {
-    if (this.state.macros.length > 0) {
-      let aux = this.state.macros;
-      aux.splice(this.state.selectedMacro, 1);
-      let newID = 0;
-      if (this.state.selectedMacro - 1 > 0) {
-        newID = this.state.selectedMacro - 1;
-      }
-      if (this.state.selectedMacro < this.state.macros.length - 1) {
-        newID = this.state.selectedMacro + 1;
-      }
-      this.localMacros(aux, newID);
-    }
-  }
-
-  updateMacro(macro) {
-    let updated = this.state.macros;
-    updated[this.state.selectedMacro] = macro;
-    this.localMacros(updated, this.state.selectedMacro);
+  updateMacro(macros) {
+    this.localMacros(macros);
   }
 
   render() {
-    const { classes, maxMacros, keymapDB } = this.props;
+    const { maxMacros, keymapDB } = this.props;
     return (
       <div style={{ display: "table-caption" }}>
         <div style={{ display: "inline-flex" }}>
           <MacroList
+            key={this.state.selectedMacro}
             macros={this.state.macros}
             changeSelected={this.changeSelected}
             selected={this.state.selectedMacro}
@@ -578,32 +544,15 @@ class MacroMenu extends React.Component {
           />
           <div style={{ paddingTop: "8px" }}>
             <MacroManager
-              macro={this.state.macros[this.state.selectedMacro]}
+              macros={this.state.macros}
+              selected={this.state.selectedMacro}
               maxMacros={maxMacros}
               updateMacro={this.updateMacro}
+              changeSelected={this.changeSelected}
               keymapDB={keymapDB}
             />
-            <Button
-              variant="outlined"
-              color="secondary"
-              className={classes.marginBottom}
-              onClick={this.deleteMacro}
-            >
-              <DeleteForever className={classes.extendedIcon} />
-              DELETE MACRO
-            </Button>
           </div>
         </div>
-        <Button
-          variant="contained"
-          color="primary"
-          className={classes.marginBottom}
-          onClick={this.addMacro}
-          disabled={this.state.macros.length === maxMacros}
-        >
-          <PlaylistAdd className={classes.extendedIcon} />
-          {"Add Macro"}
-        </Button>
       </div>
     );
   }
@@ -704,7 +653,7 @@ class KeySelector extends React.Component {
           <div className={classes.keygroup}>
             <MacroMenuWrapped
               keyCode={actualKeycode}
-              key={actualKeycode}
+              key={actualKeycode + macros.lenght}
               onKeySelect={this.onKeySelect}
               macros={macros}
               updateMacros={updateMacros}

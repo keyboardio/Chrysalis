@@ -211,6 +211,12 @@ class KeymapDB {
     return answ !== undefined ? answ.code : 1;
   }
 
+  getMap() {
+    return this.keymapCodeTable
+      .filter(Boolean)
+      .filter(x => x.code < 224 && x.code > 0);
+  }
+
   serialize(key) {
     return key.keyCode;
   }

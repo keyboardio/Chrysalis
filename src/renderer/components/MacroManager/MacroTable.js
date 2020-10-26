@@ -1,11 +1,17 @@
 import React, { Component } from "react";
 import classNames from "classnames";
 import MacroTableRow from "./MacroTableRow";
+import MacroTableTool from "./MacroTableTool";
 
 import { withStyles } from "@material-ui/core/styles";
 import { InputAdornment, TextField, List, IconButton } from "@material-ui/core";
 import RootRef from "@material-ui/core/RootRef";
-import GetAppRounded from "@material-ui/icons/GetAppRounded";
+import {
+  SwapVert,
+  KeyboardArrowUp,
+  KeyboardArrowDown,
+  GetAppRounded
+} from "@material-ui/icons";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 // import ArrowDownward from "@material-ui/icons/ArrowDownward";
 
@@ -29,7 +35,7 @@ const styles = theme => ({
   buttonAdd: {
     marginLeft: "25%"
   },
-  list: { maxHeight: "400px", overflow: "auto" }
+  list: { maxHeight: "400px", minHeight: "400px", overflow: "auto" }
 });
 
 class MacroTable extends Component {
@@ -39,34 +45,120 @@ class MacroTable extends Component {
     this.state = {
       addText: "",
       rows: [],
-      macro: props.macro.macro,
-      modifiers: [
-        { id: 0, name: "Shift", color: "lightskyblue" },
-        { id: 1, name: "Control", color: "lightcoral" },
-        { id: 2, name: "Alt", color: "gold" },
-        { id: 3, name: "AltGr", color: "lightseagreen" },
-        { id: 4, name: "Gui", color: "lightgreen" }
-      ]
+      macro: props.macro.macro
     };
     this.keymapDB = props.keymapDB;
+    this.modifiers = [
+      { name: "LEFT SHIFT", keyCode: 225, color: "lightskyblue" },
+      { name: "RIGHT SHIFT", keyCode: 229, color: "lightskyblue" },
+      { name: "LEFT CTRL", keyCode: 224, color: "lightcoral" },
+      { name: "RIGHT CTRL", keyCode: 228, color: "lightcoral" },
+      { name: "LEFT ALT", keyCode: 226, color: "gold" },
+      { name: "RIGHT ALT", keyCode: 230, color: "lightseagreen" },
+      { name: "LEFT GUI", keyCode: 227, color: "lightgreen" },
+      { name: "RIGHT GUI", keyCode: 231, color: "lightgreen" }
+    ];
+    this.actionTypes = [
+      {
+        enum: "MACRO_ACTION_END",
+        name: "End macro",
+        icon: <React.Fragment />,
+        smallIcon: <React.Fragment />
+      },
+      {
+        enum: "MACRO_ACTION_STEP_INTERVAL",
+        name: "Step Interval",
+        icon: <React.Fragment />,
+        smallIcon: <React.Fragment />
+      },
+      {
+        enum: "MACRO_ACTION_STEP_WAIT",
+        name: "Step Wait",
+        icon: <React.Fragment />,
+        smallIcon: <React.Fragment />
+      },
+      {
+        enum: "MACRO_ACTION_STEP_KEYDOWN",
+        name: "Step Keydown",
+        icon: <React.Fragment />,
+        smallIcon: <React.Fragment />
+      },
+      {
+        enum: "MACRO_ACTION_STEP_KEYUP",
+        name: "Step KeyUp",
+        icon: <React.Fragment />,
+        smallIcon: <React.Fragment />
+      },
+      {
+        enum: "MACRO_ACTION_STEP_TAP",
+        name: "Step Tap",
+        icon: <React.Fragment />,
+        smallIcon: <React.Fragment />
+      },
+      {
+        enum: "MACRO_ACTION_STEP_KEYCODEDOWN",
+        name: "Step KeyCode Down",
+        icon: <KeyboardArrowDown fontSize="large" />,
+        smallIcon: <KeyboardArrowDown />
+      },
+      {
+        enum: "MACRO_ACTION_STEP_KEYCODEUP",
+        name: "Step KeyCode Up",
+        icon: <KeyboardArrowUp fontSize="large" />,
+        smallIcon: <KeyboardArrowUp />
+      },
+      {
+        enum: "MACRO_ACTION_STEP_TAPCODE",
+        name: "Step Tap Code",
+        icon: <SwapVert fontSize="large" />,
+        smallIcon: <SwapVert />
+      },
+      {
+        enum: "MACRO_ACTION_STEP_EXPLICIT_REPORT",
+        name: "Explicit Report",
+        icon: <React.Fragment />,
+        smallIcon: <React.Fragment />
+      },
+      {
+        enum: "MACRO_ACTION_STEP_IMPLICIT_REPORT",
+        name: "Implicit Report",
+        icon: <React.Fragment />,
+        smallIcon: <React.Fragment />
+      },
+      { enum: "MACRO_ACTION_STEP_SEND_REPORT", id: 11, name: "Send Report" },
+      {
+        enum: "MACRO_ACTION_STEP_TAP_SEQUENCE",
+        name: "Step Tap Sequence",
+        icon: <React.Fragment />,
+        smallIcon: <React.Fragment />
+      },
+      {
+        enum: "MACRO_ACTION_STEP_TAP_CODE_SEQUENCE",
+        name: "Step Code Sequence",
+        icon: <React.Fragment />,
+        smallIcon: <React.Fragment />
+      }
+    ];
 
     this.onDragEnd = this.onDragEnd.bind(this);
     this.onDeleteRow = this.onDeleteRow.bind(this);
     this.onAddText = this.onAddText.bind(this);
     this.addModifier = this.addModifier.bind(this);
     this.updateRows = this.updateRows.bind(this);
-    this.actionConversion = this.actionConversion.bind(this);
+    this.createConversion = this.createConversion.bind(this);
     this.assignColor = this.assignColor.bind(this);
+    this.onAddSymbol = this.onAddSymbol.bind(this);
   }
 
   componentDidMount() {
-    this.updateRows(this.actionConversion(this.props.macro.actions));
+    this.updateRows(this.createConversion(this.props.macro.actions));
   }
 
-  actionConversion(actions) {
+  createConversion(actions) {
     let converted = actions.map((action, i) => {
       return {
         symbol: this.keymapDB.parse(action.keyCode).label,
+        keyCode: action.keyCode,
         action: action.type,
         id: i,
         color: this.assignColor(action.keyCode)
@@ -75,30 +167,25 @@ class MacroTable extends Component {
     return converted;
   }
 
+  revertConversion(actions) {
+    let converted = actions.map(({ keyCode, action, id }) => {
+      return {
+        keyCode: keyCode,
+        type: action,
+        id: id
+      };
+    });
+    return converted;
+  }
+
   assignColor(keyCode) {
-    switch (keyCode) {
-      case 224:
-      case 228:
-        // LEFT|RIGHT CTRL
-        return this.state.modifiers[1].color;
-      case 225:
-      case 229:
-        // LEFT|RIGHT SHIFT
-        return this.state.modifiers[0].color;
-      case 226:
-        // LEFT ALT
-        return this.state.modifiers[2].color;
-      case 230:
-        // RIGHT ALT
-        return this.state.modifiers[3].color;
-      case 227:
-      case 231:
-        // LEFT|RIGHT GUI
-        return this.state.modifiers[4].color;
-      default:
-        // Common keys
-        return "lightgrey";
+    let color = this.modifiers.filter(x => x.keyCode === keyCode);
+    if (color === undefined || color.length == 0) {
+      color = "lightgrey";
+    } else {
+      color = color[0].color;
     }
+    return color;
   }
 
   assignSymbol(macro) {
@@ -115,12 +202,18 @@ class MacroTable extends Component {
   }
 
   updateRows(rows) {
-    let texted = rows.map(k => this.keymapDB.parse(k.symbol).label).join("|");
-    console.log(rows, texted);
+    let texted = rows.map(k => this.keymapDB.parse(k.keyCode).label).join("|");
+    let newRows = rows.map((item, index) => {
+      let aux = item;
+      aux.id = index;
+      return aux;
+    });
     this.setState({
-      rows,
+      rows: newRows,
       macro: texted
     });
+
+    this.props.updateActions(this.revertConversion(rows), texted);
   }
 
   reorder(list, startIndex, endIndex) {
@@ -155,12 +248,14 @@ class MacroTable extends Component {
     const aux = this.state.addText;
     let newRows = this.state.rows;
     newRows = newRows.concat(
-      aux.split("").map((item, index) => {
+      aux.split("").map((symbol, index) => {
+        let keyCode = this.keymapDB.reverse(symbol.toUpperCase());
         return {
-          symbol: item,
+          symbol,
+          keyCode,
           action: 8,
           id: index + newRows.length,
-          color: this.state.modifiers[5].color
+          color: this.assignColor(keyCode)
         };
       })
     );
@@ -170,25 +265,36 @@ class MacroTable extends Component {
     this.updateRows(newRows);
   }
 
+  onAddSymbol(keyCode, action) {
+    let newRows = this.state.rows;
+    let symbol = this.keymapDB.parse(keyCode).label;
+    newRows.push({
+      symbol,
+      keyCode,
+      action,
+      id: newRows.length,
+      color: this.assignColor(keyCode)
+    });
+
+    this.updateRows(newRows);
+  }
+
   addModifier(rowID, modifierID) {
-    const modifier = this.state.modifiers[modifierID];
+    const { name, keyCode, color } = this.modifiers[modifierID];
     let newRows = this.state.rows;
     newRows.splice(rowID + 1, 0, {
-      symbol: modifier.name,
+      symbol: name,
+      keyCode,
       action: 7,
       id: rowID + 1,
-      color: modifier.color
+      color
     });
     newRows.splice(rowID, 0, {
-      symbol: modifier.name,
+      symbol: name,
+      keyCode,
       action: 6,
       id: rowID,
-      color: modifier.color
-    });
-    newRows = newRows.map((item, index) => {
-      let aux = item;
-      aux.id = index;
-      return aux;
+      color
     });
     this.updateRows(newRows);
   }
@@ -201,7 +307,7 @@ class MacroTable extends Component {
         {" "}
         <TextField
           id="AddTextToMacro"
-          label="Load text into Macro editor"
+          label="Type text into Macro editor"
           className={classNames(
             classes.margin,
             classes.textField,
@@ -240,7 +346,8 @@ class MacroTable extends Component {
                           provided={provided}
                           snapshot={snapshot}
                           item={item}
-                          modifiers={this.state.modifiers}
+                          modifiers={this.modifiers}
+                          actionTypes={this.actionTypes}
                           onDeleteRow={this.onDeleteRow}
                           addModifier={this.addModifier}
                         />
@@ -253,7 +360,11 @@ class MacroTable extends Component {
             )}
           </Droppable>
         </DragDropContext>
-        <div>editor menu to add external components</div>
+        <MacroTableTool
+          actionTypes={this.actionTypes}
+          keymapDB={this.keymapDB}
+          onAddSymbol={this.onAddSymbol}
+        />
       </React.Fragment>
     );
   }

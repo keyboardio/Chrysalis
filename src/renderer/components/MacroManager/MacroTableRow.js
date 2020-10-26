@@ -6,20 +6,14 @@ import {
   TextField,
   FormControl,
   Chip,
+  Divider,
   ListItem,
   ListItemText,
   ListItemIcon,
   IconButton,
   ListItemSecondaryAction
 } from "@material-ui/core";
-import {
-  SwapVert,
-  SpaceBar,
-  KeyboardArrowUp,
-  KeyboardArrowDown,
-  KeyboardReturn
-} from "@material-ui/icons";
-import CloseIcon from "@material-ui/icons/Close";
+import { Close } from "@material-ui/icons";
 
 const styles = theme => ({
   chip: {
@@ -65,89 +59,9 @@ class MacroTableRow extends Component {
       snapshot,
       item,
       modifiers,
-      addModifier
+      addModifier,
+      actionTypes
     } = this.props;
-    const actions = [
-      {
-        enum: "MACRO_ACTION_END",
-        id: 0,
-        name: "End macro",
-        icon: <React.Fragment />
-      },
-      {
-        enum: "MACRO_ACTION_STEP_INTERVAL",
-        id: 1,
-        name: "Step Interval",
-        icon: <React.Fragment />
-      },
-      {
-        enum: "MACRO_ACTION_STEP_WAIT",
-        id: 2,
-        name: "Step Wait",
-        icon: <React.Fragment />
-      },
-      {
-        enum: "MACRO_ACTION_STEP_KEYDOWN",
-        id: 3,
-        name: "Step Keydown",
-        icon: <React.Fragment />
-      },
-      {
-        enum: "MACRO_ACTION_STEP_KEYUP",
-        id: 4,
-        name: "Step KeyUp",
-        icon: <React.Fragment />
-      },
-      {
-        enum: "MACRO_ACTION_STEP_TAP",
-        id: 5,
-        name: "Step Tap",
-        icon: <React.Fragment />
-      },
-      {
-        enum: "MACRO_ACTION_STEP_KEYCODEDOWN",
-        id: 6,
-        name: "Step KeyCode Down",
-        icon: <KeyboardArrowDown />
-      },
-      {
-        enum: "MACRO_ACTION_STEP_KEYCODEUP",
-        id: 7,
-        name: "Step KeyCode Up",
-        icon: <KeyboardArrowUp />
-      },
-      {
-        enum: "MACRO_ACTION_STEP_TAPCODE",
-        id: 8,
-        name: "Step Tap Code",
-        icon: <SwapVert />
-      },
-      {
-        enum: "MACRO_ACTION_STEP_EXPLICIT_REPORT",
-        id: 9,
-        name: "Explicit Report",
-        icon: <SpaceBar />
-      },
-      {
-        enum: "MACRO_ACTION_STEP_IMPLICIT_REPORT",
-        id: 10,
-        name: "Implicit Report",
-        icon: <KeyboardReturn />
-      },
-      { enum: "MACRO_ACTION_STEP_SEND_REPORT", id: 11, name: "Send Report" },
-      {
-        enum: "MACRO_ACTION_STEP_TAP_SEQUENCE",
-        id: 12,
-        name: "Step Tap Sequence",
-        icon: <React.Fragment />
-      },
-      {
-        enum: "MACRO_ACTION_STEP_TAP_CODE_SEQUENCE",
-        id: 13,
-        name: "Step Code Sequence",
-        icon: <React.Fragment />
-      }
-    ];
     return (
       <div
         ref={provided.innerRef}
@@ -159,9 +73,7 @@ class MacroTableRow extends Component {
         )}
       >
         <ListItem className={classes.listitem}>
-          <ListItemIcon fontSize="large">
-            {actions[item.action].icon}
-          </ListItemIcon>
+          <ListItemIcon>{actionTypes[item.action].icon}</ListItemIcon>
           <Chip
             label={item.symbol}
             variant="outlined"
@@ -184,8 +96,8 @@ class MacroTableRow extends Component {
                 addModifier(item.id, e.target.value);
               }}
             >
-              {modifiers.map(item => (
-                <MenuItem value={item.id} key={`item-${item.id}`}>
+              {modifiers.map((item, id) => (
+                <MenuItem value={id} key={`item-${id}`}>
                   <ListItemText inset primary={item.name} />
                 </MenuItem>
               ))}
@@ -197,10 +109,11 @@ class MacroTableRow extends Component {
                 this.props.onDeleteRow(item.id);
               }}
             >
-              <CloseIcon />
+              <Close />
             </IconButton>
           </ListItemSecondaryAction>
         </ListItem>
+        <Divider variant="middle" />
       </div>
     );
   }

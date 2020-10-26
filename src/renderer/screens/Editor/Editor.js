@@ -769,7 +769,7 @@ class Editor extends React.Component {
     finalMacros = macros.map((macro, i) => {
       if (stored.length > i && stored.length > 0) {
         console.log("compare between: ", macro.actions, stored[i].actions);
-        if (macro.actions === stored[i].actions) {
+        if (macro.actions.join(",") === stored[i].actions.join(",")) {
           equal[i] = true;
           let aux = macro;
           aux.name = stored[i].name;

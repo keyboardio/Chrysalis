@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import classNames from "classnames";
 import MacroTable from "./MacroTable";
+import MacroSelector from "./MacroSelector";
 
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
 
 const styles = theme => ({
   root: {
@@ -15,13 +17,19 @@ const styles = theme => ({
     margin: theme.spacing.unit
   },
   textField: {
-    flexBasis: 200
+    flexBasis: 200,
+    display: "flex"
   },
   code: {
     width: "-webkit-fill-available"
   },
   button: {
     float: "right"
+  },
+  bg: {
+    backgroundColor: "#eee",
+    paddingLeft: "15px",
+    borderLeft: "solid 1px lightgrey"
   }
 });
 
@@ -30,52 +38,72 @@ class MacroForm extends Component {
     super(props);
 
     this.state = {
-      macro: props.macro,
-      name: props.macro.name,
-      id: props.macro.id,
-      actions: props.macro.actions
+      macros: props.macros,
+      selected: props.selected,
+      name: props.macros[props.selected].name,
+      id: props.macros[props.selected].id,
+      actions: props.macros[props.selected].actions,
+      text: props.macros[props.selected].macro
     };
 
     this.updateMacro = this.updateMacro.bind(this);
     this.updateActions = this.updateActions.bind(this);
+    this.updateSelected = this.updateSelected.bind(this);
   }
+
+  componentDidUpdate(prevProps, prevState) {}
 
   updateMacro() {
-    const aux = this.state.macro;
-    aux.name = this.state.name;
-    aux.actions = this.state.actions;
-    aux.macro = this.state.actions
-      .map(item => {
-        return item.keycode;
-      })
-      .join(" ");
-    this.setState({ macro: aux });
-    this.props.accept(aux);
+    let macros = this.state.macros;
+    macros[this.state.selected].name = this.state.name;
+    macros[this.state.selected].actions = this.state.actions;
+    macros[this.state.selected].macro = this.state.text;
+    this.setState({ macros });
+    this.props.accept(macros);
   }
 
-  updateActions(actions) {
+  updateActions(actions, text) {
     this.setState({
-      actions: actions
+      actions,
+      text
     });
+  }
+
+  updateSelected(selected) {
+    this.setState({
+      selected
+    });
+    this.props.changeSelected(selected);
   }
 
   render() {
     const { classes, close, keymapDB } = this.props;
     return (
-      <React.Fragment>
-        <div>
+      <Grid container direction="row" justify="center" alignItems="stretch">
+        <Grid item xs={5}>
+          <MacroSelector
+            key={this.state.macros.lenght}
+            macros={this.state.macros}
+            selected={this.state.selected}
+            updateSelected={this.updateSelected}
+            deleteMacro={this.props.deleteMacro}
+            addMacro={this.props.addMacro}
+          />
+        </Grid>
+        <Grid item xs={7} className={classes.bg}>
           <TextField
             id="name"
             className={classNames(classes.margin, classes.textField)}
-            variant="outlined"
-            label="Name"
+            variant="standard"
+            label="Macro Name"
             value={this.state.name}
             onChange={e => {
               this.setState({ name: e.target.value });
             }}
           />
           <MacroTable
-            macro={this.state.macro}
+            key={this.state.selected}
+            macro={this.state.macros[this.state.selected]}
             updateActions={this.updateActions}
             keymapDB={keymapDB}
           />
@@ -97,8 +125,8 @@ class MacroForm extends Component {
               {"Accept"}
             </Button>
           </div>
-        </div>
-      </React.Fragment>
+        </Grid>
+      </Grid>
     );
   }
 }

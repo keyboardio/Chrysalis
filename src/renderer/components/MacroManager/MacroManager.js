@@ -37,7 +37,7 @@ const styles = theme => ({
   wrapper: {
     width: "90vw",
     position: "relative",
-    maxWidth: "600px"
+    maxWidth: "1000px"
   },
   root: {
     width: "100%",
@@ -88,12 +88,16 @@ class MacroManager extends Component {
     super(props);
 
     this.state = {
-      macro: props.macro,
+      macros: props.macros,
+      selected: props.selected,
       open: false
     };
 
     this.close = this.close.bind(this);
     this.accept = this.accept.bind(this);
+    this.deleteMacro = this.deleteMacro.bind(this);
+    this.addMacro = this.addMacro.bind(this);
+    this.changeSelected = this.changeSelected.bind(this);
   }
 
   close() {
@@ -102,12 +106,50 @@ class MacroManager extends Component {
     });
   }
 
-  accept(macro) {
+  accept(macros) {
     this.setState({
-      macro: macro,
+      macros: macros,
       open: false
     });
-    this.props.updateMacro(macro);
+    this.props.updateMacro(macros);
+    this.props.changeSelected(this.state.selected);
+  }
+
+  addMacro() {
+    if (this.state.macros.length <= this.props.maxMacros) {
+      let aux = this.state.macros;
+      const newID = aux.length;
+      aux.push({
+        actions: [],
+        name: "Empty Macro",
+        id: newID,
+        macro: ""
+      });
+      this.props.updateMacro(aux);
+      this.changeSelected(newID);
+    }
+  }
+
+  deleteMacro(selected) {
+    if (this.state.macros.length > 0) {
+      let aux = this.state.macros;
+      aux.splice(selected, 1);
+      aux = aux.map((item, index) => {
+        let aux = item;
+        aux.id = index;
+        return aux;
+      });
+      if (selected >= this.state.macros.length - 1) {
+        this.changeSelected(this.state.macros.length - 1);
+      }
+      this.props.updateMacro(aux);
+    }
+  }
+
+  changeSelected(selected) {
+    this.setState({
+      selected
+    });
   }
 
   render() {
@@ -152,11 +194,15 @@ class MacroManager extends Component {
               />
               <CardContent classes={{ root: classes.cardcontent }}>
                 <MacroForm
-                  macro={this.state.macro}
-                  key={this.state.macro.id}
+                  key={this.state.macros.length + this.state.selected}
+                  macros={this.state.macros}
                   close={this.close}
+                  selected={this.state.selected}
                   accept={this.accept}
                   keymapDB={keymapDB}
+                  deleteMacro={this.deleteMacro}
+                  addMacro={this.addMacro}
+                  changeSelected={this.changeSelected}
                 />
               </CardContent>
             </Card>

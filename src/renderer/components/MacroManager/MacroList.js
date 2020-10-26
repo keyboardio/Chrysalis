@@ -33,7 +33,9 @@ const styles = theme => ({
     margin: theme.spacing.unit,
     marginBottom: "0px"
   },
-  textField: {}
+  textField: {
+    minWidth: "200px"
+  }
 });
 
 class MacroList extends Component {
@@ -47,6 +49,7 @@ class MacroList extends Component {
     return (
       <FormControl className={classes.formControl}>
         <TextField
+          key={selected}
           select
           variant="outlined"
           value={selected}

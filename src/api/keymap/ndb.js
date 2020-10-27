@@ -16,6 +16,7 @@
 
 import { USQwerty } from "./ndb/us/qwerty";
 import { HUQwertz } from "./ndb/hu/qwertz";
+import { FRAzerty } from "./ndb/fr/azerty";
 
 import codeRanges from "./ndb/ranges";
 
@@ -33,7 +34,7 @@ class KeymapDB {
   }
 
   getSupportedLayouts() {
-    return ["us-qwerty", "hu-qwertz"];
+    return ["us-qwerty", "fr-azerty", "hu-qwertz"];
   }
 
   setLayout(layout) {
@@ -49,6 +50,17 @@ class KeymapDB {
     if (layout == "us-qwerty") return;
     if (layout == "hu-qwertz") {
       for (const key of HUQwertz.codetable) {
+        const base = this._codetable[key.code];
+        this._codetable[key.code].label = Object.assign(
+          {},
+          base.label,
+          key.label
+        );
+      }
+      return;
+    }
+    if (layout == "fr-azerty") {
+      for (const key of FRAzerty.codetable) {
         const base = this._codetable[key.code];
         this._codetable[key.code].label = Object.assign(
           {},

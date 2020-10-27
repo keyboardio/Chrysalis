@@ -12,11 +12,11 @@ import PublishRounded from "@material-ui/icons/PublishRounded";
 
 const styles = theme => ({
   root: {
-    placeContent: "space-around",
+    placeContent: "space-between",
     display: "flex",
     flexWrap: "wrap",
-    maxHeight: "56px",
-    margin: theme.spacing.unit * 2
+    margin: theme.spacing.unit,
+    backgroundColor: "#fff"
   },
   margin: {
     margin: theme.spacing.unit
@@ -26,6 +26,10 @@ const styles = theme => ({
   },
   menuitem: {
     display: "flex"
+  },
+  iconbutton: {
+    width: "61px",
+    height: "61px"
   }
 });
 
@@ -107,6 +111,7 @@ class MacroTableTool extends Component {
         onClick={() => {
           onAddSymbol(this.state.keyCode, this.state.action);
         }}
+        className={classes.iconbutton}
       >
         <PublishRounded />
       </IconButton>

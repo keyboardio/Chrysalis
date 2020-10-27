@@ -27,9 +27,12 @@ const styles = theme => ({
     float: "right"
   },
   bg: {
-    backgroundColor: "#eee",
-    paddingLeft: "15px",
+    backgroundColor: "#f9f9f9",
+    padding: "16px",
     borderLeft: "solid 1px lightgrey"
+  },
+  bglist: {
+    backgroundColor: "#eee"
   }
 });
 
@@ -50,8 +53,6 @@ class MacroForm extends Component {
     this.updateActions = this.updateActions.bind(this);
     this.updateSelected = this.updateSelected.bind(this);
   }
-
-  componentDidUpdate(prevProps, prevState) {}
 
   updateMacro() {
     let macros = this.state.macros;
@@ -80,7 +81,7 @@ class MacroForm extends Component {
     const { classes, close, keymapDB } = this.props;
     return (
       <Grid container direction="row" justify="center" alignItems="stretch">
-        <Grid item xs={5}>
+        <Grid item xs={5} className={classes.bglist}>
           <MacroSelector
             key={this.state.macros.lenght}
             macros={this.state.macros}

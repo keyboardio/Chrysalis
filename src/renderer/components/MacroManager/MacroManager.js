@@ -37,7 +37,7 @@ const styles = theme => ({
   wrapper: {
     width: "90vw",
     position: "relative",
-    maxWidth: "1000px"
+    maxWidth: "1040px"
   },
   root: {
     width: "100%",
@@ -98,9 +98,18 @@ class MacroManager extends Component {
     this.deleteMacro = this.deleteMacro.bind(this);
     this.addMacro = this.addMacro.bind(this);
     this.changeSelected = this.changeSelected.bind(this);
+    this.exit = this.exit.bind(this);
   }
 
   close() {
+    let macros = this.state.macros;
+    macros[this.state.selected] = this.props.macros[this.state.selected];
+    this.setState({
+      macros
+    });
+  }
+
+  exit() {
     this.setState({
       open: false
     });
@@ -108,8 +117,7 @@ class MacroManager extends Component {
 
   accept(macros) {
     this.setState({
-      macros: macros,
-      open: false
+      macros: macros
     });
     this.props.updateMacro(macros);
     this.props.changeSelected(this.state.selected);
@@ -176,7 +184,7 @@ class MacroManager extends Component {
           aria-describedby="transition-modal-description"
           className={classes.modal}
           open={this.state.open}
-          onClose={this.close}
+          onClose={this.exit}
           closeAfterTransition
           disableEnforceFocus
         >
@@ -184,7 +192,7 @@ class MacroManager extends Component {
             <Card className={classes.card}>
               <CardHeader
                 action={
-                  <IconButton style={{ color: "#FFF" }} onClick={this.close}>
+                  <IconButton style={{ color: "#FFF" }} onClick={this.exit}>
                     <CloseIcon />
                   </IconButton>
                 }

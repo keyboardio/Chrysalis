@@ -214,7 +214,7 @@ class KeymapDB {
   getMap() {
     return this.keymapCodeTable
       .filter(Boolean)
-      .filter(x => x.code < 224 && x.code > 0);
+      .filter(x => x.code < 255 && x.code > 0);
   }
 
   serialize(key) {

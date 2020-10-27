@@ -18,7 +18,7 @@
 import React from "react";
 //Import of new component that selects new language layout
 import SelectLanguage from "../../components/SelectLanguage";
-import MacroManager, { MacroList } from "../../components/MacroManager";
+import MacroManager from "../../components/MacroManager";
 import SearchKeyBox from "../../components/SearchKeyBox";
 
 import Checkbox from "@material-ui/core/Checkbox";
@@ -535,23 +535,14 @@ class MacroMenu extends React.Component {
     return (
       <div style={{ display: "table-caption" }}>
         <div style={{ display: "inline-flex" }}>
-          <MacroList
-            key={this.state.selectedMacro}
+          <MacroManager
             macros={this.state.macros}
-            changeSelected={this.changeSelected}
             selected={this.state.selectedMacro}
+            maxMacros={maxMacros}
             updateMacro={this.updateMacro}
+            changeSelected={this.changeSelected}
+            keymapDB={keymapDB}
           />
-          <div style={{ paddingTop: "8px" }}>
-            <MacroManager
-              macros={this.state.macros}
-              selected={this.state.selectedMacro}
-              maxMacros={maxMacros}
-              updateMacro={this.updateMacro}
-              changeSelected={this.changeSelected}
-              keymapDB={keymapDB}
-            />
-          </div>
         </div>
       </div>
     );

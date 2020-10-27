@@ -76,21 +76,21 @@ class KeymapBase extends React.Component {
         0.5
       ],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0.5, 0, 0, 0, 0.5],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 1.5],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.5, 1.5],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 1.5],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.5, 1.5],
       [0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0.5]
     ];
 
     const keySizeX = [
       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
       [1.5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.5],
-      [1.75, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2.25],
-      [2.25, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2.75],
+      [1.75, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.25],
+      [1.25, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2.75],
       [1.25, 1.25, 1.25, 6.25, 1.25, 1.25, 1.25, 1.25, 1, 1, 1, 2]
     ];
     let keySizeY = [[], [], [], []];
     keySizeY[1][20] = 2;
-    keySizeY[3][16] = 2;
+    keySizeY[3][17] = 2;
 
     let getKeySizeX = (row, col) => {
       if (keySizeX[row] && keySizeX[row][col]) {
@@ -289,15 +289,16 @@ class KeymapBase extends React.Component {
             <Key row={2} col={10} />
             <Key row={2} col={11} />
             <Key row={2} col={12} />
-
             <Key row={2} col={13} />
+
             <Key row={2} col={14} />
             <Key row={2} col={15} />
-
             <Key row={2} col={16} />
+
             <Key row={2} col={17} />
             <Key row={2} col={18} />
             <Key row={2} col={19} />
+            <Key row={2} col={20} />
           </g>
 
           <g>
@@ -313,13 +314,14 @@ class KeymapBase extends React.Component {
             <Key row={3} col={9} />
             <Key row={3} col={10} />
             <Key row={3} col={11} />
-
             <Key row={3} col={12} />
 
             <Key row={3} col={13} />
+
             <Key row={3} col={14} />
             <Key row={3} col={15} />
             <Key row={3} col={16} />
+            <Key row={3} col={17} />
           </g>
 
           <g>

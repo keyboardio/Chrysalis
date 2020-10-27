@@ -27,6 +27,7 @@ import FilledInput from "@material-ui/core/FilledInput";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import ListItemText from "@material-ui/core/ListItemText";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import Slider from "@material-ui/core/Slider";
@@ -99,7 +100,8 @@ class KeyboardSettings extends React.Component {
     ledIdleTimeLimit: 0,
     defaultLayer: 126,
     modified: false,
-    working: false
+    working: false,
+    currentLayout: "us-qwerty"
   };
 
   componentDidMount() {
@@ -165,6 +167,13 @@ class KeyboardSettings extends React.Component {
     this.props.cancelContext();
   };
 
+  setLayout = event => {
+    const layout = event.target.value || this.state.currentLayout;
+    const ndb = global.chrysalis_keymapdb_instance;
+    ndb.setLayout(layout);
+    this.setState({ currentLayout: layout });
+  };
+
   render() {
     const { classes } = this.props;
     const {
@@ -172,8 +181,26 @@ class KeyboardSettings extends React.Component {
       defaultLayer,
       modified,
       ledBrightness,
-      ledIdleTimeLimit
+      ledIdleTimeLimit,
+      currentLayout
     } = this.state;
+
+    const ndb = global.chrysalis_keymapdb_instance;
+    const layoutMenu = ndb.getSupportedLayouts().map((layout, index) => {
+      const menuKey = "layout-menu-" + index.toString();
+      return (
+        <MenuItem value={layout} key={menuKey}>
+          <ListItemText inset primary={layout} />
+        </MenuItem>
+      );
+    });
+    const layoutSelect = (
+      <FormControl>
+        <Select value={currentLayout} onClick={this.setLayout}>
+          {layoutMenu}
+        </Select>
+      </FormControl>
+    );
 
     const layers = keymap.custom.map((_, index) => {
       return (
@@ -272,6 +299,13 @@ class KeyboardSettings extends React.Component {
                 control={defaultLayerSelect}
                 labelPlacement="start"
                 label={i18n.t("keyboardSettings.keymap.defaultLayer")}
+              />
+              <FormControlLabel
+                className={classes.control}
+                classes={{ label: classes.grow }}
+                control={layoutSelect}
+                labelPlacement="start"
+                label="Keyboard layout"
               />
               {ledIdleTimeLimit >= 0 && (
                 <FormControlLabel

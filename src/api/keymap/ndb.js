@@ -41,8 +41,8 @@ class KeymapDB {
     this._layout = USQwerty.layout;
     this._codetable = [];
 
-    for (let key of USQwerty.codetable) {
-      this._codetable[key.code] = key;
+    for (const key of USQwerty.codetable) {
+      this._codetable[key.code] = Object.assign({}, key);
       this._codetable[key.code].keyCode = key.code;
     }
 
@@ -50,7 +50,11 @@ class KeymapDB {
     if (layout == "hu-qwertz") {
       for (const key of HUQwertz.codetable) {
         const base = this._codetable[key.code];
-        Object.assign(this._codetable[key.code].label, base.label, key.label);
+        this._codetable[key.code].label = Object.assign(
+          {},
+          base.label,
+          key.label
+        );
       }
       return;
     }

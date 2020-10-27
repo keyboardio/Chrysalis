@@ -160,7 +160,7 @@ class KeymapDB {
   parseJsKey(jsKey) {
     return this.jsKeyTable.get(jsKey);
   }
-  
+
   serialize(key) {
     // TODO when possible reduce down into a named key string like "q" or an object with a named key like {key: "q", modifiers: ["alt"]}, otherwise just use the raw db entry
     return key;

@@ -366,6 +366,7 @@ class Editor extends React.Component {
 
     await focus.command("keymap", this.state.keymap);
     await focus.command("colormap", this.state.palette, this.state.colorMap);
+    await focus.command("settings.defaultLayer", this.state.defaultLayer);
     this.setState({
       modified: false,
       saving: false,
@@ -557,6 +558,39 @@ class Editor extends React.Component {
   cancelImport = () => {
     this.setState({ importExportDialogOpen: false });
   };
+
+  importConfig = config => {
+    let logger = new Log();
+    logger.debug("Importing config", config);
+
+    // legacy single layer import
+    if (!config.configVersion) {
+      this.importLayer(config);
+    } else if (config.configVersion === 1) {
+      this.setState(state => {
+        const colorMap = config.layers.map(l => l.colormap).filter(m => !!m);
+        return {
+          keymap: {
+            onlyCustom: true,
+            custom: config.layers.map(l =>
+              l.keymap.map(k => this.keymapDB.parse(k))
+            ),
+            default: state.keymap.default
+          },
+          defaultLayer: config.defaultLayer || state.defaultLayer,
+          colorMap: colorMap.length ? colorMap : state.colorMap,
+          palette: config.palette || state.palette,
+          modified: true
+        };
+      });
+      this.props.startContext();
+      this.toCloseImportExportDialog();
+    } else {
+      // invalid config
+      throw new Error(`Invalid config version "${config.configVersion}"`);
+    }
+  };
+
   importLayer = data => {
     let logger = new Log();
 
@@ -856,10 +890,12 @@ class Editor extends React.Component {
         />
         <ImportExportDialog
           open={this.state.importExportDialogOpen}
-          keymap={layerData}
+          keymap={this.state.keymap}
           palette={this.state.palette}
-          colormap={this.state.colorMap[this.state.currentLayer]}
-          onConfirm={this.importLayer}
+          colormap={this.state.colorMap}
+          defaultLayer={this.state.defaultLayer}
+          deviceInfo={focus.device.info}
+          onConfirm={this.importConfig}
           onCancel={this.cancelImport}
           toCloseImportExportDialog={this.toCloseImportExportDialog}
         />

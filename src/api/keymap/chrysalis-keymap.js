@@ -59,13 +59,13 @@ class Keymap {
 
       if (this.legacyInterface) {
         const args = flatten(keymap.default.concat(keymap.custom)).map(k =>
-          this.db.serialize(k)
+          this.db.toKeycode(k)
         );
 
         return await s.request("keymap.map", ...args);
       }
 
-      const args = flatten(keymap.custom).map(k => this.db.serialize(k));
+      const args = flatten(keymap.custom).map(k => this.db.toKeycode(k));
 
       await s.request("keymap.onlyCustom", keymap.onlyCustom ? "1" : "0");
       return await s.request("keymap.custom", ...args);

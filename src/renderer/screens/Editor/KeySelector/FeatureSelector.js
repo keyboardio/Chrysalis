@@ -17,23 +17,37 @@
 
 import React from "react";
 
-import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
-import Grid from "@material-ui/core/Grid";
+//import Grid from "@material-ui/core/Grid";
+import Tab from "@material-ui/core/Tab";
+import Tabs from "@material-ui/core/Tabs";
 import { withStyles } from "@material-ui/core/styles";
 
-import KeyButton from "../../../components/KeyButton";
+//import KeyButton from "../../../components/KeyButton";
 import LayerSwitch from "./Features/LayerSwitch";
 
-import { NewKeymapDB } from "../../../../api/keymap";
-const db = new NewKeymapDB();
+//import { NewKeymapDB } from "../../../../api/keymap";
+//const db = new NewKeymapDB();
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
     margin: theme.spacing.unit
+  },
+  divider: {
+    marginTop: theme.spacing.unit
   }
 });
+
+const FeaturePanel = props => {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div role="tabpanel" id={`featurepanel-${index}`} {...other}>
+      {value === index && children}
+    </div>
+  );
+};
 
 class FeatureSelector extends React.Component {
   state = {
@@ -49,25 +63,20 @@ class FeatureSelector extends React.Component {
   render() {
     const { classes, currentKeyCode } = this.props;
 
-    const isLayerKey = db.isLayerKey(currentKeyCode);
+    // const isLayerKey = db.isLayerKey(currentKeyCode);
 
     return (
       <div className={classes.root}>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <KeyButton
-              label="Layer switch"
-              selected={isLayerKey}
-              onClick={this.setFeature("layerswitch")}
-            />
-            <KeyButton label="Macro" />
-          </Grid>
-          <Grid item xs={12}>
-            <Divider />
+        <Tabs value={0} variant="scrollable" scrollButtons="auto">
+          <Tab label="Layer switch" />
+          <Tab label="Macro" />
+        </Tabs>
 
-            {isLayerKey && <LayerSwitch keyCode={currentKeyCode} />}
-          </Grid>
-        </Grid>
+        <Divider className={classes.divider} />
+
+        <FeaturePanel value={0} index={0}>
+          <LayerSwitch keyCode={currentKeyCode} />
+        </FeaturePanel>
       </div>
     );
   }

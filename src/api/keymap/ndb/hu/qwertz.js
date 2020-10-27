@@ -272,6 +272,7 @@ const keyCodeTable = [
 ];
 
 const HUQwertz = {
+  name: "hu-qwertz",
   codetable: keyCodeTable
 };
 

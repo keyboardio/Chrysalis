@@ -805,6 +805,7 @@ const layout = [
 ];
 
 const USQwerty = {
+  name: "us-qwerty",
   codetable: keyCodeTable,
   layout: layout
 };

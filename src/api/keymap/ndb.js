@@ -27,6 +27,12 @@ class KeymapDB {
     if (!global.chrysalis_keymapdb_instance) {
       global.chrysalis_keymapdb_instance = this;
 
+      this._layouts = {
+        "us-qwerty": USQwerty,
+        "fr-azerty": FRAzerty,
+        "hu-qwertz": HUQwertz
+      };
+
       this.setLayout("us-qwerty");
     }
 
@@ -34,7 +40,11 @@ class KeymapDB {
   }
 
   getSupportedLayouts() {
-    return ["us-qwerty", "fr-azerty", "hu-qwertz"];
+    let layouts = [];
+    for (const layout of Object.entries(this._layouts)) {
+      layouts.push(layout[0]);
+    }
+    return layouts;
   }
 
   setLayout(layout) {
@@ -47,28 +57,17 @@ class KeymapDB {
       this._codetable[key.code].keyCode = key.code;
     }
 
-    if (layout == "us-qwerty") return;
-    if (layout == "hu-qwertz") {
-      for (const key of HUQwertz.codetable) {
-        const base = this._codetable[key.code];
-        this._codetable[key.code].label = Object.assign(
-          {},
-          base.label,
-          key.label
-        );
-      }
-      return;
-    }
-    if (layout == "fr-azerty") {
-      for (const key of FRAzerty.codetable) {
-        const base = this._codetable[key.code];
-        this._codetable[key.code].label = Object.assign(
-          {},
-          base.label,
-          key.label
-        );
-      }
-      return;
+    if (!this._layouts.hasOwnProperty(layout)) return;
+
+    const table = this._layouts[layout];
+
+    for (const key of table.codetable) {
+      const base = this._codetable[key.code];
+      this._codetable[key.code].label = Object.assign(
+        {},
+        base.label,
+        key.label
+      );
     }
   }
 

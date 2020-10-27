@@ -216,6 +216,7 @@ const keyCodeTable = [
 ];
 
 const FRAzerty = {
+  name: "fr-azerty",
   codetable: keyCodeTable
 };
 

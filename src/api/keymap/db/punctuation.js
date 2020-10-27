@@ -14,9 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { withModifiers } from "./utils";
+import { withJsKeys, withModifiers } from "./utils";
 
-const PunctuationTable = {
+const PunctuationTable = withJsKeys({
   groupName: "Punctuation",
   keys: [
     {
@@ -93,9 +93,9 @@ const PunctuationTable = {
       }
     }
   ]
-};
+});
 
-const ShiftedPunctuationTable = {
+const ShiftedPunctuationTable = withJsKeys({
   groupName: "Shifted Punctuation",
   keys: [
     {
@@ -172,7 +172,7 @@ const ShiftedPunctuationTable = {
       }
     }
   ]
-};
+});
 
 const ModifiedPunctuationTables = [
   // Single

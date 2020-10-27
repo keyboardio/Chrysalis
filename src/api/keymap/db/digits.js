@@ -14,85 +14,88 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { withModifiers } from "./utils";
+import { withJsKeys, withModifiers } from "./utils";
 
-const DigitTable = {
-  groupName: "Digits",
-  keys: [
-    {
-      code: 30,
-      labels: {
-        primary: "1",
-        top: "!"
+const DigitTable = withJsKeys(
+  {
+    groupName: "Digits",
+    keys: [
+      {
+        code: 30,
+        labels: {
+          primary: "1",
+          top: "!"
+        }
+      },
+      {
+        code: 31,
+        labels: {
+          primary: "2",
+          top: "@"
+        }
+      },
+      {
+        code: 32,
+        labels: {
+          primary: "3",
+          top: "#"
+        }
+      },
+      {
+        code: 33,
+        labels: {
+          primary: "4",
+          top: "$"
+        }
+      },
+      {
+        code: 34,
+        labels: {
+          primary: "5",
+          top: "%"
+        }
+      },
+      {
+        code: 35,
+        labels: {
+          primary: "6",
+          top: "^"
+        }
+      },
+      {
+        code: 36,
+        labels: {
+          primary: "7",
+          top: "&"
+        }
+      },
+      {
+        code: 37,
+        labels: {
+          primary: "8",
+          top: "*"
+        }
+      },
+      {
+        code: 38,
+        labels: {
+          primary: "9",
+          top: "("
+        }
+      },
+      {
+        code: 39,
+        labels: {
+          primary: "0",
+          top: ")"
+        }
       }
-    },
-    {
-      code: 31,
-      labels: {
-        primary: "2",
-        top: "@"
-      }
-    },
-    {
-      code: 32,
-      labels: {
-        primary: "3",
-        top: "#"
-      }
-    },
-    {
-      code: 33,
-      labels: {
-        primary: "4",
-        top: "$"
-      }
-    },
-    {
-      code: 34,
-      labels: {
-        primary: "5",
-        top: "%"
-      }
-    },
-    {
-      code: 35,
-      labels: {
-        primary: "6",
-        top: "^"
-      }
-    },
-    {
-      code: 36,
-      labels: {
-        primary: "7",
-        top: "&"
-      }
-    },
-    {
-      code: 37,
-      labels: {
-        primary: "8",
-        top: "*"
-      }
-    },
-    {
-      code: 38,
-      labels: {
-        primary: "9",
-        top: "("
-      }
-    },
-    {
-      code: 39,
-      labels: {
-        primary: "0",
-        top: ")"
-      }
-    }
-  ]
-};
+    ]
+  },
+  key => key.labels.primary
+);
 
-const ShiftedDigitTable = {
+const ShiftedDigitTable = withJsKeys({
   groupName: "Shifted Digits",
   keys: [
     {
@@ -156,7 +159,7 @@ const ShiftedDigitTable = {
       }
     }
   ]
-};
+});
 
 const ModifiedDigitTables = [
   // Single

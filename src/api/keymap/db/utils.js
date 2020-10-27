@@ -29,4 +29,18 @@ function withModifiers(table, groupName, top, base) {
   };
 }
 
-export { withModifiers };
+const defaultMapPrimaryLabel = key => key.labels.primary;
+
+function withJsKeys(table, mapFn = defaultMapPrimaryLabel) {
+  return {
+    groupName: table.groupName,
+    keys: table.keys.map(key => {
+      return {
+        ...key,
+        jsKey: mapFn(key)
+      };
+    })
+  };
+}
+
+export { withModifiers, withJsKeys };

@@ -98,6 +98,7 @@ const keyCodeTable = baseKeyCodeTable
 class KeymapDB {
   constructor() {
     this.keymapCodeTable = [];
+    this.jsKeyTable = new Map();
 
     for (let group of keyCodeTable) {
       for (let key of group.keys) {
@@ -115,6 +116,13 @@ class KeymapDB {
         }
 
         this.keymapCodeTable[key.code] = value;
+
+        if (key.jsKey) {
+          if (this.jsKeyTable.has(key.jsKey)) {
+            throw new Error(`duplicate JS key: ${key.jsKey}`);
+          }
+          this.jsKeyTable.set(key.jsKey, value);
+        }
       }
     }
   }
@@ -149,6 +157,10 @@ class KeymapDB {
     return key.keyCode;
   }
 
+  parseJsKey(jsKey) {
+    return this.jsKeyTable.get(jsKey);
+  }
+  
   serialize(key) {
     // TODO when possible reduce down into a named key string like "q" or an object with a named key like {key: "q", modifiers: ["alt"]}, otherwise just use the raw db entry
     return key;

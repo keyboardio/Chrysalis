@@ -52,7 +52,7 @@ class KeymapBase extends React.Component {
     const keyOffsetX = [
       [
         0,
-        0,
+        0.5,
         0,
         0,
         0,
@@ -75,10 +75,33 @@ class KeymapBase extends React.Component {
         0,
         0.5
       ],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0.5, 0, 0, 0, 0.5],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 1.5],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.5, 1.5],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0.5]
+      [
+        0.5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.5,
+        0,
+        0,
+        0.5,
+        0,
+        0,
+        0,
+        0.5
+      ],
+      [0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 1.5],
+      [0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.5, 1.5, 0, 0, 0, 0.5],
+      [0.5, 0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0.5]
     ];
 
     const keySizeX = [
@@ -168,7 +191,7 @@ class KeymapBase extends React.Component {
 
       const label = db.format(key, 1);
       let keyClasses;
-      if (label.main.length <= 3) {
+      if (label.main.length == 1) {
         keyClasses = classNames("key", classes.legend1U);
       } else {
         keyClasses = "key";
@@ -241,7 +264,6 @@ class KeymapBase extends React.Component {
             <Key row={0} col={22} />
             <Key row={0} col={23} />
             <Key row={0} col={24} />
-            <Key row={0} col={25} />
           </g>
 
           <g>
@@ -272,7 +294,6 @@ class KeymapBase extends React.Component {
             <Key row={1} col={21} />
             <Key row={1} col={22} />
             <Key row={1} col={23} />
-            <Key row={1} col={24} />
           </g>
 
           <g>
@@ -298,7 +319,6 @@ class KeymapBase extends React.Component {
             <Key row={2} col={17} />
             <Key row={2} col={18} />
             <Key row={2} col={19} />
-            <Key row={2} col={20} />
           </g>
 
           <g>
@@ -322,6 +342,10 @@ class KeymapBase extends React.Component {
             <Key row={3} col={15} />
             <Key row={3} col={16} />
             <Key row={3} col={17} />
+
+            <Key row={3} col={18} />
+            <Key row={3} col={19} />
+            <Key row={3} col={20} />
           </g>
 
           <g>

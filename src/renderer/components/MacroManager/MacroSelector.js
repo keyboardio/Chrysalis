@@ -17,13 +17,14 @@ const styles = () => ({
   list: {
     display: "block",
     maxHeight: "676px",
-    overflow: "auto"
-  },
-  selected: {
+    overflow: "auto",
     backgroundColor: "#eee"
   },
+  selected: {
+    backgroundColor: "#f9f9f9"
+  },
   notSelected: {
-    backgroundColor: "#fff"
+    backgroundColor: "#eee"
   }
 });
 

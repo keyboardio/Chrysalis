@@ -4,13 +4,13 @@ import MacroTableRow from "./MacroTableRow";
 import MacroTableTool from "./MacroTableTool";
 
 import { withStyles } from "@material-ui/core/styles";
-import { InputAdornment, TextField, List, IconButton } from "@material-ui/core";
+import { TextField, List, IconButton } from "@material-ui/core";
 import RootRef from "@material-ui/core/RootRef";
 import {
   SwapVert,
   KeyboardArrowUp,
   KeyboardArrowDown,
-  GetAppRounded
+  PublishRounded
 } from "@material-ui/icons";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 // import ArrowDownward from "@material-ui/icons/ArrowDownward";
@@ -21,10 +21,16 @@ const styles = theme => ({
     flexWrap: "wrap"
   },
   margin: {
-    margin: theme.spacing.unit
+    margin: theme.spacing.unit,
+    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 2,
+    paddingTop: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit
   },
   textField: {
-    flexBasis: 200
+    flexBasis: "444px",
+    margin: "0px",
+    marginRight: theme.spacing.unit * 4
   },
   code: {
     width: "-webkit-fill-available"
@@ -35,7 +41,28 @@ const styles = theme => ({
   buttonAdd: {
     marginLeft: "25%"
   },
-  list: { maxHeight: "400px", minHeight: "400px", overflow: "auto" }
+  list: {
+    maxHeight: "400px",
+    minHeight: "400px",
+    overflow: "auto"
+  },
+  border: {
+    border: "solid 1px #bbb",
+    borderRadius: "4px"
+  },
+  iconbutton: {
+    width: "56px",
+    height: "56px"
+  },
+  flex: {
+    display: "flex",
+    position: "relative",
+    placeContent: "space-between",
+    margin: theme.spacing.unit
+  },
+  whitebg: {
+    backgroundColor: "#fff"
+  }
 });
 
 class MacroTable extends Component {
@@ -97,19 +124,19 @@ class MacroTable extends Component {
       },
       {
         enum: "MACRO_ACTION_STEP_KEYCODEDOWN",
-        name: "Step KeyCode Down",
+        name: "Key Press",
         icon: <KeyboardArrowDown fontSize="large" />,
         smallIcon: <KeyboardArrowDown />
       },
       {
         enum: "MACRO_ACTION_STEP_KEYCODEUP",
-        name: "Step KeyCode Up",
+        name: "Key Release",
         icon: <KeyboardArrowUp fontSize="large" />,
         smallIcon: <KeyboardArrowUp />
       },
       {
         enum: "MACRO_ACTION_STEP_TAPCODE",
-        name: "Step Tap Code",
+        name: "Key Press & Release",
         icon: <SwapVert fontSize="large" />,
         smallIcon: <SwapVert />
       },
@@ -181,7 +208,7 @@ class MacroTable extends Component {
   assignColor(keyCode) {
     let color = this.modifiers.filter(x => x.keyCode === keyCode);
     if (color === undefined || color.length == 0) {
-      color = "lightgrey";
+      color = "#eee";
     } else {
       color = color[0].color;
     }
@@ -304,37 +331,20 @@ class MacroTable extends Component {
 
     return (
       <React.Fragment>
-        {" "}
-        <TextField
-          id="AddTextToMacro"
-          label="Type text into Macro editor"
-          className={classNames(
-            classes.margin,
-            classes.textField,
-            classes.code,
-            classes.textField
-          )}
-          value={this.state.addText}
-          onChange={e => {
-            this.setState({ addText: e.target.value });
-          }}
-          margin="normal"
-          variant="outlined"
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={this.onAddText}>
-                  <GetAppRounded />
-                </IconButton>
-              </InputAdornment>
-            )
-          }}
-        />
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId="droppable">
             {provided => (
               <RootRef rootRef={provided.innerRef}>
-                <List className={classes.list} disablePadding dense>
+                <List
+                  className={classNames(
+                    classes.list,
+                    classes.margin,
+                    classes.border,
+                    classes.whitebg
+                  )}
+                  disablePadding
+                  dense
+                >
                   {this.state.rows.map((item, index) => (
                     <Draggable
                       key={index}
@@ -360,11 +370,46 @@ class MacroTable extends Component {
             )}
           </Droppable>
         </DragDropContext>
-        <MacroTableTool
-          actionTypes={this.actionTypes}
-          keymapDB={this.keymapDB}
-          onAddSymbol={this.onAddSymbol}
-        />
+        <div
+          className={classNames(
+            classes.margin,
+            classes.border,
+            classes.whitebg
+          )}
+        >
+          <MacroTableTool
+            actionTypes={this.actionTypes}
+            keymapDB={this.keymapDB}
+            onAddSymbol={this.onAddSymbol}
+          />
+        </div>
+        <div
+          className={classNames(
+            classes.margin,
+            classes.border,
+            classes.whitebg
+          )}
+        >
+          <div className={classes.flex}>
+            <TextField
+              id="AddTextToMacro"
+              label="Type text into Macro editor"
+              className={classNames(classes.textField, classes.code)}
+              value={this.state.addText}
+              onChange={e => {
+                this.setState({ addText: e.target.value });
+              }}
+              margin="normal"
+              variant="outlined"
+            />
+            <IconButton
+              onClick={this.onAddText}
+              className={classNames(classes.iconbutton)}
+            >
+              <PublishRounded />
+            </IconButton>
+          </div>
+        </div>
       </React.Fragment>
     );
   }

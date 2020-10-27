@@ -33,6 +33,10 @@ const styles = theme => ({
     inlineSize: "-webkit-fill-available",
     maxWidth: "160px",
     marginLeft: "auto"
+  },
+  compact: {
+    margin: "0px",
+    padding: "0px"
   }
 });
 
@@ -97,8 +101,17 @@ class MacroTableRow extends Component {
               }}
             >
               {modifiers.map((item, id) => (
-                <MenuItem value={id} key={`item-${id}`}>
-                  <ListItemText inset primary={item.name} />
+                <MenuItem
+                  value={id}
+                  key={`item-${id}`}
+                  className={classes.compact}
+                >
+                  <ListItemText
+                    inset
+                    dense="true"
+                    primary={item.name}
+                    className={classes.compact}
+                  />
                 </MenuItem>
               ))}
             </TextField>

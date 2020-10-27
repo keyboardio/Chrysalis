@@ -179,6 +179,13 @@ const keyCodeTable = [
     }
   },
   {
+    code: 50,
+    label: {
+      base: "*",
+      shifted: "μ"
+    }
+  },
+  {
     code: 51,
     label: {
       base: "m",
@@ -211,6 +218,13 @@ const keyCodeTable = [
     label: {
       base: "!",
       shifted: "§"
+    }
+  },
+  {
+    code: 100,
+    label: {
+      base: "<",
+      shifted: ">"
     }
   }
 ];

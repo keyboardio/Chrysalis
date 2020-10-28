@@ -21,6 +21,9 @@ import { navigation } from "./navigation";
 import { fx } from "./fx";
 import { spacing } from "./spacing";
 import { miscellaneous } from "./misc";
+import { consumer } from "./consumer";
+import { mousekeys } from "./mousekeys";
+import { macros } from "./macros";
 
 const layout = [
   [
@@ -110,7 +113,10 @@ const keyCodeTable = []
   .concat(navigation)
   .concat(fx)
   .concat(spacing)
-  .concat(miscellaneous);
+  .concat(miscellaneous)
+  .concat(consumer)
+  .concat(mousekeys)
+  .concat(macros);
 
 const Base = {
   codetable: keyCodeTable,

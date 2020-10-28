@@ -43,7 +43,7 @@ const styles = theme => ({
   },
   list: {
     maxHeight: "400px",
-    minHeight: "400px",
+    minHeight: "300px",
     overflow: "auto"
   },
   border: {

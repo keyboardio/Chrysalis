@@ -37,7 +37,8 @@ const styles = theme => ({
   wrapper: {
     width: "90vw",
     position: "relative",
-    maxWidth: "1040px"
+    maxWidth: "1040px",
+    maxHeight: "760px"
   },
   root: {
     width: "100%",

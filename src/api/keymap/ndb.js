@@ -14,6 +14,7 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { Base } from "./ndb/base";
 import { USQwerty } from "./ndb/us/qwerty";
 import { HUQwertz } from "./ndb/hu/qwertz";
 import { FRAzerty } from "./ndb/fr/azerty";
@@ -47,27 +48,39 @@ class KeymapDB {
     return layouts;
   }
 
-  setLayout(layout) {
-    /* Default to US Qwerty, as a fallback. */
-    this._layout = USQwerty.layout;
+  resetLayout() {
+    this._layout = Base.layout;
     this._codetable = [];
 
+    // Base codetable
+    for (const key of Base.codetable) {
+      this._codetable[key.code] = Object.assign({}, key);
+    }
+
+    // Fallback to US QWERTY
     for (const key of USQwerty.codetable) {
       this._codetable[key.code] = Object.assign({}, key);
-      this._codetable[key.code].keyCode = key.code;
     }
+  }
+
+  setLayout(layout) {
+    this.resetLayout();
 
     if (!this._layouts.hasOwnProperty(layout)) return;
 
     const table = this._layouts[layout];
 
     for (const key of table.codetable) {
-      const base = this._codetable[key.code];
-      this._codetable[key.code].label = Object.assign(
-        {},
-        base.label,
-        key.label
-      );
+      if (this._codetable[key.code]) {
+        const base = this._codetable[key.code];
+        this._codetable[key.code].label = Object.assign(
+          {},
+          base.label,
+          key.label
+        );
+      } else {
+        this._codetable[key.code] = Object.assign({}, key);
+      }
     }
   }
 

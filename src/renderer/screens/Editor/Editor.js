@@ -735,7 +735,7 @@ class Editor extends React.Component {
       return [
         {
           actions: [],
-          name: "Empty Macro",
+          name: "Example Macro",
           id: 0,
           macro: ""
         }
@@ -756,7 +756,7 @@ class Editor extends React.Component {
       macros[i].name = "";
       macros[i].macro = keyCodes
         .map(k => this.keymapDB.parse(k).label)
-        .join("|");
+        .join(" ");
     });
     // TODO: Check if stored macros match the received ones, if they mach, retrieve name and apply it to current macros
     let equal = [];
@@ -819,11 +819,12 @@ class Editor extends React.Component {
     window.localStorage.setItem("EditStateStatus", "undergoing");
     try {
       Layer = focus.device.components.keymap;
+      window.localStorage.setItem("EditStateStatus", "success");
     } catch (error) {
       window.localStorage.setItem("EditStateStatus", "error");
       this.forceUpdate();
     }
-    window.localStorage.setItem("EditStateStatus", "success");
+
     return Layer;
   }
 

@@ -229,7 +229,7 @@ class MacroTable extends Component {
   }
 
   updateRows(rows) {
-    let texted = rows.map(k => this.keymapDB.parse(k.keyCode).label).join("|");
+    let texted = rows.map(k => this.keymapDB.parse(k.keyCode).label).join(" ");
     let newRows = rows.map((item, index) => {
       let aux = item;
       aux.id = index;

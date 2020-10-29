@@ -70,6 +70,11 @@ class MacroForm extends Component {
 
   updateMacro() {
     let macros = this.state.macros;
+    if (macros[this.state.selected] === undefined) {
+      this.setState({ macros });
+      this.props.accept(macros);
+      return;
+    }
     macros[this.state.selected].name = this.state.name;
     macros[this.state.selected].actions = this.state.actions;
     macros[this.state.selected].macro = this.state.text;

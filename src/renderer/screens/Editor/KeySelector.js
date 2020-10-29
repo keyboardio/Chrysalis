@@ -513,10 +513,14 @@ class MacroMenu extends React.Component {
   }
 
   changeSelected(id) {
+    let aux = id;
+    if (aux < 0) {
+      aux = 0;
+    }
     this.setState({
-      selectedMacro: id
+      selectedMacro: aux
     });
-    this.props.onKeySelect(id + 24576);
+    this.props.onKeySelect(aux + 24576);
   }
 
   localMacros(macros) {

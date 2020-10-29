@@ -42,12 +42,12 @@ const styles = theme => ({
     marginLeft: "25%"
   },
   list: {
-    maxHeight: "400px",
+    maxHeight: "300px",
     minHeight: "300px",
     overflow: "auto"
   },
   border: {
-    border: "solid 1px #bbb",
+    border: "solid 1px #bbbbbb",
     borderRadius: "4px"
   },
   iconbutton: {
@@ -61,7 +61,7 @@ const styles = theme => ({
     margin: theme.spacing.unit
   },
   whitebg: {
-    backgroundColor: "#fff"
+    backgroundColor: "#ffffff"
   }
 });
 
@@ -76,14 +76,14 @@ class MacroTable extends Component {
     };
     this.keymapDB = props.keymapDB;
     this.modifiers = [
-      { name: "LEFT SHIFT", keyCode: 225, color: "lightskyblue" },
-      { name: "RIGHT SHIFT", keyCode: 229, color: "lightskyblue" },
-      { name: "LEFT CTRL", keyCode: 224, color: "lightcoral" },
-      { name: "RIGHT CTRL", keyCode: 228, color: "lightcoral" },
-      { name: "LEFT ALT", keyCode: 226, color: "gold" },
-      { name: "RIGHT ALT", keyCode: 230, color: "lightseagreen" },
-      { name: "LEFT GUI", keyCode: 227, color: "lightgreen" },
-      { name: "RIGHT GUI", keyCode: 231, color: "lightgreen" }
+      { name: "LEFT SHIFT", keyCode: 225, color: "#e1f3f7" },
+      { name: "RIGHT SHIFT", keyCode: 229, color: "#e1f3f7" },
+      { name: "LEFT CTRL", keyCode: 224, color: "#f5e4e4" },
+      { name: "RIGHT CTRL", keyCode: 228, color: "#f5e4e4" },
+      { name: "LEFT ALT", keyCode: 226, color: "#faf8e1" },
+      { name: "RIGHT ALT", keyCode: 230, color: "#f2e7f5" },
+      { name: "LEFT GUI", keyCode: 227, color: "#e6f0e4" },
+      { name: "RIGHT GUI", keyCode: 231, color: "#e6f0e4" }
     ];
     this.actionTypes = [
       {
@@ -185,12 +185,15 @@ class MacroTable extends Component {
 
   createConversion(actions) {
     let converted = actions.map((action, i) => {
+      const randID = new Date().getTime() + Math.floor(Math.random() * 1000);
       return {
         symbol: this.keymapDB.parse(action.keyCode).label,
         keyCode: action.keyCode,
         action: action.type,
         id: i,
-        color: this.assignColor(action.keyCode)
+        color: this.assignColor(action.keyCode),
+        uid: randID,
+        ucolor: "transparent"
       };
     });
     return converted;
@@ -210,7 +213,7 @@ class MacroTable extends Component {
   assignColor(keyCode) {
     let color = this.modifiers.filter(x => x.keyCode === keyCode);
     if (color === undefined || color.length == 0) {
-      color = "#eee";
+      color = "#ededed";
     } else {
       color = color[0].color;
     }
@@ -253,6 +256,64 @@ class MacroTable extends Component {
     return result;
   }
 
+  addModifier(rowID, modifierID) {
+    const { name, keyCode, color } = this.modifiers[modifierID];
+    const randID = new Date().getTime() + Math.floor(Math.random() * 1000);
+    const randColor =
+      "#" +
+      Math.floor(Math.abs(Math.sin(randID) * 16777215) % 16777215).toString(16);
+    let newRows = this.state.rows;
+    newRows.splice(rowID + 1, 0, {
+      symbol: name,
+      keyCode,
+      action: 7,
+      id: rowID + 1,
+      color,
+      uid: randID,
+      ucolor: randColor
+    });
+    newRows.splice(rowID, 0, {
+      symbol: name,
+      keyCode,
+      action: 6,
+      id: rowID,
+      color,
+      uid: randID,
+      ucolor: randColor
+    });
+    this.updateRows(newRows);
+  }
+
+  addModToKey(rows, modID, modBit) {
+    const { name, keyCode, color } = this.modifiers[modID];
+    const randID = new Date().getTime() + Math.floor(Math.random() * 1000);
+    const randColor =
+      "#" +
+      Math.floor(Math.abs(Math.sin(randID) * 16777215) % 16777215).toString(16);
+    let actions = rows;
+    actions.splice(1, 0, {
+      symbol: name,
+      keyCode: keyCode,
+      action: 7,
+      id: 2,
+      color: color,
+      uid: randID,
+      ucolor: randColor
+    });
+    actions.splice(0, 0, {
+      symbol: name,
+      keyCode: keyCode,
+      action: 6,
+      id: 0,
+      color: color,
+      uid: randID,
+      ucolor: randColor
+    });
+    actions[1].keyCode = actions[1].keyCode ^ modBit;
+    actions[1].symbol = this.keymapDB.parse(actions[1].keyCode).label;
+    return actions;
+  }
+
   onDragEnd(result) {
     // dropped outside the list
     if (!result.destination) {
@@ -269,7 +330,8 @@ class MacroTable extends Component {
   }
 
   onDeleteRow(id) {
-    let aux = this.state.rows.filter(x => x.id !== id);
+    let uid = this.state.rows.filter(x => x.id === id)[0].uid;
+    let aux = this.state.rows.filter(x => x.uid !== uid);
     this.updateRows(aux);
   }
 
@@ -277,28 +339,70 @@ class MacroTable extends Component {
     const aux = this.state.addText;
     let newRows = this.state.rows;
     newRows = newRows.concat(
-      aux.split("").map((symbol, index) => {
+      aux.split("").flatMap((symbol, index) => {
         let item = symbol.toUpperCase();
         switch (item) {
           case " ":
             item = "SPACE";
             break;
-          case "  ":
+          case "    ":
             item = "TAB";
             break;
           default:
             break;
         }
+        const randID = new Date().getTime() + Math.floor(Math.random() * 1000);
         let keyCode = this.keymapDB.reverse(item);
-        return {
-          symbol: item,
-          keyCode,
-          action: 8,
-          id: index + newRows.length,
-          color: this.assignColor(keyCode)
-        };
+        let actions = [
+          {
+            symbol: item,
+            keyCode,
+            action: 8,
+            id: index + newRows.length,
+            color: this.assignColor(keyCode),
+            uid: randID,
+            ucolor: "transparent"
+          }
+        ];
+        console.log(item, keyCode);
+        switch (true) {
+          case (keyCode & 256) === 256 && (keyCode & 512) === 512:
+            //Control pressed to modify (2)
+            actions = this.addModToKey(actions, 5, 256);
+
+            break;
+          case (keyCode & 256) === 256:
+            //Control pressed to modify (2)
+            actions = this.addModToKey(actions, 2, 256);
+
+            break;
+          case (keyCode & 512) === 512:
+            //Left Alt pressed to modify (4)
+            actions = this.addModToKey(actions, 4, 512);
+
+            break;
+          case (keyCode & 1024) === 1024:
+            //Right alt pressed to modify (5)
+            actions = this.addModToKey(actions, 5, 1024);
+
+            break;
+          case (keyCode & 2048) === 2048:
+            //Shift pressed to modify (0)
+            actions = this.addModToKey(actions, 0, 2048);
+
+            break;
+          case (keyCode & 4096) === 4096:
+            //Gui pressed to modify (6)
+            actions = this.addModToKey(actions, 6, 4096);
+
+            break;
+          default:
+            break;
+        }
+        return actions;
       })
     );
+    console.log(newRows);
     this.setState({
       addText: ""
     });
@@ -306,6 +410,7 @@ class MacroTable extends Component {
   }
 
   onAddSymbol(keyCode, action) {
+    const randID = new Date().getTime() + Math.floor(Math.random() * 1000);
     let newRows = this.state.rows;
     let symbol = this.keymapDB.parse(keyCode).label;
     newRows.push({
@@ -313,29 +418,11 @@ class MacroTable extends Component {
       keyCode,
       action,
       id: newRows.length,
-      color: this.assignColor(keyCode)
+      color: this.assignColor(keyCode),
+      uid: randID,
+      ucolor: "transparent"
     });
 
-    this.updateRows(newRows);
-  }
-
-  addModifier(rowID, modifierID) {
-    const { name, keyCode, color } = this.modifiers[modifierID];
-    let newRows = this.state.rows;
-    newRows.splice(rowID + 1, 0, {
-      symbol: name,
-      keyCode,
-      action: 7,
-      id: rowID + 1,
-      color
-    });
-    newRows.splice(rowID, 0, {
-      symbol: name,
-      keyCode,
-      action: 6,
-      id: rowID,
-      color
-    });
     this.updateRows(newRows);
   }
 

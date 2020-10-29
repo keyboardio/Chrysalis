@@ -157,6 +157,7 @@ class KeymapDB {
         languagesDB[this.language]
       )
     );
+    this.allCodes = keyCodeTable;
 
     for (let group of keyCodeTable) {
       for (let key of group.keys) {

@@ -6,7 +6,9 @@ import {
   TextField,
   FormControl,
   IconButton,
-  ListItemText
+  ListItem,
+  ListItemText,
+  Avatar
 } from "@material-ui/core";
 import PublishRounded from "@material-ui/icons/PublishRounded";
 
@@ -22,7 +24,8 @@ const styles = theme => ({
     margin: theme.spacing.unit
   },
   textField: {
-    minWidth: "200px"
+    minWidth: "200px",
+    padding: "0px"
   },
   menuitem: {
     display: "flex"
@@ -30,6 +33,10 @@ const styles = theme => ({
   iconbutton: {
     width: "61px",
     height: "61px"
+  },
+  avatar: {
+    fontSize: "18px",
+    color: "#999999"
   }
 });
 
@@ -65,20 +72,12 @@ class MacroTableTool extends Component {
         >
           {this.keymapDB.allCodes.slice(0, 9).map(group => {
             return group.keys.map((item, id) => (
-              <MenuItem
-                value={item.code}
-                key={`item-${id}`}
-                margin="none"
-                padding="none"
-              >
+              <MenuItem value={item.code} key={`item-${id}`}>
                 <div className={classes.menuitem}>
-                  <ListItemText
-                    inset
-                    primary={item.labels.primary}
-                    secondary={group.groupName}
-                    margin="none"
-                    padding="none"
-                  />
+                  <span className={classes.avatar}>
+                    {group.groupName.substring(0, 3)}
+                  </span>
+                  <ListItemText inset primary={item.labels.primary} />
                 </div>
               </MenuItem>
             ));
@@ -109,11 +108,7 @@ class MacroTableTool extends Component {
                 <MenuItem value={id} key={`item-${id}`}>
                   <div className={classes.menuitem}>
                     {item.smallIcon}
-                    <ListItemText
-                      inset
-                      primary={item.name}
-                      secondary={"Action"}
-                    />
+                    <ListItemText inset primary={item.name} />
                   </div>
                 </MenuItem>
               );

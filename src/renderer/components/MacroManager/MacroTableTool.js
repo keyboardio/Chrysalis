@@ -65,7 +65,6 @@ class MacroTableTool extends Component {
           }}
         >
           {this.keymapDB.allCodes.slice(0, 9).map(group => {
-            console.log(group);
             return group.keys.map((item, id) => (
               <MenuItem
                 value={item.code}

@@ -40,8 +40,6 @@ class MacroForm extends Component {
   constructor(props) {
     super(props);
 
-    console.log(props.macros[props.selected]);
-
     this.state = {
       macros: props.macros,
       selected: props.selected,

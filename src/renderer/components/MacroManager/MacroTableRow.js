@@ -130,7 +130,6 @@ class MacroTableRow extends Component {
               margin="none"
               variant="outlined"
               onChange={e => {
-                console.log(item.id, e.target.value);
                 addModifier(item.id, e.target.value);
               }}
             >

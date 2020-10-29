@@ -364,7 +364,6 @@ class MacroTable extends Component {
             ucolor: "transparent"
           }
         ];
-        console.log(item, keyCode);
         switch (true) {
           case (keyCode & 256) === 256 && (keyCode & 512) === 512:
             //Control pressed to modify (2)
@@ -402,7 +401,6 @@ class MacroTable extends Component {
         return actions;
       })
     );
-    console.log(newRows);
     this.setState({
       addText: ""
     });

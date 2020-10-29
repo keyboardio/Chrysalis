@@ -5,7 +5,6 @@ import {
   MenuItem,
   TextField,
   FormControl,
-  ListItem,
   IconButton,
   ListItemText
 } from "@material-ui/core";

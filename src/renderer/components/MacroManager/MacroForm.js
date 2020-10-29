@@ -32,7 +32,7 @@ const styles = theme => ({
     borderLeft: "solid 1px lightgrey"
   },
   bglist: {
-    backgroundColor: "#eee"
+    backgroundColor: "#eeeeee"
   }
 });
 

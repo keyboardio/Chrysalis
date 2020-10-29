@@ -20,224 +20,224 @@ const MacrosTable = {
     {
       code: 24576,
       labels: {
-        primary: "#0",
+        primary: "0",
         top: "Macro"
       }
     },
     {
       code: 24577,
       labels: {
-        primary: "#1",
+        primary: "1",
         top: "Macro"
       }
     },
     {
       code: 24578,
       labels: {
-        primary: "#2",
+        primary: "2",
         top: "Macro"
       }
     },
     {
       code: 24579,
       labels: {
-        primary: "#3",
+        primary: "3",
         top: "Macro"
       }
     },
     {
       code: 24580,
       labels: {
-        primary: "#4",
+        primary: "4",
         top: "Macro"
       }
     },
     {
       code: 24581,
       labels: {
-        primary: "#5",
+        primary: "5",
         top: "Macro"
       }
     },
     {
       code: 24582,
       labels: {
-        primary: "#6",
+        primary: "6",
         top: "Macro"
       }
     },
     {
       code: 24583,
       labels: {
-        primary: "#7",
+        primary: "7",
         top: "Macro"
       }
     },
     {
       code: 24584,
       labels: {
-        primary: "#8",
+        primary: "8",
         top: "Macro"
       }
     },
     {
       code: 24585,
       labels: {
-        primary: "#9",
+        primary: "9",
         top: "Macro"
       }
     },
     {
       code: 24586,
       labels: {
-        primary: "#10",
+        primary: "10",
         top: "Macro"
       }
     },
     {
       code: 24587,
       labels: {
-        primary: "#11",
+        primary: "11",
         top: "Macro"
       }
     },
     {
       code: 24588,
       labels: {
-        primary: "#12",
+        primary: "12",
         top: "Macro"
       }
     },
     {
       code: 24589,
       labels: {
-        primary: "#13",
+        primary: "13",
         top: "Macro"
       }
     },
     {
       code: 24590,
       labels: {
-        primary: "#14",
+        primary: "14",
         top: "Macro"
       }
     },
     {
       code: 24591,
       labels: {
-        primary: "#15",
+        primary: "15",
         top: "Macro"
       }
     },
     {
       code: 24592,
       labels: {
-        primary: "#16",
+        primary: "16",
         top: "Macro"
       }
     },
     {
       code: 24593,
       labels: {
-        primary: "#17",
+        primary: "17",
         top: "Macro"
       }
     },
     {
       code: 24594,
       labels: {
-        primary: "#18",
+        primary: "18",
         top: "Macro"
       }
     },
     {
       code: 24595,
       labels: {
-        primary: "#19",
+        primary: "19",
         top: "Macro"
       }
     },
     {
       code: 24596,
       labels: {
-        primary: "#20",
+        primary: "20",
         top: "Macro"
       }
     },
     {
       code: 24597,
       labels: {
-        primary: "#21",
+        primary: "21",
         top: "Macro"
       }
     },
     {
       code: 24598,
       labels: {
-        primary: "#22",
+        primary: "22",
         top: "Macro"
       }
     },
     {
       code: 24599,
       labels: {
-        primary: "#23",
+        primary: "23",
         top: "Macro"
       }
     },
     {
       code: 24600,
       labels: {
-        primary: "#24",
+        primary: "24",
         top: "Macro"
       }
     },
     {
       code: 24601,
       labels: {
-        primary: "#25",
+        primary: "25",
         top: "Macro"
       }
     },
     {
       code: 24602,
       labels: {
-        primary: "#26",
+        primary: "26",
         top: "Macro"
       }
     },
     {
       code: 24603,
       labels: {
-        primary: "#27",
+        primary: "27",
         top: "Macro"
       }
     },
     {
       code: 24604,
       labels: {
-        primary: "#28",
+        primary: "28",
         top: "Macro"
       }
     },
     {
       code: 24605,
       labels: {
-        primary: "#29",
+        primary: "29",
         top: "Macro"
       }
     },
     {
       code: 24606,
       labels: {
-        primary: "#30",
+        primary: "30",
         top: "Macro"
       }
     },
     {
       code: 24607,
       labels: {
-        primary: "#31",
+        primary: "31",
         top: "Macro"
       }
     }

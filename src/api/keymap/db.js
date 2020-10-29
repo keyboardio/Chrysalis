@@ -39,7 +39,8 @@ import MediaControlTable from "./db/mediacontrols";
 import {
   MouseMovementTable,
   MouseWheelTable,
-  MouseButtonTable
+  MouseButtonTable,
+  MouseWarpTable
 } from "./db/mousecontrols";
 import MiscellaneousTable, {
   ModifiedMiscellaneousTables
@@ -92,6 +93,7 @@ const defaultBaseKeyCodeTable = [
   MouseMovementTable,
   MouseButtonTable,
   MouseWheelTable,
+  MouseWarpTable,
 
   OneShotModifierTable,
   OneShotLayerTable,

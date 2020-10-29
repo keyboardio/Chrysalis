@@ -51,34 +51,38 @@ class MacroSelector extends Component {
     return (
       <React.Fragment>
         <List className={classNames(classes.list)} disablePadding dense>
-          {macros.map((item, index) => (
-            <div key={index}>
-              <ListItem className={highlight[index]}>
-                <Avatar
-                  onClick={() => {
-                    this.onSelectMacro(item.id);
-                  }}
-                >
-                  {item.id}
-                </Avatar>
-                <ListItemText
-                  primary={item.name}
-                  secondary={item.macro}
-                  onClick={() => {
-                    this.onSelectMacro(item.id);
-                  }}
-                />
-                <IconButton
-                  onClick={() => {
-                    this.props.deleteMacro(item.id);
-                  }}
-                >
-                  <DeleteForeverRounded />
-                </IconButton>
-              </ListItem>
-              <Divider variant="fullWidth" />
-            </div>
-          ))}
+          {macros.length !== 0 ? (
+            macros.map((item, index) => (
+              <div key={index}>
+                <ListItem className={highlight[index]}>
+                  <Avatar
+                    onClick={() => {
+                      this.onSelectMacro(item.id);
+                    }}
+                  >
+                    {item.id}
+                  </Avatar>
+                  <ListItemText
+                    primary={item.name}
+                    secondary={item.macro}
+                    onClick={() => {
+                      this.onSelectMacro(item.id);
+                    }}
+                  />
+                  <IconButton
+                    onClick={() => {
+                      this.props.deleteMacro(item.id);
+                    }}
+                  >
+                    <DeleteForeverRounded />
+                  </IconButton>
+                </ListItem>
+                <Divider variant="fullWidth" />
+              </div>
+            ))
+          ) : (
+            <React.Fragment />
+          )}
           <ListItem>
             <Avatar>N</Avatar>
             <ListItemText primary="Add new Macro" />

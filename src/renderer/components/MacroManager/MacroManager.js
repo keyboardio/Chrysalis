@@ -88,9 +88,17 @@ class MacroManager extends Component {
   constructor(props) {
     super(props);
 
+    let selected;
+
+    if (props.macros.length <= props.selected) {
+      selected = props.macros.length - 1;
+    } else {
+      selected = props.selected;
+    }
+
     this.state = {
       macros: props.macros,
-      selected: props.selected,
+      selected: selected,
       open: false
     };
 
@@ -122,6 +130,7 @@ class MacroManager extends Component {
     });
     this.props.updateMacro(macros);
     this.props.changeSelected(this.state.selected);
+    this.exit();
   }
 
   addMacro() {

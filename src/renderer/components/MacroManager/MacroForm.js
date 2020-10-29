@@ -40,13 +40,27 @@ class MacroForm extends Component {
   constructor(props) {
     super(props);
 
+    console.log(props.macros[props.selected]);
+
     this.state = {
       macros: props.macros,
       selected: props.selected,
-      name: props.macros[props.selected].name,
-      id: props.macros[props.selected].id,
-      actions: props.macros[props.selected].actions,
-      text: props.macros[props.selected].macro
+      name:
+        props.macros[props.selected] === undefined
+          ? ""
+          : props.macros[props.selected].name,
+      id:
+        props.macros[props.selected] === undefined
+          ? 0
+          : props.macros[props.selected].id,
+      actions:
+        props.macros[props.selected] === undefined
+          ? []
+          : props.macros[props.selected].actions,
+      text:
+        props.macros[props.selected] === undefined
+          ? ""
+          : props.macros[props.selected].macro
     };
 
     this.updateMacro = this.updateMacro.bind(this);
@@ -123,7 +137,7 @@ class MacroForm extends Component {
               className={classNames(classes.margin, classes.button)}
               onClick={this.updateMacro}
             >
-              {"Accept"}
+              {"Apply & Exit"}
             </Button>
           </div>
         </Grid>

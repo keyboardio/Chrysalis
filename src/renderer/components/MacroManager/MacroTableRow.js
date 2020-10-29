@@ -13,7 +13,7 @@ import {
   IconButton,
   ListItemSecondaryAction
 } from "@material-ui/core";
-import { Close } from "@material-ui/icons";
+import { Close, DragIndicator } from "@material-ui/icons";
 
 const styles = theme => ({
   chip: {
@@ -56,6 +56,29 @@ class MacroTableRow extends Component {
     })
   });
 
+  shadeColor(color, percent) {
+    if (color === "transparent") {
+      return color;
+    }
+    var R = parseInt(color.substring(1, 3), 16);
+    var G = parseInt(color.substring(3, 5), 16);
+    var B = parseInt(color.substring(5, 7), 16);
+
+    R = parseInt((R * (100 - percent)) / 100);
+    G = parseInt((G * (100 - percent)) / 100);
+    B = parseInt((B * (100 - percent)) / 100);
+
+    R = Math.round((R * 255) / (R + 5));
+    G = Math.round((G * 255) / (G + 5));
+    B = Math.round((B * 255) / (B + 5));
+
+    var RR = R.toString(16).length == 1 ? "0" + R.toString(16) : R.toString(16);
+    var GG = G.toString(16).length == 1 ? "0" + G.toString(16) : G.toString(16);
+    var BB = B.toString(16).length == 1 ? "0" + B.toString(16) : B.toString(16);
+
+    return "#" + RR + GG + BB;
+  }
+
   render() {
     const {
       classes,
@@ -66,6 +89,7 @@ class MacroTableRow extends Component {
       addModifier,
       actionTypes
     } = this.props;
+
     return (
       <div
         ref={provided.innerRef}
@@ -77,7 +101,17 @@ class MacroTableRow extends Component {
         )}
       >
         <ListItem className={classes.listitem}>
-          <ListItemIcon>{actionTypes[item.action].icon}</ListItemIcon>
+          <ListItemIcon>
+            <DragIndicator />
+          </ListItemIcon>
+          <ListItemIcon
+            style={{
+              backgroundColor: `${this.shadeColor(item.ucolor, 60)}`,
+              borderRadius: "100px"
+            }}
+          >
+            {actionTypes[item.action].icon}
+          </ListItemIcon>
           <Chip
             label={item.symbol}
             variant="outlined"

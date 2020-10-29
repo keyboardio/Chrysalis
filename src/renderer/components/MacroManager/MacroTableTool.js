@@ -5,6 +5,7 @@ import {
   MenuItem,
   TextField,
   FormControl,
+  ListItem,
   IconButton,
   ListItemText
 } from "@material-ui/core";
@@ -55,7 +56,7 @@ class MacroTableTool extends Component {
           value={this.state.keyCode}
           margin="none"
           variant="outlined"
-          size="small"
+          rows={10}
           className={classes.textField}
           onChange={e => {
             this.setState({
@@ -63,22 +64,36 @@ class MacroTableTool extends Component {
             });
           }}
         >
-          {this.keymapDB.getMap().map((item, id) => (
-            <MenuItem value={item.code} key={`item-${id}`}>
-              <div className={classes.menuitem}>
-                <ListItemText inset primary={item.labels.primary} />
-              </div>
-            </MenuItem>
-          ))}
+          {this.keymapDB.allCodes.slice(0, 9).map(group => {
+            console.log(group);
+            return group.keys.map((item, id) => (
+              <MenuItem
+                value={item.code}
+                key={`item-${id}`}
+                margin="none"
+                padding="none"
+              >
+                <div className={classes.menuitem}>
+                  <ListItemText
+                    inset
+                    primary={item.labels.primary}
+                    secondary={group.groupName}
+                    margin="none"
+                    padding="none"
+                  />
+                </div>
+              </MenuItem>
+            ));
+          })}
         </TextField>
       </FormControl>
     );
     const actions = (
       <FormControl>
         <TextField
-          id="Select Key"
+          id="Select Action"
           select
-          label="Select Key"
+          label="Select Action"
           value={this.state.action}
           margin="none"
           variant="outlined"
@@ -96,7 +111,11 @@ class MacroTableTool extends Component {
                 <MenuItem value={id} key={`item-${id}`}>
                   <div className={classes.menuitem}>
                     {item.smallIcon}
-                    <ListItemText inset primary={item.name} />
+                    <ListItemText
+                      inset
+                      primary={item.name}
+                      secondary={"Action"}
+                    />
                   </div>
                 </MenuItem>
               );

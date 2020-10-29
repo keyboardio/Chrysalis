@@ -116,6 +116,7 @@ class MacroManager extends Component {
     this.setState({
       macros
     });
+    this.exit();
   }
 
   exit() {

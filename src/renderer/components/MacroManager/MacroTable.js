@@ -72,7 +72,7 @@ class MacroTable extends Component {
     this.state = {
       addText: "",
       rows: [],
-      macro: props.macro.macro
+      macro: props.macro === undefined ? "" : props.macro.macro
     };
     this.keymapDB = props.keymapDB;
     this.modifiers = [
@@ -178,7 +178,9 @@ class MacroTable extends Component {
   }
 
   componentDidMount() {
-    this.updateRows(this.createConversion(this.props.macro.actions));
+    if (this.props.macro !== undefined) {
+      this.updateRows(this.createConversion(this.props.macro.actions));
+    }
   }
 
   createConversion(actions) {
@@ -276,9 +278,20 @@ class MacroTable extends Component {
     let newRows = this.state.rows;
     newRows = newRows.concat(
       aux.split("").map((symbol, index) => {
-        let keyCode = this.keymapDB.reverse(symbol.toUpperCase());
+        let item = symbol.toUpperCase();
+        switch (item) {
+          case " ":
+            item = "SPACE";
+            break;
+          case "  ":
+            item = "TAB";
+            break;
+          default:
+            break;
+        }
+        let keyCode = this.keymapDB.reverse(item);
         return {
-          symbol,
+          symbol: item,
           keyCode,
           action: 8,
           id: index + newRows.length,

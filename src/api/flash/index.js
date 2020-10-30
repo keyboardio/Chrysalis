@@ -92,7 +92,8 @@ export default class FlashRaise {
       "keymap.onlyCustom",
       "led.theme",
       "palette",
-      "colormap.map"
+      "colormap.map",
+      "macros.map"
     ];
     this.backupFileName = `Raise-backup-${this.formatedDate()}.json`;
 
@@ -147,7 +148,7 @@ export default class FlashRaise {
     let timeouts = {
       dtrToggle: 500, // Time to wait (ms) between toggling DTR
       waitingClose: 2750, // Time to wait for boot loader
-      bootLoaderUp: 2500 // Time to wait for the boot loader to come up
+      bootLoaderUp: process.platform === "darwin" ? 4000 : 2500 // Time to wait for the boot loader to come up
     };
     return new Promise((resolve, reject) => {
       port.update({ baudRate: 1200 }, async () => {

@@ -70,6 +70,15 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
+    let balance;
+
+    if (store.get("balance") === undefined) {
+      balance = { r: 30, g: 0, b: 15 };
+      store.set("balance", balance);
+    } else {
+      balance = store.get("balance");
+    }
+
     this.state = {
       darkMode: settings.get("ui.darkMode"),
       connected: false,
@@ -77,19 +86,9 @@ class App extends React.Component {
       pages: {},
       contextBar: false,
       cancelPendingOpen: false,
-      balance: store.get("balance"),
-      testingPalette: new Array(16).fill({
-        r: 255,
-        g: 255,
-        b: 255,
-        rgb: "rgb(255,255,255)"
-      })
+      balance
     };
     localStorage.clear();
-    if (store.get("balance") === undefined) {
-      store.set("balance", { r: 30, g: 0, b: 15 });
-      this.setState({ balance: { r: 30, g: 0, b: 15 } });
-    }
   }
   flashing = false;
 
@@ -259,16 +258,22 @@ class App extends React.Component {
       }
     }
     if (type === "revert") {
-      if (color.r > 1 && color.g > 1 && color.b > 1) {
-        let aux = {
-          r: color.r + balance.r,
-          g: color.g + balance.g,
-          b: color.b + balance.b,
-          rgb: color.rgb
-        };
-        aux.rgb = this.rgbString(aux);
-        console.log(color, balance, correction, aux);
-        return aux;
+      if (
+        color.r + balance.r <= 255 ||
+        color.g + balance.g <= 255 ||
+        color.b + balance.b <= 255
+      ) {
+        if (color.r > 1 && color.g > 1 && color.b > 1) {
+          let aux = {
+            r: color.r + balance.r,
+            g: color.g + balance.g,
+            b: color.b + balance.b,
+            rgb: color.rgb
+          };
+          aux.rgb = this.rgbString(aux);
+          console.log(color, balance, correction, aux);
+          return aux;
+        }
       }
     }
     return color;
@@ -287,34 +292,23 @@ class App extends React.Component {
   };
   testBalance = async bal => {
     console.log("testing white balance: ", bal);
-    let ccolors = this.state.testingPalette.map(color => {
-      return this.whiteBalance(bal, color, "apply");
-    });
-    await focus.command("colormap", ccolors, this.state.savedColorMap.colorMap);
+    const balance = this.whiteBalance(bal, { r: 255, g: 255, b: 255 }, "apply");
+    await focus.command(`led.setAll ${balance.r} ${balance.g} ${balance.b}`);
     return "finished";
   };
   startTestBalance = async () => {
-    let colormap = await focus.command("colormap");
-    let colors = this.revertBalance(colormap.palette.slice());
-    console.log("current colors", colors, colormap.palette);
-    this.setState({
-      savedColorMap: colormap,
-      savedColors: colors
-    });
-    await focus.command(
-      "colormap",
-      this.applyBalance(this.state.testingPalette),
-      this.state.savedColorMap.colorMap
+    console.log("current balance", this.state.balance);
+    const balance = this.whiteBalance(
+      this.state.balance,
+      { r: 255, g: 255, b: 255 },
+      "apply"
     );
+    await focus.command(`led.setAll ${balance.r} ${balance.g} ${balance.b}`);
     return "finished";
   };
   stopTestBalance = async () => {
-    console.log("resending colors", this.state.savedColors);
-    await focus.command(
-      "colormap",
-      this.applyBalance(this.state.savedColors),
-      this.state.savedColorMap.colorMap
-    );
+    console.log("reverting testing mode");
+    await focus.command("led.mode 0");
     return "finished";
   };
 

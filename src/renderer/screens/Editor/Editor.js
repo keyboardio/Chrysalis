@@ -192,7 +192,8 @@ class Editor extends React.Component {
 
       let colormap = await focus.command("colormap");
       // Point of restoration for WhiteBalance
-      let palette = this.props.revertBalance(colormap.palette.slice());
+      // let palette = this.props.revertBalance(colormap.palette.slice());
+      let palette = colormap.palette.slice();
       const undeglowColors = settings.get("undeglowColors");
       let rawMacros = await focus.command("macros.map");
       if (rawMacros.search("0 0") !== -1) {
@@ -438,7 +439,8 @@ class Editor extends React.Component {
     await focus.command("keymap", this.state.keymap);
     await focus.command(
       "colormap",
-      this.props.applyBalance(this.state.palette),
+      // this.props.applyBalance(this.state.palette),
+      this.state.palette,
       this.state.colorMap
     );
     let newMacros = this.state.macros;

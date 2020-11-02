@@ -162,7 +162,7 @@ class Preferences extends React.Component {
             inContext={this.props.inContext}
           />
         )}
-        {this.props.connected && (
+        {this.props.connected && false && (
           <ColorSettings
             startContext={this.props.startContext}
             cancelContext={this.props.cancelContext}

@@ -102,7 +102,9 @@ class KeyboardSettings extends React.Component {
     working: false
   };
 
-  componentDidMount() {
+  delay = ms => new Promise(res => setTimeout(res, ms));
+
+  async componentDidMount() {
     const focus = new Focus();
     focus.command("keymap").then(keymap => {
       this.setState({ keymap: keymap });
@@ -111,10 +113,20 @@ class KeyboardSettings extends React.Component {
       layer = layer ? parseInt(layer) : 126;
       this.setState({ defaultLayer: layer <= 126 ? layer : 126 });
     });
+
+    if (process.platform === "darwin") {
+      await this.delay(50);
+    }
+
     focus.command("led.brightness").then(brightness => {
       brightness = brightness ? parseInt(brightness) : -1;
       this.setState({ ledBrightness: brightness });
     });
+
+    if (process.platform === "darwin") {
+      await this.delay(50);
+    }
+
     focus.command("idleleds.time_limit").then(limit => {
       limit = limit ? parseInt(limit) : -1;
       this.setState({ ledIdleTimeLimit: limit });

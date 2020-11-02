@@ -6,9 +6,7 @@ import {
   TextField,
   FormControl,
   IconButton,
-  ListItem,
-  ListItemText,
-  Avatar
+  ListItemText
 } from "@material-ui/core";
 import PublishRounded from "@material-ui/icons/PublishRounded";
 

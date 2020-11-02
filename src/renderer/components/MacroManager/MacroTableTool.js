@@ -6,7 +6,8 @@ import {
   TextField,
   FormControl,
   IconButton,
-  ListItemText
+  ListItemText,
+  InputAdornment
 } from "@material-ui/core";
 import PublishRounded from "@material-ui/icons/PublishRounded";
 
@@ -44,20 +45,23 @@ class MacroTableTool extends Component {
 
     this.state = {
       keyCode: 4,
-      action: 8
+      action: 8,
+      delay: 100
     };
     this.keymapDB = props.keymapDB;
   }
 
   render() {
-    const { classes, actionTypes, onAddSymbol } = this.props;
+    const { classes, actionTypes, onAddSymbol, onAddDelay } = this.props;
+    const { keyCode, action, delay } = this.state;
     const keys = (
       <FormControl>
         <TextField
+          key={action + keyCode}
           id="Select Key"
           select
           label="Select Key"
-          value={this.state.keyCode}
+          value={keyCode}
           margin="none"
           variant="outlined"
           rows={10}
@@ -86,10 +90,11 @@ class MacroTableTool extends Component {
     const actions = (
       <FormControl>
         <TextField
+          key={action + keyCode}
           id="Select Action"
           select
           label="Select Action"
-          value={this.state.action}
+          value={action}
           margin="none"
           variant="outlined"
           size="small"
@@ -98,10 +103,11 @@ class MacroTableTool extends Component {
             this.setState({
               action: e.target.value
             });
+            this.forceUpdate();
           }}
         >
           {actionTypes.map((item, id) => {
-            if (id > 5 && id < 9) {
+            if ((id > 5 && id < 9) || (id < 3 && id > 1)) {
               return (
                 <MenuItem value={id} key={`item-${id}`}>
                   <div className={classes.menuitem}>
@@ -116,10 +122,44 @@ class MacroTableTool extends Component {
       </FormControl>
     );
 
+    const delayFill = (
+      <TextField
+        id="outlined-name"
+        label="Delay"
+        type="number"
+        className={classes.textField}
+        value={delay}
+        onChange={e => {
+          if (e.target.value > 65536) {
+            this.setState({ delay: 65536 });
+          } else {
+            this.setState({ delay: e.target.value });
+          }
+        }}
+        InputProps={{
+          startAdornment: <InputAdornment position="start">ms</InputAdornment>
+        }}
+        margin="none"
+        variant="outlined"
+      />
+    );
+
     const button = (
       <IconButton
         onClick={() => {
-          onAddSymbol(this.state.keyCode, this.state.action);
+          switch (action) {
+            case 1:
+            case 2:
+              onAddDelay(delay, action);
+              break;
+            case 6:
+            case 7:
+            case 8:
+              onAddSymbol(keyCode, action);
+              break;
+            default:
+              break;
+          }
         }}
         className={classes.iconbutton}
       >
@@ -129,8 +169,8 @@ class MacroTableTool extends Component {
 
     return (
       <div className={classes.root}>
-        {keys}
         {actions}
+        {action <= 2 ? delayFill : keys}
         {button}
       </div>
     );

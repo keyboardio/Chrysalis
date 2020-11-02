@@ -195,16 +195,16 @@ class Editor extends React.Component {
       // let palette = this.props.revertBalance(colormap.palette.slice());
       let palette = colormap.palette.slice();
       const undeglowColors = settings.get("undeglowColors");
-      let rawMacros = await focus.command("macros.map");
-      if (rawMacros.search("0 0") !== -1) {
-        rawMacros = rawMacros
+      let raw = await focus.command("macros.map");
+      if (raw.search("0 0") !== -1) {
+        raw = raw
           .split(" 0 0")[0]
-          .split(" 0 ")
-          .map(x => x.split(" ").map(Number));
+          .split(" ")
+          .map(Number);
       } else {
-        rawMacros = "";
+        raw = "";
       }
-      const parsedMacros = this.macroTranslator(rawMacros);
+      const parsedMacros = this.macroTranslator(raw);
       this.setState(
         () => {
           if (!undeglowColors) {
@@ -744,21 +744,71 @@ class Editor extends React.Component {
       ];
     }
     // Translate received macros to human readable text
-    let macros = [];
-    raw.forEach((macro, i) => {
-      let types = macro.filter((x, i) => i % 2 == 0);
-      let keyCodes = macro.filter((x, i) => i % 2 == 1);
-      let actions = [];
-      for (const key in types) {
-        actions.push({ type: types[key], keyCode: keyCodes[key] });
+    let i = 0,
+      iter = 0,
+      kcs = 0,
+      type = 0,
+      keyCode = [],
+      actions = [],
+      macros = [];
+    actions = [];
+    while (raw.length > iter) {
+      if (kcs > 0) {
+        keyCode.push(raw[iter]);
+        kcs--;
+        iter++;
+        continue;
       }
-      macros[i] = {};
-      macros[i].actions = actions;
-      macros[i].id = i;
-      macros[i].name = "";
-      macros[i].macro = keyCodes
-        .map(k => this.keymapDB.parse(k).label)
-        .join(" ");
+      if (iter !== 0 && type !== 0) {
+        actions.push({
+          type: type,
+          keyCode: keyCode
+        });
+        keyCode = [];
+      }
+      type = raw[iter];
+      if (type === 2) {
+        kcs = 2;
+      } else {
+        kcs = 1;
+      }
+      if (type === 0) {
+        kcs = 0;
+        macros[i] = {};
+        macros[i].actions = actions;
+        macros[i].id = i;
+        macros[i].name = "";
+        macros[i].macro = "";
+        i++;
+        actions = [];
+        iter++;
+        continue;
+      }
+      iter++;
+    }
+    actions.push({
+      type: type,
+      keyCode: keyCode
+    });
+    macros[i] = {};
+    macros[i].actions = actions;
+    macros[i].id = i;
+    macros[i].name = "";
+    macros[i].macro = "";
+    macros = macros.map(macro => {
+      let aux = macro.actions.map(action => {
+        let aux = 0;
+        if (action.keyCode.length > 1) {
+          aux = (action.keyCode[0] << 8) + action.keyCode[1];
+        } else {
+          aux = action.keyCode[0];
+        }
+        return {
+          type: action.type,
+          keyCode: aux
+        };
+      });
+      return { ...macro, actions: aux };
     });
     // TODO: Check if stored macros match the received ones, if they mach, retrieve name and apply it to current macros
     let equal = [];
@@ -796,13 +846,21 @@ class Editor extends React.Component {
   }
 
   macrosMap(macros) {
-    if (macros.length === 1 && macros[0].macro === "") {
+    if (macros.length === 1 && macros[0].actions === []) {
       return "255 255 255 255 255 255 255 255 255 255";
     }
     const actionMap = macros.map(macro => {
       return macro.actions
         .map(action => {
-          return [[action.type], [action.keyCode]];
+          if (action.type === 2) {
+            return [
+              [action.type],
+              [action.keyCode >> 8],
+              [action.keyCode & 255]
+            ];
+          } else {
+            return [[action.type], [action.keyCode]];
+          }
         })
         .concat([0]);
     });

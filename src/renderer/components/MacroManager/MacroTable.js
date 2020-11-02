@@ -10,7 +10,9 @@ import {
   SwapVert,
   KeyboardArrowUp,
   KeyboardArrowDown,
-  PublishRounded
+  PublishRounded,
+  HourglassEmptyRounded,
+  TimerRounded
 } from "@material-ui/icons";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 // import ArrowDownward from "@material-ui/icons/ArrowDownward";
@@ -95,14 +97,14 @@ class MacroTable extends Component {
       {
         enum: "MACRO_ACTION_STEP_INTERVAL",
         name: "Step Interval",
-        icon: <React.Fragment />,
-        smallIcon: <React.Fragment />
+        icon: <TimerRounded fontSize="large" />,
+        smallIcon: <TimerRounded />
       },
       {
         enum: "MACRO_ACTION_STEP_WAIT",
-        name: "Step Wait",
-        icon: <React.Fragment />,
-        smallIcon: <React.Fragment />
+        name: "Delay",
+        icon: <HourglassEmptyRounded fontSize="large" />,
+        smallIcon: <HourglassEmptyRounded />
       },
       {
         enum: "MACRO_ACTION_STEP_KEYDOWN",
@@ -175,9 +177,11 @@ class MacroTable extends Component {
     this.createConversion = this.createConversion.bind(this);
     this.assignColor = this.assignColor.bind(this);
     this.onAddSymbol = this.onAddSymbol.bind(this);
+    this.onAddDelay = this.onAddDelay.bind(this);
   }
 
   componentDidMount() {
+    console.log("cdm: ", this.props.macro);
     if (this.props.macro !== undefined) {
       this.updateRows(this.createConversion(this.props.macro.actions));
     }
@@ -186,15 +190,33 @@ class MacroTable extends Component {
   createConversion(actions) {
     let converted = actions.map((action, i) => {
       const randID = new Date().getTime() + Math.floor(Math.random() * 1000);
-      return {
-        symbol: this.keymapDB.parse(action.keyCode).label,
-        keyCode: action.keyCode,
-        action: action.type,
-        id: i,
-        color: this.assignColor(action.keyCode),
-        uid: randID,
-        ucolor: "transparent"
-      };
+      switch (action.type) {
+        case 1:
+        case 2:
+          return {
+            symbol: action.keyCode,
+            keyCode: action.keyCode,
+            action: action.type,
+            id: i,
+            color: "#faf0e3",
+            uid: randID,
+            ucolor: "transparent"
+          };
+        case 6:
+        case 7:
+        case 8:
+          return {
+            symbol: this.keymapDB.parse(action.keyCode).label,
+            keyCode: action.keyCode,
+            action: action.type,
+            id: i,
+            color: this.assignColor(action.keyCode),
+            uid: randID,
+            ucolor: "transparent"
+          };
+        default:
+          break;
+      }
     });
     return converted;
   }
@@ -234,6 +256,7 @@ class MacroTable extends Component {
   }
 
   updateRows(rows) {
+    console.log("updaterows", rows);
     let texted = rows.map(k => this.keymapDB.parse(k.keyCode).label).join(" ");
     let newRows = rows.map((item, index) => {
       let aux = item;
@@ -420,7 +443,21 @@ class MacroTable extends Component {
       uid: randID,
       ucolor: "transparent"
     });
+    this.updateRows(newRows);
+  }
 
+  onAddDelay(delay, action) {
+    const randID = new Date().getTime() + Math.floor(Math.random() * 1000);
+    let newRows = this.state.rows;
+    newRows.push({
+      symbol: delay,
+      keyCode: delay,
+      action,
+      id: newRows.length,
+      color: "#faf0e3",
+      uid: randID,
+      ucolor: "transparent"
+    });
     this.updateRows(newRows);
   }
 
@@ -479,6 +516,7 @@ class MacroTable extends Component {
             actionTypes={this.actionTypes}
             keymapDB={this.keymapDB}
             onAddSymbol={this.onAddSymbol}
+            onAddDelay={this.onAddDelay}
           />
         </div>
         <div

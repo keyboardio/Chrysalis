@@ -52,7 +52,13 @@ class MacroTableTool extends Component {
   }
 
   render() {
-    const { classes, actionTypes, onAddSymbol, onAddDelay } = this.props;
+    const {
+      classes,
+      actionTypes,
+      onAddSymbol,
+      onAddDelay,
+      onAddSpecial
+    } = this.props;
     const { keyCode, action, delay } = this.state;
     const keys = (
       <FormControl>
@@ -107,7 +113,7 @@ class MacroTableTool extends Component {
           }}
         >
           {actionTypes.map((item, id) => {
-            if ((id > 5 && id < 9) || (id < 3 && id > 1)) {
+            if (id > 1 && id < 9) {
               return (
                 <MenuItem value={id} key={`item-${id}`}>
                   <div className={classes.menuitem}>
@@ -148,9 +154,13 @@ class MacroTableTool extends Component {
       <IconButton
         onClick={() => {
           switch (action) {
-            case 1:
             case 2:
               onAddDelay(delay, action);
+              break;
+            case 3:
+            case 4:
+            case 5:
+              onAddSpecial(keyCode, action);
               break;
             case 6:
             case 7:

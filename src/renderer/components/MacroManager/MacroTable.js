@@ -1,21 +1,18 @@
 import React, { Component } from "react";
 import classNames from "classnames";
 import MacroTableRow from "./MacroTableRow";
-import MacroTableTool from "./MacroTableTool";
+import MacroToolTab from "./MacroToolTab";
 
 import { withStyles } from "@material-ui/core/styles";
-import { TextField, List, IconButton } from "@material-ui/core";
+import { List } from "@material-ui/core";
 import RootRef from "@material-ui/core/RootRef";
 import {
-  SwapVert,
+  UnfoldLessRounded,
   KeyboardArrowUp,
   KeyboardArrowDown,
-  PublishRounded,
-  HourglassEmptyRounded,
   TimerRounded
 } from "@material-ui/icons";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-// import ArrowDownward from "@material-ui/icons/ArrowDownward";
 
 const styles = theme => ({
   root: {
@@ -96,33 +93,33 @@ class MacroTable extends Component {
       },
       {
         enum: "MACRO_ACTION_STEP_INTERVAL",
-        name: "Step Interval",
+        name: "Set Interval",
         icon: <TimerRounded fontSize="large" />,
         smallIcon: <TimerRounded />
       },
       {
         enum: "MACRO_ACTION_STEP_WAIT",
         name: "Delay",
-        icon: <HourglassEmptyRounded fontSize="large" />,
-        smallIcon: <HourglassEmptyRounded />
+        icon: <TimerRounded fontSize="large" />,
+        smallIcon: <TimerRounded />
       },
       {
         enum: "MACRO_ACTION_STEP_KEYDOWN",
         name: "Step Keydown",
-        icon: <React.Fragment />,
-        smallIcon: <React.Fragment />
+        icon: <KeyboardArrowDown />,
+        smallIcon: <KeyboardArrowDown />
       },
       {
         enum: "MACRO_ACTION_STEP_KEYUP",
         name: "Step KeyUp",
-        icon: <React.Fragment />,
-        smallIcon: <React.Fragment />
+        icon: <KeyboardArrowUp />,
+        smallIcon: <KeyboardArrowUp />
       },
       {
         enum: "MACRO_ACTION_STEP_TAP",
         name: "Step Tap",
-        icon: <React.Fragment />,
-        smallIcon: <React.Fragment />
+        icon: <UnfoldLessRounded />,
+        smallIcon: <UnfoldLessRounded />
       },
       {
         enum: "MACRO_ACTION_STEP_KEYCODEDOWN",
@@ -139,8 +136,8 @@ class MacroTable extends Component {
       {
         enum: "MACRO_ACTION_STEP_TAPCODE",
         name: "Key Press & Release",
-        icon: <SwapVert fontSize="large" />,
-        smallIcon: <SwapVert />
+        icon: <UnfoldLessRounded fontSize="large" />,
+        smallIcon: <UnfoldLessRounded />
       },
       {
         enum: "MACRO_ACTION_STEP_EXPLICIT_REPORT",
@@ -157,13 +154,13 @@ class MacroTable extends Component {
       { enum: "MACRO_ACTION_STEP_SEND_REPORT", id: 11, name: "Send Report" },
       {
         enum: "MACRO_ACTION_STEP_TAP_SEQUENCE",
-        name: "Step Tap Sequence",
+        name: "Intervaled Special Keys",
         icon: <React.Fragment />,
         smallIcon: <React.Fragment />
       },
       {
         enum: "MACRO_ACTION_STEP_TAP_CODE_SEQUENCE",
-        name: "Step Code Sequence",
+        name: "Intervaled Key Press & Release",
         icon: <React.Fragment />,
         smallIcon: <React.Fragment />
       }
@@ -178,6 +175,8 @@ class MacroTable extends Component {
     this.assignColor = this.assignColor.bind(this);
     this.onAddSymbol = this.onAddSymbol.bind(this);
     this.onAddDelay = this.onAddDelay.bind(this);
+    this.onAddText = this.onAddText.bind(this);
+    this.onTextChange = this.onTextChange.bind(this);
   }
 
   componentDidMount() {
@@ -461,6 +460,10 @@ class MacroTable extends Component {
     this.updateRows(newRows);
   }
 
+  onTextChange(event) {
+    this.setState({ addText: event.target.value });
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -505,47 +508,16 @@ class MacroTable extends Component {
             )}
           </Droppable>
         </DragDropContext>
-        <div
-          className={classNames(
-            classes.margin,
-            classes.border,
-            classes.whitebg
-          )}
-        >
-          <MacroTableTool
-            actionTypes={this.actionTypes}
-            keymapDB={this.keymapDB}
-            onAddSymbol={this.onAddSymbol}
-            onAddDelay={this.onAddDelay}
-          />
-        </div>
-        <div
-          className={classNames(
-            classes.margin,
-            classes.border,
-            classes.whitebg
-          )}
-        >
-          <div className={classes.flex}>
-            <TextField
-              id="AddTextToMacro"
-              label="Type text into Macro editor"
-              className={classNames(classes.textField, classes.code)}
-              value={this.state.addText}
-              onChange={e => {
-                this.setState({ addText: e.target.value });
-              }}
-              margin="normal"
-              variant="outlined"
-            />
-            <IconButton
-              onClick={this.onAddText}
-              className={classNames(classes.iconbutton)}
-            >
-              <PublishRounded />
-            </IconButton>
-          </div>
-        </div>
+        <MacroToolTab
+          key={this.state.addText}
+          actionTypes={this.actionTypes}
+          keymapDB={this.keymapDB}
+          onAddSymbol={this.onAddSymbol}
+          onAddDelay={this.onAddDelay}
+          onTextChange={this.onTextChange}
+          addText={this.state.addText}
+          onAddText={this.onAddText}
+        />
       </React.Fragment>
     );
   }

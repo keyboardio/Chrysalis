@@ -196,9 +196,9 @@ class Editor extends React.Component {
       let palette = colormap.palette.slice();
       const undeglowColors = settings.get("undeglowColors");
       let raw = await focus.command("macros.map");
-      if (raw.search("0 0") !== -1) {
+      if (raw.search(" 0 0 ") !== -1) {
         raw = raw
-          .split(" 0 0")[0]
+          .split(" 0 0 ")[0]
           .split(" ")
           .map(Number);
       } else {
@@ -767,7 +767,7 @@ class Editor extends React.Component {
         keyCode = [];
       }
       type = raw[iter];
-      if (type === 2) {
+      if (type > 1 && type < 6) {
         kcs = 2;
       } else {
         kcs = 1;
@@ -852,7 +852,7 @@ class Editor extends React.Component {
     const actionMap = macros.map(macro => {
       return macro.actions
         .map(action => {
-          if (action.type === 2) {
+          if (action.type > 1 && action.type < 6) {
             return [
               [action.type],
               [action.keyCode >> 8],

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import { withStyles } from "@material-ui/core/styles";
 import {
   MenuItem,
@@ -39,26 +38,20 @@ const styles = theme => ({
   }
 });
 
-class MacroTableTool extends Component {
+class MacroTabKeys extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      keyCode: 4,
-      action: 8,
+      keyCode: 17492,
+      action: 5,
       delay: 100
     };
     this.keymapDB = props.keymapDB;
   }
 
   render() {
-    const {
-      classes,
-      actionTypes,
-      onAddSymbol,
-      onAddDelay,
-      onAddSpecial
-    } = this.props;
+    const { classes, actionTypes, onAddSpecial } = this.props;
     const { keyCode, action, delay } = this.state;
     const keys = (
       <FormControl>
@@ -78,17 +71,24 @@ class MacroTableTool extends Component {
             });
           }}
         >
-          {this.keymapDB.allCodes.slice(0, 9).map(group => {
-            return group.keys.map((item, id) => (
-              <MenuItem value={item.code} key={`item-${id}`}>
-                <div className={classes.menuitem}>
-                  <span className={classes.avatar}>
-                    {group.groupName.substring(0, 3)}
-                  </span>
-                  <ListItemText inset primary={item.labels.primary} />
-                </div>
-              </MenuItem>
-            ));
+          {this.keymapDB.allCodes.slice(11, 15).map(group => {
+            return group.keys.map((item, id) => {
+              if (
+                group.groupName === "Macros" &&
+                parseInt(item.labels.primary) >= this.props.number
+              ) {
+                return;
+              }
+              return (
+                <MenuItem value={item.code} key={`item-${id}`}>
+                  <div className={classes.menuitem}>
+                    <ListItemText
+                      primary={item.labels.top + " " + item.labels.primary}
+                    />
+                  </div>
+                </MenuItem>
+              );
+            });
           })}
         </TextField>
       </FormControl>
@@ -113,7 +113,7 @@ class MacroTableTool extends Component {
           }}
         >
           {actionTypes.map((item, id) => {
-            if (id > 1 && id < 9) {
+            if (id > 2 && id < 6) {
               return (
                 <MenuItem value={id} key={`item-${id}`}>
                   <div className={classes.menuitem}>
@@ -154,18 +154,10 @@ class MacroTableTool extends Component {
       <IconButton
         onClick={() => {
           switch (action) {
-            case 2:
-              onAddDelay(delay, action);
-              break;
             case 3:
             case 4:
             case 5:
               onAddSpecial(keyCode, action);
-              break;
-            case 6:
-            case 7:
-            case 8:
-              onAddSymbol(keyCode, action);
               break;
             default:
               break;
@@ -187,4 +179,4 @@ class MacroTableTool extends Component {
   }
 }
 
-export default withStyles(styles)(MacroTableTool);
+export default withStyles(styles)(MacroTabKeys);

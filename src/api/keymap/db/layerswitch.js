@@ -174,70 +174,70 @@ const MoveToLayerTable = {
       code: 17492,
       labels: {
         primary: "0",
-        top: "MOVETO"
+        top: "MOVE"
       }
     },
     {
       code: 17493,
       labels: {
         primary: "1",
-        top: "MOVETO"
+        top: "MOVE"
       }
     },
     {
       code: 17494,
       labels: {
         primary: "2",
-        top: "MOVETO"
+        top: "MOVE"
       }
     },
     {
       code: 17495,
       labels: {
         primary: "3",
-        top: "MOVETO"
+        top: "MOVE"
       }
     },
     {
       code: 17496,
       labels: {
         primary: "4",
-        top: "MOVETO"
+        top: "MOVE"
       }
     },
     {
       code: 17497,
       labels: {
         primary: "5",
-        top: "MOVETO"
+        top: "MOVE"
       }
     },
     {
       code: 17498,
       labels: {
         primary: "6",
-        top: "MOVETO"
+        top: "MOVE"
       }
     },
     {
       code: 17499,
       labels: {
         primary: "7",
-        top: "MOVETO"
+        top: "MOVE"
       }
     },
     {
       code: 17500,
       labels: {
         primary: "8",
-        top: "MOVETO"
+        top: "MOVE"
       }
     },
     {
       code: 17501,
       labels: {
         primary: "9",
-        top: "MOVETO"
+        top: "MOVE"
       }
     }
   ]

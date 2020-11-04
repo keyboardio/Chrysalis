@@ -105,37 +105,37 @@ class MacroTable extends Component {
       },
       {
         enum: "MACRO_ACTION_STEP_KEYDOWN",
-        name: "Step Keydown",
-        icon: <KeyboardArrowDown />,
+        name: "Function Keydown",
+        icon: <KeyboardArrowDown fontSize="large" />,
         smallIcon: <KeyboardArrowDown />
       },
       {
         enum: "MACRO_ACTION_STEP_KEYUP",
-        name: "Step KeyUp",
-        icon: <KeyboardArrowUp />,
+        name: "Function KeyUp",
+        icon: <KeyboardArrowUp fontSize="large" />,
         smallIcon: <KeyboardArrowUp />
       },
       {
         enum: "MACRO_ACTION_STEP_TAP",
-        name: "Step Tap",
-        icon: <UnfoldLessRounded />,
+        name: "Function Tap",
+        icon: <UnfoldLessRounded fontSize="large" />,
         smallIcon: <UnfoldLessRounded />
       },
       {
         enum: "MACRO_ACTION_STEP_KEYCODEDOWN",
-        name: "Key Press",
+        name: "Key Down",
         icon: <KeyboardArrowDown fontSize="large" />,
         smallIcon: <KeyboardArrowDown />
       },
       {
         enum: "MACRO_ACTION_STEP_KEYCODEUP",
-        name: "Key Release",
+        name: "Key Up",
         icon: <KeyboardArrowUp fontSize="large" />,
         smallIcon: <KeyboardArrowUp />
       },
       {
         enum: "MACRO_ACTION_STEP_TAPCODE",
-        name: "Key Press & Release",
+        name: "Key Down & Up",
         icon: <UnfoldLessRounded fontSize="large" />,
         smallIcon: <UnfoldLessRounded />
       },
@@ -176,6 +176,7 @@ class MacroTable extends Component {
     this.onAddSymbol = this.onAddSymbol.bind(this);
     this.onAddDelay = this.onAddDelay.bind(this);
     this.onAddText = this.onAddText.bind(this);
+    this.onAddSpecial = this.onAddSpecial.bind(this);
     this.onTextChange = this.onTextChange.bind(this);
   }
 
@@ -189,6 +190,7 @@ class MacroTable extends Component {
   createConversion(actions) {
     let converted = actions.map((action, i) => {
       const randID = new Date().getTime() + Math.floor(Math.random() * 1000);
+      let km, txt;
       switch (action.type) {
         case 1:
         case 2:
@@ -198,6 +200,24 @@ class MacroTable extends Component {
             action: action.type,
             id: i,
             color: "#faf0e3",
+            uid: randID,
+            ucolor: "transparent"
+          };
+        case 3:
+        case 4:
+        case 5:
+          km = this.keymapDB.parse(action.keyCode);
+          if (km.extraLabel !== undefined) {
+            txt = km.extraLabel + " " + km.label;
+          } else {
+            txt = km.label;
+          }
+          return {
+            symbol: txt,
+            keyCode: action.keyCode,
+            action: action.type,
+            id: i,
+            color: this.assignColor(action.keyCode),
             uid: randID,
             ucolor: "transparent"
           };
@@ -460,6 +480,27 @@ class MacroTable extends Component {
     this.updateRows(newRows);
   }
 
+  onAddSpecial(keyCode, action) {
+    const randID = new Date().getTime() + Math.floor(Math.random() * 1000);
+    let newRows = this.state.rows;
+    let symbol = this.keymapDB.parse(keyCode);
+    if (symbol.extraLabel !== undefined) {
+      symbol = symbol.extraLabel + " " + symbol.label;
+    } else {
+      symbol = symbol.label;
+    }
+    newRows.push({
+      symbol,
+      keyCode,
+      action,
+      id: newRows.length,
+      color: this.assignColor(keyCode),
+      uid: randID,
+      ucolor: "transparent"
+    });
+    this.updateRows(newRows);
+  }
+
   onTextChange(event) {
     this.setState({ addText: event.target.value });
   }
@@ -509,14 +550,15 @@ class MacroTable extends Component {
           </Droppable>
         </DragDropContext>
         <MacroToolTab
-          key={this.state.addText}
           actionTypes={this.actionTypes}
           keymapDB={this.keymapDB}
+          number={this.props.number}
           onAddSymbol={this.onAddSymbol}
           onAddDelay={this.onAddDelay}
           onTextChange={this.onTextChange}
           addText={this.state.addText}
           onAddText={this.onAddText}
+          onAddSpecial={this.onAddSpecial}
         />
       </React.Fragment>
     );

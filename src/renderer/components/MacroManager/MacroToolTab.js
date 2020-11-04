@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import classNames from "classnames";
-import MacroTableTool from "./MacroTableTool";
+import MacroTabKeys from "./MacroTabKeys";
+import MacroTabSpecial from "./MacroTabSpecial";
 
 import { withStyles } from "@material-ui/core/styles";
 import { TextField, IconButton, Paper, Tabs, Tab } from "@material-ui/core";
@@ -21,12 +22,18 @@ const styles = theme => ({
     borderRadius: "4px"
   },
   margin: {
-    padding: theme.spacing.unit
+    padding: theme.spacing.unit,
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2
   },
   textField: {
     flexBasis: "444px",
     margin: "0px",
     marginRight: theme.spacing.unit * 4
+  },
+  iconbutton: {
+    width: "56px",
+    height: "56px"
   },
   code: {
     width: "-webkit-fill-available"
@@ -70,7 +77,7 @@ class MacroToolTab extends Component {
           variant="outlined"
         />
         <IconButton
-          onClick={this.state.onAddText}
+          onClick={this.props.onAddText}
           className={classNames(classes.iconbutton)}
         >
           <PublishRounded />
@@ -80,11 +87,23 @@ class MacroToolTab extends Component {
 
     const keys = (
       <div className={classes.margin}>
-        <MacroTableTool
+        <MacroTabKeys
           actionTypes={this.props.actionTypes}
           keymapDB={this.props.keymapDB}
           onAddSymbol={this.props.onAddSymbol}
           onAddDelay={this.props.onAddDelay}
+        />
+      </div>
+    );
+
+    const functions = (
+      <div className={classes.margin}>
+        <MacroTabSpecial
+          actionTypes={this.props.actionTypes}
+          keymapDB={this.props.keymapDB}
+          onAddDelay={this.props.onAddDelay}
+          onAddSpecial={this.props.onAddSpecial}
+          number={this.props.number}
         />
       </div>
     );
@@ -106,12 +125,17 @@ class MacroToolTab extends Component {
               value="Functions"
               label="Functions"
             />
-            <Tab className={classes.tabroot} value="Mouse" label="Mouse" />
+            <Tab
+              className={classes.tabroot}
+              value="Mouse"
+              label="Mouse"
+              disabled
+            />
           </Tabs>
         </Paper>
         {value === "Text" && text}
         {value === "Keys" && keys}
-        {value === "Functions" && <div>Item Three</div>}
+        {value === "Functions" && functions}
         {value === "Mouse" && <div>Item Four</div>}
       </div>
     );

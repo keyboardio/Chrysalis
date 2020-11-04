@@ -105,37 +105,37 @@ class MacroTable extends Component {
       },
       {
         enum: "MACRO_ACTION_STEP_KEYDOWN",
-        name: "Function Keydown",
+        name: "Function Key Press",
         icon: <KeyboardArrowDown fontSize="large" />,
         smallIcon: <KeyboardArrowDown />
       },
       {
         enum: "MACRO_ACTION_STEP_KEYUP",
-        name: "Function KeyUp",
+        name: "Function Key Release",
         icon: <KeyboardArrowUp fontSize="large" />,
         smallIcon: <KeyboardArrowUp />
       },
       {
         enum: "MACRO_ACTION_STEP_TAP",
-        name: "Function Tap",
+        name: "Fn. Press & Release",
         icon: <UnfoldLessRounded fontSize="large" />,
         smallIcon: <UnfoldLessRounded />
       },
       {
         enum: "MACRO_ACTION_STEP_KEYCODEDOWN",
-        name: "Key Down",
+        name: "Key Press",
         icon: <KeyboardArrowDown fontSize="large" />,
         smallIcon: <KeyboardArrowDown />
       },
       {
         enum: "MACRO_ACTION_STEP_KEYCODEUP",
-        name: "Key Up",
+        name: "Key Release",
         icon: <KeyboardArrowUp fontSize="large" />,
         smallIcon: <KeyboardArrowUp />
       },
       {
         enum: "MACRO_ACTION_STEP_TAPCODE",
-        name: "Key Down & Up",
+        name: "Key Press & Rel.",
         icon: <UnfoldLessRounded fontSize="large" />,
         smallIcon: <UnfoldLessRounded />
       },

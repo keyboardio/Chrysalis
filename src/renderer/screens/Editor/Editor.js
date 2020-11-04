@@ -127,9 +127,6 @@ class Editor extends React.Component {
       currentLanguageLayout: "",
       undeglowColors: null
     };
-    if (window.localStorage.getItem("EditStateStatus") === "error") {
-      this.state = window.localStorage.getItem("EditStateBackup");
-    }
     this.updateMacros = this.updateMacros.bind(this);
   }
 
@@ -875,13 +872,10 @@ class Editor extends React.Component {
   getLayout() {
     let focus = new Focus();
     let Layer = {};
-    window.localStorage.setItem("EditStateBackup", this.state);
-    window.localStorage.setItem("EditStateStatus", "undergoing");
     try {
       Layer = focus.device.components.keymap;
-      window.localStorage.setItem("EditStateStatus", "success");
     } catch (error) {
-      window.localStorage.setItem("EditStateStatus", "error");
+      console.log("There is no spoon error: ", error);
       this.forceUpdate();
     }
 

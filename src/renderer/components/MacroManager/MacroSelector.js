@@ -10,11 +10,7 @@ import {
   Divider,
   IconButton
 } from "@material-ui/core";
-import {
-  AddRounded,
-  DeleteForeverRounded,
-  FileCopyRounded
-} from "@material-ui/icons";
+import { AddRounded, DeleteForever, FileCopy } from "@material-ui/icons";
 // import ArrowDownward from "@material-ui/icons/ArrowDownward";
 
 const styles = () => ({
@@ -29,6 +25,10 @@ const styles = () => ({
   },
   notSelected: {
     backgroundColor: "#eee"
+  },
+  extrapadding: {
+    paddingTop: "10px",
+    paddingBottom: "10px"
   }
 });
 
@@ -72,20 +72,21 @@ class MacroSelector extends Component {
                     onClick={() => {
                       this.onSelectMacro(index);
                     }}
+                    className={classes.extrapadding}
                   />
                   <IconButton
                     onClick={() => {
                       this.props.duplicateMacro(index);
                     }}
                   >
-                    <FileCopyRounded />
+                    <FileCopy fontSize="small" />
                   </IconButton>
                   <IconButton
                     onClick={() => {
                       this.props.deleteMacro(index);
                     }}
                   >
-                    <DeleteForeverRounded />
+                    <DeleteForever fontSize="small" />
                   </IconButton>
                 </ListItem>
                 <Divider variant="fullWidth" />

@@ -30,7 +30,7 @@ const styles = theme => ({
   }
 });
 
-class MacroTabSpecial extends Component {
+class MacroTabMouse extends Component {
   constructor(props) {
     super(props);
 
@@ -48,9 +48,9 @@ class MacroTabSpecial extends Component {
       <FormControl>
         <TextField
           key={action + keyCode}
-          id="Select Function"
+          id="Select Mouse Function"
           select
-          label="Select Function"
+          label="Select Mouse Function"
           value={keyCode}
           margin="none"
           variant="outlined"
@@ -62,14 +62,8 @@ class MacroTabSpecial extends Component {
             });
           }}
         >
-          {this.keymapDB.allCodes.slice(13, 15).map(group => {
+          {this.keymapDB.allCodes.slice(16, 17).map(group => {
             return group.keys.map((item, id) => {
-              if (
-                group.groupName === "Macros" &&
-                parseInt(item.labels.primary) >= this.props.number
-              ) {
-                return;
-              }
               return (
                 <MenuItem value={item.code} key={`item-${id}`}>
                   <div className={classes.menuitem}>
@@ -148,4 +142,4 @@ class MacroTabSpecial extends Component {
   }
 }
 
-export default withStyles(styles)(MacroTabSpecial);
+export default withStyles(styles)(MacroTabMouse);

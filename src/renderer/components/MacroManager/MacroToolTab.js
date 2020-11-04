@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import classNames from "classnames";
 import MacroTabKeys from "./MacroTabKeys";
 import MacroTabSpecial from "./MacroTabSpecial";
+import MacroTabMouse from "./MacroTabMouse";
 
 import { withStyles } from "@material-ui/core/styles";
 import { TextField, IconButton, Paper, Tabs, Tab } from "@material-ui/core";
@@ -101,9 +102,18 @@ class MacroToolTab extends Component {
         <MacroTabSpecial
           actionTypes={this.props.actionTypes}
           keymapDB={this.props.keymapDB}
-          onAddDelay={this.props.onAddDelay}
           onAddSpecial={this.props.onAddSpecial}
           number={this.props.number}
+        />
+      </div>
+    );
+
+    const mouse = (
+      <div className={classes.margin}>
+        <MacroTabMouse
+          actionTypes={this.props.actionTypes}
+          keymapDB={this.props.keymapDB}
+          onAddSpecial={this.props.onAddSpecial}
         />
       </div>
     );
@@ -118,25 +128,24 @@ class MacroToolTab extends Component {
             textColor="primary"
             variant="standard"
           >
-            <Tab className={classes.tabroot} value="Text" label="Text" />
-            <Tab className={classes.tabroot} value="Keys" label="Keys" />
+            <Tab className={classes.tabroot} value="Text" label="Input Text" />
+            <Tab
+              className={classes.tabroot}
+              value="Keys"
+              label="Keys & Delay"
+            />
             <Tab
               className={classes.tabroot}
               value="Functions"
               label="Functions"
             />
-            <Tab
-              className={classes.tabroot}
-              value="Mouse"
-              label="Mouse"
-              disabled
-            />
+            <Tab className={classes.tabroot} value="Mouse" label="Mouse" />
           </Tabs>
         </Paper>
         {value === "Text" && text}
         {value === "Keys" && keys}
         {value === "Functions" && functions}
-        {value === "Mouse" && <div>Item Four</div>}
+        {value === "Mouse" && mouse}
       </div>
     );
   }

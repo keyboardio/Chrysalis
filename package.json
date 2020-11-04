@@ -1,9 +1,9 @@
 {
   "name": "BAZECOR",
-  "version": "0.2.3-BETA-6",
+  "version": "0.2.3-BETA-9",
   "license": "GPL-3.0-only",
   "author": {
-    "name": "DygmaLab SE",
+    "name": "Dygma Lab S.L.",
     "email": "contact@dygma.com"
   },
   "homepage": "https://github.com/Dygmalab/Bazecor",

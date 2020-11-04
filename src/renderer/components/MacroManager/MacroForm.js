@@ -106,6 +106,7 @@ class MacroForm extends Component {
             updateSelected={this.updateSelected}
             deleteMacro={this.props.deleteMacro}
             addMacro={this.props.addMacro}
+            duplicateMacro={this.props.duplicateMacro}
           />
         </Grid>
         <Grid item xs={7} className={classes.bg}>

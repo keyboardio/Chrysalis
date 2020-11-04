@@ -10,7 +10,11 @@ import {
   Divider,
   IconButton
 } from "@material-ui/core";
-import { AddRounded, DeleteForeverRounded } from "@material-ui/icons";
+import {
+  AddRounded,
+  DeleteForeverRounded,
+  FileCopyRounded
+} from "@material-ui/icons";
 // import ArrowDownward from "@material-ui/icons/ArrowDownward";
 
 const styles = () => ({
@@ -41,8 +45,8 @@ class MacroSelector extends Component {
 
   render() {
     const { classes, macros, selected } = this.props;
-    const highlight = macros.map(item => {
-      if (item.id === selected) {
+    const highlight = macros.map((item, index) => {
+      if (index === selected) {
         return classes.selected;
       } else {
         return classes.notSelected;
@@ -57,21 +61,28 @@ class MacroSelector extends Component {
                 <ListItem className={highlight[index]}>
                   <Avatar
                     onClick={() => {
-                      this.onSelectMacro(item.id);
+                      this.onSelectMacro(index);
                     }}
                   >
-                    {item.id}
+                    {index}
                   </Avatar>
                   <ListItemText
                     primary={item.name}
                     secondary={item.macro}
                     onClick={() => {
-                      this.onSelectMacro(item.id);
+                      this.onSelectMacro(index);
                     }}
                   />
                   <IconButton
                     onClick={() => {
-                      this.props.deleteMacro(item.id);
+                      this.props.duplicateMacro(index);
+                    }}
+                  >
+                    <FileCopyRounded />
+                  </IconButton>
+                  <IconButton
+                    onClick={() => {
+                      this.props.deleteMacro(index);
                     }}
                   >
                     <DeleteForeverRounded />

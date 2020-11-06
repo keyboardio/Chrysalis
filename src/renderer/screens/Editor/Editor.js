@@ -733,10 +733,28 @@ class Editor extends React.Component {
     if (raw === "") {
       return [
         {
-          actions: [],
-          name: "Example Macro",
+          actions: [
+            { keyCode: 229, type: 6, id: 0 },
+            { keyCode: 11, type: 8, id: 1 },
+            { keyCode: 229, type: 7, id: 2 },
+            { keyCode: 8, type: 8, id: 3 },
+            { keyCode: 28, type: 8, id: 4 },
+            { keyCode: 54, type: 8, id: 5 },
+            { keyCode: 44, type: 8, id: 6 },
+            { keyCode: 229, type: 6, id: 7 },
+            { keyCode: 7, type: 8, id: 8 },
+            { keyCode: 229, type: 7, id: 9 },
+            { keyCode: 28, type: 8, id: 10 },
+            { keyCode: 10, type: 8, id: 11 },
+            { keyCode: 16, type: 8, id: 12 },
+            { keyCode: 4, type: 8, id: 13 },
+            { keyCode: 23, type: 8, id: 14 },
+            { keyCode: 8, type: 8, id: 15 }
+          ],
           id: 0,
-          macro: ""
+          macro:
+            "RIGHT SHIFT H RIGHT SHIFT E Y , SPACE RIGHT SHIFT D RIGHT SHIFT Y G M A T E",
+          name: "Hey, Dygmate!"
         }
       ];
     }

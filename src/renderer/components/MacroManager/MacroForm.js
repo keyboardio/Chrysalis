@@ -33,6 +33,11 @@ const styles = theme => ({
   },
   bglist: {
     backgroundColor: "#eeeeee"
+  },
+  buttons: {
+    display: "flex",
+    position: "relative",
+    placeContent: "space-between"
   }
 });
 
@@ -64,6 +69,8 @@ class MacroForm extends Component {
     this.updateMacro = this.updateMacro.bind(this);
     this.updateActions = this.updateActions.bind(this);
     this.updateSelected = this.updateSelected.bind(this);
+    this.toExport = this.toExport.bind(this);
+    this.toImport = this.toImport.bind(this);
   }
 
   updateMacro() {
@@ -92,6 +99,36 @@ class MacroForm extends Component {
       selected
     });
     this.props.changeSelected(selected);
+  }
+
+  toImport() {}
+
+  toExport() {
+    const toExport = JSON.stringify({
+      name: this.state.name,
+      actions: this.state.actions,
+      text: this.state.text
+    });
+    let options = {
+      //Placeholder 1
+      title: "Save Macro file",
+
+      //Placeholder 2
+      defaultPath: ".",
+
+      //Placeholder 4
+      buttonLabel: "Save Macro",
+
+      //Placeholder 3
+      filters: [
+        { name: "Json", extensions: ["json"] },
+        { name: "All Files", extensions: ["*"] }
+      ]
+    };
+    const remote = require("electron").remote;
+    const WIN = remote.getCurrentWindow();
+    let filename = remote.dialog.showSaveDialog(WIN, options);
+    console.log(filename);
   }
 
   render() {
@@ -127,7 +164,7 @@ class MacroForm extends Component {
             keymapDB={keymapDB}
             number={this.props.macros.length}
           />
-          <div>
+          <div className={classes.buttons}>
             <Button
               variant="outlined"
               color="secondary"
@@ -135,6 +172,24 @@ class MacroForm extends Component {
               onClick={close}
             >
               {"Cancel"}
+            </Button>
+            <Button
+              disabled
+              variant="outlined"
+              color="primary"
+              className={classes.margin}
+              onClick={this.toImport}
+            >
+              {"Import"}
+            </Button>
+            <Button
+              disabled
+              variant="outlined"
+              color="primary"
+              className={classes.margin}
+              onClick={this.toExport}
+            >
+              {"Export"}
             </Button>
             <Button
               variant="contained"

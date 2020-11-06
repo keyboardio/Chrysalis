@@ -383,6 +383,10 @@ class MacroTable extends Component {
     newRows = newRows.concat(
       aux.split("").flatMap((symbol, index) => {
         let item = symbol.toUpperCase();
+        let upper = false;
+        if (symbol.toLowerCase() !== symbol) {
+          upper = true;
+        }
         switch (item) {
           case " ":
             item = "SPACE";
@@ -395,6 +399,9 @@ class MacroTable extends Component {
         }
         const randID = new Date().getTime() + Math.floor(Math.random() * 1000);
         let keyCode = this.keymapDB.reverse(item);
+        if (upper) {
+          keyCode = keyCode + 2048;
+        }
         let actions = [
           {
             symbol: item,

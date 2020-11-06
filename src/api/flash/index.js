@@ -221,8 +221,8 @@ export default class FlashRaise {
    * Detects keyboard after firmware of bootloader
    */
   async detectKeyboard() {
-    const timeouts = 2000; //time to wait for keyboard
-    const findTimes = 2;
+    const timeouts = 2500; //time to wait for keyboard
+    const findTimes = 3;
     const errorMessage =
       "The firmware update has failed during the flashing process. Please unplug and replug the keyboard and try again";
     this.backupFileData.log.push("Waiting for keyboard");

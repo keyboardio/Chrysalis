@@ -101,7 +101,46 @@ class MacroForm extends Component {
     this.props.changeSelected(selected);
   }
 
-  toImport() {}
+  toImport() {
+    let options = {
+      //Placeholder 1
+      title: "Load Macro file",
+
+      //Placeholder 4
+      buttonLabel: "Load Macro",
+
+      //Placeholder 3
+      filters: [
+        { name: "Json", extensions: ["json"] },
+        { name: "All Files", extensions: ["*"] }
+      ]
+    };
+    const remote = require("electron").remote;
+    const WIN = remote.getCurrentWindow();
+    remote.dialog
+      .showOpenDialog(WIN, options)
+      .then(resp => {
+        if (!resp.canceled) {
+          console.log(resp.filePaths);
+          const macro = JSON.parse(
+            require("fs").readFileSync(resp.filePaths[0])
+          );
+          console.log(macro);
+          this.updateActions(macro.actions, macro.text);
+          const newMacros = this.state.macros;
+          newMacros[this.state.selected] = macro;
+          this.setState({
+            name: macro.name,
+            macros: newMacros
+          });
+        } else {
+          console.log("user closed SaveDialog");
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 
   toExport() {
     const toExport = JSON.stringify({
@@ -114,7 +153,7 @@ class MacroForm extends Component {
       title: "Save Macro file",
 
       //Placeholder 2
-      defaultPath: ".",
+      defaultPath: this.state.name,
 
       //Placeholder 4
       buttonLabel: "Save Macro",
@@ -127,8 +166,19 @@ class MacroForm extends Component {
     };
     const remote = require("electron").remote;
     const WIN = remote.getCurrentWindow();
-    let filename = remote.dialog.showSaveDialog(WIN, options);
-    console.log(filename);
+    remote.dialog
+      .showSaveDialog(WIN, options)
+      .then(resp => {
+        if (!resp.canceled) {
+          console.log(resp.filePath, toExport);
+          require("fs").writeFileSync(resp.filePath, toExport);
+        } else {
+          console.log("user closed SaveDialog");
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   render() {
@@ -158,7 +208,7 @@ class MacroForm extends Component {
             }}
           />
           <MacroTable
-            key={this.state.selected}
+            key={this.state.selected + this.state.name}
             macro={this.state.macros[this.state.selected]}
             updateActions={this.updateActions}
             keymapDB={keymapDB}
@@ -174,7 +224,6 @@ class MacroForm extends Component {
               {"Cancel"}
             </Button>
             <Button
-              disabled
               variant="outlined"
               color="primary"
               className={classes.margin}
@@ -183,7 +232,6 @@ class MacroForm extends Component {
               {"Import"}
             </Button>
             <Button
-              disabled
               variant="outlined"
               color="primary"
               className={classes.margin}

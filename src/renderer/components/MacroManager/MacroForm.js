@@ -71,6 +71,8 @@ class MacroForm extends Component {
     this.updateSelected = this.updateSelected.bind(this);
     this.toExport = this.toExport.bind(this);
     this.toImport = this.toImport.bind(this);
+    this.toRestore = this.toRestore.bind(this);
+    this.toBackup = this.toBackup.bind(this);
   }
 
   updateMacro() {
@@ -181,6 +183,79 @@ class MacroForm extends Component {
       });
   }
 
+  toRestore() {
+    let options = {
+      //Placeholder 1
+      title: "Restore Macros file",
+
+      //Placeholder 4
+      buttonLabel: "Restore Macros",
+
+      //Placeholder 3
+      filters: [
+        { name: "Json", extensions: ["json"] },
+        { name: "All Files", extensions: ["*"] }
+      ]
+    };
+    const remote = require("electron").remote;
+    const WIN = remote.getCurrentWindow();
+    remote.dialog
+      .showOpenDialog(WIN, options)
+      .then(resp => {
+        if (!resp.canceled) {
+          console.log(resp.filePaths);
+          const macros = JSON.parse(
+            require("fs").readFileSync(resp.filePaths[0])
+          );
+          console.log(macros);
+          this.setState({
+            macros,
+            selected: 0
+          });
+          this.forceUpdate();
+        } else {
+          console.log("user closed SaveDialog");
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  toBackup() {
+    let options = {
+      //Placeholder 1
+      title: "Backup Macros to file",
+
+      //Placeholder 2
+      defaultPath: "allMacros",
+
+      //Placeholder 4
+      buttonLabel: "Backup Macros",
+
+      //Placeholder 3
+      filters: [
+        { name: "Json", extensions: ["json"] },
+        { name: "All Files", extensions: ["*"] }
+      ]
+    };
+    const remote = require("electron").remote;
+    const WIN = remote.getCurrentWindow();
+    remote.dialog
+      .showSaveDialog(WIN, options)
+      .then(resp => {
+        if (!resp.canceled) {
+          console.log(resp.filePath, this.state.macros);
+          require("fs").writeFileSync(resp.filePath, this.state.macros);
+        } else {
+          console.log("user closed SaveDialog");
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   render() {
     const { classes, close, keymapDB } = this.props;
     return (
@@ -195,6 +270,24 @@ class MacroForm extends Component {
             addMacro={this.props.addMacro}
             duplicateMacro={this.props.duplicateMacro}
           />
+          <div className={classes.buttons}>
+            <Button
+              variant="outlined"
+              color="primary"
+              className={classes.margin}
+              onClick={this.toRestore}
+            >
+              {"Restore"}
+            </Button>
+            <Button
+              variant="outlined"
+              color="primary"
+              className={classes.margin}
+              onClick={this.toBackup}
+            >
+              {"Backup"}
+            </Button>
+          </div>
         </Grid>
         <Grid item xs={7} className={classes.bg}>
           <TextField

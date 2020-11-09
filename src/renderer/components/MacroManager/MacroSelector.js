@@ -16,9 +16,10 @@ import { AddRounded, DeleteForever, FileCopy } from "@material-ui/icons";
 const styles = () => ({
   list: {
     display: "block",
-    maxHeight: "676px",
+    maxHeight: "571px",
     overflow: "auto",
-    backgroundColor: "#eee"
+    backgroundColor: "#eee",
+    height: "100%"
   },
   selected: {
     backgroundColor: "#f9f9f9"

@@ -112,13 +112,8 @@ class MacroForm extends Component {
 
   toImport() {
     let options = {
-      //Placeholder 1
       title: "Load Macro file",
-
-      //Placeholder 4
       buttonLabel: "Load Macro",
-
-      //Placeholder 3
       filters: [
         { name: "Json", extensions: ["json"] },
         { name: "All Files", extensions: ["*"] }
@@ -131,9 +126,15 @@ class MacroForm extends Component {
       .then(resp => {
         if (!resp.canceled) {
           console.log(resp.filePaths);
-          const macro = JSON.parse(
-            require("fs").readFileSync(resp.filePaths[0])
-          );
+          let macro;
+          try {
+            macro = JSON.parse(require("fs").readFileSync(resp.filePaths[0]));
+            console.log(macro.name, macro.actions[0].keyCode, macro.text);
+          } catch (e) {
+            console.error(e);
+            alert("The file is not a valid macro export ");
+            return;
+          }
           console.log(macro);
           this.updateActions(macro.actions, macro.text);
           const newMacros = this.state.macros;
@@ -158,16 +159,9 @@ class MacroForm extends Component {
       text: this.state.text
     });
     let options = {
-      //Placeholder 1
       title: "Save Macro file",
-
-      //Placeholder 2
       defaultPath: this.state.name,
-
-      //Placeholder 4
       buttonLabel: "Save Macro",
-
-      //Placeholder 3
       filters: [
         { name: "Json", extensions: ["json"] },
         { name: "All Files", extensions: ["*"] }
@@ -192,13 +186,8 @@ class MacroForm extends Component {
 
   toRestore() {
     let options = {
-      //Placeholder 1
       title: "Restore Macros file",
-
-      //Placeholder 4
       buttonLabel: "Restore Macros",
-
-      //Placeholder 3
       filters: [
         { name: "Json", extensions: ["json"] },
         { name: "All Files", extensions: ["*"] }
@@ -211,9 +200,15 @@ class MacroForm extends Component {
       .then(resp => {
         if (!resp.canceled) {
           console.log(resp.filePaths);
-          const macros = JSON.parse(
-            require("fs").readFileSync(resp.filePaths[0])
-          );
+          let macros;
+          try {
+            macros = JSON.parse(require("fs").readFileSync(resp.filePaths[0]));
+            console.log(macros[0].name, macros[0].actions);
+          } catch (e) {
+            console.error(e);
+            alert("The file is not a valid macros backup");
+            return;
+          }
           console.log(macros);
           this.setState({
             macros: macros,
@@ -236,16 +231,9 @@ class MacroForm extends Component {
 
   toBackup() {
     let options = {
-      //Placeholder 1
       title: "Backup Macros to file",
-
-      //Placeholder 2
       defaultPath: "allMacros",
-
-      //Placeholder 4
       buttonLabel: "Backup Macros",
-
-      //Placeholder 3
       filters: [
         { name: "Json", extensions: ["json"] },
         { name: "All Files", extensions: ["*"] }
@@ -318,7 +306,10 @@ class MacroForm extends Component {
             }}
           />
           <MacroTable
-            key={this.state.selected + this.state.name}
+            key={
+              this.state.selected +
+              JSON.stringify(this.state.macros[this.state.selected].actions)
+            }
             macro={this.state.macros[this.state.selected]}
             updateActions={this.updateActions}
             keymapDB={keymapDB}

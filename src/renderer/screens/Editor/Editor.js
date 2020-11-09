@@ -483,6 +483,17 @@ class Editor extends React.Component {
 
   UNSAFE_componentWillReceiveProps = nextProps => {
     if (this.props.inContext && !nextProps.inContext) {
+      this.setState({
+        currentLayer: 0,
+        currentKeyIndex: -1,
+        currentLedIndex: -1,
+        keymap: {
+          custom: [],
+          default: [],
+          onlyCustom: false
+        },
+        palette: []
+      });
       this.scanKeyboard();
       this.setState({ modified: false });
     }

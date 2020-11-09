@@ -57,42 +57,48 @@ class MacroSelector extends Component {
       <React.Fragment>
         <List className={classNames(classes.list)} disablePadding dense>
           {macros.length !== 0 ? (
-            macros.map((item, index) => (
-              <div key={index}>
-                <ListItem className={highlight[index]}>
-                  <Avatar
-                    onClick={() => {
-                      this.onSelectMacro(index);
-                    }}
-                  >
-                    {index}
-                  </Avatar>
-                  <ListItemText
-                    primary={item.name}
-                    secondary={item.macro}
-                    onClick={() => {
-                      this.onSelectMacro(index);
-                    }}
-                    className={classes.extrapadding}
-                  />
-                  <IconButton
-                    onClick={() => {
-                      this.props.duplicateMacro(index);
-                    }}
-                  >
-                    <FileCopy fontSize="small" />
-                  </IconButton>
-                  <IconButton
-                    onClick={() => {
-                      this.props.deleteMacro(index);
-                    }}
-                  >
-                    <DeleteForever fontSize="small" />
-                  </IconButton>
-                </ListItem>
-                <Divider variant="fullWidth" />
-              </div>
-            ))
+            macros.map((item, index) => {
+              if (item !== undefined) {
+                return (
+                  <div key={index}>
+                    <ListItem className={highlight[index]}>
+                      <Avatar
+                        onClick={() => {
+                          this.onSelectMacro(index);
+                        }}
+                      >
+                        {index}
+                      </Avatar>
+                      <ListItemText
+                        primary={item.name}
+                        secondary={item.macro}
+                        onClick={() => {
+                          this.onSelectMacro(index);
+                        }}
+                        className={classes.extrapadding}
+                      />
+                      <IconButton
+                        onClick={() => {
+                          this.props.duplicateMacro(index);
+                        }}
+                      >
+                        <FileCopy fontSize="small" />
+                      </IconButton>
+                      <IconButton
+                        onClick={() => {
+                          this.props.deleteMacro(index);
+                        }}
+                      >
+                        <DeleteForever fontSize="small" />
+                      </IconButton>
+                    </ListItem>
+                    <Divider variant="fullWidth" />
+                  </div>
+                );
+              } else {
+                return;
+              }
+            })
           ) : (
             <React.Fragment />
           )}

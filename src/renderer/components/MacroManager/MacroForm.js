@@ -38,6 +38,13 @@ const styles = theme => ({
     display: "flex",
     position: "relative",
     placeContent: "space-between"
+  },
+  grey: {
+    color: "#999999",
+    border: "1px solid rgba(70, 70, 70, 0.25)"
+  },
+  centered: {
+    placeContent: "center"
   }
 });
 
@@ -209,9 +216,14 @@ class MacroForm extends Component {
           );
           console.log(macros);
           this.setState({
-            macros,
-            selected: 0
+            macros: macros,
+            selected: 0,
+            name: macros[0].name,
+            id: 0,
+            actions: macros[0].actions,
+            text: macros[0].macro
           });
+          this.props.macrosRestore(macros);
           this.forceUpdate();
         } else {
           console.log("user closed SaveDialog");
@@ -245,8 +257,11 @@ class MacroForm extends Component {
       .showSaveDialog(WIN, options)
       .then(resp => {
         if (!resp.canceled) {
-          console.log(resp.filePath, this.state.macros);
-          require("fs").writeFileSync(resp.filePath, this.state.macros);
+          console.log(resp.filePath, JSON.stringify(this.state.macros));
+          require("fs").writeFileSync(
+            resp.filePath,
+            JSON.stringify(this.state.macros)
+          );
         } else {
           console.log("user closed SaveDialog");
         }
@@ -262,7 +277,7 @@ class MacroForm extends Component {
       <Grid container direction="row" justify="center" alignItems="stretch">
         <Grid item xs={5} className={classes.bglist}>
           <MacroSelector
-            key={this.state.macros.lenght}
+            key={this.state.macros.lenght + this.state.selected}
             macros={this.state.macros}
             selected={this.state.selected}
             updateSelected={this.updateSelected}
@@ -270,23 +285,25 @@ class MacroForm extends Component {
             addMacro={this.props.addMacro}
             duplicateMacro={this.props.duplicateMacro}
           />
-          <div className={classes.buttons}>
-            <Button
-              variant="outlined"
-              color="primary"
-              className={classes.margin}
-              onClick={this.toRestore}
-            >
-              {"Restore"}
-            </Button>
-            <Button
-              variant="outlined"
-              color="primary"
-              className={classes.margin}
-              onClick={this.toBackup}
-            >
-              {"Backup"}
-            </Button>
+          <div className={classNames(classes.buttons, classes.centered)}>
+            <div>
+              <Button
+                variant="outlined"
+                color="primary"
+                className={classNames(classes.margin, classes.grey)}
+                onClick={this.toRestore}
+              >
+                {"Restore"}
+              </Button>
+              <Button
+                variant="outlined"
+                color="primary"
+                className={classNames(classes.margin, classes.grey)}
+                onClick={this.toBackup}
+              >
+                {"Backup"}
+              </Button>
+            </div>
           </div>
         </Grid>
         <Grid item xs={7} className={classes.bg}>
@@ -316,22 +333,24 @@ class MacroForm extends Component {
             >
               {"Cancel"}
             </Button>
-            <Button
-              variant="outlined"
-              color="primary"
-              className={classes.margin}
-              onClick={this.toImport}
-            >
-              {"Import"}
-            </Button>
-            <Button
-              variant="outlined"
-              color="primary"
-              className={classes.margin}
-              onClick={this.toExport}
-            >
-              {"Export"}
-            </Button>
+            <div>
+              <Button
+                variant="outlined"
+                color="primary"
+                className={classNames(classes.margin, classes.grey)}
+                onClick={this.toImport}
+              >
+                {"Import"}
+              </Button>
+              <Button
+                variant="outlined"
+                color="primary"
+                className={classNames(classes.margin, classes.grey)}
+                onClick={this.toExport}
+              >
+                {"Export"}
+              </Button>
+            </div>
             <Button
               variant="contained"
               color="primary"

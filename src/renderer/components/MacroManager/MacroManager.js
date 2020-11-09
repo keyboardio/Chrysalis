@@ -109,6 +109,7 @@ class MacroManager extends Component {
     this.addMacro = this.addMacro.bind(this);
     this.changeSelected = this.changeSelected.bind(this);
     this.exit = this.exit.bind(this);
+    this.macrosRestore = this.macrosRestore.bind(this);
   }
 
   close() {
@@ -182,6 +183,14 @@ class MacroManager extends Component {
     });
   }
 
+  macrosRestore(macros) {
+    this.setState({
+      macros: macros
+    });
+    this.changeSelected(0);
+    this.props.updateMacro(macros);
+  }
+
   render() {
     const { classes, keymapDB } = this.props;
 
@@ -234,6 +243,7 @@ class MacroManager extends Component {
                   addMacro={this.addMacro}
                   changeSelected={this.changeSelected}
                   duplicateMacro={this.duplicateMacro}
+                  macrosRestore={this.macrosRestore}
                 />
               </CardContent>
             </Card>

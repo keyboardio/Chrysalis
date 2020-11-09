@@ -181,7 +181,6 @@ class MacroTable extends Component {
   }
 
   componentDidMount() {
-    console.log("cdm: ", this.props.macro);
     if (this.props.macro !== undefined) {
       this.updateRows(this.createConversion(this.props.macro.actions));
     }

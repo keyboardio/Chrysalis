@@ -36,10 +36,15 @@ console.log("Uploading", destFileName, "...");
 
 let fileStream = fs.createReadStream("dist/" + sourceFileName);
 
+let destPath = "Chrysalis/";
+if (process.env['TRAVIS_PULL_REQUEST'] == "false") {
+    destPath = destPath + process.env['TRAVIS_BRANCH'] + "/";
+}
+
 fileStream.on("open", () => {
   s3.upload({
     Bucket: process.env['ARTIFACTS_BUCKET'],
-    Key: "Chrysalis/" + process.env['TRAVIS_BUILD_NUMBER'] + "/" + destFileName,
+    Key: destPath + process.env['TRAVIS_BUILD_NUMBER'] + "/" + destFileName,
     Body: fileStream,
     ACL: process.env['ARTIFACTS_PERMISSIONS']
   }, (error, data) => {
@@ -49,7 +54,7 @@ fileStream.on("open", () => {
     if (data) {
       s3.putObject({
         Bucket: process.env['ARTIFACTS_BUCKET'],
-        Key: "Chrysalis/latest/" + destLatestFileName,
+        Key: destPath + "latest/" + destLatestFileName,
         WebsiteRedirectLocation: data.Location
       }, error => {
         if (error)
@@ -60,7 +65,7 @@ fileStream.on("open", () => {
   });
   s3.upload({
     Bucket: process.env['ARTIFACTS_BUCKET'],
-    Key: "Chrysalis/" + process.env['TRAVIS_BUILD_NUMBER'] + "/version.txt",
+    Key: destPath + process.env['TRAVIS_BUILD_NUMBER'] + "/version.txt",
     Body: Buffer.from(package.version),
     ACL: 'public-read'
   }, (error, data) => {

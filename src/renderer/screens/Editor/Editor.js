@@ -23,7 +23,7 @@ import Fade from "@material-ui/core/Fade";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 import FormControl from "@material-ui/core/FormControl";
 import IconButton from "@material-ui/core/IconButton";
-import ImportExportIcon from "@material-ui/icons/ImportExport";
+import { GetAppRounded, PublishRounded } from "@material-ui/icons";
 import LayersClearIcon from "@material-ui/icons/LayersClear";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -128,6 +128,8 @@ class Editor extends React.Component {
       undeglowColors: null
     };
     this.updateMacros = this.updateMacros.bind(this);
+    this.toExport = this.toExport.bind(this);
+    this.toImport = this.toImport.bind(this);
   }
 
   keymapDB = new KeymapDB();
@@ -911,6 +913,92 @@ class Editor extends React.Component {
     return Layer;
   }
 
+  toImport() {
+    let options = {
+      title: "Load Layers file",
+      buttonLabel: "Load Layers",
+      filters: [
+        { name: "Json", extensions: ["json"] },
+        { name: "All Files", extensions: ["*"] }
+      ]
+    };
+    const remote = require("electron").remote;
+    const WIN = remote.getCurrentWindow();
+    remote.dialog
+      .showOpenDialog(WIN, options)
+      .then(resp => {
+        if (!resp.canceled) {
+          console.log(resp.filePaths);
+          let layers;
+          try {
+            layers = JSON.parse(require("fs").readFileSync(resp.filePaths[0]));
+            console.log(layers.keymap.custom[0]);
+            this.props.enqueueSnackbar("Imported succesfully", {
+              variant: "success",
+              autoHideDuration: 2000
+            });
+          } catch (e) {
+            console.error(e);
+            this.props.enqueueSnackbar("Not a valid Layer file", {
+              variant: "error",
+              autoHideDuration: 2000
+            });
+            return;
+          }
+          this.importLayer(layers);
+        } else {
+          console.log("user closed SaveDialog");
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  toExport() {
+    let data = JSON.stringify(
+      {
+        keymap: this.state.keymap,
+        colormap: this.state.colormap,
+        palette: this.state.palette
+      },
+      null,
+      2
+    );
+    let options = {
+      title: "Save Layers file",
+      defaultPath: "Layers",
+      buttonLabel: "Save Layers",
+      filters: [
+        { name: "Json", extensions: ["json"] },
+        { name: "All Files", extensions: ["*"] }
+      ]
+    };
+    const remote = require("electron").remote;
+    const WIN = remote.getCurrentWindow();
+    remote.dialog
+      .showSaveDialog(WIN, options)
+      .then(resp => {
+        if (!resp.canceled) {
+          console.log(resp.filePath, data);
+          require("fs").writeFileSync(resp.filePath, data);
+          this.props.enqueueSnackbar("Export Successful", {
+            variant: "success",
+            autoHideDuration: 2000
+          });
+        } else {
+          console.log("user closed SaveDialog");
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        this.props.enqueueSnackbar("Error at Exporting: " + err, {
+          variant: "error",
+          autoHideDuration: 2000
+        });
+      });
+  }
+
   render() {
     const { classes } = this.props;
     const { keymap, palette, isColorButtonSelected } = this.state;
@@ -1032,9 +1120,14 @@ class Editor extends React.Component {
               </Select>
             </FormControl>
             <div>
-              <Tooltip disableFocusListener title={i18n.editor.importExport}>
-                <IconButton onClick={this.importExportDialog}>
-                  <ImportExportIcon />
+              <Tooltip disableFocusListener title={"Export the current Layer"}>
+                <IconButton onClick={this.toExport}>
+                  <PublishRounded />
+                </IconButton>
+              </Tooltip>
+              <Tooltip disableFocusListener title={"Import the current Layer"}>
+                <IconButton onClick={this.toImport}>
+                  <GetAppRounded />
                 </IconButton>
               </Tooltip>
               <Tooltip disableFocusListener title={i18n.editor.copyFrom}>

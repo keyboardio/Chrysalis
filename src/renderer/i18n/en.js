@@ -23,8 +23,8 @@ const English = {
   components: {
     layer: "Layer {0}",
     save: {
-      success: "Saved!",
-      saveChanges: "Save Changes"
+      success: "Sent!",
+      saveChanges: "Send changes to the Raise"
     },
     pickerColorButton: "Change color",
     underglowColorButton: "Change color of all underglows",

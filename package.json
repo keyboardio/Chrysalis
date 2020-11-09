@@ -1,9 +1,9 @@
 {
   "name": "BAZECOR",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "license": "GPL-3.0-only",
   "author": {
-    "name": "DygmaLab SE",
+    "name": "Dygma Lab S.L.",
     "email": "contact@dygma.com"
   },
   "homepage": "https://github.com/Dygmalab/Bazecor",
@@ -59,13 +59,14 @@
     "@material-ui/lab": "^3.0.0-alpha.30",
     "@reach/router": "^1.2.1",
     "classnames": "^2.2.6",
-    "electron-devtools-installer": "^2.2.4",
+    "electron-devtools-installer": "^3.1.1",
     "electron-settings": "^3.2.0",
     "electron-store": "^6.0.0",
     "electron-window-state": "^5.0.3",
     "notistack": "^0.9.7",
     "prop-types": "^15.7.2",
     "react": "^16.8.5",
+    "react-beautiful-dnd": "^10.0.4",
     "react-color": "^2.14.1",
     "react-dom": "16.8.5",
     "react-localization": "^1.0.13",

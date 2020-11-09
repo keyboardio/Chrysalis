@@ -31,6 +31,7 @@ import ModifiersTable, {
 } from "./db/modifiers";
 import NavigationTable, { ModifiedNavigationTables } from "./db/navigation";
 import LEDEffectsTable from "./db/ledeffects";
+import MacrosTable from "./db/macros";
 import NumpadTable, { ModifiedNumpadTables } from "./db/numpad";
 import FunctionKeyTable, { ModifiedFunctionKeyTables } from "./db/fxs";
 
@@ -86,6 +87,7 @@ const defaultBaseKeyCodeTable = [
   MoveToLayerTable,
 
   LEDEffectsTable,
+  MacrosTable,
   MediaControlTable,
   MouseMovementTable,
   MouseButtonTable,
@@ -155,6 +157,7 @@ class KeymapDB {
         languagesDB[this.language]
       )
     );
+    this.allCodes = keyCodeTable;
 
     for (let group of keyCodeTable) {
       for (let key of group.keys) {
@@ -200,6 +203,19 @@ class KeymapDB {
       extraLabel: key.labels.top,
       verbose: key.labels.verbose
     };
+  }
+
+  reverse(label) {
+    const answ = this.keymapCodeTable
+      .filter(Boolean)
+      .find(x => x.labels.primary === label);
+    return answ !== undefined ? answ.code : 1;
+  }
+
+  getMap() {
+    return this.keymapCodeTable
+      .filter(Boolean)
+      .filter(x => x.code < 255 && x.code > 0);
   }
 
   serialize(key) {

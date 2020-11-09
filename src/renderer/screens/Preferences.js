@@ -162,10 +162,7 @@ class Preferences extends React.Component {
             inContext={this.props.inContext}
           />
         )}
-        <Portal container={this.props.titleElement}>
-          {i18n.app.menu.preferences}
-        </Portal>
-        {this.props.connected && (
+        {this.props.connected && false && (
           <ColorSettings
             startContext={this.props.startContext}
             cancelContext={this.props.cancelContext}

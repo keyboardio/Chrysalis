@@ -51,6 +51,9 @@ import ImportExportDialog from "./ImportExportDialog";
 import { CopyFromDialog } from "./CopyFromDialog";
 import { undeglowDefaultColors } from "./initialUndaglowColors";
 
+const Store = window.require("electron-store");
+const store = new Store();
+
 const styles = theme => ({
   tbg: {
     marginRight: theme.spacing.unit * 4
@@ -97,27 +100,36 @@ const styles = theme => ({
 });
 
 class Editor extends React.Component {
-  state = {
-    currentLayer: 0,
-    currentKeyIndex: -1,
-    currentLedIndex: -1,
-    modified: false,
-    saving: false,
-    keymap: {
-      custom: [],
-      default: [],
-      onlyCustom: false
-    },
-    palette: [],
-    colorMap: [],
-    clearConfirmationOpen: false,
-    copyFromOpen: false,
-    importExportDialogOpen: false,
-    isMultiSelected: false,
-    isColorButtonSelected: false,
-    currentLanguageLayout: "",
-    undeglowColors: null
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      currentLayer: 0,
+      currentKeyIndex: -1,
+      currentLedIndex: -1,
+      modified: false,
+      saving: false,
+      keymap: {
+        custom: [],
+        default: [],
+        onlyCustom: false
+      },
+      palette: [],
+      colorMap: [],
+      macros: [],
+      storedMacros: store.get("macros"),
+      equalMacros: [],
+      clearConfirmationOpen: false,
+      copyFromOpen: false,
+      importExportDialogOpen: false,
+      isMultiSelected: false,
+      isColorButtonSelected: false,
+      currentLanguageLayout: "",
+      undeglowColors: null
+    };
+    this.updateMacros = this.updateMacros.bind(this);
+  }
+
   keymapDB = new KeymapDB();
   undeglowCount = 14;
   /**
@@ -146,8 +158,8 @@ class Editor extends React.Component {
        * Create property language to the object 'options', to call KeymapDB in Keymap and modify languagu layout
        */
       if (lang) {
-        let deviceLeng = { ...focus.device, language: true };
-        focus.commands.keymap = new Keymap(deviceLeng);
+        let deviceLang = { ...focus.device, language: true };
+        focus.commands.keymap = new Keymap(deviceLang);
         this.keymapDB = focus.commands.keymap.db;
       }
 
@@ -177,8 +189,19 @@ class Editor extends React.Component {
 
       let colormap = await focus.command("colormap");
       // Point of restoration for WhiteBalance
-      let palette = this.props.revertBalance(colormap.palette.slice());
+      // let palette = this.props.revertBalance(colormap.palette.slice());
+      let palette = colormap.palette.slice();
       const undeglowColors = settings.get("undeglowColors");
+      let raw = await focus.command("macros.map");
+      if (raw.search(" 0 0 ") !== -1) {
+        raw = raw
+          .split(" 0 0 ")[0]
+          .split(" ")
+          .map(Number);
+      } else {
+        raw = "";
+      }
+      const parsedMacros = this.macroTranslator(raw);
       this.setState(
         () => {
           if (!undeglowColors) {
@@ -197,7 +220,8 @@ class Editor extends React.Component {
             keymap: keymap,
             showDefaults: !keymap.onlyCustom,
             palette,
-            colorMap: colormap.colorMap
+            colorMap: colormap.colorMap,
+            macros: parsedMacros
           });
         }
       );
@@ -412,16 +436,22 @@ class Editor extends React.Component {
     await focus.command("keymap", this.state.keymap);
     await focus.command(
       "colormap",
-      this.props.applyBalance(this.state.palette),
+      // this.props.applyBalance(this.state.palette),
+      this.state.palette,
       this.state.colorMap
     );
+    let newMacros = this.state.macros;
     this.setState({
       modified: false,
       saving: false,
       isMultiSelected: false,
       selectedPaletteColor: null,
-      isColorButtonSelected: false
+      isColorButtonSelected: false,
+      macros: newMacros,
+      storedMacros: newMacros
     });
+    store.set("macros", newMacros);
+    await focus.command("macros.map", this.macrosMap(newMacros));
     console.log("Changes saved.");
     this.props.cancelContext();
   };
@@ -453,6 +483,17 @@ class Editor extends React.Component {
 
   UNSAFE_componentWillReceiveProps = nextProps => {
     if (this.props.inContext && !nextProps.inContext) {
+      this.setState({
+        currentLayer: 0,
+        currentKeyIndex: -1,
+        currentLedIndex: -1,
+        keymap: {
+          custom: [],
+          default: [],
+          onlyCustom: false
+        },
+        palette: []
+      });
       this.scanKeyboard();
       this.setState({ modified: false });
     }
@@ -699,12 +740,181 @@ class Editor extends React.Component {
     this.props.startContext();
   };
 
+  macroTranslator(raw) {
+    if (raw === "") {
+      return [
+        {
+          actions: [
+            { keyCode: 229, type: 6, id: 0 },
+            { keyCode: 11, type: 8, id: 1 },
+            { keyCode: 229, type: 7, id: 2 },
+            { keyCode: 8, type: 8, id: 3 },
+            { keyCode: 28, type: 8, id: 4 },
+            { keyCode: 54, type: 8, id: 5 },
+            { keyCode: 44, type: 8, id: 6 },
+            { keyCode: 229, type: 6, id: 7 },
+            { keyCode: 7, type: 8, id: 8 },
+            { keyCode: 229, type: 7, id: 9 },
+            { keyCode: 28, type: 8, id: 10 },
+            { keyCode: 10, type: 8, id: 11 },
+            { keyCode: 16, type: 8, id: 12 },
+            { keyCode: 4, type: 8, id: 13 },
+            { keyCode: 23, type: 8, id: 14 },
+            { keyCode: 8, type: 8, id: 15 }
+          ],
+          id: 0,
+          macro:
+            "RIGHT SHIFT H RIGHT SHIFT E Y , SPACE RIGHT SHIFT D RIGHT SHIFT Y G M A T E",
+          name: "Hey, Dygmate!"
+        }
+      ];
+    }
+    // Translate received macros to human readable text
+    let i = 0,
+      iter = 0,
+      kcs = 0,
+      type = 0,
+      keyCode = [],
+      actions = [],
+      macros = [];
+    actions = [];
+    while (raw.length > iter) {
+      if (kcs > 0) {
+        keyCode.push(raw[iter]);
+        kcs--;
+        iter++;
+        continue;
+      }
+      if (iter !== 0 && type !== 0) {
+        actions.push({
+          type: type,
+          keyCode: keyCode
+        });
+        keyCode = [];
+      }
+      type = raw[iter];
+      if (type > 1 && type < 6) {
+        kcs = 2;
+      } else {
+        kcs = 1;
+      }
+      if (type === 0) {
+        kcs = 0;
+        macros[i] = {};
+        macros[i].actions = actions;
+        macros[i].id = i;
+        macros[i].name = "";
+        macros[i].macro = "";
+        i++;
+        actions = [];
+        iter++;
+        continue;
+      }
+      iter++;
+    }
+    actions.push({
+      type: type,
+      keyCode: keyCode
+    });
+    macros[i] = {};
+    macros[i].actions = actions;
+    macros[i].id = i;
+    macros[i].name = "";
+    macros[i].macro = "";
+    macros = macros.map(macro => {
+      let aux = macro.actions.map(action => {
+        let aux = 0;
+        if (action.keyCode.length > 1) {
+          aux = (action.keyCode[0] << 8) + action.keyCode[1];
+        } else {
+          aux = action.keyCode[0];
+        }
+        return {
+          type: action.type,
+          keyCode: aux
+        };
+      });
+      return { ...macro, actions: aux };
+    });
+    // TODO: Check if stored macros match the received ones, if they mach, retrieve name and apply it to current macros
+    let equal = [];
+    let finalMacros = [];
+    const stored = this.state.storedMacros;
+    console.log(macros, stored);
+    if (stored === undefined) {
+      return macros;
+    }
+    finalMacros = macros.map((macro, i) => {
+      if (stored.length > i && stored.length > 0) {
+        console.log("compare between: ", macro.actions, stored[i].actions);
+        if (macro.actions.join(",") === stored[i].actions.join(",")) {
+          equal[i] = true;
+          let aux = macro;
+          aux.name = stored[i].name;
+          return aux;
+        } else {
+          equal[i] = false;
+          return macro;
+        }
+      } else {
+        return macro;
+      }
+    });
+    this.setState({ equalMacros: equal });
+
+    return finalMacros;
+  }
+
+  updateMacros(recievedMacros) {
+    console.log("Updating Macros", recievedMacros);
+    this.setState({ macros: recievedMacros, modified: true });
+    this.props.startContext();
+  }
+
+  macrosMap(macros) {
+    if (macros.length === 1 && macros[0].actions === []) {
+      return "255 255 255 255 255 255 255 255 255 255";
+    }
+    const actionMap = macros.map(macro => {
+      return macro.actions
+        .map(action => {
+          if (action.type > 1 && action.type < 6) {
+            return [
+              [action.type],
+              [action.keyCode >> 8],
+              [action.keyCode & 255]
+            ];
+          } else {
+            return [[action.type], [action.keyCode]];
+          }
+        })
+        .concat([0]);
+    });
+    const mapped = [].concat
+      .apply([], actionMap.flat())
+      .concat([0])
+      .join(" ");
+    console.log(mapped);
+    return mapped;
+  }
+
+  getLayout() {
+    let focus = new Focus();
+    let Layer = {};
+    try {
+      Layer = focus.device.components.keymap;
+    } catch (error) {
+      console.log("There is no spoon error: ", error);
+      this.forceUpdate();
+    }
+
+    return Layer;
+  }
+
   render() {
     const { classes } = this.props;
     const { keymap, palette, isColorButtonSelected } = this.state;
-
-    let focus = new Focus();
-    const Layer = focus.device.components.keymap;
+    let Layer = this.getLayout();
     const showDefaults = settings.get("keymap.showDefaults");
 
     let currentLayer = this.state.currentLayer;
@@ -870,6 +1080,10 @@ class Editor extends React.Component {
             scanKeyboard={this.scanKeyboard}
             currentLanguageLayout={this.state.currentLanguageLayout}
             onChangeLanguageLayout={this.onChangeLanguageLayout}
+            macros={this.state.macros}
+            maxMacros={32}
+            updateMacros={this.updateMacros}
+            keymapDB={this.keymapDB}
           />
         </Slide>
         <SaveChangesButton

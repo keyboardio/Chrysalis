@@ -99,7 +99,8 @@ const orderArray = [
     group: "Mouse configuration options",
     isUnite: true,
     displayName: "Mouse configuration options"
-  }
+  },
+  { group: "Macros", isUnite: false, displayName: "Macros" }
 ];
 
 /**
@@ -194,18 +195,45 @@ class SearchKeyBox extends Component {
   render() {
     const { classes, currentKeyCode } = this.props;
     const { open, orderArrayWithKeys } = this.state;
-    const groupeList = orderArrayWithKeys.map((group, index) => (
-      <GroupItem
-        key={group.groupName}
-        group={group}
-        keySelect={this.keySelect}
-        isUnited={Boolean(group.innerGroup)}
-        selectedKeyCode={currentKeyCode}
-        numderContGrids={orderArrayWithKeys.length === index + 1 ? 8 : 4}
-        numderLgItemsGrids={orderArrayWithKeys.length === index + 1 ? 1 : 2}
-        numderMdItemsGrids={orderArrayWithKeys.length === index + 1 ? 2 : 3}
-      />
-    ));
+    const groupeList = orderArrayWithKeys.map((group, index) => {
+      console.log(group.groupName);
+      if (group.groupName !== "Macros") {
+        return (
+          <GroupItem
+            key={group.groupName}
+            group={group}
+            keySelect={this.keySelect}
+            isUnited={Boolean(group.innerGroup)}
+            selectedKeyCode={currentKeyCode}
+            numderContGrids={orderArrayWithKeys.length === index + 1 ? 8 : 4}
+            numderLgItemsGrids={orderArrayWithKeys.length === index + 1 ? 1 : 2}
+            numderMdItemsGrids={orderArrayWithKeys.length === index + 1 ? 2 : 3}
+          />
+        );
+      } else {
+        return (
+          <GroupItem
+            key={group.groupName}
+            group={{
+              groupName: group.groupName,
+              displayName: group.displayName,
+              keys: [
+                {
+                  code: group.keys[0].code,
+                  labels: { primary: "Add Macro" }
+                }
+              ]
+            }}
+            keySelect={this.keySelect}
+            isUnited={Boolean(group.innerGroup)}
+            selectedKeyCode={currentKeyCode}
+            numderContGrids={orderArrayWithKeys.length === index + 1 ? 8 : 4}
+            numderLgItemsGrids={orderArrayWithKeys.length === index + 1 ? 1 : 2}
+            numderMdItemsGrids={orderArrayWithKeys.length === index + 1 ? 2 : 3}
+          />
+        );
+      }
+    });
 
     return (
       <React.Fragment>

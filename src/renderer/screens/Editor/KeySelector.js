@@ -18,7 +18,7 @@
 import React from "react";
 //Import of new component that selects new language layout
 import SelectLanguage from "../../components/SelectLanguage";
-
+import MacroManager from "../../components/MacroManager";
 import SearchKeyBox from "../../components/SearchKeyBox";
 
 import Checkbox from "@material-ui/core/Checkbox";
@@ -71,6 +71,28 @@ const styles = theme => ({
   },
   checkboxRoot: {
     padding: "12px 4px 12px 12px"
+  },
+  margin: {
+    display: "flex",
+    justifyContent: "start",
+    margin: "0 0 15px 30px",
+    width: 170,
+    height: 34,
+    borderRadius: 3,
+    padding: 0
+  },
+  marginBottom: {
+    display: "flex",
+    justifyContent: "start",
+    margin: "0 0 7px 30px",
+    width: 170,
+    height: 34,
+    borderRadius: 3,
+    padding: 0
+  },
+  extendedIcon: {
+    marginRight: 20,
+    marginLeft: 10
   }
 });
 
@@ -477,6 +499,61 @@ class KeyGroup extends React.Component {
   }
 }
 
+class MacroMenu extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      macros: props.macros,
+      selectedMacro: props.keyCode - 24576
+    };
+    this.localMacros = this.localMacros.bind(this);
+    this.changeSelected = this.changeSelected.bind(this);
+    this.updateMacro = this.updateMacro.bind(this);
+  }
+
+  changeSelected(id) {
+    let aux = id;
+    if (aux < 0) {
+      aux = 0;
+    }
+    this.setState({
+      selectedMacro: aux
+    });
+    this.props.onKeySelect(aux + 24576);
+  }
+
+  localMacros(macros) {
+    this.setState({
+      macros
+    });
+    this.props.updateMacros(macros);
+  }
+
+  updateMacro(macros) {
+    this.localMacros(macros);
+  }
+
+  render() {
+    const { maxMacros, keymapDB } = this.props;
+    return (
+      <div style={{ display: "table-caption" }}>
+        <div style={{ display: "inline-flex" }}>
+          <MacroManager
+            macros={this.state.macros}
+            selected={this.state.selectedMacro}
+            maxMacros={maxMacros}
+            updateMacro={this.updateMacro}
+            changeSelected={this.changeSelected}
+            keymapDB={keymapDB}
+          />
+        </div>
+      </div>
+    );
+  }
+}
+const MacroMenuWrapped = withStyles(styles)(MacroMenu);
+
 class KeySelector extends React.Component {
   constructor(props) {
     super(props);
@@ -511,7 +588,19 @@ class KeySelector extends React.Component {
   };
 
   render() {
-    const { classes, currentKeyCode, disabled } = this.props;
+    const {
+      classes,
+      currentKeyCode,
+      disabled,
+      macros,
+      maxMacros,
+      updateMacros,
+      keymapDB,
+      scanKeyboard,
+      doCancelContext,
+      currentLanguageLayout,
+      onChangeLanguageLayout
+    } = this.props;
     const { selectedGroup, actualKeycode } = this.state;
     let groupIndex = selectedGroup,
       keyCode = currentKeyCode;
@@ -549,20 +638,34 @@ class KeySelector extends React.Component {
             baseKeyCodeTable={baseKeyCodeTable}
           />
           <SelectLanguage
-            scanKeyboard={this.props.scanKeyboard}
-            currentLanguageLayout={this.props.currentLanguageLayout}
-            onChangeLanguageLayout={this.props.onChangeLanguageLayout}
-            doCancelContext={this.props.doCancelContext}
+            scanKeyboard={scanKeyboard}
+            currentLanguageLayout={currentLanguageLayout}
+            onChangeLanguageLayout={onChangeLanguageLayout}
+            doCancelContext={doCancelContext}
           />
         </List>
-        <div className={classes.keygroup}>
-          <KeyGroup
-            disabled={disabled}
-            group={groupIndex}
-            keyCode={actualKeycode}
-            onKeySelect={this.onKeySelect}
-          />
-        </div>
+        {keyGroups[groupIndex] === "Macros" ? (
+          <div className={classes.keygroup}>
+            <MacroMenuWrapped
+              keyCode={actualKeycode}
+              key={actualKeycode + macros.lenght}
+              onKeySelect={this.onKeySelect}
+              macros={macros}
+              updateMacros={updateMacros}
+              maxMacros={maxMacros}
+              keymapDB={keymapDB}
+            />
+          </div>
+        ) : (
+          <div className={classes.keygroup}>
+            <KeyGroup
+              disabled={disabled}
+              group={groupIndex}
+              keyCode={actualKeycode}
+              onKeySelect={this.onKeySelect}
+            />
+          </div>
+        )}
       </Paper>
     );
   }

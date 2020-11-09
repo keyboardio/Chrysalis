@@ -71,6 +71,13 @@ const MediaControlTable = {
         primary: "VOL-",
         verbose: "Volume down"
       }
+    },
+    {
+      code: 22712,
+      labels: {
+        top: "Media",
+        primary: "Eject"
+      }
     }
   ]
 };

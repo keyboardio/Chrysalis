@@ -75,7 +75,7 @@
     "terser": "^4.6.3",
     "typeface-roboto": "^0.0.54",
     "typeface-source-code-pro": "^0.0.71",
-    "usb": "^1.6.2"
+    "usb": "^1.6.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.0",

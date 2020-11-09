@@ -22,7 +22,7 @@ jobs:
 filter_secrets: false
 env:
   - YARN_GPG=no
-if: branch = master OR tag IS present
+if: (branch = master OR tag IS present) OR (type != pull_request)
 dist: xenial
 addons:
   apt:

@@ -76,6 +76,7 @@ export const ImportExportDialog = withSnackbar(props => {
 
   function copyToClipboard(data) {
     clipboard.writeText(data);
+    toExport(data);
     setIsChange(false);
     props.enqueueSnackbar(i18n.editor.copySuccess, {
       variant: "success",
@@ -85,6 +86,7 @@ export const ImportExportDialog = withSnackbar(props => {
 
   function pasteFromClipboard() {
     setData(clipboard.readText());
+    toImport();
     setIsChange(true);
     props.enqueueSnackbar(i18n.editor.pasteSuccess, {
       variant: "success",
@@ -102,6 +104,83 @@ export const ImportExportDialog = withSnackbar(props => {
       }
       setData(layoutData);
     });
+  }
+
+  function toImport() {
+    let options = {
+      title: "Load Layers file",
+      buttonLabel: "Load Layers",
+      filters: [
+        { name: "Json", extensions: ["json"] },
+        { name: "All Files", extensions: ["*"] }
+      ]
+    };
+    const remote = require("electron").remote;
+    const WIN = remote.getCurrentWindow();
+    remote.dialog
+      .showOpenDialog(WIN, options)
+      .then(resp => {
+        if (!resp.canceled) {
+          console.log(resp.filePaths);
+          let layers;
+          try {
+            layers = require("fs").readFileSync(resp.filePaths[0]);
+            console.log(JSON.parse(layers).keymap[0].label);
+            props.enqueueSnackbar("Imported succesfully", {
+              variant: "success",
+              autoHideDuration: 2000
+            });
+          } catch (e) {
+            console.error(e);
+            props.enqueueSnackbar("Not a valid Layer file", {
+              variant: "error",
+              autoHideDuration: 2000
+            });
+            return;
+          }
+          setData(layers);
+        } else {
+          console.log("user closed SaveDialog");
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  function toExport(data) {
+    let options = {
+      title: "Save Layers file",
+      defaultPath: "Layers",
+      buttonLabel: "Save Layers",
+      filters: [
+        { name: "Json", extensions: ["json"] },
+        { name: "All Files", extensions: ["*"] }
+      ]
+    };
+    const remote = require("electron").remote;
+    const WIN = remote.getCurrentWindow();
+    remote.dialog
+      .showSaveDialog(WIN, options)
+      .then(resp => {
+        if (!resp.canceled) {
+          console.log(resp.filePath, data);
+          require("fs").writeFileSync(resp.filePath, data);
+          props.enqueueSnackbar("Export Successful", {
+            variant: "success",
+            autoHideDuration: 2000
+          });
+        } else {
+          console.log("user closed SaveDialog");
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        props.enqueueSnackbar("Error at Exporting: " + err, {
+          variant: "error",
+          autoHideDuration: 2000
+        });
+      });
   }
 
   return (
@@ -127,10 +206,10 @@ export const ImportExportDialog = withSnackbar(props => {
           <LoadDefaultKeymap loadDefault={loadDefault} />
           <div>
             <Button color="primary" onClick={() => copyToClipboard(data)}>
-              {i18n.editor.copyToClipboard}
+              {"Export Layers"}
             </Button>
             <Button color="primary" onClick={pasteFromClipboard}>
-              {i18n.editor.pasteFromClipboard}
+              {"Import Layers"}
             </Button>
           </div>
         </div>

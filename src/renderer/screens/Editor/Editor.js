@@ -23,7 +23,11 @@ import Fade from "@material-ui/core/Fade";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 import FormControl from "@material-ui/core/FormControl";
 import IconButton from "@material-ui/core/IconButton";
-import ImportExportIcon from "@material-ui/icons/ImportExport";
+import {
+  GetAppRounded,
+  PublishRounded,
+  UnarchiveRounded
+} from "@material-ui/icons";
 import LayersClearIcon from "@material-ui/icons/LayersClear";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -47,7 +51,6 @@ import SaveChangesButton from "../../components/SaveChangesButton";
 import ConfirmationDialog from "../../components/ConfirmationDialog";
 import i18n from "../../i18n";
 import settings from "electron-settings";
-import ImportExportDialog from "./ImportExportDialog";
 import { CopyFromDialog } from "./CopyFromDialog";
 import { undeglowDefaultColors } from "./initialUndaglowColors";
 
@@ -128,6 +131,9 @@ class Editor extends React.Component {
       undeglowColors: null
     };
     this.updateMacros = this.updateMacros.bind(this);
+    this.toExport = this.toExport.bind(this);
+    this.toImport = this.toImport.bind(this);
+    this.toExportAll = this.toExportAll.bind(this);
   }
 
   keymapDB = new KeymapDB();
@@ -911,6 +917,169 @@ class Editor extends React.Component {
     return Layer;
   }
 
+  toImport() {
+    let options = {
+      title: "Load Layer/s file",
+      buttonLabel: "Load Layer/s",
+      filters: [
+        { name: "Json", extensions: ["json"] },
+        { name: "All Files", extensions: ["*"] }
+      ]
+    };
+    const remote = require("electron").remote;
+    const WIN = remote.getCurrentWindow();
+    remote.dialog
+      .showOpenDialog(WIN, options)
+      .then(resp => {
+        if (!resp.canceled) {
+          console.log(resp.filePaths);
+          let layers;
+          try {
+            layers = JSON.parse(require("fs").readFileSync(resp.filePaths[0]));
+            console.log(Array.isArray(layers.keymap));
+            if (Array.isArray(layers.keymap)) {
+              console.log(layers.keymap[0]);
+              this.importLayer(layers);
+              this.props.enqueueSnackbar(
+                "Imported to current Layer succesfully",
+                {
+                  variant: "success",
+                  autoHideDuration: 2000
+                }
+              );
+            } else {
+              console.log(layers.keymap.custom[0]);
+              this.setState({
+                keymap: layers.keymap,
+                colorMap: layers.colormap,
+                palette: layers.palette,
+                modified: true
+              });
+              this.props.startContext();
+              this.props.enqueueSnackbar("Imported all Layers succesfully", {
+                variant: "success",
+                autoHideDuration: 2000
+              });
+            }
+          } catch (e) {
+            console.error(e);
+            this.props.enqueueSnackbar("Not a valid Layer file", {
+              variant: "error",
+              autoHideDuration: 2000
+            });
+            return;
+          }
+        } else {
+          console.log("user closed SaveDialog");
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  toExport() {
+    const { keymap, currentLayer } = this.state;
+    let layerData, isReadOnly;
+    if (keymap.onlyCustom) {
+      isReadOnly = currentLayer < 0;
+      layerData = isReadOnly
+        ? keymap.default[currentLayer + keymap.default.length]
+        : keymap.custom[currentLayer];
+    } else {
+      isReadOnly = currentLayer < keymap.default.length;
+      layerData = isReadOnly
+        ? keymap.default[currentLayer]
+        : keymap.custom[currentLayer - keymap.default.length];
+    }
+    let data = JSON.stringify(
+      {
+        keymap: layerData,
+        colormap: this.state.colorMap[currentLayer],
+        palette: this.state.palette
+      },
+      null,
+      2
+    );
+    let options = {
+      title: "Save Layer file",
+      defaultPath: "Layer" + currentLayer,
+      buttonLabel: "Save Layer",
+      filters: [
+        { name: "Json", extensions: ["json"] },
+        { name: "All Files", extensions: ["*"] }
+      ]
+    };
+    const remote = require("electron").remote;
+    const WIN = remote.getCurrentWindow();
+    remote.dialog
+      .showSaveDialog(WIN, options)
+      .then(resp => {
+        if (!resp.canceled) {
+          console.log(resp.filePath, data);
+          require("fs").writeFileSync(resp.filePath, data);
+          this.props.enqueueSnackbar("Export Successful", {
+            variant: "success",
+            autoHideDuration: 2000
+          });
+        } else {
+          console.log("user closed SaveDialog");
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        this.props.enqueueSnackbar("Error at Exporting: " + err, {
+          variant: "error",
+          autoHideDuration: 2000
+        });
+      });
+  }
+
+  toExportAll() {
+    const { keymap, colorMap, palette } = this.state;
+    let data = JSON.stringify(
+      {
+        keymap,
+        colormap: colorMap,
+        palette
+      },
+      null,
+      2
+    );
+    let options = {
+      title: "Backup Layers file",
+      defaultPath: "Layers",
+      buttonLabel: "Backup Layers",
+      filters: [
+        { name: "Json", extensions: ["json"] },
+        { name: "All Files", extensions: ["*"] }
+      ]
+    };
+    const remote = require("electron").remote;
+    const WIN = remote.getCurrentWindow();
+    remote.dialog
+      .showSaveDialog(WIN, options)
+      .then(resp => {
+        if (!resp.canceled) {
+          console.log(resp.filePath, data);
+          require("fs").writeFileSync(resp.filePath, data);
+          this.props.enqueueSnackbar("Backed up Layers Successfully", {
+            variant: "success",
+            autoHideDuration: 2000
+          });
+        } else {
+          console.log("user closed SaveDialog");
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        this.props.enqueueSnackbar("Error at Exporting: " + err, {
+          variant: "error",
+          autoHideDuration: 2000
+        });
+      });
+  }
+
   render() {
     const { classes } = this.props;
     const { keymap, palette, isColorButtonSelected } = this.state;
@@ -1032,9 +1201,17 @@ class Editor extends React.Component {
               </Select>
             </FormControl>
             <div>
-              <Tooltip disableFocusListener title={i18n.editor.importExport}>
-                <IconButton onClick={this.importExportDialog}>
-                  <ImportExportIcon />
+              <Tooltip disableFocusListener title={"Export the current Layer"}>
+                <IconButton onClick={this.toExport}>
+                  <PublishRounded />
+                </IconButton>
+              </Tooltip>
+              <Tooltip
+                disableFocusListener
+                title={"Import current Layer or Backup"}
+              >
+                <IconButton onClick={this.toImport}>
+                  <GetAppRounded />
                 </IconButton>
               </Tooltip>
               <Tooltip disableFocusListener title={i18n.editor.copyFrom}>
@@ -1045,6 +1222,11 @@ class Editor extends React.Component {
               <Tooltip title={i18n.editor.clearLayer}>
                 <IconButton disabled={isReadOnly} onClick={this.confirmClear}>
                   <LayersClearIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip disableFocusListener title={"Backup all Layers"}>
+                <IconButton onClick={this.toExportAll}>
+                  <UnarchiveRounded />
                 </IconButton>
               </Tooltip>
             </div>
@@ -1107,16 +1289,6 @@ class Editor extends React.Component {
           onCancel={this.cancelCopyFrom}
           layers={copyFromLayerOptions}
           currentLayer={currentLayer}
-        />
-        <ImportExportDialog
-          open={this.state.importExportDialogOpen}
-          keymap={layerData}
-          palette={this.state.palette}
-          colormap={this.state.colorMap[this.state.currentLayer]}
-          isReadOnly={isReadOnly}
-          onConfirm={this.importLayer}
-          onCancel={this.cancelImport}
-          toCloseImportExportDialog={this.toCloseImportExportDialog}
         />
       </React.Fragment>
     );

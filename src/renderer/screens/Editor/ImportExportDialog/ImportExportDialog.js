@@ -75,7 +75,7 @@ export const ImportExportDialog = withSnackbar(props => {
   }
 
   function copyToClipboard(data) {
-    //clipboard.writeText(data);
+    clipboard.writeText(data);
     toExport(data);
     setIsChange(false);
     props.enqueueSnackbar(i18n.editor.copySuccess, {
@@ -85,7 +85,7 @@ export const ImportExportDialog = withSnackbar(props => {
   }
 
   function pasteFromClipboard() {
-    //setData(clipboard.readText());
+    setData(clipboard.readText());
     toImport();
     setIsChange(true);
     props.enqueueSnackbar(i18n.editor.pasteSuccess, {

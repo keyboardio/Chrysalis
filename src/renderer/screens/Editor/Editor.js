@@ -47,7 +47,6 @@ import SaveChangesButton from "../../components/SaveChangesButton";
 import ConfirmationDialog from "../../components/ConfirmationDialog";
 import i18n from "../../i18n";
 import settings from "electron-settings";
-import ImportExportDialog from "./ImportExportDialog";
 import { CopyFromDialog } from "./CopyFromDialog";
 import { undeglowDefaultColors } from "./initialUndaglowColors";
 
@@ -915,8 +914,8 @@ class Editor extends React.Component {
 
   toImport() {
     let options = {
-      title: "Load Layers file",
-      buttonLabel: "Load Layers",
+      title: "Load Layer file",
+      buttonLabel: "Load Layer",
       filters: [
         { name: "Json", extensions: ["json"] },
         { name: "All Files", extensions: ["*"] }
@@ -932,7 +931,7 @@ class Editor extends React.Component {
           let layers;
           try {
             layers = JSON.parse(require("fs").readFileSync(resp.filePaths[0]));
-            console.log(layers.keymap.custom[0]);
+            console.log(layers.keymap[0]);
             this.props.enqueueSnackbar("Imported succesfully", {
               variant: "success",
               autoHideDuration: 2000
@@ -956,19 +955,32 @@ class Editor extends React.Component {
   }
 
   toExport() {
+    const { keymap, currentLayer } = this.state;
+    let layerData, isReadOnly;
+    if (keymap.onlyCustom) {
+      isReadOnly = currentLayer < 0;
+      layerData = isReadOnly
+        ? keymap.default[currentLayer + keymap.default.length]
+        : keymap.custom[currentLayer];
+    } else {
+      isReadOnly = currentLayer < keymap.default.length;
+      layerData = isReadOnly
+        ? keymap.default[currentLayer]
+        : keymap.custom[currentLayer - keymap.default.length];
+    }
     let data = JSON.stringify(
       {
-        keymap: this.state.keymap,
-        colormap: this.state.colormap,
+        keymap: layerData,
+        colormap: this.state.colorMap[currentLayer],
         palette: this.state.palette
       },
       null,
       2
     );
     let options = {
-      title: "Save Layers file",
-      defaultPath: "Layers",
-      buttonLabel: "Save Layers",
+      title: "Save Layer file",
+      defaultPath: "Layer",
+      buttonLabel: "Save Layer",
       filters: [
         { name: "Json", extensions: ["json"] },
         { name: "All Files", extensions: ["*"] }
@@ -1200,16 +1212,6 @@ class Editor extends React.Component {
           onCancel={this.cancelCopyFrom}
           layers={copyFromLayerOptions}
           currentLayer={currentLayer}
-        />
-        <ImportExportDialog
-          open={this.state.importExportDialogOpen}
-          keymap={layerData}
-          palette={this.state.palette}
-          colormap={this.state.colorMap[this.state.currentLayer]}
-          isReadOnly={isReadOnly}
-          onConfirm={this.importLayer}
-          onCancel={this.cancelImport}
-          toCloseImportExportDialog={this.toCloseImportExportDialog}
         />
       </React.Fragment>
     );

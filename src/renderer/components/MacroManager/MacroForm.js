@@ -261,6 +261,7 @@ class MacroForm extends Component {
 
   render() {
     const { classes, close, keymapDB } = this.props;
+    const currentMacro = this.state.macros[this.state.selected];
     return (
       <Grid container direction="row" justify="center" alignItems="stretch">
         <Grid item xs={5} className={classes.bglist}>
@@ -308,9 +309,11 @@ class MacroForm extends Component {
           <MacroTable
             key={
               this.state.selected +
-              JSON.stringify(this.state.macros[this.state.selected].actions)
+              JSON.stringify(
+                currentMacro !== undefined ? currentMacro.actions : []
+              )
             }
-            macro={this.state.macros[this.state.selected]}
+            macro={currentMacro}
             updateActions={this.updateActions}
             keymapDB={keymapDB}
             number={this.props.macros.length}

@@ -1224,7 +1224,10 @@ class Editor extends React.Component {
                   <LayersClearIcon />
                 </IconButton>
               </Tooltip>
-              <Tooltip disableFocusListener title={"Backup all Layers (Excluding Macros)"}>
+              <Tooltip
+                disableFocusListener
+                title={"Backup all Layers (Excluding Macros)"}
+              >
                 <IconButton onClick={this.toExportAll}>
                   <UnarchiveRounded />
                 </IconButton>

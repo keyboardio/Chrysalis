@@ -1,3 +1,34 @@
+Bazecor 0.2.4
+=============
+
+## New Features
+Added #111 to improve layer saving and backup
+
+## Bugfixes
+Solved #117 by merging #120 that solved this issue updating the firmware
+Solved #119 by merging #121 that added checkings to avoid reading undefined properties
+
+Bazecor 0.2.3
+=============
+
+## New features
+
+- Added #27 macro functionality to set up macros for the Raise Keyboard
+- Added Backup/Restore, Import/Export tools to allow users to share/save their Macros.
+- Improved flashing system so it also backs up Macros when flashing
+- Added #57 new Firmware version that activates Macros and improves mouse movement.
+- Added #87 Eject key for MAC so that they can eject disks from the keyboard.
+- Added #111 with additional general Layers Backup System
+
+## Bugfixes 
+
+- Improved re-loading screen after canceling/saving changes to the Raise due to hiding this fact from the user
+- Fixed bug that didn't allow MAC users to change overall brightness of the keyboard
+- Fixed #108 the flashing process so that it works without getting hanged at the end of the process and recognizes correctly the keyboard in MAC & Linux
+- Disabled White Color Balance due to sometimes altering the colors of already balanced for that keyboard.
+- Fixed OSL not being able to terminate when a Macro was pressed while active.
+- Fixed #68 update USB Package to solve issues with windows JAPANESE keyboard compiler.
+
 Bazecor 0.2.2
 =============
 

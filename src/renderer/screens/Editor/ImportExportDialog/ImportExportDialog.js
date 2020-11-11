@@ -151,7 +151,7 @@ export const ImportExportDialog = withSnackbar(props => {
   function toExport(data) {
     let options = {
       title: "Save Layers file",
-      defaultPath: "Layers",
+      defaultPath: "Layers.json",
       buttonLabel: "Save Layers",
       filters: [
         { name: "Json", extensions: ["json"] },

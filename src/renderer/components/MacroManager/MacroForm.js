@@ -160,7 +160,7 @@ class MacroForm extends Component {
     });
     let options = {
       title: "Save Macro file",
-      defaultPath: this.state.name,
+      defaultPath: this.state.name + ".json",
       buttonLabel: "Save Macro",
       filters: [
         { name: "Json", extensions: ["json"] },
@@ -232,7 +232,7 @@ class MacroForm extends Component {
   toBackup() {
     let options = {
       title: "Backup Macros to file",
-      defaultPath: "allMacros",
+      defaultPath: "allMacros.json",
       buttonLabel: "Backup Macros",
       filters: [
         { name: "Json", extensions: ["json"] },

@@ -1003,7 +1003,7 @@ class Editor extends React.Component {
     );
     let options = {
       title: "Save Layer file",
-      defaultPath: "Layer" + currentLayer,
+      defaultPath: "Layer" + currentLayer + ".json",
       buttonLabel: "Save Layer",
       filters: [
         { name: "Json", extensions: ["json"] },
@@ -1048,7 +1048,7 @@ class Editor extends React.Component {
     );
     let options = {
       title: "Backup Layers file",
-      defaultPath: "Layers",
+      defaultPath: "Layers.json",
       buttonLabel: "Backup Layers",
       filters: [
         { name: "Json", extensions: ["json"] },

@@ -73,7 +73,7 @@ const NavigationTable = {
     {
       code: 101,
       labels: {
-        primary: "APP"
+        primary: "MENU"
       }
     }
   ]

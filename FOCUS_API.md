@@ -92,10 +92,50 @@ Being `N N N...` the 16bit numbers that represent each key assigned to that posi
 ##### Expected output
 It should give back the whole custom keymap (80 key positions for each layer and all 10 layers) if sent alone, if sent with the keymap of the same length as received, it should return a nextline, period.
 ### keymap.default
+This command works in the same way as keymap.custom, but affecting the default layers stored in the -1 and -2 positions of the layer stack.
+##### Command
+To retireve:
+- JavaScript: `focus.command("keymap.default")`
+- Serial Command (Unix): `echo 'keymap.default' > /dev/ttyACM0`
+
+To set:
+- JavaScript: `focus.command("keymap.default N N N N N N N N N N N N N N N")`
+- Serial Command (Unix): `echo 'keymap.default N N N N N N N N N N N N N N N' > /dev/ttyACM0`
+
+Being `N N N...` the 16bit numbers that represent each key assigned to that position of the keymap the numbers amount 80(keys per layer)x2(default layers)
+##### Expected output
+It should give back the two default layers keymap (80 key positions for each layer for the two default layers) if sent alone, if sent with the keymap of the same length as received, it should return a nextline, period.
 ### keymap.onlyCustom
+This command returns true or false depending on the user setting of hiding the default layers or not, it does not allow you to increment the number of available layers by start using the default ones, they are there so you can store a backup for two layers in your keyboard
+##### Commands
+To retireve:
+- JavaScript: `focus.command("keymap.onlyCustom")`
+- Serial Command (Unix): `echo 'keymap.onlyCustom' > /dev/ttyACM0`
+
+To set:
+- JavaScript: `focus.command("keymap.onlyCustom true")`
+- Serial Command (Unix): `echo 'keymap.onlyCustom trure' > /dev/ttyACM0`
+##### Expected output
+It should return the current state of the onlyCustom boolean variable stored in the keyboard, being it true or false, when sending the value added to the command, it should return a nextline, period.
 ### settings.defaultLayer
+This command returns the default layer the keyboard will boot in, with this you can change the default layer in which the Raise starts working to any custom layer that you want.
+##### Commands
+To retireve:
+- JavaScript: `focus.command("keymap.defaultLayer")`
+- Serial Command (Unix): `echo 'keymap.defaultLayer' > /dev/ttyACM0`
+
+To set:
+- JavaScript: `focus.command("keymap.defaultLayer 1")`
+- Serial Command (Unix): `echo 'keymap.defaultLayer 1' > /dev/ttyACM0`
+##### Expected output
+It should return the current default layer stored in the EEPROM, if it's send with the new default layer, it should return a nextline, period.
 ### settings.valid?
+
+##### Commands
+##### Expected output
 ### settings.version
+##### Commands
+##### Expected output
 ### settings.crc
 ### eeprom.contents
 ### eeprom.free

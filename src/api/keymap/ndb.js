@@ -16,8 +16,8 @@
 
 import { Base } from "./ndb/base";
 import { USQwerty } from "./ndb/us/qwerty";
-import { HUQwertz } from "./ndb/hu/qwertz";
-import { FRAzerty } from "./ndb/fr/azerty";
+
+import { loadKeymap } from "./cldr";
 
 import codeRanges from "./ndb/ranges";
 
@@ -30,8 +30,24 @@ class KeymapDB {
 
       this._layouts = {
         "us-qwerty": USQwerty,
-        "fr-azerty": FRAzerty,
-        "hu-qwertz": HUQwertz
+        "fr-azerty": {
+          name: "fr-azerty",
+          codetable: loadKeymap(
+            "static/cldr/keyboards/chromeos/fr-t-k0-chromeos.xml"
+          )
+        },
+        "hu-qwertz": {
+          name: "hu-qwertz",
+          codetable: loadKeymap(
+            "static/cldr/keyboards/chromeos/hu-t-k0-chromeos.xml"
+          )
+        },
+        "de-qwertz": {
+          name: "de-qwertz",
+          codetable: loadKeymap(
+            "static/cldr/keyboards/chromeos/de-t-k0-chromeos.xml"
+          )
+        }
       };
 
       this.setLayout("us-qwerty");
@@ -70,16 +86,33 @@ class KeymapDB {
 
     const table = this._layouts[layout];
 
-    for (const key of table.codetable) {
-      if (this._codetable[key.code]) {
-        const base = this._codetable[key.code];
-        this._codetable[key.code].label = Object.assign(
-          {},
-          base.label,
-          key.label
-        );
-      } else {
-        this._codetable[key.code] = Object.assign({}, key);
+    if (table.codetable instanceof Promise) {
+      table.codetable.then(data => {
+        for (const key of data) {
+          if (this._codetable[key.code]) {
+            const base = this._codetable[key.code];
+            this._codetable[key.code].label = Object.assign(
+              {},
+              base.label,
+              key.label
+            );
+          } else {
+            this._codetable[key.code] = Object.assign({}, key);
+          }
+        }
+      });
+    } else {
+      for (const key of table.codetable) {
+        if (this._codetable[key.code]) {
+          const base = this._codetable[key.code];
+          this._codetable[key.code].label = Object.assign(
+            {},
+            base.label,
+            key.label
+          );
+        } else {
+          this._codetable[key.code] = Object.assign({}, key);
+        }
       }
     }
   }

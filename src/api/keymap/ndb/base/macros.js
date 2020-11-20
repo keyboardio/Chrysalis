@@ -20,6 +20,7 @@ const macro = index => ({
     hint: "Macro",
     base: "#" + index.toString()
   },
+  rangeStart: 24576,
   categories: ["macros"]
 });
 

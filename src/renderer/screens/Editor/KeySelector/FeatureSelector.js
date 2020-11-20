@@ -23,6 +23,11 @@ import Tabs from "@material-ui/core/Tabs";
 import { withStyles } from "@material-ui/core/styles";
 
 import LayerSwitch from "./Features/LayerSwitch";
+import CategorySelector from "./CategorySelector";
+
+import { NewKeymapDB } from "../../../../api/keymap";
+
+const db = new NewKeymapDB();
 
 const styles = theme => ({
   root: {
@@ -46,29 +51,55 @@ const FeaturePanel = props => {
 
 class FeatureSelector extends React.Component {
   state = {
-    feature: null
+    tab: 0
   };
 
-  setFeature = feature => {
-    return () => {
-      this.setState({ feature: feature });
-    };
+  onTabChange = (_, tab) => {
+    this.setState({ tab: tab });
+  };
+
+  UNSAFE_componentWillReceiveProps = nextProps => {
+    let newTab = 0;
+
+    if (db.isInCategory(nextProps.currentKeyCode, "layer")) {
+      newTab = 0;
+    }
+    if (db.isInCategory(nextProps.currentKeyCode, "macros")) {
+      newTab = 1;
+    }
+
+    this.setState({ tab: newTab });
   };
 
   render() {
     const { classes, currentKeyCode, onKeySelect } = this.props;
+    const { tab } = this.state;
 
     return (
       <div className={classes.root}>
-        <Tabs value={0} variant="scrollable" scrollButtons="auto">
+        <Tabs
+          value={tab}
+          variant="scrollable"
+          scrollButtons="auto"
+          onChange={this.onTabChange}
+        >
           <Tab label="Layer switch" />
           <Tab label="Macro" />
         </Tabs>
 
         <Divider className={classes.divider} />
 
-        <FeaturePanel value={0} index={0}>
+        <FeaturePanel value={tab} index={0}>
           <LayerSwitch keyCode={currentKeyCode} onKeySelect={onKeySelect} />
+        </FeaturePanel>
+        <FeaturePanel value={tab} index={1}>
+          <CategorySelector
+            onKeySelect={onKeySelect}
+            currentKeyCode={currentKeyCode}
+            category="macros"
+            variant="number"
+            name="Macro"
+          />
         </FeaturePanel>
       </div>
     );

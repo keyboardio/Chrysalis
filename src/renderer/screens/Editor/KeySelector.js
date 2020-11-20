@@ -78,7 +78,10 @@ class KeySelector extends React.Component {
     if (db.isInCategory(nextProps.currentKeyCode, "consumer")) {
       newTab = 1;
     }
-    if (db.isInCategory(nextProps.currentKeyCode, "layer")) {
+    if (
+      db.isInCategory(nextProps.currentKeyCode, "layer") ||
+      db.isInCategory(nextProps.currentKeyCode, "macros")
+    ) {
       newTab = 2;
     }
 

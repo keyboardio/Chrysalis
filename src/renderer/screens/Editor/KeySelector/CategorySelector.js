@@ -18,6 +18,9 @@
 import React from "react";
 
 import Button from "@material-ui/core/Button";
+import FormControl from "@material-ui/core/FormControl";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
 import Paper from "@material-ui/core/Paper";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -34,6 +37,36 @@ const styles = theme => ({
 });
 
 const db = new NewKeymapDB();
+
+const Number = withStyles(styles)(props => {
+  const { classes, keys, onKeySelect, name, currentKeyCode } = props;
+
+  const key = db.lookup(currentKeyCode);
+  const rangeStart = keys[0].rangeStart;
+
+  const onChange = event => {
+    const newValue = parseInt(event.target.value);
+    onKeySelect(rangeStart + newValue);
+  };
+
+  const value = db.isInCategory(currentKeyCode, keys[0].categories[0])
+    ? key.code - rangeStart
+    : 0;
+
+  return (
+    <FormControl className={classes.form}>
+      <InputLabel>{name}</InputLabel>
+      <Input
+        type="number"
+        min={0}
+        max={keys.length}
+        value={value}
+        onChange={onChange}
+        onKeyDown={onChange}
+      />
+    </FormControl>
+  );
+});
 
 const ButtonGrid = withStyles(styles)(props => {
   const { classes, keys, onKeySelect } = props;
@@ -62,12 +95,21 @@ const ButtonGrid = withStyles(styles)(props => {
 });
 
 const CategorySelector = withStyles(styles)(props => {
-  const { classes, variant, onKeySelect } = props;
+  const { classes, variant, onKeySelect, currentKeyCode } = props;
   const keys = db.selectCategory(props.category);
 
   let contents;
   if (!variant || variant == "button-grid") {
     contents = <ButtonGrid onKeySelect={onKeySelect} keys={keys} />;
+  } else if (variant == "number") {
+    contents = (
+      <Number
+        onKeySelect={onKeySelect}
+        keys={keys}
+        name={props.name}
+        currentKeyCode={currentKeyCode}
+      />
+    );
   }
 
   return (

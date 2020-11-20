@@ -27,6 +27,14 @@ const shiftToLayer = Array(32)
   .fill()
   .map((_, index) => layer(17450, "ShiftTo", "shifttolayer", index));
 
-const layers = shiftToLayer;
+const lockToLayer = Array(32)
+  .fill()
+  .map((_, index) => layer(17408, "LockTo", "locktolayer", index));
+
+const moveToLayer = Array(32)
+  .fill()
+  .map((_, index) => layer(17492, "MoveTo", "movetolayer", index));
+
+const layers = shiftToLayer.concat(lockToLayer).concat(moveToLayer);
 
 export { layers };

@@ -119,7 +119,7 @@ class KeymapDB {
 
     const key = this._codetable[keyCode];
 
-    return key.categories && key.categories.includes(category);
+    return key && key.categories && key.categories.includes(category);
   }
 
   _lookupShifted(keyCode) {

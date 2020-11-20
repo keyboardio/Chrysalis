@@ -61,9 +61,7 @@ class FeatureSelector extends React.Component {
   };
 
   render() {
-    const { classes, currentKeyCode } = this.props;
-
-    // const isLayerKey = db.isLayerKey(currentKeyCode);
+    const { classes, currentKeyCode, onKeySelect } = this.props;
 
     return (
       <div className={classes.root}>
@@ -75,7 +73,7 @@ class FeatureSelector extends React.Component {
         <Divider className={classes.divider} />
 
         <FeaturePanel value={0} index={0}>
-          <LayerSwitch keyCode={currentKeyCode} />
+          <LayerSwitch keyCode={currentKeyCode} onKeySelect={onKeySelect} />
         </FeaturePanel>
       </div>
     );

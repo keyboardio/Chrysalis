@@ -71,6 +71,20 @@ class FeatureSelector extends React.Component {
     this.setState({ tab: newTab });
   };
 
+  componentDidMount() {
+    let newTab = 0;
+    const { currentKeyCode } = this.props;
+
+    if (db.isInCategory(currentKeyCode, "layer")) {
+      newTab = 0;
+    }
+    if (db.isInCategory(currentKeyCode, "macros")) {
+      newTab = 1;
+    }
+
+    this.setState({ tab: newTab });
+  }
+
   render() {
     const { classes, currentKeyCode, onKeySelect } = this.props;
     const { tab } = this.state;

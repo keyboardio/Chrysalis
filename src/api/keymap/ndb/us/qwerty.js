@@ -361,7 +361,7 @@ const keyCodeTable = [
 ];
 
 const USQwerty = {
-  name: "us-qwerty",
+  name: "English (US)",
   codetable: keyCodeTable
 };
 

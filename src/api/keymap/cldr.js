@@ -15,8 +15,10 @@
  */
 
 import fs from "fs";
+import path from "path";
 import xml2js from "xml2js";
 import unraw from "unraw";
+import { getStaticPath } from "../../renderer/config";
 
 const cldr2keycode = {
   E00: 53,
@@ -83,9 +85,12 @@ const decode = code => {
   return code;
 };
 
-const loadKeymap = async file => {
+const loadKeyboard = async file => {
   const data = fs.readFileSync(file);
-  const cldrKeymap = (await xml2js.parseStringPromise(data)).keyboard.keyMap;
+  const cldrKeyboard = (await xml2js.parseStringPromise(data)).keyboard;
+  const cldrKeymap = cldrKeyboard.keyMap;
+
+  const name = cldrKeyboard.names[0].name[0]["$"].value;
 
   let keymap = {};
   let db = [];
@@ -115,7 +120,37 @@ const loadKeymap = async file => {
     db.push(keymap[idx]);
   }
 
+  return {
+    name: name,
+    codetable: db
+  };
+};
+
+const loadAllKeymaps = async () => {
+  const files = fs.readdirSync(
+    path.join(getStaticPath(), "cldr/keyboards/windows/")
+  );
+  let languages = [];
+  for (const f of files) {
+    if (f.match("^...?-t-k0-windows\\.xml") && !f.startsWith("en-")) {
+      languages.push(f);
+    }
+  }
+
+  let db = {};
+  for (const l of languages) {
+    const keyboard = await loadKeyboard(
+      path.join(getStaticPath(), "cldr/keyboards/windows", l)
+    );
+
+    db[keyboard.name] = keyboard;
+  }
+
   return db;
 };
 
-export { loadKeymap };
+const cldr = {
+  loadAllKeymaps: loadAllKeymaps
+};
+
+export default cldr;

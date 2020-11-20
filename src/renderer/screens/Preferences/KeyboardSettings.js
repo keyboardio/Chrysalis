@@ -101,7 +101,7 @@ class KeyboardSettings extends React.Component {
     defaultLayer: 126,
     modified: false,
     working: false,
-    currentLayout: "us-qwerty"
+    currentLayout: "English (US)"
   };
 
   componentDidMount() {

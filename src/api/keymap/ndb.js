@@ -16,8 +16,7 @@
 
 import { Base } from "./ndb/base";
 import { USQwerty } from "./ndb/us/qwerty";
-
-import { loadKeymap } from "./cldr";
+import cldr from "./cldr";
 
 import codeRanges from "./ndb/ranges";
 
@@ -29,32 +28,23 @@ class KeymapDB {
       global.chrysalis_keymapdb_instance = this;
 
       this._layouts = {
-        "us-qwerty": USQwerty,
-        "fr-azerty": {
-          name: "fr-azerty",
-          codetable: loadKeymap(
-            "static/cldr/keyboards/chromeos/fr-t-k0-chromeos.xml"
-          )
-        },
-        "hu-qwertz": {
-          name: "hu-qwertz",
-          codetable: loadKeymap(
-            "static/cldr/keyboards/chromeos/hu-t-k0-chromeos.xml"
-          )
-        },
-        "de-qwertz": {
-          name: "de-qwertz",
-          codetable: loadKeymap(
-            "static/cldr/keyboards/chromeos/de-t-k0-chromeos.xml"
-          )
-        }
+        "English (US)": USQwerty
       };
 
-      this.setLayout("us-qwerty");
+      this.setLayout("English (US)");
+      this.loadLayouts();
     }
 
     return global.chrysalis_keymapdb_instance;
   }
+
+  loadLayouts = async () => {
+    this._layouts = Object.assign(
+      {},
+      this._layouts,
+      await cldr.loadAllKeymaps()
+    );
+  };
 
   getSupportedLayouts() {
     let layouts = [];

@@ -14,35 +14,40 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-const mousekeys = [
-  {
-    code: 20481,
-    label: {
-      hint: "Mouse",
-      base: "Up"
+import addCategories from "../addCategories";
+
+const mousekeys = addCategories(
+  ["mousekeys"],
+  [
+    {
+      code: 20481,
+      label: {
+        hint: "Mouse",
+        base: "Up"
+      }
+    },
+    {
+      code: 20482,
+      label: {
+        hint: "Mouse",
+        primary: "Down"
+      }
+    },
+    {
+      code: 20484,
+      label: {
+        hint: "Mouse",
+        primary: "Left"
+      }
+    },
+    {
+      code: 20488,
+      label: {
+        hint: "Mouse",
+        primary: "Right"
+      }
     }
-  },
-  {
-    code: 20482,
-    label: {
-      hint: "Mouse",
-      primary: "Down"
-    }
-  },
-  {
-    code: 20484,
-    label: {
-      hint: "Mouse",
-      primary: "Left"
-    }
-  },
-  {
-    code: 20488,
-    label: {
-      hint: "Mouse",
-      primary: "Right"
-    }
-  }
-];
+  ]
+);
 
 export { mousekeys };

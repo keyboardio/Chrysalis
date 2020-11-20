@@ -14,17 +14,14 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-const macro = index => ({
-  code: 24576 + index,
-  label: {
-    hint: "Macro",
-    base: "#" + index.toString()
-  },
-  categories: ["macros"]
-});
+const addCategories = (categories, keys) => {
+  let newKeys = [];
 
-const macros = Array(32)
-  .fill()
-  .map((_, index) => macro(index));
+  for (const key of keys) {
+    newKeys.push(Object.assign({}, key, { categories: categories }));
+  }
 
-export { macros };
+  return newKeys;
+};
+
+export default addCategories;

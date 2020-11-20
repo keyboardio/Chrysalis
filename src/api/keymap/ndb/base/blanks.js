@@ -14,20 +14,25 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-const blanks = [
-  {
-    code: 0,
-    label: {
-      base: "Blocked",
-      short: "Blkd"
+import addCategories from "../addCategories";
+
+const blanks = addCategories(
+  ["blanks"],
+  [
+    {
+      code: 0,
+      label: {
+        base: "Blocked",
+        short: "Blkd"
+      }
+    },
+    {
+      code: 65535,
+      label: {
+        base: ""
+      }
     }
-  },
-  {
-    code: 65535,
-    label: {
-      base: ""
-    }
-  }
-];
+  ]
+);
 
 export { blanks };

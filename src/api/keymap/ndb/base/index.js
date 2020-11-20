@@ -24,6 +24,7 @@ import { miscellaneous } from "./misc";
 import { consumer } from "./consumer";
 import { mousekeys } from "./mousekeys";
 import { macros } from "./macros";
+import { layers } from "./layers";
 
 const layout = [
   [
@@ -116,7 +117,8 @@ const keyCodeTable = []
   .concat(miscellaneous)
   .concat(consumer)
   .concat(mousekeys)
-  .concat(macros);
+  .concat(macros)
+  .concat(layers);
 
 const Base = {
   codetable: keyCodeTable,

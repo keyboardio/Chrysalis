@@ -18,8 +18,6 @@ import { Base } from "./ndb/base";
 import { USQwerty } from "./ndb/us/qwerty";
 import cldr from "./cldr";
 
-import codeRanges from "./ndb/ranges";
-
 global.chrysalis_keymapdb_instance = null;
 
 class KeymapDB {
@@ -116,68 +114,12 @@ class KeymapDB {
     };
   }
 
-  findRange(keyCode) {
-    for (const group of codeRanges) {
-      if (keyCode >= group.min && keyCode <= group.max) {
-        return group.name;
-      }
-    }
-  }
+  isInCategory(keyCode, category) {
+    if (keyCode < 0) return false;
 
-  isLayerKey(keyCode) {
-    const range = this.findRange(keyCode);
+    const key = this._codetable[keyCode];
 
-    const layerRanges = [
-      "locklayer",
-      "shifttolayer",
-      "movetolayer",
-      "oneshotlayer"
-    ];
-
-    for (const r of layerRanges) {
-      if (r === range) return true;
-    }
-
-    return false;
-  }
-
-  _lookupLayerKey(keyCode) {
-    if (!this.isLayerKey(keyCode)) return false;
-
-    if (17408 <= keyCode && keyCode <= 17439) {
-      const layer = keyCode - 17408;
-      return {
-        code: keyCode,
-        label: {
-          base: "#" + layer.toString(),
-          hint: "ShiftTo"
-        },
-        type: "locklayer"
-      };
-    }
-    if (17450 <= keyCode && keyCode <= 17481) {
-      const layer = keyCode - 17450;
-      return {
-        code: keyCode,
-        label: {
-          base: "#" + layer.toString(),
-          hint: "ShiftTo"
-        },
-        type: "shifttolayer"
-      };
-    }
-    if (17492 <= keyCode && keyCode <= 17523) {
-      const layer = keyCode - 17492;
-      return {
-        code: keyCode,
-        label: {
-          base: "#" + layer.toString(),
-          hint: "MoveTo"
-        },
-        type: "movetolayer"
-      };
-    }
-    return false;
+    return key.categories && key.categories.includes(category);
   }
 
   _lookupShifted(keyCode) {
@@ -193,11 +135,7 @@ class KeymapDB {
   }
 
   _lookupByKeycode(keyCode) {
-    return (
-      this._lookupShifted(keyCode) ||
-      this._lookupLayerKey(keyCode) ||
-      this._codetable[keyCode]
-    );
+    return this._lookupShifted(keyCode) || this._codetable[keyCode];
   }
 
   _lookupObject(key) {

@@ -14,17 +14,19 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-const macro = index => ({
-  code: 24576 + index,
+const layer = (base, hint, type, index) => ({
+  code: base + index,
   label: {
-    hint: "Macro",
+    hint: hint,
     base: "#" + index.toString()
   },
-  categories: ["macros"]
+  categories: ["layer", type]
 });
 
-const macros = Array(32)
+const shiftToLayer = Array(32)
   .fill()
-  .map((_, index) => macro(index));
+  .map((_, index) => layer(17450, "ShiftTo", "shifttolayer", index));
 
-export { macros };
+const layers = shiftToLayer;
+
+export { layers };

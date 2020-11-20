@@ -35,17 +35,16 @@ const styles = theme => ({
 
 const db = new NewKeymapDB();
 
-const CategorySelector = withStyles(styles)(props => {
-  const { classes } = props;
+const ButtonGrid = withStyles(styles)(props => {
+  const { classes, keys, onKeySelect } = props;
 
   const onClick = keyCode => {
     return () => {
-      props.onKeySelect(keyCode);
+      onKeySelect(keyCode);
     };
   };
 
-  const keydb = db.selectCategory(props.category);
-  const buttons = keydb.map((k, index) => {
+  const buttons = keys.map((k, index) => {
     const key = "key-" + props.category + "-" + index.toString();
     return (
       <Button
@@ -59,9 +58,21 @@ const CategorySelector = withStyles(styles)(props => {
     );
   });
 
+  return buttons;
+});
+
+const CategorySelector = withStyles(styles)(props => {
+  const { classes, variant, onKeySelect } = props;
+  const keys = db.selectCategory(props.category);
+
+  let contents;
+  if (!variant || variant == "button-grid") {
+    contents = <ButtonGrid onKeySelect={onKeySelect} keys={keys} />;
+  }
+
   return (
     <div className={classes.root}>
-      <Paper elevation={0}>{buttons}</Paper>
+      <Paper elevation={0}>{contents}</Paper>
     </div>
   );
 });

@@ -125,6 +125,7 @@ class KeySelector extends React.Component {
             onKeySelect={onKeySelect}
             currentKeyCode={currentKeyCode}
             category="consumer"
+            variant="button-grid"
           />
         </TabPanel>
         <TabPanel value={tab} index={2} className={classes.tabpanel}>

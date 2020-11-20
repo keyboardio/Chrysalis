@@ -74,8 +74,6 @@ class KeySelector extends React.Component {
   UNSAFE_componentWillReceiveProps = nextProps => {
     let newTab = 0;
 
-    console.log(db.isInCategory(nextProps.currentKeyCode, "layer"));
-
     if (db.isInCategory(nextProps.currentKeyCode, "layer")) {
       newTab = 1;
     }

@@ -40,11 +40,12 @@ const LayerSwitch = withStyles(styles)(props => {
   const { classes } = props;
 
   const key = db.lookup(props.keyCode);
-  const type = key.categories[1];
-  const layerIndex = props.keyCode - key.rangeStart;
+
+  const type = (key.categories && key.categories[1]) || "locktolayer";
+  const layerIndex = key.rangeStart ? props.keyCode - key.rangeStart : 0;
 
   const onTargetLayerChange = event => {
-    props.onKeySelect(parseInt(event.target.value) + key.rangeStart);
+    props.onKeySelect(parseInt(event.target.value) + typeStarts[type]);
   };
 
   const typeStarts = {

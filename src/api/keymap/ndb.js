@@ -122,6 +122,18 @@ class KeymapDB {
     return key && key.categories && key.categories.includes(category);
   }
 
+  selectCategory(category) {
+    let cdb = [];
+
+    for (const k of this._codetable) {
+      if (k && k.categories && k.categories.includes(category)) {
+        cdb.push(k);
+      }
+    }
+
+    return cdb;
+  }
+
   _lookupShifted(keyCode) {
     if (keyCode >= 2048 && keyCode <= 2303) {
       const unshifted = keyCode - 2048;

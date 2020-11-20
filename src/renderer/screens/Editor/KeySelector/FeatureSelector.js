@@ -18,16 +18,11 @@
 import React from "react";
 
 import Divider from "@material-ui/core/Divider";
-//import Grid from "@material-ui/core/Grid";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import { withStyles } from "@material-ui/core/styles";
 
-//import KeyButton from "../../../components/KeyButton";
 import LayerSwitch from "./Features/LayerSwitch";
-
-//import { NewKeymapDB } from "../../../../api/keymap";
-//const db = new NewKeymapDB();
 
 const styles = theme => ({
   root: {

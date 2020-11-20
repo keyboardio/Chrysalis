@@ -24,6 +24,7 @@ import { withStyles } from "@material-ui/core/styles";
 
 import Keyboard104 from "./KeySelector/keyboard104";
 import FeatureSelector from "./KeySelector/FeatureSelector";
+import CategorySelector from "./KeySelector/CategorySelector";
 
 import { NewKeymapDB } from "../../../api/keymap";
 
@@ -74,8 +75,11 @@ class KeySelector extends React.Component {
   UNSAFE_componentWillReceiveProps = nextProps => {
     let newTab = 0;
 
-    if (db.isInCategory(nextProps.currentKeyCode, "layer")) {
+    if (db.isInCategory(nextProps.currentKeyCode, "consumer")) {
       newTab = 1;
+    }
+    if (db.isInCategory(nextProps.currentKeyCode, "layer")) {
+      newTab = 2;
     }
 
     this.setState({ tab: newTab });
@@ -104,6 +108,7 @@ class KeySelector extends React.Component {
           onChange={this.setTab}
         >
           <Tab label="Keyboard" />
+          <Tab label="Consumer" />
           <Tab label="Features" />
           <Tab label="Others..." />
         </Tabs>
@@ -116,6 +121,13 @@ class KeySelector extends React.Component {
           />
         </TabPanel>
         <TabPanel value={tab} index={1} className={classes.tabpanel}>
+          <CategorySelector
+            onKeySelect={onKeySelect}
+            currentKeyCode={currentKeyCode}
+            category="consumer"
+          />
+        </TabPanel>
+        <TabPanel value={tab} index={2} className={classes.tabpanel}>
           <FeatureSelector
             onKeySelect={onKeySelect}
             currentKeyCode={currentKeyCode}

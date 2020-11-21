@@ -75,15 +75,15 @@ class ModifierKeyboard104 extends React.Component {
 
     return (
       <Grid container spacing={3}>
-        <Grid item xs={2}>
-          {mods}
-        </Grid>
-        <Grid item xs={9}>
+        <Grid item xs={10}>
           <Keyboard104
             {...this.props}
             currentKeyCode={keyCode}
             onKeySelect={this.onKeySelect}
           />
+        </Grid>
+        <Grid item xs={1}>
+          {mods}
         </Grid>
       </Grid>
     );

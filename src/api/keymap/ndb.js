@@ -134,20 +134,8 @@ class KeymapDB {
     return cdb;
   }
 
-  _lookupShifted(keyCode) {
-    if (keyCode >= 2048 && keyCode <= 2303) {
-      const unshifted = keyCode - 2048;
-      return {
-        code: keyCode,
-        label: {
-          base: this._codetable[unshifted].label.shifted
-        }
-      };
-    }
-  }
-
   _lookupByKeycode(keyCode) {
-    return this._lookupShifted(keyCode) || this._codetable[keyCode];
+    return this._codetable[keyCode];
   }
 
   _lookupObject(key) {

@@ -22,7 +22,7 @@ import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import { withStyles } from "@material-ui/core/styles";
 
-import Keyboard104 from "./KeySelector/keyboard104";
+import Keyboard104 from "./KeySelector/ModifierKeyboard104";
 import FeatureSelector from "./KeySelector/FeatureSelector";
 import CategorySelector from "./KeySelector/CategorySelector";
 

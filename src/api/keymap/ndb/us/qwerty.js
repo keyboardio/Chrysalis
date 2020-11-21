@@ -14,6 +14,8 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import withModifiers from "../withModifiers";
+
 const keyCodeTable = [
   {
     code: 4,
@@ -362,7 +364,7 @@ const keyCodeTable = [
 
 const USQwerty = {
   name: "English (US)",
-  codetable: keyCodeTable
+  codetable: withModifiers(keyCodeTable)
 };
 
 export { USQwerty };

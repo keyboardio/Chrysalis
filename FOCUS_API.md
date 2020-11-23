@@ -2,13 +2,13 @@ Focus API documentation
 ===========================
 
 ## Concept
-The Focus API is a two-way communication mechanism between the Raise and any computer software that wants to get information or configure/activate the raise's plugins.
+The Focus API is a two-way communication mechanism between the Raise and any computer software that wants to get information or configure/activate the raise\'s plugins.
 
 It discovers all the EEPROM assigned positions of the memory with specific commands to update or trigger them depending on the kind of plugin that uses them.
 
 This means for example being capable of storing the macros or to be able to trigger them through the serial interface without touching the keyboard or Bazecor.
 
-The focus library is a part of the Keyboard`s Firmware but also has a helper class created in JavaScript for the Bazecor, we will show here the commands for the JavaScript Focus API and how to trigger them through the serial interface also, just as an example if you want to retrieve all available commands you have to send the keyboard the string "help".
+The focus library is a part of the Keyboard's Firmware but also has a helper class created in JavaScript for the Bazecor, we will show here the commands for the JavaScript Focus API and how to trigger them through the serial interface also, just as an example if you want to retrieve all available commands you have to send the keyboard the string "help".
 
 **For JavaScript:** `focus.command("help")`
 
@@ -70,7 +70,7 @@ Commands to help you with the testing and settings of the raise's leds
 
 **Colors Section**
 
-Commands to read/write the color palette and colorMap from the raise to change it`s static colors
+Commands to read/write the color palette and colorMap from the raise to change it's static colors
 
 [palette](#palette)
 
@@ -78,13 +78,13 @@ Commands to read/write the color palette and colorMap from the raise to change i
 
 **Led time to remain lit**
 
-Time to wait until turning the led`s off
+Time to wait until turning the led's off
 
 [idleleds.time_limit](#idleledstime_limit)
 
 **Hardware Section**
 
-Hardware commands that allow you to perform certain operations like retrieving side`s versions, watch power consumption, etc..
+Hardware commands that allow you to perform certain operations like retrieving side's versions, watch power consumption, etc..
 
 [hardware.version](#hardwareversion)
 
@@ -108,7 +108,7 @@ Hardware commands that allow you to perform certain operations like retrieving s
 
 **Plugins section**
 
-Plugin`s section to configure them, like the DynamicMacros plugin.
+Plugin's section to configure them, like the DynamicMacros plugin.
 
 [tapdance.map](#tapdancemap)
 
@@ -149,7 +149,7 @@ Layer commands to switch between them (for example when changing a from a progra
 [layer.state](#layerstate)
 
 ### version
-Returns the version of the Raise firmware stored in the keyboard`s EEPROM
+Returns the version of the Raise firmware stored in the keyboard's EEPROM
 #### Commands
 JavaScript: `focus.command("version")`
 Serial Command (Unix): `echo 'version' > /dev/ttyACM0`
@@ -157,7 +157,7 @@ Serial Command (Unix): `echo 'version' > /dev/ttyACM0`
 it should give back 3 strings,
 - Bazecor Version:
 - `v0.2.4`
-- Kaleidoscope`s newest Git commit incorporated
+- Kaleidoscope's newest Git commit incorporated
 - `6bd1f81e`
 - Raise's Firmware newest Git commit
 - `fe423ce-dirty`
@@ -217,9 +217,9 @@ To set:
 - JavaScript: `focus.command("keymap.defaultLayer 1")`
 - Serial Command (Unix): `echo 'keymap.defaultLayer 1' > /dev/ttyACM0`
 #### Expected output
-It should return the current default layer stored in the EEPROM, if it`s send with the new default layer, it should return a nextline, period.
+It should return the current default layer stored in the EEPROM, if it's send with the new default layer, it should return a nextline, period.
 ### settings.valid?
-This command returns a boolean value that states true if all checks have been performed to the current settings and it`s upload was done in the intended way
+This command returns a boolean value that states true if all checks have been performed to the current settings and it's upload was done in the intended way
 #### Commands
 To retrieve:
 - JavaScript: `focus.command("settings.valid")`
@@ -267,7 +267,7 @@ To retrieve:
 #### Expected output
 It should return the free EEPROM memory, 2793 bytes in my case.
 ### led.at
-This command returns the color that an individual led has right now in RGB code, also allows you to change that individual led`s color with the rgb color following it`s position.
+This command returns the color that an individual led has right now in RGB code, also allows you to change that individual led\'s color with the rgb color following it\'s position.
 #### Commands
 To retrieve:
 - JavaScript: `focus.command("led.at 21")`
@@ -297,7 +297,7 @@ To set:
 - JavaScript: `focus.command("led.mode 2")`
 - Serial Command (Unix): `echo 'led.mode 2' > /dev/ttyACM0`
 #### Expected output
-The keyboard will change it`s effect or send the code of the current effect being shown.
+The keyboard will change it's effect or send the code of the current effect being shown.
 ### led.brightness
 This command reads/writes the brightness setting stored in the EEPROM
 #### Commands
@@ -309,7 +309,7 @@ To set:
 - JavaScript: `focus.command("led.brightness 210")`
 - Serial Command (Unix): `echo 'led.brightness 210' > /dev/ttyACM0`
 #### Expected output
-With this function you can change, based on external events, the overall led brightness using code outside raise's firmware.
+With this function you can change, based on external events, the overall led brightness using code outside raise\'s firmware.
 ### led.theme
 This command reads/writes the whole LED color assignment currently in use by using RGB codes.
 #### Commands
@@ -321,7 +321,7 @@ To set:
 - JavaScript: `focus.command("led.theme NNN NNN NNN NNN NNN NNN")`
 - Serial Command (Unix): `echo 'led.theme NNN NNN NNN NNN NNN NNN' > /dev/ttyACM0`
 #### Expected output
-With this function you can change, based on external events, the overall led colors using code outside raise's firmware independently of the current palette stored in the keyboard.
+With this function you can change, based on external events, the overall led colors using code outside raise\'s firmware independently of the current palette stored in the keyboard.
 ### palette
 This command reads/writes the color palette that is used by the color map to establish each color that can be assigned to the keyboard.
 #### Commands
@@ -335,7 +335,7 @@ To set:
 #### Expected output
 This command reads / writes the palette stored in the eeprom, this means the command can change the lighting theme without changing the actual positions on which each color is assigned, you have to provide the whole palette when storing it.
 ### colormap.map
-This command reads/writes the colorMap that assigns each color listed in the palette to individual leds mapping them to the keyboard`s current layout.
+This command reads/writes the colorMap that assigns each color listed in the palette to individual leds mapping them to the keyboard's current layout.
 
 To know the actual correlation between the position of the map sent and the actual keys in the keyboard, [look here](https://github.com/Dygmalab/Raise-Firmware/blob/master/FOCUS_API.MD) 
 #### Commands
@@ -361,16 +361,27 @@ To set:
 #### Expected output
 returns the current time stored in the EEPROM and allows you to set it to another time, not exceding 65k seconds
 ### hardware.version
+This empty command has no support as of today, or is disabled / not working properly.
 ### hardware.side_power
+This empty command has no support as of today, or is disabled / not working properly.
 ### hardware.side_ver
+This empty command has no support as of today, or is disabled / not working properly.
 ### hardware.sled_ver
+This empty command has no support as of today, or is disabled / not working properly.
 ### hardware.sled_current
+This empty command has no support as of today, or is disabled / not working properly.
 ### hardware.layout
+This empty command has no support as of today, or is disabled / not working properly.
 ### hardware.joint
+This empty command has no support as of today, or is disabled / not working properly.
 ### hardware.keyscan
+This empty command has no support as of today, or is disabled / not working properly.
 ### hardware.crc_errors
+This empty command has no support as of today, or is disabled / not working properly.
 ### hardware.firmware
+This empty command has no support as of today, or is disabled / not working properly.
 ### tapdance.map
+This empty command has no support as of today, or is disabled / not working properly.
 ### macros.map
 This command reads/writes the macros map (2048 bytes of max lenght), each action in a macro is composed of an action type and a key attached to it.
 - action 2 is delay
@@ -414,9 +425,12 @@ Serial Command (Unix): `echo 'help' > /dev/ttyACM0`
 #### Expected output
 The output of this command is a list of all available commands including itself, this list will be ended with a nextline, period trail.
 ### layer.activate
+This empty command has no support as of today, or is disabled / not working properly.
 ### layer.deactivate
+This empty command has no support as of today, or is disabled / not working properly.
 ### layer.isActive
+This empty command has no support as of today, or is disabled / not working properly.
 ### layer.moveTo
+This empty command has no support as of today, or is disabled / not working properly.
 ### layer.state
-
-The empty commands have no support as of today, or are disabled / not working properly.
+This empty command has no support as of today, or is disabled / not working properly.

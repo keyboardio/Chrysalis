@@ -85,6 +85,9 @@ export default class FlashRaise {
    */
   async backupSettings() {
     let focus = new Focus();
+
+    let supportedCommands = await focus.command("help");
+
     const commands = [
       "hardware.keyscan",
       "led.mode",
@@ -103,6 +106,12 @@ export default class FlashRaise {
       const errorMessage =
         "Firmware update failed, because the settings could not be saved";
       for (let command of commands) {
+        // Ignore the command if it's not supported
+        if (supportedCommands.indexOf(command) == -1) {
+          this.backupFileData.log.push("Unsupported command " + command);
+          continue;
+        }
+
         let res = await focus.command(command);
         this.backupFileData.backup[command] =
           typeof res === "string" ? res.trim() : res;

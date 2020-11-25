@@ -16,7 +16,6 @@
  */
 
 import React from "react";
-import { spawn } from "child_process";
 import settings from "electron-settings";
 
 import Focus from "../api/focus";
@@ -161,10 +160,6 @@ class App extends React.Component {
 
     console.log("Connecting to", port.path);
     await focus.open(port.path, port.device);
-    if (process.platform == "darwin") {
-      await spawn("stty", ["-f", port.path, "clocal"]);
-    }
-
     if (focus.device.bootloader) {
       this.setState({
         connected: true,
@@ -176,21 +171,15 @@ class App extends React.Component {
     }
 
     console.log("Probing for Focus support...");
-    let commands;
-    try {
-      commands = await focus.probe();
-    } catch (e) {
-      commands = [];
-    }
 
     focus.setLayerSize(focus.device);
     const pages = {
       keymap:
-        commands.includes("keymap.custom") > 0 ||
-        commands.includes("keymap.map") > 0,
+        focus.isCommandSupported("keymap.custom") ||
+        focus.isCommandSupported("keymap.map"),
       colormap:
-        commands.includes("colormap.map") > 0 &&
-        commands.includes("palette") > 0
+        focus.isCommandSupported("colormap.map") &&
+        focus.isCommandSupported("palette")
     };
 
     this.setState({
@@ -199,7 +188,7 @@ class App extends React.Component {
       pages: pages
     });
     await navigate(pages.keymap ? "/editor" : "/welcome");
-    return commands;
+    return [];
   };
 
   onKeyboardDisconnect = async () => {

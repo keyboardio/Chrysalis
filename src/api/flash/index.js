@@ -97,7 +97,10 @@ export default class FlashRaise {
       "led.theme",
       "palette",
       "colormap.map",
-      "macros.map"
+      "macros.map",
+      "settings.defaultLayer",
+      "led.brightness",
+      "idleleds.time_limit"
     ];
     this.backupFileName = `Raise-backup-${this.formatedDate()}.json`;
 
@@ -296,16 +299,14 @@ export default class FlashRaise {
         .then(async () => {
           const commands = Object.keys(this.backupFileData.backup);
           for (let command of commands) {
-            await focus
-              .request(
-                command,
-                command === "keymap.onlyCustom"
-                  ? +this.backupFileData.backup[command]
-                  : this.backupFileData.backup[command]
-              )
-              .then(() => {
-                console.log(`${command} set to keyboard`);
-              });
+            let val = this.backupFileData.backup[command];
+            // Boolean values need to be sent as int
+            if (typeof val === "boolean") {
+              val = +val;
+            }
+            await focus.request(command, val).then(() => {
+              console.log(`${command} set to keyboard`);
+            });
           }
         })
         .catch(e => {

@@ -62,7 +62,7 @@ class MacroTabSpecial extends Component {
             });
           }}
         >
-          {this.keymapDB.allCodes.slice(13, 15).map(group => {
+          {this.keymapDB.allCodes.slice(11, 15).map(group => {
             return group.keys.map((item, id) => {
               if (
                 group.groupName === "Macros" &&

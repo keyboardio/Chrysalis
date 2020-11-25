@@ -497,7 +497,7 @@ class FirmwareUpdate extends React.Component {
         <CustomDialog
           title={i18n.firmwareUpdate.raise.reset}
           open={this.state.confirmationOpen}
-          buttonText={buttonText[countdown]}
+          buttonText={countdown > -1 ? buttonText[countdown] : buttonText[""]}
           handleClose={this.cancelDialog}
           upload={this.upload}
           countdown={countdown}

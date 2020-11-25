@@ -18,6 +18,7 @@
 import SerialPort from "serialport";
 import Delimiter from "@serialport/parser-delimiter";
 import fs from "fs";
+import { spawn } from "child_process";
 
 global.focus_instance = null;
 
@@ -87,6 +88,7 @@ class Focus {
     this.parser = this._port.pipe(new Delimiter({ delimiter: "\r\n" }));
     this.result = "";
     this.callbacks = [];
+    this.supportedCommands = [];
     this.parser.on("data", data => {
       data = data.toString("utf-8");
       this.debugLog("focus: incoming data:", data);
@@ -108,6 +110,19 @@ class Focus {
       }
     });
 
+    if (process.platform == "darwin") {
+      await spawn("stty", ["-f", this._port.path, "clocal"]);
+    }
+
+    // It's not necessary to retreive the supported commands in bootloader mode
+    if (!this.device.bootloader) {
+      try {
+        this.supportedCommands = await this.command("help");
+      } catch (e) {
+        // Ignore
+      }
+    }
+
     return this._port;
   }
 
@@ -117,6 +132,7 @@ class Focus {
     }
     this._port = null;
     this.device = null;
+    this.supportedCommands = [];
   }
 
   async isDeviceAccessible(port) {
@@ -144,8 +160,8 @@ class Focus {
     return supported;
   }
 
-  async probe() {
-    return await this.request("help");
+  isCommandSupported(cmd) {
+    return this.supportedCommands.indexOf(cmd) != -1;
   }
 
   async _write_parts(parts, cb) {

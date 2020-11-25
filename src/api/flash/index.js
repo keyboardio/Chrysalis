@@ -137,9 +137,10 @@ export default class FlashRaise {
    */
   saveBackupFile() {
     const route = path.join(
-      require("electron").remote.app.getPath("userData"),
+      require("electron").remote.app.getAppPath(),
       this.backupFileName + ".json"
     );
+    console.log("saving file to: " + route);
     fs.writeFile(route, JSON.stringify(this.backupFileData), err => {
       if (err) throw err;
       this.backupFileData.log.push("Backup file is created successfully");
@@ -158,7 +159,7 @@ export default class FlashRaise {
     let timeouts = {
       dtrToggle: 500, // Time to wait (ms) between toggling DTR
       waitingClose: 2750, // Time to wait for boot loader
-      bootLoaderUp: process.platform === "darwin" ? 4000 : 2500 // Time to wait for the boot loader to come up
+      bootLoaderUp: process.platform === "darwin" ? 4250 : 2500 // Time to wait for the boot loader to come up
     };
     return new Promise((resolve, reject) => {
       port.update({ baudRate: 1200 }, async () => {

@@ -92,7 +92,11 @@ class CustomDialog extends React.Component {
         <DialogContent>{this.props.children}</DialogContent>
         {this.props.countdown !== null && (
           <DialogActions>
-            <Countdown>{this.props.countdown}</Countdown>
+            {this.props.countdown < 0 ? (
+              <React.Fragment />
+            ) : (
+              <Countdown>{this.props.countdown}</Countdown>
+            )}
             <Countbutton
               onClick={this.props.countdown !== 0 ? this.props.upload : null}
               variant="contained"

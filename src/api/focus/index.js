@@ -198,7 +198,13 @@ class Focus {
     if (args && args.length > 0) {
       request = request + " " + args.join(" ");
     }
+
     request += "\n";
+
+    // Workaround: Even data lengths can sometimes cause the data to be cut off
+    if (request.length % 2 == 0) {
+      request += " ";
+    }
 
     if (process.platform == "darwin") {
       let parts = request.split(" ");

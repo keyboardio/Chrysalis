@@ -3,7 +3,6 @@ node_js:
   - 12
 os:
   - linux
-  - osx
   - windows
 # This (filter_secrets) is generally unsafe, but we only run builds for master,
 # so it is acceptable. If we remove the branch restriction, remove this too.
@@ -11,6 +10,9 @@ os:
 # remove this too.
 filter_secrets: false
 matrix:
+  include:
+  - os: osx
+    osx_image: xcode11.3
   allow_failures:
     - os: windows
 env:

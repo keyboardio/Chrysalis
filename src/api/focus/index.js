@@ -198,29 +198,19 @@ class Focus {
     if (args && args.length > 0) {
       request = request + " " + args.join(" ");
     }
-
     request += "\n";
 
-    // Workaround: Even data lengths can sometimes cause the data to be cut off
-    if (request.length % 2 == 0) {
-      request += " ";
+    // Workaround only applies to non darwin O.S.
+    if (process.platform !== "darwin") {
+      // Workaround: Even data lengths can sometimes cause the data to be cut off
+      if (request.length % 2 == 0) {
+        request += " ";
+      }
     }
-
-    if (process.platform == "darwin") {
-      let parts = request.split(" ");
-      return new Promise(resolve => {
-        setTimeout(async () => {
-          await this._port.flush();
-          this.callbacks.push(resolve);
-          await this._write_parts(parts, () => {});
-        }, 500);
-      });
-    } else {
-      return new Promise(resolve => {
-        this.callbacks.push(resolve);
-        this._port.write(request);
-      });
-    }
+    return new Promise(resolve => {
+      this.callbacks.push(resolve);
+      this._port.write(request);
+    });
   }
 
   async command(cmd, ...args) {

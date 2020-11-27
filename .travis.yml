@@ -24,6 +24,8 @@ addons:
     packages:
       - libudev-dev
 cache: yarn
+before_install:
+  - if [ "$TRAVIS_OS_NAME" = "windows" ] || [ "$TRAVIS_OS_NAME" = "linux" ]; then unset CSC_KEY_PASSWORD CSC_LINK; fi
 install:
   - yarn install --network-timeout 1000000
 script:

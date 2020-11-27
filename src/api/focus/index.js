@@ -200,13 +200,6 @@ class Focus {
     }
     request += "\n";
 
-    // Workaround only applies to non darwin O.S.
-    if (process.platform !== "darwin") {
-      // Workaround: Even data lengths can sometimes cause the data to be cut off
-      if (request.length % 2 == 0) {
-        request += " ";
-      }
-    }
     return new Promise(resolve => {
       this.callbacks.push(resolve);
       this._port.write(request);

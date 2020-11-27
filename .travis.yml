@@ -11,6 +11,9 @@ os:
 # remove this too.
 filter_secrets: false
 matrix:
+  include:
+  - os: osx
+    osx_image: xcode11.3
   allow_failures:
     - os: windows
 env:

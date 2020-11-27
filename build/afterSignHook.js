@@ -12,8 +12,7 @@ module.exports = async function(params) {
   console.log("afterSign hook triggered", params);
 
   // Same appId in electron-builder.
-  let appId =
-    "<Change this to your appId ad defined in your electron-builder config>";
+  let appId = "com.dygmalab.bazecor";
 
   let appPath = path.join(
     params.appOutDir,

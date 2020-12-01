@@ -21,6 +21,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import Switch from "@material-ui/core/Switch";
 import { withStyles } from "@material-ui/core/styles";
 
 import { NewKeymapDB } from "../../../../api/keymap";
@@ -70,6 +71,40 @@ class ModifierKeyboard104 extends React.Component {
             />
           }
         />
+        <FormControlLabel
+          label="Control"
+          control={
+            <Checkbox
+              checked={db.isInCategory(currentKeyCode, "control") || false}
+              name="control"
+              onChange={this.onModChange}
+            />
+          }
+        />
+
+        <FormControlLabel
+          label="Alt"
+          control={
+            <Checkbox
+              checked={db.isInCategory(currentKeyCode, "alt") || false}
+              name="alt"
+              onChange={this.onModChange}
+            />
+          }
+        />
+
+        <FormControlLabel
+          label="AltGr"
+          control={
+            <Checkbox
+              checked={db.isInCategory(currentKeyCode, "altgr") || false}
+              name="altgr"
+              onChange={this.onModChange}
+            />
+          }
+        />
+
+        <FormControlLabel label="DualUse" control={<Switch name="dualuse" />} />
       </Paper>
     );
 

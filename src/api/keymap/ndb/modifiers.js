@@ -14,45 +14,21 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
-single:
-- ctrl: 256
-- alt: 512
-- altgr: 1024
-- shift: 2048
-- gui: 4096
+const modMap = {
+  ctrl: 1 << 8,
+  alt: 1 << 9,
+  altgr: 1 << 10,
+  shift: 1 << 11,
+  gui: 1 << 1
+};
 
-double:
-- ctrl+alt: 768
-- ctrl+altgr: 1280
-- ctrl+shift: 2304
-- ctrl+gui: 4352
-- alt+altgr: 1536
-- alt+shift: 2560
-- alt+gui: 4608
-- altgr+shift: 3072
-- altgr+gui: 5120
+const addModifier = (keyCode, mod) => {
+  return keyCode + modMap[mod];
+};
 
-triple:
-- ctrl+alt+altgr: 1792
-- ctrl+alt+shift (meh): 2816
-- ctrl+alt+gui: 4864
-- ctrl+altgr+shift: 3328
-- ctrl+altgr+gui: 5376
-- ctrl+shift+gui: 6400
-- alt+altgr+shift: 3584
-- alt+altgr+gui: 5632
-- alt+shift+gui: 6656
-- altgr+shift+gui: 7168
-
-quad:
-- ctrl+alt+shift+altgr (meh+altgr): 3840
-- ctrl+alt+altgr+gui: 5888
-- alt+altgr+shift+gui: 7680
-
-all:
-- hyper+altgr: 7936
- */
+const removeModifier = (keyCode, mod) => {
+  return keyCode - modMap[mod];
+};
 
 const withModifiers = keys => {
   let newKeys = [];
@@ -60,16 +36,30 @@ const withModifiers = keys => {
   const mods = [
     {
       categories: ["ctrl"],
-      offset: 256,
+      offset: modMap.ctrl,
       label: key => {
         return "C+" + key.label.base;
       }
     },
     {
       categories: ["shift"],
-      offset: 2048,
+      offset: modMap.shift,
       label: key => {
         return key.label.shifted || "S+" + key.label.base;
+      }
+    },
+    {
+      categories: ["alt"],
+      offset: modMap.alt,
+      label: key => {
+        return "A+" + key.label.base;
+      }
+    },
+    {
+      categories: ["altgr"],
+      offset: modMap.altgr,
+      label: key => {
+        return key.label.altgr || "AGr+" + key.label.base;
       }
     }
   ];
@@ -93,4 +83,4 @@ const withModifiers = keys => {
   return newKeys;
 };
 
-export default withModifiers;
+export { addModifier, removeModifier, withModifiers };

@@ -14,7 +14,7 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import withModifiers from "../withModifiers";
+import { withModifiers } from "../modifiers";
 
 const keyCodeTable = [
   {

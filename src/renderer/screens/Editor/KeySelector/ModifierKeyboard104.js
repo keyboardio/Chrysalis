@@ -25,6 +25,10 @@ import Switch from "@material-ui/core/Switch";
 import { withStyles } from "@material-ui/core/styles";
 
 import { NewKeymapDB } from "../../../../api/keymap";
+import {
+  addModifier,
+  removeModifier
+} from "../../../../api/keymap/ndb/modifiers";
 const db = new NewKeymapDB();
 
 import Keyboard104 from "./keyboard104";
@@ -38,16 +42,25 @@ const styles = theme => ({
 class ModifierKeyboard104 extends React.Component {
   onKeySelect = keyCode => {
     const { currentKeyCode } = this.props;
-    const diff = currentKeyCode - db.lookup(currentKeyCode).baseCode;
+    const baseCode = db.lookup(currentKeyCode).baseCode;
+    let diff = 0;
+    if (baseCode) {
+      diff = currentKeyCode - baseCode;
+    }
 
     this.props.onKeySelect(diff + parseInt(keyCode));
   };
 
   onModChange = event => {
+    const kc = this.props.currentKeyCode;
+    const mod = event.target.name;
+
     if (event.target.checked) {
-      this.props.onKeySelect(this.props.currentKeyCode + 2048);
+      console.log(kc, addModifier(kc, mod));
+      this.props.onKeySelect(addModifier(kc, mod));
     } else {
-      this.props.onKeySelect(this.props.currentKeyCode - 2048);
+      console.log(kc, removeModifier(kc, mod));
+      this.props.onKeySelect(removeModifier(kc, mod));
     }
   };
 
@@ -75,8 +88,8 @@ class ModifierKeyboard104 extends React.Component {
           label="Control"
           control={
             <Checkbox
-              checked={db.isInCategory(currentKeyCode, "control") || false}
-              name="control"
+              checked={db.isInCategory(currentKeyCode, "ctrl") || false}
+              name="ctrl"
               onChange={this.onModChange}
             />
           }

@@ -34,6 +34,7 @@ const withModifiers = keys => {
   let newKeys = [];
 
   const mods = [
+    // Single mods
     {
       categories: ["ctrl"],
       offset: modMap.ctrl,
@@ -60,6 +61,190 @@ const withModifiers = keys => {
       offset: modMap.altgr,
       label: key => {
         return key.label.altgr || "AGr+" + key.label.base;
+      }
+    },
+
+    // Two mods
+    {
+      categories: ["ctrl", "shift"],
+      offset: modMap.ctrl + modMap.shift,
+      label: key => {
+        return "C+S+" + key.label.base;
+      }
+    },
+    {
+      categories: ["ctrl", "alt"],
+      offset: modMap.ctrl + modMap.alt,
+      label: key => {
+        return "C+A+" + key.label.base;
+      }
+    },
+    {
+      categories: ["ctrl", "altgr"],
+      offset: modMap.ctrl + modMap.altgr,
+      label: key => {
+        return "C+AGr+" + key.label.base;
+      }
+    },
+    {
+      categories: ["ctrl", "gui"],
+      offset: modMap.ctrl + modMap.gui,
+      label: key => {
+        return "C+G+" + key.label.base;
+      }
+    },
+    {
+      categories: ["shift", "alt"],
+      offset: modMap.shift + modMap.alt,
+      label: key => {
+        return "S+A+" + key.label.base;
+      }
+    },
+    {
+      categories: ["shift", "altgr"],
+      offset: modMap.shift + modMap.altgr,
+      label: key => {
+        return "S+AGr+" + key.label.base;
+      }
+    },
+    {
+      categories: ["shift", "gui"],
+      offset: modMap.shift + modMap.gui,
+      label: key => {
+        return "S+G+" + key.label.base;
+      }
+    },
+    {
+      categories: ["alt", "altgr"],
+      offset: modMap.alt + modMap.altgr,
+      label: key => {
+        return "A+AGr+" + key.label.base;
+      }
+    },
+    {
+      categories: ["alt", "gui"],
+      offset: modMap.alt + modMap.gui,
+      label: key => {
+        return "A+G+" + key.label.base;
+      }
+    },
+    {
+      categories: ["altgr", "gui"],
+      offset: modMap.altgr + modMap.gui,
+      label: key => {
+        return "AGr+G+" + key.label.base;
+      }
+    },
+
+    // Three mods
+    {
+      categories: ["ctrl", "shift", "alt"],
+      offset: modMap.ctrl + modMap.shift + modMap.alt,
+      label: key => {
+        return "C+S+A+" + key.label.base;
+      }
+    },
+    {
+      categories: ["ctrl", "shift", "altgr"],
+      offset: modMap.ctrl + modMap.shift + modMap.altgr,
+      label: key => {
+        return "C+S+AGr+" + key.label.base;
+      }
+    },
+    {
+      categories: ["ctrl", "shift", "gui"],
+      offset: modMap.ctrl + modMap.shift + modMap.gui,
+      label: key => {
+        return "C+S+G+" + key.label.base;
+      }
+    },
+    {
+      categories: ["ctrl", "alt", "altgr"],
+      offset: modMap.ctrl + modMap.alt + modMap.altgr,
+      label: key => {
+        return "C+A+AGr+" + key.label.base;
+      }
+    },
+    {
+      categories: ["ctrl", "alt", "gui"],
+      offset: modMap.ctrl + modMap.alt + modMap.gui,
+      label: key => {
+        return "C+A+G+" + key.label.base;
+      }
+    },
+    {
+      categories: ["ctrl", "altgr", "gui"],
+      offset: modMap.ctrl + modMap.altgr + modMap.gui,
+      label: key => {
+        return "C+AGr+G+" + key.label.base;
+      }
+    },
+    {
+      categories: ["shift", "alt", "altgr"],
+      offset: modMap.shift + modMap.alt + modMap.altgr,
+      label: key => {
+        return "S+A+AGr+" + key.label.base;
+      }
+    },
+    {
+      categories: ["shift", "alt", "gui"],
+      offset: modMap.shift + modMap.alt + modMap.gui,
+      label: key => {
+        return "S+A+G+" + key.label.base;
+      }
+    },
+    {
+      categories: ["shift", "altgr", "gui"],
+      offset: modMap.shift + modMap.altgr + modMap.gui,
+      label: key => {
+        return "S+AGr+G+" + key.label.base;
+      }
+    },
+    {
+      categories: ["alt", "altgr", "gui"],
+      offset: modMap.shift + modMap.altgr + modMap.gui,
+      label: key => {
+        return "A+AGr+G+" + key.label.base;
+      }
+    },
+
+    // 4 mods
+    {
+      categories: ["ctrl", "shift", "alt", "altgr"],
+      offset: modMap.ctrl + modMap.shift + modMap.alt + modMap.altgr,
+      label: key => {
+        return "C+S+A+AGr+" + key.label.base;
+      }
+    },
+    {
+      categories: ["ctrl", "shift", "alt", "gui"],
+      offset: modMap.ctrl + modMap.shift + modMap.alt + modMap.gui,
+      label: key => {
+        return "C+S+A+G+" + key.label.base;
+      }
+    },
+    {
+      categories: ["ctrl", "alt", "altgr", "gui"],
+      offset: modMap.ctrl + modMap.alt + modMap.altgr + modMap.gui,
+      label: key => {
+        return "C+A+AGr+G+" + key.label.base;
+      }
+    },
+    {
+      categories: ["shift", "alt", "altgr", "gui"],
+      offset: modMap.shift + modMap.alt + modMap.altgr + modMap.gui,
+      label: key => {
+        return "S+A+AGr+G+" + key.label.base;
+      }
+    },
+
+    // All mods
+    {
+      categories: ["ctrl", "shift", "alt", "altgr", "gui"],
+      offset:
+        modMap.ctrl + modMap.shift + modMap.alt + modMap.altgr + modMap.gui,
+      label: key => {
+        return "C+S+A+AGr+G+" + key.label.base;
       }
     }
   ];

@@ -367,4 +367,4 @@ const USQwerty = {
   codetable: withModifiers(keyCodeTable)
 };
 
-export { USQwerty };
+export { USQwerty, keyCodeTable as baseCodeTable };

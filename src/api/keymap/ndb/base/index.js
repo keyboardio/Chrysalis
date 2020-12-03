@@ -31,6 +31,7 @@ import { ledkeys } from "./ledkeys";
 import { spacecadet } from "./spacecadet";
 import { oneshot } from "./oneshot";
 import { layers } from "./layers";
+import { dualuse } from "./dualuse";
 
 const layout = [
   [
@@ -130,6 +131,7 @@ const keyCodeTable = []
   .concat(ledkeys)
   .concat(spacecadet)
   .concat(oneshot)
+  .concat(dualuse)
   .concat(layers);
 
 const Base = {

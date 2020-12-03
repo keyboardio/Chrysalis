@@ -24,8 +24,8 @@ const tapdance = index => ({
   categories: ["tapdance"]
 });
 
-const tapdancess = Array(16)
+const tapdances = Array(16)
   .fill()
-  .map((_, index) => leader(index));
+  .map((_, index) => tapdance(index));
 
 export { tapdances };

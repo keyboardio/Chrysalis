@@ -27,6 +27,7 @@ import { macros } from "./macros";
 import { leaders } from "./leader";
 import { tapdances } from "./tapdance";
 import { stenokeys } from "./steno";
+import { ledkeys } from "./ledkeys";
 import { layers } from "./layers";
 
 const layout = [
@@ -124,6 +125,7 @@ const keyCodeTable = []
   .concat(leaders)
   .concat(tapdances)
   .concat(stenokeys)
+  .concat(ledkeys)
   .concat(layers);
 
 const Base = {

@@ -19,6 +19,7 @@ import addCategories from "../addCategories";
 const mousekeys = addCategories(
   ["mousekeys"],
   [
+    // Mouse movement
     {
       code: 20481,
       label: {
@@ -30,21 +31,125 @@ const mousekeys = addCategories(
       code: 20482,
       label: {
         hint: "Mouse",
-        primary: "Down"
+        base: "Down"
       }
     },
     {
       code: 20484,
       label: {
         hint: "Mouse",
-        primary: "Left"
+        base: "Left"
       }
     },
     {
       code: 20488,
       label: {
         hint: "Mouse",
-        primary: "Right"
+        base: "Right"
+      }
+    },
+
+    // Mouse wheel
+    {
+      code: 20497,
+      label: {
+        hint: "Mouse Wheel",
+        base: "Up"
+      }
+    },
+    {
+      code: 20498,
+      label: {
+        hint: "Mouse Wheel",
+        base: "Down"
+      }
+    },
+    {
+      code: 20500,
+      label: {
+        hint: "Mouse Wheel",
+        base: "Left"
+      }
+    },
+    {
+      code: 20504,
+      label: {
+        hint: "Mouse Wheel",
+        base: "Right"
+      }
+    },
+
+    // Mouse buttons
+    {
+      code: 20545,
+      label: {
+        hint: "Mouse Button",
+        base: "Left"
+      }
+    },
+    {
+      code: 20546,
+      label: {
+        hint: "Mouse Button",
+        base: "Right"
+      }
+    },
+    {
+      code: 20548,
+      label: {
+        hint: "Mouse Button",
+        base: "Middle"
+      }
+    },
+    {
+      code: 20552,
+      label: {
+        hint: "Mouse Button",
+        base: "Back"
+      }
+    },
+    {
+      code: 20560,
+      label: {
+        hint: "Mouse Button",
+        base: "Forward"
+      }
+    },
+
+    // Mouse warp
+    {
+      code: 20576,
+      label: {
+        hint: "Mouse Warp",
+        base: "End"
+      }
+    },
+    {
+      code: 20517,
+      label: {
+        hint: "Mouse Warp",
+        base: "North-West"
+      }
+    },
+    {
+      code: 20518,
+      label: {
+        hint: "Mouse Warp",
+        base: "South-West"
+      }
+    },
+    {
+      code: 20521,
+      label: {
+        hint: "Mouse Warp",
+        base: "North-East"
+      }
+    },
+    {
+      code: 20522,
+      label: {
+        hint: "Mouse Warp",
+        base: "South-East"
       }
     }
   ]

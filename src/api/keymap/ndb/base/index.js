@@ -28,6 +28,7 @@ import { leaders } from "./leader";
 import { tapdances } from "./tapdance";
 import { stenokeys } from "./steno";
 import { ledkeys } from "./ledkeys";
+import { spacecadet } from "./spacecadet";
 import { layers } from "./layers";
 
 const layout = [
@@ -126,6 +127,7 @@ const keyCodeTable = []
   .concat(tapdances)
   .concat(stenokeys)
   .concat(ledkeys)
+  .concat(spacecadet)
   .concat(layers);
 
 const Base = {

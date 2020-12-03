@@ -25,6 +25,7 @@ import { consumer } from "./consumer";
 import { mousekeys } from "./mousekeys";
 import { macros } from "./macros";
 import { leaders } from "./leader";
+import { tapdances } from "./tapdance";
 import { layers } from "./layers";
 
 const layout = [
@@ -120,6 +121,7 @@ const keyCodeTable = []
   .concat(mousekeys)
   .concat(macros)
   .concat(leaders)
+  .concat(tapdances)
   .concat(layers);
 
 const Base = {

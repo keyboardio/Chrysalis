@@ -19,7 +19,7 @@ const modMap = {
   alt: 1 << 9,
   altgr: 1 << 10,
   shift: 1 << 11,
-  gui: 1 << 1
+  gui: 1 << 12
 };
 
 const addModifier = (keyCode, mod) => {
@@ -61,6 +61,13 @@ const withModifiers = keys => {
       offset: modMap.altgr,
       label: key => {
         return key.label.altgr || "AGr+" + key.label.base;
+      }
+    },
+    {
+      categories: ["gui"],
+      offset: modMap.gui,
+      label: key => {
+        return "G+" + key.label.base;
       }
     },
 

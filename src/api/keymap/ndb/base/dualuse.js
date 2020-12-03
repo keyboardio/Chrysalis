@@ -29,20 +29,9 @@ const keySet = []
   .concat(numpad)
   .concat(spacing);
 
-/*
-  const layer = (base, hint, type, index) => ({
-  code: base + index,
-  label: {
-  hint: hint,
-  base: "#" + index.toString()
-  },
-  rangeStart: base,
-  categories: ["layer", type]
-  });
-*/
-
 const addDUL = (key, layer) => ({
   code: 51218 + layer * 256 + key.code,
+  baseCode: key.code,
   label: {
     hint: "Layer #" + layer.toString() + "/",
     base: key.label.base
@@ -76,6 +65,7 @@ const duMods = {
 
 const addDUM = (key, mod) => ({
   code: 49169 + duMods[mod].index * 256 + key.code,
+  baseCode: key.code,
   label: {
     hint: duMods[mod].name + "/",
     base: key.label.base

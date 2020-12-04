@@ -73,18 +73,22 @@ class KeySelector extends React.Component {
     tab: 0
   };
 
+  categoryTabs = {
+    consumer: 1,
+    layer: 2,
+    macros: 2,
+    tapdance: 2,
+    dualuse: 3
+  };
+
   UNSAFE_componentWillReceiveProps = nextProps => {
     let newTab = 0;
     const kc = nextProps.currentKeyCode;
 
-    if (db.isInCategory(kc, "consumer")) {
-      newTab = 1;
-    }
-    if (db.isInCategory(kc, "layer") || db.isInCategory(kc, "macros")) {
-      newTab = 2;
-    }
-    if (db.isInCategory(kc, "dualuse")) {
-      newTab = 3;
+    for (const c of Object.keys(this.categoryTabs)) {
+      if (db.isInCategory(kc, c)) {
+        newTab = this.categoryTabs[c];
+      }
     }
 
     this.setState({ tab: newTab });

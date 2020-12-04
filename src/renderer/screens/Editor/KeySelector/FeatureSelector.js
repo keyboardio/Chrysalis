@@ -50,6 +50,12 @@ const FeaturePanel = props => {
 };
 
 class FeatureSelector extends React.Component {
+  tabs = {
+    layer: 0,
+    macros: 1,
+    tapdance: 2
+  };
+
   state = {
     tab: 0
   };
@@ -58,31 +64,24 @@ class FeatureSelector extends React.Component {
     this.setState({ tab: tab });
   };
 
-  UNSAFE_componentWillReceiveProps = nextProps => {
+  tabForKey = key => {
     let newTab = 0;
 
-    if (db.isInCategory(nextProps.currentKeyCode, "layer")) {
-      newTab = 0;
-    }
-    if (db.isInCategory(nextProps.currentKeyCode, "macros")) {
-      newTab = 1;
+    for (const cat of Object.keys(this.tabs)) {
+      if (db.isInCategory(key, cat)) {
+        newTab = this.tabs[cat];
+      }
     }
 
-    this.setState({ tab: newTab });
+    return newTab;
+  };
+
+  UNSAFE_componentWillReceiveProps = nextProps => {
+    this.setState({ tab: this.tabForKey(nextProps.currentKeyCode) });
   };
 
   componentDidMount() {
-    let newTab = 0;
-    const { currentKeyCode } = this.props;
-
-    if (db.isInCategory(currentKeyCode, "layer")) {
-      newTab = 0;
-    }
-    if (db.isInCategory(currentKeyCode, "macros")) {
-      newTab = 1;
-    }
-
-    this.setState({ tab: newTab });
+    this.setState({ tab: this.tabForKey(this.props.currentKeyCode) });
   }
 
   render() {
@@ -99,6 +98,7 @@ class FeatureSelector extends React.Component {
         >
           <Tab label="Layer switch" />
           <Tab label="Macro" />
+          <Tab label="TapDance" />
         </Tabs>
 
         <Divider className={classes.divider} />
@@ -113,6 +113,15 @@ class FeatureSelector extends React.Component {
             category="macros"
             variant="number"
             name="Macro"
+          />
+        </FeaturePanel>
+        <FeaturePanel value={tab} index={2}>
+          <CategorySelector
+            onKeySelect={onKeySelect}
+            currentKeyCode={currentKeyCode}
+            category="tapdance"
+            variant="number"
+            name="TapDance"
           />
         </FeaturePanel>
       </div>

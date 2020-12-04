@@ -56,7 +56,8 @@ class FeatureSelector extends React.Component {
     tapdance: 2,
     leader: 3,
     ledkeys: 4,
-    spacecadet: 5
+    spacecadet: 5,
+    steno: 6
   };
 
   state = {
@@ -105,6 +106,7 @@ class FeatureSelector extends React.Component {
           <Tab label="Leader" />
           <Tab label="LEDs" />
           <Tab label="SpaceCadet" />
+          <Tab label="Steno" />
         </Tabs>
 
         <Divider className={classes.divider} />
@@ -155,6 +157,15 @@ class FeatureSelector extends React.Component {
             category="spacecadet"
             variant="button-grid"
             name="SpaceCadet"
+          />
+        </FeaturePanel>
+        <FeaturePanel value={tab} index={6}>
+          <CategorySelector
+            onKeySelect={onKeySelect}
+            currentKeyCode={currentKeyCode}
+            category="steno"
+            variant="button-grid"
+            name="Steno"
           />
         </FeaturePanel>
       </div>

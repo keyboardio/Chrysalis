@@ -78,6 +78,7 @@ class KeySelector extends React.Component {
     layer: 2,
     macros: 2,
     tapdance: 2,
+    leader: 2,
     dualuse: 3
   };
 

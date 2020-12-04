@@ -17,18 +17,17 @@
 
 import React from "react";
 
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+//import Checkbox from "@material-ui/core/Checkbox";
+import FormControl from "@material-ui/core/FormControl";
 import Grid from "@material-ui/core/Grid";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
 import Paper from "@material-ui/core/Paper";
-import Switch from "@material-ui/core/Switch";
+import Select from "@material-ui/core/Select";
 import { withStyles } from "@material-ui/core/styles";
 
 import { NewKeymapDB } from "../../../../api/keymap";
-import {
-  addModifier,
-  removeModifier
-} from "../../../../api/keymap/ndb/modifiers";
+import { addDUM, addDUL } from "../../../../api/keymap/ndb/base/dualuse";
 const db = new NewKeymapDB();
 
 import Keyboard104 from "./keyboard104";
@@ -53,71 +52,93 @@ class DualUseKeyboard104 extends React.Component {
 
   onModChange = event => {
     const kc = this.props.currentKeyCode;
-    const mod = event.target.name;
+    const mod = event.target.value;
+    const baseKC = db.lookup(kc).baseCode || kc;
+    const baseKey = db.lookup(baseKC);
 
-    if (event.target.checked) {
-      console.log(kc, addModifier(kc, mod));
-      this.props.onKeySelect(addModifier(kc, mod));
-    } else {
-      console.log(kc, removeModifier(kc, mod));
-      this.props.onKeySelect(removeModifier(kc, mod));
+    if (mod == "none") {
+      return this.props.onKeySelect(baseKey);
     }
+
+    this.props.onKeySelect(addDUM(baseKey, mod));
+  };
+
+  onLayerChange = event => {
+    const kc = this.props.currentKeyCode;
+    const layer = event.target.value;
+    const baseKC = db.lookup(kc).baseCode || kc;
+    const baseKey = db.lookup(baseKC);
+
+    if (layer == "none") {
+      return this.props.onKeySelect(baseKey);
+    }
+
+    this.props.onKeySelect(addDUL(baseKey, parseInt(layer)));
   };
 
   render() {
     const { classes, currentKeyCode } = this.props;
 
     let keyCode = currentKeyCode;
-    if (db.isInCategory(keyCode, "with-modifiers")) {
+    let modifier = "none";
+    let layer = "none";
+    if (db.isInCategory(keyCode, "dualuse")) {
       keyCode = db.lookup(keyCode).baseCode;
+      if (db.isInCategory(currentKeyCode, "modifiers")) {
+        if (db.isInCategory(currentKeyCode, "ctrl")) {
+          modifier = "ctrl";
+        } else if (db.isInCategory(currentKeyCode, "shift")) {
+          modifier = "shift";
+        } else if (db.isInCategory(currentKeyCode, "alt")) {
+          modifier = "alt";
+        } else if (db.isInCategory(currentKeyCode, "altgr")) {
+          modifier = "altgr";
+        } else if (db.isInCategory(currentKeyCode, "gui")) {
+          modifier = "gui";
+        }
+      } else {
+        layer =
+          (currentKeyCode - db.lookup(currentKeyCode).rangeStart - keyCode) /
+          256;
+      }
     }
 
-    const mods = (
+    const dualuse = (
       <Paper elevation={0} className={classes.root}>
-        <FormControlLabel
-          label="Shift"
-          control={
-            <Checkbox
-              checked={db.isInCategory(currentKeyCode, "shift") || false}
-              name="shift"
-              onChange={this.onModChange}
-            />
-          }
-        />
-        <FormControlLabel
-          label="Control"
-          control={
-            <Checkbox
-              checked={db.isInCategory(currentKeyCode, "ctrl") || false}
-              name="ctrl"
-              onChange={this.onModChange}
-            />
-          }
-        />
+        <FormControl>
+          <InputLabel id="dualuse-mod">Modifier</InputLabel>
+          <Select
+            labelId="dualuse-mod"
+            value={modifier}
+            onChange={this.onModChange}
+          >
+            <MenuItem value="none">None</MenuItem>
+            <MenuItem value="ctrl">Control</MenuItem>
+            <MenuItem value="shift">Shift</MenuItem>
+            <MenuItem value="alt">Alt</MenuItem>
+            <MenuItem value="altgr">AltGr</MenuItem>
+            <MenuItem value="gui">Gui</MenuItem>
+          </Select>
+        </FormControl>
 
-        <FormControlLabel
-          label="Alt"
-          control={
-            <Checkbox
-              checked={db.isInCategory(currentKeyCode, "alt") || false}
-              name="alt"
-              onChange={this.onModChange}
-            />
-          }
-        />
-
-        <FormControlLabel
-          label="AltGr"
-          control={
-            <Checkbox
-              checked={db.isInCategory(currentKeyCode, "altgr") || false}
-              name="altgr"
-              onChange={this.onModChange}
-            />
-          }
-        />
-
-        <FormControlLabel label="DualUse" control={<Switch name="dualuse" />} />
+        <FormControl>
+          <InputLabel id="dualuse-layer">Layer</InputLabel>
+          <Select
+            labelId="dualuse-layer"
+            value={layer}
+            onChange={this.onLayerChange}
+          >
+            <MenuItem value="none">None</MenuItem>
+            <MenuItem value={0}>0</MenuItem>
+            <MenuItem value={1}>1</MenuItem>
+            <MenuItem value={2}>2</MenuItem>
+            <MenuItem value={3}>3</MenuItem>
+            <MenuItem value={4}>4</MenuItem>
+            <MenuItem value={5}>5</MenuItem>
+            <MenuItem value={6}>6</MenuItem>
+            <MenuItem value={7}>7</MenuItem>
+          </Select>
+        </FormControl>
       </Paper>
     );
 
@@ -131,7 +152,7 @@ class DualUseKeyboard104 extends React.Component {
           />
         </Grid>
         <Grid item xs={1}>
-          {mods}
+          {dualuse}
         </Grid>
       </Grid>
     );

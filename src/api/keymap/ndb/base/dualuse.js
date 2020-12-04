@@ -71,7 +71,7 @@ const addDUM = (key, mod) => ({
     base: key.label.base
   },
   rangeStart: 49169,
-  categories: ["dualuse", "modifiers"]
+  categories: ["dualuse", "modifiers", mod]
 });
 
 const dul = () => {
@@ -105,4 +105,4 @@ const dualuse = []
   .concat(dum("gui"))
   .concat(dum("altgr"));
 
-export { dualuse };
+export { dualuse, addDUM, addDUL };

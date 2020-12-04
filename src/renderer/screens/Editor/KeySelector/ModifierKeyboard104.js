@@ -55,10 +55,8 @@ class ModifierKeyboard104 extends React.Component {
     const mod = event.target.name;
 
     if (event.target.checked) {
-      console.log(kc, addModifier(kc, mod));
       this.props.onKeySelect(addModifier(kc, mod));
     } else {
-      console.log(kc, removeModifier(kc, mod));
       this.props.onKeySelect(removeModifier(kc, mod));
     }
   };

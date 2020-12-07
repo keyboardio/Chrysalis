@@ -49,6 +49,15 @@ class KeymapDB {
     for (const layout of Object.entries(this._layouts)) {
       layouts.push(layout[0]);
     }
+    layouts.sort((a, b) => {
+      const n1 = a.toUpperCase();
+      const n2 = b.toUpperCase();
+
+      if (n1 < n2) return -1;
+      if (n1 > n2) return 1;
+
+      return 0;
+    });
     return layouts;
   }
 

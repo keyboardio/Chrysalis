@@ -26,6 +26,7 @@ import Keyboard104 from "./KeySelector/ModifierKeyboard104";
 import DualUseKeyboard104 from "./KeySelector/DualUseKeyboard104";
 import FeatureSelector from "./KeySelector/FeatureSelector";
 import CategorySelector from "./KeySelector/CategorySelector";
+import KeycodeSelector from "./KeySelector/KeycodeSelector";
 
 import { NewKeymapDB } from "../../../api/keymap";
 
@@ -83,7 +84,8 @@ class KeySelector extends React.Component {
     spacecadet: 2,
     steno: 2,
     oneshot: 2,
-    dualuse: 3
+    dualuse: 3,
+    unknown: 4
   };
 
   UNSAFE_componentWillReceiveProps = nextProps => {
@@ -157,6 +159,12 @@ class KeySelector extends React.Component {
             currentKeyCode={currentKeyCode}
             keymap={keymap}
             currentLayout={currentLayout}
+          />
+        </TabPanel>
+        <TabPanel value={tab} index={4} className={classes.tabpanel}>
+          <KeycodeSelector
+            onKeySelect={onKeySelect}
+            currentKeyCode={currentKeyCode}
           />
         </TabPanel>
       </Paper>

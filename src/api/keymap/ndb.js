@@ -127,7 +127,7 @@ class KeymapDB {
   isInCategory(keyCode, category) {
     if (keyCode < 0) return false;
 
-    const key = this._codetable[keyCode];
+    const key = this.lookup(keyCode);
 
     return key && key.categories && key.categories.includes(category);
   }

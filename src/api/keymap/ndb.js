@@ -119,7 +119,8 @@ class KeymapDB {
       code: keyCode || 0,
       label: {
         base: "#" + (keyCode || 0).toString()
-      }
+      },
+      categories: ["unknown"]
     };
   }
 

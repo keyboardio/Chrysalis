@@ -45,6 +45,10 @@ import checkExternalFlasher from "../../utils/checkExternalFlasher";
 
 import settings from "electron-settings";
 
+import { NewKeymapDB } from "../../../api/keymap";
+
+const db = new NewKeymapDB();
+
 const styles = theme => ({
   title: {
     marginTop: theme.spacing.unit * 4,
@@ -121,6 +125,10 @@ class KeyboardSettings extends React.Component {
       limit = limit ? parseInt(limit) : -1;
       this.setState({ ledIdleTimeLimit: limit });
     });
+
+    this.setState({
+      currentLayout: settings.get("keyboard.layout", "English (US)")
+    });
   }
 
   UNSAFE_componentWillReceiveProps = nextProps => {
@@ -169,8 +177,8 @@ class KeyboardSettings extends React.Component {
 
   setLayout = event => {
     const layout = event.target.value || this.state.currentLayout;
-    const ndb = global.chrysalis_keymapdb_instance;
-    ndb.setLayout(layout);
+    db.setLayout(layout);
+    settings.set("keyboard.layout", layout);
     this.setState({ currentLayout: layout });
   };
 
@@ -185,8 +193,7 @@ class KeyboardSettings extends React.Component {
       currentLayout
     } = this.state;
 
-    const ndb = global.chrysalis_keymapdb_instance;
-    const layoutMenu = ndb.getSupportedLayouts().map((layout, index) => {
+    const layoutMenu = db.getSupportedLayouts().map((layout, index) => {
       const menuKey = "layout-menu-" + index.toString();
       return (
         <MenuItem value={layout} key={menuKey}>

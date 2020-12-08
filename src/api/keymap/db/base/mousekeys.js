@@ -53,28 +53,40 @@ const mousekeys = addCategories(
     {
       code: 20497,
       label: {
-        hint: "Mouse Wheel",
+        hint: {
+          full: "Mouse Wheel",
+          "1u": "M.Whl"
+        },
         base: "Up"
       }
     },
     {
       code: 20498,
       label: {
-        hint: "Mouse Wheel",
+        hint: {
+          full: "Mouse Wheel",
+          "1u": "M.Whl"
+        },
         base: "Down"
       }
     },
     {
       code: 20500,
       label: {
-        hint: "Mouse Wheel",
+        hint: {
+          full: "Mouse Wheel",
+          "1u": "M.Whl"
+        },
         base: "Left"
       }
     },
     {
       code: 20504,
       label: {
-        hint: "Mouse Wheel",
+        hint: {
+          full: "Mouse Wheel",
+          "1u": "M.Whl"
+        },
         base: "Right"
       }
     },
@@ -83,35 +95,50 @@ const mousekeys = addCategories(
     {
       code: 20545,
       label: {
-        hint: "Mouse Button",
+        hint: {
+          full: "Mouse Button",
+          "1u": "M.Btn"
+        },
         base: "Left"
       }
     },
     {
       code: 20546,
       label: {
-        hint: "Mouse Button",
+        hint: {
+          full: "Mouse Button",
+          "1u": "M.Btn"
+        },
         base: "Right"
       }
     },
     {
       code: 20548,
       label: {
-        hint: "Mouse Button",
+        hint: {
+          full: "Mouse Button",
+          "1u": "M.Btn"
+        },
         base: "Middle"
       }
     },
     {
       code: 20552,
       label: {
-        hint: "Mouse Button",
+        hint: {
+          full: "Mouse Button",
+          "1u": "M.Btn"
+        },
         base: "Back"
       }
     },
     {
       code: 20560,
       label: {
-        hint: "Mouse Button",
+        hint: {
+          full: "Mouse Button",
+          "1u": "M.Btn"
+        },
         base: "Forward"
       }
     },
@@ -120,36 +147,63 @@ const mousekeys = addCategories(
     {
       code: 20576,
       label: {
-        hint: "Mouse Warp",
+        hint: {
+          full: "Mouse Warp",
+          "1u": "Warp"
+        },
         base: "End"
       }
     },
     {
       code: 20517,
       label: {
-        hint: "Mouse Warp",
-        base: "North-West"
+        hint: {
+          full: "Mouse Warp",
+          "1u": "Warp"
+        },
+        base: {
+          full: "North-West",
+          "1u": "NW"
+        }
       }
     },
     {
       code: 20518,
       label: {
-        hint: "Mouse Warp",
-        base: "South-West"
+        hint: {
+          full: "Mouse Warp",
+          "1u": "Warp"
+        },
+        base: {
+          full: "South-West",
+          "1u": "SW"
+        }
       }
     },
     {
       code: 20521,
       label: {
-        hint: "Mouse Warp",
-        base: "North-East"
+        hint: {
+          full: "Mouse Warp",
+          "1u": "Warp"
+        },
+        base: {
+          full: "North-East",
+          "1u": "NE"
+        }
       }
     },
     {
       code: 20522,
       label: {
-        hint: "Mouse Warp",
-        base: "South-East"
+        hint: {
+          full: "Mouse Warp",
+          "1u": "Warp"
+        },
+        base: {
+          full: "South-East",
+          "1u": "SE"
+        }
       }
     }
   ]

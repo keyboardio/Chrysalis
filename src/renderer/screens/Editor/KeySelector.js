@@ -84,6 +84,7 @@ class KeySelector extends React.Component {
     spacecadet: 2,
     steno: 2,
     oneshot: 2,
+    mousekeys: 2,
     dualuse: 3,
     unknown: 4
   };

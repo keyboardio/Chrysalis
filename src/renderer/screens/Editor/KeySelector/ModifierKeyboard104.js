@@ -23,12 +23,12 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { withStyles } from "@material-ui/core/styles";
 
-import { NewKeymapDB } from "../../../../api/keymap";
+import { KeymapDB } from "../../../../api/keymap";
 import {
   addModifier,
   removeModifier
-} from "../../../../api/keymap/ndb/modifiers";
-const db = new NewKeymapDB();
+} from "../../../../api/keymap/db/modifiers";
+const db = new KeymapDB();
 
 import Keyboard104 from "./keyboard104";
 

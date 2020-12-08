@@ -25,9 +25,8 @@ import { withStyles } from "@material-ui/core/styles";
 import LayerSwitch from "./Features/LayerSwitch";
 import CategorySelector from "./CategorySelector";
 
-import { NewKeymapDB } from "../../../../api/keymap";
-
-const db = new NewKeymapDB();
+import { KeymapDB } from "../../../../api/keymap";
+const db = new KeymapDB();
 
 const styles = theme => ({
   root: {

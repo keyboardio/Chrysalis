@@ -20,9 +20,8 @@ import React from "react";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 
-import { NewKeymapDB } from "../../../../api/keymap";
-
-const db = new NewKeymapDB();
+import { KeymapDB } from "../../../../api/keymap";
+const db = new KeymapDB();
 
 const keycapunit = 56;
 

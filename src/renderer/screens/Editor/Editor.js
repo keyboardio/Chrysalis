@@ -47,7 +47,7 @@ import { toast } from "react-toastify";
 import Focus from "../../../api/focus";
 import Log from "../../../api/log";
 import openURL from "../../utils/openURL";
-import { NewKeymapDB } from "../../../api/keymap";
+import { KeymapDB } from "../../../api/keymap";
 
 import ColorPalette from "../../components/ColorPalette";
 import KeySelector from "./KeySelector";
@@ -123,7 +123,7 @@ class Editor extends React.Component {
     hasColormap: false,
     loading: true
   };
-  keymapDB = new NewKeymapDB();
+  keymapDB = new KeymapDB();
 
   /**
    * Bottom menu never hide and automatically select a key at launch and have this shown in the bottom menu

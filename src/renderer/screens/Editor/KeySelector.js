@@ -28,9 +28,9 @@ import FeatureSelector from "./KeySelector/FeatureSelector";
 import CategorySelector from "./KeySelector/CategorySelector";
 import KeycodeSelector from "./KeySelector/KeycodeSelector";
 
-import { NewKeymapDB } from "../../../api/keymap";
+import { KeymapDB } from "../../../api/keymap";
 
-const db = new NewKeymapDB();
+const db = new KeymapDB();
 
 const styles = theme => ({
   root: {

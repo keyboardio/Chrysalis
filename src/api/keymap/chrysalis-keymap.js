@@ -17,7 +17,6 @@
 import Focus from "../focus";
 
 import KeymapDB from "./db";
-import { KeymapDB as NewKeymapDB } from "./ndb";
 
 global.chrysalis_keymap_instance = null;
 
@@ -26,7 +25,6 @@ class Keymap {
     if (!global.chrysalis_keymap_instance) {
       global.chrysalis_keymap_instance = this;
       this.db = new KeymapDB();
-      this.ndb = new NewKeymapDB();
       this.legacyInterface = false;
     }
     global.chrysalis_keymap_instance.setLayerSize(opts);
@@ -61,13 +59,13 @@ class Keymap {
 
       if (this.legacyInterface) {
         const args = flatten(keymap.default.concat(keymap.custom)).map(k =>
-          this.ndb.serialize(k)
+          this.db.serialize(k)
         );
 
         return await s.request("keymap.map", ...args);
       }
 
-      const args = flatten(keymap.custom).map(k => this.ndb.serialize(k));
+      const args = flatten(keymap.custom).map(k => this.db.serialize(k));
 
       await s.request("keymap.onlyCustom", keymap.onlyCustom ? "1" : "0");
       return await s.request("keymap.custom", ...args);
@@ -97,11 +95,11 @@ class Keymap {
       const defaultKeymap = defaults
         .split(" ")
         .filter(v => v.length > 0)
-        .map(k => this.ndb.lookup(parseInt(k)));
+        .map(k => this.db.lookup(parseInt(k)));
       const customKeymap = custom
         .split(" ")
         .filter(v => v.length > 0)
-        .map(k => this.ndb.lookup(parseInt(k)));
+        .map(k => this.db.lookup(parseInt(k)));
 
       if (customKeymap.length == 0) {
         onlyCustom = false;

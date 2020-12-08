@@ -24,7 +24,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Paper from "@material-ui/core/Paper";
 import { withStyles } from "@material-ui/core/styles";
 
-import { NewKeymapDB } from "../../../../api/keymap";
+import { KeymapDB } from "../../../../api/keymap";
 
 const styles = theme => ({
   root: {
@@ -36,7 +36,7 @@ const styles = theme => ({
   }
 });
 
-const db = new NewKeymapDB();
+const db = new KeymapDB();
 
 const Number = withStyles(styles)(props => {
   const { classes, keys, onKeySelect, name, currentKeyCode } = props;

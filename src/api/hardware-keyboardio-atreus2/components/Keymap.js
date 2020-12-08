@@ -21,9 +21,9 @@ import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import Atreus from "../data/atreus.png";
 
-import { NewKeymapDB } from "../../keymap";
+import { KeymapDB } from "../../keymap";
 
-const db = new NewKeymapDB();
+const db = new KeymapDB();
 
 const styles = () => ({
   svg: {

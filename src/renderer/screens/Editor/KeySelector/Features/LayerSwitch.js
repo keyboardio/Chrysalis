@@ -25,7 +25,8 @@ import Paper from "@material-ui/core/Paper";
 import Select from "@material-ui/core/Select";
 import { withStyles } from "@material-ui/core/styles";
 
-import { NewKeymapDB } from "../../../../../api/keymap";
+import { KeymapDB } from "../../../../../api/keymap";
+const db = new KeymapDB();
 
 const styles = theme => ({
   form: {
@@ -33,8 +34,6 @@ const styles = theme => ({
     minWidth: 120
   }
 });
-
-const db = new NewKeymapDB();
 
 const LayerSwitch = withStyles(styles)(props => {
   const { classes } = props;

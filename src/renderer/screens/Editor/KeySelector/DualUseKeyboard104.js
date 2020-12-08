@@ -26,9 +26,9 @@ import Paper from "@material-ui/core/Paper";
 import Select from "@material-ui/core/Select";
 import { withStyles } from "@material-ui/core/styles";
 
-import { NewKeymapDB } from "../../../../api/keymap";
-import { addDUM, addDUL } from "../../../../api/keymap/ndb/base/dualuse";
-const db = new NewKeymapDB();
+import { KeymapDB } from "../../../../api/keymap";
+import { addDUM, addDUL } from "../../../../api/keymap/db/base/dualuse";
+const db = new KeymapDB();
 
 import Keyboard104 from "./keyboard104";
 

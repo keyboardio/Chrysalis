@@ -17,9 +17,9 @@
 
 import React from "react";
 
-import { NewKeymapDB } from "../../keymap";
+import { KeymapDB } from "../../keymap";
 
-const db = new NewKeymapDB();
+const db = new KeymapDB();
 
 class Keymap extends React.Component {
   render() {

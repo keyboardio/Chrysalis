@@ -45,9 +45,8 @@ import checkExternalFlasher from "../../utils/checkExternalFlasher";
 
 import settings from "electron-settings";
 
-import { NewKeymapDB } from "../../../api/keymap";
-
-const db = new NewKeymapDB();
+import { KeymapDB } from "../../../api/keymap";
+const db = new KeymapDB();
 
 const styles = theme => ({
   title: {

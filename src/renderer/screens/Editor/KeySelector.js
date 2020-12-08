@@ -17,7 +17,6 @@
 
 import React from "react";
 
-import Paper from "@material-ui/core/Paper";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import { withStyles } from "@material-ui/core/styles";
@@ -42,6 +41,12 @@ const styles = theme => ({
   },
   tabpanel: {
     width: "100%",
+    /*
+      We need this marginTop here so that the tab panels do not overlap with the
+      dragger in ResizablePaper. Our divs get turned into a grid, with us not
+      being able to influence it at all, as far as I (algernon) can tell, so
+      this is the closest place we can fix the margin.
+     */
     marginTop: 12
   },
   tabs: {

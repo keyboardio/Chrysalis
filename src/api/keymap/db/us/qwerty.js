@@ -223,7 +223,11 @@ const keyCodeTable = [
   {
     code: 50,
     label: {
-      base: "Alt. #",
+      hint: {
+        full: "Alternate",
+        "1u": "Alt."
+      },
+      base: "#",
       shifted: "~"
     }
   },
@@ -356,7 +360,11 @@ const keyCodeTable = [
   {
     code: 100,
     label: {
-      base: "Alt. \\",
+      hint: {
+        full: "Alternate",
+        "1u": "Alt."
+      },
+      base: "\\",
       shifted: "|"
     }
   }

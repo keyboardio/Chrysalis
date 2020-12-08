@@ -24,8 +24,10 @@ const navigation = [
   {
     code: 75,
     label: {
-      base: "Page Up",
-      short: "PgUp"
+      base: {
+        full: "Page Up",
+        "1u": "PgUp"
+      }
     }
   },
   {
@@ -37,36 +39,46 @@ const navigation = [
   {
     code: 78,
     label: {
-      base: "Page Down",
-      short: "PgDn"
+      base: {
+        full: "Page Down",
+        "1u": "PgDn"
+      }
     }
   },
   {
     code: 79,
     label: {
-      base: "Right Arrow",
-      short: "→"
+      base: {
+        full: "Right Arrow",
+        "1u": "→"
+      }
     }
   },
   {
     code: 80,
     label: {
-      base: "Left Arrow",
-      short: "←"
+      base: {
+        full: "Left Arrow",
+        "1u": "←"
+      }
     }
   },
   {
     code: 81,
     label: {
-      base: "Down Arrow",
-      short: "↓"
+      base: {
+        full: "Down Arrow",
+        "1u": "↓"
+      }
     }
   },
   {
     code: 82,
     label: {
-      base: "Up Arrow",
-      short: "↑"
+      base: {
+        full: "Up Arrow",
+        "1u": "↑"
+      }
     }
   }
 ];

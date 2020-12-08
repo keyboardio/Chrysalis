@@ -22,15 +22,24 @@ const ledkeys = addCategories(
     {
       code: 17152,
       label: {
-        hint: "LEDEffect",
+        hint: {
+          full: "LEDEffect",
+          "1u": "LED"
+        },
         base: "Next"
       }
     },
     {
       code: 17153,
       label: {
-        hint: "LEDEffect",
-        base: "Previous"
+        hint: {
+          full: "LEDEffect",
+          "1u": "LED"
+        },
+        base: {
+          full: "Previous",
+          "1u": "Prev."
+        }
       }
     }
   ]

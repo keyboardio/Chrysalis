@@ -28,13 +28,19 @@ const consumer = addCategories(
     {
       code: 22709,
       label: {
-        base: "Next track"
+        base: {
+          full: "Next track",
+          "1u": "⏭"
+        }
       }
     },
     {
       code: 22710,
       label: {
-        base: "Prev. track"
+        base: {
+          full: "Previous track",
+          "1u": "⏮"
+        }
       }
     },
     {
@@ -46,31 +52,46 @@ const consumer = addCategories(
     {
       code: 22733,
       label: {
-        base: "Play / pause"
+        base: {
+          full: "Play / pause",
+          "1u": "⏯"
+        }
       }
     },
     {
       code: 23785,
       label: {
-        base: "Volume up"
+        base: {
+          full: "Volume up",
+          "1u": "🔊"
+        }
       }
     },
     {
       code: 23786,
       label: {
-        base: "Volume down"
+        base: {
+          full: "Volume down",
+          "1u": "🔉"
+        }
       }
     },
     {
       code: 23663,
       label: {
-        base: "Brightness up"
+        base: {
+          full: "Brightness up",
+          "1u": "🔆"
+        }
       }
     },
     {
       code: 23664,
       label: {
-        base: "Brightness down"
+        base: {
+          full: "Brightness down",
+          "1u": "🔅"
+        }
       }
     }
   ]

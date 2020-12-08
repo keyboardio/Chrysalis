@@ -18,8 +18,10 @@ const modifiers = [
   {
     code: 224,
     label: {
-      base: "Control",
-      short: "Ctrl"
+      base: {
+        full: "Control",
+        "1u": "Ctrl"
+      }
     },
     location: "left"
   },
@@ -47,8 +49,10 @@ const modifiers = [
   {
     code: 228,
     label: {
-      base: "Control",
-      short: "Ctrl"
+      base: {
+        full: "Control",
+        "1u": "Ctrl"
+      }
     },
     location: "right"
   },
@@ -62,8 +66,10 @@ const modifiers = [
   {
     code: 230,
     label: {
-      base: "AltGr",
-      short: "AGr"
+      base: {
+        full: "AltGr",
+        "1u": "AGr"
+      }
     },
     location: "right"
   },

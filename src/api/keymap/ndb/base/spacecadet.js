@@ -22,15 +22,27 @@ const spacecadet = addCategories(
     {
       code: 53591,
       label: {
-        hint: "SpaceCadet",
-        base: "Enable"
+        hint: {
+          full: "SpaceCadet",
+          "1u": "SC"
+        },
+        base: {
+          full: "Enable",
+          "1u": "On"
+        }
       }
     },
     {
       code: 53592,
       label: {
-        hint: "SpaceCadet",
-        base: "Disable"
+        hint: {
+          full: "SpaceCadet",
+          "1u": "SC"
+        },
+        base: {
+          full: "Disable",
+          "1u": "Off"
+        }
       }
     }
   ]

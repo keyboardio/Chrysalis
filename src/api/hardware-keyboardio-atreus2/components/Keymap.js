@@ -102,12 +102,6 @@ class Keymap extends React.Component {
       const buttonColor = "transparent";
 
       let legendClass;
-      /*
-      if (key && key.label && key.label.base && key.label.base.length <= 1) {
-        if (key. === undefined || label.extraLabel.length == 1)
-          legendClass = "shortLegend";
-      }
-      */
       if (key && key.code == 0) textColor = "#888888";
 
       return (
@@ -128,7 +122,7 @@ class Keymap extends React.Component {
             fill={buttonColor}
           />
           <text x={x + 5} y={y + 14} fill={textColor} className={legendClass}>
-            {key && key.label && (key.label.extra || key.label.hint)}
+            {key && db.format(key).hint}
           </text>
           <text x={x + 5} y={bottom} fill={textColor} className={legendClass}>
             {key && db.format(key).main}

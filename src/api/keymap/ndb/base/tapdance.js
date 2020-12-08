@@ -17,7 +17,10 @@
 const tapdance = index => ({
   code: 53267 + index,
   label: {
-    hint: "TD ",
+    hint: {
+      full: "TapDance",
+      "1u": "TD"
+    },
     base: "#" + index.toString()
   },
   rangeStart: 53267,

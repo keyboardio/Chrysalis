@@ -171,6 +171,10 @@ class KeymapBase extends React.Component {
       return keycapunit * getKeySizeY(row, col);
     };
 
+    let getKeycapSize = (row, col) => {
+      return getKeySizeX(row, col).toString() + "u";
+    };
+
     const Key = props => {
       const { row, col } = props;
       const x = getX(row, col),
@@ -189,7 +193,7 @@ class KeymapBase extends React.Component {
         return onKeySelect(event.currentTarget.getAttribute("data-key-code"));
       };
 
-      const label = db.format(key, 1);
+      const label = db.format(key, getKeycapSize(row, col));
       let keyClasses;
       if (label.main.length == 1) {
         keyClasses = classNames("key", classes.legend1U);

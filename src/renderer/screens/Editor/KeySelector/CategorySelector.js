@@ -86,7 +86,7 @@ const ButtonGrid = withStyles(styles)(props => {
         className={classes.button}
         onClick={onClick(k.code)}
       >
-        {k.label.base}
+        {db.format(k, "full").main}
       </Button>
     );
   });

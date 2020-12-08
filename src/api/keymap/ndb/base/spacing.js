@@ -30,8 +30,7 @@ const spacing = [
   {
     code: 44,
     label: {
-      base: "Space",
-      short: "Spc"
+      base: "Space"
     }
   },
   {
@@ -43,22 +42,28 @@ const spacing = [
   {
     code: 42,
     label: {
-      base: "Backspace",
-      short: "Bksp"
+      base: {
+        full: "Backspace",
+        "1u": "Bksp"
+      }
     }
   },
   {
     code: 73,
     label: {
-      base: "Insert",
-      short: "Ins"
+      base: {
+        full: "Insert",
+        "1u": "Ins"
+      }
     }
   },
   {
     code: 76,
     label: {
-      base: "Delete",
-      short: "Del"
+      base: {
+        full: "Delete",
+        "1u": "Del"
+      }
     }
   }
 ];

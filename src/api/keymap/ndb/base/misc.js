@@ -18,22 +18,28 @@ const miscellaneous = [
   {
     code: 57,
     label: {
-      base: "Caps Lock",
-      short: "CpLK"
+      base: {
+        full: "Caps Lock",
+        "1u": "CpLK"
+      }
     }
   },
   {
     code: 70,
     label: {
-      base: "Print Screen",
-      short: "PrSc"
+      base: {
+        full: "Print Screen",
+        "1u": "PrSc"
+      }
     }
   },
   {
     code: 71,
     label: {
-      base: "Scroll Lock",
-      short: "ScLk"
+      base: {
+        full: "Scroll Lock",
+        "1u": "ScLk"
+      }
     }
   },
   {

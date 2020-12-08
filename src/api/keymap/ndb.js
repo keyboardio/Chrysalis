@@ -199,14 +199,23 @@ class KeymapDB {
     return this._layout;
   }
 
-  format(key) {
+  format(key, keycapSize = "1u") {
     let label = key.label.base;
+    if (typeof label != "string") {
+      label = key.label.base[keycapSize] || key.label.base.full;
+    }
     if (label.length == 1) {
       label = label.toUpperCase();
     }
 
+    let hint = key.label.hint;
+    if (hint && typeof hint != "string") {
+      hint = key.label.hint[keycapSize] || key.label.hint.full;
+    }
+
     return {
-      main: label
+      main: label,
+      hint: hint
     };
   }
 }

@@ -22,8 +22,10 @@ const blanks = addCategories(
     {
       code: 0,
       label: {
-        base: "Blocked",
-        short: "Blkd"
+        base: {
+          full: "Blocked",
+          "1u": "Blkd"
+        }
       }
     },
     {

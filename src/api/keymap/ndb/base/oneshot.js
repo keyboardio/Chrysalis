@@ -17,7 +17,10 @@
 const osm = (index, mod) => ({
   code: 49153 + index,
   label: {
-    hint: "OneShot ",
+    hint: {
+      full: "OneShot",
+      "1u": "OSM"
+    },
     base: mod
   },
   rangeStart: 49153,
@@ -27,7 +30,10 @@ const osm = (index, mod) => ({
 const osl = index => ({
   code: 49161 + index,
   label: {
-    hint: "OneShot ",
+    hint: {
+      full: "OneShot",
+      "1u": "OSL"
+    },
     base: "#" + index.toString()
   },
   rangeStart: 49161,
@@ -35,14 +41,32 @@ const osl = index => ({
 });
 
 const oneshot = [
-  osm(0, "Left Control"),
-  osm(1, "Left Shift"),
-  osm(2, "Left Alt"),
-  osm(3, "Left GUI"),
-  osm(4, "Right Control"),
-  osm(5, "Right Shift"),
-  osm(6, "Right Alt"),
-  osm(7, "Right GUI"),
+  osm(0, {
+    full: "Left Control",
+    "1u": "LCtrl"
+  }),
+  osm(1, {
+    full: "Left Shift",
+    "1u": "LSft"
+  }),
+  osm(2, "Alt"),
+  osm(3, {
+    full: "Left GUI",
+    "1u": "LGUI"
+  }),
+  osm(4, {
+    full: "Right Control",
+    "1u": "RCtrl"
+  }),
+  osm(5, {
+    full: "Right Shift",
+    "1u": "RSft"
+  }),
+  osm(6, "AltGr"),
+  osm(7, {
+    full: "Right GUI",
+    "1u": "RGUI"
+  }),
 
   osl(0),
   osl(1),

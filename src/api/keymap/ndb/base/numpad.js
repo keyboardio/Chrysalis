@@ -18,8 +18,10 @@ const numpad = [
   {
     code: 83,
     label: {
-      base: "Num Lock",
-      short: "NumLK"
+      base: {
+        full: "Num Lock",
+        "1u": "NumLK"
+      }
     }
   },
   {

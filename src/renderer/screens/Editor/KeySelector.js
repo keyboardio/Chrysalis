@@ -28,6 +28,8 @@ import FeatureSelector from "./KeySelector/FeatureSelector";
 import CategorySelector from "./KeySelector/CategorySelector";
 import KeycodeSelector from "./KeySelector/KeycodeSelector";
 
+import ResizablePaper from "./ResizablePaper";
+
 import { KeymapDB } from "../../../api/keymap";
 
 const db = new KeymapDB();
@@ -36,16 +38,11 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
-    display: "flex",
-    height: 224,
-
-    position: "fixed",
-    left: 0,
-    right: 0,
-    bottom: 0
+    display: "flex"
   },
   tabpanel: {
-    width: "100%"
+    width: "100%",
+    marginTop: 12
   },
   tabs: {
     minWidth: 170,
@@ -117,7 +114,7 @@ class KeySelector extends React.Component {
     const { tab } = this.state;
 
     return (
-      <Paper className={classes.root}>
+      <ResizablePaper className={classes.root}>
         <Tabs
           orientation="vertical"
           value={tab}
@@ -168,7 +165,7 @@ class KeySelector extends React.Component {
             currentKeyCode={currentKeyCode}
           />
         </TabPanel>
-      </Paper>
+      </ResizablePaper>
     );
   }
 }

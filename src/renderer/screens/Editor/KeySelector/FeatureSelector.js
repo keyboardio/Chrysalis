@@ -16,6 +16,7 @@
  */
 
 import React from "react";
+import i18n from "i18next";
 
 import Divider from "@material-ui/core/Divider";
 import Tab from "@material-ui/core/Tab";
@@ -101,15 +102,15 @@ class FeatureSelector extends React.Component {
           scrollButtons="auto"
           onChange={this.onTabChange}
         >
-          <Tab label="Layer switch" />
-          <Tab label="Macro" />
-          <Tab label="TapDance" />
-          <Tab label="Leader" />
-          <Tab label="LEDs" />
-          <Tab label="SpaceCadet" />
-          <Tab label="Steno" />
-          <Tab label="OneShot" />
-          <Tab label="Mouse" />
+          <Tab label={i18n.t("editor.tabs._features.layer")} />
+          <Tab label={i18n.t("editor.tabs._features.macro")} />
+          <Tab label={i18n.t("editor.tabs._features.tapdance")} />
+          <Tab label={i18n.t("editor.tabs._features.leader")} />
+          <Tab label={i18n.t("editor.tabs._features.leds")} />
+          <Tab label={i18n.t("editor.tabs._features.spacecadet")} />
+          <Tab label={i18n.t("editor.tabs._features.steno")} />
+          <Tab label={i18n.t("editor.tabs._features.oneshot")} />
+          <Tab label={i18n.t("editor.tabs._features.mouse")} />
         </Tabs>
 
         <Divider className={classes.divider} />
@@ -123,7 +124,7 @@ class FeatureSelector extends React.Component {
             currentKeyCode={currentKeyCode}
             category="macros"
             variant="number"
-            name="Macro"
+            name={i18n.t("editor.tabs._features.macro")}
           />
         </FeaturePanel>
         <FeaturePanel value={tab} index={2}>
@@ -132,7 +133,7 @@ class FeatureSelector extends React.Component {
             currentKeyCode={currentKeyCode}
             category="tapdance"
             variant="number"
-            name="TapDance"
+            name={i18n.t("editor.tabs._features.tapdance")}
           />
         </FeaturePanel>
         <FeaturePanel value={tab} index={3}>
@@ -141,7 +142,7 @@ class FeatureSelector extends React.Component {
             currentKeyCode={currentKeyCode}
             category="leader"
             variant="number"
-            name="Leader"
+            name={i18n.t("editor.tabs._features.leader")}
           />
         </FeaturePanel>
         <FeaturePanel value={tab} index={4}>
@@ -150,7 +151,7 @@ class FeatureSelector extends React.Component {
             currentKeyCode={currentKeyCode}
             category="ledkeys"
             variant="button-grid"
-            name="LEDs"
+            name={i18n.t("editor.tabs._features.leds")}
           />
         </FeaturePanel>
         <FeaturePanel value={tab} index={5}>
@@ -159,7 +160,7 @@ class FeatureSelector extends React.Component {
             currentKeyCode={currentKeyCode}
             category="spacecadet"
             variant="button-grid"
-            name="SpaceCadet"
+            name={i18n.t("editor.tabs._features.spacecadet")}
           />
         </FeaturePanel>
         <FeaturePanel value={tab} index={6}>
@@ -168,7 +169,7 @@ class FeatureSelector extends React.Component {
             currentKeyCode={currentKeyCode}
             category="steno"
             variant="button-grid"
-            name="Steno"
+            name={i18n.t("editor.tabs._features.steno")}
           />
         </FeaturePanel>
         <FeaturePanel value={tab} index={7}>
@@ -177,7 +178,7 @@ class FeatureSelector extends React.Component {
             currentKeyCode={currentKeyCode}
             category="oneshot"
             variant="button-grid"
-            name="OneShot"
+            name={i18n.t("editor.tabs._features.oneshot")}
           />
         </FeaturePanel>
         <FeaturePanel value={tab} index={8}>
@@ -186,7 +187,7 @@ class FeatureSelector extends React.Component {
             currentKeyCode={currentKeyCode}
             category="mousekeys"
             variant="button-grid"
-            name="Mouse"
+            name={i18n.t("editor.tabs._features.mouse")}
           />
         </FeaturePanel>
       </div>

@@ -95,6 +95,34 @@ const English = {
       Blank: "Blank",
       "Unknown keycodes": "Unknown keycodes"
     },
+    tabs: {
+      keyboard: "Keyboard",
+      consumer: "Consumer",
+      features: "Features",
+      dualuse: "DualUse",
+      others: "Others...",
+      _features: {
+        layer: "Layer switch",
+        macro: "Macro",
+        tapdance: "TapDance",
+        leader: "Leader",
+        leds: "LEDs",
+        spacecadet: "SpaceCadet",
+        steno: "Steno",
+        oneshot: "OneShot",
+        mouse: "Mouse"
+      }
+    },
+    dualuse: {
+      none: "None"
+    },
+    layerswitch: {
+      type: "Type",
+      shiftTo: "Shift To Layer",
+      lockTo: "Lock To Layer",
+      moveTo: "Move To Layer",
+      target: "Target Layer"
+    },
     clearLayer: "Clear layer...",
     clearLayerQuestion: "Clear layer?",
     clearLayerPrompt: "This will reset the layer to its default state.",

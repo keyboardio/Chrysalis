@@ -16,8 +16,8 @@
  */
 
 import React from "react";
+import i18n from "i18next";
 
-//import Checkbox from "@material-ui/core/Checkbox";
 import FormControl from "@material-ui/core/FormControl";
 import Grid from "@material-ui/core/Grid";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -113,7 +113,7 @@ class DualUseKeyboard104 extends React.Component {
             value={modifier}
             onChange={this.onModChange}
           >
-            <MenuItem value="none">None</MenuItem>
+            <MenuItem value="none">{i18n.t("editor.dualuse.none")}</MenuItem>
             <MenuItem value="ctrl">Control</MenuItem>
             <MenuItem value="shift">Shift</MenuItem>
             <MenuItem value="alt">Alt</MenuItem>
@@ -129,7 +129,7 @@ class DualUseKeyboard104 extends React.Component {
             value={layer}
             onChange={this.onLayerChange}
           >
-            <MenuItem value="none">None</MenuItem>
+            <MenuItem value="none">{i18n.t("editor.dualuse.none")}</MenuItem>
             <MenuItem value={0}>0</MenuItem>
             <MenuItem value={1}>1</MenuItem>
             <MenuItem value={2}>2</MenuItem>

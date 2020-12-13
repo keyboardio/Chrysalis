@@ -16,6 +16,7 @@
  */
 
 import React from "react";
+import i18n from "i18next";
 
 import FormControl from "@material-ui/core/FormControl";
 import Input from "@material-ui/core/Input";
@@ -60,21 +61,21 @@ const LayerSwitch = withStyles(styles)(props => {
   return (
     <Paper elevation={0}>
       <FormControl className={classes.form}>
-        <InputLabel>Type</InputLabel>
+        <InputLabel>{i18n.t("editor.layerswitch.type")}</InputLabel>
         <Select value={type} onChange={onTypeChange}>
           <MenuItem value="shifttolayer" selected={type == "shifttolayer"}>
-            Shift to Layer
+            {i18n.t("editor.layerswitch.shiftTo")}
           </MenuItem>
           <MenuItem value="locktolayer" selected={type == "locktolayer"}>
-            Lock Layer
+            {i18n.t("editor.layerswitch.lockTo")}
           </MenuItem>
           <MenuItem value="movetolayer" selected={type == "movetolayer"}>
-            Move to Layer
+            {i18n.t("editor.layerswitch.moveTo")}
           </MenuItem>
         </Select>
       </FormControl>
       <FormControl className={classes.form}>
-        <InputLabel>Target Layer</InputLabel>
+        <InputLabel>{i18n.t("editor.layerswitch.target")}</InputLabel>
         <Input
           type="number"
           min={0}

@@ -16,6 +16,7 @@
  */
 
 import React from "react";
+import i18n from "i18next";
 
 import Button from "@material-ui/core/Button";
 import FormControl from "@material-ui/core/FormControl";
@@ -48,7 +49,7 @@ const KeycodeSelector = withStyles(styles)(props => {
     <div className={classes.root}>
       <Paper elevation={0}>
         <FormControl className={classes.form}>
-          <InputLabel>Keycode</InputLabel>
+          <InputLabel>{i18n.t("editor.keyCode")}</InputLabel>
           <Input
             type="number"
             min={0}
@@ -56,7 +57,7 @@ const KeycodeSelector = withStyles(styles)(props => {
             value={value}
             onChange={onValueChange}
           />
-          <Button onClick={onChange}>Ok</Button>
+          <Button onClick={onChange}>{i18n.t("dialog.ok")}</Button>
         </FormControl>
       </Paper>
     </div>

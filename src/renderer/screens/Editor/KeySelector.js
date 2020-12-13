@@ -16,6 +16,7 @@
  */
 
 import React from "react";
+import i18n from "i18next";
 
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
@@ -126,11 +127,11 @@ class KeySelector extends React.Component {
           className={classes.tabs}
           onChange={this.setTab}
         >
-          <Tab label="Keyboard" />
-          <Tab label="Consumer" />
-          <Tab label="Features" />
-          <Tab label="DualUse" />
-          <Tab label="Others..." />
+          <Tab label={i18n.t("editor.tabs.keyboard")} />
+          <Tab label={i18n.t("editor.tabs.consumer")} />
+          <Tab label={i18n.t("editor.tabs.features")} />
+          <Tab label={i18n.t("editor.tabs.dualuse")} />
+          <Tab label={i18n.t("editor.tabs.others")} />
         </Tabs>
         <TabPanel value={tab} index={0} className={classes.tabpanel}>
           <Keyboard104

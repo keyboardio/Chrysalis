@@ -14,6 +14,8 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { GuiLabel } from "./gui";
+
 const modifiers = [
   {
     code: 224,
@@ -42,7 +44,7 @@ const modifiers = [
   {
     code: 227,
     label: {
-      base: "Gui"
+      base: GuiLabel
     },
     location: "left"
   },
@@ -76,7 +78,7 @@ const modifiers = [
   {
     code: 231,
     label: {
-      base: "Gui"
+      base: GuiLabel
     },
     location: "right"
   }

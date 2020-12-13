@@ -28,6 +28,7 @@ import { withStyles } from "@material-ui/core/styles";
 
 import { KeymapDB } from "../../../../api/keymap";
 import { addDUM, addDUL } from "../../../../api/keymap/db/base/dualuse";
+import { GuiLabel } from "../../../../api/keymap/db/base/gui";
 const db = new KeymapDB();
 
 import Keyboard104 from "./keyboard104";
@@ -117,7 +118,7 @@ class DualUseKeyboard104 extends React.Component {
             <MenuItem value="shift">Shift</MenuItem>
             <MenuItem value="alt">Alt</MenuItem>
             <MenuItem value="altgr">AltGr</MenuItem>
-            <MenuItem value="gui">Gui</MenuItem>
+            <MenuItem value="gui">{GuiLabel.full}</MenuItem>
           </Select>
         </FormControl>
 

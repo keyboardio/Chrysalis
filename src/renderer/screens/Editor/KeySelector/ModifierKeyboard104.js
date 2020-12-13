@@ -28,6 +28,7 @@ import {
   addModifier,
   removeModifier
 } from "../../../../api/keymap/db/modifiers";
+import { GuiLabel } from "../../../../api/keymap/db/base/gui";
 const db = new KeymapDB();
 
 import Keyboard104 from "./keyboard104";
@@ -115,7 +116,7 @@ class ModifierKeyboard104 extends React.Component {
         />
 
         <FormControlLabel
-          label="Gui"
+          label={GuiLabel.full}
           control={
             <Checkbox
               checked={db.isInCategory(currentKeyCode, "gui") || false}

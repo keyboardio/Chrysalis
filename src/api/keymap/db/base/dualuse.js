@@ -20,6 +20,7 @@ import { fx } from "./fx";
 import { navigation } from "./navigation";
 import { numpad } from "./numpad";
 import { spacing } from "./spacing";
+import { GuiLabel } from "./gui";
 
 const keySet = []
   .concat(baseCodeTable)
@@ -55,7 +56,7 @@ const duMods = {
   },
   gui: {
     index: 3,
-    name: "GUI"
+    name: GuiLabel.full
   },
   altgr: {
     index: 6,

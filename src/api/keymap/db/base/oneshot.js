@@ -14,6 +14,8 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { GuiLabel } from "./gui";
+
 const osm = (index, mod) => ({
   code: 49153 + index,
   label: {
@@ -51,8 +53,8 @@ const oneshot = [
   }),
   osm(2, "Alt"),
   osm(3, {
-    full: "Left GUI",
-    "1u": "LGUI"
+    full: "Left " + GuiLabel.full,
+    "1u": "L" + GuiLabel["1u"]
   }),
   osm(4, {
     full: "Right Control",
@@ -64,8 +66,8 @@ const oneshot = [
   }),
   osm(6, "AltGr"),
   osm(7, {
-    full: "Right GUI",
-    "1u": "RGUI"
+    full: "Right " + GuiLabel.full,
+    "1u": "R" + GuiLabel["1u"]
   }),
 
   osl(0),

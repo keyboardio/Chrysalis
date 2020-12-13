@@ -230,6 +230,33 @@ const English = {
       bundleFiles: "Debug bundle files"
     },
     bundleSaved: `Chrysalis debug bundle saved.`
+  },
+  devices: {
+    Dygma: {
+      Raise: {
+        updateInstructions: `To update the firmware, the keyboard needs a special reset. When you see the light on the Neuron go off, press and hold the Escape key. The Neuron's light should start a blue pulsing pattern.`
+      }
+    },
+    "SOFT/HRUF": {
+      Splitography: {
+        updateInstructions: `After clicking the Update button, reset your keyboard (by pressing the small
+reset button beside the USB port) to put it into programmable mode, within ten
+seconds.`
+      }
+    },
+    Keyboardio: {
+      Atreus: {
+        updateInstructions: `Hold down the ESC key (in the lower left corner of the keyboard), and continue holding it while you click the Update button.`
+      },
+      Model01: {
+        updateInstructions: `Hold down the PROG key (in the upper left corner of the keyboard), and continue holding it while you click the Update button. Once the keys start flashing red across the board, you can release the PROG key.`
+      }
+    },
+    PJRC: {
+      Teensy: {
+        updateInstructions: `Since this is a Teensy-powered device in programmable mode already, Chrysalis has no way of detecting what kind of keyboard it is. Please select a custom firmware appropriate for your keyboard, and continue.`
+      }
+    }
   }
 };
 

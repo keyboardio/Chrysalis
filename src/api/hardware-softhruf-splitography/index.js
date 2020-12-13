@@ -40,17 +40,6 @@ const Splitography = {
   components: {
     keymap: Keymap
   },
-  instructions: {
-    en: {
-      updateInstructions: `After clicking the Update button, reset your keyboard (by pressing the small
-reset button beside the USB port) to put it into programmable mode, within ten
-seconds.`
-    },
-    hu: {
-      updateInstructions: `Miután megnyomta a Frissítés gombot, kérjük tegye a billentyűzetét programozható
-módba (az USB port mellett található reset gombbal) tíz másodpercen belül.`
-    }
-  },
 
   flash: async (_, filename) => {
     return await DFUProgrammer(filename);

@@ -44,14 +44,6 @@ const Atreus2 = {
   components: {
     keymap: Keymap
   },
-  instructions: {
-    en: {
-      updateInstructions: `Hold down the ESC key (in the lower left corner of the keyboard), and continue holding it while you click the Update button.`
-    },
-    hu: {
-      updateInstructions: `Nyomja meg az ESC gombot (a billentyűzet bal alsó sarkában található), és tartsa nyomva miközben a Frissítés gombra kattint.`
-    }
-  },
 
   flashSteps: ["bootloaderTrigger", "bootloaderWait", "flash"],
   externalFlasher: "avrdude",

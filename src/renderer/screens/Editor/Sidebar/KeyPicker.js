@@ -85,7 +85,7 @@ class KeyPickerBase extends React.Component {
 
     return (
       <Switch
-        checked={db.isInCategory(key, mod) || false}
+        checked={db.isInCategory(key, mod)}
         color="primary"
         onChange={this.toggleModifier(mod)}
       />

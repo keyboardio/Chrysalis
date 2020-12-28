@@ -129,7 +129,9 @@ class KeymapDB {
 
     const key = this.lookup(keyCode);
 
-    return key && key.categories && key.categories.includes(category);
+    return (
+      (key && key.categories && key.categories.includes(category)) || false
+    );
   }
 
   selectCategory(category) {

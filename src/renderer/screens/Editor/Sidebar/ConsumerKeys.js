@@ -39,7 +39,7 @@ class ConsumerKeysBase extends React.Component {
     return (
       <React.Fragment>
         <Collapsible
-          expanded={db.isInCategory(key.code, "consumer") || false}
+          expanded={db.isInCategory(key.code, "consumer")}
           title="Consumer control keys"
         >
           <KeyButtonList

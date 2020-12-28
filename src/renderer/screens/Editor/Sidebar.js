@@ -59,7 +59,7 @@ class Sidebar extends React.Component {
     const { classes, keymap, selectedKey, layer, layout } = this.props;
 
     const db = new KeymapDB();
-    const label = db.format(keymap.custom[layer][selectedKey], "full").main;
+    const label = db.format(keymap.custom[layer][selectedKey], "full");
 
     const widgets = [
       KeyPicker,
@@ -97,7 +97,7 @@ class Sidebar extends React.Component {
         <Toolbar />
         <div className={classes.drawerContainer}>
           <Typography variant="h6">
-            Key {label} (#{selectedKey}) - Layer {layer}
+            {label.hint} {label.main} (#{selectedKey}) - Layer {layer}
           </Typography>
           <Layout layout={layout} setLayout={this.props.setLayout} />
           <Configuration

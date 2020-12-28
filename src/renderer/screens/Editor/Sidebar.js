@@ -35,6 +35,7 @@ import OneShotKeys from "./Sidebar/OneShotKeys";
 import SpaceCadetKeys from "./Sidebar/SpaceCadetKeys";
 import StenoKeys from "./Sidebar/StenoKeys";
 import TapDanceKeys from "./Sidebar/TapDanceKeys";
+import BlankKeys from "./Sidebar/BlankKeys";
 
 import { KeymapDB } from "../../../api/keymap";
 
@@ -64,6 +65,7 @@ class Sidebar extends React.Component {
     const widgets = [
       KeyPicker,
       LayerKeys,
+      BlankKeys,
       ConsumerKeys,
       MouseKeys,
       LEDKeys,

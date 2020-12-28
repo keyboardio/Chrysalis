@@ -31,7 +31,10 @@ const blanks = addCategories(
     {
       code: 65535,
       label: {
-        base: ""
+        base: {
+          full: "Transparent",
+          "1u": " "
+        }
       }
     }
   ]

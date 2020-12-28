@@ -103,8 +103,7 @@ class KeyboardSettings extends React.Component {
     ledIdleTimeLimit: 0,
     defaultLayer: 126,
     modified: false,
-    working: false,
-    currentLayout: "English (US)"
+    working: false
   };
 
   componentDidMount() {
@@ -123,10 +122,6 @@ class KeyboardSettings extends React.Component {
     focus.command("idleleds.time_limit").then(limit => {
       limit = limit ? parseInt(limit) : -1;
       this.setState({ ledIdleTimeLimit: limit });
-    });
-
-    this.setState({
-      currentLayout: settings.get("keyboard.layout", "English (US)")
     });
   }
 
@@ -174,13 +169,6 @@ class KeyboardSettings extends React.Component {
     this.props.cancelContext();
   };
 
-  setLayout = event => {
-    const layout = event.target.value || this.state.currentLayout;
-    db.setLayout(layout);
-    settings.set("keyboard.layout", layout);
-    this.setState({ currentLayout: layout });
-  };
-
   render() {
     const { classes } = this.props;
     const {
@@ -188,25 +176,8 @@ class KeyboardSettings extends React.Component {
       defaultLayer,
       modified,
       ledBrightness,
-      ledIdleTimeLimit,
-      currentLayout
+      ledIdleTimeLimit
     } = this.state;
-
-    const layoutMenu = db.getSupportedLayouts().map((layout, index) => {
-      const menuKey = "layout-menu-" + index.toString();
-      return (
-        <MenuItem value={layout} key={menuKey}>
-          <ListItemText inset primary={layout} />
-        </MenuItem>
-      );
-    });
-    const layoutSelect = (
-      <FormControl>
-        <Select value={currentLayout} onClick={this.setLayout}>
-          {layoutMenu}
-        </Select>
-      </FormControl>
-    );
 
     const layers = keymap.custom.map((_, index) => {
       return (
@@ -305,13 +276,6 @@ class KeyboardSettings extends React.Component {
                 control={defaultLayerSelect}
                 labelPlacement="start"
                 label={i18n.t("keyboardSettings.keymap.defaultLayer")}
-              />
-              <FormControlLabel
-                className={classes.control}
-                classes={{ label: classes.grow }}
-                control={layoutSelect}
-                labelPlacement="start"
-                label="Keyboard layout"
               />
               {ledIdleTimeLimit >= 0 && (
                 <FormControlLabel

@@ -20,6 +20,7 @@ const layer = (base, hint, type, index) => ({
     hint: hint,
     base: "#" + index.toString()
   },
+  target: index,
   rangeStart: base,
   categories: ["layer", type]
 });

@@ -64,6 +64,7 @@ class KeyPickerBase extends React.Component {
   };
 
   onKeyChange = keyCode => {
+    // TODO: apply modifiers!
     this.props.onKeyChange(keyCode);
     this.closePicker();
   };

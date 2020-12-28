@@ -26,20 +26,20 @@ import "./LoadingScreen.css";
 
 const styles = theme => ({
   wrapper: {
-    margin: theme.spacing.unit * 4,
+    margin: theme.spacing(4),
     overflow: "hidden",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
-    padding: theme.spacing.unit * 4
+    padding: theme.spacing(4)
   },
   logo: {
     animationName: "spinning-loader",
     animationIterationCount: "infinite",
     animationDuration: "5s",
     animationTimingFunction: "linear",
-    marginBottom: theme.spacing.unit * 4
+    marginBottom: theme.spacing(4)
   }
 });
 

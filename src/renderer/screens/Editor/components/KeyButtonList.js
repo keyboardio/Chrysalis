@@ -26,10 +26,10 @@ import { KeymapDB } from "../../../../api/keymap";
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    margin: theme.spacing.unit
+    margin: theme.spacing(1)
   },
   button: {
-    margin: theme.spacing.unit
+    margin: theme.spacing(1)
   }
 });
 

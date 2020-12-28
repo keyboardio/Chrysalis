@@ -60,7 +60,7 @@ const styles = theme => ({
     padding: theme.spacing(2)
   },
   card: {
-    margin: theme.spacing.unit * 4,
+    margin: theme.spacing(4),
     maxWidth: "50%"
   },
   grow: {

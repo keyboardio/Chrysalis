@@ -36,7 +36,7 @@ import MainMenu from "./MainMenu/MainMenu";
 
 const styles = theme => ({
   pageMenu: {
-    marginLeft: theme.spacing.unit * 2
+    marginLeft: theme.spacing(2)
   },
   menuButton: {
     marginLeft: -12,

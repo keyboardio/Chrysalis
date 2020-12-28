@@ -23,7 +23,7 @@ import { withStyles } from "@material-ui/core/styles";
 const styles = theme => ({
   key: {
     fontFamily: '"Source Code Pro", monospace',
-    margin: theme.spacing.unit / 2,
+    margin: theme.spacing(0.5),
     padding: "4px 8px",
     minWidth: "auto",
     minHeight: "auto",

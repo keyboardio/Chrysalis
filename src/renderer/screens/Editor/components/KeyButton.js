@@ -24,7 +24,7 @@ import { KeymapDB } from "../../../../api/keymap";
 
 const styles = theme => ({
   button: {
-    margin: theme.spacing.unit
+    margin: theme.spacing(1)
   }
 });
 

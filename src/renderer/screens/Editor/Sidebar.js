@@ -22,7 +22,6 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
-import Layout from "./Sidebar/Layout";
 import Configuration from "./Sidebar/Configuration";
 import KeyPicker from "./Sidebar/KeyPicker";
 import LayerKeys from "./Sidebar/LayerKeys";
@@ -83,6 +82,8 @@ class Sidebar extends React.Component {
           keymap={keymap}
           selectedKey={selectedKey}
           layer={layer}
+          layout={layout}
+          setLayout={this.props.setLayout}
           onKeyChange={this.props.onKeyChange}
         />
       );
@@ -102,7 +103,6 @@ class Sidebar extends React.Component {
           <Typography variant="h6">
             {label.hint} {label.main} (#{selectedKey}) - Layer {layer}
           </Typography>
-          <Layout layout={layout} setLayout={this.props.setLayout} />
           <Configuration
             keymap={keymap}
             selectedKey={selectedKey}

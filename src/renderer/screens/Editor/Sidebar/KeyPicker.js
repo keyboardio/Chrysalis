@@ -22,6 +22,9 @@ import Dialog from "@material-ui/core/Dialog";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import ListItemText from "@material-ui/core/ListItemText";
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
 import Switch from "@material-ui/core/Switch";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -39,6 +42,9 @@ const db = new KeymapDB();
 const styles = theme => ({
   mods: {
     marginTop: theme.spacing(1)
+  },
+  layout: {
+    marginBottom: theme.spacing(1)
   }
 });
 
@@ -99,12 +105,26 @@ class KeyPickerBase extends React.Component {
     );
   };
 
+  setLayout = event => {
+    const layout = event.target.value || this.props.layout;
+    this.props.setLayout(layout);
+  };
+
   render() {
-    const { classes, keymap, selectedKey, layer } = this.props;
+    const { classes, keymap, selectedKey, layer, layout } = this.props;
     const key = keymap.custom[layer][selectedKey];
     const label = db.format(key, "full");
     const baseCode = key.baseCode || key.code;
     const standardKey = baseCode >= 4 && baseCode <= 255;
+
+    const layoutMenu = db.getSupportedLayouts().map((layout, index) => {
+      const menuKey = "layout-menu-" + index.toString();
+      return (
+        <MenuItem value={layout} key={menuKey}>
+          <ListItemText primary={layout} />
+        </MenuItem>
+      );
+    });
 
     return (
       <React.Fragment>
@@ -112,6 +132,13 @@ class KeyPickerBase extends React.Component {
           expanded={this.isStandardKey(this.props)}
           title="Standard keys"
         >
+          <div>
+            <FormControl className={classes.layout}>
+              <Select value={layout} onClick={this.setLayout} autoWidth>
+                {layoutMenu}
+              </Select>
+            </FormControl>
+          </div>
           <div>
             <Button variant="contained" onClick={this.openPicker}>
               {label.hint} {label.main}

@@ -57,15 +57,11 @@ class Key extends React.Component {
     }
 
     let keyIndex = parseInt(this.props.row) * 16 + parseInt(this.props.col);
-
     let extraLabel;
     const key = this.props.keyObj;
-    if (
-      this.props.extraLabelTransform &&
-      key &&
-      key.label &&
-      (key.label.extra || key.label.hint)
-    ) {
+    const label = key && db.format(key);
+
+    if (this.props.extraLabelTransform && label && label.hint) {
       extraLabel = (
         <g transform={this.props.extraLabelTransform}>
           <text
@@ -74,7 +70,7 @@ class Key extends React.Component {
             className="extraKey"
             fill={getContrastText(this.props.color)}
           >
-            {key.label.extra || key.label.hint}
+            {label.hint}
           </text>
         </g>
       );
@@ -95,7 +91,7 @@ class Key extends React.Component {
             y={this.props.y}
             fill={getContrastText(this.props.color)}
           >
-            {key && key.label && db.format(key).main}
+            {label && label.main}
           </text>
         </g>
         {extraLabel}

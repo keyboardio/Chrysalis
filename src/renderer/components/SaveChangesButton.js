@@ -70,7 +70,7 @@ const styles = theme => ({
     position: "fixed",
     justifyContent: "flex-end",
     bottom: 0,
-    right: theme.spacing.unit * 4
+    left: theme.spacing.unit * 4,
     zIndex: theme.zIndex.drawer + 1
   }
 });

@@ -51,7 +51,9 @@ class CategorySelectorBase extends React.Component {
     const { keymap, selectedKey, layer, category, title } = this.props;
 
     const key = keymap.custom[layer][selectedKey];
-    const label = db.format(key, "full");
+    const label = db.isInCategory(key.code, category)
+      ? db.format(key, "full")
+      : { main: title + "..." };
 
     return (
       <React.Fragment>

@@ -135,7 +135,10 @@ class KeyPickerBase extends React.Component {
   render() {
     const { classes, keymap, selectedKey, layer } = this.props;
     const { expanded } = this.state;
-    const label = db.format(keymap.custom[layer][selectedKey], "full");
+    const key = keymap.custom[layer][selectedKey];
+    const label = db.format(key, "full");
+    const baseCode = key.baseCode || key.code;
+    const standardKey = baseCode >= 4 && baseCode <= 255;
 
     return (
       <React.Fragment>
@@ -157,7 +160,11 @@ class KeyPickerBase extends React.Component {
                 {label.hint} {label.main}
               </Button>
             </div>
-            <FormControl component="fieldset" className={classes.mods}>
+            <FormControl
+              component="fieldset"
+              className={classes.mods}
+              disabled={!standardKey}
+            >
               <FormGroup row>
                 <FormControlLabel
                   control={this.makeSwitch("shift")}

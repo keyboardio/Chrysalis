@@ -26,6 +26,7 @@ import Layout from "./Sidebar/Layout";
 import Configuration from "./Sidebar/Configuration";
 import KeyPicker from "./Sidebar/KeyPicker";
 import LayerKeys from "./Sidebar/LayerKeys";
+import ConsumerKeys from "./Sidebar/ConsumerKeys";
 
 import { KeymapDB } from "../../../api/keymap";
 
@@ -80,6 +81,12 @@ class Sidebar extends React.Component {
             onKeyChange={this.props.onKeyChange}
           />
           <LayerKeys
+            keymap={keymap}
+            selectedKey={selectedKey}
+            layer={layer}
+            onKeyChange={this.props.onKeyChange}
+          />
+          <ConsumerKeys
             keymap={keymap}
             selectedKey={selectedKey}
             layer={layer}

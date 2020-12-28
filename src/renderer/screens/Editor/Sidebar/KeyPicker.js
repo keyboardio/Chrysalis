@@ -64,8 +64,14 @@ class KeyPickerBase extends React.Component {
   };
 
   onKeyChange = keyCode => {
-    // TODO: apply modifiers!
-    this.props.onKeyChange(keyCode);
+    const { selectedKey, keymap, layer } = this.props;
+    const key = keymap.custom[layer][selectedKey];
+    let offset = 0;
+    if (key.baseCode) {
+      offset = key.code - key.baseCode;
+    }
+
+    this.props.onKeyChange(parseInt(keyCode) + offset);
     this.closePicker();
   };
 
@@ -145,7 +151,7 @@ class KeyPickerBase extends React.Component {
         >
           <Keyboard104
             onKeySelect={this.onKeyChange}
-            currentKeyCode={key.code}
+            currentKeyCode={key.baseCode || key.code}
             keymap={keymap}
           />
         </Dialog>

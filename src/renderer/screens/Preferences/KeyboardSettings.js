@@ -27,7 +27,6 @@ import FilledInput from "@material-ui/core/FilledInput";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import ListItemText from "@material-ui/core/ListItemText";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import Slider from "@material-ui/core/Slider";
@@ -44,9 +43,6 @@ import clearEEPROM from "../../utils/clearEEPROM";
 import checkExternalFlasher from "../../utils/checkExternalFlasher";
 
 import settings from "electron-settings";
-
-import { KeymapDB } from "../../../api/keymap";
-const db = new KeymapDB();
 
 const styles = theme => ({
   title: {

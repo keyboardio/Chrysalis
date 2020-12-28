@@ -17,25 +17,168 @@
 
 import React from "react";
 
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
-import CategorySelector from "../components/CategorySelector";
+import Collapsible from "../components/Collapsible";
+import KeyButton from "../components/KeyButton";
+import { KeymapDB } from "../../../../api/keymap";
 
-const styles = () => ({});
+const db = new KeymapDB();
+
+const styles = theme => ({
+  card: {
+    marginBottom: theme.spacing(1)
+  }
+});
+
+const MouseMovementKeys = withStyles(styles)(props => {
+  const mouseUp = db.lookup(20481);
+  const mouseLeft = db.lookup(20484);
+  const mouseDown = db.lookup(20482);
+  const mouseRight = db.lookup(20488);
+
+  return (
+    <Card variant="outlined" className={props.classes.card}>
+      <CardContent>
+        <Typography color="textSecondary" gutterBottom>
+          Movement
+        </Typography>
+
+        <KeyButton onKeyChange={props.onKeyChange} keyObj={mouseUp} noHint />
+        <KeyButton onKeyChange={props.onKeyChange} keyObj={mouseDown} noHint />
+        <br />
+        <KeyButton onKeyChange={props.onKeyChange} keyObj={mouseLeft} noHint />
+        <KeyButton onKeyChange={props.onKeyChange} keyObj={mouseRight} noHint />
+      </CardContent>
+    </Card>
+  );
+});
+
+const MouseButtonKeys = withStyles(styles)(props => {
+  const buttons = [
+    db.lookup(20545), // left
+    db.lookup(20548), // midle
+    db.lookup(20546), // right
+    db.lookup(20552), // back
+    db.lookup(20560) // forward
+  ];
+
+  const keyButtons = buttons.map((button, index) => {
+    return (
+      <KeyButton
+        key={`mousekey-button-${index}`}
+        onKeyChange={props.onKeyChange}
+        keyObj={button}
+        noHint
+      />
+    );
+  });
+
+  return (
+    <Card variant="outlined" className={props.classes.card}>
+      <CardContent>
+        <Typography color="textSecondary" gutterBottom>
+          Buttons
+        </Typography>
+
+        {keyButtons}
+      </CardContent>
+    </Card>
+  );
+});
+
+const MouseWheelKeys = withStyles(styles)(props => {
+  const buttons = [
+    db.lookup(20497), // up
+    db.lookup(20498), // down
+    db.lookup(20500), // left
+    db.lookup(20504) // right
+  ];
+
+  const keyButtons = buttons.map((button, index) => {
+    return (
+      <KeyButton
+        key={`mousekey-wheel-${index}`}
+        onKeyChange={props.onKeyChange}
+        keyObj={button}
+        noHint
+      />
+    );
+  });
+
+  return (
+    <Card variant="outlined" className={props.classes.card}>
+      <CardContent>
+        <Typography color="textSecondary" gutterBottom>
+          Wheel
+        </Typography>
+
+        {keyButtons}
+      </CardContent>
+    </Card>
+  );
+});
+
+const MouseWarpKeys = withStyles(styles)(props => {
+  const buttons = [
+    db.lookup(20517), // NW
+    db.lookup(20521), // NE
+    db.lookup(20518), // SW
+    db.lookup(20522), // SE
+    db.lookup(20576) // end
+  ];
+
+  const keyButtons = buttons.map((button, index) => {
+    return (
+      <KeyButton
+        key={`mousekey-warp-${index}`}
+        onKeyChange={props.onKeyChange}
+        keyObj={button}
+        noHint
+      />
+    );
+  });
+
+  return (
+    <Card variant="outlined" className={props.classes.card}>
+      <CardContent>
+        <Typography color="textSecondary" gutterBottom>
+          Warp
+        </Typography>
+
+        {keyButtons}
+      </CardContent>
+    </Card>
+  );
+});
 
 class MouseKeysBase extends React.Component {
   render() {
     const { keymap, selectedKey, layer, onKeyChange } = this.props;
+    const key = keymap.custom[layer][selectedKey];
+
+    const subWidgets = [
+      MouseMovementKeys,
+      MouseButtonKeys,
+      MouseWheelKeys,
+      MouseWarpKeys
+    ];
+    const widgets = subWidgets.map((Widget, index) => {
+      return (
+        <Widget key={`mousekeys-group-${index}`} onKeyChange={onKeyChange} />
+      );
+    });
 
     return (
-      <CategorySelector
+      <Collapsible
+        expanded={db.isInCategory(key.code, "mousekeys")}
         title="Mouse keys"
-        category="mousekeys"
-        keymap={keymap}
-        selectedKey={selectedKey}
-        layer={layer}
-        onKeyChange={onKeyChange}
-      />
+      >
+        {widgets}
+      </Collapsible>
     );
   }
 }

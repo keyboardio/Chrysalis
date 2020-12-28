@@ -231,6 +231,13 @@ const withModifiers = keys => {
       }
     },
     {
+      categories: ["ctrl", "shift", "gui", "altgr"],
+      offset: modMap.ctrl + modMap.shift + modMap.gui + modMap.altgr,
+      label: key => {
+        return "C+S+G+AGr+" + key.label.base;
+      }
+    },
+    {
       categories: ["ctrl", "alt", "altgr", "gui"],
       offset: modMap.ctrl + modMap.alt + modMap.altgr + modMap.gui,
       label: key => {

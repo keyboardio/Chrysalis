@@ -20,12 +20,14 @@ import React from "react";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
+import Button from "@material-ui/core/Button";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
+import TableFooter from "@material-ui/core/TableFooter";
 import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
@@ -53,7 +55,8 @@ const styles = () => ({
 
 class ConfigurationBase extends React.Component {
   state = {
-    expanded: true
+    expanded: true,
+    showAll: false
   };
 
   handleChange = () => {
@@ -66,12 +69,44 @@ class ConfigurationBase extends React.Component {
     this.props.setLayer(index);
   };
 
+  findLastUsedLayer = () => {
+    let lastUsedLayer = 0;
+    const { keymap } = this.props;
+
+    for (let index = 0; index < keymap.custom.length; index++) {
+      const layer = keymap.custom[index];
+      for (let keyIdx = 0; keyIdx < layer.length; keyIdx++) {
+        if (layer[keyIdx].code != 65535) {
+          lastUsedLayer = index;
+          break;
+        }
+      }
+    }
+
+    return lastUsedLayer;
+  };
+
+  toggleAllLayers = () => {
+    this.setState(state => ({
+      showAll: !state.showAll
+    }));
+  };
+
   render() {
     const { classes, keymap, selectedKey, layer } = this.props;
-    const { expanded } = this.state;
+    const { expanded, showAll } = this.state;
     const db = new KeymapDB();
 
-    const config = keymap.custom.map((layerData, index) => {
+    const lastUsedLayer = this.findLastUsedLayer();
+    let usedLayers;
+
+    if (showAll) {
+      usedLayers = keymap.custom;
+    } else {
+      usedLayers = keymap.custom.slice(0, lastUsedLayer + 1);
+    }
+
+    const config = usedLayers.map((layerData, index) => {
       const label = db.format(layerData[selectedKey], "full").main;
 
       return (
@@ -104,6 +139,15 @@ class ConfigurationBase extends React.Component {
           <TableContainer component={Paper}>
             <Table size="small">
               <TableBody>{config}</TableBody>
+              <TableFooter>
+                <TableRow>
+                  <TableCell colSpan={2} align="right">
+                    <Button onClick={this.toggleAllLayers}>
+                      {showAll ? "Less..." : "More..."}
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              </TableFooter>
             </Table>
           </TableContainer>
         </AccordionDetails>

@@ -109,7 +109,7 @@ class ConfigurationBase extends React.Component {
               <TableRow>
                 <TableCell colSpan={2} align="right">
                   <Button onClick={this.toggleAllLayers}>
-                    {showAll ? "Less..." : "More..."}
+                    {showAll ? "Hide empty layers..." : "Show empty layers..."}
                   </Button>
                 </TableCell>
               </TableRow>

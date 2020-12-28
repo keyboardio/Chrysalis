@@ -61,8 +61,12 @@ const consumer = addCategories(
     {
       code: 23785,
       label: {
+        hint: {
+          full: "Volume",
+          "1u": "Vol."
+        },
         base: {
-          full: "Volume up",
+          full: "Up",
           "1u": "🔊"
         }
       }
@@ -70,8 +74,12 @@ const consumer = addCategories(
     {
       code: 23786,
       label: {
+        hint: {
+          full: "Volume",
+          "1u": "Vol."
+        },
         base: {
-          full: "Volume down",
+          full: "Down",
           "1u": "🔉"
         }
       }
@@ -79,8 +87,12 @@ const consumer = addCategories(
     {
       code: 23663,
       label: {
+        hint: {
+          full: "Brightness",
+          "1u": "Brght."
+        },
         base: {
-          full: "Brightness up",
+          full: "Up",
           "1u": "🔆"
         }
       }
@@ -88,8 +100,12 @@ const consumer = addCategories(
     {
       code: 23664,
       label: {
+        hint: {
+          full: "Brightness",
+          "1u": "Brght."
+        },
         base: {
-          full: "Brightness down",
+          full: "Down",
           "1u": "🔅"
         }
       }

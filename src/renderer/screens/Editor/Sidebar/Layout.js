@@ -54,7 +54,7 @@ class LayoutBase extends React.Component {
 
     return (
       <React.Fragment>
-        <Collapsible expanded={false} title="Layout">
+        <Collapsible expanded={false} title="Layout" explicit>
           {layoutSelect}
         </Collapsible>
       </React.Fragment>

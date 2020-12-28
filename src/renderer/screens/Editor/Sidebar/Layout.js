@@ -21,7 +21,6 @@ import FormControl from "@material-ui/core/FormControl";
 import ListItemText from "@material-ui/core/ListItemText";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
-import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 import Collapsible from "../components/Collapsible";
@@ -37,8 +36,6 @@ class LayoutBase extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
-
     const layoutMenu = db.getSupportedLayouts().map((layout, index) => {
       const menuKey = "layout-menu-" + index.toString();
       return (

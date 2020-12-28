@@ -18,51 +18,21 @@
 import React from "react";
 import i18n from "i18next";
 
-import Accordion from "@material-ui/core/Accordion";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import FormControl from "@material-ui/core/FormControl";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
-import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
+import Collapsible from "../components/Collapsible";
 import { KeymapDB } from "../../../../api/keymap";
 
 const db = new KeymapDB();
 
-const styles = () => ({
-  accordionRoot: {
-    boxShadow: "none",
-    margin: "auto",
-    "&.Mui-expanded": {
-      margin: "auto"
-    },
-    "&:before": {
-      display: "none"
-    }
-  },
-  accordionContentRoot: {
-    padding: 0
-  },
-  accordionDetailsRoot: {
-    padding: 0,
-    display: "block"
-  }
-});
+const styles = () => ({});
 
 class LayerKeysBase extends React.Component {
-  state = {
-    expanded: false
-  };
-
-  UNSAFE_componentWillReceiveProps = nextProps => {
-    this.updateExpandedBasedOnKey(nextProps);
-  };
-
   updateExpandedBasedOnKey = props => {
     const { selectedKey, keymap, layer } = props;
     const key = keymap.custom[layer][selectedKey];
@@ -72,16 +42,6 @@ class LayerKeysBase extends React.Component {
     } else {
       this.setState({ expanded: false });
     }
-  };
-
-  componentDidMount() {
-    this.updateExpandedBasedOnKey(this.props);
-  }
-
-  handleChange = () => {
-    return this.setState(oldState => ({
-      expanded: !oldState.expanded
-    }));
   };
 
   onKeyChange = keyCode => {
@@ -112,7 +72,6 @@ class LayerKeysBase extends React.Component {
 
   render() {
     const { classes, keymap, selectedKey, layer } = this.props;
-    const { expanded } = this.state;
     const key = keymap.custom[layer][selectedKey];
 
     let type = "none",
@@ -125,60 +84,44 @@ class LayerKeysBase extends React.Component {
 
     return (
       <React.Fragment>
-        <Accordion
-          square
-          expanded={expanded}
-          classes={{ root: classes.accordionRoot }}
-          onChange={this.handleChange}
+        <Collapsible
+          title="Layer keys"
+          expanded={db.isInCategory(key.code, "layer")}
         >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            classes={{ root: classes.accordionContentRoot }}
-          >
-            <Typography>Layer keys</Typography>
-          </AccordionSummary>
-          <AccordionDetails classes={{ root: classes.accordionDetailsRoot }}>
-            <div>
-              <FormControl className={classes.form}>
-                <InputLabel>{i18n.t("editor.layerswitch.type")}</InputLabel>
-                <Select value={type} onChange={this.onTypeChange}>
-                  <MenuItem value="none" disabled selected>
-                    None
-                  </MenuItem>
-                  <MenuItem
-                    value="shifttolayer"
-                    selected={type == "shifttolayer"}
-                  >
-                    {i18n.t("editor.layerswitch.shiftTo")}
-                  </MenuItem>
-                  <MenuItem
-                    value="locktolayer"
-                    selected={type == "locktolayer"}
-                  >
-                    {i18n.t("editor.layerswitch.lockTo")}
-                  </MenuItem>
-                  <MenuItem
-                    value="movetolayer"
-                    selected={type == "movetolayer"}
-                  >
-                    {i18n.t("editor.layerswitch.moveTo")}
-                  </MenuItem>
-                </Select>
-              </FormControl>
-              <FormControl className={classes.form}>
-                <InputLabel>{i18n.t("editor.layerswitch.target")}</InputLabel>
-                <Input
-                  type="number"
-                  min={0}
-                  max={keymap.custom.length}
-                  value={targetLayer < 0 ? "" : targetLayer}
-                  disabled={targetLayer < 0}
-                  onChange={this.onTargetLayerChange}
-                />
-              </FormControl>
-            </div>
-          </AccordionDetails>
-        </Accordion>
+          <div>
+            <FormControl className={classes.form}>
+              <InputLabel>{i18n.t("editor.layerswitch.type")}</InputLabel>
+              <Select value={type} onChange={this.onTypeChange}>
+                <MenuItem value="none" disabled selected>
+                  None
+                </MenuItem>
+                <MenuItem
+                  value="shifttolayer"
+                  selected={type == "shifttolayer"}
+                >
+                  {i18n.t("editor.layerswitch.shiftTo")}
+                </MenuItem>
+                <MenuItem value="locktolayer" selected={type == "locktolayer"}>
+                  {i18n.t("editor.layerswitch.lockTo")}
+                </MenuItem>
+                <MenuItem value="movetolayer" selected={type == "movetolayer"}>
+                  {i18n.t("editor.layerswitch.moveTo")}
+                </MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl className={classes.form}>
+              <InputLabel>{i18n.t("editor.layerswitch.target")}</InputLabel>
+              <Input
+                type="number"
+                min={0}
+                max={keymap.custom.length}
+                value={targetLayer < 0 ? "" : targetLayer}
+                disabled={targetLayer < 0}
+                onChange={this.onTargetLayerChange}
+              />
+            </FormControl>
+          </div>
+        </Collapsible>
       </React.Fragment>
     );
   }

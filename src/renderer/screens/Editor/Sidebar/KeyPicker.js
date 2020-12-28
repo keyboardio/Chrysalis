@@ -17,20 +17,16 @@
 
 import React from "react";
 
-import Accordion from "@material-ui/core/Accordion";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
-import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 import Keyboard104 from "../Keyboard104";
+import Collapsible from "../components/Collapsible";
 import { KeymapDB } from "../../../../api/keymap";
 import {
   addModifier,
@@ -41,23 +37,6 @@ import { GuiLabel } from "../../../../api/keymap/db/base/gui";
 const db = new KeymapDB();
 
 const styles = theme => ({
-  accordionRoot: {
-    boxShadow: "none",
-    margin: "auto",
-    "&.Mui-expanded": {
-      margin: "auto"
-    },
-    "&:before": {
-      display: "none"
-    }
-  },
-  accordionContentRoot: {
-    padding: 0
-  },
-  accordionDetailsRoot: {
-    padding: 0,
-    display: "block"
-  },
   mods: {
     marginTop: theme.spacing(1)
   }
@@ -65,34 +44,15 @@ const styles = theme => ({
 
 class KeyPickerBase extends React.Component {
   state = {
-    expanded: false,
     pickerOpen: false
   };
 
-  UNSAFE_componentWillReceiveProps = nextProps => {
-    this.updateExpandedBasedOnKey(nextProps);
-  };
-
-  updateExpandedBasedOnKey = props => {
+  isStandardKey = props => {
     const { selectedKey, keymap, layer } = props;
     const key = keymap.custom[layer][selectedKey];
     const code = key.baseCode || key.code;
 
-    if (code >= 4 && code <= 255) {
-      this.setState({ expanded: true });
-    } else {
-      this.setState({ expanded: false });
-    }
-  };
-
-  componentDidMount() {
-    this.updateExpandedBasedOnKey(this.props);
-  }
-
-  handleChange = () => {
-    return this.setState(oldState => ({
-      expanded: !oldState.expanded
-    }));
+    return code >= 4 && code <= 255;
   };
 
   openPicker = () => {
@@ -134,7 +94,6 @@ class KeyPickerBase extends React.Component {
 
   render() {
     const { classes, keymap, selectedKey, layer } = this.props;
-    const { expanded } = this.state;
     const key = keymap.custom[layer][selectedKey];
     const label = db.format(key, "full");
     const baseCode = key.baseCode || key.code;
@@ -142,54 +101,41 @@ class KeyPickerBase extends React.Component {
 
     return (
       <React.Fragment>
-        <Accordion
-          square
-          expanded={expanded}
-          classes={{ root: classes.accordionRoot }}
-          onChange={this.handleChange}
+        <Collapsible
+          expanded={this.isStandardKey(this.props)}
+          title="Standard keys"
         >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            classes={{ root: classes.accordionContentRoot }}
+          <div>
+            <Button variant="contained" onClick={this.openPicker}>
+              {label.hint} {label.main}
+            </Button>
+          </div>
+          <FormControl
+            component="fieldset"
+            className={classes.mods}
+            disabled={!standardKey}
           >
-            <Typography>Standard keys</Typography>
-          </AccordionSummary>
-          <AccordionDetails classes={{ root: classes.accordionDetailsRoot }}>
-            <div>
-              <Button variant="contained" onClick={this.openPicker}>
-                {label.hint} {label.main}
-              </Button>
-            </div>
-            <FormControl
-              component="fieldset"
-              className={classes.mods}
-              disabled={!standardKey}
-            >
-              <FormGroup row>
-                <FormControlLabel
-                  control={this.makeSwitch("shift")}
-                  label="Shift"
-                />
-                <FormControlLabel
-                  control={this.makeSwitch("ctrl")}
-                  label="Control"
-                />
-                <FormControlLabel
-                  control={this.makeSwitch("alt")}
-                  label="Alt"
-                />
-                <FormControlLabel
-                  control={this.makeSwitch("gui")}
-                  label={GuiLabel.full}
-                />
-                <FormControlLabel
-                  control={this.makeSwitch("altgr")}
-                  label="AltGr"
-                />
-              </FormGroup>
-            </FormControl>
-          </AccordionDetails>
-        </Accordion>
+            <FormGroup row>
+              <FormControlLabel
+                control={this.makeSwitch("shift")}
+                label="Shift"
+              />
+              <FormControlLabel
+                control={this.makeSwitch("ctrl")}
+                label="Control"
+              />
+              <FormControlLabel control={this.makeSwitch("alt")} label="Alt" />
+              <FormControlLabel
+                control={this.makeSwitch("gui")}
+                label={GuiLabel.full}
+              />
+              <FormControlLabel
+                control={this.makeSwitch("altgr")}
+                label="AltGr"
+              />
+            </FormGroup>
+          </FormControl>
+        </Collapsible>
         <Dialog
           open={this.state.pickerOpen}
           onClose={this.closePicker}

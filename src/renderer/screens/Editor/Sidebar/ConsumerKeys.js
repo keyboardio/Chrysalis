@@ -17,97 +17,36 @@
 
 import React from "react";
 
-import Accordion from "@material-ui/core/Accordion";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 import KeyButtonList from "../components/KeyButtonList";
+import Collapsible from "../components/Collapsible";
 import { KeymapDB } from "../../../../api/keymap";
 
 const db = new KeymapDB();
 
-const styles = () => ({
-  accordionRoot: {
-    boxShadow: "none",
-    margin: "auto",
-    "&.Mui-expanded": {
-      margin: "auto"
-    },
-    "&:before": {
-      display: "none"
-    }
-  },
-  accordionContentRoot: {
-    padding: 0
-  },
-  accordionDetailsRoot: {
-    padding: 0,
-    display: "block"
-  }
-});
+const styles = () => ({});
 
 class ConsumerKeysBase extends React.Component {
-  state = {
-    expanded: false
-  };
-
-  UNSAFE_componentWillReceiveProps = nextProps => {
-    this.updateExpandedBasedOnKey(nextProps);
-  };
-
-  updateExpandedBasedOnKey = props => {
-    const { selectedKey, keymap, layer } = props;
-    const key = keymap.custom[layer][selectedKey];
-
-    if (db.isInCategory(key.code, "consumer")) {
-      this.setState({ expanded: true });
-    } else {
-      this.setState({ expanded: false });
-    }
-  };
-
-  componentDidMount() {
-    this.updateExpandedBasedOnKey(this.props);
-  }
-
-  handleChange = () => {
-    return this.setState(oldState => ({
-      expanded: !oldState.expanded
-    }));
-  };
-
   onKeyChange = keyCode => {
     this.props.onKeyChange(keyCode);
   };
 
   render() {
-    const { classes, keymap, selectedKey, layer } = this.props;
-    const { expanded } = this.state;
+    const { keymap, selectedKey, layer } = this.props;
+    const key = keymap.custom[layer][selectedKey];
 
     return (
       <React.Fragment>
-        <Accordion
-          square
-          expanded={expanded}
-          classes={{ root: classes.accordionRoot }}
-          onChange={this.handleChange}
+        <Collapsible
+          expanded={db.isInCategory(key.code, "consumer") || false}
+          title="Consumer control keys"
         >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            classes={{ root: classes.accordionContentRoot }}
-          >
-            <Typography>Consumer control keys</Typography>
-          </AccordionSummary>
-          <AccordionDetails classes={{ root: classes.accordionDetailsRoot }}>
-            <KeyButtonList
-              keys={db.selectCategory("consumer")}
-              onKeyChange={this.props.onKeyChange}
-            />
-          </AccordionDetails>
-        </Accordion>
+          <KeyButtonList
+            keys={db.selectCategory("consumer")}
+            onKeyChange={this.props.onKeyChange}
+          />
+        </Collapsible>
       </React.Fragment>
     );
   }

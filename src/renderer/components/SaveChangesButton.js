@@ -71,6 +71,7 @@ const styles = theme => ({
     justifyContent: "flex-end",
     bottom: 0,
     right: theme.spacing.unit * 4
+    zIndex: theme.zIndex.drawer + 1
   }
 });
 

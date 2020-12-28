@@ -65,9 +65,29 @@ const styles = theme => ({
 
 class KeyPickerBase extends React.Component {
   state = {
-    expanded: true,
+    expanded: false,
     pickerOpen: false
   };
+
+  UNSAFE_componentWillReceiveProps = nextProps => {
+    this.updateExpandedBasedOnKey(nextProps);
+  };
+
+  updateExpandedBasedOnKey = props => {
+    const { selectedKey, keymap, layer } = props;
+    const key = keymap.custom[layer][selectedKey];
+    const code = key.baseCode || key.code;
+
+    if (code >= 4 && code <= 255) {
+      this.setState({ expanded: true });
+    } else {
+      this.setState({ expanded: false });
+    }
+  };
+
+  componentDidMount() {
+    this.updateExpandedBasedOnKey(this.props);
+  }
 
   handleChange = () => {
     return this.setState(oldState => ({
@@ -115,7 +135,7 @@ class KeyPickerBase extends React.Component {
   render() {
     const { classes, keymap, selectedKey, layer } = this.props;
     const { expanded } = this.state;
-    const label = db.format(keymap.custom[layer][selectedKey], "full").main;
+    const label = db.format(keymap.custom[layer][selectedKey], "full");
 
     return (
       <React.Fragment>
@@ -134,7 +154,7 @@ class KeyPickerBase extends React.Component {
           <AccordionDetails classes={{ root: classes.accordionDetailsRoot }}>
             <div>
               <Button variant="contained" onClick={this.openPicker}>
-                {label}
+                {label.hint} {label.main}
               </Button>
             </div>
             <FormControl component="fieldset" className={classes.mods}>

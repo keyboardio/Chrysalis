@@ -115,6 +115,7 @@ class Editor extends React.Component {
         keymap: newKeymap
       };
     });
+    this.props.startContext();
   };
 
   scanKeyboard = async () => {
@@ -174,6 +175,13 @@ class Editor extends React.Component {
     });
     db.setLayout(settings.get("keyboard.layout", "English (US)"));
   }
+
+  UNSAFE_componentWillReceiveProps = nextProps => {
+    if (this.props.inContext && !nextProps.inContext) {
+      this.scanKeyboard();
+      this.setState({ modified: false });
+    }
+  };
 
   enableOnlyCustom = async () => {
     let focus = new Focus();

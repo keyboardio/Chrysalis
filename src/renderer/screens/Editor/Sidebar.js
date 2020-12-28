@@ -25,6 +25,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Layout from "./Sidebar/Layout";
 import Configuration from "./Sidebar/Configuration";
 import KeyPicker from "./Sidebar/KeyPicker";
+import LayerKeys from "./Sidebar/LayerKeys";
 
 import { KeymapDB } from "../../../api/keymap";
 
@@ -73,6 +74,12 @@ class Sidebar extends React.Component {
             setLayer={this.props.setLayer}
           />
           <KeyPicker
+            keymap={keymap}
+            selectedKey={selectedKey}
+            layer={layer}
+            onKeyChange={this.props.onKeyChange}
+          />
+          <LayerKeys
             keymap={keymap}
             selectedKey={selectedKey}
             layer={layer}

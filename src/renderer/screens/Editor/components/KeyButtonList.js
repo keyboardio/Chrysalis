@@ -46,6 +46,7 @@ const KeyButtonList = withStyles(styles)(props => {
 
   const buttons = keys.map((k, index) => {
     const key = "key-" + props.category + "-" + index.toString();
+    const label = db.format(k, "full");
     return (
       <Button
         variant="contained"
@@ -53,7 +54,7 @@ const KeyButtonList = withStyles(styles)(props => {
         className={classes.button}
         onClick={onClick(k.code)}
       >
-        {db.format(k, "full").main}
+        {label.hint} {label.main}
       </Button>
     );
   });

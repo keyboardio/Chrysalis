@@ -17,6 +17,8 @@
 
 import React from "react";
 
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
 import { withStyles } from "@material-ui/core/styles";
 
 import KeyButtonList from "../components/KeyButtonList";
@@ -28,13 +30,28 @@ const db = new KeymapDB();
 const styles = () => ({});
 
 class ConsumerKeysBase extends React.Component {
+  state = {
+    pickerOpen: false
+  };
+
+  openPicker = () => {
+    this.setState({ pickerOpen: true });
+  };
+
+  closePicker = () => {
+    this.setState({ pickerOpen: false });
+  };
+
   onKeyChange = keyCode => {
     this.props.onKeyChange(keyCode);
+    this.closePicker();
   };
 
   render() {
     const { keymap, selectedKey, layer } = this.props;
+
     const key = keymap.custom[layer][selectedKey];
+    const label = db.format(key, "full");
 
     return (
       <React.Fragment>
@@ -42,11 +59,21 @@ class ConsumerKeysBase extends React.Component {
           expanded={db.isInCategory(key.code, "consumer")}
           title="Consumer control keys"
         >
+          <Button variant="contained" onClick={this.openPicker}>
+            {label.hint} {label.main}
+          </Button>
+        </Collapsible>
+        <Dialog
+          open={this.state.pickerOpen}
+          onClose={this.closePicker}
+          fullWidth
+          maxWidth="lg"
+        >
           <KeyButtonList
             keys={db.selectCategory("consumer")}
-            onKeyChange={this.props.onKeyChange}
+            onKeyChange={this.onKeyChange}
           />
-        </Collapsible>
+        </Dialog>
       </React.Fragment>
     );
   }

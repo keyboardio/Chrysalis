@@ -107,7 +107,7 @@ class ConfigurationBase extends React.Component {
     }
 
     const config = usedLayers.map((layerData, index) => {
-      const label = db.format(layerData[selectedKey], "full").main;
+      const label = db.format(layerData[selectedKey], "full");
 
       return (
         <TableRow
@@ -117,7 +117,9 @@ class ConfigurationBase extends React.Component {
           className={classes.tableRow}
         >
           <TableCell>Layer {index}</TableCell>
-          <TableCell>{label}</TableCell>
+          <TableCell>
+            {label.hint} {label.main}
+          </TableCell>
         </TableRow>
       );
     });

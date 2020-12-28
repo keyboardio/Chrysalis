@@ -145,7 +145,7 @@ class KeyPickerBase extends React.Component {
         >
           <Keyboard104
             onKeySelect={this.onKeyChange}
-            currentKeyCode={selectedKey}
+            currentKeyCode={key.code}
             keymap={keymap}
           />
         </Dialog>

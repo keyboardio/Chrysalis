@@ -97,8 +97,6 @@ class Editor extends React.Component {
   };
 
   onKeySelect = event => {
-    console.log(event, event.currentTarget, event.target);
-
     const target = event.currentTarget;
     const index = parseInt(target.getAttribute("data-key-index"));
 

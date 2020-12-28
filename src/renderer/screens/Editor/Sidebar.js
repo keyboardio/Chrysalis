@@ -71,6 +71,7 @@ class Sidebar extends React.Component {
       MacroKeys,
       TapDanceKeys,
       SpaceCadetKeys,
+      LeaderKeys,
       StenoKeys
     ];
     const categories = widgets.map((Widget, index) => {

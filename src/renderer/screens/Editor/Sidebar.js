@@ -27,6 +27,14 @@ import Configuration from "./Sidebar/Configuration";
 import KeyPicker from "./Sidebar/KeyPicker";
 import LayerKeys from "./Sidebar/LayerKeys";
 import ConsumerKeys from "./Sidebar/ConsumerKeys";
+import LeaderKeys from "./Sidebar/LeaderKeys";
+import LEDKeys from "./Sidebar/LEDKeys";
+import MacroKeys from "./Sidebar/MacroKeys";
+import MouseKeys from "./Sidebar/MouseKeys";
+import OneShotKeys from "./Sidebar/OneShotKeys";
+import SpaceCadetKeys from "./Sidebar/SpaceCadetKeys";
+import StenoKeys from "./Sidebar/StenoKeys";
+import TapDanceKeys from "./Sidebar/TapDanceKeys";
 
 import { KeymapDB } from "../../../api/keymap";
 
@@ -53,6 +61,30 @@ class Sidebar extends React.Component {
     const db = new KeymapDB();
     const label = db.format(keymap.custom[layer][selectedKey], "full").main;
 
+    const widgets = [
+      KeyPicker,
+      LayerKeys,
+      ConsumerKeys,
+      MouseKeys,
+      LEDKeys,
+      OneShotKeys,
+      MacroKeys,
+      TapDanceKeys,
+      SpaceCadetKeys,
+      StenoKeys
+    ];
+    const categories = widgets.map((Widget, index) => {
+      return (
+        <Widget
+          key={`sidebar-category-${index}`}
+          keymap={keymap}
+          selectedKey={selectedKey}
+          layer={layer}
+          onKeyChange={this.props.onKeyChange}
+        />
+      );
+    });
+
     return (
       <Drawer
         className={classes.drawer}
@@ -74,24 +106,7 @@ class Sidebar extends React.Component {
             layer={layer}
             setLayer={this.props.setLayer}
           />
-          <KeyPicker
-            keymap={keymap}
-            selectedKey={selectedKey}
-            layer={layer}
-            onKeyChange={this.props.onKeyChange}
-          />
-          <LayerKeys
-            keymap={keymap}
-            selectedKey={selectedKey}
-            layer={layer}
-            onKeyChange={this.props.onKeyChange}
-          />
-          <ConsumerKeys
-            keymap={keymap}
-            selectedKey={selectedKey}
-            layer={layer}
-            onKeyChange={this.props.onKeyChange}
-          />
+          {categories}
         </div>
       </Drawer>
     );

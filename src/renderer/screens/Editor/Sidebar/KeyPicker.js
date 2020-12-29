@@ -156,7 +156,10 @@ class KeyPickerBase extends React.Component {
           <Divider />
           <div className={classes.modContainer}>
             <InputLabel>Modifiers</InputLabel>
-            <FormHelperText>Lorem Ipsum</FormHelperText>
+            <FormHelperText>
+              Choose modifier keys that are automatically pressed as you press
+              this key.
+            </FormHelperText>
             <FormControl
               component="fieldset"
               className={classes.mods}

@@ -176,12 +176,8 @@ class MouseKeysBase extends React.Component {
       <Collapsible
         expanded={db.isInCategory(key.code, "mousekeys")}
         title="Mouse keys"
+        help="MouseKeys make it possible to perform mouse actions with your keyboard's keys."
       >
-        <Typography variant="body2" gutterBottom>
-          {
-            "MouseKeys make it possible to perform mouse actions with your keyboard's keys."
-          }
-        </Typography>
         {widgets}
       </Collapsible>
     );

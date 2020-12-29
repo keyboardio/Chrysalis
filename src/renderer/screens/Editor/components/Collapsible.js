@@ -21,6 +21,9 @@ import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import IconButton from "@material-ui/core/IconButton";
+import HelpIcon from "@material-ui/icons/Help";
+import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -45,6 +48,10 @@ const styles = theme => ({
     padding: 0,
     margin: `${theme.spacing(2)}px 0px`,
     display: "block"
+  },
+  help: {
+    margin: `0px ${theme.spacing(1.5)}px 0px 0px`,
+    padding: 0
   }
 });
 
@@ -73,7 +80,7 @@ class CollapsibleBase extends React.Component {
   };
 
   render() {
-    const { classes, title } = this.props;
+    const { classes, title, help } = this.props;
     const { expanded } = this.state;
 
     return (
@@ -87,6 +94,18 @@ class CollapsibleBase extends React.Component {
           expandIcon={<ExpandMoreIcon />}
           classes={{ root: classes.accordionContentRoot }}
         >
+          {help && (
+            <Tooltip title={help}>
+              <IconButton
+                size="small"
+                className={classes.help}
+                onClick={event => event.stopPropagation()}
+                onFocus={event => event.stopPropagation()}
+              >
+                <HelpIcon />
+              </IconButton>
+            </Tooltip>
+          )}
           <Typography>{title}</Typography>
         </AccordionSummary>
         <AccordionDetails classes={{ root: classes.accordionDetailsRoot }}>

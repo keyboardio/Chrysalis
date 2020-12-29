@@ -19,9 +19,12 @@ import React from "react";
 
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
+import Divider from "@material-ui/core/Divider";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import InputLabel from "@material-ui/core/InputLabel";
 import ListItemText from "@material-ui/core/ListItemText";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
@@ -44,7 +47,7 @@ const styles = theme => ({
     marginTop: theme.spacing(1)
   },
   layout: {
-    marginBottom: theme.spacing(1)
+    marginTop: theme.spacing(2)
   }
 });
 
@@ -126,19 +129,19 @@ class KeyPickerBase extends React.Component {
       );
     });
 
+    const platforms = {
+      linux: "Linux",
+      win32: "Windows",
+      darwin: "macOS"
+    };
+    const hostos = platforms[process.platform];
+
     return (
       <React.Fragment>
         <Collapsible
           expanded={this.isStandardKey(this.props)}
           title="Standard keys"
         >
-          <div>
-            <FormControl className={classes.layout}>
-              <Select value={layout} onClick={this.setLayout} autoWidth>
-                {layoutMenu}
-              </Select>
-            </FormControl>
-          </div>
           <div>
             <Button variant="contained" onClick={this.openPicker}>
               {label.hint} {label.main}
@@ -169,6 +172,16 @@ class KeyPickerBase extends React.Component {
               />
             </FormGroup>
           </FormControl>
+          <Divider />
+          <div className={classes.layout}>
+            <FormControl>
+              <InputLabel>{hostos} layout</InputLabel>
+              <Select value={layout} onClick={this.setLayout} autoWidth>
+                {layoutMenu}
+              </Select>
+              <FormHelperText>Blah blah</FormHelperText>
+            </FormControl>
+          </div>
         </Collapsible>
         <Dialog
           open={this.state.pickerOpen}

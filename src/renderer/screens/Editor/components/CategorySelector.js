@@ -48,7 +48,7 @@ class CategorySelectorBase extends React.Component {
   };
 
   render() {
-    const { keymap, selectedKey, layer, category, title } = this.props;
+    const { keymap, selectedKey, layer, category, title, help } = this.props;
 
     const key = keymap.custom[layer][selectedKey];
     const label = db.isInCategory(key.code, category)
@@ -60,6 +60,7 @@ class CategorySelectorBase extends React.Component {
         <Collapsible
           expanded={db.isInCategory(key.code, category)}
           title={title}
+          help={help}
         >
           <Button variant="contained" onClick={this.openPicker}>
             {label.hint} {label.main}

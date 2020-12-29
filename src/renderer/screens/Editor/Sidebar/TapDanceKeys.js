@@ -16,6 +16,7 @@
  */
 
 import React from "react";
+import i18n from "i18next";
 
 import { withStyles } from "@material-ui/core/styles";
 
@@ -29,7 +30,8 @@ class TapDanceKeysBase extends React.Component {
 
     return (
       <CategorySelector
-        title="TapDance"
+        title={i18n.t("editor.sidebar.tapdance.title")}
+        help={i18n.t("editor.sidebar.tapdance.help")}
         category="tapdance"
         keymap={keymap}
         selectedKey={selectedKey}

@@ -16,6 +16,7 @@
  */
 
 import React from "react";
+import i18n from "i18next";
 
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -146,7 +147,8 @@ class KeyPickerBase extends React.Component {
       <React.Fragment>
         <Collapsible
           expanded={this.isStandardKey(this.props)}
-          title="Standard keys"
+          title={i18n.t("editor.sidebar.keypicker.title")}
+          help={i18n.t("editor.sidebar.keypicker.help")}
         >
           <div className={classes.keyPickButton}>
             <Button variant="contained" onClick={this.openPicker}>
@@ -155,10 +157,9 @@ class KeyPickerBase extends React.Component {
           </div>
           <Divider />
           <div className={classes.modContainer}>
-            <InputLabel>Modifiers</InputLabel>
+            <InputLabel>{i18n.t("editor.sidebar.keypicker.mods")}</InputLabel>
             <FormHelperText>
-              Choose modifier keys that are automatically pressed as you press
-              this key.
+              {i18n.t("editor.sidebar.keypicker.modsHelp")}
             </FormHelperText>
             <FormControl
               component="fieldset"
@@ -192,11 +193,17 @@ class KeyPickerBase extends React.Component {
           <Divider />
           <div className={classes.layout}>
             <FormControl>
-              <InputLabel>{hostos} layout</InputLabel>
+              <InputLabel>
+                {i18n.t("editor.sidebar.keypicker.hostLayout", {
+                  hostos: hostos
+                })}
+              </InputLabel>
               <Select value={layout} onClick={this.setLayout} autoWidth>
                 {layoutMenu}
               </Select>
-              <FormHelperText>Blah blah</FormHelperText>
+              <FormHelperText>
+                {i18n.t("editor.sidebar.keypicker.hostHelp")}
+              </FormHelperText>
             </FormControl>
           </div>
         </Collapsible>

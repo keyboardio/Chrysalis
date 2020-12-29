@@ -22,6 +22,8 @@ const English = {
   },
   components: {
     layer: "Layer {{index}}",
+    layerRaw: "Layer",
+    none: "None",
     save: {
       success: "Saved!",
       saveChanges: "Save Changes"
@@ -67,6 +69,62 @@ const English = {
   editor: {
     keyType: "Key type",
     keyCode: "Key code",
+    sidebar: {
+      blanks: {
+        title: "Blanks"
+      },
+      config: {
+        title: "Configuration",
+        key: "Key #{{index}}",
+        hideEmptyLayers: "Hide empty layers...",
+        showEmptyLayers: "Show empty layers..."
+      },
+      consumer: {
+        title: "Consumer control",
+        volume: "Volume",
+        media: "Media control",
+        brightness: "Brightness"
+      },
+      keypicker: {
+        title: "Standard keys",
+        mods: "Modifiers",
+        modsHelp: `Choose modifier keys that are automatically pressed as you press this key.`,
+        hostLayout: "{{hostos}} layout",
+        hostHelp: "Lorem Ipsum..."
+      },
+      layer: {
+        title: "Layer"
+      },
+      leader: {
+        title: "Leader"
+      },
+      ledcontrol: {
+        title: "LED control"
+      },
+      macros: {
+        title: "Macros"
+      },
+      mousekeys: {
+        title: "Mouse control",
+        help: `Mouse control keys make it possible to perform mouse actions with your keyboard's keys.`,
+        movement: "Movement",
+        buttons: "Buttons",
+        wheel: "Wheel",
+        warp: "Warp"
+      },
+      oneshot: {
+        title: "OneShot"
+      },
+      spacecadet: {
+        title: "SpaceCadet"
+      },
+      steno: {
+        title: "Stenography"
+      },
+      tapdance: {
+        title: "TapDance"
+      }
+    },
     groups: {
       Letters: "Letters",
       Digits: "Digits",

@@ -16,6 +16,7 @@
  */
 
 import React from "react";
+import i18n from "i18next";
 
 import Drawer from "@material-ui/core/Drawer";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -104,7 +105,8 @@ class Sidebar extends React.Component {
         <Toolbar />
         <div className={classes.drawerContainer}>
           <Typography variant="h6" className={classes.title}>
-            {label.hint} {label.main} (#{selectedKey}) - Layer {layer}
+            {label.hint} {label.main} (#{selectedKey}) {" - "}
+            {i18n.t("components.layer", { index: layer })}
           </Typography>
           <Configuration
             keymap={keymap}

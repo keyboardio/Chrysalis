@@ -16,6 +16,7 @@
  */
 
 import React from "react";
+import i18n from "i18next";
 
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -44,7 +45,7 @@ const MouseMovementKeys = withStyles(styles)(props => {
     <Card variant="outlined" className={props.classes.card}>
       <CardContent>
         <Typography color="textSecondary" gutterBottom>
-          Movement
+          {i18n.t("editor.sidebar.mousekeys.movement")}
         </Typography>
 
         <KeyButton onKeyChange={props.onKeyChange} keyObj={mouseUp} noHint />
@@ -81,7 +82,7 @@ const MouseButtonKeys = withStyles(styles)(props => {
     <Card variant="outlined" className={props.classes.card}>
       <CardContent>
         <Typography color="textSecondary" gutterBottom>
-          Buttons
+          {i18n.t("editor.sidebar.mousekeys.buttons")}
         </Typography>
 
         {keyButtons}
@@ -113,7 +114,7 @@ const MouseWheelKeys = withStyles(styles)(props => {
     <Card variant="outlined" className={props.classes.card}>
       <CardContent>
         <Typography color="textSecondary" gutterBottom>
-          Wheel
+          {i18n.t("editor.sidebar.mousekeys.wheel")}
         </Typography>
 
         {keyButtons}
@@ -146,7 +147,7 @@ const MouseWarpKeys = withStyles(styles)(props => {
     <Card variant="outlined" className={props.classes.card}>
       <CardContent>
         <Typography color="textSecondary" gutterBottom>
-          Warp
+          {i18n.t("editor.sidebar.mousekeys.warp")}
         </Typography>
 
         {keyButtons}
@@ -175,8 +176,8 @@ class MouseKeysBase extends React.Component {
     return (
       <Collapsible
         expanded={db.isInCategory(key.code, "mousekeys")}
-        title="Mouse control"
-        help="MouseKeys make it possible to perform mouse actions with your keyboard's keys."
+        title={i18n.t("editor.sidebar.mousekeys.title")}
+        help={i18n.t("editor.sidebar.mousekeys.help")}
       >
         {widgets}
       </Collapsible>

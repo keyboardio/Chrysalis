@@ -16,6 +16,7 @@
  */
 
 import React from "react";
+import i18n from "i18next";
 
 import { withStyles } from "@material-ui/core/styles";
 
@@ -29,7 +30,8 @@ class StenoKeysBase extends React.Component {
 
     return (
       <CategorySelector
-        title="Stenography"
+        title={i18n.t("editor.sidebar.steno.title")}
+        help={i18n.t("editor.sidebar.steno.help")}
         category="steno"
         keymap={keymap}
         selectedKey={selectedKey}

@@ -16,6 +16,7 @@
  */
 
 import React from "react";
+import i18n from "i18next";
 
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -56,7 +57,7 @@ const VolumeKeys = withStyles(styles)(props => {
     <Card variant="outlined" className={props.classes.card}>
       <CardContent>
         <Typography color="textSecondary" gutterBottom>
-          Volume
+          {i18n.t("editor.sidebar.consumer.volume")}
         </Typography>
 
         {keyButtons}
@@ -88,7 +89,7 @@ const MediaKeys = withStyles(styles)(props => {
     <Card variant="outlined" className={props.classes.card}>
       <CardContent>
         <Typography color="textSecondary" gutterBottom>
-          Media control
+          {i18n.t("editor.sidebar.consumer.media")}
         </Typography>
 
         {keyButtons}
@@ -118,7 +119,7 @@ const BrightnessKeys = withStyles(styles)(props => {
     <Card variant="outlined" className={props.classes.card}>
       <CardContent>
         <Typography color="textSecondary" gutterBottom>
-          Brightness
+          {i18n.t("editor.sidebar.consumer.brightness")}
         </Typography>
 
         {keyButtons}
@@ -142,7 +143,8 @@ class ConsumerKeysBase extends React.Component {
     return (
       <Collapsible
         expanded={db.isInCategory(key.code, "consumer")}
-        title="Consumer control"
+        title={i18n.t("editor.sidebar.consumer.title")}
+        help={i18n.t("editor.sidebar.consumer.help")}
       >
         {widgets}
       </Collapsible>

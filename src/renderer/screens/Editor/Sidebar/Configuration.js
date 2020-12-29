@@ -16,6 +16,7 @@
  */
 
 import React from "react";
+import i18n from "i18next";
 
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
@@ -121,14 +122,25 @@ class ConfigurationBase extends React.Component {
       );
     });
 
+    const toggleButtonText = showAll
+      ? i18n.t("editor.sidebar.config.hideEmptyLayers")
+      : i18n.t("editor.sidebar.config.showEmptyLayers");
+
     return (
-      <Collapsible title="Configuration">
+      <Collapsible
+        title={i18n.t("editor.sidebar.config.title")}
+        help={i18n.t("editor.sidebar.config.help")}
+      >
         <TableContainer component={Paper}>
           <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell size="small">Layer</TableCell>
-                <TableCell>Key #{selectedKey}</TableCell>
+                <TableCell size="small">
+                  {i18n.t("components.layerRaw")}
+                </TableCell>
+                <TableCell>
+                  {i18n.t("editor.sidebar.config.key", { index: selectedKey })}
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>{config}</TableBody>
@@ -136,7 +148,7 @@ class ConfigurationBase extends React.Component {
               <TableRow>
                 <TableCell colSpan={2} align="right">
                   <Button onClick={this.toggleAllLayers}>
-                    {showAll ? "Hide empty layers..." : "Show empty layers..."}
+                    {toggleButtonText}
                   </Button>
                 </TableCell>
               </TableRow>

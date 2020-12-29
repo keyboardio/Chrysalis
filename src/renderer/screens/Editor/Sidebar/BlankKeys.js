@@ -16,6 +16,7 @@
  */
 
 import React from "react";
+import i18n from "i18next";
 
 import { withStyles } from "@material-ui/core/styles";
 
@@ -51,7 +52,8 @@ class BlankKeysBase extends React.Component {
     return (
       <Collapsible
         expanded={db.isInCategory(key.code, "blanks")}
-        title="Blanks"
+        title={i18n.t("editor.sidebar.blanks.title")}
+        help={i18n.t("editor.sidebar.blanks.help")}
       >
         {keyButtons}
       </Collapsible>

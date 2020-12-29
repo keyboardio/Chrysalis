@@ -16,6 +16,7 @@
  */
 
 import React from "react";
+import i18n from "i18next";
 
 import { withStyles } from "@material-ui/core/styles";
 
@@ -29,7 +30,8 @@ class SpaceCadetKeysBase extends React.Component {
 
     return (
       <CategorySelector
-        title="SpaceCadet"
+        title={i18n.t("editor.sidebar.spacecadet.title")}
+        help={i18n.t("editor.sidebar.spacecadet.help")}
         category="spacecadet"
         keymap={keymap}
         selectedKey={selectedKey}

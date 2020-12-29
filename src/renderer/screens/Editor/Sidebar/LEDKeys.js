@@ -16,6 +16,7 @@
  */
 
 import React from "react";
+import i18n from "i18next";
 
 import { withStyles } from "@material-ui/core/styles";
 
@@ -29,7 +30,8 @@ class LEDKeysBase extends React.Component {
 
     return (
       <CategorySelector
-        title="LED control"
+        title={i18n.t("editor.sidebar.ledcontrol.title")}
+        help={i18n.t("editor.sidebar.ledcontrol.help")}
         category="ledkeys"
         keymap={keymap}
         selectedKey={selectedKey}

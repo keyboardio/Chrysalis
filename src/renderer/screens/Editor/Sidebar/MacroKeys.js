@@ -16,6 +16,7 @@
  */
 
 import React from "react";
+import i18n from "i18next";
 
 import { withStyles } from "@material-ui/core/styles";
 
@@ -29,7 +30,8 @@ class MacroKeysBase extends React.Component {
 
     return (
       <CategorySelector
-        title="Macros"
+        title={i18n.t("editor.sidebar.macros.title")}
+        help={i18n.t("editor.sidebar.macros.help")}
         category="macro"
         keymap={keymap}
         selectedKey={selectedKey}

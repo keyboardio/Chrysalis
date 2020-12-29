@@ -16,6 +16,7 @@
  */
 
 import React from "react";
+import i18n from "i18next";
 
 import { withStyles } from "@material-ui/core/styles";
 
@@ -29,7 +30,8 @@ class OneShotKeysBase extends React.Component {
 
     return (
       <CategorySelector
-        title="OneShots"
+        title={i18n.t("editor.sidebar.oneshot.title")}
+        help={i18n.t("editor.sidebar.oneshot.help")}
         category="oneshot"
         keymap={keymap}
         selectedKey={selectedKey}

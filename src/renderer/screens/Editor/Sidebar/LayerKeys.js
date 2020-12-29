@@ -85,7 +85,8 @@ class LayerKeysBase extends React.Component {
     return (
       <React.Fragment>
         <Collapsible
-          title="Layers"
+          title={i18n.t("editor.sidebar.layer.title")}
+          help={i18n.t("editor.sidebar.layer.help")}
           expanded={db.isInCategory(key.code, "layer")}
         >
           <div>
@@ -93,7 +94,7 @@ class LayerKeysBase extends React.Component {
               <InputLabel>{i18n.t("editor.layerswitch.type")}</InputLabel>
               <Select value={type} onChange={this.onTypeChange}>
                 <MenuItem value="none" disabled selected>
-                  None
+                  {i18n.t("components.none")}
                 </MenuItem>
                 <MenuItem
                   value="shifttolayer"

@@ -16,6 +16,7 @@
  */
 
 import React from "react";
+import i18n from "i18next";
 
 import { withStyles } from "@material-ui/core/styles";
 
@@ -29,7 +30,8 @@ class LeaderKeysBase extends React.Component {
 
     return (
       <CategorySelector
-        title="Leader"
+        title={i18n.t("editor.sidebar.leader.title")}
+        help={i18n.t("editor.sidebar.leader.help")}
         category="leader"
         keymap={keymap}
         selectedKey={selectedKey}

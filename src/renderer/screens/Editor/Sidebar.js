@@ -45,6 +45,9 @@ const styles = theme => ({
     width: sidebarWidth,
     flexShrink: 0
   },
+  title: {
+    marginBottom: theme.spacing(2)
+  },
   drawerPaper: {
     width: sidebarWidth
   },
@@ -100,7 +103,7 @@ class Sidebar extends React.Component {
       >
         <Toolbar />
         <div className={classes.drawerContainer}>
-          <Typography variant="h6">
+          <Typography variant="h6" className={classes.title}>
             {label.hint} {label.main} (#{selectedKey}) - Layer {layer}
           </Typography>
           <Configuration

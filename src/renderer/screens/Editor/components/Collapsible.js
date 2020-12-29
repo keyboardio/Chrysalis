@@ -24,22 +24,26 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
-const styles = () => ({
+const styles = theme => ({
   accordionRoot: {
     boxShadow: "none",
-    margin: "auto",
+    margin: `0px 0px -1px 0px`,
     "&.Mui-expanded": {
-      margin: "auto"
+      margin: `auto auto ${theme.spacing(2)}px auto`,
+      minHeight: 48
     },
     "&:before": {
       display: "none"
     }
   },
   accordionContentRoot: {
-    padding: 0
+    backgroundColor: "rgba(0, 0, 0, .03)",
+    border: "1px solid rgba(0, 0, 0, .125)",
+    padding: `0px ${theme.spacing(2)}px`
   },
   accordionDetailsRoot: {
     padding: 0,
+    margin: `${theme.spacing(2)}px 0px`,
     display: "block"
   }
 });

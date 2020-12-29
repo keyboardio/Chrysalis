@@ -18,11 +18,14 @@
 import React from "react";
 
 import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
+import SettingsIcon from "@material-ui/icons/Settings";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
 import TableFooter from "@material-ui/core/TableFooter";
 import TableRow from "@material-ui/core/TableRow";
 import { withStyles } from "@material-ui/core/styles";
@@ -33,7 +36,8 @@ import { KeymapDB } from "../../../../api/keymap";
 const styles = () => ({
   tableRow: {
     cursor: "pointer"
-  }
+  },
+  tableLayer: {}
 });
 
 class ConfigurationBase extends React.Component {
@@ -92,7 +96,12 @@ class ConfigurationBase extends React.Component {
           onClick={this.selectLayer(index)}
           className={classes.tableRow}
         >
-          <TableCell>Layer {index}</TableCell>
+          <TableCell size="small">
+            <IconButton disabled>
+              <SettingsIcon />
+            </IconButton>
+            #{index}
+          </TableCell>
           <TableCell>
             {label.hint} {label.main}
           </TableCell>
@@ -104,6 +113,12 @@ class ConfigurationBase extends React.Component {
       <Collapsible title="Configuration">
         <TableContainer component={Paper}>
           <Table size="small">
+            <TableHead>
+              <TableRow>
+                <TableCell size="small">Layer</TableCell>
+                <TableCell>Key #{selectedKey}</TableCell>
+              </TableRow>
+            </TableHead>
             <TableBody>{config}</TableBody>
             <TableFooter>
               <TableRow>

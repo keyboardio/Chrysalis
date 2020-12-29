@@ -15,6 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*
+ * TODO:
+ * - Error handling
+ * - Only display default imports if there are any
+ * - i18n
+ * - export
+ * - only display the textbox if importing custom, or on export?
+ */
+
 import React from "react";
 import path from "path";
 import fs from "fs";

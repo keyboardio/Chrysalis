@@ -48,6 +48,12 @@ const styles = theme => ({
   },
   layout: {
     marginTop: theme.spacing(2)
+  },
+  modContainer: {
+    margin: `${theme.spacing(2)}px 0`
+  },
+  keyPickButton: {
+    marginBottom: theme.spacing(2)
   }
 });
 
@@ -142,36 +148,44 @@ class KeyPickerBase extends React.Component {
           expanded={this.isStandardKey(this.props)}
           title="Standard keys"
         >
-          <div>
+          <div className={classes.keyPickButton}>
             <Button variant="contained" onClick={this.openPicker}>
               {label.hint} {label.main}
             </Button>
           </div>
-          <FormControl
-            component="fieldset"
-            className={classes.mods}
-            disabled={!standardKey}
-          >
-            <FormGroup row>
-              <FormControlLabel
-                control={this.makeSwitch("shift")}
-                label="Shift"
-              />
-              <FormControlLabel
-                control={this.makeSwitch("ctrl")}
-                label="Control"
-              />
-              <FormControlLabel control={this.makeSwitch("alt")} label="Alt" />
-              <FormControlLabel
-                control={this.makeSwitch("gui")}
-                label={GuiLabel.full}
-              />
-              <FormControlLabel
-                control={this.makeSwitch("altgr")}
-                label="AltGr"
-              />
-            </FormGroup>
-          </FormControl>
+          <Divider />
+          <div className={classes.modContainer}>
+            <InputLabel>Modifiers</InputLabel>
+            <FormHelperText>Lorem Ipsum</FormHelperText>
+            <FormControl
+              component="fieldset"
+              className={classes.mods}
+              disabled={!standardKey}
+            >
+              <FormGroup row>
+                <FormControlLabel
+                  control={this.makeSwitch("shift")}
+                  label="Shift"
+                />
+                <FormControlLabel
+                  control={this.makeSwitch("ctrl")}
+                  label="Control"
+                />
+                <FormControlLabel
+                  control={this.makeSwitch("alt")}
+                  label="Alt"
+                />
+                <FormControlLabel
+                  control={this.makeSwitch("gui")}
+                  label={GuiLabel.full}
+                />
+                <FormControlLabel
+                  control={this.makeSwitch("altgr")}
+                  label="AltGr"
+                />
+              </FormGroup>
+            </FormControl>
+          </div>
           <Divider />
           <div className={classes.layout}>
             <FormControl>

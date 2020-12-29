@@ -33,11 +33,13 @@ import { withStyles } from "@material-ui/core/styles";
 import Collapsible from "../components/Collapsible";
 import { KeymapDB } from "../../../../api/keymap";
 
-const styles = () => ({
+const styles = theme => ({
   tableRow: {
     cursor: "pointer"
   },
-  tableLayer: {}
+  gears: {
+    padding: `0px ${theme.spacing(1)}px 0px 0px`
+  }
 });
 
 class ConfigurationBase extends React.Component {
@@ -96,8 +98,8 @@ class ConfigurationBase extends React.Component {
           onClick={this.selectLayer(index)}
           className={classes.tableRow}
         >
-          <TableCell size="small">
-            <IconButton disabled>
+          <TableCell size="small" align="left">
+            <IconButton disabled className={classes.gears}>
               <SettingsIcon />
             </IconButton>
             #{index}

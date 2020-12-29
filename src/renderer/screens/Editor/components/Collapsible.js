@@ -21,8 +21,7 @@ import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import IconButton from "@material-ui/core/IconButton";
-import HelpIcon from "@material-ui/icons/Help";
+import FormHelperText from "@material-ui/core/FormHelperText";
 import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
@@ -50,8 +49,7 @@ const styles = theme => ({
     display: "block"
   },
   help: {
-    margin: `0px ${theme.spacing(1.5)}px 0px 0px`,
-    padding: 0
+    marginBottom: theme.spacing(2)
   }
 });
 
@@ -83,6 +81,18 @@ class CollapsibleBase extends React.Component {
     const { classes, title, help } = this.props;
     const { expanded } = this.state;
 
+    let summary = (
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        classes={{ root: classes.accordionContentRoot }}
+      >
+        <Typography>{title}</Typography>
+      </AccordionSummary>
+    );
+    if (help) {
+      summary = <Tooltip title={help}>{summary}</Tooltip>;
+    }
+
     return (
       <Accordion
         square
@@ -90,25 +100,11 @@ class CollapsibleBase extends React.Component {
         classes={{ root: classes.accordionRoot }}
         onChange={this.handleChange}
       >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          classes={{ root: classes.accordionContentRoot }}
-        >
-          {help && (
-            <Tooltip title={help}>
-              <IconButton
-                size="small"
-                className={classes.help}
-                onClick={event => event.stopPropagation()}
-                onFocus={event => event.stopPropagation()}
-              >
-                <HelpIcon />
-              </IconButton>
-            </Tooltip>
-          )}
-          <Typography>{title}</Typography>
-        </AccordionSummary>
+        {summary}
         <AccordionDetails classes={{ root: classes.accordionDetailsRoot }}>
+          {help && (
+            <FormHelperText className={classes.help}>{help}</FormHelperText>
+          )}
           {this.props.children}
         </AccordionDetails>
       </Accordion>

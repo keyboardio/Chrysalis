@@ -29,7 +29,7 @@ class TapDanceKeysBase extends React.Component {
 
     return (
       <CategorySelector
-        title="TapDance keys"
+        title="TapDance"
         category="tapdance"
         keymap={keymap}
         selectedKey={selectedKey}

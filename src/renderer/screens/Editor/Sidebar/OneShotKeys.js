@@ -29,7 +29,7 @@ class OneShotKeysBase extends React.Component {
 
     return (
       <CategorySelector
-        title="OneShot keys"
+        title="OneShots"
         category="oneshot"
         keymap={keymap}
         selectedKey={selectedKey}

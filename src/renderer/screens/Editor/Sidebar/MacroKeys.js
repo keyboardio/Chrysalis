@@ -29,7 +29,7 @@ class MacroKeysBase extends React.Component {
 
     return (
       <CategorySelector
-        title="Macro keys"
+        title="Macros"
         category="macro"
         keymap={keymap}
         selectedKey={selectedKey}

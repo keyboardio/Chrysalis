@@ -85,7 +85,7 @@ class LayerKeysBase extends React.Component {
     return (
       <React.Fragment>
         <Collapsible
-          title="Layer keys"
+          title="Layers"
           expanded={db.isInCategory(key.code, "layer")}
         >
           <div>

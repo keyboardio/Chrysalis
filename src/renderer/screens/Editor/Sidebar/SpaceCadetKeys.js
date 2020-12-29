@@ -29,7 +29,7 @@ class SpaceCadetKeysBase extends React.Component {
 
     return (
       <CategorySelector
-        title="SpaceCadet keys"
+        title="SpaceCadet"
         category="spacecadet"
         keymap={keymap}
         selectedKey={selectedKey}

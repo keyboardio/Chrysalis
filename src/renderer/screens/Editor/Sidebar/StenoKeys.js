@@ -29,7 +29,7 @@ class StenoKeysBase extends React.Component {
 
     return (
       <CategorySelector
-        title="Steno keys"
+        title="Stenography"
         category="steno"
         keymap={keymap}
         selectedKey={selectedKey}

@@ -142,7 +142,7 @@ class ConsumerKeysBase extends React.Component {
     return (
       <Collapsible
         expanded={db.isInCategory(key.code, "consumer")}
-        title="Consumer control keys"
+        title="Consumer control"
       >
         {widgets}
       </Collapsible>

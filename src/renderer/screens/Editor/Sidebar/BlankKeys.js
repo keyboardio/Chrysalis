@@ -51,7 +51,7 @@ class BlankKeysBase extends React.Component {
     return (
       <Collapsible
         expanded={db.isInCategory(key.code, "blanks")}
-        title="Blank keys"
+        title="Blanks"
       >
         {keyButtons}
       </Collapsible>

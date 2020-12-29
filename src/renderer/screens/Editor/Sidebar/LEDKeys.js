@@ -29,7 +29,7 @@ class LEDKeysBase extends React.Component {
 
     return (
       <CategorySelector
-        title="LED keys"
+        title="LED control"
         category="ledkeys"
         keymap={keymap}
         selectedKey={selectedKey}

@@ -29,7 +29,7 @@ class LeaderKeysBase extends React.Component {
 
     return (
       <CategorySelector
-        title="Leader keys"
+        title="Leader"
         category="leader"
         keymap={keymap}
         selectedKey={selectedKey}

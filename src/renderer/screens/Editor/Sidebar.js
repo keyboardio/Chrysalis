@@ -111,6 +111,7 @@ class Sidebar extends React.Component {
             selectedKey={selectedKey}
             layer={layer}
             setLayer={this.props.setLayer}
+            onKeymapChange={this.props.onKeymapChange}
           />
           {categories}
         </div>

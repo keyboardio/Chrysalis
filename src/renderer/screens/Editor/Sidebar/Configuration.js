@@ -31,6 +31,7 @@ import TableRow from "@material-ui/core/TableRow";
 import { withStyles } from "@material-ui/core/styles";
 
 import Collapsible from "../components/Collapsible";
+import ImportExportDialog from "./Configuration/ImportExport";
 import { KeymapDB } from "../../../../api/keymap";
 
 const styles = theme => ({
@@ -44,11 +45,20 @@ const styles = theme => ({
 
 class ConfigurationBase extends React.Component {
   state = {
-    showAll: false
+    showAll: false,
+    dialogOpen: false
   };
 
   selectLayer = index => () => {
     this.props.setLayer(index);
+  };
+
+  closeDialog = () => {
+    this.setState({ dialogOpen: false });
+  };
+
+  openDialog = () => {
+    this.setState({ dialogOpen: true });
   };
 
   findLastUsedLayer = () => {
@@ -76,7 +86,7 @@ class ConfigurationBase extends React.Component {
 
   render() {
     const { classes, keymap, selectedKey, layer } = this.props;
-    const { showAll } = this.state;
+    const { showAll, dialogOpen } = this.state;
     const db = new KeymapDB();
 
     const lastUsedLayer = this.findLastUsedLayer();
@@ -99,7 +109,7 @@ class ConfigurationBase extends React.Component {
           className={classes.tableRow}
         >
           <TableCell size="small" align="left">
-            <IconButton disabled className={classes.gears}>
+            <IconButton className={classes.gears} onClick={this.openDialog}>
               <SettingsIcon />
             </IconButton>
             #{index}
@@ -133,6 +143,13 @@ class ConfigurationBase extends React.Component {
             </TableFooter>
           </Table>
         </TableContainer>
+        <ImportExportDialog
+          open={dialogOpen}
+          onClose={this.closeDialog}
+          keymap={keymap}
+          layer={layer}
+          onKeymapChange={this.props.onKeymapChange}
+        />
       </Collapsible>
     );
   }

@@ -118,6 +118,18 @@ class Editor extends React.Component {
     this.props.startContext();
   };
 
+  onKeymapChange = newKeymap => {
+    this.setState(state => {
+      let keymap = state.keymap;
+      keymap.custom = newKeymap;
+
+      return {
+        modified: true,
+        keymap: keymap
+      };
+    });
+  };
+
   scanKeyboard = async () => {
     let focus = new Focus();
     let logger = new Log();
@@ -295,6 +307,7 @@ class Editor extends React.Component {
           setLayer={this.setLayer}
           setLayout={this.setLayout}
           onKeyChange={this.onKeyChange}
+          onKeymapChange={this.onKeymapChange}
         />
 
         <SaveChangesButton

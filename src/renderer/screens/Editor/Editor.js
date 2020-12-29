@@ -292,11 +292,18 @@ class Editor extends React.Component {
       </div>
     );
 
+    let title;
+    if (this.hasColormap() && this.hasKeymap()) {
+      title = i18n.t("app.menu.editor");
+    } else if (this.hasKeymap()) {
+      title = i18n.t("app.menu.layoutEditor");
+    } else {
+      title = i18n.t("app.menu.colormapEditor");
+    }
+
     return (
       <React.Fragment>
-        <Portal container={this.props.titleElement}>
-          {i18n.t("app.menu.editor")}
-        </Portal>
+        <Portal container={this.props.titleElement}>{title}</Portal>
         {onlyCustomWarning}
         <main className={classes.content}>{keymapWidget}</main>
         <Sidebar

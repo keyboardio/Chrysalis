@@ -60,7 +60,15 @@ const styles = theme => ({
 
 class Sidebar extends React.Component {
   render() {
-    const { classes, keymap, selectedKey, layer, layout } = this.props;
+    const {
+      classes,
+      keymap,
+      selectedKey,
+      selectedLed,
+      layer,
+      layout,
+      colormap
+    } = this.props;
 
     const db = new KeymapDB();
     const label = db.format(keymap.custom[layer][selectedKey], "full");
@@ -84,7 +92,9 @@ class Sidebar extends React.Component {
         <Widget
           key={`sidebar-category-${index}`}
           keymap={keymap}
+          colormap={colormap}
           selectedKey={selectedKey}
+          selectedLed={selectedLed}
           layer={layer}
           layout={layout}
           setLayout={this.props.setLayout}
@@ -110,7 +120,9 @@ class Sidebar extends React.Component {
           </Typography>
           <Configuration
             keymap={keymap}
+            colormap={colormap}
             selectedKey={selectedKey}
+            selectedLed={selectedLed}
             layer={layer}
             setLayer={this.props.setLayer}
             onKeymapChange={this.props.onKeymapChange}

@@ -54,6 +54,7 @@ class Editor extends React.Component {
     loading: true,
     currentLayer: 0,
     currentKeyIndex: 0,
+    currentLedIndex: 0,
     keymap: {
       custom: [],
       default: [],
@@ -71,8 +72,11 @@ class Editor extends React.Component {
   setLayer = layer => {
     this.setState({ currentLayer: layer });
   };
-  selectKey = index => {
-    this.setState({ currentKeyIndex: index });
+  selectKey = (keyIndex, ledIndex) => {
+    this.setState({
+      currentKeyIndex: keyIndex,
+      currentLedIndex: ledIndex
+    });
   };
   setModified = () => {
     this.setState({ modified: true });
@@ -98,9 +102,10 @@ class Editor extends React.Component {
 
   onKeySelect = event => {
     const target = event.currentTarget;
-    const index = parseInt(target.getAttribute("data-key-index"));
+    const keyIndex = parseInt(target.getAttribute("data-key-index"));
+    const ledIndex = parseInt(target.getAttribute("data-led-index"));
 
-    this.selectKey(index);
+    this.selectKey(keyIndex, ledIndex);
   };
 
   onKeyChange = keyCode => {
@@ -242,6 +247,7 @@ class Editor extends React.Component {
       keymap,
       colormap,
       currentKeyIndex,
+      currentLedIndex,
       layout
     } = this.state;
 
@@ -308,7 +314,9 @@ class Editor extends React.Component {
         <main className={classes.content}>{keymapWidget}</main>
         <Sidebar
           keymap={keymap}
+          colormap={colormap}
           selectedKey={currentKeyIndex}
+          selectedLed={currentLedIndex}
           layer={currentLayer}
           layout={layout}
           setLayer={this.setLayer}

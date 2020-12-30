@@ -76,6 +76,7 @@ const English = {
       config: {
         title: "Configuration",
         key: "Key #{{index}}",
+        color: "Color",
         hideEmptyLayers: "Hide empty layers...",
         showEmptyLayers: "Show empty layers..."
       },

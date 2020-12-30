@@ -18,9 +18,11 @@
 import React from "react";
 import i18n from "i18next";
 
+import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
+import CropSquareIcon from "@material-ui/icons/CropSquare";
 import SettingsIcon from "@material-ui/icons/Settings";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -41,6 +43,10 @@ const styles = theme => ({
   },
   gears: {
     padding: `0px ${theme.spacing(1)}px 0px 0px`
+  },
+  colorSwatch: {
+    width: theme.spacing(3),
+    height: theme.spacing(3)
   }
 });
 
@@ -86,7 +92,14 @@ class ConfigurationBase extends React.Component {
   };
 
   render() {
-    const { classes, keymap, selectedKey, layer } = this.props;
+    const {
+      classes,
+      keymap,
+      selectedKey,
+      selectedLed,
+      layer,
+      colormap
+    } = this.props;
     const { showAll, dialogOpen } = this.state;
     const db = new KeymapDB();
 
@@ -101,6 +114,24 @@ class ConfigurationBase extends React.Component {
 
     const config = usedLayers.map((layerData, index) => {
       const label = db.format(layerData[selectedKey], "full");
+      let colorWidget;
+      if (colormap) {
+        const colorIndex = colormap.colorMap[index][selectedLed];
+        const color = colormap.palette[colorIndex];
+
+        colorWidget = (
+          <Avatar
+            className={classes.colorSwatch}
+            variant="square"
+            style={{
+              color: color.rgb,
+              background: color.rgb
+            }}
+          >
+            <CropSquareIcon />
+          </Avatar>
+        );
+      }
 
       return (
         <TableRow
@@ -118,6 +149,7 @@ class ConfigurationBase extends React.Component {
           <TableCell>
             {label.hint} {label.main}
           </TableCell>
+          {colormap && <TableCell>{colorWidget}</TableCell>}
         </TableRow>
       );
     });
@@ -141,12 +173,15 @@ class ConfigurationBase extends React.Component {
                 <TableCell>
                   {i18n.t("editor.sidebar.config.key", { index: selectedKey })}
                 </TableCell>
+                {colormap && (
+                  <TableCell>{i18n.t("editor.sidebar.config.color")}</TableCell>
+                )}
               </TableRow>
             </TableHead>
             <TableBody>{config}</TableBody>
             <TableFooter>
               <TableRow>
-                <TableCell colSpan={2} align="right">
+                <TableCell colSpan={colormap ? 3 : 2} align="right">
                   <Button onClick={this.toggleAllLayers}>
                     {toggleButtonText}
                   </Button>

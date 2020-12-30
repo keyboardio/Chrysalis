@@ -123,6 +123,34 @@ class Editor extends React.Component {
     this.props.startContext();
   };
 
+  onLedChange = index => {
+    this.setState(state => {
+      let newColormap = state.colormap;
+      newColormap.colorMap[state.currentLayer][state.currentLedIndex] = index;
+
+      return {
+        modified: true,
+        colormap: newColormap
+      };
+    });
+
+    this.props.startContext();
+  };
+
+  onPaletteChange = newPalette => {
+    this.setState(state => {
+      let colormap = state.colormap;
+      colormap.palette = newPalette;
+
+      return {
+        modified: true,
+        colormap: colormap
+      };
+    });
+
+    this.props.startContext();
+  };
+
   onKeymapChange = newKeymap => {
     this.setState(state => {
       let keymap = state.keymap;
@@ -323,6 +351,8 @@ class Editor extends React.Component {
           setLayout={this.setLayout}
           onKeyChange={this.onKeyChange}
           onKeymapChange={this.onKeymapChange}
+          onLedChange={this.onLedChange}
+          onPaletteChange={this.onPaletteChange}
         />
 
         <SaveChangesButton

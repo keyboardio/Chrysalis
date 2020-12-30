@@ -24,6 +24,7 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 import Configuration from "./Sidebar/Configuration";
+import Colormap from "./Sidebar/Colormap";
 import KeyPicker from "./Sidebar/KeyPicker";
 import LayerKeys from "./Sidebar/LayerKeys";
 import ConsumerKeys from "./Sidebar/ConsumerKeys";
@@ -75,6 +76,7 @@ class Sidebar extends React.Component {
 
     const widgets = [
       KeyPicker,
+      Colormap,
       LayerKeys,
       BlankKeys,
       ConsumerKeys,
@@ -99,6 +101,8 @@ class Sidebar extends React.Component {
           layout={layout}
           setLayout={this.props.setLayout}
           onKeyChange={this.props.onKeyChange}
+          onLedChange={this.props.onLedChange}
+          onPaletteChange={this.props.onPaletteChange}
         />
       );
     });

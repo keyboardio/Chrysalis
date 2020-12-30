@@ -80,6 +80,9 @@ const English = {
         hideEmptyLayers: "Hide empty layers...",
         showEmptyLayers: "Show empty layers..."
       },
+      colors: {
+        title: "Colors"
+      },
       consumer: {
         title: "Consumer control",
         volume: "Volume",

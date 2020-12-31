@@ -142,55 +142,6 @@ const English = {
         help: "NIY"
       }
     },
-    groups: {
-      Letters: "Letters",
-      Digits: "Digits",
-      Punctuation: "Punctuation",
-      Spacing: "Spacing",
-      Modifiers: "Modifiers",
-      Navigation: "Navigation",
-      "Fx keys": "Fx keys",
-      Numpad: "Numpad",
-      Miscellaneous: "Miscellaneous",
-      "Shift to layer": "Shift to layer",
-      "Lock layer to": "Lock layer to",
-      "LED Effect": "LED Effect",
-      Macros: "Macros",
-      Media: "Media",
-      "Mouse movement": "Mouse movement",
-      "Mouse button": "Mouse button",
-      "Mouse wheel": "Mouse wheel",
-      "Mouse warp": "Mouse warp",
-      "OneShot modifiers": "OneShot modifiers",
-      "OneShot layers": "OneShot layers",
-      TapDance: "TapDance",
-      Leader: "Leader",
-      Steno: "Steno",
-      SpaceCadet: "SpaceCadet",
-      Blank: "Blank",
-      "Unknown keycodes": "Unknown keycodes"
-    },
-    tabs: {
-      keyboard: "Keyboard",
-      consumer: "Consumer",
-      features: "Features",
-      dualuse: "DualUse",
-      others: "Others...",
-      _features: {
-        layer: "Layer switch",
-        macro: "Macro",
-        tapdance: "TapDance",
-        leader: "Leader",
-        leds: "LEDs",
-        spacecadet: "SpaceCadet",
-        steno: "Steno",
-        oneshot: "OneShot",
-        mouse: "Mouse"
-      }
-    },
-    dualuse: {
-      none: "None"
-    },
     layerswitch: {
       type: "Type",
       shiftTo: "Shift To Layer",

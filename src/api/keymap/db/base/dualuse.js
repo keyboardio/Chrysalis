@@ -37,6 +37,7 @@ const addDUL = (key, layer) => ({
     hint: "Layer #" + layer.toString() + "/",
     base: key.label.base
   },
+  target: layer,
   rangeStart: 51218,
   categories: ["layer", "dualuse"]
 });
@@ -71,8 +72,9 @@ const addDUM = (key, mod) => ({
     hint: duMods[mod].name + "/",
     base: key.label.base
   },
+  modifier: duMods[mod].name,
   rangeStart: 49169,
-  categories: ["dualuse", "modifiers", mod]
+  categories: ["modifier", "dualuse", mod]
 });
 
 const dul = () => {

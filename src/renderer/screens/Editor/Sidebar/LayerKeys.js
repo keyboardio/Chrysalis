@@ -117,6 +117,9 @@ class LayerKeysBase extends React.Component {
                 <MenuItem value="oneshot" selected={type == "oneshot"}>
                   {i18n.t("editor.layerswitch.oneshot")}
                 </MenuItem>
+                <MenuItem value="dualuse" selected={type == "dualuse"} disabled>
+                  {i18n.t("editor.layerswitch.dualuse")}
+                </MenuItem>
               </Select>
             </FormControl>
             <FormControl className={classes.form}>

@@ -26,6 +26,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Overview from "./Sidebar/Overview";
 import Colormap from "./Sidebar/Colormap";
 import KeyPicker from "./Sidebar/KeyPicker";
+import SecondaryFunction from "./Sidebar/SecondaryFunction";
 import LayerKeys from "./Sidebar/LayerKeys";
 import ConsumerKeys from "./Sidebar/ConsumerKeys";
 import LeaderKeys from "./Sidebar/LeaderKeys";
@@ -75,6 +76,7 @@ class Sidebar extends React.Component {
 
     const widgets = [
       KeyPicker,
+      SecondaryFunction,
       Colormap,
       LayerKeys,
       BlankKeys,

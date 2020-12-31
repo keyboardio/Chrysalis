@@ -24,6 +24,7 @@ const English = {
     layer: "Layer {{index}}",
     layerRaw: "Layer",
     none: "None",
+    type: "Type",
     save: {
       success: "Saved!",
       saveChanges: "Save Changes"
@@ -81,6 +82,17 @@ const English = {
         color: "Color",
         hideEmptyLayers: "Hide empty layers...",
         showEmptyLayers: "Show empty layers..."
+      },
+      secondary: {
+        title: "Secondary functionality",
+        help: `Lets you assign secondary functionality to a key. When tapping these augmented keys, you'll get the primary function. When holding them, the secondary action will be performed.`,
+        type: {
+          none: "No secondary action",
+          layer: "Layer shift when held",
+          modifier: "Modifier when held"
+        },
+        targetLayer: "Target layer",
+        modifier: "Modifier"
       },
       colors: {
         title: "Colors",
@@ -148,7 +160,8 @@ const English = {
       lockTo: "Lock To Layer",
       moveTo: "Move To Layer",
       oneshot: "OneShot",
-      target: "Target Layer"
+      target: "Target Layer",
+      dualuse: "Layer shift when held"
     },
     clearLayer: "Clear layer...",
     clearLayerQuestion: "Clear layer?",

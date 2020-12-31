@@ -69,7 +69,7 @@ class KeyPickerBase extends React.Component {
     const key = keymap.custom[layer][selectedKey];
     const code = key.baseCode || key.code;
 
-    return code >= 4 && code <= 255;
+    return code >= 4 && code <= 255 && !db.isInCategory(key.code, "dualuse");
   };
 
   isOSM = () => {
@@ -80,6 +80,13 @@ class KeyPickerBase extends React.Component {
       db.isInCategory(key.code, "modifier") &&
       db.isInCategory(key.code, "oneshot")
     );
+  };
+
+  isDualUse = () => {
+    const { selectedKey, keymap, layer } = this.props;
+    const key = keymap.custom[layer][selectedKey];
+
+    return db.isInCategory(key.code, "dualuse");
   };
 
   openPicker = () => {
@@ -177,7 +184,10 @@ class KeyPickerBase extends React.Component {
         <FormControl
           component="fieldset"
           className={classes.mods}
-          disabled={!db.isInCategory(key.code, "modifier")}
+          disabled={
+            !db.isInCategory(key.code, "modifier") ||
+            db.isInCategory(key.code, "dualuse")
+          }
         >
           <FormGroup row>
             <Tooltip title={i18n.t("editor.sidebar.keypicker.oneshot.tooltip")}>
@@ -194,7 +204,9 @@ class KeyPickerBase extends React.Component {
     return (
       <React.Fragment>
         <Collapsible
-          expanded={this.isStandardKey(this.props) || this.isOSM()}
+          expanded={
+            this.isStandardKey(this.props) || this.isOSM() || this.isDualUse()
+          }
           title={i18n.t("editor.sidebar.keypicker.title")}
           help={i18n.t("editor.sidebar.keypicker.help")}
         >

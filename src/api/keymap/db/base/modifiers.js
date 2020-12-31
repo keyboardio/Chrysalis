@@ -16,76 +16,79 @@
 
 import { GuiLabel } from "./gui";
 import addCategories from "../addCategories";
+import { withModifiers } from "../modifiers";
 
-const modifiers = addCategories(
-  ["modifier"],
-  [
-    {
-      code: 224,
-      label: {
-        base: {
-          full: "Control",
-          "1u": "Ctrl"
-        }
+const modifiers = withModifiers(
+  addCategories(
+    ["modifier"],
+    [
+      {
+        code: 224,
+        label: {
+          base: {
+            full: "Control",
+            "1u": "Ctrl"
+          }
+        },
+        location: "left"
       },
-      location: "left"
-    },
-    {
-      code: 225,
-      label: {
-        base: "Shift"
+      {
+        code: 225,
+        label: {
+          base: "Shift"
+        },
+        location: "left"
       },
-      location: "left"
-    },
-    {
-      code: 226,
-      label: {
-        base: "Alt"
+      {
+        code: 226,
+        label: {
+          base: "Alt"
+        },
+        location: "left"
       },
-      location: "left"
-    },
-    {
-      code: 227,
-      label: {
-        base: GuiLabel
+      {
+        code: 227,
+        label: {
+          base: GuiLabel
+        },
+        location: "left"
       },
-      location: "left"
-    },
-    {
-      code: 228,
-      label: {
-        base: {
-          full: "Control",
-          "1u": "Ctrl"
-        }
+      {
+        code: 228,
+        label: {
+          base: {
+            full: "Control",
+            "1u": "Ctrl"
+          }
+        },
+        location: "right"
       },
-      location: "right"
-    },
-    {
-      code: 229,
-      label: {
-        base: "Shift"
+      {
+        code: 229,
+        label: {
+          base: "Shift"
+        },
+        location: "right"
       },
-      location: "right"
-    },
-    {
-      code: 230,
-      label: {
-        base: {
-          full: "AltGr",
-          "1u": "AGr"
-        }
+      {
+        code: 230,
+        label: {
+          base: {
+            full: "AltGr",
+            "1u": "AGr"
+          }
+        },
+        location: "right"
       },
-      location: "right"
-    },
-    {
-      code: 231,
-      label: {
-        base: GuiLabel
-      },
-      location: "right"
-    }
-  ]
+      {
+        code: 231,
+        label: {
+          base: GuiLabel
+        },
+        location: "right"
+      }
+    ]
+  )
 );
 
 export { modifiers };

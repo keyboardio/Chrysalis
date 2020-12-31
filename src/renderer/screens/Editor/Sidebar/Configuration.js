@@ -115,7 +115,7 @@ class ConfigurationBase extends React.Component {
     const config = usedLayers.map((layerData, index) => {
       const label = db.format(layerData[selectedKey], "full");
       let colorWidget;
-      if (colormap) {
+      if (colormap && colormap.palette.length > 0) {
         const colorIndex = colormap.colorMap[index][selectedLed];
         const color = colormap.palette[colorIndex];
 
@@ -149,7 +149,9 @@ class ConfigurationBase extends React.Component {
           <TableCell>
             {label.hint} {label.main}
           </TableCell>
-          {colormap && <TableCell>{colorWidget}</TableCell>}
+          {colormap && colormap.palette.length > 0 && (
+            <TableCell>{colorWidget}</TableCell>
+          )}
         </TableRow>
       );
     });
@@ -173,7 +175,7 @@ class ConfigurationBase extends React.Component {
                 <TableCell>
                   {i18n.t("editor.sidebar.config.key", { index: selectedKey })}
                 </TableCell>
-                {colormap && (
+                {colormap && colormap.palette.length > 0 && (
                   <TableCell>{i18n.t("editor.sidebar.config.color")}</TableCell>
                 )}
               </TableRow>
@@ -181,7 +183,10 @@ class ConfigurationBase extends React.Component {
             <TableBody>{config}</TableBody>
             <TableFooter>
               <TableRow>
-                <TableCell colSpan={colormap ? 3 : 2} align="right">
+                <TableCell
+                  colSpan={colormap && colormap.palette.length > 0 ? 3 : 2}
+                  align="right"
+                >
                   <Button onClick={this.toggleAllLayers}>
                     {toggleButtonText}
                   </Button>

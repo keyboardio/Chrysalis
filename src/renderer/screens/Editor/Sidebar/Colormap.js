@@ -55,7 +55,7 @@ class ColormapBase extends React.Component {
   render() {
     const { selectedLed, layer, colormap, classes } = this.props;
 
-    if (!colormap) return;
+    if (!colormap || colormap.palette.length == 0) return null;
 
     const colorIndex = colormap.colorMap[layer][selectedLed];
     const color = colormap.palette[colorIndex];

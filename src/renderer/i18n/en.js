@@ -71,26 +71,31 @@ const English = {
     keyCode: "Key code",
     sidebar: {
       blanks: {
-        title: "Blanks"
+        title: "Blanks",
+        help: "Blocked & transparent keys."
       },
       config: {
         title: "Configuration",
+        help: `This sections lets you see all the mappings for the current position, on all available layers. Clicking a row will switch to that layer.`,
         key: "Key #{{index}}",
         color: "Color",
         hideEmptyLayers: "Hide empty layers...",
         showEmptyLayers: "Show empty layers..."
       },
       colors: {
-        title: "Colors"
+        title: "Colors",
+        help: `Assign colors by selecting one from the palette and clicking on a key. To change the color of a palette entry, use the color picker.`
       },
       consumer: {
         title: "Consumer control",
+        help: "Keys to control volume, brightness, and varios media controls.",
         volume: "Volume",
         media: "Media control",
         brightness: "Brightness"
       },
       keypicker: {
         title: "Standard keys",
+        help: `Letters, digits, modifiers - the keys you find on a standard keyboard layout.`,
         mods: "Modifiers",
         modsHelp: `Choose modifier keys that are automatically pressed as you press this key.`,
         hostLayout: "{{hostos}} layout",
@@ -101,16 +106,20 @@ const English = {
         }
       },
       layer: {
-        title: "Layer"
+        title: "Layer",
+        help: "Keys that let you change layers."
       },
       leader: {
-        title: "Leader"
+        title: "Leader",
+        help: "NIY"
       },
       ledcontrol: {
-        title: "LED control"
+        title: "LED control",
+        help: "Keys to control LED effects."
       },
       macros: {
-        title: "Macros"
+        title: "Macros",
+        help: "Assign any of the pre-made macros to keys."
       },
       mousekeys: {
         title: "Mouse control",
@@ -120,17 +129,17 @@ const English = {
         wheel: "Wheel",
         warp: "Warp"
       },
-      oneshot: {
-        title: "OneShot"
-      },
       spacecadet: {
-        title: "SpaceCadet"
+        title: "SpaceCadet",
+        help: "NIY"
       },
       steno: {
-        title: "Stenography"
+        title: "Stenography",
+        help: "NIY"
       },
       tapdance: {
-        title: "TapDance"
+        title: "TapDance",
+        help: "NIY"
       }
     },
     groups: {

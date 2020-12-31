@@ -26,7 +26,11 @@ const styles = () => ({});
 
 class LEDKeysBase extends React.Component {
   render() {
-    const { keymap, selectedKey, layer, onKeyChange } = this.props;
+    const { keymap, selectedKey, layer, onKeyChange, colormap } = this.props;
+
+    if (!colormap || colormap.palette.length == 0) {
+      return null;
+    }
 
     return (
       <CategorySelector

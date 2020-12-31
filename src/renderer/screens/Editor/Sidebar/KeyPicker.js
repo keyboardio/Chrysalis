@@ -164,7 +164,7 @@ class KeyPickerBase extends React.Component {
     const hostos = platforms[process.platform];
 
     let oneShot;
-    if (db.isInCategory(key.code, "modifier")) {
+    if (db.isInCategory(key.baseCode || key.code, "modifier")) {
       const osmControl = (
         <Switch
           checked={db.isInCategory(key, "oneshot")}
@@ -174,7 +174,11 @@ class KeyPickerBase extends React.Component {
       );
 
       oneShot = (
-        <FormControl component="fieldset" className={classes.mods}>
+        <FormControl
+          component="fieldset"
+          className={classes.mods}
+          disabled={!db.isInCategory(key.code, "modifier")}
+        >
           <FormGroup row>
             <Tooltip title={i18n.t("editor.sidebar.keypicker.oneshot.tooltip")}>
               <FormControlLabel

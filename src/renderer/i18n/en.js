@@ -159,7 +159,7 @@ const English = {
       shiftTo: "Shift To Layer",
       lockTo: "Lock To Layer",
       moveTo: "Move To Layer",
-      oneshot: "OneShot",
+      oneshot: "Layer shift for next action",
       target: "Target Layer",
       dualuse: "Layer shift when held"
     },

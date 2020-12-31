@@ -74,8 +74,8 @@ const English = {
         title: "Blanks",
         help: "Blocked & transparent keys."
       },
-      config: {
-        title: "Configuration",
+      overview: {
+        title: "Overview",
         help: `This sections lets you see all the mappings for the current position, on all available layers. Clicking a row will switch to that layer.`,
         key: "Key #{{index}}",
         color: "Color",

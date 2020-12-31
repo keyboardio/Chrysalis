@@ -34,7 +34,7 @@ import TableRow from "@material-ui/core/TableRow";
 import { withStyles } from "@material-ui/core/styles";
 
 import Collapsible from "../components/Collapsible";
-import ImportExportDialog from "./Configuration/ImportExport";
+import ImportExportDialog from "./Overview/ImportExport";
 import { KeymapDB } from "../../../../api/keymap";
 
 const styles = theme => ({
@@ -50,7 +50,7 @@ const styles = theme => ({
   }
 });
 
-class ConfigurationBase extends React.Component {
+class OverviewBase extends React.Component {
   state = {
     showAll: false,
     dialogOpen: false
@@ -157,13 +157,13 @@ class ConfigurationBase extends React.Component {
     });
 
     const toggleButtonText = showAll
-      ? i18n.t("editor.sidebar.config.hideEmptyLayers")
-      : i18n.t("editor.sidebar.config.showEmptyLayers");
+      ? i18n.t("editor.sidebar.overview.hideEmptyLayers")
+      : i18n.t("editor.sidebar.overview.showEmptyLayers");
 
     return (
       <Collapsible
-        title={i18n.t("editor.sidebar.config.title")}
-        help={i18n.t("editor.sidebar.config.help")}
+        title={i18n.t("editor.sidebar.overview.title")}
+        help={i18n.t("editor.sidebar.overview.help")}
       >
         <TableContainer component={Paper}>
           <Table size="small">
@@ -173,10 +173,14 @@ class ConfigurationBase extends React.Component {
                   {i18n.t("components.layerRaw")}
                 </TableCell>
                 <TableCell>
-                  {i18n.t("editor.sidebar.config.key", { index: selectedKey })}
+                  {i18n.t("editor.sidebar.overview.key", {
+                    index: selectedKey
+                  })}
                 </TableCell>
                 {colormap && colormap.palette.length > 0 && (
-                  <TableCell>{i18n.t("editor.sidebar.config.color")}</TableCell>
+                  <TableCell>
+                    {i18n.t("editor.sidebar.overview.color")}
+                  </TableCell>
                 )}
               </TableRow>
             </TableHead>
@@ -206,8 +210,6 @@ class ConfigurationBase extends React.Component {
     );
   }
 }
-const Configuration = withStyles(styles, { withTheme: true })(
-  ConfigurationBase
-);
+const Overview = withStyles(styles, { withTheme: true })(OverviewBase);
 
-export { Configuration as default };
+export { Overview as default };

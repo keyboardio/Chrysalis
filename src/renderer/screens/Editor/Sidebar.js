@@ -23,7 +23,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
-import Configuration from "./Sidebar/Configuration";
+import Overview from "./Sidebar/Overview";
 import Colormap from "./Sidebar/Colormap";
 import KeyPicker from "./Sidebar/KeyPicker";
 import LayerKeys from "./Sidebar/LayerKeys";
@@ -120,7 +120,7 @@ class Sidebar extends React.Component {
             {label.hint} {label.main} (#{selectedKey}) {" - "}
             {i18n.t("components.layer", { index: layer })}
           </Typography>
-          <Configuration
+          <Overview
             keymap={keymap}
             colormap={colormap}
             selectedKey={selectedKey}

@@ -94,7 +94,11 @@ const English = {
         mods: "Modifiers",
         modsHelp: `Choose modifier keys that are automatically pressed as you press this key.`,
         hostLayout: "{{hostos}} layout",
-        hostHelp: "Lorem Ipsum..."
+        hostHelp: "Lorem Ipsum...",
+        oneshot: {
+          label: "Active for next key only",
+          tooltip: `Tap to activate for next key only, hold for modifier, double tap to toggle modifier.`
+        }
       },
       layer: {
         title: "Layer"
@@ -183,6 +187,7 @@ const English = {
       shiftTo: "Shift To Layer",
       lockTo: "Lock To Layer",
       moveTo: "Move To Layer",
+      oneshot: "OneShot",
       target: "Target Layer"
     },
     clearLayer: "Clear layer...",

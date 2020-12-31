@@ -38,8 +38,9 @@ const osl = index => ({
     },
     base: "#" + index.toString()
   },
+  target: index,
   rangeStart: 49161,
-  categories: ["oneshot", "layer"]
+  categories: ["layer", "oneshot"]
 });
 
 const oneshot = [

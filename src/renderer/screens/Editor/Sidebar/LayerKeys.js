@@ -61,7 +61,8 @@ class LayerKeysBase extends React.Component {
     const typeStarts = {
       locktolayer: 17408,
       shifttolayer: 17450,
-      movetolayer: 17492
+      movetolayer: 17492,
+      oneshot: 49161
     };
     const { keymap, selectedKey, layer } = this.props;
     const key = keymap.custom[layer][selectedKey];
@@ -80,6 +81,11 @@ class LayerKeysBase extends React.Component {
     if (db.isInCategory(key.code, "layer")) {
       targetLayer = key.target;
       type = key.categories[1];
+    }
+
+    let max = keymap.custom.length;
+    if (type == "oneshot") {
+      max = Math.min(max, 8);
     }
 
     return (
@@ -108,6 +114,9 @@ class LayerKeysBase extends React.Component {
                 <MenuItem value="movetolayer" selected={type == "movetolayer"}>
                   {i18n.t("editor.layerswitch.moveTo")}
                 </MenuItem>
+                <MenuItem value="oneshot" selected={type == "oneshot"}>
+                  {i18n.t("editor.layerswitch.oneshot")}
+                </MenuItem>
               </Select>
             </FormControl>
             <FormControl className={classes.form}>
@@ -115,7 +124,7 @@ class LayerKeysBase extends React.Component {
               <Input
                 type="number"
                 min={0}
-                max={keymap.custom.length}
+                max={max}
                 value={targetLayer < 0 ? "" : targetLayer}
                 disabled={targetLayer < 0}
                 onChange={this.onTargetLayerChange}

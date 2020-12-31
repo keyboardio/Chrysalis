@@ -30,6 +30,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import Switch from "@material-ui/core/Switch";
+import Tooltip from "@material-ui/core/Tooltip";
 import { withStyles } from "@material-ui/core/styles";
 
 import Keyboard104 from "../Keyboard104";
@@ -71,6 +72,16 @@ class KeyPickerBase extends React.Component {
     return code >= 4 && code <= 255;
   };
 
+  isOSM = () => {
+    const { selectedKey, keymap, layer } = this.props;
+    const key = keymap.custom[layer][selectedKey];
+
+    return (
+      db.isInCategory(key.code, "modifier") &&
+      db.isInCategory(key.code, "oneshot")
+    );
+  };
+
   openPicker = () => {
     this.setState({ pickerOpen: true });
   };
@@ -102,6 +113,17 @@ class KeyPickerBase extends React.Component {
     }
   };
 
+  toggleOneShot = event => {
+    const { selectedKey, keymap, layer } = this.props;
+    const key = keymap.custom[layer][selectedKey];
+
+    if (event.target.checked) {
+      this.props.onKeyChange(key.code - 224 + 49153);
+    } else {
+      this.props.onKeyChange(key.code - key.rangeStart + 224);
+    }
+  };
+
   makeSwitch = mod => {
     const { selectedKey, keymap, layer } = this.props;
     const key = keymap.custom[layer][selectedKey].code;
@@ -124,8 +146,6 @@ class KeyPickerBase extends React.Component {
     const { classes, keymap, selectedKey, layer, layout } = this.props;
     const key = keymap.custom[layer][selectedKey];
     const label = db.format(key, "full");
-    const baseCode = key.baseCode || key.code;
-    const standardKey = baseCode >= 4 && baseCode <= 255;
 
     const layoutMenu = db.getSupportedLayouts().map((layout, index) => {
       const menuKey = "layout-menu-" + index.toString();
@@ -143,10 +163,34 @@ class KeyPickerBase extends React.Component {
     };
     const hostos = platforms[process.platform];
 
+    let oneShot;
+    if (db.isInCategory(key.code, "modifier")) {
+      const osmControl = (
+        <Switch
+          checked={db.isInCategory(key, "oneshot")}
+          color="primary"
+          onChange={this.toggleOneShot}
+        />
+      );
+
+      oneShot = (
+        <FormControl component="fieldset" className={classes.mods}>
+          <FormGroup row>
+            <Tooltip title={i18n.t("editor.sidebar.keypicker.oneshot.tooltip")}>
+              <FormControlLabel
+                control={osmControl}
+                label={i18n.t("editor.sidebar.keypicker.oneshot.label")}
+              />
+            </Tooltip>
+          </FormGroup>
+        </FormControl>
+      );
+    }
+
     return (
       <React.Fragment>
         <Collapsible
-          expanded={this.isStandardKey(this.props)}
+          expanded={this.isStandardKey(this.props) || this.isOSM()}
           title={i18n.t("editor.sidebar.keypicker.title")}
           help={i18n.t("editor.sidebar.keypicker.help")}
         >
@@ -164,7 +208,7 @@ class KeyPickerBase extends React.Component {
             <FormControl
               component="fieldset"
               className={classes.mods}
-              disabled={!standardKey}
+              disabled={!this.isStandardKey(this.props)}
             >
               <FormGroup row>
                 <FormControlLabel
@@ -189,6 +233,7 @@ class KeyPickerBase extends React.Component {
                 />
               </FormGroup>
             </FormControl>
+            {oneShot}
           </div>
           <Divider />
           <div className={classes.layout}>

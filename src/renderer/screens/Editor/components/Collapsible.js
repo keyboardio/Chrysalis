@@ -68,15 +68,6 @@ class CollapsibleBase extends React.Component {
     }));
   };
 
-  UNSAFE_componentWillReceiveProps = nextProps => {
-    if (nextProps.explicit) return;
-
-    const expanded =
-      nextProps.expanded === undefined ? true : nextProps.expanded;
-
-    this.setState({ expanded: expanded });
-  };
-
   render() {
     const { classes, title, help } = this.props;
     const { expanded } = this.state;

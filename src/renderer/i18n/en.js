@@ -84,7 +84,7 @@ const English = {
         showEmptyLayers: "Show empty layers..."
       },
       secondary: {
-        title: "Secondary functionality",
+        title: "Secondary action",
         help: `Lets you assign secondary functionality to a key. When tapping these augmented keys, you'll get the primary function. When holding them, the secondary action will be performed.`,
         type: {
           none: "No secondary action",
@@ -100,42 +100,42 @@ const English = {
       },
       consumer: {
         title: "Consumer control",
-        help: "Keys to control volume, brightness, and varios media controls.",
+        help: "Keys to control volume, brightness, and media controls.",
         volume: "Volume",
         media: "Media control",
         brightness: "Brightness"
       },
       keypicker: {
         title: "Standard keys",
-        help: `Letters, digits, modifiers - the keys you find on a standard keyboard layout.`,
+        help: `Letters, number, symbols, and modifiers - the keys you find on a standard keyboard layout.`,
         mods: "Modifiers",
         modsHelp: `Choose modifier keys that are automatically pressed as you press this key.`,
         hostLayout: "{{hostos}} layout",
-        hostHelp: "Lorem Ipsum...",
+        hostHelp: "Select the key layout you use on your computer",
         oneshot: {
-          label: "Active for next key only",
-          tooltip: `Tap to activate for next key only, hold for modifier, double tap to toggle modifier.`
+          label: "Sticky",
+          tooltip: `Tap to activate for next keypress, hold to act like a regular modifier modifier, double tap to toggle modifier.`
         }
       },
       layer: {
-        title: "Layer",
+        title: "Layers and keymaps",
         help: "Keys that let you change layers."
       },
       leader: {
         title: "Leader",
-        help: "NIY"
+        help: `Assign Leader keys. To configure this feature, you can use the Arduino IDE to customize the Kaleidoscope 'Sketch' file for your keyboard.`
       },
       ledcontrol: {
         title: "LED control",
-        help: "Keys to control LED effects."
+        help: "Control your keyboard's LED themes and effects."
       },
       macros: {
         title: "Macros",
-        help: "Assign any of the pre-made macros to keys."
+        help: `Assign macros to keys. To create or modify macros, you can use the Arduino IDE to customize the Kaleidoscope 'Sketch' file for your keyboard.`
       },
       mousekeys: {
         title: "Mouse control",
-        help: `Mouse control keys make it possible to perform mouse actions with your keyboard's keys.`,
+        help: `Emulate a mouse using your keyboard's keys.`,
         movement: "Movement",
         buttons: "Buttons",
         wheel: "Wheel",
@@ -143,15 +143,15 @@ const English = {
       },
       spacecadet: {
         title: "SpaceCadet",
-        help: "NIY"
+        help: `SpaceCadet turns your left and right shift keys into your left and right parens, when tapped without also tapping any other keys. Using the Arduino IDE, you can add additional SpaceCadet mappings.`
       },
       steno: {
-        title: "Stenography",
-        help: "NIY"
+        title: "Steno",
+        help: `Your keyboard supports the GeminiPR protocol for Stenographic input. Using these keys instead of Plover's QWERTY input offer a more seamless Steno experience.`
       },
       tapdance: {
         title: "TapDance",
-        help: "NIY"
+        help: `Tap-dance keys are general purpose, multi-use keys, which trigger a different action based on the number of times you tap them.`
       }
     },
     layerswitch: {
@@ -235,10 +235,11 @@ const English = {
   keyboardSelect: {
     unknown: "Unknown",
     selectPrompt: "Please select a keyboard:",
-    noDevices: "No keyboards found!",
+    noDevices: `No keyboards found.
+ Please connect your keyboard, then click "Scan"`,
     connect: "Connect",
     disconnect: "Disconnect",
-    scan: "Scan keyboards",
+    scan: "Scan",
     installUdevRules: "Fix it",
     permissionError: `Your computer won't let Chrysalis talk to your keyboard. (You do not have read/write permissions to {{path}}.)`,
     permissionErrorSuggestion: `Chrysalis can fix this by installing a udev rules file into /etc/udev/rules.d/.`

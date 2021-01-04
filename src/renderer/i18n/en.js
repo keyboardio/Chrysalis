@@ -105,6 +105,7 @@ const English = {
       },
       keypicker: {
         title: "Standard keys",
+        pickAKey: "Pick a key",
         help: `Letters, number, symbols, and modifiers - the keys you find on a standard keyboard layout.`,
         mods: "Modifiers",
         modsHelp: `Choose modifier keys that are automatically pressed as you press this key.`,

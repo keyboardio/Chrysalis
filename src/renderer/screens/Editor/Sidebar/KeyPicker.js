@@ -152,7 +152,6 @@ class KeyPickerBase extends React.Component {
   render() {
     const { classes, keymap, selectedKey, layer, layout } = this.props;
     const key = keymap.custom[layer][selectedKey];
-    const label = db.format(key, "full");
 
     const layoutMenu = db.getSupportedLayouts().map((layout, index) => {
       const menuKey = "layout-menu-" + index.toString();
@@ -212,7 +211,7 @@ class KeyPickerBase extends React.Component {
         >
           <div className={classes.keyPickButton}>
             <Button variant="contained" onClick={this.openPicker}>
-              {label.hint} {label.main}
+              {i18n.t("editor.sidebar.keypicker.pickAKey")}
             </Button>
           </div>
           <Divider />

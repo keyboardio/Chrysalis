@@ -21,8 +21,6 @@ import i18n from "i18next";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
-import { KeymapDB } from "../../../../api/keymap";
-
 const styles = theme => ({
   title: {
     marginBottom: theme.spacing(2)
@@ -31,14 +29,10 @@ const styles = theme => ({
 
 class TitleBase extends React.Component {
   render() {
-    const { classes, keymap, selectedKey, layer } = this.props;
-
-    const db = new KeymapDB();
-    const label = db.format(keymap.custom[layer][selectedKey], "full");
+    const { classes, layer } = this.props;
 
     return (
       <Typography variant="h6" className={classes.title}>
-        {label.hint} {label.main} (#{selectedKey}) {" - "}
         {i18n.t("components.layer", { index: layer })}
       </Typography>
     );

@@ -76,8 +76,6 @@ const English = {
         help: "Blocked & transparent keys."
       },
       overview: {
-        title: "Overview",
-        help: `This sections lets you see all the mappings for the current position, on all available layers. Clicking a row will switch to that layer.`,
         key: "Key #{{index}}",
         color: "Color",
         hideEmptyLayers: "Hide empty layers...",

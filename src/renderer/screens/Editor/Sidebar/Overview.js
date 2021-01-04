@@ -33,11 +33,13 @@ import TableFooter from "@material-ui/core/TableFooter";
 import TableRow from "@material-ui/core/TableRow";
 import { withStyles } from "@material-ui/core/styles";
 
-import Collapsible from "../components/Collapsible";
 import ImportExportDialog from "./Overview/ImportExport";
 import { KeymapDB } from "../../../../api/keymap";
 
 const styles = theme => ({
+  root: {
+    marginBottom: theme.spacing(2)
+  },
   tableRow: {
     cursor: "pointer"
   },
@@ -161,11 +163,8 @@ class OverviewBase extends React.Component {
       : i18n.t("editor.sidebar.overview.showEmptyLayers");
 
     return (
-      <Collapsible
-        title={i18n.t("editor.sidebar.overview.title")}
-        help={i18n.t("editor.sidebar.overview.help")}
-      >
-        <TableContainer component={Paper}>
+      <React.Fragment>
+        <TableContainer component={Paper} className={classes.root}>
           <Table size="small">
             <TableHead>
               <TableRow>
@@ -206,7 +205,7 @@ class OverviewBase extends React.Component {
           layer={layer}
           onKeymapChange={this.props.onKeymapChange}
         />
-      </Collapsible>
+      </React.Fragment>
     );
   }
 }

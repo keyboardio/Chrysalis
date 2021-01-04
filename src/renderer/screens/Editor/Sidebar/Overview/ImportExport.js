@@ -18,7 +18,6 @@
 /*
  * TODO:
  * - Error handling
- * - Only display default imports if there are any
  * - i18n
  * - export
  * - only display the textbox if importing custom, or on export?
@@ -28,6 +27,7 @@ import React from "react";
 import path from "path";
 import fs from "fs";
 
+import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import CloseIcon from "@material-ui/icons/Close";
 import Dialog from "@material-ui/core/Dialog";
@@ -40,13 +40,15 @@ import IconButton from "@material-ui/core/IconButton";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
-import TextField from "@material-ui/core/TextField";
+import Tab from "@material-ui/core/Tab";
+import Tabs from "@material-ui/core/Tabs";
+//import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 import Focus from "../../../../../api/focus";
-import { getStaticPath } from "../../../../config";
 import { KeymapDB } from "../../../../../api/keymap";
+import { getStaticPath } from "../../../../config";
 
 const db = new KeymapDB();
 
@@ -69,22 +71,29 @@ const styles = theme => ({
   }
 });
 
-class ImportExportBase extends React.Component {
-  state = {
-    layoutToImport: "custom"
-  };
+const TabPanel = props => {
+  const { children, value, index, ...other } = props;
 
-  selectLayoutToImport = event => {
-    this.setState({ layoutToImport: event.target.value });
-  };
+  return (
+    <div hidden={value !== index} id={`ie-tabpanel-${index}`} {...other}>
+      {value === index && <Box p={3}>{children}</Box>}
+    </div>
+  );
+};
 
-  fieldChange = event => {
-    this.setState({
-      layoutToImport: "custom",
-      layerData: event.target.value
-    });
-  };
+class DefaultImportBase extends React.Component {
+  constructor(props) {
+    super(props);
 
+    const layoutState = this.loadLayout("qwerty");
+
+    this.state = {
+      layoutToImport: layoutState.layoutToImport,
+      layout: layoutState.layout
+    };
+  }
+
+  /*
   importLayout = data => {
     const { layer, keymap, onKeymapChange } = this.props;
 
@@ -96,32 +105,187 @@ class ImportExportBase extends React.Component {
 
     onKeymapChange(newKeymap);
   };
+  */
 
-  onImport = () => {
-    const { layoutToImport, layerData } = this.state;
-    let importData = layerData;
+  loadLayout = layoutName => {
+    const focus = new Focus();
 
-    if (layoutToImport != "custom") {
-      const focus = new Focus();
+    const { vendor, product } = focus.device.info;
+    const cVendor = vendor.replace("/", "");
+    const cProduct = product.replace("/", "");
+    const layoutPath = layout =>
+      path.join(getStaticPath(), cVendor, cProduct, `layouts/${layout}.json`);
 
-      const { vendor, product } = focus.device.info;
-      const cVendor = vendor.replace("/", "");
-      const cProduct = product.replace("/", "");
-      const layoutPath = layout =>
-        path.join(getStaticPath(), cVendor, cProduct, `${layout}.json`);
+    const importData = fs.readFileSync(layoutPath(layoutName), {
+      encoding: "utf-8"
+    });
+    const keymap = JSON.parse(importData).keymap.map(key => {
+      return db.lookup(key.keyCode || key.code);
+    });
 
-      importData = fs.readFileSync(layoutPath(layoutToImport), {
-        encoding: "utf-8"
-      });
-    }
+    return {
+      layoutToImport: layoutName,
+      layout: keymap
+    };
+  };
 
-    this.importLayout(JSON.parse(importData));
-    this.props.onClose();
+  selectLayoutToImport = event => {
+    const newState = this.loadLayout(event.target.value);
+    this.setState(newState);
   };
 
   render() {
-    const { classes, open, onClose, layer } = this.props;
-    const { layoutToImport, layerData } = this.state;
+    const { classes, theme, availableDefaults } = this.props;
+    const { layoutToImport, layout } = this.state;
+
+    const focus = new Focus();
+    const Keymap = focus.device.components.keymap;
+    const keymapWidget = (
+      <Keymap className="layer" keymap={layout} theme={theme} />
+    );
+
+    const layouts = availableDefaults.map(name => {
+      const label = name.charAt(0).toUpperCase() + name.slice(1);
+
+      return (
+        <MenuItem value={name} key={`import-default-${name}`}>
+          {label}
+        </MenuItem>
+      );
+    });
+
+    return (
+      <React.Fragment>
+        <FormControl className={classes.defaultImport}>
+          <InputLabel>Import a layout</InputLabel>
+          <Select value={layoutToImport} onChange={this.selectLayoutToImport}>
+            {layouts}
+          </Select>
+        </FormControl>
+
+        {keymapWidget}
+      </React.Fragment>
+    );
+  }
+}
+const DefaultImport = withStyles(styles, { withTheme: true })(
+  DefaultImportBase
+);
+
+/*
+
+  fieldChange = event => {
+  this.setState({
+  layoutToImport: "custom",
+  layerData: event.target.value
+  });
+  };
+
+
+  importLayout = data => {
+  const { layer, keymap, onKeymapChange } = this.props;
+
+  const newLayer = data.keymap.map(key => {
+  return db.lookup(key.keyCode || key.code);
+  });
+  let newKeymap = keymap.custom;
+  newKeymap[layer] = newLayer;
+
+  onKeymapChange(newKeymap);
+  };
+
+  onImport = () => {
+  const { layoutToImport, layerData } = this.state;
+  let importData = layerData;
+
+  if (layoutToImport != "custom") {
+  const focus = new Focus();
+
+  const { vendor, product } = focus.device.info;
+  const cVendor = vendor.replace("/", "");
+  const cProduct = product.replace("/", "");
+  const layoutPath = layout =>
+  path.join(getStaticPath(), cVendor, cProduct, `${layout}.json`);
+
+  importData = fs.readFileSync(layoutPath(layoutToImport), {
+  encoding: "utf-8"
+  });
+  }
+
+  this.importLayout(JSON.parse(importData));
+  this.props.onClose();
+  };
+
+
+  <div className={classes.toolbar}>
+  <FormControl className={classes.defaultImport}>
+  <InputLabel>Import a layout</InputLabel>
+  <Select
+  value={layoutToImport}
+  onChange={this.selectLayoutToImport}
+  >
+  <MenuItem value="custom">Custom</MenuItem>
+  <MenuItem value="qwerty">QWERTY</MenuItem>
+  <MenuItem value="colemak">Colemak</MenuItem>
+  <MenuItem value="dvorak">Dvorak</MenuItem>
+  </Select>
+  </FormControl>
+  </div>
+
+  <TextField
+  multiline
+  rows={10}
+  variant="outlined"
+  fullWidth
+  value={layerData}
+  onChange={this.fieldChange}
+  />
+
+  */
+
+class ImportExportBase extends React.Component {
+  constructor(props) {
+    super(props);
+
+    const focus = new Focus();
+
+    const { vendor, product } = focus.device.info;
+    const cVendor = vendor.replace("/", "");
+    const cProduct = product.replace("/", "");
+    const layoutDirPath = path.join(
+      getStaticPath(),
+      cVendor,
+      cProduct,
+      "layouts"
+    );
+
+    try {
+      const layouts = fs
+        .readdirSync(layoutDirPath, {
+          encoding: "utf-8"
+        })
+        .map(name => path.basename(name, ".json"))
+        .sort();
+
+      this.state = {
+        tab: 0,
+        availableDefaults: layouts
+      };
+    } catch (_) {
+      this.state = {
+        tab: 1,
+        availableDefaults: []
+      };
+    }
+  }
+
+  onTabChange = (_, index) => {
+    this.setState({ tab: index });
+  };
+
+  render() {
+    const { classes, open, onClose, layer, ...others } = this.props;
+    const { tab, availableDefaults } = this.state;
 
     return (
       <Dialog open={open} onClose={onClose} fullWidth maxWidth="md">
@@ -133,29 +297,24 @@ class ImportExportBase extends React.Component {
           <Divider />
         </DialogTitle>
         <DialogContent>
-          <div className={classes.toolbar}>
-            <FormControl className={classes.defaultImport}>
-              <InputLabel>Import a layout</InputLabel>
-              <Select
-                value={layoutToImport}
-                onChange={this.selectLayoutToImport}
-              >
-                <MenuItem value="custom">Custom</MenuItem>
-                <MenuItem value="qwerty">QWERTY</MenuItem>
-                <MenuItem value="colemak">Colemak</MenuItem>
-                <MenuItem value="dvorak">Dvorak</MenuItem>
-              </Select>
-            </FormControl>
-          </div>
-
-          <TextField
-            multiline
-            rows={10}
-            variant="outlined"
-            fullWidth
-            value={layerData}
-            onChange={this.fieldChange}
-          />
+          <Tabs
+            value={tab}
+            indicatorColor="primary"
+            textColor="primary"
+            onChange={this.onTabChange}
+          >
+            <Tab
+              label="Import default"
+              disabled={availableDefaults.length == 0}
+            />
+            <Tab label="Import custom" />
+            <Tab label="Export" />
+          </Tabs>
+          <TabPanel value={tab} index={0}>
+            <DefaultImport availableDefaults={availableDefaults} {...others} />
+          </TabPanel>
+          <TabPanel value={tab} index={1} />
+          <TabPanel value={tab} index={2} />
         </DialogContent>
         <DialogActions>
           <Button variant="outlined" color="primary" onClick={this.onImport}>

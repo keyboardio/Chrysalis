@@ -70,7 +70,6 @@ class Sidebar extends React.Component {
       SecondaryFunction,
       Colormap,
       LayerKeys,
-      BlankKeys,
       ConsumerKeys,
       MouseKeys,
       LEDKeys,
@@ -78,7 +77,8 @@ class Sidebar extends React.Component {
       TapDanceKeys,
       SpaceCadetKeys,
       LeaderKeys,
-      StenoKeys
+      StenoKeys,
+      BlankKeys
     ];
     const categories = widgets.map((Widget, index) => {
       return (

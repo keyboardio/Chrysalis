@@ -16,13 +16,12 @@
  */
 
 import React from "react";
-import i18n from "i18next";
 
 import Drawer from "@material-ui/core/Drawer";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
+import Title from "./Sidebar/Title";
 import Overview from "./Sidebar/Overview";
 import Colormap from "./Sidebar/Colormap";
 import KeyPicker from "./Sidebar/KeyPicker";
@@ -38,17 +37,12 @@ import StenoKeys from "./Sidebar/StenoKeys";
 import TapDanceKeys from "./Sidebar/TapDanceKeys";
 import BlankKeys from "./Sidebar/BlankKeys";
 
-import { KeymapDB } from "../../../api/keymap";
-
 const sidebarWidth = 360;
 
 const styles = theme => ({
   drawer: {
     width: sidebarWidth,
     flexShrink: 0
-  },
-  title: {
-    marginBottom: theme.spacing(2)
   },
   drawerPaper: {
     width: sidebarWidth
@@ -70,9 +64,6 @@ class Sidebar extends React.Component {
       layout,
       colormap
     } = this.props;
-
-    const db = new KeymapDB();
-    const label = db.format(keymap.custom[layer][selectedKey], "full");
 
     const widgets = [
       KeyPicker,
@@ -118,10 +109,7 @@ class Sidebar extends React.Component {
       >
         <Toolbar />
         <div className={classes.drawerContainer}>
-          <Typography variant="h6" className={classes.title}>
-            {label.hint} {label.main} (#{selectedKey}) {" - "}
-            {i18n.t("components.layer", { index: layer })}
-          </Typography>
+          <Title selectedKey={selectedKey} layer={layer} keymap={keymap} />
           <Overview
             keymap={keymap}
             colormap={colormap}

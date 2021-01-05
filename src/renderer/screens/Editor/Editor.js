@@ -161,6 +161,22 @@ class Editor extends React.Component {
         keymap: keymap
       };
     });
+
+    this.props.startContext();
+  };
+
+  onColormapChange = newColormap => {
+    this.setState(state => {
+      let colormap = state.colormap;
+      colormap.colorMap = newColormap;
+
+      return {
+        modified: true,
+        colormap: colormap
+      };
+    });
+
+    this.props.startContext();
   };
 
   scanKeyboard = async () => {
@@ -351,8 +367,9 @@ class Editor extends React.Component {
           setLayout={this.setLayout}
           onKeyChange={this.onKeyChange}
           onKeymapChange={this.onKeymapChange}
-          onLedChange={this.onLedChange}
+          onColormapChange={this.onColormapChange}
           onPaletteChange={this.onPaletteChange}
+          onLedChange={this.onLedChange}
         />
 
         <SaveChangesButton

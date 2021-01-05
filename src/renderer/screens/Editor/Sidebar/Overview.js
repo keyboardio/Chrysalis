@@ -20,10 +20,8 @@ import i18n from "i18next";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
 import CropSquareIcon from "@material-ui/icons/CropSquare";
-import SettingsIcon from "@material-ui/icons/Settings";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -33,7 +31,7 @@ import TableFooter from "@material-ui/core/TableFooter";
 import TableRow from "@material-ui/core/TableRow";
 import { withStyles } from "@material-ui/core/styles";
 
-import ImportExportDialog from "./Overview/ImportExport";
+import LayoutSharing from "./Overview/LayoutSharing";
 import { KeymapDB } from "../../../../api/keymap";
 
 const styles = theme => ({
@@ -143,9 +141,6 @@ class OverviewBase extends React.Component {
           className={classes.tableRow}
         >
           <TableCell size="small" align="left">
-            <IconButton className={classes.gears} onClick={this.openDialog}>
-              <SettingsIcon />
-            </IconButton>
             #{index}
           </TableCell>
           <TableCell>
@@ -163,7 +158,7 @@ class OverviewBase extends React.Component {
       : i18n.t("editor.sidebar.overview.showEmptyLayers");
 
     return (
-      <React.Fragment>
+      <div className={classes.root}>
         <TableContainer component={Paper} className={classes.root}>
           <Table size="small">
             <TableHead>
@@ -198,14 +193,20 @@ class OverviewBase extends React.Component {
             </TableFooter>
           </Table>
         </TableContainer>
-        <ImportExportDialog
+        <Button onClick={this.openDialog} color="secondary" variant="outlined">
+          {i18n.t("editor.sidebar.overview.sharing")}
+        </Button>
+        <LayoutSharing
           open={dialogOpen}
           onClose={this.closeDialog}
           keymap={keymap}
+          colormap={colormap}
           layer={layer}
           onKeymapChange={this.props.onKeymapChange}
+          onPaletteChange={this.props.onPaletteChange}
+          onColormapChange={this.props.onColormapChange}
         />
-      </React.Fragment>
+      </div>
     );
   }
 }

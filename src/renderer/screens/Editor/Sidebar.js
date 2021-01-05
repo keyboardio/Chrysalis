@@ -118,6 +118,8 @@ class Sidebar extends React.Component {
             layer={layer}
             setLayer={this.props.setLayer}
             onKeymapChange={this.props.onKeymapChange}
+            onPaletteChange={this.props.onPaletteChange}
+            onColormapChange={this.props.onColormapChange}
           />
           {categories}
         </div>

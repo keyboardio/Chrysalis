@@ -70,6 +70,25 @@ const English = {
   editor: {
     keyType: "Key type",
     keyCode: "Key code",
+    sharing: {
+      title: "Layout sharing",
+      loadFromLibrary: "Load from library",
+      loadFromFile: "Load from file...",
+      exportToFile: "Export to file...",
+      import: "Import",
+      selectLoadFile: "Select file to load a layout from",
+      selectExportFile: "Select file to export the layout to",
+      dialog: {
+        layoutFiles: "Layout files",
+        allFiles: "All files"
+      },
+      errors: {
+        unableToLoad: "Unable to load layout from the selected file.",
+        parseFail: "Failed to parse layout data.",
+        invalidLayoutData: "File did not contain valid layout data.",
+        saveFail: "Error while saving the exported layout."
+      }
+    },
     sidebar: {
       blanks: {
         title: "Blanks",
@@ -79,7 +98,8 @@ const English = {
         key: "Key #{{index}}",
         color: "Color",
         hideEmptyLayers: "Hide empty layers...",
-        showEmptyLayers: "Show empty layers..."
+        showEmptyLayers: "Show empty layers...",
+        sharing: "Layout sharing..."
       },
       secondary: {
         title: "Secondary action",

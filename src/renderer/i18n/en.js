@@ -87,6 +87,10 @@ const English = {
         parseFail: "Failed to parse layout data.",
         invalidLayoutData: "File did not contain valid layout data.",
         saveFail: "Error while saving the exported layout."
+      },
+      importConfirm: {
+        title: "Import the selected layout?",
+        contents: `This will overwrite your current layout, and any unsaved changes will be lost. Are you sure you want to continue?`
       }
     },
     sidebar: {

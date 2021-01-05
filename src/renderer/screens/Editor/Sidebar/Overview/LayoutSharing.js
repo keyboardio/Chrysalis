@@ -35,6 +35,8 @@ import MenuList from "@material-ui/core/MenuList";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
+import ConfirmationDialog from "../../../../components/ConfirmationDialog";
+
 import Focus from "../../../../../api/focus";
 import Log from "../../../../../api/log";
 import { KeymapDB } from "../../../../../api/keymap";
@@ -312,12 +314,14 @@ class LayoutSharingBase extends React.Component {
         .sort();
 
       this.state = {
+        importConfirmOpen: false,
         layout: {},
         layoutName: null,
         library: layouts
       };
     } catch (_) {
       this.state = {
+        importConfirmOpen: false,
         layout: {},
         layoutName: null,
         library: []
@@ -330,6 +334,13 @@ class LayoutSharingBase extends React.Component {
       layoutName: layoutName,
       layout: layout
     });
+  };
+
+  openImportConfirm = () => {
+    this.setState({ importConfirmOpen: true });
+  };
+  closeImportConfirm = () => {
+    this.setState({ importConfirmOpen: false });
   };
 
   onImport = () => {
@@ -403,10 +414,18 @@ class LayoutSharingBase extends React.Component {
                 disabled={layoutName == null}
                 variant="outlined"
                 color="primary"
-                onClick={this.onImport}
+                onClick={this.openImportConfirm}
               >
                 {i18n.t("editor.sharing.import")}
               </Button>
+              <ConfirmationDialog
+                title={i18n.t("editor.sharing.importConfirm.title")}
+                open={this.state.importConfirmOpen}
+                onConfirm={this.onImport}
+                onCancel={this.closeImportConfirm}
+              >
+                {i18n.t("editor.sharing.importConfirm.contents")}
+              </ConfirmationDialog>
             </div>
           </Drawer>
 

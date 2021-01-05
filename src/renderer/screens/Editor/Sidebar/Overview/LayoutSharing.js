@@ -378,8 +378,18 @@ class LayoutSharingBase extends React.Component {
     const focus = new Focus();
     const Keymap = focus.device.components.keymap;
     const previewLayout = layout.keymaps ? layout.keymaps[0] : keymap.custom[0];
+    const palette = layout.palette || colormap.palette;
+    const previewColormap = layout.colormaps
+      ? layout.colormaps[0]
+      : colormap.colorMap[0];
     const keymapWidget = (
-      <Keymap className="layer" keymap={previewLayout} theme={theme} />
+      <Keymap
+        className="layer"
+        keymap={previewLayout}
+        palette={palette}
+        colormap={previewColormap}
+        theme={theme}
+      />
     );
 
     return (

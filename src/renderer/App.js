@@ -56,8 +56,8 @@ if (isDevelopment) {
   focus.debug = true;
 }
 
-if (settings.get("ui.language"))
-  i18n.changeLanguage(settings.get("ui.language"));
+const settingsLanguage = settings.getSync("ui.language");
+if (settingsLanguage) i18n.changeLanguage(settingsLanguage);
 
 const styles = () => ({
   root: {
@@ -77,7 +77,7 @@ class App extends React.Component {
     this.logger = new Log();
 
     this.state = {
-      darkMode: settings.get("ui.darkMode"),
+      darkMode: settings.getSync("ui.darkMode"),
       connected: false,
       device: null,
       pages: {},
@@ -130,12 +130,12 @@ class App extends React.Component {
     });
   }
 
-  toggleDarkMode = () => {
+  toggleDarkMode = async () => {
     const nextDarkModeState = !this.state.darkMode;
     this.setState({
       darkMode: nextDarkModeState
     });
-    settings.set("ui.darkMode", nextDarkModeState);
+    await settings.set("ui.darkMode", nextDarkModeState);
   };
 
   toggleFlashing = async () => {

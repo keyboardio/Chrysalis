@@ -81,7 +81,7 @@ class Editor extends React.Component {
   setModified = () => {
     this.setState({ modified: true });
   };
-  setLayout = layout => {
+  setLayout = async layout => {
     db.setLayout(layout);
 
     this.setState(state => {
@@ -97,7 +97,7 @@ class Editor extends React.Component {
         keymap: newKeymap
       };
     });
-    settings.set("keyboard.layout", layout);
+    await settings.set("keyboard.layout", layout);
   };
 
   onKeySelect = event => {
@@ -224,17 +224,18 @@ class Editor extends React.Component {
     return this.state.colormap.colorMap.length > 0;
   };
 
-  componentDidMount() {
-    this.scanKeyboard().then(() => {
-      let initialLayer = 0;
+  async componentDidMount() {
+    const layoutSetting = await settings.get("keyboard.layout", "English (US)");
+    db.setLayout(layoutSetting);
 
-      this.setState({
-        currentLayer: initialLayer,
-        loading: false,
-        layout: settings.get("keyboard.layout", "English (US)")
-      });
+    await this.scanKeyboard();
+    let initialLayer = 0;
+
+    this.setState({
+      currentLayer: initialLayer,
+      loading: false,
+      layout: layoutSetting
     });
-    db.setLayout(settings.get("keyboard.layout", "English (US)"));
   }
 
   UNSAFE_componentWillReceiveProps = nextProps => {

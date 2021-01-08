@@ -117,7 +117,7 @@ class Preferences extends React.Component {
   setLanguage = async event => {
     i18n.changeLanguage(event.target.value);
     await this.setState({});
-    settings.set("ui.language", event.target.value);
+    await settings.set("ui.language", event.target.value);
   };
 
   toggleAdvanced = () => {

@@ -186,7 +186,7 @@ class FirmwareUpdate extends React.Component {
     };
 
     const preferExternalFlasher =
-      settings.get("flash.preferExternalFlasher") &&
+      (await settings.get("flash.preferExternalFlasher")) &&
       (await checkExternalFlasher(this.state.device));
     return this.state.device.flash(focus._port, filename, {
       preferExternalFlasher: preferExternalFlasher,

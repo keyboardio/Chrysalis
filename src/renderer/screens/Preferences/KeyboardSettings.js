@@ -336,8 +336,8 @@ class AdvancedKeyboardSettings extends React.Component {
     this.setState({ EEPROMResetConfirmationOpen: false });
   };
 
-  setPreferExternalFlasher = event => {
-    settings.set("flash.preferExternalFlasher", event.target.checked);
+  setPreferExternalFlasher = async event => {
+    await settings.set("flash.preferExternalFlasher", event.target.checked);
     this.setState({
       preferExternalFlasher: event.target.checked
     });
@@ -345,10 +345,10 @@ class AdvancedKeyboardSettings extends React.Component {
 
   componentDidMount() {
     const focus = new Focus();
-    checkExternalFlasher(focus.device).then(available => {
+    checkExternalFlasher(focus.device).then(async available => {
       this.setState({
         externalFlasherAvailable: available,
-        preferExternalFlasher: settings.get("flash.preferExternalFlasher")
+        preferExternalFlasher: await settings.get("flash.preferExternalFlasher")
       });
     });
   }

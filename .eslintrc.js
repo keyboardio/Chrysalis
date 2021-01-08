@@ -22,7 +22,9 @@ module.exports = {
   rules: {
     "no-console": 0,
     "react/prop-types": 0,
-    "no-unused-vars": 1
+    "no-unused-vars": 1,
+    "no-async-promise-executor": 0, // grandfathered in during eslint update; would be nice to remove
+    "no-prototype-builtins": 0 // grandfathered in during eslint update; would be nice to remove
   },
   settings: {
     react: {

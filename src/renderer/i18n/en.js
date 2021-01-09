@@ -30,7 +30,10 @@ const English = {
       saveChanges: "Save Changes"
     },
     pickerColorButton: "Change color",
-    loading: "Reading data from device..."
+    loading: "Reading data from device...",
+    logo: {
+      altText: "Chrysalis logo"
+    }
   },
   dialog: {
     ok: "Ok",

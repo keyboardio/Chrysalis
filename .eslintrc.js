@@ -3,7 +3,7 @@ module.exports = {
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:jest/recommended",
-    // 'plugin:jsx-a11y/recommended', // Don't uncomment until you're ready to fix some stuff
+    "plugin:jsx-a11y/recommended",
     "plugin:prettier/recommended"
   ],
   parser: "babel-eslint",

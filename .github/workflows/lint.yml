@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v2
+      - name: Install udev-dev
+        run: apt-get install libudev-dev
 
       - name: Set up Node.js
         uses: actions/setup-node@v1

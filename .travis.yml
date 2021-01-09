@@ -5,9 +5,9 @@ node_js:
 jobs:
   include:
     - os: linux
-      dist: xenial
+      dist: focal
     - os: linux
-      dist: xenial
+      dist: focal
       arch: arm64
     - os: osx
       osx_image: "xcode11.6"

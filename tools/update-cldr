@@ -1,0 +1,12 @@
+#! /bin/sh
+set -e
+
+get_latest_keyboard_filename() {
+    curl -s -H "Accept: application/vnd.github.v3+json" \
+         https://api.github.com/repos/unicode-org/cldr/releases/latest | \
+         jq -r '.assets[] | select(.name | test("^cldr-keyboards-[0-9\\.]+\\.zip$")) | .browser_download_url'
+}
+
+curl -s -L $(get_latest_keyboard_filename) -o cldr-keyboards-latest.zip
+unzip -o -qq cldr-keyboards-latest.zip -d static/cldr/
+rm -f cldr-keyboards-latest.zip

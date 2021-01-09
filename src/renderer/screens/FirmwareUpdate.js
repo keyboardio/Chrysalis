@@ -65,7 +65,7 @@ const styles = theme => ({
     justifyContent: "center"
   },
   card: {
-    margin: theme.spacing.unit * 4,
+    margin: theme.spacing(4),
     maxWidth: "50%"
   },
   grow: {
@@ -83,11 +83,11 @@ const styles = theme => ({
     textAlign: "center"
   },
   firmwareSelect: {
-    marginLeft: theme.spacing.unit * 2
+    marginLeft: theme.spacing(2)
   },
   control: {
     display: "flex",
-    marginRight: theme.spacing.unit * 2
+    marginRight: theme.spacing(2)
   },
   group: {
     display: "block"

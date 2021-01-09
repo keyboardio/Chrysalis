@@ -41,7 +41,7 @@ const styles = theme => ({
     justifyContent: "center"
   },
   card: {
-    margin: theme.spacing.unit * 4,
+    margin: theme.spacing(4),
     maxWidth: "50%"
   },
   grow: {

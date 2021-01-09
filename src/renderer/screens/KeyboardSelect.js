@@ -57,27 +57,26 @@ const styles = theme => ({
   main: {
     width: "auto",
     display: "block",
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
-    [theme.breakpoints.up(500 + theme.spacing.unit * 3 * 2)]: {
+    marginLeft: theme.spacing(3),
+    marginRight: theme.spacing(3),
+    [theme.breakpoints.up(500 + theme.spacing(3) * 2)]: {
       width: 500,
       marginLeft: "auto",
       marginRight: "auto"
     },
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px
- ${theme.spacing.unit * 3}px`
+    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px
+ ${theme.spacing(3)}px`
   },
   preview: {
     maxWidth: 128,
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
     "& .key rect, & .key path, & .key ellipse": {
       stroke: "#000000"
     }
   },
   card: {
-    marginTop: theme.spacing.unit * 5,
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px
- ${theme.spacing.unit * 3}px`
+    marginTop: theme.spacing(5),
+    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(3)}px`
   },
   content: {
     display: "inline-block",
@@ -101,8 +100,8 @@ const styles = theme => ({
     flexGrow: 1
   },
   error: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
     textAlign: "center"
   },
   found: {

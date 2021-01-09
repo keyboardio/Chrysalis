@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* chrysalis-bundle-keyboardio -- Chrysalis Bundle for Keyboard.io
- * Copyright (C) 2018  Keyboardio, Inc.
+ * Copyright (C) 2018-2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -17,9 +17,13 @@
 
 import React from "react";
 
+import { KeymapDB } from "../../../keymap";
+
+const db = new KeymapDB();
+
 class Key extends React.Component {
   render() {
-    const { x, y, label, row, col, layer, onClick } = this.props;
+    const { x, y, keyObj, row, col, layer, onClick } = this.props;
     const keyIndex = parseInt(row) * 11 + parseInt(col);
     const stroke = this.props.active ? "#f3b3b3" : "#b3b3b3";
     const height = this.props.height || 48;
@@ -43,10 +47,10 @@ class Key extends React.Component {
           fill="#ffffff"
         />
         <text x={x + 3} y={y + 14}>
-          {label.extraLabel}
+          {keyObj && keyObj.label && keyObj.label.hint}
         </text>
         <text x={x + 3} y={bottom}>
-          {label.label}
+          {keyObj && keyObj.label && db.format(keyObj).main}
         </text>
       </g>
     );

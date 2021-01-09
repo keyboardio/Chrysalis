@@ -1,0 +1,208 @@
+{
+  "keymaps": [
+    [
+      {
+        "keyCode": 20,
+        "label": "Q"
+      },
+      {
+        "keyCode": 26,
+        "label": "W"
+      },
+      {
+        "keyCode": 9,
+        "label": "F"
+      },
+      {
+        "keyCode": 19,
+        "label": "P"
+      },
+      {
+        "keyCode": 10,
+        "label": "G"
+      },
+      {
+        "keyCode": 0,
+        "label": "Blocked",
+        "verbose": "Disabled"
+      },
+      {
+        "keyCode": 0,
+        "label": "Blocked",
+        "verbose": "Disabled"
+      },
+      {
+        "keyCode": 13,
+        "label": "J"
+      },
+      {
+        "keyCode": 15,
+        "label": "L"
+      },
+      {
+        "keyCode": 24,
+        "label": "U"
+      },
+      {
+        "keyCode": 28,
+        "label": "Y"
+      },
+      {
+        "keyCode": 51,
+        "label": ";"
+      },
+      {
+        "keyCode": 4,
+        "label": "A"
+      },
+      {
+        "keyCode": 21,
+        "label": "R"
+      },
+      {
+        "keyCode": 22,
+        "label": "S"
+      },
+      {
+        "keyCode": 23,
+        "label": "T"
+      },
+      {
+        "keyCode": 7,
+        "label": "D"
+      },
+      {
+        "keyCode": 0,
+        "label": "Blocked",
+        "verbose": "Disabled"
+      },
+      {
+        "keyCode": 0,
+        "label": "Blocked",
+        "verbose": "Disabled"
+      },
+      {
+        "keyCode": 11,
+        "label": "H"
+      },
+      {
+        "keyCode": 17,
+        "label": "N"
+      },
+      {
+        "keyCode": 8,
+        "label": "E"
+      },
+      {
+        "keyCode": 12,
+        "label": "I"
+      },
+      {
+        "keyCode": 18,
+        "label": "O"
+      },
+      {
+        "keyCode": 29,
+        "label": "Z"
+      },
+      {
+        "keyCode": 27,
+        "label": "X"
+      },
+      {
+        "keyCode": 6,
+        "label": "C"
+      },
+      {
+        "keyCode": 25,
+        "label": "V"
+      },
+      {
+        "keyCode": 5,
+        "label": "B"
+      },
+      {
+        "keyCode": 53,
+        "label": "`"
+      },
+      {
+        "keyCode": 49,
+        "label": "\\"
+      },
+      {
+        "keyCode": 14,
+        "label": "K"
+      },
+      {
+        "keyCode": 16,
+        "label": "M"
+      },
+      {
+        "keyCode": 54,
+        "label": ","
+      },
+      {
+        "keyCode": 55,
+        "label": "."
+      },
+      {
+        "keyCode": 56,
+        "label": "/"
+      },
+      {
+        "keyCode": 41,
+        "label": "Esc"
+      },
+      {
+        "keyCode": 43,
+        "label": "Tab"
+      },
+      {
+        "keyCode": 227,
+        "label": "LSuper",
+        "verbose": "Left Super"
+      },
+      {
+        "keyCode": 225,
+        "label": "LShift",
+        "verbose": "Left Shift"
+      },
+      {
+        "keyCode": 42,
+        "label": "Bksp",
+        "verbose": "Backspace"
+      },
+      {
+        "keyCode": 224,
+        "label": "LCtrl",
+        "verbose": "Left Control"
+      },
+      {
+        "keyCode": 226,
+        "label": "LAlt",
+        "verbose": "Left Alt"
+      },
+      {
+        "keyCode": 44,
+        "label": "Space"
+      },
+      {
+        "keyCode": 17451,
+        "label": "1",
+        "extraLabel": "ShiftTo"
+      },
+      {
+        "keyCode": 45,
+        "label": "-"
+      },
+      {
+        "keyCode": 52,
+        "label": "'"
+      },
+      {
+        "keyCode": 40,
+        "label": "Enter"
+      }
+    ]
+  ]
+}

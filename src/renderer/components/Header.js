@@ -36,7 +36,7 @@ import MainMenu from "./MainMenu/MainMenu";
 
 const styles = theme => ({
   pageMenu: {
-    marginLeft: theme.spacing.unit * 2
+    marginLeft: theme.spacing(2)
   },
   menuButton: {
     marginLeft: -12,
@@ -44,6 +44,9 @@ const styles = theme => ({
   },
   grow: {
     flexGrow: 1
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1
   }
 });
 
@@ -87,6 +90,7 @@ function Header({
       position="static"
       color={contextBar ? "secondary" : "inherit"}
       id="appbar"
+      className={classes.appBar}
     >
       <Toolbar variant="dense">
         <Button className={classes.menuButton} onClick={contextOnClick}>

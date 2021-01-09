@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* chrysalis-hardware-ez-ergodox -- Chrysalis ErgoDox support
- * Copyright (C) 2019  Keyboardio, Inc.
+ * Copyright (C) 2019-2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -16,6 +16,10 @@
  */
 
 import React from "react";
+
+import { KeymapDB } from "../../keymap";
+
+const db = new KeymapDB();
 
 class Keymap extends React.Component {
   render() {
@@ -35,7 +39,7 @@ class Keymap extends React.Component {
         height = props.height || 1,
         bottom = y + height * 40 - 4;
 
-      const labels = keymap[keyIndex(row, col)],
+      const key = keymap[keyIndex(row, col)],
         stroke =
           this.props.selectedKey == keyIndex(row, col) ? "#f3b3b3" : "#b3b3b3";
 
@@ -58,10 +62,10 @@ class Keymap extends React.Component {
             fill="#ffffff"
           />
           <text x={x + 3} y={y + 14}>
-            {labels.extraLabel}
+            {key && key.label && key.label.hint}
           </text>
           <text x={x + 3} y={bottom}>
-            {width > 1 ? labels.verbose || labels.label : labels.label}
+            {key && key.label && db.format(key).main}
           </text>
         </g>
       );

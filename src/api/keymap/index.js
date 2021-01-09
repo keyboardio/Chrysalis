@@ -15,6 +15,6 @@
  */
 
 import Keymap from "./chrysalis-keymap.js";
-import KeymapDB, { baseKeyCodeTable, keyCodeTable } from "./db.js";
+import KeymapDB from "./db.js";
 
-export { Keymap as default, KeymapDB, baseKeyCodeTable, keyCodeTable };
+export { Keymap as default, KeymapDB };

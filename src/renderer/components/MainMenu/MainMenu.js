@@ -65,7 +65,7 @@ const styles = theme => ({
     color: theme.palette.text.primary
   },
   menuItem: {
-    paddingLeft: theme.spacing.unit * 4
+    paddingLeft: theme.spacing(4)
   }
 });
 

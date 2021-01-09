@@ -17,6 +17,10 @@
 
 import React from "react";
 
+import { KeymapDB } from "../../../keymap";
+
+const db = new KeymapDB();
+
 class Key extends React.Component {
   render() {
     let shape,
@@ -53,9 +57,11 @@ class Key extends React.Component {
     }
 
     let keyIndex = parseInt(this.props.row) * 16 + parseInt(this.props.col);
-
     let extraLabel;
-    if (this.props.extraLabelTransform && this.props.label.extraLabel) {
+    const key = this.props.keyObj;
+    const label = key && db.format(key);
+
+    if (this.props.extraLabelTransform && label && label.hint) {
       extraLabel = (
         <g transform={this.props.extraLabelTransform}>
           <text
@@ -64,7 +70,7 @@ class Key extends React.Component {
             className="extraKey"
             fill={getContrastText(this.props.color)}
           >
-            {this.props.label.extraLabel}
+            {label.hint}
           </text>
         </g>
       );
@@ -85,7 +91,7 @@ class Key extends React.Component {
             y={this.props.y}
             fill={getContrastText(this.props.color)}
           >
-            {this.props.label.label}
+            {label && label.main}
           </text>
         </g>
         {extraLabel}

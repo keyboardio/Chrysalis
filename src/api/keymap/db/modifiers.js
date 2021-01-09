@@ -1,172 +1,285 @@
-/* chrysalis-keymap -- Chrysalis keymap library
- * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
+/* Chrysalis -- Kaleidoscope Command Center
+ * Copyright (C) 2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, version 3.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { withModifiers } from "./utils";
-import { guiLabel } from "./gui";
-
-const ModifiersTable = {
-  groupName: "Modifiers & Locks",
-  keys: [
-    {
-      code: 224,
-      labels: {
-        primary: "LCtrl",
-        verbose: "Left Control"
-      }
-    },
-    {
-      code: 225,
-      labels: {
-        primary: "LShift",
-        verbose: "Left Shift"
-      }
-    },
-    {
-      code: 226,
-      labels: {
-        primary: "LAlt",
-        verbose: "Left Alt"
-      }
-    },
-    {
-      code: 227,
-      labels: {
-        primary: "L" + guiLabel,
-        verbose: "Left " + guiLabel
-      }
-    },
-    {
-      code: 228,
-      labels: {
-        primary: "RCtrl",
-        verbose: "Right Control"
-      }
-    },
-    {
-      code: 229,
-      labels: {
-        primary: "RShift",
-        verbose: "Right Shift"
-      }
-    },
-    {
-      code: 230,
-      labels: {
-        primary: "RAlt",
-        verbose: "AltGr (Right Alt)"
-      }
-    },
-    {
-      code: 231,
-      labels: {
-        primary: "R" + guiLabel,
-        verbose: "Right " + guiLabel
-      }
-    },
-    {
-      code: 57,
-      labels: {
-        primary: "CapsLK",
-        verbose: "Caps Lock"
-      }
-    },
-    {
-      code: 83,
-      labels: {
-        primary: "NumLK",
-        verbose: "Num Lock"
-      }
-    },
-    {
-      code: 71,
-      labels: {
-        primary: "ScrlLK",
-        verbose: "Scroll Lock"
-      }
-    }
-  ]
+const modMap = {
+  ctrl: 1 << 8,
+  alt: 1 << 9,
+  altgr: 1 << 10,
+  shift: 1 << 11,
+  gui: 1 << 12
 };
 
-const HyperMehTable = {
-  groupName: "Hyper & Meh",
-  keys: [
+const addModifier = (keyCode, mod) => {
+  return keyCode + modMap[mod];
+};
+
+const removeModifier = (keyCode, mod) => {
+  return keyCode - modMap[mod];
+};
+
+const withModifiers = keys => {
+  let newKeys = [];
+
+  const mods = [
+    // Single mods
     {
-      code: 2530,
-      labels: {
-        primary: "Meh"
+      categories: ["ctrl"],
+      offset: modMap.ctrl,
+      label: key => {
+        return "C+" + key.label.base;
       }
     },
     {
-      code: 3043,
-      labels: {
-        primary: "Hyper"
+      categories: ["shift"],
+      offset: modMap.shift,
+      label: key => {
+        return key.label.shifted || "S+" + key.label.base;
+      }
+    },
+    {
+      categories: ["alt"],
+      offset: modMap.alt,
+      label: key => {
+        return "A+" + key.label.base;
+      }
+    },
+    {
+      categories: ["altgr"],
+      offset: modMap.altgr,
+      label: key => {
+        return key.label.altgr || "AGr+" + key.label.base;
+      }
+    },
+    {
+      categories: ["gui"],
+      offset: modMap.gui,
+      label: key => {
+        return "G+" + key.label.base;
+      }
+    },
+
+    // Two mods
+    {
+      categories: ["ctrl", "shift"],
+      offset: modMap.ctrl + modMap.shift,
+      label: key => {
+        return "C+S+" + key.label.base;
+      }
+    },
+    {
+      categories: ["ctrl", "alt"],
+      offset: modMap.ctrl + modMap.alt,
+      label: key => {
+        return "C+A+" + key.label.base;
+      }
+    },
+    {
+      categories: ["ctrl", "altgr"],
+      offset: modMap.ctrl + modMap.altgr,
+      label: key => {
+        return "C+AGr+" + key.label.base;
+      }
+    },
+    {
+      categories: ["ctrl", "gui"],
+      offset: modMap.ctrl + modMap.gui,
+      label: key => {
+        return "C+G+" + key.label.base;
+      }
+    },
+    {
+      categories: ["shift", "alt"],
+      offset: modMap.shift + modMap.alt,
+      label: key => {
+        return "S+A+" + key.label.base;
+      }
+    },
+    {
+      categories: ["shift", "altgr"],
+      offset: modMap.shift + modMap.altgr,
+      label: key => {
+        return "S+AGr+" + key.label.base;
+      }
+    },
+    {
+      categories: ["shift", "gui"],
+      offset: modMap.shift + modMap.gui,
+      label: key => {
+        return "S+G+" + key.label.base;
+      }
+    },
+    {
+      categories: ["alt", "altgr"],
+      offset: modMap.alt + modMap.altgr,
+      label: key => {
+        return "A+AGr+" + key.label.base;
+      }
+    },
+    {
+      categories: ["alt", "gui"],
+      offset: modMap.alt + modMap.gui,
+      label: key => {
+        return "A+G+" + key.label.base;
+      }
+    },
+    {
+      categories: ["altgr", "gui"],
+      offset: modMap.altgr + modMap.gui,
+      label: key => {
+        return "AGr+G+" + key.label.base;
+      }
+    },
+
+    // Three mods
+    {
+      categories: ["ctrl", "shift", "alt"],
+      offset: modMap.ctrl + modMap.shift + modMap.alt,
+      label: key => {
+        return "C+S+A+" + key.label.base;
+      }
+    },
+    {
+      categories: ["ctrl", "shift", "altgr"],
+      offset: modMap.ctrl + modMap.shift + modMap.altgr,
+      label: key => {
+        return "C+S+AGr+" + key.label.base;
+      }
+    },
+    {
+      categories: ["ctrl", "shift", "gui"],
+      offset: modMap.ctrl + modMap.shift + modMap.gui,
+      label: key => {
+        return "C+S+G+" + key.label.base;
+      }
+    },
+    {
+      categories: ["ctrl", "alt", "altgr"],
+      offset: modMap.ctrl + modMap.alt + modMap.altgr,
+      label: key => {
+        return "C+A+AGr+" + key.label.base;
+      }
+    },
+    {
+      categories: ["ctrl", "alt", "gui"],
+      offset: modMap.ctrl + modMap.alt + modMap.gui,
+      label: key => {
+        return "C+A+G+" + key.label.base;
+      }
+    },
+    {
+      categories: ["ctrl", "altgr", "gui"],
+      offset: modMap.ctrl + modMap.altgr + modMap.gui,
+      label: key => {
+        return "C+AGr+G+" + key.label.base;
+      }
+    },
+    {
+      categories: ["shift", "alt", "altgr"],
+      offset: modMap.shift + modMap.alt + modMap.altgr,
+      label: key => {
+        return "S+A+AGr+" + key.label.base;
+      }
+    },
+    {
+      categories: ["shift", "alt", "gui"],
+      offset: modMap.shift + modMap.alt + modMap.gui,
+      label: key => {
+        return "S+A+G+" + key.label.base;
+      }
+    },
+    {
+      categories: ["shift", "altgr", "gui"],
+      offset: modMap.shift + modMap.altgr + modMap.gui,
+      label: key => {
+        return "S+AGr+G+" + key.label.base;
+      }
+    },
+    {
+      categories: ["alt", "altgr", "gui"],
+      offset: modMap.shift + modMap.altgr + modMap.gui,
+      label: key => {
+        return "A+AGr+G+" + key.label.base;
+      }
+    },
+
+    // 4 mods
+    {
+      categories: ["ctrl", "shift", "alt", "altgr"],
+      offset: modMap.ctrl + modMap.shift + modMap.alt + modMap.altgr,
+      label: key => {
+        return "C+S+A+AGr+" + key.label.base;
+      }
+    },
+    {
+      categories: ["ctrl", "shift", "alt", "gui"],
+      offset: modMap.ctrl + modMap.shift + modMap.alt + modMap.gui,
+      label: key => {
+        return "C+S+A+G+" + key.label.base;
+      }
+    },
+    {
+      categories: ["ctrl", "shift", "gui", "altgr"],
+      offset: modMap.ctrl + modMap.shift + modMap.gui + modMap.altgr,
+      label: key => {
+        return "C+S+G+AGr+" + key.label.base;
+      }
+    },
+    {
+      categories: ["ctrl", "alt", "altgr", "gui"],
+      offset: modMap.ctrl + modMap.alt + modMap.altgr + modMap.gui,
+      label: key => {
+        return "C+A+AGr+G+" + key.label.base;
+      }
+    },
+    {
+      categories: ["shift", "alt", "altgr", "gui"],
+      offset: modMap.shift + modMap.alt + modMap.altgr + modMap.gui,
+      label: key => {
+        return "S+A+AGr+G+" + key.label.base;
+      }
+    },
+
+    // All mods
+    {
+      categories: ["ctrl", "shift", "alt", "altgr", "gui"],
+      offset:
+        modMap.ctrl + modMap.shift + modMap.alt + modMap.altgr + modMap.gui,
+      label: key => {
+        return "C+S+A+AGr+G+" + key.label.base;
       }
     }
-  ]
+  ];
+
+  for (const key of keys) {
+    newKeys.push(key);
+
+    for (const mod of mods) {
+      const newKey = Object.assign({}, key, {
+        categories: ["with-modifiers"].concat(mod.categories),
+        code: key.code + mod.offset,
+        baseCode: key.code,
+        label: {
+          base: mod.label(key)
+        }
+      });
+      newKeys.push(newKey);
+    }
+  }
+
+  return newKeys;
 };
 
-const ModifiedModifiersTables = [
-  // Single
-  withModifiers(ModifiersTable, "Control +", "C+", 256),
-  withModifiers(ModifiersTable, "Alt +", "A+", 512),
-  withModifiers(ModifiersTable, "AltGr +", "AGr+", 1024),
-  withModifiers(ModifiersTable, "Shift +", "S+", 2048),
-  withModifiers(ModifiersTable, "Gui +", "G+", 4096),
-
-  // Double
-  withModifiers(ModifiersTable, "Control + Alt +", "C+A+", 768),
-  withModifiers(ModifiersTable, "Control + AltGr +", "C+AGr+", 1280),
-  withModifiers(ModifiersTable, "Control + Shift +", "C+S+", 2304),
-  withModifiers(ModifiersTable, "Control + Gui +", "C+G+", 4352),
-  withModifiers(ModifiersTable, "Alt + AltGr +", "A+AGr+", 1536),
-  withModifiers(ModifiersTable, "Alt + Shift +", "A+S+", 2560),
-  withModifiers(ModifiersTable, "Alt + Gui +", "A+G+", 4608),
-  withModifiers(ModifiersTable, "AltGr + Shift +", "AGr+S+", 3072),
-  withModifiers(ModifiersTable, "AltGr + Gui +", "AGr+G+", 5120),
-
-  // Triple
-  withModifiers(ModifiersTable, "Control + Alt + AltGr +", "C+A+AGr+", 1792),
-  withModifiers(ModifiersTable, "Meh +", "Meh+", 2816),
-  withModifiers(ModifiersTable, "Control + Alt + Gui +", "C+A+G+", 4864),
-  withModifiers(ModifiersTable, "Control + AltGr + Shift +", "C+AGr+S+", 3328),
-  withModifiers(ModifiersTable, "Control + AltGr + Gui +", "C+AGr+G+", 5376),
-  withModifiers(ModifiersTable, "Control + Shift + Gui +", "C+S+G+", 6400),
-  withModifiers(ModifiersTable, "Alt + AltGr + Shift +", "A+AGr+S+", 3584),
-  withModifiers(ModifiersTable, "Alt + AltGr + Gui +", "A+AGr+G+", 5632),
-  withModifiers(ModifiersTable, "Alt + Shift + Gui +", "A+S+G+", 6656),
-  withModifiers(ModifiersTable, "AltGr + Shift + Gui +", "AGr+S+G+", 7168),
-
-  // Quad
-  withModifiers(ModifiersTable, "Meh + AltGr +", "M+AGr+", 3840),
-  withModifiers(
-    ModifiersTable,
-    "Control + Alt + AltGr + Gui +",
-    "C+A+AGr+G+",
-    5888
-  ),
-  withModifiers(ModifiersTable, "Hyper+", "Hyper+", 6912),
-  withModifiers(
-    ModifiersTable,
-    "Alt + AltGr + Shift + Gui +",
-    "A+AGr+S+G+",
-    7680
-  ),
-
-  // All
-  withModifiers(ModifiersTable, "Hyper + AltGr +", "H+AGr+", 7936)
-];
-
-export { ModifiersTable as default, ModifiedModifiersTables, HyperMehTable };
+export { addModifier, removeModifier, withModifiers };

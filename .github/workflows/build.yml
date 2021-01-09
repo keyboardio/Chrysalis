@@ -18,7 +18,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 10
-
+      - name: Install udev-dev
+        run: sudo apt install libudev-dev
+        if: runner.os == 'Linux' 
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1
         with:

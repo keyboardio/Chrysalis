@@ -91,7 +91,7 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
       <div className={classes.toolbarIcon}>
         <Link to={homePage}>
           <IconButton onClick={() => setCurrentPage(homePage)}>
-            <img src={logo} alt={i18n.t("component.logo.altText")} />
+            <img src={logo} alt={i18n.t("components.logo.altText")} />
           </IconButton>
         </Link>
       </div>

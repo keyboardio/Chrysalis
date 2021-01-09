@@ -21,6 +21,10 @@ import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import Atreus from "../data/atreus.png";
 
+import { KeymapDB } from "../../keymap";
+
+const db = new KeymapDB();
+
 const styles = () => ({
   svg: {
     background: `url(${Atreus})`,
@@ -58,10 +62,10 @@ class Keymap extends React.Component {
 
     const rowOffsetX = [2, 2, 2, 2];
 
-    let getLabel = (row, col) => {
+    let getKey = (row, col) => {
       let keyIndex = parseInt(row) * 12 + parseInt(col),
-        keyCode = keymap[keyIndex];
-      return keyCode;
+        key = keymap[keyIndex];
+      return key;
     };
     let isActive = (row, col) => {
       let keyIndex = parseInt(row) * 12 + parseInt(col);
@@ -82,7 +86,7 @@ class Keymap extends React.Component {
         y = getY(row, col),
         active = isActive(row, col),
         layer = this.props.index,
-        label = getLabel(row, col),
+        key = getKey(row, col),
         onClick = this.props.onKeySelect;
       const keyIndex = parseInt(row) * 12 + parseInt(col);
       const strokeColor = "transparent" || "#b3b3b3";
@@ -98,11 +102,7 @@ class Keymap extends React.Component {
       const buttonColor = "transparent";
 
       let legendClass;
-      if (label && label.label && label.label.length <= 1) {
-        if (label.extraLabel === undefined || label.extraLabel.length == 1)
-          legendClass = "shortLegend";
-      }
-      if (label && label.keyCode == 0) textColor = "#888888";
+      if (key && key.code == 0) textColor = "#888888";
 
       return (
         <g
@@ -122,10 +122,10 @@ class Keymap extends React.Component {
             fill={buttonColor}
           />
           <text x={x + 5} y={y + 14} fill={textColor} className={legendClass}>
-            {label.extraLabel}
+            {key && db.format(key).hint}
           </text>
           <text x={x + 5} y={bottom} fill={textColor} className={legendClass}>
-            {label.label}
+            {key && db.format(key).main}
           </text>
         </g>
       );

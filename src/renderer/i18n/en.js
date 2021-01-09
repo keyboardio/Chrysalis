@@ -22,12 +22,18 @@ const English = {
   },
   components: {
     layer: "Layer {{index}}",
+    layerRaw: "Layer",
+    none: "None",
+    type: "Type",
     save: {
       success: "Saved!",
       saveChanges: "Save Changes"
     },
     pickerColorButton: "Change color",
-    loading: "Reading data from device..."
+    loading: "Reading data from device...",
+    logo: {
+      altText: "Chrysalis logo"
+    }
   },
   dialog: {
     ok: "Ok",
@@ -67,33 +73,121 @@ const English = {
   editor: {
     keyType: "Key type",
     keyCode: "Key code",
-    groups: {
-      Letters: "Letters",
-      Digits: "Digits",
-      Punctuation: "Punctuation",
-      Spacing: "Spacing",
-      Modifiers: "Modifiers",
-      Navigation: "Navigation",
-      "Fx keys": "Fx keys",
-      Numpad: "Numpad",
-      Miscellaneous: "Miscellaneous",
-      "Shift to layer": "Shift to layer",
-      "Lock layer to": "Lock layer to",
-      "LED Effect": "LED Effect",
-      Macros: "Macros",
-      Media: "Media",
-      "Mouse movement": "Mouse movement",
-      "Mouse button": "Mouse button",
-      "Mouse wheel": "Mouse wheel",
-      "Mouse warp": "Mouse warp",
-      "OneShot modifiers": "OneShot modifiers",
-      "OneShot layers": "OneShot layers",
-      TapDance: "TapDance",
-      Leader: "Leader",
-      Steno: "Steno",
-      SpaceCadet: "SpaceCadet",
-      Blank: "Blank",
-      "Unknown keycodes": "Unknown keycodes"
+    sharing: {
+      title: "Layout sharing",
+      loadFromLibrary: "Load from library",
+      loadFromFile: "Load from file...",
+      exportToFile: "Export to file...",
+      import: "Import",
+      selectLoadFile: "Select file to load a layout from",
+      selectExportFile: "Select file to export the layout to",
+      dialog: {
+        layoutFiles: "Layout files",
+        allFiles: "All files"
+      },
+      errors: {
+        unableToLoad: "Unable to load layout from the selected file.",
+        parseFail: "Failed to parse layout data.",
+        invalidLayoutData: "File did not contain valid layout data.",
+        saveFail: "Error while saving the exported layout."
+      },
+      importConfirm: {
+        title: "Import the selected layout?",
+        contents: `This will overwrite your current layout, and any unsaved changes will be lost. Are you sure you want to continue?`
+      }
+    },
+    sidebar: {
+      blanks: {
+        title: "Blanks",
+        help: "Blocked & transparent keys."
+      },
+      overview: {
+        key: "Key #{{index}}",
+        color: "Color",
+        hideEmptyLayers: "Hide empty layers...",
+        showEmptyLayers: "Show empty layers...",
+        sharing: "Layout sharing..."
+      },
+      secondary: {
+        title: "Secondary action",
+        help: `Lets you assign secondary functionality to a key. When tapping these augmented keys, you'll get the primary function. When holding them, the secondary action will be performed.`,
+        type: {
+          none: "No secondary action",
+          layer: "Layer shift when held",
+          modifier: "Modifier when held"
+        },
+        targetLayer: "Target layer",
+        modifier: "Modifier"
+      },
+      colors: {
+        title: "Colors",
+        help: `Assign colors by selecting one from the palette and clicking on a key. To change the color of a palette entry, use the color picker.`
+      },
+      consumer: {
+        title: "Consumer control",
+        help: "Keys to control volume, brightness, and media controls.",
+        volume: "Volume",
+        media: "Media control",
+        brightness: "Brightness"
+      },
+      keypicker: {
+        title: "Standard keys",
+        pickAKey: "Pick a key",
+        help: `Letters, number, symbols, and modifiers - the keys you find on a standard keyboard layout.`,
+        mods: "Modifiers",
+        modsHelp: `Choose modifier keys that are automatically pressed as you press this key.`,
+        hostLayout: "{{hostos}} layout",
+        hostHelp: "Select the key layout you use on your computer",
+        oneshot: {
+          label: "Sticky",
+          tooltip: `Tap to activate for next keypress, hold to act like a regular modifier modifier, double tap to toggle modifier.`
+        }
+      },
+      layer: {
+        title: "Layers and keymaps",
+        help: "Keys that let you change layers."
+      },
+      leader: {
+        title: "Leader",
+        help: `Assign Leader keys. To configure this feature, you can use the Arduino IDE to customize the Kaleidoscope 'Sketch' file for your keyboard.`
+      },
+      ledcontrol: {
+        title: "LED control",
+        help: "Control your keyboard's LED themes and effects."
+      },
+      macros: {
+        title: "Macros",
+        help: `Assign macros to keys. To create or modify macros, you can use the Arduino IDE to customize the Kaleidoscope 'Sketch' file for your keyboard.`
+      },
+      mousekeys: {
+        title: "Mouse control",
+        help: `Emulate a mouse using your keyboard's keys.`,
+        movement: "Movement",
+        buttons: "Buttons",
+        wheel: "Wheel",
+        warp: "Warp"
+      },
+      spacecadet: {
+        title: "SpaceCadet",
+        help: `SpaceCadet turns your left and right shift keys into your left and right parens, when tapped without also tapping any other keys. Using the Arduino IDE, you can add additional SpaceCadet mappings.`
+      },
+      steno: {
+        title: "Steno",
+        help: `Your keyboard supports the GeminiPR protocol for Stenographic input. Using these keys instead of Plover's QWERTY input offer a more seamless Steno experience.`
+      },
+      tapdance: {
+        title: "TapDance",
+        help: `Tap-dance keys are general purpose, multi-use keys, which trigger a different action based on the number of times you tap them.`
+      }
+    },
+    layerswitch: {
+      type: "Type",
+      shiftTo: "Shift To Layer",
+      lockTo: "Lock To Layer",
+      moveTo: "Move To Layer",
+      oneshot: "Layer shift for next action",
+      target: "Target Layer",
+      dualuse: "Layer shift when held"
     },
     clearLayer: "Clear layer...",
     clearLayerQuestion: "Clear layer?",
@@ -167,10 +261,11 @@ const English = {
   keyboardSelect: {
     unknown: "Unknown",
     selectPrompt: "Please select a keyboard:",
-    noDevices: "No keyboards found!",
+    noDevices: `No keyboards found.
+ Please connect your keyboard, then click "Scan"`,
     connect: "Connect",
     disconnect: "Disconnect",
-    scan: "Scan keyboards",
+    scan: "Scan",
     installUdevRules: "Fix it",
     permissionError: `Your computer won't let Chrysalis talk to your keyboard. (You do not have read/write permissions to {{path}}.)`,
     permissionErrorSuggestion: `Chrysalis can fix this by installing a udev rules file into /etc/udev/rules.d/.`
@@ -230,6 +325,33 @@ const English = {
       bundleFiles: "Debug bundle files"
     },
     bundleSaved: `Chrysalis debug bundle saved.`
+  },
+  devices: {
+    Dygma: {
+      Raise: {
+        updateInstructions: `To update the firmware, the keyboard needs a special reset. When you see the light on the Neuron go off, press and hold the Escape key. The Neuron's light should start a blue pulsing pattern.`
+      }
+    },
+    "SOFT/HRUF": {
+      Splitography: {
+        updateInstructions: `After clicking the Update button, reset your keyboard (by pressing the small
+reset button beside the USB port) to put it into programmable mode, within ten
+seconds.`
+      }
+    },
+    Keyboardio: {
+      Atreus: {
+        updateInstructions: `Hold down the ESC key (in the lower left corner of the keyboard), and continue holding it while you click the Update button.`
+      },
+      Model01: {
+        updateInstructions: `Hold down the PROG key (in the upper left corner of the keyboard), and continue holding it while you click the Update button. Once the keys start flashing red across the board, you can release the PROG key.`
+      }
+    },
+    PJRC: {
+      Teensy: {
+        updateInstructions: `Since this is a Teensy-powered device in programmable mode already, Chrysalis has no way of detecting what kind of keyboard it is. Please select a custom firmware appropriate for your keyboard, and continue.`
+      }
+    }
   }
 };
 

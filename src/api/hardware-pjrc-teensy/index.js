@@ -28,14 +28,6 @@ const GenericTeensy = {
       }
     ]
   },
-  instructions: {
-    en: {
-      updateInstructions: `Since this is a Teensy-powered device in programmable mode already, Chrysalis has no way of detecting what kind of keyboard it is. Please select a custom firmware appropriate for your keyboard, and continue.`
-    },
-    hu: {
-      updateInstructions: `Mivel ez egy ismeretlen Teensy-alapú eszköz programozható módban, a Chrysalisnak nincs elég információja ahhoz, hogy kiderítse, milyen billentyűzethez tartozik. Kérjük válasszon egy, a billentyűzetének megfelelő vezérlőt a folytatás előtt.`
-    }
-  },
   usb: {
     vendorId: 0x16c0,
     productId: 0x0478

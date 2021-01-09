@@ -3,7 +3,7 @@ module.exports = {
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:jest/recommended",
-    // 'plugin:jsx-a11y/recommended', // Don't uncomment until you're ready to fix some stuff
+    "plugin:jsx-a11y/recommended",
     "plugin:prettier/recommended"
   ],
   parser: "babel-eslint",
@@ -22,7 +22,9 @@ module.exports = {
   rules: {
     "no-console": 0,
     "react/prop-types": 0,
-    "no-unused-vars": 1
+    "no-unused-vars": 0, // disabled due to false positives
+    "no-async-promise-executor": 0, // grandfathered in during eslint update; would be nice to remove
+    "no-prototype-builtins": 0 // grandfathered in during eslint update; would be nice to remove
   },
   settings: {
     react: {

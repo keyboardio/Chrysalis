@@ -51,7 +51,15 @@ i18n
 
 i18n.refreshHardware = ({ device }) => {
   Object.keys(i18n.options.resources).forEach(code => {
-    const instructions = device.instructions ? device.instructions[code] : {};
+    const key =
+      "devices." +
+      device.info.vendor +
+      "." +
+      device.info.product +
+      ".updateInstructions";
+    const instructions = {
+      updateInstructions: i18n.exists(key) ? i18n.t(key) : undefined
+    };
     i18n.addResource(code, "messages", "hardware", instructions);
   });
 };

@@ -42,15 +42,6 @@ const Raise_ISO = {
     keymap: KeymapISO
   },
 
-  instructions: {
-    en: {
-      updateInstructions: `To update the firmware, the keyboard needs a special reset. When you see the light on the Neuron go off, press and hold the Escape key. The Neuron's light should start a blue pulsing pattern.`
-    },
-    hu: {
-      updateInstructions: `A firmware frissítéséhez a billentyűzetet egy megadott módon kell újraindítani. Amikor elalszik a Neuron fénye, nyomja le, és tartsa nyomva az Escape gombot. A Neuron fénye ezután egy pulzáló kék mintázatot kell kezdjen.`
-    }
-  },
-
   flash: async (_, filename, flashRaise) => {
     return new Promise(async (resolve, reject) => {
       try {

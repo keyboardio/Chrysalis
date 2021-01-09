@@ -65,13 +65,20 @@ const styles = theme => ({
     color: theme.palette.text.primary
   },
   menuItem: {
-    paddingLeft: theme.spacing.unit * 4
+    paddingLeft: theme.spacing(4)
   }
 });
 
 function MainMenu({ open, closeMenu, classes, connected, pages }) {
-  const currentPage = history.location.pathname,
-    setCurrentPage = history.navigate;
+  const currentPage = history.location.pathname;
+  const setCurrentPage = page => {
+    history.navigate(page);
+    closeMenu();
+  };
+  const openExternalPage = page => {
+    openURL(page)();
+    closeMenu();
+  };
 
   const homePage = connected
     ? pages.keymap
@@ -81,123 +88,119 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
 
   return (
     <Drawer open={open} onClose={closeMenu}>
-      <div onClick={closeMenu} role="button" onKeyDown={closeMenu}>
-        <div className={classes.toolbarIcon}>
-          <Link to={homePage}>
-            <IconButton
-              onClick={() => {
-                setCurrentPage(homePage);
-              }}
-            >
-              <img src={logo} />
-            </IconButton>
-          </Link>
-        </div>
-        {connected && (
-          <List
-            className={classes.drawer}
-            subheader={
-              <ListSubheader disableSticky>
-                {i18n.t("app.menu.keyboardSection")}
-              </ListSubheader>
-            }
-          >
-            {!pages.keymap && !pages.colormap && (
-              <Link to="/welcome" className={classes.link}>
-                <WelcomeMenu
-                  selected={currentPage == "/welcome"}
-                  className={classes.menuItem}
-                  onClick={() => setCurrentPage("/welcome")}
-                />
-              </Link>
-            )}
-            {pages.keymap && (
-              <Link to="/editor" className={classes.link}>
-                <EditorMenuItem
-                  selected={currentPage == "/editor"}
-                  className={classes.menuItem}
-                  onClick={() => setCurrentPage("/editor")}
-                />
-              </Link>
-            )}
-            <Link to="/firmware-update" className={classes.link}>
-              <FlashMenuItem
-                selected={currentPage == "/firmware-update"}
+      <div className={classes.toolbarIcon}>
+        <Link to={homePage}>
+          <IconButton onClick={() => setCurrentPage(homePage)}>
+            <img src={logo} alt={i18n.t("components.logo.altText")} />
+          </IconButton>
+        </Link>
+      </div>
+      {connected && (
+        <List
+          className={classes.drawer}
+          subheader={
+            <ListSubheader disableSticky>
+              {i18n.t("app.menu.keyboardSection")}
+            </ListSubheader>
+          }
+        >
+          {!pages.keymap && !pages.colormap && (
+            <Link to="/welcome" className={classes.link}>
+              <WelcomeMenu
+                selected={currentPage == "/welcome"}
                 className={classes.menuItem}
-                onClick={() => setCurrentPage("/firmware-update")}
+                onClick={() => setCurrentPage("/welcome")}
               />
             </Link>
-          </List>
-        )}
-        {connected && <Divider />}
-        <List
-          className={classes.drawer}
-          subheader={
-            <ListSubheader disableSticky>
-              {i18n.t("app.menu.chrysalisSection")}
-            </ListSubheader>
+          )}
+          {pages.keymap && (
+            <Link to="/editor" className={classes.link}>
+              <EditorMenuItem
+                selected={currentPage == "/editor"}
+                className={classes.menuItem}
+                onClick={() => setCurrentPage("/editor")}
+              />
+            </Link>
+          )}
+          <Link to="/firmware-update" className={classes.link}>
+            <FlashMenuItem
+              selected={currentPage == "/firmware-update"}
+              className={classes.menuItem}
+              onClick={() => setCurrentPage("/firmware-update")}
+            />
+          </Link>
+        </List>
+      )}
+      {connected && <Divider />}
+      <List
+        className={classes.drawer}
+        subheader={
+          <ListSubheader disableSticky>
+            {i18n.t("app.menu.chrysalisSection")}
+          </ListSubheader>
+        }
+      >
+        <Link to="/keyboard-select" className={classes.link}>
+          <KeyboardMenuItem
+            className={classes.menuItem}
+            keyboardSelectText={
+              connected
+                ? i18n.t("app.menu.selectAnotherKeyboard")
+                : i18n.t("app.menu.selectAKeyboard")
+            }
+            selected={currentPage == "/keyboard-select"}
+            onClick={() => setCurrentPage("/keyboard-select")}
+          />
+        </Link>
+        <Link to="/preferences" className={classes.link}>
+          <PreferencesMenuItem
+            className={classes.menuItem}
+            selected={currentPage == "/preferences"}
+            onClick={() => setCurrentPage("/preferences")}
+          />
+        </Link>
+      </List>
+      <Divider />
+      <List
+        className={classes.drawer}
+        subheader={
+          <ListSubheader disableSticky>
+            {i18n.t("app.menu.miscSection")}
+          </ListSubheader>
+        }
+      >
+        <ChatMenuItem
+          className={classes.menuItem}
+          onClick={() => openExternalPage("https://keyboard.io/discord-invite")}
+        />
+        <FeedbackMenuItem
+          className={classes.menuItem}
+          onClick={() =>
+            openExternalPage("https://github.com/keyboardio/Chrysalis/issues")
           }
-        >
-          <Link to="/keyboard-select" className={classes.link}>
-            <KeyboardMenuItem
-              className={classes.menuItem}
-              keyboardSelectText={
-                connected
-                  ? i18n.t("app.menu.selectAnotherKeyboard")
-                  : i18n.t("app.menu.selectAKeyboard")
-              }
-              selected={currentPage == "/keyboard-select"}
-              onClick={() => setCurrentPage("/keyboard-select")}
-            />
-          </Link>
-          <Link to="/preferences" className={classes.link}>
-            <PreferencesMenuItem
-              className={classes.menuItem}
-              selected={currentPage == "/preferences"}
-              onClick={() => setCurrentPage("/preferences")}
-            />
-          </Link>
-        </List>
-        <Divider />
-        <List
-          className={classes.drawer}
-          subheader={
-            <ListSubheader disableSticky>
-              {i18n.t("app.menu.miscSection")}
-            </ListSubheader>
-          }
-        >
-          <ChatMenuItem
+        />
+        <Link to="/system-info" className={classes.link}>
+          <SystemInfoMenuItem
             className={classes.menuItem}
-            onClick={openURL("https://keyboard.io/discord-invite")}
+            selected={currentPage == "/system-info"}
+            onClick={() => setCurrentPage("/system-info")}
           />
-          <FeedbackMenuItem
-            className={classes.menuItem}
-            onClick={openURL("https://github.com/keyboardio/Chrysalis/issues")}
+        </Link>
+        <ExitMenuItem
+          className={classes.menuItem}
+          onClick={() => Electron.remote.app.exit(0)}
+        />
+      </List>
+      <Divider />
+      <List>
+        <ListItem disabled>
+          <ListItemText
+            primary={`Chrysalis ${version}`}
+            className={classes.version}
           />
-          <Link to="/system-info" className={classes.link}>
-            <SystemInfoMenuItem
-              className={classes.menuItem}
-              selected={currentPage == "/system-info"}
-              onClick={() => setCurrentPage("/system-info")}
-            />
-          </Link>
-          <ExitMenuItem
-            className={classes.menuItem}
-            onClick={() => Electron.remote.app.exit(0)}
-          />
-        </List>
-        <Divider />
-        <List>
-          <ListItem disabled>
-            <ListItemText
-              primary={`Chrysalis ${version}`}
-              className={classes.version}
-            />
-          </ListItem>
-          <UpgradeMenuItem />
-        </List>
-      </div>
+        </ListItem>
+        <UpgradeMenuItem />
+      </List>
     </Drawer>
   );
 }

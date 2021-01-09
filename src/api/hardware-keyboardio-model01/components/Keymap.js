@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* chrysalis-bundle-keyboardio -- Chrysalis Bundle for Keyboard.io
- * Copyright (C) 2018  Keyboardio, Inc.
+ * Copyright (C) 2018-2020  Keyboardio, Inc.
  * Copyright (C) 2017, 2018  Simon-Claudius Wystrach
  *
  * Based on the SVG done by Simon-Claudius for the previous incarnation of
@@ -67,10 +67,10 @@ class Keymap extends React.Component {
     let getLEDIndex = (row, col) => {
       return led_map[parseInt(row)][parseInt(col)];
     };
-    let getLabel = (row, col) => {
+    let getKey = (row, col) => {
       let keyIndex = parseInt(row) * 16 + parseInt(col),
-        keyCode = keymap[keyIndex];
-      return keyCode;
+        key = keymap[keyIndex];
+      return key;
     };
     let isActive = (row, col) => {
       let keyIndex = parseInt(row) * 16 + parseInt(col);
@@ -93,7 +93,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 15)}
+            keyObj={getKey(3, 15)}
             color={getColor(3, 15)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(3, 15)}
@@ -109,7 +109,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 14)}
+            keyObj={getKey(3, 14)}
             color={getColor(3, 14)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(3, 14)}
@@ -125,7 +125,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 13)}
+            keyObj={getKey(3, 13)}
             color={getColor(3, 13)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(3, 13)}
@@ -141,7 +141,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 12)}
+            keyObj={getKey(3, 12)}
             color={getColor(3, 12)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(3, 12)}
@@ -157,7 +157,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 11)}
+            keyObj={getKey(3, 11)}
             color={getColor(3, 11)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(3, 11)}
@@ -173,7 +173,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 10)}
+            keyObj={getKey(3, 10)}
             color={getColor(3, 10)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(3, 10)}
@@ -189,7 +189,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 9)}
+            keyObj={getKey(3, 9)}
             color={getColor(3, 9)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(3, 9)}
@@ -206,7 +206,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 8)}
+            keyObj={getKey(3, 8)}
             color={getColor(3, 8)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(3, 8)}
@@ -222,7 +222,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 7)}
+            keyObj={getKey(3, 7)}
             color={getColor(3, 7)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(3, 7)}
@@ -238,7 +238,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 6)}
+            keyObj={getKey(3, 6)}
             color={getColor(3, 6)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(3, 6)}
@@ -255,7 +255,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 5)}
+            keyObj={getKey(3, 5)}
             color={getColor(3, 5)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(3, 5)}
@@ -271,7 +271,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 4)}
+            keyObj={getKey(3, 4)}
             color={getColor(3, 4)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(3, 4)}
@@ -287,7 +287,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 3)}
+            keyObj={getKey(3, 3)}
             color={getColor(3, 3)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(3, 3)}
@@ -303,7 +303,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 2)}
+            keyObj={getKey(3, 2)}
             color={getColor(3, 2)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(3, 2)}
@@ -319,7 +319,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 1)}
+            keyObj={getKey(3, 1)}
             color={getColor(3, 1)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(3, 1)}
@@ -335,7 +335,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(3, 0)}
+            keyObj={getKey(3, 0)}
             color={getColor(3, 0)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(3, 0)}
@@ -352,7 +352,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 15)}
+            keyObj={getKey(2, 15)}
             color={getColor(2, 15)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(2, 15)}
@@ -368,7 +368,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 14)}
+            keyObj={getKey(2, 14)}
             color={getColor(2, 14)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(2, 14)}
@@ -384,7 +384,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 13)}
+            keyObj={getKey(2, 13)}
             color={getColor(2, 13)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(2, 13)}
@@ -400,7 +400,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 12)}
+            keyObj={getKey(2, 12)}
             color={getColor(2, 12)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(2, 12)}
@@ -416,7 +416,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 11)}
+            keyObj={getKey(2, 11)}
             color={getColor(2, 11)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(2, 11)}
@@ -432,7 +432,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 10)}
+            keyObj={getKey(2, 10)}
             color={getColor(2, 10)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(2, 10)}
@@ -448,7 +448,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 9)}
+            keyObj={getKey(2, 9)}
             color={getColor(2, 9)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(2, 9)}
@@ -464,7 +464,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 8)}
+            keyObj={getKey(2, 8)}
             color={getColor(2, 8)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(2, 8)}
@@ -480,7 +480,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 7)}
+            keyObj={getKey(2, 7)}
             color={getColor(2, 7)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(2, 7)}
@@ -496,7 +496,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 6)}
+            keyObj={getKey(2, 6)}
             color={getColor(2, 6)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(2, 6)}
@@ -512,7 +512,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 5)}
+            keyObj={getKey(2, 5)}
             color={getColor(2, 5)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(2, 5)}
@@ -528,7 +528,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 4)}
+            keyObj={getKey(2, 4)}
             color={getColor(2, 4)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(2, 4)}
@@ -544,7 +544,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 3)}
+            keyObj={getKey(2, 3)}
             color={getColor(2, 3)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(2, 3)}
@@ -560,7 +560,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 2)}
+            keyObj={getKey(2, 2)}
             color={getColor(2, 2)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(2, 2)}
@@ -576,7 +576,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 1)}
+            keyObj={getKey(2, 1)}
             color={getColor(2, 1)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(2, 1)}
@@ -592,7 +592,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(2, 0)}
+            keyObj={getKey(2, 0)}
             color={getColor(2, 0)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(2, 0)}
@@ -609,7 +609,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 15)}
+            keyObj={getKey(1, 15)}
             color={getColor(1, 15)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(1, 15)}
@@ -625,7 +625,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 14)}
+            keyObj={getKey(1, 14)}
             color={getColor(1, 14)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(1, 14)}
@@ -641,7 +641,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 13)}
+            keyObj={getKey(1, 13)}
             color={getColor(1, 13)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(1, 13)}
@@ -657,7 +657,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 12)}
+            keyObj={getKey(1, 12)}
             color={getColor(1, 12)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(1, 12)}
@@ -673,7 +673,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 11)}
+            keyObj={getKey(1, 11)}
             color={getColor(1, 11)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(1, 11)}
@@ -689,7 +689,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 10)}
+            keyObj={getKey(1, 10)}
             color={getColor(1, 10)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(1, 10)}
@@ -705,7 +705,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 9)}
+            keyObj={getKey(1, 9)}
             color={getColor(1, 9)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(1, 9)}
@@ -721,7 +721,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 8)}
+            keyObj={getKey(1, 8)}
             color={getColor(1, 8)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(1, 8)}
@@ -737,7 +737,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 7)}
+            keyObj={getKey(1, 7)}
             color={getColor(1, 7)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(1, 7)}
@@ -753,7 +753,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 6)}
+            keyObj={getKey(1, 6)}
             color={getColor(1, 6)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(1, 6)}
@@ -769,7 +769,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 5)}
+            keyObj={getKey(1, 5)}
             color={getColor(1, 5)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(1, 5)}
@@ -785,7 +785,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 4)}
+            keyObj={getKey(1, 4)}
             color={getColor(1, 4)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(1, 4)}
@@ -801,7 +801,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 3)}
+            keyObj={getKey(1, 3)}
             color={getColor(1, 3)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(1, 3)}
@@ -817,7 +817,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 2)}
+            keyObj={getKey(1, 2)}
             color={getColor(1, 2)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(1, 2)}
@@ -833,7 +833,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 1)}
+            keyObj={getKey(1, 1)}
             color={getColor(1, 1)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(1, 1)}
@@ -849,7 +849,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(1, 0)}
+            keyObj={getKey(1, 0)}
             color={getColor(1, 0)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(1, 0)}
@@ -866,7 +866,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 15)}
+            keyObj={getKey(0, 15)}
             color={getColor(0, 15)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(0, 15)}
@@ -882,7 +882,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 14)}
+            keyObj={getKey(0, 14)}
             color={getColor(0, 14)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(0, 14)}
@@ -898,7 +898,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 13)}
+            keyObj={getKey(0, 13)}
             color={getColor(0, 13)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(0, 13)}
@@ -914,7 +914,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 12)}
+            keyObj={getKey(0, 12)}
             color={getColor(0, 12)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(0, 12)}
@@ -930,7 +930,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 11)}
+            keyObj={getKey(0, 11)}
             color={getColor(0, 11)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(0, 11)}
@@ -946,7 +946,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 10)}
+            keyObj={getKey(0, 10)}
             color={getColor(0, 10)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(0, 10)}
@@ -962,7 +962,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 9)}
+            keyObj={getKey(0, 9)}
             color={getColor(0, 9)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(0, 9)}
@@ -978,7 +978,7 @@ class Keymap extends React.Component {
             x="79"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 8)}
+            keyObj={getKey(0, 8)}
             color={getColor(0, 8)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(0, 8)}
@@ -994,7 +994,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 7)}
+            keyObj={getKey(0, 7)}
             color={getColor(0, 7)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(0, 7)}
@@ -1010,7 +1010,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 6)}
+            keyObj={getKey(0, 6)}
             color={getColor(0, 6)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(0, 6)}
@@ -1026,7 +1026,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 5)}
+            keyObj={getKey(0, 5)}
             color={getColor(0, 5)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(0, 5)}
@@ -1042,7 +1042,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 4)}
+            keyObj={getKey(0, 4)}
             color={getColor(0, 4)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(0, 4)}
@@ -1058,7 +1058,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 3)}
+            keyObj={getKey(0, 3)}
             color={getColor(0, 3)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(0, 3)}
@@ -1074,7 +1074,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 2)}
+            keyObj={getKey(0, 2)}
             color={getColor(0, 2)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(0, 2)}
@@ -1090,7 +1090,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 1)}
+            keyObj={getKey(0, 1)}
             color={getColor(0, 1)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(0, 1)}
@@ -1106,7 +1106,7 @@ class Keymap extends React.Component {
             x="116"
             y="177.877"
             layer={this.props.index}
-            label={getLabel(0, 0)}
+            keyObj={getKey(0, 0)}
             color={getColor(0, 0)}
             getContrastText={getContrastText}
             ledIndex={getLEDIndex(0, 0)}

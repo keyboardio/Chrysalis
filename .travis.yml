@@ -5,9 +5,9 @@ node_js:
 jobs:
   include:
     - os: linux
-      dist: xenial
+      dist: focal
     - os: linux
-      dist: xenial
+      dist: focal
       arch: arm64
     - os: osx
       osx_image: "xcode11.6"
@@ -21,7 +21,7 @@ jobs:
 # See: https://travis-ci.community/t/current-known-issues-please-read-this-before-posting-a-new-topic/264
 filter_secrets: false
 env:
-  - YARN_GPG=no
+  - YARN_GPG=no CXXFLAGS=-std=c++14
 if: (branch = master OR tag IS present) OR (type != pull_request)
 dist: xenial
 addons:

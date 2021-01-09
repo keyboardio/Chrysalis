@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* chrysalis-bundle-keyboardio -- Chrysalis Bundle for Keyboard.io
- * Copyright (C) 2018  Keyboardio, Inc.
+ * Copyright (C) 2018-2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -26,10 +26,10 @@ class Keymap extends React.Component {
         .fill()
         .map(() => 0);
 
-    let getLabel = (row, col) => {
+    let getKey = (row, col) => {
       let keyIndex = parseInt(row) * 11 + parseInt(col),
-        keyCode = keymap[keyIndex];
-      return keyCode;
+        key = keymap[keyIndex];
+      return key;
     };
     let isActive = (row, col) => {
       let keyIndex = parseInt(row) * 11 + parseInt(col);
@@ -50,7 +50,7 @@ class Keymap extends React.Component {
               row={0}
               col={2}
               layer={this.props.index}
-              label={getLabel(0, 2)}
+              keyObj={getKey(0, 2)}
               active={isActive(0, 2)}
               onClick={this.props.onKeySelect}
             />
@@ -60,7 +60,7 @@ class Keymap extends React.Component {
               row={0}
               col={1}
               layer={this.props.index}
-              label={getLabel(0, 1)}
+              keyObj={getKey(0, 1)}
               active={isActive(0, 1)}
               onClick={this.props.onKeySelect}
             />
@@ -70,7 +70,7 @@ class Keymap extends React.Component {
               row={0}
               col={3}
               layer={this.props.index}
-              label={getLabel(0, 3)}
+              keyObj={getKey(0, 3)}
               active={isActive(0, 3)}
               onClick={this.props.onKeySelect}
             />
@@ -80,7 +80,7 @@ class Keymap extends React.Component {
               row={0}
               col={0}
               layer={this.props.index}
-              label={getLabel(0, 0)}
+              keyObj={getKey(0, 0)}
               active={isActive(0, 0)}
               onClick={this.props.onKeySelect}
             />
@@ -90,7 +90,7 @@ class Keymap extends React.Component {
               row={0}
               col={4}
               layer={this.props.index}
-              label={getLabel(0, 4)}
+              keyObj={getKey(0, 4)}
               active={isActive(0, 4)}
               onClick={this.props.onKeySelect}
             />
@@ -101,7 +101,7 @@ class Keymap extends React.Component {
               row={1}
               col={2}
               layer={this.props.index}
-              label={getLabel(1, 2)}
+              keyObj={getKey(1, 2)}
               active={isActive(1, 2)}
               onClick={this.props.onKeySelect}
             />
@@ -111,7 +111,7 @@ class Keymap extends React.Component {
               row={1}
               col={1}
               layer={this.props.index}
-              label={getLabel(1, 1)}
+              keyObj={getKey(1, 1)}
               active={isActive(1, 1)}
               onClick={this.props.onKeySelect}
             />
@@ -121,7 +121,7 @@ class Keymap extends React.Component {
               row={1}
               col={3}
               layer={this.props.index}
-              label={getLabel(1, 3)}
+              keyObj={getKey(1, 3)}
               active={isActive(1, 3)}
               onClick={this.props.onKeySelect}
             />
@@ -131,7 +131,7 @@ class Keymap extends React.Component {
               row={1}
               col={0}
               layer={this.props.index}
-              label={getLabel(1, 0)}
+              keyObj={getKey(1, 0)}
               active={isActive(1, 0)}
               onClick={this.props.onKeySelect}
             />
@@ -141,7 +141,7 @@ class Keymap extends React.Component {
               row={1}
               col={4}
               layer={this.props.index}
-              label={getLabel(1, 4)}
+              keyObj={getKey(1, 4)}
               active={isActive(1, 4)}
               onClick={this.props.onKeySelect}
             />
@@ -152,7 +152,7 @@ class Keymap extends React.Component {
               row={2}
               col={2}
               layer={this.props.index}
-              label={getLabel(2, 2)}
+              keyObj={getKey(2, 2)}
               active={isActive(2, 2)}
               onClick={this.props.onKeySelect}
             />
@@ -162,7 +162,7 @@ class Keymap extends React.Component {
               row={2}
               col={1}
               layer={this.props.index}
-              label={getLabel(2, 1)}
+              keyObj={getKey(2, 1)}
               active={isActive(2, 1)}
               onClick={this.props.onKeySelect}
             />
@@ -172,7 +172,7 @@ class Keymap extends React.Component {
               row={2}
               col={3}
               layer={this.props.index}
-              label={getLabel(2, 3)}
+              keyObj={getKey(2, 3)}
               active={isActive(2, 3)}
               onClick={this.props.onKeySelect}
             />
@@ -182,7 +182,7 @@ class Keymap extends React.Component {
               row={2}
               col={0}
               layer={this.props.index}
-              label={getLabel(2, 0)}
+              keyObj={getKey(2, 0)}
               active={isActive(2, 0)}
               onClick={this.props.onKeySelect}
             />
@@ -192,7 +192,7 @@ class Keymap extends React.Component {
               row={2}
               col={4}
               layer={this.props.index}
-              label={getLabel(2, 4)}
+              keyObj={getKey(2, 4)}
               active={isActive(2, 4)}
               onClick={this.props.onKeySelect}
             />
@@ -202,7 +202,7 @@ class Keymap extends React.Component {
               row={2}
               col={5}
               layer={this.props.index}
-              label={getLabel(2, 5)}
+              keyObj={getKey(2, 5)}
               active={isActive(2, 5)}
               onClick={this.props.onKeySelect}
               height={79}
@@ -214,7 +214,7 @@ class Keymap extends React.Component {
               row={3}
               col={2}
               layer={this.props.index}
-              label={getLabel(3, 2)}
+              keyObj={getKey(3, 2)}
               active={isActive(3, 2)}
               onClick={this.props.onKeySelect}
             />
@@ -224,7 +224,7 @@ class Keymap extends React.Component {
               row={3}
               col={1}
               layer={this.props.index}
-              label={getLabel(3, 1)}
+              keyObj={getKey(3, 1)}
               active={isActive(3, 1)}
               onClick={this.props.onKeySelect}
             />
@@ -234,7 +234,7 @@ class Keymap extends React.Component {
               row={3}
               col={3}
               layer={this.props.index}
-              label={getLabel(3, 3)}
+              keyObj={getKey(3, 3)}
               active={isActive(3, 3)}
               onClick={this.props.onKeySelect}
             />
@@ -244,7 +244,7 @@ class Keymap extends React.Component {
               row={3}
               col={0}
               layer={this.props.index}
-              label={getLabel(3, 0)}
+              keyObj={getKey(3, 0)}
               active={isActive(3, 0)}
               onClick={this.props.onKeySelect}
             />
@@ -254,7 +254,7 @@ class Keymap extends React.Component {
               row={3}
               col={4}
               layer={this.props.index}
-              label={getLabel(3, 4)}
+              keyObj={getKey(3, 4)}
               active={isActive(3, 4)}
               onClick={this.props.onKeySelect}
             />
@@ -265,7 +265,7 @@ class Keymap extends React.Component {
               row={0}
               col={8}
               layer={this.props.index}
-              label={getLabel(0, 8)}
+              keyObj={getKey(0, 8)}
               active={isActive(0, 8)}
               onClick={this.props.onKeySelect}
             />
@@ -275,7 +275,7 @@ class Keymap extends React.Component {
               row={0}
               col={7}
               layer={this.props.index}
-              label={getLabel(0, 7)}
+              keyObj={getKey(0, 7)}
               active={isActive(0, 7)}
               onClick={this.props.onKeySelect}
             />
@@ -285,7 +285,7 @@ class Keymap extends React.Component {
               row={0}
               col={9}
               layer={this.props.index}
-              label={getLabel(0, 9)}
+              keyObj={getKey(0, 9)}
               active={isActive(0, 9)}
               onClick={this.props.onKeySelect}
             />
@@ -295,7 +295,7 @@ class Keymap extends React.Component {
               row={0}
               col={6}
               layer={this.props.index}
-              label={getLabel(0, 6)}
+              keyObj={getKey(0, 6)}
               active={isActive(0, 6)}
               onClick={this.props.onKeySelect}
             />
@@ -305,7 +305,7 @@ class Keymap extends React.Component {
               row={0}
               col={10}
               layer={this.props.index}
-              label={getLabel(0, 10)}
+              keyObj={getKey(0, 10)}
               active={isActive(0, 10)}
               onClick={this.props.onKeySelect}
             />
@@ -316,7 +316,7 @@ class Keymap extends React.Component {
               row={1}
               col={8}
               layer={this.props.index}
-              label={getLabel(1, 8)}
+              keyObj={getKey(1, 8)}
               active={isActive(1, 8)}
               onClick={this.props.onKeySelect}
             />
@@ -326,7 +326,7 @@ class Keymap extends React.Component {
               row={1}
               col={7}
               layer={this.props.index}
-              label={getLabel(1, 7)}
+              keyObj={getKey(1, 7)}
               active={isActive(1, 7)}
               onClick={this.props.onKeySelect}
             />
@@ -336,7 +336,7 @@ class Keymap extends React.Component {
               row={1}
               col={9}
               layer={this.props.index}
-              label={getLabel(1, 9)}
+              keyObj={getKey(1, 9)}
               active={isActive(1, 9)}
               onClick={this.props.onKeySelect}
             />
@@ -346,7 +346,7 @@ class Keymap extends React.Component {
               row={1}
               col={6}
               layer={this.props.index}
-              label={getLabel(1, 6)}
+              keyObj={getKey(1, 6)}
               active={isActive(1, 6)}
               onClick={this.props.onKeySelect}
             />
@@ -356,7 +356,7 @@ class Keymap extends React.Component {
               row={1}
               col={10}
               layer={this.props.index}
-              label={getLabel(1, 10)}
+              keyObj={getKey(1, 10)}
               active={isActive(1, 10)}
               onClick={this.props.onKeySelect}
             />
@@ -367,7 +367,7 @@ class Keymap extends React.Component {
               row={2}
               col={8}
               layer={this.props.index}
-              label={getLabel(2, 8)}
+              keyObj={getKey(2, 8)}
               active={isActive(2, 8)}
               onClick={this.props.onKeySelect}
             />
@@ -377,7 +377,7 @@ class Keymap extends React.Component {
               row={2}
               col={7}
               layer={this.props.index}
-              label={getLabel(2, 7)}
+              keyObj={getKey(2, 7)}
               active={isActive(2, 7)}
               onClick={this.props.onKeySelect}
             />
@@ -387,7 +387,7 @@ class Keymap extends React.Component {
               row={2}
               col={9}
               layer={this.props.index}
-              label={getLabel(2, 9)}
+              keyObj={getKey(2, 9)}
               active={isActive(2, 9)}
               onClick={this.props.onKeySelect}
             />
@@ -397,7 +397,7 @@ class Keymap extends React.Component {
               row={2}
               col={6}
               layer={this.props.index}
-              label={getLabel(2, 6)}
+              keyObj={getKey(2, 6)}
               active={isActive(2, 6)}
               onClick={this.props.onKeySelect}
             />
@@ -407,7 +407,7 @@ class Keymap extends React.Component {
               row={2}
               col={10}
               layer={this.props.index}
-              label={getLabel(2, 10)}
+              keyObj={getKey(2, 10)}
               active={isActive(2, 10)}
               onClick={this.props.onKeySelect}
             />
@@ -417,7 +417,7 @@ class Keymap extends React.Component {
               row={3}
               col={5}
               layer={this.props.index}
-              label={getLabel(3, 5)}
+              keyObj={getKey(3, 5)}
               active={isActive(3, 5)}
               onClick={this.props.onKeySelect}
               height={79}
@@ -429,7 +429,7 @@ class Keymap extends React.Component {
               row={3}
               col={8}
               layer={this.props.index}
-              label={getLabel(3, 8)}
+              keyObj={getKey(3, 8)}
               active={isActive(3, 8)}
               onClick={this.props.onKeySelect}
             />
@@ -439,7 +439,7 @@ class Keymap extends React.Component {
               row={3}
               col={7}
               layer={this.props.index}
-              label={getLabel(3, 7)}
+              keyObj={getKey(3, 7)}
               active={isActive(3, 7)}
               onClick={this.props.onKeySelect}
             />
@@ -449,7 +449,7 @@ class Keymap extends React.Component {
               row={3}
               col={9}
               layer={this.props.index}
-              label={getLabel(3, 9)}
+              keyObj={getKey(3, 9)}
               active={isActive(3, 9)}
               onClick={this.props.onKeySelect}
             />
@@ -459,7 +459,7 @@ class Keymap extends React.Component {
               row={3}
               col={6}
               layer={this.props.index}
-              label={getLabel(3, 6)}
+              keyObj={getKey(3, 6)}
               active={isActive(3, 6)}
               onClick={this.props.onKeySelect}
             />
@@ -469,7 +469,7 @@ class Keymap extends React.Component {
               row={3}
               col={10}
               layer={this.props.index}
-              label={getLabel(3, 10)}
+              keyObj={getKey(3, 10)}
               active={isActive(3, 10)}
               onClick={this.props.onKeySelect}
             />

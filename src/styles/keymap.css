@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-button {
+ button {
   margin-left: 0.5em;
   margin-right: 0.5em;
 }
@@ -25,12 +25,11 @@ button {
   font-weight: 700;
   min-width: 550px;
   min-height: 280px;
-  height: calc(100vh - 300px);
-  max-width: calc(100vw - 128px);
+  max-width: calc(100vw - 360px);
 }
 
 .shortLegend {
-  font-size: 16px;
+    font-size: 16px;
 }
 
 .extraKey {

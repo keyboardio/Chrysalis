@@ -1,5 +1,5 @@
-/* chrysalis-keymap -- Chrysalis keymap library
- * Copyright (C) 2018, 2019  Keyboardio, Inc.
+/* Chrysalis -- Kaleidoscope Command Center
+ * Copyright (C) 2020  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -14,171 +14,212 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import BlankTable from "./db/blanks";
-import LetterTable, { ModifiedLetterTables } from "./db/letters";
-import DigitTable, { ModifiedDigitTables } from "./db/digits";
-import {
-  LockLayerTable,
-  ShiftToLayerTable,
-  MoveToLayerTable
-} from "./db/layerswitch";
-import PunctuationTable, { ModifiedPunctuationTables } from "./db/punctuation";
-import SpacingTable, { ModifiedSpacingTables } from "./db/spacing";
-import ModifiersTable, {
-  ModifiedModifiersTables,
-  HyperMehTable
-} from "./db/modifiers";
-import NavigationTable, { ModifiedNavigationTables } from "./db/navigation";
-import LEDEffectsTable from "./db/ledeffects";
-import MacrosTable from "./db/macros";
-import NumpadTable, { ModifiedNumpadTables } from "./db/numpad";
-import FunctionKeyTable, { ModifiedFunctionKeyTables } from "./db/fxs";
+import { Base } from "./db/base";
+import { USQwerty } from "./db/us/qwerty";
+import cldr from "./cldr";
 
-import MediaControlTable from "./db/mediacontrols";
-import {
-  MouseMovementTable,
-  MouseWheelTable,
-  MouseButtonTable,
-  MouseWarpTable
-} from "./db/mousecontrols";
-import MiscellaneousTable from "./db/miscellaneous";
-
-import { OneShotModifierTable, OneShotLayerTable } from "./db/oneshot";
-import { DualUseModifierTables, DualUseLayerTables } from "./db/dualuse";
-import TapDanceTable from "./db/tapdance";
-import LeaderTable from "./db/leader";
-import StenoTable from "./db/steno";
-import SpaceCadetTable from "./db/spacecadet";
-
-const baseKeyCodeTable = [
-  LetterTable,
-  DigitTable,
-  PunctuationTable,
-  SpacingTable,
-  ModifiersTable,
-  NavigationTable,
-  FunctionKeyTable,
-  NumpadTable,
-  MiscellaneousTable,
-
-  ShiftToLayerTable,
-  LockLayerTable,
-  MoveToLayerTable,
-
-  LEDEffectsTable,
-  MacrosTable,
-  MediaControlTable,
-  MouseMovementTable,
-  MouseButtonTable,
-  MouseWheelTable,
-  MouseWarpTable,
-
-  OneShotModifierTable,
-  OneShotLayerTable,
-  TapDanceTable,
-  LeaderTable,
-  StenoTable,
-  SpaceCadetTable,
-
-  BlankTable
-];
-const keyCodeTable = baseKeyCodeTable
-  .concat(ModifiedLetterTables)
-  .concat(ModifiedDigitTables)
-  .concat(ModifiedPunctuationTables)
-  .concat(ModifiedSpacingTables)
-  .concat(ModifiedNavigationTables)
-  .concat(ModifiedModifiersTables)
-  .concat(HyperMehTable)
-  .concat(ModifiedFunctionKeyTables)
-  .concat(ModifiedNumpadTables)
-  .concat(DualUseModifierTables)
-  .concat(DualUseLayerTables);
+global.chrysalis_keymapdb_instance = null;
 
 class KeymapDB {
   constructor() {
-    this.keymapCodeTable = [];
-    this.jsKeyTable = new Map();
+    if (!global.chrysalis_keymapdb_instance) {
+      global.chrysalis_keymapdb_instance = this;
 
-    for (let group of keyCodeTable) {
-      for (let key of group.keys) {
-        let value;
+      this._layouts = {
+        "English (US)": USQwerty
+      };
 
-        if (key.labels) {
-          value = key;
-        } else {
-          value = {
-            code: key.code,
-            labels: {
-              primary: "#" + key.code.toString()
-            }
-          };
-        }
+      this.setLayout("English (US)");
+      this.loadLayouts();
+    }
 
-        this.keymapCodeTable[key.code] = value;
+    return global.chrysalis_keymapdb_instance;
+  }
 
-        if (key.jsKey) {
-          if (this.jsKeyTable.has(key.jsKey)) {
-            throw new Error(`duplicate JS key: ${key.jsKey}`);
+  loadLayouts = async () => {
+    this._layouts = Object.assign(
+      {},
+      this._layouts,
+      await cldr.loadAllKeymaps()
+    );
+  };
+
+  getSupportedLayouts() {
+    let layouts = [];
+    for (const layout of Object.entries(this._layouts)) {
+      layouts.push(layout[0]);
+    }
+    layouts.sort((a, b) => {
+      const n1 = a.toUpperCase();
+      const n2 = b.toUpperCase();
+
+      if (n1 < n2) return -1;
+      if (n1 > n2) return 1;
+
+      return 0;
+    });
+    return layouts;
+  }
+
+  resetLayout() {
+    this._layout = Base.layout;
+    this._codetable = [];
+
+    // Base codetable
+    for (const key of Base.codetable) {
+      this._codetable[key.code] = Object.assign({}, key);
+    }
+
+    // Fallback to US QWERTY
+    for (const key of USQwerty.codetable) {
+      this._codetable[key.code] = Object.assign({}, key);
+    }
+  }
+
+  setLayout(layout) {
+    this.resetLayout();
+
+    if (!this._layouts.hasOwnProperty(layout)) return;
+
+    const table = this._layouts[layout];
+
+    if (table.codetable instanceof Promise) {
+      table.codetable.then(data => {
+        for (const key of data) {
+          if (this._codetable[key.code]) {
+            const base = this._codetable[key.code];
+            this._codetable[key.code].label = Object.assign(
+              {},
+              base.label,
+              key.label
+            );
+          } else {
+            this._codetable[key.code] = Object.assign({}, key);
           }
-          this.jsKeyTable.set(key.jsKey, value);
+        }
+      });
+    } else {
+      for (const key of table.codetable) {
+        if (this._codetable[key.code]) {
+          const base = this._codetable[key.code];
+          this._codetable[key.code].label = Object.assign(
+            {},
+            base.label,
+            key.label
+          );
+        } else {
+          this._codetable[key.code] = Object.assign({}, key);
         }
       }
     }
   }
 
-  fromKeycode(keyCode) {
-    let key;
-
-    if (!keyCode) keyCode = 0;
-
-    if (keyCode < this.keymapCodeTable.length) {
-      key = this.keymapCodeTable[keyCode];
-    }
-
-    if (!key) {
-      key = {
-        code: keyCode,
-        labels: {
-          primary: "#" + keyCode.toString()
-        }
-      };
-    }
-
+  _lookupFallback(keyCode) {
     return {
-      keyCode: key.code,
-      label: key.labels.primary,
-      extraLabel: key.labels.top,
-      verbose: key.labels.verbose
+      code: keyCode || 0,
+      label: {
+        base: "#" + (keyCode || 0).toString()
+      },
+      categories: ["unknown"]
     };
   }
 
-  toKeycode(key) {
-    return key.keyCode;
+  isInCategory(keyCode, category) {
+    if (keyCode < 0) return false;
+
+    const key = this.lookup(keyCode);
+
+    return (
+      (key && key.categories && key.categories.includes(category)) || false
+    );
   }
 
-  parseJsKey(jsKey) {
-    return this.jsKeyTable.get(jsKey);
+  selectCategory(category) {
+    let cdb = [];
+
+    for (const k of this._codetable) {
+      if (k && k.categories && k.categories.includes(category)) {
+        cdb.push(k);
+      }
+    }
+
+    return cdb;
+  }
+
+  _lookupByKeycode(keyCode) {
+    return this._codetable[keyCode];
+  }
+
+  _lookupObject(key) {
+    for (const k of this._codetable) {
+      if (k === undefined) continue;
+
+      let match = true;
+
+      if (key.code !== undefined) {
+        match &= key.code == k.code;
+      }
+
+      if (key.location !== undefined) {
+        match &= key.location == k.location;
+      }
+
+      if (key.label && key.label.base) {
+        match &= key.label.base == k.label.base;
+      }
+
+      if (key.label && key.label.any) {
+        match &=
+          key.label.any == k.label.base ||
+          key.label.any == k.label.shifted ||
+          key.label.any == k.label.altgr;
+      }
+
+      if (match) return k;
+    }
+  }
+
+  lookup(key) {
+    let code;
+    if (typeof key == "object" && key !== undefined) {
+      code = this._lookupObject(key);
+    } else {
+      code = this._lookupByKeycode(key);
+    }
+
+    if (code === undefined) {
+      code = this._lookupFallback(key);
+    }
+    return code;
   }
 
   serialize(key) {
-    // TODO when possible reduce down into a named key string like "q" or an object with a named key like {key: "q", modifiers: ["alt"]}, otherwise just use the raw db entry
-    return key;
+    return key.code;
   }
 
-  parse(input) {
-    if (typeof input === "number") {
-      return this.fromKeycode(input);
-    } else if (typeof input === "string") {
-      // TODO handle named keys like "q", "á", "Á" and "Consumer_Brightness_Up"
-    } else if (input && input.keyCode !== undefined) {
-      // already a raw db entry, just copy it
-      return { ...input, parsed: true };
-    } else if (input && typeof input.key) {
-      // TODO handle an object with a named key and possibly modifiers, labels, etc
+  getStandardLayout() {
+    return this._layout;
+  }
+
+  format(key, keycapSize = "1u") {
+    let label = key.label.base;
+    if (typeof label != "string") {
+      label = key.label.base[keycapSize] || key.label.base.full;
     }
-    return null;
+    if (label.length == 1) {
+      label = label.toUpperCase();
+    }
+
+    let hint = key.label.hint;
+    if (hint && typeof hint != "string") {
+      hint = key.label.hint[keycapSize] || key.label.hint.full;
+    }
+
+    return {
+      main: label,
+      hint: hint
+    };
   }
 }
 
-export { KeymapDB as default, baseKeyCodeTable, keyCodeTable };
+export { KeymapDB as default };

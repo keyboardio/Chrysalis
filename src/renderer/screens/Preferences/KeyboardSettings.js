@@ -46,12 +46,12 @@ import settings from "electron-settings";
 
 const styles = theme => ({
   title: {
-    marginTop: theme.spacing.unit * 4,
-    marginBottom: theme.spacing.unit
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(1)
   },
   control: {
     display: "flex",
-    marginRight: theme.spacing.unit * 2
+    marginRight: theme.spacing(2)
   },
   group: {
     display: "block"
@@ -63,22 +63,22 @@ const styles = theme => ({
     display: "flex"
   },
   select: {
-    paddingTop: theme.spacing.unit * 1,
+    paddingTop: theme.spacing(1),
     width: 200
   },
   selectContainer: {
-    marginTop: theme.spacing.unit * 2
+    marginTop: theme.spacing(2)
   },
   slider: {
     width: 300
   },
   sliderContainer: {
-    marginTop: theme.spacing.unit * 2
+    marginTop: theme.spacing(2)
   },
   advanced: {
     display: "flex",
     justifyContent: "center",
-    marginTop: theme.spacing.unit * 4,
+    marginTop: theme.spacing(4),
     "& button": {
       textTransform: "none",
       "& span svg": {
@@ -336,8 +336,8 @@ class AdvancedKeyboardSettings extends React.Component {
     this.setState({ EEPROMResetConfirmationOpen: false });
   };
 
-  setPreferExternalFlasher = event => {
-    settings.set("flash.preferExternalFlasher", event.target.checked);
+  setPreferExternalFlasher = async event => {
+    await settings.set("flash.preferExternalFlasher", event.target.checked);
     this.setState({
       preferExternalFlasher: event.target.checked
     });
@@ -345,10 +345,10 @@ class AdvancedKeyboardSettings extends React.Component {
 
   componentDidMount() {
     const focus = new Focus();
-    checkExternalFlasher(focus.device).then(available => {
+    checkExternalFlasher(focus.device).then(async available => {
       this.setState({
         externalFlasherAvailable: available,
-        preferExternalFlasher: settings.get("flash.preferExternalFlasher")
+        preferExternalFlasher: await settings.get("flash.preferExternalFlasher")
       });
     });
   }

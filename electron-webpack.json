@@ -1,3 +1,38 @@
 {
-  "title": "Chrysalis"
+  "title": "Chrysalis",
+  // "whiteListedModules" means "modules which are bundled by webpack during
+  // the build rather than treated as external". Notably, "react" requires
+  // being bundled to work well in the renderer process, so electron-webpack
+  // bundles it *implicitly*. That means we want all dependencies which talk to
+  // react to also be bundled, since we want them to see the same instance of
+  // react when they require("react") as our own (bundled) code does. Otherwise,
+  // you are liable to see runtime errors like "Hooks can only be called inside
+  // the body of a function component."
+  //
+  // Specifically, the rules of the road are:
+  //  - dependencies used by the main process MUST NOT be listed/bundled
+  //  - dependencies which invoke require("react") in the renderer process MUST
+  //    be listed/bundled
+  //  - dependencies used *only* by the renderer process which do not directly
+  //    require("react") MAY be bundled
+  //
+  // See:
+  //  - https://github.com/electron-userland/electron-webpack/issues/361
+  //  - https://reactjs.org/warnings/invalid-hook-call-warning.html#duplicate-react
+  //  - https://github.com/expo/expo-cli/issues/2835#issuecomment-722952296
+  //  - https://github.com/facebook/react/issues/13991#issuecomment-683109390
+  //  - https://github.com/electron-userland/electron-webpack/issues/283#issuecomment-487470932
+  "whiteListedModules": [
+    "@material-ui/core",
+    "@material-ui/icons",
+    "@material-ui/lab",
+    "@reach/router",
+    "prop-types",
+    "react",
+    "react-color",
+    "react-dom",
+    "react-i18next",
+    "react-localization",
+    "react-toastify"
+  ]
 }

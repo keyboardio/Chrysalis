@@ -60,7 +60,7 @@ const styles = theme => ({
     padding: theme.spacing(2)
   },
   card: {
-    margin: theme.spacing.unit * 4,
+    margin: theme.spacing(4),
     maxWidth: "50%"
   },
   grow: {
@@ -239,7 +239,7 @@ class SystemInfo extends React.Component {
         </Portal>
         <Card className={classes.card}>
           <CardHeader
-            avatar={<img src={logo} />}
+            avatar={<img src={logo} alt={i18n.t("components.logo.altText")} />}
             title="Chrysalis"
             subheader={version}
           />

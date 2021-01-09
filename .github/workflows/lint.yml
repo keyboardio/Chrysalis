@@ -27,4 +27,3 @@ jobs:
         run: |
           yarn lint:css
           yarn lint:js
-          yarn prettier

@@ -48,7 +48,7 @@ function LoadingScreen(props) {
   return (
     <div className={props.classes.wrapper}>
       <div className={props.classes.logo}>
-        <img src={logoPath} />
+        <img src={logoPath} alt={i18n.t("components.logo.altText")} />
       </div>
       <Typography component="h2" variant="h2">
         {i18n.t("components.loading")}

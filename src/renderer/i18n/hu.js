@@ -26,7 +26,10 @@ const Hungarian = {
       success: "Elmentve!",
       saveChanges: "Mentés"
     },
-    loading: "Adatok olvasása az eszközről..."
+    loading: "Adatok olvasása az eszközről...",
+    logo: {
+      altText: "Chrysalis logó"
+    }
   },
   dialog: {
     ok: "Ok",

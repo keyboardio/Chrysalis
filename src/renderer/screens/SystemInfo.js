@@ -239,7 +239,7 @@ class SystemInfo extends React.Component {
         </Portal>
         <Card className={classes.card}>
           <CardHeader
-            avatar={<img src={logo} />}
+            avatar={<img src={logo} alt={i18n.t("component.logo.altText")} />}
             title="Chrysalis"
             subheader={version}
           />

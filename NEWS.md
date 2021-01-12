@@ -1,3 +1,74 @@
+Chrysalis 0.8.0
+===============
+Released on 2021-01-12
+
+## UI/UX improvements
+
+To make Chrysalis less resource intensive, and to avoid rare race conditions,
+instead of scanning for new devices every time a new USB device is connected or
+disconnected, we now scan periodically instead.
+
+Chrysalis will also display a loading screen when performing actions that may
+take a long time - this should stop you from seeing temporary blank screens
+while slow work is being performed.
+
+### New Editor
+
+By far the biggest change in this release is the completely redesigned Editor
+screen. It now allows you to see every possible thing you can change on a single
+sidebar, making it considerably easier to navigate. It also offers a whole new
+key picker for the standard keyboard keys. On top of all that, it allows you to
+see the key mappings for the currently selected key on all layers.
+
+Our goal with the new editor was to make it easier, faster and more
+straightforward to see your options, the possible mappings, and as much of the
+current layout as possible. We tried to reduce the number of clicks needed to
+change (or discover) the mapping of a key.
+
+## New features
+
+To aid us in debugging Chrysalis issues, we now have a System Information
+screen. This screen will offer to create a bundle of debug information, and save
+it into a file, which you can forward to the developers, or attach it to bug
+reports. We try hard not to include private information in the bundle, and
+Chrysalis offers you to review the bundle before saving it.
+
+On Linux systems, when using systemd, Chrysalis will offer to install udev rules
+to aid in setting up the serial devices for supported keyboards to grant
+Chrysalis access to them.
+
+We also now provide pre-built binaries for Linux/ARM64 platforms.
+
+## Breaking changes
+
+As a result of having a new Editor things, a few breaking changes had to be
+made, some permanent, some temporary. Chrysalis no longer supports mixing
+hardcoded and custom layers, and will prompt when it detects such a case, to
+automatically switch to using custom layers only. This is a permanent change
+going forward.
+
+Additionally, we temporarily dropped support for layer copying and erasing -
+both of these will be coming back in a future update.
+
+We also reworked layout sharing, which now exports and imports the whole layout,
+all layers included, instead of doing so on a per-layer basis. At a later point,
+we will allow more granularity.
+
+## Bugfixes
+
+Fixed an issue that resulted in Chrysalis displaying a white, blank screen when
+a device it was connected to, disconnected from the host. Fixed another issue on
+macOS, which made Chrysalis use excessive amounts of CPU.
+
+## Firmware
+
+All shipped firmware files have been updated to use the latest Kaleidoscope, and the latest layouts.
+
+## Miscellaneous
+
+The macOS pre-built binaries are now signed, making their installation more
+straightforward and secure.
+
 Chrysalis 0.7.9
 ===============
 Released on 2020-07-03

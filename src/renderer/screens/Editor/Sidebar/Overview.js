@@ -157,7 +157,7 @@ class OverviewBase extends React.Component {
       ? i18n.t("editor.sidebar.overview.hideEmptyLayers")
       : i18n.t("editor.sidebar.overview.showEmptyLayers");
 
-    const footer = lastUsedLayer + 1 > keymap.custom.length && (
+    const footer = lastUsedLayer + 1 < keymap.custom.length && (
       <TableFooter>
         <TableRow>
           <TableCell

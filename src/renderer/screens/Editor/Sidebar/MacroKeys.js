@@ -32,7 +32,7 @@ class MacroKeysBase extends React.Component {
       <CategorySelector
         title={i18n.t("editor.sidebar.macros.title")}
         help={i18n.t("editor.sidebar.macros.help")}
-        category="macro"
+        category="macros"
         keymap={keymap}
         selectedKey={selectedKey}
         layer={layer}

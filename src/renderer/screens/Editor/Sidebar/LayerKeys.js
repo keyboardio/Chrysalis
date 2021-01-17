@@ -60,13 +60,10 @@ class LayerKeysBase extends React.Component {
     this.closePicker();
   };
 
-  onTargetLayerChange = event => {
+  onTargetLayerChange = (event, max) => {
     const { keymap, selectedKey, layer } = this.props;
     const key = keymap.custom[layer][selectedKey];
-    const target = Math.min(
-      parseInt(event.target.value) || 0,
-      this.getMaxLayer()
-    );
+    const target = Math.min(parseInt(event.target.value) || 0, max);
 
     this.props.onKeyChange(key.rangeStart + target);
   };
@@ -96,7 +93,7 @@ class LayerKeysBase extends React.Component {
       targetLayer = key.target;
       type = key.categories[1];
     }
-
+    const max = this.getMaxLayer();
     return (
       <React.Fragment>
         <Collapsible
@@ -135,9 +132,11 @@ class LayerKeysBase extends React.Component {
               <InputLabel>{i18n.t("editor.layerswitch.target")}</InputLabel>
               <Input
                 type="number"
+                min={0}
+                max={max}
                 value={targetLayer < 0 ? "" : targetLayer}
                 disabled={targetLayer < 0}
-                onChange={this.onTargetLayerChange}
+                onChange={event => this.onTargetLayerChange(event, max)}
               />
             </FormControl>
           </div>

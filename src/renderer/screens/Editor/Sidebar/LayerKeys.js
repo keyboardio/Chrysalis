@@ -33,6 +33,17 @@ const db = new KeymapDB();
 const styles = () => ({});
 
 class LayerKeysBase extends React.Component {
+  getMaxLayer = () => {
+    const { keymap, selectedKey, layer } = this.props;
+    const key = keymap.custom[layer][selectedKey];
+    let max = keymap.custom.length - 1;
+
+    if (db.isInCategory(key.code, "layer") && key.categories[1] == "oneshot") {
+      // for oneshots Kaleidoscope supports max 8 layers so index is 7
+      return Math.min(max, 7);
+    }
+    return max;
+  };
   updateExpandedBasedOnKey = props => {
     const { selectedKey, keymap, layer } = props;
     const key = keymap.custom[layer][selectedKey];
@@ -49,10 +60,10 @@ class LayerKeysBase extends React.Component {
     this.closePicker();
   };
 
-  onTargetLayerChange = event => {
+  onTargetLayerChange = (event, max) => {
     const { keymap, selectedKey, layer } = this.props;
     const key = keymap.custom[layer][selectedKey];
-    const target = parseInt(event.target.value) || 0;
+    const target = Math.min(parseInt(event.target.value) || 0, max);
 
     this.props.onKeyChange(key.rangeStart + target);
   };
@@ -82,12 +93,7 @@ class LayerKeysBase extends React.Component {
       targetLayer = key.target;
       type = key.categories[1];
     }
-
-    let max = keymap.custom.length;
-    if (type == "oneshot") {
-      max = Math.min(max, 8);
-    }
-
+    const max = this.getMaxLayer();
     return (
       <React.Fragment>
         <Collapsible
@@ -130,7 +136,7 @@ class LayerKeysBase extends React.Component {
                 max={max}
                 value={targetLayer < 0 ? "" : targetLayer}
                 disabled={targetLayer < 0}
-                onChange={this.onTargetLayerChange}
+                onChange={event => this.onTargetLayerChange(event, max)}
               />
             </FormControl>
           </div>

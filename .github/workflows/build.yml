@@ -18,17 +18,23 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 10
+
       - name: Install udev-dev
         run: sudo apt install libudev-dev
         if: runner.os == 'Linux'
+
       - name: Set up yarn network timeout
         run: yarn config set network-timeout 1000000 -g
+
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1
         env:
           YARN_GPG: no
           CXXFLAGS: -std=c++14
         with:
+          # We supply a build script name, so that we compile the source before
+          # trying to package them up. Without compiling them, we won't have the
+          # files to pack up.
           build_script_name: "compile"
 
           # GitHub token, automatically provided to the action

@@ -20,9 +20,12 @@ jobs:
           node-version: 10
       - name: Install udev-dev
         run: sudo apt install libudev-dev
-        if: runner.os == 'Linux' 
+        if: runner.os == 'Linux'
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1
+        env:
+          YARN_GPG: no
+          CXXFLAGS: -std=c++14
         with:
           # GitHub token, automatically provided to the action
           # (No need to define this secret in the repo settings)

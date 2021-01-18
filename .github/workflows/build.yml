@@ -27,6 +27,8 @@ jobs:
           YARN_GPG: no
           CXXFLAGS: -std=c++14
         with:
+          build_script_name: "compile"
+
           # GitHub token, automatically provided to the action
           # (No need to define this secret in the repo settings)
           github_token: ${{ secrets.github_token }}

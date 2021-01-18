@@ -20,7 +20,13 @@ jobs:
         with:
           node-version: 12
 
+      - name: Set up yarn network timeout
+        run: yarn config set network-timeout 1000000 -g
+
       - name: Install dependencies
+        env:
+          YARN_GPG: no
+          CXXFLAGS: -std=c++14
         run: yarn install
 
       - name: Run linters

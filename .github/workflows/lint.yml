@@ -1,0 +1,35 @@
+name: Lint
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+      - name: Install udev-dev
+        run: sudo apt-get install libudev-dev
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Set up yarn network timeout
+        run: yarn config set network-timeout 1000000 -g
+
+      - name: Install dependencies
+        env:
+          YARN_GPG: no
+          CXXFLAGS: -std=c++14
+        run: yarn install
+
+      - name: Run linters
+        run: |
+          yarn lint:css
+          yarn lint:js

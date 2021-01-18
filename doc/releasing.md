@@ -29,11 +29,19 @@ users, it must not be a filtered copy of the git log, but something a bit more
 elaborate, and perhaps considerably less technical in nature.
 
 Once these are done, we can commit them together, and tag the release as
-`chrysalis-0.x.y`. Push all that up to GitHub, and wait for Travis to finish.
-When Travis is done, download the binariesx, by running
-[tools/get-artifact](../tools/get-artifact).
+`chrysalis-0.x.y`.
 
-Armed with those, go to GitHub, and prepare a new release. Paste the most recent
-NEWS, and upload the binaries downloaded above, and hit the release button.
+Before pushing it to GitHub, we now need to make a new draft release, so head
+over to GitHub, cut a draft release (setting the tag to the one we have locally,
+but which we haven't pushed yet), filling out the description based on
+`NEWS.md`. Keep it as a draft for now.
 
-All of this, except for updating `NEWS.md` could potentially be automated.
+When we're done with that, push our commits and the new tag, and wait for the CI
+to finish. It will attach the build artifacts to the draft release. Once that is
+done, we're ready to publish the draft.
+
+Immediately after, update `package.json`, setting the version to a snapshot
+version, like "0.9.1-snapshot". Then, head back to GitHub, and create a new
+pre-relase. Not a draft, a proper pre-release. All future pushes to master will
+update this pre-release with new artifacts. Once the pre-release is made, push
+your `package.json` changes.

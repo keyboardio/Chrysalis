@@ -54,6 +54,8 @@ jobs:
           # one, which is set as a pre-release. Set the environment up
           # accordingly.
           EP_PRE_RELEASE: true
+          YARN_GPG: no
+          CXXFLAGS: -std=c++14
         with:
           # GitHub token, automatically provided to the action
           # (No need to define this secret in the repo settings)
@@ -65,6 +67,9 @@ jobs:
       - name: Publish a production release
         uses: samuelmeuli/action-electron-builder@v1
         if: startsWith(github.ref, 'refs/tags/chrysalis-')
+        env:
+          EP_PRE_RELEASE: true
+          YARN_GPG: no
         with:
           # GitHub token, automatically provided to the action
           # (No need to define this secret in the repo settings)

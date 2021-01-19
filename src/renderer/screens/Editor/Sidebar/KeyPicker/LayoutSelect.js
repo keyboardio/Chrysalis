@@ -18,12 +18,11 @@
 import React from "react";
 import i18n from "i18next";
 
+import Autocomplete from "@material-ui/lab/Autocomplete";
 import FormControl from "@material-ui/core/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText";
-import InputLabel from "@material-ui/core/InputLabel";
-import ListItemText from "@material-ui/core/ListItemText";
-import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
+import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
 
 import { KeymapDB } from "../../../../../api/keymap";
@@ -33,22 +32,13 @@ const db = new KeymapDB();
 const styles = () => ({});
 
 class LayoutSelectBase extends React.Component {
-  setLayout = event => {
-    const layout = event.target.value || this.props.layout;
+  setLayout = (_, value) => {
+    const layout = value || this.props.layout;
     this.props.setLayout(layout);
   };
 
   render() {
-    const { className, layout, setLayout } = this.props;
-
-    const layoutMenu = db.getSupportedLayouts().map((layout, index) => {
-      const menuKey = "layout-menu-" + index.toString();
-      return (
-        <MenuItem value={layout} key={menuKey}>
-          <ListItemText primary={layout} />
-        </MenuItem>
-      );
-    });
+    const { className, layout } = this.props;
 
     const platforms = {
       linux: "Linux",
@@ -57,17 +47,23 @@ class LayoutSelectBase extends React.Component {
     };
     const hostos = platforms[process.platform];
 
+    const label = i18n.t("editor.sidebar.keypicker.hostLayout", {
+      hostos: hostos
+    });
+
     return (
       <div className={className}>
         <FormControl>
-          <InputLabel>
-            {i18n.t("editor.sidebar.keypicker.hostLayout", {
-              hostos: hostos
-            })}
-          </InputLabel>
-          <Select value={layout} onClick={this.setLayout} autoWidth>
-            {layoutMenu}
-          </Select>
+          <Autocomplete
+            value={layout}
+            onChange={this.setLayout}
+            options={db.getSupportedLayouts()}
+            getOptionLabel={option => option}
+            disableClearable
+            renderInput={params => (
+              <TextField {...params} label={label} variant="outlined" />
+            )}
+          />
           <FormHelperText>
             {i18n.t("editor.sidebar.keypicker.hostHelp")}
           </FormHelperText>

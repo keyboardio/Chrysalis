@@ -46,6 +46,10 @@ const styles = theme => ({
     flexGrow: 1,
     padding: theme.spacing(3),
     width: `calc(100% - ${sidebarWidth}px)`
+  },
+  warning: {
+    zIndex: theme.zIndex.drawer + 2,
+    position: "relative"
   }
 });
 
@@ -317,7 +321,11 @@ class Editor extends React.Component {
       );
 
       onlyCustomWarning = (
-        <Alert severity="error" action={fixitButton}>
+        <Alert
+          severity="error"
+          action={fixitButton}
+          className={classes.warning}
+        >
           <Typography component="p">
             {i18n.t("editor.onlyCustom.warning")}
           </Typography>

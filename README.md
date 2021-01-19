@@ -5,28 +5,13 @@ Chrysalis
 
 ## Downloads
 
-You can download pre-built binaries for the three major operating systems below:
+[![Latest production builds][badge:production]][build:prod]
+[![Latest development builds][badge:development]][build:dev]
 
-Development builds:
-
-[![Latest Linux x64 build][badge:appimage-x64]][build:appimage-x64]
-[![Latest Linux amd64 build][badge:appimage-arm64]][build:appimage-arm64]
-[![Latest macOS build][badge:dmg]][build:dmg]
-[![Latest Windows build][badge:exe]][build:exe]
-
- [badge:appimage-x64]: https://img.shields.io/badge/AppImage%20x64-latest-blue.svg?logo=linux&style=for-the-badge&logoColor=ffffff
- [badge:appimage-arm64]: https://img.shields.io/badge/AppImage%20arm64-latest-blue.svg?logo=linux&style=for-the-badge&logoColor=ffffff
- [badge:dmg]: https://img.shields.io/badge/dmg-latest-blue.svg?logo=apple&style=for-the-badge&logoColor=ffffff
- [badge:exe]: https://img.shields.io/badge/exe-latest-blue.svg?logo=windows&style=for-the-badge&logoColor=ffffff
- [build:appimage-x64]: http://kaleidoscope-builds.s3-website-us-west-2.amazonaws.com/Chrysalis/latest/Chrysalis.amd64.AppImage
-[build:appimage-arm64]: http://kaleidoscope-builds.s3-website-us-west-2.amazonaws.com/Chrysalis/latest/Chrysalis.arm64.AppImage
- [build:dmg]: http://kaleidoscope-builds.s3-website-us-west-2.amazonaws.com/Chrysalis/latest/Chrysalis.dmg
- [build:exe]: http://kaleidoscope-builds.s3-website-us-west-2.amazonaws.com/Chrysalis/latest/Chrysalis.exe
-
-
-Current release:
-
-[![](https://img.shields.io/github/release-pre/keyboardio/Chrysalis.svg?style=for-the-badge)](https://github.com/keyboardio/Chrysalis/releases)
+ [badge:development]: https://img.shields.io/github/v/release/keyboardio/chrysalis?include_prereleases&label=Development&style=for-the-badge
+ [badge:production]: https://img.shields.io/github/v/release/keyboardio/chrysalis?label=Production&style=for-the-badge
+ [build:prod]: https://github.com/keyboardio/Chrysalis/releases/latest
+ [build:dev]: https://github.com/keyboardio/Chrysalis/releases/tag/v0.8.1-snapshot
 
 ## About
 

@@ -2,8 +2,9 @@ How to release Chrysalis
 ========================
 
 This is a work in progress document that explains the general steps of cutting a
-Chrysalis release. Some of this could - and should - be automated better, any
-help that gets us going towards that is most appreciated.
+Chrysalis release. All of these steps are automated by the scripts in
+`tools/release/`, but for clarity, the process is explained here step by step,
+too.
 
 First and foremost, we need to update the version in
 [package.json](../package.json). If it's a bugfix release, bump the last number.
@@ -29,7 +30,7 @@ users, it must not be a filtered copy of the git log, but something a bit more
 elaborate, and perhaps considerably less technical in nature.
 
 Once these are done, we can commit them together, and tag the release as
-`chrysalis-0.x.y`.
+`v0.x.y`.
 
 Before pushing it to GitHub, we now need to make a new draft release, so head
 over to GitHub, cut a draft release (setting the tag to the one we have locally,
@@ -41,7 +42,8 @@ to finish. It will attach the build artifacts to the draft release. Once that is
 done, we're ready to publish the draft.
 
 Immediately after, update `package.json`, setting the version to a snapshot
-version, like "0.9.1-snapshot". Then, head back to GitHub, and create a new
-pre-relase. Not a draft, a proper pre-release. All future pushes to master will
-update this pre-release with new artifacts. Once the pre-release is made, push
-your `package.json` changes.
+version, like "0.9.1-snapshot". While there, also update `README.md`, so that
+the development build link points to the right tag. Then, head back to GitHub,
+and create a new pre-relase. Not a draft, a proper pre-release. All future
+pushes to master will update this pre-release with new artifacts. Once the
+pre-release is made, push your `package.json` changes.

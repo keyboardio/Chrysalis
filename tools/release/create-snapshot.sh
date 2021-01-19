@@ -16,11 +16,15 @@ update_version() {
     VERSION="$(generate_new_version)"
     jq ". | .[\"version\"] = \"${VERSION}\"" <package.json >"${TMP}"
     mv "${TMP}" package.json
+
+    TMP=$(mktemp)
+    sed -e "s,\[build:dev\]: .*,[build:dev]: https://github.com/keyboardio/Chrysalis/releases/tag/v${VERSION}," <README.md >"${TMP}"
+    mv "${TMP}" README.md
 }
 
 commit_changes() {
     VERSION="$(jq -r .version <package.json)"
-    git add package.json
+    git add package.json README.md
     git commit -s -m "Bump version to ${VERSION}"
 }
 

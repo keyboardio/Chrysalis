@@ -37,7 +37,7 @@ prompt_for_firmware_update() {
 update_shipped_firmware() {
     VERSION=$(package_version)
 
-    tools/update-firmware
+    tools/firmware-update
     git add static/**/{experimental,default}.hex
     TMP=$(mktemp)
     cat >${TMP} <<EOF

@@ -94,7 +94,7 @@ create_draft_release() {
 $(extract_news)
 EOF
 
-    gh release create chrysalis-${VERSION} -d -F "${TMP}" -t "Chrysalis ${VERSION}"
+    gh release create v${VERSION} -d -F "${TMP}" -t "Chrysalis ${VERSION}"
 
     rm -f "${TMP}"
 }

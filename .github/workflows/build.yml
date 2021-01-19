@@ -20,7 +20,7 @@ jobs:
           node-version: 10
 
       - name: Install udev-dev
-        run: sudo apt install libudev-dev
+        run: sudo apt update && sudo apt install libudev-dev
         if: runner.os == 'Linux'
 
       - name: Set up yarn network timeout

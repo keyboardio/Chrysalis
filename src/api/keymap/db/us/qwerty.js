@@ -372,6 +372,8 @@ const keyCodeTable = [
 
 const USQwerty = {
   name: "English (US)",
+  default: true,
+  group: "en",
   codetable: withModifiers(keyCodeTable)
 };
 

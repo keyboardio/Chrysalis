@@ -50,8 +50,20 @@ class KeymapDB {
       layouts.push(layout[0]);
     }
     layouts.sort((a, b) => {
-      const n1 = a.toUpperCase();
-      const n2 = b.toUpperCase();
+      const l1 = this._layouts[a];
+      const l2 = this._layouts[b];
+
+      // Sort on group first
+      if (l1.group < l2.group) return -1;
+      if (l1.group > l2.group) return 1;
+
+      // If in the same group, sort the default one higher
+      if (l1.default) return -1;
+      if (l2.default) return 1;
+
+      // If neither is the default, sort on name.
+      const n1 = l1.name.toUpperCase();
+      const n2 = l2.name.toUpperCase();
 
       if (n1 < n2) return -1;
       if (n1 > n2) return 1;

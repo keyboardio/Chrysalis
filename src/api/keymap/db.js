@@ -17,6 +17,8 @@
 import { Base } from "./db/base";
 import { USQwerty } from "./db/us/qwerty";
 import cldr from "./cldr";
+import cldr_ from "cldr";
+import i18n from "i18next";
 
 global.chrysalis_keymapdb_instance = null;
 
@@ -44,14 +46,31 @@ class KeymapDB {
     );
   };
 
+  getLayoutLanguage = layout => {
+    const languageCode = this._layouts[layout].group;
+    return cldr_.extractLanguageDisplayNames(i18n.language)[languageCode];
+  };
+
   getSupportedLayouts() {
     let layouts = [];
     for (const layout of Object.entries(this._layouts)) {
       layouts.push(layout[0]);
     }
     layouts.sort((a, b) => {
-      const n1 = a.toUpperCase();
-      const n2 = b.toUpperCase();
+      const l1 = this._layouts[a];
+      const l2 = this._layouts[b];
+
+      // Sort on group first
+      if (l1.group < l2.group) return -1;
+      if (l1.group > l2.group) return 1;
+
+      // If in the same group, sort the default one higher
+      if (l1.default) return -1;
+      if (l2.default) return 1;
+
+      // If neither is the default, sort on name.
+      const n1 = l1.name.toUpperCase();
+      const n2 = l2.name.toUpperCase();
 
       if (n1 < n2) return -1;
       if (n1 > n2) return 1;

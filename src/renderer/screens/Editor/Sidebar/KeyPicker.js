@@ -41,6 +41,7 @@ import {
   removeModifier
 } from "../../../../api/keymap/db/modifiers";
 import { GuiLabel } from "../../../../api/keymap/db/base/gui";
+import LayoutSelect from "./KeyPicker/LayoutSelect";
 
 const db = new KeymapDB();
 
@@ -144,30 +145,9 @@ class KeyPickerBase extends React.Component {
     );
   };
 
-  setLayout = event => {
-    const layout = event.target.value || this.props.layout;
-    this.props.setLayout(layout);
-  };
-
   render() {
-    const { classes, keymap, selectedKey, layer, layout } = this.props;
+    const { classes, keymap, selectedKey, layer } = this.props;
     const key = keymap.custom[layer][selectedKey];
-
-    const layoutMenu = db.getSupportedLayouts().map((layout, index) => {
-      const menuKey = "layout-menu-" + index.toString();
-      return (
-        <MenuItem value={layout} key={menuKey}>
-          <ListItemText primary={layout} />
-        </MenuItem>
-      );
-    });
-
-    const platforms = {
-      linux: "Linux",
-      win32: "Windows",
-      darwin: "macOS"
-    };
-    const hostos = platforms[process.platform];
 
     let oneShot;
     if (db.isInCategory(key.baseCode || key.code, "modifier")) {
@@ -251,21 +231,11 @@ class KeyPickerBase extends React.Component {
             {oneShot}
           </div>
           <Divider />
-          <div className={classes.layout}>
-            <FormControl>
-              <InputLabel>
-                {i18n.t("editor.sidebar.keypicker.hostLayout", {
-                  hostos: hostos
-                })}
-              </InputLabel>
-              <Select value={layout} onClick={this.setLayout} autoWidth>
-                {layoutMenu}
-              </Select>
-              <FormHelperText>
-                {i18n.t("editor.sidebar.keypicker.hostHelp")}
-              </FormHelperText>
-            </FormControl>
-          </div>
+          <LayoutSelect
+            className={classes.layout}
+            layout={this.props.layout}
+            setLayout={this.props.setLayout}
+          />
         </Collapsible>
         <Dialog
           open={this.state.pickerOpen}

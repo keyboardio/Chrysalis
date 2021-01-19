@@ -85,7 +85,7 @@ const decode = code => {
   return code;
 };
 
-const loadKeyboard = async file => {
+const loadKeyboard = async (group, isDefault, file) => {
   const data = fs.readFileSync(file);
   const cldrKeyboard = (await xml2js.parseStringPromise(data)).keyboard;
   const cldrKeymap = cldrKeyboard.keyMap;
@@ -122,6 +122,8 @@ const loadKeyboard = async file => {
 
   return {
     name: name,
+    group: group,
+    default: isDefault,
     codetable: db
   };
 };
@@ -130,6 +132,9 @@ const loadAllKeymaps = async () => {
   const files = fs.readdirSync(
     path.join(getStaticPath(), "cldr/keyboards/windows/")
   );
+
+  // Load the default layout for each language
+
   let languages = [];
   for (const f of files) {
     if (f.match("^...?-t-k0-windows\\.xml") && !f.startsWith("en-")) {
@@ -139,11 +144,31 @@ const loadAllKeymaps = async () => {
 
   let db = {};
   for (const l of languages) {
-    const keyboard = await loadKeyboard(
+    const layout = await loadKeyboard(
+      l.match("^(...?)-t-")[1],
+      true,
       path.join(getStaticPath(), "cldr/keyboards/windows", l)
     );
 
-    db[keyboard.name] = keyboard;
+    db[layout.name] = layout;
+  }
+
+  // Load all other layouts
+  languages = [];
+  for (const f of files) {
+    if (!f.match("^...?-t-k0-windows\\.xml") && f.match("-windows")) {
+      languages.push(f);
+    }
+  }
+
+  for (const l of languages) {
+    const layout = await loadKeyboard(
+      l.match("^(...?)-")[1],
+      false,
+      path.join(getStaticPath(), "cldr/keyboards/windows", l)
+    );
+
+    db[layout.name] = layout;
   }
 
   return db;

@@ -65,6 +65,7 @@
     "archiver": "^5.0.2",
     "avrgirl-arduino": "^4.2.2",
     "classnames": "^2.2.6",
+    "cldr": "^5.8.0",
     "electron-devtools-installer": "^3.1.1",
     "electron-settings": "^4.0.2",
     "electron-window-state": "^5.0.3",

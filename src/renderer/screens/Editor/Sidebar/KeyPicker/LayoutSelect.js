@@ -56,6 +56,7 @@ class LayoutSelectBase extends React.Component {
         <FormControl>
           <Autocomplete
             value={layout}
+            groupBy={option => db.getLayoutLanguage(option)}
             onChange={this.setLayout}
             options={db.getSupportedLayouts()}
             getOptionLabel={option => option}

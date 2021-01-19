@@ -17,6 +17,8 @@
 import { Base } from "./db/base";
 import { USQwerty } from "./db/us/qwerty";
 import cldr from "./cldr";
+import cldr_ from "cldr";
+import i18n from "i18next";
 
 global.chrysalis_keymapdb_instance = null;
 
@@ -42,6 +44,11 @@ class KeymapDB {
       this._layouts,
       await cldr.loadAllKeymaps()
     );
+  };
+
+  getLayoutLanguage = layout => {
+    const languageCode = this._layouts[layout].group;
+    return cldr_.extractLanguageDisplayNames(i18n.language)[languageCode];
   };
 
   getSupportedLayouts() {

@@ -237,6 +237,15 @@ class Focus {
     request += "\n";
 
     if (process.platform == "darwin") {
+      /*
+       * On macOS, we need to stagger writes, otherwise we seem to overwhelm the
+       * system, and the host will receive garbage. If we send in smaller
+       * chunks, with a slight delay between them, we can avoid this problem.
+       *
+       * We may be able to do this smarter, if we figure out the rough chunk
+       * size that is safe to send. That'd speed up writes on macOS. Until then,
+       * we split at each space, and send tiny chunks.
+       */
       let parts = request.split(" ");
       return new Promise(resolve => {
         setTimeout(async () => {

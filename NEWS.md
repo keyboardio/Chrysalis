@@ -1,3 +1,48 @@
+Chrysalis 0.8.1-snapshot
+========================
+**UNRELEASED**
+
+This release is primarily a bugfix release, with a number of small, but rather
+annoying issues ironed out.
+
+## Bugfixes
+
+Chrysalis will now correctly show the `Show empty layers` button in the overview
+area, when there are empty layers to show. When selecting the target of a layer
+change button, Chrysalis will correctly limit the available options to what is
+available (limited either by available layers in EEPROM, or by firmware
+limitations in case of certain types of layer keys).
+
+Chrysalis will now correctly show macro keys when clicking the `Macros...`
+button. Furthermore, it will now allow augmenting _all_ standard keys with one
+or more modifiers.
+
+When Chrysalis detects that it does not have permission to talk to a device on
+Linux, the udev rule installation will now correctly function.
+
+This release also fixes a few display issues, like the warnings that may display
+just below the title bar will no longer be partially shadowed by the sidebar on
+the Editor screen. Also, when we display a loading screen during longer
+operations, the spinning logo is now correctly displayed in production builds
+too.
+
+## New features
+
+In this release, we reworked how the host operating system layout selection
+works: we now load every available layout we ship with, and group them by
+language. The selector is also smarter when it comes to auto-completion: it now
+takes the entire text typed into account when narrowing possibilities.
+
+## Known regressions
+
+Due to Travis changing their pricing model, we can no longer use it for our
+automatic builds. We have switched to GitHub Actions, but in doing so, we lost
+access to a Linux/arm64 builder, and as such, we can't provide pre-build
+binaries for that platform anymore.
+
+Furthermore, we currently do not sign our macOS builds - this is a temporary
+regression only, however.
+
 Chrysalis 0.8.0
 ===============
 Released on 2021-01-12

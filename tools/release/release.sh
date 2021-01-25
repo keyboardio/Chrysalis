@@ -6,7 +6,11 @@ news_version() {
 }
 
 package_version() {
-    jq -r .version <package.json | cut -d- -f1
+    jq -r .version <package.json
+}
+
+release_version() {
+    package_version | cut -d- -f1
 }
 
 verify_version() {
@@ -18,6 +22,18 @@ Please add NEWS items for the upcoming release, and make sure the versions
 align.
 EOF
     fi
+
+    case "$(package_version)" in
+        *-snapshot)
+            ;;
+        *)
+            cat >&2 <<EOF
+Package version is not a snapshot version. This script requires the version to
+be a snapshot version of the upcoming release.
+EOF
+            exit 1
+            ;;
+    esac
 }
 
 prompt_for_firmware_update() {
@@ -35,7 +51,15 @@ prompt_for_firmware_update() {
 }
 
 update_shipped_firmware() {
-    VERSION=$(package_version)
+    echo -n "Do the firmware files need updating? (Y/n) "
+    read a
+    case "$a" in
+        n|N)
+            return
+            ;;
+    esac
+
+    VERSION=$(release_version)
 
     tools/firmware-update
     git add static/**/{experimental,default}.hex
@@ -50,10 +74,20 @@ EOF
 }
 
 update_version() {
+    VERSION="$(release_version)"
+
+    ## Update package.json
     TMP=$(mktemp)
-    VERSION="$1"
     jq ". | .[\"version\"] = \"${VERSION}\"" <package.json >"${TMP}"
     mv "${TMP}" package.json
+
+    ## Update NEWS.md
+    TMP=$(mktemp)
+    VERSION_STRING="Chrysalis ${VERSION}"
+    (echo "${VERSION_STRING}"; \
+     echo "${VERSION_STRING}" | sed -e "s/./=/g"; \
+     tail -n +3 NEWS.md) >"${TMP}"
+    mv "${TMP}" NEWS.md
 }
 
 update_release_date() {
@@ -102,7 +136,7 @@ EOF
 verify_version
 prompt_for_firmware_update
 update_shipped_firmware
-update_version "$@"
+update_version
 update_release_date
 commit_preparations
 push_changes

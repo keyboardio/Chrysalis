@@ -111,7 +111,16 @@ class Focus {
       }
     }
 
-    this.debugLog("focus.find: found_devices:", found_devices);
+    // We do not wish to have the device SVG data appear in logs, that's not
+    // useful information, and just clutters the log. So we filter them out.
+    const logged_devices = found_devices.map(d => {
+      let device = Object.assign({}, d);
+      device.device = Object.assign({}, d.device);
+      delete device.device["components"];
+      return device;
+    });
+
+    this.debugLog("focus.find: found_devices:", logged_devices);
 
     return found_devices;
   }

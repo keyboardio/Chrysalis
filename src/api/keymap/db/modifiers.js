@@ -14,6 +14,8 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { GuiShortLabel } from "./base/gui";
+
 const modMap = {
   ctrl: 1 << 8,
   alt: 1 << 9,
@@ -67,7 +69,7 @@ const withModifiers = keys => {
       categories: ["gui"],
       offset: modMap.gui,
       label: key => {
-        return "G+" + key.label.base;
+        return GuiShortLabel + "+" + key.label.base;
       }
     },
 
@@ -97,7 +99,7 @@ const withModifiers = keys => {
       categories: ["ctrl", "gui"],
       offset: modMap.ctrl + modMap.gui,
       label: key => {
-        return "C+G+" + key.label.base;
+        return "C+" + GuiShortLabel + "+" + key.label.base;
       }
     },
     {
@@ -118,7 +120,7 @@ const withModifiers = keys => {
       categories: ["shift", "gui"],
       offset: modMap.shift + modMap.gui,
       label: key => {
-        return "S+G+" + key.label.base;
+        return "S+" + GuiShortLabel + "+" + key.label.base;
       }
     },
     {
@@ -132,14 +134,14 @@ const withModifiers = keys => {
       categories: ["alt", "gui"],
       offset: modMap.alt + modMap.gui,
       label: key => {
-        return "A+G+" + key.label.base;
+        return "A+" + GuiShortLabel + "+" + key.label.base;
       }
     },
     {
       categories: ["altgr", "gui"],
       offset: modMap.altgr + modMap.gui,
       label: key => {
-        return "AGr+G+" + key.label.base;
+        return "AGr+" + GuiShortLabel + "+" + key.label.base;
       }
     },
 
@@ -162,7 +164,7 @@ const withModifiers = keys => {
       categories: ["ctrl", "shift", "gui"],
       offset: modMap.ctrl + modMap.shift + modMap.gui,
       label: key => {
-        return "C+S+G+" + key.label.base;
+        return "C+S+" + GuiShortLabel + "+" + key.label.base;
       }
     },
     {
@@ -176,14 +178,14 @@ const withModifiers = keys => {
       categories: ["ctrl", "alt", "gui"],
       offset: modMap.ctrl + modMap.alt + modMap.gui,
       label: key => {
-        return "C+A+G+" + key.label.base;
+        return "C+A+" + GuiShortLabel + "+" + key.label.base;
       }
     },
     {
       categories: ["ctrl", "altgr", "gui"],
       offset: modMap.ctrl + modMap.altgr + modMap.gui,
       label: key => {
-        return "C+AGr+G+" + key.label.base;
+        return "C+AGr+" + GuiShortLabel + "+" + key.label.base;
       }
     },
     {
@@ -197,21 +199,21 @@ const withModifiers = keys => {
       categories: ["shift", "alt", "gui"],
       offset: modMap.shift + modMap.alt + modMap.gui,
       label: key => {
-        return "S+A+G+" + key.label.base;
+        return "S+A+" + GuiShortLabel + "+" + key.label.base;
       }
     },
     {
       categories: ["shift", "altgr", "gui"],
       offset: modMap.shift + modMap.altgr + modMap.gui,
       label: key => {
-        return "S+AGr+G+" + key.label.base;
+        return "S+AGr+" + GuiShortLabel + "+" + key.label.base;
       }
     },
     {
       categories: ["alt", "altgr", "gui"],
       offset: modMap.shift + modMap.altgr + modMap.gui,
       label: key => {
-        return "A+AGr+G+" + key.label.base;
+        return "A+AGr+" + GuiShortLabel + "+" + key.label.base;
       }
     },
 
@@ -227,28 +229,28 @@ const withModifiers = keys => {
       categories: ["ctrl", "shift", "alt", "gui"],
       offset: modMap.ctrl + modMap.shift + modMap.alt + modMap.gui,
       label: key => {
-        return "C+S+A+G+" + key.label.base;
+        return "C+S+A+" + GuiShortLabel + "+" + key.label.base;
       }
     },
     {
       categories: ["ctrl", "shift", "gui", "altgr"],
       offset: modMap.ctrl + modMap.shift + modMap.gui + modMap.altgr,
       label: key => {
-        return "C+S+G+AGr+" + key.label.base;
+        return "C+S+" + GuiShortLabel + "+AGr+" + key.label.base;
       }
     },
     {
       categories: ["ctrl", "alt", "altgr", "gui"],
       offset: modMap.ctrl + modMap.alt + modMap.altgr + modMap.gui,
       label: key => {
-        return "C+A+AGr+G+" + key.label.base;
+        return "C+A+AGr+" + GuiShortLabel + "+" + key.label.base;
       }
     },
     {
       categories: ["shift", "alt", "altgr", "gui"],
       offset: modMap.shift + modMap.alt + modMap.altgr + modMap.gui,
       label: key => {
-        return "S+A+AGr+G+" + key.label.base;
+        return "S+A+AGr+" + GuiShortLabel + "+" + key.label.base;
       }
     },
 
@@ -258,7 +260,7 @@ const withModifiers = keys => {
       offset:
         modMap.ctrl + modMap.shift + modMap.alt + modMap.altgr + modMap.gui,
       label: key => {
-        return "C+S+A+AGr+G+" + key.label.base;
+        return "C+S+A+AGr+" + GuiShortLabel + "+" + key.label.base;
       }
     }
   ];

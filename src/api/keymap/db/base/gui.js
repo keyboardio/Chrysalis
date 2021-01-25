@@ -17,22 +17,27 @@
 const GuiLabels = {
   linux: {
     full: "Super",
-    "1u": "Sup."
+    "1u": "Sup.",
+    short: "Su"
   },
   win32: {
     full: "Windows",
-    "1u": "Win"
+    "1u": "Win",
+    short: "W"
   },
   darwin: {
     full: "Command",
-    "1u": "Cmd"
+    "1u": "Cmd",
+    short: "Cm"
   },
   default: {
     full: "Gui",
-    "1u": "Gui"
+    "1u": "Gui",
+    short: "G"
   }
 };
 
 const GuiLabel = GuiLabels[process.platform] || GuiLabels.default;
+const GuiShortLabel = GuiLabel.short;
 
-export { GuiLabel };
+export { GuiLabel, GuiShortLabel };

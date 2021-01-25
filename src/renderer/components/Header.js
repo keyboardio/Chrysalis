@@ -30,7 +30,6 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
-import i18n from "../i18n";
 import BoardMenu from "./BoardMenu";
 import MainMenu from "./MainMenu/MainMenu";
 
@@ -114,7 +113,7 @@ function Header({
             disabled={!device.urls}
             className="button"
           >
-            {i18n.t("app.device")}: {device.displayName}
+            {device.displayName}
           </Button>
         )}
         {device && device.urls && (

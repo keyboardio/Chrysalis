@@ -40,7 +40,6 @@ const English = {
     cancel: "Cancel"
   },
   app: {
-    device: "Keyboard",
     menu: {
       welcome: "Welcome",
       systemInfo: "System Information",

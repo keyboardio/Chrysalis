@@ -14,7 +14,9 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-const numpad = [
+import { withModifiers } from "../modifiers";
+
+const numpad = withModifiers([
   {
     code: 83,
     label: {
@@ -136,6 +138,6 @@ const numpad = [
     },
     location: "numpad"
   }
-];
+]);
 
 export { numpad };

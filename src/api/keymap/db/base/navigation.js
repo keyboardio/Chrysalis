@@ -1,5 +1,5 @@
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2020  Keyboardio, Inc.
+ * Copyright (C) 2020-2021  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -14,7 +14,9 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-const navigation = [
+import { withModifiers } from "../modifiers";
+
+const navigation = withModifiers([
   {
     code: 74,
     label: {
@@ -81,6 +83,6 @@ const navigation = [
       }
     }
   }
-];
+]);
 
 export { navigation };

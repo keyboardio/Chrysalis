@@ -25,7 +25,15 @@ const Atreus2 = {
     urls: [
       {
         name: "Homepage",
-        url: "https://atreus.technomancy.us/"
+        url: "https://shop.keyboard.io/products/keyboardio-atreus"
+      },
+      {
+        name: "Forum",
+        url: "https://community.keyboard.io/"
+      },
+      {
+        name: "Chat",
+        url: "https://keyboard.io/discord-invite"
       }
     ]
   },

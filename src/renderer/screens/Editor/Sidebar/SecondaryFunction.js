@@ -85,7 +85,7 @@ class SecondaryFunctionBase extends React.Component {
   render() {
     const { classes, keymap, selectedKey, layer } = this.props;
     const key = keymap.custom[layer][selectedKey];
-    const maxLayer = Math.min(keymap.custom.length, 8);
+    const maxLayer = Math.min(keymap.custom.length, 7);
 
     let type = "none",
       targetLayer = -1,

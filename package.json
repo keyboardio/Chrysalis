@@ -85,6 +85,7 @@
     "systeminformation": "^4.27.7",
     "teensy-loader": "^0.1.1",
     "terser": "^4.6.3",
+    "tmp": "^0.2.1",
     "typeface-roboto": "^0.0.54",
     "typeface-source-code-pro": "^0.0.71",
     "unraw": "^2.0.0",

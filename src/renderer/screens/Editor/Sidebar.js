@@ -36,6 +36,7 @@ import SpaceCadetKeys from "./Sidebar/SpaceCadetKeys";
 import StenoKeys from "./Sidebar/StenoKeys";
 import TapDanceKeys from "./Sidebar/TapDanceKeys";
 import BlankKeys from "./Sidebar/BlankKeys";
+import CustomKey from "./Sidebar/CustomKey";
 
 const sidebarWidth = 360;
 
@@ -78,7 +79,8 @@ class Sidebar extends React.Component {
       SpaceCadetKeys,
       LeaderKeys,
       StenoKeys,
-      BlankKeys
+      BlankKeys,
+      CustomKey
     ];
     const categories = widgets.map((Widget, index) => {
       return (

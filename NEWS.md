@@ -33,6 +33,10 @@ works: we now load every available layout we ship with, and group them by
 language. The selector is also smarter when it comes to auto-completion: it now
 takes the entire text typed into account when narrowing possibilities.
 
+Also introduced in this release is a custom key code entry widget on the
+Editor's sidebar. With this widget, you can set keys to custom key codes, or
+codes as of yet unknown to Chrysalis.
+
 ## Known regressions
 
 Due to Travis changing their pricing model, we can no longer use it for our

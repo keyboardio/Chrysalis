@@ -96,6 +96,11 @@ const English = {
       }
     },
     sidebar: {
+      custom: {
+        title: "Custom key code",
+        help: `Lets you assign a custom key code to a key, or a code not currently known to Chrysalis.`,
+        label: "Custom key code"
+      },
       blanks: {
         title: "Blanks",
         help: "Blocked & transparent keys."

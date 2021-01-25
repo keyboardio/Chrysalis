@@ -39,8 +39,12 @@ class SecondaryFunctionBase extends React.Component {
   onTargetLayerChange = event => {
     const { keymap, selectedKey, layer } = this.props;
     const key = keymap.custom[layer][selectedKey];
-    const target = parseInt(event.target.value) || 0;
+    const maxLayer = Math.min(keymap.custom.length, 7);
+    let target = parseInt(event.target.value) || 0;
     const code = key.baseCode || key.code;
+
+    if (target < 0) target = maxLayer;
+    if (target > maxLayer) target = 0;
 
     this.props.onKeyChange(addDUL(db.lookup(code), target));
   };

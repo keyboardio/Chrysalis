@@ -10,7 +10,7 @@ package_version() {
 }
 
 verify_version() {
-    if [ $(news_version) != $(package_version) ]; then
+    if [ "$(news_version)" != "$(package_version)" ]; then
         cat >&2 <<EOF
 Package version ($(package_version)) does not match the version in NEWS.md ($(news_version)).
 

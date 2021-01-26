@@ -54,6 +54,9 @@ jobs:
           # one, which is set as a pre-release. Set the environment up
           # accordingly.
           EP_PRE_RELEASE: true
+          # When releasing a snapshot, we want to overwrite the artifacts, no
+          # matter how old the original snapshot release is.
+          EP_GH_IGNORE_TIME: true
           YARN_GPG: no
           CXXFLAGS: -std=c++14
         with:

@@ -40,7 +40,10 @@
     "mac": {
       "darkModeSupport": true,
       "hardenedRuntime": true,
-      "entitlements": "./build/entitlements.mac.inherit.plist"
+      "entitlements": "./build/entitlements.mac.inherit.plist",
+      "target": [
+        "dmg"
+      ]
     },
     "linux": {
       "target": [

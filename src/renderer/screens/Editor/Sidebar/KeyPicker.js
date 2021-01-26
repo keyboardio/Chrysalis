@@ -209,22 +209,27 @@ class KeyPickerBase extends React.Component {
                 <FormControlLabel
                   control={this.makeSwitch("shift")}
                   label="Shift"
+                  disabled={key.baseCode == 225}
                 />
                 <FormControlLabel
                   control={this.makeSwitch("ctrl")}
                   label="Control"
+                  disabled={key.baseCode == 224}
                 />
                 <FormControlLabel
                   control={this.makeSwitch("alt")}
                   label="Alt"
+                  disabled={key.baseCode == 226}
                 />
                 <FormControlLabel
                   control={this.makeSwitch("gui")}
                   label={GuiLabel.full}
+                  disabled={key.baseCode == 227}
                 />
                 <FormControlLabel
                   control={this.makeSwitch("altgr")}
                   label="AltGr"
+                  disabled={key.baseCode == 230}
                 />
               </FormGroup>
             </FormControl>

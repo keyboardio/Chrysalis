@@ -14,7 +14,7 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { GuiShortLabel } from "./base/gui";
+import { GuiLabel, GuiShortLabel } from "./base/gui";
 
 const modMap = {
   ctrl: 1 << 8,
@@ -35,223 +35,314 @@ const removeModifier = (keyCode, mod) => {
 const withModifiers = keys => {
   let newKeys = [];
 
+  const modLabels = {
+    ctrl: {
+      full: "Ctrl+",
+      "1u": "C+"
+    },
+    shift: {
+      full: "Shift+",
+      "1u": "S+"
+    },
+    alt: {
+      full: "Alt+",
+      "1u": "A+"
+    },
+    altgr: {
+      full: "AltGr+",
+      "1u": "AGr+"
+    },
+    gui: {
+      full: GuiLabel.full + "+",
+      "1u": GuiShortLabel + "+"
+    }
+  };
+
+  const combine = (...mods) => {
+    let label = {
+      full: "",
+      "1u": ""
+    };
+    for (const mod of mods) {
+      label.full += mod.full;
+      label["1u"] += mod["1u"];
+    }
+
+    return label;
+  };
+
   const mods = [
     // Single mods
     {
       categories: ["ctrl"],
       offset: modMap.ctrl,
-      label: key => {
-        return "C+" + key.label.base;
-      }
+      label: key => ({
+        hint: modLabels.ctrl,
+        base: key.label.base
+      })
     },
     {
       categories: ["shift"],
       offset: modMap.shift,
-      label: key => {
-        return key.label.shifted || "S+" + key.label.base;
-      }
+      label: key => ({
+        hint: key.label.shifted ? null : modLabels.shift,
+        base: key.label.shifted || key.label.base
+      })
     },
     {
       categories: ["alt"],
       offset: modMap.alt,
-      label: key => {
-        return "A+" + key.label.base;
-      }
+      label: key => ({
+        hint: modLabels.alt,
+        base: key.label.base
+      })
     },
     {
       categories: ["altgr"],
       offset: modMap.altgr,
-      label: key => {
-        return key.label.altgr || "AGr+" + key.label.base;
-      }
+      label: key => ({
+        hint: key.label.altgr ? null : modLabels.altgr,
+        base: key.label.altgr || key.label.base
+      })
     },
     {
       categories: ["gui"],
       offset: modMap.gui,
-      label: key => {
-        return GuiShortLabel + "+" + key.label.base;
-      }
+      label: key => ({
+        hint: modLabels.gui,
+        base: key.label.base
+      })
     },
 
     // Two mods
     {
       categories: ["ctrl", "shift"],
       offset: modMap.ctrl + modMap.shift,
-      label: key => {
-        return "C+S+" + key.label.base;
-      }
+      label: key => ({
+        hint: combine(modLabels.ctrl, modLabels.shift),
+        base: key.label.base
+      })
     },
     {
       categories: ["ctrl", "alt"],
       offset: modMap.ctrl + modMap.alt,
-      label: key => {
-        return "C+A+" + key.label.base;
-      }
+      label: key => ({
+        hint: combine(modLabels.ctrl, modLabels.alt),
+        base: key.label.base
+      })
     },
     {
       categories: ["ctrl", "altgr"],
       offset: modMap.ctrl + modMap.altgr,
-      label: key => {
-        return "C+AGr+" + key.label.base;
-      }
+      label: key => ({
+        hint: combine(modLabels.ctrl, modLabels.altgr),
+        base: key.label.base
+      })
     },
     {
       categories: ["ctrl", "gui"],
       offset: modMap.ctrl + modMap.gui,
-      label: key => {
-        return "C+" + GuiShortLabel + "+" + key.label.base;
-      }
+      label: key => ({
+        hint: combine(modLabels.ctrl, modLabels.gui),
+        base: key.label.base
+      })
     },
     {
       categories: ["shift", "alt"],
       offset: modMap.shift + modMap.alt,
-      label: key => {
-        return "S+A+" + key.label.base;
-      }
+      label: key => ({
+        hint: combine(modLabels.shift, modLabels.alt),
+        base: key.label.base
+      })
     },
     {
       categories: ["shift", "altgr"],
       offset: modMap.shift + modMap.altgr,
-      label: key => {
-        return "S+AGr+" + key.label.base;
-      }
+      label: key => ({
+        hint: combine(modLabels.shift, modLabels.altgr),
+        base: key.label.base
+      })
     },
     {
       categories: ["shift", "gui"],
       offset: modMap.shift + modMap.gui,
-      label: key => {
-        return "S+" + GuiShortLabel + "+" + key.label.base;
-      }
+      label: key => ({
+        hint: combine(modLabels.shift, modLabels.gui),
+        base: key.label.base
+      })
     },
     {
       categories: ["alt", "altgr"],
       offset: modMap.alt + modMap.altgr,
-      label: key => {
-        return "A+AGr+" + key.label.base;
-      }
+      label: key => ({
+        hint: combine(modLabels.alt, modLabels.altgr),
+        base: key.label.base
+      })
     },
     {
       categories: ["alt", "gui"],
       offset: modMap.alt + modMap.gui,
-      label: key => {
-        return "A+" + GuiShortLabel + "+" + key.label.base;
-      }
+      label: key => ({
+        hint: combine(modLabels.alt, modLabels.gui),
+        base: key.label.base
+      })
     },
     {
       categories: ["altgr", "gui"],
       offset: modMap.altgr + modMap.gui,
-      label: key => {
-        return "AGr+" + GuiShortLabel + "+" + key.label.base;
-      }
+      label: key => ({
+        hint: combine(modLabels.altgr, modLabels.gui),
+        base: key.label.base
+      })
     },
 
     // Three mods
     {
       categories: ["ctrl", "shift", "alt"],
       offset: modMap.ctrl + modMap.shift + modMap.alt,
-      label: key => {
-        return "C+S+A+" + key.label.base;
-      }
+      label: key => ({
+        hint: combine(modLabels.ctrl, modLabels.shift, modLabels.alt),
+        base: key.label.base
+      })
     },
     {
       categories: ["ctrl", "shift", "altgr"],
       offset: modMap.ctrl + modMap.shift + modMap.altgr,
-      label: key => {
-        return "C+S+AGr+" + key.label.base;
-      }
+      label: key => ({
+        hint: combine(modLabels.ctrl, modLabels.shift, modLabels.altgr),
+        base: key.label.base
+      })
     },
     {
       categories: ["ctrl", "shift", "gui"],
       offset: modMap.ctrl + modMap.shift + modMap.gui,
-      label: key => {
-        return "C+S+" + GuiShortLabel + "+" + key.label.base;
-      }
+      label: key => ({
+        hint: combine(modLabels.ctrl, modLabels.shift, modLabels.gui),
+        base: key.label.base
+      })
     },
     {
       categories: ["ctrl", "alt", "altgr"],
       offset: modMap.ctrl + modMap.alt + modMap.altgr,
-      label: key => {
-        return "C+A+AGr+" + key.label.base;
-      }
+      label: key => ({
+        hint: combine(modLabels.ctrl, modLabels.alt, modLabels.altgr),
+        base: key.label.base
+      })
     },
     {
       categories: ["ctrl", "alt", "gui"],
       offset: modMap.ctrl + modMap.alt + modMap.gui,
-      label: key => {
-        return "C+A+" + GuiShortLabel + "+" + key.label.base;
-      }
+      label: key => ({
+        hint: combine(modLabels.ctrl, modLabels.alt, modLabels.gui),
+        base: key.label.base
+      })
     },
     {
       categories: ["ctrl", "altgr", "gui"],
       offset: modMap.ctrl + modMap.altgr + modMap.gui,
-      label: key => {
-        return "C+AGr+" + GuiShortLabel + "+" + key.label.base;
-      }
+      label: key => ({
+        hint: combine(modLabels.ctrl, modLabels.altgr, modLabels.gui),
+        base: key.label.base
+      })
     },
     {
       categories: ["shift", "alt", "altgr"],
       offset: modMap.shift + modMap.alt + modMap.altgr,
-      label: key => {
-        return "S+A+AGr+" + key.label.base;
-      }
+      label: key => ({
+        hint: combine(modLabels.shift, modLabels.alt, modLabels.altgr),
+        base: key.label.base
+      })
     },
     {
       categories: ["shift", "alt", "gui"],
       offset: modMap.shift + modMap.alt + modMap.gui,
-      label: key => {
-        return "S+A+" + GuiShortLabel + "+" + key.label.base;
-      }
+      label: key => ({
+        hint: combine(modLabels.shift, modLabels.alt, modLabels.gui),
+        base: key.label.base
+      })
     },
     {
       categories: ["shift", "altgr", "gui"],
       offset: modMap.shift + modMap.altgr + modMap.gui,
-      label: key => {
-        return "S+AGr+" + GuiShortLabel + "+" + key.label.base;
-      }
+      label: key => ({
+        hint: combine(modLabels.shift, modLabels.altgr, modLabels.gui),
+        base: key.label.base
+      })
     },
     {
       categories: ["alt", "altgr", "gui"],
       offset: modMap.shift + modMap.altgr + modMap.gui,
-      label: key => {
-        return "A+AGr+" + GuiShortLabel + "+" + key.label.base;
-      }
+      label: key => ({
+        hint: combine(modLabels.alt, modLabels.altgr, modLabels.gui),
+        base: key.label.base
+      })
     },
 
     // 4 mods
     {
       categories: ["ctrl", "shift", "alt", "altgr"],
       offset: modMap.ctrl + modMap.shift + modMap.alt + modMap.altgr,
-      label: key => {
-        return "C+S+A+AGr+" + key.label.base;
-      }
+      label: key => ({
+        hint: combine(
+          modLabels.ctrl,
+          modLabels.shift,
+          modLabels.alt,
+          modLabels.altgr
+        ),
+        base: key.label.base
+      })
     },
     {
       categories: ["ctrl", "shift", "alt", "gui"],
       offset: modMap.ctrl + modMap.shift + modMap.alt + modMap.gui,
-      label: key => {
-        return "C+S+A+" + GuiShortLabel + "+" + key.label.base;
-      }
+      label: key => ({
+        hint: combine(
+          modLabels.ctrl,
+          modLabels.shift,
+          modLabels.alt,
+          modLabels.gui
+        ),
+        base: key.label.base
+      })
     },
     {
       categories: ["ctrl", "shift", "gui", "altgr"],
       offset: modMap.ctrl + modMap.shift + modMap.gui + modMap.altgr,
-      label: key => {
-        return "C+S+" + GuiShortLabel + "+AGr+" + key.label.base;
-      }
+      label: key => ({
+        hint: combine(
+          modLabels.ctrl,
+          modLabels.shift,
+          modLabels.gui,
+          modLabels.altgr
+        ),
+        base: key.label.base
+      })
     },
     {
       categories: ["ctrl", "alt", "altgr", "gui"],
       offset: modMap.ctrl + modMap.alt + modMap.altgr + modMap.gui,
-      label: key => {
-        return "C+A+AGr+" + GuiShortLabel + "+" + key.label.base;
-      }
+      label: key => ({
+        hint: combine(
+          modLabels.ctrl,
+          modLabels.alt,
+          modLabels.altgr,
+          modLabels.gui
+        ),
+        base: key.label.base
+      })
     },
     {
       categories: ["shift", "alt", "altgr", "gui"],
       offset: modMap.shift + modMap.alt + modMap.altgr + modMap.gui,
-      label: key => {
-        return "S+A+AGr+" + GuiShortLabel + "+" + key.label.base;
-      }
+      label: key => ({
+        hint: combine(
+          modLabels.shift,
+          modLabels.alt,
+          modLabels.altgr,
+          modLabels.gui
+        ),
+        base: key.label.base
+      })
     },
 
     // All mods
@@ -259,9 +350,16 @@ const withModifiers = keys => {
       categories: ["ctrl", "shift", "alt", "altgr", "gui"],
       offset:
         modMap.ctrl + modMap.shift + modMap.alt + modMap.altgr + modMap.gui,
-      label: key => {
-        return "C+S+A+AGr+" + GuiShortLabel + "+" + key.label.base;
-      }
+      label: key => ({
+        hint: combine(
+          modLabels.ctrl,
+          modLabels.shift,
+          modLabels.alt,
+          modLabels.altgr,
+          modLabels.gui
+        ),
+        base: key.label.base
+      })
     }
   ];
 
@@ -273,9 +371,7 @@ const withModifiers = keys => {
         categories: ["with-modifiers"].concat(mod.categories),
         code: key.code + mod.offset,
         baseCode: key.code,
-        label: {
-          base: mod.label(key)
-        }
+        label: mod.label(key)
       });
       newKeys.push(newKey);
     }

@@ -89,6 +89,24 @@ const modifiers = withModifiers(
       }
     ]
   )
-);
+).concat([
+  // Custom modifier combos
+  {
+    code: 2530,
+    baseCode: 226,
+    categories: ["ctrl", "shift"],
+    label: {
+      base: "Meh"
+    }
+  },
+  {
+    code: 3043,
+    baseCode: 227,
+    categories: ["ctrl", "shift", "alt"],
+    label: {
+      base: "Hyper"
+    }
+  }
+]);
 
 export { modifiers };

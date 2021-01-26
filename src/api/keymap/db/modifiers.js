@@ -55,6 +55,14 @@ const withModifiers = keys => {
     gui: {
       full: GuiLabel.full + "+",
       "1u": GuiShortLabel + "+"
+    },
+    meh: {
+      full: "Meh+",
+      "1u": "M+"
+    },
+    hyper: {
+      full: "Hyper+",
+      "1u": "H+"
     }
   };
 
@@ -201,7 +209,7 @@ const withModifiers = keys => {
       categories: ["ctrl", "shift", "alt"],
       offset: modMap.ctrl + modMap.shift + modMap.alt,
       label: key => ({
-        hint: combine(modLabels.ctrl, modLabels.shift, modLabels.alt),
+        hint: modLabels.meh,
         base: key.label.base
       })
     },
@@ -283,12 +291,7 @@ const withModifiers = keys => {
       categories: ["ctrl", "shift", "alt", "altgr"],
       offset: modMap.ctrl + modMap.shift + modMap.alt + modMap.altgr,
       label: key => ({
-        hint: combine(
-          modLabels.ctrl,
-          modLabels.shift,
-          modLabels.alt,
-          modLabels.altgr
-        ),
+        hint: combine(modLabels.meh, modLabels.altgr),
         base: key.label.base
       })
     },
@@ -296,12 +299,7 @@ const withModifiers = keys => {
       categories: ["ctrl", "shift", "alt", "gui"],
       offset: modMap.ctrl + modMap.shift + modMap.alt + modMap.gui,
       label: key => ({
-        hint: combine(
-          modLabels.ctrl,
-          modLabels.shift,
-          modLabels.alt,
-          modLabels.gui
-        ),
+        hint: modLabels.hyper,
         base: key.label.base
       })
     },
@@ -351,13 +349,7 @@ const withModifiers = keys => {
       offset:
         modMap.ctrl + modMap.shift + modMap.alt + modMap.altgr + modMap.gui,
       label: key => ({
-        hint: combine(
-          modLabels.ctrl,
-          modLabels.shift,
-          modLabels.alt,
-          modLabels.altgr,
-          modLabels.gui
-        ),
+        hint: combine(modLabels.hyper, modLabels.altgr),
         base: key.label.base
       })
     }

@@ -110,7 +110,8 @@ const English = {
         color: "Color",
         hideEmptyLayers: "Hide empty layers...",
         showEmptyLayers: "Show empty layers...",
-        sharing: "Layout sharing..."
+        sharing: "Layout sharing...",
+        help: `An overview of the mappings for the currently selected key. To change the shown layer, click on its row.`
       },
       secondary: {
         title: "Secondary action",

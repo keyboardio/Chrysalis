@@ -22,6 +22,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import CropSquareIcon from "@material-ui/icons/CropSquare";
+import FormHelperText from "@material-ui/core/FormHelperText";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -47,6 +48,9 @@ const styles = theme => ({
   colorSwatch: {
     width: theme.spacing(3),
     height: theme.spacing(3)
+  },
+  help: {
+    marginBottom: theme.spacing(2)
   }
 });
 
@@ -172,6 +176,9 @@ class OverviewBase extends React.Component {
 
     return (
       <div className={classes.root}>
+        <FormHelperText className={classes.help}>
+          {i18n.t("editor.sidebar.overview.help")}
+        </FormHelperText>
         <TableContainer component={Paper} className={classes.root}>
           <Table size="small">
             <TableHead>

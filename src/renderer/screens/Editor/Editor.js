@@ -193,7 +193,7 @@ class Editor extends React.Component {
       let empty = true;
       for (let layer of keymap.custom) {
         for (let i of layer) {
-          if (i.keyCode != 65535) {
+          if (i.code != 65535) {
             empty = false;
             break;
           }

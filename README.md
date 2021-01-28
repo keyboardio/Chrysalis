@@ -11,7 +11,7 @@ Chrysalis
  [badge:development]: https://img.shields.io/github/v/release/keyboardio/chrysalis?include_prereleases&label=Development&style=for-the-badge
  [badge:production]: https://img.shields.io/github/v/release/keyboardio/chrysalis?label=Production&style=for-the-badge
  [build:prod]: https://github.com/keyboardio/Chrysalis/releases/latest
- [build:dev]: https://github.com/keyboardio/Chrysalis/releases/tag/v0.8.2-snapshot
+ [build:dev]: https://github.com/keyboardio/Chrysalis/releases/tag/v0.8.3-snapshot
 
 ## About
 

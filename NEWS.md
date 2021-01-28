@@ -1,3 +1,39 @@
+Chrysalis 0.8.2-snapshot
+========================
+**UNRELEASED**
+
+## Bugfixes
+
+Chrysalis will now correctly copy the built-in default keymap to the editable
+area of the keyboard. In practice, this means if you connect a brand new
+keyboard, Chrysalis will no longer show an empty keymap at start, but the
+factory defaults instead.
+
+We fixed a bug that - under some circumstances - made Chrysalis show a warning
+about not having permissions to talk to the keyboard, even in cases, and on
+systems where it made no sense.
+
+A number of display issues and user experience shortcomings were also addressed:
+certain keys, when augmented with modifiers, showed up wrong, as `[Object
+object]`, instead of their proper label. They now show up with the correct
+label. Furthermore, Chrysalis no longer allows one to augment a modifier with
+the same modifier, because that's an unrepresentable situation.
+
+## Firmware update
+
+All of the firmware files Chrysalis ships with has been updated, built with the
+latest Kaleidoscope. This fixes an issue that resulted in Macro keys not
+working. If you're experiencing that problem, please update your firmware.
+
+## UI/UX Improvements
+
+The overview section that shows the mappings for the currently selected key on
+every layer now has a short explanation on top of it.
+
+Certain combinations of modifiers will be displayed with a shorter, perhaps more
+familiar name: Control-Shift-Alt will show up as Meh, while
+Control-Shift-Alt-Gui will show as Hyper.
+
 Chrysalis 0.8.1
 ===============
 Released on 2021-01-26

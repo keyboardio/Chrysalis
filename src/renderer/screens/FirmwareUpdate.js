@@ -304,6 +304,7 @@ class FirmwareUpdate extends React.Component {
 
   uploadRaise = async () => {
     let focus = new Focus();
+    await focus.command("led.mode 1");
     this.setState({ confirmationOpen: true, isBeginUpdate: true });
     try {
       this.fleshRaise = new FlashRaise(this.props.device);
@@ -333,7 +334,9 @@ class FirmwareUpdate extends React.Component {
     }
   };
 
-  cancelDialog = () => {
+  cancelDialog = async () => {
+    let focus = new Focus();
+    await focus.command("led.mode 0");
     this.setState({ confirmationOpen: false });
   };
 

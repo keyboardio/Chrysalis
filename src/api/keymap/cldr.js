@@ -82,6 +82,7 @@ const decode = code => {
   if (code.match(/^\\u/)) {
     return unraw(code);
   }
+  if (code == " ") return "Space";
   return code;
 };
 
@@ -129,25 +130,33 @@ const loadKeyboard = async (group, isDefault, file) => {
 };
 
 const loadAllKeymaps = async () => {
-  const files = fs.readdirSync(
+  const windowsFiles = fs.readdirSync(
     path.join(getStaticPath(), "cldr/keyboards/windows/")
   );
+  // There are some layouts that aren't available in CLDR's windows layouts, but
+  // are on others. We slurp those up here in addition. We can't just slurp up
+  // all of the osx layouts and filter out the duplicates, because naming is
+  // inconsistent, so we go on a case-by-case basis for now.
+  const osxFiles = fs
+    .readdirSync(path.join(getStaticPath(), "cldr/keyboards/osx"))
+    .filter(fn => fn.match("^hr-t-k0"));
+  const files = windowsFiles.concat(osxFiles);
 
   // Load the default layout for each language
-
   let languages = [];
   for (const f of files) {
-    if (f.match("^...?-t-k0-windows\\.xml") && !f.startsWith("en-")) {
+    if (f.match("^...?-t-k0-(windows|osx)\\.xml") && !f.startsWith("en-")) {
       languages.push(f);
     }
   }
 
   let db = {};
   for (const l of languages) {
+    const os = l.match("-(windows|osx)")[1];
     const layout = await loadKeyboard(
       l.match("^(...?)-t-")[1],
       true,
-      path.join(getStaticPath(), "cldr/keyboards/windows", l)
+      path.join(getStaticPath(), "cldr/keyboards", os, l)
     );
 
     db[layout.name] = layout;
@@ -156,16 +165,20 @@ const loadAllKeymaps = async () => {
   // Load all other layouts
   languages = [];
   for (const f of files) {
-    if (!f.match("^...?-t-k0-windows\\.xml") && f.match("-windows")) {
+    if (
+      !f.match("^...?-t-k0-(windows|osx)\\.xml") &&
+      f.match("-(windows|osx)")
+    ) {
       languages.push(f);
     }
   }
 
   for (const l of languages) {
+    const os = l.match("-(windows|osx)")[1];
     const layout = await loadKeyboard(
       l.match("^(...?)-")[1],
       false,
-      path.join(getStaticPath(), "cldr/keyboards/windows", l)
+      path.join(getStaticPath(), "cldr/keyboards", os, l)
     );
 
     db[layout.name] = layout;

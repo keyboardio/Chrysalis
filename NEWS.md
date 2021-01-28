@@ -1,3 +1,14 @@
+Chrysalis 0.8.3-snapshot
+========================
+**UNRELEASED**
+
+## Bugfixes
+
+Chrysalis now displays the correct labels for keys with a Secondary Action. We
+had an issue in the code that augmented the base keys with secondary actions,
+which resulted in a messed up keycode to label mapping. This bug has been fixed
+now.
+
 Chrysalis 0.8.2
 ===============
 Released on 2021-01-28

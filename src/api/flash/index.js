@@ -156,7 +156,7 @@ export default class FlashRaise {
   async resetKeyboard(port) {
     console.log("reset start", port);
     const errorMessage =
-      "The flashing process couldn't start, the Raise bootloader wasn't found. Please try again. Make sure you press and hold the Escape key when the Neuron light goes out";
+      "The firmware update couldn't start because the Raise Bootloader wasn't found. Please check our Help Center for more details or schedule a video call with us.";
     let timeouts = {
       dtrToggle: 500, // Time to wait (ms) between toggling DTR
       waitingClose: 2750, // Time to wait for boot loader

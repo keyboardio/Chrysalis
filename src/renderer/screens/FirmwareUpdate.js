@@ -322,7 +322,7 @@ class FirmwareUpdate extends React.Component {
             onClick={() => {
               const shell = Electron.remote && Electron.remote.shell;
               shell.openExternal(
-                "https://github.com/Dygmalab/Bazecor/wiki/Troubleshooting"
+                "https://support.dygma.com/hc/en-us/articles/360007272638"
               );
             }}
           >

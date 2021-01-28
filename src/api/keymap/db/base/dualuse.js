@@ -81,6 +81,11 @@ const dul = () => {
   let l = [];
 
   for (let k of keySet) {
+    // We only want to augment the base set, but `keySet` contains
+    // modifier-augmented variants too. We don't want to add dual-use layer
+    // augmentation to those, because that messes up the labels badly.
+    if (k.code > 255) continue;
+
     for (let layer = 0; layer < 8; layer++) {
       l.push(addDUL(k, layer));
     }
@@ -93,6 +98,11 @@ const dum = mod => {
   let m = [];
 
   for (let k of keySet) {
+    // We only want to augment the base set, but `keySet` contains
+    // modifier-augmented variants too. We don't want to add dual-use modifier
+    // augmentation to those, because that messes up the labels badly.
+    if (k.code > 255) continue;
+
     m.push(addDUM(k, mod));
   }
 

@@ -257,7 +257,9 @@ class FirmwareUpdate extends React.Component {
             color="inherit"
             onClick={() => {
               const shell = Electron.remote && Electron.remote.shell;
-              shell.openExternal("https://www.dygma.com/contact/");
+              shell.openExternal(
+                "https://support.dygma.com/hc/en-us/articles/360017056397"
+              );
               this.props.closeSnackbar(key);
             }}
           >
@@ -288,7 +290,9 @@ class FirmwareUpdate extends React.Component {
       return;
     }
 
-    return new Promise(resolve => {
+    return new Promise(async resolve => {
+      let focus = new Focus();
+      if (this.state.versions) await focus.command("led.mode 0");
       setTimeout(() => {
         this.props.enqueueSnackbar(i18n.firmwareUpdate.flashing.success, {
           variant: "success"
@@ -304,7 +308,7 @@ class FirmwareUpdate extends React.Component {
 
   uploadRaise = async () => {
     let focus = new Focus();
-    await focus.command("led.mode 1");
+    if (this.state.versions) await focus.command("led.mode 1");
     this.setState({ confirmationOpen: true, isBeginUpdate: true });
     try {
       this.fleshRaise = new FlashRaise(this.props.device);
@@ -336,7 +340,7 @@ class FirmwareUpdate extends React.Component {
 
   cancelDialog = async () => {
     let focus = new Focus();
-    await focus.command("led.mode 0");
+    if (this.state.versions) await focus.command("led.mode 0");
     this.setState({ confirmationOpen: false });
   };
 
@@ -430,78 +434,140 @@ class FirmwareUpdate extends React.Component {
       </FormControl>
     );
 
-    const dialogChildren = (
-      <React.Fragment>
-        <div className={classes.paper}>
-          <Typography
-            variant="h5"
-            gutterBottom
-            style={{ fontWeight: "500", paddingBottom: "1rem" }}
-          >
-            {i18n.firmwareUpdate.raise.reset}
-          </Typography>
-          <Typography component="p" gutterBottom className={classes.cardSub}>
-            {
-              "During the update, the Neuron will pulse a blue pattern followed by a flash of multiple colors for a few seconds. When the update finishes, your keyboard lights will go back to your personalized color mode."
-            }
-          </Typography>
-          <Typography variant="h6" gutterBottom>
-            {"Follow these steps to update your firmware:"}
-          </Typography>
-          <Typography component="p" gutterBottom className={classes.cardSub}>
-            <ol style={{ lineHeight: "2rem" }}>
-              <li>
-                {"Put the LEDs to "}
-                <a href="https://support.dygma.com/hc/en-us/articles/360017165438">
-                  {"Rainbow mode"}
-                </a>
-                {"."}
-              </li>
-              <li>{"Click 'Start Countdown'."}</li>
-              <li>
-                {
-                  "As soon as the keyboard lights turn off, press and hold the key on the "
-                }
-                <a href="https://support.dygma.com/hc/en-us/articles/360017056397">
-                  {"top left corner of your Raise"}
-                </a>
-                {" (usually the Esc key)."}
-              </li>
-              <li>
-                {
-                  "Release this key when you see the message 'Firmware flashed successfully!'"
-                }
-              </li>
-            </ol>
-          </Typography>
-          <div className={classes.cardSnack}>
-            <SnackbarContent
-              className={classes.snackNot}
-              message={
-                <Typography component="p" gutterBottom>
-                  <div style={{ display: "flex" }}>
-                    <div>
-                      <InfoRounded
-                        style={{
-                          verticalAlign: "middle",
-                          marginRight: "1rem",
-                          color: "orange"
-                        }}
-                      />
-                    </div>
-                    <div>
-                      {
-                        "Not following the steps can cause the firmware update process to fail. This won't damage your Raise, but will require you to repeat the process. More information here."
-                      }
-                    </div>
-                  </div>
-                </Typography>
+    let dialogChildren;
+    if (versions) {
+      dialogChildren = (
+        <React.Fragment>
+          <div className={classes.paper}>
+            <Typography
+              variant="h5"
+              gutterBottom
+              style={{ fontWeight: "500", paddingBottom: "1rem" }}
+            >
+              {i18n.firmwareUpdate.raise.reset}
+            </Typography>
+            <Typography component="p" gutterBottom className={classes.cardSub}>
+              {
+                "During the update, the Neuron will pulse a blue pattern followed by a flash of multiple colors for a few seconds. When the update finishes, your keyboard lights will go back to your personalized color mode."
               }
-            />
+            </Typography>
+            <Typography variant="h6" gutterBottom>
+              {"Follow these steps to update your firmware:"}
+            </Typography>
+            <Typography component="p" gutterBottom className={classes.cardSub}>
+              <ol style={{ lineHeight: "2rem" }}>
+                <li>{"Click 'Start Countdown'."}</li>
+                <li>
+                  {
+                    "As soon as the keyboard lights turn off, press repeatedly the key on the "
+                  }
+                  <a href="https://support.dygma.com/hc/en-us/articles/360017056397">
+                    {"top left corner of your Raise"}
+                  </a>
+                  {
+                    " (usually the Esc key) until the keyboard lights turn off and the Neuron starts pulsing blue. This may take a few seconds."
+                  }
+                </li>
+                <li>
+                  {
+                    "'Firmware flashed successfully!' will appear on Bazecor's screen."
+                  }
+                </li>
+              </ol>
+            </Typography>
+            <div className={classes.cardSnack}>
+              <SnackbarContent
+                className={classes.snackNot}
+                message={
+                  <Typography component="p" gutterBottom>
+                    <div style={{ display: "flex" }}>
+                      <div>
+                        <InfoRounded
+                          style={{
+                            verticalAlign: "middle",
+                            marginRight: "1rem",
+                            color: "orange"
+                          }}
+                        />
+                      </div>
+                      <div>
+                        {
+                          "Not following the steps can cause the firmware update process to fail. This won't damage your Raise, but will require you to repeat the process. More information "
+                        }
+                        <a href="https://support.dygma.com/hc/en-us/articles/360007272638">
+                          {"here"}
+                        </a>
+                        {"."}
+                      </div>
+                    </div>
+                  </Typography>
+                }
+              />
+            </div>
           </div>
-        </div>
-      </React.Fragment>
-    );
+        </React.Fragment>
+      );
+    } else {
+      dialogChildren = (
+        <React.Fragment>
+          <div className={classes.paper}>
+            <Typography
+              variant="h5"
+              gutterBottom
+              style={{ fontWeight: "500", paddingBottom: "1rem" }}
+            >
+              {"Firmware Update Process via Bootloader Mode"}
+            </Typography>
+            <Typography component="p" gutterBottom className={classes.cardSub}>
+              {
+                "Click Start Countdown to start the update. The Neuron will flash in multiple colors for a few seconds."
+              }
+            </Typography>
+            <Typography component="p" gutterBottom className={classes.cardSub}>
+              {
+                "After the update, you will see the message: 'Firmware flashed successfully!'"
+              }
+            </Typography>
+            <Typography component="p" gutterBottom className={classes.cardSub}>
+              {
+                "Your keyboard lights will remain off and the layout will be reverted to its original settings."
+              }
+            </Typography>
+            <br />
+            <br />
+            <div className={classes.cardSnack}>
+              <SnackbarContent
+                className={classes.snackNot}
+                message={
+                  <Typography component="p" gutterBottom>
+                    <div style={{ display: "flex" }}>
+                      <div>
+                        <InfoRounded
+                          style={{
+                            verticalAlign: "middle",
+                            marginRight: "1rem",
+                            color: "orange"
+                          }}
+                        />
+                      </div>
+                      <div>
+                        {
+                          "In case the Firmware Update fails, this won't damage your Raise. Repeat the process or do it in "
+                        }
+                        <a href="https://support.dygma.com/hc/en-us/articles/360014074997">
+                          {"another way"}
+                        </a>
+                        {"."}
+                      </div>
+                    </div>
+                  </Typography>
+                }
+              />
+            </div>
+          </div>
+        </React.Fragment>
+      );
+    }
 
     let currentlyRunning;
     if (versions) {
@@ -511,17 +577,23 @@ class FirmwareUpdate extends React.Component {
             <SnackbarContent
               className={classes.snackVer}
               message={
-                <Typography component="p" gutterBottom>
-                  <InfoRounded
-                    style={{
-                      verticalAlign: "middle",
-                      marginRight: "1rem",
-                      color: "dodgerblue"
-                    }}
-                  />
-                  {"Your Raise is currently running version "}
-                  <strong>{versions.bazecor}</strong>
-                  {" of the firmware."}
+                <Typography component="p">
+                  <div style={{ display: "flex" }}>
+                    <div>
+                      <InfoRounded
+                        style={{
+                          verticalAlign: "middle",
+                          marginRight: "1rem",
+                          color: "dodgerblue"
+                        }}
+                      />
+                    </div>
+                    <div>
+                      {"Your Raise is currently running version "}
+                      <strong>{versions.bazecor}</strong>
+                      {" of the firmware."}
+                    </div>
+                  </div>
                 </Typography>
               }
             />
@@ -547,7 +619,11 @@ class FirmwareUpdate extends React.Component {
             classes={{
               title: classes.cardTitle
             }}
-            title="Raise Firmware Update"
+            title={
+              versions
+                ? "Raise Firmware Update"
+                : "Firmware Update Process via Bootloader Mode"
+            }
           />
           <CardContent>
             <Typography component="p" gutterBottom className={classes.cardSub}>
@@ -557,7 +633,7 @@ class FirmwareUpdate extends React.Component {
             </Typography>
             <Typography component="p" gutterBottom className={classes.cardIta}>
               <i>
-                <strong>{"For advanced users:"}</strong>
+                <strong>{"For advanced users: "}</strong>
                 {"If you have installed your own "}
                 <a href="https://support.dygma.com/hc/en-us/articles/360017062197">
                   {"custom firmware"}

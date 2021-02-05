@@ -459,14 +459,12 @@ class FirmwareUpdate extends React.Component {
                 <li>{"Click 'Start Countdown'."}</li>
                 <li>
                   {
-                    "As soon as the keyboard lights turn off, press repeatedly the key on the "
+                    "When the countdown reaches zero and the keyboard's lights turn off, press repeatedly or hold the key on the "
                   }
                   <a href="https://support.dygma.com/hc/en-us/articles/360017056397">
                     {"top left corner of your Raise"}
                   </a>
-                  {
-                    " (usually the Esc key) until the keyboard lights turn off and the Neuron starts pulsing blue. This may take a few seconds."
-                  }
+                  {" (usually the Esc key). Do this for 5-7 seconds."}
                 </li>
                 <li>
                   {

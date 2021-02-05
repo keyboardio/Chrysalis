@@ -187,7 +187,7 @@ const English = {
       error: "Error flashing the firmware",
       troubleshooting: "Troubleshooting",
       success: "Firmware flashed successfully!",
-      button: "Update",
+      button: "Next",
       buttonSuccess: "Updated!"
     },
     defaultFirmware: "Bazecor {0} default",
@@ -202,7 +202,7 @@ To correctly update the firmware, your Raise has to be on LED Rainbow mode.
 
 You can find the LED Rainbow mode with the "LED Next" key. In the default Dygma layout, you can find it by pressing the right Dygma key.`,
     raise: {
-      reset: `Reset message`
+      reset: `Firmware Update Process`
     }
   },
   welcome: {

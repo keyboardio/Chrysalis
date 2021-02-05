@@ -42,10 +42,13 @@ const styles = theme => ({
   },
   card: {
     margin: theme.spacing.unit * 4,
-    maxWidth: "50%"
+    maxWidth: "60%"
   },
   grow: {
     flexGrow: 1
+  },
+  cardSub: {
+    fontSize: "1rem"
   }
 });
 
@@ -86,14 +89,14 @@ class Welcome extends React.Component {
         {i18n.welcome.reconnect}
       </Button>
     );
-    const reconnectText = focus._port && (
-      <Typography component="p" gutterBottom>
-        {i18n.formatString(
-          i18n.welcome.reconnectDescription,
-          i18n.welcome.reconnect
-        )}
-      </Typography>
-    );
+    // const reconnectText = focus._port && (
+    //   <Typography component="p" gutterBottom>
+    //     {i18n.formatString(
+    //       i18n.welcome.reconnectDescription,
+    //       i18n.welcome.reconnect
+    //     )}
+    //   </Typography>
+    // );
 
     return (
       <div className={classes.root}>
@@ -111,13 +114,49 @@ class Welcome extends React.Component {
             subheader={focus._port && focus._port.path}
           />
           <CardContent>
-            <Typography component="p" gutterBottom>
-              {i18n.formatString(
-                i18n.welcome.contents,
-                i18n.app.menu.firmwareUpdate
-              )}
-            </Typography>
-            {reconnectText}
+            <div style={{ padding: "1rem" }}>
+              <Typography
+                variant="h6"
+                gutterBottom
+                style={{ fontWeight: "500", paddingBottom: "1rem" }}
+              >
+                {"Your Raise is currently on Bootloader Mode"}
+              </Typography>
+              <Typography
+                component="p"
+                gutterBottom
+                className={classes.cardSub}
+              >
+                {
+                  "The LED in your Neuron should be pulsing blue and your Raise keyboard won't type."
+                }
+              </Typography>
+              <Typography
+                component="p"
+                gutterBottom
+                className={classes.cardSub}
+              >
+                <ul style={{ lineHeight: "2rem" }}>
+                  <li>
+                    {
+                      "This process will revert your keyboard's configuration back to factory settings."
+                    }
+                  </li>
+                  <li>
+                    {"Before proceeding, we recommend that you "}
+                    <a href="https://support.dygma.com/hc/en-us/articles/360014262298">
+                      {"export and save your layers"}
+                    </a>
+                    {"."}
+                  </li>
+                  <li>
+                    {
+                      "To exit Bootloader Mode, unplug and replug the USB-C cable to your Neuron."
+                    }
+                  </li>
+                </ul>
+              </Typography>
+            </div>
           </CardContent>
           <CardActions>
             {reconnectButton}

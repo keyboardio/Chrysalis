@@ -92,7 +92,7 @@
     "typeface-roboto": "^0.0.54",
     "typeface-source-code-pro": "^0.0.71",
     "unraw": "^2.0.0",
-    "usb": "^1.6.2",
+    "usb": "^1.6.5",
     "uuid": "^8.3.1",
     "xml2js": "^0.4.23"
   },
@@ -131,5 +131,7 @@
     "webpack": "^4.44.2",
     "yarn": "^1.22.0"
   },
-  "resolutions": {}
+  "resolutions": {
+    "usb": "1.6.5"
+  }
 }

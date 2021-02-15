@@ -1,5 +1,5 @@
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2020  Keyboardio, Inc.
+ * Copyright (C) 2020, 2021  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -34,8 +34,8 @@ import { layers } from "./layers";
 import { dualuse } from "./dualuse";
 
 const layout = [
+  [41, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69],
   [
-    41,
     53,
     30,
     31,
@@ -50,16 +50,13 @@ const layout = [
     45,
     46,
     42,
-    73,
-    74,
-    75,
+    70,
+    71,
+    72,
     83,
     84,
     85,
-    86,
-    58,
-    59,
-    60
+    86
   ],
   [
     43,
@@ -76,41 +73,16 @@ const layout = [
     47,
     48,
     49,
-    76,
-    77,
-    78,
+    73,
+    74,
+    75,
     95,
     96,
     97,
-    87,
-    61,
-    62,
-    63
+    87
   ],
-  [57, 4, 22, 7, 9, 10, 11, 13, 14, 15, 51, 52, 50, 40, 92, 93, 94, 64, 65, 66],
-  [
-    225,
-    100,
-    29,
-    27,
-    6,
-    25,
-    5,
-    17,
-    16,
-    54,
-    55,
-    56,
-    229,
-    82,
-    89,
-    90,
-    91,
-    88,
-    67,
-    68,
-    69
-  ],
+  [57, 4, 22, 7, 9, 10, 11, 13, 14, 15, 51, 52, 50, 40, 76, 77, 78, 92, 93, 94],
+  [225, 100, 29, 27, 6, 25, 5, 17, 16, 54, 55, 56, 229, 82, 89, 90, 91, 88],
   [224, 227, 226, 44, 230, 231, 101, 228, 80, 81, 79, 98, 99]
 ];
 

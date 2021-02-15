@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2019, 2020  Keyboardio, Inc.
+ * Copyright (C) 2019, 2020, 2021  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -33,7 +33,7 @@ const styles = () => ({
   },
   root: {
     textAlign: "center",
-    height: keycapunit * 4
+    height: keycapunit * 6.5
   },
   legend1U: {
     fontSize: Math.round(keycapunit / 2.5)
@@ -49,70 +49,25 @@ class KeymapBase extends React.Component {
     const keySpacingY = keycapunit;
 
     const keyOffsetX = [
-      [
-        0,
-        0.5,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0.5,
-        0,
-        0,
-        0.5,
-        0,
-        0,
-        0,
-        0.5
-      ],
-      [
-        0.5,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0.5,
-        0,
-        0,
-        0.5,
-        0,
-        0,
-        0,
-        0.5
-      ],
-      [0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 1.5],
-      [0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.5, 1.5, 0, 0, 0, 0.5],
-      [0.5, 0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0.5]
+      [0, 1, 0, 0, 0, 0.5, 0, 0, 0, 0.5],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0.5],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0.5, 0, 0, 0, 0.5],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0.5],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.5, 1.5, 0, 0, 0, 0.5],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0.5]
     ];
 
     const keySizeX = [
-      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
+      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
       [1.5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.5],
       [1.75, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.25],
       [1.25, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2.75],
       [1.25, 1.25, 1.25, 6.25, 1.25, 1.25, 1.25, 1.25, 1, 1, 1, 2]
     ];
-    let keySizeY = [[], [], [], []];
-    keySizeY[1][20] = 2;
-    keySizeY[3][17] = 2;
+    let keySizeY = [[], [], [], [], []];
+    keySizeY[2][20] = 2;
+    keySizeY[4][17] = 2;
 
     let getKeySizeX = (row, col) => {
       if (keySizeX[row] && keySizeX[row][col]) {
@@ -150,15 +105,13 @@ class KeymapBase extends React.Component {
         offset += keyOffsetX[row][col] * keySpacingX;
       }
 
-      if (row > 0) {
-        offset += keySpacingX;
-      }
-
       return offset;
     };
 
     let getY = row => {
-      return row * keySpacingY;
+      let y = row * keySpacingY;
+      if (row > 0) y += keySpacingY * 0.5;
+      return y;
     };
 
     let getKeyWidth = (row, col) => {
@@ -223,9 +176,9 @@ class KeymapBase extends React.Component {
 
     const viewBoxSize =
       "0 0 " +
-      Math.round(28.5 * keycapunit + 30).toString() +
+      Math.round(21.5 * keycapunit + 30).toString() +
       " " +
-      (5 * keycapunit + 20).toString();
+      (6.5 * keycapunit + 40).toString();
 
     return (
       <svg
@@ -244,29 +197,16 @@ class KeymapBase extends React.Component {
             <Key row={0} col={2} />
             <Key row={0} col={3} />
             <Key row={0} col={4} />
+
             <Key row={0} col={5} />
             <Key row={0} col={6} />
             <Key row={0} col={7} />
             <Key row={0} col={8} />
+
             <Key row={0} col={9} />
             <Key row={0} col={10} />
             <Key row={0} col={11} />
             <Key row={0} col={12} />
-            <Key row={0} col={13} />
-            <Key row={0} col={14} />
-
-            <Key row={0} col={15} />
-            <Key row={0} col={16} />
-            <Key row={0} col={17} />
-
-            <Key row={0} col={18} />
-            <Key row={0} col={19} />
-            <Key row={0} col={20} />
-            <Key row={0} col={21} />
-
-            <Key row={0} col={22} />
-            <Key row={0} col={23} />
-            <Key row={0} col={24} />
           </g>
 
           <g>
@@ -293,10 +233,6 @@ class KeymapBase extends React.Component {
             <Key row={1} col={18} />
             <Key row={1} col={19} />
             <Key row={1} col={20} />
-
-            <Key row={1} col={21} />
-            <Key row={1} col={22} />
-            <Key row={1} col={23} />
           </g>
 
           <g>
@@ -322,6 +258,7 @@ class KeymapBase extends React.Component {
             <Key row={2} col={17} />
             <Key row={2} col={18} />
             <Key row={2} col={19} />
+            <Key row={2} col={20} />
           </g>
 
           <g>
@@ -338,37 +275,58 @@ class KeymapBase extends React.Component {
             <Key row={3} col={10} />
             <Key row={3} col={11} />
             <Key row={3} col={12} />
-
             <Key row={3} col={13} />
 
             <Key row={3} col={14} />
             <Key row={3} col={15} />
             <Key row={3} col={16} />
-            <Key row={3} col={17} />
 
+            <Key row={3} col={17} />
             <Key row={3} col={18} />
             <Key row={3} col={19} />
-            <Key row={3} col={20} />
           </g>
 
           <g>
             <Key row={4} col={0} />
             <Key row={4} col={1} />
             <Key row={4} col={2} />
-
             <Key row={4} col={3} />
-
             <Key row={4} col={4} />
             <Key row={4} col={5} />
             <Key row={4} col={6} />
             <Key row={4} col={7} />
-
             <Key row={4} col={8} />
             <Key row={4} col={9} />
             <Key row={4} col={10} />
-
             <Key row={4} col={11} />
             <Key row={4} col={12} />
+
+            <Key row={4} col={13} />
+
+            <Key row={4} col={14} />
+            <Key row={4} col={15} />
+            <Key row={4} col={16} />
+            <Key row={4} col={17} />
+          </g>
+
+          <g>
+            <Key row={5} col={0} />
+            <Key row={5} col={1} />
+            <Key row={5} col={2} />
+
+            <Key row={5} col={3} />
+
+            <Key row={5} col={4} />
+            <Key row={5} col={5} />
+            <Key row={5} col={6} />
+            <Key row={5} col={7} />
+
+            <Key row={5} col={8} />
+            <Key row={5} col={9} />
+            <Key row={5} col={10} />
+
+            <Key row={5} col={11} />
+            <Key row={5} col={12} />
           </g>
         </g>
       </svg>

@@ -344,7 +344,11 @@ class KeyboardSelect extends React.Component {
     let focus = new Focus();
     const selectedDevice = devices && devices[this.state.selectedPortIndex];
 
-    if (selectedDevice && !selectedDevice.accessible) {
+    if (
+      process.platform == "linux" &&
+      selectedDevice &&
+      !selectedDevice.accessible
+    ) {
       const fixitButton = (
         <Button onClick={this.installUdevRules} variant="outlined">
           {i18n.t("keyboardSelect.installUdevRules")}

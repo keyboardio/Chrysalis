@@ -12958,10 +12958,10 @@ synchronous-promise@^2.0.6:
   resolved "https://registry.yarnpkg.com/synchronous-promise/-/synchronous-promise-2.0.7.tgz#3574b3d2fae86b145356a4b89103e1577f646fe3"
   integrity sha512-16GbgwTmFMYFyQMLvtQjvNWh30dsFe1cAW5Fg1wm5+dg84L9Pe36mftsIRU95/W2YsISxsz/xq4VB23sqpgb/A==
 
-systeminformation@^4.27.7:
-  version "4.27.7"
-  resolved "https://registry.yarnpkg.com/systeminformation/-/systeminformation-4.27.7.tgz#1fbbb3283b0ffe76fa1b6ccca9641bad11107e48"
-  integrity sha512-3ozUwGSf5jmrhGgOXlX/O6hk1KQ28XPb7d3NiPZX267QmimuDq3TuIgnkw+vICUrGJGKWPLKmXVASnuJ3w07nw==
+systeminformation@^5.3.1:
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/systeminformation/-/systeminformation-5.3.1.tgz#72755645a982fbb9367736518ac4e5d91f5a49e1"
+  integrity sha512-1xG+6xfKXSowtZsAlUp6jVaV0q+5rq9yUN+ds6Hp2dR3/EdEU5r0v74qi5YF8BCGZfmddiOwDNB0h7ge70fmYA==
 
 table@^5.0.0:
   version "5.2.2"

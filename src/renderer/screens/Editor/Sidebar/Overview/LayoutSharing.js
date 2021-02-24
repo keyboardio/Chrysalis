@@ -237,6 +237,7 @@ class ExportToFileBase extends React.Component {
   exportToFile = () => {
     const files = Electron.remote.dialog.showSaveDialog({
       title: i18n.t("editor.sharing.selectExportFile"),
+      defaultPath: "Layout.json",
       filters: [
         {
           name: i18n.t("editor.sharing.dialog.layoutFiles"),

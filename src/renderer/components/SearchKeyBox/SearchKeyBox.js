@@ -337,6 +337,7 @@ class SearchKeyBox extends Component {
                 value={this.state.filter}
                 onChange={this.onFilterChange}
                 variant="outlined"
+                autoFocus
               />
               <Grid
                 container

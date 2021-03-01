@@ -26,6 +26,8 @@ import Modal from "@material-ui/core/Modal";
 
 import { KeymapDB } from "../../../api/keymap";
 import GroupItem from "./GroupItem";
+import { TextField } from "@material-ui/core";
+import classNames from "classnames";
 
 const styles = theme => ({
   modal: {
@@ -43,11 +45,7 @@ const styles = theme => ({
     height: "100%",
     backgroundColor: "#f5f5f5",
     boxShadow: "0 30px 50px rgba(0, 0, 0, 0.7)",
-    padding: "13px 8px 0",
-    overflowY: "auto",
-    [theme.breakpoints.down("md")]: {
-      overflowY: "scroll"
-    }
+    padding: "13px 8px 0"
   },
   close: {
     position: "absolute",
@@ -66,6 +64,17 @@ const styles = theme => ({
   extendedIcon: {
     marginRight: 19,
     marginLeft: 26
+  },
+  groups: {
+    flex: 1,
+    overflowY: "auto",
+    [theme.breakpoints.down("md")]: {
+      overflowY: "scroll"
+    },
+    margin: "0px"
+  },
+  searchField: {
+    margin: "10px 10px"
   }
 });
 
@@ -103,6 +112,57 @@ const orderArray = [
   { group: "Macros", isUnite: false, displayName: "Macros" }
 ];
 
+function hasKeysInGroup(group) {
+  if (group.innerGroup) {
+    return group.innerGroup.some(ig => hasKeysInGroup(ig));
+  } else {
+    return group.keys.length > 0;
+  }
+}
+
+function containsSearchString(name, searchString) {
+  return name && new RegExp(searchString, "i").test(name);
+}
+
+function filterKeysInGroup(group, filter) {
+  if (
+    containsSearchString(group.groupName, filter) ||
+    containsSearchString(group.displayName, filter)
+  ) {
+    return group;
+  }
+  if (group.innerGroup) {
+    return {
+      ...group,
+      innerGroup: group.innerGroup
+        .map(ig => filterKeysInGroup(ig, filter))
+        .filter(ig => hasKeysInGroup(ig))
+    };
+  } else if (group.keys) {
+    return {
+      ...group,
+      keys: group.keys.filter(key => {
+        const {
+          labels: { primary, verbose }
+        } = key;
+        return (
+          containsSearchString(primary, filter) ||
+          containsSearchString(verbose, filter)
+        );
+      })
+    };
+  }
+}
+
+function filterGroups(groups, filter) {
+  if (filter.length === 0) {
+    return groups;
+  }
+  return groups
+    .map(group => filterKeysInGroup(group, filter))
+    .filter(group => hasKeysInGroup(group));
+}
+
 /**
  * Reactjs component that creates menu for choise key from all keys list
  * @param {object} classes Property that sets up CSS classes that adding to HTML elements
@@ -114,7 +174,8 @@ const orderArray = [
 class SearchKeyBox extends Component {
   state = {
     open: false,
-    orderArrayWithKeys: []
+    orderArrayWithKeys: [],
+    filter: ""
   };
 
   //import on methods from KeymapDB to update to the valid state of baseKeyCodeTable
@@ -127,7 +188,10 @@ class SearchKeyBox extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return nextState.open !== this.state.open;
+    return (
+      nextState.open !== this.state.open ||
+      nextState.filter !== this.state.filter
+    );
   }
 
   /**
@@ -179,7 +243,8 @@ class SearchKeyBox extends Component {
    */
   handleClose = () => {
     this.setState({
-      open: false
+      open: false,
+      filter: ""
     });
   };
 
@@ -192,11 +257,18 @@ class SearchKeyBox extends Component {
     this.props.onKeySelect(code);
   };
 
+  onFilterChange = event => {
+    this.setState({
+      filter: event.target.value
+    });
+  };
+
   render() {
     const { classes, currentKeyCode } = this.props;
     const { open, orderArrayWithKeys } = this.state;
-    const groupeList = orderArrayWithKeys.map((group, index) => {
-      console.log(group.groupName);
+    const filter = this.state.filter.toLowerCase();
+    const filteredGroups = filterGroups(orderArrayWithKeys, filter);
+    const groupeList = filteredGroups.map((group, index) => {
       if (group.groupName !== "Macros") {
         return (
           <GroupItem
@@ -205,9 +277,9 @@ class SearchKeyBox extends Component {
             keySelect={this.keySelect}
             isUnited={Boolean(group.innerGroup)}
             selectedKeyCode={currentKeyCode}
-            numderContGrids={orderArrayWithKeys.length === index + 1 ? 8 : 4}
-            numderLgItemsGrids={orderArrayWithKeys.length === index + 1 ? 1 : 2}
-            numderMdItemsGrids={orderArrayWithKeys.length === index + 1 ? 2 : 3}
+            numderContGrids={filteredGroups.length === index + 1 ? 8 : 4}
+            numderLgItemsGrids={filteredGroups.length === index + 1 ? 1 : 2}
+            numderMdItemsGrids={filteredGroups.length === index + 1 ? 2 : 3}
           />
         );
       } else {
@@ -227,9 +299,9 @@ class SearchKeyBox extends Component {
             keySelect={this.keySelect}
             isUnited={Boolean(group.innerGroup)}
             selectedKeyCode={currentKeyCode}
-            numderContGrids={orderArrayWithKeys.length === index + 1 ? 8 : 4}
-            numderLgItemsGrids={orderArrayWithKeys.length === index + 1 ? 1 : 2}
-            numderMdItemsGrids={orderArrayWithKeys.length === index + 1 ? 2 : 3}
+            numderContGrids={filteredGroups.length === index + 1 ? 8 : 4}
+            numderLgItemsGrids={filteredGroups.length === index + 1 ? 1 : 2}
+            numderMdItemsGrids={filteredGroups.length === index + 1 ? 2 : 3}
           />
         );
       }
@@ -257,13 +329,23 @@ class SearchKeyBox extends Component {
         >
           <div className={classes.wrapper}>
             <CloseIcon className={classes.close} onClick={this.handleClose} />
-            <Grid
-              container
-              className={classes.root}
-              spacing={8}
-              alignItems="flex-start"
-            >
-              {groupeList}
+            <Grid container direction="column" className={classes.root}>
+              <TextField
+                id="SearchFilter"
+                className={(classNames(classes.textField), classes.searchField)}
+                label="Search for a key or category"
+                value={this.state.filter}
+                onChange={this.onFilterChange}
+                variant="outlined"
+              />
+              <Grid
+                container
+                className={classes.groups}
+                spacing={8}
+                alignItems="flex-start"
+              >
+                {groupeList}
+              </Grid>
             </Grid>
           </div>
         </Modal>

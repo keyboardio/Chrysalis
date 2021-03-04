@@ -101,7 +101,9 @@ class Keymap extends React.Component {
       let textColor = "#ffffff";
       const buttonColor = "transparent";
 
-      let legendClass;
+      let legendClass = "";
+      if (key && (db.format(key).main || "").length <= 1)
+        legendClass = "shortLegend";
       if (key && key.code == 0) textColor = "#888888";
 
       return (

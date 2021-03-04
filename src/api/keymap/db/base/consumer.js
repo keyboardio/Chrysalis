@@ -16,17 +16,21 @@
 
 import addCategories from "../addCategories";
 
+const makeConsumer = keyCode => {
+  return keyCode + 18432;
+};
+
 const consumer = addCategories(
   ["consumer"],
   [
     {
-      code: 19682,
+      code: makeConsumer(0xe2),
       label: {
         base: "Mute"
       }
     },
     {
-      code: 22709,
+      code: makeConsumer(0xb5),
       label: {
         base: {
           full: "Next track",
@@ -35,7 +39,7 @@ const consumer = addCategories(
       }
     },
     {
-      code: 22710,
+      code: makeConsumer(0xb6),
       label: {
         base: {
           full: "Previous track",
@@ -44,13 +48,13 @@ const consumer = addCategories(
       }
     },
     {
-      code: 22711,
+      code: makeConsumer(0xb7),
       label: {
         base: "Stop"
       }
     },
     {
-      code: 22733,
+      code: makeConsumer(0xcd),
       label: {
         base: {
           full: "Play / pause",
@@ -59,7 +63,7 @@ const consumer = addCategories(
       }
     },
     {
-      code: 23785,
+      code: makeConsumer(0xe9),
       label: {
         hint: {
           full: "Volume",
@@ -72,7 +76,7 @@ const consumer = addCategories(
       }
     },
     {
-      code: 23786,
+      code: makeConsumer(0xea),
       label: {
         hint: {
           full: "Volume",
@@ -85,7 +89,7 @@ const consumer = addCategories(
       }
     },
     {
-      code: 23663,
+      code: makeConsumer(0x6f),
       label: {
         hint: {
           full: "Brightness",
@@ -98,7 +102,7 @@ const consumer = addCategories(
       }
     },
     {
-      code: 23664,
+      code: makeConsumer(0x70),
       label: {
         hint: {
           full: "Brightness",

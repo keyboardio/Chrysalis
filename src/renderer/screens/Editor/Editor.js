@@ -18,11 +18,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Alert from "@material-ui/lab/Alert";
-import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
 import Portal from "@material-ui/core/Portal";
-import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 import { toast } from "react-toastify";
@@ -30,7 +26,6 @@ import settings from "electron-settings";
 
 import Focus from "../../../api/focus";
 import Log from "../../../api/log";
-import openURL from "../../utils/openURL";
 import { KeymapDB } from "../../../api/keymap";
 
 import Sidebar, { sidebarWidth } from "./Sidebar";
@@ -38,6 +33,7 @@ import Sidebar, { sidebarWidth } from "./Sidebar";
 import SaveChangesButton from "../../components/SaveChangesButton";
 import i18n from "../../i18n";
 import LoadingScreen from "../../components/LoadingScreen";
+import OnlyCustomScreen from "./components/OnlyCustomScreen";
 
 const db = new KeymapDB();
 
@@ -205,6 +201,7 @@ class Editor extends React.Component {
         for (let i = 0; i < keymap.default.length; i++) {
           keymap.custom[i] = keymap.default[i].slice();
         }
+        keymap.onlyCustom = true;
         await focus.command("keymap", keymap);
       }
 
@@ -247,26 +244,9 @@ class Editor extends React.Component {
       this.scanKeyboard();
       this.setState({ modified: false });
     }
-  };
-
-  enableOnlyCustom = async () => {
-    let focus = new Focus();
-    await focus.command("keymap.onlyCustom", true);
-    this.setState(state => ({
-      keymap: {
-        custom: state.keymap.custom,
-        default: state.keymap.default,
-        onlyCustom: true
-      }
-    }));
-  };
-
-  openFeatureRequest = async () => {
-    const url =
-      "https://github.com/keyboardio/Chrysalis/issues/new?labels=enhancement&template=feature_request.md";
-    const opener = openURL(url);
-
-    await opener();
+    if (!this.state.keymap.onlyCustom) {
+      this.scanKeyboard();
+    }
   };
 
   onApply = async () => {
@@ -304,33 +284,8 @@ class Editor extends React.Component {
       return <LoadingScreen />;
     }
 
-    let onlyCustomWarning;
     if (!this.state.keymap.onlyCustom) {
-      const fixitButton = (
-        <React.Fragment>
-          <Box component="span" mr={1}>
-            <Button color="primary" onClick={this.openFeatureRequest}>
-              {i18n.t("editor.onlyCustom.openFR")}
-            </Button>
-          </Box>
-
-          <Button onClick={this.enableOnlyCustom} color="primary">
-            {i18n.t("editor.onlyCustom.fixItButton")}
-          </Button>
-        </React.Fragment>
-      );
-
-      onlyCustomWarning = (
-        <Alert
-          severity="error"
-          action={fixitButton}
-          className={classes.warning}
-        >
-          <Typography component="p">
-            {i18n.t("editor.onlyCustom.warning")}
-          </Typography>
-        </Alert>
-      );
+      return <OnlyCustomScreen titleElement={this.props.titleElement} />;
     }
 
     const layerData = keymap.custom && keymap.custom[currentLayer];
@@ -363,7 +318,6 @@ class Editor extends React.Component {
     return (
       <React.Fragment>
         <Portal container={this.props.titleElement}>{title}</Portal>
-        {onlyCustomWarning}
         <main className={classes.content}>{keymapWidget}</main>
         <Sidebar
           keymap={keymap}

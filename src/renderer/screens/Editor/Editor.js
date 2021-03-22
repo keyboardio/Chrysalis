@@ -201,6 +201,7 @@ class Editor extends React.Component {
         for (let i = 0; i < keymap.default.length; i++) {
           keymap.custom[i] = keymap.default[i].slice();
         }
+        keymap.onlyCustom = true;
         await focus.command("keymap", keymap);
       }
 

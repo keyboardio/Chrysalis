@@ -67,7 +67,8 @@ const English = {
     cancelPending: {
       title: "Discard pending changes?",
       content: "You have unsaved changes. If you proceed, they will be lost."
-    }
+    },
+    actionRequired: "Action required"
   },
   editor: {
     keyType: "Key type",
@@ -213,8 +214,8 @@ const English = {
     pasteFromClipboard: "Paste from clipboard",
     pasteSuccess: "Pasted!",
     onlyCustom: {
-      warning: `Chrysalis no longer supports configurations containing a mix of hardcoded and EEPROM layers. If this is a feature you need, we'd love to hear more about your use case.`,
-      fixItButton: "Fix it",
+      warning: `Chrysalis no longer supports configurations containing a mix of hardcoded and EEPROM layers. If this is a feature you need, we'd love to hear more about your use case. In most cases, however, we would advise switching to custom layers only, which Chrysalis can do for you. When doing the switch, hardcoded layers will not be used, and the default layer set - if any - will be layer zero.`,
+      fixItButton: "Switch to custom layers only",
       openFR: "Open a feature request"
     }
   },

@@ -16,27 +16,12 @@ update_version() {
     VERSION="$(generate_new_version)"
     jq ". | .[\"version\"] = \"${VERSION}\"" <package.json >"${TMP}"
     mv "${TMP}" package.json
-
-    TMP=$(mktemp)
-    sed -e "s,\[build:dev\]: .*,[build:dev]: https://github.com/keyboardio/Chrysalis/releases/tag/v${VERSION}," <README.md >"${TMP}"
-    mv "${TMP}" README.md
 }
 
 commit_changes() {
     VERSION="$(jq -r .version <package.json)"
-    git add package.json README.md
+    git add package.json
     git commit -s -m "Bump version to ${VERSION}"
-}
-
-create_prerelease() {
-    VERSION="$(jq -r .version <package.json)"
-    TMP=$(mktemp)
-    cat >>${TMP} <<EOF
-Snapshot of the current development build.
-
-Sources may be out of date, but the assets are current.
-EOF
-    gh release create -p -F "${TMP}" -t "Chrysalis ${VERSION}" v${VERSION}
 }
 
 push_changes() {
@@ -46,5 +31,3 @@ push_changes() {
 update_version
 commit_changes
 push_changes
-
-create_prerelease

@@ -42,8 +42,5 @@ to finish. It will attach the build artifacts to the draft release. Once that is
 done, we're ready to publish the draft.
 
 Immediately after, update `package.json`, setting the version to a snapshot
-version, like "0.9.1-snapshot". While there, also update `README.md`, so that
-the development build link points to the right tag. Then, head back to GitHub,
-and create a new pre-relase. Not a draft, a proper pre-release. All future
-pushes to master will update this pre-release with new artifacts. Once the
-pre-release is made, push your `package.json` changes.
+version, like "0.9.1-snapshot", commit, and push, the automation will take care
+of the rest.

@@ -1,0 +1,42 @@
+name: Publish production release
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  publish:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v1
+
+      - name: Install Node.js, NPM and Yarn
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10
+
+      - name: Install udev-dev
+        run: sudo apt update && sudo apt install libudev-dev
+        if: runner.os == 'Linux'
+
+      - name: Set up yarn network timeout
+        run: yarn config set network-timeout 1000000 -g
+
+      - name: Publish a production release
+        uses: samuelmeuli/action-electron-builder@v1
+        env:
+          YARN_GPG: no
+        with:
+          # GitHub token, automatically provided to the action
+          # (No need to define this secret in the repo settings)
+          github_token: ${{ secrets.github_token }}
+
+          # We always want to publish artifacts if we get here.
+          release: true

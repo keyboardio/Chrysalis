@@ -29,6 +29,10 @@ module.exports = {
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn"
   },
+  // Added to allow an update to prettier 2.x.x :-(
+  "prettier/prettier": ["error", {
+   "endOfLine":"auto"
+  }],
   settings: {
     react: {
       pragma: "React", // Pragma to use, default to "React"

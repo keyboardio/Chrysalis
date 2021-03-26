@@ -27,12 +27,17 @@ module.exports = {
     "no-async-promise-executor": 0, // grandfathered in during eslint update; would be nice to remove
     "no-prototype-builtins": 0, // grandfathered in during eslint update; would be nice to remove
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+    // Added to allow an update to prettier 2.x.x without actually making anything pretty
+    "prettier/prettier": [
+      "error",
+      {
+        trailingComma: "none",
+        arrowParens: "avoid",
+        endOfLine: "auto"
+      }
+    ]
   },
-  // Added to allow an update to prettier 2.x.x :-(
-  "prettier/prettier": ["error", {
-   "endOfLine":"auto"
-  }],
   settings: {
     react: {
       pragma: "React", // Pragma to use, default to "React"

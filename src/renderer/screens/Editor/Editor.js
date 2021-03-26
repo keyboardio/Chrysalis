@@ -200,10 +200,7 @@ class Editor extends React.Component {
       const undeglowColors = settings.get("undeglowColors");
       let raw = await focus.command("macros.map");
       if (raw.search(" 0 0 ") !== -1) {
-        raw = raw
-          .split(" 0 0 ")[0]
-          .split(" ")
-          .map(Number);
+        raw = raw.split(" 0 0 ")[0].split(" ").map(Number);
       } else {
         raw = "";
       }
@@ -896,10 +893,7 @@ class Editor extends React.Component {
         })
         .concat([0]);
     });
-    const mapped = [].concat
-      .apply([], actionMap.flat())
-      .concat([0])
-      .join(" ");
+    const mapped = [].concat.apply([], actionMap.flat()).concat([0]).join(" ");
     console.log(mapped);
     return mapped;
   }

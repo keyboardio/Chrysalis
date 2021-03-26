@@ -52,8 +52,8 @@ function write_cb(buffer, cb) {
     var bufferSize = total < 200 ? total : 200;
 
     //closure to ensure our buffer is local.
-    (function(buf2send) {
-      send.push(async function(callback) {
+    (buf2send => {
+      send.push(async function (callback) {
         if (await focus._port.write(Buffer.from(buf2send))) {
           callback(null);
         } else {
@@ -67,7 +67,7 @@ function write_cb(buffer, cb) {
   }
 
   //execute!
-  async.series(send, function(err, result) {
+  async.series(send, (err, result) => {
     cb(err);
     console.log(result);
   });
@@ -80,8 +80,8 @@ function write_cb(buffer, cb) {
 async function read_cb(callback) {
   var time = 0;
 
-  var timeout = await function() {
-    setTimeout(function() {
+  var timeout = function () {
+    setTimeout(function () {
       time += 50;
       focus._port.drain(err => {
         if (err) {
@@ -172,22 +172,22 @@ function ihex_decode(line) {
  * Object arduino with flash method.
  */
 export var arduino = {
-  flash: function(file, finished) {
+  flash: (file, finished) => {
     var func_array = [];
 
     //CLEAR line
-    func_array.push(function(callback) {
+    func_array.push(function (callback) {
       write_cb(str2ab("N#"), callback);
     });
-    func_array.push(function(callback) {
+    func_array.push(function (callback) {
       read_cb(callback);
     });
 
     //ERASE device
-    func_array.push(function(callback) {
+    func_array.push(function (callback) {
       write_cb(str2ab("X00002000#"), callback);
     });
-    func_array.push(function(callback) {
+    func_array.push(function (callback) {
       read_cb(callback);
     });
 
@@ -265,9 +265,9 @@ export var arduino = {
       }
 
       //Closure to make sure we localise variables
-      (function(localAddress, localBufferSize, localBuffer) {
+      (function (localAddress, localBufferSize, localBuffer) {
         //tell the arduino we are writing at memory 20005000, for N bytes.
-        func_array.push(function(callback) {
+        func_array.push(function (callback) {
           write_cb(
             str2ab("S20005000," + num2hexstr(localBufferSize, 8) + "#"),
             callback
@@ -275,22 +275,22 @@ export var arduino = {
         });
 
         //write our data.
-        func_array.push(function(callback) {
+        func_array.push(function (callback) {
           write_cb(localBuffer, callback);
         });
 
         //set our read pointer
-        func_array.push(function(callback) {
+        func_array.push(function (callback) {
           write_cb(str2ab("Y20005000,0#"), callback);
         });
 
         //wait for ACK
-        func_array.push(function(callback) {
+        func_array.push(function (callback) {
           read_cb(callback);
         });
 
         //copy N bytes to memory location Y.
-        func_array.push(function(callback) {
+        func_array.push(function (callback) {
           write_cb(
             str2ab(
               "Y" +
@@ -304,7 +304,7 @@ export var arduino = {
         });
 
         //wait for ACK
-        func_array.push(function(callback) {
+        func_array.push(function (callback) {
           read_cb(callback);
         });
       })(address, bufferSize, buffer);
@@ -314,17 +314,17 @@ export var arduino = {
       address += bufferSize;
     }
     //CLEANUP
-    func_array.push(function(callback) {
+    func_array.push(function (callback) {
       write_cb(str2ab("WE000ED0C,05FA0004#"), callback);
     });
 
     //DISCONNECT
-    func_array.push(function(callback) {
+    func_array.push(function (callback) {
       disconnect_cb(callback);
     });
 
     //execute our functions in series!
-    async.series(func_array, function(err, results) {
+    async.series(func_array, function (err, results) {
       if (err) finished(true, results);
       else finished(false, "");
     });

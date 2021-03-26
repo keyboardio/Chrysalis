@@ -101,7 +101,7 @@ function UnderglowButton(props) {
   const [, setBackgroundColor] = useState(enable);
   useEffect(() => {
     return () => setBackgroundColor(style);
-  }, []);
+  });
   return (
     <Tooltip placement="top-start" title={props.children}>
       <div className={classes.root}>

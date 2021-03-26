@@ -101,7 +101,7 @@ function BackLightButton(props) {
   const [, setBackgroundColor] = useState(enable);
   useEffect(() => {
     return () => setBackgroundColor(style);
-  }, []);
+  });
 
   return (
     <Tooltip placement="top" title={props.children}>

@@ -77,8 +77,8 @@
     "serialport": "9.0.7",
     "source-map-support": "^0.5.16",
     "terser": "^4.6.3",
-    "typeface-roboto": "^0.0.54",
-    "typeface-source-code-pro": "^0.0.71",
+    "typeface-roboto": "1.1.13",
+    "typeface-source-code-pro": "1.1.13",
     "usb": "1.6.5"
   },
   "devDependencies": {

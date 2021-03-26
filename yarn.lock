@@ -11777,15 +11777,15 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typeface-roboto@^0.0.54:
-  version "0.0.54"
-  resolved "https://registry.yarnpkg.com/typeface-roboto/-/typeface-roboto-0.0.54.tgz#8f02c9a18d1cfa7f49381a6ff0d21ff061f38ad2"
-  integrity sha512-sOFA1FXgP0gOgBYlS6irwq6hHYA370KE3dPlgYEJHL3PJd5X8gQE0RmL79ONif6fL5JZuGDj+rtOrFeOqz5IZQ==
+typeface-roboto@1.1.13:
+  version "1.1.13"
+  resolved "https://registry.yarnpkg.com/typeface-roboto/-/typeface-roboto-1.1.13.tgz#9c4517cb91e311706c74823e857b4bac9a764ae5"
+  integrity sha512-YXvbd3a1QTREoD+FJoEkl0VQNJoEjewR2H11IjVv4bp6ahuIcw0yyw/3udC4vJkHw3T3cUh85FTg8eWef3pSaw==
 
-typeface-source-code-pro@^0.0.71:
-  version "0.0.71"
-  resolved "https://registry.yarnpkg.com/typeface-source-code-pro/-/typeface-source-code-pro-0.0.71.tgz#30994f73aed203feb7d616937349bccf656c45a5"
-  integrity sha512-lBpRNuC/wLFVjeFpH1qAby5iTG1jggQFBGteB+kDlMDAlpfguGPj8X0ObXK8xKiAl98+WkGbkumc14AckHr0mQ==
+typeface-source-code-pro@1.1.13:
+  version "1.1.13"
+  resolved "https://registry.yarnpkg.com/typeface-source-code-pro/-/typeface-source-code-pro-1.1.13.tgz#88c8787f90294d00c3b05c35adc096a2d07d922f"
+  integrity sha512-TX3c89uW9uc5SJNFWY8HBFkZqcxcNY7nJz0rw+0Pk2ZVsog/v2d04yKRsPU+jJI4wFegOvWXbOWt927i/xUdIw==
 
 typescript@^4.2.3:
   version "4.2.3"

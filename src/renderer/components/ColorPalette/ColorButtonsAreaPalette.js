@@ -65,7 +65,8 @@ function ColorButtonsAreaPalette(props) {
   ///Checks background is white or not
   const isWhiteColor =
     color.r >= minWhiteColorValue &&
-    (color.g >= minWhiteColorValue && color.b >= minWhiteColorValue);
+    color.g >= minWhiteColorValue &&
+    color.b >= minWhiteColorValue;
 
   const style = {
     background: `rgb(${color.r}, ${color.g}, ${color.b})`

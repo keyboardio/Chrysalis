@@ -96,9 +96,7 @@ function UnderglowButton(props) {
     pointerEvents: "auto",
     cursor: "pointer",
     color: !isWhiteColor ? "white" : "black",
-    background: `rgb(${colorFocusButton.r}, ${colorFocusButton.g}, ${
-      colorFocusButton.b
-    })`
+    background: `rgb(${colorFocusButton.r}, ${colorFocusButton.g}, ${colorFocusButton.b})`
   };
   const [, setBackgroundColor] = useState(enable);
   useEffect(() => {

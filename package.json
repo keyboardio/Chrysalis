@@ -74,7 +74,7 @@
     "react-color": "^2.14.1",
     "react-dom": "16.8.5",
     "react-localization": "1.0.16",
-    "serialport": "^8.0.7",
+    "serialport": "9.0.0",
     "source-map-support": "^0.5.16",
     "terser": "^4.6.3",
     "typeface-roboto": "^0.0.54",

@@ -1327,17 +1327,6 @@
   dependencies:
     "@babel/runtime" "^7.4.4"
 
-"@material-ui/lab@4.0.0-alpha.56":
-  version "4.0.0-alpha.56"
-  resolved "https://registry.yarnpkg.com/@material-ui/lab/-/lab-4.0.0-alpha.56.tgz#ff63080949b55b40625e056bbda05e130d216d34"
-  integrity sha512-xPlkK+z/6y/24ka4gVJgwPfoCF4RCh8dXb1BNE7MtF9bXEBLN/lBxNTK8VAa0qm3V2oinA6xtUIdcRh0aeRtVw==
-  dependencies:
-    "@babel/runtime" "^7.4.4"
-    "@material-ui/utils" "^4.10.2"
-    clsx "^1.0.4"
-    prop-types "^15.7.2"
-    react-is "^16.8.0"
-
 "@material-ui/styles@^4.10.0":
   version "4.11.3"
   resolved "https://registry.yarnpkg.com/@material-ui/styles/-/styles-4.11.3.tgz#1b8d97775a4a643b53478c895e3f2a464e8916f2"
@@ -8952,16 +8941,6 @@ normalize-url@^4.1.0:
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-4.5.0.tgz#453354087e6ca96957bd8f5baf753f5982142129"
   integrity sha512-2s47yzUxdexf1OhyRi4Em83iQk0aPvwTddtFz4hnSSw9dCEsLEGf6SwIO8ss/19S9iBb5sJaOuTvTGDeZI00BQ==
 
-notistack@0.9.9:
-  version "0.9.9"
-  resolved "https://registry.yarnpkg.com/notistack/-/notistack-0.9.9.tgz#da53e2c122df3233bb970e5c600f6c3212285d13"
-  integrity sha512-C783KedXtgCWfd/wD4qzKEF4bP/sVF9cAveVpWAFhzypYo0q6l3xLcaLVtUnOBUXZY7KWfvg+lv4XSOiofXeTA==
-  dependencies:
-    classnames "^2.2.6"
-    hoist-non-react-statics "^3.3.0"
-    prop-types "^15.7.2"
-    react-is "^16.8.6"
-
 npm-bundled@^1.0.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/npm-bundled/-/npm-bundled-1.1.1.tgz#1edd570865a94cdb1bc8220775e29466c9fb234b"
@@ -10130,11 +10109,6 @@ react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.0, react-is@^16.8.1:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
-
-react-is@^16.8.6:
-  version "16.12.0"
-  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.12.0.tgz#2cc0fe0fba742d97fd527c42a13bec4eeb06241c"
-  integrity sha512-rPCkf/mWBtKc97aLL9/txD8DZdemK0vkA3JMLShjlJB3Pj3s+lpf1KaBzMfQrAmhMQB0n1cU/SUGgKKBCe837Q==
 
 react-lifecycles-compat@^3.0.0, react-lifecycles-compat@^3.0.4:
   version "3.0.4"
@@ -11706,11 +11680,6 @@ stylelint@13.12.0:
     table "^6.0.7"
     v8-compile-cache "^2.2.0"
     write-file-atomic "^3.0.3"
-
-sudo-prompt@9.2.1:
-  version "9.2.1"
-  resolved "https://registry.yarnpkg.com/sudo-prompt/-/sudo-prompt-9.2.1.tgz#77efb84309c9ca489527a4e749f287e6bdd52afd"
-  integrity sha512-Mu7R0g4ig9TUuGSxJavny5Rv0egCEtpZRNMrZaYS1vxkiIxGiGUwoezU3LazIQ+KE04hTrTfNPgxU5gzi7F5Pw==
 
 sugarss@^2.0.0:
   version "2.0.0"

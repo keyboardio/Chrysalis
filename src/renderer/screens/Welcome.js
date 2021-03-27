@@ -34,7 +34,6 @@ import { toast } from "react-toastify";
 
 import i18n from "../i18n";
 import { navigate } from "../routerHistory";
-import { installUdevRules } from "../utils/installUdevRules";
 
 const styles = theme => ({
   root: {
@@ -77,20 +76,6 @@ class Welcome extends React.Component {
     } catch (err) {
       toast.error(err.toString());
     }
-  };
-
-  installUdevRules = async () => {
-    const { devices } = this.state;
-    const selectedDevice = devices && devices[this.state.selectedPortIndex];
-
-    try {
-      await installUdevRules(selectedDevice.path);
-    } catch (err) {
-      toast.error(err.toString());
-      return;
-    }
-
-    await this.scanDevices();
   };
 
   render() {

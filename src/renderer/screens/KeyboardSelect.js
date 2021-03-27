@@ -19,8 +19,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-//TODO lets add this when we switch to Material-ui 4+
-//import Alert from "@material-ui/lab/Alert";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
@@ -322,6 +320,8 @@ class KeyboardSelect extends React.Component {
     let focus = new Focus();
     const selectedDevice = devices && devices[this.state.selectedPortIndex];
 
+    //TODO consider implementing fix from chrsalis
+    // https://github.com/keyboardio/Chrysalis/pull/570
     if (selectedDevice && !selectedDevice.accessible) {
       permissionWarning = (
         <Typography variant="body1" color="error" className={classes.error}>

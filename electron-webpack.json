@@ -33,6 +33,8 @@
     "react-dom",
     "react-i18next",
     "react-localization",
-    "react-toastify"
+    "react-toastify",
+    "notistack",
+    "react-beautiful-dnd"
   ]
 }

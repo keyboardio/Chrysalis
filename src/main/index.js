@@ -26,6 +26,11 @@ import { Environment } from "./dragons";
 // [1]: https://github.com/electron-userland/electron-webpack/issues/275
 process.env[`NODE_ENV`] = Environment.name;
 
+// This is a workaround for the lack of context-awareness in two native modules
+// we use, serialport (serialport/node-serialport#2051) and usb
+// (tessel/node-usb#380). See electron/electron#18397 for more context.
+app.allowRendererProcessReuse = false;
+
 import { app, BrowserWindow, Menu } from "electron";
 import { format as formatUrl } from "url";
 import * as path from "path";
@@ -54,7 +59,9 @@ async function createMainWindow() {
     icon: path.join(getStaticPath(), "/logo.png"),
     webPreferences: {
       sandbox: false,
-      nodeIntegration: true
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true
     }
   });
 

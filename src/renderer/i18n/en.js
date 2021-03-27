@@ -18,7 +18,9 @@
 const English = {
   language: "English",
   errors: {
-    deviceDisconnected: "Keyboard disconnected"
+    deviceDisconnected: "Keyboard disconnected",
+    invalidLayerFile: "Not a valid Layer file",
+    exportError: "Error at Exporting: "
   },
   components: {
     layer: "Layer {0}",
@@ -113,7 +115,11 @@ const English = {
     copyToClipboard: "Copy to clipboard",
     copySuccess: "Copied!",
     pasteFromClipboard: "Paste from clipboard",
-    pasteSuccess: "Pasted!"
+    pasteSuccess: "Pasted!",
+    importSuccessCurrentLayer: "Imported to current Layer succesfully",
+    importSuccessAllLayers: "Imported all Layers succesfully",
+    exportSuccessCurrentLayer: "Export Successful",
+    exportSuccessAllLayers: "Exported all Layers succesfully"
   },
   preferences: {
     devtools: "Developer tools",
@@ -175,7 +181,9 @@ const English = {
     connect: "Connect",
     disconnect: "Disconnect",
     scan: "Scan keyboards",
-    permissionError: `Insufficient permissions, please make sure the device file is read- and writeable!`
+    installUdevRules: "Fix it",
+    permissionError: `Your computer won't let BAZECOR talk to your keyboard. (You do not have read/write permissions to {{path}}.)`,
+    permissionErrorSuggestion: `BAZECOR can fix this by installing a udev rules file into /etc/udev/rules.d/.`
   },
   firmwareUpdate: {
     dialog: {

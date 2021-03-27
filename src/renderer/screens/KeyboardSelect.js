@@ -19,13 +19,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+//TODO lets add this when we switch to Material-ui 4+
+//import Alert from "@material-ui/lab/Alert";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Divider from "@material-ui/core/Divider";
 import FormControl from "@material-ui/core/FormControl";
 import green from "@material-ui/core/colors/green";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
@@ -38,7 +39,7 @@ import Select from "@material-ui/core/Select";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 
-import { withSnackbar } from "notistack";
+import { toast } from "react-toastify";
 
 import Focus from "../../api/focus";
 import Hardware from "../../api/hardware";
@@ -229,7 +230,7 @@ class KeyboardSelect extends React.Component {
       this.setState({
         opening: false
       });
-      this.props.enqueueSnackbar(err.toString(), { variant: "error" });
+      toast.error(err.toString());
     }
 
     i18n.refreshHardware(devices[this.state.selectedPortIndex]);
@@ -378,25 +379,27 @@ class KeyboardSelect extends React.Component {
     }
 
     return (
-      <div className={classes.main}>
+      <React.Fragment>
         <Portal container={this.props.titleElement}>
           {i18n.app.menu.selectAKeyboard}
         </Portal>
         {loader}
-        <Card className={classes.card}>
-          <CardContent className={classes.content}>
-            {preview}
-            {port}
-            {permissionWarning}
-          </CardContent>
-          <Divider variant="middle" />
-          <CardActions className={classes.cardActions}>
-            {scanDevicesButton}
-            <div className={classes.grow} />
-            {connectionButton}
-          </CardActions>
-        </Card>
-      </div>
+        {permissionWarning}
+        <div className={classes.card}>
+          <Card className={classes.card}>
+            <CardContent className={classes.content}>
+              {preview}
+              {port}
+              {permissionWarning}
+            </CardContent>
+            <CardActions className={classes.cardActions}>
+              {scanDevicesButton}
+              <div className={classes.grow} />
+              {connectionButton}
+            </CardActions>
+          </Card>
+        </div>
+      </React.Fragment>
     );
   }
 }
@@ -405,4 +408,4 @@ KeyboardSelect.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withSnackbar(withStyles(styles)(KeyboardSelect));
+export default withStyles(styles)(KeyboardSelect);

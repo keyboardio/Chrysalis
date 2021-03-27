@@ -40,7 +40,7 @@ import Slide from "@material-ui/core/Slide";
 import Toolbar from "@material-ui/core/Toolbar";
 import Tooltip from "@material-ui/core/Tooltip";
 import { withStyles } from "@material-ui/core/styles";
-import { withSnackbar } from "notistack";
+import { toast } from "react-toastify";
 
 import Focus from "../../../api/focus";
 import Keymap, { KeymapDB } from "../../../api/keymap";
@@ -230,7 +230,7 @@ class Editor extends React.Component {
       );
       this.bottomMenuNeverHide();
     } catch (e) {
-      this.props.enqueueSnackbar(e, { variant: "error" });
+      toast.error(e);
       this.props.onDisconnect();
     }
   };
@@ -934,13 +934,9 @@ class Editor extends React.Component {
             if (Array.isArray(layers.keymap)) {
               console.log(layers.keymap[0]);
               this.importLayer(layers);
-              this.props.enqueueSnackbar(
-                "Imported to current Layer succesfully",
-                {
-                  variant: "success",
-                  autoHideDuration: 2000
-                }
-              );
+              toast.success(i18n.t("editor.importSuccessCurrentLayer"), {
+                autoClose: 2000
+              });
             } else {
               console.log(layers.keymap.custom[0]);
               this.setState({
@@ -950,16 +946,14 @@ class Editor extends React.Component {
                 modified: true
               });
               this.props.startContext();
-              this.props.enqueueSnackbar("Imported all Layers succesfully", {
-                variant: "success",
-                autoHideDuration: 2000
+              toast.success(i18n.t("editor.importSuccessAllLayers"), {
+                autoClose: 2000
               });
             }
           } catch (e) {
             console.error(e);
-            this.props.enqueueSnackbar("Not a valid Layer file", {
-              variant: "error",
-              autoHideDuration: 2000
+            toast.error(i18n.t("errors.invalidLayerFile"), {
+              autoClose: 2000
             });
             return;
           }
@@ -1012,9 +1006,8 @@ class Editor extends React.Component {
         if (!resp.canceled) {
           console.log(resp.filePath, data);
           require("fs").writeFileSync(resp.filePath, data);
-          this.props.enqueueSnackbar("Export Successful", {
-            variant: "success",
-            autoHideDuration: 2000
+          toast.success(i18n.t("editor.exportSuccessCurrentLayer"), {
+            autoClose: 2000
           });
         } else {
           console.log("user closed SaveDialog");
@@ -1022,9 +1015,8 @@ class Editor extends React.Component {
       })
       .catch(err => {
         console.error(err);
-        this.props.enqueueSnackbar("Error at Exporting: " + err, {
-          variant: "error",
-          autoHideDuration: 2000
+        toast.error(i18n.t("errors.exportError") + err, {
+          autoClose: 2000
         });
       });
   }
@@ -1057,9 +1049,8 @@ class Editor extends React.Component {
         if (!resp.canceled) {
           console.log(resp.filePath, data);
           require("fs").writeFileSync(resp.filePath, data);
-          this.props.enqueueSnackbar("Backed up Layers Successfully", {
-            variant: "success",
-            autoHideDuration: 2000
+          toast.success(i18n.t("editor.exportSuccessAllLayers"), {
+            autoClose: 2000
           });
         } else {
           console.log("user closed SaveDialog");
@@ -1067,9 +1058,8 @@ class Editor extends React.Component {
       })
       .catch(err => {
         console.error(err);
-        this.props.enqueueSnackbar("Error at Exporting: " + err, {
-          variant: "error",
-          autoHideDuration: 2000
+        toast.error(i18n.t("errors.exportError") + err, {
+          autoClose: 2000
         });
       });
   }
@@ -1296,4 +1286,4 @@ Editor.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withSnackbar(withStyles(styles, { withTheme: true })(Editor));
+export default withStyles(styles, { withTheme: true })(Editor);

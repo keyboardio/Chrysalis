@@ -47,7 +47,7 @@ import SettingsBackupRestoreIcon from "@material-ui/icons/SettingsBackupRestore"
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
-import { withSnackbar } from "notistack";
+import { toast } from "react-toastify";
 
 import { getStaticPath } from "../config";
 import SaveChangesButton from "../components/SaveChangesButton";
@@ -251,39 +251,25 @@ class FirmwareUpdate extends React.Component {
       await this._flash();
     } catch (e) {
       console.error(e);
-      const action = key => (
+      const action = ({ closeToast }) => (
         <React.Fragment>
           <Button
-            color="inherit"
+            color="contained"
             onClick={() => {
               const shell = Electron.remote && Electron.remote.shell;
               shell.openExternal(
                 "https://support.dygma.com/hc/en-us/articles/360017056397"
               );
-              this.props.closeSnackbar(key);
             }}
           >
             Troubleshooting
           </Button>
-          <Button
-            color="inherit"
-            onClick={() => {
-              this.props.closeSnackbar(key);
-            }}
-          >
-            Dismiss
-          </Button>
+          <Button onClick={closeToast}>Dismiss</Button>
         </React.Fragment>
       );
-      this.props.enqueueSnackbar(
-        this.state.device.device.info.product === "Raise"
-          ? e.message
-          : i18n.firmwareUpdate.flashing.error,
-        {
-          variant: "error",
-          action
-        }
-      );
+      toast.error(i18n.t("firmwareUpdate.flashing.error"), {
+        closeButton: action
+      });
       this.props.toggleFlashing();
       this.props.onDisconnect();
       this.setState({ confirmationOpen: false });
@@ -294,9 +280,7 @@ class FirmwareUpdate extends React.Component {
       let focus = new Focus();
       if (this.state.versions) await focus.command("led.mode 0");
       setTimeout(() => {
-        this.props.enqueueSnackbar(i18n.firmwareUpdate.flashing.success, {
-          variant: "success"
-        });
+        toast.success(i18n.t("firmwareUpdate.flashing.success"));
 
         this.props.toggleFlashing();
         this.props.onDisconnect();
@@ -318,11 +302,10 @@ class FirmwareUpdate extends React.Component {
       this.setState({ countdown: 3 });
     } catch (e) {
       console.error(e);
-      this.props.enqueueSnackbar(e.message, {
-        variant: "error",
-        action: (
+      const action = ({ closeToast }) => (
+        <React.Fragment>
           <Button
-            variant="contained"
+            color="contained"
             onClick={() => {
               const shell = Electron.remote && Electron.remote.shell;
               shell.openExternal(
@@ -332,7 +315,11 @@ class FirmwareUpdate extends React.Component {
           >
             Troubleshooting
           </Button>
-        )
+          <Button onClick={closeToast}>Dismiss</Button>
+        </React.Fragment>
+      );
+      toast.error(i18n.t("firmwareUpdate.flashing.error"), {
+        closeButton: action
       });
       this.setState({ confirmationOpen: false });
     }
@@ -673,4 +660,4 @@ class FirmwareUpdate extends React.Component {
   }
 }
 
-export default withSnackbar(withStyles(styles)(FirmwareUpdate));
+export default withStyles(styles)(FirmwareUpdate);

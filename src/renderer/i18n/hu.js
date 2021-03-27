@@ -19,6 +19,9 @@ const Hungarian = {
   language: "Magyar",
   errors: {
     deviceDisconnected: "Az billentyűzet lecsatlakozott"
+    //TODO translation required
+    // invalidLayerFile: "Not a valid Layer file",
+    // exportError: "Error at Exporting: "
   },
   components: {
     layer: "{0}. réteg",
@@ -108,6 +111,11 @@ const Hungarian = {
     copySuccess: "Másolva!",
     pasteFromClipboard: "Beillesztés a vágólapról",
     pasteSuccess: "Beillesztve!"
+    //TODO translations required
+    // importSuccessCurrentLayer: "Imported to current Layer succesfully",
+    // importSuccessAllLayers: "Imported all Layers succesfully",
+    // exportSuccessCurrentLayer: "Export Successful",
+    // exportSuccessAllLayers: "Exported all Layers succesfully"
   },
   preferences: {
     devtools: "Fejlesztői eszközök",
@@ -151,7 +159,10 @@ Minden testreszabott beállítás el fog veszni.`
     noDevices: "Nincs ismert billentyűzet csatlakoztatva!",
     connect: "Kapcsolódás",
     disconnect: "Lecsatlakozás",
-    scan: "Billentyűzet keresés"
+    scan: "Billentyűzet keresés",
+    installUdevRules: "Javítás",
+    permissionError: `A számítógépe nem engedi, hogy a BAZECOR beszéljen a billentyűzetével. (Nincs elegendő jogosultsága a {{path}} állományhoz.)`,
+    permissionErrorSuggestion: `A BAZECOR ezt ki tudja javítani, egy udev szabály állomány /etc/udev/rules.d/ alá másolásával.`
   },
   firmwareUpdate: {
     dialog: {

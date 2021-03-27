@@ -32,7 +32,8 @@ import { lightTheme } from "../styles/lightTheme";
 import { darkTheme } from "../styles/darkTheme";
 
 import usb from "usb";
-import { withSnackbar } from "notistack";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import KeyboardSelect from "./screens/KeyboardSelect";
 import FirmwareUpdate from "./screens/FirmwareUpdate";
@@ -88,6 +89,14 @@ class App extends React.Component {
       balance
     };
     localStorage.clear();
+
+    toast.configure({
+      position: "bottom-left",
+      autoClose: false,
+      newestOnTop: true,
+      draggable: false,
+      closeOnClick: false
+    });
   }
   flashing = false;
 
@@ -108,18 +117,16 @@ class App extends React.Component {
       await navigate("./");
 
       if (!focus._port.isOpen) {
-        this.props.enqueueSnackbar(i18n.errors.deviceDisconnected, {
-          variant: "warning"
-        });
-        focus.close();
-        this.setState({
-          connected: false,
-          device: null,
-          pages: {}
-        });
-        // Second call to `navigate` will actually render the proper route
-        await navigate("/keyboard-select");
+        toast.warning(i18n.t("errors.deviceDisconnected"));
       }
+      await focus.close();
+      await this.setState({
+        connected: false,
+        device: null,
+        pages: {}
+      });
+      // Second call to `navigate` will actually render the proper route
+      await navigate("/keyboard-select");
     });
   }
 
@@ -396,4 +403,4 @@ class App extends React.Component {
   }
 }
 
-export default withSnackbar(withStyles(styles)(App));
+export default withStyles(styles)(App);

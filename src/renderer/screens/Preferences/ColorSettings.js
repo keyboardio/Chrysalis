@@ -6,7 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import Slider from "@material-ui/lab/Slider";
+import Slider from "@material-ui/core/Slider";
 import Switch from "@material-ui/core/Switch";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";

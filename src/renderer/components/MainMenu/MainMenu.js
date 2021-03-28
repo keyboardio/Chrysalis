@@ -152,12 +152,7 @@ function MainMenu({ open, closeMenu, classes, connected, pages, themeDark }) {
               </Link>
             )}
             {pages.keymap && (
-              <Link
-                to="/editor"
-                style={{
-                  textDecoration: "none"
-                }}
-              >
+              <Link to="/editor" className={classes.link}>
                 <EditorMenuItem
                   selected={currentPage == "/editor"}
                   className={classes.menuItem}

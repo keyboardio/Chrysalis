@@ -127,7 +127,7 @@ function GroupItem(props) {
             >
               <Button
                 variant={code === selectedKeyCode ? "contained" : "outlined"}
-                color={code === selectedKeyCode ? "primary" : null}
+                color={code === selectedKeyCode ? "primary" : "default"}
                 className={classes.button}
               >
                 {primary || (isTransparent(verbose) && "Transp.")}
@@ -178,4 +178,5 @@ function GroupItem(props) {
   );
 }
 
-export default React.memo(withStyles(styles)(GroupItem));
+// export default React.memo(withStyles(styles)(GroupItem));
+export default withStyles(styles)(GroupItem);

@@ -67,7 +67,7 @@ const styles = theme => ({
     fontWeight: 900
   },
   paper: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(),
     textAlign: "left",
     color: "black",
     marginBottom: 4,

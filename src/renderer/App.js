@@ -53,7 +53,8 @@ let focus = new Focus();
 focus.debug = true;
 focus.timeout = 15000;
 
-if (settings.get("ui.language")) i18n.setLanguage(settings.get("ui.language"));
+if (settings.getSync("ui.language"))
+  i18n.setLanguage(settings.get("ui.language"));
 
 const styles = () => ({
   root: {
@@ -80,7 +81,7 @@ class App extends React.Component {
     }
 
     this.state = {
-      darkMode: settings.get("ui.darkMode"),
+      darkMode: settings.getSync("ui.darkMode"),
       connected: false,
       device: null,
       pages: {},
@@ -135,7 +136,7 @@ class App extends React.Component {
     this.setState({
       darkMode: nextDarkModeState
     });
-    settings.set("ui.darkMode", nextDarkModeState);
+    settings.setSync("ui.darkMode", nextDarkModeState);
   };
 
   toggleFlashing = async () => {

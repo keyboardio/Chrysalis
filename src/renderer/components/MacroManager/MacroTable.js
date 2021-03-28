@@ -20,16 +20,16 @@ const styles = theme => ({
     flexWrap: "wrap"
   },
   margin: {
-    margin: theme.spacing.unit,
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
-    paddingTop: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit
+    margin: theme.spacing(),
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    paddingTop: theme.spacing(),
+    paddingBottom: theme.spacing()
   },
   textField: {
     flexBasis: "444px",
     margin: "0px",
-    marginRight: theme.spacing.unit * 4
+    marginRight: theme.spacing(4)
   },
   code: {
     width: "-webkit-fill-available"
@@ -57,7 +57,7 @@ const styles = theme => ({
     display: "flex",
     position: "relative",
     placeContent: "space-between",
-    margin: theme.spacing.unit
+    margin: theme.spacing()
   },
   whitebg: {
     backgroundColor: "#ffffff"

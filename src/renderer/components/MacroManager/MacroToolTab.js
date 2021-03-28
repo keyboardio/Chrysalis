@@ -11,7 +11,7 @@ const styles = theme => ({
   root: {
     backgroundColor: theme.palette.background.paper,
     width: "-webkit-fill-available",
-    margin: theme.spacing.unit,
+    margin: theme.spacing(),
     border: "solid 1px #bbbbbb",
     borderRadius: "4px"
   },
@@ -23,14 +23,14 @@ const styles = theme => ({
     borderRadius: "4px"
   },
   margin: {
-    padding: theme.spacing.unit,
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2
+    padding: theme.spacing(),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2)
   },
   textField: {
     flexBasis: "444px",
     margin: "0px",
-    marginRight: theme.spacing.unit * 4
+    marginRight: theme.spacing(4)
   },
   iconbutton: {
     width: "56px",
@@ -43,7 +43,7 @@ const styles = theme => ({
     display: "flex",
     position: "relative",
     placeContent: "space-between",
-    margin: theme.spacing.unit
+    margin: theme.spacing()
   },
   whitebg: {
     backgroundColor: "#ffffff"

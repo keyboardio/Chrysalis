@@ -45,17 +45,17 @@ import settings from "electron-settings";
 const styles = theme => ({
   root: {
     ...theme.mixins.gutters(),
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
-    margin: `0px ${theme.spacing.unit * 8}px`
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+    margin: `0px ${theme.spacing(8)}px`
   },
   title: {
-    marginTop: theme.spacing.unit * 4,
-    marginBottom: theme.spacing.unit
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing()
   },
   control: {
     display: "flex",
-    marginRight: theme.spacing.unit * 2
+    marginRight: theme.spacing(2)
   },
   group: {
     display: "block"
@@ -67,13 +67,13 @@ const styles = theme => ({
     display: "flex"
   },
   select: {
-    paddingTop: theme.spacing.unit * 1,
+    paddingTop: theme.spacing(),
     width: 200
   },
   advanced: {
     display: "flex",
     justifyContent: "center",
-    marginTop: theme.spacing.unit * 4,
+    marginTop: theme.spacing(4),
     "& button": {
       textTransform: "none",
       "& span svg": {
@@ -116,7 +116,7 @@ class Preferences extends React.Component {
   setLanguage = async event => {
     i18n.setLanguage(event.target.value);
     await this.setState({});
-    settings.set("ui.language", event.target.value);
+    await settings.set("ui.language", event.target.value);
   };
 
   toggleAdvanced = () => {

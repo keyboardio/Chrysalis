@@ -26,8 +26,8 @@ module.exports = {
     "no-unused-vars": 0, // disabled due to false positives
     "no-async-promise-executor": 0, // grandfathered in during eslint update; would be nice to remove
     "no-prototype-builtins": 0, // grandfathered in during eslint update; would be nice to remove
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
+    // "react-hooks/rules-of-hooks": "error",
+    // "react-hooks/exhaustive-deps": "warn",
     // Added to allow an update to prettier 2.x.x without actually making anything pretty
     "prettier/prettier": [
       "error",

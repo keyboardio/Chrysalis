@@ -14,7 +14,7 @@ const styles = theme => ({
     placeContent: "space-between",
     display: "flex",
     flexWrap: "wrap",
-    margin: theme.spacing.unit,
+    margin: theme.spacing(),
     backgroundColor: "#fff"
   },
   textField: {

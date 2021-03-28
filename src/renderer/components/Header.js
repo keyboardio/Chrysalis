@@ -36,7 +36,7 @@ import MainMenu from "./MainMenu/MainMenu";
 
 const styles = theme => ({
   pageMenu: {
-    marginLeft: theme.spacing.unit * 5,
+    marginLeft: theme.spacing(5),
     textTransform: "uppercase"
   },
   menuButton: {

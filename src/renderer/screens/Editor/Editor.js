@@ -59,7 +59,7 @@ const store = new Store();
 
 const styles = theme => ({
   tbg: {
-    marginRight: theme.spacing.unit * 4
+    marginRight: theme.spacing(4)
   },
   layerSelectItem: {
     display: "inline-flex"
@@ -72,24 +72,24 @@ const styles = theme => ({
     margin: "2px auto"
   },
   moreMenu: {
-    marginTop: theme.spacing.unit * 4
+    marginTop: theme.spacing(4)
   },
   layerItem: {
-    paddingLeft: theme.spacing.unit * 4
+    paddingLeft: theme.spacing(4)
   },
   layerSelect: {
-    marginRight: theme.spacing.unit * 4
+    marginRight: theme.spacing(4)
   },
   tabWrapper: {
     flexDirection: "row",
     "& svg": {
       position: "relative",
-      top: -theme.spacing.unit / 2
+      top: -theme.spacing(0.5)
     }
   },
   tabLabelContainer: {
     width: "auto",
-    padding: `6px ${theme.spacing.unit}px`
+    padding: `6px ${theme.spacing()}px`
   },
   disabledLayer: {
     opacity: 0.5,
@@ -197,7 +197,7 @@ class Editor extends React.Component {
       // Point of restoration for WhiteBalance
       // let palette = this.props.revertBalance(colormap.palette.slice());
       let palette = colormap.palette.slice();
-      const undeglowColors = settings.get("undeglowColors");
+      const undeglowColors = settings.getSync("undeglowColors");
       let raw = await focus.command("macros.map");
       if (raw.search(" 0 0 ") !== -1) {
         raw = raw.split(" 0 0 ")[0].split(" ").map(Number);
@@ -462,7 +462,7 @@ class Editor extends React.Component {
   // Callback function to set State of new Language
   onChangeLanguageLayout = () => {
     this.setState({
-      currentLanguageLayout: settings.get("keyboard.language") || "english"
+      currentLanguageLayout: settings.getSync("keyboard.language") || "english"
     });
   };
 
@@ -473,7 +473,7 @@ class Editor extends React.Component {
         this.state.defaultLayer >= 126 ? 0 : this.state.defaultLayer;
       let initialLayer = 0;
 
-      if (!settings.get("keymap.showDefaults")) {
+      if (!settings.getSync("keymap.showDefaults")) {
         if (defLayer < keymap.default.length) {
           initialLayer = keymap.onlyCustom ? 0 : keymap.default.length;
         }
@@ -1068,7 +1068,7 @@ class Editor extends React.Component {
     const { classes } = this.props;
     const { keymap, palette, isColorButtonSelected } = this.state;
     let Layer = this.getLayout();
-    const showDefaults = settings.get("keymap.showDefaults");
+    const showDefaults = settings.getSync("keymap.showDefaults");
 
     let currentLayer = this.state.currentLayer;
 

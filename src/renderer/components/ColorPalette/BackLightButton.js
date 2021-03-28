@@ -99,9 +99,9 @@ function BackLightButton(props) {
     background: `rgb(${colorFocusButton.r}, ${colorFocusButton.g}, ${colorFocusButton.b})`
   };
   const [, setBackgroundColor] = useState(enable);
-  useEffect(() => {
-    return () => setBackgroundColor(style);
-  });
+  // useEffect(() => {
+  //   return () => setBackgroundColor(style);
+  // });
 
   return (
     <Tooltip placement="top" title={props.children}>

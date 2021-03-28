@@ -61,8 +61,8 @@ const styles = theme => ({
     justifyContent: "center"
   },
   card: {
-    margin: theme.spacing.unit * 4,
-    padding: theme.spacing.unit * 5,
+    margin: theme.spacing(4),
+    padding: theme.spacing(5),
     maxWidth: "50%"
   },
   cardTitle: {
@@ -70,7 +70,7 @@ const styles = theme => ({
   },
   cardSub: {
     fontSize: "1rem",
-    paddingBottom: theme.spacing.unit
+    paddingBottom: theme.spacing()
   },
   cardIta: {
     fontStyle: "italic",
@@ -109,7 +109,7 @@ const styles = theme => ({
     textAlign: "center"
   },
   firmwareSelect: {
-    marginLeft: theme.spacing.unit * 2
+    marginLeft: theme.spacing(2)
   },
   grid: {
     width: "70%"
@@ -120,7 +120,7 @@ const styles = theme => ({
   paper: {
     width: "85%",
     margin: "auto",
-    marginBottom: theme.spacing.unit * 2
+    marginBottom: theme.spacing(2)
   }
 });
 
@@ -464,7 +464,7 @@ class FirmwareUpdate extends React.Component {
               <SnackbarContent
                 className={classes.snackNot}
                 message={
-                  <Typography component="p" gutterBottom>
+                  <Typography component="div" gutterBottom>
                     <div style={{ display: "flex" }}>
                       <div>
                         <InfoRounded
@@ -524,7 +524,7 @@ class FirmwareUpdate extends React.Component {
               <SnackbarContent
                 className={classes.snackNot}
                 message={
-                  <Typography component="p" gutterBottom>
+                  <Typography component="div" gutterBottom>
                     <div style={{ display: "flex" }}>
                       <div>
                         <InfoRounded
@@ -562,7 +562,7 @@ class FirmwareUpdate extends React.Component {
             <SnackbarContent
               className={classes.snackVer}
               message={
-                <Typography component="p">
+                <Typography component="div">
                   <div style={{ display: "flex" }}>
                     <div>
                       <InfoRounded

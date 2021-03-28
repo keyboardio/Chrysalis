@@ -45,12 +45,12 @@ import settings from "electron-settings";
 
 const styles = theme => ({
   title: {
-    marginTop: theme.spacing.unit * 4,
-    marginBottom: theme.spacing.unit
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing()
   },
   control: {
     display: "flex",
-    marginRight: theme.spacing.unit * 2
+    marginRight: theme.spacing(2)
   },
   group: {
     display: "block"
@@ -62,22 +62,22 @@ const styles = theme => ({
     display: "flex"
   },
   select: {
-    paddingTop: theme.spacing.unit * 1,
+    paddingTop: theme.spacing(),
     width: 200
   },
   selectContainer: {
-    marginTop: theme.spacing.unit * 2
+    marginTop: theme.spacing(2)
   },
   slider: {
     width: 300
   },
   sliderContainer: {
-    marginTop: theme.spacing.unit * 2
+    marginTop: theme.spacing(2)
   },
   advanced: {
     display: "flex",
     justifyContent: "center",
-    marginTop: theme.spacing.unit * 4,
+    marginTop: theme.spacing(4),
     "& button": {
       textTransform: "none",
       "& span svg": {
@@ -133,7 +133,7 @@ class KeyboardSettings extends React.Component {
     });
 
     this.setState({
-      showDefaults: settings.get("keymap.showDefaults")
+      showDefaults: settings.getSync("keymap.showDefaults")
     });
   }
 
@@ -205,7 +205,7 @@ class KeyboardSettings extends React.Component {
     await focus.command("led.brightness", ledBrightness);
     if (ledIdleTimeLimit >= 0)
       await focus.command("idleleds.time_limit", ledIdleTimeLimit);
-    settings.set("keymap.showDefaults", showDefaults);
+    await settings.set("keymap.showDefaults", showDefaults);
     this.setState({ modified: false });
     this.props.cancelContext();
   };

@@ -19,12 +19,12 @@ import i18n from "../../i18n";
 
 const styles = theme => ({
   title: {
-    marginTop: theme.spacing.unit * 4,
-    marginBottom: theme.spacing.unit
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing()
   },
   control: {
     display: "flex",
-    marginRight: theme.spacing.unit * 2
+    marginRight: theme.spacing(2)
   },
   group: {
     display: "block"
@@ -36,22 +36,22 @@ const styles = theme => ({
     display: "flex"
   },
   select: {
-    paddingTop: theme.spacing.unit * 1,
+    paddingTop: theme.spacing(),
     width: 200
   },
   selectContainer: {
-    marginTop: theme.spacing.unit * 2
+    marginTop: theme.spacing(2)
   },
   slider: {
     width: 300
   },
   sliderContainer: {
-    marginTop: theme.spacing.unit * 2
+    marginTop: theme.spacing(2)
   },
   advanced: {
     display: "flex",
     justifyContent: "center",
-    marginTop: theme.spacing.unit * 4,
+    marginTop: theme.spacing(4),
     "& button": {
       textTransform: "none",
       "& span svg": {
@@ -61,8 +61,8 @@ const styles = theme => ({
   },
   button: {
     display: "flex",
-    marginTop: theme.spacing.unit * 2,
-    marginRight: theme.spacing.unit * 2
+    marginTop: theme.spacing(2),
+    marginRight: theme.spacing(2)
   }
 });
 

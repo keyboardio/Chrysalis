@@ -19,8 +19,8 @@ const styles = theme => ({
   chip: {
     borderRadius: 4,
     minWidth: "150px",
-    marginLeft: theme.spacing.unit * 2,
-    marginRight: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
     fontSize: "larger"
   },
   listitem: {

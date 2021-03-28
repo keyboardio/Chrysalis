@@ -36,7 +36,7 @@ const styles = theme => ({
     alignItems: "center"
   },
   wrapper: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(),
     position: "relative"
   },
   buttonSuccess: {
@@ -71,7 +71,7 @@ const styles = theme => ({
     position: "fixed",
     justifyContent: "flex-end",
     bottom: 0,
-    right: theme.spacing.unit * 4
+    right: theme.spacing(4)
   }
 });
 

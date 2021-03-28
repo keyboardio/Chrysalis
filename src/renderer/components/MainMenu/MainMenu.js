@@ -60,10 +60,11 @@ const styles = theme => ({
     ...theme.mixins.toolbar
   },
   link: {
-    textDecoration: "none"
+    textDecoration: "none",
+    color: theme.palette.text.primary
   },
   menuItem: {
-    paddingLeft: theme.spacing.unit * 4
+    paddingLeft: theme.spacing(4)
   },
   keyboardTitleLight: {
     display: "block",

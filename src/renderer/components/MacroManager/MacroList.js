@@ -30,7 +30,7 @@ const styles = theme => ({
     flexWrap: "wrap"
   },
   margin: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(),
     marginBottom: "0px"
   },
   textField: {

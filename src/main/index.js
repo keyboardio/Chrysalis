@@ -57,6 +57,8 @@ async function createMainWindow() {
     height: mainWindowState.height,
     resizable: true,
     icon: path.join(getStaticPath(), "/logo.png"),
+    show: false,
+    backgroundColor: "#2e2c29",
     webPreferences: {
       sandbox: false,
       nodeIntegration: true,
@@ -78,6 +80,9 @@ async function createMainWindow() {
       })
     );
   }
+  window.once("ready-to-show", () => {
+    window.show();
+  });
 
   window.on("closed", () => {
     mainWindow = null;

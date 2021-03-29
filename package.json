@@ -18,6 +18,7 @@
     "build:windows": "yarn compile && electron-builder -w",
     "build:win": "yarn run build:windows",
     "build:linux": "yarn compile && electron-builder -l",
+    "rebuild": "electron-rebuild -f -w serialport",
     "prettier": "prettier --write \"src/**/*.{js,json,css,scss,md}\"",
     "lint:all": "npm-run-all lint:js lint:css",
     "lint:js": "eslint src/**/*.js",
@@ -37,9 +38,7 @@
     "artifactName": "${productName}-${version}.${ext}",
     "copyright": "Copyright © 2018, 2019 Keyboardio Inc.; Copyright © 2018, 2019 DygmaLab SE; distributed under the GPLv3",
     "afterSign": "./build/afterSignHook.js",
-    "win": {
-      "asarUnpack": []
-    },
+    "npmRebuild": false,
     "mac": {
       "darkModeSupport": false,
       "hardenedRuntime": true,
@@ -97,7 +96,7 @@
     "@testing-library/jest-dom": "^5.11.10",
     "babel-jest": "26.6.3",
     "babel-loader": "8.2.2",
-    "electron": "8.5.5",
+    "electron": "11.4.1",
     "electron-builder": "22.10.5",
     "electron-rebuild": "2.3.5",
     "electron-webpack": "2.8.2",

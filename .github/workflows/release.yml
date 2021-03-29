@@ -84,16 +84,16 @@ jobs:
 
       - name: Discover the current release version
         id: version
-        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/v}
 
       - name: Create the release news file
         run: tools/release/news.sh >.news
 
-      - name: Create the new (draft) release
+      - name: Create the new release
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
           VERSION: ${{ steps.version.outputs.tag }}
-        run: gh release create -d -p -t "Chrysalis ${VERSION}" -F .news v${VERSION}
+        run: gh release create -p -t "Chrysalis ${VERSION}" -F .news v${VERSION}
 
       - name: Download artifacts
         uses: actions/download-artifact@v2

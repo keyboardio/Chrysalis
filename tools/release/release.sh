@@ -121,16 +121,10 @@ push_changes() {
     git push
 }
 
-create_draft_release() {
+create_and_push_tag() {
     VERSION=$(package_version)
-    TMP=$(mktemp)
-    cat >${TMP} <<EOF
-$(extract_news)
-EOF
-
-    gh release create v${VERSION} -d -F "${TMP}" -t "Chrysalis ${VERSION}"
-
-    rm -f "${TMP}"
+    git tag v${VERSION}
+    git push origin v${VERSION}
 }
 
 verify_version
@@ -140,4 +134,4 @@ update_version
 update_release_date
 commit_preparations
 push_changes
-create_draft_release
+create_and_push_tag

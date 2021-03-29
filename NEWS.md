@@ -9,9 +9,48 @@ had an issue in the code that augmented the base keys with secondary actions,
 which resulted in a messed up keycode to label mapping. This bug has been fixed
 now.
 
+Another issue related to labels is that Chrysalis and Kaleidoscope have been in
+a disagreement regarding consumer keys (volume keys, play/pause, and the rest)
+since a change in Kaleidoscope a while ago. This has also been corrected, and
+Chrysalis now agrees with Kaleidoscope, and these keys will both display and
+function as expected.
+
+The warning about insufficient permissions is now correctly restricted to show
+only on Linux, while it could erroneously appear on other operating systems
+before.
+
+## UI/UX Improvements
+
+The key picker that pops up when selecting a standard key has been rearranged to
+resemble a more common 104-key layout. Originally, it was displayed at the
+bottom of the screen, and we wanted to save vertical space, but later on, we
+moved the picker from the bottom into a popup in the center, rendering the space
+saving attempt irrelevant, but we have not adapted the picker accordingly. We
+now did so, and it looks much more like a common keyboard does, and now offers
+some of the keys that we've been missing since 0.8.0.
+
+Another major, noticable change is that the warning about using hardcoded and
+custom layers together is no longer a tiny line below the toolbar. As we no
+longer support such setups in Chrysalis, we want to make that clear, and not
+allow one to edit the keymap anyway. A non-blocking, short warning was found to
+be inadequate and not very self-explanatory. Therefore we made Chrysalis display
+an "Action Required" screen, with better, longer explanation, and a button more
+appropriately titled. Additionally, when selecting the option to switch to
+custom layers only, Chrysalis will also set the default layer back to zero, to
+avoid confusion. Furthermore, when Chrysalis detects an empty EEPROM, and
+decides to copy the built-in keymap to it, it will also set the keyboard up to
+use custom layers only. The practical consequence of this is that keyboards
+fresh out of the factory, or keyboards that get flashed with the "restore
+factory settings" option set will no longer unnecessarily trigger the warning.
+
+We also made some smaller improvements, like having a default filename presented
+when exporting keymaps, and showing legends in a larger font when they're
+single-letter.
+
 ## New Features
 
-Chrysalis now allows you to choose Croatian as the host keyboard layout.
+Chrysalis now allows you to choose Croatian as the host keyboard layout, and has
+initial support - albeit untested - for Wayland under Linux.
 
 Chrysalis 0.8.2
 ===============

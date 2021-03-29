@@ -93,14 +93,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
           VERSION: ${{ steps.version.outputs.tag }}
-        run: gh release create -p -t "Chrysalis ${VERSION}" -F .news v${VERSION}
+        run: gh release create -t "Chrysalis ${VERSION}" -F .news v${VERSION}
 
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
           path: artifacts
 
-      - name: Publish a snapshot
+      - name: Publish a release
         shell: bash
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}

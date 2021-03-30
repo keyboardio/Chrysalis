@@ -50,7 +50,8 @@ const styles = theme => ({
   },
   version: {
     textAlign: "right",
-    paddingTop: 20
+    paddingTop: 20,
+    paddingRight: theme.spacing(4)
   },
   toolbarIcon: {
     display: "flex",

@@ -51,20 +51,23 @@ const styles = theme => ({
     position: "fixed",
     top: 0,
     left: 0,
-    right: 0
+    right: 0,
+    minWidth: 600
   },
   main: {
     width: "auto",
     display: "block",
+    //     marginLeft: theme.spacing(3),
+    //     marginRight: theme.spacing(3),
+    //     [theme.breakpoints.up(500 + theme.spacing(6))]: {
+    //       width: 500,
+    //       marginLeft: "auto",
+    //       marginRight: "auto"
+    //     },
     marginLeft: theme.spacing(3),
     marginRight: theme.spacing(3),
-    [theme.breakpoints.up(500 + theme.spacing(3) * 2)]: {
-      width: 500,
-      marginLeft: "auto",
-      marginRight: "auto"
-    },
     padding: `${theme.spacing(2)}px ${theme.spacing(3)}px
- ${theme.spacing(3)}px`
+    ${theme.spacing(3)}px`
   },
   preview: {
     maxWidth: 128,
@@ -75,8 +78,11 @@ const styles = theme => ({
   },
   card: {
     marginTop: theme.spacing(5),
+    marginLeft: theme.spacing(5),
+    marginRight: theme.spacing(5),
     padding: `${theme.spacing(2)}px ${theme.spacing(3)}px
- ${theme.spacing(3)}px`
+    ${theme.spacing(3)}px`,
+    width: "500px"
   },
   content: {
     display: "inline-block",
@@ -86,18 +92,22 @@ const styles = theme => ({
   selectControl: {
     display: "flex"
   },
-  connect: {
-    verticalAlign: "bottom",
-    marginLeft: 65
-  },
-  cardActions: {
-    justifyContent: "center"
-  },
+  //   connect: {
+  //     verticalAlign: "bottom",
+  //     marginLeft: 65
+  //   },
+  //   cardActions: {
+  //     justifyContent: "center"
+  //   },
   supported: {
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: green[500]
   },
   grow: {
     flexGrow: 1
+  },
+  cards: {
+    display: "flex",
+    justifyContent: "center"
   },
   error: {
     marginTop: theme.spacing(2),
@@ -106,6 +116,11 @@ const styles = theme => ({
   },
   found: {
     color: green[500]
+  },
+  listItemIcon: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
   }
 });
 
@@ -260,7 +275,7 @@ class KeyboardSelect extends React.Component {
         }
 
         const icon = (
-          <ListItemIcon>
+          <ListItemIcon className={classes.listItemIcon}>
             <Avatar className={option.path && classes.supported}>
               <KeyboardIcon />
             </Avatar>
@@ -385,7 +400,7 @@ class KeyboardSelect extends React.Component {
         </Portal>
         {loader}
         {permissionWarning}
-        <div className={classes.card}>
+        <div className={classes.cards}>
           <Card className={classes.card}>
             <CardContent className={classes.content}>
               {preview}

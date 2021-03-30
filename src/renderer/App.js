@@ -45,12 +45,11 @@ import i18n from "./i18n";
 import Header from "./components/Header";
 import ConfirmationDialog from "./components/ConfirmationDialog";
 import { history, navigate } from "./routerHistory";
-// import { nativeTheme } from "electron";
 
 const Store = window.require("electron-store");
 const store = new Store();
 
-const nativeTheme = require("electron");
+// const { nativeTheme } = require("electron");
 
 let focus = new Focus();
 focus.debug = true;
@@ -66,7 +65,8 @@ const styles = () => ({
   },
   content: {
     flexGrow: 1,
-    overflow: "auto"
+    overflow: "auto",
+    minWidth: 600
   }
 });
 
@@ -83,12 +83,12 @@ class App extends React.Component {
       balance = store.get("balance");
     }
 
-    console.log(
-      "Darkmode: ",
-      settings.getSync("ui.darkMode"),
-      nativeTheme.shouldUseDarkColors,
-      nativeTheme.themeSource
-    );
+    // console.log(
+    //   "Darkmode: ",
+    //   settings.getSync("ui.darkMode"),
+    //   nativeTheme.shouldUseDarkColors,
+    //   nativeTheme.themeSource,
+    // );
 
     this.state = {
       darkMode: settings.getSync("ui.darkMode"),

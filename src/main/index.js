@@ -32,6 +32,7 @@ process.env[`NODE_ENV`] = Environment.name;
 app.allowRendererProcessReuse = false;
 
 import { app, BrowserWindow, Menu } from "electron";
+import settings from "electron-settings";
 import { format as formatUrl } from "url";
 import * as path from "path";
 import windowStateKeeper from "electron-window-state";
@@ -55,6 +56,8 @@ async function createMainWindow() {
     y: mainWindowState.y,
     width: mainWindowState.width,
     height: mainWindowState.height,
+    minWidth: 650,
+    minHeight: 570,
     resizable: true,
     icon: path.join(getStaticPath(), "/logo.png"),
     show: false,
@@ -125,6 +128,16 @@ app.on("activate", () => {
 
 // create main BrowserWindow when electron is ready
 app.on("ready", async () => {
+  if (settings.getSync("ui.darkMode") === undefined) {
+    const { nativeTheme } = require("electron");
+    console.log(
+      "darkmode info:",
+      nativeTheme.themeSource,
+      nativeTheme.shouldUseDarkColors,
+      nativeTheme.themeSource
+    );
+    settings.setSync("ui.darkMode", nativeTheme.shouldUseDarkColors);
+  }
   if (isDevelopment) {
     await installExtension(REACT_DEVELOPER_TOOLS)
       .then(name => console.log(`Added Extension:  ${name}`))

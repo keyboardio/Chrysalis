@@ -23,7 +23,7 @@ import "typeface-roboto/index.css";
 import "typeface-source-code-pro/index.css";
 
 import AppBar from "@material-ui/core/AppBar";
-import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -123,7 +123,7 @@ function Header({
           />
         )}
         <div className={classes.submenu}>
-          <Button onClick={contextOnClick}>
+          <IconButton onClick={contextOnClick}>
             {contextBar ? (
               <CloseIcon />
             ) : theme ? (
@@ -131,7 +131,7 @@ function Header({
             ) : (
               <img src={menu} alt="Menu" className={classes.menuIcon} />
             )}
-          </Button>
+          </IconButton>
           <Typography
             variant="h6"
             className={classes.pageMenu}

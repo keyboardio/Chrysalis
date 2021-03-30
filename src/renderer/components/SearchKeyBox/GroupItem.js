@@ -62,7 +62,7 @@ const styles = theme => ({
     padding: 1,
     minWidth: "50px",
     width: "90%",
-    borderColor: "#darkgray",
+    borderColor: "#darkgray", //  TODO changing this to a palette color or elevation?
     fontSize: "0.7rem",
     fontWeight: 900
   },
@@ -72,7 +72,7 @@ const styles = theme => ({
     color: "black",
     marginBottom: 4,
     font: "800 15px Arial",
-    backgroundColor: "#c7c4c496"
+    backgroundColor: "#c7c4c496" //  TODO changing this to a palette color or elevation?
   }
 });
 

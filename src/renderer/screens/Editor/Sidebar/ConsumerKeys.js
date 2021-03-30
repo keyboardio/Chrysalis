@@ -37,9 +37,9 @@ const styles = theme => ({
 
 const VolumeKeys = withStyles(styles)(props => {
   const keys = [
-    db.lookup(19682), // mute
-    db.lookup(23785), // up
-    db.lookup(23786) // down
+    db.lookup(18658), // mute
+    db.lookup(18665), // up
+    db.lookup(18666) // down
   ];
 
   const keyButtons = keys.map((button, index) => {
@@ -68,10 +68,10 @@ const VolumeKeys = withStyles(styles)(props => {
 
 const MediaKeys = withStyles(styles)(props => {
   const keys = [
-    db.lookup(22710), // prev
-    db.lookup(22709), // next track
-    db.lookup(22711), // stop
-    db.lookup(22733) // play/pause
+    db.lookup(18614), // prev
+    db.lookup(18613), // next track
+    db.lookup(18615), // stop
+    db.lookup(18637) // play/pause
   ];
 
   const keyButtons = keys.map((button, index) => {
@@ -100,8 +100,8 @@ const MediaKeys = withStyles(styles)(props => {
 
 const BrightnessKeys = withStyles(styles)(props => {
   const keys = [
-    db.lookup(23663), // up
-    db.lookup(23664) // down
+    db.lookup(18543), // up
+    db.lookup(18544) // down
   ];
 
   const keyButtons = keys.map((button, index) => {

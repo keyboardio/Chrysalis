@@ -32,6 +32,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import Slider from "@material-ui/lab/Slider";
 import Switch from "@material-ui/core/Switch";
+import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -71,8 +72,12 @@ const styles = theme => ({
   slider: {
     width: 300
   },
+  textField: {
+    marginTop: theme.spacing.unit * 1
+  },
   sliderContainer: {
-    marginTop: theme.spacing.unit * 2
+    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 2
   },
   advanced: {
     display: "flex",
@@ -97,6 +102,15 @@ class KeyboardSettings extends React.Component {
     ledBrightness: 255,
     ledIdleTimeLimit: 0,
     defaultLayer: 126,
+    qukeysHoldTimeout: 0,
+    qukeysOverlapThreshold: 0,
+    mouseSpeed: 0,
+    mouseSpeedDelay: 0,
+    mouseAccelSpeed: 0,
+    mouseAccelDelay: 0,
+    mouseWheelSpeed: 0,
+    mouseWheelDelay: 0,
+    mouseSpeedLimit: 0,
     modified: false,
     showDefaults: false,
     working: false
@@ -114,18 +128,10 @@ class KeyboardSettings extends React.Component {
       this.setState({ defaultLayer: layer <= 126 ? layer : 126 });
     });
 
-    if (process.platform === "darwin") {
-      await this.delay(50);
-    }
-
     focus.command("led.brightness").then(brightness => {
       brightness = brightness ? parseInt(brightness) : -1;
       this.setState({ ledBrightness: brightness });
     });
-
-    if (process.platform === "darwin") {
-      await this.delay(50);
-    }
 
     focus.command("idleleds.time_limit").then(limit => {
       limit = limit ? parseInt(limit) : -1;
@@ -134,6 +140,53 @@ class KeyboardSettings extends React.Component {
 
     this.setState({
       showDefaults: settings.get("keymap.showDefaults")
+    });
+
+    // QUKEYS variables commands
+    focus.command("qukeys.holdTimeout").then(holdTimeout => {
+      holdTimeout = holdTimeout ? parseInt(holdTimeout) : -1;
+      this.setState({ qukeysHoldTimeout: holdTimeout });
+    });
+
+    focus.command("qukeys.overlapThreshold").then(overlapThreshold => {
+      overlapThreshold = overlapThreshold ? parseInt(overlapThreshold) : -1;
+      this.setState({ qukeysOverlapThreshold: overlapThreshold });
+    });
+
+    // MOUSE variables commands
+    focus.command("mouse.speed").then(speed => {
+      speed = speed ? parseInt(speed) : -1;
+      this.setState({ mouseSpeed: speed });
+    });
+
+    focus.command("mouse.speedDelay").then(speedDelay => {
+      speedDelay = speedDelay ? parseInt(speedDelay) : -1;
+      this.setState({ mouseSpeedDelay: speedDelay });
+    });
+
+    focus.command("mouse.accelSpeed").then(accelSpeed => {
+      accelSpeed = accelSpeed ? parseInt(accelSpeed) : -1;
+      this.setState({ mouseAccelSpeed: accelSpeed });
+    });
+
+    focus.command("mouse.accelDelay").then(accelDelay => {
+      accelDelay = accelDelay ? parseInt(accelDelay) : -1;
+      this.setState({ mouseAccelDelay: accelDelay });
+    });
+
+    focus.command("mouse.wheelSpeed").then(wheelSpeed => {
+      wheelSpeed = wheelSpeed ? parseInt(wheelSpeed) : -1;
+      this.setState({ mouseWheelSpeed: wheelSpeed });
+    });
+
+    focus.command("mouse.wheelDelay").then(wheelDelay => {
+      wheelDelay = wheelDelay ? parseInt(wheelDelay) : -1;
+      this.setState({ mouseWheelDelay: wheelDelay });
+    });
+
+    focus.command("mouse.speedLimit").then(speedLimit => {
+      speedLimit = speedLimit ? parseInt(speedLimit) : -1;
+      this.setState({ mouseSpeedLimit: speedLimit });
     });
   }
 
@@ -189,6 +242,78 @@ class KeyboardSettings extends React.Component {
     this.props.startContext();
   };
 
+  setHoldTimeout = event => {
+    this.setState({
+      qukeysHoldTimeout: event.target.value,
+      modified: true
+    });
+    this.props.startContext();
+  };
+
+  setOverlapThreshold = (event, value) => {
+    this.setState({
+      qukeysOverlapThreshold: value,
+      modified: true
+    });
+    this.props.startContext();
+  };
+
+  setSpeed = event => {
+    this.setState({
+      mouseSpeed: event.target.value,
+      modified: true
+    });
+    this.props.startContext();
+  };
+
+  setSpeedDelay = event => {
+    this.setState({
+      mouseSpeedDelay: event.target.value,
+      modified: true
+    });
+    this.props.startContext();
+  };
+
+  setAccelSpeed = event => {
+    this.setState({
+      mouseAccelSpeed: event.target.value,
+      modified: true
+    });
+    this.props.startContext();
+  };
+
+  setAccelDelay = event => {
+    this.setState({
+      mouseAccelDelay: event.target.value,
+      modified: true
+    });
+    this.props.startContext();
+  };
+
+  setWheelSpeed = event => {
+    this.setState({
+      mouseWheelSpeed: event.target.value,
+      modified: true
+    });
+    this.props.startContext();
+  };
+
+  setWheelDelay = event => {
+    this.setState({
+      mouseWheelDelay: event.target.value,
+      modified: true
+    });
+    this.props.startContext();
+  };
+
+  setSpeedLimit = event => {
+    this.setState({
+      mouseSpeedLimit: event.target.value,
+      modified: true
+    });
+    this.props.startContext();
+  };
+
   saveKeymapChanges = async () => {
     const focus = new Focus();
 
@@ -197,7 +322,16 @@ class KeyboardSettings extends React.Component {
       defaultLayer,
       showDefaults,
       ledBrightness,
-      ledIdleTimeLimit
+      ledIdleTimeLimit,
+      qukeysHoldTimeout,
+      qukeysOverlapThreshold,
+      mouseSpeed,
+      mouseSpeedDelay,
+      mouseAccelSpeed,
+      mouseAccelDelay,
+      mouseWheelSpeed,
+      mouseWheelDelay,
+      mouseSpeedLimit
     } = this.state;
 
     await focus.command("keymap.onlyCustom", keymap.onlyCustom);
@@ -206,6 +340,18 @@ class KeyboardSettings extends React.Component {
     if (ledIdleTimeLimit >= 0)
       await focus.command("idleleds.time_limit", ledIdleTimeLimit);
     settings.set("keymap.showDefaults", showDefaults);
+    // QUKEYS
+    await focus.command("qukeys.holdTimeout", qukeysHoldTimeout);
+    await focus.command("qukeys.overlapThreshold", qukeysOverlapThreshold);
+    // MOUSE KEYS
+    await focus.command("mouse.speed", mouseSpeed);
+    await focus.command("mouse.speedDelay", mouseSpeedDelay);
+    await focus.command("mouse.accelSpeed", mouseAccelSpeed);
+    await focus.command("mouse.accelDelay", mouseAccelDelay);
+    await focus.command("mouse.wheelSpeed", mouseWheelSpeed);
+    await focus.command("mouse.wheelDelay", mouseWheelDelay);
+    await focus.command("mouse.speedLimit", mouseSpeedLimit);
+
     this.setState({ modified: false });
     this.props.cancelContext();
   };
@@ -218,7 +364,16 @@ class KeyboardSettings extends React.Component {
       modified,
       showDefaults,
       ledBrightness,
-      ledIdleTimeLimit
+      ledIdleTimeLimit,
+      qukeysHoldTimeout,
+      qukeysOverlapThreshold,
+      mouseSpeed,
+      mouseSpeedDelay,
+      mouseAccelSpeed,
+      mouseAccelDelay,
+      mouseWheelSpeed,
+      mouseWheelDelay,
+      mouseSpeedLimit
     } = this.state;
 
     const onlyCustomSwitch = (
@@ -321,6 +476,166 @@ class KeyboardSettings extends React.Component {
         onChange={this.setBrightness}
       />
     );
+    const holdT = (
+      <TextField
+        id="holdTimeout"
+        lable="Hold Timeout"
+        value={qukeysHoldTimeout}
+        onChange={this.setHoldTimeout}
+        className={classes.textField}
+        inputProps={{
+          inputProps: {
+            min: 0,
+            max: 65534
+          },
+          style: {
+            padding: 12
+          }
+        }}
+        variant="filled"
+      />
+    );
+    const overlapT = (
+      <Slider
+        max={100}
+        value={qukeysOverlapThreshold}
+        className={classes.slider}
+        onChange={this.setOverlapThreshold}
+      />
+    );
+    const mSpeed = (
+      <TextField
+        id="mouseSpeed"
+        lable="Mouse Speed"
+        value={mouseSpeed}
+        onChange={this.setSpeed}
+        className={classes.textField}
+        inputProps={{
+          inputProps: {
+            min: 0,
+            max: 254
+          },
+          style: {
+            padding: 12
+          }
+        }}
+        variant="filled"
+      />
+    );
+    const mSpeedD = (
+      <TextField
+        id="mouseSpeedDelay"
+        lable="Mouse Speed Delay"
+        value={mouseSpeedDelay}
+        onChange={this.setSpeedDelay}
+        className={classes.textField}
+        inputProps={{
+          inputProps: {
+            min: 0,
+            max: 65534
+          },
+          style: {
+            padding: 12
+          }
+        }}
+        variant="filled"
+      />
+    );
+    const mAccelS = (
+      <TextField
+        id="mouseAccelSpeed"
+        lable="Mouse Acceleration Speed"
+        value={mouseAccelSpeed}
+        onChange={this.setAccelSpeed}
+        className={classes.textField}
+        inputProps={{
+          inputProps: {
+            min: 0,
+            max: 254
+          },
+          style: {
+            padding: 12
+          }
+        }}
+        variant="filled"
+      />
+    );
+    const maccelD = (
+      <TextField
+        id="mouseAccelDelay"
+        lable="Mouse Acceleration Delay"
+        value={mouseAccelDelay}
+        onChange={this.setAccelDelay}
+        className={classes.textField}
+        inputProps={{
+          inputProps: {
+            min: 0,
+            max: 65534
+          },
+          style: {
+            padding: 12
+          }
+        }}
+        variant="filled"
+      />
+    );
+    const mWheelS = (
+      <TextField
+        id="mouseWheelSpeed"
+        lable="Mouse Wheel Speed"
+        value={mouseWheelSpeed}
+        onChange={this.setWheelSpeed}
+        className={classes.textField}
+        inputProps={{
+          inputProps: {
+            min: 0,
+            max: 254
+          },
+          style: {
+            padding: 12
+          }
+        }}
+        variant="filled"
+      />
+    );
+    const mWheelD = (
+      <TextField
+        id="mouseWheelDelay"
+        lable="Mouse Wheel Delay"
+        value={mouseWheelDelay}
+        onChange={this.setWheelDelay}
+        className={classes.textField}
+        inputProps={{
+          inputProps: {
+            min: 0,
+            max: 65534
+          },
+          style: {
+            padding: 12
+          }
+        }}
+        variant="filled"
+      />
+    );
+    const mSpeedL = (
+      <TextField
+        id="mouseSpeedLimit"
+        lable="Mouse Speed Limit"
+        value={mouseSpeedLimit}
+        onChange={this.setSpeedLimit}
+        className={classes.textField}
+        inputProps={{
+          inputProps: {
+            min: 0,
+            max: 254
+          },
+          style: {
+            padding: 12
+          }
+        }}
+        variant="filled"
+      />
+    );
 
     return (
       <React.Fragment>
@@ -357,6 +672,7 @@ class KeyboardSettings extends React.Component {
                 labelPlacement="start"
                 label={i18n.keyboardSettings.keymap.defaultLayer}
               />
+              <Divider />
               {ledIdleTimeLimit >= 0 && (
                 <FormControlLabel
                   className={classes.control}
@@ -376,6 +692,92 @@ class KeyboardSettings extends React.Component {
                   control={brightnessControl}
                   labelPlacement="start"
                   label={i18n.keyboardSettings.led.brightness}
+                />
+              )}
+              <Divider />
+              {qukeysHoldTimeout >= 0 && (
+                <FormControlLabel
+                  className={classes.control}
+                  classes={{ label: classes.grow }}
+                  control={holdT}
+                  labelPlacement="start"
+                  label={i18n.keyboardSettings.qukeys.holdTimeout}
+                />
+              )}
+              {qukeysOverlapThreshold >= 0 && (
+                <FormControlLabel
+                  className={classes.control}
+                  classes={{
+                    label: classes.grow,
+                    root: classes.sliderContainer
+                  }}
+                  control={overlapT}
+                  labelPlacement="start"
+                  label={i18n.keyboardSettings.qukeys.overlapThreshold}
+                />
+              )}
+              <Divider />
+              {mouseSpeed >= 0 && (
+                <FormControlLabel
+                  className={classes.control}
+                  classes={{ label: classes.grow }}
+                  control={mSpeed}
+                  labelPlacement="start"
+                  label={i18n.keyboardSettings.mouse.speed}
+                />
+              )}
+              {mouseSpeedDelay >= 0 && (
+                <FormControlLabel
+                  className={classes.control}
+                  classes={{ label: classes.grow }}
+                  control={mSpeedD}
+                  labelPlacement="start"
+                  label={i18n.keyboardSettings.mouse.speedDelay}
+                />
+              )}
+              {mouseAccelSpeed >= 0 && (
+                <FormControlLabel
+                  className={classes.control}
+                  classes={{ label: classes.grow }}
+                  control={mAccelS}
+                  labelPlacement="start"
+                  label={i18n.keyboardSettings.mouse.accelSpeed}
+                />
+              )}
+              {mouseAccelDelay >= 0 && (
+                <FormControlLabel
+                  className={classes.control}
+                  classes={{ label: classes.grow }}
+                  control={maccelD}
+                  labelPlacement="start"
+                  label={i18n.keyboardSettings.mouse.accelDelay}
+                />
+              )}
+              {mouseWheelSpeed >= 0 && (
+                <FormControlLabel
+                  className={classes.control}
+                  classes={{ label: classes.grow }}
+                  control={mWheelS}
+                  labelPlacement="start"
+                  label={i18n.keyboardSettings.mouse.wheelSpeed}
+                />
+              )}
+              {mouseWheelDelay >= 0 && (
+                <FormControlLabel
+                  className={classes.control}
+                  classes={{ label: classes.grow }}
+                  control={mWheelD}
+                  labelPlacement="start"
+                  label={i18n.keyboardSettings.mouse.wheelDelay}
+                />
+              )}
+              {mouseSpeedLimit >= 0 && (
+                <FormControlLabel
+                  className={classes.control}
+                  classes={{ label: classes.grow }}
+                  control={mSpeedL}
+                  labelPlacement="start"
+                  label={i18n.keyboardSettings.mouse.speedLimit}
                 />
               )}
             </FormControl>

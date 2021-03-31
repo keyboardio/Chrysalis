@@ -149,6 +149,20 @@ const English = {
         oneHour: "1 hour"
       }
     },
+    qukeys: {
+      holdTimeout: "Adjust Qukeys hold timeout",
+      overlapThreshold: "Adjust Qukeys overlap Threshold"
+    },
+    mouse: {
+      speed: "Adjust initial mouse speed in pixels",
+      speedDelay: "Adjust mouse delay between steps in miliseconds",
+      accelSpeed: "Adjust mouse incremental acceleration in pixels",
+      accelDelay:
+        "Adjust mouse acceleration delay between steps in miliseconds",
+      wheelSpeed: "Adjust mouse wheel speed in pixels",
+      wheelDelay: "Adjust mouse wheel delay between steps in miliseconds",
+      speedLimit: "Adjust mouse overall speed limit"
+    },
     colorSettings: {
       title: "White Balance",
       visualizebutton: "VISUALIZE CHANGES",

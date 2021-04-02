@@ -14,6 +14,7 @@ import {
   ListItemSecondaryAction
 } from "@material-ui/core";
 import { Close, DragIndicator } from "@material-ui/icons";
+import i18n from "../../i18n";
 
 const styles = theme => ({
   chip: {
@@ -52,7 +53,9 @@ class MacroTableRow extends Component {
     ...draggableStyle,
 
     ...(isDragging && {
-      background: "rgb(235,235,235)"
+      // HACK This gives us some readability on both light and dark themes
+      // , but it actually needs to be refactored to allow theme use
+      background: "#9e9e9e"
     })
   });
 
@@ -106,7 +109,6 @@ class MacroTableRow extends Component {
           </ListItemIcon>
           <ListItemIcon
             style={{
-              backgroundColor: `${this.shadeColor(item.ucolor, 60)}`,
               borderRadius: "100px"
             }}
           >
@@ -118,17 +120,21 @@ class MacroTableRow extends Component {
             className={classes.chip}
             style={{
               backgroundColor: item.color,
-              borderColor: item.color
+              borderColor: item.color,
+              // HACK allow the text to be visible on darkTheme
+              // without completely rewriting the code which assigns the background colors
+              color: "#000"
             }}
           />
           <FormControl className={classes.select}>
             <TextField
               id="insert-modifiers"
               select
-              label="Insert Modifiers"
+              label={i18n.editor.macros.insertModifiers}
               value=""
               margin="none"
               variant="outlined"
+              size="small"
               onChange={e => {
                 addModifier(item.id, e.target.value);
               }}

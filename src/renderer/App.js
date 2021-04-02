@@ -49,7 +49,7 @@ import { history, navigate } from "./routerHistory";
 const Store = window.require("electron-store");
 const store = new Store();
 
-// const { nativeTheme } = require("electron");
+const { nativeTheme } = require("electron");
 
 let focus = new Focus();
 focus.debug = true;
@@ -82,13 +82,6 @@ class App extends React.Component {
     } else {
       balance = store.get("balance");
     }
-
-    // console.log(
-    //   "Darkmode: ",
-    //   settings.getSync("ui.darkMode"),
-    //   nativeTheme.shouldUseDarkColors,
-    //   nativeTheme.themeSource,
-    // );
 
     this.state = {
       darkMode: settings.getSync("ui.darkMode"),
@@ -147,6 +140,10 @@ class App extends React.Component {
       darkMode: nextDarkModeState
     });
     settings.setSync("ui.darkMode", nextDarkModeState);
+  };
+
+  onDarkModeChange = async () => {
+    this.setState({ darkMode: settings.getSync("ui.darkMode") });
   };
 
   toggleFlashing = async () => {

@@ -42,6 +42,7 @@ import installExtension, {
 import { getStaticPath } from "../renderer/config";
 
 const isDevelopment = process.env.NODE_ENV !== "production";
+const { nativeTheme, ipcMain } = require("electron");
 
 let mainWindow;
 
@@ -83,8 +84,17 @@ async function createMainWindow() {
       })
     );
   }
+
   window.once("ready-to-show", () => {
     window.show();
+  });
+
+  ipcMain.handle("dark-mode:set", async (event, darkMode) => {
+    settings.setSync("ui.darkModePref", darkMode);
+    // Setting nativeTheme at this point in the code is not working, hence the need to restart
+    nativeTheme.ThemeSource = darkMode;
+    settings.setSync("ui.darkMode", nativeTheme.shouldUseDarkColors);
+    return nativeTheme.shouldUseDarkColors;
   });
 
   window.on("closed", () => {
@@ -128,16 +138,15 @@ app.on("activate", () => {
 
 // create main BrowserWindow when electron is ready
 app.on("ready", async () => {
-  if (settings.getSync("ui.darkMode") === undefined) {
-    const { nativeTheme } = require("electron");
-    console.log(
-      "darkmode info:",
-      nativeTheme.themeSource,
-      nativeTheme.shouldUseDarkColors,
-      nativeTheme.themeSource
-    );
-    settings.setSync("ui.darkMode", nativeTheme.shouldUseDarkColors);
+  let darkMode = settings.getSync("ui.darkModePref");
+  if (darkMode === undefined) {
+    darkMode = "system";
+    settings.setSync("ui.darkModePref", "system");
   }
+  // Setting nativeTheme currently only seems to work at this point in the code
+  nativeTheme.themeSource = darkMode;
+  settings.setSync("ui.darkMode", nativeTheme.shouldUseDarkColors);
+
   if (isDevelopment) {
     await installExtension(REACT_DEVELOPER_TOOLS)
       .then(name => console.log(`Added Extension:  ${name}`))

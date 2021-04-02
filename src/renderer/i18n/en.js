@@ -34,7 +34,8 @@ const English = {
   },
   dialog: {
     ok: "Ok",
-    cancel: "Cancel"
+    cancel: "Cancel",
+    allFiles: "All Files"
   },
   app: {
     device: "Keyboard",
@@ -99,6 +100,41 @@ const English = {
       Blank: "Blank",
       "Unknown keycodes": "Unknown keycodes"
     },
+    macros: {
+      add: "Add new macro",
+      applyAndExit: "Apply & Exit",
+      backup: "Backup All",
+      backupMacro: "Backup Macros",
+      backupMacroFile: "Backup Macros to file",
+      copy: "Copy",
+      editMacros: "Edit macros",
+      delay: "Delay",
+      delete: "Delete",
+      errorExport: "The file is not a valid macro export",
+      export: "Export",
+      functions: "Functions",
+      import: "Import",
+      inputText: "Input Text",
+      inputTextBox: "Type text into Macro editor",
+      insertModifiers: "Add Modifier",
+      keysAndDelays: "Keys & Delay",
+      loadMacro: "Load Macros",
+      loadMacroFile: "Load Macro file",
+      macroName: "Macro Name",
+      mouse: "Mouse",
+      restore: "Restore All",
+      restoreMacros: "Restore Macros",
+      restoreMacrosFile: "Restore Macros file",
+      save: "Save",
+      saveMacros: "Save Macros",
+      saveMacrosFile: "Save Macros file",
+      selectAction: "Select Action",
+      selectFunction: "Select Function",
+      selectKey: "Select Key",
+      selectMacro: "Select a Macro",
+      selectMouseFunction: "Select Mouse Function",
+      title: "Macro Editor"
+    },
     clearLayer: "Clear layer",
     clearLayerQuestion: "Clear layer?",
     clearLayerPrompt: "This will reset the layer to its default state.",
@@ -126,8 +162,13 @@ const English = {
     language: "Language",
     interface: "Interface",
     advanced: "Advanced",
-    darkMode: "Dark mode",
-    verboseFocus: "Verbose logging"
+    verboseFocus: "Verbose logging",
+    darkMode: {
+      label: "Dark mode",
+      light: "Light",
+      dark: "Dark",
+      system: "System"
+    }
   },
   keyboardSettings: {
     advanced: "Advanced",

@@ -129,7 +129,7 @@ class FirmwareUpdate extends React.Component {
     super(props);
 
     let focus = new Focus();
-    this.fleshRaise = null;
+    this.flashRaise = null;
     this.isDevelopment = process.env.NODE_ENV !== "production";
 
     this.state = {
@@ -224,20 +224,21 @@ class FirmwareUpdate extends React.Component {
       }, 1000);
       await delay(3000);
       if (!focus.device.bootloader) {
-        await this.fleshRaise.resetKeyboard(focus._port);
+        await this.flashRaise.resetKeyboard(focus._port);
       }
       this.setState({ countdown: "" });
     }
 
     try {
       if (focus.device.bootloader) {
-        this.fleshRaise.currentPort = this.props.device;
+        this.flashRaise.currentPort = this.props.device;
       }
       await focus.close();
+      console.log("done closing focus");
       return await this.state.device.device.flash(
         focus._port,
         filename,
-        this.fleshRaise
+        this.flashRaise
       );
     } catch (e) {
       console.error(e);
@@ -295,9 +296,9 @@ class FirmwareUpdate extends React.Component {
     if (this.state.versions) await focus.command("led.mode 1");
     this.setState({ confirmationOpen: true, isBeginUpdate: true });
     try {
-      this.fleshRaise = new FlashRaise(this.props.device);
+      this.flashRaise = new FlashRaise(this.props.device);
       if (!focus.device.bootloader) {
-        await this.fleshRaise.backupSettings();
+        await this.flashRaise.backupSettings();
       }
       this.setState({ countdown: 3 });
     } catch (e) {

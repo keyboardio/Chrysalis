@@ -127,7 +127,7 @@ class Focus {
   }
 
   close() {
-    if (this._port) {
+    if (this._port && this._port.isOpen) {
       this._port.close();
     }
     this._port = null;

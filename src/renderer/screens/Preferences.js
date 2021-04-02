@@ -18,7 +18,7 @@
 
 import React from "react";
 import PropTypes from "prop-types";
-import Electron from "electron";
+import Electron, { app } from "electron";
 
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
@@ -28,9 +28,18 @@ import CardContent from "@material-ui/core/CardContent";
 import Collapse from "@material-ui/core/Collapse";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Portal from "@material-ui/core/Portal";
+import MenuItem from "@material-ui/core/MenuItem";
+import FilledInput from "@material-ui/core/FilledInput";
+import Select from "@material-ui/core/Select";
 import Switch from "@material-ui/core/Switch";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
+import { toast } from "react-toastify";
+import {
+  ComputerRounded,
+  Brightness3Rounded,
+  WbSunnyRounded
+} from "@material-ui/icons";
 
 import {
   KeyboardSettings,
@@ -41,6 +50,8 @@ import i18n from "../i18n";
 
 import Focus from "../../api/focus";
 import settings from "electron-settings";
+
+const { ipcRenderer } = require("electron");
 
 const styles = theme => ({
   root: {
@@ -70,6 +81,10 @@ const styles = theme => ({
     paddingTop: theme.spacing(),
     width: 200
   },
+  selectDarkMode: {
+    paddingTop: theme.spacing(),
+    width: 30
+  },
   advanced: {
     display: "flex",
     justifyContent: "center",
@@ -87,7 +102,8 @@ class Preferences extends React.Component {
   state = {
     devTools: false,
     advanced: false,
-    verboseFocus: false
+    verboseFocus: false,
+    darkMode: "system"
   };
 
   componentDidMount() {
@@ -102,6 +118,13 @@ class Preferences extends React.Component {
 
     let focus = new Focus();
     this.setState({ verboseFocus: focus.debug });
+
+    let darkModeSetting = settings.getSync("ui.darkModePref");
+    console.log("bleep!:", darkModeSetting);
+    if (darkModeSetting === undefined) {
+      darkModeSetting = "system";
+    }
+    this.setState({ darkMode: darkModeSetting });
   }
 
   toggleDevTools = event => {
@@ -125,6 +148,48 @@ class Preferences extends React.Component {
     }));
   };
 
+  selectDarkMode = event => {
+    this.setState({ darkMode: event.target.value });
+    const darkMode = event.target.value;
+    // settings.setSync("ui.darkModePref", darkMode);
+    console.log("bing!:", darkMode);
+    ipcRenderer.invoke("dark-mode:set", darkMode);
+    console.log("bong!:", darkMode);
+
+    // TODO this needs to be fixed to change the settings without requiring a restart
+    if (darkMode === "system") {
+      toast.info(
+        <div>
+          <ComputerRounded />
+          <p>
+            <b>Dark mode preferences updated!</b>
+          </p>
+          <p>Please restart BAZECOR for the changes to take effect</p>
+        </div>
+      );
+    } else if (darkMode === "dark") {
+      toast.info(
+        <div>
+          <Brightness3Rounded />
+          <p>
+            <b>Dark mode preferences updated!</b>
+          </p>
+          <p>Please restart BAZECOR for the changes to take effect</p>
+        </div>
+      );
+    } else {
+      toast.info(
+        <div>
+          <WbSunnyRounded />
+          <p>
+            <b>Blues brothers mode enabled!</b>
+          </p>
+          <p>Please restart BAZECOR when your have you sunglasses ready!</p>
+        </div>
+      );
+    }
+  };
+
   toggleVerboseFocus = event => {
     this.setState({ verboseFocus: event.target.checked });
     let focus = new Focus();
@@ -134,6 +199,31 @@ class Preferences extends React.Component {
   render() {
     const { classes } = this.props;
 
+    const darkModeSwitch = (
+      <Select
+        onChange={this.selectDarkMode}
+        value={this.state.darkMode}
+        variant="filled"
+        input={
+          <FilledInput
+            classes={{
+              root: classes.selectContainer,
+              input: classes.selectDarkMode
+            }}
+          />
+        }
+      >
+        <MenuItem value={"system"}>
+          <ComputerRounded />
+        </MenuItem>
+        <MenuItem value={"dark"}>
+          <Brightness3Rounded />
+        </MenuItem>
+        <MenuItem value={"light"}>
+          <WbSunnyRounded />
+        </MenuItem>
+      </Select>
+    );
     const devToolsSwitch = (
       <Switch
         checked={this.state.devTools}
@@ -190,6 +280,13 @@ class Preferences extends React.Component {
           </Typography>
           <Card>
             <CardContent>
+              <FormControlLabel
+                className={classes.control}
+                classes={{ label: classes.grow }}
+                control={darkModeSwitch}
+                labelPlacement="start"
+                label={i18n.preferences.darkMode.label}
+              />
               <FormControlLabel
                 className={classes.control}
                 classes={{ label: classes.grow }}

@@ -3,7 +3,7 @@ import classNames from "classnames";
 import MacroTableRow from "./MacroTableRow";
 import MacroToolTab from "./MacroToolTab";
 
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles, useTheme } from "@material-ui/core/styles";
 import { List } from "@material-ui/core";
 import RootRef from "@material-ui/core/RootRef";
 import {
@@ -21,8 +21,8 @@ const styles = theme => ({
   },
   margin: {
     margin: theme.spacing(),
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(),
+    marginBottom: theme.spacing(),
     paddingTop: theme.spacing(),
     paddingBottom: theme.spacing()
   },
@@ -58,9 +58,6 @@ const styles = theme => ({
     position: "relative",
     placeContent: "space-between",
     margin: theme.spacing()
-  },
-  whitebg: {
-    backgroundColor: "#ffffff"
   }
 });
 
@@ -261,7 +258,7 @@ class MacroTable extends Component {
   }
 
   assignSymbol(macro) {
-    // TODO: redo the function as assingColor to replace keycodes that are not represented (space, enter, tab, etc.. per icons or altcodes to be shown in their stead)
+    // TODO: redo the function as assignColor to replace keycodes that are not represented (space, enter, tab, etc.. per icons or altcodes to be shown in their stead)
     let action = [];
     for (const char of macro.split("")) {
       let keyCode = this.keymapDB.reverse(char.toUpperCase());

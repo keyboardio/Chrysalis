@@ -3,10 +3,19 @@ import classNames from "classnames";
 import MacroTable from "./MacroTable";
 import MacroSelector from "./MacroSelector";
 
+import {
+  ArchiveRounded,
+  UnarchiveRounded,
+  SaveRounded,
+  InputRounded,
+  SaveAltRounded
+} from "@material-ui/icons";
+
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
+import i18n from "../../i18n";
 
 const styles = theme => ({
   root: {
@@ -14,7 +23,7 @@ const styles = theme => ({
     flexWrap: "wrap"
   },
   margin: {
-    margin: theme.spacing.unit
+    margin: theme.spacing()
   },
   textField: {
     flexBasis: 200,
@@ -26,23 +35,22 @@ const styles = theme => ({
   button: {
     float: "right"
   },
-  bg: {
-    backgroundColor: "#f9f9f9",
-    padding: "16px",
-    borderLeft: "solid 1px lightgrey"
-  },
-  bglist: {
-    backgroundColor: "#eeeeee"
-  },
+  // bg: {
+  //   backgroundColor: "#f9f9f9",
+  //   padding: "16px",
+  //   borderLeft: "solid 1px lightgrey"
+  // },
+  // bglist: {
+  //   backgroundColor: "#eeeeee"
+  // },
   buttons: {
     display: "flex",
     position: "relative",
     placeContent: "space-between"
   },
-  grey: {
-    color: "#999999",
-    border: "1px solid rgba(70, 70, 70, 0.25)"
-  },
+  // grey: {
+  //   color: theme.palette.text.secondary //,border: "1px solid rgba(70, 70, 70, 0.25)"
+  // },
   centered: {
     placeContent: "center"
   }
@@ -112,11 +120,11 @@ class MacroForm extends Component {
 
   toImport() {
     let options = {
-      title: "Load Macro file",
-      buttonLabel: "Load Macro",
+      title: i18n.editor.macros.loadMacroFile,
+      buttonLabel: i18n.editor.macros.loadMacro,
       filters: [
         { name: "Json", extensions: ["json"] },
-        { name: "All Files", extensions: ["*"] }
+        { name: i18n.dialog.allFiles, extensions: ["*"] }
       ]
     };
     const remote = require("electron").remote;
@@ -159,12 +167,12 @@ class MacroForm extends Component {
       text: this.state.text
     });
     let options = {
-      title: "Save Macro file",
+      title: i18n.editor.macros.saveMacrosFile,
       defaultPath: this.state.name + ".json",
-      buttonLabel: "Save Macro",
+      buttonLabel: i18n.editor.macros.saveMacros,
       filters: [
         { name: "Json", extensions: ["json"] },
-        { name: "All Files", extensions: ["*"] }
+        { name: i18n.dialog.allFiles, extensions: ["*"] }
       ]
     };
     const remote = require("electron").remote;
@@ -186,11 +194,11 @@ class MacroForm extends Component {
 
   toRestore() {
     let options = {
-      title: "Restore Macros file",
-      buttonLabel: "Restore Macros",
+      title: i18n.editor.macros.restoreMacrosFile,
+      buttonLabel: i18n.editor.macros.restoreMacros,
       filters: [
         { name: "Json", extensions: ["json"] },
-        { name: "All Files", extensions: ["*"] }
+        { name: i18n.dialog.allFiles, extensions: ["*"] }
       ]
     };
     const remote = require("electron").remote;
@@ -231,12 +239,12 @@ class MacroForm extends Component {
 
   toBackup() {
     let options = {
-      title: "Backup Macros to file",
+      title: i18n.editor.macros.backupMacroFile,
       defaultPath: "allMacros.json",
-      buttonLabel: "Backup Macros",
+      buttonLabel: i18n.editor.macros.backupMacros,
       filters: [
         { name: "Json", extensions: ["json"] },
-        { name: "All Files", extensions: ["*"] }
+        { name: i18n.dialog.allFiles, extensions: ["*"] }
       ]
     };
     const remote = require("electron").remote;
@@ -278,19 +286,22 @@ class MacroForm extends Component {
             <div>
               <Button
                 variant="outlined"
-                color="primary"
+                //color="primary"
                 className={classNames(classes.margin, classes.grey)}
                 onClick={this.toRestore}
+                startIcon={<ArchiveRounded />}
               >
-                {"Restore"}
+                {i18n.editor.macros.restore}
               </Button>
+
               <Button
                 variant="outlined"
-                color="primary"
+                //color="primary"
                 className={classNames(classes.margin, classes.grey)}
                 onClick={this.toBackup}
+                startIcon={<UnarchiveRounded />}
               >
-                {"Backup"}
+                {i18n.editor.macros.backup}
               </Button>
             </div>
           </div>
@@ -299,8 +310,8 @@ class MacroForm extends Component {
           <TextField
             id="name"
             className={classNames(classes.margin, classes.textField)}
-            variant="standard"
-            label="Macro Name"
+            variant="outlined"
+            label={i18n.editor.macros.macroName}
             value={this.state.name}
             onChange={e => {
               this.setState({ name: e.target.value });
@@ -319,30 +330,32 @@ class MacroForm extends Component {
             number={this.props.macros.length}
           />
           <div className={classes.buttons}>
-            <Button
+            {/* <Button
               variant="outlined"
               color="secondary"
               className={classes.margin}
               onClick={close}
             >
-              {"Cancel"}
-            </Button>
+              {i18n.dialog.cancel}
+            </Button> */}
             <div>
               <Button
                 variant="outlined"
-                color="primary"
+                //color="primary"
                 className={classNames(classes.margin, classes.grey)}
                 onClick={this.toImport}
+                startIcon={<InputRounded />}
               >
-                {"Import"}
+                {i18n.editor.macros.import}
               </Button>
               <Button
                 variant="outlined"
-                color="primary"
+                //color="primary"
                 className={classNames(classes.margin, classes.grey)}
                 onClick={this.toExport}
+                startIcon={<SaveRounded />}
               >
-                {"Export"}
+                {i18n.editor.macros.export}
               </Button>
             </div>
             <Button
@@ -350,8 +363,9 @@ class MacroForm extends Component {
               color="primary"
               className={classNames(classes.margin, classes.button)}
               onClick={this.updateMacro}
+              startIcon={<SaveAltRounded />}
             >
-              {"Apply & Exit"}
+              {i18n.editor.macros.applyAndExit}
             </Button>
           </div>
         </Grid>

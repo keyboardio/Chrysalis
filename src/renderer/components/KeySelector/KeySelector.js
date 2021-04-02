@@ -48,14 +48,14 @@ const styles = theme => ({
   },
   key: {
     fontFamily: '"Source Code Pro", monospace',
-    margin: theme.spacing.unit / 2,
+    margin: theme.spacing(0.5),
     padding: "4px 8px",
     minWidth: "auto",
     minHeight: "auto",
     whiteSpace: "nowrap"
   },
   keygroup: {
-    margin: theme.spacing.unit
+    margin: theme.spacing()
   },
   keylist: {
     display: "flex",
@@ -68,7 +68,7 @@ const styles = theme => ({
     color: theme.palette.primary.main
   },
   checkbox: {
-    marginRight: theme.spacing.unit * 4
+    marginRight: theme.spacing(4)
   },
   checkboxRoot: {
     padding: "12px 4px 12px 12px"

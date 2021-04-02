@@ -47,7 +47,7 @@ import SettingsBackupRestoreIcon from "@material-ui/icons/SettingsBackupRestore"
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
-import { withSnackbar } from "notistack";
+import { toast } from "react-toastify";
 
 import { getStaticPath } from "../config";
 import SaveChangesButton from "../components/SaveChangesButton";
@@ -61,8 +61,8 @@ const styles = theme => ({
     justifyContent: "center"
   },
   card: {
-    margin: theme.spacing.unit * 4,
-    padding: theme.spacing.unit * 5,
+    margin: theme.spacing(4),
+    padding: theme.spacing(5),
     maxWidth: "50%"
   },
   cardTitle: {
@@ -70,7 +70,7 @@ const styles = theme => ({
   },
   cardSub: {
     fontSize: "1rem",
-    paddingBottom: theme.spacing.unit
+    paddingBottom: theme.spacing()
   },
   cardIta: {
     fontStyle: "italic",
@@ -109,7 +109,7 @@ const styles = theme => ({
     textAlign: "center"
   },
   firmwareSelect: {
-    marginLeft: theme.spacing.unit * 2
+    marginLeft: theme.spacing(2)
   },
   grid: {
     width: "70%"
@@ -120,7 +120,7 @@ const styles = theme => ({
   paper: {
     width: "85%",
     margin: "auto",
-    marginBottom: theme.spacing.unit * 2
+    marginBottom: theme.spacing(2)
   }
 });
 
@@ -129,7 +129,7 @@ class FirmwareUpdate extends React.Component {
     super(props);
 
     let focus = new Focus();
-    this.fleshRaise = null;
+    this.flashRaise = null;
     this.isDevelopment = process.env.NODE_ENV !== "production";
 
     this.state = {
@@ -224,20 +224,21 @@ class FirmwareUpdate extends React.Component {
       }, 1000);
       await delay(3000);
       if (!focus.device.bootloader) {
-        await this.fleshRaise.resetKeyboard(focus._port);
+        await this.flashRaise.resetKeyboard(focus._port);
       }
       this.setState({ countdown: "" });
     }
 
     try {
       if (focus.device.bootloader) {
-        this.fleshRaise.currentPort = this.props.device;
+        this.flashRaise.currentPort = this.props.device;
       }
       await focus.close();
+      console.log("done closing focus");
       return await this.state.device.device.flash(
         focus._port,
         filename,
-        this.fleshRaise
+        this.flashRaise
       );
     } catch (e) {
       console.error(e);
@@ -251,39 +252,25 @@ class FirmwareUpdate extends React.Component {
       await this._flash();
     } catch (e) {
       console.error(e);
-      const action = key => (
+      const action = ({ closeToast }) => (
         <React.Fragment>
           <Button
-            color="inherit"
+            color="contained"
             onClick={() => {
               const shell = Electron.remote && Electron.remote.shell;
               shell.openExternal(
                 "https://support.dygma.com/hc/en-us/articles/360017056397"
               );
-              this.props.closeSnackbar(key);
             }}
           >
             Troubleshooting
           </Button>
-          <Button
-            color="inherit"
-            onClick={() => {
-              this.props.closeSnackbar(key);
-            }}
-          >
-            Dismiss
-          </Button>
+          <Button onClick={closeToast}>Dismiss</Button>
         </React.Fragment>
       );
-      this.props.enqueueSnackbar(
-        this.state.device.device.info.product === "Raise"
-          ? e.message
-          : i18n.firmwareUpdate.flashing.error,
-        {
-          variant: "error",
-          action
-        }
-      );
+      toast.error(i18n.t("firmwareUpdate.flashing.error"), {
+        closeButton: action
+      });
       this.props.toggleFlashing();
       this.props.onDisconnect();
       this.setState({ confirmationOpen: false });
@@ -294,9 +281,7 @@ class FirmwareUpdate extends React.Component {
       let focus = new Focus();
       if (this.state.versions) await focus.command("led.mode 0");
       setTimeout(() => {
-        this.props.enqueueSnackbar(i18n.firmwareUpdate.flashing.success, {
-          variant: "success"
-        });
+        toast.success(i18n.t("firmwareUpdate.flashing.success"));
 
         this.props.toggleFlashing();
         this.props.onDisconnect();
@@ -311,18 +296,17 @@ class FirmwareUpdate extends React.Component {
     if (this.state.versions) await focus.command("led.mode 1");
     this.setState({ confirmationOpen: true, isBeginUpdate: true });
     try {
-      this.fleshRaise = new FlashRaise(this.props.device);
+      this.flashRaise = new FlashRaise(this.props.device);
       if (!focus.device.bootloader) {
-        await this.fleshRaise.backupSettings();
+        await this.flashRaise.backupSettings();
       }
       this.setState({ countdown: 3 });
     } catch (e) {
       console.error(e);
-      this.props.enqueueSnackbar(e.message, {
-        variant: "error",
-        action: (
+      const action = ({ closeToast }) => (
+        <React.Fragment>
           <Button
-            variant="contained"
+            color="contained"
             onClick={() => {
               const shell = Electron.remote && Electron.remote.shell;
               shell.openExternal(
@@ -332,7 +316,11 @@ class FirmwareUpdate extends React.Component {
           >
             Troubleshooting
           </Button>
-        )
+          <Button onClick={closeToast}>Dismiss</Button>
+        </React.Fragment>
+      );
+      toast.error(i18n.t("firmwareUpdate.flashing.error"), {
+        closeButton: action
       });
       this.setState({ confirmationOpen: false });
     }
@@ -477,7 +465,7 @@ class FirmwareUpdate extends React.Component {
               <SnackbarContent
                 className={classes.snackNot}
                 message={
-                  <Typography component="p" gutterBottom>
+                  <Typography component="div" gutterBottom>
                     <div style={{ display: "flex" }}>
                       <div>
                         <InfoRounded
@@ -537,7 +525,7 @@ class FirmwareUpdate extends React.Component {
               <SnackbarContent
                 className={classes.snackNot}
                 message={
-                  <Typography component="p" gutterBottom>
+                  <Typography component="div" gutterBottom>
                     <div style={{ display: "flex" }}>
                       <div>
                         <InfoRounded
@@ -575,7 +563,7 @@ class FirmwareUpdate extends React.Component {
             <SnackbarContent
               className={classes.snackVer}
               message={
-                <Typography component="p">
+                <Typography component="div">
                   <div style={{ display: "flex" }}>
                     <div>
                       <InfoRounded
@@ -673,4 +661,4 @@ class FirmwareUpdate extends React.Component {
   }
 }
 
-export default withSnackbar(withStyles(styles)(FirmwareUpdate));
+export default withStyles(styles)(FirmwareUpdate);

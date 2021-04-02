@@ -96,14 +96,12 @@ function UnderglowButton(props) {
     pointerEvents: "auto",
     cursor: "pointer",
     color: !isWhiteColor ? "white" : "black",
-    background: `rgb(${colorFocusButton.r}, ${colorFocusButton.g}, ${
-      colorFocusButton.b
-    })`
+    background: `rgb(${colorFocusButton.r}, ${colorFocusButton.g}, ${colorFocusButton.b})`
   };
   const [, setBackgroundColor] = useState(enable);
-  useEffect(() => {
-    return () => setBackgroundColor(style);
-  }, []);
+  // useEffect(() => {
+  //   return () => setBackgroundColor(style);
+  // });
   return (
     <Tooltip placement="top-start" title={props.children}>
       <div className={classes.root}>

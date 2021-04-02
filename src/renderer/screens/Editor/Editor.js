@@ -40,7 +40,7 @@ import Slide from "@material-ui/core/Slide";
 import Toolbar from "@material-ui/core/Toolbar";
 import Tooltip from "@material-ui/core/Tooltip";
 import { withStyles } from "@material-ui/core/styles";
-import { withSnackbar } from "notistack";
+import { toast } from "react-toastify";
 
 import Focus from "../../../api/focus";
 import Keymap, { KeymapDB } from "../../../api/keymap";
@@ -59,7 +59,7 @@ const store = new Store();
 
 const styles = theme => ({
   tbg: {
-    marginRight: theme.spacing.unit * 4
+    marginRight: theme.spacing(4)
   },
   layerSelectItem: {
     display: "inline-flex"
@@ -72,24 +72,24 @@ const styles = theme => ({
     margin: "2px auto"
   },
   moreMenu: {
-    marginTop: theme.spacing.unit * 4
+    marginTop: theme.spacing(4)
   },
   layerItem: {
-    paddingLeft: theme.spacing.unit * 4
+    paddingLeft: theme.spacing(4)
   },
   layerSelect: {
-    marginRight: theme.spacing.unit * 4
+    marginRight: theme.spacing(4)
   },
   tabWrapper: {
     flexDirection: "row",
     "& svg": {
       position: "relative",
-      top: -theme.spacing.unit / 2
+      top: -theme.spacing(0.5)
     }
   },
   tabLabelContainer: {
     width: "auto",
-    padding: `6px ${theme.spacing.unit}px`
+    padding: `6px ${theme.spacing()}px`
   },
   disabledLayer: {
     opacity: 0.5,
@@ -197,13 +197,10 @@ class Editor extends React.Component {
       // Point of restoration for WhiteBalance
       // let palette = this.props.revertBalance(colormap.palette.slice());
       let palette = colormap.palette.slice();
-      const undeglowColors = settings.get("undeglowColors");
+      const undeglowColors = settings.getSync("undeglowColors");
       let raw = await focus.command("macros.map");
       if (raw.search(" 0 0 ") !== -1) {
-        raw = raw
-          .split(" 0 0 ")[0]
-          .split(" ")
-          .map(Number);
+        raw = raw.split(" 0 0 ")[0].split(" ").map(Number);
       } else {
         raw = "";
       }
@@ -233,7 +230,7 @@ class Editor extends React.Component {
       );
       this.bottomMenuNeverHide();
     } catch (e) {
-      this.props.enqueueSnackbar(e, { variant: "error" });
+      toast.error(e);
       this.props.onDisconnect();
     }
   };
@@ -465,7 +462,7 @@ class Editor extends React.Component {
   // Callback function to set State of new Language
   onChangeLanguageLayout = () => {
     this.setState({
-      currentLanguageLayout: settings.get("keyboard.language") || "english"
+      currentLanguageLayout: settings.getSync("keyboard.language") || "english"
     });
   };
 
@@ -476,7 +473,7 @@ class Editor extends React.Component {
         this.state.defaultLayer >= 126 ? 0 : this.state.defaultLayer;
       let initialLayer = 0;
 
-      if (!settings.get("keymap.showDefaults")) {
+      if (!settings.getSync("keymap.showDefaults")) {
         if (defLayer < keymap.default.length) {
           initialLayer = keymap.onlyCustom ? 0 : keymap.default.length;
         }
@@ -896,10 +893,7 @@ class Editor extends React.Component {
         })
         .concat([0]);
     });
-    const mapped = [].concat
-      .apply([], actionMap.flat())
-      .concat([0])
-      .join(" ");
+    const mapped = [].concat.apply([], actionMap.flat()).concat([0]).join(" ");
     console.log(mapped);
     return mapped;
   }
@@ -940,13 +934,9 @@ class Editor extends React.Component {
             if (Array.isArray(layers.keymap)) {
               console.log(layers.keymap[0]);
               this.importLayer(layers);
-              this.props.enqueueSnackbar(
-                "Imported to current Layer succesfully",
-                {
-                  variant: "success",
-                  autoHideDuration: 2000
-                }
-              );
+              toast.success(i18n.t("editor.importSuccessCurrentLayer"), {
+                autoClose: 2000
+              });
             } else {
               console.log(layers.keymap.custom[0]);
               this.setState({
@@ -956,16 +946,14 @@ class Editor extends React.Component {
                 modified: true
               });
               this.props.startContext();
-              this.props.enqueueSnackbar("Imported all Layers succesfully", {
-                variant: "success",
-                autoHideDuration: 2000
+              toast.success(i18n.t("editor.importSuccessAllLayers"), {
+                autoClose: 2000
               });
             }
           } catch (e) {
             console.error(e);
-            this.props.enqueueSnackbar("Not a valid Layer file", {
-              variant: "error",
-              autoHideDuration: 2000
+            toast.error(i18n.t("errors.invalidLayerFile"), {
+              autoClose: 2000
             });
             return;
           }
@@ -1018,9 +1006,8 @@ class Editor extends React.Component {
         if (!resp.canceled) {
           console.log(resp.filePath, data);
           require("fs").writeFileSync(resp.filePath, data);
-          this.props.enqueueSnackbar("Export Successful", {
-            variant: "success",
-            autoHideDuration: 2000
+          toast.success(i18n.t("editor.exportSuccessCurrentLayer"), {
+            autoClose: 2000
           });
         } else {
           console.log("user closed SaveDialog");
@@ -1028,9 +1015,8 @@ class Editor extends React.Component {
       })
       .catch(err => {
         console.error(err);
-        this.props.enqueueSnackbar("Error at Exporting: " + err, {
-          variant: "error",
-          autoHideDuration: 2000
+        toast.error(i18n.t("errors.exportError") + err, {
+          autoClose: 2000
         });
       });
   }
@@ -1063,9 +1049,8 @@ class Editor extends React.Component {
         if (!resp.canceled) {
           console.log(resp.filePath, data);
           require("fs").writeFileSync(resp.filePath, data);
-          this.props.enqueueSnackbar("Backed up Layers Successfully", {
-            variant: "success",
-            autoHideDuration: 2000
+          toast.success(i18n.t("editor.exportSuccessAllLayers"), {
+            autoClose: 2000
           });
         } else {
           console.log("user closed SaveDialog");
@@ -1073,9 +1058,8 @@ class Editor extends React.Component {
       })
       .catch(err => {
         console.error(err);
-        this.props.enqueueSnackbar("Error at Exporting: " + err, {
-          variant: "error",
-          autoHideDuration: 2000
+        toast.error(i18n.t("errors.exportError") + err, {
+          autoClose: 2000
         });
       });
   }
@@ -1084,7 +1068,7 @@ class Editor extends React.Component {
     const { classes } = this.props;
     const { keymap, palette, isColorButtonSelected } = this.state;
     let Layer = this.getLayout();
-    const showDefaults = settings.get("keymap.showDefaults");
+    const showDefaults = settings.getSync("keymap.showDefaults");
 
     let currentLayer = this.state.currentLayer;
 
@@ -1302,4 +1286,4 @@ Editor.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withSnackbar(withStyles(styles, { withTheme: true })(Editor));
+export default withStyles(styles, { withTheme: true })(Editor);

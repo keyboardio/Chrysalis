@@ -5,13 +5,22 @@ import MacroTabSpecial from "./MacroTabSpecial";
 import MacroTabMouse from "./MacroTabMouse";
 
 import { withStyles } from "@material-ui/core/styles";
-import { TextField, IconButton, Paper, Tabs, Tab } from "@material-ui/core";
+import {
+  AppBar,
+  TextField,
+  IconButton,
+  Paper,
+  Tabs,
+  Tab
+} from "@material-ui/core";
 import { PublishRounded } from "@material-ui/icons";
+import i18n from "../../i18n";
+
 const styles = theme => ({
   root: {
     backgroundColor: theme.palette.background.paper,
     width: "-webkit-fill-available",
-    margin: theme.spacing.unit,
+    margin: theme.spacing(),
     border: "solid 1px #bbbbbb",
     borderRadius: "4px"
   },
@@ -23,31 +32,40 @@ const styles = theme => ({
     borderRadius: "4px"
   },
   margin: {
-    padding: theme.spacing.unit,
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2
+    padding: theme.spacing()
+    //   ,
+    //   paddingTop: theme.spacing(2),
+    //   paddingBottom: theme.spacing(2)
   },
   textField: {
-    flexBasis: "444px",
-    margin: "0px",
-    marginRight: theme.spacing.unit * 4
+    //   flexBasis: "444px",
+    //   margin: "0px"
+    //   //,
+    marginRight: theme.spacing()
+  },
+  avatar: {
+    paddingTop: "4px",
+    paddingBottom: "4px"
   },
   iconbutton: {
-    width: "56px",
-    height: "56px"
+    width: "58px",
+    height: "58px"
   },
   code: {
     width: "-webkit-fill-available"
   },
   flex: {
-    display: "flex",
-    position: "relative",
-    placeContent: "space-between",
-    margin: theme.spacing.unit
-  },
-  whitebg: {
-    backgroundColor: "#ffffff"
+    display: "flex"
+    //,
+    //   position: "relative",
+    //   placeContent: "space-between"
+    //   // ,
+    //   // margin: theme.spacing()
   }
+  // ,
+  // whitebg: {
+  //   backgroundColor: "#ffffff"
+  // }
 });
 class MacroToolTab extends Component {
   constructor(props) {
@@ -70,12 +88,12 @@ class MacroToolTab extends Component {
       <div className={classNames(classes.flex, classes.margin)}>
         <TextField
           id="AddTextToMacro"
-          label="Type text into Macro editor"
+          label={i18n.editor.macros.inputTextBox}
           className={classNames(classes.textField, classes.code)}
           value={this.props.addText}
           onChange={this.props.onTextChange}
-          margin="normal"
-          variant="outlined"
+          // margin="normal"
+          // variant="outlined"
         />
         <IconButton
           onClick={this.props.onAddText}
@@ -120,28 +138,36 @@ class MacroToolTab extends Component {
 
     return (
       <div className={classes.root}>
-        <Paper>
+        <AppBar position="static" color="default">
           <Tabs
             value={value}
             onChange={this.handleChange}
             indicatorColor="primary"
             textColor="primary"
-            variant="standard"
+            variant="fullWidth"
           >
-            <Tab className={classes.tabroot} value="Text" label="Input Text" />
+            <Tab
+              className={classes.tabroot}
+              value="Text"
+              label={i18n.editor.macros.inputText}
+            />
             <Tab
               className={classes.tabroot}
               value="Keys"
-              label="Keys & Delay"
+              label={i18n.editor.macros.keysAndDelays}
             />
             <Tab
               className={classes.tabroot}
               value="Functions"
-              label="Functions"
+              label={i18n.editor.macros.functions}
             />
-            <Tab className={classes.tabroot} value="Mouse" label="Mouse" />
+            <Tab
+              className={classes.tabroot}
+              value="Mouse"
+              label={i18n.editor.macros.mouse}
+            />
           </Tabs>
-        </Paper>
+        </AppBar>
         {value === "Text" && text}
         {value === "Keys" && keys}
         {value === "Functions" && functions}

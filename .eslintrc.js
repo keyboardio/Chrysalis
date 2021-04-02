@@ -4,9 +4,10 @@ module.exports = {
     "plugin:react/recommended",
     "plugin:jest/recommended",
     // 'plugin:jsx-a11y/recommended', // Don't uncomment until you're ready to fix some stuff
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:react-hooks/recommended"
   ],
-  parser: "babel-eslint",
+  parser: "@babel/eslint-parser",
   parserOptions: {
     ecmaVersion: 2017,
     sourceType: "module"
@@ -22,7 +23,20 @@ module.exports = {
   rules: {
     "no-console": 0,
     "react/prop-types": 0,
-    "no-unused-vars": 1
+    "no-unused-vars": 0, // disabled due to false positives
+    "no-async-promise-executor": 0, // grandfathered in during eslint update; would be nice to remove
+    "no-prototype-builtins": 0, // grandfathered in during eslint update; would be nice to remove
+    // "react-hooks/rules-of-hooks": "error",
+    // "react-hooks/exhaustive-deps": "warn",
+    // Added to allow an update to prettier 2.x.x without actually making anything pretty
+    "prettier/prettier": [
+      "error",
+      {
+        trailingComma: "none",
+        arrowParens: "avoid",
+        endOfLine: "auto"
+      }
+    ]
   },
   settings: {
     react: {

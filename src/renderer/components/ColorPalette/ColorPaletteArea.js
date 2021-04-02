@@ -78,7 +78,7 @@ function ColorPaletteArea(props) {
       colorButtonsAmount[indexFocusButton] = { ...colorFocusButton };
       setColorButtonsAmount(colorButtonsAmount);
     }
-  }, [colorFocusButton]);
+  }, [colorButtonsAmount, colorFocusButton, indexFocusButton]);
 
   /**
    * Render color buttons area by two arrays from prop "pallete"

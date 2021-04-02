@@ -10,32 +10,35 @@ import {
   InputAdornment
 } from "@material-ui/core";
 import PublishRounded from "@material-ui/icons/PublishRounded";
+import i18n from "../../i18n";
 
 const styles = theme => ({
   root: {
     placeContent: "space-between",
     display: "flex",
-    flexWrap: "wrap",
-    margin: theme.spacing.unit,
-    backgroundColor: "#fff"
+    flexWrap: "wrap"
+    //margin: theme.spacing() //,
+    // backgroundColor: "#fff"
   },
   margin: {
-    margin: theme.spacing.unit
+    margin: theme.spacing()
   },
   textField: {
     minWidth: "200px",
-    padding: "0px"
+    //height: "61px",
+    padding: "0px",
+    margin: "none"
   },
   menuitem: {
     display: "flex"
   },
   iconbutton: {
-    width: "61px",
-    height: "61px"
+    width: "58px",
+    height: "58px"
   },
   avatar: {
-    fontSize: "18px",
-    color: "#999999"
+    paddingTop: "4px",
+    paddingBottom: "4px"
   }
 });
 
@@ -60,11 +63,12 @@ class MacroTabKeys extends Component {
           key={action + keyCode}
           id="Select Key"
           select
-          label="Select Key"
+          label={i18n.editor.macros.selectKey}
           value={keyCode}
-          margin="none"
-          variant="outlined"
+          //margin="none"
+          //variant="outlined"
           rows={10}
+          size="small"
           className={classes.textField}
           onChange={e => {
             this.setState({
@@ -77,7 +81,8 @@ class MacroTabKeys extends Component {
               <MenuItem value={item.code} key={`item-${id}`}>
                 <div className={classes.menuitem}>
                   <span className={classes.avatar}>
-                    {group.groupName.substring(0, 3)}
+                    {/* TODO lets see if we can make this a little nicer? */}
+                    {group.groupName}
                   </span>
                   <ListItemText inset primary={item.labels.primary} />
                 </div>
@@ -93,10 +98,10 @@ class MacroTabKeys extends Component {
           key={action + keyCode}
           id="Select Action"
           select
-          label="Select Action"
+          label={i18n.editor.macros.selectAction}
           value={action}
-          margin="none"
-          variant="outlined"
+          //margin="none"
+          // variant="outlined"
           size="small"
           className={classes.textField}
           onChange={e => {
@@ -125,10 +130,11 @@ class MacroTabKeys extends Component {
     const delayFill = (
       <TextField
         id="outlined-name"
-        label="Delay"
+        label={i18n.editor.macros.Delay}
         type="number"
         className={classes.textField}
         value={delay}
+        size="small"
         onChange={e => {
           if (e.target.value > 65536) {
             this.setState({ delay: 65536 });
@@ -139,8 +145,8 @@ class MacroTabKeys extends Component {
         InputProps={{
           startAdornment: <InputAdornment position="start">ms</InputAdornment>
         }}
-        margin="none"
-        variant="outlined"
+        //margin="none"
+        //variant="outlined"
       />
     );
 

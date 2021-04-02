@@ -11,23 +11,30 @@ import {
   IconButton
 } from "@material-ui/core";
 import { AddRounded, DeleteForever, FileCopy } from "@material-ui/icons";
+import i18n from "../../i18n";
+import Tooltip from "@material-ui/core/Tooltip";
 // import ArrowDownward from "@material-ui/icons/ArrowDownward";
 
-const styles = () => ({
+const styles = theme => ({
   list: {
     display: "block",
-    maxHeight: "571px",
+    height: "515px",
     overflow: "auto",
-    backgroundColor: "#eee",
-    height: "100%"
+    backgroundColor: theme.palette.background.default
   },
   selected: {
-    backgroundColor: "#f9f9f9"
+    backgroundColor: theme.palette.selectItem.main,
+    color: theme.palette.primary.main
   },
   notSelected: {
-    backgroundColor: "#eee"
+    backgroundColor: theme.palette.selectItem.notSelected,
+    cursor: "pointer",
+    "&:hover": {
+      background: theme.palette.selectItem.hover
+    }
   },
   extrapadding: {
+    paddingLeft: "10px",
     paddingTop: "10px",
     paddingBottom: "10px"
   }
@@ -55,42 +62,42 @@ class MacroSelector extends Component {
     });
     return (
       <React.Fragment>
-        <List className={classNames(classes.list)} disablePadding dense>
+        <List className={classNames(classes.list)}>
           {macros.length !== 0 ? (
             macros.map((item, index) => {
               if (item !== undefined) {
                 return (
                   <div key={index}>
-                    <ListItem className={highlight[index]}>
-                      <Avatar
-                        onClick={() => {
-                          this.onSelectMacro(index);
-                        }}
-                      >
-                        {index}
-                      </Avatar>
+                    <ListItem
+                      className={highlight[index]}
+                      onClick={() => {
+                        this.onSelectMacro(index);
+                      }}
+                    >
+                      <Avatar>{index}</Avatar>
                       <ListItemText
                         primary={item.name}
                         secondary={item.macro}
-                        onClick={() => {
-                          this.onSelectMacro(index);
-                        }}
                         className={classes.extrapadding}
                       />
-                      <IconButton
-                        onClick={() => {
-                          this.props.duplicateMacro(index);
-                        }}
-                      >
-                        <FileCopy fontSize="small" />
-                      </IconButton>
-                      <IconButton
-                        onClick={() => {
-                          this.props.deleteMacro(index);
-                        }}
-                      >
-                        <DeleteForever fontSize="small" />
-                      </IconButton>
+                      <Tooltip title={i18n.editor.macros.copy}>
+                        <IconButton
+                          onClick={() => {
+                            this.props.duplicateMacro(index);
+                          }}
+                        >
+                          <FileCopy fontSize="small" />
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title={i18n.editor.macros.delete}>
+                        <IconButton
+                          onClick={() => {
+                            this.props.deleteMacro(index);
+                          }}
+                        >
+                          <DeleteForever fontSize="small" />
+                        </IconButton>
+                      </Tooltip>
                     </ListItem>
                     <Divider variant="fullWidth" />
                   </div>
@@ -103,11 +110,13 @@ class MacroSelector extends Component {
             <React.Fragment />
           )}
           <ListItem>
-            <Avatar>N</Avatar>
-            <ListItemText primary="Add new Macro" />
-            <IconButton onClick={this.props.addMacro}>
-              <AddRounded />
-            </IconButton>
+            {/* <Avatar>N</Avatar>
+            <ListItemText primary="Add new Macro" /> */}
+            <Tooltip title={i18n.editor.macros.add}>
+              <IconButton onClick={this.props.addMacro}>
+                <AddRounded />
+              </IconButton>
+            </Tooltip>
           </ListItem>
         </List>
       </React.Fragment>

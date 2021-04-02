@@ -20,6 +20,8 @@ import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import Grid from "@material-ui/core/Grid";
 import Fab from "@material-ui/core/Fab";
+import IconButton from "@material-ui/core/IconButton";
+import Paper from "@material-ui/core/Paper";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
 import CloseIcon from "@material-ui/icons/Close";
 import Modal from "@material-ui/core/Modal";
@@ -33,24 +35,36 @@ const styles = theme => ({
   modal: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    border: "none",
+    outline: "none"
   },
   wrapper: {
     height: "90vh",
     width: "90vw",
-    position: "relative"
+    position: "relative",
+    outline: "none"
+    // backgroundColor: "#ff0000"
   },
   root: {
+    margin: "inherit",
     width: "100%",
     height: "100%",
-    backgroundColor: "#f5f5f5",
+    // backgroundColor: "#f5f5f5",
     boxShadow: "0 30px 50px rgba(0, 0, 0, 0.7)",
-    padding: "13px 8px 0"
+    padding: "13px 8px 0",
+    overflowY: "auto",
+    [theme.breakpoints.down("md")]: {
+      overflowY: "scroll"
+    },
+    outline: "none",
+    spacing: theme.spacing(),
+    alignItems: "flex-start"
   },
   close: {
     position: "absolute",
-    right: -20,
-    cursor: "pointer"
+    right: 15 //,
+    //cursor: "pointer"
   },
   margin: {
     display: "flex",
@@ -327,7 +341,7 @@ class SearchKeyBox extends Component {
           onClose={this.handleClose}
           closeAfterTransition
         >
-          <div className={classes.wrapper}>
+          <Paper className={classes.wrapper}>
             <CloseIcon className={classes.close} onClick={this.handleClose} />
             <Grid container direction="column" className={classes.root}>
               <TextField
@@ -348,7 +362,7 @@ class SearchKeyBox extends Component {
                 {groupeList}
               </Grid>
             </Grid>
-          </div>
+          </Paper>
         </Modal>
       </React.Fragment>
     );

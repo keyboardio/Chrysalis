@@ -25,9 +25,7 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Divider from "@material-ui/core/Divider";
 import FormControl from "@material-ui/core/FormControl";
-import green from "@material-ui/core/colors/green";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -38,7 +36,7 @@ import Select from "@material-ui/core/Select";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 
-import { withSnackbar } from "notistack";
+import { toast } from "react-toastify";
 
 import Focus from "../../api/focus";
 import Hardware from "../../api/hardware";
@@ -52,32 +50,38 @@ const styles = theme => ({
     position: "fixed",
     top: 0,
     left: 0,
-    right: 0
+    right: 0,
+    minWidth: 600
   },
   main: {
     width: "auto",
     display: "block",
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
-    [theme.breakpoints.up(500 + theme.spacing.unit * 3 * 2)]: {
-      width: 500,
-      marginLeft: "auto",
-      marginRight: "auto"
-    },
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px
- ${theme.spacing.unit * 3}px`
+    //     marginLeft: theme.spacing(3),
+    //     marginRight: theme.spacing(3),
+    //     [theme.breakpoints.up(500 + theme.spacing(6))]: {
+    //       width: 500,
+    //       marginLeft: "auto",
+    //       marginRight: "auto"
+    //     },
+    marginLeft: theme.spacing(3),
+    marginRight: theme.spacing(3),
+    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px
+    ${theme.spacing(3)}px`
   },
   preview: {
     maxWidth: 128,
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
     "& .key rect, & .key path, & .key ellipse": {
       stroke: "#000000"
     }
   },
   card: {
-    marginTop: theme.spacing.unit * 5,
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px
- ${theme.spacing.unit * 3}px`
+    marginTop: theme.spacing(5),
+    marginLeft: theme.spacing(5),
+    marginRight: theme.spacing(5),
+    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px
+    ${theme.spacing(3)}px`,
+    width: "500px"
   },
   content: {
     display: "inline-block",
@@ -87,26 +91,35 @@ const styles = theme => ({
   selectControl: {
     display: "flex"
   },
-  connect: {
-    verticalAlign: "bottom",
-    marginLeft: 65
-  },
-  cardActions: {
-    justifyContent: "center"
-  },
+  //   connect: {
+  //     verticalAlign: "bottom",
+  //     marginLeft: 65
+  //   },
+  //   cardActions: {
+  //     justifyContent: "center"
+  //   },
   supported: {
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.success.main
   },
   grow: {
     flexGrow: 1
   },
+  cards: {
+    display: "flex",
+    justifyContent: "center"
+  },
   error: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
     textAlign: "center"
   },
   found: {
-    color: green[500]
+    color: theme.palette.success.main
+  },
+  listItemIcon: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
   }
 });
 
@@ -229,7 +242,7 @@ class KeyboardSelect extends React.Component {
       this.setState({
         opening: false
       });
-      this.props.enqueueSnackbar(err.toString(), { variant: "error" });
+      toast.error(err.toString());
     }
 
     i18n.refreshHardware(devices[this.state.selectedPortIndex]);
@@ -261,7 +274,7 @@ class KeyboardSelect extends React.Component {
         }
 
         const icon = (
-          <ListItemIcon>
+          <ListItemIcon className={classes.listItemIcon}>
             <Avatar className={option.path && classes.supported}>
               <KeyboardIcon />
             </Avatar>
@@ -321,6 +334,8 @@ class KeyboardSelect extends React.Component {
     let focus = new Focus();
     const selectedDevice = devices && devices[this.state.selectedPortIndex];
 
+    //TODO consider implementing fix from chrsalis
+    // https://github.com/keyboardio/Chrysalis/pull/570
     if (selectedDevice && !selectedDevice.accessible) {
       permissionWarning = (
         <Typography variant="body1" color="error" className={classes.error}>
@@ -378,25 +393,27 @@ class KeyboardSelect extends React.Component {
     }
 
     return (
-      <div className={classes.main}>
+      <React.Fragment>
         <Portal container={this.props.titleElement}>
           {i18n.app.menu.selectAKeyboard}
         </Portal>
         {loader}
-        <Card className={classes.card}>
-          <CardContent className={classes.content}>
-            {preview}
-            {port}
-            {permissionWarning}
-          </CardContent>
-          <Divider variant="middle" />
-          <CardActions className={classes.cardActions}>
-            {scanDevicesButton}
-            <div className={classes.grow} />
-            {connectionButton}
-          </CardActions>
-        </Card>
-      </div>
+        {permissionWarning}
+        <div className={classes.cards}>
+          <Card className={classes.card}>
+            <CardContent className={classes.content}>
+              {preview}
+              {port}
+              {permissionWarning}
+            </CardContent>
+            <CardActions className={classes.cardActions}>
+              {scanDevicesButton}
+              <div className={classes.grow} />
+              {connectionButton}
+            </CardActions>
+          </Card>
+        </div>
+      </React.Fragment>
     );
   }
 }
@@ -405,4 +422,4 @@ KeyboardSelect.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withSnackbar(withStyles(styles)(KeyboardSelect));
+export default withStyles(styles)(KeyboardSelect);

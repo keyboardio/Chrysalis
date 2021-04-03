@@ -72,6 +72,9 @@ const English = {
   editor: {
     keyType: "Key type",
     keyCode: "Key code",
+    searchForKeyOrCategory: "Search for a key or category",
+    keyConfig: "Key Config",
+    keySelectorTitle: "Select Key",
     groups: {
       Letters: "Letters",
       Digits: "Digits",

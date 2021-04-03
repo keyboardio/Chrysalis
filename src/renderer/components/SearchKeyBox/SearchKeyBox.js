@@ -21,15 +21,16 @@ import PropTypes from "prop-types";
 import Grid from "@material-ui/core/Grid";
 import Fab from "@material-ui/core/Fab";
 import IconButton from "@material-ui/core/IconButton";
-import Paper from "@material-ui/core/Paper";
-import KeyboardIcon from "@material-ui/icons/Keyboard";
+import KeyboardIcon from "@material-ui/icons/KeyboardRounded";
+import SearchIcon from "@material-ui/icons/SearchRounded";
 import CloseIcon from "@material-ui/icons/Close";
-import Modal from "@material-ui/core/Modal";
+import { Modal, InputAdornment } from "@material-ui/core";
 
 import { KeymapDB } from "../../../api/keymap";
 import GroupItem from "./GroupItem";
 import { TextField } from "@material-ui/core";
 import classNames from "classnames";
+import i18n from "../../i18n";
 
 const styles = theme => ({
   modal: {
@@ -44,27 +45,26 @@ const styles = theme => ({
     width: "90vw",
     position: "relative",
     outline: "none"
-    // backgroundColor: "#ff0000"
   },
   root: {
-    margin: "inherit",
+    //margin: "inherit",
     width: "100%",
     height: "100%",
-    // backgroundColor: "#f5f5f5",
+    backgroundColor: theme.palette.background.default, //secondary.main,
     boxShadow: "0 30px 50px rgba(0, 0, 0, 0.7)",
-    padding: "13px 8px 0",
-    overflowY: "auto",
-    [theme.breakpoints.down("md")]: {
-      overflowY: "scroll"
-    },
+    padding: "0px 4px 4px 2px", //"13px 8px 0",
+    // overflowY: "auto",
+    // [theme.breakpoints.down("md")]: {
+    //   overflowY: "scroll"
+    // },
     outline: "none",
     spacing: theme.spacing(),
     alignItems: "flex-start"
   },
   close: {
     position: "absolute",
-    right: 15 //,
-    //cursor: "pointer"
+    right: 15,
+    top: 15
   },
   margin: {
     display: "flex",
@@ -81,14 +81,18 @@ const styles = theme => ({
   },
   groups: {
     flex: 1,
+    backgroundColor: theme.palette.background.default,
     overflowY: "auto",
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("lg")]: {
       overflowY: "scroll"
-    },
-    margin: "0px"
+    }
+    // marginLeft: "none", //theme.spacing(),
+    // marginRight: theme.spacing(2)
   },
   searchField: {
-    margin: "10px 10px"
+    margin: "10px 10px",
+    width: "70vw",
+    color: theme.palette.text.primary
   }
 });
 
@@ -331,7 +335,7 @@ class SearchKeyBox extends Component {
           onClick={this.handleOpen}
         >
           <KeyboardIcon className={classes.extendedIcon} />
-          Key config
+          {i18n.editor.keyConfig}
         </Fab>
         <Modal
           aria-labelledby="transition-modal-title"
@@ -341,28 +345,42 @@ class SearchKeyBox extends Component {
           onClose={this.handleClose}
           closeAfterTransition
         >
-          <Paper className={classes.wrapper}>
-            <CloseIcon className={classes.close} onClick={this.handleClose} />
+          <div className={classes.wrapper}>
+            <IconButton
+              aria-label="Close"
+              onClick={this.handleClose}
+              className={classes.close}
+            >
+              <CloseIcon />
+            </IconButton>
             <Grid container direction="column" className={classes.root}>
               <TextField
                 id="SearchFilter"
                 className={(classNames(classes.textField), classes.searchField)}
-                label="Search for a key or category"
+                label={i18n.editor.searchForKeyOrCategory}
                 value={this.state.filter}
                 onChange={this.onFilterChange}
                 variant="outlined"
+                color="secondary"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  )
+                }}
                 autoFocus
               />
               <Grid
                 container
                 className={classes.groups}
-                spacing={8}
+                //spacing={1}
                 alignItems="flex-start"
               >
                 {groupeList}
               </Grid>
             </Grid>
-          </Paper>
+          </div>
         </Modal>
       </React.Fragment>
     );

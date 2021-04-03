@@ -18,7 +18,7 @@
     "build:windows": "yarn compile && electron-builder -w",
     "build:win": "yarn run build:windows",
     "build:linux": "yarn compile && electron-builder -l",
-    "rebuild": "electron-rebuild -f -w serialport",
+    "rebuild": "electron-rebuild -f",
     "prettier": "prettier --write \"src/**/*.{js,json,css,scss,md}\"",
     "lint:all": "npm-run-all lint:js lint:css",
     "lint:js": "eslint src/**/*.js",
@@ -39,6 +39,7 @@
     "copyright": "Copyright © 2018, 2019 Keyboardio Inc.; Copyright © 2018, 2019 DygmaLab SE; distributed under the GPLv3",
     "afterSign": "./build/afterSignHook.js",
     "npmRebuild": false,
+    "buildDependenciesFromSource": true,
     "mac": {
       "darkModeSupport": false,
       "hardenedRuntime": true,

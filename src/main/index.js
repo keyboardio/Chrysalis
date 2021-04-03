@@ -29,6 +29,9 @@ process.env[`NODE_ENV`] = Environment.name;
 import { app, BrowserWindow, Menu } from "electron";
 import { format as formatUrl } from "url";
 import * as path from "path";
+import * as fs from 'fs';
+import * as sudo from 'sudo-prompt';
+import { exec } from "child_process";
 import windowStateKeeper from "electron-window-state";
 import installExtension, {
   REACT_DEVELOPER_TOOLS
@@ -96,6 +99,34 @@ async function createMainWindow() {
   return window;
 }
 
+function checkUdev(){
+  let exists = false;
+  let filename = path.basename('/etc/udev/rules.d/50-dygma.rules');
+
+  try {
+    if (fs.existsSync(filename)) {
+      exists = true;
+    }
+  } catch(err) {
+    console.log('Udev rules file not found, creating...');
+  }
+
+  return exists;
+}
+
+function installUdev(){
+  var options = {
+    name: 'Install Udev rules',
+    icns: './build/icon.icns',
+  };
+  sudo.exec('sh ./build/installRules.sh', options,
+    function(error, stdout, stderr) {
+      if (error) throw error;
+      console.log('stdout: ' + stdout);
+    }
+  );f
+}
+
 // quit application when all windows are closed
 app.on("window-all-closed", () => {
   // on macOS it is common for applications to stay open until the user explicitly quits
@@ -121,6 +152,12 @@ app.on("ready", async () => {
 
   Menu.setApplicationMenu(null);
   mainWindow = createMainWindow();
+
+  if (process.platform === "linux") {
+    if(!checkUdev()){
+      installUdev();
+    }
+  }
 });
 
 app.on("web-contents-created", (_, wc) => {

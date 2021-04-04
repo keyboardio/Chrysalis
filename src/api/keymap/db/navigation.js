@@ -97,6 +97,7 @@ const ModifiedNavigationTables = [
   withModifiers(NavigationTable, "Alt + Gui +", "A+G+", 4608),
   withModifiers(NavigationTable, "AltGr + Shift +", "AGr+S+", 3072),
   withModifiers(NavigationTable, "AltGr + Gui +", "AGr+G+", 5120),
+  withModifiers(NavigationTable, "Shift + Gui +", "S+G+", 6144),
 
   // Triple
   withModifiers(NavigationTable, "Control + Alt + AltGr +", "C+A+AGr+", 1792),
@@ -119,6 +120,12 @@ const ModifiedNavigationTables = [
     5888
   ),
   withModifiers(NavigationTable, "Hyper+", "Hyper+", 6912),
+  withModifiers(
+    NavigationTable,
+    "Control + AltGr + Shift + Gui +",
+    "C+AGr+S+G+",
+    7424
+  ),
   withModifiers(
     NavigationTable,
     "Alt + AltGr + Shift + Gui +",

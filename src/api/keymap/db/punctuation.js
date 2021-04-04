@@ -200,6 +200,7 @@ const ModifiedPunctuationTables = [
   withModifiers(PunctuationTable, "Alt + Gui +", "A+G+", 4608),
   withModifiers(PunctuationTable, "AltGr + Shift +", "AGr+S+", 3072),
   withModifiers(PunctuationTable, "AltGr + Gui +", "AGr+G+", 5120),
+  withModifiers(PunctuationTable, "Shift + Gui +", "S+G+", 6144),
 
   // Triple
   withModifiers(PunctuationTable, "Control + Alt + AltGr +", "C+A+AGr+", 1792),
@@ -227,6 +228,12 @@ const ModifiedPunctuationTables = [
     5888
   ),
   withModifiers(PunctuationTable, "Hyper +", "Hyper+", 6912),
+  withModifiers(
+    PunctuationTable,
+    "Control + AltGr + Shift + Gui +",
+    "C+AGr+S+G+",
+    7424
+  ),
   withModifiers(
     PunctuationTable,
     "Alt + AltGr + Shift + Gui +",

@@ -160,6 +160,7 @@ const ModifiedNumpadTables = [
   withModifiers(NumpadTable, "Alt + Gui +", "A+G+", 4608),
   withModifiers(NumpadTable, "AltGr + Shift +", "AGr+S+", 3072),
   withModifiers(NumpadTable, "AltGr + Gui +", "AGr+G+", 5120),
+  withModifiers(NumpadTable, "Shift + Gui +", "S+G+", 6144),
 
   // Triple
   withModifiers(NumpadTable, "Control + Alt + AltGr +", "C+A+AGr+", 1792),
@@ -182,6 +183,12 @@ const ModifiedNumpadTables = [
     5888
   ),
   withModifiers(NumpadTable, "Hyper +", "Hyper+", 6912),
+  withModifiers(
+    NumpadTable,
+    "Control + AltGr + Shift + Gui +",
+    "C+AGr+S+G+",
+    7424
+  ),
   withModifiers(NumpadTable, "Alt + AltGr + Shift + Gui +", "A+AGr+S+G+", 7680),
 
   // All

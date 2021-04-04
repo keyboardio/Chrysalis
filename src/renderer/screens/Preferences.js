@@ -151,10 +151,7 @@ class Preferences extends React.Component {
   selectDarkMode = event => {
     this.setState({ darkMode: event.target.value });
     const darkMode = event.target.value;
-    // settings.setSync("ui.darkModePref", darkMode);
-    console.log("bing!:", darkMode);
     ipcRenderer.invoke("dark-mode:set", darkMode);
-    console.log("bong!:", darkMode);
 
     // TODO this needs to be fixed to change the settings without requiring a restart
     if (darkMode === "system") {

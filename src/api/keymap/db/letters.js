@@ -224,6 +224,7 @@ const AAGrLetterTable = withModifiers(
   "A+AGr+",
   1536
 );
+const SGLetterTable = withModifiers(LetterTable, "Shift + Gui +", "S+G+", 6144);
 
 const ASLetterTable = withModifiers(LetterTable, "Alt + Shift +", "A+S+", 2560);
 
@@ -326,6 +327,13 @@ const CAAGrGLetterTable = withModifiers(
   5888
 );
 
+const CAGrSGLetterTable = withModifiers(
+  LetterTable,
+  "Control + AltGr + Shift + Gui +",
+  "C+AGr+S+G+",
+  7424
+);
+
 const AAGrSGLetterTable = withModifiers(
   LetterTable,
   "Alt + AltGr + Shift + Gui +",
@@ -352,6 +360,7 @@ const ModifiedLetterTables = [
   CGLetterTable,
   ASLetterTable,
   AGLetterTable,
+  SGLetterTable,
   AAGrLetterTable,
   AGrSLetterTable,
   AGrGLetterTable,
@@ -368,6 +377,7 @@ const ModifiedLetterTables = [
   CAAGrSLetterTable,
   CAAGrGLetterTable,
   withModifiers(LetterTable, "Hyper +", "Hyper+", 6912),
+  CAGrSGLetterTable,
   AAGrSGLetterTable,
   AllModLetterTable
 ];

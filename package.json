@@ -1,6 +1,6 @@
 {
   "name": "BAZECOR",
-  "version": "0.2.7",
+  "version": "0.3.1-Alpha.1",
   "license": "GPL-3.0-only",
   "author": {
     "name": "Dygma Lab S.L.",
@@ -38,6 +38,7 @@
     "artifactName": "${productName}-${version}.${ext}",
     "copyright": "Copyright © 2018, 2019 Keyboardio Inc.; Copyright © 2018, 2019 DygmaLab SE; distributed under the GPLv3",
     "afterSign": "./build/afterSignHook.js",
+    "buildDependenciesFromSource": true,
     "npmRebuild": false,
     "buildDependenciesFromSource": true,
     "mac": {

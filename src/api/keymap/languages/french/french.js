@@ -443,6 +443,8 @@ const frenchAGrSTable = withModifiers(table, "AltGr + Shift +", "AGr+S+", 3072);
 
 const frenchAGrGTable = withModifiers(table, "AltGr + Gui +", "AGr+G+", 5120);
 
+const frenchSGTable = withModifiers(table, "Shift + Gui +", "S+G+", 6144);
+
 // Triple
 
 const frenchCAAGTable = withModifiers(
@@ -521,6 +523,13 @@ const frenchCAAGrGTable = withModifiers(
   5888
 );
 
+const frenchCAGrSGTable = withModifiers(
+  table,
+  "Control + AltGr + Shift + Gui +",
+  "C+AGr+S+G+",
+  7424
+);
+
 const frenchAAGrSGTable = withModifiers(
   table,
   "Alt + AltGr + Shift + Gui +",
@@ -550,6 +559,7 @@ const frenchModifiedTables = [
   frenchASTable,
   frenchAGTable,
   frenchAAGrTable,
+  frenchSGTable,
   frenchAGrSTable,
   frenchAGrGTable,
   frenchCAAGTable,
@@ -565,6 +575,7 @@ const frenchModifiedTables = [
   frenchCAAGrSTable,
   frenchCAAGrGTable,
   withModifiers(table, "Hyper +", "Hyper+", 6912),
+  frenchCAGrSGTable,
   frenchAAGrSGTable,
   frenchAllModTable
 ];

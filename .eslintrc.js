@@ -26,6 +26,7 @@ module.exports = {
     "no-unused-vars": 0, // disabled due to false positives
     "no-async-promise-executor": 0, // grandfathered in during eslint update; would be nice to remove
     "no-prototype-builtins": 0, // grandfathered in during eslint update; would be nice to remove
+    // React hook settings for future use if required (helpful during some debug sessions)
     // "react-hooks/rules-of-hooks": "error",
     // "react-hooks/exhaustive-deps": "warn",
     // Added to allow an update to prettier 2.x.x without actually making anything pretty

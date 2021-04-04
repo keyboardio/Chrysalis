@@ -111,11 +111,6 @@ const Hungarian = {
     copySuccess: "Másolva!",
     pasteFromClipboard: "Beillesztés a vágólapról",
     pasteSuccess: "Beillesztve!"
-    //TODO translations required
-    // importSuccessCurrentLayer: "Imported to current Layer succesfully",
-    // importSuccessAllLayers: "Imported all Layers succesfully",
-    // exportSuccessCurrentLayer: "Export Successful",
-    // exportSuccessAllLayers: "Exported all Layers succesfully"
   },
   preferences: {
     devtools: "Fejlesztői eszközök",

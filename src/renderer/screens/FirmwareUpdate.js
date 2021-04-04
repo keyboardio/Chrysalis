@@ -83,13 +83,13 @@ const styles = theme => ({
   },
   snackVer: {
     fontSize: "1rem",
-    backgroundColor: "rgb(240,240,240);",
+    backgroundColor: "#2196F3",
     boxShadow: "none",
     placeContent: "center"
   },
   snackNot: {
     fontSize: "1rem",
-    backgroundColor: "antiquewhite",
+    backgroundColor: "#FF9800",
     boxShadow: "none",
     placeContent: "center",
     maxWidth: "none"
@@ -472,7 +472,7 @@ class FirmwareUpdate extends React.Component {
                           style={{
                             verticalAlign: "middle",
                             marginRight: "1rem",
-                            color: "orange"
+                            color: "white"
                           }}
                         />
                       </div>
@@ -532,7 +532,7 @@ class FirmwareUpdate extends React.Component {
                           style={{
                             verticalAlign: "middle",
                             marginRight: "1rem",
-                            color: "orange"
+                            color: "white"
                           }}
                         />
                       </div>
@@ -570,7 +570,7 @@ class FirmwareUpdate extends React.Component {
                         style={{
                           verticalAlign: "middle",
                           marginRight: "1rem",
-                          color: "dodgerblue"
+                          color: "white"
                         }}
                       />
                     </div>

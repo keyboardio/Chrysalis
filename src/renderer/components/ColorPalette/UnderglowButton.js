@@ -99,6 +99,7 @@ function UnderglowButton(props) {
     background: `rgb(${colorFocusButton.r}, ${colorFocusButton.g}, ${colorFocusButton.b})`
   };
   const [, setBackgroundColor] = useState(enable);
+  // TODO This was disabled due to an issue with hooks during package upgrade
   // useEffect(() => {
   //   return () => setBackgroundColor(style);
   // });

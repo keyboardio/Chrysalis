@@ -72,6 +72,9 @@ const English = {
   editor: {
     keyType: "Key type",
     keyCode: "Key code",
+    searchForKeyOrCategory: "Search for a key or category",
+    keyConfig: "Key Config",
+    keySelectorTitle: "Select Key",
     groups: {
       Letters: "Letters",
       Digits: "Digits",
@@ -172,15 +175,18 @@ const English = {
   },
   keyboardSettings: {
     advanced: "Advanced",
+    defaultLabel: "default",
     keymap: {
-      title: "Keymap settings",
+      title: "KEYMAP SETTINGS",
       noDefault: "No default",
       showHardcoded: "Show hardcoded layers",
       onlyCustom: "Use custom layers only",
       defaultLayer: "Default layer"
     },
     led: {
+      title: "LED PARAMETER CONFIGURATION",
       brightness: "Adjust LED brightness",
+      brightnesssub: " - From 0 to 254",
       idleDisabled: "Disabled",
       idleTimeLimit: "Idle time before LEDs turn off",
       idle: {
@@ -195,6 +201,37 @@ const English = {
         thirtyMinutes: "30 minutes",
         oneHour: "1 hour"
       }
+    },
+    qukeys: {
+      title: "DUAL FUNCTION KEY PARAMETERS",
+      holdTimeout: "Adjust time to start 'when held' action",
+      holdTimeoutsub: " - From 0 to 65,534 milliseconds",
+      overlapThreshold:
+        "Adjust overlap Threshold that determines the forgiveness of rollover from a qukey to a modified key",
+      overlapThresholdsub: " - Percentage from 0 to 100"
+    },
+    mouse: {
+      title: "MOUSE KEYS CONFIGURATION",
+      subtitle1: "MOUSE SPEED",
+      speed: "Initial speed",
+      speedsub: " - From 0 to 254 pixels",
+      speedDelay:
+        "Delay between steps (the higher the number, the slower the mouse movement)",
+      speedDelaysub: " - From 0 to 65,534 milliseconds",
+      speedLimit: "Overall speed limit",
+      speedLimitsub: " - From 0 to 254 pixels",
+      subtitle2: "MOUSE ACCELERATION",
+      accelSpeed: "Incremental acceleration",
+      accelSpeedsub: " - From 0 to 254 pixels",
+      accelDelay:
+        "Acceleration delay between steps (the higher the number, the slower the mouse movement)",
+      accelDelaysub: " - From 0 to 65,534 milliseconds",
+      subtitle3: "WHEEL SPEED",
+      wheelSpeed: "Wheel speed",
+      wheelSpeedsub: " - From 0 to 254 pixels",
+      wheelDelay:
+        "Wheel delay between steps (the higher the number, the slower the mouse movement)",
+      wheelDelaysub: " - From 0 to 65,534 milliseconds"
     },
     colorSettings: {
       title: "White Balance",

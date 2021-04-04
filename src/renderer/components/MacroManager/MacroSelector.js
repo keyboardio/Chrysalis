@@ -13,7 +13,6 @@ import {
 import { AddRounded, DeleteForever, FileCopy } from "@material-ui/icons";
 import i18n from "../../i18n";
 import Tooltip from "@material-ui/core/Tooltip";
-// import ArrowDownward from "@material-ui/icons/ArrowDownward";
 
 const styles = theme => ({
   list: {

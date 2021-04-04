@@ -839,7 +839,7 @@ class Editor extends React.Component {
       });
       return { ...macro, actions: aux };
     });
-    // TODO: Check if stored macros match the received ones, if they mach, retrieve name and apply it to current macros
+    // TODO: Check if stored macros match the received ones, if they match, retrieve name and apply it to current macros
     let equal = [];
     let finalMacros = [];
     const stored = this.state.storedMacros;

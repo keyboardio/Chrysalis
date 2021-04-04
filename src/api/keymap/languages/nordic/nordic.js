@@ -298,6 +298,8 @@ const nordicAGrSTable = withModifiers(table, "AltGr + Shift +", "AGr+S+", 3072);
 
 const nordicAGrGTable = withModifiers(table, "AltGr + Gui +", "AGr+G+", 5120);
 
+const nordicSGTable = withModifiers(table, "Shift + Gui +", "S+G+", 6144);
+
 // Triple
 
 const nordicCAAGTable = withModifiers(
@@ -376,6 +378,13 @@ const nordicCAAGrGTable = withModifiers(
   5888
 );
 
+const nordicCAGrSGTable = withModifiers(
+  table,
+  "Control + AltGr + Shift + Gui +",
+  "C+AGr+S+G+",
+  7424
+);
+
 const nordicAAGrSGTable = withModifiers(
   table,
   "Alt + AltGr + Shift + Gui +",
@@ -407,6 +416,7 @@ const nordicModifiedTables = [
   nordicAGTable,
   nordicAGrSTable,
   nordicAGrGTable,
+  nordicSGTable,
   nordicCAAGTable,
   nordicCASTable,
   nordicCAGTable,
@@ -420,6 +430,7 @@ const nordicModifiedTables = [
   nordicCAAGrSTable,
   nordicCAAGrGTable,
   withModifiers(table, "Hyper +", "Hyper+", 6912),
+  nordicCAGrSGTable,
   nordicAAGrSGTable,
   nordicAllModTable
 ];

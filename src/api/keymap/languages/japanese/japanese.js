@@ -742,6 +742,8 @@ const japaneseAGrSTable = withModifiers(
 
 const japaneseAGrGTable = withModifiers(table, "AltGr + Gui +", "AGr+G+", 5120);
 
+const japaneseSGTable = withModifiers(table, "Shift + Gui +", "S+G+", 6144);
+
 // Triple
 
 const japaneseCAAGTable = withModifiers(
@@ -827,6 +829,13 @@ const japaneseCAAGrGTable = withModifiers(
 
 const japaneseAAGrSGTable = withModifiers(
   table,
+  "Control + AltGr + Shift + Gui +",
+  "C+AGr+S+G+",
+  7424
+);
+
+const japaneseCAGrSGTable = withModifiers(
+  table,
   "Alt + AltGr + Shift + Gui +",
   "A+AGr+S+G+",
   7680
@@ -854,6 +863,7 @@ const japaneseModifiedTables = [
   japaneseAAGrTable,
   japaneseASTable,
   japaneseAGTable,
+  japaneseSGTable,
   japaneseAGrSTable,
   japaneseAGrGTable,
   japaneseCAAGTable,
@@ -869,6 +879,7 @@ const japaneseModifiedTables = [
   japaneseCAAGrSTable,
   japaneseCAAGrGTable,
   withModifiers(table, "Hyper +", "Hyper+", 6912),
+  japaneseCAGrSGTable,
   japaneseAAGrSGTable,
   japaneseAllModTable
 ];

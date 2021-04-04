@@ -35,22 +35,11 @@ const styles = theme => ({
   button: {
     float: "right"
   },
-  // bg: {
-  //   backgroundColor: "#f9f9f9",
-  //   padding: "16px",
-  //   borderLeft: "solid 1px lightgrey"
-  // },
-  // bglist: {
-  //   backgroundColor: "#eeeeee"
-  // },
   buttons: {
     display: "flex",
     position: "relative",
     placeContent: "space-between"
   },
-  // grey: {
-  //   color: theme.palette.text.secondary //,border: "1px solid rgba(70, 70, 70, 0.25)"
-  // },
   centered: {
     placeContent: "center"
   }
@@ -286,7 +275,6 @@ class MacroForm extends Component {
             <div>
               <Button
                 variant="outlined"
-                //color="primary"
                 className={classNames(classes.margin, classes.grey)}
                 onClick={this.toRestore}
                 startIcon={<ArchiveRounded />}
@@ -296,7 +284,6 @@ class MacroForm extends Component {
 
               <Button
                 variant="outlined"
-                //color="primary"
                 className={classNames(classes.margin, classes.grey)}
                 onClick={this.toBackup}
                 startIcon={<UnarchiveRounded />}
@@ -341,7 +328,6 @@ class MacroForm extends Component {
             <div>
               <Button
                 variant="outlined"
-                //color="primary"
                 className={classNames(classes.margin, classes.grey)}
                 onClick={this.toImport}
                 startIcon={<InputRounded />}
@@ -350,7 +336,6 @@ class MacroForm extends Component {
               </Button>
               <Button
                 variant="outlined"
-                //color="primary"
                 className={classNames(classes.margin, classes.grey)}
                 onClick={this.toExport}
                 startIcon={<SaveRounded />}

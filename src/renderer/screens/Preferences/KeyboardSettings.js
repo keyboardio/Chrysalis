@@ -33,6 +33,7 @@ import Select from "@material-ui/core/Select";
 import Slider from "@material-ui/core/Slider";
 import Switch from "@material-ui/core/Switch";
 import TextField from "@material-ui/core/TextField";
+import CardHeader from "@material-ui/core/CardHeader";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -47,7 +48,18 @@ import settings from "electron-settings";
 const styles = theme => ({
   title: {
     marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(),
+    fontWeight: 600
+  },
+  subtitle: {
+    marginBottom: theme.spacing.uni
+  },
+  subtitle2: {
+    marginTop: theme.spacing(4),
     marginBottom: theme.spacing()
+  },
+  greytext: {
+    color: theme.palette.text.hint
   },
   control: {
     display: "flex",
@@ -70,7 +82,9 @@ const styles = theme => ({
     marginTop: theme.spacing(2)
   },
   slider: {
-    width: 300
+    width: 300,
+    minWidth: 300,
+    marginTop: theme.spacing(2)
   },
   textField: {
     marginTop: theme.spacing()
@@ -241,9 +255,9 @@ class KeyboardSettings extends React.Component {
     this.props.startContext();
   };
 
-  setHoldTimeout = event => {
+  setHoldTimeout = (event, value) => {
     this.setState({
-      qukeysHoldTimeout: event.target.value,
+      qukeysHoldTimeout: value,
       modified: true
     });
     this.props.startContext();
@@ -257,57 +271,59 @@ class KeyboardSettings extends React.Component {
     this.props.startContext();
   };
 
-  setSpeed = event => {
+  setSpeed = (event, value) => {
     this.setState({
-      mouseSpeed: event.target.value,
+      mouseSpeed: value,
       modified: true
     });
     this.props.startContext();
   };
 
-  setSpeedDelay = event => {
+  setSpeedDelay = (event, value) => {
     this.setState({
-      mouseSpeedDelay: event.target.value,
+      mouseSpeedDelay: value,
       modified: true
     });
     this.props.startContext();
   };
 
-  setAccelSpeed = event => {
+  setAccelSpeed = (event, value) => {
     this.setState({
-      mouseAccelSpeed: event.target.value,
+      mouseAccelSpeed: value,
       modified: true
     });
     this.props.startContext();
   };
 
-  setAccelDelay = event => {
+  setAccelDelay = (event, value) => {
     this.setState({
-      mouseAccelDelay: event.target.value,
+      mouseAccelDelay: value,
       modified: true
     });
     this.props.startContext();
   };
 
-  setWheelSpeed = event => {
+  setWheelSpeed = (event, value) => {
     this.setState({
-      mouseWheelSpeed: event.target.value,
+      mouseWheelSpeed: value,
       modified: true
     });
     this.props.startContext();
   };
 
-  setWheelDelay = event => {
+
+  setWheelDelay = (event, value) => {
     this.setState({
-      mouseWheelDelay: event.target.value,
+      mouseWheelDelay: value,
       modified: true
     });
     this.props.startContext();
   };
 
-  setSpeedLimit = event => {
+
+  setSpeedLimit = (event, value) => {
     this.setState({
-      mouseSpeedLimit: event.target.value,
+      mouseSpeedLimit: value,
       modified: true
     });
     this.props.startContext();
@@ -473,25 +489,19 @@ class KeyboardSettings extends React.Component {
         value={ledBrightness}
         className={classes.slider}
         onChange={this.setBrightness}
+        valueLabelDisplay="auto"
+        marks={[{ value: 255, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
     const holdT = (
-      <TextField
-        id="holdTimeout"
-        lable="Hold Timeout"
+      <Slider
+        min={0}
+        max={65534}
         value={qukeysHoldTimeout}
+        className={classes.slider}
         onChange={this.setHoldTimeout}
-        className={classes.textField}
-        inputProps={{
-          inputProps: {
-            min: 0,
-            max: 65534
-          },
-          style: {
-            padding: 12
-          }
-        }}
-        variant="filled"
+        valueLabelDisplay="auto"
+        marks={[{ value: 65530, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
     const overlapT = (
@@ -500,139 +510,92 @@ class KeyboardSettings extends React.Component {
         value={qukeysOverlapThreshold}
         className={classes.slider}
         onChange={this.setOverlapThreshold}
+        valueLabelDisplay="auto"
+        marks={[{ value: 80, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
     const mSpeed = (
-      <TextField
+      <Slider
+        min={0}
+        max={254}
         id="mouseSpeed"
-        lable="Mouse Speed"
         value={mouseSpeed}
+        className={classes.slider}
         onChange={this.setSpeed}
-        className={classes.textField}
-        inputProps={{
-          inputProps: {
-            min: 0,
-            max: 254
-          },
-          style: {
-            padding: 12
-          }
-        }}
-        variant="filled"
+        valueLabelDisplay="auto"
+        marks={[{ value: 1, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
     const mSpeedD = (
-      <TextField
+      <Slider
+        min={0}
+        max={65534}
         id="mouseSpeedDelay"
-        lable="Mouse Speed Delay"
         value={mouseSpeedDelay}
+        className={classes.slider}
         onChange={this.setSpeedDelay}
-        className={classes.textField}
-        inputProps={{
-          inputProps: {
-            min: 0,
-            max: 65534
-          },
-          style: {
-            padding: 12
-          }
-        }}
-        variant="filled"
+        valueLabelDisplay="auto"
+        marks={[{ value: 65281, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
     const mAccelS = (
-      <TextField
+      <Slider
+        min={0}
+        max={254}
         id="mouseAccelSpeed"
-        lable="Mouse Acceleration Speed"
         value={mouseAccelSpeed}
+        className={classes.slider}
         onChange={this.setAccelSpeed}
-        className={classes.textField}
-        inputProps={{
-          inputProps: {
-            min: 0,
-            max: 254
-          },
-          style: {
-            padding: 12
-          }
-        }}
-        variant="filled"
+        valueLabelDisplay="auto"
+        marks={[{ value: 1, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
     const maccelD = (
-      <TextField
+      <Slider
+        min={0}
+        max={65534}
         id="mouseAccelDelay"
-        lable="Mouse Acceleration Delay"
         value={mouseAccelDelay}
+        className={classes.slider}
         onChange={this.setAccelDelay}
-        className={classes.textField}
-        inputProps={{
-          inputProps: {
-            min: 0,
-            max: 65534
-          },
-          style: {
-            padding: 12
-          }
-        }}
-        variant="filled"
+        valueLabelDisplay="auto"
+        marks={[{ value: 65344, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
     const mWheelS = (
-      <TextField
+      <Slider
+        min={0}
+        max={254}
         id="mouseWheelSpeed"
-        lable="Mouse Wheel Speed"
         value={mouseWheelSpeed}
+        className={classes.slider}
         onChange={this.setWheelSpeed}
-        className={classes.textField}
-        inputProps={{
-          inputProps: {
-            min: 0,
-            max: 254
-          },
-          style: {
-            padding: 12
-          }
-        }}
-        variant="filled"
+        valueLabelDisplay="auto"
+        marks={[{ value: 1, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
     const mWheelD = (
-      <TextField
+      <Slider
+        min={0}
+        max={65534}
         id="mouseWheelDelay"
-        lable="Mouse Wheel Delay"
         value={mouseWheelDelay}
+        className={classes.slider}
         onChange={this.setWheelDelay}
-        className={classes.textField}
-        inputProps={{
-          inputProps: {
-            min: 0,
-            max: 65534
-          },
-          style: {
-            padding: 12
-          }
-        }}
-        variant="filled"
+        valueLabelDisplay="auto"
+        marks={[{ value: 65330, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
     const mSpeedL = (
-      <TextField
+      <Slider
+        min={0}
+        max={254}
         id="mouseSpeedLimit"
-        lable="Mouse Speed Limit"
         value={mouseSpeedLimit}
+        className={classes.slider}
         onChange={this.setSpeedLimit}
-        className={classes.textField}
-        inputProps={{
-          inputProps: {
-            min: 0,
-            max: 254
-          },
-          style: {
-            padding: 12
-          }
-        }}
-        variant="filled"
+        valueLabelDisplay="auto"
+        marks={[{ value: 127, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
 
@@ -646,9 +609,9 @@ class KeyboardSettings extends React.Component {
         >
           {i18n.keyboardSettings.keymap.title}
         </Typography>
-        <Card>
-          <CardContent>
-            <FormControl className={classes.group}>
+        <FormControl className={classes.group}>
+          <Card>
+            <CardContent>
               <FormControlLabel
                 className={classes.control}
                 control={showDefaultLayersSwitch}
@@ -656,7 +619,6 @@ class KeyboardSettings extends React.Component {
                 labelPlacement="start"
                 label={i18n.keyboardSettings.keymap.showHardcoded}
               />
-              <Divider />
               <FormControlLabel
                 className={classes.control}
                 control={onlyCustomSwitch}
@@ -671,7 +633,17 @@ class KeyboardSettings extends React.Component {
                 labelPlacement="start"
                 label={i18n.keyboardSettings.keymap.defaultLayer}
               />
-              <Divider />
+            </CardContent>
+          </Card>
+          <Typography
+            variant="subtitle1"
+            component="h2"
+            className={classes.title}
+          >
+            {i18n.keyboardSettings.led.title}
+          </Typography>
+          <Card>
+            <CardContent>
               {ledIdleTimeLimit >= 0 && (
                 <FormControlLabel
                   className={classes.control}
@@ -690,17 +662,41 @@ class KeyboardSettings extends React.Component {
                   }}
                   control={brightnessControl}
                   labelPlacement="start"
-                  label={i18n.keyboardSettings.led.brightness}
+                  label={
+                    <p>
+                      {i18n.keyboardSettings.led.brightness}
+                      <i className={classes.greytext}>
+                        {i18n.keyboardSettings.led.brightnesssub}
+                      </i>
+                    </p>
+                  }
                 />
               )}
-              <Divider />
+            </CardContent>
+          </Card>
+          <Typography
+            variant="subtitle1"
+            component="h2"
+            className={classes.title}
+          >
+            {i18n.keyboardSettings.qukeys.title}
+          </Typography>
+          <Card>
+            <CardContent>
               {qukeysHoldTimeout >= 0 && (
                 <FormControlLabel
                   className={classes.control}
                   classes={{ label: classes.grow }}
                   control={holdT}
                   labelPlacement="start"
-                  label={i18n.keyboardSettings.qukeys.holdTimeout}
+                  label={
+                    <p>
+                      {i18n.keyboardSettings.qukeys.holdTimeout}
+                      <i className={classes.greytext}>
+                        {i18n.keyboardSettings.qukeys.holdTimeoutsub}
+                      </i>
+                    </p>
+                  }
                 />
               )}
               {qukeysOverlapThreshold >= 0 && (
@@ -712,17 +708,48 @@ class KeyboardSettings extends React.Component {
                   }}
                   control={overlapT}
                   labelPlacement="start"
-                  label={i18n.keyboardSettings.qukeys.overlapThreshold}
+                  label={
+                    <p>
+                      {i18n.keyboardSettings.qukeys.overlapThreshold}
+                      <i className={classes.greytext}>
+                        {i18n.keyboardSettings.qukeys.overlapThresholdsub}
+                      </i>
+                    </p>
+                  }
                 />
               )}
-              <Divider />
+            </CardContent>
+          </Card>
+          <Typography
+            variant="subtitle1"
+            component="h2"
+            className={classes.title}
+          >
+            {i18n.keyboardSettings.mouse.title}
+          </Typography>
+          <Card>
+            <CardContent>
+              <Typography
+                variant="subtitle1"
+                component="h2"
+                className={classes.subtitle}
+              >
+                {i18n.keyboardSettings.mouse.subtitle1}
+              </Typography>
               {mouseSpeed >= 0 && (
                 <FormControlLabel
                   className={classes.control}
                   classes={{ label: classes.grow }}
                   control={mSpeed}
                   labelPlacement="start"
-                  label={i18n.keyboardSettings.mouse.speed}
+                  label={
+                    <p>
+                      {i18n.keyboardSettings.mouse.speed}
+                      <i className={classes.greytext}>
+                        {i18n.keyboardSettings.mouse.speedsub}
+                      </i>
+                    </p>
+                  }
                 />
               )}
               {mouseSpeedDelay >= 0 && (
@@ -731,43 +758,14 @@ class KeyboardSettings extends React.Component {
                   classes={{ label: classes.grow }}
                   control={mSpeedD}
                   labelPlacement="start"
-                  label={i18n.keyboardSettings.mouse.speedDelay}
-                />
-              )}
-              {mouseAccelSpeed >= 0 && (
-                <FormControlLabel
-                  className={classes.control}
-                  classes={{ label: classes.grow }}
-                  control={mAccelS}
-                  labelPlacement="start"
-                  label={i18n.keyboardSettings.mouse.accelSpeed}
-                />
-              )}
-              {mouseAccelDelay >= 0 && (
-                <FormControlLabel
-                  className={classes.control}
-                  classes={{ label: classes.grow }}
-                  control={maccelD}
-                  labelPlacement="start"
-                  label={i18n.keyboardSettings.mouse.accelDelay}
-                />
-              )}
-              {mouseWheelSpeed >= 0 && (
-                <FormControlLabel
-                  className={classes.control}
-                  classes={{ label: classes.grow }}
-                  control={mWheelS}
-                  labelPlacement="start"
-                  label={i18n.keyboardSettings.mouse.wheelSpeed}
-                />
-              )}
-              {mouseWheelDelay >= 0 && (
-                <FormControlLabel
-                  className={classes.control}
-                  classes={{ label: classes.grow }}
-                  control={mWheelD}
-                  labelPlacement="start"
-                  label={i18n.keyboardSettings.mouse.wheelDelay}
+                  label={
+                    <p>
+                      {i18n.keyboardSettings.mouse.speedDelay}
+                      <i className={classes.greytext}>
+                        {i18n.keyboardSettings.mouse.speedDelaysub}
+                      </i>
+                    </p>
+                  }
                 />
               )}
               {mouseSpeedLimit >= 0 && (
@@ -776,21 +774,105 @@ class KeyboardSettings extends React.Component {
                   classes={{ label: classes.grow }}
                   control={mSpeedL}
                   labelPlacement="start"
-                  label={i18n.keyboardSettings.mouse.speedLimit}
+                  label={
+                    <p>
+                      {i18n.keyboardSettings.mouse.speedLimit}
+                      <i className={classes.greytext}>
+                        {i18n.keyboardSettings.mouse.speedLimitsub}
+                      </i>
+                    </p>
+                  }
                 />
               )}
-            </FormControl>
-          </CardContent>
-          <CardActions className={classes.flex}>
-            <span className={classes.grow} />
-            <SaveChangesButton
-              onClick={this.saveKeymapChanges}
-              disabled={!modified}
-            >
-              {i18n.components.save.saveChanges}
-            </SaveChangesButton>
-          </CardActions>
-        </Card>
+              <Divider className={classes.subtitle2} />
+              <Typography
+                variant="subtitle1"
+                component="h2"
+                className={classes.subtitle2}
+              >
+                {i18n.keyboardSettings.mouse.subtitle2}
+              </Typography>
+              {mouseAccelSpeed >= 0 && (
+                <FormControlLabel
+                  className={classes.control}
+                  classes={{ label: classes.grow }}
+                  control={mAccelS}
+                  labelPlacement="start"
+                  label={
+                    <p>
+                      {i18n.keyboardSettings.mouse.accelSpeed}
+                      <i className={classes.greytext}>
+                        {i18n.keyboardSettings.mouse.accelSpeedsub}
+                      </i>
+                    </p>
+                  }
+                />
+              )}
+              {mouseAccelDelay >= 0 && (
+                <FormControlLabel
+                  className={classes.control}
+                  classes={{ label: classes.grow }}
+                  control={maccelD}
+                  labelPlacement="start"
+                  label={
+                    <p>
+                      {i18n.keyboardSettings.mouse.accelDelay}
+                      <i className={classes.greytext}>
+                        {i18n.keyboardSettings.mouse.accelDelaysub}
+                      </i>
+                    </p>
+                  }
+                />
+              )}
+              <Divider className={classes.subtitle2} />
+              <Typography
+                variant="subtitle1"
+                component="h2"
+                className={classes.subtitle2}
+              >
+                {i18n.keyboardSettings.mouse.subtitle3}
+              </Typography>
+              {mouseWheelSpeed >= 0 && (
+                <FormControlLabel
+                  className={classes.control}
+                  classes={{ label: classes.grow }}
+                  control={mWheelS}
+                  labelPlacement="start"
+                  label={
+                    <p>
+                      {i18n.keyboardSettings.mouse.wheelSpeed}
+                      <i className={classes.greytext}>
+                        {i18n.keyboardSettings.mouse.wheelSpeedsub}
+                      </i>
+                    </p>
+                  }
+                />
+              )}
+              {mouseWheelDelay >= 0 && (
+                <FormControlLabel
+                  className={classes.control}
+                  classes={{ label: classes.grow }}
+                  control={mWheelD}
+                  labelPlacement="start"
+                  label={
+                    <p>
+                      {i18n.keyboardSettings.mouse.wheelDelay}
+                      <i className={classes.greytext}>
+                        {i18n.keyboardSettings.mouse.wheelDelaysub}
+                      </i>
+                    </p>
+                  }
+                />
+              )}
+            </CardContent>
+          </Card>
+        </FormControl>
+        <SaveChangesButton
+          onClick={this.saveKeymapChanges}
+          disabled={!modified}
+        >
+          {i18n.components.save.saveChanges}
+        </SaveChangesButton>
       </React.Fragment>
     );
   }

@@ -98,7 +98,16 @@ export default class FlashRaise {
       "macros.map",
       "settings.defaultLayer",
       "led.brightness",
-      "idleleds.time_limit"
+      "idleleds.time_limit",
+      "qukeys.holdTimeout",
+      "qukeys.overlapThreshold",
+      "mouse.speed",
+      "mouse.speedDelay",
+      "mouse.accelSpeed",
+      "mouse.accelDelay",
+      "mouse.wheelSpeed",
+      "mouse.wheelDelay",
+      "mouse.speedLimit"
     ];
     this.backupFileName = `Raise-backup-${this.formatedDate()}.json`;
 

@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2020  Keyboardio, Inc.
+ * Copyright (C) 2020-2021  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -18,7 +18,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import Alert from "@material-ui/lab/Alert";
+import Button from "@material-ui/core/Button";
 import Portal from "@material-ui/core/Portal";
+import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 import { toast } from "react-toastify";
@@ -26,7 +29,7 @@ import settings from "electron-settings";
 
 import Focus from "../../../api/focus";
 import Log from "../../../api/log";
-import { KeymapDB } from "../../../api/keymap";
+import { KeymapDB, default as Keymap } from "../../../api/keymap";
 
 import Sidebar, { sidebarWidth } from "./Sidebar";
 
@@ -269,6 +272,25 @@ class Editor extends React.Component {
     this.props.cancelContext();
   };
 
+  migrateLegacy = async () => {
+    await this.setState(oldState => {
+      const k = new Keymap();
+      let newKeymap = k.migrateLegacyCodes(oldState.keymap.custom);
+      return {
+        modified: true,
+        keymap: {
+          default: oldState.keymap.default,
+          onlyCustom: oldState.keymap.onlyCustom,
+          custom: newKeymap
+        }
+      };
+    });
+    let logger = new Log();
+    logger.log("Legacy keycodes migrated to new ones.");
+
+    this.props.startContext();
+  };
+
   render() {
     const { classes } = this.props;
     const {
@@ -288,12 +310,33 @@ class Editor extends React.Component {
       return <OnlyCustomScreen titleElement={this.props.titleElement} />;
     }
 
+    const k = new Keymap();
+    let legacyAlert;
+    if (k.hasLegacyCodes(keymap.custom)) {
+      const migrateButton = (
+        <Button color="primary" onClick={this.migrateLegacy}>
+          {i18n.t("editor.legacy.migrate")}
+        </Button>
+      );
+      legacyAlert = (
+        <Alert
+          severity="error"
+          action={migrateButton}
+          className={classes.warning}
+        >
+          <Typography component="p">
+            {i18n.t("editor.legacy.warning")}
+          </Typography>
+        </Alert>
+      );
+    }
+
     const layerData = keymap.custom && keymap.custom[currentLayer];
     const focus = new Focus();
-    const Keymap = focus.device.components.keymap;
+    const KeymapSVG = focus.device.components.keymap;
     const keymapWidget = (
       <div className={classes.editor}>
-        <Keymap
+        <KeymapSVG
           className="layer"
           index={currentLayer}
           keymap={layerData}
@@ -318,6 +361,7 @@ class Editor extends React.Component {
     return (
       <React.Fragment>
         <Portal container={this.props.titleElement}>{title}</Portal>
+        {legacyAlert}
         <main className={classes.content}>{keymapWidget}</main>
         <Sidebar
           keymap={keymap}

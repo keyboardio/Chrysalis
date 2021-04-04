@@ -73,6 +73,10 @@ const English = {
   editor: {
     keyType: "Key type",
     keyCode: "Key code",
+    legacy: {
+      migrate: "Migrate",
+      warning: `We found legacy keys on the keymap that are no longer valid. To migrate to the new codes, please press the Migrate button.`
+    },
     sharing: {
       title: "Layout sharing",
       loadFromLibrary: "Load from library",

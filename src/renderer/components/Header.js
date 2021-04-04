@@ -63,7 +63,8 @@ const styles = theme => ({
     minHeight: 52
   },
   menuIcon: {
-    width: 40
+    width: 40,
+    height: 40
   }
 });
 
@@ -123,7 +124,7 @@ function Header({
           />
         )}
         <div className={classes.submenu}>
-          <IconButton onClick={contextOnClick}>
+          <IconButton className={classes.menuIcon} onClick={contextOnClick}>
             {contextBar ? (
               <CloseIcon />
             ) : theme ? (

@@ -14,10 +14,7 @@ const styles = theme => ({
   root: {
     placeContent: "space-between",
     display: "flex",
-    flexWrap: "wrap" //,
-    //margin: theme.spacing()
-    // ,
-    // backgroundColor: "#fff"
+    flexWrap: "wrap"
   },
   textField: {
     minWidth: "200px",
@@ -58,8 +55,6 @@ class MacroTabSpecial extends Component {
           select
           label={i18n.editor.macros.selectFunction}
           value={keyCode}
-          //margin="none"
-          //variant="outlined"
           rows={10}
           size="small"
           className={classes.textField}
@@ -99,8 +94,6 @@ class MacroTabSpecial extends Component {
           select
           label={i18n.editor.macros.selectAction}
           value={action}
-          //margin="none"
-          //variant="outlined"
           size="small"
           className={classes.textField}
           onChange={e => {

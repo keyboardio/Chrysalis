@@ -14,10 +14,7 @@ const styles = theme => ({
   root: {
     placeContent: "space-between",
     display: "flex",
-    flexWrap: "wrap" //,
-    //margin: theme.spacing()
-    // ,
-    // backgroundColor: "#fff"
+    flexWrap: "wrap"
   },
   textField: {
     minWidth: "200px",
@@ -58,8 +55,6 @@ class MacroTabMouse extends Component {
           select
           label={i18n.editor.macros.selectMouseFunction}
           value={keyCode}
-          // margin="none"
-          // variant="outlined"
           size="small"
           rows={10}
           className={classes.textField}
@@ -93,8 +88,6 @@ class MacroTabMouse extends Component {
           select
           label={i18n.editor.macros.selectAction}
           value={action}
-          // margin="none"
-          // variant="outlined"
           size="small"
           className={classes.textField}
           onChange={e => {

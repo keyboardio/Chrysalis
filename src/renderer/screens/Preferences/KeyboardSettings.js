@@ -311,7 +311,6 @@ class KeyboardSettings extends React.Component {
     this.props.startContext();
   };
 
-
   setWheelDelay = (event, value) => {
     this.setState({
       mouseWheelDelay: value,
@@ -319,7 +318,6 @@ class KeyboardSettings extends React.Component {
     });
     this.props.startContext();
   };
-
 
   setSpeedLimit = (event, value) => {
     this.setState({

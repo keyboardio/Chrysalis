@@ -89,14 +89,6 @@ class Welcome extends React.Component {
         {i18n.welcome.reconnect}
       </Button>
     );
-    // const reconnectText = focus._port && (
-    //   <Typography component="p" gutterBottom>
-    //     {i18n.formatString(
-    //       i18n.welcome.reconnectDescription,
-    //       i18n.welcome.reconnect
-    //     )}
-    //   </Typography>
-    // );
 
     return (
       <div className={classes.root}>

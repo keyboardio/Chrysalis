@@ -47,16 +47,11 @@ const styles = theme => ({
     outline: "none"
   },
   root: {
-    //margin: "inherit",
     width: "100%",
     height: "100%",
-    backgroundColor: theme.palette.background.default, //secondary.main,
+    backgroundColor: theme.palette.background.default,
     boxShadow: "0 30px 50px rgba(0, 0, 0, 0.7)",
-    padding: "0px 4px 4px 2px", //"13px 8px 0",
-    // overflowY: "auto",
-    // [theme.breakpoints.down("md")]: {
-    //   overflowY: "scroll"
-    // },
+    padding: "0px 4px 4px 2px",
     outline: "none",
     spacing: theme.spacing(),
     alignItems: "flex-start"
@@ -86,8 +81,6 @@ const styles = theme => ({
     [theme.breakpoints.down("lg")]: {
       overflowY: "scroll"
     }
-    // marginLeft: "none", //theme.spacing(),
-    // marginRight: theme.spacing(2)
   },
   searchField: {
     margin: "10px 10px",
@@ -374,7 +367,6 @@ class SearchKeyBox extends Component {
               <Grid
                 container
                 className={classes.groups}
-                //spacing={1}
                 alignItems="flex-start"
               >
                 {groupeList}

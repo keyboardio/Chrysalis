@@ -33,14 +33,8 @@ const styles = theme => ({
   },
   margin: {
     padding: theme.spacing()
-    //   ,
-    //   paddingTop: theme.spacing(2),
-    //   paddingBottom: theme.spacing(2)
   },
   textField: {
-    //   flexBasis: "444px",
-    //   margin: "0px"
-    //   //,
     marginRight: theme.spacing()
   },
   avatar: {
@@ -56,16 +50,7 @@ const styles = theme => ({
   },
   flex: {
     display: "flex"
-    //,
-    //   position: "relative",
-    //   placeContent: "space-between"
-    //   // ,
-    //   // margin: theme.spacing()
   }
-  // ,
-  // whitebg: {
-  //   backgroundColor: "#ffffff"
-  // }
 });
 class MacroToolTab extends Component {
   constructor(props) {
@@ -92,8 +77,6 @@ class MacroToolTab extends Component {
           className={classNames(classes.textField, classes.code)}
           value={this.props.addText}
           onChange={this.props.onTextChange}
-          // margin="normal"
-          // variant="outlined"
         />
         <IconButton
           onClick={this.props.onAddText}

@@ -4,6 +4,7 @@ export const darkTheme = createMuiTheme({
   palette: {
     type: "dark",
     // Override built in colors
+    // TODO Create a Dygma theme
     // primary: {
     //   main: "#9c27b0"
     // },

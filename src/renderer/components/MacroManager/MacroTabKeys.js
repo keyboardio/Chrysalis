@@ -17,15 +17,12 @@ const styles = theme => ({
     placeContent: "space-between",
     display: "flex",
     flexWrap: "wrap"
-    //margin: theme.spacing() //,
-    // backgroundColor: "#fff"
   },
   margin: {
     margin: theme.spacing()
   },
   textField: {
     minWidth: "200px",
-    //height: "61px",
     padding: "0px",
     margin: "none"
   },
@@ -65,8 +62,6 @@ class MacroTabKeys extends Component {
           select
           label={i18n.editor.macros.selectKey}
           value={keyCode}
-          //margin="none"
-          //variant="outlined"
           rows={10}
           size="small"
           className={classes.textField}
@@ -100,8 +95,6 @@ class MacroTabKeys extends Component {
           select
           label={i18n.editor.macros.selectAction}
           value={action}
-          //margin="none"
-          // variant="outlined"
           size="small"
           className={classes.textField}
           onChange={e => {
@@ -145,8 +138,6 @@ class MacroTabKeys extends Component {
         InputProps={{
           startAdornment: <InputAdornment position="start">ms</InputAdornment>
         }}
-        //margin="none"
-        //variant="outlined"
       />
     );
 

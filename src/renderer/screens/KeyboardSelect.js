@@ -56,13 +56,6 @@ const styles = theme => ({
   main: {
     width: "auto",
     display: "block",
-    //     marginLeft: theme.spacing(3),
-    //     marginRight: theme.spacing(3),
-    //     [theme.breakpoints.up(500 + theme.spacing(6))]: {
-    //       width: 500,
-    //       marginLeft: "auto",
-    //       marginRight: "auto"
-    //     },
     marginLeft: theme.spacing(3),
     marginRight: theme.spacing(3),
     padding: `${theme.spacing(2)}px ${theme.spacing(3)}px
@@ -91,13 +84,7 @@ const styles = theme => ({
   selectControl: {
     display: "flex"
   },
-  //   connect: {
-  //     verticalAlign: "bottom",
-  //     marginLeft: 65
-  //   },
-  //   cardActions: {
-  //     justifyContent: "center"
-  //   },
+
   supported: {
     backgroundColor: theme.palette.success.main
   },

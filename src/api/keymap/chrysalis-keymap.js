@@ -1,5 +1,5 @@
 /* chrysalis-keymap -- Chrysalis keymap library
- * Copyright (C) 2018-2020  Keyboardio, Inc.
+ * Copyright (C) 2018-2021  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -49,6 +49,31 @@ class Keymap {
     for (var i = 0; i < a.length; i += chunkSize)
       R.push(a.slice(i, i + chunkSize));
     return R;
+  }
+
+  hasLegacyCodes(keymap) {
+    for (let layer of keymap) {
+      for (let key of layer) {
+        if (this.db.lookupLegacy(key.code)) return true;
+      }
+    }
+    return false;
+  }
+
+  migrateLegacyCodes(keymap) {
+    let newKeymap = [];
+    for (let layer of keymap) {
+      let newLayer = [];
+      for (let key of layer) {
+        const legacyKey = this.db.lookupLegacy(key.code);
+        if (legacyKey) {
+          key = this.db.lookup(legacyKey.code);
+        }
+        newLayer.push(key);
+      }
+      newKeymap.push(newLayer);
+    }
+    return newKeymap;
   }
 
   async focus(s, keymap) {

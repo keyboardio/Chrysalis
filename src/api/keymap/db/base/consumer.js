@@ -1,5 +1,5 @@
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2020  Keyboardio, Inc.
+ * Copyright (C) 2020-2021  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -25,12 +25,14 @@ const consumer = addCategories(
   [
     {
       code: makeConsumer(0xe2),
+      legacyCode: 19682,
       label: {
         base: "Mute"
       }
     },
     {
       code: makeConsumer(0xb5),
+      legacyCode: 22709,
       label: {
         base: {
           full: "Next track",
@@ -40,6 +42,7 @@ const consumer = addCategories(
     },
     {
       code: makeConsumer(0xb6),
+      legacyCode: 22710,
       label: {
         base: {
           full: "Previous track",
@@ -49,12 +52,14 @@ const consumer = addCategories(
     },
     {
       code: makeConsumer(0xb7),
+      legacyCode: 22711,
       label: {
         base: "Stop"
       }
     },
     {
       code: makeConsumer(0xcd),
+      legacyCode: 22733,
       label: {
         base: {
           full: "Play / pause",
@@ -64,6 +69,7 @@ const consumer = addCategories(
     },
     {
       code: makeConsumer(0xe9),
+      legacyCode: 23785,
       label: {
         hint: {
           full: "Volume",
@@ -77,6 +83,7 @@ const consumer = addCategories(
     },
     {
       code: makeConsumer(0xea),
+      legacyCode: 23786,
       label: {
         hint: {
           full: "Volume",
@@ -90,6 +97,7 @@ const consumer = addCategories(
     },
     {
       code: makeConsumer(0x6f),
+      legacyCode: 23663,
       label: {
         hint: {
           full: "Brightness",
@@ -103,6 +111,7 @@ const consumer = addCategories(
     },
     {
       code: makeConsumer(0x70),
+      legacyCode: 23664,
       label: {
         hint: {
           full: "Brightness",

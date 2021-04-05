@@ -1,17 +1,17 @@
-#!/usr/bin/env fish
+#!/usr/bin/env bash
 
-# Fish scripting manual: https://developerlife.com/2021/01/19/fish-scripting-manual/
+# Run `lsusb` to get the IDs for the currently attached Dygma keyboard.
+idstring=$(lsusb | grep Dygma | grep -o 'ID.*:[[:alnum:]]*' | sed 's/ID //')
 
-# Run lsusb to get the IDs for the currently attached Dygma keyboard.
-set -l idstring (lsusb | grep Dygma | grep -o 'ID.*:[[:alnum:]]*' | sed 's/ID //')
-set -l ids (string split ":" $idstring)
-set -l XXXX $ids[1]
-set -l YYYY $ids[2]
-set -l line SUBSYSTEMS=="usb", ATTRS{idVendor}=="$YYYY", ATTRS{idProduct}=="$XXXX", GROUP="users", MODE="0666"
+# Split the string by delimiter ":" to get the two numbers.
+ids=(${idstring//:/ })
+XXXX=${ids[0]}
+YYYY=${ids[1]}
+line="SUBSYSTEMS==\"usb\", ATTRS{idVendor}==\"$YYYY\", ATTRS{idProduct}==\"$XXXX\", GROUP="users", MODE=\"0666\""
 
 # Generate the rule file.
 echo $line > tempfile
 sudo mv tempfile /etc/udev/rules.d/50-dygma.rules
 
 # Reload the `udev` rules.
-sudo udevadm control --reload-rules
+sudo udevadm control --reload-rules 

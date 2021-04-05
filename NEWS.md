@@ -1,3 +1,12 @@
+Chrysalis 0.8.4-snapshot
+========================
+**UNRELEASED**
+
+## Bugfixes
+
+This release has additional fixes for consumer keys, including a way to
+automatically migrate from old keycodes to new ones.
+
 Chrysalis 0.8.3
 ===============
 Released on 2021-03-29

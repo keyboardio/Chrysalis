@@ -54,7 +54,7 @@ class Keymap {
   hasLegacyCodes(keymap) {
     for (let layer of keymap) {
       for (let key of layer) {
-        if (this.db.lookupLegacy(key.code)) return true;
+        if (key.legacy) return true;
       }
     }
     return false;
@@ -65,9 +65,8 @@ class Keymap {
     for (let layer of keymap) {
       let newLayer = [];
       for (let key of layer) {
-        const legacyKey = this.db.lookupLegacy(key.code);
-        if (legacyKey) {
-          key = this.db.lookup(legacyKey.code);
+        if (key.legacy) {
+          key = this.db.lookup(key.code);
         }
         newLayer.push(key);
       }

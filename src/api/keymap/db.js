@@ -87,6 +87,11 @@ class KeymapDB {
     // Base codetable
     for (const key of Base.codetable) {
       this._codetable[key.code] = Object.assign({}, key);
+      if (key.legacyCode) {
+        this._codetable[key.legacyCode] = Object.assign({}, key, {
+          legacy: true
+        });
+      }
     }
 
     // Fallback to US QWERTY
@@ -169,12 +174,6 @@ class KeymapDB {
     return this._codetable[keyCode];
   }
 
-  lookupLegacy(keyCode) {
-    for (const key of this._codetable) {
-      if (key && key.legacyCode == keyCode) return key;
-    }
-  }
-
   _lookupObject(key) {
     for (const k of this._codetable) {
       if (k === undefined) continue;
@@ -239,6 +238,7 @@ class KeymapDB {
     if (hint && typeof hint != "string") {
       hint = key.label.hint[keycapSize] || key.label.hint.full;
     }
+    if (key.legacy) hint = "Legacy";
 
     return {
       main: label,

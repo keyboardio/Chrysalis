@@ -68,6 +68,7 @@ class Editor extends React.Component {
       colorMap: []
     },
     modified: false,
+    hasLegacy: false,
     layout: "English (US)"
   };
   keymapDB = new KeymapDB();
@@ -114,12 +115,23 @@ class Editor extends React.Component {
   onKeyChange = keyCode => {
     this.setState(state => {
       let newKeymap = state.keymap;
-      newKeymap.custom[state.currentLayer][state.currentKeyIndex] = db.lookup(
-        keyCode
-      );
+      const oldKey =
+        newKeymap.custom[state.currentLayer][state.currentKeyIndex];
+      const newKey = db.lookup(keyCode);
+      newKeymap.custom[state.currentLayer][state.currentKeyIndex] = newKey;
+      let hasLegacy = state.hasLegacy;
+
+      if (hasLegacy) {
+        const k = new Keymap();
+        hasLegacy = k.hasLegacyCodes(newKeymap.custom);
+      }
+      if (newKey.legacy) {
+        hasLegacy = true;
+      }
 
       return {
         modified: true,
+        hasLegacy: hasLegacy,
         keymap: newKeymap
       };
     });
@@ -155,12 +167,14 @@ class Editor extends React.Component {
   };
 
   onKeymapChange = newKeymap => {
+    const k = new Keymap();
     this.setState(state => {
       let keymap = state.keymap;
       keymap.custom = newKeymap;
 
       return {
         modified: true,
+        hasLegacy: k.hasLegacyCodes(keymap.custom),
         keymap: keymap
       };
     });
@@ -209,9 +223,10 @@ class Editor extends React.Component {
       }
 
       let colormap = await focus.command("colormap");
-
+      const k = new Keymap();
       this.setState({
         keymap: keymap,
+        hasLegacy: k.hasLegacyCodes(keymap.custom),
         colormap: colormap
       });
     } catch (e) {
@@ -278,6 +293,7 @@ class Editor extends React.Component {
       let newKeymap = k.migrateLegacyCodes(oldState.keymap.custom);
       return {
         modified: true,
+        hasLegacy: false,
         keymap: {
           default: oldState.keymap.default,
           onlyCustom: oldState.keymap.onlyCustom,
@@ -312,7 +328,7 @@ class Editor extends React.Component {
 
     const k = new Keymap();
     let legacyAlert;
-    if (k.hasLegacyCodes(keymap.custom)) {
+    if (this.state.hasLegacy) {
       const migrateButton = (
         <Button color="primary" onClick={this.migrateLegacy}>
           {i18n.t("editor.legacy.migrate")}

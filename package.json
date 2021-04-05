@@ -136,6 +136,8 @@
   },
   "resolutions": {
     "usb": "1.6.5",
-    "node-abi": "2.20.0"
+    "node-abi": "2.20.0",
+    "cacache/y18n": "^4.0.1",
+    "yargs/y18n": "^4.0.1"
   }
 }

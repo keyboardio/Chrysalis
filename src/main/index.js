@@ -118,7 +118,7 @@ function installUdev() {
     name: "Install Udev rules",
     icns: "./build/icon.icns"
   };
-  sudo.exec("sh $OWD/installRules.sh", options, function(error, stdout) {
+  sudo.exec("sh $APPDIR/installRules.sh", options, function(error, stdout) {
     if (error) throw error;
     console.log("stdout: " + stdout);
   });

@@ -33,7 +33,7 @@ import * as fs from "fs";
 import * as sudo from "sudo-prompt";
 import windowStateKeeper from "electron-window-state";
 import installExtension, {
-  REACT_DEVELOPER_TOOLS,
+  REACT_DEVELOPER_TOOLS
 } from "electron-devtools-installer";
 import { getStaticPath } from "../renderer/config";
 
@@ -44,7 +44,7 @@ let mainWindow;
 async function createMainWindow() {
   let mainWindowState = windowStateKeeper({
     defaultWidth: 1200,
-    defaultHeight: 900,
+    defaultHeight: 900
   });
 
   const window = new BrowserWindow({
@@ -56,8 +56,8 @@ async function createMainWindow() {
     icon: path.join(getStaticPath(), "/logo.png"),
     webPreferences: {
       sandbox: false,
-      nodeIntegration: true,
-    },
+      nodeIntegration: true
+    }
   });
 
   mainWindowState.manage(window);
@@ -69,7 +69,7 @@ async function createMainWindow() {
       formatUrl({
         pathname: path.join(__dirname, "index.html"),
         protocol: "file",
-        slashes: true,
+        slashes: true
       })
     );
   }
@@ -116,7 +116,7 @@ function checkUdev() {
 function installUdev() {
   var options = {
     name: "Install Udev rules",
-    icns: "./build/icon.icns",
+    icns: "./build/icon.icns"
   };
   sudo.exec("sh ./installRules.sh", options, function(error, stdout) {
     if (error) throw error;
@@ -143,8 +143,8 @@ app.on("activate", () => {
 app.on("ready", async () => {
   if (isDevelopment) {
     await installExtension(REACT_DEVELOPER_TOOLS)
-      .then((name) => console.log(`Added Extension:  ${name}`))
-      .catch((err) => console.log("An error occurred: ", err));
+      .then(name => console.log(`Added Extension:  ${name}`))
+      .catch(err => console.log("An error occurred: ", err));
   }
 
   Menu.setApplicationMenu(null);

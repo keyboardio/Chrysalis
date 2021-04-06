@@ -53,6 +53,10 @@
         "from": "./build/launcher.sh",
         "to": "launcher.sh"
       },
+      {
+        "from": "./build/installRules.sh",
+        "to": "installRules.sh"
+      },
       "static"
     ]
   },

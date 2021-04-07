@@ -137,7 +137,7 @@ class MacroManager extends Component {
   }
 
   addMacro() {
-    if (this.state.macros.length <= this.props.maxMacros) {
+    if (this.state.macros.length < this.props.maxMacros) {
       let aux = this.state.macros;
       const newID = aux.length;
       aux.push({
@@ -241,6 +241,7 @@ class MacroManager extends Component {
                   keymapDB={keymapDB}
                   deleteMacro={this.deleteMacro}
                   addMacro={this.addMacro}
+                  disableAdd={this.state.macros.length === this.props.maxMacros}
                   changeSelected={this.changeSelected}
                   duplicateMacro={this.duplicateMacro}
                   macrosRestore={this.macrosRestore}

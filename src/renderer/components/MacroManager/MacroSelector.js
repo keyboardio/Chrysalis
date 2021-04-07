@@ -78,6 +78,7 @@ class MacroSelector extends Component {
                         className={classes.extrapadding}
                       />
                       <IconButton
+                        disabled={this.props.disableAdd}
                         onClick={() => {
                           this.props.duplicateMacro(index);
                         }}
@@ -102,10 +103,13 @@ class MacroSelector extends Component {
           ) : (
             <React.Fragment />
           )}
-          <ListItem>
+          <ListItem disabled={this.props.disableAdd}>
             <Avatar>N</Avatar>
             <ListItemText primary="Add new Macro" />
-            <IconButton onClick={this.props.addMacro}>
+            <IconButton
+              onClick={this.props.addMacro}
+              disabled={this.props.disableAdd}
+            >
               <AddRounded />
             </IconButton>
           </ListItem>

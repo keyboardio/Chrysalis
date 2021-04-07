@@ -99,18 +99,16 @@ async function createMainWindow() {
 }
 
 function checkUdev() {
-  let exists = false;
-  let filename = path.basename("/etc/udev/rules.d/50-dygma.rules");
+  let filename = "/etc/udev/rules.d/50-dygma.rules";
 
   try {
     if (fs.existsSync(filename)) {
-      exists = true;
+      return true;
     }
   } catch (err) {
-    console.log("Udev rules file not found, creating...");
+    console.error(err);
+    return false;
   }
-
-  return exists;
 }
 
 function installUdev() {
@@ -118,13 +116,14 @@ function installUdev() {
     name: "Install Udev rules",
     icns: "./build/icon.icns"
   };
-  sudo.exec("sh $APPDIR/resources/installRules.sh", options, function(
-    error,
-    stdout
-  ) {
-    if (error) throw error;
-    console.log("stdout: " + stdout);
-  });
+  sudo.exec(
+    'echo "SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2201", GROUP=users, MODE="0666"" > /etc/udev/rules.d/50-dygma.rules && udevadm control --reload-rules',
+    options,
+    function(error, stdout) {
+      if (error) throw error;
+      console.log("stdout: " + stdout);
+    }
+  );
 }
 
 // quit application when all windows are closed

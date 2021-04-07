@@ -241,6 +241,7 @@ class MacroManager extends Component {
                   keymapDB={keymapDB}
                   deleteMacro={this.deleteMacro}
                   addMacro={this.addMacro}
+                  disableAdd={this.state.macros.length === this.props.maxMacros}
                   changeSelected={this.changeSelected}
                   duplicateMacro={this.duplicateMacro}
                   macrosRestore={this.macrosRestore}

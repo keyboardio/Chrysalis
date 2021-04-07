@@ -272,6 +272,7 @@ class MacroForm extends Component {
             updateSelected={this.updateSelected}
             deleteMacro={this.props.deleteMacro}
             addMacro={this.props.addMacro}
+            disableAdd={this.props.disableAdd}
             duplicateMacro={this.props.duplicateMacro}
           />
           <div className={classNames(classes.buttons, classes.centered)}>

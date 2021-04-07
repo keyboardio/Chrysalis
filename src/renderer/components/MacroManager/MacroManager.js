@@ -137,7 +137,7 @@ class MacroManager extends Component {
   }
 
   addMacro() {
-    if (this.state.macros.length <= this.props.maxMacros) {
+    if (this.state.macros.length < this.props.maxMacros) {
       let aux = this.state.macros;
       const newID = aux.length;
       aux.push({

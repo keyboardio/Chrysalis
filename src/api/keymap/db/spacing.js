@@ -84,6 +84,7 @@ const ModifiedSpacingTables = [
   withModifiers(SpacingTable, "Alt + Gui +", "A+G+", 4608),
   withModifiers(SpacingTable, "AltGr + Shift +", "AGr+S+", 3072),
   withModifiers(SpacingTable, "AltGr + Gui +", "AGr+G+", 5120),
+  withModifiers(SpacingTable, "Shift + Gui +", "S+G+", 6144),
 
   // Triple
   withModifiers(SpacingTable, "Control + Alt + AltGr +", "C+A+AGr+", 1792),
@@ -106,6 +107,12 @@ const ModifiedSpacingTables = [
     5888
   ),
   withModifiers(SpacingTable, "Hyper +", "Hyper+", 6912),
+  withModifiers(
+    SpacingTable,
+    "Control + AltGr + Shift + Gui +",
+    "C+AGr+S+G+",
+    7424
+  ),
   withModifiers(
     SpacingTable,
     "Alt + AltGr + Shift + Gui +",

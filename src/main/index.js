@@ -26,7 +26,13 @@ import { Environment } from "./dragons";
 // [1]: https://github.com/electron-userland/electron-webpack/issues/275
 process.env[`NODE_ENV`] = Environment.name;
 
+// This is a workaround for the lack of context-awareness in two native modules
+// we use, serialport (serialport/node-serialport#2051) and usb
+// (tessel/node-usb#380). See electron/electron#18397 for more context.
+app.allowRendererProcessReuse = false;
+
 import { app, BrowserWindow, Menu } from "electron";
+import settings from "electron-settings";
 import { format as formatUrl } from "url";
 import * as path from "path";
 import * as fs from "fs";
@@ -38,6 +44,7 @@ import installExtension, {
 import { getStaticPath } from "../renderer/config";
 
 const isDevelopment = process.env.NODE_ENV !== "production";
+const { nativeTheme, ipcMain } = require("electron");
 
 let mainWindow;
 
@@ -52,11 +59,17 @@ async function createMainWindow() {
     y: mainWindowState.y,
     width: mainWindowState.width,
     height: mainWindowState.height,
+    minWidth: 650,
+    minHeight: 570,
     resizable: true,
     icon: path.join(getStaticPath(), "/logo.png"),
+    show: false,
+    backgroundColor: "#2e2c29",
     webPreferences: {
       sandbox: false,
-      nodeIntegration: true
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true
     }
   });
 
@@ -73,6 +86,18 @@ async function createMainWindow() {
       })
     );
   }
+
+  window.once("ready-to-show", () => {
+    window.show();
+  });
+
+  ipcMain.handle("dark-mode:set", async (event, darkMode) => {
+    settings.setSync("ui.darkModePref", darkMode);
+    // Setting nativeTheme at this point in the code is not working, hence the need to restart
+    nativeTheme.ThemeSource = darkMode;
+    settings.setSync("ui.darkMode", nativeTheme.shouldUseDarkColors);
+    return nativeTheme.shouldUseDarkColors;
+  });
 
   window.on("closed", () => {
     mainWindow = null;
@@ -143,6 +168,15 @@ app.on("activate", () => {
 
 // create main BrowserWindow when electron is ready
 app.on("ready", async () => {
+  let darkMode = settings.getSync("ui.darkModePref");
+  if (darkMode === undefined) {
+    darkMode = "system";
+    settings.setSync("ui.darkModePref", "system");
+  }
+  // Setting nativeTheme currently only seems to work at this point in the code
+  nativeTheme.themeSource = darkMode;
+  settings.setSync("ui.darkMode", nativeTheme.shouldUseDarkColors);
+
   if (isDevelopment) {
     await installExtension(REACT_DEVELOPER_TOOLS)
       .then(name => console.log(`Added Extension:  ${name}`))

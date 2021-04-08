@@ -18,34 +18,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Electron from "electron";
-import { SnackbarProvider } from "notistack";
-
-import CloseIcon from "@material-ui/icons/Close";
-import IconButton from "@material-ui/core/IconButton";
 
 import App from "./App";
 import Error from "./Error";
 import "../styles/keymap.css";
-
-const notistackRef = React.createRef();
-const onClickDismiss = key => () => {
-  notistackRef.current.closeSnackbar(key);
-};
+import i18n from "./i18n";
+import { I18nextProvider } from "react-i18next";
 
 try {
   ReactDOM.render(
-    <SnackbarProvider
-      ref={notistackRef}
-      action={key => (
-        <IconButton color="inherit" size="small" onClick={onClickDismiss(key)}>
-          <CloseIcon />
-        </IconButton>
-      )}
-      maxSnack={4}
-      autoHideDuration={null}
-    >
+    <I18nextProvider i18n={i18n}>
       <App />
-    </SnackbarProvider>,
+    </I18nextProvider>,
     document.getElementById("app")
   );
 } catch (e) {

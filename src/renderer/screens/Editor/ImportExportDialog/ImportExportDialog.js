@@ -27,12 +27,12 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 
-import { withSnackbar } from "notistack";
+import { toast } from "react-toastify";
 
 import i18n from "../../../i18n";
 import LoadDefaultKeymap from "./LoadDefaultKeymap";
 
-export const ImportExportDialog = withSnackbar(props => {
+export const ImportExportDialog = props => {
   const { toCloseImportExportDialog } = props;
 
   const [dataState, setData] = useState();
@@ -64,7 +64,7 @@ export const ImportExportDialog = withSnackbar(props => {
       setData(undefined);
       setIsChange(false);
     } catch (e) {
-      props.enqueueSnackbar(e.toString(), { variant: "error" });
+      toast.error(e.toString());
     }
   }
 
@@ -78,9 +78,8 @@ export const ImportExportDialog = withSnackbar(props => {
     clipboard.writeText(data);
     toExport(data);
     setIsChange(false);
-    props.enqueueSnackbar(i18n.editor.copySuccess, {
-      variant: "success",
-      autoHideDuration: 2000
+    toast.success(i18n.t("editor.copySuccess"), {
+      autoClose: 2000
     });
   }
 
@@ -88,18 +87,16 @@ export const ImportExportDialog = withSnackbar(props => {
     setData(clipboard.readText());
     toImport();
     setIsChange(true);
-    props.enqueueSnackbar(i18n.editor.pasteSuccess, {
-      variant: "success",
-      autoHideDuration: 2000
+    toast.success(i18n.t("editor.pasteSuccess"), {
+      autoClose: 2000
     });
   }
 
   function loadDefault(path) {
     fs.readFile(path, "utf-8", (err, layoutData) => {
       if (err) {
-        props.enqueueSnackbar(i18n.editor.pasteSuccess, {
-          variant: "error",
-          autoHideDuration: 2000
+        toast.error(err.toString(), {
+          autoClose: 2000
         });
       }
       setData(layoutData);
@@ -126,15 +123,13 @@ export const ImportExportDialog = withSnackbar(props => {
           try {
             layers = require("fs").readFileSync(resp.filePaths[0]);
             console.log(JSON.parse(layers).keymap[0].label);
-            props.enqueueSnackbar("Imported succesfully", {
-              variant: "success",
-              autoHideDuration: 2000
+            toast.success(i18n.t("editor.importSuccessAllLayers"), {
+              autoClose: 2000
             });
           } catch (e) {
             console.error(e);
-            props.enqueueSnackbar("Not a valid Layer file", {
-              variant: "error",
-              autoHideDuration: 2000
+            toast.error(i18n.t("errors.invalidLayerFile"), {
+              autoClose: 2000
             });
             return;
           }
@@ -166,9 +161,8 @@ export const ImportExportDialog = withSnackbar(props => {
         if (!resp.canceled) {
           console.log(resp.filePath, data);
           require("fs").writeFileSync(resp.filePath, data);
-          props.enqueueSnackbar("Export Successful", {
-            variant: "success",
-            autoHideDuration: 2000
+          toast.success(i18n.t("editor.exportSuccessCurrentLayer"), {
+            autoClose: 2000
           });
         } else {
           console.log("user closed SaveDialog");
@@ -176,9 +170,8 @@ export const ImportExportDialog = withSnackbar(props => {
       })
       .catch(err => {
         console.error(err);
-        props.enqueueSnackbar("Error at Exporting: " + err, {
-          variant: "error",
-          autoHideDuration: 2000
+        toast.error(i18n.t("errors.exportError") + err, {
+          autoClose: 2000
         });
       });
   }
@@ -236,4 +229,4 @@ export const ImportExportDialog = withSnackbar(props => {
       </DialogActions>
     </Dialog>
   );
-});
+};

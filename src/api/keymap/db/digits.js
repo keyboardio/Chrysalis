@@ -167,6 +167,7 @@ const ModifiedDigitTables = [
   withModifiers(DigitTable, "Alt + Gui +", "A+G+", 4608),
   withModifiers(DigitTable, "AltGr + Shift +", "AGr+S+", 3072),
   withModifiers(DigitTable, "AltGr + Gui +", "AGr+G+", 5120),
+  withModifiers(DigitTable, "Shift + Gui +", "S+G+", 6144),
 
   // Triple
   withModifiers(DigitTable, "Control + Alt + AltGr +", "C+A+AGr+", 1792),
@@ -189,6 +190,12 @@ const ModifiedDigitTables = [
     5888
   ),
   withModifiers(DigitTable, "Hyper +", "Hyper+", 6912),
+  withModifiers(
+    DigitTable,
+    "Control + AltGr + Shift + Gui +",
+    "C+AGr+S+G+",
+    7424
+  ),
   withModifiers(DigitTable, "Alt + AltGr + Shift + Gui +", "A+AGr+S+G+", 7680),
 
   // All

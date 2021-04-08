@@ -125,6 +125,7 @@ const ModifiedModifiersTables = [
   withModifiers(ModifiersTable, "Alt + Gui +", "A+G+", 4608),
   withModifiers(ModifiersTable, "AltGr + Shift +", "AGr+S+", 3072),
   withModifiers(ModifiersTable, "AltGr + Gui +", "AGr+G+", 5120),
+  withModifiers(ModifiersTable, "Shift + Gui +", "S+G+", 6144),
 
   // Triple
   withModifiers(ModifiersTable, "Control + Alt + AltGr +", "C+A+AGr+", 1792),
@@ -147,6 +148,12 @@ const ModifiedModifiersTables = [
     5888
   ),
   withModifiers(ModifiersTable, "Hyper+", "Hyper+", 6912),
+  withModifiers(
+    ModifiersTable,
+    "Control + AltGr + Shift + Gui +",
+    "C+AGr+S+G+",
+    7424
+  ),
   withModifiers(
     ModifiersTable,
     "Alt + AltGr + Shift + Gui +",

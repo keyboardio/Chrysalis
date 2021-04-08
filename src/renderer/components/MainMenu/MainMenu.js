@@ -50,7 +50,8 @@ const styles = theme => ({
   },
   version: {
     textAlign: "right",
-    paddingTop: 20
+    paddingTop: 20,
+    paddingRight: theme.spacing(4)
   },
   toolbarIcon: {
     display: "flex",
@@ -60,10 +61,11 @@ const styles = theme => ({
     ...theme.mixins.toolbar
   },
   link: {
-    textDecoration: "none"
+    textDecoration: "none",
+    color: theme.palette.text.primary
   },
   menuItem: {
-    paddingLeft: theme.spacing.unit * 4
+    paddingLeft: theme.spacing(4)
   },
   keyboardTitleLight: {
     display: "block",
@@ -151,12 +153,7 @@ function MainMenu({ open, closeMenu, classes, connected, pages, themeDark }) {
               </Link>
             )}
             {pages.keymap && (
-              <Link
-                to="/editor"
-                style={{
-                  textDecoration: "none"
-                }}
-              >
+              <Link to="/editor" className={classes.link}>
                 <EditorMenuItem
                   selected={currentPage == "/editor"}
                   className={classes.menuItem}

@@ -81,6 +81,7 @@ class MacroSelector extends Component {
                       />
                       <Tooltip title={i18n.editor.macros.copy}>
                         <IconButton
+                          disabled={this.props.disableAdd}
                           onClick={() => {
                             this.props.duplicateMacro(index);
                           }}
@@ -108,7 +109,7 @@ class MacroSelector extends Component {
           ) : (
             <React.Fragment />
           )}
-          <ListItem>
+          <ListItem disabled={this.props.disableAdd}>
             {/* <Avatar>N</Avatar>
             <ListItemText primary="Add new Macro" /> */}
             <Tooltip title={i18n.editor.macros.add}>

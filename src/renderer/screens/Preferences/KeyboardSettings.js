@@ -565,6 +565,7 @@ class KeyboardSettings extends React.Component {
         min={0}
         max={254}
         id="mouseWheelSpeed"
+
         value={mouseWheelSpeed}
         className={classes.slider}
         onChange={this.setWheelSpeed}

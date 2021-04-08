@@ -1250,7 +1250,7 @@ class Editor extends React.Component {
             currentLanguageLayout={this.state.currentLanguageLayout}
             onChangeLanguageLayout={this.onChangeLanguageLayout}
             macros={this.state.macros}
-            maxMacros={32}
+            maxMacros={64}
             updateMacros={this.updateMacros}
             keymapDB={this.keymapDB}
           />

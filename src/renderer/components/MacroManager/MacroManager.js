@@ -25,6 +25,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
+import i18n from "../../i18n";
 
 import MacroForm from "./MacroForm";
 
@@ -32,24 +33,30 @@ const styles = theme => ({
   modal: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    border: "none",
+    outline: "none"
   },
   wrapper: {
     width: "90vw",
     position: "relative",
+    //TODO perhaps consider changing this to a more flexible / resizable layout?
     maxWidth: "1040px",
-    maxHeight: "760px"
+    maxHeight: "760px",
+    outline: "none"
   },
   root: {
     width: "100%",
     height: "100%",
-    backgroundColor: "#f5f5f5",
+    backgroundColor: theme.palette.background.default,
     boxShadow: "0 30px 50px rgba(0, 0, 0, 0.7)",
     padding: "13px 8px 0",
     overflowY: "auto",
     [theme.breakpoints.down("md")]: {
       overflowY: "scroll"
-    }
+    },
+    outline: "none",
+    alignItems: "flex-start"
   },
   close: {
     position: "absolute",
@@ -69,12 +76,15 @@ const styles = theme => ({
     marginRight: 20,
     marginLeft: 10
   },
+  cardHeader: {
+    backgroundColor: theme.palette.secondary.main
+  },
   card: {
     width: "100%",
     height: "100%"
   },
   title: {
-    color: "white"
+    color: theme.palette.text.primary
   },
   cardcontent: {
     padding: "0px",
@@ -208,7 +218,7 @@ class MacroManager extends Component {
           }}
         >
           <CreateIcon className={classes.extendedIcon} />
-          Edit macros
+          {i18n.editor.macros.editMacros}
         </Fab>
         <Modal
           aria-labelledby="transition-modal-title"
@@ -222,14 +232,14 @@ class MacroManager extends Component {
           <div className={classes.wrapper}>
             <Card className={classes.card}>
               <CardHeader
+                className={classes.cardHeader}
                 action={
-                  <IconButton style={{ color: "#FFF" }} onClick={this.exit}>
+                  <IconButton onClick={this.exit}>
                     <CloseIcon />
                   </IconButton>
                 }
-                title="Macro Editor"
+                title={i18n.editor.macros.title}
                 classes={{ title: classes.title }}
-                style={{ backgroundColor: "black" }}
               />
               <CardContent classes={{ root: classes.cardcontent }}>
                 <MacroForm

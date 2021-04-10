@@ -20,7 +20,6 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
-import green from "@material-ui/core/colors/green";
 import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
 import CheckIcon from "@material-ui/icons/Check";
@@ -36,24 +35,24 @@ const styles = theme => ({
     alignItems: "center"
   },
   wrapper: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(),
     position: "relative"
   },
   buttonSuccess: {
-    backgroundColor: green[500],
+    backgroundColor: theme.palette.success.main,
     "&:hover": {
-      backgroundColor: green[700]
+      backgroundColor: theme.palette.success.dark
     }
   },
   fabProgress: {
-    color: green[500],
+    color: theme.palette.success.main,
     position: "absolute",
     top: -6,
     left: -6,
     zIndex: 1
   },
   buttonProgress: {
-    color: green[500],
+    color: theme.palette.success.main,
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -64,14 +63,11 @@ const styles = theme => ({
     marginRight: -16,
     zIndex: 1
   },
-  disabled: {
-    backgroundColor: "#ddd !important"
-  },
   fab: {
     position: "fixed",
     justifyContent: "flex-end",
     bottom: 0,
-    right: theme.spacing.unit * 4
+    right: theme.spacing(4)
   }
 });
 

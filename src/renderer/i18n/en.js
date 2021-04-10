@@ -18,7 +18,9 @@
 const English = {
   language: "English",
   errors: {
-    deviceDisconnected: "Keyboard disconnected"
+    deviceDisconnected: "Keyboard disconnected",
+    invalidLayerFile: "Not a valid Layer file",
+    exportError: "Error at Exporting: "
   },
   components: {
     layer: "Layer {0}",
@@ -32,7 +34,8 @@ const English = {
   },
   dialog: {
     ok: "Ok",
-    cancel: "Cancel"
+    cancel: "Cancel",
+    allFiles: "All Files"
   },
   app: {
     device: "Keyboard",
@@ -69,6 +72,9 @@ const English = {
   editor: {
     keyType: "Key type",
     keyCode: "Key code",
+    searchForKeyOrCategory: "Search for a key or category",
+    keyConfig: "Key Config",
+    keySelectorTitle: "Select Key",
     groups: {
       Letters: "Letters",
       Digits: "Digits",
@@ -97,6 +103,41 @@ const English = {
       Blank: "Blank",
       "Unknown keycodes": "Unknown keycodes"
     },
+    macros: {
+      add: "Add new macro",
+      applyAndExit: "Apply & Exit",
+      backup: "Backup All",
+      backupMacro: "Backup Macros",
+      backupMacroFile: "Backup Macros to file",
+      copy: "Copy",
+      editMacros: "Edit macros",
+      delay: "Delay",
+      delete: "Delete",
+      errorExport: "The file is not a valid macro export",
+      export: "Export",
+      functions: "Functions",
+      import: "Import",
+      inputText: "Input Text",
+      inputTextBox: "Type text into Macro editor",
+      insertModifiers: "Add Modifier",
+      keysAndDelays: "Keys & Delay",
+      loadMacro: "Load Macros",
+      loadMacroFile: "Load Macro file",
+      macroName: "Macro Name",
+      mouse: "Mouse",
+      restore: "Restore All",
+      restoreMacros: "Restore Macros",
+      restoreMacrosFile: "Restore Macros file",
+      save: "Save",
+      saveMacros: "Save Macros",
+      saveMacrosFile: "Save Macros file",
+      selectAction: "Select Action",
+      selectFunction: "Select Function",
+      selectKey: "Select Key",
+      selectMacro: "Select a Macro",
+      selectMouseFunction: "Select Mouse Function",
+      title: "Macro Editor"
+    },
     clearLayer: "Clear layer",
     clearLayerQuestion: "Clear layer?",
     clearLayerPrompt: "This will reset the layer to its default state.",
@@ -113,18 +154,28 @@ const English = {
     copyToClipboard: "Copy to clipboard",
     copySuccess: "Copied!",
     pasteFromClipboard: "Paste from clipboard",
-    pasteSuccess: "Pasted!"
+    pasteSuccess: "Pasted!",
+    importSuccessCurrentLayer: "Imported to current Layer succesfully",
+    importSuccessAllLayers: "Imported all Layers succesfully",
+    exportSuccessCurrentLayer: "Export Successful",
+    exportSuccessAllLayers: "Exported all Layers succesfully"
   },
   preferences: {
     devtools: "Developer tools",
     language: "Language",
     interface: "Interface",
     advanced: "Advanced",
-    darkMode: "Dark mode",
-    verboseFocus: "Verbose logging"
+    verboseFocus: "Verbose logging",
+    darkMode: {
+      label: "Dark mode",
+      light: "Light",
+      dark: "Dark",
+      system: "System"
+    }
   },
   keyboardSettings: {
     advanced: "Advanced",
+    defaultLabel: "default",
     keymap: {
       title: "KEYMAP SETTINGS",
       noDefault: "No default",
@@ -208,7 +259,9 @@ const English = {
     connect: "Connect",
     disconnect: "Disconnect",
     scan: "Scan keyboards",
-    permissionError: `Insufficient permissions, please make sure the device file is read- and writeable!`
+    installUdevRules: "Fix it",
+    permissionError: `Your computer won't let BAZECOR talk to your keyboard. (You do not have read/write permissions to {{path}}.)`,
+    permissionErrorSuggestion: `BAZECOR can fix this by installing a udev rules file into /etc/udev/rules.d/.`
   },
   firmwareUpdate: {
     dialog: {

@@ -66,6 +66,7 @@ const ModifiedMiscellaneousTables = [
   withModifiers(MiscellaneousTable, "AltGr +", "AGr+", 1024),
   withModifiers(MiscellaneousTable, "Shift +", "S+", 2048),
   withModifiers(MiscellaneousTable, "Gui +", "G+", 4096),
+  withModifiers(MiscellaneousTable, "Gui +", "G+", 4096),
 
   // Double
   withModifiers(MiscellaneousTable, "Control + Alt +", "C+A+", 768),
@@ -77,6 +78,7 @@ const ModifiedMiscellaneousTables = [
   withModifiers(MiscellaneousTable, "Alt + Gui +", "A+G+", 4608),
   withModifiers(MiscellaneousTable, "AltGr + Shift +", "AGr+S+", 3072),
   withModifiers(MiscellaneousTable, "AltGr + Gui +", "AGr+G+", 5120),
+  withModifiers(MiscellaneousTable, "Shift + Gui +", "S+G+", 6144),
 
   // Triple
   withModifiers(
@@ -114,6 +116,12 @@ const ModifiedMiscellaneousTables = [
     5888
   ),
   withModifiers(MiscellaneousTable, "Hyper+", "Hyper+", 6912),
+  withModifiers(
+    MiscellaneousTable,
+    "Control + AltGr + Shift + Gui +",
+    "C+AGr+S+G+",
+    7424
+  ),
   withModifiers(
     MiscellaneousTable,
     "Alt + AltGr + Shift + Gui +",

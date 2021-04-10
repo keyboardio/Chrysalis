@@ -62,17 +62,17 @@ const styles = theme => ({
     padding: 1,
     minWidth: "50px",
     width: "90%",
-    borderColor: "#darkgray",
+    borderColor: "#darkgray", //  TODO changing this to a palette color or elevation?
     fontSize: "0.7rem",
     fontWeight: 900
   },
   paper: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(),
     textAlign: "left",
     color: "black",
     marginBottom: 4,
     font: "800 15px Arial",
-    backgroundColor: "#c7c4c496"
+    backgroundColor: "#c7c4c496" //  TODO changing this to a palette color or elevation?
   }
 });
 
@@ -127,7 +127,7 @@ function GroupItem(props) {
             >
               <Button
                 variant={code === selectedKeyCode ? "contained" : "outlined"}
-                color={code === selectedKeyCode ? "primary" : null}
+                color={code === selectedKeyCode ? "primary" : "default"}
                 className={classes.button}
               >
                 {primary || (isTransparent(verbose) && "Transp.")}
@@ -178,4 +178,5 @@ function GroupItem(props) {
   );
 }
 
-export default React.memo(withStyles(styles)(GroupItem));
+// export default React.memo(withStyles(styles)(GroupItem));
+export default withStyles(styles)(GroupItem);

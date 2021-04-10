@@ -20,7 +20,7 @@
 import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import { SketchPicker } from "react-color";
+import { SketchPicker } from "react-color"; // TODO consider replacing the OOTB version with a custom picker so that we can add themes
 import Fab from "@material-ui/core/Fab";
 import Tooltip from "@material-ui/core/Tooltip";
 import Popover from "@material-ui/core/Popover";

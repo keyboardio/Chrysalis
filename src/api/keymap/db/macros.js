@@ -240,8 +240,231 @@ const MacrosTable = {
         primary: "31",
         top: "MACRO"
       }
+    },
+    {
+      code: 24608,
+      labels: {
+        primary: "32",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24609,
+      labels: {
+        primary: "33",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24610,
+      labels: {
+        primary: "34",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24611,
+      labels: {
+        primary: "35",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24612,
+      labels: {
+        primary: "36",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24613,
+      labels: {
+        primary: "37",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24614,
+      labels: {
+        primary: "38",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24615,
+      labels: {
+        primary: "39",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24616,
+      labels: {
+        primary: "40",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24617,
+      labels: {
+        primary: "41",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24618,
+      labels: {
+        primary: "42",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24619,
+      labels: {
+        primary: "43",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24620,
+      labels: {
+        primary: "44",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24621,
+      labels: {
+        primary: "45",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24622,
+      labels: {
+        primary: "46",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24623,
+      labels: {
+        primary: "47",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24624,
+      labels: {
+        primary: "48",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24625,
+      labels: {
+        primary: "49",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24626,
+      labels: {
+        primary: "50",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24627,
+      labels: {
+        primary: "51",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24628,
+      labels: {
+        primary: "52",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24629,
+      labels: {
+        primary: "53",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24630,
+      labels: {
+        primary: "54",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24631,
+      labels: {
+        primary: "55",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24632,
+      labels: {
+        primary: "56",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24633,
+      labels: {
+        primary: "57",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24634,
+      labels: {
+        primary: "58",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24635,
+      labels: {
+        primary: "59",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24636,
+      labels: {
+        primary: "60",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24637,
+      labels: {
+        primary: "61",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24638,
+      labels: {
+        primary: "62",
+        top: "MACRO"
+      }
+    },
+    {
+      code: 24639,
+      labels: {
+        primary: "63",
+        top: "MACRO"
+      }
     }
-    // TODO: There are 256 macro keys
   ]
 };
 

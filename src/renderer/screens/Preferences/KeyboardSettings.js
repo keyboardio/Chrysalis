@@ -157,48 +157,48 @@ class KeyboardSettings extends React.Component {
 
     // QUKEYS variables commands
     focus.command("qukeys.holdTimeout").then(holdTimeout => {
-      holdTimeout = holdTimeout ? parseInt(holdTimeout) : -1;
+      holdTimeout = holdTimeout ? parseInt(holdTimeout) : 250;
       this.setState({ qukeysHoldTimeout: holdTimeout });
     });
 
     focus.command("qukeys.overlapThreshold").then(overlapThreshold => {
-      overlapThreshold = overlapThreshold ? parseInt(overlapThreshold) : -1;
+      overlapThreshold = overlapThreshold ? parseInt(overlapThreshold) : 80;
       this.setState({ qukeysOverlapThreshold: overlapThreshold });
     });
 
     // MOUSE variables commands
     focus.command("mouse.speed").then(speed => {
-      speed = speed ? parseInt(speed) : -1;
+      speed = speed ? parseInt(speed) : 1;
       this.setState({ mouseSpeed: speed });
     });
 
     focus.command("mouse.speedDelay").then(speedDelay => {
-      speedDelay = speedDelay ? parseInt(speedDelay) : -1;
+      speedDelay = speedDelay ? parseInt(speedDelay) : 6;
       this.setState({ mouseSpeedDelay: speedDelay });
     });
 
     focus.command("mouse.accelSpeed").then(accelSpeed => {
-      accelSpeed = accelSpeed ? parseInt(accelSpeed) : -1;
+      accelSpeed = accelSpeed ? parseInt(accelSpeed) : 1;
       this.setState({ mouseAccelSpeed: accelSpeed });
     });
 
     focus.command("mouse.accelDelay").then(accelDelay => {
-      accelDelay = accelDelay ? parseInt(accelDelay) : -1;
+      accelDelay = accelDelay ? parseInt(accelDelay) : 64;
       this.setState({ mouseAccelDelay: accelDelay });
     });
 
     focus.command("mouse.wheelSpeed").then(wheelSpeed => {
-      wheelSpeed = wheelSpeed ? parseInt(wheelSpeed) : -1;
+      wheelSpeed = wheelSpeed ? parseInt(wheelSpeed) : 1;
       this.setState({ mouseWheelSpeed: wheelSpeed });
     });
 
     focus.command("mouse.wheelDelay").then(wheelDelay => {
-      wheelDelay = wheelDelay ? parseInt(wheelDelay) : -1;
+      wheelDelay = wheelDelay ? parseInt(wheelDelay) : 128;
       this.setState({ mouseWheelDelay: wheelDelay });
     });
 
     focus.command("mouse.speedLimit").then(speedLimit => {
-      speedLimit = speedLimit ? parseInt(speedLimit) : -1;
+      speedLimit = speedLimit ? parseInt(speedLimit) : 127;
       this.setState({ mouseSpeedLimit: speedLimit });
     });
   }

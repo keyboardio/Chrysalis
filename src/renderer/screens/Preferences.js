@@ -51,8 +51,6 @@ import i18n from "../i18n";
 import Focus from "../../api/focus";
 import settings from "electron-settings";
 
-const { ipcRenderer } = require("electron");
-
 const styles = theme => ({
   root: {
     ...theme.mixins.gutters(),
@@ -150,41 +148,7 @@ class Preferences extends React.Component {
 
   selectDarkMode = event => {
     this.setState({ darkMode: event.target.value });
-    const darkMode = event.target.value;
-    ipcRenderer.invoke("dark-mode:set", darkMode);
-
-    // TODO this needs to be fixed to change the settings without requiring a restart
-    if (darkMode === "system") {
-      toast.info(
-        <div>
-          <ComputerRounded />
-          <p>
-            <b>Dark mode preferences updated!</b>
-          </p>
-          <p>Please restart BAZECOR for the changes to take effect</p>
-        </div>
-      );
-    } else if (darkMode === "dark") {
-      toast.info(
-        <div>
-          <Brightness3Rounded />
-          <p>
-            <b>Dark mode preferences updated!</b>
-          </p>
-          <p>Please restart BAZECOR for the changes to take effect</p>
-        </div>
-      );
-    } else {
-      toast.info(
-        <div>
-          <WbSunnyRounded />
-          <p>
-            <b>Blues brothers mode enabled!</b>
-          </p>
-          <p>Please restart BAZECOR when your have you sunglasses ready!</p>
-        </div>
-      );
-    }
+    this.props.toggleDarkMode(event.target.value);
   };
 
   toggleVerboseFocus = event => {

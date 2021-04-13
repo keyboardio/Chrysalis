@@ -85,7 +85,12 @@ class CustomDialog extends React.Component {
 
   render() {
     return (
-      <Dialog onClose={this.handleClose} open={this.props.open} maxWidth="md">
+      <Dialog
+        onClose={this.handleClose}
+        open={this.props.open}
+        maxWidth="md"
+        disableEscapeKeyDown="true"
+      >
         <DialogTitle onClose={this.handleClose} disabled={this.props.disabled}>
           {this.props.title}
         </DialogTitle>

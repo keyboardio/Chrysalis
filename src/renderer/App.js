@@ -49,7 +49,7 @@ import { history, navigate } from "./routerHistory";
 const Store = window.require("electron-store");
 const store = new Store();
 
-const { nativeTheme } = require("electron");
+const { remote, ipcRenderer } = require("electron");
 
 let focus = new Focus();
 focus.debug = true;
@@ -83,8 +83,16 @@ class App extends React.Component {
       balance = store.get("balance");
     }
 
+    let dark;
+    const mode = settings.getSync("ui.darkMode");
+    if (typeof mode === Boolean) {
+      dark = ipcRenderer.sendSync("dark-mode:set", "system");
+    } else {
+      dark = ipcRenderer.sendSync("dark-mode:set", mode);
+    }
+
     this.state = {
-      darkMode: settings.getSync("ui.darkMode"),
+      darkMode: dark,
       connected: false,
       device: null,
       pages: {},
@@ -97,9 +105,12 @@ class App extends React.Component {
     toast.configure({
       position: "bottom-left",
       autoClose: false,
+      hideProgressBar: false,
       newestOnTop: true,
       draggable: false,
-      closeOnClick: false
+      closeOnClick: true,
+      pauseOnHover: true,
+      pauseOnFocusLoss: true
     });
   }
   flashing = false;
@@ -134,16 +145,18 @@ class App extends React.Component {
     });
   }
 
-  toggleDarkMode = () => {
-    const nextDarkModeState = !this.state.darkMode;
+  toggleDarkMode = async mode => {
+    console.log("changing dark mode");
+    let isDark = await ipcRenderer
+      .invoke("dark-mode:set", mode)
+      .catch(error => {
+        return false;
+      });
+    console.log(isDark);
     this.setState({
-      darkMode: nextDarkModeState
+      darkMode: isDark
     });
-    settings.setSync("ui.darkMode", nextDarkModeState);
-  };
-
-  onDarkModeChange = async () => {
-    this.setState({ darkMode: settings.getSync("ui.darkMode") });
+    settings.setSync("ui.darkMode", mode);
   };
 
   toggleFlashing = async () => {

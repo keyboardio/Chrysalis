@@ -31,7 +31,7 @@ process.env[`NODE_ENV`] = Environment.name;
 // (tessel/node-usb#380). See electron/electron#18397 for more context.
 app.allowRendererProcessReuse = false;
 
-import { app, BrowserWindow, Menu } from "electron";
+import { app, BrowserWindow, Menu, nativeTheme, ipcMain } from "electron";
 import settings from "electron-settings";
 import { format as formatUrl } from "url";
 import * as path from "path";
@@ -44,8 +44,6 @@ import installExtension, {
 import { getStaticPath } from "../renderer/config";
 
 const isDevelopment = process.env.NODE_ENV !== "production";
-const { nativeTheme, ipcMain } = require("electron");
-
 let mainWindow;
 
 async function createMainWindow() {
@@ -99,6 +97,15 @@ async function createMainWindow() {
     return nativeTheme.shouldUseDarkColors;
   });
 
+  nativeTheme.on("updated", function theThemeHasChanged() {
+    updateTheme(nativeTheme.shouldUseDarkColors);
+  });
+
+  function updateTheme(flag) {
+    //updates the  renderer with the dark theme flag
+    console.log("dark theme flag", flag);
+  }
+
   window.on("closed", () => {
     mainWindow = null;
   });
@@ -144,7 +151,7 @@ function installUdev() {
   sudo.exec(
     'echo "SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2201", GROUP=users, MODE="0666"" > /etc/udev/rules.d/50-dygma.rules && udevadm control --reload-rules',
     options,
-    function(error, stdout) {
+    function (error, stdout) {
       if (error) throw error;
       console.log("stdout: " + stdout);
     }

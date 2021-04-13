@@ -494,7 +494,7 @@ class KeyboardSettings extends React.Component {
     const holdT = (
       <Slider
         min={0}
-        max={65534}
+        max={2000}
         value={qukeysHoldTimeout}
         className={classes.slider}
         onChange={this.setHoldTimeout}
@@ -527,7 +527,7 @@ class KeyboardSettings extends React.Component {
     const mSpeedD = (
       <Slider
         min={0}
-        max={65534}
+        max={2000}
         id="mouseSpeedDelay"
         value={mouseSpeedDelay}
         className={classes.slider}
@@ -551,7 +551,7 @@ class KeyboardSettings extends React.Component {
     const maccelD = (
       <Slider
         min={0}
-        max={65534}
+        max={2000}
         id="mouseAccelDelay"
         value={mouseAccelDelay}
         className={classes.slider}
@@ -565,7 +565,6 @@ class KeyboardSettings extends React.Component {
         min={0}
         max={254}
         id="mouseWheelSpeed"
-
         value={mouseWheelSpeed}
         className={classes.slider}
         onChange={this.setWheelSpeed}
@@ -576,7 +575,7 @@ class KeyboardSettings extends React.Component {
     const mWheelD = (
       <Slider
         min={0}
-        max={65534}
+        max={2000}
         id="mouseWheelDelay"
         value={mouseWheelDelay}
         className={classes.slider}

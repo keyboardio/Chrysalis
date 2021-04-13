@@ -494,12 +494,12 @@ class KeyboardSettings extends React.Component {
     const holdT = (
       <Slider
         min={0}
-        max={2000}
+        max={1000}
         value={qukeysHoldTimeout}
         className={classes.slider}
         onChange={this.setHoldTimeout}
         valueLabelDisplay="auto"
-        marks={[{ value: 65530, label: i18n.keyboardSettings.defaultLabel }]}
+        marks={[{ value: 250, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
     const overlapT = (
@@ -527,13 +527,13 @@ class KeyboardSettings extends React.Component {
     const mSpeedD = (
       <Slider
         min={0}
-        max={2000}
+        max={1000}
         id="mouseSpeedDelay"
         value={mouseSpeedDelay}
         className={classes.slider}
         onChange={this.setSpeedDelay}
         valueLabelDisplay="auto"
-        marks={[{ value: 65281, label: i18n.keyboardSettings.defaultLabel }]}
+        marks={[{ value: 6, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
     const mAccelS = (
@@ -551,13 +551,13 @@ class KeyboardSettings extends React.Component {
     const maccelD = (
       <Slider
         min={0}
-        max={2000}
+        max={1000}
         id="mouseAccelDelay"
         value={mouseAccelDelay}
         className={classes.slider}
         onChange={this.setAccelDelay}
         valueLabelDisplay="auto"
-        marks={[{ value: 65344, label: i18n.keyboardSettings.defaultLabel }]}
+        marks={[{ value: 64, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
     const mWheelS = (
@@ -575,13 +575,13 @@ class KeyboardSettings extends React.Component {
     const mWheelD = (
       <Slider
         min={0}
-        max={2000}
+        max={1000}
         id="mouseWheelDelay"
         value={mouseWheelDelay}
         className={classes.slider}
         onChange={this.setWheelDelay}
         valueLabelDisplay="auto"
-        marks={[{ value: 65330, label: i18n.keyboardSettings.defaultLabel }]}
+        marks={[{ value: 200, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
     const mSpeedL = (

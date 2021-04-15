@@ -134,6 +134,7 @@ class Editor extends React.Component {
     this.toExport = this.toExport.bind(this);
     this.toImport = this.toImport.bind(this);
     this.toExportAll = this.toExportAll.bind(this);
+    this.getLayout = this.getLayout.bind(this);
   }
 
   keymapDB = new KeymapDB();

@@ -83,16 +83,15 @@ class App extends React.Component {
       balance = store.get("balance");
     }
 
-    let dark;
+    let isDark;
     const mode = settings.getSync("ui.darkMode");
-    if (typeof mode === Boolean) {
-      dark = ipcRenderer.sendSync("dark-mode:set", "system");
-    } else {
-      dark = ipcRenderer.sendSync("dark-mode:set", mode);
+    isDark = mode === "dark" ? true : false;
+    if (mode === "system") {
+      isDark = remote.nativeTheme.shouldUseDarkColors;
     }
 
     this.state = {
-      darkMode: dark,
+      darkMode: isDark,
       connected: false,
       device: null,
       pages: {},
@@ -112,10 +111,22 @@ class App extends React.Component {
       pauseOnHover: true,
       pauseOnFocusLoss: true
     });
+
+    this.forceDarkMode = this.forceDarkMode.bind(this);
   }
   flashing = false;
 
   componentDidMount() {
+    // Setting up function to receive O.S. dark theme changes
+    const self = this;
+    ipcRenderer.on("darkTheme-update", function (evt, message) {
+      console.log("O.S. DarkTheme Settings changed to ", message);
+      let dm = settings.getSync("ui.darkMode");
+      if (dm === "system") {
+        self.forceDarkMode(message);
+      }
+    });
+
     usb.on("detach", async device => {
       if (!focus.device) return;
       if (this.flashing) return;
@@ -145,14 +156,23 @@ class App extends React.Component {
     });
   }
 
+  forceDarkMode = mode => {
+    this.setState({
+      darkMode: mode
+    });
+  };
+
   toggleDarkMode = async mode => {
-    console.log("changing dark mode");
-    let isDark = await ipcRenderer
-      .invoke("dark-mode:set", mode)
-      .catch(error => {
-        return false;
-      });
-    console.log(isDark);
+    console.log(
+      "Dark mode changed to: ",
+      mode,
+      "NativeTheme says: ",
+      remote.nativeTheme.shouldUseDarkColors
+    );
+    let isDark = mode === "dark" ? true : false;
+    if (mode === "system") {
+      isDark = remote.nativeTheme.shouldUseDarkColors;
+    }
     this.setState({
       darkMode: isDark
     });

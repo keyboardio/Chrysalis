@@ -117,7 +117,7 @@ class Preferences extends React.Component {
     let focus = new Focus();
     this.setState({ verboseFocus: focus.debug });
 
-    let darkModeSetting = settings.getSync("ui.darkModePref");
+    let darkModeSetting = settings.getSync("ui.darkMode");
     console.log("bleep!:", darkModeSetting);
     if (darkModeSetting === undefined) {
       darkModeSetting = "system";

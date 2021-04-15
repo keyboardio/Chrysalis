@@ -89,22 +89,12 @@ async function createMainWindow() {
     window.show();
   });
 
-  ipcMain.handle("dark-mode:set", async (event, darkMode) => {
-    settings.setSync("ui.darkModePref", darkMode);
-    // Setting nativeTheme at this point in the code is not working, hence the need to restart
-    nativeTheme.ThemeSource = darkMode;
-    settings.setSync("ui.darkMode", nativeTheme.shouldUseDarkColors);
-    return nativeTheme.shouldUseDarkColors;
-  });
-
   nativeTheme.on("updated", function theThemeHasChanged() {
-    updateTheme(nativeTheme.shouldUseDarkColors);
+    window.webContents.send(
+      "darkTheme-update",
+      nativeTheme.shouldUseDarkColors
+    );
   });
-
-  function updateTheme(flag) {
-    //updates the  renderer with the dark theme flag
-    console.log("dark theme flag", flag);
-  }
 
   window.on("closed", () => {
     mainWindow = null;
@@ -175,14 +165,13 @@ app.on("activate", () => {
 
 // create main BrowserWindow when electron is ready
 app.on("ready", async () => {
-  let darkMode = settings.getSync("ui.darkModePref");
-  if (darkMode === undefined) {
+  let darkMode = settings.getSync("ui.darkMode");
+  if (typeof darkMode === Boolean) {
     darkMode = "system";
-    settings.setSync("ui.darkModePref", "system");
+    settings.setSync("ui.darkMode", "system");
   }
   // Setting nativeTheme currently only seems to work at this point in the code
   nativeTheme.themeSource = darkMode;
-  settings.setSync("ui.darkMode", nativeTheme.shouldUseDarkColors);
 
   if (isDevelopment) {
     await installExtension(REACT_DEVELOPER_TOOLS)

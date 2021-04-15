@@ -257,6 +257,12 @@ class FirmwareUpdate extends React.Component {
         toastText: {
           fontSize: "1rem"
         },
+        toastSubText: {
+          fontSize: "0.9rem",
+          fontStyle: "italic",
+          fontWeight: 200,
+          color: "#DDD"
+        },
         toastButton1: {
           marginRight: "16px"
         },
@@ -270,6 +276,11 @@ class FirmwareUpdate extends React.Component {
           <Grid container item xs={12}>
             <Typography component="p" gutterBottom style={styles.toastText}>
               {i18n.firmwareUpdate.flashing.error}
+            </Typography>
+          </Grid>
+          <Grid container item xs={12}>
+            <Typography component="p" gutterBottom style={styles.toastSubText}>
+              {e.message}
             </Typography>
           </Grid>
           <Grid container item xs={12}>
@@ -331,6 +342,12 @@ class FirmwareUpdate extends React.Component {
         toastText: {
           fontSize: "1rem"
         },
+        toastSubText: {
+          fontSize: "0.9rem",
+          fontStyle: "italic",
+          fontWeight: 200,
+          color: "#DDD"
+        },
         toastButton1: {
           marginRight: "16px"
         },
@@ -344,6 +361,11 @@ class FirmwareUpdate extends React.Component {
           <Grid container item xs={12}>
             <Typography component="p" gutterBottom style={styles.toastText}>
               {i18n.firmwareUpdate.flashing.error}
+            </Typography>
+          </Grid>
+          <Grid container item xs={12}>
+            <Typography component="p" gutterBottom style={styles.toastSubText}>
+              {e.message}
             </Typography>
           </Grid>
           <Grid container item xs={12}>

@@ -132,7 +132,7 @@ class App extends React.Component {
       await navigate("./");
 
       if (!focus._port.isOpen) {
-        toast.warning(i18n.t("errors.deviceDisconnected"));
+        toast.warning(i18n.errors.deviceDisconnected);
       }
       await focus.close();
       await this.setState({

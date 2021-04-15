@@ -147,7 +147,7 @@ export default class FlashRaise {
    */
   saveBackupFile() {
     const route = path.join(
-      require("electron").remote.app.getAppPath(),
+      require("electron").remote.app.getPath("userData"),
       this.backupFileName + ".json"
     );
     console.log("saving file to: " + route);

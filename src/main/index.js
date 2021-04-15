@@ -166,7 +166,7 @@ app.on("activate", () => {
 // create main BrowserWindow when electron is ready
 app.on("ready", async () => {
   let darkMode = settings.getSync("ui.darkMode");
-  if (typeof darkMode === Boolean) {
+  if (typeof darkMode === Boolean || darkMode === undefined) {
     darkMode = "system";
     settings.setSync("ui.darkMode", "system");
   }

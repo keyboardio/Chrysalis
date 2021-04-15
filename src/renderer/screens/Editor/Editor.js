@@ -905,8 +905,8 @@ class Editor extends React.Component {
     try {
       Layer = focus.device.components.keymap;
     } catch (error) {
-      console.log("There is no spoon error: ", error);
-      this.forceUpdate();
+      console.error("Focus lost connection to Rasie: ", error);
+      return false;
     }
 
     return Layer;
@@ -1069,6 +1069,9 @@ class Editor extends React.Component {
     const { classes } = this.props;
     const { keymap, palette, isColorButtonSelected } = this.state;
     let Layer = this.getLayout();
+    if (Layer === false) {
+      return <div></div>;
+    }
     const showDefaults = settings.getSync("keymap.showDefaults");
 
     let currentLayer = this.state.currentLayer;

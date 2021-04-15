@@ -275,7 +275,7 @@ class FirmwareUpdate extends React.Component {
           <Grid container item xs={12}>
             <Grid item xs={6}>
               <Button
-                color="contained"
+                variant="contained"
                 style={styles.toastButton1}
                 onClick={() => {
                   const shell = Electron.remote && Electron.remote.shell;
@@ -349,7 +349,7 @@ class FirmwareUpdate extends React.Component {
           <Grid container item xs={12}>
             <Grid item xs={6}>
               <Button
-                color="contained"
+                variant="contained"
                 style={styles.toastButton1}
                 onClick={() => {
                   const shell = Electron.remote && Electron.remote.shell;
@@ -490,7 +490,11 @@ class FirmwareUpdate extends React.Component {
             <Typography variant="h6" gutterBottom>
               {"Follow these steps to update your firmware:"}
             </Typography>
-            <Typography component="p" gutterBottom className={classes.cardSub}>
+            <Typography
+              component="span"
+              gutterBottom
+              className={classes.cardSub}
+            >
               <ol style={{ lineHeight: "2rem" }}>
                 <li>{"Click 'Start Countdown'."}</li>
                 <li>

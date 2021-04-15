@@ -66,6 +66,7 @@ class Focus {
   }
 
   async open(device, info) {
+    console.warn("Warning! device being opened", device.isOpen, device, info);
     if (typeof device == "string") {
       if (!info) throw new Error("Device descriptor argument is mandatory");
       this._port = new SerialPort(
@@ -74,7 +75,11 @@ class Focus {
           baudRate: 115200,
           lock: true
         },
-        err => console.error(err)
+        err => {
+          if (err !== null) {
+            console.error(err);
+          }
+        }
       );
     } else if (typeof device == "object") {
       if (device.hasOwnProperty("binding")) {
@@ -136,6 +141,19 @@ class Focus {
         // Ignore
       }
     }
+
+    // Setup close port alert
+    this._port.on("close", function (error) {
+      if (error !== null && error.disconnected === true) {
+        console.error("Error: device disconnected without control");
+      } else {
+        console.warn("Warning: device disconnected by user interaction");
+      }
+    });
+    // Setup error port alert
+    this._port.on("error", function (err) {
+      console.error("Error on SerialPort: " + err);
+    });
 
     return this._port;
   }

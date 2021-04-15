@@ -262,7 +262,7 @@ class KeyboardSelect extends React.Component {
 
         const icon = (
           <ListItemIcon className={classes.listItemIcon}>
-            <Avatar className={option.path && classes.supported}>
+            <Avatar className={option.path ? classes.supported : ""}>
               <KeyboardIcon />
             </Avatar>
           </ListItemIcon>
@@ -310,7 +310,7 @@ class KeyboardSelect extends React.Component {
       <Button
         variant={devices && devices.length ? "outlined" : "contained"}
         color={devices && devices.length ? "default" : "primary"}
-        className={scanFoundDevices && classes.found}
+        className={scanFoundDevices ? classes.found : ""}
         onClick={scanFoundDevices ? null : this.scanDevices}
       >
         {i18n.keyboardSelect.scan}

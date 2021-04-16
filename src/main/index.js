@@ -31,7 +31,7 @@ process.env[`NODE_ENV`] = Environment.name;
 // (tessel/node-usb#380). See electron/electron#18397 for more context.
 app.allowRendererProcessReuse = false;
 
-import { app, BrowserWindow, Menu, nativeTheme, ipcMain } from "electron";
+import { app, BrowserWindow, Menu, nativeTheme, dialog } from "electron";
 import settings from "electron-settings";
 import { format as formatUrl } from "url";
 import * as path from "path";
@@ -138,14 +138,37 @@ function installUdev() {
     name: "Install Udev rules",
     icns: "./build/icon.icns"
   };
-  sudo.exec(
-    `echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2201", GROUP="users", MODE="0666"' > /etc/udev/rules.d/50-dygma.rules && udevadm control --reload-rules && udevadm trigger`,
-    options,
-    function (error, stdout) {
-      if (error) throw error;
-      console.log("stdout: " + stdout);
+  const dialogOpts = {
+    type: "question",
+    buttons: ["Cancel", "Install"],
+    defaultId: 1,
+    title: "Udev rules Installation",
+    message: "Bazecor lacks write access to your raise keyboard",
+    detail:
+      "Press install to set up the required Udev Rules, then scan keyboards again."
+  };
+  dialog.showMessageBox(null, dialogOpts, response => {
+    if (response === "Install") {
+      sudo.exec(
+        `echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2201", GROUP="users", MODE="0666"' > /etc/udev/rules.d/50-dygma.rules && udevadm control --reload-rules && udevadm trigger`,
+        options,
+        error => {
+          console.log("stdout: " + error.message);
+          const errorOpts = {
+            type: "error",
+            buttons: ["Ok"],
+            defaultId: 2,
+            title: "Error when launching sudo prompt",
+            message: "An error happened when launching a sudo prompt window",
+            detail:
+              "Your linux distribution lacks a polkit agent,  installing polkit-1-auth-agent, policykit-1-gnome, or polkit-kde-1 (depending on your desktop manager) will solve this problem /n/n" +
+              error.message
+          };
+          dialog.showMessageBox(null, errorOpts, null);
+        }
+      );
     }
-  );
+  });
 }
 
 // quit application when all windows are closed

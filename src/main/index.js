@@ -139,7 +139,7 @@ function installUdev() {
     icns: "./build/icon.icns"
   };
   sudo.exec(
-    'echo "SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2201", GROUP=users, MODE="0666"" > /etc/udev/rules.d/50-dygma.rules && udevadm control --reload-rules',
+    'echo "SUBSYSTEMS==\"usb\", ATTRS{idVendor}==\"1209\", ATTRS{idProduct}==\"2201\", GROUP=\"users\", MODE=\"0666\"" > /etc/udev/rules.d/50-dygma.rules && udevadm control --reload-rules && udevadm trigger',
     options,
     function (error, stdout) {
       if (error) throw error;
@@ -166,8 +166,7 @@ app.on("activate", () => {
 // create main BrowserWindow when electron is ready
 app.on("ready", async () => {
   let darkMode = settings.getSync("ui.darkMode");
-  console.log(darkMode);
-  if (typeof darkMode == Boolean || darkMode === undefined) {
+  if (typeof darkMode === "boolean" || darkMode === undefined) {
     darkMode = "system";
     settings.setSync("ui.darkMode", "system");
   }

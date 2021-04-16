@@ -139,7 +139,7 @@ function installUdev() {
     icns: "./build/icon.icns"
   };
   sudo.exec(
-    'echo "SUBSYSTEMS==\"usb\", ATTRS{idVendor}==\"1209\", ATTRS{idProduct}==\"2201\", GROUP=\"users\", MODE=\"0666\"" > /etc/udev/rules.d/50-dygma.rules && udevadm control --reload-rules && udevadm trigger',
+    `echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2201", GROUP="users", MODE="0666"' > /etc/udev/rules.d/50-dygma.rules && udevadm control --reload-rules && udevadm trigger`,
     options,
     function (error, stdout) {
       if (error) throw error;

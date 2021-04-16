@@ -141,6 +141,7 @@ function installUdev() {
   const dialogOpts = {
     type: "question",
     buttons: ["Cancel", "Install"],
+    cancelId: 0,
     defaultId: 1,
     title: "Udev rules Installation",
     message: "Bazecor lacks write access to your raise keyboard",
@@ -148,7 +149,8 @@ function installUdev() {
       "Press install to set up the required Udev Rules, then scan keyboards again."
   };
   dialog.showMessageBox(null, dialogOpts, response => {
-    if (response === "Install") {
+    console.log(response);
+    if (response === 0) {
       sudo.exec(
         `echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2201", GROUP="users", MODE="0666"' > /etc/udev/rules.d/50-dygma.rules && udevadm control --reload-rules && udevadm trigger`,
         options,
@@ -157,7 +159,7 @@ function installUdev() {
           const errorOpts = {
             type: "error",
             buttons: ["Ok"],
-            defaultId: 2,
+            defaultId: 0,
             title: "Error when launching sudo prompt",
             message: "An error happened when launching a sudo prompt window",
             detail:

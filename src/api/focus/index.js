@@ -84,7 +84,15 @@ class Focus {
     } else if (typeof device == "object") {
       if (device.hasOwnProperty("binding")) {
         if (!info) throw new Error("Device descriptor argument is mandatory");
-        this._port = device;
+        await device.close();
+        this._port = new SerialPort(
+          device.path,
+          {
+            baudRate: 115200,
+            lock: true
+          },
+          err => console.error(err)
+        );
       } else {
         let devices = await this.find(device);
         if (devices && devices.length >= 1) {

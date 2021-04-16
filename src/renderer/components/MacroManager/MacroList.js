@@ -23,6 +23,7 @@ import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import FormControl from "@material-ui/core/FormControl";
+import i18n from "../../i18n";
 
 const styles = theme => ({
   root: {
@@ -30,10 +31,12 @@ const styles = theme => ({
     flexWrap: "wrap"
   },
   margin: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(),
     marginBottom: "0px"
   },
   textField: {
+    padding: "0px",
+    margin: "0px",
     minWidth: "200px"
   }
 });
@@ -54,7 +57,7 @@ class MacroList extends Component {
           variant="outlined"
           value={selected}
           className={classNames(classes.margin, classes.textField)}
-          label="Select a Macro"
+          label={i18n.editor.macros.selectMacro}
           onChange={e => {
             changeSelected(e.target.value);
           }}

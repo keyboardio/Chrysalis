@@ -147,7 +147,7 @@ export default class FlashRaise {
    */
   saveBackupFile() {
     const route = path.join(
-      require("electron").remote.app.getAppPath(),
+      require("electron").remote.app.getPath("userData"),
       this.backupFileName + ".json"
     );
     console.log("saving file to: " + route);
@@ -167,7 +167,7 @@ export default class FlashRaise {
     const errorMessage =
       "The firmware update couldn't start because the Raise Bootloader wasn't found. Please check our Help Center for more details or schedule a video call with us.";
     let timeouts = {
-      dtrToggle: 500, // Time to wait (ms) between toggling DTR
+      dtrToggle: 1000, // Time to wait (ms) between toggling DTR
       waitingClose: 2750, // Time to wait for boot loader
       bootLoaderUp: process.platform === "darwin" ? 4250 : 2500 // Time to wait for the boot loader to come up
     };

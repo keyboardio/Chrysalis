@@ -8,14 +8,13 @@ import {
   ListItemText
 } from "@material-ui/core";
 import PublishRounded from "@material-ui/icons/PublishRounded";
+import i18n from "../../i18n";
 
 const styles = theme => ({
   root: {
     placeContent: "space-between",
     display: "flex",
-    flexWrap: "wrap",
-    margin: theme.spacing.unit,
-    backgroundColor: "#fff"
+    flexWrap: "wrap"
   },
   textField: {
     minWidth: "200px",
@@ -25,8 +24,12 @@ const styles = theme => ({
     display: "flex"
   },
   iconbutton: {
-    width: "61px",
-    height: "61px"
+    width: "58px",
+    height: "58px"
+  },
+  avatar: {
+    paddingTop: "4px",
+    paddingBottom: "4px"
   }
 });
 
@@ -50,11 +53,10 @@ class MacroTabSpecial extends Component {
           key={action + keyCode}
           id="Select Function"
           select
-          label="Select Function"
+          label={i18n.editor.macros.selectFunction}
           value={keyCode}
-          margin="none"
-          variant="outlined"
           rows={10}
+          size="small"
           className={classes.textField}
           onChange={e => {
             this.setState({
@@ -90,10 +92,8 @@ class MacroTabSpecial extends Component {
           key={action + keyCode}
           id="Select Action"
           select
-          label="Select Action"
+          label={i18n.editor.macros.selectAction}
           value={action}
-          margin="none"
-          variant="outlined"
           size="small"
           className={classes.textField}
           onChange={e => {

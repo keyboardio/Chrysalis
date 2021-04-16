@@ -374,9 +374,7 @@ class KeymapISO extends React.Component {
               smallKey
             )
         : getLabel(row, col).extraLabel ===
-          getLabel(row, col)
-            .extraLabel.toLowerCase()
-            .endsWith("to")
+          getLabel(row, col).extraLabel.toLowerCase().endsWith("to")
         ? getLabel(row, col).extraLabel &&
           getDivideKeys(getLabel(row, col).extraLabel, xCord, yCord, smallKey)
         : getLabel(row, col).extraLabel;

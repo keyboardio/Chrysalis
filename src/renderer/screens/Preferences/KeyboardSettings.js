@@ -30,9 +30,10 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
-import Slider from "@material-ui/lab/Slider";
+import Slider from "@material-ui/core/Slider";
 import Switch from "@material-ui/core/Switch";
 import TextField from "@material-ui/core/TextField";
+import CardHeader from "@material-ui/core/CardHeader";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -46,23 +47,23 @@ import settings from "electron-settings";
 
 const styles = theme => ({
   title: {
-    marginTop: theme.spacing.unit * 4,
-    marginBottom: theme.spacing.unit,
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(),
     fontWeight: 600
   },
   subtitle: {
     marginBottom: theme.spacing.uni
   },
   subtitle2: {
-    marginTop: theme.spacing.unit * 4,
-    marginBottom: theme.spacing.unit
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing()
   },
   greytext: {
-    color: "#CCC"
+    color: theme.palette.text.hint
   },
   control: {
     display: "flex",
-    marginRight: theme.spacing.unit * 2
+    marginRight: theme.spacing(2)
   },
   group: {
     display: "block"
@@ -74,26 +75,27 @@ const styles = theme => ({
     display: "flex"
   },
   select: {
-    paddingTop: theme.spacing.unit * 1,
+    paddingTop: theme.spacing(),
     width: 200
   },
   selectContainer: {
-    marginTop: theme.spacing.unit * 2
+    marginTop: theme.spacing(2)
   },
   slider: {
-    width: 300
+    width: 300,
+    minWidth: 300,
+    marginTop: theme.spacing(2)
   },
   textField: {
-    marginTop: theme.spacing.unit * 1
+    marginTop: theme.spacing()
   },
   sliderContainer: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2
+    marginTop: theme.spacing(2)
   },
   advanced: {
     display: "flex",
     justifyContent: "center",
-    marginTop: theme.spacing.unit * 4,
+    marginTop: theme.spacing(4),
     "& button": {
       textTransform: "none",
       "& span svg": {
@@ -150,53 +152,53 @@ class KeyboardSettings extends React.Component {
     });
 
     this.setState({
-      showDefaults: settings.get("keymap.showDefaults")
+      showDefaults: settings.getSync("keymap.showDefaults")
     });
 
     // QUKEYS variables commands
     focus.command("qukeys.holdTimeout").then(holdTimeout => {
-      holdTimeout = holdTimeout ? parseInt(holdTimeout) : -1;
+      holdTimeout = holdTimeout ? parseInt(holdTimeout) : 250;
       this.setState({ qukeysHoldTimeout: holdTimeout });
     });
 
     focus.command("qukeys.overlapThreshold").then(overlapThreshold => {
-      overlapThreshold = overlapThreshold ? parseInt(overlapThreshold) : -1;
+      overlapThreshold = overlapThreshold ? parseInt(overlapThreshold) : 80;
       this.setState({ qukeysOverlapThreshold: overlapThreshold });
     });
 
     // MOUSE variables commands
     focus.command("mouse.speed").then(speed => {
-      speed = speed ? parseInt(speed) : -1;
+      speed = speed ? parseInt(speed) : 1;
       this.setState({ mouseSpeed: speed });
     });
 
     focus.command("mouse.speedDelay").then(speedDelay => {
-      speedDelay = speedDelay ? parseInt(speedDelay) : -1;
+      speedDelay = speedDelay ? parseInt(speedDelay) : 6;
       this.setState({ mouseSpeedDelay: speedDelay });
     });
 
     focus.command("mouse.accelSpeed").then(accelSpeed => {
-      accelSpeed = accelSpeed ? parseInt(accelSpeed) : -1;
+      accelSpeed = accelSpeed ? parseInt(accelSpeed) : 1;
       this.setState({ mouseAccelSpeed: accelSpeed });
     });
 
     focus.command("mouse.accelDelay").then(accelDelay => {
-      accelDelay = accelDelay ? parseInt(accelDelay) : -1;
+      accelDelay = accelDelay ? parseInt(accelDelay) : 64;
       this.setState({ mouseAccelDelay: accelDelay });
     });
 
     focus.command("mouse.wheelSpeed").then(wheelSpeed => {
-      wheelSpeed = wheelSpeed ? parseInt(wheelSpeed) : -1;
+      wheelSpeed = wheelSpeed ? parseInt(wheelSpeed) : 1;
       this.setState({ mouseWheelSpeed: wheelSpeed });
     });
 
     focus.command("mouse.wheelDelay").then(wheelDelay => {
-      wheelDelay = wheelDelay ? parseInt(wheelDelay) : -1;
+      wheelDelay = wheelDelay ? parseInt(wheelDelay) : 128;
       this.setState({ mouseWheelDelay: wheelDelay });
     });
 
     focus.command("mouse.speedLimit").then(speedLimit => {
-      speedLimit = speedLimit ? parseInt(speedLimit) : -1;
+      speedLimit = speedLimit ? parseInt(speedLimit) : 127;
       this.setState({ mouseSpeedLimit: speedLimit });
     });
   }
@@ -253,18 +255,11 @@ class KeyboardSettings extends React.Component {
     this.props.startContext();
   };
 
-  setHoldTimeout = event => {
-    if (event.target.value > 254) {
-      this.setState({
-        qukeysHoldTimeout: 254,
-        modified: true
-      });
-    } else {
-      this.setState({
-        qukeysHoldTimeout: event.target.value,
-        modified: true
-      });
-    }
+  setHoldTimeout = (event, value) => {
+    this.setState({
+      qukeysHoldTimeout: value,
+      modified: true
+    });
     this.props.startContext();
   };
 
@@ -276,112 +271,59 @@ class KeyboardSettings extends React.Component {
     this.props.startContext();
   };
 
-  setSpeed = event => {
-    if (event.target.value > 254) {
-      this.setState({
-        mouseSpeed: 254,
-        modified: true
-      });
-    } else {
-      this.setState({
-        mouseSpeed: event.target.value,
-        modified: true
-      });
-    }
+  setSpeed = (event, value) => {
     this.setState({
-      mouseSpeed: event.target.value,
+      mouseSpeed: value,
       modified: true
     });
     this.props.startContext();
   };
 
-  setSpeedDelay = event => {
-    if (event.target.value > 65354) {
-      this.setState({
-        mouseSpeedDelay: 65354,
-        modified: true
-      });
-    } else {
-      this.setState({
-        mouseSpeedDelay: event.target.value,
-        modified: true
-      });
-    }
+  setSpeedDelay = (event, value) => {
+    this.setState({
+      mouseSpeedDelay: value,
+      modified: true
+    });
     this.props.startContext();
   };
 
-  setAccelSpeed = event => {
-    if (event.target.value > 254) {
-      this.setState({
-        mouseAccelSpeed: 254,
-        modified: true
-      });
-    } else {
-      this.setState({
-        mouseAccelSpeed: event.target.value,
-        modified: true
-      });
-    }
+  setAccelSpeed = (event, value) => {
+    this.setState({
+      mouseAccelSpeed: value,
+      modified: true
+    });
     this.props.startContext();
   };
 
-  setAccelDelay = event => {
-    if (event.target.value > 65354) {
-      this.setState({
-        mouseAccelDelay: 65354,
-        modified: true
-      });
-    } else {
-      this.setState({
-        mouseAccelDelay: event.target.value,
-        modified: true
-      });
-    }
+  setAccelDelay = (event, value) => {
+    this.setState({
+      mouseAccelDelay: value,
+      modified: true
+    });
     this.props.startContext();
   };
 
-  setWheelSpeed = event => {
-    if (event.target.value > 254) {
-      this.setState({
-        mouseWheelSpeed: 254,
-        modified: true
-      });
-    } else {
-      this.setState({
-        mouseWheelSpeed: event.target.value,
-        modified: true
-      });
-    }
+  setWheelSpeed = (event, value) => {
+    this.setState({
+      mouseWheelSpeed: value,
+      modified: true
+    });
     this.props.startContext();
   };
 
-  setWheelDelay = event => {
-    if (event.target.value > 65354) {
-      this.setState({
-        mouseWheelDelay: 65354,
-        modified: true
-      });
-    } else {
-      this.setState({
-        mouseWheelDelay: event.target.value,
-        modified: true
-      });
-    }
+  setWheelDelay = (event, value) => {
+    this.setState({
+      mouseWheelDelay: value,
+      modified: true
+    });
     this.props.startContext();
   };
 
-  setSpeedLimit = event => {
-    if (event.target.value > 254) {
-      this.setState({
-        mouseSpeedLimit: 254,
-        modified: true
-      });
-    } else {
-      this.setState({
-        mouseSpeedLimit: event.target.value,
-        modified: true
-      });
-    }
+  setSpeedLimit = (event, value) => {
+    this.setState({
+      mouseSpeedLimit: value,
+      modified: true
+    });
     this.props.startContext();
   };
 
@@ -410,7 +352,7 @@ class KeyboardSettings extends React.Component {
     await focus.command("led.brightness", ledBrightness);
     if (ledIdleTimeLimit >= 0)
       await focus.command("idleleds.time_limit", ledIdleTimeLimit);
-    settings.set("keymap.showDefaults", showDefaults);
+    settings.setSync("keymap.showDefaults", showDefaults);
     // QUKEYS
     await focus.command("qukeys.holdTimeout", qukeysHoldTimeout);
     await focus.command("qukeys.overlapThreshold", qukeysOverlapThreshold);
@@ -545,24 +487,19 @@ class KeyboardSettings extends React.Component {
         value={ledBrightness}
         className={classes.slider}
         onChange={this.setBrightness}
+        valueLabelDisplay="auto"
+        marks={[{ value: 255, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
     const holdT = (
-      <TextField
-        id="holdTimeout"
-        lable="Hold Timeout"
-        type="number"
+      <Slider
+        min={0}
+        max={1000}
         value={qukeysHoldTimeout}
+        className={classes.slider}
         onChange={this.setHoldTimeout}
-        className={classes.textField}
-        inputProps={{
-          min: 0,
-          max: 65534,
-          style: {
-            padding: 12
-          }
-        }}
-        variant="filled"
+        valueLabelDisplay="auto"
+        marks={[{ value: 250, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
     const overlapT = (
@@ -571,132 +508,92 @@ class KeyboardSettings extends React.Component {
         value={qukeysOverlapThreshold}
         className={classes.slider}
         onChange={this.setOverlapThreshold}
+        valueLabelDisplay="auto"
+        marks={[{ value: 80, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
     const mSpeed = (
-      <TextField
+      <Slider
+        min={0}
+        max={254}
         id="mouseSpeed"
-        lable="Mouse Speed"
-        type="number"
         value={mouseSpeed}
+        className={classes.slider}
         onChange={this.setSpeed}
-        className={classes.textField}
-        inputProps={{
-          min: 0,
-          max: 254,
-          style: {
-            padding: 12
-          }
-        }}
-        variant="filled"
+        valueLabelDisplay="auto"
+        marks={[{ value: 1, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
     const mSpeedD = (
-      <TextField
+      <Slider
+        min={0}
+        max={1000}
         id="mouseSpeedDelay"
-        lable="Mouse Speed Delay"
-        type="number"
         value={mouseSpeedDelay}
+        className={classes.slider}
         onChange={this.setSpeedDelay}
-        className={classes.textField}
-        inputProps={{
-          min: 0,
-          max: 65534,
-          style: {
-            padding: 12
-          }
-        }}
-        variant="filled"
+        valueLabelDisplay="auto"
+        marks={[{ value: 6, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
     const mAccelS = (
-      <TextField
+      <Slider
+        min={0}
+        max={254}
         id="mouseAccelSpeed"
-        lable="Mouse Acceleration Speed"
-        type="number"
         value={mouseAccelSpeed}
+        className={classes.slider}
         onChange={this.setAccelSpeed}
-        className={classes.textField}
-        inputProps={{
-          min: 0,
-          max: 254,
-          style: {
-            padding: 12
-          }
-        }}
-        variant="filled"
+        valueLabelDisplay="auto"
+        marks={[{ value: 1, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
     const maccelD = (
-      <TextField
+      <Slider
+        min={0}
+        max={1000}
         id="mouseAccelDelay"
-        lable="Mouse Acceleration Delay"
-        type="number"
         value={mouseAccelDelay}
+        className={classes.slider}
         onChange={this.setAccelDelay}
-        className={classes.textField}
-        inputProps={{
-          min: 0,
-          max: 65534,
-          style: {
-            padding: 12
-          }
-        }}
-        variant="filled"
+        valueLabelDisplay="auto"
+        marks={[{ value: 64, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
     const mWheelS = (
-      <TextField
+      <Slider
+        min={0}
+        max={254}
         id="mouseWheelSpeed"
-        lable="Mouse Wheel Speed"
-        type="number"
         value={mouseWheelSpeed}
+        className={classes.slider}
         onChange={this.setWheelSpeed}
-        className={classes.textField}
-        inputProps={{
-          min: 0,
-          max: 254,
-          style: {
-            padding: 12
-          }
-        }}
-        variant="filled"
+        valueLabelDisplay="auto"
+        marks={[{ value: 1, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
     const mWheelD = (
-      <TextField
+      <Slider
+        min={0}
+        max={1000}
         id="mouseWheelDelay"
-        lable="Mouse Wheel Delay"
-        type="number"
         value={mouseWheelDelay}
+        className={classes.slider}
         onChange={this.setWheelDelay}
-        className={classes.textField}
-        inputProps={{
-          min: 0,
-          max: 65534,
-          style: {
-            padding: 12
-          }
-        }}
-        variant="filled"
+        valueLabelDisplay="auto"
+        marks={[{ value: 200, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
     const mSpeedL = (
-      <TextField
+      <Slider
+        min={0}
+        max={254}
         id="mouseSpeedLimit"
-        lable="Mouse Speed Limit"
-        type="number"
         value={mouseSpeedLimit}
+        className={classes.slider}
         onChange={this.setSpeedLimit}
-        className={classes.textField}
-        inputProps={{
-          min: 0,
-          max: 254,
-          style: {
-            padding: 12
-          }
-        }}
-        variant="filled"
+        valueLabelDisplay="auto"
+        marks={[{ value: 127, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
 

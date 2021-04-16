@@ -32,7 +32,8 @@ import { lightTheme } from "../styles/lightTheme";
 import { darkTheme } from "../styles/darkTheme";
 
 import usb from "usb";
-import { withSnackbar } from "notistack";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import KeyboardSelect from "./screens/KeyboardSelect";
 import FirmwareUpdate from "./screens/FirmwareUpdate";
@@ -48,11 +49,14 @@ import { history, navigate } from "./routerHistory";
 const Store = window.require("electron-store");
 const store = new Store();
 
+const { remote, ipcRenderer } = require("electron");
+
 let focus = new Focus();
 focus.debug = true;
 focus.timeout = 15000;
 
-if (settings.get("ui.language")) i18n.setLanguage(settings.get("ui.language"));
+if (settings.getSync("ui.language"))
+  i18n.setLanguage(settings.get("ui.language"));
 
 const styles = () => ({
   root: {
@@ -61,7 +65,8 @@ const styles = () => ({
   },
   content: {
     flexGrow: 1,
-    overflow: "auto"
+    overflow: "auto",
+    minWidth: 600
   }
 });
 
@@ -78,8 +83,15 @@ class App extends React.Component {
       balance = store.get("balance");
     }
 
+    let isDark;
+    const mode = settings.getSync("ui.darkMode");
+    isDark = mode === "dark" ? true : false;
+    if (mode === "system") {
+      isDark = remote.nativeTheme.shouldUseDarkColors;
+    }
+
     this.state = {
-      darkMode: settings.get("ui.darkMode"),
+      darkMode: isDark,
       connected: false,
       device: null,
       pages: {},
@@ -88,10 +100,33 @@ class App extends React.Component {
       balance
     };
     localStorage.clear();
+
+    toast.configure({
+      position: "bottom-left",
+      autoClose: false,
+      hideProgressBar: false,
+      newestOnTop: true,
+      draggable: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      pauseOnFocusLoss: true
+    });
+
+    this.forceDarkMode = this.forceDarkMode.bind(this);
   }
   flashing = false;
 
   componentDidMount() {
+    // Setting up function to receive O.S. dark theme changes
+    const self = this;
+    ipcRenderer.on("darkTheme-update", function (evt, message) {
+      console.log("O.S. DarkTheme Settings changed to ", message);
+      let dm = settings.getSync("ui.darkMode");
+      if (dm === "system") {
+        self.forceDarkMode(message);
+      }
+    });
+
     usb.on("detach", async device => {
       if (!focus.device) return;
       if (this.flashing) return;
@@ -108,27 +143,40 @@ class App extends React.Component {
       await navigate("./");
 
       if (!focus._port.isOpen) {
-        this.props.enqueueSnackbar(i18n.errors.deviceDisconnected, {
-          variant: "warning"
-        });
-        focus.close();
-        this.setState({
-          connected: false,
-          device: null,
-          pages: {}
-        });
-        // Second call to `navigate` will actually render the proper route
-        await navigate("/keyboard-select");
+        toast.warning(i18n.errors.deviceDisconnected);
       }
+      await focus.close();
+      await this.setState({
+        connected: false,
+        device: null,
+        pages: {}
+      });
+      // Second call to `navigate` will actually render the proper route
+      await navigate("/keyboard-select");
     });
   }
 
-  toggleDarkMode = () => {
-    const nextDarkModeState = !this.state.darkMode;
+  forceDarkMode = mode => {
     this.setState({
-      darkMode: nextDarkModeState
+      darkMode: mode
     });
-    settings.set("ui.darkMode", nextDarkModeState);
+  };
+
+  toggleDarkMode = async mode => {
+    console.log(
+      "Dark mode changed to: ",
+      mode,
+      "NativeTheme says: ",
+      remote.nativeTheme.shouldUseDarkColors
+    );
+    let isDark = mode === "dark" ? true : false;
+    if (mode === "system") {
+      isDark = remote.nativeTheme.shouldUseDarkColors;
+    }
+    this.setState({
+      darkMode: isDark
+    });
+    settings.setSync("ui.darkMode", mode);
   };
 
   toggleFlashing = async () => {
@@ -396,4 +444,4 @@ class App extends React.Component {
   }
 }
 
-export default withSnackbar(withStyles(styles)(App));
+export default withStyles(styles)(App);

@@ -81,16 +81,6 @@ function ColorPalette(props) {
     onBacklightColorSelect,
     darkMode
   } = props;
-
-  /*
-   * TODO(anyone): This is a quick fix to prevent an error when the palette is
-   * used with a negative layer. The proper course of action would be to show
-   * the palette, but in a disabled state.
-   */
-  if (disabled) {
-    return null;
-  }
-
   /**
    * This is Hook that lets add React state "indexFocusButton" to functional components
    * @param {object} [initialState=selected] - Sets initial state for "indexFocusButton"
@@ -130,6 +120,14 @@ function ColorPalette(props) {
     onColorPick(indexFocusButton, color.r, color.g, color.b);
     setColorFocusButton(setColorTamplate(color));
   };
+  /*
+   * TODO(anyone): This is a quick fix to prevent an error when the palette is
+   * used with a negative layer. The proper course of action would be to show
+   * the palette, but in a disabled state.
+   */
+  if (disabled) {
+    return null;
+  }
   /**
    * Change "indexFocusButton" in its state, "colorFocusButton" in ColorPalette's state, and call function onColorSelect from props, if ctrl or shift key is clicked.
    * @param {number} index Number of value in array that focusing by mouse

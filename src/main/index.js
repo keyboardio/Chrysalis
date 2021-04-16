@@ -26,7 +26,13 @@ import { Environment } from "./dragons";
 // [1]: https://github.com/electron-userland/electron-webpack/issues/275
 process.env[`NODE_ENV`] = Environment.name;
 
-import { app, BrowserWindow, Menu } from "electron";
+// This is a workaround for the lack of context-awareness in two native modules
+// we use, serialport (serialport/node-serialport#2051) and usb
+// (tessel/node-usb#380). See electron/electron#18397 for more context.
+app.allowRendererProcessReuse = false;
+
+import { app, BrowserWindow, Menu, nativeTheme, dialog } from "electron";
+import settings from "electron-settings";
 import { format as formatUrl } from "url";
 import * as path from "path";
 import * as fs from "fs";
@@ -38,7 +44,6 @@ import installExtension, {
 import { getStaticPath } from "../renderer/config";
 
 const isDevelopment = process.env.NODE_ENV !== "production";
-
 let mainWindow;
 
 async function createMainWindow() {
@@ -52,11 +57,17 @@ async function createMainWindow() {
     y: mainWindowState.y,
     width: mainWindowState.width,
     height: mainWindowState.height,
+    minWidth: 650,
+    minHeight: 570,
     resizable: true,
     icon: path.join(getStaticPath(), "/logo.png"),
+    show: false,
+    backgroundColor: "#2e2c29",
     webPreferences: {
       sandbox: false,
-      nodeIntegration: true
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true
     }
   });
 
@@ -73,6 +84,17 @@ async function createMainWindow() {
       })
     );
   }
+
+  window.once("ready-to-show", () => {
+    window.show();
+  });
+
+  nativeTheme.on("updated", function theThemeHasChanged() {
+    window.webContents.send(
+      "darkTheme-update",
+      nativeTheme.shouldUseDarkColors
+    );
+  });
 
   window.on("closed", () => {
     mainWindow = null;
@@ -116,14 +138,40 @@ function installUdev() {
     name: "Install Udev rules",
     icns: "./build/icon.icns"
   };
-  sudo.exec(
-    'echo "SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2201", GROUP=users, MODE="0666"" > /etc/udev/rules.d/50-dygma.rules && udevadm control --reload-rules',
-    options,
-    function(error, stdout) {
-      if (error) throw error;
-      console.log("stdout: " + stdout);
+  const dialogOpts = {
+    type: "question",
+    buttons: ["Cancel", "Install"],
+    cancelId: 0,
+    defaultId: 1,
+    title: "Udev rules Installation",
+    message: "Bazecor lacks write access to your raise keyboard",
+    detail:
+      "Press install to set up the required Udev Rules, then scan keyboards again."
+  };
+  dialog.showMessageBox(null, dialogOpts).then(response => {
+    if (response.response === 1) {
+      sudo.exec(
+        `echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2201", GROUP="users", MODE="0666"' > /etc/udev/rules.d/50-dygma.rules && udevadm control --reload-rules && udevadm trigger`,
+        options,
+        error => {
+          if (error !== null) {
+            console.log("stdout: " + error.message);
+            const errorOpts = {
+              type: "error",
+              buttons: ["Ok"],
+              defaultId: 0,
+              title: "Error when launching sudo prompt",
+              message: "An error happened when launching a sudo prompt window",
+              detail:
+                "Your linux distribution lacks a polkit agent,  installing polkit-1-auth-agent, policykit-1-gnome, or polkit-kde-1 (depending on your desktop manager) will solve this problem /n/n" +
+                error.message
+            };
+            dialog.showMessageBox(null, errorOpts, null);
+          }
+        }
+      );
     }
-  );
+  });
 }
 
 // quit application when all windows are closed
@@ -143,6 +191,14 @@ app.on("activate", () => {
 
 // create main BrowserWindow when electron is ready
 app.on("ready", async () => {
+  let darkMode = settings.getSync("ui.darkMode");
+  if (typeof darkMode === "boolean" || darkMode === undefined) {
+    darkMode = "system";
+    settings.setSync("ui.darkMode", "system");
+  }
+  // Setting nativeTheme currently only seems to work at this point in the code
+  nativeTheme.themeSource = darkMode;
+
   if (isDevelopment) {
     await installExtension(REACT_DEVELOPER_TOOLS)
       .then(name => console.log(`Added Extension:  ${name}`))

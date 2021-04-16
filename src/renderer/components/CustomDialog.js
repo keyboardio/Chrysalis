@@ -28,8 +28,8 @@ import Typography from "@material-ui/core/Typography";
 const styles = theme => ({
   closeButton: {
     position: "absolute",
-    right: theme.spacing.unit * 2,
-    top: theme.spacing.unit * 2
+    right: theme.spacing(2),
+    top: theme.spacing(2)
   }
 });
 
@@ -53,14 +53,14 @@ const DialogTitle = withStyles(styles)(props => {
 
 const DialogContent = withStyles(theme => ({
   root: {
-    padding: theme.spacing.unit * 2
+    padding: theme.spacing(2)
   }
 }))(MuiDialogContent);
 
 const DialogActions = withStyles(theme => ({
   root: {
     margin: 0,
-    padding: theme.spacing.unit
+    padding: theme.spacing()
   }
 }))(MuiDialogActions);
 
@@ -68,7 +68,7 @@ const Countdown = withStyles(theme => ({
   root: {
     ...theme.typography.button,
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing.unit
+    padding: theme.spacing()
   }
 }))(Typography);
 
@@ -85,7 +85,12 @@ class CustomDialog extends React.Component {
 
   render() {
     return (
-      <Dialog onClose={this.handleClose} open={this.props.open} maxWidth="md">
+      <Dialog
+        onClose={this.handleClose}
+        open={this.props.open}
+        maxWidth="md"
+        disableEscapeKeyDown={true}
+      >
         <DialogTitle onClose={this.handleClose} disabled={this.props.disabled}>
           {this.props.title}
         </DialogTitle>

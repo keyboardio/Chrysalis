@@ -56,7 +56,7 @@ function LanguageItem(props) {
     selected
   } = props;
   const onItemClick = () => {
-    settings.set("keyboard.language", `${language}`);
+    settings.setSync("keyboard.language", `${language}`);
     scanKeyboard(language);
     //Callback to change state of chosen language is Editor.js
     onChangeLanguageLayout();

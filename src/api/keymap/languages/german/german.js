@@ -310,6 +310,8 @@ const germanAGrSTable = withModifiers(table, "AltGr + Shift +", "AGr+S+", 3072);
 
 const germanAGrGTable = withModifiers(table, "AltGr + Gui +", "AGr+G+", 5120);
 
+const germanSGTable = withModifiers(table, "Shift + Gui +", "S+G+", 6144);
+
 // Triple
 
 const germanCAAGTable = withModifiers(
@@ -388,6 +390,13 @@ const germanCAAGrGTable = withModifiers(
   5888
 );
 
+const germanCAGrSGTable = withModifiers(
+  table,
+  "Control + AltGr + Shift + Gui +",
+  "C+AGr+S+G+",
+  7424
+);
+
 const germanAAGrSGTable = withModifiers(
   table,
   "Alt + AltGr + Shift + Gui +",
@@ -419,6 +428,7 @@ const germanModifiedTables = [
   germanAGTable,
   germanAGrSTable,
   germanAGrGTable,
+  germanSGTable,
   germanCAAGTable,
   germanCASTable,
   germanCAGTable,
@@ -432,6 +442,7 @@ const germanModifiedTables = [
   germanCAAGrSTable,
   germanCAAGrGTable,
   withModifiers(table, "Hyper +", "Hyper+", 6912),
+  germanCAGrSGTable,
   germanAAGrSGTable,
   germanAllModTable
 ];

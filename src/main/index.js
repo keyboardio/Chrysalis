@@ -149,23 +149,25 @@ function installUdev() {
       "Press install to set up the required Udev Rules, then scan keyboards again."
   };
   dialog.showMessageBox(null, dialogOpts).then(response => {
-    if (response.response === 0) {
+    if (response.response === 1) {
       sudo.exec(
         `echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2201", GROUP="users", MODE="0666"' > /etc/udev/rules.d/50-dygma.rules && udevadm control --reload-rules && udevadm trigger`,
         options,
         error => {
-          console.log("stdout: " + error.message);
-          const errorOpts = {
-            type: "error",
-            buttons: ["Ok"],
-            defaultId: 0,
-            title: "Error when launching sudo prompt",
-            message: "An error happened when launching a sudo prompt window",
-            detail:
-              "Your linux distribution lacks a polkit agent,  installing polkit-1-auth-agent, policykit-1-gnome, or polkit-kde-1 (depending on your desktop manager) will solve this problem /n/n" +
-              error.message
-          };
-          dialog.showMessageBox(null, errorOpts, null);
+          if (error !== null) {
+            console.log("stdout: " + error.message);
+            const errorOpts = {
+              type: "error",
+              buttons: ["Ok"],
+              defaultId: 0,
+              title: "Error when launching sudo prompt",
+              message: "An error happened when launching a sudo prompt window",
+              detail:
+                "Your linux distribution lacks a polkit agent,  installing polkit-1-auth-agent, policykit-1-gnome, or polkit-kde-1 (depending on your desktop manager) will solve this problem /n/n" +
+                error.message
+            };
+            dialog.showMessageBox(null, errorOpts, null);
+          }
         }
       );
     }

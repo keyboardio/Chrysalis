@@ -148,9 +148,8 @@ function installUdev() {
     detail:
       "Press install to set up the required Udev Rules, then scan keyboards again."
   };
-  dialog.showMessageBox(null, dialogOpts, response => {
-    console.log(response);
-    if (response === 0) {
+  dialog.showMessageBox(null, dialogOpts).then(response => {
+    if (response.response === 0) {
       sudo.exec(
         `echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2201", GROUP="users", MODE="0666"' > /etc/udev/rules.d/50-dygma.rules && udevadm control --reload-rules && udevadm trigger`,
         options,

@@ -534,7 +534,7 @@ class FirmwareUpdate extends React.Component {
               <ol style={{ lineHeight: "2rem" }}>
                 <li>
                   {
-                    "Make sure to have at least one backup of your layers configuration, just in case!"
+                    "Make sure to have at least one backup of your layers, just in case!"
                   }
                 </li>
                 <li>{"Click 'Start Countdown'."}</li>
@@ -641,7 +641,7 @@ class FirmwareUpdate extends React.Component {
                           }}
                         />
                       </Typography>
-                      <Typography component="div" className={classes.noText}>
+                      <Typography component="div" className={classes.notText}>
                         {
                           "In case the Firmware Update fails, this won't damage your Raise. Repeat the process or do it in "
                         }

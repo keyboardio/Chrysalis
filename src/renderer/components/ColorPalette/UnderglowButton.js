@@ -47,6 +47,13 @@ const styles = () => ({
     fontSize: 10,
     color: "#fff",
     backgroundColor: "#303f9f"
+  },
+  darkbutton: {
+    width: 95,
+    cursor: "pointer",
+    fontSize: 10,
+    color: "#000",
+    backgroundColor: "#ffeb3b"
   }
 });
 
@@ -114,6 +121,8 @@ function UnderglowButton(props) {
               ? darkMode
                 ? styleDisabledDark
                 : styleDisabled
+              : darkMode
+              ? styles().darkbutton
               : styles().button
           }
           onClick={() => {

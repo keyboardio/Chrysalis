@@ -242,7 +242,7 @@ class Editor extends React.Component {
     let layer = parseInt(this.state.currentLayer),
       keyIndex = parseInt(this.state.currentKeyIndex);
 
-    if (keyIndex >= 80) return 0;
+    if (keyIndex >= 80 || !this.state.keymap.custom) return 0;
 
     if (this.state.keymap.onlyCustom) {
       if (layer < 0) {

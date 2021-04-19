@@ -31,6 +31,7 @@ class Focus {
       };
       this.timeout = 5000;
       this.debug = false;
+      this.closed = true;
     }
     return global.focus_instance;
   }
@@ -163,15 +164,17 @@ class Focus {
     this._port.on("close", function (error) {
       if (error !== null && error.disconnected === true) {
         console.error("Error: device disconnected without control");
+        this.closed = true;
       } else {
         console.warn("Warning: device disconnected by user interaction");
+        this.closed = true;
       }
     });
     // Setup error port alert
     this._port.on("error", function (err) {
       console.error("Error on SerialPort: " + err);
     });
-
+    this.closed = false;
     return this._port;
   }
 
@@ -182,6 +185,7 @@ class Focus {
     this._port = null;
     this.device = null;
     this.supportedCommands = [];
+    this.closed = true;
   }
 
   async isDeviceAccessible(port) {

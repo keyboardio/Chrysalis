@@ -412,6 +412,7 @@ class App extends React.Component {
                   toggleFlashing={this.toggleFlashing}
                   onDisconnect={this.onKeyboardDisconnect}
                   titleElement={() => document.querySelector("#page-title")}
+                  darkMode={darkMode}
                 />
                 <Preferences
                   connected={connected}

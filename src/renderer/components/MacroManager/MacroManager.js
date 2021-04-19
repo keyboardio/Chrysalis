@@ -77,14 +77,15 @@ const styles = theme => ({
     marginLeft: 10
   },
   cardHeader: {
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.primary.main,
+    color: "#fff"
+  },
+  cardTitle: {
+    color: theme.palette.type === "dark" ? "#000" : "#fff"
   },
   card: {
     width: "100%",
     height: "100%"
-  },
-  title: {
-    color: theme.palette.text.primary
   },
   cardcontent: {
     padding: "0px",
@@ -232,14 +233,16 @@ class MacroManager extends Component {
           <div className={classes.wrapper}>
             <Card className={classes.card}>
               <CardHeader
-                className={classes.cardHeader}
+                classes={{
+                  root: classes.cardHeader,
+                  title: classes.cardTitle
+                }}
                 action={
-                  <IconButton onClick={this.exit}>
+                  <IconButton onClick={this.exit} className={classes.cardTitle}>
                     <CloseIcon />
                   </IconButton>
                 }
                 title={i18n.editor.macros.title}
-                classes={{ title: classes.title }}
               />
               <CardContent classes={{ root: classes.cardcontent }}>
                 <MacroForm

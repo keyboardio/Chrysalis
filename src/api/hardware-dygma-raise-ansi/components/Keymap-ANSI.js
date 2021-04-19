@@ -153,9 +153,10 @@ class KeymapANSI extends React.Component {
         : this.props.selectedKey == selectIndex;
     };
 
-    let stroke = (row, col) => (isSelected(row, col) ? "#202020" : "#b3b3b3");
+    let stroke = (row, col) =>
+      isSelected(row, col) ? "url('#selected-gradient')" : "#b3b3b3";
 
-    let getStrokeWidth = (row, col) => (isSelected(row, col) ? "3.0" : "1.5");
+    let getStrokeWidth = (row, col) => (isSelected(row, col) ? "4.0" : "1.5");
 
     const colormap =
       this.props.colormap ||
@@ -426,6 +427,32 @@ class KeymapANSI extends React.Component {
         viewBox="0 0 1029 634"
         className={this.props.className || "layer"}
       >
+        <defs>
+          <linearGradient
+            id="selected-gradient"
+            x1="80%"
+            y1="0%"
+            x2="40%"
+            y2="100%"
+          >
+            <stop offset="0%" stopColor="#FF2339">
+              <animate
+                attributeName="stop-color"
+                values="#FF2339; #79009d; #FF2339"
+                dur="1s"
+                repeatCount="indefinite"
+              ></animate>
+            </stop>
+            <stop offset="100%" stopColor="#79009d">
+              <animate
+                attributeName="stop-color"
+                values="#79009d; #FF2339; #79009d"
+                dur="1s"
+                repeatCount="indefinite"
+              ></animate>
+            </stop>
+          </linearGradient>
+        </defs>
         <path
           id="neuron_outline"
           fill="none"

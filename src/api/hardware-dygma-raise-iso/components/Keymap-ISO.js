@@ -156,7 +156,7 @@ class KeymapISO extends React.Component {
     let stroke = (row, col) =>
       isSelected(row, col) ? "url('#selected-gradient')" : "#b3b3b3";
 
-    let getStrokeWidth = (row, col) => (isSelected(row, col) ? "4.0" : "1.5");
+    let getStrokeWidth = (row, col) => (isSelected(row, col) ? "3.0" : "1.5");
 
     const colormap =
       this.props.colormap ||
@@ -429,30 +429,29 @@ class KeymapISO extends React.Component {
         className={this.props.className || "layer"}
       >
         <defs>
-          <linearGradient
+          <radialGradient
             id="selected-gradient"
-            x1="80%"
-            y1="0%"
-            x2="40%"
-            y2="100%"
+            cx="1.6982"
+            cy="1.3057"
+            r="129.5064"
           >
-            <stop offset="0%" stopColor="#FF2339">
+            <stop offset="0" stopColor="#ffeb3b">
               <animate
                 attributeName="stop-color"
-                values="#FF2339; #79009d; #FF2339"
+                values="#ffeb3b; #79009d; #ffeb3b"
                 dur="1s"
                 repeatCount="indefinite"
               ></animate>
             </stop>
-            <stop offset="100%" stopColor="#79009d">
+            <stop offset="1" stopColor="#79009d">
               <animate
                 attributeName="stop-color"
-                values="#79009d; #FF2339; #79009d"
+                values="#79009d; #ffeb3b; #79009d"
                 dur="1s"
                 repeatCount="indefinite"
               ></animate>
             </stop>
-          </linearGradient>
+          </radialGradient>
         </defs>
         <path
           id="neuron_outline"

@@ -207,7 +207,7 @@ const English = {
       holdTimeout: "Adjust time to start 'when held' action",
       holdTimeoutsub: " - From 0 to 65,534 milliseconds",
       overlapThreshold:
-        "Adjust overlap Threshold that determines the forgiveness of rollover from a qukey to a modified key",
+        "Adjust overlap threshold between dual-function key and subsequent key",
       overlapThresholdsub: " - Percentage from 0 to 100"
     },
     mouse: {

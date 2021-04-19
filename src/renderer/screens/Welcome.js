@@ -21,6 +21,7 @@ import Focus from "../../api/focus";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
+import Link from "@material-ui/core/Link";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -136,9 +137,9 @@ class Welcome extends React.Component {
                   </li>
                   <li>
                     {"Before proceeding, we recommend that you "}
-                    <a href="https://support.dygma.com/hc/en-us/articles/360014262298">
+                    <Link href="https://support.dygma.com/hc/en-us/articles/360014262298">
                       {"export and save your layers"}
-                    </a>
+                    </Link>
                     {"."}
                   </li>
                   <li>

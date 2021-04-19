@@ -145,7 +145,10 @@ class KeyboardSelect extends React.Component {
   findKeyboards = async () => {
     this.setState({ loading: true });
     let focus = new Focus();
-    if (focus.closed === false) return;
+    const isIterable =
+      this.state.devices != null &&
+      typeof this.state.devices[Symbol.iterator] === "function";
+    if (focus.closed === false && isIterable) return;
     return new Promise(resolve => {
       focus
         .find(...Hardware.serial)

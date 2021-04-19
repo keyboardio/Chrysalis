@@ -157,48 +157,48 @@ class KeyboardSettings extends React.Component {
 
     // QUKEYS variables commands
     focus.command("qukeys.holdTimeout").then(holdTimeout => {
-      holdTimeout = holdTimeout ? parseInt(holdTimeout) : -1;
+      holdTimeout = holdTimeout ? parseInt(holdTimeout) : 250;
       this.setState({ qukeysHoldTimeout: holdTimeout });
     });
 
     focus.command("qukeys.overlapThreshold").then(overlapThreshold => {
-      overlapThreshold = overlapThreshold ? parseInt(overlapThreshold) : -1;
+      overlapThreshold = overlapThreshold ? parseInt(overlapThreshold) : 80;
       this.setState({ qukeysOverlapThreshold: overlapThreshold });
     });
 
     // MOUSE variables commands
     focus.command("mouse.speed").then(speed => {
-      speed = speed ? parseInt(speed) : -1;
+      speed = speed ? parseInt(speed) : 1;
       this.setState({ mouseSpeed: speed });
     });
 
     focus.command("mouse.speedDelay").then(speedDelay => {
-      speedDelay = speedDelay ? parseInt(speedDelay) : -1;
+      speedDelay = speedDelay ? parseInt(speedDelay) : 6;
       this.setState({ mouseSpeedDelay: speedDelay });
     });
 
     focus.command("mouse.accelSpeed").then(accelSpeed => {
-      accelSpeed = accelSpeed ? parseInt(accelSpeed) : -1;
+      accelSpeed = accelSpeed ? parseInt(accelSpeed) : 1;
       this.setState({ mouseAccelSpeed: accelSpeed });
     });
 
     focus.command("mouse.accelDelay").then(accelDelay => {
-      accelDelay = accelDelay ? parseInt(accelDelay) : -1;
+      accelDelay = accelDelay ? parseInt(accelDelay) : 64;
       this.setState({ mouseAccelDelay: accelDelay });
     });
 
     focus.command("mouse.wheelSpeed").then(wheelSpeed => {
-      wheelSpeed = wheelSpeed ? parseInt(wheelSpeed) : -1;
+      wheelSpeed = wheelSpeed ? parseInt(wheelSpeed) : 1;
       this.setState({ mouseWheelSpeed: wheelSpeed });
     });
 
     focus.command("mouse.wheelDelay").then(wheelDelay => {
-      wheelDelay = wheelDelay ? parseInt(wheelDelay) : -1;
+      wheelDelay = wheelDelay ? parseInt(wheelDelay) : 128;
       this.setState({ mouseWheelDelay: wheelDelay });
     });
 
     focus.command("mouse.speedLimit").then(speedLimit => {
-      speedLimit = speedLimit ? parseInt(speedLimit) : -1;
+      speedLimit = speedLimit ? parseInt(speedLimit) : 127;
       this.setState({ mouseSpeedLimit: speedLimit });
     });
   }
@@ -494,12 +494,12 @@ class KeyboardSettings extends React.Component {
     const holdT = (
       <Slider
         min={0}
-        max={65534}
+        max={1000}
         value={qukeysHoldTimeout}
         className={classes.slider}
         onChange={this.setHoldTimeout}
         valueLabelDisplay="auto"
-        marks={[{ value: 65530, label: i18n.keyboardSettings.defaultLabel }]}
+        marks={[{ value: 250, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
     const overlapT = (
@@ -527,13 +527,13 @@ class KeyboardSettings extends React.Component {
     const mSpeedD = (
       <Slider
         min={0}
-        max={65534}
+        max={1000}
         id="mouseSpeedDelay"
         value={mouseSpeedDelay}
         className={classes.slider}
         onChange={this.setSpeedDelay}
         valueLabelDisplay="auto"
-        marks={[{ value: 65281, label: i18n.keyboardSettings.defaultLabel }]}
+        marks={[{ value: 6, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
     const mAccelS = (
@@ -551,13 +551,13 @@ class KeyboardSettings extends React.Component {
     const maccelD = (
       <Slider
         min={0}
-        max={65534}
+        max={1000}
         id="mouseAccelDelay"
         value={mouseAccelDelay}
         className={classes.slider}
         onChange={this.setAccelDelay}
         valueLabelDisplay="auto"
-        marks={[{ value: 65344, label: i18n.keyboardSettings.defaultLabel }]}
+        marks={[{ value: 64, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
     const mWheelS = (
@@ -565,7 +565,6 @@ class KeyboardSettings extends React.Component {
         min={0}
         max={254}
         id="mouseWheelSpeed"
-
         value={mouseWheelSpeed}
         className={classes.slider}
         onChange={this.setWheelSpeed}
@@ -576,13 +575,13 @@ class KeyboardSettings extends React.Component {
     const mWheelD = (
       <Slider
         min={0}
-        max={65534}
+        max={1000}
         id="mouseWheelDelay"
         value={mouseWheelDelay}
         className={classes.slider}
         onChange={this.setWheelDelay}
         valueLabelDisplay="auto"
-        marks={[{ value: 65330, label: i18n.keyboardSettings.defaultLabel }]}
+        marks={[{ value: 200, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
     const mSpeedL = (

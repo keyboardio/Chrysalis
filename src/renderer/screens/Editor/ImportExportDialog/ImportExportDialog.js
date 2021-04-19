@@ -78,7 +78,7 @@ export const ImportExportDialog = props => {
     clipboard.writeText(data);
     toExport(data);
     setIsChange(false);
-    toast.success(i18n.t("editor.copySuccess"), {
+    toast.success(i18n.editor.copySuccess, {
       autoClose: 2000
     });
   }
@@ -87,7 +87,7 @@ export const ImportExportDialog = props => {
     setData(clipboard.readText());
     toImport();
     setIsChange(true);
-    toast.success(i18n.t("editor.pasteSuccess"), {
+    toast.success(i18n.editor.pasteSuccess, {
       autoClose: 2000
     });
   }
@@ -123,12 +123,12 @@ export const ImportExportDialog = props => {
           try {
             layers = require("fs").readFileSync(resp.filePaths[0]);
             console.log(JSON.parse(layers).keymap[0].label);
-            toast.success(i18n.t("editor.importSuccessAllLayers"), {
+            toast.success(i18n.editor.importSuccessAllLayers, {
               autoClose: 2000
             });
           } catch (e) {
             console.error(e);
-            toast.error(i18n.t("errors.invalidLayerFile"), {
+            toast.error(i18n.errors.invalidLayerFile, {
               autoClose: 2000
             });
             return;
@@ -161,7 +161,7 @@ export const ImportExportDialog = props => {
         if (!resp.canceled) {
           console.log(resp.filePath, data);
           require("fs").writeFileSync(resp.filePath, data);
-          toast.success(i18n.t("editor.exportSuccessCurrentLayer"), {
+          toast.success(i18n.editor.exportSuccessCurrentLayer, {
             autoClose: 2000
           });
         } else {
@@ -170,7 +170,7 @@ export const ImportExportDialog = props => {
       })
       .catch(err => {
         console.error(err);
-        toast.error(i18n.t("errors.exportError") + err, {
+        toast.error(i18n.errors.exportError + err, {
           autoClose: 2000
         });
       });

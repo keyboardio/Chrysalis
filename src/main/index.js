@@ -31,7 +31,7 @@ process.env[`NODE_ENV`] = Environment.name;
 // (tessel/node-usb#380). See electron/electron#18397 for more context.
 app.allowRendererProcessReuse = false;
 
-import { app, BrowserWindow, Menu } from "electron";
+import { app, BrowserWindow, Menu, nativeTheme, dialog } from "electron";
 import settings from "electron-settings";
 import { format as formatUrl } from "url";
 import * as path from "path";
@@ -44,8 +44,6 @@ import installExtension, {
 import { getStaticPath } from "../renderer/config";
 
 const isDevelopment = process.env.NODE_ENV !== "production";
-const { nativeTheme, ipcMain } = require("electron");
-
 let mainWindow;
 
 async function createMainWindow() {
@@ -91,12 +89,11 @@ async function createMainWindow() {
     window.show();
   });
 
-  ipcMain.handle("dark-mode:set", async (event, darkMode) => {
-    settings.setSync("ui.darkModePref", darkMode);
-    // Setting nativeTheme at this point in the code is not working, hence the need to restart
-    nativeTheme.ThemeSource = darkMode;
-    settings.setSync("ui.darkMode", nativeTheme.shouldUseDarkColors);
-    return nativeTheme.shouldUseDarkColors;
+  nativeTheme.on("updated", function theThemeHasChanged() {
+    window.webContents.send(
+      "darkTheme-update",
+      nativeTheme.shouldUseDarkColors
+    );
   });
 
   window.on("closed", () => {
@@ -141,14 +138,40 @@ function installUdev() {
     name: "Install Udev rules",
     icns: "./build/icon.icns"
   };
-  sudo.exec(
-    'echo "SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2201", GROUP=users, MODE="0666"" > /etc/udev/rules.d/50-dygma.rules && udevadm control --reload-rules',
-    options,
-    function(error, stdout) {
-      if (error) throw error;
-      console.log("stdout: " + stdout);
+  const dialogOpts = {
+    type: "question",
+    buttons: ["Cancel", "Install"],
+    cancelId: 0,
+    defaultId: 1,
+    title: "Udev rules Installation",
+    message: "Bazecor lacks write access to your raise keyboard",
+    detail:
+      "Press install to set up the required Udev Rules, then scan keyboards again."
+  };
+  dialog.showMessageBox(null, dialogOpts).then(response => {
+    if (response.response === 1) {
+      sudo.exec(
+        `echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2201", GROUP="users", MODE="0666"' > /etc/udev/rules.d/50-dygma.rules && udevadm control --reload-rules && udevadm trigger`,
+        options,
+        error => {
+          if (error !== null) {
+            console.log("stdout: " + error.message);
+            const errorOpts = {
+              type: "error",
+              buttons: ["Ok"],
+              defaultId: 0,
+              title: "Error when launching sudo prompt",
+              message: "An error happened when launching a sudo prompt window",
+              detail:
+                "Your linux distribution lacks a polkit agent,  installing polkit-1-auth-agent, policykit-1-gnome, or polkit-kde-1 (depending on your desktop manager) will solve this problem /n/n" +
+                error.message
+            };
+            dialog.showMessageBox(null, errorOpts, null);
+          }
+        }
+      );
     }
-  );
+  });
 }
 
 // quit application when all windows are closed
@@ -168,14 +191,13 @@ app.on("activate", () => {
 
 // create main BrowserWindow when electron is ready
 app.on("ready", async () => {
-  let darkMode = settings.getSync("ui.darkModePref");
-  if (darkMode === undefined) {
+  let darkMode = settings.getSync("ui.darkMode");
+  if (typeof darkMode === "boolean" || darkMode === undefined) {
     darkMode = "system";
-    settings.setSync("ui.darkModePref", "system");
+    settings.setSync("ui.darkMode", "system");
   }
   // Setting nativeTheme currently only seems to work at this point in the code
   nativeTheme.themeSource = darkMode;
-  settings.setSync("ui.darkMode", nativeTheme.shouldUseDarkColors);
 
   if (isDevelopment) {
     await installExtension(REACT_DEVELOPER_TOOLS)

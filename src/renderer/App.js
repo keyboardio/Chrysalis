@@ -49,7 +49,7 @@ import { history, navigate } from "./routerHistory";
 const Store = window.require("electron-store");
 const store = new Store();
 
-const { nativeTheme } = require("electron");
+const { remote, ipcRenderer } = require("electron");
 
 let focus = new Focus();
 focus.debug = true;
@@ -83,8 +83,15 @@ class App extends React.Component {
       balance = store.get("balance");
     }
 
+    let isDark;
+    const mode = settings.getSync("ui.darkMode");
+    isDark = mode === "dark" ? true : false;
+    if (mode === "system") {
+      isDark = remote.nativeTheme.shouldUseDarkColors;
+    }
+
     this.state = {
-      darkMode: settings.getSync("ui.darkMode"),
+      darkMode: isDark,
       connected: false,
       device: null,
       pages: {},
@@ -97,14 +104,29 @@ class App extends React.Component {
     toast.configure({
       position: "bottom-left",
       autoClose: false,
+      hideProgressBar: false,
       newestOnTop: true,
       draggable: false,
-      closeOnClick: false
+      closeOnClick: true,
+      pauseOnHover: true,
+      pauseOnFocusLoss: true
     });
+
+    this.forceDarkMode = this.forceDarkMode.bind(this);
   }
   flashing = false;
 
   componentDidMount() {
+    // Setting up function to receive O.S. dark theme changes
+    const self = this;
+    ipcRenderer.on("darkTheme-update", function (evt, message) {
+      console.log("O.S. DarkTheme Settings changed to ", message);
+      let dm = settings.getSync("ui.darkMode");
+      if (dm === "system") {
+        self.forceDarkMode(message);
+      }
+    });
+
     usb.on("detach", async device => {
       if (!focus.device) return;
       if (this.flashing) return;
@@ -121,7 +143,7 @@ class App extends React.Component {
       await navigate("./");
 
       if (!focus._port.isOpen) {
-        toast.warning(i18n.t("errors.deviceDisconnected"));
+        toast.warning(i18n.errors.deviceDisconnected);
       }
       await focus.close();
       await this.setState({
@@ -134,16 +156,27 @@ class App extends React.Component {
     });
   }
 
-  toggleDarkMode = () => {
-    const nextDarkModeState = !this.state.darkMode;
+  forceDarkMode = mode => {
     this.setState({
-      darkMode: nextDarkModeState
+      darkMode: mode
     });
-    settings.setSync("ui.darkMode", nextDarkModeState);
   };
 
-  onDarkModeChange = async () => {
-    this.setState({ darkMode: settings.getSync("ui.darkMode") });
+  toggleDarkMode = async mode => {
+    console.log(
+      "Dark mode changed to: ",
+      mode,
+      "NativeTheme says: ",
+      remote.nativeTheme.shouldUseDarkColors
+    );
+    let isDark = mode === "dark" ? true : false;
+    if (mode === "system") {
+      isDark = remote.nativeTheme.shouldUseDarkColors;
+    }
+    this.setState({
+      darkMode: isDark
+    });
+    settings.setSync("ui.darkMode", mode);
   };
 
   toggleFlashing = async () => {

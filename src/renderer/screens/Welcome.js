@@ -124,7 +124,7 @@ class Welcome extends React.Component {
                 }
               </Typography>
               <Typography
-                component="p"
+                component="span"
                 gutterBottom
                 className={classes.cardSub}
               >

@@ -26,6 +26,7 @@ import Focus from "../../api/focus";
 import FlashRaise from "../../api/flash";
 
 import BuildIcon from "@material-ui/icons/Build";
+import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -252,25 +253,60 @@ class FirmwareUpdate extends React.Component {
       await this._flash();
     } catch (e) {
       console.error(e);
+      const styles = {
+        toastText: {
+          fontSize: "1rem"
+        },
+        toastSubText: {
+          fontSize: "0.9rem",
+          fontStyle: "italic",
+          fontWeight: 200,
+          color: "#DDD"
+        },
+        toastButton1: {
+          marginRight: "16px"
+        },
+        toastButton2: {
+          marginLeft: "16px",
+          float: "right"
+        }
+      };
       const action = ({ closeToast }) => (
-        <React.Fragment>
-          <Button
-            color="contained"
-            onClick={() => {
-              const shell = Electron.remote && Electron.remote.shell;
-              shell.openExternal(
-                "https://support.dygma.com/hc/en-us/articles/360017056397"
-              );
-            }}
-          >
-            Troubleshooting
-          </Button>
-          <Button onClick={closeToast}>Dismiss</Button>
-        </React.Fragment>
+        <Grid container spacing={1}>
+          <Grid container item xs={12}>
+            <Typography component="p" gutterBottom style={styles.toastText}>
+              {i18n.firmwareUpdate.flashing.error}
+            </Typography>
+          </Grid>
+          <Grid container item xs={12}>
+            <Typography component="p" gutterBottom style={styles.toastSubText}>
+              {e.message}
+            </Typography>
+          </Grid>
+          <Grid container item xs={12}>
+            <Grid item xs={6}>
+              <Button
+                variant="contained"
+                style={styles.toastButton1}
+                onClick={() => {
+                  const shell = Electron.remote && Electron.remote.shell;
+                  shell.openExternal(
+                    "https://support.dygma.com/hc/en-us/articles/360017056397"
+                  );
+                }}
+              >
+                Troubleshooting
+              </Button>
+            </Grid>
+            <Grid item xs={6}>
+              <Button onClick={closeToast} style={styles.toastButton2}>
+                Dismiss
+              </Button>
+            </Grid>
+          </Grid>
+        </Grid>
       );
-      toast.error(i18n.t("firmwareUpdate.flashing.error"), {
-        closeButton: action
-      });
+      toast.error(action);
       this.props.toggleFlashing();
       this.props.onDisconnect();
       this.setState({ confirmationOpen: false });
@@ -281,8 +317,7 @@ class FirmwareUpdate extends React.Component {
       let focus = new Focus();
       if (this.state.versions) await focus.command("led.mode 0");
       setTimeout(() => {
-        toast.success(i18n.t("firmwareUpdate.flashing.success"));
-
+        toast.success(i18n.firmwareUpdate.flashing.success);
         this.props.toggleFlashing();
         this.props.onDisconnect();
         this.setState({ confirmationOpen: false });
@@ -303,25 +338,60 @@ class FirmwareUpdate extends React.Component {
       this.setState({ countdown: 3 });
     } catch (e) {
       console.error(e);
+      const styles = {
+        toastText: {
+          fontSize: "1rem"
+        },
+        toastSubText: {
+          fontSize: "0.9rem",
+          fontStyle: "italic",
+          fontWeight: 200,
+          color: "#DDD"
+        },
+        toastButton1: {
+          marginRight: "16px"
+        },
+        toastButton2: {
+          marginLeft: "16px",
+          float: "right"
+        }
+      };
       const action = ({ closeToast }) => (
-        <React.Fragment>
-          <Button
-            color="contained"
-            onClick={() => {
-              const shell = Electron.remote && Electron.remote.shell;
-              shell.openExternal(
-                "https://support.dygma.com/hc/en-us/articles/360007272638"
-              );
-            }}
-          >
-            Troubleshooting
-          </Button>
-          <Button onClick={closeToast}>Dismiss</Button>
-        </React.Fragment>
+        <Grid container spacing={1}>
+          <Grid container item xs={12}>
+            <Typography component="p" gutterBottom style={styles.toastText}>
+              {i18n.firmwareUpdate.flashing.error}
+            </Typography>
+          </Grid>
+          <Grid container item xs={12}>
+            <Typography component="p" gutterBottom style={styles.toastSubText}>
+              {e.message}
+            </Typography>
+          </Grid>
+          <Grid container item xs={12}>
+            <Grid item xs={6}>
+              <Button
+                variant="contained"
+                style={styles.toastButton1}
+                onClick={() => {
+                  const shell = Electron.remote && Electron.remote.shell;
+                  shell.openExternal(
+                    "https://support.dygma.com/hc/en-us/articles/360007272638"
+                  );
+                }}
+              >
+                Troubleshooting
+              </Button>
+            </Grid>
+            <Grid item xs={6}>
+              <Button onClick={closeToast} style={styles.toastButton2}>
+                Dismiss
+              </Button>
+            </Grid>
+          </Grid>
+        </Grid>
       );
-      toast.error(i18n.t("firmwareUpdate.flashing.error"), {
-        closeButton: action
-      });
+      toast.error(action);
       this.setState({ confirmationOpen: false });
     }
   };
@@ -442,7 +512,11 @@ class FirmwareUpdate extends React.Component {
             <Typography variant="h6" gutterBottom>
               {"Follow these steps to update your firmware:"}
             </Typography>
-            <Typography component="p" gutterBottom className={classes.cardSub}>
+            <Typography
+              component="span"
+              gutterBottom
+              className={classes.cardSub}
+            >
               <ol style={{ lineHeight: "2rem" }}>
                 <li>{"Click 'Start Countdown'."}</li>
                 <li>

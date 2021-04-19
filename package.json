@@ -1,6 +1,6 @@
 {
   "name": "BAZECOR",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "license": "GPL-3.0-only",
   "author": {
     "name": "Dygma Lab S.L.",
@@ -40,7 +40,6 @@
     "afterSign": "./build/afterSignHook.js",
     "buildDependenciesFromSource": true,
     "npmRebuild": false,
-    "buildDependenciesFromSource": true,
     "mac": {
       "darkModeSupport": false,
       "hardenedRuntime": true,
@@ -88,6 +87,7 @@
     "source-map-support": "^0.5.16",
     "sudo-prompt": "^9.2.1",
     "terser": "^5.6.1",
+    "trim-right": "^1.0.1",
     "typeface-roboto": "^1.1.13",
     "typeface-source-code-pro": "^1.1.13",
     "usb": "^1.6.5"
@@ -103,7 +103,7 @@
     "@testing-library/jest-dom": "^5.11.10",
     "babel-jest": "^26.6.3",
     "babel-loader": "^8.2.2",
-    "electron": "^11.4.1",
+    "electron": "^12.0.2",
     "electron-builder": "^22.10.5",
     "electron-rebuild": "^2.3.5",
     "electron-webpack": "^2.8.2",

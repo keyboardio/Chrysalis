@@ -134,6 +134,7 @@ class Editor extends React.Component {
     this.toExport = this.toExport.bind(this);
     this.toImport = this.toImport.bind(this);
     this.toExportAll = this.toExportAll.bind(this);
+    this.getLayout = this.getLayout.bind(this);
   }
 
   keymapDB = new KeymapDB();
@@ -904,8 +905,8 @@ class Editor extends React.Component {
     try {
       Layer = focus.device.components.keymap;
     } catch (error) {
-      console.log("There is no spoon error: ", error);
-      this.forceUpdate();
+      console.error("Focus lost connection to Rasie: ", error);
+      return false;
     }
 
     return Layer;
@@ -934,7 +935,7 @@ class Editor extends React.Component {
             if (Array.isArray(layers.keymap)) {
               console.log(layers.keymap[0]);
               this.importLayer(layers);
-              toast.success(i18n.t("editor.importSuccessCurrentLayer"), {
+              toast.success(i18n.editor.importSuccessCurrentLayer, {
                 autoClose: 2000
               });
             } else {
@@ -946,13 +947,13 @@ class Editor extends React.Component {
                 modified: true
               });
               this.props.startContext();
-              toast.success(i18n.t("editor.importSuccessAllLayers"), {
+              toast.success(i18n.editor.importSuccessAllLayers, {
                 autoClose: 2000
               });
             }
           } catch (e) {
             console.error(e);
-            toast.error(i18n.t("errors.invalidLayerFile"), {
+            toast.error(i18n.errors.invalidLayerFile, {
               autoClose: 2000
             });
             return;
@@ -1006,7 +1007,7 @@ class Editor extends React.Component {
         if (!resp.canceled) {
           console.log(resp.filePath, data);
           require("fs").writeFileSync(resp.filePath, data);
-          toast.success(i18n.t("editor.exportSuccessCurrentLayer"), {
+          toast.success(i18n.editor.exportSuccessCurrentLayer, {
             autoClose: 2000
           });
         } else {
@@ -1015,7 +1016,7 @@ class Editor extends React.Component {
       })
       .catch(err => {
         console.error(err);
-        toast.error(i18n.t("errors.exportError") + err, {
+        toast.error(i18n.errors.exportError + err, {
           autoClose: 2000
         });
       });
@@ -1049,7 +1050,7 @@ class Editor extends React.Component {
         if (!resp.canceled) {
           console.log(resp.filePath, data);
           require("fs").writeFileSync(resp.filePath, data);
-          toast.success(i18n.t("editor.exportSuccessAllLayers"), {
+          toast.success(i18n.editor.exportSuccessAllLayers, {
             autoClose: 2000
           });
         } else {
@@ -1058,7 +1059,7 @@ class Editor extends React.Component {
       })
       .catch(err => {
         console.error(err);
-        toast.error(i18n.t("errors.exportError") + err, {
+        toast.error(i18n.errors.exportError + err, {
           autoClose: 2000
         });
       });
@@ -1068,6 +1069,9 @@ class Editor extends React.Component {
     const { classes } = this.props;
     const { keymap, palette, isColorButtonSelected } = this.state;
     let Layer = this.getLayout();
+    if (Layer === false) {
+      return <div></div>;
+    }
     const showDefaults = settings.getSync("keymap.showDefaults");
 
     let currentLayer = this.state.currentLayer;

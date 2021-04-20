@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-filename-extension */
 // -*- mode: js-jsx -*-
 /* Bazecor -- Kaleidoscope Command Center
  * Copyright (C) 2018, 2019  Keyboardio, Inc.
@@ -16,221 +17,182 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
-import Electron from "electron";
-import { Link } from "@reach/router";
+import React, { Component } from "react";
+import { Link, withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
 
-import Divider from "@material-ui/core/Divider";
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import { withStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavbarBrand from "react-bootstrap/NavbarBrand";
+import Styled from "styled-components";
 
 import i18n from "../../i18n";
 
-import { version } from "../../../../package.json";
 import WelcomeMenu from "./WelcomeMenu";
 import EditorMenuItem from "./EditorMenuItem";
 import FlashMenuItem from "./FlashMenuItem";
-import FeedbackMenuItem from "./FeedbackMenuItem";
-import ExitMenuItem from "./ExitMenuItem";
 import KeyboardMenuItem from "./KeyboardSelectMenuItem";
 import PreferencesMenuItem from "./PreferencesMenuItem";
-import SupportPage from "./SupportPage";
-import openURL from "../../utils/openURL";
+import SoftwareUpdateMenuItem from "./SoftwareUpdateMenuItem";
+import ExitMenuItem from "./ExitMenuItem";
 
-import { history } from "../../routerHistory";
-import { darkTheme } from "../../../styles/darkTheme";
+import DygmaLogo from "../../../../static/logo.png";
 
-const styles = theme => ({
-  drawer: {
-    width: 350
-  },
-  version: {
-    textAlign: "right",
-    paddingTop: 20,
-    paddingRight: theme.spacing(4)
-  },
-  toolbarIcon: {
-    display: "flex",
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
-    flexDirection: "column",
-    ...theme.mixins.toolbar
-  },
-  link: {
-    textDecoration: "none",
-    color: theme.palette.text.primary
-  },
-  menuItem: {
-    paddingLeft: theme.spacing(4)
-  },
-  keyboardTitleLight: {
-    display: "block",
-    width: 350,
-    margin: "0 auto",
-    padding: "30px 20px 30px 35px",
-    borderBottom: "1px solid silver",
-    fontSize: 18,
-    textAlign: "left",
-    lineHeight: "150%",
-    letterSpacing: "0.25em"
-  },
-  keyboardTitleDark: {
-    display: "block",
-    width: 350,
-    margin: "0 auto",
-    padding: "30px 20px 30px 35px",
-    borderTop: "1px solid rgba(0, 0, 0, 0.87)",
-    borderBottom: "1px solid rgba(0, 0, 0, 0.87)",
-    fontSize: 18,
-    textAlign: "left",
-    lineHeight: "150%",
-    letterSpacing: "0.25em"
+const { remote } = require("electron");
+
+const drawerWidth = 64;
+
+const Styles = Styled.div`
+.brand-image {
+  padding: 0 !important;
+  margin-left: 8px;
+  margin-top: 8px;
+  margin-bottom: 20px;
+  display: block;
+  -webkit-app-region: drag;
+  img {
+    margin: 0;
+    height: ${({ theme }) => theme.drawerWidth - 16}px;
+    width: ${({ theme }) => theme.drawerWidth - 16}px;
   }
-});
+}
+.left-navbar {
+  background: ${({ theme }) => theme.colors.gardient}
+  width: ${({ theme }) => theme.drawerWidth}px;
+  height: 100vh;
+  display: block !important;
+  position: absolute !important;
+  z-index: 10;
+  padding: 0 !important;
+}
+.list-link {
+  display: flex;
+  .item-list {
+    .icon-item {
+      .icon-image {
+        width: ${({ theme }) => theme.drawerWidth - 10}px;
+        height: ${({ theme }) => theme.drawerWidth - 10}px;
+        margin-left: 5px;
+        padding 10px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        color: white;
+        align-content: center;
+        text-align: center;
+        border-radius: 100px;
+        &:hover {
+          background-color: rgba(255,255,255,0.3);
+        }
+      }
+    }
+    .icon-text {
+      .primary {
+        font-size: 0.8em;
+        color: black;
+      }
+      .secondary {
+        font-size: 0.7em;
+        color: gray;
+      }
+    }
+  }
+}
+`;
 
-function MainMenu({ open, closeMenu, classes, connected, pages, themeDark }) {
-  const currentPage = history.location.pathname,
-    setCurrentPage = history.navigate;
+class MainMenu extends Component {
+  render() {
+    const { connected, pages, history } = this.props;
+    const currentPage = history.location.pathname;
+    const setCurrentPage = history.push;
 
-  const homePage = connected
-    ? pages.keymap
-      ? "/editor"
-      : "/welcome"
-    : "/keyboard-select";
+    // const homePage = connected
+    //   ? pages.keymap
+    //     ? "/editor"
+    //     : "/welcome"
+    //   : "/keyboard-select";
 
-  return (
-    <Drawer open={open} onClose={closeMenu}>
-      <div onClick={closeMenu} role="button" onKeyDown={closeMenu}>
-        <div className={classes.toolbarIcon}>
-          <Link to={homePage} style={{ textDecoration: "none", width: "100%" }}>
-            <List
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "flex-start",
-                width: "100%",
-                padding: 0
-              }}
-            />
-          </Link>
-          <div
-            className={
-              darkTheme ? classes.keyboardTitleLight : classes.keyboardTitleDark
-            }
-          >
-            <Typography
-              style={{ padding: 0, letterSpacing: "0.1em", fontSize: 17 }}
-            >
-              {i18n.app.menu.keyboardTitle}
-            </Typography>
-            <Typography
-              style={{ padding: 0, letterSpacing: "0.1em", fontSize: 17 }}
-            >
-              {i18n.app.menu.keyboardTitleSecondary}
-            </Typography>
-          </div>
-        </div>
-        {connected && (
-          <List
-            className={classes.drawer}
-            subheader={
-              <ListSubheader disableSticky>
-                {i18n.app.menu.keyboardSection}
-              </ListSubheader>
-            }
-          >
-            {!pages.keymap && !pages.colormap && (
-              <Link to="/welcome" className={classes.link}>
-                <WelcomeMenu
-                  selected={currentPage == "/welcome"}
-                  className={classes.menuItem}
-                  onClick={() => setCurrentPage("/welcome")}
-                />
-              </Link>
-            )}
-            {pages.keymap && (
-              <Link to="/editor" className={classes.link}>
-                <EditorMenuItem
-                  selected={currentPage == "/editor"}
-                  className={classes.menuItem}
-                  onClick={() => setCurrentPage("/editor")}
-                />
-              </Link>
-            )}
-            <Link to="/firmware-update" className={classes.link}>
-              <FlashMenuItem
-                selected={currentPage == "/firmware-update"}
-                className={classes.menuItem}
-                onClick={() => setCurrentPage("/firmware-update")}
-                themeDark={themeDark}
+    return (
+      <Styles>
+        <Navbar className="left-navbar sidebar" sticky="top">
+          <NavbarBrand as={Link} to="/" className="brand-image d-lg-block">
+            <img alt="" src={DygmaLogo} className="d-inline-block align-top" />
+          </NavbarBrand>
+          <Nav className="mr-auto flex-column flex-row">
+            <Link to="/welcome" className="list-link">
+              <WelcomeMenu
+                selected={currentPage === "/welcome"}
+                userMenu={i18n.app.menu.userMenu}
+                drawerWidth={drawerWidth}
+                onClick={() => setCurrentPage("/welcome")}
               />
             </Link>
-          </List>
-        )}
-        {connected && <Divider />}
-        <List
-          className={classes.drawer}
-          subheader={
-            <ListSubheader disableSticky>
-              {i18n.app.menu.bazecorSection}
-            </ListSubheader>
-          }
-        >
-          <Link to="/keyboard-select" className={classes.link}>
-            <KeyboardMenuItem
-              className={classes.menuItem}
-              keyboardSelectText={
-                connected
-                  ? i18n.app.menu.selectAnotherKeyboard
-                  : i18n.app.menu.selectAKeyboard
-              }
-              selected={currentPage == "/keyboard-select"}
-              onClick={() => setCurrentPage("/keyboard-select")}
-            />
-          </Link>
-          <Link to="/preferences" className={classes.link}>
-            <PreferencesMenuItem
-              className={classes.menuItem}
-              selected={currentPage == "/preferences"}
-              onClick={() => setCurrentPage("/preferences")}
-            />
-          </Link>
-        </List>
-        <Divider />
-        <List
-          className={classes.drawer}
-          subheader={
-            <ListSubheader disableSticky>
-              {i18n.app.menu.miscSection}
-            </ListSubheader>
-          }
-        >
-          <SupportPage
-            className={classes.menuItem}
-            onClick={openURL("https://www.dygma.com/myraise/#opening")}
-            themeDark={themeDark}
-          />
-          <FeedbackMenuItem
-            className={classes.menuItem}
-            onClick={openURL("https://www.dygma.com/contact/")}
-          />
-          <ExitMenuItem
-            className={classes.menuItem}
-            onClick={() => Electron.remote.app.exit(0)}
-          />
-        </List>
-        <Divider />
-        <ListItemText
-          primary={`Bazecor ${version}`}
-          className={classes.version}
-        />
-      </div>
-    </Drawer>
-  );
+            <div>
+              {connected && (
+                <>
+                  {pages.keymap && (
+                    <Link to="/editor" className="list-link">
+                      <EditorMenuItem
+                        selected={currentPage === "/editor"}
+                        drawerWidth={drawerWidth}
+                        onClick={() => setCurrentPage("/editor")}
+                      />
+                    </Link>
+                  )}
+                  <Link to="/firmware-update" className="list-link">
+                    <FlashMenuItem
+                      selected={currentPage === "/firmware-update"}
+                      drawerWidth={drawerWidth}
+                      onClick={() => setCurrentPage("/firmware-update")}
+                    />
+                  </Link>
+                </>
+              )}
+              <Link to="/keyboard-select" className="list-link">
+                <KeyboardMenuItem
+                  keyboardSelectText={
+                    connected
+                      ? i18n.app.menu.selectAnotherKeyboard
+                      : i18n.app.menu.selectAKeyboard
+                  }
+                  drawerWidth={drawerWidth}
+                  selected={currentPage === "/keyboard-select"}
+                  onClick={() => setCurrentPage("/keyboard-select")}
+                />
+              </Link>
+              <Link to="/preferences" className="list-link">
+                <PreferencesMenuItem
+                  drawerWidth={drawerWidth}
+                  selected={currentPage === "/preferences"}
+                  onClick={() => setCurrentPage("/preferences")}
+                />
+              </Link>
+              <div className="list-link">
+                <SoftwareUpdateMenuItem
+                  keyboardSelectText={i18n.app.menu.softwareUpdate}
+                  drawerWidth={drawerWidth}
+                  selected={currentPage === "/software-update"}
+                  onClick={event => event.stopPropagation()}
+                />
+              </div>
+              <div className="list-link">
+                <ExitMenuItem
+                  drawerWidth={drawerWidth}
+                  onClick={() => remote.app.exit(0)}
+                />
+              </div>
+            </div>
+          </Nav>
+        </Navbar>
+      </Styles>
+    );
+  }
 }
+MainMenu.propTypes = {
+  connected: PropTypes.bool.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  pages: PropTypes.object.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  history: PropTypes.object.isRequired
+};
 
-export default withStyles(styles)(MainMenu);
+export default withRouter(MainMenu);

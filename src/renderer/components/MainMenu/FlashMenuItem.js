@@ -15,25 +15,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
+import React, { Fragment } from "react";
 import i18n from "../../i18n";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import { MdCloudUpload } from "react-icons/md";
 
-export default function FlashMenuItem({ selected, onClick, className }) {
+export default function FlashMenuItem({
+  selected,
+  onClick,
+  className,
+  classIcon,
+  drawerWidth
+}) {
   return (
-    <ListItem
-      button
-      selected={selected}
-      onClick={onClick}
-      className={className}
-    >
-      <ListItemIcon>
-        <CloudUploadIcon />
-      </ListItemIcon>
-      <ListItemText primary={i18n.app.menu.firmwareUpdate} />
-    </ListItem>
+    <div onClick={onClick} className={"item-list"}>
+      <div className="icon-item">
+        <MdCloudUpload className={"icon-image"} />
+      </div>
+      {drawerWidth === "auto" ? (
+        <div className="icon-text">
+          <p className="primary">{i18n.app.menu.firmwareUpdate}</p>
+        </div>
+      ) : (
+        <Fragment></Fragment>
+      )}
+    </div>
   );
 }

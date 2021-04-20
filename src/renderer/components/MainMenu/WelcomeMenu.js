@@ -15,25 +15,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import InfoIcon from "@material-ui/icons/Info";
-import i18n from "../../i18n";
+import React, { Fragment } from "react";
 
-export default function WelcomeMenu({ selected, onClick, className }) {
+import { MdAccountCircle } from "react-icons/md";
+
+export default function WelcomeMenu({
+  selected,
+  userMenu,
+  onClick,
+  drawerWidth
+}) {
   return (
-    <ListItem
-      button
-      selected={selected}
-      onClick={onClick}
-      className={className}
-    >
-      <ListItemIcon>
-        <InfoIcon />
-      </ListItemIcon>
-      <ListItemText primary={i18n.app.menu.welcome} />
-    </ListItem>
+    <div onClick={onClick} className={"item-list"}>
+      <div className="icon-item">
+        <MdAccountCircle className={"icon-image"} />
+      </div>
+      {drawerWidth === "auto" ? (
+        <div className="icon-text">
+          <p className="primary">{userMenu}</p>
+        </div>
+      ) : (
+        <Fragment></Fragment>
+      )}
+    </div>
   );
 }

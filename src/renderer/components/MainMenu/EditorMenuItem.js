@@ -15,20 +15,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import KeyboardIcon from "@material-ui/icons/Keyboard";
+import React, { Fragment } from "react";
 import i18n from "../../i18n";
 
-export default function EditorMenuItem({ onClick, className }) {
+import { MdKeyboard } from "react-icons/md";
+
+export default function EditorMenuItem({ onClick, drawerWidth }) {
   return (
-    <ListItem button onClick={onClick} className={className}>
-      <ListItemIcon>
-        <KeyboardIcon />
-      </ListItemIcon>
-      <ListItemText primary={i18n.app.menu.editor} />
-    </ListItem>
+    <div onClick={onClick} className={"item-list"}>
+      <div className={"icon-item"}>
+        <MdKeyboard className={"icon-image"} />
+      </div>
+      {drawerWidth === "auto" ? (
+        <div className="icon-text">
+          <p className="primary">{i18n.app.menu.editor}</p>
+        </div>
+      ) : (
+        <Fragment></Fragment>
+      )}
+    </div>
   );
 }

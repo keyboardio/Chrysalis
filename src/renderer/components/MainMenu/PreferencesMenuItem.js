@@ -15,25 +15,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import SettingsIcon from "@material-ui/icons/Settings";
+import React, { Fragment } from "react";
 import i18n from "../../i18n";
+import { MdSettings } from "react-icons/md";
 
-export default function PreferencesMenuItem({ selected, onClick, className }) {
+export default function PreferencesMenuItem({
+  selected,
+  onClick,
+  className,
+  classIcon,
+  drawerWidth
+}) {
   return (
-    <ListItem
-      button
-      selected={selected}
-      onClick={onClick}
-      className={className}
-    >
-      <ListItemIcon>
-        <SettingsIcon />
-      </ListItemIcon>
-      <ListItemText primary={i18n.app.menu.preferences} />
-    </ListItem>
+    <div onClick={onClick} className={"item-list"}>
+      <div className="icon-item">
+        <MdSettings className={"icon-image"} />
+      </div>
+      {drawerWidth === "auto" ? (
+        <div className="icon-text">
+          <p className="primary">{i18n.app.menu.preferences}</p>
+        </div>
+      ) : (
+        <Fragment></Fragment>
+      )}
+    </div>
   );
 }

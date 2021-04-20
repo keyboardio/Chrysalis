@@ -316,6 +316,7 @@ class MacroForm extends Component {
             updateActions={this.updateActions}
             keymapDB={keymapDB}
             number={this.props.macros.length}
+            selected={this.state.selected}
           />
           <div className={classes.buttons}>
             {/* <Button

@@ -5,12 +5,12 @@ export const darkTheme = createMuiTheme({
     type: "dark",
     // Override built in colors
     // TODO Create a Dygma theme
-    // primary: {
-    //   main: "#9c27b0"
-    // },
-    // secondary: {
-    //   main: "#651fff"
-    // },
+    primary: {
+      main: "#ffeb3b"
+    },
+    secondary: {
+      main: "#f50057"
+    },
 
     // Define custom items for our use
     selectItem: {

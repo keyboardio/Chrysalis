@@ -32,8 +32,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import Slider from "@material-ui/core/Slider";
 import Switch from "@material-ui/core/Switch";
-import TextField from "@material-ui/core/TextField";
-import CardHeader from "@material-ui/core/CardHeader";
+import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -709,6 +708,9 @@ class KeyboardSettings extends React.Component {
                   label={
                     <p>
                       {i18n.keyboardSettings.qukeys.overlapThreshold}
+                      <Link href="https://kaleidoscope.readthedocs.io/en/latest/plugins/Kaleidoscope-Qukeys.html#setoverlapthreshold-percentage">
+                        {" - More info"}
+                      </Link>
                       <i className={classes.greytext}>
                         {i18n.keyboardSettings.qukeys.overlapThresholdsub}
                       </i>

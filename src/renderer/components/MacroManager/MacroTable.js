@@ -556,6 +556,7 @@ class MacroTable extends Component {
           actionTypes={this.actionTypes}
           keymapDB={this.keymapDB}
           number={this.props.number}
+          selected={this.props.selected}
           onAddSymbol={this.onAddSymbol}
           onAddDelay={this.onAddDelay}
           onTextChange={this.onTextChange}

@@ -29,6 +29,7 @@ import BuildIcon from "@material-ui/icons/Build";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
+import Link from "@material-ui/core/Link";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
@@ -83,14 +84,27 @@ const styles = theme => ({
     margin: "auto"
   },
   snackVer: {
-    fontSize: "1rem",
-    backgroundColor: "#2196F3",
+    fontSize: "1.2rem",
+    backgroundColor:
+      theme.palette.type === "dark"
+        ? theme.palette.secondary.main
+        : theme.palette.primary.main,
     boxShadow: "none",
     placeContent: "center"
   },
+  versionText: {
+    color: "#fff"
+  },
+  versionStrong: {
+    color: theme.palette.type === "dark" ? theme.palette.primary.main : "#fff"
+  },
+  notText: {
+    color: theme.palette.type === "dark" ? "#fff" : "#000"
+  },
   snackNot: {
     fontSize: "1rem",
-    backgroundColor: "#FF9800",
+    backgroundColor:
+      theme.palette.type === "dark" ? theme.palette.secondary.main : "#FF9800",
     boxShadow: "none",
     placeContent: "center",
     maxWidth: "none"
@@ -518,14 +532,24 @@ class FirmwareUpdate extends React.Component {
               className={classes.cardSub}
             >
               <ol style={{ lineHeight: "2rem" }}>
+                <li>
+                  {
+                    "Make sure to have at least one backup of your layers, just in case!"
+                  }
+                </li>
                 <li>{"Click 'Start Countdown'."}</li>
                 <li>
                   {
                     "When the countdown reaches zero and the keyboard's lights turn off, press repeatedly or hold the key on the "
                   }
-                  <a href="https://support.dygma.com/hc/en-us/articles/360017056397">
+                  <Link
+                    href="https://support.dygma.com/hc/en-us/articles/360017056397"
+                    color={
+                      this.props.darkMode === true ? "primary" : "secondary"
+                    }
+                  >
                     {"top left corner of your Raise"}
-                  </a>
+                  </Link>
                   {" (usually the Esc key). Do this for 5-7 seconds."}
                 </li>
                 <li>
@@ -541,7 +565,7 @@ class FirmwareUpdate extends React.Component {
                 message={
                   <Typography component="div" gutterBottom>
                     <div style={{ display: "flex" }}>
-                      <div>
+                      <Typography component="div">
                         <InfoRounded
                           style={{
                             verticalAlign: "middle",
@@ -549,16 +573,23 @@ class FirmwareUpdate extends React.Component {
                             color: "white"
                           }}
                         />
-                      </div>
-                      <div>
+                      </Typography>
+                      <Typography component="div" className={classes.notText}>
                         {
                           "Not following the steps can cause the firmware update process to fail. This won't damage your Raise, but will require you to repeat the process. More information "
                         }
-                        <a href="https://support.dygma.com/hc/en-us/articles/360007272638">
+                        <Link
+                          href="https://support.dygma.com/hc/en-us/articles/360007272638"
+                          color={
+                            this.props.darkMode === true
+                              ? "primary"
+                              : "secondary"
+                          }
+                        >
                           {"here"}
-                        </a>
+                        </Link>
                         {"."}
-                      </div>
+                      </Typography>
                     </div>
                   </Typography>
                 }
@@ -601,7 +632,7 @@ class FirmwareUpdate extends React.Component {
                 message={
                   <Typography component="div" gutterBottom>
                     <div style={{ display: "flex" }}>
-                      <div>
+                      <Typography component="div">
                         <InfoRounded
                           style={{
                             verticalAlign: "middle",
@@ -609,16 +640,23 @@ class FirmwareUpdate extends React.Component {
                             color: "white"
                           }}
                         />
-                      </div>
-                      <div>
+                      </Typography>
+                      <Typography component="div" className={classes.notText}>
                         {
                           "In case the Firmware Update fails, this won't damage your Raise. Repeat the process or do it in "
                         }
-                        <a href="https://support.dygma.com/hc/en-us/articles/360014074997">
+                        <Link
+                          href="https://support.dygma.com/hc/en-us/articles/360014074997"
+                          color={
+                            this.props.darkMode === true
+                              ? "primary"
+                              : "secondary"
+                          }
+                        >
                           {"another way"}
-                        </a>
+                        </Link>
                         {"."}
-                      </div>
+                      </Typography>
                     </div>
                   </Typography>
                 }
@@ -639,7 +677,7 @@ class FirmwareUpdate extends React.Component {
               message={
                 <Typography component="div">
                   <div style={{ display: "flex" }}>
-                    <div>
+                    <Typography component="div">
                       <InfoRounded
                         style={{
                           verticalAlign: "middle",
@@ -647,12 +685,14 @@ class FirmwareUpdate extends React.Component {
                           color: "white"
                         }}
                       />
-                    </div>
-                    <div>
+                    </Typography>
+                    <Typography component="div" className={classes.versionText}>
                       {"Your Raise is currently running version "}
-                      <strong>{versions.bazecor}</strong>
+                      <strong className={classes.versionStrong}>
+                        {versions.bazecor}
+                      </strong>
                       {" of the firmware."}
-                    </div>
+                    </Typography>
                   </div>
                 </Typography>
               }
@@ -695,9 +735,12 @@ class FirmwareUpdate extends React.Component {
               <i>
                 <strong>{"For advanced users: "}</strong>
                 {"If you have installed your own "}
-                <a href="https://support.dygma.com/hc/en-us/articles/360017062197">
+                <Link
+                  href="https://support.dygma.com/hc/en-us/articles/360017062197"
+                  color={this.props.darkMode === true ? "primary" : "secondary"}
+                >
                   {"custom firmware"}
-                </a>
+                </Link>
                 {", this update will overwrite it."}
               </i>
             </Typography>

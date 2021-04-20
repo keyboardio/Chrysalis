@@ -105,6 +105,7 @@ class MacroToolTab extends Component {
           keymapDB={this.props.keymapDB}
           onAddSpecial={this.props.onAddSpecial}
           number={this.props.number}
+          selected={this.props.selected}
         />
       </div>
     );

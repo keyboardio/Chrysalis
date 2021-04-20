@@ -67,8 +67,10 @@ class MacroTabSpecial extends Component {
           {this.keymapDB.allCodes.slice(11, 15).map(group => {
             return group.keys.map((item, id) => {
               if (
-                group.groupName === "Macros" &&
-                parseInt(item.labels.primary) >= this.props.number
+                (group.groupName === "Macros" &&
+                  parseInt(item.labels.primary) >= this.props.number) ||
+                (group.groupName === "Macros" &&
+                  parseInt(item.labels.primary) === this.props.selected)
               ) {
                 return;
               }

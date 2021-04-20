@@ -17,34 +17,39 @@
 
 import React from "react";
 import settings from "electron-settings";
+import { Switch, Redirect, Route } from "react-router-dom";
+import { toast } from "react-toastify";
+import styled, { ThemeProvider, css } from "styled-components";
 
 import Focus from "../api/focus";
 import "../api/keymap";
 import "../api/colormap";
 import "typeface-roboto/index.css";
 import "typeface-source-code-pro/index.css";
-import { LocationProvider, Router } from "@reach/router";
+import GlobalStyles from "./theme/GlobalStyles";
+import Light from "./theme/LightTheme";
+import Dark from "./theme/DarkTheme";
 
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { withStyles } from "@material-ui/core/styles";
-import { MuiThemeProvider } from "@material-ui/core/styles";
-import { lightTheme } from "../styles/lightTheme";
-import { darkTheme } from "../styles/darkTheme";
+// import CssBaseline from "@material-ui/core/CssBaseline";
+// import { withStyles } from "@material-ui/core/styles";
+// import { MuiThemeProvider } from "@material-ui/core/styles";
+// import { lightTheme } from "../styles/lightTheme";
+// import { darkTheme } from "../styles/darkTheme";
+import Container from "react-bootstrap/Container";
 
 import usb from "usb";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-import KeyboardSelect from "./screens/KeyboardSelect";
-import FirmwareUpdate from "./screens/FirmwareUpdate";
-import Editor from "./screens/Editor/Editor";
-import Preferences from "./screens/Preferences";
-import Welcome from "./screens/Welcome";
 import i18n from "./i18n";
 
+// import KeyboardSelect from "./screens/KeyboardSelect";
+// import FirmwareUpdate from "./screens/FirmwareUpdate";
+// import Editor from "./screens/Editor/Editor";
+// import Preferences from "./screens/Preferences";
+// import Welcome from "./screens/Welcome";
+
 import Header from "./components/Header";
-import ConfirmationDialog from "./components/ConfirmationDialog";
-import { history, navigate } from "./routerHistory";
+// import ConfirmationDialog from "./components/ConfirmationDialog";
+// import { history, navigate } from "./routerHistory";
 
 const Store = window.require("electron-store");
 const store = new Store();
@@ -57,18 +62,6 @@ focus.timeout = 15000;
 
 if (settings.getSync("ui.language"))
   i18n.setLanguage(settings.get("ui.language"));
-
-const styles = () => ({
-  root: {
-    display: "flex",
-    flexDirection: "column"
-  },
-  content: {
-    flexGrow: 1,
-    overflow: "auto",
-    minWidth: 600
-  }
-});
 
 class App extends React.Component {
   constructor(props) {
@@ -140,7 +133,7 @@ class App extends React.Component {
 
       // Must await this to stop re-render of components reliant on `focus.device`
       // However, it only renders a blank screen. New route is rendered below.
-      await navigate("./");
+      await Redirect("./");
 
       if (!focus._port.isOpen) {
         toast.warning(i18n.errors.deviceDisconnected);
@@ -152,7 +145,7 @@ class App extends React.Component {
         pages: {}
       });
       // Second call to `navigate` will actually render the proper route
-      await navigate("/keyboard-select");
+      await Redirect("/keyboard-select");
     });
   }
 
@@ -187,7 +180,7 @@ class App extends React.Component {
         device: null,
         pages: {}
       });
-      await navigate("/keyboard-select");
+      await Redirect("/keyboard-select");
     }
   };
 
@@ -202,7 +195,7 @@ class App extends React.Component {
         pages: {},
         device: port.device
       });
-      await navigate("/welcome");
+      await Redirect("/welcome");
       return [];
     }
 
@@ -214,7 +207,7 @@ class App extends React.Component {
         pages: {},
         device: port
       });
-      await navigate("/welcome");
+      await Redirect("/welcome");
       return [];
     }
 
@@ -235,7 +228,7 @@ class App extends React.Component {
       device: port,
       pages: pages
     });
-    await navigate(pages.keymap ? "/editor" : "/welcome");
+    await Redirect(pages.keymap ? "/editor" : "/welcome");
     return [];
   };
 
@@ -247,7 +240,7 @@ class App extends React.Component {
       pages: {}
     });
     localStorage.clear();
-    await navigate("/keyboard-select");
+    await Redirect("/keyboard-select");
   };
 
   cancelContext = dirty => {
@@ -356,7 +349,6 @@ class App extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
     const { connected, pages, contextBar, darkMode } = this.state;
 
     let focus = new Focus();
@@ -368,81 +360,77 @@ class App extends React.Component {
       (this.state.device && this.state.device.info);
 
     return (
-      <MuiThemeProvider theme={darkMode ? darkTheme : lightTheme}>
-        <div className={classes.root}>
-          <LocationProvider history={history}>
-            <CssBaseline />
-            <Header
-              contextBar={contextBar}
-              connected={connected}
-              pages={pages}
-              device={device}
-              cancelContext={this.cancelContext}
-              theme={darkMode}
+      <ThemeProvider theme={darkMode ? Dark : Light}>
+        <GlobalStyles />
+        <Header
+          contextBar={contextBar}
+          connected={connected}
+          pages={pages}
+          device={device}
+          cancelContext={this.cancelContext}
+          theme={darkMode}
+        />
+        <Container fluid className="main-container">
+          <Switch>
+            {/* <Welcome
+              path="/welcome"
+              device={this.state.device}
+              onConnect={this.onKeyboardConnect}
+              titleElement={() => document.querySelector("#page-title")}
             />
-            <main className={classes.content}>
-              <Router>
-                <Welcome
-                  path="/welcome"
-                  device={this.state.device}
-                  onConnect={this.onKeyboardConnect}
-                  titleElement={() => document.querySelector("#page-title")}
-                />
-                <KeyboardSelect
-                  path="/keyboard-select"
-                  onConnect={this.onKeyboardConnect}
-                  onDisconnect={this.onKeyboardDisconnect}
-                  titleElement={() => document.querySelector("#page-title")}
-                />
-                <Editor
-                  path="/editor"
-                  onDisconnect={this.onKeyboardDisconnect}
-                  startContext={this.startContext}
-                  cancelContext={this.cancelContext}
-                  applyBalance={this.applyBalance}
-                  revertBalance={this.revertBalance}
-                  inContext={this.state.contextBar}
-                  titleElement={() => document.querySelector("#page-title")}
-                  appBarElement={() => document.querySelector("#appbar")}
-                  darkMode={darkMode}
-                />
-                <FirmwareUpdate
-                  path="/firmware-update"
-                  device={this.state.device}
-                  toggleFlashing={this.toggleFlashing}
-                  onDisconnect={this.onKeyboardDisconnect}
-                  titleElement={() => document.querySelector("#page-title")}
-                  darkMode={darkMode}
-                />
-                <Preferences
-                  connected={connected}
-                  path="/preferences"
-                  titleElement={() => document.querySelector("#page-title")}
-                  darkMode={this.state.darkMode}
-                  setBalance={this.setBalance}
-                  testBalance={this.testBalance}
-                  startTestBalance={this.startTestBalance}
-                  stopTestBalance={this.stopTestBalance}
-                  balance={this.state.balance}
-                  toggleDarkMode={this.toggleDarkMode}
-                  startContext={this.startContext}
-                  cancelContext={this.cancelContext}
-                  inContext={this.state.contextBar}
-                />
-              </Router>
-            </main>
-          </LocationProvider>
-          <ConfirmationDialog
-            title={i18n.app.cancelPending.title}
-            open={this.state.cancelPendingOpen}
-            onConfirm={this.doCancelContext}
-            onCancel={this.cancelContextCancellation}
-            text={i18n.app.cancelPending.content}
-          />
-        </div>
-      </MuiThemeProvider>
+            <KeyboardSelect
+              path="/keyboard-select"
+              onConnect={this.onKeyboardConnect}
+              onDisconnect={this.onKeyboardDisconnect}
+              titleElement={() => document.querySelector("#page-title")}
+            />
+            <Editor
+              path="/editor"
+              onDisconnect={this.onKeyboardDisconnect}
+              startContext={this.startContext}
+              cancelContext={this.cancelContext}
+              applyBalance={this.applyBalance}
+              revertBalance={this.revertBalance}
+              inContext={this.state.contextBar}
+              titleElement={() => document.querySelector("#page-title")}
+              appBarElement={() => document.querySelector("#appbar")}
+              darkMode={darkMode}
+            />
+            <FirmwareUpdate
+              path="/firmware-update"
+              device={this.state.device}
+              toggleFlashing={this.toggleFlashing}
+              onDisconnect={this.onKeyboardDisconnect}
+              titleElement={() => document.querySelector("#page-title")}
+              darkMode={darkMode}
+            />
+            <Preferences
+              connected={connected}
+              path="/preferences"
+              titleElement={() => document.querySelector("#page-title")}
+              darkMode={this.state.darkMode}
+              setBalance={this.setBalance}
+              testBalance={this.testBalance}
+              startTestBalance={this.startTestBalance}
+              stopTestBalance={this.stopTestBalance}
+              balance={this.state.balance}
+              toggleDarkMode={this.toggleDarkMode}
+              startContext={this.startContext}
+              cancelContext={this.cancelContext}
+              inContext={this.state.contextBar}
+            /> */}
+          </Switch>
+        </Container>
+        {/* <ConfirmationDialog
+          title={i18n.app.cancelPending.title}
+          open={this.state.cancelPendingOpen}
+          onConfirm={this.doCancelContext}
+          onCancel={this.cancelContextCancellation}
+          text={i18n.app.cancelPending.content}
+        /> */}
+      </ThemeProvider>
     );
   }
 }
 
-export default withStyles(styles)(App);
+export default App;

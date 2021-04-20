@@ -1,6 +1,7 @@
 // -*- mode: js-jsx -*-
 /* Bazecor -- Kaleidoscope Command Center
  * Copyright (C) 2018, 2019  Keyboardio, Inc.
+ * Copyright (C) 2019  DygmaLab SE
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -15,36 +16,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { Component } from "react";
+import React, { Fragment } from "react";
+import i18n from "../../i18n";
+import { MdGetApp } from "react-icons/md";
 
-import MainMenu from "./MainMenu/MainMenu";
-class Header extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      mainMenu: true
-    };
-  }
-
-  closeMainMenu() {
-    this.setState({ mainMenu: false });
-  }
-
-  render() {
-    const { connected, pages, theme } = this.props;
-    const { mainMenu } = this.state;
-
-    return (
-      <MainMenu
-        connected={connected}
-        pages={pages}
-        open={mainMenu}
-        closeMenu={this.closeMainMenu}
-        themeDark={theme}
-      />
-    );
-  }
+export default function SoftwareUpdateMenuItem({
+  onClick,
+  className,
+  classIcon,
+  drawerWidth
+}) {
+  return (
+    <div onClick={onClick} className={"item-list"}>
+      <div className="icon-item">
+        <MdGetApp className={"icon-image"} />
+      </div>
+      {drawerWidth === "auto" ? (
+        <div className="icon-text">
+          <p className="primary">{i18n.app.menu.softwareUpdate}</p>
+          <p className="secondary">{i18n.app.menu.comingSoon}</p>
+        </div>
+      ) : (
+        <Fragment></Fragment>
+      )}
+    </div>
+  );
 }
-
-export default Header;

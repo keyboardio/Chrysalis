@@ -1,5 +1,6 @@
 module.exports = {
   extends: [
+    "prettier",
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:jest/recommended",
@@ -7,6 +8,7 @@ module.exports = {
     "plugin:prettier/recommended",
     "plugin:react-hooks/recommended"
   ],
+  plugins: ["prettier"],
   parser: "@babel/eslint-parser",
   parserOptions: {
     ecmaVersion: 2017,

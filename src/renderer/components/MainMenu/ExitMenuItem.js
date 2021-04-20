@@ -15,20 +15,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import React, { Fragment } from "react";
 import i18n from "../../i18n";
+import { MdExitToApp } from "react-icons/md";
 
-export default function ExitMenuItem({ onClick, className }) {
+export default function ExitMenuItem({ onClick, drawerWidth }) {
   return (
-    <ListItem button onClick={onClick} className={className}>
-      <ListItemIcon>
-        <ExitToAppIcon />
-      </ListItemIcon>
-      <ListItemText primary={i18n.app.menu.exit} />
-    </ListItem>
+    <div onClick={onClick} className={"item-list"}>
+      <div className="icon-item">
+        <MdExitToApp className={"icon-image"} />
+      </div>
+      {drawerWidth === "auto" ? (
+        <div className="icon-text">
+          <p className="primary">{i18n.app.menu.exit}</p>
+        </div>
+      ) : (
+        <Fragment></Fragment>
+      )}
+    </div>
   );
 }

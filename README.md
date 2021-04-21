@@ -69,7 +69,7 @@ support, which is known to be problematic on Windows prior to Windows 10.
 
 ### From installer packages
 
-Click on the badge for your operating system's packaging system above
+Click on the badge for your operating system's packaging system [above](#downloads).
 
 ### macOS Homebrew
 

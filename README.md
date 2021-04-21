@@ -69,7 +69,9 @@ support, which is known to be problematic on Windows prior to Windows 10.
 
 ### From installer packages
 
-Click on the badge for your operating system's packaging system [above](#downloads).
+Choose whether to install the production release, or a development snapshot from
+the links [above](#downloads), and from the release page, select the installer
+appropriate for your operating system.
 
 ### macOS Homebrew
 

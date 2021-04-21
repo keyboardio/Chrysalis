@@ -21,27 +21,23 @@ import { Switch, Redirect, Route } from "react-router-dom";
 import { toast } from "react-toastify";
 import styled, { ThemeProvider, css } from "styled-components";
 
+import usb from "usb";
+import i18n from "./i18n";
+
 import Focus from "../api/focus";
 import "../api/keymap";
 import "../api/colormap";
 import "typeface-roboto/index.css";
 import "typeface-source-code-pro/index.css";
+import "react-toastify/dist/ReactToastify.css";
+
 import GlobalStyles from "./theme/GlobalStyles";
 import Light from "./theme/LightTheme";
 import Dark from "./theme/DarkTheme";
 
-// import CssBaseline from "@material-ui/core/CssBaseline";
-// import { withStyles } from "@material-ui/core/styles";
-// import { MuiThemeProvider } from "@material-ui/core/styles";
-// import { lightTheme } from "../styles/lightTheme";
-// import { darkTheme } from "../styles/darkTheme";
 import Container from "react-bootstrap/Container";
 
-import usb from "usb";
-import "react-toastify/dist/ReactToastify.css";
-import i18n from "./i18n";
-
-// import KeyboardSelect from "./screens/KeyboardSelect";
+import KeyboardSelect from "./screens/KeyboardSelect";
 // import FirmwareUpdate from "./screens/FirmwareUpdate";
 // import Editor from "./screens/Editor/Editor";
 // import Preferences from "./screens/Preferences";
@@ -377,14 +373,14 @@ class App extends React.Component {
               device={this.state.device}
               onConnect={this.onKeyboardConnect}
               titleElement={() => document.querySelector("#page-title")}
-            />
+            />*/}
             <KeyboardSelect
               path="/keyboard-select"
               onConnect={this.onKeyboardConnect}
               onDisconnect={this.onKeyboardDisconnect}
               titleElement={() => document.querySelector("#page-title")}
             />
-            <Editor
+            {/*<Editor
               path="/editor"
               onDisconnect={this.onKeyboardDisconnect}
               startContext={this.startContext}

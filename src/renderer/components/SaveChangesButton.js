@@ -16,60 +16,21 @@
  */
 
 import React from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Button from "@material-ui/core/Button";
-import Fab from "@material-ui/core/Fab";
-import CheckIcon from "@material-ui/icons/Check";
-import SaveAltIcon from "@material-ui/icons/SaveAlt";
-import Tooltip from "@material-ui/core/Tooltip";
-import { withStyles } from "@material-ui/core/styles";
-
+import Styled from "styled-components";
+import Button from "react-bootstrap/Button";
+import Spinner from "react-bootstrap/Spinner";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+import { MdSave, MdCheck, MdRefresh } from "react-icons/md";
 import i18n from "../i18n";
 
-const styles = theme => ({
-  root: {
-    display: "flex",
-    alignItems: "center"
-  },
-  wrapper: {
-    margin: theme.spacing(),
-    position: "relative"
-  },
-  buttonSuccess: {
-    backgroundColor: theme.palette.success.main,
-    "&:hover": {
-      backgroundColor: theme.palette.success.dark
-    }
-  },
-  fabProgress: {
-    color: theme.palette.success.main,
-    position: "absolute",
-    top: -6,
-    left: -6,
-    zIndex: 1
-  },
-  buttonProgress: {
-    color: theme.palette.success.main,
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    marginTop: -12,
-    marginLeft: -12
-  },
-  icon: {
-    marginRight: -16,
-    zIndex: 1
-  },
-  fab: {
-    position: "fixed",
-    justifyContent: "flex-end",
-    bottom: 0,
-    right: theme.spacing(4)
+const Styles = Styled.div`
+  .saveBtn{
+    position: absolute;
+    bottom: 15px;
+    margin-left: 20px;
   }
-});
+`;
 
 class SaveChangesButton extends React.Component {
   state = {
@@ -102,16 +63,11 @@ class SaveChangesButton extends React.Component {
   render() {
     const { inProgress, success } = this.state;
     const { classes, successMessage } = this.props;
-    let buttonClassname = classNames({
-      [classes.buttonSuccess]: success
-    });
 
     const textPart = !this.props.floating && (
       <div className={classes.wrapper}>
         <Button
-          variant="contained"
-          color="primary"
-          className={buttonClassname}
+          variant="primary"
           disabled={inProgress || (this.props.disabled && !success)}
           onClick={this.handleButtonClick}
         >
@@ -122,47 +78,42 @@ class SaveChangesButton extends React.Component {
       </div>
     );
 
-    const icon = this.props.icon || <SaveAltIcon />;
-
-    const OptionalTooltip = props => {
-      if (this.props.floating) {
-        return <Tooltip title={this.props.children}>{props.children}</Tooltip>;
-      }
-      return props.children;
-    };
+    const icon = this.props.icon || <MdSave />;
 
     return (
-      <OptionalTooltip>
-        <div
-          className={classNames(
-            classes.root,
-            this.props.className,
-            this.props.floating && classes.fab
-          )}
-        >
-          <div className={classNames(classes.wrapper, classes.icon)}>
-            <Fab
+      <Styles>
+        <div className="">
+          <OverlayTrigger
+            placement="top"
+            overlay={
+              <Tooltip id={"save-tooltip"}>
+                Save your layer modifications to the raise.
+              </Tooltip>
+            }
+          >
+            <Button
               disabled={inProgress || (this.props.disabled && !success)}
-              color="primary"
-              className={buttonClassname}
-              classes={{ disabled: classes.disabled }}
+              variant="primary"
+              className="saveBtn"
               onClick={this.handleButtonClick}
             >
-              {success ? <CheckIcon /> : icon}
-            </Fab>
-            {inProgress && (
-              <CircularProgress size={68} className={classes.fabProgress} />
-            )}
-          </div>
-          {textPart}
+              {success ? <MdCheck /> : icon}
+            </Button>
+          </OverlayTrigger>
+          {inProgress && (
+            <Spinner
+              as="span"
+              animation="grow"
+              size="md"
+              role="status"
+              aria-hidden="true"
+            />
+          )}
         </div>
-      </OptionalTooltip>
+        {textPart}
+      </Styles>
     );
   }
 }
 
-SaveChangesButton.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-export default withStyles(styles)(SaveChangesButton);
+export default SaveChangesButton;

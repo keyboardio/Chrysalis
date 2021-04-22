@@ -289,7 +289,6 @@ class KeyboardSelect extends Component {
       });
       toast.error(err.toString());
     }
-    this.setState({ opening: false });
     i18n.refreshHardware(devices[this.state.selectedPortIndex]);
   };
 
@@ -391,16 +390,14 @@ class KeyboardSelect extends Component {
       port = (
         <Dropdown
           className="selector"
-          isOpen={dropdownOpen}
-          toggle={() =>
+          show={dropdownOpen}
+          onClick={() =>
             this.setState(state => {
-              return { dropdownOpen: state.dropdownOpen };
+              return { dropdownOpen: !state.dropdownOpen };
             })
           }
         >
-          <Dropdown.Toggle className="toggler" caret>
-            {title[0]}
-          </Dropdown.Toggle>
+          <Dropdown.Toggle className="toggler">{title[0]}</Dropdown.Toggle>
           <Dropdown.Menu className="menu">{deviceItems}</Dropdown.Menu>
         </Dropdown>
       );

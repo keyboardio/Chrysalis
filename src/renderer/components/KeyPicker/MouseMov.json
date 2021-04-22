@@ -1,0 +1,54 @@
+[
+  {
+    "id": 20481,
+    "x": 0,
+    "y": 0,
+    "centered": false,
+    "content": {
+      "type": "block",
+      "first": "⬆️",
+      "second": "",
+      "third": "",
+      "fourth": ""
+    }
+  },
+  {
+    "id": 20482,
+    "x": 40,
+    "y": 0,
+    "centered": false,
+    "content": {
+      "type": "block",
+      "first": "⬇️",
+      "second": "",
+      "third": "",
+      "fourth": ""
+    }
+  },
+  {
+    "id": 20484,
+    "x": 80,
+    "y": 0,
+    "centered": false,
+    "content": {
+      "type": "block",
+      "first": "⬅️",
+      "second": "",
+      "third": "",
+      "fourth": ""
+    }
+  },
+  {
+    "id": 20488,
+    "x": 120,
+    "y": 0,
+    "centered": false,
+    "content": {
+      "type": "block",
+      "first": "➡️",
+      "second": "",
+      "third": "",
+      "fourth": ""
+    }
+  }
+]

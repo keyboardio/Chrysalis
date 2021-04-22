@@ -16,52 +16,41 @@
  */
 
 import React, { useState } from "react";
-
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Typography from "@material-ui/core/Typography";
-
 import i18n from "../../i18n";
+
+//React Bootstrap components
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import ListGroup from "react-bootstrap/ListGroup";
 
 export const CopyFromDialog = props => {
   const [selectedLayer, setSelectedLayer] = useState(-1);
   return (
-    <Dialog
-      disableBackdropClick
-      open={props.open}
-      onClose={props.onCancel}
-      fullWidth
-    >
-      <DialogTitle>{i18n.editor.copyFrom}</DialogTitle>
-      <DialogContent>
-        <Typography variant="body1" gutterBottom>
-          {i18n.editor.pleaseSelectLayer}
-        </Typography>
-        <List>
+    <Modal backdrop="static" show={props.open} onHide={props.onCancel}>
+      <Modal.Header closeButton>
+        <Modal.Title>{i18n.editor.copyFrom}</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <h4>{i18n.editor.pleaseSelectLayer}</h4>
+        <ListGroup variant="flush">
           {props.layers.map(layer => {
             return (
-              <ListItem
+              <ListGroup.Item
                 key={layer.index}
-                button
+                action
                 disabled={layer.index == props.currentLayer}
                 selected={layer.index == selectedLayer}
                 onClick={() => {
                   setSelectedLayer(layer.index);
                 }}
               >
-                <ListItemText inset primary={layer.label} />
-              </ListItem>
+                {layer.label}
+              </ListGroup.Item>
             );
           })}
-        </List>
-      </DialogContent>
-      <DialogActions>
+        </ListGroup>
+      </Modal.Body>
+      <Modal.Footer>
         <Button
           color="primary"
           onClick={() => {
@@ -82,7 +71,7 @@ export const CopyFromDialog = props => {
         >
           {i18n.dialog.ok}
         </Button>
-      </DialogActions>
-    </Dialog>
+      </Modal.Footer>
+    </Modal>
   );
 };

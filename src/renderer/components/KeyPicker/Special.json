@@ -1,0 +1,28 @@
+[
+  {
+    "id": 65535,
+    "x": 0,
+    "y": 0,
+    "centered": true,
+    "content": {
+      "type": "wideBlock",
+      "first": "Transp.",
+      "second": "Key",
+      "third": "",
+      "fourth": ""
+    }
+  },
+  {
+    "id": 0,
+    "x": 90,
+    "y": 0,
+    "centered": true,
+    "content": {
+      "type": "wideBlock",
+      "first": "No",
+      "second": "Key",
+      "third": "",
+      "fourth": ""
+    }
+  }
+]

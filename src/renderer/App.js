@@ -17,7 +17,7 @@
 
 import React from "react";
 import settings from "electron-settings";
-import { Switch, Redirect, Route } from "react-router-dom";
+import { Switch, Redirect, withRouter } from "react-router-dom";
 import { toast } from "react-toastify";
 import styled, { ThemeProvider, css } from "styled-components";
 
@@ -39,7 +39,7 @@ import Container from "react-bootstrap/Container";
 
 import KeyboardSelect from "./screens/KeyboardSelect";
 // import FirmwareUpdate from "./screens/FirmwareUpdate";
-// import Editor from "./screens/Editor/Editor";
+import Editor from "./screens/Editor/Editor";
 // import Preferences from "./screens/Preferences";
 // import Welcome from "./screens/Welcome";
 
@@ -223,8 +223,9 @@ class App extends React.Component {
       connected: true,
       device: port,
       pages: pages
+      // redirect: pages.keymap ? "/editor" : "/welcome"
     });
-    await Redirect(pages.keymap ? "/editor" : "/welcome");
+    this.props.history.push(pages.keymap ? "/editor" : "/welcome");
     return [];
   };
 
@@ -380,7 +381,7 @@ class App extends React.Component {
               onDisconnect={this.onKeyboardDisconnect}
               titleElement={() => document.querySelector("#page-title")}
             />
-            {/*<Editor
+            <Editor
               path="/editor"
               onDisconnect={this.onKeyboardDisconnect}
               startContext={this.startContext}
@@ -392,7 +393,7 @@ class App extends React.Component {
               appBarElement={() => document.querySelector("#appbar")}
               darkMode={darkMode}
             />
-            <FirmwareUpdate
+            {/*<FirmwareUpdate
               path="/firmware-update"
               device={this.state.device}
               toggleFlashing={this.toggleFlashing}
@@ -429,4 +430,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withRouter(App);

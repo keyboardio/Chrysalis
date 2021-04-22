@@ -15,38 +15,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-
-import Fade from "@material-ui/core/Fade";
-import FileCopyIcon from "@material-ui/icons/FileCopy";
-import FormControl from "@material-ui/core/FormControl";
-import IconButton from "@material-ui/core/IconButton";
-import {
-  GetAppRounded,
-  PublishRounded,
-  UnarchiveRounded
-} from "@material-ui/icons";
-import LayersClearIcon from "@material-ui/icons/LayersClear";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import LockIcon from "@material-ui/icons/Lock";
-import MenuItem from "@material-ui/core/MenuItem";
-import Portal from "@material-ui/core/Portal";
-import Select from "@material-ui/core/Select";
-import Slide from "@material-ui/core/Slide";
-import Toolbar from "@material-ui/core/Toolbar";
-import Tooltip from "@material-ui/core/Tooltip";
-import { withStyles } from "@material-ui/core/styles";
+import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+import Styled from "styled-components";
 import { toast } from "react-toastify";
+
+// Bootstrap components
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Spinner from "react-bootstrap/Spinner";
+import Dropdown from "react-bootstrap/Dropdown";
+import Tooltip from "react-bootstrap/Tooltip";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+
+// Icons
+import {
+  MdPublish,
+  MdGetApp,
+  MdContentCopy,
+  MdLayersClear,
+  MdUnarchive
+} from "react-icons/md";
 
 import Focus from "../../../api/focus";
 import Keymap, { KeymapDB } from "../../../api/keymap";
-
-import ColorPalette from "../../components/ColorPalette";
-import KeySelector from "./KeySelector";
+import LayerPanel from "./LayerPanel";
+import ColorPanel from "./ColorPanel";
+import { KeyPicker, LayerPicker, MiscPicker } from "../../components/KeyPicker";
 import SaveChangesButton from "../../components/SaveChangesButton";
 import ConfirmationDialog from "../../components/ConfirmationDialog";
 import i18n from "../../i18n";
@@ -54,53 +54,35 @@ import settings from "electron-settings";
 import { CopyFromDialog } from "./CopyFromDialog";
 import { undeglowDefaultColors } from "./initialUndaglowColors";
 
+// Outbound function imports
+import {
+  backupLayers,
+  shareLayers
+} from "../../../api/firebase/firebase.utils";
+
 const Store = window.require("electron-store");
 const store = new Store();
 
-const styles = theme => ({
-  tbg: {
-    marginRight: theme.spacing(4)
-  },
-  layerSelectItem: {
-    display: "inline-flex"
-  },
-  grow: {
-    flexGrow: 1
-  },
-  editor: {
-    display: "block",
-    margin: "2px auto"
-  },
-  moreMenu: {
-    marginTop: theme.spacing(4)
-  },
-  layerItem: {
-    paddingLeft: theme.spacing(4)
-  },
-  layerSelect: {
-    marginRight: theme.spacing(4)
-  },
-  tabWrapper: {
-    flexDirection: "row",
-    "& svg": {
-      position: "relative",
-      top: -theme.spacing(0.5)
+const Styles = Styled.div`
+.keyboard-editor {
+  .editor {
+    margin-left: 210px;
+    margin-right: 210px;
+    display: flex;
+    justify-content: space-between;
+
+    .raise-editor {
+      text-align: center;
+      align-self: center;
+      padding: unset;
+      margin-top: 15px;
+      svg {
+        height: 57vh;
+        max-width: 70vw;
+      }
     }
-  },
-  tabLabelContainer: {
-    width: "auto",
-    padding: `6px ${theme.spacing()}px`
-  },
-  disabledLayer: {
-    opacity: 0.5,
-    filter: "saturate(25%)"
-  },
-  toolbar: {
-    position: "absolute",
-    right: 0,
-    top: 21
   }
-});
+}`;
 
 class Editor extends React.Component {
   constructor(props) {
@@ -417,13 +399,13 @@ class Editor extends React.Component {
     }
   };
 
-  selectLayer = event => {
-    if (event.target.value === undefined) return;
+  selectLayer = id => {
+    if (id === undefined) return;
     const { palette, undeglowColors } = this.state;
     let newPalette = palette.slice();
-    newPalette[this.undeglowCount] = undeglowColors[event.target.value];
+    newPalette[this.undeglowCount] = undeglowColors[id];
     this.setState({
-      currentLayer: event.target.value,
+      currentLayer: id,
       palette: newPalette
     });
     this.bottomMenuNeverHide();
@@ -432,18 +414,9 @@ class Editor extends React.Component {
   onApply = async () => {
     this.setState({ saving: true });
     settings.set("undeglowColors", this.state.undeglowColors);
-    // console.log(
-    //   "Paleta a modificar con función white balance: ",
-    //   this.state.palette
-    // );
     let focus = new Focus();
     await focus.command("keymap", this.state.keymap);
-    await focus.command(
-      "colormap",
-      // this.props.applyBalance(this.state.palette),
-      this.state.palette,
-      this.state.colorMap
-    );
+    await focus.command("colormap", this.state.palette, this.state.colorMap);
     let newMacros = this.state.macros;
     this.setState({
       modified: false,
@@ -457,7 +430,32 @@ class Editor extends React.Component {
     store.set("macros", newMacros);
     await focus.command("macros.map", this.macrosMap(newMacros));
     console.log("Changes saved.");
+    // TODO: Save changes in the cloud
+    const backup = {
+      undeglowColors: this.state.undeglowColors,
+      keymap: this.state.keymap,
+      colormap: {
+        palette: this.state.palette,
+        colorMap: this.state.colorMap
+      },
+      macros: newMacros
+    };
+    // backupLayers(backup);
     this.props.cancelContext();
+  };
+
+  sharelayers = async () => {
+    // TODO: Share layers in the cloud
+    const Layers = {
+      undeglowColors: this.state.undeglowColors,
+      keymap: this.state.keymap,
+      colormap: {
+        palette: this.state.palette,
+        colorMap: this.state.colorMap
+      },
+      macros: this.state.macros
+    };
+    shareLayers(Layers);
   };
 
   // Callback function to set State of new Language
@@ -1066,15 +1064,14 @@ class Editor extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
     const { keymap, palette, isColorButtonSelected } = this.state;
+    let { currentLayer } = this.state;
+
     let Layer = this.getLayout();
     if (Layer === false) {
       return <div></div>;
     }
     const showDefaults = settings.getSync("keymap.showDefaults");
-
-    let currentLayer = this.state.currentLayer;
 
     if (!showDefaults) {
       if (currentLayer < keymap.default.length && !keymap.onlyCustom) {
@@ -1096,21 +1093,21 @@ class Editor extends React.Component {
     }
 
     const layer = (
-      <Fade in appear key={currentLayer}>
-        <div className={classes.editor}>
-          <Layer
-            className={classNames("layer", isReadOnly && classes.disabledLayer)}
-            readOnly={isReadOnly}
-            index={currentLayer}
-            keymap={layerData}
-            onKeySelect={this.onKeySelect}
-            selectedKey={this.state.currentKeyIndex}
-            palette={this.state.palette}
-            colormap={this.state.colorMap[this.state.currentLayer]}
-            theme={this.props.theme}
-          />
-        </div>
-      </Fade>
+      //TODO: restore fade effect <fade in appear key={currentLayer}>
+      <div className="">
+        <Layer
+          readOnly={isReadOnly}
+          index={currentLayer}
+          keymap={layerData}
+          onKeySelect={this.onKeySelect}
+          selectedKey={this.state.currentKeyIndex}
+          palette={this.state.palette}
+          colormap={this.state.colorMap[this.state.currentLayer]}
+          theme={this.props.theme}
+          style={{ width: "70vw" }}
+        />
+      </div>
+      // </fade>
     );
 
     const copyCustomItems = this.state.keymap.custom.map((_, index) => {
@@ -1137,157 +1134,154 @@ class Editor extends React.Component {
       copyCustomItems
     );
 
-    const defaultLayerMenu =
-      showDefaults &&
-      keymap.default.map((_, index) => {
-        const idx = index - (keymap.onlyCustom ? keymap.default.length : 0),
-          menuKey = "layer-menu-" + idx.toString();
-        return (
-          <MenuItem value={idx} key={menuKey}>
-            <ListItemIcon>
-              <LockIcon />
-            </ListItemIcon>
-            <ListItemText
-              inset
-              primary={i18n.formatString(i18n.components.layer, idx)}
-            />
-          </MenuItem>
-        );
-      });
-
-    const customLayerMenu = keymap.custom.map((_, index) => {
-      const idx = index + (keymap.onlyCustom ? 0 : keymap.default.length),
-        menuKey = "layer-menu-" + idx.toString();
-      return (
-        <MenuItem value={idx} key={menuKey}>
-          <ListItemText
-            inset
-            primary={i18n.formatString(i18n.components.layer, idx)}
-          />
-        </MenuItem>
-      );
+    const layerMenu = keymap.custom.map((_, index) => {
+      const idx = index + (keymap.onlyCustom ? 0 : keymap.default.length);
+      return {
+        name: i18n.formatString(i18n.components.layer, idx + 1),
+        id: idx
+      };
     });
 
-    const layerMenu = (defaultLayerMenu || []).concat(customLayerMenu);
-
     return (
-      <React.Fragment>
-        <Portal container={this.props.titleElement}>
-          {i18n.app.menu.editor}
-        </Portal>
-        <Portal container={this.props.appBarElement}>
-          <Toolbar className={classes.toolbar}>
-            <div className={classes.grow} />
-            <FormControl className={classes.layerSelect}>
-              <Select
-                value={currentLayer}
-                classes={{ selectMenu: classes.layerSelectItem }}
-                autoWidth
-                onClick={this.selectLayer}
-              >
-                {layerMenu}
-              </Select>
-            </FormControl>
-            <div>
-              <Tooltip disableFocusListener title={"Export the current Layer"}>
-                <IconButton onClick={this.toExport}>
-                  <PublishRounded />
-                </IconButton>
-              </Tooltip>
-              <Tooltip
-                disableFocusListener
-                title={"Import current Layer or Backup"}
-              >
-                <IconButton onClick={this.toImport}>
-                  <GetAppRounded />
-                </IconButton>
-              </Tooltip>
-              <Tooltip disableFocusListener title={i18n.editor.copyFrom}>
-                <IconButton disabled={isReadOnly} onClick={this.copyFromDialog}>
-                  <FileCopyIcon />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title={i18n.editor.clearLayer}>
-                <IconButton disabled={isReadOnly} onClick={this.confirmClear}>
-                  <LayersClearIcon />
-                </IconButton>
-              </Tooltip>
-              <Tooltip
-                disableFocusListener
-                title={"Backup all Layers (Excluding Macros)"}
-              >
-                <IconButton onClick={this.toExportAll}>
-                  <UnarchiveRounded />
-                </IconButton>
-              </Tooltip>
-            </div>
-          </Toolbar>
-        </Portal>
-        {this.state.keymap.custom.length == 0 &&
-          this.state.keymap.default.length == 0 && (
-            <LinearProgress variant="query" />
-          )}
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          {layer}
-          <ColorPalette
-            disabled={isReadOnly || currentLayer > this.state.colorMap.length}
-            onColorSelect={this.onColorSelect}
-            colorButtonIsSelected={this.state.colorButtonIsSelected}
-            palette={palette}
-            onColorPick={this.onColorPick}
-            selected={this.state.selectedPaletteColor}
-            isColorButtonSelected={isColorButtonSelected}
-            onColorButtonSelect={this.onColorButtonSelect}
-            theme={this.props.theme}
-            toChangeAllKeysColor={this.toChangeAllKeysColor}
-            onBacklightColorSelect={this.onBacklightColorSelect}
-            className="palette"
-            darkMode={this.props.darkMode}
+      <Styles>
+        <Container fluid className="keyboard-editor">
+          <Row className="title-row">
+            <h4 className="section-title">{i18n.app.menu.editor}</h4>
+            <ButtonGroup>
+              <div>
+                <OverlayTrigger
+                  placement="bottom"
+                  overlay={
+                    <Tooltip id={"Export"}>Export the current Layer</Tooltip>
+                  }
+                >
+                  <Button onClick={this.toExport}>
+                    <MdPublish />
+                  </Button>
+                </OverlayTrigger>
+                <OverlayTrigger
+                  placement="bottom"
+                  overlay={
+                    <Tooltip id={"Import"}>
+                      Import current Layer or Backup
+                    </Tooltip>
+                  }
+                >
+                  <Button onClick={this.toImport}>
+                    <MdGetApp />
+                  </Button>
+                </OverlayTrigger>
+                <OverlayTrigger
+                  placement="bottom"
+                  overlay={
+                    <Tooltip id={"Copy"}>{i18n.editor.copyFrom}</Tooltip>
+                  }
+                >
+                  <Button disabled={isReadOnly} onClick={this.copyFromDialog}>
+                    <MdContentCopy />
+                  </Button>
+                </OverlayTrigger>
+                <OverlayTrigger
+                  placement="bottom"
+                  overlay={
+                    <Tooltip id={"Clear"}>{i18n.editor.clearLayer}</Tooltip>
+                  }
+                >
+                  <Button disabled={isReadOnly} onClick={this.confirmClear}>
+                    <MdLayersClear />
+                  </Button>
+                </OverlayTrigger>
+                <OverlayTrigger
+                  placement="bottom"
+                  overlay={
+                    <Tooltip id={"Clear"}>
+                      {"Backup all Layers (Excluding Macros)"}
+                    </Tooltip>
+                  }
+                >
+                  <Button onClick={this.toExportAll}>
+                    <MdUnarchive />
+                  </Button>
+                </OverlayTrigger>
+              </div>
+            </ButtonGroup>
+          </Row>
+          <Row>
+            <Col>
+              <LayerPanel
+                layers={layerMenu}
+                selectLayer={this.selectLayer}
+                currentLayer={currentLayer}
+                isReadOnly={isReadOnly}
+                importTitle={i18n.editor.importExport}
+                importFunc={this.importExportDialog}
+                copyTitle={i18n.editor.copyFrom}
+                copyFunc={this.copyFromDialog}
+                clearTitle={i18n.editor.clearLayer}
+                clearFunc={this.confirmClear}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <ColorPanel
+                key={palette}
+                colors={palette}
+                disabled={
+                  isReadOnly || currentLayer > this.state.colorMap.length
+                }
+                onColorSelect={this.onColorSelect}
+                colorButtonIsSelected={this.state.colorButtonIsSelected}
+                onColorPick={this.onColorPick}
+                selected={this.state.selectedPaletteColor}
+                isColorButtonSelected={isColorButtonSelected}
+                onColorButtonSelect={this.onColorButtonSelect}
+                toChangeAllKeysColor={this.toChangeAllKeysColor}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <LayerPicker onKeySelect={this.onKeyChange} />
+              <MiscPicker onKeySelect={this.onKeyChange} />
+            </Col>
+          </Row>
+          {this.state.keymap.custom.length == 0 &&
+            this.state.keymap.default.length == 0 && (
+              <Spinner className="spinner-border text-danger" role="status" />
+            )}
+          <Row className="editor">
+            <Col className="raise-editor">{layer}</Col>
+          </Row>
+          <Row>
+            <KeyPicker onKeySelect={this.onKeyChange} />
+          </Row>
+          <SaveChangesButton
+            floating
+            onClick={this.onApply}
+            disabled={!this.state.modified}
+          >
+            {i18n.components.save.saveChanges}
+          </SaveChangesButton>
+          <ConfirmationDialog
+            title={i18n.editor.clearLayerQuestion}
+            open={this.state.clearConfirmationOpen}
+            onConfirm={this.clearLayer}
+            onCancel={this.cancelClear}
+          >
+            {i18n.editor.clearLayerPrompt}
+          </ConfirmationDialog>
+          <CopyFromDialog
+            open={this.state.copyFromOpen}
+            onCopy={this.copyFromLayer}
+            onCancel={this.cancelCopyFrom}
+            layers={copyFromLayerOptions}
+            currentLayer={currentLayer}
           />
-        </div>
-        <Slide in={this.getCurrentKey() != -1} direction="up" unmountOnExit>
-          <KeySelector
-            disabled={isReadOnly}
-            onKeySelect={this.onKeyChange}
-            currentKeyCode={this.getCurrentKey()}
-            scanKeyboard={this.scanKeyboard}
-            currentLanguageLayout={this.state.currentLanguageLayout}
-            onChangeLanguageLayout={this.onChangeLanguageLayout}
-            macros={this.state.macros}
-            maxMacros={64}
-            updateMacros={this.updateMacros}
-            keymapDB={this.keymapDB}
-          />
-        </Slide>
-        <SaveChangesButton
-          floating
-          onClick={this.onApply}
-          disabled={!this.state.modified}
-        >
-          {i18n.components.save.saveChanges}
-        </SaveChangesButton>
-        <ConfirmationDialog
-          title={i18n.editor.clearLayerQuestion}
-          open={this.state.clearConfirmationOpen}
-          onConfirm={this.clearLayer}
-          onCancel={this.cancelClear}
-        >
-          {i18n.editor.clearLayerPrompt}
-        </ConfirmationDialog>
-        <CopyFromDialog
-          open={this.state.copyFromOpen}
-          onCopy={this.copyFromLayer}
-          onCancel={this.cancelCopyFrom}
-          layers={copyFromLayerOptions}
-          currentLayer={currentLayer}
-        />
-      </React.Fragment>
+        </Container>
+      </Styles>
     );
   }
 }
 
-Editor.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-export default withStyles(styles, { withTheme: true })(Editor);
+export default Editor;

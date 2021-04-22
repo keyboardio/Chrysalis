@@ -1,0 +1,132 @@
+[
+  {
+    "id": 0,
+    "x": 0,
+    "y": 0,
+    "centered": true,
+    "content": {
+      "type": "block",
+      "first": "1",
+      "second": "Layer",
+      "third": "",
+      "fourth": ""
+    }
+  },
+  {
+    "id": 1,
+    "x": 45,
+    "y": 0,
+    "centered": true,
+    "content": {
+      "type": "block",
+      "first": "2",
+      "second": "Layer",
+      "third": "",
+      "fourth": ""
+    }
+  },
+  {
+    "id": 2,
+    "x": 90,
+    "y": 0,
+    "centered": true,
+    "content": {
+      "type": "block",
+      "first": "3",
+      "second": "Layer",
+      "third": "",
+      "fourth": ""
+    }
+  },
+  {
+    "id": 3,
+    "x": 0,
+    "y": 40,
+    "centered": true,
+    "content": {
+      "type": "block",
+      "first": "4",
+      "second": "Layer",
+      "third": "",
+      "fourth": ""
+    }
+  },
+  {
+    "id": 4,
+    "x": 45,
+    "y": 40,
+    "centered": true,
+    "content": {
+      "type": "block",
+      "first": "5",
+      "second": "Layer",
+      "third": "",
+      "fourth": ""
+    }
+  },
+  {
+    "id": 5,
+    "x": 90,
+    "y": 40,
+    "centered": true,
+    "content": {
+      "type": "block",
+      "first": "6",
+      "second": "Layer",
+      "third": "",
+      "fourth": ""
+    }
+  },
+  {
+    "id": 6,
+    "x": 0,
+    "y": 80,
+    "centered": true,
+    "content": {
+      "type": "block",
+      "first": "7",
+      "second": "Layer",
+      "third": "",
+      "fourth": ""
+    }
+  },
+  {
+    "id": 7,
+    "x": 45,
+    "y": 80,
+    "centered": true,
+    "content": {
+      "type": "block",
+      "first": "8",
+      "second": "Layer",
+      "third": "",
+      "fourth": ""
+    }
+  },
+  {
+    "id": 8,
+    "x": 90,
+    "y": 80,
+    "centered": true,
+    "content": {
+      "type": "block",
+      "first": "9",
+      "second": "Layer",
+      "third": "",
+      "fourth": ""
+    }
+  },
+  {
+    "id": 9,
+    "x": 0,
+    "y": 120,
+    "centered": true,
+    "content": {
+      "type": "block",
+      "first": "10",
+      "second": "Layer",
+      "third": "",
+      "fourth": ""
+    }
+  }
+]

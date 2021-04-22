@@ -1,0 +1,41 @@
+[
+  {
+    "id": 17152,
+    "x": 0,
+    "y": 0,
+    "centered": true,
+    "content": {
+      "type": "block",
+      "first": "Prev",
+      "second": "Led",
+      "third": "",
+      "fourth": ""
+    }
+  },
+  {
+    "id": 17153,
+    "x": 45,
+    "y": 0,
+    "centered": true,
+    "content": {
+      "type": "block",
+      "first": "Next",
+      "second": "Led",
+      "third": "",
+      "fourth": ""
+    }
+  },
+  {
+    "id": 17154,
+    "x": 90,
+    "y": 0,
+    "centered": true,
+    "content": {
+      "type": "block",
+      "first": "Tgle",
+      "second": "Led",
+      "third": "",
+      "fourth": ""
+    }
+  }
+]

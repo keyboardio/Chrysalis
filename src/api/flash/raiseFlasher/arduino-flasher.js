@@ -55,7 +55,7 @@ function write_cb(buffer, cb) {
     (buf2send => {
       send.push(function (callback) {
         if (focus._port.write(Buffer.from(buf2send))) {
-          callback(null, buf2send);
+          callback(null);
         } else {
           callback(true, "write");
         }

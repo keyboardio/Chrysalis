@@ -151,7 +151,7 @@ function installUdev() {
   dialog.showMessageBox(null, dialogOpts).then(response => {
     if (response.response === 1) {
       sudo.exec(
-        `echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2201", GROUP="users", MODE="0666"' > /etc/udev/rules.d/50-dygma.rules && udevadm control --reload-rules && udevadm trigger`,
+        `echo 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2201", GROUP="users", MODE="0666"\nSUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2200", GROUP="users", MODE="0666"' > /etc/udev/rules.d/50-dygma.rules && udevadm control --reload-rules && udevadm trigger`,
         options,
         error => {
           if (error !== null) {

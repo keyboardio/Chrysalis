@@ -27,6 +27,7 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Spinner from "react-bootstrap/Spinner";
 import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 
 import { MdKeyboard } from "react-icons/md";
 
@@ -49,7 +50,7 @@ const Styles = Styled.div`
       max-width: 500px;
 
       .keyboard-card {
-        background: transparent;
+        background: ${({ theme }) => theme.card.background};
         border: none;
         box-shadow: none;
         .loader {
@@ -86,7 +87,7 @@ const Styles = Styled.div`
               .toggler {
                 width: 100%;
                 background-color: transparent;
-                color: black;
+                color: ${({ theme }) => theme.colors.button.text};
                 border: 0;
                 border-bottom: black 1px solid;
                 border-radius: 0px;
@@ -110,7 +111,8 @@ const Styles = Styled.div`
                 text-align: center;
               }
               .key-icon {
-                background-color: rgba(255,0,0,0.8) !important;
+                background-color: ${({ theme }) =>
+                  theme.colors.button.background} !important;
                 border-radius: 100%;
                 padding: 0;
                 max-width: 50px;
@@ -119,7 +121,7 @@ const Styles = Styled.div`
                   font-size: 2.1em;
                   margin-top: 18%;
                   width: 100%;
-                  color: white;
+                  color: ${({ theme }) => theme.colors.button.text};
                 }
               }
               .key-text {
@@ -131,14 +133,15 @@ const Styles = Styled.div`
                 color: rgba(140,140,140,0.8) !important;
               }
               a:hover {
-                background-color: rgba(255,0,0,0.3) !important;
+                background-color: ${({ theme }) =>
+                  theme.colors.button.hover} !important;
               }
               .dropdown-item {
                 display: inherit;
               }
             }
             .selector-error {
-              color: $danger-color;
+              color: red;
             }
           }
         }
@@ -345,7 +348,7 @@ class KeyboardSelect extends Component {
         }
 
         return (
-          <Dropdown.Item key={`${option}`} value={index}>
+          <Dropdown.Item key={`device-${index}`} value={index}>
             <Row>
               <Col xs="2" className="key-icon">
                 <MdKeyboard />

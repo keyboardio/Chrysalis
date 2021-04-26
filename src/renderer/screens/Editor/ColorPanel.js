@@ -35,8 +35,8 @@ const Styles = Styled.div`
         width: 22.5%;
         padding: 5px 0px;
         border-radius: 0px;
-        color: black;
-        background-color: white;
+        color: ${({ theme }) => theme.colors.button.text};
+        background-color: ${({ theme }) => theme.card.background};
         border: 0px;
         font-size: larger;
         text-align: -webkit-center;
@@ -69,19 +69,21 @@ const Styles = Styled.div`
         border: 2px solid ${({ theme }) => theme.colors.button.active};
       }
       .btn-primary:not(:disabled):not(.disabled).active {
-        color: #fff;
-        background-color: white !important;
+        color: ${({ theme }) => theme.colors.button.active};
+        background-color: ${({ theme }) =>
+          theme.colors.button.background} !important;
         box-shadow: none !important;
       }
       button:hover {
-        background-color: white;
+        background-color: ${({ theme }) => theme.colors.button.hover};
       }
       button:focus {
-        background-color: white;
+        background-color: ${({ theme }) => theme.colors.button.focus};
         box-shadow: none;
       }
       button:active {
-        background-color: white !important;
+        background-color: ${({ theme }) =>
+          theme.colors.button.active} !important;
         box-shadow: none !important;
       }
       .button-content,
@@ -105,7 +107,7 @@ const Styles = Styled.div`
         width: 30%;
         border: 0px;
         font-size: large;
-        color: #000;
+        color: ${({ theme }) => theme.colors.button.text};
         background-color: transparent;
       }
       button:hover {

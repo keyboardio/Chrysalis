@@ -16,42 +16,42 @@
  */
 
 import React from "react";
-
 import Focus from "../../api/focus";
-
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import Link from "@material-ui/core/Link";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardHeader from "@material-ui/core/CardHeader";
-import KeyboardIcon from "@material-ui/icons/Keyboard";
-import Portal from "@material-ui/core/Portal";
-import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
-
+import Styled from "styled-components";
 import { toast } from "react-toastify";
+import { withRouter } from "react-router-dom";
 
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+
+import { MdKeyboard } from "react-icons/md";
 import i18n from "../i18n";
-import { navigate } from "../routerHistory";
 
-const styles = theme => ({
-  root: {
-    display: "flex",
-    justifyContent: "center"
-  },
-  card: {
-    margin: theme.spacing(4),
-    maxWidth: "60%"
-  },
-  grow: {
-    flexGrow: 1
-  },
-  cardSub: {
-    fontSize: "1rem"
+const Styles = Styled.div`
+  cardsub{
+    font-size: 1rem;
   }
-});
+  cardmain{
+    font-weight: 500;
+    padding-bottom: 1rem;
+  }
+  .welcome-row {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding-top: 15vh;
+  }
+  .welcome-col {
+    min-width: 500px;
+    max-width: 1000px;
+  }
+  .firmwareButton{
+    justify-content: space-evenly;
+  }
+`;
 
 class Welcome extends React.Component {
   state = {
@@ -81,96 +81,88 @@ class Welcome extends React.Component {
 
   render() {
     let focus = new Focus();
-    const { classes } = this.props;
-
     const device = this.props.device.device || focus.device;
 
     const reconnectButton = focus._port && (
-      <Button color="secondary" onClick={this.reconnect}>
+      <Button variant="secondary" onClick={this.reconnect}>
         {i18n.welcome.reconnect}
       </Button>
     );
 
     return (
-      <div className={classes.root}>
-        <Portal container={this.props.titleElement}>
-          {i18n.welcome.title}
-        </Portal>
-        <Card className={classes.card}>
-          <CardHeader
-            avatar={
-              <Avatar>
-                <KeyboardIcon />
-              </Avatar>
-            }
-            title={device.info.displayName}
-            subheader={focus._port && focus._port.path}
-          />
-          <CardContent>
-            <div style={{ padding: "1rem" }}>
-              <Typography
-                variant="h6"
-                gutterBottom
-                style={{ fontWeight: "500", paddingBottom: "1rem" }}
-              >
-                {"Your Raise is currently on Bootloader Mode"}
-              </Typography>
-              <Typography
-                component="p"
-                gutterBottom
-                className={classes.cardSub}
-              >
-                {
-                  "The LED in your Neuron should be pulsing blue and your Raise keyboard won't type."
-                }
-              </Typography>
-              <Typography
-                component="span"
-                gutterBottom
-                className={classes.cardSub}
-              >
-                <ul style={{ lineHeight: "2rem" }}>
-                  <li>
-                    {
-                      "This process will revert your keyboard's configuration back to factory settings."
-                    }
-                  </li>
-                  <li>
-                    {"Before proceeding, we recommend that you "}
-                    <Link href="https://support.dygma.com/hc/en-us/articles/360014262298">
-                      {"export and save your layers"}
-                    </Link>
-                    {"."}
-                  </li>
-                  <li>
-                    {
-                      "To exit Bootloader Mode, unplug and replug the USB-C cable to your Neuron."
-                    }
-                  </li>
-                </ul>
-              </Typography>
-            </div>
-          </CardContent>
-          <CardActions>
-            {reconnectButton}
-            <div className={classes.grow} />
-            <Button
-              color="primary"
-              variant="outlined"
-              onClick={async () => {
-                await navigate("/firmware-update");
-              }}
-            >
-              {i18n.formatString(
-                i18n.welcome.gotoUpdate,
-                i18n.app.menu.firmwareUpdate
-              )}
-            </Button>
-          </CardActions>
-        </Card>
-      </div>
+      <Styles>
+        <Container fluid className="welcome">
+          <Row className="title-row">
+            <h4 className="section-title">{i18n.welcome.title}</h4>
+          </Row>
+          <Row className="welcome-row">
+            <Col xs="4" className="welcome-col">
+              <Card>
+                <Card.Header>
+                  <Row className="center">
+                    <h1>
+                      <MdKeyboard />
+                    </h1>
+                    <h3>{device.info.displayName}</h3>
+                  </Row>
+                  {focus._port && focus._port.path}
+                </Card.Header>
+                <Card.Body>
+                  <div>
+                    <h6 className="cardmain">
+                      {"Your Raise is currently on Bootloader Mode"}
+                    </h6>
+                    <p className="cardsub">
+                      {
+                        "The LED in your Neuron should be pulsing blue and your Raise keyboard won't type."
+                      }
+                    </p>
+                    <span className="cardsub">
+                      <ul style={{ lineHeight: "2rem" }}>
+                        <li>
+                          {
+                            "This process will revert your keyboard's configuration back to factory settings."
+                          }
+                        </li>
+                        <li>
+                          {"Before proceeding, we recommend that you "}
+                          <a href="https://support.dygma.com/hc/en-us/articles/360014262298">
+                            {"export and save your layers"}
+                          </a>
+                          {"."}
+                        </li>
+                        <li>
+                          {
+                            "To exit Bootloader Mode, unplug and replug the USB-C cable to your Neuron."
+                          }
+                        </li>
+                      </ul>
+                    </span>
+                  </div>
+                </Card.Body>
+                <Card.Footer>
+                  <Row className="firmwareButton">
+                    {reconnectButton}
+                    <Button
+                      variant="primary"
+                      onClick={async () => {
+                        this.props.history.push("/firmware-update");
+                      }}
+                    >
+                      {i18n.formatString(
+                        i18n.welcome.gotoUpdate,
+                        i18n.app.menu.firmwareUpdate
+                      )}
+                    </Button>
+                  </Row>
+                </Card.Footer>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
+      </Styles>
     );
   }
 }
 
-export default withStyles(styles)(Welcome);
+export default withRouter(Welcome);

@@ -41,21 +41,21 @@ const Styles = Styled.div`
     margin: 0;
     button {
       width: ${toolsWidth}px;
-      border-radius: 0px;
-      color: #000;
+      color: ${({ theme }) => theme.colors.button.text};
       background-color: transparent;
       border: 0px;
       font-size: x-large;
     }
     button:hover {
-      background-color: lightgray;
+      background-color: ${({ theme }) => theme.colors.button.disabled};
     }
     button:focus {
-      background-color: transparent;
+      background-color: ${({ theme }) => theme.colors.button.background};
+      color: ${({ theme }) => theme.colors.button.text};
       box-shadow: none;
     }
     button:active {
-      background-color: grey !important;
+      background-color: ${({ theme }) => theme.colors.button.active};
       box-shadow: none !important;
     }
   }
@@ -67,7 +67,7 @@ const Styles = Styled.div`
       width: 95%;
       border: 0px;
       font-size: small;
-      color: #000;
+      color: ${({ theme }) => theme.colors.button.text};
       background-color: transparent;
     }
     button:hover {
@@ -79,7 +79,7 @@ const Styles = Styled.div`
       box-shadow: none;
     }
     button:active {
-      background-color: grey !important;
+      background-color: ${({ theme }) => theme.colors.button.active};
       box-shadow: none !important;
     }
     .btn-primary:not(:disabled):not(.disabled).active {
@@ -116,22 +116,22 @@ const Styles = Styled.div`
     margin: 0;
     button {
       width: 50%;
-      border-radius: 0px;
-      color: #000;
+      color: ${({ theme }) => theme.colors.button.text};
       background-color: transparent;
       border: 0px;
       font-size: x-large;
     }
 
     button:hover {
-      background-color: lightgray;
+      background-color: ${({ theme }) => theme.colors.button.disabled};
     }
     button:focus {
-      background-color: transparent;
+      background-color: ${({ theme }) => theme.colors.button.background};
+      color: ${({ theme }) => theme.colors.button.text};
       box-shadow: none;
     }
     button:active {
-      background-color: grey !important;
+      background-color: ${({ theme }) => theme.colors.button.active};
       box-shadow: none !important;
     }
   }

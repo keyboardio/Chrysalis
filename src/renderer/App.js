@@ -17,7 +17,7 @@
 
 import React from "react";
 import settings from "electron-settings";
-import { Switch, Redirect, withRouter } from "react-router-dom";
+import { Switch, Redirect, Route, withRouter } from "react-router-dom";
 import { toast } from "react-toastify";
 import styled, { ThemeProvider, css } from "styled-components";
 
@@ -41,7 +41,7 @@ import KeyboardSelect from "./screens/KeyboardSelect";
 // import FirmwareUpdate from "./screens/FirmwareUpdate";
 import Editor from "./screens/Editor/Editor";
 // import Preferences from "./screens/Preferences";
-// import Welcome from "./screens/Welcome";
+import Welcome from "./screens/Welcome";
 
 import Header from "./components/Header";
 // import ConfirmationDialog from "./components/ConfirmationDialog";
@@ -129,7 +129,7 @@ class App extends React.Component {
 
       // Must await this to stop re-render of components reliant on `focus.device`
       // However, it only renders a blank screen. New route is rendered below.
-      await Redirect("./");
+      this.props.history.push("./");
 
       if (!focus._port.isOpen) {
         toast.warning(i18n.errors.deviceDisconnected);
@@ -141,7 +141,7 @@ class App extends React.Component {
         pages: {}
       });
       // Second call to `navigate` will actually render the proper route
-      await Redirect("/keyboard-select");
+      this.props.history.push("/keyboard-select");
     });
   }
 
@@ -176,7 +176,7 @@ class App extends React.Component {
         device: null,
         pages: {}
       });
-      await Redirect("/keyboard-select");
+      this.props.history.push("/keyboard-select");
     }
   };
 
@@ -191,7 +191,7 @@ class App extends React.Component {
         pages: {},
         device: port.device
       });
-      await Redirect("/welcome");
+      this.props.history.push("/welcome");
       return [];
     }
 
@@ -203,7 +203,7 @@ class App extends React.Component {
         pages: {},
         device: port
       });
-      await Redirect("/welcome");
+      this.props.history.push("/welcome");
       return [];
     }
 
@@ -223,7 +223,6 @@ class App extends React.Component {
       connected: true,
       device: port,
       pages: pages
-      // redirect: pages.keymap ? "/editor" : "/welcome"
     });
     this.props.history.push(pages.keymap ? "/editor" : "/welcome");
     return [];
@@ -237,7 +236,7 @@ class App extends React.Component {
       pages: {}
     });
     localStorage.clear();
-    await Redirect("/keyboard-select");
+    this.props.history.push("/keyboard-select");
   };
 
   cancelContext = dirty => {
@@ -369,12 +368,15 @@ class App extends React.Component {
         />
         <Container fluid className="main-container">
           <Switch>
-            {/* <Welcome
+            <Route exact path="/">
+              <Redirect to="/keyboard-select" />
+            </Route>
+            <Welcome
               path="/welcome"
               device={this.state.device}
               onConnect={this.onKeyboardConnect}
               titleElement={() => document.querySelector("#page-title")}
-            />*/}
+            />
             <KeyboardSelect
               path="/keyboard-select"
               onConnect={this.onKeyboardConnect}

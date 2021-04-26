@@ -7,7 +7,7 @@ const Light = {
     body: "#e6e6e6",
     text: "#000000",
     button: {
-      text: "#FFFFFF",
+      text: "#000",
       background: "#AF2B48",
       hover: "#cf172c",
       disabled: "#cc546a",

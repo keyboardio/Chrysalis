@@ -118,14 +118,14 @@ class MainMenu extends Component {
             <img alt="" src={DygmaLogo} className="d-inline-block align-top" />
           </NavbarBrand>
           <Nav className="mr-auto flex-column flex-row">
-            <Link to="/welcome" className="list-link">
+            {/* <Link to="/welcome" className="list-link">
               <WelcomeMenu
                 selected={currentPage === "/welcome"}
                 userMenu={i18n.app.menu.userMenu}
                 drawerWidth={drawerWidth}
                 onClick={() => setCurrentPage("/welcome")}
               />
-            </Link>
+            </Link> */}
             <div>
               {connected && (
                 <>

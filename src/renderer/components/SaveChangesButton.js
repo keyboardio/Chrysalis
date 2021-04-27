@@ -19,17 +19,16 @@ import React from "react";
 import Styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import { MdSave, MdCheck, MdRefresh } from "react-icons/md";
 import i18n from "../i18n";
 
 const Styles = Styled.div`
-  .saveBtn{
-    position: absolute;
-    bottom: 15px;
-    margin-left: 20px;
-  }
+
 `;
 
 class SaveChangesButton extends React.Component {
@@ -62,55 +61,57 @@ class SaveChangesButton extends React.Component {
 
   render() {
     const { inProgress, success } = this.state;
-    const { classes, successMessage } = this.props;
+    const { successMessage } = this.props;
 
     const textPart = !this.props.floating && (
-      <div className={classes.wrapper}>
-        <Button
-          variant="primary"
-          disabled={inProgress || (this.props.disabled && !success)}
-          onClick={this.handleButtonClick}
-        >
-          {success
-            ? successMessage || i18n.components.save.success
-            : this.props.children}
-        </Button>
-      </div>
+      <span>
+        {success
+          ? successMessage || i18n.components.save.success
+          : this.props.children}
+      </span>
     );
 
     const icon = this.props.icon || <MdSave />;
 
     return (
       <Styles>
-        <div className="">
-          <OverlayTrigger
-            placement="top"
-            overlay={
-              <Tooltip id={"save-tooltip"}>
-                Save your layer modifications to the raise.
-              </Tooltip>
-            }
-          >
-            <Button
-              disabled={inProgress || (this.props.disabled && !success)}
-              variant="primary"
-              className="saveBtn"
-              onClick={this.handleButtonClick}
+        <Container fluid>
+          <Row>
+            <OverlayTrigger
+              placement="top"
+              overlay={
+                <Tooltip id={"save-tooltip"}>
+                  Save your layer modifications to the raise.
+                </Tooltip>
+              }
             >
-              {success ? <MdCheck /> : icon}
-            </Button>
-          </OverlayTrigger>
-          {inProgress && (
-            <Spinner
-              as="span"
-              animation="grow"
-              size="md"
-              role="status"
-              aria-hidden="true"
-            />
-          )}
-        </div>
-        {textPart}
+              <Button
+                disabled={inProgress || (this.props.disabled && !success)}
+                variant="primary"
+                onClick={this.handleButtonClick}
+              >
+                <Col>
+                  <h5>
+                    {inProgress ? (
+                      <Spinner
+                        as="span"
+                        variant="primary"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                      />
+                    ) : success ? (
+                      <MdCheck />
+                    ) : (
+                      icon
+                    )}
+                    {textPart}
+                  </h5>
+                </Col>
+              </Button>
+            </OverlayTrigger>
+          </Row>
+        </Container>
       </Styles>
     );
   }

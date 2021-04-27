@@ -40,7 +40,7 @@ import Container from "react-bootstrap/Container";
 import KeyboardSelect from "./screens/KeyboardSelect";
 // import FirmwareUpdate from "./screens/FirmwareUpdate";
 import Editor from "./screens/Editor/Editor";
-// import Preferences from "./screens/Preferences";
+import Preferences from "./screens/Preferences";
 import Welcome from "./screens/Welcome";
 
 import Header from "./components/Header";
@@ -402,7 +402,7 @@ class App extends React.Component {
               onDisconnect={this.onKeyboardDisconnect}
               titleElement={() => document.querySelector("#page-title")}
               darkMode={darkMode}
-            />
+            />*/}
             <Preferences
               connected={connected}
               path="/preferences"
@@ -417,7 +417,7 @@ class App extends React.Component {
               startContext={this.startContext}
               cancelContext={this.cancelContext}
               inContext={this.state.contextBar}
-            /> */}
+            />
           </Switch>
         </Container>
         {/* <ConfirmationDialog

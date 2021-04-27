@@ -35,6 +35,7 @@
     "react-localization",
     "react-toastify",
     "react-beautiful-dnd",
-    "styled-components"
+    "styled-components",
+    "react-bootstrap-range-slider"
   ]
 }

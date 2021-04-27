@@ -17,29 +17,26 @@
  */
 
 import React from "react";
-import PropTypes from "prop-types";
 import Electron, { app } from "electron";
-
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
-import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Collapse from "@material-ui/core/Collapse";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Portal from "@material-ui/core/Portal";
-import MenuItem from "@material-ui/core/MenuItem";
-import FilledInput from "@material-ui/core/FilledInput";
-import Select from "@material-ui/core/Select";
-import Switch from "@material-ui/core/Switch";
-import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
 import { toast } from "react-toastify";
+import Styled from "styled-components";
+
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Accordion from "react-bootstrap/Accordion";
+import Dropdown from "react-bootstrap/Dropdown";
+import Form from "react-bootstrap/Form";
+
 import {
-  ComputerRounded,
-  Brightness3Rounded,
-  WbSunnyRounded
-} from "@material-ui/icons";
+  MdComputer,
+  MdBrightness3,
+  MdWbSunny,
+  MdArrowDropDown,
+  MdArrowDropUp
+} from "react-icons/md";
 
 import {
   KeyboardSettings,
@@ -51,50 +48,12 @@ import i18n from "../i18n";
 import Focus from "../../api/focus";
 import settings from "electron-settings";
 
-const styles = theme => ({
-  root: {
-    ...theme.mixins.gutters(),
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
-    margin: `0px ${theme.spacing(8)}px`
-  },
-  title: {
-    marginTop: theme.spacing(4),
-    marginBottom: theme.spacing()
-  },
-  control: {
-    display: "flex",
-    marginRight: theme.spacing(2)
-  },
-  group: {
-    display: "block"
-  },
-  grow: {
-    flexGrow: 1
-  },
-  flex: {
-    display: "flex"
-  },
-  select: {
-    paddingTop: theme.spacing(),
-    width: 200
-  },
-  selectDarkMode: {
-    paddingTop: theme.spacing(),
-    width: 30
-  },
-  advanced: {
-    display: "flex",
-    justifyContent: "center",
-    marginTop: theme.spacing(4),
-    "& button": {
-      textTransform: "none",
-      "& span svg": {
-        marginLeft: "1.5em"
-      }
-    }
+const Styles = Styled.div`
+  .toggle-button{
+    text-align: center;
+    padding-bottom: 8px;
   }
-});
+`;
 
 class Preferences extends React.Component {
   state = {
@@ -145,9 +104,9 @@ class Preferences extends React.Component {
     }));
   };
 
-  selectDarkMode = event => {
-    this.setState({ darkMode: event.target.value });
-    this.props.toggleDarkMode(event.target.value);
+  selectDarkMode = key => {
+    this.setState({ darkMode: key });
+    this.props.toggleDarkMode(key);
   };
 
   toggleVerboseFocus = event => {
@@ -160,124 +119,122 @@ class Preferences extends React.Component {
     const { classes } = this.props;
 
     const darkModeSwitch = (
-      <Select
-        onChange={this.selectDarkMode}
-        value={this.state.darkMode}
-        variant="filled"
-        input={
-          <FilledInput
-            classes={{
-              root: classes.selectContainer,
-              input: classes.selectDarkMode
-            }}
-          />
-        }
-      >
-        <MenuItem value={"system"}>
-          <ComputerRounded />
-        </MenuItem>
-        <MenuItem value={"dark"}>
-          <Brightness3Rounded />
-        </MenuItem>
-        <MenuItem value={"light"}>
-          <WbSunnyRounded />
-        </MenuItem>
-      </Select>
+      <Dropdown onSelect={this.selectDarkMode} value={this.state.darkMode}>
+        <Dropdown.Toggle className="toggler">
+          {this.state.darkMode === "system" ? (
+            <MdComputer />
+          ) : this.state.darkMode === "dark" ? (
+            <MdBrightness3 />
+          ) : (
+            <MdWbSunny />
+          )}
+        </Dropdown.Toggle>
+        <Dropdown.Menu className="menu">
+          <Dropdown.Item key={`theme-system`} eventKey={"system"}>
+            <MdComputer />
+          </Dropdown.Item>
+          <Dropdown.Item key={`theme-dark`} eventKey={"dark"}>
+            <MdBrightness3 />
+          </Dropdown.Item>
+          <Dropdown.Item key={`theme-light`} eventKey={"light"}>
+            <MdWbSunny />
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
     );
     const devToolsSwitch = (
-      <Switch
+      <Form.Check
+        type="switch"
         checked={this.state.devTools}
         onChange={this.toggleDevTools}
-        value="devtools"
       />
     );
 
     const verboseSwitch = (
-      <Switch
+      <Form.Check
+        type="switch"
         checked={this.state.verboseFocus}
         onChange={this.toggleVerboseFocus}
-        value="verboseFocus"
       />
     );
 
     return (
-      <div className={classes.root}>
-        <Portal container={this.props.titleElement}>
-          {i18n.app.menu.preferences}
-        </Portal>
-        {this.props.connected && (
-          <KeyboardSettings
-            startContext={this.props.startContext}
-            cancelContext={this.props.cancelContext}
-            inContext={this.props.inContext}
-          />
-        )}
-        {this.props.connected && false && (
-          <ColorSettings
-            startContext={this.props.startContext}
-            cancelContext={this.props.cancelContext}
-            inContext={this.props.inContext}
-            balance={this.props.balance}
-            setBalance={this.props.setBalance}
-            testBalance={this.props.testBalance}
-            startTestBalance={this.props.startTestBalance}
-            stopTestBalance={this.props.stopTestBalance}
-          />
-        )}
-        <div className={classes.advanced}>
-          <Button onClick={this.toggleAdvanced}>
-            {i18n.preferences.advanced}
-            {this.state.advanced ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-          </Button>
-        </div>
-        <Collapse in={this.state.advanced} timeout="auto" unmountOnExit>
-          <Typography
-            variant="subtitle1"
-            component="h2"
-            className={classes.title}
-          >
-            {i18n.preferences.devtools}
-          </Typography>
-          <Card>
-            <CardContent>
-              <FormControlLabel
-                className={classes.control}
-                classes={{ label: classes.grow }}
-                control={darkModeSwitch}
-                labelPlacement="start"
-                label={i18n.preferences.darkMode.label}
-              />
-              <FormControlLabel
-                className={classes.control}
-                classes={{ label: classes.grow }}
-                control={devToolsSwitch}
-                labelPlacement="start"
-                label={i18n.preferences.devtools}
-              />
-              <FormControlLabel
-                className={classes.control}
-                classes={{ label: classes.grow }}
-                control={verboseSwitch}
-                labelPlacement="start"
-                label={i18n.preferences.verboseFocus}
-              />
-            </CardContent>
-          </Card>
+      <Styles>
+        <Container fluid>
+          <Row className="title-row">
+            <h4 className="section-title">Preferences</h4>
+          </Row>
           {this.props.connected && (
-            <AdvancedKeyboardSettings
+            <KeyboardSettings
               startContext={this.props.startContext}
               cancelContext={this.props.cancelContext}
               inContext={this.props.inContext}
             />
           )}
-        </Collapse>
-      </div>
+          {this.props.connected && false && (
+            <Row>
+              <ColorSettings
+                startContext={this.props.startContext}
+                cancelContext={this.props.cancelContext}
+                inContext={this.props.inContext}
+                balance={this.props.balance}
+                setBalance={this.props.setBalance}
+                testBalance={this.props.testBalance}
+                startTestBalance={this.props.startTestBalance}
+                stopTestBalance={this.props.stopTestBalance}
+              />
+            </Row>
+          )}
+          <Accordion>
+            <Accordion.Toggle
+              as={Col}
+              variant="link"
+              eventKey="0"
+              className="toggle-button"
+            >
+              <Button onClick={this.toggleAdvanced}>
+                {i18n.preferences.advanced}
+                {this.state.advanced ? <MdArrowDropUp /> : <MdArrowDropDown />}
+              </Button>
+            </Accordion.Toggle>
+            <Accordion.Collapse eventKey="0">
+              <React.Fragment>
+                <Card.Header>{i18n.preferences.devtools}</Card.Header>
+                <Card>
+                  <Card.Body>
+                    <Form>
+                      <Form.Group controlId="DarkMode">
+                        <Form.Label>
+                          {i18n.preferences.darkMode.label}
+                        </Form.Label>
+                        {darkModeSwitch}
+                      </Form.Group>
+                      <Form.Group controlId="DevTools">
+                        <Form.Label>{i18n.preferences.devtools}</Form.Label>
+                        {devToolsSwitch}
+                      </Form.Group>
+                      <Form.Group controlId="Verbose">
+                        <Form.Label>{i18n.preferences.verboseFocus}</Form.Label>
+                        {verboseSwitch}
+                      </Form.Group>
+                    </Form>
+                  </Card.Body>
+                </Card>
+              </React.Fragment>
+            </Accordion.Collapse>
+
+            {this.props.connected && (
+              <AdvancedKeyboardSettings
+                startContext={this.props.startContext}
+                cancelContext={this.props.cancelContext}
+                inContext={this.props.inContext}
+              />
+            )}
+          </Accordion>
+        </Container>
+      </Styles>
     );
   }
 }
 
-Preferences.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-export default withStyles(styles)(Preferences);
+export default Preferences;

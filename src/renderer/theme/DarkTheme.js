@@ -6,6 +6,7 @@ const Dark = {
       "linear-gradient(180deg, rgba(65,147,199,1) 0%, rgba(90,100,140,1) 63%, rgba(0,0,0,1) 100%);",
     body: "#222",
     text: "#FFFFFF",
+    subtext: "#555555",
     button: {
       text: "#fff",
       background: "#333",

@@ -79,6 +79,7 @@
     "react": "^16.8.5",
     "react-beautiful-dnd": "^10.1.1",
     "react-bootstrap": "^1.5.2",
+    "react-bootstrap-range-slider": "^2.0.2",
     "react-color": "^2.19.3",
     "react-dom": "^16.8.5",
     "react-i18next": "^11.8.12",

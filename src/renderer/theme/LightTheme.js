@@ -6,6 +6,7 @@ const Light = {
       "linear-gradient(180deg, rgba(131,58,180,1) 0%, rgba(189,38,38,1) 63%, rgba(252,112,42,1) 100%);",
     body: "#e6e6e6",
     text: "#000000",
+    subtext: "#555555",
     button: {
       text: "#000",
       background: "#AF2B48",

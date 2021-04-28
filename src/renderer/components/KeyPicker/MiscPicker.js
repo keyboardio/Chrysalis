@@ -8,6 +8,7 @@ import React, { Component } from "react";
 import Styled from "styled-components";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 // Key Components
 
@@ -28,15 +29,26 @@ const Style = Styled.div`
   .keyboard {
     position: absolute;
     right: 25px;
-    width: 180px;
-    margin-top: 280px;
+    width: 400px;
+    margin-top: 500px;
     padding:0;
     background-color: ${({ theme }) => theme.card.background};
     border-radius: 10px;
     box-shadow: 0 0 0.5rem 0.3rem rgba(0,0,0,0.1);
+    .title {
+      margin: 0px;
+      padding: 10px;
+      padding-bottom: 3px;
+      h6{
+        margin-top: 5px;
+        font-weight:300;
+        color: lightgrey;
+      }
+    }
     .keys {
       margin: 0px;
       padding: 10px;
+      padding-top: 3px;
       h6{
         margin-top: 5px;
         font-weight:300;
@@ -153,31 +165,59 @@ export default class MiscPicker extends Component {
     return (
       <Style>
         <Container fluid className="keyboard">
+          <Row className="title">
+            <Col sm={6}>
+              <h6>Special Keys</h6>
+            </Col>
+            <Col sm={6}>
+              <h6>LED Control</h6>
+            </Col>
+          </Row>
           <Row className="keys">
-            <h6>Special Keys</h6>
-            <svg className="svgContainer" viewBox="0 0 166 36">
-              {special}
-            </svg>
-            <h6>Media Control</h6>
-            <svg className="svgContainer" viewBox="-15 0 160 116">
-              {media}
-            </svg>
-            <h6>LED Control</h6>
-            <svg className="svgContainer" viewBox="-15 0 160 36">
-              {led}
-            </svg>
-            <h6>Mouse Mov.</h6>
-            <svg className="svgContainer" viewBox="-18 0 199 36">
-              {mouseMov}
-            </svg>
-            <h6>Mouse Click</h6>
-            <svg className="svgContainer" viewBox="-18 0 199 80">
-              {mouseClick}
-            </svg>
-            <h6>Mouse Wheel</h6>
-            <svg className="svgContainer" viewBox="-18 0 199 36">
-              {mouseWheel}
-            </svg>
+            <Col sm={6}>
+              <svg className="svgContainer" viewBox="0 0 166 36">
+                {special}
+              </svg>
+            </Col>
+            <Col sm={6}>
+              <svg className="svgContainer" viewBox="0 0 160 36">
+                {led}
+              </svg>
+            </Col>
+          </Row>
+          <Row className="title">
+            <Col sm={5}>
+              <h6>Media Control</h6>
+            </Col>
+            <Col sm={7}>
+              <h6>Mouse Mov.</h6>
+            </Col>
+          </Row>
+          <Row className="keys">
+            <Col sm={5}>
+              <svg className="svgContainer" viewBox="0 0 126 130">
+                {media}
+              </svg>
+            </Col>
+            <Col sm={7}>
+              <Row>
+                <svg className="svgContainer" viewBox="-18 0 199 36">
+                  {mouseMov}
+                </svg>
+              </Row>
+              <h6>Mouse Click</h6>
+              <Row>
+                <svg className="svgContainer" viewBox="-18 0 199 80">
+                  {mouseClick}
+                </svg>
+              </Row>
+              <h6>Mouse Wheel</h6>
+              <Row>
+                <svg className="svgContainer" viewBox="-18 0 199 36">
+                  {mouseWheel}
+                </svg>
+              </Row>
+            </Col>
           </Row>
         </Container>
       </Style>

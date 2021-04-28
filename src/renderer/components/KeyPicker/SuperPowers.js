@@ -8,13 +8,12 @@ import React, { Component } from "react";
 import Styled from "styled-components";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
-import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
 
 // Key Components
 
 import Key from "./Key";
-import Layers from "./Layers.json";
+import Layers from "./SuperPowers.json";
 
 const Style = Styled.div`
   .svgContainer{
@@ -22,11 +21,11 @@ const Style = Styled.div`
     height:100%;
   }
 
-  .layers {
+  .super {
     position: absolute;
     right: 25px;
     width: 400px;
-    margin-top: 250px;
+    margin-top: 0.5em;
     padding:0;
     background-color: ${({ theme }) => theme.card.background};
     border-radius: 10px;
@@ -56,43 +55,23 @@ const Style = Styled.div`
     line-height: 0.5;
     padding: 0.8em;
   }
+  .no-padding{
+    padding: 0;
+  }
 `;
 
-export default class LayerPicker extends Component {
+export default class SuperPowers extends Component {
   constructor(props) {
     super(props);
-
-    this.state = { selected: 0 };
     this.onKeyPress = this.onKeyPress.bind(this);
   }
 
   onKeyPress = keycode => {
     const { onKeySelect } = this.props;
-    const { selected } = this.state;
-    const moveTo = 17492 + keycode;
-    const shiftTo = 17450 + keycode;
-    const oneShotTo = 49161 + keycode;
-
-    switch (selected) {
-      case 0:
-        onKeySelect(shiftTo);
-        break;
-      case 1:
-        onKeySelect(moveTo);
-        break;
-      case 2:
-        if (keycode > 7) {
-          break;
-        }
-        onKeySelect(oneShotTo);
-        break;
-      default:
-        break;
-    }
+    onKeySelect(keycode);
   };
 
   render() {
-    const { selected } = this.state;
     const layers = Layers.map(key => {
       return (
         <Key
@@ -110,38 +89,23 @@ export default class LayerPicker extends Component {
     });
     return (
       <Style>
-        <Container fluid className="layers">
+        <Container fluid className="super">
           <Row className="keys">
-            <h6>Layer Navigation</h6>
-            <svg className="svgContainer" viewBox="-20 0 260 80">
-              {layers}
-            </svg>
-            <ButtonGroup className="btngrp">
-              <Button
-                className={`btns ${selected === 0 ? "active" : ""}`}
-                onClick={() => {
-                  this.setState({ selected: 0 });
-                }}
-              >
-                Shift
-              </Button>
-              <Button
-                className={`btns ${selected === 1 ? "active" : ""}`}
-                onClick={() => {
-                  this.setState({ selected: 1 });
-                }}
-              >
-                Move
-              </Button>
-              <Button
-                className={`btns ${selected === 2 ? "active" : ""}`}
-                onClick={() => {
-                  this.setState({ selected: 2 });
-                }}
-              >
-                One Shot
-              </Button>
-            </ButtonGroup>
+            <h6>Super Powers</h6>
+          </Row>
+          <Row className="keys">
+            <Col sm="2">
+              <span>Combo</span>
+              <br />
+              <span>Dual Layer</span>
+              <br />
+              <span>Dual Mod</span>
+            </Col>
+            <Col sm="10" className="no-padding">
+              <svg className="svgContainer" viewBox="0 0 420 120">
+                {layers}
+              </svg>
+            </Col>
           </Row>
         </Container>
       </Style>

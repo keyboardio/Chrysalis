@@ -68,7 +68,7 @@ export default class KeyPicker extends Component {
     return (
       <Style
         style={{
-          marginLeft: "auto",
+          marginLeft: "210px",
           marginRight: "auto",
           marginTop: "30px",
           justifyContent: "center",

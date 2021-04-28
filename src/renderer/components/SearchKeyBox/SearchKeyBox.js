@@ -132,7 +132,7 @@ function hasKeysInGroup(group) {
 }
 
 function containsSearchString(name, searchString) {
-  return name && new RegExp(searchString, "i").test(name);
+  return name && name.toLowerCase().includes(searchString.toLowerCase());
 }
 
 function filterKeysInGroup(group, filter) {

@@ -61,7 +61,7 @@ const Styles = Styled.div`
   width: ${({ theme }) => theme.drawerWidth}px;
   height: 100vh;
   display: block !important;
-  position: absolute !important;
+  position: fixed !important;
   z-index: 10;
   padding: 0 !important;
 }

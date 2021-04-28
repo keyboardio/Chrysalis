@@ -46,7 +46,12 @@ import Focus from "../../../api/focus";
 import Keymap, { KeymapDB } from "../../../api/keymap";
 import LayerPanel from "./LayerPanel";
 import ColorPanel from "./ColorPanel";
-import { KeyPicker, LayerPicker, MiscPicker } from "../../components/KeyPicker";
+import {
+  KeyPicker,
+  LayerPicker,
+  MiscPicker,
+  SuperPowers
+} from "../../components/KeyPicker";
 import SaveChangesButton from "../../components/SaveChangesButton";
 import ConfirmationDialog from "../../components/ConfirmationDialog";
 import i18n from "../../i18n";
@@ -67,7 +72,7 @@ const Styles = Styled.div`
 .keyboard-editor {
   .editor {
     margin-left: 210px;
-    margin-right: 210px;
+    margin-right: 420px;
     display: flex;
     justify-content: space-between;
 
@@ -77,7 +82,7 @@ const Styles = Styled.div`
       padding: unset;
       margin-top: 15px;
       svg {
-        height: 57vh;
+        max-height: 60vh;
         max-width: 70vw;
       }
     }
@@ -263,6 +268,33 @@ class Editor extends React.Component {
           default: state.keymap.default,
           onlyCustom: state.keymap.onlyCustom,
           custom: keymap
+        },
+        modified: true
+      };
+    });
+    this.props.startContext();
+  };
+
+  dualFunction = modifier => {
+    let { currentLayer, currentKeyIndex, keymap } = this.state;
+
+    if (currentKeyIndex === -1) {
+      return;
+    }
+    let KM = keymap.custom.slice();
+    const l = keymap.onlyCustom
+      ? currentLayer
+      : currentLayer - keymap.default.length;
+    const code = this.keymapDB.reverse(KM[l][currentKeyIndex].label);
+    let keyCode = modifier + code;
+
+    this.setState(state => {
+      KM[l][currentKeyIndex] = this.keymapDB.parse(keyCode);
+      return {
+        keymap: {
+          default: state.keymap.default,
+          onlyCustom: state.keymap.onlyCustom,
+          custom: KM
         },
         modified: true
       };
@@ -1104,7 +1136,7 @@ class Editor extends React.Component {
           palette={this.state.palette}
           colormap={this.state.colorMap[this.state.currentLayer]}
           theme={this.props.theme}
-          style={{ width: "70vw" }}
+          style={{ width: "50vw" }}
         />
       </div>
       // </fade>
@@ -1242,6 +1274,7 @@ class Editor extends React.Component {
           </Row>
           <Row>
             <Col>
+              <SuperPowers onKeySelect={this.dualFunction} />
               <LayerPicker onKeySelect={this.onKeyChange} />
               <MiscPicker onKeySelect={this.onKeyChange} />
             </Col>

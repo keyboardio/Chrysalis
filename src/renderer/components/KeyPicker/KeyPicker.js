@@ -17,7 +17,7 @@ import ES from "./ES.json";
 const Style = Styled.div`
   .svgContainer{
     height:100%;
-    min-width: 65vw;
+    min-width: 60vw;
     max-height: 20vh;
   }
 
@@ -56,7 +56,13 @@ export default class KeyPicker extends Component {
           key={`id-${key.content.first}-${id}`}
           x={key.x}
           y={key.y}
-          selected={false}
+          selected={
+            this.props.code === null
+              ? false
+              : this.props.code.base === key.id
+              ? true
+              : false
+          }
           clicked={() => {
             this.onKeyPress(key.id);
           }}
@@ -68,8 +74,8 @@ export default class KeyPicker extends Component {
     return (
       <Style
         style={{
-          marginLeft: "210px",
-          marginRight: "auto",
+          marginLeft: "220px",
+          marginRight: "450px",
           marginTop: "30px",
           justifyContent: "center",
           display: "flex"

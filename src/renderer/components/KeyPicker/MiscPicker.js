@@ -30,7 +30,7 @@ const Style = Styled.div`
     position: absolute;
     right: 25px;
     width: 400px;
-    margin-top: 500px;
+    margin-top: 525px;
     padding:0;
     background-color: ${({ theme }) => theme.card.background};
     border-radius: 10px;
@@ -78,7 +78,13 @@ export default class MiscPicker extends Component {
           key={`id-${key.content.first}`}
           x={key.x}
           y={key.y}
-          selected={false}
+          selected={
+            this.props.code === null
+              ? false
+              : this.props.code.base === key.id
+              ? true
+              : false
+          }
           clicked={() => {
             this.onKeyPress(key.id);
           }}
@@ -93,7 +99,13 @@ export default class MiscPicker extends Component {
           key={`id-${key.content.first}`}
           x={key.x}
           y={key.y}
-          selected={false}
+          selected={
+            this.props.code === null
+              ? false
+              : this.props.code.base === key.id
+              ? true
+              : false
+          }
           clicked={() => {
             this.onKeyPress(key.id);
           }}
@@ -108,7 +120,13 @@ export default class MiscPicker extends Component {
           key={`id-${key.content.first}`}
           x={key.x}
           y={key.y}
-          selected={false}
+          selected={
+            this.props.code === null
+              ? false
+              : this.props.code.base === key.id
+              ? true
+              : false
+          }
           clicked={() => {
             this.onKeyPress(key.id);
           }}
@@ -123,7 +141,13 @@ export default class MiscPicker extends Component {
           key={`id-${key.content.first}`}
           x={key.x}
           y={key.y}
-          selected={false}
+          selected={
+            this.props.code === null
+              ? false
+              : this.props.code.base === key.id
+              ? true
+              : false
+          }
           clicked={() => {
             this.onKeyPress(key.id);
           }}
@@ -138,7 +162,13 @@ export default class MiscPicker extends Component {
           key={`id-${key.content.first}`}
           x={key.x}
           y={key.y}
-          selected={false}
+          selected={
+            this.props.code === null
+              ? false
+              : this.props.code.base === key.id
+              ? true
+              : false
+          }
           clicked={() => {
             this.onKeyPress(key.id);
           }}
@@ -153,7 +183,13 @@ export default class MiscPicker extends Component {
           key={`id-${key.content.first}`}
           x={key.x}
           y={key.y}
-          selected={false}
+          selected={
+            this.props.code === null
+              ? false
+              : this.props.code.base === key.id
+              ? true
+              : false
+          }
           clicked={() => {
             this.onKeyPress(key.id);
           }}

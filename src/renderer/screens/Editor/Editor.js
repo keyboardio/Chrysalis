@@ -71,6 +71,13 @@ const Styles = Styled.div`
       }
     }
   }
+  .centerSpinner{
+    z-index: 199;
+    position: absolute;
+    margin-left: 40vw;
+    margin-top: 25vh;
+    font-size: 3em;
+  }
 }`;
 
 class Editor extends Component {
@@ -1235,7 +1242,13 @@ class Editor extends Component {
           </Row>
           {this.state.keymap.custom.length == 0 &&
             this.state.keymap.default.length == 0 && (
-              <Spinner className="spinner-border text-danger" role="status" />
+              <div className="centerSpinner">
+                <Spinner
+                  className="spinner-border text-danger"
+                  role="status"
+                  animation="grow"
+                />
+              </div>
             )}
           <Row className="editor">
             <Col className="raise-editor">{layer}</Col>

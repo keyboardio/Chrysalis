@@ -40,6 +40,7 @@ const Styles = Styled.div`
         border: 0px;
         font-size: larger;
         text-align: -webkit-center;
+        box-shadow: none;
 
         .color {
           height: 28px;
@@ -52,15 +53,19 @@ const Styles = Styled.div`
           box-shadow: 0px 0px 3px 5px ${({ theme }) =>
             theme.colors.button.active};
         }
+        .color:hover {
+          box-shadow: 0px 0px 4px 3px ${({ theme }) =>
+            theme.colors.button.hover};
+        }
+        .color:focus {
+          height: 28px;
+          width: 28px;
+          border-radius: 4px;
+          border: 3px solid black;
+        }
       }
-      .color:hover {
-        box-shadow: 0px 0px 4px 3px ${({ theme }) => theme.colors.button.hover};
-      }
-      .color:focus {
-        height: 28px;
-        width: 28px;
-        border-radius: 4px;
-        border: 3px solid black;
+      .btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show>.btn-primary.dropdown-toggle:focus {
+        box-shadow: none;
       }
     }
     .color-options {

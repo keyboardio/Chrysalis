@@ -62,11 +62,12 @@ const GlobalStyles = createGlobalStyle`
   }
 
   button.btn {
-    background-color: ${({ theme }) => theme.colors.button.background};
-    color: ${({ theme }) => theme.colors.button.text};
+
   }
 
   button.btn-primary, button.btn{
+    background-color: ${({ theme }) => theme.colors.button.background};
+    color: ${({ theme }) => theme.colors.button.text};
     border: none;
   }
   .btn-primary:hover {

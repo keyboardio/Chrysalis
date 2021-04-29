@@ -49,54 +49,18 @@ const Styles = Styled.div`
           box-shadow: 2px 2px 4px 1px darkgrey;
         }
         .color.actv{
-          box-shadow: 0px 0px 3px 3px ${({ theme }) =>
+          box-shadow: 0px 0px 3px 5px ${({ theme }) =>
             theme.colors.button.active};
         }
       }
       .color:hover {
-        box-shadow: 0px 0px 8px 3px lightgray;
+        box-shadow: 0px 0px 4px 3px ${({ theme }) => theme.colors.button.hover};
       }
       .color:focus {
         height: 28px;
         width: 28px;
         border-radius: 4px;
         border: 3px solid black;
-      }
-      .color:active {
-        height: 28px;
-        width: 28px;
-        border-radius: 4px;
-        border: 2px solid ${({ theme }) => theme.colors.button.active};
-      }
-      .btn-primary:not(:disabled):not(.disabled).active {
-        color: ${({ theme }) => theme.colors.button.active};
-        background-color: ${({ theme }) =>
-          theme.colors.button.background} !important;
-        box-shadow: none !important;
-      }
-      button:hover {
-        background-color: ${({ theme }) => theme.colors.button.hover};
-      }
-      button:focus {
-        background-color: ${({ theme }) => theme.colors.button.focus};
-        box-shadow: none;
-      }
-      button:active {
-        background-color: ${({ theme }) =>
-          theme.colors.button.active} !important;
-        box-shadow: none !important;
-      }
-      .button-content,
-      .left,
-      .right {
-        display: inline;
-      }
-      .right {
-        float: right;
-        svg {
-          vertical-align: sub;
-          font-size: larger;
-        }
       }
     }
     .color-options {

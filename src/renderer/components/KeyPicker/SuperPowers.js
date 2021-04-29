@@ -13,7 +13,9 @@ import Col from "react-bootstrap/Col";
 // Key Components
 
 import Key from "./Key";
-import Layers from "./SuperPowers.json";
+import Combo from "./Combo.json";
+import DualLayer from "./DualLayer.json";
+import DualMod from "./DualMod.json";
 
 const Style = Styled.div`
   .svgContainer{
@@ -58,6 +60,16 @@ const Style = Styled.div`
   .no-padding{
     padding: 0;
   }
+  .title {
+    margin: 0px;
+    padding: 10px;
+    padding-bottom: 3px;
+    h6{
+      margin-top: 5px;
+      font-weight:300;
+      color: lightgrey;
+    }
+  }
 `;
 
 export default class SuperPowers extends Component {
@@ -72,13 +84,61 @@ export default class SuperPowers extends Component {
   };
 
   render() {
-    const layers = Layers.map(key => {
+    const combo = Combo.map(key => {
       return (
         <Key
           key={`id-${key.content.first}`}
           x={key.x}
           y={key.y}
-          selected={false}
+          selected={
+            this.props.code === null
+              ? false
+              : this.props.code.modified === key.id
+              ? true
+              : false
+          }
+          clicked={() => {
+            this.onKeyPress(key.id);
+          }}
+          centered={key.centered}
+          content={key.content}
+        />
+      );
+    });
+    const dualLayer = DualLayer.map(key => {
+      return (
+        <Key
+          key={`id-${key.content.first}`}
+          x={key.x}
+          y={key.y}
+          selected={
+            this.props.code === null
+              ? false
+              : this.props.code.modified === key.id
+              ? true
+              : false
+          }
+          clicked={() => {
+            this.onKeyPress(key.id);
+          }}
+          centered={key.centered}
+          content={key.content}
+        />
+      );
+    });
+    const dualMod = DualMod.map(key => {
+      return (
+        <Key
+          key={`id-${key.content.first}`}
+          x={key.x}
+          y={key.y}
+          selected={
+            this.props.code === null
+              ? false
+              : this.props.code.modified === key.id
+              ? true
+              : false
+          }
           clicked={() => {
             this.onKeyPress(key.id);
           }}
@@ -90,22 +150,23 @@ export default class SuperPowers extends Component {
     return (
       <Style>
         <Container fluid className="super">
-          <Row className="keys">
-            <h6>Super Powers</h6>
+          <Row className="title">
+            <h6>Combo</h6>
+            <svg className="svgContainer" viewBox="0 0 360 30">
+              {combo}
+            </svg>
           </Row>
-          <Row className="keys">
-            <Col sm="2">
-              <span>Combo</span>
-              <br />
-              <span>Dual Layer</span>
-              <br />
-              <span>Dual Mod</span>
-            </Col>
-            <Col sm="10" className="no-padding">
-              <svg className="svgContainer" viewBox="0 0 420 120">
-                {layers}
-              </svg>
-            </Col>
+          <Row className="title">
+            <h6>Dual Layer</h6>
+            <svg className="svgContainer" viewBox="0 0 360 40">
+              {dualLayer}
+            </svg>
+          </Row>
+          <Row className="title">
+            <h6>Dual Mod</h6>
+            <svg className="svgContainer" viewBox="0 0 360 30">
+              {dualMod}
+            </svg>
           </Row>
         </Container>
       </Style>

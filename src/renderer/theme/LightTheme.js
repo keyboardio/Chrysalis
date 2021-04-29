@@ -9,10 +9,10 @@ const Light = {
     subtext: "#555555",
     button: {
       text: "#000",
-      background: "#AF2B48",
-      hover: "#cf172c",
+      background: "#DFAAB5",
+      hover: "#bf575c",
       disabled: "#cc546a",
-      active: "#d10408",
+      active: "#d19498",
       boxShadow: "0 0 0 0.2rem rgba(204,84,106,.5)"
     },
     link: {

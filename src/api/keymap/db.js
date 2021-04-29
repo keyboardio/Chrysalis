@@ -212,6 +212,13 @@ class KeymapDB {
     return answ !== undefined ? answ.code : 1;
   }
 
+  reverseSub(label, top) {
+    const answ = this.keymapCodeTable
+      .filter(Boolean)
+      .find(x => x.labels.primary === label && x.labels.top === top);
+    return answ !== undefined ? answ.code : 1;
+  }
+
   getMap() {
     return this.keymapCodeTable
       .filter(Boolean)

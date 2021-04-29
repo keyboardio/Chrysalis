@@ -26,7 +26,7 @@ const Style = Styled.div`
     position: absolute;
     right: 25px;
     width: 400px;
-    margin-top: 250px;
+    margin-top: 275px;
     padding:0;
     background-color: ${({ theme }) => theme.card.background};
     border-radius: 10px;
@@ -48,9 +48,9 @@ const Style = Styled.div`
   }
 
   .btns{
-    background-color: white;
-    border: 2px solid ${({ theme }) => theme.colors.button.background};
-    color: ${({ theme }) => theme.colors.text};
+    background-color: ${({ theme }) => theme.colors.button.background};
+    border: 2px solid ${({ theme }) => theme.colors.button.disabled};
+    color: ${({ theme }) => theme.colors.button.text};
     font-size: small;
     font-weight: 400;
     line-height: 0.5;
@@ -93,13 +93,23 @@ export default class LayerPicker extends Component {
 
   render() {
     const { selected } = this.state;
+    const mod = [17450, 17492, 49161];
     const layers = Layers.map(key => {
       return (
         <Key
           key={`id-${key.content.first}`}
           x={key.x}
           y={key.y}
-          selected={false}
+          selected={
+            this.props.code === null
+              ? false
+              : this.props.code.modified -
+                  mod[selected] +
+                  this.props.code.base ===
+                key.id
+              ? true
+              : false
+          }
           clicked={() => {
             this.onKeyPress(key.id);
           }}

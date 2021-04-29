@@ -1096,32 +1096,38 @@ class Editor extends React.Component {
   }
 
   render() {
-    const { keymap, palette, isColorButtonSelected } = this.state;
-    let { currentLayer } = this.state;
+    const {
+      keymap,
+      palette,
+      isColorButtonSelected,
+      currentLayer,
+      currentKeyIndex
+    } = this.state;
 
     let Layer = this.getLayout();
     if (Layer === false) {
       return <div></div>;
     }
     const showDefaults = settings.getSync("keymap.showDefaults");
+    let cLayer = currentLayer;
 
     if (!showDefaults) {
       if (currentLayer < keymap.default.length && !keymap.onlyCustom) {
-        currentLayer = 0;
+        cLayer = 0;
       }
     }
 
     let layerData, isReadOnly;
     if (keymap.onlyCustom) {
-      isReadOnly = currentLayer < 0;
+      isReadOnly = cLayer < 0;
       layerData = isReadOnly
-        ? keymap.default[currentLayer + keymap.default.length]
-        : keymap.custom[currentLayer];
+        ? keymap.default[cLayer + keymap.default.length]
+        : keymap.custom[cLayer];
     } else {
-      isReadOnly = currentLayer < keymap.default.length;
+      isReadOnly = cLayer < keymap.default.length;
       layerData = isReadOnly
-        ? keymap.default[currentLayer]
-        : keymap.custom[currentLayer - keymap.default.length];
+        ? keymap.default[cLayer]
+        : keymap.custom[cLayer - keymap.default.length];
     }
 
     const layer = (
@@ -1129,7 +1135,7 @@ class Editor extends React.Component {
       <div className="">
         <Layer
           readOnly={isReadOnly}
-          index={currentLayer}
+          index={cLayer}
           keymap={layerData}
           onKeySelect={this.onKeySelect}
           selectedKey={this.state.currentKeyIndex}
@@ -1173,6 +1179,23 @@ class Editor extends React.Component {
         id: idx
       };
     });
+
+    let code = null;
+    if (currentKeyIndex !== -1) {
+      let KM = keymap.custom.slice();
+      const l = keymap.onlyCustom
+        ? currentLayer
+        : currentLayer - keymap.default.length;
+      code = {
+        base: this.keymapDB.reverse(KM[l][currentKeyIndex].label),
+        modified:
+          this.keymapDB.reverseSub(
+            KM[l][currentKeyIndex].label,
+            KM[l][currentKeyIndex].extraLabel
+          ) - this.keymapDB.reverse(KM[l][currentKeyIndex].label)
+      };
+    }
+    console.log(code);
 
     return (
       <Styles>
@@ -1274,9 +1297,9 @@ class Editor extends React.Component {
           </Row>
           <Row>
             <Col>
-              <SuperPowers onKeySelect={this.dualFunction} />
-              <LayerPicker onKeySelect={this.onKeyChange} />
-              <MiscPicker onKeySelect={this.onKeyChange} />
+              <SuperPowers onKeySelect={this.dualFunction} code={code} />
+              <LayerPicker onKeySelect={this.onKeyChange} code={code} />
+              <MiscPicker onKeySelect={this.onKeyChange} code={code} />
             </Col>
           </Row>
           {this.state.keymap.custom.length == 0 &&
@@ -1287,7 +1310,7 @@ class Editor extends React.Component {
             <Col className="raise-editor">{layer}</Col>
           </Row>
           <Row>
-            <KeyPicker onKeySelect={this.onKeyChange} />
+            <KeyPicker onKeySelect={this.onKeyChange} code={code} />
           </Row>
           <SaveChangesButton
             floating

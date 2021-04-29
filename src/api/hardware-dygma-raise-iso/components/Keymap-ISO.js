@@ -154,7 +154,11 @@ class KeymapISO extends React.Component {
     };
 
     let stroke = (row, col) =>
-      isSelected(row, col) ? "url('#selected-gradient')" : "#b3b3b3";
+      isSelected(row, col)
+        ? this.props.darkMode
+          ? "#fff"
+          : "#000"
+        : "#b3b3b3";
 
     let getStrokeWidth = (row, col) => (isSelected(row, col) ? "3.0" : "1.5");
 
@@ -428,31 +432,6 @@ class KeymapISO extends React.Component {
         viewBox="0 0 1029 634"
         className={this.props.className || "layer"}
       >
-        <defs>
-          <radialGradient
-            id="selected-gradient"
-            cx="1.6982"
-            cy="1.3057"
-            r="129.5064"
-          >
-            <stop offset="0" stopColor="#ffeb3b">
-              <animate
-                attributeName="stop-color"
-                values="#ffeb3b; #79009d; #ffeb3b"
-                dur="1s"
-                repeatCount="indefinite"
-              ></animate>
-            </stop>
-            <stop offset="1" stopColor="#79009d">
-              <animate
-                attributeName="stop-color"
-                values="#79009d; #ffeb3b; #79009d"
-                dur="1s"
-                repeatCount="indefinite"
-              ></animate>
-            </stop>
-          </radialGradient>
-        </defs>
         <path
           id="neuron_outline"
           fill="none"

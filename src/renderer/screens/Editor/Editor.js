@@ -1126,6 +1126,7 @@ class Editor extends Component {
           palette={this.state.palette}
           colormap={this.state.colorMap[this.state.currentLayer]}
           theme={this.props.theme}
+          darkMode={this.props.darkMode}
           style={{ width: "50vw" }}
         />
       </div>

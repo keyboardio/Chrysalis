@@ -24,23 +24,7 @@ import { toast } from "react-toastify";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
 import Spinner from "react-bootstrap/Spinner";
-import Dropdown from "react-bootstrap/Dropdown";
-import Tooltip from "react-bootstrap/Tooltip";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-
-// Icons
-import {
-  MdPublish,
-  MdGetApp,
-  MdContentCopy,
-  MdLayersClear,
-  MdUnarchive
-} from "react-icons/md";
 
 import Focus from "../../../api/focus";
 import Keymap, { KeymapDB } from "../../../api/keymap";
@@ -89,7 +73,7 @@ const Styles = Styled.div`
   }
 }`;
 
-class Editor extends React.Component {
+class Editor extends Component {
   constructor(props) {
     super(props);
 
@@ -1202,64 +1186,6 @@ class Editor extends React.Component {
         <Container fluid className="keyboard-editor">
           <Row className="title-row">
             <h4 className="section-title">{i18n.app.menu.editor}</h4>
-            <ButtonGroup>
-              <div>
-                <OverlayTrigger
-                  placement="bottom"
-                  overlay={
-                    <Tooltip id={"Export"}>Export the current Layer</Tooltip>
-                  }
-                >
-                  <Button onClick={this.toExport}>
-                    <MdPublish />
-                  </Button>
-                </OverlayTrigger>
-                <OverlayTrigger
-                  placement="bottom"
-                  overlay={
-                    <Tooltip id={"Import"}>
-                      Import current Layer or Backup
-                    </Tooltip>
-                  }
-                >
-                  <Button onClick={this.toImport}>
-                    <MdGetApp />
-                  </Button>
-                </OverlayTrigger>
-                <OverlayTrigger
-                  placement="bottom"
-                  overlay={
-                    <Tooltip id={"Copy"}>{i18n.editor.copyFrom}</Tooltip>
-                  }
-                >
-                  <Button disabled={isReadOnly} onClick={this.copyFromDialog}>
-                    <MdContentCopy />
-                  </Button>
-                </OverlayTrigger>
-                <OverlayTrigger
-                  placement="bottom"
-                  overlay={
-                    <Tooltip id={"Clear"}>{i18n.editor.clearLayer}</Tooltip>
-                  }
-                >
-                  <Button disabled={isReadOnly} onClick={this.confirmClear}>
-                    <MdLayersClear />
-                  </Button>
-                </OverlayTrigger>
-                <OverlayTrigger
-                  placement="bottom"
-                  overlay={
-                    <Tooltip id={"Clear"}>
-                      {"Backup all Layers (Excluding Macros)"}
-                    </Tooltip>
-                  }
-                >
-                  <Button onClick={this.toExportAll}>
-                    <MdUnarchive />
-                  </Button>
-                </OverlayTrigger>
-              </div>
-            </ButtonGroup>
           </Row>
           <Row>
             <Col>
@@ -1268,8 +1194,12 @@ class Editor extends React.Component {
                 selectLayer={this.selectLayer}
                 currentLayer={currentLayer}
                 isReadOnly={isReadOnly}
-                importTitle={i18n.editor.importExport}
-                importFunc={this.importExportDialog}
+                importTitle={"Import current Layer or Backup"}
+                exportTitle={"Export the current Layer"}
+                exportAllTitle={"Backup all Layers (Excluding Macros)"}
+                importFunc={this.toImport}
+                exportFunc={this.toExport}
+                exportAllFunc={this.toExportAll}
                 copyTitle={i18n.editor.copyFrom}
                 copyFunc={this.copyFromDialog}
                 clearTitle={i18n.editor.clearLayer}

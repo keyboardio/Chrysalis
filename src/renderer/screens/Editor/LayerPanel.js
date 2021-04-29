@@ -13,11 +13,12 @@ import Styled from "styled-components";
 import {
   MdLock,
   MdShare,
-  MdImportExport,
+  MdPublish,
   MdContentCopy,
-  MdCloudUpload,
+  MdUnarchive,
   MdDelete,
-  MdAdd
+  MdAdd,
+  MdGetApp
 } from "react-icons/md";
 
 const toolsWidth = 45;
@@ -179,7 +180,11 @@ export default class LayerPanel extends Component {
       layers,
       currentLayer,
       importTitle,
+      exportTitle,
+      exportAllTitle,
       importFunc,
+      exportFunc,
+      exportAllFunc,
       copyTitle,
       copyFunc,
       clearTitle,
@@ -210,8 +215,9 @@ export default class LayerPanel extends Component {
 
     const buttons = (
       <>
-        {this.CButton("Add - Layer", this.spare, <MdAdd />, true)}
-        {this.CButton(importTitle, importFunc, <MdImportExport />)}
+        {/* {this.CButton("Add - Layer", this.spare, <MdAdd />, true)} */}
+        {this.CButton(importTitle, importFunc, <MdGetApp />, false)}
+        {this.CButton(exportTitle, exportFunc, <MdPublish />, false)}
         {this.CButton(copyTitle, copyFunc, <MdContentCopy />, false)}
         {this.CButton(clearTitle, clearFunc, <MdDelete />, false)}
       </>
@@ -219,8 +225,13 @@ export default class LayerPanel extends Component {
 
     const shareb = (
       <>
-        {this.CButton("Import - Export", this.spare, <MdShare />, true)}
-        {this.CButton("Import - Export", this.spare, <MdCloudUpload />, true)}
+        {this.CButton(
+          "Share your Layers! comming soon",
+          this.spare,
+          <MdShare />,
+          true
+        )}
+        {this.CButton(exportAllTitle, exportAllFunc, <MdUnarchive />, false)}
       </>
     );
 

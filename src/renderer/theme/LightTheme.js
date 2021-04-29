@@ -11,7 +11,7 @@ const Light = {
       text: "#000",
       background: "#DFAAB5",
       hover: "#bf575c",
-      disabled: "#cc546a",
+      disabled: "#999",
       active: "#d19498",
       boxShadow: "0 0 0 0.2rem rgba(204,84,106,.5)"
     },

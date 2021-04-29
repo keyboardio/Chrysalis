@@ -25,6 +25,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Spinner from "react-bootstrap/Spinner";
+import Button from "react-bootstrap/Button";
 
 import Focus from "../../../api/focus";
 import Keymap, { KeymapDB } from "../../../api/keymap";
@@ -77,6 +78,9 @@ const Styles = Styled.div`
     margin-left: 40vw;
     margin-top: 25vh;
     font-size: 3em;
+  }
+  .cancelButton{
+    float: right;
   }
 }`;
 
@@ -1265,6 +1269,17 @@ class Editor extends Component {
               >
                 {i18n.components.save.saveChanges}
               </SaveChangesButton>
+            </Col>
+            <Col>
+              <Button
+                onClick={() => {
+                  this.props.cancelContext();
+                }}
+                className="cancelButton"
+                disabled={!this.state.modified}
+              >
+                {i18n.app.cancelPending.button}
+              </Button>
             </Col>
           </Row>
           <ConfirmationDialog

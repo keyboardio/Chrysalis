@@ -65,6 +65,7 @@ const English = {
       Chat: "Chat"
     },
     cancelPending: {
+      button: "Discard changes",
       title: "Cancel pending changes?",
       content: "You have unsaved changes. If you proceed, they will be lost."
     }

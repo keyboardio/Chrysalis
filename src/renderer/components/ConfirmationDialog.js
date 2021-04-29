@@ -28,12 +28,18 @@ const ConfirmationDialog = props => {
       <Modal.Header closeButton>
         <Modal.Title>{props.title}</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
-        <h4>{props.text}</h4>
-      </Modal.Body>
+      <Modal.Body>{props.text}</Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onCancel}>{i18n.dialog.cancel}</Button>
-        <Button onClick={props.onConfirm}>{i18n.dialog.ok}</Button>
+        <Button
+          onClick={props.onCancel}
+          className="mr-auto"
+          variant="secondary"
+        >
+          {i18n.dialog.cancel}
+        </Button>
+        <Button onClick={props.onConfirm} variant="primary">
+          {i18n.dialog.ok}
+        </Button>
       </Modal.Footer>
     </Modal>
   );

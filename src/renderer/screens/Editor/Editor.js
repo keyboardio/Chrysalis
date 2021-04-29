@@ -1242,15 +1242,20 @@ class Editor extends Component {
           <Row>
             <KeyPicker onKeySelect={this.onKeyChange} code={code} />
           </Row>
-          <SaveChangesButton
-            floating
-            onClick={this.onApply}
-            disabled={!this.state.modified}
-          >
-            {i18n.components.save.saveChanges}
-          </SaveChangesButton>
+          <Row>
+            <Col>
+              <SaveChangesButton
+                floating
+                onClick={this.onApply}
+                disabled={!this.state.modified}
+              >
+                {i18n.components.save.saveChanges}
+              </SaveChangesButton>
+            </Col>
+          </Row>
           <ConfirmationDialog
             title={i18n.editor.clearLayerQuestion}
+            text={i18n.editor.clearLayerPrompt}
             open={this.state.clearConfirmationOpen}
             onConfirm={this.clearLayer}
             onCancel={this.cancelClear}

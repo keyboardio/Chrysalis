@@ -216,9 +216,6 @@ class Editor extends React.Component {
           }
         },
         () => {
-          palette[this.undeglowCount] = this.state.undeglowColors[
-            this.state.currentLayer
-          ];
           this.setState({
             defaultLayer: defLayer,
             keymap: keymap,
@@ -419,12 +416,8 @@ class Editor extends React.Component {
 
   selectLayer = event => {
     if (event.target.value === undefined) return;
-    const { palette, undeglowColors } = this.state;
-    let newPalette = palette.slice();
-    newPalette[this.undeglowCount] = undeglowColors[event.target.value];
     this.setState({
-      currentLayer: event.target.value,
-      palette: newPalette
+      currentLayer: event.target.value
     });
     this.bottomMenuNeverHide();
   };

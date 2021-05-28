@@ -23,7 +23,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import ColorButtonsArea from "./ColorButtonsArea";
 import PickerColorButton from "./PickerColorButton";
-import { setColorTamplate } from "../../../renderer/utils/setTemplates";
+import { setColorTemplate } from "../../../renderer/utils/setTemplates";
 import i18n from "../../i18n";
 import UnderglowButton from "./UnderglowButton";
 import BackLightButton from "./BackLightButton";
@@ -118,7 +118,7 @@ function ColorPalette(props) {
    */
   const toSetColorFocusButton = color => {
     onColorPick(indexFocusButton, color.r, color.g, color.b);
-    setColorFocusButton(setColorTamplate(color));
+    setColorFocusButton(setColorTemplate(color));
   };
   /*
    * TODO(anyone): This is a quick fix to prevent an error when the palette is
@@ -143,7 +143,7 @@ function ColorPalette(props) {
     }
     onColorButtonSelect("another_button_click");
     setIndexFocusButton(index);
-    setColorFocusButton(setColorTamplate(color));
+    setColorFocusButton(setColorTemplate(color));
     onColorSelect(index);
   };
 

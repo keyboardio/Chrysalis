@@ -19,7 +19,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import Button from "@material-ui/core/Button";
-import { setButtonSizeTamplate } from "../../../renderer/utils/setTemplates";
+import { setButtonSizeTemplate } from "../../../renderer/utils/setTemplates";
 
 UndeglowColorButton.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -43,12 +43,12 @@ const styles = theme => ({
     marginLeft: 6
   },
   button: {
-    ...setButtonSizeTamplate(40),
+    ...setButtonSizeTemplate(40),
     margin: 5,
     borderRadius: 5,
     cursor: "pointer",
     [theme.breakpoints.down("sm")]: {
-      ...setButtonSizeTamplate(35)
+      ...setButtonSizeTemplate(35)
     }
   }
 });

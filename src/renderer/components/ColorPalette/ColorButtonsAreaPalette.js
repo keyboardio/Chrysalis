@@ -21,7 +21,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
-import { setButtonSizeTamplate } from "../../../renderer/utils/setTemplates";
+import { setButtonSizeTemplate } from "../../../renderer/utils/setTemplates";
 
 ColorButtonsAreaPalette.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -35,7 +35,7 @@ ColorButtonsAreaPalette.propTypes = {
 
 const styles = () => ({
   root: {
-    ...setButtonSizeTamplate(45),
+    ...setButtonSizeTemplate(45),
     borderRadius: "50%",
     cursor: "pointer",
     boxShadow: "-2px 1px 5px 0px rgba(213,213,213,1)"

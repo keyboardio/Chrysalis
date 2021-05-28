@@ -53,8 +53,8 @@ function write_cb(buffer, cb) {
 
     //closure to ensure our buffer is local.
     (buf2send => {
-      send.push(async function (callback) {
-        if (await focus._port.write(Buffer.from(buf2send))) {
+      send.push(function (callback) {
+        if (focus._port.write(Buffer.from(buf2send))) {
           callback(null);
         } else {
           callback(true, "write");

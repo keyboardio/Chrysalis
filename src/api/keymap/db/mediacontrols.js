@@ -78,6 +78,34 @@ const MediaControlTable = {
         top: "Media",
         primary: "Eject"
       }
+    },
+    {
+      code: 18552,
+      labels: {
+        top: "Media",
+        primary: "Camera"
+      }
+    },
+    {
+      code: 23663,
+      labels: {
+        top: "Display",
+        primary: "Bright +"
+      }
+    },
+    {
+      code: 23664,
+      labels: {
+        top: "Display",
+        primary: "Bright -"
+      }
+    },
+    {
+      code: 18834,
+      labels: {
+        top: "Apps",
+        primary: "Calc"
+      }
     }
   ]
 };

@@ -24,6 +24,7 @@ import SpacingTable from "./spacing";
 import NavigationTable from "./navigation";
 import FunctionKeyTable from "./fxs";
 import NumpadTable from "./numpad";
+import MiscellaneousTable from "./miscellaneous";
 
 const DualUseModifierTables = [
   withModifiers(LetterTable, "Control /", "CTRL/", 49169),
@@ -33,6 +34,7 @@ const DualUseModifierTables = [
   withModifiers(NavigationTable, "Control /", "CTRL/", 49169),
   withModifiers(FunctionKeyTable, "Control /", "CTRL/", 49169),
   withModifiers(NumpadTable, "Control /", "CTRL/", 49169),
+  withModifiers(MiscellaneousTable, "Control /", "CTRL/", 49169),
 
   withModifiers(LetterTable, "Shift /", "SHIFT/", 49425),
   withModifiers(DigitTable, "Shift /", "SHIFT/", 49425),
@@ -41,6 +43,7 @@ const DualUseModifierTables = [
   withModifiers(NavigationTable, "Shift /", "SHIFT/", 49425),
   withModifiers(FunctionKeyTable, "Shift /", "SHIFT/", 49425),
   withModifiers(NumpadTable, "Shift /", "SHIFT/", 49425),
+  withModifiers(MiscellaneousTable, "Shift /", "SHIFT/", 49425),
 
   withModifiers(LetterTable, "Alt /", "ALT/", 49681),
   withModifiers(DigitTable, "Alt /", "ALT/", 49681),
@@ -49,6 +52,7 @@ const DualUseModifierTables = [
   withModifiers(NavigationTable, "Alt /", "ALT/", 49681),
   withModifiers(FunctionKeyTable, "Alt /", "ALT/", 49681),
   withModifiers(NumpadTable, "Alt /", "ALT/", 49681),
+  withModifiers(MiscellaneousTable, "Alt /", "ALT/", 49681),
 
   withModifiers(LetterTable, "Gui /", "GUI/", 49937),
   withModifiers(DigitTable, "Gui /", "GUI/", 49937),
@@ -56,7 +60,8 @@ const DualUseModifierTables = [
   withModifiers(SpacingTable, "Gui /", "GUI/", 49937),
   withModifiers(NavigationTable, "Gui /", "GUI/", 49937),
   withModifiers(FunctionKeyTable, "Gui /", "GUI/", 49937),
-  withModifiers(NumpadTable, "Gui /", "GUI/", 49937)
+  withModifiers(NumpadTable, "Gui /", "GUI/", 49937),
+  withModifiers(MiscellaneousTable, "Gui /", "GUI/", 49937)
 ];
 
 const DualUseLayerTables = [
@@ -67,6 +72,7 @@ const DualUseLayerTables = [
   withModifiers(NavigationTable, "Layer #0 /", "L#0/", 51218),
   withModifiers(FunctionKeyTable, "Layer #0 /", "L#0/", 51218),
   withModifiers(NumpadTable, "Layer #0 /", "L#0/", 51218),
+  withModifiers(MiscellaneousTable, "Layer #0 /", "L#0/", 51218),
 
   withModifiers(LetterTable, "Layer #1 /", "L#1/", 51474),
   withModifiers(DigitTable, "Layer #1 /", "L#1/", 51474),
@@ -75,6 +81,7 @@ const DualUseLayerTables = [
   withModifiers(NavigationTable, "Layer #1 /", "L#1/", 51474),
   withModifiers(FunctionKeyTable, "Layer #1 /", "L#1/", 51474),
   withModifiers(NumpadTable, "Layer #1 /", "L#1/", 51474),
+  withModifiers(MiscellaneousTable, "Layer #1 /", "L#1/", 51474),
 
   withModifiers(LetterTable, "Layer #2 /", "L#2/", 51730),
   withModifiers(DigitTable, "Layer #2 /", "L#2/", 51730),
@@ -83,6 +90,7 @@ const DualUseLayerTables = [
   withModifiers(NavigationTable, "Layer #2 /", "L#2/", 51730),
   withModifiers(FunctionKeyTable, "Layer #2 /", "L#2/", 51730),
   withModifiers(NumpadTable, "Layer #2 /", "L#2/", 51730),
+  withModifiers(MiscellaneousTable, "Layer #2 /", "L#2/", 51730),
 
   withModifiers(LetterTable, "Layer #3 /", "L#3/", 51986),
   withModifiers(DigitTable, "Layer #3 /", "L#3/", 51986),
@@ -91,6 +99,7 @@ const DualUseLayerTables = [
   withModifiers(NavigationTable, "Layer #3 /", "L#3/", 51986),
   withModifiers(FunctionKeyTable, "Layer #3 /", "L#3/", 51986),
   withModifiers(NumpadTable, "Layer #3 /", "L#3/", 51986),
+  withModifiers(MiscellaneousTable, "Layer #3 /", "L#3/", 51986),
 
   withModifiers(LetterTable, "Layer #4 /", "L#4/", 52242),
   withModifiers(DigitTable, "Layer #4 /", "L#4/", 52242),
@@ -99,6 +108,7 @@ const DualUseLayerTables = [
   withModifiers(NavigationTable, "Layer #4 /", "L#4/", 52242),
   withModifiers(FunctionKeyTable, "Layer #4 /", "L#4/", 52242),
   withModifiers(NumpadTable, "Layer #4 /", "L#4/", 52242),
+  withModifiers(MiscellaneousTable, "Layer #4 /", "L#4/", 52242),
 
   withModifiers(LetterTable, "Layer #5 /", "L#5/", 52498),
   withModifiers(DigitTable, "Layer #5 /", "L#5/", 52498),
@@ -107,6 +117,7 @@ const DualUseLayerTables = [
   withModifiers(NavigationTable, "Layer #5 /", "L#5/", 52498),
   withModifiers(FunctionKeyTable, "Layer #5 /", "L#5/", 52498),
   withModifiers(NumpadTable, "Layer #5 /", "L#5/", 52498),
+  withModifiers(MiscellaneousTable, "Layer #5 /", "L#5/", 52498),
 
   withModifiers(LetterTable, "Layer #6 /", "L#6/", 52754),
   withModifiers(DigitTable, "Layer #6 /", "L#6/", 52754),
@@ -115,6 +126,7 @@ const DualUseLayerTables = [
   withModifiers(NavigationTable, "Layer #6 /", "L#6/", 52754),
   withModifiers(FunctionKeyTable, "Layer #6 /", "L#6/", 52754),
   withModifiers(NumpadTable, "Layer #6 /", "L#6/", 52754),
+  withModifiers(MiscellaneousTable, "Layer #6 /", "L#6/", 52754),
 
   withModifiers(LetterTable, "Layer #7 /", "L#7/", 53010),
   withModifiers(DigitTable, "Layer #7 /", "L#7/", 53010),
@@ -122,7 +134,8 @@ const DualUseLayerTables = [
   withModifiers(SpacingTable, "Layer #7 /", "L#7/", 53010),
   withModifiers(NavigationTable, "Layer #7 /", "L#7/", 53010),
   withModifiers(FunctionKeyTable, "Layer #7 /", "L#7/", 53010),
-  withModifiers(NumpadTable, "Layer #7 /", "L#7/", 53010)
+  withModifiers(NumpadTable, "Layer #7 /", "L#7/", 53010),
+  withModifiers(MiscellaneousTable, "Layer #7 /", "L#7/", 53010)
 ];
 
 export { DualUseModifierTables, DualUseLayerTables };

@@ -18,12 +18,33 @@
 import { withModifiers } from "./utils";
 
 const GuiLabels = {
+  linux: "LINUX",
+  win32: "WIN",
+  darwin: "⌘"
+};
+
+const GuiVerboses = {
   linux: "Linux",
-  win32: "Win",
-  darwin: "Cmd"
+  win32: "Windows",
+  darwin: "Command"
+};
+
+const AltLabels = {
+  linux: "ALT",
+  win32: "ALT",
+  darwin: "⌥"
+};
+
+const AltVerboses = {
+  linux: "Alt",
+  win32: "Alt",
+  darwin: "Option"
 };
 
 const guiLabel = GuiLabels[process.platform] || "Gui";
+const guiVerbose = GuiVerboses[process.platform] || "Gui";
+const AltLabel = AltLabels[process.platform] || "ALT";
+const AltVerbose = AltVerboses[process.platform] || "Alt";
 
 const ModifiersTable = {
   groupName: "Modifiers",
@@ -38,22 +59,22 @@ const ModifiersTable = {
     {
       code: 225,
       labels: {
-        primary: "LEFT SHIFT",
+        primary: "LEFT ⇧",
         verbose: "Left Shift"
       }
     },
     {
       code: 226,
       labels: {
-        primary: "LEFT ALT",
-        verbose: "Left Alt"
+        primary: "LEFT " + AltLabel,
+        verbose: "Left " + AltVerbose
       }
     },
     {
       code: 227,
       labels: {
-        primary: "LEFT " + guiLabel.toUpperCase(),
-        verbose: "Left " + guiLabel
+        primary: "LEFT " + guiLabel,
+        verbose: "Left " + guiVerbose
       }
     },
     {
@@ -67,7 +88,7 @@ const ModifiersTable = {
       code: 229,
       labels: {
         top: "",
-        primary: "RIGHT SHIFT",
+        primary: "RIGHT ⇧",
         verbose: "Right Shift"
       }
     },
@@ -75,15 +96,15 @@ const ModifiersTable = {
       code: 230,
       labels: {
         top: "",
-        primary: "RIGHT ALT",
+        primary: "RIGHT " + AltLabel,
         verbose: "AltGr"
       }
     },
     {
       code: 231,
       labels: {
-        primary: "RIGHT " + guiLabel.toUpperCase(),
-        verbose: "Right " + guiLabel
+        primary: "RIGHT " + guiLabel,
+        verbose: "Right " + guiVerbose
       }
     }
   ]

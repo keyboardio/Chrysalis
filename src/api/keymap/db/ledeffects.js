@@ -21,23 +21,25 @@ const LEDEffectsTable = {
     {
       code: 17152,
       labels: {
-        primary: "NEXT",
-        top: "LED"
+        primary: "+",
+        top: "✨",
+        verbose: "Next LED"
       }
     },
     {
       code: 17153,
       labels: {
-        primary: "PREV",
-        top: "LED",
-        verbose: "Previous"
+        primary: "-",
+        top: "✨",
+        verbose: "Previous LED"
       }
     },
     {
       code: 17154,
       labels: {
-        primary: "TOGGLE",
-        top: "LED"
+        primary: "+/-",
+        top: "✨",
+        verbose: "Toggle LED"
       }
     }
   ]

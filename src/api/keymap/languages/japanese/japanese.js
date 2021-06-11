@@ -23,7 +23,7 @@ const japaneseLetters = [
   {
     code: 53,
     labels: {
-      primary: "ろ"
+      primary: "半角/全角 漢字"
     }
   },
   {

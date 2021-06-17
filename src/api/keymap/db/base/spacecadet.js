@@ -20,7 +20,7 @@ const spacecadet = addCategories(
   ["spacecadet"],
   [
     {
-      code: 53591,
+      code: 53592,
       label: {
         hint: {
           full: "SpaceCadet",
@@ -33,7 +33,7 @@ const spacecadet = addCategories(
       }
     },
     {
-      code: 53592,
+      code: 53593,
       label: {
         hint: {
           full: "SpaceCadet",

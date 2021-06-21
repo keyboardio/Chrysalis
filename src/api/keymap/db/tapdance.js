@@ -13,21 +13,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-const macro = index => ({
-  code: 53852 + index,
+const tapdance = index => ({
+  code: 53267 + index,
   labels: {
     primary: index.toString(),
-    top: "MACRO"
+    top: "TAPD"
   }
 });
 
-const macros = Array(64)
+const tapdances = Array(64)
   .fill()
-  .map((_, index) => macro(index));
+  .map((_, index) => tapdance(index));
 
-const MacrosTable = {
-  groupName: "Macros",
-  keys: macros
+const TapDanceTable = {
+  groupName: "TapDance",
+  keys: tapdances
 };
 
-export default MacrosTable;
+export default TapDanceTable;

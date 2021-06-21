@@ -50,5 +50,18 @@
       "third": "",
       "fourth": ""
     }
+  },
+  {
+    "id": 51218,
+    "x": 280,
+    "y": 0,
+    "centered": true,
+    "content": {
+      "type": "1U2",
+      "first": "AltGr",
+      "second": "",
+      "third": "",
+      "fourth": ""
+    }
   }
 ]

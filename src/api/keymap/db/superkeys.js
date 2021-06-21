@@ -13,21 +13,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-const macro = index => ({
-  code: 53852 + index,
+const superkey = index => ({
+  code: 53916 + index,
   labels: {
     primary: index.toString(),
-    top: "MACRO"
+    top: "SUPER"
   }
 });
 
-const macros = Array(64)
+const superkeys = Array(64)
   .fill()
-  .map((_, index) => macro(index));
+  .map((_, index) => superkey(index));
 
-const MacrosTable = {
-  groupName: "Macros",
-  keys: macros
+const SuperKeyTable = {
+  groupName: "SuperKeys",
+  keys: superkeys
 };
 
-export default MacrosTable;
+export default SuperKeyTable;

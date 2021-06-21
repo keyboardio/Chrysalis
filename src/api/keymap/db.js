@@ -32,6 +32,8 @@ import ModifiersTable, {
 import NavigationTable, { ModifiedNavigationTables } from "./db/navigation";
 import LEDEffectsTable from "./db/ledeffects";
 import MacrosTable from "./db/macros";
+import SuperKeyTable from "./db/superkeys";
+import TapDanceTable from "./db/tapdance";
 import NumpadTable, { ModifiedNumpadTables } from "./db/numpad";
 import FunctionKeyTable, { ModifiedFunctionKeyTables } from "./db/fxs";
 
@@ -88,6 +90,8 @@ const defaultBaseKeyCodeTable = [
 
   LEDEffectsTable,
   MacrosTable,
+  SuperKeyTable,
+  TapDanceTable,
   MediaControlTable,
   MouseMovementTable,
   MouseButtonTable,

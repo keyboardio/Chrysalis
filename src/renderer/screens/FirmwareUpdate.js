@@ -32,12 +32,9 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import Spinner from "react-bootstrap/Spinner";
 import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
 import Modal from "react-bootstrap/Modal";
 import {
-  MdClose,
   MdSettingsBackupRestore,
   MdExplore,
   MdInfo,

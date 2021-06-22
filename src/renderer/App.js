@@ -38,7 +38,7 @@ import Dark from "./theme/DarkTheme";
 import Container from "react-bootstrap/Container";
 
 import KeyboardSelect from "./screens/KeyboardSelect";
-// import FirmwareUpdate from "./screens/FirmwareUpdate";
+import FirmwareUpdate from "./screens/FirmwareUpdate";
 import Editor from "./screens/Editor/Editor";
 import Preferences from "./screens/Preferences";
 import Welcome from "./screens/Welcome";
@@ -395,14 +395,14 @@ class App extends React.Component {
               appBarElement={() => document.querySelector("#appbar")}
               darkMode={darkMode}
             />
-            {/*<FirmwareUpdate
+            <FirmwareUpdate
               path="/firmware-update"
               device={this.state.device}
               toggleFlashing={this.toggleFlashing}
               onDisconnect={this.onKeyboardDisconnect}
               titleElement={() => document.querySelector("#page-title")}
               darkMode={darkMode}
-            />*/}
+            />
             <Preferences
               connected={connected}
               path="/preferences"

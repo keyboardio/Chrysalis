@@ -15,69 +15,41 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 import React from "react";
-import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import MuiDialogTitle from "@material-ui/core/DialogTitle";
-import MuiDialogContent from "@material-ui/core/DialogContent";
-import MuiDialogActions from "@material-ui/core/DialogActions";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
-import Typography from "@material-ui/core/Typography";
+import Styled from "styled-components";
+import Button from "react-bootstrap/Button";
+import Spinner from "react-bootstrap/Spinner";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Card from "react-bootstrap/Card";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+import { MdClose, MdCheck, MdRefresh } from "react-icons/md";
+import { CardColumns } from "react-bootstrap";
 
-const styles = theme => ({
-  closeButton: {
-    position: "absolute",
-    right: theme.spacing(2),
-    top: theme.spacing(2)
+const Styles = Styled.div`
+
+`;
+
+class DialogTitle extends React.Component {
+  render() {
+    const { children, onClose, disabled } = this.props;
+    return (
+      <Card.Title disableTypography className={"classes.root"}>
+        <h6>{children}</h6>
+        {onClose ? (
+          <Button
+            className={"classes.closeButton"}
+            disabled={disabled}
+            onClick={onClose}
+          >
+            <MdClose />
+          </Button>
+        ) : null}
+      </Card.Title>
+    );
   }
-});
-
-const DialogTitle = withStyles(styles)(props => {
-  const { children, classes, onClose, disabled } = props;
-  return (
-    <MuiDialogTitle disableTypography className={classes.root}>
-      <Typography variant="h6">{children}</Typography>
-      {onClose ? (
-        <IconButton
-          className={classes.closeButton}
-          disabled={disabled}
-          onClick={onClose}
-        >
-          <CloseIcon />
-        </IconButton>
-      ) : null}
-    </MuiDialogTitle>
-  );
-});
-
-const DialogContent = withStyles(theme => ({
-  root: {
-    padding: theme.spacing(2)
-  }
-}))(MuiDialogContent);
-
-const DialogActions = withStyles(theme => ({
-  root: {
-    margin: 0,
-    padding: theme.spacing()
-  }
-}))(MuiDialogActions);
-
-const Countdown = withStyles(theme => ({
-  root: {
-    ...theme.typography.button,
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing()
-  }
-}))(Typography);
-
-const Countbutton = withStyles(() => ({
-  root: {
-    width: 200
-  }
-}))(Button);
-
+}
 class CustomDialog extends React.Component {
   handleClose = () => {
     this.props.handleClose();
@@ -85,34 +57,34 @@ class CustomDialog extends React.Component {
 
   render() {
     return (
-      <Dialog
+      <Card
         onClose={this.handleClose}
         open={this.props.open}
         maxWidth="md"
         disableEscapeKeyDown={true}
       >
-        <DialogTitle onClose={this.handleClose} disabled={this.props.disabled}>
-          {this.props.title}
-        </DialogTitle>
-        <DialogContent>{this.props.children}</DialogContent>
+        {this.props.title}
+        <Card.Body>{this.props.children}</Card.Body>
         {this.props.countdown !== null && (
-          <DialogActions>
+          <Card.Body>
             {this.props.countdown < 0 ? (
               <React.Fragment />
             ) : (
-              <Countdown>{this.props.countdown}</Countdown>
+              {
+                /* <Countdown>{this.props.countdown}</Countdown> */
+              }
             )}
-            <Countbutton
+            <Button
               onClick={this.props.countdown !== 0 ? this.props.upload : null}
               variant="contained"
               color={this.props.countdown ? "primary" : "secondary"}
               disabled={this.props.countdown !== 0 ? this.props.disabled : null}
             >
               {this.props.buttonText}
-            </Countbutton>
-          </DialogActions>
+            </Button>
+          </Card.Body>
         )}
-      </Dialog>
+      </Card>
     );
   }
 }

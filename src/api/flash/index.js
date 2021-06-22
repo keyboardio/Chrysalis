@@ -107,7 +107,13 @@ export default class FlashRaise {
       "mouse.accelDelay",
       "mouse.wheelSpeed",
       "mouse.wheelDelay",
-      "mouse.speedLimit"
+      "mouse.speedLimit",
+      "mouse.speedDelay",
+      "superkeys.map",
+      "superkeys.holdstart",
+      "superkeys.waitfor",
+      "superkeys.timeout",
+      "superkeys.repeat"
     ];
     this.backupFileName = `Raise-backup-${this.formatedDate()}.json`;
 

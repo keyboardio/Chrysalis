@@ -25,119 +25,200 @@ import { version } from "../../../package.json";
 import Focus from "../../api/focus";
 import FlashRaise from "../../api/flash";
 
-import BuildIcon from "@material-ui/icons/Build";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import Link from "@material-ui/core/Link";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-import Divider from "@material-ui/core/Divider";
-import ExploreIcon from "@material-ui/icons/ExploreOutlined";
-import InfoRounded from "@material-ui/icons/InfoRounded";
-import FormControl from "@material-ui/core/FormControl";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import MenuItem from "@material-ui/core/MenuItem";
-import Portal from "@material-ui/core/Portal";
-import Select from "@material-ui/core/Select";
-import SnackbarContent from "@material-ui/core/SnackbarContent";
-import SettingsBackupRestoreIcon from "@material-ui/icons/SettingsBackupRestore";
-import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
-
+import Styled from "styled-components";
 import { toast } from "react-toastify";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Spinner from "react-bootstrap/Spinner";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
+import Modal from "react-bootstrap/Modal";
+import {
+  MdClose,
+  MdSettingsBackupRestore,
+  MdExplore,
+  MdInfo,
+  MdBuild
+} from "react-icons/md";
 
 import { getStaticPath } from "../config";
-import SaveChangesButton from "../components/SaveChangesButton";
-import CustomDialog from "../components/CustomDialog";
 import i18n from "../i18n";
-import { CardHeader } from "@material-ui/core";
 
-const styles = theme => ({
-  root: {
-    display: "flex",
-    justifyContent: "center"
-  },
-  card: {
-    margin: theme.spacing(4),
-    padding: theme.spacing(5),
-    maxWidth: "50%"
-  },
-  cardTitle: {
-    fontWeight: 600
-  },
-  cardSub: {
-    fontSize: "1rem",
-    paddingBottom: theme.spacing()
-  },
-  cardIta: {
-    fontStyle: "italic",
-    fontSize: "1rem",
-    color: "darkgrey"
-  },
-  cardSnack: {
-    width: "85%",
-    margin: "auto"
-  },
-  snackVer: {
-    fontSize: "1.2rem",
-    backgroundColor:
-      theme.palette.type === "dark"
-        ? theme.palette.secondary.main
-        : theme.palette.primary.main,
-    boxShadow: "none",
-    placeContent: "center"
-  },
-  versionText: {
-    color: "#fff"
-  },
-  versionStrong: {
-    color: theme.palette.type === "dark" ? theme.palette.primary.main : "#fff"
-  },
-  notText: {
-    color: theme.palette.type === "dark" ? "#fff" : "#000"
-  },
-  snackNot: {
-    fontSize: "1rem",
-    backgroundColor:
-      theme.palette.type === "dark" ? theme.palette.secondary.main : "#FF9800",
-    boxShadow: "none",
-    placeContent: "center",
-    maxWidth: "none"
-  },
-  grow: {
-    flexGrow: 1
-  },
-  dropdown: {
-    display: "flex",
-    minWidth: "15em"
-  },
-  custom: {
-    marginTop: "auto",
-    marginBottom: "auto"
-  },
-  repo: {
-    textAlign: "center"
-  },
-  firmwareSelect: {
-    marginLeft: theme.spacing(2)
-  },
-  grid: {
-    width: "70%"
-  },
-  img: {
-    width: "100%"
-  },
-  paper: {
-    width: "85%",
-    margin: "auto",
-    marginBottom: theme.spacing(2)
+const ModalStyle = Styled.div`
+.flash-modal {
+  max-width: 900px !important;
+}
+`;
+
+const Styles = Styled.div`
+.firmware-update {
+  .firmware-row {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding-top: 15vh;
+    .firmware-col {
+      min-width: 500px;
+      max-width: 500px;
+      .firmware-card {
+        background: ${({ theme }) => theme.card.background};
+        min-height: 600px;
+        .header{
+          font-size: 2em;
+          font-weight: 200;
+          padding: 1rem;
+          margin: -24px;
+          text-align: center;
+        }
+        .body {
+          margin-top: 1.5rem;
+          padding 0;
+          padding-top: 1.25rem;
+          padding-bottom: 1.25rem;
+          .flashingcol {
+            text-align: center;
+            .custombutton{
+              float: left;
+            }
+            .flashingbutton {
+              float: right;
+            }
+          }
+        }
+        .title {
+          text-align: center;
+        }
+        .subtitle {
+          color: darkgrey;
+          text-align: center;
+        }
+        .loader {
+          align-self: center;
+          .spinner-border {
+            width: 4rem;
+            height: 4rem;
+        }
+      }
+      .version {
+        margin: 2rem;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        .white {
+          color: white;
+        }
+        .body {
+          padding: 0;
+          margin: 0;
+        }
+        .title {
+          font-weight: 200;
+          font-size: 1.4rem;
+        }
+        .text {
+          font-size: 2em;
+          font-weight: 500;
+          text-align: center;
+        }
+      }
+      .preview {
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        padding: 0px;
+
+        .keyboard {
+          justify-content: center;
+          align-items: center;
+          display: flex;
+          svg {
+            width: 80%;
+            margin-bottom: 10px;
+          }
+        }
+        .options {
+          text-align: center;
+          .selector {
+            width: 100%;
+            .dropdown-toggle::after{
+              position: absolute;
+              right: 10px;
+              top: 30px;
+            }
+            .toggler {
+              width: 100%;
+              background-color: transparent;
+              color: ${({ theme }) => theme.colors.button.text};
+              border: 0;
+              border-bottom: black 1px solid;
+              border-radius: 0px;
+              padding-bottom: 6px;
+              :hover {
+                background-color: transparent;
+              }
+            }
+            .toggler:hover {
+              border-bottom: black 2px solid;
+              padding-bottom: 5px;
+            }
+            .toggler:focus {
+              border-bottom: rgba($color: red, $alpha: 0.8) 2px solid;
+              box-shadow: none;
+            }
+            .menu {
+              width: inherit;
+              justify-content: center;
+              align-items: center;
+              text-align: center;
+            }
+            .key-icon {
+              background-color: ${({ theme }) =>
+                theme.colors.button.background} !important;
+              border-radius: 100%;
+              padding: 0;
+              max-width: 50px;
+              height: 50px;
+              svg {
+                font-size: 2.1em;
+                margin-top: 18%;
+                width: 100%;
+                color: ${({ theme }) => theme.colors.button.text};
+              }
+            }
+            .key-text {
+              span {
+                width: 100%;
+              }
+            }
+            .muted {
+              color: rgba(140,140,140,0.8) !important;
+            }
+            a:hover {
+              background-color: ${({ theme }) =>
+                theme.colors.button.hover} !important;
+            }
+            .dropdown-item {
+              display: inherit;
+            }
+          }
+          .selector-error {
+            color: red;
+          }
+        }
+      }
+    }
+      .buttons {
+        padding: 0px;
+        button {
+          width: 100%;
+        }
+        }
+    }
   }
-});
+}
+`;
 
 class FirmwareUpdate extends React.Component {
   constructor(props) {
@@ -153,6 +234,7 @@ class FirmwareUpdate extends React.Component {
       device: props.device || focus.device,
       confirmationOpen: false,
       countdown: null,
+      firmwareDropdown: false,
       buttonText: {
         "": "Uploading ...",
         3: "Start countdown",
@@ -182,9 +264,9 @@ class FirmwareUpdate extends React.Component {
   }
 
   selectFirmware = event => {
-    this.setState({ selected: event.target.value });
-    if (event.target.value != "custom") {
-      return this.setState({ firmwareFilename: "" });
+    if (this.state.firmwareFilename != "") {
+      this.setState({ firmwareFilename: "" });
+      return;
     }
 
     let files = Electron.remote.dialog.showOpenDialog({
@@ -201,7 +283,8 @@ class FirmwareUpdate extends React.Component {
       ]
     });
     files.then(result => {
-      this.setState({ firmwareFilename: result.filePaths[0] });
+      let aux = result.filePaths[0] != undefined ? result.filePaths[0] : "";
+      this.setState({ firmwareFilename: aux });
     });
   };
 
@@ -286,19 +369,15 @@ class FirmwareUpdate extends React.Component {
         }
       };
       const action = ({ closeToast }) => (
-        <Grid container spacing={1}>
-          <Grid container item xs={12}>
-            <Typography component="p" gutterBottom style={styles.toastText}>
-              {i18n.firmwareUpdate.flashing.error}
-            </Typography>
-          </Grid>
-          <Grid container item xs={12}>
-            <Typography component="p" gutterBottom style={styles.toastSubText}>
-              {e.message}
-            </Typography>
-          </Grid>
-          <Grid container item xs={12}>
-            <Grid item xs={6}>
+        <Container container spacing={1}>
+          <Row container item xs={12}>
+            <p style={styles.toastText}>{i18n.firmwareUpdate.flashing.error}</p>
+          </Row>
+          <Row container item xs={12}>
+            <p style={styles.toastSubText}>{e.message}</p>
+          </Row>
+          <Row container item xs={12}>
+            <Col item xs={6}>
               <Button
                 variant="contained"
                 style={styles.toastButton1}
@@ -311,14 +390,14 @@ class FirmwareUpdate extends React.Component {
               >
                 Troubleshooting
               </Button>
-            </Grid>
-            <Grid item xs={6}>
+            </Col>
+            <Col item xs={6}>
               <Button onClick={closeToast} style={styles.toastButton2}>
                 Dismiss
               </Button>
-            </Grid>
-          </Grid>
-        </Grid>
+            </Col>
+          </Row>
+        </Container>
       );
       toast.error(action);
       this.props.toggleFlashing();
@@ -371,19 +450,15 @@ class FirmwareUpdate extends React.Component {
         }
       };
       const action = ({ closeToast }) => (
-        <Grid container spacing={1}>
-          <Grid container item xs={12}>
-            <Typography component="p" gutterBottom style={styles.toastText}>
-              {i18n.firmwareUpdate.flashing.error}
-            </Typography>
-          </Grid>
-          <Grid container item xs={12}>
-            <Typography component="p" gutterBottom style={styles.toastSubText}>
-              {e.message}
-            </Typography>
-          </Grid>
-          <Grid container item xs={12}>
-            <Grid item xs={6}>
+        <Row container spacing={1}>
+          <Row container item xs={12}>
+            <p style={styles.toastText}>{i18n.firmwareUpdate.flashing.error}</p>
+          </Row>
+          <Row container item xs={12}>
+            <p style={styles.toastSubText}>{e.message}</p>
+          </Row>
+          <Row container item xs={12}>
+            <Col item xs={6}>
               <Button
                 variant="contained"
                 style={styles.toastButton1}
@@ -396,14 +471,14 @@ class FirmwareUpdate extends React.Component {
               >
                 Troubleshooting
               </Button>
-            </Grid>
-            <Grid item xs={6}>
+            </Col>
+            <Col item xs={6}>
               <Button onClick={closeToast} style={styles.toastButton2}>
                 Dismiss
               </Button>
-            </Grid>
-          </Grid>
-        </Grid>
+            </Col>
+          </Row>
+        </Row>
       );
       toast.error(action);
       this.setState({ confirmationOpen: false });
@@ -417,13 +492,13 @@ class FirmwareUpdate extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
     const {
       firmwareFilename,
       buttonText,
       countdown,
       isBeginUpdate,
-      versions
+      versions,
+      firmwareDropdown
     } = this.state;
 
     let filename = null;
@@ -437,15 +512,16 @@ class FirmwareUpdate extends React.Component {
       version
     );
     const defaultFirmwareItem = (
-      <MenuItem value="default" selected={this.state.selected == "default"}>
-        <ListItemIcon>
-          <SettingsBackupRestoreIcon />
-        </ListItemIcon>
-        <ListItemText
+      <Dropdown.Item
+        value="default"
+        selected={this.state.selected == "default"}
+      >
+        <MdSettingsBackupRestore />
+        <Dropdown.ItemText
           primary={defaultFirmwareItemText}
           secondary={i18n.firmwareUpdate.defaultFirmwareDescription}
         />
-      </MenuItem>
+      </Dropdown.Item>
     );
     let hasDefaultFirmware = true;
     try {
@@ -459,18 +535,16 @@ class FirmwareUpdate extends React.Component {
       version
     );
     const experimentalFirmwareItem = (
-      <MenuItem
+      <Dropdown.Item
         value="experimental"
         selected={this.state.selected == "experimental"}
       >
-        <ListItemIcon>
-          <ExploreIcon />
-        </ListItemIcon>
-        <ListItemText
+        <MdExplore />
+        <Dropdown.ItemText
           primary={experimentalFirmwareItemText}
           secondary={i18n.firmwareUpdate.experimentalFirmwareDescription}
         />
-      </MenuItem>
+      </Dropdown.Item>
     );
     let hasExperimentalFirmware = true;
 
@@ -481,56 +555,45 @@ class FirmwareUpdate extends React.Component {
     }
 
     const firmwareSelect = (
-      <FormControl className={classes.firmwareSelect}>
-        <InputLabel shrink htmlFor="selected-firmware">
-          {i18n.firmwareUpdate.selected}
-        </InputLabel>
-        <Select
-          classes={{ select: classes.dropdown }}
-          value={this.state.selected}
-          input={<Input id="selected-firmware" />}
-          onChange={this.selectFirmware}
-        >
+      <Dropdown
+        className="selector"
+        show={firmwareDropdown}
+        onClick={() =>
+          this.setState(state => {
+            return { firmwareDropdown: !state.firmwareDropdown };
+          })
+        }
+      >
+        <Dropdown.Toggle className="toggler">Select</Dropdown.Toggle>
+        <Dropdown.Menu className="menu">
           {hasDefaultFirmware && defaultFirmwareItem}
           {hasExperimentalFirmware && experimentalFirmwareItem}
-          <MenuItem selected={this.state.selected == "custom"} value="custom">
-            <ListItemIcon className={classes.custom}>
-              <BuildIcon />
-            </ListItemIcon>
-            <ListItemText
+          <Dropdown.Item
+            selected={this.state.selected == "custom"}
+            value="custom"
+          >
+            <MdBuild />
+            <Dropdown.ItemText
               primary={i18n.firmwareUpdate.custom}
               secondary={filename}
             />
-          </MenuItem>
-        </Select>
-      </FormControl>
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
     );
 
     let dialogChildren;
     if (versions) {
       dialogChildren = (
         <React.Fragment>
-          <div className={classes.paper}>
-            <Typography
-              variant="h5"
-              gutterBottom
-              style={{ fontWeight: "500", paddingBottom: "1rem" }}
-            >
-              {i18n.firmwareUpdate.raise.reset}
-            </Typography>
-            <Typography component="p" gutterBottom className={classes.cardSub}>
+          <div className={"classes.paper"}>
+            <p className={"classes.cardSub"}>
               {
                 "During the update, the Neuron will pulse a blue pattern followed by a flash of multiple colors for a few seconds. When the update finishes, your keyboard lights will go back to your personalized color mode."
               }
-            </Typography>
-            <Typography variant="h6" gutterBottom>
-              {"Follow these steps to update your firmware:"}
-            </Typography>
-            <Typography
-              component="span"
-              gutterBottom
-              className={classes.cardSub}
-            >
+            </p>
+            <h6>{"Follow these steps to update your firmware:"}</h6>
+            <span className={"classes.cardSub"}>
               <ol style={{ lineHeight: "2rem" }}>
                 <li>
                   {
@@ -542,14 +605,14 @@ class FirmwareUpdate extends React.Component {
                   {
                     "When the countdown reaches zero and the keyboard's lights turn off, press repeatedly or hold the key on the "
                   }
-                  <Link
+                  <a
                     href="https://support.dygma.com/hc/en-us/articles/360017056397"
                     color={
                       this.props.darkMode === true ? "primary" : "secondary"
                     }
                   >
                     {"top left corner of your Raise"}
-                  </Link>
+                  </a>
                   {" (usually the Esc key). Do this for 5-7 seconds."}
                 </li>
                 <li>
@@ -558,42 +621,29 @@ class FirmwareUpdate extends React.Component {
                   }
                 </li>
               </ol>
-            </Typography>
-            <div className={classes.cardSnack}>
-              <SnackbarContent
-                className={classes.snackNot}
-                message={
-                  <Typography component="div" gutterBottom>
-                    <div style={{ display: "flex" }}>
-                      <Typography component="div">
-                        <InfoRounded
-                          style={{
-                            verticalAlign: "middle",
-                            marginRight: "1rem",
-                            color: "white"
-                          }}
-                        />
-                      </Typography>
-                      <Typography component="div" className={classes.notText}>
-                        {
-                          "Not following the steps can cause the firmware update process to fail. This won't damage your Raise, but will require you to repeat the process. More information "
-                        }
-                        <Link
-                          href="https://support.dygma.com/hc/en-us/articles/360007272638"
-                          color={
-                            this.props.darkMode === true
-                              ? "primary"
-                              : "secondary"
-                          }
-                        >
-                          {"here"}
-                        </Link>
-                        {"."}
-                      </Typography>
-                    </div>
-                  </Typography>
-                }
-              />
+            </span>
+            <div className={"classes.cardSnack"}>
+              <div>
+                <div style={{ display: "flex" }}>
+                  <div>
+                    <MdInfo />
+                  </div>
+                  <div>
+                    {
+                      "Not following the steps can cause the firmware update process to fail. This won't damage your Raise, but will require you to repeat the process. More information "
+                    }
+                    <a
+                      href="https://support.dygma.com/hc/en-us/articles/360007272638"
+                      color={
+                        this.props.darkMode === true ? "primary" : "secondary"
+                      }
+                    >
+                      {"here"}
+                    </a>
+                    {"."}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </React.Fragment>
@@ -601,66 +651,49 @@ class FirmwareUpdate extends React.Component {
     } else {
       dialogChildren = (
         <React.Fragment>
-          <div className={classes.paper}>
-            <Typography
-              variant="h5"
-              gutterBottom
-              style={{ fontWeight: "500", paddingBottom: "1rem" }}
-            >
+          <div className={"classes.paper"}>
+            <h5 style={{ fontWeight: "500", paddingBottom: "1rem" }}>
               {"Firmware Update Process via Bootloader Mode"}
-            </Typography>
-            <Typography component="p" gutterBottom className={classes.cardSub}>
+            </h5>
+            <p className={"classes.cardSub"}>
               {
                 "Click Start Countdown to start the update. The Neuron will flash in multiple colors for a few seconds."
               }
-            </Typography>
-            <Typography component="p" gutterBottom className={classes.cardSub}>
+            </p>
+            <p className={"classes.cardSub"}>
               {
                 "After the update, you will see the message: 'Firmware flashed successfully!'"
               }
-            </Typography>
-            <Typography component="p" gutterBottom className={classes.cardSub}>
+            </p>
+            <p className={"classes.cardSub"}>
               {
                 "Your keyboard lights will remain off and the layout will be reverted to its original settings."
               }
-            </Typography>
+            </p>
             <br />
             <br />
-            <div className={classes.cardSnack}>
-              <SnackbarContent
-                className={classes.snackNot}
-                message={
-                  <Typography component="div" gutterBottom>
-                    <div style={{ display: "flex" }}>
-                      <Typography component="div">
-                        <InfoRounded
-                          style={{
-                            verticalAlign: "middle",
-                            marginRight: "1rem",
-                            color: "white"
-                          }}
-                        />
-                      </Typography>
-                      <Typography component="div" className={classes.notText}>
-                        {
-                          "In case the Firmware Update fails, this won't damage your Raise. Repeat the process or do it in "
-                        }
-                        <Link
-                          href="https://support.dygma.com/hc/en-us/articles/360014074997"
-                          color={
-                            this.props.darkMode === true
-                              ? "primary"
-                              : "secondary"
-                          }
-                        >
-                          {"another way"}
-                        </Link>
-                        {"."}
-                      </Typography>
-                    </div>
-                  </Typography>
-                }
-              />
+            <div className={"classes.cardSnack"}>
+              <div>
+                <div style={{ display: "flex" }}>
+                  <div>
+                    <MdInfo />
+                  </div>
+                  <div>
+                    {
+                      "In case the Firmware Update fails, this won't damage your Raise. Repeat the process or do it in "
+                    }
+                    <a
+                      href="https://support.dygma.com/hc/en-us/articles/360014074997"
+                      color={
+                        this.props.darkMode === true ? "primary" : "secondary"
+                      }
+                    >
+                      {"another way"}
+                    </a>
+                    {"."}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </React.Fragment>
@@ -671,111 +704,122 @@ class FirmwareUpdate extends React.Component {
     if (versions) {
       currentlyRunning = (
         <React.Fragment>
-          <CardContent className={classes.cardSnack}>
-            <SnackbarContent
-              className={classes.snackVer}
-              message={
-                <Typography component="div">
-                  <div style={{ display: "flex" }}>
-                    <Typography component="div">
-                      <InfoRounded
-                        style={{
-                          verticalAlign: "middle",
-                          marginRight: "1rem",
-                          color: "white"
-                        }}
-                      />
-                    </Typography>
-                    <Typography component="div" className={classes.versionText}>
-                      {"Your Raise is currently running version "}
-                      <strong className={classes.versionStrong}>
-                        {versions.bazecor}
-                      </strong>
-                      {" of the firmware."}
-                    </Typography>
-                  </div>
-                </Typography>
+          <Card
+            bg={versions.bazecor != "v1.0.0" ? "warning" : "success"}
+            className="version"
+          >
+            <Card.Body
+              className={
+                (versions.bazecor != "v1.0.0" ? "" : "white") + " body"
               }
-            />
-          </CardContent>
-          <Divider
-            variant="middle"
-            style={{
-              marginTop: "1rem",
-              marginBottom: "1rem"
-            }}
-          />
+            >
+              <Card.Title className="title">
+                {"Your Raise's firmware version is"}
+              </Card.Title>
+              <Card.Text className="text">{versions.bazecor}</Card.Text>
+            </Card.Body>
+          </Card>
         </React.Fragment>
       );
     }
 
     return (
-      <div className={classes.root}>
-        <Portal container={this.props.titleElement}>
-          {i18n.app.menu.firmwareUpdate}
-        </Portal>
-        <Card className={classes.card}>
-          <CardHeader
-            classes={{
-              title: classes.cardTitle
-            }}
-            title={
-              versions
-                ? "Raise Firmware Update"
-                : "Firmware Update Process via Bootloader Mode"
-            }
-          />
-          <CardContent>
-            <Typography component="p" gutterBottom className={classes.cardSub}>
-              {
-                "Updating your Raise firmware is how we implement new cool features and bug fixes. "
-              }
-            </Typography>
-            <Typography component="p" gutterBottom className={classes.cardIta}>
-              <i>
-                <strong>{"For advanced users: "}</strong>
-                {"If you have installed your own "}
-                <Link
-                  href="https://support.dygma.com/hc/en-us/articles/360017062197"
-                  color={this.props.darkMode === true ? "primary" : "secondary"}
-                >
-                  {"custom firmware"}
-                </Link>
-                {", this update will overwrite it."}
-              </i>
-            </Typography>
-          </CardContent>
-          {currentlyRunning}
-          <CardActions>
-            {firmwareSelect}
-            <div className={classes.grow} />
-            <SaveChangesButton
-              icon={<CloudUploadIcon />}
-              onClick={
-                this.state.device.device.info.product === "Raise"
-                  ? this.uploadRaise
-                  : this.upload
-              }
-              successMessage={i18n.firmwareUpdate.flashing.buttonSuccess}
-              isBeginUpdate={isBeginUpdate}
+      <Styles>
+        <Container fluid className="firmware-update">
+          <Row className="title-row">
+            <h4 className="section-title">Firmware Update</h4>
+          </Row>
+          <Row className="firmware-row">
+            <Col className="firmware-col">
+              <Card className="firmware-card">
+                <Card.Header className="header">
+                  {versions
+                    ? "Raise Firmware Update"
+                    : "Firmware Update Process via Bootloader Mode"}
+                </Card.Header>
+                <Card.Body className="body d-flex flex-column">
+                  <Card.Title className="title">
+                    Updating your Raise firmware is how we implement new cool
+                    features and bug fixes.
+                  </Card.Title>
+                  <p className={"subtitle"}>
+                    <i>
+                      <strong>{"For advanced users: "}</strong>
+                      {"If you have installed your own "}
+                      <a
+                        href="https://support.dygma.com/hc/en-us/articles/360017062197"
+                        color={
+                          this.props.darkMode === true ? "primary" : "secondary"
+                        }
+                      >
+                        {"custom firmware"}
+                      </a>
+                      {", this update will overwrite it."}
+                    </i>
+                  </p>
+                  {currentlyRunning}
+                  {firmwareFilename}
+                  <Row className="mt-auto">
+                    <Col xs={6} className="flashingcol">
+                      <Button
+                        className="custombutton"
+                        size="lg"
+                        onClick={this.selectFirmware}
+                      >
+                        {firmwareFilename == ""
+                          ? "Load custom FW"
+                          : "Remove Custom FW"}
+                      </Button>
+                    </Col>
+                    <Col xs={6} className="flashingcol">
+                      <Button
+                        className="flashingbutton"
+                        size="lg"
+                        onClick={
+                          this.state.device.device.info.product === "Raise"
+                            ? this.uploadRaise
+                            : this.upload
+                        }
+                      >
+                        {i18n.firmwareUpdate.flashing.button}
+                      </Button>
+                    </Col>
+                  </Row>
+                </Card.Body>
+              </Card>
+            </Col>
+            <Modal
+              show={this.state.confirmationOpen}
+              onHide={this.cancelDialog}
+              backdrop="static"
+              keyboard={false}
+              size="xl"
+              centered
             >
-              {i18n.firmwareUpdate.flashing.button}
-            </SaveChangesButton>
-          </CardActions>
-        </Card>
-        <CustomDialog
-          open={this.state.confirmationOpen}
-          buttonText={countdown > -1 ? buttonText[countdown] : buttonText[""]}
-          handleClose={this.cancelDialog}
-          upload={this.upload}
-          countdown={countdown}
-          disabled={countdown !== 3}
-        >
-          {dialogChildren}
-        </CustomDialog>
-      </div>
+              <ModalStyle>
+                <Modal.Header closeButton>
+                  <Modal.Title>{i18n.firmwareUpdate.raise.reset}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>{dialogChildren}</Modal.Body>
+                <Modal.Footer>
+                  <Button
+                    onClick={this.state.countdown !== 0 ? this.upload : null}
+                    variant="contained"
+                    color={this.state.countdown ? "primary" : "secondary"}
+                    disabled={
+                      this.state.countdown !== 0 ? this.props.disabled : null
+                    }
+                  >
+                    {countdown > -1 ? buttonText[countdown] : buttonText[""]}
+                  </Button>
+                </Modal.Footer>
+              </ModalStyle>
+            </Modal>
+          </Row>
+        </Container>
+      </Styles>
     );
   }
 }
 
-export default withStyles(styles)(FirmwareUpdate);
+export default FirmwareUpdate;

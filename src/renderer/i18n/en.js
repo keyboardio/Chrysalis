@@ -203,13 +203,21 @@ const English = {
         oneHour: "1 hour"
       }
     },
-    qukeys: {
-      title: "DUAL FUNCTION KEY PARAMETERS",
-      holdTimeout: "Adjust time to start 'when held' action",
-      holdTimeoutsub: " - From 0 to 65,534 milliseconds",
-      overlapThreshold:
-        "Adjust overlap threshold between dual-function key and subsequent key",
-      overlapThresholdsub: " - Percentage from 0 to 100"
+    superkeys: {
+      title: "SUPER KEYS PARAMETERS",
+      timeout:
+        "Adjust time to wait for next press, after which the key will emit the corresponding action",
+      timeoutsub:
+        " - From 0 to 65,534 milliseconds (limited to 1000 trough Bazecor)",
+      repeat:
+        "Adjust repeat time interval between the emmision of holded keys after waitfor period. (this doesn't affect all keys)",
+      repeatsub: " - time from 0 to 254 milliseconds",
+      waitfor:
+        "Adjust time between first and subsequent emmisions of the hold keys",
+      waitforsub: " - time from 0 to 65,534 milliseconds",
+      holdstart:
+        "Adjust time to trigger a hold when the superkey is held for that period, after it, it will automatically trigger hold action",
+      holdstartsub: " - time from 0 to 65,534 milliseconds"
     },
     mouse: {
       title: "MOUSE KEYS CONFIGURATION",

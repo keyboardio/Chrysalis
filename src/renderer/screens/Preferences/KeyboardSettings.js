@@ -17,15 +17,10 @@
  */
 
 import React from "react";
-import PropTypes from "prop-types";
 import Styled from "styled-components";
 
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import Accordion from "react-bootstrap/Accordion";
 import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
 
@@ -65,8 +60,10 @@ class KeyboardSettings extends React.Component {
     ledBrightness: 255,
     ledIdleTimeLimit: 0,
     defaultLayer: 126,
-    qukeysHoldTimeout: 0,
-    qukeysOverlapThreshold: 0,
+    SuperTimeout: 0,
+    SuperRepeat: 0,
+    SuperWaitfor: 0,
+    SuperHoldstart: 0,
     mouseSpeed: 0,
     mouseSpeedDelay: 0,
     mouseAccelSpeed: 0,
@@ -105,15 +102,25 @@ class KeyboardSettings extends React.Component {
       showDefaults: settings.getSync("keymap.showDefaults")
     });
 
-    // QUKEYS variables commands
-    focus.command("qukeys.holdTimeout").then(holdTimeout => {
-      holdTimeout = holdTimeout ? parseInt(holdTimeout) : 250;
-      this.setState({ qukeysHoldTimeout: holdTimeout });
+    // SuperKeys variables commands
+    focus.command("superkeys.timeout").then(timeout => {
+      timeout = timeout ? parseInt(timeout) : 250;
+      this.setState({ SuperTimeout: timeout });
     });
 
-    focus.command("qukeys.overlapThreshold").then(overlapThreshold => {
-      overlapThreshold = overlapThreshold ? parseInt(overlapThreshold) : 80;
-      this.setState({ qukeysOverlapThreshold: overlapThreshold });
+    focus.command("superkeys.repeat").then(repeat => {
+      repeat = repeat ? parseInt(repeat) : 20;
+      this.setState({ SuperRepeat: repeat });
+    });
+
+    focus.command("superkeys.waitfor").then(waitfor => {
+      waitfor = waitfor ? parseInt(waitfor) : 500;
+      this.setState({ SuperWaitfor: waitfor });
+    });
+
+    focus.command("superkeys.holdstart").then(holdstart => {
+      holdstart = holdstart ? parseInt(holdstart) : 200;
+      this.setState({ SuperHoldstart: holdstart });
     });
 
     // MOUSE variables commands
@@ -207,20 +214,37 @@ class KeyboardSettings extends React.Component {
     this.props.startContext();
   };
 
-  setHoldTimeout = event => {
+  setSuperTimeout = event => {
     const value = event.target.value;
     this.setState({
-      qukeysHoldTimeout: value,
+      SuperTimeout: value,
       modified: true
     });
     this.props.startContext();
   };
 
-  setOverlapThreshold = event => {
+  setSuperRepeat = event => {
     const value = event.target.value;
-
     this.setState({
-      qukeysOverlapThreshold: value,
+      SuperRepeat: value,
+      modified: true
+    });
+    this.props.startContext();
+  };
+
+  setSuperWaitfor = event => {
+    const value = event.target.value;
+    this.setState({
+      SuperWaitfor: value,
+      modified: true
+    });
+    this.props.startContext();
+  };
+
+  setSuperHoldstart = event => {
+    const value = event.target.value;
+    this.setState({
+      SuperHoldstart: value,
       modified: true
     });
     this.props.startContext();
@@ -305,8 +329,10 @@ class KeyboardSettings extends React.Component {
       showDefaults,
       ledBrightness,
       ledIdleTimeLimit,
-      qukeysHoldTimeout,
-      qukeysOverlapThreshold,
+      SuperTimeout,
+      SuperRepeat,
+      SuperWaitfor,
+      SuperHoldstart,
       mouseSpeed,
       mouseSpeedDelay,
       mouseAccelSpeed,
@@ -322,9 +348,11 @@ class KeyboardSettings extends React.Component {
     if (ledIdleTimeLimit >= 0)
       await focus.command("idleleds.time_limit", ledIdleTimeLimit);
     settings.setSync("keymap.showDefaults", showDefaults);
-    // QUKEYS
-    await focus.command("qukeys.holdTimeout", qukeysHoldTimeout);
-    await focus.command("qukeys.overlapThreshold", qukeysOverlapThreshold);
+    // SUPER KEYS
+    await focus.command("superkeys.timeout", SuperTimeout);
+    await focus.command("superkeys.repeat", SuperRepeat);
+    await focus.command("superkeys.waitfor", SuperWaitfor);
+    await focus.command("superkeys.holdstart", SuperHoldstart);
     // MOUSE KEYS
     await focus.command("mouse.speed", mouseSpeed);
     await focus.command("mouse.speedDelay", mouseSpeedDelay);
@@ -346,8 +374,10 @@ class KeyboardSettings extends React.Component {
       showDefaults,
       ledBrightness,
       ledIdleTimeLimit,
-      qukeysHoldTimeout,
-      qukeysOverlapThreshold,
+      SuperTimeout,
+      SuperRepeat,
+      SuperWaitfor,
+      SuperHoldstart,
       mouseSpeed,
       mouseSpeedDelay,
       mouseAccelSpeed,
@@ -452,24 +482,44 @@ class KeyboardSettings extends React.Component {
         marks={[{ value: 255, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
-    const holdT = (
+    const superT = (
       <RangeSlider
         min={0}
         max={1000}
-        value={qukeysHoldTimeout}
+        value={SuperTimeout}
         className="slider"
-        onChange={this.setHoldTimeout}
+        onChange={this.setSuperTimeout}
         marks={[{ value: 250, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
-    const overlapT = (
+    const superR = (
       <RangeSlider
         min={0}
-        max={100}
-        value={qukeysOverlapThreshold}
+        max={254}
+        value={SuperRepeat}
         className="slider"
-        onChange={this.setOverlapThreshold}
-        marks={[{ value: 80, label: i18n.keyboardSettings.defaultLabel }]}
+        onChange={this.setSuperRepeat}
+        marks={[{ value: 20, label: i18n.keyboardSettings.defaultLabel }]}
+      />
+    );
+    const superW = (
+      <RangeSlider
+        min={0}
+        max={1000}
+        value={SuperWaitfor}
+        className="slider"
+        onChange={this.setSuperWaitfor}
+        marks={[{ value: 500, label: i18n.keyboardSettings.defaultLabel }]}
+      />
+    );
+    const superH = (
+      <RangeSlider
+        min={0}
+        max={1000}
+        value={SuperHoldstart}
+        className="slider"
+        onChange={this.setSuperHoldstart}
+        marks={[{ value: 200, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
     const mSpeed = (
@@ -594,32 +644,51 @@ class KeyboardSettings extends React.Component {
               )}
             </Card.Body>
           </Card>
-          <Card.Header>{i18n.keyboardSettings.qukeys.title}</Card.Header>
+          <Card.Header>{i18n.keyboardSettings.superkeys.title}</Card.Header>
           <Card className="overflowFix">
             <Card.Body>
-              {qukeysHoldTimeout >= 0 && (
-                <Form.Group controlId="holdTimeout" className="formGroup">
+              {SuperTimeout >= 0 && (
+                <Form.Group controlId="superTimeout" className="formGroup">
                   <Form.Label>
-                    {i18n.keyboardSettings.qukeys.holdTimeout}
+                    {i18n.keyboardSettings.superkeys.timeout}
                     <i className="greytext">
-                      {i18n.keyboardSettings.qukeys.holdTimeoutsub}
+                      {i18n.keyboardSettings.superkeys.timeoutsub}
                     </i>
                   </Form.Label>
-                  {holdT}
+                  {superT}
                 </Form.Group>
               )}
-              {qukeysOverlapThreshold >= 0 && (
-                <Form.Group controlId="overlapThreshold" className="formGroup">
+              {SuperRepeat >= 0 && (
+                <Form.Group controlId="superRepeat" className="formGroup">
                   <Form.Label>
-                    {i18n.keyboardSettings.qukeys.overlapThreshold}
-                    <a href="https://kaleidoscope.readthedocs.io/en/latest/plugins/Kaleidoscope-Qukeys.html#setoverlapthreshold-percentage">
-                      {" - More info"}
-                    </a>
+                    {i18n.keyboardSettings.superkeys.repeat}
                     <i className="greytext">
-                      {i18n.keyboardSettings.qukeys.overlapThresholdsub}
+                      {i18n.keyboardSettings.superkeys.repeatsub}
                     </i>
                   </Form.Label>
-                  {overlapT}
+                  {superR}
+                </Form.Group>
+              )}
+              {SuperWaitfor >= 0 && (
+                <Form.Group controlId="superWaitfor" className="formGroup">
+                  <Form.Label>
+                    {i18n.keyboardSettings.superkeys.waitfor}
+                    <i className="greytext">
+                      {i18n.keyboardSettings.superkeys.waitforsub}
+                    </i>
+                  </Form.Label>
+                  {superW}
+                </Form.Group>
+              )}
+              {SuperHoldstart >= 0 && (
+                <Form.Group controlId="superHoldstart" className="formGroup">
+                  <Form.Label>
+                    {i18n.keyboardSettings.superkeys.holdstart}
+                    <i className="greytext">
+                      {i18n.keyboardSettings.superkeys.holdstartsub}
+                    </i>
+                  </Form.Label>
+                  {superH}
                 </Form.Group>
               )}
             </Card.Body>

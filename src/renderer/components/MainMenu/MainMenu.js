@@ -24,6 +24,8 @@ import PropTypes from "prop-types";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavbarBrand from "react-bootstrap/NavbarBrand";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 import Styled from "styled-components";
 
 import i18n from "../../i18n";
@@ -100,6 +102,10 @@ const Styles = Styled.div`
 `;
 
 class MainMenu extends Component {
+  renderTooltip(text) {
+    return <Tooltip id="button-tooltip">{text}</Tooltip>;
+  }
+
   render() {
     const { connected, pages, history } = this.props;
     const currentPage = history.location.pathname;
@@ -130,56 +136,92 @@ class MainMenu extends Component {
               {connected && (
                 <>
                   {pages.keymap && (
-                    <Link to="/editor" className="list-link">
-                      <EditorMenuItem
-                        selected={currentPage === "/editor"}
+                    <OverlayTrigger
+                      placement="right"
+                      delay={{ show: 250, hide: 400 }}
+                      overlay={this.renderTooltip("Keyboard Editor")}
+                    >
+                      <Link to="/editor" className="list-link">
+                        <EditorMenuItem
+                          selected={currentPage === "/editor"}
+                          drawerWidth={drawerWidth}
+                          onClick={() => setCurrentPage("/editor")}
+                        />
+                      </Link>
+                    </OverlayTrigger>
+                  )}
+                  <OverlayTrigger
+                    placement="right"
+                    delay={{ show: 250, hide: 400 }}
+                    overlay={this.renderTooltip("Keyboard Flasher")}
+                  >
+                    <Link to="/firmware-update" className="list-link">
+                      <FlashMenuItem
+                        selected={currentPage === "/firmware-update"}
                         drawerWidth={drawerWidth}
-                        onClick={() => setCurrentPage("/editor")}
+                        onClick={() => setCurrentPage("/firmware-update")}
                       />
                     </Link>
-                  )}
-                  <Link to="/firmware-update" className="list-link">
-                    <FlashMenuItem
-                      selected={currentPage === "/firmware-update"}
-                      drawerWidth={drawerWidth}
-                      onClick={() => setCurrentPage("/firmware-update")}
-                    />
-                  </Link>
+                  </OverlayTrigger>
                 </>
-              )}
-              <Link to="/keyboard-select" className="list-link">
-                <KeyboardMenuItem
-                  keyboardSelectText={
-                    connected
-                      ? i18n.app.menu.selectAnotherKeyboard
-                      : i18n.app.menu.selectAKeyboard
-                  }
-                  drawerWidth={drawerWidth}
-                  selected={currentPage === "/keyboard-select"}
-                  onClick={() => setCurrentPage("/keyboard-select")}
-                />
-              </Link>
-              <Link to="/preferences" className="list-link">
-                <PreferencesMenuItem
-                  drawerWidth={drawerWidth}
-                  selected={currentPage === "/preferences"}
-                  onClick={() => setCurrentPage("/preferences")}
-                />
-              </Link>
-              <div className="list-link">
-                <SoftwareUpdateMenuItem
-                  keyboardSelectText={i18n.app.menu.softwareUpdate}
-                  drawerWidth={drawerWidth}
-                  selected={currentPage === "/software-update"}
-                  onClick={event => event.stopPropagation()}
-                />
-              </div>
-              <div className="list-link">
-                <ExitMenuItem
-                  drawerWidth={drawerWidth}
-                  onClick={() => remote.app.exit(0)}
-                />
-              </div>
+              )}{" "}
+              <OverlayTrigger
+                placement="right"
+                delay={{ show: 250, hide: 400 }}
+                overlay={this.renderTooltip("Keyboard Selector")}
+              >
+                <Link to="/keyboard-select" className="list-link">
+                  <KeyboardMenuItem
+                    keyboardSelectText={
+                      connected
+                        ? i18n.app.menu.selectAnotherKeyboard
+                        : i18n.app.menu.selectAKeyboard
+                    }
+                    drawerWidth={drawerWidth}
+                    selected={currentPage === "/keyboard-select"}
+                    onClick={() => setCurrentPage("/keyboard-select")}
+                  />
+                </Link>
+              </OverlayTrigger>
+              <OverlayTrigger
+                placement="right"
+                delay={{ show: 250, hide: 400 }}
+                overlay={this.renderTooltip("Keyboard Preferences")}
+              >
+                <Link to="/preferences" className="list-link">
+                  <PreferencesMenuItem
+                    drawerWidth={drawerWidth}
+                    selected={currentPage === "/preferences"}
+                    onClick={() => setCurrentPage("/preferences")}
+                  />
+                </Link>
+              </OverlayTrigger>
+              <OverlayTrigger
+                placement="right"
+                delay={{ show: 250, hide: 400 }}
+                overlay={this.renderTooltip("Update Bazecor")}
+              >
+                <div className="list-link">
+                  <SoftwareUpdateMenuItem
+                    keyboardSelectText={i18n.app.menu.softwareUpdate}
+                    drawerWidth={drawerWidth}
+                    selected={currentPage === "/software-update"}
+                    onClick={event => event.stopPropagation()}
+                  />
+                </div>
+              </OverlayTrigger>
+              <OverlayTrigger
+                placement="right"
+                delay={{ show: 250, hide: 400 }}
+                overlay={this.renderTooltip("Exit Bazecor")}
+              >
+                <div className="list-link">
+                  <ExitMenuItem
+                    drawerWidth={drawerWidth}
+                    onClick={() => remote.app.exit(0)}
+                  />
+                </div>
+              </OverlayTrigger>
             </div>
           </Nav>
         </Navbar>

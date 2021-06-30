@@ -18,7 +18,7 @@
 
 import React, { Fragment } from "react";
 import i18n from "../../i18n";
-import { MdGetApp } from "react-icons/md";
+import { GoCloudDownload } from "react-icons/go";
 
 export default function SoftwareUpdateMenuItem({
   onClick,
@@ -29,7 +29,7 @@ export default function SoftwareUpdateMenuItem({
   return (
     <div onClick={onClick} className={"item-list"}>
       <div className="icon-item">
-        <MdGetApp className={"icon-image"} />
+        <GoCloudDownload className={"icon-image"} />
       </div>
       {drawerWidth === "auto" ? (
         <div className="icon-text">

@@ -18,7 +18,7 @@
 
 import React, { Fragment } from "react";
 
-import { MdKeyboard } from "react-icons/md";
+import { TiKeyboard } from "react-icons/ti";
 
 export default function KeyboardMenuItem({
   keyboardSelectText,
@@ -31,7 +31,7 @@ export default function KeyboardMenuItem({
   return (
     <div onClick={onClick} className={"item-list"}>
       <div className="icon-item">
-        <MdKeyboard className={"icon-image"} />
+        <TiKeyboard className={"icon-image"} />
       </div>
       {drawerWidth === "auto" ? (
         <div className="icon-text">

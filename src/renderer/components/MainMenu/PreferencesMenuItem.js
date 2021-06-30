@@ -17,7 +17,7 @@
 
 import React, { Fragment } from "react";
 import i18n from "../../i18n";
-import { MdSettings } from "react-icons/md";
+import { GoSettings } from "react-icons/go";
 
 export default function PreferencesMenuItem({
   selected,
@@ -29,7 +29,7 @@ export default function PreferencesMenuItem({
   return (
     <div onClick={onClick} className={"item-list"}>
       <div className="icon-item">
-        <MdSettings className={"icon-image"} />
+        <GoSettings className={"icon-image"} />
       </div>
       {drawerWidth === "auto" ? (
         <div className="icon-text">

@@ -15,22 +15,12 @@ import Key from "./Key";
 import ES from "./ES.json";
 
 const Style = Styled.div`
-  .svgContainer{
-    height:100%;
-    min-width: 60vw;
-    max-height: 20vh;
-  }
-
   .keyboard {
-    width: fit-content;
-    float: left;
-    padding:0;
-    background-color: ${({ theme }) => theme.card.background};
-    border-radius: 10px;
-    box-shadow: 0 0 0.5rem 0.3rem rgba(0,0,0,0.1);
+    margin: 0;
+    padding: 16px;
     .keys {
-      margin: 0px;
-      padding: 20px;
+      margin: 0;
+      padding: 0;
       justify-content:center;
     }
 `;
@@ -72,18 +62,10 @@ export default class KeyPicker extends Component {
       );
     });
     return (
-      <Style
-        style={{
-          marginLeft: "220px",
-          marginRight: "450px",
-          marginTop: "30px",
-          justifyContent: "center",
-          display: "flex"
-        }}
-      >
+      <Style>
         <Container fluid className="keyboard">
           <Row className="keys">
-            <svg className="svgContainer" viewBox="0 0 1184 197">
+            <svg className="" viewBox="0 0 1184 197">
               {keyboard}
             </svg>
           </Row>

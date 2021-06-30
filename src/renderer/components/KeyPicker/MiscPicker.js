@@ -16,25 +16,14 @@ import Key from "./Key";
 import Special from "./Special.json";
 import Media from "./Media.json";
 import LED from "./LED.json";
+import Plugins from "./Plugins.json";
 import MouseMov from "./MouseMov.json";
 import MouseClick from "./MouseClick.json";
 import MouseWheel from "./MouseWheel.json";
 
 const Style = Styled.div`
-  .svgContainer{
-    width: 100%;
-    height:100%;
-  }
-
   .keyboard {
-    position: absolute;
-    right: 25px;
-    width: 400px;
-    margin-top: 525px;
     padding:0;
-    background-color: ${({ theme }) => theme.card.background};
-    border-radius: 10px;
-    box-shadow: 0 0 0.5rem 0.3rem rgba(0,0,0,0.1);
     .title {
       margin: 0px;
       padding: 10px;
@@ -47,7 +36,7 @@ const Style = Styled.div`
     }
     .keys {
       margin: 0px;
-      padding: 10px;
+      padding: 0px;
       padding-top: 3px;
       h6{
         margin-top: 5px;
@@ -135,6 +124,27 @@ export default class MiscPicker extends Component {
         />
       );
     });
+    const plugins = Plugins.map(key => {
+      return (
+        <Key
+          key={`id-${key.content.first}`}
+          x={key.x}
+          y={key.y}
+          selected={
+            this.props.code === null
+              ? false
+              : this.props.code.base === key.id
+              ? true
+              : false
+          }
+          clicked={() => {
+            this.onKeyPress(key.id);
+          }}
+          centered={key.centered}
+          content={key.content}
+        />
+      );
+    });
     const mouseMov = MouseMov.map(key => {
       return (
         <Key
@@ -201,58 +211,33 @@ export default class MiscPicker extends Component {
     return (
       <Style>
         <Container fluid className="keyboard">
-          <Row className="title">
-            <Col sm={6}>
-              <h6>Special Keys</h6>
-            </Col>
-            <Col sm={6}>
-              <h6>LED Control</h6>
-            </Col>
-          </Row>
           <Row className="keys">
-            <Col sm={6}>
-              <svg className="svgContainer" viewBox="0 0 166 36">
+            <Col sm={4}>
+              <h5>Special</h5>
+              <svg className="" viewBox="0 0 166 36">
                 {special}
               </svg>
-            </Col>
-            <Col sm={6}>
-              <svg className="svgContainer" viewBox="0 0 160 36">
+              <svg className="" viewBox="0 -10 125 46">
                 {led}
               </svg>
             </Col>
-          </Row>
-          <Row className="title">
-            <Col sm={5}>
-              <h6>Media Control</h6>
-            </Col>
-            <Col sm={7}>
-              <h6>Mouse Mov.</h6>
-            </Col>
-          </Row>
-          <Row className="keys">
-            <Col sm={5}>
-              <svg className="svgContainer" viewBox="0 0 126 130">
+            <Col sm={4}>
+              <h5>Media</h5>
+              <svg className="" viewBox="0 0 126 130">
                 {media}
               </svg>
             </Col>
-            <Col sm={7}>
-              <Row>
-                <svg className="svgContainer" viewBox="-18 0 199 36">
-                  {mouseMov}
-                </svg>
-              </Row>
-              <h6>Mouse Click</h6>
-              <Row>
-                <svg className="svgContainer" viewBox="-18 0 199 80">
-                  {mouseClick}
-                </svg>
-              </Row>
-              <h6>Mouse Wheel</h6>
-              <Row>
-                <svg className="svgContainer" viewBox="-18 0 199 36">
-                  {mouseWheel}
-                </svg>
-              </Row>
+            <Col sm={4}>
+              <h5>Mouse</h5>
+              <svg className="" viewBox="-18 0 199 36">
+                {mouseMov}
+              </svg>
+              <svg className="" viewBox="-18 0 199 36">
+                {mouseWheel}
+              </svg>
+              <svg className="" viewBox="-18 0 199 80">
+                {mouseClick}
+              </svg>
             </Col>
           </Row>
         </Container>

@@ -31,12 +31,7 @@ import Focus from "../../../api/focus";
 import Keymap, { KeymapDB } from "../../../api/keymap";
 import LayerPanel from "./LayerPanel";
 import ColorPanel from "./ColorPanel";
-import {
-  KeyPicker,
-  LayerPicker,
-  MiscPicker,
-  SuperPowers
-} from "../../components/KeyPicker";
+import KeyConfig from "./KeyConfig";
 import SaveChangesButton from "../../components/SaveChangesButton";
 import ConfirmationDialog from "../../components/ConfirmationDialog";
 import i18n from "../../i18n";
@@ -67,7 +62,7 @@ const Styles = Styled.div`
       padding: unset;
       margin-top: 15px;
       svg {
-        max-height: 60vh;
+        max-height: 55vh;
         max-width: 70vw;
       }
     }
@@ -82,7 +77,13 @@ const Styles = Styled.div`
   .cancelButton{
     float: right;
   }
-}`;
+}
+.buttons-row {
+  position: absolute;
+  bottom: 10px;
+  width: 96vw;
+}
+`;
 
 class Editor extends Component {
   constructor(props) {
@@ -102,6 +103,7 @@ class Editor extends Component {
       palette: [],
       colorMap: [],
       macros: [],
+      superkeys: [],
       storedMacros: store.get("macros"),
       equalMacros: [],
       clearConfirmationOpen: false,
@@ -117,6 +119,9 @@ class Editor extends Component {
     this.toImport = this.toImport.bind(this);
     this.toExportAll = this.toExportAll.bind(this);
     this.getLayout = this.getLayout.bind(this);
+    this.newSuperID = this.newSuperID.bind(this);
+    this.setSuperKey = this.setSuperKey.bind(this);
+    this.delSuperKey = this.delSuperKey.bind(this);
   }
 
   keymapDB = new KeymapDB();
@@ -188,6 +193,13 @@ class Editor extends Component {
         raw = "";
       }
       const parsedMacros = this.macroTranslator(raw);
+      let raw2 = await focus.command("superkeys.map");
+      if (raw2.search(" 0 0 ") !== -1) {
+        raw2 = raw2.split(" 0 0 ")[0].split(" ").map(Number);
+      } else {
+        raw2 = "";
+      }
+      const parsedSuper = this.superTranslator(raw2);
       this.setState(
         () => {
           if (!undeglowColors) {
@@ -207,7 +219,8 @@ class Editor extends Component {
             showDefaults: !keymap.onlyCustom,
             palette,
             colorMap: colormap.colorMap,
-            macros: parsedMacros
+            macros: parsedMacros,
+            superkeys: parsedSuper
           });
         }
       );
@@ -445,6 +458,7 @@ class Editor extends Component {
     await focus.command("keymap", this.state.keymap);
     await focus.command("colormap", this.state.palette, this.state.colorMap);
     let newMacros = this.state.macros;
+    let newSuperKeys = this.state.superkeys;
     this.setState({
       modified: false,
       saving: false,
@@ -452,10 +466,12 @@ class Editor extends Component {
       selectedPaletteColor: null,
       isColorButtonSelected: false,
       macros: newMacros,
-      storedMacros: newMacros
+      storedMacros: newMacros,
+      superkeys: newSuperKeys
     });
     store.set("macros", newMacros);
     await focus.command("macros.map", this.macrosMap(newMacros));
+    await focus.command("superkeys.map", this.superkeyMap(newSuperKeys));
     console.log("Changes saved.");
     // TODO: Save changes in the cloud
     const backup = {
@@ -768,6 +784,71 @@ class Editor extends Component {
     });
     this.props.startContext();
   };
+
+  superTranslator(raw) {
+    let superkey = [],
+      superkeys = [],
+      iter = 0,
+      superindex = 0;
+
+    if (raw === "") {
+      return [];
+    }
+    // console.log(raw, raw.length);
+    while (raw.length > iter) {
+      // console.log(iter, raw[iter], superkey);
+      if (raw[iter] === 0) {
+        superkeys[superindex] = superkey;
+        superindex++;
+        superkey = [];
+      } else {
+        superkey.push(raw[iter]);
+      }
+      iter++;
+    }
+    superkeys[superindex] = superkey;
+    // console.log("SUPERKEYS LEIDAS:" + superkeys + " de " + raw);
+
+    return superkeys;
+  }
+
+  superkeyMap(superkeys) {
+    if (superkeys.length === 1 && superkeys[0].actions === []) {
+      return "65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535";
+    }
+    const keyMap = superkeys.map(superkey => {
+      return superkey
+        .map(key => {
+          if (key === 0) {
+            return;
+          } else {
+            return key;
+          }
+        })
+        .concat([0]);
+    });
+    const mapped =
+      [].concat.apply([], keyMap.flat()).concat([0]).join(" ") +
+      "65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535";
+    console.log(mapped);
+    return mapped;
+  }
+
+  newSuperID() {
+    return this.state.superkeys.length;
+  }
+
+  setSuperKey(superid, actions) {
+    let temp = this.state.superkeys;
+    temp[superid] = actions;
+    this.setState({ superkeys: temp });
+  }
+
+  delSuperKey(superid) {
+    let temp = this.state.superkeys;
+    temp.splice(superid, 1);
+    this.setState({ superkeys: temp });
+  }
 
   macroTranslator(raw) {
     if (raw === "") {
@@ -1193,6 +1274,17 @@ class Editor extends Component {
     }
     console.log(code);
 
+    let actions = [code !== null ? code.base + code.modified : 0, 0, 0, 0, 0];
+    if (code !== null) {
+      if (
+        code.modified + code.base > 53915 &&
+        code.modified + code.base < 53980
+      ) {
+        actions = this.state.superkeys[code.base + code.modified - 53916];
+      }
+    }
+    console.log("final actions: " + actions, this.state.superkeys);
+
     return (
       <Styles>
         <Container fluid className="keyboard-editor">
@@ -1237,13 +1329,6 @@ class Editor extends Component {
               />
             </Col>
           </Row>
-          <Row>
-            <Col>
-              <SuperPowers onKeySelect={this.dualFunction} code={code} />
-              <LayerPicker onKeySelect={this.onKeyChange} code={code} />
-              <MiscPicker onKeySelect={this.onKeyChange} code={code} />
-            </Col>
-          </Row>
           {this.state.keymap.custom.length == 0 &&
             this.state.keymap.default.length == 0 && (
               <div className="centerSpinner">
@@ -1258,9 +1343,16 @@ class Editor extends Component {
             <Col className="raise-editor">{layer}</Col>
           </Row>
           <Row>
-            <KeyPicker onKeySelect={this.onKeyChange} code={code} />
+            <KeyConfig
+              onKeySelect={this.onKeyChange}
+              code={code}
+              actions={actions}
+              newSuperID={this.newSuperID}
+              setSuperKey={this.setSuperKey}
+              delSuperKey={this.delSuperKey}
+            />
           </Row>
-          <Row>
+          <Row className="buttons-row">
             <Col>
               <SaveChangesButton
                 floating

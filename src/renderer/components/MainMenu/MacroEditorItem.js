@@ -18,13 +18,13 @@
 import React, { Fragment } from "react";
 import i18n from "../../i18n";
 
-import { FaRegEdit } from "react-icons/fa";
+import { FaRobot } from "react-icons/fa";
 
-export default function EditorMenuItem({ onClick, drawerWidth }) {
+export default function MacroEditorItem({ onClick, drawerWidth }) {
   return (
     <div onClick={onClick} className={"item-list"}>
       <div className={"icon-item"}>
-        <FaRegEdit className={"icon-image"} />
+        <FaRobot className={"icon-image"} />
       </div>
       {drawerWidth === "auto" ? (
         <div className="icon-text">

@@ -32,6 +32,7 @@ import i18n from "../../i18n";
 
 import WelcomeMenu from "./WelcomeMenu";
 import EditorMenuItem from "./EditorMenuItem";
+import MacroEditorItem from "./MacroEditorItem";
 import FlashMenuItem from "./FlashMenuItem";
 import KeyboardMenuItem from "./KeyboardSelectMenuItem";
 import PreferencesMenuItem from "./PreferencesMenuItem";
@@ -81,7 +82,6 @@ const Styles = Styled.div`
         color: white;
         align-content: center;
         text-align: center;
-        border-radius: 100px;
         &:hover {
           background-color: rgba(255,255,255,0.3);
         }
@@ -136,19 +136,34 @@ class MainMenu extends Component {
               {connected && (
                 <>
                   {pages.keymap && (
-                    <OverlayTrigger
-                      placement="right"
-                      delay={{ show: 250, hide: 400 }}
-                      overlay={this.renderTooltip("Keyboard Editor")}
-                    >
-                      <Link to="/editor" className="list-link">
-                        <EditorMenuItem
-                          selected={currentPage === "/editor"}
-                          drawerWidth={drawerWidth}
-                          onClick={() => setCurrentPage("/editor")}
-                        />
-                      </Link>
-                    </OverlayTrigger>
+                    <React.Fragment>
+                      <OverlayTrigger
+                        placement="right"
+                        delay={{ show: 250, hide: 400 }}
+                        overlay={this.renderTooltip("Keyboard Editor")}
+                      >
+                        <Link to="/editor" className="list-link">
+                          <EditorMenuItem
+                            selected={currentPage === "/editor"}
+                            drawerWidth={drawerWidth}
+                            onClick={() => setCurrentPage("/editor")}
+                          />
+                        </Link>
+                      </OverlayTrigger>
+                      <OverlayTrigger
+                        placement="right"
+                        delay={{ show: 250, hide: 400 }}
+                        overlay={this.renderTooltip("Macros Editor")}
+                      >
+                        <Link to="/macros" className="list-link">
+                          <MacroEditorItem
+                            selected={currentPage === "/macros"}
+                            drawerWidth={drawerWidth}
+                            onClick={() => setCurrentPage("/macros")}
+                          />
+                        </Link>
+                      </OverlayTrigger>
+                    </React.Fragment>
                   )}
                   <OverlayTrigger
                     placement="right"
@@ -164,7 +179,7 @@ class MainMenu extends Component {
                     </Link>
                   </OverlayTrigger>
                 </>
-              )}{" "}
+              )}
               <OverlayTrigger
                 placement="right"
                 delay={{ show: 250, hide: 400 }}

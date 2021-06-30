@@ -8,6 +8,7 @@ import React, { Component } from "react";
 import Styled from "styled-components";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Button from "react-bootstrap/Button";
 
@@ -17,28 +18,12 @@ import Key from "./Key";
 import Layers from "./Layers.json";
 
 const Style = Styled.div`
-  .svgContainer{
-    width: 100%;
-    height:100%;
-  }
-
   .layers {
-    position: absolute;
-    right: 25px;
-    width: 400px;
-    margin-top: 275px;
     padding:0;
-    background-color: ${({ theme }) => theme.card.background};
-    border-radius: 10px;
-    box-shadow: 0 0 0.5rem 0.3rem rgba(0,0,0,0.1);
     .keys {
-      margin: 0px;
-      padding: 10px;
-      h6{
-        margin-top: 10px;
-        font-weight:300;
-        color: lightgrey;
-      }
+      margin: 0;
+      padding: 0;
+      width: 10vw;
     }
 
   .btngrp{
@@ -51,10 +36,9 @@ const Style = Styled.div`
     background-color: ${({ theme }) => theme.colors.button.background};
     border: 2px solid ${({ theme }) => theme.colors.button.disabled};
     color: ${({ theme }) => theme.colors.button.text};
-    font-size: small;
-    font-weight: 400;
+    font-size: x-small;
+    font-weight: 300;
     line-height: 0.5;
-    padding: 0.8em;
   }
 `;
 
@@ -122,36 +106,38 @@ export default class LayerPicker extends Component {
       <Style>
         <Container fluid className="layers">
           <Row className="keys">
-            <h6>Layer Navigation</h6>
-            <svg className="svgContainer" viewBox="-20 0 260 80">
-              {layers}
-            </svg>
-            <ButtonGroup className="btngrp">
-              <Button
-                className={`btns ${selected === 0 ? "active" : ""}`}
-                onClick={() => {
-                  this.setState({ selected: 0 });
-                }}
-              >
-                Shift
-              </Button>
-              <Button
-                className={`btns ${selected === 1 ? "active" : ""}`}
-                onClick={() => {
-                  this.setState({ selected: 1 });
-                }}
-              >
-                Move
-              </Button>
-              <Button
-                className={`btns ${selected === 2 ? "active" : ""}`}
-                onClick={() => {
-                  this.setState({ selected: 2 });
-                }}
-              >
-                One Shot
-              </Button>
-            </ButtonGroup>
+            <Col>
+              <h5>Layers</h5>
+              <svg className="" viewBox="0 0 220 90">
+                {layers}
+              </svg>
+              <ButtonGroup className="btngrp">
+                <Button
+                  className={`btns ${selected === 0 ? "active" : ""}`}
+                  onClick={() => {
+                    this.setState({ selected: 0 });
+                  }}
+                >
+                  Shift
+                </Button>
+                <Button
+                  className={`btns ${selected === 1 ? "active" : ""}`}
+                  onClick={() => {
+                    this.setState({ selected: 1 });
+                  }}
+                >
+                  Move
+                </Button>
+                <Button
+                  className={`btns ${selected === 2 ? "active" : ""}`}
+                  onClick={() => {
+                    this.setState({ selected: 2 });
+                  }}
+                >
+                  One Shot
+                </Button>
+              </ButtonGroup>
+            </Col>
           </Row>
         </Container>
       </Style>

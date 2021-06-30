@@ -17,7 +17,7 @@
 
 import React, { Fragment } from "react";
 import i18n from "../../i18n";
-import { MdCloudUpload } from "react-icons/md";
+import { HiChip } from "react-icons/hi";
 
 export default function FlashMenuItem({
   selected,
@@ -29,7 +29,7 @@ export default function FlashMenuItem({
   return (
     <div onClick={onClick} className={"item-list"}>
       <div className="icon-item">
-        <MdCloudUpload className={"icon-image"} />
+        <HiChip className={"icon-image"} />
       </div>
       {drawerWidth === "auto" ? (
         <div className="icon-text">

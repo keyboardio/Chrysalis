@@ -40,6 +40,7 @@ import Container from "react-bootstrap/Container";
 import KeyboardSelect from "./screens/KeyboardSelect";
 import FirmwareUpdate from "./screens/FirmwareUpdate";
 import Editor from "./screens/Editor/Editor";
+import MacrosConfigurator from "./screens/Macros/MacrosConfigurator";
 import Preferences from "./screens/Preferences";
 import Welcome from "./screens/Welcome";
 
@@ -394,6 +395,16 @@ class App extends React.Component {
               titleElement={() => document.querySelector("#page-title")}
               appBarElement={() => document.querySelector("#appbar")}
               darkMode={darkMode}
+            />
+            <MacrosConfigurator
+              path="/macros"
+              onDisconnect={this.onKeyboardDisconnect}
+              startContext={this.startContext}
+              cancelContext={this.cancelContext}
+              applyBalance={this.applyBalance}
+              revertBalance={this.revertBalance}
+              inContext={this.state.contextBar}
+              titleElement={() => document.querySelector("#page-title")}
             />
             <FirmwareUpdate
               path="/firmware-update"

@@ -301,9 +301,9 @@ class KeyConfig extends Component {
     );
     const MacroPicker = (
       <Form.Group controlId="Macro Picker">
-        <Form.Label>
+        {/* <Form.Label>
           <h5>Macro Select</h5>
-        </Form.Label>
+        </Form.Label> */}
         <Form.Control as="select" htmlSize={4} onClick={this.AssignMacro}>
           {mcros.map((x, i) => {
             return (
@@ -360,7 +360,7 @@ class KeyConfig extends Component {
         <Container fluid className="configurator">
           <Row className="rows">
             <Card className="main-card">
-              <Card.Header>SUPERPOWERS CONFIGURATOR MENU</Card.Header>
+              {/* <Card.Header>SUPERPOWERS CONFIGURATOR MENU</Card.Header> */}
               <Card.Body style={{ padding: 0 }}>
                 <Row
                   style={{

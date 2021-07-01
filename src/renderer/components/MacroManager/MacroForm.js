@@ -3,18 +3,23 @@ import classNames from "classnames";
 import MacroTable from "./MacroTable";
 import MacroSelector from "./MacroSelector";
 
+import Styled from "styled-components";
+import { toast } from "react-toastify";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Dropdown from "react-bootstrap/Dropdown";
+import Modal from "react-bootstrap/Modal";
 import {
-  ArchiveRounded,
-  UnarchiveRounded,
-  SaveRounded,
-  InputRounded,
-  SaveAltRounded
-} from "@material-ui/icons";
+  MdArchive,
+  MdUnarchive,
+  MdSave,
+  MdInput,
+  MdImportExport
+} from "react-icons/md";
 
-import { withStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
 import i18n from "../../i18n";
 
 const styles = theme => ({
@@ -260,8 +265,8 @@ class MacroForm extends Component {
     const { classes, close, keymapDB } = this.props;
     const currentMacro = this.state.macros[this.state.selected];
     return (
-      <Grid container direction="row" justify="center" alignItems="stretch">
-        <Grid item xs={5} className={classes.bglist}>
+      <Row container direction="row" justify="center" alignItems="stretch">
+        <Col item xs={5} className={classes.bglist}>
           <MacroSelector
             key={this.state.macros.lenght + this.state.selected}
             macros={this.state.macros}
@@ -278,7 +283,7 @@ class MacroForm extends Component {
                 variant="outlined"
                 className={classNames(classes.margin, classes.grey)}
                 onClick={this.toRestore}
-                startIcon={<ArchiveRounded />}
+                startIcon={<MdArchive />}
               >
                 {i18n.editor.macros.restore}
               </Button>
@@ -287,15 +292,15 @@ class MacroForm extends Component {
                 variant="outlined"
                 className={classNames(classes.margin, classes.grey)}
                 onClick={this.toBackup}
-                startIcon={<UnarchiveRounded />}
+                startIcon={<MdUnarchive />}
               >
                 {i18n.editor.macros.backup}
               </Button>
             </div>
           </div>
-        </Grid>
-        <Grid item xs={7} className={classes.bg}>
-          <TextField
+        </Col>
+        <Col item xs={7} className={classes.bg}>
+          <h4
             id="name"
             className={classNames(classes.margin, classes.textField)}
             variant="outlined"
@@ -332,7 +337,7 @@ class MacroForm extends Component {
                 variant="outlined"
                 className={classNames(classes.margin, classes.grey)}
                 onClick={this.toImport}
-                startIcon={<InputRounded />}
+                startIcon={<MdInput />}
               >
                 {i18n.editor.macros.import}
               </Button>
@@ -340,7 +345,7 @@ class MacroForm extends Component {
                 variant="outlined"
                 className={classNames(classes.margin, classes.grey)}
                 onClick={this.toExport}
-                startIcon={<SaveRounded />}
+                startIcon={<MdImportExport />}
               >
                 {i18n.editor.macros.export}
               </Button>
@@ -350,14 +355,14 @@ class MacroForm extends Component {
               color="primary"
               className={classNames(classes.margin, classes.button)}
               onClick={this.updateMacro}
-              startIcon={<SaveAltRounded />}
+              startIcon={<MdSave />}
             >
               {i18n.editor.macros.applyAndExit}
             </Button>
           </div>
-        </Grid>
-      </Grid>
+        </Col>
+      </Row>
     );
   }
 }
-export default withStyles(styles)(MacroForm);
+export default MacroForm;

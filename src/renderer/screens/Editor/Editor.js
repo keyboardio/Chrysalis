@@ -827,9 +827,7 @@ class Editor extends Component {
         })
         .concat([0]);
     });
-    const mapped =
-      [].concat.apply([], keyMap.flat()).concat([0]).join(" ") +
-      "65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535";
+    const mapped = [].concat.apply([], keyMap.flat()).concat([0]).join(" ");
     console.log(mapped);
     return mapped;
   }

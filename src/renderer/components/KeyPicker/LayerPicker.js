@@ -107,7 +107,7 @@ export default class LayerPicker extends Component {
         <Container fluid className="layers">
           <Row className="keys">
             <Col>
-              <h5>Layers</h5>
+              {/* <h5>Layers</h5> */}
               <svg className="" viewBox="0 0 220 90">
                 {layers}
               </svg>

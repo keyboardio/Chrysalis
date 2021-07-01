@@ -213,7 +213,7 @@ export default class MiscPicker extends Component {
         <Container fluid className="keyboard">
           <Row className="keys">
             <Col sm={4}>
-              <h5>Special</h5>
+              {/* <h5>Special</h5> */}
               <svg className="" viewBox="0 0 166 36">
                 {special}
               </svg>
@@ -222,13 +222,13 @@ export default class MiscPicker extends Component {
               </svg>
             </Col>
             <Col sm={4}>
-              <h5>Media</h5>
+              {/* <h5>Media</h5> */}
               <svg className="" viewBox="0 0 126 130">
                 {media}
               </svg>
             </Col>
             <Col sm={4}>
-              <h5>Mouse</h5>
+              {/* <h5>Mouse</h5> */}
               <svg className="" viewBox="-18 0 199 36">
                 {mouseMov}
               </svg>

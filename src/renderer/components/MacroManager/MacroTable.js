@@ -1,65 +1,79 @@
 import React, { Component } from "react";
-import classNames from "classnames";
 import MacroTableRow from "./MacroTableRow";
 import MacroToolTab from "./MacroToolTab";
 
-import { withStyles, useTheme } from "@material-ui/core/styles";
-import { List } from "@material-ui/core";
-import RootRef from "@material-ui/core/RootRef";
+// import { withStyles, useTheme } from "@material-ui/core/styles";
+// import { List } from "@material-ui/core";
+// import RootRef from "@material-ui/core/RootRef";
+// import {
+//   UnfoldLessRounded,
+//   KeyboardArrowUp,
+//   KeyboardArrowDown,
+//   TimerRounded
+// } from "@material-ui/icons";
+import Styled from "styled-components";
+import { toast } from "react-toastify";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Dropdown from "react-bootstrap/Dropdown";
+import ListGroup from "react-bootstrap/ListGroup";
 import {
-  UnfoldLessRounded,
-  KeyboardArrowUp,
-  KeyboardArrowDown,
-  TimerRounded
-} from "@material-ui/icons";
+  MdUnfoldLess,
+  MdKeyboardArrowUp,
+  MdKeyboardArrowDown,
+  MdTimer
+} from "react-icons/md";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-const styles = theme => ({
-  root: {
-    display: "flex",
-    flexWrap: "wrap"
-  },
-  margin: {
-    margin: theme.spacing(),
-    marginTop: theme.spacing(),
-    marginBottom: theme.spacing(),
-    paddingTop: theme.spacing(),
-    paddingBottom: theme.spacing()
-  },
-  textField: {
-    flexBasis: "444px",
-    margin: "0px",
-    marginRight: theme.spacing(4)
-  },
-  code: {
-    width: "-webkit-fill-available"
-  },
-  button: {
-    float: "right"
-  },
-  buttonAdd: {
-    marginLeft: "25%"
-  },
-  list: {
-    maxHeight: "300px",
-    minHeight: "300px",
-    overflow: "auto"
-  },
-  border: {
-    border: "solid 1px #bbbbbb",
-    borderRadius: "4px"
-  },
-  iconbutton: {
-    width: "56px",
-    height: "56px"
-  },
-  flex: {
-    display: "flex",
-    position: "relative",
-    placeContent: "space-between",
-    margin: theme.spacing()
-  }
-});
+const Styles = Styled.div`
+.root {
+  display: flex;
+  flexWrap: wrap;
+}
+.margin {
+  margin: 1rem;
+}
+.padding {
+  padding-top: 0.2rem;
+  padding-bottom: 1rem;
+}
+.textField {
+  flex-basis: 444px;
+  margin: 0px;
+  margin-right: 2rem;
+},
+.code {
+  width: -webkit-fill-available;
+}
+.button {
+  float: right;
+}
+.buttonAdd {
+  marginLeft: 25%;
+}
+.list {
+  max-height: 300px;
+  min-height: 300px;
+  overflow: auto;
+}
+.border {
+  border: solid 1px #bbbbbb;
+  border-radius: 4px;
+}
+.iconbutton {
+  width: 56px;
+  height: 56px;
+}
+.flex {
+  display: flex;
+  position: relative;
+  place-content: space-between;
+  margin: 1rem;
+}
+`;
 
 class MacroTable extends Component {
   constructor(props) {
@@ -91,50 +105,50 @@ class MacroTable extends Component {
       {
         enum: "MACRO_ACTION_STEP_INTERVAL",
         name: "Set Interval",
-        icon: <TimerRounded fontSize="large" />,
-        smallIcon: <TimerRounded />
+        icon: <MdTimer fontSize="large" />,
+        smallIcon: <MdTimer />
       },
       {
         enum: "MACRO_ACTION_STEP_WAIT",
         name: "Delay",
-        icon: <TimerRounded fontSize="large" />,
-        smallIcon: <TimerRounded />
+        icon: <MdTimer fontSize="large" />,
+        smallIcon: <MdTimer />
       },
       {
         enum: "MACRO_ACTION_STEP_KEYDOWN",
         name: "Function Key Press",
-        icon: <KeyboardArrowDown fontSize="large" />,
-        smallIcon: <KeyboardArrowDown />
+        icon: <MdKeyboardArrowDown fontSize="large" />,
+        smallIcon: <MdKeyboardArrowDown />
       },
       {
         enum: "MACRO_ACTION_STEP_KEYUP",
         name: "Function Key Release",
-        icon: <KeyboardArrowUp fontSize="large" />,
-        smallIcon: <KeyboardArrowUp />
+        icon: <MdKeyboardArrowUp fontSize="large" />,
+        smallIcon: <MdKeyboardArrowUp />
       },
       {
         enum: "MACRO_ACTION_STEP_TAP",
         name: "Fn. Press & Release",
-        icon: <UnfoldLessRounded fontSize="large" />,
-        smallIcon: <UnfoldLessRounded />
+        icon: <MdUnfoldLess fontSize="large" />,
+        smallIcon: <MdUnfoldLess />
       },
       {
         enum: "MACRO_ACTION_STEP_KEYCODEDOWN",
         name: "Key Press",
-        icon: <KeyboardArrowDown fontSize="large" />,
-        smallIcon: <KeyboardArrowDown />
+        icon: <MdKeyboardArrowDown fontSize="large" />,
+        smallIcon: <MdKeyboardArrowDown />
       },
       {
         enum: "MACRO_ACTION_STEP_KEYCODEUP",
         name: "Key Release",
-        icon: <KeyboardArrowUp fontSize="large" />,
-        smallIcon: <KeyboardArrowUp />
+        icon: <MdKeyboardArrowUp fontSize="large" />,
+        smallIcon: <MdKeyboardArrowUp />
       },
       {
         enum: "MACRO_ACTION_STEP_TAPCODE",
         name: "Key Press & Rel.",
-        icon: <UnfoldLessRounded fontSize="large" />,
-        smallIcon: <UnfoldLessRounded />
+        icon: <MdUnfoldLess fontSize="large" />,
+        smallIcon: <MdUnfoldLess />
       },
       {
         enum: "MACRO_ACTION_STEP_EXPLICIT_REPORT",
@@ -509,24 +523,15 @@ class MacroTable extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    // const {} = this.props;
 
     return (
-      <React.Fragment>
+      <Styles>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId="droppable">
             {provided => (
-              <RootRef rootRef={provided.innerRef}>
-                <List
-                  className={classNames(
-                    classes.list,
-                    classes.margin,
-                    classes.border,
-                    classes.whitebg
-                  )}
-                  disablePadding
-                  dense
-                >
+              <div ref={provided.innerRef}>
+                <ListGroup className={"list margin padding border whitebg"}>
                   {this.state.rows.map((item, index) => (
                     <Draggable
                       key={index}
@@ -547,8 +552,8 @@ class MacroTable extends Component {
                     </Draggable>
                   ))}
                   {provided.placeholder}
-                </List>
-              </RootRef>
+                </ListGroup>
+              </div>
             )}
           </Droppable>
         </DragDropContext>
@@ -564,9 +569,9 @@ class MacroTable extends Component {
           onAddText={this.onAddText}
           onAddSpecial={this.onAddSpecial}
         />
-      </React.Fragment>
+      </Styles>
     );
   }
 }
 
-export default withStyles(styles)(MacroTable);
+export default MacroTable;

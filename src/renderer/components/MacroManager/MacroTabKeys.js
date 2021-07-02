@@ -1,43 +1,66 @@
 import React, { Component } from "react";
 
-import { withStyles } from "@material-ui/core/styles";
-import {
-  MenuItem,
-  TextField,
-  FormControl,
-  IconButton,
-  ListItemText,
-  InputAdornment
-} from "@material-ui/core";
-import PublishRounded from "@material-ui/icons/PublishRounded";
+// import { withStyles } from "@material-ui/core/styles";
+// import {
+//   MenuItem,
+//   TextField,
+//   FormControl,
+//   IconButton,
+//   ListItemText,
+//   InputAdornment
+// } from "@material-ui/core";
+// import PublishRounded from "@material-ui/icons/PublishRounded";
+import Styled from "styled-components";
+import { toast } from "react-toastify";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Form from "react-bootstrap/Form";
+import Tabs from "react-bootstrap/Tabs";
+import Dropdown from "react-bootstrap/Dropdown";
+import { MdPublish } from "react-icons/md";
 import i18n from "../../i18n";
+import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
 
-const styles = theme => ({
-  root: {
-    placeContent: "space-between",
-    display: "flex",
-    flexWrap: "wrap"
-  },
-  margin: {
-    margin: theme.spacing()
-  },
-  textField: {
-    minWidth: "200px",
-    padding: "0px",
-    margin: "none"
-  },
-  menuitem: {
-    display: "flex"
-  },
-  iconbutton: {
-    width: "58px",
-    height: "58px"
-  },
-  avatar: {
-    paddingTop: "4px",
-    paddingBottom: "4px"
-  }
-});
+const Styles = Styled.div`
+.tool-tabs {
+}
+.margin {
+  padding-top: 1rem;
+}
+.flex {
+  display: flex;
+}
+.iconbutton {
+  width: auto;
+  height: 100%;
+  margin-top: 0;
+}
+.textField {
+  min-width: 200px;
+  padding: 0px;
+}
+.menuitem {
+  display: block;
+}
+.center {
+  text-align: center;
+}
+.right {
+  text-align: right;
+}
+.avatar {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  color: lightgrey;
+}
+.dropdown-menu {
+  height: 300px;
+  overflow-y: scroll;
+}
+`;
 
 class MacroTabKeys extends Component {
   constructor(props) {
@@ -49,83 +72,115 @@ class MacroTabKeys extends Component {
       delay: 100
     };
     this.keymapDB = props.keymapDB;
+    this.updateKeyCode = this.updateKeyCode.bind(this);
+    this.updateAction = this.updateAction.bind(this);
+  }
+
+  updateKeyCode(key) {
+    console.log(key);
+    this.setState({ keyCode: parseInt(key) });
+  }
+
+  updateAction(act) {
+    this.setState({ action: parseInt(act) });
+    this.forceUpdate();
   }
 
   render() {
-    const { classes, actionTypes, onAddSymbol, onAddDelay } = this.props;
+    const { actionTypes, onAddSymbol, onAddDelay } = this.props;
     const { keyCode, action, delay } = this.state;
+    const keyvalues = this.keymapDB.allCodes
+      .slice(0, 9)
+      .map(group => group.keys)
+      .flat();
+    let groups = this.keymapDB.allCodes
+      .slice(0, 9)
+      .map((group, i) => {
+        return { index: i, key: group.keys, name: group.groupName };
+      })
+      .flat();
+    let aux = [];
+    for (let index = 0; index < groups.length; index++) {
+      aux.push(Array(groups[index].key.length).fill(groups[index].name));
+    }
+    groups = aux.flat();
     const keys = (
-      <FormControl>
-        <TextField
+      <div>
+        <Dropdown
           key={action + keyCode}
           id="Select Key"
-          select
           label={i18n.editor.macros.selectKey}
           value={keyCode}
-          rows={10}
           size="small"
-          className={classes.textField}
-          onChange={e => {
-            this.setState({
-              keyCode: e.target.value
-            });
-          }}
+          rows={10}
+          className={"textField"}
+          onSelect={this.updateKeyCode}
         >
-          {this.keymapDB.allCodes.slice(0, 9).map(group => {
-            return group.keys.map((item, id) => (
-              <MenuItem value={item.code} key={`item-${id}`}>
-                <div className={classes.menuitem}>
-                  <span className={classes.avatar}>
-                    {/* TODO lets see if we can make this a little nicer? */}
-                    {group.groupName}
+          <Dropdown.Toggle variant="success" id="dropdown-basic">
+            {keyvalues.map((item, id) => {
+              if (item.code === this.state.keyCode) {
+                return groups[id] + " " + item.labels.primary;
+              }
+            })}
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            {keyvalues.map((item, id) => (
+              <Dropdown.Item eventKey={item.code} key={`item-${id}`}>
+                <div className={"menuitem"}>
+                  <span className={"avatar"}>
+                    {/* //TODO: lets see if we can make this a little nicer? */}
+                    {groups[id]}
                   </span>
-                  <ListItemText inset primary={item.labels.primary} />
+                  <p>{item.labels.primary}</p>
                 </div>
-              </MenuItem>
-            ));
-          })}
-        </TextField>
-      </FormControl>
+              </Dropdown.Item>
+            ))}
+          </Dropdown.Menu>
+        </Dropdown>
+      </div>
     );
     const actions = (
-      <FormControl>
-        <TextField
+      <div>
+        <Dropdown
           key={action + keyCode}
           id="Select Action"
-          select
           label={i18n.editor.macros.selectAction}
           value={action}
           size="small"
-          className={classes.textField}
-          onChange={e => {
-            this.setState({
-              action: e.target.value
-            });
-            this.forceUpdate();
-          }}
+          className={"textField"}
+          onSelect={this.updateAction}
         >
-          {actionTypes.map((item, id) => {
-            if ((id > 1 && id < 3) || (id > 5 && id < 9)) {
-              return (
-                <MenuItem value={id} key={`item-${id}`}>
-                  <div className={classes.menuitem}>
-                    {item.smallIcon}
-                    <ListItemText inset primary={item.name} />
-                  </div>
-                </MenuItem>
-              );
-            }
-          })}
-        </TextField>
-      </FormControl>
+          <Dropdown.Toggle variant="success" id="dropdown-basic">
+            {actionTypes.map((item, id) => {
+              if (id === this.state.action) {
+                return item.name;
+              }
+            })}
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            {actionTypes.map((item, id) => {
+              if ((id > 1 && id < 3) || (id > 5 && id < 9)) {
+                return (
+                  <Dropdown.Item eventKey={id} key={`item-${id}`}>
+                    <div className={"menuitem"}>
+                      {item.smallIcon}
+                      <p primary={item.name} />
+                    </div>
+                  </Dropdown.Item>
+                );
+              }
+            })}
+          </Dropdown.Menu>
+        </Dropdown>
+      </div>
     );
 
     const delayFill = (
-      <TextField
+      <Dropdown
         id="outlined-name"
         label={i18n.editor.macros.Delay}
         type="number"
-        className={classes.textField}
+        className={"classes.textField"}
         value={delay}
         size="small"
         onChange={e => {
@@ -135,14 +190,11 @@ class MacroTabKeys extends Component {
             this.setState({ delay: e.target.value });
           }
         }}
-        InputProps={{
-          startAdornment: <InputAdornment position="start">ms</InputAdornment>
-        }}
       />
     );
 
     const button = (
-      <IconButton
+      <Button
         onClick={() => {
           switch (action) {
             case 2:
@@ -157,20 +209,22 @@ class MacroTabKeys extends Component {
               break;
           }
         }}
-        className={classes.iconbutton}
+        className="iconbutton"
       >
-        <PublishRounded />
-      </IconButton>
+        <MdPublish />
+      </Button>
     );
 
     return (
-      <div className={classes.root}>
-        {actions}
-        {action <= 2 ? delayFill : keys}
-        {button}
-      </div>
+      <Styles>
+        <Row>
+          <Col>{actions}</Col>
+          <Col className="center"> {action <= 2 ? delayFill : keys}</Col>
+          <Col className="right">{button}</Col>
+        </Row>
+      </Styles>
     );
   }
 }
 
-export default withStyles(styles)(MacroTabKeys);
+export default MacroTabKeys;

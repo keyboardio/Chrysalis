@@ -1,45 +1,56 @@
 import React, { Component } from "react";
 
-import { withStyles } from "@material-ui/core/styles";
-import {
-  MenuItem,
-  TextField,
-  FormControl,
-  Chip,
-  Divider,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  IconButton,
-  ListItemSecondaryAction
-} from "@material-ui/core";
-import { Close, DragIndicator } from "@material-ui/icons";
+// import { withStyles } from "@material-ui/core/styles";
+// import {
+//   MenuItem,
+//   TextField,
+//   FormControl,
+//   Chip,
+//   Divider,
+//   ListItem,
+//   ListItemText,
+//   ListItemIcon,
+//   IconButton,
+//   ListItemSecondaryAction
+// } from "@material-ui/core";
+// import { Close, DragIndicator } from "@material-ui/icons";
+import Styled from "styled-components";
+import { toast } from "react-toastify";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Dropdown from "react-bootstrap/Dropdown";
+import ListGroup from "react-bootstrap/ListGroup";
+import { MdClose, MdDragHandle } from "react-icons/md";
 import i18n from "../../i18n";
 
-const styles = theme => ({
-  chip: {
-    borderRadius: 4,
-    minWidth: "150px",
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    fontSize: "larger"
-  },
-  listitem: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-around",
-    paddingRight: "80px"
-  },
-  select: {
-    inlineSize: "-webkit-fill-available",
-    maxWidth: "160px",
-    marginLeft: "auto"
-  },
-  compact: {
-    margin: "0px",
-    padding: "0px"
-  }
-});
+const Styles = Styled.div`
+.chip {
+  border-radius: 40px;
+  min-width: 150px;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  font-size: larger;
+  text-align: center;
+}
+.listitem {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding-right: 80px;
+}
+.select {
+  inline-size: -webkit-fill-available;
+  max-width: 160px;
+  margin-left: auto;
+}
+.compact {
+  margin: 0px;
+  padding: 0px;
+}
+`;
 
 class MacroTableRow extends Component {
   constructor(props) {
@@ -84,7 +95,6 @@ class MacroTableRow extends Component {
 
   render() {
     const {
-      classes,
       provided,
       snapshot,
       item,
@@ -94,81 +104,81 @@ class MacroTableRow extends Component {
     } = this.props;
 
     return (
-      <div
-        ref={provided.innerRef}
-        {...provided.draggableProps}
-        {...provided.dragHandleProps}
-        style={this.getItemStyle(
-          snapshot.isDragging,
-          provided.draggableProps.style
-        )}
-      >
-        <ListItem className={classes.listitem}>
-          <ListItemIcon>
-            <DragIndicator />
-          </ListItemIcon>
-          <ListItemIcon
-            style={{
-              borderRadius: "100px"
-            }}
-          >
-            {actionTypes[item.action].icon}
-          </ListItemIcon>
-          <Chip
-            label={item.symbol}
-            variant="outlined"
-            className={classes.chip}
-            style={{
-              backgroundColor: item.color,
-              borderColor: item.color,
-              // HACK allow the text to be visible on darkTheme
-              // without completely rewriting the code which assigns the background colors
-              color: "#000"
-            }}
-          />
-          <FormControl className={classes.select}>
-            <TextField
-              id="insert-modifiers"
-              select
-              label={i18n.editor.macros.insertModifiers}
-              value=""
-              margin="none"
-              variant="outlined"
-              size="small"
-              onChange={e => {
-                addModifier(item.id, e.target.value);
+      <Styles>
+        <div
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          style={this.getItemStyle(
+            snapshot.isDragging,
+            provided.draggableProps.style
+          )}
+        >
+          <ListGroup.Item className="listitem">
+            <div>
+              <MdDragHandle />
+            </div>
+            <div
+              style={{
+                borderRadius: "100px"
               }}
             >
-              {modifiers.map((item, id) => (
-                <MenuItem
-                  value={id}
-                  key={`item-${id}`}
-                  className={classes.compact}
-                >
-                  <ListItemText
-                    inset
-                    dense="true"
-                    primary={item.name}
-                    className={classes.compact}
-                  />
-                </MenuItem>
-              ))}
-            </TextField>
-          </FormControl>
-          <ListItemSecondaryAction>
-            <IconButton
-              onClick={() => {
-                this.props.onDeleteRow(item.id);
+              {actionTypes[item.action].icon}
+            </div>
+            <p
+              className="chip"
+              style={{
+                backgroundColor: item.color,
+                borderColor: item.color,
+                // HACK allow the text to be visible on darkTheme
+                // without completely rewriting the code which assigns the background colors
+                color: "#000"
               }}
             >
-              <Close />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </ListItem>
-        <Divider variant="middle" />
-      </div>
+              {item.symbol}
+            </p>
+            <div className="select">
+              <Dropdown
+                id="insert-modifiers"
+                label={i18n.editor.macros.insertModifiers}
+                value=""
+                size="small"
+                className={"textField"}
+                onSelect={e => {
+                  addModifier(item.id, e);
+                }}
+              >
+                <Dropdown.Toggle variant="primary" id="dropdown-basic">
+                  Add Modifier
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  {modifiers.map((item, id) => (
+                    <Dropdown.Item
+                      eventKey={id}
+                      key={`item-${id}`}
+                      className="compact"
+                    >
+                      <span className="compact">{item.name}</span>
+                    </Dropdown.Item>
+                  ))}
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
+            <div>
+              <Button
+                onClick={() => {
+                  this.props.onDeleteRow(item.id);
+                }}
+              >
+                <MdClose />
+              </Button>
+            </div>
+          </ListGroup.Item>
+          <hr />
+        </div>
+      </Styles>
     );
   }
 }
 
-export default withStyles(styles)(MacroTableRow);
+export default MacroTableRow;

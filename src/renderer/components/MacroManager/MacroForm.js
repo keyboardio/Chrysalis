@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import classNames from "classnames";
 import MacroTable from "./MacroTable";
 import MacroSelector from "./MacroSelector";
 
@@ -9,7 +8,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
+import Form from "react-bootstrap/Form";
 import Dropdown from "react-bootstrap/Dropdown";
 import Modal from "react-bootstrap/Modal";
 import {
@@ -22,33 +21,39 @@ import {
 
 import i18n from "../../i18n";
 
-const styles = theme => ({
-  root: {
-    display: "flex",
-    flexWrap: "wrap"
-  },
-  margin: {
-    margin: theme.spacing()
-  },
-  textField: {
-    flexBasis: 200,
-    display: "flex"
-  },
-  code: {
-    width: "-webkit-fill-available"
-  },
-  button: {
-    float: "right"
-  },
-  buttons: {
-    display: "flex",
-    position: "relative",
-    placeContent: "space-between"
-  },
-  centered: {
-    placeContent: "center"
-  }
-});
+const Styles = Styled.div`
+.root {
+  display: flex;
+  flex-wrap: wrap;
+}
+.margin {
+  margin: 1rem;
+}
+.textField {
+  inline-size: -webkit-fill-available;
+  display: flex;
+}
+.code {
+  width: -webkit-fill-available;
+}
+.button {
+  float: right;
+}
+.buttons {
+  display: flex;
+  position: relative;
+  place-content: space-between;
+}
+.centered {
+  place-content: center;
+}
+.bg {
+  margin-right: 0px;
+}
+.form-row {
+  padding: 0;
+}
+`;
 
 class MacroForm extends Component {
   constructor(props) {
@@ -262,69 +267,73 @@ class MacroForm extends Component {
   }
 
   render() {
-    const { classes, close, keymapDB } = this.props;
+    const { close, keymapDB } = this.props;
     const currentMacro = this.state.macros[this.state.selected];
     return (
-      <Row container direction="row" justify="center" alignItems="stretch">
-        <Col item xs={5} className={classes.bglist}>
-          <MacroSelector
-            key={this.state.macros.lenght + this.state.selected}
-            macros={this.state.macros}
-            selected={this.state.selected}
-            updateSelected={this.updateSelected}
-            deleteMacro={this.props.deleteMacro}
-            addMacro={this.props.addMacro}
-            disableAdd={this.props.disableAdd}
-            duplicateMacro={this.props.duplicateMacro}
-          />
-          <div className={classNames(classes.buttons, classes.centered)}>
-            <div>
-              <Button
-                variant="outlined"
-                className={classNames(classes.margin, classes.grey)}
-                onClick={this.toRestore}
-                startIcon={<MdArchive />}
-              >
-                {i18n.editor.macros.restore}
-              </Button>
+      <Styles>
+        <Row direction="row" justify="center" className="form-row">
+          <Col xs={5} className="bglist">
+            <MacroSelector
+              key={this.state.macros.lenght + this.state.selected}
+              macros={this.state.macros}
+              selected={this.state.selected}
+              updateSelected={this.updateSelected}
+              deleteMacro={this.props.deleteMacro}
+              addMacro={this.props.addMacro}
+              disableAdd={this.props.disableAdd}
+              duplicateMacro={this.props.duplicateMacro}
+            />
+            <div className="buttons centered">
+              <div>
+                <Button
+                  variant="outlined"
+                  className="margin grey"
+                  onClick={this.toRestore}
+                >
+                  <div>
+                    <MdArchive />
+                  </div>
+                  <div>{i18n.editor.macros.restore}</div>
+                </Button>
 
-              <Button
-                variant="outlined"
-                className={classNames(classes.margin, classes.grey)}
-                onClick={this.toBackup}
-                startIcon={<MdUnarchive />}
-              >
-                {i18n.editor.macros.backup}
-              </Button>
+                <Button
+                  variant="outlined"
+                  className="margin grey"
+                  onClick={this.toBackup}
+                >
+                  <div>
+                    <MdUnarchive />
+                  </div>
+                  <div>{i18n.editor.macros.backup}</div>
+                </Button>
+              </div>
             </div>
-          </div>
-        </Col>
-        <Col item xs={7} className={classes.bg}>
-          <h4
-            id="name"
-            className={classNames(classes.margin, classes.textField)}
-            variant="outlined"
-            label={i18n.editor.macros.macroName}
-            value={this.state.name}
-            onChange={e => {
-              this.setState({ name: e.target.value });
-            }}
-          />
-          <MacroTable
-            key={
-              this.state.selected +
-              JSON.stringify(
-                currentMacro !== undefined ? currentMacro.actions : []
-              )
-            }
-            macro={currentMacro}
-            updateActions={this.updateActions}
-            keymapDB={keymapDB}
-            number={this.props.macros.length}
-            selected={this.state.selected}
-          />
-          <div className={classes.buttons}>
-            {/* <Button
+          </Col>
+          <Col xs={7} className="bg">
+            <Form.Control
+              type="text"
+              className="margin textField"
+              placeholder={i18n.editor.macros.macroName}
+              value={this.state.name}
+              onChange={e => {
+                this.setState({ name: e.target.value });
+              }}
+            />
+            <MacroTable
+              key={
+                this.state.selected +
+                JSON.stringify(
+                  currentMacro !== undefined ? currentMacro.actions : []
+                )
+              }
+              macro={currentMacro}
+              updateActions={this.updateActions}
+              keymapDB={keymapDB}
+              number={this.props.macros.length}
+              selected={this.state.selected}
+            />
+            <div className={"buttons"}>
+              {/* <Button
               variant="outlined"
               color="secondary"
               className={classes.margin}
@@ -332,36 +341,43 @@ class MacroForm extends Component {
             >
               {i18n.dialog.cancel}
             </Button> */}
-            <div>
+              <div>
+                <Button
+                  variant="outlined"
+                  className="margin grey"
+                  onClick={this.toImport}
+                >
+                  <div>
+                    <MdInput />
+                  </div>
+                  <div>{i18n.editor.macros.import}</div>
+                </Button>
+                <Button
+                  variant="outlined"
+                  className="margin grey"
+                  onClick={this.toExport}
+                >
+                  <div>
+                    <MdImportExport />
+                  </div>
+                  <div>{i18n.editor.macros.export}</div>
+                </Button>
+              </div>
               <Button
-                variant="outlined"
-                className={classNames(classes.margin, classes.grey)}
-                onClick={this.toImport}
-                startIcon={<MdInput />}
+                variant="contained"
+                color="primary"
+                className="margin button"
+                onClick={this.updateMacro}
               >
-                {i18n.editor.macros.import}
-              </Button>
-              <Button
-                variant="outlined"
-                className={classNames(classes.margin, classes.grey)}
-                onClick={this.toExport}
-                startIcon={<MdImportExport />}
-              >
-                {i18n.editor.macros.export}
+                <div>
+                  <MdSave />
+                </div>
+                <div>{i18n.editor.macros.applyAndExit}</div>
               </Button>
             </div>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classNames(classes.margin, classes.button)}
-              onClick={this.updateMacro}
-              startIcon={<MdSave />}
-            >
-              {i18n.editor.macros.applyAndExit}
-            </Button>
-          </div>
-        </Col>
-      </Row>
+          </Col>
+        </Row>
+      </Styles>
     );
   }
 }

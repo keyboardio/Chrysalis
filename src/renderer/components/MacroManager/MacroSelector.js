@@ -1,43 +1,42 @@
 import React, { Component } from "react";
-import classNames from "classnames";
 
-import { withStyles } from "@material-ui/core/styles";
-import {
-  Avatar,
-  List,
-  ListItem,
-  ListItemText,
-  Divider,
-  IconButton
-} from "@material-ui/core";
-import { AddRounded, DeleteForever, FileCopy } from "@material-ui/icons";
+import Styled from "styled-components";
+import { toast } from "react-toastify";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+import ListGroup from "react-bootstrap/ListGroup";
+import { MdContentCopy, MdPlaylistAdd, MdDeleteForever } from "react-icons/md";
+
 import i18n from "../../i18n";
-import Tooltip from "@material-ui/core/Tooltip";
 
-const styles = theme => ({
-  list: {
-    display: "block",
-    height: "515px",
-    overflow: "auto",
-    backgroundColor: theme.palette.background.default
-  },
-  selected: {
-    backgroundColor: theme.palette.selectItem.main,
-    color: theme.palette.primary.main
-  },
-  notSelected: {
-    backgroundColor: theme.palette.selectItem.notSelected,
-    cursor: "pointer",
-    "&:hover": {
-      background: theme.palette.selectItem.hover
-    }
-  },
-  extrapadding: {
-    paddingLeft: "10px",
-    paddingTop: "10px",
-    paddingBottom: "10px"
+const Styles = Styled.div`
+.list {
+  display: block;
+  height: 515px;
+  overflow: auto;
+  background-color: ${({ theme }) => theme.card.background};
+}
+.selected {
+  background-color: ${({ theme }) => theme.colors.button.background};
+  color: ${({ theme }) => theme.colors.text};
+}
+.notSelected {
+  background-color: ${({ theme }) => theme.colors.body};
+  cursor: pointer;
+  &:hover: {
+    background: ${({ theme }) => theme.colors.button.disable};
   }
-});
+}
+.extrapadding {
+  paddingLeft: 10px;
+  paddingTop: 10px;
+  paddingBottom: 10px;
+}
+`;
 
 class MacroSelector extends Component {
   constructor(props) {
@@ -51,55 +50,82 @@ class MacroSelector extends Component {
   }
 
   render() {
-    const { classes, macros, selected } = this.props;
+    const { macros, selected } = this.props;
     const highlight = macros.map((item, index) => {
       if (index === selected) {
-        return classes.selected;
+        return "selected";
       } else {
-        return classes.notSelected;
+        return "notSelected";
       }
     });
     return (
-      <React.Fragment>
-        <List className={classNames(classes.list)}>
+      <Styles>
+        <ListGroup className="list">
           {macros.length !== 0 ? (
             macros.map((item, index) => {
               if (item !== undefined) {
                 return (
                   <div key={index}>
-                    <ListItem
+                    <ListGroup.Item
                       className={highlight[index]}
                       onClick={() => {
                         this.onSelectMacro(index);
                       }}
                     >
-                      <Avatar>{index}</Avatar>
-                      <ListItemText
-                        primary={item.name}
-                        secondary={item.macro}
-                        className={classes.extrapadding}
-                      />
-                      <Tooltip title={i18n.editor.macros.copy}>
-                        <IconButton
-                          disabled={this.props.disableAdd}
-                          onClick={() => {
-                            this.props.duplicateMacro(index);
-                          }}
-                        >
-                          <FileCopy fontSize="small" />
-                        </IconButton>
-                      </Tooltip>
-                      <Tooltip title={i18n.editor.macros.delete}>
-                        <IconButton
-                          onClick={() => {
-                            this.props.deleteMacro(index);
-                          }}
-                        >
-                          <DeleteForever fontSize="small" />
-                        </IconButton>
-                      </Tooltip>
-                    </ListItem>
-                    <Divider variant="fullWidth" />
+                      <Row>
+                        <Col xs={1}>
+                          <span>{index}</span>
+                        </Col>
+                        <Col xs={3}>
+                          <p className="extrapadding">{item.name}</p>
+                        </Col>
+                        <Col xs={6}>
+                          <p className="extrapadding">{item.macro}</p>
+                        </Col>
+                        <Col xs={1}>
+                          <OverlayTrigger
+                            placement="right"
+                            delay={{ show: 250, hide: 400 }}
+                            overlay={
+                              <Tooltip id="button-tooltip">
+                                {i18n.editor.macros.copy}
+                              </Tooltip>
+                            }
+                          >
+                            <Button
+                              disabled={this.props.disableAdd}
+                              onClick={() => {
+                                this.props.duplicateMacro(index);
+                              }}
+                            >
+                              <span className="button-icon">
+                                <MdContentCopy />
+                              </span>
+                            </Button>
+                          </OverlayTrigger>
+                        </Col>
+                        <Col xs={1}>
+                          <OverlayTrigger
+                            placement="right"
+                            delay={{ show: 250, hide: 400 }}
+                            overlay={
+                              <Tooltip id="button-tooltip">
+                                {i18n.editor.macros.delete}
+                              </Tooltip>
+                            }
+                          >
+                            <Button
+                              onClick={() => {
+                                this.props.deleteMacro(index);
+                              }}
+                            >
+                              <MdDeleteForever fontSize="small" />
+                            </Button>
+                          </OverlayTrigger>
+                        </Col>
+                      </Row>
+                    </ListGroup.Item>
+                    <hr />
                   </div>
                 );
               } else {
@@ -109,19 +135,25 @@ class MacroSelector extends Component {
           ) : (
             <React.Fragment />
           )}
-          <ListItem disabled={this.props.disableAdd}>
+          <ListGroup.Item disabled={this.props.disableAdd}>
             {/* <Avatar>N</Avatar>
             <ListItemText primary="Add new Macro" /> */}
-            <Tooltip title={i18n.editor.macros.add}>
-              <IconButton onClick={this.props.addMacro}>
-                <AddRounded />
-              </IconButton>
-            </Tooltip>
-          </ListItem>
-        </List>
-      </React.Fragment>
+            <OverlayTrigger
+              placement="right"
+              delay={{ show: 250, hide: 400 }}
+              overlay={
+                <Tooltip id="button-tooltip">{i18n.editor.macros.add}</Tooltip>
+              }
+            >
+              <Button onClick={this.props.addMacro}>
+                <MdPlaylistAdd />
+              </Button>
+            </OverlayTrigger>
+          </ListGroup.Item>
+        </ListGroup>
+      </Styles>
     );
   }
 }
 
-export default withStyles(styles)(MacroSelector);
+export default MacroSelector;

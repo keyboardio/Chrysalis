@@ -28,7 +28,7 @@ import Modal from "react-bootstrap/Modal";
 import { MdClose, MdCreate, MdInfo, MdBuild } from "react-icons/md";
 import i18n from "../../i18n";
 
-// import MacroForm from "./MacroForm";
+import MacroForm from "./MacroForm";
 
 const Styles = Styled.div`
 .card {
@@ -36,6 +36,7 @@ const Styles = Styled.div`
   height: 100%;
   margin: 4rem;
   padding: 0;
+  overflow: visible;
   background-color: ${({ theme }) => theme.card.background};
   color: ${({ theme }) => theme.card.color};
 }
@@ -171,20 +172,20 @@ class MacroManager extends Component {
             {i18n.editor.macros.title}
           </Card.Header>
           <Card.Body classes={"cardcontent"}>
-            {/* <MacroForm
-                  key={this.state.macros.length + this.state.selected}
-                  macros={this.state.macros}
-                  close={this.close}
-                  selected={this.state.selected}
-                  accept={this.accept}
-                  keymapDB={keymapDB}
-                  deleteMacro={this.deleteMacro}
-                  addMacro={this.addMacro}
-                  disableAdd={this.state.macros.length === this.props.maxMacros}
-                  changeSelected={this.changeSelected}
-                  duplicateMacro={this.duplicateMacro}
-                  macrosRestore={this.macrosRestore}
-                /> */}
+            <MacroForm
+              key={this.state.macros.length + this.state.selected}
+              macros={this.state.macros}
+              close={this.close}
+              selected={this.state.selected}
+              accept={this.accept}
+              keymapDB={keymapDB}
+              deleteMacro={this.deleteMacro}
+              addMacro={this.addMacro}
+              disableAdd={this.state.macros.length === this.props.maxMacros}
+              changeSelected={this.changeSelected}
+              duplicateMacro={this.duplicateMacro}
+              macrosRestore={this.macrosRestore}
+            />
           </Card.Body>
         </Card>
       </Styles>

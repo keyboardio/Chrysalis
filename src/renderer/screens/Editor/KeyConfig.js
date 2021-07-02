@@ -182,7 +182,7 @@ class KeyConfig extends Component {
   }
 
   AssignMacro(event) {
-    this.onReplaceKey(event.target.value);
+    this.onReplaceKey(parseInt(event.target.value));
   }
 
   parseKey(keycode) {

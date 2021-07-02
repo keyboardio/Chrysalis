@@ -40,11 +40,21 @@ import {
 
 import MacroManager from "../../components/MacroManager/index";
 import Keymap, { KeymapDB } from "../../../api/keymap";
+import Focus from "../../../api/focus";
+
+const Store = window.require("electron-store");
+const store = new Store();
 
 const Styles = Styled.div`
   .toggle-button{
     text-align: center;
     padding-bottom: 8px;
+  }
+  .list-group-item {
+    border: none !important;
+  }
+  .save-button {
+    text-align: center;
   }
 `;
 
@@ -56,13 +66,41 @@ class MacrosConfigurator extends React.Component {
 
     this.state = {
       macros: [],
+      storedMacros: store.get("macros"),
       maxMacros: 64,
-      modified: false
+      modified: false,
+      selectedMacro: 0
     };
+    this.updateMacros = this.updateMacros.bind(this);
+    this.changeSelected = this.changeSelected.bind(this);
+    this.loadMacros = this.loadMacros.bind(this);
+    this.writeMacros = this.writeMacros.bind(this);
   }
 
   componentDidMount() {
-    //TODO: Load existing macros from memory and make them work
+    this.loadMacros();
+  }
+
+  async loadMacros() {
+    let focus = new Focus();
+    try {
+      /**
+       * Create property language to the object 'options', to call KeymapDB in Keymap and modify languagu layout
+       */
+      let raw = await focus.command("macros.map");
+      if (raw.search(" 0 0 ") !== -1) {
+        raw = raw.split(" 0 0 ")[0].split(" ").map(Number);
+      } else {
+        raw = "";
+      }
+      const parsedMacros = this.macroTranslator(raw);
+      this.setState({
+        macros: parsedMacros
+      });
+    } catch (e) {
+      toast.error(e);
+      this.props.onDisconnect();
+    }
   }
 
   macroTranslator(raw) {
@@ -196,9 +234,36 @@ class MacrosConfigurator extends React.Component {
     this.props.startContext();
   }
 
+  async writeMacros() {
+    let focus = new Focus();
+    let newMacros = this.state.macros;
+    this.setState({
+      modified: false,
+      macros: newMacros,
+      storedMacros: newMacros
+    });
+    store.set("macros", newMacros);
+    await focus.command("macros.map", this.macrosMap(newMacros));
+    console.log("Changes saved.");
+    // TODO: Save changes in the cloud
+    const backup = {
+      undeglowColors: this.state.undeglowColors,
+      keymap: this.state.keymap,
+      colormap: {
+        palette: this.state.palette,
+        colorMap: this.state.colorMap
+      },
+      macros: newMacros
+    };
+    // backupLayers(backup);
+  }
+
   macrosMap(macros) {
-    if (macros.length === 1 && macros[0].actions === []) {
-      return "255 255 255 255 255 255 255 255 255 255";
+    if (
+      macros.length === 0 ||
+      (macros.length === 1 && macros[0].actions === [])
+    ) {
+      return "255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255";
     }
     const actionMap = macros.map(macro => {
       return macro.actions
@@ -220,8 +285,14 @@ class MacrosConfigurator extends React.Component {
     return mapped;
   }
 
-  changeSelected() {
-    return 1;
+  changeSelected(id) {
+    let aux = id;
+    if (aux < 0) {
+      aux = 0;
+    }
+    this.setState({
+      selectedMacro: aux
+    });
   }
 
   render() {
@@ -231,11 +302,21 @@ class MacrosConfigurator extends React.Component {
           <MacroManager
             macros={this.state.macros}
             maxMacros={this.state.maxMacros}
+            selected={this.state.selectedMacro}
             updateMacro={this.updateMacros}
             changeSelected={this.changeSelected}
             keymapDB={this.keymapDB}
+            key={this.state.macros}
           />
         </Container>
+        <Row>
+          <Col className="save-button">
+            <Button onClick={this.writeMacros}>Send to Keyboard</Button>
+          </Col>
+          <Col className="save-button">
+            <Button onClick={this.loadMacros}>discard changes</Button>
+          </Col>
+        </Row>
       </Styles>
     );
   }

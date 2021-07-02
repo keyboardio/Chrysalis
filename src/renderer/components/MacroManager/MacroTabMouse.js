@@ -1,120 +1,162 @@
 import React, { Component } from "react";
-import { withStyles } from "@material-ui/core/styles";
-import {
-  MenuItem,
-  TextField,
-  FormControl,
-  IconButton,
-  ListItemText
-} from "@material-ui/core";
-import PublishRounded from "@material-ui/icons/PublishRounded";
+
+import Styled from "styled-components";
+import { toast } from "react-toastify";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Form";
+import Form from "react-bootstrap/Form";
+import Dropdown from "react-bootstrap/Dropdown";
+import { MdPublish } from "react-icons/md";
 import i18n from "../../i18n";
 
-const styles = theme => ({
-  root: {
-    placeContent: "space-between",
-    display: "flex",
-    flexWrap: "wrap"
-  },
-  textField: {
-    minWidth: "200px",
-    padding: "0px"
-  },
-  menuitem: {
-    display: "flex"
-  },
-  iconbutton: {
-    width: "58px",
-    height: "58px"
-  },
-  avatar: {
-    paddingTop: "4px",
-    paddingBottom: "4px"
-  }
-});
+const Styles = Styled.div`
+.tool-tabs {
+}
+.margin {
+  padding-top: 1rem;
+}
+.flex {
+  display: flex;
+}
+.iconbutton {
+  width: auto;
+  height: 100%;
+  margin-top: 0;
+}
+.textField {
+  min-width: 200px;
+  padding: 0px;
+}
+.menuitem {
+  display: flex;
+}
+.center {
+  text-align: center;
+}
+.right {
+  text-align: right;
+}
+.dropdown-menu {
+  height: 300px;
+  overflow-y: scroll;
+}
+`;
+
+// const styles = theme => ({
+//   root: {
+//     placeContent: "space-between",
+//     display: "flex",
+//     flexWrap: "wrap"
+//   },
+//   avatar: {
+//     paddingTop: "4px",
+//     paddingBottom: "4px"
+//   }
+// });
 
 class MacroTabMouse extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      keyCode: 17492,
-      action: 1
+      keyCode: 20545,
+      action: 3
     };
     this.keymapDB = props.keymapDB;
+    this.updateKeyCode = this.updateKeyCode.bind(this);
+    this.updateAction = this.updateAction.bind(this);
+  }
+
+  updateKeyCode(key) {
+    this.setState({ keyCode: parseInt(key) });
+  }
+
+  updateAction(act) {
+    this.setState({ action: parseInt(act) });
+    this.forceUpdate();
   }
 
   render() {
-    const { classes, actionTypes, onAddSpecial } = this.props;
+    const { actionTypes, onAddSpecial } = this.props;
     const { keyCode, action } = this.state;
+    const keyvalues = this.keymapDB.allCodes
+      .slice(18, 20)
+      .map(group => group.keys)
+      .flat();
     const keys = (
-      <FormControl>
-        <TextField
+      <div>
+        <Dropdown
           key={action + keyCode}
           id="Select Mouse Function"
-          select
           label={i18n.editor.macros.selectMouseFunction}
           value={keyCode}
           size="small"
           rows={10}
-          className={classes.textField}
-          onChange={e => {
-            this.setState({
-              keyCode: e.target.value
-            });
-          }}
+          className={"textField"}
+          onSelect={this.updateKeyCode}
         >
-          {this.keymapDB.allCodes.slice(16, 17).map(group => {
-            return group.keys.map((item, id) => {
+          <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+            {keyvalues.map(item => {
+              if (item.code === this.state.keyCode) {
+                return item.labels.top + " " + item.labels.primary;
+              }
+            })}
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            {keyvalues.map((item, id) => {
               return (
-                <MenuItem value={item.code} key={`item-${id}`}>
-                  <div className={classes.menuitem}>
-                    <ListItemText
-                      primary={item.labels.top + " " + item.labels.primary}
-                    />
+                <Dropdown.Item eventKey={item.code} key={`item-${id}`}>
+                  <div className={"menuitem"}>
+                    <p>{item.labels.top + " " + item.labels.primary}</p>
                   </div>
-                </MenuItem>
+                </Dropdown.Item>
               );
-            });
-          })}
-        </TextField>
-      </FormControl>
+            })}
+          </Dropdown.Menu>
+        </Dropdown>
+      </div>
     );
     const actions = (
-      <FormControl>
-        <TextField
+      <div>
+        <Dropdown
           key={action + keyCode}
           id="Select Action"
-          select
           label={i18n.editor.macros.selectAction}
           value={action}
           size="small"
-          className={classes.textField}
-          onChange={e => {
-            this.setState({
-              action: e.target.value
-            });
-            this.forceUpdate();
-          }}
+          className={"textField"}
+          onSelect={this.updateAction}
         >
-          {actionTypes.map((item, id) => {
-            if (id > 2 && id < 6) {
-              return (
-                <MenuItem value={id} key={`item-${id}`}>
-                  <div className={classes.menuitem}>
-                    {item.smallIcon}
-                    <ListItemText inset primary={item.name} />
-                  </div>
-                </MenuItem>
-              );
-            }
-          })}
-        </TextField>
-      </FormControl>
+          <Dropdown.Toggle variant="success" id="dropdown-basic">
+            {actionTypes.map((item, id) => {
+              if (id === this.state.action) {
+                return item.name;
+              }
+            })}
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            {actionTypes.map((item, id) => {
+              if (id > 2 && id < 6) {
+                return (
+                  <Dropdown.Item eventKey={id} key={`item-${id}`}>
+                    <div className={"menuitem"}>
+                      {item.smallIcon}
+                      <p>{item.name}</p>
+                    </div>
+                  </Dropdown.Item>
+                );
+              }
+            })}
+          </Dropdown.Menu>
+        </Dropdown>
+      </div>
     );
 
     const button = (
-      <IconButton
+      <Button
         onClick={() => {
           switch (action) {
             case 3:
@@ -126,20 +168,22 @@ class MacroTabMouse extends Component {
               break;
           }
         }}
-        className={classes.iconbutton}
+        className="iconbutton"
       >
-        <PublishRounded />
-      </IconButton>
+        <MdPublish />
+      </Button>
     );
 
     return (
-      <div className={classes.root}>
-        {actions}
-        {keys}
-        {button}
-      </div>
+      <Styles>
+        <Row>
+          <Col>{actions}</Col>
+          <Col className="center">{keys}</Col>
+          <Col className="right">{button}</Col>
+        </Row>
+      </Styles>
     );
   }
 }
 
-export default withStyles(styles)(MacroTabMouse);
+export default MacroTabMouse;

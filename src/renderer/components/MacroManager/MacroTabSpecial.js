@@ -1,37 +1,58 @@
 import React, { Component } from "react";
-import { withStyles } from "@material-ui/core/styles";
-import {
-  MenuItem,
-  TextField,
-  FormControl,
-  IconButton,
-  ListItemText
-} from "@material-ui/core";
-import PublishRounded from "@material-ui/icons/PublishRounded";
+// import { withStyles } from "@material-ui/core/styles";
+// import {
+//   MenuItem,
+//   TextField,
+//   FormControl,
+//   IconButton,
+//   ListItemText
+// } from "@material-ui/core";
+// import PublishRounded from "@material-ui/icons/PublishRounded";
+import Styled from "styled-components";
+import { toast } from "react-toastify";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Form from "react-bootstrap/Form";
+import Tabs from "react-bootstrap/Tabs";
+import Dropdown from "react-bootstrap/Dropdown";
+import { MdPublish } from "react-icons/md";
 import i18n from "../../i18n";
 
-const styles = theme => ({
-  root: {
-    placeContent: "space-between",
-    display: "flex",
-    flexWrap: "wrap"
-  },
-  textField: {
-    minWidth: "200px",
-    padding: "0px"
-  },
-  menuitem: {
-    display: "flex"
-  },
-  iconbutton: {
-    width: "58px",
-    height: "58px"
-  },
-  avatar: {
-    paddingTop: "4px",
-    paddingBottom: "4px"
-  }
-});
+const Styles = Styled.div`
+.tool-tabs {
+}
+.margin {
+  padding-top: 1rem;
+}
+.flex {
+  display: flex;
+}
+.iconbutton {
+  width: auto;
+  height: 100%;
+  margin-top: 0;
+}
+.textField {
+  min-width: 200px;
+  padding: 0px;
+}
+.menuitem {
+  display: flex;
+}
+.center {
+  text-align: center;
+}
+.right {
+  text-align: right;
+}
+.dropdown-menu {
+  height: 300px;
+  overflow-y: scroll;
+}
+`;
 
 class MacroTabSpecial extends Component {
   constructor(props) {
@@ -42,87 +63,106 @@ class MacroTabSpecial extends Component {
       action: 5
     };
     this.keymapDB = props.keymapDB;
+    this.updateKeyCode = this.updateKeyCode.bind(this);
+    this.updateAction = this.updateAction.bind(this);
+  }
+
+  updateKeyCode(key) {
+    this.setState({ keyCode: parseInt(key) });
+  }
+
+  updateAction(act) {
+    this.setState({ action: parseInt(act) });
+    this.forceUpdate();
   }
 
   render() {
-    const { classes, actionTypes, onAddSpecial } = this.props;
+    const { actionTypes, onAddSpecial } = this.props;
     const { keyCode, action } = this.state;
+    let keyvalues = this.keymapDB.allCodes
+      .slice(11, 14)
+      .map(group => group.keys)
+      .flat();
+    keyvalues = keyvalues.concat(this.keymapDB.allCodes[16].keys);
     const keys = (
-      <FormControl>
-        <TextField
+      <div>
+        <Dropdown
           key={action + keyCode}
           id="Select Function"
-          select
           label={i18n.editor.macros.selectFunction}
           value={keyCode}
-          rows={10}
           size="small"
-          className={classes.textField}
-          onChange={e => {
-            this.setState({
-              keyCode: e.target.value
-            });
-          }}
+          rows={10}
+          className={"textField"}
+          onSelect={this.updateKeyCode}
         >
-          {this.keymapDB.allCodes.slice(11, 15).map(group => {
-            return group.keys.map((item, id) => {
+          <Dropdown.Toggle variant="success" id="dropdown-basic">
+            {keyvalues.map(item => {
+              if (item.code === this.state.keyCode) {
+                return item.labels.top + " " + item.labels.primary;
+              }
+            })}
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            {keyvalues.map((item, id) => {
               if (
-                (group.groupName === "Macros" &&
+                (item.labels.top === "MACRO" &&
                   parseInt(item.labels.primary) >= this.props.number) ||
-                (group.groupName === "Macros" &&
+                (item.labels.top === "MACRO" &&
                   parseInt(item.labels.primary) === this.props.selected)
               ) {
                 return;
               }
               return (
-                <MenuItem value={item.code} key={`item-${id}`}>
-                  <div className={classes.menuitem}>
-                    <ListItemText
-                      primary={item.labels.top + " " + item.labels.primary}
-                    />
+                <Dropdown.Item eventKey={item.code} key={`item-${id}`}>
+                  <div className={"menuitem"}>
+                    <p>{item.labels.top + " " + item.labels.primary}</p>
                   </div>
-                </MenuItem>
+                </Dropdown.Item>
               );
-            });
-          })}
-        </TextField>
-      </FormControl>
+            })}
+          </Dropdown.Menu>
+        </Dropdown>
+      </div>
     );
     const actions = (
-      <FormControl>
-        <TextField
+      <div>
+        <Dropdown
           key={action + keyCode}
           id="Select Action"
-          select
           label={i18n.editor.macros.selectAction}
           value={action}
           size="small"
-          className={classes.textField}
-          onChange={e => {
-            this.setState({
-              action: e.target.value
-            });
-            this.forceUpdate();
-          }}
+          className={"textField"}
+          onSelect={this.updateAction}
         >
-          {actionTypes.map((item, id) => {
-            if (id > 2 && id < 6) {
-              return (
-                <MenuItem value={id} key={`item-${id}`}>
-                  <div className={classes.menuitem}>
-                    {item.smallIcon}
-                    <ListItemText inset primary={item.name} />
-                  </div>
-                </MenuItem>
-              );
-            }
-          })}
-        </TextField>
-      </FormControl>
+          <Dropdown.Toggle variant="success" id="dropdown-basic">
+            {actionTypes.map((item, id) => {
+              if (id === this.state.action) {
+                return item.name;
+              }
+            })}
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            {actionTypes.map((item, id) => {
+              if (id > 2 && id < 6) {
+                return (
+                  <Dropdown.Item eventKey={id} key={`item-${id}`}>
+                    <div className={"menuitem"}>
+                      {item.smallIcon}
+                      <p>{item.name}</p>
+                    </div>
+                  </Dropdown.Item>
+                );
+              }
+            })}
+          </Dropdown.Menu>
+        </Dropdown>
+      </div>
     );
 
     const button = (
-      <IconButton
+      <Button
         onClick={() => {
           switch (action) {
             case 3:
@@ -134,20 +174,22 @@ class MacroTabSpecial extends Component {
               break;
           }
         }}
-        className={classes.iconbutton}
+        className="iconbutton"
       >
-        <PublishRounded />
-      </IconButton>
+        <MdPublish />
+      </Button>
     );
 
     return (
-      <div className={classes.root}>
-        {actions}
-        {keys}
-        {button}
-      </div>
+      <Styles>
+        <Row>
+          <Col>{actions}</Col>
+          <Col className="center">{keys}</Col>
+          <Col className="right">{button}</Col>
+        </Row>
+      </Styles>
     );
   }
 }
 
-export default withStyles(styles)(MacroTabSpecial);
+export default MacroTabSpecial;

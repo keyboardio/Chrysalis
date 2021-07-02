@@ -43,7 +43,7 @@ const Styles = Styled.div`
   padding: 0px;
 }
 .menuitem {
-  display: block;
+  display: flex;
 }
 .center {
   text-align: center;
@@ -164,7 +164,7 @@ class MacroTabKeys extends Component {
                   <Dropdown.Item eventKey={id} key={`item-${id}`}>
                     <div className={"menuitem"}>
                       {item.smallIcon}
-                      <p primary={item.name} />
+                      <p>{item.name}</p>
                     </div>
                   </Dropdown.Item>
                 );
@@ -176,13 +176,11 @@ class MacroTabKeys extends Component {
     );
 
     const delayFill = (
-      <Dropdown
-        id="outlined-name"
-        label={i18n.editor.macros.Delay}
+      <Form.Control
+        placeholder={i18n.editor.macros.Delay}
         type="number"
-        className={"classes.textField"}
+        className={"textField"}
         value={delay}
-        size="small"
         onChange={e => {
           if (e.target.value > 65536) {
             this.setState({ delay: 65536 });

@@ -10,6 +10,7 @@ import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import Styled from "styled-components";
 import { CardDeck } from "react-bootstrap";
+import { MdDeleteForever } from "react-icons/md";
 import { KeyPicker, LayerPicker, MiscPicker } from "../../components/KeyPicker";
 import Keymap, { KeymapDB } from "../../../api/keymap";
 
@@ -124,6 +125,10 @@ class KeyConfig extends Component {
 
   onReplaceKey(keycode) {
     let actions = this.state.actions;
+    if (actions === undefined) {
+      this.checkAndReport([keycode, 0, 0, 0, 0]);
+      return;
+    }
     actions[this.state.action] = keycode;
     this.setState({ actions });
     this.checkAndReport(actions);
@@ -196,7 +201,13 @@ class KeyConfig extends Component {
   }
 
   parseAction(action) {
-    return this.parseKey(this.state.actions[action]);
+    let aux;
+    try {
+      aux = this.parseKey(this.state.actions[action]);
+    } catch (error) {
+      aux = 0;
+    }
+    return aux;
   }
 
   render() {
@@ -247,12 +258,33 @@ class KeyConfig extends Component {
               </ToggleButton>
             </ButtonGroup>
           </Col>
-          <Col xs={8}>
+          <Col xs={6}>
             <Card.Text>{this.parseAction(0)}</Card.Text>
             <Card.Text>{this.parseAction(1)}</Card.Text>
             <Card.Text>{this.parseAction(2)}</Card.Text>
             <Card.Text>{this.parseAction(3)}</Card.Text>
             <Card.Text>{this.parseAction(4)}</Card.Text>
+          </Col>
+          <Col xs={2}>
+            <Button size="sm" onClick={e => this.onReplaceKey(0)}>
+              <MdDeleteForever />
+            </Button>
+
+            <Button size="sm" onClick={e => this.onReplaceKey(0)}>
+              <MdDeleteForever />
+            </Button>
+
+            <Button size="sm" onClick={e => this.onReplaceKey(0)}>
+              <MdDeleteForever />
+            </Button>
+
+            <Button size="sm" onClick={e => this.onReplaceKey(0)}>
+              <MdDeleteForever />
+            </Button>
+
+            <Button size="sm" onClick={e => this.onReplaceKey(0)}>
+              <MdDeleteForever />
+            </Button>
           </Col>
         </Row>
       </Card>
@@ -319,14 +351,14 @@ class KeyConfig extends Component {
       <Card className="select-card">
         <KeyPicker
           onKeySelect={this.onReplaceKey}
-          code={{ base: this.state.actions[this.state.action], modified: 0 }}
+          code={{ base: this.parseAction(this.state.action), modified: 0 }}
         />
         <Row className="nospacing">
           <Col xs={3} className="nospacing">
             <LayerPicker
               onKeySelect={this.onReplaceKey}
               code={{
-                base: this.state.actions[this.state.action],
+                base: this.parseAction(this.state.action),
                 modified: 0
               }}
             />
@@ -335,7 +367,7 @@ class KeyConfig extends Component {
             <MiscPicker
               onKeySelect={this.onReplaceKey}
               code={{
-                base: this.state.actions[this.state.action],
+                base: this.parseAction(this.state.action),
                 modified: 0
               }}
             />

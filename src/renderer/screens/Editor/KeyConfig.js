@@ -123,13 +123,19 @@ class KeyConfig extends Component {
     this.checkAndReport(this.state.actions);
   }
 
-  onReplaceKey(keycode) {
+  onReplaceKey(keycode, num) {
     let actions = this.state.actions;
+    let action;
+    if (num === -1) {
+      action = this.state.action;
+    } else {
+      action = num;
+    }
     if (actions === undefined) {
       this.checkAndReport([keycode, 0, 0, 0, 0]);
       return;
     }
-    actions[this.state.action] = keycode;
+    actions[action] = keycode;
     this.setState({ actions });
     this.checkAndReport(actions);
   }
@@ -187,7 +193,7 @@ class KeyConfig extends Component {
   }
 
   AssignMacro(event) {
-    this.onReplaceKey(parseInt(event.target.value));
+    this.onReplaceKey(parseInt(event.target.value), -1);
   }
 
   parseKey(keycode) {
@@ -266,23 +272,23 @@ class KeyConfig extends Component {
             <Card.Text>{this.parseAction(4)}</Card.Text>
           </Col>
           <Col xs={2}>
-            <Button size="sm" onClick={e => this.onReplaceKey(0)}>
+            <Button size="sm" onClick={e => this.onReplaceKey(0, 0)}>
               <MdDeleteForever />
             </Button>
 
-            <Button size="sm" onClick={e => this.onReplaceKey(0)}>
+            <Button size="sm" onClick={e => this.onReplaceKey(0, 1)}>
               <MdDeleteForever />
             </Button>
 
-            <Button size="sm" onClick={e => this.onReplaceKey(0)}>
+            <Button size="sm" onClick={e => this.onReplaceKey(0, 2)}>
               <MdDeleteForever />
             </Button>
 
-            <Button size="sm" onClick={e => this.onReplaceKey(0)}>
+            <Button size="sm" onClick={e => this.onReplaceKey(0, 3)}>
               <MdDeleteForever />
             </Button>
 
-            <Button size="sm" onClick={e => this.onReplaceKey(0)}>
+            <Button size="sm" onClick={e => this.onReplaceKey(0, 4)}>
               <MdDeleteForever />
             </Button>
           </Col>
@@ -350,13 +356,13 @@ class KeyConfig extends Component {
     const picker = (
       <Card className="select-card">
         <KeyPicker
-          onKeySelect={this.onReplaceKey}
+          onKeySelect={e => this.onReplaceKey(e, -1)}
           code={{ base: this.parseAction(this.state.action), modified: 0 }}
         />
         <Row className="nospacing">
           <Col xs={3} className="nospacing">
             <LayerPicker
-              onKeySelect={this.onReplaceKey}
+              onKeySelect={e => this.onReplaceKey(e, -1)}
               code={{
                 base: this.parseAction(this.state.action),
                 modified: 0
@@ -365,7 +371,7 @@ class KeyConfig extends Component {
           </Col>
           <Col xs={6} className="nospacing">
             <MiscPicker
-              onKeySelect={this.onReplaceKey}
+              onKeySelect={e => this.onReplaceKey(e, -1)}
               code={{
                 base: this.parseAction(this.state.action),
                 modified: 0

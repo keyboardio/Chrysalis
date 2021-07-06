@@ -809,12 +809,20 @@ class Editor extends Component {
     superkeys[superindex] = superkey;
     // console.log("SUPERKEYS LEIDAS:" + superkeys + " de " + raw);
 
+    if (
+      superkeys[0] == [0] ||
+      superkeys[0].filter(v => v === 0).length == superkeys[0].length - 1
+    )
+      return [];
     return superkeys;
   }
 
   superkeyMap(superkeys) {
-    if (superkeys.length === 1 && superkeys[0].actions === []) {
-      return "65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535";
+    if (
+      (superkeys.length === 1 && superkeys[0].actions == []) ||
+      (superkeys.length === 1 && superkeys[0].actions == [0])
+    ) {
+      return "65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535";
     }
     const keyMap = superkeys.map(superkey => {
       return superkey

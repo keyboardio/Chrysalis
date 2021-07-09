@@ -853,6 +853,21 @@ class Editor extends Component {
   delSuperKey(superid) {
     let temp = this.state.superkeys;
     temp.splice(superid, 1);
+    if (temp.length > superid) {
+      let aux = this.state.keymap.custom;
+      aux[this.state.currentLayer]
+        .filter(key => key.keyCode > superid + 53916)
+        .forEach(key => {
+          const auxkey = this.keymapDB.parse(key.keyCode - 1);
+          key.label = auxkey.label;
+          key.extraLabel = auxkey.extraLabel;
+          key.verbose = auxkey.verbose;
+          key.keyCode = auxkey.keyCode;
+        });
+      let result = this.state.keymap;
+      result.custom = aux;
+      this.setState({ keymap: result });
+    }
     this.setState({ superkeys: temp });
   }
 

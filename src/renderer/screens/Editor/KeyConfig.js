@@ -178,7 +178,7 @@ class KeyConfig extends Component {
         actions[3] === 0 &&
         actions[4] === 0
       ) {
-        if (superid > 0) {
+        if (superid >= 0) {
           this.props.delSuperKey(superid);
         }
         this.props.onKeySelect(actions[0]);

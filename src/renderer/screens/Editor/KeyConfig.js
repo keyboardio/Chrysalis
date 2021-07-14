@@ -7,6 +7,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import Tab from "react-bootstrap/Tab";
@@ -25,10 +26,10 @@ const Style = Styled.div`
 
 .configurator {
   z-index: 100;
+  background-color: transparent;
   min-width: 1140px;
   width: 75vw;
   padding: 0;
-  background-color: ${({ theme }) => theme.card.background};
   border-radius: 10px;
   box-shadow: 0 0 0.5rem 0.3rem rgba(0,0,0,0.1);
   .rows {
@@ -36,6 +37,8 @@ const Style = Styled.div`
     padding: 0px;
     justify-content:center;
     .main-card{
+      overflow: visible;
+      background-color: transparent;
       padding: 0;
       width: -webkit-fill-available;
   }
@@ -53,8 +56,63 @@ const Style = Styled.div`
 }
 .dropdown-menu.show {
   display: block;
-  height: 200px;
   overflow-y: auto;
+}
+.selectButton{
+  .dropdown-toggle{
+    text-align: left;
+    padding-left: 20px;
+    width: 50%;
+  }
+}
+.dropup .dropdown-toggle::after {
+  border-bottom: 0;
+  border-top: .3em solid;
+  border-right: .3em solid transparent;
+  float: right;
+  border-left: .3em solid transparent;
+  margin-top: 10px;
+}
+.toggle {
+  padding-top: 24px;
+}
+.menuitem {
+  p {
+    margin-bottom: 0;
+  }
+}
+.overflow {
+  overflow: visible;
+}
+.modbutton:not(:disabled):not(.disabled).active, .modbutton:not(:disabled):not(.disabled):active {
+  background-color: #2a8af1;
+  box-shadow: none;
+}
+.modbutton {
+  margin-right: 0.4em;
+}
+.modbuttonrow {
+  margin-left: 0;
+}
+.selectedkey {
+  width: 50%;
+  border-radius: 0;
+}
+.card-title {
+  margin-bottom: .3rem;
+}
+.card-header-tabs {
+  margin: 0;
+  border: 0;
+}
+.nav-tabs .nav-link {
+  color: ${({ theme }) => theme.colors.button.text};
+  background-color: ${({ theme }) => theme.colors.button.background};
+  padding: .2rem 1rem;
+}
+.nav-tabs .nav-link.active {
+  color: ${({ theme }) => theme.colors.button.text};
+  background-color: ${({ theme }) => theme.card.background};
 }
 `;
 
@@ -80,7 +138,9 @@ class KeyConfig extends Component {
       actions: temp,
       modifs: tempModifs,
       selectdual: 0,
-      activeTab: "editor"
+      activeTab: "editor",
+      disabledual: true,
+      disablecombo: true
     };
 
     this.SelectAction = this.SelectAction.bind(this);
@@ -90,20 +150,52 @@ class KeyConfig extends Component {
     this.parseModifs = this.parseModifs.bind(this);
     this.updateDual = this.updateDual.bind(this);
     this.changeTab = this.changeTab.bind(this);
+    this.clearcombo = this.clearcombo.bind(this);
+    this.cleardual = this.cleardual.bind(this);
   }
   componentDidUpdate() {
     let dual = 0;
+    let booldual = true;
     if (
       this.props.code != null &&
       this.props.code.modified >= 49169 &&
       this.props.code.modified <= 53266
     ) {
-      dual = ((this.props.code.modified >>> 8) << 8) + 17;
+      dual = (this.props.code.modified >>> 8) << 8;
+      if (dual >= 51218 - 18) {
+        dual += 18;
+      } else {
+        dual += 17;
+      }
+      booldual = false;
     } else {
       dual = 0;
     }
+
+    let tempModifs = Array(5);
+    this.props.actions.forEach((element, i) => {
+      if (element > 255 && element < 8448) {
+        tempModifs[i] = this.parseModifs(element);
+      } else {
+        tempModifs[i] = [];
+      }
+    });
+    console.log(
+      "en updating",
+      this.props.actions,
+      dual,
+      booldual,
+      tempModifs,
+      tempModifs[0].length != 0 ? false : true
+    );
     if (this.state.actions !== this.props.actions) {
-      this.setState({ actions: this.props.actions, selectdual: dual });
+      this.setState({
+        actions: this.props.actions,
+        selectdual: dual,
+        disabledual: booldual,
+        modifs: tempModifs,
+        disablecombo: tempModifs[0].length != 0 ? false : true
+      });
     }
   }
 
@@ -136,14 +228,32 @@ class KeyConfig extends Component {
   }
 
   SelectAction(event) {
-    this.setState({ action: parseInt(event.target.value) });
+    const action = parseInt(event.target.value);
+    let newModifs = this.state.modifs;
+    newModifs[action] = this.parseModifs(this.state.actions[action]);
+    this.setState({
+      action,
+      modifs: newModifs,
+      disablecombo: newModifs[action].length != 0 ? false : true
+    });
   }
 
   SelectModif(event) {
     let mod = this.state.modifs;
-    mod[this.state.action] = event;
+    if (mod[this.state.action].includes(event)) {
+      mod[this.state.action] = mod[this.state.action].filter(e => e !== event);
+    } else {
+      mod[this.state.action].push(event);
+    }
+    console.log("select Modifs: ", mod);
+    this.checkAndReport(
+      this.state.actions,
+      mod,
+      this.state.modifs,
+      this.state.selectdual,
+      this.state.selectdual
+    );
     this.setState({ modifs: mod });
-    this.checkAndReport(this.state.actions, this.state.selectdual);
   }
 
   onReplaceKey(keycode, num) {
@@ -155,61 +265,84 @@ class KeyConfig extends Component {
       action = num;
     }
     if (actions === undefined) {
-      this.checkAndReport([keycode, 0, 0, 0, 0]);
+      this.checkAndReport(
+        [keycode, 0, 0, 0, 0],
+        this.state.modifs,
+        this.state.modifs,
+        this.state.selectdual,
+        this.state.selectdual
+      );
       return;
     }
     actions[action] = keycode;
     this.setState({ actions });
-    this.checkAndReport(actions, this.state.selectdual);
+    this.checkAndReport(
+      actions,
+      this.state.modifs,
+      this.state.modifs,
+      this.state.selectdual,
+      this.state.selectdual
+    );
   }
 
-  checkAndReport(actns, selectdual, previousdual) {
-    const { action, modifs } = this.state;
+  checkAndReport(actns, modifs, previousmod, selectdual, previousdual) {
+    const { action } = this.state;
     let state = 0;
-    const event = modifs[action];
-    if (event.includes(0)) {
+    const ActModifs = modifs[action];
+    if (ActModifs.includes(0)) {
       state += 2048;
     }
-    if (event.includes(1)) {
+    if (ActModifs.includes(1)) {
       state += 256;
     }
-    if (event.includes(2)) {
+    if (ActModifs.includes(2)) {
       state += 512;
     }
-    if (event.includes(3)) {
+    if (ActModifs.includes(3)) {
       state += 1024;
     }
-    if (event.includes(4)) {
+    if (ActModifs.includes(4)) {
       state += 4096;
     }
+    console.log("find if actModifs works", ActModifs, state);
     let actions = actns;
     if (actions.length < 5) {
       while (actions.length < 5) {
         actions.push(0);
       }
     }
-    if (selectdual !== 0 && previousdual !== selectdual) {
+    const mask = 0b0000000011111111;
+    if (modifs != previousmod) {
+      let base =
+        actions[action] < 8447 ? actions[action] & mask : actions[action];
+      actions[action] = base + state;
+    }
+    if (previousdual !== selectdual) {
       state = selectdual;
       const aux = modifs;
       aux[action] = [];
       this.setState({ modifs: aux });
-    }
-    const mask = 0b0000000011111111;
-    if (selectdual !== 0) {
-      console.log(
-        "testing dualfunc",
-        actions[action],
-        actions[action] & mask,
-        state
-      );
-      actions[action] = (actions[action] & mask) + state;
-    } else {
-      let base =
-        actions[action] < 8192 ? actions[action] & mask : actions[action];
-      actions[action] = base + state;
+      console.log("testing dualfunc \n");
+      // console.log(
+      //   "actions[action] value: ",
+      //   actions[action],
+      //   " y mask ",
+      //   (actions[action] & mask) - 17,
+      //   "\n"
+      // );
+      // console.log("state value: ", state, " y selectdual value ", selectdual);
+      if (actions[action] >= 51218) {
+        actions[action] = (actions[action] & mask) - 18 + state;
+      } else {
+        if (actions[action] >= 49169) {
+          actions[action] = (actions[action] & mask) - 17 + state;
+        } else {
+          actions[action] = (actions[action] & mask) + state;
+        }
+      }
     }
     let superid = this.props.code.base + this.props.code.modified - 53916;
-    console.log(superid, actions);
+    console.log("before sending: ", superid, actions);
     if (actions[0] !== 0) {
       if (
         actions[1] === 0 &&
@@ -258,14 +391,42 @@ class KeyConfig extends Component {
   updateDual(dual) {
     this.checkAndReport(
       this.state.actions,
+      this.state.modifs,
+      this.state.modifs,
       parseInt(dual),
       this.state.selectdual
     );
-    this.setState({ selectdual: parseInt(dual) });
+    // console.log("dual", dual);
+    const booldual = parseInt(dual) == 0 ? true : false;
+    this.setState({ selectdual: parseInt(dual), disabledual: booldual });
   }
 
   changeTab(tab) {
     this.setState({ activeTab: tab });
+  }
+
+  cleardual() {
+    this.checkAndReport(
+      this.state.actions,
+      this.state.modifs,
+      this.state.modifs,
+      0,
+      this.state.selectdual
+    );
+    this.setState({ selectdual: 0 });
+  }
+  clearcombo() {
+    let mod = this.state.modifs;
+    mod[this.state.action] = [];
+    console.log("inside clear combo", this.state.modifs);
+    this.checkAndReport(
+      this.state.actions,
+      mod,
+      this.state.modifs,
+      this.state.selectdual,
+      this.state.selectdual
+    );
+    this.setState({ modifs: mod });
   }
 
   render() {
@@ -365,12 +526,14 @@ class KeyConfig extends Component {
     //   .map((_, i) => i + 49153);
     // enumerator = enumerator.concat(skeys, mcros, shftto, mvto, onsht);
     const dualkeys = [
-      { name: "None", keynum: 0 },
+      { name: "None Selected", keynum: 0 },
+      { name: "----------------", keynum: -1 },
       { name: "Control", keynum: 49169 },
       { name: "Shift", keynum: 49425 },
       { name: "Left Alt", keynum: 49681 },
       { name: "Gui", keynum: 49937 },
       { name: "Alt Gr", keynum: 50705 },
+      { name: "----------------", keynum: -1 },
       { name: "Layer 0", keynum: 51218 },
       { name: "Layer 1", keynum: 51474 },
       { name: "Layer 2", keynum: 51730 },
@@ -381,62 +544,244 @@ class KeyConfig extends Component {
       { name: "Layer 7", keynum: 53010 }
     ];
     const dualFunction = (
-      <Dropdown
+      // <Dropdown
+      //   id="SelectDualFunction"
+      //   className="selectButton"
+      //   drop={"up"}
+      //   disable={this.state.disabledual}
+      //   value={this.state.selectdual}
+      //   onSelect={this.updateDual}
+      // >
+      //   <Dropdown.Toggle variant="success" id="dropdown-basic">
+      //     {dualkeys.map(item => {
+      //       if (item.keynum === this.state.selectdual) {
+      //         return item.name;
+      //       }
+      //     })}
+      //   </Dropdown.Toggle>
+      //   <Dropdown.Menu>
+      //     {dualkeys.map((item, id) => {
+      //       return (
+      //         <Dropdown.Item eventKey={item.keynum} key={`item-${id}`}>
+      //           <div className={"menuitem"}>
+      //             <p>{item.name}</p>
+      //           </div>
+      //         </Dropdown.Item>
+      //       );
+      //     })}
+      //   </Dropdown.Menu>
+      // </Dropdown>
+      <DropdownButton
         id="SelectDualFunction"
-        className={"textField"}
+        className="selectButton"
         drop={"up"}
+        title={dualkeys.map(item => {
+          if (item.keynum === this.state.selectdual) {
+            return item.name;
+          }
+        })}
+        disabled={this.state.disabledual}
         value={this.state.selectdual}
         onSelect={this.updateDual}
       >
-        <Dropdown.Toggle variant="success" id="dropdown-basic">
-          {dualkeys.map(item => {
-            if (item.keynum === this.state.selectdual) {
-              return item.name;
-            }
-          })}
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          {dualkeys.map((item, id) => {
-            return (
-              <Dropdown.Item eventKey={item.keynum} key={`item-${id}`}>
-                <div className={"menuitem"}>
-                  <p>{item.name}</p>
-                </div>
-              </Dropdown.Item>
-            );
-          })}
-        </Dropdown.Menu>
-      </Dropdown>
+        {dualkeys.map((item, id) => {
+          return (
+            <Dropdown.Item
+              eventKey={item.keynum}
+              key={`item-${id}`}
+              disabled={item.keynum == -1}
+            >
+              <div className={"menuitem"}>
+                <p>{item.name}</p>
+              </div>
+            </Dropdown.Item>
+          );
+        })}
+      </DropdownButton>
     );
     const configurator = (
-      <Card className="select-card">
+      <Card className="select-card overflow">
         <Card.Body>
-          <Card.Title>Select a key</Card.Title>
+          <Card.Title>Selected key</Card.Title>
           <Form.Control
             type="text"
             value={this.parseAction(this.state.action)}
+            disabled
+            className="selectedkey"
             readOnly
           ></Form.Control>
-
-          <Card.Text>Add a modifier</Card.Text>
-          <ToggleButtonGroup
-            type="checkbox"
-            value={this.state.modifs[this.state.action]}
-            onChange={this.SelectModif}
-          >
-            <ToggleButton value={0}>Shift</ToggleButton>
-            <ToggleButton value={1}>Ctrl</ToggleButton>
-            <ToggleButton value={2}>Alt</ToggleButton>
-            <ToggleButton value={3}>Alt Gr</ToggleButton>
-            <ToggleButton value={4}>Win</ToggleButton>
-          </ToggleButtonGroup>
           {this.state.activeTab == "editor" ? (
             <React.Fragment>
-              <Card.Text>Add Dual-Function</Card.Text>
+              <Form.Check
+                type="switch"
+                id="comboSwitch"
+                className="toggle"
+                label="Toggle Combo Modifiers"
+                checked={!this.state.disablecombo}
+                onChange={e => {
+                  if (!this.state.disablecombo) {
+                    this.clearcombo();
+                  }
+                  if (this.state.disablecombo && !this.state.disabledual) {
+                    this.cleardual();
+                  }
+                  this.setState(state => {
+                    let aux = state.disablecombo;
+                    if (aux && !state.disabledual) {
+                      aux = true;
+                    } else {
+                      aux = state.disabledual;
+                    }
+                    return {
+                      disablecombo: !state.disablecombo,
+                      disabledual: aux
+                    };
+                  });
+                }}
+              />
+              <Row className="modbuttonrow">
+                <Button
+                  active={this.state.modifs[this.state.action].includes(0)}
+                  className="modbutton"
+                  onClick={e => this.SelectModif(0)}
+                  disabled={this.state.disablecombo}
+                >
+                  Shift
+                </Button>
+                <Button
+                  active={this.state.modifs[this.state.action].includes(1)}
+                  className="modbutton"
+                  onClick={e => this.SelectModif(1)}
+                  disabled={this.state.disablecombo}
+                >
+                  Ctrl
+                </Button>
+                <Button
+                  active={this.state.modifs[this.state.action].includes(2)}
+                  className="modbutton"
+                  onClick={e => this.SelectModif(2)}
+                  disabled={this.state.disablecombo}
+                >
+                  Alt
+                </Button>
+                <Button
+                  active={this.state.modifs[this.state.action].includes(3)}
+                  className="modbutton"
+                  onClick={e => this.SelectModif(3)}
+                  disabled={this.state.disablecombo}
+                >
+                  Alt Gr
+                </Button>
+                <Button
+                  active={this.state.modifs[this.state.action].includes(4)}
+                  className="modbutton"
+                  onClick={e => this.SelectModif(4)}
+                  disabled={this.state.disablecombo}
+                >
+                  Win
+                </Button>
+              </Row>
+              <Form.Check
+                type="switch"
+                id="dualSwitch"
+                className="toggle"
+                checked={!this.state.disabledual}
+                label="Toggle Dual Functions"
+                onChange={e => {
+                  if (!this.state.disabledual) {
+                    this.cleardual();
+                  }
+                  if (this.state.disabledual && !this.state.disablecombo) {
+                    this.clearcombo();
+                  }
+                  this.setState(state => {
+                    let aux = state.disabledual;
+                    if (aux && !state.disablecombo) {
+                      aux = true;
+                    } else {
+                      aux = state.disablecombo;
+                    }
+                    return {
+                      disabledual: !state.disabledual,
+                      disablecombo: aux
+                    };
+                  });
+                }}
+              />
               {dualFunction}
             </React.Fragment>
           ) : (
-            ""
+            <React.Fragment>
+              <Form.Check
+                type="switch"
+                id="comboSwitch"
+                className="toggle"
+                label="Toggle Combo Modifiers"
+                checked={!this.state.disablecombo}
+                onChange={e => {
+                  if (!this.state.disablecombo) {
+                    this.clearcombo();
+                  }
+                  if (this.state.disablecombo && !this.state.disabledual) {
+                    this.cleardual();
+                  }
+                  this.setState(state => {
+                    let aux = state.disablecombo;
+                    if (aux && !state.disabledual) {
+                      aux = true;
+                    } else {
+                      aux = state.disabledual;
+                    }
+                    return {
+                      disablecombo: !state.disablecombo,
+                      disabledual: aux
+                    };
+                  });
+                }}
+              />
+              <Row className="modbuttonrow">
+                <Button
+                  active={this.state.modifs[this.state.action].includes(0)}
+                  className="modbutton"
+                  onClick={e => this.SelectModif(0)}
+                  disabled={this.state.disablecombo}
+                >
+                  Shift
+                </Button>
+                <Button
+                  active={this.state.modifs[this.state.action].includes(1)}
+                  className="modbutton"
+                  onClick={e => this.SelectModif(1)}
+                  disabled={this.state.disablecombo}
+                >
+                  Ctrl
+                </Button>
+                <Button
+                  active={this.state.modifs[this.state.action].includes(2)}
+                  className="modbutton"
+                  onClick={e => this.SelectModif(2)}
+                  disabled={this.state.disablecombo}
+                >
+                  Alt
+                </Button>
+                <Button
+                  active={this.state.modifs[this.state.action].includes(3)}
+                  className="modbutton"
+                  onClick={e => this.SelectModif(3)}
+                  disabled={this.state.disablecombo}
+                >
+                  Alt Gr
+                </Button>
+                <Button
+                  active={this.state.modifs[this.state.action].includes(4)}
+                  className="modbutton"
+                  onClick={e => this.SelectModif(4)}
+                  disabled={this.state.disablecombo}
+                >
+                  Win
+                </Button>
+              </Row>
+            </React.Fragment>
           )}
         </Card.Body>
       </Card>
@@ -522,13 +867,12 @@ class KeyConfig extends Component {
                       activeKey={this.state.activeTab}
                       onSelect={this.changeTab}
                       id="uncontrolled-tab-example"
-                      className="mb-3"
                     >
-                      <Tab eventKey="editor" title="Editor">
+                      <Tab eventKey="editor" title="KEY EDITOR">
                         {configurator}
                       </Tab>
-                      <Tab eventKey="super" title="Superkey">
-                        <Row>
+                      <Tab eventKey="super" title="SUPERKEY">
+                        <Row className="m-0">
                           <Col xs={5} style={{ minHeight: "100%", padding: 0 }}>
                             {selector}
                           </Col>

@@ -13,6 +13,7 @@ const Light = {
       hover: "#bf575c",
       disabled: "#999",
       active: "#d19498",
+      activeText: "#FFF",
       boxShadow: "0 0 0 0.2rem rgba(204,84,106,.5)"
     },
     link: {

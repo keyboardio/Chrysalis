@@ -1304,7 +1304,7 @@ class Editor extends Component {
         actions = this.state.superkeys[code.base + code.modified - 53916];
       }
     }
-    console.log("final actions: " + actions, this.state.superkeys);
+    // console.log("final actions: " + actions, this.state.superkeys);
 
     return (
       <Styles>

@@ -11,8 +11,9 @@ const Dark = {
       text: "#fff",
       background: "#333",
       hover: "#666",
-      disabled: "#999",
-      active: "#444",
+      disabled: "#888",
+      active: "#AAA",
+      activeText: "#000",
       boxShadow: "0 0 0 0.2rem rgba(255,255,255,.5)"
     },
     link: {

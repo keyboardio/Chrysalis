@@ -6,10 +6,12 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Dropdown from "react-bootstrap/Dropdown";
 import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
 import Styled from "styled-components";
-import { CardDeck } from "react-bootstrap";
 import { MdDeleteForever } from "react-icons/md";
 import { KeyPicker, LayerPicker, MiscPicker } from "../../components/KeyPicker";
 import Keymap, { KeymapDB } from "../../../api/keymap";
@@ -21,34 +23,39 @@ const Style = Styled.div`
     max-height: 20vh;
   }
 
-  .configurator {
-    z-index: 100;
-    min-width: 1140px;
-    width: 75vw;
+.configurator {
+  z-index: 100;
+  min-width: 1140px;
+  width: 75vw;
+  padding: 0;
+  background-color: ${({ theme }) => theme.card.background};
+  border-radius: 10px;
+  box-shadow: 0 0 0.5rem 0.3rem rgba(0,0,0,0.1);
+  .rows {
+    margin: 0px;
+    padding: 0px;
+    justify-content:center;
+    .main-card{
+      padding: 0;
+      width: -webkit-fill-available;
+  }
+}
+.type-card {
+    min-height: 100%;
+}
+.select-card {
+    min-height: 100%;
     padding: 0;
-    background-color: ${({ theme }) => theme.card.background};
-    border-radius: 10px;
-    box-shadow: 0 0 0.5rem 0.3rem rgba(0,0,0,0.1);
-    .rows {
-      margin: 0px;
-      padding: 0px;
-      justify-content:center;
-      .main-card{
-        padding: 0;
-        width: -webkit-fill-available;
-      }
-    }
-    .type-card {
-        min-height: 100%;
-    }
-    .select-card {
-        min-height: 100%;
-        padding: 0;
-    }
-    .nospacing{
-        padding: 0;
-        margin: 0;
-    }
+}
+.nospacing{
+    padding: 0;
+    margin: 0;
+}
+.dropdown-menu.show {
+  display: block;
+  height: 200px;
+  overflow-y: auto;
+}
 `;
 
 class KeyConfig extends Component {
@@ -71,7 +78,9 @@ class KeyConfig extends Component {
     this.state = {
       action: 0,
       actions: temp,
-      modifs: tempModifs
+      modifs: tempModifs,
+      selectdual: 0,
+      activeTab: "editor"
     };
 
     this.SelectAction = this.SelectAction.bind(this);
@@ -79,12 +88,26 @@ class KeyConfig extends Component {
     this.onReplaceKey = this.onReplaceKey.bind(this);
     this.AssignMacro = this.AssignMacro.bind(this);
     this.parseModifs = this.parseModifs.bind(this);
+    this.updateDual = this.updateDual.bind(this);
+    this.changeTab = this.changeTab.bind(this);
   }
   componentDidUpdate() {
+    let dual = 0;
+    if (
+      this.props.code != null &&
+      this.props.code.modified >= 49169 &&
+      this.props.code.modified <= 53266
+    ) {
+      dual = ((this.props.code.modified >>> 8) << 8) + 17;
+    } else {
+      dual = 0;
+    }
     if (this.state.actions !== this.props.actions) {
-      this.setState({ actions: this.props.actions });
+      this.setState({ actions: this.props.actions, selectdual: dual });
     }
   }
+
+  componentDidMount() {}
 
   parseModifs(keycode) {
     let modifs = [];
@@ -120,7 +143,7 @@ class KeyConfig extends Component {
     let mod = this.state.modifs;
     mod[this.state.action] = event;
     this.setState({ modifs: mod });
-    this.checkAndReport(this.state.actions);
+    this.checkAndReport(this.state.actions, this.state.selectdual);
   }
 
   onReplaceKey(keycode, num) {
@@ -137,10 +160,10 @@ class KeyConfig extends Component {
     }
     actions[action] = keycode;
     this.setState({ actions });
-    this.checkAndReport(actions);
+    this.checkAndReport(actions, this.state.selectdual);
   }
 
-  checkAndReport(actns) {
+  checkAndReport(actns, selectdual, previousdual) {
     const { action, modifs } = this.state;
     let state = 0;
     const event = modifs[action];
@@ -165,10 +188,26 @@ class KeyConfig extends Component {
         actions.push(0);
       }
     }
+    if (selectdual !== 0 && previousdual !== selectdual) {
+      state = selectdual;
+      const aux = modifs;
+      aux[action] = [];
+      this.setState({ modifs: aux });
+    }
     const mask = 0b0000000011111111;
-    let base =
-      actions[action] < 8192 ? actions[action] & mask : actions[action];
-    actions[action] = base + state;
+    if (selectdual !== 0) {
+      console.log(
+        "testing dualfunc",
+        actions[action],
+        actions[action] & mask,
+        state
+      );
+      actions[action] = (actions[action] & mask) + state;
+    } else {
+      let base =
+        actions[action] < 8192 ? actions[action] & mask : actions[action];
+      actions[action] = base + state;
+    }
     let superid = this.props.code.base + this.props.code.modified - 53916;
     console.log(superid, actions);
     if (actions[0] !== 0) {
@@ -214,6 +253,19 @@ class KeyConfig extends Component {
       aux = 0;
     }
     return aux;
+  }
+
+  updateDual(dual) {
+    this.checkAndReport(
+      this.state.actions,
+      parseInt(dual),
+      this.state.selectdual
+    );
+    this.setState({ selectdual: parseInt(dual) });
+  }
+
+  changeTab(tab) {
+    this.setState({ activeTab: tab });
   }
 
   render() {
@@ -312,6 +364,50 @@ class KeyConfig extends Component {
     //   .fill()
     //   .map((_, i) => i + 49153);
     // enumerator = enumerator.concat(skeys, mcros, shftto, mvto, onsht);
+    const dualkeys = [
+      { name: "None", keynum: 0 },
+      { name: "Control", keynum: 49169 },
+      { name: "Shift", keynum: 49425 },
+      { name: "Left Alt", keynum: 49681 },
+      { name: "Gui", keynum: 49937 },
+      { name: "Alt Gr", keynum: 50705 },
+      { name: "Layer 0", keynum: 51218 },
+      { name: "Layer 1", keynum: 51474 },
+      { name: "Layer 2", keynum: 51730 },
+      { name: "Layer 3", keynum: 51986 },
+      { name: "Layer 4", keynum: 52242 },
+      { name: "Layer 5", keynum: 52498 },
+      { name: "Layer 6", keynum: 52754 },
+      { name: "Layer 7", keynum: 53010 }
+    ];
+    const dualFunction = (
+      <Dropdown
+        id="SelectDualFunction"
+        className={"textField"}
+        drop={"up"}
+        value={this.state.selectdual}
+        onSelect={this.updateDual}
+      >
+        <Dropdown.Toggle variant="success" id="dropdown-basic">
+          {dualkeys.map(item => {
+            if (item.keynum === this.state.selectdual) {
+              return item.name;
+            }
+          })}
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          {dualkeys.map((item, id) => {
+            return (
+              <Dropdown.Item eventKey={item.keynum} key={`item-${id}`}>
+                <div className={"menuitem"}>
+                  <p>{item.name}</p>
+                </div>
+              </Dropdown.Item>
+            );
+          })}
+        </Dropdown.Menu>
+      </Dropdown>
+    );
     const configurator = (
       <Card className="select-card">
         <Card.Body>
@@ -334,6 +430,14 @@ class KeyConfig extends Component {
             <ToggleButton value={3}>Alt Gr</ToggleButton>
             <ToggleButton value={4}>Win</ToggleButton>
           </ToggleButtonGroup>
+          {this.state.activeTab == "editor" ? (
+            <React.Fragment>
+              <Card.Text>Add Dual-Function</Card.Text>
+              {dualFunction}
+            </React.Fragment>
+          ) : (
+            ""
+          )}
         </Card.Body>
       </Card>
     );
@@ -407,11 +511,33 @@ class KeyConfig extends Component {
                     width: -2
                   }}
                 >
-                  <Col xs={2} style={{ minHeight: "100%", padding: 0 }}>
+                  {/* <Col xs={2} style={{ minHeight: "100%", padding: 0 }}>
                     {selector}
                   </Col>
                   <Col xs={3} style={{ minHeight: "100%", padding: 0 }}>
                     {configurator}
+                  </Col> */}
+                  <Col xs={5} style={{ minHeight: "100%", padding: 0 }}>
+                    <Tabs
+                      activeKey={this.state.activeTab}
+                      onSelect={this.changeTab}
+                      id="uncontrolled-tab-example"
+                      className="mb-3"
+                    >
+                      <Tab eventKey="editor" title="Editor">
+                        {configurator}
+                      </Tab>
+                      <Tab eventKey="super" title="Superkey">
+                        <Row>
+                          <Col xs={5} style={{ minHeight: "100%", padding: 0 }}>
+                            {selector}
+                          </Col>
+                          <Col xs={7} style={{ minHeight: "100%", padding: 0 }}>
+                            {configurator}
+                          </Col>
+                        </Row>
+                      </Tab>
+                    </Tabs>
                   </Col>
                   <Col xs={7} style={{ minHeight: "100%", padding: 0 }}>
                     {picker}

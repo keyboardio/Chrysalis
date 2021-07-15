@@ -8,14 +8,19 @@ import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import Styled from "styled-components";
 import { MdDeleteForever } from "react-icons/md";
-import { KeyPicker, LayerPicker, MiscPicker } from "../../components/KeyPicker";
+import {
+  KeyPicker,
+  LayerPicker,
+  LayerMovPicker,
+  MiscPicker
+} from "../../components/KeyPicker";
 import Keymap, { KeymapDB } from "../../../api/keymap";
+import { Fragment } from "react";
 
 const Style = Styled.div`
   .svgContainer{
@@ -73,8 +78,9 @@ const Style = Styled.div`
   border-left: .3em solid transparent;
   margin-top: 10px;
 }
-.toggle {
+.titles {
   padding-top: 24px;
+  margin-bottom: 0;
 }
 .menuitem {
   p {
@@ -138,24 +144,55 @@ class KeyConfig extends Component {
       actions: temp,
       modifs: tempModifs,
       selectdual: 0,
+      selectlayer: 0,
       activeTab: "editor",
-      disabledual: true,
-      disablecombo: true
+      layerData: 0
     };
+
+    this.dualkeys = [
+      { name: "None Selected", keynum: 0, alt: 0 },
+      { name: "----------------", keynum: -1, alt: -1 },
+      { name: "Move to Layer 0", keynum: 17492 },
+      { name: "Move to Layer 1", keynum: 17493 },
+      { name: "Move to Layer 2", keynum: 17494 },
+      { name: "Move to Layer 3", keynum: 17495 },
+      { name: "Move to Layer 4", keynum: 17496 },
+      { name: "Move to Layer 5", keynum: 17497 },
+      { name: "Move to Layer 6", keynum: 17498 },
+      { name: "Move to Layer 7", keynum: 17499 },
+      { name: "Move to Layer 8", keynum: 17500 },
+      { name: "Move to Layer 9", keynum: 17501 },
+      { name: "Shift to Layer 0", keynum: 17450 },
+      { name: "Shift to Layer 1", keynum: 17451 },
+      { name: "Shift to Layer 2", keynum: 17452 },
+      { name: "Shift to Layer 3", keynum: 17453 },
+      { name: "Shift to Layer 4", keynum: 17454 },
+      { name: "Shift to Layer 5", keynum: 17455 },
+      { name: "Shift to Layer 6", keynum: 17456 },
+      { name: "Shift to Layer 7", keynum: 17457 },
+      { name: "Shift to Layer 8", keynum: 17458 },
+      { name: "Shift to Layer 9", keynum: 17459 },
+      { name: "Dual Layer 0", keynum: 51218 },
+      { name: "Dual Layer 1", keynum: 51474 },
+      { name: "Dual Layer 2", keynum: 51730 },
+      { name: "Dual Layer 3", keynum: 51986 },
+      { name: "Dual Layer 4", keynum: 52242 },
+      { name: "Dual Layer 5", keynum: 52498 },
+      { name: "Dual Layer 6", keynum: 52754 },
+      { name: "Dual Layer 7", keynum: 53010 }
+    ];
 
     this.SelectAction = this.SelectAction.bind(this);
     this.SelectModif = this.SelectModif.bind(this);
     this.onReplaceKey = this.onReplaceKey.bind(this);
     this.AssignMacro = this.AssignMacro.bind(this);
     this.parseModifs = this.parseModifs.bind(this);
-    this.updateDual = this.updateDual.bind(this);
     this.changeTab = this.changeTab.bind(this);
-    this.clearcombo = this.clearcombo.bind(this);
-    this.cleardual = this.cleardual.bind(this);
+    this.updatelayer = this.updatelayer.bind(this);
   }
   componentDidUpdate() {
     let dual = 0;
-    let booldual = true;
+    let disabledual = true;
     if (
       this.props.code != null &&
       this.props.code.modified >= 49169 &&
@@ -167,7 +204,7 @@ class KeyConfig extends Component {
       } else {
         dual += 17;
       }
-      booldual = false;
+      disabledual = false;
     } else {
       dual = 0;
     }
@@ -180,19 +217,11 @@ class KeyConfig extends Component {
         tempModifs[i] = [];
       }
     });
-    console.log(
-      "en updating",
-      this.props.actions,
-      dual,
-      booldual,
-      tempModifs,
-      tempModifs[0].length != 0 ? false : true
-    );
     if (this.state.actions !== this.props.actions) {
       this.setState({
         actions: this.props.actions,
         selectdual: dual,
-        disabledual: booldual,
+        disabledual: disabledual,
         modifs: tempModifs,
         disablecombo: tempModifs[0].length != 0 ? false : true
       });
@@ -203,24 +232,23 @@ class KeyConfig extends Component {
 
   parseModifs(keycode) {
     let modifs = [];
-    let bits = keycode.toString(2);
-    if (bits & 0b100000000) {
+    if (keycode & 0b100000000) {
       // Ctrl Decoder
       modifs.push(1);
     }
-    if (bits & 0b1000000000) {
+    if (keycode & 0b1000000000) {
       // Alt Decoder
       modifs.push(2);
     }
-    if (bits & 0b10000000000) {
+    if (keycode & 0b10000000000) {
       // AltGr Decoder
       modifs.push(3);
     }
-    if (bits & 0b100000000000) {
+    if (keycode & 0b100000000000) {
       // Shift Decoder
       modifs.push(0);
     }
-    if (bits & 0b1000000000000) {
+    if (keycode & 0b1000000000000) {
       // Win Decoder
       modifs.push(4);
     }
@@ -239,13 +267,12 @@ class KeyConfig extends Component {
   }
 
   SelectModif(event) {
-    let mod = this.state.modifs;
+    let mod = [...this.state.modifs];
     if (mod[this.state.action].includes(event)) {
       mod[this.state.action] = mod[this.state.action].filter(e => e !== event);
     } else {
       mod[this.state.action].push(event);
     }
-    console.log("select Modifs: ", mod);
     this.checkAndReport(
       this.state.actions,
       mod,
@@ -275,7 +302,7 @@ class KeyConfig extends Component {
       return;
     }
     actions[action] = keycode;
-    this.setState({ actions });
+    this.setState({ actions, selectlayer: keycode });
     this.checkAndReport(
       actions,
       this.state.modifs,
@@ -304,7 +331,6 @@ class KeyConfig extends Component {
     if (ActModifs.includes(4)) {
       state += 4096;
     }
-    console.log("find if actModifs works", ActModifs, state);
     let actions = actns;
     if (actions.length < 5) {
       while (actions.length < 5) {
@@ -322,7 +348,7 @@ class KeyConfig extends Component {
       const aux = modifs;
       aux[action] = [];
       this.setState({ modifs: aux });
-      console.log("testing dualfunc \n");
+      // console.log("testing dualfunc \n");
       // console.log(
       //   "actions[action] value: ",
       //   actions[action],
@@ -342,7 +368,7 @@ class KeyConfig extends Component {
       }
     }
     let superid = this.props.code.base + this.props.code.modified - 53916;
-    console.log("before sending: ", superid, actions);
+    // console.log("before sending: ", superid, actions);
     if (actions[0] !== 0) {
       if (
         actions[1] === 0 &&
@@ -388,45 +414,35 @@ class KeyConfig extends Component {
     return aux;
   }
 
-  updateDual(dual) {
+  updatelayer(mv) {
+    const mov = parseInt(mv);
+    console.log("Checking update layer", mov, this.state.layerData);
+    this.setState({ layerData: mov });
+    if (mov > 20000) {
+      this.checkAndReport(
+        this.state.actions,
+        this.state.modifs,
+        this.state.modifs,
+        mov,
+        this.state.selectdual
+      );
+      this.setState({ selectdual: mov });
+      return;
+    }
+    let actions = [...this.state.actions];
+    actions[this.state.action] = mov;
+    this.setState({ actions });
     this.checkAndReport(
-      this.state.actions,
+      actions,
       this.state.modifs,
-      this.state.modifs,
-      parseInt(dual),
-      this.state.selectdual
-    );
-    // console.log("dual", dual);
-    const booldual = parseInt(dual) == 0 ? true : false;
-    this.setState({ selectdual: parseInt(dual), disabledual: booldual });
-  }
-
-  changeTab(tab) {
-    this.setState({ activeTab: tab });
-  }
-
-  cleardual() {
-    this.checkAndReport(
-      this.state.actions,
-      this.state.modifs,
-      this.state.modifs,
-      0,
-      this.state.selectdual
-    );
-    this.setState({ selectdual: 0 });
-  }
-  clearcombo() {
-    let mod = this.state.modifs;
-    mod[this.state.action] = [];
-    console.log("inside clear combo", this.state.modifs);
-    this.checkAndReport(
-      this.state.actions,
-      mod,
       this.state.modifs,
       this.state.selectdual,
       this.state.selectdual
     );
-    this.setState({ modifs: mod });
+  }
+
+  changeTab(tab) {
+    this.setState({ activeTab: tab });
   }
 
   render() {
@@ -525,66 +541,25 @@ class KeyConfig extends Component {
     //   .fill()
     //   .map((_, i) => i + 49153);
     // enumerator = enumerator.concat(skeys, mcros, shftto, mvto, onsht);
-    const dualkeys = [
-      { name: "None Selected", keynum: 0 },
-      { name: "----------------", keynum: -1 },
-      { name: "Control", keynum: 49169 },
-      { name: "Shift", keynum: 49425 },
-      { name: "Left Alt", keynum: 49681 },
-      { name: "Gui", keynum: 49937 },
-      { name: "Alt Gr", keynum: 50705 },
-      { name: "----------------", keynum: -1 },
-      { name: "Layer 0", keynum: 51218 },
-      { name: "Layer 1", keynum: 51474 },
-      { name: "Layer 2", keynum: 51730 },
-      { name: "Layer 3", keynum: 51986 },
-      { name: "Layer 4", keynum: 52242 },
-      { name: "Layer 5", keynum: 52498 },
-      { name: "Layer 6", keynum: 52754 },
-      { name: "Layer 7", keynum: 53010 }
-    ];
+
+    const mappedKN = this.dualkeys.map(i => {
+      return i.keynum;
+    });
+
     const dualFunction = (
-      // <Dropdown
-      //   id="SelectDualFunction"
-      //   className="selectButton"
-      //   drop={"up"}
-      //   disable={this.state.disabledual}
-      //   value={this.state.selectdual}
-      //   onSelect={this.updateDual}
-      // >
-      //   <Dropdown.Toggle variant="success" id="dropdown-basic">
-      //     {dualkeys.map(item => {
-      //       if (item.keynum === this.state.selectdual) {
-      //         return item.name;
-      //       }
-      //     })}
-      //   </Dropdown.Toggle>
-      //   <Dropdown.Menu>
-      //     {dualkeys.map((item, id) => {
-      //       return (
-      //         <Dropdown.Item eventKey={item.keynum} key={`item-${id}`}>
-      //           <div className={"menuitem"}>
-      //             <p>{item.name}</p>
-      //           </div>
-      //         </Dropdown.Item>
-      //       );
-      //     })}
-      //   </Dropdown.Menu>
-      // </Dropdown>
       <DropdownButton
         id="SelectDualFunction"
         className="selectButton"
         drop={"up"}
-        title={dualkeys.map(item => {
-          if (item.keynum === this.state.selectdual) {
-            return item.name;
+        title={this.dualkeys.map(i => {
+          if (this.state.layerData == i.keynum) {
+            return i.name;
           }
         })}
-        disabled={this.state.disabledual}
-        value={this.state.selectdual}
-        onSelect={this.updateDual}
+        value={this.state.layerData}
+        onSelect={this.updatelayer}
       >
-        {dualkeys.map((item, id) => {
+        {this.dualkeys.map((item, id) => {
           return (
             <Dropdown.Item
               eventKey={item.keynum}
@@ -602,117 +577,14 @@ class KeyConfig extends Component {
     const configurator = (
       <Card className="select-card overflow">
         <Card.Body>
-          <Card.Title>Selected key</Card.Title>
-          <Form.Control
-            type="text"
-            value={this.parseAction(this.state.action)}
-            disabled
-            className="selectedkey"
-            readOnly
-          ></Form.Control>
           {this.state.activeTab == "editor" ? (
             <React.Fragment>
-              <Form.Check
-                type="switch"
-                id="comboSwitch"
-                className="toggle"
-                label="Toggle Combo Modifiers"
-                checked={!this.state.disablecombo}
-                onChange={e => {
-                  if (!this.state.disablecombo) {
-                    this.clearcombo();
-                  }
-                  if (this.state.disablecombo && !this.state.disabledual) {
-                    this.cleardual();
-                  }
-                  this.setState(state => {
-                    let aux = state.disablecombo;
-                    if (aux && !state.disabledual) {
-                      aux = true;
-                    } else {
-                      aux = state.disabledual;
-                    }
-                    return {
-                      disablecombo: !state.disablecombo,
-                      disabledual: aux
-                    };
-                  });
-                }}
-              />
-              <Row className="modbuttonrow">
-                <Button
-                  active={this.state.modifs[this.state.action].includes(0)}
-                  className="modbutton"
-                  onClick={e => this.SelectModif(0)}
-                  disabled={this.state.disablecombo}
-                >
-                  Shift
-                </Button>
-                <Button
-                  active={this.state.modifs[this.state.action].includes(1)}
-                  className="modbutton"
-                  onClick={e => this.SelectModif(1)}
-                  disabled={this.state.disablecombo}
-                >
-                  Ctrl
-                </Button>
-                <Button
-                  active={this.state.modifs[this.state.action].includes(2)}
-                  className="modbutton"
-                  onClick={e => this.SelectModif(2)}
-                  disabled={this.state.disablecombo}
-                >
-                  Alt
-                </Button>
-                <Button
-                  active={this.state.modifs[this.state.action].includes(3)}
-                  className="modbutton"
-                  onClick={e => this.SelectModif(3)}
-                  disabled={this.state.disablecombo}
-                >
-                  Alt Gr
-                </Button>
-                <Button
-                  active={this.state.modifs[this.state.action].includes(4)}
-                  className="modbutton"
-                  onClick={e => this.SelectModif(4)}
-                  disabled={this.state.disablecombo}
-                >
-                  Win
-                </Button>
-              </Row>
-              <Form.Check
-                type="switch"
-                id="dualSwitch"
-                className="toggle"
-                checked={!this.state.disabledual}
-                label="Toggle Dual Functions"
-                onChange={e => {
-                  if (!this.state.disabledual) {
-                    this.cleardual();
-                  }
-                  if (this.state.disabledual && !this.state.disablecombo) {
-                    this.clearcombo();
-                  }
-                  this.setState(state => {
-                    let aux = state.disabledual;
-                    if (aux && !state.disablecombo) {
-                      aux = true;
-                    } else {
-                      aux = state.disablecombo;
-                    }
-                    return {
-                      disabledual: !state.disabledual,
-                      disablecombo: aux
-                    };
-                  });
-                }}
-              />
+              <p className="titles">Add a Layer</p>
               {dualFunction}
             </React.Fragment>
           ) : (
             <React.Fragment>
-              <Form.Check
+              {/* <Form.Check
                 type="switch"
                 id="comboSwitch"
                 className="toggle"
@@ -738,49 +610,64 @@ class KeyConfig extends Component {
                     };
                   });
                 }}
-              />
-              <Row className="modbuttonrow">
-                <Button
-                  active={this.state.modifs[this.state.action].includes(0)}
-                  className="modbutton"
-                  onClick={e => this.SelectModif(0)}
-                  disabled={this.state.disablecombo}
-                >
-                  Shift
-                </Button>
-                <Button
-                  active={this.state.modifs[this.state.action].includes(1)}
-                  className="modbutton"
-                  onClick={e => this.SelectModif(1)}
-                  disabled={this.state.disablecombo}
-                >
-                  Ctrl
-                </Button>
-                <Button
-                  active={this.state.modifs[this.state.action].includes(2)}
-                  className="modbutton"
-                  onClick={e => this.SelectModif(2)}
-                  disabled={this.state.disablecombo}
-                >
-                  Alt
-                </Button>
-                <Button
-                  active={this.state.modifs[this.state.action].includes(3)}
-                  className="modbutton"
-                  onClick={e => this.SelectModif(3)}
-                  disabled={this.state.disablecombo}
-                >
-                  Alt Gr
-                </Button>
-                <Button
-                  active={this.state.modifs[this.state.action].includes(4)}
-                  className="modbutton"
-                  onClick={e => this.SelectModif(4)}
-                  disabled={this.state.disablecombo}
-                >
-                  Win
-                </Button>
-              </Row>
+              /> */}
+
+              {this.state.actions[this.state.action] >= 17450 &&
+              this.state.actions[this.state.action] <= 17502 ? (
+                <React.Fragment>
+                  <p className="titles">Change Layer travel</p>
+                  <Row className="modbuttonrow">
+                    <LayerPicker
+                      onKeySelect={e => this.onReplaceKey(e, -1)}
+                      code={{
+                        base: this.state.actions[this.state.action],
+                        modified: 0
+                      }}
+                    />
+                  </Row>
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  <p className="titles">Add a modifier</p>
+                  <Row className="modbuttonrow">
+                    <Button
+                      active={this.state.modifs[this.state.action].includes(0)}
+                      className="modbutton"
+                      onClick={e => this.SelectModif(0)}
+                    >
+                      Shift
+                    </Button>
+                    <Button
+                      active={this.state.modifs[this.state.action].includes(1)}
+                      className="modbutton"
+                      onClick={e => this.SelectModif(1)}
+                    >
+                      Ctrl
+                    </Button>
+                    <Button
+                      active={this.state.modifs[this.state.action].includes(2)}
+                      className="modbutton"
+                      onClick={e => this.SelectModif(2)}
+                    >
+                      Alt
+                    </Button>
+                    <Button
+                      active={this.state.modifs[this.state.action].includes(3)}
+                      className="modbutton"
+                      onClick={e => this.SelectModif(3)}
+                    >
+                      Alt Gr
+                    </Button>
+                    <Button
+                      active={this.state.modifs[this.state.action].includes(4)}
+                      className="modbutton"
+                      onClick={e => this.SelectModif(4)}
+                    >
+                      Win
+                    </Button>
+                  </Row>
+                </React.Fragment>
+              )}
             </React.Fragment>
           )}
         </Card.Body>
@@ -810,13 +697,24 @@ class KeyConfig extends Component {
         />
         <Row className="nospacing">
           <Col xs={3} className="nospacing">
-            <LayerPicker
+            {/* <LayerPicker
               onKeySelect={e => this.onReplaceKey(e, -1)}
               code={{
                 base: this.parseAction(this.state.action),
                 modified: 0
               }}
-            />
+            /> */}
+            {this.state.activeTab == "super" ? (
+              <LayerMovPicker
+                onKeySelect={e => this.onReplaceKey(e, -1)}
+                code={{
+                  base: this.parseAction(this.state.action),
+                  modified: 0
+                }}
+              />
+            ) : (
+              ""
+            )}
           </Col>
           <Col xs={6} className="nospacing">
             <MiscPicker
@@ -868,7 +766,7 @@ class KeyConfig extends Component {
                       onSelect={this.changeTab}
                       id="uncontrolled-tab-example"
                     >
-                      <Tab eventKey="editor" title="KEY EDITOR">
+                      <Tab eventKey="editor" title="KEY & LAYER">
                         {configurator}
                       </Tab>
                       <Tab eventKey="super" title="SUPERKEY">

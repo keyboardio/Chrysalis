@@ -1,0 +1,15 @@
+[
+  {
+    "id": 17492,
+    "x": 0,
+    "y": 0,
+    "centered": true,
+    "content": {
+      "type": "wideBlock",
+      "first": "Layer",
+      "second": "Move",
+      "third": "",
+      "fourth": ""
+    }
+  }
+]

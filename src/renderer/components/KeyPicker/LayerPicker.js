@@ -46,38 +46,27 @@ export default class LayerPicker extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { selected: 0 };
     this.onKeyPress = this.onKeyPress.bind(this);
   }
 
   onKeyPress = keycode => {
-    const { onKeySelect } = this.props;
-    const { selected } = this.state;
-    const moveTo = 17492 + keycode;
-    const shiftTo = 17450 + keycode;
-    const oneShotTo = 49161 + keycode;
-
-    switch (selected) {
-      case 0:
-        onKeySelect(shiftTo);
-        break;
-      case 1:
-        onKeySelect(moveTo);
-        break;
-      case 2:
-        if (keycode > 7) {
-          break;
-        }
-        onKeySelect(oneShotTo);
-        break;
-      default:
-        break;
+    const { onKeySelect, code } = this.props;
+    const isMovSel = code.base + code.modified - 17492 < 10;
+    const isShiftSel = code.base + code.modified - 17450 < 10;
+    let aux = code.base + code.modified;
+    if (isMovSel) {
+      aux = 17492 + keycode;
     }
+    if (isShiftSel) {
+      aux = 17450 + keycode;
+    }
+    onKeySelect(aux);
   };
 
   render() {
-    const { selected } = this.state;
-    const mod = [17450, 17492, 49161];
+    const { code } = this.props;
+    const isMovSel = code.base + code.modified - 17492;
+    const isShiftSel = code.base + code.modified - 17450;
     const layers = Layers.map(key => {
       return (
         <Key
@@ -85,13 +74,14 @@ export default class LayerPicker extends Component {
           x={key.x}
           y={key.y}
           selected={
-            this.props.code === null
-              ? false
-              : this.props.code.modified -
-                  mod[selected] +
-                  this.props.code.base ===
-                key.id
-              ? true
+            isMovSel < 10
+              ? isMovSel == key.id
+                ? true
+                : false
+              : isShiftSel < 10
+              ? isShiftSel == key.id
+                ? true
+                : false
               : false
           }
           clicked={() => {
@@ -111,32 +101,6 @@ export default class LayerPicker extends Component {
               <svg className="" viewBox="0 0 220 90">
                 {layers}
               </svg>
-              <ButtonGroup className="btngrp">
-                <Button
-                  className={`btns ${selected === 0 ? "active" : ""}`}
-                  onClick={() => {
-                    this.setState({ selected: 0 });
-                  }}
-                >
-                  Shift
-                </Button>
-                <Button
-                  className={`btns ${selected === 1 ? "active" : ""}`}
-                  onClick={() => {
-                    this.setState({ selected: 1 });
-                  }}
-                >
-                  Move
-                </Button>
-                <Button
-                  className={`btns ${selected === 2 ? "active" : ""}`}
-                  onClick={() => {
-                    this.setState({ selected: 2 });
-                  }}
-                >
-                  One Shot
-                </Button>
-              </ButtonGroup>
             </Col>
           </Row>
         </Container>

@@ -3,11 +3,11 @@
     "id": 0,
     "x": 0,
     "y": 0,
-    "centered": true,
+    "centered": false,
     "content": {
       "type": "block",
       "first": "1",
-      "second": "Layer",
+      "second": "",
       "third": "",
       "fourth": ""
     }
@@ -16,11 +16,11 @@
     "id": 1,
     "x": 45,
     "y": 0,
-    "centered": true,
+    "centered": false,
     "content": {
       "type": "block",
       "first": "2",
-      "second": "Layer",
+      "second": "",
       "third": "",
       "fourth": ""
     }
@@ -29,11 +29,11 @@
     "id": 2,
     "x": 90,
     "y": 0,
-    "centered": true,
+    "centered": false,
     "content": {
       "type": "block",
       "first": "3",
-      "second": "Layer",
+      "second": "",
       "third": "",
       "fourth": ""
     }
@@ -42,11 +42,11 @@
     "id": 3,
     "x": 135,
     "y": 0,
-    "centered": true,
+    "centered": false,
     "content": {
       "type": "block",
       "first": "4",
-      "second": "Layer",
+      "second": "",
       "third": "",
       "fourth": ""
     }
@@ -55,11 +55,11 @@
     "id": 4,
     "x": 180,
     "y": 0,
-    "centered": true,
+    "centered": false,
     "content": {
       "type": "block",
       "first": "5",
-      "second": "Layer",
+      "second": "",
       "third": "",
       "fourth": ""
     }
@@ -68,11 +68,11 @@
     "id": 5,
     "x": 0,
     "y": 40,
-    "centered": true,
+    "centered": false,
     "content": {
       "type": "block",
       "first": "6",
-      "second": "Layer",
+      "second": "",
       "third": "",
       "fourth": ""
     }
@@ -81,11 +81,11 @@
     "id": 6,
     "x": 45,
     "y": 40,
-    "centered": true,
+    "centered": false,
     "content": {
       "type": "block",
       "first": "7",
-      "second": "Layer",
+      "second": "",
       "third": "",
       "fourth": ""
     }
@@ -94,11 +94,11 @@
     "id": 7,
     "x": 90,
     "y": 40,
-    "centered": true,
+    "centered": false,
     "content": {
       "type": "block",
       "first": "8",
-      "second": "Layer",
+      "second": "",
       "third": "",
       "fourth": ""
     }
@@ -107,11 +107,11 @@
     "id": 8,
     "x": 135,
     "y": 40,
-    "centered": true,
+    "centered": false,
     "content": {
       "type": "block",
       "first": "9",
-      "second": "Layer",
+      "second": "",
       "third": "",
       "fourth": ""
     }
@@ -120,11 +120,11 @@
     "id": 9,
     "x": 180,
     "y": 40,
-    "centered": true,
+    "centered": false,
     "content": {
       "type": "block",
       "first": "10",
-      "second": "Layer",
+      "second": "",
       "third": "",
       "fourth": ""
     }

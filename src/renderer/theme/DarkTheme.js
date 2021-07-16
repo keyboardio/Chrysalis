@@ -27,7 +27,7 @@ const Dark = {
     radius: "10",
     boxShadow: "0 0 0.5rem 0.3rem rgba(0,0,0,0.1)"
   },
-  font: "AktivGrotesk"
+  font: "Titillium Web"
 };
 
 export default Dark;

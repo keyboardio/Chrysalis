@@ -4,114 +4,136 @@ import { withTheme } from "styled-components";
 
 // variable with the Key Size Library
 const ksl = {
-  "1U": {
-    outb: { x: 52, y: 26, dx: 0, dy: 0 },
-    out: { x: 50, y: 24, dx: 1, dy: 1 },
+  "1UT": {
+    outb: { x: 44, y: 20, dx: 0, dy: 0 },
+    out: { x: 42, y: 18, dx: 1, dy: 1 },
     text: {
-      a: { dx: 6, dy: 19, fs: 14 },
-      b: { dx: 18, dy: 15, fs: 10 },
-      c: { dx: 28, dy: 15, fs: 10 },
-      d: { dx: 38, dy: 15, fs: 10 },
-      letter: { dx: 25, dy: 19, fs: 14 }
+      a: { dx: 6, dy: 19, fs: 20 },
+      b: { dx: 18, dy: 15, fs: 14 },
+      c: { dx: 28, dy: 15, fs: 14 },
+      d: { dx: 38, dy: 15, fs: 14 },
+      letter: { dx: 22, dy: 16, fs: 16, fss: 12 }
+    }
+  },
+  "1U": {
+    outb: { x: 44, y: 26, dx: 0, dy: 0 },
+    out: { x: 42, y: 24, dx: 1, dy: 1 },
+    text: {
+      a: { dx: 6, dy: 19, fs: 20 },
+      b: { dx: 18, dy: 15, fs: 14 },
+      c: { dx: 28, dy: 15, fs: 14 },
+      d: { dx: 38, dy: 15, fs: 14 },
+      letter: { dx: 25, dy: 19, fs: 20, fss: 14 }
     }
   },
   "1U2": {
-    outb: { x: 65, y: 26, dx: 0, dy: 0 },
-    out: { x: 63, y: 24, dx: 1, dy: 1 },
+    outb: { x: 54, y: 26, dx: 0, dy: 0 },
+    out: { x: 52, y: 24, dx: 1, dy: 1 },
     text: {
-      a: { dx: 6, dy: 19, fs: 14 },
-      b: { dx: 16, dy: 19, fs: 10 },
-      c: { dx: 28, dy: 19, fs: 10 },
-      d: { dx: 38, dy: 19, fs: 10 },
-      letter: { dx: 30, dy: 19, fs: 14 }
+      a: { dx: 6, dy: 19, fs: 20 },
+      b: { dx: 16, dy: 19, fs: 14 },
+      c: { dx: 28, dy: 19, fs: 14 },
+      d: { dx: 38, dy: 19, fs: 14 },
+      letter: { dx: 30, dy: 19, fs: 20, fss: 14 }
     }
   },
   "1U5": {
-    outb: { x: 79, y: 26, dx: 0, dy: 0 },
-    out: { x: 77, y: 24, dx: 1, dy: 1 },
+    outb: { x: 64, y: 26, dx: 0, dy: 0 },
+    out: { x: 62, y: 24, dx: 1, dy: 1 },
     text: {
-      a: { dx: 6, dy: 19, fs: 14 },
-      b: { dx: 16, dy: 19, fs: 10 },
-      c: { dx: 28, dy: 19, fs: 10 },
-      d: { dx: 38, dy: 19, fs: 10 },
-      letter: { dx: 40, dy: 19, fs: 14 }
+      a: { dx: 6, dy: 19, fs: 20 },
+      b: { dx: 16, dy: 19, fs: 14 },
+      c: { dx: 28, dy: 19, fs: 14 },
+      d: { dx: 38, dy: 19, fs: 14 },
+      letter: { dx: 32, dy: 19, fs: 20, fss: 14 }
     }
   },
   "2U": {
     outb: { x: 104, y: 26, dx: 0, dy: 0 },
-    out: { x: 100, y: 24, dx: 1, dy: 1 },
+    out: { x: 102, y: 24, dx: 1, dy: 1 },
     text: {
-      a: { dx: 6, dy: 19, fs: 14 },
-      b: { dx: 16, dy: 19, fs: 10 },
-      c: { dx: 28, dy: 19, fs: 10 },
-      d: { dx: 38, dy: 19, fs: 10 },
-      letter: { dx: 52, dy: 19, fs: 14 }
+      a: { dx: 6, dy: 19, fs: 20 },
+      b: { dx: 16, dy: 19, fs: 14 },
+      c: { dx: 28, dy: 19, fs: 14 },
+      d: { dx: 38, dy: 19, fs: 14 },
+      letter: { dx: 52, dy: 19, fs: 20, fss: 14 }
     }
   },
   "3U": {
-    outb: { x: 162, y: 26, dx: 0, dy: 0 },
-    out: { x: 160, y: 24, dx: 1, dy: 1 },
+    outb: { x: 168, y: 26, dx: 0, dy: 0 },
+    out: { x: 166, y: 24, dx: 1, dy: 1 },
     text: {
-      a: { dx: 6, dy: 19, fs: 14 },
-      b: { dx: 16, dy: 19, fs: 10 },
-      c: { dx: 28, dy: 19, fs: 10 },
-      d: { dx: 38, dy: 19, fs: 10 },
-      letter: { dx: 52, dy: 19, fs: 14 }
+      a: { dx: 6, dy: 19, fs: 20 },
+      b: { dx: 16, dy: 19, fs: 14 },
+      c: { dx: 28, dy: 19, fs: 14 },
+      d: { dx: 38, dy: 19, fs: 14 },
+      letter: { dx: 52, dy: 19, fs: 20, fss: 14 }
     }
   },
   "6U2": {
-    outb: { x: 361, y: 26, dx: 0, dy: 0 },
-    out: { x: 359, y: 24, dx: 1, dy: 1 },
+    outb: { x: 284, y: 26, dx: 0, dy: 0 },
+    out: { x: 282, y: 24, dx: 1, dy: 1 },
     text: {
-      a: { dx: 6, dy: 19, fs: 14 },
-      b: { dx: 16, dy: 19, fs: 10 },
-      c: { dx: 28, dy: 19, fs: 10 },
-      d: { dx: 38, dy: 19, fs: 10 },
-      letter: { dx: 182, dy: 19, fs: 14 }
+      a: { dx: 6, dy: 19, fs: 20 },
+      b: { dx: 16, dy: 19, fs: 14 },
+      c: { dx: 28, dy: 19, fs: 14 },
+      d: { dx: 38, dy: 19, fs: 14 },
+      letter: { dx: 142, dy: 19, fs: 20, fss: 14 }
     }
   },
   block: {
-    outb: { x: 35, y: 35, dx: 0, dy: 0 },
-    out: { x: 33, y: 33, dx: 1, dy: 1 },
+    outb: { x: 36, y: 32, dx: 0, dy: 0 },
+    out: { x: 34, y: 30, dx: 1, dy: 1 },
     text: {
-      a: { dx: 5, dy: 24, fs: 18 },
-      b: { dx: 10, dy: 28, fs: 10 },
-      c: { dx: 128, dy: 19, fs: 10 },
-      d: { dx: 138, dy: 19, fs: 10 },
-      letter: { dx: 17, dy: 17, fs: 14 }
+      a: { dx: 5, dy: 24, fs: 16 },
+      b: { dx: 10, dy: 28, fs: 14 },
+      c: { dx: 128, dy: 19, fs: 14 },
+      d: { dx: 138, dy: 19, fs: 14 },
+      letter: { dx: 17, dy: 17, fs: 16, fss: 14 }
+    }
+  },
+  specialBlock: {
+    outb: { x: 44, y: 32, dx: 0, dy: 0 },
+    out: { x: 42, y: 30, dx: 1, dy: 1 },
+    text: {
+      a: { dx: 5, dy: 24, fs: 16 },
+      b: { dx: 10, dy: 28, fs: 14 },
+      c: { dx: 128, dy: 19, fs: 14 },
+      d: { dx: 138, dy: 19, fs: 14 },
+      letter: { dx: 17, dy: 17, fs: 16, fss: 14 }
     }
   },
   longBlock: {
-    outb: { x: 35, y: 76, dx: 0, dy: 0 },
-    out: { x: 33, y: 74, dx: 1, dy: 1 },
+    outb: { x: 36, y: 70, dx: 0, dy: 0 },
+    out: { x: 34, y: 68, dx: 1, dy: 1 },
     text: {
-      a: { dx: 2, dy: 15, fs: 14 },
-      b: { dx: 2, dy: 28, fs: 10 },
-      c: { dx: 28, dy: 19, fs: 10 },
-      d: { dx: 38, dy: 19, fs: 10 },
-      letter: { dx: 17, dy: 38, fs: 14 }
+      a: { dx: 2, dy: 15, fs: 16 },
+      b: { dx: 2, dy: 28, fs: 14 },
+      c: { dx: 28, dy: 19, fs: 14 },
+      d: { dx: 38, dy: 19, fs: 14 },
+      letter: { dx: 17, dy: 38, fs: 16, fss: 14 }
     }
   },
   wideBlock: {
-    outb: { x: 76, y: 35, dx: 0, dy: 0 },
-    out: { x: 74, y: 33, dx: 1, dy: 1 },
+    outb: { x: 78, y: 32, dx: 0, dy: 0 },
+    out: { x: 76, y: 30, dx: 1, dy: 1 },
     text: {
-      a: { dx: 2, dy: 15, fs: 14 },
-      b: { dx: 2, dy: 28, fs: 10 },
-      c: { dx: 28, dy: 19, fs: 10 },
-      d: { dx: 38, dy: 19, fs: 10 },
-      letter: { dx: 38, dy: 17, fs: 14 }
+      a: { dx: 2, dy: 15, fs: 20 },
+      b: { dx: 2, dy: 28, fs: 14 },
+      c: { dx: 28, dy: 19, fs: 14 },
+      d: { dx: 38, dy: 19, fs: 14 },
+      letter: { dx: 38, dy: 17, fs: 20, fss: 14 }
     }
   },
   enter: {
-    outb: { x: 104, y: 26, dx: 0, dy: 0 },
-    out: { x: 100, y: 24, dx: 1, dy: 1 },
+    outb: { x: 44, y: 26, dx: 0, dy: 0 },
+    out: { x: 42, y: 24, dx: 1, dy: 1 },
     text: {
-      a: { dx: 6, dy: 19, fs: 14 },
-      b: { dx: 16, dy: 19, fs: 10 },
-      c: { dx: 28, dy: 19, fs: 10 },
-      d: { dx: 38, dy: 19, fs: 10 },
-      letter: { dx: 55, dy: 19, fs: 14 }
+      a: { dx: 6, dy: 19, fs: 20 },
+      b: { dx: 16, dy: 19, fs: 14 },
+      c: { dx: 28, dy: 19, fs: 14 },
+      d: { dx: 38, dy: 19, fs: 14 },
+      letter: { dx: 22, dy: 16, fs: 18, fss: 14 }
     }
   }
 };
@@ -124,13 +146,13 @@ class Key extends React.Component {
         {content.type === "enter" ? (
           <>
             <rect
-              x={x + ksl[content.type].outb.dx + 14}
+              x={x + ksl[content.type].outb.dx + 10}
               y={y + ksl[content.type].outb.dy}
-              width="77"
-              height="57"
-              rx="5"
+              width="34"
+              height="60"
+              rx="6"
               fill={
-                selected ? this.props.theme.colors.button.active : "#e9e9e9"
+                selected ? this.props.theme.colors.button.active : "#f3f3f3"
               }
               onClick={clicked}
             />
@@ -138,11 +160,11 @@ class Key extends React.Component {
             <rect
               x={x + ksl[content.type].outb.dx}
               y={y + ksl[content.type].outb.dy}
-              width="79"
+              width="44"
               height="26"
-              rx="5"
+              rx="6"
               fill={
-                selected ? this.props.theme.colors.button.active : "#e9e9e9"
+                selected ? this.props.theme.colors.button.active : "#f3f3f3"
               }
               onClick={clicked}
             />
@@ -150,20 +172,20 @@ class Key extends React.Component {
             <rect
               x={x + ksl[content.type].out.dx + 15}
               y={y + ksl[content.type].out.dy}
-              width="73"
-              height="53"
-              rx="5"
-              fill="#e9e9e9"
+              width="26"
+              height="58"
+              rx="6"
+              fill="#f3f3f3"
               onClick={clicked}
             />
 
             <rect
               x={x + ksl[content.type].out.dx}
               y={y + ksl[content.type].out.dy}
-              width="79"
-              height="22"
-              rx="5"
-              fill="#e9e9e9"
+              width="42"
+              height="24"
+              rx="6"
+              fill="#f3f3f3"
               onClick={clicked}
             />
           </>
@@ -174,9 +196,9 @@ class Key extends React.Component {
               y={y + ksl[content.type].outb.dy}
               width={ksl[content.type].outb.x}
               height={ksl[content.type].outb.y}
-              rx="5"
+              rx="6"
               fill={
-                selected ? this.props.theme.colors.button.active : "#e9e9e9"
+                selected ? this.props.theme.colors.button.active : "#f3f3f3"
               }
               className="outer border"
             />
@@ -186,8 +208,8 @@ class Key extends React.Component {
               width={ksl[content.type].out.x}
               height={ksl[content.type].out.y}
               onClick={clicked}
-              rx="5"
-              fill="#e9e9e9"
+              rx="6"
+              fill="#f3f3f3"
             />
           </>
         )}
@@ -197,19 +219,19 @@ class Key extends React.Component {
               x={x + ksl[content.type].text.letter.dx}
               y={y + ksl[content.type].text.letter.dy}
               onClick={clicked}
-              fontFamily="Verdana"
               fontSize={ksl[content.type].text.letter.fs}
               fill="black"
+              fontWeight={300}
               textAnchor="middle"
             >
               {content.first}
             </text>
             <text
               x={x + ksl[content.type].text.letter.dx}
-              y={y + ksl[content.type].text.letter.dy + 10}
+              y={y + ksl[content.type].text.letter.dy + 14}
               onClick={clicked}
-              fontFamily="Verdana"
-              fontSize="10"
+              fontSize={ksl[content.type].text.letter.fss}
+              fontWeight={200}
               fill="grey"
               textAnchor="middle"
             >
@@ -222,8 +244,8 @@ class Key extends React.Component {
               x={x + ksl[content.type].text.a.dx}
               y={y + ksl[content.type].text.a.dy}
               onClick={clicked}
-              fontFamily="Verdana"
               fontSize={ksl[content.type].text.a.fs}
+              fontWeight={300}
               fill="black"
             >
               {content.first}
@@ -232,8 +254,8 @@ class Key extends React.Component {
               x={x + ksl[content.type].text.b.dx}
               y={y + ksl[content.type].text.b.dy}
               onClick={clicked}
-              fontFamily="Verdana"
               fontSize={ksl[content.type].text.b.fs}
+              fontWeight={200}
               fill="grey"
             >
               {content.second}
@@ -242,8 +264,8 @@ class Key extends React.Component {
               x={x + ksl[content.type].text.c.dx}
               y={y + ksl[content.type].text.c.dy}
               onClick={clicked}
-              fontFamily="Verdana"
               fontSize={ksl[content.type].text.c.fs}
+              fontWeight={200}
               fill="grey"
             >
               {content.third}
@@ -252,8 +274,8 @@ class Key extends React.Component {
               x={x + ksl[content.type].text.d.dx}
               y={y + ksl[content.type].text.d.dy}
               onClick={clicked}
-              fontFamily="Verdana"
               fontSize={ksl[content.type].text.d.fs}
+              fontWeight={200}
               fill="grey"
             >
               {content.fourth}

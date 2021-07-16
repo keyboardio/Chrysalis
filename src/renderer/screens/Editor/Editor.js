@@ -31,7 +31,7 @@ import Focus from "../../../api/focus";
 import Keymap, { KeymapDB } from "../../../api/keymap";
 import LayerPanel from "./LayerPanel";
 import ColorPanel from "./ColorPanel";
-import KeyConfig from "./KeyConfig";
+import KeyConfig from "../../components/KeyManager/";
 import SaveChangesButton from "../../components/SaveChangesButton";
 import ConfirmationDialog from "../../components/ConfirmationDialog";
 import i18n from "../../i18n";
@@ -1198,7 +1198,8 @@ class Editor extends Component {
       palette,
       isColorButtonSelected,
       currentLayer,
-      currentKeyIndex
+      currentKeyIndex,
+      currentLedIndex
     } = this.state;
 
     let Layer = this.getLayout();
@@ -1278,12 +1279,13 @@ class Editor extends Component {
       };
     });
 
-    let code = null;
-    if (currentKeyIndex !== -1) {
+    let code = 0;
+    if (currentKeyIndex !== -1 && currentLedIndex < 69) {
       let KM = keymap.custom.slice();
       const l = keymap.onlyCustom
         ? currentLayer
         : currentLayer - keymap.default.length;
+
       code = {
         base: this.keymapDB.reverse(KM[l][currentKeyIndex].label),
         modified:
@@ -1293,7 +1295,6 @@ class Editor extends Component {
           ) - this.keymapDB.reverse(KM[l][currentKeyIndex].label)
       };
     }
-    console.log(code);
 
     let actions = [code !== null ? code.base + code.modified : 0, 0, 0, 0, 0];
     if (code !== null) {

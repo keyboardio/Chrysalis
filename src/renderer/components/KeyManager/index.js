@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import MacroManager from "./MacroManager.js";
-import MacroList from "./MacroList.js";
+import KeyConfig from "./KeyConfig";
 
-export { MacroManager as default, MacroList };
+export { KeyConfig as default };

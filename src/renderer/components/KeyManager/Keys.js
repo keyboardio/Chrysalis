@@ -25,7 +25,7 @@ class Keys extends Component {
   }
 
   render() {
-    const { action, selKey, showKeyboard } = this.props;
+    const { action, selKey, showKeyboard, activeKB } = this.props;
     return (
       <Style>
         <Card className="select-card overflow">
@@ -34,6 +34,7 @@ class Keys extends Component {
               action={action}
               selKey={selKey}
               showKeyboard={showKeyboard}
+              activeKB={activeKB}
             />
           </Card.Body>
         </Card>

@@ -43,6 +43,7 @@ const Styles = Styled.div`
   display: flex;
   position: relative;
   place-content: space-between;
+  margin-top: 1rem;
 }
 .centered {
   place-content: center;

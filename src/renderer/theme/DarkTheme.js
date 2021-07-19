@@ -10,6 +10,7 @@ const Dark = {
     button: {
       text: "#fff",
       background: "#333",
+      deselected: "#e5e5e5",
       hover: "#666",
       disabled: "#888",
       active: "#AAA",

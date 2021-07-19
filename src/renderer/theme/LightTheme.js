@@ -4,17 +4,18 @@ const Light = {
   colors: {
     gardient:
       "linear-gradient(180deg, rgba(131,58,180,1) 0%, rgba(189,38,38,1) 63%, rgba(252,112,42,1) 100%);",
-    body: "#e6e6e6",
+    body: "#eaeff1",
     text: "#000000",
     subtext: "#555555",
     button: {
       text: "#000",
-      background: "#DFAAB5",
-      hover: "#bf575c",
+      background: "#cbedff",
+      deselected: "#e5e5e5",
+      hover: "#b0e3ff",
       disabled: "#999",
-      active: "#d19498",
+      active: "#96dbff",
       activeText: "#FFF",
-      boxShadow: "0 0 0 0.2rem rgba(204,84,106,.5)"
+      boxShadow: "0 0 0 0.2rem rgba(203,237,255,.5)"
     },
     link: {
       text: "teal",

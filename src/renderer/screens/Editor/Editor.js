@@ -17,7 +17,7 @@
 
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import Styled from "styled-components";
+import Styled, { keyframes } from "styled-components";
 import { toast } from "react-toastify";
 
 // Bootstrap components
@@ -26,6 +26,10 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Spinner from "react-bootstrap/Spinner";
 import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import { MdSave, MdKeyboard } from "react-icons/md";
+import { IoMdColorPalette } from "react-icons/io";
+import slideInUp from "react-animations/lib/slide-in-up";
 
 import Focus from "../../../api/focus";
 import Keymap, { KeymapDB } from "../../../api/keymap";
@@ -45,14 +49,22 @@ import {
   shareLayers
 } from "../../../api/firebase/firebase.utils";
 
+const SlideInAnim = keyframes`${slideInUp}`;
 const Store = window.require("electron-store");
 const store = new Store();
 
+const Fade = Styled.div`
+opacity: ${props => (props.animate ? "0" : "1")};
+visibility: ${props => (props.animate ? "hidden" : "visible")};
+`;
+
 const Styles = Styled.div`
 .keyboard-editor {
+  .title-row {
+    margin-bottom: 40px;
+  }
   .editor {
     margin-left: 210px;
-    margin-right: 420px;
     display: flex;
     justify-content: space-between;
 
@@ -62,10 +74,14 @@ const Styles = Styled.div`
       padding: unset;
       margin-top: 15px;
       svg {
-        max-height: 55vh;
-        max-width: 70vw;
+        max-height: 77vh;
+        max-width: 80vw;
       }
     }
+  }
+  .keyconfig {
+    position: absolute;
+    bottom: 0;
   }
   .centerSpinner{
     z-index: 199;
@@ -81,8 +97,36 @@ const Styles = Styled.div`
 .buttons-row {
   position: absolute;
   bottom: 10px;
-  width: 96vw;
+  width: 180px;
+  margin-left: 0.5em;
+  .card {
+    flex-flow: nowrap;
+    width: 100%;
+    padding: 0;
+    place-content: space-evenly;
+    border-radius: 10px;
+    background-color: ${({ theme }) => theme.colors.button.deselected};
+  }
 }
+.save-row {
+  position: absolute;
+  right: 80px;
+  width: 110px;
+  .card {
+    flex-flow: nowrap;
+    width: 100%;
+    padding: 0;
+    place-content: space-evenly;
+    border-radius: 10px;
+    background-color: ${({ theme }) => theme.colors.button.deselected};
+  }
+}
+.big {
+  font-size: 3em;
+  margin-top: 0;
+  padding-top: 0;
+}
+
 `;
 
 class Editor extends Component {
@@ -106,6 +150,7 @@ class Editor extends Component {
       superkeys: [],
       storedMacros: store.get("macros"),
       equalMacros: [],
+      modeselect: "keyboard",
       clearConfirmationOpen: false,
       copyFromOpen: false,
       importExportDialogOpen: false,
@@ -1335,20 +1380,22 @@ class Editor extends Component {
           </Row>
           <Row>
             <Col>
-              <ColorPanel
-                key={palette}
-                colors={palette}
-                disabled={
-                  isReadOnly || currentLayer > this.state.colorMap.length
-                }
-                onColorSelect={this.onColorSelect}
-                colorButtonIsSelected={this.state.colorButtonIsSelected}
-                onColorPick={this.onColorPick}
-                selected={this.state.selectedPaletteColor}
-                isColorButtonSelected={isColorButtonSelected}
-                onColorButtonSelect={this.onColorButtonSelect}
-                toChangeAllKeysColor={this.toChangeAllKeysColor}
-              />
+              <Fade animate={this.state.modeselect != "color"}>
+                <ColorPanel
+                  key={palette}
+                  colors={palette}
+                  disabled={
+                    isReadOnly || currentLayer > this.state.colorMap.length
+                  }
+                  onColorSelect={this.onColorSelect}
+                  colorButtonIsSelected={this.state.colorButtonIsSelected}
+                  onColorPick={this.onColorPick}
+                  selected={this.state.selectedPaletteColor}
+                  isColorButtonSelected={isColorButtonSelected}
+                  onColorButtonSelect={this.onColorButtonSelect}
+                  toChangeAllKeysColor={this.toChangeAllKeysColor}
+                />
+              </Fade>
             </Col>
           </Row>
           {this.state.keymap.custom.length == 0 &&
@@ -1364,17 +1411,43 @@ class Editor extends Component {
           <Row className="editor">
             <Col className="raise-editor">{layer}</Col>
           </Row>
-          <Row>
-            <KeyConfig
-              onKeySelect={this.onKeyChange}
-              code={code}
-              actions={actions}
-              newSuperID={this.newSuperID}
-              setSuperKey={this.setSuperKey}
-              delSuperKey={this.delSuperKey}
-            />
+          <Row className="keyconfig">
+            <Fade animate={this.state.modeselect != "keyboard"}>
+              <KeyConfig
+                id="keyboard-fade"
+                onKeySelect={this.onKeyChange}
+                code={code}
+                actions={actions}
+                newSuperID={this.newSuperID}
+                setSuperKey={this.setSuperKey}
+                delSuperKey={this.delSuperKey}
+              />
+            </Fade>
           </Row>
           <Row className="buttons-row">
+            <Card>
+              <Button
+                active={this.state.modeselect == "keyboard"}
+                onClick={() => {
+                  this.setState({ modeselect: "keyboard" });
+                }}
+                className="keyboardbutton big"
+                aria-controls="keyboard-fade"
+              >
+                <MdKeyboard />
+              </Button>
+              <Button
+                active={this.state.modeselect == "color"}
+                onClick={() => {
+                  this.setState({ modeselect: "color" });
+                }}
+                className="colorsbutton big"
+              >
+                <IoMdColorPalette />
+              </Button>
+            </Card>
+          </Row>
+          <Row className="save-row">
             <Col>
               <SaveChangesButton
                 floating

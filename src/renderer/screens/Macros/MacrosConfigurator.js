@@ -17,7 +17,6 @@
  */
 
 import React from "react";
-import Electron, { app } from "electron";
 import { toast } from "react-toastify";
 import Styled from "styled-components";
 
@@ -25,19 +24,8 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
-import Accordion from "react-bootstrap/Accordion";
-import Dropdown from "react-bootstrap/Dropdown";
-import Form from "react-bootstrap/Form";
 
-import {
-  MdComputer,
-  MdBrightness3,
-  MdWbSunny,
-  MdArrowDropDown,
-  MdArrowDropUp
-} from "react-icons/md";
-
+import i18n from "../../i18n";
 import MacroManager from "../../components/MacroManager/index";
 import Keymap, { KeymapDB } from "../../../api/keymap";
 import Focus from "../../../api/focus";
@@ -55,6 +43,11 @@ const Styles = Styled.div`
   }
   .save-button {
     text-align: center;
+  }
+  .macrocontainer {
+    margin-right: 15%;
+    margin-left: 15%;
+    width: inherit;
   }
 `;
 
@@ -243,19 +236,27 @@ class MacrosConfigurator extends React.Component {
       storedMacros: newMacros
     });
     store.set("macros", newMacros);
-    await focus.command("macros.map", this.macrosMap(newMacros));
-    console.log("Changes saved.");
-    // TODO: Save changes in the cloud
-    const backup = {
-      undeglowColors: this.state.undeglowColors,
-      keymap: this.state.keymap,
-      colormap: {
-        palette: this.state.palette,
-        colorMap: this.state.colorMap
-      },
-      macros: newMacros
-    };
-    // backupLayers(backup);
+    try {
+      await focus.command("macros.map", this.macrosMap(newMacros));
+      console.log("Changes saved.");
+      // TODO: Save changes in the cloud
+      const backup = {
+        undeglowColors: this.state.undeglowColors,
+        keymap: this.state.keymap,
+        colormap: {
+          palette: this.state.palette,
+          colorMap: this.state.colorMap
+        },
+        macros: newMacros
+      };
+      // backupLayers(backup);
+
+      toast.success(i18n.editor.macros.successFlash, {
+        autoClose: 2000
+      });
+    } catch (error) {
+      toast.error(error);
+    }
   }
 
   macrosMap(macros) {
@@ -298,7 +299,7 @@ class MacrosConfigurator extends React.Component {
   render() {
     return (
       <Styles>
-        <Container fluid>
+        <Container fluid className="macrocontainer">
           <MacroManager
             macros={this.state.macros}
             maxMacros={this.state.maxMacros}

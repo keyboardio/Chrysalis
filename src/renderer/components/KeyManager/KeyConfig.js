@@ -30,13 +30,14 @@ const Style = Styled.div`
   width: 75vw;
   padding: 0;
   border-radius: 10px;
-  box-shadow: 0 0 0.5rem 0.3rem rgba(0,0,0,0.1);
   .rows {
     margin: 0px;
     padding: 0px;
     justify-content:center;
     .main-card{
       overflow: visible;
+      border: none;
+      box-shadow: none;
       background-color: transparent;
       padding: 0;
       width: -webkit-fill-available;
@@ -56,6 +57,7 @@ const Style = Styled.div`
 .dropdown-menu.show {
   display: block;
   overflow-y: auto;
+  height: 400px;
 }
 .selectButton{
   .dropdown-toggle{
@@ -84,10 +86,6 @@ const Style = Styled.div`
 .hidden {
   visibility: hidden;
 }
-.titles {
-  padding-top: 24px;
-  margin-bottom: 0;
-}
 .menuitem {
   p {
     margin-bottom: 0;
@@ -109,9 +107,6 @@ const Style = Styled.div`
 .modbuttonrow {
   margin-left: 0;
 }
-.selectedkey {
-  border-radius: 100px;
-}
 .card-title {
   margin-bottom: .3rem;
 }
@@ -121,12 +116,12 @@ const Style = Styled.div`
 }
 .nav-tabs .nav-link {
   color: ${({ theme }) => theme.colors.button.text};
-  background-color: ${({ theme }) => theme.colors.button.background};
+  background-color: ${({ theme }) => theme.card.background};
   padding: .2rem 1rem;
 }
 .nav-tabs .nav-link.active {
   color: ${({ theme }) => theme.colors.button.text};
-  background-color: ${({ theme }) => theme.card.background};
+  background-color: ${({ theme }) => theme.colors.button.background};
 }
 `;
 
@@ -449,7 +444,7 @@ class KeyConfig extends Component {
               {/* <Card.Header>SUPERPOWERS CONFIGURATOR MENU</Card.Header> */}
               <Card.Body className="section">
                 <Row className="rowsection">
-                  <Col xs={5} className="section">
+                  <Col xs={3} className="section">
                     <Tabs
                       activeKey={activeTab}
                       onSelect={this.changeTab}
@@ -460,6 +455,7 @@ class KeyConfig extends Component {
                           action={action}
                           selKey={selKey}
                           showKeyboard={this.showKeyboard}
+                          activeKB={showKB}
                         />
                       </Tab>
                       <Tab eventKey="layer" title="LAYER">
@@ -475,42 +471,30 @@ class KeyConfig extends Component {
                           modifs={modifs}
                           SelectModif={this.SelectModif}
                           updatelayer={this.updatelayer}
+                          activeKB={showKB}
                         />
                       </Tab>
                       <Tab eventKey="super" title="SUPERKEYS">
-                        <Row className="m-0">
-                          <Col xs={5} style={{ minHeight: "100%", padding: 0 }}>
-                            <Selector
-                              action={action}
-                              SelectAction={this.SelectAction}
-                              selKeys={selKeys}
-                              onReplaceKey={this.onReplaceKey}
-                            />
-                          </Col>
-                          <Col xs={7} style={{ minHeight: "100%", padding: 0 }}>
-                            <Configurator
-                              layerData={layerData}
-                              selectdual={selectdual}
-                              action={action}
-                              actions={actions}
-                              activeTab={activeTab}
-                              selKey={selKey}
-                              showKeyboard={this.showKeyboard}
-                              onReplaceKey={this.onReplaceKey}
-                              modifs={modifs}
-                              SelectModif={this.SelectModif}
-                              updatelayer={this.updatelayer}
-                            />
-                          </Col>
-                        </Row>
+                        <Selector
+                          action={action}
+                          SelectAction={this.SelectAction}
+                          actions={actions}
+                          modifs={modifs}
+                          selKeys={selKeys}
+                          SelectModif={this.SelectModif}
+                          onReplaceKey={this.onReplaceKey}
+                        />
                       </Tab>
                     </Tabs>
                   </Col>
-                  <Col xs={7} className={showKB ? "section" : "section hidden"}>
+                  <Col xs={9} className={showKB ? "section" : "section hidden"}>
                     <Picker
                       AssignMacro={this.AssignMacro}
+                      actions={actions}
                       action={action}
+                      modifs={modifs}
                       selKey={selKey}
+                      SelectModif={this.SelectModif}
                       onReplaceKey={this.onReplaceKey}
                       activeTab={activeTab}
                     />

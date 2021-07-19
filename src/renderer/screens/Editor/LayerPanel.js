@@ -33,7 +33,7 @@ const Styles = Styled.div`
   padding: 0;
   background-color: ${({ theme }) => theme.card.background};
   border-radius: 10px;
-  box-shadow: 0 0 0.5rem 0.3rem rgba(0,0,0,0.1);
+  box-shadow: 0px 1px 3px 0px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 2px 1px -1px rgb(0 0 0 / 12%)
   svg {
     vertical-align: initial;
   }
@@ -67,7 +67,7 @@ const Styles = Styled.div`
     .layer-button {
       width: 95%;
       border: 0px;
-      font-size: small;
+      font-size: medium;
       color: ${({ theme }) => theme.colors.button.text};
       background-color: transparent;
     }
@@ -102,6 +102,7 @@ const Styles = Styled.div`
     }
     .left{
       float: left;
+      font-weight: 100;
       padding-left: 10px;
       vertical-align: middle;
     }
@@ -203,7 +204,6 @@ export default class LayerPanel extends Component {
           active={currentLayer === id}
         >
           <div className="button-content">
-            <div className="index">{id + 1}</div>
             <div className="left">{name}</div>
             <div className="right">
               {currentLayer === id && isReadOnly ? <MdLock /> : <></>}

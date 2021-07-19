@@ -55,8 +55,8 @@ const Styles = Styled.div`
   marginLeft: 25%;
 }
 .list {
-  max-height: 300px;
-  min-height: 300px;
+  max-height: 450px;
+  min-height: 450px;
   overflow: auto;
 }
 .border {

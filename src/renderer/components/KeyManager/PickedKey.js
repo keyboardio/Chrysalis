@@ -10,15 +10,30 @@ import Styled from "styled-components";
 import { MdChevronRight } from "react-icons/md";
 
 const Style = Styled.div`
-.section {
+.selectsection {
   min-height: 100%;
   padding: 0;
+  align-self: center;
 }
 .showbutton {
-  margin 0;
+  margin: 0;
+  padding: 0.4em 0.5em;
+  svg {
+    font-size: 1.6em;
+  }
 }
 .selectedkey {
-  border-radius: 100px;
+  border-radius: 4px;
+  margin: 0.375rem .75rem;
+}
+.activebg {
+  background-color: ${({ theme }) => theme.colors.button.background};
+}
+.chevron {
+  align-self: center;
+  font-size: 1.6rem;
+  margin-top: -6px;
+  margin-left: -18px;
 }
 `;
 
@@ -34,21 +49,21 @@ class PickedKey extends Component {
 
     return (
       <Style>
-        <Card.Title>Selected key</Card.Title>
+        <Card.Title hidden={this.props.hideTitle}>Selected key</Card.Title>
         <Row className="section">
-          <Col xs={11} className="section">
+          <Col xs={9} className="section" onClick={showKeyboard}>
             <Form.Control
               type="text"
               value={selKey}
               disabled
-              className="selectedkey"
+              className={
+                this.props.activeKB ? "activebg selectedkey" : "selectedkey"
+              }
               readOnly
             ></Form.Control>
           </Col>
-          <Col xs={1} className="section">
-            <Button onClick={showKeyboard} className="showbutton">
-              <MdChevronRight />
-            </Button>
+          <Col xs={2} className="selectsection" onClick={showKeyboard}>
+            <MdChevronRight className="chevron" />
           </Col>
         </Row>
       </Style>

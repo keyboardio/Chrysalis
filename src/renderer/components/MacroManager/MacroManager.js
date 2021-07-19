@@ -34,7 +34,7 @@ const Styles = Styled.div`
 .card {
   width: auto;
   height: 100%;
-  margin: 4rem;
+  margin: 2rem;
   padding: 0;
   overflow: visible;
   background-color: ${({ theme }) => theme.card.background};

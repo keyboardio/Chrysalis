@@ -144,7 +144,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   button.btn-primary, button.btn{
-    background-color: ${({ theme }) => theme.colors.button.background};
+    background-color: ${({ theme }) => theme.colors.button.deselected};
     color: ${({ theme }) => theme.colors.button.text};
     border: none;
   }

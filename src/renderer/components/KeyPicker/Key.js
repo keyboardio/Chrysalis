@@ -12,7 +12,7 @@ const ksl = {
       b: { dx: 18, dy: 15, fs: 14 },
       c: { dx: 28, dy: 15, fs: 14 },
       d: { dx: 38, dy: 15, fs: 14 },
-      letter: { dx: 22, dy: 16, fs: 16, fss: 12 }
+      letter: { dx: 22, dy: 16, fs: 14, fss: 12 }
     }
   },
   "1U": {
@@ -23,7 +23,7 @@ const ksl = {
       b: { dx: 18, dy: 15, fs: 14 },
       c: { dx: 28, dy: 15, fs: 14 },
       d: { dx: 38, dy: 15, fs: 14 },
-      letter: { dx: 25, dy: 19, fs: 20, fss: 14 }
+      letter: { dx: 25, dy: 19, fs: 18, fss: 14 }
     }
   },
   "1U2": {
@@ -34,7 +34,7 @@ const ksl = {
       b: { dx: 16, dy: 19, fs: 14 },
       c: { dx: 28, dy: 19, fs: 14 },
       d: { dx: 38, dy: 19, fs: 14 },
-      letter: { dx: 30, dy: 19, fs: 20, fss: 14 }
+      letter: { dx: 30, dy: 19, fs: 16, fss: 14 }
     }
   },
   "1U5": {
@@ -45,7 +45,7 @@ const ksl = {
       b: { dx: 16, dy: 19, fs: 14 },
       c: { dx: 28, dy: 19, fs: 14 },
       d: { dx: 38, dy: 19, fs: 14 },
-      letter: { dx: 32, dy: 19, fs: 20, fss: 14 }
+      letter: { dx: 32, dy: 19, fs: 16, fss: 14 }
     }
   },
   "2U": {
@@ -56,7 +56,7 @@ const ksl = {
       b: { dx: 16, dy: 19, fs: 14 },
       c: { dx: 28, dy: 19, fs: 14 },
       d: { dx: 38, dy: 19, fs: 14 },
-      letter: { dx: 52, dy: 19, fs: 20, fss: 14 }
+      letter: { dx: 52, dy: 19, fs: 16, fss: 14 }
     }
   },
   "3U": {

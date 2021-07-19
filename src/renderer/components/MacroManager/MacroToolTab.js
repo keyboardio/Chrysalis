@@ -18,6 +18,10 @@ import i18n from "../../i18n";
 
 const Styles = Styled.div`
 .tool-tabs {
+  border-bottom: 1px solid lightgrey;
+}
+.tab-content {
+  padding: 10px;
 }
 .margin {
   padding-top: 1rem;
@@ -100,11 +104,17 @@ class MacroToolTab extends Component {
     );
 
     return (
-      <Styles>
+      <Styles
+        style={{
+          border: "1px solid lightgrey",
+          margin: "1em",
+          borderRadius: "4px"
+        }}
+      >
         <Tabs
           activeKey={value}
           onSelect={this.handleChange}
-          className="tool-tabs"
+          className="tool-tabs mx-0"
         >
           <Tab
             className="tab"

@@ -106,7 +106,7 @@ const English = {
     },
     macros: {
       add: "Add new macro",
-      applyAndExit: "Apply & Exit",
+      applyAndExit: "Apply",
       backup: "Backup All",
       backupMacro: "Backup Macros",
       backupMacroFile: "Backup Macros to file",
@@ -137,7 +137,8 @@ const English = {
       selectKey: "Select Key",
       selectMacro: "Select a Macro",
       selectMouseFunction: "Select Mouse Function",
-      title: "Macro Editor"
+      title: "Macro Editor",
+      successFlash: "Succesfully sent the macros to the Raise"
     },
     clearLayer: "Clear layer",
     clearLayerQuestion: "Clear layer?",

@@ -32,6 +32,8 @@ const Styles = Styled.div`
   min-width: 150px;
   margin-left: 2rem;
   margin-right: 2rem;
+  margin-bottom: 0.2em;
+  margin-top: 0.3em;
   font-size: larger;
   text-align: center;
 }
@@ -41,6 +43,11 @@ const Styles = Styled.div`
   justify-content: space-around;
   padding-right: 80px;
 }
+.actionicon {
+  margin-bottom: 0.2em;
+  margin-top: 0.5em;
+  margin-left: 2em;
+}
 .select {
   inline-size: -webkit-fill-available;
   max-width: 160px;
@@ -49,6 +56,9 @@ const Styles = Styled.div`
 .compact {
   margin: 0px;
   padding: 0px;
+}
+.dragable {
+  font-size: 1.7em;
 }
 `;
 
@@ -115,16 +125,10 @@ class MacroTableRow extends Component {
           )}
         >
           <ListGroup.Item className="listitem">
-            <div>
+            <div className="dragable">
               <MdDragHandle />
             </div>
-            <div
-              style={{
-                borderRadius: "100px"
-              }}
-            >
-              {actionTypes[item.action].icon}
-            </div>
+            <div className="actionicon">{actionTypes[item.action].icon}</div>
             <p
               className="chip"
               style={{
@@ -174,7 +178,7 @@ class MacroTableRow extends Component {
               </Button>
             </div>
           </ListGroup.Item>
-          <hr />
+          <hr className="my-0" />
         </div>
       </Styles>
     );

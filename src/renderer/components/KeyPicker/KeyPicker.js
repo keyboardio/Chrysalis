@@ -65,7 +65,7 @@ export default class KeyPicker extends Component {
       <Style>
         <Container fluid className="keyboard">
           <Row className="keys">
-            <svg className="" viewBox="0 0 1042 197">
+            <svg className="" viewBox="0 0 1042 188">
               {keyboard}
             </svg>
           </Row>

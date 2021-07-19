@@ -16,8 +16,9 @@ import i18n from "../../i18n";
 const Styles = Styled.div`
 .list {
   display: block;
-  height: 515px;
+  height: 690px;
   overflow: auto;
+  border: 1px solid lightgrey;
   background-color: ${({ theme }) => theme.card.background};
 }
 .selected {
@@ -125,7 +126,7 @@ class MacroSelector extends Component {
                         </Col>
                       </Row>
                     </ListGroup.Item>
-                    <hr />
+                    <hr className="m-0" />
                   </div>
                 );
               } else {

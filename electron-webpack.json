@@ -23,10 +23,6 @@
   //  - https://github.com/facebook/react/issues/13991#issuecomment-683109390
   //  - https://github.com/electron-userland/electron-webpack/issues/283#issuecomment-487470932
   "whiteListedModules": [
-    "@material-ui/core",
-    "@material-ui/icons",
-    "@material-ui/lab",
-    "@reach/router",
     "prop-types",
     "react",
     "react-color",
@@ -35,6 +31,7 @@
     "react-localization",
     "react-toastify",
     "react-beautiful-dnd",
+    "react-animations",
     "styled-components",
     "react-bootstrap-range-slider"
   ]

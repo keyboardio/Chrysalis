@@ -9,9 +9,8 @@ import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
-import { MdClose, MdInfo } from "react-icons/md";
+import { MdDeleteForever, MdInfo } from "react-icons/md";
 import Styled from "styled-components";
-import { MdDeleteForever } from "react-icons/md";
 import { LayerPicker } from "../KeyPicker";
 
 const Style = Styled.div`
@@ -19,11 +18,26 @@ const Style = Styled.div`
     min-height: 100%;
     padding: 0px;
 }
+.modbutton:not(:disabled):not(.disabled).active, .modbutton:not(:disabled):not(.disabled):active {
+  border: 1px solid ${({ theme }) => theme.colors.button.disabled};
+}
+.modbutton {
+  margin-right: 0.4em;
+  border: 1px solid ${({ theme }) => theme.colors.button.disabled};
+}
+.modbuttonrow {
+  margin-left: 0;
+}
 .chevron {
   align-self: center;
   font-size: 1.6rem;
-  margin-top: -6px;
-  margin-left: -18px;
+  margin-top: 4px;
+  margin-left: -10px;
+}
+.modchev {
+  align-self: center;
+  font-size: 1.6rem;
+  margin-top: 4px;
 }
 .topelem {
   padding: 1em;
@@ -31,6 +45,12 @@ const Style = Styled.div`
 }
 .normalelem {
   padding: 1em 1em 0em 1em;
+}
+.disabled {
+  color: ${({ theme }) => theme.colors.button.deselected};
+}
+.whitebg {
+  background-color: ${({ theme }) => theme.card.background};
 }
 `;
 
@@ -40,10 +60,16 @@ class Selector extends Component {
 
     this.state = {};
     this.taps = ["TAP", "HOLD", "T&H", "2TAP", "2T&H"];
+
+    this.Selection = this.Selection.bind(this);
+  }
+
+  Selection(action) {
+    this.props.SelectAction(action);
+    this.props.showKeyboard();
   }
 
   render() {
-    // const { action, SelectAction, selKeys, onReplaceKey } = this.props;
     const {
       selKeys,
       actions,
@@ -57,17 +83,26 @@ class Selector extends Component {
       return (
         <Card.Body key={i} className={i === action ? "topelem" : "normalelem"}>
           <Row>
-            <Col xs={10}>
+            <Col xs={10} onClick={e => this.Selection(i)}>
               <InputGroup className="mb-2">
                 <InputGroup.Text>{name}</InputGroup.Text>
-                <FormControl id="inlineFormInputGroup" value={selKeys[i]} />
+                <FormControl
+                  id="inlineFormInputGroup"
+                  className="whitebg"
+                  value={selKeys[i]}
+                  disabled
+                />
               </InputGroup>
             </Col>
-            <Col xs={1} className="p-0">
-              <MdClose className="chevron" />
+            <Col xs={1} className="p-0" onClick={e => onReplaceKey(0, i)}>
+              <MdDeleteForever
+                className={i !== action ? "chevron disabled" : "chevron"}
+              />
             </Col>
             <Col xs={1} className="p-0">
-              <MdInfo className="chevron" />
+              <MdInfo
+                className={i !== action ? "chevron disabled" : "chevron"}
+              />
             </Col>
           </Row>
           {actions != undefined && action == i ? (
@@ -121,7 +156,7 @@ class Selector extends Component {
                   >
                     Win
                   </Button>
-                  <MdInfo className="" />
+                  <MdInfo className="modchev" />
                 </Row>
               </React.Fragment>
             )

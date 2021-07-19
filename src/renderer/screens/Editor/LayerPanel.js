@@ -33,7 +33,7 @@ const Styles = Styled.div`
   padding: 0;
   background-color: ${({ theme }) => theme.card.background};
   border-radius: 10px;
-  box-shadow: 0px 1px 3px 0px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 2px 1px -1px rgb(0 0 0 / 12%)
+  box-shadow: 0px 1px 3px 0px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 2px 1px -1px rgb(0 0 0 / 12%);
   svg {
     vertical-align: initial;
   }
@@ -102,7 +102,7 @@ const Styles = Styled.div`
     }
     .left{
       float: left;
-      font-weight: 100;
+      font-weight: 200;
       padding-left: 10px;
       vertical-align: middle;
     }

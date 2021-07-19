@@ -18,7 +18,7 @@ const Styles = Styled.div`
     width: ${toolsWidth * 4}px;
     float: left;
     margin-left: 0.5em;
-    margin-top: 525px;
+    margin-top: 545px;
     position: absolute;
     padding: 0;
     background-color: ${({ theme }) => theme.card.background};

@@ -94,19 +94,6 @@ const Style = Styled.div`
 .overflow {
   overflow: visible;
 }
-.modbutton:not(:disabled):not(.disabled).active, .modbutton:not(:disabled):not(.disabled):active {
-  background-color: #2a8af1;
-  box-shadow: none;
-}
-.modbutton {
-  margin-right: 0.4em;
-}
-.showbutton {
-  margin 0;
-}
-.modbuttonrow {
-  margin-left: 0;
-}
 .card-title {
   margin-bottom: .3rem;
 }
@@ -230,8 +217,7 @@ class KeyConfig extends Component {
     return modifs;
   }
 
-  SelectAction(event) {
-    const action = parseInt(event.target.value);
+  SelectAction(action) {
     let newModifs = this.state.modifs;
     newModifs[action] = this.parseModifs(this.state.actions[action]);
     this.setState({
@@ -432,7 +418,6 @@ class KeyConfig extends Component {
       <Style
         style={{
           marginLeft: "220px",
-          marginRight: "450px",
           marginTop: "30px",
           justifyContent: "center",
           display: "flex"
@@ -477,11 +462,12 @@ class KeyConfig extends Component {
                       <Tab eventKey="super" title="SUPERKEYS">
                         <Selector
                           action={action}
-                          SelectAction={this.SelectAction}
                           actions={actions}
                           modifs={modifs}
                           selKeys={selKeys}
+                          SelectAction={this.SelectAction}
                           SelectModif={this.SelectModif}
+                          showKeyboard={this.showKeyboard}
                           onReplaceKey={this.onReplaceKey}
                         />
                       </Tab>

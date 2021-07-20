@@ -52,7 +52,8 @@ class Keys extends Component {
       showKeyboard,
       activeKB,
       AssignMacro,
-      modifs
+      modifs,
+      SelectModif
     } = this.props;
     const text =
       "This button opens the key configurator menu. Select any key to change the functionality of your Raise.";
@@ -97,7 +98,7 @@ class Keys extends Component {
                 action={action}
                 actions={actions}
                 modifs={modifs}
-                SelectModif={this.SelectModif}
+                SelectModif={SelectModif}
                 i={0}
               ></ModPicker>
             ) : (

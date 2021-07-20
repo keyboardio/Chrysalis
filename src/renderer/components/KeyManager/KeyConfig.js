@@ -450,6 +450,7 @@ class KeyConfig extends Component {
                           modifs={modifs}
                           showKeyboard={this.showKeyboard}
                           activeKB={showKB}
+                          SelectModif={this.SelectModif}
                           AssignMacro={this.AssignMacro}
                         />
                       </Tab>

@@ -54,10 +54,14 @@ export default class KeyPicker extends Component {
               : false
           }
           clicked={() => {
-            this.onKeyPress(key.id);
+            key.mod == this.props.disableMods ? {} : this.onKeyPress(key.id);
           }}
           centered={key.centered}
           content={key.content}
+          disabled={
+            key.mod == this.props.disableMods ||
+            key.move == this.props.disableMove
+          }
         />
       );
     });
@@ -65,7 +69,7 @@ export default class KeyPicker extends Component {
       <Style>
         <Container fluid className="keyboard">
           <Row className="keys">
-            <svg className="" viewBox="0 0 1042 188">
+            <svg className="" viewBox="0 0 1042 286">
               {keyboard}
             </svg>
           </Row>

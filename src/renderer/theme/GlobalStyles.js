@@ -126,6 +126,14 @@ const GlobalStyles = createGlobalStyle`
     cursor: pointer;
   }
 
+  div.longtooltip > .tooltip-inner {
+    max-width: 100%;
+  }
+
+  .tooltip.show {
+    opacity: 1;
+  }
+
   button {
     border: 0;
     display: inline-block;

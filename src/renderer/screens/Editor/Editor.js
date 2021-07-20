@@ -135,8 +135,11 @@ class Editor extends Component {
 
     this.state = {
       currentLayer: 0,
+      previousLayer: 0,
       currentKeyIndex: -1,
       currentLedIndex: -1,
+      previousKeyIndex: -1,
+      previousLedIndex: -1,
       modified: false,
       saving: false,
       keymap: {
@@ -176,8 +179,14 @@ class Editor extends Component {
    */
   bottomMenuNeverHide = () => {
     this.setState(state => ({
-      currentKeyIndex: state.currentKeyIndex !== -1 ? state.currentKeyIndex : 0,
-      currentLedIndex: state.currentLedIndex !== -1 ? state.currentLedIndex : 0,
+      currentKeyIndex:
+        state.currentKeyIndex !== -1
+          ? state.currentKeyIndex
+          : state.previousKeyIndex,
+      currentLedIndex:
+        state.currentLedIndex !== -1
+          ? state.currentLedIndex
+          : state.previousLedIndex,
       selectedPaletteColor: null,
       isColorButtonSelected: false
     }));
@@ -185,8 +194,14 @@ class Editor extends Component {
 
   bottomMenuNeverHideFromUnderglow = () => {
     this.setState(state => ({
-      currentKeyIndex: state.currentKeyIndex !== -1 ? state.currentKeyIndex : 0,
-      currentLedIndex: state.currentLedIndex !== -1 ? state.currentLedIndex : 0
+      currentKeyIndex:
+        state.currentKeyIndex !== -1
+          ? state.currentKeyIndex
+          : state.previousKeyIndex,
+      currentLedIndex:
+        state.currentLedIndex !== -1
+          ? state.currentLedIndex
+          : state.previousLedIndex
     }));
   };
 
@@ -259,6 +274,7 @@ class Editor extends Component {
             this.state.currentLayer
           ];
           this.setState({
+            currentLayer: this.state.previousLayer,
             defaultLayer: defLayer,
             keymap: keymap,
             showDefaults: !keymap.onlyCustom,
@@ -448,7 +464,8 @@ class Editor extends Component {
         return {
           currentLayer: layer,
           currentKeyIndex: keyIndex,
-          currentLedIndex: ledIndex
+          currentLedIndex: ledIndex,
+          modeselect: ledIndex >= 69 ? "color" : state.modeselect
         };
       } else {
         return {
@@ -502,21 +519,23 @@ class Editor extends Component {
     let focus = new Focus();
     await focus.command("keymap", this.state.keymap);
     await focus.command("colormap", this.state.palette, this.state.colorMap);
-    let newMacros = this.state.macros;
+    // let newMacros = this.state.macros;
     let newSuperKeys = this.state.superkeys;
+    // await focus.command("macros.map", this.macrosMap(newMacros));
+    await focus.command("superkeys.map", this.superkeyMap(newSuperKeys));
+    // store.set("macros", newMacros);
+    store.set("superkeys", newSuperKeys);
     this.setState({
       modified: false,
       saving: false,
+      previousKeyIndex: this.state.currentKeyIndex,
+      previousLedIndex: this.state.currentLedIndex,
+      previousLayer: this.state.currentLayer,
       isMultiSelected: false,
       selectedPaletteColor: null,
       isColorButtonSelected: false,
-      macros: newMacros,
-      storedMacros: newMacros,
       superkeys: newSuperKeys
     });
-    store.set("macros", newMacros);
-    await focus.command("macros.map", this.macrosMap(newMacros));
-    await focus.command("superkeys.map", this.superkeyMap(newSuperKeys));
     console.log("Changes saved.");
     // TODO: Save changes in the cloud
     const backup = {
@@ -525,8 +544,7 @@ class Editor extends Component {
       colormap: {
         palette: this.state.palette,
         colorMap: this.state.colorMap
-      },
-      macros: newMacros
+      }
     };
     // backupLayers(backup);
     this.props.cancelContext();
@@ -566,7 +584,12 @@ class Editor extends Component {
         }
       }
 
-      this.setState({ currentLayer: initialLayer });
+      this.setState({
+        currentLayer:
+          this.state.previousLayer != 0
+            ? this.state.previousLayer
+            : initialLayer
+      });
     });
     this.onChangeLanguageLayout();
   }
@@ -574,7 +597,8 @@ class Editor extends Component {
   UNSAFE_componentWillReceiveProps = nextProps => {
     if (this.props.inContext && !nextProps.inContext) {
       this.setState({
-        currentLayer: 0,
+        currentLayer:
+          this.state.previousLayer != 0 ? this.state.previousLayer : 0,
         currentKeyIndex: -1,
         currentLedIndex: -1,
         keymap: {
@@ -1412,17 +1436,22 @@ class Editor extends Component {
             <Col className="raise-editor">{layer}</Col>
           </Row>
           <Row className="keyconfig">
-            <Fade animate={this.state.modeselect != "keyboard"}>
-              <KeyConfig
-                id="keyboard-fade"
-                onKeySelect={this.onKeyChange}
-                code={code}
-                actions={actions}
-                newSuperID={this.newSuperID}
-                setSuperKey={this.setSuperKey}
-                delSuperKey={this.delSuperKey}
-              />
-            </Fade>
+            {this.state.modeselect != "keyboard" ? (
+              ""
+            ) : (
+              <Fade animate={this.state.modeselect != "keyboard"}>
+                <KeyConfig
+                  id="keyboard-fade"
+                  onKeySelect={this.onKeyChange}
+                  code={code}
+                  actions={actions}
+                  newSuperID={this.newSuperID}
+                  setSuperKey={this.setSuperKey}
+                  delSuperKey={this.delSuperKey}
+                  keyIndex={currentKeyIndex}
+                />
+              </Fade>
+            )}
           </Row>
           <Row className="buttons-row">
             <Card>

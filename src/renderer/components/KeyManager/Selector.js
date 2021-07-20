@@ -1,4 +1,10 @@
 import React, { Component } from "react";
+import Styled from "styled-components";
+
+// Internal Components
+import { LayerPicker } from "../KeyPicker";
+import MacroPicker from "./MacroPicker";
+import ModPicker from "./ModPicker";
 
 // React Components
 import Row from "react-bootstrap/Row";
@@ -6,51 +12,61 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
+import Tooltip from "react-bootstrap/Tooltip";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Button from "react-bootstrap/Button";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
-import ToggleButton from "react-bootstrap/ToggleButton";
 import { MdDeleteForever, MdInfo } from "react-icons/md";
-import Styled from "styled-components";
-import { LayerPicker } from "../KeyPicker";
+
+// Media Components
+import lightTool from "../../../../static/DarkSuperTooltip.png";
+// import darkTool from "../../../static/DarkSuperTooltip.png";
 
 const Style = Styled.div`
 .type-card {
     min-height: 100%;
-    padding: 0px;
+    padding: 0;
+    padding-top: 0.6em;
 }
-.modbutton:not(:disabled):not(.disabled).active, .modbutton:not(:disabled):not(.disabled):active {
-  border: 1px solid ${({ theme }) => theme.colors.button.disabled};
-}
-.modbutton {
-  margin-right: 0.4em;
-  border: 1px solid ${({ theme }) => theme.colors.button.disabled};
-}
-.modbuttonrow {
-  margin-left: 0;
-}
-.chevron {
+.bin {
   align-self: center;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   margin-top: 4px;
   margin-left: -10px;
+  color: #666;
 }
-.modchev {
+.info {
   align-self: center;
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   margin-top: 4px;
+  margin-left: -10px;
+  color: #666;
+}
+.modinfo {
+  align-self: center;
+  font-size: 1.2rem;
+  margin-top: 4px;
+  color: #666;
 }
 .topelem {
   padding: 1em;
   background-color: ${({ theme }) => theme.colors.button.background};
 }
 .normalelem {
-  padding: 1em 1em 0em 1em;
+  padding: 0.6em 1em 0em 1em;
 }
 .disabled {
-  color: ${({ theme }) => theme.colors.button.deselected};
+  color: ${({ theme }) => theme.colors.button.deselectedText};
 }
 .whitebg {
   background-color: ${({ theme }) => theme.card.background};
+}
+.whitebgns {
+  background-color: ${({ theme }) => theme.card.background};
+  color: ${({ theme }) => theme.card.disabled};
+}
+.openkb {
+  background-color: ${({ theme }) => theme.colors.button.active};
+  border-color: ${({ theme }) => theme.colors.button.borderColor};
 }
 `;
 
@@ -64,9 +80,51 @@ class Selector extends Component {
     this.Selection = this.Selection.bind(this);
   }
 
+  renderTooltip(line1, line2, line3, line4) {
+    return (
+      <Tooltip id="select-tooltip" className="longtooltip">
+        <span>{line1}</span>
+        {line2 == "" ? (
+          ""
+        ) : (
+          <React.Fragment>
+            <br></br>
+            <span>{line2}</span>
+          </React.Fragment>
+        )}
+        {line3 == "" ? (
+          ""
+        ) : (
+          <React.Fragment>
+            <br></br>
+            <span>{line3}</span>
+          </React.Fragment>
+        )}
+        {line4 == "" ? (
+          ""
+        ) : (
+          <React.Fragment>
+            <br></br>
+            <span>{line4}</span>
+          </React.Fragment>
+        )}
+      </Tooltip>
+    );
+  }
+
+  renderImgTooltip(img) {
+    return (
+      <Tooltip id="select-tooltip" className="longtooltip">
+        <img src={img}></img>
+      </Tooltip>
+    );
+  }
+
   Selection(action) {
     this.props.SelectAction(action);
-    this.props.showKeyboard();
+    if (this.props.action == action) {
+      this.props.showKeyboard();
+    }
   }
 
   render() {
@@ -76,8 +134,14 @@ class Selector extends Component {
       action,
       modifs,
       SelectModif,
-      onReplaceKey
+      onReplaceKey,
+      activeKB,
+      AssignMacro
     } = this.props;
+
+    const move1 = "Permanently move to a given layer.";
+    const move2 =
+      "To come back to the starting layer, set another Layer Lock key on the layer you moved to. This new Layer Lock key must target the initial layer.";
 
     const element = this.taps.map((name, i) => {
       return (
@@ -85,81 +149,88 @@ class Selector extends Component {
           <Row>
             <Col xs={10} onClick={e => this.Selection(i)}>
               <InputGroup className="mb-2">
-                <InputGroup.Text>{name}</InputGroup.Text>
+                <InputGroup.Text
+                  className={i === action && activeKB ? "openkb" : ""}
+                >
+                  {name}
+                </InputGroup.Text>
                 <FormControl
                   id="inlineFormInputGroup"
-                  className="whitebg"
-                  value={selKeys[i]}
+                  className={actions[i] == 0 ? "whitebgns" : "whitebg"}
+                  value={actions[i] == 0 ? "None Selected" : selKeys[i]}
                   disabled
                 />
               </InputGroup>
             </Col>
             <Col xs={1} className="p-0" onClick={e => onReplaceKey(0, i)}>
               <MdDeleteForever
-                className={i !== action ? "chevron disabled" : "chevron"}
+                className={i !== action ? "bin disabled" : "bin"}
               />
             </Col>
             <Col xs={1} className="p-0">
-              <MdInfo
-                className={i !== action ? "chevron disabled" : "chevron"}
-              />
+              {i !== action ? (
+                ""
+              ) : (
+                <OverlayTrigger
+                  placement="top"
+                  delay={{ show: 250, hide: 400 }}
+                  overlay={this.renderImgTooltip(lightTool)}
+                >
+                  <MdInfo className={i !== action ? "info disabled" : "info"} />
+                </OverlayTrigger>
+              )}
             </Col>
           </Row>
-          {actions != undefined && action == i ? (
-            actions[action] >= 17492 && actions[action] <= 17502 ? (
-              <React.Fragment>
-                <Row className="modbuttonrow">
-                  <LayerPicker
-                    onKeySelect={e => onReplaceKey(e, -1)}
-                    code={{
-                      base: actions[action],
-                      modified: 0
-                    }}
-                  />
-                </Row>
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
-                <Row className="modbuttonrow">
-                  <Button
-                    active={modifs[action].includes(0)}
-                    className="modbutton"
-                    onClick={e => SelectModif(0)}
-                  >
-                    Shift
-                  </Button>
-                  <Button
-                    active={modifs[action].includes(1)}
-                    className="modbutton"
-                    onClick={e => SelectModif(1)}
-                  >
-                    Ctrl
-                  </Button>
-                  <Button
-                    active={modifs[action].includes(2)}
-                    className="modbutton"
-                    onClick={e => SelectModif(2)}
-                  >
-                    Alt
-                  </Button>
-                  <Button
-                    active={modifs[action].includes(3)}
-                    className="modbutton"
-                    onClick={e => SelectModif(3)}
-                  >
-                    Alt Gr
-                  </Button>
-                  <Button
-                    active={modifs[action].includes(4)}
-                    className="modbutton"
-                    onClick={e => SelectModif(4)}
-                  >
-                    Win
-                  </Button>
-                  <MdInfo className="modchev" />
-                </Row>
-              </React.Fragment>
-            )
+          {actions != undefined &&
+          action == i &&
+          actions[action] >= 17492 &&
+          actions[action] <= 17502 ? (
+            <React.Fragment>
+              <Row className="modbuttonrow">
+                <LayerPicker
+                  onKeySelect={e => onReplaceKey(e, -1)}
+                  code={{
+                    base: actions[action],
+                    modified: 0
+                  }}
+                />
+                <OverlayTrigger
+                  placement="right"
+                  delay={{ show: 250, hide: 400 }}
+                  overlay={this.renderTooltip(move1, move2, "", "")}
+                >
+                  <MdInfo className="info" />
+                </OverlayTrigger>
+              </Row>
+            </React.Fragment>
+          ) : (
+            ""
+          )}
+          {actions != undefined &&
+          action == i &&
+          actions[action] &&
+          actions[action] >= 4 &&
+          actions[action] <= 10000 ? (
+            <ModPicker
+              action={action}
+              actions={actions}
+              modifs={modifs}
+              SelectModif={this.SelectModif}
+              i={i}
+            />
+          ) : (
+            ""
+          )}
+          {actions != undefined &&
+          action == i &&
+          actions[action] &&
+          actions[action] >= 53852 &&
+          actions[action] <= 53852 + 64 ? (
+            <MacroPicker
+              action={action}
+              actions={actions}
+              AssignMacro={AssignMacro}
+            ></MacroPicker>
           ) : (
             ""
           )}
@@ -169,83 +240,7 @@ class Selector extends Component {
 
     return (
       <Style>
-        <Card className="type-card">
-          {element}
-          {/* <Row>
-            <Col xs={4}>
-              <ButtonGroup vertical toggle>
-                <ToggleButton
-                  type="radio"
-                  value={0}
-                  checked={action === 0}
-                  onChange={SelectAction}
-                >
-                  Tap
-                </ToggleButton>
-                <ToggleButton
-                  type="radio"
-                  value={1}
-                  checked={action === 1}
-                  onChange={SelectAction}
-                >
-                  Hold
-                </ToggleButton>
-                <ToggleButton
-                  type="radio"
-                  value={2}
-                  checked={action === 2}
-                  onChange={SelectAction}
-                >
-                  T&H
-                </ToggleButton>
-                <ToggleButton
-                  type="radio"
-                  value={3}
-                  checked={action === 3}
-                  onChange={SelectAction}
-                >
-                  2Tap
-                </ToggleButton>
-                <ToggleButton
-                  type="radio"
-                  value={4}
-                  checked={action === 4}
-                  onChange={SelectAction}
-                >
-                  2T&H
-                </ToggleButton>
-              </ButtonGroup>
-            </Col>
-            <Col xs={6}>
-              <Card.Text>{selKeys[0]}</Card.Text>
-              <Card.Text>{selKeys[1]}</Card.Text>
-              <Card.Text>{selKeys[2]}</Card.Text>
-              <Card.Text>{selKeys[3]}</Card.Text>
-              <Card.Text>{selKeys[4]}</Card.Text>
-            </Col>
-            <Col xs={2}>
-              <Button size="sm" onClick={e => onReplaceKey(0, 0)}>
-                <MdDeleteForever />
-              </Button>
-
-              <Button size="sm" onClick={e => onReplaceKey(0, 1)}>
-                <MdDeleteForever />
-              </Button>
-
-              <Button size="sm" onClick={e => onReplaceKey(0, 2)}>
-                <MdDeleteForever />
-              </Button>
-
-              <Button size="sm" onClick={e => onReplaceKey(0, 3)}>
-                <MdDeleteForever />
-              </Button>
-
-              <Button size="sm" onClick={e => onReplaceKey(0, 4)}>
-                <MdDeleteForever />
-              </Button>
-            </Col>
-          </Row> */}
-        </Card>
+        <Card className="type-card overflow">{element}</Card>
       </Style>
     );
   }

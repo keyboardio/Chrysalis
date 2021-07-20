@@ -10,12 +10,14 @@ const Dark = {
     button: {
       text: "#fff",
       background: "#333",
-      deselected: "#e5e5e5",
+      deselected: "#555",
       hover: "#666",
       disabled: "#888",
       active: "#AAA",
       activeText: "#000",
-      boxShadow: "0 0 0 0.2rem rgba(255,255,255,.5)"
+      deselectedText: "#454545",
+      boxShadow: "0 0 0 0.2rem rgba(255,255,255,.5)",
+      borderColor: "#AAA"
     },
     link: {
       text: "teal",
@@ -25,8 +27,13 @@ const Dark = {
   card: {
     color: "#fff",
     background: "#555",
+    disabled: "#333",
     radius: "10",
     boxShadow: "0 0 0.5rem 0.3rem rgba(0,0,0,0.1)"
+  },
+  navbar: {
+    color: "#fff",
+    background: "#555"
   },
   font: "Titillium Web"
 };

@@ -49,7 +49,6 @@ class PickedKey extends Component {
 
     return (
       <Style>
-        <Card.Title hidden={this.props.hideTitle}>Selected key</Card.Title>
         <Row className="section">
           <Col xs={9} className="section" onClick={showKeyboard}>
             <Form.Control

@@ -53,7 +53,7 @@ const ksl = {
     out: { x: 102, y: 24, dx: 1, dy: 1 },
     text: {
       a: { dx: 6, dy: 19, fs: 20 },
-      b: { dx: 16, dy: 19, fs: 14 },
+      b: { dx: 60, dy: 19, fs: 14 },
       c: { dx: 28, dy: 19, fs: 14 },
       d: { dx: 38, dy: 19, fs: 14 },
       letter: { dx: 52, dy: 19, fs: 16, fss: 14 }
@@ -96,11 +96,11 @@ const ksl = {
     outb: { x: 44, y: 32, dx: 0, dy: 0 },
     out: { x: 42, y: 30, dx: 1, dy: 1 },
     text: {
-      a: { dx: 5, dy: 24, fs: 16 },
+      a: { dx: 11, dy: 20, fs: 16 },
       b: { dx: 10, dy: 28, fs: 14 },
       c: { dx: 128, dy: 19, fs: 14 },
       d: { dx: 138, dy: 19, fs: 14 },
-      letter: { dx: 17, dy: 17, fs: 16, fss: 14 }
+      letter: { dx: 22, dy: 17, fs: 16, fss: 14 }
     }
   },
   longBlock: {
@@ -140,7 +140,7 @@ const ksl = {
 
 class Key extends React.Component {
   render() {
-    const { x, y, selected, clicked, centered, content } = this.props;
+    const { x, y, selected, clicked, centered, content, disabled } = this.props;
     return (
       <g className="keycap">
         {content.type === "enter" ? (
@@ -152,7 +152,11 @@ class Key extends React.Component {
               height="60"
               rx="6"
               fill={
-                selected ? this.props.theme.colors.button.active : "#f3f3f3"
+                disabled
+                  ? "#e5e5e5"
+                  : selected
+                  ? this.props.theme.colors.button.active
+                  : "#f3f3f3"
               }
               onClick={clicked}
             />
@@ -164,7 +168,11 @@ class Key extends React.Component {
               height="26"
               rx="6"
               fill={
-                selected ? this.props.theme.colors.button.active : "#f3f3f3"
+                disabled
+                  ? "#e5e5e5"
+                  : selected
+                  ? this.props.theme.colors.button.active
+                  : "#f3f3f3"
               }
               onClick={clicked}
             />
@@ -175,7 +183,13 @@ class Key extends React.Component {
               width="26"
               height="58"
               rx="6"
-              fill="#f3f3f3"
+              fill={
+                disabled
+                  ? this.props.theme.card.background
+                  : selected
+                  ? this.props.theme.colors.button.active
+                  : "#f3f3f3"
+              }
               onClick={clicked}
             />
 
@@ -185,7 +199,13 @@ class Key extends React.Component {
               width="42"
               height="24"
               rx="6"
-              fill="#f3f3f3"
+              fill={
+                disabled
+                  ? this.props.theme.card.background
+                  : selected
+                  ? this.props.theme.colors.button.active
+                  : "#f3f3f3"
+              }
               onClick={clicked}
             />
           </>
@@ -198,7 +218,11 @@ class Key extends React.Component {
               height={ksl[content.type].outb.y}
               rx="6"
               fill={
-                selected ? this.props.theme.colors.button.active : "#f3f3f3"
+                disabled
+                  ? "#e5e5e5"
+                  : selected
+                  ? this.props.theme.colors.button.active
+                  : "#f3f3f3"
               }
               className="outer border"
             />
@@ -209,7 +233,13 @@ class Key extends React.Component {
               height={ksl[content.type].out.y}
               onClick={clicked}
               rx="6"
-              fill="#f3f3f3"
+              fill={
+                disabled
+                  ? this.props.theme.card.background
+                  : selected
+                  ? this.props.theme.colors.button.active
+                  : "#f3f3f3"
+              }
             />
           </>
         )}
@@ -220,7 +250,7 @@ class Key extends React.Component {
               y={y + ksl[content.type].text.letter.dy}
               onClick={clicked}
               fontSize={ksl[content.type].text.letter.fs}
-              fill="black"
+              fill={disabled ? "#e5e5e5" : "black"}
               fontWeight={300}
               textAnchor="middle"
             >
@@ -228,7 +258,7 @@ class Key extends React.Component {
             </text>
             <text
               x={x + ksl[content.type].text.letter.dx}
-              y={y + ksl[content.type].text.letter.dy + 14}
+              y={y + ksl[content.type].text.letter.dy + 12}
               onClick={clicked}
               fontSize={ksl[content.type].text.letter.fss}
               fontWeight={200}
@@ -246,7 +276,7 @@ class Key extends React.Component {
               onClick={clicked}
               fontSize={ksl[content.type].text.a.fs}
               fontWeight={300}
-              fill="black"
+              fill={disabled ? "#e5e5e5" : "black"}
             >
               {content.first}
             </text>

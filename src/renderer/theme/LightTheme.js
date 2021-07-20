@@ -15,7 +15,9 @@ const Light = {
       disabled: "#999",
       active: "#96dbff",
       activeText: "#FFF",
-      boxShadow: "0 0 0 0.2rem rgba(203,237,255,.5)"
+      deselectedText: "#AAA",
+      boxShadow: "0 0 0 0.2rem rgba(203,237,255,.5)",
+      borderColor: "#44c0ff"
     },
     link: {
       text: "teal",
@@ -25,8 +27,13 @@ const Light = {
   card: {
     color: "#000",
     background: "#fff",
+    disabled: "#AAA",
     radius: "10",
     boxShadow: "0 0 0.5rem 0.3rem rgba(0,0,0,0.1)"
+  },
+  navbar: {
+    color: "#555",
+    background: "#fff"
   },
   font: "Titillium Web"
 };

@@ -60,7 +60,8 @@ const Styles = Styled.div`
   }
 }
 .left-navbar {
-  background: ${({ theme }) => theme.colors.gardient}
+  // background: ${({ theme }) => theme.colors.gardient};
+  background-color: ${({ theme }) => theme.navbar.background};
   width: ${({ theme }) => theme.drawerWidth}px;
   height: 100vh;
   display: block !important;
@@ -79,7 +80,7 @@ const Styles = Styled.div`
         padding 10px;
         margin-top: 15px;
         margin-bottom: 15px;
-        color: white;
+        color: ${({ theme }) => theme.navbar.color};
         align-content: center;
         text-align: center;
         &:hover {

@@ -9,6 +9,9 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
+import Tooltip from "react-bootstrap/Tooltip";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import { MdInfo } from "react-icons/md";
 import Styled from "styled-components";
 import { LayerPicker } from "../KeyPicker";
 
@@ -35,6 +38,11 @@ const Style = Styled.div`
 }
 .modbuttonrow {
   margin-left: 0;
+}
+.info {
+  vertical-align: middle;
+  font-size: 1.2rem;
+  color: #666;
 }
 `;
 
@@ -86,6 +94,38 @@ class Configurator extends Component {
     ];
   }
 
+  renderTooltip(line1, line2, line3, line4) {
+    return (
+      <Tooltip id="select-tooltip" className="longtooltip">
+        <span>{line1}</span>
+        {line2 == "" ? (
+          ""
+        ) : (
+          <React.Fragment>
+            <br></br>
+            <span>{line2}</span>
+          </React.Fragment>
+        )}
+        {line3 == "" ? (
+          ""
+        ) : (
+          <React.Fragment>
+            <br></br>
+            <span>{line3}</span>
+          </React.Fragment>
+        )}
+        {line4 == "" ? (
+          ""
+        ) : (
+          <React.Fragment>
+            <br></br>
+            <span>{line4}</span>
+          </React.Fragment>
+        )}
+      </Tooltip>
+    );
+  }
+
   render() {
     const {
       layerData,
@@ -102,9 +142,30 @@ class Configurator extends Component {
       activeKB
     } = this.props;
 
+    const swtext =
+      "If you hold the key down, the layer becomes active and then deactivates when you let go.";
+    const lktext = "Permanently move to a given layer.";
+    const lktext2 =
+      "To come back to the starting layer, set another Layer Lock key on the layer you moved to.";
+    const lktext3 = "This new Layer Lock key must target the initial layer.";
+    const dltext = "This key has two functionalities:";
+    const dltext2 =
+      "1. Hold it to activate the selected layer, but only as long as you keep this key pressed.";
+    const dltext3 = "2. Tap it to send a key.";
+    const dltext4 = "Previously called dual-function layer.";
+
     const layers = (
       <React.Fragment>
-        <p className="titles">LAYER SWITCH</p>
+        <p className="titles">
+          LAYER SWITCH{" "}
+          <OverlayTrigger
+            placement="right"
+            delay={{ show: 250, hide: 400 }}
+            overlay={this.renderTooltip(swtext, "", "", "")}
+          >
+            <MdInfo className={"info"} />
+          </OverlayTrigger>
+        </p>
         <DropdownButton
           id="Selectlayers"
           className="selectButton"
@@ -135,7 +196,16 @@ class Configurator extends Component {
           })}
         </DropdownButton>
         <hr />
-        <p className="titles">LAYER LOCK</p>
+        <p className="titles">
+          LAYER LOCK{" "}
+          <OverlayTrigger
+            placement="right"
+            delay={{ show: 250, hide: 400 }}
+            overlay={this.renderTooltip(lktext, lktext2, lktext3, "")}
+          >
+            <MdInfo className={"info"} />
+          </OverlayTrigger>
+        </p>
         <DropdownButton
           id="Selectlayers"
           className="selectButton"
@@ -166,7 +236,16 @@ class Configurator extends Component {
           })}
         </DropdownButton>
         <hr />
-        <p className="titles">LAYER & KEY</p>
+        <p className="titles">
+          LAYER & KEY{" "}
+          <OverlayTrigger
+            placement="right"
+            delay={{ show: 250, hide: 400 }}
+            overlay={this.renderTooltip(dltext, dltext2, dltext3, dltext4)}
+          >
+            <MdInfo className={"info"} />
+          </OverlayTrigger>
+        </p>
         <PickedKey
           activeKB={activeKB}
           hideTitle={true}

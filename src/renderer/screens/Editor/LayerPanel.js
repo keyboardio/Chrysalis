@@ -26,6 +26,7 @@ const toolsWidth = 45;
 const Styles = Styled.div`
 .layer-editor {
   width: ${toolsWidth * 4}px;
+  z-index: 11;
   float: left;
   margin-left: 0.5em;
   margin-top: 0.5em;

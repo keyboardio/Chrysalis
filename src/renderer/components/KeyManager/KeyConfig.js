@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from "react";
+import Styled from "styled-components";
 
 // Internal components
+import Keymap, { KeymapDB } from "../../../api/keymap";
 import Picker from "./Picker";
 import Configurator from "./Configurator";
 import Keys from "./Keys";
@@ -13,8 +15,6 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-import Styled from "styled-components";
-import Keymap, { KeymapDB } from "../../../api/keymap";
 
 const Style = Styled.div`
   .svgContainer{
@@ -136,7 +136,8 @@ class KeyConfig extends Component {
       selectlayer: 0,
       activeTab: "editor",
       layerData: 0,
-      showKB: false
+      showKB: false,
+      pastkeyindex: props.keyIndex
     };
 
     this.SelectAction = this.SelectAction.bind(this);
@@ -185,7 +186,13 @@ class KeyConfig extends Component {
         actions: this.props.actions,
         selectdual,
         layerData,
-        modifs: tempModifs
+        modifs: tempModifs,
+        pastkeyindex: this.props.keyIndex
+      });
+    }
+    if (this.props.keyIndex !== this.state.pastkeyindex) {
+      this.setState({
+        action: 0
       });
     }
   }
@@ -342,7 +349,7 @@ class KeyConfig extends Component {
   }
 
   AssignMacro(event) {
-    this.onReplaceKey(parseInt(event.target.value), -1);
+    this.onReplaceKey(parseInt(event), -1);
   }
 
   parseKey(keycode) {
@@ -435,15 +442,18 @@ class KeyConfig extends Component {
                       onSelect={this.changeTab}
                       id="uncontrolled-tab-example"
                     >
-                      <Tab eventKey="editor" title="KEY">
+                      <Tab eventKey="editor" title="KEYS">
                         <Keys
                           action={action}
+                          actions={actions}
                           selKey={selKey}
+                          modifs={modifs}
                           showKeyboard={this.showKeyboard}
                           activeKB={showKB}
+                          AssignMacro={this.AssignMacro}
                         />
                       </Tab>
-                      <Tab eventKey="layer" title="LAYER">
+                      <Tab eventKey="layer" title="LAYERS">
                         <Configurator
                           layerData={layerData}
                           selectdual={selectdual}
@@ -469,17 +479,17 @@ class KeyConfig extends Component {
                           SelectModif={this.SelectModif}
                           showKeyboard={this.showKeyboard}
                           onReplaceKey={this.onReplaceKey}
+                          activeKB={showKB}
+                          AssignMacro={this.AssignMacro}
                         />
                       </Tab>
                     </Tabs>
                   </Col>
                   <Col xs={9} className={showKB ? "section" : "section hidden"}>
                     <Picker
-                      AssignMacro={this.AssignMacro}
                       actions={actions}
                       action={action}
                       modifs={modifs}
-                      selKey={selKey}
                       SelectModif={this.SelectModif}
                       onReplaceKey={this.onReplaceKey}
                       activeTab={activeTab}

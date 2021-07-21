@@ -1490,19 +1490,7 @@
       "fourth": ""
     }
   },
-  {
-    "id": 0,
-    "x": 100,
-    "y": 216,
-    "centered": true,
-    "content": {
-      "type": "2UT",
-      "first": "Transparent",
-      "second": "",
-      "third": "",
-      "fourth": ""
-    }
-  },
+  
   {
     "id": 0,
     "x": 100,

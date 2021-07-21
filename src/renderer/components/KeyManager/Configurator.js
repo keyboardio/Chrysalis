@@ -5,6 +5,7 @@ import PickedKey from "./PickedKey";
 
 // React Components
 import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -54,7 +55,7 @@ class Configurator extends Component {
 
     this.layerLock = [
       { name: "None Selected", keynum: 0, alt: 0 },
-      { name: "----------------", keynum: -1, alt: -1 },
+      { name: "------------", keynum: -1, alt: -1 },
       { name: "Move to Layer 0", keynum: 17492 },
       { name: "Move to Layer 1", keynum: 17493 },
       { name: "Move to Layer 2", keynum: 17494 },
@@ -68,7 +69,7 @@ class Configurator extends Component {
     ];
     this.layerSwitch = [
       { name: "None Selected", keynum: 0, alt: 0 },
-      { name: "----------------", keynum: -1, alt: -1 },
+      { name: "------------", keynum: -1, alt: -1 },
       { name: "Shift to Layer 0", keynum: 17450 },
       { name: "Shift to Layer 1", keynum: 17451 },
       { name: "Shift to Layer 2", keynum: 17452 },
@@ -82,7 +83,7 @@ class Configurator extends Component {
     ];
     this.layerKey = [
       { name: "None Selected", keynum: 0, alt: 0 },
-      { name: "----------------", keynum: -1, alt: -1 },
+      { name: "------------", keynum: -1, alt: -1 },
       { name: "Dual Layer 0", keynum: 51218 },
       { name: "Dual Layer 1", keynum: 51474 },
       { name: "Dual Layer 2", keynum: 51730 },
@@ -132,13 +133,8 @@ class Configurator extends Component {
       updatelayer,
       selectdual,
       action,
-      actions,
-      activeTab,
       selKey,
       showKeyboard,
-      onReplaceKey,
-      modifs,
-      SelectModif,
       activeKB
     } = this.props;
 
@@ -246,120 +242,55 @@ class Configurator extends Component {
             <MdInfo className={"info"} />
           </OverlayTrigger>
         </p>
-        <PickedKey
-          activeKB={activeKB}
-          hideTitle={true}
-          action={action}
-          selKey={selKey}
-          showKeyboard={showKeyboard}
-        />
-        <DropdownButton
-          id="Selectlayers"
-          className="selectButton"
-          drop={"up"}
-          title={this.layerKey.map(i => {
-            if (layerData != 0 && layerData == i.keynum) {
-              return i.name;
-            }
-            if (layerData == 0 && selectdual == i.keynum) {
-              return i.name;
-            }
-          })}
-          value={layerData == 0 ? selectdual : layerData}
-          onSelect={updatelayer}
-        >
-          {this.layerKey.map((item, id) => {
-            return (
-              <Dropdown.Item
-                eventKey={item.keynum}
-                key={`item-${id}`}
-                disabled={item.keynum == -1}
-              >
-                <div className="menuitem">
-                  <p>{item.name}</p>
-                </div>
-              </Dropdown.Item>
-            );
-          })}
-        </DropdownButton>
+        <Row className="mx-0">
+          <Col xs={6} className="px-0 text-center">
+            <PickedKey
+              activeKB={activeKB}
+              hideTitle={true}
+              action={action}
+              selKey={selKey}
+              showKeyboard={showKeyboard}
+            />
+          </Col>
+          <Col xs={6} className="px-0 text-center">
+            <DropdownButton
+              id="Selectlayers"
+              className="selectButton"
+              drop={"up"}
+              title={this.layerKey.map(i => {
+                if (layerData != 0 && layerData == i.keynum) {
+                  return i.name;
+                }
+                if (layerData == 0 && selectdual == i.keynum) {
+                  return i.name;
+                }
+              })}
+              value={layerData == 0 ? selectdual : layerData}
+              onSelect={updatelayer}
+            >
+              {this.layerKey.map((item, id) => {
+                return (
+                  <Dropdown.Item
+                    eventKey={item.keynum}
+                    key={`item-${id}`}
+                    disabled={item.keynum == -1}
+                  >
+                    <div className="menuitem">
+                      <p>{item.name}</p>
+                    </div>
+                  </Dropdown.Item>
+                );
+              })}
+            </DropdownButton>
+          </Col>
+        </Row>
       </React.Fragment>
     );
 
     return (
       <Style>
         <Card className="select-card overflow">
-          <Card.Body>
-            {activeTab == "layer" ? (
-              <React.Fragment>{layers}</React.Fragment>
-            ) : (
-              <React.Fragment>
-                <PickedKey
-                  action={action}
-                  selKey={selKey}
-                  showKeyboard={showKeyboard}
-                />
-                {actions != undefined ? (
-                  actions[action] >= 17492 && actions[action] <= 17502 ? (
-                    <React.Fragment>
-                      <p className="titles">Change Layer</p>
-                      <Row className="modbuttonrow">
-                        <LayerPicker
-                          onKeySelect={e => onReplaceKey(e, -1)}
-                          code={{
-                            base: actions[action],
-                            modified: 0
-                          }}
-                        />
-                      </Row>
-                    </React.Fragment>
-                  ) : (
-                    <React.Fragment>
-                      <p className="titles">Add a modifier</p>
-                      <Row className="modbuttonrow">
-                        <Button
-                          active={modifs[action].includes(0)}
-                          className="modbutton"
-                          onClick={e => SelectModif(0)}
-                        >
-                          Shift
-                        </Button>
-                        <Button
-                          active={modifs[action].includes(1)}
-                          className="modbutton"
-                          onClick={e => SelectModif(1)}
-                        >
-                          Ctrl
-                        </Button>
-                        <Button
-                          active={modifs[action].includes(2)}
-                          className="modbutton"
-                          onClick={e => SelectModif(2)}
-                        >
-                          Alt
-                        </Button>
-                        <Button
-                          active={modifs[action].includes(3)}
-                          className="modbutton"
-                          onClick={e => SelectModif(3)}
-                        >
-                          Alt Gr
-                        </Button>
-                        <Button
-                          active={modifs[action].includes(4)}
-                          className="modbutton"
-                          onClick={e => SelectModif(4)}
-                        >
-                          Win
-                        </Button>
-                      </Row>
-                    </React.Fragment>
-                  )
-                ) : (
-                  ""
-                )}
-              </React.Fragment>
-            )}
-          </Card.Body>
+          <Card.Body>{layers}</Card.Body>
         </Card>
       </Style>
     );

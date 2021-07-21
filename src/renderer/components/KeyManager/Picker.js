@@ -4,9 +4,9 @@ import Styled from "styled-components";
 import { KeyPicker } from "../KeyPicker";
 
 const Style = Styled.div`
-.select-card {
+.picker-select-card {
     min-height: 100%;
-    padding: 0;
+    padding: 0 0 34px 0;
 }
 .nospacing{
     padding: 0;
@@ -22,17 +22,19 @@ class Picker extends Component {
   }
 
   render() {
-    const { onReplaceKey, activeTab, action, actions } = this.props;
+    const { action, actions, onReplaceKey, activeTab } = this.props;
 
     return (
-      <Card className="select-card">
-        <KeyPicker
-          onKeySelect={e => onReplaceKey(e, -1)}
-          code={{ base: actions[action], modified: 0 }}
-          disableMods={[0, 3].includes(action) && activeTab == "super"}
-          disableMove={![0, 3].includes(action) && activeTab == "super"}
-        />
-      </Card>
+      <Style>
+        <Card className="picker-select-card">
+          <KeyPicker
+            onKeySelect={e => onReplaceKey(e, -1)}
+            code={{ base: actions[action], modified: 0 }}
+            disableMods={[0, 3].includes(action) && activeTab == "super"}
+            disableMove={![0, 3].includes(action) && activeTab == "super"}
+          />
+        </Card>
+      </Style>
     );
   }
 }

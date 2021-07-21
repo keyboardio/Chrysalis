@@ -46,14 +46,14 @@ class Keys extends Component {
 
   render() {
     const {
-      actions,
       action,
+      actions,
       selKey,
+      modifs,
       showKeyboard,
       activeKB,
-      AssignMacro,
-      modifs,
-      SelectModif
+      SelectModif,
+      AssignMacro
     } = this.props;
     const text =
       "This button opens the key configurator menu. Select any key to change the functionality of your Raise.";

@@ -62,8 +62,7 @@ const Style = Styled.div`
 .selectButton{
   .dropdown-toggle{
     text-align: left;
-    padding-left: 20px;
-    width: 50%;
+    margin-top: 0.375rem;
   }
 }
 .dropup .dropdown-toggle::after {
@@ -82,6 +81,11 @@ const Style = Styled.div`
 .section {
   min-height: 100%;
   padding: 0;
+}
+.pickersection {
+  min-height: 100%;
+  padding: 0;
+  margin-top: 31px;
 }
 .hidden {
   visibility: hidden;
@@ -109,6 +113,9 @@ const Style = Styled.div`
 .nav-tabs .nav-link.active {
   color: ${({ theme }) => theme.colors.button.text};
   background-color: ${({ theme }) => theme.colors.button.background};
+}
+.fixed-width {
+  max-width: 321px;
 }
 `;
 
@@ -436,11 +443,12 @@ class KeyConfig extends Component {
               {/* <Card.Header>SUPERPOWERS CONFIGURATOR MENU</Card.Header> */}
               <Card.Body className="section">
                 <Row className="rowsection">
-                  <Col xs={3} className="section">
+                  <Col xs={3} className="section fixed-width">
                     <Tabs
                       activeKey={activeTab}
                       onSelect={this.changeTab}
                       id="uncontrolled-tab-example"
+                      className="Tabstyle"
                     >
                       <Tab eventKey="editor" title="KEYS">
                         <Keys
@@ -459,13 +467,8 @@ class KeyConfig extends Component {
                           layerData={layerData}
                           selectdual={selectdual}
                           action={action}
-                          actions={actions}
-                          activeTab={activeTab}
                           selKey={selKey}
                           showKeyboard={this.showKeyboard}
-                          onReplaceKey={this.onReplaceKey}
-                          modifs={modifs}
-                          SelectModif={this.SelectModif}
                           updatelayer={this.updatelayer}
                           activeKB={showKB}
                         />
@@ -486,12 +489,13 @@ class KeyConfig extends Component {
                       </Tab>
                     </Tabs>
                   </Col>
-                  <Col xs={9} className={showKB ? "section" : "section hidden"}>
+                  <Col
+                    xs={9}
+                    className={showKB ? "pickersection" : "section hidden"}
+                  >
                     <Picker
                       actions={actions}
                       action={action}
-                      modifs={modifs}
-                      SelectModif={this.SelectModif}
                       onReplaceKey={this.onReplaceKey}
                       activeTab={activeTab}
                     />

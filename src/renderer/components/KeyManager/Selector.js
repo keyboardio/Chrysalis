@@ -31,14 +31,12 @@ const Style = Styled.div`
   align-self: center;
   font-size: 1.4rem;
   margin-top: 4px;
-  margin-left: -10px;
   color: #666;
 }
 .info {
   align-self: center;
   font-size: 1.2rem;
   margin-top: 4px;
-  margin-left: -10px;
   color: #666;
 }
 .modinfo {
@@ -67,6 +65,9 @@ const Style = Styled.div`
 .openkb {
   background-color: ${({ theme }) => theme.colors.button.active};
   border-color: ${({ theme }) => theme.colors.button.borderColor};
+}
+.keyselect {
+  padding-right: 0;
 }
 `;
 
@@ -129,10 +130,10 @@ class Selector extends Component {
 
   render() {
     const {
-      selKeys,
-      actions,
       action,
+      actions,
       modifs,
+      selKeys,
       SelectModif,
       onReplaceKey,
       activeKB,
@@ -147,7 +148,7 @@ class Selector extends Component {
       return (
         <Card.Body key={i} className={i === action ? "topelem" : "normalelem"}>
           <Row>
-            <Col xs={10} onClick={e => this.Selection(i)}>
+            <Col xs={10} onClick={e => this.Selection(i)} className="keyselect">
               <InputGroup className="mb-2">
                 <InputGroup.Text
                   className={i === action && activeKB ? "openkb" : ""}
@@ -162,12 +163,10 @@ class Selector extends Component {
                 />
               </InputGroup>
             </Col>
-            <Col xs={1} className="p-0" onClick={e => onReplaceKey(0, i)}>
+            <Col xs={2} className="p-0" onClick={e => onReplaceKey(0, i)}>
               <MdDeleteForever
                 className={i !== action ? "bin disabled" : "bin"}
               />
-            </Col>
-            <Col xs={1} className="p-0">
               {i !== action ? (
                 ""
               ) : (

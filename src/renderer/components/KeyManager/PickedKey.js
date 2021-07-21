@@ -14,6 +14,7 @@ const Style = Styled.div`
   min-height: 100%;
   padding: 0;
   align-self: center;
+  max-width: 1px;
 }
 .showbutton {
   margin: 0;
@@ -35,6 +36,13 @@ const Style = Styled.div`
   margin-top: -6px;
   margin-left: -18px;
 }
+.pksection {
+  min-height: 100%;
+  padding: 0 0.25rem 0 0;
+}
+.compensator {
+  margin-left: 3px;
+}
 `;
 
 class PickedKey extends Component {
@@ -49,8 +57,8 @@ class PickedKey extends Component {
 
     return (
       <Style>
-        <Row className="section">
-          <Col xs={9} className="section" onClick={showKeyboard}>
+        <Row className="pksection">
+          <Col xs={10} className="pksection compensator" onClick={showKeyboard}>
             <Form.Control
               type="text"
               value={selKey}

@@ -15,6 +15,7 @@ const Style = Styled.div`
 .modbutton {
   margin-right: 0.4em;
   border: 1px solid ${({ theme }) => theme.colors.button.disabled};
+  padding: .375rem .55rem;
 }
 .modbutton.focus, .modbutton:focus {
   background-color: ${({ theme }) => theme.colors.button.deselected};
@@ -24,11 +25,10 @@ const Style = Styled.div`
 .modbuttonrow {
   margin-left: 0;
 }
-.info {
+.modinfo {
   align-self: center;
   font-size: 1.2rem;
   margin-top: 4px;
-  margin-left: -10px;
   color: #666;
 }
 `;

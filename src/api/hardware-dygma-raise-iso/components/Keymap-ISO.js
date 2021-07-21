@@ -134,9 +134,18 @@ class KeymapISO extends React.Component {
         .map(() => 0);
 
     const getContrastText = color => {
-      return this.props.theme
-        ? this.props.theme.palette.getContrastText(color)
-        : null;
+      // return this.props.theme
+      //   ? this.props.theme.palette.getContrastText(color)
+      //   : null;
+      const colors = color.match(/\d+/g);
+      if (colors == null || colors.length == 0) return "#000";
+      let aux;
+      if (colors[0] < 120 && colors[1] < 120 && colors[2] < 120) {
+        aux = "#FFF";
+      } else {
+        aux = "#000";
+      }
+      return aux;
     };
     let keyIndex = (row, col) => {
       return col !== undefined ? row * 16 + col : row + 11;

@@ -10,11 +10,16 @@ import { MdInfo } from "react-icons/md";
 
 const Style = Styled.div`
 .modbutton:not(:disabled):not(.disabled).active, .modbutton:not(:disabled):not(.disabled):active {
-  border: 1px solid ${({ theme }) => theme.colors.button.disabled};
+  border: 1px solid ${({ theme }) => theme.colors.button.borderColor};
 }
 .modbutton {
   margin-right: 0.4em;
   border: 1px solid ${({ theme }) => theme.colors.button.disabled};
+}
+.modbutton.focus, .modbutton:focus {
+  background-color: ${({ theme }) => theme.colors.button.deselected};
+  border-color: ${({ theme }) => theme.colors.button.borderColor};
+  box-shadow: none;
 }
 .modbuttonrow {
   margin-left: 0;

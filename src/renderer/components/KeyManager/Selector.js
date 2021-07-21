@@ -215,7 +215,7 @@ class Selector extends Component {
               action={action}
               actions={actions}
               modifs={modifs}
-              SelectModif={this.SelectModif}
+              SelectModif={SelectModif}
               i={i}
             />
           ) : (

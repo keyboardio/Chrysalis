@@ -140,7 +140,7 @@ class KeymapANSI extends React.Component {
       const colors = color.match(/\d+/g);
       if (colors == null || colors.length == 0) return "#000";
       let aux;
-      if (colors[0] < 120 && colors[1] < 120 && colors[2] < 120) {
+      if (colors[0] < 131 && colors[1] < 131) {
         aux = "#FFF";
       } else {
         aux = "#000";

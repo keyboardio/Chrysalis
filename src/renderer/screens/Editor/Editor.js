@@ -138,8 +138,8 @@ class Editor extends Component {
       previousLayer: 0,
       currentKeyIndex: -1,
       currentLedIndex: -1,
-      previousKeyIndex: -1,
-      previousLedIndex: -1,
+      previousKeyIndex: 0,
+      previousLedIndex: 0,
       modified: false,
       saving: false,
       keymap: {

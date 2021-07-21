@@ -64,7 +64,7 @@ class Keys extends Component {
       <Style>
         <Card className="select-card overflow">
           <Card.Body>
-            <span>
+            {/* <span>
               SELECTED KEY{" "}
               <OverlayTrigger
                 placement="right"
@@ -79,7 +79,7 @@ class Keys extends Component {
               selKey={selKey}
               showKeyboard={showKeyboard}
               activeKB={activeKB}
-            />
+            /> */}
             {actions != undefined &&
             actions[action] >= 53852 &&
             actions[action] <= 53852 + 64 ? (
@@ -91,7 +91,7 @@ class Keys extends Component {
             ) : (
               ""
             )}
-            {actions != undefined &&
+            {/* {actions != undefined &&
             actions[action] >= 4 &&
             actions[action] <= 10000 ? (
               <ModPicker
@@ -103,7 +103,7 @@ class Keys extends Component {
               ></ModPicker>
             ) : (
               ""
-            )}
+            )} */}
           </Card.Body>
         </Card>
       </Style>

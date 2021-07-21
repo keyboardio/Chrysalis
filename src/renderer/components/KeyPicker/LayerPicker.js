@@ -98,7 +98,7 @@ export default class LayerPicker extends Component {
           <Row className="keys">
             <Col>
               {/* <h5>Layers</h5> */}
-              <svg className="" viewBox="0 0 220 90">
+              <svg className="" viewBox="0 0 220 74">
                 {layers}
               </svg>
             </Col>

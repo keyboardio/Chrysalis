@@ -15,6 +15,28 @@ const ksl = {
       letter: { dx: 22, dy: 16, fs: 14, fss: 12 }
     }
   },
+  "2UT": {
+    outb: { x: 94, y: 22, dx: 0, dy: 0 },
+    out: { x: 92, y: 20, dx: 1, dy: 1 },
+    text: {
+      a: { dx: 6, dy: 16, fs: 16 },
+      b: { dx: 60, dy: 16, fs: 16 },
+      c: { dx: 28, dy: 16, fs: 14 },
+      d: { dx: 38, dy: 16, fs: 14 },
+      letter: { dx: 47, dy: 16, fs: 16, fss: 14 }
+    }
+  },
+  specialBlockT: {
+    outb: { x: 44, y: 22, dx: 0, dy: 0 },
+    out: { x: 42, y: 20, dx: 1, dy: 1 },
+    text: {
+      a: { dx: 11, dy: 20, fs: 16 },
+      b: { dx: 10, dy: 28, fs: 14 },
+      c: { dx: 128, dy: 19, fs: 14 },
+      d: { dx: 138, dy: 19, fs: 14 },
+      letter: { dx: 22, dy: 17, fs: 16, fss: 14 }
+    }
+  },
   "1U": {
     outb: { x: 44, y: 26, dx: 0, dy: 0 },
     out: { x: 42, y: 24, dx: 1, dy: 1 },
@@ -46,6 +68,28 @@ const ksl = {
       c: { dx: 28, dy: 19, fs: 14 },
       d: { dx: 38, dy: 19, fs: 14 },
       letter: { dx: 32, dy: 19, fs: 16, fss: 14 }
+    }
+  },
+  "1U6": {
+    outb: { x: 84, y: 26, dx: 0, dy: 0 },
+    out: { x: 82, y: 24, dx: 1, dy: 1 },
+    text: {
+      a: { dx: 6, dy: 19, fs: 20 },
+      b: { dx: 16, dy: 19, fs: 14 },
+      c: { dx: 28, dy: 19, fs: 14 },
+      d: { dx: 38, dy: 19, fs: 14 },
+      letter: { dx: 42, dy: 19, fs: 16, fss: 14 }
+    }
+  },
+  "1U8": {
+    outb: { x: 94, y: 26, dx: 0, dy: 0 },
+    out: { x: 92, y: 24, dx: 1, dy: 1 },
+    text: {
+      a: { dx: 6, dy: 19, fs: 20 },
+      b: { dx: 16, dy: 19, fs: 14 },
+      c: { dx: 28, dy: 19, fs: 14 },
+      d: { dx: 38, dy: 19, fs: 14 },
+      letter: { dx: 47, dy: 19, fs: 16, fss: 14 }
     }
   },
   "2U": {
@@ -135,6 +179,17 @@ const ksl = {
       d: { dx: 38, dy: 19, fs: 14 },
       letter: { dx: 22, dy: 16, fs: 18, fss: 14 }
     }
+  },
+  title: {
+    outb: { x: 44, y: 26, dx: 0, dy: 0 },
+    out: { x: 42, y: 24, dx: 1, dy: 1 },
+    text: {
+      a: { dx: 6, dy: 19, fs: 20 },
+      b: { dx: 16, dy: 19, fs: 14 },
+      c: { dx: 28, dy: 19, fs: 14 },
+      d: { dx: 38, dy: 19, fs: 14 },
+      letter: { dx: 0, dy: 16, fs: 16, fss: 16 }
+    }
   }
 };
 
@@ -210,6 +265,9 @@ class Key extends React.Component {
             />
           </>
         ) : (
+          ""
+        )}
+        {content.type !== "enter" && content.type != "title" ? (
           <>
             <rect
               x={x + ksl[content.type].outb.dx}
@@ -242,8 +300,36 @@ class Key extends React.Component {
               }
             />
           </>
+        ) : (
+          ""
         )}
-        {centered ? (
+        {content.type == "title" ? (
+          <>
+            <text
+              x={x + ksl[content.type].text.letter.dx}
+              y={y + ksl[content.type].text.letter.dy}
+              onClick={clicked}
+              fontSize={ksl[content.type].text.letter.fs}
+              fill={disabled ? "#e5e5e5" : "black"}
+              fontWeight={400}
+            >
+              {content.first}
+            </text>
+            <text
+              x={x + ksl[content.type].text.letter.dx}
+              y={y + ksl[content.type].text.letter.dy}
+              onClick={clicked}
+              fontSize={ksl[content.type].text.letter.fss}
+              fontWeight={400}
+              fill="grey"
+            >
+              {content.second}
+            </text>
+          </>
+        ) : (
+          ""
+        )}
+        {centered && content.type != "title" ? (
           <>
             <text
               x={x + ksl[content.type].text.letter.dx}
@@ -269,6 +355,9 @@ class Key extends React.Component {
             </text>
           </>
         ) : (
+          ""
+        )}
+        {!centered && content.type != "title" ? (
           <>
             <text
               x={x + ksl[content.type].text.a.dx}
@@ -311,6 +400,8 @@ class Key extends React.Component {
               {content.fourth}
             </text>
           </>
+        ) : (
+          ""
         )}
       </g>
     );

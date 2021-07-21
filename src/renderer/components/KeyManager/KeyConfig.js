@@ -86,6 +86,7 @@ const Style = Styled.div`
   min-height: 100%;
   padding: 0;
   margin-top: 31px;
+  margin-bottom: 10px;
 }
 .hidden {
   visibility: hidden;
@@ -116,6 +117,14 @@ const Style = Styled.div`
 }
 .fixed-width {
   max-width: 321px;
+}
+.Tabstyle {
+  margin-left: 322px;
+  width: 280px;
+  position: absolute;
+  .tab-content {
+    margin-top: 31px;
+  }
 }
 `;
 
@@ -425,6 +434,7 @@ class KeyConfig extends Component {
       showKB,
       modifs
     } = this.state;
+    const { selectedlanguage, kbtype } = this.props;
     const selKey = this.parseAction(action);
     const selKeys = actions.map((a, i) => this.parseAction(i));
 
@@ -450,7 +460,17 @@ class KeyConfig extends Component {
                       id="uncontrolled-tab-example"
                       className="Tabstyle"
                     >
-                      <Tab eventKey="editor" title="KEYS">
+                      <Tab
+                        eventKey="editor"
+                        title="KEYS"
+                        className={
+                          actions != undefined &&
+                          actions[action] >= 53852 &&
+                          actions[action] <= 53852 + 64
+                            ? ""
+                            : "hidden"
+                        }
+                      >
                         <Keys
                           action={action}
                           actions={actions}
@@ -489,15 +509,14 @@ class KeyConfig extends Component {
                       </Tab>
                     </Tabs>
                   </Col>
-                  <Col
-                    xs={9}
-                    className={showKB ? "pickersection" : "section hidden"}
-                  >
+                  <Col xs={9} className="pickersection">
                     <Picker
                       actions={actions}
                       action={action}
                       onReplaceKey={this.onReplaceKey}
                       activeTab={activeTab}
+                      selectedlanguage={selectedlanguage}
+                      kbtype={kbtype}
                     />
                   </Col>
                 </Row>

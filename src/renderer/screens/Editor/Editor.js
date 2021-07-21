@@ -566,6 +566,10 @@ class Editor extends Component {
 
   // Callback function to set State of new Language
   onChangeLanguageLayout = () => {
+    console.log(
+      "Language automatically set to: ",
+      settings.getSync("keyboard.language")
+    );
     this.setState({
       currentLanguageLayout: settings.getSync("keyboard.language") || "english"
     });
@@ -1268,7 +1272,8 @@ class Editor extends Component {
       isColorButtonSelected,
       currentLayer,
       currentKeyIndex,
-      currentLedIndex
+      currentLedIndex,
+      currentLanguageLayout
     } = this.state;
 
     let Layer = this.getLayout();
@@ -1449,6 +1454,8 @@ class Editor extends Component {
                   setSuperKey={this.setSuperKey}
                   delSuperKey={this.delSuperKey}
                   keyIndex={currentKeyIndex}
+                  selectedlanguage={currentLanguageLayout}
+                  kbtype={"iso"}
                 />
               </Fade>
             )}

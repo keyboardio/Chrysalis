@@ -13,6 +13,11 @@ import Row from "react-bootstrap/Row";
 
 import Key from "./Key";
 import ES from "./ES.json";
+import ENi from "./ENi.json";
+import ENa from "./ENa.json";
+import GR from "./GR.json";
+import FR from "./FR.json";
+import NR from "./NR.json";
 
 const Style = Styled.div`
   .keyboard {
@@ -39,29 +44,48 @@ export default class KeyPicker extends Component {
   };
 
   render() {
-    // const { selected } = this.state;
-    const keyboard = ES.map((key, id) => {
+    const {
+      code,
+      disableMods,
+      disableMove,
+      selectedlanguage,
+      kbtype
+    } = this.props;
+    const liso = {
+      english: ENi,
+      spanish: ES,
+      german: GR,
+      french: FR,
+      nordic: NR
+    };
+    const lansi = { english: ENa };
+    let Lang = ENa;
+    if (selectedlanguage != "" && kbtype == "ansi") {
+      if (lansi[selectedlanguage] != undefined) Lang = lansi[selectedlanguage];
+    }
+    if (selectedlanguage != "" && kbtype == "iso") {
+      if (liso[selectedlanguage] != undefined) Lang = liso[selectedlanguage];
+    }
+    console.log(
+      "language problem: ",
+      selectedlanguage,
+      kbtype,
+      Lang,
+      liso[selectedlanguage]
+    );
+    const keyboard = Lang.map((key, id) => {
       return (
         <Key
           key={`id-${key.content.first}-${id}`}
           x={key.x}
           y={key.y}
-          selected={
-            this.props.code === null
-              ? false
-              : this.props.code.base === key.id
-              ? true
-              : false
-          }
+          selected={code === null ? false : code.base === key.id ? true : false}
           clicked={() => {
-            key.mod == this.props.disableMods ? {} : this.onKeyPress(key.id);
+            key.mod == disableMods ? {} : this.onKeyPress(key.id);
           }}
           centered={key.centered}
           content={key.content}
-          disabled={
-            key.mod == this.props.disableMods ||
-            key.move == this.props.disableMove
-          }
+          disabled={key.mod == disableMods || key.move == disableMove}
         />
       );
     });
@@ -69,7 +93,7 @@ export default class KeyPicker extends Component {
       <Style>
         <Container fluid className="keyboard">
           <Row className="keys">
-            <svg className="" viewBox="0 0 1042 286">
+            <svg className="" viewBox="0 0 1042 266">
               {keyboard}
             </svg>
           </Row>

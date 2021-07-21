@@ -23,9 +23,8 @@ import lightTool from "../../../../static/DarkSuperTooltip.png";
 
 const Style = Styled.div`
 .type-card {
-    min-height: 100%;
-    padding: 0;
-    padding-top: 0.6em;
+  height: 332px;
+  padding: 0;
 }
 .bin {
   align-self: center;

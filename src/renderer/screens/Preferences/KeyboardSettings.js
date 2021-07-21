@@ -73,7 +73,8 @@ class KeyboardSettings extends React.Component {
     mouseSpeedLimit: 0,
     modified: false,
     showDefaults: false,
-    working: false
+    working: false,
+    selectedLanguage: ""
   };
 
   delay = ms => new Promise(res => setTimeout(res, ms));
@@ -96,6 +97,10 @@ class KeyboardSettings extends React.Component {
     focus.command("idleleds.time_limit").then(limit => {
       limit = limit ? parseInt(limit) : -1;
       this.setState({ ledIdleTimeLimit: limit });
+    });
+
+    this.setState({
+      selectedLanguage: settings.getSync("keyboard.language")
     });
 
     this.setState({
@@ -366,6 +371,11 @@ class KeyboardSettings extends React.Component {
     this.props.cancelContext();
   };
 
+  changeLanguage = language => {
+    this.setState({ selectedLanguage: language });
+    settings.setSync("keyboard.language", `${language}`);
+  };
+
   render() {
     const {
       keymap,
@@ -384,7 +394,8 @@ class KeyboardSettings extends React.Component {
       mouseAccelDelay,
       mouseWheelSpeed,
       mouseWheelDelay,
-      mouseSpeedLimit
+      mouseSpeedLimit,
+      selectedLanguage
     } = this.state;
 
     const onlyCustomSwitch = (
@@ -400,6 +411,26 @@ class KeyboardSettings extends React.Component {
         checked={showDefaults}
         onChange={this.setShowDefaults}
       />
+    );
+    let languages = [
+      "english",
+      "spanish",
+      "german",
+      "french",
+      "nordic",
+      "japanese"
+    ].map((item, index) => {
+      return (
+        <Dropdown.Item eventKey={item} key={index}>
+          {item[0].toUpperCase() + item.slice(1)}
+        </Dropdown.Item>
+      );
+    });
+    const selectLanguage = (
+      <Dropdown onSelect={this.changeLanguage} value={selectedLanguage}>
+        <Dropdown.Toggle className="toggler">{`${selectedLanguage}`}</Dropdown.Toggle>
+        <Dropdown.Menu className="dropdownMenu">{languages}</Dropdown.Menu>
+      </Dropdown>
     );
     let layers;
     if (keymap.onlyCustom) {
@@ -600,7 +631,7 @@ class KeyboardSettings extends React.Component {
           <Card.Header>{i18n.keyboardSettings.keymap.title}</Card.Header>
           <Card className="overflowFix">
             <Card.Body>
-              <Form.Group controlId="showHardcoded" className="formGroup">
+              {/* <Form.Group controlId="showHardcoded" className="formGroup">
                 <Form.Label>
                   {i18n.keyboardSettings.keymap.showHardcoded}
                 </Form.Label>
@@ -611,6 +642,14 @@ class KeyboardSettings extends React.Component {
                   {i18n.keyboardSettings.keymap.onlyCustom}
                 </Form.Label>
                 {onlyCustomSwitch}
+              </Form.Group> */}
+              <Form.Group controlId="selectLanguage" className="formGroup">
+                <Form.Label>{i18n.preferences.language}</Form.Label>
+                <br></br>
+                <Form.Label>
+                  {"Restart Bazecor for the language changes to take effect"}
+                </Form.Label>
+                {selectLanguage}
               </Form.Group>
               <Form.Group controlId="defaultLayer" className="formGroup">
                 <Form.Label>

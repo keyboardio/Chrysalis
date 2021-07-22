@@ -162,16 +162,8 @@ class Selector extends Component {
                 </InputGroup.Text>
                 <FormControl
                   id="inlineFormInputGroup"
-                  className={
-                    adjactions[i] == 0 || adjactions[i] == 1
-                      ? "whitebgns"
-                      : "whitebg"
-                  }
-                  value={
-                    adjactions[i] == 0 || adjactions[i] == 1
-                      ? "None Selected"
-                      : selKeys[i]
-                  }
+                  className={adjactions[i] <= 1 ? "whitebgns" : "whitebg"}
+                  value={adjactions[i] <= 1 ? "None Selected" : selKeys[i]}
                   disabled
                 />
               </InputGroup>

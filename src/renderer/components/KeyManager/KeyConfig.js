@@ -183,7 +183,10 @@ class KeyConfig extends Component {
       selectdual = 0;
     }
     let layerData = 0;
-    if (keynum >= 17450 && keynum <= 17501) {
+    if (
+      (keynum >= 17450 && keynum <= 17501) ||
+      (keynum >= 49161 && keynum <= 49170)
+    ) {
       layerData = keynum;
     } else {
       layerData = 0;
@@ -345,10 +348,10 @@ class KeyConfig extends Component {
     let superid = this.props.code.base + this.props.code.modified - 53916;
     if (actions[0] !== 0) {
       if (
-        actions[1] === 0 &&
-        actions[2] === 0 &&
-        actions[3] === 0 &&
-        actions[4] === 0
+        actions[1] <= 1 &&
+        actions[2] <= 1 &&
+        actions[3] <= 1 &&
+        actions[4] <= 1
       ) {
         if (superid >= 0) {
           this.props.delSuperKey(superid);
@@ -393,7 +396,7 @@ class KeyConfig extends Component {
     console.log("Checking update layer", mov, this.state.layerData);
     this.setState({ layerData: mov });
     let actions = [this.state.actions[this.state.action], 0, 0, 0, 0];
-    if (mov > 20000) {
+    if (mov > 50000) {
       this.checkAndReport(
         actions,
         this.state.modifs,
@@ -465,8 +468,11 @@ class KeyConfig extends Component {
                         title="KEYS"
                         className={
                           actions != undefined &&
-                          actions[action] >= 53852 &&
-                          actions[action] <= 53852 + 64
+                          ((actions[action] >= 53852 &&
+                            actions[action] <= 53852 + 64) ||
+                            (actions[action] >= 49153 &&
+                              actions[action] <= 49160) ||
+                            (actions[action] >= 104 && actions[action] <= 115))
                             ? ""
                             : "hidden"
                         }
@@ -477,6 +483,7 @@ class KeyConfig extends Component {
                           selKey={selKey}
                           modifs={modifs}
                           showKeyboard={this.showKeyboard}
+                          onReplaceKey={this.onReplaceKey}
                           activeKB={showKB}
                           SelectModif={this.SelectModif}
                           AssignMacro={this.AssignMacro}

@@ -4,6 +4,8 @@ import React, { Component } from "react";
 import PickedKey from "./PickedKey";
 import MacroPicker from "./MacroPicker";
 import ModPicker from "./ModPicker";
+import OSMPicker from "./OSMPicker";
+import F13Picker from "./F13Picker";
 
 // React Components
 import Card from "react-bootstrap/Card";
@@ -53,6 +55,7 @@ class Keys extends Component {
       showKeyboard,
       activeKB,
       SelectModif,
+      onReplaceKey,
       AssignMacro
     } = this.props;
     const text =
@@ -88,6 +91,28 @@ class Keys extends Component {
                 actions={actions}
                 AssignMacro={AssignMacro}
               ></MacroPicker>
+            ) : (
+              ""
+            )}
+            {actions != undefined &&
+            actions[action] >= 49153 &&
+            actions[action] <= 49160 ? (
+              <OSMPicker
+                action={action}
+                actions={actions}
+                onReplaceKey={onReplaceKey}
+              ></OSMPicker>
+            ) : (
+              ""
+            )}
+            {actions != undefined &&
+            actions[action] >= 104 &&
+            actions[action] <= 115 ? (
+              <F13Picker
+                action={action}
+                actions={actions}
+                onReplaceKey={onReplaceKey}
+              ></F13Picker>
             ) : (
               ""
             )}

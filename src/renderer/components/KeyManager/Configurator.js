@@ -16,6 +16,9 @@ import { MdInfo } from "react-icons/md";
 import Styled from "styled-components";
 import { LayerPicker } from "../KeyPicker";
 
+// Media
+import OSL from "../../../../static/OSL.png";
+
 const Style = Styled.div`
 .overflow {
   overflow: visible;
@@ -34,6 +37,10 @@ const Style = Styled.div`
 .modbutton {
   margin-right: 0.4em;
 }
+.alignvert {
+  padding-top: 10px;
+  float: left;
+}
 .showbutton {
   margin 0;
 }
@@ -45,6 +52,20 @@ const Style = Styled.div`
   font-size: 1.2rem;
   color: ${({ theme }) => theme.card.icon};
 }
+.selectButton {
+  float: left;
+  .dropdown-toggle{
+    font-size: 0.97rem;
+  }
+}
+.select-body {
+  padding: 0.55rem;
+}
+.item-layer {
+  p {
+    margin-bottom: 0;
+  }
+}
 `;
 
 class Configurator extends Component {
@@ -53,6 +74,20 @@ class Configurator extends Component {
 
     this.state = {};
 
+    this.oneShotLayer = [
+      { name: "None Selected", keynum: 0, alt: 0 },
+      { name: "------------", keynum: -1, alt: -1 },
+      { name: "One Shot Layer 0", keynum: 49161 },
+      { name: "One Shot Layer 1", keynum: 49162 },
+      { name: "One Shot Layer 2", keynum: 49163 },
+      { name: "One Shot Layer 3", keynum: 49164 },
+      { name: "One Shot Layer 4", keynum: 49165 },
+      { name: "One Shot Layer 5", keynum: 49166 },
+      { name: "One Shot Layer 6", keynum: 49167 },
+      { name: "One Shot Layer 7", keynum: 49168 },
+      { name: "One Shot Layer 8", keynum: 49169 },
+      { name: "One Shot Layer 9", keynum: 49170 }
+    ];
     this.layerLock = [
       { name: "None Selected", keynum: 0, alt: 0 },
       { name: "------------", keynum: -1, alt: -1 },
@@ -127,6 +162,14 @@ class Configurator extends Component {
     );
   }
 
+  renderImgTooltip(img) {
+    return (
+      <Tooltip id="select-tooltip" className="longtooltip">
+        <img src={img}></img>
+      </Tooltip>
+    );
+  }
+
   render() {
     const {
       layerData,
@@ -150,87 +193,170 @@ class Configurator extends Component {
     const dltext3 = "2. Tap it to send a key.";
     const dltext4 = "Previously called dual-function layer.";
 
+    let switchTitle = this.layerSwitch.map(i => {
+      if (layerData != 0 && layerData == i.keynum) {
+        return i.name;
+      }
+      if (layerData == 0 && selectdual == i.keynum) {
+        return i.name;
+      }
+    });
+    if (switchTitle == undefined) {
+      switchTitle = "None Selected";
+    }
+    let lockTitle = this.layerLock.map(i => {
+      if (layerData != 0 && layerData == i.keynum) {
+        return i.name;
+      }
+      if (layerData == 0 && selectdual == i.keynum) {
+        return i.name;
+      }
+    });
+    if (lockTitle == undefined) {
+      lockTitle = "None Selected";
+    }
+    let oslTitle = this.oneShotLayer.map(i => {
+      if (layerData != 0 && layerData == i.keynum) {
+        return i.name;
+      }
+      if (layerData == 0 && selectdual == i.keynum) {
+        return i.name;
+      }
+    });
+    if (oslTitle == undefined) {
+      oslTitle = "None Selected";
+    }
+    let dualTitle = this.layerKey.map(i => {
+      if (layerData != 0 && layerData == i.keynum) {
+        return i.name;
+      }
+      if (layerData == 0 && selectdual == i.keynum) {
+        return i.name;
+      }
+    });
+    if (dualTitle == undefined) {
+      dualTitle = "None Selected";
+    }
+    // console.log(switchTitle, lockTitle, oslTitle, dualTitle);
+
     const layers = (
       <React.Fragment>
-        <p className="titles">
-          LAYER SWITCH{" "}
-          <OverlayTrigger
-            placement="right"
-            delay={{ show: 250, hide: 400 }}
-            overlay={this.renderTooltip(swtext, "", "", "")}
-          >
-            <MdInfo className={"info"} />
-          </OverlayTrigger>
-        </p>
-        <DropdownButton
-          id="Selectlayers"
-          className="selectButton"
-          drop={"up"}
-          title={this.layerSwitch.map(i => {
-            if (layerData != 0 && layerData == i.keynum) {
-              return i.name;
-            }
-            if (layerData == 0 && selectdual == i.keynum) {
-              return i.name;
-            }
-          })}
-          value={layerData == 0 ? selectdual : layerData}
-          onSelect={updatelayer}
-        >
-          {this.layerSwitch.map((item, id) => {
-            return (
-              <Dropdown.Item
-                eventKey={item.keynum}
-                key={`item-${id}`}
-                disabled={item.keynum == -1}
+        <Row className="mx-0">
+          <Col xs={6} className="px-0 text-center">
+            <p className="titles alignvert">
+              LAYER SWITCH{" "}
+              <OverlayTrigger
+                placement="right"
+                delay={{ show: 250, hide: 400 }}
+                overlay={this.renderTooltip(swtext, "", "", "")}
               >
-                <div className="menuitem">
-                  <p>{item.name}</p>
-                </div>
-              </Dropdown.Item>
-            );
-          })}
-        </DropdownButton>
+                <MdInfo className={"info"} />
+              </OverlayTrigger>
+            </p>
+          </Col>
+          <Col xs={6} className="px-0 text-center">
+            <DropdownButton
+              id="Selectlayers"
+              className="selectButton"
+              drop={"up"}
+              title={switchTitle}
+              value={layerData == 0 ? selectdual : layerData}
+              onSelect={updatelayer}
+            >
+              {this.layerSwitch.map((item, id) => {
+                return (
+                  <Dropdown.Item
+                    eventKey={item.keynum}
+                    key={`item-${id}`}
+                    disabled={item.keynum == -1}
+                  >
+                    <div className="item-layer">
+                      <p>{item.name}</p>
+                    </div>
+                  </Dropdown.Item>
+                );
+              })}
+            </DropdownButton>
+          </Col>
+        </Row>
         <hr />
-        <p className="titles">
-          LAYER LOCK{" "}
-          <OverlayTrigger
-            placement="right"
-            delay={{ show: 250, hide: 400 }}
-            overlay={this.renderTooltip(lktext, lktext2, lktext3, "")}
-          >
-            <MdInfo className={"info"} />
-          </OverlayTrigger>
-        </p>
-        <DropdownButton
-          id="Selectlayers"
-          className="selectButton"
-          drop={"up"}
-          title={this.layerLock.map(i => {
-            if (layerData != 0 && layerData == i.keynum) {
-              return i.name;
-            }
-            if (layerData == 0 && selectdual == i.keynum) {
-              return i.name;
-            }
-          })}
-          value={layerData == 0 ? selectdual : layerData}
-          onSelect={updatelayer}
-        >
-          {this.layerLock.map((item, id) => {
-            return (
-              <Dropdown.Item
-                eventKey={item.keynum}
-                key={`item-${id}`}
-                disabled={item.keynum == -1}
+        <Row className="mx-0">
+          <Col xs={6} className="px-0 text-center">
+            <p className="titles alignvert">
+              LAYER LOCK{" "}
+              <OverlayTrigger
+                placement="right"
+                delay={{ show: 250, hide: 400 }}
+                overlay={this.renderTooltip(lktext, lktext2, lktext3, "")}
               >
-                <div className="menuitem">
-                  <p>{item.name}</p>
-                </div>
-              </Dropdown.Item>
-            );
-          })}
-        </DropdownButton>
+                <MdInfo className={"info"} />
+              </OverlayTrigger>
+            </p>
+          </Col>
+          <Col xs={6} className="px-0 text-center">
+            <DropdownButton
+              id="Selectlayers"
+              className="selectButton"
+              drop={"up"}
+              title={lockTitle}
+              value={layerData == 0 ? selectdual : layerData}
+              onSelect={updatelayer}
+            >
+              {this.layerLock.map((item, id) => {
+                return (
+                  <Dropdown.Item
+                    eventKey={item.keynum}
+                    key={`item-${id}`}
+                    disabled={item.keynum == -1}
+                  >
+                    <div className="item-layer">
+                      <p>{item.name}</p>
+                    </div>
+                  </Dropdown.Item>
+                );
+              })}
+            </DropdownButton>
+          </Col>
+        </Row>
+        <hr />
+        <Row className="mx-0">
+          <Col xs={6} className="px-0 text-center">
+            <p className="titles alignvert">
+              ONE SHOT LAYER{" "}
+              <OverlayTrigger
+                placement="right"
+                delay={{ show: 250, hide: 400 }}
+                overlay={this.renderImgTooltip(OSL)}
+              >
+                <MdInfo className={"info"} />
+              </OverlayTrigger>
+            </p>
+          </Col>
+          <Col xs={6} className="px-0 text-center">
+            <DropdownButton
+              id="Selectlayers"
+              className="selectButton"
+              drop={"up"}
+              title={oslTitle}
+              value={layerData == 0 ? selectdual : layerData}
+              onSelect={updatelayer}
+            >
+              {this.oneShotLayer.map((item, id) => {
+                return (
+                  <Dropdown.Item
+                    eventKey={item.keynum}
+                    key={`item-${id}`}
+                    disabled={item.keynum == -1}
+                  >
+                    <div className="item-layer">
+                      <p>{item.name}</p>
+                    </div>
+                  </Dropdown.Item>
+                );
+              })}
+            </DropdownButton>
+          </Col>
+        </Row>
         <hr />
         <p className="titles">
           LAYER & KEY{" "}
@@ -257,14 +383,7 @@ class Configurator extends Component {
               id="Selectlayers"
               className="selectButton"
               drop={"up"}
-              title={this.layerKey.map(i => {
-                if (layerData != 0 && layerData == i.keynum) {
-                  return i.name;
-                }
-                if (layerData == 0 && selectdual == i.keynum) {
-                  return i.name;
-                }
-              })}
+              title={dualTitle}
               value={layerData == 0 ? selectdual : layerData}
               onSelect={updatelayer}
             >
@@ -275,7 +394,7 @@ class Configurator extends Component {
                     key={`item-${id}`}
                     disabled={item.keynum == -1}
                   >
-                    <div className="menuitem">
+                    <div className="item-layer">
                       <p>{item.name}</p>
                     </div>
                   </Dropdown.Item>
@@ -290,7 +409,7 @@ class Configurator extends Component {
     return (
       <Style>
         <Card className="select-card overflow">
-          <Card.Body>{layers}</Card.Body>
+          <Card.Body className="select-body">{layers}</Card.Body>
         </Card>
       </Style>
     );

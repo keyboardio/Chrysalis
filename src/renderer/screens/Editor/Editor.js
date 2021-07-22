@@ -919,7 +919,20 @@ class Editor extends Component {
 
   setSuperKey(superid, actions) {
     let temp = this.state.superkeys;
-    temp[superid] = actions;
+    let tempactions = actions;
+    let founddata = false;
+    tempactions = tempactions
+      .reverse()
+      .map((elem, index, array) => {
+        if (elem != 0) return elem;
+        if ((index > 0 && array[index - 1] != 0) || founddata) {
+          founddata = true;
+          return 1;
+        }
+        return elem;
+      })
+      .reverse();
+    temp[superid] = tempactions;
     this.setState({ superkeys: temp });
   }
 
@@ -1282,7 +1295,6 @@ class Editor extends Component {
     } = this.state;
 
     let { Layer, kbtype } = this.getLayout();
-    console.log(Layer, kbtype);
     if (Layer === false) {
       return <div></div>;
     }

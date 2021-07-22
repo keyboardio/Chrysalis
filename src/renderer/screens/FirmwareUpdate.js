@@ -45,6 +45,12 @@ import { getStaticPath } from "../config";
 import i18n from "../i18n";
 
 const ModalStyle = Styled.div`
+background-color: ${({ theme }) => theme.card.background};
+color: ${({ theme }) => theme.colors.text};
+padding: 24px;
+overflow: hidden;
+box-shadow: 0px 1px 3px 0px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 2px 1px -1px rgb(0 0 0 / 12%);
+border-radius: 4px;
 .flash-modal {
   max-width: 900px !important;
 }
@@ -582,68 +588,64 @@ class FirmwareUpdate extends React.Component {
     let dialogChildren;
     if (versions) {
       dialogChildren = (
-        <React.Fragment>
-          <div className={"classes.paper"}>
-            <p className={"classes.cardSub"}>
-              {
-                "During the update, the Neuron will pulse a blue pattern followed by a flash of multiple colors for a few seconds. When the update finishes, your keyboard lights will go back to your personalized color mode."
-              }
-            </p>
-            <h6>{"Follow these steps to update your firmware:"}</h6>
-            <span className={"classes.cardSub"}>
-              <ol style={{ lineHeight: "2rem" }}>
-                <li>
+        <div>
+          <Card.Title className={"classes.cardSub"}>
+            {
+              "During the update, the Neuron will pulse a blue pattern followed by a flash of multiple colors for a few seconds. When the update finishes, your keyboard lights will go back to your personalized color mode."
+            }
+          </Card.Title>
+          <h6>{"Follow these steps to update your firmware:"}</h6>
+          <Card.Body>
+            <ol style={{ lineHeight: "2rem" }}>
+              <li>
+                {
+                  "Make sure to have at least one backup of your layers, just in case!"
+                }
+              </li>
+              <li>{"Click 'Start Countdown'."}</li>
+              <li>
+                {
+                  "When the countdown reaches zero and the keyboard's lights turn off, press repeatedly or hold the key on the "
+                }
+                <a
+                  href="https://support.dygma.com/hc/en-us/articles/360017056397"
+                  color={this.props.darkMode === true ? "primary" : "secondary"}
+                >
+                  {"top left corner of your Raise"}
+                </a>
+                {" (usually the Esc key). Do this for 5-7 seconds."}
+              </li>
+              <li>
+                {
+                  "'Firmware flashed successfully!' will appear on Bazecor's screen."
+                }
+              </li>
+            </ol>
+          </Card.Body>
+          <div className={"classes.cardSnack"}>
+            <div>
+              <div style={{ display: "flex" }}>
+                <div>
+                  <MdInfo />
+                </div>
+                <div>
                   {
-                    "Make sure to have at least one backup of your layers, just in case!"
-                  }
-                </li>
-                <li>{"Click 'Start Countdown'."}</li>
-                <li>
-                  {
-                    "When the countdown reaches zero and the keyboard's lights turn off, press repeatedly or hold the key on the "
+                    "Not following the steps can cause the firmware update process to fail. This won't damage your Raise, but will require you to repeat the process. More information "
                   }
                   <a
-                    href="https://support.dygma.com/hc/en-us/articles/360017056397"
+                    href="https://support.dygma.com/hc/en-us/articles/360007272638"
                     color={
                       this.props.darkMode === true ? "primary" : "secondary"
                     }
                   >
-                    {"top left corner of your Raise"}
+                    {"here"}
                   </a>
-                  {" (usually the Esc key). Do this for 5-7 seconds."}
-                </li>
-                <li>
-                  {
-                    "'Firmware flashed successfully!' will appear on Bazecor's screen."
-                  }
-                </li>
-              </ol>
-            </span>
-            <div className={"classes.cardSnack"}>
-              <div>
-                <div style={{ display: "flex" }}>
-                  <div>
-                    <MdInfo />
-                  </div>
-                  <div>
-                    {
-                      "Not following the steps can cause the firmware update process to fail. This won't damage your Raise, but will require you to repeat the process. More information "
-                    }
-                    <a
-                      href="https://support.dygma.com/hc/en-us/articles/360007272638"
-                      color={
-                        this.props.darkMode === true ? "primary" : "secondary"
-                      }
-                    >
-                      {"here"}
-                    </a>
-                    {"."}
-                  </div>
+                  {"."}
                 </div>
               </div>
             </div>
           </div>
-        </React.Fragment>
+        </div>
       );
     } else {
       dialogChildren = (

@@ -27,7 +27,7 @@ export default function SoftwareUpdateMenuItem({
   drawerWidth
 }) {
   return (
-    <div onClick={onClick} className={"item-list"}>
+    <div onClick={onClick} className={"item-list disabled"}>
       <div className="icon-item">
         <GoCloudDownload className={"icon-image"} />
       </div>

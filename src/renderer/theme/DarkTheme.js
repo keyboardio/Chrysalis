@@ -22,7 +22,7 @@ const Dark = {
       background: "#999",
       deselected: "#555",
       hover: "#888",
-      disabled: "#666",
+      disabled: "#444",
       active: "#AAA",
       activeText: "#000",
       deselectedText: "#454545",

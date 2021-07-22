@@ -208,6 +208,9 @@ class MacrosConfigurator extends React.Component {
           equal[i] = true;
           let aux = macro;
           aux.name = stored[i].name;
+          aux.macro = stored[i].actions
+            .map(k => this.keymapDB.parse(k.keyCode).label)
+            .join(" ");
           return aux;
         } else {
           equal[i] = false;

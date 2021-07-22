@@ -100,6 +100,9 @@ const Styles = Styled.div`
     }
   }
 }
+.disabled {
+  color: ${({ theme }) => theme.card.disabled};
+}
 `;
 
 class MainMenu extends Component {
@@ -212,7 +215,7 @@ class MainMenu extends Component {
                   />
                 </Link>
               </OverlayTrigger>
-              <OverlayTrigger
+              {/* <OverlayTrigger
                 placement="right"
                 delay={{ show: 250, hide: 400 }}
                 overlay={this.renderTooltip("Update Bazecor")}
@@ -225,7 +228,7 @@ class MainMenu extends Component {
                     onClick={event => event.stopPropagation()}
                   />
                 </div>
-              </OverlayTrigger>
+              </OverlayTrigger> */}
               <OverlayTrigger
                 placement="right"
                 delay={{ show: 250, hide: 400 }}

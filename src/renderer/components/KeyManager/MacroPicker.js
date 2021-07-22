@@ -53,7 +53,9 @@ class MacroPicker extends Component {
           id="MacroPicker"
           className="MacroButton"
           drop={"up"}
-          title={macros[mcros.indexOf(actions[action])].name}
+          title={`${mcros.indexOf(actions[action])} ${
+            macros[mcros.indexOf(actions[action])].name
+          }`}
           value={mcros[mcros.indexOf(actions[action])]}
           onSelect={AssignMacro}
         >
@@ -65,7 +67,7 @@ class MacroPicker extends Component {
                 disabled={x == -1}
               >
                 <div className="menuitem">
-                  <p>{macros[id].name}</p>
+                  <p>{`${id} ${macros[id].name}`}</p>
                 </div>
               </Dropdown.Item>
             );

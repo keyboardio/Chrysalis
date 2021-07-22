@@ -142,7 +142,12 @@ class Selector extends Component {
     const move1 = "Permanently move to a given layer.";
     const move2 =
       "To come back to the starting layer, set another Layer Lock key on the layer you moved to. This new Layer Lock key must target the initial layer.";
-
+    let adjactions = actions;
+    if (adjactions.length < 5) {
+      while (adjactions.length < 5) {
+        adjactions.push(0);
+      }
+    }
     const element = this.taps.map((name, i) => {
       return (
         <Card.Body key={i} className={i === action ? "topelem" : "normalelem"}>
@@ -156,8 +161,16 @@ class Selector extends Component {
                 </InputGroup.Text>
                 <FormControl
                   id="inlineFormInputGroup"
-                  className={actions[i] == 0 ? "whitebgns" : "whitebg"}
-                  value={actions[i] == 0 ? "None Selected" : selKeys[i]}
+                  className={
+                    adjactions[i] == 0 || adjactions[i] == 1
+                      ? "whitebgns"
+                      : "whitebg"
+                  }
+                  value={
+                    adjactions[i] == 0 || adjactions[i] == 1
+                      ? "None Selected"
+                      : selKeys[i]
+                  }
                   disabled
                 />
               </InputGroup>

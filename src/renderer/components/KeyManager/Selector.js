@@ -137,7 +137,8 @@ class Selector extends Component {
       SelectModif,
       onReplaceKey,
       activeKB,
-      AssignMacro
+      AssignMacro,
+      macros
     } = this.props;
 
     const move1 = "Permanently move to a given layer.";
@@ -234,6 +235,7 @@ class Selector extends Component {
               action={action}
               actions={actions}
               AssignMacro={AssignMacro}
+              macros={macros}
             ></MacroPicker>
           ) : (
             ""

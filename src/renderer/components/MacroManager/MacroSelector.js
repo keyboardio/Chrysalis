@@ -16,12 +16,12 @@ import i18n from "../../i18n";
 const Styles = Styled.div`
 .list {
   display: block;
-  height: 690px;
+  height: 640px;
   overflow: auto;
   border: 1px solid lightgrey;
   background-color: ${({ theme }) => theme.card.background};
 }
-.selected {
+.list-group-item.selected {
   background-color: ${({ theme }) => theme.colors.button.background};
   color: ${({ theme }) => theme.colors.text};
 }

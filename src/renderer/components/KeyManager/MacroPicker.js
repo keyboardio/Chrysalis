@@ -10,7 +10,6 @@ const Style = Styled.div`
   .dropdown-toggle{
     text-align: left;
     padding-left: 20px;
-    width: 50%;
     overflow-y: visible;
   }
 }
@@ -29,12 +28,12 @@ class MacroPicker extends Component {
   }
 
   render() {
-    const { actions, action, AssignMacro } = this.props;
+    const { actions, action, AssignMacro, macros } = this.props;
     // let enumerator = [];
     // const skeys = Array(64)
     //   .fill()
     //   .map((_, i) => i + 53916);
-    const mcros = Array(64)
+    const mcros = Array(macros.length)
       .fill()
       .map((_, i) => i + 53852);
     // const shftto = Array(10)
@@ -54,7 +53,7 @@ class MacroPicker extends Component {
           id="MacroPicker"
           className="MacroButton"
           drop={"up"}
-          title={`Macro ${mcros.indexOf(actions[action])}`}
+          title={macros[mcros.indexOf(actions[action])].name}
           value={mcros[mcros.indexOf(actions[action])]}
           onSelect={AssignMacro}
         >
@@ -66,7 +65,7 @@ class MacroPicker extends Component {
                 disabled={x == -1}
               >
                 <div className="menuitem">
-                  <p>{`Macro ${id}`}</p>
+                  <p>{macros[id].name}</p>
                 </div>
               </Dropdown.Item>
             );

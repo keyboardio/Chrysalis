@@ -1291,7 +1291,8 @@ class Editor extends Component {
       currentLayer,
       currentKeyIndex,
       currentLedIndex,
-      currentLanguageLayout
+      currentLanguageLayout,
+      macros
     } = this.state;
 
     let { Layer, kbtype } = this.getLayout();
@@ -1467,6 +1468,7 @@ class Editor extends Component {
                   id="keyboard-fade"
                   onKeySelect={this.onKeyChange}
                   code={code}
+                  macros={macros}
                   actions={actions}
                   newSuperID={this.newSuperID}
                   setSuperKey={this.setSuperKey}

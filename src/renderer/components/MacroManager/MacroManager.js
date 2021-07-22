@@ -17,15 +17,7 @@
 import React, { Component } from "react";
 
 import Styled from "styled-components";
-import { toast } from "react-toastify";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import Dropdown from "react-bootstrap/Dropdown";
-import Modal from "react-bootstrap/Modal";
-import { MdClose, MdCreate, MdInfo, MdBuild } from "react-icons/md";
 import i18n from "../../i18n";
 
 import MacroForm from "./MacroForm";

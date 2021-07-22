@@ -437,7 +437,7 @@ class KeyConfig extends Component {
       showKB,
       modifs
     } = this.state;
-    const { selectedlanguage, kbtype } = this.props;
+    const { selectedlanguage, kbtype, macros } = this.props;
     const selKey = this.parseAction(action);
     const selKeys = actions.map((a, i) => this.parseAction(i));
 
@@ -487,6 +487,7 @@ class KeyConfig extends Component {
                           activeKB={showKB}
                           SelectModif={this.SelectModif}
                           AssignMacro={this.AssignMacro}
+                          macros={macros}
                         />
                       </Tab>
                       <Tab eventKey="layer" title="LAYERS">
@@ -512,6 +513,7 @@ class KeyConfig extends Component {
                           onReplaceKey={this.onReplaceKey}
                           activeKB={showKB}
                           AssignMacro={this.AssignMacro}
+                          macros={macros}
                         />
                       </Tab>
                     </Tabs>

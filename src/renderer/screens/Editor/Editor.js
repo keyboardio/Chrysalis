@@ -1102,14 +1102,19 @@ class Editor extends Component {
   getLayout() {
     let focus = new Focus();
     let Layer = {};
+    let kbtype = "iso";
     try {
       Layer = focus.device.components.keymap;
+      kbtype =
+        focus.device && focus.device.info.keyboardType === "ISO"
+          ? "iso"
+          : "ansi";
     } catch (error) {
       console.error("Focus lost connection to Rasie: ", error);
       return false;
     }
 
-    return Layer;
+    return { Layer, kbtype };
   }
 
   toImport() {
@@ -1276,7 +1281,8 @@ class Editor extends Component {
       currentLanguageLayout
     } = this.state;
 
-    let Layer = this.getLayout();
+    let { Layer, kbtype } = this.getLayout();
+    console.log(Layer, kbtype);
     if (Layer === false) {
       return <div></div>;
     }
@@ -1455,7 +1461,7 @@ class Editor extends Component {
                   delSuperKey={this.delSuperKey}
                   keyIndex={currentKeyIndex}
                   selectedlanguage={currentLanguageLayout}
-                  kbtype={"iso"}
+                  kbtype={kbtype}
                 />
               </Fade>
             )}

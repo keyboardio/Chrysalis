@@ -204,6 +204,14 @@ const English = {
         oneHour: "1 hour"
       }
     },
+    qukeys: {
+      title: "DUAL FUNCTION KEY PARAMETERS",
+      holdTimeout: "Adjust time to start 'when held' action",
+      holdTimeoutsub: " - From 0 to 65,534 milliseconds",
+      overlapThreshold:
+        "Adjust overlap threshold between dual-function key and subsequent key",
+      overlapThresholdsub: " - Percentage from 0 to 100"
+    },
     superkeys: {
       title: "SUPER KEYS PARAMETERS",
       timeout:

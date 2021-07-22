@@ -60,6 +60,8 @@ class KeyboardSettings extends React.Component {
     ledBrightness: 255,
     ledIdleTimeLimit: 0,
     defaultLayer: 126,
+    qukeysHoldTimeout: 0,
+    qukeysOverlapThreshold: 0,
     SuperTimeout: 0,
     SuperRepeat: 0,
     SuperWaitfor: 0,
@@ -105,6 +107,17 @@ class KeyboardSettings extends React.Component {
 
     this.setState({
       showDefaults: settings.getSync("keymap.showDefaults")
+    });
+
+    // QUKEYS variables commands
+    focus.command("qukeys.holdTimeout").then(holdTimeout => {
+      holdTimeout = holdTimeout ? parseInt(holdTimeout) : 250;
+      this.setState({ qukeysHoldTimeout: holdTimeout });
+    });
+
+    focus.command("qukeys.overlapThreshold").then(overlapThreshold => {
+      overlapThreshold = overlapThreshold ? parseInt(overlapThreshold) : 80;
+      this.setState({ qukeysOverlapThreshold: overlapThreshold });
     });
 
     // SuperKeys variables commands
@@ -214,6 +227,25 @@ class KeyboardSettings extends React.Component {
 
     this.setState({
       ledBrightness: value,
+      modified: true
+    });
+    this.props.startContext();
+  };
+
+  setHoldTimeout = event => {
+    const value = event.target.value;
+    this.setState({
+      qukeysHoldTimeout: value,
+      modified: true
+    });
+    this.props.startContext();
+  };
+
+  setOverlapThreshold = event => {
+    const value = event.target.value;
+
+    this.setState({
+      qukeysOverlapThreshold: value,
       modified: true
     });
     this.props.startContext();
@@ -334,6 +366,8 @@ class KeyboardSettings extends React.Component {
       showDefaults,
       ledBrightness,
       ledIdleTimeLimit,
+      qukeysHoldTimeout,
+      qukeysOverlapThreshold,
       SuperTimeout,
       SuperRepeat,
       SuperWaitfor,
@@ -353,6 +387,9 @@ class KeyboardSettings extends React.Component {
     if (ledIdleTimeLimit >= 0)
       await focus.command("idleleds.time_limit", ledIdleTimeLimit);
     settings.setSync("keymap.showDefaults", showDefaults);
+    // QUKEYS
+    await focus.command("qukeys.holdTimeout", qukeysHoldTimeout);
+    await focus.command("qukeys.overlapThreshold", qukeysOverlapThreshold);
     // SUPER KEYS
     await focus.command("superkeys.timeout", SuperTimeout);
     await focus.command("superkeys.repeat", SuperRepeat);
@@ -384,6 +421,8 @@ class KeyboardSettings extends React.Component {
       showDefaults,
       ledBrightness,
       ledIdleTimeLimit,
+      qukeysHoldTimeout,
+      qukeysOverlapThreshold,
       SuperTimeout,
       SuperRepeat,
       SuperWaitfor,
@@ -511,6 +550,26 @@ class KeyboardSettings extends React.Component {
         className="slider"
         onChange={this.setBrightness}
         marks={[{ value: 255, label: i18n.keyboardSettings.defaultLabel }]}
+      />
+    );
+    const holdT = (
+      <RangeSlider
+        min={0}
+        max={1000}
+        value={qukeysHoldTimeout}
+        className="slider"
+        onChange={this.setHoldTimeout}
+        marks={[{ value: 250, label: i18n.keyboardSettings.defaultLabel }]}
+      />
+    );
+    const overlapT = (
+      <RangeSlider
+        min={0}
+        max={100}
+        value={qukeysOverlapThreshold}
+        className="slider"
+        onChange={this.setOverlapThreshold}
+        marks={[{ value: 80, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
     const superT = (
@@ -679,6 +738,36 @@ class KeyboardSettings extends React.Component {
                     </i>
                   </Form.Label>
                   {brightnessControl}
+                </Form.Group>
+              )}
+            </Card.Body>
+          </Card>
+          <Card.Header>{i18n.keyboardSettings.qukeys.title}</Card.Header>
+          <Card className="overflowFix">
+            <Card.Body>
+              {qukeysHoldTimeout >= 0 && (
+                <Form.Group controlId="holdTimeout" className="formGroup">
+                  <Form.Label>
+                    {i18n.keyboardSettings.qukeys.holdTimeout}
+                    <i className="greytext">
+                      {i18n.keyboardSettings.qukeys.holdTimeoutsub}
+                    </i>
+                  </Form.Label>
+                  {holdT}
+                </Form.Group>
+              )}
+              {qukeysOverlapThreshold >= 0 && (
+                <Form.Group controlId="overlapThreshold" className="formGroup">
+                  <Form.Label>
+                    {i18n.keyboardSettings.qukeys.overlapThreshold}
+                    <a href="https://kaleidoscope.readthedocs.io/en/latest/plugins/Kaleidoscope-Qukeys.html#setoverlapthreshold-percentage">
+                      {" - More info"}
+                    </a>
+                    <i className="greytext">
+                      {i18n.keyboardSettings.qukeys.overlapThresholdsub}
+                    </i>
+                  </Form.Label>
+                  {overlapT}
                 </Form.Group>
               )}
             </Card.Body>

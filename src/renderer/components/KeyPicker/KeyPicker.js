@@ -66,13 +66,6 @@ export default class KeyPicker extends Component {
     if (selectedlanguage != "" && kbtype == "iso") {
       if (liso[selectedlanguage] != undefined) Lang = liso[selectedlanguage];
     }
-    console.log(
-      "language problem: ",
-      selectedlanguage,
-      kbtype,
-      Lang,
-      liso[selectedlanguage]
-    );
     const keyboard = Lang.map((key, id) => {
       return (
         <Key

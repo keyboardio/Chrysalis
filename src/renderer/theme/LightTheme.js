@@ -1,6 +1,16 @@
 const Light = {
   name: "Light",
   drawerWidth: 64,
+  keyboardPicker: {
+    keyColor: "#f3f3f3",
+    keyActiveColor: "#96dbff",
+    keyDisabledColor: "#e5e5e5",
+    keyTextColor: "#000000",
+    keySubTextColor: "#808080",
+    keyTextDisabledColor: "#e5e5e5",
+    titleColor: "#000000",
+    subTitleColor: "#808080"
+  },
   colors: {
     gardient:
       "linear-gradient(180deg, rgba(131,58,180,1) 0%, rgba(189,38,38,1) 63%, rgba(252,112,42,1) 100%);",

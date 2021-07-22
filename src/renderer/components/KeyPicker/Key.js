@@ -208,10 +208,10 @@ class Key extends React.Component {
               rx="6"
               fill={
                 disabled
-                  ? "#e5e5e5"
+                  ? this.props.theme.keyboardPicker.keyDisabledColor
                   : selected
-                  ? this.props.theme.colors.button.active
-                  : "#f3f3f3"
+                  ? this.props.theme.keyboardPicker.keyActiveColor
+                  : this.props.theme.keyboardPicker.keyColor
               }
               onClick={clicked}
             />
@@ -224,10 +224,10 @@ class Key extends React.Component {
               rx="6"
               fill={
                 disabled
-                  ? "#e5e5e5"
+                  ? this.props.theme.keyboardPicker.keyDisabledColor
                   : selected
-                  ? this.props.theme.colors.button.active
-                  : "#f3f3f3"
+                  ? this.props.theme.keyboardPicker.keyActiveColor
+                  : this.props.theme.keyboardPicker.keyColor
               }
               onClick={clicked}
             />
@@ -242,8 +242,8 @@ class Key extends React.Component {
                 disabled
                   ? this.props.theme.card.background
                   : selected
-                  ? this.props.theme.colors.button.active
-                  : "#f3f3f3"
+                  ? this.props.theme.keyboardPicker.keyActiveColor
+                  : this.props.theme.keyboardPicker.keyColor
               }
               onClick={clicked}
             />
@@ -258,8 +258,8 @@ class Key extends React.Component {
                 disabled
                   ? this.props.theme.card.background
                   : selected
-                  ? this.props.theme.colors.button.active
-                  : "#f3f3f3"
+                  ? this.props.theme.keyboardPicker.keyActiveColor
+                  : this.props.theme.keyboardPicker.keyColor
               }
               onClick={clicked}
             />
@@ -277,10 +277,10 @@ class Key extends React.Component {
               rx="6"
               fill={
                 disabled
-                  ? "#e5e5e5"
+                  ? this.props.theme.keyboardPicker.keyDisabledColor
                   : selected
-                  ? this.props.theme.colors.button.active
-                  : "#f3f3f3"
+                  ? this.props.theme.keyboardPicker.keyActiveColor
+                  : this.props.theme.keyboardPicker.keyColor
               }
               className="outer border"
             />
@@ -295,8 +295,8 @@ class Key extends React.Component {
                 disabled
                   ? this.props.theme.card.background
                   : selected
-                  ? this.props.theme.colors.button.active
-                  : "#f3f3f3"
+                  ? this.props.theme.keyboardPicker.keyActiveColor
+                  : this.props.theme.keyboardPicker.keyColor
               }
             />
           </>
@@ -310,7 +310,7 @@ class Key extends React.Component {
               y={y + ksl[content.type].text.letter.dy}
               onClick={clicked}
               fontSize={ksl[content.type].text.letter.fs}
-              fill={disabled ? "#e5e5e5" : "black"}
+              fill={this.props.theme.keyboardPicker.titleColor}
               fontWeight={400}
             >
               {content.first}
@@ -321,7 +321,7 @@ class Key extends React.Component {
               onClick={clicked}
               fontSize={ksl[content.type].text.letter.fss}
               fontWeight={400}
-              fill="grey"
+              fill={this.props.theme.keyboardPicker.subTitleColor}
             >
               {content.second}
             </text>
@@ -336,7 +336,11 @@ class Key extends React.Component {
               y={y + ksl[content.type].text.letter.dy}
               onClick={clicked}
               fontSize={ksl[content.type].text.letter.fs}
-              fill={disabled ? "#e5e5e5" : "black"}
+              fill={
+                disabled
+                  ? this.props.theme.keyboardPicker.keyTextDisabledColor
+                  : this.props.theme.keyboardPicker.keyTextColor
+              }
               fontWeight={300}
               textAnchor="middle"
             >
@@ -348,7 +352,7 @@ class Key extends React.Component {
               onClick={clicked}
               fontSize={ksl[content.type].text.letter.fss}
               fontWeight={200}
-              fill="grey"
+              fill={this.props.theme.keyboardPicker.keySubTextColor}
               textAnchor="middle"
             >
               {content.second}
@@ -365,7 +369,11 @@ class Key extends React.Component {
               onClick={clicked}
               fontSize={ksl[content.type].text.a.fs}
               fontWeight={300}
-              fill={disabled ? "#e5e5e5" : "black"}
+              fill={
+                disabled
+                  ? this.props.theme.keyboardPicker.keyTextDisabledColor
+                  : this.props.theme.keyboardPicker.keyTextColor
+              }
             >
               {content.first}
             </text>
@@ -375,7 +383,7 @@ class Key extends React.Component {
               onClick={clicked}
               fontSize={ksl[content.type].text.b.fs}
               fontWeight={200}
-              fill="grey"
+              fill={this.props.theme.keyboardPicker.keySubTextColor}
             >
               {content.second}
             </text>
@@ -385,7 +393,7 @@ class Key extends React.Component {
               onClick={clicked}
               fontSize={ksl[content.type].text.c.fs}
               fontWeight={200}
-              fill="grey"
+              fill={this.props.theme.keyboardPicker.keySubTextColor}
             >
               {content.third}
             </text>
@@ -395,7 +403,7 @@ class Key extends React.Component {
               onClick={clicked}
               fontSize={ksl[content.type].text.d.fs}
               fontWeight={200}
-              fill="grey"
+              fill={this.props.theme.keyboardPicker.keySubTextColor}
             >
               {content.fourth}
             </text>

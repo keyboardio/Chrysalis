@@ -43,7 +43,7 @@ const Style = Styled.div`
 .info {
   vertical-align: middle;
   font-size: 1.2rem;
-  color: #666;
+  color: ${({ theme }) => theme.card.icon};
 }
 `;
 

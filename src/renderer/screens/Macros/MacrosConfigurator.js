@@ -40,6 +40,7 @@ const Styles = Styled.div`
   }
   .list-group-item {
     border: none !important;
+    background-color: ${({ theme }) => theme.card.background};
   }
   .save-button {
     text-align: center;

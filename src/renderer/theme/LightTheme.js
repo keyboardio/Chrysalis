@@ -36,7 +36,10 @@ const Light = {
   },
   card: {
     color: "#000",
+    colorDisabled: "#999",
     background: "#fff",
+    backgroundActive: "#96dbff",
+    icon: "#666",
     disabled: "#AAA",
     radius: "10",
     boxShadow: "0 0 0.5rem 0.3rem rgba(0,0,0,0.1)"

@@ -142,7 +142,7 @@ const GlobalStyles = createGlobalStyle`
     border-radius: 4px;
     margin-top: 5px;
     cursor: pointer;
-    background-color: #1064EA;
+    background-color: ${({ theme }) => theme.colors.button.background};
     color: #FFFFFF;
     font-family: ${({ theme }) => theme.font};
   }
@@ -152,7 +152,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   button.btn-primary, button.btn{
-    background-color: ${({ theme }) => theme.colors.button.deselected};
+    background-color: ${({ theme }) => theme.colors.button.background};
     color: ${({ theme }) => theme.colors.button.text};
     border: none;
   }

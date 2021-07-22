@@ -3,7 +3,7 @@ const Dark = {
   drawerWidth: 64,
   keyboardPicker: {
     keyColor: "#252525",
-    keyActiveColor: "#fa1464",
+    keyActiveColor: "#db1258",
     keyDisabledColor: "#e5e5e5",
     keyTextColor: "#FFFFFF",
     keySubTextColor: "#959595",
@@ -19,10 +19,10 @@ const Dark = {
     subtext: "#555555",
     button: {
       text: "#fff",
-      background: "#333",
+      background: "#999",
       deselected: "#555",
-      hover: "#666",
-      disabled: "#888",
+      hover: "#888",
+      disabled: "#666",
       active: "#AAA",
       activeText: "#000",
       deselectedText: "#454545",
@@ -36,8 +36,11 @@ const Dark = {
   },
   card: {
     color: "#fff",
+    colorDisabled: "#BBB",
     background: "#555",
+    backgroundActive: "#888",
     disabled: "#333",
+    icon: "#EEE",
     radius: "10",
     boxShadow: "0 0 0.5rem 0.3rem rgba(0,0,0,0.1)"
   },

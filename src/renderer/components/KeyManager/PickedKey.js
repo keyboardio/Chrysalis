@@ -26,15 +26,17 @@ const Style = Styled.div`
 .selectedkey {
   border-radius: 4px;
   margin: 0.375rem .75rem;
+  background-color: ${({ theme }) => theme.colors.button.background};
 }
 .activebg {
-  background-color: ${({ theme }) => theme.colors.button.background};
+  background-color: ${({ theme }) => theme.colors.button.active};
 }
 .chevron {
   align-self: center;
   font-size: 1.6rem;
   margin-top: -6px;
   margin-left: -18px;
+  color: ${({ theme }) => theme.colors.button.activeText};
 }
 .pksection {
   min-height: 100%;

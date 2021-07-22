@@ -30,36 +30,37 @@ const Style = Styled.div`
   align-self: center;
   font-size: 1.4rem;
   margin-top: 4px;
-  color: #666;
+  color: ${({ theme }) => theme.card.icon};
 }
 .info {
   align-self: center;
   font-size: 1.2rem;
   margin-top: 4px;
-  color: #666;
+  color: ${({ theme }) => theme.card.icon};
 }
 .modinfo {
   align-self: center;
   font-size: 1.2rem;
   margin-top: 4px;
-  color: #666;
+  color: ${({ theme }) => theme.card.icon};
 }
 .topelem {
   padding: 1em;
-  background-color: ${({ theme }) => theme.colors.button.background};
+  background-color: ${({ theme }) => theme.card.backgroundActive};
 }
 .normalelem {
   padding: 0.6em 1em 0em 1em;
 }
 .disabled {
-  color: ${({ theme }) => theme.colors.button.deselectedText};
+  color: ${({ theme }) => theme.card.icon};
 }
 .whitebg {
   background-color: ${({ theme }) => theme.card.background};
+  color: ${({ theme }) => theme.card.color};
 }
 .whitebgns {
   background-color: ${({ theme }) => theme.card.background};
-  color: ${({ theme }) => theme.card.disabled};
+  color: ${({ theme }) => theme.card.colorDisabled};
 }
 .openkb {
   background-color: ${({ theme }) => theme.colors.button.active};

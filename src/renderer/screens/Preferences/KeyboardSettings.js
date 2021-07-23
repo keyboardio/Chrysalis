@@ -585,7 +585,7 @@ class KeyboardSettings extends React.Component {
     const superR = (
       <RangeSlider
         min={0}
-        max={254}
+        max={250}
         value={SuperRepeat}
         className="slider"
         onChange={this.setSuperRepeat}

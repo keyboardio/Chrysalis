@@ -216,7 +216,7 @@ class KeyConfig extends Component {
         action:
           this.props.keyIndex !== this.state.pastkeyindex
             ? 0
-            : this.state.keyIndex,
+            : this.state.action,
         actions: tempActions,
         selectdual,
         layerData,

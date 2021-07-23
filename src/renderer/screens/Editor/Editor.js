@@ -892,6 +892,7 @@ class Editor extends Component {
 
   superkeyMap(superkeys) {
     if (
+      superkeys.length === 0 ||
       (superkeys.length === 1 && superkeys[0].actions == []) ||
       (superkeys.length === 1 && superkeys[0].actions == [0])
     ) {
@@ -938,9 +939,10 @@ class Editor extends Component {
 
   delSuperKey(superid) {
     let temp = this.state.superkeys;
+    let aux = this.state.keymap.custom;
+    let result = this.state.keymap;
     temp.splice(superid, 1);
     if (temp.length > superid) {
-      let aux = this.state.keymap.custom;
       aux[this.state.currentLayer]
         .filter(key => key.keyCode > superid + 53916)
         .forEach(key => {
@@ -950,7 +952,6 @@ class Editor extends Component {
           key.verbose = auxkey.verbose;
           key.keyCode = auxkey.keyCode;
         });
-      let result = this.state.keymap;
       result.custom = aux;
       this.setState({ keymap: result });
     }

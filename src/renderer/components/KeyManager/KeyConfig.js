@@ -135,8 +135,13 @@ class KeyConfig extends Component {
     this.keymapDB = new KeymapDB();
 
     let tempModifs = Array(5);
-    const temp = props.actions;
-    temp.forEach((element, i) => {
+    let tempActions = props.actions;
+    if (props.actions === undefined) {
+      tempActions = [[0], [0], [0], [0], [0]];
+    } else {
+      tempActions = props.actions;
+    }
+    tempActions.forEach((element, i) => {
       if (element > 255 && element < 8192) {
         tempModifs[i] = this.parseModifs(element);
       } else {
@@ -146,7 +151,7 @@ class KeyConfig extends Component {
 
     this.state = {
       action: 0,
-      actions: temp,
+      actions: tempActions,
       modifs: tempModifs,
       selectdual: 0,
       selectlayer: 0,
@@ -193,25 +198,30 @@ class KeyConfig extends Component {
     }
 
     let tempModifs = Array(5);
-    this.props.actions.forEach((element, i) => {
+    let tempActions;
+    if (this.props.actions === undefined) {
+      tempActions = [0, 0, 0, 0, 0];
+    } else {
+      tempActions = this.props.actions;
+    }
+    tempActions.forEach((element, i) => {
       if (element > 255 && element < 8448) {
         tempModifs[i] = this.parseModifs(element);
       } else {
         tempModifs[i] = [];
       }
     });
-    if (this.state.actions !== this.props.actions) {
+    if (JSON.stringify(this.state.actions) !== JSON.stringify(tempActions)) {
       this.setState({
-        actions: this.props.actions,
+        action:
+          this.props.keyIndex !== this.state.pastkeyindex
+            ? 0
+            : this.state.keyIndex,
+        actions: tempActions,
         selectdual,
         layerData,
         modifs: tempModifs,
         pastkeyindex: this.props.keyIndex
-      });
-    }
-    if (this.props.keyIndex !== this.state.pastkeyindex) {
-      this.setState({
-        action: 0
       });
     }
   }

@@ -120,7 +120,7 @@ class ModPicker extends Component {
             onClick={e => SelectModif(4)}
             disabled={actions[i] == 0 ? true : false}
           >
-            Win
+            O.S.
           </Button>
           <OverlayTrigger
             placement="right"

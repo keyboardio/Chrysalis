@@ -19,14 +19,14 @@ const Dark = {
     subtext: "#555555",
     button: {
       text: "#fff",
-      background: "#999",
+      background: "#888",
       deselected: "#555",
-      hover: "#888",
+      hover: "#777",
       disabled: "#444",
       active: "#AAA",
       activeText: "#000",
       deselectedText: "#454545",
-      boxShadow: "0 0 0 0.2rem rgba(255,255,255,.5)",
+      boxShadow: "0 0 0 0.2rem rgba(150,150,150,.5)",
       borderColor: "#AAA"
     },
     link: {

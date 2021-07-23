@@ -105,7 +105,7 @@ const Styles = Styled.div`
     padding: 0;
     place-content: space-evenly;
     border-radius: 10px;
-    background-color: ${({ theme }) => theme.colors.button.deselected};
+    background-color: ${({ theme }) => theme.colors.button.background};
   }
 }
 .save-row {

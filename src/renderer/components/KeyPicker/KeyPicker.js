@@ -74,7 +74,9 @@ export default class KeyPicker extends Component {
           y={key.y}
           selected={code === null ? false : code.base === key.id ? true : false}
           clicked={() => {
-            key.mod == disableMods ? {} : this.onKeyPress(key.id);
+            key.mod == disableMods || key.move == disableMove
+              ? {}
+              : this.onKeyPress(key.id);
           }}
           centered={key.centered}
           content={key.content}

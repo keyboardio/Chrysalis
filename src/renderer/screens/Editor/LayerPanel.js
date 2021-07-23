@@ -73,10 +73,10 @@ const Styles = Styled.div`
       background-color: transparent;
     }
     button:hover {
-      background-color: ${({ theme }) => theme.colors.button.disabled};
+      background-color: ${({ theme }) => theme.colors.button.hover};
     }
     button:focus {
-      background-color: ${({ theme }) => theme.colors.button.background};
+      background-color: ${({ theme }) => theme.colors.button.hover};
       color: ${({ theme }) => theme.colors.button.text};
       box-shadow: none;
     }
@@ -85,7 +85,7 @@ const Styles = Styled.div`
       box-shadow: none !important;
     }
     .btn-primary:not(:disabled):not(.disabled).active {
-      background-color: ${({ theme }) => theme.colors.button.background};
+      background-color: ${({ theme }) => theme.colors.button.active};
       color: ${({ theme }) => theme.colors.button.text};
       box-shadow: none !important;
     }

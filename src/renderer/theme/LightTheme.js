@@ -19,7 +19,7 @@ const Light = {
     subtext: "#555555",
     button: {
       text: "#000",
-      background: "#cbedff",
+      background: "#f3f3f3",
       deselected: "#e5e5e5",
       hover: "#b0e3ff",
       disabled: "#999",
@@ -38,7 +38,7 @@ const Light = {
     color: "#000",
     colorDisabled: "#999",
     background: "#fff",
-    backgroundActive: "#96dbff",
+    backgroundActive: "#cbedff",
     icon: "#666",
     disabled: "#AAA",
     radius: "10",

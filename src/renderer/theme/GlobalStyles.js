@@ -179,7 +179,7 @@ const GlobalStyles = createGlobalStyle`
   }
   .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle  {
     color: ${({ theme }) => theme.colors.button.text};
-    background-color: ${({ theme }) => theme.colors.button.hover};
+    background-color: ${({ theme }) => theme.colors.button.active};
     border-color: ${({ theme }) => theme.colors.button.background};
     box-shadow: ${({ theme }) => theme.colors.button.boxShadow};
   }

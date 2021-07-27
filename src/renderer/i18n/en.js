@@ -226,7 +226,10 @@ const English = {
       waitforsub: " - time from 0 to 65,534 milliseconds",
       holdstart:
         "Adjust time to trigger a hold when the superkey is held for that period, after it, it will automatically trigger hold action",
-      holdstartsub: " - time from 0 to 65,534 milliseconds"
+      holdstartsub: " - time from 0 to 65,534 milliseconds",
+      overlap:
+        "Adjust percentage that changes the way the hold function will trigger depending on the typing speed of the previous normal key",
+      overlapsub: " - Percentage from 0 to 100"
     },
     mouse: {
       title: "MOUSE KEYS CONFIGURATION",

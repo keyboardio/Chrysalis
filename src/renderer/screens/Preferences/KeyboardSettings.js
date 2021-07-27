@@ -66,6 +66,7 @@ class KeyboardSettings extends React.Component {
     SuperRepeat: 0,
     SuperWaitfor: 0,
     SuperHoldstart: 0,
+    SuperOverlapThreshold: 0,
     mouseSpeed: 0,
     mouseSpeedDelay: 0,
     mouseAccelSpeed: 0,
@@ -139,6 +140,11 @@ class KeyboardSettings extends React.Component {
     focus.command("superkeys.holdstart").then(holdstart => {
       holdstart = holdstart ? parseInt(holdstart) : 200;
       this.setState({ SuperHoldstart: holdstart });
+    });
+
+    focus.command("superkeys.overlap").then(overlapThreshold => {
+      overlapThreshold = overlapThreshold ? parseInt(overlapThreshold) : 20;
+      this.setState({ SuperOverlapThreshold: overlapThreshold });
     });
 
     // MOUSE variables commands
@@ -287,6 +293,16 @@ class KeyboardSettings extends React.Component {
     this.props.startContext();
   };
 
+  setSuperOverlapThreshold = event => {
+    const value = event.target.value;
+
+    this.setState({
+      SuperOverlapThreshold: value,
+      modified: true
+    });
+    this.props.startContext();
+  };
+
   setSpeed = event => {
     const value = event.target.value;
 
@@ -372,6 +388,7 @@ class KeyboardSettings extends React.Component {
       SuperRepeat,
       SuperWaitfor,
       SuperHoldstart,
+      SuperOverlapThreshold,
       mouseSpeed,
       mouseSpeedDelay,
       mouseAccelSpeed,
@@ -395,6 +412,7 @@ class KeyboardSettings extends React.Component {
     await focus.command("superkeys.repeat", SuperRepeat);
     await focus.command("superkeys.waitfor", SuperWaitfor);
     await focus.command("superkeys.holdstart", SuperHoldstart);
+    await focus.command("superkeys.overlap", SuperOverlapThreshold);
     // MOUSE KEYS
     await focus.command("mouse.speed", mouseSpeed);
     await focus.command("mouse.speedDelay", mouseSpeedDelay);
@@ -427,6 +445,7 @@ class KeyboardSettings extends React.Component {
       SuperRepeat,
       SuperWaitfor,
       SuperHoldstart,
+      SuperOverlapThreshold,
       mouseSpeed,
       mouseSpeedDelay,
       mouseAccelSpeed,
@@ -610,6 +629,16 @@ class KeyboardSettings extends React.Component {
         className="slider"
         onChange={this.setSuperHoldstart}
         marks={[{ value: 200, label: i18n.keyboardSettings.defaultLabel }]}
+      />
+    );
+    const SuperO = (
+      <RangeSlider
+        min={0}
+        max={100}
+        value={SuperOverlapThreshold}
+        className="slider"
+        onChange={this.setSuperOverlapThreshold}
+        marks={[{ value: 20, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
     const mSpeed = (
@@ -817,6 +846,20 @@ class KeyboardSettings extends React.Component {
                     </i>
                   </Form.Label>
                   {superH}
+                </Form.Group>
+              )}
+              {SuperOverlapThreshold >= 0 && (
+                <Form.Group
+                  controlId="SuperOverlapThreshold"
+                  className="formGroup"
+                >
+                  <Form.Label>
+                    {i18n.keyboardSettings.superkeys.overlap}
+                    <i className="greytext">
+                      {i18n.keyboardSettings.superkeys.overlapsub}
+                    </i>
+                  </Form.Label>
+                  {SuperO}
                 </Form.Group>
               )}
             </Card.Body>

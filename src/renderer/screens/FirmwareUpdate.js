@@ -704,12 +704,12 @@ class FirmwareUpdate extends React.Component {
       currentlyRunning = (
         <React.Fragment>
           <Card
-            bg={versions.bazecor != "v1.0.0" ? "warning" : "success"}
+            bg={versions.bazecor != "v1.0.0beta3" ? "warning" : "success"}
             className="version"
           >
             <Card.Body
               className={
-                (versions.bazecor != "v1.0.0" ? "" : "white") + " body"
+                (versions.bazecor != "v1.0.0beta3" ? "" : "white") + " body"
               }
             >
               <Card.Title className="title">

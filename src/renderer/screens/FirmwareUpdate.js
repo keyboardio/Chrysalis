@@ -20,7 +20,7 @@ import React from "react";
 import Electron from "electron";
 import path from "path";
 import fs from "fs";
-import { version } from "../../../package.json";
+import { version, fwVersion } from "../../../package.json";
 
 import Focus from "../../api/focus";
 import FlashRaise from "../../api/flash";
@@ -704,7 +704,7 @@ class FirmwareUpdate extends React.Component {
       currentlyRunning = (
         <React.Fragment>
           <Card
-            bg={versions.bazecor != "v1.0.0beta3" ? "warning" : "success"}
+            bg={versions.bazecor != `v${fwVersion}` ? "warning" : "success"}
             className="version"
           >
             <Card.Body

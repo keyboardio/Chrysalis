@@ -24,12 +24,20 @@ export default function FlashMenuItem({
   onClick,
   className,
   classIcon,
-  drawerWidth
+  drawerWidth,
+  showNotif
 }) {
   return (
     <div onClick={onClick} className={"item-list"}>
       <div className="icon-item">
         <HiChip className={"icon-image"} />
+        {showNotif ? (
+          <div className="relative-pos">
+            <span className="sec">New</span>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
       {drawerWidth === "auto" ? (
         <div className="icon-text">

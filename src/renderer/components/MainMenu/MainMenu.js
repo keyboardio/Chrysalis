@@ -29,6 +29,7 @@ import Tooltip from "react-bootstrap/Tooltip";
 import Styled from "styled-components";
 
 import i18n from "../../i18n";
+import Focus from "../../../api/focus";
 
 import WelcomeMenu from "./WelcomeMenu";
 import EditorMenuItem from "./EditorMenuItem";
@@ -40,6 +41,7 @@ import SoftwareUpdateMenuItem from "./SoftwareUpdateMenuItem";
 import ExitMenuItem from "./ExitMenuItem";
 
 import DygmaLogo from "../../../../static/logo.png";
+import { fwVersion } from "../../../../package.json";
 
 const { remote } = require("electron");
 
@@ -103,9 +105,81 @@ const Styles = Styled.div`
 .disabled {
   color: ${({ theme }) => theme.card.disabled};
 }
+.sec{
+  background-color: red;
+  border-radius: 10px;
+  color: white;
+  padding: 1px 4px;
+  position: absolute;
+  top: -70px;
+  left: 22px;
+}
+.relative-pos {
+  position: relative;
+  width: 0;
+  height: 0;
+}
 `;
 
 class MainMenu extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      versions: null
+    };
+  }
+
+  componentDidUpdate() {
+    const focus = new Focus();
+    let versions;
+
+    focus.command("version").then(v => {
+      if (!v) return;
+      let parts = v.split(" ");
+      versions = {
+        bazecor: parts[0],
+        kaleidoscope: parts[1],
+        firmware: parts[2]
+      };
+
+      this.setState({ versions: versions });
+    });
+  }
+
+  cleanFWVer(version) {
+    let ver =
+      version != null
+        ? version[0] != "v"
+          ? version
+          : version.substring(1)
+        : null;
+    if (ver.length > 5) {
+      return (ver.substring(0, 5) + "." + ver.substring(9)).split(".");
+    }
+    return ver.substring(0, 5).split(".");
+  }
+
+  compareFWVer(oldVer, newVer) {
+    if (oldVer.length != newVer.length) {
+      if (oldVer.length > newVer.length) {
+        return -1;
+      } else {
+        return 1;
+      }
+    }
+    for (var i = 0; i < oldVer.length; ++i) {
+      if (oldVer[i] == newVer[i]) {
+        continue;
+      } else if (oldVer[i] > newVer[i]) {
+        return -1;
+      } else {
+        return 1;
+      }
+    }
+    return 0;
+  }
+
   renderTooltip(text) {
     return <Tooltip id="button-tooltip">{text}</Tooltip>;
   }
@@ -120,6 +194,13 @@ class MainMenu extends Component {
     //     ? "/editor"
     //     : "/welcome"
     //   : "/keyboard-select";
+
+    let fwVer =
+      this.state.versions != null
+        ? this.cleanFWVer(this.state.versions.bazecor)
+        : [];
+    let newVer = this.cleanFWVer(fwVersion);
+    let showNotif = this.compareFWVer(fwVer, newVer);
 
     return (
       <Styles>
@@ -179,6 +260,13 @@ class MainMenu extends Component {
                         selected={currentPage === "/firmware-update"}
                         drawerWidth={drawerWidth}
                         onClick={() => setCurrentPage("/firmware-update")}
+                        showNotif={
+                          showNotif != 0
+                            ? showNotif > 0
+                              ? true
+                              : false
+                            : false
+                        }
                       />
                     </Link>
                   </OverlayTrigger>

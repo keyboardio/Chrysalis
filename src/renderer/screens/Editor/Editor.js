@@ -1163,6 +1163,7 @@ class Editor extends Component {
                 keymap: layers.keymap,
                 colorMap: layers.colormap,
                 palette: layers.palette,
+                superkeys: layers.superkeys ? layers.superkeys : [],
                 modified: true
               });
               this.props.startContext();
@@ -1242,12 +1243,13 @@ class Editor extends Component {
   }
 
   toExportAll() {
-    const { keymap, colorMap, palette } = this.state;
+    const { keymap, colorMap, palette, superkeys } = this.state;
     let data = JSON.stringify(
       {
         keymap,
         colormap: colorMap,
-        palette
+        palette,
+        superkeys
       },
       null,
       2

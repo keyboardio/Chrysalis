@@ -31,58 +31,64 @@ const ModifiersTable = {
     {
       code: 224,
       labels: {
-        primary: "LEFT CTRL",
+        top: "LEFT",
+        primary: "CTRL",
         verbose: "Left Control"
       }
     },
     {
       code: 225,
       labels: {
-        primary: "LEFT SHIFT",
+        top: "LEFT",
+        primary: "SHIFT",
         verbose: "Left Shift"
       }
     },
     {
       code: 226,
       labels: {
-        primary: "LEFT ALT",
+        top: "LEFT",
+        primary: "ALT",
         verbose: "Left Alt"
       }
     },
     {
       code: 227,
       labels: {
-        primary: "LEFT " + guiLabel.toUpperCase(),
+        top: "LEFT",
+        primary: guiLabel.toUpperCase(),
         verbose: "Left " + guiLabel
       }
     },
     {
       code: 228,
       labels: {
-        primary: "RIGHT CTRL",
+        top: "RIGHT",
+        primary: "CTRL",
         verbose: "Right Control"
       }
     },
     {
       code: 229,
       labels: {
-        top: "",
-        primary: "RIGHT SHIFT",
+        top: "RIGHT",
+        primary: "SHIFT",
         verbose: "Right Shift"
       }
     },
     {
       code: 230,
       labels: {
-        top: "",
-        primary: "RIGHT ALT",
+        top: "RIGHT",
+        primary: "ALT",
         verbose: "AltGr"
       }
     },
     {
       code: 231,
       labels: {
-        primary: "RIGHT " + guiLabel.toUpperCase(),
+        top: "RIGHT",
+        primary: guiLabel.toUpperCase(),
         verbose: "Right " + guiLabel
       }
     }

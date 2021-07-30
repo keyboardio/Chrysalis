@@ -249,7 +249,7 @@ class KeymapISO extends React.Component {
         (str.charCodeAt() >= 48 && str.charCodeAt() <= 57) ||
         (str.charCodeAt() >= 96 && str.charCodeAt() <= 105) ||
         str === "\n".charCodeAt(0);
-      const interval = "1.5em";
+      const interval = "1.1em";
       const longWords = str.split(" ");
       const shortWords = str.split("");
       if (numbers) {
@@ -257,7 +257,7 @@ class KeymapISO extends React.Component {
           <GetCurrentKeyElement
             key={new Date() + Math.random()}
             x={xCord}
-            y={yCord}
+            y={String(+yCord - 5)}
             word={str}
             class="key-config"
           />
@@ -267,7 +267,7 @@ class KeymapISO extends React.Component {
           <GetCurrentKeyElement
             key={index}
             x={xCord}
-            y={yCord}
+            y={String(+yCord - 5)}
             word={word}
             class="letter-config"
           />
@@ -384,7 +384,7 @@ class KeymapISO extends React.Component {
             getDivideKeys(
               getLabel(row, col).extraLabel,
               xCord,
-              String(+yCord - 10),
+              String(+yCord - 5),
               smallKey
             )
         : getLabel(row, col).extraLabel ===
@@ -410,7 +410,7 @@ class KeymapISO extends React.Component {
             getDivideKeys(
               getLabel(row, col).label,
               xCord,
-              String(yCord - 5),
+              String(yCord + 2),
               smallKey
             )
         : topsArrTransfer.includes(getLabel(row, col).extraLabel)
@@ -426,7 +426,7 @@ class KeymapISO extends React.Component {
           getDivideKeys(
             getLabel(row, col).label,
             xCord,
-            String(yCord - 5),
+            String(yCord + 2),
             smallKey
           );
 

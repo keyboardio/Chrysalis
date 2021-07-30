@@ -96,7 +96,7 @@ const PunctuationTable = {
     {
       code: 100,
       labels: {
-        primary: "ISO <>",
+        primary: "<>",
         verbose: "ISO <>"
       }
     }

@@ -143,6 +143,14 @@ export default class ColorPanel extends Component {
     const { colors, selected, onColorSelect } = this.props;
     console.log(colors[pick], pick, selected);
     onColorSelect(pick);
+    if (pick === selected) {
+      // setIndexFocusButton(!indexFocusButton);
+      this.props.onColorButtonSelect("one_button_click", pick);
+      return;
+    }
+    this.props.onColorButtonSelect("another_button_click", pick);
+    // setIndexFocusButton(index);
+    // setColorFocusButton(setColorTamplate(color));
   }
 
   showColorPicker(event) {
@@ -156,7 +164,8 @@ export default class ColorPanel extends Component {
       colors,
       selected,
       toChangeAllKeysColor,
-      onBacklightColorSelect
+      onBacklightColorSelect,
+      onColorButtonSelect
     } = this.props;
     const { displayColorPicker } = this.state;
 

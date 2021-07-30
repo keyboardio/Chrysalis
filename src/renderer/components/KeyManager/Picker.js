@@ -28,7 +28,8 @@ class Picker extends Component {
       onReplaceKey,
       activeTab,
       selectedlanguage,
-      kbtype
+      kbtype,
+      baseCode
     } = this.props;
 
     return (
@@ -36,7 +37,10 @@ class Picker extends Component {
         <Card className="picker-select-card">
           <KeyPicker
             onKeySelect={e => onReplaceKey(e, -1)}
-            code={{ base: actions[action], modified: 0 }}
+            code={{
+              base: actions[action] > 255 ? baseCode : actions[action],
+              modified: 0
+            }}
             disableMods={[0, 3].includes(action) && activeTab == "super"}
             disableMove={![0, 3].includes(action) && activeTab == "super"}
             selectedlanguage={selectedlanguage}

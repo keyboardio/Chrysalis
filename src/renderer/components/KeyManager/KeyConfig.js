@@ -454,7 +454,7 @@ class KeyConfig extends Component {
       showKB,
       modifs
     } = this.state;
-    const { selectedlanguage, kbtype, macros } = this.props;
+    const { selectedlanguage, kbtype, macros, code } = this.props;
     const selKey = this.parseAction(action);
     const selKeys = actions.map((a, i) => this.parseAction(i));
 
@@ -539,6 +539,7 @@ class KeyConfig extends Component {
                     <Picker
                       actions={actions}
                       action={action}
+                      baseCode={code.base}
                       onReplaceKey={this.onReplaceKey}
                       activeTab={activeTab}
                       selectedlanguage={selectedlanguage}

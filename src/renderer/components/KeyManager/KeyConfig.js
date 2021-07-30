@@ -108,12 +108,12 @@ const Style = Styled.div`
 }
 .nav-tabs .nav-link {
   color: ${({ theme }) => theme.colors.button.text};
-  background-color: ${({ theme }) => theme.card.background};
+  background-color: ${({ theme }) => theme.colors.button.background};
   padding: .2rem 1rem;
 }
 .nav-tabs .nav-link.active {
   color: ${({ theme }) => theme.colors.button.text};
-  background-color: ${({ theme }) => theme.colors.button.background};
+  background-color: ${({ theme }) => theme.card.background};
 }
 .fixed-width {
   max-width: 321px;

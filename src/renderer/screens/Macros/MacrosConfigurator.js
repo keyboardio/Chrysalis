@@ -291,12 +291,8 @@ class MacrosConfigurator extends React.Component {
   }
 
   changeSelected(id) {
-    let aux = id;
-    if (aux < 0) {
-      aux = 0;
-    }
     this.setState({
-      selectedMacro: aux
+      selectedMacro: id < 0 ? 0 : id
     });
   }
 

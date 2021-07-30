@@ -144,6 +144,7 @@ class MacroManager extends Component {
     this.setState({
       selected
     });
+    this.props.changeSelected(selected);
   }
 
   macrosRestore(macros) {

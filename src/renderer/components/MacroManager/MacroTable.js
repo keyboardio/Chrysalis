@@ -2,23 +2,7 @@ import React, { Component } from "react";
 import MacroTableRow from "./MacroTableRow";
 import MacroToolTab from "./MacroToolTab";
 
-// import { withStyles, useTheme } from "@material-ui/core/styles";
-// import { List } from "@material-ui/core";
-// import RootRef from "@material-ui/core/RootRef";
-// import {
-//   UnfoldLessRounded,
-//   KeyboardArrowUp,
-//   KeyboardArrowDown,
-//   TimerRounded
-// } from "@material-ui/icons";
 import Styled from "styled-components";
-import { toast } from "react-toastify";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
-import Dropdown from "react-bootstrap/Dropdown";
 import ListGroup from "react-bootstrap/ListGroup";
 import {
   MdUnfoldLess,

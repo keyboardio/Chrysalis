@@ -305,7 +305,7 @@ class KeyConfig extends Component {
       this.state.modifs,
       this.state.modifs,
       this.state.selectdual,
-      this.state.selectdual
+      this.state.selectdual > 0 ? 0 : this.state.selectdual
     );
   }
 

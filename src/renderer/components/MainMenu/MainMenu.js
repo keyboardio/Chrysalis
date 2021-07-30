@@ -131,6 +131,8 @@ class MainMenu extends Component {
   }
 
   componentDidUpdate() {
+    if (this.state.versions != null && this.state.versions.bazecor.length > 0)
+      return;
     const focus = new Focus();
     let versions;
 

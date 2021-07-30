@@ -72,7 +72,7 @@ const Styles = Styled.div`
       text-align: center;
       align-self: center;
       padding: unset;
-      margin-top: 15px;
+      margin-top: 0px;
       svg {
         max-height: 77vh;
         max-width: 80vw;

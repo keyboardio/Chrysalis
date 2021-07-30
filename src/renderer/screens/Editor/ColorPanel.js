@@ -98,6 +98,12 @@ const Styles = Styled.div`
       }
     }
   }
+  .first {
+    padding-top: 30px;
+  }
+  .last {
+    padding-left: 5px;
+  }
 `;
 
 export default class ColorPanel extends Component {
@@ -120,7 +126,7 @@ export default class ColorPanel extends Component {
     onColorPick(selected, color.rgb.r, color.rgb.g, color.rgb.b);
   }
 
-  CButton(text, func, icon, disable) {
+  CButton(text, func, icon, disable, classes) {
     const id = `tooltip-${text}`;
 
     return (
@@ -128,7 +134,7 @@ export default class ColorPanel extends Component {
         overlay={<Tooltip id={id}>{text}</Tooltip>}
         placement="bottom"
       >
-        <Button disabled={disable} onClick={func}>
+        <Button disabled={disable} onClick={func} className={classes}>
           {icon}
         </Button>
       </OverlayTrigger>
@@ -204,7 +210,8 @@ export default class ColorPanel extends Component {
             toChangeAllKeysColor(selected, 69, 142);
           },
           <CgSmartHomeLight />,
-          false
+          false,
+          "last"
         )}
       </>
     );
@@ -217,7 +224,8 @@ export default class ColorPanel extends Component {
             toChangeAllKeysColor(selected, 0, 69);
           },
           <CgSmartHomeLight style={iconStyles} />,
-          false
+          false,
+          "last"
         )}
       </>
     );
@@ -228,7 +236,8 @@ export default class ColorPanel extends Component {
           "Edit current color",
           this.showColorPicker,
           <CgColorPicker />,
-          false
+          false,
+          "first"
         )}
       </>
     );
@@ -262,7 +271,7 @@ export default class ColorPanel extends Component {
               />
             </div>
           ) : null}
-          <Row>
+          <Row className="m-0">
             <Col xs={1} className="color-options">
               {edit}
             </Col>

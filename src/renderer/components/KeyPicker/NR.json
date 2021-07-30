@@ -1516,14 +1516,27 @@
       "fourth": ""
     }
   },
-  {
+{
     "id": 0,
     "x": 100,
     "y": 244,
     "centered": true,
     "content": {
-      "type": "2UT",
-      "first": "Disabled",
+      "type": "specialBlockT",
+      "first": "NO K",
+      "second": "",
+      "third": "",
+      "fourth": ""
+    }
+  },
+  {
+    "id": 65535,
+    "x": 150,
+    "y": 244,
+    "centered": true,
+    "content": {
+      "type": "specialBlockT",
+      "first": "TRANS",
       "second": "",
       "third": "",
       "fourth": ""

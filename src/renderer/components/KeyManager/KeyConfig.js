@@ -177,7 +177,7 @@ class KeyConfig extends Component {
       this.props.code != null
         ? this.props.code.modified + this.props.code.base
         : 0;
-    if (keynum >= 49169 && keynum <= 53266) {
+    if (keynum >= 51218 && keynum <= 53266) {
       selectdual = (this.props.code.modified >>> 8) << 8;
       if (selectdual >= 51218 - 18) {
         selectdual += 18;
@@ -190,7 +190,7 @@ class KeyConfig extends Component {
     let layerData = 0;
     if (
       (keynum >= 17450 && keynum <= 17501) ||
-      (keynum >= 49161 && keynum <= 49170)
+      (keynum >= 49161 && keynum <= 49168)
     ) {
       layerData = keynum;
     } else {
@@ -211,6 +211,14 @@ class KeyConfig extends Component {
         tempModifs[i] = [];
       }
     });
+    let activeTab = "editor";
+    if (keynum < 256) {
+      activeTab = "editor";
+    } else if (layerData > 0 || selectdual > 0) {
+      activeTab = "layer";
+    } else {
+      activeTab = "super";
+    }
     if (JSON.stringify(this.state.actions) !== JSON.stringify(tempActions)) {
       this.setState({
         action:
@@ -221,7 +229,8 @@ class KeyConfig extends Component {
         selectdual,
         layerData,
         modifs: tempModifs,
-        pastkeyindex: this.props.keyIndex
+        pastkeyindex: this.props.keyIndex,
+        activeTab
       });
     }
   }

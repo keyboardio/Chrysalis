@@ -53,10 +53,18 @@ class MacroPicker extends Component {
           id="MacroPicker"
           className="MacroButton"
           drop={"up"}
-          title={`${mcros.indexOf(actions[action])} ${
-            macros[mcros.indexOf(actions[action])].name
-          }`}
-          value={mcros[mcros.indexOf(actions[action])]}
+          title={
+            macros[mcros.indexOf(actions[action])] != undefined
+              ? `${mcros.indexOf(actions[action])} ${
+                  macros[mcros.indexOf(actions[action])].name
+                }`
+              : ""
+          }
+          value={
+            macros[mcros.indexOf(actions[action])] != undefined
+              ? mcros[mcros.indexOf(actions[action])]
+              : ""
+          }
           onSelect={AssignMacro}
         >
           {mcros.map((x, id) => {

@@ -175,8 +175,8 @@
     "centered": true,
     "content": {
       "type": "specialBlock",
-      "first": "Impr",
-      "second": "Pant",
+      "first": "Print",
+      "second": "Scr",
       "third": "",
       "fourth": ""
     }
@@ -188,8 +188,8 @@
     "centered": true,
     "content": {
       "type": "specialBlock",
-      "first": "Bloq",
-      "second": "Despl",
+      "first": "Scroll",
+      "second": "Lock",
       "third": "",
       "fourth": ""
     }
@@ -201,8 +201,8 @@
     "centered": true,
     "content": {
       "type": "specialBlock",
-      "first": "Paus",
-      "second": "Inter",
+      "first": "Pause",
+      "second": "Break",
       "third": "",
       "fourth": ""
     }

@@ -4,6 +4,7 @@ import Styled from "styled-components";
 // Bootstrap components
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
@@ -15,11 +16,10 @@ const toolsWidth = 45;
 
 const Styles = Styled.div`
   .color-editor {
-    width: ${toolsWidth * 4}px;
-    float: left;
-    margin-left: 0.5em;
-    margin-top: 545px;
-    position: absolute;
+    width: 400px;
+    bottom: 10px;
+    left: 45%;
+    position: fixed;
     padding: 0;
     background-color: ${({ theme }) => theme.card.background};
     border-radius: 10px;
@@ -29,10 +29,10 @@ const Styles = Styled.div`
     }
     .colors {
       margin: 0;
-      padding-top: 20px;
+      padding: 5px;
       justify-content: center;
       .color-button {
-        width: 22.5%;
+        width: 12%;
         padding: 5px 0px;
         border-radius: 0px;
         color: ${({ theme }) => theme.colors.button.text};
@@ -262,11 +262,17 @@ export default class ColorPanel extends Component {
               />
             </div>
           ) : null}
-          <Row className="colors">{layerButtons}</Row>
-          <Row className="color-options">
-            {edit}
-            {under}
-            {backl}
+          <Row>
+            <Col xs={1} className="color-options">
+              {edit}
+            </Col>
+            <Col xs={10} className="colors">
+              {layerButtons}
+            </Col>
+            <Col xs={1} className="color-options">
+              {under}
+              {backl}
+            </Col>
           </Row>
         </Container>
       </Styles>

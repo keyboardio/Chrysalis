@@ -345,10 +345,10 @@ class KeyConfig extends Component {
       const aux = modifs;
       aux[action] = [];
       this.setState({ modifs: aux });
-      if (actions[action] >= 51218) {
+      if (actions[action] >= 51218 && actions[action] <= 65534) {
         actions[action] = (actions[action] & mask) - 18 + state;
       } else {
-        if (actions[action] >= 49169) {
+        if (actions[action] >= 49169 && actions[action] <= 65534) {
           actions[action] = (actions[action] & mask) - 17 + state;
         } else {
           actions[action] = (actions[action] & mask) + state;
@@ -363,12 +363,19 @@ class KeyConfig extends Component {
         actions[3] <= 1 &&
         actions[4] <= 1
       ) {
-        if (superid >= 0) {
+        if (
+          superid >= 0 &&
+          this.props.code.base + this.props.code.modified != 65535
+        ) {
           this.props.delSuperKey(superid);
         }
         this.props.onKeySelect(actions[0]);
       } else {
-        if (superid < 0) superid = this.props.newSuperID();
+        if (
+          superid < 0 ||
+          this.props.code.base + this.props.code.modified == 65535
+        )
+          superid = this.props.newSuperID();
         this.props.onKeySelect(superid + 53916);
         this.props.setSuperKey(superid, actions);
       }

@@ -111,7 +111,7 @@ const Styles = Styled.div`
 .save-row {
   position: absolute;
   right: 20px;
-  top: 100px;
+  top: 65px;
   width: 110px;
   .card {
     flex-flow: nowrap;

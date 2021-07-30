@@ -61,7 +61,7 @@ visibility: ${props => (props.animate ? "hidden" : "visible")};
 const Styles = Styled.div`
 .keyboard-editor {
   .title-row {
-    margin-bottom: 40px;
+    // margin-bottom: 40px;
   }
   .editor {
     margin-left: 210px;
@@ -110,7 +110,8 @@ const Styles = Styled.div`
 }
 .save-row {
   position: absolute;
-  right: 80px;
+  right: 20px;
+  top: 100px;
   width: 110px;
   .card {
     flex-flow: nowrap;

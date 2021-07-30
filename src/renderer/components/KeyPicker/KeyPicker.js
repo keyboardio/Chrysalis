@@ -8,6 +8,10 @@ import React, { Component } from "react";
 import Styled from "styled-components";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import Tooltip from "react-bootstrap/Tooltip";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+
+import { MdInfo } from "react-icons/md";
 
 // Key Components
 
@@ -43,6 +47,38 @@ export default class KeyPicker extends Component {
     onKeySelect(keycode);
   };
 
+  renderTooltip(line1, line2, line3, line4) {
+    return (
+      <Tooltip id="select-tooltip" className="longtooltip">
+        <span>{line1}</span>
+        {line2 == "" ? (
+          ""
+        ) : (
+          <React.Fragment>
+            <br></br>
+            <span>{line2}</span>
+          </React.Fragment>
+        )}
+        {line3 == "" ? (
+          ""
+        ) : (
+          <React.Fragment>
+            <br></br>
+            <span>{line3}</span>
+          </React.Fragment>
+        )}
+        {line4 == "" ? (
+          ""
+        ) : (
+          <React.Fragment>
+            <br></br>
+            <span>{line4}</span>
+          </React.Fragment>
+        )}
+      </Tooltip>
+    );
+  }
+
   render() {
     const {
       code,
@@ -67,6 +103,25 @@ export default class KeyPicker extends Component {
       if (liso[selectedlanguage] != undefined) Lang = liso[selectedlanguage];
     }
     const keyboard = Lang.map((key, id) => {
+      if (key.tooltip) {
+        return (
+          <foreignObject
+            key={`id-${key.content.first}-${id}`}
+            x={key.x}
+            y={key.y}
+            width={25}
+            height={25}
+          >
+            <OverlayTrigger
+              placement="right"
+              delay={{ show: 250, hide: 400 }}
+              overlay={this.renderTooltip(key.tooltip, "", "", "")}
+            >
+              <MdInfo className={"info"} />
+            </OverlayTrigger>
+          </foreignObject>
+        );
+      }
       return (
         <Key
           key={`id-${key.content.first}-${id}`}

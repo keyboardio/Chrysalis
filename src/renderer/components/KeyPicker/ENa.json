@@ -1359,7 +1359,7 @@
       "fourth": ""
     }
   },
-  {
+    {
     "id": 1,
     "x": 2,
     "y": 194,
@@ -1367,6 +1367,20 @@
     "content": {
       "type": "title",
       "first": "SPECIAL",
+      "second": "",
+      "third": "",
+      "fourth": ""
+    }
+  },
+  {
+    "id": 1,
+    "x": 65,
+    "y": 191,
+    "tooltip":"Special keys such as Macros, Layer Lock(move to), No Key, Transparent, One Shot Modifiers and F13 to F24.",
+    "centered": false,
+    "content": {
+      "type": "title",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1387,12 +1401,40 @@
   },
   {
     "id": 1,
+    "x": 267,
+    "y": 191,
+    "tooltip":"Media keys for player control, such as play, pause, eject, shuffle, and volume control.",
+    "centered": false,
+    "content": {
+      "type": "title",
+      "first": "",
+      "second": "",
+      "third": "",
+      "fourth": ""
+    }
+  },
+  {
+    "id": 1,
     "x": 476,
     "y": 194,
     "centered": false,
     "content": {
       "type": "title",
       "first": "LED",
+      "second": "",
+      "third": "",
+      "fourth": ""
+    }
+  },
+  {
+    "id": 1,
+    "x": 509,
+    "y": 191,
+    "tooltip":"LED effects keys, to change the led effect currently displaying on the raise.",
+    "centered": false,
+    "content": {
+      "type": "title",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1426,6 +1468,20 @@
   },
   {
     "id": 1,
+    "x": 644,
+    "y": 191,
+    "tooltip":"MOUSE CLICK actions to reproduce all the clicks the mouse can do",
+    "centered": false,
+    "content": {
+      "type": "title",
+      "first": "",
+      "second": "",
+      "third": "",
+      "fourth": ""
+    }
+  },
+  {
+    "id": 1,
     "x": 694,
     "y": 194,
     "centered": false,
@@ -1439,6 +1495,20 @@
   },
   {
     "id": 1,
+    "x": 782,
+    "y": 191,
+    "tooltip":"MOUSE MOVEMENT keys to move the mouse around the screen",
+    "centered": false,
+    "content": {
+      "type": "title",
+      "first": "",
+      "second": "",
+      "third": "",
+      "fourth": ""
+    }
+  },
+  {
+    "id": 1,
     "x": 800,
     "y": 194,
     "centered": false,
@@ -1446,6 +1516,20 @@
       "type": "title",
       "first": "",
       "second": "WHEEL",
+      "third": "",
+      "fourth": ""
+    }
+  },
+  {
+    "id": 1,
+    "x": 855,
+    "y": 191,
+    "tooltip":"MOUSE WHEEL keys that allow you to scroll in all directions emulating a mouse wheel",
+    "centered": false,
+    "content": {
+      "type": "title",
+      "first": "",
+      "second": "",
       "third": "",
       "fourth": ""
     }

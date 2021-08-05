@@ -23,11 +23,38 @@ that, and commit it.
  [repo:bundle]: https://github.com/keyboardio/Chrysalis-Firmware-Bundle
 
 With the version bumped and firmware files updated, it is time to update
-[NEWS.md](../NEWS.md) with user-visible or otherwise important changes since the
-last release. Following the practice in earlier versions is the recommended way
-to do that. It is important to keep in mind that the NEWS file is aimed at end
-users, it must not be a filtered copy of the git log, but something a bit more
-elaborate, and perhaps considerably less technical in nature.
+[NEWS.md](../NEWS.md) and
+[io.keyboard.Chrysalis.metainfo.xml](../io.keyboard.Chrysalis.metainfo.xml) with
+user-visible or otherwise important changes since the last release. Following
+the practice in earlier versions is the recommended way to do that. It is
+important to keep in mind that this information is aimed at end users, it must
+not be a filtered copy of the git log, but something a bit more elaborate, and
+perhaps considerably less technical in nature.
+
+Make sure to verify the AppStream metadata file after making any changes.
+On Linux this can be done like so.
+
+  flatpak install flathub org.freedesktop.appstream-glib
+  flatpak run org.freedesktop.appstream-glib validate build/io.keyboard.Chrysalis.metainfo.xml
+
+On macOS, Homebrew provides the `appstream-glib` package which contains the validation tool.
+
+  brew install appstream-glib
+  appstreamcli validate build/io.keyboard.Chrysalis.metainfo.xml
+
+It's also important to verify the `.desktop` file used for the Flatpak.
+The required package, `desktop-file-utils`, can be installed readily on Ubuntu and macOS.
+Using Aptitude:
+
+  sudo apt install desktop-file-utils
+
+Using Homebrew:
+
+  brew install desktop-file-utils
+
+Now verify the `.desktop` file with the `desktop-file-validate` tool.
+
+  desktop-file-validate build/io.keyboard.Chrysalis.desktop
 
 Once these are done, we can commit them together, and tag the release as
 `v0.x.y`.

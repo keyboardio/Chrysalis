@@ -16,6 +16,7 @@
 
 import { logger } from "@api/log";
 import { getFilesystemPathForStaticAsset } from "@renderer/config";
+import { insideFlatpak } from "@renderer/utils/flatpak";
 import { spawn } from "child_process";
 import path from "path";
 
@@ -27,9 +28,17 @@ const runDFUError = {
 };
 
 const runDFUUtil = async (args) => {
-  const dfuUtil = getFilesystemPathForStaticAsset(
-    path.join("dfu-util", `${process.platform}-${process.arch}`, "dfu-util")
-  );
+  let dfuUtil;
+  if (insideFlatpak()) {
+    dfuUtil = "/app/bin/dfu-util";
+  } else {
+    dfuUtil = path.join(
+      getFilesystemPathForStaticAsset(),
+      "dfu-util",
+      `${process.platform}-${process.arch}`,
+      "dfu-util"
+    );
+  }
 
   const maxFlashingTime = 1000 * 60 * 5;
 

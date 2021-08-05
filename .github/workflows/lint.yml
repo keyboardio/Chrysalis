@@ -12,6 +12,14 @@ jobs:
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v3
+
+      - name: Install the required packages
+        run: sudo apt -y install appstream-util desktop-file-utils
+      - name: Verify the AppStream metadata file
+        run: appstream-util validate build/io.keyboard.Chrysalis.metainfo.xml
+      - name: Verify the desktop file
+        run: desktop-file-validate build/io.keyboard.Chrysalis.desktop
+
       - name: Install udev-dev
         run: sudo apt update && sudo apt install libudev-dev
 

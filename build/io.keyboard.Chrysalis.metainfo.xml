@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2021-2022  Keyboardio, Inc. -->
+<component type="desktop-application">
+  <id>io.keyboard.Chrysalis</id>
+  <launchable type="desktop-id">io.keyboard.Chrysalis.desktop</launchable>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0</project_license>
+  <name>Chrysalis</name>
+  <summary>Graphical configurator for Kaleidoscope-powered keyboards</summary>
+
+  <description>
+    <p>
+        Chrysalis is a graphical configurator for Kaleidoscope-powered keyboards.
+        While still under development, it is already usable for a number of tasks.
+        To try it, you don't even need to flash Kaleidoscope beforehand, Chrysalis can do that for you, as it ships with reasonable default firmware for each supported board.
+    </p>
+    <p>
+        The primary purpose of the application is to allow one to configure their keyboard without having to compile or flash firmware, by storing the configuration on the keyboard itself, in EEPROM.
+        There are no external tools required, just Chrysalis itself.
+    </p>
+  </description>
+
+  <url type="homepage">https://keyboard.io</url>
+  <url type="bugtracker">https://github.com/keyboardio/Chrysalis/issues</url>
+  <url type="help">https://github.com/keyboardio/Chrysalis/wiki</url>
+
+  <screenshots>
+    <screenshot type="default">
+      <!-- <image>https://raw.githubusercontent.com/keyboardio/Chrysalis/master/build/appstream-screenshot.png</image> -->
+      <image>https://raw.githubusercontent.com/jwillikers/Chrysalis/flatpak/build/appstream-screenshot.png</image>
+      <caption>Chrysalis layout editor</caption>
+    </screenshot>
+  </screenshots>
+
+  <provides>
+    <id>chrysalis.desktop</id>
+  </provides>
+
+  <content_rating type="oars-1.1" />
+
+  <releases>
+    <release version="0.11.6" date="2022-10-02">
+    <url>https://github.com/keyboardio/Chrysalis/releases/tag/v0.11.6</url>
+    <p>
+      We have made huge improvements to how Chrysalis communicates with the keyboard, it does so much more efficiently now.
+      This is most clearly noticeable when canceling pending changes on the Layout Editor screen, which is now almost instantaneous.
+      Chrysalis also remembers the keyboard state between screens, so switching away from the layout editor and back will not pull data from the keyboard again, making the process a lot faster.
+    </p>
+    </release>
+    <release version="0.11.5" date="2022-09-28">
+    <url>https://github.com/keyboardio/Chrysalis/releases/tag/v0.11.5</url>
+    <p>The Firmware Update screen has received significant changes: the explanation of the update options have been removed, the buttons provided along them should hold all the required information.</p>
+    </release>
+    <release version="0.11.4" date="2022-09-25">
+    <p>The new firmware should fix both the firmware issues mentioned in previous Chrysalis releases, and the data corruption people were seeing on the Model 100. Upgrading the firmware is highly recommended.</p>
+    <url>https://github.com/keyboardio/Chrysalis/releases/tag/v0.11.4</url>
+    </release>
+    <release version="0.11.3" date="2022-09-22">
+      <url>https://github.com/keyboardio/Chrysalis/releases/tag/v0.11.3</url>
+      <description>
+        <p>
+          The workaround we introduced in 0.11.1 to combat the firmware issue we're still investigating had an unfortunate side effect of interacting badly with the firmware in certain, frequently occurring cases.
+          This could result in corrupted data being saved to the keyboard.
+          We have squashed this bug in this release of Chrysalis.
+          Chrysalis now ships with a Colemak DH layout for the Keyboardio Model 100 to match the keycaps also available for the keyboard.
+        </p>
+      </description>
+    </release>
+    <release version="0.11.2" date="2022-09-21">
+      <url>https://github.com/keyboardio/Chrysalis/releases/tag/v0.11.2</url>
+      <description>
+        <p>
+          Chrysalis now supports configuring a few SpaceCadet-related settings, such as whether it should be enabled by default or not.
+          This feature requires firmware-side support too, and the firmwares shipped with Chrysalis do not have the necessary plugin enabled yet.
+          Custom firmware with the SpaceCadetConfig plugin will let Chrysalis configure the plugin, however.
+          Due to an oversight, Chrysalis 0.11.1 shipped without bundling the dfu-util tool, which we use for flashing new firmware onto the Keyboardio Model 100.
+          As such, firmware flashing was broken.
+          This release corrects that, and we now ship with dfu-util again.
+        </p>
+      </description>
+    </release>
+    <release version="0.11.1" date="2022-09-09">
+      <url>https://github.com/keyboardio/Chrysalis/releases/tag/v0.11.1</url>
+      <description>
+        <p>
+          In Chrysalis 0.11.0, we fixed a bug that affected keys that are augmented by modifiers.
+          The fix applied then ended up being too eager, and resulted in some keys being processed twice, and ending up with the wrong modifiers displayed.
+          This has been addressed, and all modifier augmented labels should be correct now.
+        </p>
+      </description>
+    </release>
+    <release version="0.11.0" date="2022-07-28">
+      <url>https://github.com/keyboardio/Chrysalis/releases/tag/v0.11.0</url>
+      <description>
+        <p>
+          Chrysalis is now able to automatically update not only itself, but the firmware files too, separately.
+          This allows us to offer updated firmware without having to release a new version of Chrysalis, and without having to ask you to download them.
+        </p>
+      </description>
+    </release>
+    <release version="0.8.4" date="2021-04-05">
+      <description>
+        <p>
+          This release has additional fixes for consumer keys, including a way to automatically migrate from old keycodes to new ones.
+        </p>
+      </description>
+    </release>
+    <release version="0.8.3" date="2021-03-29">
+      <description>
+        <p>
+            This release includes several bug fixes, UI/UX improvements, and new functionality.
+            New features include Croatian as the host keyboard choice and experimental support for running under Wayland on Linux.
+        </p>
+      </description>
+    </release>
+    <release version="0.8.2" date="2021-01-27">
+      <description>
+        <p>
+            This release contains bugfixes, UI/UX improvements, and most importantly ships with an updated version of the Kaleidoscope firmware for all keyboards.
+            The firmware update fixes an issue where macro keys were not working.
+        </p>
+      </description>
+    </release>
+    <release version="0.8.1" date="2021-01-25">
+      <description>
+        <p>
+            This release is primarily a bugfix release, with a number of small, but rather annoying issues ironed out.
+        </p>
+      </description>
+    </release>
+  </releases>
+
+</component>

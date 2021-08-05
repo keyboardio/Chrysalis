@@ -26,6 +26,7 @@ import Colormap from "./focus/colormap";
 import Macros from "./focus/macros";
 import Keymap, { OnlyCustom } from "./focus/keymap";
 import LayerNames from "./focus/layernames";
+import { insideFlatpak, listPorts } from "@renderer/utils/flatpak";
 
 global.chrysalis_focus_instance = null;
 
@@ -117,7 +118,12 @@ class Focus {
   }
 
   async checkSerialDevice(focusDeviceDescriptor, usbInfo) {
-    const portList = await SerialPort.list();
+    let portList;
+    if (insideFlatpak()) {
+      portList = await listPorts();
+    } else {
+      portList = await SerialPort.list();
+    }
     logger("focus").debug("serial port list obtained", {
       portList: portList,
       device: usbInfo,
@@ -281,7 +287,12 @@ class Focus {
   }
 
   async find(...device_descriptors) {
-    const portList = await SerialPort.list();
+    let portList;
+    if (insideFlatpak()) {
+      portList = await listPorts();
+    } else {
+      portList = await SerialPort.list();
+    }
 
     const found_devices = [];
 

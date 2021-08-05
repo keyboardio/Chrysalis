@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Chrysalis
+Exec=launcher.sh %U
+Terminal=false
+Type=Application
+Icon=io.keyboard.Chrysalis
+StartupWMClass=Chrysalis
+Categories=Electronics;HardwareSettings;Utility;

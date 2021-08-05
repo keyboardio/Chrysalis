@@ -22,11 +22,13 @@ import { AVRGirlFlasher } from "./flash/AVRGirlFlasher";
 import { DFUUtilFlasher } from "./flash/DFUUtilFlasher";
 import { DFUProgrammerFlasher } from "./flash/DFUProgrammerFlasher";
 import { TeensyFlasher } from "./flash/TeensyFlasher";
+import { insideFlatpak } from "@renderer/utils/flatpak";
+import { AVRDudeFlasher } from "./flash/AVRDudeFlasher";
 
 const NOTIFICATION_THRESHOLD = 5;
 
 export const flashers = {
-  avr109: AVRGirlFlasher,
+  avr109: insideFlatpak() ? AVRDudeFlasher : AVRGirlFlasher,
   dfuUtil: DFUUtilFlasher,
   dfuProgrammer: DFUProgrammerFlasher,
   teensy: TeensyFlasher,

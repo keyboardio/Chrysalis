@@ -19,6 +19,7 @@ import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { toast } from "@renderer/components/Toast";
+import { insideFlatpak } from "@renderer/utils/flatpak";
 import { installUdevRules } from "@renderer/utils/installUdevRules";
 import { ipcRenderer } from "electron";
 import React from "react";
@@ -41,7 +42,7 @@ export const LinuxPermissionsWarning = (props) => {
   if (platform !== "linux") return null;
 
   // If /run/udev is unavailable, we can't do a scan. Let the user know that.
-  if (!ipcRenderer.sendSync("udev.isAvailable")) {
+  if (!insideFlatpak() && !ipcRenderer.sendSync("udev.isAvailable")) {
     return (
       <Alert severity="error">
         <Typography component="p">{t("keyboardSelect.noUdev")}</Typography>

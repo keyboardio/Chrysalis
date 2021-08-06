@@ -49,7 +49,6 @@ npm-debug.log.*
 *.sass.d.ts
 *.scss.d.ts
 
-/package-lock.json
 /yarn-error.log
 /*.png
 .DS_Store

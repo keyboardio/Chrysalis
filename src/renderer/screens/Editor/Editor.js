@@ -418,12 +418,13 @@ class Editor extends React.Component {
   };
 
   selectLayer = event => {
-    if (event.target.value === undefined) return;
+    const selection = event.target.value;
+    if (selection === undefined) return;
     const { palette, undeglowColors } = this.state;
     let newPalette = palette.slice();
-    newPalette[this.undeglowCount] = undeglowColors[event.target.value];
+    newPalette[this.undeglowCount] = undeglowColors[selection];
     this.setState({
-      currentLayer: event.target.value,
+      currentLayer: selection,
       palette: newPalette
     });
     this.bottomMenuNeverHide();

@@ -1140,19 +1140,27 @@ class Editor extends React.Component {
     const layer = (
       <Fade in appear key={currentLayer}>
         <div className={classes.editor}>
-          <div className={classes.layerName}>
-            <input
-              className={classes.layerName}
-              type="text"
-              id="layerName"
-              value={
-                this.state?.layerNames?.length >= this.state.currentLayer
-                  ? this.state.layerNames[this.state.currentLayer]
-                  : this.defaultLayerNames[this.state.currentLayer]
-              }
-              onChange={value => this.onLayerNameChange(value)}
-            ></input>
-          </div>
+          <Tooltip 
+            disableFocusListener 
+            title={
+              "Persistent locally (per user profile), but not to keyboard." +
+              "Export to cloud for use on other machines."
+            }
+          >
+            <div className={classes.layerName}>
+              <input
+                className={classes.layerName}
+                type="text"
+                id="layerName"
+                value={
+                  this.state?.layerNames?.length >= this.state.currentLayer
+                    ? this.state.layerNames[this.state.currentLayer]
+                    : this.defaultLayerNames[this.state.currentLayer]
+                }
+                onChange={value => this.onLayerNameChange(value)}
+              ></input>
+            </div>
+          </Tooltip>
           <Layer
             className={classNames("layer", isReadOnly && classes.disabledLayer)}
             readOnly={isReadOnly}
@@ -1278,7 +1286,7 @@ class Editor extends React.Component {
               </Tooltip>
               <Tooltip
                 disableFocusListener
-                title={"Backup all Layers (Excluding Macros and Layer Names)"}
+                title={"Backup all Layers (Excluding Macros)"}
               >
                 <IconButton onClick={this.toExportAll}>
                   <UnarchiveRounded />

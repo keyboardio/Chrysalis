@@ -53,7 +53,6 @@ import i18n from "../../i18n";
 import settings from "electron-settings";
 import { CopyFromDialog } from "./CopyFromDialog";
 import { undeglowDefaultColors } from "./initialUndaglowColors";
-import { classicNameResolver } from "typescript";
 
 const Store = window.require("electron-store");
 const store = new Store();

@@ -109,23 +109,24 @@ const styles = theme => ({
 });
 
 class Editor extends React.Component {
+  defaultLayerNames = [
+    "zero",
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine"
+  ];
+
   constructor(props) {
     super(props);
-    const defaultLayerNames = [
-      "zero",
-      "one",
-      "two",
-      "three",
-      "four",
-      "five",
-      "six",
-      "seven",
-      "eight",
-      "nine"
-    ];
     this.state = {
       currentLayer: 0,
-      layerNames: store.get("layerNames") || defaultLayerNames,
+      layerNames: store.get("layerNames") || this.defaultLayerNames,
       currentKeyIndex: -1,
       currentLedIndex: -1,
       modified: false,
@@ -706,8 +707,16 @@ class Editor extends React.Component {
   };
   importLayer = data => {
     if (data.palette.length > 0) this.setState({ palette: data.palette });
+    let layerNames = this.state.layerNames.slice();
+    for (let i = 0; i < data.layerNames.length; i++) {
+      layerNames[i] = data.layerNames[i];
+    }
+    const { currentLayer } = this.state;
+    if (data.layerName && currentLayer) {
+      layerNames[currentLayer] = data.layerName;
+    }
+    this.setState({ layerNames: layerNames });
     if (data.keymap.length > 0 && data.colormap.length > 0) {
-      const { currentLayer } = this.state;
       if (this.state.keymap.onlyCustom) {
         if (currentLayer >= 0) {
           this.setState(state => {
@@ -971,6 +980,7 @@ class Editor extends React.Component {
             } else {
               console.log(layers.keymap.custom[0]);
               this.setState({
+                layerNames: layers.layerNames,
                 keymap: layers.keymap,
                 colorMap: layers.colormap,
                 palette: layers.palette,
@@ -998,7 +1008,7 @@ class Editor extends React.Component {
   }
 
   toExport() {
-    const { keymap, currentLayer } = this.state;
+    const { layerNames, keymap, currentLayer } = this.state;
     let layerData, isReadOnly;
     if (keymap.onlyCustom) {
       isReadOnly = currentLayer < 0;
@@ -1013,6 +1023,7 @@ class Editor extends React.Component {
     }
     let data = JSON.stringify(
       {
+        layerNames: layerNames,
         keymap: layerData,
         colormap: this.state.colorMap[currentLayer],
         palette: this.state.palette
@@ -1053,9 +1064,10 @@ class Editor extends React.Component {
   }
 
   toExportAll() {
-    const { keymap, colorMap, palette } = this.state;
+    const { layerNames, keymap, colorMap, palette } = this.state;
     let data = JSON.stringify(
       {
+        layerNames,
         keymap,
         colormap: colorMap,
         palette
@@ -1133,7 +1145,11 @@ class Editor extends React.Component {
               className={classes.layerName}
               type="text"
               id="layerName"
-              value={this.state.layerNames[this.state.currentLayer]}
+              value={
+                this.state?.layerNames?.length >= this.state.currentLayer
+                  ? this.state.layerNames[this.state.currentLayer]
+                  : this.defaultLayerNames[this.state.currentLayer]
+              }
               onChange={value => this.onLayerNameChange(value)}
             ></input>
           </div>
@@ -1156,8 +1172,10 @@ class Editor extends React.Component {
       const idx = index + (keymap.onlyCustom ? 0 : keymap.default.length);
       const label =
         i18n.formatString(i18n.components.layer, idx) +
-          ": " +
-          this.state.layerNames[idx] || "";
+        ": " +
+        (this.state.layerNames?.length >= idx
+          ? this.state.layerNames[idx]
+          : this.defaultLayerNames[idx]);
       return {
         index: idx,
         label: label
@@ -1204,8 +1222,10 @@ class Editor extends React.Component {
             inset
             primary={
               i18n.formatString(i18n.components.layer, idx) +
-                ": " +
-                this.state.layerNames[idx] || ""
+              ": " +
+              (this.state.layerNames?.length >= idx
+                ? this.state.layerNames[idx]
+                : this.defaultLayerNames[idx])
             }
           />
         </MenuItem>

@@ -1156,8 +1156,8 @@ class Editor extends React.Component {
       const idx = index + (keymap.onlyCustom ? 0 : keymap.default.length);
       const label =
         i18n.formatString(i18n.components.layer, idx) +
-        ": " +
-        this.state.layerNames[idx];
+          ": " +
+          this.state.layerNames[idx] || "";
       return {
         index: idx,
         label: label
@@ -1204,8 +1204,8 @@ class Editor extends React.Component {
             inset
             primary={
               i18n.formatString(i18n.components.layer, idx) +
-              ": " +
-              this.state.layerNames[idx]
+                ": " +
+                this.state.layerNames[idx] || ""
             }
           />
         </MenuItem>

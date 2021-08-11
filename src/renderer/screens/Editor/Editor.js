@@ -111,7 +111,6 @@ const styles = theme => ({
 class Editor extends React.Component {
   constructor(props) {
     super(props);
-
     const defaultLayerNames = [
       "zero",
       "one",
@@ -124,7 +123,6 @@ class Editor extends React.Component {
       "eight",
       "nine"
     ];
-
     this.state = {
       currentLayer: 0,
       layerNames: store.get("layerNames") || defaultLayerNames,
@@ -1159,7 +1157,7 @@ class Editor extends React.Component {
       const label =
         i18n.formatString(i18n.components.layer, idx) +
         ": " +
-        (this.state.layerNames[idx] || this.defaultLayerNames[idx]);
+        this.state.layerNames[idx];
       return {
         index: idx,
         label: label
@@ -1207,7 +1205,7 @@ class Editor extends React.Component {
             primary={
               i18n.formatString(i18n.components.layer, idx) +
               ": " +
-              (this.state.layerNames[idx] || this.defaultLayerNames[idx])
+              this.state.layerNames[idx]
             }
           />
         </MenuItem>

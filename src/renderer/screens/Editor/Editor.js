@@ -1143,7 +1143,7 @@ class Editor extends React.Component {
           <Tooltip
             disableFocusListener
             title={
-              "Layer names are persistent locally (per user profile), but not to keyboard. " +
+              "Layer names are persistent locally (per user profile), but not to keyboard." +
               "Export to cloud for use on other machines."
             }
           >

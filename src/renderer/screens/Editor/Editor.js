@@ -1140,10 +1140,10 @@ class Editor extends React.Component {
     const layer = (
       <Fade in appear key={currentLayer}>
         <div className={classes.editor}>
-          <Tooltip 
-            disableFocusListener 
+          <Tooltip
+            disableFocusListener
             title={
-              "Persistent locally (per user profile), but not to keyboard." +
+              "Layer names are persistent locally (per user profile), but not to keyboard. " +
               "Export to cloud for use on other machines."
             }
           >

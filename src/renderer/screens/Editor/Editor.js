@@ -63,9 +63,7 @@ const styles = theme => ({
   },
   layerName: {
     textAlign: "center",
-    display: "flex",
-    margin: "2px auto",
-    fontSize: 20,
+    fontSize: 32,
     fontWeight: "bold",
     border: 0
   },
@@ -1132,6 +1130,15 @@ class Editor extends React.Component {
     const layer = (
       <Fade in appear key={currentLayer}>
         <div className={classes.editor}>
+          <div className={classes.layerName}>
+            <input
+              className={classes.layerName}
+              type="text"
+              id="layerName"
+              value={this.state.layerNames[this.state.currentLayer]}
+              onChange={value => this.onLayerNameChange(value)}
+            ></input>
+          </div>
           <Layer
             className={classNames("layer", isReadOnly && classes.disabledLayer)}
             readOnly={isReadOnly}
@@ -1262,18 +1269,6 @@ class Editor extends React.Component {
             </div>
           </Toolbar>
         </Portal>
-        <div>
-          <input
-            className={classes.layerName}
-            type="text"
-            id="layerName"
-            value={
-              this.state.layerNames[this.state.currentLayer] ||
-              this.defaultLayerNames[this.state.currentLayer]
-            }
-            onChange={value => this.onLayerNameChange(value)}
-          />
-        </div>
         {this.state.keymap.custom.length == 0 &&
           this.state.keymap.default.length == 0 && (
             <LinearProgress variant="query" />

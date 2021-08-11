@@ -326,13 +326,13 @@ class Editor extends React.Component {
   /**
    * Verificate that colors in keyboard button and in color palette is equal
    * @param {number} colorIndex Number of palette index
-   * @param {number} currentLayerIndex Number of current layer
+   * @param {number} currentLayer Number of current layer
    * @param {number} currentLedIndex Number of current selected keyboard button
    */
 
-  onVerificationColor = (colorIndex, currentLayerIndex, currentLedIndex) => {
+  onVerificationColor = (colorIndex, currentLayer, currentLedIndex) => {
     const { colorMap } = this.state;
-    const currentIndexKeyButton = colorMap[currentLayerIndex][currentLedIndex];
+    const currentIndexKeyButton = colorMap[currentLayer][currentLedIndex];
     return currentIndexKeyButton === colorIndex;
   };
 

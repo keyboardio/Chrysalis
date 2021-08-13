@@ -1107,6 +1107,12 @@ class Editor extends React.Component {
       });
   }
 
+  layerName(index) {
+    return this.state?.layerNames?.length >= index
+      ? this.state.layerNames[index]
+      : this.defaultLayerNames[index];
+  }
+
   render() {
     const { classes } = this.props;
     const { keymap, palette, isColorButtonSelected } = this.state;
@@ -1152,11 +1158,7 @@ class Editor extends React.Component {
                 className={classes.layerName}
                 type="text"
                 id="layerName"
-                value={
-                  this.state?.layerNames?.length >= this.state.currentLayer
-                    ? this.state.layerNames[this.state.currentLayer]
-                    : this.defaultLayerNames[this.state.currentLayer]
-                }
+                value={this.layerName(this.state.currentLayer)}
                 onChange={value => this.onLayerNameChange(value)}
               ></input>
             </div>
@@ -1181,9 +1183,7 @@ class Editor extends React.Component {
       const label =
         i18n.formatString(i18n.components.layer, idx) +
         ": " +
-        (this.state.layerNames?.length >= idx
-          ? this.state.layerNames[idx]
-          : this.defaultLayerNames[idx]);
+        this.layerName(idx);
       return {
         index: idx,
         label: label
@@ -1231,9 +1231,7 @@ class Editor extends React.Component {
             primary={
               i18n.formatString(i18n.components.layer, idx) +
               ": " +
-              (this.state.layerNames?.length >= idx
-                ? this.state.layerNames[idx]
-                : this.defaultLayerNames[idx])
+              this.layerName(idx)
             }
           />
         </MenuItem>

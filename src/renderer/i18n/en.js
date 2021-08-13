@@ -150,7 +150,7 @@ const English = {
         hostHelp: "Select the key layout you use on your computer",
         oneshot: {
           label: "Sticky",
-          tooltip: `Tap to activate for next keypress, hold to act like a regular modifier modifier, double tap to toggle modifier.`
+          tooltip: `Tap to activate for next keypress, hold to act like a regular modifier, double tap to toggle modifier.`
         }
       },
       layer: {

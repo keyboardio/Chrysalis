@@ -164,8 +164,7 @@ class Editor extends React.Component {
     const layerNames = this.state.layerNames.slice();
     layerNames[this.state.currentLayer] = event.target.value.toString();
     this.setState({
-      layerNames: layerNames,
-      modified: true
+      layerNames: layerNames
     });
     store.set("layerNames", layerNames);
   }

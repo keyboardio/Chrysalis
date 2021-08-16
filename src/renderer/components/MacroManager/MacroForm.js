@@ -67,6 +67,10 @@ class MacroForm extends Component {
         props.macros[props.selected] === undefined
           ? ""
           : props.macros[props.selected].name,
+      short:
+        props.macros[props.selected] === undefined
+          ? ""
+          : props.macros[props.selected].short,
       id:
         props.macros[props.selected] === undefined
           ? 0
@@ -98,6 +102,7 @@ class MacroForm extends Component {
       return;
     }
     macros[this.state.selected].name = this.state.name;
+    macros[this.state.selected].short = this.state.short;
     macros[this.state.selected].actions = this.state.actions;
     macros[this.state.selected].macro = this.state.text;
     this.setState({ macros });
@@ -137,7 +142,12 @@ class MacroForm extends Component {
           let macro;
           try {
             macro = JSON.parse(require("fs").readFileSync(resp.filePaths[0]));
-            console.log(macro.name, macro.actions[0].keyCode, macro.text);
+            console.log(
+              macro.name,
+              macro.short,
+              macro.actions[0].keyCode,
+              macro.text
+            );
           } catch (e) {
             console.error(e);
             alert("The file is not a valid macro export ");
@@ -149,6 +159,7 @@ class MacroForm extends Component {
           newMacros[this.state.selected] = macro;
           this.setState({
             name: macro.name,
+            short: macro.short,
             macros: newMacros
           });
         } else {
@@ -163,6 +174,7 @@ class MacroForm extends Component {
   toExport() {
     const toExport = JSON.stringify({
       name: this.state.name,
+      short: this.state.short,
       actions: this.state.actions,
       text: this.state.text
     });
@@ -211,7 +223,7 @@ class MacroForm extends Component {
           let macros;
           try {
             macros = JSON.parse(require("fs").readFileSync(resp.filePaths[0]));
-            console.log(macros[0].name, macros[0].actions);
+            console.log(macros[0].name, macros[0].short, macros[0].actions);
           } catch (e) {
             console.error(e);
             alert("The file is not a valid macros backup");
@@ -222,6 +234,7 @@ class MacroForm extends Component {
             macros: macros,
             selected: 0,
             name: macros[0].name,
+            short: macros[0].short,
             id: 0,
             actions: macros[0].actions,
             text: macros[0].macro
@@ -311,15 +324,31 @@ class MacroForm extends Component {
             </div>
           </Col>
           <Col xs={7} className="bg">
-            <Form.Control
-              type="text"
-              className="margin textField"
-              placeholder={i18n.editor.macros.macroName}
-              value={this.state.name}
-              onChange={e => {
-                this.setState({ name: e.target.value });
-              }}
-            />
+            <div className="textField">
+              <Col xs={3} className="bg">
+                <Form.Control
+                  type="text"
+                  className="textField"
+                  placeholder={i18n.editor.macros.macroShort}
+                  value={this.state.short}
+                  onChange={e => {
+                    if (e.target.value.length <= 5)
+                      this.setState({ short: e.target.value });
+                  }}
+                />
+              </Col>
+              <Col xs={9} className="bg">
+                <Form.Control
+                  type="text"
+                  className="textField"
+                  placeholder={i18n.editor.macros.macroName}
+                  value={this.state.name}
+                  onChange={e => {
+                    this.setState({ name: e.target.value });
+                  }}
+                />
+              </Col>
+            </div>
             <MacroTable
               key={
                 this.state.selected +

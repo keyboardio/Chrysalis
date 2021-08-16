@@ -301,9 +301,9 @@ class Editor extends Component {
       );
       if (keymap.custom) {
         const oldmacro = [...Array(64).keys()].map(x => x + 24576);
-        console.log("testing", oldmacro);
+        // console.log("testing", oldmacro);
         for (let index = 0; index < keymap.custom.length; index++) {
-          console.log(keymap.custom[index]);
+          // console.log(keymap.custom[index]);
           if (keymap.custom[index].some(r => oldmacro.includes(r.keyCode))) {
             this.setState({ showMacroModal: true });
             break;
@@ -1047,6 +1047,7 @@ class Editor extends Component {
         macros[i].actions = actions;
         macros[i].id = i;
         macros[i].name = "";
+        macros[i].short = "";
         macros[i].macro = "";
         i++;
         actions = [];
@@ -1063,6 +1064,7 @@ class Editor extends Component {
     macros[i].actions = actions;
     macros[i].id = i;
     macros[i].name = "";
+    macros[i].short = "";
     macros[i].macro = "";
     macros = macros.map(macro => {
       let aux = macro.actions.map(action => {
@@ -1094,6 +1096,7 @@ class Editor extends Component {
           equal[i] = true;
           let aux = macro;
           aux.name = stored[i].name;
+          aux.short = stored[i].short;
           return aux;
         } else {
           equal[i] = false;
@@ -1373,6 +1376,21 @@ class Editor extends Component {
       layerData = isReadOnly
         ? keymap.default[cLayer]
         : keymap.custom[cLayer - keymap.default.length];
+    }
+
+    if (layerData != undefined) {
+      layerData = layerData.map(key => {
+        let newKey = key;
+        if (key.extraLabel == "MACRO") {
+          if (
+            macros.length > parseInt(key.label) &&
+            macros[parseInt(key.label)].short != ""
+          ) {
+            newKey.label = macros[parseInt(key.label)].short;
+          }
+        }
+        return newKey;
+      });
     }
 
     const layer = (

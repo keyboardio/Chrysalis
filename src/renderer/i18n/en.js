@@ -125,6 +125,7 @@ const English = {
       loadMacro: "Load Macros",
       loadMacroFile: "Load Macro file",
       macroName: "Macro Name",
+      macroShort: "Macro Short",
       mouse: "Mouse",
       restore: "Restore All",
       restoreMacros: "Restore Macros",
@@ -138,7 +139,14 @@ const English = {
       selectMacro: "Select a Macro",
       selectMouseFunction: "Select Mouse Function",
       title: "Macro Editor",
-      successFlash: "Succesfully sent the macros to the Raise"
+      successFlash: "Succesfully sent the macros to the Raise",
+      deleteModal: {
+        title: "This macro is in use",
+        body:
+          "The macro you want to delete is currently in use, select how to proceed, THIS MAKES PERMANENT CHANGES.",
+        cancelButton: "Cancel",
+        applyButton: "Update Keyboard"
+      }
     },
     oldMacroModal: {
       title: "Detected deprecated macro allocation",

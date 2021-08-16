@@ -24,6 +24,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
 import i18n from "../../i18n";
 import MacroManager from "../../components/MacroManager/index";
@@ -52,6 +53,16 @@ const Styles = Styled.div`
   }
 `;
 
+const ModalStyle = Styled.div`
+  .modalcol {
+    color: ${({ theme }) => theme.colors.text};
+    background-color: ${({ theme }) => theme.colors.button.deselected};
+  }
+  .modal-footer {
+    justify-content: space-between;
+  }
+`;
+
 class MacrosConfigurator extends React.Component {
   constructor(props) {
     super(props);
@@ -59,16 +70,20 @@ class MacrosConfigurator extends React.Component {
     this.keymapDB = new KeymapDB();
 
     this.state = {
+      keymap: [],
       macros: [],
       storedMacros: store.get("macros"),
       maxMacros: 64,
       modified: false,
-      selectedMacro: 0
+      selectedMacro: 0,
+      showDeleteModal: false,
+      listToDelete: []
     };
     this.updateMacros = this.updateMacros.bind(this);
     this.changeSelected = this.changeSelected.bind(this);
     this.loadMacros = this.loadMacros.bind(this);
     this.writeMacros = this.writeMacros.bind(this);
+    this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
   }
 
   componentDidMount() {
@@ -81,6 +96,12 @@ class MacrosConfigurator extends React.Component {
       /**
        * Create property language to the object 'options', to call KeymapDB in Keymap and modify languagu layout
        */
+      let deviceLang = { ...focus.device, language: true };
+      focus.commands.keymap = new Keymap(deviceLang);
+      this.keymapDB = focus.commands.keymap.db;
+
+      let keymap = await focus.command("keymap");
+      console.log(keymap);
       let raw = await focus.command("macros.map");
       if (raw.search(" 0 0 ") !== -1) {
         raw = raw.split(" 0 0 ")[0].split(" ").map(Number);
@@ -89,7 +110,8 @@ class MacrosConfigurator extends React.Component {
       }
       const parsedMacros = this.macroTranslator(raw);
       this.setState({
-        macros: parsedMacros
+        macros: parsedMacros,
+        keymap
       });
     } catch (e) {
       toast.error(e);
@@ -161,6 +183,7 @@ class MacrosConfigurator extends React.Component {
         macros[i].actions = actions;
         macros[i].id = i;
         macros[i].name = "";
+        macros[i].short = "";
         macros[i].macro = "";
         i++;
         actions = [];
@@ -177,6 +200,7 @@ class MacrosConfigurator extends React.Component {
     macros[i].actions = actions;
     macros[i].id = i;
     macros[i].name = "";
+    macros[i].short = "";
     macros[i].macro = "";
     macros = macros.map(macro => {
       let aux = macro.actions.map(action => {
@@ -208,6 +232,7 @@ class MacrosConfigurator extends React.Component {
           equal[i] = true;
           let aux = macro;
           aux.name = stored[i].name;
+          aux.short = stored[i].short;
           aux.macro = stored[i].actions
             .map(k => this.keymapDB.parse(k.keyCode).label)
             .join(" ");
@@ -225,8 +250,26 @@ class MacrosConfigurator extends React.Component {
     return finalMacros;
   }
 
-  updateMacros(recievedMacros) {
+  updateKeyboard(macros, selected) {
+    let list = [];
+    const macroID = this.state.macros[selected].id + 53852;
+    for (let index = 0; index < this.state.keymap.custom.length; index++) {
+      list.push(
+        this.state.keymap.custom[index]
+          .filter(key => key.keyCode == macroID)
+          .map(key => {
+            index, key;
+          })
+      );
+    }
+    console.log(list);
+    this.setState({ listToDelete: list, showDeleteModal: true });
+    return;
+  }
+
+  updateMacros(recievedMacros, selected) {
     console.log("Updating Macros", recievedMacros);
+    if (selected > -1) this.updateKeyboard(recievedMacros, selected);
     this.setState({ macros: recievedMacros, modified: true });
     this.props.startContext();
   }
@@ -244,15 +287,15 @@ class MacrosConfigurator extends React.Component {
       await focus.command("macros.map", this.macrosMap(newMacros));
       console.log("Changes saved.");
       // TODO: Save changes in the cloud
-      const backup = {
-        undeglowColors: this.state.undeglowColors,
-        keymap: this.state.keymap,
-        colormap: {
-          palette: this.state.palette,
-          colorMap: this.state.colorMap
-        },
-        macros: newMacros
-      };
+      // const backup = {
+      //   undeglowColors: this.state.undeglowColors,
+      //   keymap: this.state.keymap,
+      //   colormap: {
+      //     palette: this.state.palette,
+      //     colorMap: this.state.colorMap
+      //   },
+      //   macros: newMacros
+      // };
       // backupLayers(backup);
 
       toast.success(i18n.editor.macros.successFlash, {
@@ -296,6 +339,15 @@ class MacrosConfigurator extends React.Component {
     });
   }
 
+  toggleDeleteModal() {
+    this.setState({ showDeleteModal: false });
+  }
+
+  ActUponDelete() {
+    // this.setState({ keymap, superkeys});
+    return;
+  }
+
   render() {
     return (
       <Styles>
@@ -318,6 +370,28 @@ class MacrosConfigurator extends React.Component {
             <Button onClick={this.loadMacros}>discard changes</Button>
           </Col>
         </Row>
+        <Modal
+          show={this.state.showDeleteModal}
+          onHide={this.toggleDeleteModal}
+          style={{ marginTop: "100px" }}
+        >
+          <ModalStyle>
+            <Modal.Header closeButton className="modalcol">
+              <Modal.Title>{i18n.editor.macros.deleteModal.title}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body className="modalcol">
+              <p>{i18n.editor.macros.deleteModal.body}</p>
+            </Modal.Body>
+            <Modal.Footer className="modalcol">
+              <Button variant="secondary" onClick={this.toggleDeleteModal}>
+                {i18n.editor.macros.deleteModal.cancelButton}
+              </Button>
+              <Button variant="primary" onClick={this.ActUponDelete}>
+                {i18n.editor.macros.deleteModal.applyButton}
+              </Button>
+            </Modal.Footer>
+          </ModalStyle>
+        </Modal>
       </Styles>
     );
   }

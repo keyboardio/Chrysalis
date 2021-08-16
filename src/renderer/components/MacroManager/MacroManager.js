@@ -94,7 +94,7 @@ class MacroManager extends Component {
     this.setState({
       macros: macros
     });
-    this.props.updateMacro(macros);
+    this.props.updateMacro(macros, -1);
     this.props.changeSelected(this.state.selected);
     this.exit();
   }
@@ -109,7 +109,7 @@ class MacroManager extends Component {
         id: newID,
         macro: ""
       });
-      this.props.updateMacro(aux);
+      this.props.updateMacro(aux, -1);
       this.changeSelected(newID);
     }
   }
@@ -126,7 +126,7 @@ class MacroManager extends Component {
       if (selected >= this.state.macros.length - 1) {
         this.changeSelected(this.state.macros.length - 1);
       }
-      this.props.updateMacro(aux);
+      this.props.updateMacro(aux, selected);
     }
   }
 
@@ -135,8 +135,9 @@ class MacroManager extends Component {
     let aux = Object.assign({}, this.state.macros[selected]);
     aux.id = this.state.macros.length;
     aux.name = "Copy of " + aux.name;
+    aux.short = "CPY " + selected;
     macros.push(aux);
-    this.props.updateMacro(macros);
+    this.props.updateMacro(macros, -1);
     this.changeSelected(aux.id);
   }
 
@@ -152,7 +153,7 @@ class MacroManager extends Component {
       macros: macros
     });
     this.changeSelected(0);
-    this.props.updateMacro(macros);
+    this.props.updateMacro(macros, -1);
   }
 
   render() {

@@ -140,6 +140,13 @@ const English = {
       title: "Macro Editor",
       successFlash: "Succesfully sent the macros to the Raise"
     },
+    oldMacroModal: {
+      title: "Detected deprecated macro allocation",
+      body:
+        "The macros in your layout need to be updated to work on this bazecor version, if you wish to automatically update them, press modify, else press cancel.",
+      cancelButton: "Cancel",
+      applyButton: "Modify Macros"
+    },
     clearLayer: "Clear layer",
     clearLayerQuestion: "Clear layer?",
     clearLayerPrompt: "This will reset the layer to its default state.",

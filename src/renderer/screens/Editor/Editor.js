@@ -24,6 +24,7 @@ import { toast } from "react-toastify";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Modal from "react-bootstrap/Modal";
 import Spinner from "react-bootstrap/Spinner";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
@@ -56,6 +57,16 @@ const store = new Store();
 const Fade = Styled.div`
 opacity: ${props => (props.animate ? "0" : "1")};
 visibility: ${props => (props.animate ? "hidden" : "visible")};
+`;
+
+const ModalStyle = Styled.div`
+  .modalcol {
+    color: ${({ theme }) => theme.colors.text};
+    background-color: ${({ theme }) => theme.colors.button.deselected};
+  }
+  .modal-footer {
+    justify-content: space-between;
+  }
 `;
 
 const Styles = Styled.div`
@@ -127,7 +138,6 @@ const Styles = Styled.div`
   margin-top: 0;
   padding-top: 0;
 }
-
 `;
 
 class Editor extends Component {
@@ -161,7 +171,8 @@ class Editor extends Component {
       isMultiSelected: false,
       isColorButtonSelected: false,
       currentLanguageLayout: "",
-      undeglowColors: null
+      undeglowColors: null,
+      showMacroModal: false
     };
     this.updateMacros = this.updateMacros.bind(this);
     this.toExport = this.toExport.bind(this);
@@ -171,6 +182,8 @@ class Editor extends Component {
     this.newSuperID = this.newSuperID.bind(this);
     this.setSuperKey = this.setSuperKey.bind(this);
     this.delSuperKey = this.delSuperKey.bind(this);
+    this.toggleMacroModal = this.toggleMacroModal.bind(this);
+    this.updateOldMacros = this.updateOldMacros.bind(this);
   }
 
   keymapDB = new KeymapDB();
@@ -286,6 +299,17 @@ class Editor extends Component {
           });
         }
       );
+      if (keymap.custom) {
+        const oldmacro = [...Array(64).keys()].map(x => x + 24576);
+        console.log("testing", oldmacro);
+        for (let index = 0; index < keymap.custom.length; index++) {
+          console.log(keymap.custom[index]);
+          if (keymap.custom[index].some(r => oldmacro.includes(r.keyCode))) {
+            this.setState({ showMacroModal: true });
+            break;
+          }
+        }
+      }
       this.bottomMenuNeverHide();
     } catch (e) {
       toast.error(e);
@@ -1287,6 +1311,32 @@ class Editor extends Component {
       });
   }
 
+  toggleMacroModal() {
+    this.setState({ showMacroModal: !this.state.showMacroModal });
+  }
+  updateOldMacros() {
+    let keymap = this.state.keymap;
+    let layers = [];
+    const oldmacro = [...Array(64).keys()].map(x => x + 24576);
+    for (let index = 0; index < keymap.custom.length; index++) {
+      if (keymap.custom[index].some(r => oldmacro.includes(r.keyCode))) {
+        layers.push(index);
+        continue;
+      }
+    }
+    for (let index = 0; index < layers.length; index++) {
+      for (let idx = 0; idx < keymap.custom[layers[index]].length; idx++) {
+        if (oldmacro.includes(keymap.custom[layers[index]][idx].keyCode)) {
+          keymap.custom[layers[index]][idx] = this.keymapDB.parse(
+            keymap.custom[layers[index]][idx].keyCode + 29276
+          );
+        }
+      }
+    }
+    this.setState({ showMacroModal: false, modified: true, keymap });
+    this.props.startContext();
+  }
+
   render() {
     const {
       keymap,
@@ -1546,6 +1596,28 @@ class Editor extends Component {
             currentLayer={currentLayer}
           />
         </Container>
+        <Modal
+          show={this.state.showMacroModal}
+          onHide={this.toggleMacroModal}
+          style={{ marginTop: "300px" }}
+        >
+          <ModalStyle>
+            <Modal.Header closeButton className="modalcol">
+              <Modal.Title>{i18n.editor.oldMacroModal.title}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body className="modalcol">
+              <p>{i18n.editor.oldMacroModal.body}</p>
+            </Modal.Body>
+            <Modal.Footer className="modalcol">
+              <Button variant="secondary" onClick={this.toggleMacroModal}>
+                {i18n.editor.oldMacroModal.cancelButton}
+              </Button>
+              <Button variant="primary" onClick={this.updateOldMacros}>
+                {i18n.editor.oldMacroModal.applyButton}
+              </Button>
+            </Modal.Footer>
+          </ModalStyle>
+        </Modal>
       </Styles>
     );
   }

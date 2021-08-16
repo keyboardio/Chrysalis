@@ -122,12 +122,23 @@ export default class KeyPicker extends Component {
           </foreignObject>
         );
       }
+      if (key.id > 53000) {
+        console.log(code, key);
+      }
       return (
         <Key
           key={`id-${key.content.first}-${id}`}
           x={key.x}
           y={key.y}
-          selected={code === null ? false : code.base === key.id ? true : false}
+          selected={
+            code === null
+              ? false
+              : code.base === key.id
+              ? true
+              : code.modified > 0 && code.modified === key.id
+              ? true
+              : false
+          }
           clicked={() => {
             key.mod == disableMods || key.move == disableMove
               ? {}

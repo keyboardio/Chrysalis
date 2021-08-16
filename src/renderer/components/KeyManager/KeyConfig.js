@@ -466,6 +466,7 @@ class KeyConfig extends Component {
     const { selectedlanguage, kbtype, macros, code } = this.props;
     const selKey = this.parseAction(action);
     const selKeys = actions.map((a, i) => this.parseAction(i));
+    console.log(code);
 
     return (
       <Style
@@ -549,6 +550,7 @@ class KeyConfig extends Component {
                       actions={actions}
                       action={action}
                       baseCode={code.base}
+                      modCode={code.modified}
                       onReplaceKey={this.onReplaceKey}
                       activeTab={activeTab}
                       selectedlanguage={selectedlanguage}

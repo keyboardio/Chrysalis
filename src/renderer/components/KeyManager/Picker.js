@@ -29,7 +29,8 @@ class Picker extends Component {
       activeTab,
       selectedlanguage,
       kbtype,
-      baseCode
+      baseCode,
+      modCode
     } = this.props;
 
     return (
@@ -39,7 +40,7 @@ class Picker extends Component {
             onKeySelect={e => onReplaceKey(e, -1)}
             code={{
               base: actions[action] > 255 ? baseCode : actions[action],
-              modified: 0
+              modified: modCode
             }}
             disableMods={[0, 3].includes(action) && activeTab == "super"}
             disableMove={![0, 3].includes(action) && activeTab == "super"}

@@ -20,6 +20,7 @@ const Styles = Styled.div`
     bottom: 10px;
     left: 45%;
     position: fixed;
+    z-index: 2;
     padding: 0;
     background-color: ${({ theme }) => theme.card.background};
     border-radius: 10px;
@@ -73,8 +74,7 @@ const Styles = Styled.div`
       justify-content: center;
       padding: 6px 0px;
       button {
-        width: 30%;
-        border: 0px;
+        border: none;
         font-size: large;
         color: ${({ theme }) => theme.colors.button.text};
         background-color: transparent;
@@ -104,6 +104,15 @@ const Styles = Styled.div`
   .last {
     padding-left: 5px;
   }
+  .colorpick {
+    padding: 28px 8px;
+    margin-left: 4px;
+    margin-top: 4px;
+  }
+  .otherbutts {
+    padding: 6px 8px;
+    margin-left: -4px;
+  }
 `;
 
 export default class ColorPanel extends Component {
@@ -132,7 +141,7 @@ export default class ColorPanel extends Component {
     return (
       <OverlayTrigger
         overlay={<Tooltip id={id}>{text}</Tooltip>}
-        placement="bottom"
+        placement="top"
       >
         <Button disabled={disable} onClick={func} className={classes}>
           {icon}
@@ -211,7 +220,7 @@ export default class ColorPanel extends Component {
           },
           <CgSmartHomeLight />,
           false,
-          "last"
+          "last otherbutts"
         )}
       </>
     );
@@ -225,7 +234,7 @@ export default class ColorPanel extends Component {
           },
           <CgSmartHomeLight style={iconStyles} />,
           false,
-          "last"
+          "last otherbutts"
         )}
       </>
     );
@@ -237,15 +246,14 @@ export default class ColorPanel extends Component {
           this.showColorPicker,
           <CgColorPicker />,
           false,
-          "first"
+          "first colorpick"
         )}
       </>
     );
 
     const popover = {
-      position: "fixed",
-      zIndex: "20",
-      left: "280px"
+      position: "absolute",
+      bottom: "120px"
     };
     const cover = {
       position: "fixed",

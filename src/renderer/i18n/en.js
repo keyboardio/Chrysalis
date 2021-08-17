@@ -317,7 +317,8 @@ const English = {
     experimentalFirmware: "Bazecor {0} experimental",
     experimentalFirmwareDescription: "Experimental, with more plugins enabled",
     selected: "Selected firmware",
-    custom: "Custom firmware",
+    custom: "Load custom FW",
+    rcustom: "Remove custom FW",
     description: `To install new features in your Raise we need to update the firmware. By clicking on the Update button, Bazecor will install a new version of your keyboard's firmware. This will overwrite your previous firmware.
 
 To correctly update the firmware, your Raise has to be on LED Rainbow mode.

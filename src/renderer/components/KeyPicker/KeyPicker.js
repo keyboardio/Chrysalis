@@ -122,6 +122,9 @@ export default class KeyPicker extends Component {
           </foreignObject>
         );
       }
+      if (key.id > 255) {
+        console.log(code, key);
+      }
       return (
         <Key
           key={`id-${key.content.first}-${id}`}

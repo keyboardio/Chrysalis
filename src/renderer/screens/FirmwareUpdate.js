@@ -699,6 +699,10 @@ class FirmwareUpdate extends React.Component {
       );
     }
 
+    let latestAvailable = (
+      <h5 className="title">{`Latest available version is v${fwVersion}`}</h5>
+    );
+
     let currentlyRunning;
     if (versions) {
       currentlyRunning = (
@@ -756,6 +760,7 @@ class FirmwareUpdate extends React.Component {
                       {", this update will overwrite it."}
                     </i>
                   </p>
+                  {latestAvailable}
                   {currentlyRunning}
                   {firmwareFilename}
                   <Row className="mt-auto">
@@ -766,8 +771,8 @@ class FirmwareUpdate extends React.Component {
                         onClick={this.selectFirmware}
                       >
                         {firmwareFilename == ""
-                          ? "Load custom FW"
-                          : "Remove Custom FW"}
+                          ? i18n.firmwareUpdate.custom
+                          : i18n.firmwareUpdate.rcustom}
                       </Button>
                     </Col>
                     <Col xs={6} className="flashingcol">

@@ -1449,19 +1449,18 @@ class Editor extends Component {
       const tempkey = this.keymapDB.parse(layerData[currentKeyIndex].keyCode);
       code = {
         base:
-          tempkey.keyCode > 255 &&
-          tempkey.keyCode < 20480 &&
-          tempkey.keyCode > 20561
+          tempkey.keyCode > 255
             ? tempkey.keyCode > 49000
               ? tempkey.keyCode == 65535
                 ? this.keymapDB.reverse(tempkey.label)
                 : parseInt(tempkey.label)
               : this.keymapDB.reverse(tempkey.label)
-            : this.keymapDB.reverseSub(tempkey.label, tempkey.extraLabel),
+            : tempkey.keyCode < 20480 || tempkey.keyCode > 20561
+            ? this.keymapDB.reverseSub(tempkey.label, tempkey.extraLabel)
+            : this.keymapDB.reverse(tempkey.label),
         modified:
           tempkey.keyCode > 255 &&
-          tempkey.keyCode < 20480 &&
-          tempkey.keyCode > 20561
+          (tempkey.keyCode < 20480 || tempkey.keyCode > 20561)
             ? tempkey.keyCode > 49000
               ? tempkey.keyCode == 65535
                 ? 0

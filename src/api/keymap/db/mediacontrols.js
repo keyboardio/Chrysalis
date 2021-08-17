@@ -78,6 +78,13 @@ const MediaControlTable = {
         top: "Media",
         primary: "Eject"
       }
+    },
+    {
+      code: 22713,
+      labels: {
+        top: "Media",
+        primary: "Shuff."
+      }
     }
   ]
 };

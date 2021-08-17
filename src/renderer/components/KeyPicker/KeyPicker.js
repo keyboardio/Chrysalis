@@ -133,7 +133,7 @@ export default class KeyPicker extends Component {
           selected={
             code === null
               ? false
-              : code.base === key.id
+              : code.base === key.id && code.modified < 49000
               ? true
               : code.modified > 0 && code.modified === key.id
               ? true

@@ -1446,18 +1446,30 @@ class Editor extends Component {
 
     let code = 0;
     if (currentKeyIndex !== -1 && currentLedIndex < 69) {
-      let KM = keymap.custom.slice();
-      const l = keymap.onlyCustom
-        ? currentLayer
-        : currentLayer - keymap.default.length;
-
+      const tempkey = this.keymapDB.parse(layerData[currentKeyIndex].keyCode);
       code = {
-        base: this.keymapDB.reverse(KM[l][currentKeyIndex].label),
+        base:
+          tempkey.keyCode > 255 &&
+          tempkey.keyCode < 20480 &&
+          tempkey.keyCode > 20561
+            ? tempkey.keyCode > 49000
+              ? tempkey.keyCode == 65535
+                ? this.keymapDB.reverse(tempkey.label)
+                : parseInt(tempkey.label)
+              : this.keymapDB.reverse(tempkey.label)
+            : this.keymapDB.reverseSub(tempkey.label, tempkey.extraLabel),
         modified:
-          this.keymapDB.reverseSub(
-            KM[l][currentKeyIndex].label,
-            KM[l][currentKeyIndex].extraLabel
-          ) - this.keymapDB.reverse(KM[l][currentKeyIndex].label)
+          tempkey.keyCode > 255 &&
+          tempkey.keyCode < 20480 &&
+          tempkey.keyCode > 20561
+            ? tempkey.keyCode > 49000
+              ? tempkey.keyCode == 65535
+                ? 0
+                : this.keymapDB.reverseSub(tempkey.label, tempkey.extraLabel) -
+                  parseInt(tempkey.label)
+              : this.keymapDB.reverseSub(tempkey.label, tempkey.extraLabel) -
+                this.keymapDB.reverse(tempkey.label)
+            : 0
       };
     }
 

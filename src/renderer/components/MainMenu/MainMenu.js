@@ -126,13 +126,22 @@ class MainMenu extends Component {
     super(props);
 
     this.state = {
-      versions: null
+      versions: null,
+      flashing: props.flashing
     };
   }
 
-  componentDidUpdate() {
-    if (this.state.versions != null && this.state.versions.bazecor.length > 0)
+  componentDidUpdate(previousProps, previousState) {
+    if (
+      this.state.versions != null &&
+      this.state.versions.bazecor.length > 0 &&
+      !(!this.props.flashing && previousProps.flashing)
+    ) {
+      if (this.props.flashing != previousProps.flashing) {
+        this.setState({ flashing: this.props.flashing });
+      }
       return;
+    }
     const focus = new Focus();
     let versions;
 
@@ -145,7 +154,7 @@ class MainMenu extends Component {
         firmware: parts[2]
       };
 
-      this.setState({ versions: versions });
+      this.setState({ versions: versions, flashing: this.props.flashing });
     });
   }
 

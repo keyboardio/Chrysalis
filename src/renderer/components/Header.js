@@ -32,7 +32,7 @@ class Header extends Component {
   }
 
   render() {
-    const { connected, pages, theme } = this.props;
+    const { connected, pages, theme, flashing } = this.props;
     const { mainMenu } = this.state;
 
     return (
@@ -42,6 +42,7 @@ class Header extends Component {
         open={mainMenu}
         closeMenu={this.closeMainMenu}
         themeDark={theme}
+        flashing={flashing}
       />
     );
   }

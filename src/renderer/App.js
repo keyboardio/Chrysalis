@@ -366,6 +366,7 @@ class App extends React.Component {
           device={device}
           cancelContext={this.cancelContext}
           theme={darkMode}
+          flashing={this.flashing}
         />
         <Container fluid className="main-container">
           <Switch>

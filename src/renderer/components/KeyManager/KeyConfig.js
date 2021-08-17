@@ -419,7 +419,7 @@ class KeyConfig extends Component {
 
   updatelayer(mv) {
     const mov = parseInt(mv);
-    console.log("Checking update layer", mov, this.state.layerData);
+    // console.log("Checking update layer", mov, this.state.layerData);
     this.setState({ layerData: mov });
     let actions = [this.state.actions[this.state.action], 0, 0, 0, 0];
     if (mov > 50000) {
@@ -466,7 +466,7 @@ class KeyConfig extends Component {
     const { selectedlanguage, kbtype, macros, code } = this.props;
     const selKey = this.parseAction(action);
     const selKeys = actions.map((a, i) => this.parseAction(i));
-    console.log(code);
+    // console.log(code);
 
     return (
       <Style

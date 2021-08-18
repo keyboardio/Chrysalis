@@ -11,9 +11,52 @@ import Row from "react-bootstrap/Row";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 
-import { MdInfo } from "react-icons/md";
-
-// Key Components
+import { RiStopFill } from "react-icons/ri";
+import { BsFillBrightnessAltLowFill, BsShift } from "react-icons/bs";
+import { FiMenu } from "react-icons/fi";
+import { CgToggleOff } from "react-icons/cg";
+import { ImTab } from "react-icons/im";
+import {
+  FaVolumeDown,
+  FaVolumeMute,
+  FaVolumeUp,
+  FaLinux
+} from "react-icons/fa";
+import {
+  BiArrowFromBottom,
+  BiArrowFromLeft,
+  BiArrowFromRight,
+  BiArrowFromTop,
+  BiDownArrowCircle,
+  BiLeftArrowCircle,
+  BiMouseAlt,
+  BiRightArrowCircle,
+  BiUpArrowCircle
+} from "react-icons/bi";
+import {
+  IoIosBackspace,
+  IoIosPause,
+  IoIosPlay,
+  IoIosShuffle
+} from "react-icons/io";
+import {
+  AiFillForward,
+  AiFillWindows,
+  AiFillApple,
+  AiOutlineArrowDown,
+  AiOutlineArrowLeft,
+  AiOutlineArrowRight,
+  AiOutlineArrowUp,
+  AiOutlineBackward,
+  AiOutlineForward
+} from "react-icons/ai";
+import {
+  MdKeyboardReturn,
+  MdSpaceBar,
+  MdKeyboardCapslock,
+  MdInfo,
+  MdEject
+} from "react-icons/md";
 
 import Key from "./Key";
 import ES from "./ES.json";
@@ -32,6 +75,9 @@ const Style = Styled.div`
       padding: 0;
       justify-content:center;
     }
+  .bigger {
+    font-size: 1.3rem;
+  }
 `;
 
 export default class KeyPicker extends Component {
@@ -102,6 +148,98 @@ export default class KeyPicker extends Component {
     if (selectedlanguage != "" && kbtype == "iso") {
       if (liso[selectedlanguage] != undefined) Lang = liso[selectedlanguage];
     }
+    const os = process.platform;
+    const iconlist = {
+      Backspace: <IoIosBackspace className="bigger" />,
+      Enter: <MdKeyboardReturn className="bigger" />,
+      Space: <MdSpaceBar className="bigger" />,
+      CapsLock: <MdKeyboardCapslock className="bigger" />,
+      Tab: <ImTab className="bigger" />,
+      Shift: <BsShift className="bigger" />,
+      App: <FiMenu className="bigger" />,
+      Win:
+        os === "win32" ? (
+          <AiFillWindows className="bigger" />
+        ) : os === "darwin" ? (
+          <AiFillApple className="bigger" />
+        ) : (
+          <FaLinux className="bigger" />
+        ),
+      ArrUp: <AiOutlineArrowUp className="bigger" />,
+      ArrDwn: <AiOutlineArrowDown className="bigger" />,
+      ArrLeft: <AiOutlineArrowLeft className="bigger" />,
+      ArrRight: <AiOutlineArrowRight className="bigger" />,
+      LDToggl: (
+        <React.Fragment>
+          <BsFillBrightnessAltLowFill className="bigger" />
+          <CgToggleOff className="" />
+        </React.Fragment>
+      ),
+      LDForward: (
+        <React.Fragment>
+          <BsFillBrightnessAltLowFill className="bigger" />
+          <AiOutlineForward className="" />
+        </React.Fragment>
+      ),
+      VolAdd: <FaVolumeUp className="bigger" />,
+      VolSub: <FaVolumeDown className="bigger" />,
+      VolMute: <FaVolumeMute className="bigger" />,
+      Pause: <IoIosPause className="bigger" />,
+      Play: <IoIosPlay className="bigger" />,
+      Stop: <RiStopFill className="bigger" />,
+      Eject: <MdEject className="bigger" />,
+      Shuffle: <IoIosShuffle className="bigger" />,
+      Forward: <AiFillForward className="bigger" />,
+      Backward: <AiOutlineBackward className="bigger" />,
+      ScrlUp: (
+        <React.Fragment>
+          <BiMouseAlt className="bigger" />
+          <BiArrowFromBottom className="" />
+        </React.Fragment>
+      ),
+      ScrlDwn: (
+        <React.Fragment>
+          <BiMouseAlt className="bigger" />
+          <BiArrowFromTop className="" />
+        </React.Fragment>
+      ),
+      ScrlLeft: (
+        <React.Fragment>
+          <BiMouseAlt className="bigger" />
+          <BiArrowFromRight className="" />
+        </React.Fragment>
+      ),
+      ScrlRight: (
+        <React.Fragment>
+          <BiMouseAlt className="bigger" />
+          <BiArrowFromLeft className="" />
+        </React.Fragment>
+      ),
+      MvUp: (
+        <React.Fragment>
+          <BiMouseAlt className="bigger" />
+          <BiUpArrowCircle className="" />
+        </React.Fragment>
+      ),
+      MvDwn: (
+        <React.Fragment>
+          <BiMouseAlt className="bigger" />
+          <BiDownArrowCircle className="" />
+        </React.Fragment>
+      ),
+      MvLeft: (
+        <React.Fragment>
+          <BiMouseAlt className="bigger" />
+          <BiLeftArrowCircle className="" />
+        </React.Fragment>
+      ),
+      MvRight: (
+        <React.Fragment>
+          <BiMouseAlt className="bigger" />
+          <BiRightArrowCircle className="" />
+        </React.Fragment>
+      )
+    };
     const keyboard = Lang.map((key, id) => {
       if (key.tooltip) {
         return (
@@ -143,6 +281,8 @@ export default class KeyPicker extends Component {
           }}
           centered={key.centered}
           content={key.content}
+          iconpresent={key.icon}
+          icon={iconlist[key.iconname]}
           disabled={key.mod == disableMods || key.move == disableMove}
         />
       );

@@ -4,6 +4,8 @@
     "x": 0,
     "y": 0,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1UT",
       "first": "Esc",
@@ -17,6 +19,8 @@
     "x": 68,
     "y": 0,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1UT",
       "first": "F1",
@@ -30,6 +34,8 @@
     "x": 118,
     "y": 0,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1UT",
       "first": "F2",
@@ -43,6 +49,8 @@
     "x": 168,
     "y": 0,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1UT",
       "first": "F3",
@@ -56,6 +64,8 @@
     "x": 218,
     "y": 0,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1UT",
       "first": "F4",
@@ -69,6 +79,8 @@
     "x": 288,
     "y": 0,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1UT",
       "first": "F5",
@@ -82,6 +94,8 @@
     "x": 338,
     "y": 0,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1UT",
       "first": "F6",
@@ -95,6 +109,8 @@
     "x": 388,
     "y": 0,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1UT",
       "first": "F7",
@@ -108,6 +124,8 @@
     "x": 438,
     "y": 0,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1UT",
       "first": "F8",
@@ -121,6 +139,8 @@
     "x": 509,
     "y": 0,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1UT",
       "first": "F9",
@@ -134,6 +154,8 @@
     "x": 559,
     "y": 0,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1UT",
       "first": "F10",
@@ -147,6 +169,8 @@
     "x": 609,
     "y": 0,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1UT",
       "first": "F11",
@@ -160,6 +184,8 @@
     "x": 659,
     "y": 0,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1UT",
       "first": "F12",
@@ -173,6 +199,8 @@
     "x": 720,
     "y": 0,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "specialBlock",
       "first": "Print",
@@ -186,6 +214,8 @@
     "x": 770,
     "y": 0,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "specialBlock",
       "first": "Scroll",
@@ -199,6 +229,8 @@
     "x": 820,
     "y": 0,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "specialBlock",
       "first": "Pause",
@@ -212,6 +244,8 @@
     "x": 880,
     "y": 0,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "block",
       "first": "Num",
@@ -225,6 +259,8 @@
     "x": 922,
     "y": 0,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "block",
       "first": "/",
@@ -238,6 +274,8 @@
     "x": 962,
     "y": 0,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "block",
       "first": "*",
@@ -251,6 +289,8 @@
     "x": 1004,
     "y": 0,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "block",
       "first": "-",
@@ -264,6 +304,8 @@
     "x": 0,
     "y": 32,
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "½",
@@ -277,6 +319,8 @@
     "x": 50,
     "y": 32,
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "1",
@@ -290,6 +334,8 @@
     "x": 100,
     "y": 32,
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "2",
@@ -303,6 +349,8 @@
     "x": 150,
     "y": 32,
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "3",
@@ -316,6 +364,8 @@
     "x": 200,
     "y": 32,
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "4",
@@ -329,6 +379,8 @@
     "x": 250,
     "y": 32,
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "5",
@@ -342,6 +394,8 @@
     "x": 300,
     "y": 32,
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "6",
@@ -355,6 +409,8 @@
     "x": 350,
     "y": 32,
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "7",
@@ -368,6 +424,8 @@
     "x": 400,
     "y": 32,
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "8",
@@ -381,6 +439,8 @@
     "x": 450,
     "y": 32,
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "9",
@@ -394,6 +454,8 @@
     "x": 500,
     "y": 32,
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "0",
@@ -407,6 +469,8 @@
     "x": 550,
     "y": 32,
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "+",
@@ -420,6 +484,8 @@
     "x": 600,
     "y": 32,
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "\\",
@@ -433,9 +499,11 @@
     "x": 650,
     "y": 32,
     "centered": true,
+    "icon": true,
+    "iconname":"Backspace",
     "content": {
       "type": "1U2",
-      "first": "Backsp",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -446,6 +514,8 @@
     "x": 720,
     "y": 38,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "specialBlock",
       "first": "Ins",
@@ -459,6 +529,8 @@
     "x": 770,
     "y": 38,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "specialBlock",
       "first": "Hom",
@@ -472,6 +544,8 @@
     "x": 820,
     "y": 38,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "specialBlock",
       "first": "Page",
@@ -485,6 +559,8 @@
     "x": 880,
     "y": 38,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "block",
       "first": "7",
@@ -498,6 +574,8 @@
     "x": 922,
     "y": 38,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "block",
       "first": "8",
@@ -511,6 +589,8 @@
     "x": 962,
     "y": 38,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "block",
       "first": "9",
@@ -524,6 +604,8 @@
     "x": 1004,
     "y": 38,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "longBlock",
       "first": "+",
@@ -537,9 +619,11 @@
     "x": 0,
     "y": 64,
     "centered": true,
+    "icon": true,
+    "iconname":"Tab",
     "content": {
       "type": "1U2",
-      "first": "Tab",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -550,6 +634,8 @@
     "x": 60,
     "y": 64,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "Q",
@@ -563,6 +649,8 @@
     "x": 110,
     "y": 64,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "W",
@@ -576,6 +664,8 @@
     "x": 160,
     "y": 64,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "E",
@@ -589,6 +679,8 @@
     "x": 210,
     "y": 64,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "R",
@@ -602,6 +694,8 @@
     "x": 260,
     "y": 64,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "T",
@@ -615,6 +709,8 @@
     "x": 310,
     "y": 64,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "Y",
@@ -628,6 +724,8 @@
     "x": 360,
     "y": 64,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "U",
@@ -641,6 +739,8 @@
     "x": 410,
     "y": 64,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "I",
@@ -654,6 +754,8 @@
     "x": 460,
     "y": 64,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "O",
@@ -667,6 +769,8 @@
     "x": 510,
     "y": 64,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "P",
@@ -680,6 +784,8 @@
     "x": 560,
     "y": 64,
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "Å",
@@ -693,6 +799,8 @@
     "x": 610,
     "y": 64,
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "¨",
@@ -706,9 +814,11 @@
     "x": 660,
     "y": 64,
     "centered": true,
+    "icon": true,
+    "iconname":"Enter",
     "content": {
       "type": "enter",
-      "first": "Enter",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -719,6 +829,8 @@
     "x": 720,
     "y": 76,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "specialBlock",
       "first": "Del",
@@ -732,6 +844,8 @@
     "x": 770,
     "y": 76,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "specialBlock",
       "first": "End",
@@ -745,6 +859,8 @@
     "x": 820,
     "y": 76,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "specialBlock",
       "first": "Page",
@@ -758,9 +874,11 @@
     "x": 0,
     "y": 96,
     "centered": true,
+    "icon": true,
+    "iconname":"CapsLock",
     "content": {
       "type": "1U5",
-      "first": "CPsLck",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -771,6 +889,8 @@
     "x": 70,
     "y": 96,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "A",
@@ -784,6 +904,8 @@
     "x": 120,
     "y": 96,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "S",
@@ -797,6 +919,8 @@
     "x": 170,
     "y": 96,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "D",
@@ -810,6 +934,8 @@
     "x": 220,
     "y": 96,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "F",
@@ -823,6 +949,8 @@
     "x": 270,
     "y": 96,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "G",
@@ -836,6 +964,8 @@
     "x": 320,
     "y": 96,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "H",
@@ -849,6 +979,8 @@
     "x": 370,
     "y": 96,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "J",
@@ -862,6 +994,8 @@
     "x": 420,
     "y": 96,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "K",
@@ -875,6 +1009,8 @@
     "x": 470,
     "y": 96,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "L",
@@ -888,6 +1024,8 @@
     "x": 520,
     "y": 96,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "Ø",
@@ -901,6 +1039,8 @@
     "x": 570,
     "y": 96,
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "Æ",
@@ -914,6 +1054,8 @@
     "x": 620,
     "y": 96,
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "'",
@@ -927,6 +1069,8 @@
     "x": 880,
     "y": 76,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "block",
       "first": "4",
@@ -940,6 +1084,8 @@
     "x": 922,
     "y": 76,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "block",
       "first": "5",
@@ -953,6 +1099,8 @@
     "x": 962,
     "y": 76,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "block",
       "first": "6",
@@ -966,9 +1114,11 @@
     "x": 0,
     "y": 128,
     "centered": true,
+    "icon": true,
+    "iconname":"Shift",
     "content": {
       "type": "1U",
-      "first": "Shift",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -980,6 +1130,8 @@
     "x": 50,
     "y": 128,
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "<",
@@ -993,6 +1145,8 @@
     "x": 100,
     "y": 128,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "Z",
@@ -1006,6 +1160,8 @@
     "x": 150,
     "y": 128,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "X",
@@ -1019,6 +1175,8 @@
     "x": 200,
     "y": 128,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "C",
@@ -1032,6 +1190,8 @@
     "x": 250,
     "y": 128,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "V",
@@ -1045,6 +1205,8 @@
     "x": 300,
     "y": 128,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "B",
@@ -1058,6 +1220,8 @@
     "x": 350,
     "y": 128,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "N",
@@ -1071,6 +1235,8 @@
     "x": 400,
     "y": 128,
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "M",
@@ -1084,6 +1250,8 @@
     "x": 450,
     "y": 128,
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": ",",
@@ -1097,6 +1265,8 @@
     "x": 500,
     "y": 128,
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": ".",
@@ -1110,6 +1280,8 @@
     "x": 550,
     "y": 128,
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U",
       "first": "-",
@@ -1123,9 +1295,11 @@
     "x": 600,
     "y": 128,
     "centered": true,
+    "icon": true,
+    "iconname":"Shift",
     "content": {
       "type": "2U",
-      "first": "Shift",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1137,9 +1311,11 @@
     "x": 770,
     "y": 114,
     "centered": true,
+    "icon": true,
+    "iconname":"ArrUp",
     "content": {
       "type": "specialBlock",
-      "first": "↑",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1150,6 +1326,8 @@
     "x": 880,
     "y": 114,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "block",
       "first": "1",
@@ -1163,6 +1341,8 @@
     "x": 922,
     "y": 114,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "block",
       "first": "2",
@@ -1176,6 +1356,8 @@
     "x": 962,
     "y": 114,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "block",
       "first": "3",
@@ -1189,6 +1371,8 @@
     "x": 1004,
     "y": 114,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "longBlock",
       "first": "Intro",
@@ -1202,6 +1386,8 @@
     "x": 0,
     "y": 160,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U2",
       "first": "Ctrl",
@@ -1216,9 +1402,11 @@
     "x": 60,
     "y": 160,
     "centered": true,
+    "icon": true,
+    "iconname":"Win",
     "content": {
       "type": "1U2",
-      "first": "Os",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1230,6 +1418,8 @@
     "x": 120,
     "y": 160,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U2",
       "first": "Alt",
@@ -1244,9 +1434,11 @@
     "x": 180,
     "y": 160,
     "centered": true,
+    "icon": true,
+    "iconname":"Space",
     "content": {
       "type": "6U2",
-      "first": "Space Bar",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1257,6 +1449,8 @@
     "x": 470,
     "y": 160,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U2",
       "first": "Alt Gr",
@@ -1271,9 +1465,11 @@
     "x": 530,
     "y": 160,
     "centered": true,
+    "icon": true,
+    "iconname":"Win",
     "content": {
       "type": "1U2",
-      "first": "Os",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1285,9 +1481,11 @@
     "x": 590,
     "y": 160,
     "centered": true,
+    "icon": true,
+    "iconname":"App",
     "content": {
       "type": "1U2",
-      "first": "App",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1298,6 +1496,8 @@
     "x": 650,
     "y": 160,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "1U2",
       "first": "Ctrl",
@@ -1312,9 +1512,11 @@
     "x": 720,
     "y": 152,
     "centered": true,
+    "icon": true,
+    "iconname":"ArrLeft",
     "content": {
       "type": "specialBlock",
-      "first": "←",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1325,9 +1527,11 @@
     "x": 770,
     "y": 152,
     "centered": true,
+    "icon": true,
+    "iconname":"ArrDwn",
     "content": {
       "type": "specialBlock",
-      "first": "↓",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1338,9 +1542,11 @@
     "x": 820,
     "y": 152,
     "centered": true,
+    "icon": true,
+    "iconname":"ArrRight",
     "content": {
       "type": "specialBlock",
-      "first": "→",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1351,6 +1557,8 @@
     "x": 880,
     "y": 152,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "wideBlock",
       "first": "0",
@@ -1364,6 +1572,8 @@
     "x": 962,
     "y": 152,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "block",
       "first": ".",
@@ -1372,11 +1582,13 @@
       "fourth": ""
     }
   },
-    {
+{
     "id": 1,
     "x": 2,
     "y": 194,
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "title",
       "first": "SPECIAL",
@@ -1391,6 +1603,8 @@
     "y": 191,
     "tooltip":"Special keys such as Macros, Layer Lock(move to), No Key, Transparent, One Shot Modifiers and F13 to F24.",
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "title",
       "first": "",
@@ -1401,9 +1615,11 @@
   },
   {
     "id": 1,
-    "x": 214,
+    "x": 262,
     "y": 194,
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "title",
       "first": "MEDIA",
@@ -1414,10 +1630,12 @@
   },
   {
     "id": 1,
-    "x": 267,
+    "x": 312,
     "y": 191,
     "tooltip":"Media keys for player control, such as play, pause, eject, shuffle, and volume control.",
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "title",
       "first": "",
@@ -1428,9 +1646,11 @@
   },
   {
     "id": 1,
-    "x": 476,
+    "x": 522,
     "y": 194,
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "title",
       "first": "LED",
@@ -1441,10 +1661,12 @@
   },
   {
     "id": 1,
-    "x": 509,
+    "x": 549,
     "y": 191,
     "tooltip":"LED effects keys, to change the led effect currently displaying on the raise.",
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "title",
       "first": "",
@@ -1455,9 +1677,11 @@
   },
   {
     "id": 1,
-    "x": 538,
+    "x": 582,
     "y": 194,
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "title",
       "first": "MOUSE",
@@ -1468,9 +1692,11 @@
   },
   {
     "id": 1,
-    "x": 598,
+    "x": 642,
     "y": 194,
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "title",
       "first": "",
@@ -1481,10 +1707,12 @@
   },
   {
     "id": 1,
-    "x": 644,
+    "x": 686,
     "y": 191,
     "tooltip":"MOUSE CLICK actions to reproduce all the clicks the mouse can do",
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "title",
       "first": "",
@@ -1495,9 +1723,11 @@
   },
   {
     "id": 1,
-    "x": 694,
+    "x": 732,
     "y": 194,
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "title",
       "first": "",
@@ -1508,10 +1738,12 @@
   },
   {
     "id": 1,
-    "x": 782,
+    "x": 820,
     "y": 191,
     "tooltip":"MOUSE MOVEMENT keys to move the mouse around the screen",
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "title",
       "first": "",
@@ -1522,9 +1754,11 @@
   },
   {
     "id": 1,
-    "x": 800,
+    "x": 840,
     "y": 194,
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "title",
       "first": "",
@@ -1535,10 +1769,12 @@
   },
   {
     "id": 1,
-    "x": 855,
+    "x": 894,
     "y": 191,
     "tooltip":"MOUSE WHEEL keys that allow you to scroll in all directions emulating a mouse wheel",
     "centered": false,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "title",
       "first": "",
@@ -1552,6 +1788,8 @@
     "x": 0,
     "y": 216,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "2UT",
       "first": "Layer Lock",
@@ -1566,6 +1804,8 @@
     "x": 0,
     "y": 244,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "2UT",
       "first": "Macro",
@@ -1575,26 +1815,30 @@
     }
   },
   {
-    "id": 49153,
+    "id": 104,
     "x": 100,
     "y": 216,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "specialBlockT",
-      "first": "OSM",
+      "first": "F13+",
       "second": "",
       "third": "",
       "fourth": ""
     }
   },
   {
-    "id": 104,
+    "id": 49153,
     "x": 150,
     "y": 216,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
-      "type": "specialBlockT",
-      "first": "F13+",
+      "type": "2UT",
+      "first": "Oneshot Mod.",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1605,6 +1849,8 @@
     "x": 100,
     "y": 244,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "specialBlockT",
       "first": "🚫",
@@ -1618,9 +1864,11 @@
     "x": 150,
     "y": 244,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
-      "type": "specialBlockT",
-      "first": "TRANS",
+      "type": "2UT",
+      "first": "Transparent",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1628,12 +1876,14 @@
   },
   {
     "id": 22733,
-    "x": 212,
+    "x": 260,
     "y": 216,
     "centered": true,
+    "icon": true,
+    "iconname":"Play",
     "content": {
       "type": "specialBlockT",
-      "first": "Play",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1641,12 +1891,14 @@
   },
   {
     "id": 22711,
-    "x": 262,
+    "x": 310,
     "y": 216,
     "centered": true,
+    "icon": true,
+    "iconname":"Stop",
     "content": {
       "type": "specialBlockT",
-      "first": "Stop",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1654,12 +1906,14 @@
   },
   {
     "id": 22710,
-    "x": 312,
+    "x": 360,
     "y": 216,
     "centered": true,
+    "icon": true,
+    "iconname":"Backward",
     "content": {
       "type": "specialBlockT",
-      "first": "Back",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1667,12 +1921,14 @@
   },
   {
     "id": 22709,
-    "x": 362,
+    "x": 410,
     "y": 216,
     "centered": true,
+    "icon": true,
+    "iconname":"Forward",
     "content": {
       "type": "specialBlockT",
-      "first": "Forw.",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1680,12 +1936,14 @@
   },
   {
     "id": 22713,
-    "x": 412,
+    "x": 460,
     "y": 216,
     "centered": true,
+    "icon": true,
+    "iconname":"Shuffle",
     "content": {
       "type": "specialBlockT",
-      "first": "Shuff.",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1693,12 +1951,14 @@
   },
   {
     "id": 23785,
-    "x": 212,
+    "x": 260,
     "y": 244,
     "centered": true,
+    "icon": true,
+    "iconname":"VolAdd",
     "content": {
       "type": "specialBlockT",
-      "first": "Vol +",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1706,12 +1966,14 @@
   },
   {
     "id": 23786,
-    "x": 262,
+    "x": 310,
     "y": 244,
     "centered": true,
+    "icon": true,
+    "iconname":"VolSub",
     "content": {
       "type": "specialBlockT",
-      "first": "Vol -",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1719,12 +1981,14 @@
   },
   {
     "id": 19682,
-    "x": 312,
+    "x": 360,
     "y": 244,
     "centered": true,
+    "icon": true,
+    "iconname":"VolMute",
     "content": {
       "type": "specialBlockT",
-      "first": "Mute",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1732,25 +1996,29 @@
   },
   {
     "id": 22712,
-    "x": 362,
+    "x": 410,
     "y": 244,
     "centered": true,
+    "icon": true,
+    "iconname":"Eject",
     "content": {
       "type": "specialBlockT",
-      "first": "Eject",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
     }
   },
   {
-    "id": 17153,
-    "x": 474,
+    "id": 17152,
+    "x": 520,
     "y": 216,
     "centered": true,
+    "icon": true,
+    "iconname":"LDToggl",
     "content": {
-      "type": "specialBlockT",
-      "first": "Next",
+      "type": "specialBlockT2",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1758,12 +2026,14 @@
   },
   {
     "id": 17154,
-    "x": 474,
+    "x": 520,
     "y": 244,
     "centered": true,
+    "icon": true,
+    "iconname":"LDForward",
     "content": {
-      "type": "specialBlockT",
-      "first": "Toggle",
+      "type": "specialBlockT2",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1771,9 +2041,11 @@
   },
   {
     "id": 20545,
-    "x": 536,
+    "x": 580,
     "y": 216,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "specialBlockT",
       "first": "Left",
@@ -1784,9 +2056,11 @@
   },
   {
     "id": 20546,
-    "x": 586,
+    "x": 630,
     "y": 216,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "specialBlockT",
       "first": "Right",
@@ -1797,9 +2071,11 @@
   },
   {
     "id": 20548,
-    "x": 636,
+    "x": 680,
     "y": 216,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "specialBlockT",
       "first": "Mid.",
@@ -1810,9 +2086,11 @@
   },
   {
     "id": 20552,
-    "x": 536,
+    "x": 580,
     "y": 244,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "specialBlockT",
       "first": "Back",
@@ -1823,9 +2101,11 @@
   },
   {
     "id": 20560,
-    "x": 586,
+    "x": 630,
     "y": 244,
     "centered": true,
+    "icon": false,
+    "iconname":"",
     "content": {
       "type": "specialBlockT",
       "first": "Fow.",
@@ -1836,12 +2116,14 @@
   },
   {
     "id": 20481,
-    "x": 692,
+    "x": 730,
     "y": 216,
     "centered": true,
+    "icon": true,
+    "iconname":"MvUp",
     "content": {
-      "type": "specialBlockT",
-      "first": "Up",
+      "type": "specialBlockT2",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1849,12 +2131,14 @@
   },
   {
     "id": 20482,
-    "x": 692,
+    "x": 730,
     "y": 244,
     "centered": true,
+    "icon": true,
+    "iconname":"MvDwn",
     "content": {
-      "type": "specialBlockT",
-      "first": "Down",
+      "type": "specialBlockT2",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1862,12 +2146,14 @@
   },
   {
     "id": 20484,
-    "x": 742,
+    "x": 780,
     "y": 216,
     "centered": true,
+    "icon": true,
+    "iconname":"MvLeft",
     "content": {
-      "type": "specialBlockT",
-      "first": "Left",
+      "type": "specialBlockT2",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1875,12 +2161,14 @@
   },
   {
     "id": 20488,
-    "x": 742,
+    "x": 780,
     "y": 244,
     "centered": true,
+    "icon": true,
+    "iconname":"MvRight",
     "content": {
-      "type": "specialBlockT",
-      "first": "Right",
+      "type": "specialBlockT2",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1888,12 +2176,14 @@
   },
   {
     "id": 20497,
-    "x": 798,
+    "x": 830,
     "y": 216,
     "centered": true,
+    "icon": true,
+    "iconname":"ScrlUp",
     "content": {
-      "type": "specialBlockT",
-      "first": "Up",
+      "type": "specialBlockT2",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1901,12 +2191,14 @@
   },
   {
     "id": 20498,
-    "x": 798,
+    "x": 830,
     "y": 244,
     "centered": true,
+    "icon": true,
+    "iconname":"ScrlDwn",
     "content": {
-      "type": "specialBlockT",
-      "first": "Down",
+      "type": "specialBlockT2",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1914,12 +2206,14 @@
   },
   {
     "id": 20500,
-    "x": 848,
+    "x": 880,
     "y": 216,
     "centered": true,
+    "icon": true,
+    "iconname":"ScrlLeft",
     "content": {
-      "type": "specialBlockT",
-      "first": "Left",
+      "type": "specialBlockT2",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1927,12 +2221,14 @@
   },
   {
     "id": 20504,
-    "x": 848,
+    "x": 880,
     "y": 244,
     "centered": true,
+    "icon": true,
+    "iconname":"ScrlRight",
     "content": {
-      "type": "specialBlockT",
-      "first": "Right",
+      "type": "specialBlockT2",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""

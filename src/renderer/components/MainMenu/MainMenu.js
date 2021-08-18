@@ -132,14 +132,14 @@ class MainMenu extends Component {
   }
 
   componentDidUpdate(previousProps, previousState) {
+    if (this.props.flashing != previousProps.flashing) {
+      this.setState({ flashing: this.props.flashing });
+    }
     if (
       this.state.versions != null &&
       this.state.versions.bazecor.length > 0 &&
-      !(!this.props.flashing && previousProps.flashing)
+      this.state.flashing == previousState.flashing
     ) {
-      if (this.props.flashing != previousProps.flashing) {
-        this.setState({ flashing: this.props.flashing });
-      }
       return;
     }
     const focus = new Focus();
@@ -153,7 +153,6 @@ class MainMenu extends Component {
         kaleidoscope: parts[1],
         firmware: parts[2]
       };
-
       this.setState({ versions: versions, flashing: this.props.flashing });
     });
   }

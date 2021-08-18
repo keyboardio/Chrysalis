@@ -103,6 +103,7 @@ class App extends React.Component {
     });
 
     this.forceDarkMode = this.forceDarkMode.bind(this);
+    this.toggleFlashing = this.toggleFlashing.bind(this);
   }
   flashing = false;
 
@@ -366,7 +367,7 @@ class App extends React.Component {
           device={device}
           cancelContext={this.cancelContext}
           theme={darkMode}
-          flashing={this.flashing}
+          flashing={!connected}
         />
         <Container fluid className="main-container">
           <Switch>

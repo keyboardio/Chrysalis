@@ -24,7 +24,7 @@ const Style = Styled.div`
   overflow: visible;
 }
 .select-card {
-    min-height: 100%;
+    height: 320px;
     padding: 0;
 }
 .titles {

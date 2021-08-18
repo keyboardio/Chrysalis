@@ -117,9 +117,11 @@ const Style = Styled.div`
 }
 .fixed-width {
   max-width: 321px;
+  margin-top: 31px;
 }
 .Tabstyle {
   margin-left: 322px;
+  margin-top: -31px;
   width: 280px;
   position: absolute;
   .tab-content {
@@ -158,7 +160,8 @@ class KeyConfig extends Component {
       activeTab: "editor",
       layerData: 0,
       showKB: false,
-      pastkeyindex: props.keyIndex
+      pastkeyindex: props.keyIndex,
+      superName: ""
     };
 
     this.SelectAction = this.SelectAction.bind(this);
@@ -170,6 +173,7 @@ class KeyConfig extends Component {
     this.changeTab = this.changeTab.bind(this);
     this.updatelayer = this.updatelayer.bind(this);
     this.showKeyboard = this.showKeyboard.bind(this);
+    this.setSuperName = this.setSuperName.bind(this);
   }
   componentDidUpdate() {
     let selectdual = 0;
@@ -453,6 +457,10 @@ class KeyConfig extends Component {
     this.setState({ showKB: !this.state.showKB });
   }
 
+  setSuperName(data) {
+    this.setState({ superName: data.target.value });
+  }
+
   render() {
     const {
       layerData,
@@ -461,7 +469,8 @@ class KeyConfig extends Component {
       actions,
       activeTab,
       showKB,
-      modifs
+      modifs,
+      superName
     } = this.state;
     const { selectedlanguage, kbtype, macros, code } = this.props;
     const selKey = this.parseAction(action);
@@ -541,6 +550,8 @@ class KeyConfig extends Component {
                           activeKB={showKB}
                           AssignMacro={this.AssignMacro}
                           macros={macros}
+                          superName={superName}
+                          setSuperName={this.setSuperName}
                         />
                       </Tab>
                     </Tabs>

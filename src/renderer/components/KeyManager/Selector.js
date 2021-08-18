@@ -23,7 +23,7 @@ import lightTool from "../../../../static/DarkSuperTooltip.png";
 
 const Style = Styled.div`
 .type-card {
-  height: 332px;
+  height: 320px;
   padding: 0;
 }
 .bin {
@@ -46,7 +46,11 @@ const Style = Styled.div`
 }
 .topelem {
   padding: 1em;
+  margin-top: 0.6em;
   background-color: ${({ theme }) => theme.card.backgroundActive};
+  .row {
+    margin-bottom: 0.4em;
+  }
 }
 .normalelem {
   padding: 0.6em 1em 0em 1em;
@@ -58,16 +62,31 @@ const Style = Styled.div`
   background-color: ${({ theme }) => theme.card.background};
   color: ${({ theme }) => theme.card.color};
 }
+.fixedheight {
+  height: 30px;
+}
+.fixedwidth {
+  width: 62px;
+}
 .whitebgns {
   background-color: ${({ theme }) => theme.card.background};
   color: ${({ theme }) => theme.card.colorDisabled};
+  height: 30px;
 }
-.openkb {
-  background-color: ${({ theme }) => theme.colors.button.active};
+.notfocus {
+  background-color: ${({ theme }) => theme.card.disabled};
   border-color: ${({ theme }) => theme.colors.button.borderColor};
+  color: ${({ theme }) => theme.card.backgroundActive};
 }
 .keyselect {
   padding-right: 0;
+}
+.card-body {
+  flex: none !important;
+  padding: 0.5rem 1.25rem 0rem;
+}
+.titleheight {
+  line-height: revert;
 }
 `;
 
@@ -138,7 +157,9 @@ class Selector extends Component {
       onReplaceKey,
       activeKB,
       AssignMacro,
-      macros
+      macros,
+      superName,
+      setSuperName
     } = this.props;
 
     const move1 = "Permanently move to a given layer.";
@@ -155,15 +176,19 @@ class Selector extends Component {
         <Card.Body key={i} className={i === action ? "topelem" : "normalelem"}>
           <Row>
             <Col xs={10} onClick={e => this.Selection(i)} className="keyselect">
-              <InputGroup className="mb-2">
+              <InputGroup className="">
                 <InputGroup.Text
-                  className={i === action && activeKB ? "openkb" : ""}
+                  className={`fixedheight fixedwidth ${
+                    i !== action ? "notfocus" : ""
+                  }`}
                 >
                   {name}
                 </InputGroup.Text>
                 <FormControl
                   id="inlineFormInputGroup"
-                  className={adjactions[i] <= 1 ? "whitebgns" : "whitebg"}
+                  className={`fixedheight ${
+                    adjactions[i] <= 1 ? "whitebgns" : "whitebg"
+                  }`}
                   value={adjactions[i] <= 1 ? "None Selected" : selKeys[i]}
                   disabled
                 />
@@ -246,7 +271,27 @@ class Selector extends Component {
 
     return (
       <Style>
-        <Card className="type-card overflow">{element}</Card>
+        <Card className="type-card overflow">
+          <Card.Body>
+            <Row>
+              <Col xs={3} className="px-0 text-center">
+                <h5 className="titleheight">Name</h5>
+              </Col>
+              <Col xs={9} className="px-0 text-center">
+                <InputGroup className="">
+                  <FormControl
+                    id="nameSelectro"
+                    className="fixedheight"
+                    value={superName}
+                    placeholder={superName != "" ? "Choose a name" : superName}
+                    onChange={setSuperName}
+                  />
+                </InputGroup>
+              </Col>
+            </Row>
+          </Card.Body>
+          {element}
+        </Card>
       </Style>
     );
   }

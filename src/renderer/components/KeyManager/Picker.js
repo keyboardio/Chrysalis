@@ -6,6 +6,7 @@ import { KeyPicker } from "../KeyPicker";
 const Style = Styled.div`
 .picker-select-card {
     min-height: 100%;
+    height: 320px;
     padding: 0;
 }
 .nospacing{

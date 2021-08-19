@@ -67,17 +67,20 @@ import FR from "./FR.json";
 import NR from "./NR.json";
 
 const Style = Styled.div`
-  .keyboard {
+.keyboard {
+  margin: 0;
+  padding: 16px;
+  .keys {
     margin: 0;
-    padding: 16px;
-    .keys {
-      margin: 0;
-      padding: 0;
-      justify-content:center;
-    }
+    padding: 0;
+    justify-content:center;
+  }
   .bigger {
     font-size: 1.3rem;
-  }
+}
+.svgStyle {
+  max-height: 290px;
+}
 `;
 
 export default class KeyPicker extends Component {
@@ -291,7 +294,7 @@ export default class KeyPicker extends Component {
       <Style>
         <Container fluid className="keyboard">
           <Row className="keys">
-            <svg className="" viewBox="0 0 1042 266">
+            <svg className="svgStyle" viewBox="0 0 1042 266">
               {keyboard}
             </svg>
           </Row>

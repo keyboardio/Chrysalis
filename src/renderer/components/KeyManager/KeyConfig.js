@@ -84,9 +84,9 @@ const Style = Styled.div`
 }
 .pickersection {
   min-height: 100%;
+  max-width: 1170px;
   padding: 0;
   margin-top: 31px;
-  margin-bottom: 10px;
 }
 .hidden {
   visibility: hidden;
@@ -161,7 +161,7 @@ class KeyConfig extends Component {
       layerData: 0,
       showKB: false,
       pastkeyindex: props.keyIndex,
-      superName: ""
+      superName: props.superName
     };
 
     this.SelectAction = this.SelectAction.bind(this);
@@ -288,7 +288,8 @@ class KeyConfig extends Component {
       mod,
       this.state.modifs,
       this.state.selectdual,
-      this.state.selectdual
+      this.state.selectdual,
+      this.state.superName
     );
     this.setState({ modifs: mod });
   }
@@ -307,7 +308,8 @@ class KeyConfig extends Component {
         this.state.modifs,
         this.state.modifs,
         this.state.selectdual,
-        this.state.selectdual
+        this.state.selectdual,
+        this.state.superName
       );
       return;
     }
@@ -318,11 +320,19 @@ class KeyConfig extends Component {
       this.state.modifs,
       this.state.modifs,
       this.state.selectdual,
-      this.state.selectdual > 0 ? 0 : this.state.selectdual
+      this.state.selectdual > 0 ? 0 : this.state.selectdual,
+      this.state.superName
     );
   }
 
-  checkAndReport(actns, modifs, previousmod, selectdual, previousdual) {
+  checkAndReport(
+    actns,
+    modifs,
+    previousmod,
+    selectdual,
+    previousdual,
+    superName
+  ) {
     const { action } = this.state;
     let state = 0;
     const ActModifs = modifs[action];
@@ -390,7 +400,7 @@ class KeyConfig extends Component {
         )
           superid = this.props.newSuperID();
         this.props.onKeySelect(superid + 53916);
-        this.props.setSuperKey(superid, actions);
+        this.props.setSuperKey(superid, actions, superName);
       }
     } else {
       this.props.onKeySelect(0);
@@ -432,7 +442,8 @@ class KeyConfig extends Component {
         this.state.modifs,
         this.state.modifs,
         mov,
-        this.state.selectdual
+        this.state.selectdual,
+        this.state.superName
       );
       this.setState({ selectdual: mov });
       return;
@@ -444,7 +455,8 @@ class KeyConfig extends Component {
       this.state.modifs,
       this.state.modifs,
       this.state.selectdual,
-      this.state.selectdual
+      this.state.selectdual,
+      this.state.superName
     );
   }
 
@@ -459,6 +471,14 @@ class KeyConfig extends Component {
 
   setSuperName(data) {
     this.setState({ superName: data.target.value });
+    this.checkAndReport(
+      this.state.actions,
+      this.state.modifs,
+      this.state.modifs,
+      this.state.selectdual,
+      this.state.selectdual,
+      data.target.value
+    );
   }
 
   render() {
@@ -481,7 +501,6 @@ class KeyConfig extends Component {
       <Style
         style={{
           marginLeft: "220px",
-          marginTop: "30px",
           justifyContent: "center",
           display: "flex"
         }}

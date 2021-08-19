@@ -163,7 +163,7 @@ class Editor extends Component {
       macros: [],
       superkeys: [],
       storedMacros: store.get("macros"),
-      equalMacros: [],
+      storedSuper: store.get("superkeys"),
       modeselect: "keyboard",
       clearConfirmationOpen: false,
       copyFromOpen: false,
@@ -600,8 +600,8 @@ class Editor extends Component {
     });
   };
 
-  componentDidMount() {
-    this.scanKeyboard().then(() => {
+  async componentDidMount() {
+    await this.scanKeyboard().then(() => {
       const { keymap } = this.state;
       const defLayer =
         this.state.defaultLayer >= 126 ? 0 : this.state.defaultLayer;
@@ -904,7 +904,7 @@ class Editor extends Component {
       }
       iter++;
     }
-    superkeys[superindex] = superkey;
+    superkeys[superindex] = { actions: superkey };
     // console.log("SUPERKEYS LEIDAS:" + superkeys + " de " + raw);
 
     if (
@@ -912,7 +912,32 @@ class Editor extends Component {
       superkeys[0].filter(v => v === 0).length == superkeys[0].length - 1
     )
       return [];
-    return superkeys;
+    // TODO: Check if stored superKeys match the received ones, if they match, retrieve name and apply it to current superKeys
+    let equal = [];
+    let finalSuper = [];
+    const stored = this.state.storedSuper;
+    console.log(superkeys, stored);
+    if (stored === undefined) {
+      return superkeys;
+    }
+    finalSuper = superkeys.map((superk, i) => {
+      if (stored.length > i && stored.length > 0) {
+        console.log("compare between: ", superk.actions, stored[i].actions);
+        if (superk.actions.join(",") === stored[i].actions.join(",")) {
+          equal[i] = true;
+          let aux = superk;
+          aux.name = stored[i].name;
+          return aux;
+        } else {
+          equal[i] = false;
+          return superk;
+        }
+      } else {
+        return superk;
+      }
+    });
+
+    return finalSuper;
   }
 
   superkeyMap(superkeys) {
@@ -924,7 +949,7 @@ class Editor extends Component {
       return "65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535";
     }
     const keyMap = superkeys.map(superkey => {
-      return superkey
+      return superkey.actions
         .map(key => {
           if (key === 0) {
             return;
@@ -943,7 +968,7 @@ class Editor extends Component {
     return this.state.superkeys.length;
   }
 
-  setSuperKey(superid, actions) {
+  setSuperKey(superid, actions, supername) {
     let temp = this.state.superkeys;
     let tempactions = actions;
     let founddata = false;
@@ -958,7 +983,7 @@ class Editor extends Component {
         return elem;
       })
       .reverse();
-    temp[superid] = tempactions;
+    temp[superid] = { actions: tempactions, name: supername };
     this.setState({ superkeys: temp });
   }
 
@@ -1106,7 +1131,6 @@ class Editor extends Component {
         return macro;
       }
     });
-    this.setState({ equalMacros: equal });
 
     return finalMacros;
   }
@@ -1152,7 +1176,7 @@ class Editor extends Component {
           ? "iso"
           : "ansi";
     } catch (error) {
-      console.error("Focus lost connection to Rasie: ", error);
+      console.error("Focus lost connection to Raise: ", error);
       return false;
     }
 
@@ -1473,15 +1497,19 @@ class Editor extends Component {
     }
 
     let actions = [code !== null ? code.base + code.modified : 0, 0, 0, 0, 0];
+    let superName = "";
     if (code !== null) {
       if (
         code.modified + code.base > 53915 &&
         code.modified + code.base < 53980
       ) {
-        actions = this.state.superkeys[code.base + code.modified - 53916];
+        actions = this.state.superkeys[code.base + code.modified - 53916]
+          .actions;
+        superName = this.state.superkeys[code.base + code.modified - 53916]
+          .name;
       }
     }
-    // console.log("final actions: " + actions, this.state.superkeys);
+    console.log("final actions: " + actions, code, this.state.superkeys);
 
     return (
       <Styles>
@@ -1553,6 +1581,7 @@ class Editor extends Component {
                   code={code}
                   macros={macros}
                   actions={actions}
+                  superName={superName}
                   newSuperID={this.newSuperID}
                   setSuperKey={this.setSuperKey}
                   delSuperKey={this.delSuperKey}

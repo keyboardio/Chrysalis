@@ -12,10 +12,15 @@ import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 
 import { RiStopFill } from "react-icons/ri";
-import { BsFillBrightnessAltLowFill, BsShift } from "react-icons/bs";
+import { IoIosPause, IoIosPlay, IoIosShuffle } from "react-icons/io";
 import { FiMenu } from "react-icons/fi";
 import { CgToggleOff } from "react-icons/cg";
 import { ImTab } from "react-icons/im";
+import {
+  BsFillBrightnessAltLowFill,
+  BsShift,
+  BsBackspace
+} from "react-icons/bs";
 import {
   FaVolumeDown,
   FaVolumeMute,
@@ -33,12 +38,6 @@ import {
   BiRightArrowCircle,
   BiUpArrowCircle
 } from "react-icons/bi";
-import {
-  IoIosBackspace,
-  IoIosPause,
-  IoIosPlay,
-  IoIosShuffle
-} from "react-icons/io";
 import {
   AiFillForward,
   AiFillWindows,
@@ -80,6 +79,9 @@ const Style = Styled.div`
 }
 .svgStyle {
   max-height: 290px;
+}
+.keycap {
+  color: ${({ theme }) => theme.keyboardPicker.keyIconColor}
 }
 `;
 
@@ -153,7 +155,7 @@ export default class KeyPicker extends Component {
     }
     const os = process.platform;
     const iconlist = {
-      Backspace: <IoIosBackspace className="bigger" />,
+      Backspace: <BsBackspace className="bigger" />,
       Enter: <MdKeyboardReturn className="bigger" />,
       Space: <MdSpaceBar className="bigger" />,
       CapsLock: <MdKeyboardCapslock className="bigger" />,

@@ -214,7 +214,6 @@ class MacrosConfigurator extends React.Component {
         macros[i].actions = actions;
         macros[i].id = i;
         macros[i].name = "";
-        macros[i].short = "";
         macros[i].macro = "";
         i++;
         actions = [];
@@ -231,7 +230,6 @@ class MacrosConfigurator extends React.Component {
     macros[i].actions = actions;
     macros[i].id = i;
     macros[i].name = "";
-    macros[i].short = "";
     macros[i].macro = "";
     macros = macros.map(macro => {
       let aux = macro.actions.map(action => {
@@ -263,7 +261,6 @@ class MacrosConfigurator extends React.Component {
           equal[i] = true;
           let aux = macro;
           aux.name = stored[i].name;
-          aux.short = stored[i].short;
           aux.macro = stored[i].actions
             .map(k => this.keymapDB.parse(k.keyCode).label)
             .join(" ");

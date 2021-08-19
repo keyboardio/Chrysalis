@@ -7,7 +7,7 @@ const ksl = {
   "1UT": {
     outb: { x: 44, y: 20, dx: 0, dy: 0 },
     out: { x: 42, y: 18, dx: 1, dy: 1 },
-    icon: { x: 15, y: -1, w: 30, h: 26 },
+    icon: { x: 14, y: -1, w: 30, h: 26 },
     text: {
       a: { dx: 6, dy: 19, fs: 20 },
       b: { dx: 18, dy: 15, fs: 14 },
@@ -19,7 +19,7 @@ const ksl = {
   "2UT": {
     outb: { x: 94, y: 22, dx: 0, dy: 0 },
     out: { x: 92, y: 20, dx: 1, dy: 1 },
-    icon: { x: 15, y: -1, w: 30, h: 26 },
+    icon: { x: 20, y: -1, w: 30, h: 26 },
     text: {
       a: { dx: 6, dy: 16, fs: 16 },
       b: { dx: 60, dy: 16, fs: 16 },
@@ -31,7 +31,7 @@ const ksl = {
   specialBlockT: {
     outb: { x: 44, y: 22, dx: 0, dy: 0 },
     out: { x: 42, y: 20, dx: 1, dy: 1 },
-    icon: { x: 15, y: -3, w: 30, h: 26 },
+    icon: { x: 12, y: -3, w: 30, h: 26 },
     text: {
       a: { dx: 11, dy: 20, fs: 16 },
       b: { dx: 10, dy: 28, fs: 14 },
@@ -55,31 +55,31 @@ const ksl = {
   "1U": {
     outb: { x: 44, y: 26, dx: 0, dy: 0 },
     out: { x: 42, y: 24, dx: 1, dy: 1 },
-    icon: { x: 15, y: -1, w: 30, h: 26 },
+    icon: { x: 12, y: -1, w: 30, h: 26 },
     text: {
       a: { dx: 6, dy: 19, fs: 20 },
       b: { dx: 18, dy: 15, fs: 14 },
       c: { dx: 28, dy: 15, fs: 14 },
       d: { dx: 38, dy: 15, fs: 14 },
-      letter: { dx: 25, dy: 19, fs: 18, fss: 14 }
+      letter: { dx: 22, dy: 19, fs: 18, fss: 14 }
     }
   },
   "1U2": {
     outb: { x: 54, y: 26, dx: 0, dy: 0 },
     out: { x: 52, y: 24, dx: 1, dy: 1 },
-    icon: { x: 15, y: -1, w: 30, h: 26 },
+    icon: { x: 16, y: -1, w: 30, h: 26 },
     text: {
       a: { dx: 6, dy: 19, fs: 20 },
       b: { dx: 16, dy: 19, fs: 14 },
       c: { dx: 28, dy: 19, fs: 14 },
       d: { dx: 38, dy: 19, fs: 14 },
-      letter: { dx: 30, dy: 19, fs: 16, fss: 14 }
+      letter: { dx: 27, dy: 19, fs: 16, fss: 14 }
     }
   },
   "1U5": {
     outb: { x: 64, y: 26, dx: 0, dy: 0 },
     out: { x: 62, y: 24, dx: 1, dy: 1 },
-    icon: { x: 15, y: -1, w: 30, h: 26 },
+    icon: { x: 22, y: -1, w: 30, h: 26 },
     text: {
       a: { dx: 6, dy: 19, fs: 20 },
       b: { dx: 16, dy: 19, fs: 14 },
@@ -91,7 +91,7 @@ const ksl = {
   "1U6": {
     outb: { x: 84, y: 26, dx: 0, dy: 0 },
     out: { x: 82, y: 24, dx: 1, dy: 1 },
-    icon: { x: 15, y: -1, w: 30, h: 26 },
+    icon: { x: 29, y: -1, w: 30, h: 26 },
     text: {
       a: { dx: 6, dy: 19, fs: 20 },
       b: { dx: 16, dy: 19, fs: 14 },
@@ -103,7 +103,7 @@ const ksl = {
   "1U8": {
     outb: { x: 94, y: 26, dx: 0, dy: 0 },
     out: { x: 92, y: 24, dx: 1, dy: 1 },
-    icon: { x: 15, y: -1, w: 30, h: 26 },
+    icon: { x: 32, y: -1, w: 30, h: 26 },
     text: {
       a: { dx: 6, dy: 19, fs: 20 },
       b: { dx: 16, dy: 19, fs: 14 },
@@ -115,7 +115,7 @@ const ksl = {
   "2U": {
     outb: { x: 104, y: 26, dx: 0, dy: 0 },
     out: { x: 102, y: 24, dx: 1, dy: 1 },
-    icon: { x: 15, y: -1, w: 30, h: 26 },
+    icon: { x: 40, y: -1, w: 30, h: 26 },
     text: {
       a: { dx: 6, dy: 19, fs: 20 },
       b: { dx: 60, dy: 19, fs: 14 },
@@ -127,19 +127,19 @@ const ksl = {
   "3U": {
     outb: { x: 168, y: 26, dx: 0, dy: 0 },
     out: { x: 166, y: 24, dx: 1, dy: 1 },
-    icon: { x: 15, y: -1, w: 30, h: 26 },
+    icon: { x: 58, y: -1, w: 30, h: 26 },
     text: {
       a: { dx: 6, dy: 19, fs: 20 },
       b: { dx: 16, dy: 19, fs: 14 },
       c: { dx: 28, dy: 19, fs: 14 },
       d: { dx: 38, dy: 19, fs: 14 },
-      letter: { dx: 52, dy: 19, fs: 20, fss: 14 }
+      letter: { dx: 84, dy: 19, fs: 20, fss: 14 }
     }
   },
   "6U2": {
     outb: { x: 284, y: 26, dx: 0, dy: 0 },
     out: { x: 282, y: 24, dx: 1, dy: 1 },
-    icon: { x: 15, y: -1, w: 30, h: 26 },
+    icon: { x: 130, y: -1, w: 30, h: 26 },
     text: {
       a: { dx: 6, dy: 19, fs: 20 },
       b: { dx: 16, dy: 19, fs: 14 },
@@ -157,7 +157,7 @@ const ksl = {
       b: { dx: 10, dy: 28, fs: 14 },
       c: { dx: 128, dy: 19, fs: 14 },
       d: { dx: 138, dy: 19, fs: 14 },
-      letter: { dx: 17, dy: 17, fs: 16, fss: 14 }
+      letter: { dx: 18, dy: 17, fs: 16, fss: 14 }
     }
   },
   specialBlock: {
@@ -181,7 +181,7 @@ const ksl = {
       b: { dx: 2, dy: 28, fs: 14 },
       c: { dx: 28, dy: 19, fs: 14 },
       d: { dx: 38, dy: 19, fs: 14 },
-      letter: { dx: 17, dy: 38, fs: 16, fss: 14 }
+      letter: { dx: 18, dy: 38, fs: 16, fss: 14 }
     }
   },
   wideBlock: {
@@ -193,7 +193,7 @@ const ksl = {
       b: { dx: 2, dy: 28, fs: 14 },
       c: { dx: 28, dy: 19, fs: 14 },
       d: { dx: 38, dy: 19, fs: 14 },
-      letter: { dx: 38, dy: 17, fs: 20, fss: 14 }
+      letter: { dx: 39, dy: 17, fs: 20, fss: 14 }
     }
   },
   enter: {

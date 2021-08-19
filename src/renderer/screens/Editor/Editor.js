@@ -919,11 +919,18 @@ class Editor extends Component {
     // TODO: Check if stored superKeys match the received ones, if they match, retrieve name and apply it to current superKeys
     let equal = [];
     let finalSuper = [];
-    const stored = store.get("superkeys");
-    console.log("check data integrity", superkeys, stored, stored[0].actions);
-    if (stored === undefined || stored[0].actions === undefined) {
+    const stored = store.get("superkeys") ? store.get("superkeys") : [];
+    try {
+      console.log("check data integrity", superkeys, stored, stored[0].actions);
+      if (stored === undefined || stored[0].actions === undefined) {
+        return superkeys;
+      }
+    } catch (error) {
+      console.error("unable to retrieve stored superkeys, using loaded ones");
+      console.error(error);
       return superkeys;
     }
+
     finalSuper = superkeys.map((superk, i) => {
       if (stored.length > i && stored.length > 0) {
         console.log(
@@ -1076,7 +1083,6 @@ class Editor extends Component {
         macros[i].actions = actions;
         macros[i].id = i;
         macros[i].name = "";
-        macros[i].short = "";
         macros[i].macro = "";
         i++;
         actions = [];
@@ -1093,7 +1099,6 @@ class Editor extends Component {
     macros[i].actions = actions;
     macros[i].id = i;
     macros[i].name = "";
-    macros[i].short = "";
     macros[i].macro = "";
     macros = macros.map(macro => {
       let aux = macro.actions.map(action => {
@@ -1125,7 +1130,6 @@ class Editor extends Component {
           equal[i] = true;
           let aux = macro;
           aux.name = stored[i].name;
-          aux.short = stored[i].short;
           return aux;
         } else {
           equal[i] = false;
@@ -1413,9 +1417,9 @@ class Editor extends Component {
         if (key.extraLabel == "MACRO") {
           if (
             macros.length > parseInt(key.label) &&
-            macros[parseInt(key.label)].short != ""
+            macros[parseInt(key.label)].name.substr(0, 5) != ""
           ) {
-            newKey.label = macros[parseInt(key.label)].short;
+            newKey.label = macros[parseInt(key.label)].name.substr(0, 5);
           }
         }
         return newKey;
@@ -1430,7 +1434,7 @@ class Editor extends Component {
             superkeys.length > parseInt(key.label) &&
             superkeys[parseInt(key.label)].name != ""
           ) {
-            newKey.label = superkeys[parseInt(key.label)].name;
+            newKey.label = superkeys[parseInt(key.label)].name.substr(0, 5);
           }
         }
         return newKey;
@@ -1527,8 +1531,9 @@ class Editor extends Component {
       ) {
         actions = this.state.superkeys[code.base + code.modified - 53916]
           .actions;
-        superName = this.state.superkeys[code.base + code.modified - 53916]
-          .name;
+        superName = this.state.superkeys[
+          code.base + code.modified - 53916
+        ].name.substr(0, 5);
       }
     }
     // console.log("final actions: " + actions, superName, this.state.superkeys);

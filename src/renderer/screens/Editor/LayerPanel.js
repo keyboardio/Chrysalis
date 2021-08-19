@@ -118,7 +118,7 @@ const Styles = Styled.div`
   .layer-share {
     margin: 0;
     button {
-      width: 50%;
+      width: 100%;  //TODO: when updating share button, change this value back to 50%
       color: ${({ theme }) => theme.colors.button.text};
       background-color: transparent;
       border: 0px;
@@ -226,12 +226,12 @@ export default class LayerPanel extends Component {
 
     const shareb = (
       <>
-        {this.CButton(
+        {/* {this.CButton(
           "Share your Layers! comming soon",
           this.spare,
           <MdShare />,
           true
-        )}
+        )} */}
         {this.CButton(exportAllTitle, exportAllFunc, <MdUnarchive />, false)}
       </>
     );

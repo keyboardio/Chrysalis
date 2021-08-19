@@ -216,7 +216,7 @@ class KeyConfig extends Component {
       }
     });
     let activeTab = "editor";
-    if (keynum < 256) {
+    if (keynum < 256 || (keynum > 53851 && keynum < 53852 + 65)) {
       activeTab = "editor";
     } else if (layerData > 0 || selectdual > 0) {
       activeTab = "layer";
@@ -413,6 +413,16 @@ class KeyConfig extends Component {
   }
 
   parseKey(keycode) {
+    if (keycode >= 53852 && keycode <= 53852 + 64) {
+      if (this.props.code !== null)
+        return (
+          this.keymapDB.parse(keycode).extraLabel +
+          "." +
+          this.props.macros[
+            parseInt(this.keymapDB.parse(keycode).label)
+          ].name.substr(0, 5)
+        );
+    }
     return this.props.code !== null
       ? this.keymapDB.parse(keycode).extraLabel != undefined
         ? this.keymapDB.parse(keycode).extraLabel +

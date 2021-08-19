@@ -18,13 +18,13 @@
 import React, { Fragment } from "react";
 import i18n from "../../i18n";
 
-import { FaRegEdit } from "react-icons/fa";
+import { MdKeyboard } from "react-icons/Md";
 
 export default function EditorMenuItem({ onClick, drawerWidth }) {
   return (
     <div onClick={onClick} className={"item-list"}>
       <div className={"icon-item"}>
-        <FaRegEdit className={"icon-image"} />
+        <MdKeyboard className={"icon-image"} />
       </div>
       {drawerWidth === "auto" ? (
         <div className="icon-text">

@@ -6,6 +6,7 @@ const Light = {
     keyActiveColor: "#96dbff",
     keyDisabledColor: "#e5e5e5",
     keyTextColor: "#000000",
+    keyIconColor: "#444444",
     keySubTextColor: "#808080",
     keyTextDisabledColor: "#e5e5e5",
     titleColor: "#000000",

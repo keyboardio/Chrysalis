@@ -6,6 +6,7 @@ const Dark = {
     keyActiveColor: "#db1258",
     keyDisabledColor: "#e5e5e5",
     keyTextColor: "#FFFFFF",
+    keyIconColor: "#AAAAAA",
     keySubTextColor: "#959595",
     keyTextDisabledColor: "#e5e5e5",
     titleColor: "#FFFFFF",

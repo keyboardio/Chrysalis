@@ -135,7 +135,6 @@ class MacroManager extends Component {
     let aux = Object.assign({}, this.state.macros[selected]);
     aux.id = this.state.macros.length;
     aux.name = "Copy of " + aux.name;
-    aux.short = "CPY " + selected;
     macros.push(aux);
     this.props.updateMacro(macros, -1);
     this.changeSelected(aux.id);

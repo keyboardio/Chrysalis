@@ -549,6 +549,7 @@ class Editor extends Component {
     // await focus.command("macros.map", this.macrosMap(newMacros));
     await focus.command("superkeys.map", this.superkeyMap(newSuperKeys));
     // store.set("macros", newMacros);
+    console.log(newSuperKeys);
     store.set("superkeys", newSuperKeys);
     this.setState({
       modified: false,
@@ -904,26 +905,35 @@ class Editor extends Component {
       }
       iter++;
     }
-    superkeys[superindex] = { actions: superkey };
-    // console.log("SUPERKEYS LEIDAS:" + superkeys + " de " + raw);
+    superkeys[superindex] = { actions: superkey, name: "" };
+    console.log("SUPERKEYS LEIDAS:" + superkeys + " de " + raw);
 
     if (
-      superkeys[0] == [0] ||
-      superkeys[0].filter(v => v === 0).length == superkeys[0].length - 1
+      superkeys[0].actions == undefined ||
+      superkeys[0].actions == [0] ||
+      superkeys[0].actions.filter(v => v === 0).length ==
+        superkeys[0].length - 1
     )
       return [];
     // TODO: Check if stored superKeys match the received ones, if they match, retrieve name and apply it to current superKeys
     let equal = [];
     let finalSuper = [];
-    const stored = this.state.storedSuper;
-    console.log(superkeys, stored);
-    if (stored === undefined) {
+    const stored = store.get("superkeys");
+    console.log("check data integrity", superkeys, stored, stored[0].actions);
+    if (stored === undefined || stored[0].actions === undefined) {
       return superkeys;
     }
     finalSuper = superkeys.map((superk, i) => {
       if (stored.length > i && stored.length > 0) {
-        console.log("compare between: ", superk.actions, stored[i].actions);
-        if (superk.actions.join(",") === stored[i].actions.join(",")) {
+        console.log(
+          "compare between SK: ",
+          superk.actions.join(","),
+          stored[i].actions.filter(act => act != 0).join(",")
+        );
+        if (
+          superk.actions.join(",") ===
+          stored[i].actions.filter(act => act != 0).join(",")
+        ) {
           equal[i] = true;
           let aux = superk;
           aux.name = stored[i].name;
@@ -936,7 +946,8 @@ class Editor extends Component {
         return superk;
       }
     });
-
+    console.log("final superkeys", finalSuper);
+    this.setState({ storedSuper: stored });
     return finalSuper;
   }
 
@@ -1116,7 +1127,7 @@ class Editor extends Component {
     }
     finalMacros = macros.map((macro, i) => {
       if (stored.length > i && stored.length > 0) {
-        console.log("compare between: ", macro.actions, stored[i].actions);
+        console.log("compare between MK: ", macro.actions, stored[i].actions);
         if (macro.actions.join(",") === stored[i].actions.join(",")) {
           equal[i] = true;
           let aux = macro;
@@ -1373,7 +1384,8 @@ class Editor extends Component {
       currentKeyIndex,
       currentLedIndex,
       currentLanguageLayout,
-      macros
+      macros,
+      superkeys
     } = this.state;
 
     let { Layer, kbtype } = this.getLayout();
@@ -1411,6 +1423,14 @@ class Editor extends Component {
             macros[parseInt(key.label)].short != ""
           ) {
             newKey.label = macros[parseInt(key.label)].short;
+          }
+        }
+        if (key.extraLabel == "SUPER") {
+          if (
+            superkeys.length > parseInt(key.label) &&
+            superkeys[parseInt(key.label)].name != ""
+          ) {
+            newKey.label = superkeys[parseInt(key.label)].name;
           }
         }
         return newKey;
@@ -1509,7 +1529,7 @@ class Editor extends Component {
           .name;
       }
     }
-    console.log("final actions: " + actions, code, this.state.superkeys);
+    // console.log("final actions: " + actions, superName, this.state.superkeys);
 
     return (
       <Styles>

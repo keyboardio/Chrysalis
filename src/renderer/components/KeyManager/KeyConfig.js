@@ -234,7 +234,8 @@ class KeyConfig extends Component {
         layerData,
         modifs: tempModifs,
         pastkeyindex: this.props.keyIndex,
-        activeTab
+        activeTab,
+        superName: this.props.superName
       });
     }
   }

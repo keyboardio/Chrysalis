@@ -322,6 +322,7 @@ class Key extends React.Component {
                   : this.props.theme.keyboardPicker.keyColor
               }
               className="outer border"
+              onClick={clicked}
             />
             <rect
               x={x + ksl[content.type].out.dx}
@@ -456,6 +457,7 @@ class Key extends React.Component {
             y={y + ksl[content.type].icon.y}
             width={ksl[content.type].icon.w}
             height={ksl[content.type].icon.h}
+            onClick={clicked}
           >
             {icon}
           </foreignObject>

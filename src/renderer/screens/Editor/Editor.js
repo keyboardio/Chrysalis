@@ -1451,6 +1451,7 @@ class Editor extends Component {
           theme={this.props.theme}
           darkMode={this.props.darkMode}
           style={{ width: "50vw" }}
+          showUnderglow={this.state.modeselect != "keyboard"}
         />
       </div>
       // </fade>

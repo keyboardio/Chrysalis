@@ -481,7 +481,7 @@ class KeyboardSelect extends Component {
     ) {
       const Keymap =
         devices[this.state.selectedPortIndex].device.components.keymap;
-      preview = <Keymap index={0} className="" />;
+      preview = <Keymap index={0} className="" showUnderglow={true} />;
     }
 
     return (

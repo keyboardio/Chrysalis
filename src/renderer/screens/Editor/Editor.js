@@ -1418,6 +1418,13 @@ class Editor extends Component {
             newKey.label = macros[parseInt(key.label)].short;
           }
         }
+        return newKey;
+      });
+    }
+
+    if (layerData != undefined && superkeys.length > 0) {
+      layerData = layerData.map(key => {
+        let newKey = key;
         if (key.extraLabel == "SUPER") {
           if (
             superkeys.length > parseInt(key.label) &&

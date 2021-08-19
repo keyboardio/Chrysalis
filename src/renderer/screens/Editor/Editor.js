@@ -49,6 +49,7 @@ import {
   backupLayers,
   shareLayers
 } from "../../../api/firebase/firebase.utils";
+import keymap from "../../../api/keymap";
 
 const SlideInAnim = keyframes`${slideInUp}`;
 const Store = window.require("electron-store");
@@ -547,10 +548,10 @@ class Editor extends Component {
     // let newMacros = this.state.macros;
     let newSuperKeys = this.state.superkeys;
     // await focus.command("macros.map", this.macrosMap(newMacros));
-    await focus.command("superkeys.map", this.superkeyMap(newSuperKeys));
-    // store.set("macros", newMacros);
     console.log(newSuperKeys);
     store.set("superkeys", newSuperKeys);
+    await focus.command("superkeys.map", this.superkeyMap(newSuperKeys));
+    // store.set("macros", newMacros);
     this.setState({
       modified: false,
       saving: false,
@@ -897,7 +898,7 @@ class Editor extends Component {
     while (raw.length > iter) {
       // console.log(iter, raw[iter], superkey);
       if (raw[iter] === 0) {
-        superkeys[superindex] = superkey;
+        superkeys[superindex] = { actions: superkey, name: "" };
         superindex++;
         superkey = [];
       } else {
@@ -906,7 +907,7 @@ class Editor extends Component {
       iter++;
     }
     superkeys[superindex] = { actions: superkey, name: "" };
-    console.log("SUPERKEYS LEIDAS:" + superkeys + " de " + raw);
+    console.log("Got Superkeys:" + JSON.stringify(superkeys) + " from " + raw);
 
     if (
       superkeys[0].actions == undefined ||
@@ -960,18 +961,10 @@ class Editor extends Component {
       return "65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535";
     }
     const keyMap = superkeys.map(superkey => {
-      return superkey.actions
-        .map(key => {
-          if (key === 0) {
-            return;
-          } else {
-            return key;
-          }
-        })
-        .concat([0]);
+      return superkey.actions.filter(act => act != 0).concat([0]);
     });
     const mapped = [].concat.apply([], keyMap.flat()).concat([0]).join(" ");
-    console.log(mapped);
+    console.log(mapped, keyMap);
     return mapped;
   }
 
@@ -1516,13 +1509,14 @@ class Editor extends Component {
             : 0
       };
     }
-
+    // console.log(JSON.stringify(code));
     let actions = [code !== null ? code.base + code.modified : 0, 0, 0, 0, 0];
     let superName = "";
     if (code !== null) {
       if (
         code.modified + code.base > 53915 &&
-        code.modified + code.base < 53980
+        code.modified + code.base < 53980 &&
+        this.state.superkeys[code.base + code.modified - 53916] != undefined
       ) {
         actions = this.state.superkeys[code.base + code.modified - 53916]
           .actions;

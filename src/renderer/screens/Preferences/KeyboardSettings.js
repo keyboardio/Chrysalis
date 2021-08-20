@@ -142,10 +142,10 @@ class KeyboardSettings extends React.Component {
       this.setState({ SuperHoldstart: holdstart });
     });
 
-    focus.command("superkeys.overlap").then(overlapThreshold => {
-      overlapThreshold = overlapThreshold ? parseInt(overlapThreshold) : 20;
-      this.setState({ SuperOverlapThreshold: overlapThreshold });
-    });
+    // focus.command("superkeys.overlap").then(overlapThreshold => {
+    //   overlapThreshold = overlapThreshold ? parseInt(overlapThreshold) : 20;
+    //   this.setState({ SuperOverlapThreshold: overlapThreshold });
+    // });
 
     // MOUSE variables commands
     focus.command("mouse.speed").then(speed => {
@@ -293,15 +293,15 @@ class KeyboardSettings extends React.Component {
     this.props.startContext();
   };
 
-  setSuperOverlapThreshold = event => {
-    const value = event.target.value;
+  // setSuperOverlapThreshold = event => {
+  //   const value = event.target.value;
 
-    this.setState({
-      SuperOverlapThreshold: value,
-      modified: true
-    });
-    this.props.startContext();
-  };
+  //   this.setState({
+  //     SuperOverlapThreshold: value,
+  //     modified: true
+  //   });
+  //   this.props.startContext();
+  // };
 
   setSpeed = event => {
     const value = event.target.value;
@@ -412,7 +412,7 @@ class KeyboardSettings extends React.Component {
     await focus.command("superkeys.repeat", SuperRepeat);
     await focus.command("superkeys.waitfor", SuperWaitfor);
     await focus.command("superkeys.holdstart", SuperHoldstart);
-    await focus.command("superkeys.overlap", SuperOverlapThreshold);
+    // await focus.command("superkeys.overlap", SuperOverlapThreshold);
     // MOUSE KEYS
     await focus.command("mouse.speed", mouseSpeed);
     await focus.command("mouse.speedDelay", mouseSpeedDelay);
@@ -631,16 +631,16 @@ class KeyboardSettings extends React.Component {
         marks={[{ value: 200, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
-    const SuperO = (
-      <RangeSlider
-        min={0}
-        max={100}
-        value={SuperOverlapThreshold}
-        className="slider"
-        onChange={this.setSuperOverlapThreshold}
-        marks={[{ value: 20, label: i18n.keyboardSettings.defaultLabel }]}
-      />
-    );
+    // const SuperO = (
+    //   <RangeSlider
+    //     min={0}
+    //     max={100}
+    //     value={SuperOverlapThreshold}
+    //     className="slider"
+    //     onChange={this.setSuperOverlapThreshold}
+    //     marks={[{ value: 20, label: i18n.keyboardSettings.defaultLabel }]}
+    //   />
+    // );
     const mSpeed = (
       <RangeSlider
         min={0}
@@ -848,7 +848,7 @@ class KeyboardSettings extends React.Component {
                   {superH}
                 </Form.Group>
               )}
-              {SuperOverlapThreshold >= 0 && (
+              {/* {SuperOverlapThreshold >= 0 && (
                 <Form.Group
                   controlId="SuperOverlapThreshold"
                   className="formGroup"
@@ -861,7 +861,7 @@ class KeyboardSettings extends React.Component {
                   </Form.Label>
                   {SuperO}
                 </Form.Group>
-              )}
+              )} */}
             </Card.Body>
           </Card>
           <Card.Header>{i18n.keyboardSettings.mouse.title}</Card.Header>

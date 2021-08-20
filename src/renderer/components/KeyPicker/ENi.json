@@ -819,7 +819,7 @@
     "x": 660,
     "y": 64,
     "centered": true,
-    "icon": true,    
+    "icon": true,
     "iconsize":20,
     "iconx":690,
     "icony":60,
@@ -1867,16 +1867,16 @@
       "fourth": ""
     }
   },
-{
+  {
     "id": 0,
     "x": 100,
     "y": 244,
     "centered": true,
-    "icon": false,
-    "iconname":"",
+    "icon": true,
+    "iconname":"Cancel",
     "content": {
       "type": "specialBlockT",
-      "first": "🚫",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""

@@ -4,12 +4,12 @@ const Light = {
   keyboardPicker: {
     keyColor: "#f3f3f3",
     keyActiveColor: "#96dbff",
-    keyDisabledColor: "#e5e5e5",
-    keyTextColor: "#000000",
-    keyIconColor: "#444444",
+    keyDisabledColor: "#BBBBBB",
+    keyTextColor: "#444444",
+    keyIconColor: "#666666",
     keySubTextColor: "#808080",
-    keyTextDisabledColor: "#e5e5e5",
-    titleColor: "#000000",
+    keyTextDisabledColor: "#BBBBBB",
+    titleColor: "#666666",
     subTitleColor: "#808080"
   },
   colors: {

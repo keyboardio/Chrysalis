@@ -15,6 +15,7 @@ import { RiStopFill } from "react-icons/ri";
 import { IoIosPause, IoIosPlay, IoIosShuffle } from "react-icons/io";
 import { FiMenu } from "react-icons/fi";
 import { CgToggleOff } from "react-icons/cg";
+import { TiCancel } from "react-icons/ti";
 import { ImTab } from "react-icons/im";
 import {
   BsFillBrightnessAltLowFill,
@@ -53,7 +54,7 @@ import {
   MdKeyboardReturn,
   MdSpaceBar,
   MdKeyboardCapslock,
-  MdInfo,
+  MdInfoOutline,
   MdEject
 } from "react-icons/md";
 
@@ -206,6 +207,7 @@ class KeyPicker extends Component {
       Shuffle: <IoIosShuffle className="bigger" />,
       Forward: <AiFillForward className="bigger" />,
       Backward: <AiOutlineBackward className="bigger" />,
+      Cancel: <TiCancel className="bigger" />,
       ScrlUp: (
         <React.Fragment>
           <BiMouseAlt className="bigger" />
@@ -270,7 +272,7 @@ class KeyPicker extends Component {
               delay={{ show: 250, hide: 400 }}
               overlay={this.renderTooltip(key.tooltip, "", "", "")}
             >
-              <MdInfo className={"info"} />
+              <MdInfoOutline className={"info"} />
             </OverlayTrigger>
           </foreignObject>
         );

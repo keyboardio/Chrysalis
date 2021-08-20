@@ -274,16 +274,13 @@ class Selector extends Component {
         <Card className="type-card overflow">
           <Card.Body>
             <Row>
-              <Col xs={3} className="px-0 text-center">
-                <h5 className="titleheight">Name</h5>
-              </Col>
-              <Col xs={9} className="px-0 text-center">
+              <Col xs={12} className="px-0 text-center">
                 <InputGroup className="">
                   <FormControl
                     id="nameSelectro"
                     className="fixedheight"
                     value={superName}
-                    placeholder={superName != "" ? "Choose a name" : superName}
+                    placeholder={superName == "" ? "Choose a name" : superName}
                     onChange={setSuperName}
                   />
                 </InputGroup>

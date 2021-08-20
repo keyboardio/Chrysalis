@@ -1419,7 +1419,9 @@ class Editor extends Component {
             macros.length > parseInt(key.label) &&
             macros[parseInt(key.label)].name.substr(0, 5) != ""
           ) {
-            newKey.label = macros[parseInt(key.label)].name.substr(0, 5);
+            newKey.label = macros[parseInt(key.label)].name
+              .substr(0, 5)
+              .toLowerCase();
           }
         }
         return newKey;
@@ -1434,7 +1436,9 @@ class Editor extends Component {
             superkeys.length > parseInt(key.label) &&
             superkeys[parseInt(key.label)].name != ""
           ) {
-            newKey.label = superkeys[parseInt(key.label)].name.substr(0, 5);
+            newKey.label = superkeys[parseInt(key.label)].name
+              .substr(0, 5)
+              .toLowerCase();
           }
         }
         return newKey;

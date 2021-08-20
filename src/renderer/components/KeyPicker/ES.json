@@ -1867,16 +1867,16 @@
       "fourth": ""
     }
   },
-{
+  {
     "id": 0,
     "x": 100,
     "y": 244,
     "centered": true,
-    "icon": false,
-    "iconname":"",
+    "icon": true,
+    "iconname":"Cancel",
     "content": {
       "type": "specialBlockT",
-      "first": "🚫",
+      "first": "",
       "second": "",
       "third": "",
       "fourth": ""

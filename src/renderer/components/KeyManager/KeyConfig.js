@@ -216,7 +216,7 @@ class KeyConfig extends Component {
       }
     });
     let activeTab = "editor";
-    if (keynum < 256 || (keynum > 53851 && keynum < 53852 + 65)) {
+    if (keynum < 256 || (keynum > 53851 && keynum < 53852 + 64)) {
       activeTab = "editor";
     } else if (layerData > 0 || selectdual > 0) {
       activeTab = "layer";
@@ -535,7 +535,7 @@ class KeyConfig extends Component {
                         className={
                           actions != undefined &&
                           ((actions[action] >= 53852 &&
-                            actions[action] <= 53852 + 64) ||
+                            actions[action] < 53852 + 64) ||
                             (actions[action] >= 49153 &&
                               actions[action] <= 49160) ||
                             (actions[action] >= 104 && actions[action] <= 115))

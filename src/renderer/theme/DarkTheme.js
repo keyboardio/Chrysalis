@@ -4,11 +4,11 @@ const Dark = {
   keyboardPicker: {
     keyColor: "#252525",
     keyActiveColor: "#db1258",
-    keyDisabledColor: "#e5e5e5",
-    keyTextColor: "#FFFFFF",
-    keyIconColor: "#BBBBBB",
+    keyDisabledColor: "#BBBBBB",
+    keyTextColor: "#DDDDDD",
+    keyIconColor: "#DDDDDD",
     keySubTextColor: "#959595",
-    keyTextDisabledColor: "#e5e5e5",
+    keyTextDisabledColor: "#BBBBBB",
     titleColor: "#FFFFFF",
     subTitleColor: "#959595"
   },

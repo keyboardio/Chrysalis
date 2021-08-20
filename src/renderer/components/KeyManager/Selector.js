@@ -68,6 +68,9 @@ const Style = Styled.div`
 .fixedwidth {
   width: 62px;
 }
+.namepicker {
+  font-weight: 300;
+}
 .whitebgns {
   background-color: ${({ theme }) => theme.card.background};
   color: ${({ theme }) => theme.card.colorDisabled};
@@ -273,14 +276,18 @@ class Selector extends Component {
       <Style>
         <Card className="type-card overflow">
           <Card.Body>
-            <Row>
+            <Row className="m-0 py-1">
               <Col xs={12} className="px-0 text-center">
                 <InputGroup className="">
                   <FormControl
                     id="nameSelectro"
-                    className="fixedheight"
+                    className="fixedheight namepicker"
                     value={superName}
-                    placeholder={superName == "" ? "Choose a name" : superName}
+                    placeholder={
+                      superName == ""
+                        ? "Edit custom label (5 characters max)"
+                        : superName
+                    }
                     onChange={setSuperName}
                   />
                 </InputGroup>

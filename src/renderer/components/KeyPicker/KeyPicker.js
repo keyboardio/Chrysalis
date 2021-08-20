@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from "react";
-import Styled from "styled-components";
+import Styled, { withTheme } from "styled-components";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Tooltip from "react-bootstrap/Tooltip";
@@ -76,16 +76,26 @@ const Style = Styled.div`
   }
   .bigger {
     font-size: 1.3rem;
+  }
+  .biggerWin {
+    font-size: 1.2rem;
+  }
+  .biggerApple {
+    font-size: 1.3rem;
+  }
+  .biggerLinux {
+    font-size: 1.3rem;
+  }
 }
 .svgStyle {
   max-height: 290px;
 }
-.keycap {
-  color: ${({ theme }) => theme.keyboardPicker.keyIconColor}
-}
+`;
+const IconColor = Styled.span`
+    color: ${props => props.color};
 `;
 
-export default class KeyPicker extends Component {
+class KeyPicker extends Component {
   constructor(props) {
     super(props);
 
@@ -155,20 +165,20 @@ export default class KeyPicker extends Component {
     }
     const os = process.platform;
     const iconlist = {
-      Backspace: <BsBackspace className="bigger" />,
-      Enter: <MdKeyboardReturn className="bigger" />,
-      Space: <MdSpaceBar className="bigger" />,
-      CapsLock: <MdKeyboardCapslock className="bigger" />,
-      Tab: <ImTab className="bigger" />,
-      Shift: <BsShift className="bigger" />,
-      App: <FiMenu className="bigger" />,
+      Backspace: <BsBackspace />,
+      Enter: <MdKeyboardReturn />,
+      Space: <MdSpaceBar />,
+      CapsLock: <MdKeyboardCapslock />,
+      Tab: <ImTab />,
+      Shift: <BsShift />,
+      App: <FiMenu />,
       Win:
         os === "win32" ? (
-          <AiFillWindows className="bigger" />
+          <AiFillWindows className="biggerWin" />
         ) : os === "darwin" ? (
-          <AiFillApple className="bigger" />
+          <AiFillApple className="biggerApple" />
         ) : (
-          <FaLinux className="bigger" />
+          <FaLinux className="biggerLinux" />
         ),
       ArrUp: <AiOutlineArrowUp className="bigger" />,
       ArrDwn: <AiOutlineArrowDown className="bigger" />,
@@ -287,7 +297,20 @@ export default class KeyPicker extends Component {
           centered={key.centered}
           content={key.content}
           iconpresent={key.icon}
-          icon={iconlist[key.iconname]}
+          icon={
+            <IconColor
+              color={
+                key.mod == disableMods || key.move == disableMove
+                  ? this.props.theme.keyboardPicker.keyTextDisabledColor
+                  : this.props.theme.keyboardPicker.keyIconColor
+              }
+            >
+              {iconlist[key.iconname]}
+            </IconColor>
+          }
+          iconx={key.iconx}
+          icony={key.icony}
+          iconsize={key.iconsize}
           disabled={key.mod == disableMods || key.move == disableMove}
         />
       );
@@ -305,3 +328,5 @@ export default class KeyPicker extends Component {
     );
   }
 }
+
+export default withTheme(KeyPicker);

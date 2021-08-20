@@ -232,6 +232,9 @@ class Key extends React.Component {
       centered,
       iconpresent,
       icon,
+      iconsize,
+      iconx,
+      icony,
       content,
       disabled
     } = this.props;
@@ -453,10 +456,11 @@ class Key extends React.Component {
         )}
         {iconpresent ? (
           <foreignObject
-            x={x + ksl[content.type].icon.x}
-            y={y + ksl[content.type].icon.y}
+            x={iconx ? iconx : x + ksl[content.type].icon.x}
+            y={icony ? icony : y + ksl[content.type].icon.y}
             width={ksl[content.type].icon.w}
             height={ksl[content.type].icon.h}
+            fontSize={iconsize ? iconsize : "inherit"}
             onClick={clicked}
           >
             {icon}

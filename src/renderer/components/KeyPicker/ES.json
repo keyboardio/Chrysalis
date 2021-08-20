@@ -494,12 +494,14 @@
       "fourth": ""
     }
   },
-  {
+{
     "id": 42,
     "x": 650,
     "y": 32,
     "centered": true,
     "icon": true,
+    "iconsize":16,
+    "iconx":668,
     "iconname": "Backspace",
     "content": {
       "type": "1U2",
@@ -620,6 +622,9 @@
     "y": 64,
     "centered": true,
     "icon": true,
+    "iconsize":15,
+    "iconx":20,
+    "icony":64,
     "iconname":"Tab",
     "content": {
       "type": "1U2",
@@ -814,8 +819,11 @@
     "x": 660,
     "y": 64,
     "centered": true,
-    "icon": true,
-    "iconname": "Enter",
+    "icon": true,    
+    "iconsize":20,
+    "iconx":690,
+    "icony":60,
+    "iconname":"Enter",
     "content": {
       "type": "enter",
       "first": "",
@@ -875,6 +883,9 @@
     "y": 96,
     "centered": true,
     "icon": true,
+    "iconsize":22,
+    "iconx":22,
+    "icony":90,
     "iconname":"CapsLock",
     "content": {
       "type": "1U5",
@@ -1115,9 +1126,12 @@
     "y": 128,
     "centered": true,
     "icon": true,
+    "iconsize":18,
+    "iconx":17,
+    "icony":125,
     "iconname":"Shift",
     "content": {
-      "type": "1U",
+      "type": "1U8",
       "first": "",
       "second": "",
       "third": "",
@@ -1296,6 +1310,9 @@
     "y": 128,
     "centered": true,
     "icon": true,
+    "iconsize":18,
+    "iconx":641,
+    "icony":125,
     "iconname":"Shift",
     "content": {
       "type": "2U",
@@ -1435,7 +1452,10 @@
     "y": 160,
     "centered": true,
     "icon": true,
-    "iconname": "Space",
+    "iconsize":20,
+    "iconx":310,
+    "icony":157,
+    "iconname":"Space",
     "content": {
       "type": "6U2",
       "first": "",
@@ -1482,6 +1502,9 @@
     "y": 160,
     "centered": true,
     "icon": true,
+    "iconsize":19,
+    "iconx":607,
+    "icony":157,
     "iconname":"App",
     "content": {
       "type": "1U2",

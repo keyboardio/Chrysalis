@@ -151,7 +151,7 @@ const English = {
     oldMacroModal: {
       title: "Detected deprecated macro allocation",
       body:
-        "The macros in your layout need to be updated to work on this bazecor version, if you wish to automatically update them, press modify, else press cancel.",
+        "The macros in your layout need to be updated to work on this bazecor version, if you wish to automatically update them, press modify, else press cancel.\n\n ** Please note that the updated macro codes won't work until you flash the new firmware **",
       cancelButton: "Cancel",
       applyButton: "Modify Macros"
     },

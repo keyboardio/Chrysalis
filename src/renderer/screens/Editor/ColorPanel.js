@@ -220,7 +220,7 @@ export default class ColorPanel extends Component {
             toChangeAllKeysColor(selected, 69, 142);
           },
           <CgSmartHomeLight />,
-          false,
+          selected != undefined ? false : true,
           "last otherbutts"
         )}
       </>
@@ -234,7 +234,7 @@ export default class ColorPanel extends Component {
             toChangeAllKeysColor(selected, 0, 69);
           },
           <CgSmartHomeLight style={iconStyles} />,
-          false,
+          selected != undefined ? false : true,
           "last otherbutts"
         )}
       </>

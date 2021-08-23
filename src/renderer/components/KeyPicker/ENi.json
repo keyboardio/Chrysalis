@@ -821,7 +821,7 @@
     "centered": true,
     "icon": true,
     "iconsize":20,
-    "iconx":690,
+    "iconx":670,
     "icony":60,
     "iconname":"Enter",
     "content": {
@@ -1127,11 +1127,11 @@
     "centered": true,
     "icon": true,
     "iconsize":18,
-    "iconx":17,
+    "iconx":14,
     "icony":125,
     "iconname":"Shift",
     "content": {
-      "type": "1U8",
+      "type": "1U",
       "first": "",
       "second": "",
       "third": "",

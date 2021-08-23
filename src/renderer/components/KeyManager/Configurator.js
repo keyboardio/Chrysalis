@@ -18,6 +18,7 @@ import { LayerPicker } from "../KeyPicker";
 
 // Media
 import OSL from "../../../../static/OSL.png";
+import { isUnionTypeNode } from "typescript";
 
 const Style = Styled.div`
 .overflow {
@@ -193,52 +194,6 @@ class Configurator extends Component {
     const dltext3 = "2. Tap it to send a key.";
     const dltext4 = "Previously called dual-function layer.";
 
-    let switchTitle = this.layerSwitch.map(i => {
-      if (layerData != 0 && layerData == i.keynum) {
-        return i.name;
-      }
-      if (layerData == 0 && selectdual == i.keynum) {
-        return i.name;
-      }
-    });
-    if (switchTitle == undefined) {
-      switchTitle = "None Selected";
-    }
-    let lockTitle = this.layerLock.map(i => {
-      if (layerData != 0 && layerData == i.keynum) {
-        return i.name;
-      }
-      if (layerData == 0 && selectdual == i.keynum) {
-        return i.name;
-      }
-    });
-    if (lockTitle == undefined) {
-      lockTitle = "None Selected";
-    }
-    let oslTitle = this.oneShotLayer.map(i => {
-      if (layerData != 0 && layerData == i.keynum) {
-        return i.name;
-      }
-      if (layerData == 0 && selectdual == i.keynum) {
-        return i.name;
-      }
-    });
-    if (oslTitle == undefined) {
-      oslTitle = "None Selected";
-    }
-    let dualTitle = this.layerKey.map(i => {
-      if (layerData != 0 && layerData == i.keynum) {
-        return i.name;
-      }
-      if (layerData == 0 && selectdual == i.keynum) {
-        return i.name;
-      }
-    });
-    if (dualTitle == undefined) {
-      dualTitle = "None Selected";
-    }
-    // console.log(switchTitle, lockTitle, oslTitle, dualTitle);
-
     const layers = (
       <React.Fragment>
         <Row className="mx-0">
@@ -259,8 +214,22 @@ class Configurator extends Component {
               id="Selectlayers"
               className="selectButton"
               drop={"up"}
-              title={switchTitle}
-              value={layerData == 0 ? selectdual : layerData}
+              title={
+                this.layerSwitch[
+                  layerData == 0
+                    ? selectdual
+                    : this.layerSwitch.map(i => i.keynum).includes(layerData)
+                    ? this.layerSwitch.findIndex(o => o.keynum == layerData)
+                    : 0
+                ].name
+              }
+              value={
+                layerData == 0
+                  ? selectdual
+                  : this.layerSwitch.map(i => i.keynum).includes(layerData)
+                  ? layerData
+                  : 0
+              }
               onSelect={updatelayer}
             >
               {this.layerSwitch.map((item, id) => {
@@ -298,8 +267,22 @@ class Configurator extends Component {
               id="Selectlayers"
               className="selectButton"
               drop={"up"}
-              title={lockTitle}
-              value={layerData == 0 ? selectdual : layerData}
+              title={
+                this.layerLock[
+                  layerData == 0
+                    ? selectdual
+                    : this.layerLock.map(i => i.keynum).includes(layerData)
+                    ? this.layerLock.findIndex(o => o.keynum == layerData)
+                    : 0
+                ].name
+              }
+              value={
+                layerData == 0
+                  ? selectdual
+                  : this.layerLock.map(i => i.keynum).includes(layerData)
+                  ? layerData
+                  : 0
+              }
               onSelect={updatelayer}
             >
               {this.layerLock.map((item, id) => {
@@ -337,8 +320,22 @@ class Configurator extends Component {
               id="Selectlayers"
               className="selectButton"
               drop={"up"}
-              title={oslTitle}
-              value={layerData == 0 ? selectdual : layerData}
+              title={
+                this.oneShotLayer[
+                  layerData == 0
+                    ? selectdual
+                    : this.oneShotLayer.map(i => i.keynum).includes(layerData)
+                    ? this.oneShotLayer.findIndex(o => o.keynum == layerData)
+                    : 0
+                ].name
+              }
+              value={
+                layerData == 0
+                  ? selectdual
+                  : this.oneShotLayer.map(i => i.keynum).includes(layerData)
+                  ? layerData
+                  : 0
+              }
               onSelect={updatelayer}
             >
               {this.oneShotLayer.map((item, id) => {
@@ -383,8 +380,22 @@ class Configurator extends Component {
               id="Selectlayers"
               className="selectButton"
               drop={"up"}
-              title={dualTitle}
-              value={layerData == 0 ? selectdual : layerData}
+              title={
+                this.layerKey[
+                  layerData == 0
+                    ? selectdual
+                    : this.layerKey.map(i => i.keynum).includes(layerData)
+                    ? this.layerKey.findIndex(o => o.keynum == layerData)
+                    : 0
+                ].name
+              }
+              value={
+                layerData == 0
+                  ? selectdual
+                  : this.layerKey.map(i => i.keynum).includes(layerData)
+                  ? layerData
+                  : 0
+              }
               onSelect={updatelayer}
             >
               {this.layerKey.map((item, id) => {

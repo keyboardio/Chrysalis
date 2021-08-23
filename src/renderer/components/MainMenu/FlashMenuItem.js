@@ -28,7 +28,7 @@ export default function FlashMenuItem({
   showNotif
 }) {
   return (
-    <div onClick={onClick} className={"item-list"}>
+    <div onClick={onClick} className={`item-list ${selected ? "select" : ""}`}>
       <div className="icon-item">
         <HiChip className={"icon-image"} />
         {showNotif ? (

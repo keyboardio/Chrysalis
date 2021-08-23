@@ -119,6 +119,10 @@ const Styles = Styled.div`
   width: 0;
   height: 0;
 }
+.select {
+  background-color: ${({ theme }) => theme.card.backgroundActive};
+  width: 100%;
+}
 `;
 
 class MainMenu extends Component {
@@ -333,7 +337,7 @@ class MainMenu extends Component {
                   />
                 </div>
               </OverlayTrigger> */}
-              <OverlayTrigger
+              {/* <OverlayTrigger
                 rootClose
                 placement="right"
                 delay={{ show: 250, hide: 400 }}
@@ -345,7 +349,7 @@ class MainMenu extends Component {
                     onClick={() => remote.app.exit(0)}
                   />
                 </div>
-              </OverlayTrigger>
+              </OverlayTrigger> */}
             </div>
           </Nav>
         </Navbar>

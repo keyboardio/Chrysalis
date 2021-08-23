@@ -27,7 +27,7 @@ export default function PreferencesMenuItem({
   drawerWidth
 }) {
   return (
-    <div onClick={onClick} className={"item-list"}>
+    <div onClick={onClick} className={`item-list ${selected ? "select" : ""}`}>
       <div className="icon-item">
         <GoSettings className={"icon-image"} />
       </div>

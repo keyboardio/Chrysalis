@@ -20,9 +20,9 @@ import i18n from "../../i18n";
 
 import { FaRobot } from "react-icons/fa";
 
-export default function MacroEditorItem({ onClick, drawerWidth }) {
+export default function MacroEditorItem({ onClick, drawerWidth, selected }) {
   return (
-    <div onClick={onClick} className={"item-list"}>
+    <div onClick={onClick} className={`item-list ${selected ? "select" : ""}`}>
       <div className={"icon-item"}>
         <FaRobot className={"icon-image"} />
       </div>

@@ -20,9 +20,9 @@ import i18n from "../../i18n";
 
 import { MdKeyboard } from "react-icons/Md";
 
-export default function EditorMenuItem({ onClick, drawerWidth }) {
+export default function EditorMenuItem({ onClick, drawerWidth, selected }) {
   return (
-    <div onClick={onClick} className={"item-list"}>
+    <div onClick={onClick} className={`item-list ${selected ? "select" : ""}`}>
       <div className={"icon-item"}>
         <MdKeyboard className={"icon-image"} />
       </div>

@@ -78,56 +78,56 @@ class Configurator extends Component {
     this.oneShotLayer = [
       { name: "None Selected", keynum: 0, alt: 0 },
       { name: "------------", keynum: -1, alt: -1 },
-      { name: "One Shot Layer 0", keynum: 49161 },
-      { name: "One Shot Layer 1", keynum: 49162 },
-      { name: "One Shot Layer 2", keynum: 49163 },
-      { name: "One Shot Layer 3", keynum: 49164 },
-      { name: "One Shot Layer 4", keynum: 49165 },
-      { name: "One Shot Layer 5", keynum: 49166 },
-      { name: "One Shot Layer 6", keynum: 49167 },
-      { name: "One Shot Layer 7", keynum: 49168 },
-      { name: "One Shot Layer 8", keynum: 49169 },
-      { name: "One Shot Layer 9", keynum: 49170 }
+      { name: "One Shot Layer 1", keynum: 49161 },
+      { name: "One Shot Layer 2", keynum: 49162 },
+      { name: "One Shot Layer 3", keynum: 49163 },
+      { name: "One Shot Layer 4", keynum: 49164 },
+      { name: "One Shot Layer 5", keynum: 49165 },
+      { name: "One Shot Layer 6", keynum: 49166 },
+      { name: "One Shot Layer 7", keynum: 49167 },
+      { name: "One Shot Layer 8", keynum: 49168 },
+      { name: "One Shot Layer 9", keynum: 49169 },
+      { name: "One Shot Layer 10", keynum: 49170 }
     ];
     this.layerLock = [
       { name: "None Selected", keynum: 0, alt: 0 },
       { name: "------------", keynum: -1, alt: -1 },
-      { name: "Move to Layer 0", keynum: 17492 },
-      { name: "Move to Layer 1", keynum: 17493 },
-      { name: "Move to Layer 2", keynum: 17494 },
-      { name: "Move to Layer 3", keynum: 17495 },
-      { name: "Move to Layer 4", keynum: 17496 },
-      { name: "Move to Layer 5", keynum: 17497 },
-      { name: "Move to Layer 6", keynum: 17498 },
-      { name: "Move to Layer 7", keynum: 17499 },
-      { name: "Move to Layer 8", keynum: 17500 },
-      { name: "Move to Layer 9", keynum: 17501 }
+      { name: "Move to Layer 1", keynum: 17492 },
+      { name: "Move to Layer 2", keynum: 17493 },
+      { name: "Move to Layer 3", keynum: 17494 },
+      { name: "Move to Layer 4", keynum: 17495 },
+      { name: "Move to Layer 5", keynum: 17496 },
+      { name: "Move to Layer 6", keynum: 17497 },
+      { name: "Move to Layer 7", keynum: 17498 },
+      { name: "Move to Layer 8", keynum: 17499 },
+      { name: "Move to Layer 9", keynum: 17500 },
+      { name: "Move to Layer 10", keynum: 17501 }
     ];
     this.layerSwitch = [
       { name: "None Selected", keynum: 0, alt: 0 },
       { name: "------------", keynum: -1, alt: -1 },
-      { name: "Shift to Layer 0", keynum: 17450 },
-      { name: "Shift to Layer 1", keynum: 17451 },
-      { name: "Shift to Layer 2", keynum: 17452 },
-      { name: "Shift to Layer 3", keynum: 17453 },
-      { name: "Shift to Layer 4", keynum: 17454 },
-      { name: "Shift to Layer 5", keynum: 17455 },
-      { name: "Shift to Layer 6", keynum: 17456 },
-      { name: "Shift to Layer 7", keynum: 17457 },
-      { name: "Shift to Layer 8", keynum: 17458 },
-      { name: "Shift to Layer 9", keynum: 17459 }
+      { name: "Shift to Layer 1", keynum: 17450 },
+      { name: "Shift to Layer 2", keynum: 17451 },
+      { name: "Shift to Layer 3", keynum: 17452 },
+      { name: "Shift to Layer 4", keynum: 17453 },
+      { name: "Shift to Layer 5", keynum: 17454 },
+      { name: "Shift to Layer 6", keynum: 17455 },
+      { name: "Shift to Layer 7", keynum: 17456 },
+      { name: "Shift to Layer 8", keynum: 17457 },
+      { name: "Shift to Layer 9", keynum: 17458 },
+      { name: "Shift to Layer 10", keynum: 17459 }
     ];
     this.layerKey = [
       { name: "None Selected", keynum: 0, alt: 0 },
       { name: "------------", keynum: -1, alt: -1 },
-      { name: "Dual Layer 0", keynum: 51218 },
-      { name: "Dual Layer 1", keynum: 51474 },
-      { name: "Dual Layer 2", keynum: 51730 },
-      { name: "Dual Layer 3", keynum: 51986 },
-      { name: "Dual Layer 4", keynum: 52242 },
-      { name: "Dual Layer 5", keynum: 52498 },
-      { name: "Dual Layer 6", keynum: 52754 },
-      { name: "Dual Layer 7", keynum: 53010 }
+      { name: "Dual Layer 1", keynum: 51218 },
+      { name: "Dual Layer 2", keynum: 51474 },
+      { name: "Dual Layer 3", keynum: 51730 },
+      { name: "Dual Layer 4", keynum: 51986 },
+      { name: "Dual Layer 5", keynum: 52242 },
+      { name: "Dual Layer 6", keynum: 52498 },
+      { name: "Dual Layer 7", keynum: 52754 },
+      { name: "Dual Layer 8", keynum: 53010 }
     ];
   }
 

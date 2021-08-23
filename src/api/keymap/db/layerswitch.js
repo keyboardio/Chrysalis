@@ -21,70 +21,70 @@ const LockLayerTable = {
     {
       code: 17408,
       labels: {
-        primary: "0",
+        primary: "1",
         top: "LockTo"
       }
     },
     {
       code: 17409,
       labels: {
-        primary: "1",
+        primary: "2",
         top: "LockTo"
       }
     },
     {
       code: 17410,
       labels: {
-        primary: "2",
+        primary: "3",
         top: "LockTo"
       }
     },
     {
       code: 17411,
       labels: {
-        primary: "3",
+        primary: "4",
         top: "LockTo"
       }
     },
     {
       code: 17412,
       labels: {
-        primary: "4",
+        primary: "5",
         top: "LockTo"
       }
     },
     {
       code: 17413,
       labels: {
-        primary: "5",
+        primary: "6",
         top: "LockTo"
       }
     },
     {
       code: 17414,
       labels: {
-        primary: "6",
+        primary: "7",
         top: "LockTo"
       }
     },
     {
       code: 17415,
       labels: {
-        primary: "7",
+        primary: "8",
         top: "LockTo"
       }
     },
     {
       code: 17416,
       labels: {
-        primary: "8",
+        primary: "9",
         top: "LockTo"
       }
     },
     {
       code: 17417,
       labels: {
-        primary: "9",
+        primary: "10",
         top: "LockTo"
       }
     }
@@ -97,70 +97,70 @@ const ShiftToLayerTable = {
     {
       code: 17450,
       labels: {
-        primary: "0",
+        primary: "1",
         top: "SHIFT"
       }
     },
     {
       code: 17451,
       labels: {
-        primary: "1",
+        primary: "2",
         top: "SHIFT"
       }
     },
     {
       code: 17452,
       labels: {
-        primary: "2",
+        primary: "3",
         top: "SHIFT"
       }
     },
     {
       code: 17453,
       labels: {
-        primary: "3",
+        primary: "4",
         top: "SHIFT"
       }
     },
     {
       code: 17454,
       labels: {
-        primary: "4",
+        primary: "5",
         top: "SHIFT"
       }
     },
     {
       code: 17455,
       labels: {
-        primary: "5",
+        primary: "6",
         top: "SHIFT"
       }
     },
     {
       code: 17456,
       labels: {
-        primary: "6",
+        primary: "7",
         top: "SHIFT"
       }
     },
     {
       code: 17457,
       labels: {
-        primary: "7",
+        primary: "8",
         top: "SHIFT"
       }
     },
     {
       code: 17458,
       labels: {
-        primary: "8",
+        primary: "9",
         top: "SHIFT"
       }
     },
     {
       code: 17459,
       labels: {
-        primary: "9",
+        primary: "10",
         top: "SHIFT"
       }
     }
@@ -173,70 +173,70 @@ const MoveToLayerTable = {
     {
       code: 17492,
       labels: {
-        primary: "0",
+        primary: "1",
         top: "MOVE"
       }
     },
     {
       code: 17493,
       labels: {
-        primary: "1",
+        primary: "2",
         top: "MOVE"
       }
     },
     {
       code: 17494,
       labels: {
-        primary: "2",
+        primary: "3",
         top: "MOVE"
       }
     },
     {
       code: 17495,
       labels: {
-        primary: "3",
+        primary: "4",
         top: "MOVE"
       }
     },
     {
       code: 17496,
       labels: {
-        primary: "4",
+        primary: "5",
         top: "MOVE"
       }
     },
     {
       code: 17497,
       labels: {
-        primary: "5",
+        primary: "6",
         top: "MOVE"
       }
     },
     {
       code: 17498,
       labels: {
-        primary: "6",
+        primary: "7",
         top: "MOVE"
       }
     },
     {
       code: 17499,
       labels: {
-        primary: "7",
+        primary: "8",
         top: "MOVE"
       }
     },
     {
       code: 17500,
       labels: {
-        primary: "8",
+        primary: "9",
         top: "MOVE"
       }
     },
     {
       code: 17501,
       labels: {
-        primary: "9",
+        primary: "10",
         top: "MOVE"
       }
     }

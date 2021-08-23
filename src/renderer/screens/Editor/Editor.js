@@ -1492,7 +1492,7 @@ class Editor extends Component {
     const layerMenu = keymap.custom.map((_, index) => {
       const idx = index + (keymap.onlyCustom ? 0 : keymap.default.length);
       return {
-        name: i18n.formatString(i18n.components.layer, idx),
+        name: i18n.formatString(i18n.components.layer, idx + 1),
         id: idx
       };
     });

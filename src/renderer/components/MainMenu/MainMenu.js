@@ -233,6 +233,7 @@ class MainMenu extends Component {
                   {pages.keymap && (
                     <React.Fragment>
                       <OverlayTrigger
+                        rootClose
                         placement="right"
                         delay={{ show: 250, hide: 400 }}
                         overlay={this.renderTooltip("Keyboard Editor")}
@@ -246,6 +247,7 @@ class MainMenu extends Component {
                         </Link>
                       </OverlayTrigger>
                       <OverlayTrigger
+                        rootClose
                         placement="right"
                         delay={{ show: 250, hide: 400 }}
                         overlay={this.renderTooltip("Macros Editor")}
@@ -261,6 +263,7 @@ class MainMenu extends Component {
                     </React.Fragment>
                   )}
                   <OverlayTrigger
+                    rootClose
                     placement="right"
                     delay={{ show: 250, hide: 400 }}
                     overlay={this.renderTooltip("Keyboard Flasher")}
@@ -283,6 +286,7 @@ class MainMenu extends Component {
                 </>
               )}
               <OverlayTrigger
+                rootClose
                 placement="right"
                 delay={{ show: 250, hide: 400 }}
                 overlay={this.renderTooltip("Keyboard Selector")}
@@ -301,6 +305,7 @@ class MainMenu extends Component {
                 </Link>
               </OverlayTrigger>
               <OverlayTrigger
+                rootClose
                 placement="right"
                 delay={{ show: 250, hide: 400 }}
                 overlay={this.renderTooltip("Keyboard Preferences")}
@@ -314,6 +319,7 @@ class MainMenu extends Component {
                 </Link>
               </OverlayTrigger>
               {/* <OverlayTrigger
+                rootClose
                 placement="right"
                 delay={{ show: 250, hide: 400 }}
                 overlay={this.renderTooltip("Update Bazecor")}
@@ -328,6 +334,7 @@ class MainMenu extends Component {
                 </div>
               </OverlayTrigger> */}
               <OverlayTrigger
+                rootClose
                 placement="right"
                 delay={{ show: 250, hide: 400 }}
                 overlay={this.renderTooltip("Exit Bazecor")}

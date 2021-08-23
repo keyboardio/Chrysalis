@@ -17,15 +17,8 @@
 import React from "react";
 import Styled from "styled-components";
 import Button from "react-bootstrap/Button";
-import Spinner from "react-bootstrap/Spinner";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Tooltip from "react-bootstrap/Tooltip";
-import { MdClose, MdCheck, MdRefresh } from "react-icons/md";
-import { CardColumns } from "react-bootstrap";
+import { MdClose } from "react-icons/md";
 
 const Styles = Styled.div`
 

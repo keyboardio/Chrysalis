@@ -71,6 +71,7 @@ class Keys extends Component {
             {/* <span>
               SELECTED KEY{" "}
               <OverlayTrigger
+                rootClose
                 placement="right"
                 delay={{ show: 250, hide: 400 }}
                 overlay={this.renderTooltip(text, text2)}

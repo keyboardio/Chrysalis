@@ -168,7 +168,7 @@ export default class LayerPanel extends Component {
     const id = `tooltip-${text}`;
 
     return (
-      <OverlayTrigger overlay={<Tooltip id={id}>{text}</Tooltip>}>
+      <OverlayTrigger rootClose overlay={<Tooltip id={id}>{text}</Tooltip>}>
         <Button disabled={disable} onClick={func}>
           {icon}
         </Button>

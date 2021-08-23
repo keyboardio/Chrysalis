@@ -123,6 +123,7 @@ class ModPicker extends Component {
             O.S.
           </Button>
           <OverlayTrigger
+            rootClose
             placement="right"
             delay={{ show: 250, hide: 400 }}
             overlay={this.renderTooltip(text1, text2, "", "")}

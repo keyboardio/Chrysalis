@@ -85,6 +85,7 @@ class MacroSelector extends Component {
                         </Col>
                         <Col xs={1}>
                           <OverlayTrigger
+                            rootClose
                             placement="right"
                             delay={{ show: 250, hide: 400 }}
                             overlay={
@@ -107,6 +108,7 @@ class MacroSelector extends Component {
                         </Col>
                         <Col xs={1}>
                           <OverlayTrigger
+                            rootClose
                             placement="right"
                             delay={{ show: 250, hide: 400 }}
                             overlay={
@@ -140,6 +142,7 @@ class MacroSelector extends Component {
             {/* <Avatar>N</Avatar>
             <ListItemText primary="Add new Macro" /> */}
             <OverlayTrigger
+              rootClose
               placement="right"
               delay={{ show: 250, hide: 400 }}
               overlay={

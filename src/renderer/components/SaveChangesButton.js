@@ -78,6 +78,7 @@ class SaveChangesButton extends React.Component {
         <Container fluid>
           <Row>
             <OverlayTrigger
+              rootClose
               placement="top"
               overlay={
                 <Tooltip id={"save-tooltip"}>

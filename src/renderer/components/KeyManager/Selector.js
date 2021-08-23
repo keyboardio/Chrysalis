@@ -205,6 +205,7 @@ class Selector extends Component {
                 ""
               ) : (
                 <OverlayTrigger
+                  rootClose
                   placement="top"
                   delay={{ show: 250, hide: 400 }}
                   overlay={this.renderImgTooltip(lightTool)}
@@ -228,6 +229,7 @@ class Selector extends Component {
                   }}
                 />
                 <OverlayTrigger
+                  rootClose
                   placement="right"
                   delay={{ show: 250, hide: 400 }}
                   overlay={this.renderTooltip(move1, move2, "", "")}

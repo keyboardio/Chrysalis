@@ -268,6 +268,7 @@ class KeyPicker extends Component {
             height={25}
           >
             <OverlayTrigger
+              rootClose
               placement="right"
               delay={{ show: 250, hide: 400 }}
               overlay={this.renderTooltip(key.tooltip, "", "", "")}

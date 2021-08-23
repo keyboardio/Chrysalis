@@ -140,6 +140,7 @@ export default class ColorPanel extends Component {
 
     return (
       <OverlayTrigger
+        rootClose
         overlay={<Tooltip id={id}>{text}</Tooltip>}
         placement="top"
       >

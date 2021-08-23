@@ -201,6 +201,7 @@ class Configurator extends Component {
             <p className="titles alignvert">
               LAYER SWITCH{" "}
               <OverlayTrigger
+                rootClose
                 placement="right"
                 delay={{ show: 250, hide: 400 }}
                 overlay={this.renderTooltip(swtext, "", "", "")}
@@ -254,6 +255,7 @@ class Configurator extends Component {
             <p className="titles alignvert">
               LAYER LOCK{" "}
               <OverlayTrigger
+                rootClose
                 placement="right"
                 delay={{ show: 250, hide: 400 }}
                 overlay={this.renderTooltip(lktext, lktext2, lktext3, "")}
@@ -307,6 +309,7 @@ class Configurator extends Component {
             <p className="titles alignvert">
               ONE SHOT LAYER{" "}
               <OverlayTrigger
+                rootClose
                 placement="right"
                 delay={{ show: 250, hide: 400 }}
                 overlay={this.renderImgTooltip(OSL)}
@@ -358,6 +361,7 @@ class Configurator extends Component {
         <p className="titles">
           LAYER & KEY{" "}
           <OverlayTrigger
+            rootClose
             placement="right"
             delay={{ show: 250, hide: 400 }}
             overlay={this.renderTooltip(dltext, dltext2, dltext3, dltext4)}

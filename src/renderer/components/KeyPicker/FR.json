@@ -819,7 +819,7 @@
     "x": 660,
     "y": 64,
     "centered": true,
-    "icon": true,    
+    "icon": true,
     "iconsize":20,
     "iconx":670,
     "icony":60,
@@ -1865,7 +1865,9 @@
       "second": "",
       "third": "",
       "fourth": ""
-    }
+    },
+    "mod": true,
+    "move": true
   },
   {
     "id": 0,

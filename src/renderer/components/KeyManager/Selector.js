@@ -300,7 +300,7 @@ class Selector extends Component {
                     value={superName}
                     placeholder={
                       superName == ""
-                        ? "Edit custom label (5 characters max)"
+                        ? "Edit label (5 characters max)"
                         : superName
                     }
                     onChange={setSuperName}

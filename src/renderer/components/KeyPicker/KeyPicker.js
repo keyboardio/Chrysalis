@@ -109,34 +109,17 @@ class KeyPicker extends Component {
     onKeySelect(keycode);
   };
 
-  renderTooltip(line1, line2, line3, line4) {
+  renderTooltip(tooltips) {
     return (
       <Tooltip id="select-tooltip" className="longtooltip">
-        <span>{line1}</span>
-        {line2 == "" ? (
-          ""
-        ) : (
-          <React.Fragment>
-            <br></br>
-            <span>{line2}</span>
-          </React.Fragment>
-        )}
-        {line3 == "" ? (
-          ""
-        ) : (
-          <React.Fragment>
-            <br></br>
-            <span>{line3}</span>
-          </React.Fragment>
-        )}
-        {line4 == "" ? (
-          ""
-        ) : (
-          <React.Fragment>
-            <br></br>
-            <span>{line4}</span>
-          </React.Fragment>
-        )}
+        {tooltips.map((tip, i) => {
+          return (
+            <React.Fragment key={`Tip-${i}`}>
+              {i == 0 ? "" : <br></br>}
+              <span>{tip}</span>
+            </React.Fragment>
+          );
+        })}
       </Tooltip>
     );
   }
@@ -276,9 +259,9 @@ class KeyPicker extends Component {
           >
             <OverlayTrigger
               rootClose
-              placement="right"
+              placement="top"
               delay={{ show: 250, hide: 400 }}
-              overlay={this.renderTooltip(key.tooltip, "", "", "")}
+              overlay={this.renderTooltip(key.tooltip)}
             >
               <MdInfoOutline className={"info"} />
             </OverlayTrigger>

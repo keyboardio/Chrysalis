@@ -240,7 +240,7 @@ class MainMenu extends Component {
                         rootClose
                         placement="right"
                         delay={{ show: 250, hide: 400 }}
-                        overlay={this.renderTooltip("Keyboard Editor")}
+                        overlay={this.renderTooltip(i18n.app.menu.editor)}
                       >
                         <Link to="/editor" className="list-link">
                           <EditorMenuItem
@@ -254,7 +254,7 @@ class MainMenu extends Component {
                         rootClose
                         placement="right"
                         delay={{ show: 250, hide: 400 }}
-                        overlay={this.renderTooltip("Macros Editor")}
+                        overlay={this.renderTooltip(i18n.app.menu.macros)}
                       >
                         <Link to="/macros" className="list-link">
                           <MacroEditorItem
@@ -270,7 +270,7 @@ class MainMenu extends Component {
                     rootClose
                     placement="right"
                     delay={{ show: 250, hide: 400 }}
-                    overlay={this.renderTooltip("Keyboard Flasher")}
+                    overlay={this.renderTooltip(i18n.app.menu.firmwareUpdate)}
                   >
                     <Link to="/firmware-update" className="list-link">
                       <FlashMenuItem
@@ -293,7 +293,7 @@ class MainMenu extends Component {
                 rootClose
                 placement="right"
                 delay={{ show: 250, hide: 400 }}
-                overlay={this.renderTooltip("Keyboard Selector")}
+                overlay={this.renderTooltip(i18n.app.menu.selectAKeyboard)}
               >
                 <Link to="/keyboard-select" className="list-link">
                   <KeyboardMenuItem
@@ -312,7 +312,7 @@ class MainMenu extends Component {
                 rootClose
                 placement="right"
                 delay={{ show: 250, hide: 400 }}
-                overlay={this.renderTooltip("Keyboard Preferences")}
+                overlay={this.renderTooltip(i18n.app.menu.preferences)}
               >
                 <Link to="/preferences" className="list-link">
                   <PreferencesMenuItem

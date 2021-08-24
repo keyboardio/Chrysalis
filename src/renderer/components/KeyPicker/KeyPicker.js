@@ -158,11 +158,18 @@ class KeyPicker extends Component {
     };
     const lansi = { english: ENa };
     let Lang = ENa;
-    if (selectedlanguage != "" && kbtype == "ansi") {
-      if (lansi[selectedlanguage] != undefined) Lang = lansi[selectedlanguage];
-    }
-    if (selectedlanguage != "" && kbtype == "iso") {
-      if (liso[selectedlanguage] != undefined) Lang = liso[selectedlanguage];
+    if (selectedlanguage == "english") {
+      if (kbtype == "ansi") {
+        if (lansi[selectedlanguage] != undefined) {
+          Lang = lansi[selectedlanguage];
+        }
+      } else {
+        Lang = liso[selectedlanguage];
+      }
+    } else {
+      if (selectedlanguage != "") {
+        if (liso[selectedlanguage] != undefined) Lang = liso[selectedlanguage];
+      }
     }
     const os = process.platform;
     const iconlist = {

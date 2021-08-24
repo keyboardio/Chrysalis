@@ -187,11 +187,10 @@ class Configurator extends Component {
     const lktext = "Tap to permanently move to another layer.";
     const lktext2 =
       "To return to the previous layer, set a Layer Lock key targeting it.";
-    const dltext = "This key has two functionalities:";
-    const dltext2 =
-      "1. Hold it to activate the selected layer, but only as long as you keep this key pressed.";
-    const dltext3 = "2. Tap it to send a key.";
-    const dltext4 = "Previously called dual-function layer.";
+    const dltext =
+      "1. Move to another layer while holding the key. Release the key to go back to the previous layer.";
+    const dltext2 = "2. Tap to type the selected key.";
+    const dltext3 = "Previously called a dual-function layer.";
 
     const layers = (
       <React.Fragment>
@@ -363,7 +362,7 @@ class Configurator extends Component {
             rootClose
             placement="right"
             delay={{ show: 250, hide: 400 }}
-            overlay={this.renderTooltip(dltext, dltext2, dltext3, dltext4)}
+            overlay={this.renderTooltip(dltext, dltext2, dltext3, "")}
           >
             <MdInfo className={"info"} />
           </OverlayTrigger>

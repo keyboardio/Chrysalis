@@ -183,11 +183,10 @@ class Configurator extends Component {
     } = this.props;
 
     const swtext =
-      "If you hold the key down, the layer becomes active and then deactivates when you let go.";
-    const lktext = "Permanently move to a given layer.";
+      "Move to another layer while holding the key. Release the key to go back to the previous layer.";
+    const lktext = "Tap to permanently move to another layer.";
     const lktext2 =
-      "To come back to the starting layer, set another Layer Lock key on the layer you moved to.";
-    const lktext3 = "This new Layer Lock key must target the initial layer.";
+      "To return to the previous layer, set a Layer Lock key targeting it.";
     const dltext = "This key has two functionalities:";
     const dltext2 =
       "1. Hold it to activate the selected layer, but only as long as you keep this key pressed.";
@@ -258,7 +257,7 @@ class Configurator extends Component {
                 rootClose
                 placement="right"
                 delay={{ show: 250, hide: 400 }}
-                overlay={this.renderTooltip(lktext, lktext2, lktext3, "")}
+                overlay={this.renderTooltip(lktext, lktext2, "", "")}
               >
                 <MdInfo className={"info"} />
               </OverlayTrigger>

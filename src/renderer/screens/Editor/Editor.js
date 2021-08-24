@@ -1555,15 +1555,15 @@ class Editor extends Component {
                 selectLayer={this.selectLayer}
                 currentLayer={currentLayer}
                 isReadOnly={isReadOnly}
-                importTitle={"Import current Layer or Backup"}
-                exportTitle={"Export the current Layer"}
-                exportAllTitle={"Backup all Layers (Excluding Macros)"}
+                importTitle={i18n.editor.layers.importTitle}
+                exportTitle={i18n.editor.layers.exportTitle}
+                exportAllTitle={i18n.editor.layers.exportAllTitle}
                 importFunc={this.toImport}
                 exportFunc={this.toExport}
                 exportAllFunc={this.toExportAll}
-                copyTitle={i18n.editor.copyFrom}
+                copyTitle={i18n.editor.layers.copyFrom}
                 copyFunc={this.copyFromDialog}
-                clearTitle={i18n.editor.clearLayer}
+                clearTitle={i18n.editor.layers.clearLayer}
                 clearFunc={this.confirmClear}
               />
             </Col>

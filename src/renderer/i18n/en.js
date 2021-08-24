@@ -77,6 +77,13 @@ const English = {
     searchForKeyOrCategory: "Search for a key or category",
     keyConfig: "Key Config",
     keySelectorTitle: "Select Key",
+    layers: {
+      importTitle: "Import current layer or backup",
+      exportTitle: "Export the current layer",
+      exportAllTitle: "Backup all layers (Excluding Macros)",
+      clearLayer: "Clear layer",
+      copyFrom: "Copy from layer"
+    },
     groups: {
       Letters: "Letters",
       Digits: "Digits",
@@ -156,10 +163,8 @@ const English = {
       cancelButton: "Cancel",
       applyButton: "Modify Macros"
     },
-    clearLayer: "Clear layer",
     clearLayerQuestion: "Clear layer?",
     clearLayerPrompt: "This will reset the layer to its default state.",
-    copyFrom: "Copy from layer",
     pleaseSelectLayer: "Please select a layer",
     dualUse: "Modifier when held, normal key otherwise",
     dualUseLayer: "Layer shift when held, normal key otherwise",

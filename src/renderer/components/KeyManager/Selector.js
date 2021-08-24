@@ -5,6 +5,7 @@ import Styled from "styled-components";
 import { LayerPicker } from "../KeyPicker";
 import MacroPicker from "./MacroPicker";
 import ModPicker from "./ModPicker";
+import F13Picker from "./F13Picker";
 
 // React Components
 import Row from "react-bootstrap/Row";
@@ -238,6 +239,18 @@ class Selector extends Component {
                 </OverlayTrigger>
               </Row>
             </React.Fragment>
+          ) : (
+            ""
+          )}
+          {actions != undefined &&
+          action == i &&
+          actions[action] >= 104 &&
+          actions[action] <= 115 ? (
+            <F13Picker
+              action={action}
+              actions={actions}
+              onReplaceKey={onReplaceKey}
+            ></F13Picker>
           ) : (
             ""
           )}

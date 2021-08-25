@@ -236,20 +236,58 @@ class FirmwareUpdate extends React.Component {
       selected: "default",
       device: props.device || focus.device,
       confirmationOpen: false,
-      countdown: null,
+      countdown: 0,
       firmwareDropdown: false,
-      buttonText: {
-        "": "Uploading ...",
-        3: "Start countdown",
-        2: "Wait",
-        1: "Wait",
-        0: "Press"
-      },
-      versions: null
+      buttonText: [
+        "Make Backup",
+        "Press and mantain Esc",
+        "Uploading ...",
+        "Done, restoring..."
+      ],
+      versions: null,
+      commands: [],
+      backup: [],
+      backupDone: false
     };
   }
 
+  _handleKeyDown = event => {
+    switch (event.keyCode) {
+      case 27:
+        console.log("esc key logged");
+        if (this.state.backupDone && this.state.countdown == 1) {
+          // TODO: launch flashing procedure
+          console.log("launching the flashing procedure");
+          this.setState({ countdown: 2 });
+          this.upload();
+        }
+        break;
+      default:
+        break;
+    }
+  };
+
+  componentDidUpdate() {
+    // console.log(
+    //   "Testing State Update",
+    //   this.state.backup.length,
+    //   this.state.commands.length,
+    //   !this.state.backupDone &&
+    //     this.state.backup.length == this.state.commands.length &&
+    //     this.state.commands.length > 0
+    // );
+    if (
+      !this.state.backupDone &&
+      this.state.backup.length == this.state.commands.length &&
+      this.state.commands.length > 0
+    ) {
+      this.setState({ backupDone: true, countdown: 1 });
+      this.saveBackup(this.state.backup);
+    }
+  }
+
   componentDidMount() {
+    document.addEventListener("keydown", this._handleKeyDown);
     const focus = new Focus();
     let versions;
 
@@ -264,6 +302,31 @@ class FirmwareUpdate extends React.Component {
 
       this.setState({ versions: versions });
     });
+
+    const notRequired = [
+      "eeprom",
+      "hardware",
+      "settings.valid?",
+      "settings.version",
+      "settings.crc",
+      "layer",
+      "help",
+      "version",
+      "led.at",
+      "led.setAll",
+      "macros.trigger",
+      "qukeys"
+    ];
+    let commands;
+    focus.command("help").then(comm => {
+      commands = comm.filter(c => !notRequired.some(v => c.includes(v)));
+      console.log(commands);
+      this.setState({ commands });
+    });
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this._handleKeyDown);
   }
 
   selectFirmware = event => {
@@ -287,7 +350,7 @@ class FirmwareUpdate extends React.Component {
     });
     files.then(result => {
       let aux = result.filePaths[0] != undefined ? result.filePaths[0] : "";
-      this.setState({ firmwareFilename: aux });
+      this.setState({ firmwareFilename: aux, selected: "custom" });
     });
   };
 
@@ -307,8 +370,6 @@ class FirmwareUpdate extends React.Component {
   _flash = async () => {
     let focus = new Focus();
     let filename;
-    const delay = ms => new Promise(res => setTimeout(res, ms));
-
     if (this.state.selected == "default") {
       filename = this._defaultFirmwareFilename();
     } else if (this.state.selected == "experimental") {
@@ -317,17 +378,9 @@ class FirmwareUpdate extends React.Component {
       filename = this.state.firmwareFilename;
     }
     if (this.state.device.device.info.product === "Raise") {
-      let count = setInterval(() => {
-        const { countdown } = this.state;
-        countdown === 0
-          ? clearInterval(count)
-          : this.setState({ countdown: countdown - 1 });
-      }, 1000);
-      await delay(3000);
       if (!focus.device.bootloader) {
-        await this.flashRaise.resetKeyboard(focus._port);
+        await this.flashRaise.resetKeyboard(focus._port, this.state.backup);
       }
-      this.setState({ countdown: "" });
     }
 
     try {
@@ -351,6 +404,8 @@ class FirmwareUpdate extends React.Component {
 
     try {
       await this._flash();
+      this.setState({ countdown: 3 });
+      await this.flashRaise.restoreSettings();
     } catch (e) {
       console.error(e);
       const styles = {
@@ -411,14 +466,14 @@ class FirmwareUpdate extends React.Component {
 
     return new Promise(async resolve => {
       let focus = new Focus();
-      if (this.state.versions) await focus.command("led.mode 0");
-      setTimeout(() => {
-        toast.success(i18n.firmwareUpdate.flashing.success);
-        this.props.toggleFlashing();
-        this.props.onDisconnect();
-        this.setState({ confirmationOpen: false });
-        resolve();
-      }, 1000);
+      // if (this.state.versions) await focus.command("led.mode 0");
+      // setTimeout(() => {
+      toast.success(i18n.firmwareUpdate.flashing.success);
+      this.props.toggleFlashing();
+      this.props.onDisconnect();
+      this.setState({ confirmationOpen: false });
+      resolve();
+      // }, 1000);
     });
   };
 
@@ -428,10 +483,10 @@ class FirmwareUpdate extends React.Component {
     this.setState({ confirmationOpen: true, isBeginUpdate: true });
     try {
       this.flashRaise = new FlashRaise(this.props.device);
-      if (!focus.device.bootloader) {
-        await this.flashRaise.backupSettings();
-      }
-      this.setState({ countdown: 3 });
+      // if (!focus.device.bootloader) {
+      //   await this.flashRaise.backupSettings();
+      // }
+      this.setState({ countdown: 0 });
     } catch (e) {
       console.error(e);
       const styles = {
@@ -490,8 +545,57 @@ class FirmwareUpdate extends React.Component {
 
   cancelDialog = async () => {
     let focus = new Focus();
-    if (this.state.versions) await focus.command("led.mode 0");
     this.setState({ confirmationOpen: false });
+    if (this.state.versions) await focus.command("led.mode 0");
+  };
+
+  backup = async () => {
+    let backup = [];
+    this.setState({ backup });
+    const focus = new Focus();
+    this.state.commands.map(async command => {
+      await focus.command(command).then(data => {
+        let bkp = this.state.backup;
+        bkp.push({ command, data });
+        this.setState({ bkp });
+      });
+    });
+  };
+
+  saveBackup = backup => {
+    let options = {
+      title: "Full Backup file",
+      defaultPath: "FlashBackup.json",
+      buttonLabel: "Backup",
+      filters: [
+        { name: "Json", extensions: ["json"] },
+        { name: "All Files", extensions: ["*"] }
+      ]
+    };
+    const remote = require("electron").remote;
+    const WIN = remote.getCurrentWindow();
+    remote.dialog
+      .showSaveDialog(WIN, options)
+      .then(resp => {
+        if (!resp.canceled) {
+          // console.log(resp.filePath, backup);
+          require("fs").writeFileSync(
+            resp.filePath,
+            JSON.stringify(backup, null, 2)
+          );
+          toast.success(i18n.firmwareUpdate.backupSuccessful, {
+            autoClose: 2000
+          });
+        } else {
+          console.log("user closed Save Dialog");
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        toast.error(i18n.errors.exportError + err, {
+          autoClose: 2000
+        });
+      });
   };
 
   render() {
@@ -713,7 +817,7 @@ class FirmwareUpdate extends React.Component {
           >
             <Card.Body
               className={
-                (versions.bazecor != "v1.0.0beta3" ? "" : "white") + " body"
+                versions.bazecor != `v${fwVersion}` ? "body" : "white body"
               }
             >
               <Card.Title className="title">
@@ -807,7 +911,7 @@ class FirmwareUpdate extends React.Component {
                 <Modal.Body>{dialogChildren}</Modal.Body>
                 <Modal.Footer>
                   <Button
-                    onClick={this.state.countdown !== 0 ? this.upload : null}
+                    onClick={this.state.countdown == 0 ? this.backup : () => {}}
                     variant="contained"
                     color={this.state.countdown ? "primary" : "secondary"}
                     disabled={

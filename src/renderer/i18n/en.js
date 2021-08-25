@@ -318,6 +318,7 @@ const English = {
       button: "Next",
       buttonSuccess: "Updated!"
     },
+    backupSuccessful: "Backup created successfully!",
     defaultFirmware: "Bazecor {0} default",
     defaultFirmwareDescription: "Minimal, without bells and whistles",
     experimentalFirmware: "Bazecor {0} experimental",

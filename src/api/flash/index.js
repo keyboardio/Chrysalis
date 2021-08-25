@@ -41,6 +41,7 @@ export default class FlashRaise {
       serialNumber: device.serialNumber,
       firmwareFile: "File has not being selected"
     };
+    this.backup = [];
     this.delay = ms => new Promise(res => setTimeout(res, ms));
   }
 
@@ -113,7 +114,8 @@ export default class FlashRaise {
       "superkeys.holdstart",
       "superkeys.waitfor",
       "superkeys.timeout",
-      "superkeys.repeat"
+      "superkeys.repeat",
+      "superkeys.overlap"
     ];
     this.backupFileName = `Raise-backup-${this.formatedDate()}.json`;
 
@@ -168,20 +170,22 @@ export default class FlashRaise {
    * @param {object} port - serial port object for the "path".
    * @returns {promise}
    */
-  async resetKeyboard(port) {
+  async resetKeyboard(port, backup) {
     console.log("reset start", port);
     const errorMessage =
       "The firmware update couldn't start because the Raise Bootloader wasn't found. Please check our Help Center for more details or schedule a video call with us.";
     let timeouts = {
       dtrToggle: 1000, // Time to wait (ms) between toggling DTR
-      waitingClose: 2750, // Time to wait for boot loader
-      bootLoaderUp: 4250 // Time to wait for the boot loader to come up
+      waitingClose: 2000, // Time to wait for boot loader
+      bootLoaderUp: 5000 // Time to wait for the boot loader to come up
     };
+    console.log("testing waters", backup);
+    this.backup = backup;
     return new Promise((resolve, reject) => {
       port.update({ baudRate: 1200 }, async () => {
         console.log("resetting neuron");
         this.backupFileData.log.push("Resetting neuron");
-        await this.delay(timeouts.dtrToggle);
+        // await this.delay(timeouts.dtrToggle);
         port.set({ dtr: true }, async () => {
           await this.delay(timeouts.dtrToggle);
           port.set({ dtr: false }, async () => {
@@ -204,7 +208,7 @@ export default class FlashRaise {
               this.backupFileData.log.push(
                 `Reset keyboard: Error: ${e.message}`
               );
-              this.saveBackupFile();
+              // this.saveBackupFile();
               reject(e);
             }
           });
@@ -283,8 +287,7 @@ export default class FlashRaise {
       return false;
     }
     if (await findKeyboard()) {
-      await this.restoreSettings();
-      console.log("passed restore iteration");
+      console.log("Ready to restore");
       return true;
     } else {
       this.backupFileData.log.push(
@@ -301,30 +304,21 @@ export default class FlashRaise {
     let focus = new Focus();
     const errorMessage =
       "Firmware update failed, because the settings could not be restored";
-    let backup = this.backupFileData.backup;
-    if (Object.entries(backup).length === 0 && backup.constructor === Object) {
+    let backup = this.backup;
+    if (backup === undefined || backup.length === 0) {
       return;
     }
     try {
-      await focus
-        .open(this.currentPort.path, this.currentPort.device.info)
-        .then(async () => {
-          const commands = Object.keys(this.backupFileData.backup);
-          for (let command of commands) {
-            let val = this.backupFileData.backup[command];
-            // Boolean values need to be sent as int
-            if (typeof val === "boolean") {
-              val = +val;
-            }
-            await focus.request(command, val).then(() => {
-              console.log(`${command} set to keyboard`);
-            });
-          }
-        })
-        .catch(e => {
-          console.log(e);
-          throw new Error(errorMessage);
-        });
+      await focus.open(this.currentPort.path, this.currentPort.device.info);
+      for (let i = 0; i < backup.length; i++) {
+        let val = backup[i].data;
+        // Boolean values need to be sent as int
+        if (typeof val === "boolean") {
+          val = +val;
+        }
+        console.log(`Going to send ${backup[i].command} to keyboard`);
+        await focus.command(`${backup[i].command} ${val}`.trim());
+      }
       this.backupFileData.log.push("Restoring all settings");
       this.backupFileData.log.push("Firmware update OK");
       return true;

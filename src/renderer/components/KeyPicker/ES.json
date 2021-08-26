@@ -821,8 +821,8 @@
     "centered": true,
     "icon": true,
     "iconsize":20,
-    "iconx":670,
-    "icony":60,
+    "iconx":674,
+    "icony":61,
     "iconname":"Enter",
     "content": {
       "type": "enter",

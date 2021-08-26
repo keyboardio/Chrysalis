@@ -466,7 +466,7 @@ class FirmwareUpdate extends React.Component {
 
     return new Promise(async resolve => {
       let focus = new Focus();
-      // if (this.state.versions) await focus.command("led.mode 0");
+      if (this.state.versions) await focus.command("led.mode 0");
       // setTimeout(() => {
       toast.success(i18n.firmwareUpdate.flashing.success);
       this.props.toggleFlashing();

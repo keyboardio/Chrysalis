@@ -9,8 +9,9 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
-import Modal from "react-bootstrap/Modal";
+
 import {
   MdArchive,
   MdUnarchive,
@@ -88,6 +89,9 @@ class MacroForm extends Component {
     this.toImport = this.toImport.bind(this);
     this.toRestore = this.toRestore.bind(this);
     this.toBackup = this.toBackup.bind(this);
+    this.toBackup = this.toBackup.bind(this);
+    this.Importing = this.Importing.bind(this);
+    this.Exporting = this.Exporting.bind(this);
   }
 
   updateMacro() {
@@ -267,6 +271,18 @@ class MacroForm extends Component {
       });
   }
 
+  Importing(selection) {
+    console.log("importing:", selection);
+    if (selection == "import") this.toImport();
+    if (selection == "restore") this.toRestore();
+  }
+
+  Exporting(selection) {
+    console.log("exporting:", selection);
+    if (selection == "export") this.toExport();
+    if (selection == "backup") this.toBackup();
+  }
+
   render() {
     const { close, keymapDB } = this.props;
     const currentMacro = this.state.macros[this.state.selected];
@@ -284,31 +300,6 @@ class MacroForm extends Component {
               disableAdd={this.props.disableAdd}
               duplicateMacro={this.props.duplicateMacro}
             />
-            <div className="buttons centered">
-              <div>
-                <Button
-                  variant="outlined"
-                  className="margin grey"
-                  onClick={this.toRestore}
-                >
-                  <div>
-                    <MdArchive />
-                  </div>
-                  <div>{i18n.editor.macros.restore}</div>
-                </Button>
-
-                <Button
-                  variant="outlined"
-                  className="margin grey"
-                  onClick={this.toBackup}
-                >
-                  <div>
-                    <MdUnarchive />
-                  </div>
-                  <div>{i18n.editor.macros.backup}</div>
-                </Button>
-              </div>
-            </div>
           </Col>
           <Col xs={7} className="bg">
             <Form.Control
@@ -343,26 +334,40 @@ class MacroForm extends Component {
               {i18n.dialog.cancel}
             </Button> */}
               <div>
-                <Button
-                  variant="outlined"
+                <DropdownButton
+                  id="exporting-dropdown"
                   className="margin grey"
-                  onClick={this.toImport}
+                  onSelect={this.Importing}
+                  title={
+                    <React.Fragment>
+                      <MdInput />
+                      {"  "}
+                      {i18n.editor.macros.import}
+                    </React.Fragment>
+                  }
                 >
-                  <div>
-                    <MdInput />
-                  </div>
-                  <div>{i18n.editor.macros.import}</div>
-                </Button>
-                <Button
-                  variant="outlined"
+                  <Dropdown.Item eventKey="import">Import macro</Dropdown.Item>
+                  <Dropdown.Item eventKey="restore">
+                    Restore all macros
+                  </Dropdown.Item>
+                </DropdownButton>
+                <DropdownButton
+                  id="exporting-dropdown"
                   className="margin grey"
-                  onClick={this.toExport}
+                  onSelect={this.Exporting}
+                  title={
+                    <React.Fragment>
+                      <MdInput />
+                      {"  "}
+                      {i18n.editor.macros.export}
+                    </React.Fragment>
+                  }
                 >
-                  <div>
-                    <MdImportExport />
-                  </div>
-                  <div>{i18n.editor.macros.export}</div>
-                </Button>
+                  <Dropdown.Item eventKey="export">Export macro</Dropdown.Item>
+                  <Dropdown.Item eventKey="backup">
+                    Restore all macros
+                  </Dropdown.Item>
+                </DropdownButton>
               </div>
               <Button
                 variant="contained"

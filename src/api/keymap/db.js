@@ -146,7 +146,14 @@ class KeymapDB {
     this.keymapCodeTable = [];
     //create variable that get language from the local storage
     this.language = settings.getSync("keyboard.language");
-
+    if (
+      this.language == "swedish" ||
+      this.language == "danish" ||
+      this.language == "norwegian" ||
+      this.language == "icelandic"
+    ) {
+      this.language = "nordic";
+    }
     //Modify our baseKeyCodeTable, depending on the language selected by the static methods and by inside function newLanguageLayout
     baseKeyCodeTable = KeymapDB.updateBaseKeyCode();
     const keyCodeTableWithModifiers =
@@ -235,6 +242,14 @@ class KeymapDB {
 
   static updateBaseKeyCode() {
     this.language = settings.getSync("keyboard.language") || "english";
+    if (
+      this.language == "swedish" ||
+      this.language == "danish" ||
+      this.language == "norwegian" ||
+      this.language == "icelandic"
+    ) {
+      this.language = "nordic";
+    }
     //Checking language in the cache
     if (map.has(this.language)) {
       //Return language layout from the cache

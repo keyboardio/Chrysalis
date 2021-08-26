@@ -7,10 +7,12 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 
 const Style = Styled.div`
 .MacroButton{
+  margin-bottom: 0.5em;
   .dropdown-toggle{
     text-align: left;
     padding-left: 20px;
     overflow-y: visible;
+    border: 1px solid ${({ theme }) => theme.colors.button.disabled};;
   }
 }
 .menuitem {

@@ -12,6 +12,7 @@ const Style = Styled.div`
     padding-left: 20px;
     width: 50%;
     overflow-y: visible;
+    border: 1px solid ${({ theme }) => theme.colors.button.disabled};;
   }
 }
 .menuitem {

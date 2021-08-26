@@ -3,22 +3,12 @@ import MacroTable from "./MacroTable";
 import MacroSelector from "./MacroSelector";
 
 import Styled from "styled-components";
-import { toast } from "react-toastify";
-import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
-
-import {
-  MdArchive,
-  MdUnarchive,
-  MdSave,
-  MdInput,
-  MdImportExport
-} from "react-icons/md";
+import { BiImport, BiExport } from "react-icons/bi";
 
 import i18n from "../../i18n";
 
@@ -55,6 +45,9 @@ const Styles = Styled.div`
 .form-row {
   padding: 0;
 }
+.row-buttons {
+  justify-content: center;
+}
 `;
 
 class MacroForm extends Component {
@@ -85,6 +78,7 @@ class MacroForm extends Component {
     this.updateMacro = this.updateMacro.bind(this);
     this.updateActions = this.updateActions.bind(this);
     this.updateSelected = this.updateSelected.bind(this);
+    this.updateName = this.updateName.bind(this);
     this.toExport = this.toExport.bind(this);
     this.toImport = this.toImport.bind(this);
     this.toRestore = this.toRestore.bind(this);
@@ -94,24 +88,30 @@ class MacroForm extends Component {
     this.Exporting = this.Exporting.bind(this);
   }
 
-  updateMacro() {
+  updateMacro(data) {
     let macros = this.state.macros;
     if (macros[this.state.selected] === undefined) {
       this.setState({ macros });
       this.props.accept(macros);
       return;
     }
-    macros[this.state.selected].name = this.state.name;
-    macros[this.state.selected].actions = this.state.actions;
-    macros[this.state.selected].macro = this.state.text;
-    this.setState({ macros });
+    macros[this.state.selected].name = data.name;
+    macros[this.state.selected].actions = data.actions;
+    macros[this.state.selected].macro = data.text;
+    this.setState({
+      macros,
+      name: data.name,
+      actions: data.actions,
+      macro: data.text
+    });
     this.props.accept(macros);
   }
 
   updateActions(actions, text) {
-    this.setState({
-      actions,
-      text
+    this.updateMacro({
+      name: this.state.name,
+      actions: actions,
+      text: text
     });
   }
 
@@ -120,6 +120,15 @@ class MacroForm extends Component {
       selected
     });
     this.props.changeSelected(selected);
+  }
+
+  updateName(e) {
+    console.log(e.target.value);
+    this.updateMacro({
+      name: e.target.value,
+      actions: this.state.actions,
+      text: this.state.text
+    });
   }
 
   toImport() {
@@ -307,9 +316,7 @@ class MacroForm extends Component {
               className="margin textField"
               placeholder={i18n.editor.macros.macroName}
               value={this.state.name}
-              onChange={e => {
-                this.setState({ name: e.target.value });
-              }}
+              onChange={this.updateName}
             />
             <MacroTable
               key={
@@ -324,64 +331,43 @@ class MacroForm extends Component {
               number={this.props.macros.length}
               selected={this.state.selected}
             />
-            <div className={"buttons"}>
-              {/* <Button
-              variant="outlined"
-              color="secondary"
-              className={classes.margin}
-              onClick={close}
-            >
-              {i18n.dialog.cancel}
-            </Button> */}
-              <div>
-                <DropdownButton
-                  id="exporting-dropdown"
-                  className="margin grey"
-                  onSelect={this.Importing}
-                  title={
-                    <React.Fragment>
-                      <MdInput />
-                      {"  "}
-                      {i18n.editor.macros.import}
-                    </React.Fragment>
-                  }
-                >
-                  <Dropdown.Item eventKey="import">Import macro</Dropdown.Item>
-                  <Dropdown.Item eventKey="restore">
-                    Restore all macros
-                  </Dropdown.Item>
-                </DropdownButton>
-                <DropdownButton
-                  id="exporting-dropdown"
-                  className="margin grey"
-                  onSelect={this.Exporting}
-                  title={
-                    <React.Fragment>
-                      <MdInput />
-                      {"  "}
-                      {i18n.editor.macros.export}
-                    </React.Fragment>
-                  }
-                >
-                  <Dropdown.Item eventKey="export">Export macro</Dropdown.Item>
-                  <Dropdown.Item eventKey="backup">
-                    Restore all macros
-                  </Dropdown.Item>
-                </DropdownButton>
-              </div>
-              <Button
-                variant="contained"
-                color="primary"
-                className="margin button"
-                onClick={this.updateMacro}
-              >
-                <div>
-                  <MdSave />
-                </div>
-                <div>{i18n.editor.macros.applyAndExit}</div>
-              </Button>
-            </div>
           </Col>
+        </Row>
+        <Row className="row-buttons">
+          <div className={"buttons"}>
+            <DropdownButton
+              id="exporting-dropdown"
+              className="margin grey"
+              onSelect={this.Importing}
+              title={
+                <React.Fragment>
+                  <BiImport />
+                  {"  "}
+                  {i18n.editor.macros.import}
+                </React.Fragment>
+              }
+            >
+              <Dropdown.Item eventKey="import">Import macro</Dropdown.Item>
+              <Dropdown.Item eventKey="restore">
+                Restore all macros
+              </Dropdown.Item>
+            </DropdownButton>
+            <DropdownButton
+              id="exporting-dropdown"
+              className="margin grey"
+              onSelect={this.Exporting}
+              title={
+                <React.Fragment>
+                  <BiExport />
+                  {"  "}
+                  {i18n.editor.macros.export}
+                </React.Fragment>
+              }
+            >
+              <Dropdown.Item eventKey="export">Export macro</Dropdown.Item>
+              <Dropdown.Item eventKey="backup">Backup all macros</Dropdown.Item>
+            </DropdownButton>
+          </div>
         </Row>
       </Styles>
     );

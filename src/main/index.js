@@ -200,7 +200,9 @@ app.on("ready", async () => {
   nativeTheme.themeSource = darkMode;
 
   if (settings.getSync("backupFolder") == "") {
-    settings.setSync(app.getPath("home"));
+    const defaultPath = path.join(app.getPath("home"), "Raise", "Backups");
+    fs.mkdir(defaultPath);
+    settings.setSync(defaultPath);
   }
   if (isDevelopment) {
     await installExtension(REACT_DEVELOPER_TOOLS)

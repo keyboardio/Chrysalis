@@ -98,6 +98,16 @@ const Style = Styled.div`
 const IconColor = Styled.span`
     color: ${props => props.color};
 `;
+const TooltipStyle = Styled.div`
+text-align: left;
+.ttip-p {
+  margin: 0;
+}
+.ttip-h {
+  margin: 0;
+  font-size: 1.3em;
+}
+`;
 
 class KeyPicker extends Component {
   constructor(props) {
@@ -115,14 +125,22 @@ class KeyPicker extends Component {
   renderTooltip(tooltips) {
     return (
       <Tooltip id="select-tooltip" className="longtooltip">
-        {tooltips.map((tip, i) => {
-          return (
-            <React.Fragment key={`Tip-${i}`}>
-              {i == 0 ? "" : <br></br>}
-              <span>{tip}</span>
-            </React.Fragment>
-          );
-        })}
+        <TooltipStyle>
+          {tooltips.map((tip, i) => {
+            return (
+              <React.Fragment key={`Tip-${i}`}>
+                {i % 2 == 1 || !isNaN(tip[0]) ? (
+                  <p className="ttip-p">{tip}</p>
+                ) : (
+                  <React.Fragment>
+                    {i == 0 ? "" : <br></br>}
+                    <h5 className="ttip-h">{tip}</h5>
+                  </React.Fragment>
+                )}
+              </React.Fragment>
+            );
+          })}
+        </TooltipStyle>
       </Tooltip>
     );
   }
@@ -264,6 +282,7 @@ class KeyPicker extends Component {
             height={25}
           >
             <OverlayTrigger
+              trigger="click"
               rootClose
               placement="top"
               delay={{ show: 250, hide: 400 }}

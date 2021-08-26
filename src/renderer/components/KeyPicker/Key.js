@@ -13,7 +13,7 @@ const ksl = {
       b: { dx: 18, dy: 15, fs: 14 },
       c: { dx: 28, dy: 15, fs: 14 },
       d: { dx: 38, dy: 15, fs: 14 },
-      letter: { dx: 22, dy: 16, fs: 14, fss: 12 }
+      letter: { dx: 22, dy: 16, ddx: 22, ddy: 16, fs: 14, fss: 12 }
     }
   },
   "2UT": {
@@ -25,7 +25,7 @@ const ksl = {
       b: { dx: 60, dy: 16, fs: 16 },
       c: { dx: 28, dy: 16, fs: 14 },
       d: { dx: 38, dy: 16, fs: 14 },
-      letter: { dx: 47, dy: 16, fs: 16, fss: 14 }
+      letter: { dx: 47, dy: 16, ddx: 47, ddy: 16, fs: 16, fss: 14 }
     }
   },
   specialBlockT: {
@@ -37,7 +37,7 @@ const ksl = {
       b: { dx: 10, dy: 28, fs: 14 },
       c: { dx: 128, dy: 19, fs: 14 },
       d: { dx: 138, dy: 19, fs: 14 },
-      letter: { dx: 22, dy: 17, fs: 16, fss: 14 }
+      letter: { dx: 22, dy: 17, ddx: 22, ddy: 17, fs: 16, fss: 14 }
     }
   },
   specialBlockT2: {
@@ -49,7 +49,7 @@ const ksl = {
       b: { dx: 10, dy: 28, fs: 14 },
       c: { dx: 128, dy: 19, fs: 14 },
       d: { dx: 138, dy: 19, fs: 14 },
-      letter: { dx: 22, dy: 17, fs: 16, fss: 14 }
+      letter: { dx: 22, dy: 17, ddx: 22, ddy: 17, fs: 16, fss: 14 }
     }
   },
   "1U": {
@@ -61,7 +61,7 @@ const ksl = {
       b: { dx: 18, dy: 15, fs: 14 },
       c: { dx: 28, dy: 15, fs: 14 },
       d: { dx: 38, dy: 15, fs: 14 },
-      letter: { dx: 22, dy: 19, fs: 18, fss: 14 }
+      letter: { dx: 22, dy: 19, ddx: 34, ddy: 7, fs: 18, fss: 14 }
     }
   },
   "1U2": {
@@ -73,7 +73,7 @@ const ksl = {
       b: { dx: 16, dy: 19, fs: 14 },
       c: { dx: 28, dy: 19, fs: 14 },
       d: { dx: 38, dy: 19, fs: 14 },
-      letter: { dx: 27, dy: 19, fs: 16, fss: 14 }
+      letter: { dx: 27, dy: 19, ddx: 27, ddy: 19, fs: 16, fss: 14 }
     }
   },
   "1U5": {
@@ -85,7 +85,7 @@ const ksl = {
       b: { dx: 16, dy: 19, fs: 14 },
       c: { dx: 28, dy: 19, fs: 14 },
       d: { dx: 38, dy: 19, fs: 14 },
-      letter: { dx: 32, dy: 19, fs: 16, fss: 14 }
+      letter: { dx: 32, dy: 19, ddx: 32, ddy: 19, fs: 16, fss: 14 }
     }
   },
   "1U6": {
@@ -97,7 +97,7 @@ const ksl = {
       b: { dx: 16, dy: 19, fs: 14 },
       c: { dx: 28, dy: 19, fs: 14 },
       d: { dx: 38, dy: 19, fs: 14 },
-      letter: { dx: 42, dy: 19, fs: 16, fss: 14 }
+      letter: { dx: 42, dy: 19, ddx: 42, ddy: 19, fs: 16, fss: 14 }
     }
   },
   "1U8": {
@@ -109,7 +109,7 @@ const ksl = {
       b: { dx: 16, dy: 19, fs: 14 },
       c: { dx: 28, dy: 19, fs: 14 },
       d: { dx: 38, dy: 19, fs: 14 },
-      letter: { dx: 47, dy: 19, fs: 16, fss: 14 }
+      letter: { dx: 47, dy: 19, ddx: 47, ddy: 19, fs: 16, fss: 14 }
     }
   },
   "2U": {
@@ -121,7 +121,7 @@ const ksl = {
       b: { dx: 60, dy: 19, fs: 14 },
       c: { dx: 28, dy: 19, fs: 14 },
       d: { dx: 38, dy: 19, fs: 14 },
-      letter: { dx: 52, dy: 19, fs: 16, fss: 14 }
+      letter: { dx: 52, dy: 19, ddx: 52, ddy: 19, fs: 16, fss: 14 }
     }
   },
   "3U": {
@@ -133,7 +133,7 @@ const ksl = {
       b: { dx: 16, dy: 19, fs: 14 },
       c: { dx: 28, dy: 19, fs: 14 },
       d: { dx: 38, dy: 19, fs: 14 },
-      letter: { dx: 84, dy: 19, fs: 20, fss: 14 }
+      letter: { dx: 84, dy: 19, ddx: 84, ddy: 19, fs: 20, fss: 14 }
     }
   },
   "6U2": {
@@ -145,7 +145,7 @@ const ksl = {
       b: { dx: 16, dy: 19, fs: 14 },
       c: { dx: 28, dy: 19, fs: 14 },
       d: { dx: 38, dy: 19, fs: 14 },
-      letter: { dx: 142, dy: 19, fs: 20, fss: 14 }
+      letter: { dx: 142, dy: 19, ddx: 142, ddy: 19, fs: 20, fss: 14 }
     }
   },
   block: {
@@ -157,7 +157,7 @@ const ksl = {
       b: { dx: 10, dy: 28, fs: 14 },
       c: { dx: 128, dy: 19, fs: 14 },
       d: { dx: 138, dy: 19, fs: 14 },
-      letter: { dx: 18, dy: 17, fs: 16, fss: 14 }
+      letter: { dx: 18, dy: 17, ddx: 18, ddy: 17, fs: 16, fss: 14 }
     }
   },
   specialBlock: {
@@ -169,7 +169,7 @@ const ksl = {
       b: { dx: 10, dy: 28, fs: 14 },
       c: { dx: 128, dy: 19, fs: 14 },
       d: { dx: 138, dy: 19, fs: 14 },
-      letter: { dx: 22, dy: 17, fs: 16, fss: 14 }
+      letter: { dx: 22, dy: 17, ddx: 22, ddy: 17, fs: 16, fss: 14 }
     }
   },
   longBlock: {
@@ -181,7 +181,7 @@ const ksl = {
       b: { dx: 2, dy: 28, fs: 14 },
       c: { dx: 28, dy: 19, fs: 14 },
       d: { dx: 38, dy: 19, fs: 14 },
-      letter: { dx: 18, dy: 38, fs: 16, fss: 14 }
+      letter: { dx: 18, dy: 38, ddx: 18, ddy: 38, fs: 16, fss: 14 }
     }
   },
   wideBlock: {
@@ -193,7 +193,7 @@ const ksl = {
       b: { dx: 2, dy: 28, fs: 14 },
       c: { dx: 28, dy: 19, fs: 14 },
       d: { dx: 38, dy: 19, fs: 14 },
-      letter: { dx: 39, dy: 17, fs: 20, fss: 14 }
+      letter: { dx: 39, dy: 17, ddx: 39, ddy: 17, fs: 20, fss: 14 }
     }
   },
   enter: {
@@ -205,7 +205,7 @@ const ksl = {
       b: { dx: 16, dy: 19, fs: 14 },
       c: { dx: 28, dy: 19, fs: 14 },
       d: { dx: 38, dy: 19, fs: 14 },
-      letter: { dx: 22, dy: 16, fs: 18, fss: 14 }
+      letter: { dx: 22, dy: 16, ddx: 22, ddy: 16, fs: 18, fss: 14 }
     }
   },
   title: {
@@ -217,7 +217,7 @@ const ksl = {
       b: { dx: 16, dy: 19, fs: 14 },
       c: { dx: 28, dy: 19, fs: 14 },
       d: { dx: 38, dy: 19, fs: 14 },
-      letter: { dx: 0, dy: 16, fs: 16, fss: 16 }
+      letter: { dx: 0, dy: 16, ddx: 0, ddy: 16, fs: 16, fss: 16 }
     }
   }
 };
@@ -390,8 +390,8 @@ class Key extends React.Component {
               {content.first}
             </text>
             <text
-              x={x + ksl[content.type].text.letter.dx}
-              y={y + ksl[content.type].text.letter.dy + 12}
+              x={x + ksl[content.type].text.letter.ddx}
+              y={y + ksl[content.type].text.letter.ddy + 12}
               onClick={clicked}
               fontSize={ksl[content.type].text.letter.fss}
               fontWeight={200}

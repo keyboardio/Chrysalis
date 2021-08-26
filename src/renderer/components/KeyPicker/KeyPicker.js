@@ -64,7 +64,10 @@ import ENi from "./ENi.json";
 import ENa from "./ENa.json";
 import GR from "./GR.json";
 import FR from "./FR.json";
-import NR from "./NR.json";
+import SW from "./SW.json";
+import DN from "./DN.json";
+import NW from "./NW.json";
+import IC from "./IC.json";
 
 const Style = Styled.div`
 .keyboard {
@@ -137,7 +140,10 @@ class KeyPicker extends Component {
       spanish: ES,
       german: GR,
       french: FR,
-      nordic: NR
+      swedish: SW,
+      danish: DN,
+      norwegian: NW,
+      icelandic: IC
     };
     const lansi = { english: ENa };
     let Lang = ENa;

@@ -308,7 +308,7 @@
     "iconname":"",
     "content": {
       "type": "1U",
-      "first": "½",
+      "first": "|",
       "second": "§",
       "third": "",
       "fourth": ""
@@ -385,7 +385,7 @@
       "type": "1U",
       "first": "5",
       "second": "%",
-      "third": "",
+      "third": "€",
       "fourth": ""
     }
   },
@@ -489,8 +489,8 @@
     "content": {
       "type": "1U",
       "first": "\\",
-      "second": "´",
-      "third": "`",
+      "second": "`",
+      "third": "´",
       "fourth": ""
     }
   },
@@ -674,7 +674,7 @@
     "content": {
       "type": "1U",
       "first": "E",
-      "second": "",
+      "second": "€",
       "third": "",
       "fourth": ""
     }

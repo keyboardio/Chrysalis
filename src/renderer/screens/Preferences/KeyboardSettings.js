@@ -475,7 +475,10 @@ class KeyboardSettings extends React.Component {
       "spanish",
       "german",
       "french",
-      "nordic",
+      "swedish",
+      "danish",
+      "norwegian",
+      "icelandic",
       "japanese"
     ].map((item, index) => {
       return (

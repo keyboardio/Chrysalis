@@ -22,9 +22,9 @@ import { FaRobot } from "react-icons/fa";
 
 export default function MacroEditorItem({ onClick, drawerWidth, selected }) {
   return (
-    <div onClick={onClick} className={`item-list ${selected ? "select" : ""}`}>
+    <div onClick={onClick} className={"item-list"}>
       <div className={"icon-item"}>
-        <FaRobot className={"icon-image"} />
+        <FaRobot className={`icon-image ${selected ? "select" : ""}`} />
       </div>
       {drawerWidth === "auto" ? (
         <div className="icon-text">

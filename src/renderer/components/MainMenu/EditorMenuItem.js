@@ -22,9 +22,9 @@ import { MdKeyboard } from "react-icons/Md";
 
 export default function EditorMenuItem({ onClick, drawerWidth, selected }) {
   return (
-    <div onClick={onClick} className={`item-list ${selected ? "select" : ""}`}>
+    <div onClick={onClick} className={"item-list"}>
       <div className={"icon-item"}>
-        <MdKeyboard className={"icon-image"} />
+        <MdKeyboard className={`icon-image ${selected ? "select" : ""}`} />
       </div>
       {drawerWidth === "auto" ? (
         <div className="icon-text">

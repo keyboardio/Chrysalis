@@ -29,9 +29,9 @@ export default function KeyboardMenuItem({
   drawerWidth
 }) {
   return (
-    <div onClick={onClick} className={`item-list ${selected ? "select" : ""}`}>
+    <div onClick={onClick} className={"item-list"}>
       <div className="icon-item">
-        <MdKeyboardHide className={"icon-image"} />
+        <MdKeyboardHide className={`icon-image ${selected ? "select" : ""}`} />
       </div>
       {drawerWidth === "auto" ? (
         <div className="icon-text">

@@ -92,6 +92,9 @@ const Style = Styled.div`
 .titleheight {
   line-height: revert;
 }
+.overflowS {
+  overflow: scroll;
+}
 `;
 
 class Selector extends Component {
@@ -289,7 +292,7 @@ class Selector extends Component {
 
     return (
       <Style>
-        <Card className="type-card overflow">
+        <Card className="type-card overflowS">
           <Card.Body>
             <Row className="m-0 py-1">
               <Col xs={12} className="px-0 text-center">

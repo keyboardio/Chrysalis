@@ -199,6 +199,15 @@ const English = {
   keyboardSettings: {
     advanced: "Advanced",
     defaultLabel: "default",
+    backupFolder: {
+      title: "Select backup folder",
+      restoreTitle: "Select a backup to restore",
+      loadWindowTitle: "Choose backup folder",
+      windowButton: "Select",
+      windowRestore: "Restore",
+      selectButtonText: "Select backup folder",
+      restoreButtonText: "Restore backup"
+    },
     keymap: {
       title: "KEYMAP SETTINGS",
       noDefault: "No default",

@@ -199,6 +199,9 @@ app.on("ready", async () => {
   // Setting nativeTheme currently only seems to work at this point in the code
   nativeTheme.themeSource = darkMode;
 
+  if (settings.getSync("backupFolder") == "") {
+    settings.setSync(app.getPath("home"));
+  }
   if (isDevelopment) {
     await installExtension(REACT_DEVELOPER_TOOLS)
       .then(name => console.log(`Added Extension:  ${name}`))

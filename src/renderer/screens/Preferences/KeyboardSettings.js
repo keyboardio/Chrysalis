@@ -51,35 +51,43 @@ const Styles = Styled.div`
 `;
 
 class KeyboardSettings extends React.Component {
-  state = {
-    keymap: {
-      custom: [],
-      default: [],
-      onlyCustom: false
-    },
-    ledBrightness: 255,
-    ledIdleTimeLimit: 0,
-    defaultLayer: 126,
-    qukeysHoldTimeout: 0,
-    qukeysOverlapThreshold: 0,
-    SuperTimeout: 0,
-    SuperRepeat: 0,
-    SuperWaitfor: 0,
-    SuperHoldstart: 0,
-    SuperOverlapThreshold: 0,
-    mouseSpeed: 0,
-    mouseSpeedDelay: 0,
-    mouseAccelSpeed: 0,
-    mouseAccelDelay: 0,
-    mouseWheelSpeed: 0,
-    mouseWheelDelay: 0,
-    mouseSpeedLimit: 0,
-    modified: false,
-    showDefaults: false,
-    working: false,
-    selectedLanguage: ""
-  };
+  constructor(props) {
+    super(props);
 
+    this.state = {
+      keymap: {
+        custom: [],
+        default: [],
+        onlyCustom: false
+      },
+      ledBrightness: 255,
+      ledIdleTimeLimit: 0,
+      defaultLayer: 126,
+      qukeysHoldTimeout: 0,
+      qukeysOverlapThreshold: 0,
+      SuperTimeout: 0,
+      SuperRepeat: 0,
+      SuperWaitfor: 0,
+      SuperHoldstart: 0,
+      SuperOverlapThreshold: 0,
+      mouseSpeed: 0,
+      mouseSpeedDelay: 0,
+      mouseAccelSpeed: 0,
+      mouseAccelDelay: 0,
+      mouseWheelSpeed: 0,
+      mouseWheelDelay: 0,
+      mouseSpeedLimit: 0,
+      modified: false,
+      showDefaults: false,
+      working: false,
+      selectedLanguage: "",
+      backupFolder: ""
+    };
+
+    this.ChooseBackupFolder = this.ChooseBackupFolder.bind(this);
+    this.restoreBackup = this.restoreBackup.bind(this);
+    this.GetBackup = this.GetBackup.bind(this);
+  }
   delay = ms => new Promise(res => setTimeout(res, ms));
 
   async componentDidMount() {
@@ -100,6 +108,10 @@ class KeyboardSettings extends React.Component {
     focus.command("idleleds.time_limit").then(limit => {
       limit = limit ? parseInt(limit) : -1;
       this.setState({ ledIdleTimeLimit: limit });
+    });
+
+    this.setState({
+      backupFolder: settings.getSync("backupFolder")
     });
 
     this.setState({
@@ -431,6 +443,89 @@ class KeyboardSettings extends React.Component {
     settings.setSync("keyboard.language", `${language}`);
   };
 
+  ChooseBackupFolder() {
+    let options = {
+      title: i18n.keyboardSettings.backupFolder.title,
+      buttonLabel: i18n.keyboardSettings.backupFolder.windowButton,
+      properties: ["openDirectory"]
+    };
+    const remote = require("electron").remote;
+    const WIN = remote.getCurrentWindow();
+    remote.dialog
+      .showOpenDialog(WIN, options)
+      .then(resp => {
+        if (!resp.canceled) {
+          console.log(resp.filePaths);
+          this.setState({
+            backupFolder: resp.filePaths[0]
+          });
+          settings.setSync("backupFolder", `${resp.filePaths[0]}`);
+        } else {
+          console.log("user closed backup folder dialog");
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  async GetBackup() {
+    let options = {
+      title: i18n.keyboardSettings.backupFolder.restoreTitle,
+      buttonLabel: i18n.keyboardSettings.backupFolder.windowRestore,
+      defaultPath: this.state.backupFolder,
+      filters: [
+        { name: "Json", extensions: ["json"] },
+        { name: i18n.dialog.allFiles, extensions: ["*"] }
+      ]
+    };
+    const remote = require("electron").remote;
+    const WIN = remote.getCurrentWindow();
+    remote.dialog
+      .showOpenDialog(WIN, options)
+      .then(resp => {
+        if (!resp.canceled) {
+          console.log(resp.filePaths);
+          let backup;
+          try {
+            backup = JSON.parse(require("fs").readFileSync(resp.filePaths[0]));
+            console.log("loaded backup", backup[0].command, backup[0].data);
+          } catch (e) {
+            console.error(e);
+            alert("The file is not a valid macros backup");
+            return;
+          }
+          this.restoreBackup(backup);
+        } else {
+          console.log("user closed SaveDialog");
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  async restoreBackup(backup) {
+    let focus = new Focus();
+    try {
+      for (let i = 0; i < backup.length; i++) {
+        let val = backup[i].data;
+        // Boolean values need to be sent as int
+        if (typeof val === "boolean") {
+          val = +val;
+        }
+        console.log(`Going to send ${backup[i].command} to keyboard`);
+        await focus.command(`${backup[i].command} ${val}`.trim());
+      }
+      console.log("Restoring all settings");
+      console.log("Firmware update OK");
+      return true;
+    } catch (e) {
+      console.log(`Restore settings: Error: ${e.message}`);
+      return false;
+    }
+  }
+
   render() {
     const {
       keymap,
@@ -714,6 +809,16 @@ class KeyboardSettings extends React.Component {
         marks={[{ value: 127, label: i18n.keyboardSettings.defaultLabel }]}
       />
     );
+    const backupFolderButton = (
+      <Button onClick={this.ChooseBackupFolder}>
+        {i18n.keyboardSettings.backupFolder.selectButtonText}
+      </Button>
+    );
+    const restoreBackupButton = (
+      <Button onClick={this.GetBackup}>
+        {i18n.keyboardSettings.backupFolder.restoreButtonText}
+      </Button>
+    );
 
     return (
       <Styles>
@@ -736,10 +841,6 @@ class KeyboardSettings extends React.Component {
               </Form.Group> */}
               <Form.Group controlId="selectLanguage" className="formGroup">
                 <Form.Label>{i18n.preferences.language}</Form.Label>
-                <br></br>
-                <Form.Label>
-                  {"Restart Bazecor for the language changes to take effect"}
-                </Form.Label>
                 {selectLanguage}
               </Form.Group>
               <Form.Group controlId="defaultLayer" className="formGroup">
@@ -747,6 +848,19 @@ class KeyboardSettings extends React.Component {
                   {i18n.keyboardSettings.keymap.defaultLayer}
                 </Form.Label>
                 {defaultLayerSelect}
+              </Form.Group>
+              <Form.Group controlId="backupFolder" className="mb-3">
+                <Form.Label>
+                  {i18n.keyboardSettings.backupFolder.title}
+                </Form.Label>
+                <div>
+                  {backupFolderButton}
+                  {"  "}
+                  {this.state.backupFolder}
+                </div>
+              </Form.Group>
+              <Form.Group controlId="restoreBackup" className="mb-3">
+                <div>{restoreBackupButton}</div>
               </Form.Group>
             </Card.Body>
           </Card>

@@ -24,6 +24,7 @@ import { version, fwVersion } from "../../../package.json";
 
 import Focus from "../../api/focus";
 import FlashRaise from "../../api/flash";
+import Backup from "../../api/backup";
 
 import Styled from "styled-components";
 import { toast } from "react-toastify";
@@ -230,6 +231,7 @@ class FirmwareUpdate extends React.Component {
     let focus = new Focus();
     this.flashRaise = null;
     this.isDevelopment = process.env.NODE_ENV !== "production";
+    this.bkp = new Backup();
 
     this.state = {
       firmwareFilename: "",
@@ -286,9 +288,9 @@ class FirmwareUpdate extends React.Component {
     }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    let focus = new Focus();
     document.addEventListener("keydown", this._handleKeyDown);
-    const focus = new Focus();
     let versions;
 
     focus.command("version").then(v => {
@@ -303,26 +305,28 @@ class FirmwareUpdate extends React.Component {
       this.setState({ versions: versions });
     });
 
-    const notRequired = [
-      "eeprom",
-      "hardware",
-      "settings.valid?",
-      "settings.version",
-      "settings.crc",
-      "layer",
-      "help",
-      "version",
-      "led.at",
-      "led.setAll",
-      "macros.trigger",
-      "qukeys"
-    ];
-    let commands;
-    focus.command("help").then(comm => {
-      commands = comm.filter(c => !notRequired.some(v => c.includes(v)));
-      console.log(commands);
-      this.setState({ commands });
-    });
+    // const notRequired = [
+    //   "eeprom",
+    //   "hardware",
+    //   "settings.valid?",
+    //   "settings.version",
+    //   "settings.crc",
+    //   "layer",
+    //   "help",
+    //   "version",
+    //   "led.at",
+    //   "led.setAll",
+    //   "macros.trigger",
+    //   "qukeys"
+    // ];
+    // let commands;
+    // focus.command("help").then(comm => {
+    //   commands = comm.filter(c => !notRequired.some(v => c.includes(v)));
+    //   console.log(commands);
+    //   this.setState({ commands });
+    // });
+    const commands = await this.bkp.Commands();
+    this.setState({ commands });
   }
 
   componentWillUnmount() {
@@ -550,16 +554,8 @@ class FirmwareUpdate extends React.Component {
   };
 
   backup = async () => {
-    let backup = [];
+    let backup = await this.bkp.DoBackup(this.state.commands);
     this.setState({ backup });
-    const focus = new Focus();
-    this.state.commands.map(async command => {
-      await focus.command(command).then(data => {
-        let bkp = this.state.backup;
-        bkp.push({ command, data });
-        this.setState({ bkp });
-      });
-    });
   };
 
   saveBackup = backup => {

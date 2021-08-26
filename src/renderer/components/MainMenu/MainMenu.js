@@ -121,6 +121,7 @@ const Styles = Styled.div`
 }
 .select {
   background-color: ${({ theme }) => theme.card.backgroundActive};
+  border-radius: 8px;
   width: 100%;
 }
 `;

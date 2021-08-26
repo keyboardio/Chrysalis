@@ -241,7 +241,7 @@ export default class LayerPanel extends Component {
         <Container fluid className="layer-editor">
           <Row className="layers">{layerButtons}</Row>
           <Row className="layer-tools">{buttons}</Row>
-          <Row className="layer-share">{shareb}</Row>
+          {/* <Row className="layer-share">{shareb}</Row> */}
         </Container>
       </Styles>
     );

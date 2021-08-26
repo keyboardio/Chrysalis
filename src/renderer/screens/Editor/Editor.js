@@ -33,6 +33,8 @@ import { IoMdColorPalette } from "react-icons/io";
 import slideInUp from "react-animations/lib/slide-in-up";
 
 import Focus from "../../../api/focus";
+import Backup from "../../../api/backup";
+import keymap from "../../../api/keymap";
 import Keymap, { KeymapDB } from "../../../api/keymap";
 import LayerPanel from "./LayerPanel";
 import ColorPanel from "./ColorPanel";
@@ -49,7 +51,6 @@ import {
   backupLayers,
   shareLayers
 } from "../../../api/firebase/firebase.utils";
-import keymap from "../../../api/keymap";
 
 const SlideInAnim = keyframes`${slideInUp}`;
 const Store = window.require("electron-store");
@@ -144,6 +145,8 @@ const Styles = Styled.div`
 class Editor extends Component {
   constructor(props) {
     super(props);
+
+    this.bkp = new Backup();
 
     this.state = {
       currentLayer: 0,
@@ -564,8 +567,11 @@ class Editor extends Component {
       superkeys: newSuperKeys
     });
     console.log("Changes saved.");
+    const commands = await this.bkp.Commands();
+    const backup = await this.bkp.DoBackup(commands);
+    this.bkp.SaveBackup(backup);
     // TODO: Save changes in the cloud
-    const backup = {
+    const cloudbackup = {
       undeglowColors: this.state.undeglowColors,
       keymap: this.state.keymap,
       colormap: {
@@ -573,7 +579,7 @@ class Editor extends Component {
         colorMap: this.state.colorMap
       }
     };
-    // backupLayers(backup);
+    // backupLayers(cloudbackup);
     this.props.cancelContext();
   };
 

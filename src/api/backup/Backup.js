@@ -34,10 +34,8 @@ export default class Backup extends Component {
   }
 
   async DoBackup(commands) {
-    console.log("DoBackup function", commands);
     let backup = [];
     for (let i = 0; i < commands.length; i++) {
-      console.log("calling for data");
       let command = commands[i];
       console.log(command);
       let data = await this.focus.command(command);
@@ -47,16 +45,25 @@ export default class Backup extends Component {
   }
 
   SaveBackup(backup) {
+    const d = new Date();
+    const folder = settings.getSync("backupFolder");
     try {
-      const date = new Date();
-      const folder = settings.getSync("backupFolder");
       const fullPath = path.join(
         folder,
-        `RaiseBackup-${date.toISOString()}.hex`
+        `RaiseBackup-${
+          ("0" + d.getDate()).slice(-2) +
+          ("0" + (d.getMonth() + 1)).slice(-2) +
+          d.getFullYear() +
+          ("0" + d.getHours()).slice(-2) +
+          ("0" + d.getMinutes()).slice(-2) +
+          ("0" + d.getSeconds()).slice(-2)
+        }.json`
       );
+      console.log(fullPath);
       require("fs").writeFileSync(fullPath, JSON.stringify(backup, null, 2));
       return true;
     } catch (error) {
+      console.log("Error ocurred", d, folder, error);
       return false;
     }
   }

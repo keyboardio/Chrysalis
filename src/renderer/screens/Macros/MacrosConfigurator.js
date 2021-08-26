@@ -32,6 +32,7 @@ import i18n from "../../i18n";
 import MacroManager from "../../components/MacroManager/index";
 import Keymap, { KeymapDB } from "../../../api/keymap";
 import Focus from "../../../api/focus";
+import Backup from "../../../api/backup";
 
 const Store = window.require("electron-store");
 const store = new Store();
@@ -86,6 +87,7 @@ class MacrosConfigurator extends React.Component {
     super(props);
 
     this.keymapDB = new KeymapDB();
+    this.bkp = new Backup();
 
     this.state = {
       keymap: [],
@@ -391,6 +393,9 @@ class MacrosConfigurator extends React.Component {
       await focus.command("keymap", this.state.keymap);
       await focus.command("superkeys.map", this.superkeyMap(newSuperKeys));
       console.log("Changes saved.");
+      const commands = await this.bkp.Commands();
+      const backup = await this.bkp.DoBackup(commands);
+      this.bkp.SaveBackup(backup);
       // TODO: Save changes in the cloud
       // const backup = {
       //   undeglowColors: this.state.undeglowColors,

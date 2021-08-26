@@ -27,6 +27,7 @@ import Form from "react-bootstrap/Form";
 import RangeSlider from "react-bootstrap-range-slider";
 
 import Focus from "../../../api/focus";
+import Backup from "../../../api/backup";
 
 import ConfirmationDialog from "../../components/ConfirmationDialog";
 import SaveChangesButton from "../../components/SaveChangesButton";
@@ -53,6 +54,8 @@ const Styles = Styled.div`
 class KeyboardSettings extends React.Component {
   constructor(props) {
     super(props);
+
+    this.bkp = new Backup();
 
     this.state = {
       keymap: {
@@ -434,6 +437,10 @@ class KeyboardSettings extends React.Component {
     await focus.command("mouse.wheelDelay", mouseWheelDelay);
     await focus.command("mouse.speedLimit", mouseSpeedLimit);
 
+    const commands = await this.bkp.Commands();
+    const backup = await this.bkp.DoBackup(commands);
+    this.bkp.SaveBackup(backup);
+
     this.setState({ modified: false });
     this.props.cancelContext();
   };
@@ -548,7 +555,8 @@ class KeyboardSettings extends React.Component {
       mouseWheelSpeed,
       mouseWheelDelay,
       mouseSpeedLimit,
-      selectedLanguage
+      selectedLanguage,
+      backupFolder
     } = this.state;
 
     const onlyCustomSwitch = (
@@ -856,7 +864,7 @@ class KeyboardSettings extends React.Component {
                 <div>
                   {backupFolderButton}
                   {"  "}
-                  {this.state.backupFolder}
+                  {backupFolder}
                 </div>
               </Form.Group>
               <Form.Group controlId="restoreBackup" className="mb-3">

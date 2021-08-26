@@ -304,27 +304,6 @@ class FirmwareUpdate extends React.Component {
 
       this.setState({ versions: versions });
     });
-
-    // const notRequired = [
-    //   "eeprom",
-    //   "hardware",
-    //   "settings.valid?",
-    //   "settings.version",
-    //   "settings.crc",
-    //   "layer",
-    //   "help",
-    //   "version",
-    //   "led.at",
-    //   "led.setAll",
-    //   "macros.trigger",
-    //   "qukeys"
-    // ];
-    // let commands;
-    // focus.command("help").then(comm => {
-    //   commands = comm.filter(c => !notRequired.some(v => c.includes(v)));
-    //   console.log(commands);
-    //   this.setState({ commands });
-    // });
     const commands = await this.bkp.Commands();
     this.setState({ commands });
   }

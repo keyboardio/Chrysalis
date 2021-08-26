@@ -191,6 +191,20 @@ app.on("activate", () => {
 
 // create main BrowserWindow when electron is ready
 app.on("ready", async () => {
+  let bfolder = settings.getSync("backupFolder");
+  console.log("CHECKING BACKUP FOLDER VALUE", bfolder);
+  if (bfolder == "" || bfolder == undefined) {
+    const defaultPath = path.join(app.getPath("home"), "Raise", "Backups");
+    console.log(defaultPath);
+    settings.setSync("backupFolder", defaultPath);
+    fs.mkdir(defaultPath, { recursive: true }, err => {
+      if (err) {
+        console.error(err);
+      }
+      console.log("Directory created successfully!");
+    });
+  }
+
   let darkMode = settings.getSync("ui.darkMode");
   if (typeof darkMode === "boolean" || darkMode === undefined) {
     darkMode = "system";
@@ -199,11 +213,6 @@ app.on("ready", async () => {
   // Setting nativeTheme currently only seems to work at this point in the code
   nativeTheme.themeSource = darkMode;
 
-  if (settings.getSync("backupFolder") == "") {
-    const defaultPath = path.join(app.getPath("home"), "Raise", "Backups");
-    fs.mkdir(defaultPath);
-    settings.setSync(defaultPath);
-  }
   if (isDevelopment) {
     await installExtension(REACT_DEVELOPER_TOOLS)
       .then(name => console.log(`Added Extension:  ${name}`))

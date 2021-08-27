@@ -87,6 +87,7 @@ const Styles = Styled.div`
         text-align: center;
         &:hover {
           background-color: rgba(255,255,255,0.3);
+          border-radius: 8px;
         }
       }
     }

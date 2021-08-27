@@ -18,7 +18,7 @@
 import React, { Fragment } from "react";
 import i18n from "../../i18n";
 
-import { MdKeyboard } from "react-icons/Md";
+import { MdKeyboard } from "react-icons/md";
 
 export default function EditorMenuItem({ onClick, drawerWidth, selected }) {
   return (

@@ -57,7 +57,7 @@ const Style = Styled.div`
 .dropdown-menu.show {
   display: block;
   overflow-y: auto;
-  height: 400px;
+  height: 130px;
 }
 .selectButton{
   .dropdown-toggle{
@@ -75,8 +75,7 @@ const Style = Styled.div`
 }
 .rowsection {
   margin: 0;
-  left: 2;
-  width: -2%;
+  flex-wrap: nowrap;
 }
 .section {
   min-height: 100%;
@@ -117,6 +116,7 @@ const Style = Styled.div`
 }
 .fixed-width {
   max-width: 321px;
+  min-width: 321px;
   margin-top: 31px;
 }
 .Tabstyle {

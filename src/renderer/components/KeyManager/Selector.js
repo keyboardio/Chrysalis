@@ -93,7 +93,7 @@ const Style = Styled.div`
   line-height: revert;
 }
 .overflowS {
-  overflow: scroll;
+  overflow-y: scroll;
 }
 `;
 

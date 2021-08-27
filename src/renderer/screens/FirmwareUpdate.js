@@ -284,7 +284,7 @@ class FirmwareUpdate extends React.Component {
       this.state.commands.length > 0
     ) {
       this.setState({ backupDone: true, countdown: 1 });
-      this.saveBackup(this.state.backup);
+      this.bkp.saveBackup(this.state.backup);
     }
   }
 
@@ -537,41 +537,41 @@ class FirmwareUpdate extends React.Component {
     this.setState({ backup });
   };
 
-  saveBackup = backup => {
-    let options = {
-      title: "Full Backup file",
-      defaultPath: "FlashBackup.json",
-      buttonLabel: "Backup",
-      filters: [
-        { name: "Json", extensions: ["json"] },
-        { name: "All Files", extensions: ["*"] }
-      ]
-    };
-    const remote = require("electron").remote;
-    const WIN = remote.getCurrentWindow();
-    remote.dialog
-      .showSaveDialog(WIN, options)
-      .then(resp => {
-        if (!resp.canceled) {
-          // console.log(resp.filePath, backup);
-          require("fs").writeFileSync(
-            resp.filePath,
-            JSON.stringify(backup, null, 2)
-          );
-          toast.success(i18n.firmwareUpdate.backupSuccessful, {
-            autoClose: 2000
-          });
-        } else {
-          console.log("user closed Save Dialog");
-        }
-      })
-      .catch(err => {
-        console.error(err);
-        toast.error(i18n.errors.exportError + err, {
-          autoClose: 2000
-        });
-      });
-  };
+  // saveBackup = backup => {
+  //   let options = {
+  //     title: "Full Backup file",
+  //     defaultPath: "FlashBackup.json",
+  //     buttonLabel: "Backup",
+  //     filters: [
+  //       { name: "Json", extensions: ["json"] },
+  //       { name: "All Files", extensions: ["*"] }
+  //     ]
+  //   };
+  //   const remote = require("electron").remote;
+  //   const WIN = remote.getCurrentWindow();
+  //   remote.dialog
+  //     .showSaveDialog(WIN, options)
+  //     .then(resp => {
+  //       if (!resp.canceled) {
+  //         // console.log(resp.filePath, backup);
+  //         require("fs").writeFileSync(
+  //           resp.filePath,
+  //           JSON.stringify(backup, null, 2)
+  //         );
+  //         toast.success(i18n.firmwareUpdate.backupSuccessful, {
+  //           autoClose: 2000
+  //         });
+  //       } else {
+  //         console.log("user closed Save Dialog");
+  //       }
+  //     })
+  //     .catch(err => {
+  //       console.error(err);
+  //       toast.error(i18n.errors.exportError + err, {
+  //         autoClose: 2000
+  //       });
+  //     });
+  // };
 
   render() {
     const {

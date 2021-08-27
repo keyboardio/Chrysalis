@@ -284,7 +284,7 @@ class FirmwareUpdate extends React.Component {
       this.state.commands.length > 0
     ) {
       this.setState({ backupDone: true, countdown: 1 });
-      this.bkp.saveBackup(this.state.backup);
+      this.bkp.SaveBackup(this.state.backup);
     }
   }
 

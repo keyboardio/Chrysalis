@@ -68,6 +68,16 @@ const Style = Styled.div`
   }
 }
 `;
+const TooltipStyle = Styled.div`
+text-align: left;
+.ttip-p {
+  margin: 0;
+}
+.ttip-h {
+  margin: 0;
+  font-size: 1.3em;
+}
+`;
 
 class Configurator extends Component {
   constructor(props) {
@@ -131,34 +141,25 @@ class Configurator extends Component {
     ];
   }
 
-  renderTooltip(line1, line2, line3, line4) {
+  renderTooltip(tooltips) {
     return (
       <Tooltip id="select-tooltip" className="longtooltip">
-        <span>{line1}</span>
-        {line2 == "" ? (
-          ""
-        ) : (
-          <React.Fragment>
-            <br></br>
-            <span>{line2}</span>
-          </React.Fragment>
-        )}
-        {line3 == "" ? (
-          ""
-        ) : (
-          <React.Fragment>
-            <br></br>
-            <span>{line3}</span>
-          </React.Fragment>
-        )}
-        {line4 == "" ? (
-          ""
-        ) : (
-          <React.Fragment>
-            <br></br>
-            <span>{line4}</span>
-          </React.Fragment>
-        )}
+        <TooltipStyle>
+          {tooltips.map((tip, i) => {
+            return (
+              <React.Fragment key={`Tip-${i}`}>
+                {i % 2 == 1 || !isNaN(tip[0]) ? (
+                  <p className="ttip-p">{tip}</p>
+                ) : (
+                  <React.Fragment>
+                    {i == 0 ? "" : <br></br>}
+                    <h5 className="ttip-h">{tip}</h5>
+                  </React.Fragment>
+                )}
+              </React.Fragment>
+            );
+          })}
+        </TooltipStyle>
       </Tooltip>
     );
   }
@@ -182,12 +183,13 @@ class Configurator extends Component {
       activeKB
     } = this.props;
 
-    const swtext =
-      "Move to another layer while holding the key. Release the key to go back to the previous layer.";
+    const swtext = "Move to another layer while holding the key.";
+    const swtext2 = "Release the key to go back to the previous layer.";
     const lktext = "Tap to permanently move to another layer.";
     const lktext2 =
-      "To return to the previous layer, set a Layer Lock key targeting it.";
-    const dltext =
+      "To return to the previous layer, set a Layer Lock key on the destination that targets it.";
+    const dltext = "Dual Layer key";
+    const dltext1 =
       "1. Move to another layer while holding the key. Release the key to go back to the previous layer.";
     const dltext2 = "2. Tap to type the selected key.";
     const dltext3 = "Previously called a dual-function layer.";
@@ -200,9 +202,9 @@ class Configurator extends Component {
               LAYER SWITCH{" "}
               <OverlayTrigger
                 rootClose
-                placement="right"
+                placement="top"
                 delay={{ show: 250, hide: 400 }}
-                overlay={this.renderTooltip(swtext, "", "", "")}
+                overlay={this.renderTooltip([swtext, swtext2])}
               >
                 <MdInfo className={"info"} />
               </OverlayTrigger>
@@ -254,9 +256,9 @@ class Configurator extends Component {
               LAYER LOCK{" "}
               <OverlayTrigger
                 rootClose
-                placement="right"
+                placement="top"
                 delay={{ show: 250, hide: 400 }}
-                overlay={this.renderTooltip(lktext, lktext2, "", "")}
+                overlay={this.renderTooltip([lktext, lktext2])}
               >
                 <MdInfo className={"info"} />
               </OverlayTrigger>
@@ -308,7 +310,7 @@ class Configurator extends Component {
               ONE SHOT LAYER{" "}
               <OverlayTrigger
                 rootClose
-                placement="right"
+                placement="top"
                 delay={{ show: 250, hide: 400 }}
                 overlay={this.renderImgTooltip(OSL)}
               >
@@ -360,9 +362,9 @@ class Configurator extends Component {
           LAYER & KEY{" "}
           <OverlayTrigger
             rootClose
-            placement="right"
+            placement="top"
             delay={{ show: 250, hide: 400 }}
-            overlay={this.renderTooltip(dltext, dltext2, dltext3, "")}
+            overlay={this.renderTooltip([dltext, dltext1, dltext2, dltext3])}
           >
             <MdInfo className={"info"} />
           </OverlayTrigger>

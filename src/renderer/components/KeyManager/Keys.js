@@ -29,6 +29,17 @@ const Style = Styled.div`
 }
 `;
 
+const TooltipStyle = Styled.div`
+text-align: left;
+.ttip-p {
+  margin: 0;
+}
+.ttip-h {
+  margin: 0;
+  font-size: 1.3em;
+}
+`;
+
 class Keys extends Component {
   constructor(props) {
     super(props);
@@ -36,12 +47,25 @@ class Keys extends Component {
     this.state = {};
   }
 
-  renderTooltip(line1, line2) {
+  renderTooltip(tooltips) {
     return (
       <Tooltip id="select-tooltip" className="longtooltip">
-        <span>{line1}</span>
-        <br></br>
-        <span>{line2}</span>
+        <TooltipStyle>
+          {tooltips.map((tip, i) => {
+            return (
+              <React.Fragment key={`Tip-${i}`}>
+                {i % 2 == 1 || !isNaN(tip[0]) ? (
+                  <p className="ttip-p">{tip}</p>
+                ) : (
+                  <React.Fragment>
+                    {i == 0 ? "" : <br></br>}
+                    <h5 className="ttip-h">{tip}</h5>
+                  </React.Fragment>
+                )}
+              </React.Fragment>
+            );
+          })}
+        </TooltipStyle>
       </Tooltip>
     );
   }
@@ -74,7 +98,7 @@ class Keys extends Component {
                 rootClose
                 placement="right"
                 delay={{ show: 250, hide: 400 }}
-                overlay={this.renderTooltip(text, text2)}
+                overlay={this.renderTooltip([text, text2])}
               >
                 <MdInfo className={"info"} />
               </OverlayTrigger>

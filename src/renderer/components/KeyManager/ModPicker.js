@@ -32,6 +32,16 @@ const Style = Styled.div`
   color: #666;
 }
 `;
+const TooltipStyle = Styled.div`
+text-align: left;
+.ttip-p {
+  margin: 0;
+}
+.ttip-h {
+  margin: 0;
+  font-size: 1.3em;
+}
+`;
 
 class ModPicker extends Component {
   constructor(props) {
@@ -40,34 +50,25 @@ class ModPicker extends Component {
     this.state = {};
   }
 
-  renderTooltip(line1, line2, line3, line4) {
+  renderTooltip(tooltips) {
     return (
       <Tooltip id="select-tooltip" className="longtooltip">
-        <span>{line1}</span>
-        {line2 == "" ? (
-          ""
-        ) : (
-          <React.Fragment>
-            <br></br>
-            <span>{line2}</span>
-          </React.Fragment>
-        )}
-        {line3 == "" ? (
-          ""
-        ) : (
-          <React.Fragment>
-            <br></br>
-            <span>{line3}</span>
-          </React.Fragment>
-        )}
-        {line4 == "" ? (
-          ""
-        ) : (
-          <React.Fragment>
-            <br></br>
-            <span>{line4}</span>
-          </React.Fragment>
-        )}
+        <TooltipStyle>
+          {tooltips.map((tip, i) => {
+            return (
+              <React.Fragment key={`Tip-${i}`}>
+                {i % 2 == 1 || !isNaN(tip[0]) ? (
+                  <p className="ttip-p">{tip}</p>
+                ) : (
+                  <React.Fragment>
+                    {i == 0 ? "" : <br></br>}
+                    <h5 className="ttip-h">{tip}</h5>
+                  </React.Fragment>
+                )}
+              </React.Fragment>
+            );
+          })}
+        </TooltipStyle>
       </Tooltip>
     );
   }
@@ -75,9 +76,11 @@ class ModPicker extends Component {
   render() {
     const { actions, action, SelectModif, modifs, i } = this.props;
 
-    const text1 =
+    const text1 = "Key combined with modifier";
+    const text2 =
       "Add any of these modifiers to the selected Key to create combinations such as Control Alt Del.";
-    const text2 = "For mor complex combinations, you can use macros.";
+    const text3 = "More options";
+    const text4 = "For more complex combinations, you can use macros.";
 
     return (
       <Style>
@@ -126,7 +129,7 @@ class ModPicker extends Component {
             rootClose
             placement="right"
             delay={{ show: 250, hide: 400 }}
-            overlay={this.renderTooltip(text1, text2, "", "")}
+            overlay={this.renderTooltip([text1, text2, text3, text4])}
           >
             <MdInfo className="modinfo" />
           </OverlayTrigger>

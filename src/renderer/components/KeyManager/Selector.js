@@ -96,7 +96,16 @@ const Style = Styled.div`
   overflow-y: scroll;
 }
 `;
-
+const TooltipStyle = Styled.div`
+text-align: left;
+.ttip-p {
+  margin: 0;
+}
+.ttip-h {
+  margin: 0;
+  font-size: 1.3em;
+}
+`;
 class Selector extends Component {
   constructor(props) {
     super(props);
@@ -107,34 +116,25 @@ class Selector extends Component {
     this.Selection = this.Selection.bind(this);
   }
 
-  renderTooltip(line1, line2, line3, line4) {
+  renderTooltip(tooltips) {
     return (
       <Tooltip id="select-tooltip" className="longtooltip">
-        <span>{line1}</span>
-        {line2 == "" ? (
-          ""
-        ) : (
-          <React.Fragment>
-            <br></br>
-            <span>{line2}</span>
-          </React.Fragment>
-        )}
-        {line3 == "" ? (
-          ""
-        ) : (
-          <React.Fragment>
-            <br></br>
-            <span>{line3}</span>
-          </React.Fragment>
-        )}
-        {line4 == "" ? (
-          ""
-        ) : (
-          <React.Fragment>
-            <br></br>
-            <span>{line4}</span>
-          </React.Fragment>
-        )}
+        <TooltipStyle>
+          {tooltips.map((tip, i) => {
+            return (
+              <React.Fragment key={`Tip-${i}`}>
+                {i % 2 == 1 || !isNaN(tip[0]) ? (
+                  <p className="ttip-p">{tip}</p>
+                ) : (
+                  <React.Fragment>
+                    {i == 0 ? "" : <br></br>}
+                    <h5 className="ttip-h">{tip}</h5>
+                  </React.Fragment>
+                )}
+              </React.Fragment>
+            );
+          })}
+        </TooltipStyle>
       </Tooltip>
     );
   }
@@ -236,7 +236,7 @@ class Selector extends Component {
                   rootClose
                   placement="right"
                   delay={{ show: 250, hide: 400 }}
-                  overlay={this.renderTooltip(move1, move2, "", "")}
+                  overlay={this.renderTooltip([move1, move2])}
                 >
                   <MdInfo className="info" />
                 </OverlayTrigger>

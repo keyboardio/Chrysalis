@@ -315,6 +315,18 @@ const English = {
     permissionErrorSuggestion: `BAZECOR can fix this by installing a udev rules file into /etc/udev/rules.d/.`
   },
   firmwareUpdate: {
+    texts: {
+      advUsers: "Advanced",
+      cstomFW: "Custom Firmware",
+      backwds: "Back",
+      cancel: "Cancel"
+    },
+    milestones: {
+      backup: "Next",
+      esc: "Press and mantain esc",
+      flash: "Uploading ...",
+      restore: "Done, Restoring ..."
+    },
     dialog: {
       selectFirmware: "Select a firmware",
       firmwareFiles: "Firmware files",

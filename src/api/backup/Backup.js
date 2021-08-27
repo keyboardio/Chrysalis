@@ -67,4 +67,39 @@ export default class Backup extends Component {
       return false;
     }
   }
+  // saveBackup = backup => {
+  //   let options = {
+  //     title: "Full Backup file",
+  //     defaultPath: "FlashBackup.json",
+  //     buttonLabel: "Backup",
+  //     filters: [
+  //       { name: "Json", extensions: ["json"] },
+  //       { name: "All Files", extensions: ["*"] }
+  //     ]
+  //   };
+  //   const remote = require("electron").remote;
+  //   const WIN = remote.getCurrentWindow();
+  //   remote.dialog
+  //     .showSaveDialog(WIN, options)
+  //     .then(resp => {
+  //       if (!resp.canceled) {
+  //         // console.log(resp.filePath, backup);
+  //         require("fs").writeFileSync(
+  //           resp.filePath,
+  //           JSON.stringify(backup, null, 2)
+  //         );
+  //         toast.success(i18n.firmwareUpdate.backupSuccessful, {
+  //           autoClose: 2000
+  //         });
+  //       } else {
+  //         console.log("user closed Save Dialog");
+  //       }
+  //     })
+  //     .catch(err => {
+  //       console.error(err);
+  //       toast.error(i18n.errors.exportError + err, {
+  //         autoClose: 2000
+  //       });
+  //     });
+  // };
 }

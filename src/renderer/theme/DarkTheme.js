@@ -31,7 +31,7 @@ const Dark = {
       borderColor: "#AAA"
     },
     link: {
-      text: "teal",
+      text: "#6ecfff",
       opacity: 1
     }
   },

@@ -143,10 +143,13 @@ class MacrosConfigurator extends React.Component {
       const parsedSuper = this.superTranslator(raw2);
       this.setState({
         macros: parsedMacros,
+        storedMacros: store.get("macros"),
         superkeys: parsedSuper,
         keymap
       });
     } catch (e) {
+      console.log("error when loading macros");
+      console.error(e);
       toast.error(e);
       this.props.onDisconnect();
     }
@@ -276,7 +279,7 @@ class MacrosConfigurator extends React.Component {
       }
     });
     this.setState({ equalMacros: equal });
-
+    console.log("Checking differences", this.state.macros, finalMacros);
     return finalMacros;
   }
 
@@ -545,15 +548,19 @@ class MacrosConfigurator extends React.Component {
             updateMacro={this.updateMacros}
             changeSelected={this.changeSelected}
             keymapDB={this.keymapDB}
-            key={this.state.macros}
+            key={JSON.stringify(this.state.macros)}
           />
         </Container>
         <Row>
           <Col className="save-button">
-            <Button onClick={this.writeMacros}>Send to Keyboard</Button>
+            <Button onClick={this.writeMacros}>
+              {i18n.components.save.saveChanges}
+            </Button>
           </Col>
           <Col className="save-button">
-            <Button onClick={this.loadMacros}>discard changes</Button>
+            <Button onClick={this.loadMacros}>
+              {i18n.app.cancelPending.button}
+            </Button>
           </Col>
         </Row>
         <Modal

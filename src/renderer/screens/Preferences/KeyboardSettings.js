@@ -581,8 +581,7 @@ class KeyboardSettings extends React.Component {
       "swedish",
       "danish",
       "norwegian",
-      "icelandic",
-      "japanese"
+      "icelandic"
     ].map((item, index) => {
       return (
         <Dropdown.Item eventKey={item} key={index}>

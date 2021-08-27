@@ -282,7 +282,6 @@ class KeyPicker extends Component {
             height={25}
           >
             <OverlayTrigger
-              trigger="click"
               rootClose
               placement="top"
               delay={{ show: 250, hide: 400 }}

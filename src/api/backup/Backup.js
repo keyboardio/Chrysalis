@@ -59,8 +59,9 @@ export default class Backup extends Component {
           ("0" + d.getSeconds()).slice(-2)
         }.json`
       );
-      console.log(fullPath);
-      require("fs").writeFileSync(fullPath, JSON.stringify(backup, null, 2));
+      const json = JSON.stringify(backup, null, 2);
+      // console.log(fullPath, backup, json);
+      require("fs").writeFileSync(fullPath, json);
       return true;
     } catch (error) {
       console.log("Error ocurred", d, folder, error);

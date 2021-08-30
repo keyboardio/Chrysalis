@@ -294,7 +294,7 @@ class FirmwareUpdate extends React.Component {
     }
   };
 
-  componentDidUpdate() {
+  async componentDidUpdate() {
     // console.log(
     //   "Testing State Update",
     //   this.state.backup.length,
@@ -309,7 +309,8 @@ class FirmwareUpdate extends React.Component {
       this.state.commands.length > 0
     ) {
       this.setState({ backupDone: true, countdown: 1 });
-      this.bkp.SaveBackup(this.state.backup);
+      await this.bkp.SaveBackup(this.state.backup);
+      await this.putEscKey(this.state.backup[0]);
     }
   }
 
@@ -335,6 +336,14 @@ class FirmwareUpdate extends React.Component {
 
   componentWillUnmount() {
     document.removeEventListener("keydown", this._handleKeyDown);
+  }
+
+  async putEscKey(command) {
+    let focus = new Focus();
+    let withEsc = command.data.split(/\s+/);
+    withEsc[0] = 41;
+    await focus.command("keymap.custom", withEsc.join(" "));
+    await focus.command("layer.moveTo 0");
   }
 
   selectFirmware = event => {

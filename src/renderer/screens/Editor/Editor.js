@@ -1509,7 +1509,7 @@ class Editor extends Component {
       code = {
         base:
           tempkey.keyCode > 255
-            ? tempkey.keyCode > 49000
+            ? tempkey.keyCode > 49160
               ? tempkey.keyCode == 65535
                 ? this.keymapDB.reverse(tempkey.label)
                 : parseInt(tempkey.label)
@@ -1520,7 +1520,7 @@ class Editor extends Component {
         modified:
           tempkey.keyCode > 255 &&
           (tempkey.keyCode < 20480 || tempkey.keyCode > 20561)
-            ? tempkey.keyCode > 49000
+            ? tempkey.keyCode > 49160
               ? tempkey.keyCode == 65535
                 ? 0
                 : this.keymapDB.reverseSub(tempkey.label, tempkey.extraLabel) -
@@ -1530,7 +1530,7 @@ class Editor extends Component {
             : 0
       };
     }
-    // console.log(JSON.stringify(code));
+    console.log(JSON.stringify(code));
     let actions = [code !== null ? code.base + code.modified : 0, 0, 0, 0, 0];
     let superName = "";
     if (code !== null) {

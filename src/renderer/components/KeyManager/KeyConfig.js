@@ -216,7 +216,11 @@ class KeyConfig extends Component {
       }
     });
     let activeTab = "editor";
-    if (keynum < 256 || (keynum > 53851 && keynum < 53852 + 64)) {
+    if (
+      keynum < 256 ||
+      (keynum > 53851 && keynum < 53852 + 64) ||
+      (keynum > 49152 && keynum < 49161)
+    ) {
       activeTab = "editor";
     } else if (layerData > 0 || selectdual > 0) {
       activeTab = "layer";

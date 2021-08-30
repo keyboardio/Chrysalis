@@ -25,6 +25,7 @@ const Dark = {
       hover: "#777",
       disabled: "#444",
       active: "#AAA",
+      secondary: "#BBB",
       activeText: "#000",
       deselectedText: "#454545",
       boxShadow: "0 0 0 0.2rem rgba(150,150,150,.5)",

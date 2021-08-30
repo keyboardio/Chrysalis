@@ -95,7 +95,7 @@ const Styles = Styled.div`
           text-align: center;
         }
         .subtitle {
-          color: white;
+          color: ${({ theme }) => theme.colors.text};
           text-align: center;
         }
         .loader {
@@ -229,8 +229,8 @@ const Styles = Styled.div`
 }
 .outlined {
   background-color: transparent;
-  border: 2px solid ${({ theme }) => theme.colors.button.active};
-  color: ${({ theme }) => theme.colors.button.active};
+  border: 2px solid ${({ theme }) => theme.colors.button.secondary};
+  color: ${({ theme }) => theme.colors.button.secondary};
 }
 .arrowicon {
   font-size: 1.6em;

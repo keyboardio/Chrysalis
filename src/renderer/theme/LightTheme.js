@@ -25,6 +25,7 @@ const Light = {
       hover: "#b0e3ff",
       disabled: "#999",
       active: "#96dbff",
+      secondary: "#343a40",
       activeText: "#FFF",
       deselectedText: "#AAA",
       boxShadow: "0 0 0 0.2rem rgba(203,237,255,.5)",

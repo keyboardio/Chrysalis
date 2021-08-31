@@ -329,7 +329,7 @@ class MacroForm extends Component {
               </Col>
               <Col xs={2}>
                 <Button onClick={this.updateName} className="applybutton my-0">
-                  {i18n.editor.macros.applyAndExit}
+                  {i18n.editor.macros.saveName}
                 </Button>
               </Col>
             </Row>

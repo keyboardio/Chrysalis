@@ -219,7 +219,8 @@ class KeyConfig extends Component {
     if (
       keynum < 256 ||
       (keynum > 53851 && keynum < 53852 + 64) ||
-      (keynum > 49152 && keynum < 49161)
+      (keynum > 49152 && keynum < 49161) ||
+      keynum == 65535
     ) {
       activeTab = "editor";
     } else if (layerData > 0 || selectdual > 0) {

@@ -28,9 +28,12 @@ const Styles = Styled.div`
   height: 100%;
   margin: 2rem;
   padding: 0;
-  overflow: visible;
+  overflow: auto;
   background-color: ${({ theme }) => theme.card.background};
   color: ${({ theme }) => theme.card.color};
+}
+.card::-webkit-scrollbar {
+  display: none;
 }
 .cardcontent {
   padding: 0px;

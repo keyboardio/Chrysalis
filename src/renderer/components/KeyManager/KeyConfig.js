@@ -35,7 +35,6 @@ const Style = Styled.div`
     padding: 0px;
     justify-content:center;
     .main-card{
-      overflow: visible;
       border: none;
       box-shadow: none;
       background-color: transparent;
@@ -58,6 +57,9 @@ const Style = Styled.div`
   display: block;
   overflow-y: auto;
   height: 130px;
+}
+.dropdown-menu.show::-webkit-scrollbar {
+  display: none;
 }
 .selectButton{
   .dropdown-toggle{
@@ -96,7 +98,10 @@ const Style = Styled.div`
   }
 }
 .overflow {
-  overflow: visible;
+  overflow: auto;
+}
+.overflow::-webkit-scrollbar {
+  display: none;
 }
 .card-title {
   margin-bottom: .3rem;
@@ -528,7 +533,7 @@ class KeyConfig extends Component {
       >
         <Container fluid className="configurator">
           <Row className="rows">
-            <Card className="main-card">
+            <Card className="main-card overflow">
               {/* <Card.Header>SUPERPOWERS CONFIGURATOR MENU</Card.Header> */}
               <Card.Body className="section">
                 <Row className="rowsection">

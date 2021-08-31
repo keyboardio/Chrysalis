@@ -20,7 +20,10 @@ const Style = Styled.div`
   padding: 0;
 }
 .overflow {
-  overflow: visible;
+  overflow: auto;
+}
+.overflow::-webkit-scrollbar {
+  display: none;
 }
 .info {
   vertical-align: middle;

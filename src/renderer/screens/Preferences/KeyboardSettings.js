@@ -49,6 +49,9 @@ const Styles = Styled.div`
   .overflowFix{
     overflow: inherit;
   }
+  .overflowFix::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 class KeyboardSettings extends React.Component {

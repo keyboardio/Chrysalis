@@ -316,7 +316,7 @@ class MacroForm extends Component {
           </Col>
           <Col xs={7} className="bg">
             <Row>
-              <Col xs={10}>
+              <Col xs={9}>
                 <Form.Control
                   type="text"
                   className="margin textField my-0"
@@ -327,7 +327,7 @@ class MacroForm extends Component {
                   }}
                 />
               </Col>
-              <Col xs={2}>
+              <Col xs={3}>
                 <Button onClick={this.updateName} className="applybutton my-0">
                   {i18n.editor.macros.saveName}
                 </Button>

@@ -22,7 +22,10 @@ import { isUnionTypeNode } from "typescript";
 
 const Style = Styled.div`
 .overflow {
-  overflow: visible;
+  overflow: auto;
+}
+.overflow::-webkit-scrollbar {
+  display: none;
 }
 .select-card {
     height: 320px;

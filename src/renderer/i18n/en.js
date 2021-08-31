@@ -158,11 +158,13 @@ const English = {
       }
     },
     oldMacroModal: {
-      title: "Detected deprecated macro allocation",
+      title: "Update your macros",
       body:
-        "The macros in your layout need to be updated to work on this bazecor version, if you wish to automatically update them, press modify, else press cancel.\n\n ** Please note that the updated macro codes won't work until you flash the new firmware **",
+        "The macros in your layout need to be updated to work on this Bazecor version.",
+      body2:
+        "Please note that the updated macro codes won't work until you flash the new firmware",
       cancelButton: "Cancel",
-      applyButton: "Modify Macros"
+      applyButton: "Update Macros"
     },
     clearLayerQuestion: "Clear layer?",
     clearLayerPrompt: "This will reset the layer to its default state.",

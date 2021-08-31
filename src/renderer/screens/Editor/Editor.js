@@ -16,7 +16,6 @@
  */
 
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
 import Styled, { keyframes } from "styled-components";
 import { toast } from "react-toastify";
 
@@ -28,13 +27,12 @@ import Modal from "react-bootstrap/Modal";
 import Spinner from "react-bootstrap/Spinner";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import { MdSave, MdKeyboard } from "react-icons/md";
+import { MdKeyboard } from "react-icons/md";
 import { IoMdColorPalette } from "react-icons/io";
 import slideInUp from "react-animations/lib/slide-in-up";
 
 import Focus from "../../../api/focus";
 import Backup from "../../../api/backup";
-import keymap from "../../../api/keymap";
 import Keymap, { KeymapDB } from "../../../api/keymap";
 import LayerPanel from "./LayerPanel";
 import ColorPanel from "./ColorPanel";
@@ -62,13 +60,25 @@ visibility: ${props => (props.animate ? "hidden" : "visible")};
 `;
 
 const ModalStyle = Styled.div`
-  .modalcol {
-    color: ${({ theme }) => theme.colors.text};
-    background-color: ${({ theme }) => theme.colors.button.deselected};
-  }
-  .modal-footer {
-    justify-content: space-between;
-  }
+background-color: ${({ theme }) => theme.card.background};
+color: ${({ theme }) => theme.card.color};
+.title {
+  font-weight: 300;
+  font-size: xx-large;
+}
+.body {
+  font-weight: 200;
+  font-size: 1.1em;
+}
+.noborder {
+  border: none;
+}
+.modal-footer {
+  justify-content: space-between;
+}
+.italic {
+  font-style: italic;
+}
 `;
 
 const Styles = Styled.div`
@@ -1376,6 +1386,7 @@ class Editor extends Component {
     }
     this.setState({ showMacroModal: false, modified: true, keymap });
     this.props.startContext();
+    this.onApply();
   }
 
   render() {
@@ -1697,13 +1708,14 @@ class Editor extends Component {
           style={{ marginTop: "300px" }}
         >
           <ModalStyle>
-            <Modal.Header closeButton className="modalcol">
+            <Modal.Header closeButton className="title noborder">
               <Modal.Title>{i18n.editor.oldMacroModal.title}</Modal.Title>
             </Modal.Header>
-            <Modal.Body className="modalcol">
+            <Modal.Body className="body">
               <p>{i18n.editor.oldMacroModal.body}</p>
+              <p className="italic">{i18n.editor.oldMacroModal.body2}</p>
             </Modal.Body>
-            <Modal.Footer className="modalcol">
+            <Modal.Footer className="noborder">
               <Button variant="secondary" onClick={this.toggleMacroModal}>
                 {i18n.editor.oldMacroModal.cancelButton}
               </Button>

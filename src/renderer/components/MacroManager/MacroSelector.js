@@ -80,12 +80,12 @@ class MacroSelector extends Component {
                         <Col xs={1}>
                           <span>{index}</span>
                         </Col>
-                        <Col xs={3}>
+                        <Col xs={8}>
                           <p className="extrapadding">{item.name}</p>
                         </Col>
-                        <Col xs={5}>
-                          {/* <p className="extrapadding">{item.macro}</p> */}
-                        </Col>
+                        {/* <Col xs={5}>
+                          <p className="extrapadding">{item.macro}</p>
+                        </Col> */}
                         <Col xs={1}>
                           <OverlayTrigger
                             rootClose

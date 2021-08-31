@@ -31,7 +31,8 @@ class Picker extends Component {
       selectedlanguage,
       kbtype,
       baseCode,
-      modCode
+      modCode,
+      disable
     } = this.props;
 
     return (
@@ -45,6 +46,7 @@ class Picker extends Component {
             }}
             disableMods={[0, 3].includes(action) && activeTab == "super"}
             disableMove={![0, 3].includes(action) && activeTab == "super"}
+            disableAll={disable}
             selectedlanguage={selectedlanguage}
             kbtype={kbtype}
           />

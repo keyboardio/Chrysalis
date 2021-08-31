@@ -150,6 +150,7 @@ class KeyPicker extends Component {
       code,
       disableMods,
       disableMove,
+      disableAll,
       selectedlanguage,
       kbtype
     } = this.props;
@@ -328,7 +329,9 @@ class KeyPicker extends Component {
           iconx={key.iconx}
           icony={key.icony}
           iconsize={key.iconsize}
-          disabled={key.mod == disableMods || key.move == disableMove}
+          disabled={
+            key.mod == disableMods || key.move == disableMove || disableAll
+          }
         />
       );
     });

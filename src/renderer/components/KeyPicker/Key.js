@@ -275,10 +275,10 @@ class Key extends React.Component {
             />
 
             <rect
-              x={x + ksl[content.type].out.dx + 15}
-              y={y + ksl[content.type].out.dy}
-              width="26"
-              height="58"
+              x={x + ksl[content.type].out.dx + 10}
+              y={y + ksl[content.type].out.dy + 1}
+              width="32"
+              height="57"
               rx="6"
               fill={
                 disabled

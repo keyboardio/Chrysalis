@@ -155,6 +155,7 @@ class KeyConfig extends Component {
       action: 0,
       actions: tempActions,
       modifs: tempModifs,
+      disable: false,
       selectdual: 0,
       selectlayer: 0,
       activeTab: "editor",
@@ -177,6 +178,7 @@ class KeyConfig extends Component {
   }
   componentDidUpdate() {
     let selectdual = 0;
+    const disable = this.props.code === 0;
     const keynum =
       this.props.code != null
         ? this.props.code.modified + this.props.code.base
@@ -220,7 +222,8 @@ class KeyConfig extends Component {
       keynum < 256 ||
       (keynum > 53851 && keynum < 53852 + 64) ||
       (keynum > 49152 && keynum < 49161) ||
-      keynum == 65535
+      keynum == 65535 ||
+      disable
     ) {
       activeTab = "editor";
     } else if (layerData > 0 || selectdual > 0) {
@@ -237,6 +240,7 @@ class KeyConfig extends Component {
         actions: tempActions,
         selectdual,
         layerData,
+        disable,
         modifs: tempModifs,
         pastkeyindex: this.props.keyIndex,
         activeTab,
@@ -506,7 +510,8 @@ class KeyConfig extends Component {
       activeTab,
       showKB,
       modifs,
-      superName
+      superName,
+      disable
     } = this.state;
     const { selectedlanguage, kbtype, macros, code } = this.props;
     const selKey = this.parseAction(action);
@@ -595,6 +600,7 @@ class KeyConfig extends Component {
                     <Picker
                       actions={actions}
                       action={action}
+                      disable={disable}
                       baseCode={code.base}
                       modCode={code.modified}
                       onReplaceKey={this.onReplaceKey}

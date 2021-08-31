@@ -59,7 +59,6 @@ class OSMPicker extends Component {
         <DropdownButton
           id="OSMPicker"
           className="OSMButton"
-          drop={"up"}
           title={osm.map(x => {
             if (actions[action] == x.keynum) return x.name;
           })}

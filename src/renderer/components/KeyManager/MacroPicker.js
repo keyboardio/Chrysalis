@@ -54,7 +54,6 @@ class MacroPicker extends Component {
         <DropdownButton
           id="MacroPicker"
           className="MacroButton"
-          drop={"up"}
           title={
             macros[mcros.indexOf(actions[action])] != undefined
               ? `${mcros.indexOf(actions[action])} ${

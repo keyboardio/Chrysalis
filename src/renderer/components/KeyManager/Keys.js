@@ -1,22 +1,18 @@
 import React, { Component } from "react";
 
 // Internal components
-import PickedKey from "./PickedKey";
 import MacroPicker from "./MacroPicker";
-import ModPicker from "./ModPicker";
 import OSMPicker from "./OSMPicker";
 import F13Picker from "./F13Picker";
 
 // React Components
 import Card from "react-bootstrap/Card";
 import Tooltip from "react-bootstrap/Tooltip";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Styled from "styled-components";
-import { MdInfo } from "react-icons/md";
 
 const Style = Styled.div`
-.select-card {
-  min-height: 100%;
+.key-card {
+  min-height: 320px;
   padding: 0;
 }
 .overflow {
@@ -93,7 +89,7 @@ class Keys extends Component {
 
     return (
       <Style>
-        <Card className="select-card overflow">
+        <Card className="key-card overflow">
           <Card.Body>
             {/* <span>
               SELECTED KEY{" "}

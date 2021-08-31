@@ -93,7 +93,10 @@ const Style = Styled.div`
   line-height: revert;
 }
 .overflowS {
-  overflow-y: scroll;
+  overflow-y: auto;
+}
+.overflowS::-webkit-scrollbar {
+  display: none;
 }
 `;
 const TooltipStyle = Styled.div`

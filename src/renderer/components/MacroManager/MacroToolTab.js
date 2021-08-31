@@ -31,8 +31,12 @@ const Styles = Styled.div`
 }
 .iconbutton {
   width: auto;
-  height: 100%;
+  height: 36px;
   margin-top: 0;
+}
+.iconbuttonm {
+  width: auto;
+  height: 36px;
 }
 `;
 

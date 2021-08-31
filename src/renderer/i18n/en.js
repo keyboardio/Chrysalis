@@ -114,7 +114,7 @@ const English = {
     },
     macros: {
       add: "Add new macro",
-      applyAndExit: "Apply but NOT SEND",
+      applyAndExit: "Apply",
       backup: "Backup All",
       backupMacro: "Backup Macros",
       backupMacroFile: "Backup Macros to file",

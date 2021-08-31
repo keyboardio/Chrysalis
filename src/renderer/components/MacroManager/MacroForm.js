@@ -6,6 +6,7 @@ import Styled from "styled-components";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
 import { BiImport, BiExport } from "react-icons/bi";
@@ -47,6 +48,10 @@ const Styles = Styled.div`
 }
 .row-buttons {
   justify-content: center;
+}
+.applybutton {
+  float: right;
+  margin-right: 1rem;
 }
 `;
 
@@ -122,10 +127,9 @@ class MacroForm extends Component {
     this.props.changeSelected(selected);
   }
 
-  updateName(e) {
-    console.log(e.target.value);
+  updateName() {
     this.updateMacro({
-      name: e.target.value,
+      name: this.state.name,
       actions: this.state.actions,
       text: this.state.text
     });
@@ -311,13 +315,24 @@ class MacroForm extends Component {
             />
           </Col>
           <Col xs={7} className="bg">
-            <Form.Control
-              type="text"
-              className="margin textField"
-              placeholder={i18n.editor.macros.macroName}
-              value={this.state.name}
-              onChange={this.updateName}
-            />
+            <Row>
+              <Col xs={10}>
+                <Form.Control
+                  type="text"
+                  className="margin textField my-0"
+                  placeholder={i18n.editor.macros.macroName}
+                  value={this.state.name}
+                  onChange={e => {
+                    this.setState({ name: e.target.value });
+                  }}
+                />
+              </Col>
+              <Col xs={2}>
+                <Button onClick={this.updateName} className="applybutton my-0">
+                  {i18n.editor.macros.applyAndExit}
+                </Button>
+              </Col>
+            </Row>
             <MacroTable
               key={
                 this.state.selected +

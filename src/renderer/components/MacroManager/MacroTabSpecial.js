@@ -30,11 +30,6 @@ const Styles = Styled.div`
 .flex {
   display: flex;
 }
-.iconbutton {
-  width: auto;
-  height: 100%;
-  margin-top: 0;
-}
 .textField {
   min-width: 200px;
   padding: 0px;
@@ -174,7 +169,7 @@ class MacroTabSpecial extends Component {
               break;
           }
         }}
-        className="iconbutton"
+        className="iconbuttonm"
       >
         <MdPublish />
       </Button>

@@ -39,17 +39,13 @@ const Styles = Styled.div`
   marginLeft: 25%;
 }
 .list {
-  max-height: 400px;
-  min-height: 400px;
+  max-height: 429px;
+  min-height: 429px;
   overflow: auto;
 }
 .border {
   border: solid 1px #bbbbbb;
   border-radius: 4px;
-}
-.iconbutton {
-  width: 56px;
-  height: 56px;
 }
 .flex {
   display: flex;

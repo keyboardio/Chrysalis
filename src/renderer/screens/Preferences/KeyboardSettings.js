@@ -524,6 +524,7 @@ class KeyboardSettings extends React.Component {
         console.log(`Going to send ${backup[i].command} to keyboard`);
         await focus.command(`${backup[i].command} ${val}`.trim());
       }
+      await focus.command("led.mode 0");
       console.log("Restoring all settings");
       console.log("Firmware update OK");
       return true;

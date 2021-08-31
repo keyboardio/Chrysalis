@@ -616,7 +616,11 @@ class KeyboardSettings extends React.Component {
     }
     const defaultLayerSelect = (
       <Dropdown onSelect={this.selectDefaultLayer} value={defaultLayer}>
-        <Dropdown.Toggle className="toggler">{`Layer ${defaultLayer}`}</Dropdown.Toggle>
+        <Dropdown.Toggle className="toggler">
+          {defaultLayer == 126
+            ? i18n.keyboardSettings.keymap.noDefault
+            : `Layer ${defaultLayer}`}
+        </Dropdown.Toggle>
         <Dropdown.Menu className="dropdownMenu">
           <Dropdown.Item key={"no-default"} eventKey={126}>
             {i18n.keyboardSettings.keymap.noDefault}

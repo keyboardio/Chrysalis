@@ -44,6 +44,10 @@ color: ${({ theme }) => theme.card.color};
 }
 .disabled {
   background-color: ${({ theme }) => theme.colors.button.disabled};
+  color: ${({ theme }) => theme.colors.button.secondary};
+}
+.selected {
+  background-color: ${({ theme }) => theme.colors.button.secondary};
   color: ${({ theme }) => theme.colors.button.activeText};
 }
 `;
@@ -63,12 +67,15 @@ export const CopyFromDialog = props => {
               return (
                 <ListGroup.Item
                   className={`listitem ${
-                    layer.index == props.currentLayer ? "disabled" : ""
+                    layer.index == props.currentLayer
+                      ? "disabled"
+                      : layer.index == selectedLayer
+                      ? "selected"
+                      : ""
                   }`}
                   key={layer.index}
                   action
                   disabled={layer.index == props.currentLayer}
-                  selected={layer.index == selectedLayer}
                   onClick={() => {
                     setSelectedLayer(layer.index);
                   }}

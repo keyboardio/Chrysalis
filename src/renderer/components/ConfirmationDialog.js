@@ -16,31 +16,50 @@
  */
 
 import React from "react";
+import Styled from "styled-components";
 
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
 import i18n from "../i18n";
 
+const Styles = Styled.div`
+background-color: ${({ theme }) => theme.card.background};
+color: ${({ theme }) => theme.card.color};
+.title {
+  font-weight: 300;
+  font-size: xx-large;
+}
+.body {
+  font-weight: 200;
+  font-size: 1.1em;
+}
+.noborder {
+  border: none;
+}
+`;
+
 const ConfirmationDialog = props => {
   return (
     <Modal backdrop="static" show={props.open} onHide={props.onCancel}>
-      <Modal.Header closeButton>
-        <Modal.Title>{props.title}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>{props.text}</Modal.Body>
-      <Modal.Footer>
-        <Button
-          onClick={props.onCancel}
-          className="mr-auto"
-          variant="secondary"
-        >
-          {i18n.dialog.cancel}
-        </Button>
-        <Button onClick={props.onConfirm} variant="primary">
-          {i18n.dialog.ok}
-        </Button>
-      </Modal.Footer>
+      <Styles>
+        <Modal.Header closeButton className="noborder">
+          <Modal.Title className="title">{props.title}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="body">{props.text}</Modal.Body>
+        <Modal.Footer className="noborder">
+          <Button
+            onClick={props.onCancel}
+            className="mr-auto"
+            variant="secondary"
+          >
+            {i18n.dialog.cancel}
+          </Button>
+          <Button onClick={props.onConfirm} variant="primary">
+            {i18n.dialog.ok}
+          </Button>
+        </Modal.Footer>
+      </Styles>
     </Modal>
   );
 };

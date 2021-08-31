@@ -1473,7 +1473,7 @@ class Editor extends Component {
 
     const copyCustomItems = this.state.keymap.custom.map((_, index) => {
       const idx = index + (keymap.onlyCustom ? 0 : keymap.default.length);
-      const label = i18n.formatString(i18n.components.layer, idx);
+      const label = i18n.formatString(i18n.components.layer, idx + 1);
 
       return {
         index: idx,

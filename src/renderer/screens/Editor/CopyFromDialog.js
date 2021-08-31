@@ -16,6 +16,7 @@
  */
 
 import React, { useState } from "react";
+import Styled from "styled-components";
 import i18n from "../../i18n";
 
 //React Bootstrap components
@@ -23,55 +24,84 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 
+const Styles = Styled.div`
+background-color: ${({ theme }) => theme.card.background};
+color: ${({ theme }) => theme.card.color};
+.title {
+  font-weight: 300;
+  font-size: xx-large;
+}
+.body {
+  font-weight: 200;
+  font-size: 1.1em;
+}
+.noborder {
+  border: none;
+}
+.listitem {
+  background-color: ${({ theme }) => theme.colors.button.background};
+  color: ${({ theme }) => theme.colors.button.text};
+}
+.disabled {
+  background-color: ${({ theme }) => theme.colors.button.disabled};
+  color: ${({ theme }) => theme.colors.button.activeText};
+}
+`;
+
 export const CopyFromDialog = props => {
   const [selectedLayer, setSelectedLayer] = useState(-1);
   return (
     <Modal backdrop="static" show={props.open} onHide={props.onCancel}>
-      <Modal.Header closeButton>
-        <Modal.Title>{i18n.editor.copyFrom}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <h4>{i18n.editor.pleaseSelectLayer}</h4>
-        <ListGroup variant="flush">
-          {props.layers.map(layer => {
-            return (
-              <ListGroup.Item
-                key={layer.index}
-                action
-                disabled={layer.index == props.currentLayer}
-                selected={layer.index == selectedLayer}
-                onClick={() => {
-                  setSelectedLayer(layer.index);
-                }}
-              >
-                {layer.label}
-              </ListGroup.Item>
-            );
-          })}
-        </ListGroup>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button
-          color="primary"
-          onClick={() => {
-            setSelectedLayer(-1);
-            props.onCancel();
-          }}
-        >
-          {i18n.dialog.cancel}
-        </Button>
-        <Button
-          onClick={() => {
-            const layer = selectedLayer;
-            setSelectedLayer(-1);
-            props.onCopy(layer);
-          }}
-          color="primary"
-          disabled={selectedLayer == -1}
-        >
-          {i18n.dialog.ok}
-        </Button>
-      </Modal.Footer>
+      <Styles>
+        <Modal.Header closeButton className="noborder">
+          <Modal.Title className="title">{i18n.editor.copyFrom}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="body">
+          <h4>{i18n.editor.pleaseSelectLayer}</h4>
+          <ListGroup variant="flush">
+            {props.layers.map(layer => {
+              return (
+                <ListGroup.Item
+                  className={`listitem ${
+                    layer.index == props.currentLayer ? "disabled" : ""
+                  }`}
+                  key={layer.index}
+                  action
+                  disabled={layer.index == props.currentLayer}
+                  selected={layer.index == selectedLayer}
+                  onClick={() => {
+                    setSelectedLayer(layer.index);
+                  }}
+                >
+                  {layer.label}
+                </ListGroup.Item>
+              );
+            })}
+          </ListGroup>
+        </Modal.Body>
+        <Modal.Footer className="noborder">
+          <Button
+            color="primary"
+            onClick={() => {
+              setSelectedLayer(-1);
+              props.onCancel();
+            }}
+          >
+            {i18n.dialog.cancel}
+          </Button>
+          <Button
+            onClick={() => {
+              const layer = selectedLayer;
+              setSelectedLayer(-1);
+              props.onCopy(layer);
+            }}
+            color="primary"
+            disabled={selectedLayer == -1}
+          >
+            {i18n.dialog.ok}
+          </Button>
+        </Modal.Footer>
+      </Styles>
     </Modal>
   );
 };

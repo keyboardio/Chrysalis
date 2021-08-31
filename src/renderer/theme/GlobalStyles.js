@@ -92,8 +92,6 @@ const GlobalStyles = createGlobalStyle`
   }
 
   div.main-container{
-    margin: 0;
-    padding: 0;
     padding-left: ${NavWidth}px;
     background: ${({ theme }) => theme.colors.body};
     transition: all 0.50s linear;

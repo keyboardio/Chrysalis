@@ -604,7 +604,7 @@ class KeyboardSettings extends React.Component {
       layers = keymap.custom.map((_, index) => {
         return (
           <Dropdown.Item eventKey={index} key={index}>
-            {i18n.formatString(i18n.components.layer, index)}
+            {i18n.formatString(i18n.components.layer, index + 1)}
           </Dropdown.Item>
         );
       });
@@ -622,12 +622,12 @@ class KeyboardSettings extends React.Component {
         <Dropdown.Toggle className="toggler">
           {defaultLayer == 126
             ? i18n.keyboardSettings.keymap.noDefault
-            : `Layer ${defaultLayer}`}
+            : `Layer ${parseInt(defaultLayer) + 1}`}
         </Dropdown.Toggle>
         <Dropdown.Menu className="dropdownMenu">
-          <Dropdown.Item key={"no-default"} eventKey={126}>
+          {/* <Dropdown.Item key={"no-default"} eventKey={126}>
             {i18n.keyboardSettings.keymap.noDefault}
-          </Dropdown.Item>
+          </Dropdown.Item> */}
           {layers}
         </Dropdown.Menu>
       </Dropdown>

@@ -509,7 +509,10 @@ class FirmwareUpdate extends React.Component {
       // }
       if (this.state.versions)
         this.setState({ countdown: 0, backupDone: false, backup: [] });
-      else this.setState({ countdown: 1 });
+      else {
+        this.setState({ countdown: 2, flashProgress: 10 });
+        this.upload();
+      }
     } catch (e) {
       console.error(e);
       const styles = {
@@ -823,7 +826,13 @@ class FirmwareUpdate extends React.Component {
 
         {countdown > 1 ? (
           <Card.Body className="progressbar my-5">
-            <h2>{countdown > 2 ? "Release the key" : "Hold the key"}</h2>
+            <h2>
+              {this.state.versions
+                ? countdown > 2
+                  ? "Release the key"
+                  : "Hold the key"
+                : "Flashing!"}
+            </h2>
             <ProgressBar className="mt-5 mb-2">
               <ProgressBar animate striped now={flashProgress} />
             </ProgressBar>

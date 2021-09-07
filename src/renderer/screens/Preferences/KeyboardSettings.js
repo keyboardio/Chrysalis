@@ -764,7 +764,7 @@ class KeyboardSettings extends React.Component {
             className="dygmaLogo"
           />
           {`${
-            selectedLanguage != ""
+            selectedLanguage != undefined && selectedLanguage != ""
               ? selectedLanguage[0].toUpperCase() + selectedLanguage.slice(1)
               : selectedLanguage
           }`}

@@ -1,7 +1,7 @@
 {
   "name": "BAZECOR",
-  "version": "1.0.0beta7",
-  "fwVersion": "1.0.0beta7",
+  "version": "1.0.0beta8",
+  "fwVersion": "1.0.0beta8",
   "license": "GPL-3.0-only",
   "author": {
     "name": "Dygma Lab S.L.",
@@ -83,7 +83,6 @@
     "react-bootstrap": "^1.5.2",
     "react-bootstrap-range-slider": "^2.0.2",
     "react-color": "^2.19.3",
-    "react-compound-slider": "^3.3.1",
     "react-dom": "^16.8.5",
     "react-i18next": "^11.8.12",
     "react-icons": "^4.2.0",

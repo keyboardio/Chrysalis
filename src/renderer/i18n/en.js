@@ -26,7 +26,8 @@ const English = {
     layer: "Layer {0}",
     save: {
       success: "Sent!",
-      saveChanges: "Send changes to the Raise"
+      saveChanges: "Send changes to the Raise",
+      savePreferences: "Save preferences"
     },
     pickerColorButton: "Change color",
     underglowColorButton: "Change color of all underglows",
@@ -187,13 +188,16 @@ const English = {
     exportSuccessAllLayers: "Exported all Layers succesfully"
   },
   preferences: {
-    devtools: "Developer tools",
-    language: "Language",
+    devtools: "Chrome Tools",
+    language: "Selected language",
     interface: "Interface",
-    advanced: "Advanced",
+    tooltips: {
+      language: ""
+    },
+    advanced: "ADVANCED",
     verboseFocus: "Verbose logging",
     darkMode: {
-      label: "Dark mode",
+      label: "Appearance",
       light: "Light",
       dark: "Dark",
       system: "System"
@@ -203,27 +207,31 @@ const English = {
     advanced: "Advanced",
     defaultLabel: "default",
     backupFolder: {
-      title: "Select backup folder",
+      header: "BACKUPS",
+      title: "Backup folder",
       restoreTitle: "Select a backup to restore",
       loadWindowTitle: "Choose backup folder",
       windowButton: "Select",
       windowRestore: "Restore",
-      selectButtonText: "Select backup folder",
-      restoreButtonText: "Restore backup"
+      selectButtonText: "Change",
+      restoreButtonText: "Restore backup",
+      storeTime: "Backup storage period",
+      storeTimeTip:
+        "Determines how long a backup is stored before being deleted"
     },
     keymap: {
-      title: "KEYMAP SETTINGS",
+      title: "GENERAL",
       noDefault: "No default",
       showHardcoded: "Show hardcoded layers",
       onlyCustom: "Use custom layers only",
       defaultLayer: "Default layer"
     },
     led: {
-      title: "LED PARAMETER CONFIGURATION",
-      brightness: "Adjust LED brightness",
+      title: "LED",
+      brightness: "LED brightness",
       brightnesssub: " - From 0 to 254",
       idleDisabled: "Disabled",
-      idleTimeLimit: "Idle time before LEDs turn off",
+      idleTimeLimit: "Time before LEDs turn off",
       idle: {
         oneMinute: "1 minute",
         twoMinutes: "2 minutes",
@@ -246,36 +254,46 @@ const English = {
       overlapThresholdsub: " - Percentage from 0 to 100"
     },
     superkeys: {
-      title: "SUPER KEYS PARAMETERS",
-      timeout:
-        "Adjust time to wait for next press, after which the key will emit the corresponding action",
-      timeoutsub:
-        " - From 0 to 65,534 milliseconds (limited to 1000 trough Bazecor)",
+      title: "TYPING",
+      timeout: "Typing speed",
+      timeoutTip1: "This setting only affects Layer&Key and Superkeys.",
+      timeoutTip2:
+        "- If you select a slow typing speed, some functions of Layer&Key and Superkeys will take slightly more time to trigger.",
+      timeoutTip3:
+        "- For example, holding the key to switch to a layer or activate a modifier (like Shift, Control...).",
+      timeoutTip4:
+        "- If you choose a fast typing speed, you might activate those actions by mistake if you 'linger' too much on the key.",
+      chordingTip1: "This setting only affects Layer&Key.",
+      chordingTip2:
+        "Let's say you have a Layer&Key with 'Layer 1' on hold and 'Space' on tap.",
+      chordingTip3:
+        "- If the slider is at 'Nothing' and you press another key before completely releasing the Space, this will trigger the hold function.",
+      chordingTip4:
+        "- If the slider is at 'A lot', it'll take a bit more time for the hold function to activate.",
       repeat:
         "Adjust repeat time interval between the emmision of holded keys after waitfor period. (this doesn't affect all keys)",
       repeatsub: " - time from 0 to 254 milliseconds",
       waitfor:
         "Adjust time between first and subsequent emmisions of the hold keys",
       waitforsub: " - time from 0 to 65,534 milliseconds",
-      holdstart:
-        "Adjust time to trigger a hold when the superkey is held for that period, after it, it will automatically trigger hold action",
+      holdstart: "Chording while typing",
       holdstartsub: " - time from 0 to 65,534 milliseconds",
       overlap:
         "Adjust percentage that changes the way the hold function will trigger depending on the typing speed of the previous normal key",
       overlapsub: " - Percentage from 0 to 100"
     },
     mouse: {
-      title: "MOUSE KEYS CONFIGURATION",
+      title: "MOUSE KEYS",
       subtitle1: "MOUSE SPEED",
-      speed: "Initial speed",
+      speed: "Cursor speed",
       speedsub: " - From 0 to 254 pixels",
       speedDelay:
         "Delay between steps (the higher the number, the slower the mouse movement)",
       speedDelaysub: " - From 0 to 65,534 milliseconds",
-      speedLimit: "Overall speed limit",
+      speedLimit: "Maximum cursor speed",
       speedLimitsub: " - From 0 to 254 pixels",
       subtitle2: "MOUSE ACCELERATION",
-      accelSpeed: "Incremental acceleration",
+      accelSpeed: "Cursor acceleration",
       accelSpeedsub: " - From 0 to 254 pixels",
       accelDelay:
         "Acceleration delay between steps (the higher the number, the slower the mouse movement)",

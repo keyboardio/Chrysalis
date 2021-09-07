@@ -18,6 +18,7 @@ const Dark = {
     body: "#222",
     text: "#FFFFFF",
     subtext: "#555555",
+    tipIcon: "#DDD",
     button: {
       text: "#fff",
       background: "#888",
@@ -49,6 +50,9 @@ const Dark = {
   navbar: {
     color: "#fff",
     background: "#555"
+  },
+  slider: {
+    color: "#D6006E"
   },
   font: "Titillium Web"
 };

@@ -28,6 +28,10 @@ import { MdSave, MdCheck, MdRefresh } from "react-icons/md";
 import i18n from "../i18n";
 
 const Styles = Styled.div`
+.svgIcon {
+  vertical-align: -4px;
+  margin-right: 0.5em;
+}
 
 `;
 
@@ -61,7 +65,7 @@ class SaveChangesButton extends React.Component {
 
   render() {
     const { inProgress, success } = this.state;
-    const { successMessage } = this.props;
+    const { successMessage, centered } = this.props;
 
     const textPart = !this.props.floating && (
       <span>
@@ -71,12 +75,12 @@ class SaveChangesButton extends React.Component {
       </span>
     );
 
-    const icon = this.props.icon || <MdSave />;
+    const icon = this.props.icon || <MdSave className="svgIcon" />;
 
     return (
       <Styles>
         <Container fluid>
-          <Row>
+          <Row className={centered ? "justify-content-center mt-3 mb-5" : ""}>
             <OverlayTrigger
               rootClose
               placement="top"
@@ -89,10 +93,11 @@ class SaveChangesButton extends React.Component {
               <Button
                 disabled={inProgress || (this.props.disabled && !success)}
                 variant="primary"
+                className="m-0 p-2"
                 onClick={this.handleButtonClick}
               >
                 <Col>
-                  <h5>
+                  <h5 className="m-0">
                     {inProgress ? (
                       <Spinner
                         as="span"
@@ -102,7 +107,7 @@ class SaveChangesButton extends React.Component {
                         role="status"
                       />
                     ) : success ? (
-                      <MdCheck />
+                      <MdCheck className="svgIcon" />
                     ) : (
                       icon
                     )}

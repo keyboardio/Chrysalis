@@ -23,6 +23,11 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Tooltip from "react-bootstrap/Tooltip";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 
 import RangeSlider from "react-bootstrap-range-slider";
 
@@ -32,16 +37,42 @@ import Backup from "../../../api/backup";
 import ConfirmationDialog from "../../components/ConfirmationDialog";
 import SaveChangesButton from "../../components/SaveChangesButton";
 import i18n from "../../i18n";
+import dygma from "../../DygmaLogo.png";
+import frenchF from "../../../../static/french.png";
+import germanF from "../../../../static/german.png";
+import japaneseF from "../../../../static/japanese.png";
+import spanishF from "../../../../static/spanish.png";
+import englishUSUKF from "../../../../static/englishUSUK.png";
+import danishF from "../../../../static/danish.png";
+import swedishF from "../../../../static/swedish.png";
+import icelandicF from "../../../../static/icelandic.png";
+import norwegianF from "../../../../static/norwegian.png";
+
+import {
+  MdComputer,
+  MdBrightness3,
+  MdWbSunny,
+  MdStorage,
+  MdInfo
+} from "react-icons/md";
+import { BsType, BsBrightnessHigh } from "react-icons/bs";
+import { BiMouse, BiCodeAlt } from "react-icons/bi";
 
 import settings from "electron-settings";
 import { Spinner } from "react-bootstrap";
 
 const Styles = Styled.div`
+  input[type=range].range-slider::-webkit-slider-thumb {
+    background-color: ${({ theme }) => theme.slider.color};
+  }
+  input[type=range].range-slider.range-slider--primary:not(.disabled):focus::-webkit-slider-thumb, input[type=range].range-slider.range-slider--primary:not(.disabled):active::-webkit-slider-thumb {
+    box-shadow: 0 0 0 0.2rem ${({ theme }) => theme.slider.color}80;
+  }
   .slider{
     width: 100%;
   }
   .greytext{
-    color: ${({ theme }) => theme.colors.subtext}
+    color: ${({ theme }) => theme.colors.button.background};
   }
   .dropdownMenu{
     position: absolute;
@@ -52,6 +83,68 @@ const Styles = Styled.div`
   .overflowFix::-webkit-scrollbar {
     display: none;
   }
+  .dygmaLogo {
+    height: 26px;
+    width: 26px;
+    margin-right 0.5em;
+  }
+  .cardStyle {
+    border-radius 30px;
+  }
+  .fullWidth {
+    button {
+      width: -webkit-fill-available;
+    }
+  }
+  .typingfix {
+    vertical-align: -3px;
+  }
+  .ledfix {
+    vertical-align: -2px;
+  }
+  .mousefix {
+    vertical-align: -2px;
+  }
+  .advancedfix {
+    vertical-align: -2px;
+  }
+  .tagsfix {
+    vertical-align: -5px;
+    font-weight: 200;
+  }
+  .backupbuttons {
+    margin: 0;
+    padding: 0.44em;
+    width: -webkit-fill-available;
+  }
+  .devfix {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .modinfo {
+    font-size: 1rem;
+    margin-left: 0.3em;
+    color: ${({ theme }) => theme.colors.tipIcon};
+  }
+  .custom-control-label::before {
+    box-shadow: none !important;
+  }
+  .custom-control-input:checked~.custom-control-label::before {
+    border-color: ${({ theme }) => theme.slider.color};
+    background-color: ${({ theme }) => theme.slider.color};
+    box-shadow: none;
+  }
+`;
+
+const TooltipStyle = Styled.div`
+text-align: left;
+.ttip-p {
+  margin: 0;
+}
+.ttip-h {
+  margin: 0;
+  font-size: 1.3em;
+}
 `;
 
 class KeyboardSettings extends React.Component {
@@ -72,22 +165,23 @@ class KeyboardSettings extends React.Component {
       qukeysHoldTimeout: 0,
       qukeysOverlapThreshold: 0,
       SuperTimeout: 0,
-      SuperRepeat: 0,
-      SuperWaitfor: 0,
+      SuperRepeat: 20,
+      SuperWaitfor: 500,
       SuperHoldstart: 0,
       SuperOverlapThreshold: 0,
       mouseSpeed: 0,
-      mouseSpeedDelay: 0,
+      mouseSpeedDelay: 2,
       mouseAccelSpeed: 0,
-      mouseAccelDelay: 0,
+      mouseAccelDelay: 2,
       mouseWheelSpeed: 0,
-      mouseWheelDelay: 0,
+      mouseWheelDelay: 2,
       mouseSpeedLimit: 0,
       modified: false,
       showDefaults: false,
       working: false,
       selectedLanguage: "",
-      backupFolder: ""
+      backupFolder: "",
+      storeBackups: 13
     };
 
     this.ChooseBackupFolder = this.ChooseBackupFolder.bind(this);
@@ -121,6 +215,10 @@ class KeyboardSettings extends React.Component {
     });
 
     this.setState({
+      storeBackups: settings.getSync("backupFrequency")
+    });
+
+    this.setState({
       selectedLanguage: settings.getSync("keyboard.language")
     });
 
@@ -145,15 +243,15 @@ class KeyboardSettings extends React.Component {
       this.setState({ SuperTimeout: timeout });
     });
 
-    focus.command("superkeys.repeat").then(repeat => {
-      repeat = repeat ? parseInt(repeat) : 20;
-      this.setState({ SuperRepeat: repeat });
-    });
+    // focus.command("superkeys.repeat").then(repeat => {
+    //   repeat = repeat ? parseInt(repeat) : 20;
+    //   this.setState({ SuperRepeat: repeat });
+    // });
 
-    focus.command("superkeys.waitfor").then(waitfor => {
-      waitfor = waitfor ? parseInt(waitfor) : 500;
-      this.setState({ SuperWaitfor: waitfor });
-    });
+    // focus.command("superkeys.waitfor").then(waitfor => {
+    //   waitfor = waitfor ? parseInt(waitfor) : 500;
+    //   this.setState({ SuperWaitfor: waitfor });
+    // });
 
     focus.command("superkeys.holdstart").then(holdstart => {
       holdstart = holdstart ? parseInt(holdstart) : 200;
@@ -171,30 +269,30 @@ class KeyboardSettings extends React.Component {
       this.setState({ mouseSpeed: speed });
     });
 
-    focus.command("mouse.speedDelay").then(speedDelay => {
-      speedDelay = speedDelay ? parseInt(speedDelay) : 6;
-      this.setState({ mouseSpeedDelay: speedDelay });
-    });
+    // focus.command("mouse.speedDelay").then(speedDelay => {
+    //   speedDelay = speedDelay ? parseInt(speedDelay) : 6;
+    //   this.setState({ mouseSpeedDelay: speedDelay });
+    // });
 
     focus.command("mouse.accelSpeed").then(accelSpeed => {
       accelSpeed = accelSpeed ? parseInt(accelSpeed) : 1;
       this.setState({ mouseAccelSpeed: accelSpeed });
     });
 
-    focus.command("mouse.accelDelay").then(accelDelay => {
-      accelDelay = accelDelay ? parseInt(accelDelay) : 64;
-      this.setState({ mouseAccelDelay: accelDelay });
-    });
+    // focus.command("mouse.accelDelay").then(accelDelay => {
+    //   accelDelay = accelDelay ? parseInt(accelDelay) : 64;
+    //   this.setState({ mouseAccelDelay: accelDelay });
+    // });
 
     focus.command("mouse.wheelSpeed").then(wheelSpeed => {
       wheelSpeed = wheelSpeed ? parseInt(wheelSpeed) : 1;
       this.setState({ mouseWheelSpeed: wheelSpeed });
     });
 
-    focus.command("mouse.wheelDelay").then(wheelDelay => {
-      wheelDelay = wheelDelay ? parseInt(wheelDelay) : 128;
-      this.setState({ mouseWheelDelay: wheelDelay });
-    });
+    // focus.command("mouse.wheelDelay").then(wheelDelay => {
+    //   wheelDelay = wheelDelay ? parseInt(wheelDelay) : 128;
+    //   this.setState({ mouseWheelDelay: wheelDelay });
+    // });
 
     focus.command("mouse.speedLimit").then(speedLimit => {
       speedLimit = speedLimit ? parseInt(speedLimit) : 127;
@@ -230,7 +328,9 @@ class KeyboardSettings extends React.Component {
     this.props.startContext();
   };
 
-  selectIdleLEDTime = value => {
+  selectIdleLEDTime = event => {
+    const value = event.target.value;
+
     this.setState({
       ledIdleTimeLimit: value,
       modified: true
@@ -277,30 +377,32 @@ class KeyboardSettings extends React.Component {
 
   setSuperTimeout = event => {
     const value = event.target.value;
+    const olt = value > 1000 ? 0 : 100 - value / 10;
     this.setState({
       SuperTimeout: value,
+      qukeysOverlapThreshold: olt,
       modified: true
     });
     this.props.startContext();
   };
 
-  setSuperRepeat = event => {
-    const value = event.target.value;
-    this.setState({
-      SuperRepeat: value,
-      modified: true
-    });
-    this.props.startContext();
-  };
+  // setSuperRepeat = event => {
+  //   const value = event.target.value;
+  //   this.setState({
+  //     SuperRepeat: value,
+  //     modified: true
+  //   });
+  //   this.props.startContext();
+  // };
 
-  setSuperWaitfor = event => {
-    const value = event.target.value;
-    this.setState({
-      SuperWaitfor: value,
-      modified: true
-    });
-    this.props.startContext();
-  };
+  // setSuperWaitfor = event => {
+  //   const value = event.target.value;
+  //   this.setState({
+  //     SuperWaitfor: value,
+  //     modified: true
+  //   });
+  //   this.props.startContext();
+  // };
 
   setSuperHoldstart = event => {
     const value = event.target.value;
@@ -331,15 +433,15 @@ class KeyboardSettings extends React.Component {
     this.props.startContext();
   };
 
-  setSpeedDelay = event => {
-    const value = event.target.value;
+  // setSpeedDelay = event => {
+  //   const value = event.target.value;
 
-    this.setState({
-      mouseSpeedDelay: value,
-      modified: true
-    });
-    this.props.startContext();
-  };
+  //   this.setState({
+  //     mouseSpeedDelay: value,
+  //     modified: true
+  //   });
+  //   this.props.startContext();
+  // };
 
   setAccelSpeed = event => {
     const value = event.target.value;
@@ -351,15 +453,15 @@ class KeyboardSettings extends React.Component {
     this.props.startContext();
   };
 
-  setAccelDelay = event => {
-    const value = event.target.value;
+  // setAccelDelay = event => {
+  //   const value = event.target.value;
 
-    this.setState({
-      mouseAccelDelay: value,
-      modified: true
-    });
-    this.props.startContext();
-  };
+  //   this.setState({
+  //     mouseAccelDelay: value,
+  //     modified: true
+  //   });
+  //   this.props.startContext();
+  // };
 
   setWheelSpeed = event => {
     const value = event.target.value;
@@ -371,15 +473,15 @@ class KeyboardSettings extends React.Component {
     this.props.startContext();
   };
 
-  setWheelDelay = event => {
-    const value = event.target.value;
+  // setWheelDelay = event => {
+  //   const value = event.target.value;
 
-    this.setState({
-      mouseWheelDelay: value,
-      modified: true
-    });
-    this.props.startContext();
-  };
+  //   this.setState({
+  //     mouseWheelDelay: value,
+  //     modified: true
+  //   });
+  //   this.props.startContext();
+  // };
 
   setSpeedLimit = event => {
     const value = event.target.value;
@@ -537,6 +639,37 @@ class KeyboardSettings extends React.Component {
     }
   }
 
+  setStoreBackups = event => {
+    const value = event.target.value;
+    this.setState({
+      storeBackups: value
+    });
+    settings.setSync("backupFrequency", value);
+  };
+
+  renderTooltip(tooltips) {
+    return (
+      <Tooltip id="select-tooltip" className="longtooltip">
+        <TooltipStyle>
+          {tooltips.map((tip, i) => {
+            return (
+              <React.Fragment key={`Tip-${i}`}>
+                {i % 2 == 1 || !isNaN(tip[0]) || tip[0] == "-" ? (
+                  <p className="ttip-p">{tip}</p>
+                ) : (
+                  <React.Fragment>
+                    {i == 0 ? "" : <br></br>}
+                    <h5 className="ttip-h">{tip}</h5>
+                  </React.Fragment>
+                )}
+              </React.Fragment>
+            );
+          })}
+        </TooltipStyle>
+      </Tooltip>
+    );
+  }
+
   render() {
     const {
       keymap,
@@ -548,20 +681,27 @@ class KeyboardSettings extends React.Component {
       qukeysHoldTimeout,
       qukeysOverlapThreshold,
       SuperTimeout,
-      SuperRepeat,
-      SuperWaitfor,
+      // SuperRepeat,
+      // SuperWaitfor,
       SuperHoldstart,
       SuperOverlapThreshold,
       mouseSpeed,
-      mouseSpeedDelay,
+      // mouseSpeedDelay,
       mouseAccelSpeed,
-      mouseAccelDelay,
+      // mouseAccelDelay,
       mouseWheelSpeed,
-      mouseWheelDelay,
+      // mouseWheelDelay,
       mouseSpeedLimit,
       selectedLanguage,
-      backupFolder
+      backupFolder,
+      storeBackups
     } = this.state;
+    const {
+      selectDarkMode,
+      darkMode,
+      devToolsSwitch,
+      verboseSwitch
+    } = this.props;
 
     const onlyCustomSwitch = (
       <Form.Check
@@ -577,7 +717,18 @@ class KeyboardSettings extends React.Component {
         onChange={this.setShowDefaults}
       />
     );
-    let languages = [
+    let flags = [
+      englishUSUKF,
+      spanishF,
+      germanF,
+      frenchF,
+      swedishF,
+      danishF,
+      norwegianF,
+      icelandicF,
+      japaneseF
+    ];
+    let language = [
       "english",
       "spanish",
       "german",
@@ -586,16 +737,38 @@ class KeyboardSettings extends React.Component {
       "danish",
       "norwegian",
       "icelandic"
-    ].map((item, index) => {
+    ];
+    let languages = language.map((item, index) => {
       return (
         <Dropdown.Item eventKey={item} key={index}>
+          <img src={flags[index]} className="dygmaLogo" />
           {item[0].toUpperCase() + item.slice(1)}
         </Dropdown.Item>
       );
     });
     const selectLanguage = (
-      <Dropdown onSelect={this.changeLanguage} value={selectedLanguage}>
-        <Dropdown.Toggle className="toggler">{`${selectedLanguage}`}</Dropdown.Toggle>
+      <Dropdown
+        onSelect={this.changeLanguage}
+        value={selectedLanguage}
+        className="fullWidth"
+      >
+        <Dropdown.Toggle className="toggler">
+          <img
+            src={
+              flags[
+                language.flatMap((lang, i) =>
+                  lang === selectedLanguage ? i : []
+                )
+              ]
+            }
+            className="dygmaLogo"
+          />
+          {`${
+            selectedLanguage != ""
+              ? selectedLanguage[0].toUpperCase() + selectedLanguage.slice(1)
+              : selectedLanguage
+          }`}
+        </Dropdown.Toggle>
         <Dropdown.Menu className="dropdownMenu">{languages}</Dropdown.Menu>
       </Dropdown>
     );
@@ -618,7 +791,11 @@ class KeyboardSettings extends React.Component {
       });
     }
     const defaultLayerSelect = (
-      <Dropdown onSelect={this.selectDefaultLayer} value={defaultLayer}>
+      <Dropdown
+        onSelect={this.selectDefaultLayer}
+        value={defaultLayer}
+        className="fullWidth"
+      >
         <Dropdown.Toggle className="toggler">
           {defaultLayer == 126
             ? i18n.keyboardSettings.keymap.noDefault
@@ -674,75 +851,145 @@ class KeyboardSettings extends React.Component {
         </Dropdown.Menu>
       </Dropdown>
     );
+    const newIdleControl = (
+      <Row>
+        <Col xs={1} className="p-0 text-center">
+          <span className="tagsfix">short</span>
+        </Col>
+        <Col xs={10} className="px-2">
+          <RangeSlider
+            min={0}
+            max={3600}
+            step={60}
+            value={ledIdleTimeLimit}
+            className="slider"
+            onChange={this.selectIdleLEDTime}
+            marks={[{ value: 255, label: i18n.keyboardSettings.defaultLabel }]}
+          />
+        </Col>
+        <Col xs={1} className="p-0 text-center">
+          <span className="tagsfix">long</span>
+        </Col>
+      </Row>
+    );
+    const backupControl = (
+      <Row>
+        <Col xs={2} className="p-0 text-center">
+          <span className="tagsfix">1 month</span>
+        </Col>
+        <Col xs={8} className="px-1">
+          <RangeSlider
+            min={1}
+            max={13}
+            value={storeBackups}
+            className="slider"
+            onChange={this.setStoreBackups}
+          />
+        </Col>
+        <Col xs={2} className="p-0 text-center">
+          <span className="tagsfix">forever</span>
+        </Col>
+      </Row>
+    );
     const brightnessControl = (
-      <RangeSlider
-        min={0}
-        max={255}
-        value={ledBrightness}
-        className="slider"
-        onChange={this.setBrightness}
-        marks={[{ value: 255, label: i18n.keyboardSettings.defaultLabel }]}
-      />
+      <Row>
+        <Col xs={1} className="p-0 text-center">
+          <span className="tagsfix">none</span>
+        </Col>
+        <Col xs={10} className="px-2">
+          <RangeSlider
+            min={0}
+            max={255}
+            value={ledBrightness}
+            className="slider"
+            onChange={this.setBrightness}
+            marks={[{ value: 255, label: i18n.keyboardSettings.defaultLabel }]}
+          />
+        </Col>
+        <Col xs={1} className="p-0 text-center">
+          <span className="tagsfix">max</span>
+        </Col>
+      </Row>
     );
-    const holdT = (
-      <RangeSlider
-        min={0}
-        max={1000}
-        value={qukeysHoldTimeout}
-        className="slider"
-        onChange={this.setHoldTimeout}
-        marks={[{ value: 250, label: i18n.keyboardSettings.defaultLabel }]}
-      />
-    );
-    const overlapT = (
-      <RangeSlider
-        min={0}
-        max={100}
-        value={qukeysOverlapThreshold}
-        className="slider"
-        onChange={this.setOverlapThreshold}
-        marks={[{ value: 80, label: i18n.keyboardSettings.defaultLabel }]}
-      />
-    );
+    // const holdT = (
+    //   <RangeSlider
+    //     min={0}
+    //     max={1000}
+    //     value={qukeysHoldTimeout}
+    //     className="slider"
+    //     onChange={this.setHoldTimeout}
+    //     marks={[{ value: 250, label: i18n.keyboardSettings.defaultLabel }]}
+    //   />
+    // );
+    // const overlapT = (
+    //   <RangeSlider
+    //     min={0}
+    //     max={100}
+    //     value={qukeysOverlapThreshold}
+    //     className="slider"
+    //     onChange={this.setOverlapThreshold}
+    //     marks={[{ value: 80, label: i18n.keyboardSettings.defaultLabel }]}
+    //   />
+    // );
     const superT = (
-      <RangeSlider
-        min={0}
-        max={1000}
-        value={SuperTimeout}
-        className="slider"
-        onChange={this.setSuperTimeout}
-        marks={[{ value: 250, label: i18n.keyboardSettings.defaultLabel }]}
-      />
+      <Row>
+        <Col xs={1} className="p-0 text-center">
+          <span className="tagsfix">fast</span>
+        </Col>
+        <Col xs={10} className="px-2">
+          <RangeSlider
+            min={0}
+            max={1000}
+            value={SuperTimeout}
+            className="slider"
+            onChange={this.setSuperTimeout}
+            marks={[{ value: 250, label: i18n.keyboardSettings.defaultLabel }]}
+          />
+        </Col>
+        <Col xs={1} className="p-0 text-center">
+          <span className="tagsfix">slow</span>
+        </Col>
+      </Row>
     );
-    const superR = (
-      <RangeSlider
-        min={0}
-        max={250}
-        value={SuperRepeat}
-        className="slider"
-        onChange={this.setSuperRepeat}
-        marks={[{ value: 20, label: i18n.keyboardSettings.defaultLabel }]}
-      />
-    );
-    const superW = (
-      <RangeSlider
-        min={0}
-        max={1000}
-        value={SuperWaitfor}
-        className="slider"
-        onChange={this.setSuperWaitfor}
-        marks={[{ value: 500, label: i18n.keyboardSettings.defaultLabel }]}
-      />
-    );
+    // const superR = (
+    //   <RangeSlider
+    //     min={0}
+    //     max={250}
+    //     value={SuperRepeat}
+    //     className="slider"
+    //     onChange={this.setSuperRepeat}
+    //     marks={[{ value: 20, label: i18n.keyboardSettings.defaultLabel }]}
+    //   />
+    // );
+    // const superW = (
+    //   <RangeSlider
+    //     min={0}
+    //     max={1000}
+    //     value={SuperWaitfor}
+    //     className="slider"
+    //     onChange={this.setSuperWaitfor}
+    //     marks={[{ value: 500, label: i18n.keyboardSettings.defaultLabel }]}
+    //   />
+    // );
     const superH = (
-      <RangeSlider
-        min={0}
-        max={1000}
-        value={SuperHoldstart}
-        className="slider"
-        onChange={this.setSuperHoldstart}
-        marks={[{ value: 200, label: i18n.keyboardSettings.defaultLabel }]}
-      />
+      <Row>
+        <Col xs={1} className="p-0 text-center">
+          <span className="tagsfix">high</span>
+        </Col>
+        <Col xs={10} className="px-2">
+          <RangeSlider
+            min={0}
+            max={1000}
+            value={SuperHoldstart}
+            className="slider"
+            onChange={this.setSuperHoldstart}
+            marks={[{ value: 200, label: i18n.keyboardSettings.defaultLabel }]}
+          />
+        </Col>
+        <Col xs={1} className="p-0 text-center">
+          <span className="tagsfix">none</span>
+        </Col>
+      </Row>
     );
     // const SuperO = (
     //   <RangeSlider
@@ -755,82 +1002,156 @@ class KeyboardSettings extends React.Component {
     //   />
     // );
     const mSpeed = (
-      <RangeSlider
-        min={0}
-        max={254}
-        value={mouseSpeed}
-        className="slider"
-        onChange={this.setSpeed}
-        marks={[{ value: 1, label: i18n.keyboardSettings.defaultLabel }]}
-      />
+      <Row>
+        <Col xs={1} className="p-0 text-center">
+          <span className="tagsfix">slow</span>
+        </Col>
+        <Col xs={10} className="px-2">
+          <RangeSlider
+            min={0}
+            max={254}
+            value={mouseSpeed}
+            className="slider"
+            onChange={this.setSpeed}
+            marks={[{ value: 1, label: i18n.keyboardSettings.defaultLabel }]}
+          />
+        </Col>
+        <Col xs={1} className="p-0 text-center">
+          <span className="tagsfix">fast</span>
+        </Col>
+      </Row>
     );
-    const mSpeedD = (
-      <RangeSlider
-        min={0}
-        max={1000}
-        value={mouseSpeedDelay}
-        className="slider"
-        onChange={this.setSpeedDelay}
-        marks={[{ value: 6, label: i18n.keyboardSettings.defaultLabel }]}
-      />
-    );
+    // const mSpeedD = (
+    //   <RangeSlider
+    //     min={0}
+    //     max={1000}
+    //     value={mouseSpeedDelay}
+    //     className="slider"
+    //     onChange={this.setSpeedDelay}
+    //     marks={[{ value: 6, label: i18n.keyboardSettings.defaultLabel }]}
+    //   />
+    // );
     const mAccelS = (
-      <RangeSlider
-        min={0}
-        max={254}
-        value={mouseAccelSpeed}
-        className="slider"
-        onChange={this.setAccelSpeed}
-        marks={[{ value: 1, label: i18n.keyboardSettings.defaultLabel }]}
-      />
+      <Row>
+        <Col xs={1} className="p-0 text-center">
+          <span className="tagsfix">slow</span>
+        </Col>
+        <Col xs={10} className="px-2">
+          <RangeSlider
+            min={0}
+            max={254}
+            value={mouseAccelSpeed}
+            className="slider"
+            onChange={this.setAccelSpeed}
+            marks={[{ value: 1, label: i18n.keyboardSettings.defaultLabel }]}
+          />
+        </Col>
+        <Col xs={1} className="p-0 text-center">
+          <span className="tagsfix">fast</span>
+        </Col>
+      </Row>
     );
-    const maccelD = (
-      <RangeSlider
-        min={0}
-        max={1000}
-        value={mouseAccelDelay}
-        className="slider"
-        onChange={this.setAccelDelay}
-        marks={[{ value: 64, label: i18n.keyboardSettings.defaultLabel }]}
-      />
-    );
+    // const maccelD = (
+    //   <RangeSlider
+    //     min={0}
+    //     max={1000}
+    //     value={mouseAccelDelay}
+    //     className="slider"
+    //     onChange={this.setAccelDelay}
+    //     marks={[{ value: 64, label: i18n.keyboardSettings.defaultLabel }]}
+    //   />
+    // );
     const mWheelS = (
-      <RangeSlider
-        min={0}
-        max={254}
-        value={mouseWheelSpeed}
-        className="slider"
-        onChange={this.setWheelSpeed}
-        marks={[{ value: 1, label: i18n.keyboardSettings.defaultLabel }]}
-      />
+      <Row>
+        <Col xs={1} className="p-0 text-center">
+          <span className="tagsfix">slow</span>
+        </Col>
+        <Col xs={10} className="px-2">
+          <RangeSlider
+            min={0}
+            max={254}
+            value={mouseWheelSpeed}
+            className="slider"
+            onChange={this.setWheelSpeed}
+            marks={[{ value: 1, label: i18n.keyboardSettings.defaultLabel }]}
+          />
+        </Col>
+        <Col xs={1} className="p-0 text-center">
+          <span className="tagsfix">fast</span>
+        </Col>
+      </Row>
     );
-    const mWheelD = (
-      <RangeSlider
-        min={0}
-        max={1000}
-        value={mouseWheelDelay}
-        className="slider"
-        onChange={this.setWheelDelay}
-        marks={[{ value: 200, label: i18n.keyboardSettings.defaultLabel }]}
-      />
-    );
+    // const mWheelD = (
+    //   <RangeSlider
+    //     min={0}
+    //     max={1000}
+    //     value={mouseWheelDelay}
+    //     className="slider"
+    //     onChange={this.setWheelDelay}
+    //     marks={[{ value: 200, label: i18n.keyboardSettings.defaultLabel }]}
+    //   />
+    // );
     const mSpeedL = (
-      <RangeSlider
-        min={0}
-        max={254}
-        value={mouseSpeedLimit}
-        className="slider"
-        onChange={this.setSpeedLimit}
-        marks={[{ value: 127, label: i18n.keyboardSettings.defaultLabel }]}
-      />
+      <Row>
+        <Col xs={1} className="p-0 text-center">
+          <span className="tagsfix">slow</span>
+        </Col>
+        <Col xs={10} className="px-2">
+          <RangeSlider
+            min={0}
+            max={254}
+            value={mouseSpeedLimit}
+            className="slider"
+            onChange={this.setSpeedLimit}
+            marks={[{ value: 127, label: i18n.keyboardSettings.defaultLabel }]}
+          />
+        </Col>
+        <Col xs={1} className="p-0 text-center">
+          <span className="tagsfix">fast</span>
+        </Col>
+      </Row>
+    );
+    const darkModeSwitch = (
+      <Dropdown
+        onSelect={selectDarkMode}
+        value={darkMode}
+        className="fullWidth"
+      >
+        <Dropdown.Toggle className="toggler">
+          {darkMode === "system" ? (
+            <React.Fragment>
+              <MdComputer /> System
+            </React.Fragment>
+          ) : darkMode === "dark" ? (
+            <React.Fragment>
+              <MdBrightness3 /> Dark
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <MdWbSunny /> Light
+            </React.Fragment>
+          )}
+        </Dropdown.Toggle>
+        <Dropdown.Menu className="menu">
+          <Dropdown.Item key={`theme-system`} eventKey={"system"}>
+            <MdComputer /> System
+          </Dropdown.Item>
+          <Dropdown.Item key={`theme-dark`} eventKey={"dark"}>
+            <MdBrightness3 /> Dark
+          </Dropdown.Item>
+          <Dropdown.Item key={`theme-light`} eventKey={"light"}>
+            <MdWbSunny /> Light
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
     );
     const backupFolderButton = (
-      <Button onClick={this.ChooseBackupFolder}>
+      <Button onClick={this.ChooseBackupFolder} className="backupbuttons">
         {i18n.keyboardSettings.backupFolder.selectButtonText}
       </Button>
     );
     const restoreBackupButton = (
-      <Button onClick={this.GetBackup}>
+      <Button onClick={this.GetBackup} className="backupbuttons">
         {i18n.keyboardSettings.backupFolder.restoreButtonText}
       </Button>
     );
@@ -839,256 +1160,423 @@ class KeyboardSettings extends React.Component {
       <Styles>
         {this.state.working && <Spinner role="status" />}
         <Form>
-          <Card.Header>{i18n.keyboardSettings.keymap.title}</Card.Header>
-          <Card className="overflowFix">
-            <Card.Body>
-              {/* <Form.Group controlId="showHardcoded" className="formGroup">
-                <Form.Label>
-                  {i18n.keyboardSettings.keymap.showHardcoded}
-                </Form.Label>
-                {showDefaultLayersSwitch}
-              </Form.Group>
-              <Form.Group controlId="onlyCustom" className="formGroup">
-                <Form.Label>
-                  {i18n.keyboardSettings.keymap.onlyCustom}
-                </Form.Label>
-                {onlyCustomSwitch}
-              </Form.Group> */}
-              <Form.Group controlId="selectLanguage" className="formGroup">
-                <Form.Label>{i18n.preferences.language}</Form.Label>
-                {selectLanguage}
-              </Form.Group>
-              <Form.Group controlId="defaultLayer" className="formGroup">
-                <Form.Label>
-                  {i18n.keyboardSettings.keymap.defaultLayer}
-                </Form.Label>
-                {defaultLayerSelect}
-              </Form.Group>
-              <Form.Group controlId="backupFolder" className="mb-3">
-                <Form.Label>
-                  {i18n.keyboardSettings.backupFolder.title}
-                </Form.Label>
-                <div>
-                  {backupFolderButton}
-                  {"  "}
-                  {backupFolder}
-                </div>
-              </Form.Group>
-              <Form.Group controlId="restoreBackup" className="mb-3">
-                <div>{restoreBackupButton}</div>
-              </Form.Group>
-            </Card.Body>
-          </Card>
-          <Card.Header>{i18n.keyboardSettings.led.title}</Card.Header>
-          <Card className="overflowFix">
-            <Card.Body>
-              {ledIdleTimeLimit >= 0 && (
-                <Form.Group controlId="idleTimeLimit" className="formGroup">
-                  <Form.Label>
-                    {i18n.keyboardSettings.led.idleTimeLimit}
-                  </Form.Label>
-                  {idleControl}
-                </Form.Group>
-              )}
-              {ledBrightness >= 0 && (
-                <Form.Group controlId="brightnessControl" className="formGroup">
-                  <Form.Label>
-                    {i18n.keyboardSettings.led.brightness}
-                    <i className="greytext">
-                      {i18n.keyboardSettings.led.brightnesssub}
-                    </i>
-                  </Form.Label>
-                  {brightnessControl}
-                </Form.Group>
-              )}
-            </Card.Body>
-          </Card>
-          <Card.Header>{i18n.keyboardSettings.qukeys.title}</Card.Header>
-          <Card className="overflowFix">
-            <Card.Body>
-              {qukeysHoldTimeout >= 0 && (
-                <Form.Group controlId="holdTimeout" className="formGroup">
-                  <Form.Label>
-                    {i18n.keyboardSettings.qukeys.holdTimeout}
-                    <i className="greytext">
-                      {i18n.keyboardSettings.qukeys.holdTimeoutsub}
-                    </i>
-                  </Form.Label>
-                  {holdT}
-                </Form.Group>
-              )}
-              {qukeysOverlapThreshold >= 0 && (
-                <Form.Group controlId="overlapThreshold" className="formGroup">
-                  <Form.Label>
-                    {i18n.keyboardSettings.qukeys.overlapThreshold}
-                    <a href="https://kaleidoscope.readthedocs.io/en/latest/plugins/Kaleidoscope-Qukeys.html#setoverlapthreshold-percentage">
-                      {" - More info"}
-                    </a>
-                    <i className="greytext">
-                      {i18n.keyboardSettings.qukeys.overlapThresholdsub}
-                    </i>
-                  </Form.Label>
-                  {overlapT}
-                </Form.Group>
-              )}
-            </Card.Body>
-          </Card>
-          <Card.Header>{i18n.keyboardSettings.superkeys.title}</Card.Header>
-          <Card className="overflowFix">
-            <Card.Body>
-              {SuperTimeout >= 0 && (
-                <Form.Group controlId="superTimeout" className="formGroup">
-                  <Form.Label>
-                    {i18n.keyboardSettings.superkeys.timeout}
-                    <i className="greytext">
-                      {i18n.keyboardSettings.superkeys.timeoutsub}
-                    </i>
-                  </Form.Label>
-                  {superT}
-                </Form.Group>
-              )}
-              {SuperRepeat >= 0 && (
-                <Form.Group controlId="superRepeat" className="formGroup">
-                  <Form.Label>
-                    {i18n.keyboardSettings.superkeys.repeat}
-                    <i className="greytext">
-                      {i18n.keyboardSettings.superkeys.repeatsub}
-                    </i>
-                  </Form.Label>
-                  {superR}
-                </Form.Group>
-              )}
-              {SuperWaitfor >= 0 && (
-                <Form.Group controlId="superWaitfor" className="formGroup">
-                  <Form.Label>
-                    {i18n.keyboardSettings.superkeys.waitfor}
-                    <i className="greytext">
-                      {i18n.keyboardSettings.superkeys.waitforsub}
-                    </i>
-                  </Form.Label>
-                  {superW}
-                </Form.Group>
-              )}
-              {SuperHoldstart >= 0 && (
-                <Form.Group controlId="superHoldstart" className="formGroup">
-                  <Form.Label>
-                    {i18n.keyboardSettings.superkeys.holdstart}
-                    <i className="greytext">
-                      {i18n.keyboardSettings.superkeys.holdstartsub}
-                    </i>
-                  </Form.Label>
-                  {superH}
-                </Form.Group>
-              )}
-              {/* {SuperOverlapThreshold >= 0 && (
-                <Form.Group
-                  controlId="SuperOverlapThreshold"
-                  className="formGroup"
-                >
-                  <Form.Label>
-                    {i18n.keyboardSettings.superkeys.overlap}
-                    <i className="greytext">
-                      {i18n.keyboardSettings.superkeys.overlapsub}
-                    </i>
-                  </Form.Label>
-                  {SuperO}
-                </Form.Group>
-              )} */}
-            </Card.Body>
-          </Card>
-          <Card.Header>{i18n.keyboardSettings.mouse.title}</Card.Header>
-          <Card className="overflowFix">
-            <Card.Body>
-              <h4>{i18n.keyboardSettings.mouse.subtitle1}</h4>
-              {mouseSpeed >= 0 && (
-                <Form.Group controlId="mouseSpeed" className="formGroup">
-                  <Form.Label>
-                    {i18n.keyboardSettings.mouse.speed}
-                    <i className="greytext">
-                      {i18n.keyboardSettings.mouse.speedsub}
-                    </i>
-                  </Form.Label>
-                  {mSpeed}
-                </Form.Group>
-              )}
-              {mouseSpeedDelay >= 0 && (
-                <Form.Group controlId="mouseSpeedD" className="formGroup">
-                  <Form.Label>
-                    {i18n.keyboardSettings.mouse.speedDelay}
-                    <i className="greytext">
-                      {i18n.keyboardSettings.mouse.speedDelaysub}
-                    </i>
-                  </Form.Label>
-                  {mSpeedD}
-                </Form.Group>
-              )}
-              {mouseSpeedLimit >= 0 && (
-                <Form.Group controlId="mouseSpeedL" className="formGroup">
-                  <Form.Label>
-                    {i18n.keyboardSettings.mouse.speedLimit}
-                    <i className="greytext">
-                      {i18n.keyboardSettings.mouse.speedLimitsub}
-                    </i>
-                  </Form.Label>
-                  {mSpeedL}
-                </Form.Group>
-              )}
-              <Dropdown.Divider />
-              <h4>{i18n.keyboardSettings.mouse.subtitle2}</h4>
-              {mouseAccelSpeed >= 0 && (
-                <Form.Group controlId="mousemAccelS" className="formGroup">
-                  <Form.Label>
-                    {i18n.keyboardSettings.mouse.accelSpeed}
-                    <i className="greytext">
-                      {i18n.keyboardSettings.mouse.accelSpeedsub}
-                    </i>
-                  </Form.Label>
-                  {mAccelS}
-                </Form.Group>
-              )}
-              {mouseAccelDelay >= 0 && (
-                <Form.Group controlId="mousemAccelD" className="formGroup">
-                  <Form.Label>
-                    {i18n.keyboardSettings.mouse.accelDelay}
-                    <i className="greytext">
-                      {i18n.keyboardSettings.mouse.accelDelaysub}
-                    </i>
-                  </Form.Label>
-                  {maccelD}
-                </Form.Group>
-              )}
-              <Dropdown.Divider />
-              <h4>{i18n.keyboardSettings.mouse.subtitle3}</h4>
-              {mouseWheelSpeed >= 0 && (
-                <Form.Group controlId="mousemWheelS" className="formGroup">
-                  <Form.Label>
-                    {i18n.keyboardSettings.mouse.wheelSpeed}
-                    <i className="greytext">
-                      {i18n.keyboardSettings.mouse.wheelSpeedsub}
-                    </i>
-                  </Form.Label>
-                  {mWheelS}
-                </Form.Group>
-              )}
-              {mouseWheelDelay >= 0 && (
-                <Form.Group controlId="mousemWheelD" className="formGroup">
-                  <Form.Label>
-                    {i18n.keyboardSettings.mouse.wheelDelay}
-                    <i className="greytext">
-                      {i18n.keyboardSettings.mouse.wheelDelaysub}
-                    </i>
-                  </Form.Label>
-                  {mWheelD}
-                </Form.Group>
-              )}
-            </Card.Body>
-          </Card>
+          <Container>
+            <Row>
+              <Col xs={6}>
+                <Card className="overflowFix cardStyle">
+                  <Card.Title>
+                    <img src={dygma} className="dygmaLogo" />
+                    {i18n.keyboardSettings.keymap.title}
+                  </Card.Title>
+                  <Card.Body className="pb-0">
+                    {/* <Form.Group controlId="showHardcoded" className="formGroup">
+                    <Form.Label>
+                      {i18n.keyboardSettings.keymap.showHardcoded}
+                    </Form.Label>
+                    {showDefaultLayersSwitch}
+                  </Form.Group>
+                  <Form.Group controlId="onlyCustom" className="formGroup">
+                    <Form.Label>
+                      {i18n.keyboardSettings.keymap.onlyCustom}
+                    </Form.Label>
+                    {onlyCustomSwitch}
+                  </Form.Group> */}
+                    <Row>
+                      <Col xs={4}>
+                        <Form.Group controlId="selectLanguage" className="m-0">
+                          <Form.Label>{i18n.preferences.language}</Form.Label>
+                          {selectLanguage}
+                        </Form.Group>
+                      </Col>
+                      <Col xs={4}>
+                        <Form.Group controlId="defaultLayer" className="m-0">
+                          <Form.Label>
+                            {i18n.keyboardSettings.keymap.defaultLayer}
+                          </Form.Label>
+                          {defaultLayerSelect}
+                        </Form.Group>
+                      </Col>
+                      <Col xs={4}>
+                        <Form.Group controlId="DarkMode" className="m-0">
+                          <Form.Label>
+                            {i18n.preferences.darkMode.label}
+                          </Form.Label>
+                          {darkModeSwitch}
+                        </Form.Group>
+                      </Col>
+                    </Row>
+                  </Card.Body>
+                </Card>
+                {/* <Card className="overflowFix cardStyle mt-4 pb-0">
+                  <Card.Title>{i18n.keyboardSettings.qukeys.title}</Card.Title>
+                  <Card.Body>
+                    {qukeysHoldTimeout >= 0 && (
+                      <Form.Group controlId="holdTimeout" className="formGroup">
+                        <Form.Label>
+                          {i18n.keyboardSettings.qukeys.holdTimeout}
+                          <i className="greytext">
+                            {i18n.keyboardSettings.qukeys.holdTimeoutsub}
+                          </i>
+                        </Form.Label>
+                        {holdT}
+                      </Form.Group>
+                    )}
+                    {qukeysOverlapThreshold >= 0 && (
+                      <Form.Group
+                        controlId="overlapThreshold"
+                        className="formGroup"
+                      >
+                        <Form.Label>
+                          {i18n.keyboardSettings.qukeys.overlapThreshold}
+                          <a href="https://kaleidoscope.readthedocs.io/en/latest/plugins/Kaleidoscope-Qukeys.html#setoverlapthreshold-percentage">
+                            {" - More info"}
+                          </a>
+                          <i className="greytext">
+                            {i18n.keyboardSettings.qukeys.overlapThresholdsub}
+                          </i>
+                        </Form.Label>
+                        {overlapT}
+                      </Form.Group>
+                    )}
+                  </Card.Body>
+                </Card> */}
+                <Card className="overflowFix cardStyle mt-4 pb-0">
+                  <Card.Title>
+                    <BsType className="dygmaLogo" />
+                    <span className="typingfix">
+                      {i18n.keyboardSettings.superkeys.title}
+                    </span>
+                  </Card.Title>
+                  <Card.Body className="pb-0">
+                    {SuperTimeout >= 0 && (
+                      <Form.Group
+                        controlId="superTimeout"
+                        className="formGroup"
+                      >
+                        <Row>
+                          <Form.Label>
+                            {i18n.keyboardSettings.superkeys.timeout}
+                            {/* <i className="greytext">
+                              {i18n.keyboardSettings.superkeys.timeoutsub}
+                            </i> */}
+                            <OverlayTrigger
+                              rootClose
+                              placement="right"
+                              delay={{ show: 250, hide: 400 }}
+                              overlay={this.renderTooltip([
+                                i18n.keyboardSettings.superkeys.timeoutTip1,
+                                i18n.keyboardSettings.superkeys.timeoutTip2,
+                                i18n.keyboardSettings.superkeys.timeoutTip3,
+                                i18n.keyboardSettings.superkeys.timeoutTip4
+                              ])}
+                            >
+                              <MdInfo className="modinfo" />
+                            </OverlayTrigger>
+                          </Form.Label>
+                        </Row>
+                        {superT}
+                      </Form.Group>
+                    )}
+                    {/* {SuperRepeat >= 0 && (
+                      <Form.Group controlId="superRepeat" className="formGroup">
+                        <Form.Label>
+                          {i18n.keyboardSettings.superkeys.repeat}
+                          <i className="greytext">
+                            {i18n.keyboardSettings.superkeys.repeatsub}
+                          </i>
+                        </Form.Label>
+                        {superR}
+                      </Form.Group>
+                    )} */}
+                    {/* {SuperWaitfor >= 0 && (
+                      <Form.Group
+                        controlId="superWaitfor"
+                        className="formGroup"
+                      >
+                        <Form.Label>
+                          {i18n.keyboardSettings.superkeys.waitfor}
+                          <i className="greytext">
+                            {i18n.keyboardSettings.superkeys.waitforsub}
+                          </i>
+                        </Form.Label>
+                        {superW}
+                      </Form.Group>
+                    )} */}
+                    {SuperHoldstart >= 0 && (
+                      <Form.Group
+                        controlId="superHoldstart"
+                        className="formGroup"
+                      >
+                        <Row>
+                          <Form.Label>
+                            {i18n.keyboardSettings.superkeys.holdstart}
+                            {/* <i className="greytext">
+                              {i18n.keyboardSettings.superkeys.holdstartsub}
+                            </i> */}
+                            <OverlayTrigger
+                              rootClose
+                              placement="right"
+                              delay={{ show: 250, hide: 400 }}
+                              overlay={this.renderTooltip([
+                                i18n.keyboardSettings.superkeys.chordingTip1,
+                                i18n.keyboardSettings.superkeys.chordingTip2,
+                                i18n.keyboardSettings.superkeys.chordingTip3,
+                                i18n.keyboardSettings.superkeys.chordingTip4
+                              ])}
+                            >
+                              <MdInfo className="modinfo" />
+                            </OverlayTrigger>
+                          </Form.Label>
+                        </Row>
+                        {superH}
+                      </Form.Group>
+                    )}
+                    {/* {SuperOverlapThreshold >= 0 && (
+                      <Form.Group
+                        controlId="SuperOverlapThreshold"
+                        className="formGroup"
+                      >
+                        <Form.Label>
+                          {i18n.keyboardSettings.superkeys.overlap}
+                          <i className="greytext">
+                            {i18n.keyboardSettings.superkeys.overlapsub}
+                          </i>
+                        </Form.Label>
+                        {SuperO}
+                      </Form.Group>
+                    )} */}
+                  </Card.Body>
+                </Card>
+                <Card className="overflowFix cardStyle mt-4 pb-0">
+                  <Card.Title>
+                    <BiCodeAlt className="dygmaLogo" />
+                    <span className="advancedfix">
+                      {i18n.preferences.advanced}
+                    </span>
+                  </Card.Title>
+                  <Card.Body className="pb-0">
+                    <Form>
+                      <Row>
+                        <Col xs={4} className="p-0">
+                          <Form.Group controlId="DevTools" className="devfix">
+                            <Form.Label>{i18n.preferences.devtools}</Form.Label>
+                            {devToolsSwitch}
+                          </Form.Group>
+                        </Col>
+                        <Col xs={4} className="p-0">
+                          <Form.Group controlId="Verbose" className="devfix">
+                            <Form.Label>
+                              {i18n.preferences.verboseFocus}
+                            </Form.Label>
+                            {verboseSwitch}
+                          </Form.Group>
+                        </Col>
+                      </Row>
+                    </Form>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col xs={6}>
+                <Card className="overflowFix cardStyle pb-0">
+                  <Card.Title>
+                    <MdStorage className="dygmaLogo" />
+                    <span className="ledfix">
+                      {i18n.keyboardSettings.backupFolder.header}
+                    </span>
+                  </Card.Title>
+                  <Card.Body className="pb-0">
+                    <Form.Group controlId="backupFolder" className="mb-3">
+                      <Row>
+                        <Form.Label>
+                          {i18n.keyboardSettings.backupFolder.title}
+                        </Form.Label>
+                      </Row>
+                      <Row className="mb-4">
+                        <Col xs={6} className="pl-0 pr-1">
+                          <Form.Control
+                            type="text"
+                            value={backupFolder}
+                            readOnly
+                          />
+                        </Col>
+                        <Col xs={2} className="px-1">
+                          {backupFolderButton}
+                        </Col>
+                        <Col xs={4} className="px-1">
+                          {restoreBackupButton}
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Form.Label>
+                          {i18n.keyboardSettings.backupFolder.storeTime}
+                          <i className="greytext">
+                            {i18n.keyboardSettings.backupFolder.storeTimeSub}
+                          </i>
+                        </Form.Label>
+                      </Row>
+                      {backupControl}
+                    </Form.Group>
+                  </Card.Body>
+                </Card>
+                <Card className="overflowFix cardStyle mt-4 pb-0">
+                  <Card.Title>
+                    <BsBrightnessHigh className="dygmaLogo" />
+                    <span className="ledfix">
+                      {i18n.keyboardSettings.led.title}
+                    </span>
+                  </Card.Title>
+                  <Card.Body className="pb-0">
+                    {ledIdleTimeLimit >= 0 && (
+                      <Form.Group
+                        controlId="idleTimeLimit"
+                        className="formGroup"
+                      >
+                        <Row>
+                          <Form.Label>
+                            {i18n.keyboardSettings.led.idleTimeLimit}
+                          </Form.Label>
+                        </Row>
+                        {newIdleControl}
+                      </Form.Group>
+                    )}
+                    {ledBrightness >= 0 && (
+                      <Form.Group
+                        controlId="brightnessControl"
+                        className="formGroup"
+                      >
+                        <Row>
+                          <Form.Label>
+                            {i18n.keyboardSettings.led.brightness}
+                            <i className="greytext">
+                              {i18n.keyboardSettings.led.brightnesssub}
+                            </i>
+                          </Form.Label>
+                        </Row>
+                        {brightnessControl}
+                      </Form.Group>
+                    )}
+                  </Card.Body>
+                </Card>
+                <Card className="overflowFix cardStyle mt-4 pb-0">
+                  <Card.Title>
+                    <BiMouse className="dygmaLogo" />
+                    <span className="mousefix">
+                      {i18n.keyboardSettings.mouse.title}
+                    </span>
+                  </Card.Title>
+                  <Card.Body className="pb-0">
+                    {/* <h4>{i18n.keyboardSettings.mouse.subtitle1}</h4> */}
+                    {mouseSpeed >= 0 && (
+                      <Form.Group controlId="mouseSpeed" className="formGroup">
+                        <Row>
+                          <Form.Label>
+                            {i18n.keyboardSettings.mouse.speed}
+                            <i className="greytext">
+                              {i18n.keyboardSettings.mouse.speedsub}
+                            </i>
+                          </Form.Label>
+                        </Row>
+                        {mSpeed}
+                      </Form.Group>
+                    )}
+                    {/* {mouseSpeedDelay >= 0 && (
+                      <Form.Group controlId="mouseSpeedD" className="formGroup">
+                        <Form.Label>
+                          {i18n.keyboardSettings.mouse.speedDelay}
+                          <i className="greytext">
+                            {i18n.keyboardSettings.mouse.speedDelaysub}
+                          </i>
+                        </Form.Label>
+                        {mSpeedD}
+                      </Form.Group>
+                    )} */}
+                    {/* <h4>{i18n.keyboardSettings.mouse.subtitle2}</h4> */}
+                    {mouseAccelSpeed >= 0 && (
+                      <Form.Group
+                        controlId="mousemAccelS"
+                        className="formGroup"
+                      >
+                        <Row>
+                          <Form.Label>
+                            {i18n.keyboardSettings.mouse.accelSpeed}
+                            <i className="greytext">
+                              {i18n.keyboardSettings.mouse.accelSpeedsub}
+                            </i>
+                          </Form.Label>
+                        </Row>
+                        {mAccelS}
+                      </Form.Group>
+                    )}
+                    {/* {mouseAccelDelay >= 0 && (
+                      <Form.Group
+                        controlId="mousemAccelD"
+                        className="formGroup"
+                      >
+                        <Form.Label>
+                          {i18n.keyboardSettings.mouse.accelDelay}
+                          <i className="greytext">
+                            {i18n.keyboardSettings.mouse.accelDelaysub}
+                          </i>
+                        </Form.Label>
+                        {maccelD}
+                      </Form.Group>
+                    )} */}
+                    {/* <h4>{i18n.keyboardSettings.mouse.subtitle3}</h4> */}
+                    {mouseSpeedLimit >= 0 && (
+                      <Form.Group controlId="mouseSpeedL" className="formGroup">
+                        <Row>
+                          <Form.Label>
+                            {i18n.keyboardSettings.mouse.speedLimit}
+                            <i className="greytext">
+                              {i18n.keyboardSettings.mouse.speedLimitsub}
+                            </i>
+                          </Form.Label>
+                        </Row>
+                        {mSpeedL}
+                      </Form.Group>
+                    )}
+                    {mouseWheelSpeed >= 0 && (
+                      <Form.Group
+                        controlId="mousemWheelS"
+                        className="formGroup"
+                      >
+                        <Row>
+                          <Form.Label>
+                            {i18n.keyboardSettings.mouse.wheelSpeed}
+                            <i className="greytext">
+                              {i18n.keyboardSettings.mouse.wheelSpeedsub}
+                            </i>
+                          </Form.Label>
+                        </Row>
+                        {mWheelS}
+                      </Form.Group>
+                    )}
+                    {/* {mouseWheelDelay >= 0 && (
+                      <Form.Group
+                        controlId="mousemWheelD"
+                        className="formGroup"
+                      >
+                        <Form.Label>
+                          {i18n.keyboardSettings.mouse.wheelDelay}
+                          <i className="greytext">
+                            {i18n.keyboardSettings.mouse.wheelDelaysub}
+                          </i>
+                        </Form.Label>
+                        {mWheelD}
+                      </Form.Group>
+                    )} */}
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+          </Container>
         </Form>
         <SaveChangesButton
           onClick={this.saveKeymapChanges}
           disabled={!modified}
+          centered={true}
         >
-          {i18n.components.save.saveChanges}
+          {i18n.components.save.savePreferences}
         </SaveChangesButton>
       </Styles>
     );

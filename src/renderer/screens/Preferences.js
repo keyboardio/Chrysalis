@@ -169,6 +169,10 @@ class Preferences extends React.Component {
               startContext={this.props.startContext}
               cancelContext={this.props.cancelContext}
               inContext={this.props.inContext}
+              selectDarkMode={this.selectDarkMode}
+              darkMode={this.state.darkMode}
+              devToolsSwitch={devToolsSwitch}
+              verboseSwitch={verboseSwitch}
             />
           )}
           {this.props.connected && false && (
@@ -185,7 +189,7 @@ class Preferences extends React.Component {
               />
             </Row>
           )}
-          <Accordion>
+          {/* <Accordion>
             <Accordion.Toggle
               as={Col}
               variant="link"
@@ -198,29 +202,7 @@ class Preferences extends React.Component {
               </Button>
             </Accordion.Toggle>
             <Accordion.Collapse eventKey="0">
-              <React.Fragment>
-                <Card.Header>{i18n.preferences.devtools}</Card.Header>
-                <Card>
-                  <Card.Body>
-                    <Form>
-                      <Form.Group controlId="DarkMode">
-                        <Form.Label>
-                          {i18n.preferences.darkMode.label}
-                        </Form.Label>
-                        {darkModeSwitch}
-                      </Form.Group>
-                      <Form.Group controlId="DevTools">
-                        <Form.Label>{i18n.preferences.devtools}</Form.Label>
-                        {devToolsSwitch}
-                      </Form.Group>
-                      <Form.Group controlId="Verbose">
-                        <Form.Label>{i18n.preferences.verboseFocus}</Form.Label>
-                        {verboseSwitch}
-                      </Form.Group>
-                    </Form>
-                  </Card.Body>
-                </Card>
-              </React.Fragment>
+              <React.Fragment></React.Fragment>
             </Accordion.Collapse>
 
             {this.props.connected && (
@@ -230,7 +212,7 @@ class Preferences extends React.Component {
                 inContext={this.props.inContext}
               />
             )}
-          </Accordion>
+          </Accordion> */}
         </Container>
       </Styles>
     );

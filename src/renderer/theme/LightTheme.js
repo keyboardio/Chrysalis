@@ -18,6 +18,7 @@ const Light = {
     body: "#eaeff1",
     text: "#000000",
     subtext: "#555555",
+    tipIcon: "#666",
     button: {
       text: "#000",
       background: "#f3f3f3",
@@ -49,6 +50,9 @@ const Light = {
   navbar: {
     color: "#555",
     background: "#fff"
+  },
+  slider: {
+    color: "#2AD2C9"
   },
   font: "Titillium Web"
 };

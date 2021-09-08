@@ -54,7 +54,7 @@ import StenoTable from "./db/steno";
 import SpaceCadetTable from "./db/spacecadet";
 
 // Spanish - is an Array of objects of values that have to be modified
-import spanish from "./languages/spanish/spanish";
+import spanish, { spanishModifiedTables } from "./languages/spanish/spanish";
 
 // German - is an Array of objects of values that have to be modified
 import german, { germanModifiedTables } from "./languages/german/german";
@@ -107,6 +107,7 @@ const defaultBaseKeyCodeTable = [
 ];
 
 const supportModifiedTables = {
+  spanish: spanishModifiedTables,
   german: germanModifiedTables,
   french: frenchModifiedTables,
   nordic: nordicModifiedTables,

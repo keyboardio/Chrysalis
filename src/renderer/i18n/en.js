@@ -189,7 +189,7 @@ const English = {
   },
   preferences: {
     devtools: "Chrome Tools",
-    language: "Selected language",
+    language: "Select language",
     interface: "Interface",
     tooltips: {
       language: ""

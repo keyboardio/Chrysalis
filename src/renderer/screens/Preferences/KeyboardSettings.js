@@ -332,7 +332,7 @@ class KeyboardSettings extends React.Component {
     const value = event.target.value;
 
     this.setState({
-      ledIdleTimeLimit: value,
+      ledIdleTimeLimit: value * 60,
       modified: true
     });
     this.props.startContext();
@@ -350,7 +350,7 @@ class KeyboardSettings extends React.Component {
     const value = event.target.value;
 
     this.setState({
-      ledBrightness: value,
+      ledBrightness: (value * 255) / 100,
       modified: true
     });
     this.props.startContext();
@@ -408,6 +408,26 @@ class KeyboardSettings extends React.Component {
     const value = event.target.value;
     this.setState({
       SuperHoldstart: value,
+      modified: true
+    });
+    this.props.startContext();
+  };
+
+  setTyping = event => {
+    const value = event.target.value;
+    this.setState({
+      SuperTimeout: value,
+      SuperHoldstart: value - 20,
+      qukeysHoldTimeout: value - 20,
+      modified: true
+    });
+    this.props.startContext();
+  };
+
+  setChording = event => {
+    const value = event.target.value;
+    this.setState({
+      qukeysOverlapThreshold: value,
       modified: true
     });
     this.props.startContext();
@@ -853,21 +873,21 @@ class KeyboardSettings extends React.Component {
     );
     const newIdleControl = (
       <Row>
-        <Col xs={1} className="p-0 text-center">
+        <Col xs={2} md={1} className="p-0 text-center">
           <span className="tagsfix">short</span>
         </Col>
-        <Col xs={10} className="px-2">
+        <Col xs={8} md={10} className="px-2">
           <RangeSlider
             min={0}
-            max={3600}
-            step={60}
-            value={ledIdleTimeLimit}
+            max={60}
+            step={1}
+            value={ledIdleTimeLimit / 60}
             className="slider"
             onChange={this.selectIdleLEDTime}
             marks={[{ value: 255, label: i18n.keyboardSettings.defaultLabel }]}
           />
         </Col>
-        <Col xs={1} className="p-0 text-center">
+        <Col xs={2} md={1} className="p-0 text-center">
           <span className="tagsfix">long</span>
         </Col>
       </Row>
@@ -893,20 +913,21 @@ class KeyboardSettings extends React.Component {
     );
     const brightnessControl = (
       <Row>
-        <Col xs={1} className="p-0 text-center">
+        <Col xs={2} md={1} className="p-0 text-center">
           <span className="tagsfix">none</span>
         </Col>
-        <Col xs={10} className="px-2">
+        <Col xs={8} md={10} className="px-2">
           <RangeSlider
             min={0}
-            max={255}
-            value={ledBrightness}
+            max={100}
+            step={5}
+            value={Math.round((ledBrightness * 100) / 255)}
             className="slider"
             onChange={this.setBrightness}
             marks={[{ value: 255, label: i18n.keyboardSettings.defaultLabel }]}
           />
         </Col>
-        <Col xs={1} className="p-0 text-center">
+        <Col xs={2} md={1} className="p-0 text-center">
           <span className="tagsfix">max</span>
         </Col>
       </Row>
@@ -933,20 +954,19 @@ class KeyboardSettings extends React.Component {
     // );
     const superT = (
       <Row>
-        <Col xs={1} className="p-0 text-center">
+        <Col xs={2} md={1} className="p-0 text-center">
           <span className="tagsfix">fast</span>
         </Col>
-        <Col xs={10} className="px-2">
+        <Col xs={8} md={10} className="px-2">
           <RangeSlider
-            min={0}
+            min={50}
             max={1000}
             value={SuperTimeout}
             className="slider"
-            onChange={this.setSuperTimeout}
-            marks={[{ value: 250, label: i18n.keyboardSettings.defaultLabel }]}
+            onChange={this.setTyping}
           />
         </Col>
-        <Col xs={1} className="p-0 text-center">
+        <Col xs={2} md={1} className="p-0 text-center">
           <span className="tagsfix">slow</span>
         </Col>
       </Row>
@@ -973,21 +993,20 @@ class KeyboardSettings extends React.Component {
     // );
     const superH = (
       <Row>
-        <Col xs={1} className="p-0 text-center">
-          <span className="tagsfix">high</span>
+        <Col xs={2} md={1} className="p-0 text-center">
+          <span className="tagsfix">none</span>
         </Col>
-        <Col xs={10} className="px-2">
+        <Col xs={8} md={10} className="px-2">
           <RangeSlider
             min={0}
-            max={1000}
-            value={SuperHoldstart}
+            max={100}
+            value={qukeysOverlapThreshold}
             className="slider"
-            onChange={this.setSuperHoldstart}
-            marks={[{ value: 200, label: i18n.keyboardSettings.defaultLabel }]}
+            onChange={this.setChording}
           />
         </Col>
-        <Col xs={1} className="p-0 text-center">
-          <span className="tagsfix">none</span>
+        <Col xs={2} md={1} className="p-0 text-center">
+          <span className="tagsfix">high</span>
         </Col>
       </Row>
     );
@@ -1003,10 +1022,10 @@ class KeyboardSettings extends React.Component {
     // );
     const mSpeed = (
       <Row>
-        <Col xs={1} className="p-0 text-center">
+        <Col xs={2} md={1} className="p-0 text-center">
           <span className="tagsfix">slow</span>
         </Col>
-        <Col xs={10} className="px-2">
+        <Col xs={8} md={10} className="px-2">
           <RangeSlider
             min={0}
             max={254}
@@ -1016,7 +1035,7 @@ class KeyboardSettings extends React.Component {
             marks={[{ value: 1, label: i18n.keyboardSettings.defaultLabel }]}
           />
         </Col>
-        <Col xs={1} className="p-0 text-center">
+        <Col xs={2} md={1} className="p-0 text-center">
           <span className="tagsfix">fast</span>
         </Col>
       </Row>
@@ -1033,10 +1052,10 @@ class KeyboardSettings extends React.Component {
     // );
     const mAccelS = (
       <Row>
-        <Col xs={1} className="p-0 text-center">
+        <Col xs={2} md={1} className="p-0 text-center">
           <span className="tagsfix">slow</span>
         </Col>
-        <Col xs={10} className="px-2">
+        <Col xs={8} md={10} className="px-2">
           <RangeSlider
             min={0}
             max={254}
@@ -1046,7 +1065,7 @@ class KeyboardSettings extends React.Component {
             marks={[{ value: 1, label: i18n.keyboardSettings.defaultLabel }]}
           />
         </Col>
-        <Col xs={1} className="p-0 text-center">
+        <Col xs={2} md={1} className="p-0 text-center">
           <span className="tagsfix">fast</span>
         </Col>
       </Row>
@@ -1063,10 +1082,10 @@ class KeyboardSettings extends React.Component {
     // );
     const mWheelS = (
       <Row>
-        <Col xs={1} className="p-0 text-center">
+        <Col xs={2} md={1} className="p-0 text-center">
           <span className="tagsfix">slow</span>
         </Col>
-        <Col xs={10} className="px-2">
+        <Col xs={8} md={10} className="px-2">
           <RangeSlider
             min={0}
             max={254}
@@ -1076,7 +1095,7 @@ class KeyboardSettings extends React.Component {
             marks={[{ value: 1, label: i18n.keyboardSettings.defaultLabel }]}
           />
         </Col>
-        <Col xs={1} className="p-0 text-center">
+        <Col xs={2} md={1} className="p-0 text-center">
           <span className="tagsfix">fast</span>
         </Col>
       </Row>
@@ -1093,10 +1112,10 @@ class KeyboardSettings extends React.Component {
     // );
     const mSpeedL = (
       <Row>
-        <Col xs={1} className="p-0 text-center">
+        <Col xs={2} md={1} className="p-0 text-center">
           <span className="tagsfix">slow</span>
         </Col>
-        <Col xs={10} className="px-2">
+        <Col xs={8} md={10} className="px-2">
           <RangeSlider
             min={0}
             max={254}
@@ -1106,7 +1125,7 @@ class KeyboardSettings extends React.Component {
             marks={[{ value: 127, label: i18n.keyboardSettings.defaultLabel }]}
           />
         </Col>
-        <Col xs={1} className="p-0 text-center">
+        <Col xs={2} md={1} className="p-0 text-center">
           <span className="tagsfix">fast</span>
         </Col>
       </Row>
@@ -1162,8 +1181,8 @@ class KeyboardSettings extends React.Component {
         <Form>
           <Container>
             <Row>
-              <Col xs={6}>
-                <Card className="overflowFix cardStyle">
+              <Col xl={6}>
+                <Card className="overflowFix cardStyle mt-4">
                   <Card.Title>
                     <img src={dygma} className="dygmaLogo" />
                     {i18n.keyboardSettings.keymap.title}
@@ -1182,13 +1201,13 @@ class KeyboardSettings extends React.Component {
                     {onlyCustomSwitch}
                   </Form.Group> */}
                     <Row>
-                      <Col xs={4}>
+                      <Col lg={4}>
                         <Form.Group controlId="selectLanguage" className="m-0">
                           <Form.Label>{i18n.preferences.language}</Form.Label>
                           {selectLanguage}
                         </Form.Group>
                       </Col>
-                      <Col xs={4}>
+                      <Col lg={4}>
                         <Form.Group controlId="defaultLayer" className="m-0">
                           <Form.Label>
                             {i18n.keyboardSettings.keymap.defaultLayer}
@@ -1196,7 +1215,7 @@ class KeyboardSettings extends React.Component {
                           {defaultLayerSelect}
                         </Form.Group>
                       </Col>
-                      <Col xs={4}>
+                      <Col lg={4}>
                         <Form.Group controlId="DarkMode" className="m-0">
                           <Form.Label>
                             {i18n.preferences.darkMode.label}
@@ -1376,8 +1395,8 @@ class KeyboardSettings extends React.Component {
                   </Card.Body>
                 </Card>
               </Col>
-              <Col xs={6}>
-                <Card className="overflowFix cardStyle pb-0">
+              <Col xl={6}>
+                <Card className="overflowFix cardStyle mt-4 pb-0">
                   <Card.Title>
                     <MdStorage className="dygmaLogo" />
                     <span className="ledfix">
@@ -1392,7 +1411,7 @@ class KeyboardSettings extends React.Component {
                         </Form.Label>
                       </Row>
                       <Row className="mb-4">
-                        <Col xs={6} className="pl-0 pr-1">
+                        <Col className="pl-0 pr-1">
                           <Form.Control
                             type="text"
                             value={backupFolder}

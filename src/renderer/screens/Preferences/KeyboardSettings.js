@@ -89,7 +89,7 @@ const Styles = Styled.div`
     margin-right 0.5em;
   }
   .cardStyle {
-    border-radius 30px;
+    border-radius 15px;
   }
   .fullWidth {
     button {
@@ -133,6 +133,12 @@ const Styles = Styled.div`
     border-color: ${({ theme }) => theme.slider.color};
     background-color: ${({ theme }) => theme.slider.color};
     box-shadow: none;
+  }
+  .save-holder {
+    position: fixed;
+    height: 40px;
+    bottom: 40px;
+    right: 40px;
   }
 `;
 
@@ -414,7 +420,7 @@ class KeyboardSettings extends React.Component {
   };
 
   setTyping = event => {
-    const value = event.target.value;
+    const value = (100 - event.target.value) * 10;
     this.setState({
       SuperTimeout: value,
       SuperHoldstart: value - 20,
@@ -955,19 +961,19 @@ class KeyboardSettings extends React.Component {
     const superT = (
       <Row>
         <Col xs={2} md={1} className="p-0 text-center">
-          <span className="tagsfix">fast</span>
+          <span className="tagsfix">slow</span>
         </Col>
         <Col xs={8} md={10} className="px-2">
           <RangeSlider
-            min={50}
-            max={1000}
-            value={SuperTimeout}
+            min={0}
+            max={95}
+            value={100 - SuperTimeout / 10}
             className="slider"
             onChange={this.setTyping}
           />
         </Col>
         <Col xs={2} md={1} className="p-0 text-center">
-          <span className="tagsfix">slow</span>
+          <span className="tagsfix">fast</span>
         </Col>
       </Row>
     );
@@ -1178,7 +1184,7 @@ class KeyboardSettings extends React.Component {
     return (
       <Styles>
         {this.state.working && <Spinner role="status" />}
-        <Form>
+        <Form className="mb-5">
           <Container>
             <Row>
               <Col xl={6}>
@@ -1259,6 +1265,121 @@ class KeyboardSettings extends React.Component {
                     )}
                   </Card.Body>
                 </Card> */}
+                <Card className="overflowFix cardStyle mt-4 pb-0">
+                  <Card.Title>
+                    <MdStorage className="dygmaLogo" />
+                    <span className="ledfix">
+                      {i18n.keyboardSettings.backupFolder.header}
+                    </span>
+                  </Card.Title>
+                  <Card.Body className="pb-0">
+                    <Form.Group controlId="backupFolder" className="mb-3">
+                      <Row>
+                        <Form.Label>
+                          {i18n.keyboardSettings.backupFolder.title}
+                        </Form.Label>
+                      </Row>
+                      <Row className="mb-4">
+                        <Col className="pl-0 pr-1">
+                          <Form.Control
+                            type="text"
+                            value={backupFolder}
+                            readOnly
+                          />
+                        </Col>
+                        <Col xs={2} className="px-1">
+                          {backupFolderButton}
+                        </Col>
+                        <Col xs={4} className="px-1">
+                          {restoreBackupButton}
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Form.Label>
+                          {i18n.keyboardSettings.backupFolder.storeTime}
+                          <i className="greytext">
+                            {i18n.keyboardSettings.backupFolder.storeTimeSub}
+                          </i>
+                        </Form.Label>
+                      </Row>
+                      {backupControl}
+                    </Form.Group>
+                  </Card.Body>
+                </Card>
+                <Card className="overflowFix cardStyle mt-4 pb-0">
+                  <Card.Title>
+                    <BsBrightnessHigh className="dygmaLogo" />
+                    <span className="ledfix">
+                      {i18n.keyboardSettings.led.title}
+                    </span>
+                  </Card.Title>
+                  <Card.Body className="pb-0">
+                    {ledIdleTimeLimit >= 0 && (
+                      <Form.Group
+                        controlId="idleTimeLimit"
+                        className="formGroup"
+                      >
+                        <Row>
+                          <Form.Label>
+                            {i18n.keyboardSettings.led.idleTimeLimit}
+                          </Form.Label>
+                        </Row>
+                        {newIdleControl}
+                      </Form.Group>
+                    )}
+                    {ledBrightness >= 0 && (
+                      <Form.Group
+                        controlId="brightnessControl"
+                        className="formGroup"
+                      >
+                        <Row>
+                          <Form.Label>
+                            {i18n.keyboardSettings.led.brightness}
+                            <i className="greytext">
+                              {i18n.keyboardSettings.led.brightnesssub}
+                            </i>
+                          </Form.Label>
+                        </Row>
+                        {brightnessControl}
+                      </Form.Group>
+                    )}
+                  </Card.Body>
+                </Card>
+                <Card className="overflowFix cardStyle mt-4 pb-0">
+                  <Card.Title>
+                    <BiCodeAlt className="dygmaLogo" />
+                    <span className="advancedfix">
+                      {i18n.preferences.advanced}
+                    </span>
+                  </Card.Title>
+                  <Card.Body className="pb-0">
+                    <Form>
+                      <Row>
+                        <Col xs={4} className="p-0">
+                          <Form.Group controlId="DevTools" className="devfix">
+                            <Form.Label>{i18n.preferences.devtools}</Form.Label>
+                            {devToolsSwitch}
+                          </Form.Group>
+                        </Col>
+                        <Col xs={4} className="p-0">
+                          <Form.Group controlId="Verbose" className="devfix">
+                            <Form.Label>
+                              {i18n.preferences.verboseFocus}
+                            </Form.Label>
+                            {verboseSwitch}
+                          </Form.Group>
+                        </Col>
+                      </Row>
+                      <Row className="mb-4">
+                        <Col>
+                          <AdvancedKeyboardSettings />
+                        </Col>
+                      </Row>
+                    </Form>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col xl={6}>
                 <Card className="overflowFix cardStyle mt-4 pb-0">
                   <Card.Title>
                     <BsType className="dygmaLogo" />
@@ -1364,116 +1485,6 @@ class KeyboardSettings extends React.Component {
                         {SuperO}
                       </Form.Group>
                     )} */}
-                  </Card.Body>
-                </Card>
-                <Card className="overflowFix cardStyle mt-4 pb-0">
-                  <Card.Title>
-                    <BiCodeAlt className="dygmaLogo" />
-                    <span className="advancedfix">
-                      {i18n.preferences.advanced}
-                    </span>
-                  </Card.Title>
-                  <Card.Body className="pb-0">
-                    <Form>
-                      <Row>
-                        <Col xs={4} className="p-0">
-                          <Form.Group controlId="DevTools" className="devfix">
-                            <Form.Label>{i18n.preferences.devtools}</Form.Label>
-                            {devToolsSwitch}
-                          </Form.Group>
-                        </Col>
-                        <Col xs={4} className="p-0">
-                          <Form.Group controlId="Verbose" className="devfix">
-                            <Form.Label>
-                              {i18n.preferences.verboseFocus}
-                            </Form.Label>
-                            {verboseSwitch}
-                          </Form.Group>
-                        </Col>
-                      </Row>
-                    </Form>
-                  </Card.Body>
-                </Card>
-              </Col>
-              <Col xl={6}>
-                <Card className="overflowFix cardStyle mt-4 pb-0">
-                  <Card.Title>
-                    <MdStorage className="dygmaLogo" />
-                    <span className="ledfix">
-                      {i18n.keyboardSettings.backupFolder.header}
-                    </span>
-                  </Card.Title>
-                  <Card.Body className="pb-0">
-                    <Form.Group controlId="backupFolder" className="mb-3">
-                      <Row>
-                        <Form.Label>
-                          {i18n.keyboardSettings.backupFolder.title}
-                        </Form.Label>
-                      </Row>
-                      <Row className="mb-4">
-                        <Col className="pl-0 pr-1">
-                          <Form.Control
-                            type="text"
-                            value={backupFolder}
-                            readOnly
-                          />
-                        </Col>
-                        <Col xs={2} className="px-1">
-                          {backupFolderButton}
-                        </Col>
-                        <Col xs={4} className="px-1">
-                          {restoreBackupButton}
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Form.Label>
-                          {i18n.keyboardSettings.backupFolder.storeTime}
-                          <i className="greytext">
-                            {i18n.keyboardSettings.backupFolder.storeTimeSub}
-                          </i>
-                        </Form.Label>
-                      </Row>
-                      {backupControl}
-                    </Form.Group>
-                  </Card.Body>
-                </Card>
-                <Card className="overflowFix cardStyle mt-4 pb-0">
-                  <Card.Title>
-                    <BsBrightnessHigh className="dygmaLogo" />
-                    <span className="ledfix">
-                      {i18n.keyboardSettings.led.title}
-                    </span>
-                  </Card.Title>
-                  <Card.Body className="pb-0">
-                    {ledIdleTimeLimit >= 0 && (
-                      <Form.Group
-                        controlId="idleTimeLimit"
-                        className="formGroup"
-                      >
-                        <Row>
-                          <Form.Label>
-                            {i18n.keyboardSettings.led.idleTimeLimit}
-                          </Form.Label>
-                        </Row>
-                        {newIdleControl}
-                      </Form.Group>
-                    )}
-                    {ledBrightness >= 0 && (
-                      <Form.Group
-                        controlId="brightnessControl"
-                        className="formGroup"
-                      >
-                        <Row>
-                          <Form.Label>
-                            {i18n.keyboardSettings.led.brightness}
-                            <i className="greytext">
-                              {i18n.keyboardSettings.led.brightnesssub}
-                            </i>
-                          </Form.Label>
-                        </Row>
-                        {brightnessControl}
-                      </Form.Group>
-                    )}
                   </Card.Body>
                 </Card>
                 <Card className="overflowFix cardStyle mt-4 pb-0">
@@ -1590,13 +1601,15 @@ class KeyboardSettings extends React.Component {
             </Row>
           </Container>
         </Form>
-        <SaveChangesButton
-          onClick={this.saveKeymapChanges}
-          disabled={!modified}
-          centered={true}
-        >
-          {i18n.components.save.savePreferences}
-        </SaveChangesButton>
+        <div className="save-holder">
+          <SaveChangesButton
+            onClick={this.saveKeymapChanges}
+            disabled={!modified}
+            centered={true}
+          >
+            {i18n.components.save.savePreferences}
+          </SaveChangesButton>
+        </div>
       </Styles>
     );
   }
@@ -1631,21 +1644,15 @@ class AdvancedKeyboardSettings extends React.Component {
 
   render() {
     return (
-      <Styles>
-        {this.state.working && <Spinner variant="query" />}
-        <Card.Header>{i18n.keyboardSettings.advancedOps}</Card.Header>
-        <Card>
-          <Card.Footer>
-            <Button
-              disabled={this.state.working}
-              variant="contained"
-              color="secondary"
-              onClick={this.openEEPROMClearConfirmation}
-            >
-              {i18n.keyboardSettings.resetEEPROM.button}
-            </Button>
-          </Card.Footer>
-        </Card>
+      <React.Fragment>
+        <Button
+          disabled={this.state.working}
+          variant="contained"
+          color="secondary"
+          onClick={this.openEEPROMClearConfirmation}
+        >
+          {i18n.keyboardSettings.resetEEPROM.button}
+        </Button>
         <ConfirmationDialog
           title={i18n.keyboardSettings.resetEEPROM.dialogTitle}
           open={this.state.EEPROMClearConfirmationOpen}
@@ -1654,7 +1661,7 @@ class AdvancedKeyboardSettings extends React.Component {
         >
           {i18n.keyboardSettings.resetEEPROM.dialogContents}
         </ConfirmationDialog>
-      </Styles>
+      </React.Fragment>
     );
   }
 }

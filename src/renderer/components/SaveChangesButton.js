@@ -80,7 +80,7 @@ class SaveChangesButton extends React.Component {
     return (
       <Styles>
         <Container fluid>
-          <Row className={centered ? "justify-content-center mt-3 mb-5" : ""}>
+          <Row className={centered ? "justify-content-center" : ""}>
             <OverlayTrigger
               rootClose
               placement="top"

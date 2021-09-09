@@ -225,6 +225,7 @@ export default class FlashRaise {
    */
   async updateFirmware(filename) {
     let focus = new Focus();
+    // console.log("Begin update firmware with arduino-flasher");
     this.backupFileData.log.push("Begin update firmware with arduino-flasher");
     this.backupFileData.firmwareFile = filename;
     return new Promise(async (resolve, reject) => {

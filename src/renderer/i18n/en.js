@@ -267,9 +267,9 @@ const English = {
       chordingTip2:
         "Let's say you have a Layer&Key with 'Layer 1' on hold and 'Space' on tap.",
       chordingTip3:
-        "- If the slider is at 'Nothing' and you press another key before completely releasing the Space, this will trigger the hold function.",
+        "- If the slider is at 'None' and you press another key before completely releasing the Space, this will trigger the hold function.",
       chordingTip4:
-        "- If the slider is at 'A lot', it'll take a bit more time for the hold function to activate.",
+        "- If the slider is at 'High', it'll take a bit more time for the hold function to activate.",
       repeat:
         "Adjust repeat time interval between the emmision of holded keys after waitfor period. (this doesn't affect all keys)",
       repeatsub: " - time from 0 to 254 milliseconds",

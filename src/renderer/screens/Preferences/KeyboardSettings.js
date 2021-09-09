@@ -111,6 +111,7 @@ const Styles = Styled.div`
   .tagsfix {
     vertical-align: -5px;
     font-weight: 200;
+    font-size: 14px;
   }
   .backupbuttons {
     margin: 0;
@@ -880,7 +881,7 @@ class KeyboardSettings extends React.Component {
     const newIdleControl = (
       <Row>
         <Col xs={2} md={1} className="p-0 text-center">
-          <span className="tagsfix">short</span>
+          <span className="tagsfix">off</span>
         </Col>
         <Col xs={8} md={10} className="px-2">
           <RangeSlider
@@ -894,7 +895,7 @@ class KeyboardSettings extends React.Component {
           />
         </Col>
         <Col xs={2} md={1} className="p-0 text-center">
-          <span className="tagsfix">long</span>
+          <span className="tagsfix">60min</span>
         </Col>
       </Row>
     );
@@ -1297,9 +1298,9 @@ class KeyboardSettings extends React.Component {
                       <Row>
                         <Form.Label>
                           {i18n.keyboardSettings.backupFolder.storeTime}
-                          <i className="greytext">
+                          {/* <i className="greytext">
                             {i18n.keyboardSettings.backupFolder.storeTimeSub}
-                          </i>
+                          </i> */}
                         </Form.Label>
                       </Row>
                       {backupControl}
@@ -1335,9 +1336,9 @@ class KeyboardSettings extends React.Component {
                         <Row>
                           <Form.Label>
                             {i18n.keyboardSettings.led.brightness}
-                            <i className="greytext">
+                            {/* <i className="greytext">
                               {i18n.keyboardSettings.led.brightnesssub}
-                            </i>
+                            </i> */}
                           </Form.Label>
                         </Row>
                         {brightnessControl}
@@ -1357,16 +1358,16 @@ class KeyboardSettings extends React.Component {
                       <Row>
                         <Col xs={4} className="p-0">
                           <Form.Group controlId="DevTools" className="devfix">
-                            <Form.Label>{i18n.preferences.devtools}</Form.Label>
                             {devToolsSwitch}
+                            <Form.Label>{i18n.preferences.devtools}</Form.Label>
                           </Form.Group>
                         </Col>
                         <Col xs={4} className="p-0">
                           <Form.Group controlId="Verbose" className="devfix">
+                            {verboseSwitch}
                             <Form.Label>
                               {i18n.preferences.verboseFocus}
                             </Form.Label>
-                            {verboseSwitch}
                           </Form.Group>
                         </Col>
                       </Row>
@@ -1401,7 +1402,7 @@ class KeyboardSettings extends React.Component {
                             </i> */}
                             <OverlayTrigger
                               rootClose
-                              placement="right"
+                              placement="bottom"
                               delay={{ show: 250, hide: 400 }}
                               overlay={this.renderTooltip([
                                 i18n.keyboardSettings.superkeys.timeoutTip1,
@@ -1455,7 +1456,7 @@ class KeyboardSettings extends React.Component {
                             </i> */}
                             <OverlayTrigger
                               rootClose
-                              placement="right"
+                              placement="bottom"
                               delay={{ show: 250, hide: 400 }}
                               overlay={this.renderTooltip([
                                 i18n.keyboardSettings.superkeys.chordingTip1,
@@ -1501,9 +1502,9 @@ class KeyboardSettings extends React.Component {
                         <Row>
                           <Form.Label>
                             {i18n.keyboardSettings.mouse.speed}
-                            <i className="greytext">
+                            {/* <i className="greytext">
                               {i18n.keyboardSettings.mouse.speedsub}
-                            </i>
+                            </i> */}
                           </Form.Label>
                         </Row>
                         {mSpeed}
@@ -1529,9 +1530,9 @@ class KeyboardSettings extends React.Component {
                         <Row>
                           <Form.Label>
                             {i18n.keyboardSettings.mouse.accelSpeed}
-                            <i className="greytext">
+                            {/* <i className="greytext">
                               {i18n.keyboardSettings.mouse.accelSpeedsub}
-                            </i>
+                            </i> */}
                           </Form.Label>
                         </Row>
                         {mAccelS}
@@ -1557,9 +1558,9 @@ class KeyboardSettings extends React.Component {
                         <Row>
                           <Form.Label>
                             {i18n.keyboardSettings.mouse.speedLimit}
-                            <i className="greytext">
+                            {/* <i className="greytext">
                               {i18n.keyboardSettings.mouse.speedLimitsub}
-                            </i>
+                            </i> */}
                           </Form.Label>
                         </Row>
                         {mSpeedL}
@@ -1573,9 +1574,9 @@ class KeyboardSettings extends React.Component {
                         <Row>
                           <Form.Label>
                             {i18n.keyboardSettings.mouse.wheelSpeed}
-                            <i className="greytext">
+                            {/* <i className="greytext">
                               {i18n.keyboardSettings.mouse.wheelSpeedsub}
-                            </i>
+                            </i> */}
                           </Form.Label>
                         </Row>
                         {mWheelS}

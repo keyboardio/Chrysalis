@@ -1,7 +1,7 @@
 {
   "name": "BAZECOR",
-  "version": "1.0.0beta8",
-  "fwVersion": "1.0.0beta8",
+  "version": "1.0.0beta9",
+  "fwVersion": "1.0.0beta9",
   "license": "GPL-3.0-only",
   "author": {
     "name": "Dygma Lab S.L.",
@@ -89,7 +89,7 @@
     "react-localization": "^1.0.16",
     "react-router-dom": "^5.2.0",
     "react-toastify": "^6.2.0",
-    "serialport": "^8.0.8",
+    "serialport": "^9.2.1",
     "source-map-support": "^0.5.16",
     "styled-components": "^5.2.3",
     "sudo-prompt": "^9.2.1",

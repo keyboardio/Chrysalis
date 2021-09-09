@@ -1371,7 +1371,7 @@ class KeyboardSettings extends React.Component {
                         </Col>
                       </Row>
                       <Row className="mb-4">
-                        <Col>
+                        <Col className="p-0">
                           <AdvancedKeyboardSettings />
                         </Col>
                       </Row>

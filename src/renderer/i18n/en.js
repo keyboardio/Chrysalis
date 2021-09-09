@@ -318,7 +318,7 @@ const English = {
     },
     advancedOps: "Advanced keyboard settings & operations",
     resetEEPROM: {
-      button: "Reset EEPROM to factory defaults",
+      button: "Reset keyboard to factory settings",
       dialogTitle: "Reset EEPROM to factory defaults?",
       dialogContents: `This will reset the EEPROM to factory defaults.
  You will lose all customizations made.`

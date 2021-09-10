@@ -27,6 +27,7 @@ import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Modal from "react-bootstrap/Modal";
+import { FiSave, FiTrash2 } from "react-icons/fi";
 
 import i18n from "../../i18n";
 import MacroManager from "../../components/MacroManager/index";
@@ -53,6 +54,21 @@ const Styles = Styled.div`
     margin-right: 15%;
     margin-left: 15%;
     width: inherit;
+  }
+  .save-row {
+    position: absolute;
+    right: 30px;
+    top: 65px;
+  }
+  .button-large {
+    font-size: 2rem;
+    width: -webkit-fill-available;
+    text-align: left;
+  }
+  .button-large:not(:disabled):not(.disabled):hover {
+    color: ${({ theme }) => theme.colors.button.text};
+    background-color: ${({ theme }) => theme.colors.button.active};
+    border: none;
   }
 `;
 
@@ -551,17 +567,29 @@ class MacrosConfigurator extends React.Component {
             key={JSON.stringify(this.state.macros)}
           />
         </Container>
-        <Row>
-          <Col className="save-button">
-            <Button onClick={this.writeMacros}>
-              {i18n.components.save.saveChanges}
-            </Button>
-          </Col>
-          <Col className="save-button">
-            <Button onClick={this.loadMacros}>
-              {i18n.app.cancelPending.button}
-            </Button>
-          </Col>
+        <Row className="save-row">
+          <Container fluid>
+            <Row>
+              <Button
+                disabled={!this.state.modified}
+                onClick={this.writeMacros}
+                className="button-large pt-0 mt-0 mb-2"
+                aria-controls="save-changes"
+              >
+                <FiSave />
+              </Button>
+            </Row>
+            <Row>
+              <Button
+                disabled={!this.state.modified}
+                onClick={this.loadMacros}
+                className="button-large pt-0 mt-0 mb-2"
+                aria-controls="discard-changes"
+              >
+                <FiTrash2 />
+              </Button>
+            </Row>
+          </Container>
         </Row>
         <Modal
           show={this.state.showDeleteModal}

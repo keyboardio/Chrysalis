@@ -29,6 +29,7 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { MdKeyboard } from "react-icons/md";
 import { IoMdColorPalette } from "react-icons/io";
+import { FiSave, FiTrash2 } from "react-icons/fi";
 import slideInUp from "react-animations/lib/slide-in-up";
 
 import Focus from "../../../api/focus";
@@ -133,22 +134,28 @@ const Styles = Styled.div`
 }
 .save-row {
   position: absolute;
-  right: 20px;
+  right: 30px;
   top: 65px;
-  width: 110px;
-  .card {
-    flex-flow: nowrap;
-    width: 100%;
-    padding: 0;
-    place-content: space-evenly;
-    border-radius: 10px;
-    background-color: ${({ theme }) => theme.colors.button.deselected};
-  }
 }
 .big {
   font-size: 3em;
   margin-top: 0;
   padding-top: 0;
+}
+.button-large {
+  font-size: 2rem;
+  width: -webkit-fill-available;
+  text-align: left;
+}
+.button-large:not(:disabled):not(.disabled):hover {
+  color: ${({ theme }) => theme.colors.button.text};
+  background-color: ${({ theme }) => theme.colors.button.active};
+  border: none;
+}
+.save-span {
+  font-size: 1.5rem;
+  vertical-align: -2px;
+  padding-left: 0.3rem;
 }
 `;
 
@@ -1664,26 +1671,30 @@ class Editor extends Component {
             </Card>
           </Row>
           <Row className="save-row">
-            <Col>
-              <SaveChangesButton
-                floating
-                onClick={this.onApply}
-                disabled={!this.state.modified}
-              >
-                {i18n.components.save.saveChanges}
-              </SaveChangesButton>
-            </Col>
-            <Col>
-              <Button
-                onClick={() => {
-                  this.props.cancelContext();
-                }}
-                className="cancelButton"
-                disabled={!this.state.modified}
-              >
-                {i18n.app.cancelPending.button}
-              </Button>
-            </Col>
+            <Container fluid>
+              <Row>
+                <Button
+                  disabled={!this.state.modified}
+                  onClick={this.onApply}
+                  className="button-large pt-0 mt-0 mb-2"
+                  aria-controls="save-changes"
+                >
+                  <FiSave />
+                </Button>
+              </Row>
+              <Row>
+                <Button
+                  disabled={!this.state.modified}
+                  onClick={() => {
+                    this.props.cancelContext();
+                  }}
+                  className="button-large pt-0 mt-0 mb-2"
+                  aria-controls="discard-changes"
+                >
+                  <FiTrash2 />
+                </Button>
+              </Row>
+            </Container>
           </Row>
           <ConfirmationDialog
             title={i18n.editor.clearLayerQuestion}

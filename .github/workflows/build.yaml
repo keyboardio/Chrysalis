@@ -14,6 +14,14 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v1
 
+      - name: get artifactName
+        id: format_script
+        uses: notiz-dev/github-action-json-property@release
+        with:
+          path: 'package.json'
+          prop_path: 'scripts.format'
+      - run: echo ${{steps.format_script.outputs.prop}}
+
       - name: Install Node.js, NPM and Yarn
         uses: actions/setup-node@v1
         with:
@@ -33,4 +41,7 @@ jobs:
         uses: 'actions/upload-artifact@v2'
         with:
           name: Bazecor ${{ matrix.node-version }}
-          path: ${{ github.workspace }}
+          path: |
+              ${{ github.workspace }}/dist/*.exe
+              ${{ github.workspace }}/dist/*.appimage
+              ${{ github.workspace }}/dist/*.dmg

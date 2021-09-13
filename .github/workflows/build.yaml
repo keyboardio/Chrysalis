@@ -1,6 +1,11 @@
 name: Build/release
 
-on: push
+on:
+  push:
+    branches:
+    # this will run on the electron branch
+      - development
+      - bootstrap-migration
 
 jobs:
   release:

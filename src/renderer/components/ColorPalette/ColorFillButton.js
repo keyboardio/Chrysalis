@@ -21,7 +21,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import { setButtonSizeTamplate } from "../../../renderer/utils/setTemplates";
+import { setButtonSizeTemplate } from "../../../renderer/utils/setTemplates";
 
 ColorFillButton.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -35,7 +35,7 @@ ColorFillButton.propTypes = {
 
 const styles = () => ({
   root: {
-    ...setButtonSizeTamplate(25),
+    ...setButtonSizeTemplate(25),
     margin: "0 4px 4px 4px",
     padding: 0,
     borderRadius: 5,

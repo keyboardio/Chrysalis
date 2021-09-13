@@ -37,7 +37,6 @@ import Backup from "../../../api/backup";
 import ConfirmationDialog from "../../components/ConfirmationDialog";
 import SaveChangesButton from "../../components/SaveChangesButton";
 import i18n from "../../i18n";
-import dygma from "../../DygmaLogo.png";
 import frenchF from "../../../../static/french.png";
 import germanF from "../../../../static/german.png";
 import japaneseF from "../../../../static/japanese.png";
@@ -56,7 +55,7 @@ import {
   MdInfo
 } from "react-icons/md";
 import { BsType, BsBrightnessHigh } from "react-icons/bs";
-import { BiMouse, BiCodeAlt } from "react-icons/bi";
+import { BiMouse, BiCodeAlt, BiWrench } from "react-icons/bi";
 
 import settings from "electron-settings";
 import { Spinner } from "react-bootstrap";
@@ -96,17 +95,14 @@ const Styles = Styled.div`
       width: -webkit-fill-available;
     }
   }
-  .typingfix {
+  .va3fix {
     vertical-align: -3px;
   }
-  .ledfix {
+  .va2fix {
     vertical-align: -2px;
   }
-  .mousefix {
-    vertical-align: -2px;
-  }
-  .advancedfix {
-    vertical-align: -2px;
+  .va1fix {
+    vertical-align: -1px;
   }
   .tagsfix {
     vertical-align: -5px;
@@ -140,6 +136,26 @@ const Styles = Styled.div`
     height: 40px;
     bottom: 40px;
     right: 40px;
+  }
+  .select-icon {
+    position: absolute;
+    left: 8px;
+    top: 13px;
+    background-color: ${({ theme }) => theme.colors.button.deselected};
+    border: 2px solid ${({ theme }) => theme.colors.button.deselected};
+    color: ${({ theme }) => theme.colors.button.text};
+    font-size: 1.3em;
+    border-radius: 4px;
+  }
+  .flag-icon {
+    position: absolute;
+    left: 8px;
+    top: 10px;
+  }
+  .dropdown-toggle::after {
+    position: absolute;
+    right: 7px;
+    top: 21px;
   }
 `;
 
@@ -788,7 +804,7 @@ class KeyboardSettings extends React.Component {
                 )
               ]
             }
-            className="dygmaLogo"
+            className="dygmaLogo flag-icon"
           />
           {`${
             selectedLanguage != undefined && selectedLanguage != ""
@@ -1146,27 +1162,33 @@ class KeyboardSettings extends React.Component {
         <Dropdown.Toggle className="toggler">
           {darkMode === "system" ? (
             <React.Fragment>
-              <MdComputer /> System
+              <MdComputer className="select-icon" />
+              System
             </React.Fragment>
           ) : darkMode === "dark" ? (
             <React.Fragment>
-              <MdBrightness3 /> Dark
+              <MdBrightness3 className="select-icon" />
+              Dark
             </React.Fragment>
           ) : (
             <React.Fragment>
-              <MdWbSunny /> Light
+              <MdWbSunny className="select-icon" />
+              Light
             </React.Fragment>
           )}
         </Dropdown.Toggle>
         <Dropdown.Menu className="menu">
           <Dropdown.Item key={`theme-system`} eventKey={"system"}>
-            <MdComputer /> System
+            <MdComputer className="mr-3" />
+            <span className="va1fix">System</span>
           </Dropdown.Item>
           <Dropdown.Item key={`theme-dark`} eventKey={"dark"}>
-            <MdBrightness3 /> Dark
+            <MdBrightness3 className="mr-3" />
+            <span className="va1fix">Dark</span>
           </Dropdown.Item>
           <Dropdown.Item key={`theme-light`} eventKey={"light"}>
-            <MdWbSunny /> Light
+            <MdWbSunny className="mr-3" />
+            <span className="va1fix">Light</span>
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
@@ -1191,22 +1213,12 @@ class KeyboardSettings extends React.Component {
               <Col xl={6}>
                 <Card className="overflowFix cardStyle mt-4">
                   <Card.Title>
-                    <img src={dygma} className="dygmaLogo" />
-                    {i18n.keyboardSettings.keymap.title}
+                    <BiWrench className="dygmaLogo" />
+                    <span className="va3fix">
+                      {i18n.keyboardSettings.keymap.title}
+                    </span>
                   </Card.Title>
                   <Card.Body className="pb-0">
-                    {/* <Form.Group controlId="showHardcoded" className="formGroup">
-                    <Form.Label>
-                      {i18n.keyboardSettings.keymap.showHardcoded}
-                    </Form.Label>
-                    {showDefaultLayersSwitch}
-                  </Form.Group>
-                  <Form.Group controlId="onlyCustom" className="formGroup">
-                    <Form.Label>
-                      {i18n.keyboardSettings.keymap.onlyCustom}
-                    </Form.Label>
-                    {onlyCustomSwitch}
-                  </Form.Group> */}
                     <Row>
                       <Col lg={4}>
                         <Form.Group controlId="selectLanguage" className="m-0">
@@ -1233,43 +1245,10 @@ class KeyboardSettings extends React.Component {
                     </Row>
                   </Card.Body>
                 </Card>
-                {/* <Card className="overflowFix cardStyle mt-4 pb-0">
-                  <Card.Title>{i18n.keyboardSettings.qukeys.title}</Card.Title>
-                  <Card.Body>
-                    {qukeysHoldTimeout >= 0 && (
-                      <Form.Group controlId="holdTimeout" className="formGroup">
-                        <Form.Label>
-                          {i18n.keyboardSettings.qukeys.holdTimeout}
-                          <i className="greytext">
-                            {i18n.keyboardSettings.qukeys.holdTimeoutsub}
-                          </i>
-                        </Form.Label>
-                        {holdT}
-                      </Form.Group>
-                    )}
-                    {qukeysOverlapThreshold >= 0 && (
-                      <Form.Group
-                        controlId="overlapThreshold"
-                        className="formGroup"
-                      >
-                        <Form.Label>
-                          {i18n.keyboardSettings.qukeys.overlapThreshold}
-                          <a href="https://kaleidoscope.readthedocs.io/en/latest/plugins/Kaleidoscope-Qukeys.html#setoverlapthreshold-percentage">
-                            {" - More info"}
-                          </a>
-                          <i className="greytext">
-                            {i18n.keyboardSettings.qukeys.overlapThresholdsub}
-                          </i>
-                        </Form.Label>
-                        {overlapT}
-                      </Form.Group>
-                    )}
-                  </Card.Body>
-                </Card> */}
                 <Card className="overflowFix cardStyle mt-4 pb-0">
                   <Card.Title>
                     <MdStorage className="dygmaLogo" />
-                    <span className="ledfix">
+                    <span className="va2fix">
                       {i18n.keyboardSettings.backupFolder.header}
                     </span>
                   </Card.Title>
@@ -1298,9 +1277,6 @@ class KeyboardSettings extends React.Component {
                       <Row>
                         <Form.Label>
                           {i18n.keyboardSettings.backupFolder.storeTime}
-                          {/* <i className="greytext">
-                            {i18n.keyboardSettings.backupFolder.storeTimeSub}
-                          </i> */}
                         </Form.Label>
                       </Row>
                       {backupControl}
@@ -1310,7 +1286,7 @@ class KeyboardSettings extends React.Component {
                 <Card className="overflowFix cardStyle mt-4 pb-0">
                   <Card.Title>
                     <BsBrightnessHigh className="dygmaLogo" />
-                    <span className="ledfix">
+                    <span className="va2fix">
                       {i18n.keyboardSettings.led.title}
                     </span>
                   </Card.Title>
@@ -1336,9 +1312,6 @@ class KeyboardSettings extends React.Component {
                         <Row>
                           <Form.Label>
                             {i18n.keyboardSettings.led.brightness}
-                            {/* <i className="greytext">
-                              {i18n.keyboardSettings.led.brightnesssub}
-                            </i> */}
                           </Form.Label>
                         </Row>
                         {brightnessControl}
@@ -1349,9 +1322,7 @@ class KeyboardSettings extends React.Component {
                 <Card className="overflowFix cardStyle mt-4 pb-0">
                   <Card.Title>
                     <BiCodeAlt className="dygmaLogo" />
-                    <span className="advancedfix">
-                      {i18n.preferences.advanced}
-                    </span>
+                    <span className="va2fix">{i18n.preferences.advanced}</span>
                   </Card.Title>
                   <Card.Body className="pb-0">
                     <Form>
@@ -1384,7 +1355,7 @@ class KeyboardSettings extends React.Component {
                 <Card className="overflowFix cardStyle mt-4 pb-0">
                   <Card.Title>
                     <BsType className="dygmaLogo" />
-                    <span className="typingfix">
+                    <span className="va3fix">
                       {i18n.keyboardSettings.superkeys.title}
                     </span>
                   </Card.Title>
@@ -1397,9 +1368,6 @@ class KeyboardSettings extends React.Component {
                         <Row>
                           <Form.Label>
                             {i18n.keyboardSettings.superkeys.timeout}
-                            {/* <i className="greytext">
-                              {i18n.keyboardSettings.superkeys.timeoutsub}
-                            </i> */}
                             <OverlayTrigger
                               rootClose
                               placement="bottom"
@@ -1418,31 +1386,6 @@ class KeyboardSettings extends React.Component {
                         {superT}
                       </Form.Group>
                     )}
-                    {/* {SuperRepeat >= 0 && (
-                      <Form.Group controlId="superRepeat" className="formGroup">
-                        <Form.Label>
-                          {i18n.keyboardSettings.superkeys.repeat}
-                          <i className="greytext">
-                            {i18n.keyboardSettings.superkeys.repeatsub}
-                          </i>
-                        </Form.Label>
-                        {superR}
-                      </Form.Group>
-                    )} */}
-                    {/* {SuperWaitfor >= 0 && (
-                      <Form.Group
-                        controlId="superWaitfor"
-                        className="formGroup"
-                      >
-                        <Form.Label>
-                          {i18n.keyboardSettings.superkeys.waitfor}
-                          <i className="greytext">
-                            {i18n.keyboardSettings.superkeys.waitforsub}
-                          </i>
-                        </Form.Label>
-                        {superW}
-                      </Form.Group>
-                    )} */}
                     {SuperHoldstart >= 0 && (
                       <Form.Group
                         controlId="superHoldstart"
@@ -1451,9 +1394,6 @@ class KeyboardSettings extends React.Component {
                         <Row>
                           <Form.Label>
                             {i18n.keyboardSettings.superkeys.holdstart}
-                            {/* <i className="greytext">
-                              {i18n.keyboardSettings.superkeys.holdstartsub}
-                            </i> */}
                             <OverlayTrigger
                               rootClose
                               placement="bottom"
@@ -1472,56 +1412,26 @@ class KeyboardSettings extends React.Component {
                         {superH}
                       </Form.Group>
                     )}
-                    {/* {SuperOverlapThreshold >= 0 && (
-                      <Form.Group
-                        controlId="SuperOverlapThreshold"
-                        className="formGroup"
-                      >
-                        <Form.Label>
-                          {i18n.keyboardSettings.superkeys.overlap}
-                          <i className="greytext">
-                            {i18n.keyboardSettings.superkeys.overlapsub}
-                          </i>
-                        </Form.Label>
-                        {SuperO}
-                      </Form.Group>
-                    )} */}
                   </Card.Body>
                 </Card>
                 <Card className="overflowFix cardStyle mt-4 pb-0">
                   <Card.Title>
                     <BiMouse className="dygmaLogo" />
-                    <span className="mousefix">
+                    <span className="va2fix">
                       {i18n.keyboardSettings.mouse.title}
                     </span>
                   </Card.Title>
                   <Card.Body className="pb-0">
-                    {/* <h4>{i18n.keyboardSettings.mouse.subtitle1}</h4> */}
                     {mouseSpeed >= 0 && (
                       <Form.Group controlId="mouseSpeed" className="formGroup">
                         <Row>
                           <Form.Label>
                             {i18n.keyboardSettings.mouse.speed}
-                            {/* <i className="greytext">
-                              {i18n.keyboardSettings.mouse.speedsub}
-                            </i> */}
                           </Form.Label>
                         </Row>
                         {mSpeed}
                       </Form.Group>
                     )}
-                    {/* {mouseSpeedDelay >= 0 && (
-                      <Form.Group controlId="mouseSpeedD" className="formGroup">
-                        <Form.Label>
-                          {i18n.keyboardSettings.mouse.speedDelay}
-                          <i className="greytext">
-                            {i18n.keyboardSettings.mouse.speedDelaysub}
-                          </i>
-                        </Form.Label>
-                        {mSpeedD}
-                      </Form.Group>
-                    )} */}
-                    {/* <h4>{i18n.keyboardSettings.mouse.subtitle2}</h4> */}
                     {mouseAccelSpeed >= 0 && (
                       <Form.Group
                         controlId="mousemAccelS"
@@ -1530,37 +1440,16 @@ class KeyboardSettings extends React.Component {
                         <Row>
                           <Form.Label>
                             {i18n.keyboardSettings.mouse.accelSpeed}
-                            {/* <i className="greytext">
-                              {i18n.keyboardSettings.mouse.accelSpeedsub}
-                            </i> */}
                           </Form.Label>
                         </Row>
                         {mAccelS}
                       </Form.Group>
                     )}
-                    {/* {mouseAccelDelay >= 0 && (
-                      <Form.Group
-                        controlId="mousemAccelD"
-                        className="formGroup"
-                      >
-                        <Form.Label>
-                          {i18n.keyboardSettings.mouse.accelDelay}
-                          <i className="greytext">
-                            {i18n.keyboardSettings.mouse.accelDelaysub}
-                          </i>
-                        </Form.Label>
-                        {maccelD}
-                      </Form.Group>
-                    )} */}
-                    {/* <h4>{i18n.keyboardSettings.mouse.subtitle3}</h4> */}
                     {mouseSpeedLimit >= 0 && (
                       <Form.Group controlId="mouseSpeedL" className="formGroup">
                         <Row>
                           <Form.Label>
                             {i18n.keyboardSettings.mouse.speedLimit}
-                            {/* <i className="greytext">
-                              {i18n.keyboardSettings.mouse.speedLimitsub}
-                            </i> */}
                           </Form.Label>
                         </Row>
                         {mSpeedL}
@@ -1574,28 +1463,11 @@ class KeyboardSettings extends React.Component {
                         <Row>
                           <Form.Label>
                             {i18n.keyboardSettings.mouse.wheelSpeed}
-                            {/* <i className="greytext">
-                              {i18n.keyboardSettings.mouse.wheelSpeedsub}
-                            </i> */}
                           </Form.Label>
                         </Row>
                         {mWheelS}
                       </Form.Group>
                     )}
-                    {/* {mouseWheelDelay >= 0 && (
-                      <Form.Group
-                        controlId="mousemWheelD"
-                        className="formGroup"
-                      >
-                        <Form.Label>
-                          {i18n.keyboardSettings.mouse.wheelDelay}
-                          <i className="greytext">
-                            {i18n.keyboardSettings.mouse.wheelDelaysub}
-                          </i>
-                        </Form.Label>
-                        {mWheelD}
-                      </Form.Group>
-                    )} */}
                   </Card.Body>
                 </Card>
               </Col>

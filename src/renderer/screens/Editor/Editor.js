@@ -61,6 +61,12 @@ const styles = theme => ({
   tbg: {
     marginRight: theme.spacing(4)
   },
+  layerName: {
+    textAlign: "center",
+    fontSize: 32,
+    fontWeight: "bold",
+    border: 0
+  },
   layerSelectItem: {
     display: "inline-flex"
   },
@@ -103,11 +109,24 @@ const styles = theme => ({
 });
 
 class Editor extends React.Component {
+  defaultLayerNames = [
+    "zero",
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine"
+  ];
+
   constructor(props) {
     super(props);
-
     this.state = {
       currentLayer: 0,
+      layerNames: store.get("layerNames") || this.defaultLayerNames,
       currentKeyIndex: -1,
       currentLedIndex: -1,
       modified: false,
@@ -130,6 +149,7 @@ class Editor extends React.Component {
       currentLanguageLayout: "",
       undeglowColors: null
     };
+    this.onLayerNameChange = this.onLayerNameChange.bind(this);
     this.updateMacros = this.updateMacros.bind(this);
     this.toExport = this.toExport.bind(this);
     this.toImport = this.toImport.bind(this);
@@ -139,6 +159,16 @@ class Editor extends React.Component {
 
   keymapDB = new KeymapDB();
   undeglowCount = 14;
+
+  onLayerNameChange(event) {
+    const layerNames = this.state.layerNames.slice();
+    layerNames[this.state.currentLayer] = event.target.value.toString();
+    this.setState({
+      layerNames: layerNames
+    });
+    store.set("layerNames", layerNames);
+  }
+
   /**
    * Bottom menu never hide and automatically select a key at launch and have this shown in the bottom menu
    */
@@ -669,8 +699,16 @@ class Editor extends React.Component {
   };
   importLayer = data => {
     if (data.palette.length > 0) this.setState({ palette: data.palette });
+    let layerNames = this.state.layerNames.slice();
+    for (let i = 0; i < data.layerNames.length; i++) {
+      layerNames[i] = data.layerNames[i];
+    }
+    const { currentLayer } = this.state;
+    if (data.layerName && currentLayer) {
+      layerNames[currentLayer] = data.layerName;
+    }
+    this.setState({ layerNames: layerNames });
     if (data.keymap.length > 0 && data.colormap.length > 0) {
-      const { currentLayer } = this.state;
       if (this.state.keymap.onlyCustom) {
         if (currentLayer >= 0) {
           this.setState(state => {
@@ -934,6 +972,7 @@ class Editor extends React.Component {
             } else {
               console.log(layers.keymap.custom[0]);
               this.setState({
+                layerNames: layers.layerNames,
                 keymap: layers.keymap,
                 colorMap: layers.colormap,
                 palette: layers.palette,
@@ -961,7 +1000,7 @@ class Editor extends React.Component {
   }
 
   toExport() {
-    const { keymap, currentLayer } = this.state;
+    const { layerNames, keymap, currentLayer } = this.state;
     let layerData, isReadOnly;
     if (keymap.onlyCustom) {
       isReadOnly = currentLayer < 0;
@@ -976,6 +1015,7 @@ class Editor extends React.Component {
     }
     let data = JSON.stringify(
       {
+        layerNames: layerNames,
         keymap: layerData,
         colormap: this.state.colorMap[currentLayer],
         palette: this.state.palette
@@ -1016,9 +1056,10 @@ class Editor extends React.Component {
   }
 
   toExportAll() {
-    const { keymap, colorMap, palette } = this.state;
+    const { layerNames, keymap, colorMap, palette } = this.state;
     let data = JSON.stringify(
       {
+        layerNames,
         keymap,
         colormap: colorMap,
         palette
@@ -1058,6 +1099,12 @@ class Editor extends React.Component {
       });
   }
 
+  layerName(index) {
+    return this.state?.layerNames?.length >= index
+      ? this.state.layerNames[index]
+      : this.defaultLayerNames[index];
+  }
+
   render() {
     const { classes } = this.props;
     const { keymap, palette, isColorButtonSelected } = this.state;
@@ -1091,6 +1138,23 @@ class Editor extends React.Component {
     const layer = (
       <Fade in appear key={currentLayer}>
         <div className={classes.editor}>
+          <Tooltip
+            disableFocusListener
+            title={
+              "Layer names are persistent locally (per user profile), but not to keyboard." +
+              "Export to cloud for use on other machines."
+            }
+          >
+            <div className={classes.layerName}>
+              <input
+                className={classes.layerName}
+                type="text"
+                id="layerName"
+                value={this.layerName(this.state.currentLayer)}
+                onChange={value => this.onLayerNameChange(value)}
+              ></input>
+            </div>
+          </Tooltip>
           <Layer
             className={classNames("layer", isReadOnly && classes.disabledLayer)}
             readOnly={isReadOnly}
@@ -1108,8 +1172,10 @@ class Editor extends React.Component {
 
     const copyCustomItems = this.state.keymap.custom.map((_, index) => {
       const idx = index + (keymap.onlyCustom ? 0 : keymap.default.length);
-      const label = i18n.formatString(i18n.components.layer, idx);
-
+      const label =
+        i18n.formatString(i18n.components.layer, idx) +
+        ": " +
+        this.layerName(idx);
       return {
         index: idx,
         label: label
@@ -1120,7 +1186,6 @@ class Editor extends React.Component {
       keymap.default.map((_, index) => {
         const idx = index - (keymap.onlyCustom ? keymap.default.length : 0),
           label = i18n.formatString(i18n.components.layer, idx);
-
         return {
           index: idx,
           label: label
@@ -1155,7 +1220,11 @@ class Editor extends React.Component {
         <MenuItem value={idx} key={menuKey}>
           <ListItemText
             inset
-            primary={i18n.formatString(i18n.components.layer, idx)}
+            primary={
+              i18n.formatString(i18n.components.layer, idx) +
+              ": " +
+              this.layerName(idx)
+            }
           />
         </MenuItem>
       );
@@ -1272,7 +1341,7 @@ class Editor extends React.Component {
           onCopy={this.copyFromLayer}
           onCancel={this.cancelCopyFrom}
           layers={copyFromLayerOptions}
-          currentLayer={currentLayer}
+          currentLayer={this.state.currentLayer}
         />
       </React.Fragment>
     );

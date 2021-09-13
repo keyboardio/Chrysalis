@@ -1209,8 +1209,8 @@ class KeyboardSettings extends React.Component {
         {this.state.working && <Spinner role="status" />}
         <Form className="mb-5">
           <Container>
-            <Row>
-              <Col xl={6}>
+            <Row className="justify-content-center">
+              <Col xl={6} lg={8} md={10}>
                 <Card className="overflowFix cardStyle mt-4">
                   <Card.Title>
                     <BiWrench className="dygmaLogo" />
@@ -1220,13 +1220,13 @@ class KeyboardSettings extends React.Component {
                   </Card.Title>
                   <Card.Body className="pb-0">
                     <Row>
-                      <Col lg={4}>
+                      <Col md={4}>
                         <Form.Group controlId="selectLanguage" className="m-0">
                           <Form.Label>{i18n.preferences.language}</Form.Label>
                           {selectLanguage}
                         </Form.Group>
                       </Col>
-                      <Col lg={4}>
+                      <Col md={4}>
                         <Form.Group controlId="defaultLayer" className="m-0">
                           <Form.Label>
                             {i18n.keyboardSettings.keymap.defaultLayer}
@@ -1234,7 +1234,7 @@ class KeyboardSettings extends React.Component {
                           {defaultLayerSelect}
                         </Form.Group>
                       </Col>
-                      <Col lg={4}>
+                      <Col md={4}>
                         <Form.Group controlId="DarkMode" className="m-0">
                           <Form.Label>
                             {i18n.preferences.darkMode.label}
@@ -1351,7 +1351,7 @@ class KeyboardSettings extends React.Component {
                   </Card.Body>
                 </Card>
               </Col>
-              <Col xl={6}>
+              <Col xl={6} lg={8} md={10}>
                 <Card className="overflowFix cardStyle mt-4 pb-0">
                   <Card.Title>
                     <BsType className="dygmaLogo" />

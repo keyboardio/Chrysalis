@@ -35,5 +35,5 @@ jobs:
           name: Bazecor ${{ matrix.node-version }}
           path: |
               ${{ github.workspace }}/dist/*.exe
-              ${{ github.workspace }}/dist/*.appimage
+              ${{ github.workspace }}/dist/*.AppImage
               ${{ github.workspace }}/dist/*.dmg

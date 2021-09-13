@@ -23,27 +23,29 @@ const NavigationTable = {
     {
       code: 75,
       labels: {
-        primary: "PAGE UP",
+        primary: "⇞",
         verbose: "Page Up"
       }
     },
     {
       code: 78,
       labels: {
-        primary: "PAGE DOWN",
+        primary: "⇟",
         verbose: "Page Down"
       }
     },
     {
       code: 74,
       labels: {
-        primary: "HOME"
+        primary: "⤒",
+        verbose: "HOME"
       }
     },
     {
       code: 77,
       labels: {
-        primary: "END"
+        primary: "⤓",
+        verbose: "END"
       }
     },
     {

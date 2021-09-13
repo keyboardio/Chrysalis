@@ -12,6 +12,7 @@
     "postinstall": "electron-builder install-app-deps",
     "start": "electron-webpack dev",
     "compile": "electron-webpack",
+    "build": "electron-webpack",
     "build:all": "npm-run-all compile --parallel 'electron-builder -m' 'electron-builder -w' 'electron-builder -l'",
     "build:osx": "yarn compile && electron-builder -m",
     "build:mac": "yarn run build:osx",

@@ -23,22 +23,21 @@ const MiscellaneousTable = {
     {
       code: 70,
       labels: {
-        primary: "⎙",
+        primary: "PRINT SCREEN",
         verbose: "Print Screen"
       }
     },
     {
       code: 71,
       labels: {
-        primary: "⇳",
+        primary: "SCROLL LOCK",
         verbose: "Scroll Lock"
       }
     },
     {
       code: 72,
       labels: {
-        primary: "⎉",
-        verbose: "Pause / Break"
+        primary: "PAUSE"
       }
     }
     /* These are disabled for now, since we don't want to display them in

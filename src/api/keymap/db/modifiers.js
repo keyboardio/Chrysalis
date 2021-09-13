@@ -59,7 +59,7 @@ const ModifiersTable = {
     {
       code: 225,
       labels: {
-        primary: "LEFT ⇧",
+        primary: "LEFT SHIFT",
         verbose: "Left Shift"
       }
     },
@@ -88,7 +88,7 @@ const ModifiersTable = {
       code: 229,
       labels: {
         top: "",
-        primary: "RIGHT ⇧",
+        primary: "RIGHT SHIFT",
         verbose: "Right Shift"
       }
     },

@@ -23,50 +23,44 @@ const SpacingTable = {
     {
       code: 44,
       labels: {
-        primary: "␣",
-        verbose: "Space"
+        primary: "SPACE"
       }
     },
     {
       code: 40,
       labels: {
-        primary: "↵",
-        verbose: "Enter"
+        primary: "ENTER"
       }
     },
     {
       code: 43,
       labels: {
-        primary: "↹",
-        verbose: "Tab"
+        primary: "TAB"
       }
     },
     {
       code: 41,
       labels: {
-        primary: "Esc",
-        verbose: "Escape"
+        primary: "ESC"
       }
     },
     {
       code: 42,
       labels: {
-        primary: "⌫",
+        primary: "BACKSPACE",
         verbose: "Backspace"
       }
     },
     {
       code: 76,
       labels: {
-        primary: "⌦",
-        verbose: "Delete"
+        primary: "DEL"
       }
     },
     {
       code: 73,
       labels: {
-        primary: "⎀",
-        verbose: "Insert"
+        primary: "INSERT"
       }
     }
   ]

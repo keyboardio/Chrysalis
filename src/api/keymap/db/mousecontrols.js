@@ -22,32 +22,28 @@ const MouseMovementTable = {
       code: 20481,
       labels: {
         top: "Mouse",
-        primary: "↑",
-        verbose: "Mouse Up"
+        primary: "UP"
       }
     },
     {
       code: 20482,
       labels: {
         top: "Mouse",
-        primary: "↓",
-        verbose: "Mouse Down"
+        primary: "DOWN"
       }
     },
     {
       code: 20484,
       labels: {
         top: "Mouse",
-        primary: "←",
-        verbose: "Mouse Left"
+        primary: "LEFT"
       }
     },
     {
       code: 20488,
       labels: {
         top: "Mouse",
-        primary: "→",
-        verbose: "Mouse Right"
+        primary: "RIGHT"
       }
     }
   ]
@@ -60,32 +56,28 @@ const MouseWheelTable = {
       code: 20497,
       labels: {
         top: "M.Wheel",
-        primary: "↑",
-        verbose: "Mouse Wheel Up"
+        primary: "UP"
       }
     },
     {
       code: 20498,
       labels: {
         top: "M.Wheel",
-        primary: "↓",
-        verbose: "Mouse Wheel Down"
+        primary: "DOWN"
       }
     },
     {
       code: 20500,
       labels: {
         top: "M.Wheel",
-        primary: "←",
-        verbose: "Mouse Wheel Left"
+        primary: "LEFT"
       }
     },
     {
       code: 20504,
       labels: {
         top: "M.Wheel",
-        primary: "→",
-        verbose: "Mouse Wheel Right"
+        primary: "RIGHT"
       }
     }
   ]

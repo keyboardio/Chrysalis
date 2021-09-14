@@ -16,27 +16,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
-import PropTypes from "prop-types";
-
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import FormControl from "@material-ui/core/FormControl";
-import KeyboardIcon from "@material-ui/icons/Keyboard";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import MenuItem from "@material-ui/core/MenuItem";
-import Portal from "@material-ui/core/Portal";
-import Select from "@material-ui/core/Select";
-import Typography from "@material-ui/core/Typography";
-import withStyles from "@material-ui/core/styles/withStyles";
-
+import React, { Component } from "react";
+import Styled from "styled-components";
 import { toast } from "react-toastify";
+
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Spinner from "react-bootstrap/Spinner";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
+
+import { MdKeyboard } from "react-icons/md";
 
 import Focus from "../../api/focus";
 import Hardware from "../../api/hardware";
@@ -45,78 +38,138 @@ import usb from "usb";
 
 import i18n from "../i18n";
 
-const styles = theme => ({
-  loader: {
-    position: "fixed",
-    top: 0,
-    left: 0,
-    right: 0,
-    minWidth: 600
-  },
-  main: {
-    width: "auto",
-    display: "block",
-    marginLeft: theme.spacing(3),
-    marginRight: theme.spacing(3),
-    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px
-    ${theme.spacing(3)}px`
-  },
-  preview: {
-    maxWidth: 128,
-    marginBottom: theme.spacing(2),
-    "& .key rect, & .key path, & .key ellipse": {
-      stroke: "#000000"
+const Styles = Styled.div`
+.keyboard-select {
+  .keyboard-row {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding-top: 15vh;
+    .keyboard-col {
+      min-width: 500px;
+      max-width: 500px;
+
+      .keyboard-card {
+        background: ${({ theme }) => theme.card.background};
+        border: none;
+        box-shadow: none;
+        .loader {
+          align-self: center;
+          .spinner-border {
+            width: 4rem;
+            height: 4rem;
+          }
+        }
+        .preview {
+          justify-content: center;
+          align-items: center;
+          display: flex;
+          padding: 0px;
+
+          .keyboard {
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            svg {
+              width: 80%;
+              margin-bottom: 10px;
+            }
+          }
+          .options {
+            text-align: center;
+            .selector {
+              width: 100%;
+              .dropdown-toggle::after{
+                position: absolute;
+                right: 10px;
+                top: 30px;
+              }
+              .toggler {
+                width: 100%;
+                background-color: transparent;
+                color: ${({ theme }) => theme.colors.button.text};
+                border: 0;
+                border-bottom: black 1px solid;
+                border-radius: 0px;
+                padding-bottom: 6px;
+                :hover {
+                  background-color: transparent;
+                }
+              }
+              .toggler:hover {
+                border-bottom: black 2px solid;
+                padding-bottom: 5px;
+              }
+              .toggler:focus {
+                border-bottom: rgba($color: red, $alpha: 0.8) 2px solid;
+                box-shadow: none;
+              }
+              .menu {
+                width: inherit;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+              }
+              .key-icon {
+                background-color: ${({ theme }) =>
+                  theme.colors.button.background} !important;
+                border-radius: 100%;
+                padding: 0;
+                max-width: 50px;
+                height: 50px;
+                svg {
+                  font-size: 2.1em;
+                  margin-top: 18%;
+                  width: 100%;
+                  color: ${({ theme }) => theme.colors.button.text};
+                }
+              }
+              .key-text {
+                span {
+                  width: 100%;
+                }
+              }
+              .muted {
+                color: rgba(140,140,140,0.8) !important;
+              }
+              a:hover {
+                background-color: ${({ theme }) =>
+                  theme.colors.button.hover} !important;
+              }
+              .dropdown-item {
+                display: inherit;
+              }
+            }
+            .selector-error {
+              color: red;
+            }
+          }
+        }
+      }
+        .buttons {
+          padding: 0px;
+          button {
+            width: 100%;
+          }
+        }
     }
-  },
-  card: {
-    marginTop: theme.spacing(5),
-    marginLeft: theme.spacing(5),
-    marginRight: theme.spacing(5),
-    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px
-    ${theme.spacing(3)}px`,
-    width: "500px"
-  },
-  content: {
-    display: "inline-block",
-    width: "100%",
-    textAlign: "center"
-  },
-  selectControl: {
-    display: "flex"
-  },
-
-  supported: {
-    backgroundColor: theme.palette.success.main
-  },
-  grow: {
-    flexGrow: 1
-  },
-  cards: {
-    display: "flex",
-    justifyContent: "center"
-  },
-  error: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-    textAlign: "center"
-  },
-  found: {
-    color: theme.palette.success.main
-  },
-  listItemIcon: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
   }
-});
+}
+`;
 
-class KeyboardSelect extends React.Component {
-  state = {
-    selectedPortIndex: 0,
-    opening: false,
-    devices: null,
-    loading: false
-  };
+class KeyboardSelect extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedPortIndex: 0,
+      opening: false,
+      devices: null,
+      loading: false,
+      dropdownOpen: false
+    };
+
+    this.onKeyboardConnect = this.onKeyboardConnect.bind(this);
+  }
 
   findNonSerialKeyboards = deviceList => {
     const devices = usb.getDeviceList().map(device => device.deviceDescriptor);
@@ -148,7 +201,12 @@ class KeyboardSelect extends React.Component {
     const isIterable =
       this.state.devices != null &&
       typeof this.state.devices[Symbol.iterator] === "function";
-    if (focus.closed === false && isIterable) return;
+    if (focus.closed === false && isIterable) {
+      this.setState({
+        loading: false
+      });
+      return;
+    }
     return new Promise(resolve => {
       focus
         .find(...Hardware.serial)
@@ -234,17 +292,28 @@ class KeyboardSelect extends React.Component {
       });
       toast.error(err.toString());
     }
-
     i18n.refreshHardware(devices[this.state.selectedPortIndex]);
   };
 
   render() {
-    const { classes } = this.props;
-    const { scanFoundDevices, devices } = this.state;
+    const {
+      scanFoundDevices,
+      devices,
+      loading,
+      selectedPortIndex,
+      opening,
+      dropdownOpen
+    } = this.state;
+
+    const { onDisconnect } = this.props;
 
     let loader = null;
     if (this.state.loading) {
-      loader = <LinearProgress variant="query" className={classes.loader} />;
+      loader = (
+        <Card.Body className="loader">
+          <Spinner className="spinner-border text-danger" role="status" />
+        </Card.Body>
+      );
     }
 
     let deviceItems = null;
@@ -254,66 +323,104 @@ class KeyboardSelect extends React.Component {
         let label = option.path;
         if (option.device && option.device.info) {
           label = (
-            <ListItemText
-              primary={option.device.info.displayName}
-              secondary={option.path || i18n.keyboardSelect.unknown}
-            />
+            <Col xs="10" className="key-text">
+              <Col>
+                <span>{option.device.info.displayName}</span>
+              </Col>
+              <Col>
+                <span className="muted">
+                  {option.path || i18n.keyboardSelect.unknown}
+                </span>
+              </Col>
+            </Col>
           );
         } else if (option.info) {
-          label = <ListItemText primary={option.info.displayName} />;
+          label = (
+            <Col xs="10" className="key-text">
+              <Col>
+                <span>{option.device.info.displayName}</span>
+              </Col>
+              <Col>
+                <span className="muted" />
+              </Col>
+            </Col>
+          );
         }
 
-        const icon = (
-          <ListItemIcon className={classes.listItemIcon}>
-            <Avatar className={option.path ? classes.supported : ""}>
-              <KeyboardIcon />
-            </Avatar>
-          </ListItemIcon>
-        );
-
         return (
-          <MenuItem
-            key={`device-${index}`}
-            value={index}
-            selected={index === this.state.selectedPortIndex}
-          >
-            {icon}
-            {label}
-          </MenuItem>
+          <Dropdown.Item key={`device-${index}`} value={index}>
+            <Row>
+              <Col xs="2" className="key-icon">
+                <MdKeyboard />
+              </Col>
+              {label}
+            </Row>
+          </Dropdown.Item>
         );
       });
 
+      const title = devices.map(option => {
+        let label = option.path;
+        if (option.device && option.device.info) {
+          label = (
+            <Col xs="12" className="key-text">
+              <Col>
+                <span>{option.device.info.displayName}</span>
+              </Col>
+              <Col>
+                <span className="muted">
+                  {option.path || i18n.keyboardSelect.unknown}
+                </span>
+              </Col>
+            </Col>
+          );
+        } else if (option.info) {
+          label = (
+            <Col xs="12" className="key-text">
+              <Col>
+                <span>{option.device.info.displayName}</span>
+              </Col>
+              <Col>
+                <span className="muted" />
+              </Col>
+            </Col>
+          );
+        }
+
+        return <Row key={`key-${option}`}>{label}</Row>;
+      });
+
       port = (
-        <FormControl className={classes.selectControl}>
-          <Select
-            value={this.state.selectedPortIndex}
-            classes={{ select: classes.selectControl }}
-            onChange={this.selectPort}
-          >
-            {deviceItems}
-          </Select>
-        </FormControl>
+        <Dropdown
+          className="selector"
+          show={dropdownOpen}
+          onClick={() =>
+            this.setState(state => {
+              return { dropdownOpen: !state.dropdownOpen };
+            })
+          }
+        >
+          <Dropdown.Toggle className="toggler">{title[0]}</Dropdown.Toggle>
+          <Dropdown.Menu className="menu">{deviceItems}</Dropdown.Menu>
+        </Dropdown>
       );
     }
 
     if (devices && devices.length == 0) {
       port = (
-        <Typography variant="body1" color="error" className={classes.error}>
-          {i18n.keyboardSelect.noDevices}
-        </Typography>
+        <span className="selector-error">{i18n.keyboardSelect.noDevices}</span>
       );
     }
 
     let connectContent = i18n.keyboardSelect.connect;
     if (this.state.opening) {
-      connectContent = <CircularProgress color="secondary" size={16} />;
+      connectContent = <circularProgress color="secondary" size={16} />;
     }
 
     const scanDevicesButton = (
       <Button
-        variant={devices && devices.length ? "outlined" : "contained"}
-        color={devices && devices.length ? "default" : "primary"}
-        className={scanFoundDevices ? classes.found : ""}
+        color={devices && devices.length ? "secondary" : "primary"}
+        className={scanFoundDevices ? "scan-button" : "scan-button"}
         onClick={scanFoundDevices ? null : this.scanDevices}
       >
         {i18n.keyboardSelect.scan}
@@ -328,9 +435,9 @@ class KeyboardSelect extends React.Component {
     // https://github.com/keyboardio/Chrysalis/pull/570
     if (selectedDevice && !selectedDevice.accessible) {
       permissionWarning = (
-        <Typography variant="body1" color="error" className={classes.error}>
+        <span className="selector-error">
           {i18n.keyboardSelect.permissionError}
-        </Typography>
+        </span>
       );
     }
 
@@ -341,13 +448,9 @@ class KeyboardSelect extends React.Component {
     ) {
       connectionButton = (
         <Button
-          disabled={
-            this.state.opening ||
-            (this.state.devices && this.state.devices.length == 0)
-          }
-          variant="outlined"
+          disabled={opening || (devices && devices.length === 0)}
           color="secondary"
-          onClick={this.props.onDisconnect}
+          onClick={onDisconnect}
         >
           {i18n.keyboardSelect.disconnect}
         </Button>
@@ -357,13 +460,12 @@ class KeyboardSelect extends React.Component {
         <Button
           disabled={
             (selectedDevice ? !selectedDevice.accessible : false) ||
-            this.state.opening ||
-            (this.state.devices && this.state.devices.length == 0)
+            opening ||
+            (devices && devices.length === 0)
           }
-          variant="contained"
           color="primary"
           onClick={this.onKeyboardConnect}
-          className={classes.connect}
+          className=""
         >
           {connectContent}
         </Button>
@@ -379,37 +481,58 @@ class KeyboardSelect extends React.Component {
     ) {
       const Keymap =
         devices[this.state.selectedPortIndex].device.components.keymap;
-      preview = <Keymap index={0} className={classes.preview} />;
+      preview = <Keymap index={0} className="" showUnderglow={true} />;
     }
 
     return (
-      <React.Fragment>
-        <Portal container={this.props.titleElement}>
-          {i18n.app.menu.selectAKeyboard}
-        </Portal>
-        {loader}
-        {permissionWarning}
-        <div className={classes.cards}>
-          <Card className={classes.card}>
-            <CardContent className={classes.content}>
-              {preview}
-              {port}
-              {permissionWarning}
-            </CardContent>
-            <CardActions className={classes.cardActions}>
-              {scanDevicesButton}
-              <div className={classes.grow} />
-              {connectionButton}
-            </CardActions>
-          </Card>
-        </div>
-      </React.Fragment>
+      <Styles>
+        <Container fluid className="keyboard-select">
+          <Row className="title-row">
+            <h4 className="section-title">Keyboard Selection</h4>
+          </Row>
+          <Row className="keyboard-row">
+            <Col xs="4" className="keyboard-col">
+              <Card className="keyboard-card">
+                {loading ? (
+                  <Card.Body className="loader">
+                    <Spinner
+                      className="spinner-border text-danger"
+                      role="status"
+                    />
+                  </Card.Body>
+                ) : (
+                  <>
+                    <Card.Body className="preview">
+                      <Container>
+                        <Row>
+                          <Col xs="12" className="keyboard">
+                            {preview}
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col xs="12" className="options">
+                            {port}
+                          </Col>
+                        </Row>
+                        {permissionWarning}
+                      </Container>
+                    </Card.Body>
+                    <br />
+                    <Card.Body className="buttons">
+                      <Row className="justify-content-center">
+                        <Col xs="6">{scanDevicesButton}</Col>
+                        <Col xs="6">{connectionButton}</Col>
+                      </Row>
+                    </Card.Body>
+                  </>
+                )}
+              </Card>
+            </Col>
+          </Row>
+        </Container>
+      </Styles>
     );
   }
 }
 
-KeyboardSelect.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-export default withStyles(styles)(KeyboardSelect);
+export default KeyboardSelect;

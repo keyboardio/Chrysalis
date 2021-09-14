@@ -16,100 +16,178 @@
  */
 
 import React from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-
-import Fade from "@material-ui/core/Fade";
-import FileCopyIcon from "@material-ui/icons/FileCopy";
-import FormControl from "@material-ui/core/FormControl";
-import IconButton from "@material-ui/core/IconButton";
-import {
-  GetAppRounded,
-  PublishRounded,
-  UnarchiveRounded
-} from "@material-ui/icons";
-import LayersClearIcon from "@material-ui/icons/LayersClear";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import LockIcon from "@material-ui/icons/Lock";
-import MenuItem from "@material-ui/core/MenuItem";
-import Portal from "@material-ui/core/Portal";
-import Select from "@material-ui/core/Select";
-import Slide from "@material-ui/core/Slide";
-import Toolbar from "@material-ui/core/Toolbar";
-import Tooltip from "@material-ui/core/Tooltip";
-import { withStyles } from "@material-ui/core/styles";
+import Styled from "styled-components";
 import { toast } from "react-toastify";
 
-import Focus from "../../../api/focus";
-import Keymap, { KeymapDB } from "../../../api/keymap";
+// Bootstrap components
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Modal from "react-bootstrap/Modal";
+import Spinner from "react-bootstrap/Spinner";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import { MdKeyboard } from "react-icons/md";
+import { IoMdColorPalette } from "react-icons/io";
+import { FiSave, FiTrash2 } from "react-icons/fi";
 
-import ColorPalette from "../../components/ColorPalette";
-import KeySelector from "./KeySelector";
-import SaveChangesButton from "../../components/SaveChangesButton";
+import Focus from "../../../api/focus";
+import Backup from "../../../api/backup";
+import Keymap, { KeymapDB } from "../../../api/keymap";
+import LayerPanel from "./LayerPanel";
+import ColorPanel from "./ColorPanel";
+import KeyConfig from "../../components/KeyManager/";
 import ConfirmationDialog from "../../components/ConfirmationDialog";
 import i18n from "../../i18n";
 import settings from "electron-settings";
 import { CopyFromDialog } from "./CopyFromDialog";
 import { undeglowDefaultColors } from "./initialUndaglowColors";
 
+// Outbound function imports
+import {
+  backupLayers,
+  shareLayers
+} from "../../../api/firebase/firebase.utils";
+
 const Store = window.require("electron-store");
 const store = new Store();
 
-const styles = theme => ({
-  tbg: {
-    marginRight: theme.spacing(4)
-  },
-  layerSelectItem: {
-    display: "inline-flex"
-  },
-  grow: {
-    flexGrow: 1
-  },
-  editor: {
-    display: "block",
-    margin: "2px auto"
-  },
-  moreMenu: {
-    marginTop: theme.spacing(4)
-  },
-  layerItem: {
-    paddingLeft: theme.spacing(4)
-  },
-  layerSelect: {
-    marginRight: theme.spacing(4)
-  },
-  tabWrapper: {
-    flexDirection: "row",
-    "& svg": {
-      position: "relative",
-      top: -theme.spacing(0.5)
-    }
-  },
-  tabLabelContainer: {
-    width: "auto",
-    padding: `6px ${theme.spacing()}px`
-  },
-  disabledLayer: {
-    opacity: 0.5,
-    filter: "saturate(25%)"
-  },
-  toolbar: {
-    position: "absolute",
-    right: 0,
-    top: 21
+const Fade = Styled.div`
+opacity: ${props => (props.animate ? "0" : "1")};
+visibility: ${props => (props.animate ? "hidden" : "visible")};
+`;
+
+const ModalStyle = Styled.div`
+background-color: ${({ theme }) => theme.card.background};
+color: ${({ theme }) => theme.card.color};
+.title {
+  font-weight: 300;
+  font-size: xx-large;
+}
+.body {
+  font-weight: 200;
+  font-size: 1.1em;
+}
+.noborder {
+  border: none;
+}
+.modal-footer {
+  justify-content: space-between;
+}
+.italic {
+  font-style: italic;
+}
+`;
+
+const Styles = Styled.div`
+.keyboard-editor {
+  .title-row {
+    // margin-bottom: 40px;
   }
-});
+  .editor {
+    margin-left: 210px;
+    display: flex;
+    justify-content: space-between;
+
+    .raise-editor {
+      text-align: center;
+      align-self: center;
+      padding: unset;
+      margin-top: 0px;
+      svg {
+        max-height: 77vh;
+        max-width: 80vw;
+      }
+    }
+  }
+  .keyconfig {
+    position: absolute;
+    bottom: 0;
+  }
+  .centerSpinner{
+    z-index: 199;
+    position: absolute;
+    margin-left: 40vw;
+    margin-top: 25vh;
+    font-size: 3em;
+  }
+  .cancelButton{
+    float: right;
+  }
+}
+.buttons-row {
+  position: absolute;
+  bottom: 10px;
+  width: 180px;
+  margin-left: 0.5em;
+  .card {
+    flex-flow: nowrap;
+    width: 100%;
+    padding: 0;
+    place-content: space-evenly;
+    border-radius: 10px;
+    background-color: ${({ theme }) => theme.colors.button.background};
+  }
+}
+.save-row {
+  position: absolute;
+  right: 30px;
+  top: 65px;
+}
+.big {
+  font-size: 3em;
+  margin-top: 0;
+  padding-top: 0;
+}
+.button-large {
+  font-size: 2rem;
+  width: -webkit-fill-available;
+  text-align: left;
+}
+.cancel-active{
+  background-color: ${({ theme }) => theme.colors.button.cancel};
+}
+.save-active{
+  background-color: ${({ theme }) => theme.colors.button.save};
+}
+.button-large:not(:disabled):not(.disabled):hover {
+  color: ${({ theme }) => theme.colors.button.text};
+  background-color: ${({ theme }) => theme.colors.button.active};
+  border: none;
+}
+.save-span {
+  font-size: 1.5rem;
+  vertical-align: -2px;
+  padding-left: 0.3rem;
+}
+`;
 
 class Editor extends React.Component {
+  defaultLayerNames = [
+    "L1",
+    "L2",
+    "L3",
+    "L4",
+    "L5",
+    "L6",
+    "L7",
+    "L8",
+    "L9",
+    "L10"
+  ];
+
   constructor(props) {
     super(props);
+    this.bkp = new Backup();
 
     this.state = {
       currentLayer: 0,
+      previousLayer: 0,
+      layerNames: store.get("layerNames") || this.defaultLayerNames,
       currentKeyIndex: -1,
       currentLedIndex: -1,
+      previousKeyIndex: 0,
+      previousLedIndex: 0,
       modified: false,
       saving: false,
       keymap: {
@@ -120,32 +198,57 @@ class Editor extends React.Component {
       palette: [],
       colorMap: [],
       macros: [],
+      superkeys: [],
       storedMacros: store.get("macros"),
-      equalMacros: [],
+      storedSuper: store.get("superkeys"),
+      modeselect: "keyboard",
       clearConfirmationOpen: false,
       copyFromOpen: false,
       importExportDialogOpen: false,
       isMultiSelected: false,
       isColorButtonSelected: false,
       currentLanguageLayout: "",
-      undeglowColors: null
+      undeglowColors: null,
+      showMacroModal: false
     };
+    this.onLayerNameChange = this.onLayerNameChange.bind(this);
     this.updateMacros = this.updateMacros.bind(this);
     this.toExport = this.toExport.bind(this);
     this.toImport = this.toImport.bind(this);
     this.toExportAll = this.toExportAll.bind(this);
     this.getLayout = this.getLayout.bind(this);
+    this.newSuperID = this.newSuperID.bind(this);
+    this.setSuperKey = this.setSuperKey.bind(this);
+    this.delSuperKey = this.delSuperKey.bind(this);
+    this.toggleMacroModal = this.toggleMacroModal.bind(this);
+    this.updateOldMacros = this.updateOldMacros.bind(this);
   }
 
   keymapDB = new KeymapDB();
   undeglowCount = 14;
+
+  onLayerNameChange(newName) {
+    const layerNames = this.state.layerNames.slice();
+    layerNames[this.state.currentLayer] = newName;
+    this.setState({
+      layerNames: layerNames
+    });
+    store.set("layerNames", layerNames);
+  }
+
   /**
    * Bottom menu never hide and automatically select a key at launch and have this shown in the bottom menu
    */
   bottomMenuNeverHide = () => {
     this.setState(state => ({
-      currentKeyIndex: state.currentKeyIndex !== -1 ? state.currentKeyIndex : 0,
-      currentLedIndex: state.currentLedIndex !== -1 ? state.currentLedIndex : 0,
+      currentKeyIndex:
+        state.currentKeyIndex !== -1
+          ? state.currentKeyIndex
+          : state.previousKeyIndex,
+      currentLedIndex:
+        state.currentLedIndex !== -1
+          ? state.currentLedIndex
+          : state.previousLedIndex,
       selectedPaletteColor: null,
       isColorButtonSelected: false
     }));
@@ -153,8 +256,14 @@ class Editor extends React.Component {
 
   bottomMenuNeverHideFromUnderglow = () => {
     this.setState(state => ({
-      currentKeyIndex: state.currentKeyIndex !== -1 ? state.currentKeyIndex : 0,
-      currentLedIndex: state.currentLedIndex !== -1 ? state.currentLedIndex : 0
+      currentKeyIndex:
+        state.currentKeyIndex !== -1
+          ? state.currentKeyIndex
+          : state.previousKeyIndex,
+      currentLedIndex:
+        state.currentLedIndex !== -1
+          ? state.currentLedIndex
+          : state.previousLedIndex
     }));
   };
 
@@ -206,6 +315,13 @@ class Editor extends React.Component {
         raw = "";
       }
       const parsedMacros = this.macroTranslator(raw);
+      let raw2 = await focus.command("superkeys.map");
+      if (raw2.search(" 0 0 ") !== -1) {
+        raw2 = raw2.split(" 0 0 ")[0].split(" ").map(Number);
+      } else {
+        raw2 = "";
+      }
+      const parsedSuper = this.superTranslator(raw2);
       this.setState(
         () => {
           if (!undeglowColors) {
@@ -216,19 +332,29 @@ class Editor extends React.Component {
           }
         },
         () => {
-          palette[this.undeglowCount] = this.state.undeglowColors[
-            this.state.currentLayer
-          ];
           this.setState({
+            currentLayer: this.state.previousLayer,
             defaultLayer: defLayer,
             keymap: keymap,
             showDefaults: !keymap.onlyCustom,
             palette,
             colorMap: colormap.colorMap,
-            macros: parsedMacros
+            macros: parsedMacros,
+            superkeys: parsedSuper
           });
         }
       );
+      if (keymap.custom) {
+        const oldmacro = [...Array(64).keys()].map(x => x + 24576);
+        // console.log("testing", oldmacro);
+        for (let index = 0; index < keymap.custom.length; index++) {
+          // console.log(keymap.custom[index]);
+          if (keymap.custom[index].some(r => oldmacro.includes(r.keyCode))) {
+            this.setState({ showMacroModal: true });
+            break;
+          }
+        }
+      }
       this.bottomMenuNeverHide();
     } catch (e) {
       toast.error(e);
@@ -281,6 +407,33 @@ class Editor extends React.Component {
           default: state.keymap.default,
           onlyCustom: state.keymap.onlyCustom,
           custom: keymap
+        },
+        modified: true
+      };
+    });
+    this.props.startContext();
+  };
+
+  dualFunction = modifier => {
+    let { currentLayer, currentKeyIndex, keymap } = this.state;
+
+    if (currentKeyIndex === -1) {
+      return;
+    }
+    let KM = keymap.custom.slice();
+    const l = keymap.onlyCustom
+      ? currentLayer
+      : currentLayer - keymap.default.length;
+    const code = this.keymapDB.reverse(KM[l][currentKeyIndex].label);
+    let keyCode = modifier + code;
+
+    this.setState(state => {
+      KM[l][currentKeyIndex] = this.keymapDB.parse(keyCode);
+      return {
+        keymap: {
+          default: state.keymap.default,
+          onlyCustom: state.keymap.onlyCustom,
+          custom: KM
         },
         modified: true
       };
@@ -381,7 +534,8 @@ class Editor extends React.Component {
         return {
           currentLayer: layer,
           currentKeyIndex: keyIndex,
-          currentLedIndex: ledIndex
+          currentLedIndex: ledIndex,
+          modeselect: ledIndex >= 69 ? "color" : state.modeselect
         };
       } else {
         return {
@@ -417,13 +571,13 @@ class Editor extends React.Component {
     }
   };
 
-  selectLayer = event => {
-    if (event.target.value === undefined) return;
+  selectLayer = id => {
+    if (id === undefined) return;
     const { palette, undeglowColors } = this.state;
     let newPalette = palette.slice();
-    newPalette[this.undeglowCount] = undeglowColors[event.target.value];
+    newPalette[this.undeglowCount] = undeglowColors[id];
     this.setState({
-      currentLayer: event.target.value,
+      currentLayer: id,
       palette: newPalette
     });
     this.bottomMenuNeverHide();
@@ -432,43 +586,71 @@ class Editor extends React.Component {
   onApply = async () => {
     this.setState({ saving: true });
     settings.set("undeglowColors", this.state.undeglowColors);
-    // console.log(
-    //   "Paleta a modificar con función white balance: ",
-    //   this.state.palette
-    // );
     let focus = new Focus();
     await focus.command("keymap", this.state.keymap);
-    await focus.command(
-      "colormap",
-      // this.props.applyBalance(this.state.palette),
-      this.state.palette,
-      this.state.colorMap
-    );
-    let newMacros = this.state.macros;
+    await focus.command("colormap", this.state.palette, this.state.colorMap);
+    // let newMacros = this.state.macros;
+    let newSuperKeys = this.state.superkeys;
+    // await focus.command("macros.map", this.macrosMap(newMacros));
+    console.log(newSuperKeys);
+    store.set("superkeys", newSuperKeys);
+    await focus.command("superkeys.map", this.superkeyMap(newSuperKeys));
+    // store.set("macros", newMacros);
     this.setState({
       modified: false,
       saving: false,
+      previousKeyIndex: this.state.currentKeyIndex,
+      previousLedIndex: this.state.currentLedIndex,
+      previousLayer: this.state.currentLayer,
       isMultiSelected: false,
       selectedPaletteColor: null,
       isColorButtonSelected: false,
-      macros: newMacros,
-      storedMacros: newMacros
+      superkeys: newSuperKeys
     });
-    store.set("macros", newMacros);
-    await focus.command("macros.map", this.macrosMap(newMacros));
     console.log("Changes saved.");
+    const commands = await this.bkp.Commands();
+    const backup = await this.bkp.DoBackup(commands);
+    this.bkp.SaveBackup(backup);
+    // TODO: Save changes in the cloud
+    const cloudbackup = {
+      undeglowColors: this.state.undeglowColors,
+      keymap: this.state.keymap,
+      colormap: {
+        palette: this.state.palette,
+        colorMap: this.state.colorMap
+      }
+    };
+    // backupLayers(cloudbackup);
     this.props.cancelContext();
+  };
+
+  sharelayers = async () => {
+    // TODO: Share layers in the cloud
+    const Layers = {
+      undeglowColors: this.state.undeglowColors,
+      keymap: this.state.keymap,
+      colormap: {
+        palette: this.state.palette,
+        colorMap: this.state.colorMap
+      },
+      macros: this.state.macros
+    };
+    shareLayers(Layers);
   };
 
   // Callback function to set State of new Language
   onChangeLanguageLayout = () => {
+    console.log(
+      "Language automatically set to: ",
+      settings.getSync("keyboard.language")
+    );
     this.setState({
       currentLanguageLayout: settings.getSync("keyboard.language") || "english"
     });
   };
 
-  componentDidMount() {
-    this.scanKeyboard().then(() => {
+  async componentDidMount() {
+    await this.scanKeyboard().then(() => {
       const { keymap } = this.state;
       const defLayer =
         this.state.defaultLayer >= 126 ? 0 : this.state.defaultLayer;
@@ -480,7 +662,12 @@ class Editor extends React.Component {
         }
       }
 
-      this.setState({ currentLayer: initialLayer });
+      this.setState({
+        currentLayer:
+          this.state.previousLayer != 0
+            ? this.state.previousLayer
+            : initialLayer
+      });
     });
     this.onChangeLanguageLayout();
   }
@@ -488,7 +675,8 @@ class Editor extends React.Component {
   UNSAFE_componentWillReceiveProps = nextProps => {
     if (this.props.inContext && !nextProps.inContext) {
       this.setState({
-        currentLayer: 0,
+        currentLayer:
+          this.state.previousLayer != 0 ? this.state.previousLayer : 0,
         currentKeyIndex: -1,
         currentLedIndex: -1,
         keymap: {
@@ -676,8 +864,16 @@ class Editor extends React.Component {
   };
   importLayer = data => {
     if (data.palette.length > 0) this.setState({ palette: data.palette });
+    let layerNames = this.state.layerNames.slice();
+    for (let i = 0; i < data.layerNames.length; i++) {
+      layerNames[i] = data.layerNames[i];
+    }
+    const { currentLayer } = this.state;
+    if (data.layerName && currentLayer) {
+      layerNames[currentLayer] = data.layerName;
+    }
+    this.setState({ layerNames: layerNames });
     if (data.keymap.length > 0 && data.colormap.length > 0) {
-      const { currentLayer } = this.state;
       if (this.state.keymap.onlyCustom) {
         if (currentLayer >= 0) {
           this.setState(state => {
@@ -743,6 +939,140 @@ class Editor extends React.Component {
     });
     this.props.startContext();
   };
+
+  superTranslator(raw) {
+    let superkey = [],
+      superkeys = [],
+      iter = 0,
+      superindex = 0;
+
+    if (raw === "") {
+      return [];
+    }
+    // console.log(raw, raw.length);
+    while (raw.length > iter) {
+      // console.log(iter, raw[iter], superkey);
+      if (raw[iter] === 0) {
+        superkeys[superindex] = { actions: superkey, name: "" };
+        superindex++;
+        superkey = [];
+      } else {
+        superkey.push(raw[iter]);
+      }
+      iter++;
+    }
+    superkeys[superindex] = { actions: superkey, name: "" };
+    console.log("Got Superkeys:" + JSON.stringify(superkeys) + " from " + raw);
+
+    if (
+      superkeys[0].actions == undefined ||
+      superkeys[0].actions == [0] ||
+      superkeys[0].actions.filter(v => v === 0).length ==
+        superkeys[0].length - 1
+    )
+      return [];
+    // TODO: Check if stored superKeys match the received ones, if they match, retrieve name and apply it to current superKeys
+    let equal = [];
+    let finalSuper = [];
+    const stored = store.get("superkeys") ? store.get("superkeys") : [];
+    try {
+      console.log("check data integrity", superkeys, stored, stored[0].actions);
+      if (stored === undefined || stored[0].actions === undefined) {
+        return superkeys;
+      }
+    } catch (error) {
+      console.error("unable to retrieve stored superkeys, using loaded ones");
+      console.error(error);
+      return superkeys;
+    }
+
+    finalSuper = superkeys.map((superk, i) => {
+      if (stored.length > i && stored.length > 0) {
+        console.log(
+          "compare between SK: ",
+          superk.actions.join(","),
+          stored[i].actions.filter(act => act != 0).join(",")
+        );
+        if (
+          superk.actions.join(",") ===
+          stored[i].actions.filter(act => act != 0).join(",")
+        ) {
+          equal[i] = true;
+          let aux = superk;
+          aux.name = stored[i].name;
+          return aux;
+        } else {
+          equal[i] = false;
+          return superk;
+        }
+      } else {
+        return superk;
+      }
+    });
+    console.log("final superkeys", finalSuper);
+    this.setState({ storedSuper: stored });
+    return finalSuper;
+  }
+
+  superkeyMap(superkeys) {
+    if (
+      superkeys.length === 0 ||
+      (superkeys.length === 1 && superkeys[0].actions == []) ||
+      (superkeys.length === 1 && superkeys[0].actions == [0])
+    ) {
+      return "65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535";
+    }
+    const keyMap = superkeys.map(superkey => {
+      return superkey.actions.filter(act => act != 0).concat([0]);
+    });
+    const mapped = [].concat.apply([], keyMap.flat()).concat([0]).join(" ");
+    console.log(mapped, keyMap);
+    return mapped;
+  }
+
+  newSuperID() {
+    return this.state.superkeys.length;
+  }
+
+  setSuperKey(superid, actions, supername) {
+    let temp = this.state.superkeys;
+    let tempactions = actions;
+    let founddata = false;
+    tempactions = tempactions
+      .reverse()
+      .map((elem, index, array) => {
+        if (elem != 0) return elem;
+        if ((index > 0 && array[index - 1] != 0) || founddata) {
+          founddata = true;
+          return 1;
+        }
+        return elem;
+      })
+      .reverse();
+    temp[superid] = { actions: tempactions, name: supername };
+    this.setState({ superkeys: temp });
+  }
+
+  delSuperKey(superid) {
+    let temp = this.state.superkeys;
+    let aux = this.state.keymap.custom;
+    let result = this.state.keymap;
+    temp.splice(superid, 1);
+    if (temp.length > superid) {
+      aux[this.state.currentLayer]
+        .filter(key => key.keyCode > superid + 53916)
+        .forEach(key => {
+          const auxkey = this.keymapDB.parse(key.keyCode - 1);
+          key.label = auxkey.label;
+          key.extraLabel = auxkey.extraLabel;
+          key.verbose = auxkey.verbose;
+          key.keyCode = auxkey.keyCode;
+        });
+      result.custom = aux;
+      this.setState({ keymap: result });
+    }
+    this.setState({ superkeys: temp });
+  }
 
   macroTranslator(raw) {
     if (raw === "") {
@@ -850,7 +1180,7 @@ class Editor extends React.Component {
     }
     finalMacros = macros.map((macro, i) => {
       if (stored.length > i && stored.length > 0) {
-        console.log("compare between: ", macro.actions, stored[i].actions);
+        console.log("compare between MK: ", macro.actions, stored[i].actions);
         if (macro.actions.join(",") === stored[i].actions.join(",")) {
           equal[i] = true;
           let aux = macro;
@@ -864,7 +1194,6 @@ class Editor extends React.Component {
         return macro;
       }
     });
-    this.setState({ equalMacros: equal });
 
     return finalMacros;
   }
@@ -902,14 +1231,19 @@ class Editor extends React.Component {
   getLayout() {
     let focus = new Focus();
     let Layer = {};
+    let kbtype = "iso";
     try {
       Layer = focus.device.components.keymap;
+      kbtype =
+        focus.device && focus.device.info.keyboardType === "ISO"
+          ? "iso"
+          : "ansi";
     } catch (error) {
-      console.error("Focus lost connection to Rasie: ", error);
+      console.error("Focus lost connection to Raise: ", error);
       return false;
     }
 
-    return Layer;
+    return { Layer, kbtype };
   }
 
   toImport() {
@@ -941,9 +1275,11 @@ class Editor extends React.Component {
             } else {
               console.log(layers.keymap.custom[0]);
               this.setState({
+                layerNames: layers.layerNames,
                 keymap: layers.keymap,
                 colorMap: layers.colormap,
                 palette: layers.palette,
+                superkeys: layers.superkeys ? layers.superkeys : [],
                 modified: true
               });
               this.props.startContext();
@@ -968,7 +1304,7 @@ class Editor extends React.Component {
   }
 
   toExport() {
-    const { keymap, currentLayer } = this.state;
+    const { layerNames, keymap, currentLayer } = this.state;
     let layerData, isReadOnly;
     if (keymap.onlyCustom) {
       isReadOnly = currentLayer < 0;
@@ -983,6 +1319,7 @@ class Editor extends React.Component {
     }
     let data = JSON.stringify(
       {
+        layerNames: layerNames,
         keymap: layerData,
         colormap: this.state.colorMap[currentLayer],
         palette: this.state.palette
@@ -1023,12 +1360,14 @@ class Editor extends React.Component {
   }
 
   toExportAll() {
-    const { keymap, colorMap, palette } = this.state;
+    const { keymap, colorMap, palette, superkeys, layerNames } = this.state;
     let data = JSON.stringify(
       {
+        layerNames,
         keymap,
         colormap: colorMap,
-        palette
+        palette,
+        superkeys
       },
       null,
       2
@@ -1065,58 +1404,135 @@ class Editor extends React.Component {
       });
   }
 
+  toggleMacroModal() {
+    this.setState({ showMacroModal: !this.state.showMacroModal });
+  }
+  updateOldMacros() {
+    let keymap = this.state.keymap;
+    let layers = [];
+    const oldmacro = [...Array(64).keys()].map(x => x + 24576);
+    for (let index = 0; index < keymap.custom.length; index++) {
+      if (keymap.custom[index].some(r => oldmacro.includes(r.keyCode))) {
+        layers.push(index);
+        continue;
+      }
+    }
+    for (let index = 0; index < layers.length; index++) {
+      for (let idx = 0; idx < keymap.custom[layers[index]].length; idx++) {
+        if (oldmacro.includes(keymap.custom[layers[index]][idx].keyCode)) {
+          keymap.custom[layers[index]][idx] = this.keymapDB.parse(
+            keymap.custom[layers[index]][idx].keyCode + 29276
+          );
+        }
+      }
+    }
+    this.setState({ showMacroModal: false, modified: true, keymap });
+    this.props.startContext();
+    this.onApply();
+  }
+
+  layerName(index) {
+    return this.state?.layerNames?.length >= index
+      ? this.state.layerNames[index]
+      : this.defaultLayerNames[index];
+  }
+
   render() {
-    const { classes } = this.props;
-    const { keymap, palette, isColorButtonSelected } = this.state;
-    let Layer = this.getLayout();
+    const {
+      keymap,
+      palette,
+      isColorButtonSelected,
+      currentLayer,
+      currentKeyIndex,
+      currentLedIndex,
+      currentLanguageLayout,
+      macros,
+      superkeys
+    } = this.state;
+
+    let { Layer, kbtype } = this.getLayout();
     if (Layer === false) {
       return <div></div>;
     }
     const showDefaults = settings.getSync("keymap.showDefaults");
-
-    let currentLayer = this.state.currentLayer;
+    let cLayer = currentLayer;
 
     if (!showDefaults) {
       if (currentLayer < keymap.default.length && !keymap.onlyCustom) {
-        currentLayer = 0;
+        cLayer = 0;
       }
     }
 
     let layerData, isReadOnly;
     if (keymap.onlyCustom) {
-      isReadOnly = currentLayer < 0;
+      isReadOnly = cLayer < 0;
       layerData = isReadOnly
-        ? keymap.default[currentLayer + keymap.default.length]
-        : keymap.custom[currentLayer];
+        ? keymap.default[cLayer + keymap.default.length]
+        : keymap.custom[cLayer];
     } else {
-      isReadOnly = currentLayer < keymap.default.length;
+      isReadOnly = cLayer < keymap.default.length;
       layerData = isReadOnly
-        ? keymap.default[currentLayer]
-        : keymap.custom[currentLayer - keymap.default.length];
+        ? keymap.default[cLayer]
+        : keymap.custom[cLayer - keymap.default.length];
+    }
+
+    if (layerData != undefined) {
+      layerData = layerData.map(key => {
+        let newKey = key;
+        if (key.extraLabel == "MACRO") {
+          if (
+            macros.length > parseInt(key.label) &&
+            macros[parseInt(key.label)].name.substr(0, 5) != ""
+          ) {
+            newKey.label = macros[parseInt(key.label)].name
+              .substr(0, 5)
+              .toLowerCase();
+          }
+        }
+        return newKey;
+      });
+    }
+
+    if (layerData != undefined && superkeys.length > 0) {
+      layerData = layerData.map(key => {
+        let newKey = key;
+        if (key.extraLabel == "SUPER") {
+          if (
+            superkeys.length > parseInt(key.label) &&
+            superkeys[parseInt(key.label)].name != ""
+          ) {
+            newKey.label = superkeys[parseInt(key.label)].name
+              .substr(0, 5)
+              .toLowerCase();
+          }
+        }
+        return newKey;
+      });
     }
 
     const layer = (
-      <Fade in appear key={currentLayer}>
-        <div className={classes.editor}>
-          <Layer
-            className={classNames("layer", isReadOnly && classes.disabledLayer)}
-            readOnly={isReadOnly}
-            index={currentLayer}
-            keymap={layerData}
-            onKeySelect={this.onKeySelect}
-            selectedKey={this.state.currentKeyIndex}
-            palette={this.state.palette}
-            colormap={this.state.colorMap[this.state.currentLayer]}
-            theme={this.props.theme}
-          />
-        </div>
-      </Fade>
+      //TODO: restore fade effect <fade in appear key={currentLayer}>
+      <div className="">
+        <Layer
+          readOnly={isReadOnly}
+          index={cLayer}
+          keymap={layerData}
+          onKeySelect={this.onKeySelect}
+          selectedKey={this.state.currentKeyIndex}
+          palette={this.state.palette}
+          colormap={this.state.colorMap[this.state.currentLayer]}
+          theme={this.props.theme}
+          darkMode={this.props.darkMode}
+          style={{ width: "50vw" }}
+          showUnderglow={this.state.modeselect != "keyboard"}
+        />
+      </div>
+      // </fade>
     );
 
     const copyCustomItems = this.state.keymap.custom.map((_, index) => {
       const idx = index + (keymap.onlyCustom ? 0 : keymap.default.length);
-      const label = i18n.formatString(i18n.components.layer, idx);
-
+      const label = (idx + 1).toString() + ": " + this.layerName(idx);
       return {
         index: idx,
         label: label
@@ -1126,8 +1542,7 @@ class Editor extends React.Component {
       showDefaults &&
       keymap.default.map((_, index) => {
         const idx = index - (keymap.onlyCustom ? keymap.default.length : 0),
-          label = i18n.formatString(i18n.components.layer, idx);
-
+          label = idx.toString();
         return {
           index: idx,
           label: label
@@ -1137,157 +1552,237 @@ class Editor extends React.Component {
       copyCustomItems
     );
 
-    const defaultLayerMenu =
-      showDefaults &&
-      keymap.default.map((_, index) => {
-        const idx = index - (keymap.onlyCustom ? keymap.default.length : 0),
-          menuKey = "layer-menu-" + idx.toString();
-        return (
-          <MenuItem value={idx} key={menuKey}>
-            <ListItemIcon>
-              <LockIcon />
-            </ListItemIcon>
-            <ListItemText
-              inset
-              primary={i18n.formatString(i18n.components.layer, idx)}
-            />
-          </MenuItem>
-        );
-      });
-
-    const customLayerMenu = keymap.custom.map((_, index) => {
-      const idx = index + (keymap.onlyCustom ? 0 : keymap.default.length),
-        menuKey = "layer-menu-" + idx.toString();
-      return (
-        <MenuItem value={idx} key={menuKey}>
-          <ListItemText
-            inset
-            primary={i18n.formatString(i18n.components.layer, idx)}
-          />
-        </MenuItem>
-      );
+    const layerMenu = keymap.custom.map((_, index) => {
+      const idx = index + (keymap.onlyCustom ? 0 : keymap.default.length);
+      return {
+        name: this.layerName(idx),
+        id: idx
+      };
     });
 
-    const layerMenu = (defaultLayerMenu || []).concat(customLayerMenu);
+    let code = 0;
+    if (currentKeyIndex !== -1 && currentLedIndex < 69) {
+      const tempkey = this.keymapDB.parse(layerData[currentKeyIndex].keyCode);
+      code = {
+        base:
+          tempkey.keyCode > 255
+            ? tempkey.keyCode > 49160
+              ? tempkey.keyCode == 65535
+                ? this.keymapDB.reverse(tempkey.label)
+                : parseInt(tempkey.label)
+              : this.keymapDB.reverse(tempkey.label)
+            : tempkey.keyCode < 20480 || tempkey.keyCode > 20561
+            ? this.keymapDB.reverseSub(tempkey.label, tempkey.extraLabel)
+            : this.keymapDB.reverse(tempkey.label),
+        modified:
+          tempkey.keyCode > 255 &&
+          (tempkey.keyCode < 20480 || tempkey.keyCode > 20561)
+            ? tempkey.keyCode > 49160
+              ? tempkey.keyCode == 65535
+                ? 0
+                : this.keymapDB.reverseSub(tempkey.label, tempkey.extraLabel) -
+                  parseInt(tempkey.label)
+              : this.keymapDB.reverseSub(tempkey.label, tempkey.extraLabel) -
+                this.keymapDB.reverse(tempkey.label)
+            : 0
+      };
+    }
+    console.log(JSON.stringify(code));
+    let actions = [code !== null ? code.base + code.modified : 0, 0, 0, 0, 0];
+    let superName = "";
+    if (code !== null) {
+      if (
+        code.modified + code.base > 53915 &&
+        code.modified + code.base < 53980 &&
+        this.state.superkeys[code.base + code.modified - 53916] != undefined
+      ) {
+        actions = this.state.superkeys[code.base + code.modified - 53916]
+          .actions;
+        superName = this.state.superkeys[
+          code.base + code.modified - 53916
+        ].name.substr(0, 5);
+      }
+    }
+    // console.log("final actions: " + actions, superName, this.state.superkeys);
 
     return (
-      <React.Fragment>
-        <Portal container={this.props.titleElement}>
-          {i18n.app.menu.editor}
-        </Portal>
-        <Portal container={this.props.appBarElement}>
-          <Toolbar className={classes.toolbar}>
-            <div className={classes.grow} />
-            <FormControl className={classes.layerSelect}>
-              <Select
-                value={currentLayer}
-                classes={{ selectMenu: classes.layerSelectItem }}
-                autoWidth
-                onClick={this.selectLayer}
+      <Styles>
+        <Container fluid className="keyboard-editor">
+          <Row className="title-row">
+            <h4 className="section-title">{i18n.app.menu.editor}</h4>
+          </Row>
+          <Row>
+            <Col>
+              <LayerPanel
+                layers={layerMenu}
+                selectLayer={this.selectLayer}
+                currentLayer={currentLayer}
+                isReadOnly={isReadOnly}
+                importTitle={i18n.editor.layers.importTitle}
+                exportTitle={i18n.editor.layers.exportTitle}
+                exportAllTitle={i18n.editor.layers.exportAllTitle}
+                importFunc={this.toImport}
+                exportFunc={this.toExport}
+                exportAllFunc={this.toExportAll}
+                copyTitle={i18n.editor.layers.copyFrom}
+                copyFunc={this.copyFromDialog}
+                clearTitle={i18n.editor.layers.clearLayer}
+                clearFunc={this.confirmClear}
+                changeLayerName={this.onLayerNameChange}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Fade animate={this.state.modeselect != "color"}>
+                <ColorPanel
+                  key={palette}
+                  colors={palette}
+                  disabled={
+                    isReadOnly || currentLayer > this.state.colorMap.length
+                  }
+                  onColorSelect={this.onColorSelect}
+                  colorButtonIsSelected={this.state.colorButtonIsSelected}
+                  onColorPick={this.onColorPick}
+                  selected={this.state.selectedPaletteColor}
+                  isColorButtonSelected={isColorButtonSelected}
+                  onColorButtonSelect={this.onColorButtonSelect}
+                  toChangeAllKeysColor={this.toChangeAllKeysColor}
+                />
+              </Fade>
+            </Col>
+          </Row>
+          {this.state.keymap.custom.length == 0 &&
+            this.state.keymap.default.length == 0 && (
+              <div className="centerSpinner">
+                <Spinner
+                  className="spinner-border text-danger"
+                  role="status"
+                  animation="grow"
+                />
+              </div>
+            )}
+          <Row className="editor">
+            <Col className="raise-editor">{layer}</Col>
+          </Row>
+          <Row className="keyconfig">
+            {this.state.modeselect != "keyboard" ? (
+              ""
+            ) : (
+              <Fade animate={this.state.modeselect != "keyboard"}>
+                <KeyConfig
+                  id="keyboard-fade"
+                  onKeySelect={this.onKeyChange}
+                  code={code}
+                  macros={macros}
+                  actions={actions}
+                  superName={superName}
+                  newSuperID={this.newSuperID}
+                  setSuperKey={this.setSuperKey}
+                  delSuperKey={this.delSuperKey}
+                  keyIndex={currentKeyIndex}
+                  selectedlanguage={currentLanguageLayout}
+                  kbtype={kbtype}
+                />
+              </Fade>
+            )}
+          </Row>
+          <Row className="buttons-row">
+            <Card>
+              <Button
+                active={this.state.modeselect == "keyboard"}
+                onClick={() => {
+                  this.setState({ modeselect: "keyboard" });
+                }}
+                className="keyboardbutton big"
+                aria-controls="keyboard-fade"
               >
-                {layerMenu}
-              </Select>
-            </FormControl>
-            <div>
-              <Tooltip disableFocusListener title={"Export the current Layer"}>
-                <IconButton onClick={this.toExport}>
-                  <PublishRounded />
-                </IconButton>
-              </Tooltip>
-              <Tooltip
-                disableFocusListener
-                title={"Import current Layer or Backup"}
+                <MdKeyboard />
+              </Button>
+              <Button
+                active={this.state.modeselect == "color"}
+                onClick={() => {
+                  this.setState({ modeselect: "color" });
+                }}
+                className="colorsbutton big"
               >
-                <IconButton onClick={this.toImport}>
-                  <GetAppRounded />
-                </IconButton>
-              </Tooltip>
-              <Tooltip disableFocusListener title={i18n.editor.copyFrom}>
-                <IconButton disabled={isReadOnly} onClick={this.copyFromDialog}>
-                  <FileCopyIcon />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title={i18n.editor.clearLayer}>
-                <IconButton disabled={isReadOnly} onClick={this.confirmClear}>
-                  <LayersClearIcon />
-                </IconButton>
-              </Tooltip>
-              <Tooltip
-                disableFocusListener
-                title={"Backup all Layers (Excluding Macros)"}
-              >
-                <IconButton onClick={this.toExportAll}>
-                  <UnarchiveRounded />
-                </IconButton>
-              </Tooltip>
-            </div>
-          </Toolbar>
-        </Portal>
-        {this.state.keymap.custom.length == 0 &&
-          this.state.keymap.default.length == 0 && (
-            <LinearProgress variant="query" />
-          )}
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          {layer}
-          <ColorPalette
-            disabled={isReadOnly || currentLayer > this.state.colorMap.length}
-            onColorSelect={this.onColorSelect}
-            colorButtonIsSelected={this.state.colorButtonIsSelected}
-            palette={palette}
-            onColorPick={this.onColorPick}
-            selected={this.state.selectedPaletteColor}
-            isColorButtonSelected={isColorButtonSelected}
-            onColorButtonSelect={this.onColorButtonSelect}
-            theme={this.props.theme}
-            toChangeAllKeysColor={this.toChangeAllKeysColor}
-            onBacklightColorSelect={this.onBacklightColorSelect}
-            className="palette"
-            darkMode={this.props.darkMode}
+                <IoMdColorPalette />
+              </Button>
+            </Card>
+          </Row>
+          <Row className="save-row">
+            <Container fluid>
+              <Row>
+                <Button
+                  disabled={!this.state.modified}
+                  onClick={this.onApply}
+                  className={`button-large pt-0 mt-0 mb-2 ${
+                    this.state.modified ? "save-active" : ""
+                  }`}
+                  aria-controls="save-changes"
+                >
+                  <FiSave />
+                </Button>
+              </Row>
+              <Row>
+                <Button
+                  disabled={!this.state.modified}
+                  onClick={() => {
+                    this.props.cancelContext();
+                  }}
+                  className={`button-large pt-0 mt-0 mb-2 ${
+                    this.state.modified ? "cancel-active" : ""
+                  }`}
+                  aria-controls="discard-changes"
+                >
+                  <FiTrash2 />
+                </Button>
+              </Row>
+            </Container>
+          </Row>
+          <ConfirmationDialog
+            title={i18n.editor.clearLayerQuestion}
+            text={i18n.editor.clearLayerPrompt}
+            open={this.state.clearConfirmationOpen}
+            onConfirm={this.clearLayer}
+            onCancel={this.cancelClear}
+          >
+            {i18n.editor.clearLayerPrompt}
+          </ConfirmationDialog>
+          <CopyFromDialog
+            open={this.state.copyFromOpen}
+            onCopy={this.copyFromLayer}
+            onCancel={this.cancelCopyFrom}
+            layers={copyFromLayerOptions}
+            currentLayer={currentLayer}
           />
-        </div>
-        <Slide in={this.getCurrentKey() != -1} direction="up" unmountOnExit>
-          <KeySelector
-            disabled={isReadOnly}
-            onKeySelect={this.onKeyChange}
-            currentKeyCode={this.getCurrentKey()}
-            scanKeyboard={this.scanKeyboard}
-            currentLanguageLayout={this.state.currentLanguageLayout}
-            onChangeLanguageLayout={this.onChangeLanguageLayout}
-            macros={this.state.macros}
-            maxMacros={64}
-            updateMacros={this.updateMacros}
-            keymapDB={this.keymapDB}
-          />
-        </Slide>
-        <SaveChangesButton
-          floating
-          onClick={this.onApply}
-          disabled={!this.state.modified}
+        </Container>
+        <Modal
+          show={this.state.showMacroModal}
+          onHide={this.toggleMacroModal}
+          style={{ marginTop: "300px" }}
         >
-          {i18n.components.save.saveChanges}
-        </SaveChangesButton>
-        <ConfirmationDialog
-          title={i18n.editor.clearLayerQuestion}
-          open={this.state.clearConfirmationOpen}
-          onConfirm={this.clearLayer}
-          onCancel={this.cancelClear}
-        >
-          {i18n.editor.clearLayerPrompt}
-        </ConfirmationDialog>
-        <CopyFromDialog
-          open={this.state.copyFromOpen}
-          onCopy={this.copyFromLayer}
-          onCancel={this.cancelCopyFrom}
-          layers={copyFromLayerOptions}
-          currentLayer={currentLayer}
-        />
-      </React.Fragment>
+          <ModalStyle>
+            <Modal.Header closeButton className="title noborder">
+              <Modal.Title>{i18n.editor.oldMacroModal.title}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body className="body">
+              <p>{i18n.editor.oldMacroModal.body}</p>
+              <p className="italic">{i18n.editor.oldMacroModal.body2}</p>
+            </Modal.Body>
+            <Modal.Footer className="noborder">
+              <Button variant="secondary" onClick={this.toggleMacroModal}>
+                {i18n.editor.oldMacroModal.cancelButton}
+              </Button>
+              <Button variant="primary" onClick={this.updateOldMacros}>
+                {i18n.editor.oldMacroModal.applyButton}
+              </Button>
+            </Modal.Footer>
+          </ModalStyle>
+        </Modal>
+      </Styles>
     );
   }
 }
 
-Editor.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-export default withStyles(styles, { withTheme: true })(Editor);
+export default Editor;

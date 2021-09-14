@@ -191,6 +191,20 @@ app.on("activate", () => {
 
 // create main BrowserWindow when electron is ready
 app.on("ready", async () => {
+  let bfolder = settings.getSync("backupFolder");
+  console.log("CHECKING BACKUP FOLDER VALUE", bfolder);
+  if (bfolder == "" || bfolder == undefined) {
+    const defaultPath = path.join(app.getPath("home"), "Raise", "Backups");
+    console.log(defaultPath);
+    settings.setSync("backupFolder", defaultPath);
+    fs.mkdir(defaultPath, { recursive: true }, err => {
+      if (err) {
+        console.error(err);
+      }
+      console.log("Directory created successfully!");
+    });
+  }
+
   let darkMode = settings.getSync("ui.darkMode");
   if (typeof darkMode === "boolean" || darkMode === undefined) {
     darkMode = "system";

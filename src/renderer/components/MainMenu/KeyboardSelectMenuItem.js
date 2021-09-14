@@ -16,29 +16,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import KeyboardIcon from "@material-ui/icons/Keyboard";
+import React, { Fragment } from "react";
+
+import { MdKeyboardHide } from "react-icons/md";
 
 export default function KeyboardMenuItem({
   keyboardSelectText,
   onClick,
   selected,
-  className
+  className,
+  classIcon,
+  drawerWidth
 }) {
   return (
-    <ListItem
-      button
-      onClick={onClick}
-      className={className}
-      selected={selected}
-    >
-      <ListItemIcon>
-        <KeyboardIcon />
-      </ListItemIcon>
-      <ListItemText primary={keyboardSelectText} />
-    </ListItem>
+    <div onClick={onClick} className={"item-list"}>
+      <div className="icon-item">
+        <MdKeyboardHide className={`icon-image ${selected ? "select" : ""}`} />
+      </div>
+      {drawerWidth === "auto" ? (
+        <div className="icon-text">
+          <p className="primary">{keyboardSelectText}</p>
+        </div>
+      ) : (
+        <Fragment></Fragment>
+      )}
+    </div>
   );
 }

@@ -23,14 +23,14 @@ const MiscellaneousTable = {
     {
       code: 70,
       labels: {
-        primary: "PRINT SCREEN",
+        primary: "PRINT SCRN",
         verbose: "Print Screen"
       }
     },
     {
       code: 71,
       labels: {
-        primary: "SCROLL LOCK",
+        primary: "SCROLL LCK",
         verbose: "Scroll Lock"
       }
     },

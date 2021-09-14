@@ -16,73 +16,99 @@
  */
 
 import React, { useState } from "react";
-
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Typography from "@material-ui/core/Typography";
-
+import Styled from "styled-components";
 import i18n from "../../i18n";
+
+//React Bootstrap components
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import ListGroup from "react-bootstrap/ListGroup";
+
+const Styles = Styled.div`
+background-color: ${({ theme }) => theme.card.background};
+color: ${({ theme }) => theme.card.color};
+.title {
+  font-weight: 300;
+  font-size: xx-large;
+}
+.body {
+  font-weight: 200;
+  font-size: 1.1em;
+}
+.noborder {
+  border: none;
+}
+.listitem {
+  background-color: ${({ theme }) => theme.colors.button.background};
+  color: ${({ theme }) => theme.colors.button.text};
+}
+.disabled {
+  background-color: ${({ theme }) => theme.colors.button.disabled};
+  color: ${({ theme }) => theme.colors.button.secondary};
+}
+.selected {
+  background-color: ${({ theme }) => theme.colors.button.secondary};
+  color: ${({ theme }) => theme.colors.button.activeText};
+}
+`;
 
 export const CopyFromDialog = props => {
   const [selectedLayer, setSelectedLayer] = useState(-1);
   return (
-    <Dialog
-      disableBackdropClick
-      open={props.open}
-      onClose={props.onCancel}
-      fullWidth
-    >
-      <DialogTitle>{i18n.editor.copyFrom}</DialogTitle>
-      <DialogContent>
-        <Typography variant="body1" gutterBottom>
-          {i18n.editor.pleaseSelectLayer}
-        </Typography>
-        <List>
-          {props.layers.map(layer => {
-            return (
-              <ListItem
-                key={layer.index}
-                button
-                disabled={layer.index == props.currentLayer}
-                selected={layer.index == selectedLayer}
-                onClick={() => {
-                  setSelectedLayer(layer.index);
-                }}
-              >
-                <ListItemText inset primary={layer.label} />
-              </ListItem>
-            );
-          })}
-        </List>
-      </DialogContent>
-      <DialogActions>
-        <Button
-          color="primary"
-          onClick={() => {
-            setSelectedLayer(-1);
-            props.onCancel();
-          }}
-        >
-          {i18n.dialog.cancel}
-        </Button>
-        <Button
-          onClick={() => {
-            const layer = selectedLayer;
-            setSelectedLayer(-1);
-            props.onCopy(layer);
-          }}
-          color="primary"
-          disabled={selectedLayer == -1}
-        >
-          {i18n.dialog.ok}
-        </Button>
-      </DialogActions>
-    </Dialog>
+    <Modal backdrop="static" show={props.open} onHide={props.onCancel}>
+      <Styles>
+        <Modal.Header closeButton className="noborder">
+          <Modal.Title className="title">{i18n.editor.copyFrom}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="body">
+          <h4>{i18n.editor.pleaseSelectLayer}</h4>
+          <ListGroup variant="flush">
+            {props.layers.map(layer => {
+              return (
+                <ListGroup.Item
+                  className={`listitem ${
+                    layer.index == props.currentLayer
+                      ? "disabled"
+                      : layer.index == selectedLayer
+                      ? "selected"
+                      : ""
+                  }`}
+                  key={layer.index}
+                  action
+                  disabled={layer.index == props.currentLayer}
+                  onClick={() => {
+                    setSelectedLayer(layer.index);
+                  }}
+                >
+                  {layer.label}
+                </ListGroup.Item>
+              );
+            })}
+          </ListGroup>
+        </Modal.Body>
+        <Modal.Footer className="noborder">
+          <Button
+            color="primary"
+            onClick={() => {
+              setSelectedLayer(-1);
+              props.onCancel();
+            }}
+          >
+            {i18n.dialog.cancel}
+          </Button>
+          <Button
+            onClick={() => {
+              const layer = selectedLayer;
+              setSelectedLayer(-1);
+              props.onCopy(layer);
+            }}
+            color="primary"
+            disabled={selectedLayer == -1}
+          >
+            {i18n.dialog.ok}
+          </Button>
+        </Modal.Footer>
+      </Styles>
+    </Modal>
   );
 };

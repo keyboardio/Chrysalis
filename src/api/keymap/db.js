@@ -32,6 +32,8 @@ import ModifiersTable, {
 import NavigationTable, { ModifiedNavigationTables } from "./db/navigation";
 import LEDEffectsTable from "./db/ledeffects";
 import MacrosTable from "./db/macros";
+import SuperKeyTable from "./db/superkeys";
+import TapDanceTable from "./db/tapdance";
 import NumpadTable, { ModifiedNumpadTables } from "./db/numpad";
 import FunctionKeyTable, { ModifiedFunctionKeyTables } from "./db/fxs";
 
@@ -52,7 +54,7 @@ import StenoTable from "./db/steno";
 import SpaceCadetTable from "./db/spacecadet";
 
 // Spanish - is an Array of objects of values that have to be modified
-import spanish from "./languages/spanish/spanish";
+import spanish, { spanishModifiedTables } from "./languages/spanish/spanish";
 
 // German - is an Array of objects of values that have to be modified
 import german, { germanModifiedTables } from "./languages/german/german";
@@ -88,6 +90,8 @@ const defaultBaseKeyCodeTable = [
 
   LEDEffectsTable,
   MacrosTable,
+  SuperKeyTable,
+  TapDanceTable,
   MediaControlTable,
   MouseMovementTable,
   MouseButtonTable,
@@ -103,6 +107,7 @@ const defaultBaseKeyCodeTable = [
 ];
 
 const supportModifiedTables = {
+  spanish: spanishModifiedTables,
   german: germanModifiedTables,
   french: frenchModifiedTables,
   nordic: nordicModifiedTables,
@@ -142,7 +147,14 @@ class KeymapDB {
     this.keymapCodeTable = [];
     //create variable that get language from the local storage
     this.language = settings.getSync("keyboard.language");
-
+    if (
+      this.language == "swedish" ||
+      this.language == "danish" ||
+      this.language == "norwegian" ||
+      this.language == "icelandic"
+    ) {
+      this.language = "nordic";
+    }
     //Modify our baseKeyCodeTable, depending on the language selected by the static methods and by inside function newLanguageLayout
     baseKeyCodeTable = KeymapDB.updateBaseKeyCode();
     const keyCodeTableWithModifiers =
@@ -212,6 +224,13 @@ class KeymapDB {
     return answ !== undefined ? answ.code : 1;
   }
 
+  reverseSub(label, top) {
+    const answ = this.keymapCodeTable
+      .filter(Boolean)
+      .find(x => x.labels.primary === label && x.labels.top === top);
+    return answ !== undefined ? answ.code : 1;
+  }
+
   getMap() {
     return this.keymapCodeTable
       .filter(Boolean)
@@ -224,6 +243,14 @@ class KeymapDB {
 
   static updateBaseKeyCode() {
     this.language = settings.getSync("keyboard.language") || "english";
+    if (
+      this.language == "swedish" ||
+      this.language == "danish" ||
+      this.language == "norwegian" ||
+      this.language == "icelandic"
+    ) {
+      this.language = "nordic";
+    }
     //Checking language in the cache
     if (map.has(this.language)) {
       //Return language layout from the cache

@@ -100,70 +100,70 @@ const OneShotLayerTable = {
       code: 49161,
       labels: {
         top: "OSL",
-        primary: "0"
+        primary: "1"
       }
     },
     {
       code: 49162,
       labels: {
         top: "OSL",
-        primary: "1"
+        primary: "2"
       }
     },
     {
       code: 49163,
       labels: {
         top: "OSL",
-        primary: "2"
+        primary: "3"
       }
     },
     {
       code: 49164,
       labels: {
         top: "OSL",
-        primary: "3"
+        primary: "4"
       }
     },
     {
       code: 49165,
       labels: {
         top: "OSL",
-        primary: "4"
+        primary: "5"
       }
     },
     {
       code: 49166,
       labels: {
         top: "OSL",
-        primary: "5"
+        primary: "6"
       }
     },
     {
       code: 49167,
       labels: {
         top: "OSL",
-        primary: "6"
+        primary: "7"
       }
     },
     {
       code: 49168,
       labels: {
         top: "OSL",
-        primary: "7"
+        primary: "8"
       }
     },
     {
       code: 49169,
       labels: {
         top: "OSL",
-        primary: "8"
+        primary: "9"
       }
     },
     {
       code: 49170,
       labels: {
         top: "OSL",
-        primary: "9"
+        primary: "10"
       }
     }
   ]

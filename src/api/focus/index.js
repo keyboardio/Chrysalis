@@ -19,11 +19,13 @@ import SerialPort from "serialport";
 import Delimiter from "@serialport/parser-delimiter";
 import fs from "fs";
 import { spawn } from "child_process";
+import { inspect } from "util";
 
 global.focus_instance = null;
 
 class Focus {
   constructor() {
+    this.delay = ms => new Promise(res => setTimeout(res, ms));
     if (!global.focus_instance) {
       global.focus_instance = this;
       this.commands = {
@@ -68,6 +70,10 @@ class Focus {
 
   async open(device, info) {
     console.warn("Warning! device being opened", device.isOpen, device, info);
+    while (device._eventsCount < 5) {
+      console.log("waiting for device");
+      await this.delay(500);
+    }
     if (typeof device == "string") {
       if (!info) throw new Error("Device descriptor argument is mandatory");
       this._port = new SerialPort(
@@ -179,6 +185,15 @@ class Focus {
   }
 
   close() {
+    // if (this._port) {
+    //   console.log("closing port data >>");
+    //   console.log(inspect(this._port));
+    //   console.log(this._port._eventsCount);
+    //   console.log(
+    //     "Port State: ",
+    //     this._port ? this._port.isOpen : "unable to open"
+    //   );
+    // }
     if (this._port && this._port.isOpen) {
       this._port.close();
     }

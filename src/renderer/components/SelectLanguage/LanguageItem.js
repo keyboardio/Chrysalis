@@ -30,7 +30,7 @@ const styles = () => ({
   },
   languagesText: {
     fontSize: "0.875rem",
-    fontFamily: "'Source Code Pro', monospace",
+    // fontFamily: "'Source Code Pro', monospace",
     letterSpacing: "0.02857em",
     fontWeight: 500,
     lineHeight: 1.75

@@ -1,71 +1,17 @@
 import React, { Component } from "react";
 
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import Slider from "@material-ui/core/Slider";
-import Switch from "@material-ui/core/Switch";
-import Button from "@material-ui/core/Button";
-import Divider from "@material-ui/core/Divider";
-import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import Dropdown from "react-bootstrap/Dropdown";
+import Card from "react-bootstrap/Card";
+import Spinner from "react-bootstrap/Spinner";
+import Form from "react-bootstrap/Form";
 
 import SaveChangesButton from "../../components/SaveChangesButton";
 
 import i18n from "../../i18n";
-
-const styles = theme => ({
-  title: {
-    marginTop: theme.spacing(4),
-    marginBottom: theme.spacing()
-  },
-  control: {
-    display: "flex",
-    marginRight: theme.spacing(2)
-  },
-  group: {
-    display: "block"
-  },
-  grow: {
-    flexGrow: 1
-  },
-  flex: {
-    display: "flex"
-  },
-  select: {
-    paddingTop: theme.spacing(),
-    width: 200
-  },
-  selectContainer: {
-    marginTop: theme.spacing(2)
-  },
-  slider: {
-    width: 300
-  },
-  sliderContainer: {
-    marginTop: theme.spacing(2)
-  },
-  advanced: {
-    display: "flex",
-    justifyContent: "center",
-    marginTop: theme.spacing(4),
-    "& button": {
-      textTransform: "none",
-      "& span svg": {
-        marginLeft: "1.5em"
-      }
-    }
-  },
-  button: {
-    display: "flex",
-    marginTop: theme.spacing(2),
-    marginRight: theme.spacing(2)
-  }
-});
-
 class ColorSettings extends Component {
   constructor(props) {
     super(props);
@@ -137,14 +83,13 @@ class ColorSettings extends Component {
     });
   };
   render() {
-    const { classes } = this.props;
     const redColor = (
-      <Slider
+      <Form.Control
+        type="range"
         max={255}
         min={210}
         disabled={!this.state.testMode}
         value={this.state.RedColorB}
-        className={classes.slider}
         step={3}
         onChange={(e, v) => {
           this.setState({ RedColorB: v, modified: true });
@@ -152,12 +97,12 @@ class ColorSettings extends Component {
       />
     );
     const greenColor = (
-      <Slider
+      <Form.Control
+        type="range"
         max={255}
         min={210}
         disabled={!this.state.testMode}
         value={this.state.GreenColorB}
-        className={classes.slider}
         step={3}
         onChange={(e, v) => {
           this.setState({ GreenColorB: v, modified: true });
@@ -165,12 +110,12 @@ class ColorSettings extends Component {
       />
     );
     const blueColor = (
-      <Slider
+      <Form.Control
+        type="range"
         max={255}
         min={210}
         disabled={!this.state.testMode}
         value={this.state.BlueColorB}
-        className={classes.slider}
         step={3}
         onChange={(e, v) => {
           this.setState({ BlueColorB: v, modified: true });
@@ -178,7 +123,8 @@ class ColorSettings extends Component {
       />
     );
     const testSwitch = (
-      <Switch
+      <Form.Check
+        type="switch"
         checked={this.state.testMode}
         disabled={this.state.working}
         value={false}
@@ -199,79 +145,49 @@ class ColorSettings extends Component {
     );
     return (
       <React.Fragment>
-        {this.state.working && <LinearProgress variant="query" />}
-        <Typography
-          variant="subtitle1"
-          component="h2"
-          className={classes.title}
-        >
-          {i18n.keyboardSettings.colorSettings.title}
-        </Typography>
+        {this.state.working && (
+          <Spinner className="spinner-border text-danger" role="status" />
+        )}
         <Card>
-          <CardContent>
-            <FormControl className={classes.group}>
-              <FormControlLabel
-                className={classes.control}
-                control={testSwitch}
-                classes={{ label: classes.grow }}
-                labelPlacement="start"
-                label={
-                  this.state.testMode
+          <Card.Header className="sectionTitle">
+            {i18n.keyboardSettings.colorSettings.title}
+          </Card.Header>
+          <Card.Body>
+            <Form>
+              <Form.Group controlId="Test">
+                <Form.Label>
+                  {this.state.testMode
                     ? i18n.keyboardSettings.colorSettings.test.quit
-                    : i18n.keyboardSettings.colorSettings.test.enter
-                }
-              />
-              <Divider />
-              <FormControlLabel
-                className={classes.control}
-                classes={{
-                  label: classes.grow,
-                  root: classes.sliderContainer
-                }}
-                control={redColor}
-                labelPlacement="start"
-                label={
-                  i18n.keyboardSettings.colorSettings.red +
-                  ` - ${((this.state.RedColorB / 255) * 100).toFixed(1)}%`
-                }
-              />
-              <FormControlLabel
-                className={classes.control}
-                classes={{
-                  label: classes.grow,
-                  root: classes.sliderContainer
-                }}
-                control={greenColor}
-                labelPlacement="start"
-                label={
-                  i18n.keyboardSettings.colorSettings.green +
-                  ` - ${((this.state.GreenColorB / 255) * 100).toFixed(1)}%`
-                }
-              />
-              <FormControlLabel
-                className={classes.control}
-                classes={{
-                  label: classes.grow,
-                  root: classes.sliderContainer
-                }}
-                control={blueColor}
-                labelPlacement="start"
-                label={
-                  i18n.keyboardSettings.colorSettings.blue +
-                  ` - ${((this.state.BlueColorB / 255) * 100).toFixed(1)}%`
-                }
-              />
-            </FormControl>
-            <FormControlLabel
-              className={classes.button}
-              control={applyButton}
-              classes={{ label: classes.grow }}
-              labelPlacement="start"
-              label={" "}
-            />
-          </CardContent>
-          <CardActions className={classes.flex}>
-            <span className={classes.grow} />
+                    : i18n.keyboardSettings.colorSettings.test.enter}
+                </Form.Label>
+                {testSwitch}
+              </Form.Group>
+              <Form.Group controlId="Red">
+                <Form.Label>
+                  {i18n.keyboardSettings.colorSettings.red +
+                    ` - ${((this.state.RedColorB / 255) * 100).toFixed(1)}%`}
+                </Form.Label>
+                {redColor}
+              </Form.Group>
+              <Form.Group controlId="Test">
+                <Form.Label>
+                  {i18n.keyboardSettings.colorSettings.green +
+                    ` - ${((this.state.GreenColorB / 255) * 100).toFixed(1)}%`}
+                </Form.Label>
+                {greenColor}
+              </Form.Group>
+              <Form.Group controlId="Test">
+                <Form.Label>
+                  {i18n.keyboardSettings.colorSettings.blue +
+                    ` - ${((this.state.BlueColorB / 255) * 100).toFixed(1)}%`}
+                </Form.Label>
+                {blueColor}
+              </Form.Group>
+              <Form.Group>{applyButton}</Form.Group>
+            </Form>
+          </Card.Body>
+          <Card.Footer>
+            <span />
             <SaveChangesButton
               onClick={() => {
                 this.setState({ oldBalance: this.state.balance });
@@ -285,11 +201,11 @@ class ColorSettings extends Component {
             >
               {i18n.components.save.saveChanges}
             </SaveChangesButton>
-          </CardActions>
+          </Card.Footer>
         </Card>
       </React.Fragment>
     );
   }
 }
 
-export default withStyles(styles)(ColorSettings);
+export default ColorSettings;

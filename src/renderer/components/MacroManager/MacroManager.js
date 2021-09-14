@@ -16,84 +16,39 @@
  */
 import React, { Component } from "react";
 
-import { withStyles } from "@material-ui/core/styles";
-import Fab from "@material-ui/core/Fab";
-import CreateIcon from "@material-ui/icons/Create";
-import CloseIcon from "@material-ui/icons/Close";
-import Modal from "@material-ui/core/Modal";
-import IconButton from "@material-ui/core/IconButton";
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardContent from "@material-ui/core/CardContent";
+import Styled from "styled-components";
+import Card from "react-bootstrap/Card";
 import i18n from "../../i18n";
 
 import MacroForm from "./MacroForm";
 
-const styles = theme => ({
-  modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    border: "none",
-    outline: "none"
-  },
-  wrapper: {
-    width: "90vw",
-    position: "relative",
-    //TODO perhaps consider changing this to a more flexible / resizable layout?
-    maxWidth: "1040px",
-    maxHeight: "760px",
-    outline: "none"
-  },
-  root: {
-    width: "100%",
-    height: "100%",
-    backgroundColor: theme.palette.background.default,
-    boxShadow: "0 30px 50px rgba(0, 0, 0, 0.7)",
-    padding: "13px 8px 0",
-    overflowY: "auto",
-    [theme.breakpoints.down("md")]: {
-      overflowY: "scroll"
-    },
-    outline: "none",
-    alignItems: "flex-start"
-  },
-  close: {
-    position: "absolute",
-    right: -20,
-    cursor: "pointer"
-  },
-  margin: {
-    display: "flex",
-    justifyContent: "start",
-    margin: "0 0 15px 30px",
-    width: 170,
-    height: 34,
-    borderRadius: 3,
-    padding: 0
-  },
-  extendedIcon: {
-    marginRight: 20,
-    marginLeft: 10
-  },
-  cardHeader: {
-    backgroundColor: theme.palette.primary.main,
-    color: "#fff"
-  },
-  cardTitle: {
-    color: theme.palette.type === "dark" ? "#000" : "#fff"
-  },
-  card: {
-    width: "100%",
-    height: "100%"
-  },
-  cardcontent: {
-    padding: "0px",
-    "&:last-child": {
-      paddingBottom: "0px"
-    }
+const Styles = Styled.div`
+.card {
+  width: auto;
+  height: 100%;
+  margin: 2rem;
+  padding: 0;
+  overflow: auto;
+  background-color: ${({ theme }) => theme.card.background};
+  color: ${({ theme }) => theme.card.color};
+}
+.card::-webkit-scrollbar {
+  display: none;
+}
+.cardcontent {
+  padding: 0px;
+  &:last-child {
+    padding-bottom: 0px;
   }
-});
+}
+.cardHeader {
+  background-color: ${({ theme }) => theme.card.background};
+  color: ${({ theme }) => theme.card.color};
+}
+.cardTitle {
+  color: ${({ theme }) => theme.card.color};
+}
+`;
 
 class MacroManager extends Component {
   constructor(props) {
@@ -142,7 +97,7 @@ class MacroManager extends Component {
     this.setState({
       macros: macros
     });
-    this.props.updateMacro(macros);
+    this.props.updateMacro(macros, -1);
     this.props.changeSelected(this.state.selected);
     this.exit();
   }
@@ -157,7 +112,7 @@ class MacroManager extends Component {
         id: newID,
         macro: ""
       });
-      this.props.updateMacro(aux);
+      this.props.updateMacro(aux, -1);
       this.changeSelected(newID);
     }
   }
@@ -174,7 +129,7 @@ class MacroManager extends Component {
       if (selected >= this.state.macros.length - 1) {
         this.changeSelected(this.state.macros.length - 1);
       }
-      this.props.updateMacro(aux);
+      this.props.updateMacro(aux, selected);
     }
   }
 
@@ -184,7 +139,7 @@ class MacroManager extends Component {
     aux.id = this.state.macros.length;
     aux.name = "Copy of " + aux.name;
     macros.push(aux);
-    this.props.updateMacro(macros);
+    this.props.updateMacro(macros, -1);
     this.changeSelected(aux.id);
   }
 
@@ -192,6 +147,7 @@ class MacroManager extends Component {
     this.setState({
       selected
     });
+    this.props.changeSelected(selected);
   }
 
   macrosRestore(macros) {
@@ -199,73 +155,38 @@ class MacroManager extends Component {
       macros: macros
     });
     this.changeSelected(0);
-    this.props.updateMacro(macros);
+    this.props.updateMacro(macros, -1);
   }
 
   render() {
-    const { classes, keymapDB } = this.props;
+    const { keymapDB } = this.props;
 
     return (
-      <React.Fragment>
-        <Fab
-          variant="extended"
-          color="primary"
-          aria-label="add"
-          className={classes.margin}
-          onClick={() => {
-            this.setState({
-              open: true
-            });
-          }}
-        >
-          <CreateIcon className={classes.extendedIcon} />
-          {i18n.editor.macros.editMacros}
-        </Fab>
-        <Modal
-          aria-labelledby="transition-modal-title"
-          aria-describedby="transition-modal-description"
-          className={classes.modal}
-          open={this.state.open}
-          onClose={this.exit}
-          closeAfterTransition
-          disableEnforceFocus
-        >
-          <div className={classes.wrapper}>
-            <Card className={classes.card}>
-              <CardHeader
-                classes={{
-                  root: classes.cardHeader,
-                  title: classes.cardTitle
-                }}
-                action={
-                  <IconButton onClick={this.exit} className={classes.cardTitle}>
-                    <CloseIcon />
-                  </IconButton>
-                }
-                title={i18n.editor.macros.title}
-              />
-              <CardContent classes={{ root: classes.cardcontent }}>
-                <MacroForm
-                  key={this.state.macros.length + this.state.selected}
-                  macros={this.state.macros}
-                  close={this.close}
-                  selected={this.state.selected}
-                  accept={this.accept}
-                  keymapDB={keymapDB}
-                  deleteMacro={this.deleteMacro}
-                  addMacro={this.addMacro}
-                  disableAdd={this.state.macros.length === this.props.maxMacros}
-                  changeSelected={this.changeSelected}
-                  duplicateMacro={this.duplicateMacro}
-                  macrosRestore={this.macrosRestore}
-                />
-              </CardContent>
-            </Card>
-          </div>
-        </Modal>
-      </React.Fragment>
+      <Styles>
+        <Card className={"card"}>
+          <Card.Header classes={"cardHeader cardTitle"}>
+            {i18n.editor.macros.title}
+          </Card.Header>
+          <Card.Body classes={"cardcontent"}>
+            <MacroForm
+              key={this.state.macros.length + this.state.selected}
+              macros={this.state.macros}
+              close={this.close}
+              selected={this.state.selected}
+              accept={this.accept}
+              keymapDB={keymapDB}
+              deleteMacro={this.deleteMacro}
+              addMacro={this.addMacro}
+              disableAdd={this.state.macros.length === this.props.maxMacros}
+              changeSelected={this.changeSelected}
+              duplicateMacro={this.duplicateMacro}
+              macrosRestore={this.macrosRestore}
+            />
+          </Card.Body>
+        </Card>
+      </Styles>
     );
   }
 }
 
-export default withStyles(styles)(MacroManager);
+export default MacroManager;

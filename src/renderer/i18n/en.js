@@ -26,7 +26,8 @@ const English = {
     layer: "Layer {0}",
     save: {
       success: "Sent!",
-      saveChanges: "Send changes to the Raise"
+      saveChanges: "Send changes to the Raise",
+      savePreferences: "Save preferences"
     },
     pickerColorButton: "Change color",
     underglowColorButton: "Change color of all underglows",
@@ -42,11 +43,12 @@ const English = {
     menu: {
       comingSoon: "Coming soon...",
       welcome: "Welcome",
-      editor: "Layout & colormap editor",
+      editor: "Layout Editor",
+      macros: "Macro Editor",
       firmwareUpdate: "Firmware Update",
       keyboardSettings: "Keyboard Settings",
       preferences: "Preferences",
-      selectAKeyboard: "Select a keyboard",
+      selectAKeyboard: "Keyboard Selector",
       selectAnotherKeyboard: "Select another keyboard",
       softwareUpdate: "Software update",
       supportPage: "Bazecor support page",
@@ -65,6 +67,7 @@ const English = {
       Chat: "Chat"
     },
     cancelPending: {
+      button: "Discard Changes",
       title: "Cancel pending changes?",
       content: "You have unsaved changes. If you proceed, they will be lost."
     }
@@ -75,6 +78,13 @@ const English = {
     searchForKeyOrCategory: "Search for a key or category",
     keyConfig: "Key Config",
     keySelectorTitle: "Select Key",
+    layers: {
+      importTitle: "Import current layer or backup",
+      exportTitle: "Export the current layer",
+      exportAllTitle: "Backup all layers (Excluding Macros)",
+      clearLayer: "Clear layer",
+      copyFrom: "Copy from layer"
+    },
     groups: {
       Letters: "Letters",
       Digits: "Digits",
@@ -105,7 +115,8 @@ const English = {
     },
     macros: {
       add: "Add new macro",
-      applyAndExit: "Apply & Exit",
+      applyAndExit: "Apply",
+      saveName: "Save name",
       backup: "Backup All",
       backupMacro: "Backup Macros",
       backupMacroFile: "Backup Macros to file",
@@ -124,6 +135,7 @@ const English = {
       loadMacro: "Load Macros",
       loadMacroFile: "Load Macro file",
       macroName: "Macro Name",
+      macroShort: "Macro Short",
       mouse: "Mouse",
       restore: "Restore All",
       restoreMacros: "Restore Macros",
@@ -136,12 +148,27 @@ const English = {
       selectKey: "Select Key",
       selectMacro: "Select a Macro",
       selectMouseFunction: "Select Mouse Function",
-      title: "Macro Editor"
+      title: "Macro Editor",
+      successFlash: "Succesfully sent the macros to the Raise",
+      deleteModal: {
+        title: "This macro is in use",
+        body:
+          "The macro you want to delete is currently in use, select how to proceed, THIS MAKES PERMANENT CHANGES.",
+        cancelButton: "Cancel",
+        applyButton: "Update Keyboard"
+      }
     },
-    clearLayer: "Clear layer",
+    oldMacroModal: {
+      title: "Update your macros",
+      body:
+        "The macros in your layout need to be updated to work on this Bazecor version.",
+      body2:
+        "Please note that the updated macro codes won't work until you flash the new firmware",
+      cancelButton: "Cancel",
+      applyButton: "Update Macros"
+    },
     clearLayerQuestion: "Clear layer?",
     clearLayerPrompt: "This will reset the layer to its default state.",
-    copyFrom: "Copy from layer",
     pleaseSelectLayer: "Please select a layer",
     dualUse: "Modifier when held, normal key otherwise",
     dualUseLayer: "Layer shift when held, normal key otherwise",
@@ -161,13 +188,16 @@ const English = {
     exportSuccessAllLayers: "Exported all Layers succesfully"
   },
   preferences: {
-    devtools: "Developer tools",
-    language: "Language",
+    devtools: "Chrome Tools",
+    language: "Select language",
     interface: "Interface",
-    advanced: "Advanced",
+    tooltips: {
+      language: ""
+    },
+    advanced: "ADVANCED",
     verboseFocus: "Verbose logging",
     darkMode: {
-      label: "Dark mode",
+      label: "Appearance",
       light: "Light",
       dark: "Dark",
       system: "System"
@@ -176,19 +206,32 @@ const English = {
   keyboardSettings: {
     advanced: "Advanced",
     defaultLabel: "default",
+    backupFolder: {
+      header: "BACKUPS",
+      title: "Backup folder",
+      restoreTitle: "Select a backup to restore",
+      loadWindowTitle: "Choose backup folder",
+      windowButton: "Select",
+      windowRestore: "Restore",
+      selectButtonText: "Change",
+      restoreButtonText: "Restore backup",
+      storeTime: "Backup storage period",
+      storeTimeTip:
+        "Determines how long a backup is stored before being deleted"
+    },
     keymap: {
-      title: "KEYMAP SETTINGS",
+      title: "GENERAL",
       noDefault: "No default",
       showHardcoded: "Show hardcoded layers",
       onlyCustom: "Use custom layers only",
       defaultLayer: "Default layer"
     },
     led: {
-      title: "LED PARAMETER CONFIGURATION",
-      brightness: "Adjust LED brightness",
+      title: "LED",
+      brightness: "LED brightness",
       brightnesssub: " - From 0 to 254",
       idleDisabled: "Disabled",
-      idleTimeLimit: "Idle time before LEDs turn off",
+      idleTimeLimit: "Time before LEDs turn off",
       idle: {
         oneMinute: "1 minute",
         twoMinutes: "2 minutes",
@@ -210,18 +253,47 @@ const English = {
         "Adjust overlap threshold between dual-function key and subsequent key",
       overlapThresholdsub: " - Percentage from 0 to 100"
     },
+    superkeys: {
+      title: "TYPING",
+      timeout: "Typing speed",
+      timeoutTip1: "This setting only affects Layer&Key and Superkeys.",
+      timeoutTip2:
+        "- If you select a slow typing speed, some functions of Layer&Key and Superkeys will take slightly more time to trigger.",
+      timeoutTip3:
+        "- For example, holding the key to switch to a layer or activate a modifier (like Shift, Control...).",
+      timeoutTip4:
+        "- If you choose a fast typing speed, you might activate those actions by mistake if you 'linger' too much on the key.",
+      chordingTip1: "This setting only affects Layer&Key.",
+      chordingTip2:
+        "Let's say you have a Layer&Key with 'Layer 1' on hold and 'Space' on tap.",
+      chordingTip3:
+        "- If the slider is at 'None' and you press another key before completely releasing the Space, this will trigger the hold function.",
+      chordingTip4:
+        "- If the slider is at 'High', it'll take a bit more time for the hold function to activate.",
+      repeat:
+        "Adjust repeat time interval between the emmision of holded keys after waitfor period. (this doesn't affect all keys)",
+      repeatsub: " - time from 0 to 254 milliseconds",
+      waitfor:
+        "Adjust time between first and subsequent emmisions of the hold keys",
+      waitforsub: " - time from 0 to 65,534 milliseconds",
+      holdstart: "Chording while typing",
+      holdstartsub: " - time from 0 to 65,534 milliseconds",
+      overlap:
+        "Adjust percentage that changes the way the hold function will trigger depending on the typing speed of the previous normal key",
+      overlapsub: " - Percentage from 0 to 100"
+    },
     mouse: {
-      title: "MOUSE KEYS CONFIGURATION",
+      title: "MOUSE KEYS",
       subtitle1: "MOUSE SPEED",
-      speed: "Initial speed",
+      speed: "Cursor speed",
       speedsub: " - From 0 to 254 pixels",
       speedDelay:
         "Delay between steps (the higher the number, the slower the mouse movement)",
       speedDelaysub: " - From 0 to 65,534 milliseconds",
-      speedLimit: "Overall speed limit",
+      speedLimit: "Maximum cursor speed",
       speedLimitsub: " - From 0 to 254 pixels",
       subtitle2: "MOUSE ACCELERATION",
-      accelSpeed: "Incremental acceleration",
+      accelSpeed: "Cursor acceleration",
       accelSpeedsub: " - From 0 to 254 pixels",
       accelDelay:
         "Acceleration delay between steps (the higher the number, the slower the mouse movement)",
@@ -246,7 +318,7 @@ const English = {
     },
     advancedOps: "Advanced keyboard settings & operations",
     resetEEPROM: {
-      button: "Reset EEPROM to factory defaults",
+      button: "Reset keyboard to factory settings",
       dialogTitle: "Reset EEPROM to factory defaults?",
       dialogContents: `This will reset the EEPROM to factory defaults.
  You will lose all customizations made.`
@@ -264,6 +336,18 @@ const English = {
     permissionErrorSuggestion: `BAZECOR can fix this by installing a udev rules file into /etc/udev/rules.d/.`
   },
   firmwareUpdate: {
+    texts: {
+      advUsers: "Advanced",
+      cstomFW: "Custom Firmware",
+      backwds: "Back",
+      cancel: "Cancel"
+    },
+    milestones: {
+      backup: "Next",
+      esc: "Press and mantain esc",
+      flash: "Uploading ...",
+      restore: "Done, Restoring ..."
+    },
     dialog: {
       selectFirmware: "Select a firmware",
       firmwareFiles: "Firmware files",
@@ -276,12 +360,14 @@ const English = {
       button: "Next",
       buttonSuccess: "Updated!"
     },
+    backupSuccessful: "Backup created successfully!",
     defaultFirmware: "Bazecor {0} default",
     defaultFirmwareDescription: "Minimal, without bells and whistles",
     experimentalFirmware: "Bazecor {0} experimental",
     experimentalFirmwareDescription: "Experimental, with more plugins enabled",
     selected: "Selected firmware",
-    custom: "Custom firmware",
+    custom: "Load custom FW",
+    rcustom: "Remove custom FW",
     description: `To install new features in your Raise we need to update the firmware. By clicking on the Update button, Bazecor will install a new version of your keyboard's firmware. This will overwrite your previous firmware.
 
 To correctly update the firmware, your Raise has to be on LED Rainbow mode.

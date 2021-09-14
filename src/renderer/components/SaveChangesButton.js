@@ -16,60 +16,24 @@
  */
 
 import React from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Button from "@material-ui/core/Button";
-import Fab from "@material-ui/core/Fab";
-import CheckIcon from "@material-ui/icons/Check";
-import SaveAltIcon from "@material-ui/icons/SaveAlt";
-import Tooltip from "@material-ui/core/Tooltip";
-import { withStyles } from "@material-ui/core/styles";
-
+import Styled from "styled-components";
+import Button from "react-bootstrap/Button";
+import Spinner from "react-bootstrap/Spinner";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+import { MdSave, MdCheck, MdRefresh } from "react-icons/md";
 import i18n from "../i18n";
 
-const styles = theme => ({
-  root: {
-    display: "flex",
-    alignItems: "center"
-  },
-  wrapper: {
-    margin: theme.spacing(),
-    position: "relative"
-  },
-  buttonSuccess: {
-    backgroundColor: theme.palette.success.main,
-    "&:hover": {
-      backgroundColor: theme.palette.success.dark
-    }
-  },
-  fabProgress: {
-    color: theme.palette.success.main,
-    position: "absolute",
-    top: -6,
-    left: -6,
-    zIndex: 1
-  },
-  buttonProgress: {
-    color: theme.palette.success.main,
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    marginTop: -12,
-    marginLeft: -12
-  },
-  icon: {
-    marginRight: -16,
-    zIndex: 1
-  },
-  fab: {
-    position: "fixed",
-    justifyContent: "flex-end",
-    bottom: 0,
-    right: theme.spacing(4)
-  }
-});
+const Styles = Styled.div`
+.svgIcon {
+  vertical-align: -4px;
+  margin-right: 0.5em;
+}
+
+`;
 
 class SaveChangesButton extends React.Component {
   state = {
@@ -101,68 +65,62 @@ class SaveChangesButton extends React.Component {
 
   render() {
     const { inProgress, success } = this.state;
-    const { classes, successMessage } = this.props;
-    let buttonClassname = classNames({
-      [classes.buttonSuccess]: success
-    });
+    const { successMessage, centered } = this.props;
 
     const textPart = !this.props.floating && (
-      <div className={classes.wrapper}>
-        <Button
-          variant="contained"
-          color="primary"
-          className={buttonClassname}
-          disabled={inProgress || (this.props.disabled && !success)}
-          onClick={this.handleButtonClick}
-        >
-          {success
-            ? successMessage || i18n.components.save.success
-            : this.props.children}
-        </Button>
-      </div>
+      <span>
+        {success
+          ? successMessage || i18n.components.save.success
+          : this.props.children}
+      </span>
     );
 
-    const icon = this.props.icon || <SaveAltIcon />;
-
-    const OptionalTooltip = props => {
-      if (this.props.floating) {
-        return <Tooltip title={this.props.children}>{props.children}</Tooltip>;
-      }
-      return props.children;
-    };
+    const icon = this.props.icon || <MdSave className="svgIcon" />;
 
     return (
-      <OptionalTooltip>
-        <div
-          className={classNames(
-            classes.root,
-            this.props.className,
-            this.props.floating && classes.fab
-          )}
-        >
-          <div className={classNames(classes.wrapper, classes.icon)}>
-            <Fab
-              disabled={inProgress || (this.props.disabled && !success)}
-              color="primary"
-              className={buttonClassname}
-              classes={{ disabled: classes.disabled }}
-              onClick={this.handleButtonClick}
+      <Styles>
+        <Container fluid>
+          <Row className={centered ? "justify-content-center" : ""}>
+            <OverlayTrigger
+              rootClose
+              placement="top"
+              overlay={
+                <Tooltip id={"save-tooltip"}>
+                  Save your layer modifications to the raise.
+                </Tooltip>
+              }
             >
-              {success ? <CheckIcon /> : icon}
-            </Fab>
-            {inProgress && (
-              <CircularProgress size={68} className={classes.fabProgress} />
-            )}
-          </div>
-          {textPart}
-        </div>
-      </OptionalTooltip>
+              <Button
+                disabled={inProgress || (this.props.disabled && !success)}
+                variant="primary"
+                className="m-0 p-2"
+                onClick={this.handleButtonClick}
+              >
+                <Col>
+                  <h5 className="m-0">
+                    {inProgress ? (
+                      <Spinner
+                        as="span"
+                        variant="primary"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                      />
+                    ) : success ? (
+                      <MdCheck className="svgIcon" />
+                    ) : (
+                      icon
+                    )}
+                    {textPart}
+                  </h5>
+                </Col>
+              </Button>
+            </OverlayTrigger>
+          </Row>
+        </Container>
+      </Styles>
     );
   }
 }
 
-SaveChangesButton.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-export default withStyles(styles)(SaveChangesButton);
+export default SaveChangesButton;

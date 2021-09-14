@@ -1,0 +1,98 @@
+@font-face {
+  font-family: AktivGrotesk;
+  src: local("AktivGrotesk-Hairline"),
+    url("fonts/AktivGrotesk-Hairline.otf") format("opentype");
+  font-weight: 100;
+  font-style: normal;
+}
+@font-face {
+  font-family: AktivGrotesk;
+  src: local("AktivGrotesk-HairlineItalic"),
+    url("fonts/AktivGrotesk-HairlineItalic.otf") format("opentype");
+  font-weight: 100;
+  font-style: italic;
+}
+@font-face {
+  font-family: AktivGrotesk;
+  src: local("AktivGrotesk-Thin"),
+    url("fonts/AktivGrotesk-Thin.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
+}
+@font-face {
+  font-family: AktivGrotesk;
+  src: local("AktivGrotesk-ThinItalic"),
+    url("fonts/AktivGrotesk-ThinItalic.otf") format("opentype");
+  font-weight: 200;
+  font-style: italic;
+}
+@font-face {
+  font-family: AktivGrotesk;
+  src: local("AktivGrotesk-Light"),
+    url("fonts/AktivGrotesk-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: AktivGrotesk;
+  src: local("AktivGrotesk-LightItalic"),
+    url("fonts/AktivGrotesk-LightItalic.otf") format("opentype");
+  font-weight: 300;
+  font-style: italic;
+}
+@font-face {
+  font-family: AktivGrotesk;
+  src: local("AktivGrotesk-Regular"),
+    url("fonts/AktivGrotesk-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: AktivGrotesk;
+  src: local("AktivGrotesk-Italic"),
+    url("fonts/AktivGrotesk-Italic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: AktivGrotesk;
+  font-weight: 600;
+  font-style: normal;
+  src: local("AktivGrotesk-Medium"),
+    url("fonts/AktivGrotesk-Medium.otf") format("opentype");
+}
+@font-face {
+  font-family: AktivGrotesk;
+  font-weight: 600;
+  font-style: italic;
+  src: local("AktivGrotesk-MediumItalic"),
+    url("fonts/AktivGrotesk-MediumItalic.otf") format("opentype");
+}
+@font-face {
+  font-family: AktivGrotesk;
+  font-weight: 700;
+  font-style: normal;
+  src: local("AktivGrotesk-Bold"),
+    url("fonts/AktivGrotesk-Bold.otf") format("opentype");
+}
+@font-face {
+  font-family: AktivGrotesk;
+  font-weight: 700;
+  font-style: italic;
+  src: local("AktivGrotesk-BoldItalic"),
+    url("fonts/AktivGrotesk-BoldItalic.otf") format("opentype");
+}
+@font-face {
+  font-family: AktivGrotesk;
+  font-weight: 900;
+  font-style: normal;
+  src: local("AktivGrotesk-XBold"),
+    url("fonts/AktivGrotesk-XBold.otf") format("opentype");
+}
+@font-face {
+  font-family: AktivGrotesk;
+  font-weight: 900;
+  font-style: italic;
+  src: local("AktivGrotesk-XBoldItalic"),
+    url("fonts/AktivGrotesk-XBoldItalic.otf") format("opentype");
+}

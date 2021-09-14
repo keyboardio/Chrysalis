@@ -25,6 +25,8 @@ const Dark = {
       deselected: "#555",
       hover: "#777",
       disabled: "#444",
+      cancel: "#ef26268f",
+      save: "#24e24dad",
       active: "#AAA",
       secondary: "#BBB",
       activeText: "#000",

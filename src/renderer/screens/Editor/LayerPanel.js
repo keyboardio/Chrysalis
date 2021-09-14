@@ -25,6 +25,10 @@ import {
 const toolsWidth = 45;
 
 const Styles = Styled.div`
+.nameField {
+  height: 40px;
+  padding: 7px 3px;
+}
 .layer-editor {
   width: ${toolsWidth * 4}px;
   z-index: 11;
@@ -165,10 +169,10 @@ export default class LayerPanel extends React.Component {
     let { selectLayer } = this.props;
     console.log(id);
     selectLayer(id);
-    this.setState = {
+    this.setState({
       currentLayer: id,
       editCurrent: -1
-    };
+    });
   }
 
   CButton(text, func, icon, disable) {
@@ -196,7 +200,7 @@ export default class LayerPanel extends React.Component {
   }
 
   updateText(event) {
-    console.log(event.target.value);
+    this.props.changeLayerName(event.target.value);
   }
 
   render() {
@@ -232,6 +236,7 @@ export default class LayerPanel extends React.Component {
               <Form.Control
                 value={name}
                 as="textarea"
+                className="nameField"
                 onChange={this.updateText}
               />
             ) : (

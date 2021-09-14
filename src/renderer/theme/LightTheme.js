@@ -25,6 +25,8 @@ const Light = {
       deselected: "#e5e5e5",
       hover: "#b0e3ff",
       disabled: "#999",
+      cancel: "#ef26268f",
+      save: "#24e24dad",
       active: "#96dbff",
       secondary: "#7b7e82",
       activeText: "#FFF",

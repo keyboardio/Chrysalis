@@ -65,6 +65,12 @@ const Styles = Styled.div`
     width: -webkit-fill-available;
     text-align: left;
   }
+  .cancel-active{
+    background-color: ${({ theme }) => theme.colors.button.cancel};
+  }
+  .save-active{
+    background-color: ${({ theme }) => theme.colors.button.save};
+  }
   .button-large:not(:disabled):not(.disabled):hover {
     color: ${({ theme }) => theme.colors.button.text};
     background-color: ${({ theme }) => theme.colors.button.active};
@@ -573,7 +579,9 @@ class MacrosConfigurator extends React.Component {
               <Button
                 disabled={!this.state.modified}
                 onClick={this.writeMacros}
-                className="button-large pt-0 mt-0 mb-2"
+                className={`button-large pt-0 mt-0 mb-2 ${
+                  this.state.modified ? "save-active" : ""
+                }`}
                 aria-controls="save-changes"
               >
                 <FiSave />
@@ -583,7 +591,9 @@ class MacrosConfigurator extends React.Component {
               <Button
                 disabled={!this.state.modified}
                 onClick={this.loadMacros}
-                className="button-large pt-0 mt-0 mb-2"
+                className={`button-large pt-0 mt-0 mb-2 ${
+                  this.state.modified ? "cancel-active" : ""
+                }`}
                 aria-controls="discard-changes"
               >
                 <FiTrash2 />

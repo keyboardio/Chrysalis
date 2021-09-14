@@ -46,7 +46,6 @@ import {
 
 import { getStaticPath } from "../config";
 import i18n from "../i18n";
-import { flash } from "react-animations";
 
 // const ModalStyle = Styled.div`
 // background-color: ${({ theme }) => theme.card.background};

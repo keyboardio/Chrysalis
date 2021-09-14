@@ -30,7 +30,6 @@ import Card from "react-bootstrap/Card";
 import { MdKeyboard } from "react-icons/md";
 import { IoMdColorPalette } from "react-icons/io";
 import { FiSave, FiTrash2 } from "react-icons/fi";
-import slideInUp from "react-animations/lib/slide-in-up";
 
 import Focus from "../../../api/focus";
 import Backup from "../../../api/backup";
@@ -51,7 +50,6 @@ import {
   shareLayers
 } from "../../../api/firebase/firebase.utils";
 
-const SlideInAnim = keyframes`${slideInUp}`;
 const Store = window.require("electron-store");
 const store = new Store();
 

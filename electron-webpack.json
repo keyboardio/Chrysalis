@@ -31,8 +31,8 @@
     "react-localization",
     "react-toastify",
     "react-beautiful-dnd",
-    "react-animations",
     "styled-components",
+    "source-map-support",
     "react-bootstrap-range-slider"
   ]
 }

@@ -27,8 +27,6 @@ import i18n from "./i18n";
 import Focus from "../api/focus";
 import "../api/keymap";
 import "../api/colormap";
-import "typeface-roboto/index.css";
-import "typeface-source-code-pro/index.css";
 import "react-toastify/dist/ReactToastify.css";
 
 import GlobalStyles from "./theme/GlobalStyles";

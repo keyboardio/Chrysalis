@@ -23,7 +23,7 @@ const japaneseLetters = [
   {
     code: 53,
     labels: {
-      primary: "ろ"
+      primary: "半角/全角 漢字"
     }
   },
   {
@@ -300,6 +300,42 @@ const japaneseLetters = [
     labels: {
       primary: "め"
     }
+  },
+  {
+    code: 135,
+    labels: {
+      primary: "\\ろ"
+    },
+    newGroupName: "Punctuation"
+  },
+  {
+    code: 136,
+    labels: {
+      primary: "Hiragana",
+      verbose: "カタカナ/ひらがな/ローマ字"
+    },
+    newGroupName: "Punctuation"
+  },
+  {
+    code: 137,
+    labels: {
+      primary: "¥"
+    },
+    newGroupName: "Punctuation"
+  },
+  {
+    code: 138,
+    labels: {
+      primary: "変換"
+    },
+    newGroupName: "Punctuation"
+  },
+  {
+    code: 139,
+    labels: {
+      primary: "無変換"
+    },
+    newGroupName: "Punctuation"
   }
 ];
 

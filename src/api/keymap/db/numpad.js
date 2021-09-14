@@ -23,105 +23,105 @@ const NumpadTable = {
     {
       code: 89,
       labels: {
-        top: "Numpad",
+        top: "Num",
         primary: "1"
       }
     },
     {
       code: 90,
       labels: {
-        top: "Numpad",
+        top: "Num",
         primary: "2"
       }
     },
     {
       code: 91,
       labels: {
-        top: "Numpad",
+        top: "Num",
         primary: "3"
       }
     },
     {
       code: 92,
       labels: {
-        top: "Numpad",
+        top: "Num",
         primary: "4"
       }
     },
     {
       code: 93,
       labels: {
-        top: "Numpad",
+        top: "Num",
         primary: "5"
       }
     },
     {
       code: 94,
       labels: {
-        top: "Numpad",
+        top: "Num",
         primary: "6"
       }
     },
     {
       code: 95,
       labels: {
-        top: "Numpad",
+        top: "Num",
         primary: "7"
       }
     },
     {
       code: 96,
       labels: {
-        top: "Numpad",
+        top: "Num",
         primary: "8"
       }
     },
     {
       code: 97,
       labels: {
-        top: "Numpad",
+        top: "Num",
         primary: "9"
       }
     },
     {
       code: 98,
       labels: {
-        top: "Numpad",
+        top: "Num",
         primary: "0"
       }
     },
     {
       code: 99,
       labels: {
-        top: "Numpad",
+        top: "Num",
         primary: "."
       }
     },
     {
       code: 85,
       labels: {
-        top: "Numpad",
+        top: "Num",
         primary: "*"
       }
     },
     {
       code: 86,
       labels: {
-        top: "Numpad",
+        top: "Num",
         primary: "-"
       }
     },
     {
       code: 87,
       labels: {
-        top: "Numpad",
+        top: "Num",
         primary: "+"
       }
     },
     {
       code: 88,
       labels: {
-        top: "Numpad",
+        top: "Num",
         primary: "Enter"
       }
     },
@@ -135,7 +135,7 @@ const NumpadTable = {
     {
       code: 84,
       labels: {
-        top: "Numpad",
+        top: "Num",
         primary: "/"
       }
     }

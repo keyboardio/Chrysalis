@@ -1,10 +1,11 @@
 /* eslint-disable react/jsx-filename-extension */
-import React, { Component, Fragment } from "react";
+import React from "react";
 
 // Bootstrap components
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Styled from "styled-components";
@@ -141,28 +142,34 @@ const Styles = Styled.div`
 }
 }`;
 
-export default class LayerPanel extends Component {
+export default class LayerPanel extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       currentLayer: props.currentLayer,
-      isReadOnly: props.isReadOnly
+      isReadOnly: props.isReadOnly,
+      editCurrent: -1
     };
+    this.ActOnClick = this.ActOnClick.bind(this);
+    this.LayerSel = this.LayerSel.bind(this);
+    this.updateText = this.updateText.bind(this);
+    this.spare = this.spare.bind(this);
   }
 
   spare() {
     console.log("disabled");
   }
 
-  LayerSel = id => {
+  LayerSel(id) {
     let { selectLayer } = this.props;
     console.log(id);
     selectLayer(id);
     this.setState = {
-      currentLayer: id
+      currentLayer: id,
+      editCurrent: -1
     };
-  };
+  }
 
   CButton(text, func, icon, disable) {
     const id = `tooltip-${text}`;
@@ -176,8 +183,24 @@ export default class LayerPanel extends Component {
     );
   }
 
+  ActOnClick(id) {
+    let { currentLayer } = this.state;
+
+    if (currentLayer == id) {
+      this.setState({
+        editCurrent: id
+      });
+    } else {
+      this.LayerSel(id);
+    }
+  }
+
+  updateText(event) {
+    console.log(event.target.value);
+  }
+
   render() {
-    const { isReadOnly } = this.state;
+    const { isReadOnly, editCurrent } = this.state;
     const {
       layers,
       currentLayer,
@@ -199,16 +222,26 @@ export default class LayerPanel extends Component {
         <Button
           key={menuKey}
           onClick={() => {
-            this.LayerSel(id);
+            this.ActOnClick(id);
           }}
           className="layer-button"
           active={currentLayer === id}
         >
           <div className="button-content">
-            <div className="left">{name}</div>
-            <div className="right">
-              {currentLayer === id && isReadOnly ? <MdLock /> : <></>}
-            </div>
+            {editCurrent == id ? (
+              <Form.Control
+                value={name}
+                as="textarea"
+                onChange={this.updateText}
+              />
+            ) : (
+              <React.Fragment>
+                <div className="left">{(idx + 1).toString() + ": " + name}</div>
+                <div className="right">
+                  {currentLayer === id && isReadOnly ? <MdLock /> : <></>}
+                </div>
+              </React.Fragment>
+            )}
           </div>
         </Button>
       );

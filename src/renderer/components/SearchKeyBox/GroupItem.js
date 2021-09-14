@@ -24,6 +24,7 @@ import PropTypes from "prop-types";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
+import Tooltip from "@material-ui/core/Tooltip";
 import MultipleKeysGroup from "./MultipleKeysGroup";
 
 GroupItem.propTypes = {
@@ -125,13 +126,15 @@ function GroupItem(props) {
               className={classes.key}
               onClick={() => keySelect(code)}
             >
-              <Button
-                variant={code === selectedKeyCode ? "contained" : "outlined"}
-                color={code === selectedKeyCode ? "primary" : "default"}
-                className={classes.button}
-              >
-                {primary || (isTransparent(verbose) && "Transp.")}
-              </Button>
+              <Tooltip title={verbose || primary}>
+                <Button
+                  variant={code === selectedKeyCode ? "contained" : "outlined"}
+                  color={code === selectedKeyCode ? "primary" : "default"}
+                  className={classes.button}
+                >
+                  {primary || (isTransparent(verbose) && "Transp.")}
+                </Button>
+              </Tooltip>
             </Grid>
           ) : null}
         </React.Fragment>

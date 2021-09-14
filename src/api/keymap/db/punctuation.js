@@ -89,7 +89,7 @@ const PunctuationTable = {
     {
       code: 57,
       labels: {
-        primary: "CAPSLOCK",
+        primary: "⇪",
         verbose: "Caps Lock"
       }
     },

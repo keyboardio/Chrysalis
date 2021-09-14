@@ -21,68 +21,99 @@ const MediaControlTable = {
     {
       code: 19682,
       labels: {
-        top: "Media",
-        primary: "MUTE"
+        top: "",
+        primary: "🔇",
+        verbose: "MUTE"
       }
     },
     {
       code: 22709,
       labels: {
-        top: "Media",
-        primary: "TRACK+",
+        top: "",
+        primary: "⏭",
         verbose: "Next track"
       }
     },
     {
       code: 22710,
       labels: {
-        top: "Media",
-        primary: "TRACK-",
+        top: "",
+        primary: "⏮",
         verbose: "Prev. track"
       }
     },
     {
       code: 22711,
       labels: {
-        top: "Media",
-        primary: "STOP"
+        top: "",
+        primary: "⏹",
+        verbose: "STOP"
       }
     },
     {
       code: 22733,
       labels: {
-        top: "Media",
-        primary: "PLAY",
+        top: "",
+        primary: "⏯",
         verbose: "Play / pause"
       }
     },
     {
       code: 23785,
       labels: {
-        top: "Media",
-        primary: "VOL+",
+        top: "",
+        primary: "🔊",
         verbose: "Volume up"
       }
     },
     {
       code: 23786,
       labels: {
-        top: "Media",
-        primary: "VOL-",
+        top: "",
+        primary: "🔉",
         verbose: "Volume down"
       }
     },
     {
       code: 22712,
       labels: {
-        top: "Media",
-        primary: "Eject"
+        top: "",
+        primary: "⏏",
+        verbose: "Eject"
+      }
+    },
+    {
+      code: 18552,
+      labels: {
+        top: "",
+        primary: "Camera"
+      }
+    },
+    {
+      code: 23663,
+      labels: {
+        top: "Display",
+        primary: "Bright +"
+      }
+    },
+    {
+      code: 23664,
+      labels: {
+        top: "Display",
+        primary: "Bright -"
+      }
+    },
+    {
+      code: 18834,
+      labels: {
+        top: "Apps",
+        primary: "Calc"
       }
     },
     {
       code: 22713,
       labels: {
-        top: "Media",
+        top: "",
         primary: "Shuff."
       }
     }

@@ -15,8 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { Component } from "react";
-import Styled, { keyframes } from "styled-components";
+import React from "react";
+import Styled from "styled-components";
 import { toast } from "react-toastify";
 
 // Bootstrap components
@@ -37,7 +37,6 @@ import Keymap, { KeymapDB } from "../../../api/keymap";
 import LayerPanel from "./LayerPanel";
 import ColorPanel from "./ColorPanel";
 import KeyConfig from "../../components/KeyManager/";
-import SaveChangesButton from "../../components/SaveChangesButton";
 import ConfirmationDialog from "../../components/ConfirmationDialog";
 import i18n from "../../i18n";
 import settings from "electron-settings";
@@ -157,15 +156,28 @@ const Styles = Styled.div`
 }
 `;
 
-class Editor extends Component {
+class Editor extends React.Component {
+  defaultLayerNames = [
+    "L1",
+    "L2",
+    "L3",
+    "L4",
+    "L5",
+    "L6",
+    "L7",
+    "L8",
+    "L9",
+    "L10"
+  ];
+
   constructor(props) {
     super(props);
-
     this.bkp = new Backup();
 
     this.state = {
       currentLayer: 0,
       previousLayer: 0,
+      layerNames: store.get("layerNames") || this.defaultLayerNames,
       currentKeyIndex: -1,
       currentLedIndex: -1,
       previousKeyIndex: 0,
@@ -193,6 +205,7 @@ class Editor extends Component {
       undeglowColors: null,
       showMacroModal: false
     };
+    this.onLayerNameChange = this.onLayerNameChange.bind(this);
     this.updateMacros = this.updateMacros.bind(this);
     this.toExport = this.toExport.bind(this);
     this.toImport = this.toImport.bind(this);
@@ -207,6 +220,16 @@ class Editor extends Component {
 
   keymapDB = new KeymapDB();
   undeglowCount = 14;
+
+  onLayerNameChange(newName) {
+    const layerNames = this.state.layerNames.slice();
+    layerNames[this.state.currentLayer] = newName;
+    this.setState({
+      layerNames: layerNames
+    });
+    store.set("layerNames", layerNames);
+  }
+
   /**
    * Bottom menu never hide and automatically select a key at launch and have this shown in the bottom menu
    */
@@ -303,9 +326,6 @@ class Editor extends Component {
           }
         },
         () => {
-          palette[this.undeglowCount] = this.state.undeglowColors[
-            this.state.currentLayer
-          ];
           this.setState({
             currentLayer: this.state.previousLayer,
             defaultLayer: defLayer,
@@ -838,8 +858,16 @@ class Editor extends Component {
   };
   importLayer = data => {
     if (data.palette.length > 0) this.setState({ palette: data.palette });
+    let layerNames = this.state.layerNames.slice();
+    for (let i = 0; i < data.layerNames.length; i++) {
+      layerNames[i] = data.layerNames[i];
+    }
+    const { currentLayer } = this.state;
+    if (data.layerName && currentLayer) {
+      layerNames[currentLayer] = data.layerName;
+    }
+    this.setState({ layerNames: layerNames });
     if (data.keymap.length > 0 && data.colormap.length > 0) {
-      const { currentLayer } = this.state;
       if (this.state.keymap.onlyCustom) {
         if (currentLayer >= 0) {
           this.setState(state => {
@@ -1241,6 +1269,7 @@ class Editor extends Component {
             } else {
               console.log(layers.keymap.custom[0]);
               this.setState({
+                layerNames: layers.layerNames,
                 keymap: layers.keymap,
                 colorMap: layers.colormap,
                 palette: layers.palette,
@@ -1269,7 +1298,7 @@ class Editor extends Component {
   }
 
   toExport() {
-    const { keymap, currentLayer } = this.state;
+    const { layerNames, keymap, currentLayer } = this.state;
     let layerData, isReadOnly;
     if (keymap.onlyCustom) {
       isReadOnly = currentLayer < 0;
@@ -1284,6 +1313,7 @@ class Editor extends Component {
     }
     let data = JSON.stringify(
       {
+        layerNames: layerNames,
         keymap: layerData,
         colormap: this.state.colorMap[currentLayer],
         palette: this.state.palette
@@ -1324,9 +1354,10 @@ class Editor extends Component {
   }
 
   toExportAll() {
-    const { keymap, colorMap, palette, superkeys } = this.state;
+    const { keymap, colorMap, palette, superkeys, layerNames } = this.state;
     let data = JSON.stringify(
       {
+        layerNames,
         keymap,
         colormap: colorMap,
         palette,
@@ -1392,6 +1423,12 @@ class Editor extends Component {
     this.setState({ showMacroModal: false, modified: true, keymap });
     this.props.startContext();
     this.onApply();
+  }
+
+  layerName(index) {
+    return this.state?.layerNames?.length >= index
+      ? this.state.layerNames[index]
+      : this.defaultLayerNames[index];
   }
 
   render() {
@@ -1489,8 +1526,7 @@ class Editor extends Component {
 
     const copyCustomItems = this.state.keymap.custom.map((_, index) => {
       const idx = index + (keymap.onlyCustom ? 0 : keymap.default.length);
-      const label = i18n.formatString(i18n.components.layer, idx + 1);
-
+      const label = (idx + 1).toString() + ": " + this.layerName(idx);
       return {
         index: idx,
         label: label
@@ -1500,8 +1536,7 @@ class Editor extends Component {
       showDefaults &&
       keymap.default.map((_, index) => {
         const idx = index - (keymap.onlyCustom ? keymap.default.length : 0),
-          label = i18n.formatString(i18n.components.layer, idx);
-
+          label = idx.toString();
         return {
           index: idx,
           label: label
@@ -1514,7 +1549,7 @@ class Editor extends Component {
     const layerMenu = keymap.custom.map((_, index) => {
       const idx = index + (keymap.onlyCustom ? 0 : keymap.default.length);
       return {
-        name: i18n.formatString(i18n.components.layer, idx + 1),
+        name: this.layerName(idx),
         id: idx
       };
     });
@@ -1587,6 +1622,7 @@ class Editor extends Component {
                 copyFunc={this.copyFromDialog}
                 clearTitle={i18n.editor.layers.clearLayer}
                 clearFunc={this.confirmClear}
+                changeLayerName={this.onLayerNameChange}
               />
             </Col>
           </Row>

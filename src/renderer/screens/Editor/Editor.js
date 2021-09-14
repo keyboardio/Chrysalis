@@ -63,9 +63,15 @@ const styles = theme => ({
   },
   layerName: {
     textAlign: "center",
-    fontSize: 32,
-    fontWeight: "bold",
-    border: 0
+    fontSize: 24,
+    fontWeight: "300",
+    borderRadius: "8px",
+    border: "4px solid transparent",
+    background: theme.palette.selectItem.main,
+    color: theme.palette.type == "dark" ? "#FFF" : "#000"
+  },
+  layerNameItem: {
+    marginRight: theme.spacing(4)
   },
   layerSelectItem: {
     display: "inline-flex"
@@ -1138,23 +1144,6 @@ class Editor extends React.Component {
     const layer = (
       <Fade in appear key={currentLayer}>
         <div className={classes.editor}>
-          <Tooltip
-            disableFocusListener
-            title={
-              "Layer names are persistent locally (per user profile), but not to keyboard." +
-              "Export to cloud for use on other machines."
-            }
-          >
-            <div className={classes.layerName}>
-              <input
-                className={classes.layerName}
-                type="text"
-                id="layerName"
-                value={this.layerName(this.state.currentLayer)}
-                onChange={value => this.onLayerNameChange(value)}
-              ></input>
-            </div>
-          </Tooltip>
           <Layer
             className={classNames("layer", isReadOnly && classes.disabledLayer)}
             readOnly={isReadOnly}
@@ -1240,6 +1229,23 @@ class Editor extends React.Component {
         <Portal container={this.props.appBarElement}>
           <Toolbar className={classes.toolbar}>
             <div className={classes.grow} />
+            <Tooltip
+              disableFocusListener
+              title={
+                "Layer names are persistent locally (per user profile), but not to keyboard." +
+                "Export to cloud for use on other machines."
+              }
+            >
+              <div className={classes.layerNameItem}>
+                <input
+                  className={classes.layerName}
+                  type="text"
+                  id="layerName"
+                  value={this.layerName(this.state.currentLayer)}
+                  onChange={value => this.onLayerNameChange(value)}
+                ></input>
+              </div>
+            </Tooltip>
             <FormControl className={classes.layerSelect}>
               <Select
                 value={currentLayer}

@@ -14,13 +14,13 @@ import Styled from "styled-components";
 import {
   MdLock,
   MdShare,
-  MdPublish,
   MdContentCopy,
   MdUnarchive,
   MdDelete,
-  MdAdd,
-  MdGetApp
+  MdAdd
 } from "react-icons/md";
+// Icons
+import { BiUpload, BiDownload } from "react-icons/bi";
 
 const toolsWidth = 45;
 
@@ -255,8 +255,8 @@ export default class LayerPanel extends React.Component {
     const buttons = (
       <>
         {/* {this.CButton("Add - Layer", this.spare, <MdAdd />, true)} */}
-        {this.CButton(importTitle, importFunc, <MdGetApp />, false)}
-        {this.CButton(exportTitle, exportFunc, <MdPublish />, false)}
+        {this.CButton(importTitle, importFunc, <BiDownload />, false)}
+        {this.CButton(exportTitle, exportFunc, <BiUpload />, false)}
         {this.CButton(copyTitle, copyFunc, <MdContentCopy />, false)}
         {this.CButton(clearTitle, clearFunc, <MdDelete />, false)}
       </>

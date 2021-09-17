@@ -161,6 +161,24 @@ export default class LayerPanel extends React.Component {
     this.spare = this.spare.bind(this);
   }
 
+  componentDidMount() {
+    document.addEventListener("keydown", this._handleKeyDown);
+  }
+
+  _handleKeyDown = event => {
+    switch (event.keyCode) {
+      case 13:
+        console.log("Enter key logged");
+        if (this.state.editCurrent == this.state.currentLayer) {
+          this.setState({ editCurrent: -1 });
+          this.upload();
+        }
+        break;
+      default:
+        break;
+    }
+  };
+
   spare() {
     console.log("disabled");
   }

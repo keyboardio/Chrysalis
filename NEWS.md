@@ -1,6 +1,6 @@
 Chrysalis 0.8.5
 ===============
-UNRELEASED
+Released on 2021-09-27
 
 ## Firmware update
 

@@ -1,3 +1,24 @@
+Chrysalis 0.8.5
+===============
+UNRELEASED
+
+## Firmware update
+
+All of the firmware files Chrysalis ships with has been updated, built with the
+latest Kaleidoscope. This fixes a large number of issues, mostly related to the
+OneShot, TapDance, and Qukeys plugins. Upgrading to newer firmware is highly
+recommended.
+
+## UI/UX Improvements
+
+Flashing instructions for the Keyboardio Model01 and the Keyboardio Atreus have
+been improved.
+
+## Bugfixes
+
+The tooltip for sticky modifier keys no longer have the word "modifier"
+duplicated.
+
 Chrysalis 0.8.4
 ===============
 Released on 2021-04-05

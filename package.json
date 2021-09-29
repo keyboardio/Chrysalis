@@ -54,7 +54,7 @@
       ]
     },
     "afterPack": "./build/afterPackHook.js",
-    "afterSign": "./build/afterSignHook.js",
+    "afterSign": "electron-builder-notarize",
     "extraResources": [
       {
         "from": "./build/launcher.sh",
@@ -112,6 +112,7 @@
     "babel-loader": "^8.0.2",
     "electron": "^12.0.0",
     "electron-builder": "^22.9.1",
+    "electron-builder-notarize": "^1.2.0",
     "electron-notarize": "^1.0.0",
     "electron-webpack": "^2.8.2",
     "electron-webpack-eslint": "^6.0.0",

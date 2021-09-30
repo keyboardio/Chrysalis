@@ -57,14 +57,14 @@ jobs:
         uses: samuelmeuli/action-electron-builder@v1
         env:
           YARN_GPG: no
+          API_KEY_ID: ${{ secrets.api_key_id }}
+          API_KEY_ISSUER_ID: ${{ secrets.api_key_issuer_id }}
         with:
           # GitHub token, automatically provided to the action
           # (No need to define this secret in the repo settings)
           github_token: ${{ secrets.github_token }}
           mac_certs: ${{ secrets.mac_certs }}
           mac_certs_password: ${{ secrets.mac_certs_password }}
-          API_KEY_ID: ${{ secrets.api_key_id }}
-          API_KEY_ISSUER_ID: ${{ secrets.api_key_issuer_id }}
 
           # We supply a build script name, so that we compile the source before
           # trying to package them up. Without compiling them, we won't have the

@@ -1,3 +1,16 @@
+Chrysalis 0.8.6
+===============
+Released on 2021-10-02
+
+## Bugfixes
+
+Fixed a typo in the Keyboardio Model01 flashing instructions.
+
+## Miscellaneous
+
+The macOS pre-built binaries are signed once again, making their installation
+more straightforward and secure.
+
 Chrysalis 0.8.5
 ===============
 Released on 2021-09-27

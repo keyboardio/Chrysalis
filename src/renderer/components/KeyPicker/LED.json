@@ -6,7 +6,7 @@
     "centered": true,
     "content": {
       "type": "block",
-      "first": "Prev",
+      "first": "Next",
       "second": "Led",
       "third": "",
       "fourth": ""
@@ -19,7 +19,7 @@
     "centered": true,
     "content": {
       "type": "block",
-      "first": "Next",
+      "first": "Prev",
       "second": "Led",
       "third": "",
       "fourth": ""

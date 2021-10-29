@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Bazecor -- Kaleidoscope Command Center
- * Copyright (C) 2019  Keyboardio, Inc.
+ * Copyright (C) 2018, 2019  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -15,6 +15,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import SearchKeyBox from "./SearchKeyBox.js";
+import React, { Fragment } from "react";
+import i18n from "../../i18n";
 
-export default SearchKeyBox;
+import { ImPower } from "react-icons/im";
+
+export default function MacroEditorItem({ onClick, drawerWidth, selected }) {
+  return (
+    <div onClick={onClick} className={"item-list"}>
+      <div className={"icon-item"}>
+        <ImPower className={`icon-image ${selected ? "select" : ""}`} />
+      </div>
+      {drawerWidth === "auto" ? (
+        <div className="icon-text">
+          <p className="primary">{i18n.app.menu.editor}</p>
+        </div>
+      ) : (
+        <Fragment></Fragment>
+      )}
+    </div>
+  );
+}

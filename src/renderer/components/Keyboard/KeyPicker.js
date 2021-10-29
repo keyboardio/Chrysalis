@@ -301,9 +301,14 @@ class KeyPicker extends Component {
           selected={
             code === null
               ? false
-              : code.base === key.id && code.modified < 49000
+              : Array.isArray(key.idArray)
+              ? key.idArray.some(key => key === code.base + code.modified)
+              : code.base === key.id &&
+                code.base + code.modified < 53267 &&
+                (code.base + code.modified < 17450 ||
+                  code.base + code.modified > 17501)
               ? true
-              : code.modified > 0 && code.modified === key.id
+              : code.modified > 0 && code.base + code.modified === key.id
               ? true
               : false
           }

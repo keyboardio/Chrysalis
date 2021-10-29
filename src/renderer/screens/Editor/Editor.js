@@ -37,6 +37,7 @@ import Keymap, { KeymapDB } from "../../../api/keymap";
 import LayerPanel from "./LayerPanel";
 import ColorPanel from "./ColorPanel";
 import KeyConfig from "../../components/KeyManager/";
+// import KeyEditor from "../../components/KeyEditor";
 import ConfirmationDialog from "../../components/ConfirmationDialog";
 import i18n from "../../i18n";
 import settings from "electron-settings";
@@ -80,7 +81,12 @@ color: ${({ theme }) => theme.card.color};
 `;
 
 const Styles = Styled.div`
+height: 100%;
+max-width: 1900px;
+min-width: 1200px;
+margin: auto;
 .keyboard-editor {
+  height: 100%;
   .title-row {
     // margin-bottom: 40px;
   }
@@ -116,23 +122,32 @@ const Styles = Styled.div`
   }
 }
 .buttons-row {
-  position: absolute;
-  bottom: 10px;
-  width: 180px;
-  margin-left: 0.5em;
-  .card {
-    flex-flow: nowrap;
-    width: 100%;
-    padding: 0;
-    place-content: space-evenly;
-    border-radius: 10px;
-    background-color: ${({ theme }) => theme.colors.button.background};
-  }
+  margin: 0;
+  flex-flow: nowrap;
+  height: fit-content;
+  bottom: 60px;
+  padding: 0;
+  place-content: space-evenly;
+  border-radius: 10px;
+  background-color: ${({ theme }) => theme.colors.button.background};
+}
+.center-self {
+  place-self: flex-start;
+}
+}
+.save-button-row {
+  margin: auto;
+  place-content: flex-end;
 }
 .save-row {
-  position: absolute;
-  right: 30px;
-  top: 65px;
+
+}
+.full-height {
+  height: 100%;
+}
+.layer-col {
+  display: flex;
+  flex-direction: column;
 }
 .big {
   font-size: 3em;
@@ -141,7 +156,6 @@ const Styles = Styled.div`
 }
 .button-large {
   font-size: 2rem;
-  width: -webkit-fill-available;
   text-align: left;
 }
 .cancel-active{
@@ -159,6 +173,10 @@ const Styles = Styled.div`
   font-size: 1.5rem;
   vertical-align: -2px;
   padding-left: 0.3rem;
+}
+.LayerHolder {
+  width: 100%;
+  height: 100%;
 }
 `;
 
@@ -204,6 +222,7 @@ class Editor extends React.Component {
       modeselect: "keyboard",
       clearConfirmationOpen: false,
       copyFromOpen: false,
+      shareLayerOpen: false,
       importExportDialogOpen: false,
       isMultiSelected: false,
       isColorButtonSelected: false,
@@ -388,7 +407,6 @@ class Editor extends React.Component {
 
   onKeyChange = keyCode => {
     // Keys can only change on the custom layers
-
     let layer = this.state.currentLayer,
       keyIndex = this.state.currentKeyIndex;
 
@@ -691,6 +709,13 @@ class Editor extends React.Component {
     }
   };
 
+  shareLayerDialog = () => {
+    this.setState({ shareLayerOpen: true });
+  };
+  cancelShareLayer = () => {
+    this.setState({ shareLayerOpen: false });
+  };
+
   copyFromDialog = () => {
     this.setState({ copyFromOpen: true });
   };
@@ -865,14 +890,16 @@ class Editor extends React.Component {
   importLayer = data => {
     if (data.palette.length > 0) this.setState({ palette: data.palette });
     let layerNames = this.state.layerNames.slice();
-    for (let i = 0; i < data.layerNames.length; i++) {
-      layerNames[i] = data.layerNames[i];
-    }
     const { currentLayer } = this.state;
-    if (data.layerName && currentLayer) {
-      layerNames[currentLayer] = data.layerName;
+    if (data.layerNames != null) {
+      for (let i = 0; i < data.layerNames.length; i++) {
+        layerNames[i] = data.layerNames[i];
+      }
+      if (data.layerName && currentLayer) {
+        layerNames[currentLayer] = data.layerName;
+      }
+      this.setState({ layerNames: layerNames });
     }
-    this.setState({ layerNames: layerNames });
     if (data.keymap.length > 0 && data.colormap.length > 0) {
       if (this.state.keymap.onlyCustom) {
         if (currentLayer >= 0) {
@@ -1512,7 +1539,7 @@ class Editor extends React.Component {
 
     const layer = (
       //TODO: restore fade effect <fade in appear key={currentLayer}>
-      <div className="">
+      <div className="LayerHolder">
         <Layer
           readOnly={isReadOnly}
           index={cLayer}
@@ -1566,7 +1593,7 @@ class Editor extends React.Component {
       code = {
         base:
           tempkey.keyCode > 255
-            ? tempkey.keyCode > 49160
+            ? tempkey.keyCode > 53266
               ? tempkey.keyCode == 65535
                 ? this.keymapDB.reverse(tempkey.label)
                 : parseInt(tempkey.label)
@@ -1577,7 +1604,7 @@ class Editor extends React.Component {
         modified:
           tempkey.keyCode > 255 &&
           (tempkey.keyCode < 20480 || tempkey.keyCode > 20561)
-            ? tempkey.keyCode > 49160
+            ? tempkey.keyCode > 53266
               ? tempkey.keyCode == 65535
                 ? 0
                 : this.keymapDB.reverseSub(tempkey.label, tempkey.extraLabel) -
@@ -1611,47 +1638,52 @@ class Editor extends React.Component {
           <Row className="title-row">
             <h4 className="section-title">{i18n.app.menu.editor}</h4>
           </Row>
-          <Row>
-            <Col>
-              <LayerPanel
-                layers={layerMenu}
-                selectLayer={this.selectLayer}
-                currentLayer={currentLayer}
-                isReadOnly={isReadOnly}
-                importTitle={i18n.editor.layers.importTitle}
-                exportTitle={i18n.editor.layers.exportTitle}
-                exportAllTitle={i18n.editor.layers.exportAllTitle}
-                importFunc={this.toImport}
-                exportFunc={this.toExport}
-                exportAllFunc={this.toExportAll}
-                copyTitle={i18n.editor.layers.copyFrom}
-                copyFunc={this.copyFromDialog}
-                clearTitle={i18n.editor.layers.clearLayer}
-                clearFunc={this.confirmClear}
-                changeLayerName={this.onLayerNameChange}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Fade animate={this.state.modeselect != "color"}>
-                <ColorPanel
-                  key={palette}
-                  colors={palette}
-                  disabled={
-                    isReadOnly || currentLayer > this.state.colorMap.length
-                  }
-                  onColorSelect={this.onColorSelect}
-                  colorButtonIsSelected={this.state.colorButtonIsSelected}
-                  onColorPick={this.onColorPick}
-                  selected={this.state.selectedPaletteColor}
-                  isColorButtonSelected={isColorButtonSelected}
-                  onColorButtonSelect={this.onColorButtonSelect}
-                  toChangeAllKeysColor={this.toChangeAllKeysColor}
+          <Row className="full-height">
+            <Col xs={2} className="full-height layer-col">
+              <Row className="mx-2">
+                <LayerPanel
+                  layers={layerMenu}
+                  selectLayer={this.selectLayer}
+                  currentLayer={currentLayer}
+                  isReadOnly={isReadOnly}
+                  importTitle={i18n.editor.layers.importTitle}
+                  exportTitle={i18n.editor.layers.exportTitle}
+                  exportAllTitle={i18n.editor.layers.exportAllTitle}
+                  importFunc={this.toImport}
+                  exportFunc={this.toExport}
+                  exportAllFunc={this.toExportAll}
+                  copyTitle={i18n.editor.layers.copyFrom}
+                  copyFunc={this.copyFromDialog}
+                  clearTitle={i18n.editor.layers.clearLayer}
+                  clearFunc={this.confirmClear}
+                  changeLayerName={this.onLayerNameChange}
                 />
-              </Fade>
+              </Row>
+              <Row className="full-height mx-2 center-self">
+                <Card className="buttons-row align-self-end">
+                  <Button
+                    active={this.state.modeselect == "keyboard"}
+                    onClick={() => {
+                      this.setState({ modeselect: "keyboard" });
+                    }}
+                    className="keyboardbutton big"
+                    aria-controls="keyboard-fade"
+                  >
+                    <MdKeyboard />
+                  </Button>
+                  <Button
+                    active={this.state.modeselect == "color"}
+                    onClick={() => {
+                      this.setState({ modeselect: "color" });
+                    }}
+                    className="colorsbutton big"
+                  >
+                    <IoMdColorPalette />
+                  </Button>
+                </Card>
+              </Row>
             </Col>
-          </Row>
+            {/* </Row>
           {this.state.keymap.custom.length == 0 &&
             this.state.keymap.default.length == 0 && (
               <div className="centerSpinner">
@@ -1662,83 +1694,73 @@ class Editor extends React.Component {
                 />
               </div>
             )}
-          <Row className="editor">
-            <Col className="raise-editor">{layer}</Col>
-          </Row>
-          <Row className="keyconfig">
-            {this.state.modeselect != "keyboard" ? (
-              ""
-            ) : (
-              <Fade animate={this.state.modeselect != "keyboard"}>
-                <KeyConfig
-                  id="keyboard-fade"
-                  onKeySelect={this.onKeyChange}
-                  code={code}
-                  macros={macros}
-                  actions={actions}
-                  superName={superName}
-                  newSuperID={this.newSuperID}
-                  setSuperKey={this.setSuperKey}
-                  delSuperKey={this.delSuperKey}
-                  keyIndex={currentKeyIndex}
-                  selectedlanguage={currentLanguageLayout}
-                  kbtype={kbtype}
-                />
-              </Fade>
-            )}
-          </Row>
-          <Row className="buttons-row">
-            <Card>
-              <Button
-                active={this.state.modeselect == "keyboard"}
-                onClick={() => {
-                  this.setState({ modeselect: "keyboard" });
-                }}
-                className="keyboardbutton big"
-                aria-controls="keyboard-fade"
-              >
-                <MdKeyboard />
-              </Button>
-              <Button
-                active={this.state.modeselect == "color"}
-                onClick={() => {
-                  this.setState({ modeselect: "color" });
-                }}
-                className="colorsbutton big"
-              >
-                <IoMdColorPalette />
-              </Button>
-            </Card>
-          </Row>
-          <Row className="save-row">
-            <Container fluid>
-              <Row>
-                <Button
-                  disabled={!this.state.modified}
-                  onClick={this.onApply}
-                  className={`button-large pt-0 mt-0 mb-2 ${
-                    this.state.modified ? "save-active" : ""
-                  }`}
-                  aria-controls="save-changes"
-                >
-                  <FiSave />
-                </Button>
+          <Row className="editor"> */}
+            <Col className="raise-editor layer-col">
+              <Row className="m-0">{layer}</Row>
+              <Row className="full-height m-0">
+                {this.state.modeselect != "keyboard" ? (
+                  <ColorPanel
+                    key={palette}
+                    colors={palette}
+                    disabled={
+                      isReadOnly || currentLayer > this.state.colorMap.length
+                    }
+                    onColorSelect={this.onColorSelect}
+                    colorButtonIsSelected={this.state.colorButtonIsSelected}
+                    onColorPick={this.onColorPick}
+                    selected={this.state.selectedPaletteColor}
+                    isColorButtonSelected={isColorButtonSelected}
+                    onColorButtonSelect={this.onColorButtonSelect}
+                    toChangeAllKeysColor={this.toChangeAllKeysColor}
+                  />
+                ) : (
+                  <KeyConfig
+                    id="keyboard-fade"
+                    onKeySelect={this.onKeyChange}
+                    code={code}
+                    macros={macros}
+                    actions={actions}
+                    superName={superName}
+                    newSuperID={this.newSuperID}
+                    setSuperKey={this.setSuperKey}
+                    delSuperKey={this.delSuperKey}
+                    keyIndex={currentKeyIndex}
+                    selectedlanguage={currentLanguageLayout}
+                    kbtype={kbtype}
+                  />
+                )}
               </Row>
-              <Row>
-                <Button
-                  disabled={!this.state.modified}
-                  onClick={() => {
-                    this.props.cancelContext();
-                  }}
-                  className={`button-large pt-0 mt-0 mb-2 ${
-                    this.state.modified ? "cancel-active" : ""
-                  }`}
-                  aria-controls="discard-changes"
-                >
-                  <FiTrash2 />
-                </Button>
-              </Row>
-            </Container>
+            </Col>
+            <Col className="save-row" xs={1}>
+              <Container fluid className="p-0">
+                <Row className="save-button-row">
+                  <Button
+                    disabled={!this.state.modified}
+                    onClick={this.onApply}
+                    className={`button-large pt-0 mt-0 mb-2 ${
+                      this.state.modified ? "save-active" : ""
+                    }`}
+                    aria-controls="save-changes"
+                  >
+                    <FiSave />
+                  </Button>
+                </Row>
+                <Row className="save-button-row">
+                  <Button
+                    disabled={!this.state.modified}
+                    onClick={() => {
+                      this.props.cancelContext();
+                    }}
+                    className={`button-large pt-0 mt-0 mb-2 ${
+                      this.state.modified ? "cancel-active" : ""
+                    }`}
+                    aria-controls="discard-changes"
+                  >
+                    <FiTrash2 />
+                  </Button>
+                </Row>
+              </Container>
+            </Col>
           </Row>
           <ConfirmationDialog
             title={i18n.editor.clearLayerQuestion}

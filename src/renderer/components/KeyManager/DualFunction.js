@@ -10,6 +10,8 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import Styled from "styled-components";
 
 // Media
+import OSL from "../../../../static/OSL.png";
+import { isUnionTypeNode } from "typescript";
 
 const Style = Styled.div`
 .overflow {
@@ -49,8 +51,10 @@ const Style = Styled.div`
 }
 .selectButton {
   float: left;
+  width: 100%;
   .dropdown-toggle{
     font-size: 0.97rem;
+    width: 100%;
   }
 }
 .select-body {
@@ -79,65 +83,57 @@ class Configurator extends Component {
 
     this.state = {};
 
-    this.layerLock = [
-      { name: "None Selected", keynum: 0, alt: 0 },
+    this.modKey = [
+      { name: "Mod.  Select", keynum: 0, alt: 0 },
       { name: "------------", keynum: -1, alt: -1 },
-      { name: "Layer Lock 1", keynum: 17492 },
-      { name: "Layer Lock 2", keynum: 17493 },
-      { name: "Layer Lock 3", keynum: 17494 },
-      { name: "Layer Lock 4", keynum: 17495 },
-      { name: "Layer Lock 5", keynum: 17496 },
-      { name: "Layer Lock 6", keynum: 17497 },
-      { name: "Layer Lock 7", keynum: 17498 },
-      { name: "Layer Lock 8", keynum: 17499 },
-      { name: "Layer Lock 9", keynum: 17500 },
-      { name: "Layer Lock 10", keynum: 17501 }
+      { name: "Dual Control", keynum: 49169 },
+      { name: "Dual Shift  ", keynum: 49425 },
+      { name: "Dual Alt    ", keynum: 49681 },
+      { name: "Dual Gui/OS ", keynum: 49937 },
+      { name: "Dual Alt Gr ", keynum: 50705 }
     ];
-    this.layerSwitch = [
-      { name: "None Selected", keynum: 0, alt: 0 },
+    this.layerKey = [
+      { name: "Layer Select", keynum: 0, alt: 0 },
       { name: "------------", keynum: -1, alt: -1 },
-      { name: "Layer Switch 1", keynum: 17450 },
-      { name: "Layer Switch 2", keynum: 17451 },
-      { name: "Layer Switch 3", keynum: 17452 },
-      { name: "Layer Switch 4", keynum: 17453 },
-      { name: "Layer Switch 5", keynum: 17454 },
-      { name: "Layer Switch 6", keynum: 17455 },
-      { name: "Layer Switch 7", keynum: 17456 },
-      { name: "Layer Switch 8", keynum: 17457 },
-      { name: "Layer Switch 9", keynum: 17458 },
-      { name: "Layer Switch 10", keynum: 17459 }
+      { name: "Dual Layer 1", keynum: 51218 },
+      { name: "Dual Layer 2", keynum: 51474 },
+      { name: "Dual Layer 3", keynum: 51730 },
+      { name: "Dual Layer 4", keynum: 51986 },
+      { name: "Dual Layer 5", keynum: 52242 },
+      { name: "Dual Layer 6", keynum: 52498 },
+      { name: "Dual Layer 7", keynum: 52754 },
+      { name: "Dual Layer 8", keynum: 53010 }
     ];
   }
 
   render() {
     const { keyCode, onKeySelect } = this.props;
-    const KC = keyCode.base + keyCode.modified;
 
     const layers = (
       <React.Fragment>
-        <br />
+        <p className="titles">LAYER & KEY</p>
         <Row className="mx-0">
-          <Col xs={6} className="px-0 text-center">
-            <p className="titles alignvert">LAYER SWITCH</p>
-          </Col>
-          <Col xs={6} className="px-0 text-center">
+          <Col xs={6} className="p-0 pr-1 text-center">
             <DropdownButton
               id="Selectlayers"
               className="selectButton"
               drop={"up"}
               title={
-                this.layerSwitch[
-                  isNaN(KC) || KC < 17450 || KC > 17459
+                this.layerKey[
+                  isNaN(keyCode.modified) ||
+                  this.layerKey.every(e => e.keynum !== keyCode.modified)
                     ? 0
-                    : this.layerSwitch.findIndex(o => o.keynum == KC)
+                    : this.layerKey.findIndex(o => o.keynum == keyCode.modified)
                 ].name
               }
               value={
-                KC != 0 ? this.layerSwitch.map(i => i.keynum).includes(KC) : KC
+                keyCode.modified != 0
+                  ? this.layerKey.map(i => i.keynum).includes(keyCode.modified)
+                  : keyCode.modified
               }
-              onSelect={value => onKeySelect(parseInt(value))}
+              onSelect={value => onKeySelect(parseInt(value) + keyCode.base)}
             >
-              {this.layerSwitch.map((item, id) => {
+              {this.layerKey.map((item, id) => {
                 return (
                   <Dropdown.Item
                     eventKey={item.keynum}
@@ -152,30 +148,27 @@ class Configurator extends Component {
               })}
             </DropdownButton>
           </Col>
-        </Row>
-        <br />
-        <Row className="mx-0">
-          <Col xs={6} className="px-0 text-center">
-            <p className="titles alignvert">LAYER LOCK</p>
-          </Col>
-          <Col xs={6} className="px-0 text-center">
+          <Col xs={6} className="p-0 pr-1 text-center">
             <DropdownButton
-              id="Selectlayers"
+              id="SelectMods"
               className="selectButton"
               drop={"up"}
               title={
-                this.layerLock[
-                  isNaN(KC) || KC < 17492 || KC > 17501
+                this.modKey[
+                  isNaN(keyCode.modified) ||
+                  this.modKey.every(e => e.keynum !== keyCode.modified)
                     ? 0
-                    : this.layerLock.findIndex(o => o.keynum == KC)
+                    : this.modKey.findIndex(o => o.keynum == keyCode.modified)
                 ].name
               }
               value={
-                KC != 0 ? this.layerLock.map(i => i.keynum).includes(KC) : KC
+                keyCode.modified != 0
+                  ? this.modKey.map(i => i.keynum).includes(keyCode.modified)
+                  : keyCode.modified
               }
-              onSelect={value => onKeySelect(parseInt(value))}
+              onSelect={value => onKeySelect(parseInt(value) + keyCode.base)}
             >
-              {this.layerLock.map((item, id) => {
+              {this.modKey.map((item, id) => {
                 return (
                   <Dropdown.Item
                     eventKey={item.keynum}

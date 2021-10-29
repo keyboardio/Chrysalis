@@ -4,7 +4,6 @@ import Styled from "styled-components";
 // Internal components
 import Keymap, { KeymapDB } from "../../../api/keymap";
 import Picker from "./Picker";
-import Configurator from "./Configurator";
 import Keys from "./Keys";
 import Selector from "./Selector";
 
@@ -13,22 +12,24 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
-import Tab from "react-bootstrap/Tab";
-import Tabs from "react-bootstrap/Tabs";
 
 const Style = Styled.div`
-  .svgContainer{
-    height:100%;
-    min-width: 60vw;
-    max-height: 20vh;
-  }
+width: 100%;
+justify-content: center;
+display: flex;
 
+.svgContainer{
+  height:100%;
+  min-width: 60vw;
+  max-height: 20vh;
+}
 .configurator {
   z-index: 100;
   background-color: transparent;
-  min-width: 1140px;
-  width: 75vw;
+  width: 100%;
   padding: 0;
+  bottom: 60px;
+  position: relative;
   border-radius: 10px;
   .rows {
     margin: 0px;
@@ -85,9 +86,7 @@ const Style = Styled.div`
 }
 .pickersection {
   min-height: 100%;
-  max-width: 1170px;
   padding: 0;
-  margin-top: 31px;
 }
 .hidden {
   visibility: hidden;
@@ -150,7 +149,7 @@ class KeyConfig extends Component {
     }
     tempActions.forEach((element, i) => {
       if (element > 255 && element < 8192) {
-        tempModifs[i] = this.parseModifs(element);
+        tempModifs[i] = 0;
       } else {
         tempModifs[i] = [];
       }
@@ -170,16 +169,13 @@ class KeyConfig extends Component {
       superName: props.superName
     };
 
-    this.SelectAction = this.SelectAction.bind(this);
-    this.SelectModif = this.SelectModif.bind(this);
     this.onReplaceKey = this.onReplaceKey.bind(this);
-    this.AssignMacro = this.AssignMacro.bind(this);
-    this.parseModifs = this.parseModifs.bind(this);
     this.parseAction = this.parseAction.bind(this);
     this.changeTab = this.changeTab.bind(this);
     this.updatelayer = this.updatelayer.bind(this);
     this.showKeyboard = this.showKeyboard.bind(this);
     this.setSuperName = this.setSuperName.bind(this);
+    this.updateDual = this.updateDual.bind(this);
   }
   componentDidUpdate() {
     let selectdual = 0;
@@ -217,7 +213,7 @@ class KeyConfig extends Component {
     }
     tempActions.forEach((element, i) => {
       if (element > 255 && element < 8448) {
-        tempModifs[i] = this.parseModifs(element);
+        tempModifs[i] = 0;
       } else {
         tempModifs[i] = [];
       }
@@ -256,34 +252,9 @@ class KeyConfig extends Component {
 
   componentDidMount() {}
 
-  parseModifs(keycode) {
-    let modifs = [];
-    if (keycode & 0b100000000) {
-      // Ctrl Decoder
-      modifs.push(1);
-    }
-    if (keycode & 0b1000000000) {
-      // Alt Decoder
-      modifs.push(2);
-    }
-    if (keycode & 0b10000000000) {
-      // AltGr Decoder
-      modifs.push(3);
-    }
-    if (keycode & 0b100000000000) {
-      // Shift Decoder
-      modifs.push(0);
-    }
-    if (keycode & 0b1000000000000) {
-      // Win Decoder
-      modifs.push(4);
-    }
-    return modifs;
-  }
-
   SelectAction(action) {
     let newModifs = this.state.modifs;
-    newModifs[action] = this.parseModifs(this.state.actions[action]);
+    newModifs[action] = 0;
     this.setState({
       action,
       modifs: newModifs,
@@ -291,53 +262,8 @@ class KeyConfig extends Component {
     });
   }
 
-  SelectModif(event) {
-    let mod = [...this.state.modifs];
-    if (mod[this.state.action].includes(event)) {
-      mod[this.state.action] = mod[this.state.action].filter(e => e !== event);
-    } else {
-      mod[this.state.action].push(event);
-    }
-    this.checkAndReport(
-      this.state.actions,
-      mod,
-      this.state.modifs,
-      this.state.selectdual,
-      this.state.selectdual,
-      this.state.superName
-    );
-    this.setState({ modifs: mod });
-  }
-
   onReplaceKey(keycode, num) {
-    let actions = this.state.actions;
-    let action;
-    if (num === -1) {
-      action = this.state.action;
-    } else {
-      action = num;
-    }
-    if (actions === undefined || this.state.activeTab == "editor") {
-      this.checkAndReport(
-        [keycode, 0, 0, 0, 0],
-        this.state.modifs,
-        this.state.modifs,
-        this.state.selectdual,
-        this.state.selectdual,
-        this.state.superName
-      );
-      return;
-    }
-    actions[action] = keycode;
-    this.setState({ actions, selectlayer: keycode });
-    this.checkAndReport(
-      actions,
-      this.state.modifs,
-      this.state.modifs,
-      this.state.selectdual,
-      this.state.selectdual > 0 ? 0 : this.state.selectdual,
-      this.state.superName
-    );
+    this.props.onKeySelect(keycode);
   }
 
   checkAndReport(
@@ -423,7 +349,7 @@ class KeyConfig extends Component {
   }
 
   AssignMacro(event) {
-    this.onReplaceKey(parseInt(event), -1);
+    this.props.onKeySelect(parseInt(event));
   }
 
   parseKey(keycode) {
@@ -484,6 +410,20 @@ class KeyConfig extends Component {
       this.state.superName
     );
   }
+  updateDual(key) {
+    const dualAction = parseInt(key);
+    // console.log("Checking update layer", mov, this.state.layerData);
+    let actions = [this.state.actions[this.state.action], 0, 0, 0, 0];
+    this.checkAndReport(
+      actions,
+      this.state.modifs,
+      this.state.modifs,
+      dualAction,
+      this.state.selectdual,
+      this.state.superName
+    );
+    return;
+  }
 
   changeTab(tab) {
     this.setState({ activeTab: tab, action: 0 });
@@ -508,8 +448,6 @@ class KeyConfig extends Component {
 
   render() {
     const {
-      layerData,
-      selectdual,
       action,
       actions,
       activeTab,
@@ -518,88 +456,47 @@ class KeyConfig extends Component {
       superName,
       disable
     } = this.state;
-    const { selectedlanguage, kbtype, macros, code } = this.props;
+    const { selectedlanguage, kbtype, macros, code, onKeySelect } = this.props;
     const selKey = this.parseAction(action);
     const selKeys = actions.map((a, i) => this.parseAction(i));
     // console.log(code);
 
     return (
-      <Style
-        style={{
-          marginLeft: "220px",
-          justifyContent: "center",
-          display: "flex"
-        }}
-      >
-        <Container fluid className="configurator">
+      <Style>
+        <Container fluid className="configurator align-self-end">
           <Row className="rows">
             <Card className="main-card overflow">
               {/* <Card.Header>SUPERPOWERS CONFIGURATOR MENU</Card.Header> */}
               <Card.Body className="section">
                 <Row className="rowsection">
-                  <Col xs={3} className="section fixed-width">
-                    <Tabs
-                      activeKey={activeTab}
-                      onSelect={this.changeTab}
-                      id="uncontrolled-tab-example"
-                      className="Tabstyle"
-                    >
-                      <Tab
-                        eventKey="editor"
-                        title="KEYS"
-                        className={
-                          actions != undefined &&
-                          ((actions[action] >= 53852 &&
-                            actions[action] < 53852 + 64) ||
-                            (actions[action] >= 49153 &&
-                              actions[action] <= 49160) ||
-                            (actions[action] >= 104 && actions[action] <= 115))
-                            ? ""
-                            : "hidden"
-                        }
-                      >
-                        <Keys
-                          action={action}
-                          actions={actions}
-                          selKey={selKey}
-                          modifs={modifs}
-                          showKeyboard={this.showKeyboard}
-                          onReplaceKey={this.onReplaceKey}
-                          activeKB={showKB}
-                          SelectModif={this.SelectModif}
-                          AssignMacro={this.AssignMacro}
-                          macros={macros}
-                        />
-                      </Tab>
-                      <Tab eventKey="layer" title="LAYERS">
-                        <Configurator
-                          layerData={layerData}
-                          selectdual={selectdual}
-                          action={action}
-                          selKey={selKey}
-                          showKeyboard={this.showKeyboard}
-                          updatelayer={this.updatelayer}
-                          activeKB={showKB}
-                        />
-                      </Tab>
-                      <Tab eventKey="super" title="SUPERKEYS">
-                        <Selector
-                          action={action}
-                          actions={actions}
-                          modifs={modifs}
-                          selKeys={selKeys}
-                          SelectAction={this.SelectAction}
-                          SelectModif={this.SelectModif}
-                          showKeyboard={this.showKeyboard}
-                          onReplaceKey={this.onReplaceKey}
-                          activeKB={showKB}
-                          AssignMacro={this.AssignMacro}
-                          macros={macros}
-                          superName={superName}
-                          setSuperName={this.setSuperName}
-                        />
-                      </Tab>
-                    </Tabs>
+                  <Col xs={3} className="section">
+                    {code.base + code.modified < 53916 ||
+                    code.base + code.modified > 53916 + 64 ? (
+                      <Keys
+                        selKey={selKey}
+                        showKeyboard={this.showKeyboard}
+                        activeKB={showKB}
+                        keyCode={code}
+                        macros={macros}
+                        onKeySelect={onKeySelect}
+                      />
+                    ) : (
+                      <Selector
+                        action={action}
+                        actions={actions}
+                        modifs={modifs}
+                        selKeys={selKeys}
+                        SelectAction={this.SelectAction}
+                        SelectModif={this.SelectModif}
+                        showKeyboard={this.showKeyboard}
+                        onReplaceKey={this.onReplaceKey}
+                        activeKB={showKB}
+                        AssignMacro={this.AssignMacro}
+                        macros={macros}
+                        superName={superName}
+                        setSuperName={this.setSuperName}
+                      />
+                    )}
                   </Col>
                   <Col xs={9} className="pickersection">
                     <Picker

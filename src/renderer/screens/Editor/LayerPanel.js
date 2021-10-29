@@ -11,14 +11,7 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Styled from "styled-components";
 
 // Icons
-import {
-  MdLock,
-  MdShare,
-  MdContentCopy,
-  MdUnarchive,
-  MdDelete,
-  MdAdd
-} from "react-icons/md";
+import { MdLock, MdContentCopy, MdUnarchive, MdDelete } from "react-icons/md";
 // Icons
 import { BiUpload, BiDownload } from "react-icons/bi";
 
@@ -30,12 +23,10 @@ const Styles = Styled.div`
   padding: 7px 3px;
 }
 .layer-editor {
-  width: ${toolsWidth * 4}px;
   z-index: 11;
   float: left;
-  margin-left: 0.5em;
-  margin-top: 0.5em;
-  position: absolute;
+  margin: 0;
+  width: auto;
   padding: 0;
   background-color: ${({ theme }) => theme.card.background};
   border-radius: 10px;
@@ -46,6 +37,7 @@ const Styles = Styled.div`
 
   .layer-tools {
     margin: 0;
+    justify-content: space-evenly;
     button {
       width: ${toolsWidth}px;
       color: ${({ theme }) => theme.colors.button.text};

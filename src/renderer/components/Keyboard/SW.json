@@ -5,6 +5,7 @@
     "y": 0,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1UT",
@@ -20,6 +21,7 @@
     "y": 0,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1UT",
@@ -35,6 +37,7 @@
     "y": 0,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1UT",
@@ -50,6 +53,7 @@
     "y": 0,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1UT",
@@ -65,6 +69,7 @@
     "y": 0,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1UT",
@@ -80,6 +85,7 @@
     "y": 0,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1UT",
@@ -95,6 +101,7 @@
     "y": 0,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1UT",
@@ -110,6 +117,7 @@
     "y": 0,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1UT",
@@ -125,6 +133,7 @@
     "y": 0,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1UT",
@@ -140,6 +149,7 @@
     "y": 0,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1UT",
@@ -155,6 +165,7 @@
     "y": 0,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1UT",
@@ -170,6 +181,7 @@
     "y": 0,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1UT",
@@ -185,6 +197,7 @@
     "y": 0,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1UT",
@@ -200,6 +213,7 @@
     "y": 0,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "specialBlock",
@@ -215,6 +229,7 @@
     "y": 0,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "specialBlock",
@@ -230,6 +245,7 @@
     "y": 0,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "specialBlock",
@@ -245,6 +261,7 @@
     "y": 0,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "block",
@@ -260,6 +277,7 @@
     "y": 0,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "block",
@@ -275,6 +293,7 @@
     "y": 0,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "block",
@@ -290,6 +309,7 @@
     "y": 0,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "block",
@@ -305,11 +325,12 @@
     "y": 32,
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
-      "first": "`",
-      "second": "~",
+      "first": "½",
+      "second": "§",
       "third": "",
       "fourth": ""
     }
@@ -320,6 +341,7 @@
     "y": 32,
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
@@ -335,12 +357,13 @@
     "y": 32,
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
       "first": "2",
       "second": "\"",
-      "third": "",
+      "third": "@",
       "fourth": ""
     }
   },
@@ -350,12 +373,13 @@
     "y": 32,
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
       "first": "3",
-      "second": "£",
-      "third": "",
+      "second": "#",
+      "third": "£",
       "fourth": ""
     }
   },
@@ -365,12 +389,13 @@
     "y": 32,
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
       "first": "4",
-      "second": "$",
-      "third": "€",
+      "second": "¤",
+      "third": "$",
       "fourth": ""
     }
   },
@@ -380,12 +405,13 @@
     "y": 32,
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
       "first": "5",
       "second": "%",
-      "third": "",
+      "third": "€",
       "fourth": ""
     }
   },
@@ -395,11 +421,12 @@
     "y": 32,
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
       "first": "6",
-      "second": "^",
+      "second": "&",
       "third": "",
       "fourth": ""
     }
@@ -410,12 +437,13 @@
     "y": 32,
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
       "first": "7",
-      "second": "&",
-      "third": "",
+      "second": "/",
+      "third": "{",
       "fourth": ""
     }
   },
@@ -425,12 +453,13 @@
     "y": 32,
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
       "first": "8",
-      "second": "*",
-      "third": "",
+      "second": "(",
+      "third": "[",
       "fourth": ""
     }
   },
@@ -440,12 +469,13 @@
     "y": 32,
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
       "first": "9",
-      "second": "(",
-      "third": "",
+      "second": ")",
+      "third": "]",
       "fourth": ""
     }
   },
@@ -455,12 +485,13 @@
     "y": 32,
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
       "first": "0",
-      "second": ")",
-      "third": "",
+      "second": "=",
+      "third": "}",
       "fourth": ""
     }
   },
@@ -470,12 +501,13 @@
     "y": 32,
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
-      "first": "-",
-      "second": "_",
-      "third": "",
+      "first": "+",
+      "second": "?",
+      "third": "\\",
       "fourth": ""
     }
   },
@@ -485,11 +517,12 @@
     "y": 32,
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
-      "first": "=",
-      "second": "+",
+      "first": "´",
+      "second": "`",
       "third": "",
       "fourth": ""
     }
@@ -502,6 +535,7 @@
     "icon": true,
     "iconsize":16,
     "iconx":668,
+    "idArray": "",
     "iconname": "Backspace",
     "content": {
       "type": "1U2",
@@ -517,6 +551,7 @@
     "y": 38,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "specialBlock",
@@ -532,6 +567,7 @@
     "y": 38,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "specialBlock",
@@ -547,6 +583,7 @@
     "y": 38,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "specialBlock",
@@ -562,6 +599,7 @@
     "y": 38,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "block",
@@ -577,6 +615,7 @@
     "y": 38,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "block",
@@ -592,6 +631,7 @@
     "y": 38,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "block",
@@ -607,6 +647,7 @@
     "y": 38,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "longBlock",
@@ -625,6 +666,7 @@
     "iconsize":15,
     "iconx":20,
     "icony":64,
+    "idArray": "",
     "iconname":"Tab",
     "content": {
       "type": "1U2",
@@ -640,6 +682,7 @@
     "y": 64,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
@@ -655,6 +698,7 @@
     "y": 64,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
@@ -670,11 +714,12 @@
     "y": 64,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
       "first": "E",
-      "second": "",
+      "second": "€",
       "third": "",
       "fourth": ""
     }
@@ -685,6 +730,7 @@
     "y": 64,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
@@ -700,6 +746,7 @@
     "y": 64,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
@@ -715,6 +762,7 @@
     "y": 64,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
@@ -730,6 +778,7 @@
     "y": 64,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
@@ -745,6 +794,7 @@
     "y": 64,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
@@ -760,6 +810,7 @@
     "y": 64,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
@@ -775,6 +826,7 @@
     "y": 64,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
@@ -790,11 +842,12 @@
     "y": 64,
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
-      "first": "[",
-      "second": "{",
+      "first": "Å",
+      "second": "",
       "third": "",
       "fourth": ""
     }
@@ -805,12 +858,13 @@
     "y": 64,
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
-      "first": "]",
-      "second": "}",
-      "third": "",
+      "first": "¨",
+      "second": "^",
+      "third": "~",
       "fourth": ""
     }
   },
@@ -823,6 +877,7 @@
     "iconsize":20,
     "iconx":674,
     "icony":61,
+    "idArray": "",
     "iconname":"Enter",
     "content": {
       "type": "enter",
@@ -838,6 +893,7 @@
     "y": 76,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "specialBlock",
@@ -853,6 +909,7 @@
     "y": 76,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "specialBlock",
@@ -868,6 +925,7 @@
     "y": 76,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "specialBlock",
@@ -886,6 +944,7 @@
     "iconsize":22,
     "iconx":22,
     "icony":90,
+    "idArray": "",
     "iconname":"CapsLock",
     "content": {
       "type": "1U5",
@@ -901,6 +960,7 @@
     "y": 96,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
@@ -916,6 +976,7 @@
     "y": 96,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
@@ -931,6 +992,7 @@
     "y": 96,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
@@ -946,6 +1008,7 @@
     "y": 96,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
@@ -961,6 +1024,7 @@
     "y": 96,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
@@ -976,6 +1040,7 @@
     "y": 96,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
@@ -991,6 +1056,7 @@
     "y": 96,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
@@ -1006,6 +1072,7 @@
     "y": 96,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
@@ -1021,6 +1088,7 @@
     "y": 96,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
@@ -1034,13 +1102,14 @@
     "id": 51,
     "x": 520,
     "y": 96,
-    "centered": false,
+    "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
-      "first": ";",
-      "second": ":",
+      "first": "Ö",
+      "second": "",
       "third": "",
       "fourth": ""
     }
@@ -1051,11 +1120,12 @@
     "y": 96,
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
-      "first": "'",
-      "second": "@",
+      "first": "Ä",
+      "second": "",
       "third": "",
       "fourth": ""
     }
@@ -1066,11 +1136,12 @@
     "y": 96,
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
-      "first": "#",
-      "second": "~",
+      "first": "'",
+      "second": "*",
       "third": "",
       "fourth": ""
     }
@@ -1081,6 +1152,7 @@
     "y": 76,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "block",
@@ -1096,6 +1168,7 @@
     "y": 76,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "block",
@@ -1111,6 +1184,7 @@
     "y": 76,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "block",
@@ -1129,6 +1203,7 @@
     "iconsize":18,
     "iconx":14,
     "icony":125,
+    "idArray": "",
     "iconname":"Shift",
     "content": {
       "type": "1U",
@@ -1141,16 +1216,17 @@
   },
   {
     "id": 100,
-    "x": 49,
+    "x": 50,
     "y": 128,
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
-      "first": "\\",
-      "second": "|",
-      "third": "",
+      "first": "<",
+      "second": ">",
+      "third": "|",
       "fourth": ""
     }
   },
@@ -1160,6 +1236,7 @@
     "y": 128,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
@@ -1175,6 +1252,7 @@
     "y": 128,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
@@ -1190,6 +1268,7 @@
     "y": 128,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
@@ -1205,6 +1284,7 @@
     "y": 128,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
@@ -1220,6 +1300,7 @@
     "y": 128,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
@@ -1235,6 +1316,7 @@
     "y": 128,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
@@ -1250,11 +1332,12 @@
     "y": 128,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
       "first": "M",
-      "second": "",
+      "second": "μ",
       "third": "",
       "fourth": ""
     }
@@ -1265,11 +1348,12 @@
     "y": 128,
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
       "first": ",",
-      "second": "<",
+      "second": ";",
       "third": "",
       "fourth": ""
     }
@@ -1280,11 +1364,12 @@
     "y": 128,
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
       "first": ".",
-      "second": ">",
+      "second": ":",
       "third": "",
       "fourth": ""
     }
@@ -1295,11 +1380,12 @@
     "y": 128,
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U",
-      "first": "/",
-      "second": "?",
+      "first": "-",
+      "second": "_",
       "third": "",
       "fourth": ""
     }
@@ -1313,6 +1399,7 @@
     "iconsize":18,
     "iconx":641,
     "icony":125,
+    "idArray": "",
     "iconname":"Shift",
     "content": {
       "type": "2U",
@@ -1329,6 +1416,7 @@
     "y": 114,
     "centered": true,
     "icon": true,
+    "idArray": "",
     "iconname":"ArrUp",
     "content": {
       "type": "specialBlock",
@@ -1344,6 +1432,7 @@
     "y": 114,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "block",
@@ -1359,6 +1448,7 @@
     "y": 114,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "block",
@@ -1374,6 +1464,7 @@
     "y": 114,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "block",
@@ -1389,6 +1480,7 @@
     "y": 114,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "longBlock",
@@ -1404,6 +1496,7 @@
     "y": 160,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U2",
@@ -1420,6 +1513,7 @@
     "y": 160,
     "centered": true,
     "icon": true,
+    "idArray": "",
     "iconname":"Win",
     "content": {
       "type": "1U2",
@@ -1436,6 +1530,7 @@
     "y": 160,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U2",
@@ -1455,6 +1550,7 @@
     "iconsize":20,
     "iconx":310,
     "icony":157,
+    "idArray": "",
     "iconname":"Space",
     "content": {
       "type": "6U2",
@@ -1470,6 +1566,7 @@
     "y": 160,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U2",
@@ -1486,6 +1583,7 @@
     "y": 160,
     "centered": true,
     "icon": true,
+    "idArray": "",
     "iconname":"Win",
     "content": {
       "type": "1U2",
@@ -1505,6 +1603,7 @@
     "iconsize":19,
     "iconx":607,
     "icony":157,
+    "idArray": "",
     "iconname":"App",
     "content": {
       "type": "1U2",
@@ -1520,6 +1619,7 @@
     "y": 160,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "1U2",
@@ -1536,6 +1636,7 @@
     "y": 152,
     "centered": true,
     "icon": true,
+    "idArray": "",
     "iconname":"ArrLeft",
     "content": {
       "type": "specialBlock",
@@ -1551,6 +1652,7 @@
     "y": 152,
     "centered": true,
     "icon": true,
+    "idArray": "",
     "iconname":"ArrDwn",
     "content": {
       "type": "specialBlock",
@@ -1566,6 +1668,7 @@
     "y": 152,
     "centered": true,
     "icon": true,
+    "idArray": "",
     "iconname":"ArrRight",
     "content": {
       "type": "specialBlock",
@@ -1581,6 +1684,7 @@
     "y": 152,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "wideBlock",
@@ -1596,6 +1700,7 @@
     "y": 152,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "block",
@@ -1611,6 +1716,7 @@
     "y": 194,
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "title",
@@ -1641,6 +1747,7 @@
   "3. Double-tap to lock that modifier. To unlock it, simply tap the One-Shot Modifier key again."],
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "title",
@@ -1656,6 +1763,7 @@
     "y": 194,
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "title",
@@ -1671,6 +1779,7 @@
     "y": 194,
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "title",
@@ -1688,6 +1797,7 @@
       "Next Led Effect", "Cycle through the LED effects."],
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "title",
@@ -1703,6 +1813,7 @@
     "y": 194,
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "title",
@@ -1714,26 +1825,11 @@
   },
   {
     "id": 1,
-    "x": 634,
-    "y": 191,
-    "tooltip":["Mouse Click, Move and Wheel", "You can assign a mouse action (like click, movement, or wheel) to a key."],
-    "centered": false,
-    "icon": false,
-    "iconname":"",
-    "content": {
-      "type": "title",
-      "first": "",
-      "second": "",
-      "third": "",
-      "fourth": ""
-    }
-  },
-  {
-    "id": 1,
     "x": 656,
     "y": 194,
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "title",
@@ -1745,10 +1841,28 @@
   },
   {
     "id": 1,
+    "x": 634,
+    "y": 191,
+    "tooltip":["Mouse Click, Move and Wheel", "You can assign a mouse action (like click, movement, or wheel) to a key."],
+    "centered": false,
+    "icon": false,
+    "idArray": "",
+    "iconname":"",
+    "content": {
+      "type": "title",
+      "first": "",
+      "second": "",
+      "third": "",
+      "fourth": ""
+    }
+  },
+  {
+    "id": 1,
     "x": 732,
     "y": 194,
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "title",
@@ -1764,6 +1878,7 @@
     "y": 194,
     "centered": false,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "title",
@@ -1779,10 +1894,11 @@
     "y": 216,
     "centered": true,
     "icon": false,
+    "idArray": [17492, 17493, 17494, 17495, 17496, 17497, 17498, 17499, 17500, 17501, 17450, 17451, 17452, 17453, 17454, 17455, 17456, 17457, 17458, 17459],
     "iconname":"",
     "content": {
       "type": "2UT",
-      "first": "Layer Lock",
+      "first": "Layers",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1794,6 +1910,7 @@
     "y": 244,
     "centered": true,
     "icon": false,
+    "idArray": [53852, 53853, 53854, 53855, 53856, 53857, 53858, 53859, 53860, 53861, 53862, 53863, 53864, 53865, 53866, 53867, 53868, 53869, 53870, 53871, 53872, 53873, 53874, 53875, 53876, 53877, 53878, 53879, 53880, 53881, 53882, 53883, 53884, 53885, 53886, 53887, 53888, 53889, 53890, 53891, 53892, 53893, 53894, 53895, 53896, 53897, 53898, 53899, 53900, 53901, 53902, 53903, 53904, 53905, 53906, 53907, 53908, 53909, 53910, 53911, 53912, 53913, 53914, 53915, 53916],
     "iconname":"",
     "content": {
       "type": "2UT",
@@ -1809,6 +1926,7 @@
     "y": 216,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "specialBlockT",
@@ -1824,10 +1942,11 @@
     "y": 216,
     "centered": true,
     "icon": false,
+    "idArray": [49153, 49154, 49155, 49156, 49157, 49158, 49159, 49160, 49161, 49162, 49163, 49164, 49165, 49166, 49167, 49168],
     "iconname":"",
     "content": {
       "type": "2UT",
-      "first": "Oneshot Mod.",
+      "first": "Oneshot",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1841,6 +1960,7 @@
     "y": 244,
     "centered": true,
     "icon": true,
+    "idArray": "",
     "iconname":"Cancel",
     "content": {
       "type": "specialBlockT",
@@ -1856,10 +1976,27 @@
     "y": 244,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
-      "type": "2UT",
-      "first": "Transparent",
+      "type": "specialBlockT",
+      "first": "Trans.",
+      "second": "",
+      "third": "",
+      "fourth": ""
+    }
+  },
+  {
+    "id": 53916,
+    "x": 200,
+    "y": 244,
+    "centered": true,
+    "icon": false,
+    "idArray": [53916, 53917, 53918, 53919, 53920, 53921, 53922, 53923, 53924, 53925, 53926, 53927, 53928, 53929, 53930, 53931, 53932, 53933, 53934, 53935, 53936, 53937, 53938, 53939, 53940, 53941, 53942, 53943, 53944, 53945, 53946, 53947, 53948, 53949, 53950, 53951, 53952, 53953, 53954, 53955, 53956, 53957, 53958, 53959, 53960, 53961, 53962, 53963, 53964, 53965, 53966, 53967, 53968, 53969, 53970, 53971, 53972, 53973, 53974, 53975, 53976, 53977, 53978, 53979, 53980],
+    "iconname":"",
+    "content": {
+      "type": "specialBlockT",
+      "first": "Super",
       "second": "",
       "third": "",
       "fourth": ""
@@ -1871,6 +2008,7 @@
     "y": 216,
     "centered": true,
     "icon": true,
+    "idArray": "",
     "iconname":"Play",
     "content": {
       "type": "specialBlockT",
@@ -1886,6 +2024,7 @@
     "y": 216,
     "centered": true,
     "icon": true,
+    "idArray": "",
     "iconname":"Stop",
     "content": {
       "type": "specialBlockT",
@@ -1901,6 +2040,7 @@
     "y": 216,
     "centered": true,
     "icon": true,
+    "idArray": "",
     "iconname":"Backward",
     "content": {
       "type": "specialBlockT",
@@ -1916,6 +2056,7 @@
     "y": 216,
     "centered": true,
     "icon": true,
+    "idArray": "",
     "iconname":"Forward",
     "content": {
       "type": "specialBlockT",
@@ -1931,6 +2072,7 @@
     "y": 216,
     "centered": true,
     "icon": true,
+    "idArray": "",
     "iconname":"Shuffle",
     "content": {
       "type": "specialBlockT",
@@ -1946,6 +2088,7 @@
     "y": 244,
     "centered": true,
     "icon": true,
+    "idArray": "",
     "iconname":"VolAdd",
     "content": {
       "type": "specialBlockT",
@@ -1961,6 +2104,7 @@
     "y": 244,
     "centered": true,
     "icon": true,
+    "idArray": "",
     "iconname":"VolSub",
     "content": {
       "type": "specialBlockT",
@@ -1976,6 +2120,7 @@
     "y": 244,
     "centered": true,
     "icon": true,
+    "idArray": "",
     "iconname":"VolMute",
     "content": {
       "type": "specialBlockT",
@@ -1991,6 +2136,7 @@
     "y": 244,
     "centered": true,
     "icon": true,
+    "idArray": "",
     "iconname":"Eject",
     "content": {
       "type": "specialBlockT",
@@ -2006,6 +2152,7 @@
     "y": 216,
     "centered": true,
     "icon": true,
+    "idArray": "",
     "iconname":"LDToggl",
     "content": {
       "type": "specialBlockT2",
@@ -2021,6 +2168,7 @@
     "y": 244,
     "centered": true,
     "icon": true,
+    "idArray": "",
     "iconname":"LDForward",
     "content": {
       "type": "specialBlockT2",
@@ -2036,6 +2184,7 @@
     "y": 216,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "specialBlockT",
@@ -2051,6 +2200,7 @@
     "y": 216,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "specialBlockT",
@@ -2066,6 +2216,7 @@
     "y": 216,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "specialBlockT",
@@ -2081,6 +2232,7 @@
     "y": 244,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "specialBlockT",
@@ -2096,6 +2248,7 @@
     "y": 244,
     "centered": true,
     "icon": false,
+    "idArray": "",
     "iconname":"",
     "content": {
       "type": "specialBlockT",
@@ -2111,6 +2264,7 @@
     "y": 216,
     "centered": true,
     "icon": true,
+    "idArray": "",
     "iconname":"MvUp",
     "content": {
       "type": "specialBlockT2",
@@ -2126,6 +2280,7 @@
     "y": 244,
     "centered": true,
     "icon": true,
+    "idArray": "",
     "iconname":"MvDwn",
     "content": {
       "type": "specialBlockT2",
@@ -2141,6 +2296,7 @@
     "y": 216,
     "centered": true,
     "icon": true,
+    "idArray": "",
     "iconname":"MvLeft",
     "content": {
       "type": "specialBlockT2",
@@ -2156,6 +2312,7 @@
     "y": 244,
     "centered": true,
     "icon": true,
+    "idArray": "",
     "iconname":"MvRight",
     "content": {
       "type": "specialBlockT2",
@@ -2171,6 +2328,7 @@
     "y": 216,
     "centered": true,
     "icon": true,
+    "idArray": "",
     "iconname":"ScrlUp",
     "content": {
       "type": "specialBlockT2",
@@ -2186,6 +2344,7 @@
     "y": 244,
     "centered": true,
     "icon": true,
+    "idArray": "",
     "iconname":"ScrlDwn",
     "content": {
       "type": "specialBlockT2",
@@ -2201,6 +2360,7 @@
     "y": 216,
     "centered": true,
     "icon": true,
+    "idArray": "",
     "iconname":"ScrlLeft",
     "content": {
       "type": "specialBlockT2",
@@ -2216,6 +2376,7 @@
     "y": 244,
     "centered": true,
     "icon": true,
+    "idArray": "",
     "iconname":"ScrlRight",
     "content": {
       "type": "specialBlockT2",

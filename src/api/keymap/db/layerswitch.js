@@ -98,70 +98,70 @@ const ShiftToLayerTable = {
       code: 17450,
       labels: {
         primary: "1",
-        top: "SHIFT"
+        top: "SWITCH"
       }
     },
     {
       code: 17451,
       labels: {
         primary: "2",
-        top: "SHIFT"
+        top: "SWITCH"
       }
     },
     {
       code: 17452,
       labels: {
         primary: "3",
-        top: "SHIFT"
+        top: "SWITCH"
       }
     },
     {
       code: 17453,
       labels: {
         primary: "4",
-        top: "SHIFT"
+        top: "SWITCH"
       }
     },
     {
       code: 17454,
       labels: {
         primary: "5",
-        top: "SHIFT"
+        top: "SWITCH"
       }
     },
     {
       code: 17455,
       labels: {
         primary: "6",
-        top: "SHIFT"
+        top: "SWITCH"
       }
     },
     {
       code: 17456,
       labels: {
         primary: "7",
-        top: "SHIFT"
+        top: "SWITCH"
       }
     },
     {
       code: 17457,
       labels: {
         primary: "8",
-        top: "SHIFT"
+        top: "SWITCH"
       }
     },
     {
       code: 17458,
       labels: {
         primary: "9",
-        top: "SHIFT"
+        top: "SWITCH"
       }
     },
     {
       code: 17459,
       labels: {
         primary: "10",
-        top: "SHIFT"
+        top: "SWITCH"
       }
     }
   ]
@@ -174,70 +174,70 @@ const MoveToLayerTable = {
       code: 17492,
       labels: {
         primary: "1",
-        top: "MOVE"
+        top: "LOCK"
       }
     },
     {
       code: 17493,
       labels: {
         primary: "2",
-        top: "MOVE"
+        top: "LOCK"
       }
     },
     {
       code: 17494,
       labels: {
         primary: "3",
-        top: "MOVE"
+        top: "LOCK"
       }
     },
     {
       code: 17495,
       labels: {
         primary: "4",
-        top: "MOVE"
+        top: "LOCK"
       }
     },
     {
       code: 17496,
       labels: {
         primary: "5",
-        top: "MOVE"
+        top: "LOCK"
       }
     },
     {
       code: 17497,
       labels: {
         primary: "6",
-        top: "MOVE"
+        top: "LOCK"
       }
     },
     {
       code: 17498,
       labels: {
         primary: "7",
-        top: "MOVE"
+        top: "LOCK"
       }
     },
     {
       code: 17499,
       labels: {
         primary: "8",
-        top: "MOVE"
+        top: "LOCK"
       }
     },
     {
       code: 17500,
       labels: {
         primary: "9",
-        top: "MOVE"
+        top: "LOCK"
       }
     },
     {
       code: 17501,
       labels: {
         primary: "10",
-        top: "MOVE"
+        top: "LOCK"
       }
     }
   ]

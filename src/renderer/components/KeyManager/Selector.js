@@ -2,24 +2,17 @@ import React, { Component } from "react";
 import Styled from "styled-components";
 
 // Internal Components
-import { LayerPicker } from "../KeyPicker";
-import MacroPicker from "./MacroPicker";
-import ModPicker from "./ModPicker";
-import F13Picker from "./F13Picker";
 
 // React Components
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Tooltip from "react-bootstrap/Tooltip";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Button from "react-bootstrap/Button";
-import { MdDeleteForever, MdInfo } from "react-icons/md";
 
 // Media Components
-import lightTool from "../../../../static/DarkSuperTooltip.png";
 // import darkTool from "../../../static/DarkSuperTooltip.png";
 
 const Style = Styled.div`
@@ -158,34 +151,19 @@ class Selector extends Component {
   }
 
   render() {
-    const {
-      action,
-      actions,
-      modifs,
-      selKeys,
-      SelectModif,
-      onReplaceKey,
-      activeKB,
-      AssignMacro,
-      macros,
-      superName,
-      setSuperName
-    } = this.props;
+    const { action, actions, selKeys, superName, setSuperName } = this.props;
 
-    const move1 = "Permanently move to a given layer.";
-    const move2 =
-      "To come back to the starting layer, set another Layer Lock key on the layer you moved to. This new Layer Lock key must target the initial layer.";
     let adjactions = actions;
     if (adjactions.length < 5) {
       while (adjactions.length < 5) {
         adjactions.push(0);
       }
     }
-    const element = this.taps.map((name, i) => {
+    const superKeys = this.taps.map((name, i) => {
       return (
         <Card.Body key={i} className={i === action ? "topelem" : "normalelem"}>
           <Row>
-            <Col xs={10} onClick={e => this.Selection(i)} className="keyselect">
+            <Col>
               <InputGroup className="">
                 <InputGroup.Text
                   className={`fixedheight fixedwidth ${
@@ -204,91 +182,7 @@ class Selector extends Component {
                 />
               </InputGroup>
             </Col>
-            <Col xs={2} className="p-0" onClick={e => onReplaceKey(0, i)}>
-              <MdDeleteForever
-                className={i !== action ? "bin disabled" : "bin"}
-              />
-              {i !== action ? (
-                ""
-              ) : (
-                <OverlayTrigger
-                  rootClose
-                  placement="top"
-                  delay={{ show: 250, hide: 400 }}
-                  overlay={this.renderImgTooltip(lightTool)}
-                >
-                  <MdInfo className={i !== action ? "info disabled" : "info"} />
-                </OverlayTrigger>
-              )}
-            </Col>
           </Row>
-          {actions != undefined &&
-          action == i &&
-          actions[action] >= 17492 &&
-          actions[action] <= 17502 ? (
-            <React.Fragment>
-              <Row className="modbuttonrow">
-                <LayerPicker
-                  onKeySelect={e => onReplaceKey(e, -1)}
-                  code={{
-                    base: actions[action],
-                    modified: 0
-                  }}
-                />
-                <OverlayTrigger
-                  rootClose
-                  placement="right"
-                  delay={{ show: 250, hide: 400 }}
-                  overlay={this.renderTooltip([move1, move2])}
-                >
-                  <MdInfo className="info" />
-                </OverlayTrigger>
-              </Row>
-            </React.Fragment>
-          ) : (
-            ""
-          )}
-          {actions != undefined &&
-          action == i &&
-          actions[action] >= 104 &&
-          actions[action] <= 115 ? (
-            <F13Picker
-              action={action}
-              actions={actions}
-              onReplaceKey={onReplaceKey}
-            ></F13Picker>
-          ) : (
-            ""
-          )}
-          {actions != undefined &&
-          action == i &&
-          actions[action] &&
-          actions[action] >= 4 &&
-          actions[action] <= 10000 ? (
-            <ModPicker
-              action={action}
-              actions={actions}
-              modifs={modifs}
-              SelectModif={SelectModif}
-              i={i}
-            />
-          ) : (
-            ""
-          )}
-          {actions != undefined &&
-          action == i &&
-          actions[action] &&
-          actions[action] >= 53852 &&
-          actions[action] <= 53852 + 64 ? (
-            <MacroPicker
-              action={action}
-              actions={actions}
-              AssignMacro={AssignMacro}
-              macros={macros}
-            ></MacroPicker>
-          ) : (
-            ""
-          )}
         </Card.Body>
       );
     });
@@ -298,24 +192,13 @@ class Selector extends Component {
         <Card className="type-card overflowS">
           <Card.Body>
             <Row className="m-0 py-1">
-              <Col xs={12} className="px-0 text-center">
-                <InputGroup className="">
-                  <FormControl
-                    id="nameSelectro"
-                    className="fixedheight namepicker"
-                    value={superName}
-                    placeholder={
-                      superName == ""
-                        ? "Edit label (5 characters max)"
-                        : superName
-                    }
-                    onChange={setSuperName}
-                  />
-                </InputGroup>
+              <Col xs={12} className="px-0 text-start">
+                <span>{`SUPERKEY: ${superName}`}</span>
               </Col>
             </Row>
           </Card.Body>
-          {element}
+          {superKeys}
+          <Button>Change superkey</Button>
         </Card>
       </Style>
     );

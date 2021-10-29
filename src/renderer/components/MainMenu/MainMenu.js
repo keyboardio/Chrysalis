@@ -34,6 +34,7 @@ import Focus from "../../../api/focus";
 import WelcomeMenu from "./WelcomeMenu";
 import EditorMenuItem from "./EditorMenuItem";
 import MacroEditorItem from "./MacroEditorItem";
+import SuperkeyEditorItem from "./SuperkeyEditorItem";
 import FlashMenuItem from "./FlashMenuItem";
 import KeyboardMenuItem from "./KeyboardSelectMenuItem";
 import PreferencesMenuItem from "./PreferencesMenuItem";
@@ -263,6 +264,20 @@ class MainMenu extends Component {
                             selected={currentPage === "/macros"}
                             drawerWidth={drawerWidth}
                             onClick={() => setCurrentPage("/macros")}
+                          />
+                        </Link>
+                      </OverlayTrigger>
+                      <OverlayTrigger
+                        rootClose
+                        placement="right"
+                        delay={{ show: 250, hide: 400 }}
+                        overlay={this.renderTooltip(i18n.app.menu.superkeys)}
+                      >
+                        <Link to="/superkeys" className="list-link">
+                          <SuperkeyEditorItem
+                            selected={currentPage === "/superkeys"}
+                            drawerWidth={drawerWidth}
+                            onClick={() => setCurrentPage("/superkeys")}
                           />
                         </Link>
                       </OverlayTrigger>

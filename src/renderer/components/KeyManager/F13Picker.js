@@ -30,7 +30,7 @@ class F13Picker extends Component {
   }
 
   render() {
-    const { actions, action, onReplaceKey } = this.props;
+    const { keyCode, onKeySelect } = this.props;
     // let enumerator = [];
     // const skeys = Array(64)
     //   .fill()
@@ -67,12 +67,12 @@ class F13Picker extends Component {
           className="F13Button"
           drop={"up"}
           title={f13.map(x => {
-            if (actions[action] == x.keynum) return x.name;
+            if (keyCode.base == x.keynum) return x.name;
           })}
           value={f13.map(x => {
-            if (actions[action] == x.keynum) return x.keynum;
+            if (keyCode.base == x.keynum) return x.keynum;
           })}
-          onSelect={value => onReplaceKey(value, action)}
+          onSelect={value => onKeySelect(parseInt(value) + keyCode.modified)}
         >
           {f13.map((x, id) => {
             return (

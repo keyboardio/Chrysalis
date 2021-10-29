@@ -39,6 +39,7 @@ import KeyboardSelect from "./screens/KeyboardSelect";
 import FirmwareUpdate from "./screens/FirmwareUpdate";
 import Editor from "./screens/Editor/Editor";
 import MacrosConfigurator from "./screens/Macros/MacrosConfigurator";
+import SuperkeysConfigurator from "./screens/Superkeys/SuperkeysConfigurator";
 import Preferences from "./screens/Preferences";
 import Welcome from "./screens/Welcome";
 
@@ -106,6 +107,8 @@ class App extends React.Component {
   flashing = false;
 
   componentDidMount() {
+    // Loading font to be sure it wont blink
+    document.fonts.load("Titillium Web");
     // Setting up function to receive O.S. dark theme changes
     const self = this;
     ipcRenderer.on("darkTheme-update", function (evt, message) {
@@ -398,6 +401,16 @@ class App extends React.Component {
             />
             <MacrosConfigurator
               path="/macros"
+              onDisconnect={this.onKeyboardDisconnect}
+              startContext={this.startContext}
+              cancelContext={this.cancelContext}
+              applyBalance={this.applyBalance}
+              revertBalance={this.revertBalance}
+              inContext={this.state.contextBar}
+              titleElement={() => document.querySelector("#page-title")}
+            />
+            <SuperkeysConfigurator
+              path="/superkeys"
               onDisconnect={this.onKeyboardDisconnect}
               startContext={this.startContext}
               cancelContext={this.cancelContext}

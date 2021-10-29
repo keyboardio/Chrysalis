@@ -96,6 +96,7 @@ const GlobalStyles = createGlobalStyle`
     background: ${({ theme }) => theme.colors.body};
     transition: all 0.50s linear;
     overflow: hidden;
+    height: 100vh;
   }
 
   div.card {

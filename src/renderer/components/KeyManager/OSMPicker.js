@@ -28,21 +28,11 @@ class OSMPicker extends Component {
   }
 
   render() {
-    const { actions, action, onReplaceKey } = this.props;
-    // let enumerator = [];
-    // const skeys = Array(64)
-    //   .fill()
-    //   .map((_, i) => i + 53916);
-    // const osm = Array(64)
-    //   .fill()
-    //   .map((_, i) => i + 53852);
-    // const shftto = Array(10)
-    //   .fill()
-    //   .map((_, i) => i + 17450);
-    // const mvto = Array(10)
-    //   .fill()
-    //   .map((_, i) => i + 17492);
+    const { keyCode, onKeySelect } = this.props;
+    const KC = keyCode.base + keyCode.modified;
     const osm = [
+      { name: "None Selected", keynum: 0, alt: 0 },
+      { name: "------------", keynum: -1, alt: -1 },
       { name: "One Shot Left Control", keynum: 49153 },
       { name: "One Shot Left Shift", keynum: 49154 },
       { name: "One Shot Left Alt", keynum: 49155 },
@@ -52,26 +42,70 @@ class OSMPicker extends Component {
       { name: "One Shot AltGr", keynum: 49159 },
       { name: "One Shot Right OS", keynum: 49160 }
     ];
-    // enumerator = enumerator.concat(skeys, osm, shftto, mvto, onsht);
+    const osl = [
+      { name: "None Selected", keynum: 0, alt: 0 },
+      { name: "------------", keynum: -1, alt: -1 },
+      { name: "One Shot Layer 1", keynum: 49161 },
+      { name: "One Shot Layer 2", keynum: 49162 },
+      { name: "One Shot Layer 3", keynum: 49163 },
+      { name: "One Shot Layer 4", keynum: 49164 },
+      { name: "One Shot Layer 5", keynum: 49165 },
+      { name: "One Shot Layer 6", keynum: 49166 },
+      { name: "One Shot Layer 7", keynum: 49167 },
+      { name: "One Shot Layer 8", keynum: 49168 }
+    ];
 
     return (
       <Style>
         <DropdownButton
           id="OSMPicker"
           className="OSMButton"
-          title={osm.map(x => {
-            if (actions[action] == x.keynum) return x.name;
-          })}
+          title={
+            osm[
+              isNaN(KC) || KC < 49153 || KC > 49160
+                ? 0
+                : osm.findIndex(o => o.keynum == KC)
+            ].name
+          }
           value={osm.map(x => {
-            if (actions[action] == x.keynum) return x.keynum;
+            if (KC == x.keynum) return x.keynum;
           })}
-          onSelect={value => onReplaceKey(value, action)}
+          onSelect={value => onKeySelect(parseInt(value))}
         >
           {osm.map((x, id) => {
             return (
               <Dropdown.Item
                 eventKey={x.keynum}
                 key={`OSM-${id}`}
+                disabled={x.keynum == -1}
+              >
+                <div className="menuitem">
+                  <p>{x.name}</p>
+                </div>
+              </Dropdown.Item>
+            );
+          })}
+        </DropdownButton>
+        <DropdownButton
+          id="OSMPicker"
+          className="OSMButton"
+          title={
+            osl[
+              isNaN(KC) || KC < 49161 || KC > 49168
+                ? 0
+                : osl.findIndex(o => o.keynum == KC)
+            ].name
+          }
+          value={osl.map(x => {
+            if (KC == x.keynum) return x.keynum;
+          })}
+          onSelect={value => onKeySelect(parseInt(value))}
+        >
+          {osl.map((x, id) => {
+            return (
+              <Dropdown.Item
+                eventKey={x.keynum}
+                key={`OSL-${id}`}
                 disabled={x.keynum == -1}
               >
                 <div className="menuitem">

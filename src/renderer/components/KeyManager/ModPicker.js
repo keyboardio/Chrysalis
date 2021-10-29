@@ -4,9 +4,6 @@ import Styled from "styled-components";
 // React Boostrap Components
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Tooltip from "react-bootstrap/Tooltip";
-import { MdInfo } from "react-icons/md";
 
 const Style = Styled.div`
 .modbutton:not(:disabled):not(.disabled).active, .modbutton:not(:disabled):not(.disabled):active {
@@ -47,92 +44,139 @@ class ModPicker extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      modifs: []
+    };
   }
 
-  renderTooltip(tooltips) {
-    return (
-      <Tooltip id="select-tooltip" className="longtooltip">
-        <TooltipStyle>
-          {tooltips.map((tip, i) => {
-            return (
-              <React.Fragment key={`Tip-${i}`}>
-                {i % 2 == 1 || !isNaN(tip[0]) ? (
-                  <p className="ttip-p">{tip}</p>
-                ) : (
-                  <React.Fragment>
-                    {i == 0 ? "" : <br></br>}
-                    <h5 className="ttip-h">{tip}</h5>
-                  </React.Fragment>
-                )}
-              </React.Fragment>
-            );
-          })}
-        </TooltipStyle>
-      </Tooltip>
-    );
+  componentDidMount() {
+    if (this.props.keyCode.base + this.props.keyCode.modified > 10000) return;
+    this.setState({
+      modifs: this.parseModifs(
+        this.props.keyCode.base + this.props.keyCode.modified
+      )
+    });
+  }
+
+  componentDidUpdate(previousProps, previousState) {
+    if (
+      this.props.keyCode.base + this.props.keyCode.modified !=
+      previousProps.keyCode.base + previousProps.keyCode.modified
+    ) {
+      if (this.props.keyCode.base + this.props.keyCode.modified > 10000) {
+        this.setState({
+          modifs: []
+        });
+      } else {
+        this.setState({
+          modifs: this.parseModifs(
+            this.props.keyCode.base + this.props.keyCode.modified
+          )
+        });
+      }
+    }
+  }
+
+  parseModifs(keycode) {
+    let modifs = [];
+    if (keycode & 0b100000000) {
+      // Ctrl Decoder
+      modifs.push(1);
+    }
+    if (keycode & 0b1000000000) {
+      // Alt Decoder
+      modifs.push(2);
+    }
+    if (keycode & 0b10000000000) {
+      // AltGr Decoder
+      modifs.push(3);
+    }
+    if (keycode & 0b100000000000) {
+      // Shift Decoder
+      modifs.push(0);
+    }
+    if (keycode & 0b1000000000000) {
+      // Win Decoder
+      modifs.push(4);
+    }
+    return modifs;
+  }
+
+  applyModif(data) {
+    let state = 0;
+    if (data.includes(0)) {
+      state += 2048;
+    }
+    if (data.includes(1)) {
+      state += 256;
+    }
+    if (data.includes(2)) {
+      state += 512;
+    }
+    if (data.includes(3)) {
+      state += 1024;
+    }
+    if (data.includes(4)) {
+      state += 4096;
+    }
+
+    return state;
+  }
+
+  SelectModif(data) {
+    const { keyCode, onKeySelect } = this.props;
+    const { modifs } = this.state;
+    let mod = [...modifs];
+    if (mod.includes(data)) {
+      mod = mod.filter(e => e !== data);
+    } else {
+      mod.push(data);
+    }
+    this.setState({ modifs: mod });
+    onKeySelect(keyCode.base + this.applyModif(mod));
   }
 
   render() {
-    const { actions, action, SelectModif, modifs, i } = this.props;
-
-    const text1 = "Key combined with modifier";
-    const text2 =
-      "Add any of these modifiers to the selected Key to create combinations such as Control Alt Del.";
-    const text3 = "More options";
-    const text4 = "For more complex combinations, you can use macros.";
+    const { modifs } = this.state;
 
     return (
       <Style>
         <Row className="modbuttonrow">
           <Button
-            active={modifs[action].includes(0)}
+            active={modifs.includes(0)}
             className="modbutton"
-            onClick={e => SelectModif(0)}
-            disabled={actions[i] == 0 ? true : false}
+            onClick={e => this.SelectModif(0)}
           >
             Shift
           </Button>
           <Button
-            active={modifs[action].includes(1)}
+            active={modifs.includes(1)}
             className="modbutton"
-            onClick={e => SelectModif(1)}
-            disabled={actions[i] == 0 ? true : false}
+            onClick={e => this.SelectModif(1)}
           >
             Ctrl
           </Button>
           <Button
-            active={modifs[action].includes(2)}
+            active={modifs.includes(2)}
             className="modbutton"
-            onClick={e => SelectModif(2)}
-            disabled={actions[i] == 0 ? true : false}
+            onClick={e => this.SelectModif(2)}
           >
             Alt
           </Button>
           <Button
-            active={modifs[action].includes(3)}
+            active={modifs.includes(3)}
             className="modbutton"
-            onClick={e => SelectModif(3)}
-            disabled={actions[i] == 0 ? true : false}
+            onClick={e => this.SelectModif(3)}
           >
             Alt Gr
           </Button>
           <Button
-            active={modifs[action].includes(4)}
+            active={modifs.includes(4)}
             className="modbutton"
-            onClick={e => SelectModif(4)}
-            disabled={actions[i] == 0 ? true : false}
+            onClick={e => this.SelectModif(4)}
           >
             O.S.
           </Button>
-          <OverlayTrigger
-            rootClose
-            placement="right"
-            delay={{ show: 250, hide: 400 }}
-            overlay={this.renderTooltip([text1, text2, text3, text4])}
-          >
-            <MdInfo className="modinfo" />
-          </OverlayTrigger>
         </Row>
       </Style>
     );

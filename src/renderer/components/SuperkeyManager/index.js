@@ -1,6 +1,5 @@
-// -*- mode: js-jsx -*-
 /* Bazecor -- Kaleidoscope Command Center
- * Copyright (C) 2019  Keyboardio, Inc.
+ * Copyright (C) 2021  Dygmalab, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -15,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import SelectLanguage from "./SelectLanguage";
+import SuperkeyManager from "./SuperkeyManager.js";
+import SuperkeyList from "./SuperkeyList.js";
 
-export default SelectLanguage;
+export { SuperkeyManager as default, SuperkeyList };

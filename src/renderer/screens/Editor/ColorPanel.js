@@ -15,6 +15,10 @@ import { CgSmartHomeLight, CgColorPicker } from "react-icons/cg";
 const toolsWidth = 45;
 
 const Styles = Styled.div`
+width: 100%;
+bottom: 60px;
+position: relative;
+align-self: flex-end!important;
   .color-editor {
     width: 400px;
     bottom: 10px;

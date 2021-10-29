@@ -30,24 +30,11 @@ class MacroPicker extends Component {
   }
 
   render() {
-    const { actions, action, AssignMacro, macros } = this.props;
-    // let enumerator = [];
-    // const skeys = Array(64)
-    //   .fill()
-    //   .map((_, i) => i + 53916);
+    const { keyCode, onKeySelect, macros } = this.props;
+    const KC = keyCode.base + keyCode.modified;
     const mcros = Array(macros.length)
       .fill()
       .map((_, i) => i + 53852);
-    // const shftto = Array(10)
-    //   .fill()
-    //   .map((_, i) => i + 17450);
-    // const mvto = Array(10)
-    //   .fill()
-    //   .map((_, i) => i + 17492);
-    // const onsht = Array(18)
-    //   .fill()
-    //   .map((_, i) => i + 49153);
-    // enumerator = enumerator.concat(skeys, mcros, shftto, mvto, onsht);
 
     return (
       <Style>
@@ -55,18 +42,18 @@ class MacroPicker extends Component {
           id="MacroPicker"
           className="MacroButton"
           title={
-            macros[mcros.indexOf(actions[action])] != undefined
-              ? `${mcros.indexOf(actions[action])} ${
-                  macros[mcros.indexOf(actions[action])].name
-                }`
+            macros[mcros.indexOf(KC)] != undefined
+              ? `${mcros.indexOf(KC)} ${macros[mcros.indexOf(KC)].name}`
               : ""
           }
           value={
-            macros[mcros.indexOf(actions[action])] != undefined
-              ? mcros[mcros.indexOf(actions[action])]
+            macros[mcros.indexOf(KC)] != undefined
+              ? mcros[mcros.indexOf(KC)]
               : ""
           }
-          onSelect={AssignMacro}
+          onSelect={value => {
+            onKeySelect(parseInt(value));
+          }}
         >
           {mcros.map((x, id) => {
             return (

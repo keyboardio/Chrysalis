@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
 import Styled from "styled-components";
-import { KeyPicker } from "../KeyPicker";
+import { KeyPicker } from "../Keyboard";
 
 const Style = Styled.div`
 .picker-select-card {

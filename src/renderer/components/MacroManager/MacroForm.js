@@ -348,7 +348,7 @@ class MacroForm extends Component {
             />
           </Col>
         </Row>
-        <Row className="row-buttons">
+        {/* <Row className="row-buttons">
           <div className={"buttons"}>
             <DropdownButton
               id="exporting-dropdown"
@@ -383,7 +383,7 @@ class MacroForm extends Component {
               <Dropdown.Item eventKey="backup">Backup all macros</Dropdown.Item>
             </DropdownButton>
           </div>
-        </Row>
+        </Row> */}
       </Styles>
     );
   }

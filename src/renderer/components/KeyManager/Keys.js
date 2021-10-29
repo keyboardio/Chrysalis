@@ -4,11 +4,15 @@ import React, { Component } from "react";
 import MacroPicker from "./MacroPicker";
 import OSMPicker from "./OSMPicker";
 import F13Picker from "./F13Picker";
+import PickedKey from "./PickedKey";
+import ModPicker from "./ModPicker";
+import DualFunction from "./DualFunction";
 
 // React Components
 import Card from "react-bootstrap/Card";
 import Tooltip from "react-bootstrap/Tooltip";
 import Styled from "styled-components";
+import Configurator from "./Configurator";
 
 const Style = Styled.div`
 .key-card {
@@ -70,91 +74,92 @@ class Keys extends Component {
   }
 
   render() {
-    const {
-      action,
-      actions,
-      selKey,
-      modifs,
-      showKeyboard,
-      activeKB,
-      SelectModif,
-      onReplaceKey,
-      AssignMacro,
-      macros
-    } = this.props;
-    const text =
-      "This button opens the key configurator menu. Select any key to change the functionality of your Raise.";
-    const text2 =
-      "When you are done editing, remember to hit save on the bottom right corner.";
+    const { selKey, showKeyboard, keyCode, macros, onKeySelect } = this.props;
 
     return (
       <Style>
         <Card className="key-card overflow">
           <Card.Body>
-            {/* <span>
-              SELECTED KEY{" "}
-              <OverlayTrigger
-                rootClose
-                placement="right"
-                delay={{ show: 250, hide: 400 }}
-                overlay={this.renderTooltip([text, text2])}
-              >
-                <MdInfo className={"info"} />
-              </OverlayTrigger>
-            </span>
-            <PickedKey
-              action={action}
-              selKey={selKey}
-              showKeyboard={showKeyboard}
-              activeKB={activeKB}
-            /> */}
-            {actions != undefined &&
-            actions[action] >= 53852 &&
-            actions[action] <= 53852 + 64 ? (
+            <span>SELECTED KEY</span>
+            {keyCode != undefined &&
+            ((keyCode.base + keyCode.modified >= 4 &&
+              keyCode.base + keyCode.modified <= 10000) ||
+              (keyCode.base + keyCode.modified >= 49169 &&
+                keyCode.base + keyCode.modified <= 53266) ||
+              (keyCode.base + keyCode.modified >= 17408 &&
+                keyCode.base + keyCode.modified <= 17501) ||
+              keyCode.base + keyCode.modified == 65535 ||
+              keyCode.base + keyCode.modified == 0) &&
+            !(keyCode.base >= 104 && keyCode.base <= 115) ? (
+              <PickedKey selKey={selKey} showKeyboard={showKeyboard} />
+            ) : (
+              ""
+            )}
+            {keyCode != undefined &&
+            keyCode.base + keyCode.modified >= 53852 &&
+            keyCode.base + keyCode.modified <= 53852 + 64 ? (
               <MacroPicker
-                action={action}
-                actions={actions}
-                AssignMacro={AssignMacro}
+                keyCode={keyCode}
+                onKeySelect={onKeySelect}
                 macros={macros}
               ></MacroPicker>
             ) : (
               ""
             )}
-            {actions != undefined &&
-            actions[action] >= 49153 &&
-            actions[action] <= 49160 ? (
+            {keyCode != undefined &&
+            keyCode.base + keyCode.modified >= 49153 &&
+            keyCode.base + keyCode.modified <= 49170 ? (
               <OSMPicker
-                action={action}
-                actions={actions}
-                onReplaceKey={onReplaceKey}
+                keyCode={keyCode}
+                onKeySelect={onKeySelect}
               ></OSMPicker>
             ) : (
               ""
             )}
-            {actions != undefined &&
-            actions[action] >= 104 &&
-            actions[action] <= 115 ? (
+            {keyCode != undefined &&
+            keyCode.base >= 104 &&
+            keyCode.base <= 115 ? (
               <F13Picker
-                action={action}
-                actions={actions}
-                onReplaceKey={onReplaceKey}
+                keyCode={keyCode}
+                onKeySelect={onKeySelect}
               ></F13Picker>
             ) : (
               ""
             )}
-            {/* {actions != undefined &&
-            actions[action] >= 4 &&
-            actions[action] <= 10000 ? (
-              <ModPicker
-                action={action}
-                actions={actions}
-                modifs={modifs}
-                SelectModif={SelectModif}
-                i={0}
-              ></ModPicker>
+            {keyCode != undefined &&
+            ((keyCode.base + keyCode.modified >= 4 &&
+              keyCode.base + keyCode.modified <= 10000) ||
+              (keyCode.base + keyCode.modified >= 49169 &&
+                keyCode.base + keyCode.modified <= 53266)) ? (
+              <React.Fragment>
+                <br />
+                <ModPicker
+                  key={keyCode}
+                  keyCode={keyCode}
+                  onKeySelect={onKeySelect}
+                ></ModPicker>
+                <br />
+                <DualFunction
+                  keyCode={keyCode}
+                  onKeySelect={onKeySelect}
+                ></DualFunction>
+              </React.Fragment>
             ) : (
               ""
-            )} */}
+            )}
+            {keyCode != undefined &&
+            keyCode.base + keyCode.modified >= 17408 &&
+            keyCode.base + keyCode.modified <= 17501 ? (
+              <React.Fragment>
+                <br />
+                <Configurator
+                  keyCode={keyCode}
+                  onKeySelect={onKeySelect}
+                ></Configurator>
+              </React.Fragment>
+            ) : (
+              ""
+            )}
           </Card.Body>
         </Card>
       </Style>

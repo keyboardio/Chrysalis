@@ -13,13 +13,13 @@ import Styled from "styled-components";
 
 const Style = Styled.div`
 .overflow {
-  overflow: auto;
+  overflow: visible;
 }
 .overflow::-webkit-scrollbar {
   display: none;
 }
 .select-card {
-    height: 320px;
+    height: 290px;
     padding: 0;
 }
 .titles {

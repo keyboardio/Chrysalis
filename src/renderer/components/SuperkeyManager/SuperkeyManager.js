@@ -21,31 +21,32 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import i18n from "../../i18n";
 
-// import SuperkeyForm from "./SuperkeyForm";
-import SuperkeyList from "./SuperkeyList";
+import SuperkeyForm from "./SuperkeyForm";
+import SuperkeyPicker from "./SuperkeyPicker";
+import SuperkeyName from "./SuperkeyName";
 
 const Styles = Styled.div`
 .card {
-  width: auto;
+  width: 520px;
   height: 100%;
   margin: 2rem;
   padding: 0;
   overflow: auto;
-  background-color: ${({ theme }) => theme.card.background};
+  background-color: ${({ theme }) => theme.card.altBackground};
   color: ${({ theme }) => theme.card.color};
+  border-radius: 8px;
 }
 .card::-webkit-scrollbar {
   display: none;
 }
 .cardcontent {
-  padding: 0px;
-  &:last-child {
-    padding-bottom: 0px;
-  }
+  padding: 1rem;
+  background-color: ${({ theme }) => theme.card.altBackgroundActive};
+  border-radius: 8px;
 }
 .cardHeader {
-  background-color: ${({ theme }) => theme.card.background};
-  color: ${({ theme }) => theme.card.color};
+  background-color: ${({ theme }) => theme.card.altBackground};
+  border: 0;
 }
 .cardTitle {
   color: ${({ theme }) => theme.card.color};
@@ -53,6 +54,9 @@ const Styles = Styled.div`
 .selected: {
   background-color: white;
   color: dimgrey;
+}
+.pickerRow {
+  margin: 0rem;
 }
 `;
 
@@ -171,41 +175,53 @@ class SuperkeyManager extends Component {
       selected,
       updateSuper,
       changeSelected,
+      saveName,
+      selectedAction,
+      updateAction,
+      changeAction,
       keymapDB
     } = this.props;
-    console.log(superkeys);
+    console.log("management superkeys", superkeys);
+
+    if (!Array.isArray(superkeys) || superkeys.length === 0)
+      return <React.Fragment />;
 
     return (
       <Styles>
         <Card>
-          <Card.Header>{i18n.editor.superkeys.title}</Card.Header>
-          <Card.Body className="cardcontent">
-            <Row>
-              <Col xs="4">
-                <SuperkeyList
-                  superkeys={this.state.superkeys}
-                  selected={this.state.selected}
-                  changeSelected={this.changeSelected}
-                />
-              </Col>
-              <Col xs="8">Form element</Col>
+          <Card.Header className="cardHeader">
+            <Row className="pickerRow">
+              <SuperkeyPicker
+                superkeys={superkeys}
+                selected={selected}
+                changeSelected={changeSelected}
+                keymapDB={keymapDB}
+                saveName={saveName}
+                addSuperkey={this.addSuperkey}
+                deleteSuperkey={this.deleteSuperkey}
+                key={JSON.stringify(superkeys) + selected}
+              />
             </Row>
-            {/* <SuperkeyForm
-              key={this.state.superkeys.length + this.state.selected}
-              superkeys={this.state.superkeys}
-              close={this.close}
-              selected={this.state.selected}
-              accept={this.accept}
-              keymapDB={keymapDB}
-              deleteSuperkey={this.deleteSuperkey}
-              addSuperkey={this.addSuperkey}
-              disableAdd={
-                this.state.superkeys.length === this.props.maxSuperkeys
-              }
-              changeSelected={this.changeSelected}
-              duplicateSuperkey={this.duplicateSuperkey}
-              superkeysRestore={this.superkeysRestore}
-            /> */}
+          </Card.Header>
+          <Card.Body className="cardcontent mx-4 mb-4 mt-2">
+            <Row className="m-0">
+              <SuperkeyName
+                superkeys={superkeys}
+                selected={selected}
+                saveName={saveName}
+                key={JSON.stringify(superkeys) + selected}
+              />
+            </Row>
+            <Row className="m-0">
+              <SuperkeyForm
+                superkeys={superkeys}
+                selected={selected}
+                selectedAction={selectedAction}
+                updateAction={updateAction}
+                changeAction={changeAction}
+                keymapDB={keymapDB}
+              />
+            </Row>
           </Card.Body>
         </Card>
       </Styles>

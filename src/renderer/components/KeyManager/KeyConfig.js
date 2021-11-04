@@ -57,7 +57,7 @@ display: flex;
 .dropdown-menu.show {
   display: block;
   overflow-y: auto;
-  height: 130px;
+  height: 230px;
 }
 .dropdown-menu.show::-webkit-scrollbar {
   display: none;
@@ -97,7 +97,7 @@ display: flex;
   }
 }
 .overflow {
-  overflow: auto;
+  overflow: visible;
 }
 .overflow::-webkit-scrollbar {
   display: none;
@@ -156,7 +156,7 @@ class KeyConfig extends Component {
     });
 
     this.state = {
-      action: 0,
+      action: Number.isInteger(props.action) ? props.action : 0,
       actions: tempActions,
       modifs: tempModifs,
       disable: false,
@@ -169,13 +169,8 @@ class KeyConfig extends Component {
       superName: props.superName
     };
 
-    this.onReplaceKey = this.onReplaceKey.bind(this);
     this.parseAction = this.parseAction.bind(this);
     this.changeTab = this.changeTab.bind(this);
-    this.updatelayer = this.updatelayer.bind(this);
-    this.showKeyboard = this.showKeyboard.bind(this);
-    this.setSuperName = this.setSuperName.bind(this);
-    this.updateDual = this.updateDual.bind(this);
   }
   componentDidUpdate() {
     let selectdual = 0;
@@ -250,108 +245,6 @@ class KeyConfig extends Component {
     }
   }
 
-  componentDidMount() {}
-
-  SelectAction(action) {
-    let newModifs = this.state.modifs;
-    newModifs[action] = 0;
-    this.setState({
-      action,
-      modifs: newModifs,
-      disablecombo: newModifs[action].length != 0 ? false : true
-    });
-  }
-
-  onReplaceKey(keycode, num) {
-    this.props.onKeySelect(keycode);
-  }
-
-  checkAndReport(
-    actns,
-    modifs,
-    previousmod,
-    selectdual,
-    previousdual,
-    superName
-  ) {
-    const { action } = this.state;
-    let state = 0;
-    const ActModifs = modifs[action];
-    if (ActModifs.includes(0)) {
-      state += 2048;
-    }
-    if (ActModifs.includes(1)) {
-      state += 256;
-    }
-    if (ActModifs.includes(2)) {
-      state += 512;
-    }
-    if (ActModifs.includes(3)) {
-      state += 1024;
-    }
-    if (ActModifs.includes(4)) {
-      state += 4096;
-    }
-    let actions = actns;
-    if (actions.length < 5) {
-      while (actions.length < 5) {
-        actions.push(0);
-      }
-    }
-    const mask = 0b0000000011111111;
-    if (modifs != previousmod) {
-      let base =
-        actions[action] < 8447 ? actions[action] & mask : actions[action];
-      actions[action] = base + state;
-    }
-    if (previousdual !== selectdual) {
-      state = selectdual;
-      const aux = modifs;
-      aux[action] = [];
-      this.setState({ modifs: aux });
-      if (actions[action] >= 51218 && actions[action] <= 65534) {
-        actions[action] = (actions[action] & mask) - 18 + state;
-      } else {
-        if (actions[action] >= 49169 && actions[action] <= 65534) {
-          actions[action] = (actions[action] & mask) - 17 + state;
-        } else {
-          actions[action] = (actions[action] & mask) + state;
-        }
-      }
-    }
-    let superid = this.props.code.base + this.props.code.modified - 53916;
-    if (actions[0] !== 0) {
-      if (
-        actions[1] <= 1 &&
-        actions[2] <= 1 &&
-        actions[3] <= 1 &&
-        actions[4] <= 1
-      ) {
-        if (
-          superid >= 0 &&
-          this.props.code.base + this.props.code.modified != 65535
-        ) {
-          this.props.delSuperKey(superid);
-        }
-        this.props.onKeySelect(actions[0]);
-      } else {
-        if (
-          superid < 0 ||
-          this.props.code.base + this.props.code.modified == 65535
-        )
-          superid = this.props.newSuperID();
-        this.props.onKeySelect(superid + 53916);
-        this.props.setSuperKey(superid, actions, superName);
-      }
-    } else {
-      this.props.onKeySelect(0);
-    }
-  }
-
-  AssignMacro(event) {
-    this.props.onKeySelect(parseInt(event));
-  }
-
   parseKey(keycode) {
     if (keycode >= 53852 && keycode <= 53852 + 64) {
       if (this.props.code !== null)
@@ -382,81 +275,22 @@ class KeyConfig extends Component {
     return aux;
   }
 
-  updatelayer(mv) {
-    const mov = parseInt(mv);
-    // console.log("Checking update layer", mov, this.state.layerData);
-    this.setState({ layerData: mov });
-    let actions = [this.state.actions[this.state.action], 0, 0, 0, 0];
-    if (mov > 50000) {
-      this.checkAndReport(
-        actions,
-        this.state.modifs,
-        this.state.modifs,
-        mov,
-        this.state.selectdual,
-        this.state.superName
-      );
-      this.setState({ selectdual: mov });
-      return;
-    }
-    actions[this.state.action] = mov;
-    this.setState({ actions });
-    this.checkAndReport(
-      actions,
-      this.state.modifs,
-      this.state.modifs,
-      this.state.selectdual,
-      this.state.selectdual,
-      this.state.superName
-    );
-  }
-  updateDual(key) {
-    const dualAction = parseInt(key);
-    // console.log("Checking update layer", mov, this.state.layerData);
-    let actions = [this.state.actions[this.state.action], 0, 0, 0, 0];
-    this.checkAndReport(
-      actions,
-      this.state.modifs,
-      this.state.modifs,
-      dualAction,
-      this.state.selectdual,
-      this.state.superName
-    );
-    return;
-  }
-
   changeTab(tab) {
     this.setState({ activeTab: tab, action: 0 });
   }
 
-  showKeyboard() {
-    // toggle keyboard visibility
-    this.setState({ showKB: !this.state.showKB });
-  }
-
-  setSuperName(data) {
-    this.setState({ superName: data.target.value });
-    this.checkAndReport(
-      this.state.actions,
-      this.state.modifs,
-      this.state.modifs,
-      this.state.selectdual,
-      this.state.selectdual,
-      data.target.value
-    );
-  }
-
   render() {
+    const { action, actions, showKB, modifs, superName, disable } = this.state;
     const {
-      action,
-      actions,
-      activeTab,
-      showKB,
-      modifs,
-      superName,
-      disable
-    } = this.state;
-    const { selectedlanguage, kbtype, macros, code, onKeySelect } = this.props;
+      selectedlanguage,
+      kbtype,
+      macros,
+      actTab,
+      superkeys,
+      code,
+      onKeySelect
+    } = this.props;
+    const activeTab = actTab != undefined ? actTab : this.state.activeTab;
     const selKey = this.parseAction(action);
     const selKeys = actions.map((a, i) => this.parseAction(i));
     // console.log(code);
@@ -474,7 +308,6 @@ class KeyConfig extends Component {
                     code.base + code.modified > 53916 + 64 ? (
                       <Keys
                         selKey={selKey}
-                        showKeyboard={this.showKeyboard}
                         activeKB={showKB}
                         keyCode={code}
                         macros={macros}
@@ -484,17 +317,10 @@ class KeyConfig extends Component {
                       <Selector
                         action={action}
                         actions={actions}
-                        modifs={modifs}
                         selKeys={selKeys}
-                        SelectAction={this.SelectAction}
-                        SelectModif={this.SelectModif}
-                        showKeyboard={this.showKeyboard}
-                        onReplaceKey={this.onReplaceKey}
-                        activeKB={showKB}
-                        AssignMacro={this.AssignMacro}
-                        macros={macros}
-                        superName={superName}
-                        setSuperName={this.setSuperName}
+                        onKeySelect={onKeySelect}
+                        superkeys={superkeys}
+                        keyCode={code}
                       />
                     )}
                   </Col>
@@ -505,7 +331,7 @@ class KeyConfig extends Component {
                       disable={disable}
                       baseCode={code.base}
                       modCode={code.modified}
-                      onReplaceKey={this.onReplaceKey}
+                      onKeySelect={onKeySelect}
                       activeTab={activeTab}
                       selectedlanguage={selectedlanguage}
                       kbtype={kbtype}

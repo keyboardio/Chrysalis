@@ -40,6 +40,7 @@ class MacroPicker extends Component {
       <Style>
         <DropdownButton
           id="MacroPicker"
+          drop={"up"}
           className="MacroButton"
           title={
             macros[mcros.indexOf(KC)] != undefined

@@ -27,9 +27,12 @@ import { MdClose, MdCreate, MdInfo, MdBuild } from "react-icons/md";
 import i18n from "../../i18n";
 
 const Styles = Styled.div`
-.selected: {
+.selected {
   background-color: white;
   color: dimgrey;
+}
+.listItem {
+  background-color: inherit !important;
 }
 `;
 
@@ -53,6 +56,7 @@ class SuperkeyList extends Component {
                 onClick={() => {
                   changeSelected(item.id);
                 }}
+                className="listItem"
               >
                 <div style={{ display: "flex" }}>
                   <p>

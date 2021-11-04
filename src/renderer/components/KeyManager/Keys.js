@@ -16,7 +16,7 @@ import Configurator from "./Configurator";
 
 const Style = Styled.div`
 .key-card {
-  min-height: 320px;
+  min-height: 290px;
   padding: 0;
 }
 .overflow {
@@ -74,7 +74,7 @@ class Keys extends Component {
   }
 
   render() {
-    const { selKey, showKeyboard, keyCode, macros, onKeySelect } = this.props;
+    const { selKey, keyCode, macros, onKeySelect } = this.props;
 
     return (
       <Style>
@@ -91,7 +91,7 @@ class Keys extends Component {
               keyCode.base + keyCode.modified == 65535 ||
               keyCode.base + keyCode.modified == 0) &&
             !(keyCode.base >= 104 && keyCode.base <= 115) ? (
-              <PickedKey selKey={selKey} showKeyboard={showKeyboard} />
+              <PickedKey selKey={selKey} />
             ) : (
               ""
             )}

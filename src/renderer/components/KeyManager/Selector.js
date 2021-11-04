@@ -7,7 +7,8 @@ import Styled from "styled-components";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
+import DropdownButton from "react-bootstrap/DropdownButton";
+import Dropdown from "react-bootstrap/Dropdown";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Tooltip from "react-bootstrap/Tooltip";
@@ -17,7 +18,7 @@ import Tooltip from "react-bootstrap/Tooltip";
 
 const Style = Styled.div`
 .type-card {
-  height: 320px;
+  height: 290px;
   padding: 0;
 }
 .bin {
@@ -48,6 +49,7 @@ const Style = Styled.div`
 }
 .normalelem {
   padding: 0.6em 1em 0em 1em;
+  width: 100%;
 }
 .disabled {
   color: ${({ theme }) => theme.card.icon};
@@ -91,6 +93,21 @@ const Style = Styled.div`
 .overflowS::-webkit-scrollbar {
   display: none;
 }
+.SuperKButton {
+  button {
+    margin: 0;
+  }
+}
+.text-start {
+  place-self: center;
+  font-size: 18px;
+  line-height: 18px;
+}
+.pickerRow {
+  border-bottom: 1px solid;
+  padding: 0rem 0.5rem 1rem 0.5rem;
+  margin: 0rem 0rem 1rem 0rem;
+}
 `;
 const TooltipStyle = Styled.div`
 text-align: left;
@@ -108,8 +125,6 @@ class Selector extends Component {
 
     this.state = {};
     this.taps = ["TAP", "HOLD", "T&H", "2TAP", "2T&H"];
-
-    this.Selection = this.Selection.bind(this);
   }
 
   renderTooltip(tooltips) {
@@ -143,15 +158,20 @@ class Selector extends Component {
     );
   }
 
-  Selection(action) {
-    this.props.SelectAction(action);
-    if (this.props.action == action) {
-      this.props.showKeyboard();
-    }
-  }
-
   render() {
-    const { action, actions, selKeys, superName, setSuperName } = this.props;
+    const {
+      action,
+      actions,
+      selKeys,
+      onKeySelect,
+      superkeys,
+      keyCode
+    } = this.props;
+
+    const KC = keyCode.base + keyCode.modified;
+    const superk = Array(superkeys.length)
+      .fill()
+      .map((_, i) => i + 53916);
 
     let adjactions = actions;
     if (adjactions.length < 5) {
@@ -159,17 +179,13 @@ class Selector extends Component {
         adjactions.push(0);
       }
     }
-    const superKeys = this.taps.map((name, i) => {
+    const listActions = this.taps.map((name, i) => {
       return (
-        <Card.Body key={i} className={i === action ? "topelem" : "normalelem"}>
+        <Card.Body key={i} className="normalelem">
           <Row>
             <Col>
               <InputGroup className="">
-                <InputGroup.Text
-                  className={`fixedheight fixedwidth ${
-                    i !== action ? "notfocus" : ""
-                  }`}
-                >
+                <InputGroup.Text className={`fixedheight fixedwidth "notfocus`}>
                   {name}
                 </InputGroup.Text>
                 <FormControl
@@ -187,18 +203,51 @@ class Selector extends Component {
       );
     });
 
+    const skSel = (
+      <DropdownButton
+        id="SuperPicker"
+        drop={"up"}
+        className="SuperKButton"
+        title={
+          superkeys[superk.indexOf(KC)] != undefined
+            ? `${superk.indexOf(KC)} ${superkeys[superk.indexOf(KC)].name}`
+            : ""
+        }
+        value={
+          superkeys[superk.indexOf(KC)] != undefined
+            ? superk[superk.indexOf(KC)]
+            : ""
+        }
+        onSelect={value => {
+          onKeySelect(parseInt(value));
+        }}
+      >
+        {superk.map((x, id) => {
+          return (
+            <Dropdown.Item eventKey={x} key={`macro-${id}`} disabled={x == -1}>
+              <div className="menuitem">
+                <p>{`${id} ${superkeys[id].name}`}</p>
+              </div>
+            </Dropdown.Item>
+          );
+        })}
+      </DropdownButton>
+    );
+
     return (
       <Style>
         <Card className="type-card overflowS">
           <Card.Body>
-            <Row className="m-0 py-1">
-              <Col xs={12} className="px-0 text-start">
-                <span>{`SUPERKEY: ${superName}`}</span>
+            <Row className="pickerRow">
+              <Col xs={4} className="px-0 text-start">
+                <span>SUPERKEY</span>
+              </Col>
+              <Col xs={8} className="px-0">
+                {skSel}
               </Col>
             </Row>
+            <Row>{listActions}</Row>
           </Card.Body>
-          {superKeys}
-          <Button>Change superkey</Button>
         </Card>
       </Style>
     );

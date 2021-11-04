@@ -1,19 +1,5 @@
 import React, { Component } from "react";
 
-// import { withStyles } from "@material-ui/core/styles";
-// import {
-//   MenuItem,
-//   TextField,
-//   FormControl,
-//   Chip,
-//   Divider,
-//   ListItem,
-//   ListItemText,
-//   ListItemIcon,
-//   IconButton,
-//   ListItemSecondaryAction
-// } from "@material-ui/core";
-// import { Close, DragIndicator } from "@material-ui/icons";
 import Styled from "styled-components";
 import { toast } from "react-toastify";
 import Container from "react-bootstrap/Container";

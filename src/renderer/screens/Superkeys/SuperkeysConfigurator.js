@@ -19,18 +19,17 @@
 import React from "react";
 import { toast } from "react-toastify";
 import Styled from "styled-components";
+import settings from "electron-settings";
 
 // Styling and elements
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
 import { FiSave, FiTrash2 } from "react-icons/fi";
 
 // Components
 import SuperkeyManager from "../../components/SuperkeyManager";
+import KeyConfig from "../../components/KeyManager/KeyConfig";
 
 // API's
 import i18n from "../../i18n";
@@ -42,21 +41,28 @@ const Store = window.require("electron-store");
 const store = new Store();
 
 const Styles = Styled.div`
+height: -webkit-fill-available;
+display: flex;
+flex-direction: column;
   .toggle-button{
     text-align: center;
     padding-bottom: 8px;
   }
-  .list-group-item {
-    border: none !important;
-    background-color: ${({ theme }) => theme.card.background};
-  }
   .save-button {
     text-align: center;
   }
-  .macrocontainer {
+  .supercontainer {
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 0.4rem;
+    width: inherit;
+  }
+  .keyboardcontainer {
     margin-right: 15%;
     margin-left: 15%;
     width: inherit;
+    height: -webkit-fill-available;
+    display: flex;
   }
   .save-row {
     position: absolute;
@@ -91,22 +97,31 @@ class SuperkeysConfigurator extends React.Component {
     this.state = {
       keymap: [],
       macros: [],
-      superkeys: [],
       storedMacros: store.get("macros"),
+      superkeys: [],
+      storedSuper: store.get("superkeys"),
       maxMacros: 64,
       modified: false,
       selectedSuper: 0,
+      selectedAction: -1,
       showDeleteModal: false,
       listToDelete: [],
       listToDeleteS: [],
-      selectedList: 0
+      selectedList: 0,
+      currentLanguageLayout: settings.getSync("keyboard.language") || "english"
     };
     this.changeSelected = this.changeSelected.bind(this);
+    this.updateSuper = this.updateSuper.bind(this);
+    this.changeAction = this.changeAction.bind(this);
+    this.updateAction = this.updateAction.bind(this);
     this.loadSuperkeys = this.loadSuperkeys.bind(this);
+    this.onKeyChange = this.onKeyChange.bind(this);
+    this.saveName = this.saveName.bind(this);
+    this.writeSuper = this.writeSuper.bind(this);
   }
 
-  componentDidMount() {
-    this.loadSuperkeys();
+  async componentDidMount() {
+    await this.loadSuperkeys();
   }
 
   async loadSuperkeys() {
@@ -118,6 +133,16 @@ class SuperkeysConfigurator extends React.Component {
       let deviceLang = { ...focus.device, language: true };
       focus.commands.keymap = new Keymap(deviceLang);
       this.keymapDB = focus.commands.keymap.db;
+      let kbtype = "iso";
+      try {
+        kbtype =
+          focus.device && focus.device.info.keyboardType === "ISO"
+            ? "iso"
+            : "ansi";
+      } catch (error) {
+        console.error("Focus lost connection to Raise: ", error);
+        return false;
+      }
 
       let keymap = await focus.command("keymap");
       console.log(keymap);
@@ -136,10 +161,12 @@ class SuperkeysConfigurator extends React.Component {
       }
       const parsedSuper = this.superTranslator(raw2);
       this.setState({
+        modified: false,
         macros: parsedMacros,
         storedMacros: store.get("macros"),
         superkeys: parsedSuper,
-        keymap
+        keymap,
+        kbtype
       });
     } catch (e) {
       console.log("error when loading macros");
@@ -441,7 +468,20 @@ class SuperkeysConfigurator extends React.Component {
 
   changeSelected(id) {
     this.setState({
-      selectedSuper: id < 0 ? 0 : id
+      selectedSuper: id < 0 ? 0 : id,
+      selectedAction: -1
+    });
+  }
+
+  changeAction(id) {
+    if (id == this.state.selectedAction) {
+      this.setState({
+        selectedAction: -1
+      });
+      return;
+    }
+    this.setState({
+      selectedAction: id < 0 ? 0 : id
     });
   }
 
@@ -449,62 +489,140 @@ class SuperkeysConfigurator extends React.Component {
     console.log("launched update super using data:", data);
   }
 
+  updateAction(newAction) {
+    console.log("launched update action using data:", newAction);
+    const newData = this.state.superkeys;
+    newData[this.state.selectedSuper].actions[
+      this.state.selectedAction
+    ] = newAction;
+    this.setState({
+      superkeys: newData,
+      modified: true
+    });
+  }
+
+  onKeyChange(keyCode) {
+    const newData = this.state.superkeys;
+    newData[this.state.selectedSuper].actions[
+      this.state.selectedAction
+    ] = keyCode;
+    this.setState({
+      superkeys: newData,
+      modified: true
+    });
+  }
+
+  saveName(name) {
+    let superkeys = this.state.superkeys;
+    superkeys[this.state.selectedSuper].name = name;
+    this.setState({ superkeys, modified: true });
+  }
+
+  async writeSuper() {
+    let focus = new Focus();
+    let newSuperKeys = this.state.superkeys;
+    this.setState({
+      modified: false,
+      superkeys: newSuperKeys,
+      storedMacros: newSuperKeys
+    });
+    store.set("superkeys", newSuperKeys);
+    try {
+      await focus.command("superkeys.map", this.superkeyMap(newSuperKeys));
+      console.log("Changes saved.");
+      const commands = await this.bkp.Commands();
+      const backup = await this.bkp.DoBackup(commands);
+      this.bkp.SaveBackup(backup);
+      toast.success(i18n.editor.macros.successFlash, {
+        autoClose: 2000
+      });
+    } catch (error) {
+      toast.error(error);
+    }
+  }
+
   render() {
-    const ListOfMacros = this.state.listToDelete.map(
-      ({ layer, pos, key }, id) => {
-        return (
-          <Row key={id}>
-            <Col xs={12} className="px-0 text-center gridded">
-              <p className="titles alignvert">{`Key in layer ${layer} and pos ${pos}`}</p>
-            </Col>
-          </Row>
-        );
-      }
+    const {
+      currentLanguageLayout,
+      kbtype,
+      selectedSuper,
+      superkeys,
+      maxMacros,
+      macros,
+      selectedAction
+    } = this.state;
+
+    let code = 0;
+    const tempkey = this.keymapDB.parse(
+      superkeys[selectedSuper] != undefined
+        ? superkeys[selectedSuper].actions[selectedAction]
+        : 0
     );
-    const ListCombo = (
-      <Col xs={12} className="px-0 text-center gridded">
-        <DropdownButton
-          id="Selectlayers"
-          className="selectButton"
-          drop={"up"}
-          title={
-            this.state.macros.length > 0 && this.state.selectedList > -1
-              ? this.state.macros[this.state.selectedList].name
-              : "No Key"
-          }
-          value={this.state.selectedList}
-          onSelect={this.UpdateList}
-        >
-          <Dropdown.Item eventKey={-1} key={`macro-${-1}`} disabled={false}>
-            <div className="item-layer">
-              <p>{"No Key"}</p>
-            </div>
-          </Dropdown.Item>
-          {this.state.macros.map((macro, id) => (
-            <Dropdown.Item
-              eventKey={macro.id}
-              key={`macro-${id}`}
-              disabled={macro.id == -1}
-            >
-              <div className="item-layer">
-                <p>{macro.name}</p>
-              </div>
-            </Dropdown.Item>
-          ))}
-        </DropdownButton>
-      </Col>
-    );
+    code = {
+      base:
+        tempkey.keyCode > 255
+          ? tempkey.keyCode > 53266
+            ? tempkey.keyCode == 65535
+              ? this.keymapDB.reverse(tempkey.label)
+              : parseInt(tempkey.label)
+            : this.keymapDB.reverse(tempkey.label)
+          : tempkey.keyCode < 20480 || tempkey.keyCode > 20561
+          ? this.keymapDB.reverseSub(tempkey.label, tempkey.extraLabel)
+          : this.keymapDB.reverse(tempkey.label),
+      modified:
+        tempkey.keyCode > 255 &&
+        (tempkey.keyCode < 20480 || tempkey.keyCode > 20561)
+          ? tempkey.keyCode > 53266
+            ? tempkey.keyCode == 65535
+              ? 0
+              : this.keymapDB.reverseSub(tempkey.label, tempkey.extraLabel) -
+                parseInt(tempkey.label)
+            : this.keymapDB.reverseSub(tempkey.label, tempkey.extraLabel) -
+              this.keymapDB.reverse(tempkey.label)
+          : 0
+    };
+    // console.log(selectedSuper, JSON.stringify(code), JSON.stringify(superkeys));
+    let actions = superkeys.length > 0 ? superkeys[selectedSuper].actions : [];
+    let superName = superkeys.length > 0 ? superkeys[selectedSuper].name : "";
     return (
       <Styles>
-        <Container fluid className="macrocontainer">
+        <Row className="title-row m-0">
+          <h4 className="section-title">{i18n.app.menu.superkeys}</h4>
+        </Row>
+        <Container fluid className="supercontainer">
           <SuperkeyManager
-            superkeys={this.state.superkeys}
-            maxSuperkeys={this.state.maxMacros}
-            selected={this.state.selectedSuper}
+            superkeys={superkeys}
+            maxSuperkeys={maxMacros}
+            saveName={this.saveName}
+            selected={selectedSuper}
             updateSuper={this.updateSuper}
             changeSelected={this.changeSelected}
+            selectedAction={selectedAction}
+            updateAction={this.updateAction}
+            changeAction={this.changeAction}
             keymapDB={this.keymapDB}
-            key={JSON.stringify(this.state.superkeys)}
+            key={JSON.stringify(superkeys)}
+          />
+        </Container>
+        <Container
+          fluid
+          className="keyboardcontainer"
+          hidden={selectedAction < 0}
+        >
+          <KeyConfig
+            key={JSON.stringify(superkeys) + selectedAction}
+            onKeySelect={this.onKeyChange}
+            code={code}
+            macros={macros}
+            actions={actions}
+            action={selectedAction}
+            actTab={"super"}
+            superName={superName}
+            newSuperID={this.newSuperID}
+            setSuperKey={this.setSuperKey}
+            delSuperKey={this.delSuperKey}
+            selectedlanguage={currentLanguageLayout}
+            kbtype={kbtype}
           />
         </Container>
         <Row className="save-row">
@@ -512,6 +630,7 @@ class SuperkeysConfigurator extends React.Component {
             <Row>
               <Button
                 disabled={!this.state.modified}
+                onClick={this.writeSuper}
                 className={`button-large pt-0 mt-0 mb-2 ${
                   this.state.modified ? "save-active" : ""
                 }`}

@@ -26,7 +26,9 @@ const Style = Styled.div`
 .selectedkey {
   border-radius: 4px;
   margin: 0.375rem .75rem;
-  background-color: ${({ theme }) => theme.colors.button.background};
+  border: none;
+  background-color: #DDD;
+  background-color: ${({ theme }) => theme.card.icon};
 }
 .activebg {
   background-color: ${({ theme }) => theme.colors.button.active};
@@ -55,12 +57,12 @@ class PickedKey extends Component {
   }
 
   render() {
-    const { selKey, showKeyboard } = this.props;
+    const { selKey } = this.props;
 
     return (
       <Style>
         <Row className="pksection">
-          <Col xs={10} className="pksection compensator" onClick={showKeyboard}>
+          <Col xs={10} className="pksection compensator">
             <Form.Control
               type="text"
               value={selKey}
@@ -71,7 +73,7 @@ class PickedKey extends Component {
               readOnly
             ></Form.Control>
           </Col>
-          <Col xs={2} className="selectsection" onClick={showKeyboard}>
+          <Col xs={2} className="selectsection">
             <MdChevronRight className="chevron" />
           </Col>
         </Row>

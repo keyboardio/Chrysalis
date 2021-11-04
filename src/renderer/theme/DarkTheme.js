@@ -45,7 +45,9 @@ const Dark = {
     background: "#555",
     backgroundActive: "#888",
     disabled: "#333",
-    icon: "#EEE",
+    altBackground: "#444",
+    altBackgroundActive: "#666",
+    icon: "#DDD",
     radius: "10",
     boxShadow: "0 0 0.5rem 0.3rem rgba(0,0,0,0.1)"
   },

@@ -21,7 +21,7 @@ const Style = Styled.div`
   display: none;
 }
 .select-card {
-    height: 320px;
+    height: 290px;
     padding: 0;
 }
 .titles {

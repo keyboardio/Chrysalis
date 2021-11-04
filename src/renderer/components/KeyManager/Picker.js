@@ -6,7 +6,7 @@ import { KeyPicker } from "../Keyboard";
 const Style = Styled.div`
 .picker-select-card {
     min-height: 100%;
-    height: 320px;
+    height: 290px;
     padding: 0;
 }
 .nospacing{
@@ -26,7 +26,7 @@ class Picker extends Component {
     const {
       action,
       actions,
-      onReplaceKey,
+      onKeySelect,
       activeTab,
       selectedlanguage,
       kbtype,
@@ -39,7 +39,7 @@ class Picker extends Component {
       <Style>
         <Card className="picker-select-card">
           <KeyPicker
-            onKeySelect={e => onReplaceKey(e, -1)}
+            onKeySelect={e => onKeySelect(e)}
             code={{
               base: actions[action] > 255 ? baseCode : actions[action],
               modified: modCode

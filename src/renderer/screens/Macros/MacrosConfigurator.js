@@ -562,6 +562,9 @@ class MacrosConfigurator extends React.Component {
     );
     return (
       <Styles>
+        <Row className="title-row m-0">
+          <h4 className="section-title">{i18n.app.menu.macros}</h4>
+        </Row>
         <Container fluid className="macrocontainer">
           <MacroManager
             macros={this.state.macros}

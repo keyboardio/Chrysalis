@@ -44,8 +44,10 @@ const Light = {
     colorDisabled: "#999",
     background: "#fff",
     backgroundActive: "#cbedff",
-    icon: "#666",
     disabled: "#AAA",
+    altBackground: "#CCC",
+    altBackgroundActive: "#95DAFF",
+    icon: "#666",
     radius: "10",
     boxShadow: "0 0 0.5rem 0.3rem rgba(0,0,0,0.1)"
   },

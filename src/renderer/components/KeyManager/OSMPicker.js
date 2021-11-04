@@ -59,6 +59,7 @@ class OSMPicker extends Component {
       <Style>
         <DropdownButton
           id="OSMPicker"
+          drop={"up"}
           className="OSMButton"
           title={
             osm[
@@ -88,6 +89,7 @@ class OSMPicker extends Component {
         </DropdownButton>
         <DropdownButton
           id="OSMPicker"
+          drop={"up"}
           className="OSMButton"
           title={
             osl[

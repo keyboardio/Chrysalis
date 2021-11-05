@@ -92,7 +92,7 @@ const Style = Styled.div`
   }
 }
 .svgStyle {
-  max-height: 290px;
+  max-height: 260px;
 }
 `;
 const IconColor = Styled.span`
@@ -302,11 +302,18 @@ class KeyPicker extends Component {
             code === null
               ? false
               : Array.isArray(key.idArray)
-              ? key.idArray.some(key => key === code.base + code.modified)
+              ? key.idArray.some(
+                  key =>
+                    key === code.base + code.modified ||
+                    (key === code.base && key >= 104 && key <= 115)
+                )
               : code.base === key.id &&
-                code.base + code.modified < 53267 &&
+                (code.base + code.modified < 53267 ||
+                  code.base + code.modified > 60000) &&
                 (code.base + code.modified < 17450 ||
-                  code.base + code.modified > 17501)
+                  code.base + code.modified > 17501) &&
+                (code.base + code.modified < 49153 ||
+                  code.base + code.modified > 49168)
               ? true
               : code.modified > 0 && code.base + code.modified === key.id
               ? true

@@ -4,10 +4,52 @@ import Styled from "styled-components";
 // React Boostrap Components
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+import { MdInfo } from "react-icons/md";
 
 const Style = Styled.div`
+padding-top: 10px;
+.overflow {
+  overflow: auto;
+}
+.overflow::-webkit-scrollbar {
+  display: none;
+}
+.select-card {
+    height: 290px;
+    padding: 0;
+}
+.titles {
+    margin-bottom: 0;
+  }
+.alignvert {
+  padding-top: 10px;
+  float: left;
+}
+.showbutton {
+  margin 0;
+}
+.selectButton {
+  float: left;
+  width: 100%;
+  .dropdown-toggle{
+    font-size: 0.97rem;
+    width: 100%;
+  }
+}
+.select-body {
+  padding: 0.55rem;
+}
+.item-layer {
+  p {
+    margin-bottom: 0;
+  }
+}
+
 .modbutton:not(:disabled):not(.disabled).active, .modbutton:not(:disabled):not(.disabled):active {
   border: 1px solid ${({ theme }) => theme.colors.button.borderColor};
+  box-shadow: none;
 }
 .modbutton {
   margin-right: 0.4em;
@@ -26,7 +68,7 @@ const Style = Styled.div`
   align-self: center;
   font-size: 1.2rem;
   margin-top: 4px;
-  color: #666;
+  color: ${({ theme }) => theme.card.icon};
 }
 `;
 const TooltipStyle = Styled.div`
@@ -136,11 +178,50 @@ class ModPicker extends Component {
     onKeySelect(keyCode.base + this.applyModif(mod));
   }
 
+  renderTooltip(tooltips) {
+    return (
+      <Tooltip id="select-tooltip" className="longtooltip">
+        <TooltipStyle>
+          {tooltips.map((tip, i) => {
+            return (
+              <React.Fragment key={`Tip-${i}`}>
+                {i % 2 == 1 || !isNaN(tip[0]) ? (
+                  <p className="ttip-p">{tip}</p>
+                ) : (
+                  <React.Fragment>
+                    {i == 0 ? "" : <br></br>}
+                    <h5 className="ttip-h">{tip}</h5>
+                  </React.Fragment>
+                )}
+              </React.Fragment>
+            );
+          })}
+        </TooltipStyle>
+      </Tooltip>
+    );
+  }
+
   render() {
     const { modifs } = this.state;
+    const text1 = "Key combined with modifier";
+    const text2 =
+      "Add any of these modifiers to the selected Key to create combinations such as Control Alt Del.";
+    const text3 = "More options";
+    const text4 = "For more complex combinations, you can use macros.";
 
     return (
       <Style>
+        <Row className="mx-0">
+          <p className="titles">ADD A MODIFIER</p>
+          <OverlayTrigger
+            rootClose
+            placement="right"
+            delay={{ show: 250, hide: 400 }}
+            overlay={this.renderTooltip([text1, text2, text3, text4])}
+          >
+            <MdInfo className="modinfo ml-3" />
+          </OverlayTrigger>
+        </Row>
         <Row className="modbuttonrow">
           <Button
             active={modifs.includes(0)}

@@ -10,7 +10,7 @@ const Style = Styled.div`
   .dropdown-toggle{
     text-align: left;
     padding-left: 20px;
-    width: 50%;
+    width: 100%;
     overflow-y: visible;
     border: 1px solid ${({ theme }) => theme.colors.button.disabled};;
   }

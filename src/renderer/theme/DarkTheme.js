@@ -3,7 +3,7 @@ const Dark = {
   drawerWidth: 64,
   keyboardPicker: {
     keyColor: "#252525",
-    keyActiveColor: "#db1258",
+    keyActiveColor: "#299898",
     keyDisabledColor: "#BBBBBB",
     keyTextColor: "#DDDDDD",
     keyIconColor: "#DDDDDD",
@@ -27,12 +27,12 @@ const Dark = {
       disabled: "#444",
       cancel: "#ef26268f",
       save: "#24e24dad",
-      active: "#AAA",
+      active: "#30b1b1",
       secondary: "#BBB",
       activeText: "#000",
       deselectedText: "#454545",
       boxShadow: "0 0 0 0.2rem rgba(150,150,150,.5)",
-      borderColor: "#AAA"
+      borderColor: "#30b1b1"
     },
     link: {
       text: "#6ecfff",
@@ -41,13 +41,16 @@ const Dark = {
   },
   card: {
     color: "#fff",
+    altColor: "#f2f2f2",
     colorDisabled: "#BBB",
     background: "#555",
     backgroundActive: "#888",
     disabled: "#333",
     altBackground: "#444",
     altBackgroundActive: "#666",
+    ballIcon: "#999",
     icon: "#DDD",
+    altIcon: "#DDD",
     radius: "10",
     boxShadow: "0 0 0.5rem 0.3rem rgba(0,0,0,0.1)"
   },
@@ -56,7 +59,7 @@ const Dark = {
     background: "#555"
   },
   slider: {
-    color: "#D6006E"
+    color: "#30b1b1"
   },
   font: "Titillium Web"
 };

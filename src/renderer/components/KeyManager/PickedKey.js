@@ -27,8 +27,7 @@ const Style = Styled.div`
   border-radius: 4px;
   margin: 0.375rem .75rem;
   border: none;
-  background-color: #DDD;
-  background-color: ${({ theme }) => theme.card.icon};
+  background-color: ${({ theme }) => theme.card.altIcon};
 }
 .activebg {
   background-color: ${({ theme }) => theme.colors.button.active};

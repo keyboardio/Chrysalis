@@ -33,7 +33,7 @@ const Styles = Styled.div`
   padding: 0;
   overflow: auto;
   background-color: ${({ theme }) => theme.card.altBackground};
-  color: ${({ theme }) => theme.card.color};
+  color: ${({ theme }) => theme.card.altColor};
   border-radius: 8px;
 }
 .card::-webkit-scrollbar {
@@ -107,7 +107,7 @@ class SuperkeyManager extends Component {
     this.setState({
       superkeys: superkeys
     });
-    this.props.updateSuperkey(superkeys, -1);
+    this.props.updateSuper(superkeys);
     this.props.changeSelected(this.state.selected);
     this.exit();
   }
@@ -122,24 +122,26 @@ class SuperkeyManager extends Component {
         id: newID,
         superkey: ""
       });
-      this.props.updateSuperkey(aux, -1);
-      this.changeSelected(newID);
+      this.props.updateSuper(aux, newID);
     }
   }
 
-  deleteSuperkey(selected) {
+  deleteSuperkey() {
     if (this.state.superkeys.length > 0) {
       let aux = this.state.superkeys;
+      let selected = this.props.selected;
       aux.splice(selected, 1);
       aux = aux.map((item, index) => {
         let aux = item;
         aux.id = index;
         return aux;
       });
+      console.log("deleting: ", aux, selected);
       if (selected >= this.state.superkeys.length - 1) {
-        this.changeSelected(this.state.superkeys.length - 1);
+        this.props.updateSuper(aux, this.state.superkeys.length - 1);
+      } else {
+        this.props.updateSuper(aux, selected);
       }
-      this.props.updateSuperkey(aux, selected);
     }
   }
 
@@ -172,6 +174,7 @@ class SuperkeyManager extends Component {
     const {
       superkeys,
       maxSuperkeys,
+      macros,
       selected,
       updateSuper,
       changeSelected,
@@ -216,6 +219,7 @@ class SuperkeyManager extends Component {
               <SuperkeyForm
                 superkeys={superkeys}
                 selected={selected}
+                macros={macros}
                 selectedAction={selectedAction}
                 updateAction={updateAction}
                 changeAction={changeAction}

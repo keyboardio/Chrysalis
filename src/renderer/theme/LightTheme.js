@@ -41,13 +41,16 @@ const Light = {
   },
   card: {
     color: "#000",
+    altColor: "#333",
     colorDisabled: "#999",
     background: "#fff",
     backgroundActive: "#cbedff",
     disabled: "#AAA",
-    altBackground: "#CCC",
-    altBackgroundActive: "#95DAFF",
+    altBackground: "#FFF",
+    altBackgroundActive: "#F1F1F1",
+    ballIcon: "#DDD",
     icon: "#666",
+    altIcon: "#DDD",
     radius: "10",
     boxShadow: "0 0 0.5rem 0.3rem rgba(0,0,0,0.1)"
   },

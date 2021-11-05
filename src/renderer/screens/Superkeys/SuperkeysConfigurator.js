@@ -58,9 +58,9 @@ flex-direction: column;
     width: inherit;
   }
   .keyboardcontainer {
-    margin-right: 15%;
-    margin-left: 15%;
-    width: inherit;
+    margin-right: auto;
+    margin-left: auto;
+    width: 1440px;
     height: -webkit-fill-available;
     display: flex;
   }
@@ -485,8 +485,14 @@ class SuperkeysConfigurator extends React.Component {
     });
   }
 
-  updateSuper(data) {
-    console.log("launched update super using data:", data);
+  updateSuper(newSuper, newID) {
+    console.log("launched update super using data:", newSuper, newID);
+
+    this.setState({
+      superkeys: newSuper,
+      selectedSuper: newID,
+      modified: true
+    });
   }
 
   updateAction(newAction) {
@@ -593,6 +599,7 @@ class SuperkeysConfigurator extends React.Component {
           <SuperkeyManager
             superkeys={superkeys}
             maxSuperkeys={maxMacros}
+            macros={macros}
             saveName={this.saveName}
             selected={selectedSuper}
             updateSuper={this.updateSuper}

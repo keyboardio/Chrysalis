@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Styled from "styled-components";
 
 // Local components
 
@@ -7,13 +8,16 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import Styled from "styled-components";
+import Tooltip from "react-bootstrap/Tooltip";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import { MdInfo } from "react-icons/md";
 
 // Media
 import OSL from "../../../../static/OSL.png";
 import { isUnionTypeNode } from "typescript";
 
 const Style = Styled.div`
+padding-top: 10px;
 .overflow {
   overflow: auto;
 }
@@ -55,6 +59,11 @@ const Style = Styled.div`
   .dropdown-toggle{
     font-size: 0.97rem;
     width: 100%;
+  }
+}
+.selectedState {
+  button {
+    background-color: ${({ theme }) => theme.colors.button.active};
   }
 }
 .select-body {
@@ -106,18 +115,74 @@ class Configurator extends Component {
     ];
   }
 
+  renderTooltip(tooltips) {
+    return (
+      <Tooltip id="select-tooltip" className="longtooltip">
+        <TooltipStyle>
+          {tooltips.map((tip, i) => {
+            return (
+              <React.Fragment key={`Tip-${i}`}>
+                {i % 2 == 1 || !isNaN(tip[0]) ? (
+                  <p className="ttip-p">{tip}</p>
+                ) : (
+                  <React.Fragment>
+                    {i == 0 ? "" : <br></br>}
+                    <h5 className="ttip-h">{tip}</h5>
+                  </React.Fragment>
+                )}
+              </React.Fragment>
+            );
+          })}
+        </TooltipStyle>
+      </Tooltip>
+    );
+  }
+
+  renderImgTooltip(img) {
+    return (
+      <Tooltip id="select-tooltip" className="longtooltip">
+        <img src={img}></img>
+      </Tooltip>
+    );
+  }
+
   render() {
-    const { keyCode, onKeySelect } = this.props;
+    const { keyCode, onKeySelect, activeTab } = this.props;
+    const isMod = [224, 225, 226, 227, 228, 229, 230, 231, 2530, 3043].includes(
+      keyCode.base + keyCode.modified
+    );
+    console.log("Check ISMOD", isMod);
+    const dltext = "Dual Layer key";
+    const dltext1 =
+      "1. Move to another layer while holding the key. Release the key to go back to the previous layer.";
+    const dltext2 = "2. Tap to type the selected key.";
+    const dltext3 = "Previously called a dual-function layer.";
 
     const layers = (
       <React.Fragment>
-        <p className="titles">LAYER & KEY</p>
+        <Row className="mx-0">
+          <p className="titles">ADD A DUAL-FUNCTION</p>
+          <OverlayTrigger
+            rootClose
+            placement="top"
+            delay={{ show: 250, hide: 400 }}
+            overlay={this.renderTooltip([dltext, dltext1, dltext2, dltext3])}
+          >
+            <MdInfo className="info ml-3" />
+          </OverlayTrigger>
+        </Row>
         <Row className="mx-0">
           <Col xs={6} className="p-0 pr-1 text-center">
             <DropdownButton
               id="Selectlayers"
-              className="selectButton"
+              className={`selectButton ${
+                keyCode.modified > 0 &&
+                this.layerKey.map(i => i.keynum).includes(keyCode.modified)
+                  ? "selectedState"
+                  : ""
+              }`}
               drop={"up"}
+              disabled={isMod || activeTab == "super"}
               title={
                 this.layerKey[
                   isNaN(keyCode.modified) ||
@@ -151,8 +216,14 @@ class Configurator extends Component {
           <Col xs={6} className="p-0 pr-1 text-center">
             <DropdownButton
               id="SelectMods"
-              className="selectButton"
+              className={`selectButton ${
+                keyCode.modified > 0 &&
+                this.modKey.map(i => i.keynum).includes(keyCode.modified)
+                  ? "selectedState"
+                  : ""
+              }`}
               drop={"up"}
+              disabled={isMod || activeTab == "super"}
               title={
                 this.modKey[
                   isNaN(keyCode.modified) ||

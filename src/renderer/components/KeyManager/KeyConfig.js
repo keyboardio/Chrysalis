@@ -291,7 +291,7 @@ class KeyConfig extends Component {
       onKeySelect
     } = this.props;
     const activeTab = actTab != undefined ? actTab : this.state.activeTab;
-    const selKey = this.parseAction(action);
+    const selKey = this.parseKey(code.base + code.modified);
     const selKeys = actions.map((a, i) => this.parseAction(i));
     // console.log(code);
 
@@ -312,6 +312,7 @@ class KeyConfig extends Component {
                         keyCode={code}
                         macros={macros}
                         onKeySelect={onKeySelect}
+                        activeTab={activeTab}
                       />
                     ) : (
                       <Selector

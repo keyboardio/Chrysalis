@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Styled from "styled-components";
 
 // Internal components
 import MacroPicker from "./MacroPicker";
@@ -7,12 +8,15 @@ import F13Picker from "./F13Picker";
 import PickedKey from "./PickedKey";
 import ModPicker from "./ModPicker";
 import DualFunction from "./DualFunction";
+import LayerPicker from "./LayerPicker";
 
 // React Components
 import Card from "react-bootstrap/Card";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import Tooltip from "react-bootstrap/Tooltip";
-import Styled from "styled-components";
-import Configurator from "./Configurator";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import { MdInfo } from "react-icons/md";
 
 const Style = Styled.div`
 .key-card {
@@ -28,7 +32,7 @@ const Style = Styled.div`
 .info {
   vertical-align: middle;
   font-size: 1.2rem;
-  color: #666;
+  color: ${({ theme }) => theme.card.icon};
 }
 `;
 
@@ -74,23 +78,62 @@ class Keys extends Component {
   }
 
   render() {
-    const { selKey, keyCode, macros, onKeySelect } = this.props;
+    const { selKey, keyCode, macros, onKeySelect, activeTab } = this.props;
+    const text = "Selected key indicator";
+    const text2 = "This box shows the current selected key and it's options.";
+    const text3 = "Modifiers";
+    const text4 = "Add a modifier press in combination with the selected key.";
+    const text5 = "Layer & key";
+    const text6 =
+      "Add a second functionality to the key when holding it, like layer switch or modifiers";
+    const text7 = "Layer Switch";
+    const text8 = "Replace the current key action with a layer shift function.";
+    const text9 = "Layer Lock";
+    const text10 =
+      "Replace the current key action with a layer shift function.";
+    const text11 = "OneShot Mod and Layer";
+    const text12 =
+      "Replace the current key action with a Oneshot modifier or layer action.";
+    const text13 = "Macros";
+    const text14 =
+      "Replace the current key action with a Macro from the available ones.";
 
     return (
       <Style>
         <Card className="key-card overflow">
           <Card.Body>
-            <span>SELECTED KEY</span>
+            <span>
+              SELECTED KEY
+              <OverlayTrigger
+                rootClose
+                placement="right"
+                delay={{ show: 250, hide: 400 }}
+                overlay={this.renderTooltip([
+                  text,
+                  text2,
+                  text3,
+                  text4,
+                  text5,
+                  text6,
+                  text7,
+                  text8,
+                  text9,
+                  text10,
+                  text11,
+                  text12,
+                  text13,
+                  text14
+                ])}
+              >
+                <MdInfo className="info ml-3" />
+              </OverlayTrigger>
+            </span>
             {keyCode != undefined &&
-            ((keyCode.base + keyCode.modified >= 4 &&
-              keyCode.base + keyCode.modified <= 10000) ||
-              (keyCode.base + keyCode.modified >= 49169 &&
-                keyCode.base + keyCode.modified <= 53266) ||
-              (keyCode.base + keyCode.modified >= 17408 &&
-                keyCode.base + keyCode.modified <= 17501) ||
-              keyCode.base + keyCode.modified == 65535 ||
-              keyCode.base + keyCode.modified == 0) &&
-            !(keyCode.base >= 104 && keyCode.base <= 115) ? (
+            !(keyCode.base >= 104 && keyCode.base <= 115) &&
+            !(
+              keyCode.base + keyCode.modified >= 53852 &&
+              keyCode.base + keyCode.modified <= 53852 + 64
+            ) ? (
               <PickedKey selKey={selKey} />
             ) : (
               ""
@@ -119,10 +162,14 @@ class Keys extends Component {
             {keyCode != undefined &&
             keyCode.base >= 104 &&
             keyCode.base <= 115 ? (
-              <F13Picker
-                keyCode={keyCode}
-                onKeySelect={onKeySelect}
-              ></F13Picker>
+              <Row className="mx-0">
+                <Col xs={8} className="p-0">
+                  <PickedKey selKey={selKey} />
+                </Col>
+                <Col xs={4} className="p-0">
+                  <F13Picker keyCode={keyCode} onKeySelect={onKeySelect} />
+                </Col>
+              </Row>
             ) : (
               ""
             )}
@@ -132,16 +179,15 @@ class Keys extends Component {
               (keyCode.base + keyCode.modified >= 49169 &&
                 keyCode.base + keyCode.modified <= 53266)) ? (
               <React.Fragment>
-                <br />
                 <ModPicker
                   key={keyCode}
                   keyCode={keyCode}
                   onKeySelect={onKeySelect}
                 ></ModPicker>
-                <br />
                 <DualFunction
                   keyCode={keyCode}
                   onKeySelect={onKeySelect}
+                  activeTab={activeTab}
                 ></DualFunction>
               </React.Fragment>
             ) : (
@@ -152,10 +198,11 @@ class Keys extends Component {
             keyCode.base + keyCode.modified <= 17501 ? (
               <React.Fragment>
                 <br />
-                <Configurator
+                <LayerPicker
                   keyCode={keyCode}
                   onKeySelect={onKeySelect}
-                ></Configurator>
+                  activeTab={activeTab}
+                ></LayerPicker>
               </React.Fragment>
             ) : (
               ""

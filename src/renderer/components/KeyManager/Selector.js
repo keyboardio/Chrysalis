@@ -100,8 +100,8 @@ const Style = Styled.div`
 }
 .text-start {
   place-self: center;
-  font-size: 18px;
-  line-height: 18px;
+  font-size: 16px;
+  line-height: 16px;
 }
 .pickerRow {
   border-bottom: 1px solid;

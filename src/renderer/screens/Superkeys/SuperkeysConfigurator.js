@@ -159,7 +159,17 @@ class SuperkeysConfigurator extends React.Component {
       } else {
         raw2 = "";
       }
-      const parsedSuper = this.superTranslator(raw2);
+      let parsedSuper = this.superTranslator(raw2);
+      if (!Array.isArray(parsedSuper) || parsedSuper.length === 0) {
+        parsedSuper = [
+          {
+            actions: [],
+            name: "Empty Superkey",
+            id: 0,
+            superkey: ""
+          }
+        ];
+      }
       this.setState({
         modified: false,
         macros: parsedMacros,

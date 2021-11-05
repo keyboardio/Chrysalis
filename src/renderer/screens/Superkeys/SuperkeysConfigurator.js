@@ -104,10 +104,6 @@ class SuperkeysConfigurator extends React.Component {
       modified: false,
       selectedSuper: 0,
       selectedAction: -1,
-      showDeleteModal: false,
-      listToDelete: [],
-      listToDeleteS: [],
-      selectedList: 0,
       currentLanguageLayout: settings.getSync("keyboard.language") || "english"
     };
     this.changeSelected = this.changeSelected.bind(this);
@@ -179,7 +175,7 @@ class SuperkeysConfigurator extends React.Component {
         kbtype
       });
     } catch (e) {
-      console.log("error when loading macros");
+      console.log("error when loading SuperKeys");
       console.error(e);
       toast.error(e);
       this.props.onDisconnect();
@@ -598,8 +594,14 @@ class SuperkeysConfigurator extends React.Component {
           : 0
     };
     // console.log(selectedSuper, JSON.stringify(code), JSON.stringify(superkeys));
-    let actions = superkeys.length > 0 ? superkeys[selectedSuper].actions : [];
-    let superName = superkeys.length > 0 ? superkeys[selectedSuper].name : "";
+    let actions =
+      superkeys.length > 0 && superkeys.length > selectedSuper
+        ? superkeys[selectedSuper].actions
+        : [];
+    let superName =
+      superkeys.length > 0 && superkeys.length > selectedSuper
+        ? superkeys[selectedSuper].name
+        : "";
     return (
       <Styles>
         <Row className="title-row m-0">

@@ -136,7 +136,6 @@ class SuperkeyManager extends Component {
         aux.id = index;
         return aux;
       });
-      console.log("deleting: ", aux, selected);
       if (selected >= this.state.superkeys.length - 1) {
         this.props.updateSuper(aux, this.state.superkeys.length - 1);
       } else {
@@ -184,7 +183,6 @@ class SuperkeyManager extends Component {
       changeAction,
       keymapDB
     } = this.props;
-    console.log("management superkeys", superkeys);
 
     if (!Array.isArray(superkeys) || superkeys.length === 0)
       return <React.Fragment />;

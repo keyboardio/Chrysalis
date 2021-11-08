@@ -129,7 +129,7 @@ class KeyPicker extends Component {
           {tooltips.map((tip, i) => {
             return (
               <React.Fragment key={`Tip-${i}`}>
-                {i % 2 == 1 || !isNaN(tip[0]) ? (
+                {i % 2 == 1 || !isNaN(tip[0]) || tip[0] == "-" ? (
                   <p className="ttip-p">{tip}</p>
                 ) : (
                   <React.Fragment>

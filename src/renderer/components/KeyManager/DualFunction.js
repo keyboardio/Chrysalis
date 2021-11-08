@@ -48,9 +48,10 @@ padding-top: 10px;
 .modbuttonrow {
   margin-left: 0;
 }
-.info {
-  vertical-align: middle;
+.modinfo {
+  align-self: center;
   font-size: 1.2rem;
+  margin-top: 4px;
   color: ${({ theme }) => theme.card.icon};
 }
 .selectButton {
@@ -93,25 +94,25 @@ class Configurator extends Component {
     this.state = {};
 
     this.modKey = [
-      { name: "Mod.  Select", keynum: 0, alt: 0 },
-      { name: "------------", keynum: -1, alt: -1 },
-      { name: "Dual Control", keynum: 49169 },
-      { name: "Dual Shift  ", keynum: 49425 },
-      { name: "Dual Alt    ", keynum: 49681 },
-      { name: "Dual Gui/OS ", keynum: 49937 },
-      { name: "Dual Alt Gr ", keynum: 50705 }
+      { name: "Select a Mod.", keynum: 0, alt: 0 },
+      { name: "------------ ", keynum: -1, alt: -1 },
+      { name: "Dual Control ", keynum: 49169 },
+      { name: "Dual Shift   ", keynum: 49425 },
+      { name: "Dual Alt     ", keynum: 49681 },
+      { name: "Dual Gui/OS  ", keynum: 49937 },
+      { name: "Dual Alt Gr  ", keynum: 50705 }
     ];
     this.layerKey = [
-      { name: "Layer Select", keynum: 0, alt: 0 },
-      { name: "------------", keynum: -1, alt: -1 },
-      { name: "Dual Layer 1", keynum: 51218 },
-      { name: "Dual Layer 2", keynum: 51474 },
-      { name: "Dual Layer 3", keynum: 51730 },
-      { name: "Dual Layer 4", keynum: 51986 },
-      { name: "Dual Layer 5", keynum: 52242 },
-      { name: "Dual Layer 6", keynum: 52498 },
-      { name: "Dual Layer 7", keynum: 52754 },
-      { name: "Dual Layer 8", keynum: 53010 }
+      { name: "Select a Layer", keynum: 0, alt: 0 },
+      { name: "------------  ", keynum: -1, alt: -1 },
+      { name: "Dual Layer 1  ", keynum: 51218 },
+      { name: "Dual Layer 2  ", keynum: 51474 },
+      { name: "Dual Layer 3  ", keynum: 51730 },
+      { name: "Dual Layer 4  ", keynum: 51986 },
+      { name: "Dual Layer 5  ", keynum: 52242 },
+      { name: "Dual Layer 6  ", keynum: 52498 },
+      { name: "Dual Layer 7  ", keynum: 52754 },
+      { name: "Dual Layer 8  ", keynum: 53010 }
     ];
   }
 
@@ -152,11 +153,10 @@ class Configurator extends Component {
       keyCode.base + keyCode.modified
     );
     console.log("Check ISMOD", isMod);
-    const dltext = "Dual Layer key";
-    const dltext1 =
-      "1. Move to another layer while holding the key. Release the key to go back to the previous layer.";
-    const dltext2 = "2. Tap to type the selected key.";
-    const dltext3 = "Previously called a dual-function layer.";
+    const dltext1 = "Dual-function keys";
+    const dltext2 = "Dual-function keys have two functionalities:";
+    const dltext3 = "1. When tapped, they send a character.";
+    const dltext4 = "2. When held, they send a modifier or layer key.";
 
     const layers = (
       <React.Fragment>
@@ -166,9 +166,9 @@ class Configurator extends Component {
             rootClose
             placement="top"
             delay={{ show: 250, hide: 400 }}
-            overlay={this.renderTooltip([dltext, dltext1, dltext2, dltext3])}
+            overlay={this.renderTooltip([dltext1, dltext2, dltext3, dltext4])}
           >
-            <MdInfo className="info ml-3" />
+            <MdInfo className="modinfo ml-2" />
           </OverlayTrigger>
         </Row>
         <Row className="mx-0">

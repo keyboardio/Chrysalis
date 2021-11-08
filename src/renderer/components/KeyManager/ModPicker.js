@@ -185,7 +185,7 @@ class ModPicker extends Component {
           {tooltips.map((tip, i) => {
             return (
               <React.Fragment key={`Tip-${i}`}>
-                {i % 2 == 1 || !isNaN(tip[0]) ? (
+                {i % 2 == 1 || !isNaN(tip[0]) || tip[0] == "-" ? (
                   <p className="ttip-p">{tip}</p>
                 ) : (
                   <React.Fragment>
@@ -203,11 +203,12 @@ class ModPicker extends Component {
 
   render() {
     const { modifs } = this.state;
-    const text1 = "Key combined with modifier";
-    const text2 =
-      "Add any of these modifiers to the selected Key to create combinations such as Control Alt Del.";
-    const text3 = "More options";
-    const text4 = "For more complex combinations, you can use macros.";
+    const text1 = "Add a modifier";
+    const text2 = "-Key combined with modifier";
+    const text3 =
+      "-Add any of these modifiers to the selected Key to create combinations such as Control Alt Del.";
+    const text4 = "More options";
+    const text5 = "For more complex combinations, you can use macros.";
 
     return (
       <Style>
@@ -217,9 +218,9 @@ class ModPicker extends Component {
             rootClose
             placement="right"
             delay={{ show: 250, hide: 400 }}
-            overlay={this.renderTooltip([text1, text2, text3, text4])}
+            overlay={this.renderTooltip([text1, text2, text3, text4, text5])}
           >
-            <MdInfo className="modinfo ml-3" />
+            <MdInfo className="modinfo ml-2" />
           </OverlayTrigger>
         </Row>
         <Row className="modbuttonrow">

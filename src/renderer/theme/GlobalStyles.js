@@ -126,7 +126,7 @@ const GlobalStyles = createGlobalStyle`
     cursor: pointer;
   }
 
-  div.longtooltip > .tooltip-inner {
+  .longtooltip > .tooltip-inner {
     max-width: 100%;
   }
 

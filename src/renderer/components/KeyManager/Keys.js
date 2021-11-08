@@ -102,34 +102,8 @@ class Keys extends Component {
       <Style>
         <Card className="key-card overflow">
           <Card.Body>
-            <span>
-              SELECTED KEY
-              <OverlayTrigger
-                rootClose
-                placement="right"
-                delay={{ show: 250, hide: 400 }}
-                overlay={this.renderTooltip([
-                  text,
-                  text2,
-                  text3,
-                  text4,
-                  text5,
-                  text6,
-                  text7,
-                  text8,
-                  text9,
-                  text10,
-                  text11,
-                  text12,
-                  text13,
-                  text14
-                ])}
-              >
-                <MdInfo className="info ml-3" />
-              </OverlayTrigger>
-            </span>
-            {keyCode != undefined &&
-            !(keyCode.base >= 104 && keyCode.base <= 115) &&
+            <span>SELECTED KEY</span>
+            {!(keyCode.base >= 104 && keyCode.base <= 115) &&
             !(
               keyCode.base + keyCode.modified >= 53852 &&
               keyCode.base + keyCode.modified <= 53852 + 64
@@ -197,7 +171,6 @@ class Keys extends Component {
             keyCode.base + keyCode.modified >= 17408 &&
             keyCode.base + keyCode.modified <= 17501 ? (
               <React.Fragment>
-                <br />
                 <LayerPicker
                   keyCode={keyCode}
                   onKeySelect={onKeySelect}

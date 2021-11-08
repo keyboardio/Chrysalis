@@ -246,15 +246,21 @@ class KeyConfig extends Component {
   }
 
   parseKey(keycode) {
+    const macro = this.props.macros[
+      parseInt(this.keymapDB.parse(keycode).label)
+    ];
+    let macroName;
+    try {
+      macroName = this.props.macros[
+        parseInt(this.keymapDB.parse(keycode).label)
+      ].name.substr(0, 5);
+    } catch (error) {
+      console.log(error);
+      macroName = "*NotFound*";
+    }
     if (keycode >= 53852 && keycode <= 53852 + 64) {
       if (this.props.code !== null)
-        return (
-          this.keymapDB.parse(keycode).extraLabel +
-          "." +
-          this.props.macros[
-            parseInt(this.keymapDB.parse(keycode).label)
-          ].name.substr(0, 5)
-        );
+        return this.keymapDB.parse(keycode).extraLabel + "." + macroName;
     }
     return this.props.code !== null
       ? this.keymapDB.parse(keycode).extraLabel != undefined
@@ -304,17 +310,8 @@ class KeyConfig extends Component {
               <Card.Body className="section">
                 <Row className="rowsection">
                   <Col xs={3} className="section">
-                    {code.base + code.modified < 53916 ||
-                    code.base + code.modified > 53916 + 64 ? (
-                      <Keys
-                        selKey={selKey}
-                        activeKB={showKB}
-                        keyCode={code}
-                        macros={macros}
-                        onKeySelect={onKeySelect}
-                        activeTab={activeTab}
-                      />
-                    ) : (
+                    {code.base + code.modified >= 53916 &&
+                    code.base + code.modified <= 53916 + 64 ? (
                       <Selector
                         action={action}
                         actions={actions}
@@ -322,6 +319,15 @@ class KeyConfig extends Component {
                         onKeySelect={onKeySelect}
                         superkeys={superkeys}
                         keyCode={code}
+                      />
+                    ) : (
+                      <Keys
+                        selKey={selKey}
+                        activeKB={showKB}
+                        keyCode={code}
+                        macros={macros}
+                        onKeySelect={onKeySelect}
+                        activeTab={activeTab}
                       />
                     )}
                   </Col>

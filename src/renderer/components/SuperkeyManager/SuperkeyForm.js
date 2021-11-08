@@ -26,6 +26,7 @@ import {
   MdKeyboardArrowDown,
   MdTimer
 } from "react-icons/md";
+import { BsStarFill } from "react-icons/bs";
 
 const Style = Styled.div`
 .root {
@@ -80,7 +81,7 @@ const Style = Styled.div`
   place-self: center;
   text-align: center;
   margin: 0;
-  padding: 0 0.4rem;
+  padding: 0 0.3rem;
 }
 .selected-act {
   background-color: ${({ theme }) => theme.card.backgroundActive} !important;
@@ -104,7 +105,7 @@ const Style = Styled.div`
 }
 .actionIcon {
   place-self: center;
-  padding: 0.5rem;
+  padding: 0rem;
   background-color: ${({ theme }) => theme.card.ballIcon};
   margin-left: 1rem;
   border-radius: 24px;
@@ -120,6 +121,9 @@ const Style = Styled.div`
   svg {
     font-size: 1.6rem;
   }
+}
+.iconClass {
+  padding-bottom: 4px;
 }
 `;
 
@@ -222,7 +226,9 @@ class SuperkeyForm extends Component {
                     changeAction(index);
                   }}
                 >
-                  <p className="iconCategory">U</p>
+                  <p className="iconCategory">
+                    <BsStarFill className={"iconClass"} />
+                  </p>
                 </div>
                 <div
                   className="actionName"

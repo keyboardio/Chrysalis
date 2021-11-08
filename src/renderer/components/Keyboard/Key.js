@@ -395,7 +395,11 @@ class Key extends React.Component {
               onClick={clicked}
               fontSize={ksl[content.type].text.letter.fss}
               fontWeight={200}
-              fill={this.props.theme.keyboardPicker.keySubTextColor}
+              fill={
+                selected
+                  ? this.props.theme.keyboardPicker.keyActiveSubTextColor
+                  : this.props.theme.keyboardPicker.keySubTextColor
+              }
               textAnchor="middle"
             >
               {content.second}
@@ -426,7 +430,11 @@ class Key extends React.Component {
               onClick={clicked}
               fontSize={ksl[content.type].text.b.fs}
               fontWeight={200}
-              fill={this.props.theme.keyboardPicker.keySubTextColor}
+              fill={
+                selected
+                  ? this.props.theme.keyboardPicker.keyActiveSubTextColor
+                  : this.props.theme.keyboardPicker.keySubTextColor
+              }
             >
               {content.second}
             </text>
@@ -436,7 +444,11 @@ class Key extends React.Component {
               onClick={clicked}
               fontSize={ksl[content.type].text.c.fs}
               fontWeight={200}
-              fill={this.props.theme.keyboardPicker.keySubTextColor}
+              fill={
+                selected
+                  ? this.props.theme.keyboardPicker.keyActiveSubTextColor
+                  : this.props.theme.keyboardPicker.keySubTextColor
+              }
             >
               {content.third}
             </text>
@@ -446,7 +458,11 @@ class Key extends React.Component {
               onClick={clicked}
               fontSize={ksl[content.type].text.d.fs}
               fontWeight={200}
-              fill={this.props.theme.keyboardPicker.keySubTextColor}
+              fill={
+                selected
+                  ? this.props.theme.keyboardPicker.keyActiveSubTextColor
+                  : this.props.theme.keyboardPicker.keySubTextColor
+              }
             >
               {content.fourth}
             </text>

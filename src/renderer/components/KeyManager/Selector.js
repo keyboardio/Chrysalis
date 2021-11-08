@@ -8,13 +8,16 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import DropdownButton from "react-bootstrap/DropdownButton";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Dropdown from "react-bootstrap/Dropdown";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Tooltip from "react-bootstrap/Tooltip";
 
+import { MdInfo } from "react-icons/md";
+
 // Media Components
-// import darkTool from "../../../static/DarkSuperTooltip.png";
+import darkTool from "../../../../static/DarkSuperTooltip.png";
 
 const Style = Styled.div`
 .type-card {
@@ -28,9 +31,10 @@ const Style = Styled.div`
   color: ${({ theme }) => theme.card.icon};
 }
 .info {
-  align-self: center;
+  vertical-align: middle;
+  margin-top: -5px;
+  margin-left: 4px;
   font-size: 1.2rem;
-  margin-top: 4px;
   color: ${({ theme }) => theme.card.icon};
 }
 .modinfo {
@@ -104,9 +108,8 @@ const Style = Styled.div`
   line-height: 16px;
 }
 .pickerRow {
-  border-bottom: 1px solid;
-  padding: 0rem 0.5rem 1rem 0.5rem;
-  margin: 0rem 0rem 1rem 0rem;
+  padding: 1rem 0.5rem 0rem 0.5rem;
+  margin: 0rem 0rem 0.5rem 0rem;
 }
 `;
 const TooltipStyle = Styled.div`
@@ -226,7 +229,7 @@ class Selector extends Component {
           return (
             <Dropdown.Item eventKey={x} key={`macro-${id}`} disabled={x == -1}>
               <div className="menuitem">
-                <p>{`${id} ${superkeys[id].name}`}</p>
+                <p>{`${id}   ${superkeys[id].name}`}</p>
               </div>
             </Dropdown.Item>
           );
@@ -239,10 +242,18 @@ class Selector extends Component {
         <Card className="type-card overflowS">
           <Card.Body>
             <Row className="pickerRow">
-              <Col xs={4} className="px-0 text-start">
-                <span>SUPERKEY</span>
+              <Col xs={6} className="px-0 text-start">
+                <span>SUPERKEYS</span>
+                <OverlayTrigger
+                  rootClose
+                  placement="top"
+                  delay={{ show: 250, hide: 400 }}
+                  overlay={this.renderImgTooltip(darkTool)}
+                >
+                  <MdInfo className={"info"} />
+                </OverlayTrigger>
               </Col>
-              <Col xs={8} className="px-0">
+              <Col xs={6} className="px-0">
                 {skSel}
               </Col>
             </Row>

@@ -47,6 +47,8 @@ const Style = Styled.div`
 }
 .info {
   vertical-align: middle;
+  margin-top: 13px;
+  margin-left: 4px;
   font-size: 1.2rem;
   color: ${({ theme }) => theme.card.icon};
 }
@@ -159,112 +161,106 @@ class LayerPicker extends Component {
 
     const layers = (
       <React.Fragment>
-        <br />
         <Row className="mx-0">
-          <Col xs={6} className="px-0 text-center">
-            <p className="titles alignvert">LAYER SWITCH</p>
-            <OverlayTrigger
-              rootClose
-              placement="top"
-              delay={{ show: 250, hide: 400 }}
-              overlay={this.renderTooltip([swtext, swtext2])}
-            >
-              <MdInfo className={"info"} />
-            </OverlayTrigger>
-          </Col>
-          <Col xs={6} className="px-0 text-center">
-            <DropdownButton
-              id="Selectlayers"
-              className={`selectButton ${
-                keyCode.modified > 0 &&
-                this.layerSwitch
-                  .map(i => i.keynum)
-                  .includes(keyCode.base + keyCode.modified)
-                  ? "selectedState"
-                  : ""
-              }`}
-              drop={"up"}
-              disabled={activeTab == "super"}
-              title={
-                this.layerSwitch[
-                  isNaN(KC) || KC < 17450 || KC > 17459
-                    ? 0
-                    : this.layerSwitch.findIndex(o => o.keynum == KC)
-                ].name
-              }
-              value={
-                KC != 0 ? this.layerSwitch.map(i => i.keynum).includes(KC) : KC
-              }
-              onSelect={value => onKeySelect(parseInt(value))}
-            >
-              {this.layerSwitch.map((item, id) => {
-                return (
-                  <Dropdown.Item
-                    eventKey={item.keynum}
-                    key={`item-${id}`}
-                    disabled={item.keynum == -1}
-                  >
-                    <div className="item-layer">
-                      <p>{item.name}</p>
-                    </div>
-                  </Dropdown.Item>
-                );
-              })}
-            </DropdownButton>
-          </Col>
+          <p className="titles alignvert">LAYER SWITCH</p>
+          <OverlayTrigger
+            rootClose
+            placement="top"
+            delay={{ show: 250, hide: 400 }}
+            overlay={this.renderTooltip([swtext, swtext2])}
+          >
+            <MdInfo className={"info"} />
+          </OverlayTrigger>
         </Row>
-        <br />
         <Row className="mx-0">
-          <Col xs={6} className="px-0 text-center">
-            <p className="titles alignvert">LAYER LOCK</p>
-            <OverlayTrigger
-              rootClose
-              placement="top"
-              delay={{ show: 250, hide: 400 }}
-              overlay={this.renderTooltip([lktext, lktext2])}
-            >
-              <MdInfo className={"info"} />
-            </OverlayTrigger>
-          </Col>
-          <Col xs={6} className="px-0 text-center">
-            <DropdownButton
-              id="Selectlayers"
-              className={`selectButton ${
-                keyCode.modified > 0 &&
-                this.layerLock
-                  .map(i => i.keynum)
-                  .includes(keyCode.base + keyCode.modified)
-                  ? "selectedState"
-                  : ""
-              }`}
-              drop={"up"}
-              title={
-                this.layerLock[
-                  isNaN(KC) || KC < 17492 || KC > 17501
-                    ? 0
-                    : this.layerLock.findIndex(o => o.keynum == KC)
-                ].name
-              }
-              value={
-                KC != 0 ? this.layerLock.map(i => i.keynum).includes(KC) : KC
-              }
-              onSelect={value => onKeySelect(parseInt(value))}
-            >
-              {this.layerLock.map((item, id) => {
-                return (
-                  <Dropdown.Item
-                    eventKey={item.keynum}
-                    key={`item-${id}`}
-                    disabled={item.keynum == -1}
-                  >
-                    <div className="item-layer">
-                      <p>{item.name}</p>
-                    </div>
-                  </Dropdown.Item>
-                );
-              })}
-            </DropdownButton>
-          </Col>
+          <DropdownButton
+            id="Selectlayers"
+            className={`selectButton ${
+              keyCode.modified > 0 &&
+              this.layerSwitch
+                .map(i => i.keynum)
+                .includes(keyCode.base + keyCode.modified)
+                ? "selectedState"
+                : ""
+            }`}
+            drop={"up"}
+            disabled={activeTab == "super"}
+            title={
+              this.layerSwitch[
+                isNaN(KC) || KC < 17450 || KC > 17459
+                  ? 0
+                  : this.layerSwitch.findIndex(o => o.keynum == KC)
+              ].name
+            }
+            value={
+              KC != 0 ? this.layerSwitch.map(i => i.keynum).includes(KC) : KC
+            }
+            onSelect={value => onKeySelect(parseInt(value))}
+          >
+            {this.layerSwitch.map((item, id) => {
+              return (
+                <Dropdown.Item
+                  eventKey={item.keynum}
+                  key={`item-${id}`}
+                  disabled={item.keynum == -1}
+                >
+                  <div className="item-layer">
+                    <p>{item.name}</p>
+                  </div>
+                </Dropdown.Item>
+              );
+            })}
+          </DropdownButton>
+        </Row>
+        <Row className="mx-0">
+          <p className="titles alignvert">LAYER LOCK</p>
+          <OverlayTrigger
+            rootClose
+            placement="top"
+            delay={{ show: 250, hide: 400 }}
+            overlay={this.renderTooltip([lktext, lktext2])}
+          >
+            <MdInfo className={"info"} />
+          </OverlayTrigger>
+        </Row>
+        <Row className="mx-0">
+          <DropdownButton
+            id="Selectlayers"
+            className={`selectButton ${
+              keyCode.modified > 0 &&
+              this.layerLock
+                .map(i => i.keynum)
+                .includes(keyCode.base + keyCode.modified)
+                ? "selectedState"
+                : ""
+            }`}
+            drop={"up"}
+            title={
+              this.layerLock[
+                isNaN(KC) || KC < 17492 || KC > 17501
+                  ? 0
+                  : this.layerLock.findIndex(o => o.keynum == KC)
+              ].name
+            }
+            value={
+              KC != 0 ? this.layerLock.map(i => i.keynum).includes(KC) : KC
+            }
+            onSelect={value => onKeySelect(parseInt(value))}
+          >
+            {this.layerLock.map((item, id) => {
+              return (
+                <Dropdown.Item
+                  eventKey={item.keynum}
+                  key={`item-${id}`}
+                  disabled={item.keynum == -1}
+                >
+                  <div className="item-layer">
+                    <p>{item.name}</p>
+                  </div>
+                </Dropdown.Item>
+              );
+            })}
+          </DropdownButton>
         </Row>
       </React.Fragment>
     );

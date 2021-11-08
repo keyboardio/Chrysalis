@@ -204,11 +204,8 @@ class ModPicker extends Component {
   render() {
     const { modifs } = this.state;
     const text1 = "Add a modifier";
-    const text2 = "-Key combined with modifier";
-    const text3 =
-      "-Add any of these modifiers to the selected Key to create combinations such as Control Alt Del.";
-    const text4 = "More options";
-    const text5 = "For more complex combinations, you can use macros.";
+    const text2 =
+      "Add any of these modifiers to the selected Key to create combinations such as Control Alt Del.";
 
     return (
       <Style>
@@ -218,7 +215,7 @@ class ModPicker extends Component {
             rootClose
             placement="right"
             delay={{ show: 250, hide: 400 }}
-            overlay={this.renderTooltip([text1, text2, text3, text4, text5])}
+            overlay={this.renderTooltip([text1, text2])}
           >
             <MdInfo className="modinfo ml-2" />
           </OverlayTrigger>

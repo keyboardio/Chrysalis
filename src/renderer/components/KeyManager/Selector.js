@@ -92,7 +92,7 @@ const Style = Styled.div`
   line-height: revert;
 }
 .overflowS {
-  overflow-y: auto;
+  overflow: visible;
 }
 .overflowS::-webkit-scrollbar {
   display: none;

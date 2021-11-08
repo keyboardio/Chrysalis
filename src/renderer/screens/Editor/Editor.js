@@ -1528,9 +1528,25 @@ class Editor extends React.Component {
             superkeys.length > parseInt(key.label) &&
             superkeys[parseInt(key.label)].name != ""
           ) {
-            newKey.label = superkeys[parseInt(key.label)].name
-              .substr(0, 5)
-              .toLowerCase();
+            console.log(
+              !Number.isInteger(
+                parseInt(superkeys[parseInt(key.label)].name.substr(0, 1))
+              ),
+              parseInt(superkeys[parseInt(key.label)].name.substr(0, 1))
+            );
+            if (
+              !Number.isInteger(
+                parseInt(superkeys[parseInt(key.label)].name.substr(0, 1))
+              )
+            ) {
+              newKey.label = superkeys[parseInt(key.label)].name
+                .substr(0, 5)
+                .toLowerCase();
+            } else {
+              newKey.label =
+                "·" +
+                superkeys[parseInt(key.label)].name.substr(0, 5).toLowerCase();
+            }
           }
         }
         return newKey;

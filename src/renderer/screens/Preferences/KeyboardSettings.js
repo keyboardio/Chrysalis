@@ -197,7 +197,7 @@ class KeyboardSettings extends React.Component {
       mouseAccelSpeed: 1,
       mouseAccelDelay: 2,
       mouseWheelSpeed: 1,
-      mouseWheelDelay: 2,
+      mouseWheelDelay: 100,
       mouseSpeedLimit: 1,
       modified: false,
       showDefaults: false,
@@ -515,6 +515,7 @@ class KeyboardSettings extends React.Component {
 
     this.setState({
       mouseWheelSpeed: value,
+      mouseWheelDelay: 100,
       modified: true
     });
     this.props.startContext();
@@ -1114,8 +1115,8 @@ class KeyboardSettings extends React.Component {
         </Col>
         <Col xs={8} md={10} className="px-2">
           <RangeSlider
-            min={0}
-            max={254}
+            min={1}
+            max={15}
             value={mouseWheelSpeed}
             className="slider"
             onChange={this.setWheelSpeed}

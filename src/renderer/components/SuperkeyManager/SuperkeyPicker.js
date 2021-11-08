@@ -110,7 +110,7 @@ class SuperkeyPicker extends Component {
             className="SPpbutton fullheight pl-3"
             drop={"down"}
             title={superkeys.map(item => {
-              if (selected == item.id) return `${item.id} ${item.name}`;
+              if (selected == item.id) return `${item.id + 1} ${item.name}`;
             })}
             value={superkeys.map(item => {
               if (selected == item.id) return item.id;
@@ -124,7 +124,7 @@ class SuperkeyPicker extends Component {
                 disabled={item.id == -1}
               >
                 <div className="menuitem">
-                  <p>{`${("0" + item.id).substr(-2)} - ${item.name}`}</p>
+                  <p>{`${item.id + 1} ${item.name}`}</p>
                 </div>
               </Dropdown.Item>
             ))}

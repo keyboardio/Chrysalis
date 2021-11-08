@@ -189,7 +189,6 @@ class SuperkeyForm extends Component {
       changeAction,
       keymapDB
     } = this.props;
-    console.log(superkeys, selected);
 
     return (
       <Style>

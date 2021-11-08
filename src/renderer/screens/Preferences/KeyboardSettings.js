@@ -192,13 +192,13 @@ class KeyboardSettings extends React.Component {
       SuperWaitfor: 500,
       SuperHoldstart: 0,
       SuperOverlapThreshold: 0,
-      mouseSpeed: 0,
+      mouseSpeed: 1,
       mouseSpeedDelay: 2,
-      mouseAccelSpeed: 0,
+      mouseAccelSpeed: 1,
       mouseAccelDelay: 2,
-      mouseWheelSpeed: 0,
+      mouseWheelSpeed: 1,
       mouseWheelDelay: 2,
-      mouseSpeedLimit: 0,
+      mouseSpeedLimit: 1,
       modified: false,
       showDefaults: false,
       working: false,
@@ -470,7 +470,9 @@ class KeyboardSettings extends React.Component {
     const value = event.target.value;
 
     this.setState({
-      mouseSpeed: value,
+      mouseSpeed:
+        parseInt(value) < 128 ? parseInt(value) : 128 - (parseInt(value) - 128),
+      mouseSpeedDelay: Math.ceil(50 / parseInt(value)),
       modified: true
     });
     this.props.startContext();
@@ -490,7 +492,9 @@ class KeyboardSettings extends React.Component {
     const value = event.target.value;
 
     this.setState({
-      mouseAccelSpeed: value,
+      mouseAccelSpeed:
+        parseInt(value) < 128 ? parseInt(value) : 128 - (parseInt(value) - 128),
+      mouseAccelDelay: Math.ceil(50 / parseInt(value)),
       modified: true
     });
     this.props.startContext();

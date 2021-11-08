@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
       - name: Install Node.js, NPM and Yarn
         uses: actions/setup-node@v2
@@ -25,7 +25,7 @@ jobs:
           node-version: 14
 
       - name: Install USB compilation dependencies
-      - uses: lyricwulf/abc@v1
+        uses: lyricwulf/abc@v1
         with:
           linux: libudev-dev libusb-1.0-0-dev
 

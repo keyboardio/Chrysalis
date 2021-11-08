@@ -19,22 +19,24 @@
 import React from "react";
 import Electron from "electron";
 import path from "path";
+import Styled from "styled-components";
+import { toast } from "react-toastify";
 import { fwVersion } from "../../../package.json";
 import escimg from "../../../static/press_esc.png";
 
 import Focus from "../../api/focus";
 import FlashRaise from "../../api/flash";
 import Backup from "../../api/backup";
+import { RenderToolTip } from "../../renderer/components/Tooltip";
 
-import Styled from "styled-components";
-import { toast } from "react-toastify";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import ProgressBar from "react-bootstrap/ProgressBar";
-import { MdArrowDropDown } from "react-icons/md";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import { MdArrowDropDown, MdInfo } from "react-icons/md";
 
 import { getStaticPath } from "../config";
 import i18n from "../i18n";
@@ -223,6 +225,11 @@ const Styles = Styled.div`
 }
 .progressbar {
   text-align: center;
+}
+.info {
+  vertical-align: middle;
+  font-size: 1.2rem;
+  color: ${({ theme }) => theme.card.icon};
 }
 `;
 
@@ -667,6 +674,28 @@ class FirmwareUpdate extends React.Component {
           <Card.Title>{i18n.firmwareUpdate.texts.flashCardTitle2}</Card.Title>
         </Card.Body>
         <Card.Img variant="bottom" src={escimg} />
+        <Card.Body className="body d-flex flex-column justify-content-center">
+          <Card.Text>
+            {/* <OverlayTrigger
+              rootClose
+              placement="right"
+              delay={{ show: 250, hide: 400 }}
+              overlay={
+                <RenderToolTip
+                  texts={[
+                    i18n.firmwareUpdate.texts.flashCardOverlay1,
+                    i18n.firmwareUpdate.texts.flashCardOverlay2,
+                    i18n.firmwareUpdate.texts.flashCardOverlay3,
+                    i18n.firmwareUpdate.texts.flashCardOverlay4
+                  ]}
+                />
+              }
+            >
+              <MdInfo className="info ml-2" />
+            </OverlayTrigger> */}
+            {i18n.firmwareUpdate.texts.flashCardTitle1}
+          </Card.Text>
+        </Card.Body>
         <Row className="mt-auto">
           <Col className="flashingcol">
             <Button

@@ -401,6 +401,14 @@ const English = {
       flashCardTitle1:
         "Press and hold the top left key to start the firmware update.",
       flashCardTitle2: "Don't release the key until the process finishes.",
+      flashCardHelp:
+        "Why do I need to press and hold a key when updating the Raise firmware?",
+      flashCardOverlay1: "Why do I need to press and hold the key?",
+      flashCardOverlay2:
+        "When updating the firmware, we require the user to physically press and hold a key in order for the Firmware to be loaded.",
+      flashCardOverlay3: "This is for security reasons.",
+      flashCardOverlay4:
+        "The update process is designed so that it will never be triggered accidentally. This way, it is also impossible for malware to enter, thus making the keyboard impenetrable for unwanted firmware.",
       progressCardStatus1: "Hold the key",
       progressCardStatus2: "Flashing!",
       progressCardStatus3: "Release the key",

@@ -27,7 +27,7 @@ jobs:
       - name: Install USB compilation dependencies
         uses: lyricwulf/abc@v1
         with:
-          linux: libudev-dev libusb-1.0-0-dev
+          linux: build-essential libudev-dev libusb-1.0-0-dev
 
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1

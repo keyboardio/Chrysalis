@@ -386,7 +386,30 @@ const English = {
       advUsers: "Advanced",
       cstomFW: "Custom Firmware",
       backwds: "Back",
-      cancel: "Cancel"
+      cancel: "Cancel",
+      versionExists: "Raise Firmware Update",
+      versionNotExists: "Firmware Update Process via Bootloader Mode",
+      advUsersText1: "For advanced users: ",
+      advUsersText2: "If you have installed your own ",
+      advUsersText3: ", this update will overwrite it.",
+      disclaimerCard1:
+        "During the update, the Neuron will pulse a blue pattern followed by a flash of multiple colors for a few seconds.",
+      disclaimerCard2:
+        "If the firmware update process isn't successful, don't worry. It won't damage your Raise, but you will need to repeat the process.",
+      disclaimerCard3:
+        "Click Next to backup your layers and settings, and start the firmware update process.",
+      flashCardTitle1:
+        "Press and hold the top left key to start the firmware update.",
+      flashCardTitle2: "Don't release the key until the process finishes.",
+      progressCardStatus1: "Hold the key",
+      progressCardStatus2: "Flashing!",
+      progressCardStatus3: "Release the key",
+      progressCardBar: "Updating the firmware ...",
+      progressCardTitle1:
+        "Press and hold the top left key to start the firmware update.",
+      progressCardTitle2: "Don't release the key until the process finishes.",
+      currentlyRunningCardTitle: "Your Raise's firmware version is",
+      latestAvailableText: "Latest available version is v"
     },
     milestones: {
       backup: "Next",

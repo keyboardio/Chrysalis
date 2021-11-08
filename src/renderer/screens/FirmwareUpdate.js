@@ -19,8 +19,7 @@
 import React from "react";
 import Electron from "electron";
 import path from "path";
-import fs from "fs";
-import { version, fwVersion } from "../../../package.json";
+import { fwVersion } from "../../../package.json";
 import escimg from "../../../static/press_esc.png";
 
 import Focus from "../../api/focus";
@@ -34,30 +33,11 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import Dropdown from "react-bootstrap/Dropdown";
 import ProgressBar from "react-bootstrap/ProgressBar";
-import {
-  MdSettingsBackupRestore,
-  MdExplore,
-  MdInfo,
-  MdBuild,
-  MdArrowDropDown
-} from "react-icons/md";
+import { MdArrowDropDown } from "react-icons/md";
 
 import { getStaticPath } from "../config";
 import i18n from "../i18n";
-
-// const ModalStyle = Styled.div`
-// background-color: ${({ theme }) => theme.card.background};
-// color: ${({ theme }) => theme.colors.text};
-// padding: 24px;
-// overflow: hidden;
-// box-shadow: 0px 1px 3px 0px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 2px 1px -1px rgb(0 0 0 / 12%);
-// border-radius: 4px;
-// .flash-modal {
-//   max-width: 900px !important;
-// }
-// `;
 
 const Styles = Styled.div`
 .firmware-update {
@@ -600,197 +580,8 @@ class FirmwareUpdate extends React.Component {
       filename = filename[filename.length - 1];
     }
 
-    // const defaultFirmwareItemText = i18n.formatString(
-    //   i18n.firmwareUpdate.defaultFirmware,
-    //   version
-    // );
-    // const defaultFirmwareItem = (
-    //   <Dropdown.Item
-    //     value="default"
-    //     selected={this.state.selected == "default"}
-    //   >
-    //     <MdSettingsBackupRestore />
-    //     <Dropdown.ItemText
-    //       primary={defaultFirmwareItemText}
-    //       secondary={i18n.firmwareUpdate.defaultFirmwareDescription}
-    //     />
-    //   </Dropdown.Item>
-    // );
-    // let hasDefaultFirmware = true;
-    // try {
-    //   fs.accessSync(this._defaultFirmwareFilename(), fs.constants.R_OK);
-    // } catch (_) {
-    //   hasDefaultFirmware = false;
-    // }
-
-    // const experimentalFirmwareItemText = i18n.formatString(
-    //   i18n.firmwareUpdate.experimentalFirmware,
-    //   version
-    // );
-    // const experimentalFirmwareItem = (
-    //   <Dropdown.Item
-    //     value="experimental"
-    //     selected={this.state.selected == "experimental"}
-    //   >
-    //     <MdExplore />
-    //     <Dropdown.ItemText
-    //       primary={experimentalFirmwareItemText}
-    //       secondary={i18n.firmwareUpdate.experimentalFirmwareDescription}
-    //     />
-    //   </Dropdown.Item>
-    // );
-    // let hasExperimentalFirmware = true;
-
-    // try {
-    //   fs.accessSync(this._experimentalFirmwareFilename(), fs.constants.R_OK);
-    // } catch (_) {
-    //   hasExperimentalFirmware = false;
-    // }
-
-    // const firmwareSelect = (
-    //   <Dropdown
-    //     className="selector"
-    //     show={firmwareDropdown}
-    //     onClick={() =>
-    //       this.setState(state => {
-    //         return { firmwareDropdown: !state.firmwareDropdown };
-    //       })
-    //     }
-    //   >
-    //     <Dropdown.Toggle className="toggler">Select</Dropdown.Toggle>
-    //     <Dropdown.Menu className="menu">
-    //       {hasDefaultFirmware && defaultFirmwareItem}
-    //       {hasExperimentalFirmware && experimentalFirmwareItem}
-    //       <Dropdown.Item
-    //         selected={this.state.selected == "custom"}
-    //         value="custom"
-    //       >
-    //         <MdBuild />
-    //         <Dropdown.ItemText
-    //           primary={i18n.firmwareUpdate.custom}
-    //           secondary={filename}
-    //         />
-    //       </Dropdown.Item>
-    //     </Dropdown.Menu>
-    //   </Dropdown>
-    // );
-
-    // let dialogChildren;
-    // if (versions) {
-    //   dialogChildren = (
-    //     <div>
-    //       <Card.Title className={"classes.cardSub"}>
-    //         {
-    //           "During the update, the Neuron will pulse a blue pattern followed by a flash of multiple colors for a few seconds."
-    //         }
-    //       </Card.Title>
-    //       <h6>{"Follow these steps to update your firmware:"}</h6>
-    //       <Card.Body>
-    //         <ol style={{ lineHeight: "2rem" }}>
-    //           <li>
-    //             {
-    //               "Make sure to have at least one backup of your layers, just in case!"
-    //             }
-    //           </li>
-    //           <li>{"Click 'Start Countdown'."}</li>
-    //           <li>
-    //             {
-    //               "When the countdown reaches zero and the keyboard's lights turn off, press repeatedly or hold the key on the "
-    //             }
-    //             <a
-    //               href="https://support.dygma.com/hc/en-us/articles/360017056397"
-    //               color={this.props.darkMode === true ? "primary" : "secondary"}
-    //             >
-    //               {"top left corner of your Raise"}
-    //             </a>
-    //             {" (usually the Esc key). Do this for 5-7 seconds."}
-    //           </li>
-    //           <li>
-    //             {
-    //               "'Firmware flashed successfully!' will appear on Bazecor's screen."
-    //             }
-    //           </li>
-    //         </ol>
-    //       </Card.Body>
-    //       <div className={"classes.cardSnack"}>
-    //         <div>
-    //           <div style={{ display: "flex" }}>
-    //             <div>
-    //               <MdInfo />
-    //             </div>
-    //             <div>
-    //               {
-    //                 "Not following the steps can cause the firmware update process to fail. This won't damage your Raise, but will require you to repeat the process. More information "
-    //               }
-    //               <a
-    //                 href="https://support.dygma.com/hc/en-us/articles/360007272638"
-    //                 color={
-    //                   this.props.darkMode === true ? "primary" : "secondary"
-    //                 }
-    //               >
-    //                 {"here"}
-    //               </a>
-    //               {"."}
-    //             </div>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   );
-    // } else {
-    //   dialogChildren = (
-    //     <React.Fragment>
-    //       <div className={"classes.paper"}>
-    //         <h5 style={{ fontWeight: "500", paddingBottom: "1rem" }}>
-    //           {"Firmware Update Process via Bootloader Mode"}
-    //         </h5>
-    //         <p className={"classes.cardSub"}>
-    //           {
-    //             "Click Start Countdown to start the update. The Neuron will flash in multiple colors for a few seconds."
-    //           }
-    //         </p>
-    //         <p className={"classes.cardSub"}>
-    //           {
-    //             "After the update, you will see the message: 'Firmware flashed successfully!'"
-    //           }
-    //         </p>
-    //         <p className={"classes.cardSub"}>
-    //           {
-    //             "Your keyboard lights will remain off and the layout will be reverted to its original settings."
-    //           }
-    //         </p>
-    //         <br />
-    //         <br />
-    //         <div className={"classes.cardSnack"}>
-    //           <div>
-    //             <div style={{ display: "flex" }}>
-    //               <div>
-    //                 <MdInfo />
-    //               </div>
-    //               <div>
-    //                 {
-    //                   "In case the Firmware Update fails, this won't damage your Raise. Repeat the process or do it in "
-    //                 }
-    //                 <a
-    //                   href="https://support.dygma.com/hc/en-us/articles/360014074997"
-    //                   color={
-    //                     this.props.darkMode === true ? "primary" : "secondary"
-    //                   }
-    //                 >
-    //                   {"another way"}
-    //                 </a>
-    //                 {"."}
-    //               </div>
-    //             </div>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </React.Fragment>
-    //   );
-    // }
-
     let latestAvailable = (
-      <h5 className="title thintext">{`Latest available version is v${fwVersion}`}</h5>
+      <h5 className="title thintext">{`${i18n.firmwareUpdate.texts.latestAvailableText}${fwVersion}`}</h5>
     );
 
     let currentlyRunning;
@@ -807,7 +598,7 @@ class FirmwareUpdate extends React.Component {
               }
             >
               <Card.Title className="title">
-                {"Your Raise's firmware version is"}
+                {i18n.firmwareUpdate.texts.currentlyRunningCardTitle}
               </Card.Title>
               <Card.Text className="text">{versions.bazecor}</Card.Text>
             </Card.Body>
@@ -819,8 +610,8 @@ class FirmwareUpdate extends React.Component {
       <Card className="firmware-card">
         <Card.Header className="header">
           {versions
-            ? "Raise Firmware Update"
-            : "Firmware Update Process via Bootloader Mode"}
+            ? i18n.firmwareUpdate.texts.versionExists
+            : i18n.firmwareUpdate.texts.versionNotExists}
         </Card.Header>
 
         {countdown > 1 ? (
@@ -828,25 +619,23 @@ class FirmwareUpdate extends React.Component {
             <h2>
               {this.state.versions
                 ? countdown > 2
-                  ? "Release the key"
-                  : "Hold the key"
-                : "Flashing!"}
+                  ? i18n.firmwareUpdate.texts.progressCardStatus3
+                  : i18n.firmwareUpdate.texts.progressCardStatus1
+                : i18n.firmwareUpdate.texts.progressCardStatus2}
             </h2>
             <ProgressBar className="mt-5 mb-2">
               <ProgressBar animate striped now={flashProgress} />
             </ProgressBar>
-            <h4>{"Updating the firmware ..."}</h4>
+            <h4>{i18n.firmwareUpdate.texts.progressCardBar}</h4>
           </Card.Body>
         ) : (
           <React.Fragment>
             <Card.Body className="body d-flex flex-column justify-content-center">
               <Card.Title>
-                {
-                  "Press and hold the top left key to start the firmware update."
-                }
+                {i18n.firmwareUpdate.texts.progressCardTitle1}
               </Card.Title>
               <Card.Title>
-                {"Don't release the key until the process finishes."}
+                {i18n.firmwareUpdate.texts.progressCardTitle2}
               </Card.Title>
             </Card.Body>
             <Card.Img variant="bottom" src={escimg} />
@@ -870,16 +659,12 @@ class FirmwareUpdate extends React.Component {
       <Card className="firmware-card">
         <Card.Header className="header">
           {versions
-            ? "Raise Firmware Update"
-            : "Firmware Update Process via Bootloader Mode"}
+            ? i18n.firmwareUpdate.texts.versionExists
+            : i18n.firmwareUpdate.texts.versionNotExists}
         </Card.Header>
         <Card.Body className="body d-flex flex-column justify-content-center">
-          <Card.Title>
-            {"Press and hold the top left key to start the firmware update."}
-          </Card.Title>
-          <Card.Title>
-            {"Don't release the key until the process finishes."}
-          </Card.Title>
+          <Card.Title>{i18n.firmwareUpdate.texts.flashCardTitle1}</Card.Title>
+          <Card.Title>{i18n.firmwareUpdate.texts.flashCardTitle2}</Card.Title>
         </Card.Body>
         <Card.Img variant="bottom" src={escimg} />
         <Row className="mt-auto">
@@ -900,24 +685,18 @@ class FirmwareUpdate extends React.Component {
       <Card className="firmware-card">
         <Card.Header className="header">
           {versions
-            ? "Raise Firmware Update"
-            : "Firmware Update Process via Bootloader Mode"}
+            ? i18n.firmwareUpdate.texts.versionExists
+            : i18n.firmwareUpdate.texts.versionNotExists}
         </Card.Header>
         <Card.Body className="body d-flex flex-column">
           <p className="thintext">
-            {
-              "During the update, the Neuron will pulse a blue pattern followed by a flash of multiple colors for a few seconds."
-            }
+            {i18n.firmwareUpdate.texts.disclaimerCard1}
           </p>
           <p className="thintext">
-            {
-              "If the firmware update process isn't successful, don't worry. It won't damage your Raise, but you will need to repeat the process."
-            }
+            {i18n.firmwareUpdate.texts.disclaimerCard2}
           </p>
           <p className="thintext">
-            {
-              "Click Next to backup your layers and settings, and start the firmware update process."
-            }
+            {i18n.firmwareUpdate.texts.disclaimerCard3}
           </p>
         </Card.Body>
         <Row className="mt-auto">
@@ -947,15 +726,15 @@ class FirmwareUpdate extends React.Component {
       <Card.Body className="centersection mt-4">
         <p className="subtitle thintext">
           <i>
-            <strong>{"For advanced users: "}</strong>
-            {"If you have installed your own "}
+            <strong>{i18n.firmwareUpdate.texts.advUsersText1}</strong>
+            {i18n.firmwareUpdate.texts.advUsersText2}
             <a
               href="https://support.dygma.com/hc/en-us/articles/360017062197"
               color={this.props.darkMode === true ? "primary" : "secondary"}
             >
               {i18n.firmwareUpdate.texts.cstomFW}
             </a>
-            {", this update will overwrite it."}
+            {i18n.firmwareUpdate.texts.advUsersText3}
           </i>
         </p>
         <Button
@@ -977,8 +756,8 @@ class FirmwareUpdate extends React.Component {
       <Card className="firmware-card">
         <Card.Header className="header">
           {versions
-            ? "Raise Firmware Update"
-            : "Firmware Update Process via Bootloader Mode"}
+            ? i18n.firmwareUpdate.texts.versionExists
+            : i18n.firmwareUpdate.texts.versionNotExists}
         </Card.Header>
         <Card.Body className="body d-flex flex-column">
           <Card.Title className="title">
@@ -1034,33 +813,6 @@ class FirmwareUpdate extends React.Component {
           </Row>
           <Row className="firmware-row">
             <Col className="firmware-col">{showCard}</Col>
-            {/* <Modal
-              show={this.state.confirmationOpen}
-              onHide={this.cancelDialog}
-              backdrop="static"
-              keyboard={false}
-              size="xl"
-              centered
-            >
-              <ModalStyle>
-                <Modal.Header closeButton>
-                  <Modal.Title>{i18n.firmwareUpdate.raise.reset}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>{dialogChildren}</Modal.Body>
-                <Modal.Footer>
-                  <Button
-                    onClick={this.state.countdown == 0 ? this.backup : () => {}}
-                    variant="contained"
-                    color={this.state.countdown ? "primary" : "secondary"}
-                    disabled={
-                      this.state.countdown !== 0 ? this.props.disabled : null
-                    }
-                  >
-                    {countdown > -1 ? buttonText[countdown] : buttonText[""]}
-                  </Button>
-                </Modal.Footer>
-              </ModalStyle>
-            </Modal> */}
           </Row>
         </Container>
       </Styles>

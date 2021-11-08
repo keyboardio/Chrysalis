@@ -255,7 +255,6 @@ class KeyConfig extends Component {
         parseInt(this.keymapDB.parse(keycode).label)
       ].name.substr(0, 5);
     } catch (error) {
-      console.log(error);
       macroName = "*NotFound*";
     }
     if (keycode >= 53852 && keycode <= 53852 + 64) {

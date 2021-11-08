@@ -24,11 +24,10 @@ jobs:
         with:
           node-version: 14
 
-      - name: Install feelpp deb packages
-        uses: feelpp/action-install-feelpp@v1.3
+      - name: Install USB compilation dependencies
+      - uses: lyricwulf/abc@v1
         with:
-          dist: ubuntu
-          install: libudev-dev libusb-1.0-0-dev
+          linux: libudev-dev libusb-1.0-0-dev
 
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1

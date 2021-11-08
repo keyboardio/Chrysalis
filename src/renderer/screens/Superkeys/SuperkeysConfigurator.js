@@ -323,7 +323,7 @@ class SuperkeysConfigurator extends React.Component {
     while (raw.length > iter) {
       // console.log(iter, raw[iter], superkey);
       if (raw[iter] === 0) {
-        superkeys[superindex] = { actions: superkey, name: "" };
+        superkeys[superindex] = { actions: superkey, name: "", id: superindex };
         superindex++;
         superkey = [];
       } else {

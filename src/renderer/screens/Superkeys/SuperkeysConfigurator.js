@@ -331,7 +331,7 @@ class SuperkeysConfigurator extends React.Component {
       }
       iter++;
     }
-    superkeys[superindex] = { actions: superkey, name: "" };
+    superkeys[superindex] = { actions: superkey, name: "", id: superindex };
     console.log("Got Superkeys:" + JSON.stringify(superkeys) + " from " + raw);
 
     if (

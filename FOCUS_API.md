@@ -116,6 +116,18 @@ Plugin's section to configure them, like the DynamicMacros plugin.
 
 [macros.trigger](#macrostrigger)
 
+[superkeys.map](#supermap)
+
+[superkeys.waitfor](#superwaitfor)
+
+[superkeys.timeout](#supertimeout)
+
+[superkeys.repeat](#superrepeat)
+
+[superkeys.holdstart](#superholdstart)
+
+[superkeys.overlap](#superoverlap)
+
 **Sides Section**
 
 Hardware commands specific to the sides for flashing them.
@@ -557,7 +569,7 @@ This command reads/writes the macros map (2048 bytes of max lenght), each action
 
 then we send the actual keyCode that we can find in the [keymap database](https://github.com/Dygmalab/Bazecor/tree/development/src/api/keymap/db)
 
-We repeat this for each action we want to perform until we finish the whole macro, then a zero is required to close the macro, afterwards we can insert more, when no more macros have to be added, end the map with a " 0 0 " to tell the plugin, no further macros have to be read.
+We repeat this for each action we want to perform until we finish the whole macro, then a zero is required to close the macro, afterwards we can insert more, when no more macros have to be added, end the map with a " 0 0 " to tell the plugin, no further macros are present.
 
 #### Commands
 
@@ -589,6 +601,151 @@ To use:
 #### Expected output
 
 Allows you to test any macro stored in the EEPROM without assigning it to a key
+### superkeys.map
+
+This command reads/writes the superkeys map (1024 bytes of max lenght), each action in a superkey is represented by a keyCode number that encodes the action, for example if you use the number 44, you are encoding space, etc... to know more about keycodes and to find the right one for your actions, check [keymap database](https://github.com/Dygmalab/Bazecor/tree/development/src/api/keymap/db)
+
+The structure is composed of the encoded actions in this order
+
+- TAP
+- HOLD
+- TAP & HOLD
+- DOUBLE TAP
+- DOUBLE TAP & HOLD
+
+To end a superkey, place the number of actions you want to use as keyCodes and then a zero is required to close the superkey, we can then start a new superkey or end the superkey list with a " 0 0 " to tell the plugin, no further superkeys have been configured.
+
+#### Commands
+
+To retrieve:
+
+- JavaScript: `focus.command("superkeys.map")`
+- Serial Command (Unix): `echo 'superkeys.map' > /dev/ttyACM0`
+
+To set:
+
+- JavaScript: `focus.command("superkeys.map 4 5 6 44 7 0 4 224 225 6 226 0 0")`
+- Serial Command (Unix): `echo 'superkeys.map 4 5 6 44 7 0 4 224 225 6 226 0 0' > /dev/ttyACM0`
+
+#### Expected output
+
+The command allows you to remap the superkeys without bazecor, and to use hidden functions not currently supported by the graphical configurator. there is no need to send the whole map.
+
+### superkeys.waitfor
+
+This command allows you to get/set the waitfor value of the keyboard to alter the behaviour of the superkeys.
+
+waitfor value specifies the time between the first and subsequent releases of the HOLD actions meanwhile is held, so for example, if the variable is set to 500ms, you can mantain the hold key, it will emmit a keyCode corresponding to the action that it triggers, then it will wait for waitfor time for making another keypress with that same keycode. This enables the user to delay the hold "machinegun" to be able to release the key and achieve a single keypress from a hold action.
+
+#### Commands
+
+To retrieve:
+
+- JavaScript: `focus.command("superkeys.waitfor")`
+- Serial Command (Unix): `echo 'superkeys.waitfor' > /dev/ttyACM0`
+
+To set:
+
+- JavaScript: `focus.command("superkeys.waitfor 500")`
+- Serial Command (Unix): `echo 'superkeys.waitfor 500' > /dev/ttyACM0`
+
+#### Expected output
+
+Modifies/Retrieves the value stored in the keyboard for the waitfor timeout on the superkeys
+
+### superkeys.timeout
+
+This command allows you to get/set the timeout value of the keyboard to alter the behaviour of the superkeys.
+
+timeout value specifies the time the keyboard waits after a superkey is pressed for a subsequent key press of the same superkey, in this time interval, that subsequent superkey press increases the counter of the action in the following order.
+
+- TAP
+- HOLD
+- TAP & HOLD
+- DOUBLE TAP
+- DOUBLE TAP & HOLD
+
+#### Commands
+
+To retrieve:
+
+- JavaScript: `focus.command("superkeys.timeout")`
+- Serial Command (Unix): `echo 'superkeys.timeout' > /dev/ttyACM0`
+
+To set:
+
+- JavaScript: `focus.command("superkeys.timeout 250")`
+- Serial Command (Unix): `echo 'superkeys.timeout 250' > /dev/ttyACM0`
+
+#### Expected output
+
+Modifies/Retrieves the value stored in the keyboard for the timeout between actions of the superkeys
+
+### superkeys.repeat
+
+This command allows you to get/set the repeat value of the keyboard to alter the behaviour of the superkeys.
+
+the repeat value specifies the time between the second and subsequent keyCode releases when on hold, it only takes effect after the waitfor timer has been exceeded.
+
+#### Commands
+
+To retrieve:
+
+- JavaScript: `focus.command("superkeys.repeat")`
+- Serial Command (Unix): `echo 'superkeys.repeat' > /dev/ttyACM0`
+
+To set:
+
+- JavaScript: `focus.command("superkeys.repeat 250")`
+- Serial Command (Unix): `echo 'superkeys.repeat 250' > /dev/ttyACM0`
+
+#### Expected output
+
+Modifies/Retrieves the value stored in the keyboard for the repeat time between released actions after the waitfor timeout.
+
+### superkeys.holdstart
+
+This command allows you to get/set the holdstart value of the keyboard to alter the behaviour of the superkeys.
+
+the holdstart value specifies the minimum time that has to pass between the first keydown and any other action to trigger a hold, if held it will emmit a hold action.
+
+#### Commands
+
+To retrieve:
+
+- JavaScript: `focus.command("superkeys.holdstart")`
+- Serial Command (Unix): `echo 'superkeys.holdstart' > /dev/ttyACM0`
+
+To set:
+
+- JavaScript: `focus.command("superkeys.holdstart 200")`
+- Serial Command (Unix): `echo 'superkeys.holdstart 200' > /dev/ttyACM0`
+
+#### Expected output
+
+Modifies/Retrieves the value stored in the keyboard for the holdstart time.
+
+### superkeys.overlap
+
+This command allows you to get/set the overlap value of the keyboard to alter the behaviour of the superkeys.
+
+the overlap value specifies the percentage of overlap when fast typing that is allowed to happen before triggering a hold action to the overlapped key pressed after the superkey.
+
+#### Commands
+
+To retrieve:
+
+- JavaScript: `focus.command("superkeys.overlap")`
+- Serial Command (Unix): `echo 'superkeys.overlap' > /dev/ttyACM0`
+
+To set:
+
+- JavaScript: `focus.command("superkeys.overlap 80")`
+- Serial Command (Unix): `echo 'superkeys.overlap 80' > /dev/ttyACM0`
+
+#### Expected output
+
+Modifies/Retrieves the value stored in the keyboard for the overlap threshold percentage.
 
 ### hardware.flash_left_side
 

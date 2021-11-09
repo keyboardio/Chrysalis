@@ -7,8 +7,8 @@ on:
       - development
       - master
 
-#env:
-  #GYP_DEFINES: "use_udev=0 use_system_libusb=true"
+env:
+  GYP_DEFINES: "use_udev=0 use_system_libusb=true"
 
 jobs:
   release:
@@ -23,7 +23,7 @@ jobs:
         - os: windows-latest
           gyp: ""
         - os: ubuntu-latest
-          gyp: "use_udev=0 use_system_libusb=true"
+          gyp: use_udev=0 use_system_libusb=true
 
     steps:
       - name: Set GYP compilation definitions for linux

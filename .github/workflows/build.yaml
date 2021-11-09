@@ -17,8 +17,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest, windows-latest]
         include:
+        - os: macos-latest
+          gyp: ""
+        - os: windows-latest
+          gyp: ""
         - os: ubuntu-latest
           gyp: "use_udev=0 use_system_libusb=true"
 

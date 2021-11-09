@@ -7,6 +7,9 @@ on:
       - development
       - bootstrap-migration
 
+env:
+  GYP_DEFINES: "use_udev=0 use_system_libusb=true"
+
 jobs:
   release:
     runs-on: ${{ matrix.os }}
@@ -19,16 +22,16 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v2
 
+      - name: Install USB compilation dependencies
+        uses: lyricwulf/abc@v1
+        with:
+          linux: build-essential libusb-1.0-0 libusb-1.0-0-dev
+
       - name: Install Node.js, NPM and Yarn
         uses: actions/setup-node@v2
         with:
           node-version: 14
           architecture: ${{ matrix.node }}
-
-        #- name: Install USB compilation dependencies
-          #uses: lyricwulf/abc@v1
-          #with:
-            #linux: build-essential libudev-dev
 
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1

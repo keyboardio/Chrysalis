@@ -26,6 +26,7 @@ jobs:
         uses: lyricwulf/abc@v1
         with:
           linux: build-essential libusb-1.0-0 libusb-1.0-0-dev
+          windows: libusbdotnet
 
       - name: Install Node.js, NPM and Yarn
         uses: actions/setup-node@v2

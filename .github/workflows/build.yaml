@@ -36,11 +36,11 @@ jobs:
 
       - name: Install Node.js, NPM and Yarn
         uses: actions/setup-node@v2
+        env:
+          GYP_DEFINES: ${{ matrix.gyp }}
         with:
           node-version: 14
           architecture: ${{ matrix.node }}
-          env:
-            GYP_DEFINES: ${{ matrix.gyp }}
 
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1

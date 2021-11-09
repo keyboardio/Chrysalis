@@ -674,9 +674,9 @@ class FirmwareUpdate extends React.Component {
           <Card.Title>{i18n.firmwareUpdate.texts.flashCardTitle2}</Card.Title>
         </Card.Body>
         <Card.Img variant="bottom" src={escimg} />
-        <Card.Body className="body d-flex flex-column justify-content-center">
+        {/*<Card.Body className="body d-flex flex-column justify-content-center">
           <Card.Text>
-            {/* <OverlayTrigger
+             <OverlayTrigger
               rootClose
               placement="right"
               delay={{ show: 250, hide: 400 }}
@@ -692,10 +692,10 @@ class FirmwareUpdate extends React.Component {
               }
             >
               <MdInfo className="info ml-2" />
-            </OverlayTrigger> */}
+            </OverlayTrigger>
             {i18n.firmwareUpdate.texts.flashCardHelp}
           </Card.Text>
-        </Card.Body>
+        </Card.Body>*/}
         <Row className="mt-auto">
           <Col className="flashingcol">
             <Button

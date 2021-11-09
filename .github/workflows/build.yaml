@@ -26,6 +26,7 @@ jobs:
       - name: Set GYP compilation definitions for linux
         env:
           GYP_DEFINES: ${{ matrix.gyp }}
+        run: echo setting GYP_DEFINES to ${{ matrix.gyp }}
       - name: Check out Git repository
         uses: actions/checkout@v2
 

@@ -5,7 +5,7 @@ on:
     branches:
     # this will run on the electron branch
       - development
-      - bootstrap-migration
+      - master
 
 #env:
   #GYP_DEFINES: "use_udev=0 use_system_libusb=true"
@@ -15,18 +15,24 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     strategy:
+      fail-fast: false
       matrix:
-        #os: [macos-latest, ubuntu-latest, windows-latest]
         os: [macos-latest, windows-latest]
+        include:
+        - os: ubuntu-latest
+          gyp: "use_udev=0 use_system_libusb=true"
 
     steps:
+      - name: Set GYP compilation definitions for linux
+        env:
+          GYP_DEFINES: ${{ matrix.gyp }}
       - name: Check out Git repository
         uses: actions/checkout@v2
 
-      #- name: Install USB compilation dependencies
-        #uses: lyricwulf/abc@v1
-        #with:
-          #linux: build-essential libusb-1.0-0 libusb-1.0-0-dev
+      - name: Install USB compilation dependencies
+        uses: lyricwulf/abc@v1
+        with:
+          linux: build-essential libusb-1.0-0 libusb-1.0-0-dev
 
       - name: Install Node.js, NPM and Yarn
         uses: actions/setup-node@v2

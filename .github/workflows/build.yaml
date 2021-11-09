@@ -7,8 +7,8 @@ on:
       - development
       - master
 
-env:
-  GYP_DEFINES: "use_udev=0 use_system_libusb=true"
+#env:
+  #GYP_DEFINES: "use_udev=0 use_system_libusb=true"
 
 jobs:
   release:
@@ -26,10 +26,6 @@ jobs:
           gyp: use_udev=0 use_system_libusb=true
 
     steps:
-      - name: Set GYP compilation definitions for linux
-        env:
-          GYP_DEFINES: ${{ matrix.gyp }}
-        run: echo setting GYP_DEFINES to ${{ matrix.gyp }}
       - name: Check out Git repository
         uses: actions/checkout@v2
 
@@ -43,6 +39,8 @@ jobs:
         with:
           node-version: 14
           architecture: ${{ matrix.node }}
+          env:
+            GYP_DEFINES: ${{ matrix.gyp }}
 
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1

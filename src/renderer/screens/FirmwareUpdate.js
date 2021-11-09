@@ -693,7 +693,7 @@ class FirmwareUpdate extends React.Component {
             >
               <MdInfo className="info ml-2" />
             </OverlayTrigger> */}
-            {i18n.firmwareUpdate.texts.flashCardTitle1}
+            {i18n.firmwareUpdate.texts.flashCardHelp}
           </Card.Text>
         </Card.Body>
         <Row className="mt-auto">

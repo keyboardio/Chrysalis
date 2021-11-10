@@ -152,7 +152,7 @@ class Configurator extends Component {
     const isMod = [224, 225, 226, 227, 228, 229, 230, 231, 2530, 3043].includes(
       keyCode.base + keyCode.modified
     );
-    console.log("Check ISMOD", isMod);
+    // console.log("Check ISMOD", isMod);
     const dltext1 = "Dual-function keys";
     const dltext2 = "Dual-function keys have two functionalities:";
     const dltext3 = "1. When tapped, they send a character.";

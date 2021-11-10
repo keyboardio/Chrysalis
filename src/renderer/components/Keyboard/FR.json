@@ -427,7 +427,7 @@
       "type": "1U",
       "first": "-",
       "second": "6",
-      "third": "¦",
+      "third": "|",
       "fourth": ""
     }
   },
@@ -846,8 +846,8 @@
     "iconname":"",
     "content": {
       "type": "1U",
-      "first": "¨",
-      "second": "^",
+      "first": "^",
+      "second": "¨",
       "third": "",
       "fourth": ""
     }
@@ -862,8 +862,8 @@
     "iconname":"",
     "content": {
       "type": "1U",
-      "first": "£",
-      "second": "$",
+      "first": "$",
+      "second": "£",
       "third": "¤",
       "fourth": ""
     }
@@ -1124,8 +1124,8 @@
     "iconname":"",
     "content": {
       "type": "1U",
-      "first": "%",
-      "second": "ù",
+      "first": "ù",
+      "second": "%",
       "third": "",
       "fourth": ""
     }
@@ -1140,8 +1140,8 @@
     "iconname":"",
     "content": {
       "type": "1U",
-      "first": "µ",
-      "second": "*",
+      "first": "*",
+      "second": "µ",
       "third": "",
       "fourth": ""
     }
@@ -1336,8 +1336,8 @@
     "iconname":"",
     "content": {
       "type": "1U",
-      "first": "?",
-      "second": ",",
+      "first": ",",
+      "second": "?",
       "third": "",
       "fourth": ""
     }
@@ -1352,8 +1352,8 @@
     "iconname":"",
     "content": {
       "type": "1U",
-      "first": ".",
-      "second": ";",
+      "first": ";",
+      "second": ".",
       "third": "",
       "fourth": ""
     }
@@ -1368,8 +1368,8 @@
     "iconname":"",
     "content": {
       "type": "1U",
-      "first": "/",
-      "second": ":",
+      "first": ":",
+      "second": "/",
       "third": "",
       "fourth": ""
     }
@@ -1384,8 +1384,8 @@
     "iconname":"",
     "content": {
       "type": "1U",
-      "first": "§",
-      "second": "!",
+      "first": "!",
+      "second": "§",
       "third": "",
       "fourth": ""
     }

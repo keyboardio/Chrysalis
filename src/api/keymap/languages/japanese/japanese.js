@@ -631,6 +631,283 @@ const altCtrlJapanese = {
   ]
 };
 
+const altGRJapanese = {
+  groupName: "AltCtrl Japanese",
+  keys: [
+    {
+      code: 1077,
+      labels: {
+        primary: "ロ"
+      }
+    },
+    {
+      code: 1054,
+      labels: {
+        primary: "ヌ"
+      }
+    },
+    {
+      code: 1055,
+      labels: {
+        primary: "フ"
+      }
+    },
+    {
+      code: 1056,
+      labels: {
+        primary: "ア"
+      }
+    },
+    {
+      code: 1057,
+      labels: {
+        primary: "ウ"
+      }
+    },
+    {
+      code: 1058,
+      labels: {
+        primary: "エ"
+      }
+    },
+    {
+      code: 1059,
+      labels: {
+        primary: "オ"
+      }
+    },
+    {
+      code: 1060,
+      labels: {
+        primary: "ヤ"
+      }
+    },
+    {
+      code: 1061,
+      labels: {
+        primary: "ユ"
+      }
+    },
+    {
+      code: 1062,
+      labels: {
+        primary: "ヨ"
+      }
+    },
+    {
+      code: 1063,
+      labels: {
+        primary: "ワ"
+      }
+    },
+    {
+      code: 1069,
+      labels: {
+        primary: "ホ"
+      }
+    },
+    {
+      code: 1070,
+      labels: {
+        primary: "ヘ"
+      }
+    },
+    {
+      code: 1044,
+      labels: {
+        primary: "タ"
+      }
+    },
+    {
+      code: 1050,
+      labels: {
+        primary: "テ"
+      }
+    },
+    {
+      code: 1032,
+      labels: {
+        primary: "イ"
+      }
+    },
+    {
+      code: 1045,
+      labels: {
+        primary: "ス"
+      }
+    },
+    {
+      code: 1047,
+      labels: {
+        primary: "カ"
+      }
+    },
+    {
+      code: 1052,
+      labels: {
+        primary: "ン"
+      }
+    },
+    {
+      code: 1048,
+      labels: {
+        primary: "ナ"
+      }
+    },
+    {
+      code: 1036,
+      labels: {
+        primary: "ニ"
+      }
+    },
+    {
+      code: 1042,
+      labels: {
+        primary: "ラ"
+      }
+    },
+    {
+      code: 1043,
+      labels: {
+        primary: "セ"
+      }
+    },
+    {
+      code: 1073,
+      labels: {
+        primary: "ム"
+      },
+      newGroupName: "Letters"
+    },
+    {
+      code: 1028,
+      labels: {
+        primary: "チ"
+      }
+    },
+    {
+      code: 1046,
+      labels: {
+        primary: "ト"
+      }
+    },
+    {
+      code: 1031,
+      labels: {
+        primary: "シ"
+      }
+    },
+    {
+      code: 1033,
+      labels: {
+        primary: "ハ"
+      }
+    },
+    {
+      code: 1034,
+      labels: {
+        primary: "キ"
+      }
+    },
+    {
+      code: 1035,
+      labels: {
+        primary: "ク"
+      }
+    },
+    {
+      code: 1037,
+      labels: {
+        primary: "マ"
+      }
+    },
+    {
+      code: 1038,
+      labels: {
+        primary: "ノ"
+      }
+    },
+    {
+      code: 1039,
+      labels: {
+        primary: "リ"
+      }
+    },
+    {
+      code: 1075,
+      labels: {
+        primary: "レ"
+      }
+    },
+    {
+      code: 1076,
+      labels: {
+        primary: "ケ"
+      }
+    },
+    {
+      code: 1053,
+      labels: {
+        primary: "ツ"
+      }
+    },
+    {
+      code: 1051,
+      labels: {
+        primary: "サ"
+      }
+    },
+    {
+      code: 1030,
+      labels: {
+        primary: "ソ"
+      }
+    },
+    {
+      code: 1049,
+      labels: {
+        primary: "ヒ"
+      }
+    },
+    {
+      code: 1029,
+      labels: {
+        primary: "コ"
+      }
+    },
+    {
+      code: 1041,
+      labels: {
+        primary: "ミ"
+      }
+    },
+    {
+      code: 1040,
+      labels: {
+        primary: "モ"
+      }
+    },
+    {
+      code: 1078,
+      labels: {
+        primary: "ネ"
+      }
+    },
+    {
+      code: 1079,
+      labels: {
+        primary: "ル"
+      }
+    },
+    {
+      code: 1080,
+      labels: {
+        primary: "メ"
+      }
+    }
+  ]
+};
+
 const shiftModifierJapanese = {
   groupName: "Shifted Japanese",
   keys: [
@@ -884,6 +1161,20 @@ const japaneseAllModTable = withModifiers(
   7936
 );
 
+const DualUseCtrlTable = withModifiers(table, "Control /", "CTRL/", 49169);
+const DualUseShiftTable = withModifiers(table, "Shift /", "SHIFT/", 49425);
+const DualUseAltTable = withModifiers(table, "Alt /", "ALT/", 49681);
+const DualUseGuiTable = withModifiers(table, "Gui /", "GUI/", 49937);
+const DualUseAltGrTable = withModifiers(table, "AltGr /", "ALTGR/", 50705);
+const DualUseLayer1Tables = withModifiers(table, "Layer #1 /", "L#1/", 51218);
+const DualUseLayer2Tables = withModifiers(table, "Layer #2 /", "L#2/", 51474);
+const DualUseLayer3Tables = withModifiers(table, "Layer #3 /", "L#3/", 51730);
+const DualUseLayer4Tables = withModifiers(table, "Layer #4 /", "L#4/", 51986);
+const DualUseLayer5Tables = withModifiers(table, "Layer #5 /", "L#5/", 52242);
+const DualUseLayer6Tables = withModifiers(table, "Layer #6 /", "L#6/", 52498);
+const DualUseLayer7Tables = withModifiers(table, "Layer #7 /", "L#7/", 52754);
+const DualUseLayer8Tables = withModifiers(table, "Layer #8 /", "L#8/", 53010);
+
 const japaneseModifiedTables = [
   japaneseCtrlTable,
   japaneseLAltTable,
@@ -893,6 +1184,7 @@ const japaneseModifiedTables = [
   japaneseCATable,
   shiftModifierJapanese,
   altCtrlJapanese,
+  altGRJapanese,
   japaneseCAGrTable,
   japaneseCSTable,
   japaneseCGTable,
@@ -917,7 +1209,20 @@ const japaneseModifiedTables = [
   withModifiers(table, "Hyper +", "Hyper+", 6912),
   japaneseCAGrSGTable,
   japaneseAAGrSGTable,
-  japaneseAllModTable
+  japaneseAllModTable,
+  DualUseCtrlTable,
+  DualUseShiftTable,
+  DualUseAltTable,
+  DualUseGuiTable,
+  DualUseAltGrTable,
+  DualUseLayer1Tables,
+  DualUseLayer2Tables,
+  DualUseLayer3Tables,
+  DualUseLayer4Tables,
+  DualUseLayer5Tables,
+  DualUseLayer6Tables,
+  DualUseLayer7Tables,
+  DualUseLayer8Tables
 ];
 
 export { japanese as default, japaneseModifiedTables };

@@ -395,7 +395,7 @@
       "type": "1U",
       "first": "4",
       "second": "$",
-      "third": "~",
+      "third": "",
       "fourth": ""
     }
   },
@@ -411,7 +411,7 @@
       "type": "1U",
       "first": "5",
       "second": "%",
-      "third": "€",
+      "third": "",
       "fourth": ""
     }
   },
@@ -427,7 +427,7 @@
       "type": "1U",
       "first": "6",
       "second": "&",
-      "third": "¬",
+      "third": "",
       "fourth": ""
     }
   },

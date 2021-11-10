@@ -570,29 +570,8 @@ class SuperkeysConfigurator extends React.Component {
         ? superkeys[selectedSuper].actions[selectedAction]
         : 0
     );
-    code = {
-      base:
-        tempkey.keyCode > 255
-          ? tempkey.keyCode > 53266
-            ? tempkey.keyCode == 65535
-              ? this.keymapDB.reverse(tempkey.label)
-              : parseInt(tempkey.label)
-            : this.keymapDB.reverse(tempkey.label)
-          : tempkey.keyCode < 20480 || tempkey.keyCode > 20561
-          ? this.keymapDB.reverseSub(tempkey.label, tempkey.extraLabel)
-          : this.keymapDB.reverse(tempkey.label),
-      modified:
-        tempkey.keyCode > 255 &&
-        (tempkey.keyCode < 20480 || tempkey.keyCode > 20561)
-          ? tempkey.keyCode > 53266
-            ? tempkey.keyCode == 65535
-              ? 0
-              : this.keymapDB.reverseSub(tempkey.label, tempkey.extraLabel) -
-                parseInt(tempkey.label)
-            : this.keymapDB.reverseSub(tempkey.label, tempkey.extraLabel) -
-              this.keymapDB.reverse(tempkey.label)
-          : 0
-    };
+    code = this.keymapDB.keySegmentator(tempkey.keyCode);
+    console.log(JSON.stringify(code));
     // console.log(selectedSuper, JSON.stringify(code), JSON.stringify(superkeys));
     let actions =
       superkeys.length > 0 && superkeys.length > selectedSuper

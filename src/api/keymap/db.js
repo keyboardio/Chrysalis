@@ -191,6 +191,106 @@ class KeymapDB {
     }
   }
 
+  parseModifs(keycode) {
+    let modified = 0;
+    if (keycode & 0b100000000) {
+      // Ctrl Decoder
+      modified += 256;
+    }
+    if (keycode & 0b1000000000) {
+      // Alt Decoder
+      modified += 512;
+    }
+    if (keycode & 0b10000000000) {
+      // AltGr Decoder
+      modified += 1024;
+    }
+    if (keycode & 0b100000000000) {
+      // Shift Decoder
+      modified += 2048;
+    }
+    if (keycode & 0b1000000000000) {
+      // Win Decoder
+      modified += 4096;
+    }
+    if (keycode > 49152) {
+      if (keycode < 51218) {
+        return modified + 49169;
+      }
+      return modified + 49169 + 1;
+    }
+    return modified;
+  }
+
+  keySegmentator(keyCode) {
+    let code = { base: 0, modified: 0 };
+    const modified = this.parseModifs(keyCode);
+    switch (true) {
+      case keyCode < 256:
+      case BlankTable.keys.map(r => r.code).includes(keyCode):
+      case MediaControlTable.keys.map(r => r.code).includes(keyCode):
+      case MouseMovementTable.keys.map(r => r.code).includes(keyCode):
+      case MouseWheelTable.keys.map(r => r.code).includes(keyCode):
+      case MouseButtonTable.keys.map(r => r.code).includes(keyCode):
+        // Regular keys KeyCode
+        code = { base: keyCode, modified: 0 };
+        break;
+      case keyCode < 8192:
+        // Reguar key with Modifier KeyCode
+        code = { base: keyCode - modified, modified: modified };
+        break;
+      case keyCode < 17152:
+        // Yet to review
+        code = { base: keyCode, modified: 0 };
+        break;
+      case LEDEffectsTable.keys.map(r => r.code).includes(keyCode):
+        // LED effect keys
+        code = { base: keyCode, modified: 0 };
+        break;
+      case ShiftToLayerTable.keys.map(r => r.code).includes(keyCode):
+        // Layer switch keys
+        code = { base: keyCode - 17450, modified: 17450 };
+        break;
+      case LockLayerTable.keys.map(r => r.code).includes(keyCode):
+        // Layer Move not used keys
+        code = { base: keyCode - 17408, modified: 17408 };
+        break;
+      case MoveToLayerTable.keys.map(r => r.code).includes(keyCode):
+        // Layer Lock keys
+        code = { base: keyCode - 17492, modified: 17492 };
+        break;
+      case OneShotModifierTable.keys.map(r => r.code).includes(keyCode):
+      case OneShotLayerTable.keys.map(r => r.code).includes(keyCode):
+      case keyCode < 49169:
+        // Yet to review
+        code = { base: 0, modified: keyCode };
+        break;
+      case keyCode < 53266:
+        // Dual Function Keycode
+        code = { base: keyCode - modified, modified: modified };
+        break;
+      case TapDanceTable.keys.map(r => r.code).includes(keyCode):
+      case LeaderTable.keys.map(r => r.code).includes(keyCode):
+      case StenoTable.keys.map(r => r.code).includes(keyCode):
+      case SpaceCadetTable.keys.map(r => r.code).includes(keyCode):
+        // Multiple special keys
+        code = { base: 0, modified: keyCode };
+        break;
+      case MacrosTable.keys.map(r => r.code).includes(keyCode):
+        // Macros keys
+        code = { base: keyCode - 53852, modified: 53852 };
+        break;
+      case SuperKeyTable.keys.map(r => r.code).includes(keyCode):
+        // Superkeys keys
+        code = { base: keyCode - 53916, modified: 53916 };
+        break;
+      default:
+        code = { base: keyCode, modified: 0 };
+        break;
+    }
+    return code;
+  }
+
   parse(keyCode) {
     let key;
 

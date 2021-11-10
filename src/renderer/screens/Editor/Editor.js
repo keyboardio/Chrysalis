@@ -1607,55 +1607,9 @@ class Editor extends React.Component {
     if (currentKeyIndex !== -1 && currentLedIndex < 69) {
       const tempkey = this.keymapDB.parse(layerData[currentKeyIndex].keyCode);
       console.log("Key to be used in render", tempkey);
-      code = {
-        base:
-          tempkey.keyCode > 255 && tempkey.keyCode != 65535
-            ? tempkey.keyCode > 53266 ||
-              (tempkey.keyCode >= 17450 && tempkey.keyCode <= 17501) ||
-              (tempkey.keyCode >= 49161 && tempkey.keyCode <= 49168)
-              ? parseInt(tempkey.label)
-              : tempkey.keyCode < 20480 || tempkey.keyCode > 20561
-              ? this.keymapDB.reverse(tempkey.label)
-              : this.keymapDB.reverseSub(tempkey.label, tempkey.extraLabel)
-            : tempkey.keyCode,
-        modified:
-          tempkey.keyCode > 255 &&
-          (tempkey.keyCode < 20480 || tempkey.keyCode > 20561)
-            ? tempkey.keyCode > 53266 ||
-              (tempkey.keyCode >= 17450 && tempkey.keyCode <= 17501) ||
-              (tempkey.keyCode >= 49161 && tempkey.keyCode <= 49168)
-              ? tempkey.keyCode == 65535
-                ? 0
-                : this.keymapDB.reverseSub(tempkey.label, tempkey.extraLabel) -
-                  parseInt(tempkey.label)
-              : this.keymapDB.reverseSub(tempkey.label, tempkey.extraLabel) -
-                this.keymapDB.reverse(tempkey.label)
-            : 0
-      };
-      // code = {
-      //   base:
-      //     tempkey.keyCode <= 255 || tempkey.keyCode == 65535
-      //       ? this.keymapDB.reverse(tempkey.label)
-      //       : tempkey.keyCode > 53266 ||
-      //         (tempkey.keyCode >= 17450 && tempkey.keyCode <= 17501) ||
-      //         (tempkey.keyCode >= 49161 && tempkey.keyCode <= 49168)
-      //       ? parseInt(tempkey.label)
-      //       : tempkey.keyCode,
-      //   modified:
-      //     tempkey.keyCode <= 255 ||
-      //     tempkey.keyCode == 65535 ||
-      //     (tempkey.keyCode >= 49153 && tempkey.keyCode <= 49160)
-      //       ? 0
-      //       : tempkey.keyCode > 53266 ||
-      //         (tempkey.keyCode >= 17450 && tempkey.keyCode <= 17501) ||
-      //         (tempkey.keyCode >= 49161 && tempkey.keyCode <= 49168)
-      //       ? this.keymapDB.reverseSub(tempkey.label, tempkey.extraLabel) -
-      //         parseInt(tempkey.label)
-      //       : this.keymapDB.reverseSub(tempkey.label, tempkey.extraLabel) -
-      //         this.keymapDB.reverse(tempkey.label)
-      // };
+      code = this.keymapDB.keySegmentator(tempkey.keyCode);
+      console.log(JSON.stringify(code));
     }
-    console.log(JSON.stringify(code));
     let actions = [code !== null ? code.base + code.modified : 0, 0, 0, 0, 0];
     let superName = "";
     if (code !== null) {

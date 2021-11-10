@@ -80,6 +80,12 @@ const nordicModifierKeys = [
     labels: {
       primary: "-"
     }
+  },
+  {
+    code: 100,
+    labels: {
+      primary: "<"
+    }
   }
 ];
 
@@ -154,6 +160,84 @@ const altCtrlNordic = {
     },
     {
       code: 784,
+      labels: {
+        primary: "µ"
+      }
+    }
+  ]
+};
+
+const altGRNordic = {
+  groupName: "AltCtrl Nordic",
+  keys: [
+    {
+      code: 1055,
+      labels: {
+        primary: "@"
+      }
+    },
+    {
+      code: 1056,
+      labels: {
+        primary: "£"
+      }
+    },
+    {
+      code: 1057,
+      labels: {
+        primary: "$"
+      }
+    },
+    {
+      code: 1058,
+      labels: {
+        primary: "€"
+      }
+    },
+    {
+      code: 1060,
+      labels: {
+        primary: "{"
+      }
+    },
+    {
+      code: 1061,
+      labels: {
+        primary: "["
+      }
+    },
+    {
+      code: 1062,
+      labels: {
+        primary: "]"
+      }
+    },
+    {
+      code: 1063,
+      labels: {
+        primary: "}"
+      }
+    },
+    {
+      code: 1070,
+      labels: {
+        primary: "´"
+      }
+    },
+    {
+      code: 1032,
+      labels: {
+        primary: "€"
+      }
+    },
+    {
+      code: 1072,
+      labels: {
+        primary: "~"
+      }
+    },
+    {
+      code: 1040,
       labels: {
         primary: "µ"
       }
@@ -253,6 +337,12 @@ const shiftModifierNordic = {
       code: 2104,
       labels: {
         primary: "_"
+      }
+    },
+    {
+      code: 2148,
+      labels: {
+        primary: ">"
       }
     }
   ]
@@ -399,6 +489,20 @@ const nordicAllModTable = withModifiers(
   7936
 );
 
+const DualUseCtrlTable = withModifiers(table, "Control /", "CTRL/", 49169);
+const DualUseShiftTable = withModifiers(table, "Shift /", "SHIFT/", 49425);
+const DualUseAltTable = withModifiers(table, "Alt /", "ALT/", 49681);
+const DualUseGuiTable = withModifiers(table, "Gui /", "GUI/", 49937);
+const DualUseAltGrTable = withModifiers(table, "AltGr /", "ALTGR/", 50705);
+const DualUseLayer1Tables = withModifiers(table, "Layer #1 /", "L#1/", 51218);
+const DualUseLayer2Tables = withModifiers(table, "Layer #2 /", "L#2/", 51474);
+const DualUseLayer3Tables = withModifiers(table, "Layer #3 /", "L#3/", 51730);
+const DualUseLayer4Tables = withModifiers(table, "Layer #4 /", "L#4/", 51986);
+const DualUseLayer5Tables = withModifiers(table, "Layer #5 /", "L#5/", 52242);
+const DualUseLayer6Tables = withModifiers(table, "Layer #6 /", "L#6/", 52498);
+const DualUseLayer7Tables = withModifiers(table, "Layer #7 /", "L#7/", 52754);
+const DualUseLayer8Tables = withModifiers(table, "Layer #8 /", "L#8/", 53010);
+
 const nordicModifiedTables = [
   shiftModifierNordic,
   nordicCtrlTable,
@@ -408,6 +512,7 @@ const nordicModifiedTables = [
   nordicGuiTable,
   nordicCATable,
   altCtrlNordic,
+  altGRNordic,
   nordicCAGrTable,
   nordicCSTable,
   nordicCGTable,
@@ -432,7 +537,20 @@ const nordicModifiedTables = [
   withModifiers(table, "Hyper +", "Hyper+", 6912),
   nordicCAGrSGTable,
   nordicAAGrSGTable,
-  nordicAllModTable
+  nordicAllModTable,
+  DualUseCtrlTable,
+  DualUseShiftTable,
+  DualUseAltTable,
+  DualUseGuiTable,
+  DualUseAltGrTable,
+  DualUseLayer1Tables,
+  DualUseLayer2Tables,
+  DualUseLayer3Tables,
+  DualUseLayer4Tables,
+  DualUseLayer5Tables,
+  DualUseLayer6Tables,
+  DualUseLayer7Tables,
+  DualUseLayer8Tables
 ];
 
 export { nordic as default, nordicModifiedTables };

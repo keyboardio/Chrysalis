@@ -83,7 +83,7 @@ color: ${({ theme }) => theme.card.color};
 const Styles = Styled.div`
 height: 100%;
 max-width: 1900px;
-min-width: 1200px;
+min-width: 1690px;
 margin: auto;
 .keyboard-editor {
   height: 100%;

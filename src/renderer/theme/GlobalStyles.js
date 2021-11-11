@@ -95,7 +95,7 @@ const GlobalStyles = createGlobalStyle`
     padding-left: ${NavWidth}px;
     background: ${({ theme }) => theme.colors.body};
     transition: all 0.50s linear;
-    overflow: hidden;
+    overflow: auto;
     height: 100vh;
   }
 

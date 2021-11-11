@@ -501,14 +501,13 @@ class SuperkeysConfigurator extends React.Component {
     });
   }
 
-  updateAction(newAction) {
+  updateAction(actionNumber, newAction) {
     console.log("launched update action using data:", newAction);
     const newData = this.state.superkeys;
-    newData[this.state.selectedSuper].actions[
-      this.state.selectedAction
-    ] = newAction;
+    newData[this.state.selectedSuper].actions[actionNumber] = newAction;
     this.setState({
       superkeys: newData,
+      selectedAction: actionNumber,
       modified: true
     });
   }

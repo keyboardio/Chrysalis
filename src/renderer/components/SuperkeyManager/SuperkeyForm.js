@@ -250,7 +250,10 @@ class SuperkeyForm extends Component {
                   onDeleteRow={this.onDeleteRow}
                   addModifier={this.addModifier}
                 />
-                <div className="actionDelete" onClick={e => updateAction(0)}>
+                <div
+                  className="actionDelete"
+                  onClick={e => updateAction(index, 0)}
+                >
                   <MdDeleteForever />
                 </div>
               </div>

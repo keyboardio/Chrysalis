@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import RenderToolTip from "./RenderToolTip.js";
-import RenderImgToolTip from "./RenderImgToolTip.js";
+import CTooltip from "./Tooltip.js";
 
-export { RenderToolTip, RenderImgToolTip };
+export default CTooltip;

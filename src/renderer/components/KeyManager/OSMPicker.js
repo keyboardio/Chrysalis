@@ -6,9 +6,9 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import Tooltip from "react-bootstrap/Tooltip";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import { MdInfo } from "react-icons/md";
+
+// Local components
+import Tooltip from "../Tooltip";
 
 const Style = Styled.div`
 .overflow {
@@ -42,8 +42,9 @@ const Style = Styled.div`
   margin-left: 0;
 }
 .info {
-  vertical-align: middle;
+  align-self: center;
   font-size: 1.2rem;
+  margin-top: 4px;
   color: ${({ theme }) => theme.card.icon};
 }
 .selectButton {
@@ -78,16 +79,6 @@ const Style = Styled.div`
   }
 }
 `;
-const TooltipStyle = Styled.div`
-text-align: left;
-.ttip-p {
-  margin: 0;
-}
-.ttip-h {
-  margin: 0;
-  font-size: 1.3em;
-}
-`;
 
 class OSMPicker extends Component {
   constructor(props) {
@@ -96,46 +87,36 @@ class OSMPicker extends Component {
     this.state = {};
   }
 
-  renderTooltip(tooltips) {
-    return (
-      <Tooltip id="select-tooltip" className="longtooltip">
-        <TooltipStyle>
-          {tooltips.map((tip, i) => {
-            return (
-              <React.Fragment key={`Tip-${i}`}>
-                {i % 2 == 1 || !isNaN(tip[0]) ? (
-                  <p className="ttip-p">{tip}</p>
-                ) : (
-                  <React.Fragment>
-                    {i == 0 ? "" : <br></br>}
-                    <h5 className="ttip-h">{tip}</h5>
-                  </React.Fragment>
-                )}
-              </React.Fragment>
-            );
-          })}
-        </TooltipStyle>
-      </Tooltip>
-    );
-  }
-
-  renderImgTooltip(img) {
-    return (
-      <Tooltip id="select-tooltip" className="longtooltip">
-        <img src={img}></img>
-      </Tooltip>
-    );
-  }
-
   render() {
     const { keyCode, onKeySelect } = this.props;
     const KC = keyCode.base + keyCode.modified;
-    const osmtext = "OneShot modifier";
+    const osmtitle = "*ONE-SHOT MODIFIERS";
+    const osmtext1 =
+      "To explain One-shot Modifiers functionality Let's use the 'One-shot Shift' as an example:";
     const osmtext2 =
-      "One press modifier key, press and release once to affect the next keypress only";
-    const osltext = "OneShot layer";
+      "1. If you hold it, it will work as usual; it will make all letters capitalized.";
+    const osmtext3 =
+      "2. If you tap 'One-Shot Shift' once, and then hit the keys 'a' and 'b' you will type 'Ab'.";
+    const osmtext4 = "The shift key is activated for the next key ONLY.";
+    const osmtext5 =
+      "3. If you double-tap 'One-Shot Shift', it will lock the modifier. Everything you type will be in capital letters";
+    const osmtext6 =
+      "as if you had Caps Lock activated. If you tap it again, it will be deactivated.";
+
+    const osltitle = "*ONE-SHOT LAYERS";
+    const osltext1 =
+      "Imagine you are in Layer 0 and you have a 'One-Shot Layer 1' key:";
     const osltext2 =
-      "One press layer key, press and release once to move to the selected layer for the next keypress only";
+      "1. If you hold the key, you shift to Layer 1. Releasing the key will bring you back to Layer 0.";
+    const osltext3 =
+      "2. Single ta: It acts as a ‘BoomerangLayer’. This will bring you to Layer 1 but after you press";
+    const osltext4 =
+      "any key on that layer, you will be brought back to the previous layer.";
+    const osltext5 =
+      "3. Double-tap: It acts as ‘MoveToLayer’. You are locked on Layer 1 until you tap the One-Shot Layer 1 key again.";
+    const osltext6 = "%";
+    const osltext7 =
+      "Reminder: When assigning the One-Shot Layer key, make sure that the same key on the other layer is assigned as TRANS.";
     const osm = [
       { name: "None Selected", keynum: 0, alt: 0 },
       { name: "------------", keynum: -1, alt: -1 },
@@ -164,16 +145,21 @@ class OSMPicker extends Component {
     return (
       <Style>
         <Row className="mx-0 pt-1">
-          <Col xs={8} className="px-0 text-center">
+          <Col xs={8} className="px-0">
             <p className="titles alignvert">ONESHOT MODIFIERS</p>
-            <OverlayTrigger
-              rootClose
+            <Tooltip
+              type="text"
               placement="top"
-              delay={{ show: 250, hide: 400 }}
-              overlay={this.renderTooltip([osmtext, osmtext2])}
-            >
-              <MdInfo className={"info"} />
-            </OverlayTrigger>
+              texts={[
+                osmtitle,
+                osmtext1,
+                osmtext2,
+                osmtext3,
+                osmtext4,
+                osmtext5,
+                osmtext6
+              ]}
+            />
           </Col>
         </Row>
         <Row className="mx-0">
@@ -218,17 +204,23 @@ class OSMPicker extends Component {
           </DropdownButton>
         </Row>
         <Row className="mx-0 pt-1">
-          <Col xs={7} className="px-0 text-center">
+          <Col xs={7} className="px-0">
             <p className="titles alignvert">ONESHOT LAYERS</p>
-            <OverlayTrigger
-              rootClose
+            <Tooltip
+              type="text"
               placement="top"
-              delay={{ show: 250, hide: 400 }}
-              overlay={this.renderTooltip([osltext, osltext2])}
-            >
-              <MdInfo className={"info"} />
-            </OverlayTrigger>
-          </Col>{" "}
+              texts={[
+                osltitle,
+                osltext1,
+                osltext2,
+                osltext3,
+                osltext4,
+                osltext5,
+                osltext6,
+                osltext7
+              ]}
+            />
+          </Col>
         </Row>
         <Row className="mx-0">
           <DropdownButton

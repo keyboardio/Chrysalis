@@ -27,7 +27,7 @@ import escimg from "../../../static/press_esc.png";
 import Focus from "../../api/focus";
 import FlashRaise from "../../api/flash";
 import Backup from "../../api/backup";
-import { RenderToolTip } from "../../renderer/components/Tooltip";
+import Tooltip from "../../renderer/components/Tooltip";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -35,8 +35,7 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import ProgressBar from "react-bootstrap/ProgressBar";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import { MdArrowDropDown, MdInfo } from "react-icons/md";
+import { MdArrowDropDown } from "react-icons/md";
 
 import { getStaticPath } from "../config";
 import i18n from "../i18n";
@@ -674,28 +673,24 @@ class FirmwareUpdate extends React.Component {
           <Card.Title>{i18n.firmwareUpdate.texts.flashCardTitle2}</Card.Title>
         </Card.Body>
         <Card.Img variant="bottom" src={escimg} />
-        {/*<Card.Body className="body d-flex flex-column justify-content-center">
-          <Card.Text>
-             <OverlayTrigger
-              rootClose
-              placement="right"
-              delay={{ show: 250, hide: 400 }}
-              overlay={
-                <RenderToolTip
-                  texts={[
-                    i18n.firmwareUpdate.texts.flashCardOverlay1,
-                    i18n.firmwareUpdate.texts.flashCardOverlay2,
-                    i18n.firmwareUpdate.texts.flashCardOverlay3,
-                    i18n.firmwareUpdate.texts.flashCardOverlay4
-                  ]}
-                />
-              }
-            >
-              <MdInfo className="info ml-2" />
-            </OverlayTrigger>
-            {i18n.firmwareUpdate.texts.flashCardHelp}
+        <Card.Body className="body d-flex flex-column justify-content-center">
+          <Card.Text className="row">
+            <Col xs={1}>
+              <Tooltip
+                type="text"
+                placement="top"
+                texts={[
+                  i18n.firmwareUpdate.texts.flashCardOverlay1,
+                  i18n.firmwareUpdate.texts.flashCardOverlay2,
+                  i18n.firmwareUpdate.texts.flashCardOverlay3,
+                  i18n.firmwareUpdate.texts.flashCardOverlay4,
+                  i18n.firmwareUpdate.texts.flashCardOverlay5
+                ]}
+              />
+            </Col>
+            <Col>{i18n.firmwareUpdate.texts.flashCardHelp}</Col>
           </Card.Text>
-        </Card.Body>*/}
+        </Card.Body>
         <Row className="mt-auto">
           <Col className="flashingcol">
             <Button

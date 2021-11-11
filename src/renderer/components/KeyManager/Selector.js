@@ -213,7 +213,7 @@ class Selector extends Component {
         className="SuperKButton"
         title={
           superkeys[superk.indexOf(KC)] != undefined
-            ? `${superk.indexOf(KC)} ${superkeys[superk.indexOf(KC)].name}`
+            ? `${superk.indexOf(KC) + 1} ${superkeys[superk.indexOf(KC)].name}`
             : ""
         }
         value={
@@ -229,7 +229,7 @@ class Selector extends Component {
           return (
             <Dropdown.Item eventKey={x} key={`macro-${id}`} disabled={x == -1}>
               <div className="menuitem">
-                <p>{`${id}   ${superkeys[id].name}`}</p>
+                <p>{`${id + 1}   ${superkeys[id].name}`}</p>
               </div>
             </Dropdown.Item>
           );

@@ -427,58 +427,25 @@ class SuperkeysConfigurator extends React.Component {
       (superkeys.length === 1 && superkeys[0].actions == []) ||
       (superkeys.length === 1 && superkeys[0].actions == [0])
     ) {
-      return "65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535";
+      return Array.from({ length: 512 }, 65535).join(" ");
     }
-    const keyMap = superkeys.map(superkey => {
+    let keyMap = JSON.parse(JSON.stringify(superkeys));
+    console.log("First", JSON.parse(JSON.stringify(keyMap)));
+    keyMap = keyMap.map(sk => {
+      sk.actions = sk.actions.map(act => {
+        if (act == 0 || act == null) return 1;
+        return act;
+      });
+      return sk;
+    });
+    console.log("Third", JSON.parse(JSON.stringify(keyMap)));
+    keyMap = keyMap.map(superkey => {
       return superkey.actions.filter(act => act != 0).concat([0]);
     });
+    console.log("Fifth", JSON.parse(JSON.stringify(keyMap)));
     const mapped = [].concat.apply([], keyMap.flat()).concat([0]).join(" ");
     console.log(mapped, keyMap);
     return mapped;
-  }
-
-  newSuperID() {
-    return this.state.superkeys.length;
-  }
-
-  setSuperKey(superid, actions, supername) {
-    let temp = this.state.superkeys;
-    let tempactions = actions;
-    let founddata = false;
-    tempactions = tempactions
-      .reverse()
-      .map((elem, index, array) => {
-        if (elem != 0) return elem;
-        if ((index > 0 && array[index - 1] != 0) || founddata) {
-          founddata = true;
-          return 1;
-        }
-        return elem;
-      })
-      .reverse();
-    temp[superid] = { actions: tempactions, name: supername };
-    this.setState({ superkeys: temp });
-  }
-
-  delSuperKey(superid) {
-    let temp = this.state.superkeys;
-    let aux = this.state.keymap.custom;
-    let result = this.state.keymap;
-    temp.splice(superid, 1);
-    if (temp.length > superid) {
-      aux[this.state.currentLayer]
-        .filter(key => key.keyCode > superid + 53916)
-        .forEach(key => {
-          const auxkey = this.keymapDB.parse(key.keyCode - 1);
-          key.label = auxkey.label;
-          key.extraLabel = auxkey.extraLabel;
-          key.verbose = auxkey.verbose;
-          key.keyCode = auxkey.keyCode;
-        });
-      result.custom = aux;
-      this.setState({ keymap: result });
-    }
-    this.setState({ superkeys: temp });
   }
 
   macrosMap(macros) {
@@ -599,7 +566,6 @@ class SuperkeysConfigurator extends React.Component {
           })
           .filter(x => x != undefined)
       )
-      .filter(x => x.length > 0)
       .flat();
     if (LOK.length > 0) {
       this.setState({
@@ -623,11 +589,40 @@ class SuperkeysConfigurator extends React.Component {
   }
 
   RemoveDeletedSK() {
-    let { listToDelete, futureSK, futureSSK, keymap } = this.state;
+    let { keymap } = this.state;
+    const {
+      selectedSuper,
+      superkeys,
+      listToDelete,
+      futureSK,
+      futureSSK
+    } = this.state;
+    let listToDecrease = [];
+    for (const key of superkeys.slice(selectedSuper + 1)) {
+      listToDecrease.push(
+        this.state.keymap.custom
+          .map((l, c) =>
+            l
+              .map((k, i) => {
+                if (k.keyCode == key.id + 53916)
+                  return { layer: c, pos: i, sk: key.id + 53916 };
+              })
+              .filter(x => x != undefined)
+          )
+          .flat()
+      );
+    }
     for (let i = 0; i < listToDelete.length; i++) {
       keymap.custom[listToDelete[i].layer][
         listToDelete[i].pos
       ] = this.keymapDB.parse(0);
+    }
+    console.log("now decreasing... ", listToDecrease.flat());
+    listToDecrease = listToDecrease.flat();
+    for (let i = 0; i < listToDecrease.length; i++) {
+      keymap.custom[listToDecrease[i].layer][
+        listToDecrease[i].pos
+      ] = this.keymapDB.parse(listToDecrease[i].sk - 1);
     }
     this.setState({
       keymap,
@@ -639,6 +634,8 @@ class SuperkeysConfigurator extends React.Component {
     this.toggleDeleteModal();
     return;
   }
+
+  ReNumberAllGreaterSK() {}
 
   render() {
     const {
@@ -658,7 +655,6 @@ class SuperkeysConfigurator extends React.Component {
         : 0
     );
     code = this.keymapDB.keySegmentator(tempkey.keyCode);
-    console.log(JSON.stringify(code));
     // console.log(selectedSuper, JSON.stringify(code), JSON.stringify(superkeys));
     let actions =
       superkeys.length > 0 && superkeys.length > selectedSuper
@@ -716,9 +712,6 @@ class SuperkeysConfigurator extends React.Component {
             action={selectedAction}
             actTab={"super"}
             superName={superName}
-            newSuperID={this.newSuperID}
-            setSuperKey={this.setSuperKey}
-            delSuperKey={this.delSuperKey}
             selectedlanguage={currentLanguageLayout}
             kbtype={kbtype}
           />

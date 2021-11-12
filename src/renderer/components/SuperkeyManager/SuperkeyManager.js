@@ -125,11 +125,7 @@ class SuperkeyManager extends Component {
         return aux;
       });
       if (selected >= this.state.superkeys.length - 1) {
-        this.props.checkKBSuperkeys(
-          aux,
-          aux.length - 1,
-          aux.length - 1 + 53916
-        );
+        this.props.checkKBSuperkeys(aux, aux.length - 1, aux.length + 53916);
       } else {
         this.props.checkKBSuperkeys(aux, selected, selected + 53916);
       }

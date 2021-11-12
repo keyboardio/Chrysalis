@@ -16,7 +16,7 @@ const toolsWidth = 45;
 
 const Styles = Styled.div`
 width: 100%;
-bottom: 60px;
+bottom: 10px;
 position: relative;
 align-self: flex-end!important;
   .color-editor {

@@ -28,7 +28,7 @@ display: flex;
   background-color: transparent;
   width: 100%;
   padding: 0;
-  bottom: 60px;
+  bottom: 10px;
   position: relative;
   border-radius: 10px;
   .rows {

@@ -87,6 +87,8 @@ min-width: 1690px;
 margin: auto;
 .keyboard-editor {
   height: 100%;
+  display: flex;
+  flex-flow: column;
   .title-row {
     // margin-bottom: 40px;
   }
@@ -125,7 +127,7 @@ margin: auto;
   margin: 0;
   flex-flow: nowrap;
   height: fit-content;
-  bottom: 60px;
+  bottom: 10px;
   padding: 0;
   place-content: space-evenly;
   border-radius: 10px;

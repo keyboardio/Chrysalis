@@ -199,9 +199,9 @@ const English = {
       deleteModal: {
         title: "This superkey is in use",
         body:
-          "The superkey you want to delete is currently in use, select how to proceed, THIS MAKES PERMANENT CHANGES.",
+          "The superkey you want to delete is currently in use, by pressing remove you will replace those superkeys with NO KEY on the keyboard layout. Select how to proceed.",
         cancelButton: "Cancel",
-        applyButton: "Update Keyboard"
+        applyButton: "Remove"
       }
     },
     oldMacroModal: {

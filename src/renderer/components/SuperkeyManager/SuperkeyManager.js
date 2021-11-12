@@ -116,7 +116,7 @@ class SuperkeyManager extends Component {
 
   deleteSuperkey() {
     if (this.state.superkeys.length > 0) {
-      let aux = Array.from(this.state.superkeys);
+      let aux = JSON.parse(JSON.stringify(this.state.superkeys));
       let selected = this.props.selected;
       aux.splice(selected, 1);
       aux = aux.map((item, index) => {

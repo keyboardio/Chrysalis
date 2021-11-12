@@ -608,6 +608,8 @@ class SuperkeysConfigurator extends React.Component {
         futureSK: newSuper,
         futureSSK: newID
       });
+    } else {
+      this.updateSuper(newSuper, newID);
     }
   }
 
@@ -671,7 +673,9 @@ class SuperkeysConfigurator extends React.Component {
       return (
         <Row key={id}>
           <Col xs={12} className="px-0 text-center gridded">
-            <p className="titles alignvert">{`Key in layer ${layer} and pos ${pos}`}</p>
+            <p className="titles alignvert">{`Key in layer ${
+              layer + 1
+            } and pos ${pos}`}</p>
           </Col>
         </Row>
       );
@@ -754,18 +758,20 @@ class SuperkeysConfigurator extends React.Component {
         >
           <ModalStyle>
             <Modal.Header closeButton className="modalcol">
-              <Modal.Title>{i18n.editor.macros.deleteModal.title}</Modal.Title>
+              <Modal.Title>
+                {i18n.editor.superkeys.deleteModal.title}
+              </Modal.Title>
             </Modal.Header>
             <Modal.Body className="modalcol">
-              <p>{i18n.editor.macros.deleteModal.body}</p>
+              <p>{i18n.editor.superkeys.deleteModal.body}</p>
               {listOfSKK}
             </Modal.Body>
             <Modal.Footer className="modalcol">
               <Button variant="secondary" onClick={this.toggleDeleteModal}>
-                {i18n.editor.macros.deleteModal.cancelButton}
+                {i18n.editor.superkeys.deleteModal.cancelButton}
               </Button>
               <Button variant="primary" onClick={this.RemoveDeletedSK}>
-                {i18n.editor.macros.deleteModal.applyButton}
+                {i18n.editor.superkeys.deleteModal.applyButton}
               </Button>
             </Modal.Footer>
           </ModalStyle>

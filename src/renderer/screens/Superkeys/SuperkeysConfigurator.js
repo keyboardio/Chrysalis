@@ -24,7 +24,9 @@ import settings from "electron-settings";
 // Styling and elements
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 import { FiSave, FiTrash2 } from "react-icons/fi";
 
 // Components
@@ -87,6 +89,32 @@ flex-direction: column;
   }
 `;
 
+const ModalStyle = Styled.div`
+  .modalcol {
+    color: ${({ theme }) => theme.colors.text};
+    background-color: ${({ theme }) => theme.colors.button.deselected};
+  }
+  .modal-footer {
+    justify-content: space-between;
+  }
+  .titles {
+    margin-bottom: 0;
+  }
+  .alignvert {
+    padding-top: 10px;
+    float: left;
+  }
+  .selectButton {
+    float: left;
+    .dropdown-toggle{
+      font-size: 0.97rem;
+    }
+  }
+  .gridded {
+    display: grid;
+  }
+`;
+
 class SuperkeysConfigurator extends React.Component {
   constructor(props) {
     super(props);
@@ -102,8 +130,13 @@ class SuperkeysConfigurator extends React.Component {
       storedSuper: store.get("superkeys"),
       maxMacros: 64,
       modified: false,
+      modifiedKeymap: false,
       selectedSuper: 0,
       selectedAction: -1,
+      showDeleteModal: false,
+      listToDelete: [],
+      futureSK: [],
+      futureSSK: 0,
       currentLanguageLayout: settings.getSync("keyboard.language") || "english"
     };
     this.changeSelected = this.changeSelected.bind(this);
@@ -114,6 +147,9 @@ class SuperkeysConfigurator extends React.Component {
     this.onKeyChange = this.onKeyChange.bind(this);
     this.saveName = this.saveName.bind(this);
     this.writeSuper = this.writeSuper.bind(this);
+    this.checkKBSuperkeys = this.checkKBSuperkeys.bind(this);
+    this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
+    this.RemoveDeletedSK = this.RemoveDeletedSK.bind(this);
   }
 
   async componentDidMount() {
@@ -531,15 +567,17 @@ class SuperkeysConfigurator extends React.Component {
 
   async writeSuper() {
     let focus = new Focus();
-    let newSuperKeys = this.state.superkeys;
+    let { superkeys, modifiedKeymap, keymap } = this.state;
     this.setState({
       modified: false,
-      superkeys: newSuperKeys,
-      storedMacros: newSuperKeys
+      modifiedKeymap: false
     });
-    store.set("superkeys", newSuperKeys);
+    store.set("superkeys", superkeys);
     try {
-      await focus.command("superkeys.map", this.superkeyMap(newSuperKeys));
+      await focus.command("superkeys.map", this.superkeyMap(superkeys));
+      if (modifiedKeymap) {
+        await focus.command("keymap", keymap);
+      }
       console.log("Changes saved.");
       const commands = await this.bkp.Commands();
       const backup = await this.bkp.DoBackup(commands);
@@ -550,6 +588,54 @@ class SuperkeysConfigurator extends React.Component {
     } catch (error) {
       toast.error(error);
     }
+  }
+
+  checkKBSuperkeys(newSuper, newID, SKC) {
+    let LOK = this.state.keymap.custom
+      .map((l, c) =>
+        l
+          .map((k, i) => {
+            if (k.keyCode == SKC) return { layer: c, pos: i, sk: SKC };
+          })
+          .filter(x => x != undefined)
+      )
+      .filter(x => x.length > 0)
+      .flat();
+    if (LOK.length > 0) {
+      this.setState({
+        showDeleteModal: true,
+        listToDelete: LOK,
+        futureSK: newSuper,
+        futureSSK: newID
+      });
+    }
+  }
+
+  toggleDeleteModal() {
+    this.setState({
+      showDeleteModal: false,
+      listToDelete: [],
+      futureSK: [],
+      futureSSK: 0
+    });
+  }
+
+  RemoveDeletedSK() {
+    let { listToDelete, futureSK, futureSSK, keymap } = this.state;
+    for (let i = 0; i < listToDelete.length; i++) {
+      keymap.custom[listToDelete[i].layer][
+        listToDelete[i].pos
+      ] = this.keymapDB.parse(0);
+    }
+    this.setState({
+      keymap,
+      superkeys: futureSK,
+      selectedSuper: futureSSK,
+      modified: true,
+      modifiedKeymap: true
+    });
+    this.toggleDeleteModal();
+    return;
   }
 
   render() {
@@ -580,6 +666,16 @@ class SuperkeysConfigurator extends React.Component {
       superkeys.length > 0 && superkeys.length > selectedSuper
         ? superkeys[selectedSuper].name
         : "";
+
+    const listOfSKK = this.state.listToDelete.map(({ layer, pos, sk }, id) => {
+      return (
+        <Row key={id}>
+          <Col xs={12} className="px-0 text-center gridded">
+            <p className="titles alignvert">{`Key in layer ${layer} and pos ${pos}`}</p>
+          </Col>
+        </Row>
+      );
+    });
     return (
       <Styles>
         <Row className="title-row m-0">
@@ -596,6 +692,7 @@ class SuperkeysConfigurator extends React.Component {
             changeSelected={this.changeSelected}
             selectedAction={selectedAction}
             updateAction={this.updateAction}
+            checkKBSuperkeys={this.checkKBSuperkeys}
             changeAction={this.changeAction}
             keymapDB={this.keymapDB}
             key={JSON.stringify(superkeys)}
@@ -650,6 +747,29 @@ class SuperkeysConfigurator extends React.Component {
             </Row>
           </Container>
         </Row>
+        <Modal
+          show={this.state.showDeleteModal}
+          onHide={this.toggleDeleteModal}
+          style={{ marginTop: "100px" }}
+        >
+          <ModalStyle>
+            <Modal.Header closeButton className="modalcol">
+              <Modal.Title>{i18n.editor.macros.deleteModal.title}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body className="modalcol">
+              <p>{i18n.editor.macros.deleteModal.body}</p>
+              {listOfSKK}
+            </Modal.Body>
+            <Modal.Footer className="modalcol">
+              <Button variant="secondary" onClick={this.toggleDeleteModal}>
+                {i18n.editor.macros.deleteModal.cancelButton}
+              </Button>
+              <Button variant="primary" onClick={this.RemoveDeletedSK}>
+                {i18n.editor.macros.deleteModal.applyButton}
+              </Button>
+            </Modal.Footer>
+          </ModalStyle>
+        </Modal>
       </Styles>
     );
   }

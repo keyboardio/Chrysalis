@@ -73,19 +73,16 @@ class SuperkeyManager extends Component {
     }
 
     this.state = {
-      superkeys: props.superkeys,
+      superkeys: Array.from(props.superkeys),
       selected: selected,
       open: false
     };
 
     this.close = this.close.bind(this);
-    this.accept = this.accept.bind(this);
     this.deleteSuperkey = this.deleteSuperkey.bind(this);
-    this.duplicateSuperkey = this.duplicateSuperkey.bind(this);
     this.addSuperkey = this.addSuperkey.bind(this);
     this.changeSelected = this.changeSelected.bind(this);
     this.exit = this.exit.bind(this);
-    this.superkeysRestore = this.superkeysRestore.bind(this);
   }
 
   close() {
@@ -101,15 +98,6 @@ class SuperkeyManager extends Component {
     this.setState({
       open: false
     });
-  }
-
-  accept(superkeys) {
-    this.setState({
-      superkeys: superkeys
-    });
-    this.props.updateSuper(superkeys);
-    this.props.changeSelected(this.state.selected);
-    this.exit();
   }
 
   addSuperkey() {
@@ -128,7 +116,7 @@ class SuperkeyManager extends Component {
 
   deleteSuperkey() {
     if (this.state.superkeys.length > 0) {
-      let aux = this.state.superkeys;
+      let aux = Array.from(this.state.superkeys);
       let selected = this.props.selected;
       aux.splice(selected, 1);
       aux = aux.map((item, index) => {
@@ -137,21 +125,15 @@ class SuperkeyManager extends Component {
         return aux;
       });
       if (selected >= this.state.superkeys.length - 1) {
-        this.props.updateSuper(aux, this.state.superkeys.length - 1);
+        this.props.checkKBSuperkeys(
+          aux,
+          aux.length - 1,
+          aux.length - 1 + 53916
+        );
       } else {
-        this.props.updateSuper(aux, selected);
+        this.props.checkKBSuperkeys(aux, selected, selected + 53916);
       }
     }
-  }
-
-  duplicateSuperkey(selected) {
-    let superkeys = this.state.superkeys;
-    let aux = Object.assign({}, this.state.superkeys[selected]);
-    aux.id = this.state.superkeys.length;
-    aux.name = "Copy of " + aux.name;
-    superkeys.push(aux);
-    this.props.updateSuperkey(superkeys, -1);
-    this.changeSelected(aux.id);
   }
 
   changeSelected(selected) {
@@ -159,14 +141,6 @@ class SuperkeyManager extends Component {
       selected
     });
     this.props.changeSelected(selected);
-  }
-
-  superkeysRestore(superkeys) {
-    this.setState({
-      superkeys: superkeys
-    });
-    this.changeSelected(0);
-    this.props.updateSuperkey(superkeys, -1);
   }
 
   render() {

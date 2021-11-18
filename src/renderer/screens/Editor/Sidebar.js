@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2020  Keyboardio, Inc.
+ * Copyright (C) 2020-2021  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -32,6 +32,7 @@ import LeaderKeys from "./Sidebar/LeaderKeys";
 import LEDKeys from "./Sidebar/LEDKeys";
 import MacroKeys from "./Sidebar/MacroKeys";
 import MouseKeys from "./Sidebar/MouseKeys";
+import OneShotKeys from "./Sidebar/OneShotKeys";
 import SpaceCadetKeys from "./Sidebar/SpaceCadetKeys";
 import StenoKeys from "./Sidebar/StenoKeys";
 import TapDanceKeys from "./Sidebar/TapDanceKeys";
@@ -76,6 +77,7 @@ class Sidebar extends React.Component {
       LEDKeys,
       MacroKeys,
       TapDanceKeys,
+      OneShotKeys,
       SpaceCadetKeys,
       LeaderKeys,
       StenoKeys,

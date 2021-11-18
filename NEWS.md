@@ -1,3 +1,19 @@
+Chrysalis 0.8.7
+===============
+**UNRELEASED**
+
+## New features
+
+Chrysalis now supports adding the dedicated OneShot cancel key to the keymap,
+and also allows us to change whether Escape will cancel one-shot keys too -
+enabled by default with the new firmwares shipped with Chrysalis.
+
+## Firmware update
+
+All of the firmware files Chrysalis ships with have been updated. All of the
+firmwares that had the OneShot plugin enabled, now also have EscapeOneShot
+enabled aswell, enabling the new feature mentioned above to function.
+
 Chrysalis 0.8.6
 ===============
 Released on 2021-10-02

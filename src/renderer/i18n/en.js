@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
+ * Copyright (C) 2018-2021  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -160,6 +160,14 @@ const English = {
       leader: {
         title: "Leader",
         help: `Assign Leader keys. To configure this feature, you can use the Arduino IDE to customize the Kaleidoscope 'Sketch' file for your keyboard.`
+      },
+      oneshot: {
+        title: "One-shot",
+        help: `Click button below to choose a dedicated key to cancel one-shot keys.`,
+        configuration: {
+          help: `When enabled, "Escape" will cancel one-shot keys.`,
+          escCancelLabel: "Escape cancels one-shot keys"
+        }
       },
       ledcontrol: {
         title: "LED control",

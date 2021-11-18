@@ -1,5 +1,5 @@
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2020  Keyboardio, Inc.
+ * Copyright (C) 2020-2021  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -78,7 +78,19 @@ const oneshot = [
   osl(4),
   osl(5),
   osl(6),
-  osl(7)
+  osl(7),
+
+  {
+    code: 53630,
+    label: {
+      hint: {
+        full: "OneShot",
+        "1u": "OS"
+      },
+      base: "Cancel"
+    },
+    categories: ["oneshot"]
+  }
 ];
 
 export { oneshot };

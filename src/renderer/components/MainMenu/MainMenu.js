@@ -138,6 +138,22 @@ class MainMenu extends Component {
     };
   }
 
+  componentDidMount() {
+    const focus = new Focus();
+    let versions;
+
+    focus.command("version").then(v => {
+      if (!v) return;
+      let parts = v.split(" ");
+      versions = {
+        bazecor: parts[0],
+        kaleidoscope: parts[1],
+        firmware: parts[2]
+      };
+      this.setState({ versions: versions, flashing: this.props.flashing });
+    });
+  }
+
   componentDidUpdate(previousProps, previousState) {
     if (this.props.flashing != previousProps.flashing) {
       this.setState({ flashing: this.props.flashing });
@@ -171,10 +187,10 @@ class MainMenu extends Component {
           ? version
           : version.substring(1)
         : null;
-    if (ver.length > 5) {
-      return (ver.substring(0, 5) + "." + ver.substring(9)).split(".");
-    }
-    return ver.substring(0, 5).split(".");
+    return ver
+      .replace(/beta/g, "")
+      .split(".")
+      .map(n => parseInt(n));
   }
 
   compareFWVer(oldVer, newVer) {
@@ -211,7 +227,6 @@ class MainMenu extends Component {
     //     ? "/editor"
     //     : "/welcome"
     //   : "/keyboard-select";
-
     let fwVer =
       this.state.versions != null
         ? this.cleanFWVer(this.state.versions.bazecor)

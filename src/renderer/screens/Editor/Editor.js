@@ -1511,7 +1511,8 @@ class Editor extends React.Component {
         if (key.extraLabel == "MACRO") {
           if (
             macros.length > parseInt(key.label) &&
-            macros[parseInt(key.label)].name.substr(0, 5) != ""
+            macros[parseInt(key.label)].name.substr(0, 5) != "" &&
+            !/\p{L}/u.test(key.label)
           ) {
             newKey.label = macros[parseInt(key.label)].name
               .substr(0, 5)
@@ -1528,27 +1529,12 @@ class Editor extends React.Component {
         if (key.extraLabel == "SUPER") {
           if (
             superkeys.length > parseInt(key.label) &&
-            superkeys[parseInt(key.label)].name != ""
+            superkeys[parseInt(key.label)].name != "" &&
+            !/\p{L}/u.test(key.label)
           ) {
-            console.log(
-              !Number.isInteger(
-                parseInt(superkeys[parseInt(key.label)].name.substr(0, 1))
-              ),
-              parseInt(superkeys[parseInt(key.label)].name.substr(0, 1))
-            );
-            if (
-              !Number.isInteger(
-                parseInt(superkeys[parseInt(key.label)].name.substr(0, 1))
-              )
-            ) {
-              newKey.label = superkeys[parseInt(key.label)].name
-                .substr(0, 5)
-                .toLowerCase();
-            } else {
-              newKey.label =
-                "·" +
-                superkeys[parseInt(key.label)].name.substr(0, 5).toLowerCase();
-            }
+            newKey.label = superkeys[parseInt(key.label)].name
+              .substr(0, 5)
+              .toLowerCase();
           }
         }
         return newKey;

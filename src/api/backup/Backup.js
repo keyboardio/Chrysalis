@@ -25,6 +25,8 @@ export default class Backup extends Component {
       "help",
       "version",
       "led.at",
+      "led.setMultiple",
+      "led.getMultiple",
       "led.setAll",
       "macros.trigger",
       "qukeys"

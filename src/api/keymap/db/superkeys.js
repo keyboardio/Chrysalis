@@ -16,7 +16,7 @@
 const superkey = index => ({
   code: 53916 + index,
   labels: {
-    primary: index.toString(),
+    primary: (index + 1).toString(),
     top: "SUPER"
   }
 });

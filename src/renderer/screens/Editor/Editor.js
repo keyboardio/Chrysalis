@@ -1038,7 +1038,7 @@ class Editor extends React.Component {
         return superk;
       }
     });
-    console.log("final superkeys", finalSuper);
+    // console.log("final superkeys", finalSuper);
     this.setState({ storedSuper: stored });
     return finalSuper;
   }
@@ -1507,37 +1507,37 @@ class Editor extends React.Component {
 
     if (layerData != undefined) {
       layerData = layerData.map(key => {
-        let newKey = key;
+        let newMKey = key;
         if (key.extraLabel == "MACRO") {
           if (
             macros.length > parseInt(key.label) &&
             macros[parseInt(key.label)].name.substr(0, 5) != "" &&
             !/\p{L}/u.test(key.label)
           ) {
-            newKey.label = macros[parseInt(key.label)].name
+            newMKey.label = macros[parseInt(key.label)].name
               .substr(0, 5)
               .toLowerCase();
           }
         }
-        return newKey;
+        return newMKey;
       });
     }
 
     if (layerData != undefined && superkeys.length > 0) {
       layerData = layerData.map(key => {
-        let newKey = key;
+        let newSKey = key;
         if (key.extraLabel == "SUPER") {
           if (
-            superkeys.length > parseInt(key.label) &&
-            superkeys[parseInt(key.label)].name != "" &&
+            superkeys.length > parseInt(key.label) - 1 &&
+            superkeys[parseInt(key.label) - 1].name != "" &&
             !/\p{L}/u.test(key.label)
           ) {
-            newKey.label = superkeys[parseInt(key.label)].name
+            newSKey.label = superkeys[parseInt(key.label) - 1].name
               .substr(0, 5)
               .toLowerCase();
           }
         }
-        return newKey;
+        return newSKey;
       });
     }
 
@@ -1594,9 +1594,8 @@ class Editor extends React.Component {
     let code = 0;
     if (currentKeyIndex !== -1 && currentLedIndex < 69) {
       const tempkey = this.keymapDB.parse(layerData[currentKeyIndex].keyCode);
-      console.log("Key to be used in render", tempkey);
+      // console.log("Key to be used in render", tempkey);
       code = this.keymapDB.keySegmentator(tempkey.keyCode);
-      console.log(JSON.stringify(code));
     }
     let actions = [code !== null ? code.base + code.modified : 0, 0, 0, 0, 0];
     let superName = "";
@@ -1610,7 +1609,6 @@ class Editor extends React.Component {
         superName = superkeys[code.base + code.modified - 53916].name;
       }
     }
-    // console.log("final actions: " + actions, superName, superkeys);
 
     return (
       <Styles>

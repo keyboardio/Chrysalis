@@ -92,7 +92,7 @@ class OSMPicker extends Component {
     const KC = keyCode.base + keyCode.modified;
     const osmtitle = "*ONE-SHOT MODIFIERS";
     const osmtext1 =
-      "To explain One-shot Modifiers functionality Let's use the 'One-shot Shift' as an example:";
+      "To explain One-Shot Modifiers functionality Let's use the 'One-Shot Shift' as an example:";
     const osmtext2 =
       "1. If you hold it, it will work as usual; it will make all letters capitalized.";
     const osmtext3 =
@@ -105,15 +105,15 @@ class OSMPicker extends Component {
 
     const osltitle = "*ONE-SHOT LAYERS";
     const osltext1 =
-      "Imagine you are in Layer 0 and you have a 'One-Shot Layer 1' key:";
+      "Imagine you are in Layer 1 and you have a ‘One-Shot Layer 2‘ key:";
     const osltext2 =
-      "1. If you hold the key, you shift to Layer 1. Releasing the key will bring you back to Layer 0.";
+      "1. If you hold the key, you shift to Layer 2. Releasing the key will bring you back to Layer 1.";
     const osltext3 =
-      "2. Single ta: It acts as a ‘BoomerangLayer’. This will bring you to Layer 1 but after you press";
+      "2. Single tap: Tap the ‘One-Shot Layer 2‘ once and it will bring you to Layer 2 but after you press";
     const osltext4 =
       "any key on that layer, you will be brought back to the previous layer.";
     const osltext5 =
-      "3. Double-tap: It acts as ‘MoveToLayer’. You are locked on Layer 1 until you tap the One-Shot Layer 1 key again.";
+      "3. Double-tap: It acts as ‘Layer Lock’. You are locked on Layer 2 until you tap the One-Shot Layer 2 key again.";
     const osltext6 = "%";
     const osltext7 =
       "Reminder: When assigning the One-Shot Layer key, make sure that the same key on the other layer is assigned as TRANS.";

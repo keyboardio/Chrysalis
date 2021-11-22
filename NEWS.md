@@ -8,6 +8,10 @@ Chrysalis now supports adding the dedicated OneShot cancel key to the keymap,
 and also allows us to change whether Escape will cancel one-shot keys too -
 enabled by default with the new firmwares shipped with Chrysalis.
 
+## Bugfixes
+
+Chrysalis should now launch properly on Linux distributions that aren't based on Debian.
+
 ## Firmware update
 
 All of the firmware files Chrysalis ships with have been updated. All of the

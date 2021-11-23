@@ -19,7 +19,7 @@ import React from "react";
 import settings from "electron-settings";
 import { Switch, Redirect, Route, withRouter } from "react-router-dom";
 import { toast } from "react-toastify";
-import styled, { ThemeProvider, css } from "styled-components";
+import { ThemeProvider } from "styled-components";
 
 import usb from "usb";
 import i18n from "./i18n";
@@ -47,9 +47,6 @@ import Header from "./components/Header";
 // import ConfirmationDialog from "./components/ConfirmationDialog";
 // import { history, navigate } from "./routerHistory";
 
-const Store = window.require("electron-store");
-const store = new Store();
-
 const { remote, ipcRenderer } = require("electron");
 
 let focus = new Focus();
@@ -62,15 +59,6 @@ if (settings.getSync("ui.language"))
 class App extends React.Component {
   constructor(props) {
     super(props);
-
-    let balance;
-
-    if (store.get("balance") === undefined) {
-      balance = { r: 30, g: 0, b: 15 };
-      store.set("balance", balance);
-    } else {
-      balance = store.get("balance");
-    }
 
     let isDark;
     const mode = settings.getSync("ui.darkMode");
@@ -85,8 +73,7 @@ class App extends React.Component {
       device: null,
       pages: {},
       contextBar: false,
-      cancelPendingOpen: false,
-      balance
+      cancelPendingOpen: false
     };
     localStorage.clear();
 
@@ -264,88 +251,6 @@ class App extends React.Component {
   rgbString = color => {
     return `rgb(${color.r},${color.g},${color.b})`;
   };
-  whiteBalance = (balance, color, type) => {
-    let correction =
-      balance[
-        Object.keys(balance).reduce((a, b) => (balance[a] > balance[b] ? a : b))
-      ];
-    if (type === "apply") {
-      if (
-        correction + 1 < color.r &&
-        correction + 1 < color.g &&
-        correction + 1 < color.b
-      ) {
-        let aux = {
-          r: color.r - balance.r,
-          g: color.g - balance.g,
-          b: color.b - balance.b,
-          rgb: color.rgb
-        };
-        aux.rgb = this.rgbString(aux);
-        console.log(color, balance, correction, aux);
-        return aux;
-      }
-    }
-    if (type === "revert") {
-      if (
-        color.r + balance.r <= 255 ||
-        color.g + balance.g <= 255 ||
-        color.b + balance.b <= 255
-      ) {
-        if (color.r > 1 && color.g > 1 && color.b > 1) {
-          let aux = {
-            r: color.r + balance.r,
-            g: color.g + balance.g,
-            b: color.b + balance.b,
-            rgb: color.rgb
-          };
-          aux.rgb = this.rgbString(aux);
-          console.log(color, balance, correction, aux);
-          return aux;
-        }
-      }
-    }
-    return color;
-  };
-  applyBalance = colors => {
-    console.log("applying whitebalance correction");
-    return colors.map(color => {
-      return this.whiteBalance(this.state.balance, color, "apply");
-    });
-  };
-  revertBalance = colors => {
-    console.log("reverting whitebalance correction");
-    return colors.map(color => {
-      return this.whiteBalance(this.state.balance, color, "revert");
-    });
-  };
-  testBalance = async bal => {
-    console.log("testing white balance: ", bal);
-    const balance = this.whiteBalance(bal, { r: 255, g: 255, b: 255 }, "apply");
-    await focus.command(`led.setAll ${balance.r} ${balance.g} ${balance.b}`);
-    return "finished";
-  };
-  startTestBalance = async () => {
-    console.log("current balance", this.state.balance);
-    const balance = this.whiteBalance(
-      this.state.balance,
-      { r: 255, g: 255, b: 255 },
-      "apply"
-    );
-    await focus.command(`led.setAll ${balance.r} ${balance.g} ${balance.b}`);
-    return "finished";
-  };
-  stopTestBalance = async () => {
-    console.log("reverting testing mode");
-    await focus.command("led.mode 0");
-    return "finished";
-  };
-
-  setBalance = bal => {
-    console.log("setting Balance to:", bal);
-    store.set("balance", bal);
-    this.setState({ balance: bal });
-  };
 
   render() {
     const { connected, pages, contextBar, darkMode } = this.state;
@@ -392,8 +297,6 @@ class App extends React.Component {
               onDisconnect={this.onKeyboardDisconnect}
               startContext={this.startContext}
               cancelContext={this.cancelContext}
-              applyBalance={this.applyBalance}
-              revertBalance={this.revertBalance}
               inContext={this.state.contextBar}
               titleElement={() => document.querySelector("#page-title")}
               appBarElement={() => document.querySelector("#appbar")}
@@ -404,8 +307,6 @@ class App extends React.Component {
               onDisconnect={this.onKeyboardDisconnect}
               startContext={this.startContext}
               cancelContext={this.cancelContext}
-              applyBalance={this.applyBalance}
-              revertBalance={this.revertBalance}
               inContext={this.state.contextBar}
               titleElement={() => document.querySelector("#page-title")}
             />
@@ -414,8 +315,6 @@ class App extends React.Component {
               onDisconnect={this.onKeyboardDisconnect}
               startContext={this.startContext}
               cancelContext={this.cancelContext}
-              applyBalance={this.applyBalance}
-              revertBalance={this.revertBalance}
               inContext={this.state.contextBar}
               titleElement={() => document.querySelector("#page-title")}
             />
@@ -432,11 +331,6 @@ class App extends React.Component {
               path="/preferences"
               titleElement={() => document.querySelector("#page-title")}
               darkMode={this.state.darkMode}
-              setBalance={this.setBalance}
-              testBalance={this.testBalance}
-              startTestBalance={this.startTestBalance}
-              stopTestBalance={this.stopTestBalance}
-              balance={this.state.balance}
               toggleDarkMode={this.toggleDarkMode}
               startContext={this.startContext}
               cancelContext={this.cancelContext}
@@ -444,13 +338,6 @@ class App extends React.Component {
             />
           </Switch>
         </Container>
-        {/* <ConfirmationDialog
-          title={i18n.app.cancelPending.title}
-          open={this.state.cancelPendingOpen}
-          onConfirm={this.doCancelContext}
-          onCancel={this.cancelContextCancellation}
-          text={i18n.app.cancelPending.content}
-        /> */}
       </ThemeProvider>
     );
   }

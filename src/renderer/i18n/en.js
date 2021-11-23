@@ -351,17 +351,6 @@ const English = {
         "Wheel delay between steps (the higher the number, the slower the mouse movement)",
       wheelDelaysub: " - From 0 to 65,534 milliseconds"
     },
-    colorSettings: {
-      title: "White Balance",
-      visualizebutton: "VISUALIZE CHANGES",
-      test: {
-        quit: "Quit Test Mode",
-        enter: "Enter Test Mode"
-      },
-      red: "Red Color",
-      green: "Green Color",
-      blue: "Blue Color"
-    },
     advancedOps: "Advanced keyboard settings & operations",
     resetEEPROM: {
       button: "Reset keyboard to factory settings",

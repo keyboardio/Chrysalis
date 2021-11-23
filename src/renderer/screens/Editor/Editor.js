@@ -325,8 +325,6 @@ class Editor extends React.Component {
       }
 
       let colormap = await focus.command("colormap");
-      // Point of restoration for WhiteBalance
-      // let palette = this.props.revertBalance(colormap.palette.slice());
       let palette = colormap.palette.slice();
       const undeglowColors = settings.getSync("undeglowColors");
       let raw = await focus.command("macros.map");

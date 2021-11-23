@@ -18,31 +18,13 @@
 
 import React from "react";
 import Electron, { app } from "electron";
-import { toast } from "react-toastify";
 import Styled from "styled-components";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
-import Accordion from "react-bootstrap/Accordion";
-import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
 
-import {
-  MdComputer,
-  MdBrightness3,
-  MdWbSunny,
-  MdArrowDropDown,
-  MdArrowDropUp
-} from "react-icons/md";
-
-import {
-  KeyboardSettings,
-  AdvancedKeyboardSettings
-} from "./Preferences/KeyboardSettings";
-import ColorSettings from "./Preferences/ColorSettings";
+import { KeyboardSettings } from "./Preferences/KeyboardSettings";
 import i18n from "../i18n";
 
 import Focus from "../../api/focus";
@@ -116,32 +98,6 @@ class Preferences extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
-
-    const darkModeSwitch = (
-      <Dropdown onSelect={this.selectDarkMode} value={this.state.darkMode}>
-        <Dropdown.Toggle className="toggler">
-          {this.state.darkMode === "system" ? (
-            <MdComputer />
-          ) : this.state.darkMode === "dark" ? (
-            <MdBrightness3 />
-          ) : (
-            <MdWbSunny />
-          )}
-        </Dropdown.Toggle>
-        <Dropdown.Menu className="menu">
-          <Dropdown.Item key={`theme-system`} eventKey={"system"}>
-            <MdComputer />
-          </Dropdown.Item>
-          <Dropdown.Item key={`theme-dark`} eventKey={"dark"}>
-            <MdBrightness3 />
-          </Dropdown.Item>
-          <Dropdown.Item key={`theme-light`} eventKey={"light"}>
-            <MdWbSunny />
-          </Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
-    );
     const devToolsSwitch = (
       <Form.Check
         type="switch"
@@ -174,20 +130,6 @@ class Preferences extends React.Component {
               devToolsSwitch={devToolsSwitch}
               verboseSwitch={verboseSwitch}
             />
-          )}
-          {this.props.connected && false && (
-            <Row>
-              <ColorSettings
-                startContext={this.props.startContext}
-                cancelContext={this.props.cancelContext}
-                inContext={this.props.inContext}
-                balance={this.props.balance}
-                setBalance={this.props.setBalance}
-                testBalance={this.props.testBalance}
-                startTestBalance={this.props.startTestBalance}
-                stopTestBalance={this.props.stopTestBalance}
-              />
-            </Row>
           )}
           {/* <Accordion>
             <Accordion.Toggle

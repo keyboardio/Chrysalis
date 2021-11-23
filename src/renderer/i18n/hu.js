@@ -129,17 +129,6 @@ const Hungarian = {
       onlyCustom: "Kizárólag testreszabott rétegek használata",
       defaultLayer: "Alapértelmezett réteg"
     },
-    colorSettings: {
-      title: "White Balance",
-      visualizebutton: "VISUALIZE CHANGES",
-      test: {
-        quit: "Quit Test Mode",
-        enter: "Enter Test Mode"
-      },
-      red: "Red Color",
-      green: "Green Color",
-      blue: "Blue Color"
-    },
     advancedOps: "Haladó billentyűzet beállítások és műveletek",
     resetEEPROM: {
       button: "EEPROM visszaállítása gyári alapbeállításokra",

@@ -19,7 +19,6 @@
 import React from "react";
 import { toast } from "react-toastify";
 import Styled from "styled-components";
-import settings from "electron-settings";
 
 // Styling and elements
 import Container from "react-bootstrap/Container";
@@ -39,7 +38,7 @@ import Keymap, { KeymapDB } from "../../../api/keymap";
 import Focus from "../../../api/focus";
 import Backup from "../../../api/backup";
 
-const Store = window.require("electron-store");
+const Store = require("electron-store");
 const store = new Store();
 
 const Styles = Styled.div`
@@ -125,9 +124,9 @@ class SuperkeysConfigurator extends React.Component {
     this.state = {
       keymap: [],
       macros: [],
-      storedMacros: store.get("macros"),
+      storedMacros: [],
       superkeys: [],
-      storedSuper: store.get("superkeys"),
+      storedSuper: [],
       maxMacros: 64,
       modified: false,
       modifiedKeymap: false,
@@ -137,7 +136,7 @@ class SuperkeysConfigurator extends React.Component {
       listToDelete: [],
       futureSK: [],
       futureSSK: 0,
-      currentLanguageLayout: settings.getSync("keyboard.language") || "english"
+      currentLanguageLayout: store.get("settings.language") || "english"
     };
     this.changeSelected = this.changeSelected.bind(this);
     this.updateSuper = this.updateSuper.bind(this);
@@ -162,6 +161,19 @@ class SuperkeysConfigurator extends React.Component {
       /**
        * Create property language to the object 'options', to call KeymapDB in Keymap and modify languagu layout
        */
+      let chipID = (await focus.command("hardware.chip_id")).replace(/\s/g, "");
+      let neurons = store.get("neurons");
+      let neuron = {};
+      if (neurons.some(n => n.id == chipID)) {
+        console.log(neurons.filter(n => n.id == chipID));
+        neuron = neurons.filter(n => n.id == chipID)[0];
+      }
+      this.setState({
+        neurons,
+        neuronID: neurons.findIndex(n => n.chipID == this.state.chipID),
+        storedMacros: neuron.macros,
+        storedSuper: neuron.superkeys
+      });
       let deviceLang = { ...focus.device, language: true };
       focus.commands.keymap = new Keymap(deviceLang);
       this.keymapDB = focus.commands.keymap.db;
@@ -205,7 +217,6 @@ class SuperkeysConfigurator extends React.Component {
       this.setState({
         modified: false,
         macros: parsedMacros,
-        storedMacros: store.get("macros"),
         superkeys: parsedSuper,
         keymap,
         kbtype
@@ -325,18 +336,12 @@ class SuperkeysConfigurator extends React.Component {
     finalMacros = macros.map((macro, i) => {
       if (stored.length > i && stored.length > 0) {
         console.log("compare between: ", macro.actions, stored[i].actions);
-        if (macro.actions.join(",") === stored[i].actions.join(",")) {
-          equal[i] = true;
-          let aux = macro;
-          aux.name = stored[i].name;
-          aux.macro = stored[i].actions
-            .map(k => this.keymapDB.parse(k.keyCode).label)
-            .join(" ");
-          return aux;
-        } else {
-          equal[i] = false;
-          return macro;
-        }
+        let aux = macro;
+        aux.name = stored[i].name;
+        aux.macro = macro.actions
+          .map(k => this.keymapDB.parse(k.keyCode).label)
+          .join(" ");
+        return aux;
       } else {
         return macro;
       }
@@ -378,40 +383,14 @@ class SuperkeysConfigurator extends React.Component {
     )
       return [];
     // TODO: Check if stored superKeys match the received ones, if they match, retrieve name and apply it to current superKeys
-    let equal = [];
     let finalSuper = [];
-    const stored = store.get("superkeys") ? store.get("superkeys") : [];
-    try {
-      console.log("check data integrity", superkeys, stored, stored[0].actions);
-      if (stored === undefined || stored[0].actions === undefined) {
-        return superkeys;
-      }
-    } catch (error) {
-      console.error("unable to retrieve stored superkeys, using loaded ones");
-      console.error(error);
-      return superkeys;
-    }
-
+    const stored = this.state.neurons[this.state.neuronID].superkeys;
     finalSuper = superkeys.map((superk, i) => {
       superk.id = i;
       if (stored.length > i && stored.length > 0) {
-        console.log(
-          "compare between SK: ",
-          superk.actions.join(","),
-          stored[i].actions.filter(act => act != 0).join(",")
-        );
-        if (
-          superk.actions.join(",") ===
-          stored[i].actions.filter(act => act != 0).join(",")
-        ) {
-          equal[i] = true;
-          let aux = superk;
-          aux.name = stored[i].name;
-          return aux;
-        } else {
-          equal[i] = false;
-          return superk;
-        }
+        let aux = superk;
+        aux.name = stored[i].name;
+        return aux;
       } else {
         return superk;
       }
@@ -539,7 +518,9 @@ class SuperkeysConfigurator extends React.Component {
       modified: false,
       modifiedKeymap: false
     });
-    store.set("superkeys", superkeys);
+    let neurons = this.state.neurons;
+    neurons[this.state.neuronID].superkeys = superkeys;
+    store.set("neurons", neurons);
     try {
       await focus.command("superkeys.map", this.superkeyMap(superkeys));
       if (modifiedKeymap) {

@@ -28,7 +28,9 @@ import { KeyboardSettings } from "./Preferences/KeyboardSettings";
 import i18n from "../i18n";
 
 import Focus from "../../api/focus";
-import settings from "electron-settings";
+
+const Store = require("electron-store");
+const store = new Store();
 
 const Styles = Styled.div`
   .toggle-button{
@@ -58,7 +60,7 @@ class Preferences extends React.Component {
     let focus = new Focus();
     this.setState({ verboseFocus: focus.debug });
 
-    let darkModeSetting = settings.getSync("ui.darkMode");
+    let darkModeSetting = store.get("settings.darkMode");
     if (darkModeSetting === undefined) {
       darkModeSetting = "system";
     }
@@ -77,7 +79,7 @@ class Preferences extends React.Component {
   setLanguage = async event => {
     i18n.setLanguage(event.target.value);
     await this.setState({});
-    await settings.set("ui.language", event.target.value);
+    await store.set("settings.language", event.target.value);
   };
 
   toggleAdvanced = () => {

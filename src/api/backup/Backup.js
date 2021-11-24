@@ -1,9 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 import Focus from "../focus";
 import path from "path";
-import settings from "electron-settings";
 
-export default class Backup extends Component {
+const Store = require("electron-store");
+const store = new Store();
+export default class Backup extends React.Component {
   constructor(props) {
     super(props);
 
@@ -48,7 +49,7 @@ export default class Backup extends Component {
 
   SaveBackup(backup) {
     const d = new Date();
-    const folder = settings.getSync("backupFolder");
+    const folder = store.get("settings.backupFolder");
     try {
       const fullPath = path.join(
         folder,

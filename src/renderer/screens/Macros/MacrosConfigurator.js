@@ -35,7 +35,7 @@ import Keymap, { KeymapDB } from "../../../api/keymap";
 import Focus from "../../../api/focus";
 import Backup from "../../../api/backup";
 
-const Store = window.require("electron-store");
+const Store = require("electron-store");
 const store = new Store();
 
 const Styles = Styled.div`
@@ -115,7 +115,8 @@ class MacrosConfigurator extends React.Component {
       keymap: [],
       macros: [],
       superkeys: [],
-      storedMacros: store.get("macros"),
+      storedMacros: [],
+      storedSuper: [],
       maxMacros: 64,
       modified: false,
       selectedMacro: 0,
@@ -143,6 +144,29 @@ class MacrosConfigurator extends React.Component {
       /**
        * Create property language to the object 'options', to call KeymapDB in Keymap and modify languagu layout
        */
+      let chipID = (await focus.command("hardware.chip_id")).replace(/\s/g, "");
+      let neurons = store.get("neurons");
+      let neuron = {};
+      console.log(
+        "Macro Neuron Check",
+        neurons,
+        chipID,
+        neurons.some(n => n.id == chipID),
+        neurons.filter(n => n.id == chipID)
+      );
+      if (neurons.some(n => n.id == chipID)) {
+        console.log(
+          "Macro Neuron Check",
+          neurons.filter(n => n.id == chipID)
+        );
+        neuron = neurons.filter(n => n.id == chipID)[0];
+      }
+      this.setState({
+        neurons,
+        neuronID: neurons.findIndex(n => n.chipID == this.state.chipID),
+        storedMacros: neuron.macros,
+        storedSuper: neuron.superkeys
+      });
       let deviceLang = { ...focus.device, language: true };
       focus.commands.keymap = new Keymap(deviceLang);
       this.keymapDB = focus.commands.keymap.db;
@@ -165,7 +189,6 @@ class MacrosConfigurator extends React.Component {
       const parsedSuper = this.superTranslator(raw2);
       this.setState({
         macros: parsedMacros,
-        storedMacros: store.get("macros"),
         superkeys: parsedSuper,
         keymap
       });
@@ -284,18 +307,12 @@ class MacrosConfigurator extends React.Component {
     finalMacros = macros.map((macro, i) => {
       if (stored.length > i && stored.length > 0) {
         console.log("compare between: ", macro.actions, stored[i].actions);
-        if (macro.actions.join(",") === stored[i].actions.join(",")) {
-          equal[i] = true;
-          let aux = macro;
-          aux.name = stored[i].name;
-          aux.macro = stored[i].actions
-            .map(k => this.keymapDB.parse(k.keyCode).label)
-            .join(" ");
-          return aux;
-        } else {
-          equal[i] = false;
-          return macro;
-        }
+        let aux = macro;
+        aux.name = stored[i].name;
+        aux.macro = macro.actions
+          .map(k => this.keymapDB.parse(k.keyCode).label)
+          .join(" ");
+        return aux;
       } else {
         return macro;
       }
@@ -411,8 +428,10 @@ class MacrosConfigurator extends React.Component {
       macros: newMacros,
       storedMacros: newMacros
     });
-    store.set("macros", newMacros);
-    store.set("superkeys", newSuperKeys);
+    let neurons = this.state.neurons;
+    neurons[this.state.neuronID].macros = newMacros;
+    neurons[this.state.neuronID].superkeys = newSuperKeys;
+    store.set("neurons", neurons);
     try {
       await focus.command("macros.map", this.macrosMap(newMacros));
       await focus.command("keymap", this.state.keymap);

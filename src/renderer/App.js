@@ -47,21 +47,27 @@ import Header from "./components/Header";
 // import ConfirmationDialog from "./components/ConfirmationDialog";
 // import { history, navigate } from "./routerHistory";
 
+const Store = require("electron-store");
+const store = new Store();
+
 const { remote, ipcRenderer } = require("electron");
 
 let focus = new Focus();
 focus.debug = true;
 focus.timeout = 15000;
 
-if (settings.getSync("ui.language"))
-  i18n.setLanguage(settings.get("ui.language"));
-
+if (store.get("settings.language") == undefined) {
+  i18n.setLanguage(settings.getSync("keyboard.language"));
+} else {
+  i18n.setLanguage(store.get("settings.language"));
+}
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.updateStorageSchema();
 
     let isDark;
-    const mode = settings.getSync("ui.darkMode");
+    const mode = store.get("settings.darkMode");
     isDark = mode === "dark" ? true : false;
     if (mode === "system") {
       isDark = remote.nativeTheme.shouldUseDarkColors;
@@ -93,6 +99,31 @@ class App extends React.Component {
   }
   flashing = false;
 
+  updateStorageSchema() {
+    //Update stored settings schema
+    console.log("Retrieving settings: ", store.get("settings"));
+    if (store.get("settings.language") != undefined) {
+      console.log("settings already upgraded, returning");
+      return;
+    }
+
+    // Store all settings from electron settings in electron store.
+    let data = {};
+    data.backupFolder = settings.getSync("backupFolder");
+    data.backupFrequency = settings.getSync("backupFrequency");
+    data.language = settings.getSync("keyboard.language");
+    data.darkMode = settings.getSync("ui.darkMode");
+    data.showDefaults = settings.getSync("keymap.showDefaults");
+    store.set("settings", data);
+    store.set("neurons", []);
+    console.log(
+      "Testing results: ",
+      data,
+      store.get("settings"),
+      store.get("settings.darkMode")
+    );
+  }
+
   componentDidMount() {
     // Loading font to be sure it wont blink
     document.fonts.load("Titillium Web");
@@ -100,7 +131,7 @@ class App extends React.Component {
     const self = this;
     ipcRenderer.on("darkTheme-update", function (evt, message) {
       console.log("O.S. DarkTheme Settings changed to ", message);
-      let dm = settings.getSync("ui.darkMode");
+      let dm = store.get("settings.darkMode");
       if (dm === "system") {
         self.forceDarkMode(message);
       }
@@ -155,7 +186,7 @@ class App extends React.Component {
     this.setState({
       darkMode: isDark
     });
-    settings.setSync("ui.darkMode", mode);
+    store.set("settings.darkMode", mode);
   };
 
   toggleFlashing = async () => {

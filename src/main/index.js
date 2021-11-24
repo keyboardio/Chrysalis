@@ -32,7 +32,6 @@ process.env[`NODE_ENV`] = Environment.name;
 app.allowRendererProcessReuse = false;
 
 import { app, BrowserWindow, Menu, nativeTheme, dialog } from "electron";
-import settings from "electron-settings";
 import { format as formatUrl } from "url";
 import * as path from "path";
 import * as fs from "fs";
@@ -42,6 +41,9 @@ import installExtension, {
   REACT_DEVELOPER_TOOLS
 } from "electron-devtools-installer";
 import { getStaticPath } from "../renderer/config";
+
+const Store = require("electron-store");
+const store = new Store();
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 let mainWindow;
@@ -191,12 +193,12 @@ app.on("activate", () => {
 
 // create main BrowserWindow when electron is ready
 app.on("ready", async () => {
-  let bfolder = settings.getSync("backupFolder");
+  let bfolder = store.get("settings.backupFolder");
   console.log("CHECKING BACKUP FOLDER VALUE", bfolder);
   if (bfolder == "" || bfolder == undefined) {
     const defaultPath = path.join(app.getPath("home"), "Raise", "Backups");
     console.log(defaultPath);
-    settings.setSync("backupFolder", defaultPath);
+    store.set("settings.backupFolder", defaultPath);
     fs.mkdir(defaultPath, { recursive: true }, err => {
       if (err) {
         console.error(err);
@@ -205,10 +207,10 @@ app.on("ready", async () => {
     });
   }
 
-  let darkMode = settings.getSync("ui.darkMode");
+  let darkMode = store.get("settings.darkMode");
   if (typeof darkMode === "boolean" || darkMode === undefined) {
     darkMode = "system";
-    settings.setSync("ui.darkMode", "system");
+    store.set("settings.darkMode", "system");
   }
   // Setting nativeTheme currently only seems to work at this point in the code
   nativeTheme.themeSource = darkMode;

@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-import settings from "electron-settings";
 import BlankTable from "./db/blanks";
 import LetterTable, { ModifiedLetterTables } from "./db/letters";
 import DigitTable, { ModifiedDigitTables } from "./db/digits";
@@ -72,6 +71,9 @@ import japanese, {
 
 // newLanguageLayout - is a function that modify language layout
 import newLanguageLayout from "./languages/newLanguageLayout";
+
+const Store = require("electron-store");
+const store = new Store();
 
 const defaultBaseKeyCodeTable = [
   LetterTable,
@@ -146,7 +148,7 @@ class KeymapDB {
   constructor() {
     this.keymapCodeTable = [];
     //create variable that get language from the local storage
-    this.language = settings.getSync("keyboard.language");
+    this.language = store.get("settings.language");
     if (
       this.language == "swedish" ||
       this.language == "danish" ||
@@ -342,7 +344,7 @@ class KeymapDB {
   }
 
   static updateBaseKeyCode() {
-    this.language = settings.getSync("keyboard.language") || "english";
+    this.language = store.get("settings.language") || "english";
     if (
       this.language == "swedish" ||
       this.language == "danish" ||

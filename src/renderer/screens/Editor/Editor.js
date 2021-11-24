@@ -24,7 +24,6 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Modal from "react-bootstrap/Modal";
-import Spinner from "react-bootstrap/Spinner";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { MdKeyboard } from "react-icons/md";
@@ -40,7 +39,6 @@ import KeyConfig from "../../components/KeyManager/";
 // import KeyEditor from "../../components/KeyEditor";
 import ConfirmationDialog from "../../components/ConfirmationDialog";
 import i18n from "../../i18n";
-import settings from "electron-settings";
 import { CopyFromDialog } from "./CopyFromDialog";
 import { undeglowDefaultColors } from "./initialUndaglowColors";
 
@@ -50,7 +48,7 @@ import {
   shareLayers
 } from "../../../api/firebase/firebase.utils";
 
-const Store = window.require("electron-store");
+const Store = require("electron-store");
 const store = new Store();
 
 const Fade = Styled.div`
@@ -203,7 +201,7 @@ class Editor extends React.Component {
     this.state = {
       currentLayer: 0,
       previousLayer: 0,
-      layerNames: store.get("layerNames") || this.defaultLayerNames,
+      layerNames: [],
       currentKeyIndex: -1,
       currentLedIndex: -1,
       previousKeyIndex: 0,
@@ -219,8 +217,10 @@ class Editor extends React.Component {
       colorMap: [],
       macros: [],
       superkeys: [],
-      storedMacros: store.get("macros"),
-      storedSuper: store.get("superkeys"),
+      storedMacros: [],
+      storedSuper: [],
+      registered: false,
+      chipID: "",
       modeselect: "keyboard",
       clearConfirmationOpen: false,
       copyFromOpen: false,
@@ -250,11 +250,17 @@ class Editor extends React.Component {
 
   onLayerNameChange(newName) {
     const layerNames = this.state.layerNames.slice();
-    layerNames[this.state.currentLayer] = newName;
+    layerNames[this.state.currentLayer] = {
+      id: this.state.currentLayer,
+      name: newName
+    };
     this.setState({
       layerNames: layerNames
     });
-    store.set("layerNames", layerNames);
+    let neurons = store.get("neurons");
+    let idx = neurons.findIndex(n => n.chipID == this.state.chipID);
+    neurons[idx].layers = this.layerNames;
+    store.set("neurons", neurons);
   }
 
   /**
@@ -288,12 +294,73 @@ class Editor extends React.Component {
     }));
   };
 
+  AnalizeChipID(chipID) {
+    let neurons = store.get("neurons");
+    let finalNeuron;
+    console.log("Neuron ID", chipID, neurons);
+    if (neurons.some(n => n.id == chipID)) {
+      finalNeuron = neurons.filter(n => n.id == chipID)[0];
+    }
+    if (!neurons.some(n => n.id == chipID) && neurons.length == 0) {
+      let neuron = {};
+      neuron.id = chipID;
+      neuron.name = "";
+      neuron.layers = store.get("layerNames").map((name, id) => {
+        return {
+          id,
+          name
+        };
+      });
+      neuron.macros = store.get("macros").map(macro => {
+        return {
+          id: macro.id,
+          name: macro.name
+        };
+      });
+      neuron.superkeys = store.get("superkeys").map(superkey => {
+        return {
+          id: superkey.id,
+          name: superkey.name
+        };
+      });
+      console.log("New neuron", neuron);
+      neurons = neurons.concat(neuron);
+      store.set("neurons", neurons);
+      finalNeuron = neuron;
+    }
+    if (!neurons.some(n => n.id == chipID) && neurons.length > 1) {
+      let neuron = {};
+      neuron.id = chipID;
+      neuron.name = "";
+      neuron.layers = this.defaultLayerNames;
+      neuron.macros = [];
+      neuron.superkeys = [];
+      console.log("Additional neuron", neuron);
+      neurons = neurons.concat(neuron);
+      store.set("neurons", neurons);
+      toast.success("added additional neuron to this Bazecor installation");
+      finalNeuron = neuron;
+    }
+    console.log("Final neuron", finalNeuron);
+    this.setState({
+      neurons: neurons,
+      neuronID: neurons.findIndex(n => n.id == chipID),
+      layerNames: finalNeuron.layers,
+      storedMacros: finalNeuron.macros,
+      storedSuper: finalNeuron.superkeys
+    });
+    return finalNeuron;
+  }
+
   scanKeyboard = async lang => {
     let focus = new Focus();
     try {
       /**
        * Create property language to the object 'options', to call KeymapDB in Keymap and modify languagu layout
        */
+      let chipID = await focus.command("hardware.chip_id");
+      let registered = this.AnalizeChipID(chipID.replace(/\s/g, ""));
+
       if (lang) {
         let deviceLang = { ...focus.device, language: true };
         focus.commands.keymap = new Keymap(deviceLang);
@@ -326,7 +393,7 @@ class Editor extends React.Component {
 
       let colormap = await focus.command("colormap");
       let palette = colormap.palette.slice();
-      const undeglowColors = settings.getSync("undeglowColors");
+      const undeglowColors = store.get("settings.undeglowColors");
       let raw = await focus.command("macros.map");
       if (raw.search(" 0 0 ") !== -1) {
         raw = raw.split(" 0 0 ")[0].split(" ").map(Number);
@@ -344,7 +411,7 @@ class Editor extends React.Component {
       this.setState(
         () => {
           if (!undeglowColors) {
-            settings.set("undeglowColors", undeglowDefaultColors);
+            store.set("settings.undeglowColors", undeglowDefaultColors);
             return { undeglowColors: undeglowDefaultColors };
           } else {
             return { undeglowColors };
@@ -359,7 +426,9 @@ class Editor extends React.Component {
             palette,
             colorMap: colormap.colorMap,
             macros: parsedMacros,
-            superkeys: parsedSuper
+            superkeys: parsedSuper,
+            registered,
+            chipID
           });
         }
       );
@@ -376,6 +445,7 @@ class Editor extends React.Component {
       }
       this.bottomMenuNeverHide();
     } catch (e) {
+      console.error(e);
       toast.error(e);
       this.props.onDisconnect();
     }
@@ -603,17 +673,14 @@ class Editor extends React.Component {
 
   onApply = async () => {
     this.setState({ saving: true });
-    settings.set("undeglowColors", this.state.undeglowColors);
+    store.set("undeglowColors", this.state.undeglowColors);
     let focus = new Focus();
     await focus.command("keymap", this.state.keymap);
     await focus.command("colormap", this.state.palette, this.state.colorMap);
     // let newMacros = this.state.macros;
-    let newSuperKeys = this.state.superkeys;
+    // let newSuperKeys = this.state.superkeys;
     // await focus.command("macros.map", this.macrosMap(newMacros));
-    console.log(newSuperKeys);
-    store.set("superkeys", newSuperKeys);
-    await focus.command("superkeys.map", this.superkeyMap(newSuperKeys));
-    // store.set("macros", newMacros);
+    // await focus.command("superkeys.map", this.superkeyMap(newSuperKeys));
     this.setState({
       modified: false,
       saving: false,
@@ -622,8 +689,7 @@ class Editor extends React.Component {
       previousLayer: this.state.currentLayer,
       isMultiSelected: false,
       selectedPaletteColor: null,
-      isColorButtonSelected: false,
-      superkeys: newSuperKeys
+      isColorButtonSelected: false
     });
     console.log("Changes saved.");
     const commands = await this.bkp.Commands();
@@ -660,10 +726,10 @@ class Editor extends React.Component {
   onChangeLanguageLayout = () => {
     console.log(
       "Language automatically set to: ",
-      settings.getSync("keyboard.language")
+      store.get("settings.language")
     );
     this.setState({
-      currentLanguageLayout: settings.getSync("keyboard.language") || "english"
+      currentLanguageLayout: store.get("settings.language") || "english"
     });
   };
 
@@ -674,7 +740,7 @@ class Editor extends React.Component {
         this.state.defaultLayer >= 126 ? 0 : this.state.defaultLayer;
       let initialLayer = 0;
 
-      if (!settings.getSync("keymap.showDefaults")) {
+      if (!store.get("settings.showDefaults")) {
         if (defLayer < keymap.default.length) {
           initialLayer = keymap.onlyCustom ? 0 : keymap.default.length;
         }
@@ -1001,43 +1067,18 @@ class Editor extends React.Component {
     // TODO: Check if stored superKeys match the received ones, if they match, retrieve name and apply it to current superKeys
     let equal = [];
     let finalSuper = [];
-    const stored = store.get("superkeys") ? store.get("superkeys") : [];
-    try {
-      console.log("check data integrity", superkeys, stored, stored[0].actions);
-      if (stored === undefined || stored[0].actions === undefined) {
-        return superkeys;
-      }
-    } catch (error) {
-      console.error("unable to retrieve stored superkeys, using loaded ones");
-      console.error(error);
-      return superkeys;
-    }
+    const stored = this.state.neurons[this.state.neuronID].superkeys;
 
     finalSuper = superkeys.map((superk, i) => {
       if (stored.length > i && stored.length > 0) {
-        console.log(
-          "compare between SK: ",
-          superk.actions.join(","),
-          stored[i].actions.filter(act => act != 0).join(",")
-        );
-        if (
-          superk.actions.join(",") ===
-          stored[i].actions.filter(act => act != 0).join(",")
-        ) {
-          equal[i] = true;
-          let aux = superk;
-          aux.name = stored[i].name;
-          return aux;
-        } else {
-          equal[i] = false;
-          return superk;
-        }
+        let aux = superk;
+        aux.name = stored[i].name;
+        return aux;
       } else {
         return superk;
       }
     });
-    // console.log("final superkeys", finalSuper);
-    this.setState({ storedSuper: stored });
+    console.log("final superkeys", finalSuper);
     return finalSuper;
   }
 
@@ -1207,16 +1248,12 @@ class Editor extends React.Component {
     }
     finalMacros = macros.map((macro, i) => {
       if (stored.length > i && stored.length > 0) {
-        console.log("compare between MK: ", macro.actions, stored[i].actions);
-        if (macro.actions.join(",") === stored[i].actions.join(",")) {
-          equal[i] = true;
-          let aux = macro;
-          aux.name = stored[i].name;
-          return aux;
-        } else {
-          equal[i] = false;
-          return macro;
-        }
+        let aux = macro;
+        aux.name = stored[i].name;
+        aux.macro = macro.actions
+          .map(k => this.keymapDB.parse(k.keyCode).label)
+          .join(" ");
+        return aux;
       } else {
         return macro;
       }
@@ -1259,6 +1296,7 @@ class Editor extends React.Component {
     let focus = new Focus();
     let Layer = {};
     let kbtype = "iso";
+    if (focus.device == null) return { Layer: false, kbtype: false };
     try {
       Layer = focus.device.components.keymap;
       kbtype =
@@ -1267,7 +1305,7 @@ class Editor extends React.Component {
           : "ansi";
     } catch (error) {
       console.error("Focus lost connection to Raise: ", error);
-      return false;
+      return { Layer: false, kbtype: false };
     }
 
     return { Layer, kbtype };
@@ -1460,7 +1498,7 @@ class Editor extends React.Component {
 
   layerName(index) {
     return this.state?.layerNames?.length >= index
-      ? this.state.layerNames[index]
+      ? this.state.layerNames[index].name
       : this.defaultLayerNames[index];
   }
 
@@ -1481,7 +1519,7 @@ class Editor extends React.Component {
     if (Layer === false) {
       return <div></div>;
     }
-    const showDefaults = settings.getSync("keymap.showDefaults");
+    const showDefaults = store.get("settings.showDefaults");
     let cLayer = currentLayer;
 
     if (!showDefaults) {

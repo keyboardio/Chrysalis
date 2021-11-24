@@ -28,6 +28,7 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Spinner from "react-bootstrap/Spinner";
 
 import RangeSlider from "react-bootstrap-range-slider";
 
@@ -57,8 +58,8 @@ import {
 import { BsType, BsBrightnessHigh } from "react-icons/bs";
 import { BiMouse, BiCodeAlt, BiWrench } from "react-icons/bi";
 
-import settings from "electron-settings";
-import { Spinner } from "react-bootstrap";
+const Store = require("electron-store");
+const store = new Store();
 
 const Styles = Styled.div`
   input[type=range].range-slider::-webkit-slider-thumb {
@@ -234,19 +235,19 @@ class KeyboardSettings extends React.Component {
     });
 
     this.setState({
-      backupFolder: settings.getSync("backupFolder")
+      backupFolder: store.get("settings.backupFolder")
     });
 
     this.setState({
-      storeBackups: settings.getSync("backupFrequency")
+      storeBackups: store.get("settings.backupFrequency")
     });
 
     this.setState({
-      selectedLanguage: settings.getSync("keyboard.language")
+      selectedLanguage: store.get("settings.language")
     });
 
     this.setState({
-      showDefaults: settings.getSync("keymap.showDefaults")
+      showDefaults: store.get("settings.showDefaults")
     });
 
     // QUKEYS variables commands
@@ -571,7 +572,7 @@ class KeyboardSettings extends React.Component {
     await focus.command("led.brightness", ledBrightness);
     if (ledIdleTimeLimit >= 0)
       await focus.command("idleleds.time_limit", ledIdleTimeLimit);
-    settings.setSync("keymap.showDefaults", showDefaults);
+    store.set("settings.showDefaults", showDefaults);
     // QUKEYS
     await focus.command("qukeys.holdTimeout", qukeysHoldTimeout);
     await focus.command("qukeys.overlapThreshold", qukeysOverlapThreshold);
@@ -600,7 +601,7 @@ class KeyboardSettings extends React.Component {
 
   changeLanguage = language => {
     this.setState({ selectedLanguage: language });
-    settings.setSync("keyboard.language", `${language}`);
+    store.set("settings.language", `${language}`);
   };
 
   ChooseBackupFolder() {
@@ -619,7 +620,7 @@ class KeyboardSettings extends React.Component {
           this.setState({
             backupFolder: resp.filePaths[0]
           });
-          settings.setSync("backupFolder", `${resp.filePaths[0]}`);
+          store.set("settings.backupFolder", `${resp.filePaths[0]}`);
         } else {
           console.log("user closed backup folder dialog");
         }
@@ -692,7 +693,7 @@ class KeyboardSettings extends React.Component {
     this.setState({
       storeBackups: value
     });
-    settings.setSync("backupFrequency", value);
+    store.set("settings.backupFrequency", value);
   };
 
   renderTooltip(tooltips) {

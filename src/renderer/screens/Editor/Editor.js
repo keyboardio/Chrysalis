@@ -305,24 +305,38 @@ class Editor extends React.Component {
       let neuron = {};
       neuron.id = chipID;
       neuron.name = "";
-      neuron.layers = store.get("layerNames").map((name, id) => {
-        return {
-          id,
-          name
-        };
-      });
-      neuron.macros = store.get("macros").map(macro => {
-        return {
-          id: macro.id,
-          name: macro.name
-        };
-      });
-      neuron.superkeys = store.get("superkeys").map(superkey => {
-        return {
-          id: superkey.id,
-          name: superkey.name
-        };
-      });
+      neuron.layers =
+        store.get("layerNames") != undefined
+          ? store.get("layerNames").map((name, id) => {
+              return {
+                id,
+                name
+              };
+            })
+          : this.defaultLayerNames.map((name, id) => {
+              return {
+                id,
+                name
+              };
+            });
+      neuron.macros =
+        store.get("macros") != undefined
+          ? store.get("macros").map(macro => {
+              return {
+                id: macro.id,
+                name: macro.name
+              };
+            })
+          : [];
+      neuron.superkeys =
+        store.get("superkeys") != undefined
+          ? store.get("superkeys").map(sk => {
+              return {
+                id: sk.id,
+                name: sk.name
+              };
+            })
+          : [];
       console.log("New neuron", neuron);
       neurons = neurons.concat(neuron);
       store.set("neurons", neurons);

@@ -57,7 +57,8 @@ focus.debug = true;
 focus.timeout = 15000;
 
 if (store.get("settings.language") == undefined) {
-  i18n.setLanguage(settings.getSync("keyboard.language"));
+  if (settings.getSync("ui.language"))
+    i18n.setLanguage(settings.get("ui.language"));
 } else {
   i18n.setLanguage(store.get("settings.language"));
 }
@@ -111,7 +112,7 @@ class App extends React.Component {
     let data = {};
     data.backupFolder = settings.getSync("backupFolder");
     data.backupFrequency = settings.getSync("backupFrequency");
-    data.language = settings.getSync("keyboard.language");
+    data.language = settings.getSync("ui.language");
     data.darkMode = settings.getSync("ui.darkMode");
     data.showDefaults = settings.getSync("keymap.showDefaults");
     store.set("settings", data);

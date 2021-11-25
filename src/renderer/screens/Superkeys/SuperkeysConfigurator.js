@@ -556,7 +556,11 @@ class SuperkeysConfigurator extends React.Component {
         futureSSK: newID
       });
     } else {
-      this.updateSuper(newSuper, newID);
+      if (this.state.selected != this.state.superkeys.length - 1) {
+        this.SortSK(newSuper, newID);
+      } else {
+        this.updateSuper(newSuper, newID);
+      }
     }
   }
 
@@ -609,6 +613,42 @@ class SuperkeysConfigurator extends React.Component {
       keymap,
       superkeys: futureSK,
       selectedSuper: futureSSK,
+      modified: true,
+      modifiedKeymap: true
+    });
+    this.toggleDeleteModal();
+    return;
+  }
+
+  SortSK(newSuper, newID) {
+    let { keymap } = this.state;
+    const { selectedSuper, superkeys } = this.state;
+    let listToDecrease = [];
+    for (const key of superkeys.slice(selectedSuper + 1)) {
+      listToDecrease.push(
+        this.state.keymap.custom
+          .map((l, c) =>
+            l
+              .map((k, i) => {
+                if (k.keyCode == key.id + 53916)
+                  return { layer: c, pos: i, sk: key.id + 53916 };
+              })
+              .filter(x => x != undefined)
+          )
+          .flat()
+      );
+    }
+    console.log("now decreasing... ", listToDecrease.flat());
+    listToDecrease = listToDecrease.flat();
+    for (let i = 0; i < listToDecrease.length; i++) {
+      keymap.custom[listToDecrease[i].layer][
+        listToDecrease[i].pos
+      ] = this.keymapDB.parse(listToDecrease[i].sk - 1);
+    }
+    this.setState({
+      keymap,
+      superkeys: newSuper,
+      selectedSuper: newID,
       modified: true,
       modifiedKeymap: true
     });

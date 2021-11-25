@@ -1,6 +1,6 @@
-import firebase from "firebase/app";
-import firestore from "firebase/firestore";
-import auth from "firebase/auth";
+// import firebase from "firebase/app";
+// import firestore from "firebase/firestore";
+// import auth from "firebase/auth";
 
 // const config = {
 //   apiKey: "a",
@@ -36,41 +36,41 @@ import auth from "firebase/auth";
 //   return userRef;
 // };
 
-export const backupLayers = async layers => {
-  console.log("calledBackupTool");
-  console.log(layers);
-  const eventsRef = firestore.doc("Layers/backup");
-  if (!!eventsRef && !!layers) {
-    try {
-      console.log(eventsRef);
-      eventsRef.set({
-        layers: JSON.stringify(layers)
-      });
-    } catch (error) {
-      console.log("error saving backup in firebase", error.message);
-      return [];
-    }
-  }
-  return true;
-};
+// export const backupLayers = async layers => {
+//   console.log("calledBackupTool");
+//   console.log(layers);
+//   const eventsRef = firestore.doc("Layers/backup");
+//   if (!!eventsRef && !!layers) {
+//     try {
+//       console.log(eventsRef);
+//       eventsRef.set({
+//         layers: JSON.stringify(layers)
+//       });
+//     } catch (error) {
+//       console.log("error saving backup in firebase", error.message);
+//       return [];
+//     }
+//   }
+//   return true;
+// };
 
-export const shareLayers = async layers => {
-  console.log("calledShareTool");
-  console.log(layers);
-  const eventsRef = firestore.doc("Layers/share");
-  if (!!eventsRef && !!layers) {
-    try {
-      console.log(eventsRef);
-      eventsRef.set({
-        layers: JSON.stringify(layers)
-      });
-    } catch (error) {
-      console.log("error sharing in firebase", error.message);
-      return [];
-    }
-  }
-  return true;
-};
+// export const shareLayers = async layers => {
+//   console.log("calledShareTool");
+//   console.log(layers);
+//   const eventsRef = firestore.doc("Layers/share");
+//   if (!!eventsRef && !!layers) {
+//     try {
+//       console.log(eventsRef);
+//       eventsRef.set({
+//         layers: JSON.stringify(layers)
+//       });
+//     } catch (error) {
+//       console.log("error sharing in firebase", error.message);
+//       return [];
+//     }
+//   }
+//   return true;
+// };
 
 // firebase.initializeApp(config);
 

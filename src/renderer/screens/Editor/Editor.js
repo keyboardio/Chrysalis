@@ -43,10 +43,10 @@ import { CopyFromDialog } from "./CopyFromDialog";
 import { undeglowDefaultColors } from "./initialUndaglowColors";
 
 // Outbound function imports
-import {
-  backupLayers,
-  shareLayers
-} from "../../../api/firebase/firebase.utils";
+// import {
+//   backupLayers,
+//   shareLayers
+// } from "../../../api/firebase/firebase.utils";
 
 const Store = require("electron-store");
 const store = new Store();
@@ -733,7 +733,7 @@ class Editor extends React.Component {
       },
       macros: this.state.macros
     };
-    shareLayers(Layers);
+    // shareLayers(Layers);
   };
 
   // Callback function to set State of new Language

@@ -687,7 +687,7 @@ class Editor extends React.Component {
 
   onApply = async () => {
     this.setState({ saving: true });
-    store.set("undeglowColors", this.state.undeglowColors);
+    store.set("settings.undeglowColors", this.state.undeglowColors);
     let focus = new Focus();
     await focus.command("keymap", this.state.keymap);
     await focus.command("colormap", this.state.palette, this.state.colorMap);

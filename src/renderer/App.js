@@ -100,7 +100,7 @@ class App extends React.Component {
   }
   flashing = false;
 
-  updateStorageSchema() {
+  async updateStorageSchema() {
     //Update stored settings schema
     console.log("Retrieving settings: ", store.get("settings"));
     if (store.get("settings.language") != undefined) {
@@ -110,11 +110,11 @@ class App extends React.Component {
 
     // Store all settings from electron settings in electron store.
     let data = {};
-    data.backupFolder = settings.getSync("backupFolder");
-    data.backupFrequency = settings.getSync("backupFrequency");
-    data.language = settings.getSync("ui.language");
-    data.darkMode = settings.getSync("ui.darkMode");
-    data.showDefaults = settings.getSync("keymap.showDefaults");
+    data.backupFolder = await settings.get("backupFolder");
+    data.backupFrequency = await settings.get("backupFrequency");
+    data.language = await settings.get("ui.language");
+    data.darkMode = await settings.get("ui.darkMode");
+    data.showDefaults = await settings.get("keymap.showDefaults");
     store.set("settings", data);
     store.set("neurons", []);
     console.log(

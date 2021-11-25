@@ -211,6 +211,7 @@ class KeyboardSettings extends React.Component {
     this.ChooseBackupFolder = this.ChooseBackupFolder.bind(this);
     this.restoreBackup = this.restoreBackup.bind(this);
     this.GetBackup = this.GetBackup.bind(this);
+    this.saveKeymapChanges = this.saveKeymapChanges.bind(this);
   }
   delay = ms => new Promise(res => setTimeout(res, ms));
 
@@ -247,7 +248,10 @@ class KeyboardSettings extends React.Component {
     });
 
     this.setState({
-      showDefaults: store.get("settings.showDefaults")
+      showDefaults:
+        store.get("settings.showDefaults") == undefined
+          ? false
+          : store.get("settings.showDefaults")
     });
 
     // QUKEYS variables commands

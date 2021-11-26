@@ -249,7 +249,7 @@ class Editor extends React.Component {
   undeglowCount = 14;
 
   onLayerNameChange(newName) {
-    const layerNames = this.state.layerNames.slice();
+    let layerNames = this.state.layerNames.slice();
     layerNames[this.state.currentLayer] = {
       id: this.state.currentLayer,
       name: newName
@@ -258,8 +258,11 @@ class Editor extends React.Component {
       layerNames: layerNames
     });
     let neurons = store.get("neurons");
-    let idx = neurons.findIndex(n => n.chipID == this.state.chipID);
-    neurons[idx].layers = this.layerNames;
+    console.log(
+      "changed layer " + this.state.currentLayer + " name to: " + newName,
+      layerNames
+    );
+    neurons[this.state.neuronID].layers = layerNames;
     store.set("neurons", neurons);
   }
 

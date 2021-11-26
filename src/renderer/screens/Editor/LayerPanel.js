@@ -145,7 +145,8 @@ export default class LayerPanel extends React.Component {
     this.state = {
       currentLayer: props.currentLayer,
       isReadOnly: props.isReadOnly,
-      editCurrent: -1
+      editCurrent: -1,
+      editorText: ""
     };
     this.ActOnClick = this.ActOnClick.bind(this);
     this.LayerSel = this.LayerSel.bind(this);
@@ -162,8 +163,8 @@ export default class LayerPanel extends React.Component {
       case 13:
         console.log("Enter key logged");
         if (this.state.editCurrent == this.state.currentLayer) {
-          this.setState({ editCurrent: -1 });
-          this.upload();
+          this.updateText(this.state.editorText);
+          this.setState({ editCurrent: -1, editorText: "" });
         }
         break;
       default:
@@ -202,15 +203,16 @@ export default class LayerPanel extends React.Component {
 
     if (currentLayer == id) {
       this.setState({
-        editCurrent: id
+        editCurrent: id,
+        editorText: this.props.layers[id].name
       });
     } else {
       this.LayerSel(id);
     }
   }
 
-  updateText(event) {
-    this.props.changeLayerName(event.target.value);
+  updateText(newText) {
+    this.props.changeLayerName(newText);
   }
 
   render() {
@@ -244,10 +246,12 @@ export default class LayerPanel extends React.Component {
           <div className="button-content">
             {editCurrent == id ? (
               <Form.Control
-                value={name}
+                value={this.state.editorText}
                 as="textarea"
                 className="nameField"
-                onChange={this.updateText}
+                onChange={e => {
+                  this.setState({ editorText: e.target.value });
+                }}
               />
             ) : (
               <React.Fragment>

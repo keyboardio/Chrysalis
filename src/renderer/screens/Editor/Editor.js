@@ -182,16 +182,46 @@ margin: auto;
 
 class Editor extends React.Component {
   defaultLayerNames = [
-    "L1",
-    "L2",
-    "L3",
-    "L4",
-    "L5",
-    "L6",
-    "L7",
-    "L8",
-    "L9",
-    "L10"
+    {
+      id: 0,
+      name: "L1"
+    },
+    {
+      id: 1,
+      name: "L2"
+    },
+    {
+      id: 2,
+      name: "L3"
+    },
+    {
+      id: 3,
+      name: "L4"
+    },
+    {
+      id: 4,
+      name: "L5"
+    },
+    {
+      id: 5,
+      name: "L6"
+    },
+    {
+      id: 6,
+      name: "L7"
+    },
+    {
+      id: 7,
+      name: "L8"
+    },
+    {
+      id: 8,
+      name: "L9"
+    },
+    {
+      id: 9,
+      name: "L10"
+    }
   ];
 
   constructor(props) {

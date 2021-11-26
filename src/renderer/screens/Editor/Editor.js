@@ -345,7 +345,7 @@ class Editor extends React.Component {
       store.set("neurons", neurons);
       finalNeuron = neuron;
     }
-    if (!neurons.some(n => n.id == chipID) && neurons.length > 1) {
+    if (!neurons.some(n => n.id == chipID) && neurons.length > 0) {
       let neuron = {};
       neuron.id = chipID;
       neuron.name = "";

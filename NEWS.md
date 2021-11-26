@@ -12,6 +12,10 @@ enabled by default with the new firmwares shipped with Chrysalis.
 
 Chrysalis should now launch properly on Linux distributions that aren't based on Debian.
 
+When selecting a layout used on the host other than the default `English (US)`,
+Chrysalis will now display the shifted symbols correctly too, when the shift
+modifier is enabled for a key.
+
 ## Firmware update
 
 All of the firmware files Chrysalis ships with have been updated. All of the

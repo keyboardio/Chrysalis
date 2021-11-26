@@ -20,6 +20,8 @@ import xml2js from "xml2js";
 import unraw from "unraw";
 import { getStaticPath } from "../../renderer/config";
 
+import { addModifier } from "./db/modifiers";
+
 const cldr2keycode = {
   E00: 53,
   E01: 30,
@@ -109,10 +111,32 @@ const loadKeyboard = async (group, isDefault, file) => {
     } else if (map["$"].modifiers == "shift") {
       for (const key of map.map) {
         keymap[key["$"].iso].label.shifted = decode(key["$"].to);
+
+        // Add the label to the modified keycode too
+        const code = cldr2keycode[key["$"].iso] || 0;
+        const moddedCode = addModifier(code, "shift");
+        keymap[moddedCode] = {
+          code: moddedCode,
+          baseCode: code,
+          label: {
+            base: decode(key["$"].to)
+          }
+        };
       }
     } else if (map["$"].modifiers == "altR") {
       for (const key of map.map) {
         keymap[key["$"].iso].label.altgr = decode(key["$"].to);
+
+        // Add the label to the modified keycode too.
+        const code = cldr2keycode[key["$"].iso] || 0;
+        const moddedCode = addModifier(code, "altgr");
+        keymap[moddedCode] = {
+          code: moddedCode,
+          baseCode: code,
+          label: {
+            base: decode(key["$"].to)
+          }
+        };
       }
     }
   }

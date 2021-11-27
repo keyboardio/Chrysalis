@@ -43,6 +43,7 @@ import Editor from "./screens/Editor/Editor";
 import Preferences from "./screens/Preferences";
 import Welcome from "./screens/Welcome";
 import SystemInfo from "./screens/SystemInfo";
+import ChangeLog from "./screens/ChangeLog";
 import i18n from "./i18n";
 
 import Header from "./components/Header";
@@ -293,6 +294,11 @@ class App extends React.Component {
                 <SystemInfo
                   connected={connected}
                   path="/system-info"
+                  titleElement={() => document.querySelector("#page-title")}
+                />
+                <ChangeLog
+                  connected={connected}
+                  path="/changelog"
                   titleElement={() => document.querySelector("#page-title")}
                 />
               </Router>

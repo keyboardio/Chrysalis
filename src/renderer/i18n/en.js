@@ -57,7 +57,8 @@ const English = {
       keyboardSection: "Keyboard",
       chrysalisSection: "Chrysalis",
       miscSection: "Miscellaneous",
-      upgradeAvailable: "An upgrade is available!"
+      upgradeAvailable: "An upgrade is available!",
+      changelog: "Changelog"
     },
     deviceMenu: {
       Homepage: "Homepage",
@@ -69,6 +70,9 @@ const English = {
       content: "You have unsaved changes. If you proceed, they will be lost."
     },
     actionRequired: "Action required"
+  },
+  changelog: {
+    title: "Changelog"
   },
   editor: {
     keyType: "Key type",

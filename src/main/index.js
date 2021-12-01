@@ -130,7 +130,7 @@ function checkUdev() {
   }
 }
 
-function installUdev() {
+function installUdev(mainWindow) {
   var options = {
     name: "Install Udev rules",
     icns: "./build/icon.icns"
@@ -220,7 +220,7 @@ app.on("ready", async () => {
 
   if (process.platform === "linux") {
     if (!checkUdev()) {
-      installUdev();
+      installUdev(mainWindow);
     }
   }
 });

@@ -423,7 +423,6 @@ class MacrosConfigurator extends React.Component {
     });
     let neurons = this.state.neurons;
     neurons[this.state.neuronID].macros = newMacros;
-    neurons[this.state.neuronID].superkeys = newSuperKeys;
     store.set("neurons", neurons);
     try {
       await focus.command("macros.map", this.macrosMap(newMacros));

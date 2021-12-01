@@ -1018,7 +1018,7 @@ class Editor extends React.Component {
     let equal = [];
     let finalSuper = [];
     const stored = this.state.neurons[this.state.neuronID].superkeys;
-
+    console.log(superkeys, stored);
     finalSuper = superkeys.map((superk, i) => {
       if (stored.length > i && stored.length > 0) {
         let aux = superk;

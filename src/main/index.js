@@ -114,6 +114,15 @@ async function createMainWindow() {
   window.webContents.on("will-navigate", handleRedirect);
   window.webContents.on("new-window", handleRedirect);
 
+  window.once("ready-to-show", () => {
+    window.show();
+    if (process.platform === "linux") {
+      if (!checkUdev()) {
+        installUdev(window);
+      }
+    }
+  });
+
   return window;
 }
 
@@ -217,12 +226,6 @@ app.on("ready", async () => {
 
   Menu.setApplicationMenu(null);
   mainWindow = createMainWindow();
-
-  if (process.platform === "linux") {
-    if (!checkUdev()) {
-      installUdev(mainWindow);
-    }
-  }
 });
 
 app.on("web-contents-created", (_, wc) => {

@@ -427,7 +427,6 @@ class MacrosConfigurator extends React.Component {
     try {
       await focus.command("macros.map", this.macrosMap(newMacros));
       await focus.command("keymap", this.state.keymap);
-      await focus.command("superkeys.map", this.superkeyMap(newSuperKeys));
       console.log("Changes saved.");
       const commands = await this.bkp.Commands();
       const backup = await this.bkp.DoBackup(commands);

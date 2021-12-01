@@ -20,12 +20,7 @@ import SuperRow from "./SuperRow";
 
 import Styled from "styled-components";
 import ListGroup from "react-bootstrap/ListGroup";
-import {
-  MdDeleteForever,
-  MdKeyboardArrowUp,
-  MdKeyboardArrowDown,
-  MdTimer
-} from "react-icons/md";
+import { MdDeleteForever, MdKeyboardArrowUp, MdKeyboardArrowDown, MdTimer } from "react-icons/md";
 import { BsStarFill } from "react-icons/bs";
 
 const Style = Styled.div`
@@ -152,11 +147,7 @@ class SuperkeyForm extends Component {
       return;
     }
 
-    const rows = this.reorder(
-      this.state.rows,
-      result.source.index,
-      result.destination.index
-    );
+    const rows = this.reorder(this.state.rows, result.source.index, result.destination.index);
 
     this.updateRows(rows);
   }
@@ -184,15 +175,7 @@ class SuperkeyForm extends Component {
   }
 
   render() {
-    const {
-      superkeys,
-      selected,
-      selectedAction,
-      macros,
-      updateAction,
-      changeAction,
-      keymapDB
-    } = this.props;
+    const { superkeys, selected, selectedAction, macros, updateAction, changeAction, keymapDB } = this.props;
 
     return (
       <Style>
@@ -200,26 +183,13 @@ class SuperkeyForm extends Component {
           {this.state.rows.map((item, index) => {
             const selecKey = keymapDB.parse(superkeys[selected].actions[index]);
             if (selecKey.extraLabel == "MACRO") {
-              if (
-                macros.length > parseInt(selecKey.label) &&
-                macros[parseInt(selecKey.label)].name.substr(0, 5) != ""
-              ) {
-                selecKey.label = macros[parseInt(selecKey.label)].name
-                  .substr(0, 5)
-                  .toLowerCase();
+              if (macros.length > parseInt(selecKey.label) && macros[parseInt(selecKey.label)].name.substr(0, 5) != "") {
+                selecKey.label = macros[parseInt(selecKey.label)].name.substr(0, 5).toLowerCase();
               }
             }
-            const text =
-              (selecKey.extraLabel != undefined
-                ? selecKey.extraLabel + " "
-                : "") + selecKey.label;
+            const text = (selecKey.extraLabel != undefined ? selecKey.extraLabel + " " : "") + selecKey.label;
             return (
-              <div
-                key={index}
-                className={`rowblock maxwidth flex pointer ${
-                  selectedAction == index ? "selected-act" : ""
-                }`}
-              >
+              <div key={index} className={`rowblock maxwidth flex pointer ${selectedAction == index ? "selected-act" : ""}`}>
                 <div
                   className="actionIcon"
                   onClick={e => {
@@ -250,10 +220,7 @@ class SuperkeyForm extends Component {
                   onDeleteRow={this.onDeleteRow}
                   addModifier={this.addModifier}
                 />
-                <div
-                  className="actionDelete"
-                  onClick={e => updateAction(index, 0)}
-                >
+                <div className="actionDelete" onClick={e => updateAction(index, 0)}>
                   <MdDeleteForever />
                 </div>
               </div>

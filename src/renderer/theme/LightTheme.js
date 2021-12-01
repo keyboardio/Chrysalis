@@ -14,8 +14,7 @@ const Light = {
     subTitleColor: "#808080"
   },
   colors: {
-    gardient:
-      "linear-gradient(180deg, rgba(131,58,180,1) 0%, rgba(189,38,38,1) 63%, rgba(252,112,42,1) 100%);",
+    gardient: "linear-gradient(180deg, rgba(131,58,180,1) 0%, rgba(189,38,38,1) 63%, rgba(252,112,42,1) 100%);",
     body: "#eaeff1",
     text: "#000000",
     subtext: "#555555",

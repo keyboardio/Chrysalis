@@ -100,21 +100,9 @@ class Preferences extends React.Component {
   };
 
   render() {
-    const devToolsSwitch = (
-      <Form.Check
-        type="switch"
-        checked={this.state.devTools}
-        onChange={this.toggleDevTools}
-      />
-    );
+    const devToolsSwitch = <Form.Check type="switch" checked={this.state.devTools} onChange={this.toggleDevTools} />;
 
-    const verboseSwitch = (
-      <Form.Check
-        type="switch"
-        checked={this.state.verboseFocus}
-        onChange={this.toggleVerboseFocus}
-      />
-    );
+    const verboseSwitch = <Form.Check type="switch" checked={this.state.verboseFocus} onChange={this.toggleVerboseFocus} />;
 
     return (
       <Styles>

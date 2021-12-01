@@ -84,19 +84,15 @@ class Keys extends Component {
     const text3 = "Modifiers";
     const text4 = "Add a modifier press in combination with the selected key.";
     const text5 = "Layer & key";
-    const text6 =
-      "Add a second functionality to the key when holding it, like layer switch or modifiers";
+    const text6 = "Add a second functionality to the key when holding it, like layer switch or modifiers";
     const text7 = "Layer Switch";
     const text8 = "Replace the current key action with a layer shift function.";
     const text9 = "Layer Lock";
-    const text10 =
-      "Replace the current key action with a layer shift function.";
+    const text10 = "Replace the current key action with a layer shift function.";
     const text11 = "OneShot Mod and Layer";
-    const text12 =
-      "Replace the current key action with a Oneshot modifier or layer action.";
+    const text12 = "Replace the current key action with a Oneshot modifier or layer action.";
     const text13 = "Macros";
-    const text14 =
-      "Replace the current key action with a Macro from the available ones.";
+    const text14 = "Replace the current key action with a Macro from the available ones.";
 
     return (
       <Style>
@@ -104,38 +100,22 @@ class Keys extends Component {
           <Card.Body>
             <span>SELECTED KEY</span>
             {!(keyCode.base >= 104 && keyCode.base <= 115) &&
-            !(
-              keyCode.base + keyCode.modified >= 53852 &&
-              keyCode.base + keyCode.modified <= 53852 + 64
-            ) ? (
+            !(keyCode.base + keyCode.modified >= 53852 && keyCode.base + keyCode.modified <= 53852 + 64) ? (
               <PickedKey selKey={selKey} />
             ) : (
               ""
             )}
-            {keyCode != undefined &&
-            keyCode.base + keyCode.modified >= 53852 &&
-            keyCode.base + keyCode.modified <= 53852 + 64 ? (
-              <MacroPicker
-                keyCode={keyCode}
-                onKeySelect={onKeySelect}
-                macros={macros}
-              ></MacroPicker>
+            {keyCode != undefined && keyCode.base + keyCode.modified >= 53852 && keyCode.base + keyCode.modified <= 53852 + 64 ? (
+              <MacroPicker keyCode={keyCode} onKeySelect={onKeySelect} macros={macros}></MacroPicker>
             ) : (
               ""
             )}
-            {keyCode != undefined &&
-            keyCode.base + keyCode.modified >= 49153 &&
-            keyCode.base + keyCode.modified <= 49170 ? (
-              <OSMPicker
-                keyCode={keyCode}
-                onKeySelect={onKeySelect}
-              ></OSMPicker>
+            {keyCode != undefined && keyCode.base + keyCode.modified >= 49153 && keyCode.base + keyCode.modified <= 49170 ? (
+              <OSMPicker keyCode={keyCode} onKeySelect={onKeySelect}></OSMPicker>
             ) : (
               ""
             )}
-            {keyCode != undefined &&
-            keyCode.base >= 104 &&
-            keyCode.base <= 115 ? (
+            {keyCode != undefined && keyCode.base >= 104 && keyCode.base <= 115 ? (
               <Row className="mx-0">
                 <Col xs={8} className="p-0">
                   <PickedKey selKey={selKey} />
@@ -148,34 +128,18 @@ class Keys extends Component {
               ""
             )}
             {keyCode != undefined &&
-            ((keyCode.base + keyCode.modified >= 4 &&
-              keyCode.base + keyCode.modified <= 10000) ||
-              (keyCode.base + keyCode.modified >= 49169 &&
-                keyCode.base + keyCode.modified <= 53266)) ? (
+            ((keyCode.base + keyCode.modified >= 4 && keyCode.base + keyCode.modified <= 10000) ||
+              (keyCode.base + keyCode.modified >= 49169 && keyCode.base + keyCode.modified <= 53266)) ? (
               <React.Fragment>
-                <ModPicker
-                  key={keyCode}
-                  keyCode={keyCode}
-                  onKeySelect={onKeySelect}
-                ></ModPicker>
-                <DualFunction
-                  keyCode={keyCode}
-                  onKeySelect={onKeySelect}
-                  activeTab={activeTab}
-                ></DualFunction>
+                <ModPicker key={keyCode} keyCode={keyCode} onKeySelect={onKeySelect}></ModPicker>
+                <DualFunction keyCode={keyCode} onKeySelect={onKeySelect} activeTab={activeTab}></DualFunction>
               </React.Fragment>
             ) : (
               ""
             )}
-            {keyCode != undefined &&
-            keyCode.base + keyCode.modified >= 17408 &&
-            keyCode.base + keyCode.modified <= 17501 ? (
+            {keyCode != undefined && keyCode.base + keyCode.modified >= 17408 && keyCode.base + keyCode.modified <= 17501 ? (
               <React.Fragment>
-                <LayerPicker
-                  keyCode={keyCode}
-                  onKeySelect={onKeySelect}
-                  activeTab={activeTab}
-                ></LayerPicker>
+                <LayerPicker keyCode={keyCode} onKeySelect={onKeySelect} activeTab={activeTab}></LayerPicker>
               </React.Fragment>
             ) : (
               ""

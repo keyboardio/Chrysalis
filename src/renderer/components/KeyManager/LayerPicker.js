@@ -156,8 +156,7 @@ class LayerPicker extends Component {
     const swtext = "Move to another layer while holding the key.";
     const swtext2 = "Release the key to go back to the previous layer.";
     const lktext = "Tap to permanently move to another layer.";
-    const lktext2 =
-      "To return to the previous layer, set a Layer Lock key on the destination that targets it.";
+    const lktext2 = "To return to the previous layer, set a Layer Lock key on the destination that targets it.";
 
     const layers = (
       <React.Fragment>
@@ -176,34 +175,21 @@ class LayerPicker extends Component {
           <DropdownButton
             id="Selectlayers"
             className={`selectButton ${
-              keyCode.modified > 0 &&
-              this.layerSwitch
-                .map(i => i.keynum)
-                .includes(keyCode.base + keyCode.modified)
+              keyCode.modified > 0 && this.layerSwitch.map(i => i.keynum).includes(keyCode.base + keyCode.modified)
                 ? "selectedState"
                 : ""
             }`}
             drop={"up"}
             disabled={activeTab == "super"}
             title={
-              this.layerSwitch[
-                isNaN(KC) || KC < 17450 || KC > 17459
-                  ? 0
-                  : this.layerSwitch.findIndex(o => o.keynum == KC)
-              ].name
+              this.layerSwitch[isNaN(KC) || KC < 17450 || KC > 17459 ? 0 : this.layerSwitch.findIndex(o => o.keynum == KC)].name
             }
-            value={
-              KC != 0 ? this.layerSwitch.map(i => i.keynum).includes(KC) : KC
-            }
+            value={KC != 0 ? this.layerSwitch.map(i => i.keynum).includes(KC) : KC}
             onSelect={value => onKeySelect(parseInt(value))}
           >
             {this.layerSwitch.map((item, id) => {
               return (
-                <Dropdown.Item
-                  eventKey={item.keynum}
-                  key={`item-${id}`}
-                  disabled={item.keynum == -1}
-                >
+                <Dropdown.Item eventKey={item.keynum} key={`item-${id}`} disabled={item.keynum == -1}>
                   <div className="item-layer">
                     <p>{item.name}</p>
                   </div>
@@ -227,33 +213,18 @@ class LayerPicker extends Component {
           <DropdownButton
             id="Selectlayers"
             className={`selectButton ${
-              keyCode.modified > 0 &&
-              this.layerLock
-                .map(i => i.keynum)
-                .includes(keyCode.base + keyCode.modified)
+              keyCode.modified > 0 && this.layerLock.map(i => i.keynum).includes(keyCode.base + keyCode.modified)
                 ? "selectedState"
                 : ""
             }`}
             drop={"up"}
-            title={
-              this.layerLock[
-                isNaN(KC) || KC < 17492 || KC > 17501
-                  ? 0
-                  : this.layerLock.findIndex(o => o.keynum == KC)
-              ].name
-            }
-            value={
-              KC != 0 ? this.layerLock.map(i => i.keynum).includes(KC) : KC
-            }
+            title={this.layerLock[isNaN(KC) || KC < 17492 || KC > 17501 ? 0 : this.layerLock.findIndex(o => o.keynum == KC)].name}
+            value={KC != 0 ? this.layerLock.map(i => i.keynum).includes(KC) : KC}
             onSelect={value => onKeySelect(parseInt(value))}
           >
             {this.layerLock.map((item, id) => {
               return (
-                <Dropdown.Item
-                  eventKey={item.keynum}
-                  key={`item-${id}`}
-                  disabled={item.keynum == -1}
-                >
+                <Dropdown.Item eventKey={item.keynum} key={`item-${id}`} disabled={item.keynum == -1}>
                   <div className="item-layer">
                     <p>{item.name}</p>
                   </div>

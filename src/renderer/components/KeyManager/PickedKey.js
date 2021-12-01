@@ -66,9 +66,7 @@ class PickedKey extends Component {
               type="text"
               value={selKey}
               disabled
-              className={
-                this.props.activeKB ? "activebg selectedkey" : "selectedkey"
-              }
+              className={this.props.activeKB ? "activebg selectedkey" : "selectedkey"}
               readOnly
             ></Form.Control>
           </Col>

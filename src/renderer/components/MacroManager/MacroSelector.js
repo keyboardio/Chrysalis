@@ -91,11 +91,7 @@ class MacroSelector extends Component {
                             rootClose
                             placement="right"
                             delay={{ show: 250, hide: 400 }}
-                            overlay={
-                              <Tooltip id="button-tooltip">
-                                {i18n.editor.macros.copy}
-                              </Tooltip>
-                            }
+                            overlay={<Tooltip id="button-tooltip">{i18n.editor.macros.copy}</Tooltip>}
                           >
                             <Button
                               disabled={this.props.disableAdd}
@@ -114,11 +110,7 @@ class MacroSelector extends Component {
                             rootClose
                             placement="right"
                             delay={{ show: 250, hide: 400 }}
-                            overlay={
-                              <Tooltip id="button-tooltip">
-                                {i18n.editor.macros.delete}
-                              </Tooltip>
-                            }
+                            overlay={<Tooltip id="button-tooltip">{i18n.editor.macros.delete}</Tooltip>}
                           >
                             <Button
                               onClick={() => {
@@ -148,9 +140,7 @@ class MacroSelector extends Component {
               rootClose
               placement="right"
               delay={{ show: 250, hide: 400 }}
-              overlay={
-                <Tooltip id="button-tooltip">{i18n.editor.macros.add}</Tooltip>
-              }
+              overlay={<Tooltip id="button-tooltip">{i18n.editor.macros.add}</Tooltip>}
             >
               <Button onClick={this.props.addMacro}>
                 <MdPlaylistAdd />

@@ -149,9 +149,7 @@ class Configurator extends Component {
 
   render() {
     const { keyCode, onKeySelect, activeTab } = this.props;
-    const isMod = [224, 225, 226, 227, 228, 229, 230, 231, 2530, 3043].includes(
-      keyCode.base + keyCode.modified
-    );
+    const isMod = [224, 225, 226, 227, 228, 229, 230, 231, 2530, 3043].includes(keyCode.base + keyCode.modified);
     // console.log("Check ISMOD", isMod);
     const dltext1 = "Dual-function keys";
     const dltext2 = "Dual-function keys have two functionalities:";
@@ -176,35 +174,23 @@ class Configurator extends Component {
             <DropdownButton
               id="Selectlayers"
               className={`selectButton ${
-                keyCode.modified > 0 &&
-                this.layerKey.map(i => i.keynum).includes(keyCode.modified)
-                  ? "selectedState"
-                  : ""
+                keyCode.modified > 0 && this.layerKey.map(i => i.keynum).includes(keyCode.modified) ? "selectedState" : ""
               }`}
               drop={"up"}
               disabled={isMod || activeTab == "super"}
               title={
                 this.layerKey[
-                  isNaN(keyCode.modified) ||
-                  this.layerKey.every(e => e.keynum !== keyCode.modified)
+                  isNaN(keyCode.modified) || this.layerKey.every(e => e.keynum !== keyCode.modified)
                     ? 0
                     : this.layerKey.findIndex(o => o.keynum == keyCode.modified)
                 ].name
               }
-              value={
-                keyCode.modified != 0
-                  ? this.layerKey.map(i => i.keynum).includes(keyCode.modified)
-                  : keyCode.modified
-              }
+              value={keyCode.modified != 0 ? this.layerKey.map(i => i.keynum).includes(keyCode.modified) : keyCode.modified}
               onSelect={value => onKeySelect(parseInt(value) + keyCode.base)}
             >
               {this.layerKey.map((item, id) => {
                 return (
-                  <Dropdown.Item
-                    eventKey={item.keynum}
-                    key={`item-${id}`}
-                    disabled={item.keynum == -1}
-                  >
+                  <Dropdown.Item eventKey={item.keynum} key={`item-${id}`} disabled={item.keynum == -1}>
                     <div className="item-layer">
                       <p>{item.name}</p>
                     </div>
@@ -217,35 +203,23 @@ class Configurator extends Component {
             <DropdownButton
               id="SelectMods"
               className={`selectButton ${
-                keyCode.modified > 0 &&
-                this.modKey.map(i => i.keynum).includes(keyCode.modified)
-                  ? "selectedState"
-                  : ""
+                keyCode.modified > 0 && this.modKey.map(i => i.keynum).includes(keyCode.modified) ? "selectedState" : ""
               }`}
               drop={"up"}
               disabled={isMod || activeTab == "super"}
               title={
                 this.modKey[
-                  isNaN(keyCode.modified) ||
-                  this.modKey.every(e => e.keynum !== keyCode.modified)
+                  isNaN(keyCode.modified) || this.modKey.every(e => e.keynum !== keyCode.modified)
                     ? 0
                     : this.modKey.findIndex(o => o.keynum == keyCode.modified)
                 ].name
               }
-              value={
-                keyCode.modified != 0
-                  ? this.modKey.map(i => i.keynum).includes(keyCode.modified)
-                  : keyCode.modified
-              }
+              value={keyCode.modified != 0 ? this.modKey.map(i => i.keynum).includes(keyCode.modified) : keyCode.modified}
               onSelect={value => onKeySelect(parseInt(value) + keyCode.base)}
             >
               {this.modKey.map((item, id) => {
                 return (
-                  <Dropdown.Item
-                    eventKey={item.keynum}
-                    key={`item-${id}`}
-                    disabled={item.keynum == -1}
-                  >
+                  <Dropdown.Item eventKey={item.keynum} key={`item-${id}`} disabled={item.keynum == -1}>
                     <div className="item-layer">
                       <p>{item.name}</p>
                     </div>

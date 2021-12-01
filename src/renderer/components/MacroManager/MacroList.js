@@ -62,11 +62,7 @@ class MacroList extends Component {
             {macros.map(item => (
               <DropdownItem value={item.id} key={`item-${item.id}`}>
                 <div style={{ display: "flex" }}>
-                  <p
-                    inset
-                    primary={`${("0" + item.id).substr(-2)} - ${item.name}`}
-                    secondary={item.macro}
-                  />
+                  <p inset primary={`${("0" + item.id).substr(-2)} - ${item.name}`} secondary={item.macro} />
                 </div>
               </DropdownItem>
             ))}

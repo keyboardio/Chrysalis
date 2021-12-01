@@ -179,10 +179,7 @@ class SuperkeysConfigurator extends React.Component {
       this.keymapDB = focus.commands.keymap.db;
       let kbtype = "iso";
       try {
-        kbtype =
-          focus.device && focus.device.info.keyboardType === "ISO"
-            ? "iso"
-            : "ansi";
+        kbtype = focus.device && focus.device.info.keyboardType === "ISO" ? "iso" : "ansi";
       } catch (error) {
         console.error("Focus lost connection to Raise: ", error);
         return false;
@@ -252,8 +249,7 @@ class SuperkeysConfigurator extends React.Component {
             { keyCode: 8, type: 8, id: 15 }
           ],
           id: 0,
-          macro:
-            "RIGHT SHIFT H RIGHT SHIFT E Y , SPACE RIGHT SHIFT D RIGHT SHIFT Y G M A T E",
+          macro: "RIGHT SHIFT H RIGHT SHIFT E Y , SPACE RIGHT SHIFT D RIGHT SHIFT Y G M A T E",
           name: "Hey, Dygmate!"
         }
       ];
@@ -338,9 +334,7 @@ class SuperkeysConfigurator extends React.Component {
         console.log("compare between: ", macro.actions, stored[i].actions);
         let aux = macro;
         aux.name = stored[i].name;
-        aux.macro = macro.actions
-          .map(k => this.keymapDB.parse(k.keyCode).label)
-          .join(" ");
+        aux.macro = macro.actions.map(k => this.keymapDB.parse(k.keyCode).label).join(" ");
         return aux;
       } else {
         return macro;
@@ -378,8 +372,7 @@ class SuperkeysConfigurator extends React.Component {
     if (
       superkeys[0].actions == undefined ||
       superkeys[0].actions == [0] ||
-      superkeys[0].actions.filter(v => v === 0).length ==
-        superkeys[0].length - 1
+      superkeys[0].actions.filter(v => v === 0).length == superkeys[0].length - 1
     )
       return [];
     // TODO: Check if stored superKeys match the received ones, if they match, retrieve name and apply it to current superKeys
@@ -428,21 +421,14 @@ class SuperkeysConfigurator extends React.Component {
   }
 
   macrosMap(macros) {
-    if (
-      macros.length === 0 ||
-      (macros.length === 1 && macros[0].actions === [])
-    ) {
+    if (macros.length === 0 || (macros.length === 1 && macros[0].actions === [])) {
       return "255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255";
     }
     const actionMap = macros.map(macro => {
       return macro.actions
         .map(action => {
           if (action.type > 1 && action.type < 6) {
-            return [
-              [action.type],
-              [action.keyCode >> 8],
-              [action.keyCode & 255]
-            ];
+            return [[action.type], [action.keyCode >> 8], [action.keyCode & 255]];
           } else {
             return [[action.type], [action.keyCode]];
           }
@@ -496,9 +482,7 @@ class SuperkeysConfigurator extends React.Component {
 
   onKeyChange(keyCode) {
     const newData = this.state.superkeys;
-    newData[this.state.selectedSuper].actions[
-      this.state.selectedAction
-    ] = keyCode;
+    newData[this.state.selectedSuper].actions[this.state.selectedAction] = keyCode;
     this.setState({
       superkeys: newData,
       modified: true
@@ -575,13 +559,7 @@ class SuperkeysConfigurator extends React.Component {
 
   RemoveDeletedSK() {
     let { keymap } = this.state;
-    const {
-      selectedSuper,
-      superkeys,
-      listToDelete,
-      futureSK,
-      futureSSK
-    } = this.state;
+    const { selectedSuper, superkeys, listToDelete, futureSK, futureSSK } = this.state;
     let listToDecrease = [];
     for (const key of superkeys.slice(selectedSuper + 1)) {
       listToDecrease.push(
@@ -589,8 +567,7 @@ class SuperkeysConfigurator extends React.Component {
           .map((l, c) =>
             l
               .map((k, i) => {
-                if (k.keyCode == key.id + 53916)
-                  return { layer: c, pos: i, sk: key.id + 53916 };
+                if (k.keyCode == key.id + 53916) return { layer: c, pos: i, sk: key.id + 53916 };
               })
               .filter(x => x != undefined)
           )
@@ -598,16 +575,12 @@ class SuperkeysConfigurator extends React.Component {
       );
     }
     for (let i = 0; i < listToDelete.length; i++) {
-      keymap.custom[listToDelete[i].layer][
-        listToDelete[i].pos
-      ] = this.keymapDB.parse(0);
+      keymap.custom[listToDelete[i].layer][listToDelete[i].pos] = this.keymapDB.parse(0);
     }
     console.log("now decreasing... ", listToDecrease.flat());
     listToDecrease = listToDecrease.flat();
     for (let i = 0; i < listToDecrease.length; i++) {
-      keymap.custom[listToDecrease[i].layer][
-        listToDecrease[i].pos
-      ] = this.keymapDB.parse(listToDecrease[i].sk - 1);
+      keymap.custom[listToDecrease[i].layer][listToDecrease[i].pos] = this.keymapDB.parse(listToDecrease[i].sk - 1);
     }
     this.setState({
       keymap,
@@ -630,8 +603,7 @@ class SuperkeysConfigurator extends React.Component {
           .map((l, c) =>
             l
               .map((k, i) => {
-                if (k.keyCode == key.id + 53916)
-                  return { layer: c, pos: i, sk: key.id + 53916 };
+                if (k.keyCode == key.id + 53916) return { layer: c, pos: i, sk: key.id + 53916 };
               })
               .filter(x => x != undefined)
           )
@@ -641,9 +613,7 @@ class SuperkeysConfigurator extends React.Component {
     console.log("now decreasing... ", listToDecrease.flat());
     listToDecrease = listToDecrease.flat();
     for (let i = 0; i < listToDecrease.length; i++) {
-      keymap.custom[listToDecrease[i].layer][
-        listToDecrease[i].pos
-      ] = this.keymapDB.parse(listToDecrease[i].sk - 1);
+      keymap.custom[listToDecrease[i].layer][listToDecrease[i].pos] = this.keymapDB.parse(listToDecrease[i].sk - 1);
     }
     this.setState({
       keymap,
@@ -659,40 +629,22 @@ class SuperkeysConfigurator extends React.Component {
   ReNumberAllGreaterSK() {}
 
   render() {
-    const {
-      currentLanguageLayout,
-      kbtype,
-      selectedSuper,
-      superkeys,
-      maxMacros,
-      macros,
-      selectedAction
-    } = this.state;
+    const { currentLanguageLayout, kbtype, selectedSuper, superkeys, maxMacros, macros, selectedAction } = this.state;
 
     let code = 0;
     const tempkey = this.keymapDB.parse(
-      superkeys[selectedSuper] != undefined
-        ? superkeys[selectedSuper].actions[selectedAction]
-        : 0
+      superkeys[selectedSuper] != undefined ? superkeys[selectedSuper].actions[selectedAction] : 0
     );
     code = this.keymapDB.keySegmentator(tempkey.keyCode);
     // console.log(selectedSuper, JSON.stringify(code), JSON.stringify(superkeys));
-    let actions =
-      superkeys.length > 0 && superkeys.length > selectedSuper
-        ? superkeys[selectedSuper].actions
-        : [];
-    let superName =
-      superkeys.length > 0 && superkeys.length > selectedSuper
-        ? superkeys[selectedSuper].name
-        : "";
+    let actions = superkeys.length > 0 && superkeys.length > selectedSuper ? superkeys[selectedSuper].actions : [];
+    let superName = superkeys.length > 0 && superkeys.length > selectedSuper ? superkeys[selectedSuper].name : "";
 
     const listOfSKK = this.state.listToDelete.map(({ layer, pos, sk }, id) => {
       return (
         <Row key={id}>
           <Col xs={12} className="px-0 text-center gridded">
-            <p className="titles alignvert">{`Key in layer ${
-              layer + 1
-            } and pos ${pos}`}</p>
+            <p className="titles alignvert">{`Key in layer ${layer + 1} and pos ${pos}`}</p>
           </Col>
         </Row>
       );
@@ -719,11 +671,7 @@ class SuperkeysConfigurator extends React.Component {
             key={JSON.stringify(superkeys)}
           />
         </Container>
-        <Container
-          fluid
-          className="keyboardcontainer"
-          hidden={selectedAction < 0}
-        >
+        <Container fluid className="keyboardcontainer" hidden={selectedAction < 0}>
           <KeyConfig
             key={JSON.stringify(superkeys) + selectedAction}
             onKeySelect={this.onKeyChange}
@@ -743,9 +691,7 @@ class SuperkeysConfigurator extends React.Component {
               <Button
                 disabled={!this.state.modified}
                 onClick={this.writeSuper}
-                className={`button-large pt-0 mt-0 mb-2 ${
-                  this.state.modified ? "save-active" : ""
-                }`}
+                className={`button-large pt-0 mt-0 mb-2 ${this.state.modified ? "save-active" : ""}`}
                 aria-controls="save-changes"
               >
                 <FiSave />
@@ -755,9 +701,7 @@ class SuperkeysConfigurator extends React.Component {
               <Button
                 disabled={!this.state.modified}
                 onClick={this.loadSuperkeys}
-                className={`button-large pt-0 mt-0 mb-2 ${
-                  this.state.modified ? "cancel-active" : ""
-                }`}
+                className={`button-large pt-0 mt-0 mb-2 ${this.state.modified ? "cancel-active" : ""}`}
                 aria-controls="discard-changes"
               >
                 <FiTrash2 />
@@ -765,16 +709,10 @@ class SuperkeysConfigurator extends React.Component {
             </Row>
           </Container>
         </Row>
-        <Modal
-          show={this.state.showDeleteModal}
-          onHide={this.toggleDeleteModal}
-          style={{ marginTop: "100px" }}
-        >
+        <Modal show={this.state.showDeleteModal} onHide={this.toggleDeleteModal} style={{ marginTop: "100px" }}>
           <ModalStyle>
             <Modal.Header closeButton className="modalcol">
-              <Modal.Title>
-                {i18n.editor.superkeys.deleteModal.title}
-              </Modal.Title>
+              <Modal.Title>{i18n.editor.superkeys.deleteModal.title}</Modal.Title>
             </Modal.Header>
             <Modal.Body className="modalcol">
               <p>{i18n.editor.superkeys.deleteModal.body}</p>

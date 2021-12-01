@@ -101,10 +101,8 @@ class MacroTabSpecial extends Component {
           <Dropdown.Menu>
             {keyvalues.map((item, id) => {
               if (
-                (item.labels.top === "MACRO" &&
-                  parseInt(item.labels.primary) >= this.props.number) ||
-                (item.labels.top === "MACRO" &&
-                  parseInt(item.labels.primary) === this.props.selected)
+                (item.labels.top === "MACRO" && parseInt(item.labels.primary) >= this.props.number) ||
+                (item.labels.top === "MACRO" && parseInt(item.labels.primary) === this.props.selected)
               ) {
                 return;
               }

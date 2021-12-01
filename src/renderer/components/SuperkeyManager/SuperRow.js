@@ -67,15 +67,7 @@ export default class SuperRow extends Component {
   });
 
   render() {
-    const {
-      provided,
-      snapshot,
-      superkey,
-      selectedAction,
-      updateAction,
-      changeAction,
-      id
-    } = this.props;
+    const { provided, snapshot, superkey, selectedAction, updateAction, changeAction, id } = this.props;
 
     return (
       <Styles
@@ -83,9 +75,7 @@ export default class SuperRow extends Component {
           changeAction(id);
         }}
       >
-        <ListGroup.Item
-          className={`listitem ${selectedAction == id ? "selected-act" : ""}`}
-        >
+        <ListGroup.Item className={`listitem ${selectedAction == id ? "selected-act" : ""}`}>
           <PickedKey selKey={superkey} />
         </ListGroup.Item>
       </Styles>

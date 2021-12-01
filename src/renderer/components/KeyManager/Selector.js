@@ -162,14 +162,7 @@ class Selector extends Component {
   }
 
   render() {
-    const {
-      action,
-      actions,
-      selKeys,
-      onKeySelect,
-      superkeys,
-      keyCode
-    } = this.props;
+    const { action, actions, selKeys, onKeySelect, superkeys, keyCode } = this.props;
 
     const KC = keyCode.base + keyCode.modified;
     const superk = Array(superkeys.length)
@@ -188,14 +181,10 @@ class Selector extends Component {
           <Row>
             <Col>
               <InputGroup className="">
-                <InputGroup.Text className={`fixedheight fixedwidth "notfocus`}>
-                  {name}
-                </InputGroup.Text>
+                <InputGroup.Text className={`fixedheight fixedwidth "notfocus`}>{name}</InputGroup.Text>
                 <FormControl
                   id="inlineFormInputGroup"
-                  className={`fixedheight ${
-                    adjactions[i] <= 1 ? "whitebgns" : "whitebg"
-                  }`}
+                  className={`fixedheight ${adjactions[i] <= 1 ? "whitebgns" : "whitebg"}`}
                   value={adjactions[i] <= 1 ? "None Selected" : selKeys[i]}
                   disabled
                 />
@@ -212,15 +201,9 @@ class Selector extends Component {
         drop={"up"}
         className="SuperKButton"
         title={
-          superkeys[superk.indexOf(KC)] != undefined
-            ? `${superk.indexOf(KC) + 1} ${superkeys[superk.indexOf(KC)].name}`
-            : ""
+          superkeys[superk.indexOf(KC)] != undefined ? `${superk.indexOf(KC) + 1} ${superkeys[superk.indexOf(KC)].name}` : ""
         }
-        value={
-          superkeys[superk.indexOf(KC)] != undefined
-            ? superk[superk.indexOf(KC)]
-            : ""
-        }
+        value={superkeys[superk.indexOf(KC)] != undefined ? superk[superk.indexOf(KC)] : ""}
         onSelect={value => {
           onKeySelect(parseInt(value));
         }}

@@ -165,25 +165,10 @@ const ModifiedModifiersTables = [
 
   // Quad
   withModifiers(ModifiersTable, "Meh + AltGr +", "M+AGr+", 3840),
-  withModifiers(
-    ModifiersTable,
-    "Control + Alt + AltGr + Gui +",
-    "C+A+AGr+G+",
-    5888
-  ),
+  withModifiers(ModifiersTable, "Control + Alt + AltGr + Gui +", "C+A+AGr+G+", 5888),
   withModifiers(ModifiersTable, "Hyper+", "Hyper+", 6912),
-  withModifiers(
-    ModifiersTable,
-    "Control + AltGr + Shift + Gui +",
-    "C+AGr+S+G+",
-    7424
-  ),
-  withModifiers(
-    ModifiersTable,
-    "Alt + AltGr + Shift + Gui +",
-    "A+AGr+S+G+",
-    7680
-  ),
+  withModifiers(ModifiersTable, "Control + AltGr + Shift + Gui +", "C+AGr+S+G+", 7424),
+  withModifiers(ModifiersTable, "Alt + AltGr + Shift + Gui +", "A+AGr+S+G+", 7680),
 
   // All
   withModifiers(ModifiersTable, "Hyper + AltGr +", "H+AGr+", 7936)

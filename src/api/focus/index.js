@@ -52,10 +52,7 @@ class Focus {
 
     for (let port of portList) {
       for (let device of devices) {
-        if (
-          parseInt("0x" + port.productId) == device.usb.productId &&
-          parseInt("0x" + port.vendorId) == device.usb.vendorId
-        ) {
+        if (parseInt("0x" + port.productId) == device.usb.productId && parseInt("0x" + port.vendorId) == device.usb.vendorId) {
           let newPort = Object.assign({}, port);
           newPort.device = device;
           found_devices.push(newPort);
@@ -219,12 +216,7 @@ class Focus {
       return true;
     }
     const supported = await port.device.isDeviceSupported(port);
-    this.debugLog(
-      "focus.isDeviceSupported: port=",
-      port,
-      "supported=",
-      supported
-    );
+    this.debugLog("focus.isDeviceSupported: port=", port, "supported=", supported);
     return supported;
   }
 

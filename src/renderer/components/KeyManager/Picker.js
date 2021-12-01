@@ -23,17 +23,7 @@ class Picker extends Component {
   }
 
   render() {
-    const {
-      action,
-      actions,
-      onKeySelect,
-      activeTab,
-      selectedlanguage,
-      kbtype,
-      baseCode,
-      modCode,
-      disable
-    } = this.props;
+    const { action, actions, onKeySelect, activeTab, selectedlanguage, kbtype, baseCode, modCode, disable } = this.props;
 
     return (
       <Style>

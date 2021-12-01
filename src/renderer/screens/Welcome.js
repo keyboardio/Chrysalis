@@ -109,33 +109,19 @@ class Welcome extends React.Component {
                 </Card.Header>
                 <Card.Body>
                   <div>
-                    <h6 className="cardmain">
-                      {"Your Raise is currently on Bootloader Mode"}
-                    </h6>
+                    <h6 className="cardmain">{"Your Raise is currently on Bootloader Mode"}</h6>
                     <p className="cardsub">
-                      {
-                        "The LED in your Neuron should be pulsing blue and your Raise keyboard won't type."
-                      }
+                      {"The LED in your Neuron should be pulsing blue and your Raise keyboard won't type."}
                     </p>
                     <span className="cardsub">
                       <ul style={{ lineHeight: "2rem" }}>
-                        <li>
-                          {
-                            "This process will revert your keyboard's configuration back to factory settings."
-                          }
-                        </li>
+                        <li>{"This process will revert your keyboard's configuration back to factory settings."}</li>
                         <li>
                           {"Before proceeding, we recommend that you "}
-                          <a href="https://support.dygma.com/hc/en-us/articles/360014262298">
-                            {"export and save your layers"}
-                          </a>
+                          <a href="https://support.dygma.com/hc/en-us/articles/360014262298">{"export and save your layers"}</a>
                           {"."}
                         </li>
-                        <li>
-                          {
-                            "To exit Bootloader Mode, unplug and replug the USB-C cable to your Neuron."
-                          }
-                        </li>
+                        <li>{"To exit Bootloader Mode, unplug and replug the USB-C cable to your Neuron."}</li>
                       </ul>
                     </span>
                   </div>
@@ -149,10 +135,7 @@ class Welcome extends React.Component {
                         this.props.history.push("/firmware-update");
                       }}
                     >
-                      {i18n.formatString(
-                        i18n.welcome.gotoUpdate,
-                        i18n.app.menu.firmwareUpdate
-                      )}
+                      {i18n.formatString(i18n.welcome.gotoUpdate, i18n.app.menu.firmwareUpdate)}
                     </Button>
                   </Row>
                 </Card.Footer>

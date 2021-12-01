@@ -514,23 +514,13 @@ const tableWithoutModifier = { keys: frenchLetters };
 const frenchCtrlTable = withModifiers(table, "Control +", "C+", 256);
 const frenchLAltTable = withModifiers(table, "Alt +", "A+", 512);
 const frenchRAltTable = withModifiers(table, "AltGr +", "AGr+", 1024);
-const frenchShiftTable = withModifiers(
-  tableWithoutModifier,
-  "Shift +",
-  "S+",
-  2048
-);
+const frenchShiftTable = withModifiers(tableWithoutModifier, "Shift +", "S+", 2048);
 const frenchGuiTable = withModifiers(table, "Gui +", "G+", 4096);
 // Double
 
 const frenchCATable = withModifiers(table, "Control + Alt +", "C+A+", 768);
 
-const frenchCAGrTable = withModifiers(
-  table,
-  "Control + AltGr +",
-  "C+AGr+",
-  1280
-);
+const frenchCAGrTable = withModifiers(table, "Control + AltGr +", "C+AGr+", 1280);
 
 const frenchCSTable = withModifiers(table, "Control + Shift +", "C+S+", 2304);
 
@@ -550,102 +540,37 @@ const frenchSGTable = withModifiers(table, "Shift + Gui +", "S+G+", 6144);
 
 // Triple
 
-const frenchCAAGTable = withModifiers(
-  table,
-  "Control + Alt + AltGr +",
-  "C+A+AGr+",
-  1792
-);
+const frenchCAAGTable = withModifiers(table, "Control + Alt + AltGr +", "C+A+AGr+", 1792);
 
 const frenchCASTable = withModifiers(table, "Meh +", "Meh+", 2816);
 
-const frenchCAGTable = withModifiers(
-  table,
-  "Control + Alt + Gui +",
-  "C+A+G+",
-  4864
-);
+const frenchCAGTable = withModifiers(table, "Control + Alt + Gui +", "C+A+G+", 4864);
 
-const frenchCAGSTable = withModifiers(
-  table,
-  "Control + AltGr + Shift +",
-  "C+AGr+S+",
-  3328
-);
+const frenchCAGSTable = withModifiers(table, "Control + AltGr + Shift +", "C+AGr+S+", 3328);
 
-const frenchCAGGTable = withModifiers(
-  table,
-  "Control + AltGr + Gui +",
-  "C+AGr+G+",
-  5376
-);
+const frenchCAGGTable = withModifiers(table, "Control + AltGr + Gui +", "C+AGr+G+", 5376);
 
-const frenchCSGTable = withModifiers(
-  table,
-  "Control + Shift + Gui +",
-  "C+S+G+",
-  6400
-);
+const frenchCSGTable = withModifiers(table, "Control + Shift + Gui +", "C+S+G+", 6400);
 
-const frenchAAGSTable = withModifiers(
-  table,
-  "Alt + AltGr + Shift +",
-  "A+AGr+S+",
-  3584
-);
+const frenchAAGSTable = withModifiers(table, "Alt + AltGr + Shift +", "A+AGr+S+", 3584);
 
-const frenchAAGGTable = withModifiers(
-  table,
-  "Alt + AltGr + Gui +",
-  "A+AGr+G+",
-  5632
-);
+const frenchAAGGTable = withModifiers(table, "Alt + AltGr + Gui +", "A+AGr+G+", 5632);
 
-const frenchASGTable = withModifiers(
-  table,
-  "Alt + Shift + Gui +",
-  "A+S+G+",
-  6656
-);
+const frenchASGTable = withModifiers(table, "Alt + Shift + Gui +", "A+S+G+", 6656);
 
-const frenchAGSGTable = withModifiers(
-  table,
-  "AltGr + Shift + Gui +",
-  "AGr+S+G+",
-  7168
-);
+const frenchAGSGTable = withModifiers(table, "AltGr + Shift + Gui +", "AGr+S+G+", 7168);
 
 // Quad
 
 const frenchCAAGrSTable = withModifiers(table, "Meh + AltGr +", "M+AGr+", 3840);
 
-const frenchCAAGrGTable = withModifiers(
-  table,
-  "Control + Alt + AltGr + Gui +",
-  "C+A+AGr+G+",
-  5888
-);
+const frenchCAAGrGTable = withModifiers(table, "Control + Alt + AltGr + Gui +", "C+A+AGr+G+", 5888);
 
-const frenchCAGrSGTable = withModifiers(
-  table,
-  "Control + AltGr + Shift + Gui +",
-  "C+AGr+S+G+",
-  7424
-);
+const frenchCAGrSGTable = withModifiers(table, "Control + AltGr + Shift + Gui +", "C+AGr+S+G+", 7424);
 
-const frenchAAGrSGTable = withModifiers(
-  table,
-  "Alt + AltGr + Shift + Gui +",
-  "A+AGr+S+G+",
-  7680
-);
+const frenchAAGrSGTable = withModifiers(table, "Alt + AltGr + Shift + Gui +", "A+AGr+S+G+", 7680);
 
-const frenchAllModTable = withModifiers(
-  table,
-  "Hyper + AltGr +",
-  "H+AGr+",
-  7936
-);
+const frenchAllModTable = withModifiers(table, "Hyper + AltGr +", "H+AGr+", 7936);
 
 const DualUseCtrlTable = withModifiers(table, "Control /", "CTRL/", 49169);
 const DualUseShiftTable = withModifiers(table, "Shift /", "SHIFT/", 49425);

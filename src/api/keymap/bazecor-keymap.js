@@ -47,8 +47,7 @@ class Keymap {
 
   _chunk(a, chunkSize) {
     var R = [];
-    for (var i = 0; i < a.length; i += chunkSize)
-      R.push(a.slice(i, i + chunkSize));
+    for (var i = 0; i < a.length; i += chunkSize) R.push(a.slice(i, i + chunkSize));
     return R;
   }
 
@@ -59,9 +58,7 @@ class Keymap {
       };
 
       if (this.legacyInterface) {
-        const args = flatten(keymap.default.concat(keymap.custom)).map(k =>
-          this.db.serialize(k)
-        );
+        const args = flatten(keymap.default.concat(keymap.custom)).map(k => this.db.serialize(k));
 
         return await s.request("keymap.map", ...args);
       }
@@ -80,15 +77,11 @@ class Keymap {
       }
 
       if (!defaults && !custom) {
-        const keymap = (await s.request("keymap.map"))
-          .split(" ")
-          .filter(v => v.length > 0);
+        const keymap = (await s.request("keymap.map")).split(" ").filter(v => v.length > 0);
         const roLayers = parseInt((await s.request("keymap.roLayers")) || "0");
 
         defaults = keymap.slice(0, this._layerSize * roLayers).join(" ");
-        custom = keymap
-          .slice(this._layerSize * roLayers, keymap.length)
-          .join(" ");
+        custom = keymap.slice(this._layerSize * roLayers, keymap.length).join(" ");
 
         onlyCustom = false;
         this.legacyInterface = true;

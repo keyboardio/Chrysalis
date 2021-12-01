@@ -206,12 +206,7 @@ const ModifiedPunctuationTables = [
   withModifiers(PunctuationTable, "Control + Alt + AltGr +", "C+A+AGr+", 1792),
   withModifiers(PunctuationTable, "Meh +", "Meh+", 2816),
   withModifiers(PunctuationTable, "Control + Alt + Gui +", "C+A+G+", 4864),
-  withModifiers(
-    PunctuationTable,
-    "Control + AltGr + Shift +",
-    "C+AGr+S+",
-    3328
-  ),
+  withModifiers(PunctuationTable, "Control + AltGr + Shift +", "C+AGr+S+", 3328),
   withModifiers(PunctuationTable, "Control + AltGr + Gui +", "C+AGr+G+", 5376),
   withModifiers(PunctuationTable, "Control + Shift + Gui +", "C+S+G+", 6400),
   withModifiers(PunctuationTable, "Alt + AltGr + Shift +", "A+AGr+S+", 3584),
@@ -221,25 +216,10 @@ const ModifiedPunctuationTables = [
 
   // Quad
   withModifiers(PunctuationTable, "Meh + AltGr +", "M+AGr+", 3840),
-  withModifiers(
-    PunctuationTable,
-    "Control + Alt + AltGr + Gui +",
-    "C+A+AGr+G+",
-    5888
-  ),
+  withModifiers(PunctuationTable, "Control + Alt + AltGr + Gui +", "C+A+AGr+G+", 5888),
   withModifiers(PunctuationTable, "Hyper +", "Hyper+", 6912),
-  withModifiers(
-    PunctuationTable,
-    "Control + AltGr + Shift + Gui +",
-    "C+AGr+S+G+",
-    7424
-  ),
-  withModifiers(
-    PunctuationTable,
-    "Alt + AltGr + Shift + Gui +",
-    "A+AGr+S+G+",
-    7680
-  ),
+  withModifiers(PunctuationTable, "Control + AltGr + Shift + Gui +", "C+AGr+S+G+", 7424),
+  withModifiers(PunctuationTable, "Alt + AltGr + Shift + Gui +", "A+AGr+S+G+", 7680),
 
   // All
   withModifiers(PunctuationTable, "Hyper + AltGr +", "H+AGr+", 7936)

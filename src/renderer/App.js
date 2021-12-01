@@ -44,8 +44,6 @@ import Preferences from "./screens/Preferences";
 import Welcome from "./screens/Welcome";
 
 import Header from "./components/Header";
-// import ConfirmationDialog from "./components/ConfirmationDialog";
-// import { history, navigate } from "./routerHistory";
 
 const Store = require("electron-store");
 const store = new Store();
@@ -57,8 +55,7 @@ focus.debug = true;
 focus.timeout = 15000;
 
 if (store.get("settings.language") == undefined) {
-  if (settings.getSync("ui.language"))
-    i18n.setLanguage(settings.get("ui.language"));
+  if (settings.getSync("ui.language")) i18n.setLanguage(settings.get("ui.language"));
 } else {
   i18n.setLanguage(store.get("settings.language"));
 }
@@ -117,12 +114,7 @@ class App extends React.Component {
     data.showDefaults = await settings.get("keymap.showDefaults");
     store.set("settings", data);
     store.set("neurons", []);
-    console.log(
-      "Testing results: ",
-      data,
-      store.get("settings"),
-      store.get("settings.darkMode")
-    );
+    console.log("Testing results: ", data, store.get("settings"), store.get("settings.darkMode"));
   }
 
   componentDidMount() {
@@ -174,12 +166,7 @@ class App extends React.Component {
   };
 
   toggleDarkMode = async mode => {
-    console.log(
-      "Dark mode changed to: ",
-      mode,
-      "NativeTheme says: ",
-      remote.nativeTheme.shouldUseDarkColors
-    );
+    console.log("Dark mode changed to: ", mode, "NativeTheme says: ", remote.nativeTheme.shouldUseDarkColors);
     let isDark = mode === "dark" ? true : false;
     if (mode === "system") {
       isDark = remote.nativeTheme.shouldUseDarkColors;
@@ -233,12 +220,8 @@ class App extends React.Component {
 
     focus.setLayerSize(focus.device);
     const pages = {
-      keymap:
-        focus.isCommandSupported("keymap.custom") ||
-        focus.isCommandSupported("keymap.map"),
-      colormap:
-        focus.isCommandSupported("colormap.map") &&
-        focus.isCommandSupported("palette")
+      keymap: focus.isCommandSupported("keymap.custom") || focus.isCommandSupported("keymap.map"),
+      colormap: focus.isCommandSupported("colormap.map") && focus.isCommandSupported("palette")
     };
 
     this.setState({
@@ -290,9 +273,7 @@ class App extends React.Component {
     let focus = new Focus();
     let device =
       (focus.device && focus.device.info) ||
-      (this.state.device &&
-        this.state.device.device &&
-        this.state.device.device.info) ||
+      (this.state.device && this.state.device.device && this.state.device.device.info) ||
       (this.state.device && this.state.device.info);
 
     return (

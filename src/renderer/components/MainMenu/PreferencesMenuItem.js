@@ -19,13 +19,7 @@ import React, { Fragment } from "react";
 import i18n from "../../i18n";
 import { GoSettings } from "react-icons/go";
 
-export default function PreferencesMenuItem({
-  selected,
-  onClick,
-  className,
-  classIcon,
-  drawerWidth
-}) {
+export default function PreferencesMenuItem({ selected, onClick, className, classIcon, drawerWidth }) {
   return (
     <div onClick={onClick} className={"item-list"}>
       <div className="icon-item">

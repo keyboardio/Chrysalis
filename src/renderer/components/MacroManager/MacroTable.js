@@ -4,12 +4,7 @@ import MacroToolTab from "./MacroToolTab";
 
 import Styled from "styled-components";
 import ListGroup from "react-bootstrap/ListGroup";
-import {
-  MdUnfoldLess,
-  MdKeyboardArrowUp,
-  MdKeyboardArrowDown,
-  MdTimer
-} from "react-icons/md";
+import { MdUnfoldLess, MdKeyboardArrowUp, MdKeyboardArrowDown, MdTimer } from "react-icons/md";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const Styles = Styled.div`
@@ -294,9 +289,7 @@ class MacroTable extends Component {
   addModifier(rowID, modifierID) {
     const { name, keyCode, color } = this.modifiers[modifierID];
     const randID = new Date().getTime() + Math.floor(Math.random() * 1000);
-    const randColor =
-      "#" +
-      Math.floor(Math.abs(Math.sin(randID) * 16777215) % 16777215).toString(16);
+    const randColor = "#" + Math.floor(Math.abs(Math.sin(randID) * 16777215) % 16777215).toString(16);
     let newRows = this.state.rows;
     newRows.splice(rowID + 1, 0, {
       symbol: name,
@@ -322,9 +315,7 @@ class MacroTable extends Component {
   addModToKey(rows, modID, modBit) {
     const { name, keyCode, color } = this.modifiers[modID];
     const randID = new Date().getTime() + Math.floor(Math.random() * 1000);
-    const randColor =
-      "#" +
-      Math.floor(Math.abs(Math.sin(randID) * 16777215) % 16777215).toString(16);
+    const randColor = "#" + Math.floor(Math.abs(Math.sin(randID) * 16777215) % 16777215).toString(16);
     let actions = rows;
     actions.splice(1, 0, {
       symbol: name,
@@ -355,11 +346,7 @@ class MacroTable extends Component {
       return;
     }
 
-    const rows = this.reorder(
-      this.state.rows,
-      result.source.index,
-      result.destination.index
-    );
+    const rows = this.reorder(this.state.rows, result.source.index, result.destination.index);
 
     this.updateRows(rows);
   }
@@ -516,11 +503,7 @@ class MacroTable extends Component {
               <div ref={provided.innerRef}>
                 <ListGroup className={"list margin padding border whitebg"}>
                   {this.state.rows.map((item, index) => (
-                    <Draggable
-                      key={index}
-                      draggableId={String(index)}
-                      index={index}
-                    >
+                    <Draggable key={index} draggableId={String(index)} index={index}>
                       {(provided, snapshot) => (
                         <MacroTableRow
                           provided={provided}

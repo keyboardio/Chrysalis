@@ -31,11 +31,7 @@ class DialogTitle extends React.Component {
       <Card.Title disableTypography className={"classes.root"}>
         <h6>{children}</h6>
         {onClose ? (
-          <Button
-            className={"classes.closeButton"}
-            disabled={disabled}
-            onClick={onClose}
-          >
+          <Button className={"classes.closeButton"} disabled={disabled} onClick={onClose}>
             <MdClose />
           </Button>
         ) : null}
@@ -50,12 +46,7 @@ class CustomDialog extends React.Component {
 
   render() {
     return (
-      <Card
-        onClose={this.handleClose}
-        open={this.props.open}
-        maxWidth="md"
-        disableEscapeKeyDown={true}
-      >
+      <Card onClose={this.handleClose} open={this.props.open} maxWidth="md" disableEscapeKeyDown={true}>
         {this.props.title}
         <Card.Body>{this.props.children}</Card.Body>
         {this.props.countdown !== null && (

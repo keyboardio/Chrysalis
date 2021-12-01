@@ -37,9 +37,7 @@ import * as path from "path";
 import * as fs from "fs";
 import * as sudo from "sudo-prompt";
 import windowStateKeeper from "electron-window-state";
-import installExtension, {
-  REACT_DEVELOPER_TOOLS
-} from "electron-devtools-installer";
+import installExtension, { REACT_DEVELOPER_TOOLS } from "electron-devtools-installer";
 import { getStaticPath } from "../renderer/config";
 
 const Store = require("electron-store");
@@ -92,10 +90,7 @@ async function createMainWindow() {
   });
 
   nativeTheme.on("updated", function theThemeHasChanged() {
-    window.webContents.send(
-      "darkTheme-update",
-      nativeTheme.shouldUseDarkColors
-    );
+    window.webContents.send("darkTheme-update", nativeTheme.shouldUseDarkColors);
   });
 
   window.on("closed", () => {
@@ -147,8 +142,7 @@ function installUdev() {
     defaultId: 1,
     title: "Udev rules Installation",
     message: "Bazecor lacks write access to your raise keyboard",
-    detail:
-      "Press install to set up the required Udev Rules, then scan keyboards again."
+    detail: "Press install to set up the required Udev Rules, then scan keyboards again."
   };
   dialog.showMessageBox(null, dialogOpts).then(response => {
     if (response.response === 1) {

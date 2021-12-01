@@ -135,9 +135,7 @@ class ColorSettings extends Component {
       <Button
         variant="contained"
         color="primary"
-        disabled={
-          this.state.working || !this.state.testMode || !this.state.modified
-        }
+        disabled={this.state.working || !this.state.testMode || !this.state.modified}
         onClick={this.setBrightness}
       >
         {i18n.keyboardSettings.colorSettings.visualizebutton}
@@ -145,13 +143,9 @@ class ColorSettings extends Component {
     );
     return (
       <React.Fragment>
-        {this.state.working && (
-          <Spinner className="spinner-border text-danger" role="status" />
-        )}
+        {this.state.working && <Spinner className="spinner-border text-danger" role="status" />}
         <Card>
-          <Card.Header className="sectionTitle">
-            {i18n.keyboardSettings.colorSettings.title}
-          </Card.Header>
+          <Card.Header className="sectionTitle">{i18n.keyboardSettings.colorSettings.title}</Card.Header>
           <Card.Body>
             <Form>
               <Form.Group controlId="Test">
@@ -164,22 +158,19 @@ class ColorSettings extends Component {
               </Form.Group>
               <Form.Group controlId="Red">
                 <Form.Label>
-                  {i18n.keyboardSettings.colorSettings.red +
-                    ` - ${((this.state.RedColorB / 255) * 100).toFixed(1)}%`}
+                  {i18n.keyboardSettings.colorSettings.red + ` - ${((this.state.RedColorB / 255) * 100).toFixed(1)}%`}
                 </Form.Label>
                 {redColor}
               </Form.Group>
               <Form.Group controlId="Test">
                 <Form.Label>
-                  {i18n.keyboardSettings.colorSettings.green +
-                    ` - ${((this.state.GreenColorB / 255) * 100).toFixed(1)}%`}
+                  {i18n.keyboardSettings.colorSettings.green + ` - ${((this.state.GreenColorB / 255) * 100).toFixed(1)}%`}
                 </Form.Label>
                 {greenColor}
               </Form.Group>
               <Form.Group controlId="Test">
                 <Form.Label>
-                  {i18n.keyboardSettings.colorSettings.blue +
-                    ` - ${((this.state.BlueColorB / 255) * 100).toFixed(1)}%`}
+                  {i18n.keyboardSettings.colorSettings.blue + ` - ${((this.state.BlueColorB / 255) * 100).toFixed(1)}%`}
                 </Form.Label>
                 {blueColor}
               </Form.Group>
@@ -193,11 +184,7 @@ class ColorSettings extends Component {
                 this.setState({ oldBalance: this.state.balance });
                 this.props.setBalance(this.state.balance);
               }}
-              disabled={
-                this.state.working ||
-                !this.state.testMode ||
-                !this.state.modifications
-              }
+              disabled={this.state.working || !this.state.testMode || !this.state.modifications}
             >
               {i18n.components.save.saveChanges}
             </SaveChangesButton>

@@ -14,8 +14,7 @@ const Dark = {
     subTitleColor: "#959595"
   },
   colors: {
-    gardient:
-      "linear-gradient(180deg, rgba(65,147,199,1) 0%, rgba(90,100,140,1) 63%, rgba(0,0,0,1) 100%);",
+    gardient: "linear-gradient(180deg, rgba(65,147,199,1) 0%, rgba(90,100,140,1) 63%, rgba(0,0,0,1) 100%);",
     body: "#222",
     text: "#FFFFFF",
     subtext: "#555555",

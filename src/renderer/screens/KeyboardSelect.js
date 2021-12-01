@@ -110,8 +110,7 @@ const Styles = Styled.div`
                 text-align: center;
               }
               .key-icon {
-                background-color: ${({ theme }) =>
-                  theme.colors.button.background} !important;
+                background-color: ${({ theme }) => theme.colors.button.background} !important;
                 border-radius: 100%;
                 padding: 0;
                 max-width: 50px;
@@ -132,8 +131,7 @@ const Styles = Styled.div`
                 color: rgba(140,140,140,0.8) !important;
               }
               a:hover {
-                background-color: ${({ theme }) =>
-                  theme.colors.button.hover} !important;
+                background-color: ${({ theme }) => theme.colors.button.hover} !important;
               }
               .dropdown-item {
                 display: inherit;
@@ -174,16 +172,10 @@ class KeyboardSelect extends Component {
     const devices = usb.getDeviceList().map(device => device.deviceDescriptor);
     devices.forEach(desc => {
       Hardware.nonSerial.forEach(device => {
-        if (
-          desc.idVendor == device.usb.vendorId &&
-          desc.idProduct == device.usb.productId
-        ) {
+        if (desc.idVendor == device.usb.vendorId && desc.idProduct == device.usb.productId) {
           let found = false;
           deviceList.forEach(sDevice => {
-            if (
-              sDevice.device.usb.vendorId == desc.idVendor &&
-              sDevice.device.usb.productId == desc.idProduct
-            ) {
+            if (sDevice.device.usb.vendorId == desc.idVendor && sDevice.device.usb.productId == desc.idProduct) {
               found = true;
             }
           });
@@ -197,9 +189,7 @@ class KeyboardSelect extends Component {
   findKeyboards = async () => {
     this.setState({ loading: true });
     let focus = new Focus();
-    const isIterable =
-      this.state.devices != null &&
-      typeof this.state.devices[Symbol.iterator] === "function";
+    const isIterable = this.state.devices != null && typeof this.state.devices[Symbol.iterator] === "function";
     if (focus.closed === false && isIterable) {
       this.setState({
         loading: false
@@ -295,14 +285,7 @@ class KeyboardSelect extends Component {
   };
 
   render() {
-    const {
-      scanFoundDevices,
-      devices,
-      loading,
-      selectedPortIndex,
-      opening,
-      dropdownOpen
-    } = this.state;
+    const { scanFoundDevices, devices, loading, selectedPortIndex, opening, dropdownOpen } = this.state;
 
     const { onDisconnect } = this.props;
 
@@ -327,9 +310,7 @@ class KeyboardSelect extends Component {
                 <span>{option.device.info.displayName}</span>
               </Col>
               <Col>
-                <span className="muted">
-                  {option.path || i18n.keyboardSelect.unknown}
-                </span>
+                <span className="muted">{option.path || i18n.keyboardSelect.unknown}</span>
               </Col>
             </Col>
           );
@@ -367,9 +348,7 @@ class KeyboardSelect extends Component {
                 <span>{option.device.info.displayName}</span>
               </Col>
               <Col>
-                <span className="muted">
-                  {option.path || i18n.keyboardSelect.unknown}
-                </span>
+                <span className="muted">{option.path || i18n.keyboardSelect.unknown}</span>
               </Col>
             </Col>
           );
@@ -406,9 +385,7 @@ class KeyboardSelect extends Component {
     }
 
     if (devices && devices.length == 0) {
-      port = (
-        <span className="selector-error">{i18n.keyboardSelect.noDevices}</span>
-      );
+      port = <span className="selector-error">{i18n.keyboardSelect.noDevices}</span>;
     }
 
     let connectContent = i18n.keyboardSelect.connect;
@@ -433,35 +410,19 @@ class KeyboardSelect extends Component {
     //TODO consider implementing fix from chrsalis
     // https://github.com/keyboardio/Chrysalis/pull/570
     if (selectedDevice && !selectedDevice.accessible) {
-      permissionWarning = (
-        <span className="selector-error">
-          {i18n.keyboardSelect.permissionError}
-        </span>
-      );
+      permissionWarning = <span className="selector-error">{i18n.keyboardSelect.permissionError}</span>;
     }
 
-    if (
-      focus.device &&
-      selectedDevice &&
-      selectedDevice.device == focus.device
-    ) {
+    if (focus.device && selectedDevice && selectedDevice.device == focus.device) {
       connectionButton = (
-        <Button
-          disabled={opening || (devices && devices.length === 0)}
-          color="secondary"
-          onClick={onDisconnect}
-        >
+        <Button disabled={opening || (devices && devices.length === 0)} color="secondary" onClick={onDisconnect}>
           {i18n.keyboardSelect.disconnect}
         </Button>
       );
     } else {
       connectionButton = (
         <Button
-          disabled={
-            (selectedDevice ? !selectedDevice.accessible : false) ||
-            opening ||
-            (devices && devices.length === 0)
-          }
+          disabled={(selectedDevice ? !selectedDevice.accessible : false) || opening || (devices && devices.length === 0)}
           color="primary"
           onClick={this.onKeyboardConnect}
           className=""
@@ -478,8 +439,7 @@ class KeyboardSelect extends Component {
       devices[this.state.selectedPortIndex].device &&
       devices[this.state.selectedPortIndex].device.components
     ) {
-      const Keymap =
-        devices[this.state.selectedPortIndex].device.components.keymap;
+      const Keymap = devices[this.state.selectedPortIndex].device.components.keymap;
       preview = <Keymap index={0} className="" showUnderglow={true} />;
     }
 
@@ -494,10 +454,7 @@ class KeyboardSelect extends Component {
               <Card className="keyboard-card">
                 {loading ? (
                   <Card.Body className="loader">
-                    <Spinner
-                      className="spinner-border text-danger"
-                      role="status"
-                    />
+                    <Spinner className="spinner-border text-danger" role="status" />
                   </Card.Body>
                 ) : (
                   <>

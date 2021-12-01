@@ -17,17 +17,10 @@
 import BlankTable from "./db/blanks";
 import LetterTable, { ModifiedLetterTables } from "./db/letters";
 import DigitTable, { ModifiedDigitTables } from "./db/digits";
-import {
-  LockLayerTable,
-  ShiftToLayerTable,
-  MoveToLayerTable
-} from "./db/layerswitch";
+import { LockLayerTable, ShiftToLayerTable, MoveToLayerTable } from "./db/layerswitch";
 import PunctuationTable, { ModifiedPunctuationTables } from "./db/punctuation";
 import SpacingTable, { ModifiedSpacingTables } from "./db/spacing";
-import ModifiersTable, {
-  ModifiedModifiersTables,
-  HyperMehTable
-} from "./db/modifiers";
+import ModifiersTable, { ModifiedModifiersTables, HyperMehTable } from "./db/modifiers";
 import NavigationTable, { ModifiedNavigationTables } from "./db/navigation";
 import LEDEffectsTable from "./db/ledeffects";
 import MacrosTable from "./db/macros";
@@ -37,14 +30,8 @@ import NumpadTable, { ModifiedNumpadTables } from "./db/numpad";
 import FunctionKeyTable, { ModifiedFunctionKeyTables } from "./db/fxs";
 
 import MediaControlTable from "./db/mediacontrols";
-import {
-  MouseMovementTable,
-  MouseWheelTable,
-  MouseButtonTable
-} from "./db/mousecontrols";
-import MiscellaneousTable, {
-  ModifiedMiscellaneousTables
-} from "./db/miscellaneous";
+import { MouseMovementTable, MouseWheelTable, MouseButtonTable } from "./db/mousecontrols";
+import MiscellaneousTable, { ModifiedMiscellaneousTables } from "./db/miscellaneous";
 
 import { OneShotModifierTable, OneShotLayerTable } from "./db/oneshot";
 import { DualUseModifierTables, DualUseLayerTables } from "./db/dualuse";
@@ -65,9 +52,7 @@ import french, { frenchModifiedTables } from "./languages/french/french";
 import nordic, { nordicModifiedTables } from "./languages/nordic/nordic";
 
 // Japanese - is an Array of objects of values that have to be modified
-import japanese, {
-  japaneseModifiedTables
-} from "./languages/japanese/japanese";
+import japanese, { japaneseModifiedTables } from "./languages/japanese/japanese";
 
 // newLanguageLayout - is a function that modify language layout
 import newLanguageLayout from "./languages/newLanguageLayout";
@@ -149,12 +134,7 @@ class KeymapDB {
     this.keymapCodeTable = [];
     //create variable that get language from the local storage
     this.language = store.get("settings.language");
-    if (
-      this.language == "swedish" ||
-      this.language == "danish" ||
-      this.language == "norwegian" ||
-      this.language == "icelandic"
-    ) {
+    if (this.language == "swedish" || this.language == "danish" || this.language == "norwegian" || this.language == "icelandic") {
       this.language = "nordic";
     }
     //Modify our baseKeyCodeTable, depending on the language selected by the static methods and by inside function newLanguageLayout
@@ -320,23 +300,17 @@ class KeymapDB {
   }
 
   reverse(label) {
-    const answ = this.keymapCodeTable
-      .filter(Boolean)
-      .find(x => x.labels.primary === label);
+    const answ = this.keymapCodeTable.filter(Boolean).find(x => x.labels.primary === label);
     return answ !== undefined ? answ.code : 1;
   }
 
   reverseSub(label, top) {
-    const answ = this.keymapCodeTable
-      .filter(Boolean)
-      .find(x => x.labels.primary === label && x.labels.top === top);
+    const answ = this.keymapCodeTable.filter(Boolean).find(x => x.labels.primary === label && x.labels.top === top);
     return answ !== undefined ? answ.code : 1;
   }
 
   getMap() {
-    return this.keymapCodeTable
-      .filter(Boolean)
-      .filter(x => x.code < 255 && x.code > 0);
+    return this.keymapCodeTable.filter(Boolean).filter(x => x.code < 255 && x.code > 0);
   }
 
   serialize(key) {
@@ -345,12 +319,7 @@ class KeymapDB {
 
   static updateBaseKeyCode() {
     this.language = store.get("settings.language") || "english";
-    if (
-      this.language == "swedish" ||
-      this.language == "danish" ||
-      this.language == "norwegian" ||
-      this.language == "icelandic"
-    ) {
+    if (this.language == "swedish" || this.language == "danish" || this.language == "norwegian" || this.language == "icelandic") {
       this.language = "nordic";
     }
     //Checking language in the cache
@@ -359,11 +328,7 @@ class KeymapDB {
       return map.get(this.language);
     } else {
       //Creating language layout and add it into cache
-      const newBase = newLanguageLayout(
-        defaultBaseKeyCodeTable,
-        this.language,
-        languagesDB[this.language]
-      );
+      const newBase = newLanguageLayout(defaultBaseKeyCodeTable, this.language, languagesDB[this.language]);
       map.set(this.language, newBase);
       //Return new language layout
       return newBase;

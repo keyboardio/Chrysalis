@@ -158,11 +158,7 @@ class MainMenu extends Component {
     if (this.props.flashing != previousProps.flashing) {
       this.setState({ flashing: this.props.flashing });
     }
-    if (
-      this.state.versions != null &&
-      this.state.versions.bazecor.length > 0 &&
-      this.state.flashing == previousState.flashing
-    ) {
+    if (this.state.versions != null && this.state.versions.bazecor.length > 0 && this.state.flashing == previousState.flashing) {
       return;
     }
     const focus = new Focus();
@@ -181,12 +177,7 @@ class MainMenu extends Component {
   }
 
   cleanFWVer(version) {
-    let ver =
-      version != null
-        ? version[0] != "v"
-          ? version
-          : version.substring(1)
-        : null;
+    let ver = version != null ? (version[0] != "v" ? version : version.substring(1)) : null;
     return ver
       .replace(/beta/g, "")
       .split(".")
@@ -227,10 +218,7 @@ class MainMenu extends Component {
     //     ? "/editor"
     //     : "/welcome"
     //   : "/keyboard-select";
-    let fwVer =
-      this.state.versions != null
-        ? this.cleanFWVer(this.state.versions.bazecor)
-        : [];
+    let fwVer = this.state.versions != null ? this.cleanFWVer(this.state.versions.bazecor) : [];
     let newVer = this.cleanFWVer(fwVersion);
     let showNotif = this.compareFWVer(fwVer, newVer);
 
@@ -309,13 +297,7 @@ class MainMenu extends Component {
                         selected={currentPage === "/firmware-update"}
                         drawerWidth={drawerWidth}
                         onClick={() => setCurrentPage("/firmware-update")}
-                        showNotif={
-                          showNotif != 0
-                            ? showNotif > 0
-                              ? true
-                              : false
-                            : false
-                        }
+                        showNotif={showNotif != 0 ? (showNotif > 0 ? true : false) : false}
                       />
                     </Link>
                   </OverlayTrigger>
@@ -329,11 +311,7 @@ class MainMenu extends Component {
               >
                 <Link to="/keyboard-select" className="list-link">
                   <KeyboardMenuItem
-                    keyboardSelectText={
-                      connected
-                        ? i18n.app.menu.selectAnotherKeyboard
-                        : i18n.app.menu.selectAKeyboard
-                    }
+                    keyboardSelectText={connected ? i18n.app.menu.selectAnotherKeyboard : i18n.app.menu.selectAKeyboard}
                     drawerWidth={drawerWidth}
                     selected={currentPage === "/keyboard-select"}
                     onClick={() => setCurrentPage("/keyboard-select")}

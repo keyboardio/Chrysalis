@@ -164,9 +164,7 @@ class MacroManager extends Component {
     return (
       <Styles>
         <Card className={"card"}>
-          <Card.Header classes={"cardHeader cardTitle"}>
-            {i18n.editor.macros.title}
-          </Card.Header>
+          <Card.Header classes={"cardHeader cardTitle"}>{i18n.editor.macros.title}</Card.Header>
           <Card.Body classes={"cardcontent"}>
             <MacroForm
               key={this.state.macros.length + this.state.selected}

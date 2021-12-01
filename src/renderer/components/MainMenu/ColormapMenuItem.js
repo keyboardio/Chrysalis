@@ -24,12 +24,7 @@ import i18n from "../../i18n";
 
 export default function ColormapMenuItem({ selected, onClick, className }) {
   return (
-    <ListItem
-      button
-      selected={selected}
-      onClick={onClick}
-      className={className}
-    >
+    <ListItem button selected={selected} onClick={onClick} className={className}>
       <ListItemIcon>
         <HighlightIcon />
       </ListItemIcon>

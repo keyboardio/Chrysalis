@@ -80,10 +80,7 @@ class SuperkeyList extends Component {
           />
         </Col>
         <div>
-          <Button
-            onClick={e => this.props.saveName(this.state.SKName)}
-            className="save-button fullheight"
-          >
+          <Button onClick={e => this.props.saveName(this.state.SKName)} className="save-button fullheight">
             Save Name
           </Button>
         </div>

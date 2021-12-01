@@ -48,11 +48,7 @@ const ConfirmationDialog = props => {
         </Modal.Header>
         <Modal.Body className="body">{props.text}</Modal.Body>
         <Modal.Footer className="noborder">
-          <Button
-            onClick={props.onCancel}
-            className="mr-auto"
-            variant="secondary"
-          >
+          <Button onClick={props.onCancel} className="mr-auto" variant="secondary">
             {i18n.dialog.cancel}
           </Button>
           <Button onClick={props.onConfirm} variant="primary">

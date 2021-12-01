@@ -90,14 +90,7 @@ class MacroTableRow extends Component {
   }
 
   render() {
-    const {
-      provided,
-      snapshot,
-      item,
-      modifiers,
-      addModifier,
-      actionTypes
-    } = this.props;
+    const { provided, snapshot, item, modifiers, addModifier, actionTypes } = this.props;
 
     return (
       <Styles>
@@ -105,10 +98,7 @@ class MacroTableRow extends Component {
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          style={this.getItemStyle(
-            snapshot.isDragging,
-            provided.draggableProps.style
-          )}
+          style={this.getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
         >
           <ListGroup.Item className="listitem">
             <div className="dragable">
@@ -143,11 +133,7 @@ class MacroTableRow extends Component {
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   {modifiers.map((item, id) => (
-                    <Dropdown.Item
-                      eventKey={id}
-                      key={`item-${id}`}
-                      className="compact"
-                    >
+                    <Dropdown.Item eventKey={id} key={`item-${id}`} className="compact">
                       <span className="compact">{item.name}</span>
                     </Dropdown.Item>
                   ))}

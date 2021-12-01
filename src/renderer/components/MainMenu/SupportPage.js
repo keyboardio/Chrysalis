@@ -28,17 +28,9 @@ export default function SupportPage({ onClick, className, themeDark }) {
     <ListItem button onClick={onClick} className={className}>
       <ListItemIcon>
         {themeDark ? (
-          <img
-            src={supportWhite}
-            alt="update"
-            style={{ width: 24, height: 24 }}
-          />
+          <img src={supportWhite} alt="update" style={{ width: 24, height: 24 }} />
         ) : (
-          <img
-            src={support}
-            alt="updateWhite"
-            style={{ width: 24, height: 24 }}
-          />
+          <img src={support} alt="updateWhite" style={{ width: 24, height: 24 }} />
         )}
       </ListItemIcon>
       <ListItemText primary={i18n.app.menu.supportPage} />

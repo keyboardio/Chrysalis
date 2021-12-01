@@ -224,20 +224,7 @@ const ksl = {
 
 class Key extends React.Component {
   render() {
-    const {
-      x,
-      y,
-      selected,
-      clicked,
-      centered,
-      iconpresent,
-      icon,
-      iconsize,
-      iconx,
-      icony,
-      content,
-      disabled
-    } = this.props;
+    const { x, y, selected, clicked, centered, iconpresent, icon, iconsize, iconx, icony, content, disabled } = this.props;
     return (
       <g className="keycap">
         {content.type === "enter" ? (
@@ -380,9 +367,7 @@ class Key extends React.Component {
               onClick={clicked}
               fontSize={ksl[content.type].text.letter.fs}
               fill={
-                disabled
-                  ? this.props.theme.keyboardPicker.keyTextDisabledColor
-                  : this.props.theme.keyboardPicker.keyTextColor
+                disabled ? this.props.theme.keyboardPicker.keyTextDisabledColor : this.props.theme.keyboardPicker.keyTextColor
               }
               fontWeight={300}
               textAnchor="middle"
@@ -396,9 +381,7 @@ class Key extends React.Component {
               fontSize={ksl[content.type].text.letter.fss}
               fontWeight={200}
               fill={
-                selected
-                  ? this.props.theme.keyboardPicker.keyActiveSubTextColor
-                  : this.props.theme.keyboardPicker.keySubTextColor
+                selected ? this.props.theme.keyboardPicker.keyActiveSubTextColor : this.props.theme.keyboardPicker.keySubTextColor
               }
               textAnchor="middle"
             >
@@ -417,9 +400,7 @@ class Key extends React.Component {
               fontSize={ksl[content.type].text.a.fs}
               fontWeight={300}
               fill={
-                disabled
-                  ? this.props.theme.keyboardPicker.keyTextDisabledColor
-                  : this.props.theme.keyboardPicker.keyTextColor
+                disabled ? this.props.theme.keyboardPicker.keyTextDisabledColor : this.props.theme.keyboardPicker.keyTextColor
               }
             >
               {content.first}
@@ -431,9 +412,7 @@ class Key extends React.Component {
               fontSize={ksl[content.type].text.b.fs}
               fontWeight={200}
               fill={
-                selected
-                  ? this.props.theme.keyboardPicker.keyActiveSubTextColor
-                  : this.props.theme.keyboardPicker.keySubTextColor
+                selected ? this.props.theme.keyboardPicker.keyActiveSubTextColor : this.props.theme.keyboardPicker.keySubTextColor
               }
             >
               {content.second}
@@ -445,9 +424,7 @@ class Key extends React.Component {
               fontSize={ksl[content.type].text.c.fs}
               fontWeight={200}
               fill={
-                selected
-                  ? this.props.theme.keyboardPicker.keyActiveSubTextColor
-                  : this.props.theme.keyboardPicker.keySubTextColor
+                selected ? this.props.theme.keyboardPicker.keyActiveSubTextColor : this.props.theme.keyboardPicker.keySubTextColor
               }
             >
               {content.third}
@@ -459,9 +436,7 @@ class Key extends React.Component {
               fontSize={ksl[content.type].text.d.fs}
               fontWeight={200}
               fill={
-                selected
-                  ? this.props.theme.keyboardPicker.keyActiveSubTextColor
-                  : this.props.theme.keyboardPicker.keySubTextColor
+                selected ? this.props.theme.keyboardPicker.keyActiveSubTextColor : this.props.theme.keyboardPicker.keySubTextColor
               }
             >
               {content.fourth}

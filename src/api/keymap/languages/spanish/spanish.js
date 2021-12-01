@@ -387,23 +387,13 @@ const tableWithoutModifier = { keys: spanishLetters };
 const spanishCtrlTable = withModifiers(table, "Control +", "C+", 256);
 const spanishLAltTable = withModifiers(table, "Alt +", "A+", 512);
 const spanishRAltTable = withModifiers(table, "AltGr +", "AGr+", 1024);
-const spanishShiftTable = withModifiers(
-  tableWithoutModifier,
-  "Shift +",
-  "S+",
-  2048
-);
+const spanishShiftTable = withModifiers(tableWithoutModifier, "Shift +", "S+", 2048);
 const spanishGuiTable = withModifiers(table, "Gui +", "G+", 4096);
 // Double
 
 const spanishCATable = withModifiers(table, "Control + Alt +", "C+A+", 768);
 
-const spanishCAGrTable = withModifiers(
-  table,
-  "Control + AltGr +",
-  "C+AGr+",
-  1280
-);
+const spanishCAGrTable = withModifiers(table, "Control + AltGr +", "C+AGr+", 1280);
 
 const spanishCSTable = withModifiers(table, "Control + Shift +", "C+S+", 2304);
 
@@ -415,12 +405,7 @@ const spanishASTable = withModifiers(table, "Alt + Shift +", "A+S+", 2560);
 
 const spanishAGTable = withModifiers(table, "Alt + Gui +", "A+G+", 4608);
 
-const spanishAGrSTable = withModifiers(
-  table,
-  "AltGr + Shift +",
-  "AGr+S+",
-  3072
-);
+const spanishAGrSTable = withModifiers(table, "AltGr + Shift +", "AGr+S+", 3072);
 
 const spanishAGrGTable = withModifiers(table, "AltGr + Gui +", "AGr+G+", 5120);
 
@@ -428,107 +413,37 @@ const spanishSGTable = withModifiers(table, "Shift + Gui +", "S+G+", 6144);
 
 // Triple
 
-const spanishCAAGTable = withModifiers(
-  table,
-  "Control + Alt + AltGr +",
-  "C+A+AGr+",
-  1792
-);
+const spanishCAAGTable = withModifiers(table, "Control + Alt + AltGr +", "C+A+AGr+", 1792);
 
 const spanishCASTable = withModifiers(table, "Meh +", "Meh+", 2816);
 
-const spanishCAGTable = withModifiers(
-  table,
-  "Control + Alt + Gui +",
-  "C+A+G+",
-  4864
-);
+const spanishCAGTable = withModifiers(table, "Control + Alt + Gui +", "C+A+G+", 4864);
 
-const spanishCAGSTable = withModifiers(
-  table,
-  "Control + AltGr + Shift +",
-  "C+AGr+S+",
-  3328
-);
+const spanishCAGSTable = withModifiers(table, "Control + AltGr + Shift +", "C+AGr+S+", 3328);
 
-const spanishCAGGTable = withModifiers(
-  table,
-  "Control + AltGr + Gui +",
-  "C+AGr+G+",
-  5376
-);
+const spanishCAGGTable = withModifiers(table, "Control + AltGr + Gui +", "C+AGr+G+", 5376);
 
-const spanishCSGTable = withModifiers(
-  table,
-  "Control + Shift + Gui +",
-  "C+S+G+",
-  6400
-);
+const spanishCSGTable = withModifiers(table, "Control + Shift + Gui +", "C+S+G+", 6400);
 
-const spanishAAGSTable = withModifiers(
-  table,
-  "Alt + AltGr + Shift +",
-  "A+AGr+S+",
-  3584
-);
+const spanishAAGSTable = withModifiers(table, "Alt + AltGr + Shift +", "A+AGr+S+", 3584);
 
-const spanishAAGGTable = withModifiers(
-  table,
-  "Alt + AltGr + Gui +",
-  "A+AGr+G+",
-  5632
-);
+const spanishAAGGTable = withModifiers(table, "Alt + AltGr + Gui +", "A+AGr+G+", 5632);
 
-const spanishASGTable = withModifiers(
-  table,
-  "Alt + Shift + Gui +",
-  "A+S+G+",
-  6656
-);
+const spanishASGTable = withModifiers(table, "Alt + Shift + Gui +", "A+S+G+", 6656);
 
-const spanishAGSGTable = withModifiers(
-  table,
-  "AltGr + Shift + Gui +",
-  "AGr+S+G+",
-  7168
-);
+const spanishAGSGTable = withModifiers(table, "AltGr + Shift + Gui +", "AGr+S+G+", 7168);
 
 // Quad
 
-const spanishCAAGrSTable = withModifiers(
-  table,
-  "Meh + AltGr +",
-  "M+AGr+",
-  3840
-);
+const spanishCAAGrSTable = withModifiers(table, "Meh + AltGr +", "M+AGr+", 3840);
 
-const spanishCAAGrGTable = withModifiers(
-  table,
-  "Control + Alt + AltGr + Gui +",
-  "C+A+AGr+G+",
-  5888
-);
+const spanishCAAGrGTable = withModifiers(table, "Control + Alt + AltGr + Gui +", "C+A+AGr+G+", 5888);
 
-const spanishCAGrSGTable = withModifiers(
-  table,
-  "Control + AltGr + Shift + Gui +",
-  "C+AGr+S+G+",
-  7424
-);
+const spanishCAGrSGTable = withModifiers(table, "Control + AltGr + Shift + Gui +", "C+AGr+S+G+", 7424);
 
-const spanishAAGrSGTable = withModifiers(
-  table,
-  "Alt + AltGr + Shift + Gui +",
-  "A+AGr+S+G+",
-  7680
-);
+const spanishAAGrSGTable = withModifiers(table, "Alt + AltGr + Shift + Gui +", "A+AGr+S+G+", 7680);
 
-const spanishAllModTable = withModifiers(
-  table,
-  "Hyper + AltGr +",
-  "H+AGr+",
-  7936
-);
+const spanishAllModTable = withModifiers(table, "Hyper + AltGr +", "H+AGr+", 7936);
 
 const DualUseCtrlTable = withModifiers(table, "Control /", "CTRL/", 49169);
 const DualUseShiftTable = withModifiers(table, "Shift /", "SHIFT/", 49425);

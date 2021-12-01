@@ -256,9 +256,7 @@ export default class LayerPanel extends React.Component {
             ) : (
               <React.Fragment>
                 <div className="left">{(idx + 1).toString() + ": " + name}</div>
-                <div className="right">
-                  {currentLayer === id && isReadOnly ? <MdLock /> : <></>}
-                </div>
+                <div className="right">{currentLayer === id && isReadOnly ? <MdLock /> : <></>}</div>
               </React.Fragment>
             )}
           </div>

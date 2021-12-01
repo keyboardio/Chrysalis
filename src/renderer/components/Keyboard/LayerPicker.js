@@ -74,15 +74,7 @@ export default class LayerPicker extends Component {
           x={key.x}
           y={key.y}
           selected={
-            isMovSel < 10
-              ? isMovSel == key.id
-                ? true
-                : false
-              : isShiftSel < 10
-              ? isShiftSel == key.id
-                ? true
-                : false
-              : false
+            isMovSel < 10 ? (isMovSel == key.id ? true : false) : isShiftSel < 10 ? (isShiftSel == key.id ? true : false) : false
           }
           clicked={() => {
             this.onKeyPress(key.id);

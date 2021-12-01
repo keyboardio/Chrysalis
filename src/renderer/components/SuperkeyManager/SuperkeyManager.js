@@ -154,8 +154,7 @@ class SuperkeyManager extends Component {
       keymapDB
     } = this.props;
 
-    if (!Array.isArray(superkeys) || superkeys.length === 0)
-      return <React.Fragment />;
+    if (!Array.isArray(superkeys) || superkeys.length === 0) return <React.Fragment />;
 
     return (
       <Styles>

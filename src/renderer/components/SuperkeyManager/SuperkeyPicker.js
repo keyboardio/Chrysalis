@@ -118,11 +118,7 @@ class SuperkeyPicker extends Component {
             onSelect={value => changeSelected(parseInt(value))}
           >
             {superkeys.map(item => (
-              <Dropdown.Item
-                eventKey={item.id}
-                key={`SKp-${item.id}`}
-                disabled={item.id == -1}
-              >
+              <Dropdown.Item eventKey={item.id} key={`SKp-${item.id}`} disabled={item.id == -1}>
                 <div className="menuitem">
                   <p>{`${item.id + 1} ${item.name}`}</p>
                 </div>
@@ -131,16 +127,10 @@ class SuperkeyPicker extends Component {
           </DropdownButton>
         </div>
         <div className="SKcontrols">
-          <Button
-            onClick={this.props.addSuperkey}
-            className="save-button fullheight"
-          >
+          <Button onClick={this.props.addSuperkey} className="save-button fullheight">
             <MdAdd className="iconAdd" />
           </Button>
-          <Button
-            onClick={this.props.deleteSuperkey}
-            className="save-button fullheight"
-          >
+          <Button onClick={this.props.deleteSuperkey} className="save-button fullheight">
             <MdDeleteForever className="iconDelete" />
           </Button>
         </div>

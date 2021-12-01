@@ -48,13 +48,7 @@ import swedishF from "../../../../static/swedish.png";
 import icelandicF from "../../../../static/icelandic.png";
 import norwegianF from "../../../../static/norwegian.png";
 
-import {
-  MdComputer,
-  MdBrightness3,
-  MdWbSunny,
-  MdStorage,
-  MdInfo
-} from "react-icons/md";
+import { MdComputer, MdBrightness3, MdWbSunny, MdStorage, MdInfo } from "react-icons/md";
 import { BsType, BsBrightnessHigh } from "react-icons/bs";
 import { BiMouse, BiCodeAlt, BiWrench } from "react-icons/bi";
 
@@ -248,10 +242,7 @@ class KeyboardSettings extends React.Component {
     });
 
     this.setState({
-      showDefaults:
-        store.get("settings.showDefaults") == undefined
-          ? false
-          : store.get("settings.showDefaults")
+      showDefaults: store.get("settings.showDefaults") == undefined ? false : store.get("settings.showDefaults")
     });
 
     // QUKEYS variables commands
@@ -475,8 +466,7 @@ class KeyboardSettings extends React.Component {
     const value = event.target.value;
 
     this.setState({
-      mouseSpeed:
-        parseInt(value) < 128 ? parseInt(value) : 128 - (parseInt(value) - 128),
+      mouseSpeed: parseInt(value) < 128 ? parseInt(value) : 128 - (parseInt(value) - 128),
       mouseSpeedDelay: Math.ceil(50 / parseInt(value)),
       modified: true
     });
@@ -497,8 +487,7 @@ class KeyboardSettings extends React.Component {
     const value = event.target.value;
 
     this.setState({
-      mouseAccelSpeed:
-        parseInt(value) < 128 ? parseInt(value) : 128 - (parseInt(value) - 128),
+      mouseAccelSpeed: parseInt(value) < 128 ? parseInt(value) : 128 - (parseInt(value) - 128),
       mouseAccelDelay: Math.ceil(50 / parseInt(value)),
       modified: true
     });
@@ -574,8 +563,7 @@ class KeyboardSettings extends React.Component {
     await focus.command("keymap.onlyCustom", keymap.onlyCustom);
     await focus.command("settings.defaultLayer", defaultLayer);
     await focus.command("led.brightness", ledBrightness);
-    if (ledIdleTimeLimit >= 0)
-      await focus.command("idleleds.time_limit", ledIdleTimeLimit);
+    if (ledIdleTimeLimit >= 0) await focus.command("idleleds.time_limit", ledIdleTimeLimit);
     store.set("settings.showDefaults", showDefaults);
     // QUKEYS
     await focus.command("qukeys.holdTimeout", qukeysHoldTimeout);
@@ -749,48 +737,12 @@ class KeyboardSettings extends React.Component {
       backupFolder,
       storeBackups
     } = this.state;
-    const {
-      selectDarkMode,
-      darkMode,
-      devToolsSwitch,
-      verboseSwitch
-    } = this.props;
+    const { selectDarkMode, darkMode, devToolsSwitch, verboseSwitch } = this.props;
 
-    const onlyCustomSwitch = (
-      <Form.Check
-        type="switch"
-        checked={keymap.onlyCustom}
-        onChange={this.setOnlyCustom}
-      />
-    );
-    const showDefaultLayersSwitch = (
-      <Form.Check
-        type="switch"
-        checked={showDefaults}
-        onChange={this.setShowDefaults}
-      />
-    );
-    let flags = [
-      englishUSUKF,
-      spanishF,
-      germanF,
-      frenchF,
-      swedishF,
-      danishF,
-      norwegianF,
-      icelandicF,
-      japaneseF
-    ];
-    let language = [
-      "english",
-      "spanish",
-      "german",
-      "french",
-      "swedish",
-      "danish",
-      "norwegian",
-      "icelandic"
-    ];
+    const onlyCustomSwitch = <Form.Check type="switch" checked={keymap.onlyCustom} onChange={this.setOnlyCustom} />;
+    const showDefaultLayersSwitch = <Form.Check type="switch" checked={showDefaults} onChange={this.setShowDefaults} />;
+    let flags = [englishUSUKF, spanishF, germanF, frenchF, swedishF, danishF, norwegianF, icelandicF, japaneseF];
+    let language = ["english", "spanish", "german", "french", "swedish", "danish", "norwegian", "icelandic"];
     let languages = language.map((item, index) => {
       return (
         <Dropdown.Item eventKey={item} key={index}>
@@ -800,22 +752,9 @@ class KeyboardSettings extends React.Component {
       );
     });
     const selectLanguage = (
-      <Dropdown
-        onSelect={this.changeLanguage}
-        value={selectedLanguage}
-        className="fullWidth"
-      >
+      <Dropdown onSelect={this.changeLanguage} value={selectedLanguage} className="fullWidth">
         <Dropdown.Toggle className="toggler">
-          <img
-            src={
-              flags[
-                language.flatMap((lang, i) =>
-                  lang === selectedLanguage ? i : []
-                )
-              ]
-            }
-            className="dygmaLogo flag-icon"
-          />
+          <img src={flags[language.flatMap((lang, i) => (lang === selectedLanguage ? i : []))]} className="dygmaLogo flag-icon" />
           {`${
             selectedLanguage != undefined && selectedLanguage != ""
               ? selectedLanguage[0].toUpperCase() + selectedLanguage.slice(1)
@@ -844,15 +783,9 @@ class KeyboardSettings extends React.Component {
       });
     }
     const defaultLayerSelect = (
-      <Dropdown
-        onSelect={this.selectDefaultLayer}
-        value={defaultLayer}
-        className="fullWidth"
-      >
+      <Dropdown onSelect={this.selectDefaultLayer} value={defaultLayer} className="fullWidth">
         <Dropdown.Toggle className="toggler">
-          {defaultLayer == 126
-            ? i18n.keyboardSettings.keymap.noDefault
-            : `Layer ${parseInt(defaultLayer) + 1}`}
+          {defaultLayer == 126 ? i18n.keyboardSettings.keymap.noDefault : `Layer ${parseInt(defaultLayer) + 1}`}
         </Dropdown.Toggle>
         <Dropdown.Menu className="dropdownMenu">
           {/* <Dropdown.Item key={"no-default"} eventKey={126}>
@@ -864,9 +797,7 @@ class KeyboardSettings extends React.Component {
     );
     const idleControl = (
       <Dropdown onSelect={this.selectIdleLEDTime} value={ledIdleTimeLimit}>
-        <Dropdown.Toggle className="toggler">
-          {ledIdleTimeLimit}
-        </Dropdown.Toggle>
+        <Dropdown.Toggle className="toggler">{ledIdleTimeLimit}</Dropdown.Toggle>
         <Dropdown.Menu className="dropdownMenu">
           <Dropdown.Item key={"no-idle"} eventKey={0}>
             {i18n.keyboardSettings.led.idleDisabled}
@@ -931,13 +862,7 @@ class KeyboardSettings extends React.Component {
           <span className="tagsfix">1 month</span>
         </Col>
         <Col xs={8} className="px-1">
-          <RangeSlider
-            min={1}
-            max={13}
-            value={storeBackups}
-            className="slider"
-            onChange={this.setStoreBackups}
-          />
+          <RangeSlider min={1} max={13} value={storeBackups} className="slider" onChange={this.setStoreBackups} />
         </Col>
         <Col xs={2} className="p-0 text-center">
           <span className="tagsfix">forever</span>
@@ -991,13 +916,7 @@ class KeyboardSettings extends React.Component {
           <span className="tagsfix">slow</span>
         </Col>
         <Col xs={8} md={10} className="px-2">
-          <RangeSlider
-            min={0}
-            max={95}
-            value={100 - SuperTimeout / 10}
-            className="slider"
-            onChange={this.setTyping}
-          />
+          <RangeSlider min={0} max={95} value={100 - SuperTimeout / 10} className="slider" onChange={this.setTyping} />
         </Col>
         <Col xs={2} md={1} className="p-0 text-center">
           <span className="tagsfix">fast</span>
@@ -1030,13 +949,7 @@ class KeyboardSettings extends React.Component {
           <span className="tagsfix">none</span>
         </Col>
         <Col xs={8} md={10} className="px-2">
-          <RangeSlider
-            min={0}
-            max={100}
-            value={qukeysOverlapThreshold}
-            className="slider"
-            onChange={this.setChording}
-          />
+          <RangeSlider min={0} max={100} value={qukeysOverlapThreshold} className="slider" onChange={this.setChording} />
         </Col>
         <Col xs={2} md={1} className="p-0 text-center">
           <span className="tagsfix">high</span>
@@ -1164,11 +1077,7 @@ class KeyboardSettings extends React.Component {
       </Row>
     );
     const darkModeSwitch = (
-      <Dropdown
-        onSelect={selectDarkMode}
-        value={darkMode}
-        className="fullWidth"
-      >
+      <Dropdown onSelect={selectDarkMode} value={darkMode} className="fullWidth">
         <Dropdown.Toggle className="toggler">
           {darkMode === "system" ? (
             <React.Fragment>
@@ -1224,9 +1133,7 @@ class KeyboardSettings extends React.Component {
                 <Card className="overflowFix cardStyle mt-4">
                   <Card.Title>
                     <BiWrench className="dygmaLogo" />
-                    <span className="va3fix">
-                      {i18n.keyboardSettings.keymap.title}
-                    </span>
+                    <span className="va3fix">{i18n.keyboardSettings.keymap.title}</span>
                   </Card.Title>
                   <Card.Body className="pb-0">
                     <Row>
@@ -1238,17 +1145,13 @@ class KeyboardSettings extends React.Component {
                       </Col>
                       <Col md={4}>
                         <Form.Group controlId="defaultLayer" className="m-0">
-                          <Form.Label>
-                            {i18n.keyboardSettings.keymap.defaultLayer}
-                          </Form.Label>
+                          <Form.Label>{i18n.keyboardSettings.keymap.defaultLayer}</Form.Label>
                           {defaultLayerSelect}
                         </Form.Group>
                       </Col>
                       <Col md={4}>
                         <Form.Group controlId="DarkMode" className="m-0">
-                          <Form.Label>
-                            {i18n.preferences.darkMode.label}
-                          </Form.Label>
+                          <Form.Label>{i18n.preferences.darkMode.label}</Form.Label>
                           {darkModeSwitch}
                         </Form.Group>
                       </Col>
@@ -1258,24 +1161,16 @@ class KeyboardSettings extends React.Component {
                 <Card className="overflowFix cardStyle mt-4 pb-0">
                   <Card.Title>
                     <MdStorage className="dygmaLogo" />
-                    <span className="va2fix">
-                      {i18n.keyboardSettings.backupFolder.header}
-                    </span>
+                    <span className="va2fix">{i18n.keyboardSettings.backupFolder.header}</span>
                   </Card.Title>
                   <Card.Body className="pb-0">
                     <Form.Group controlId="backupFolder" className="mb-3">
                       <Row>
-                        <Form.Label>
-                          {i18n.keyboardSettings.backupFolder.title}
-                        </Form.Label>
+                        <Form.Label>{i18n.keyboardSettings.backupFolder.title}</Form.Label>
                       </Row>
                       <Row className="mb-4">
                         <Col className="pl-0 pr-1">
-                          <Form.Control
-                            type="text"
-                            value={backupFolder}
-                            readOnly
-                          />
+                          <Form.Control type="text" value={backupFolder} readOnly />
                         </Col>
                         <Col xs={2} className="px-1">
                           {backupFolderButton}
@@ -1285,9 +1180,7 @@ class KeyboardSettings extends React.Component {
                         </Col>
                       </Row>
                       <Row>
-                        <Form.Label>
-                          {i18n.keyboardSettings.backupFolder.storeTime}
-                        </Form.Label>
+                        <Form.Label>{i18n.keyboardSettings.backupFolder.storeTime}</Form.Label>
                       </Row>
                       {backupControl}
                     </Form.Group>
@@ -1296,33 +1189,21 @@ class KeyboardSettings extends React.Component {
                 <Card className="overflowFix cardStyle mt-4 pb-0">
                   <Card.Title>
                     <BsBrightnessHigh className="dygmaLogo" />
-                    <span className="va2fix">
-                      {i18n.keyboardSettings.led.title}
-                    </span>
+                    <span className="va2fix">{i18n.keyboardSettings.led.title}</span>
                   </Card.Title>
                   <Card.Body className="pb-0">
                     {ledIdleTimeLimit >= 0 && (
-                      <Form.Group
-                        controlId="idleTimeLimit"
-                        className="formGroup"
-                      >
+                      <Form.Group controlId="idleTimeLimit" className="formGroup">
                         <Row>
-                          <Form.Label>
-                            {i18n.keyboardSettings.led.idleTimeLimit}
-                          </Form.Label>
+                          <Form.Label>{i18n.keyboardSettings.led.idleTimeLimit}</Form.Label>
                         </Row>
                         {newIdleControl}
                       </Form.Group>
                     )}
                     {ledBrightness >= 0 && (
-                      <Form.Group
-                        controlId="brightnessControl"
-                        className="formGroup"
-                      >
+                      <Form.Group controlId="brightnessControl" className="formGroup">
                         <Row>
-                          <Form.Label>
-                            {i18n.keyboardSettings.led.brightness}
-                          </Form.Label>
+                          <Form.Label>{i18n.keyboardSettings.led.brightness}</Form.Label>
                         </Row>
                         {brightnessControl}
                       </Form.Group>
@@ -1346,9 +1227,7 @@ class KeyboardSettings extends React.Component {
                         <Col xs={4} className="p-0">
                           <Form.Group controlId="Verbose" className="devfix">
                             {verboseSwitch}
-                            <Form.Label>
-                              {i18n.preferences.verboseFocus}
-                            </Form.Label>
+                            <Form.Label>{i18n.preferences.verboseFocus}</Form.Label>
                           </Form.Group>
                         </Col>
                       </Row>
@@ -1365,16 +1244,11 @@ class KeyboardSettings extends React.Component {
                 <Card className="overflowFix cardStyle mt-4 pb-0">
                   <Card.Title>
                     <BsType className="dygmaLogo" />
-                    <span className="va3fix">
-                      {i18n.keyboardSettings.superkeys.title}
-                    </span>
+                    <span className="va3fix">{i18n.keyboardSettings.superkeys.title}</span>
                   </Card.Title>
                   <Card.Body className="pb-0">
                     {SuperTimeout >= 0 && (
-                      <Form.Group
-                        controlId="superTimeout"
-                        className="formGroup"
-                      >
+                      <Form.Group controlId="superTimeout" className="formGroup">
                         <Row>
                           <Form.Label>
                             {i18n.keyboardSettings.superkeys.timeout}
@@ -1397,10 +1271,7 @@ class KeyboardSettings extends React.Component {
                       </Form.Group>
                     )}
                     {SuperHoldstart >= 0 && (
-                      <Form.Group
-                        controlId="superHoldstart"
-                        className="formGroup"
-                      >
+                      <Form.Group controlId="superHoldstart" className="formGroup">
                         <Row>
                           <Form.Label>
                             {i18n.keyboardSettings.superkeys.holdstart}
@@ -1427,30 +1298,21 @@ class KeyboardSettings extends React.Component {
                 <Card className="overflowFix cardStyle mt-4 pb-0">
                   <Card.Title>
                     <BiMouse className="dygmaLogo" />
-                    <span className="va2fix">
-                      {i18n.keyboardSettings.mouse.title}
-                    </span>
+                    <span className="va2fix">{i18n.keyboardSettings.mouse.title}</span>
                   </Card.Title>
                   <Card.Body className="pb-0">
                     {mouseSpeed >= 0 && (
                       <Form.Group controlId="mouseSpeed" className="formGroup">
                         <Row>
-                          <Form.Label>
-                            {i18n.keyboardSettings.mouse.speed}
-                          </Form.Label>
+                          <Form.Label>{i18n.keyboardSettings.mouse.speed}</Form.Label>
                         </Row>
                         {mSpeed}
                       </Form.Group>
                     )}
                     {mouseAccelSpeed >= 0 && (
-                      <Form.Group
-                        controlId="mousemAccelS"
-                        className="formGroup"
-                      >
+                      <Form.Group controlId="mousemAccelS" className="formGroup">
                         <Row>
-                          <Form.Label>
-                            {i18n.keyboardSettings.mouse.accelSpeed}
-                          </Form.Label>
+                          <Form.Label>{i18n.keyboardSettings.mouse.accelSpeed}</Form.Label>
                         </Row>
                         {mAccelS}
                       </Form.Group>
@@ -1458,22 +1320,15 @@ class KeyboardSettings extends React.Component {
                     {mouseSpeedLimit >= 0 && (
                       <Form.Group controlId="mouseSpeedL" className="formGroup">
                         <Row>
-                          <Form.Label>
-                            {i18n.keyboardSettings.mouse.speedLimit}
-                          </Form.Label>
+                          <Form.Label>{i18n.keyboardSettings.mouse.speedLimit}</Form.Label>
                         </Row>
                         {mSpeedL}
                       </Form.Group>
                     )}
                     {mouseWheelSpeed >= 0 && (
-                      <Form.Group
-                        controlId="mousemWheelS"
-                        className="formGroup"
-                      >
+                      <Form.Group controlId="mousemWheelS" className="formGroup">
                         <Row>
-                          <Form.Label>
-                            {i18n.keyboardSettings.mouse.wheelSpeed}
-                          </Form.Label>
+                          <Form.Label>{i18n.keyboardSettings.mouse.wheelSpeed}</Form.Label>
                         </Row>
                         {mWheelS}
                       </Form.Group>
@@ -1485,11 +1340,7 @@ class KeyboardSettings extends React.Component {
           </Container>
         </Form>
         <div className="save-holder">
-          <SaveChangesButton
-            onClick={this.saveKeymapChanges}
-            disabled={!modified}
-            centered={true}
-          >
+          <SaveChangesButton onClick={this.saveKeymapChanges} disabled={!modified} centered={true}>
             {i18n.components.save.savePreferences}
           </SaveChangesButton>
         </div>
@@ -1528,12 +1379,7 @@ class AdvancedKeyboardSettings extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Button
-          disabled={this.state.working}
-          variant="contained"
-          color="secondary"
-          onClick={this.openEEPROMClearConfirmation}
-        >
+        <Button disabled={this.state.working} variant="contained" color="secondary" onClick={this.openEEPROMClearConfirmation}>
           {i18n.keyboardSettings.resetEEPROM.button}
         </Button>
         <ConfirmationDialog

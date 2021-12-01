@@ -153,8 +153,7 @@ const English = {
       successFlash: "Succesfully sent the macros to the Raise",
       deleteModal: {
         title: "This macro is in use",
-        body:
-          "The macro you want to delete is currently in use, select how to proceed, THIS MAKES PERMANENT CHANGES.",
+        body: "The macro you want to delete is currently in use, select how to proceed, THIS MAKES PERMANENT CHANGES.",
         cancelButton: "Cancel",
         applyButton: "Update Keyboard"
       }
@@ -198,18 +197,15 @@ const English = {
       successFlash: "Succesfully sent the superkeys to the Raise",
       deleteModal: {
         title: "This superkey is in use",
-        body:
-          "The superkey you want to delete is currently in use, by pressing remove you will replace those superkeys with NO KEY on the keyboard layout. Select how to proceed.",
+        body: "The superkey you want to delete is currently in use, by pressing remove you will replace those superkeys with NO KEY on the keyboard layout. Select how to proceed.",
         cancelButton: "Cancel",
         applyButton: "Remove"
       }
     },
     oldMacroModal: {
       title: "Update your macros",
-      body:
-        "The macros in your layout need to be updated to work on this Bazecor version.",
-      body2:
-        "Please note that the updated macro codes won't work until you flash the new firmware",
+      body: "The macros in your layout need to be updated to work on this Bazecor version.",
+      body2: "Please note that the updated macro codes won't work until you flash the new firmware",
       cancelButton: "Cancel",
       applyButton: "Update Macros"
     },
@@ -262,8 +258,7 @@ const English = {
       selectButtonText: "Change",
       restoreButtonText: "Restore backup",
       storeTime: "Backup storage period",
-      storeTimeTip:
-        "Determines how long a backup is stored before being deleted"
+      storeTimeTip: "Determines how long a backup is stored before being deleted"
     },
     keymap: {
       title: "GENERAL",
@@ -295,8 +290,7 @@ const English = {
       title: "DUAL FUNCTION KEY PARAMETERS",
       holdTimeout: "Adjust time to start 'when held' action",
       holdTimeoutsub: " - From 0 to 65,534 milliseconds",
-      overlapThreshold:
-        "Adjust overlap threshold between dual-function key and subsequent key",
+      overlapThreshold: "Adjust overlap threshold between dual-function key and subsequent key",
       overlapThresholdsub: " - Percentage from 0 to 100"
     },
     superkeys: {
@@ -305,22 +299,18 @@ const English = {
       timeoutTip1: "This setting only affects Layer&Key and Superkeys.",
       timeoutTip2:
         "- If you select a slow typing speed, some functions of Layer&Key and Superkeys will take slightly more time to trigger.",
-      timeoutTip3:
-        "- For example, holding the key to switch to a layer or activate a modifier (like Shift, Control...).",
+      timeoutTip3: "- For example, holding the key to switch to a layer or activate a modifier (like Shift, Control...).",
       timeoutTip4:
         "- If you choose a fast typing speed, you might activate those actions by mistake if you 'linger' too much on the key.",
       chordingTip1: "This setting only affects Layer&Key.",
-      chordingTip2:
-        "Let's say you have a Layer&Key with 'Layer 1' on hold and 'Space' on tap.",
+      chordingTip2: "Let's say you have a Layer&Key with 'Layer 1' on hold and 'Space' on tap.",
       chordingTip3:
         "- If the slider is at 'None' and you press another key before completely releasing the Space, this will trigger the hold function.",
-      chordingTip4:
-        "- If the slider is at 'High', it'll take a bit more time for the hold function to activate.",
+      chordingTip4: "- If the slider is at 'High', it'll take a bit more time for the hold function to activate.",
       repeat:
         "Adjust repeat time interval between the emmision of holded keys after waitfor period. (this doesn't affect all keys)",
       repeatsub: " - time from 0 to 254 milliseconds",
-      waitfor:
-        "Adjust time between first and subsequent emmisions of the hold keys",
+      waitfor: "Adjust time between first and subsequent emmisions of the hold keys",
       waitforsub: " - time from 0 to 65,534 milliseconds",
       holdstart: "Chording while typing",
       holdstartsub: " - time from 0 to 65,534 milliseconds",
@@ -333,22 +323,19 @@ const English = {
       subtitle1: "MOUSE SPEED",
       speed: "Cursor speed",
       speedsub: " - From 0 to 254 pixels",
-      speedDelay:
-        "Delay between steps (the higher the number, the slower the mouse movement)",
+      speedDelay: "Delay between steps (the higher the number, the slower the mouse movement)",
       speedDelaysub: " - From 0 to 65,534 milliseconds",
       speedLimit: "Maximum cursor speed",
       speedLimitsub: " - From 0 to 254 pixels",
       subtitle2: "MOUSE ACCELERATION",
       accelSpeed: "Cursor acceleration",
       accelSpeedsub: " - From 0 to 254 pixels",
-      accelDelay:
-        "Acceleration delay between steps (the higher the number, the slower the mouse movement)",
+      accelDelay: "Acceleration delay between steps (the higher the number, the slower the mouse movement)",
       accelDelaysub: " - From 0 to 65,534 milliseconds",
       subtitle3: "WHEEL SPEED",
       wheelSpeed: "Wheel speed",
       wheelSpeedsub: " - From 0 to 254 pixels",
-      wheelDelay:
-        "Wheel delay between steps (the higher the number, the slower the mouse movement)",
+      wheelDelay: "Wheel delay between steps (the higher the number, the slower the mouse movement)",
       wheelDelaysub: " - From 0 to 65,534 milliseconds"
     },
     advancedOps: "Advanced keyboard settings & operations",
@@ -385,28 +372,20 @@ const English = {
         "During the update, the Neuron will pulse a blue pattern followed by a flash of multiple colors for a few seconds.",
       disclaimerCard2:
         "If the firmware update process isn't successful, don't worry. It won't damage your Raise, but you will need to repeat the process.",
-      disclaimerCard3:
-        "Click Next to backup your layers and settings, and start the firmware update process.",
-      flashCardTitle1:
-        "Press and hold the top left key to start the firmware update.",
+      disclaimerCard3: "Click Next to backup your layers and settings, and start the firmware update process.",
+      flashCardTitle1: "Press and hold the top left key to start the firmware update.",
       flashCardTitle2: "Don't release the key until the process finishes.",
-      flashCardHelp:
-        "Why do I need to press and hold a key when updating the Raise firmware?",
+      flashCardHelp: "Why do I need to press and hold a key when updating the Raise firmware?",
       flashCardOverlay1: "*Why do I need to press and hold the key?",
-      flashCardOverlay2:
-        "When updating the firmware, we require the user to physically press and hold a key",
-      flashCardOverlay3:
-        "in order for the Firmware to be loaded. This is for security reasons.",
-      flashCardOverlay4:
-        "The update process is designed so that it will never be triggered accidentally.",
-      flashCardOverlay5:
-        "This makes the keyboard secure against undesired firmware modifications.",
+      flashCardOverlay2: "When updating the firmware, we require the user to physically press and hold a key",
+      flashCardOverlay3: "in order for the Firmware to be loaded. This is for security reasons.",
+      flashCardOverlay4: "The update process is designed so that it will never be triggered accidentally.",
+      flashCardOverlay5: "This makes the keyboard secure against undesired firmware modifications.",
       progressCardStatus1: "Hold the key",
       progressCardStatus2: "Flashing!",
       progressCardStatus3: "Release the key",
       progressCardBar: "Updating the firmware ...",
-      progressCardTitle1:
-        "Press and hold the top left key to start the firmware update.",
+      progressCardTitle1: "Press and hold the top left key to start the firmware update.",
       progressCardTitle2: "Don't release the key until the process finishes.",
       currentlyRunningCardTitle: "Your Raise's firmware version is",
       latestAvailableText: "Latest available version is v"

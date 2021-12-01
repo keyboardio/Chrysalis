@@ -157,8 +157,7 @@ const Styles = Styled.div`
               text-align: center;
             }
             .key-icon {
-              background-color: ${({ theme }) =>
-                theme.colors.button.background} !important;
+              background-color: ${({ theme }) => theme.colors.button.background} !important;
               border-radius: 100%;
               padding: 0;
               max-width: 50px;
@@ -179,8 +178,7 @@ const Styles = Styled.div`
               color: rgba(140,140,140,0.8) !important;
             }
             a:hover {
-              background-color: ${({ theme }) =>
-                theme.colors.button.hover} !important;
+              background-color: ${({ theme }) => theme.colors.button.hover} !important;
             }
             .dropdown-item {
               display: inherit;
@@ -288,11 +286,7 @@ class FirmwareUpdate extends React.Component {
     //     this.state.backup.length == this.state.commands.length &&
     //     this.state.commands.length > 0
     // );
-    if (
-      !this.state.backupDone &&
-      this.state.backup.length == this.state.commands.length &&
-      this.state.commands.length > 0
-    ) {
+    if (!this.state.backupDone && this.state.backup.length == this.state.commands.length && this.state.commands.length > 0) {
       this.setState({ backupDone: true, countdown: 1 });
       await this.bkp.SaveBackup(this.state.backup);
       await this.putEscKey(this.state.backup[0]);
@@ -391,11 +385,7 @@ class FirmwareUpdate extends React.Component {
       }
       await focus.close();
       console.log("done closing focus");
-      return await this.state.device.device.flash(
-        focus._port,
-        filename,
-        this.flashRaise
-      );
+      return await this.state.device.device.flash(focus._port, filename, this.flashRaise);
     } catch (e) {
       console.error(e);
     }
@@ -444,9 +434,7 @@ class FirmwareUpdate extends React.Component {
                 style={styles.toastButton1}
                 onClick={() => {
                   const shell = Electron.remote && Electron.remote.shell;
-                  shell.openExternal(
-                    "https://support.dygma.com/hc/en-us/articles/360017056397"
-                  );
+                  shell.openExternal("https://support.dygma.com/hc/en-us/articles/360017056397");
                 }}
               >
                 Troubleshooting
@@ -492,8 +480,7 @@ class FirmwareUpdate extends React.Component {
       // if (!focus.device.bootloader) {
       //   await this.flashRaise.backupSettings();
       // }
-      if (this.state.versions)
-        this.setState({ countdown: 0, backupDone: false, backup: [] });
+      if (this.state.versions) this.setState({ countdown: 0, backupDone: false, backup: [] });
       else {
         this.setState({ countdown: 2, flashProgress: 10 });
         this.upload();
@@ -533,9 +520,7 @@ class FirmwareUpdate extends React.Component {
                 style={styles.toastButton1}
                 onClick={() => {
                   const shell = Electron.remote && Electron.remote.shell;
-                  shell.openExternal(
-                    "https://support.dygma.com/hc/en-us/articles/360007272638"
-                  );
+                  shell.openExternal("https://support.dygma.com/hc/en-us/articles/360007272638");
                 }}
               >
                 Troubleshooting
@@ -570,15 +555,7 @@ class FirmwareUpdate extends React.Component {
   };
 
   render() {
-    const {
-      firmwareFilename,
-      buttonText,
-      countdown,
-      isBeginUpdate,
-      versions,
-      firmwareDropdown,
-      flashProgress
-    } = this.state;
+    const { firmwareFilename, buttonText, countdown, isBeginUpdate, versions, firmwareDropdown, flashProgress } = this.state;
 
     let filename = null;
     if (firmwareFilename) {
@@ -586,26 +563,15 @@ class FirmwareUpdate extends React.Component {
       filename = filename[filename.length - 1];
     }
 
-    let latestAvailable = (
-      <h5 className="title thintext">{`${i18n.firmwareUpdate.texts.latestAvailableText}${fwVersion}`}</h5>
-    );
+    let latestAvailable = <h5 className="title thintext">{`${i18n.firmwareUpdate.texts.latestAvailableText}${fwVersion}`}</h5>;
 
     let currentlyRunning;
     if (versions) {
       currentlyRunning = (
         <React.Fragment>
-          <Card
-            bg={versions.bazecor != `v${fwVersion}` ? "warning" : "success"}
-            className="version"
-          >
-            <Card.Body
-              className={
-                versions.bazecor != `v${fwVersion}` ? "body" : "white body"
-              }
-            >
-              <Card.Title className="title">
-                {i18n.firmwareUpdate.texts.currentlyRunningCardTitle}
-              </Card.Title>
+          <Card bg={versions.bazecor != `v${fwVersion}` ? "warning" : "success"} className="version">
+            <Card.Body className={versions.bazecor != `v${fwVersion}` ? "body" : "white body"}>
+              <Card.Title className="title">{i18n.firmwareUpdate.texts.currentlyRunningCardTitle}</Card.Title>
               <Card.Text className="text">{versions.bazecor}</Card.Text>
             </Card.Body>
           </Card>
@@ -615,9 +581,7 @@ class FirmwareUpdate extends React.Component {
     const progress = (
       <Card className="firmware-card">
         <Card.Header className="header">
-          {versions
-            ? i18n.firmwareUpdate.texts.versionExists
-            : i18n.firmwareUpdate.texts.versionNotExists}
+          {versions ? i18n.firmwareUpdate.texts.versionExists : i18n.firmwareUpdate.texts.versionNotExists}
         </Card.Header>
 
         {countdown > 1 ? (
@@ -637,21 +601,13 @@ class FirmwareUpdate extends React.Component {
         ) : (
           <React.Fragment>
             <Card.Body className="body d-flex flex-column justify-content-center">
-              <Card.Title>
-                {i18n.firmwareUpdate.texts.progressCardTitle1}
-              </Card.Title>
-              <Card.Title>
-                {i18n.firmwareUpdate.texts.progressCardTitle2}
-              </Card.Title>
+              <Card.Title>{i18n.firmwareUpdate.texts.progressCardTitle1}</Card.Title>
+              <Card.Title>{i18n.firmwareUpdate.texts.progressCardTitle2}</Card.Title>
             </Card.Body>
             <Card.Img variant="bottom" src={escimg} />
             <Row className="mt-auto">
               <Col className="flashingcol">
-                <Button
-                  className="custombutton outlined "
-                  size="lg"
-                  onClick={this.cancelDialog}
-                >
+                <Button className="custombutton outlined " size="lg" onClick={this.cancelDialog}>
                   {i18n.firmwareUpdate.texts.cancel}
                 </Button>
               </Col>
@@ -664,9 +620,7 @@ class FirmwareUpdate extends React.Component {
     const flashCard = (
       <Card className="firmware-card">
         <Card.Header className="header">
-          {versions
-            ? i18n.firmwareUpdate.texts.versionExists
-            : i18n.firmwareUpdate.texts.versionNotExists}
+          {versions ? i18n.firmwareUpdate.texts.versionExists : i18n.firmwareUpdate.texts.versionNotExists}
         </Card.Header>
         <Card.Body className="body d-flex flex-column justify-content-center">
           <Card.Title>{i18n.firmwareUpdate.texts.flashCardTitle1}</Card.Title>
@@ -693,11 +647,7 @@ class FirmwareUpdate extends React.Component {
         </Card.Body>
         <Row className="mt-auto">
           <Col className="flashingcol">
-            <Button
-              className="custombutton outlined "
-              size="lg"
-              onClick={this.cancelDialog}
-            >
+            <Button className="custombutton outlined " size="lg" onClick={this.cancelDialog}>
               {i18n.firmwareUpdate.texts.cancel}
             </Button>
           </Col>
@@ -708,37 +658,21 @@ class FirmwareUpdate extends React.Component {
     const disclaimerCard = (
       <Card className="firmware-card">
         <Card.Header className="header">
-          {versions
-            ? i18n.firmwareUpdate.texts.versionExists
-            : i18n.firmwareUpdate.texts.versionNotExists}
+          {versions ? i18n.firmwareUpdate.texts.versionExists : i18n.firmwareUpdate.texts.versionNotExists}
         </Card.Header>
         <Card.Body className="body d-flex flex-column">
-          <p className="thintext">
-            {i18n.firmwareUpdate.texts.disclaimerCard1}
-          </p>
-          <p className="thintext">
-            {i18n.firmwareUpdate.texts.disclaimerCard2}
-          </p>
-          <p className="thintext">
-            {i18n.firmwareUpdate.texts.disclaimerCard3}
-          </p>
+          <p className="thintext">{i18n.firmwareUpdate.texts.disclaimerCard1}</p>
+          <p className="thintext">{i18n.firmwareUpdate.texts.disclaimerCard2}</p>
+          <p className="thintext">{i18n.firmwareUpdate.texts.disclaimerCard3}</p>
         </Card.Body>
         <Row className="mt-auto">
           <Col xs={6} className="flashingcol">
-            <Button
-              className="custombutton outlined "
-              size="lg"
-              onClick={this.cancelDialog}
-            >
+            <Button className="custombutton outlined " size="lg" onClick={this.cancelDialog}>
               {i18n.firmwareUpdate.texts.backwds}
             </Button>
           </Col>
           <Col xs={6} className="flashingcol">
-            <Button
-              className="flashingbutton nooutlined"
-              size="lg"
-              onClick={this.backup}
-            >
+            <Button className="flashingbutton nooutlined" size="lg" onClick={this.backup}>
               {countdown > -1 ? buttonText[countdown] : buttonText[""]}
             </Button>
           </Col>
@@ -761,14 +695,8 @@ class FirmwareUpdate extends React.Component {
             {i18n.firmwareUpdate.texts.advUsersText3}
           </i>
         </p>
-        <Button
-          className="custombutton mb-3 outlined"
-          size="lg"
-          onClick={this.selectFirmware}
-        >
-          {firmwareFilename == ""
-            ? i18n.firmwareUpdate.custom
-            : i18n.firmwareUpdate.rcustom}
+        <Button className="custombutton mb-3 outlined" size="lg" onClick={this.selectFirmware}>
+          {firmwareFilename == "" ? i18n.firmwareUpdate.custom : i18n.firmwareUpdate.rcustom}
         </Button>
         {firmwareFilename}
       </Card.Body>
@@ -779,25 +707,18 @@ class FirmwareUpdate extends React.Component {
     const statusCard = (
       <Card className="firmware-card">
         <Card.Header className="header">
-          {versions
-            ? i18n.firmwareUpdate.texts.versionExists
-            : i18n.firmwareUpdate.texts.versionNotExists}
+          {versions ? i18n.firmwareUpdate.texts.versionExists : i18n.firmwareUpdate.texts.versionNotExists}
         </Card.Header>
         <Card.Body className="body d-flex flex-column">
           <Card.Title className="title">
-            Updating your Raise firmware is how we implement new cool features
-            and bug fixes.
+            Updating your Raise firmware is how we implement new cool features and bug fixes.
           </Card.Title>
           {currentlyRunning}
           {latestAvailable}
         </Card.Body>
         <Row className="mt-auto">
           <Col xs={6} className="flashingcol">
-            <Button
-              className="custombutton outlined pr-1"
-              size="lg"
-              onClick={this.toggleAdvanced}
-            >
+            <Button className="custombutton outlined pr-1" size="lg" onClick={this.toggleAdvanced}>
               {i18n.firmwareUpdate.texts.advUsers}
               <MdArrowDropDown className="arrowicon"></MdArrowDropDown>
             </Button>
@@ -806,11 +727,7 @@ class FirmwareUpdate extends React.Component {
             <Button
               className="flashingbutton nooutlined"
               size="lg"
-              onClick={
-                this.state.device.device.info.product === "Raise"
-                  ? this.uploadRaise
-                  : this.upload
-              }
+              onClick={this.state.device.device.info.product === "Raise" ? this.uploadRaise : this.upload}
             >
               {i18n.firmwareUpdate.flashing.button}
             </Button>
@@ -820,14 +737,7 @@ class FirmwareUpdate extends React.Component {
       </Card>
     );
 
-    let showCard =
-      countdown == -1
-        ? statusCard
-        : countdown == 0
-        ? disclaimerCard
-        : countdown == 1
-        ? flashCard
-        : progress;
+    let showCard = countdown == -1 ? statusCard : countdown == 0 ? disclaimerCard : countdown == 1 ? flashCard : progress;
 
     return (
       <Styles>

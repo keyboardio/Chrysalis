@@ -169,9 +169,4 @@ const MouseWarpTable = {
   ]
 };
 
-export {
-  MouseMovementTable,
-  MouseWheelTable,
-  MouseButtonTable,
-  MouseWarpTable
-};
+export { MouseMovementTable, MouseWheelTable, MouseButtonTable, MouseWarpTable };

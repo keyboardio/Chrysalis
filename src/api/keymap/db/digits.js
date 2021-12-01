@@ -183,19 +183,9 @@ const ModifiedDigitTables = [
 
   // Quad
   withModifiers(DigitTable, "Meh + AltGr +", "M+AGr+", 3840),
-  withModifiers(
-    DigitTable,
-    "Control + Alt + AltGr + Gui +",
-    "C+A+AGr+G+",
-    5888
-  ),
+  withModifiers(DigitTable, "Control + Alt + AltGr + Gui +", "C+A+AGr+G+", 5888),
   withModifiers(DigitTable, "Hyper +", "Hyper+", 6912),
-  withModifiers(
-    DigitTable,
-    "Control + AltGr + Shift + Gui +",
-    "C+AGr+S+G+",
-    7424
-  ),
+  withModifiers(DigitTable, "Control + AltGr + Shift + Gui +", "C+AGr+S+G+", 7424),
   withModifiers(DigitTable, "Alt + AltGr + Shift + Gui +", "A+AGr+S+G+", 7680),
 
   // All

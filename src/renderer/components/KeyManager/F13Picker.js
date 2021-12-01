@@ -76,11 +76,7 @@ class F13Picker extends Component {
         >
           {f13.map((x, id) => {
             return (
-              <Dropdown.Item
-                eventKey={x.keynum}
-                key={`F13-${id}`}
-                disabled={x.keynum == -1}
-              >
+              <Dropdown.Item eventKey={x.keynum} key={`F13-${id}`} disabled={x.keynum == -1}>
                 <div className="menuitem">
                   <p>{x.name}</p>
                 </div>

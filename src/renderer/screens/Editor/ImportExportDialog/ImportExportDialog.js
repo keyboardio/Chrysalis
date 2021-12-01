@@ -58,9 +58,7 @@ export const ImportExportDialog = props => {
 
   function onConfirm() {
     try {
-      isChange
-        ? props.onConfirm(JSON.parse(data))
-        : toCloseImportExportDialog();
+      isChange ? props.onConfirm(JSON.parse(data)) : toCloseImportExportDialog();
       setData(undefined);
       setIsChange(false);
     } catch (e) {
@@ -177,17 +175,10 @@ export const ImportExportDialog = props => {
   }
 
   return (
-    <Dialog
-      disableBackdropClick
-      open={props.open}
-      onClose={onCancel}
-      fullScreen
-    >
+    <Dialog disableBackdropClick open={props.open} onClose={onCancel} fullScreen>
       <DialogTitle>{i18n.editor.importExport}</DialogTitle>
       <DialogContent>
-        <Typography variant="body1">
-          {i18n.editor.importExportDescription}
-        </Typography>
+        <Typography variant="body1">{i18n.editor.importExportDescription}</Typography>
         <div
           style={{
             display: "flex",

@@ -19,12 +19,7 @@ import React, { Fragment } from "react";
 
 import { MdAccountCircle } from "react-icons/md";
 
-export default function WelcomeMenu({
-  selected,
-  userMenu,
-  onClick,
-  drawerWidth
-}) {
+export default function WelcomeMenu({ selected, userMenu, onClick, drawerWidth }) {
   return (
     <div onClick={onClick} className={"item-list"}>
       <div className="icon-item">

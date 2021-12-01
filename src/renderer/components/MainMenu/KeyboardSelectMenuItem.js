@@ -20,14 +20,7 @@ import React, { Fragment } from "react";
 
 import { MdKeyboardHide } from "react-icons/md";
 
-export default function KeyboardMenuItem({
-  keyboardSelectText,
-  onClick,
-  selected,
-  className,
-  classIcon,
-  drawerWidth
-}) {
+export default function KeyboardMenuItem({ keyboardSelectText, onClick, selected, className, classIcon, drawerWidth }) {
   return (
     <div onClick={onClick} className={"item-list"}>
       <div className="icon-item">

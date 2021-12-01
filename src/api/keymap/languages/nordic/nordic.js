@@ -356,23 +356,13 @@ const tableWithoutModifier = { keys: nordicLetters };
 const nordicCtrlTable = withModifiers(table, "Control +", "C+", 256);
 const nordicLAltTable = withModifiers(table, "Alt +", "A+", 512);
 const nordicRAltTable = withModifiers(table, "AltGr +", "AGr+", 1024);
-const nordicShiftTable = withModifiers(
-  tableWithoutModifier,
-  "Shift +",
-  "S+",
-  2048
-);
+const nordicShiftTable = withModifiers(tableWithoutModifier, "Shift +", "S+", 2048);
 const nordicGuiTable = withModifiers(table, "Gui +", "G+", 4096);
 // Double
 
 const nordicCATable = withModifiers(table, "Control + Alt +", "C+A+", 768);
 
-const nordicCAGrTable = withModifiers(
-  table,
-  "Control + AltGr +",
-  "C+AGr+",
-  1280
-);
+const nordicCAGrTable = withModifiers(table, "Control + AltGr +", "C+AGr+", 1280);
 
 const nordicCSTable = withModifiers(table, "Control + Shift +", "C+S+", 2304);
 
@@ -392,102 +382,37 @@ const nordicSGTable = withModifiers(table, "Shift + Gui +", "S+G+", 6144);
 
 // Triple
 
-const nordicCAAGTable = withModifiers(
-  table,
-  "Control + Alt + AltGr +",
-  "C+A+AGr+",
-  1792
-);
+const nordicCAAGTable = withModifiers(table, "Control + Alt + AltGr +", "C+A+AGr+", 1792);
 
 const nordicCASTable = withModifiers(table, "Meh +", "Meh+", 2816);
 
-const nordicCAGTable = withModifiers(
-  table,
-  "Control + Alt + Gui +",
-  "C+A+G+",
-  4864
-);
+const nordicCAGTable = withModifiers(table, "Control + Alt + Gui +", "C+A+G+", 4864);
 
-const nordicCAGSTable = withModifiers(
-  table,
-  "Control + AltGr + Shift +",
-  "C+AGr+S+",
-  3328
-);
+const nordicCAGSTable = withModifiers(table, "Control + AltGr + Shift +", "C+AGr+S+", 3328);
 
-const nordicCAGGTable = withModifiers(
-  table,
-  "Control + AltGr + Gui +",
-  "C+AGr+G+",
-  5376
-);
+const nordicCAGGTable = withModifiers(table, "Control + AltGr + Gui +", "C+AGr+G+", 5376);
 
-const nordicCSGTable = withModifiers(
-  table,
-  "Control + Shift + Gui +",
-  "C+S+G+",
-  6400
-);
+const nordicCSGTable = withModifiers(table, "Control + Shift + Gui +", "C+S+G+", 6400);
 
-const nordicAAGSTable = withModifiers(
-  table,
-  "Alt + AltGr + Shift +",
-  "A+AGr+S+",
-  3584
-);
+const nordicAAGSTable = withModifiers(table, "Alt + AltGr + Shift +", "A+AGr+S+", 3584);
 
-const nordicAAGGTable = withModifiers(
-  table,
-  "Alt + AltGr + Gui +",
-  "A+AGr+G+",
-  5632
-);
+const nordicAAGGTable = withModifiers(table, "Alt + AltGr + Gui +", "A+AGr+G+", 5632);
 
-const nordicASGTable = withModifiers(
-  table,
-  "Alt + Shift + Gui +",
-  "A+S+G+",
-  6656
-);
+const nordicASGTable = withModifiers(table, "Alt + Shift + Gui +", "A+S+G+", 6656);
 
-const nordicAGSGTable = withModifiers(
-  table,
-  "AltGr + Shift + Gui +",
-  "AGr+S+G+",
-  7168
-);
+const nordicAGSGTable = withModifiers(table, "AltGr + Shift + Gui +", "AGr+S+G+", 7168);
 
 // Quad
 
 const nordicCAAGrSTable = withModifiers(table, "Meh + AltGr +", "M+AGr+", 3840);
 
-const nordicCAAGrGTable = withModifiers(
-  table,
-  "Control + Alt + AltGr + Gui +",
-  "C+A+AGr+G+",
-  5888
-);
+const nordicCAAGrGTable = withModifiers(table, "Control + Alt + AltGr + Gui +", "C+A+AGr+G+", 5888);
 
-const nordicCAGrSGTable = withModifiers(
-  table,
-  "Control + AltGr + Shift + Gui +",
-  "C+AGr+S+G+",
-  7424
-);
+const nordicCAGrSGTable = withModifiers(table, "Control + AltGr + Shift + Gui +", "C+AGr+S+G+", 7424);
 
-const nordicAAGrSGTable = withModifiers(
-  table,
-  "Alt + AltGr + Shift + Gui +",
-  "A+AGr+S+G+",
-  7680
-);
+const nordicAAGrSGTable = withModifiers(table, "Alt + AltGr + Shift + Gui +", "A+AGr+S+G+", 7680);
 
-const nordicAllModTable = withModifiers(
-  table,
-  "Hyper + AltGr +",
-  "H+AGr+",
-  7936
-);
+const nordicAllModTable = withModifiers(table, "Hyper + AltGr +", "H+AGr+", 7936);
 
 const DualUseCtrlTable = withModifiers(table, "Control /", "CTRL/", 49169);
 const DualUseShiftTable = withModifiers(table, "Shift /", "SHIFT/", 49425);

@@ -62,22 +62,10 @@ class MacroForm extends Component {
     this.state = {
       macros: props.macros,
       selected: props.selected,
-      name:
-        props.macros[props.selected] === undefined
-          ? ""
-          : props.macros[props.selected].name,
-      id:
-        props.macros[props.selected] === undefined
-          ? 0
-          : props.macros[props.selected].id,
-      actions:
-        props.macros[props.selected] === undefined
-          ? []
-          : props.macros[props.selected].actions,
-      text:
-        props.macros[props.selected] === undefined
-          ? ""
-          : props.macros[props.selected].macro
+      name: props.macros[props.selected] === undefined ? "" : props.macros[props.selected].name,
+      id: props.macros[props.selected] === undefined ? 0 : props.macros[props.selected].id,
+      actions: props.macros[props.selected] === undefined ? [] : props.macros[props.selected].actions,
+      text: props.macros[props.selected] === undefined ? "" : props.macros[props.selected].macro
     };
 
     this.updateMacro = this.updateMacro.bind(this);
@@ -271,10 +259,7 @@ class MacroForm extends Component {
       .then(resp => {
         if (!resp.canceled) {
           console.log(resp.filePath, JSON.stringify(this.state.macros));
-          require("fs").writeFileSync(
-            resp.filePath,
-            JSON.stringify(this.state.macros)
-          );
+          require("fs").writeFileSync(resp.filePath, JSON.stringify(this.state.macros));
         } else {
           console.log("user closed SaveDialog");
         }
@@ -334,12 +319,7 @@ class MacroForm extends Component {
               </Col>
             </Row>
             <MacroTable
-              key={
-                this.state.selected +
-                JSON.stringify(
-                  currentMacro !== undefined ? currentMacro.actions : []
-                )
-              }
+              key={this.state.selected + JSON.stringify(currentMacro !== undefined ? currentMacro.actions : [])}
               macro={currentMacro}
               updateActions={this.updateActions}
               keymapDB={keymapDB}

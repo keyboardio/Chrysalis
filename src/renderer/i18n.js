@@ -28,9 +28,7 @@ let strings = {
 let i18n = new LocalizedStrings(strings);
 i18n.refreshHardware = ({ device }) => {
   i18n.getAvailableLanguages().forEach(code => {
-    strings[code].hardware = device.instructions
-      ? device.instructions[code]
-      : {};
+    strings[code].hardware = device.instructions ? device.instructions[code] : {};
   });
 
   const language = i18n.getLanguage();

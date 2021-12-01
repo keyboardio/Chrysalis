@@ -17,17 +17,8 @@ import { FiMenu } from "react-icons/fi";
 import { CgToggleOff } from "react-icons/cg";
 import { TiCancel } from "react-icons/ti";
 import { ImTab } from "react-icons/im";
-import {
-  BsFillBrightnessAltLowFill,
-  BsShift,
-  BsBackspace
-} from "react-icons/bs";
-import {
-  FaVolumeDown,
-  FaVolumeMute,
-  FaVolumeUp,
-  FaLinux
-} from "react-icons/fa";
+import { BsFillBrightnessAltLowFill, BsShift, BsBackspace } from "react-icons/bs";
+import { FaVolumeDown, FaVolumeMute, FaVolumeUp, FaLinux } from "react-icons/fa";
 import {
   BiArrowFromBottom,
   BiArrowFromLeft,
@@ -50,13 +41,7 @@ import {
   AiOutlineBackward,
   AiOutlineForward
 } from "react-icons/ai";
-import {
-  MdKeyboardReturn,
-  MdSpaceBar,
-  MdKeyboardCapslock,
-  MdInfoOutline,
-  MdEject
-} from "react-icons/md";
+import { MdKeyboardReturn, MdSpaceBar, MdKeyboardCapslock, MdInfoOutline, MdEject } from "react-icons/md";
 
 import Key from "./Key";
 import ES from "./ES.json";
@@ -146,14 +131,7 @@ class KeyPicker extends Component {
   }
 
   render() {
-    const {
-      code,
-      disableMods,
-      disableMove,
-      disableAll,
-      selectedlanguage,
-      kbtype
-    } = this.props;
+    const { code, disableMods, disableMove, disableAll, selectedlanguage, kbtype } = this.props;
     const liso = {
       english: ENi,
       spanish: ES,
@@ -275,19 +253,8 @@ class KeyPicker extends Component {
     const keyboard = Lang.map((key, id) => {
       if (key.tooltip) {
         return (
-          <foreignObject
-            key={`id-${key.content.first}-${id}`}
-            x={key.x}
-            y={key.y}
-            width={25}
-            height={25}
-          >
-            <OverlayTrigger
-              rootClose
-              placement="top"
-              delay={{ show: 250, hide: 400 }}
-              overlay={this.renderTooltip(key.tooltip)}
-            >
+          <foreignObject key={`id-${key.content.first}-${id}`} x={key.x} y={key.y} width={25} height={25}>
+            <OverlayTrigger rootClose placement="top" delay={{ show: 250, hide: 400 }} overlay={this.renderTooltip(key.tooltip)}>
               <MdInfoOutline className={"info"} />
             </OverlayTrigger>
           </foreignObject>
@@ -302,27 +269,18 @@ class KeyPicker extends Component {
             code === null
               ? false
               : Array.isArray(key.idArray)
-              ? key.idArray.some(
-                  key =>
-                    key === code.base + code.modified ||
-                    (key === code.base && key >= 104 && key <= 115)
-                )
+              ? key.idArray.some(key => key === code.base + code.modified || (key === code.base && key >= 104 && key <= 115))
               : code.base === key.id &&
-                (code.base + code.modified < 53267 ||
-                  code.base + code.modified > 60000) &&
-                (code.base + code.modified < 17450 ||
-                  code.base + code.modified > 17501) &&
-                (code.base + code.modified < 49153 ||
-                  code.base + code.modified > 49168)
+                (code.base + code.modified < 53267 || code.base + code.modified > 60000) &&
+                (code.base + code.modified < 17450 || code.base + code.modified > 17501) &&
+                (code.base + code.modified < 49153 || code.base + code.modified > 49168)
               ? true
               : code.modified > 0 && code.base + code.modified === key.id
               ? true
               : false
           }
           clicked={() => {
-            key.mod == disableMods || key.move == disableMove
-              ? {}
-              : this.onKeyPress(key.id);
+            key.mod == disableMods || key.move == disableMove ? {} : this.onKeyPress(key.id);
           }}
           centered={key.centered}
           content={key.content}
@@ -341,9 +299,7 @@ class KeyPicker extends Component {
           iconx={key.iconx}
           icony={key.icony}
           iconsize={key.iconsize}
-          disabled={
-            key.mod == disableMods || key.move == disableMove || disableAll
-          }
+          disabled={key.mod == disableMods || key.move == disableMove || disableAll}
         />
       );
     });

@@ -3,8 +3,6 @@ module.exports = {
     "prettier",
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:jest/recommended",
-    // 'plugin:jsx-a11y/recommended', // Don't uncomment until you're ready to fix some stuff
     "plugin:prettier/recommended",
     "plugin:react-hooks/recommended"
   ],
@@ -37,7 +35,9 @@ module.exports = {
       {
         trailingComma: "none",
         arrowParens: "avoid",
-        endOfLine: "auto"
+        tabWidth: 2,
+        endOfLine: "auto",
+        printWidth: 130
       }
     ]
   },

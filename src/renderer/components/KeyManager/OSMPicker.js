@@ -91,27 +91,19 @@ class OSMPicker extends Component {
     const { keyCode, onKeySelect } = this.props;
     const KC = keyCode.base + keyCode.modified;
     const osmtitle = "*ONE-SHOT MODIFIERS";
-    const osmtext1 =
-      "To explain One-Shot Modifiers functionality Let's use the 'One-Shot Shift' as an example:";
-    const osmtext2 =
-      "1. If you hold it, it will work as usual; it will make all letters capitalized.";
-    const osmtext3 =
-      "2. If you tap 'One-Shot Shift' once, and then hit the keys 'a' and 'b' you will type 'Ab'.";
+    const osmtext1 = "To explain One-Shot Modifiers functionality Let's use the 'One-Shot Shift' as an example:";
+    const osmtext2 = "1. If you hold it, it will work as usual; it will make all letters capitalized.";
+    const osmtext3 = "2. If you tap 'One-Shot Shift' once, and then hit the keys 'a' and 'b' you will type 'Ab'.";
     const osmtext4 = "The shift key is activated for the next key ONLY.";
     const osmtext5 =
       "3. If you double-tap 'One-Shot Shift', it will lock the modifier. Everything you type will be in capital letters";
-    const osmtext6 =
-      "as if you had Caps Lock activated. If you tap it again, it will be deactivated.";
+    const osmtext6 = "as if you had Caps Lock activated. If you tap it again, it will be deactivated.";
 
     const osltitle = "*ONE-SHOT LAYERS";
-    const osltext1 =
-      "Imagine you are in Layer 1 and you have a ‘One-Shot Layer 2‘ key:";
-    const osltext2 =
-      "1. If you hold the key, you shift to Layer 2. Releasing the key will bring you back to Layer 1.";
-    const osltext3 =
-      "2. Single tap: Tap the ‘One-Shot Layer 2‘ once and it will bring you to Layer 2 but after you press";
-    const osltext4 =
-      "any key on that layer, you will be brought back to the previous layer.";
+    const osltext1 = "Imagine you are in Layer 1 and you have a ‘One-Shot Layer 2‘ key:";
+    const osltext2 = "1. If you hold the key, you shift to Layer 2. Releasing the key will bring you back to Layer 1.";
+    const osltext3 = "2. Single tap: Tap the ‘One-Shot Layer 2‘ once and it will bring you to Layer 2 but after you press";
+    const osltext4 = "any key on that layer, you will be brought back to the previous layer.";
     const osltext5 =
       "3. Double-tap: It acts as ‘Layer Lock’. You are locked on Layer 2 until you tap the One-Shot Layer 2 key again.";
     const osltext6 = "%";
@@ -147,19 +139,7 @@ class OSMPicker extends Component {
         <Row className="mx-0 pt-1">
           <Col xs={8} className="px-0">
             <p className="titles alignvert">ONESHOT MODIFIERS</p>
-            <Tooltip
-              type="text"
-              placement="top"
-              texts={[
-                osmtitle,
-                osmtext1,
-                osmtext2,
-                osmtext3,
-                osmtext4,
-                osmtext5,
-                osmtext6
-              ]}
-            />
+            <Tooltip type="text" placement="top" texts={[osmtitle, osmtext1, osmtext2, osmtext3, osmtext4, osmtext5, osmtext6]} />
           </Col>
         </Row>
         <Row className="mx-0">
@@ -176,13 +156,7 @@ class OSMPicker extends Component {
                 ? "selectedState"
                 : ""
             }`}
-            title={
-              osm[
-                isNaN(KC) || KC < 49153 || KC > 49160
-                  ? 0
-                  : osm.findIndex(o => o.keynum == KC)
-              ].name
-            }
+            title={osm[isNaN(KC) || KC < 49153 || KC > 49160 ? 0 : osm.findIndex(o => o.keynum == KC)].name}
             value={osm.map(x => {
               if (KC == x.keynum) return x.keynum;
             })}
@@ -190,11 +164,7 @@ class OSMPicker extends Component {
           >
             {osm.map((x, id) => {
               return (
-                <Dropdown.Item
-                  eventKey={x.keynum}
-                  key={`OSM-${id}`}
-                  disabled={x.keynum == -1}
-                >
+                <Dropdown.Item eventKey={x.keynum} key={`OSM-${id}`} disabled={x.keynum == -1}>
                   <div className="menuitem">
                     <p>{x.name}</p>
                   </div>
@@ -209,16 +179,7 @@ class OSMPicker extends Component {
             <Tooltip
               type="text"
               placement="top"
-              texts={[
-                osltitle,
-                osltext1,
-                osltext2,
-                osltext3,
-                osltext4,
-                osltext5,
-                osltext6,
-                osltext7
-              ]}
+              texts={[osltitle, osltext1, osltext2, osltext3, osltext4, osltext5, osltext6, osltext7]}
             />
           </Col>
         </Row>
@@ -227,18 +188,9 @@ class OSMPicker extends Component {
             id="OSLPicker"
             drop={"up"}
             className={`OSButton ${
-              keyCode.modified > 0 &&
-              osl.map(i => i.keynum).includes(keyCode.base + keyCode.modified)
-                ? "selectedState"
-                : ""
+              keyCode.modified > 0 && osl.map(i => i.keynum).includes(keyCode.base + keyCode.modified) ? "selectedState" : ""
             }`}
-            title={
-              osl[
-                isNaN(KC) || KC < 49161 || KC > 49168
-                  ? 0
-                  : osl.findIndex(o => o.keynum == KC)
-              ].name
-            }
+            title={osl[isNaN(KC) || KC < 49161 || KC > 49168 ? 0 : osl.findIndex(o => o.keynum == KC)].name}
             value={osl.map(x => {
               if (KC == x.keynum) return x.keynum;
             })}
@@ -246,11 +198,7 @@ class OSMPicker extends Component {
           >
             {osl.map((x, id) => {
               return (
-                <Dropdown.Item
-                  eventKey={x.keynum}
-                  key={`OSL-${id}`}
-                  disabled={x.keynum == -1}
-                >
+                <Dropdown.Item eventKey={x.keynum} key={`OSL-${id}`} disabled={x.keynum == -1}>
                   <div className="menuitem">
                     <p>{x.name}</p>
                   </div>

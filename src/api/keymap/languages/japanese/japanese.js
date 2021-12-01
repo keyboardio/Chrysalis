@@ -1018,23 +1018,13 @@ const tableWithoutModifier = { keys: japaneseLetters };
 const japaneseCtrlTable = withModifiers(table, "Control +", "C+", 256);
 const japaneseLAltTable = withModifiers(table, "Alt +", "A+", 512);
 const japaneseRAltTable = withModifiers(table, "AltGr +", "AGr+", 1024);
-const japaneseShiftTable = withModifiers(
-  tableWithoutModifier,
-  "Shift +",
-  "S+",
-  2048
-);
+const japaneseShiftTable = withModifiers(tableWithoutModifier, "Shift +", "S+", 2048);
 const japaneseGuiTable = withModifiers(table, "Gui +", "G+", 4096);
 // Double
 
 const japaneseCATable = withModifiers(table, "Control + Alt +", "C+A+", 768);
 
-const japaneseCAGrTable = withModifiers(
-  table,
-  "Control + AltGr +",
-  "C+AGr+",
-  1280
-);
+const japaneseCAGrTable = withModifiers(table, "Control + AltGr +", "C+AGr+", 1280);
 
 const japaneseCSTable = withModifiers(table, "Control + Shift +", "C+S+", 2304);
 
@@ -1046,12 +1036,7 @@ const japaneseASTable = withModifiers(table, "Alt + Shift +", "A+S+", 2560);
 
 const japaneseAGTable = withModifiers(table, "Alt + Gui +", "A+G+", 4608);
 
-const japaneseAGrSTable = withModifiers(
-  table,
-  "AltGr + Shift +",
-  "AGr+S+",
-  3072
-);
+const japaneseAGrSTable = withModifiers(table, "AltGr + Shift +", "AGr+S+", 3072);
 
 const japaneseAGrGTable = withModifiers(table, "AltGr + Gui +", "AGr+G+", 5120);
 
@@ -1059,107 +1044,37 @@ const japaneseSGTable = withModifiers(table, "Shift + Gui +", "S+G+", 6144);
 
 // Triple
 
-const japaneseCAAGTable = withModifiers(
-  table,
-  "Control + Alt + AltGr +",
-  "C+A+AGr+",
-  1792
-);
+const japaneseCAAGTable = withModifiers(table, "Control + Alt + AltGr +", "C+A+AGr+", 1792);
 
 const japaneseCASTable = withModifiers(table, "Meh +", "Meh+", 2816);
 
-const japaneseCAGTable = withModifiers(
-  table,
-  "Control + Alt + Gui +",
-  "C+A+G+",
-  4864
-);
+const japaneseCAGTable = withModifiers(table, "Control + Alt + Gui +", "C+A+G+", 4864);
 
-const japaneseCAGSTable = withModifiers(
-  table,
-  "Control + AltGr + Shift +",
-  "C+AGr+S+",
-  3328
-);
+const japaneseCAGSTable = withModifiers(table, "Control + AltGr + Shift +", "C+AGr+S+", 3328);
 
-const japaneseCAGGTable = withModifiers(
-  table,
-  "Control + AltGr + Gui +",
-  "C+AGr+G+",
-  5376
-);
+const japaneseCAGGTable = withModifiers(table, "Control + AltGr + Gui +", "C+AGr+G+", 5376);
 
-const japaneseCSGTable = withModifiers(
-  table,
-  "Control + Shift + Gui +",
-  "C+S+G+",
-  6400
-);
+const japaneseCSGTable = withModifiers(table, "Control + Shift + Gui +", "C+S+G+", 6400);
 
-const japaneseAAGSTable = withModifiers(
-  table,
-  "Alt + AltGr + Shift +",
-  "A+AGr+S+",
-  3584
-);
+const japaneseAAGSTable = withModifiers(table, "Alt + AltGr + Shift +", "A+AGr+S+", 3584);
 
-const japaneseAAGGTable = withModifiers(
-  table,
-  "Alt + AltGr + Gui +",
-  "A+AGr+G+",
-  5632
-);
+const japaneseAAGGTable = withModifiers(table, "Alt + AltGr + Gui +", "A+AGr+G+", 5632);
 
-const japaneseASGTable = withModifiers(
-  table,
-  "Alt + Shift + Gui +",
-  "A+S+G+",
-  6656
-);
+const japaneseASGTable = withModifiers(table, "Alt + Shift + Gui +", "A+S+G+", 6656);
 
-const japaneseAGSGTable = withModifiers(
-  table,
-  "AltGr + Shift + Gui +",
-  "AGr+S+G+",
-  7168
-);
+const japaneseAGSGTable = withModifiers(table, "AltGr + Shift + Gui +", "AGr+S+G+", 7168);
 
 // Quad
 
-const japaneseCAAGrSTable = withModifiers(
-  table,
-  "Meh + AltGr +",
-  "M+AGr+",
-  3840
-);
+const japaneseCAAGrSTable = withModifiers(table, "Meh + AltGr +", "M+AGr+", 3840);
 
-const japaneseCAAGrGTable = withModifiers(
-  table,
-  "Control + Alt + AltGr + Gui +",
-  "C+A+AGr+G+",
-  5888
-);
+const japaneseCAAGrGTable = withModifiers(table, "Control + Alt + AltGr + Gui +", "C+A+AGr+G+", 5888);
 
-const japaneseAAGrSGTable = withModifiers(
-  table,
-  "Control + AltGr + Shift + Gui +",
-  "C+AGr+S+G+",
-  7424
-);
+const japaneseAAGrSGTable = withModifiers(table, "Control + AltGr + Shift + Gui +", "C+AGr+S+G+", 7424);
 
-const japaneseCAGrSGTable = withModifiers(
-  table,
-  "Alt + AltGr + Shift + Gui +",
-  "A+AGr+S+G+",
-  7680
-);
+const japaneseCAGrSGTable = withModifiers(table, "Alt + AltGr + Shift + Gui +", "A+AGr+S+G+", 7680);
 
-const japaneseAllModTable = withModifiers(
-  table,
-  "Hyper + AltGr +",
-  "H+AGr+",
-  7936
-);
+const japaneseAllModTable = withModifiers(table, "Hyper + AltGr +", "H+AGr+", 7936);
 
 const DualUseCtrlTable = withModifiers(table, "Control /", "CTRL/", 49169);
 const DualUseShiftTable = withModifiers(table, "Shift /", "SHIFT/", 49425);

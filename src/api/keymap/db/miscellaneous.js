@@ -81,26 +81,11 @@ const ModifiedMiscellaneousTables = [
   withModifiers(MiscellaneousTable, "Shift + Gui +", "S+G+", 6144),
 
   // Triple
-  withModifiers(
-    MiscellaneousTable,
-    "Control + Alt + AltGr +",
-    "C+A+AGr+",
-    1792
-  ),
+  withModifiers(MiscellaneousTable, "Control + Alt + AltGr +", "C+A+AGr+", 1792),
   withModifiers(MiscellaneousTable, "Meh +", "Meh+", 2816),
   withModifiers(MiscellaneousTable, "Control + Alt + Gui +", "C+A+G+", 4864),
-  withModifiers(
-    MiscellaneousTable,
-    "Control + AltGr + Shift +",
-    "C+AGr+S+",
-    3328
-  ),
-  withModifiers(
-    MiscellaneousTable,
-    "Control + AltGr + Gui +",
-    "C+AGr+G+",
-    5376
-  ),
+  withModifiers(MiscellaneousTable, "Control + AltGr + Shift +", "C+AGr+S+", 3328),
+  withModifiers(MiscellaneousTable, "Control + AltGr + Gui +", "C+AGr+G+", 5376),
   withModifiers(MiscellaneousTable, "Control + Shift + Gui +", "C+S+G+", 6400),
   withModifiers(MiscellaneousTable, "Alt + AltGr + Shift +", "A+AGr+S+", 3584),
   withModifiers(MiscellaneousTable, "Alt + AltGr + Gui +", "A+AGr+G+", 5632),
@@ -109,25 +94,10 @@ const ModifiedMiscellaneousTables = [
 
   // Quad
   withModifiers(MiscellaneousTable, "Meh + AltGr +", "M+AGr+", 3840),
-  withModifiers(
-    MiscellaneousTable,
-    "Control + Alt + AltGr + Gui +",
-    "C+A+AGr+G+",
-    5888
-  ),
+  withModifiers(MiscellaneousTable, "Control + Alt + AltGr + Gui +", "C+A+AGr+G+", 5888),
   withModifiers(MiscellaneousTable, "Hyper+", "Hyper+", 6912),
-  withModifiers(
-    MiscellaneousTable,
-    "Control + AltGr + Shift + Gui +",
-    "C+AGr+S+G+",
-    7424
-  ),
-  withModifiers(
-    MiscellaneousTable,
-    "Alt + AltGr + Shift + Gui +",
-    "A+AGr+S+G+",
-    7680
-  ),
+  withModifiers(MiscellaneousTable, "Control + AltGr + Shift + Gui +", "C+AGr+S+G+", 7424),
+  withModifiers(MiscellaneousTable, "Alt + AltGr + Shift + Gui +", "A+AGr+S+G+", 7680),
 
   // All
   withModifiers(MiscellaneousTable, "Hyper + AltGr +", "H+AGr+", 7936)

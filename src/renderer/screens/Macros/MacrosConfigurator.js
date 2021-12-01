@@ -223,8 +223,7 @@ class MacrosConfigurator extends React.Component {
             { keyCode: 8, type: 8, id: 15 }
           ],
           id: 0,
-          macro:
-            "RIGHT SHIFT H RIGHT SHIFT E Y , SPACE RIGHT SHIFT D RIGHT SHIFT Y G M A T E",
+          macro: "RIGHT SHIFT H RIGHT SHIFT E Y , SPACE RIGHT SHIFT D RIGHT SHIFT Y G M A T E",
           name: "Hey, Dygmate!"
         }
       ];
@@ -309,9 +308,7 @@ class MacrosConfigurator extends React.Component {
         console.log("compare between: ", macro.actions, stored[i].actions);
         let aux = macro;
         aux.name = stored[i].name;
-        aux.macro = macro.actions
-          .map(k => this.keymapDB.parse(k.keyCode).label)
-          .join(" ");
+        aux.macro = macro.actions.map(k => this.keymapDB.parse(k.keyCode).label).join(" ");
         return aux;
       } else {
         return macro;
@@ -346,11 +343,7 @@ class MacrosConfigurator extends React.Component {
     superkeys[superindex] = superkey;
     // console.log("SUPERKEYS LEIDAS:" + superkeys + " de " + raw);
 
-    if (
-      superkeys[0] == [0] ||
-      superkeys[0].filter(v => v === 0).length == superkeys[0].length - 1
-    )
-      return [];
+    if (superkeys[0] == [0] || superkeys[0].filter(v => v === 0).length == superkeys[0].length - 1) return [];
     return superkeys;
   }
 
@@ -440,18 +433,6 @@ class MacrosConfigurator extends React.Component {
       const commands = await this.bkp.Commands();
       const backup = await this.bkp.DoBackup(commands);
       this.bkp.SaveBackup(backup);
-      // TODO: Save changes in the cloud
-      // const backup = {
-      //   undeglowColors: this.state.undeglowColors,
-      //   keymap: this.state.keymap,
-      //   colormap: {
-      //     palette: this.state.palette,
-      //     colorMap: this.state.colorMap
-      //   },
-      //   macros: newMacros
-      // };
-      // backupLayers(backup);
-
       toast.success(i18n.editor.macros.successFlash, {
         autoClose: 2000
       });
@@ -461,21 +442,14 @@ class MacrosConfigurator extends React.Component {
   }
 
   macrosMap(macros) {
-    if (
-      macros.length === 0 ||
-      (macros.length === 1 && macros[0].actions === [])
-    ) {
+    if (macros.length === 0 || (macros.length === 1 && macros[0].actions === [])) {
       return "255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255";
     }
     const actionMap = macros.map(macro => {
       return macro.actions
         .map(action => {
           if (action.type > 1 && action.type < 6) {
-            return [
-              [action.type],
-              [action.keyCode >> 8],
-              [action.keyCode & 255]
-            ];
+            return [[action.type], [action.keyCode >> 8], [action.keyCode & 255]];
           } else {
             return [[action.type], [action.keyCode]];
           }
@@ -498,30 +472,19 @@ class MacrosConfigurator extends React.Component {
   }
 
   ActUponDelete() {
-    let {
-      selectedList,
-      listToDelete,
-      listToDeleteS,
-      keymap,
-      superkeys
-    } = this.state;
+    let { selectedList, listToDelete, listToDeleteS, keymap, superkeys } = this.state;
     for (let i = 0; i < listToDelete.length; i++) {
       if (selectedList == -1) {
-        keymap[listToDelete[i].layer][
-          listToDelete[i].pos
-        ] = this.keymapDB.parse(0);
+        keymap[listToDelete[i].layer][listToDelete[i].pos] = this.keymapDB.parse(0);
       } else {
-        keymap[listToDelete[i].layer][
-          listToDelete[i].pos
-        ] = this.keymapDB.parse(selectedList + 53852);
+        keymap[listToDelete[i].layer][listToDelete[i].pos] = this.keymapDB.parse(selectedList + 53852);
       }
     }
     for (let i = 0; i < listToDeleteS.length; i++) {
       if (selectedList == -1) {
         superkeys[listToDeleteS[i].i][listToDeleteS[i].pos] = 1;
       } else {
-        superkeys[listToDeleteS[i].i][listToDeleteS[i].pos] =
-          selectedList + 53852;
+        superkeys[listToDeleteS[i].i][listToDeleteS[i].pos] = selectedList + 53852;
       }
     }
     this.setState({ keymap, superkeys });
@@ -535,17 +498,15 @@ class MacrosConfigurator extends React.Component {
   }
 
   render() {
-    const ListOfMacros = this.state.listToDelete.map(
-      ({ layer, pos, key }, id) => {
-        return (
-          <Row key={id}>
-            <Col xs={12} className="px-0 text-center gridded">
-              <p className="titles alignvert">{`Key in layer ${layer} and pos ${pos}`}</p>
-            </Col>
-          </Row>
-        );
-      }
-    );
+    const ListOfMacros = this.state.listToDelete.map(({ layer, pos, key }, id) => {
+      return (
+        <Row key={id}>
+          <Col xs={12} className="px-0 text-center gridded">
+            <p className="titles alignvert">{`Key in layer ${layer} and pos ${pos}`}</p>
+          </Col>
+        </Row>
+      );
+    });
     const ListCombo = (
       <Col xs={12} className="px-0 text-center gridded">
         <DropdownButton
@@ -566,11 +527,7 @@ class MacrosConfigurator extends React.Component {
             </div>
           </Dropdown.Item>
           {this.state.macros.map((macro, id) => (
-            <Dropdown.Item
-              eventKey={macro.id}
-              key={`macro-${id}`}
-              disabled={macro.id == -1}
-            >
+            <Dropdown.Item eventKey={macro.id} key={`macro-${id}`} disabled={macro.id == -1}>
               <div className="item-layer">
                 <p>{macro.name}</p>
               </div>
@@ -601,9 +558,7 @@ class MacrosConfigurator extends React.Component {
               <Button
                 disabled={!this.state.modified}
                 onClick={this.writeMacros}
-                className={`button-large pt-0 mt-0 mb-2 ${
-                  this.state.modified ? "save-active" : ""
-                }`}
+                className={`button-large pt-0 mt-0 mb-2 ${this.state.modified ? "save-active" : ""}`}
                 aria-controls="save-changes"
               >
                 <FiSave />
@@ -613,9 +568,7 @@ class MacrosConfigurator extends React.Component {
               <Button
                 disabled={!this.state.modified}
                 onClick={this.loadMacros}
-                className={`button-large pt-0 mt-0 mb-2 ${
-                  this.state.modified ? "cancel-active" : ""
-                }`}
+                className={`button-large pt-0 mt-0 mb-2 ${this.state.modified ? "cancel-active" : ""}`}
                 aria-controls="discard-changes"
               >
                 <FiTrash2 />
@@ -623,11 +576,7 @@ class MacrosConfigurator extends React.Component {
             </Row>
           </Container>
         </Row>
-        <Modal
-          show={this.state.showDeleteModal}
-          onHide={this.toggleDeleteModal}
-          style={{ marginTop: "100px" }}
-        >
+        <Modal show={this.state.showDeleteModal} onHide={this.toggleDeleteModal} style={{ marginTop: "100px" }}>
           <ModalStyle>
             <Modal.Header closeButton className="modalcol">
               <Modal.Title>{i18n.editor.macros.deleteModal.title}</Modal.Title>

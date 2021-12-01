@@ -175,10 +175,7 @@ class KeyConfig extends Component {
   componentDidUpdate() {
     let selectdual = 0;
     const disable = this.props.code === 0;
-    const keynum =
-      this.props.code != null
-        ? this.props.code.modified + this.props.code.base
-        : 0;
+    const keynum = this.props.code != null ? this.props.code.modified + this.props.code.base : 0;
     if (keynum >= 51218 && keynum <= 53266) {
       selectdual = (this.props.code.modified >>> 8) << 8;
       if (selectdual >= 51218 - 18) {
@@ -190,10 +187,7 @@ class KeyConfig extends Component {
       selectdual = 0;
     }
     let layerData = 0;
-    if (
-      (keynum >= 17450 && keynum <= 17501) ||
-      (keynum >= 49161 && keynum <= 49168)
-    ) {
+    if ((keynum >= 17450 && keynum <= 17501) || (keynum >= 49161 && keynum <= 49168)) {
       layerData = keynum;
     } else {
       layerData = 0;
@@ -229,10 +223,7 @@ class KeyConfig extends Component {
     }
     if (JSON.stringify(this.state.actions) !== JSON.stringify(tempActions)) {
       this.setState({
-        action:
-          this.props.keyIndex !== this.state.pastkeyindex
-            ? 0
-            : this.state.action,
+        action: this.props.keyIndex !== this.state.pastkeyindex ? 0 : this.state.action,
         actions: tempActions,
         selectdual,
         layerData,
@@ -246,26 +237,19 @@ class KeyConfig extends Component {
   }
 
   parseKey(keycode) {
-    const macro = this.props.macros[
-      parseInt(this.keymapDB.parse(keycode).label)
-    ];
+    const macro = this.props.macros[parseInt(this.keymapDB.parse(keycode).label)];
     let macroName;
     try {
-      macroName = this.props.macros[
-        parseInt(this.keymapDB.parse(keycode).label)
-      ].name.substr(0, 5);
+      macroName = this.props.macros[parseInt(this.keymapDB.parse(keycode).label)].name.substr(0, 5);
     } catch (error) {
       macroName = "*NotFound*";
     }
     if (keycode >= 53852 && keycode <= 53852 + 64) {
-      if (this.props.code !== null)
-        return this.keymapDB.parse(keycode).extraLabel + "." + macroName;
+      if (this.props.code !== null) return this.keymapDB.parse(keycode).extraLabel + "." + macroName;
     }
     return this.props.code !== null
       ? this.keymapDB.parse(keycode).extraLabel != undefined
-        ? this.keymapDB.parse(keycode).extraLabel +
-          "." +
-          this.keymapDB.parse(keycode).label
+        ? this.keymapDB.parse(keycode).extraLabel + "." + this.keymapDB.parse(keycode).label
         : this.keymapDB.parse(keycode).label
       : "";
   }
@@ -286,15 +270,7 @@ class KeyConfig extends Component {
 
   render() {
     const { action, actions, showKB, modifs, superName, disable } = this.state;
-    const {
-      selectedlanguage,
-      kbtype,
-      macros,
-      actTab,
-      superkeys,
-      code,
-      onKeySelect
-    } = this.props;
+    const { selectedlanguage, kbtype, macros, actTab, superkeys, code, onKeySelect } = this.props;
     const activeTab = actTab != undefined ? actTab : this.state.activeTab;
     const selKey = this.parseKey(code.base + code.modified);
     const selKeys = actions.map((a, i) => this.parseAction(i));
@@ -309,8 +285,7 @@ class KeyConfig extends Component {
               <Card.Body className="section">
                 <Row className="rowsection">
                   <Col xs={3} className="section">
-                    {code.base + code.modified >= 53916 &&
-                    code.base + code.modified <= 53916 + 64 ? (
+                    {code.base + code.modified >= 53916 && code.base + code.modified <= 53916 + 64 ? (
                       <Selector
                         action={action}
                         actions={actions}

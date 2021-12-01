@@ -113,9 +113,7 @@ const led_map = [
   ]
 ];
 
-const no_key_led_map = [
-  ...Array.apply(0, Array(63)).map((_, i) => i + UNDERGLOW)
-];
+const no_key_led_map = [...Array.apply(0, Array(63)).map((_, i) => i + UNDERGLOW)];
 
 class KeymapANSI extends React.Component {
   constructor(props) {
@@ -157,17 +155,10 @@ class KeymapANSI extends React.Component {
 
     let isSelected = (row, col) => {
       const selectIndex = keyIndex(row, col);
-      return underglowIndex
-        ? underglowIndex == selectIndex
-        : this.props.selectedKey == selectIndex;
+      return underglowIndex ? underglowIndex == selectIndex : this.props.selectedKey == selectIndex;
     };
 
-    let stroke = (row, col) =>
-      isSelected(row, col)
-        ? this.props.darkMode
-          ? "#fff"
-          : "#000"
-        : "#b3b3b3";
+    let stroke = (row, col) => (isSelected(row, col) ? (this.props.darkMode ? "#fff" : "#000") : "#b3b3b3");
 
     let getStrokeWidth = (row, col) => (isSelected(row, col) ? "3.0" : "1.5");
 
@@ -186,19 +177,14 @@ class KeymapANSI extends React.Component {
             }));
 
     let getColor = (row, col) => {
-      let ledIndex =
-          col !== undefined
-            ? led_map[parseInt(row)][parseInt(col)]
-            : no_key_led_map[row - UNDERGLOW],
+      let ledIndex = col !== undefined ? led_map[parseInt(row)][parseInt(col)] : no_key_led_map[row - UNDERGLOW],
         colorIndex = colormap[ledIndex],
         color = palette[colorIndex].rgb;
       return color;
     };
 
     let getLEDIndex = (row, col) => {
-      return col !== undefined
-        ? led_map[parseInt(row)][parseInt(col)]
-        : no_key_led_map[row - UNDERGLOW];
+      return col !== undefined ? led_map[parseInt(row)][parseInt(col)] : no_key_led_map[row - UNDERGLOW];
     };
 
     const onClick = e => {
@@ -223,14 +209,7 @@ class KeymapANSI extends React.Component {
     const GetCurrentKeyElement = props => {
       return (
         <tspan>
-          <tspan
-            className={props.class}
-            textAnchor="middle"
-            x={props.x}
-            y={props.y}
-            dy={props.dy}
-            textLength={props.textLength}
-          >
+          <tspan className={props.class} textAnchor="middle" x={props.x} y={props.y} dy={props.dy} textLength={props.textLength}>
             {props.word}
           </tspan>
         </tspan>
@@ -253,39 +232,17 @@ class KeymapANSI extends React.Component {
       const shortWords = str.split("");
       if (numbers) {
         return (
-          <GetCurrentKeyElement
-            key={new Date() + Math.random()}
-            x={xCord}
-            y={String(+yCord - 5)}
-            word={str}
-            class="key-config"
-          />
+          <GetCurrentKeyElement key={new Date() + Math.random()} x={xCord} y={String(+yCord - 5)} word={str} class="key-config" />
         );
       } else if (str.length === 1) {
         return shortWords.map((word, index) => (
-          <GetCurrentKeyElement
-            key={index}
-            x={xCord}
-            y={String(+yCord - 5)}
-            word={word}
-            class="letter-config"
-          />
+          <GetCurrentKeyElement key={index} x={xCord} y={String(+yCord - 5)} word={word} class="letter-config" />
         ));
       } else if (str.toLowerCase().endsWith("to")) {
         return longWords.map((word, index) => (
           <tspan key={index}>
-            <GetCurrentKeyElement
-              x={xCord}
-              y={String(+yCord + 9)}
-              dy={0}
-              word={word.slice(0, word.indexOf("to") - 1)}
-            />
-            <GetCurrentKeyElement
-              x={String(+xCord - 5)}
-              y={String(+yCord + 9)}
-              dy={interval}
-              word={word.slice(-2)}
-            />
+            <GetCurrentKeyElement x={xCord} y={String(+yCord + 9)} dy={0} word={word.slice(0, word.indexOf("to") - 1)} />
+            <GetCurrentKeyElement x={String(+xCord - 5)} y={String(+yCord + 9)} dy={interval} word={word.slice(-2)} />
           </tspan>
         ));
       } else if (
@@ -293,15 +250,7 @@ class KeymapANSI extends React.Component {
         smallKey === true &&
         (str.startsWith("C+") || str.startsWith("A+") || str.startsWith("AGr+"))
       ) {
-        return (
-          <GetCurrentKeyElement
-            key={new Date() + Math.random()}
-            x={xCord}
-            y={yCord}
-            word={str}
-            textLength="50"
-          />
-        );
+        return <GetCurrentKeyElement key={new Date() + Math.random()} x={xCord} y={yCord} word={str} textLength="50" />;
       } else if (
         longWords.length === 1 &&
         shortWords.length > 7 &&
@@ -312,122 +261,45 @@ class KeymapANSI extends React.Component {
       ) {
         return longWords.map((word, index) => (
           <tspan key={index}>
-            <GetCurrentKeyElement
-              x={xCord}
-              y={String(+yCord - 10)}
-              word={word.slice(0, 4)}
-              dy={"0"}
-            />
-            <GetCurrentKeyElement
-              x={xCord}
-              y={String(+yCord - 10)}
-              word={word.slice(4)}
-              dy={interval}
-            />
+            <GetCurrentKeyElement x={xCord} y={String(+yCord - 10)} word={word.slice(0, 4)} dy={"0"} />
+            <GetCurrentKeyElement x={xCord} y={String(+yCord - 10)} word={word.slice(4)} dy={interval} />
           </tspan>
         ));
       } else if (longWords.length === 1) {
-        return longWords.map((word, index) => (
-          <GetCurrentKeyElement key={index} x={xCord} y={yCord} word={word} />
-        ));
+        return longWords.map((word, index) => <GetCurrentKeyElement key={index} x={xCord} y={yCord} word={word} />);
       } else if (longWords.length > 1 && smallKey === true) {
         return longWords.map((word, index) => (
-          <GetCurrentKeyElement
-            key={index}
-            x={xCord}
-            y={String(+yCord - 10)}
-            word={word}
-            dy={index ? interval : index}
-          />
+          <GetCurrentKeyElement key={index} x={xCord} y={String(+yCord - 10)} word={word} dy={index ? interval : index} />
         ));
       } else if (longWords.length > 1) {
-        return (
-          <GetCurrentKeyElement
-            key={new Date() + Math.random()}
-            x={xCord}
-            y={yCord}
-            word={str}
-          />
-        );
+        return <GetCurrentKeyElement key={new Date() + Math.random()} x={xCord} y={yCord} word={str} />;
       } else {
-        return (
-          <GetCurrentKeyElement
-            key={new Date() + Math.random()}
-            x={xCord}
-            y={yCord}
-            word={str}
-          />
-        );
+        return <GetCurrentKeyElement key={new Date() + Math.random()} x={xCord} y={yCord} word={str} />;
       }
     };
-    const topsArr = [
-      "LEDEFF.",
-      "SCadet",
-      "Steno",
-      "M.Btn",
-      "Leader",
-      "Numpad",
-      "Media",
-      "OSL",
-      "Mouse",
-      "M.Wheel",
-      "M.Warp"
-    ];
+    const topsArr = ["LEDEFF.", "SCadet", "Steno", "M.Btn", "Leader", "Numpad", "Media", "OSL", "Mouse", "M.Wheel", "M.Warp"];
     const topsArrTransfer = ["SHIFTTO", "LockTo"];
     const getCenterExtra = (row, col, xCord, yCord, smallKey = false) =>
       getLabel(row, col).extraLabel !== ""
         ? topsArr.includes(getLabel(row, col).extraLabel)
-          ? getLabel(row, col).extraLabel &&
-            getDivideKeys(getLabel(row, col).extraLabel, xCord, yCord, smallKey)
-          : getLabel(row, col).extraLabel &&
-            getDivideKeys(
-              getLabel(row, col).extraLabel,
-              xCord,
-              String(+yCord - 5),
-              smallKey
-            )
-        : getLabel(row, col).extraLabel ===
-          getLabel(row, col).extraLabel.toLowerCase().endsWith("to")
-        ? getLabel(row, col).extraLabel &&
-          getDivideKeys(getLabel(row, col).extraLabel, xCord, yCord, smallKey)
+          ? getLabel(row, col).extraLabel && getDivideKeys(getLabel(row, col).extraLabel, xCord, yCord, smallKey)
+          : getLabel(row, col).extraLabel && getDivideKeys(getLabel(row, col).extraLabel, xCord, String(+yCord - 5), smallKey)
+        : getLabel(row, col).extraLabel === getLabel(row, col).extraLabel.toLowerCase().endsWith("to")
+        ? getLabel(row, col).extraLabel && getDivideKeys(getLabel(row, col).extraLabel, xCord, yCord, smallKey)
         : getLabel(row, col).extraLabel;
 
     const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
       getLabel(row, col).extraLabel !== ""
         ? topsArr.includes(getLabel(row, col).extraLabel)
-          ? getLabel(row, col).label &&
-            getDivideKeys(getLabel(row, col).label, xCord, yCord, smallKey)
+          ? getLabel(row, col).label && getDivideKeys(getLabel(row, col).label, xCord, yCord, smallKey)
           : topsArrTransfer.includes(getLabel(row, col).extraLabel)
-          ? getLabel(row, col).label &&
-            getDivideKeys(
-              getLabel(row, col).label,
-              String(+xCord + 10),
-              yCord,
-              smallKey
-            )
-          : getLabel(row, col).label &&
-            getDivideKeys(
-              getLabel(row, col).label,
-              xCord,
-              String(yCord + 2),
-              smallKey
-            )
+          ? getLabel(row, col).label && getDivideKeys(getLabel(row, col).label, String(+xCord + 10), yCord, smallKey)
+          : getLabel(row, col).label && getDivideKeys(getLabel(row, col).label, xCord, String(yCord + 2), smallKey)
         : topsArrTransfer.includes(getLabel(row, col).extraLabel)
         ? getLabel(row, col).label &&
           getDivideKeys(getLabel(row, col).label, xCord, yCord, smallKey) &&
-          getDivideKeys(
-            getLabel(row, col).label,
-            String(+xCord + 10),
-            yCord,
-            smallKey
-          )
-        : getLabel(row, col).label &&
-          getDivideKeys(
-            getLabel(row, col).label,
-            xCord,
-            String(yCord + 2),
-            smallKey
-          );
+          getDivideKeys(getLabel(row, col).label, String(+xCord + 10), yCord, smallKey)
+        : getLabel(row, col).label && getDivideKeys(getLabel(row, col).label, xCord, String(yCord + 2), smallKey);
 
     return (
       <svg

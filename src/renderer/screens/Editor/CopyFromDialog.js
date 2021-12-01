@@ -67,11 +67,7 @@ export const CopyFromDialog = props => {
               return (
                 <ListGroup.Item
                   className={`listitem ${
-                    layer.index == props.currentLayer
-                      ? "disabled"
-                      : layer.index == selectedLayer
-                      ? "selected"
-                      : ""
+                    layer.index == props.currentLayer ? "disabled" : layer.index == selectedLayer ? "selected" : ""
                   }`}
                   key={layer.index}
                   action

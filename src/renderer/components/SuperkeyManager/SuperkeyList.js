@@ -48,10 +48,7 @@ class SuperkeyList extends Component {
       <Styles>
         <ListGroup>
           {superkeys.map(item => (
-            <div
-              key={item.id}
-              className={selected == item.id ? "selected" : ""}
-            >
+            <div key={item.id} className={selected == item.id ? "selected" : ""}>
               <ListGroup.Item
                 onClick={() => {
                   changeSelected(item.id);
@@ -59,11 +56,7 @@ class SuperkeyList extends Component {
                 className="listItem"
               >
                 <div style={{ display: "flex" }}>
-                  <p>
-                    {`${("0" + item.id).substr(-2)} - ${item.name}: ${
-                      item.actions
-                    }`}
-                  </p>
+                  <p>{`${("0" + item.id).substr(-2)} - ${item.name}: ${item.actions}`}</p>
                 </div>
               </ListGroup.Item>
             </div>

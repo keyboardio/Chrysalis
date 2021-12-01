@@ -6,7 +6,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1UT",
       "first": "Esc",
@@ -22,7 +22,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1UT",
       "first": "F1",
@@ -38,7 +38,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1UT",
       "first": "F2",
@@ -54,7 +54,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1UT",
       "first": "F3",
@@ -70,7 +70,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1UT",
       "first": "F4",
@@ -86,7 +86,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1UT",
       "first": "F5",
@@ -102,7 +102,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1UT",
       "first": "F6",
@@ -118,7 +118,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1UT",
       "first": "F7",
@@ -134,7 +134,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1UT",
       "first": "F8",
@@ -150,7 +150,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1UT",
       "first": "F9",
@@ -166,7 +166,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1UT",
       "first": "F10",
@@ -182,7 +182,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1UT",
       "first": "F11",
@@ -198,7 +198,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1UT",
       "first": "F12",
@@ -214,7 +214,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "specialBlock",
       "first": "Print",
@@ -230,7 +230,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "specialBlock",
       "first": "Scroll",
@@ -246,7 +246,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "specialBlock",
       "first": "Pause",
@@ -262,7 +262,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "block",
       "first": "Num",
@@ -278,7 +278,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "block",
       "first": "/",
@@ -294,7 +294,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "block",
       "first": "*",
@@ -310,7 +310,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "block",
       "first": "-",
@@ -326,7 +326,7 @@
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "`",
@@ -342,7 +342,7 @@
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "1",
@@ -358,7 +358,7 @@
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "2",
@@ -374,7 +374,7 @@
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "3",
@@ -390,7 +390,7 @@
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "4",
@@ -406,7 +406,7 @@
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "5",
@@ -422,7 +422,7 @@
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "6",
@@ -438,7 +438,7 @@
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "7",
@@ -454,7 +454,7 @@
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "8",
@@ -470,7 +470,7 @@
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "9",
@@ -486,7 +486,7 @@
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "0",
@@ -502,7 +502,7 @@
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "-",
@@ -518,7 +518,7 @@
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "=",
@@ -533,8 +533,8 @@
     "y": 32,
     "centered": true,
     "icon": true,
-    "iconsize":16,
-    "iconx":668,
+    "iconsize": 16,
+    "iconx": 668,
     "idArray": "",
     "iconname": "Backspace",
     "content": {
@@ -552,7 +552,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "specialBlock",
       "first": "Ins",
@@ -568,7 +568,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "specialBlock",
       "first": "Home",
@@ -584,7 +584,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "specialBlock",
       "first": "Page",
@@ -600,7 +600,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "block",
       "first": "7",
@@ -616,7 +616,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "block",
       "first": "8",
@@ -632,7 +632,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "block",
       "first": "9",
@@ -648,7 +648,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "longBlock",
       "first": "+",
@@ -663,11 +663,11 @@
     "y": 64,
     "centered": true,
     "icon": true,
-    "iconsize":15,
-    "iconx":20,
-    "icony":64,
+    "iconsize": 15,
+    "iconx": 20,
+    "icony": 64,
     "idArray": "",
-    "iconname":"Tab",
+    "iconname": "Tab",
     "content": {
       "type": "1U2",
       "first": "",
@@ -683,7 +683,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "Q",
@@ -699,7 +699,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "W",
@@ -715,7 +715,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "E",
@@ -731,7 +731,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "R",
@@ -747,7 +747,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "T",
@@ -763,7 +763,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "Y",
@@ -779,7 +779,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "U",
@@ -795,7 +795,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "I",
@@ -811,7 +811,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "O",
@@ -827,7 +827,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "P",
@@ -843,7 +843,7 @@
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "[",
@@ -859,7 +859,7 @@
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "]",
@@ -875,7 +875,7 @@
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "\\",
@@ -891,7 +891,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "specialBlock",
       "first": "Del",
@@ -907,7 +907,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "specialBlock",
       "first": "End",
@@ -923,7 +923,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "specialBlock",
       "first": "Page",
@@ -938,11 +938,11 @@
     "y": 96,
     "centered": true,
     "icon": true,
-    "iconsize":22,
-    "iconx":22,
-    "icony":90,
+    "iconsize": 22,
+    "iconx": 22,
+    "icony": 90,
     "idArray": "",
-    "iconname":"CapsLock",
+    "iconname": "CapsLock",
     "content": {
       "type": "1U5",
       "first": "",
@@ -958,7 +958,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "A",
@@ -974,7 +974,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "S",
@@ -990,7 +990,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "D",
@@ -1006,7 +1006,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "F",
@@ -1022,7 +1022,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "G",
@@ -1038,7 +1038,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "H",
@@ -1054,7 +1054,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "J",
@@ -1070,7 +1070,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "K",
@@ -1086,7 +1086,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "L",
@@ -1102,7 +1102,7 @@
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": ";",
@@ -1118,7 +1118,7 @@
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "'",
@@ -1133,11 +1133,11 @@
     "y": 96,
     "centered": true,
     "icon": true,
-    "iconsize":20,
-    "iconx":650,
-    "icony":92,
+    "iconsize": 20,
+    "iconx": 650,
+    "icony": 92,
     "idArray": "",
-    "iconname":"Enter",
+    "iconname": "Enter",
     "content": {
       "type": "1U6",
       "first": "",
@@ -1153,7 +1153,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "block",
       "first": "4",
@@ -1169,7 +1169,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "block",
       "first": "5",
@@ -1185,7 +1185,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "block",
       "first": "6",
@@ -1200,11 +1200,11 @@
     "y": 128,
     "centered": true,
     "icon": true,
-    "iconsize":18,
-    "iconx":39,
-    "icony":125,
+    "iconsize": 18,
+    "iconx": 39,
+    "icony": 125,
     "idArray": "",
-    "iconname":"Shift",
+    "iconname": "Shift",
     "content": {
       "type": "1U8",
       "first": "",
@@ -1221,7 +1221,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "Z",
@@ -1237,7 +1237,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "X",
@@ -1253,7 +1253,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "C",
@@ -1269,7 +1269,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "V",
@@ -1285,7 +1285,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "B",
@@ -1301,7 +1301,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "N",
@@ -1317,7 +1317,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "M",
@@ -1333,7 +1333,7 @@
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": ",",
@@ -1349,7 +1349,7 @@
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": ".",
@@ -1365,7 +1365,7 @@
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U",
       "first": "/",
@@ -1380,11 +1380,11 @@
     "y": 128,
     "centered": true,
     "icon": true,
-    "iconsize":18,
-    "iconx":641,
-    "icony":125,
+    "iconsize": 18,
+    "iconx": 641,
+    "icony": 125,
     "idArray": "",
-    "iconname":"Shift",
+    "iconname": "Shift",
     "content": {
       "type": "2U",
       "first": "",
@@ -1401,7 +1401,7 @@
     "centered": true,
     "icon": true,
     "idArray": "",
-    "iconname":"ArrUp",
+    "iconname": "ArrUp",
     "content": {
       "type": "specialBlock",
       "first": "",
@@ -1417,7 +1417,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "block",
       "first": "1",
@@ -1433,7 +1433,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "block",
       "first": "2",
@@ -1449,7 +1449,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "block",
       "first": "3",
@@ -1465,7 +1465,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "longBlock",
       "first": "Intro",
@@ -1481,7 +1481,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U2",
       "first": "Ctrl",
@@ -1498,7 +1498,7 @@
     "centered": true,
     "icon": true,
     "idArray": "",
-    "iconname":"Win",
+    "iconname": "Win",
     "content": {
       "type": "1U2",
       "first": "",
@@ -1515,7 +1515,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U2",
       "first": "Alt",
@@ -1531,11 +1531,11 @@
     "y": 160,
     "centered": true,
     "icon": true,
-    "iconsize":20,
-    "iconx":310,
-    "icony":157,
+    "iconsize": 20,
+    "iconx": 310,
+    "icony": 157,
     "idArray": "",
-    "iconname":"Space",
+    "iconname": "Space",
     "content": {
       "type": "6U2",
       "first": "",
@@ -1551,7 +1551,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U2",
       "first": "Alt",
@@ -1568,7 +1568,7 @@
     "centered": true,
     "icon": true,
     "idArray": "",
-    "iconname":"Win",
+    "iconname": "Win",
     "content": {
       "type": "1U2",
       "first": "",
@@ -1584,11 +1584,11 @@
     "y": 160,
     "centered": true,
     "icon": true,
-    "iconsize":19,
-    "iconx":607,
-    "icony":157,
+    "iconsize": 19,
+    "iconx": 607,
+    "icony": 157,
     "idArray": "",
-    "iconname":"App",
+    "iconname": "App",
     "content": {
       "type": "1U2",
       "first": "",
@@ -1604,7 +1604,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "1U2",
       "first": "Ctrl",
@@ -1621,7 +1621,7 @@
     "centered": true,
     "icon": true,
     "idArray": "",
-    "iconname":"ArrLeft",
+    "iconname": "ArrLeft",
     "content": {
       "type": "specialBlock",
       "first": "",
@@ -1637,7 +1637,7 @@
     "centered": true,
     "icon": true,
     "idArray": "",
-    "iconname":"ArrDwn",
+    "iconname": "ArrDwn",
     "content": {
       "type": "specialBlock",
       "first": "",
@@ -1653,7 +1653,7 @@
     "centered": true,
     "icon": true,
     "idArray": "",
-    "iconname":"ArrRight",
+    "iconname": "ArrRight",
     "content": {
       "type": "specialBlock",
       "first": "",
@@ -1669,7 +1669,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "wideBlock",
       "first": "0",
@@ -1685,7 +1685,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "block",
       "first": ".",
@@ -1701,7 +1701,7 @@
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "title",
       "first": "SPECIAL",
@@ -1714,31 +1714,33 @@
     "id": 1,
     "x": 65,
     "y": 191,
-    "tooltip": ["Macro",
-  "Assign one of your custom macros",
-  "Layer lock",
-  "-Move to another layer while holding the key.",
-  "-Release the key to go back to the previous layer, or",
-  "",
-  "Layer switch",
-  "-Tap to permanently move to another layer.",
-  "-To return to the previous layer, set a Layer Lock key on the destination that targets it.",
-  "",
-  "F13+",
-  "Choose any F key from F13 to F24.",
-  "No key",
-  "There's no function or character assigned to that key.",
-  "Transparent",
-  "The key has the same function as in the previous layer.",
-  "One-Shot Modifiers and Layers",
-  "It has 3 functionalities:",
-  "1. Hold the key to activate the modifier (Control, Shift, etc).",
-  "2. Single tap to activate the modifier, but just for one keypress. Once you press any key, the modifier will deactivate.",
-  "3. Double-tap to lock that modifier. To unlock it, simply tap the One-Shot Modifier key again."],
+    "tooltip": [
+      "Macro",
+      "Assign one of your custom macros",
+      "Layer lock",
+      "-Move to another layer while holding the key.",
+      "-Release the key to go back to the previous layer, or",
+      "",
+      "Layer switch",
+      "-Tap to permanently move to another layer.",
+      "-To return to the previous layer, set a Layer Lock key on the destination that targets it.",
+      "",
+      "F13+",
+      "Choose any F key from F13 to F24.",
+      "No key",
+      "There's no function or character assigned to that key.",
+      "Transparent",
+      "The key has the same function as in the previous layer.",
+      "One-Shot Modifiers and Layers",
+      "It has 3 functionalities:",
+      "1. Hold the key to activate the modifier (Control, Shift, etc).",
+      "2. Single tap to activate the modifier, but just for one keypress. Once you press any key, the modifier will deactivate.",
+      "3. Double-tap to lock that modifier. To unlock it, simply tap the One-Shot Modifier key again."
+    ],
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "title",
       "first": "",
@@ -1754,7 +1756,7 @@
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "title",
       "first": "MEDIA",
@@ -1770,7 +1772,7 @@
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "title",
       "first": "LED",
@@ -1783,12 +1785,11 @@
     "id": 1,
     "x": 549,
     "y": 191,
-    "tooltip": ["LED Switch: Turn the RGB lighting on or off.",
-      "Next Led Effect: Cycle through the LED effects."],
+    "tooltip": ["LED Switch: Turn the RGB lighting on or off.", "Next Led Effect: Cycle through the LED effects."],
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "title",
       "first": "",
@@ -1804,7 +1805,7 @@
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "title",
       "first": "MOUSE",
@@ -1817,11 +1818,11 @@
     "id": 1,
     "x": 634,
     "y": 191,
-    "tooltip":["Mouse Click, Move and Wheel", "You can assign a mouse action (like click, movement, or wheel) to a key."],
+    "tooltip": ["Mouse Click, Move and Wheel", "You can assign a mouse action (like click, movement, or wheel) to a key."],
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "title",
       "first": "",
@@ -1837,7 +1838,7 @@
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "title",
       "first": "",
@@ -1853,7 +1854,7 @@
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "title",
       "first": "",
@@ -1869,7 +1870,7 @@
     "centered": false,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "title",
       "first": "",
@@ -1884,8 +1885,11 @@
     "y": 216,
     "centered": true,
     "icon": false,
-    "idArray": [17492, 17493, 17494, 17495, 17496, 17497, 17498, 17499, 17500, 17501, 17450, 17451, 17452, 17453, 17454, 17455, 17456, 17457, 17458, 17459],
-    "iconname":"",
+    "idArray": [
+      17492, 17493, 17494, 17495, 17496, 17497, 17498, 17499, 17500, 17501, 17450, 17451, 17452, 17453, 17454, 17455, 17456,
+      17457, 17458, 17459
+    ],
+    "iconname": "",
     "content": {
       "type": "2UT",
       "first": "Layers",
@@ -1901,8 +1905,13 @@
     "y": 244,
     "centered": true,
     "icon": false,
-    "idArray": [53852, 53853, 53854, 53855, 53856, 53857, 53858, 53859, 53860, 53861, 53862, 53863, 53864, 53865, 53866, 53867, 53868, 53869, 53870, 53871, 53872, 53873, 53874, 53875, 53876, 53877, 53878, 53879, 53880, 53881, 53882, 53883, 53884, 53885, 53886, 53887, 53888, 53889, 53890, 53891, 53892, 53893, 53894, 53895, 53896, 53897, 53898, 53899, 53900, 53901, 53902, 53903, 53904, 53905, 53906, 53907, 53908, 53909, 53910, 53911, 53912, 53913, 53914, 53915],
-    "iconname":"",
+    "idArray": [
+      53852, 53853, 53854, 53855, 53856, 53857, 53858, 53859, 53860, 53861, 53862, 53863, 53864, 53865, 53866, 53867, 53868,
+      53869, 53870, 53871, 53872, 53873, 53874, 53875, 53876, 53877, 53878, 53879, 53880, 53881, 53882, 53883, 53884, 53885,
+      53886, 53887, 53888, 53889, 53890, 53891, 53892, 53893, 53894, 53895, 53896, 53897, 53898, 53899, 53900, 53901, 53902,
+      53903, 53904, 53905, 53906, 53907, 53908, 53909, 53910, 53911, 53912, 53913, 53914, 53915
+    ],
+    "iconname": "",
     "content": {
       "type": "2UT",
       "first": "Macro",
@@ -1918,7 +1927,7 @@
     "centered": true,
     "icon": false,
     "idArray": [104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115],
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "specialBlockT",
       "first": "F13+",
@@ -1933,8 +1942,13 @@
     "y": 216,
     "centered": true,
     "icon": false,
-    "idArray": [53916, 53917, 53918, 53919, 53920, 53921, 53922, 53923, 53924, 53925, 53926, 53927, 53928, 53929, 53930, 53931, 53932, 53933, 53934, 53935, 53936, 53937, 53938, 53939, 53940, 53941, 53942, 53943, 53944, 53945, 53946, 53947, 53948, 53949, 53950, 53951, 53952, 53953, 53954, 53955, 53956, 53957, 53958, 53959, 53960, 53961, 53962, 53963, 53964, 53965, 53966, 53967, 53968, 53969, 53970, 53971, 53972, 53973, 53974, 53975, 53976, 53977, 53978, 53979, 53980],
-    "iconname":"",
+    "idArray": [
+      53916, 53917, 53918, 53919, 53920, 53921, 53922, 53923, 53924, 53925, 53926, 53927, 53928, 53929, 53930, 53931, 53932,
+      53933, 53934, 53935, 53936, 53937, 53938, 53939, 53940, 53941, 53942, 53943, 53944, 53945, 53946, 53947, 53948, 53949,
+      53950, 53951, 53952, 53953, 53954, 53955, 53956, 53957, 53958, 53959, 53960, 53961, 53962, 53963, 53964, 53965, 53966,
+      53967, 53968, 53969, 53970, 53971, 53972, 53973, 53974, 53975, 53976, 53977, 53978, 53979, 53980
+    ],
+    "iconname": "",
     "content": {
       "type": "2UT",
       "first": "SuperKeys",
@@ -1952,7 +1966,7 @@
     "centered": true,
     "icon": true,
     "idArray": "",
-    "iconname":"Cancel",
+    "iconname": "Cancel",
     "content": {
       "type": "specialBlockT",
       "first": "",
@@ -1968,7 +1982,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "specialBlockT",
       "first": "Trans.",
@@ -1984,7 +1998,7 @@
     "centered": true,
     "icon": false,
     "idArray": [49153, 49154, 49155, 49156, 49157, 49158, 49159, 49160, 49161, 49162, 49163, 49164, 49165, 49166, 49167, 49168],
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "specialBlockT",
       "first": "1Shot",
@@ -2002,7 +2016,7 @@
     "centered": true,
     "icon": true,
     "idArray": "",
-    "iconname":"Play",
+    "iconname": "Play",
     "content": {
       "type": "specialBlockT",
       "first": "",
@@ -2018,7 +2032,7 @@
     "centered": true,
     "icon": true,
     "idArray": "",
-    "iconname":"Stop",
+    "iconname": "Stop",
     "content": {
       "type": "specialBlockT",
       "first": "",
@@ -2034,7 +2048,7 @@
     "centered": true,
     "icon": true,
     "idArray": "",
-    "iconname":"Backward",
+    "iconname": "Backward",
     "content": {
       "type": "specialBlockT",
       "first": "",
@@ -2050,7 +2064,7 @@
     "centered": true,
     "icon": true,
     "idArray": "",
-    "iconname":"Forward",
+    "iconname": "Forward",
     "content": {
       "type": "specialBlockT",
       "first": "",
@@ -2066,7 +2080,7 @@
     "centered": true,
     "icon": true,
     "idArray": "",
-    "iconname":"Shuffle",
+    "iconname": "Shuffle",
     "content": {
       "type": "specialBlockT",
       "first": "",
@@ -2082,7 +2096,7 @@
     "centered": true,
     "icon": true,
     "idArray": "",
-    "iconname":"VolAdd",
+    "iconname": "VolAdd",
     "content": {
       "type": "specialBlockT",
       "first": "",
@@ -2098,7 +2112,7 @@
     "centered": true,
     "icon": true,
     "idArray": "",
-    "iconname":"VolSub",
+    "iconname": "VolSub",
     "content": {
       "type": "specialBlockT",
       "first": "",
@@ -2114,7 +2128,7 @@
     "centered": true,
     "icon": true,
     "idArray": "",
-    "iconname":"VolMute",
+    "iconname": "VolMute",
     "content": {
       "type": "specialBlockT",
       "first": "",
@@ -2130,7 +2144,7 @@
     "centered": true,
     "icon": true,
     "idArray": "",
-    "iconname":"Eject",
+    "iconname": "Eject",
     "content": {
       "type": "specialBlockT",
       "first": "",
@@ -2146,7 +2160,7 @@
     "centered": true,
     "icon": true,
     "idArray": "",
-    "iconname":"LDToggl",
+    "iconname": "LDToggl",
     "content": {
       "type": "specialBlockT2",
       "first": "",
@@ -2162,7 +2176,7 @@
     "centered": true,
     "icon": true,
     "idArray": "",
-    "iconname":"LDForward",
+    "iconname": "LDForward",
     "content": {
       "type": "specialBlockT2",
       "first": "",
@@ -2178,7 +2192,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "specialBlockT",
       "first": "Left",
@@ -2194,7 +2208,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "specialBlockT",
       "first": "Right",
@@ -2210,7 +2224,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "specialBlockT",
       "first": "Mid.",
@@ -2226,7 +2240,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "specialBlockT",
       "first": "Back",
@@ -2242,7 +2256,7 @@
     "centered": true,
     "icon": false,
     "idArray": "",
-    "iconname":"",
+    "iconname": "",
     "content": {
       "type": "specialBlockT",
       "first": "Fwd.",
@@ -2258,7 +2272,7 @@
     "centered": true,
     "icon": true,
     "idArray": "",
-    "iconname":"MvUp",
+    "iconname": "MvUp",
     "content": {
       "type": "specialBlockT2",
       "first": "",
@@ -2274,7 +2288,7 @@
     "centered": true,
     "icon": true,
     "idArray": "",
-    "iconname":"MvDwn",
+    "iconname": "MvDwn",
     "content": {
       "type": "specialBlockT2",
       "first": "",
@@ -2290,7 +2304,7 @@
     "centered": true,
     "icon": true,
     "idArray": "",
-    "iconname":"MvLeft",
+    "iconname": "MvLeft",
     "content": {
       "type": "specialBlockT2",
       "first": "",
@@ -2306,7 +2320,7 @@
     "centered": true,
     "icon": true,
     "idArray": "",
-    "iconname":"MvRight",
+    "iconname": "MvRight",
     "content": {
       "type": "specialBlockT2",
       "first": "",
@@ -2322,7 +2336,7 @@
     "centered": true,
     "icon": true,
     "idArray": "",
-    "iconname":"ScrlUp",
+    "iconname": "ScrlUp",
     "content": {
       "type": "specialBlockT2",
       "first": "",
@@ -2338,7 +2352,7 @@
     "centered": true,
     "icon": true,
     "idArray": "",
-    "iconname":"ScrlDwn",
+    "iconname": "ScrlDwn",
     "content": {
       "type": "specialBlockT2",
       "first": "",
@@ -2354,7 +2368,7 @@
     "centered": true,
     "icon": true,
     "idArray": "",
-    "iconname":"ScrlLeft",
+    "iconname": "ScrlLeft",
     "content": {
       "type": "specialBlockT2",
       "first": "",
@@ -2370,7 +2384,7 @@
     "centered": true,
     "icon": true,
     "idArray": "",
-    "iconname":"ScrlRight",
+    "iconname": "ScrlRight",
     "content": {
       "type": "specialBlockT2",
       "first": "",

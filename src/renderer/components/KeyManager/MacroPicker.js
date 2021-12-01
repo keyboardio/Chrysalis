@@ -42,27 +42,15 @@ class MacroPicker extends Component {
           id="MacroPicker"
           drop={"up"}
           className="MacroButton"
-          title={
-            macros[mcros.indexOf(KC)] != undefined
-              ? `${mcros.indexOf(KC)} ${macros[mcros.indexOf(KC)].name}`
-              : ""
-          }
-          value={
-            macros[mcros.indexOf(KC)] != undefined
-              ? mcros[mcros.indexOf(KC)]
-              : ""
-          }
+          title={macros[mcros.indexOf(KC)] != undefined ? `${mcros.indexOf(KC)} ${macros[mcros.indexOf(KC)].name}` : ""}
+          value={macros[mcros.indexOf(KC)] != undefined ? mcros[mcros.indexOf(KC)] : ""}
           onSelect={value => {
             onKeySelect(parseInt(value));
           }}
         >
           {mcros.map((x, id) => {
             return (
-              <Dropdown.Item
-                eventKey={x}
-                key={`macro-${id}`}
-                disabled={x == -1}
-              >
+              <Dropdown.Item eventKey={x} key={`macro-${id}`} disabled={x == -1}>
                 <div className="menuitem">
                   <p>{`${id} ${macros[id].name}`}</p>
                 </div>

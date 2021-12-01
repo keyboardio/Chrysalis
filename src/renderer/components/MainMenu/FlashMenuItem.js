@@ -19,14 +19,7 @@ import React, { Fragment } from "react";
 import i18n from "../../i18n";
 import { HiChip } from "react-icons/hi";
 
-export default function FlashMenuItem({
-  selected,
-  onClick,
-  className,
-  classIcon,
-  drawerWidth,
-  showNotif
-}) {
+export default function FlashMenuItem({ selected, onClick, className, classIcon, drawerWidth, showNotif }) {
   return (
     <div onClick={onClick} className={"item-list"}>
       <div className="icon-item">

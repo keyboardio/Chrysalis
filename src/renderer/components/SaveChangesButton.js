@@ -68,11 +68,7 @@ class SaveChangesButton extends React.Component {
     const { successMessage, centered } = this.props;
 
     const textPart = !this.props.floating && (
-      <span>
-        {success
-          ? successMessage || i18n.components.save.success
-          : this.props.children}
-      </span>
+      <span>{success ? successMessage || i18n.components.save.success : this.props.children}</span>
     );
 
     const icon = this.props.icon || <MdSave className="svgIcon" />;
@@ -84,11 +80,7 @@ class SaveChangesButton extends React.Component {
             <OverlayTrigger
               rootClose
               placement="top"
-              overlay={
-                <Tooltip id={"save-tooltip"}>
-                  Save your layer modifications to the raise.
-                </Tooltip>
-              }
+              overlay={<Tooltip id={"save-tooltip"}>Save your layer modifications to the raise.</Tooltip>}
             >
               <Button
                 disabled={inProgress || (this.props.disabled && !success)}
@@ -99,13 +91,7 @@ class SaveChangesButton extends React.Component {
                 <Col>
                   <h5 className="m-0">
                     {inProgress ? (
-                      <Spinner
-                        as="span"
-                        variant="primary"
-                        animation="border"
-                        size="sm"
-                        role="status"
-                      />
+                      <Spinner as="span" variant="primary" animation="border" size="sm" role="status" />
                     ) : success ? (
                       <MdCheck className="svgIcon" />
                     ) : (

@@ -53,10 +53,7 @@ export default class FlashRaise {
     const date = new Date();
     const firstFind = /, /gi;
     const secondFind = /:/gi;
-    const formatterDate = date
-      .toLocaleString("en-CA", { hour12: false })
-      .replace(firstFind, "-")
-      .replace(secondFind, "_");
+    const formatterDate = date.toLocaleString("en-CA", { hour12: false }).replace(firstFind, "-").replace(secondFind, "_");
     return formatterDate;
   }
 
@@ -121,8 +118,7 @@ export default class FlashRaise {
 
     try {
       let errorFlag = false;
-      const errorMessage =
-        "Firmware update failed, because the settings could not be saved";
+      const errorMessage = "Firmware update failed, because the settings could not be saved";
       for (let command of commands) {
         // Ignore the command if it's not supported
         if (!focus.isCommandSupported(command)) {
@@ -131,12 +127,9 @@ export default class FlashRaise {
         }
 
         let res = await focus.command(command);
-        this.backupFileData.backup[command] =
-          typeof res === "string" ? res.trim() : res;
+        this.backupFileData.backup[command] = typeof res === "string" ? res.trim() : res;
         if (res === undefined || res === "") {
-          this.backupFileData.log.push(
-            `Get backup settings ${command}: Error: ${errorMessage}`
-          );
+          this.backupFileData.log.push(`Get backup settings ${command}: Error: ${errorMessage}`);
           errorFlag = true;
         }
       }
@@ -154,10 +147,7 @@ export default class FlashRaise {
    * linux: in directory, where the app is located.
    */
   saveBackupFile() {
-    const route = path.join(
-      require("electron").remote.app.getPath("userData"),
-      this.backupFileName + ".json"
-    );
+    const route = path.join(require("electron").remote.app.getPath("userData"), this.backupFileName + ".json");
     console.log("saving file to: " + route);
     fs.writeFile(route, JSON.stringify(this.backupFileData), err => {
       if (err) throw err;
@@ -193,21 +183,14 @@ export default class FlashRaise {
             this.backupFileData.log.push("Waiting for bootloader");
             try {
               await this.delay(timeouts.bootLoaderUp);
-              if (
-                await this.foundDevices(
-                  Hardware.bootloader,
-                  "Bootloader detected"
-                )
-              ) {
+              if (await this.foundDevices(Hardware.bootloader, "Bootloader detected")) {
                 resolve();
               } else {
                 this.backupFileData.log.push("Bootloader didn't detect");
                 throw new Error(errorMessage);
               }
             } catch (e) {
-              this.backupFileData.log.push(
-                `Reset keyboard: Error: ${e.message}`
-              );
+              this.backupFileData.log.push(`Reset keyboard: Error: ${e.message}`);
               // this.saveBackupFile();
               reject(e);
             }
@@ -234,9 +217,7 @@ export default class FlashRaise {
         await arduino.flash(filename, async (err, result) => {
           if (err) throw new Error(`Flash error ${result}`);
           else {
-            this.backupFileData.log.push(
-              "End update firmware with arduino-flasher"
-            );
+            this.backupFileData.log.push("End update firmware with arduino-flasher");
             await this.detectKeyboard();
             resolve();
           }
@@ -291,9 +272,7 @@ export default class FlashRaise {
       console.log("Ready to restore");
       return true;
     } else {
-      this.backupFileData.log.push(
-        `Keyboard didn't detect ${times === 2 ? 1 : 2} time`
-      );
+      this.backupFileData.log.push(`Keyboard didn't detect ${times === 2 ? 1 : 2} time`);
       await this.runnerFindKeyboard(findKeyboard, times - 1, errorMessage);
     }
   }
@@ -303,8 +282,7 @@ export default class FlashRaise {
    */
   async restoreSettings() {
     let focus = new Focus();
-    const errorMessage =
-      "Firmware update failed, because the settings could not be restored";
+    const errorMessage = "Firmware update failed, because the settings could not be restored";
     let backup = this.backup;
     if (backup === undefined || backup.length === 0) {
       return;

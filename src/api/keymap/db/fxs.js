@@ -191,12 +191,7 @@ const ModifiedFunctionKeyTables = [
   withModifiers(FunctionKeyTable, "Control + Alt + AltGr +", "C+A+AGr+", 1792),
   withModifiers(FunctionKeyTable, "Meh +", "Meh+", 2816),
   withModifiers(FunctionKeyTable, "Control + Alt + Gui +", "C+A+G+", 4864),
-  withModifiers(
-    FunctionKeyTable,
-    "Control + AltGr + Shift +",
-    "C+AGr+S+",
-    3328
-  ),
+  withModifiers(FunctionKeyTable, "Control + AltGr + Shift +", "C+AGr+S+", 3328),
   withModifiers(FunctionKeyTable, "Control + AltGr + Gui +", "C+AGr+G+", 5376),
   withModifiers(FunctionKeyTable, "Control + Shift + Gui +", "C+S+G+", 6400),
   withModifiers(FunctionKeyTable, "Alt + AltGr + Shift +", "A+AGr+S+", 3584),
@@ -206,25 +201,10 @@ const ModifiedFunctionKeyTables = [
 
   // Quad
   withModifiers(FunctionKeyTable, "Meh + AltGr +", "M+AGr+", 3840),
-  withModifiers(
-    FunctionKeyTable,
-    "Control + Alt + AltGr + Gui +",
-    "C+A+AGr+G+",
-    5888
-  ),
+  withModifiers(FunctionKeyTable, "Control + Alt + AltGr + Gui +", "C+A+AGr+G+", 5888),
   withModifiers(FunctionKeyTable, "Hyper +", "Hyper+", 6912),
-  withModifiers(
-    FunctionKeyTable,
-    "Control + AltGr + Shift + Gui +",
-    "C+AGr+S+G+",
-    7424
-  ),
-  withModifiers(
-    FunctionKeyTable,
-    "Alt + AltGr + Shift + Gui +",
-    "A+AGr+S+G+",
-    7680
-  ),
+  withModifiers(FunctionKeyTable, "Control + AltGr + Shift + Gui +", "C+AGr+S+G+", 7424),
+  withModifiers(FunctionKeyTable, "Alt + AltGr + Shift + Gui +", "A+AGr+S+G+", 7680),
 
   // All
   withModifiers(FunctionKeyTable, "Hyper + AltGr +", "H+AGr+", 7936)

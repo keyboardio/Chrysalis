@@ -59,12 +59,7 @@ class MacroToolTab extends Component {
     const text = (
       <Row className={"flex margin"}>
         <Col xs={11}>
-          <Form.Control
-            type="text"
-            placeholder="Enter Text"
-            value={this.props.addText}
-            onChange={this.props.onTextChange}
-          />
+          <Form.Control type="text" placeholder="Enter Text" value={this.props.addText} onChange={this.props.onTextChange} />
         </Col>
         <Col xs={1}>
           <Button onClick={this.props.onAddText} className={"iconbutton"}>
@@ -115,41 +110,17 @@ class MacroToolTab extends Component {
           borderRadius: "4px"
         }}
       >
-        <Tabs
-          activeKey={value}
-          onSelect={this.handleChange}
-          className="tool-tabs mx-0"
-        >
-          <Tab
-            className="tab"
-            eventKey="Text"
-            title="Text"
-            label={i18n.editor.macros.inputText}
-          >
+        <Tabs activeKey={value} onSelect={this.handleChange} className="tool-tabs mx-0">
+          <Tab className="tab" eventKey="Text" title="Text" label={i18n.editor.macros.inputText}>
             {text}
           </Tab>
-          <Tab
-            className="tab"
-            eventKey="Keys"
-            title="Keys"
-            label={i18n.editor.macros.keysAndDelays}
-          >
+          <Tab className="tab" eventKey="Keys" title="Keys" label={i18n.editor.macros.keysAndDelays}>
             {keys}
           </Tab>
-          <Tab
-            className="tab"
-            eventKey="Functions"
-            title="Functions"
-            label={i18n.editor.macros.functions}
-          >
+          <Tab className="tab" eventKey="Functions" title="Functions" label={i18n.editor.macros.functions}>
             {functions}
           </Tab>
-          <Tab
-            className="tab"
-            eventKey="Mouse"
-            title="Mouse"
-            label={i18n.editor.macros.mouse}
-          >
+          <Tab className="tab" eventKey="Mouse" title="Mouse" label={i18n.editor.macros.mouse}>
             {mouse}
           </Tab>
         </Tabs>

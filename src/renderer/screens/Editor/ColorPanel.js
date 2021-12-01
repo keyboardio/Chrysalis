@@ -55,12 +55,10 @@ align-self: flex-end!important;
           box-shadow: 2px 2px 4px 1px darkgrey;
         }
         .color.actv{
-          box-shadow: 0px 0px 3px 5px ${({ theme }) =>
-            theme.colors.button.active};
+          box-shadow: 0px 0px 3px 5px ${({ theme }) => theme.colors.button.active};
         }
         .color:hover {
-          box-shadow: 0px 0px 4px 3px ${({ theme }) =>
-            theme.colors.button.hover};
+          box-shadow: 0px 0px 4px 3px ${({ theme }) => theme.colors.button.hover};
         }
         .color:focus {
           height: 28px;
@@ -143,11 +141,7 @@ export default class ColorPanel extends Component {
     const id = `tooltip-${text}`;
 
     return (
-      <OverlayTrigger
-        rootClose
-        overlay={<Tooltip id={id}>{text}</Tooltip>}
-        placement="top"
-      >
+      <OverlayTrigger rootClose overlay={<Tooltip id={id}>{text}</Tooltip>} placement="top">
         <Button disabled={disable} onClick={func} className={classes}>
           {icon}
         </Button>
@@ -180,13 +174,7 @@ export default class ColorPanel extends Component {
   }
 
   render() {
-    const {
-      colors,
-      selected,
-      toChangeAllKeysColor,
-      onBacklightColorSelect,
-      onColorButtonSelect
-    } = this.props;
+    const { colors, selected, toChangeAllKeysColor, onBacklightColorSelect, onColorButtonSelect } = this.props;
     const { displayColorPicker } = this.state;
 
     const layerButtons = colors.map((data, idx) => {
@@ -204,11 +192,7 @@ export default class ColorPanel extends Component {
           data-id={data.rgb}
         >
           <div className="button-content">
-            <div
-              key={colors[idx]}
-              className={`color ${selected === idx ? "actv" : ""}`}
-              style={buttonStyle}
-            />
+            <div key={colors[idx]} className={`color ${selected === idx ? "actv" : ""}`} style={buttonStyle} />
           </div>
         </Button>
       );
@@ -244,17 +228,7 @@ export default class ColorPanel extends Component {
       </>
     );
 
-    const edit = (
-      <>
-        {this.CButton(
-          "Edit current color",
-          this.showColorPicker,
-          <CgColorPicker />,
-          false,
-          "first colorpick"
-        )}
-      </>
-    );
+    const edit = <>{this.CButton("Edit current color", this.showColorPicker, <CgColorPicker />, false, "first colorpick")}</>;
 
     const popover = {
       position: "absolute",
@@ -273,15 +247,8 @@ export default class ColorPanel extends Component {
         <Container fluid className="color-editor">
           {displayColorPicker ? (
             <div style={popover}>
-              <div
-                style={cover}
-                onClick={this.showColorPicker}
-                aria-hidden="true"
-              />
-              <SketchPicker
-                color={colors[selected]}
-                onChange={this.handleChange}
-              />
+              <div style={cover} onClick={this.showColorPicker} aria-hidden="true" />
+              <SketchPicker color={colors[selected]} onChange={this.handleChange} />
             </div>
           ) : null}
           <Row className="m-0">

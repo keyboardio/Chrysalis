@@ -33,8 +33,7 @@ export default function LoadDefaultKeymap({ loadDefault }) {
   const { vendor, product } = device.info;
   const cVendor = vendor.replace("/", "");
   const cProduct = product.replace("/", "");
-  const layoutPath = layout =>
-    path.join(getStaticPath(), cVendor, cProduct, `${layout}.json`);
+  const layoutPath = layout => path.join(getStaticPath(), cVendor, cProduct, `${layout}.json`);
 
   const defaultLayouts = ["Qwerty", "Dvorak", "Colemak"];
   const deviceLayouts = [];
@@ -55,11 +54,7 @@ export default function LoadDefaultKeymap({ loadDefault }) {
         <React.Fragment>
           <h3>{i18n.editor.loadDefault}</h3>
           {deviceLayouts.map(({ name, path }, i) => (
-            <Button
-              key={name + i}
-              color="primary"
-              onClick={() => loadDefault(path)}
-            >
+            <Button key={name + i} color="primary" onClick={() => loadDefault(path)}>
               {name}
             </Button>
           ))}

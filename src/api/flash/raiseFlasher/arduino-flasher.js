@@ -122,8 +122,7 @@ function num2hexstr(number, paddedTo) {
 function hex2byte(hex) {
   var bytes = [];
 
-  for (var i = 0; i < hex.length; i += 2)
-    bytes.push(parseInt(hex.substr(i, 2), 16));
+  for (var i = 0; i < hex.length; i += 2) bytes.push(parseInt(hex.substr(i, 2), 16));
 
   return bytes;
 }
@@ -215,9 +214,7 @@ export var arduino = {
     if (address < 2000) {
       finished(
         true,
-        "You're attempting to overwrite the bootloader... (0x" +
-          padToN(num2hexstr(dataObjects[0].address), 8) +
-          ")"
+        "You're attempting to overwrite the bootloader... (0x" + padToN(num2hexstr(dataObjects[0].address), 8) + ")"
       );
       return;
     }
@@ -256,9 +253,7 @@ export var arduino = {
           address = currentHex.address << 16;
         }
 
-        new Uint8Array(buffer, bufferTotal, currentHex.len).set(
-          currentHex.data
-        );
+        new Uint8Array(buffer, bufferTotal, currentHex.len).set(currentHex.data);
 
         hexCount++;
         bufferTotal += currentHex.len;
@@ -268,10 +263,7 @@ export var arduino = {
       (function (localAddress, localBufferSize, localBuffer) {
         //tell the arduino we are writing at memory 20005000, for N bytes.
         func_array.push(function (callback) {
-          write_cb(
-            str2ab("S20005000," + num2hexstr(localBufferSize, 8) + "#"),
-            callback
-          );
+          write_cb(str2ab("S20005000," + num2hexstr(localBufferSize, 8) + "#"), callback);
         });
 
         //write our data.
@@ -291,16 +283,7 @@ export var arduino = {
 
         //copy N bytes to memory location Y.
         func_array.push(function (callback) {
-          write_cb(
-            str2ab(
-              "Y" +
-                num2hexstr(localAddress, 8) +
-                "," +
-                num2hexstr(localBufferSize, 8) +
-                "#"
-            ),
-            callback
-          );
+          write_cb(str2ab("Y" + num2hexstr(localAddress, 8) + "," + num2hexstr(localBufferSize, 8) + "#"), callback);
         });
 
         //wait for ACK

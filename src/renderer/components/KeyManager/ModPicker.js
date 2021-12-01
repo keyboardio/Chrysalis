@@ -94,26 +94,19 @@ class ModPicker extends Component {
   componentDidMount() {
     if (this.props.keyCode.base + this.props.keyCode.modified > 10000) return;
     this.setState({
-      modifs: this.parseModifs(
-        this.props.keyCode.base + this.props.keyCode.modified
-      )
+      modifs: this.parseModifs(this.props.keyCode.base + this.props.keyCode.modified)
     });
   }
 
   componentDidUpdate(previousProps, previousState) {
-    if (
-      this.props.keyCode.base + this.props.keyCode.modified !=
-      previousProps.keyCode.base + previousProps.keyCode.modified
-    ) {
+    if (this.props.keyCode.base + this.props.keyCode.modified != previousProps.keyCode.base + previousProps.keyCode.modified) {
       if (this.props.keyCode.base + this.props.keyCode.modified > 10000) {
         this.setState({
           modifs: []
         });
       } else {
         this.setState({
-          modifs: this.parseModifs(
-            this.props.keyCode.base + this.props.keyCode.modified
-          )
+          modifs: this.parseModifs(this.props.keyCode.base + this.props.keyCode.modified)
         });
       }
     }
@@ -204,8 +197,7 @@ class ModPicker extends Component {
   render() {
     const { modifs } = this.state;
     const text1 = "Add a modifier";
-    const text2 =
-      "Add any of these modifiers to the selected Key to create combinations such as Control Alt Del.";
+    const text2 = "Add any of these modifiers to the selected Key to create combinations such as Control Alt Del.";
 
     return (
       <Style>
@@ -221,39 +213,19 @@ class ModPicker extends Component {
           </OverlayTrigger>
         </Row>
         <Row className="modbuttonrow">
-          <Button
-            active={modifs.includes(0)}
-            className="modbutton"
-            onClick={e => this.SelectModif(0)}
-          >
+          <Button active={modifs.includes(0)} className="modbutton" onClick={e => this.SelectModif(0)}>
             Shift
           </Button>
-          <Button
-            active={modifs.includes(1)}
-            className="modbutton"
-            onClick={e => this.SelectModif(1)}
-          >
+          <Button active={modifs.includes(1)} className="modbutton" onClick={e => this.SelectModif(1)}>
             Ctrl
           </Button>
-          <Button
-            active={modifs.includes(2)}
-            className="modbutton"
-            onClick={e => this.SelectModif(2)}
-          >
+          <Button active={modifs.includes(2)} className="modbutton" onClick={e => this.SelectModif(2)}>
             Alt
           </Button>
-          <Button
-            active={modifs.includes(3)}
-            className="modbutton"
-            onClick={e => this.SelectModif(3)}
-          >
+          <Button active={modifs.includes(3)} className="modbutton" onClick={e => this.SelectModif(3)}>
             Alt Gr
           </Button>
-          <Button
-            active={modifs.includes(4)}
-            className="modbutton"
-            onClick={e => this.SelectModif(4)}
-          >
+          <Button active={modifs.includes(4)} className="modbutton" onClick={e => this.SelectModif(4)}>
             O.S.
           </Button>
         </Row>

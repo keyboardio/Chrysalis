@@ -60,7 +60,8 @@
         "from": "./build/launcher.sh",
         "to": "launcher.sh"
       },
-      "static"
+      "static",
+      "NEWS.md"
     ]
   },
   "dependencies": {
@@ -84,6 +85,7 @@
     "react-dom": "^16.14.0",
     "react-i18next": "^11.8.5",
     "react-localization": "^1.0.15",
+    "react-markdown": "^7.1.0",
     "react-toastify": "^6.0.9",
     "serialport": "^8.0.7",
     "source-map-support": "^0.5.16",

@@ -42,6 +42,7 @@ import ExitMenuItem from "./ExitMenuItem";
 import KeyboardMenuItem from "./KeyboardSelectMenuItem";
 import PreferencesMenuItem from "./PreferencesMenuItem";
 import UpgradeMenuItem from "./UpgradeMenuItem";
+import ChangeLogMenuItem from "./ChangeLogMenuItem";
 import openURL from "../../utils/openURL";
 
 import { history } from "../../routerHistory";
@@ -184,6 +185,13 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
             className={classes.menuItem}
             selected={currentPage == "/system-info"}
             onClick={() => setCurrentPage("/system-info")}
+          />
+        </Link>
+        <Link to="/changelog" className={classes.link}>
+          <ChangeLogMenuItem
+            className={classes.menuItem}
+            selected={currentPage == "/changelog"}
+            onClick={() => setCurrentPage("/changelog")}
           />
         </Link>
         <ExitMenuItem

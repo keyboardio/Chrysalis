@@ -22,6 +22,13 @@ All of the firmware files Chrysalis ships with have been updated. All of the
 firmwares that had the OneShot plugin enabled, now also have EscapeOneShot
 enabled aswell, enabling the new feature mentioned above to function.
 
+## Miscellaneous
+
+Chrysalis now has a new item in the menu: `Changelog`, which displays this very
+news file at the time of building the release. With this available, one can
+easily look at what changed between their previous version and the current one,
+without leaving Chrysalis itself.
+
 Chrysalis 0.8.6
 ===============
 Released on 2021-10-02

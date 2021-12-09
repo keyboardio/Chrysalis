@@ -20,7 +20,7 @@ jobs:
       - name: Install Node.js, NPM and Yarn
         uses: actions/setup-node@v1
         with:
-          node-version: 16
+          node-version: 12
 
       - name: Install udev-dev
         run: sudo apt update && sudo apt install libudev-dev
@@ -52,7 +52,7 @@ jobs:
         run: |
           mkdir -p ~/private_keys/
           echo '${{ secrets.api_key }}' > ~/private_keys/AuthKey_${{ secrets.api_key_id }}.p8
-      
+
       - name: Build Chrysalis
         uses: samuelmeuli/action-electron-builder@v1
         env:

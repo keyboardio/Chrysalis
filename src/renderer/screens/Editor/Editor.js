@@ -45,11 +45,6 @@ import { undeglowDefaultColors } from "./initialUndaglowColors";
 const Store = window.require("electron-store");
 const store = new Store();
 
-const Fade = Styled.div`
-opacity: ${props => (props.animate ? "0" : "1")};
-visibility: ${props => (props.animate ? "hidden" : "visible")};
-`;
-
 const ModalStyle = Styled.div`
 background-color: ${({ theme }) => theme.card.background};
 color: ${({ theme }) => theme.card.color};
@@ -254,7 +249,8 @@ class Editor extends React.Component {
       isColorButtonSelected: false,
       currentLanguageLayout: "",
       undeglowColors: null,
-      showMacroModal: false
+      showMacroModal: false,
+      showNeuronModal: false
     };
     this.onLayerNameChange = this.onLayerNameChange.bind(this);
     this.updateMacros = this.updateMacros.bind(this);
@@ -266,6 +262,8 @@ class Editor extends React.Component {
     this.setSuperKey = this.setSuperKey.bind(this);
     this.delSuperKey = this.delSuperKey.bind(this);
     this.toggleMacroModal = this.toggleMacroModal.bind(this);
+    this.toggleNeuronModal = this.toggleNeuronModal.bind(this);
+    this.CloneExistingNeuron = this.CloneExistingNeuron.bind(this);
     this.updateOldMacros = this.updateOldMacros.bind(this);
   }
 
@@ -306,7 +304,7 @@ class Editor extends React.Component {
     }));
   };
 
-  AnalizeChipID(chipID) {
+  async AnalizeChipID(chipID) {
     let neurons = store.get("neurons");
     let finalNeuron;
     console.log("Neuron ID", chipID, neurons);
@@ -361,11 +359,28 @@ class Editor extends React.Component {
       neuron.layers = this.defaultLayerNames;
       neuron.macros = [];
       neuron.superkeys = [];
+      let neuronCopy = {};
+      neuronCopy.id = chipID;
+      neuronCopy.name = neurons[0].name;
+      neuronCopy.layers = neurons[0].layers;
+      neuronCopy.macros = neurons[0].macros;
+      neuronCopy.superkeys = neurons[0].superkeys;
       console.log("Additional neuron", neuron);
-      neurons = neurons.concat(neuron);
-      store.set("neurons", neurons);
-      toast.success("added additional neuron to this Bazecor installation");
-      finalNeuron = neuron;
+      let result = await window.confirm(
+        "A new Neuron was plugged in, do you want to keep using the current names for layers, macros and superkeys? if not, all names will be empty"
+      );
+      // var result = await userAction;
+      console.log(result, neuron, neuronCopy);
+      if (result === false) {
+        neurons = neurons.concat(neuron);
+        store.set("neurons", neurons);
+        finalNeuron = neuron;
+      }
+      if (result === true) {
+        neurons = neurons.concat(neuronCopy);
+        store.set("neurons", neurons);
+        finalNeuron = neuronCopy;
+      }
     }
     console.log("Final neuron", finalNeuron);
     this.setState({
@@ -385,7 +400,7 @@ class Editor extends React.Component {
        * Create property language to the object 'options', to call KeymapDB in Keymap and modify languagu layout
        */
       let chipID = await focus.command("hardware.chip_id");
-      let registered = this.AnalizeChipID(chipID.replace(/\s/g, ""));
+      let registered = await this.AnalizeChipID(chipID.replace(/\s/g, ""));
 
       if (lang) {
         let deviceLang = { ...focus.device, language: true };
@@ -1407,9 +1422,23 @@ class Editor extends React.Component {
       });
   }
 
+  toggleNeuronModal() {
+    if (this.state.showNeuronModal) {
+      this.state.savedReject.reject("cancelled");
+    }
+    this.setState({ showNeuronModal: !this.state.showNeuronModal });
+  }
+
+  CloneExistingNeuron() {
+    this.state.savedResolve.resolve("resolved");
+    toast.success("added additional neuron to this Bazecor installation");
+    this.setState({ showNeuornModal: false });
+  }
+
   toggleMacroModal() {
     this.setState({ showMacroModal: !this.state.showMacroModal });
   }
+
   updateOldMacros() {
     let keymap = this.state.keymap;
     let layers = [];
@@ -1730,6 +1759,25 @@ class Editor extends React.Component {
               </Button>
               <Button variant="primary" onClick={this.updateOldMacros}>
                 {i18n.editor.oldMacroModal.applyButton}
+              </Button>
+            </Modal.Footer>
+          </ModalStyle>
+        </Modal>
+        <Modal show={this.state.showNeuronModal} onHide={this.toggleNeuronModal} style={{ marginTop: "300px" }}>
+          <ModalStyle>
+            <Modal.Header closeButton className="title noborder">
+              <Modal.Title>{i18n.editor.oldNeuronModal.title}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body className="body">
+              <p>{i18n.editor.oldNeuronModal.body}</p>
+              <p className="italic">{i18n.editor.oldNeuronModal.body2}</p>
+            </Modal.Body>
+            <Modal.Footer className="noborder">
+              <Button variant="secondary" onClick={this.toggleNeuronModal}>
+                {i18n.editor.oldNeuronModal.cancelButton}
+              </Button>
+              <Button variant="primary" onClick={this.CloneExistingNeuron}>
+                {i18n.editor.oldNeuronModal.applyButton}
               </Button>
             </Modal.Footer>
           </ModalStyle>

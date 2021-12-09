@@ -367,7 +367,7 @@ class Editor extends React.Component {
       neuronCopy.superkeys = neurons[0].superkeys;
       console.log("Additional neuron", neuron);
       let result = await window.confirm(
-        "A new Neuron was plugged in, do you want to keep using the current names for layers, macros and superkeys? if not, all names will be empty"
+        "A new Neuron was detected and new settings need to be created. The names of the layers, macros and Superkeys are empty. If you want to copy the names of the previous Neuron click ‘Ok’. If you prefer to reset all names click ‘Cancel’."
       );
       // var result = await userAction;
       console.log(result, neuron, neuronCopy);

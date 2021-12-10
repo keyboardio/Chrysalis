@@ -122,7 +122,6 @@ class KeyboardSelect extends React.Component {
     const devices = usb.getDeviceList().map(device => device.deviceDescriptor);
     devices.forEach(desc => {
       Hardware.nonSerial.forEach(device => {
-        device.accessible = true;
         if (
           desc.idVendor == device.usb.vendorId &&
           desc.idProduct == device.usb.productId
@@ -136,7 +135,12 @@ class KeyboardSelect extends React.Component {
               found = true;
             }
           });
-          if (!found) deviceList.push({ device: device });
+          if (!found) {
+            deviceList.push({
+              accessible: true,
+              device: device
+            });
+          }
         }
       });
     });

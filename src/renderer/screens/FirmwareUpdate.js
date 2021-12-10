@@ -310,7 +310,8 @@ class FirmwareUpdate extends React.Component {
       this.setState({ versions: versions });
     });
     const commands = await this.bkp.Commands();
-    this.setState({ commands });
+    let chipID = (await focus.command("hardware.chip_id")).replace(/\s/g, "");
+    this.setState({ commands, neuronID: chipID });
   }
 
   componentWillUnmount() {
@@ -546,7 +547,7 @@ class FirmwareUpdate extends React.Component {
   };
 
   backup = async () => {
-    let backup = await this.bkp.DoBackup(this.state.commands);
+    let backup = await this.bkp.DoBackup(this.state.commands, this.state.neuronID);
     this.setState({ backup });
   };
 

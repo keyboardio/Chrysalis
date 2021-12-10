@@ -29,6 +29,7 @@ import Container from "react-bootstrap/Container";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Spinner from "react-bootstrap/Spinner";
+import Accordion from "react-bootstrap/Accordion";
 
 import RangeSlider from "react-bootstrap-range-slider";
 
@@ -50,7 +51,8 @@ import norwegianF from "../../../../static/norwegian.png";
 
 import { MdComputer, MdBrightness3, MdWbSunny, MdStorage, MdInfo } from "react-icons/md";
 import { BsType, BsBrightnessHigh } from "react-icons/bs";
-import { BiMouse, BiCodeAlt, BiWrench } from "react-icons/bi";
+import { BiMouse, BiCodeAlt, BiWrench, BiChip } from "react-icons/bi";
+import { isArray } from "lodash";
 
 const Store = require("electron-store");
 const store = new Store();
@@ -152,6 +154,20 @@ const Styles = Styled.div`
     right: 7px;
     top: 21px;
   }
+  .neuronToggler{
+    text-align: left;
+    line-height: 1.8em;
+    letter-spacing: 0.02em;
+  }
+  .neuron-lh{
+    line-height: 2.4rem;
+  }
+  .neuronDataCard{
+    padding 0;
+    .card-header{
+      padding: 4px 24px;
+    }
+  }
 `;
 
 const TooltipStyle = Styled.div`
@@ -172,6 +188,8 @@ class KeyboardSettings extends React.Component {
     this.bkp = new Backup();
 
     this.state = {
+      neurons: store.get("neurons"),
+      neuronID: "",
       keymap: {
         custom: [],
         default: [],
@@ -180,6 +198,7 @@ class KeyboardSettings extends React.Component {
       ledBrightness: 255,
       ledIdleTimeLimit: 0,
       defaultLayer: 126,
+      selectedNeuron: 0,
       qukeysHoldTimeout: 0,
       qukeysOverlapThreshold: 0,
       SuperTimeout: 0,
@@ -211,6 +230,10 @@ class KeyboardSettings extends React.Component {
 
   async componentDidMount() {
     const focus = new Focus();
+    focus.command("hardware.chip_id").then(neuronID => {
+      neuronID = neuronID.replace(/\s/g, "");
+      this.setState({ neuronID });
+    });
     focus.command("keymap").then(keymap => {
       this.setState({ keymap: keymap });
     });
@@ -345,6 +368,24 @@ class KeyboardSettings extends React.Component {
       modified: true
     });
     this.props.startContext();
+  };
+
+  selectNeuron = value => {
+    this.setState({
+      selectedNeuron: value
+    });
+  };
+
+  updateNeuronName = event => {
+    let temp = this.state.neurons;
+    temp[this.state.selectedNeuron].name = event.target.value;
+    this.setState({
+      neurons: temp
+    });
+  };
+
+  applyNeuronName = event => {
+    store.set("neurons", this.state.neurons);
   };
 
   selectIdleLEDTime = event => {
@@ -584,7 +625,7 @@ class KeyboardSettings extends React.Component {
     await focus.command("mouse.speedLimit", mouseSpeedLimit);
 
     const commands = await this.bkp.Commands();
-    const backup = await this.bkp.DoBackup(commands);
+    const backup = await this.bkp.DoBackup(commands, this.state.neuronID);
     this.bkp.SaveBackup(backup);
 
     this.setState({ modified: false });
@@ -660,15 +701,26 @@ class KeyboardSettings extends React.Component {
 
   async restoreBackup(backup) {
     let focus = new Focus();
+    let data = [];
+    if (isArray(backup)) {
+      data = backup;
+    } else {
+      data = backup.backup;
+      // TODO: IF THE USER WANTS!!
+      let neurons = store.get("neurons");
+      let index = neurons.findIndex(n => n.id == this.state.neuronID);
+      neurons[index] = backup.neuron;
+      store.set("neurons", neurons);
+    }
     try {
-      for (let i = 0; i < backup.length; i++) {
-        let val = backup[i].data;
-        // Boolean values need to be sent as int
+      for (let i = 0; i < data.length; i++) {
+        let val = data[i].data;
+        // Boolean values needs to be sent as int
         if (typeof val === "boolean") {
           val = +val;
         }
-        console.log(`Going to send ${backup[i].command} to keyboard`);
-        await focus.command(`${backup[i].command} ${val}`.trim());
+        console.log(`Going to send ${data[i].command} to keyboard`);
+        await focus.command(`${data[i].command} ${val}`.trim());
       }
       await focus.command("led.mode 0");
       console.log("Restoring all settings");
@@ -715,6 +767,8 @@ class KeyboardSettings extends React.Component {
     const {
       keymap,
       defaultLayer,
+      neurons,
+      selectedNeuron,
       modified,
       showDefaults,
       ledBrightness,
@@ -794,6 +848,98 @@ class KeyboardSettings extends React.Component {
           {layers}
         </Dropdown.Menu>
       </Dropdown>
+    );
+    const neuronList = neurons.map((neuron, iter) => {
+      return (
+        <Dropdown.Item eventKey={iter} key={`neuron-${iter}`}>
+          {i18n.formatString(i18n.keyboardSettings.neuronManager.neuron, iter + 1, neuron.name)}
+        </Dropdown.Item>
+      );
+    });
+    const availableNeurons = (
+      <Dropdown onSelect={this.selectNeuron} value={selectedNeuron} className="fullWidth">
+        <Dropdown.Toggle className="toggler neuronToggler">
+          {neurons.length == 0
+            ? i18n.keyboardSettings.neuronManager.noDefault
+            : i18n.formatString(i18n.keyboardSettings.neuronManager.neuron, selectedNeuron + 1, neurons[selectedNeuron].name)}
+        </Dropdown.Toggle>
+        <Dropdown.Menu className="dropdownMenu">
+          {/* <Dropdown.Item key={"no-default"} eventKey={126}>
+            {i18n.keyboardSettings.keymap.noDefault}
+          </Dropdown.Item> */}
+          {neuronList}
+        </Dropdown.Menu>
+      </Dropdown>
+    );
+    const neuronData = (
+      <Accordion defaultActiveKey="0">
+        <Card className="neuronDataCard">
+          <Accordion.Toggle as={Card.Header} eventKey="1">
+            Layers
+          </Accordion.Toggle>
+          <Accordion.Collapse eventKey="1">
+            <Card.Body>
+              <ol>
+                {neurons[selectedNeuron].layers.map((layer, id) => (
+                  <li key={`${id}-${layer.name}`}>{layer.name}</li>
+                ))}
+              </ol>
+            </Card.Body>
+          </Accordion.Collapse>
+        </Card>
+        <Card className="neuronDataCard">
+          <Accordion.Toggle as={Card.Header} eventKey="2">
+            Macros
+          </Accordion.Toggle>
+          <Accordion.Collapse eventKey="2">
+            <Card.Body>
+              <ol>
+                {neurons[selectedNeuron].macros.map((macro, id) => (
+                  <li key={`${id}-${macro.name}`}>{macro.name}</li>
+                ))}
+              </ol>
+            </Card.Body>
+          </Accordion.Collapse>
+        </Card>
+        <Card className="neuronDataCard">
+          <Accordion.Toggle as={Card.Header} eventKey="3">
+            Superkeys
+          </Accordion.Toggle>
+          <Accordion.Collapse eventKey="3">
+            <Card.Body>
+              <ol>
+                {neurons[selectedNeuron].superkeys.map((superkey, id) => (
+                  <li key={`${id}-${superkey.name}`}>{superkey.name}</li>
+                ))}
+              </ol>
+            </Card.Body>
+          </Accordion.Collapse>
+        </Card>
+      </Accordion>
+    );
+    const selectedNeuronData = (
+      <Container>
+        <Row>
+          <Col xs={2} className="p-0 neuron-lh">
+            <span>Name</span>
+          </Col>
+          <Col className="px-2 neuron-lh">
+            <Form.Control type="text" value={neurons[selectedNeuron].name} onChange={this.updateNeuronName} />
+          </Col>
+          <Col xs={3} className="p-0 neuron-lh">
+            <Button onClick={this.applyNeuronName}>Save changes</Button>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={2} className="p-0 neuron-lh">
+            <span>Neuron ID</span>
+          </Col>
+          <Col className="px-2 neuron-lh">{neurons[selectedNeuron].id}</Col>
+        </Row>
+        <Row>
+          <Col className="px-2 neuron-lh">{neuronData}</Col>
+        </Row>
+      </Container>
     );
     const idleControl = (
       <Dropdown onSelect={this.selectIdleLEDTime} value={ledIdleTimeLimit}>
@@ -1160,6 +1306,28 @@ class KeyboardSettings extends React.Component {
                 </Card>
                 <Card className="overflowFix cardStyle mt-4 pb-0">
                   <Card.Title>
+                    <BiChip className="dygmaLogo" />
+                    <span className="va2fix">{i18n.keyboardSettings.neuronManager.header}</span>
+                  </Card.Title>
+                  <Card.Body className="pb-0">
+                    <Form.Group controlId="backupFolder" className="mb-3">
+                      <Row>
+                        <Form.Label>{i18n.keyboardSettings.neuronManager.title}</Form.Label>
+                      </Row>
+                      <Row>
+                        <Col xs={6} className="pl-0 pr-1">
+                          {availableNeurons}
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Form.Label>{i18n.keyboardSettings.neuronManager.descriptionTitle}</Form.Label>
+                      </Row>
+                      <Row className="mb-4">{selectedNeuronData}</Row>
+                    </Form.Group>
+                  </Card.Body>
+                </Card>
+                <Card className="overflowFix cardStyle mt-4 pb-0">
+                  <Card.Title>
                     <MdStorage className="dygmaLogo" />
                     <span className="va2fix">{i18n.keyboardSettings.backupFolder.header}</span>
                   </Card.Title>
@@ -1184,30 +1352,6 @@ class KeyboardSettings extends React.Component {
                       </Row>
                       {backupControl}
                     </Form.Group>
-                  </Card.Body>
-                </Card>
-                <Card className="overflowFix cardStyle mt-4 pb-0">
-                  <Card.Title>
-                    <BsBrightnessHigh className="dygmaLogo" />
-                    <span className="va2fix">{i18n.keyboardSettings.led.title}</span>
-                  </Card.Title>
-                  <Card.Body className="pb-0">
-                    {ledIdleTimeLimit >= 0 && (
-                      <Form.Group controlId="idleTimeLimit" className="formGroup">
-                        <Row>
-                          <Form.Label>{i18n.keyboardSettings.led.idleTimeLimit}</Form.Label>
-                        </Row>
-                        {newIdleControl}
-                      </Form.Group>
-                    )}
-                    {ledBrightness >= 0 && (
-                      <Form.Group controlId="brightnessControl" className="formGroup">
-                        <Row>
-                          <Form.Label>{i18n.keyboardSettings.led.brightness}</Form.Label>
-                        </Row>
-                        {brightnessControl}
-                      </Form.Group>
-                    )}
                   </Card.Body>
                 </Card>
                 <Card className="overflowFix cardStyle mt-4 pb-0">
@@ -1241,6 +1385,30 @@ class KeyboardSettings extends React.Component {
                 </Card>
               </Col>
               <Col xl={6} lg={8} md={10}>
+                <Card className="overflowFix cardStyle mt-4 pb-0">
+                  <Card.Title>
+                    <BsBrightnessHigh className="dygmaLogo" />
+                    <span className="va2fix">{i18n.keyboardSettings.led.title}</span>
+                  </Card.Title>
+                  <Card.Body className="pb-0">
+                    {ledIdleTimeLimit >= 0 && (
+                      <Form.Group controlId="idleTimeLimit" className="formGroup">
+                        <Row>
+                          <Form.Label>{i18n.keyboardSettings.led.idleTimeLimit}</Form.Label>
+                        </Row>
+                        {newIdleControl}
+                      </Form.Group>
+                    )}
+                    {ledBrightness >= 0 && (
+                      <Form.Group controlId="brightnessControl" className="formGroup">
+                        <Row>
+                          <Form.Label>{i18n.keyboardSettings.led.brightness}</Form.Label>
+                        </Row>
+                        {brightnessControl}
+                      </Form.Group>
+                    )}
+                  </Card.Body>
+                </Card>
                 <Card className="overflowFix cardStyle mt-4 pb-0">
                   <Card.Title>
                     <BsType className="dygmaLogo" />

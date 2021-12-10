@@ -267,6 +267,13 @@ const English = {
       storeTime: "Backup storage period",
       storeTimeTip: "Determines how long a backup is stored before being deleted"
     },
+    neuronManager: {
+      header: "NEURON MANAGER",
+      title: "Select a Neuron",
+      neuron: "{0}: {1}",
+      defaultNeuron: "No neuron registered",
+      descriptionTitle: "Neuron parameters"
+    },
     keymap: {
       title: "GENERAL",
       noDefault: "No default",

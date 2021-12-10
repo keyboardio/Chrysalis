@@ -429,7 +429,7 @@ class MacrosConfigurator extends React.Component {
       await focus.command("keymap", this.state.keymap);
       console.log("Changes saved.");
       const commands = await this.bkp.Commands();
-      const backup = await this.bkp.DoBackup(commands);
+      const backup = await this.bkp.DoBackup(commands, this.state.neurons[this.state.neuronID].id);
       this.bkp.SaveBackup(backup);
       toast.success(i18n.editor.macros.successFlash, {
         autoClose: 2000

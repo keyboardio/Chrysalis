@@ -711,7 +711,7 @@ class Editor extends React.Component {
     });
     console.log("Changes saved.");
     const commands = await this.bkp.Commands();
-    const backup = await this.bkp.DoBackup(commands);
+    const backup = await this.bkp.DoBackup(commands, this.state.neurons[this.state.neuronID].id);
     this.bkp.SaveBackup(backup);
     this.props.cancelContext();
   };

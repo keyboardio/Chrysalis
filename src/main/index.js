@@ -150,7 +150,7 @@ function installUdev(mainWindow) {
     cancelId: 0,
     defaultId: 1,
     title: "Udev rules Installation",
-    message: "Bazecor lacks write access to your raise keyboard",
+    message: "Bazecor lacks write access to your Raise keyboard",
     detail: "Press install to set up the required Udev Rules, then scan keyboards again."
   };
   dialog.showMessageBox(mainWindow, dialogOpts).then(response => {

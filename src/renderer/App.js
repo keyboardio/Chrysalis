@@ -160,6 +160,7 @@ class App extends React.Component {
         pages: {},
         device: port.device
       });
+      await navigate("/welcome");
       return [];
     }
 

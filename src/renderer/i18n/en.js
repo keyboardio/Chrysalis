@@ -312,7 +312,10 @@ const English = {
         factoryRestore: "Restoring factory defaults",
         bootloaderTrigger: "Triggering bootloader",
         bootloaderWait: "Waiting for bootloader",
-        flash: "Flashing"
+        saveEEPROM: "Saving EEPROM contents",
+        restoreEEPROM: "Restoring EEPROM contents",
+        flash: "Flashing",
+        reboot: "Rebooting"
       }
     },
     confirmDialog: {
@@ -366,6 +369,9 @@ seconds.`
         updateInstructions: `Hold down the key in the bottom left corner of the keyboard (in the default layout, this key is the ESC key). Continue holding it down while you click the Update button.`
       },
       Model01: {
+        updateInstructions: `Hold down the key in the top left corner of the keyboard (in the default layout, this key is the PROG key). Continue holding it while you click the Update button. Once the keys start flashing red across the board, you can release the key.`
+      },
+      Model100: {
         updateInstructions: `Hold down the key in the top left corner of the keyboard (in the default layout, this key is the PROG key). Continue holding it while you click the Update button. Once the keys start flashing red across the board, you can release the key.`
       }
     },

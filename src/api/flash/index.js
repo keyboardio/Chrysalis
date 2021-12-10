@@ -1,5 +1,5 @@
 /* chrysalis-flash -- Keyboard flash helpers for Chrysalis
- * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
+ * Copyright (C) 2018-2021  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -17,13 +17,150 @@
 import AvrGirl from "avrgirl-arduino";
 import TeensyLoader from "teensy-loader";
 import { spawn } from "child_process";
+import sudo from "sudo-prompt";
 import path from "path";
+import { v4 as uuidv4 } from "uuid";
 
 import Log from "../log";
 
 import { getStaticPath } from "../../renderer/config";
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
+
+async function DFUUtilBootloader(port, filename, options) {
+  const callback = options
+    ? options.callback
+    : function() {
+        return;
+      };
+  const device = options.device;
+
+  let logger = new Log();
+
+  const formatID = desc => {
+    return desc.vendorId.toString(16) + ":" + desc.productId.toString(16);
+  };
+
+  const dfuUtil = path.join(
+    getStaticPath(),
+    "dfu-util",
+    process.platform,
+    "dfu-util"
+  );
+
+  const runCommand = async args => {
+    const cmd = [dfuUtil].concat(args).join(" ");
+    return new Promise((resolve, reject) => {
+      logger.debug("Running:", cmd);
+      sudo.exec(cmd, { name: "Chrysalis" }, error => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(true);
+        }
+      });
+    });
+  };
+
+  logger.debug("launching dfu-util...");
+  await callback("flash");
+  await runCommand([
+    "--device",
+    formatID(device.usb) + "," + formatID(device.usb.bootloader),
+    "--alt",
+    "0",
+    "--intf",
+    "0",
+    "--reset",
+    "--download",
+    filename
+  ]);
+}
+
+async function DFUUtil(port, filename, options) {
+  const callback = options
+    ? options.callback
+    : function() {
+        return;
+      };
+  const device = options.device;
+  let timeouts = options ? options.timeouts : null;
+  timeouts = timeouts || {
+    dtrToggle: 500, // Time to wait (ms) between toggling DTR
+    bootLoaderUp: 4000 // Time to wait for the boot loader to come up
+  };
+
+  let logger = new Log();
+
+  const baudUpdate = () => {
+    return new Promise(resolve => {
+      logger.debug("baud update");
+      port.update({ baudRate: 1200 }, async () => {
+        await delay(timeouts.dtrToggle);
+        resolve();
+      });
+    });
+  };
+
+  const dtrToggle = state => {
+    return new Promise(resolve => {
+      logger.debug("dtr", state ? "on" : "off");
+      port.set({ dtr: state }, async () => {
+        await delay(timeouts.dtrToggle);
+        resolve();
+      });
+    });
+  };
+
+  const saveEEPROM = async () => {
+    const focus = options.focus;
+    const dump = await focus.command("eeprom.contents");
+    const key = ".internal." + uuidv4();
+
+    sessionStorage.setItem(key, dump);
+    return key;
+  };
+
+  const restoreEEPROM = async key => {
+    const focus = options.focus;
+    const dump = sessionStorage.getItem(key);
+
+    await focus.command("eeprom.conents", dump);
+    sessionStorage.removeItem(key);
+  };
+
+  await callback("save-eeprom");
+  const saveKey = await saveEEPROM();
+
+  await callback("bootloaderTrigger");
+  await baudUpdate();
+  await dtrToggle(true);
+  await dtrToggle(false);
+
+  await callback("bootloaderWait");
+  const bootloaderFound = await options.focus.waitForBootloader(options.device);
+
+  if (!bootloaderFound) {
+    throw new Error("Bootloader not found");
+  }
+
+  try {
+    await port.close();
+  } catch (_) {
+    /* ignore the error */
+  }
+  await delay(1000);
+
+  await DFUUtilBootloader(port, filename, options);
+
+  await callback("restore-eeprom");
+  await restoreEEPROM(saveKey);
+
+  await callback("reboot");
+  await baudUpdate();
+  await dtrToggle(true);
+  await dtrToggle(false);
+}
 
 async function AvrDude(_, port, filename, options) {
   const callback = options
@@ -232,4 +369,11 @@ async function DFUProgrammer(filename, mcu = "atmega32u4", timeout = 10000) {
   await runCommand([mcu, "start"]);
 }
 
-export { Avr109, Avr109Bootloader, teensy, DFUProgrammer };
+export {
+  Avr109,
+  Avr109Bootloader,
+  teensy,
+  DFUProgrammer,
+  DFUUtil,
+  DFUUtilBootloader
+};

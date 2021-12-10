@@ -1,5 +1,5 @@
-/* chrysalis-hardware-keyboardio-model01 -- Chrysalis Keyboardio Model01 support
- * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
+/* Chrysalis -- Kaleidoscope Command Center
+ * Copyright (C) 2018-2021  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -15,7 +15,7 @@
  */
 
 import Keymap from "./components/Keymap";
-import { Avr109, Avr109Bootloader } from "../flash";
+import { Avr109, Avr109Bootloader, DFUUtil, DFUUtilBootloader } from "../flash";
 
 const Model01 = {
   info: {
@@ -71,4 +71,97 @@ const Model01 = {
   }
 };
 
-export { Model01 };
+const Model100 = {
+  info: {
+    vendor: "Keyboardio",
+    product: "Model100",
+    displayName: "Keyboardio Model100",
+    urls: [
+      {
+        name: "Homepage",
+        url: "https://shop.keyboard.io/"
+      },
+      {
+        name: "Forum",
+        url: "https://community.keyboard.io/"
+      },
+      {
+        name: "Chat",
+        url: "https://keyboard.io/discord-invite"
+      }
+    ]
+  },
+  usb: {
+    vendorId: 0x3496,
+    productId: 0x0005,
+    bootloader: {
+      vendorId: 0x3496,
+      productId: 0x0005,
+      type: "dfu"
+    }
+  },
+  keyboard: {
+    rows: 4,
+    columns: 16
+  },
+  components: {
+    keymap: Keymap
+  },
+
+  flashSteps: [
+    "saveEEPROM",
+    "bootloaderTrigger",
+    "bootloaderWait",
+    "flash",
+    "restoreEEPROM",
+    "reboot"
+  ],
+  flash: async (port, filename, options) => {
+    return DFUUtil(port, filename, options);
+  }
+};
+
+const Model100Bootloader = {
+  info: {
+    vendor: "Keyboardio",
+    product: "Model100",
+    displayName: "Keyboardio Model100",
+    urls: [
+      {
+        name: "Homepage",
+        url: "https://shop.keyboard.io/"
+      },
+      {
+        name: "Forum",
+        url: "https://community.keyboard.io/"
+      },
+      {
+        name: "Chat",
+        url: "https://keyboard.io/discord-invite"
+      }
+    ]
+  },
+  usb: {
+    vendorId: 0x3496,
+    productId: 0x0005,
+    bootloader: {
+      vendorId: 0x3496,
+      productId: 0x0005,
+      type: "dfu"
+    }
+  },
+  keyboard: {
+    rows: 4,
+    columns: 16
+  },
+  components: {
+    keymap: Keymap
+  },
+
+  flashSteps: ["flash"],
+  flash: async (port, filename, options) => {
+    return DFUUtilBootloader(port, filename, options);
+  }
+};
+
+export { Model01, Model100, Model100Bootloader };

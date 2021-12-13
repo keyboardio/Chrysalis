@@ -37,6 +37,9 @@ import usb from "usb";
 
 import i18n from "../i18n";
 
+const Store = require("electron-store");
+const store = new Store();
+
 const Styles = Styled.div`
 .keyboard-select {
   .keyboard-row {
@@ -302,12 +305,23 @@ class KeyboardSelect extends Component {
     let port = null;
     if (devices && devices.length > 0) {
       deviceItems = devices.map((option, index) => {
+        let userName = store.get("neurons");
+        userName = userName.filter(n => n.id.toLowerCase() == option.serialNumber.slice(0, -6).toLowerCase());
+        if (userName.length > 0) {
+          userName = userName[0].name;
+        } else {
+          userName = "";
+        }
+        // console.log("LOGGING", userName, option.serialNumber.slice(0, -6).toLowerCase());
         let label = option.path;
         if (option.device && option.device.info) {
           label = (
             <Col xs="10" className="key-text">
               <Col>
                 <span>{option.device.info.displayName}</span>
+              </Col>
+              <Col>
+                <span>{userName}</span>
               </Col>
               <Col>
                 <span className="muted">{option.path || i18n.keyboardSelect.unknown}</span>
@@ -340,12 +354,23 @@ class KeyboardSelect extends Component {
       });
 
       const title = devices.map(option => {
+        let userName = store.get("neurons");
+        userName = userName.filter(n => n.id.toLowerCase() == option.serialNumber.slice(0, -6).toLowerCase());
+        if (userName.length > 0) {
+          userName = userName[0].name;
+        } else {
+          userName = "";
+        }
+        // console.log("LOGGING", userName, option.serialNumber.slice(0, -6).toLowerCase());
         let label = option.path;
         if (option.device && option.device.info) {
           label = (
             <Col xs="12" className="key-text">
               <Col>
                 <span>{option.device.info.displayName}</span>
+              </Col>
+              <Col>
+                <span>{userName}</span>
               </Col>
               <Col>
                 <span className="muted">{option.path || i18n.keyboardSelect.unknown}</span>

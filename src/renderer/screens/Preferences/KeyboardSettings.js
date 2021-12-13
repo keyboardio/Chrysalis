@@ -49,7 +49,7 @@ import swedishF from "../../../../static/swedish.png";
 import icelandicF from "../../../../static/icelandic.png";
 import norwegianF from "../../../../static/norwegian.png";
 
-import { MdComputer, MdBrightness3, MdWbSunny, MdStorage, MdInfo } from "react-icons/md";
+import { MdComputer, MdBrightness3, MdWbSunny, MdStorage, MdInfo, MdDeleteForever } from "react-icons/md";
 import { BsType, BsBrightnessHigh } from "react-icons/bs";
 import { BiMouse, BiCodeAlt, BiWrench, BiChip } from "react-icons/bi";
 import { isArray } from "lodash";
@@ -158,6 +158,23 @@ const Styles = Styled.div`
     text-align: left;
     line-height: 1.8em;
     letter-spacing: 0.02em;
+    button.btn.btn-error {
+      line-height: 1.8em;
+      background-color: #c75454;
+      float: right;
+    }
+  }
+  .neuronName{
+    .nTitle span{
+      line-height: 2.8rem;
+    }
+    .nControl input{
+      margin-top: 5px;
+      line-height: 2.3rem;
+    }
+    .nButton button{
+    line-height: 1.7rem;
+    }
   }
   .neuron-lh{
     line-height: 2.4rem;
@@ -224,6 +241,7 @@ class KeyboardSettings extends React.Component {
     this.ChooseBackupFolder = this.ChooseBackupFolder.bind(this);
     this.restoreBackup = this.restoreBackup.bind(this);
     this.GetBackup = this.GetBackup.bind(this);
+    this.deleteNeuron = this.deleteNeuron.bind(this);
     this.saveKeymapChanges = this.saveKeymapChanges.bind(this);
   }
   delay = ms => new Promise(res => setTimeout(res, ms));
@@ -386,6 +404,16 @@ class KeyboardSettings extends React.Component {
 
   applyNeuronName = event => {
     store.set("neurons", this.state.neurons);
+  };
+
+  deleteNeuron = event => {
+    let temp = JSON.parse(JSON.stringify(this.state.neurons));
+    temp.splice(this.state.selectedNeuron, 1);
+    this.setState({
+      neurons: temp,
+      selectedNeuron: temp.length - 1 > this.selectNeuron ? this.selectNeuron : temp.length - 1
+    });
+    store.set("neurons", temp);
   };
 
   selectIdleLEDTime = event => {
@@ -861,7 +889,11 @@ class KeyboardSettings extends React.Component {
         <Dropdown.Toggle className="toggler neuronToggler">
           {neurons.length == 0
             ? i18n.keyboardSettings.neuronManager.noDefault
-            : i18n.formatString(i18n.keyboardSettings.neuronManager.neuron, selectedNeuron + 1, neurons[selectedNeuron].name)}
+            : i18n.formatString(
+                i18n.keyboardSettings.neuronManager.neuron,
+                parseInt(selectedNeuron) + 1,
+                neurons[selectedNeuron].name
+              )}
         </Dropdown.Toggle>
         <Dropdown.Menu className="dropdownMenu">
           {/* <Dropdown.Item key={"no-default"} eventKey={126}>
@@ -870,6 +902,13 @@ class KeyboardSettings extends React.Component {
           {neuronList}
         </Dropdown.Menu>
       </Dropdown>
+    );
+    const deleteSelectedNeuron = (
+      <div className="neuronToggler">
+        <Button variant="error" onClick={this.deleteNeuron}>
+          <MdDeleteForever /> Delete neuron
+        </Button>
+      </div>
     );
     const neuronData = (
       <Accordion defaultActiveKey="0">
@@ -919,25 +958,29 @@ class KeyboardSettings extends React.Component {
     );
     const selectedNeuronData = (
       <Container>
-        <Row>
-          <Col xs={2} className="p-0 neuron-lh">
+        <Row className="neuronName">
+          <Col xs={2} className="p-0 nTitle">
             <span>Name</span>
           </Col>
-          <Col className="px-2 neuron-lh">
+          <Col className="px-2 nControl">
             <Form.Control type="text" value={neurons[selectedNeuron].name} onChange={this.updateNeuronName} />
           </Col>
-          <Col xs={3} className="p-0 neuron-lh">
+          <Col xs={3} className="p-0 nButton">
             <Button onClick={this.applyNeuronName}>Save changes</Button>
           </Col>
         </Row>
-        <Row>
-          <Col xs={2} className="p-0 neuron-lh">
-            <span>Neuron ID</span>
+        <Row className="pt-3">
+          <Col xs={2} className="p-0">
+            <span className="neuron-lh">Neuron ID</span>
           </Col>
-          <Col className="px-2 neuron-lh">{neurons[selectedNeuron].id}</Col>
+          <Col className="px-2">
+            <span className="neuron-lh">{neurons[selectedNeuron].id}</span>
+          </Col>
         </Row>
-        <Row>
-          <Col className="px-2 neuron-lh">{neuronData}</Col>
+        <Row className="pt-3">
+          <Col className="px-0">
+            <span className="neuron-lh">{neuronData}</span>
+          </Col>
         </Row>
       </Container>
     );
@@ -1318,8 +1361,11 @@ class KeyboardSettings extends React.Component {
                         <Col xs={6} className="pl-0 pr-1">
                           {availableNeurons}
                         </Col>
+                        <Col xs={6} className="px-1">
+                          {deleteSelectedNeuron}
+                        </Col>
                       </Row>
-                      <Row>
+                      <Row className="pt-4">
                         <Form.Label>{i18n.keyboardSettings.neuronManager.descriptionTitle}</Form.Label>
                       </Row>
                       <Row className="mb-4">{selectedNeuronData}</Row>

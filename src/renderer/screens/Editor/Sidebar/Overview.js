@@ -32,7 +32,6 @@ import TableFooter from "@material-ui/core/TableFooter";
 import TableRow from "@material-ui/core/TableRow";
 import { withStyles } from "@material-ui/core/styles";
 
-import LayoutSharing from "./Overview/LayoutSharing";
 import { KeymapDB } from "../../../../api/keymap";
 
 const styles = theme => ({
@@ -56,20 +55,11 @@ const styles = theme => ({
 
 class OverviewBase extends React.Component {
   state = {
-    showAll: false,
-    dialogOpen: false
+    showAll: false
   };
 
   selectLayer = index => () => {
     this.props.setLayer(index);
-  };
-
-  closeDialog = () => {
-    this.setState({ dialogOpen: false });
-  };
-
-  openDialog = () => {
-    this.setState({ dialogOpen: true });
   };
 
   findLastUsedLayer = () => {
@@ -104,7 +94,7 @@ class OverviewBase extends React.Component {
       layer,
       colormap
     } = this.props;
-    const { showAll, dialogOpen } = this.state;
+    const { showAll } = this.state;
     const db = new KeymapDB();
 
     const lastUsedLayer = this.findLastUsedLayer();
@@ -202,19 +192,6 @@ class OverviewBase extends React.Component {
             {footer}
           </Table>
         </TableContainer>
-        <Button onClick={this.openDialog} color="secondary" variant="outlined">
-          {i18n.t("editor.sidebar.overview.sharing")}
-        </Button>
-        <LayoutSharing
-          open={dialogOpen}
-          onClose={this.closeDialog}
-          keymap={keymap}
-          colormap={colormap}
-          layer={layer}
-          onKeymapChange={this.props.onKeymapChange}
-          onPaletteChange={this.props.onPaletteChange}
-          onColormapChange={this.props.onColormapChange}
-        />
       </div>
     );
   }

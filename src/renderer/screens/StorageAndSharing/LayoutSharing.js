@@ -35,12 +35,12 @@ import MenuList from "@material-ui/core/MenuList";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
-import ConfirmationDialog from "../../../../components/ConfirmationDialog";
+import ConfirmationDialog from "../../components/ConfirmationDialog";
 
-import Focus from "../../../../../api/focus";
-import Log from "../../../../../api/log";
-import { KeymapDB } from "../../../../../api/keymap";
-import { getStaticPath } from "../../../../config";
+import Focus from "../../../api/focus";
+import Log from "../../../api/log";
+import { KeymapDB } from "../../../api/keymap";
+import { getStaticPath } from "../../config";
 
 const db = new KeymapDB();
 

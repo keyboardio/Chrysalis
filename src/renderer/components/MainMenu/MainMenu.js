@@ -43,6 +43,7 @@ import KeyboardMenuItem from "./KeyboardSelectMenuItem";
 import PreferencesMenuItem from "./PreferencesMenuItem";
 import UpgradeMenuItem from "./UpgradeMenuItem";
 import ChangeLogMenuItem from "./ChangeLogMenuItem";
+import StorageAndSharingMenuItem from "./StorageAndSharingMenuItem";
 import openURL from "../../utils/openURL";
 
 import { history } from "../../routerHistory";
@@ -123,6 +124,13 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
               />
             </Link>
           )}
+          <Link to="/storage-and-sharing" className={classes.link}>
+            <StorageAndSharingMenuItem
+              selected={currentPage == "/storage-and-sharing"}
+              className={classes.menuItem}
+              onClick={() => setCurrentPage("/storage-and-sharing")}
+            />
+          </Link>
           <Link to="/firmware-update" className={classes.link}>
             <FlashMenuItem
               selected={currentPage == "/firmware-update"}

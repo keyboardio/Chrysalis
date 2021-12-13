@@ -44,6 +44,7 @@ import Preferences from "./screens/Preferences";
 import Welcome from "./screens/Welcome";
 import SystemInfo from "./screens/SystemInfo";
 import ChangeLog from "./screens/ChangeLog";
+import StorageAndSharing from "./screens/StorageAndSharing";
 import i18n from "./i18n";
 
 import Header from "./components/Header";
@@ -268,6 +269,16 @@ class App extends React.Component {
                 />
                 <Editor
                   path="/editor"
+                  onDisconnect={this.onKeyboardDisconnect}
+                  startContext={this.startContext}
+                  cancelContext={this.cancelContext}
+                  inContext={this.state.contextBar}
+                  titleElement={() => document.querySelector("#page-title")}
+                  appBarElement={() => document.querySelector("#appbar")}
+                />
+                <StorageAndSharing
+                  connected={connected}
+                  path="/storage-and-sharing"
                   onDisconnect={this.onKeyboardDisconnect}
                   startContext={this.startContext}
                   cancelContext={this.cancelContext}

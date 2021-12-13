@@ -280,16 +280,19 @@ class FirmwareUpdate extends React.Component {
   async componentDidUpdate() {
     // console.log(
     //   "Testing State Update",
-    //   this.state.backup.length,
+    //   this.state.backup.backup.length,
     //   this.state.commands.length,
-    //   !this.state.backupDone &&
-    //     this.state.backup.length == this.state.commands.length &&
-    //     this.state.commands.length > 0
+    //   !this.state.backupDone && this.state.backup.length >= this.state.commands.length && this.state.commands.length > 0
     // );
-    if (!this.state.backupDone && this.state.backup.length == this.state.commands.length && this.state.commands.length > 0) {
+    if (
+      !this.state.backupDone &&
+      this.state.backup.backup &&
+      this.state.backup.backup.length == this.state.commands.length &&
+      this.state.commands.length > 0
+    ) {
       this.setState({ backupDone: true, countdown: 1 });
       await this.bkp.SaveBackup(this.state.backup);
-      await this.putEscKey(this.state.backup[0]);
+      await this.putEscKey(this.state.backup.backup[0]);
     }
   }
 
@@ -377,6 +380,8 @@ class FirmwareUpdate extends React.Component {
     if (this.state.device.device.info.product === "Raise") {
       if (!focus.device.bootloader) {
         await this.flashRaise.resetKeyboard(focus._port, this.state.backup);
+        // const answer = await this.flashRaise.resetKeyboard(focus._port, this.state.backup);
+        // console.log("TESTING FLASHING SEQUENCE", answer);
       }
     }
 
@@ -629,7 +634,7 @@ class FirmwareUpdate extends React.Component {
         </Card.Body>
         <Card.Img variant="bottom" src={escimg} />
         <Card.Body className="body d-flex flex-column justify-content-center">
-          <Card.Text className="row">
+          <Row>
             <Col xs={1}>
               <Tooltip
                 type="text"
@@ -644,7 +649,7 @@ class FirmwareUpdate extends React.Component {
               />
             </Col>
             <Col>{i18n.firmwareUpdate.texts.flashCardHelp}</Col>
-          </Card.Text>
+          </Row>
         </Card.Body>
         <Row className="mt-auto">
           <Col className="flashingcol">

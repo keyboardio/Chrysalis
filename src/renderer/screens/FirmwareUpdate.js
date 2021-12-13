@@ -39,6 +39,7 @@ import { MdArrowDropDown } from "react-icons/md";
 
 import { getStaticPath } from "../config";
 import i18n from "../i18n";
+import { throws } from "assert";
 
 const Styles = Styled.div`
 .firmware-update {
@@ -379,9 +380,12 @@ class FirmwareUpdate extends React.Component {
     }
     if (this.state.device.device.info.product === "Raise") {
       if (!focus.device.bootloader) {
-        await this.flashRaise.resetKeyboard(focus._port, this.state.backup);
-        // const answer = await this.flashRaise.resetKeyboard(focus._port, this.state.backup);
-        // console.log("TESTING FLASHING SEQUENCE", answer);
+        try {
+          await this.flashRaise.resetKeyboard(focus._port, this.state.backup);
+        } catch (error) {
+          console.error("Bootloader Not found: ", error);
+          throw new Error(error);
+        }
       }
     }
 
@@ -600,7 +604,7 @@ class FirmwareUpdate extends React.Component {
                 : i18n.firmwareUpdate.texts.progressCardStatus2}
             </h2>
             <ProgressBar className="mt-5 mb-2">
-              <ProgressBar animate striped now={flashProgress} />
+              <ProgressBar striped now={flashProgress} />
             </ProgressBar>
             <h4>{i18n.firmwareUpdate.texts.progressCardBar}</h4>
           </Card.Body>

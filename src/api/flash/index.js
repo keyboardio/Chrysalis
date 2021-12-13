@@ -14,6 +14,7 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { timeStamp } from "console";
 import fs from "fs";
 import path from "path";
 import Focus from "../focus";
@@ -155,6 +156,15 @@ export default class FlashRaise {
     });
   }
 
+  setDTR = (port, state) => {
+    return new Promise(function (resolve, reject) {
+      port.set({ dtr: state }, function () {
+        console.log("DTR set to: ", state, new Date(Date.now()).toISOString());
+        resolve();
+      });
+    });
+  };
+
   /**
    * Resets keyboard at the baud rate of 1200bps. Keyboard is restarted with the bootloader
    * @param {object} port - serial port object for the "path".
@@ -165,7 +175,7 @@ export default class FlashRaise {
     const errorMessage =
       "The firmware update couldn't start because the Raise Bootloader wasn't found. Please check our Help Center for more details or schedule a video call with us.";
     let timeouts = {
-      dtrToggle: 1000, // Time to wait (ms) between toggling DTR
+      dtrToggle: 500, // Time to wait (ms) between toggling DTR
       waitingClose: 2000, // Time to wait for boot loader
       bootLoaderUp: 5000 // Time to wait for the boot loader to come up
     };
@@ -175,29 +185,39 @@ export default class FlashRaise {
       port.update({ baudRate: 1200 }, async () => {
         console.log("resetting neuron");
         this.backupFileData.log.push("Resetting neuron");
+        await this.setDTR(port, true);
+        await this.delay(timeouts.dtrToggle);
+        await this.setDTR(port, false);
+        // port.set({ dtr: true }, async () => {
         // await this.delay(timeouts.dtrToggle);
-        port.set({ dtr: true }, async () => {
+        // port.set({ dtr: false }, async () => {
+        console.log("waiting for bootloader");
+        this.backupFileData.log.push("Waiting for bootloader");
+        try {
           await this.delay(timeouts.dtrToggle);
-          port.set({ dtr: false }, async () => {
-            console.log("waiting for bootloader");
-            this.backupFileData.log.push("Waiting for bootloader");
-            try {
-              await this.delay(timeouts.bootLoaderUp);
-              if (await this.foundDevices(Hardware.bootloader, "Bootloader detected")) {
-                resolve();
-              } else {
-                this.backupFileData.log.push("Bootloader didn't detect");
-                throw new Error(errorMessage);
-              }
-            } catch (e) {
-              this.backupFileData.log.push(`Reset keyboard: Error: ${e.message}`);
-              // this.saveBackupFile();
-              reject(e);
+          let count = 8;
+          while (count > 0) {
+            if (await this.foundDevices(Hardware.bootloader, "Bootloader detected")) {
+              resolve("Detected Bootloader mode");
+              count = true;
+              break;
             }
-          });
-        });
+            await this.delay(timeouts.dtrToggle);
+            count--;
+          }
+          if (count != true) {
+            this.backupFileData.log.push("Bootloader wasn't detected");
+            reject(errorMessage);
+          }
+        } catch (e) {
+          this.backupFileData.log.push(`Reset keyboard: Error: ${e.message}`);
+          // this.saveBackupFile();
+          reject(e);
+        }
       });
     });
+    //   });
+    // });
   }
 
   /**
@@ -283,7 +303,7 @@ export default class FlashRaise {
   async restoreSettings() {
     let focus = new Focus();
     const errorMessage = "Firmware update failed, because the settings could not be restored";
-    let backup = this.backup;
+    let backup = this.backup.backup;
     if (backup === undefined || backup.length === 0) {
       return;
     }

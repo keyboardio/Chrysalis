@@ -626,7 +626,7 @@ class FirmwareUpdate extends React.Component {
                 ? i18n.firmwareUpdate.texts.progressCardBar1
                 : flashProgress <= 29
                 ? i18n.firmwareUpdate.texts.progressCardBar2
-                : flashProgress <= 70
+                : flashProgress <= 69
                 ? i18n.firmwareUpdate.texts.progressCardBar3
                 : i18n.firmwareUpdate.texts.progressCardBar4}
             </h4>

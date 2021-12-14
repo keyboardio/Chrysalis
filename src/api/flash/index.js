@@ -14,7 +14,6 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { timeStamp } from "console";
 import fs from "fs";
 import path from "path";
 import Focus from "../focus";
@@ -69,9 +68,21 @@ export default class FlashRaise {
     let isFindDevice = false;
     await focus.find(...hardware).then(devices => {
       for (const device of devices) {
+        console.log(
+          "DATA CHECKER: ",
+          device,
+          this.device,
+          device.device.bootloader,
+          bootloader,
+          this.device.info.keyboardType,
+          device.device.info.keyboardType
+        );
         if (
-          (device.device.bootloader == undefined || device.device.bootloader == bootloader) &&
-          this.device.info.keyboardType == device.device.info.keyboardType
+          bootloader
+            ? device.device.bootloader != undefined &&
+              device.device.bootloader == bootloader &&
+              this.device.info.keyboardType == device.device.info.keyboardType
+            : this.device.info.keyboardType == device.device.info.keyboardType && device.serialNumber.includes("raiseD")
         ) {
           console.log(message);
           this.currentPort = { ...device };
@@ -261,7 +272,7 @@ export default class FlashRaise {
             stateUpdate(3, 70);
             console.log("End update firmware with arduino-flasher");
             // this.backupFileData.log.push("End update firmware with arduino-flasher");
-            await this.delay(1000);
+            await this.delay(1500);
             await this.detectKeyboard();
             resolve();
           }

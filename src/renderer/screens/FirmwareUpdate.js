@@ -621,7 +621,15 @@ class FirmwareUpdate extends React.Component {
             <ProgressBar className="mt-5 mb-2">
               <ProgressBar striped now={flashProgress} />
             </ProgressBar>
-            <h4>{i18n.firmwareUpdate.texts.progressCardBar}</h4>
+            <h4>
+              {flashProgress <= 15
+                ? i18n.firmwareUpdate.texts.progressCardBar1
+                : flashProgress <= 29
+                ? i18n.firmwareUpdate.texts.progressCardBar2
+                : flashProgress <= 70
+                ? i18n.firmwareUpdate.texts.progressCardBar3
+                : i18n.firmwareUpdate.texts.progressCardBar4}
+            </h4>
           </Card.Body>
         ) : (
           <React.Fragment>

@@ -248,6 +248,7 @@ class FirmwareUpdate extends React.Component {
       confirmationOpen: false,
       countdown: -1,
       firmwareDropdown: false,
+      brightness: 255,
       buttonText: [
         i18n.firmwareUpdate.milestones.backup,
         i18n.firmwareUpdate.milestones.esc,
@@ -269,7 +270,7 @@ class FirmwareUpdate extends React.Component {
         if (this.state.backupDone && this.state.countdown == 1) {
           // TODO: launch flashing procedure
           console.log("launching the flashing procedure");
-          this.setState({ countdown: 2, flashProgress: 10 });
+          this.setState({ countdown: 2, flashProgress: 0 });
           this.upload();
         }
         break;
@@ -413,6 +414,7 @@ class FirmwareUpdate extends React.Component {
       this.setState({ countdown: 3, flashProgress: 90 });
       await this.flashRaise.restoreSettings();
       this.setState({ countdown: 4, flashProgress: 100 });
+      await this.flashRaise.delay(600);
     } catch (e) {
       console.error(e);
       const styles = {
@@ -472,6 +474,7 @@ class FirmwareUpdate extends React.Component {
     return new Promise(async resolve => {
       let focus = new Focus();
       if (this.state.versions) await focus.command("led.mode 0");
+      await focus.command(`led.brightness ${this.state.brightness}`);
       // setTimeout(() => {
       toast.success(i18n.firmwareUpdate.flashing.success);
       this.props.toggleFlashing();
@@ -484,7 +487,12 @@ class FirmwareUpdate extends React.Component {
 
   uploadRaise = async () => {
     let focus = new Focus();
-    if (this.state.versions) await focus.command("led.mode 1");
+    if (this.state.versions) {
+      await focus.command("led.mode 1");
+      let brightness = await focus.command("led.brightness");
+      this.setState({ brightness });
+      await focus.command("led.brightness 255");
+    }
     // this.setState({
     //   confirmationOpen: true,
     //   isBeginUpdate: true
@@ -496,7 +504,7 @@ class FirmwareUpdate extends React.Component {
       // }
       if (this.state.versions) this.setState({ countdown: 0, backupDone: false, backup: [] });
       else {
-        this.setState({ countdown: 2, flashProgress: 10 });
+        this.setState({ countdown: 2, flashProgress: 0 });
         this.upload();
       }
     } catch (e) {
@@ -556,7 +564,10 @@ class FirmwareUpdate extends React.Component {
   cancelDialog = async () => {
     let focus = new Focus();
     this.setState({ countdown: -1 });
-    if (this.state.versions) await focus.command("led.mode 0");
+    if (this.state.versions) {
+      await focus.command("led.mode 0");
+      await focus.command(`led.brightness ${this.state.brightness}`);
+    }
   };
 
   backup = async () => {

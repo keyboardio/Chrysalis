@@ -206,7 +206,6 @@ export default class FlashRaise {
     console.log("loaded backup: ", backup);
     this.backup = backup;
     return new Promise(async (resolve, reject) => {
-      stateUpdate(2, 20);
       await this.updatePort(port, 1200);
       console.log("resetting neuron");
       this.backupFileData.log.push("Resetting neuron");
@@ -215,7 +214,7 @@ export default class FlashRaise {
       await this.setDTR(port, false);
       console.log("waiting for bootloader");
       this.backupFileData.log.push("Waiting for bootloader");
-      stateUpdate(2, 25);
+      stateUpdate(2, 20);
       try {
         await this.delay(timeouts.waitingClose);
         let bootCount = 8;
@@ -283,7 +282,6 @@ export default class FlashRaise {
     const errorMessage =
       "The firmware update has failed during the flashing process. Please unplug and replug the keyboard and try again";
     console.log("Waiting for keyboard");
-    // this.backupFileData.log.push("Waiting for keyboard");
     //wait until the bootloader serial port disconnects and the keyboard serial port reconnects
     const findKeyboard = async () => {
       return new Promise(async resolve => {
@@ -298,7 +296,7 @@ export default class FlashRaise {
     try {
       await this.runnerFindKeyboard(findKeyboard, findTimes, errorMessage);
     } catch (e) {
-      this.backupFileData.log.push(`Detect keyboard: Error: ${e.message}`);
+      console.error(`Detect keyboard: Error: ${e.message}`);
       throw e;
     }
   }
@@ -318,7 +316,7 @@ export default class FlashRaise {
       console.log("Ready to restore");
       return true;
     } else {
-      this.backupFileData.log.push(`Keyboard didn't detect ${times === 2 ? 1 : 2} time`);
+      console.log(`Keyboard didn't detect ${times === 2 ? 1 : 2} time`);
       await this.runnerFindKeyboard(findKeyboard, times - 1, errorMessage);
     }
   }

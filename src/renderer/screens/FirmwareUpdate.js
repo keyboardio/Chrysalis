@@ -381,7 +381,7 @@ class FirmwareUpdate extends React.Component {
     if (this.state.device.device.info.product === "Raise") {
       if (!focus.device.bootloader) {
         try {
-          await this.flashRaise.resetKeyboard(focus._port, this.state.backup);
+          await this.flashRaise.resetKeyboard(focus._port, this.state.backup, this.stateUpdate);
         } catch (error) {
           console.error("Bootloader Not found: ", error);
           throw new Error(error);
@@ -395,10 +395,14 @@ class FirmwareUpdate extends React.Component {
       }
       await focus.close();
       console.log("done closing focus");
-      return await this.state.device.device.flash(focus._port, filename, this.flashRaise);
+      return await this.state.device.device.flash(focus._port, filename, this.flashRaise, this.stateUpdate);
     } catch (e) {
       console.error(e);
     }
+  };
+
+  stateUpdate = (countdown, flashProgress) => {
+    this.setState({ countdown, flashProgress });
   };
 
   upload = async () => {

@@ -64,13 +64,16 @@ export default class FlashRaise {
    * @param {string} message - Message for backup file.
    * @returns {boolean} if device found - true, if no - false
    */
-  async foundDevices(hardware, message) {
+  async foundDevices(hardware, message, bootloader) {
     let focus = new Focus();
     let isFindDevice = false;
     await focus.find(...hardware).then(devices => {
       for (const device of devices) {
-        if (this.device.info.keyboardType == device.device.info.keyboardType) {
-          this.backupFileData.log.push(message);
+        if (
+          (device.device.bootloader == undefined || device.device.bootloader == bootloader) &&
+          this.device.info.keyboardType == device.device.info.keyboardType
+        ) {
+          console.log(message);
           this.currentPort = { ...device };
           isFindDevice = true;
         }
@@ -156,10 +159,31 @@ export default class FlashRaise {
     });
   }
 
+  /**
+   * Returns a Promise to be awaited that sets the DTR flag of the port
+   * @param {*} port Port to be used on the set dtr function
+   * @param {*} state State of the DTR flag to be set on the port
+   * @returns {promise} that will resolve when the function has successfully setted the DTR flag
+   */
   setDTR = (port, state) => {
     return new Promise(function (resolve, reject) {
       port.set({ dtr: state }, function () {
-        console.log("DTR set to: ", state, new Date(Date.now()).toISOString());
+        console.log(`DTR set to ${state} at ${new Date(Date.now()).toISOString()}`);
+        resolve();
+      });
+    });
+  };
+
+  /**
+   * Update the baud rate of the port with a Promise
+   * @param {*} port Port to be updated
+   * @param {*} baud BaudRate to be set
+   * @returns {promise} Promise to be returned, that will resolve when the operation is done
+   */
+  updatePort = (port, baud) => {
+    return new Promise(function (resolve, reject) {
+      port.update({ baudRate: baud }, function () {
+        console.log(`Port update started at: ${new Date(Date.now()).toISOString()}`);
         resolve();
       });
     });
@@ -170,54 +194,52 @@ export default class FlashRaise {
    * @param {object} port - serial port object for the "path".
    * @returns {promise}
    */
-  async resetKeyboard(port, backup) {
+  async resetKeyboard(port, backup, stateUpdate) {
     console.log("reset start", port);
     const errorMessage =
       "The firmware update couldn't start because the Raise Bootloader wasn't found. Please check our Help Center for more details or schedule a video call with us.";
     let timeouts = {
-      dtrToggle: 500, // Time to wait (ms) between toggling DTR
-      waitingClose: 2000, // Time to wait for boot loader
-      bootLoaderUp: 5000 // Time to wait for the boot loader to come up
+      dtrToggle: 1000, // Time to wait (ms) between toggling DTR
+      waitingClose: 500, // Time to wait for boot loader
+      bootLoaderUp: 500 // Time to wait for the boot loader to come up
     };
-    console.log("testing waters", backup);
+    console.log("loaded backup: ", backup);
     this.backup = backup;
-    return new Promise((resolve, reject) => {
-      port.update({ baudRate: 1200 }, async () => {
-        console.log("resetting neuron");
-        this.backupFileData.log.push("Resetting neuron");
-        await this.setDTR(port, true);
-        await this.delay(timeouts.dtrToggle);
-        await this.setDTR(port, false);
-        // port.set({ dtr: true }, async () => {
-        // await this.delay(timeouts.dtrToggle);
-        // port.set({ dtr: false }, async () => {
-        console.log("waiting for bootloader");
-        this.backupFileData.log.push("Waiting for bootloader");
-        try {
-          await this.delay(timeouts.dtrToggle);
-          let count = 8;
-          while (count > 0) {
-            if (await this.foundDevices(Hardware.bootloader, "Bootloader detected")) {
-              resolve("Detected Bootloader mode");
-              count = true;
-              break;
-            }
-            await this.delay(timeouts.dtrToggle);
-            count--;
+    return new Promise(async (resolve, reject) => {
+      stateUpdate(2, 20);
+      await this.updatePort(port, 1200);
+      console.log("resetting neuron");
+      this.backupFileData.log.push("Resetting neuron");
+      await this.setDTR(port, true);
+      await this.delay(timeouts.dtrToggle);
+      await this.setDTR(port, false);
+      console.log("waiting for bootloader");
+      this.backupFileData.log.push("Waiting for bootloader");
+      stateUpdate(2, 25);
+      try {
+        await this.delay(timeouts.waitingClose);
+        let bootCount = 8;
+        while (bootCount > 0) {
+          if (await this.foundDevices(Hardware.bootloader, "Bootloader detected", true)) {
+            resolve("Detected Bootloader mode");
+            bootCount = true;
+            stateUpdate(3, 30);
+            break;
           }
-          if (count != true) {
-            this.backupFileData.log.push("Bootloader wasn't detected");
-            reject(errorMessage);
-          }
-        } catch (e) {
-          this.backupFileData.log.push(`Reset keyboard: Error: ${e.message}`);
-          // this.saveBackupFile();
-          reject(e);
+          await this.delay(timeouts.bootLoaderUp);
+          bootCount--;
         }
-      });
+        if (bootCount != true) {
+          stateUpdate(4, 100);
+          this.backupFileData.log.push("Bootloader wasn't detected");
+          reject(errorMessage);
+        }
+      } catch (e) {
+        this.backupFileData.log.push(`Reset keyboard: Error: ${e.message}`);
+        // this.saveBackupFile();
+        reject(e);
+      }
     });
-    //   });
-    // });
   }
 
   /**
@@ -226,18 +248,21 @@ export default class FlashRaise {
    * @param {string} filename - path to file with firmware.
    * @returns {promise}
    */
-  async updateFirmware(filename) {
+  async updateFirmware(filename, stateUpdate) {
     let focus = new Focus();
-    // console.log("Begin update firmware with arduino-flasher");
-    this.backupFileData.log.push("Begin update firmware with arduino-flasher");
+    console.log("Begin update firmware with arduino-flasher");
+    // this.backupFileData.log.push("Begin update firmware with arduino-flasher");
     this.backupFileData.firmwareFile = filename;
     return new Promise(async (resolve, reject) => {
       try {
         await focus.open(this.currentPort.path, this.currentPort.device);
-        await arduino.flash(filename, async (err, result) => {
+        await arduino.flash(filename, stateUpdate, async (err, result) => {
           if (err) throw new Error(`Flash error ${result}`);
           else {
-            this.backupFileData.log.push("End update firmware with arduino-flasher");
+            stateUpdate(3, 70);
+            console.log("End update firmware with arduino-flasher");
+            // this.backupFileData.log.push("End update firmware with arduino-flasher");
+            await this.delay(1000);
             await this.detectKeyboard();
             resolve();
           }
@@ -257,12 +282,13 @@ export default class FlashRaise {
     const findTimes = 3;
     const errorMessage =
       "The firmware update has failed during the flashing process. Please unplug and replug the keyboard and try again";
-    this.backupFileData.log.push("Waiting for keyboard");
+    console.log("Waiting for keyboard");
+    // this.backupFileData.log.push("Waiting for keyboard");
     //wait until the bootloader serial port disconnects and the keyboard serial port reconnects
     const findKeyboard = async () => {
       return new Promise(async resolve => {
         await this.delay(timeouts);
-        if (await this.foundDevices(Hardware.serial, "Keyboard detected")) {
+        if (await this.foundDevices(Hardware.serial, "Keyboard detected", false)) {
           resolve(true);
         } else {
           resolve(false);

@@ -1349,31 +1349,6 @@ class KeyboardSettings extends React.Component {
                 </Card>
                 <Card className="overflowFix cardStyle mt-4 pb-0">
                   <Card.Title>
-                    <BiChip className="dygmaLogo" />
-                    <span className="va2fix">{i18n.keyboardSettings.neuronManager.header}</span>
-                  </Card.Title>
-                  <Card.Body className="pb-0">
-                    <Form.Group controlId="backupFolder" className="mb-3">
-                      <Row>
-                        <Form.Label>{i18n.keyboardSettings.neuronManager.title}</Form.Label>
-                      </Row>
-                      <Row>
-                        <Col xs={6} className="pl-0 pr-1">
-                          {availableNeurons}
-                        </Col>
-                        <Col xs={6} className="px-1">
-                          {deleteSelectedNeuron}
-                        </Col>
-                      </Row>
-                      <Row className="pt-4">
-                        <Form.Label>{i18n.keyboardSettings.neuronManager.descriptionTitle}</Form.Label>
-                      </Row>
-                      <Row className="mb-4">{selectedNeuronData}</Row>
-                    </Form.Group>
-                  </Card.Body>
-                </Card>
-                <Card className="overflowFix cardStyle mt-4 pb-0">
-                  <Card.Title>
                     <MdStorage className="dygmaLogo" />
                     <span className="va2fix">{i18n.keyboardSettings.backupFolder.header}</span>
                   </Card.Title>
@@ -1397,6 +1372,31 @@ class KeyboardSettings extends React.Component {
                         <Form.Label>{i18n.keyboardSettings.backupFolder.storeTime}</Form.Label>
                       </Row>
                       {backupControl}
+                    </Form.Group>
+                  </Card.Body>
+                </Card>
+                <Card className="overflowFix cardStyle mt-4 pb-0">
+                  <Card.Title>
+                    <BiChip className="dygmaLogo" />
+                    <span className="va2fix">{i18n.keyboardSettings.neuronManager.header}</span>
+                  </Card.Title>
+                  <Card.Body className="pb-0">
+                    <Form.Group controlId="backupFolder" className="mb-3">
+                      <Row>
+                        <Form.Label>{i18n.keyboardSettings.neuronManager.title}</Form.Label>
+                      </Row>
+                      <Row>
+                        <Col xs={6} className="pl-0 pr-1">
+                          {availableNeurons}
+                        </Col>
+                        <Col xs={6} className="px-1">
+                          {deleteSelectedNeuron}
+                        </Col>
+                      </Row>
+                      <Row className="pt-4">
+                        <Form.Label>{i18n.keyboardSettings.neuronManager.descriptionTitle}</Form.Label>
+                      </Row>
+                      <Row className="mb-4">{selectedNeuronData}</Row>
                     </Form.Group>
                   </Card.Body>
                 </Card>

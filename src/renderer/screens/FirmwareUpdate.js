@@ -224,6 +224,10 @@ const Styles = Styled.div`
 .progressbar {
   text-align: center;
 }
+.progressCBText {
+  font-weight: 200;
+  padding-top: 2rem;
+}
 .info {
   vertical-align: middle;
   font-size: 1.2rem;
@@ -624,7 +628,7 @@ class FirmwareUpdate extends React.Component {
             <ProgressBar className="mt-5 mb-2">
               <ProgressBar striped now={flashProgress} />
             </ProgressBar>
-            <h4>
+            <h4 className="progressCBText">
               {flashProgress <= 15
                 ? i18n.firmwareUpdate.texts.progressCardBar1
                 : flashProgress <= 29

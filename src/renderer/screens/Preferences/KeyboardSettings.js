@@ -711,7 +711,11 @@ class KeyboardSettings extends React.Component {
           let backup;
           try {
             backup = JSON.parse(require("fs").readFileSync(resp.filePaths[0]));
-            console.log("loaded backup", backup.backup[0].command, backup.backup[0].data);
+            console.log(
+              "loaded backup",
+              backup.backup == undefined ? backup[0].command : backup.backup[0].command,
+              backup.backup == undefined ? backup[0].data : backup.backup[0].data
+            );
           } catch (e) {
             console.error(e);
             alert("The file is not a valid global backup");

@@ -289,7 +289,7 @@ export default class FlashRaise {
    */
   async detectKeyboard() {
     const timeouts = 2500; //time to wait for keyboard
-    const findTimes = 3;
+    const findTimes = 5;
     const errorMessage =
       "The firmware update has failed during the flashing process. Please unplug and replug the keyboard and try again";
     console.log("Waiting for keyboard");
@@ -327,7 +327,7 @@ export default class FlashRaise {
       console.log("Ready to restore");
       return true;
     } else {
-      console.log(`Keyboard didn't detect ${times === 2 ? 1 : 2} time`);
+      console.log(`Keyboard not detected, trying again for ${times} times`);
       await this.runnerFindKeyboard(findKeyboard, times - 1, errorMessage);
     }
   }

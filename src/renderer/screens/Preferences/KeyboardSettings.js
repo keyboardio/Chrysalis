@@ -149,6 +149,9 @@ const Styles = Styled.div`
     left: 8px;
     top: 10px;
   }
+  .delete-icon {
+    font-size: 1.5rem
+  }
   .dropdown-toggle::after {
     position: absolute;
     right: 7px;
@@ -167,6 +170,7 @@ const Styles = Styled.div`
   .neuronName{
     .nTitle span{
       line-height: 2.8rem;
+      white-space: nowrap;
     }
     .nControl input{
       margin-top: 5px;
@@ -184,6 +188,9 @@ const Styles = Styled.div`
     .card-header{
       padding: 4px 24px;
     }
+  }
+  .deleteButton {
+    min-width: 100%;
   }
 `;
 
@@ -406,14 +413,17 @@ class KeyboardSettings extends React.Component {
     store.set("neurons", this.state.neurons);
   };
 
-  deleteNeuron = event => {
-    let temp = JSON.parse(JSON.stringify(this.state.neurons));
-    temp.splice(this.state.selectedNeuron, 1);
-    this.setState({
-      neurons: temp,
-      selectedNeuron: temp.length - 1 > this.selectNeuron ? this.selectNeuron : temp.length - 1
-    });
-    store.set("neurons", temp);
+  deleteNeuron = async () => {
+    let result = await window.confirm("Do you really want to remove this Neuron's data (Names) from the local storage?");
+    if (result) {
+      let temp = JSON.parse(JSON.stringify(this.state.neurons));
+      temp.splice(this.state.selectedNeuron, 1);
+      this.setState({
+        neurons: temp,
+        selectedNeuron: temp.length - 1 > this.selectNeuron ? this.selectNeuron : temp.length - 1
+      });
+      store.set("neurons", temp);
+    }
   };
 
   selectIdleLEDTime = event => {
@@ -909,8 +919,8 @@ class KeyboardSettings extends React.Component {
     );
     const deleteSelectedNeuron = (
       <div className="neuronToggler">
-        <Button variant="error" onClick={this.deleteNeuron}>
-          <MdDeleteForever /> Delete neuron
+        <Button className="deleteButton" variant="error" onClick={this.deleteNeuron}>
+          <MdDeleteForever className="delete-icon" />
         </Button>
       </div>
     );
@@ -962,23 +972,25 @@ class KeyboardSettings extends React.Component {
     );
     const selectedNeuronData = (
       <Container>
+        <Row className="pt-0">
+          <Col xs={1} className="p-0">
+            <span className="neuron-lh">ID</span>
+          </Col>
+          <Col className="px-2">
+            <span className="neuron-lh">{neurons[selectedNeuron].id}</span>
+          </Col>
+        </Row>
         <Row className="neuronName">
-          <Col xs={2} className="p-0 nTitle">
+          <Col xs={1} className="p-0 nTitle">
             <span>Name</span>
           </Col>
           <Col className="px-2 nControl">
             <Form.Control type="text" value={neurons[selectedNeuron].name} onChange={this.updateNeuronName} />
           </Col>
           <Col xs={3} className="p-0 nButton">
-            <Button onClick={this.applyNeuronName}>Save changes</Button>
-          </Col>
-        </Row>
-        <Row className="pt-3">
-          <Col xs={2} className="p-0">
-            <span className="neuron-lh">Neuron ID</span>
-          </Col>
-          <Col className="px-2">
-            <span className="neuron-lh">{neurons[selectedNeuron].id}</span>
+            <Button className="deleteButton" onClick={this.applyNeuronName}>
+              Save name
+            </Button>
           </Col>
         </Row>
         <Row className="pt-3">
@@ -1384,21 +1396,18 @@ class KeyboardSettings extends React.Component {
                     <BiChip className="dygmaLogo" />
                     <span className="va2fix">{i18n.keyboardSettings.neuronManager.header}</span>
                   </Card.Title>
-                  <Card.Body className="pb-0">
+                  <Card.Body className="py-0">
                     <Form.Group controlId="backupFolder" className="mb-3">
                       <Row>
-                        <Form.Label>{i18n.keyboardSettings.neuronManager.title}</Form.Label>
-                      </Row>
-                      <Row>
-                        <Col xs={6} className="pl-0 pr-1">
-                          {availableNeurons}
-                        </Col>
-                        <Col xs={6} className="px-1">
+                        <Col className="pl-0 pr-1">{availableNeurons}</Col>
+                        <Col xs={2} className="px-1">
                           {deleteSelectedNeuron}
                         </Col>
                       </Row>
-                      <Row className="pt-4">
-                        <Form.Label>{i18n.keyboardSettings.neuronManager.descriptionTitle}</Form.Label>
+                      <Row className="justify-content-center pt-3">
+                        <Form.Label>
+                          <h5>{i18n.keyboardSettings.neuronManager.descriptionTitle}</h5>
+                        </Form.Label>
                       </Row>
                       <Row className="mb-4">{selectedNeuronData}</Row>
                     </Form.Group>

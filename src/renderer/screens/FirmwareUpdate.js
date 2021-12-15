@@ -259,6 +259,7 @@ class FirmwareUpdate extends React.Component {
       commands: [],
       backup: [],
       backupDone: false,
+      backupPressed: false,
       flashProgress: 0
     };
   }
@@ -563,7 +564,7 @@ class FirmwareUpdate extends React.Component {
 
   cancelDialog = async () => {
     let focus = new Focus();
-    this.setState({ countdown: -1 });
+    this.setState({ countdown: -1, backupPressed: false });
     if (this.state.versions) {
       await focus.command("led.mode 0");
       await focus.command(`led.brightness ${this.state.brightness}`);
@@ -571,6 +572,7 @@ class FirmwareUpdate extends React.Component {
   };
 
   backup = async () => {
+    this.setState({ backupPressed: true });
     let backup = await this.bkp.DoBackup(this.state.commands, this.state.neuronID);
     this.setState({ backup });
   };
@@ -580,7 +582,8 @@ class FirmwareUpdate extends React.Component {
   };
 
   render() {
-    const { firmwareFilename, buttonText, countdown, isBeginUpdate, versions, firmwareDropdown, flashProgress } = this.state;
+    const { firmwareFilename, buttonText, countdown, backupPressed, isBeginUpdate, versions, firmwareDropdown, flashProgress } =
+      this.state;
 
     let filename = null;
     if (firmwareFilename) {
@@ -705,7 +708,7 @@ class FirmwareUpdate extends React.Component {
             </Button>
           </Col>
           <Col xs={6} className="flashingcol">
-            <Button className="flashingbutton nooutlined" size="lg" onClick={this.backup}>
+            <Button className="flashingbutton nooutlined" size="lg" onClick={this.backup} disabled={backupPressed}>
               {countdown > -1 ? buttonText[countdown] : buttonText[""]}
             </Button>
           </Col>

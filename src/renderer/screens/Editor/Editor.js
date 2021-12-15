@@ -323,12 +323,7 @@ class Editor extends React.Component {
                 name
               };
             })
-          : this.defaultLayerNames.map((name, id) => {
-              return {
-                id,
-                name
-              };
-            });
+          : this.defaultLayerNames;
       neuron.macros =
         store.get("macros") != undefined
           ? store.get("macros").map(macro => {

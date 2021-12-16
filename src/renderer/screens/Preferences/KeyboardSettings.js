@@ -162,6 +162,10 @@ const Styles = Styled.div`
     font-size: 1.5rem;
     vertical-align: text-top;
   }
+  .align-left {
+    float: right;
+    margin-top: 6px;
+  }
   .dropdown-toggle::after {
     position: absolute;
     right: 7px;
@@ -201,12 +205,12 @@ const Styles = Styled.div`
   }
   .deleteButton {
     min-width: 100%;
+    :hover {
+      color: inherit;
+    }
   }
   .successButton {
     min-width: 100%;
-    color: #fff;
-    background-color: #28a745;
-    border-color: #28a745;
   }
   .accSpan {
     cursor: pointer;
@@ -948,7 +952,7 @@ class KeyboardSettings extends React.Component {
         <Card className="neuronDataCard">
           <Accordion.Toggle as={Card.Header} eventKey="1">
             <span className="accSpan">
-              Layers <MdKeyboardArrowDown className="delete-icon" />
+              Layers <MdKeyboardArrowDown className="delete-icon align-left" />
             </span>
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="1">
@@ -964,7 +968,7 @@ class KeyboardSettings extends React.Component {
         <Card className="neuronDataCard">
           <Accordion.Toggle as={Card.Header} eventKey="2">
             <span className="accSpan">
-              Macros <MdKeyboardArrowDown className="delete-icon" />
+              Macros <MdKeyboardArrowDown className="delete-icon align-left" />
             </span>
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="2">
@@ -980,7 +984,7 @@ class KeyboardSettings extends React.Component {
         <Card className="neuronDataCard">
           <Accordion.Toggle as={Card.Header} eventKey="3">
             <span className="accSpan">
-              Superkeys <MdKeyboardArrowDown className="delete-icon" />
+              Superkeys <MdKeyboardArrowDown className="delete-icon align-left" />
             </span>
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="3">
@@ -1009,10 +1013,10 @@ class KeyboardSettings extends React.Component {
           <Col xs={1} className="p-0 nTitle">
             <span>Name</span>
           </Col>
-          <Col className="px-1 nControl">
+          <Col className="pl-2 pr-1 nControl">
             <Form.Control type="text" value={neurons[selectedNeuron].name} onChange={this.updateNeuronName} />
           </Col>
-          <Col xs={2} className="px-1 nButton">
+          <Col xs={2} className="pl-1 pr-0 nButton">
             <Button className="successButton" variant="success" onClick={this.applyNeuronName}>
               <MdSave className="delete-icon" />
             </Button>
@@ -1425,12 +1429,12 @@ class KeyboardSettings extends React.Component {
                     <Form.Group controlId="backupFolder" className="mb-3">
                       <Row>
                         <Col className="pl-0 pr-1">{availableNeurons}</Col>
-                        <Col xs={2} className="px-1">
+                        <Col xs={2} className="pl-1 pr-0">
                           {deleteSelectedNeuron}
                         </Col>
                       </Row>
-                      <Row className="pt-3">
-                        <Form.Label>
+                      <Row className="pt-4">
+                        <Form.Label className="mb-0">
                           <h5>{i18n.keyboardSettings.neuronManager.descriptionTitle}</h5>
                         </Form.Label>
                       </Row>

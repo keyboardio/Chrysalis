@@ -54,7 +54,7 @@ import {
   MdBrightness3,
   MdWbSunny,
   MdStorage,
-  MdInfo,
+  MdInfoOutline,
   MdDeleteForever,
   MdSave,
   MdKeyboardArrowDown
@@ -1521,7 +1521,7 @@ class KeyboardSettings extends React.Component {
                                 i18n.keyboardSettings.superkeys.timeoutTip4
                               ])}
                             >
-                              <MdInfo className="modinfo" />
+                              <MdInfoOutline className="modinfo" />
                             </OverlayTrigger>
                           </Form.Label>
                         </Row>
@@ -1544,7 +1544,7 @@ class KeyboardSettings extends React.Component {
                                 i18n.keyboardSettings.superkeys.chordingTip4
                               ])}
                             >
-                              <MdInfo className="modinfo" />
+                              <MdInfoOutline className="modinfo" />
                             </OverlayTrigger>
                           </Form.Label>
                         </Row>

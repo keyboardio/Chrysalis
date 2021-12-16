@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-import { MdInfo } from "react-icons/md";
+import { MdInfoOutline } from "react-icons/md";
 
 const Style = Styled.div`
 padding-top: 10px;
@@ -209,7 +209,7 @@ class ModPicker extends Component {
             delay={{ show: 250, hide: 400 }}
             overlay={this.renderTooltip([text1, text2])}
           >
-            <MdInfo className="modinfo ml-2" />
+            <MdInfoOutline className="modinfo ml-2" />
           </OverlayTrigger>
         </Row>
         <Row className="modbuttonrow">

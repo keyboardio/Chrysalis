@@ -16,7 +16,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import { MdInfo } from "react-icons/md";
+import { MdInfoOutline } from "react-icons/md";
 
 const Style = Styled.div`
 .key-card {

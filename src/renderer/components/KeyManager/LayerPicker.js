@@ -10,7 +10,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import { MdInfo } from "react-icons/md";
+import { MdInfoOutline } from "react-icons/md";
 
 // Media
 
@@ -168,7 +168,7 @@ class LayerPicker extends Component {
             delay={{ show: 250, hide: 400 }}
             overlay={this.renderTooltip([swtext, swtext2])}
           >
-            <MdInfo className={"info"} />
+            <MdInfoOutline className={"info"} />
           </OverlayTrigger>
         </Row>
         <Row className="mx-0">
@@ -206,7 +206,7 @@ class LayerPicker extends Component {
             delay={{ show: 250, hide: 400 }}
             overlay={this.renderTooltip([lktext, lktext2])}
           >
-            <MdInfo className={"info"} />
+            <MdInfoOutline className={"info"} />
           </OverlayTrigger>
         </Row>
         <Row className="mx-0">

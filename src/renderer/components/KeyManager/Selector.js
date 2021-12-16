@@ -14,7 +14,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Tooltip from "react-bootstrap/Tooltip";
 
-import { MdInfo } from "react-icons/md";
+import { MdInfoOutline } from "react-icons/md";
 
 // Media Components
 import darkTool from "../../../../static/DarkSuperTooltip.png";
@@ -233,7 +233,7 @@ class Selector extends Component {
                   delay={{ show: 250, hide: 400 }}
                   overlay={this.renderImgTooltip(darkTool)}
                 >
-                  <MdInfo className={"info"} />
+                  <MdInfoOutline className={"info"} />
                 </OverlayTrigger>
               </Col>
               <Col xs={6} className="px-0">

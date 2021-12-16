@@ -20,7 +20,7 @@ import Styled from "styled-components";
 // Bootstrap components
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-import { MdInfo } from "react-icons/md";
+import { MdInfoOutline } from "react-icons/md";
 
 const TooltipStyle = Styled.div`
 text-align: left;
@@ -70,12 +70,12 @@ export default class CTooltip extends Component {
     const { texts, placement, img, type } = this.props;
     const textTooltip = (
       <OverlayTrigger rootClose placement={placement} delay={{ show: 250, hide: 400 }} overlay={this.RenderToolTip(texts)}>
-        <MdInfo className="info ml-2" />
+        <MdInfoOutline className="info ml-2" />
       </OverlayTrigger>
     );
     const imgTooltip = (
       <OverlayTrigger rootClose placement={placement} delay={{ show: 250, hide: 400 }} overlay={this.RenderImgToolTip(img)}>
-        <MdInfo className="info ml-2" />
+        <MdInfoOutline className="info ml-2" />
       </OverlayTrigger>
     );
     return type == "text" ? textTooltip : type == "img" ? imgTooltip : "";

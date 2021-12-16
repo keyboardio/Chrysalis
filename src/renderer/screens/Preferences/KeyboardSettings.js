@@ -944,7 +944,7 @@ class KeyboardSettings extends React.Component {
     );
     const deleteSelectedNeuron = (
       <div className="neuronToggler">
-        <Button className="deleteButton default-colors" variant="danger" onClick={this.deleteNeuron}>
+        <Button className="deleteButton default-colors" variant="error" onClick={this.deleteNeuron}>
           <MdDeleteForever className="delete-icon" />
         </Button>
       </div>

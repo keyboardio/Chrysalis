@@ -1342,7 +1342,7 @@ class Editor extends React.Component {
     );
     let options = {
       title: "Save Layer file",
-      defaultPath: "Layer" + currentLayer + ".json",
+      defaultPath: layerNames[currentLayer].name + ".json",
       buttonLabel: "Save Layer",
       filters: [
         { name: "Json", extensions: ["json"] },

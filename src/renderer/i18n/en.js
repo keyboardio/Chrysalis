@@ -272,7 +272,8 @@ const English = {
       title: "Select a Neuron",
       neuron: "{0}: {1}",
       defaultNeuron: "No neuron registered",
-      descriptionTitle: "Neuron parameters"
+      descriptionTitle: "Selected neuron parameters",
+      deleteNeuron: "Deleting the Neuron will erase the names of your layers, macros and superkeys from the local storage"
     },
     keymap: {
       title: "GENERAL",

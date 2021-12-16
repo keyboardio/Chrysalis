@@ -433,7 +433,7 @@ class KeyboardSettings extends React.Component {
   };
 
   deleteNeuron = async () => {
-    let result = await window.confirm("Do you really want to remove this Neuron's data (Names) from the local storage?");
+    let result = await window.confirm(i18n.keyboardSettings.neuronManager.deleteNeuron);
     if (result) {
       let temp = JSON.parse(JSON.stringify(this.state.neurons));
       temp.splice(this.state.selectedNeuron, 1);

@@ -1354,7 +1354,7 @@ class KeyboardSettings extends React.Component {
       </Button>
     );
     const restoreBackupButton = (
-      <Button onClick={this.GetBackup} className="backupbuttons">
+      <Button onClick={this.GetBackup} className="backupbuttons" disabled={!this.props.connected}>
         {i18n.keyboardSettings.backupFolder.restoreButtonText}
       </Button>
     );
@@ -1466,134 +1466,134 @@ class KeyboardSettings extends React.Component {
                         </Col>
                       </Row>
                       <Row className="mb-4">
-                        <Col className="p-0">
-                          <AdvancedKeyboardSettings />
-                        </Col>
+                        <Col className="p-0">{this.props.connected && <AdvancedKeyboardSettings />}</Col>
                       </Row>
                     </Form>
                   </Card.Body>
                 </Card>
               </Col>
-              <Col xl={6} lg={8} md={10}>
-                <Card className="overflowFix cardStyle mt-4 pb-0">
-                  <Card.Title>
-                    <BsBrightnessHigh className="dygmaLogo" />
-                    <span className="va2fix">{i18n.keyboardSettings.led.title}</span>
-                  </Card.Title>
-                  <Card.Body className="pb-0">
-                    {ledIdleTimeLimit >= 0 && (
-                      <Form.Group controlId="idleTimeLimit" className="formGroup">
-                        <Row>
-                          <Form.Label>{i18n.keyboardSettings.led.idleTimeLimit}</Form.Label>
-                        </Row>
-                        {newIdleControl}
-                      </Form.Group>
-                    )}
-                    {ledBrightness >= 0 && (
-                      <Form.Group controlId="brightnessControl" className="formGroup">
-                        <Row>
-                          <Form.Label>{i18n.keyboardSettings.led.brightness}</Form.Label>
-                        </Row>
-                        {brightnessControl}
-                      </Form.Group>
-                    )}
-                  </Card.Body>
-                </Card>
-                <Card className="overflowFix cardStyle mt-4 pb-0">
-                  <Card.Title>
-                    <BsType className="dygmaLogo" />
-                    <span className="va3fix">{i18n.keyboardSettings.superkeys.title}</span>
-                  </Card.Title>
-                  <Card.Body className="pb-0">
-                    {SuperTimeout >= 0 && (
-                      <Form.Group controlId="superTimeout" className="formGroup">
-                        <Row>
-                          <Form.Label>
-                            {i18n.keyboardSettings.superkeys.timeout}
-                            <OverlayTrigger
-                              rootClose
-                              placement="bottom"
-                              delay={{ show: 250, hide: 400 }}
-                              overlay={this.renderTooltip([
-                                i18n.keyboardSettings.superkeys.timeoutTip1,
-                                i18n.keyboardSettings.superkeys.timeoutTip2,
-                                i18n.keyboardSettings.superkeys.timeoutTip3,
-                                i18n.keyboardSettings.superkeys.timeoutTip4
-                              ])}
-                            >
-                              <MdInfoOutline className="modinfo" />
-                            </OverlayTrigger>
-                          </Form.Label>
-                        </Row>
-                        {superT}
-                      </Form.Group>
-                    )}
-                    {SuperHoldstart >= 0 && (
-                      <Form.Group controlId="superHoldstart" className="formGroup">
-                        <Row>
-                          <Form.Label>
-                            {i18n.keyboardSettings.superkeys.holdstart}
-                            <OverlayTrigger
-                              rootClose
-                              placement="bottom"
-                              delay={{ show: 250, hide: 400 }}
-                              overlay={this.renderTooltip([
-                                i18n.keyboardSettings.superkeys.chordingTip1,
-                                i18n.keyboardSettings.superkeys.chordingTip2,
-                                i18n.keyboardSettings.superkeys.chordingTip3,
-                                i18n.keyboardSettings.superkeys.chordingTip4
-                              ])}
-                            >
-                              <MdInfoOutline className="modinfo" />
-                            </OverlayTrigger>
-                          </Form.Label>
-                        </Row>
-                        {superH}
-                      </Form.Group>
-                    )}
-                  </Card.Body>
-                </Card>
-                <Card className="overflowFix cardStyle mt-4 pb-0">
-                  <Card.Title>
-                    <BiMouse className="dygmaLogo" />
-                    <span className="va2fix">{i18n.keyboardSettings.mouse.title}</span>
-                  </Card.Title>
-                  <Card.Body className="pb-0">
-                    {mouseSpeed >= 0 && (
-                      <Form.Group controlId="mouseSpeed" className="formGroup">
-                        <Row>
-                          <Form.Label>{i18n.keyboardSettings.mouse.speed}</Form.Label>
-                        </Row>
-                        {mSpeed}
-                      </Form.Group>
-                    )}
-                    {mouseAccelSpeed >= 0 && (
-                      <Form.Group controlId="mousemAccelS" className="formGroup">
-                        <Row>
-                          <Form.Label>{i18n.keyboardSettings.mouse.accelSpeed}</Form.Label>
-                        </Row>
-                        {mAccelS}
-                      </Form.Group>
-                    )}
-                    {mouseSpeedLimit >= 0 && (
-                      <Form.Group controlId="mouseSpeedL" className="formGroup">
-                        <Row>
-                          <Form.Label>{i18n.keyboardSettings.mouse.speedLimit}</Form.Label>
-                        </Row>
-                        {mSpeedL}
-                      </Form.Group>
-                    )}
-                    {mouseWheelSpeed >= 0 && (
-                      <Form.Group controlId="mousemWheelS" className="formGroup">
-                        <Row>
-                          <Form.Label>{i18n.keyboardSettings.mouse.wheelSpeed}</Form.Label>
-                        </Row>
-                        {mWheelS}
-                      </Form.Group>
-                    )}
-                  </Card.Body>
-                </Card>
-              </Col>
+              {this.props.connected && (
+                <Col xl={6} lg={8} md={10}>
+                  <Card className="overflowFix cardStyle mt-4 pb-0">
+                    <Card.Title>
+                      <BsBrightnessHigh className="dygmaLogo" />
+                      <span className="va2fix">{i18n.keyboardSettings.led.title}</span>
+                    </Card.Title>
+                    <Card.Body className="pb-0">
+                      {ledIdleTimeLimit >= 0 && (
+                        <Form.Group controlId="idleTimeLimit" className="formGroup">
+                          <Row>
+                            <Form.Label>{i18n.keyboardSettings.led.idleTimeLimit}</Form.Label>
+                          </Row>
+                          {newIdleControl}
+                        </Form.Group>
+                      )}
+                      {ledBrightness >= 0 && (
+                        <Form.Group controlId="brightnessControl" className="formGroup">
+                          <Row>
+                            <Form.Label>{i18n.keyboardSettings.led.brightness}</Form.Label>
+                          </Row>
+                          {brightnessControl}
+                        </Form.Group>
+                      )}
+                    </Card.Body>
+                  </Card>
+                  <Card className="overflowFix cardStyle mt-4 pb-0">
+                    <Card.Title>
+                      <BsType className="dygmaLogo" />
+                      <span className="va3fix">{i18n.keyboardSettings.superkeys.title}</span>
+                    </Card.Title>
+                    <Card.Body className="pb-0">
+                      {SuperTimeout >= 0 && (
+                        <Form.Group controlId="superTimeout" className="formGroup">
+                          <Row>
+                            <Form.Label>
+                              {i18n.keyboardSettings.superkeys.timeout}
+                              <OverlayTrigger
+                                rootClose
+                                placement="bottom"
+                                delay={{ show: 250, hide: 400 }}
+                                overlay={this.renderTooltip([
+                                  i18n.keyboardSettings.superkeys.timeoutTip1,
+                                  i18n.keyboardSettings.superkeys.timeoutTip2,
+                                  i18n.keyboardSettings.superkeys.timeoutTip3,
+                                  i18n.keyboardSettings.superkeys.timeoutTip4
+                                ])}
+                              >
+                                <MdInfoOutline className="modinfo" />
+                              </OverlayTrigger>
+                            </Form.Label>
+                          </Row>
+                          {superT}
+                        </Form.Group>
+                      )}
+                      {SuperHoldstart >= 0 && (
+                        <Form.Group controlId="superHoldstart" className="formGroup">
+                          <Row>
+                            <Form.Label>
+                              {i18n.keyboardSettings.superkeys.holdstart}
+                              <OverlayTrigger
+                                rootClose
+                                placement="bottom"
+                                delay={{ show: 250, hide: 400 }}
+                                overlay={this.renderTooltip([
+                                  i18n.keyboardSettings.superkeys.chordingTip1,
+                                  i18n.keyboardSettings.superkeys.chordingTip2,
+                                  i18n.keyboardSettings.superkeys.chordingTip3,
+                                  i18n.keyboardSettings.superkeys.chordingTip4
+                                ])}
+                              >
+                                <MdInfoOutline className="modinfo" />
+                              </OverlayTrigger>
+                            </Form.Label>
+                          </Row>
+                          {superH}
+                        </Form.Group>
+                      )}
+                    </Card.Body>
+                  </Card>
+                  <Card className="overflowFix cardStyle mt-4 pb-0">
+                    <Card.Title>
+                      <BiMouse className="dygmaLogo" />
+                      <span className="va2fix">{i18n.keyboardSettings.mouse.title}</span>
+                    </Card.Title>
+                    <Card.Body className="pb-0">
+                      {mouseSpeed >= 0 && (
+                        <Form.Group controlId="mouseSpeed" className="formGroup">
+                          <Row>
+                            <Form.Label>{i18n.keyboardSettings.mouse.speed}</Form.Label>
+                          </Row>
+                          {mSpeed}
+                        </Form.Group>
+                      )}
+                      {mouseAccelSpeed >= 0 && (
+                        <Form.Group controlId="mousemAccelS" className="formGroup">
+                          <Row>
+                            <Form.Label>{i18n.keyboardSettings.mouse.accelSpeed}</Form.Label>
+                          </Row>
+                          {mAccelS}
+                        </Form.Group>
+                      )}
+                      {mouseSpeedLimit >= 0 && (
+                        <Form.Group controlId="mouseSpeedL" className="formGroup">
+                          <Row>
+                            <Form.Label>{i18n.keyboardSettings.mouse.speedLimit}</Form.Label>
+                          </Row>
+                          {mSpeedL}
+                        </Form.Group>
+                      )}
+                      {mouseWheelSpeed >= 0 && (
+                        <Form.Group controlId="mousemWheelS" className="formGroup">
+                          <Row>
+                            <Form.Label>{i18n.keyboardSettings.mouse.wheelSpeed}</Form.Label>
+                          </Row>
+                          {mWheelS}
+                        </Form.Group>
+                      )}
+                    </Card.Body>
+                  </Card>
+                </Col>
+              )}
             </Row>
           </Container>
         </Form>

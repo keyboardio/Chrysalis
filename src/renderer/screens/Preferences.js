@@ -110,17 +110,16 @@ class Preferences extends React.Component {
           <Row className="title-row">
             <h4 className="section-title">Preferences</h4>
           </Row>
-          {this.props.connected && (
-            <KeyboardSettings
-              startContext={this.props.startContext}
-              cancelContext={this.props.cancelContext}
-              inContext={this.props.inContext}
-              selectDarkMode={this.selectDarkMode}
-              darkMode={this.state.darkMode}
-              devToolsSwitch={devToolsSwitch}
-              verboseSwitch={verboseSwitch}
-            />
-          )}
+          <KeyboardSettings
+            startContext={this.props.startContext}
+            cancelContext={this.props.cancelContext}
+            inContext={this.props.inContext}
+            selectDarkMode={this.selectDarkMode}
+            darkMode={this.state.darkMode}
+            devToolsSwitch={devToolsSwitch}
+            verboseSwitch={verboseSwitch}
+            connected={this.props.connected}
+          />
           {/* <Accordion>
             <Accordion.Toggle
               as={Col}

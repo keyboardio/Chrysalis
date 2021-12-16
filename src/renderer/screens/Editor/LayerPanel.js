@@ -161,6 +161,10 @@ export default class LayerPanel extends React.Component {
     document.addEventListener("keydown", this._handleKeyDown);
   }
 
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this._handleKeyDown);
+  }
+
   _handleKeyDown = event => {
     switch (event.keyCode) {
       case 13:
@@ -170,13 +174,23 @@ export default class LayerPanel extends React.Component {
           this.updateText(this.state.editorText);
           this.setState({ editCurrent: -1, editorText: "" });
         }
+        event.preventDefault();
         break;
       case 27:
         // ESC key
+        console.log("Esc key logged");
         this.setState({
           editCurrent: -1,
           editorText: ""
         });
+        event.preventDefault();
+        break;
+      case 32:
+        // SPACE key
+        this.setState({
+          editorText: this.state.editorText + " "
+        });
+        event.preventDefault();
         break;
       default:
         break;
@@ -268,10 +282,9 @@ export default class LayerPanel extends React.Component {
         >
           <div className="button-content">
             {editCurrent == id ? (
-              <WatchClickOutside refKey={idx} onClickOutside={this.ExternalClick}>
+              <WatchClickOutside onClickOutside={this.ExternalClick}>
                 <Form.Control
                   value={this.state.editorText}
-                  idx={idx}
                   as="textarea"
                   className="nameField"
                   onChange={e => {

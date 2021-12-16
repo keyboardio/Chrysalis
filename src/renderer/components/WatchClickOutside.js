@@ -22,22 +22,17 @@ export default class WatchClickOutside extends Component {
   }
 
   handleClick(event) {
-    const { onClickOutside, refKey } = this.props; // get click outside callback
+    const { onClickOutside } = this.props; // get click outside callback
     const { target } = event; // get direct click event target
 
     // if there is no proper callback - no point of checking
     if (typeof onClickOutside !== "function") {
       return;
     }
-    // console.log(refKey, parseInt(this.Ref.children[0].getAttribute("idx")));
 
     // if target is container - container was not clicked outside
     // if container contains clicked target - click was not outside of it
-    if (
-      (refKey == undefined || refKey == parseInt(this.Ref.children[0].getAttribute("idx"))) &&
-      target !== this.Ref &&
-      !this.Ref.contains(target)
-    ) {
+    if (target !== this.Ref && !this.Ref.contains(target)) {
       onClickOutside(event); // clicked outside - fire callback
     }
   }

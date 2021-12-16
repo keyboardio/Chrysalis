@@ -12,8 +12,10 @@ import Styled from "styled-components";
 
 // Icons
 import { MdLock, MdContentCopy, MdUnarchive, MdDelete } from "react-icons/md";
-// Icons
 import { BiUpload, BiDownload } from "react-icons/bi";
+
+// Local Components
+import WatchClickOutside from "../../components/WatchClickOutside";
 
 const toolsWidth = 45;
 
@@ -149,6 +151,7 @@ export default class LayerPanel extends React.Component {
       editorText: ""
     };
     this.ActOnClick = this.ActOnClick.bind(this);
+    this.ExternalClick = this.ExternalClick.bind(this);
     this.LayerSel = this.LayerSel.bind(this);
     this.updateText = this.updateText.bind(this);
     this.spare = this.spare.bind(this);
@@ -161,11 +164,19 @@ export default class LayerPanel extends React.Component {
   _handleKeyDown = event => {
     switch (event.keyCode) {
       case 13:
+        // Enter key
         console.log("Enter key logged");
         if (this.state.editCurrent == this.state.currentLayer) {
           this.updateText(this.state.editorText);
           this.setState({ editCurrent: -1, editorText: "" });
         }
+        break;
+      case 27:
+        // ESC key
+        this.setState({
+          editCurrent: -1,
+          editorText: ""
+        });
         break;
       default:
         break;
@@ -211,6 +222,18 @@ export default class LayerPanel extends React.Component {
     }
   }
 
+  ExternalClick() {
+    let { currentLayer, editCurrent } = this.state;
+
+    if (currentLayer == editCurrent) {
+      this.updateText(this.state.editorText);
+      this.setState({
+        editCurrent: -1,
+        editorText: ""
+      });
+    }
+  }
+
   updateText(newText) {
     this.props.changeLayerName(newText);
   }
@@ -245,14 +268,17 @@ export default class LayerPanel extends React.Component {
         >
           <div className="button-content">
             {editCurrent == id ? (
-              <Form.Control
-                value={this.state.editorText}
-                as="textarea"
-                className="nameField"
-                onChange={e => {
-                  this.setState({ editorText: e.target.value });
-                }}
-              />
+              <WatchClickOutside refKey={idx} onClickOutside={this.ExternalClick}>
+                <Form.Control
+                  value={this.state.editorText}
+                  idx={idx}
+                  as="textarea"
+                  className="nameField"
+                  onChange={e => {
+                    this.setState({ editorText: e.target.value });
+                  }}
+                />
+              </WatchClickOutside>
             ) : (
               <React.Fragment>
                 <div className="left">{(idx + 1).toString() + ": " + name}</div>

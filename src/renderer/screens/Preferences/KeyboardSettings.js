@@ -49,7 +49,16 @@ import swedishF from "../../../../static/swedish.png";
 import icelandicF from "../../../../static/icelandic.png";
 import norwegianF from "../../../../static/norwegian.png";
 
-import { MdComputer, MdBrightness3, MdWbSunny, MdStorage, MdInfo, MdDeleteForever } from "react-icons/md";
+import {
+  MdComputer,
+  MdBrightness3,
+  MdWbSunny,
+  MdStorage,
+  MdInfo,
+  MdDeleteForever,
+  MdSave,
+  MdKeyboardArrowDown
+} from "react-icons/md";
 import { BsType, BsBrightnessHigh } from "react-icons/bs";
 import { BiMouse, BiCodeAlt, BiWrench, BiChip } from "react-icons/bi";
 import { isArray } from "lodash";
@@ -150,7 +159,8 @@ const Styles = Styled.div`
     top: 10px;
   }
   .delete-icon {
-    font-size: 1.5rem
+    font-size: 1.5rem;
+    vertical-align: text-top;
   }
   .dropdown-toggle::after {
     position: absolute;
@@ -191,6 +201,15 @@ const Styles = Styled.div`
   }
   .deleteButton {
     min-width: 100%;
+  }
+  .successButton {
+    min-width: 100%;
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+  }
+  .accSpan {
+    cursor: pointer;
   }
 `;
 
@@ -928,7 +947,9 @@ class KeyboardSettings extends React.Component {
       <Accordion defaultActiveKey="0">
         <Card className="neuronDataCard">
           <Accordion.Toggle as={Card.Header} eventKey="1">
-            Layers
+            <span className="accSpan">
+              Layers <MdKeyboardArrowDown className="delete-icon" />
+            </span>
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="1">
             <Card.Body>
@@ -942,7 +963,9 @@ class KeyboardSettings extends React.Component {
         </Card>
         <Card className="neuronDataCard">
           <Accordion.Toggle as={Card.Header} eventKey="2">
-            Macros
+            <span className="accSpan">
+              Macros <MdKeyboardArrowDown className="delete-icon" />
+            </span>
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="2">
             <Card.Body>
@@ -956,7 +979,9 @@ class KeyboardSettings extends React.Component {
         </Card>
         <Card className="neuronDataCard">
           <Accordion.Toggle as={Card.Header} eventKey="3">
-            Superkeys
+            <span className="accSpan">
+              Superkeys <MdKeyboardArrowDown className="delete-icon" />
+            </span>
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="3">
             <Card.Body>
@@ -984,12 +1009,12 @@ class KeyboardSettings extends React.Component {
           <Col xs={1} className="p-0 nTitle">
             <span>Name</span>
           </Col>
-          <Col className="px-2 nControl">
+          <Col className="px-1 nControl">
             <Form.Control type="text" value={neurons[selectedNeuron].name} onChange={this.updateNeuronName} />
           </Col>
-          <Col xs={3} className="p-0 nButton">
-            <Button className="deleteButton" onClick={this.applyNeuronName}>
-              Save name
+          <Col xs={2} className="px-1 nButton">
+            <Button className="successButton" variant="success" onClick={this.applyNeuronName}>
+              <MdSave className="delete-icon" />
             </Button>
           </Col>
         </Row>
@@ -1404,7 +1429,7 @@ class KeyboardSettings extends React.Component {
                           {deleteSelectedNeuron}
                         </Col>
                       </Row>
-                      <Row className="justify-content-center pt-3">
+                      <Row className="pt-3">
                         <Form.Label>
                           <h5>{i18n.keyboardSettings.neuronManager.descriptionTitle}</h5>
                         </Form.Label>

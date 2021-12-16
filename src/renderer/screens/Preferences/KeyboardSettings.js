@@ -177,8 +177,10 @@ const Styles = Styled.div`
     letter-spacing: 0.02em;
     button.btn.btn-error {
       line-height: 1.8em;
-      background-color: #c75454;
       float: right;
+      :hover {
+        background-color: #c75454;
+      }
     }
   }
   .neuronName{
@@ -942,7 +944,7 @@ class KeyboardSettings extends React.Component {
     );
     const deleteSelectedNeuron = (
       <div className="neuronToggler">
-        <Button className="deleteButton" variant="error" onClick={this.deleteNeuron}>
+        <Button className="deleteButton default-colors" variant="danger" onClick={this.deleteNeuron}>
           <MdDeleteForever className="delete-icon" />
         </Button>
       </div>

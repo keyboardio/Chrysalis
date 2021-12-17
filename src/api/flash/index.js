@@ -339,8 +339,10 @@ export default class FlashRaise {
     let focus = new Focus();
     const errorMessage = "Firmware update failed, because the settings could not be restored";
     let backup = this.backup.backup;
+    console.log(this.backup, backup);
     if (backup === undefined || backup.length === 0) {
-      return;
+      await focus.open(this.currentPort.path, this.currentPort.device.info);
+      return true;
     }
     try {
       await focus.open(this.currentPort.path, this.currentPort.device.info);

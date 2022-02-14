@@ -26,9 +26,7 @@ const Style = Styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    border-radius: 6px;
     position: relative;
-    padding: 8px 6px;
     text-align: center;
 
     color: #7B869E;
@@ -42,6 +40,19 @@ const Style = Styled.div`
         font-size: 12px;
         font-weight: 600;
         flex: 0 0 100%;
+    }
+    .badge {
+        position: absolute;
+        right:3px;
+        top:3px;
+        font-size: 12px;
+        font-size: 600;
+        padding: 4px 10px;
+        z-index: 3;
+        &.badge-primary {
+            background: #FE007C;
+            border-radius: 16px;
+        }
     }
 }
 .menuLink:before {
@@ -59,6 +70,7 @@ const Style = Styled.div`
 
     opacity: 0;
     transition: 300ms opacity ease-in-out;
+    z-index: 2;
 
 }
 .menuLink:after {
@@ -73,6 +85,8 @@ const Style = Styled.div`
     background-image: url(${LightAccent});
     opacity: 0;
     transition: 300ms opacity ease-in-out;
+
+    z-index: 2;
 }
 .menuLink:hover {   
     text-decoration: none;
@@ -94,8 +108,11 @@ const Style = Styled.div`
 .menuLink.active:after {
     opacity: 1; 
 }
-menuLinkInner {
+.menuLinkInner {
     position: relative;
+    padding: 8px 6px;
+    width: 96px;
+    height: 96px;
     svg,
     .menuLinkText {
         position: relative;
@@ -124,7 +141,7 @@ const NavigationButton = ({ selected, onClick, drawerWidth, showNotif, buttonTex
         <div className={"menuLinkInner"}>
           {icoSVG}
           {showNotif ? (
-            <div className="relative-pos">
+            <div className="badge badge-primary">
               <span className="sec">New</span>
             </div>
           ) : (

@@ -43,7 +43,7 @@ import SuperkeysConfigurator from "./screens/Superkeys/SuperkeysConfigurator";
 import Preferences from "./screens/Preferences";
 import Welcome from "./screens/Welcome";
 
-import Header from "./modules/NavigationMenu/NavigationMenuWrapper";
+import Header from "./modules/NavigationMenu";
 
 const Store = require("electron-store");
 const store = new Store();

@@ -253,7 +253,7 @@ class NavigationMenu extends Component {
                           selected={currentPage === "/editor"}
                           drawerWidth={drawerWidth}
                           onClick={() => setCurrentPage("/editor")}
-                          buttonText={"Layout <br>Editor"}
+                          buttonText={i18n.app.menu.editor}
                           icoSVG={<IconKeyboard2Stroke />}
                         />
                       </Link>
@@ -262,7 +262,7 @@ class NavigationMenu extends Component {
                           selected={currentPage === "/macros"}
                           drawerWidth={drawerWidth}
                           onClick={() => setCurrentPage("/macros")}
-                          buttonText={"Macro <br>Editor"}
+                          buttonText={i18n.app.menu.macros}
                           icoSVG={<IconRobot2Stroke />}
                         />
                       </Link>
@@ -272,7 +272,7 @@ class NavigationMenu extends Component {
                           selected={currentPage === "/superkeys"}
                           drawerWidth={drawerWidth}
                           onClick={() => setCurrentPage("/superkeys")}
-                          buttonText={"Superkeys <br>Editor"}
+                          buttonText={i18n.app.menu.superkeys}
                           icoSVG={<IconThunder2Stroke />}
                         />
                       </Link>
@@ -284,8 +284,9 @@ class NavigationMenu extends Component {
                       selected={currentPage === "/firmware-update"}
                       drawerWidth={drawerWidth}
                       onClick={() => setCurrentPage("/firmware-update")}
-                      showNotif={showNotif != 0 ? (showNotif > 0 ? true : false) : false}
-                      buttonText={"Firmware <br>Update"}
+                      //showNotif={showNotif != 0 ? (showNotif > 0 ? true : false) : false}
+                      showNotif={true}
+                      buttonText={i18n.app.menu.firmwareUpdate}
                       icoSVG={<IconMemory2Stroke />}
                     />
                   </Link>
@@ -297,7 +298,7 @@ class NavigationMenu extends Component {
                   drawerWidth={drawerWidth}
                   selected={currentPage === "/keyboard-select"}
                   onClick={() => setCurrentPage("/keyboard-select")}
-                  buttonText={"Keyboard <br>Selection"}
+                  buttonText={i18n.app.menu.selectAKeyboard}
                   icoSVG={<IconKeyboardSelector />}
                 />
               </Link>
@@ -306,7 +307,7 @@ class NavigationMenu extends Component {
                   drawerWidth={drawerWidth}
                   selected={currentPage === "/preferences"}
                   onClick={() => setCurrentPage("/preferences")}
-                  buttonText={"Preferences"}
+                  buttonText={i18n.app.menu.preferences}
                   icoSVG={<IconPreferences2Stroke />}
                 />
               </Link>

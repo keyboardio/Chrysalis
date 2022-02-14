@@ -43,13 +43,13 @@ const English = {
     menu: {
       comingSoon: "Coming soon...",
       welcome: "Welcome",
-      editor: "Layout Editor",
-      macros: "Macro Editor",
-      superkeys: "Superkeys Editor",
-      firmwareUpdate: "Firmware Update",
+      editor: "Layout <br>Editor",
+      macros: "Macro <br>Editor",
+      superkeys: "Superkeys <br>Editor",
+      firmwareUpdate: "Firmware <zbr>Update",
       keyboardSettings: "Keyboard Settings",
       preferences: "Preferences",
-      selectAKeyboard: "Keyboard Selector",
+      selectAKeyboard: "Keyboard <br>Selection",
       selectAnotherKeyboard: "Select another keyboard",
       softwareUpdate: "Software update",
       supportPage: "Bazecor support page",
@@ -197,7 +197,8 @@ const English = {
       successFlash: "Succesfully sent the superkeys to the Raise",
       deleteModal: {
         title: "This superkey is in use",
-        body: "The superkey you want to delete is currently in use, by pressing remove you will replace those superkeys with NO KEY on the keyboard layout. Select how to proceed.",
+        // prettier-ignore
+        body:"The superkey you want to delete is currently in use, by pressing remove you will replace those superkeys with NO KEY on the keyboard layout. Select how to proceed.",
         cancelButton: "Cancel",
         applyButton: "Remove"
       }

@@ -23,17 +23,17 @@ class Header extends Component {
     super(props);
 
     this.state = {
-      NavigationMenu: true
+      NMenu: true
     };
   }
 
-  closeNavigationMenu() {
-    this.setState({ NavigationMenu: false });
+  closeNMenu() {
+    this.setState({ NMenu: false });
   }
 
   render() {
     const { connected, pages, theme, flashing } = this.props;
-    const { NavigationMenu } = this.state;
+    const { NMenu } = this.state;
 
     return (
       <NavigationMenu

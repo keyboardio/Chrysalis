@@ -61,7 +61,7 @@ const Dark = {
   slider: {
     color: "#30b1b1"
   },
-  font: "Titillium Web"
+  font: "Libre Franklin"
 };
 
 export default Dark;

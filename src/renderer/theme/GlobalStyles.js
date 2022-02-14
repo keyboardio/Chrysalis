@@ -11,6 +11,9 @@ import TitilliumWebBold from "./fonts/TitilliumWeb-Bold.ttf";
 import TitilliumWebBoldItalic from "./fonts/TitilliumWeb-BoldItalic.ttf";
 import TitilliumWebBlack from "./fonts/TitilliumWeb-Black.ttf";
 
+import LibreFranklin from "./fonts/LibreFranklin/LibreFranklin-VariableFont_wght.ttf";
+import LibreFranklinItalic from "./fonts/LibreFranklin/LibreFranklin-Italic-VariableFont_wght.ttf";
+
 const NavWidth = "64";
 
 const GlobalStyles = createGlobalStyle`
@@ -81,6 +84,20 @@ const GlobalStyles = createGlobalStyle`
     src: url(${TitilliumWebBlack}) format("truetype");
   }
 
+  @font-face {
+    font-family: Libre Franklin;
+    font-weight: 100 900;
+    font-style: normal;
+    src: url(${LibreFranklin}) format("truetype");
+  }
+
+  @font-face {
+    font-family: Libre Franklin;
+    font-weight: 100 900;
+    font-style: italic;
+    src: url(${LibreFranklinItalic}) format("truetype");
+  }
+  
   body {
     background: ${({ theme }) => theme.colors.body};
     color: ${({ theme }) => theme.colors.text};

@@ -14,18 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import IconKeyboardSelector from "./IconKeyboardSelector";
-import IconKeyboard2Stroke from "./IconKeyboard2Stroke";
-import IconMemory2Stroke from "./IconMemory2Stroke";
-import IconPreferences2Stroke from "./IconPreferences2Stroke";
-import IconRobot2Stroke from "./IconRobot2Stroke";
-import IconThunder2Stroke from "./IconThunder2Stroke";
+import Header from "./NavigationMenuWrapper";
 
-export {
-  IconKeyboardSelector,
-  IconKeyboard2Stroke,
-  IconMemory2Stroke,
-  IconPreferences2Stroke,
-  IconRobot2Stroke,
-  IconThunder2Stroke
-};
+export { Header as default };

@@ -24,22 +24,11 @@ import PropTypes from "prop-types";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavbarBrand from "react-bootstrap/NavbarBrand";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import Styled from "styled-components";
 
 import i18n from "../../i18n";
 import Focus from "../../../api/focus";
-
-import WelcomeMenu from "./WelcomeMenu";
-import EditorMenuItem from "./EditorMenuItem";
-import MacroEditorItem from "./MacroEditorItem";
-import SuperkeyEditorItem from "./SuperkeyEditorItem";
-import FlashMenuItem from "./FlashMenuItem";
-import KeyboardMenuItem from "./KeyboardSelectMenuItem";
-import PreferencesMenuItem from "./PreferencesMenuItem";
-import SoftwareUpdateMenuItem from "./SoftwareUpdateMenuItem";
-import ExitMenuItem from "./ExitMenuItem";
 
 import { NavigationButton } from "../../component/Button";
 import { IconKeyboardSelector } from "../../component/Icon";
@@ -51,8 +40,6 @@ import { IconPreferences2Stroke } from "../../component/Icon";
 
 import DygmaLogo from "../../../../static/logo.png";
 import { fwVersion } from "../../../../package.json";
-
-const { remote } = require("electron");
 
 const drawerWidth = 64;
 
@@ -147,7 +134,7 @@ const Styles = Styled.div`
 }
 `;
 
-class MainMenu extends Component {
+class NavigationMenu extends Component {
   constructor(props) {
     super(props);
 
@@ -358,7 +345,7 @@ class MainMenu extends Component {
     );
   }
 }
-MainMenu.propTypes = {
+NavigationMenu.propTypes = {
   connected: PropTypes.bool.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   pages: PropTypes.object.isRequired,
@@ -366,4 +353,4 @@ MainMenu.propTypes = {
   history: PropTypes.object.isRequired
 };
 
-export default withRouter(MainMenu);
+export default withRouter(NavigationMenu);

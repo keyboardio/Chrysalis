@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import NavigationButton from "./NavigationButton";
-import RegularButton from "./RegularButton";
+import PageHeader from "./PageHeader";
 
-export { NavigationButton, RegularButton };
+export { PageHeader as default };

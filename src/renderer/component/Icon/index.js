@@ -20,6 +20,7 @@ import IconMemory2Stroke from "./IconMemory2Stroke";
 import IconPreferences2Stroke from "./IconPreferences2Stroke";
 import IconRobot2Stroke from "./IconRobot2Stroke";
 import IconThunder2Stroke from "./IconThunder2Stroke";
+import IconInformationBubble from "./IconInformationBubble";
 
 export {
   IconKeyboardSelector,
@@ -27,5 +28,6 @@ export {
   IconMemory2Stroke,
   IconPreferences2Stroke,
   IconRobot2Stroke,
-  IconThunder2Stroke
+  IconThunder2Stroke,
+  IconInformationBubble
 };

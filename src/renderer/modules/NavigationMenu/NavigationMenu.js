@@ -1,8 +1,7 @@
 /* eslint-disable react/jsx-filename-extension */
 // -*- mode: js-jsx -*-
-/* Bazecor -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019  Keyboardio, Inc.
- * Copyright (C) 2019  DygmaLab SE
+/* Bazecor
+ * Copyright (C) 2022  Dygmalab, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -125,12 +124,12 @@ const Styles = Styled.div`
   width: 100%;
 }
 
-.theme-dark {
+.themeDark {
   &.left-navbar {
     background-color: #0B0219;
   }
 }
-.theme-light {
+.themeLight {
   &.left-navbar {
     background-color: var(--gray-25);
   }
@@ -232,7 +231,7 @@ class NavigationMenu extends Component {
     let newVer = this.cleanFWVer(fwVersion);
     let showNotif = this.compareFWVer(fwVer, newVer);
 
-    let themeStyle = themeDark ? "theme-dark" : "theme-light";
+    let themeStyle = themeDark ? "themeDark" : "themeLight";
 
     return (
       <Styles>

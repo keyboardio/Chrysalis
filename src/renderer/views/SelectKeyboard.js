@@ -1,7 +1,6 @@
 // -*- mode: js-jsx -*-
-/* Bazecor -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019  Keyboardio, Inc.
- * Copyright (C) 2019  DygmaLab SE
+/* Bazecor
+ * Copyright (C) 2022  Dygmalab, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -25,6 +24,9 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import { RegularButton } from "../component/Button";
+
+import PageHeader from "../modules/PageHeader";
+
 import Card from "react-bootstrap/Card";
 import Spinner from "react-bootstrap/Spinner";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -158,7 +160,7 @@ const Styles = Styled.div`
 }
 `;
 
-class KeyboardSelect extends Component {
+class SelectKeyboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -475,9 +477,11 @@ class KeyboardSelect extends Component {
     return (
       <Styles>
         <Container fluid className="keyboard-select">
-          <Row className="title-row">
+          {/* <Row className="title-row">
             <h4 className="section-title">Keyboard Selection</h4>
-          </Row>
+          </Row> */}
+          <PageHeader text={i18n.keyboardSelect.title} theme={this.props.darkMode} />
+
           <Row className="keyboard-row">
             <Col xs="4" className="keyboard-col">
               <Card className="keyboard-card">
@@ -520,4 +524,4 @@ class KeyboardSelect extends Component {
   }
 }
 
-export default KeyboardSelect;
+export default SelectKeyboard;

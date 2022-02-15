@@ -364,6 +364,7 @@ const English = {
     }
   },
   keyboardSelect: {
+    title: "Keyboard Selection",
     unknown: "Unknown",
     selectPrompt: "Please select a keyboard:",
     noDevices: "No keyboards found!",

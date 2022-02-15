@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import NavigationButton from "./NavigationButton";
-import RegularButton from "./RegularButton";
+import Title from "./Title";
 
-export { NavigationButton, RegularButton };
+export { Title as default };

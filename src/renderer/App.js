@@ -35,7 +35,7 @@ import Dark from "./theme/DarkTheme";
 
 import Container from "react-bootstrap/Container";
 
-import KeyboardSelect from "./screens/KeyboardSelect";
+import SelectKeyboard from "./views/SelectKeyboard";
 import FirmwareUpdate from "./screens/FirmwareUpdate";
 import Editor from "./screens/Editor/Editor";
 import MacrosConfigurator from "./screens/Macros/MacrosConfigurator";
@@ -299,11 +299,12 @@ class App extends React.Component {
               onConnect={this.onKeyboardConnect}
               titleElement={() => document.querySelector("#page-title")}
             />
-            <KeyboardSelect
+            <SelectKeyboard
               path="/keyboard-select"
               onConnect={this.onKeyboardConnect}
               onDisconnect={this.onKeyboardDisconnect}
               titleElement={() => document.querySelector("#page-title")}
+              darkMode={darkMode}
             />
             <Editor
               path="/editor"

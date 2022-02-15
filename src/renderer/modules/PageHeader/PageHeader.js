@@ -17,16 +17,33 @@
 
 import React from "react";
 import Styled from "styled-components";
+import Title from "../../component/Title";
 
 const Style = Styled.div`
+.pageHeader {
+    border-radius: 16px;
+    padding: 14px 32px;
+    margin-top: 20px; 
+    display: flex;
+    align-items: center;
+    min-height: 82px;
+    &.themeDark {
+        background-color: rgba(107, 119, 148, 0.15);
+    }
+    h1, h2, h3, h4, h5, h6 {
+        margin: 0;
+    }
+}
 `;
-//className={`icon-image ${selected ? "select" : ""}`}
-const RegularButton = ({ selected, onClick, size, buttonText, style, icoSVG, theme }) => {
+const PageHeader = ({ size, text, style, theme }) => {
+  let themeMode = theme ? "themeDark" : "themeLight";
   return (
-    <Style onClick={onClick} className={`${size} ${theme} ${selected ? "active" : ""} btn btn-${style}`}>
-      <div className={"buttonLabel"} dangerouslySetInnerHTML={{ __html: buttonText }} />
+    <Style>
+      <div className={`pageHeader ${size} ${themeMode} ${style}`}>
+        <Title text={text} headingLevel={2} theme={theme} />
+      </div>
     </Style>
   );
 };
 
-export default RegularButton;
+export default PageHeader;

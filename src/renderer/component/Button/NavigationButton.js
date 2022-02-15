@@ -119,7 +119,7 @@ const Style = Styled.div`
 }
 
 .menuLink {
-    &.theme-dark {
+    &.themeDark {
         color: var(--gray-300);
         svg {
             color: var(--gray-50);
@@ -132,7 +132,7 @@ const Style = Styled.div`
             background: linear-gradient(237.13deg, rgba(39, 27, 58, 0.32) 1.37%, rgba(123, 134, 158, 0.32) 99.24%);
         }
     }
-    &.theme-light {
+    &.themeLight {
         color: var(--gray-200);
         svg {
             color: var(--gray-400);

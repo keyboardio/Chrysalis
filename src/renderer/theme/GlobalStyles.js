@@ -88,7 +88,8 @@ const GlobalStyles = createGlobalStyle`
 
   div.main-container{
     padding-left: ${NavWidth}px;
-    padding-left: 120px;
+    padding-left: calc(120px + 30px);
+    padding-right: 30px;
     transition: all 0.50s linear;
     overflow: auto;
     height: 100vh;
@@ -187,6 +188,71 @@ svg text{
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+.displayLg {
+	font-size:81px;
+	font-weight:600;
+	letter-spacing:-0.03em;
+	text-decoration:none;
+}
+.displayMd {
+	font-size:54px;
+	font-weight:600;
+	letter-spacing:-0.03em;
+	text-decoration:none;
+}
+.headingH1 {
+	font-size:36px;
+	font-weight:600;
+	letter-spacing:-0.03em;
+	text-decoration:none;
+}
+.headingH2 {
+	font-size:24px;
+	font-family:"Libre Franklin";
+	font-weight:600;
+	letter-spacing:-0.03em;
+	text-decoration:none;
+}
+.headingH3 {
+	font-size:21px;
+	font-weight:600;
+	letter-spacing:-0.03em;
+	text-decoration:none;
+}
+.headingH4 {
+	font-size:18px;
+	font-weight:600;
+	letter-spacing:-0.03em;
+	text-decoration:none;
+}
+.headingH5 {
+	font-size:12px;
+	font-weight:600;
+	line-height:125%;
+	letter-spacing:0.04em;
+	text-decoration:none;
+}
+.paragraphRegular {
+	font-size:16px;
+	font-family:"Libre Franklin";
+	font-weight:400;
+	font-style:normal;
+	line-height:150%;
+	text-decoration:none;
+}
+.paragraphSmall {
+	font-size:14px;
+	font-weight:400;
+	font-style:normal;
+	line-height:150%;
+	text-decoration:none;
+}
+.paragraphMicro {
+	font-size:12px;
+	font-weight:400;
+	line-height:150%;
+	text-decoration:none;
 }
 
 `;

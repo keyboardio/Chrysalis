@@ -61,7 +61,7 @@ const Light = {
   slider: {
     color: "#2AD2C9"
   },
-  font: "Titillium Web"
+  font: "Libre Franklin"
 };
 
 export default Light;

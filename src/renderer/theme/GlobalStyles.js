@@ -1,98 +1,57 @@
 import { createGlobalStyle } from "styled-components";
-import TitilliumWebExtraLight from "./fonts/TitilliumWeb-ExtraLight.ttf";
-import TitilliumWebExtraLightItalic from "./fonts/TitilliumWeb-ExtraLightItalic.ttf";
-import TitilliumWebLight from "./fonts/TitilliumWeb-Light.ttf";
-import TitilliumWebLightItalic from "./fonts/TitilliumWeb-LightItalic.ttf";
-import TitilliumWebRegular from "./fonts/TitilliumWeb-Regular.ttf";
-import TitilliumWebItalic from "./fonts/TitilliumWeb-Italic.ttf";
-import TitilliumWebSemiBold from "./fonts/TitilliumWeb-SemiBold.ttf";
-import TitilliumWebSemiBoldItalic from "./fonts/TitilliumWeb-SemiBoldItalic.ttf";
-import TitilliumWebBold from "./fonts/TitilliumWeb-Bold.ttf";
-import TitilliumWebBoldItalic from "./fonts/TitilliumWeb-BoldItalic.ttf";
-import TitilliumWebBlack from "./fonts/TitilliumWeb-Black.ttf";
 
 import LibreFranklin from "./fonts/LibreFranklin/LibreFranklin-VariableFont_wght.ttf";
 import LibreFranklinItalic from "./fonts/LibreFranklin/LibreFranklin-Italic-VariableFont_wght.ttf";
 
+import BackgroundImageDark from "../../../static/dark/darkBackground.png";
+import BackgroundImageDark2x from "../../../static/dark/darkBackground-2x.png";
+import BackgroundImageLight from "../../../static/light/lightBackground.png";
+import BackgroundImageLight2x from "../../../static/light/lightBackground-2x.png";
+
 const NavWidth = "64";
 
 const GlobalStyles = createGlobalStyle`
-  @font-face {
-    font-family: Titillium Web;
-    src: url(${TitilliumWebExtraLight}) format("truetype");
-    font-weight: 100;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: Titillium Web;
-    src: url(${TitilliumWebExtraLightItalic}) format("truetype");
-    font-weight: 100;
-    font-style: italic;
-  }
-  @font-face {
-    font-family: Titillium Web;
-    src: url(${TitilliumWebLight}) format("truetype");;
-    font-weight: 200;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: Titillium Web;
-    src: url(${TitilliumWebLightItalic}) format("truetype");
-    font-weight: 200;
-    font-style: italic;
-  }
-  @font-face {
-    font-family: Titillium Web;
-    src: url(${TitilliumWebRegular}) format("truetype");
-    font-weight: 300;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: Titillium Web;
-    src: url(${TitilliumWebItalic}) format("truetype");
-    font-weight: 300;
-    font-style: italic;
-  }
-  @font-face {
-    font-family: Titillium Web;
-    src: url(${TitilliumWebSemiBold}) format("truetype");
-    font-weight: 400;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: Titillium Web;
-    src: url(${TitilliumWebSemiBoldItalic}) format("truetype");
-    font-weight: 400;
-    font-style: italic;
-  }
-  @font-face {
-    font-family: Titillium Web;
-    font-weight: 600;
-    font-style: normal;
-    src: url(${TitilliumWebBold}) format("truetype");
-  }
-  @font-face {
-    font-family: Titillium Web;
-    font-weight: 600;
-    font-style: italic;
-    src: url(${TitilliumWebBoldItalic}) format("truetype");
-  }
-  @font-face {
-    font-family: Titillium Web;
-    font-weight: 700;
-    font-style: normal;
-    src: url(${TitilliumWebBlack}) format("truetype");
+
+  :root {
+    --gray-25: rgba(240,242,244,1);
+    --gray-50: rgba(226,228,234,1);
+    --gray-100: rgba(196,201,213,1);
+    --gray-200: rgba(151,160,180,1);
+    --gray-300: rgba(123,134,158,1);
+    --gray-400: rgba(107,119,148,1);
+    --gray-500: rgba(87,97,126,1);
+    --gray-600: rgba(63,66,90,1);
+    --gray-700: rgba(48,51,73,1);
+    --gray-800: rgba(37,39,59,1);
+    --gray-900: rgba(11,2,25,1);
+    --purple-300: rgba(108,92,231,1);
+    --purple-200: rgba(120,121,241,1);
+    --purple-100: rgba(162,155,254,1);
+    --brand-primary: rgba(254,0,124,1);
+    --brand-secondary: rgba(107,20,249,1);
+    --brand-success: rgba(0,206,201,1);
+    --brand-success-lighter: rgba(85,239,196,1);
+    --brand-warning: rgba(255,159,67,1);
+    --brand-warning-lighter: rgba(254,202,87,1);
+    --brand-danger: rgba(225,4,50,1);
+    --brand-danger-lighter: rgba(255,107,107,1);
+    --pastel-shades-green-200: rgba(53,194,212,1);
+    --pastel-shades-green-300: rgba(37,161,177,1);
+    --pastel-shades-green-100: rgba(95,206,221,1);
+    --pastel-shades-mint-300: rgba(135,162,67,1);
+    --pastel-shades-mint-200: rgba(161,188,94,1);
+    --pastel-shades-mint-100: rgba(181,203,129,1);
   }
 
   @font-face {
-    font-family: Libre Franklin;
+    font-family: "Libre Franklin";
     font-weight: 100 900;
     font-style: normal;
     src: url(${LibreFranklin}) format("truetype");
   }
 
   @font-face {
-    font-family: Libre Franklin;
+    font-family: "Libre Franklin";
     font-weight: 100 900;
     font-style: italic;
     src: url(${LibreFranklinItalic}) format("truetype");
@@ -100,9 +59,28 @@ const GlobalStyles = createGlobalStyle`
   
   body {
     background: ${({ theme }) => theme.colors.body};
+
+    background-image: url(${({ theme }) => (theme.name == "Dark" ? BackgroundImageDark : BackgroundImageLight)});
+    background-repeat: no-repeat;
+    background-size: cover;
+
     color: ${({ theme }) => theme.colors.text};
     font-family: ${({ theme }) => theme.font};;
     transition: all 0.50s linear;
+
+    text-rendering: optimizeLegibility;
+    font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -moz-font-feature-settings: "liga" on;
+  }
+
+  @media screen and (-webkit-min-device-pixel-ratio: 2), 
+  (min-resolution: 192dpi) { 
+      body {
+        background-image: url(${({ theme }) => (theme.name == "Dark" ? BackgroundImageDark2x : BackgroundImageLight2x)});
+      }
   }
 
   div {
@@ -110,7 +88,7 @@ const GlobalStyles = createGlobalStyle`
 
   div.main-container{
     padding-left: ${NavWidth}px;
-    background: ${({ theme }) => theme.colors.body};
+    padding-left: 120px;
     transition: all 0.50s linear;
     overflow: auto;
     height: 100vh;

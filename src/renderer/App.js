@@ -119,7 +119,7 @@ class App extends React.Component {
 
   componentDidMount() {
     // Loading font to be sure it wont blink
-    document.fonts.load("Titillium Web");
+    document.fonts.load("Libre Franklin");
     // Setting up function to receive O.S. dark theme changes
     const self = this;
     ipcRenderer.on("darkTheme-update", function (evt, message) {

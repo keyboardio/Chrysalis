@@ -4,9 +4,10 @@ function IconKeyboard2Stroke(props) {
   return (
     <svg width={42} height={42} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path
-        d="M14 26.25h14M8.75 15.75h3.5M8.75 21h3.5M14 15.75h3.5M14 21h3.5m1.75 0h3.5m-3.5-5.25h3.5m1.75 0H28M24.5 21H28m1.75-5.25h3.5M29.75 21h3.5m-27-10.5h29.5a1 1 0 011 1v19a1 1 0 01-1 1H6.25a1 1 0 01-1-1v-19a1 1 0 011-1z"
-        stroke="#F0F2F4"
-        strokeWidth={2}
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M4.25 11.5a2 2 0 012-2h29.5a2 2 0 012 2v19a2 2 0 01-2 2H6.25a2 2 0 01-2-2v-19zm31.5 0H6.25v19h29.5v-19zm-23.5 5.25h-3.5v-2h3.5v2zm5.25 0H14v-2h3.5v2zm5.25 0h-3.5v-2h3.5v2zm5.25 0h-3.5v-2H28v2zm5.25 0h-3.5v-2h3.5v2zm-21 5.25h-3.5v-2h3.5v2zm5.25 0H14v-2h3.5v2zm5.25 0h-3.5v-2h3.5v2zM28 22h-3.5v-2H28v2zm5.25 0h-3.5v-2h3.5v2zM28 27.25H14v-2h14v2z"
+        fill="currentColor"
       />
     </svg>
   );

@@ -4,9 +4,10 @@ function IconMemory2Stroke(props) {
   return (
     <svg width={42} height={42} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path
-        d="M17.5 5.25v5.25m0 0h-6a1 1 0 00-1 1v6m7-7h7m0-5.25v5.25m0 0h6a1 1 0 011 1v6m5.25 0H31.5m0 0v7m5.25 0H31.5m0 0v6a1 1 0 01-1 1h-6m0 5.25V31.5m0 0h-7m0 5.25V31.5m0 0h-6a1 1 0 01-1-1v-6m-5.25 0h5.25m0 0v-7m-5.25 0h5.25m7 0v7h7v-7h-7z"
-        stroke="#E2E4EA"
-        strokeWidth={2}
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M16.5 9.5V5.25h2V9.5h5V5.25h2V9.5h5a2 2 0 012 2v5h4.25v2H32.5v5h4.25v2H32.5v5a2 2 0 01-2 2h-5v4.25h-2V32.5h-5v4.25h-2V32.5h-5a2 2 0 01-2-2v-5H5.25v-2H9.5v-5H5.25v-2H9.5v-5a2 2 0 012-2h5zm-5 2v19h19v-19h-19zm5 5h9v9h-9v-9zm2 2v5h5v-5h-5z"
+        fill="currentColor"
       />
     </svg>
   );

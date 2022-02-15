@@ -38,12 +38,13 @@ import { IconRobot2Stroke } from "../../component/Icon";
 import { IconThunder2Stroke } from "../../component/Icon";
 import { IconPreferences2Stroke } from "../../component/Icon";
 
-import DygmaLogo from "../../../../static/logo.png";
+import DygmaLogo from "../../../../static/logo.svg";
 import { fwVersion } from "../../../../package.json";
 
 const drawerWidth = 64;
 
 const Styles = Styled.div`
+
 .brand-image {
   padding: 0 !important;
   margin-left: 0;
@@ -60,9 +61,6 @@ const Styles = Styled.div`
   }
 }
 .left-navbar {
-  // background: ${({ theme }) => theme.colors.gardient};
-  background-color: ${({ theme }) => theme.navbar.background};
-  background-color: #0B0219;
   width: ${({ theme }) => theme.drawerWidth}px; 
   width: 120px;
   height: 100vh;
@@ -71,6 +69,13 @@ const Styles = Styled.div`
   position: fixed !important;
   z-index: 10;
   padding: 12px !important;
+  .navbar-nav {
+    flex-wrap: wrap;
+    height: calc(100% - 98px);
+    .bottomMenu {
+      margin-top: auto;
+    }
+  }
 }
 .list-link {
   display: flex;
@@ -113,25 +118,24 @@ const Styles = Styled.div`
 .disabled {
   color: ${({ theme }) => theme.card.disabled};
 }
-.sec{
-  background-color: red;
-  border-radius: 10px;
-  color: white;
-  padding: 1px 4px;
-  position: absolute;
-  top: -70px;
-  left: 22px;
-}
-.relative-pos {
-  position: relative;
-  width: 0;
-  height: 0;
-}
+
 .select {
   background-color: ${({ theme }) => theme.card.backgroundActive};
   border-radius: 8px;
   width: 100%;
 }
+
+.theme-dark {
+  &.left-navbar {
+    background-color: #0B0219;
+  }
+}
+.theme-light {
+  &.left-navbar {
+    background-color: var(--gray-25);
+  }
+}
+
 `;
 
 class NavigationMenu extends Component {
@@ -215,7 +219,7 @@ class NavigationMenu extends Component {
   }
 
   render() {
-    const { connected, pages, history } = this.props;
+    const { connected, pages, history, themeDark } = this.props;
     const currentPage = history.location.pathname;
     const setCurrentPage = history.push;
 
@@ -228,13 +232,15 @@ class NavigationMenu extends Component {
     let newVer = this.cleanFWVer(fwVersion);
     let showNotif = this.compareFWVer(fwVer, newVer);
 
+    let themeStyle = themeDark ? "theme-dark" : "theme-light";
+
     return (
       <Styles>
-        <Navbar className="left-navbar sidebar" sticky="top">
+        <Navbar className={`${themeStyle} left-navbar sidebar`} sticky="top">
           <NavbarBrand as={Link} to="/" className="brand-image d-lg-block">
             <img alt="" src={DygmaLogo} className="d-inline-block align-top" />
           </NavbarBrand>
-          <Nav className="mr-auto flex-column flex-row">
+          <Nav>
             {/* <Link to="/welcome" className="list-link">
               <WelcomeMenu
                 selected={currentPage === "/welcome"}
@@ -243,7 +249,7 @@ class NavigationMenu extends Component {
                 onClick={() => setCurrentPage("/welcome")}
               />
             </Link> */}
-            <div>
+            <div className="topMenu">
               {connected && (
                 <>
                   {pages.keymap && (
@@ -255,6 +261,7 @@ class NavigationMenu extends Component {
                           onClick={() => setCurrentPage("/editor")}
                           buttonText={i18n.app.menu.editor}
                           icoSVG={<IconKeyboard2Stroke />}
+                          theme={themeStyle}
                         />
                       </Link>
                       <Link to="/macros" className="list-link">
@@ -264,9 +271,9 @@ class NavigationMenu extends Component {
                           onClick={() => setCurrentPage("/macros")}
                           buttonText={i18n.app.menu.macros}
                           icoSVG={<IconRobot2Stroke />}
+                          theme={themeStyle}
                         />
                       </Link>
-
                       <Link to="/superkeys" className="list-link">
                         <NavigationButton
                           selected={currentPage === "/superkeys"}
@@ -274,11 +281,11 @@ class NavigationMenu extends Component {
                           onClick={() => setCurrentPage("/superkeys")}
                           buttonText={i18n.app.menu.superkeys}
                           icoSVG={<IconThunder2Stroke />}
+                          theme={themeStyle}
                         />
                       </Link>
                     </React.Fragment>
                   )}
-
                   <Link to="/firmware-update" className="list-link">
                     <NavigationButton
                       selected={currentPage === "/firmware-update"}
@@ -288,6 +295,7 @@ class NavigationMenu extends Component {
                       showNotif={true}
                       buttonText={i18n.app.menu.firmwareUpdate}
                       icoSVG={<IconMemory2Stroke />}
+                      theme={themeStyle}
                     />
                   </Link>
                 </>
@@ -300,17 +308,10 @@ class NavigationMenu extends Component {
                   onClick={() => setCurrentPage("/keyboard-select")}
                   buttonText={i18n.app.menu.selectAKeyboard}
                   icoSVG={<IconKeyboardSelector />}
+                  theme={themeStyle}
                 />
               </Link>
-              <Link to="/preferences" className="list-link">
-                <NavigationButton
-                  drawerWidth={drawerWidth}
-                  selected={currentPage === "/preferences"}
-                  onClick={() => setCurrentPage("/preferences")}
-                  buttonText={i18n.app.menu.preferences}
-                  icoSVG={<IconPreferences2Stroke />}
-                />
-              </Link>
+
               {/* <OverlayTrigger
                 rootClose
                 placement="right"
@@ -339,6 +340,18 @@ class NavigationMenu extends Component {
                   />
                 </div>
               </OverlayTrigger> */}
+            </div>
+            <div className="bottomMenu">
+              <Link to="/preferences" className="list-link">
+                <NavigationButton
+                  drawerWidth={drawerWidth}
+                  selected={currentPage === "/preferences"}
+                  onClick={() => setCurrentPage("/preferences")}
+                  buttonText={i18n.app.menu.preferences}
+                  icoSVG={<IconPreferences2Stroke />}
+                  theme={themeStyle}
+                />
+              </Link>
             </div>
           </Nav>
         </Navbar>

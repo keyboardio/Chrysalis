@@ -60,7 +60,8 @@ const English = {
       keyboardTitleSecondary: "DYGMA RAISE CONFIGURATOR.",
       bazecorSection: "Bazecor",
       miscSection: "Miscellaneous",
-      upgradeAvailable: "An upgrade is available!"
+      upgradeAvailable: "An upgrade is available!",
+      badgeNew: "New"
     },
     deviceMenu: {
       Homepage: "Homepage",

@@ -492,13 +492,13 @@ class SelectKeyboard extends Component {
           <NeuronConnection
             theme={this.props.darkMode}
             loading={loading}
-            scanFoundDevices={scanFoundDevices}
+            scanFoundDevices={scanFoundDevices != undefined ? scanFoundDevices : false}
             scanDevices={this.scanDevices}
             cantConnect={(selectedDevice ? !selectedDevice.accessible : false) || opening || (devices && devices.length === 0)}
             onKeyboardConnect={this.onKeyboardConnect}
             connected={focus.device && selectedDevice && selectedDevice.device == focus.device}
             onDisconnect={onDisconnect}
-            deviceItems={deviceItems}
+            deviceItems={deviceItems != null ? deviceItems : []}
             selectPort={this.selectPort}
             selectedPortIndex={selectedPortIndex}
           />

@@ -94,23 +94,6 @@ const Style = Styled.div`
 `;
 const SelectKeyboardDropdown = ({ theme, selectPort, selectedPortIndex, deviceItems }) => {
   let themeMode = theme ? "themeDark" : "themeLight";
-  const fakeKeyboards = [
-    {
-      id: "dev/tty.usbmodem14201",
-      name: "Dygma Raise ANSI",
-      internalName: "Moloko"
-    },
-    {
-      id: "dev/tty.usbmodem13321",
-      name: "Dygma Raise ISO",
-      internalName: "Office Raise"
-    },
-    {
-      id: "dev/tty.usbmodem19067",
-      name: "Dygma Raise ISO",
-      internalName: "Home-Office Raise"
-    }
-  ];
 
   return (
     <Style>

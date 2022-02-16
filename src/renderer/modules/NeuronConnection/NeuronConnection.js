@@ -67,7 +67,7 @@ const NeuronConnection = ({
   let themeMode = theme ? "themeDark" : "themeLight";
   return (
     <Style>
-      <div className={`neuronConnection ${loading} ${themeMode}`}>
+      <div className={`neuronConnection`}>
         <NeuronStatus loading={loading} connected={connected} scanFoundDevices={scanFoundDevices} />
         <div className="neuronInformation">
           <Title text={"No keyboards found!"} headingLevel={2} theme={theme} type={"warning"} />

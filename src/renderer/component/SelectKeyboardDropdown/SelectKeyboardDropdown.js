@@ -104,9 +104,10 @@ const SelectKeyboardDropdown = ({ theme, selectPort, selectedPortIndex, deviceIt
               <img src={iconConnected} />
             </div>
             <div className="dropdownItem">
-              <h3>Moloko</h3>
+              <h3>{deviceItems[selectedPortIndex] != null ? deviceItems[selectedPortIndex].userName : "Keyboard not found"}</h3>
               <h4>
-                Dygma Raise ANSI <small>dev/tty.usbmodem14201</small>
+                {deviceItems[selectedPortIndex] != null ? deviceItems[selectedPortIndex].displayName : ""}
+                <small>{deviceItems[selectedPortIndex] != null ? deviceItems[selectedPortIndex].path : ""}</small>
               </h4>
             </div>
           </div>

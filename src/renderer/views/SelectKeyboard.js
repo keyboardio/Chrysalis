@@ -182,6 +182,8 @@ class SelectKeyboard extends Component {
     };
 
     this.onKeyboardConnect = this.onKeyboardConnect.bind(this);
+    this.scanDevices = this.scanDevices.bind(this);
+    this.selectPort = this.selectPort.bind(this);
   }
 
   findNonSerialKeyboards = deviceList => {
@@ -356,16 +358,12 @@ class SelectKeyboard extends Component {
           );
         }
 
-        return (
-          <Dropdown.Item key={`device-${index}`} value={index}>
-            <Row>
-              <Col xs="2" className="key-icon">
-                <MdKeyboard />
-              </Col>
-              {label}
-            </Row>
-          </Dropdown.Item>
-        );
+        return {
+          index,
+          displayName: option.device.info.displayName,
+          userName,
+          path: option.path || i18n.keyboardSelect.unknown
+        };
       });
 
       const title = devices.map(option => {
@@ -491,7 +489,19 @@ class SelectKeyboard extends Component {
             <h4 className="section-title">Keyboard Selection</h4>
           </Row> */}
           <PageHeader text={i18n.keyboardSelect.title} theme={this.props.darkMode} />
-          <NeuronConnection theme={this.props.darkMode} />
+          <NeuronConnection
+            theme={this.props.darkMode}
+            loading={loading}
+            scanFoundDevices={scanFoundDevices}
+            scanDevices={this.scanDevices}
+            cantConnect={(selectedDevice ? !selectedDevice.accessible : false) || opening || (devices && devices.length === 0)}
+            onKeyboardConnect={this.onKeyboardConnect}
+            connected={focus.device && selectedDevice && selectedDevice.device == focus.device}
+            onDisconnect={onDisconnect}
+            deviceItems={deviceItems}
+            selectPort={this.selectPort}
+            selectedPortIndex={selectedPortIndex}
+          />
         </Container>
       </Styles>
     );

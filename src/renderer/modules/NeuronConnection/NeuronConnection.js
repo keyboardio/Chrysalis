@@ -20,6 +20,7 @@ import Styled from "styled-components";
 import Title from "../../component/Title";
 import { RegularButton } from "../../component/Button";
 import NeuronStatus from "../../component/NeuronStatus";
+import SelectKeyboardDropdown from "../../component/SelectKeyboardDropdown";
 
 const Style = Styled.div`
 .neuronConnection {
@@ -50,19 +51,35 @@ const Style = Styled.div`
   margin-right: 16px;
 }
 `;
-const NeuronConnection = ({ theme, status }) => {
+const NeuronConnection = ({
+  theme,
+  loading,
+  scanFoundDevices,
+  scanDevices,
+  onKeyboardConnect,
+  cantConnect,
+  connected,
+  onDisconnect,
+  selectPort,
+  selectedPortIndex,
+  deviceItems
+}) => {
   let themeMode = theme ? "themeDark" : "themeLight";
   return (
     <Style>
-      <div className={`neuronConnection ${status} ${themeMode}`}>
-        <NeuronStatus theme={theme} status={status} />
+      <div className={`neuronConnection ${loading} ${themeMode}`}>
+        <NeuronStatus loading={loading} connected={connected} scanFoundDevices={scanFoundDevices} />
         <div className="neuronInformation">
           <Title text={"No keyboards found!"} headingLevel={2} theme={theme} type={"warning"} />
           <p className={"neuronSubtileText"}>[Death metal plays in background]</p>
-          <div className="dropdown">Keyboard list</div>
+          <SelectKeyboardDropdown deviceItems={deviceItems} selectPort={selectPort} selectedPortIndex={selectedPortIndex} />
           <div className="buttons">
-            <RegularButton buttonText={"Scan keyboards"} style={"primary"} />
-            <RegularButton buttonText={"Connect"} style={"primary"} disabled={true} />
+            <RegularButton onClick={scanDevices} buttonText={"Scan keyboards"} style={"primary"} disabled={scanFoundDevices} />
+            {connected ? (
+              <RegularButton buttonText={"Disconnect"} style={"primary"} onClick={onDisconnect} disabled={connected} />
+            ) : (
+              <RegularButton buttonText={"Connect"} style={"primary"} onClick={onKeyboardConnect} disabled={cantConnect} />
+            )}
           </div>
         </div>
       </div>

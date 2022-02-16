@@ -39,12 +39,22 @@ import Hardware from "../../api/hardware";
 import usb from "usb";
 
 import i18n from "../i18n";
+import NeuronConnection from "../modules/NeuronConnection";
 
 const Store = require("electron-store");
 const store = new Store();
 
 const Styles = Styled.div`
+height: 100%;
+.main-container {
+  overflow: hidden;
+  height: 100vh;
+}
 .keyboard-select {
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   .keyboard-row {
     justify-content: center;
     align-items: center;
@@ -481,43 +491,7 @@ class SelectKeyboard extends Component {
             <h4 className="section-title">Keyboard Selection</h4>
           </Row> */}
           <PageHeader text={i18n.keyboardSelect.title} theme={this.props.darkMode} />
-
-          <Row className="keyboard-row">
-            <Col xs="4" className="keyboard-col">
-              <Card className="keyboard-card">
-                {loading ? (
-                  <Card.Body className="loader">
-                    <Spinner className="spinner-border text-danger" role="status" />
-                  </Card.Body>
-                ) : (
-                  <>
-                    <Card.Body className="preview">
-                      <Container>
-                        <Row>
-                          <Col xs="12" className="keyboard">
-                            {preview}
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col xs="12" className="options">
-                            {port}
-                          </Col>
-                        </Row>
-                        {permissionWarning}
-                      </Container>
-                    </Card.Body>
-                    <br />
-                    <Card.Body className="buttons">
-                      <Row className="justify-content-center">
-                        <Col xs="6">{scanDevicesButton}</Col>
-                        <Col xs="6">{connectionButton}</Col>
-                      </Row>
-                    </Card.Body>
-                  </>
-                )}
-              </Card>
-            </Col>
-          </Row>
+          <NeuronConnection theme={this.props.darkMode} />
         </Container>
       </Styles>
     );

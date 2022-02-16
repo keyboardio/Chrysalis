@@ -20,6 +20,7 @@ import Styled from "styled-components";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import { IconInformationBubble } from "../Icon";
+import LightWarning from "../../../../static/base/light-warning.png";
 
 const Style = Styled.div`
 .lg {
@@ -73,6 +74,33 @@ h5 {
   vertical-align: 2px;
   display: inline-block;
 }
+.warning {
+	position: relative;
+	color: var(--brand-warning-lighter);
+}
+.warning:before {
+	content: "";
+	position: absolute;
+	left: -32px;	
+	top: 50%;
+	background-image: url(${LightWarning});
+	background-repeat: no-repeat;
+	width: 32px;
+	height: 96px;
+	transform: translate3d(0, -50%, 0);
+}
+.warning:after {
+	content: "";
+	position: absolute;
+	left: -35px;	
+	top: 50%;
+	width: 3px;
+	height: 24px;
+	background: linear-gradient(180deg, #FE007C 0%, #FF9F43 0.01%, #FECA57 100%);
+	border-radius: 3px 0px 0px 3px;	
+	transform: translate3d(0, -50%, 0);
+}
+
 `;
 const Title = ({ text, headingLevel, size, color, type, tooltip, theme }) => {
   let themeMode = theme ? "themeDark" : "themeLight";
@@ -80,7 +108,7 @@ const Title = ({ text, headingLevel, size, color, type, tooltip, theme }) => {
 
   return (
     <Style>
-      <Tag className={`${size} ${themeMode}`}>
+      <Tag className={`${size} ${themeMode} ${type}`}>
         <span dangerouslySetInnerHTML={{ __html: text }} />
         {tooltip && (
           <>

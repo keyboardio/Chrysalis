@@ -19,11 +19,37 @@ import React from "react";
 import Styled from "styled-components";
 
 const Style = Styled.div`
+&.button {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.5em;
+  padding: 14px 24px;
+  border-radius: 6px;
+  display: inline-block;
+  &:hover {
+    cursor: pointer;
+  }
+}
+&.button-primary {
+  color: #fff;
+  background: linear-gradient(90deg, #FE007C 0%, #6B14F9 100%);
+}
+&.button-primary[disabled] {
+  background: linear-gradient(90deg, #57617E -24.56%, #3F425A 79.82%);
+  color: var(--gray-300);
+  &:hover {
+    cursor: not-allowed;
+  }
+}
 `;
 //className={`icon-image ${selected ? "select" : ""}`}
-const RegularButton = ({ selected, onClick, size, buttonText, style, icoSVG, theme }) => {
+const RegularButton = ({ selected, onClick, size, buttonText, style, icoSVG, theme, disabled }) => {
   return (
-    <Style onClick={onClick} className={`${size} ${theme} ${selected ? "active" : ""} btn btn-${style}`}>
+    <Style
+      onClick={onClick}
+      className={`${size} ${theme} ${selected ? "active" : ""} button button-${style}`}
+      disabled={disabled}
+    >
       <div className={"buttonLabel"} dangerouslySetInnerHTML={{ __html: buttonText }} />
     </Style>
   );

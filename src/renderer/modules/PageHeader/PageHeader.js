@@ -20,6 +20,9 @@ import Styled from "styled-components";
 import Title from "../../component/Title";
 
 const Style = Styled.div`
+width: 100%;
+flex: 0 0 100%;
+align-self: flex-start;
 .pageHeader {
     border-radius: 16px;
     padding: 14px 32px;

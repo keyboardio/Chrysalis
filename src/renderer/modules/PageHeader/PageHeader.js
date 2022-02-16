@@ -33,6 +33,12 @@ const Style = Styled.div`
     h1, h2, h3, h4, h5, h6 {
         margin: 0;
     }
+    &.themeLight {
+        background-color: rgba(240, 242, 244, 0.9);
+        h2 {
+            color: var(--purple-200);
+        }
+    }
 }
 `;
 const PageHeader = ({ size, text, style, theme }) => {

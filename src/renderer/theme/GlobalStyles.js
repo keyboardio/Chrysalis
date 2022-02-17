@@ -3,32 +3,27 @@ import { createGlobalStyle } from "styled-components";
 import LibreFranklin from "./fonts/LibreFranklin/LibreFranklin-VariableFont_wght.ttf";
 import LibreFranklinItalic from "./fonts/LibreFranklin/LibreFranklin-Italic-VariableFont_wght.ttf";
 
-import BackgroundImageDark from "../../../static/dark/darkBackground.png";
-import BackgroundImageDark2x from "../../../static/dark/darkBackground-2x.png";
-import BackgroundImageLight from "../../../static/light/lightBackground.png";
-import BackgroundImageLight2x from "../../../static/light/lightBackground-2x.png";
-
 const NavWidth = "64";
 
 const GlobalStyles = createGlobalStyle`
 
   :root {
-    --gray-25: rgba(240,242,244,1);
-    --gray-50: rgba(226,228,234,1);
-    --gray-100: rgba(196,201,213,1);
-    --gray-200: rgba(151,160,180,1);
-    --gray-300: rgba(123,134,158,1);
-    --gray-400: rgba(107,119,148,1);
-    --gray-500: rgba(87,97,126,1);
-    --gray-600: rgba(63,66,90,1);
-    --gray-700: rgba(48,51,73,1);
-    --gray-800: rgba(37,39,59,1);
-    --gray-900: rgba(11,2,25,1);
-    --purple-300: rgba(108,92,231,1);
-    --purple-200: rgba(120,121,241,1);
-    --purple-100: rgba(162,155,254,1);
-    --brand-primary: rgba(254,0,124,1);
-    --brand-secondary: rgba(107,20,249,1);
+    --gray-25: ${({ theme }) => theme.colors.gray25};
+    --gray-50: ${({ theme }) => theme.colors.gray50};
+    --gray-100: ${({ theme }) => theme.colors.gray100};
+    --gray-200: ${({ theme }) => theme.colors.gray200};
+    --gray-300: ${({ theme }) => theme.colors.gray300};
+    --gray-400: ${({ theme }) => theme.colors.gray400};
+    --gray-500: ${({ theme }) => theme.colors.gray500};
+    --gray-600: ${({ theme }) => theme.colors.gray600};
+    --gray-700: ${({ theme }) => theme.colors.gray700};
+    --gray-800: ${({ theme }) => theme.colors.gray800};
+    --gray-900: ${({ theme }) => theme.colors.gray900};
+    --purple-300: ${({ theme }) => theme.colors.purple300};
+    --purple-200: ${({ theme }) => theme.colors.purple200};
+    --purple-100: ${({ theme }) => theme.colors.purple100};
+    --brand-primary: ${({ theme }) => theme.colors.brandPrimary};
+    --brand-secondary:  rgba(107,20,249,1);
     --brand-success: rgba(0,206,201,1);
     --brand-success-lighter: rgba(85,239,196,1);
     --brand-warning: rgba(255,159,67,1);
@@ -59,8 +54,9 @@ const GlobalStyles = createGlobalStyle`
   
   body {
     background: ${({ theme }) => theme.colors.body};
+    font-weight: 600;
 
-    background-image: url(${({ theme }) => (theme.name == "Dark" ? BackgroundImageDark : BackgroundImageLight)});
+    background-image: url(${({ theme }) => theme.body.backgroundImage});
     background-repeat: no-repeat;
     background-size: cover;
 
@@ -79,11 +75,8 @@ const GlobalStyles = createGlobalStyle`
   @media screen and (-webkit-min-device-pixel-ratio: 2), 
   (min-resolution: 192dpi) { 
       body {
-        background-image: url(${({ theme }) => (theme.name == "Dark" ? BackgroundImageDark2x : BackgroundImageLight2x)});
+        background-image: url(${({ theme }) => theme.body.backgroundImage2x});
       }
-  }
-
-  div {
   }
 
   div.main-container{
@@ -140,12 +133,8 @@ const GlobalStyles = createGlobalStyle`
     cursor: pointer;
     background-color: ${({ theme }) => theme.colors.button.background};
     color: #FFFFFF;
-    font-family: ${({ theme }) => theme.font};
   }
 
-  button.btn {
-
-  }
 
   button.btn-primary, button.btn{
     background-color: ${({ theme }) => theme.colors.button.background};

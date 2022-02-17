@@ -21,6 +21,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import iconKeyboard from "../../../../static/base/icon-keyboard.svg";
 import iconConnected from "../../../../static/base/icon-connected.svg";
 import iconChevronDown from "../../../../static/base/icon-arrow--chevron-down.svg";
+import { withTheme } from "styled-components";
 
 const Style = Styled.div`
 .custom-dropdown {
@@ -85,6 +86,7 @@ const Style = Styled.div`
       margin-bottom: 0;
       small {
         font-size: 12px;
+        font-weight: 600;
       }
     }
   }
@@ -163,7 +165,7 @@ const SelectKeyboardDropdown = ({ theme, selectPort, selectedPortIndex, deviceIt
             <div className="dropdownItem">
               <h3>{deviceItems[selectedPortIndex] != null ? deviceItems[selectedPortIndex].userName : "Keyboard not found"}</h3>
               <h4>
-                {deviceItems[selectedPortIndex] != null ? deviceItems[selectedPortIndex].displayName : ""}
+                {deviceItems[selectedPortIndex] != null ? deviceItems[selectedPortIndex].displayName : ""}{" "}
                 <small>{deviceItems[selectedPortIndex] != null ? deviceItems[selectedPortIndex].path : ""}</small>
               </h4>
             </div>

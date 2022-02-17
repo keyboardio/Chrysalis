@@ -68,6 +68,8 @@ const Styles = Styled.div`
   position: fixed !important;
   z-index: 10;
   padding: 12px !important;
+  background-color: ${({ theme }) => theme.styles.navbar.background};
+  
   .navbar-nav {
     flex-wrap: wrap;
     height: calc(100% - 98px);
@@ -78,35 +80,6 @@ const Styles = Styled.div`
 }
 .list-link {
   display: flex;
-  .item-list {
-    .icon-item {
-      .icon-image {
-        width: ${({ theme }) => theme.drawerWidth - 10}px;
-        height: ${({ theme }) => theme.drawerWidth - 10}px;
-        margin-left: 5px;
-        padding 10px;
-        margin-top: 15px;
-        margin-bottom: 15px;
-        color: ${({ theme }) => theme.navbar.color};
-        align-content: center;
-        text-align: center;
-        &:hover {
-          background-color: rgba(255,255,255,0.3);
-          border-radius: 8px;
-        }
-      }
-    }
-    .icon-text {
-      .primary {
-        font-size: 0.8em;
-        color: black;
-      }
-      .secondary {
-        font-size: 0.7em;
-        color: gray;
-      }
-    }
-  }
   &:hover {
     text-decoration: none;
   }
@@ -124,16 +97,7 @@ const Styles = Styled.div`
   width: 100%;
 }
 
-.themeDark {
-  &.left-navbar {
-    background-color: #0B0219;
-  }
-}
-.themeLight {
-  &.left-navbar {
-    background-color: var(--gray-25);
-  }
-}
+
 
 `;
 
@@ -231,11 +195,9 @@ class NavigationMenu extends Component {
     let newVer = this.cleanFWVer(fwVersion);
     let showNotif = this.compareFWVer(fwVer, newVer);
 
-    let themeStyle = themeDark ? "themeDark" : "themeLight";
-
     return (
       <Styles>
-        <Navbar className={`${themeStyle} left-navbar sidebar`} sticky="top">
+        <Navbar className={`left-navbar sidebar`} sticky="top">
           <NavbarBrand as={Link} to="/" className="brand-image d-lg-block">
             <img alt="" src={DygmaLogo} className="d-inline-block align-top" />
           </NavbarBrand>

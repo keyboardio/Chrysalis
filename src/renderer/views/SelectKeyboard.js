@@ -485,9 +485,6 @@ class SelectKeyboard extends Component {
     return (
       <Styles>
         <Container fluid className="keyboard-select">
-          {/* <Row className="title-row">
-            <h4 className="section-title">Keyboard Selection</h4>
-          </Row> */}
           <PageHeader text={i18n.keyboardSelect.title} theme={this.props.darkMode} />
           <NeuronConnection
             theme={this.props.darkMode}

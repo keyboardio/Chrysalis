@@ -46,6 +46,9 @@ const Style = Styled.div`
 .themeLight {
   .neuronInformation {
     background-color: var(--gray-25);
+    h2 {
+      color: var(--gray-500);
+    }
   }
 }
 .buttons > .button {
@@ -68,12 +71,13 @@ const NeuronConnection = ({
   let themeMode = theme ? "themeDark" : "themeLight";
   return (
     <Style>
-      <div className={`neuronConnection`}>
+      <div className={`neuronConnection ${themeMode}`}>
         <NeuronStatus
           loading={loading}
           connected={connected}
           scanFoundDevices={scanFoundDevices}
           deviceItems={deviceItems.length}
+          theme={theme}
         />
         <div className="neuronInformation">
           {!deviceItems.length ? (

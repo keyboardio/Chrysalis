@@ -25,6 +25,13 @@ import iconChevronDown from "../../../../static/base/icon-arrow--chevron-down.sv
 const Style = Styled.div`
 .custom-dropdown {
   margin-bottom: 16px;
+  &.show {
+    .dropdown-toggle.btn.btn-primary,
+    .dropdown-toggle.btn.btn-primary:hover {
+      border: 1px solid var(--purple-200);
+      background: rgba(11, 2, 25, 0.2);
+    }  
+  }
   .dropdown-toggle.btn.btn-primary {
     background: rgba(11, 2, 25, 0.2);
     border: 1px solid #3F425A;
@@ -32,6 +39,11 @@ const Style = Styled.div`
     width: 100%;
     padding: 12px 16px;
     position: relative;
+    box-shadow: none;
+    &:hover {
+      background: rgba(11, 2, 25, 0.35);
+      border: 1px solid var(--gray-500);
+    }
   }
   .dropdown-toggle::after {
     border: none;
@@ -81,7 +93,8 @@ const Style = Styled.div`
     background: #3F425A;
     box-shadow: 16px 32px 32px -16px rgba(11, 2, 25, 0.2), 0px 32px 72px -32px rgba(26, 17, 46, 0.5);
     border-radius: 6px;
-    min-width: 403px;
+    border: none;
+    min-width: 401px;
     .dropdown-item {
       padding: 8px;
       border-radius: 6px; 
@@ -93,6 +106,41 @@ const Style = Styled.div`
       &.active:hover {
         color: #fff;
         background-color: var(--purple-200);
+        img {
+          filter: invert(0) saturate(0) contrast(1) brightness(2);
+        }
+        h3, h4 {
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+.custom-dropdown.themeLight {
+  .dropdown-menu {
+    padding: 14px 8px;
+    background: #fff;
+    box-shadow: 16px 32px 32px -16px rgba(11, 2, 25, 0.2), 0px 32px 72px -32px rgba(26, 17, 46, 0.5);
+    .dropdown-item {
+
+    }
+    .dropdownItem {
+      h3, h4 {
+        color: var(--gray-400);
+      }
+    }
+    .dropdown-item {
+      &:hover {
+        background-color: var(--gray-25);
+      }
+      &.active,
+      &.active:hover {
+        color: #fff;
+        background-color: var(--purple-200);
+        img {
+          filter: invert(0) saturate(0) contrast(1) brightness(2);
+        }
         h3, h4 {
           color: #fff;
         }
@@ -106,7 +154,7 @@ const SelectKeyboardDropdown = ({ theme, selectPort, selectedPortIndex, deviceIt
 
   return (
     <Style>
-      <Dropdown className="custom-dropdown">
+      <Dropdown className={`${themeMode} custom-dropdown`}>
         <Dropdown.Toggle id="dropdown-custom">
           <div className="dropdownItemSelected">
             <div className="dropdownIcon">

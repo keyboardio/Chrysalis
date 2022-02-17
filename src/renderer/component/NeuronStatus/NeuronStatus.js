@@ -17,8 +17,10 @@
 
 import * as React from "react";
 import Styled from "styled-components";
-import CheckedIcon from "../../../../static/base/icon-check-aimated.gif";
-import NeuronLoader from "../../../../static/base/neuron-loader.jpg";
+import CheckedIconDark from "../../../../static/dark/icon-check-aimated.gif";
+import CheckedIconLight from "../../../../static/light/icon-check-aimated.gif";
+import NeuronLoaderLight from "../../../../static/light/neuron-loader.jpg";
+import NeuronLoaderDark from "../../../../static/dark/neuron-loader.jpg";
 
 const Style = Styled.div`
 align-self: center;
@@ -64,19 +66,53 @@ align-self: center;
 	}
 }
 
+@keyframes lineAnimation {
+	0% {
+	  stroke-opacity: 0.25;
+	}
+	50% {
+		stroke-opacity: 1;
+	}
+	100% {
+		stroke-opacity: 0.25;
+	}
+  }
 .lineColor {
 	transition: all 250ms ease-in-out;
-	stroke: #3F425A;
+	
+	&.loading,
+	&.scanFoundDevices {
+		animation: lineAnimation 600ms linear infinite;
+	}
 }
-.lineColor.connected {
-	stroke: #32EEEE;
+.themeDark {
+	.lineColor {
+		stroke: #3F425A;
+	}
+	.lineColor.connected {
+		stroke: #32EEEE;
+	}
 }
-
+.themeLight {
+	.lineColor {
+		stroke: var(--gray-200);
+	}
+	.lineColor.connected {
+		stroke: var(--pastel-shades-green-200);
+	}
+	.connectionSuccess path {
+		fill: #1FDEEA;
+		stroke-opacity: 0.05;
+	}
+}
 `;
 const NeuronStatus = props => {
+  let themeMode = props.theme ? "themeDark" : "themeLight";
+  let NeuronLoader = props.theme ? NeuronLoaderDark : NeuronLoaderLight;
+  let CheckedIcon = props.theme ? CheckedIconDark : CheckedIconDark;
   return (
     <Style>
-      <div className="neuronStatusInner">
+      <div className={`${themeMode} neuronStatusInner`}>
         {props.connected ? (
           <div className="neuronConnectAnimation">
             <img src={CheckedIcon} />

@@ -41,6 +41,18 @@ const Style = Styled.div`
     cursor: not-allowed;
   }
 }
+&.button-outline {
+  color: #fff;
+  border: 1px solid var(--gray-400);
+  box-shadow: 0px 0px 0px 1px var(--gray-400) inset;
+  transition-property: border, box-shadow, background;
+  transition: 300ms ease-in-out;
+  &:hover {
+    border: 1px solid var(--gray-300);
+    box-shadow: 0px 0px 0px 1px var(--gray-300) inset;
+    background-color: rgba(255,255,255,0.05);
+  }
+}
 `;
 //className={`icon-image ${selected ? "select" : ""}`}
 const RegularButton = ({ selected, onClick, size, buttonText, style, icoSVG, theme, disabled }) => {

@@ -56,6 +56,12 @@ align-self: center;
 .rotating {
 	transform-origin: 86% 76%;
 	animation: rotating 1s linear infinite;
+	animation-play-state: paused;
+	animation-play-state: initial;
+	&.loading,
+	&.scanning {
+		animation-play-state: initial;
+	}
 }
 
 .lineColor {
@@ -91,8 +97,82 @@ const NeuronStatus = props => {
             strokeLinecap="round"
             strokeLinejoin="round"
           />
-          {!props.scanFoundDevices && !props.loading ? (
+          {(props.scanFoundDevices || props.loading || props.deviceItems > 0) && !props.connected ? (
             <g className={"connectionLoading"}>
+              <g filter="url(#prefix__filter0_d_1082_145292)">
+                <path
+                  d="M96.15 64.955l-.933-.016-1.868-.033c-3.894.085-7.643.784-11.241 1.791l11.754 4.486 2.783 1.118 2.474.96-4.517 17.96a80.16 80.16 0 01-8.952 22.317l7.775-8.425 2.697-2.858.317-.3 4.124-4.361c.633-.6 1.113-1.357 1.285-2.27l1.481-4.561 7.401-22.65c-4.481-1.912-9.446-2.916-14.58-3.158z"
+                  fill="#32C1EE"
+                />
+              </g>
+              <g filter="url(#prefix__filter1_d_1082_145292)">
+                <path
+                  d="M56.604 82.914c.612.623 1.069 1.242 1.68 1.864a45.503 45.503 0 003.825 3.889l-1.434-7.058-.57-3.067-1.299-5.832 20.362-6.982c4.385-1.452 9.226-2.285 14.206-2.198l.312.005 2.49.044c1.09.019 2.332.193 3.419.365l-3.559-1.285-2.938-1.121-6.653-2.41-5.104-1.923a6.592 6.592 0 00-4.203-.073l-5.793 1.886-18.322 6.1-5.636 1.737c2.075 5.998 5.25 11.404 9.217 16.06z"
+                  fill="#32C1EE"
+                />
+              </g>
+              <g filter="url(#prefix__filter2_d_1082_145292)">
+                <path
+                  d="M85.097 100.534l-3.314 2.541-3.472 2.691-15.19-12.8c-2.147-1.872-4.291-3.897-6.122-6.07-.611-.622-1.068-1.241-1.677-2.016-1.98-2.48-3.647-5.108-5.153-8.04l3.084 10.603.29 1.228 1.029 3.534.585 2.15c.298.77.593 1.692 1.205 2.314.612.623 1.374 1.553 2.29 2.64.608.774 1.373 1.552 2.136 2.482 6.561 7.606 17.09 19.866 17.399 20.025 5.895-7.694 10.252-16.485 12.91-26.07l-6 4.788z"
+                  fill="#32C1EE"
+                />
+              </g>
+              <defs>
+                <filter
+                  id="prefix__filter0_d_1082_145292"
+                  x={70.108}
+                  y={56.906}
+                  width={52.623}
+                  height={72.632}
+                  filterUnits="userSpaceOnUse"
+                  colorInterpolationFilters="sRGB"
+                >
+                  <feFlood floodOpacity={0} result="BackgroundImageFix" />
+                  <feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                  <feOffset dy={4} />
+                  <feGaussianBlur stdDeviation={6} />
+                  <feComposite in2="hardAlpha" operator="out" />
+                  <feColorMatrix values="0 0 0 0 0.194444 0 0 0 0 0.933333 0 0 0 0 0.933333 0 0 0 0.5 0" />
+                  <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_1082_145292" />
+                  <feBlend in="SourceGraphic" in2="effect1_dropShadow_1082_145292" result="shape" />
+                </filter>
+                <filter
+                  id="prefix__filter1_d_1082_145292"
+                  x={35.388}
+                  y={48.823}
+                  width={76.207}
+                  height={55.843}
+                  filterUnits="userSpaceOnUse"
+                  colorInterpolationFilters="sRGB"
+                >
+                  <feFlood floodOpacity={0} result="BackgroundImageFix" />
+                  <feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                  <feOffset dy={4} />
+                  <feGaussianBlur stdDeviation={6} />
+                  <feComposite in2="hardAlpha" operator="out" />
+                  <feColorMatrix values="0 0 0 0 0.194444 0 0 0 0 0.933333 0 0 0 0 0.933333 0 0 0 0.5 0" />
+                  <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_1082_145292" />
+                  <feBlend in="SourceGraphic" in2="effect1_dropShadow_1082_145292" result="shape" />
+                </filter>
+                <filter
+                  id="prefix__filter2_d_1082_145292"
+                  x={38.169}
+                  y={68.841}
+                  width={64.928}
+                  height={68.975}
+                  filterUnits="userSpaceOnUse"
+                  colorInterpolationFilters="sRGB"
+                >
+                  <feFlood floodOpacity={0} result="BackgroundImageFix" />
+                  <feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                  <feOffset dy={4} />
+                  <feGaussianBlur stdDeviation={6} />
+                  <feComposite in2="hardAlpha" operator="out" />
+                  <feColorMatrix values="0 0 0 0 0.194444 0 0 0 0 0.933333 0 0 0 0 0.933333 0 0 0 0.5 0" />
+                  <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_1082_145292" />
+                  <feBlend in="SourceGraphic" in2="effect1_dropShadow_1082_145292" result="shape" />
+                </filter>
+              </defs>
               <mask
                 id="prefix__a"
                 style={{
@@ -125,7 +205,7 @@ const NeuronStatus = props => {
                   <use xlinkHref="#prefix__image0_1082_145292" transform="scale(.00357)" />
                 </pattern>
                 <image
-                  className="rotating"
+                  className={`rotating ${props.loading ? "loading" : ""} ${props.scanFoundDevices ? "scanning" : ""}`}
                   id="prefix__image0_1082_145292"
                   width={270}
                   height={270}
@@ -137,7 +217,7 @@ const NeuronStatus = props => {
           ) : (
             ""
           )}
-          {props.loading ? (
+          {!props.deviceItems ? (
             <g className={"noDeviceFounded"}>
               <path fill="#E2E4EA" d="M58 80.75h1.75V93H58z" />
               <path

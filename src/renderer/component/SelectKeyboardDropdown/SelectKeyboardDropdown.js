@@ -81,6 +81,7 @@ const Style = Styled.div`
     background: #3F425A;
     box-shadow: 16px 32px 32px -16px rgba(11, 2, 25, 0.2), 0px 32px 72px -32px rgba(26, 17, 46, 0.5);
     border-radius: 6px;
+    min-width: 403px;
     .dropdown-item {
       padding: 8px;
       border-radius: 6px; 
@@ -88,11 +89,19 @@ const Style = Styled.div`
       &:hover {
         background-color: rgba(107, 119, 148, 0.2);
       }
+      &.active,
+      &.active:hover {
+        color: #fff;
+        background-color: var(--purple-200);
+        h3, h4 {
+          color: #fff;
+        }
+      }
     }
   }
 }
 `;
-const SelectKeyboardDropdown = ({ theme, selectPort, selectedPortIndex, deviceItems }) => {
+const SelectKeyboardDropdown = ({ theme, selectPort, selectedPortIndex, deviceItems, connected }) => {
   let themeMode = theme ? "themeDark" : "themeLight";
 
   return (
@@ -101,7 +110,7 @@ const SelectKeyboardDropdown = ({ theme, selectPort, selectedPortIndex, deviceIt
         <Dropdown.Toggle id="dropdown-custom">
           <div className="dropdownItemSelected">
             <div className="dropdownIcon">
-              <img src={iconConnected} />
+              {deviceItems[selectedPortIndex] && connected ? <img src={iconConnected} /> : <img src={iconKeyboard} />}
             </div>
             <div className="dropdownItem">
               <h3>{deviceItems[selectedPortIndex] != null ? deviceItems[selectedPortIndex].userName : "Keyboard not found"}</h3>
@@ -115,10 +124,14 @@ const SelectKeyboardDropdown = ({ theme, selectPort, selectedPortIndex, deviceIt
         <Dropdown.Menu className="super-colors">
           {/* index,displayName,userName,path */}
           {deviceItems.map(item => (
-            <Dropdown.Item eventKey={item.index} key={item.index}>
+            <Dropdown.Item
+              eventKey={item.index}
+              key={item.index}
+              className={`${selectedPortIndex == item.index ? "active" : ""}`}
+            >
               <div className="dropdownInner">
                 <div className="dropdownIcon">
-                  <img src={iconKeyboard} />
+                  {selectedPortIndex == item.index && connected ? <img src={iconConnected} /> : <img src={iconKeyboard} />}
                 </div>
                 <div className="dropdownItem">
                   <h3>{item.userName}</h3>

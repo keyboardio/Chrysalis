@@ -21,6 +21,7 @@ import Title from "../../component/Title";
 import { RegularButton } from "../../component/Button";
 import NeuronStatus from "../../component/NeuronStatus";
 import SelectKeyboardDropdown from "../../component/SelectKeyboardDropdown";
+import i18n from "../../i18n";
 
 const Style = Styled.div`
 .neuronConnection {
@@ -68,17 +69,67 @@ const NeuronConnection = ({
   return (
     <Style>
       <div className={`neuronConnection`}>
-        <NeuronStatus loading={loading} connected={connected} scanFoundDevices={scanFoundDevices} />
+        <NeuronStatus
+          loading={loading}
+          connected={connected}
+          scanFoundDevices={scanFoundDevices}
+          deviceItems={deviceItems.length}
+        />
         <div className="neuronInformation">
-          <Title text={"No keyboards found!"} headingLevel={2} theme={theme} type={"warning"} />
-          <p className={"neuronSubtileText"}>[Death metal plays in background]</p>
-          <SelectKeyboardDropdown deviceItems={deviceItems} selectPort={selectPort} selectedPortIndex={selectedPortIndex} />
+          {!deviceItems.length ? (
+            <>
+              <Title text={i18n.keyboardSelect.noDevices} headingLevel={2} theme={theme} type={"warning"} />
+              <p className={"neuronSubtileText"}>{i18n.keyboardSelect.noDevicesSubtitle}</p>
+            </>
+          ) : (
+            ""
+          )}
+
+          {deviceItems.length > 0 ? (
+            <>
+              <Title text={i18n.keyboardSelect.selectPrompt} headingLevel={2} theme={theme} />
+              <SelectKeyboardDropdown
+                deviceItems={deviceItems}
+                selectPort={selectPort}
+                selectedPortIndex={selectedPortIndex}
+                connected={connected}
+              />
+            </>
+          ) : (
+            ""
+          )}
           <div className="buttons">
-            <RegularButton onClick={scanDevices} buttonText={"Scan keyboards"} style={"primary"} disabled={scanFoundDevices} />
+            <RegularButton
+              onClick={scanDevices}
+              buttonText={i18n.keyboardSelect.scan}
+              style={`${connected || deviceItems.length > 0 ? "outline" : "primary"}`}
+              disabled={scanFoundDevices}
+            />
             {connected ? (
-              <RegularButton buttonText={"Disconnect"} style={"primary"} onClick={onDisconnect} disabled={connected} />
+              <RegularButton
+                buttonText={i18n.keyboardSelect.disconnect}
+                style={"primary"}
+                onClick={onDisconnect}
+                disabled={false}
+              />
             ) : (
-              <RegularButton buttonText={"Connect"} style={"primary"} onClick={onKeyboardConnect} disabled={cantConnect} />
+              ""
+            )}
+            {!connected && deviceItems.length > 0 ? (
+              <RegularButton
+                buttonText={i18n.keyboardSelect.connect}
+                style={"primary"}
+                onClick={onKeyboardConnect}
+                disabled={false}
+              />
+            ) : (
+              ""
+            )}
+
+            {!deviceItems.length ? (
+              <RegularButton buttonText={i18n.keyboardSelect.connect} style={"primary"} disabled={true} />
+            ) : (
+              ""
             )}
           </div>
         </div>

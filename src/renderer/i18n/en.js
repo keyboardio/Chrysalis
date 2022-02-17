@@ -366,8 +366,9 @@ const English = {
   keyboardSelect: {
     title: "Keyboard Selection",
     unknown: "Unknown",
-    selectPrompt: "Please select a keyboard:",
+    selectPrompt: "Select keyboard",
     noDevices: "No keyboards found!",
+    noDevicesSubtitle: "[Death metal plays in background]",
     connect: "Connect",
     disconnect: "Disconnect",
     scan: "Scan keyboards",

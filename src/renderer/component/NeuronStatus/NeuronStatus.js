@@ -17,17 +17,14 @@
 
 import * as React from "react";
 import Styled from "styled-components";
-import CheckedIconDark from "../../../../static/dark/icon-check-aimated.gif";
-import CheckedIconLight from "../../../../static/light/icon-check-aimated.gif";
-import NeuronLoaderLight from "../../../../static/light/neuron-loader.jpg";
-import NeuronLoaderDark from "../../../../static/dark/neuron-loader.jpg";
+import { useTheme } from "styled-components";
 
 const Style = Styled.div`
 align-self: center;
 .neuronStatusInner {
 	width: 320px;
 	height: 360px;
-	background-color: rgba(107, 119, 148, 0.05);
+  background-color: ${({ theme }) => theme.styles.neuronStatus.neuronStatusBackgroundColor}; 
 	border-radius: 14px;
 	display: flex;
     justify-content: center;
@@ -74,46 +71,33 @@ align-self: center;
 	100% {
 		stroke-opacity: 0.25;
 	}
-  }
+}
 .lineColor {
 	transition: all 250ms ease-in-out;
-	
+	stroke: ${({ theme }) => theme.styles.neuronStatus.lineStrokeColor};
 	&.loading,
 	&.scanFoundDevices {
 		animation: lineAnimation 600ms linear infinite;
 	}
+  &.connected {
+    stroke: ${({ theme }) => theme.styles.neuronStatus.lineStrokeColorConnected};
+  }
 }
-.themeDark {
-	.lineColor {
-		stroke: #3F425A;
-	}
-	.lineColor.connected {
-		stroke: #32EEEE;
-	}
+.connectionSuccess path {
+  fill: ${({ theme }) => theme.styles.neuronStatus.connectionSuccessFill};
+  stroke-opacity: ${({ theme }) => theme.styles.neuronStatus.connectionStrokeOpacity};
 }
-.themeLight {
-	.lineColor {
-		stroke: var(--gray-200);
-	}
-	.lineColor.connected {
-		stroke: var(--pastel-shades-green-200);
-	}
-	.connectionSuccess path {
-		fill: #1FDEEA;
-		stroke-opacity: 0.05;
-	}
-}
+
 `;
 const NeuronStatus = props => {
-  let themeMode = props.theme ? "themeDark" : "themeLight";
-  let NeuronLoader = props.theme ? NeuronLoaderDark : NeuronLoaderLight;
-  let CheckedIcon = props.theme ? CheckedIconDark : CheckedIconDark;
+  let neuronLoader = useTheme().styles.neuronStatus.neuronLoader;
+  let checkedIcon = useTheme().styles.neuronStatus.checkedIcon;
   return (
     <Style>
-      <div className={`${themeMode} neuronStatusInner`}>
+      <div className="neuronStatusInner">
         {props.connected ? (
           <div className="neuronConnectAnimation">
-            <img src={CheckedIcon} />
+            <img src={checkedIcon} />
           </div>
         ) : (
           ""
@@ -243,7 +227,7 @@ const NeuronStatus = props => {
                   id="prefix__image0_1082_145292"
                   width={270}
                   height={270}
-                  xlinkHref={NeuronLoader}
+                  xlinkHref={neuronLoader}
                 />
               </defs>
             </g>
@@ -357,7 +341,7 @@ const NeuronStatus = props => {
                 <pattern id="prefix__pattern0" patternContentUnits="objectBoundingBox" width={1} height={1}>
                   <use xlinkHref="#prefix__image0_1082_145292" transform="scale(.00357)" />
                 </pattern>
-                <image id="prefix__image0_1082_145292" width={270} height={270} xlinkHref={NeuronLoader} />
+                <image id="prefix__image0_1082_145292" width={270} height={270} xlinkHref={neuronLoader} />
               </defs>
             </g>
           ) : (

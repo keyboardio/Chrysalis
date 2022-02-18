@@ -31,6 +31,10 @@ const Style = Styled.div`
     text-align: center;
     transition: 250ms color ease-in-out;
     text-decoration: none;
+    color: ${({ theme }) => theme.styles.navbar.menuLink.color};
+    svg {
+        color: ${({ theme }) => theme.styles.navbar.menuLink.svgColor};
+    }
     .menuLinkText {
         font-size: 12px;
         font-weight: 600;
@@ -49,6 +53,18 @@ const Style = Styled.div`
             border-radius: 16px;
         }
     }
+    &:hover {
+        color: ${({ theme }) => theme.styles.navbar.menuLink.colorHover};
+    }
+    &.active {
+        color: ${({ theme }) => theme.styles.navbar.menuLink.colorActive};
+    }
+    &:hover svg {
+        color: ${({ theme }) => theme.styles.navbar.menuLink.svgColorHover}; 
+    }
+    &.active svg {
+        color: ${({ theme }) => theme.styles.navbar.menuLink.svgColorActive}; 
+    }
 }
 .menuLink:before {
     content: '';
@@ -63,7 +79,6 @@ const Style = Styled.div`
     opacity: 0;
     transition: 250ms opacity ease-in-out;
     z-index: 2;
-
 }
 .menuLink:after {
     content: '';
@@ -90,9 +105,11 @@ const Style = Styled.div`
         opacity: 0.8;
     }
 }
-.menuLink.active:before,
-.menuLink.active:after {
+.menuLink.active:before {
     opacity: 1; 
+}
+.menuLink.active:after {
+    opacity: ${({ theme }) => theme.styles.navbar.menuLink.lightingOpacity};; 
 }
 .menuLinkInner {
     position: relative;
@@ -116,51 +133,14 @@ const Style = Styled.div`
     top 0;
     content: '';
     z-index: 1;
-}
-
-.menuLink {
-    &.themeDark {
-        color: var(--gray-300);
-        svg {
-            color: var(--gray-50);
-        }
-        &:hover,
-        &.active {
-            color: var(--gray-25);
-        }
-        .menuLinkInner:before {
-            background: linear-gradient(237.13deg, rgba(39, 27, 58, 0.32) 1.37%, rgba(123, 134, 158, 0.32) 99.24%);
-        }
-    }
-    &.themeLight {
-        color: var(--gray-200);
-        svg {
-            color: var(--gray-400);
-        }
-        &:hover,
-        &.active {
-            color: var(--purple-300);
-        }
-        &:hover svg{
-            color: var(--purple-300);
-        }
-        &.active svg {
-            color: var(--brand-secondary);
-        }
-        .menuLinkInner:before {
-            background: linear-gradient(236.53deg, #F0F2F4 1.37%, #D8DBF1 117.2%);
-        }
-        &.active:after {
-            opacity: 0.5; 
-        }
-    }
+    background: ${({ theme }) => theme.styles.navbar.menuLink.gradient};
 }
 `;
 //className={`icon-image ${selected ? "select" : ""}`}
-const NavigationButton = ({ selected, onClick, showNotif, buttonText, icoSVG, theme }) => {
+const NavigationButton = ({ selected, onClick, showNotif, buttonText, icoSVG }) => {
   return (
     <Style onClick={onClick}>
-      <div className={`menuLink ${theme} ${selected ? "active" : ""}`}>
+      <div className={`menuLink ${selected ? "active" : ""}`}>
         <div className={"menuLinkInner"}>
           {icoSVG}
           {showNotif ? <div className="badge badge-primary">{i18n.app.menu.badgeNew}</div> : ""}

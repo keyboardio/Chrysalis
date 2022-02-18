@@ -3,10 +3,11 @@ import { createGlobalStyle } from "styled-components";
 import LibreFranklin from "./fonts/LibreFranklin/LibreFranklin-VariableFont_wght.ttf";
 import LibreFranklinItalic from "./fonts/LibreFranklin/LibreFranklin-Italic-VariableFont_wght.ttf";
 
+import iconChevronDown from "../../../static/base/icon-arrow--chevron-down.svg";
+
 const NavWidth = "64";
 
 const GlobalStyles = createGlobalStyle`
-
   :root {
     --gray-25: ${({ theme }) => theme.colors.gray25};
     --gray-50: ${({ theme }) => theme.colors.gray50};
@@ -55,15 +56,12 @@ const GlobalStyles = createGlobalStyle`
   body {
     background: ${({ theme }) => theme.colors.body};
     font-weight: 600;
-
     background-image: url(${({ theme }) => theme.body.backgroundImage});
     background-repeat: no-repeat;
     background-size: cover;
-
     color: ${({ theme }) => theme.colors.text};
     font-family: ${({ theme }) => theme.font};;
     transition: all 0.50s linear;
-
     text-rendering: optimizeLegibility;
     font-smoothing: antialiased;
     -moz-font-smoothing: antialiased;
@@ -178,6 +176,9 @@ svg text{
   -ms-user-select: none;
   user-select: none;
 }
+// 
+// Typography
+// 
 .displayLg {
 	font-size:81px;
 	font-weight:600;
@@ -242,6 +243,91 @@ svg text{
 	font-weight:400;
 	line-height:150%;
 	text-decoration:none;
+}
+
+// 
+// Components
+// 
+.button {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.5em;
+  padding: 14px 24px;
+  border-radius: 6px;
+  display: inline-block;
+}
+.button:hover {
+  cursor: pointer;
+}
+.button[disabled]:hover {
+  cursor: not-allowed;
+}
+.button.primary {
+  color: #fff;
+  background: ${({ theme }) => theme.styles.button.primary.backgroundColor};
+}
+.button.primary[disabled] {
+  background: ${({ theme }) => theme.styles.button.primary.disabledBackgroundColor};
+  color: ${({ theme }) => theme.styles.button.primary.disabledTextColor};
+}
+.button.outline {
+  color: ${({ theme }) => theme.styles.button.outline.color};
+  border: 1px solid ${({ theme }) => theme.styles.button.outline.borderColor};
+  box-shadow: 0px 0px 0px 1px ${({ theme }) => theme.styles.button.outline.borderColor} inset;
+  transition-property: border, box-shadow, background;
+  transition: 300ms ease-in-out;
+}
+.button.outline:hover {
+  border: 1px solid ${({ theme }) => theme.styles.button.outline.borderColorHover};
+  box-shadow: 0px 0px 0px 1px ${({ theme }) => theme.styles.button.outline.boxShadowColorHover} inset;
+  background-color: rgba(255,255,255,0.05);
+}
+.button.outline[disabled] {
+  opacity: ${({ theme }) => theme.styles.button.outline.disabledOpacity}; 
+  color: ${({ theme }) => theme.styles.button.outline.disabledTextColor};
+  border: 1px solid ${({ theme }) => theme.styles.button.outline.disabledBorderColor};
+  box-shadow: 0px 0px 0px 1px ${({ theme }) => theme.styles.button.outline.disabledBoxShadowColor} inset;
+}
+
+
+.dropdown-toggle.btn.btn-primary {
+  background: ${({ theme }) => theme.styles.dropdown.backgroundButtonColor};
+  border: 1px solid ${({ theme }) => theme.styles.dropdown.borderButtonColor};
+  border-radius: 6px;
+  width: 100%;
+  padding: 12px 16px;
+  position: relative;
+  box-shadow: none;
+}
+.dropdown.show .dropdown-toggle.btn.btn-primary,
+.dropdown-toggle.btn.btn-primary:hover {
+  border: 1px solid ${({ theme }) => theme.styles.dropdown.borderButtonHover};
+  background: ${({ theme }) => theme.styles.dropdown.backgroundButtonColor};
+}
+
+.dropdown-toggle.btn.btn-primary:hover {
+  background: ${({ theme }) => theme.styles.dropdown.backgroundButtonHover};
+  border: 1px solid ${({ theme }) => theme.styles.dropdown.borderButtonHover};
+}
+.dropdown-toggle::after {
+  border: none;
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  background-image: url(${iconChevronDown});
+  background-size: cover;
+  transform: translate3d(0, -50%, 0);
+}
+.dropdownInner,
+.dropdownItemSelected {
+  display: flex;
+  align-items: center;
+  text-align: left;
+} 
+.dropdownIcon {
+  flex: 0 0 24px;
 }
 
 `;

@@ -34,21 +34,16 @@ const Style = Styled.div`
   width: 464px;
   margin-left: -32px;
   padding: 24px 32px;
-  background-color: var(--gray-800);
+  background-color: ${({ theme }) => theme.styles.neuronConnection.backgroundColor};
   border-radius: 14px;
   z-index: 2;
+  h2 {
+    color: ${({ theme }) => theme.styles.neuronConnection.titleColor};
+  }
   .neuronSubtileText {
-    color: var(--gray-200);
+    color: ${({ theme }) => theme.styles.neuronConnection.subTitleColor};
     font-weight: 600;
     letter-spacing: -0.03em;
-  }
-}
-.themeLight {
-  .neuronInformation {
-    background-color: var(--gray-25);
-    h2 {
-      color: var(--gray-500);
-    }
   }
 }
 .buttons > .button {
@@ -56,7 +51,6 @@ const Style = Styled.div`
 }
 `;
 const NeuronConnection = ({
-  theme,
   loading,
   scanFoundDevices,
   scanDevices,
@@ -68,21 +62,19 @@ const NeuronConnection = ({
   selectedPortIndex,
   deviceItems
 }) => {
-  let themeMode = theme ? "themeDark" : "themeLight";
   return (
     <Style>
-      <div className={`neuronConnection ${themeMode}`}>
+      <div className="neuronConnection">
         <NeuronStatus
           loading={loading}
           connected={connected}
           scanFoundDevices={scanFoundDevices}
           deviceItems={deviceItems.length}
-          theme={theme}
         />
         <div className="neuronInformation">
           {!deviceItems.length ? (
             <>
-              <Title text={i18n.keyboardSelect.noDevices} headingLevel={2} theme={theme} type={"warning"} />
+              <Title text={i18n.keyboardSelect.noDevices} headingLevel={2} type={"warning"} />
               <p className={"neuronSubtileText"}>{i18n.keyboardSelect.noDevicesSubtitle}</p>
             </>
           ) : (
@@ -91,7 +83,7 @@ const NeuronConnection = ({
 
           {deviceItems.length > 0 ? (
             <>
-              <Title text={i18n.keyboardSelect.selectPrompt} headingLevel={2} theme={theme} />
+              <Title text={i18n.keyboardSelect.selectPrompt} headingLevel={2} />
               <SelectKeyboardDropdown
                 deviceItems={deviceItems}
                 selectPort={selectPort}

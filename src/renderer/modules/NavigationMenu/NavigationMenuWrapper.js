@@ -41,7 +41,6 @@ class Header extends Component {
         pages={pages}
         open={NavigationMenu}
         closeMenu={this.closeNavigationMenu}
-        themeDark={theme}
         flashing={flashing}
       />
     );

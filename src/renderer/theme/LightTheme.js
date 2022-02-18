@@ -1,5 +1,7 @@
 import BackgroundImageLight from "../../../static/light/lightBackground.png";
 import BackgroundImageLight2x from "../../../static/light/lightBackground-2x.png";
+import NeuronLoaderLight from "../../../static/light/neuron-loader.jpg";
+import CheckedIconLight from "../../../static/light/icon-check-animated.gif";
 import Tokens from "./Tokens";
 
 const Light = {
@@ -23,6 +25,9 @@ const Light = {
   },
   colors: {
     gardient: "linear-gradient(180deg, rgba(131,58,180,1) 0%, rgba(189,38,38,1) 63%, rgba(252,112,42,1) 100%);",
+    gradient: Tokens.colors.gradient,
+    gradientDisabled: Tokens.colors.gradientDisabled,
+    gradientDisabledLight: Tokens.colors.gradientDisabledLight,
     gray25: Tokens.colors.gray25,
     gray50: Tokens.colors.gray50,
     gray100: Tokens.colors.gray100,
@@ -52,7 +57,7 @@ const Light = {
     pastelShadesMint200: Tokens.colors.pastelShadesMint200,
     pastelShadesMint100: Tokens.colors.pastelShadesMint100,
     body: "#eaeff1",
-    text: "#000000",
+    text: Tokens.colors.gray400,
     subtext: "#555555",
     tipIcon: "#666",
     button: {
@@ -99,9 +104,63 @@ const Light = {
       background: Tokens.colors.gray25,
       menuLink: {
         color: Tokens.colors.gray200,
+        colorHover: Tokens.colors.gray500,
         colorActive: Tokens.colors.purple300,
-        gradient: "linear-gradient(236.53deg, #F0F2F4 1.37%, #D8DBF1 117.2%);"
+        svgColor: Tokens.colors.gray400,
+        svgColorActive: Tokens.colors.brandSecondary,
+        svgColorHover: Tokens.colors.gray600,
+        lightingOpacity: 0.5,
+        gradient: "linear-gradient(236.53deg, #F0F2F4 1.37%, #D8DBF1 117.2%)"
       }
+    },
+    button: {
+      primary: {
+        backgroundColor: Tokens.colors.gradient,
+        disabledTextColor: Tokens.colors.gray100,
+        disabledBackgroundColor: Tokens.colors.gradientDisabledLight
+      },
+      outline: {
+        color: Tokens.colors.gray400,
+        colorHover: Tokens.colors.gray600,
+        borderColor: Tokens.colors.gray100,
+        borderColorHover: Tokens.colors.gray200,
+        boxShadowColor: Tokens.colors.gray100,
+        boxShadowColorHover: Tokens.colors.gray200,
+        disabledTextColor: Tokens.colors.gray100,
+        disabledBorderColor: Tokens.colors.gray50,
+        disabledBoxShadowColor: Tokens.colors.gray50,
+        disabledOpacity: 1
+      }
+    },
+    dropdown: {
+      backgroundButtonColor: "rgba(11, 2, 25, 0.2)",
+      backgroundButtonHover: "rgba(11, 2, 25, 0.35)",
+      backgroundButtonActive: "rgba(11, 2, 25, 0.2)",
+      textButtonColor: Tokens.colors.gray400,
+      textButtonHover: Tokens.colors.gray400,
+      borderButtonColor: "#3F425A",
+      borderButtonHover: Tokens.colors.gray500,
+      borderButtonActive: Tokens.colors.purple300,
+      dropdownMenu: {
+        backgroundColor: "#3F425A",
+        boxShadow: "16px 32px 32px -16px rgba(11, 2, 25, 0.2), 0px 32px 72px -32px rgba(26, 17, 46, 0.5)",
+        itemBackgroundColorHover: "rgba(107, 119, 148, 0.2)",
+        itemBackgroundColorActive: Tokens.colors.purple200
+      }
+    },
+    neuronStatus: {
+      neuronStatusBackgroundColor: "rgba(255, 255, 255, 0.15)",
+      lineStrokeColor: Tokens.colors.gray200,
+      lineStrokeColorConnected: Tokens.colors.pastelShadesGreen200,
+      connectionSuccessFill: "#1FDEEA",
+      connectionStrokeOpacity: 0.05,
+      neuronLoader: NeuronLoaderLight,
+      checkedIcon: CheckedIconLight
+    },
+    neuronConnection: {
+      backgroundColor: Tokens.colors.gray25,
+      titleColor: Tokens.colors.gray500,
+      subTitleColor: Tokens.colors.gray200
     }
   }
 };

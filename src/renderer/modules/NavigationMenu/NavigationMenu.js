@@ -96,9 +96,6 @@ const Styles = Styled.div`
   border-radius: 8px;
   width: 100%;
 }
-
-
-
 `;
 
 class NavigationMenu extends Component {
@@ -222,7 +219,6 @@ class NavigationMenu extends Component {
                           onClick={() => setCurrentPage("/editor")}
                           buttonText={i18n.app.menu.editor}
                           icoSVG={<IconKeyboard2Stroke />}
-                          theme={themeStyle}
                         />
                       </Link>
                       <Link to="/macros" className="list-link">
@@ -232,7 +228,6 @@ class NavigationMenu extends Component {
                           onClick={() => setCurrentPage("/macros")}
                           buttonText={i18n.app.menu.macros}
                           icoSVG={<IconRobot2Stroke />}
-                          theme={themeStyle}
                         />
                       </Link>
                       <Link to="/superkeys" className="list-link">
@@ -242,7 +237,6 @@ class NavigationMenu extends Component {
                           onClick={() => setCurrentPage("/superkeys")}
                           buttonText={i18n.app.menu.superkeys}
                           icoSVG={<IconThunder2Stroke />}
-                          theme={themeStyle}
                         />
                       </Link>
                     </React.Fragment>
@@ -256,7 +250,6 @@ class NavigationMenu extends Component {
                       showNotif={true}
                       buttonText={i18n.app.menu.firmwareUpdate}
                       icoSVG={<IconMemory2Stroke />}
-                      theme={themeStyle}
                     />
                   </Link>
                 </>
@@ -269,7 +262,6 @@ class NavigationMenu extends Component {
                   onClick={() => setCurrentPage("/keyboard-select")}
                   buttonText={i18n.app.menu.selectAKeyboard}
                   icoSVG={<IconKeyboardSelector />}
-                  theme={themeStyle}
                 />
               </Link>
 
@@ -310,7 +302,6 @@ class NavigationMenu extends Component {
                   onClick={() => setCurrentPage("/preferences")}
                   buttonText={i18n.app.menu.preferences}
                   icoSVG={<IconPreferences2Stroke />}
-                  theme={themeStyle}
                 />
               </Link>
             </div>

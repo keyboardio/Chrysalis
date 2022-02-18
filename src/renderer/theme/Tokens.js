@@ -1,7 +1,9 @@
 const tokens = {
   name: "Tokens",
   colors: {
-    gardient: "linear-gradient(180deg, rgba(131,58,180,1) 0%, rgba(189,38,38,1) 63%, rgba(252,112,42,1) 100%);",
+    gradient: "linear-gradient(90deg, #FE007C 0%, #6B14F9 100%)",
+    gradientDisabled: "linear-gradient(90deg, #57617E -24.56%, #3F425A 79.82%)",
+    gradientDisabledLight: "linear-gradient(90deg, rgba(196, 201, 213, 0.1) -24.56%, rgba(63, 66, 90, 0.1) 79.82%)",
     gray25: "rgba(240,242,244,1)",
     gray50: "rgba(226,228,234,1)",
     gray100: "rgba(196,201,213,1)",

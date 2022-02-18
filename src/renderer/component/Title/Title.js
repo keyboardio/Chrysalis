@@ -102,13 +102,12 @@ h5 {
 }
 
 `;
-const Title = ({ text, headingLevel, size, color, type, tooltip, theme }) => {
-  let themeMode = theme ? "themeDark" : "themeLight";
+const Title = ({ text, headingLevel, size, color, type, tooltip }) => {
   let Tag = "h" + headingLevel;
 
   return (
     <Style>
-      <Tag className={`${size} ${themeMode} ${type}`}>
+      <Tag className={`${size} ${type}`}>
         <span dangerouslySetInnerHTML={{ __html: text }} />
         {tooltip && (
           <>

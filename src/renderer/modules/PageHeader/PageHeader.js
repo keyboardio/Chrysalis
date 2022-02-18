@@ -30,26 +30,20 @@ align-self: flex-start;
     display: flex;
     align-items: center;
     min-height: 82px;
-    &.themeDark {
-        background-color: rgba(107, 119, 148, 0.15);
-    }
+    background-color: ${({ theme }) => theme.styles.pageHeader.backgroundColor};
     h1, h2, h3, h4, h5, h6 {
         margin: 0;
     }
-    &.themeLight {
-        background-color: rgba(240, 242, 244, 0.9);
-        h2 {
-            color: var(--purple-200);
-        }
+    h2 {
+      color: ${({ theme }) => theme.styles.pageHeader.titleColor}
     }
 }
 `;
-const PageHeader = ({ size, text, style, theme }) => {
-  let themeMode = theme ? "themeDark" : "themeLight";
+const PageHeader = ({ size, text, style }) => {
   return (
     <Style>
-      <div className={`pageHeader ${size} ${themeMode} ${style}`}>
-        <Title text={text} headingLevel={2} theme={theme} />
+      <div className={`pageHeader ${size} ${style}`}>
+        <Title text={text} headingLevel={2} />
       </div>
     </Style>
   );

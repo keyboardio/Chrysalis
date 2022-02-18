@@ -142,6 +142,8 @@ const Dark = {
       borderButtonColor: "#3F425A",
       borderButtonHover: Tokens.colors.gray500,
       borderButtonActive: Tokens.colors.purple300,
+      titleColor: Tokens.colors.gray100,
+      subTitleColor: Tokens.colors.gray200,
       dropdownMenu: {
         backgroundColor: "#3F425A",
         boxShadow: "16px 32px 32px -16px rgba(11, 2, 25, 0.2), 0px 32px 72px -32px rgba(26, 17, 46, 0.5)",
@@ -162,6 +164,10 @@ const Dark = {
       backgroundColor: Tokens.colors.gray800,
       titleColor: Tokens.colors.gray25,
       subTitleColor: Tokens.colors.gray200
+    },
+    pageHeader: {
+      backgroundColor: "rgba(107, 119, 148, 0.15)",
+      titleColor: Tokens.colors.gray50
     }
   }
 };

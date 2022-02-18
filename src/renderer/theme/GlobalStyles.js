@@ -301,13 +301,18 @@ svg text{
 }
 .dropdown.show .dropdown-toggle.btn.btn-primary,
 .dropdown-toggle.btn.btn-primary:hover {
-  border: 1px solid ${({ theme }) => theme.styles.dropdown.borderButtonHover};
+  border: 1px solid ${({ theme }) => theme.styles.dropdown.borderButtonActive};
   background: ${({ theme }) => theme.styles.dropdown.backgroundButtonColor};
+  box-shadow: none;
+}
+.btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show>.btn-primary.dropdown-toggle:focus {
+  box-shadow: none;
 }
 
 .dropdown-toggle.btn.btn-primary:hover {
   background: ${({ theme }) => theme.styles.dropdown.backgroundButtonHover};
   border: 1px solid ${({ theme }) => theme.styles.dropdown.borderButtonHover};
+  box-shadow: none;
 }
 .dropdown-toggle::after {
   border: none;
@@ -330,6 +335,33 @@ svg text{
   flex: 0 0 24px;
 }
 
+.dropdown-menu {
+  padding: 14px 8px;
+  background: ${({ theme }) => theme.styles.dropdown.dropdownMenu.backgroundColor};
+  box-shadow: ${({ theme }) => theme.styles.dropdown.dropdownMenu.boxShadow};
+  border-radius: 6px;
+  border: none;
+}
+.dropdown-item {
+  padding: 8px;
+  border-radius: 6px; 
+  margin: 2px 0;
+}
+.dropdown-item:hover {
+  background: ${({ theme }) => theme.styles.dropdown.dropdownMenu.itemBackgroundColorHover};
+}
+.dropdown-item.active,
+.dropdown-item.active:hover {
+  color: #fff;
+  background: ${({ theme }) => theme.styles.dropdown.dropdownMenu.itemBackgroundColorActive};
+}
+.dropdown-item.active img {
+  filter: invert(0) saturate(0) contrast(1) brightness(2);
+}
+.dropdown-menu .dropdown-item.active h3,
+.dropdown-menu .dropdown-item.active h4 {
+  color: #fff;
+}
 `;
 
 export default GlobalStyles;

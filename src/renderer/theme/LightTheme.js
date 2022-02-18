@@ -1,7 +1,7 @@
 import BackgroundImageLight from "../../../static/light/lightBackground.png";
 import BackgroundImageLight2x from "../../../static/light/lightBackground-2x.png";
 import NeuronLoaderLight from "../../../static/light/neuron-loader.jpg";
-import CheckedIconLight from "../../../static/light/icon-check-animated.gif";
+import CheckedIconLight from "../../../static/dark/icon-check-animated.gif";
 import Tokens from "./Tokens";
 
 const Light = {
@@ -133,18 +133,20 @@ const Light = {
       }
     },
     dropdown: {
-      backgroundButtonColor: "rgba(11, 2, 25, 0.2)",
-      backgroundButtonHover: "rgba(11, 2, 25, 0.35)",
-      backgroundButtonActive: "rgba(11, 2, 25, 0.2)",
+      backgroundButtonColor: "rgba(255, 255, 255, 0.5)",
+      backgroundButtonHover: "rgba(255, 255, 255, 0.75)",
+      backgroundButtonActive: "rgba(255, 255, 255, 0.75)",
       textButtonColor: Tokens.colors.gray400,
       textButtonHover: Tokens.colors.gray400,
-      borderButtonColor: "#3F425A",
-      borderButtonHover: Tokens.colors.gray500,
-      borderButtonActive: Tokens.colors.purple300,
+      borderButtonColor: "rgba(196, 201, 213, 0.6)",
+      borderButtonHover: "rgba(196, 201, 213, 0.8)",
+      borderButtonActive: Tokens.colors.purple200,
+      titleColor: Tokens.colors.gray600,
+      subTitleColor: Tokens.colors.gray300,
       dropdownMenu: {
-        backgroundColor: "#3F425A",
+        backgroundColor: "#fff",
         boxShadow: "16px 32px 32px -16px rgba(11, 2, 25, 0.2), 0px 32px 72px -32px rgba(26, 17, 46, 0.5)",
-        itemBackgroundColorHover: "rgba(107, 119, 148, 0.2)",
+        itemBackgroundColorHover: Tokens.colors.gray25,
         itemBackgroundColorActive: Tokens.colors.purple200
       }
     },
@@ -161,6 +163,10 @@ const Light = {
       backgroundColor: Tokens.colors.gray25,
       titleColor: Tokens.colors.gray500,
       subTitleColor: Tokens.colors.gray200
+    },
+    pageHeader: {
+      backgroundColor: "rgba(240, 242, 244, 0.9)",
+      titleColor: Tokens.colors.purple200
     }
   }
 };

@@ -68,6 +68,10 @@ h5 {
 	text-decoration:none;
   text-transform: uppercase;
 }
+.hasIcon svg {
+	margin-right: 12px;
+	vertical-align: -0.1em;
+}
 .tooltipIcon {
   color: var(--purple-100);
   padding-left: 8px;
@@ -102,12 +106,13 @@ h5 {
 }
 
 `;
-const Title = ({ text, headingLevel, size, color, type, tooltip }) => {
+const Title = ({ text, headingLevel, size, color, type, tooltip, svgICO }) => {
   let Tag = "h" + headingLevel;
 
   return (
     <Style>
-      <Tag className={`${size} ${type}`}>
+      <Tag className={`${size ? size : ""} ${type ? type : ""} ${color ? color : ""} ${svgICO && "hasIcon"}`}>
+        {svgICO && svgICO}
         <span dangerouslySetInnerHTML={{ __html: text }} />
         {tooltip && (
           <>

@@ -49,6 +49,10 @@ import swedishF from "../../../../static/swedish.png";
 import icelandicF from "../../../../static/icelandic.png";
 import norwegianF from "../../../../static/norwegian.png";
 
+import Title from "../../component/Title";
+
+import { IconWrench } from "../../component/Icon";
+
 import {
   MdComputer,
   MdBrightness3,
@@ -92,9 +96,6 @@ const Styles = Styled.div`
     height: 26px;
     width: 26px;
     margin-right 0.5em;
-  }
-  .cardStyle {
-    border-radius 15px;
   }
   .fullWidth {
     button {
@@ -153,11 +154,6 @@ const Styles = Styled.div`
     font-size: 1.3em;
     border-radius: 4px;
   }
-  .flag-icon {
-    position: absolute;
-    left: 8px;
-    top: 10px;
-  }
   .delete-icon {
     font-size: 1.5rem;
     vertical-align: text-top;
@@ -165,11 +161,6 @@ const Styles = Styled.div`
   .align-left {
     float: right;
     margin-top: 6px;
-  }
-  .dropdown-toggle::after {
-    position: absolute;
-    right: 7px;
-    top: 21px;
   }
   .neuronToggler{
     text-align: left;
@@ -1362,245 +1353,248 @@ class KeyboardSettings extends React.Component {
     return (
       <Styles>
         {this.state.working && <Spinner role="status" />}
-        <Form className="mb-5">
-          <Container>
-            <Row className="justify-content-center">
-              <Col xl={6} lg={8} md={10}>
-                <Card className="overflowFix cardStyle mt-4">
-                  <Card.Title>
-                    <BiWrench className="dygmaLogo" />
-                    <span className="va3fix">{i18n.keyboardSettings.keymap.title}</span>
-                  </Card.Title>
-                  <Card.Body className="pb-0">
-                    <Row>
-                      <Col md={4}>
-                        <Form.Group controlId="selectLanguage" className="m-0">
-                          <Form.Label>{i18n.preferences.language}</Form.Label>
-                          {selectLanguage}
-                        </Form.Group>
-                      </Col>
-                      <Col md={4}>
-                        <Form.Group controlId="defaultLayer" className="m-0">
-                          <Form.Label>{i18n.keyboardSettings.keymap.defaultLayer}</Form.Label>
-                          {defaultLayerSelect}
-                        </Form.Group>
-                      </Col>
-                      <Col md={4}>
-                        <Form.Group controlId="DarkMode" className="m-0">
-                          <Form.Label>{i18n.preferences.darkMode.label}</Form.Label>
-                          {darkModeSwitch}
-                        </Form.Group>
-                      </Col>
-                    </Row>
-                  </Card.Body>
-                </Card>
-                <Card className="overflowFix cardStyle mt-4 pb-0">
-                  <Card.Title>
-                    <MdStorage className="dygmaLogo" />
-                    <span className="va2fix">{i18n.keyboardSettings.backupFolder.header}</span>
-                  </Card.Title>
-                  <Card.Body className="pb-0">
-                    <Form.Group controlId="backupFolder" className="mb-3">
+        <div className="wrapper wrapperBackground">
+          <Form className="mb-5">
+            <Container fluid>
+              <Row className="justify-content-center">
+                <Col lg={6} md={12}>
+                  <Card className="overflowFix card-preferences mt-4">
+                    <Card.Title>
+                      <Title text={i18n.keyboardSettings.keymap.title} headingLevel={3} svgICO={<IconWrench />} />
+                    </Card.Title>
+                    <Card.Body>
                       <Row>
-                        <Form.Label>{i18n.keyboardSettings.backupFolder.title}</Form.Label>
-                      </Row>
-                      <Row className="mb-4">
-                        <Col className="pl-0 pr-1">
-                          <Form.Control type="text" value={backupFolder} readOnly />
-                        </Col>
-                        <Col xs={2} className="px-1">
-                          {backupFolderButton}
-                        </Col>
-                        <Col xs={4} className="px-1">
-                          {restoreBackupButton}
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Form.Label>{i18n.keyboardSettings.backupFolder.storeTime}</Form.Label>
-                      </Row>
-                      {backupControl}
-                    </Form.Group>
-                  </Card.Body>
-                </Card>
-                <Card className="overflowFix cardStyle mt-4 pb-0">
-                  <Card.Title>
-                    <BiChip className="dygmaLogo" />
-                    <span className="va2fix">{i18n.keyboardSettings.neuronManager.header}</span>
-                  </Card.Title>
-                  <Card.Body className="py-0">
-                    <Form.Group controlId="backupFolder" className="mb-3">
-                      <Row>
-                        <Col className="pl-0 pr-1">{availableNeurons}</Col>
-                        <Col xs={2} className="pl-1 pr-0">
-                          {deleteSelectedNeuron}
-                        </Col>
-                      </Row>
-                      <Row className="pt-4">
-                        <Form.Label className="mb-0">
-                          <h5>{i18n.keyboardSettings.neuronManager.descriptionTitle}</h5>
-                        </Form.Label>
-                      </Row>
-                      <Row className="mb-4">{selectedNeuronData}</Row>
-                    </Form.Group>
-                  </Card.Body>
-                </Card>
-                <Card className="overflowFix cardStyle mt-4 pb-0">
-                  <Card.Title>
-                    <BiCodeAlt className="dygmaLogo" />
-                    <span className="va2fix">{i18n.preferences.advanced}</span>
-                  </Card.Title>
-                  <Card.Body className="pb-0">
-                    <Form>
-                      <Row>
-                        <Col xs={4} className="p-0">
-                          <Form.Group controlId="DevTools" className="devfix">
-                            {devToolsSwitch}
-                            <Form.Label>{i18n.preferences.devtools}</Form.Label>
+                        <Col md={6}>
+                          <Form.Group controlId="selectLanguage" className="mb-3">
+                            <Form.Label>{i18n.preferences.language}</Form.Label>
+                            {selectLanguage}
                           </Form.Group>
                         </Col>
-                        <Col xs={4} className="p-0">
-                          <Form.Group controlId="Verbose" className="devfix">
-                            {verboseSwitch}
-                            <Form.Label>{i18n.preferences.verboseFocus}</Form.Label>
+                        <Col md={6}>
+                          <Form.Group controlId="defaultLayer" className="mb-3">
+                            <Form.Label>{i18n.keyboardSettings.keymap.defaultLayer}</Form.Label>
+                            {defaultLayerSelect}
                           </Form.Group>
                         </Col>
                       </Row>
-                      <Row className="mb-4">
-                        <Col className="p-0">{this.props.connected && <AdvancedKeyboardSettings />}</Col>
+                      <Row>
+                        <Col md={12}>
+                          <Form.Group controlId="DarkMode" className="m-0">
+                            <Form.Label>{i18n.preferences.darkMode.label}</Form.Label>
+                            {darkModeSwitch}
+                          </Form.Group>
+                        </Col>
                       </Row>
-                    </Form>
-                  </Card.Body>
-                </Card>
-              </Col>
-              {this.props.connected && (
-                <Col xl={6} lg={8} md={10}>
-                  <Card className="overflowFix cardStyle mt-4 pb-0">
-                    <Card.Title>
-                      <BsBrightnessHigh className="dygmaLogo" />
-                      <span className="va2fix">{i18n.keyboardSettings.led.title}</span>
-                    </Card.Title>
-                    <Card.Body className="pb-0">
-                      {ledIdleTimeLimit >= 0 && (
-                        <Form.Group controlId="idleTimeLimit" className="formGroup">
-                          <Row>
-                            <Form.Label>{i18n.keyboardSettings.led.idleTimeLimit}</Form.Label>
-                          </Row>
-                          {newIdleControl}
-                        </Form.Group>
-                      )}
-                      {ledBrightness >= 0 && (
-                        <Form.Group controlId="brightnessControl" className="formGroup">
-                          <Row>
-                            <Form.Label>{i18n.keyboardSettings.led.brightness}</Form.Label>
-                          </Row>
-                          {brightnessControl}
-                        </Form.Group>
-                      )}
                     </Card.Body>
                   </Card>
-                  <Card className="overflowFix cardStyle mt-4 pb-0">
+                  <Card className="overflowFix card-preferences mt-4">
                     <Card.Title>
-                      <BsType className="dygmaLogo" />
-                      <span className="va3fix">{i18n.keyboardSettings.superkeys.title}</span>
+                      <MdStorage className="dygmaLogo" />
+                      <span className="va2fix">{i18n.keyboardSettings.backupFolder.header}</span>
                     </Card.Title>
                     <Card.Body className="pb-0">
-                      {SuperTimeout >= 0 && (
-                        <Form.Group controlId="superTimeout" className="formGroup">
-                          <Row>
-                            <Form.Label>
-                              {i18n.keyboardSettings.superkeys.timeout}
-                              <OverlayTrigger
-                                rootClose
-                                placement="bottom"
-                                delay={{ show: 250, hide: 400 }}
-                                overlay={this.renderTooltip([
-                                  i18n.keyboardSettings.superkeys.timeoutTip1,
-                                  i18n.keyboardSettings.superkeys.timeoutTip2,
-                                  i18n.keyboardSettings.superkeys.timeoutTip3,
-                                  i18n.keyboardSettings.superkeys.timeoutTip4
-                                ])}
-                              >
-                                <MdInfoOutline className="modinfo" />
-                              </OverlayTrigger>
-                            </Form.Label>
-                          </Row>
-                          {superT}
-                        </Form.Group>
-                      )}
-                      {SuperHoldstart >= 0 && (
-                        <Form.Group controlId="superHoldstart" className="formGroup">
-                          <Row>
-                            <Form.Label>
-                              {i18n.keyboardSettings.superkeys.holdstart}
-                              <OverlayTrigger
-                                rootClose
-                                placement="bottom"
-                                delay={{ show: 250, hide: 400 }}
-                                overlay={this.renderTooltip([
-                                  i18n.keyboardSettings.superkeys.chordingTip1,
-                                  i18n.keyboardSettings.superkeys.chordingTip2,
-                                  i18n.keyboardSettings.superkeys.chordingTip3,
-                                  i18n.keyboardSettings.superkeys.chordingTip4
-                                ])}
-                              >
-                                <MdInfoOutline className="modinfo" />
-                              </OverlayTrigger>
-                            </Form.Label>
-                          </Row>
-                          {superH}
-                        </Form.Group>
-                      )}
+                      <Form.Group controlId="backupFolder" className="mb-3">
+                        <Row>
+                          <Form.Label>{i18n.keyboardSettings.backupFolder.title}</Form.Label>
+                        </Row>
+                        <Row className="mb-4">
+                          <Col className="pl-0 pr-1">
+                            <Form.Control type="text" value={backupFolder} readOnly />
+                          </Col>
+                          <Col xs={2} className="px-1">
+                            {backupFolderButton}
+                          </Col>
+                          <Col xs={4} className="px-1">
+                            {restoreBackupButton}
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Form.Label>{i18n.keyboardSettings.backupFolder.storeTime}</Form.Label>
+                        </Row>
+                        {backupControl}
+                      </Form.Group>
                     </Card.Body>
                   </Card>
-                  <Card className="overflowFix cardStyle mt-4 pb-0">
+                  <Card className="overflowFix card-preferences mt-4">
                     <Card.Title>
-                      <BiMouse className="dygmaLogo" />
-                      <span className="va2fix">{i18n.keyboardSettings.mouse.title}</span>
+                      <BiChip className="dygmaLogo" />
+                      <span className="va2fix">{i18n.keyboardSettings.neuronManager.header}</span>
+                    </Card.Title>
+                    <Card.Body className="py-0">
+                      <Form.Group controlId="backupFolder" className="mb-3">
+                        <Row>
+                          <Col className="pl-0 pr-1">{availableNeurons}</Col>
+                          <Col xs={2} className="pl-1 pr-0">
+                            {deleteSelectedNeuron}
+                          </Col>
+                        </Row>
+                        <Row className="pt-4">
+                          <Form.Label className="mb-0">
+                            <h5>{i18n.keyboardSettings.neuronManager.descriptionTitle}</h5>
+                          </Form.Label>
+                        </Row>
+                        <Row className="mb-4">{selectedNeuronData}</Row>
+                      </Form.Group>
+                    </Card.Body>
+                  </Card>
+                  <Card className="overflowFix card-preferences mt-4">
+                    <Card.Title>
+                      <BiCodeAlt className="dygmaLogo" />
+                      <span className="va2fix">{i18n.preferences.advanced}</span>
                     </Card.Title>
                     <Card.Body className="pb-0">
-                      {mouseSpeed >= 0 && (
-                        <Form.Group controlId="mouseSpeed" className="formGroup">
-                          <Row>
-                            <Form.Label>{i18n.keyboardSettings.mouse.speed}</Form.Label>
-                          </Row>
-                          {mSpeed}
-                        </Form.Group>
-                      )}
-                      {mouseAccelSpeed >= 0 && (
-                        <Form.Group controlId="mousemAccelS" className="formGroup">
-                          <Row>
-                            <Form.Label>{i18n.keyboardSettings.mouse.accelSpeed}</Form.Label>
-                          </Row>
-                          {mAccelS}
-                        </Form.Group>
-                      )}
-                      {mouseSpeedLimit >= 0 && (
-                        <Form.Group controlId="mouseSpeedL" className="formGroup">
-                          <Row>
-                            <Form.Label>{i18n.keyboardSettings.mouse.speedLimit}</Form.Label>
-                          </Row>
-                          {mSpeedL}
-                        </Form.Group>
-                      )}
-                      {mouseWheelSpeed >= 0 && (
-                        <Form.Group controlId="mousemWheelS" className="formGroup">
-                          <Row>
-                            <Form.Label>{i18n.keyboardSettings.mouse.wheelSpeed}</Form.Label>
-                          </Row>
-                          {mWheelS}
-                        </Form.Group>
-                      )}
+                      <Form>
+                        <Row>
+                          <Col xs={4} className="p-0">
+                            <Form.Group controlId="DevTools" className="devfix">
+                              {devToolsSwitch}
+                              <Form.Label>{i18n.preferences.devtools}</Form.Label>
+                            </Form.Group>
+                          </Col>
+                          <Col xs={4} className="p-0">
+                            <Form.Group controlId="Verbose" className="devfix">
+                              {verboseSwitch}
+                              <Form.Label>{i18n.preferences.verboseFocus}</Form.Label>
+                            </Form.Group>
+                          </Col>
+                        </Row>
+                        <Row className="mb-4">
+                          <Col className="p-0">{this.props.connected && <AdvancedKeyboardSettings />}</Col>
+                        </Row>
+                      </Form>
                     </Card.Body>
                   </Card>
                 </Col>
-              )}
-            </Row>
-          </Container>
-        </Form>
-        <div className="save-holder">
-          <SaveChangesButton onClick={this.saveKeymapChanges} disabled={!modified} centered={true}>
-            {i18n.components.save.savePreferences}
-          </SaveChangesButton>
+                {this.props.connected && (
+                  <Col lg={6} md={10}>
+                    <Card className="overflowFix card-preferences mt-4">
+                      <Card.Title>
+                        <BsBrightnessHigh className="dygmaLogo" />
+                        <span className="va2fix">{i18n.keyboardSettings.led.title}</span>
+                      </Card.Title>
+                      <Card.Body className="pb-0">
+                        {ledIdleTimeLimit >= 0 && (
+                          <Form.Group controlId="idleTimeLimit" className="formGroup">
+                            <Row>
+                              <Form.Label>{i18n.keyboardSettings.led.idleTimeLimit}</Form.Label>
+                            </Row>
+                            {newIdleControl}
+                          </Form.Group>
+                        )}
+                        {ledBrightness >= 0 && (
+                          <Form.Group controlId="brightnessControl" className="formGroup">
+                            <Row>
+                              <Form.Label>{i18n.keyboardSettings.led.brightness}</Form.Label>
+                            </Row>
+                            {brightnessControl}
+                          </Form.Group>
+                        )}
+                      </Card.Body>
+                    </Card>
+                    <Card className="overflowFix cardStyle mt-4 pb-0">
+                      <Card.Title>
+                        <BsType className="dygmaLogo" />
+                        <span className="va3fix">{i18n.keyboardSettings.superkeys.title}</span>
+                      </Card.Title>
+                      <Card.Body className="pb-0">
+                        {SuperTimeout >= 0 && (
+                          <Form.Group controlId="superTimeout" className="formGroup">
+                            <Row>
+                              <Form.Label>
+                                {i18n.keyboardSettings.superkeys.timeout}
+                                <OverlayTrigger
+                                  rootClose
+                                  placement="bottom"
+                                  delay={{ show: 250, hide: 400 }}
+                                  overlay={this.renderTooltip([
+                                    i18n.keyboardSettings.superkeys.timeoutTip1,
+                                    i18n.keyboardSettings.superkeys.timeoutTip2,
+                                    i18n.keyboardSettings.superkeys.timeoutTip3,
+                                    i18n.keyboardSettings.superkeys.timeoutTip4
+                                  ])}
+                                >
+                                  <MdInfoOutline className="modinfo" />
+                                </OverlayTrigger>
+                              </Form.Label>
+                            </Row>
+                            {superT}
+                          </Form.Group>
+                        )}
+                        {SuperHoldstart >= 0 && (
+                          <Form.Group controlId="superHoldstart" className="formGroup">
+                            <Row>
+                              <Form.Label>
+                                {i18n.keyboardSettings.superkeys.holdstart}
+                                <OverlayTrigger
+                                  rootClose
+                                  placement="bottom"
+                                  delay={{ show: 250, hide: 400 }}
+                                  overlay={this.renderTooltip([
+                                    i18n.keyboardSettings.superkeys.chordingTip1,
+                                    i18n.keyboardSettings.superkeys.chordingTip2,
+                                    i18n.keyboardSettings.superkeys.chordingTip3,
+                                    i18n.keyboardSettings.superkeys.chordingTip4
+                                  ])}
+                                >
+                                  <MdInfoOutline className="modinfo" />
+                                </OverlayTrigger>
+                              </Form.Label>
+                            </Row>
+                            {superH}
+                          </Form.Group>
+                        )}
+                      </Card.Body>
+                    </Card>
+                    <Card className="overflowFix cardStyle mt-4 pb-0">
+                      <Card.Title>
+                        <BiMouse className="dygmaLogo" />
+                        <span className="va2fix">{i18n.keyboardSettings.mouse.title}</span>
+                      </Card.Title>
+                      <Card.Body className="pb-0">
+                        {mouseSpeed >= 0 && (
+                          <Form.Group controlId="mouseSpeed" className="formGroup">
+                            <Row>
+                              <Form.Label>{i18n.keyboardSettings.mouse.speed}</Form.Label>
+                            </Row>
+                            {mSpeed}
+                          </Form.Group>
+                        )}
+                        {mouseAccelSpeed >= 0 && (
+                          <Form.Group controlId="mousemAccelS" className="formGroup">
+                            <Row>
+                              <Form.Label>{i18n.keyboardSettings.mouse.accelSpeed}</Form.Label>
+                            </Row>
+                            {mAccelS}
+                          </Form.Group>
+                        )}
+                        {mouseSpeedLimit >= 0 && (
+                          <Form.Group controlId="mouseSpeedL" className="formGroup">
+                            <Row>
+                              <Form.Label>{i18n.keyboardSettings.mouse.speedLimit}</Form.Label>
+                            </Row>
+                            {mSpeedL}
+                          </Form.Group>
+                        )}
+                        {mouseWheelSpeed >= 0 && (
+                          <Form.Group controlId="mousemWheelS" className="formGroup">
+                            <Row>
+                              <Form.Label>{i18n.keyboardSettings.mouse.wheelSpeed}</Form.Label>
+                            </Row>
+                            {mWheelS}
+                          </Form.Group>
+                        )}
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                )}
+              </Row>
+            </Container>
+          </Form>
+          <div className="save-holder">
+            <SaveChangesButton onClick={this.saveKeymapChanges} disabled={!modified} centered={true}>
+              {i18n.components.save.savePreferences}
+            </SaveChangesButton>
+          </div>
         </div>
       </Styles>
     );

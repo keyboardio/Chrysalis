@@ -21,6 +21,7 @@ import IconPreferences2Stroke from "./IconPreferences2Stroke";
 import IconRobot2Stroke from "./IconRobot2Stroke";
 import IconThunder2Stroke from "./IconThunder2Stroke";
 import IconInformationBubble from "./IconInformationBubble";
+import IconWrench from "./IconWrench";
 
 export {
   IconKeyboardSelector,
@@ -29,5 +30,6 @@ export {
   IconPreferences2Stroke,
   IconRobot2Stroke,
   IconThunder2Stroke,
-  IconInformationBubble
+  IconInformationBubble,
+  IconWrench
 };

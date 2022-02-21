@@ -485,7 +485,7 @@ class SelectKeyboard extends Component {
     return (
       <Styles>
         <Container fluid className="keyboard-select">
-          <PageHeader text={i18n.keyboardSelect.title} theme={this.props.darkMode} />
+          <PageHeader text={i18n.keyboardSelect.title} />
           <NeuronConnection
             loading={loading}
             scanFoundDevices={scanFoundDevices != undefined ? scanFoundDevices : false}

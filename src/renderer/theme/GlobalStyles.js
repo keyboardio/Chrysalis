@@ -85,15 +85,15 @@ const GlobalStyles = createGlobalStyle`
     overflow: auto;
     height: 100vh;
   }
-
-  div.card {
-    padding: 24px;
-    overflow: hidden;
-    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
-      0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
-    border-radius: 4px;
-    background-color: ${({ theme }) => theme.card.background};
+  .wrapper {
+    margin-top: 2px;
+    padding-left: 17px;
+    padding-right: 17px;
   }
+  .wrapperBackground {
+    background-color: ${({ theme }) => theme.styles.wrapper.background};
+  }
+  
 
   div.title-row{
     .section-title{
@@ -298,6 +298,8 @@ svg text{
   padding: 12px 16px;
   position: relative;
   box-shadow: none;
+  text-align: left;
+  font-weight: 600;
 }
 .dropdown.show .dropdown-toggle.btn.btn-primary,
 .dropdown-toggle.btn.btn-primary:hover {
@@ -346,8 +348,11 @@ svg text{
   padding: 8px;
   border-radius: 6px; 
   margin: 2px 0;
+  color: ${({ theme }) => theme.styles.dropdown.dropdownMenu.itemTextColor};
+  font-weight: 600;
 }
 .dropdown-item:hover {
+  color: ${({ theme }) => theme.styles.dropdown.dropdownMenu.itemTextColorHover};
   background: ${({ theme }) => theme.styles.dropdown.dropdownMenu.itemBackgroundColorHover};
 }
 .dropdown-item.active,
@@ -361,6 +366,40 @@ svg text{
 .dropdown-menu .dropdown-item.active h3,
 .dropdown-menu .dropdown-item.active h4 {
   color: #fff;
+}
+//
+// Card
+//
+div.card {
+  padding: 32px;
+  overflow: hidden;
+  border: none;
+  box-shadow: none;
+  border-radius: 14px;
+  background-color: ${({ theme }) => theme.styles.card.background};
+}
+div.card-body {
+  padding-left: 0;
+  padding-right: 0; 
+}
+
+div.card.card-preferences .card-title {
+  color: ${({ theme }) => theme.styles.card.cardTitleColor};
+}
+div.card.card-preferences .card-title svg {
+  color: ${({ theme }) => theme.colors.gray500};
+}
+div.card.card-preferences .card-body {
+  padding-top: 0;
+}
+
+//
+// Form
+//
+.form-label {
+  font-size: 14px;
+  color: ${({ theme }) => theme.styles.form.formLabelTextcolor};
+  margin-bottom: .25rem;
 }
 `;
 

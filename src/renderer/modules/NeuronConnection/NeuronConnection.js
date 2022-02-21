@@ -20,7 +20,7 @@ import Styled from "styled-components";
 import Title from "../../component/Title";
 import { RegularButton } from "../../component/Button";
 import NeuronStatus from "../../component/NeuronStatus";
-import SelectKeyboardDropdown from "../../component/SelectKeyboardDropdown";
+import { SelectKeyboardDropdown } from "../../component/Select";
 import i18n from "../../i18n";
 
 const Style = Styled.div`

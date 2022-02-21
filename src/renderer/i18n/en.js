@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import Preferences from "../screens/Preferences";
+
 const English = {
   language: "English",
   errors: {
@@ -239,13 +241,14 @@ const English = {
     exportSuccessAllLayers: "Exported all Layers succesfully"
   },
   preferences: {
+    title: "Preferences",
     devtools: "Chrome Tools",
     language: "Select language",
     interface: "Interface",
     tooltips: {
       language: ""
     },
-    advanced: "ADVANCED",
+    advanced: "Advanced",
     verboseFocus: "Verbose logging",
     darkMode: {
       label: "Appearance",
@@ -258,7 +261,7 @@ const English = {
     advanced: "Advanced",
     defaultLabel: "default",
     backupFolder: {
-      header: "BACKUPS",
+      header: "Backups",
       title: "Backup folder",
       restoreTitle: "Select a backup to restore",
       loadWindowTitle: "Choose backup folder",
@@ -270,7 +273,7 @@ const English = {
       storeTimeTip: "Determines how long a backup is stored before being deleted"
     },
     neuronManager: {
-      header: "NEURON MANAGER",
+      header: "Neuron Manager",
       title: "Select a Neuron",
       neuron: "{0}: {1}",
       defaultNeuron: "No neuron registered",
@@ -278,7 +281,7 @@ const English = {
       deleteNeuron: "Deleting the Neuron will erase the names of your layers, macros and superkeys from the local storage"
     },
     keymap: {
-      title: "GENERAL",
+      title: "General",
       noDefault: "No default",
       showHardcoded: "Show hardcoded layers",
       onlyCustom: "Use custom layers only",

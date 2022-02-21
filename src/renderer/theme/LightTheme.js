@@ -4,6 +4,14 @@ import NeuronLoaderLight from "../../../static/light/neuron-loader.jpg";
 import CheckedIconLight from "../../../static/dark/icon-check-animated.gif";
 import Tokens from "./Tokens";
 
+const settingColorOpacity = (color, opacity) => {
+  let newColorArray = color;
+  let newColor;
+  newColorArray = newColorArray.replace(/[^\d,]/g, "").split(",");
+  newColor = `rgba(${newColorArray[0]}, ${newColorArray[1]}, ${newColorArray[2]},  ${opacity})`;
+  return newColor;
+};
+
 const Light = {
   name: "Light",
   drawerWidth: 64,
@@ -84,7 +92,7 @@ const Light = {
     color: "#000",
     altColor: "#333",
     colorDisabled: "#999",
-    background: "#fff",
+    background: "rgba(255, 255, 255, 0.6)",
     backgroundActive: "#cbedff",
     disabled: "#AAA",
     altBackground: "#FFF",
@@ -100,19 +108,6 @@ const Light = {
   },
   font: "Libre Franklin",
   styles: {
-    navbar: {
-      background: Tokens.colors.gray25,
-      menuLink: {
-        color: Tokens.colors.gray200,
-        colorHover: Tokens.colors.gray500,
-        colorActive: Tokens.colors.purple300,
-        svgColor: Tokens.colors.gray400,
-        svgColorActive: Tokens.colors.brandSecondary,
-        svgColorHover: Tokens.colors.gray600,
-        lightingOpacity: 0.5,
-        gradient: "linear-gradient(236.53deg, #F0F2F4 1.37%, #D8DBF1 117.2%)"
-      }
-    },
     button: {
       primary: {
         backgroundColor: Tokens.colors.gradient,
@@ -132,6 +127,22 @@ const Light = {
         disabledOpacity: 1
       }
     },
+    card: {
+      color: "#000",
+      altColor: "#333",
+      colorDisabled: "#999",
+      background: "rgba(255, 255, 255, 0.6)",
+      cardTitleColor: Tokens.colors.gray500,
+      backgroundActive: "#cbedff",
+      disabled: "#AAA",
+      altBackground: "#FFF",
+      altBackgroundActive: "#F1F1F1",
+      ballIcon: "#DDD",
+      icon: "#666",
+      altIcon: "#DDD",
+      radius: "10",
+      boxShadow: "0 0 0.5rem 0.3rem rgba(0,0,0,0.1)"
+    },
     dropdown: {
       backgroundButtonColor: "rgba(255, 255, 255, 0.5)",
       backgroundButtonHover: "rgba(255, 255, 255, 0.75)",
@@ -146,9 +157,32 @@ const Light = {
       dropdownMenu: {
         backgroundColor: "#fff",
         boxShadow: "16px 32px 32px -16px rgba(11, 2, 25, 0.2), 0px 32px 72px -32px rgba(26, 17, 46, 0.5)",
+        itemTextColor: Tokens.colors.gray400,
+        itemTextColorHover: Tokens.colors.gray500,
         itemBackgroundColorHover: Tokens.colors.gray25,
         itemBackgroundColorActive: Tokens.colors.purple200
       }
+    },
+    form: {
+      formLabelTextcolor: Tokens.colors.gray500
+    },
+    navbar: {
+      background: Tokens.colors.gray25,
+      menuLink: {
+        color: Tokens.colors.gray200,
+        colorHover: Tokens.colors.gray500,
+        colorActive: Tokens.colors.purple300,
+        svgColor: Tokens.colors.gray400,
+        svgColorActive: Tokens.colors.brandSecondary,
+        svgColorHover: Tokens.colors.gray600,
+        lightingOpacity: 0.5,
+        gradient: "linear-gradient(236.53deg, #F0F2F4 1.37%, #D8DBF1 117.2%)"
+      }
+    },
+    neuronConnection: {
+      backgroundColor: Tokens.colors.gray25,
+      titleColor: Tokens.colors.gray500,
+      subTitleColor: Tokens.colors.gray200
     },
     neuronStatus: {
       neuronStatusBackgroundColor: "rgba(255, 255, 255, 0.15)",
@@ -159,14 +193,12 @@ const Light = {
       neuronLoader: NeuronLoaderLight,
       checkedIcon: CheckedIconLight
     },
-    neuronConnection: {
-      backgroundColor: Tokens.colors.gray25,
-      titleColor: Tokens.colors.gray500,
-      subTitleColor: Tokens.colors.gray200
-    },
     pageHeader: {
       backgroundColor: "rgba(240, 242, 244, 0.9)",
       titleColor: Tokens.colors.purple200
+    },
+    wrapper: {
+      background: settingColorOpacity(Tokens.colors.gray25, 0.8)
     }
   }
 };

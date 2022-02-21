@@ -28,6 +28,7 @@ import { KeyboardSettings } from "./Preferences/KeyboardSettings";
 import i18n from "../i18n";
 
 import Focus from "../../api/focus";
+import PageHeader from "../modules/PageHeader";
 
 const Store = require("electron-store");
 const store = new Store();
@@ -107,9 +108,7 @@ class Preferences extends React.Component {
     return (
       <Styles>
         <Container fluid>
-          <Row className="title-row">
-            <h4 className="section-title">Preferences</h4>
-          </Row>
+          <PageHeader text={i18n.preferences.title} style={"pageHeaderFlatBottom"} />
           <KeyboardSettings
             startContext={this.props.startContext}
             cancelContext={this.props.cancelContext}

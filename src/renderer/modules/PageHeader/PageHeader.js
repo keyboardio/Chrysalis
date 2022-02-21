@@ -37,6 +37,9 @@ align-self: flex-start;
     h2 {
       color: ${({ theme }) => theme.styles.pageHeader.titleColor}
     }
+    &.pageHeaderFlatBottom {
+      border-radius: 16px 16px 0 0;
+    }
 }
 `;
 const PageHeader = ({ size, text, style }) => {

@@ -18,50 +18,64 @@
 import React from "react";
 import Styled from "styled-components";
 import Dropdown from "react-bootstrap/Dropdown";
-import iconKeyboard from "../../../../static/base/icon-keyboard.svg";
-import iconConnected from "../../../../static/base/icon-connected.svg";
 
 const Style = Styled.div`
 .custom-dropdown {
-  
+  .dropdwonIcon {
+    max-width: 24px;
+  }
+  .dropdownItem {
+    padding-left: 12px;
+    flex: 0 0 calc(100% - 24px);
+    text-align: left;
+    text-transform: capitalize;
+  }
+  .dropdownItemSelected {
+    color: ${({ theme }) => theme.styles.dropdown.textButtonColor};
+    &:hover {
+      color: ${({ theme }) => theme.styles.dropdown.textButtonHover};
+    }
+  }
 }
 `;
-const Select = ({ selectPort, selectedPortIndex, deviceItems, connected }) => {
+const Select = ({ onSelect, value, listElements, listIconsElements }) => {
   return (
     <Style>
-      <Dropdown className="custom-dropdown">
+      <Dropdown
+        onSelect={onSelect}
+        value={value}
+        listElements={listElements}
+        listIconsElements={listIconsElements}
+        className="custom-dropdown"
+      >
         <Dropdown.Toggle id="dropdown-custom">
           <div className="dropdownItemSelected">
-            <div className="dropdownIcon">
-              {deviceItems[selectedPortIndex] && connected ? <img src={iconConnected} /> : <img src={iconKeyboard} />}
-            </div>
-            <div className="dropdownItem">
-              <h3>{deviceItems[selectedPortIndex] != null ? deviceItems[selectedPortIndex].userName : "Keyboard not found"}</h3>
-              <h4>
-                {deviceItems[selectedPortIndex] != null ? deviceItems[selectedPortIndex].displayName : ""}{" "}
-                <small>{deviceItems[selectedPortIndex] != null ? deviceItems[selectedPortIndex].path : ""}</small>
-              </h4>
-            </div>
+            {listIconsElements && listIconsElements.length > 0 ? (
+              <div className="dropdownIcon">
+                <img
+                  src={listIconsElements[listElements.flatMap((item, i) => (item === value ? i : []))]}
+                  className="dropdwonIcon"
+                />
+              </div>
+            ) : (
+              ""
+            )}
+            <div className="dropdownItem">{value}</div>
           </div>
         </Dropdown.Toggle>
         <Dropdown.Menu className="super-colors">
           {/* index,displayName,userName,path */}
-          {deviceItems.map(item => (
-            <Dropdown.Item
-              eventKey={item.index}
-              key={item.index}
-              className={`${selectedPortIndex == item.index ? "active" : ""}`}
-            >
+          {listElements.map((item, index) => (
+            <Dropdown.Item eventKey={item} key={index} className={`${value == item ? "active" : ""}`}>
               <div className="dropdownInner">
-                <div className="dropdownIcon">
-                  {selectedPortIndex == item.index && connected ? <img src={iconConnected} /> : <img src={iconKeyboard} />}
-                </div>
-                <div className="dropdownItem">
-                  <h3>{item.userName}</h3>
-                  <h4>
-                    {item.displayName} <small>{item.path}</small>
-                  </h4>
-                </div>
+                {listIconsElements && listIconsElements.length > 0 ? (
+                  <div className="dropdownIcon">
+                    <img src={listIconsElements[index]} alt={item} className="dropdwonIcon" />
+                  </div>
+                ) : (
+                  ""
+                )}
+                <div className="dropdownItem">{item}</div>
               </div>
             </Dropdown.Item>
           ))}

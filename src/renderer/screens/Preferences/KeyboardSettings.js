@@ -39,17 +39,18 @@ import Backup from "../../../api/backup";
 import ConfirmationDialog from "../../components/ConfirmationDialog";
 import SaveChangesButton from "../../components/SaveChangesButton";
 import i18n from "../../i18n";
-import frenchF from "../../../../static/french.png";
-import germanF from "../../../../static/german.png";
-import japaneseF from "../../../../static/japanese.png";
-import spanishF from "../../../../static/spanish.png";
-import englishUSUKF from "../../../../static/englishUSUK.png";
-import danishF from "../../../../static/danish.png";
-import swedishF from "../../../../static/swedish.png";
-import icelandicF from "../../../../static/icelandic.png";
-import norwegianF from "../../../../static/norwegian.png";
+import frenchF from "../../../../static/flags/france.png";
+import germanF from "../../../../static/flags/germany.png";
+import japaneseF from "../../../../static/flags/japan.png";
+import spanishF from "../../../../static/flags/spain.png";
+import englishUSUKF from "../../../../static/flags/english.png";
+import danishF from "../../../../static/flags/denmark.png";
+import swedishF from "../../../../static/flags/sweden.png";
+import icelandicF from "../../../../static/flags/iceland.png";
+import norwegianF from "../../../../static/flags/norway.png";
 
 import Title from "../../component/Title";
+import { Select } from "../../component/Select";
 
 import { IconWrench } from "../../component/Icon";
 
@@ -266,6 +267,9 @@ class KeyboardSettings extends React.Component {
     this.GetBackup = this.GetBackup.bind(this);
     this.deleteNeuron = this.deleteNeuron.bind(this);
     this.saveKeymapChanges = this.saveKeymapChanges.bind(this);
+
+    this.changeLanguage = this.changeLanguage.bind(this);
+    this.selectDefaultLayer = this.selectDefaultLayer.bind(this);
   }
   delay = ms => new Promise(res => setTimeout(res, ms));
 
@@ -877,6 +881,7 @@ class KeyboardSettings extends React.Component {
       </Dropdown>
     );
     let layers;
+    let layersNames;
     if (keymap.onlyCustom) {
       layers = keymap.custom.map((_, index) => {
         return (
@@ -892,6 +897,15 @@ class KeyboardSettings extends React.Component {
             {i18n.formatString(i18n.components.layer, index)}
           </Dropdown.Item>
         );
+      });
+    }
+    if (keymap.onlyCustom) {
+      layersNames = keymap.custom.map((_, index) => {
+        return <>{i18n.formatString(i18n.components.layer, index + 1)}</>;
+      });
+    } else {
+      layersNames = keymap.default.concat(keymap.custom).map((_, index) => {
+        return <>{i18n.formatString(i18n.components.layer, index)}</>;
       });
     }
     const defaultLayerSelect = (
@@ -1364,15 +1378,32 @@ class KeyboardSettings extends React.Component {
                     </Card.Title>
                     <Card.Body>
                       <Row>
-                        <Col md={6}>
+                        <Col lg={6} md={12}>
                           <Form.Group controlId="selectLanguage" className="mb-3">
                             <Form.Label>{i18n.preferences.language}</Form.Label>
-                            {selectLanguage}
+                            <Select
+                              onSelect={this.changeLanguage}
+                              value={selectedLanguage}
+                              listElements={language}
+                              listIconsElements={flags}
+                            />
+                            {/* selectLanguage */}
                           </Form.Group>
                         </Col>
-                        <Col md={6}>
+                        <Col lg={6} md={12}>
                           <Form.Group controlId="defaultLayer" className="mb-3">
                             <Form.Label>{i18n.keyboardSettings.keymap.defaultLayer}</Form.Label>
+                            <Select
+                              onSelect={this.selectDefaultLayer}
+                              value={
+                                defaultLayer == 126
+                                  ? i18n.keyboardSettings.keymap.noDefault
+                                  : `Layer ${parseInt(defaultLayer) + 1}`
+                              }
+                              listElements={layersNames}
+                            />
+                            {layersNames}
+                            {console.log(defaultLayer)}
                             {defaultLayerSelect}
                           </Form.Group>
                         </Col>

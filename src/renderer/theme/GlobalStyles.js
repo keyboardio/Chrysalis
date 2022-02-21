@@ -350,6 +350,7 @@ svg text{
   margin: 2px 0;
   color: ${({ theme }) => theme.styles.dropdown.dropdownMenu.itemTextColor};
   font-weight: 600;
+  font-size: 14px; 
 }
 .dropdown-item:hover {
   color: ${({ theme }) => theme.styles.dropdown.dropdownMenu.itemTextColorHover};
@@ -360,9 +361,7 @@ svg text{
   color: #fff;
   background: ${({ theme }) => theme.styles.dropdown.dropdownMenu.itemBackgroundColorActive};
 }
-.dropdown-item.active img {
-  filter: invert(0) saturate(0) contrast(1) brightness(2);
-}
+
 .dropdown-menu .dropdown-item.active h3,
 .dropdown-menu .dropdown-item.active h4 {
   color: #fff;

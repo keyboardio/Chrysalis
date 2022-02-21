@@ -71,6 +71,9 @@ const Style = Styled.div`
       color: #fff;
     }
   }
+  .dropdown-item.active img {
+    filter: invert(0) saturate(0) contrast(1) brightness(2);
+  }
 }
 `;
 const SelectKeyboardDropdown = ({ selectPort, selectedPortIndex, deviceItems, connected }) => {

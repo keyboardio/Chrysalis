@@ -53,6 +53,12 @@ import Title from "../../component/Title";
 import { Select } from "../../component/Select";
 
 import { IconWrench } from "../../component/Icon";
+import { IconFlashlight } from "../../component/Icon";
+import { IconFloppyDisk } from "../../component/Icon";
+import { IconTypo } from "../../component/Icon";
+import { IconNeuronManager } from "../../component/Icon";
+import { IconChip } from "../../component/Icon";
+import { IconMouse } from "../../component/Icon";
 
 import {
   MdComputer,
@@ -1420,8 +1426,7 @@ class KeyboardSettings extends React.Component {
                   </Card>
                   <Card className="overflowFix card-preferences mt-4">
                     <Card.Title>
-                      <MdStorage className="dygmaLogo" />
-                      <span className="va2fix">{i18n.keyboardSettings.backupFolder.header}</span>
+                      <Title text={i18n.keyboardSettings.backupFolder.header} headingLevel={3} svgICO={<IconFloppyDisk />} />
                     </Card.Title>
                     <Card.Body className="pb-0">
                       <Form.Group controlId="backupFolder" className="mb-3">
@@ -1448,8 +1453,7 @@ class KeyboardSettings extends React.Component {
                   </Card>
                   <Card className="overflowFix card-preferences mt-4">
                     <Card.Title>
-                      <BiChip className="dygmaLogo" />
-                      <span className="va2fix">{i18n.keyboardSettings.neuronManager.header}</span>
+                      <Title text={i18n.keyboardSettings.neuronManager.header} headingLevel={3} svgICO={<IconNeuronManager />} />
                     </Card.Title>
                     <Card.Body className="py-0">
                       <Form.Group controlId="backupFolder" className="mb-3">
@@ -1470,8 +1474,7 @@ class KeyboardSettings extends React.Component {
                   </Card>
                   <Card className="overflowFix card-preferences mt-4">
                     <Card.Title>
-                      <BiCodeAlt className="dygmaLogo" />
-                      <span className="va2fix">{i18n.preferences.advanced}</span>
+                      <Title text={i18n.preferences.advanced} headingLevel={3} svgICO={<IconChip />} />
                     </Card.Title>
                     <Card.Body className="pb-0">
                       <Form>
@@ -1497,13 +1500,12 @@ class KeyboardSettings extends React.Component {
                   </Card>
                 </Col>
                 {this.props.connected && (
-                  <Col lg={6} md={10}>
+                  <Col lg={6} md={12}>
                     <Card className="overflowFix card-preferences mt-4">
                       <Card.Title>
-                        <BsBrightnessHigh className="dygmaLogo" />
-                        <span className="va2fix">{i18n.keyboardSettings.led.title}</span>
+                        <Title text={i18n.keyboardSettings.led.title} headingLevel={3} svgICO={<IconFlashlight />} />
                       </Card.Title>
-                      <Card.Body className="pb-0">
+                      <Card.Body>
                         {ledIdleTimeLimit >= 0 && (
                           <Form.Group controlId="idleTimeLimit" className="formGroup">
                             <Row>
@@ -1522,12 +1524,11 @@ class KeyboardSettings extends React.Component {
                         )}
                       </Card.Body>
                     </Card>
-                    <Card className="overflowFix cardStyle mt-4 pb-0">
+                    <Card className="overflowFix card-preferences mt-4">
                       <Card.Title>
-                        <BsType className="dygmaLogo" />
-                        <span className="va3fix">{i18n.keyboardSettings.superkeys.title}</span>
+                        <Title text={i18n.keyboardSettings.superkeys.title} headingLevel={3} svgICO={<IconTypo />} />
                       </Card.Title>
-                      <Card.Body className="pb-0">
+                      <Card.Body>
                         {SuperTimeout >= 0 && (
                           <Form.Group controlId="superTimeout" className="formGroup">
                             <Row>
@@ -1576,10 +1577,9 @@ class KeyboardSettings extends React.Component {
                         )}
                       </Card.Body>
                     </Card>
-                    <Card className="overflowFix cardStyle mt-4 pb-0">
+                    <Card className="overflowFix card-preferences mt-4">
                       <Card.Title>
-                        <BiMouse className="dygmaLogo" />
-                        <span className="va2fix">{i18n.keyboardSettings.mouse.title}</span>
+                        <Title text={i18n.keyboardSettings.mouse.title} headingLevel={3} svgICO={<IconMouse />} />
                       </Card.Title>
                       <Card.Body className="pb-0">
                         {mouseSpeed >= 0 && (

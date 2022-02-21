@@ -400,6 +400,44 @@ div.card.card-preferences .card-body {
   color: ${({ theme }) => theme.styles.form.formLabelTextcolor};
   margin-bottom: .25rem;
 }
+
+input[type=range].range-slider.range-slider--primary {
+  background-color: ${({ theme }) => theme.colors.gray400};
+  height: 4px;
+  border-radius: 3px;
+}
+input[type=range].range-slider.range-slider--primary::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  
+  cursor: pointer;
+  margin-top: -14px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; /* Add cool effects to your sliders! */
+
+  background: #5D5FEF;
+
+border: 3px solid #F0F2F4;
+box-sizing: border-box;
+box-shadow: 0px 4px 12px #6120EA;
+}
+
+input[type=range].range-slider.range-slider--primary::-webkit-slider-runnable-track {
+  
+  height: 4px;
+  cursor: pointer;
+  
+  border-radius: 3px;
+  border: none;
+  background-color: ${({ theme }) => theme.colors.purple300};
+  color: ${({ theme }) => theme.colors.purple300}
+}
+
+input[type=range].range-slider.range-slider--primary:focus::-webkit-slider-runnable-track {
+  color: ${({ theme }) => theme.colors.purple300}
+}
 `;
 
 export default GlobalStyles;

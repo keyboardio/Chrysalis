@@ -70,7 +70,7 @@ h5 {
 }
 .hasIcon svg {
 	margin-right: 12px;
-	vertical-align: -0.1em;
+	vertical-align: -0.2em;
 }
 .tooltipIcon {
   color: var(--purple-100);

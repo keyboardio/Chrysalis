@@ -22,6 +22,12 @@ import IconRobot2Stroke from "./IconRobot2Stroke";
 import IconThunder2Stroke from "./IconThunder2Stroke";
 import IconInformationBubble from "./IconInformationBubble";
 import IconWrench from "./IconWrench";
+import IconFlashlight from "./IconFLashlight";
+import IconFloppyDisk from "./IconFloppyDisk";
+import IconTypo from "./IconTypo";
+import IconNeuronManager from "./IconNeuronManager";
+import IconMouse from "./IconMouse";
+import IconChip from "./IconChip";
 
 export {
   IconKeyboardSelector,
@@ -31,5 +37,11 @@ export {
   IconRobot2Stroke,
   IconThunder2Stroke,
   IconInformationBubble,
-  IconWrench
+  IconWrench,
+  IconFlashlight,
+  IconFloppyDisk,
+  IconTypo,
+  IconNeuronManager,
+  IconMouse,
+  IconChip
 };

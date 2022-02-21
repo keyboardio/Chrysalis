@@ -314,7 +314,7 @@ const English = {
       overlapThresholdsub: " - Percentage from 0 to 100"
     },
     superkeys: {
-      title: "TYPING",
+      title: "Typing",
       timeout: "Typing speed",
       timeoutTip1: "This setting only affects Layer&Key and Superkeys.",
       timeoutTip2:
@@ -339,7 +339,7 @@ const English = {
       overlapsub: " - Percentage from 0 to 100"
     },
     mouse: {
-      title: "MOUSE KEYS",
+      title: "Mouse keys",
       subtitle1: "MOUSE SPEED",
       speed: "Cursor speed",
       speedsub: " - From 0 to 254 pixels",

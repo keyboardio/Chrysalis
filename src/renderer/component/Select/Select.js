@@ -38,24 +38,33 @@ const Style = Styled.div`
   }
 }
 `;
-const Select = ({ onSelect, value, listElements, listIconsElements }) => {
+/**
+ * @typedef listElements
+ * @type {Object[]}
+ * @property {string} listElements[].text - The text to be shown in the selector.
+ * @property {*} listElements[].value - The value to be passed when selected.
+ * @property {string} listElements[].icon - The icon to be displayed when passed.
+ * @property {number} listElements[].index - The index of the element that generates the entity.
+ */
+
+/**
+ * This select function returns a styled react-bootstrap Dropdown object
+ * The object will accept the following parameters
+ *
+ * @param {function} onSelect - The function that act when a Dropdown.item is clicked.
+ * @param {*} value - The current value selected on the Dropdown.
+ * @param {listElements} listElements - The array of objects that hold the elements to be selected.\
+ * @returns {<Select>} Dropdown object.
+ */
+const Select = ({ onSelect, value, listElements }) => {
   return (
     <Style>
-      <Dropdown
-        onSelect={onSelect}
-        value={value}
-        listElements={listElements}
-        listIconsElements={listIconsElements}
-        className="custom-dropdown"
-      >
+      <Dropdown onSelect={onSelect} value={value} className="custom-dropdown">
         <Dropdown.Toggle id="dropdown-custom">
           <div className="dropdownItemSelected">
-            {listIconsElements && listIconsElements.length > 0 ? (
+            {value != undefined && value != "" > 0 && listElements.length > 0 && listElements[0].icon != undefined ? (
               <div className="dropdownIcon">
-                <img
-                  src={listIconsElements[listElements.flatMap((item, i) => (item === value ? i : []))]}
-                  className="dropdwonIcon"
-                />
+                <img src={listElements.filter(elem => elem.value === value)[0].icon} className="dropdwonIcon" />
               </div>
             ) : (
               ""
@@ -66,16 +75,16 @@ const Select = ({ onSelect, value, listElements, listIconsElements }) => {
         <Dropdown.Menu className="super-colors">
           {/* index,displayName,userName,path */}
           {listElements.map((item, index) => (
-            <Dropdown.Item eventKey={item} key={index} className={`${value == item ? "active" : ""}`}>
+            <Dropdown.Item eventKey={item.value} key={index} className={`${value == item.text ? "active" : ""}`}>
               <div className="dropdownInner">
-                {listIconsElements && listIconsElements.length > 0 ? (
+                {value != undefined && value != "" > 0 && listElements.length > 0 && listElements[0].icon != undefined ? (
                   <div className="dropdownIcon">
-                    <img src={listIconsElements[index]} alt={item} className="dropdwonIcon" />
+                    <img src={item.icon} className="dropdwonIcon" />
                   </div>
                 ) : (
                   ""
                 )}
-                <div className="dropdownItem">{item}</div>
+                <div className="dropdownItem">{item.text}</div>
               </div>
             </Dropdown.Item>
           ))}

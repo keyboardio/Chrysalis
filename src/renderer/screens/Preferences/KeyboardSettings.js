@@ -886,6 +886,9 @@ class KeyboardSettings extends React.Component {
         <Dropdown.Menu className="dropdownMenu">{languages}</Dropdown.Menu>
       </Dropdown>
     );
+    language = language.map((item, index) => {
+      return { text: item, value: item, icon: flags[index], index };
+    });
     let layers;
     let layersNames;
     if (keymap.onlyCustom) {
@@ -907,13 +910,16 @@ class KeyboardSettings extends React.Component {
     }
     if (keymap.onlyCustom) {
       layersNames = keymap.custom.map((_, index) => {
-        return <>{i18n.formatString(i18n.components.layer, index + 1)}</>;
+        return i18n.formatString(i18n.components.layer, index + 1);
       });
     } else {
       layersNames = keymap.default.concat(keymap.custom).map((_, index) => {
-        return <>{i18n.formatString(i18n.components.layer, index)}</>;
+        return i18n.formatString(i18n.components.layer, index);
       });
     }
+    layersNames = layersNames.map((item, index) => {
+      return { text: item, value: index, index };
+    });
     const defaultLayerSelect = (
       <Dropdown onSelect={this.selectDefaultLayer} value={defaultLayer} className="fullWidth">
         <Dropdown.Toggle className="toggler">
@@ -1387,12 +1393,7 @@ class KeyboardSettings extends React.Component {
                         <Col lg={6} md={12}>
                           <Form.Group controlId="selectLanguage" className="mb-3">
                             <Form.Label>{i18n.preferences.language}</Form.Label>
-                            <Select
-                              onSelect={this.changeLanguage}
-                              value={selectedLanguage}
-                              listElements={language}
-                              listIconsElements={flags}
-                            />
+                            <Select onSelect={this.changeLanguage} value={selectedLanguage} listElements={language} />
                             {/* selectLanguage */}
                           </Form.Group>
                         </Col>
@@ -1408,8 +1409,6 @@ class KeyboardSettings extends React.Component {
                               }
                               listElements={layersNames}
                             />
-                            {layersNames}
-                            {console.log(defaultLayer)}
                             {defaultLayerSelect}
                           </Form.Group>
                         </Col>

@@ -14,8 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import NavigationButton from "./NavigationButton";
-import RegularButton from "./RegularButton";
-import ButtonConfig from "./ButtonConfig";
+import ToggleButtons from "./ToggleButtons";
 
-export { NavigationButton, RegularButton, ButtonConfig };
+export { ToggleButtons as default };

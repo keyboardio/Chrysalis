@@ -28,6 +28,9 @@ import IconTypo from "./IconTypo";
 import IconNeuronManager from "./IconNeuronManager";
 import IconMouse from "./IconMouse";
 import IconChip from "./IconChip";
+import IconMoon from "./IconMoon";
+import IconSun from "./IconSun";
+import IconScreen from "./IconScreen";
 
 export {
   IconKeyboardSelector,
@@ -43,5 +46,8 @@ export {
   IconTypo,
   IconNeuronManager,
   IconMouse,
-  IconChip
+  IconChip,
+  IconMoon,
+  IconSun,
+  IconScreen
 };

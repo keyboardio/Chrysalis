@@ -25,8 +25,8 @@ const Style = Styled.div`
     max-width: 24px;
   }
   .dropdownItem {
-    padding-left: 12px;
-    flex: 0 0 calc(100% - 24px);
+    padding-left: 0;
+    flex: 0 0 100%;
     text-align: left;
     text-transform: capitalize;
   }
@@ -36,6 +36,10 @@ const Style = Styled.div`
       color: ${({ theme }) => theme.styles.dropdown.textButtonHover};
     }
   }
+  .dropdownIcon + .dropdownItem { 
+    padding-left: 12px;
+    flex: 0 0 calc(100% - 24px);
+  } 
 }
 `;
 /**
@@ -72,8 +76,7 @@ const Select = ({ onSelect, value, listElements }) => {
             <div className="dropdownItem">{value}</div>
           </div>
         </Dropdown.Toggle>
-        <Dropdown.Menu className="super-colors">
-          {/* index,displayName,userName,path */}
+        <Dropdown.Menu>
           {listElements.map((item, index) => (
             <Dropdown.Item eventKey={item.value} key={index} className={`${value == item.text ? "active" : ""}`}>
               <div className="dropdownInner">

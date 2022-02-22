@@ -288,7 +288,14 @@ svg text{
   border: 1px solid ${({ theme }) => theme.styles.button.outline.disabledBorderColor};
   box-shadow: 0px 0px 0px 1px ${({ theme }) => theme.styles.button.outline.disabledBoxShadowColor} inset;
 }
-
+.button-config {
+  padding: 12px 24px;
+  color: ${({ theme }) => theme.styles.button.config.color}; 
+  background: ${({ theme }) => theme.styles.button.config.background};
+  border: none;
+  border-radius: 6px;
+  box-shadow: ${({ theme }) => theme.styles.button.config.boxShadow};
+}
 
 .dropdown-toggle.btn.btn-primary {
   background: ${({ theme }) => theme.styles.dropdown.backgroundButtonColor};
@@ -401,43 +408,103 @@ div.card.card-preferences .card-body {
   margin-bottom: .25rem;
 }
 
-input[type=range].range-slider.range-slider--primary {
-  background-color: ${({ theme }) => theme.colors.gray400};
-  height: 4px;
-  border-radius: 3px;
+// input[type=range].range-slider.range-slider--primary {
+//   // background-color: ${({ theme }) => theme.colors.gray400};
+//   -webkit-appearance: none;
+//   height: 4px;
+//   border-radius: 3px;
+// }
+// input[type=range].range-slider.range-slider--primary::-webkit-slider-thumb {
+//   -webkit-appearance: none;
+//   border: none;
+//   width: 18px;
+//   height: 18px;
+//   border-radius: 50%;
+
+  
+//   cursor: pointer;
+//   box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; /* Add cool effects to your sliders! */
+
+//   background: #5D5FEF;
+
+// border: 3px solid #F0F2F4;
+// box-sizing: border-box;
+// box-shadow: 0px 4px 12px #6120EA;
+// }
+
+// input[type=range].range-slider.range-slider--primary::-webkit-slider-runnable-track {
+  
+//   height: 4px;
+//   cursor: pointer;
+  
+//   border-radius: 3px;
+//   border: none;
+//   background-color: ${({ theme }) => theme.colors.purple300};
+//   color: ${({ theme }) => theme.colors.purple300}
+// }
+
+// input[type=range].range-slider.range-slider--primary:focus::-webkit-slider-runnable-track {
+//   color: ${({ theme }) => theme.colors.purple300}
+// }
+
+
+
+input[type="range"].range-slider.range-slider--primary {
+  --thumbSize: 18px;
+  --trackSize: 8px;
+  --thumbBg: #fff;
+  --trackBg: #f2f2f2;
+  --progressBg: #262626;
+
+  /* webkit progress workaround */
+  --webkitProgressPercent: 0%;
 }
-input[type=range].range-slider.range-slider--primary::-webkit-slider-thumb {
+
+input[type="range"].range-slider.range-slider--primary {
   -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  height: var(--thumbSize);
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+input[type="range"].range-slider.range-slider--primary:focus {
+  outline: none;
+}
+
+/* Thumb */
+input[type="range"].range-slider.range-slider--primary::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: var(--thumbSize);
+  height: var(--thumbSize);
+  background-color: var(--thumbBg);
+  border-radius: calc(var(--thumbSize) / 2);
   border: none;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  margin-top: calc(((var(--thumbSize) - var(--trackSize)) / 2) * -1);
   cursor: pointer;
-  margin-top: -14px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
-  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; /* Add cool effects to your sliders! */
-
-  background: #5D5FEF;
-
-border: 3px solid #F0F2F4;
-box-sizing: border-box;
-box-shadow: 0px 4px 12px #6120EA;
 }
 
-input[type=range].range-slider.range-slider--primary::-webkit-slider-runnable-track {
-  
-  height: 4px;
-  cursor: pointer;
-  
-  border-radius: 3px;
-  border: none;
-  background-color: ${({ theme }) => theme.colors.purple300};
-  color: ${({ theme }) => theme.colors.purple300}
+/* Track */
+input[type="range"].range-slider.range-slider--primary::-webkit-slider-runnable-track {
+  height: var(--trackSize);
+  background-image: linear-gradient(
+    90deg,
+    var(--progressBg) var(--webkitProgressPercent),
+    var(--trackBg) var(--webkitProgressPercent)
+  );
+  border-radius: calc(var(--trackSize) / 2);
 }
 
-input[type=range].range-slider.range-slider--primary:focus::-webkit-slider-runnable-track {
-  color: ${({ theme }) => theme.colors.purple300}
+/* Progress */
+input[type="range"].range-slider.range-slider--primary::-webkit-range-progress {
+  height: var(--trackSize);
+  background-color: var(--progressBg);
+  border-radius: calc(var(--trackSize) / 2) 0 0 calc(var(--trackSize) / 2);
 }
+
 `;
 
 export default GlobalStyles;

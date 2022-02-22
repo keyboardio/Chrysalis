@@ -51,6 +51,7 @@ import norwegianF from "../../../../static/flags/norway.png";
 
 import Title from "../../component/Title";
 import { Select } from "../../component/Select";
+import ToggleButtons from "../../component/ToggleButtons";
 
 import { IconWrench } from "../../component/Icon";
 import { IconFlashlight } from "../../component/Icon";
@@ -59,6 +60,9 @@ import { IconTypo } from "../../component/Icon";
 import { IconNeuronManager } from "../../component/Icon";
 import { IconChip } from "../../component/Icon";
 import { IconMouse } from "../../component/Icon";
+import { IconSun } from "../../component/Icon";
+import { IconMoon } from "../../component/Icon";
+import { IconScreen } from "../../component/Icon";
 
 import {
   MdComputer,
@@ -276,6 +280,7 @@ class KeyboardSettings extends React.Component {
 
     this.changeLanguage = this.changeLanguage.bind(this);
     this.selectDefaultLayer = this.selectDefaultLayer.bind(this);
+    this.changeLayoutMode = this.changeLayoutMode.bind(this);
   }
   delay = ms => new Promise(res => setTimeout(res, ms));
 
@@ -701,6 +706,17 @@ class KeyboardSettings extends React.Component {
     store.set("settings.language", `${language}`);
   };
 
+  changeLayoutMode = event => {
+    const mode = event.currentTarget.dataset.value;
+    console.log(`LayoutMode: ${mode}`);
+
+    //store.set("settings.darkMode", `${mode}`);
+
+    this.setState({
+      darkMode: `${mode}`
+    });
+  };
+
   ChooseBackupFolder() {
     let options = {
       title: i18n.keyboardSettings.backupFolder.title,
@@ -920,6 +936,26 @@ class KeyboardSettings extends React.Component {
     layersNames = layersNames.map((item, index) => {
       return { text: item, value: index, index };
     });
+    let layoutsModes = [
+      {
+        name: "System",
+        value: "system",
+        icon: <IconScreen />,
+        index: 0
+      },
+      {
+        name: "Light",
+        value: "light",
+        icon: <IconSun />,
+        index: 1
+      },
+      {
+        name: "Dark",
+        value: "dark",
+        icon: <IconMoon />,
+        index: 2
+      }
+    ];
     const defaultLayerSelect = (
       <Dropdown onSelect={this.selectDefaultLayer} value={defaultLayer} className="fullWidth">
         <Dropdown.Toggle className="toggler">
@@ -1394,7 +1430,6 @@ class KeyboardSettings extends React.Component {
                           <Form.Group controlId="selectLanguage" className="mb-3">
                             <Form.Label>{i18n.preferences.language}</Form.Label>
                             <Select onSelect={this.changeLanguage} value={selectedLanguage} listElements={language} />
-                            {/* selectLanguage */}
                           </Form.Group>
                         </Col>
                         <Col lg={6} md={12}>
@@ -1409,7 +1444,6 @@ class KeyboardSettings extends React.Component {
                               }
                               listElements={layersNames}
                             />
-                            {defaultLayerSelect}
                           </Form.Group>
                         </Col>
                       </Row>
@@ -1417,6 +1451,13 @@ class KeyboardSettings extends React.Component {
                         <Col md={12}>
                           <Form.Group controlId="DarkMode" className="m-0">
                             <Form.Label>{i18n.preferences.darkMode.label}</Form.Label>
+                            <ToggleButtons
+                              onClick={this.changeLayoutMode}
+                              value={darkMode}
+                              listElements={layoutsModes}
+                              style={"flex"}
+                              size={"sm"}
+                            />
                             {darkModeSwitch}
                           </Form.Group>
                         </Col>

@@ -125,6 +125,22 @@ const Dark = {
         disabledBorderColor: Tokens.colors.gray400,
         disabledBoxShadowColor: Tokens.colors.gray400,
         disabledOpacity: 0.35
+      },
+      config: {
+        background: `linear-gradient(90deg, rgba(255, 255, 255, 0.1) -22.96%, rgba(255, 255, 255, 0) 123.24%), linear-gradient(0deg, ${settingColorOpacity(
+          Tokens.colors.gray500,
+          0.25
+        )}, ${settingColorOpacity(Tokens.colors.gray500, 0.25)}), ${settingColorOpacity(Tokens.colors.gray900, 0.2)}`,
+        boxShadow: "0px 2px 0px rgba(0, 0, 0, 0.1)",
+        color: Tokens.colors.gray50,
+        backgroundHover: "",
+        backgroundActive: Tokens.colors.purple300,
+        colorHover: "",
+        colorActive: Tokens.colors.gray25,
+        boxShadowActive: `0px 3px 0px  ${settingColorOpacity(
+          Tokens.colors.gray800,
+          0.25
+        )}, 0px 16px 16px -8px ${settingColorOpacity(Tokens.colors.gray500, 0.3)}`
       }
     },
     card: {
@@ -200,6 +216,9 @@ const Dark = {
     pageHeader: {
       backgroundColor: settingColorOpacity(Tokens.colors.gray400, 0.15),
       titleColor: Tokens.colors.gray50
+    },
+    toggleButton: {
+      background: settingColorOpacity(Tokens.colors.gray900, 0.2)
     },
     wrapper: {
       background: settingColorOpacity(Tokens.colors.gray400, 0.15)

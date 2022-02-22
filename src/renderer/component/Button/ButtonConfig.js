@@ -1,3 +1,4 @@
+// -*- mode: js-jsx -*-
 /* Bazecor
  * Copyright (C) 2022  Dygmalab, Inc.
  *
@@ -14,8 +15,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import NavigationButton from "./NavigationButton";
-import RegularButton from "./RegularButton";
-import ButtonConfig from "./ButtonConfig";
+import React from "react";
+import Styled from "styled-components";
 
-export { NavigationButton, RegularButton, ButtonConfig };
+const Style = Styled.div`
+
+`;
+
+const ButtonConfig = ({ selected, onClick, size, buttonText, style, icoSVG, disabled }) => {
+  return (
+    <Style
+      onClick={onClick}
+      data-value={selected}
+      className={`${size} ${selected ? "active" : ""} button-config ${style}`}
+      disabled={disabled}
+    >
+      {icoSVG ? icoSVG : ""}
+      <span className={"buttonLabel"} dangerouslySetInnerHTML={{ __html: buttonText }} />
+    </Style>
+  );
+};
+
+export default ButtonConfig;

@@ -944,15 +944,15 @@ class KeyboardSettings extends React.Component {
         index: 0
       },
       {
-        name: "Light",
-        value: "light",
-        icon: <IconSun />,
-        index: 1
-      },
-      {
         name: "Dark",
         value: "dark",
         icon: <IconMoon />,
+        index: 1
+      },
+      {
+        name: "Light",
+        value: "light",
+        icon: <IconSun />,
         index: 2
       }
     ];

@@ -92,6 +92,9 @@ const GlobalStyles = createGlobalStyle`
   }
   .wrapperBackground {
     background-color: ${({ theme }) => theme.styles.wrapper.background};
+    padding-bottom: 8px;
+    margin-bottom: 32px;
+    border-radius: 0 16px 0 16px;
   }
   
 
@@ -289,12 +292,36 @@ svg text{
   box-shadow: 0px 0px 0px 1px ${({ theme }) => theme.styles.button.outline.disabledBoxShadowColor} inset;
 }
 .button-config {
-  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  padding: 8px 16px;
+  border: ${({ theme }) => theme.styles.button.config.border} 
   color: ${({ theme }) => theme.styles.button.config.color}; 
   background: ${({ theme }) => theme.styles.button.config.background};
   border: none;
   border-radius: 6px;
   box-shadow: ${({ theme }) => theme.styles.button.config.boxShadow};
+  transition: all 300ms ease-in-out;
+}
+.button-config.sm {
+  padding: 6px 16px;
+  font-size: 14px;
+}
+.button-config.sm svg {
+  max-width: 16px;
+}
+.button-config:hover {
+  cursor: pointer;
+  color: ${({ theme }) => theme.styles.button.config.colorHover}; 
+  background: ${({ theme }) => theme.styles.button.config.backgroundHover};
+  box-shadow: ${({ theme }) => theme.styles.button.config.boxShadowHover};
+}
+.button-config.active,
+.button-config.active:hover {
+  color: ${({ theme }) => theme.styles.button.config.colorActive}; 
+  background: ${({ theme }) => theme.styles.button.config.backgroundActive};
+  box-shadow: ${({ theme }) => theme.styles.button.config.boxShadowActive};
 }
 
 .dropdown-toggle.btn.btn-primary {

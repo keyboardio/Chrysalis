@@ -39,18 +39,26 @@ const Style = Styled.div`
     flex-wrap: nowrap;
     .button-config {
       flex: auto;
+      text-align: center;
     }
   }
 }
 `;
-const ToggleButtons = ({ onClick, value, listElements, style }) => {
+const ToggleButtons = ({ onClick, value, listElements, style, size }) => {
   return (
     // className={`button-config ${value == item.value ? "active" : ""}`}
     <Style className={`toggleButtonsContainer ${style == "flex" ? "toggleButtonsContainerFlex" : ""}`}>
-      <strong>{value}</strong>
+      <strong className="sr-only">{value}</strong>
       <div className="toggleButtonsInner">
         {listElements.map((item, index) => (
-          <ButtonConfig onClick={onClick} selected={item.value} icoSVG={item.icon} key={index} buttonText={item.name} />
+          <ButtonConfig
+            onClick={onClick}
+            selected={value === item.value ? true : false}
+            icoSVG={item.icon}
+            key={index}
+            buttonText={item.name}
+            size={size}
+          />
         ))}
       </div>
     </Style>

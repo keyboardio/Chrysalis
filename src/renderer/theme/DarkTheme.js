@@ -132,11 +132,16 @@ const Dark = {
           0.25
         )}, ${settingColorOpacity(Tokens.colors.gray500, 0.25)}), ${settingColorOpacity(Tokens.colors.gray900, 0.2)}`,
         boxShadow: "0px 2px 0px rgba(0, 0, 0, 0.1)",
+        border: "none",
         color: Tokens.colors.gray50,
-        backgroundHover: "",
+        backgroundHover: `linear-gradient(90deg, rgba(255, 255, 255, 0.15) -22.96%, rgba(255, 255, 255, 0) 123.24%), ${settingColorOpacity(
+          Tokens.colors.gray500,
+          0.6
+        )}`,
         backgroundActive: Tokens.colors.purple300,
-        colorHover: "",
+        colorHover: Tokens.colors.gray25,
         colorActive: Tokens.colors.gray25,
+        boxShadowHover: "0px 2px 0px rgba(0, 0, 0, 0.1)",
         boxShadowActive: `0px 3px 0px  ${settingColorOpacity(
           Tokens.colors.gray800,
           0.25

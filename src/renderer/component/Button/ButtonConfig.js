@@ -19,7 +19,9 @@ import React from "react";
 import Styled from "styled-components";
 
 const Style = Styled.div`
-
+svg {
+  margin-right: 10px;
+}
 `;
 
 const ButtonConfig = ({ selected, onClick, size, buttonText, style, icoSVG, disabled }) => {

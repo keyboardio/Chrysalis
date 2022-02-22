@@ -127,20 +127,18 @@ const Light = {
         disabledOpacity: 1
       },
       config: {
-        background: `linear-gradient(90deg, rgba(255, 255, 255, 0.1) -22.96%, rgba(255, 255, 255, 0) 123.24%), linear-gradient(0deg, ${settingColorOpacity(
-          Tokens.colors.gray500,
-          0.25
-        )}, ${settingColorOpacity(Tokens.colors.gray500, 0.25)}), ${settingColorOpacity(Tokens.colors.gray900, 0.2)}`,
-        boxShadow: "0px 2px 0px rgba(0, 0, 0, 0.1)",
-        color: Tokens.colors.gray50,
-        backgroundHover: "",
-        backgroundActive: Tokens.colors.purple300,
-        colorHover: "",
+        background:
+          "linear-gradient(90deg, rgba(255, 255, 255, 0.3) 21.15%, rgba(255, 255, 255, 0) 100%), rgba(176, 175, 194, 0.3)",
+        boxShadow: "0px 2px 0px rgba(141, 132, 188, 0.2), 0px 0px 0px 1px rgba(209, 207, 234, 0.5) inset",
+        border: "none",
+        color: Tokens.colors.gray500,
+        backgroundHover:
+          "linear-gradient(90deg, rgba(255, 255, 255, 0.4) -22.96%, rgba(255, 255, 255, 0) 123.24%), rgba(196, 201, 213, 0.8)",
+        backgroundActive: Tokens.colors.purple200,
+        colorHover: Tokens.colors.gray600,
         colorActive: Tokens.colors.gray25,
-        boxShadowActive: `0px 3px 0px  ${settingColorOpacity(
-          Tokens.colors.gray800,
-          0.25
-        )}, 0px 16px 16px -8px ${settingColorOpacity(Tokens.colors.gray500, 0.3)}`
+        boxShadowHover: "0px 2px 0px rgba(141, 132, 188, 0.4)",
+        boxShadowActive: "0px 3px 0px rgba(37, 39, 59, 0.05), 0px 16px 16px -8px rgba(76, 102, 177, 0.3)"
       }
     },
     card: {
@@ -212,6 +210,9 @@ const Light = {
     pageHeader: {
       backgroundColor: "rgba(240, 242, 244, 0.9)",
       titleColor: Tokens.colors.purple200
+    },
+    toggleButton: {
+      background: "#fff"
     },
     wrapper: {
       background: settingColorOpacity(Tokens.colors.gray25, 0.8)

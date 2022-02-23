@@ -44,7 +44,8 @@ const Style = Styled.div`
   }
 }
 `;
-const ToggleButtons = ({ onClick, value, listElements, style, size }) => {
+const ToggleButtons = ({ selectDarkMode, value, listElements, style, size }) => {
+  console.log("Data from props", value, listElements);
   return (
     // className={`button-config ${value == item.value ? "active" : ""}`}
     <Style className={`toggleButtonsContainer ${style == "flex" ? "toggleButtonsContainerFlex" : ""}`}>
@@ -52,7 +53,7 @@ const ToggleButtons = ({ onClick, value, listElements, style, size }) => {
       <div className="toggleButtonsInner">
         {listElements.map((item, index) => (
           <ButtonConfig
-            onClick={onClick}
+            onClick={e => selectDarkMode(item.value)}
             selected={value === item.value ? true : false}
             icoSVG={item.icon}
             key={index}

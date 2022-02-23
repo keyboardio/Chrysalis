@@ -31,7 +31,7 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Spinner from "react-bootstrap/Spinner";
 import Accordion from "react-bootstrap/Accordion";
 
-import RangeSlider from "react-bootstrap-range-slider";
+import RangeSlider from "react-range";
 
 import Focus from "../../../api/focus";
 import Backup from "../../../api/backup";
@@ -273,7 +273,6 @@ class KeyboardSettings extends React.Component {
 
     this.changeLanguage = this.changeLanguage.bind(this);
     this.selectDefaultLayer = this.selectDefaultLayer.bind(this);
-    this.changeLayoutMode = this.changeLayoutMode.bind(this);
   }
   delay = ms => new Promise(res => setTimeout(res, ms));
 
@@ -697,17 +696,6 @@ class KeyboardSettings extends React.Component {
   changeLanguage = language => {
     this.setState({ selectedLanguage: language });
     store.set("settings.language", `${language}`);
-  };
-
-  changeLayoutMode = event => {
-    const mode = event.currentTarget.dataset.value;
-    console.log(`LayoutMode: ${mode}`);
-
-    //store.set("settings.darkMode", `${mode}`);
-
-    this.setState({
-      darkMode: `${mode}`
-    });
   };
 
   ChooseBackupFolder() {
@@ -1445,7 +1433,7 @@ class KeyboardSettings extends React.Component {
                           <Form.Group controlId="DarkMode" className="m-0">
                             <Form.Label>{i18n.preferences.darkMode.label}</Form.Label>
                             <ToggleButtons
-                              onClick={this.changeLayoutMode}
+                              selectDarkMode={selectDarkMode}
                               value={darkMode}
                               listElements={layoutsModes}
                               style={"flex"}

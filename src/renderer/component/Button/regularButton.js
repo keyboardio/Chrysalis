@@ -20,7 +20,7 @@ import React from "react";
 //className={`icon-image ${selected ? "select" : ""}`}
 const RegularButton = ({ selected, onClick, size, buttonText, style, icoSVG, disabled }) => {
   return (
-    <div onClick={onClick} className={`${size} ${selected ? "active" : ""} button ${style}`} disabled={disabled}>
+    <div onClick={onClick} className={`${size && size} ${selected ? "active" : ""} button ${style && style}`} disabled={disabled}>
       <div className={"buttonLabel"} dangerouslySetInnerHTML={{ __html: buttonText }} />
     </div>
   );

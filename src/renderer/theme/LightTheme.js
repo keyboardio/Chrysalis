@@ -126,6 +126,11 @@ const Light = {
         disabledBoxShadowColor: Tokens.colors.gray50,
         disabledOpacity: 1
       },
+      danger: {
+        color: Tokens.colors.gray25,
+        backgroundColor: Tokens.colors.brandDanger,
+        backgroundColorHover: Tokens.colors.brandDangerLighter
+      },
       config: {
         background:
           "linear-gradient(90deg, rgba(255, 255, 255, 0.3) 21.15%, rgba(255, 255, 255, 0) 100%), rgba(176, 175, 194, 0.3)",
@@ -210,6 +215,17 @@ const Light = {
     pageHeader: {
       backgroundColor: "rgba(240, 242, 244, 0.9)",
       titleColor: Tokens.colors.purple200
+    },
+    switch: {
+      background:
+        "linear-gradient(90deg, rgba(255, 255, 255, 0.3) 21.15%, rgba(255, 255, 255, 0) 100%), rgba(176, 175, 194, 0.5)",
+      backgroundActive: Tokens.colors.purple300,
+      thumbBackground: Tokens.colors.gray100,
+      thumbBackgroundActive: Tokens.colors.gray25,
+      thumbBorderColor: Tokens.colors.gray200,
+      thumbBorderColorActive: Tokens.colors.purple200,
+      thumbBoxShadow: "0px 4px 12px rgba(97, 32, 234, 0)",
+      thumbBoxShadowActive: "0px 4px 12px rgba(97, 32, 234, 1)"
     },
     toggleButton: {
       background: "#fff"

@@ -126,6 +126,11 @@ const Dark = {
         disabledBoxShadowColor: Tokens.colors.gray400,
         disabledOpacity: 0.35
       },
+      danger: {
+        color: Tokens.colors.gray25,
+        backgroundColor: Tokens.colors.brandDanger,
+        backgroundColorHover: Tokens.colors.brandDangerLighter
+      },
       config: {
         background: `linear-gradient(90deg, rgba(255, 255, 255, 0.1) -22.96%, rgba(255, 255, 255, 0) 123.24%), linear-gradient(0deg, ${settingColorOpacity(
           Tokens.colors.gray500,
@@ -221,6 +226,16 @@ const Dark = {
     pageHeader: {
       backgroundColor: settingColorOpacity(Tokens.colors.gray400, 0.15),
       titleColor: Tokens.colors.gray50
+    },
+    switch: {
+      background: Tokens.colors.gray600,
+      backgroundActive: Tokens.colors.purple300,
+      thumbBackground: Tokens.colors.gray300,
+      thumbBackgroundActive: Tokens.colors.gray25,
+      thumbBorderColor: Tokens.colors.gray700,
+      thumbBorderColorActive: Tokens.colors.purple200,
+      thumbBoxShadow: "0px 4px 12px rgba(97, 32, 234, 0)",
+      thumbBoxShadowActive: "0px 4px 12px rgba(97, 32, 234, 1)"
     },
     toggleButton: {
       background: settingColorOpacity(Tokens.colors.gray900, 0.2)

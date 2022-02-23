@@ -258,6 +258,7 @@ svg text{
   padding: 14px 24px;
   border-radius: 6px;
   display: inline-block;
+  transition: all 250ms ease-in-out;
 }
 .button:hover {
   cursor: pointer;
@@ -272,6 +273,14 @@ svg text{
 .button.primary[disabled] {
   background: ${({ theme }) => theme.styles.button.primary.disabledBackgroundColor};
   color: ${({ theme }) => theme.styles.button.primary.disabledTextColor};
+}
+.button.danger {
+  background: ${({ theme }) => theme.styles.button.danger.backgroundColor};
+  color: ${({ theme }) => theme.styles.button.danger.color};
+}
+.button.danger:hover {
+  background: ${({ theme }) => theme.styles.button.danger.backgroundColorHover};
+  color: ${({ theme }) => theme.styles.button.danger.color};
 }
 .button.outline {
   color: ${({ theme }) => theme.styles.button.outline.color};
@@ -433,6 +442,37 @@ div.card.card-preferences .card-body {
   font-size: 14px;
   color: ${({ theme }) => theme.styles.form.formLabelTextcolor};
   margin-bottom: .25rem;
+}
+.custom-control.custom-switch .custom-control-label::before {
+  width: 60px;
+  height: 32px;
+  border-radius: 30px;
+  background: ${({ theme }) => theme.styles.switch.background};
+  border: none;
+  box-shadow: none;
+}
+.custom-control.custom-switch .custom-control-label::before {
+  box-shadow: none !important;
+}
+.custom-control.custom-switch .custom-control-label::after {
+  width:24px;
+  height:24px;
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.styles.switch.thumbBackground};
+  border: 1px solid ${({ theme }) => theme.styles.switch.thumbBorderColor};
+  box-shadow: ${({ theme }) => theme.styles.switch.thumbBoxShadow};
+  top: 8px;
+  left: -32px;
+}
+.custom-control.custom-switch .custom-control-input:checked~.custom-control-label::before {
+  background-color: ${({ theme }) => theme.styles.switch.backgroundActive};
+  border: none;
+}
+.custom-control.custom-switch .custom-control-input:checked~.custom-control-label::after {
+  transform: translateX(28px);
+  background-color: ${({ theme }) => theme.styles.switch.thumbBackgroundActive};
+  border: 1px solid ${({ theme }) => theme.styles.switch.thumbBorderColorActive};
+  box-shadow: ${({ theme }) => theme.styles.switch.thumbBoxShadowActive};
 }
 
 // input[type=range].range-slider.range-slider--primary {

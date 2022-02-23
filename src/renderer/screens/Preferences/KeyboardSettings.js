@@ -51,6 +51,7 @@ import norwegianF from "../../../../static/flags/norway.png";
 
 import Title from "../../component/Title";
 import { Select } from "../../component/Select";
+import { RegularButton } from "../../component/Button";
 import ToggleButtons from "../../component/ToggleButtons";
 
 import { IconWrench } from "../../component/Icon";
@@ -140,14 +141,6 @@ const Styles = Styled.div`
     font-size: 1rem;
     margin-left: 0.3em;
     color: ${({ theme }) => theme.colors.tipIcon};
-  }
-  .custom-control-label::before {
-    box-shadow: none !important;
-  }
-  .custom-control-input:checked~.custom-control-label::before {
-    border-color: ${({ theme }) => theme.slider.color};
-    background-color: ${({ theme }) => theme.slider.color};
-    box-shadow: none;
   }
   .save-holder {
     position: fixed;
@@ -1519,21 +1512,24 @@ class KeyboardSettings extends React.Component {
                     <Card.Body className="pb-0">
                       <Form>
                         <Row>
-                          <Col xs={4} className="p-0">
-                            <Form.Group controlId="DevTools" className="devfix">
-                              {devToolsSwitch}
+                          <Col xs={6}>
+                            <Form.Group controlId="DevTools" className="switchHolder">
                               <Form.Label>{i18n.preferences.devtools}</Form.Label>
+                              {devToolsSwitch}
                             </Form.Group>
                           </Col>
-                          <Col xs={4} className="p-0">
-                            <Form.Group controlId="Verbose" className="devfix">
-                              {verboseSwitch}
+                          <Col xs={6}>
+                            <Form.Group controlId="Verbose" className="switchHolder">
                               <Form.Label>{i18n.preferences.verboseFocus}</Form.Label>
+                              {verboseSwitch}
                             </Form.Group>
                           </Col>
                         </Row>
-                        <Row className="mb-4">
-                          <Col className="p-0">{this.props.connected && <AdvancedKeyboardSettings />}</Col>
+                        <Row>
+                          <Col xs={12} className="mt-4">
+                            <Title headingLevel={6} text={i18n.keyboardSettings.resetEEPROM.title} />
+                          </Col>
+                          <Col xs={12}>{this.props.connected && <AdvancedKeyboardSettings />}</Col>
                         </Row>
                       </Form>
                     </Card.Body>
@@ -1702,9 +1698,15 @@ class AdvancedKeyboardSettings extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Button disabled={this.state.working} variant="contained" color="secondary" onClick={this.openEEPROMClearConfirmation}>
+        {/* <Button disabled={this.state.working} variant="contained" color="secondary" onClick={this.openEEPROMClearConfirmation}>
           {i18n.keyboardSettings.resetEEPROM.button}
-        </Button>
+        </Button> */}
+        <RegularButton
+          buttonText={i18n.keyboardSettings.resetEEPROM.button}
+          style="danger"
+          onClick={this.openEEPROMClearConfirmation}
+          disabled={this.state.working}
+        />
         <ConfirmationDialog
           title={i18n.keyboardSettings.resetEEPROM.dialogTitle}
           open={this.state.EEPROMClearConfirmationOpen}

@@ -227,6 +227,14 @@ const Dark = {
       backgroundColor: settingColorOpacity(Tokens.colors.gray400, 0.15),
       titleColor: Tokens.colors.gray50
     },
+    slider: {
+      trackColor: Tokens.colors.gray400,
+      progressColor: Tokens.colors.purple300,
+      handleBorderColor: Tokens.colors.gray25,
+      handleBackgroundColor: Tokens.colors.purple300,
+      handleBoxShadow: Tokens.colors.purple300,
+      labelColor: Tokens.colors.gray200
+    },
     switch: {
       background: Tokens.colors.gray600,
       backgroundActive: Tokens.colors.purple300,

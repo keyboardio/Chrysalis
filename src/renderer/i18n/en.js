@@ -318,15 +318,15 @@ const English = {
       timeout: "Typing speed",
       timeoutTip1: "This setting only affects Layer&Key and Superkeys.",
       timeoutTip2:
-        "- If you select a slow typing speed, some functions of Layer&Key and Superkeys will take slightly more time to trigger.",
-      timeoutTip3: "- For example, holding the key to switch to a layer or activate a modifier (like Shift, Control...).",
+        "If you select a slow typing speed, some functions of Layer&Key and Superkeys will take slightly more time to trigger.",
+      timeoutTip3: "For example, holding the key to switch to a layer or activate a modifier (like Shift, Control...).",
       timeoutTip4:
-        "- If you choose a fast typing speed, you might activate those actions by mistake if you 'linger' too much on the key.",
+        "If you choose a fast typing speed, you might activate those actions by mistake if you 'linger' too much on the key.",
       chordingTip1: "This setting only affects Layer&Key.",
       chordingTip2: "Let's say you have a Layer&Key with 'Layer 1' on hold and 'Space' on tap.",
       chordingTip3:
-        "- If the slider is at 'None' and you press another key before completely releasing the Space, this will trigger the hold function.",
-      chordingTip4: "- If the slider is at 'High', it'll take a bit more time for the hold function to activate.",
+        "If the slider is at 'None' and you press another key before completely releasing the Space, this will trigger the hold function.",
+      chordingTip4: "If the slider is at 'High', it'll take a bit more time for the hold function to activate.",
       repeat:
         "Adjust repeat time interval between the emmision of holded keys after waitfor period. (this doesn't affect all keys)",
       repeatsub: " - time from 0 to 254 milliseconds",

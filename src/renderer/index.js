@@ -23,7 +23,7 @@ import Electron from "electron";
 import App from "./App";
 import Error from "./Error";
 import "bootstrap-css-only/css/bootstrap.min.css";
-import "react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css";
+import "react-rangeslider/lib/index.css";
 import i18n from "./i18n";
 import { I18nextProvider } from "react-i18next";
 

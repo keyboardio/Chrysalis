@@ -31,7 +31,7 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Spinner from "react-bootstrap/Spinner";
 import Accordion from "react-bootstrap/Accordion";
 
-import RangeSlider from "react-range";
+import Slider from "react-rangeslider";
 
 import Focus from "../../../api/focus";
 import Backup from "../../../api/backup";
@@ -78,17 +78,13 @@ import {
 import { BsType, BsBrightnessHigh } from "react-icons/bs";
 import { BiMouse, BiCodeAlt, BiWrench, BiChip } from "react-icons/bi";
 import { isArray } from "lodash";
+import BackupFolderConfigurator from "../../modules/BackupFolderConfigurator";
 
 const Store = require("electron-store");
 const store = new Store();
 
 const Styles = Styled.div`
-  input[type=range].range-slider::-webkit-slider-thumb {
-    background-color: ${({ theme }) => theme.slider.color};
-  }
-  input[type=range].range-slider.range-slider--primary:not(.disabled):focus::-webkit-slider-thumb, input[type=range].range-slider.range-slider--primary:not(.disabled):active::-webkit-slider-thumb {
-    box-shadow: 0 0 0 0.2rem ${({ theme }) => theme.slider.color}80;
-  }
+  
   .slider{
     width: 100%;
   }
@@ -123,11 +119,7 @@ const Styles = Styled.div`
   .va1fix {
     vertical-align: -1px;
   }
-  .tagsfix {
-    vertical-align: -5px;
-    font-weight: 200;
-    font-size: 14px;
-  }
+  
   .backupbuttons {
     margin: 0;
     padding: 0.44em;
@@ -449,9 +441,7 @@ class KeyboardSettings extends React.Component {
     }
   };
 
-  selectIdleLEDTime = event => {
-    const value = event.target.value;
-
+  selectIdleLEDTime = value => {
     this.setState({
       ledIdleTimeLimit: value * 60,
       modified: true
@@ -467,16 +457,13 @@ class KeyboardSettings extends React.Component {
     this.props.startContext();
   };
 
-  setBrightness = event => {
-    const value = event.target.value;
-
+  setBrightness = value => {
     this.setState({
       ledBrightness: (value * 255) / 100,
       modified: true
     });
     this.props.startContext();
   };
-
   setHoldTimeout = event => {
     const value = event.target.value;
     this.setState({
@@ -534,19 +521,29 @@ class KeyboardSettings extends React.Component {
     this.props.startContext();
   };
 
-  setTyping = event => {
-    const value = (100 - event.target.value) * 10;
+  // setTyping = event => {
+  //   const value = (100 - event.target.value) * 10;
+  //   this.setState({
+  //     SuperTimeout: value,
+  //     SuperHoldstart: value - 20,
+  //     qukeysHoldTimeout: value - 20,
+  //     modified: true
+  //   });
+  //   this.props.startContext();
+  // };
+
+  setTyping = value => {
+    const valueTyping = (100 - value) * 10;
     this.setState({
-      SuperTimeout: value,
-      SuperHoldstart: value - 20,
-      qukeysHoldTimeout: value - 20,
+      SuperTimeout: valueTyping,
+      SuperHoldstart: valueTyping - 20,
+      qukeysHoldTimeout: valueTyping - 20,
       modified: true
     });
     this.props.startContext();
   };
 
-  setChording = event => {
-    const value = event.target.value;
+  setChording = value => {
     this.setState({
       qukeysOverlapThreshold: value,
       modified: true
@@ -564,9 +561,7 @@ class KeyboardSettings extends React.Component {
   //   this.props.startContext();
   // };
 
-  setSpeed = event => {
-    const value = event.target.value;
-
+  setSpeed = value => {
     this.setState({
       mouseSpeed: parseInt(value) < 128 ? parseInt(value) : 128 - (parseInt(value) - 128),
       mouseSpeedDelay: Math.ceil(50 / parseInt(value)),
@@ -585,9 +580,7 @@ class KeyboardSettings extends React.Component {
   //   this.props.startContext();
   // };
 
-  setAccelSpeed = event => {
-    const value = event.target.value;
-
+  setAccelSpeed = value => {
     this.setState({
       mouseAccelSpeed: parseInt(value) < 128 ? parseInt(value) : 128 - (parseInt(value) - 128),
       mouseAccelDelay: Math.ceil(50 / parseInt(value)),
@@ -606,9 +599,17 @@ class KeyboardSettings extends React.Component {
   //   this.props.startContext();
   // };
 
-  setWheelSpeed = event => {
-    const value = event.target.value;
+  // setWheelSpeed = event => {
+  //   const value = event.target.value;
 
+  //   this.setState({
+  //     mouseWheelSpeed: value,
+  //     mouseWheelDelay: 100,
+  //     modified: true
+  //   });
+  //   this.props.startContext();
+  // };
+  setWheelSpeed = value => {
     this.setState({
       mouseWheelSpeed: value,
       mouseWheelDelay: 100,
@@ -627,9 +628,7 @@ class KeyboardSettings extends React.Component {
   //   this.props.startContext();
   // };
 
-  setSpeedLimit = event => {
-    const value = event.target.value;
-
+  setSpeedLimit = value => {
     this.setState({
       mouseSpeedLimit: value,
       modified: true
@@ -797,8 +796,7 @@ class KeyboardSettings extends React.Component {
     }
   }
 
-  setStoreBackups = event => {
-    const value = event.target.value;
+  setStoreBackups = value => {
     this.setState({
       storeBackups: value
     });
@@ -862,27 +860,7 @@ class KeyboardSettings extends React.Component {
     const showDefaultLayersSwitch = <Form.Check type="switch" checked={showDefaults} onChange={this.setShowDefaults} />;
     let flags = [englishUSUKF, spanishF, germanF, frenchF, swedishF, danishF, norwegianF, icelandicF, japaneseF];
     let language = ["english", "spanish", "german", "french", "swedish", "danish", "norwegian", "icelandic"];
-    let languages = language.map((item, index) => {
-      return (
-        <Dropdown.Item eventKey={item} key={index}>
-          <img src={flags[index]} className="dygmaLogo" />
-          {item[0].toUpperCase() + item.slice(1)}
-        </Dropdown.Item>
-      );
-    });
-    const selectLanguage = (
-      <Dropdown onSelect={this.changeLanguage} value={selectedLanguage} className="fullWidth">
-        <Dropdown.Toggle className="toggler">
-          <img src={flags[language.flatMap((lang, i) => (lang === selectedLanguage ? i : []))]} className="dygmaLogo flag-icon" />
-          {`${
-            selectedLanguage != undefined && selectedLanguage != ""
-              ? selectedLanguage[0].toUpperCase() + selectedLanguage.slice(1)
-              : selectedLanguage
-          }`}
-        </Dropdown.Toggle>
-        <Dropdown.Menu className="dropdownMenu">{languages}</Dropdown.Menu>
-      </Dropdown>
-    );
+
     language = language.map((item, index) => {
       return { text: item, value: item, icon: flags[index], index };
     });
@@ -1105,61 +1083,21 @@ class KeyboardSettings extends React.Component {
         </Dropdown.Menu>
       </Dropdown>
     );
-    const newIdleControl = (
-      <Row>
-        <Col xs={2} md={1} className="p-0 text-center">
-          <span className="tagsfix">off</span>
-        </Col>
-        <Col xs={8} md={10} className="px-2">
-          <RangeSlider
-            min={0}
-            max={60}
-            step={1}
-            value={ledIdleTimeLimit / 60}
-            className="slider"
-            onChange={this.selectIdleLEDTime}
-            marks={[{ value: 255, label: i18n.keyboardSettings.defaultLabel }]}
-          />
-        </Col>
-        <Col xs={2} md={1} className="p-0 text-center">
-          <span className="tagsfix">60min</span>
-        </Col>
-      </Row>
-    );
+
     const backupControl = (
       <Row>
-        <Col xs={2} className="p-0 text-center">
+        <Col xs={2} className="p-0 text-center align-self-center">
           <span className="tagsfix">1 month</span>
         </Col>
         <Col xs={8} className="px-1">
-          <RangeSlider min={1} max={13} value={storeBackups} className="slider" onChange={this.setStoreBackups} />
+          <Slider min={0} max={13} step={1} value={storeBackups} onChange={this.setStoreBackups} />
         </Col>
-        <Col xs={2} className="p-0 text-center">
-          <span className="tagsfix">forever</span>
-        </Col>
-      </Row>
-    );
-    const brightnessControl = (
-      <Row>
-        <Col xs={2} md={1} className="p-0 text-center">
-          <span className="tagsfix">none</span>
-        </Col>
-        <Col xs={8} md={10} className="px-2">
-          <RangeSlider
-            min={0}
-            max={100}
-            step={5}
-            value={Math.round((ledBrightness * 100) / 255)}
-            className="slider"
-            onChange={this.setBrightness}
-            marks={[{ value: 255, label: i18n.keyboardSettings.defaultLabel }]}
-          />
-        </Col>
-        <Col xs={2} md={1} className="p-0 text-center">
-          <span className="tagsfix">max</span>
+        <Col xs={2} className="p-0 text-center align-self-center">
+          <span className="tagsfix">Forever</span>
         </Col>
       </Row>
     );
+
     // const holdT = (
     //   <RangeSlider
     //     min={0}
@@ -1180,19 +1118,7 @@ class KeyboardSettings extends React.Component {
     //     marks={[{ value: 80, label: i18n.keyboardSettings.defaultLabel }]}
     //   />
     // );
-    const superT = (
-      <Row>
-        <Col xs={2} md={1} className="p-0 text-center">
-          <span className="tagsfix">slow</span>
-        </Col>
-        <Col xs={8} md={10} className="px-2">
-          <RangeSlider min={0} max={95} value={100 - SuperTimeout / 10} className="slider" onChange={this.setTyping} />
-        </Col>
-        <Col xs={2} md={1} className="p-0 text-center">
-          <span className="tagsfix">fast</span>
-        </Col>
-      </Row>
-    );
+
     // const superR = (
     //   <RangeSlider
     //     min={0}
@@ -1213,19 +1139,7 @@ class KeyboardSettings extends React.Component {
     //     marks={[{ value: 500, label: i18n.keyboardSettings.defaultLabel }]}
     //   />
     // );
-    const superH = (
-      <Row>
-        <Col xs={2} md={1} className="p-0 text-center">
-          <span className="tagsfix">none</span>
-        </Col>
-        <Col xs={8} md={10} className="px-2">
-          <RangeSlider min={0} max={100} value={qukeysOverlapThreshold} className="slider" onChange={this.setChording} />
-        </Col>
-        <Col xs={2} md={1} className="p-0 text-center">
-          <span className="tagsfix">high</span>
-        </Col>
-      </Row>
-    );
+
     // const SuperO = (
     //   <RangeSlider
     //     min={0}
@@ -1238,21 +1152,14 @@ class KeyboardSettings extends React.Component {
     // );
     const mSpeed = (
       <Row>
-        <Col xs={2} md={1} className="p-0 text-center">
-          <span className="tagsfix">slow</span>
+        <Col xs={2} md={1} className="p-0 text-center align-self-center">
+          <span className="tagsfix">Slow</span>
         </Col>
         <Col xs={8} md={10} className="px-2">
-          <RangeSlider
-            min={0}
-            max={254}
-            value={mouseSpeed}
-            className="slider"
-            onChange={this.setSpeed}
-            marks={[{ value: 1, label: i18n.keyboardSettings.defaultLabel }]}
-          />
+          <Slider min={0} max={254} value={mouseSpeed} onChange={this.setSpeed} />
         </Col>
-        <Col xs={2} md={1} className="p-0 text-center">
-          <span className="tagsfix">fast</span>
+        <Col xs={2} md={1} className="p-0 text-center align-self-center">
+          <span className="tagsfix">Fast</span>
         </Col>
       </Row>
     );
@@ -1268,21 +1175,14 @@ class KeyboardSettings extends React.Component {
     // );
     const mAccelS = (
       <Row>
-        <Col xs={2} md={1} className="p-0 text-center">
-          <span className="tagsfix">slow</span>
+        <Col xs={2} md={1} className="p-0 text-center align-self-center">
+          <span className="tagsfix">Slow</span>
         </Col>
         <Col xs={8} md={10} className="px-2">
-          <RangeSlider
-            min={0}
-            max={254}
-            value={mouseAccelSpeed}
-            className="slider"
-            onChange={this.setAccelSpeed}
-            marks={[{ value: 1, label: i18n.keyboardSettings.defaultLabel }]}
-          />
+          <Slider min={0} max={254} value={mouseAccelSpeed} onChange={this.setAccelSpeed} />
         </Col>
-        <Col xs={2} md={1} className="p-0 text-center">
-          <span className="tagsfix">fast</span>
+        <Col xs={2} md={1} className="p-0 text-center align-self-center">
+          <span className="tagsfix">Fast</span>
         </Col>
       </Row>
     );
@@ -1298,21 +1198,14 @@ class KeyboardSettings extends React.Component {
     // );
     const mWheelS = (
       <Row>
-        <Col xs={2} md={1} className="p-0 text-center">
-          <span className="tagsfix">slow</span>
+        <Col xs={2} md={1} className="p-0 text-center align-self-center">
+          <span className="tagsfix">Slow</span>
         </Col>
         <Col xs={8} md={10} className="px-2">
-          <RangeSlider
-            min={1}
-            max={15}
-            value={mouseWheelSpeed}
-            className="slider"
-            onChange={this.setWheelSpeed}
-            marks={[{ value: 1, label: i18n.keyboardSettings.defaultLabel }]}
-          />
+          <Slider min={1} max={15} value={mouseWheelSpeed} onChange={this.setWheelSpeed} />
         </Col>
-        <Col xs={2} md={1} className="p-0 text-center">
-          <span className="tagsfix">fast</span>
+        <Col xs={2} md={1} className="p-0 text-center align-self-center">
+          <span className="tagsfix">Fast</span>
         </Col>
       </Row>
     );
@@ -1328,60 +1221,18 @@ class KeyboardSettings extends React.Component {
     // );
     const mSpeedL = (
       <Row>
-        <Col xs={2} md={1} className="p-0 text-center">
-          <span className="tagsfix">slow</span>
+        <Col xs={2} md={1} className="p-0 text-center align-self-center">
+          <span className="tagsfix">Slow</span>
         </Col>
         <Col xs={8} md={10} className="px-2">
-          <RangeSlider
-            min={0}
-            max={254}
-            value={mouseSpeedLimit}
-            className="slider"
-            onChange={this.setSpeedLimit}
-            marks={[{ value: 127, label: i18n.keyboardSettings.defaultLabel }]}
-          />
+          <Slider min={0} max={254} value={mouseSpeedLimit} onChange={this.setSpeedLimit} />
         </Col>
-        <Col xs={2} md={1} className="p-0 text-center">
-          <span className="tagsfix">fast</span>
+        <Col xs={2} md={1} className="p-0 text-center align-self-center">
+          <span className="tagsfix">Fast</span>
         </Col>
       </Row>
     );
-    const darkModeSwitch = (
-      <Dropdown onSelect={selectDarkMode} value={darkMode} className="fullWidth">
-        <Dropdown.Toggle className="toggler">
-          {darkMode === "system" ? (
-            <React.Fragment>
-              <MdComputer className="select-icon" />
-              System
-            </React.Fragment>
-          ) : darkMode === "dark" ? (
-            <React.Fragment>
-              <MdBrightness3 className="select-icon" />
-              Dark
-            </React.Fragment>
-          ) : (
-            <React.Fragment>
-              <MdWbSunny className="select-icon" />
-              Light
-            </React.Fragment>
-          )}
-        </Dropdown.Toggle>
-        <Dropdown.Menu className="menu">
-          <Dropdown.Item key={`theme-system`} eventKey={"system"}>
-            <MdComputer className="mr-3" />
-            <span className="va1fix">System</span>
-          </Dropdown.Item>
-          <Dropdown.Item key={`theme-dark`} eventKey={"dark"}>
-            <MdBrightness3 className="mr-3" />
-            <span className="va1fix">Dark</span>
-          </Dropdown.Item>
-          <Dropdown.Item key={`theme-light`} eventKey={"light"}>
-            <MdWbSunny className="mr-3" />
-            <span className="va1fix">Light</span>
-          </Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
-    );
+
     const backupFolderButton = (
       <Button onClick={this.ChooseBackupFolder} className="backupbuttons">
         {i18n.keyboardSettings.backupFolder.selectButtonText}
@@ -1439,7 +1290,6 @@ class KeyboardSettings extends React.Component {
                               style={"flex"}
                               size={"sm"}
                             />
-                            {darkModeSwitch}
                           </Form.Group>
                         </Col>
                       </Row>
@@ -1453,6 +1303,14 @@ class KeyboardSettings extends React.Component {
                       <Form.Group controlId="backupFolder" className="mb-3">
                         <Row>
                           <Form.Label>{i18n.keyboardSettings.backupFolder.title}</Form.Label>
+                        </Row>
+                        <Row>
+                          <BackupFolderConfigurator
+                            chooseBackupFolder={this.ChooseBackupFolder}
+                            getBackup={this.GetBackup}
+                            backupFolder={backupFolder}
+                            connected={this.props.connected}
+                          />
                         </Row>
                         <Row className="mb-4">
                           <Col className="pl-0 pr-1">
@@ -1498,28 +1356,26 @@ class KeyboardSettings extends React.Component {
                       <Title text={i18n.preferences.advanced} headingLevel={3} svgICO={<IconChip />} />
                     </Card.Title>
                     <Card.Body className="pb-0">
-                      <Form>
-                        <Row>
-                          <Col xs={6}>
-                            <Form.Group controlId="DevTools" className="switchHolder">
-                              <Form.Label>{i18n.preferences.devtools}</Form.Label>
-                              {devToolsSwitch}
-                            </Form.Group>
-                          </Col>
-                          <Col xs={6}>
-                            <Form.Group controlId="Verbose" className="switchHolder">
-                              <Form.Label>{i18n.preferences.verboseFocus}</Form.Label>
-                              {verboseSwitch}
-                            </Form.Group>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col xs={12} className="mt-4">
-                            <Title headingLevel={6} text={i18n.keyboardSettings.resetEEPROM.title} />
-                          </Col>
-                          <Col xs={12}>{this.props.connected && <AdvancedKeyboardSettings />}</Col>
-                        </Row>
-                      </Form>
+                      <Row>
+                        <Col xs={6}>
+                          <Form.Group controlId="DevTools" className="switchHolder">
+                            <Form.Label>{i18n.preferences.devtools}</Form.Label>
+                            {devToolsSwitch}
+                          </Form.Group>
+                        </Col>
+                        <Col xs={6}>
+                          <Form.Group controlId="Verbose" className="switchHolder">
+                            <Form.Label>{i18n.preferences.verboseFocus}</Form.Label>
+                            {verboseSwitch}
+                          </Form.Group>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col xs={12} className="mt-4">
+                          <Title headingLevel={6} text={i18n.keyboardSettings.resetEEPROM.title} />
+                        </Col>
+                        <Col xs={12}>{this.props.connected && <AdvancedKeyboardSettings />}</Col>
+                      </Row>
                     </Card.Body>
                   </Card>
                 </Col>
@@ -1533,17 +1389,53 @@ class KeyboardSettings extends React.Component {
                         {ledIdleTimeLimit >= 0 && (
                           <Form.Group controlId="idleTimeLimit" className="formGroup">
                             <Row>
-                              <Form.Label>{i18n.keyboardSettings.led.idleTimeLimit}</Form.Label>
+                              <Col>
+                                <Form.Label>{i18n.keyboardSettings.led.idleTimeLimit}</Form.Label>
+                              </Col>
                             </Row>
-                            {newIdleControl}
+                            <Row>
+                              <Col xs={2} md={1} className="p-0 text-center align-self-center">
+                                <span className="tagsfix">Off</span>
+                              </Col>
+                              <Col xs={8} md={10} className="px-2">
+                                <Slider
+                                  min={0}
+                                  max={60}
+                                  step={1}
+                                  value={ledIdleTimeLimit / 60}
+                                  onChange={this.selectIdleLEDTime}
+                                />
+                              </Col>
+                              <Col xs={2} md={1} className="p-0 text-center align-self-center">
+                                <span className="tagsfix">60min</span>
+                              </Col>
+                            </Row>
                           </Form.Group>
                         )}
                         {ledBrightness >= 0 && (
                           <Form.Group controlId="brightnessControl" className="formGroup">
                             <Row>
-                              <Form.Label>{i18n.keyboardSettings.led.brightness}</Form.Label>
+                              <Col>
+                                <Form.Label>{i18n.keyboardSettings.led.brightness}</Form.Label>
+                              </Col>
                             </Row>
-                            {brightnessControl}
+                            <Row>
+                              <Col xs={2} md={1} className="p-0 text-center align-self-center">
+                                <span className="tagsfix">None</span>
+                              </Col>
+                              <Col xs={8} md={10} className="px-2">
+                                <Slider
+                                  min={0}
+                                  max={100}
+                                  step={5}
+                                  value={Math.round((ledBrightness * 100) / 255)}
+                                  onChange={this.setBrightness}
+                                />
+                              </Col>
+                              <Col xs={2} md={1} className="p-0 text-center align-self-center">
+                                <span className="tagsfix">Max</span>
+                              </Col>
+                            </Row>
                           </Form.Group>
                         )}
                       </Card.Body>
@@ -1556,47 +1448,57 @@ class KeyboardSettings extends React.Component {
                         {SuperTimeout >= 0 && (
                           <Form.Group controlId="superTimeout" className="formGroup">
                             <Row>
-                              <Form.Label>
-                                {i18n.keyboardSettings.superkeys.timeout}
-                                <OverlayTrigger
-                                  rootClose
-                                  placement="bottom"
-                                  delay={{ show: 250, hide: 400 }}
-                                  overlay={this.renderTooltip([
-                                    i18n.keyboardSettings.superkeys.timeoutTip1,
-                                    i18n.keyboardSettings.superkeys.timeoutTip2,
-                                    i18n.keyboardSettings.superkeys.timeoutTip3,
-                                    i18n.keyboardSettings.superkeys.timeoutTip4
-                                  ])}
-                                >
-                                  <MdInfoOutline className="modinfo" />
-                                </OverlayTrigger>
-                              </Form.Label>
+                              <Col>
+                                <Form.Label>
+                                  <Title
+                                    text={i18n.keyboardSettings.superkeys.timeout}
+                                    headingLevel={6}
+                                    tooltip={`<h5 class="text-left">${i18n.keyboardSettings.superkeys.timeoutTip1}</h5><ul><li class="text-left">${i18n.keyboardSettings.superkeys.timeoutTip2}</li><li class="text-left">${i18n.keyboardSettings.superkeys.timeoutTip3}</li><li class="text-left">${i18n.keyboardSettings.superkeys.timeoutTip4}</li></ul>`}
+                                    tooltipPlacement="bottom"
+                                    tooltipSize="wide"
+                                  />
+                                </Form.Label>
+                              </Col>
                             </Row>
-                            {superT}
+                            <Row>
+                              <Col xs={2} md={1} className="p-0 text-center align-self-center">
+                                <span className="tagsfix">Slow</span>
+                              </Col>
+                              <Col xs={8} md={10} className="px-2">
+                                <Slider min={0} max={95} value={100 - SuperTimeout / 10} onChange={this.setTyping} />
+                              </Col>
+                              <Col xs={2} md={1} className="p-0 text-center align-self-center">
+                                <span className="tagsfix">Fast</span>
+                              </Col>
+                            </Row>
                           </Form.Group>
                         )}
                         {SuperHoldstart >= 0 && (
                           <Form.Group controlId="superHoldstart" className="formGroup">
                             <Row>
-                              <Form.Label>
-                                {i18n.keyboardSettings.superkeys.holdstart}
-                                <OverlayTrigger
-                                  rootClose
-                                  placement="bottom"
-                                  delay={{ show: 250, hide: 400 }}
-                                  overlay={this.renderTooltip([
-                                    i18n.keyboardSettings.superkeys.chordingTip1,
-                                    i18n.keyboardSettings.superkeys.chordingTip2,
-                                    i18n.keyboardSettings.superkeys.chordingTip3,
-                                    i18n.keyboardSettings.superkeys.chordingTip4
-                                  ])}
-                                >
-                                  <MdInfoOutline className="modinfo" />
-                                </OverlayTrigger>
-                              </Form.Label>
+                              <Col>
+                                <Form.Label>
+                                  <Title
+                                    text={i18n.keyboardSettings.superkeys.holdstart}
+                                    headingLevel={6}
+                                    tooltip={`<h5 class="text-left">${i18n.keyboardSettings.superkeys.chordingTip1}</h5><ul><li class="text-left">${i18n.keyboardSettings.superkeys.chordingTip2}</li><li class="text-left">${i18n.keyboardSettings.superkeys.chordingTip3}</li><li class="text-left">${i18n.keyboardSettings.superkeys.chordingTip4}</li></ul>`}
+                                    tooltipPlacement="bottom"
+                                    tooltipSize="wide"
+                                  />
+                                </Form.Label>
+                              </Col>
                             </Row>
-                            {superH}
+                            <Row>
+                              <Col xs={2} md={1} className="p-0 text-center align-self-center">
+                                <span className="tagsfix">None</span>
+                              </Col>
+                              <Col xs={8} md={10} className="px-2">
+                                <Slider min={0} max={100} value={qukeysOverlapThreshold} onChange={this.setChording} />
+                              </Col>
+                              <Col xs={2} md={1} className="p-0 text-center align-self-center">
+                                <span className="tagsfix">High</span>
+                              </Col>
+                            </Row>
                           </Form.Group>
                         )}
                       </Card.Body>

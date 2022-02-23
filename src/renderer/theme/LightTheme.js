@@ -179,7 +179,7 @@ const Light = {
         itemTextColor: Tokens.colors.gray400,
         itemTextColorHover: Tokens.colors.gray500,
         itemBackgroundColorHover: Tokens.colors.gray25,
-        itemBackgroundColorActive: Tokens.colors.purple200
+        itemBackgroundColorActive: Tokens.colors.purple100
       }
     },
     form: {
@@ -215,6 +215,14 @@ const Light = {
     pageHeader: {
       backgroundColor: "rgba(240, 242, 244, 0.9)",
       titleColor: Tokens.colors.purple200
+    },
+    slider: {
+      trackColor: Tokens.colors.gray50,
+      progressColor: Tokens.colors.purple200,
+      handleBorderColor: Tokens.colors.gray25,
+      handleBackgroundColor: Tokens.colors.purple200,
+      handleBoxShadow: "rgba(97, 32, 234, 0.4)",
+      labelColor: Tokens.colors.gray300
     },
     switch: {
       background:

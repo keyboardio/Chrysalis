@@ -80,7 +80,7 @@ h6 {
 }
 .tooltipIcon {
   color: var(--purple-100);
-  padding-left: 8px;
+  margin-left: 8px;
   vertical-align: 2px;
   display: inline-block;
 }
@@ -112,7 +112,7 @@ h6 {
 }
 
 `;
-const Title = ({ text, headingLevel, size, color, type, tooltip, svgICO }) => {
+const Title = ({ text, headingLevel, size, color, type, tooltip, tooltipSize, tooltipPlacement, svgICO }) => {
   let Tag = "h" + headingLevel;
 
   return (
@@ -122,7 +122,14 @@ const Title = ({ text, headingLevel, size, color, type, tooltip, svgICO }) => {
         <span dangerouslySetInnerHTML={{ __html: text }} />
         {tooltip && (
           <>
-            <OverlayTrigger placement="top" overlay={<Tooltip id="tooltip-top">{tooltip}</Tooltip>}>
+            <OverlayTrigger
+              placement={`${tooltipPlacement ? tooltipPlacement : "top"}`}
+              overlay={
+                <Tooltip id="tooltip-top" className={`${tooltipSize == "wide" ? "tooltipWide" : "tooltipRegular"}`}>
+                  <div dangerouslySetInnerHTML={{ __html: tooltip }} />
+                </Tooltip>
+              }
+            >
               <span className="tooltipIcon">
                 <IconInformationBubble />
               </span>

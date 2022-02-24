@@ -23,8 +23,8 @@ import NeuronTitle from "../NeuronTitle";
 
 const Style = Styled.div`
 .cardContentNeuronData {
-  border-radius: 16px;
-  padding: 32px;
+  border-radius: 6px;
+  padding: 24px;
   background-color: ${({ theme }) => theme.colors.gray900};
 }
 `;

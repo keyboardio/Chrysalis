@@ -31,6 +31,9 @@ import IconChip from "./IconChip";
 import IconMoon from "./IconMoon";
 import IconSun from "./IconSun";
 import IconScreen from "./IconScreen";
+import IconLayers from "./IconLayers";
+import IconRobot from "./IconRobot";
+import IconThunder from "./IconThunder";
 
 export {
   IconKeyboardSelector,
@@ -49,5 +52,8 @@ export {
   IconChip,
   IconMoon,
   IconSun,
-  IconScreen
+  IconScreen,
+  IconLayers,
+  IconRobot,
+  IconThunder
 };

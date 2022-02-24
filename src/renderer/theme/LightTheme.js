@@ -226,6 +226,10 @@ const Light = {
       neuronLoader: NeuronLoaderLight,
       checkedIcon: CheckedIconLight
     },
+    neuronTitle: {
+      heading3Color: Tokens.colors.brandSecondary,
+      heading4Color: Tokens.colors.gray200
+    },
     pageHeader: {
       backgroundColor: "rgba(240, 242, 244, 0.9)",
       titleColor: Tokens.colors.purple200

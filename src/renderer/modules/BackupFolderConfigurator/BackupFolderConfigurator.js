@@ -26,7 +26,8 @@ const Style = Styled.div`
 width: 100%;
 h6 {
   letter-spacing: 0;
-  color: ${({ theme }) => theme.styles.backupConfiguratorFolder.headingColor}
+  color: ${({ theme }) => theme.styles.backupConfiguratorFolder.headingColor};
+  line-height: 1.5em;
 }
 .containerInfo {
   display: flex;

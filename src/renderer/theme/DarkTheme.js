@@ -235,6 +235,10 @@ const Dark = {
       neuronLoader: NeuronLoaderDark,
       checkedIcon: CheckedIconDark
     },
+    neuronTitle: {
+      heading3Color: Tokens.colors.gray25,
+      heading4Color: Tokens.colors.gray200
+    },
     pageHeader: {
       backgroundColor: settingColorOpacity(Tokens.colors.gray400, 0.15),
       titleColor: Tokens.colors.gray50

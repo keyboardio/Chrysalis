@@ -53,6 +53,7 @@ import Title from "../../component/Title";
 import { Select } from "../../component/Select";
 import { RegularButton } from "../../component/Button";
 import ToggleButtons from "../../component/ToggleButtons";
+import NeuronTitle from "../../modules/NeuronTitle";
 
 import { IconWrench } from "../../component/Icon";
 import { IconFlashlight } from "../../component/Icon";
@@ -1013,36 +1014,7 @@ class KeyboardSettings extends React.Component {
         </Card>
       </Accordion>
     );
-    const selectedNeuronData = (
-      <Container>
-        <Row className="pt-0">
-          <Col xs={1} className="p-0">
-            <span className="neuron-lh">ID</span>
-          </Col>
-          <Col className="px-2">
-            <span className="neuron-lh">{neurons[selectedNeuron].id}</span>
-          </Col>
-        </Row>
-        <Row className="neuronName">
-          <Col xs={1} className="p-0 nTitle">
-            <span>Name</span>
-          </Col>
-          <Col className="pl-2 pr-1 nControl">
-            <Form.Control type="text" value={neurons[selectedNeuron].name} onChange={this.updateNeuronName} />
-          </Col>
-          <Col xs={2} className="pl-1 pr-0 nButton">
-            <Button className="successButton" variant="success" onClick={this.applyNeuronName}>
-              <MdSave className="delete-icon" />
-            </Button>
-          </Col>
-        </Row>
-        <Row className="pt-3">
-          <Col className="px-0">
-            <span className="neuron-lh">{neuronData}</span>
-          </Col>
-        </Row>
-      </Container>
-    );
+
     const idleControl = (
       <Dropdown onSelect={this.selectIdleLEDTime} value={ledIdleTimeLimit}>
         <Dropdown.Toggle className="toggler">{ledIdleTimeLimit}</Dropdown.Toggle>
@@ -1219,17 +1191,6 @@ class KeyboardSettings extends React.Component {
       </Row>
     );
 
-    const backupFolderButton = (
-      <Button onClick={this.ChooseBackupFolder} className="backupbuttons">
-        {i18n.keyboardSettings.backupFolder.selectButtonText}
-      </Button>
-    );
-    const restoreBackupButton = (
-      <Button onClick={this.GetBackup} className="backupbuttons" disabled={!this.props.connected}>
-        {i18n.keyboardSettings.backupFolder.restoreButtonText}
-      </Button>
-    );
-
     return (
       <Styles>
         {this.state.working && <Spinner role="status" />}
@@ -1286,7 +1247,7 @@ class KeyboardSettings extends React.Component {
                       <Title text={i18n.keyboardSettings.backupFolder.header} headingLevel={3} svgICO={<IconFloppyDisk />} />
                     </Card.Title>
                     <Card.Body className="pb-0">
-                      <Form.Group controlId="backupFolder" className="mb-3">
+                      <Form.Group controlId="backupFolder" className="mb-0">
                         <Row>
                           <Col>
                             <BackupFolderConfigurator
@@ -1297,19 +1258,8 @@ class KeyboardSettings extends React.Component {
                             />
                           </Col>
                         </Row>
-                        {/* <Row className="mb-4">
-                          <Col className="pl-0 pr-1">
-                            <Form.Control type="text" value={backupFolder} readOnly />
-                          </Col>
-                          <Col xs={2} className="px-1">
-                            {backupFolderButton}
-                          </Col>
-                          <Col xs={4} className="px-1">
-                            {restoreBackupButton}
-                          </Col>
-                        </Row> */}
                         <Row>
-                          <Col>
+                          <Col className="mt-3">
                             <Form.Label>{i18n.keyboardSettings.backupFolder.storeTime}</Form.Label>
                           </Col>
                         </Row>
@@ -1344,7 +1294,26 @@ class KeyboardSettings extends React.Component {
                             <h5>{i18n.keyboardSettings.neuronManager.descriptionTitle}</h5>
                           </Form.Label>
                         </Row>
-                        <Row className="mb-4">{selectedNeuronData}</Row>
+                        <Row className="mb-4">
+                          <Container>
+                            <NeuronTitle neuronName={neurons[selectedNeuron].name} neuronID={neurons[selectedNeuron].id} />
+                            <Row className="neuronName">
+                              <Col className="pl-2 pr-1 nControl">
+                                <Form.Control type="text" value={neurons[selectedNeuron].name} onChange={this.updateNeuronName} />
+                              </Col>
+                              <Col xs={2} className="pl-1 pr-0 nButton">
+                                <Button className="successButton" variant="success" onClick={this.applyNeuronName}>
+                                  <MdSave className="delete-icon" />
+                                </Button>
+                              </Col>
+                            </Row>
+                            <Row className="pt-3">
+                              <Col className="px-0">
+                                <span className="neuron-lh">{neuronData}</span>
+                              </Col>
+                            </Row>
+                          </Container>
+                        </Row>
                       </Form.Group>
                     </Card.Body>
                   </Card>
@@ -1508,7 +1477,9 @@ class KeyboardSettings extends React.Component {
                         {mouseSpeed >= 0 && (
                           <Form.Group controlId="mouseSpeed" className="formGroup">
                             <Row>
-                              <Form.Label>{i18n.keyboardSettings.mouse.speed}</Form.Label>
+                              <Col>
+                                <Form.Label>{i18n.keyboardSettings.mouse.speed}</Form.Label>
+                              </Col>
                             </Row>
                             {mSpeed}
                           </Form.Group>
@@ -1516,7 +1487,9 @@ class KeyboardSettings extends React.Component {
                         {mouseAccelSpeed >= 0 && (
                           <Form.Group controlId="mousemAccelS" className="formGroup">
                             <Row>
-                              <Form.Label>{i18n.keyboardSettings.mouse.accelSpeed}</Form.Label>
+                              <Col>
+                                <Form.Label>{i18n.keyboardSettings.mouse.accelSpeed}</Form.Label>
+                              </Col>
                             </Row>
                             {mAccelS}
                           </Form.Group>
@@ -1524,7 +1497,9 @@ class KeyboardSettings extends React.Component {
                         {mouseSpeedLimit >= 0 && (
                           <Form.Group controlId="mouseSpeedL" className="formGroup">
                             <Row>
-                              <Form.Label>{i18n.keyboardSettings.mouse.speedLimit}</Form.Label>
+                              <Col>
+                                <Form.Label>{i18n.keyboardSettings.mouse.speedLimit}</Form.Label>
+                              </Col>
                             </Row>
                             {mSpeedL}
                           </Form.Group>
@@ -1532,7 +1507,9 @@ class KeyboardSettings extends React.Component {
                         {mouseWheelSpeed >= 0 && (
                           <Form.Group controlId="mousemWheelS" className="formGroup">
                             <Row>
-                              <Form.Label>{i18n.keyboardSettings.mouse.wheelSpeed}</Form.Label>
+                              <Col>
+                                <Form.Label>{i18n.keyboardSettings.mouse.wheelSpeed}</Form.Label>
+                              </Col>
                             </Row>
                             {mWheelS}
                           </Form.Group>

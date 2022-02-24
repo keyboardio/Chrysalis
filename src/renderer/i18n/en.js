@@ -275,6 +275,7 @@ const English = {
     neuronManager: {
       header: "Neuron Manager",
       title: "Select a Neuron",
+      nameTitle: "Name",
       neuron: "{0}: {1}",
       defaultNeuron: "No neuron registered",
       descriptionTitle: "Selected neuron parameters",

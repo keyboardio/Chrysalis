@@ -29,7 +29,6 @@ import Container from "react-bootstrap/Container";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Spinner from "react-bootstrap/Spinner";
-import Accordion from "react-bootstrap/Accordion";
 
 import Slider from "react-rangeslider";
 
@@ -54,6 +53,7 @@ import { Select } from "../../component/Select";
 import { RegularButton } from "../../component/Button";
 import ToggleButtons from "../../component/ToggleButtons";
 import NeuronData from "../../modules/NeuronData";
+import NeuronSelector from "../../modules/NeuronSelector";
 
 import {
   IconWrench,
@@ -953,76 +953,6 @@ class KeyboardSettings extends React.Component {
         </Button>
       </div>
     );
-    const neuronData = (
-      <Accordion defaultActiveKey="0">
-        <Card className="neuronDataCard">
-          <Accordion.Toggle as={Card.Header} eventKey="1">
-            <div className="accordionHeader">
-              <div className="accordionIcon">
-                <IconLayers />
-              </div>
-              <div className="accordionTitle">Layers</div>
-              <span className="plus">
-                <IconPlus />
-              </span>
-            </div>
-          </Accordion.Toggle>
-          <Accordion.Collapse eventKey="1">
-            <Card.Body>
-              <ol>
-                {neurons[selectedNeuron].layers.map((layer, id) => (
-                  <li key={`${id}-${layer.name}`}>{layer.name}</li>
-                ))}
-              </ol>
-            </Card.Body>
-          </Accordion.Collapse>
-        </Card>
-        <Card className="neuronDataCard">
-          <Accordion.Toggle as={Card.Header} eventKey="2">
-            <div className="accordionHeader">
-              <div className="accordionIcon">
-                <IconRobot />
-              </div>
-              <div className="accordionTitle">Macro</div>
-              <span className="plus">
-                <IconPlus />
-              </span>
-            </div>
-          </Accordion.Toggle>
-          <Accordion.Collapse eventKey="2">
-            <Card.Body>
-              <ol>
-                {neurons[selectedNeuron].macros.map((macro, id) => (
-                  <li key={`${id}-${macro.name}`}>{macro.name}</li>
-                ))}
-              </ol>
-            </Card.Body>
-          </Accordion.Collapse>
-        </Card>
-        <Card className="neuronDataCard">
-          <Accordion.Toggle as={Card.Header} eventKey="3">
-            <div className="accordionHeader">
-              <div className="accordionIcon">
-                <IconThunder />
-              </div>
-              <div className="accordionTitle">Superkeys</div>
-              <span className="plus">
-                <IconPlus />
-              </span>
-            </div>
-          </Accordion.Toggle>
-          <Accordion.Collapse eventKey="3">
-            <Card.Body>
-              <ol>
-                {neurons[selectedNeuron].superkeys.map((superkey, id) => (
-                  <li key={`${id}-${superkey.name}`}>{superkey.name}</li>
-                ))}
-              </ol>
-            </Card.Body>
-          </Accordion.Collapse>
-        </Card>
-      </Accordion>
-    );
 
     const idleControl = (
       <Dropdown onSelect={this.selectIdleLEDTime} value={ledIdleTimeLimit}>
@@ -1292,6 +1222,12 @@ class KeyboardSettings extends React.Component {
                     </Card.Title>
                     <Card.Body className="py-0">
                       <Form.Group controlId="backupFolder" className="mb-3">
+                        <NeuronSelector
+                          onSelect={this.selectNeuron}
+                          neurons={neurons}
+                          selectedNeuron={selectedNeuron}
+                          onClickDelete={this.applyNeuronName}
+                        />
                         <Row>
                           <Col className="pl-0 pr-1">{availableNeurons}</Col>
                           <Col xs={2} className="pl-1 pr-0">
@@ -1316,7 +1252,6 @@ class KeyboardSettings extends React.Component {
                             <NeuronData
                               neuronName={neurons[selectedNeuron].name}
                               neuronID={neurons[selectedNeuron].id}
-                              neuronData={neuronData}
                               neurons={neurons}
                               selectedNeuron={selectedNeuron}
                             />

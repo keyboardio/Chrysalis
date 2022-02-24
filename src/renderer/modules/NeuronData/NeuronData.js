@@ -20,8 +20,12 @@ import Styled from "styled-components";
 import Title from "../../component/Title";
 import i18n from "../../i18n";
 import NeuronTitle from "../NeuronTitle";
+import Card from "react-bootstrap/Card";
 import Accordion from "react-bootstrap/Accordion";
 import { IconPlus } from "../../component/Icon";
+import { IconRobot } from "../../component/Icon";
+import { IconLayers } from "../../component/Icon";
+import { IconThunder } from "../../component/Icon";
 
 const Style = Styled.div`
 .cardContentNeuronData {
@@ -55,7 +59,7 @@ const Style = Styled.div`
   padding-left: 12px;
 }
 `;
-const NeuronData = ({ neuronName, neuronID, neuronData, neurons, selectedNeuron }) => {
+const NeuronData = ({ neuronName, neuronID, neurons, selectedNeuron }) => {
   return (
     <Style>
       <div className="cardContentNeuronData">

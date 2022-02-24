@@ -226,6 +226,12 @@ const Dark = {
       titleColor: Tokens.colors.gray25,
       subTitleColor: Tokens.colors.gray200
     },
+    neuronData: {
+      neuronInfoBackground: settingColorOpacity(Tokens.colors.gray900, 0.2),
+      neuronInfoBoxShadow: "none",
+      accordionBorder: Tokens.colors.gray600,
+      accordionCardBackground: settingColorOpacity(Tokens.colors.gray900, 0.2)
+    },
     neuronStatus: {
       neuronStatusBackgroundColor: settingColorOpacity(Tokens.colors.gray400, 0.05),
       lineStrokeColor: "#3F425A",

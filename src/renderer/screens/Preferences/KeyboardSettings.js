@@ -55,27 +55,24 @@ import { RegularButton } from "../../component/Button";
 import ToggleButtons from "../../component/ToggleButtons";
 import NeuronData from "../../modules/NeuronData";
 
-import { IconWrench } from "../../component/Icon";
-import { IconFlashlight } from "../../component/Icon";
-import { IconFloppyDisk } from "../../component/Icon";
-import { IconTypo } from "../../component/Icon";
-import { IconNeuronManager } from "../../component/Icon";
-import { IconChip } from "../../component/Icon";
-import { IconMouse } from "../../component/Icon";
-import { IconSun } from "../../component/Icon";
-import { IconMoon } from "../../component/Icon";
-import { IconScreen } from "../../component/Icon";
-
 import {
-  MdComputer,
-  MdBrightness3,
-  MdWbSunny,
-  MdStorage,
-  MdInfoOutline,
-  MdDeleteForever,
-  MdSave,
-  MdKeyboardArrowDown
-} from "react-icons/md";
+  IconWrench,
+  IconFlashlight,
+  IconFloppyDisk,
+  IconTypo,
+  IconNeuronManager,
+  IconChip,
+  IconMouse,
+  IconSun,
+  IconMoon,
+  IconScreen,
+  IconLayers,
+  IconRobot,
+  IconThunder,
+  IconPlus
+} from "../../component/Icon";
+
+import { MdDeleteForever, MdSave } from "react-icons/md";
 import { BsType, BsBrightnessHigh } from "react-icons/bs";
 import { BiMouse, BiCodeAlt, BiWrench, BiChip } from "react-icons/bi";
 import { isArray } from "lodash";
@@ -186,12 +183,6 @@ const Styles = Styled.div`
   }
   .neuron-lh{
     line-height: 2.4rem;
-  }
-  .neuronDataCard{
-    padding 0;
-    .card-header{
-      padding: 4px 24px;
-    }
   }
   .deleteButton {
     min-width: 100%;
@@ -966,9 +957,15 @@ class KeyboardSettings extends React.Component {
       <Accordion defaultActiveKey="0">
         <Card className="neuronDataCard">
           <Accordion.Toggle as={Card.Header} eventKey="1">
-            <span className="accSpan">
-              Layers <MdKeyboardArrowDown className="delete-icon align-left" />
-            </span>
+            <div className="accordionHeader">
+              <div className="accordionIcon">
+                <IconLayers />
+              </div>
+              <div className="accordionTitle">Layers</div>
+              <span className="plus">
+                <IconPlus />
+              </span>
+            </div>
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="1">
             <Card.Body>
@@ -982,9 +979,15 @@ class KeyboardSettings extends React.Component {
         </Card>
         <Card className="neuronDataCard">
           <Accordion.Toggle as={Card.Header} eventKey="2">
-            <span className="accSpan">
-              Macros <MdKeyboardArrowDown className="delete-icon align-left" />
-            </span>
+            <div className="accordionHeader">
+              <div className="accordionIcon">
+                <IconRobot />
+              </div>
+              <div className="accordionTitle">Macro</div>
+              <span className="plus">
+                <IconPlus />
+              </span>
+            </div>
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="2">
             <Card.Body>
@@ -998,9 +1001,15 @@ class KeyboardSettings extends React.Component {
         </Card>
         <Card className="neuronDataCard">
           <Accordion.Toggle as={Card.Header} eventKey="3">
-            <span className="accSpan">
-              Superkeys <MdKeyboardArrowDown className="delete-icon align-left" />
-            </span>
+            <div className="accordionHeader">
+              <div className="accordionIcon">
+                <IconThunder />
+              </div>
+              <div className="accordionTitle">Superkeys</div>
+              <span className="plus">
+                <IconPlus />
+              </span>
+            </div>
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="3">
             <Card.Body>
@@ -1289,22 +1298,29 @@ class KeyboardSettings extends React.Component {
                             {deleteSelectedNeuron}
                           </Col>
                         </Row>
+                        <Row className="neuronName">
+                          <Col className="pl-2 pr-1 nControl">
+                            <Form.Control type="text" value={neurons[selectedNeuron].name} onChange={this.updateNeuronName} />
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col xs={2} className="pl-1 pr-0 nButton">
+                            <Button className="successButton" variant="success" onClick={this.applyNeuronName}>
+                              <MdSave className="delete-icon" />
+                            </Button>
+                          </Col>
+                        </Row>
+
                         <Row className="mb-4">
-                          <Row className="neuronName">
-                            <Col className="pl-2 pr-1 nControl">
-                              <Form.Control type="text" value={neurons[selectedNeuron].name} onChange={this.updateNeuronName} />
-                            </Col>
-                            <Col xs={2} className="pl-1 pr-0 nButton">
-                              <Button className="successButton" variant="success" onClick={this.applyNeuronName}>
-                                <MdSave className="delete-icon" />
-                              </Button>
-                            </Col>
-                          </Row>
-                          <NeuronData
-                            neuronName={neurons[selectedNeuron].name}
-                            neuronID={neurons[selectedNeuron].id}
-                            neuronData={neuronData}
-                          />
+                          <Col>
+                            <NeuronData
+                              neuronName={neurons[selectedNeuron].name}
+                              neuronID={neurons[selectedNeuron].id}
+                              neuronData={neuronData}
+                              neurons={neurons}
+                              selectedNeuron={selectedNeuron}
+                            />
+                          </Col>
                         </Row>
                       </Form.Group>
                     </Card.Body>

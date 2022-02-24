@@ -251,6 +251,13 @@ svg text{
 // 
 // Components
 // 
+.accordion .card {
+  border-radius: 6px;
+  padding: 0;
+}
+.accordion .card .card-header{
+  
+}
 .button {
   font-weight: 600;
   font-size: 16px;

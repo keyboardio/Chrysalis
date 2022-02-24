@@ -34,6 +34,7 @@ import IconScreen from "./IconScreen";
 import IconLayers from "./IconLayers";
 import IconRobot from "./IconRobot";
 import IconThunder from "./IconThunder";
+import IconPlus from "./IconPlus";
 
 export {
   IconKeyboardSelector,
@@ -55,5 +56,6 @@ export {
   IconScreen,
   IconLayers,
   IconRobot,
-  IconThunder
+  IconThunder,
+  IconPlus
 };

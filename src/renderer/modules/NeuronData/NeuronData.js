@@ -20,20 +20,114 @@ import Styled from "styled-components";
 import Title from "../../component/Title";
 import i18n from "../../i18n";
 import NeuronTitle from "../NeuronTitle";
+import Accordion from "react-bootstrap/Accordion";
+import { IconPlus } from "../../component/Icon";
 
 const Style = Styled.div`
 .cardContentNeuronData {
   border-radius: 6px;
   padding: 24px;
-  background-color: ${({ theme }) => theme.colors.gray900};
+  background: ${({ theme }) => theme.styles.neuronData.neuronInfoBackground};
+  box-shadow: ${({ theme }) => theme.styles.neuronData.neuronInfoBoxShadow};
+}
+.accordion .card {
+  border: 1px solid ${({ theme }) => theme.styles.neuronData.accordionBorder};
+  background: ${({ theme }) => theme.styles.neuronData.accordionCardBackground};
+}
+.accordion .card .card-header{
+  padding: 12px 24px;
+}
+.accordion .card + .card {
+  margin-top: -1px;
+}
+.accordionHeader {
+  display: flex;
+  position: relative;
+  .plus {
+    position: absolute;
+    top: 50%;
+    right: -12px;
+    opacity: 0.5;
+    transform: translate3d(0, -50%, 0);
+  }
+}
+.accordionIcon + .accordionTitle {
+  padding-left: 12px;
 }
 `;
-const NeuronData = ({ neuronName, neuronID, neuronData }) => {
+const NeuronData = ({ neuronName, neuronID, neuronData, neurons, selectedNeuron }) => {
   return (
     <Style>
       <div className="cardContentNeuronData">
         <NeuronTitle neuronName={neuronName} neuronID={neuronID} />
-        {neuronData}
+        <Accordion defaultActiveKey="0">
+          <Card className="neuronDataCard">
+            <Accordion.Toggle as={Card.Header} eventKey="1">
+              <div className="accordionHeader">
+                <div className="accordionIcon">
+                  <IconLayers />
+                </div>
+                <div className="accordionTitle">Layers</div>
+                <span className="plus">
+                  <IconPlus />
+                </span>
+              </div>
+            </Accordion.Toggle>
+            <Accordion.Collapse eventKey="1">
+              <Card.Body>
+                <ol>
+                  {neurons[selectedNeuron].layers.map((layer, id) => (
+                    <li key={`${id}-${layer.name}`}>{layer.name}</li>
+                  ))}
+                </ol>
+              </Card.Body>
+            </Accordion.Collapse>
+          </Card>
+          <Card className="neuronDataCard">
+            <Accordion.Toggle as={Card.Header} eventKey="2">
+              <div className="accordionHeader">
+                <div className="accordionIcon">
+                  <IconRobot />
+                </div>
+                <div className="accordionTitle">Macro</div>
+                <span className="plus">
+                  <IconPlus />
+                </span>
+              </div>
+            </Accordion.Toggle>
+            <Accordion.Collapse eventKey="2">
+              <Card.Body>
+                <ol>
+                  {neurons[selectedNeuron].macros.map((macro, id) => (
+                    <li key={`${id}-${macro.name}`}>{macro.name}</li>
+                  ))}
+                </ol>
+              </Card.Body>
+            </Accordion.Collapse>
+          </Card>
+          <Card className="neuronDataCard">
+            <Accordion.Toggle as={Card.Header} eventKey="3">
+              <div className="accordionHeader">
+                <div className="accordionIcon">
+                  <IconThunder />
+                </div>
+                <div className="accordionTitle">Superkeys</div>
+                <span className="plus">
+                  <IconPlus />
+                </span>
+              </div>
+            </Accordion.Toggle>
+            <Accordion.Collapse eventKey="3">
+              <Card.Body>
+                <ol>
+                  {neurons[selectedNeuron].superkeys.map((superkey, id) => (
+                    <li key={`${id}-${superkey.name}`}>{superkey.name}</li>
+                  ))}
+                </ol>
+              </Card.Body>
+            </Accordion.Collapse>
+          </Card>
+        </Accordion>
       </div>
     </Style>
   );

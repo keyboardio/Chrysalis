@@ -217,6 +217,12 @@ const Light = {
       titleColor: Tokens.colors.gray500,
       subTitleColor: Tokens.colors.gray200
     },
+    neuronData: {
+      neuronInfoBackground: "#fff",
+      neuronInfoBoxShadow: `0px 4px 16px ${settingColorOpacity(Tokens.colors.purple200, 0.08)}`,
+      accordionBorder: Tokens.colors.gray50,
+      accordionCardBackground: "transparent"
+    },
     neuronStatus: {
       neuronStatusBackgroundColor: "rgba(255, 255, 255, 0.15)",
       lineStrokeColor: Tokens.colors.gray200,

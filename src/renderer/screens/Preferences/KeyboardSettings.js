@@ -53,7 +53,7 @@ import Title from "../../component/Title";
 import { Select } from "../../component/Select";
 import { RegularButton } from "../../component/Button";
 import ToggleButtons from "../../component/ToggleButtons";
-import NeuronTitle from "../../modules/NeuronTitle";
+import NeuronData from "../../modules/NeuronData";
 
 import { IconWrench } from "../../component/Icon";
 import { IconFlashlight } from "../../component/Icon";
@@ -1296,7 +1296,11 @@ class KeyboardSettings extends React.Component {
                         </Row>
                         <Row className="mb-4">
                           <Container>
-                            <NeuronTitle neuronName={neurons[selectedNeuron].name} neuronID={neurons[selectedNeuron].id} />
+                            <NeuronData
+                              neuronName={neurons[selectedNeuron].name}
+                              neuronID={neurons[selectedNeuron].id}
+                              neuronData={neuronData}
+                            />
                             <Row className="neuronName">
                               <Col className="pl-2 pr-1 nControl">
                                 <Form.Control type="text" value={neurons[selectedNeuron].name} onChange={this.updateNeuronName} />

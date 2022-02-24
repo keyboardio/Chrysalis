@@ -332,7 +332,24 @@ svg text{
   background: ${({ theme }) => theme.styles.button.config.backgroundActive};
   box-shadow: ${({ theme }) => theme.styles.button.config.boxShadowActive};
 }
-
+.button.short {
+  padding: 6px 16px;
+  border-radius: 4px;
+  line-height: 2em;
+  border: ${({ theme }) => theme.styles.button.short.background};
+  background: ${({ theme }) => theme.styles.button.short.background};
+}
+.button.short:hover {
+  background: ${({ theme }) => theme.styles.button.short.backgroundHover};
+}
+.button.short.danger {
+  background: ${({ theme }) => theme.styles.button.danger.backgroundColor};
+  color: ${({ theme }) => theme.styles.button.danger.color};
+}
+.button.short.danger:hover {
+  background: ${({ theme }) => theme.styles.button.danger.backgroundColorHover};
+  color: ${({ theme }) => theme.styles.button.danger.color};
+}
 .dropdown-toggle.btn.btn-primary {
   background: ${({ theme }) => theme.styles.dropdown.backgroundButtonColor};
   border: 1px solid ${({ theme }) => theme.styles.dropdown.borderButtonColor};

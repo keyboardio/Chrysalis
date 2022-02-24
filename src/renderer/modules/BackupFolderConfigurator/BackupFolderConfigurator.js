@@ -24,21 +24,36 @@ import i18n from "../../i18n";
 
 const Style = Styled.div`
 width: 100%;
+h6 {
+  letter-spacing: 0;
+  color: ${({ theme }) => theme.styles.backupConfiguratorFolder.headingColor}
+}
 .containerInfo {
   display: flex;
   width: 100%;
-    border-radius: 2px;
-    padding: 2px;
-    background: rgba(11, 2, 25, 0.2);
-    /* Gray/600 */
-    border: 1px solid #3F425A;
-    box-sizing: border-box;
-    border-radius: 6px;
-    .containerInfoInner {
-      .button {
+  border-radius: 6px;
+  padding: 2px 0;
+  background: ${({ theme }) => theme.styles.backupConfiguratorFolder.inputBackground};
+  border: 1px solid ${({ theme }) => theme.styles.backupConfiguratorFolder.border};
+  border-radius: 6px;
+  .containerInfoInner {
+    display: flex;
+    width: 100%;
+    .button.short {
         white-space: nowrap;
-      }
+        margin: 0 2px;
     }
+    .form-control {
+      align-self: center;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      letter-spacing: -0.03em;
+      font-size: 16px;
+      font-weight: 600;
+      color: ${({ theme }) => theme.styles.backupConfiguratorFolder.inputColor};
+    }
+  }
 }
 `;
 const BackupFolderConfigurator = ({ chooseBackupFolder, getBackup, backupFolder, connected }) => {
@@ -51,12 +66,12 @@ const BackupFolderConfigurator = ({ chooseBackupFolder, getBackup, backupFolder,
             <Form.Control type="text" value={backupFolder} readOnly />
             <RegularButton
               onClick={chooseBackupFolder}
-              style="tertiary"
+              style="short"
               buttonText={i18n.keyboardSettings.backupFolder.selectButtonText}
             />
             <RegularButton
               onClick={getBackup}
-              style="tertiary"
+              style="short"
               buttonText={i18n.keyboardSettings.backupFolder.restoreButtonText}
               disabled={!connected}
             />

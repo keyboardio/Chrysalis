@@ -108,6 +108,12 @@ const Dark = {
   },
   font: "Libre Franklin",
   styles: {
+    backupConfiguratorFolder: {
+      headingColor: Tokens.colors.gray100,
+      inputColor: Tokens.colors.gray50,
+      inputBackground: settingColorOpacity(Tokens.colors.gray900, 0.2),
+      border: Tokens.colors.gray600
+    },
     button: {
       primary: {
         backgroundColor: Tokens.colors.gradient,
@@ -151,6 +157,12 @@ const Dark = {
           Tokens.colors.gray800,
           0.25
         )}, 0px 16px 16px -8px ${settingColorOpacity(Tokens.colors.gray500, 0.3)}`
+      },
+      short: {
+        color: Tokens.colors.gray50,
+        border: "none",
+        background: Tokens.colors.gray600,
+        backgroundHover: Tokens.colors.gray400
       }
     },
     card: {

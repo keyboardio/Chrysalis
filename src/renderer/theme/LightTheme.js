@@ -108,6 +108,12 @@ const Light = {
   },
   font: "Libre Franklin",
   styles: {
+    backupConfiguratorFolder: {
+      headingColor: Tokens.colors.gray500,
+      inputColor: Tokens.colors.gray300,
+      inputBackground: "rgba(255, 255, 255, 0.4)",
+      border: settingColorOpacity(Tokens.colors.gray100, 0.6)
+    },
     button: {
       primary: {
         backgroundColor: Tokens.colors.gradient,
@@ -144,6 +150,14 @@ const Light = {
         colorActive: Tokens.colors.gray25,
         boxShadowHover: "0px 2px 0px rgba(141, 132, 188, 0.4)",
         boxShadowActive: "0px 3px 0px rgba(37, 39, 59, 0.05), 0px 16px 16px -8px rgba(76, 102, 177, 0.3)"
+      },
+      short: {
+        color: Tokens.colors.gray500,
+        border: "1px solid rgba(209, 207, 234, 0.5)",
+        background:
+          "linear-gradient(90deg, rgba(255, 255, 255, 0.3) 21.15%, rgba(255, 255, 255, 0) 100%), rgba(176, 175, 194, 0.3)",
+        backgroundHover:
+          "linear-gradient(90deg, rgba(255, 255, 255, 0.4) -22.96%, rgba(255, 255, 255, 0) 123.24%), rgba(196, 201, 213, 0.8)"
       }
     },
     card: {

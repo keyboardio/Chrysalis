@@ -1084,20 +1084,6 @@ class KeyboardSettings extends React.Component {
       </Dropdown>
     );
 
-    const backupControl = (
-      <Row>
-        <Col xs={2} className="p-0 text-center align-self-center">
-          <span className="tagsfix">1 month</span>
-        </Col>
-        <Col xs={8} className="px-1">
-          <Slider min={0} max={13} step={1} value={storeBackups} onChange={this.setStoreBackups} />
-        </Col>
-        <Col xs={2} className="p-0 text-center align-self-center">
-          <span className="tagsfix">Forever</span>
-        </Col>
-      </Row>
-    );
-
     // const holdT = (
     //   <RangeSlider
     //     min={0}
@@ -1302,17 +1288,16 @@ class KeyboardSettings extends React.Component {
                     <Card.Body className="pb-0">
                       <Form.Group controlId="backupFolder" className="mb-3">
                         <Row>
-                          <Form.Label>{i18n.keyboardSettings.backupFolder.title}</Form.Label>
+                          <Col>
+                            <BackupFolderConfigurator
+                              chooseBackupFolder={this.ChooseBackupFolder}
+                              getBackup={this.GetBackup}
+                              backupFolder={backupFolder}
+                              connected={this.props.connected}
+                            />
+                          </Col>
                         </Row>
-                        <Row>
-                          <BackupFolderConfigurator
-                            chooseBackupFolder={this.ChooseBackupFolder}
-                            getBackup={this.GetBackup}
-                            backupFolder={backupFolder}
-                            connected={this.props.connected}
-                          />
-                        </Row>
-                        <Row className="mb-4">
+                        {/* <Row className="mb-4">
                           <Col className="pl-0 pr-1">
                             <Form.Control type="text" value={backupFolder} readOnly />
                           </Col>
@@ -1322,11 +1307,23 @@ class KeyboardSettings extends React.Component {
                           <Col xs={4} className="px-1">
                             {restoreBackupButton}
                           </Col>
+                        </Row> */}
+                        <Row>
+                          <Col>
+                            <Form.Label>{i18n.keyboardSettings.backupFolder.storeTime}</Form.Label>
+                          </Col>
                         </Row>
                         <Row>
-                          <Form.Label>{i18n.keyboardSettings.backupFolder.storeTime}</Form.Label>
+                          <Col xs={2} className="p-0 text-center align-self-center">
+                            <span className="tagsfix">1 month</span>
+                          </Col>
+                          <Col xs={8} className="px-1">
+                            <Slider min={0} max={13} step={1} value={storeBackups} onChange={this.setStoreBackups} />
+                          </Col>
+                          <Col xs={2} className="p-0 text-center align-self-center">
+                            <span className="tagsfix">Forever</span>
+                          </Col>
                         </Row>
-                        {backupControl}
                       </Form.Group>
                     </Card.Body>
                   </Card>
@@ -1593,7 +1590,7 @@ class AdvancedKeyboardSettings extends React.Component {
         </Button> */}
         <RegularButton
           buttonText={i18n.keyboardSettings.resetEEPROM.button}
-          style="danger"
+          style="short danger"
           onClick={this.openEEPROMClearConfirmation}
           disabled={this.state.working}
         />

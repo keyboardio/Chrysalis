@@ -66,7 +66,7 @@ const Styles = Styled.div`
   display: block !important;
 
   position: fixed !important;
-  z-index: 10;
+  z-index: 1100;
   padding: 12px !important;
   background-color: ${({ theme }) => theme.styles.navbar.background};
   

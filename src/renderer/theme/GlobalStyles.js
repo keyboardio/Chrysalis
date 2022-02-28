@@ -581,6 +581,10 @@ div.card.card-preferences .card-body {
   padding-top: 0;
 }
 
+.modal .modal-content {
+  transform: translateX(64px);
+}
+
 //
 // Form
 //

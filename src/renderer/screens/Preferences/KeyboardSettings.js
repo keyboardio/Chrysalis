@@ -1226,7 +1226,7 @@ class KeyboardSettings extends React.Component {
                           onSelect={this.selectNeuron}
                           neurons={neurons}
                           selectedNeuron={selectedNeuron}
-                          changeNeuronName={this.applyNeuronName}
+                          updateNeuronName={this.updateNeuronName}
                           deleteNeuron={this.deleteNeuron}
                         />
                         <Row>

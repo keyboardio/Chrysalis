@@ -19,7 +19,10 @@ import React from "react";
 import Styled from "styled-components";
 import i18n from "../../i18n";
 import Dropdown from "react-bootstrap/Dropdown";
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
 import { ButtonSettings } from "../Button";
+import { RegularButton } from "../Button";
 import { IconArrowsSmallSeparating } from "../Icon";
 import { IconPen } from "../Icon";
 import { IconDelete } from "../Icon";
@@ -27,7 +30,27 @@ import { IconDelete } from "../Icon";
 const Style = Styled.div`
 
 `;
-const NeuronSelector = ({ onSelect, neurons, selectedNeuron, changeNeuronName, deleteNeuron }) => {
+const NeuronSelector = ({ onSelect, neurons, selectedNeuron, updateNeuronName, deleteNeuron }) => {
+  const [show, setShow] = React.useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const ChangeNameModal = () => {
+    return (
+      <Modal size="lg" show={show} onHide={handleClose} aria-labelledby="contained-modal-title-vcenter" centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Change Nueron name</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Control type="text" value={neurons[selectedNeuron].name} />
+        </Modal.Body>
+        <Modal.Footer>
+          <RegularButton buttonText={"Discard changes"} style="outline" onClick={handleClose} />
+          <RegularButton buttonText={"Save changes"} style="primary" onClick={updateNeuronName} />
+        </Modal.Footer>
+      </Modal>
+    );
+  };
   return (
     <Style>
       <div className="neuronSelector dropdownMultipleActions">
@@ -77,7 +100,7 @@ const NeuronSelector = ({ onSelect, neurons, selectedNeuron, changeNeuronName, d
               <ButtonSettings />
             </Dropdown.Toggle>
             <Dropdown.Menu className="dropdownMenu">
-              <Dropdown.Item onClick={changeNeuronName}>
+              <Dropdown.Item onClick={handleShow}>
                 <div className="dropdownInner">
                   <div className="dropdownIcon">
                     <IconPen />
@@ -97,6 +120,7 @@ const NeuronSelector = ({ onSelect, neurons, selectedNeuron, changeNeuronName, d
           </Dropdown>
         </div>
       </div>
+      <ChangeNameModal />
     </Style>
   );
 };

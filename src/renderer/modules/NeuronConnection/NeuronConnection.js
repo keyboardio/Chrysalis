@@ -39,6 +39,9 @@ const Style = Styled.div`
   z-index: 2;
   h2 {
     color: ${({ theme }) => theme.styles.neuronConnection.titleColor};
+    &.warning {
+      color: ${({ theme }) => theme.colors.textWarning};
+    }
   }
   .neuronSubtileText {
     color: ${({ theme }) => theme.styles.neuronConnection.subTitleColor};

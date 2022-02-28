@@ -66,6 +66,8 @@ const Light = {
     pastelShadesMint100: Tokens.colors.pastelShadesMint100,
     body: "#eaeff1",
     text: Tokens.colors.gray400,
+    textWarning: Tokens.colors.brandWarning,
+    textDanger: Tokens.colors.brandDanger,
     subtext: "#555555",
     tipIcon: "#666",
     button: {
@@ -151,6 +153,14 @@ const Light = {
         boxShadowHover: "0px 2px 0px rgba(141, 132, 188, 0.4)",
         boxShadowActive: "0px 3px 0px rgba(37, 39, 59, 0.05), 0px 16px 16px -8px rgba(76, 102, 177, 0.3)"
       },
+      settings: {
+        color: Tokens.colors.purple300,
+        colorHover: Tokens.colors.purple100,
+        background:
+          "linear-gradient(90deg, rgba(255, 255, 255, 0.3) 21.15%, rgba(255, 255, 255, 0) 100%), rgba(176, 175, 194, 0.3)",
+        backgroundHover:
+          "linear-gradient(90deg, rgba(255, 255, 255, 0.4) -22.96%, rgba(255, 255, 255, 0) 123.24%), rgba(196, 201, 213, 0.8)"
+      },
       short: {
         color: Tokens.colors.gray500,
         border: "1px solid rgba(209, 207, 234, 0.5)",
@@ -194,6 +204,13 @@ const Light = {
         itemTextColorHover: Tokens.colors.gray500,
         itemBackgroundColorHover: Tokens.colors.gray25,
         itemBackgroundColorActive: Tokens.colors.purple100
+      },
+      selector: {
+        numberColor: Tokens.colors.gray500,
+        separatorColor: settingColorOpacity(Tokens.colors.gray200, 0.5),
+        labelColor: Tokens.colors.gray200,
+        color: Tokens.colors.gray600,
+        arrowsColor: Tokens.colors.gray300
       }
     },
     form: {

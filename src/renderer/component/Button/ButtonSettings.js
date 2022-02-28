@@ -1,3 +1,4 @@
+// -*- mode: js-jsx -*-
 /* Bazecor
  * Copyright (C) 2022  Dygmalab, Inc.
  *
@@ -14,9 +15,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import NavigationButton from "./NavigationButton";
-import RegularButton from "./RegularButton";
-import ButtonConfig from "./ButtonConfig";
-import ButtonSettings from "./ButtonSettings";
+import React from "react";
+import Styled from "styled-components";
+import { IconSettings } from "../Icon";
 
-export { NavigationButton, RegularButton, ButtonConfig, ButtonSettings };
+const Style = Styled.div`
+.button-settings {
+
+}
+`;
+
+const ButtonSettings = props => {
+  return (
+    <Style>
+      <IconSettings />
+    </Style>
+  );
+};
+
+export default ButtonSettings;

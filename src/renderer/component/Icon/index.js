@@ -14,10 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import IconArrowsSmallSeparating from "./IconArrowsSmallSeparating";
+import IconChip from "./IconChip";
+import IconDelete from "./IconDelete";
 import IconKeyboardSelector from "./IconKeyboardSelector";
 import IconKeyboard2Stroke from "./IconKeyboard2Stroke";
 import IconMemory2Stroke from "./IconMemory2Stroke";
 import IconPreferences2Stroke from "./IconPreferences2Stroke";
+import IconPen from "./IconPen";
 import IconRobot2Stroke from "./IconRobot2Stroke";
 import IconThunder2Stroke from "./IconThunder2Stroke";
 import IconInformationBubble from "./IconInformationBubble";
@@ -27,7 +31,6 @@ import IconFloppyDisk from "./IconFloppyDisk";
 import IconTypo from "./IconTypo";
 import IconNeuronManager from "./IconNeuronManager";
 import IconMouse from "./IconMouse";
-import IconChip from "./IconChip";
 import IconMoon from "./IconMoon";
 import IconSun from "./IconSun";
 import IconScreen from "./IconScreen";
@@ -35,11 +38,16 @@ import IconLayers from "./IconLayers";
 import IconRobot from "./IconRobot";
 import IconThunder from "./IconThunder";
 import IconPlus from "./IconPlus";
+import IconSettings from "./IconSettings";
 
 export {
+  IconArrowsSmallSeparating,
+  IconChip,
+  IconDelete,
   IconKeyboardSelector,
   IconKeyboard2Stroke,
   IconMemory2Stroke,
+  IconPen,
   IconPreferences2Stroke,
   IconRobot2Stroke,
   IconThunder2Stroke,
@@ -50,12 +58,12 @@ export {
   IconTypo,
   IconNeuronManager,
   IconMouse,
-  IconChip,
   IconMoon,
   IconSun,
   IconScreen,
   IconLayers,
   IconRobot,
   IconThunder,
-  IconPlus
+  IconPlus,
+  IconSettings
 };

@@ -444,11 +444,92 @@ svg text{
   display: flex;
   flex-wrap: nowrap;
 }
-dropdownListItem {}
+.dropdownListNumber {
+  align-self: center;
+  width: 32px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  position: relative;
+  color: ${({ theme }) => theme.styles.dropdown.selector.numberColor};
+}
+.dropdownListNumber:after {
+  content: '';
+  width: 1px;
+  height: 34px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate3d(0, -50%, 0);
+  background-color: ${({ theme }) => theme.styles.dropdown.selector.separatorColor};
+}
+.dropdownListItem {
+  display: flex;
+  flex-wrap: wrap;
+  width: calc(100% - 32px);
+  padding-left: 12px;
+  line-height: 1.25em;
+}
+.dropdownListItemInner {
+  position: relative;
+  padding-right: 60px;
+  width: 100%;
+}
+.dropdownListItemInner .caret {
+  position: absolute;
+  right: 42px;
+  top: 50%;
+  transform: translate3d(0,-50%, 0) scale(0.8);
+  color: ${({ theme }) => theme.styles.dropdown.selector.arrowsColor};
+}
+.dropdownListItemLabel {
+  letter-spacing: -0.03em;
+  font-size: 13px; 
+  color: ${({ theme }) => theme.styles.dropdown.selector.labelColor};
+}
+.dropdownListItemSelected {
+  color: ${({ theme }) => theme.styles.dropdown.selector.color}
+}
+
 .dropdownMultipleActions .dropdownActions {
   position: absolute;
-  right: 2px;
-  top: 2px;
+  right: 4px;
+  top: 4px;
+}
+.dropdownMultipleActions .dropdown-toggle.btn.btn-primary {
+  padding: 8px 16px;
+  margin: 0;
+}
+.dropdownMultipleActions .dropdown-toggle.btn.btn-primary:after {
+  content: none;
+}
+
+.dropdown-toggle.btn.btn-primary.button-settings {
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border: none;
+  text-align: center;
+  border-radius: 4px;
+  color: ${({ theme }) => theme.styles.button.settings.color};
+  background: ${({ theme }) => theme.styles.button.settings.background};
+}
+.dropdown.show .dropdown-toggle.btn.btn-primary.button-settings,
+.dropdown-toggle.btn.btn-primary.button-settings:hover {
+  border: none;
+  color: ${({ theme }) => theme.styles.button.settings.colorHover};
+  background: ${({ theme }) => theme.styles.button.settings.backgroundHover};
+}
+
+.dropdownInner {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.dropdownInner .dropdownIcon {
+  flex: 0 0 32px; 
+}
+.dropdownInner .dropdownItem {
+  flex: calc(100% -32px);
 }
 
 .tooltip .tooltip-inner{

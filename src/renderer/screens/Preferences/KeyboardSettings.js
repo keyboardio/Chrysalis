@@ -53,7 +53,7 @@ import { Select } from "../../component/Select";
 import { RegularButton } from "../../component/Button";
 import ToggleButtons from "../../component/ToggleButtons";
 import NeuronData from "../../modules/NeuronData";
-import { NeuronSelector } from "../../component/NeuronSelector";
+import { NeuronSelector } from "../../component/Select";
 
 import {
   IconWrench,
@@ -1226,7 +1226,8 @@ class KeyboardSettings extends React.Component {
                           onSelect={this.selectNeuron}
                           neurons={neurons}
                           selectedNeuron={selectedNeuron}
-                          onClickDelete={this.applyNeuronName}
+                          changeNeuronName={this.applyNeuronName}
+                          deleteNeuron={this.deleteNeuron}
                         />
                         <Row>
                           <Col className="pl-0 pr-1">{availableNeurons}</Col>

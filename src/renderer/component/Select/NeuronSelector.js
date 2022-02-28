@@ -19,18 +19,22 @@ import React from "react";
 import Styled from "styled-components";
 import i18n from "../../i18n";
 import Dropdown from "react-bootstrap/Dropdown";
+import { ButtonSettings } from "../Button";
+import { IconArrowsSmallSeparating } from "../Icon";
+import { IconPen } from "../Icon";
+import { IconDelete } from "../Icon";
 
 const Style = Styled.div`
 
 `;
-const NeuronSelector = ({ onSelect, neurons, selectedNeuron, onClickDelete, onClick }) => {
+const NeuronSelector = ({ onSelect, neurons, selectedNeuron, changeNeuronName, deleteNeuron }) => {
   return (
     <Style>
       <div className="neuronSelector dropdownMultipleActions">
         <Dropdown onSelect={onSelect} value={selectedNeuron} className="dropdownList">
           <Dropdown.Toggle className="toggler neuronToggler">
             {neurons.length == 0 ? (
-              i18n.keyboardSettings.neuronManager.noDefault
+              i18n.keyboardSettings.neuronManager.defaultNeuron
             ) : (
               <div className="dropdownListInner">
                 <div className="dropdownListNumber">#{parseInt(selectedNeuron) + 1}</div>
@@ -47,6 +51,9 @@ const NeuronSelector = ({ onSelect, neurons, selectedNeuron, onClickDelete, onCl
                         )}
                       </span>
                     </div>
+                    <span className="caret">
+                      <IconArrowsSmallSeparating />
+                    </span>
                   </div>
                 </div>
               </div>
@@ -65,19 +72,25 @@ const NeuronSelector = ({ onSelect, neurons, selectedNeuron, onClickDelete, onCl
           </Dropdown.Menu>
         </Dropdown>
         <div className="dropdownActions">
-          <Dropdown className="dropdownActionsList">
-            <Dropdown.Toggle className="toggler">Icon</Dropdown.Toggle>
+          <Dropdown drop="down" align="end" className="dropdownActionsList">
+            <Dropdown.Toggle className="button-settings">
+              <ButtonSettings />
+            </Dropdown.Toggle>
             <Dropdown.Menu className="dropdownMenu">
-              <Dropdown.Item>
+              <Dropdown.Item onClick={changeNeuronName}>
                 <div className="dropdownInner">
-                  <div className="dropdownIcon">Icon pen</div>
+                  <div className="dropdownIcon">
+                    <IconPen />
+                  </div>
                   <div className="dropdownItem">Change name</div>
                 </div>
               </Dropdown.Item>
-              <Dropdown.Item>
+              <Dropdown.Item onClick={deleteNeuron}>
                 <div className="dropdownInner">
-                  <div className="dropdownIcon">Icon trash</div>
-                  <div className="dropdownItem">Delete </div>
+                  <div className="dropdownIcon">
+                    <IconDelete />
+                  </div>
+                  <div className="dropdownItem">Delete</div>
                 </div>
               </Dropdown.Item>
             </Dropdown.Menu>

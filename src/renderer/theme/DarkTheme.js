@@ -66,6 +66,8 @@ const Dark = {
     pastelShadesMint100: Tokens.colors.pastelShadesMint100,
     body: "#222",
     text: Tokens.colors.gray25,
+    textWarning: Tokens.colors.brandWarningLighter,
+    textDanger: Tokens.colors.brandDangerLighter,
     subtext: "#555555",
     tipIcon: "#DDD",
     button: {
@@ -158,6 +160,12 @@ const Dark = {
           0.25
         )}, 0px 16px 16px -8px ${settingColorOpacity(Tokens.colors.gray500, 0.3)}`
       },
+      settings: {
+        color: Tokens.colors.gray100,
+        colorHover: Tokens.colors.gray50,
+        background: Tokens.colors.gray600,
+        backgroundHover: Tokens.colors.gray500
+      },
       short: {
         color: Tokens.colors.gray50,
         border: "none",
@@ -202,6 +210,13 @@ const Dark = {
         itemTextColorHover: Tokens.colors.gray25,
         itemBackgroundColorHover: settingColorOpacity(Tokens.colors.gray400, 0.2),
         itemBackgroundColorActive: Tokens.colors.purple200
+      },
+      selector: {
+        numberColor: Tokens.colors.gray200,
+        separatorColor: settingColorOpacity(Tokens.colors.gray500, 0.5),
+        labelColor: Tokens.colors.gray200,
+        color: Tokens.colors.gray100,
+        arrowsColor: Tokens.colors.gray300
       }
     },
     form: {

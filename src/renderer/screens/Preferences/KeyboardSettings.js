@@ -53,7 +53,7 @@ import { Select } from "../../component/Select";
 import { RegularButton } from "../../component/Button";
 import ToggleButtons from "../../component/ToggleButtons";
 import NeuronData from "../../modules/NeuronData";
-import NeuronSelector from "../../modules/NeuronSelector";
+import { NeuronSelector } from "../../component/NeuronSelector";
 
 import {
   IconWrench,

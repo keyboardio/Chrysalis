@@ -17,7 +17,6 @@
 
 import React from "react";
 import Styled from "styled-components";
-import Title from "../../component/Title";
 import i18n from "../../i18n";
 import Dropdown from "react-bootstrap/Dropdown";
 

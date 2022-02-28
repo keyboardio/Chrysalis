@@ -16,5 +16,6 @@
 
 import Select from "./Select";
 import SelectKeyboardDropdown from "./SelectKeyboardDropdown";
+import NeuronSelector from "./NeuronSelector";
 
-export { Select, SelectKeyboardDropdown };
+export { Select, SelectKeyboardDropdown, NeuronSelector };

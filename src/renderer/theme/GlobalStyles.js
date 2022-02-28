@@ -434,6 +434,23 @@ svg text{
   color: #fff;
 }
 
+.dropdownMultipleActions {
+  position: relative;
+}
+.dropdownList {
+  border: none;
+}
+.dropdownListInner {
+  display: flex;
+  flex-wrap: nowrap;
+}
+dropdownListItem {}
+.dropdownMultipleActions .dropdownActions {
+  position: absolute;
+  right: 2px;
+  top: 2px;
+}
+
 .tooltip .tooltip-inner{
   padding: 12px;
   /* background-color: ${({ theme }) => theme.styles.card.background}; */

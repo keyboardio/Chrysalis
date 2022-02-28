@@ -34,12 +34,26 @@ const Style = Styled.div`
   background: ${({ theme }) => theme.styles.neuronData.neuronInfoBackground};
   box-shadow: ${({ theme }) => theme.styles.neuronData.neuronInfoBoxShadow};
 }
+.accordionNeuronData {
+  margin-top: 24px;
+}
 .accordion .card {
   border: 1px solid ${({ theme }) => theme.styles.neuronData.accordionBorder};
   background: ${({ theme }) => theme.styles.neuronData.accordionCardBackground};
 }
 .accordion .card .card-header{
-  padding: 12px 24px;
+  padding: 16px 24px 16px 16px;
+  background-color: transparent;
+  color: ${({ theme }) => theme.styles.neuronData.accordionCardHeaderColor};
+  border-bottom: 1px solid ${({ theme }) => theme.styles.neuronData.accordionCardHeaderBorderColor};
+}
+.accordion .card .card-body {
+  padding: 1.25rem;
+  background: ${({ theme }) => theme.styles.neuronData.accordionCardBodyBackground};
+}
+.accordion .card .card-body ol,
+.accordion .card .card-body ul{
+  margin-bottom: 0;
 }
 .accordion .card + .card {
   margin-top: -1px;
@@ -51,7 +65,7 @@ const Style = Styled.div`
     position: absolute;
     top: 50%;
     right: -12px;
-    opacity: 0.5;
+    opacity: ${({ theme }) => theme.styles.neuronData.plusOpacity};
     transform: translate3d(0, -50%, 0);
   }
 }
@@ -64,7 +78,7 @@ const NeuronData = ({ neuronName, neuronID, neurons, selectedNeuron }) => {
     <Style>
       <div className="cardContentNeuronData">
         <NeuronTitle neuronName={neuronName} neuronID={neuronID} />
-        <Accordion defaultActiveKey="0">
+        <Accordion className="accordionNeuronData" defaultActiveKey="0">
           <Card className="neuronDataCard">
             <Accordion.Toggle as={Card.Header} eventKey="1">
               <div className="accordionHeader">

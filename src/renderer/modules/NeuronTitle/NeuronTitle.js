@@ -23,6 +23,7 @@ import i18n from "../../i18n";
 const Style = Styled.div`
 h3 {
   font-size: 16px;
+  margin-bottom: 2px;
   color: ${({ theme }) => theme.styles.neuronTitle.heading3Color};
 }
 h4 {

@@ -221,7 +221,11 @@ const Light = {
       neuronInfoBackground: "#fff",
       neuronInfoBoxShadow: `0px 4px 16px ${settingColorOpacity(Tokens.colors.purple200, 0.08)}`,
       accordionBorder: Tokens.colors.gray50,
-      accordionCardBackground: "transparent"
+      accordionCardBackground: "transparent",
+      accordionCardBodyBackground: settingColorOpacity(Tokens.colors.gray25, 0.2),
+      accordionCardHeaderColor: Tokens.colors.purple300,
+      accordionCardHeaderBorderColor: settingColorOpacity(Tokens.colors.gray100, 0.2),
+      plusOpacity: 1
     },
     neuronStatus: {
       neuronStatusBackgroundColor: "rgba(255, 255, 255, 0.15)",

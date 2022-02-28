@@ -230,7 +230,11 @@ const Dark = {
       neuronInfoBackground: settingColorOpacity(Tokens.colors.gray900, 0.2),
       neuronInfoBoxShadow: "none",
       accordionBorder: Tokens.colors.gray600,
-      accordionCardBackground: settingColorOpacity(Tokens.colors.gray900, 0.2)
+      accordionCardBackground: settingColorOpacity(Tokens.colors.gray900, 0.2),
+      accordionCardBodyBackground: settingColorOpacity(Tokens.colors.gray900, 0.2),
+      accordionCardHeaderColor: Tokens.colors.gray50,
+      accordionCardHeaderBorderColor: settingColorOpacity(Tokens.colors.gray100, 0.2),
+      plusOpacity: 0.5
     },
     neuronStatus: {
       neuronStatusBackgroundColor: settingColorOpacity(Tokens.colors.gray400, 0.05),

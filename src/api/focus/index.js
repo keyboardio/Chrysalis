@@ -17,6 +17,7 @@
 import SerialPort from "serialport";
 import Delimiter from "@serialport/parser-delimiter";
 import fs from "fs";
+import usb from "usb";
 
 import Log from "../log";
 
@@ -42,12 +43,7 @@ class Focus {
     this.logger.debug(...args);
   }
 
-  async waitForBootloader(device) {
-    if (!device.usb.bootloader) {
-      this.debugLog("No bootloader defined in the device descriptor.");
-      return null;
-    }
-
+  async waitForSerialBootloader(device) {
     const delay = ms => new Promise(res => setTimeout(res, ms));
 
     for (let attempt = 0; attempt < 10; attempt++) {
@@ -78,6 +74,52 @@ class Focus {
 
     this.debugLog("focus.waitForBootloader: none found");
     return null;
+  }
+
+  async waitForDFUBootloader(device) {
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+
+    for (let attempt = 0; attempt < 10; attempt++) {
+      const deviceList = usb
+        .getDeviceList()
+        .map(device => device.deviceDescriptor);
+      this.debugLog(
+        "focus.waitForBootloader: deviceList:",
+        deviceList,
+        "device:",
+        device
+      );
+
+      for (let dev of deviceList) {
+        const pid = dev.idProduct,
+          vid = dev.idVendor,
+          bootloader = device.usb.bootloader;
+
+        if (pid == bootloader.productId && vid == bootloader.vendorId) {
+          this.debugLog("focus.waitForBootloader: found!", dev);
+          return true;
+        }
+      }
+
+      this.debugLog("focus.waitForBootloader: not found, waiting 2s");
+      await delay(2000);
+    }
+
+    this.debugLog("focus.waitForBootloader: none found");
+    return false;
+  }
+
+  async waitForBootloader(device) {
+    if (!device.usb.bootloader) {
+      this.debugLog("No bootloader defined in the device descriptor.");
+      return null;
+    }
+
+    if (device.usb.bootloader.type == "dfu") {
+      return await this.waitForDFUBootloader(device);
+    } else {
+      return await this.waitForSerialBootloader(device);
+    }
   }
 
   async find(...devices) {

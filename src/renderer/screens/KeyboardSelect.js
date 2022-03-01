@@ -40,6 +40,7 @@ import { toast } from "react-toastify";
 
 import Focus from "../../api/focus";
 import Hardware from "../../api/hardware";
+import Log from "../../api/log";
 
 import usb from "usb";
 
@@ -119,6 +120,7 @@ class KeyboardSelect extends React.Component {
   };
 
   findNonSerialKeyboards = deviceList => {
+    const logger = new Log();
     const devices = usb.getDeviceList().map(device => device.deviceDescriptor);
     devices.forEach(desc => {
       Hardware.nonSerial.forEach(device => {
@@ -144,6 +146,8 @@ class KeyboardSelect extends React.Component {
         }
       });
     });
+
+    logger.debug("findNonSerialKeyboards", { deviceList: deviceList });
     return deviceList;
   };
 

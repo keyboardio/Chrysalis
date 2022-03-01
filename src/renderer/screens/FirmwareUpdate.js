@@ -134,7 +134,7 @@ class FirmwareUpdate extends React.Component {
       filters: [
         {
           name: i18n.t("firmwareUpdate.dialog.firmwareFiles"),
-          extensions: ["hex"]
+          extensions: ["hex", "bin"]
         },
         {
           name: i18n.t("firmwareUpdate.dialog.allFiles"),

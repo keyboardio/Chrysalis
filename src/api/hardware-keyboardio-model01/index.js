@@ -93,7 +93,7 @@ const Model100 = {
   },
   usb: {
     vendorId: 0x3496,
-    productId: 0x0005,
+    productId: 0x0006,
     bootloader: {
       vendorId: 0x3496,
       productId: 0x0005,

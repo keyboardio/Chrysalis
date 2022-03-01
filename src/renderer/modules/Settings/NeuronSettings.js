@@ -17,6 +17,10 @@ import NeuronData from "../../modules/NeuronData";
 import { IconNeuronManager } from "../../component/Icon";
 
 export default class NeuronSettings extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     const { neurons, selectedNeuron, selectNeuron, updateNeuronName, deleteNeuron } = this.props;
     return (
@@ -36,12 +40,7 @@ export default class NeuronSettings extends Component {
             />
             <Row className="mb-4 mt-4">
               <Col>
-                <NeuronData
-                  neuronName={neurons[selectedNeuron].name}
-                  neuronID={neurons[selectedNeuron].id}
-                  neurons={neurons}
-                  selectedNeuron={selectedNeuron}
-                />
+                <NeuronData neurons={neurons} selectedNeuron={selectedNeuron} />
               </Col>
             </Row>
           </Form.Group>

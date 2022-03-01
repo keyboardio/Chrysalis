@@ -16,5 +16,7 @@
 
 import GeneralSettings from "./GeneralSettings";
 import BackupSettings from "./BackupSettings";
+import NeuronSettings from "./NeuronSettings";
+import AdvancedSettings from "./AdvancedSettings";
 
-export { GeneralSettings, BackupSettings };
+export { GeneralSettings, BackupSettings, NeuronSettings, AdvancedSettings };

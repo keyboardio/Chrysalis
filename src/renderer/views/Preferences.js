@@ -29,11 +29,10 @@ import Spinner from "react-bootstrap/Spinner";
 
 // Custom modules imports
 import { KeyboardSettings } from "../screens/Preferences/KeyboardSettings";
-import { BackupSettings, GeneralSettings } from "../modules/Settings";
+import { BackupSettings, GeneralSettings, NeuronSettings, AdvancedSettings } from "../modules/Settings";
 
 import Focus from "../../api/focus";
 import PageHeader from "../modules/PageHeader";
-import NeuronSettings from "../modules/Settings/NeuronSettings";
 
 const Store = require("electron-store");
 const store = new Store();
@@ -146,9 +145,10 @@ class Preferences extends React.Component {
   };
 
   render() {
-    const devToolsSwitch = <Form.Check type="switch" checked={this.state.devTools} onChange={this.toggleDevTools} />;
-
-    const verboseSwitch = <Form.Check type="switch" checked={this.state.verboseFocus} onChange={this.toggleVerboseFocus} />;
+    const { neurons, selectedNeuron, darkMode, neuronID, devTools, verboseFocus } = this.state;
+    const { startContext, cancelContext, inContext, connected } = this.props;
+    const devToolsSwitch = <Form.Check type="switch" checked={devTools} onChange={this.toggleDevTools} />;
+    const verboseSwitch = <Form.Check type="switch" checked={verboseFocus} onChange={this.toggleVerboseFocus} />;
 
     return (
       <Styles>
@@ -161,39 +161,31 @@ class Preferences extends React.Component {
                 <Row className="justify-content-center">
                   <Col lg={6} md={12}>
                     <GeneralSettings
-                      startContext={this.props.startContext}
-                      cancelContext={this.props.cancelContext}
-                      inContext={this.props.inContext}
+                      startContext={startContext}
+                      cancelContext={cancelContext}
+                      inContext={inContext}
                       selectDarkMode={this.selectDarkMode}
-                      neurons={this.state.neurons}
-                      selectedNeuron={this.state.selectedNeuron}
-                      darkMode={this.state.darkMode}
-                      connected={this.props.connected}
+                      neurons={neurons}
+                      selectedNeuron={selectedNeuron}
+                      darkMode={darkMode}
+                      connected={connected}
                     />
-                    <BackupSettings
-                      neurons={this.state.neurons}
-                      selectedNeuron={this.state.selectedNeuron}
-                      neuronID={this.state.neuronID}
-                      connected={this.props.connected}
-                    />
+                    <BackupSettings neurons={neurons} selectedNeuron={selectedNeuron} neuronID={neuronID} connected={connected} />
                     <NeuronSettings
-                      neurons={this.state.neurons}
-                      selectedNeuron={this.state.selectedNeuron}
+                      neurons={neurons}
+                      selectedNeuron={selectedNeuron}
                       selectNeuron={this.selectNeuron}
                       updateNeuronName={this.updateNeuronName}
                       deleteNeuron={this.deleteNeuron}
                     />
+                    <AdvancedSettings devToolsSwitch={devToolsSwitch} verboseSwitch={verboseSwitch} connected={connected} />
                   </Col>
                   <Col lg={6} md={12}>
                     <KeyboardSettings
-                      startContext={this.props.startContext}
-                      cancelContext={this.props.cancelContext}
-                      inContext={this.props.inContext}
-                      selectDarkMode={this.selectDarkMode}
-                      darkMode={this.state.darkMode}
-                      devToolsSwitch={devToolsSwitch}
-                      verboseSwitch={verboseSwitch}
-                      connected={this.props.connected}
+                      startContext={startContext}
+                      cancelContext={cancelContext}
+                      inContext={inContext}
+                      connected={connected}
                     />
                   </Col>
                 </Row>

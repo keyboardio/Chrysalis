@@ -197,6 +197,6 @@ export default class BackupSettings extends Component {
 BackupSettings.propTypes = {
   neurons: PropTypes.array.isRequired,
   selectedNeuron: PropTypes.number.isRequired,
-  neuronID: PropTypes.number.isRequired,
+  neuronID: PropTypes.string.isRequired,
   connected: PropTypes.bool.isRequired
 };

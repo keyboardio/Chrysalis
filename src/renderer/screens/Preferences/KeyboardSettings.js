@@ -35,42 +35,14 @@ import Slider from "react-rangeslider";
 import Focus from "../../../api/focus";
 import Backup from "../../../api/backup";
 
-import ConfirmationDialog from "../../components/ConfirmationDialog";
-import SaveChangesButton from "../../components/SaveChangesButton";
 import i18n from "../../i18n";
-import frenchF from "../../../../static/flags/france.png";
-import germanF from "../../../../static/flags/germany.png";
-import japaneseF from "../../../../static/flags/japan.png";
-import spanishF from "../../../../static/flags/spain.png";
-import englishUSUKF from "../../../../static/flags/english.png";
-import danishF from "../../../../static/flags/denmark.png";
-import swedishF from "../../../../static/flags/sweden.png";
-import icelandicF from "../../../../static/flags/iceland.png";
-import norwegianF from "../../../../static/flags/norway.png";
 
 import Title from "../../component/Title";
 import { Select } from "../../component/Select";
 import { RegularButton } from "../../component/Button";
 import ToggleButtons from "../../component/ToggleButtons";
-import NeuronData from "../../modules/NeuronData";
-import { NeuronSelector } from "../../component/Select";
 
-import {
-  IconWrench,
-  IconFlashlight,
-  IconFloppyDisk,
-  IconTypo,
-  IconNeuronManager,
-  IconChip,
-  IconMouse,
-  IconSun,
-  IconMoon,
-  IconScreen,
-  IconLayers,
-  IconRobot,
-  IconThunder,
-  IconPlus
-} from "../../component/Icon";
+import { IconFlashlight, IconTypo, IconChip, IconMouse } from "../../component/Icon";
 
 import { MdDeleteForever, MdSave } from "react-icons/md";
 import { BsType, BsBrightnessHigh } from "react-icons/bs";
@@ -223,7 +195,6 @@ class KeyboardSettings extends React.Component {
       ledBrightness: 255,
       ledIdleTimeLimit: 0,
       defaultLayer: 126,
-      selectedNeuron: 0,
       qukeysHoldTimeout: 0,
       qukeysOverlapThreshold: 0,
       SuperTimeout: 0,
@@ -243,7 +214,6 @@ class KeyboardSettings extends React.Component {
       working: false
     };
 
-    this.deleteNeuron = this.deleteNeuron.bind(this);
     this.saveKeymapChanges = this.saveKeymapChanges.bind(this);
     this.selectDefaultLayer = this.selectDefaultLayer.bind(this);
   }
@@ -251,10 +221,6 @@ class KeyboardSettings extends React.Component {
 
   async componentDidMount() {
     const focus = new Focus();
-    focus.command("hardware.chip_id").then(neuronID => {
-      neuronID = neuronID.replace(/\s/g, "");
-      this.setState({ neuronID });
-    });
     focus.command("keymap").then(keymap => {
       this.setState({ keymap: keymap });
     });
@@ -377,38 +343,6 @@ class KeyboardSettings extends React.Component {
       modified: true
     });
     this.props.startContext();
-  };
-
-  selectNeuron = value => {
-    this.setState({
-      selectedNeuron: parseInt(value)
-    });
-  };
-
-  updateNeuronName = data => {
-    let temp = this.state.neurons;
-    temp[this.state.selectedNeuron].name = data;
-    this.setState({
-      neurons: temp
-    });
-    this.applyNeuronName(temp);
-  };
-
-  applyNeuronName = neurons => {
-    store.set("neurons", neurons);
-  };
-
-  deleteNeuron = async () => {
-    let result = await window.confirm(i18n.keyboardSettings.neuronManager.deleteNeuron);
-    if (result) {
-      let temp = JSON.parse(JSON.stringify(this.state.neurons));
-      temp.splice(this.state.selectedNeuron, 1);
-      this.setState({
-        neurons: temp,
-        selectedNeuron: temp.length - 1 > this.selectNeuron ? this.selectNeuron : temp.length - 1
-      });
-      store.set("neurons", temp);
-    }
   };
 
   selectIdleLEDTime = value => {
@@ -689,8 +623,6 @@ class KeyboardSettings extends React.Component {
     const {
       keymap,
       defaultLayer,
-      neurons,
-      selectedNeuron,
       modified,
       showDefaults,
       ledBrightness,
@@ -819,35 +751,8 @@ class KeyboardSettings extends React.Component {
 
     return (
       <Styles>
-        <Card className="overflowFix card-preferences mt-4">
-          <Card.Title>
-            <Title text={i18n.preferences.advanced} headingLevel={3} svgICO={<IconChip />} />
-          </Card.Title>
-          <Card.Body className="pb-0">
-            <Row>
-              <Col xs={6}>
-                <Form.Group controlId="DevTools" className="switchHolder">
-                  <Form.Label>{i18n.preferences.devtools}</Form.Label>
-                  {devToolsSwitch}
-                </Form.Group>
-              </Col>
-              <Col xs={6}>
-                <Form.Group controlId="Verbose" className="switchHolder">
-                  <Form.Label>{i18n.preferences.verboseFocus}</Form.Label>
-                  {verboseSwitch}
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col xs={12} className="mt-4">
-                <Title headingLevel={6} text={i18n.keyboardSettings.resetEEPROM.title} />
-              </Col>
-              <Col xs={12}>{this.props.connected && <AdvancedKeyboardSettings />}</Col>
-            </Row>
-          </Card.Body>
-        </Card>
         {this.props.connected && (
-          <Col lg={6} md={12}>
+          <React.Fragment>
             <Card className="overflowFix card-preferences mt-4">
               <Card.Title>
                 <Title text={i18n.keyboardSettings.led.title} headingLevel={3} svgICO={<IconFlashlight />} />
@@ -1011,63 +916,11 @@ class KeyboardSettings extends React.Component {
                 )}
               </Card.Body>
             </Card>
-          </Col>
+          </React.Fragment>
         )}
       </Styles>
     );
   }
 }
 
-class AdvancedKeyboardSettings extends React.Component {
-  state = {
-    EEPROMClearConfirmationOpen: false
-  };
-
-  clearEEPROM = async () => {
-    const focus = new Focus();
-
-    await this.setState({ working: true });
-    this.closeEEPROMClearConfirmation();
-
-    let eeprom = await focus.command("eeprom.contents");
-    eeprom = eeprom
-      .split(" ")
-      .filter(v => v.length > 0)
-      .map(() => 255)
-      .join(" ");
-    await focus.command("eeprom.contents", eeprom);
-    this.setState({ working: false });
-  };
-  openEEPROMClearConfirmation = () => {
-    this.setState({ EEPROMClearConfirmationOpen: true });
-  };
-  closeEEPROMClearConfirmation = () => {
-    this.setState({ EEPROMClearConfirmationOpen: false });
-  };
-
-  render() {
-    return (
-      <React.Fragment>
-        {/* <Button disabled={this.state.working} variant="contained" color="secondary" onClick={this.openEEPROMClearConfirmation}>
-          {i18n.keyboardSettings.resetEEPROM.button}
-        </Button> */}
-        <RegularButton
-          buttonText={i18n.keyboardSettings.resetEEPROM.button}
-          style="short danger"
-          onClick={this.openEEPROMClearConfirmation}
-          disabled={this.state.working}
-        />
-        <ConfirmationDialog
-          title={i18n.keyboardSettings.resetEEPROM.dialogTitle}
-          open={this.state.EEPROMClearConfirmationOpen}
-          onConfirm={this.clearEEPROM}
-          onCancel={this.closeEEPROMClearConfirmation}
-        >
-          {i18n.keyboardSettings.resetEEPROM.dialogContents}
-        </ConfirmationDialog>
-      </React.Fragment>
-    );
-  }
-}
-
-export { KeyboardSettings, AdvancedKeyboardSettings };
+export { KeyboardSettings };

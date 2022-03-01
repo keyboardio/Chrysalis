@@ -62,7 +62,7 @@ export default class GeneralSettings extends Component {
 
   selectDefaultLayer = value => {
     this.setState({
-      defaultLayer: value,
+      defaultLayer: parseInt(value),
       modified: true
     });
     this.props.startContext();
@@ -72,7 +72,6 @@ export default class GeneralSettings extends Component {
     const { selectDarkMode, darkMode, neurons, selectedNeuron, connected } = this.props;
     const { selectedLanguage, defaultLayer } = this.state;
     let layersNames = neurons[selectedNeuron].layers;
-    console.log("NNESOASDA", layersNames);
     let flags = [englishUSUKF, spanishF, germanF, frenchF, swedishF, danishF, norwegianF, icelandicF, japaneseF];
     let language = ["english", "spanish", "german", "french", "swedish", "danish", "norwegian", "icelandic"];
     language = language.map((item, index) => {
@@ -82,7 +81,7 @@ export default class GeneralSettings extends Component {
     layersNames = layersNames.map((item, index) => {
       return { text: item.name != "" ? item.name : `Layer ${index + 1}`, value: index, index };
     });
-    console.log("DESPUES!!!", layersNames);
+    layersNames.push({ text: i18n.keyboardSettings.keymap.noDefault, value: 126, index: 126 });
 
     let layoutsModes = [
       {
@@ -123,7 +122,7 @@ export default class GeneralSettings extends Component {
                 <Form.Label>{i18n.keyboardSettings.keymap.defaultLayer}</Form.Label>
                 <Select
                   onSelect={this.selectDefaultLayer}
-                  value={defaultLayer == 126 ? i18n.keyboardSettings.keymap.noDefault : `Layer ${parseInt(defaultLayer) + 1}`}
+                  value={defaultLayer}
                   listElements={layersNames}
                   disabled={!connected}
                 />

@@ -36,10 +36,14 @@ const Style = Styled.div`
       color: ${({ theme }) => theme.styles.dropdown.textButtonHover};
     }
   }
-  .dropdownIcon + .dropdownItem { 
+  .dropdownIcon + .dropdownItem {
     padding-left: 12px;
     flex: 0 0 calc(100% - 24px);
-  } 
+  }
+}
+.disabled {
+  pointer-events: none;
+  opacity: 35%;
 }
 `;
 /**
@@ -60,10 +64,10 @@ const Style = Styled.div`
  * @param {listElements} listElements - The array of objects that hold the elements to be selected.\
  * @returns {<Select>} Dropdown object.
  */
-const Select = ({ onSelect, value, listElements }) => {
+const Select = ({ onSelect, value, listElements, disabled }) => {
   return (
     <Style>
-      <Dropdown onSelect={onSelect} value={value} className="custom-dropdown">
+      <Dropdown onSelect={onSelect} value={value} className={`custom-dropdown ${disabled ? "disabled" : ""}`}>
         <Dropdown.Toggle id="dropdown-custom">
           <div className="dropdownItemSelected">
             {value != undefined && value != "" > 0 && listElements.length > 0 && listElements[0].icon != undefined ? (

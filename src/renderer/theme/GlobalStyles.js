@@ -583,6 +583,11 @@ div.card.card-preferences .card-body {
 
 .modal .modal-content {
   transform: translateX(64px);
+  border: none;
+  background-color: ${({ theme }) => theme.colors.gray800};
+}
+.modal .modal-footer {
+  background-color: ${({ theme }) => theme.colors.gray900};
 }
 
 //

@@ -243,17 +243,11 @@ class KeyboardSettings extends React.Component {
       mouseSpeedLimit: 1,
       modified: false,
       showDefaults: false,
-      working: false,
-      backupFolder: "",
-      storeBackups: 13
+      working: false
     };
 
-    this.ChooseBackupFolder = this.ChooseBackupFolder.bind(this);
-    this.restoreBackup = this.restoreBackup.bind(this);
-    this.GetBackup = this.GetBackup.bind(this);
     this.deleteNeuron = this.deleteNeuron.bind(this);
     this.saveKeymapChanges = this.saveKeymapChanges.bind(this);
-
     this.selectDefaultLayer = this.selectDefaultLayer.bind(this);
   }
   delay = ms => new Promise(res => setTimeout(res, ms));
@@ -280,14 +274,6 @@ class KeyboardSettings extends React.Component {
     focus.command("idleleds.time_limit").then(limit => {
       limit = limit ? parseInt(limit) : -1;
       this.setState({ ledIdleTimeLimit: limit });
-    });
-
-    this.setState({
-      backupFolder: store.get("settings.backupFolder")
-    });
-
-    this.setState({
-      storeBackups: store.get("settings.backupFrequency")
     });
 
     this.setState({
@@ -679,112 +665,6 @@ class KeyboardSettings extends React.Component {
     this.props.cancelContext();
   };
 
-  ChooseBackupFolder() {
-    let options = {
-      title: i18n.keyboardSettings.backupFolder.title,
-      buttonLabel: i18n.keyboardSettings.backupFolder.windowButton,
-      properties: ["openDirectory"]
-    };
-    const remote = require("electron").remote;
-    const WIN = remote.getCurrentWindow();
-    remote.dialog
-      .showOpenDialog(WIN, options)
-      .then(resp => {
-        if (!resp.canceled) {
-          console.log(resp.filePaths);
-          this.setState({
-            backupFolder: resp.filePaths[0]
-          });
-          store.set("settings.backupFolder", `${resp.filePaths[0]}`);
-        } else {
-          console.log("user closed backup folder dialog");
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-
-  async GetBackup() {
-    let options = {
-      title: i18n.keyboardSettings.backupFolder.restoreTitle,
-      buttonLabel: i18n.keyboardSettings.backupFolder.windowRestore,
-      defaultPath: this.state.backupFolder,
-      filters: [
-        { name: "Json", extensions: ["json"] },
-        { name: i18n.dialog.allFiles, extensions: ["*"] }
-      ]
-    };
-    const remote = require("electron").remote;
-    const WIN = remote.getCurrentWindow();
-    remote.dialog
-      .showOpenDialog(WIN, options)
-      .then(resp => {
-        if (!resp.canceled) {
-          console.log(resp.filePaths);
-          let backup;
-          try {
-            backup = JSON.parse(require("fs").readFileSync(resp.filePaths[0]));
-            console.log(
-              "loaded backup",
-              backup.backup == undefined ? backup[0].command : backup.backup[0].command,
-              backup.backup == undefined ? backup[0].data : backup.backup[0].data
-            );
-          } catch (e) {
-            console.error(e);
-            alert("The file is not a valid global backup");
-            return;
-          }
-          this.restoreBackup(backup);
-        } else {
-          console.log("user closed SaveDialog");
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-
-  async restoreBackup(backup) {
-    let focus = new Focus();
-    let data = [];
-    if (isArray(backup)) {
-      data = backup;
-    } else {
-      data = backup.backup;
-      // TODO: IF THE USER WANTS!!
-      let neurons = store.get("neurons");
-      let index = neurons.findIndex(n => n.id == this.state.neuronID);
-      neurons[index] = backup.neuron;
-      store.set("neurons", neurons);
-    }
-    try {
-      for (let i = 0; i < data.length; i++) {
-        let val = data[i].data;
-        // Boolean values needs to be sent as int
-        if (typeof val === "boolean") {
-          val = +val;
-        }
-        console.log(`Going to send ${data[i].command} to keyboard`);
-        await focus.command(`${data[i].command} ${val}`.trim());
-      }
-      await focus.command("led.mode 0");
-      console.log("Restoring all settings");
-      console.log("Firmware update OK");
-      return true;
-    } catch (e) {
-      console.log(`Restore settings: Error: ${e.message}`);
-      return false;
-    }
-  }
-
-  setStoreBackups = value => {
-    this.setState({
-      storeBackups: value
-    });
-    store.set("settings.backupFrequency", value);
-  };
-
   renderTooltip(tooltips) {
     return (
       <Tooltip id="select-tooltip" className="longtooltip">
@@ -831,9 +711,7 @@ class KeyboardSettings extends React.Component {
       // mouseAccelDelay,
       mouseWheelSpeed,
       // mouseWheelDelay,
-      mouseSpeedLimit,
-      backupFolder,
-      storeBackups
+      mouseSpeedLimit
     } = this.state;
     const { selectDarkMode, darkMode, devToolsSwitch, verboseSwitch } = this.props;
     let layers;
@@ -866,33 +744,6 @@ class KeyboardSettings extends React.Component {
     }
     layersNames = layersNames.map((item, index) => {
       return { text: item, value: index, index };
-    });
-    let layoutsModes = [
-      {
-        name: "System",
-        value: "system",
-        icon: <IconScreen />,
-        index: 0
-      },
-      {
-        name: "Dark",
-        value: "dark",
-        icon: <IconMoon />,
-        index: 1
-      },
-      {
-        name: "Light",
-        value: "light",
-        icon: <IconSun />,
-        index: 2
-      }
-    ];
-    const neuronList = neurons.map((neuron, iter) => {
-      return (
-        <Dropdown.Item eventKey={iter} key={`neuron-${iter}`}>
-          {i18n.formatString(i18n.keyboardSettings.neuronManager.neuron, iter + 1, neuron.name)}
-        </Dropdown.Item>
-      );
     });
 
     const mSpeed = (
@@ -971,284 +822,227 @@ class KeyboardSettings extends React.Component {
 
     return (
       <Styles>
-        {this.state.working && <Spinner role="status" />}
-        <div className="wrapper wrapperBackground">
-          <Form className="mb-5">
-            <Container fluid>
-              <Row className="justify-content-center">
-                <Col lg={6} md={12}>
-                  <Card className="overflowFix card-preferences mt-4">
-                    <Card.Title>
-                      <Title text={i18n.keyboardSettings.backupFolder.header} headingLevel={3} svgICO={<IconFloppyDisk />} />
-                    </Card.Title>
-                    <Card.Body className="pb-0">
-                      <Form.Group controlId="backupFolder" className="mb-0">
-                        <Row>
-                          <Col>
-                            <BackupFolderConfigurator
-                              chooseBackupFolder={this.ChooseBackupFolder}
-                              getBackup={this.GetBackup}
-                              backupFolder={backupFolder}
-                              connected={this.props.connected}
-                            />
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col className="mt-3">
-                            <Form.Label>{i18n.keyboardSettings.backupFolder.storeTime}</Form.Label>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col xs={2} className="p-0 text-center align-self-center">
-                            <span className="tagsfix">1 month</span>
-                          </Col>
-                          <Col xs={8} className="px-1">
-                            <Slider min={0} max={13} step={1} value={storeBackups} onChange={this.setStoreBackups} />
-                          </Col>
-                          <Col xs={2} className="p-0 text-center align-self-center">
-                            <span className="tagsfix">Forever</span>
-                          </Col>
-                        </Row>
-                      </Form.Group>
-                    </Card.Body>
-                  </Card>
-                  <Card className="overflowFix card-preferences mt-4">
-                    <Card.Title>
-                      <Title text={i18n.keyboardSettings.neuronManager.header} headingLevel={3} svgICO={<IconNeuronManager />} />
-                    </Card.Title>
-                    <Card.Body className="py-0">
-                      <Form.Group controlId="backupFolder" className="mb-3">
-                        <NeuronSelector
-                          onSelect={this.selectNeuron}
-                          itemList={neurons}
-                          selectedItem={selectedNeuron}
-                          updateItem={this.updateNeuronName}
-                          deleteItem={this.deleteNeuron}
-                          subtitle={i18n.keyboardSettings.neuronManager.neuronLabel}
-                        />
-                        <Row className="mb-4 mt-4">
-                          <Col>
-                            <NeuronData
-                              neuronName={neurons[selectedNeuron].name}
-                              neuronID={neurons[selectedNeuron].id}
-                              neurons={neurons}
-                              selectedNeuron={selectedNeuron}
-                            />
-                          </Col>
-                        </Row>
-                      </Form.Group>
-                    </Card.Body>
-                  </Card>
-                  <Card className="overflowFix card-preferences mt-4">
-                    <Card.Title>
-                      <Title text={i18n.preferences.advanced} headingLevel={3} svgICO={<IconChip />} />
-                    </Card.Title>
-                    <Card.Body className="pb-0">
-                      <Row>
-                        <Col xs={6}>
-                          <Form.Group controlId="DevTools" className="switchHolder">
-                            <Form.Label>{i18n.preferences.devtools}</Form.Label>
-                            {devToolsSwitch}
-                          </Form.Group>
-                        </Col>
-                        <Col xs={6}>
-                          <Form.Group controlId="Verbose" className="switchHolder">
-                            <Form.Label>{i18n.preferences.verboseFocus}</Form.Label>
-                            {verboseSwitch}
-                          </Form.Group>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col xs={12} className="mt-4">
-                          <Title headingLevel={6} text={i18n.keyboardSettings.resetEEPROM.title} />
-                        </Col>
-                        <Col xs={12}>{this.props.connected && <AdvancedKeyboardSettings />}</Col>
-                      </Row>
-                    </Card.Body>
-                  </Card>
+        <Card className="overflowFix card-preferences mt-4">
+          <Card.Title>
+            <Title text={i18n.keyboardSettings.neuronManager.header} headingLevel={3} svgICO={<IconNeuronManager />} />
+          </Card.Title>
+          <Card.Body className="py-0">
+            <Form.Group controlId="backupFolder" className="mb-3">
+              <NeuronSelector
+                onSelect={this.selectNeuron}
+                itemList={neurons}
+                selectedItem={selectedNeuron}
+                updateItem={this.updateNeuronName}
+                deleteItem={this.deleteNeuron}
+                subtitle={i18n.keyboardSettings.neuronManager.neuronLabel}
+              />
+              <Row className="mb-4 mt-4">
+                <Col>
+                  <NeuronData
+                    neuronName={neurons[selectedNeuron].name}
+                    neuronID={neurons[selectedNeuron].id}
+                    neurons={neurons}
+                    selectedNeuron={selectedNeuron}
+                  />
                 </Col>
-                {this.props.connected && (
-                  <Col lg={6} md={12}>
-                    <Card className="overflowFix card-preferences mt-4">
-                      <Card.Title>
-                        <Title text={i18n.keyboardSettings.led.title} headingLevel={3} svgICO={<IconFlashlight />} />
-                      </Card.Title>
-                      <Card.Body>
-                        {ledIdleTimeLimit >= 0 && (
-                          <Form.Group controlId="idleTimeLimit" className="formGroup">
-                            <Row>
-                              <Col>
-                                <Form.Label>{i18n.keyboardSettings.led.idleTimeLimit}</Form.Label>
-                              </Col>
-                            </Row>
-                            <Row>
-                              <Col xs={2} md={1} className="p-0 text-center align-self-center">
-                                <span className="tagsfix">Off</span>
-                              </Col>
-                              <Col xs={8} md={10} className="px-2">
-                                <Slider
-                                  min={0}
-                                  max={60}
-                                  step={1}
-                                  value={ledIdleTimeLimit / 60}
-                                  onChange={this.selectIdleLEDTime}
-                                />
-                              </Col>
-                              <Col xs={2} md={1} className="p-0 text-center align-self-center">
-                                <span className="tagsfix">60min</span>
-                              </Col>
-                            </Row>
-                          </Form.Group>
-                        )}
-                        {ledBrightness >= 0 && (
-                          <Form.Group controlId="brightnessControl" className="formGroup">
-                            <Row>
-                              <Col>
-                                <Form.Label>{i18n.keyboardSettings.led.brightness}</Form.Label>
-                              </Col>
-                            </Row>
-                            <Row>
-                              <Col xs={2} md={1} className="p-0 text-center align-self-center">
-                                <span className="tagsfix">None</span>
-                              </Col>
-                              <Col xs={8} md={10} className="px-2">
-                                <Slider
-                                  min={0}
-                                  max={100}
-                                  step={5}
-                                  value={Math.round((ledBrightness * 100) / 255)}
-                                  onChange={this.setBrightness}
-                                />
-                              </Col>
-                              <Col xs={2} md={1} className="p-0 text-center align-self-center">
-                                <span className="tagsfix">Max</span>
-                              </Col>
-                            </Row>
-                          </Form.Group>
-                        )}
-                      </Card.Body>
-                    </Card>
-                    <Card className="overflowFix card-preferences mt-4">
-                      <Card.Title>
-                        <Title text={i18n.keyboardSettings.superkeys.title} headingLevel={3} svgICO={<IconTypo />} />
-                      </Card.Title>
-                      <Card.Body>
-                        {SuperTimeout >= 0 && (
-                          <Form.Group controlId="superTimeout" className="formGroup">
-                            <Row>
-                              <Col>
-                                <Form.Label>
-                                  <Title
-                                    text={i18n.keyboardSettings.superkeys.timeout}
-                                    headingLevel={6}
-                                    tooltip={`<h5 class="text-left">${i18n.keyboardSettings.superkeys.timeoutTip1}</h5><ul><li class="text-left">${i18n.keyboardSettings.superkeys.timeoutTip2}</li><li class="text-left">${i18n.keyboardSettings.superkeys.timeoutTip3}</li><li class="text-left">${i18n.keyboardSettings.superkeys.timeoutTip4}</li></ul>`}
-                                    tooltipPlacement="bottom"
-                                    tooltipSize="wide"
-                                  />
-                                </Form.Label>
-                              </Col>
-                            </Row>
-                            <Row>
-                              <Col xs={2} md={1} className="p-0 text-center align-self-center">
-                                <span className="tagsfix">Slow</span>
-                              </Col>
-                              <Col xs={8} md={10} className="px-2">
-                                <Slider min={0} max={95} value={100 - SuperTimeout / 10} onChange={this.setTyping} />
-                              </Col>
-                              <Col xs={2} md={1} className="p-0 text-center align-self-center">
-                                <span className="tagsfix">Fast</span>
-                              </Col>
-                            </Row>
-                          </Form.Group>
-                        )}
-                        {SuperHoldstart >= 0 && (
-                          <Form.Group controlId="superHoldstart" className="formGroup">
-                            <Row>
-                              <Col>
-                                <Form.Label>
-                                  <Title
-                                    text={i18n.keyboardSettings.superkeys.holdstart}
-                                    headingLevel={6}
-                                    tooltip={`<h5 class="text-left">${i18n.keyboardSettings.superkeys.chordingTip1}</h5><ul><li class="text-left">${i18n.keyboardSettings.superkeys.chordingTip2}</li><li class="text-left">${i18n.keyboardSettings.superkeys.chordingTip3}</li><li class="text-left">${i18n.keyboardSettings.superkeys.chordingTip4}</li></ul>`}
-                                    tooltipPlacement="bottom"
-                                    tooltipSize="wide"
-                                  />
-                                </Form.Label>
-                              </Col>
-                            </Row>
-                            <Row>
-                              <Col xs={2} md={1} className="p-0 text-center align-self-center">
-                                <span className="tagsfix">None</span>
-                              </Col>
-                              <Col xs={8} md={10} className="px-2">
-                                <Slider min={0} max={100} value={qukeysOverlapThreshold} onChange={this.setChording} />
-                              </Col>
-                              <Col xs={2} md={1} className="p-0 text-center align-self-center">
-                                <span className="tagsfix">High</span>
-                              </Col>
-                            </Row>
-                          </Form.Group>
-                        )}
-                      </Card.Body>
-                    </Card>
-                    <Card className="overflowFix card-preferences mt-4">
-                      <Card.Title>
-                        <Title text={i18n.keyboardSettings.mouse.title} headingLevel={3} svgICO={<IconMouse />} />
-                      </Card.Title>
-                      <Card.Body className="pb-0">
-                        {mouseSpeed >= 0 && (
-                          <Form.Group controlId="mouseSpeed" className="formGroup">
-                            <Row>
-                              <Col>
-                                <Form.Label>{i18n.keyboardSettings.mouse.speed}</Form.Label>
-                              </Col>
-                            </Row>
-                            {mSpeed}
-                          </Form.Group>
-                        )}
-                        {mouseAccelSpeed >= 0 && (
-                          <Form.Group controlId="mousemAccelS" className="formGroup">
-                            <Row>
-                              <Col>
-                                <Form.Label>{i18n.keyboardSettings.mouse.accelSpeed}</Form.Label>
-                              </Col>
-                            </Row>
-                            {mAccelS}
-                          </Form.Group>
-                        )}
-                        {mouseSpeedLimit >= 0 && (
-                          <Form.Group controlId="mouseSpeedL" className="formGroup">
-                            <Row>
-                              <Col>
-                                <Form.Label>{i18n.keyboardSettings.mouse.speedLimit}</Form.Label>
-                              </Col>
-                            </Row>
-                            {mSpeedL}
-                          </Form.Group>
-                        )}
-                        {mouseWheelSpeed >= 0 && (
-                          <Form.Group controlId="mousemWheelS" className="formGroup">
-                            <Row>
-                              <Col>
-                                <Form.Label>{i18n.keyboardSettings.mouse.wheelSpeed}</Form.Label>
-                              </Col>
-                            </Row>
-                            {mWheelS}
-                          </Form.Group>
-                        )}
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                )}
               </Row>
-            </Container>
-          </Form>
-          <div className="save-holder">
-            <SaveChangesButton onClick={this.saveKeymapChanges} disabled={!modified} centered={true}>
-              {i18n.components.save.savePreferences}
-            </SaveChangesButton>
-          </div>
-        </div>
+            </Form.Group>
+          </Card.Body>
+        </Card>
+        <Card className="overflowFix card-preferences mt-4">
+          <Card.Title>
+            <Title text={i18n.preferences.advanced} headingLevel={3} svgICO={<IconChip />} />
+          </Card.Title>
+          <Card.Body className="pb-0">
+            <Row>
+              <Col xs={6}>
+                <Form.Group controlId="DevTools" className="switchHolder">
+                  <Form.Label>{i18n.preferences.devtools}</Form.Label>
+                  {devToolsSwitch}
+                </Form.Group>
+              </Col>
+              <Col xs={6}>
+                <Form.Group controlId="Verbose" className="switchHolder">
+                  <Form.Label>{i18n.preferences.verboseFocus}</Form.Label>
+                  {verboseSwitch}
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={12} className="mt-4">
+                <Title headingLevel={6} text={i18n.keyboardSettings.resetEEPROM.title} />
+              </Col>
+              <Col xs={12}>{this.props.connected && <AdvancedKeyboardSettings />}</Col>
+            </Row>
+          </Card.Body>
+        </Card>
+        {this.props.connected && (
+          <Col lg={6} md={12}>
+            <Card className="overflowFix card-preferences mt-4">
+              <Card.Title>
+                <Title text={i18n.keyboardSettings.led.title} headingLevel={3} svgICO={<IconFlashlight />} />
+              </Card.Title>
+              <Card.Body>
+                {ledIdleTimeLimit >= 0 && (
+                  <Form.Group controlId="idleTimeLimit" className="formGroup">
+                    <Row>
+                      <Col>
+                        <Form.Label>{i18n.keyboardSettings.led.idleTimeLimit}</Form.Label>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col xs={2} md={1} className="p-0 text-center align-self-center">
+                        <span className="tagsfix">Off</span>
+                      </Col>
+                      <Col xs={8} md={10} className="px-2">
+                        <Slider min={0} max={60} step={1} value={ledIdleTimeLimit / 60} onChange={this.selectIdleLEDTime} />
+                      </Col>
+                      <Col xs={2} md={1} className="p-0 text-center align-self-center">
+                        <span className="tagsfix">60min</span>
+                      </Col>
+                    </Row>
+                  </Form.Group>
+                )}
+                {ledBrightness >= 0 && (
+                  <Form.Group controlId="brightnessControl" className="formGroup">
+                    <Row>
+                      <Col>
+                        <Form.Label>{i18n.keyboardSettings.led.brightness}</Form.Label>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col xs={2} md={1} className="p-0 text-center align-self-center">
+                        <span className="tagsfix">None</span>
+                      </Col>
+                      <Col xs={8} md={10} className="px-2">
+                        <Slider
+                          min={0}
+                          max={100}
+                          step={5}
+                          value={Math.round((ledBrightness * 100) / 255)}
+                          onChange={this.setBrightness}
+                        />
+                      </Col>
+                      <Col xs={2} md={1} className="p-0 text-center align-self-center">
+                        <span className="tagsfix">Max</span>
+                      </Col>
+                    </Row>
+                  </Form.Group>
+                )}
+              </Card.Body>
+            </Card>
+            <Card className="overflowFix card-preferences mt-4">
+              <Card.Title>
+                <Title text={i18n.keyboardSettings.superkeys.title} headingLevel={3} svgICO={<IconTypo />} />
+              </Card.Title>
+              <Card.Body>
+                {SuperTimeout >= 0 && (
+                  <Form.Group controlId="superTimeout" className="formGroup">
+                    <Row>
+                      <Col>
+                        <Form.Label>
+                          <Title
+                            text={i18n.keyboardSettings.superkeys.timeout}
+                            headingLevel={6}
+                            tooltip={`<h5 class="text-left">${i18n.keyboardSettings.superkeys.timeoutTip1}</h5><ul><li class="text-left">${i18n.keyboardSettings.superkeys.timeoutTip2}</li><li class="text-left">${i18n.keyboardSettings.superkeys.timeoutTip3}</li><li class="text-left">${i18n.keyboardSettings.superkeys.timeoutTip4}</li></ul>`}
+                            tooltipPlacement="bottom"
+                            tooltipSize="wide"
+                          />
+                        </Form.Label>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col xs={2} md={1} className="p-0 text-center align-self-center">
+                        <span className="tagsfix">Slow</span>
+                      </Col>
+                      <Col xs={8} md={10} className="px-2">
+                        <Slider min={0} max={95} value={100 - SuperTimeout / 10} onChange={this.setTyping} />
+                      </Col>
+                      <Col xs={2} md={1} className="p-0 text-center align-self-center">
+                        <span className="tagsfix">Fast</span>
+                      </Col>
+                    </Row>
+                  </Form.Group>
+                )}
+                {SuperHoldstart >= 0 && (
+                  <Form.Group controlId="superHoldstart" className="formGroup">
+                    <Row>
+                      <Col>
+                        <Form.Label>
+                          <Title
+                            text={i18n.keyboardSettings.superkeys.holdstart}
+                            headingLevel={6}
+                            tooltip={`<h5 class="text-left">${i18n.keyboardSettings.superkeys.chordingTip1}</h5><ul><li class="text-left">${i18n.keyboardSettings.superkeys.chordingTip2}</li><li class="text-left">${i18n.keyboardSettings.superkeys.chordingTip3}</li><li class="text-left">${i18n.keyboardSettings.superkeys.chordingTip4}</li></ul>`}
+                            tooltipPlacement="bottom"
+                            tooltipSize="wide"
+                          />
+                        </Form.Label>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col xs={2} md={1} className="p-0 text-center align-self-center">
+                        <span className="tagsfix">None</span>
+                      </Col>
+                      <Col xs={8} md={10} className="px-2">
+                        <Slider min={0} max={100} value={qukeysOverlapThreshold} onChange={this.setChording} />
+                      </Col>
+                      <Col xs={2} md={1} className="p-0 text-center align-self-center">
+                        <span className="tagsfix">High</span>
+                      </Col>
+                    </Row>
+                  </Form.Group>
+                )}
+              </Card.Body>
+            </Card>
+            <Card className="overflowFix card-preferences mt-4">
+              <Card.Title>
+                <Title text={i18n.keyboardSettings.mouse.title} headingLevel={3} svgICO={<IconMouse />} />
+              </Card.Title>
+              <Card.Body className="pb-0">
+                {mouseSpeed >= 0 && (
+                  <Form.Group controlId="mouseSpeed" className="formGroup">
+                    <Row>
+                      <Col>
+                        <Form.Label>{i18n.keyboardSettings.mouse.speed}</Form.Label>
+                      </Col>
+                    </Row>
+                    {mSpeed}
+                  </Form.Group>
+                )}
+                {mouseAccelSpeed >= 0 && (
+                  <Form.Group controlId="mousemAccelS" className="formGroup">
+                    <Row>
+                      <Col>
+                        <Form.Label>{i18n.keyboardSettings.mouse.accelSpeed}</Form.Label>
+                      </Col>
+                    </Row>
+                    {mAccelS}
+                  </Form.Group>
+                )}
+                {mouseSpeedLimit >= 0 && (
+                  <Form.Group controlId="mouseSpeedL" className="formGroup">
+                    <Row>
+                      <Col>
+                        <Form.Label>{i18n.keyboardSettings.mouse.speedLimit}</Form.Label>
+                      </Col>
+                    </Row>
+                    {mSpeedL}
+                  </Form.Group>
+                )}
+                {mouseWheelSpeed >= 0 && (
+                  <Form.Group controlId="mousemWheelS" className="formGroup">
+                    <Row>
+                      <Col>
+                        <Form.Label>{i18n.keyboardSettings.mouse.wheelSpeed}</Form.Label>
+                      </Col>
+                    </Row>
+                    {mWheelS}
+                  </Form.Group>
+                )}
+              </Card.Body>
+            </Card>
+          </Col>
+        )}
       </Styles>
     );
   }

@@ -15,5 +15,6 @@
  */
 
 import GeneralSettings from "./GeneralSettings";
+import BackupSettings from "./BackupSettings";
 
-export { GeneralSettings };
+export { GeneralSettings, BackupSettings };

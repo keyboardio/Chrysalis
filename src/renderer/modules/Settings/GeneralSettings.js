@@ -3,24 +3,15 @@ import React, { Component } from "react";
 import i18n from "../../i18n";
 
 // React Bootstrap Components
-import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
-import Tooltip from "react-bootstrap/Tooltip";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Spinner from "react-bootstrap/Spinner";
 
 // Own Components
 import Title from "../../component/Title";
 import { Select } from "../../component/Select";
-import { RegularButton } from "../../component/Button";
 import ToggleButtons from "../../component/ToggleButtons";
-import NeuronData from "../NeuronData";
-import { NeuronSelector } from "../../component/Select";
 
 // Icons Imports
 import { IconWrench, IconSun, IconMoon, IconScreen } from "../../component/Icon";

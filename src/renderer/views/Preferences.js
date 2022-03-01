@@ -29,7 +29,7 @@ import Spinner from "react-bootstrap/Spinner";
 
 // Custom modules imports
 import { KeyboardSettings } from "../screens/Preferences/KeyboardSettings";
-import { GeneralSettings } from "../modules/Settings";
+import { BackupSettings, GeneralSettings } from "../modules/Settings";
 
 import Focus from "../../api/focus";
 import PageHeader from "../modules/PageHeader";
@@ -128,6 +128,16 @@ class Preferences extends React.Component {
                 <Row className="justify-content-center">
                   <Col lg={6} md={12}>
                     <GeneralSettings
+                      startContext={this.props.startContext}
+                      cancelContext={this.props.cancelContext}
+                      inContext={this.props.inContext}
+                      selectDarkMode={this.selectDarkMode}
+                      neurons={this.state.neurons}
+                      selectedNeuron={this.state.selectedNeuron}
+                      darkMode={this.state.darkMode}
+                      connected={this.props.connected}
+                    />
+                    <BackupSettings
                       startContext={this.props.startContext}
                       cancelContext={this.props.cancelContext}
                       inContext={this.props.inContext}

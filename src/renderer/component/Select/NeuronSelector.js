@@ -84,11 +84,7 @@ class NeuronSelector extends React.Component {
             </Dropdown.Toggle>
             <Dropdown.Menu className="dropdownMenu">
               {itemList.map((item, iter) => (
-                <Dropdown.Item
-                  eventKey={iter}
-                  key={`item-${iter}`}
-                  className={item.name === itemList[selectedItem].name ? "active" : ""}
-                >
+                <Dropdown.Item eventKey={iter} key={`item-${iter}`} className={iter === selectedItem ? "active" : ""}>
                   {item.name}
                 </Dropdown.Item>
               ))}

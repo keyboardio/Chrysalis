@@ -404,7 +404,7 @@ class KeyboardSettings extends React.Component {
 
   selectNeuron = value => {
     this.setState({
-      selectedNeuron: value
+      selectedNeuron: parseInt(value)
     });
   };
 

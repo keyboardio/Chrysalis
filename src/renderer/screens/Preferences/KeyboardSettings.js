@@ -408,16 +408,17 @@ class KeyboardSettings extends React.Component {
     });
   };
 
-  updateNeuronName = event => {
+  updateNeuronName = data => {
     let temp = this.state.neurons;
-    temp[this.state.selectedNeuron].name = event.target.value;
+    temp[this.state.selectedNeuron].name = data;
     this.setState({
       neurons: temp
     });
+    this.applyNeuronName(temp);
   };
 
-  applyNeuronName = event => {
-    store.set("neurons", this.state.neurons);
+  applyNeuronName = neurons => {
+    store.set("neurons", neurons);
   };
 
   deleteNeuron = async () => {
@@ -1224,30 +1225,12 @@ class KeyboardSettings extends React.Component {
                       <Form.Group controlId="backupFolder" className="mb-3">
                         <NeuronSelector
                           onSelect={this.selectNeuron}
-                          neurons={neurons}
-                          selectedNeuron={selectedNeuron}
-                          updateNeuronName={this.updateNeuronName}
-                          deleteNeuron={this.deleteNeuron}
+                          itemList={neurons}
+                          selectedItem={selectedNeuron}
+                          updateItem={this.updateNeuronName}
+                          deleteItem={this.deleteNeuron}
+                          subtitle={i18n.keyboardSettings.neuronManager.neuronLabel}
                         />
-                        <Row>
-                          <Col className="pl-0 pr-1">{availableNeurons}</Col>
-                          <Col xs={2} className="pl-1 pr-0">
-                            {deleteSelectedNeuron}
-                          </Col>
-                        </Row>
-                        <Row className="neuronName">
-                          <Col className="pl-2 pr-1 nControl">
-                            <Form.Control type="text" value={neurons[selectedNeuron].name} onChange={this.updateNeuronName} />
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col xs={2} className="pl-1 pr-0 nButton">
-                            <Button className="successButton" variant="success" onClick={this.applyNeuronName}>
-                              <MdSave className="delete-icon" />
-                            </Button>
-                          </Col>
-                        </Row>
-
                         <Row className="mb-4">
                           <Col>
                             <NeuronData

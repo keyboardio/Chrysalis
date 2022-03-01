@@ -19,110 +19,111 @@ import React from "react";
 import Styled from "styled-components";
 import i18n from "../../i18n";
 import Dropdown from "react-bootstrap/Dropdown";
-import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/Form";
 import { ButtonSettings } from "../Button";
-import { RegularButton } from "../Button";
 import { IconArrowsSmallSeparating } from "../Icon";
 import { IconPen } from "../Icon";
 import { IconDelete } from "../Icon";
 
+import { NameModal } from "../Modal/"; // Imported custom modal component
+
 const Style = Styled.div`
 
 `;
-const NeuronSelector = ({ onSelect, neurons, selectedNeuron, updateNeuronName, deleteNeuron }) => {
-  const [show, setShow] = React.useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+class NeuronSelector extends React.Component {
+  constructor(props) {
+    super(props);
 
-  const ChangeNameModal = () => {
-    return (
-      <Modal size="lg" show={show} onHide={handleClose} aria-labelledby="contained-modal-title-vcenter" centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Change Nueron name</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form.Control type="text" value={neurons[selectedNeuron].name} />
-        </Modal.Body>
-        <Modal.Footer>
-          <RegularButton buttonText={"Discard changes"} style="outline" onClick={handleClose} />
-          <RegularButton buttonText={"Save changes"} style="primary" onClick={updateNeuronName} />
-        </Modal.Footer>
-      </Modal>
-    );
+    this.state = {
+      show: false
+    };
+  }
+
+  toggleShow = () => {
+    this.setState({ show: !this.state.show });
   };
-  return (
-    <Style>
-      <div className="neuronSelector dropdownMultipleActions">
-        <Dropdown onSelect={onSelect} value={selectedNeuron} className="dropdownList">
-          <Dropdown.Toggle className="toggler neuronToggler">
-            {neurons.length == 0 ? (
-              i18n.keyboardSettings.neuronManager.defaultNeuron
-            ) : (
-              <div className="dropdownListInner">
-                <div className="dropdownListNumber">#{parseInt(selectedNeuron) + 1}</div>
-                <div className="dropdownListItem">
-                  <div className="dropdownListItemInner">
-                    <div className="dropdownListItemLabel">{i18n.keyboardSettings.neuronManager.neuronLabel}</div>
-                    <div className="dropdownListItemSelected">
-                      {neurons[selectedNeuron].name}
-                      <span className="sr-only">
-                        {i18n.formatString(
-                          i18n.keyboardSettings.neuronManager.neuron,
-                          parseInt(selectedNeuron) + 1,
-                          neurons[selectedNeuron].name
-                        )}
+
+  handleSave = data => {
+    this.toggleShow();
+    this.props.updateItem(data);
+  };
+
+  render() {
+    const { onSelect, itemList, selectedItem, deleteItem, subtitle } = this.props;
+    const { show } = this.state;
+
+    return (
+      <Style>
+        <div className="itemListelector dropdownMultipleActions">
+          <Dropdown onSelect={onSelect} value={selectedItem} className="dropdownList">
+            <Dropdown.Toggle className="toggler neuronToggler">
+              {itemList.length == 0 ? (
+                i18n.keyboardSettings.neuronManager.defaultNeuron
+              ) : (
+                <div className="dropdownListInner">
+                  <div className="dropdownListNumber">#{parseInt(selectedItem) + 1}</div>
+                  <div className="dropdownListItem">
+                    <div className="dropdownListItemInner">
+                      <div className="dropdownListItemLabel">{subtitle}</div>
+                      <div className="dropdownListItemSelected">
+                        {itemList[selectedItem].name}
+                        <span className="sr-only">
+                          {i18n.formatString(
+                            i18n.keyboardSettings.neuronManager.neuron,
+                            parseInt(selectedItem) + 1,
+                            itemList[selectedItem].name
+                          )}
+                        </span>
+                      </div>
+                      <span className="caret">
+                        <IconArrowsSmallSeparating />
                       </span>
                     </div>
-                    <span className="caret">
-                      <IconArrowsSmallSeparating />
-                    </span>
                   </div>
                 </div>
-              </div>
-            )}
-          </Dropdown.Toggle>
-          <Dropdown.Menu className="dropdownMenu">
-            {neurons.map((neuron, iter) => (
-              <Dropdown.Item
-                eventKey={iter}
-                key={`neuron-${iter}`}
-                className={neuron.name === neurons[selectedNeuron].name ? "active" : ""}
-              >
-                {neuron.name}
-              </Dropdown.Item>
-            ))}
-          </Dropdown.Menu>
-        </Dropdown>
-        <div className="dropdownActions">
-          <Dropdown drop="down" align="end" className="dropdownActionsList">
-            <Dropdown.Toggle className="button-settings">
-              <ButtonSettings />
+              )}
             </Dropdown.Toggle>
             <Dropdown.Menu className="dropdownMenu">
-              <Dropdown.Item onClick={handleShow}>
-                <div className="dropdownInner">
-                  <div className="dropdownIcon">
-                    <IconPen />
-                  </div>
-                  <div className="dropdownItem">Change name</div>
-                </div>
-              </Dropdown.Item>
-              <Dropdown.Item onClick={deleteNeuron}>
-                <div className="dropdownInner">
-                  <div className="dropdownIcon">
-                    <IconDelete />
-                  </div>
-                  <div className="dropdownItem">Delete</div>
-                </div>
-              </Dropdown.Item>
+              {itemList.map((item, iter) => (
+                <Dropdown.Item
+                  eventKey={iter}
+                  key={`item-${iter}`}
+                  className={item.name === itemList[selectedItem].name ? "active" : ""}
+                >
+                  {item.name}
+                </Dropdown.Item>
+              ))}
             </Dropdown.Menu>
           </Dropdown>
+          <div className="dropdownActions">
+            <Dropdown drop="down" align="end" className="dropdownActionsList">
+              <Dropdown.Toggle className="button-settings">
+                <ButtonSettings />
+              </Dropdown.Toggle>
+              <Dropdown.Menu className="dropdownMenu">
+                <Dropdown.Item onClick={this.toggleShow}>
+                  <div className="dropdownInner">
+                    <div className="dropdownIcon">
+                      <IconPen />
+                    </div>
+                    <div className="dropdownItem">Change name</div>
+                  </div>
+                </Dropdown.Item>
+                <Dropdown.Item onClick={deleteItem}>
+                  <div className="dropdownInner">
+                    <div className="dropdownIcon">
+                      <IconDelete />
+                    </div>
+                    <div className="dropdownItem">Delete</div>
+                  </div>
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
         </div>
-      </div>
-      <ChangeNameModal />
-    </Style>
-  );
-};
+        <NameModal show={show} name={itemList[selectedItem].name} toggleShow={this.toggleShow} handleSave={this.handleSave} />
+      </Style>
+    );
+  }
+}
 
 export default NeuronSelector;

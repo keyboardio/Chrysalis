@@ -19,7 +19,7 @@ import Title from "../../component/Title";
 import { Select } from "../../component/Select";
 import { RegularButton } from "../../component/Button";
 import ToggleButtons from "../../component/ToggleButtons";
-import NeuronData from "../../modules/NeuronData";
+import NeuronData from "../NeuronData";
 import { NeuronSelector } from "../../component/Select";
 
 // Icons Imports

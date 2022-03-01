@@ -29,7 +29,7 @@ import Spinner from "react-bootstrap/Spinner";
 
 // Custom modules imports
 import { KeyboardSettings } from "../screens/Preferences/KeyboardSettings";
-import GeneralSettings from "../modules/GeneralSettings/GeneralSettings";
+import { GeneralSettings } from "../modules/Settings";
 
 import Focus from "../../api/focus";
 import PageHeader from "../modules/PageHeader";

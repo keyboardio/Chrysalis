@@ -19,13 +19,17 @@
 import React from "react";
 import Electron, { app } from "electron";
 import Styled from "styled-components";
+import i18n from "../i18n";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
+import Spinner from "react-bootstrap/Spinner";
 
-import { KeyboardSettings } from "./Preferences/KeyboardSettings";
-import i18n from "../i18n";
+// Custom modules imports
+import { KeyboardSettings } from "../screens/Preferences/KeyboardSettings";
+import GeneralSettings from "../modules/GeneralSettings/GeneralSettings";
 
 import Focus from "../../api/focus";
 import PageHeader from "../modules/PageHeader";
@@ -45,7 +49,9 @@ class Preferences extends React.Component {
     devTools: false,
     advanced: false,
     verboseFocus: false,
-    darkMode: "system"
+    darkMode: "system",
+    neurons: store.get("neurons"),
+    selectedNeuron: 0
   };
 
   componentDidMount() {
@@ -100,6 +106,12 @@ class Preferences extends React.Component {
     focus.debug = event.target.checked;
   };
 
+  selectNeuron = value => {
+    this.setState({
+      selectedNeuron: parseInt(value)
+    });
+  };
+
   render() {
     const devToolsSwitch = <Form.Check type="switch" checked={this.state.devTools} onChange={this.toggleDevTools} />;
 
@@ -109,40 +121,39 @@ class Preferences extends React.Component {
       <Styles>
         <Container fluid>
           <PageHeader text={i18n.preferences.title} style={"pageHeaderFlatBottom"} />
-          <KeyboardSettings
-            startContext={this.props.startContext}
-            cancelContext={this.props.cancelContext}
-            inContext={this.props.inContext}
-            selectDarkMode={this.selectDarkMode}
-            darkMode={this.state.darkMode}
-            devToolsSwitch={devToolsSwitch}
-            verboseSwitch={verboseSwitch}
-            connected={this.props.connected}
-          />
-          {/* <Accordion>
-            <Accordion.Toggle
-              as={Col}
-              variant="link"
-              eventKey="0"
-              className="toggle-button"
-            >
-              <Button onClick={this.toggleAdvanced}>
-                {i18n.preferences.advanced}
-                {this.state.advanced ? <MdArrowDropUp /> : <MdArrowDropDown />}
-              </Button>
-            </Accordion.Toggle>
-            <Accordion.Collapse eventKey="0">
-              <React.Fragment></React.Fragment>
-            </Accordion.Collapse>
-
-            {this.props.connected && (
-              <AdvancedKeyboardSettings
-                startContext={this.props.startContext}
-                cancelContext={this.props.cancelContext}
-                inContext={this.props.inContext}
-              />
-            )}
-          </Accordion> */}
+          {this.state.working && <Spinner role="status" />}
+          <div className="wrapper wrapperBackground">
+            <Form className="mb-5">
+              <Container fluid>
+                <Row className="justify-content-center">
+                  <Col lg={6} md={12}>
+                    <GeneralSettings
+                      startContext={this.props.startContext}
+                      cancelContext={this.props.cancelContext}
+                      inContext={this.props.inContext}
+                      selectDarkMode={this.selectDarkMode}
+                      neurons={this.state.neurons}
+                      selectedNeuron={this.state.selectedNeuron}
+                      darkMode={this.state.darkMode}
+                      connected={this.props.connected}
+                    />
+                  </Col>
+                  <Col lg={6} md={12}>
+                    <KeyboardSettings
+                      startContext={this.props.startContext}
+                      cancelContext={this.props.cancelContext}
+                      inContext={this.props.inContext}
+                      selectDarkMode={this.selectDarkMode}
+                      darkMode={this.state.darkMode}
+                      devToolsSwitch={devToolsSwitch}
+                      verboseSwitch={verboseSwitch}
+                      connected={this.props.connected}
+                    />
+                  </Col>
+                </Row>
+              </Container>
+            </Form>
+          </div>
         </Container>
       </Styles>
     );

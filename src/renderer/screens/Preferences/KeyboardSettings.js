@@ -244,7 +244,6 @@ class KeyboardSettings extends React.Component {
       modified: false,
       showDefaults: false,
       working: false,
-      selectedLanguage: "",
       backupFolder: "",
       storeBackups: 13
     };
@@ -255,7 +254,6 @@ class KeyboardSettings extends React.Component {
     this.deleteNeuron = this.deleteNeuron.bind(this);
     this.saveKeymapChanges = this.saveKeymapChanges.bind(this);
 
-    this.changeLanguage = this.changeLanguage.bind(this);
     this.selectDefaultLayer = this.selectDefaultLayer.bind(this);
   }
   delay = ms => new Promise(res => setTimeout(res, ms));
@@ -290,10 +288,6 @@ class KeyboardSettings extends React.Component {
 
     this.setState({
       storeBackups: store.get("settings.backupFrequency")
-    });
-
-    this.setState({
-      selectedLanguage: store.get("settings.language")
     });
 
     this.setState({
@@ -685,11 +679,6 @@ class KeyboardSettings extends React.Component {
     this.props.cancelContext();
   };
 
-  changeLanguage = language => {
-    this.setState({ selectedLanguage: language });
-    store.set("settings.language", `${language}`);
-  };
-
   ChooseBackupFolder() {
     let options = {
       title: i18n.keyboardSettings.backupFolder.title,
@@ -843,20 +832,10 @@ class KeyboardSettings extends React.Component {
       mouseWheelSpeed,
       // mouseWheelDelay,
       mouseSpeedLimit,
-      selectedLanguage,
       backupFolder,
       storeBackups
     } = this.state;
     const { selectDarkMode, darkMode, devToolsSwitch, verboseSwitch } = this.props;
-
-    const onlyCustomSwitch = <Form.Check type="switch" checked={keymap.onlyCustom} onChange={this.setOnlyCustom} />;
-    const showDefaultLayersSwitch = <Form.Check type="switch" checked={showDefaults} onChange={this.setShowDefaults} />;
-    let flags = [englishUSUKF, spanishF, germanF, frenchF, swedishF, danishF, norwegianF, icelandicF, japaneseF];
-    let language = ["english", "spanish", "german", "french", "swedish", "danish", "norwegian", "icelandic"];
-
-    language = language.map((item, index) => {
-      return { text: item, value: item, icon: flags[index], index };
-    });
     let layers;
     let layersNames;
     if (keymap.onlyCustom) {
@@ -908,19 +887,6 @@ class KeyboardSettings extends React.Component {
         index: 2
       }
     ];
-    const defaultLayerSelect = (
-      <Dropdown onSelect={this.selectDefaultLayer} value={defaultLayer} className="fullWidth">
-        <Dropdown.Toggle className="toggler">
-          {defaultLayer == 126 ? i18n.keyboardSettings.keymap.noDefault : `Layer ${parseInt(defaultLayer) + 1}`}
-        </Dropdown.Toggle>
-        <Dropdown.Menu className="dropdownMenu">
-          {/* <Dropdown.Item key={"no-default"} eventKey={126}>
-            {i18n.keyboardSettings.keymap.noDefault}
-          </Dropdown.Item> */}
-          {layers}
-        </Dropdown.Menu>
-      </Dropdown>
-    );
     const neuronList = neurons.map((neuron, iter) => {
       return (
         <Dropdown.Item eventKey={iter} key={`neuron-${iter}`}>
@@ -928,126 +894,7 @@ class KeyboardSettings extends React.Component {
         </Dropdown.Item>
       );
     });
-    const availableNeurons = (
-      <Dropdown onSelect={this.selectNeuron} value={selectedNeuron} className="fullWidth">
-        <Dropdown.Toggle className="toggler neuronToggler">
-          {neurons.length == 0
-            ? i18n.keyboardSettings.neuronManager.noDefault
-            : i18n.formatString(
-                i18n.keyboardSettings.neuronManager.neuron,
-                parseInt(selectedNeuron) + 1,
-                neurons[selectedNeuron].name
-              )}
-        </Dropdown.Toggle>
-        <Dropdown.Menu className="dropdownMenu">
-          {/* <Dropdown.Item key={"no-default"} eventKey={126}>
-            {i18n.keyboardSettings.keymap.noDefault}
-          </Dropdown.Item> */}
-          {neuronList}
-        </Dropdown.Menu>
-      </Dropdown>
-    );
-    const deleteSelectedNeuron = (
-      <div className="neuronToggler">
-        <Button className="deleteButton default-colors" variant="error" onClick={this.deleteNeuron}>
-          <MdDeleteForever className="delete-icon" />
-        </Button>
-      </div>
-    );
 
-    const idleControl = (
-      <Dropdown onSelect={this.selectIdleLEDTime} value={ledIdleTimeLimit}>
-        <Dropdown.Toggle className="toggler">{ledIdleTimeLimit}</Dropdown.Toggle>
-        <Dropdown.Menu className="dropdownMenu">
-          <Dropdown.Item key={"no-idle"} eventKey={0}>
-            {i18n.keyboardSettings.led.idleDisabled}
-          </Dropdown.Item>
-          <Dropdown.Item key={"oneMinute"} eventKey={60}>
-            {i18n.keyboardSettings.led.idle.oneMinute}
-          </Dropdown.Item>
-          <Dropdown.Item key={"twoMinutes"} eventKey={120}>
-            {i18n.keyboardSettings.led.idle.twoMinutes}
-          </Dropdown.Item>
-          <Dropdown.Item key={"threeMinutes"} eventKey={180}>
-            {i18n.keyboardSettings.led.idle.threeMinutes}
-          </Dropdown.Item>
-          <Dropdown.Item key={"fourMinutes"} eventKey={240}>
-            {i18n.keyboardSettings.led.idle.fourMinutes}
-          </Dropdown.Item>
-          <Dropdown.Item key={"fiveMinutes"} eventKey={300}>
-            {i18n.keyboardSettings.led.idle.fiveMinutes}
-          </Dropdown.Item>
-          <Dropdown.Item key={"tenMinutes"} eventKey={600}>
-            {i18n.keyboardSettings.led.idle.tenMinutes}
-          </Dropdown.Item>
-          <Dropdown.Item key={"fifteenMinutes"} eventKey={900}>
-            {i18n.keyboardSettings.led.idle.fifteenMinutes}
-          </Dropdown.Item>
-          <Dropdown.Item key={"twentyMinutes"} eventKey={1200}>
-            {i18n.keyboardSettings.led.idle.twentyMinutes}
-          </Dropdown.Item>
-          <Dropdown.Item key={"thirtyMinutes"} eventKey={1800}>
-            {i18n.keyboardSettings.led.idle.thirtyMinutes}
-          </Dropdown.Item>
-          <Dropdown.Item key={"oneHour"} eventKey={3600}>
-            {i18n.keyboardSettings.led.idle.oneHour}
-          </Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
-    );
-
-    // const holdT = (
-    //   <RangeSlider
-    //     min={0}
-    //     max={1000}
-    //     value={qukeysHoldTimeout}
-    //     className="slider"
-    //     onChange={this.setHoldTimeout}
-    //     marks={[{ value: 250, label: i18n.keyboardSettings.defaultLabel }]}
-    //   />
-    // );
-    // const overlapT = (
-    //   <RangeSlider
-    //     min={0}
-    //     max={100}
-    //     value={qukeysOverlapThreshold}
-    //     className="slider"
-    //     onChange={this.setOverlapThreshold}
-    //     marks={[{ value: 80, label: i18n.keyboardSettings.defaultLabel }]}
-    //   />
-    // );
-
-    // const superR = (
-    //   <RangeSlider
-    //     min={0}
-    //     max={250}
-    //     value={SuperRepeat}
-    //     className="slider"
-    //     onChange={this.setSuperRepeat}
-    //     marks={[{ value: 20, label: i18n.keyboardSettings.defaultLabel }]}
-    //   />
-    // );
-    // const superW = (
-    //   <RangeSlider
-    //     min={0}
-    //     max={1000}
-    //     value={SuperWaitfor}
-    //     className="slider"
-    //     onChange={this.setSuperWaitfor}
-    //     marks={[{ value: 500, label: i18n.keyboardSettings.defaultLabel }]}
-    //   />
-    // );
-
-    // const SuperO = (
-    //   <RangeSlider
-    //     min={0}
-    //     max={100}
-    //     value={SuperOverlapThreshold}
-    //     className="slider"
-    //     onChange={this.setSuperOverlapThreshold}
-    //     marks={[{ value: 20, label: i18n.keyboardSettings.defaultLabel }]}
-    //   />
-    // );
     const mSpeed = (
       <Row>
         <Col xs={2} md={1} className="p-0 text-center align-self-center">
@@ -1061,16 +908,7 @@ class KeyboardSettings extends React.Component {
         </Col>
       </Row>
     );
-    // const mSpeedD = (
-    //   <RangeSlider
-    //     min={0}
-    //     max={1000}
-    //     value={mouseSpeedDelay}
-    //     className="slider"
-    //     onChange={this.setSpeedDelay}
-    //     marks={[{ value: 6, label: i18n.keyboardSettings.defaultLabel }]}
-    //   />
-    // );
+
     const mAccelS = (
       <Row>
         <Col xs={2} md={1} className="p-0 text-center align-self-center">
@@ -1139,49 +977,6 @@ class KeyboardSettings extends React.Component {
             <Container fluid>
               <Row className="justify-content-center">
                 <Col lg={6} md={12}>
-                  <Card className="overflowFix card-preferences mt-4">
-                    <Card.Title>
-                      <Title text={i18n.keyboardSettings.keymap.title} headingLevel={3} svgICO={<IconWrench />} />
-                    </Card.Title>
-                    <Card.Body>
-                      <Row>
-                        <Col lg={6} md={12}>
-                          <Form.Group controlId="selectLanguage" className="mb-3">
-                            <Form.Label>{i18n.preferences.language}</Form.Label>
-                            <Select onSelect={this.changeLanguage} value={selectedLanguage} listElements={language} />
-                          </Form.Group>
-                        </Col>
-                        <Col lg={6} md={12}>
-                          <Form.Group controlId="defaultLayer" className="mb-3">
-                            <Form.Label>{i18n.keyboardSettings.keymap.defaultLayer}</Form.Label>
-                            <Select
-                              onSelect={this.selectDefaultLayer}
-                              value={
-                                defaultLayer == 126
-                                  ? i18n.keyboardSettings.keymap.noDefault
-                                  : `Layer ${parseInt(defaultLayer) + 1}`
-                              }
-                              listElements={layersNames}
-                            />
-                          </Form.Group>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col md={12}>
-                          <Form.Group controlId="DarkMode" className="m-0">
-                            <Form.Label>{i18n.preferences.darkMode.label}</Form.Label>
-                            <ToggleButtons
-                              selectDarkMode={selectDarkMode}
-                              value={darkMode}
-                              listElements={layoutsModes}
-                              style={"flex"}
-                              size={"sm"}
-                            />
-                          </Form.Group>
-                        </Col>
-                      </Row>
-                    </Card.Body>
-                  </Card>
                   <Card className="overflowFix card-preferences mt-4">
                     <Card.Title>
                       <Title text={i18n.keyboardSettings.backupFolder.header} headingLevel={3} svgICO={<IconFloppyDisk />} />

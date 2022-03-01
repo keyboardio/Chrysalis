@@ -117,7 +117,6 @@ const Styles = Styled.div`
   .va1fix {
     vertical-align: -1px;
   }
-  
   .backupbuttons {
     margin: 0;
     padding: 0.44em;
@@ -216,8 +215,6 @@ class KeyboardSettings extends React.Component {
     this.bkp = new Backup();
 
     this.state = {
-      neurons: store.get("neurons"),
-      neuronID: "",
       keymap: {
         custom: [],
         default: [],
@@ -822,33 +819,6 @@ class KeyboardSettings extends React.Component {
 
     return (
       <Styles>
-        <Card className="overflowFix card-preferences mt-4">
-          <Card.Title>
-            <Title text={i18n.keyboardSettings.neuronManager.header} headingLevel={3} svgICO={<IconNeuronManager />} />
-          </Card.Title>
-          <Card.Body className="py-0">
-            <Form.Group controlId="backupFolder" className="mb-3">
-              <NeuronSelector
-                onSelect={this.selectNeuron}
-                itemList={neurons}
-                selectedItem={selectedNeuron}
-                updateItem={this.updateNeuronName}
-                deleteItem={this.deleteNeuron}
-                subtitle={i18n.keyboardSettings.neuronManager.neuronLabel}
-              />
-              <Row className="mb-4 mt-4">
-                <Col>
-                  <NeuronData
-                    neuronName={neurons[selectedNeuron].name}
-                    neuronID={neurons[selectedNeuron].id}
-                    neurons={neurons}
-                    selectedNeuron={selectedNeuron}
-                  />
-                </Col>
-              </Row>
-            </Form.Group>
-          </Card.Body>
-        </Card>
         <Card className="overflowFix card-preferences mt-4">
           <Card.Title>
             <Title text={i18n.preferences.advanced} headingLevel={3} svgICO={<IconChip />} />

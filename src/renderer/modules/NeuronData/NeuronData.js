@@ -73,11 +73,11 @@ const Style = Styled.div`
   padding-left: 12px;
 }
 `;
-const NeuronData = ({ neuronName, neuronID, neurons, selectedNeuron }) => {
+const NeuronData = ({ neurons, selectedNeuron }) => {
   return (
     <Style>
       <div className="cardContentNeuronData">
-        <NeuronTitle neuronName={neuronName} neuronID={neuronID} />
+        <NeuronTitle neuronName={neurons[selectedNeuron].name} neuronID={neurons[selectedNeuron].id} />
         <Accordion className="accordionNeuronData" defaultActiveKey="0">
           <Card className="neuronDataCard">
             <Accordion.Toggle as={Card.Header} eventKey="1">

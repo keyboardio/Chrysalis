@@ -33,6 +33,7 @@ import { BackupSettings, GeneralSettings } from "../modules/Settings";
 
 import Focus from "../../api/focus";
 import PageHeader from "../modules/PageHeader";
+import NeuronSettings from "../modules/Settings/NeuronSettings";
 
 const Store = require("electron-store");
 const store = new Store();
@@ -51,7 +52,8 @@ class Preferences extends React.Component {
     verboseFocus: false,
     darkMode: "system",
     neurons: store.get("neurons"),
-    selectedNeuron: 0
+    selectedNeuron: 0,
+    neuronID: ""
   };
 
   componentDidMount() {
@@ -72,6 +74,11 @@ class Preferences extends React.Component {
       darkModeSetting = "system";
     }
     this.setState({ darkMode: darkModeSetting });
+
+    focus.command("hardware.chip_id").then(neuronID => {
+      neuronID = neuronID.replace(/\s/g, "");
+      this.setState({ neuronID });
+    });
   }
 
   toggleDevTools = event => {
@@ -112,6 +119,32 @@ class Preferences extends React.Component {
     });
   };
 
+  updateNeuronName = data => {
+    let temp = this.state.neurons;
+    temp[this.state.selectedNeuron].name = data;
+    this.setState({
+      neurons: temp
+    });
+    this.applyNeuronName(temp);
+  };
+
+  applyNeuronName = neurons => {
+    store.set("neurons", neurons);
+  };
+
+  deleteNeuron = async () => {
+    let result = await window.confirm(i18n.keyboardSettings.neuronManager.deleteNeuron);
+    if (result) {
+      let temp = JSON.parse(JSON.stringify(this.state.neurons));
+      temp.splice(this.state.selectedNeuron, 1);
+      this.setState({
+        neurons: temp,
+        selectedNeuron: temp.length - 1 > this.selectNeuron ? this.selectNeuron : temp.length - 1
+      });
+      store.set("neurons", temp);
+    }
+  };
+
   render() {
     const devToolsSwitch = <Form.Check type="switch" checked={this.state.devTools} onChange={this.toggleDevTools} />;
 
@@ -138,14 +171,17 @@ class Preferences extends React.Component {
                       connected={this.props.connected}
                     />
                     <BackupSettings
-                      startContext={this.props.startContext}
-                      cancelContext={this.props.cancelContext}
-                      inContext={this.props.inContext}
-                      selectDarkMode={this.selectDarkMode}
                       neurons={this.state.neurons}
                       selectedNeuron={this.state.selectedNeuron}
-                      darkMode={this.state.darkMode}
+                      neuronID={this.state.neuronID}
                       connected={this.props.connected}
+                    />
+                    <NeuronSettings
+                      neurons={this.state.neurons}
+                      selectedNeuron={this.state.selectedNeuron}
+                      selectNeuron={this.selectNeuron}
+                      updateNeuronName={this.updateNeuronName}
+                      deleteNeuron={this.deleteNeuron}
                     />
                   </Col>
                   <Col lg={6} md={12}>

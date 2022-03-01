@@ -126,8 +126,8 @@ export default class BackupSettings extends Component {
     } else {
       data = backup.backup;
       // TODO: IF THE USER WANTS!!
-      let neurons = store.get("neurons");
-      let index = neurons.findIndex(n => n.id == this.state.neuronID);
+      let neurons = this.props.neurons;
+      let index = neurons.findIndex(n => n.id == this.props.neuronID);
       neurons[index] = backup.neuron;
       store.set("neurons", neurons);
     }
@@ -193,3 +193,10 @@ export default class BackupSettings extends Component {
     );
   }
 }
+
+BackupSettings.propTypes = {
+  neurons: PropTypes.array.isRequired,
+  selectedNeuron: PropTypes.number.isRequired,
+  neuronID: PropTypes.number.isRequired,
+  connected: PropTypes.bool.isRequired
+};

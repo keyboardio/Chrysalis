@@ -35,8 +35,8 @@ const NeuronTitle = ({ neuronName, neuronID }) => {
   return (
     <Style>
       <div className={`backupFolderConfigurator`}>
-        <Title text={`${i18n.keyboardSettings.neuronManager.nameTitle} ${neuronName}`} headingLevel={3} />
-        <Title text={`ID ${neuronID}`} headingLevel={4} />
+        <Title text={`${i18n.keyboardSettings.neuronManager.nameTitle}: ${neuronName}`} headingLevel={3} />
+        <Title text={`ID: ${neuronID}`} headingLevel={4} />
       </div>
     </Style>
   );

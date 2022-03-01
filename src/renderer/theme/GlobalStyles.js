@@ -581,14 +581,33 @@ div.card.card-preferences .card-body {
   padding-top: 0;
 }
 
+.modal-backdrop.show {
+  background-color: rgba(43, 44, 67, 0.85);
+  opacity: 1;
+}
 .modal .modal-content {
   transform: translateX(64px);
   border: none;
+  border-radius: 6px;
   background-color: ${({ theme }) => theme.colors.gray800};
 }
-.modal .modal-footer {
-  background-color: ${({ theme }) => theme.colors.gray900};
+.modal .modal-header {
+  border: none;
+  padding: 32px 32px 0 32px;
 }
+.modal .modal-body {
+  padding: 24px 32px;
+}
+.modal .modal-footer {
+  border: none;
+  border-radius: 6px;
+  background-color: ${({ theme }) => theme.colors.gray900};
+  padding: 24px 32px;
+}
+.modal-title {
+  
+}
+
 
 //
 // Form

@@ -1231,7 +1231,7 @@ class KeyboardSettings extends React.Component {
                           deleteItem={this.deleteNeuron}
                           subtitle={i18n.keyboardSettings.neuronManager.neuronLabel}
                         />
-                        <Row className="mb-4">
+                        <Row className="mb-4 mt-4">
                           <Col>
                             <NeuronData
                               neuronName={neurons[selectedNeuron].name}

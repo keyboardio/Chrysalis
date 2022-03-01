@@ -560,7 +560,6 @@ svg text{
 //
 div.card {
   padding: 32px;
-  overflow: hidden;
   border: none;
   box-shadow: none;
   border-radius: 14px;
@@ -582,30 +581,53 @@ div.card.card-preferences .card-body {
 }
 
 .modal-backdrop.show {
-  background-color: rgba(43, 44, 67, 0.85);
+  background-color: ${({ theme }) => theme.styles.modal.backdropColor};
   opacity: 1;
 }
 .modal .modal-content {
   transform: translateX(64px);
   border: none;
   border-radius: 6px;
-  background-color: ${({ theme }) => theme.colors.gray800};
+  background-color: ${({ theme }) => theme.styles.modal.background};
 }
 .modal .modal-header {
   border: none;
   padding: 32px 32px 0 32px;
 }
+.modal .modal-header .close{
+  opacity: 1;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-image: url('${({ theme }) => theme.styles.modal.closeButton}');
+}
+.modal .modal-header .close span{
+  opacity: 0;
+}
 .modal .modal-body {
   padding: 24px 32px;
+}
+.modal .modal-body .form-control {
+  font-weight: 600;
+  font-size: 16px; 
+  height: calc(1.5em + 1.5rem + 2px);
+   color: ${({ theme }) => theme.styles.form.inputColor};
+  background: ${({ theme }) => theme.styles.form.inputBackgroundColor};
+  border: 1px solid ${({ theme }) => theme.styles.form.inputBorder};
+} 
+.modal .modal-body .form-control:focus {
+  background: ${({ theme }) => theme.styles.form.inputBackgroundColorActive};
+  border: 1px solid ${({ theme }) => theme.styles.form.inputBorderActive};
 }
 .modal .modal-footer {
   border: none;
   border-radius: 6px;
-  background-color: ${({ theme }) => theme.colors.gray900};
+  background-color: ${({ theme }) => theme.styles.modal.footerBackground};
   padding: 24px 32px;
 }
-.modal-title {
-  
+.modal .modal-title {
+  letter-spacing: -0.03em;
+  font-weight:600;
+  color: ${({ theme }) => theme.styles.modal.titleColor}
 }
 
 

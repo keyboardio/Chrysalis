@@ -2,7 +2,9 @@ import BackgroundImageDark from "../../../static/dark/darkBackground.png";
 import BackgroundImageDark2x from "../../../static/dark/darkBackground-2x.png";
 import CheckedIconDark from "../../../static/dark/icon-check-animated.gif";
 import NeuronLoaderDark from "../../../static/dark/neuron-loader.jpg";
+import closeButton from "../../../static/dark/X.svg";
 import Tokens from "./Tokens";
+import { TokenClass } from "typescript";
 
 const settingColorOpacity = (color, opacity) => {
   let newColorArray = color;
@@ -220,7 +222,19 @@ const Dark = {
       }
     },
     form: {
-      formLabelTextcolor: Tokens.colors.gray100
+      formLabelTextcolor: Tokens.colors.gray100,
+      inputColor: Tokens.colors.gray50,
+      inputBorder: Tokens.colors.gray500,
+      inputBorderActive: Tokens.colors.purple300,
+      inputBackgroundColor: settingColorOpacity(Tokens.colors.gray900, 0.2),
+      inputBackgroundColorActive: settingColorOpacity(Tokens.colors.gray900, 0.2)
+    },
+    modal: {
+      closeButton: closeButton,
+      backdropColor: settingColorOpacity(Tokens.colors.gray800, 0.85),
+      background: Tokens.colors.gray600,
+      titleColor: Tokens.colors.gray25,
+      footerBackground: settingColorOpacity(Tokens.colors.gray900, 0.5)
     },
     navbar: {
       color: "#555",

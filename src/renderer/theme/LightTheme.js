@@ -2,6 +2,7 @@ import BackgroundImageLight from "../../../static/light/lightBackground.png";
 import BackgroundImageLight2x from "../../../static/light/lightBackground-2x.png";
 import NeuronLoaderLight from "../../../static/light/neuron-loader.jpg";
 import CheckedIconLight from "../../../static/dark/icon-check-animated.gif";
+import closeButton from "../../../static/dark/X.svg";
 import Tokens from "./Tokens";
 
 const settingColorOpacity = (color, opacity) => {
@@ -214,7 +215,19 @@ const Light = {
       }
     },
     form: {
-      formLabelTextcolor: Tokens.colors.gray500
+      formLabelTextcolor: Tokens.colors.gray500,
+      inputColor: Tokens.colors.gray50,
+      inputBorder: Tokens.colors.gray500,
+      inputBorderActive: Tokens.colors.purple300,
+      inputBackgroundColor: settingColorOpacity(Tokens.colors.gray900, 0.2),
+      inputBackgroundColorActive: settingColorOpacity(Tokens.colors.gray900, 0.2)
+    },
+    modal: {
+      closeButton: closeButton,
+      backdropColor: settingColorOpacity(Tokens.colors.gray800, 0.85),
+      background: Tokens.colors.gray600,
+      titleColor: Tokens.colors.gray25,
+      footerBackground: settingColorOpacity(Tokens.colors.gray900, 0.5)
     },
     navbar: {
       background: Tokens.colors.gray25,

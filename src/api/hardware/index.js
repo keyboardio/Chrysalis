@@ -32,6 +32,7 @@ import { GenericTeensy } from "../hardware-pjrc-teensy";
 const Hardware = {
   serial: [
     Model01,
+    Model100,
     Atreus2,
     Raise_ANSI,
     Raise_ISO,

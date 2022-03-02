@@ -307,6 +307,33 @@ svg text{
   border: 1px solid ${({ theme }) => theme.styles.button.outline.disabledBorderColor};
   box-shadow: 0px 0px 0px 1px ${({ theme }) => theme.styles.button.outline.disabledBoxShadowColor} inset;
 }
+
+.button.outline.gradient {
+  color: ${({ theme }) => theme.styles.button.outlineGradient.color};
+  border: none;
+  box-shadow: none;
+  transition-property: border, box-shadow, background;
+  transition: 300ms ease-in-out;
+  position: relative;
+}
+.button.outline.gradient .buttonLabel{
+  z-index: 2;
+  position: relative;
+}
+
+.button.outline.gradient:before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  top: 0; right: 0; bottom: 0; left: 0;
+  z-index: 1;
+  margin: -2px; 
+  border-radius: 6px;
+  background: ${({ theme }) => theme.styles.button.outlineGradient.background};
+  border: 2px solid transparent;
+  
+}
+
 .button-config {
   font-size: 16px;
   font-weight: 600;
@@ -617,6 +644,7 @@ div.card.card-preferences .card-body {
 .modal .modal-body .form-control:focus {
   background: ${({ theme }) => theme.styles.form.inputBackgroundColorActive};
   border: 1px solid ${({ theme }) => theme.styles.form.inputBorderActive};
+  box-shadow: none;
 }
 .modal .modal-footer {
   border: none;

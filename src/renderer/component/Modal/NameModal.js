@@ -25,7 +25,7 @@ export default class NameModal extends React.Component {
         </Modal.Body>
         <Modal.Footer>
           <RegularButton buttonText={"Discard changes"} style="outline" onClick={toggleShow} />
-          <RegularButton buttonText={"Save changes"} style="primary" onClick={event => handleSave(this.state.name)} />
+          <RegularButton buttonText={"Save changes"} style="outline gradient" onClick={event => handleSave(this.state.name)} />
         </Modal.Footer>
       </Modal>
     );

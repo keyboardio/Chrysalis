@@ -2,7 +2,7 @@ import BackgroundImageLight from "../../../static/light/lightBackground.png";
 import BackgroundImageLight2x from "../../../static/light/lightBackground-2x.png";
 import NeuronLoaderLight from "../../../static/light/neuron-loader.jpg";
 import CheckedIconLight from "../../../static/dark/icon-check-animated.gif";
-import closeButton from "../../../static/dark/X.svg";
+import closeButton from "../../../static/light/X.svg";
 import Tokens from "./Tokens";
 
 const settingColorOpacity = (color, opacity) => {
@@ -134,6 +134,11 @@ const Light = {
         disabledBorderColor: Tokens.colors.gray50,
         disabledBoxShadowColor: Tokens.colors.gray50,
         disabledOpacity: 1
+      },
+      outlineGradient: {
+        color: Tokens.colors.brandPrimary,
+        background: `linear-gradient(98.12deg, #F0DDE9 0%, #F0F2F4 56.24%) padding-box,
+        ${Tokens.colors.gradient} border-box`
       },
       danger: {
         color: Tokens.colors.gray25,

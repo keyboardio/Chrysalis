@@ -136,6 +136,11 @@ const Dark = {
         disabledBoxShadowColor: Tokens.colors.gray400,
         disabledOpacity: 0.35
       },
+      outlineGradient: {
+        color: "#fff",
+        background: `linear-gradient(98.12deg, #555769 0%, #303349 56.24%) padding-box,
+        ${Tokens.colors.gradient} border-box`
+      },
       danger: {
         color: Tokens.colors.gray25,
         backgroundColor: Tokens.colors.brandDanger,

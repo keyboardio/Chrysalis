@@ -278,7 +278,9 @@ const English = {
       neuronLabel: "Neuron",
       defaultNeuron: "No neuron registered",
       descriptionTitle: "Selected neuron parameters",
-      deleteNeuron: "Deleting the Neuron will erase the names of your layers, macros and superkeys from the local storage"
+      deleteNeuron: "Deleting the Neuron will erase the names of your layers, macros and superkeys from the local storage",
+      changeLayerTitle: "Change Neuron name",
+      inputLabel: "Neuron name"
     },
     keymap: {
       title: "General",

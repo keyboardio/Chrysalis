@@ -277,9 +277,14 @@ svg text{
   padding: 9px 24px;
 }
 
+.button .buttonLabel {
+  position: relative;
+  z-index: 2;
+}
 .button.primary {
   color: #fff;
   background: ${({ theme }) => theme.styles.button.primary.backgroundColor};
+  position: relative;
 }
 .button.primary[disabled] {
   background: ${({ theme }) => theme.styles.button.primary.disabledBackgroundColor};
@@ -338,18 +343,21 @@ svg text{
 
 .buttonFX {
   position: absolute;
-  z-index: -1;
+  z-index: 0;
   width: 100px;
   height: 32px;
+  bottom: 2px;
+  left: 50%;
   transform: translate3d(-50%,0, 0);
   transition: all 200ms ease-in-out;
+  opacity: 0.5;
 }
+.button.primary:not([disabled]) .buttonFX,
 .button.outline.gradient .buttonFX {
-  bottom: 2px;
   filter: blur(2px);
-  left: 50%;
   background: ${({ theme }) => theme.colors.gradient};
 }
+.button.primary:not([disabled]):hover .buttonFX,
 .button.outline.gradient:hover .buttonFX {
   bottom: -5px;
   filter: blur(15px);

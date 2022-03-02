@@ -33,6 +33,7 @@ import { BackupSettings, GeneralSettings, NeuronSettings, AdvancedSettings } fro
 
 import Focus from "../../api/focus";
 import PageHeader from "../modules/PageHeader";
+import Saving from "../modules/Saving";
 
 const Store = require("electron-store");
 const store = new Store();
@@ -153,7 +154,7 @@ class Preferences extends React.Component {
     return (
       <Styles>
         <Container fluid>
-          <PageHeader text={i18n.preferences.title} style={"pageHeaderFlatBottom"} />
+          <PageHeader text={i18n.preferences.title} style={"pageHeaderFlatBottom"} saving={<Saving />} />
           {this.state.working && <Spinner role="status" />}
           <div className="wrapper wrapperBackground">
             <Form className="mb-5">

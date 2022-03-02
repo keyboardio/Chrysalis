@@ -25,9 +25,9 @@ const Style = Styled.div`
 `;
 const Saving = ({ onClickSave, onClickDiscard, disabled }) => {
   return (
-    <Style>
-      <RegularButton onClick={onClickDiscard} textButton={i18n.app.cancelPending.button} style="outline" disabled={disabled} />
-      <RegularButton onClick={onClickSave} textButton={i18n.components.save.button} style="primary" disabled={disabled} />
+    <Style className="savingButtons">
+      <RegularButton onClick={onClickDiscard} buttonText={i18n.app.cancelPending.button} style="outline" disabled={disabled} />
+      <RegularButton onClick={onClickSave} buttonText={i18n.components.save.button} style="primary" disabled={disabled} />
     </Style>
   );
 };

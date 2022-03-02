@@ -28,6 +28,7 @@ align-self: flex-start;
     padding: 14px 32px;
     margin-top: 20px; 
     display: flex;
+    flex-wrap: nowrap;
     align-items: center;
     min-height: 82px;
     background-color: ${({ theme }) => theme.styles.pageHeader.backgroundColor};
@@ -40,12 +41,27 @@ align-self: flex-start;
     &.pageHeaderFlatBottom {
       border-radius: 16px 16px 0 0;
     }
+
+    .pageTitle {
+      width: 216px;
+      white-space: nowrap;
+    } 
+    .pageTools {
+      width: calc(100% - 216px);
+      display: flex;
+    }
+    .savingButtons {
+      margin-left: auto;
+      .button + .button {
+        margin-left: 12px;
+      }
+    }
 }
 `;
 const PageHeader = ({ size, text, style, contentSelector, saving }) => {
   return (
     <Style>
-      <div className={`pageHeader ${size} ${style}`}>
+      <div className={`pageHeader ${size && size} ${style && style}`}>
         <div className="pageTitle">
           <Title text={text} headingLevel={2} />
         </div>

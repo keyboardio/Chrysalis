@@ -27,7 +27,8 @@ const English = {
     save: {
       success: "Sent!",
       saveChanges: "Send changes to the Raise",
-      savePreferences: "Save preferences"
+      savePreferences: "Save preferences",
+      button: "Save changes"
     },
     pickerColorButton: "Change color",
     underglowColorButton: "Change color of all underglows",

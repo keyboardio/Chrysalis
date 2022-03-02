@@ -42,11 +42,17 @@ align-self: flex-start;
     }
 }
 `;
-const PageHeader = ({ size, text, style }) => {
+const PageHeader = ({ size, text, style, contentSelector, saving }) => {
   return (
     <Style>
       <div className={`pageHeader ${size} ${style}`}>
-        <Title text={text} headingLevel={2} />
+        <div className="pageTitle">
+          <Title text={text} headingLevel={2} />
+        </div>
+        <div className="pageTools">
+          {contentSelector ? contentSelector : ""}
+          {saving ? saving : ""}
+        </div>
       </div>
     </Style>
   );

@@ -26,6 +26,7 @@ const RegularButton = ({ selected, onClick, size, buttonText, style, icoSVG, dis
       disabled={disabled}
     >
       <div className={"buttonLabel"} dangerouslySetInnerHTML={{ __html: buttonText }} />
+      <div className="buttonFX"></div>
     </div>
   );
 };

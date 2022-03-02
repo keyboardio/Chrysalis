@@ -330,11 +330,29 @@ svg text{
   position: absolute;
   z-index: 1;
   top: 0; right: 0; bottom: 0; left: 0;
-  z-index: 1;
   margin: -1px; 
   border-radius: 6px;
   background: ${({ theme }) => theme.styles.button.outlineGradient.background};
   border: 2px solid transparent;
+}
+
+.buttonFX {
+  position: absolute;
+  z-index: -1;
+  width: 100px;
+  height: 32px;
+  transform: translate3d(-50%,0, 0);
+  transition: all 200ms ease-in-out;
+}
+.button.outline.gradient .buttonFX {
+  bottom: 2px;
+  filter: blur(2px);
+  left: 50%;
+  background: ${({ theme }) => theme.colors.gradient};
+}
+.button.outline.gradient:hover .buttonFX {
+  bottom: -5px;
+  filter: blur(15px);
 }
 
 .button-config {

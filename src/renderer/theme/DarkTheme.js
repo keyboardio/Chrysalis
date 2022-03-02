@@ -239,7 +239,7 @@ const Dark = {
       backdropColor: settingColorOpacity(Tokens.colors.gray800, 0.85),
       background: Tokens.colors.gray600,
       titleColor: Tokens.colors.gray25,
-      footerBackground: settingColorOpacity(Tokens.colors.gray900, 0.5)
+      footerBackground: settingColorOpacity(Tokens.colors.gray900, 0.1)
     },
     navbar: {
       color: "#555",

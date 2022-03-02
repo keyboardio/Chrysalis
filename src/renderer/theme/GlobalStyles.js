@@ -331,11 +331,10 @@ svg text{
   z-index: 1;
   top: 0; right: 0; bottom: 0; left: 0;
   z-index: 1;
-  margin: -2px; 
+  margin: -1px; 
   border-radius: 6px;
   background: ${({ theme }) => theme.styles.button.outlineGradient.background};
   border: 2px solid transparent;
-  
 }
 
 .button-config {

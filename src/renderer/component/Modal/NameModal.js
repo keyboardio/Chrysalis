@@ -13,13 +13,14 @@ export default class NameModal extends React.Component {
   }
 
   render() {
-    const { show, toggleShow, handleSave } = this.props;
+    const { show, toggleShow, handleSave, modalTitle, labelInput } = this.props;
     return (
       <Modal size="lg" show={show} onHide={toggleShow} aria-labelledby="contained-modal-title-vcenter" centered>
         <Modal.Header closeButton>
-          <Modal.Title>Change Nueron name</Modal.Title>
+          <Modal.Title>{modalTitle}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <Form.Label>{labelInput}</Form.Label>
           <Form.Control type="text" value={this.state.name} onChange={event => this.setState({ name: event.target.value })} />
         </Modal.Body>
         <Modal.Footer>

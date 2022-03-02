@@ -64,16 +64,7 @@ class NeuronSelector extends React.Component {
                   <div className="dropdownListItem">
                     <div className="dropdownListItemInner">
                       <div className="dropdownListItemLabel">{subtitle}</div>
-                      <div className="dropdownListItemSelected">
-                        {itemList[selectedItem].name}
-                        <span className="sr-only">
-                          {i18n.formatString(
-                            i18n.keyboardSettings.neuronManager.neuron,
-                            parseInt(selectedItem) + 1,
-                            itemList[selectedItem].name
-                          )}
-                        </span>
-                      </div>
+                      <div className="dropdownListItemSelected">{itemList[selectedItem].name}</div>
                       <span className="caret">
                         <IconArrowsSmallSeparating />
                       </span>
@@ -116,7 +107,14 @@ class NeuronSelector extends React.Component {
             </Dropdown>
           </div>
         </div>
-        <NameModal show={show} name={itemList[selectedItem].name} toggleShow={this.toggleShow} handleSave={this.handleSave} />
+        <NameModal
+          show={show}
+          name={itemList[selectedItem].name}
+          toggleShow={this.toggleShow}
+          handleSave={this.handleSave}
+          modalTitle={i18n.keyboardSettings.neuronManager.changeLayerTitle}
+          labelInput={i18n.keyboardSettings.neuronManager.inputLabel}
+        />
       </Style>
     );
   }

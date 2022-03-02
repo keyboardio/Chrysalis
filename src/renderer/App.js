@@ -80,10 +80,10 @@ class App extends React.Component {
     localStorage.clear();
 
     toast.configure({
-      position: "bottom-left",
+      position: "top-right",
       autoClose: false,
       hideProgressBar: false,
-      newestOnTop: true,
+      newestOnTop: false,
       draggable: false,
       closeOnClick: true,
       pauseOnHover: true,

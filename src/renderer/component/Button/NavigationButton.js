@@ -18,6 +18,8 @@
 import React from "react";
 import Styled from "styled-components";
 import i18n from "../../i18n";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 import LightAccent from "../../../../static/dark/light-accent--lg.png";
 
 const Style = Styled.div`
@@ -135,18 +137,49 @@ const Style = Styled.div`
     z-index: 1;
     background: ${({ theme }) => theme.styles.navbar.menuLink.gradient};
 }
+@media screen and (max-width: 999px) {
+    .menuLink,
+    .menuLinkInner,
+    .menuLinkInner:before {
+      width: 64px;
+      height: 64px;
+    }
+    .menuLinkText {
+        display: none;
+    }
+    .menuLinkInner {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
+    .menuLinkInner svg {
+        transform: scale(0.85);
+    }
+    .menuLink .badge {
+        right: -18px;
+    }
+  }
 `;
 //className={`icon-image ${selected ? "select" : ""}`}
 const NavigationButton = ({ selected, onClick, showNotif, buttonText, icoSVG }) => {
   return (
     <Style onClick={onClick}>
-      <div className={`menuLink ${selected ? "active" : ""}`}>
-        <div className={"menuLinkInner"}>
-          {icoSVG}
-          {showNotif ? <div className="badge badge-primary">{i18n.app.menu.badgeNew}</div> : ""}
-          <div className={"menuLinkText"} dangerouslySetInnerHTML={{ __html: buttonText }} />
+      <OverlayTrigger
+        placement={`right`}
+        overlay={
+          <Tooltip className={`tooltipMenu`}>
+            <div dangerouslySetInnerHTML={{ __html: buttonText }} />
+          </Tooltip>
+        }
+      >
+        <div className={`menuLink ${selected ? "active" : ""}`}>
+          <div className={"menuLinkInner"}>
+            {icoSVG}
+            {showNotif ? <div className="badge badge-primary">{i18n.app.menu.badgeNew}</div> : ""}
+            <div className={"menuLinkText"} dangerouslySetInnerHTML={{ __html: buttonText }} />
+          </div>
         </div>
-      </div>
+      </OverlayTrigger>
     </Style>
   );
 };

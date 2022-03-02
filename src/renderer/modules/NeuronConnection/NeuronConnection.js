@@ -52,6 +52,21 @@ const Style = Styled.div`
 .buttons > .button {
   margin-right: 16px;
 }
+@media screen and (max-width: 999px) {
+  .neuronConnection {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: -82px;
+  }
+  .neuronStatusInner {
+    transform: scale(0.8);
+  }
+  .neuronInformation {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -74px;
+  }
+}
 `;
 const NeuronConnection = ({
   loading,

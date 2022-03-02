@@ -23,6 +23,12 @@ const Style = Styled.div`
 width: 100%;
 flex: 0 0 100%;
 align-self: flex-start;
+&.pageHeaderSticky {
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(12px);
+  z-index: 12;
+}
 .pageHeader {
     border-radius: 16px;
     padding: 14px 32px;
@@ -58,9 +64,10 @@ align-self: flex-start;
     }
 }
 `;
+
 const PageHeader = ({ size, text, style, contentSelector, saving }) => {
   return (
-    <Style>
+    <Style className={`${style === "pageHeaderFlatBottom" ? "pageHeaderSticky" : ""}`}>
       <div className={`pageHeader ${size && size} ${style && style}`}>
         <div className="pageTitle">
           <Title text={text} headingLevel={2} />

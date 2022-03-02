@@ -33,8 +33,6 @@ import GlobalStyles from "./theme/GlobalStyles";
 import Light from "./theme/LightTheme";
 import Dark from "./theme/DarkTheme";
 
-import Container from "react-bootstrap/Container";
-
 import SelectKeyboard from "./views/SelectKeyboard";
 import FirmwareUpdate from "./screens/FirmwareUpdate";
 import Editor from "./screens/Editor/Editor";
@@ -288,7 +286,7 @@ class App extends React.Component {
           theme={darkMode}
           flashing={!connected}
         />
-        <Container fluid className="main-container">
+        <div className="main-container">
           <Switch>
             <Route exact path="/">
               <Redirect to="/keyboard-select" />
@@ -351,7 +349,7 @@ class App extends React.Component {
               inContext={this.state.contextBar}
             />
           </Switch>
-        </Container>
+        </div>
       </ThemeProvider>
     );
   }

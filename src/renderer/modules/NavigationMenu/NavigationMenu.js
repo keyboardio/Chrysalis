@@ -96,6 +96,11 @@ const Styles = Styled.div`
   border-radius: 8px;
   width: 100%;
 }
+@media screen and (max-width: 999px) {
+  .left-navbar {
+    width: 90px;
+  }
+}
 `;
 
 class NavigationMenu extends Component {

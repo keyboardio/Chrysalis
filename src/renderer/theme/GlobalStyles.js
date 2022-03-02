@@ -78,9 +78,8 @@ const GlobalStyles = createGlobalStyle`
   }
 
   div.main-container{
-    padding-left: ${NavWidth}px;
-    padding-left: calc(120px + 30px);
-    padding-right: 30px;
+    padding-left: calc(90px + 8px);
+    padding-right: 8px;
     transition: all 0.50s linear;
     overflow: auto;
     height: 100vh;
@@ -96,7 +95,6 @@ const GlobalStyles = createGlobalStyle`
     margin-bottom: 32px;
     border-radius: 0 0 16px 16px;
   }
-  
 
   div.title-row{
     .section-title{
@@ -763,6 +761,24 @@ div.card.card-preferences .card-body {
   font-weight: 600;
   letter-spacing: -0.03em;
   white-space: nowrap;
+}
+.bs-tooltip-right.tooltipMenu {
+  z-index: 2000;  
+  white-space: nowrap;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.bs-tooltip-right.tooltipMenu * {
+  white-space: nowrap;  
+}
+@media screen and (min-width: 1000px) {
+  .bs-tooltip-right.tooltipMenu {
+    display: none!important;
+  }
+  div.main-container {
+    padding-left: calc(120px + 30px);
+    padding-right: 30px;
+  }
 }
 `;
 

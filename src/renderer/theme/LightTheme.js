@@ -221,18 +221,18 @@ const Light = {
     },
     form: {
       formLabelTextcolor: Tokens.colors.gray500,
-      inputColor: Tokens.colors.gray50,
-      inputBorder: Tokens.colors.gray500,
-      inputBorderActive: Tokens.colors.purple300,
-      inputBackgroundColor: settingColorOpacity(Tokens.colors.gray900, 0.2),
-      inputBackgroundColorActive: settingColorOpacity(Tokens.colors.gray900, 0.2)
+      inputColor: Tokens.colors.gray400,
+      inputBorder: settingColorOpacity(Tokens.colors.gray100, 0.6),
+      inputBorderActive: Tokens.colors.purple200,
+      inputBackgroundColor: "rgba(255,255,255,0.6)",
+      inputBackgroundColorActive: "rgba(255,255,255,1)"
     },
     modal: {
       closeButton: closeButton,
-      backdropColor: settingColorOpacity(Tokens.colors.gray800, 0.85),
-      background: Tokens.colors.gray600,
-      titleColor: Tokens.colors.gray25,
-      footerBackground: settingColorOpacity(Tokens.colors.gray900, 0.5)
+      backdropColor: "rgba(214, 217, 224, 0.85)",
+      background: Tokens.colors.gray25,
+      titleColor: Tokens.colors.gray400,
+      footerBackground: settingColorOpacity(Tokens.colors.gray200, 0.075)
     },
     navbar: {
       background: Tokens.colors.gray25,

@@ -273,6 +273,10 @@ svg text{
 .button[disabled]:hover {
   cursor: not-allowed;
 }
+.button.sm {
+  padding: 9px 24px;
+}
+
 .button.primary {
   color: #fff;
   background: ${({ theme }) => theme.styles.button.primary.backgroundColor};

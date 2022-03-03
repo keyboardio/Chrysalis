@@ -18,6 +18,7 @@
 import React from "react";
 import Styled from "styled-components";
 import Title from "../../component/Title";
+import Saving from "../Saving";
 
 const Style = Styled.div`
 width: 100%;
@@ -65,7 +66,7 @@ align-self: flex-start;
 }
 `;
 
-const PageHeader = ({ size, text, style, contentSelector, saving }) => {
+const PageHeader = ({ size, text, style, showContentSelector, showSaving, saveContext, cancelContext, inContext }) => {
   return (
     <Style className={`${style === "pageHeaderFlatBottom" ? "pageHeaderSticky" : ""}`}>
       <div className={`pageHeader ${size && size} ${style && style}`}>
@@ -73,8 +74,8 @@ const PageHeader = ({ size, text, style, contentSelector, saving }) => {
           <Title text={text} headingLevel={2} />
         </div>
         <div className="pageTools">
-          {contentSelector ? contentSelector : ""}
-          {saving ? saving : ""}
+          {showContentSelector ? "contentSelector" : ""}
+          {showSaving ? <Saving saveContext={saveContext} cancelContext={cancelContext} inContext={inContext} /> : ""}
         </div>
       </div>
     </Style>

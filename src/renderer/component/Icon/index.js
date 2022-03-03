@@ -29,6 +29,7 @@ import IconWrench from "./IconWrench";
 import IconFlashlight from "./IconFLashlight";
 import IconFloppyDisk from "./IconFloppyDisk";
 import IconTypo from "./IconTypo";
+import IconNoSignal from "./IconNoSignal";
 import IconNeuronManager from "./IconNeuronManager";
 import IconMouse from "./IconMouse";
 import IconMoon from "./IconMoon";
@@ -57,6 +58,7 @@ export {
   IconFloppyDisk,
   IconTypo,
   IconNeuronManager,
+  IconNoSignal,
   IconMouse,
   IconMoon,
   IconSun,

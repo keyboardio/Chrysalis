@@ -681,6 +681,7 @@ div.card.card-preferences .card-body {
   box-shadow: ${({ theme }) => theme.styles.toast.boxShadow}; 
   position: relative;
   overflow: visible;
+  color: ${({ theme }) => theme.styles.toast.defaultColorBody};
   &:after {
     content: '';
     background-color: ${({ theme }) => theme.styles.toast.backgroundNoStatus};
@@ -694,7 +695,6 @@ div.card.card-preferences .card-body {
 }
 
 .Toastify__toast--default {
-  color: ${({ theme }) => theme.styles.toast.defaultColorBody};
   .toastIcon,
   .toastBodyInner h4{
     color: ${({ theme }) => theme.styles.toast.defaultColorTitle};

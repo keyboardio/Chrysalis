@@ -762,7 +762,7 @@ div.card.card-preferences .card-body {
 }
 .Toastify__toast-container--top-right {
   top: 126px;
-  right: 46px;
+  right: 26px;
 }
 
 
@@ -845,12 +845,17 @@ div.card.card-preferences .card-body {
 }
 .bs-tooltip-right.tooltipMenu {
   z-index: 2000;  
-  white-space: nowrap;
+  white-space: nowrap!important;
   font-weight: 600;
   letter-spacing: -0.03em;
+  text-align: left;
+  br  {
+    content: ' ';
+  }
 }
 .bs-tooltip-right.tooltipMenu * {
-  white-space: nowrap;  
+  white-space: nowrap!important;
+  text-align: left;
 }
 @media screen and (min-width: 1000px) {
   .bs-tooltip-right.tooltipMenu {
@@ -859,6 +864,10 @@ div.card.card-preferences .card-body {
   div.main-container {
     padding-left: calc(120px + 30px);
     padding-right: 30px;
+  }
+  .Toastify__toast-container--top-right {
+    top: 126px;
+    right: 46px;
   }
 }
 `;

@@ -147,6 +147,13 @@ const Style = Styled.div`
     .menuLinkText {
         display: none;
     }
+    .menuLink:after {
+        right: -14px;
+    }
+    .menuLink:before {
+        right: -17px;
+        height: 36px;
+    }
     .menuLinkInner {
         align-items: center;
         display: flex;

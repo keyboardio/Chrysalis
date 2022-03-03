@@ -52,7 +52,7 @@ const Style = Styled.div`
 .buttons > .button {
   margin-right: 16px;
 }
-@media screen and (max-width: 999px) {
+@media screen and (max-width: 890px) {
   .neuronConnection {
     flex-wrap: wrap;
     justify-content: center;

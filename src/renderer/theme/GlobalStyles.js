@@ -8,36 +8,6 @@ import iconChevronDown from "../../../static/base/icon-arrow--chevron-down.svg";
 const NavWidth = "64";
 
 const GlobalStyles = createGlobalStyle`
-  :root {
-    --gray-25: ${({ theme }) => theme.colors.gray25};
-    --gray-50: ${({ theme }) => theme.colors.gray50};
-    --gray-100: ${({ theme }) => theme.colors.gray100};
-    --gray-200: ${({ theme }) => theme.colors.gray200};
-    --gray-300: ${({ theme }) => theme.colors.gray300};
-    --gray-400: ${({ theme }) => theme.colors.gray400};
-    --gray-500: ${({ theme }) => theme.colors.gray500};
-    --gray-600: ${({ theme }) => theme.colors.gray600};
-    --gray-700: ${({ theme }) => theme.colors.gray700};
-    --gray-800: ${({ theme }) => theme.colors.gray800};
-    --gray-900: ${({ theme }) => theme.colors.gray900};
-    --purple-300: ${({ theme }) => theme.colors.purple300};
-    --purple-200: ${({ theme }) => theme.colors.purple200};
-    --purple-100: ${({ theme }) => theme.colors.purple100};
-    --brand-primary: ${({ theme }) => theme.colors.brandPrimary};
-    --brand-secondary:  rgba(107,20,249,1);
-    --brand-success: rgba(0,206,201,1);
-    --brand-success-lighter: rgba(85,239,196,1);
-    --brand-warning: rgba(255,159,67,1);
-    --brand-warning-lighter: rgba(254,202,87,1);
-    --brand-danger: rgba(225,4,50,1);
-    --brand-danger-lighter: rgba(255,107,107,1);
-    --pastel-shades-green-200: rgba(53,194,212,1);
-    --pastel-shades-green-300: rgba(37,161,177,1);
-    --pastel-shades-green-100: rgba(95,206,221,1);
-    --pastel-shades-mint-300: rgba(135,162,67,1);
-    --pastel-shades-mint-200: rgba(161,188,94,1);
-    --pastel-shades-mint-100: rgba(181,203,129,1);
-  }
 
   @font-face {
     font-family: "Libre Franklin";

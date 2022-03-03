@@ -23,7 +23,14 @@ import NeuronStatus from "../../component/NeuronStatus";
 import { SelectKeyboardDropdown } from "../../component/Select";
 import i18n from "../../i18n";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import ToastMessage from "../../component/ToastMessage";
+
 const Style = Styled.div`
+.button.toastButton {   
+  z-index: 3000;
+}
 .neuronConnection {
   display: flex;
   align-items: center;
@@ -80,8 +87,20 @@ const NeuronConnection = ({
   selectedPortIndex,
   deviceItems
 }) => {
+  const notify = () =>
+    toast(<ToastMessage title="🦄 Wow so easy!" content={"Lorem ipsum dolor aemet sit."} />, {
+      position: "top-right",
+      autoClose: false,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      progress: undefined
+    });
   return (
     <Style>
+      <button className="button primary toastButton" onClick={notify}>
+        Testing Toast
+      </button>
       <div className="neuronConnection">
         <NeuronStatus
           loading={loading}
@@ -148,6 +167,8 @@ const NeuronConnection = ({
           </div>
         </div>
       </div>
+
+      <ToastContainer />
     </Style>
   );
 };

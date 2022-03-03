@@ -305,6 +305,11 @@ const Dark = {
       thumbBoxShadow: "0px 4px 12px rgba(97, 32, 234, 0)",
       thumbBoxShadowActive: "0px 4px 12px rgba(97, 32, 234, 1)"
     },
+    toast: {
+      boxShadow: "0px 32px 32px -32px rgba(0, 0, 0, 0.25), 0px 0px 32px rgba(0, 0, 0, 0.25)",
+      background: Tokens.colors.gray800,
+      backgroundSucess: `linear-gradient(90deg, rgba(0, 206, 201, 0.25) -10.33%, rgba(0, 206, 201, 0) 41.03%), ${Tokens.colors.gray800}`
+    },
     toggleButton: {
       background: settingColorOpacity(Tokens.colors.gray900, 0.2)
     },

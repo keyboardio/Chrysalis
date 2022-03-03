@@ -51,7 +51,7 @@ const Style = Styled.div`
         padding: 4px 10px;
         z-index: 3;
         &.badge-primary {
-            background: var(--brand-primary);
+            background: ${({ theme }) => theme.colors.brandPrimary};
             border-radius: 16px;
         }
     }

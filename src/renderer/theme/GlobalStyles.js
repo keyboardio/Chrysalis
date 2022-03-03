@@ -652,8 +652,26 @@ div.card.card-preferences .card-body {
 .modal .modal-title {
   letter-spacing: -0.03em;
   font-weight:600;
-  color: ${({ theme }) => theme.styles.modal.titleColor}
+  color: ${({ theme }) => theme.styles.modal.titleColor};
 }
+
+//
+// Toast
+// 
+.Toastify__toast-container {
+  padding: 0;
+}
+.Toastify__toast--default,
+.Toastify__toast {
+  border-radius: 6px;
+  background: ${({ theme }) => theme.styles.toast.background};
+  box-shadow: ${({ theme }) => theme.styles.toast.boxShadow};
+}
+.Toastify__toast-container--top-right {
+  top: 126px;
+  right: 46px;
+}
+
 
 
 //

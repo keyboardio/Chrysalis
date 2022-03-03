@@ -88,20 +88,118 @@ const NeuronConnection = ({
   selectedPortIndex,
   deviceItems
 }) => {
+  const toastId = React.useRef(null);
+  const dismiss = () => toast.dismiss(toastId.current);
+
   const notify = () =>
-    toast(<ToastMessage title="🦄 Wow so easy!" content={"Lorem ipsum dolor aemet sit."} icon={<IconChip />} />, {
-      position: "top-right",
-      autoClose: false,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      progress: undefined
-    });
+    (toastId.current = toast(
+      <ToastMessage
+        title="Wow so easy! 🦄"
+        content={
+          "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus"
+        }
+        icon={<IconChip />}
+        onClickAction={dismiss}
+        clickActionText={"Take action"}
+        onClickDismiss={dismiss}
+        clickDismissText={"Discard"}
+      />,
+      {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+      }
+    ));
+
+  const notifyWarning = () =>
+    (toastId.current = toast.warn(
+      <ToastMessage
+        title="Warning toast!"
+        content={
+          "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus"
+        }
+        icon={<IconChip />}
+        onClickAction={dismiss}
+        clickActionText={"Take action"}
+        onClickDismiss={dismiss}
+        clickDismissText={"Discard"}
+      />,
+      {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+      }
+    ));
+
+  const notifyDanger = () =>
+    (toastId.current = toast.error(
+      <ToastMessage
+        title="Danger toast!"
+        content={
+          "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus"
+        }
+        icon={<IconChip />}
+        onClickAction={dismiss}
+        clickActionText={"Take action"}
+        onClickDismiss={dismiss}
+        clickDismissText={"Discard"}
+      />,
+      {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+      }
+    ));
+  const notifySuccess = () =>
+    (toastId.current = toast.success(
+      <ToastMessage
+        title="Success toast!"
+        content={
+          "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus"
+        }
+        icon={<IconChip />}
+        onClickAction={dismiss}
+        clickActionText={"Take action"}
+        onClickDismiss={dismiss}
+        clickDismissText={"Discard"}
+      />,
+      {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+      }
+    ));
   return (
     <Style>
-      <button className="button primary toastButton" onClick={notify}>
-        Testing Toast
+      <button className="button primary toastButton" size="sm" onClick={notify}>
+        Default Toast
       </button>
+      <button className="button primary toastButton" size="sm" onClick={notifyWarning}>
+        Warning Toast
+      </button>
+      <button className="button primary toastButton" size="sm" onClick={notifyDanger}>
+        Danger Toast
+      </button>
+      <button className="button primary toastButton" size="sm" onClick={notifySuccess}>
+        Success Toast
+      </button>
+
       <div className="neuronConnection">
         <NeuronStatus
           loading={loading}

@@ -18,6 +18,7 @@
 import React from "react";
 import Styled from "styled-components";
 import Title from "../Title";
+import { ButtonConfig } from "../Button";
 
 const Style = Styled.div` 
 .toastBody {
@@ -25,12 +26,35 @@ const Style = Styled.div`
   display: flex;
   flex-wrap: nowrap;
   &.hasIcon {
-    padding-left: 24px;
+    padding-left: 16px; 
+    .toastIcon {  
+      width: 32px;
+      svg {
+        margin-top: -6px;
+      }
+    }
+    .toastBodyInner {
+      width: calc(100% - 32px);
+      padding-left: 8px;
+    }
   }
 }
-
+.toastContent {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.35em;
+} 
+.toastFooter {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-end;  
+  padding: 0 32px 24px 32px;  
+  .button-config + .button-config {
+    margin-left: 8px;
+  }
+}
 `;
-const ToastMessage = ({ title, content, icon, onClickAction, onClickDismiss }) => {
+const ToastMessage = ({ title, content, icon, onClickAction, clickActionText, onClickDismiss, clickDismissText }) => {
   return (
     <Style className={`toastContentWrapper`}>
       <div className={`toastBody ${icon ? "hasIcon" : "noIcon"}`}>
@@ -40,7 +64,14 @@ const ToastMessage = ({ title, content, icon, onClickAction, onClickDismiss }) =
           <div className={"toastContent"} dangerouslySetInnerHTML={{ __html: content }} />
         </div>
       </div>
-      {onClickAction || onClickDismiss ? <div className="toastFooter">Buttons</div> : ""}
+      {onClickAction || onClickDismiss ? (
+        <div className="toastFooter">
+          <ButtonConfig onClick={onClickDismiss} buttonText={clickDismissText} style="link" size="sm" />
+          <ButtonConfig onClick={onClickAction} buttonText={clickActionText} size="sm" />
+        </div>
+      ) : (
+        ""
+      )}
     </Style>
   );
 };

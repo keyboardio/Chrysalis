@@ -304,7 +304,9 @@ const Light = {
         0.3
       )}`,
       background: Tokens.colors.gray25,
-      backgroundSucess: `linear-gradient(90deg, rgba(0, 206, 201, 0.25) -10.33%, rgba(0, 206, 201, 0) 41.03%), #25273B`
+      backgroundSucess: `linear-gradient(90deg, rgba(0, 206, 201, 0.25) -10.33%, rgba(0, 206, 201, 0) 41.03%), #25273B`,
+      defaultColorTitle: Tokens.colors.gray25,
+      defaultColorBody: Tokens.colors.gray100
     },
     toggleButton: {
       background: "#fff"

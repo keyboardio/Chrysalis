@@ -38,6 +38,9 @@ const Dark = {
     gradient: Tokens.colors.gradient,
     gradientDisabled: Tokens.colors.gradientDisabled,
     gradientDisabledLight: Tokens.colors.gradientDisabledLight,
+    gradientWarning: Tokens.colors.gradientWarning,
+    gradientDanger: Tokens.colors.gradientDanger,
+    gradientSuccess: Tokens.colors.gradientSuccess,
     gray25: Tokens.colors.gray25,
     gray50: Tokens.colors.gray50,
     gray100: Tokens.colors.gray100,
@@ -308,7 +311,21 @@ const Dark = {
     toast: {
       boxShadow: "0px 32px 32px -32px rgba(0, 0, 0, 0.25), 0px 0px 32px rgba(0, 0, 0, 0.25)",
       background: Tokens.colors.gray800,
-      backgroundSucess: `linear-gradient(90deg, rgba(0, 206, 201, 0.25) -10.33%, rgba(0, 206, 201, 0) 41.03%), ${Tokens.colors.gray800}`
+      backgroundNoStatus: Tokens.colors.gray600,
+      backgroundSuccess: `linear-gradient(90deg, rgba(0, 206, 201, 0.25) -10.33%, rgba(0, 206, 201, 0) 41.03%), ${Tokens.colors.gray800}`,
+      backgroundDanger: ` linear-gradient(90deg, ${settingColorOpacity(
+        Tokens.colors.brandDanger,
+        0.25
+      )} -10.33%, ${settingColorOpacity(Tokens.colors.brandDanger, 0)} 41.03%), ${Tokens.colors.gray800}`,
+      backgroundWarning: `linear-gradient(90deg, ${settingColorOpacity(
+        Tokens.colors.brandWarning,
+        0.25
+      )} -10.33%, ${settingColorOpacity(Tokens.colors.brandWarning, 0)} 41.03%), ${Tokens.colors.gray800}`,
+      defaultColorTitle: Tokens.colors.gray25,
+      defaultColorBody: Tokens.colors.gray50,
+      warningColorTitle: Tokens.colors.brandWarningLighter,
+      dangerColorTitle: Tokens.colors.brandPrimary,
+      successColorTitle: Tokens.colors.brandSuccess
     },
     toggleButton: {
       background: settingColorOpacity(Tokens.colors.gray900, 0.2)

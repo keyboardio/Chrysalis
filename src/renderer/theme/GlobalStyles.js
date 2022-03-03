@@ -363,6 +363,17 @@ svg text{
   background: ${({ theme }) => theme.styles.button.config.backgroundActive};
   box-shadow: ${({ theme }) => theme.styles.button.config.boxShadowActive};
 }
+
+.button-config.link {
+  box-shadow: none;
+  border: none;
+  background: transparent;
+}
+.button-config.link:hover {
+  box-shadow: none;
+  border: none;
+  background: transparent;
+}
 .button.short {
   padding: 6px 16px;
   border-radius: 4px;
@@ -660,13 +671,94 @@ div.card.card-preferences .card-body {
 // 
 .Toastify__toast-container {
   padding: 0;
+  width: 368px;
 }
 .Toastify__toast--default,
 .Toastify__toast {
   padding: 0;
   border-radius: 6px;
   background: ${({ theme }) => theme.styles.toast.background};
-  box-shadow: ${({ theme }) => theme.styles.toast.boxShadow};
+  box-shadow: ${({ theme }) => theme.styles.toast.boxShadow}; 
+  position: relative;
+  overflow: visible;
+  &:after {
+    content: '';
+    background-color: ${({ theme }) => theme.styles.toast.backgroundNoStatus};
+    width: 3px;
+    height: 24px;
+    border-radius: 3px 0px 0px 3px;
+    position: absolute;
+    left: -3px;
+    top: 22px;
+  }
+}
+
+.Toastify__toast--default {
+  color: ${({ theme }) => theme.styles.toast.defaultColorBody};
+  .toastIcon,
+  .toastBodyInner h4{
+    color: ${({ theme }) => theme.styles.toast.defaultColorTitle};
+  }
+}
+.Toastify__toast--warning {
+  background: ${({ theme }) => theme.styles.toast.backgroundWarning};
+  &:after {
+    background: ${({ theme }) => theme.colors.gradientWarning};
+  }
+  .toastIcon,
+  .toastBodyInner h4{
+    color: ${({ theme }) => theme.styles.toast.warningColorTitle};
+  }
+}
+.Toastify__toast--error {
+  background: ${({ theme }) => theme.styles.toast.backgroundDanger};
+  &:after {
+    background: ${({ theme }) => theme.colors.gradientDanger};
+  }
+  .toastIcon,
+  .toastBodyInner h4{
+    color: ${({ theme }) => theme.styles.toast.dangerColorTitle};
+  }
+}
+.Toastify__toast--success {
+  background: ${({ theme }) => theme.styles.toast.backgroundSuccess};
+  &:after {
+    background: ${({ theme }) => theme.colors.gradientSuccess};
+  }
+  .toastIcon,
+  .toastBodyInner h4{
+    color: ${({ theme }) => theme.styles.toast.successColorTitle};
+  }
+}
+.Toastify__close-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-image: url('${({ theme }) => theme.styles.modal.closeButton}');
+  width: 24px;
+  height: 24px;
+  opacity: 0.7;
+  svg {
+    display:none;
+  }
+}
+
+.Toastify__progress-bar {
+  margin: 8px 24px;
+  height: 3px;
+  border-radius: 3px;
+  background: ${({ theme }) => theme.styles.toast.backgroundNoStatus};
+  &.Toastify__progress-bar--success {
+    background: ${({ theme }) => theme.styles.toast.successColorTitle};
+  }
+  &.Toastify__progress-bar--warning {
+    background: ${({ theme }) => theme.styles.toast.warningColorTitle};
+  }
+  &.Toastify__progress-bar--error {
+    background: ${({ theme }) => theme.styles.toast.dangerColorTitle};
+  }
 }
 .Toastify__toast-container--top-right {
   top: 126px;

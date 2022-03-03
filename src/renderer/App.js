@@ -42,6 +42,8 @@ import Preferences from "./views/Preferences";
 import Welcome from "./screens/Welcome";
 
 import Header from "./modules/NavigationMenu";
+import ToastMessage from "./component/ToastMessage";
+import { IconNoSignal } from "./component/Icon";
 
 const Store = require("electron-store");
 const store = new Store();
@@ -144,7 +146,13 @@ class App extends React.Component {
       this.props.history.push("./");
 
       if (!focus._port.isOpen) {
-        toast.warning(i18n.errors.deviceDisconnected);
+        toast.warning(
+          <ToastMessage
+            icon={<IconNoSignal />}
+            title={i18n.errors.deviceDisconnected}
+            content={i18n.errors.deviceDisconnectedContent}
+          />
+        );
       }
       await focus.close();
       await this.setState({

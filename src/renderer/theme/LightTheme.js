@@ -37,6 +37,9 @@ const Light = {
     gradient: Tokens.colors.gradient,
     gradientDisabled: Tokens.colors.gradientDisabled,
     gradientDisabledLight: Tokens.colors.gradientDisabledLight,
+    gradientWarning: Tokens.colors.gradientWarning,
+    gradientDanger: Tokens.colors.gradientDanger,
+    gradientSuccess: Tokens.colors.gradientSuccess,
     gray25: Tokens.colors.gray25,
     gray50: Tokens.colors.gray50,
     gray100: Tokens.colors.gray100,
@@ -304,9 +307,21 @@ const Light = {
         0.3
       )}`,
       background: Tokens.colors.gray25,
-      backgroundSucess: `linear-gradient(90deg, rgba(0, 206, 201, 0.25) -10.33%, rgba(0, 206, 201, 0) 41.03%), #25273B`,
-      defaultColorTitle: Tokens.colors.gray25,
-      defaultColorBody: Tokens.colors.gray100
+      backgroundNoStatus: Tokens.colors.gray100,
+      backgroundSuccess: `linear-gradient(90deg, rgba(0, 206, 201, 0.05) -10.33%, rgba(0, 206, 201, 0) 41.03%), ${Tokens.colors.gray25}`,
+      backgroundDanger: ` linear-gradient(90deg, ${settingColorOpacity(
+        Tokens.colors.brandDanger,
+        0.05
+      )} -10.33%, ${settingColorOpacity(Tokens.colors.brandDanger, 0)} 41.03%), ${Tokens.colors.gray25}`,
+      backgroundWarning: `linear-gradient(90deg, ${settingColorOpacity(
+        Tokens.colors.brandWarning,
+        0.05
+      )} -10.33%, ${settingColorOpacity(Tokens.colors.brandWarning, 0)} 41.03%), ${Tokens.colors.gray25}`,
+      defaultColorTitle: Tokens.colors.gray700,
+      defaultColorBody: Tokens.colors.gray500,
+      warningColorTitle: Tokens.colors.brandWarning,
+      dangerColorTitle: Tokens.colors.brandPrimary,
+      successColorTitle: Tokens.colors.brandSuccess
     },
     toggleButton: {
       background: "#fff"

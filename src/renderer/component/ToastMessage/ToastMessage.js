@@ -52,6 +52,12 @@ const Style = Styled.div`
   .button-config + .button-config {
     margin-left: 8px;
   }
+  .button-config {
+    color: ${({ theme }) => theme.styles.button.config.color};
+    &:hover {
+      ${({ theme }) => theme.styles.button.config.colorHover};
+    } 
+  }
 }
 `;
 const ToastMessage = ({ title, content, icon, onClickAction, clickActionText, onClickDismiss, clickDismissText }) => {

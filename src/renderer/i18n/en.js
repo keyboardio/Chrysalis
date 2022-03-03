@@ -19,6 +19,8 @@ const English = {
   language: "English",
   errors: {
     deviceDisconnected: "Keyboard disconnected",
+    deviceDisconnectedContent:
+      "Houston we have a problem! Could not connect with Neuron, configure if cables are connected and if everything is ok.",
     invalidLayerFile: "Not a valid Layer file",
     exportError: "Error at Exporting: "
   },

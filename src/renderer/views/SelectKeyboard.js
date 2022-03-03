@@ -40,6 +40,7 @@ import usb from "usb";
 
 import i18n from "../i18n";
 import NeuronConnection from "../modules/NeuronConnection";
+import ToastMessage from "../component/ToastMessage";
 
 const Store = require("electron-store");
 const store = new Store();
@@ -297,7 +298,7 @@ class SelectKeyboard extends Component {
       this.setState({
         opening: false
       });
-      toast.error(err.toString());
+      toast.error(<ToastMessage title={err.toString()} />);
     }
     i18n.refreshHardware(devices[this.state.selectedPortIndex]);
   };

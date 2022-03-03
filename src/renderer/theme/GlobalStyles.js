@@ -663,6 +663,7 @@ div.card.card-preferences .card-body {
 }
 .Toastify__toast--default,
 .Toastify__toast {
+  padding: 0;
   border-radius: 6px;
   background: ${({ theme }) => theme.styles.toast.background};
   box-shadow: ${({ theme }) => theme.styles.toast.boxShadow};

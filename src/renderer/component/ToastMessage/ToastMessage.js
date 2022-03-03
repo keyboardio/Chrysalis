@@ -19,15 +19,26 @@ import React from "react";
 import Styled from "styled-components";
 import Title from "../Title";
 
-const Style = Styled.div`
+const Style = Styled.div` 
+.toastBody {
+  padding: 24px 32px;  
+  display: flex;
+  flex-wrap: nowrap;
+  &.hasIcon {
+    padding-left: 24px;
+  }
+}
 
 `;
 const ToastMessage = ({ title, content, icon, onClickAction, onClickDismiss }) => {
   return (
     <Style className={`toastContentWrapper`}>
-      <div className="toastBody">
-        {title && <Title text={title} headingLevel={2} />}
-        <div className={"toastContent"} dangerouslySetInnerHTML={{ __html: content }} />
+      <div className={`toastBody ${icon ? "hasIcon" : "noIcon"}`}>
+        {icon && <div className="toastIcon">{icon}</div>}
+        <div className="toastBodyInner">
+          {title && <Title text={title} headingLevel={4} />}
+          <div className={"toastContent"} dangerouslySetInnerHTML={{ __html: content }} />
+        </div>
       </div>
       {onClickAction || onClickDismiss ? <div className="toastFooter">Buttons</div> : ""}
     </Style>

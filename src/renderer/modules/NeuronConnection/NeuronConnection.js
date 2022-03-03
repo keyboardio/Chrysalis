@@ -26,6 +26,7 @@ import i18n from "../../i18n";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ToastMessage from "../../component/ToastMessage";
+import { IconChip } from "../../component/Icon";
 
 const Style = Styled.div`
 .button.toastButton {   
@@ -88,7 +89,7 @@ const NeuronConnection = ({
   deviceItems
 }) => {
   const notify = () =>
-    toast(<ToastMessage title="🦄 Wow so easy!" content={"Lorem ipsum dolor aemet sit."} />, {
+    toast(<ToastMessage title="🦄 Wow so easy!" content={"Lorem ipsum dolor aemet sit."} icon={<IconChip />} />, {
       position: "top-right",
       autoClose: false,
       hideProgressBar: false,

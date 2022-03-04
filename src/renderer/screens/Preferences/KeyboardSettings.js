@@ -184,342 +184,250 @@ class KeyboardSettings extends React.Component {
   constructor(props) {
     super(props);
 
-    this.bkp = new Backup();
-
-    this.state = {
-      keymap: {
-        custom: [],
-        default: [],
-        onlyCustom: false
-      },
-      ledBrightness: 255,
-      ledIdleTimeLimit: 0,
-      qukeysHoldTimeout: 0,
-      qukeysOverlapThreshold: 0,
-      SuperTimeout: 0,
-      SuperRepeat: 20,
-      SuperWaitfor: 500,
-      SuperHoldstart: 0,
-      SuperOverlapThreshold: 0,
-      mouseSpeed: 1,
-      mouseSpeedDelay: 2,
-      mouseAccelSpeed: 1,
-      mouseAccelDelay: 2,
-      mouseWheelSpeed: 1,
-      mouseWheelDelay: 100,
-      mouseSpeedLimit: 1,
-      modified: false,
-      showDefaults: false
-    };
+    this.state = props.kbData;
   }
   delay = ms => new Promise(res => setTimeout(res, ms));
 
-  async componentDidMount() {
-    const focus = new Focus();
-    focus.command("keymap").then(keymap => {
-      this.setState({ keymap: keymap });
-    });
-    focus.command("led.brightness").then(brightness => {
-      brightness = brightness ? parseInt(brightness) : -1;
-      this.setState({ ledBrightness: brightness });
-    });
-
-    focus.command("idleleds.time_limit").then(limit => {
-      limit = limit ? parseInt(limit) : -1;
-      this.setState({ ledIdleTimeLimit: limit });
-    });
-
-    this.setState({
-      showDefaults: store.get("settings.showDefaults") == undefined ? false : store.get("settings.showDefaults")
-    });
-
-    // QUKEYS variables commands
-    focus.command("qukeys.holdTimeout").then(holdTimeout => {
-      holdTimeout = holdTimeout ? parseInt(holdTimeout) : 250;
-      this.setState({ qukeysHoldTimeout: holdTimeout });
-    });
-
-    focus.command("qukeys.overlapThreshold").then(overlapThreshold => {
-      overlapThreshold = overlapThreshold ? parseInt(overlapThreshold) : 80;
-      this.setState({ qukeysOverlapThreshold: overlapThreshold });
-    });
-
-    // SuperKeys variables commands
-    focus.command("superkeys.timeout").then(timeout => {
-      timeout = timeout ? parseInt(timeout) : 250;
-      this.setState({ SuperTimeout: timeout });
-    });
-
-    // focus.command("superkeys.repeat").then(repeat => {
-    //   repeat = repeat ? parseInt(repeat) : 20;
-    //   this.setState({ SuperRepeat: repeat });
-    // });
-
-    // focus.command("superkeys.waitfor").then(waitfor => {
-    //   waitfor = waitfor ? parseInt(waitfor) : 500;
-    //   this.setState({ SuperWaitfor: waitfor });
-    // });
-
-    focus.command("superkeys.holdstart").then(holdstart => {
-      holdstart = holdstart ? parseInt(holdstart) : 200;
-      this.setState({ SuperHoldstart: holdstart });
-    });
-
-    // focus.command("superkeys.overlap").then(overlapThreshold => {
-    //   overlapThreshold = overlapThreshold ? parseInt(overlapThreshold) : 20;
-    //   this.setState({ SuperOverlapThreshold: overlapThreshold });
-    // });
-
-    // MOUSE variables commands
-    focus.command("mouse.speed").then(speed => {
-      speed = speed ? parseInt(speed) : 1;
-      this.setState({ mouseSpeed: speed });
-    });
-
-    // focus.command("mouse.speedDelay").then(speedDelay => {
-    //   speedDelay = speedDelay ? parseInt(speedDelay) : 6;
-    //   this.setState({ mouseSpeedDelay: speedDelay });
-    // });
-
-    focus.command("mouse.accelSpeed").then(accelSpeed => {
-      accelSpeed = accelSpeed ? parseInt(accelSpeed) : 1;
-      this.setState({ mouseAccelSpeed: accelSpeed });
-    });
-
-    // focus.command("mouse.accelDelay").then(accelDelay => {
-    //   accelDelay = accelDelay ? parseInt(accelDelay) : 64;
-    //   this.setState({ mouseAccelDelay: accelDelay });
-    // });
-
-    focus.command("mouse.wheelSpeed").then(wheelSpeed => {
-      wheelSpeed = wheelSpeed ? parseInt(wheelSpeed) : 1;
-      this.setState({ mouseWheelSpeed: wheelSpeed });
-    });
-
-    // focus.command("mouse.wheelDelay").then(wheelDelay => {
-    //   wheelDelay = wheelDelay ? parseInt(wheelDelay) : 128;
-    //   this.setState({ mouseWheelDelay: wheelDelay });
-    // });
-
-    focus.command("mouse.speedLimit").then(speedLimit => {
-      speedLimit = speedLimit ? parseInt(speedLimit) : 127;
-      this.setState({ mouseSpeedLimit: speedLimit });
-    });
-  }
-
-  UNSAFE_componentWillReceiveProps = nextProps => {
-    if (this.props.inContext && !nextProps.inContext) {
-      this.componentDidMount();
-      this.setState({ modified: false });
+  componentDidUpdate = previousProps => {
+    if (this.props.kbData != previousProps.kbData) {
+      this.setState({ ...this.props.kbData });
     }
   };
 
   setOnlyCustom = event => {
     const checked = event.target.checked;
-    this.setState(state => ({
-      modified: true,
-      keymap: {
-        custom: state.keymap.custom,
-        default: state.keymap.default,
-        onlyCustom: checked
-      }
-    }));
-    this.props.startContext();
+    this.setState(
+      state => ({
+        modified: true,
+        keymap: {
+          custom: state.keymap.custom,
+          default: state.keymap.default,
+          onlyCustom: checked
+        }
+      }),
+      this.props.setKbData(this.state)
+    );
   };
 
   selectIdleLEDTime = value => {
-    this.setState({
-      ledIdleTimeLimit: value * 60,
-      modified: true
-    });
-    this.props.startContext();
+    this.setState(
+      state => ({
+        ledIdleTimeLimit: value * 60,
+        modified: true
+      }),
+      this.props.setKbData(this.state)
+    );
   };
 
   setShowDefaults = event => {
-    this.setState({
-      showDefaults: event.target.checked,
-      modified: true
-    });
-    this.props.startContext();
+    this.setState(
+      state => ({
+        showDefaults: event.target.checked,
+        modified: true
+      }),
+      this.props.setKbData(this.state)
+    );
   };
 
   setBrightness = value => {
-    this.setState({
-      ledBrightness: (value * 255) / 100,
-      modified: true
-    });
-    this.props.startContext();
+    this.setState(
+      state => ({
+        ledBrightness: (value * 255) / 100,
+        modified: true
+      }),
+      this.props.setKbData(this.state)
+    );
   };
   setHoldTimeout = event => {
     const value = event.target.value;
-    this.setState({
-      qukeysHoldTimeout: value,
-      modified: true
-    });
-    this.props.startContext();
+    this.setState(
+      state => ({
+        qukeysHoldTimeout: value,
+        modified: true
+      }),
+      this.props.setKbData(this.state)
+    );
   };
 
   setOverlapThreshold = event => {
     const value = event.target.value;
 
-    this.setState({
-      qukeysOverlapThreshold: value,
-      modified: true
-    });
-    this.props.startContext();
+    this.setState(
+      state => ({
+        qukeysOverlapThreshold: value,
+        modified: true
+      }),
+      this.props.setKbData(this.state)
+    );
   };
 
   setSuperTimeout = event => {
     const value = event.target.value;
     const olt = value > 1000 ? 0 : 100 - value / 10;
-    this.setState({
-      SuperTimeout: value,
-      qukeysOverlapThreshold: olt,
-      modified: true
-    });
-    this.props.startContext();
+    this.setState(
+      state => ({
+        SuperTimeout: value,
+        qukeysOverlapThreshold: olt,
+        modified: true
+      }),
+      this.props.setKbData(this.state)
+    );
   };
 
   // setSuperRepeat = event => {
   //   const value = event.target.value;
-  //   this.setState({
+  //   this.setState(state => ({
   //     SuperRepeat: value,
   //     modified: true
-  //   });
-  //   this.props.startContext();
+  //   }),
+  // this.props.setKbData(this.state));
   // };
 
   // setSuperWaitfor = event => {
   //   const value = event.target.value;
-  //   this.setState({
+  //   this.setState(event => ({
   //     SuperWaitfor: value,
   //     modified: true
-  //   });
-  //   this.props.startContext();
+  //   }),
+  // this.props.setKbData(this.state));
   // };
 
   setSuperHoldstart = event => {
     const value = event.target.value;
-    this.setState({
-      SuperHoldstart: value,
-      modified: true
-    });
-    this.props.startContext();
+    this.setState(
+      event => ({
+        SuperHoldstart: value,
+        modified: true
+      }),
+      this.props.setKbData(this.state)
+    );
   };
 
   // setTyping = event => {
   //   const value = (100 - event.target.value) * 10;
-  //   this.setState({
+  //   this.setState(event=>({
   //     SuperTimeout: value,
   //     SuperHoldstart: value - 20,
   //     qukeysHoldTimeout: value - 20,
   //     modified: true
-  //   });
-  //   this.props.startContext();
+  //   }),
+  // this.props.setKbData(this.state));
   // };
 
   setTyping = value => {
     const valueTyping = (100 - value) * 10;
-    this.setState({
-      SuperTimeout: valueTyping,
-      SuperHoldstart: valueTyping - 20,
-      qukeysHoldTimeout: valueTyping - 20,
-      modified: true
-    });
-    this.props.startContext();
+    this.setState(
+      state => ({
+        SuperTimeout: valueTyping,
+        SuperHoldstart: valueTyping - 20,
+        qukeysHoldTimeout: valueTyping - 20,
+        modified: true
+      }),
+      this.props.setKbData(this.state)
+    );
   };
 
   setChording = value => {
-    this.setState({
-      qukeysOverlapThreshold: value,
-      modified: true
-    });
-    this.props.startContext();
+    this.setState(
+      state => ({
+        qukeysOverlapThreshold: value,
+        modified: true
+      }),
+      this.props.setKbData(this.state)
+    );
   };
 
   // setSuperOverlapThreshold = event => {
   //   const value = event.target.value;
 
-  //   this.setState({
+  //   this.setState(state=>({
   //     SuperOverlapThreshold: value,
   //     modified: true
-  //   });
-  //   this.props.startContext();
+  //   }),
+  // this.props.setKbData(this.state));
   // };
 
   setSpeed = value => {
-    this.setState({
-      mouseSpeed: parseInt(value) < 128 ? parseInt(value) : 128 - (parseInt(value) - 128),
-      mouseSpeedDelay: Math.ceil(50 / parseInt(value)),
-      modified: true
-    });
-    this.props.startContext();
+    this.setState(
+      state => ({
+        mouseSpeed: parseInt(value) < 128 ? parseInt(value) : 128 - (parseInt(value) - 128),
+        mouseSpeedDelay: Math.ceil(50 / parseInt(value)),
+        modified: true
+      }),
+      this.props.setKbData(this.state)
+    );
   };
 
   // setSpeedDelay = event => {
   //   const value = event.target.value;
 
-  //   this.setState({
+  //   this.setState(state=>({
   //     mouseSpeedDelay: value,
   //     modified: true
-  //   });
-  //   this.props.startContext();
+  //   }),
+  // this.props.setKbData(this.state));
   // };
 
   setAccelSpeed = value => {
-    this.setState({
-      mouseAccelSpeed: parseInt(value) < 128 ? parseInt(value) : 128 - (parseInt(value) - 128),
-      mouseAccelDelay: Math.ceil(50 / parseInt(value)),
-      modified: true
-    });
-    this.props.startContext();
+    this.setState(
+      state => ({
+        mouseAccelSpeed: parseInt(value) < 128 ? parseInt(value) : 128 - (parseInt(value) - 128),
+        mouseAccelDelay: Math.ceil(50 / parseInt(value)),
+        modified: true
+      }),
+      this.props.setKbData(this.state)
+    );
   };
 
   // setAccelDelay = event => {
   //   const value = event.target.value;
 
-  //   this.setState({
-  //     mouseAccelDelay: value,
+  //   this.setState(state =>{
+  //     mouseAccelDelay: val(ue,
   //     modified: true
-  //   });
-  //   this.props.startContext();
+  //   }),
+  // this.props.setKbData(this.state));
   // };
 
   // setWheelSpeed = event => {
   //   const value = event.target.value;
 
-  //   this.setState({
+  //   this.setState(state=>({
   //     mouseWheelSpeed: value,
   //     mouseWheelDelay: 100,
   //     modified: true
-  //   });
-  //   this.props.startContext();
+  //   }),
+  // this.props.setKbData(this.state));
   // };
   setWheelSpeed = value => {
-    this.setState({
-      mouseWheelSpeed: value,
-      mouseWheelDelay: 100,
-      modified: true
-    });
-    this.props.startContext();
+    this.setState(
+      state => ({
+        mouseWheelSpeed: value,
+        mouseWheelDelay: 100,
+        modified: true
+      }),
+      this.props.setKbData(this.state)
+    );
   };
 
   // setWheelDelay = event => {
   //   const value = event.target.value;
 
-  //   this.setState({
+  //   this.setState(state=>({
   //     mouseWheelDelay: value,
   //     modified: true
-  //   });
-  //   this.props.startContext();
+  //   }),
+  // this.props.setKbData(this.state));
   // };
 
   setSpeedLimit = value => {
-    this.setState({
-      mouseSpeedLimit: value,
-      modified: true
-    });
-    this.props.startContext();
+    this.setState(
+      state => ({
+        mouseSpeedLimit: value,
+        modified: true
+      }),
+      this.props.setKbData(this.state)
+    );
   };
 
   renderTooltip(tooltips) {
@@ -567,38 +475,6 @@ class KeyboardSettings extends React.Component {
       // mouseWheelDelay,
       mouseSpeedLimit
     } = this.state;
-    const { selectDarkMode, darkMode, devToolsSwitch, verboseSwitch } = this.props;
-    let layers;
-    let layersNames;
-    if (keymap.onlyCustom) {
-      layers = keymap.custom.map((_, index) => {
-        return (
-          <Dropdown.Item eventKey={index} key={index}>
-            {i18n.formatString(i18n.components.layer, index + 1)}
-          </Dropdown.Item>
-        );
-      });
-    } else {
-      layers = keymap.default.concat(keymap.custom).map((_, index) => {
-        return (
-          <Dropdown.Item eventKey={index} key={index}>
-            {i18n.formatString(i18n.components.layer, index)}
-          </Dropdown.Item>
-        );
-      });
-    }
-    if (keymap.onlyCustom) {
-      layersNames = keymap.custom.map((_, index) => {
-        return i18n.formatString(i18n.components.layer, index + 1);
-      });
-    } else {
-      layersNames = keymap.default.concat(keymap.custom).map((_, index) => {
-        return i18n.formatString(i18n.components.layer, index);
-      });
-    }
-    layersNames = layersNames.map((item, index) => {
-      return { text: item, value: index, index };
-    });
 
     const mSpeed = (
       <Row>

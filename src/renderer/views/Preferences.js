@@ -32,6 +32,7 @@ import { KeyboardSettings } from "../screens/Preferences/KeyboardSettings";
 import { BackupSettings, GeneralSettings, NeuronSettings, AdvancedSettings } from "../modules/Settings";
 
 import Focus from "../../api/focus";
+import Backup from "../../api/backup";
 import PageHeader from "../modules/PageHeader";
 
 const Store = require("electron-store");
@@ -45,19 +46,50 @@ const Styles = Styled.div`
 `;
 
 class Preferences extends React.Component {
-  state = {
-    devTools: false,
-    advanced: false,
-    verboseFocus: false,
-    darkMode: "system",
-    neurons: store.get("neurons"),
-    selectedNeuron: 0,
-    neuronID: "",
-    kbData: {},
-    defaultLayer: 126
-  };
+  constructor(props) {
+    super(props);
+    this.bkp = new Backup();
 
-  componentDidMount() {
+    this.kbData = {
+      keymap: {
+        custom: [],
+        default: [],
+        onlyCustom: false
+      },
+      ledBrightness: 255,
+      defaultLayer: 126,
+      ledIdleTimeLimit: 0,
+      qukeysHoldTimeout: 0,
+      qukeysOverlapThreshold: 0,
+      SuperTimeout: 0,
+      SuperRepeat: 20,
+      SuperWaitfor: 500,
+      SuperHoldstart: 0,
+      SuperOverlapThreshold: 0,
+      mouseSpeed: 1,
+      mouseSpeedDelay: 2,
+      mouseAccelSpeed: 1,
+      mouseAccelDelay: 2,
+      mouseWheelSpeed: 1,
+      mouseWheelDelay: 100,
+      mouseSpeedLimit: 1,
+      modified: false,
+      showDefaults: false
+    };
+
+    this.state = {
+      devTools: false,
+      advanced: false,
+      verboseFocus: false,
+      darkMode: "system",
+      neurons: store.get("neurons"),
+      selectedNeuron: 0,
+      neuronID: "",
+      kbData: this.kbData
+    };
+  }
+
+  async componentDidMount() {
     const webContents = Electron.remote.getCurrentWebContents();
     this.setState({ devTools: webContents.isDevToolsOpened() });
     webContents.on("devtools-opened", () => {
@@ -67,7 +99,6 @@ class Preferences extends React.Component {
       this.setState({ devTools: false });
     });
 
-    let focus = new Focus();
     this.setState({ verboseFocus: focus.debug });
 
     let darkModeSetting = store.get("settings.darkMode");
@@ -76,15 +107,113 @@ class Preferences extends React.Component {
     }
     this.setState({ darkMode: darkModeSetting });
 
-    focus.command("hardware.chip_id").then(neuronID => {
+    await this.getNeuronData();
+  }
+
+  getNeuronData = async () => {
+    let focus = new Focus();
+
+    // EXTRACTING DATA FROM NEURON
+
+    await focus.command("hardware.chip_id").then(neuronID => {
       neuronID = neuronID.replace(/\s/g, "");
       this.setState({ neuronID });
     });
-    focus.command("settings.defaultLayer").then(layer => {
+
+    await focus.command("settings.defaultLayer").then(layer => {
       layer = layer ? parseInt(layer) : 126;
-      this.setState({ defaultLayer: layer <= 126 ? layer : 126 });
+      this.kbData.defaultLayer = layer <= 126 ? layer : 126;
     });
-  }
+    await focus.command("keymap").then(keymap => {
+      this.kbData.keymap = keymap;
+    });
+    await focus.command("led.brightness").then(brightness => {
+      brightness = brightness ? parseInt(brightness) : -1;
+      this.kbData.ledBrightness = brightness;
+    });
+
+    await focus.command("idleleds.time_limit").then(limit => {
+      this.kbData.ledIdleTimeLimit = limit ? parseInt(limit) : -1;
+    });
+
+    this.kbData.showDefaults = store.get("settings.showDefaults") == undefined ? false : store.get("settings.showDefaults");
+
+    // QUKEYS variables commands
+    await focus.command("qukeys.holdTimeout").then(holdTimeout => {
+      holdTimeout = holdTimeout ? parseInt(holdTimeout) : 250;
+      this.kbData.qukeysHoldTimeout = holdTimeout;
+    });
+
+    await focus.command("qukeys.overlapThreshold").then(overlapThreshold => {
+      overlapThreshold = overlapThreshold ? parseInt(overlapThreshold) : 80;
+      this.kbData.qukeysOverlapThreshold = overlapThreshold;
+    });
+
+    // SuperKeys variables commands
+    await focus.command("superkeys.timeout").then(timeout => {
+      timeout = timeout ? parseInt(timeout) : 250;
+      this.kbData.SuperTimeout = timeout;
+    });
+
+    // await focus.command("superkeys.repeat").then(repeat => {
+    //   repeat = repeat ? parseInt(repeat) : 20;
+    //   this.kbData.SuperRepeat = repeat;
+    // });
+
+    // await focus.command("superkeys.waitfor").then(waitfor => {
+    //   waitfor = waitfor ? parseInt(waitfor) : 500;
+    //   this.kbData.SuperWaitfor = waitfor;
+    // });
+
+    await focus.command("superkeys.holdstart").then(holdstart => {
+      holdstart = holdstart ? parseInt(holdstart) : 200;
+      this.kbData.SuperHoldstart = holdstart;
+    });
+
+    // await focus.command("superkeys.overlap").then(overlapThreshold => {
+    //   overlapThreshold = overlapThreshold ? parseInt(overlapThreshold) : 20;
+    //   this.kbData.SuperOverlapThreshold =overlapThreshold;
+    // });
+
+    // MOUSE variables commands
+    await focus.command("mouse.speed").then(speed => {
+      speed = speed ? parseInt(speed) : 1;
+      this.kbData.mouseSpeed = speed;
+    });
+
+    // await focus.command("mouse.speedDelay").then(speedDelay => {
+    //   speedDelay = speedDelay ? parseInt(speedDelay) : 6;
+    //   this.kbData.mouseSpeedDelay = speedDelay;
+    // });
+
+    await focus.command("mouse.accelSpeed").then(accelSpeed => {
+      accelSpeed = accelSpeed ? parseInt(accelSpeed) : 1;
+      this.kbData.mouseAccelSpeed = accelSpeed;
+    });
+
+    // await focus.command("mouse.accelDelay").then(accelDelay => {
+    //   accelDelay = accelDelay ? parseInt(accelDelay) : 64;
+    //   this.kbData.mouseAccelDelay = accelDelay;
+    // });
+
+    await focus.command("mouse.wheelSpeed").then(wheelSpeed => {
+      wheelSpeed = wheelSpeed ? parseInt(wheelSpeed) : 1;
+      this.kbData.mouseWheelSpeed = wheelSpeed;
+    });
+
+    // await focus.command("mouse.wheelDelay").then(wheelDelay => {
+    //   wheelDelay = wheelDelay ? parseInt(wheelDelay) : 128;
+    //   this.kbData.mouseWheelDelay: wheelDelay });
+    // });
+
+    await focus.command("mouse.speedLimit").then(speedLimit => {
+      speedLimit = speedLimit ? parseInt(speedLimit) : 127;
+      this.kbData.mouseSpeedLimit = speedLimit;
+    });
+
+    //Save in state
+    this.setState({ kbData: this.kbData });
+  };
 
   saveKeymapChanges = async () => {
     const focus = new Focus();
@@ -109,34 +238,40 @@ class Preferences extends React.Component {
       mouseWheelSpeed,
       mouseWheelDelay,
       mouseSpeedLimit
-    } = this.state;
+    } = this.kbData;
 
-    await focus.command("keymap.onlyCustom", keymap.onlyCustom);
-    await focus.command("settings.defaultLayer", defaultLayer);
-    await focus.command("led.brightness", ledBrightness);
-    if (ledIdleTimeLimit >= 0) await focus.command("idleleds.time_limit", ledIdleTimeLimit);
+    await await focus.command("keymap.onlyCustom", keymap.onlyCustom);
+    await await focus.command("settings.defaultLayer", defaultLayer);
+    await await focus.command("led.brightness", ledBrightness);
+    if (ledIdleTimeLimit >= 0) await await focus.command("idleleds.time_limit", ledIdleTimeLimit);
     store.set("settings.showDefaults", showDefaults);
     // QUKEYS
-    await focus.command("qukeys.holdTimeout", qukeysHoldTimeout);
-    await focus.command("qukeys.overlapThreshold", qukeysOverlapThreshold);
+    await await focus.command("qukeys.holdTimeout", qukeysHoldTimeout);
+    await await focus.command("qukeys.overlapThreshold", qukeysOverlapThreshold);
     // SUPER KEYS
-    await focus.command("superkeys.timeout", SuperTimeout);
-    await focus.command("superkeys.repeat", SuperRepeat);
-    await focus.command("superkeys.waitfor", SuperWaitfor);
-    await focus.command("superkeys.holdstart", SuperHoldstart);
-    // await focus.command("superkeys.overlap", SuperOverlapThreshold);
+    await await focus.command("superkeys.timeout", SuperTimeout);
+    await await focus.command("superkeys.repeat", SuperRepeat);
+    await await focus.command("superkeys.waitfor", SuperWaitfor);
+    await await focus.command("superkeys.holdstart", SuperHoldstart);
+    // await await focus.command("superkeys.overlap", SuperOverlapThreshold);
     // MOUSE KEYS
-    await focus.command("mouse.speed", mouseSpeed);
-    await focus.command("mouse.speedDelay", mouseSpeedDelay);
-    await focus.command("mouse.accelSpeed", mouseAccelSpeed);
-    await focus.command("mouse.accelDelay", mouseAccelDelay);
-    await focus.command("mouse.wheelSpeed", mouseWheelSpeed);
-    await focus.command("mouse.wheelDelay", mouseWheelDelay);
-    await focus.command("mouse.speedLimit", mouseSpeedLimit);
+    await await focus.command("mouse.speed", mouseSpeed);
+    await await focus.command("mouse.speedDelay", mouseSpeedDelay);
+    await await focus.command("mouse.accelSpeed", mouseAccelSpeed);
+    await await focus.command("mouse.accelDelay", mouseAccelDelay);
+    await await focus.command("mouse.wheelSpeed", mouseWheelSpeed);
+    await await focus.command("mouse.wheelDelay", mouseWheelDelay);
+    await await focus.command("mouse.speedLimit", mouseSpeedLimit);
 
     const commands = await this.bkp.Commands();
     const backup = await this.bkp.DoBackup(commands, this.state.neuronID);
     this.bkp.SaveBackup(backup);
+    //TODO: Create toast popup to inform of success/error when saving data.
+    this.props.cancelContext();
+  };
+
+  destroyContext = () => {
+    this.getNeuronData();
     this.props.cancelContext();
   };
 
@@ -147,11 +282,17 @@ class Preferences extends React.Component {
     await store.set("settings.language", event.target.value);
   };
 
+  setKbData = kbData => {
+    if (this.kbData.modified == false && kbData.modified == true) this.props.startContext();
+    this.kbData = kbData;
+  };
+
   selectDefaultLayer = value => {
-    this.setState({
-      defaultLayer: parseInt(value)
-    });
-    this.props.startContext();
+    if (this.kbData.modified == false) {
+      this.kbData.modified = true;
+      this.props.startContext();
+    }
+    this.kbData.defaultLayer = parseInt(value);
   };
 
   // ADVANCED FUNCTIONS
@@ -216,8 +357,8 @@ class Preferences extends React.Component {
   };
 
   render() {
-    const { neurons, selectedNeuron, defaultLayer, darkMode, neuronID, devTools, verboseFocus, kbData } = this.state;
-    const { startContext, cancelContext, inContext, connected } = this.props;
+    const { neurons, selectedNeuron, darkMode, neuronID, devTools, verboseFocus, kbData } = this.state;
+    const { inContext, connected } = this.props;
     const devToolsSwitch = <Form.Check type="switch" checked={devTools} onChange={this.toggleDevTools} />;
     const verboseSwitch = <Form.Check type="switch" checked={verboseFocus} onChange={this.toggleVerboseFocus} />;
 
@@ -230,7 +371,7 @@ class Preferences extends React.Component {
             showSaving={true}
             showContentSelector={false}
             saveContext={this.saveKeymapChanges}
-            cancelContext={cancelContext}
+            destroyContext={this.destroyContext}
             inContext={inContext}
           />
           {this.state.working && <Spinner role="status" />}
@@ -244,7 +385,7 @@ class Preferences extends React.Component {
                       darkMode={darkMode}
                       neurons={neurons}
                       selectedNeuron={selectedNeuron}
-                      defaultLayer={defaultLayer}
+                      defaultLayer={kbData.defaultLayer}
                       selectDefaultLayer={this.selectDefaultLayer}
                       connected={connected}
                     />
@@ -259,7 +400,7 @@ class Preferences extends React.Component {
                     <AdvancedSettings devToolsSwitch={devToolsSwitch} verboseSwitch={verboseSwitch} connected={connected} />
                   </Col>
                   <Col lg={6} md={12}>
-                    <KeyboardSettings kbData={kbData} connected={connected} />
+                    <KeyboardSettings kbData={kbData} setKbData={this.setKbData} connected={connected} />
                   </Col>
                 </Row>
               </Container>

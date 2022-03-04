@@ -66,7 +66,7 @@ align-self: flex-start;
 }
 `;
 
-const PageHeader = ({ size, text, style, showContentSelector, showSaving, saveContext, cancelContext, inContext }) => {
+const PageHeader = ({ size, text, style, showContentSelector, showSaving, saveContext, destroyContext, inContext }) => {
   return (
     <Style className={`${style === "pageHeaderFlatBottom" ? "pageHeaderSticky" : ""}`}>
       <div className={`pageHeader ${size && size} ${style && style}`}>
@@ -75,7 +75,7 @@ const PageHeader = ({ size, text, style, showContentSelector, showSaving, saveCo
         </div>
         <div className="pageTools">
           {showContentSelector ? "contentSelector" : ""}
-          {showSaving ? <Saving saveContext={saveContext} cancelContext={cancelContext} inContext={inContext} /> : ""}
+          {showSaving ? <Saving saveContext={saveContext} destroyContext={destroyContext} inContext={inContext} /> : ""}
         </div>
       </div>
     </Style>

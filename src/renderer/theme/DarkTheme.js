@@ -13,6 +13,15 @@ const settingColorOpacity = (color, opacity) => {
   newColor = `rgba(${newColorArray[0]}, ${newColorArray[1]}, ${newColorArray[2]},  ${opacity})`;
   return newColor;
 };
+const settingColorMatrix = (color, opacity) => {
+  let newColorArray = color;
+  let newColor;
+  newColorArray = newColorArray.replace(/[^\d,]/g, "").split(",");
+  newColor = `0 0 0 0 ${(newColorArray[0] / 255).toFixed(2)} 0 0 0 0 ${(newColorArray[1] / 255).toFixed(2)} 0 0 0 0 ${(
+    newColorArray[2] / 255
+  ).toFixed(2)} 0 0 0 ${opacity} 0`;
+  return newColor;
+};
 
 const Dark = {
   name: "Dark",
@@ -279,6 +288,7 @@ const Dark = {
       lineStrokeColorConnected: "#32EEEE",
       connectionSuccessFill: "#32EEEE",
       connectionColorMatrix: "0 0 0 0 0.194444 0 0 0 0 0.933333 0 0 0 0 0.933333 0 0 0 0.5 0",
+      connectionColorMatrixOnLoading: "0 0 0 0 0.194444 0 0 0 0 0.933333 0 0 0 0 0.933333 0 0 0 0.5 0",
       neuronNotFoundedColor: Tokens.colors.gray50,
       connectionStrokeOpacity: 0.15,
       neuronLoader: NeuronLoaderDark,

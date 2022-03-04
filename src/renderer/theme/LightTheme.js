@@ -267,9 +267,11 @@ const Light = {
     },
     neuronStatus: {
       neuronStatusBackgroundColor: "rgba(255, 255, 255, 0.15)",
-      lineStrokeColor: Tokens.colors.gray200,
-      lineStrokeColorConnected: Tokens.colors.pastelShadesGreen200,
-      connectionSuccessFill: "#1FDEEA",
+      lineStrokeColor: settingColorOpacity(Tokens.colors.gray200, 0.4),
+      lineStrokeColorConnected: "#7ACD92",
+      connectionSuccessFill: "#7ACD92",
+      connectionColorMatrix: "0 0 0 0 0.566745 0 0 0 0 0.898039 0 0 0 0 0.145098 0 0 0 0.5 0",
+      neuronNotFoundedColor: Tokens.colors.gray400,
       connectionStrokeOpacity: 0.05,
       neuronLoader: NeuronLoaderLight,
       checkedIcon: CheckedIconLight

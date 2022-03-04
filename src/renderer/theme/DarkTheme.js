@@ -278,6 +278,8 @@ const Dark = {
       lineStrokeColor: "#3F425A",
       lineStrokeColorConnected: "#32EEEE",
       connectionSuccessFill: "#32EEEE",
+      connectionColorMatrix: "0 0 0 0 0.194444 0 0 0 0 0.933333 0 0 0 0 0.933333 0 0 0 0.5 0",
+      neuronNotFoundedColor: Tokens.colors.gray50,
       connectionStrokeOpacity: 0.15,
       neuronLoader: NeuronLoaderDark,
       checkedIcon: CheckedIconDark

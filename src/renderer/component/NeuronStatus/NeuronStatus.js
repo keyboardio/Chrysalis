@@ -87,11 +87,15 @@ align-self: center;
   fill: ${({ theme }) => theme.styles.neuronStatus.connectionSuccessFill};
   stroke-opacity: ${({ theme }) => theme.styles.neuronStatus.connectionStrokeOpacity};
 }
+.noDeviceFounded path{
+  fill: ${({ theme }) => theme.styles.neuronStatus.neuronNotFoundedColor};
+}
 
 `;
 const NeuronStatus = props => {
   let neuronLoader = useTheme().styles.neuronStatus.neuronLoader;
   let checkedIcon = useTheme().styles.neuronStatus.checkedIcon;
+  let connectionColorMatrix = useTheme().styles.neuronStatus.connectionColorMatrix;
   return (
     <Style>
       <div className="neuronStatusInner">
@@ -116,7 +120,7 @@ const NeuronStatus = props => {
             strokeLinejoin="round"
           />
           {(props.scanFoundDevices || props.loading) && props.deviceItems && !props.connected ? (
-            <g className={"connectionLoading"}>
+            <g className={"connectionLoading connectionScanning "}>
               <g filter="url(#prefix__filter0_d_1082_145292)">
                 <path
                   d="M96.15 64.955l-.933-.016-1.868-.033c-3.894.085-7.643.784-11.241 1.791l11.754 4.486 2.783 1.118 2.474.96-4.517 17.96a80.16 80.16 0 01-8.952 22.317l7.775-8.425 2.697-2.858.317-.3 4.124-4.361c.633-.6 1.113-1.357 1.285-2.27l1.481-4.561 7.401-22.65c-4.481-1.912-9.446-2.916-14.58-3.158z"
@@ -418,7 +422,7 @@ const NeuronStatus = props => {
                   <feOffset dy={4} />
                   <feGaussianBlur stdDeviation={6} />
                   <feComposite in2="hardAlpha" operator="out" />
-                  <feColorMatrix values="0 0 0 0 0.194444 0 0 0 0 0.933333 0 0 0 0 0.933333 0 0 0 0.5 0" />
+                  <feColorMatrix values={connectionColorMatrix} />
                   <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_1082_156043" />
                   <feBlend in="SourceGraphic" in2="effect1_dropShadow_1082_156043" result="shape" />
                 </filter>
@@ -436,7 +440,7 @@ const NeuronStatus = props => {
                   <feOffset dy={4} />
                   <feGaussianBlur stdDeviation={6} />
                   <feComposite in2="hardAlpha" operator="out" />
-                  <feColorMatrix values="0 0 0 0 0.194444 0 0 0 0 0.933333 0 0 0 0 0.933333 0 0 0 0.5 0" />
+                  <feColorMatrix values={connectionColorMatrix} />
                   <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_1082_156043" />
                   <feBlend in="SourceGraphic" in2="effect1_dropShadow_1082_156043" result="shape" />
                 </filter>
@@ -454,7 +458,7 @@ const NeuronStatus = props => {
                   <feOffset dy={4} />
                   <feGaussianBlur stdDeviation={6} />
                   <feComposite in2="hardAlpha" operator="out" />
-                  <feColorMatrix values="0 0 0 0 0.194444 0 0 0 0 0.933333 0 0 0 0 0.933333 0 0 0 0.5 0" />
+                  <feColorMatrix values={connectionColorMatrix} />
                   <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_1082_156043" />
                   <feBlend in="SourceGraphic" in2="effect1_dropShadow_1082_156043" result="shape" />
                 </filter>

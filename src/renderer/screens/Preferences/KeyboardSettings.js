@@ -194,7 +194,6 @@ class KeyboardSettings extends React.Component {
       },
       ledBrightness: 255,
       ledIdleTimeLimit: 0,
-      defaultLayer: 126,
       qukeysHoldTimeout: 0,
       qukeysOverlapThreshold: 0,
       SuperTimeout: 0,
@@ -210,12 +209,8 @@ class KeyboardSettings extends React.Component {
       mouseWheelDelay: 100,
       mouseSpeedLimit: 1,
       modified: false,
-      showDefaults: false,
-      working: false
+      showDefaults: false
     };
-
-    this.saveKeymapChanges = this.saveKeymapChanges.bind(this);
-    this.selectDefaultLayer = this.selectDefaultLayer.bind(this);
   }
   delay = ms => new Promise(res => setTimeout(res, ms));
 
@@ -224,11 +219,6 @@ class KeyboardSettings extends React.Component {
     focus.command("keymap").then(keymap => {
       this.setState({ keymap: keymap });
     });
-    focus.command("settings.defaultLayer").then(layer => {
-      layer = layer ? parseInt(layer) : 126;
-      this.setState({ defaultLayer: layer <= 126 ? layer : 126 });
-    });
-
     focus.command("led.brightness").then(brightness => {
       brightness = brightness ? parseInt(brightness) : -1;
       this.setState({ ledBrightness: brightness });
@@ -334,14 +324,6 @@ class KeyboardSettings extends React.Component {
         onlyCustom: checked
       }
     }));
-    this.props.startContext();
-  };
-
-  selectDefaultLayer = value => {
-    this.setState({
-      defaultLayer: value,
-      modified: true
-    });
     this.props.startContext();
   };
 
@@ -540,62 +522,6 @@ class KeyboardSettings extends React.Component {
     this.props.startContext();
   };
 
-  saveKeymapChanges = async () => {
-    const focus = new Focus();
-
-    const {
-      keymap,
-      defaultLayer,
-      showDefaults,
-      ledBrightness,
-      ledIdleTimeLimit,
-      qukeysHoldTimeout,
-      qukeysOverlapThreshold,
-      SuperTimeout,
-      SuperRepeat,
-      SuperWaitfor,
-      SuperHoldstart,
-      SuperOverlapThreshold,
-      mouseSpeed,
-      mouseSpeedDelay,
-      mouseAccelSpeed,
-      mouseAccelDelay,
-      mouseWheelSpeed,
-      mouseWheelDelay,
-      mouseSpeedLimit
-    } = this.state;
-
-    await focus.command("keymap.onlyCustom", keymap.onlyCustom);
-    await focus.command("settings.defaultLayer", defaultLayer);
-    await focus.command("led.brightness", ledBrightness);
-    if (ledIdleTimeLimit >= 0) await focus.command("idleleds.time_limit", ledIdleTimeLimit);
-    store.set("settings.showDefaults", showDefaults);
-    // QUKEYS
-    await focus.command("qukeys.holdTimeout", qukeysHoldTimeout);
-    await focus.command("qukeys.overlapThreshold", qukeysOverlapThreshold);
-    // SUPER KEYS
-    await focus.command("superkeys.timeout", SuperTimeout);
-    await focus.command("superkeys.repeat", SuperRepeat);
-    await focus.command("superkeys.waitfor", SuperWaitfor);
-    await focus.command("superkeys.holdstart", SuperHoldstart);
-    // await focus.command("superkeys.overlap", SuperOverlapThreshold);
-    // MOUSE KEYS
-    await focus.command("mouse.speed", mouseSpeed);
-    await focus.command("mouse.speedDelay", mouseSpeedDelay);
-    await focus.command("mouse.accelSpeed", mouseAccelSpeed);
-    await focus.command("mouse.accelDelay", mouseAccelDelay);
-    await focus.command("mouse.wheelSpeed", mouseWheelSpeed);
-    await focus.command("mouse.wheelDelay", mouseWheelDelay);
-    await focus.command("mouse.speedLimit", mouseSpeedLimit);
-
-    const commands = await this.bkp.Commands();
-    const backup = await this.bkp.DoBackup(commands, this.state.neuronID);
-    this.bkp.SaveBackup(backup);
-
-    this.setState({ modified: false });
-    this.props.cancelContext();
-  };
-
   renderTooltip(tooltips) {
     return (
       <Tooltip id="select-tooltip" className="longtooltip">
@@ -622,7 +548,6 @@ class KeyboardSettings extends React.Component {
   render() {
     const {
       keymap,
-      defaultLayer,
       modified,
       showDefaults,
       ledBrightness,

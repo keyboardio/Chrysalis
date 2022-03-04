@@ -35,12 +35,11 @@ export default class GeneralSettings extends Component {
     super(props);
 
     this.state = {
-      selectedLanguage: "",
-      defaultLayer: 126
+      selectedLanguage: ""
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.setState({
       selectedLanguage: store.get("settings.language")
     });
@@ -51,17 +50,9 @@ export default class GeneralSettings extends Component {
     store.set("settings.language", `${language}`);
   };
 
-  selectDefaultLayer = value => {
-    this.setState({
-      defaultLayer: parseInt(value),
-      modified: true
-    });
-    this.props.startContext();
-  };
-
   render() {
-    const { selectDarkMode, darkMode, neurons, selectedNeuron, connected } = this.props;
-    const { selectedLanguage, defaultLayer } = this.state;
+    const { selectDarkMode, darkMode, neurons, selectedNeuron, connected, defaultLayer, selectDefaultLayer } = this.props;
+    const { selectedLanguage } = this.state;
     let layersNames = neurons[selectedNeuron].layers;
     let flags = [englishUSUKF, spanishF, germanF, frenchF, swedishF, danishF, norwegianF, icelandicF, japaneseF];
     let language = ["english", "spanish", "german", "french", "swedish", "danish", "norwegian", "icelandic"];
@@ -111,12 +102,7 @@ export default class GeneralSettings extends Component {
             <Col lg={6} md={12}>
               <Form.Group controlId="defaultLayer" className="mb-3">
                 <Form.Label>{i18n.keyboardSettings.keymap.defaultLayer}</Form.Label>
-                <Select
-                  onSelect={this.selectDefaultLayer}
-                  value={defaultLayer}
-                  listElements={layersNames}
-                  disabled={!connected}
-                />
+                <Select onSelect={selectDefaultLayer} value={defaultLayer} listElements={layersNames} disabled={!connected} />
               </Form.Group>
             </Col>
           </Row>

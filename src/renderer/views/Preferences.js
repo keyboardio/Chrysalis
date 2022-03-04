@@ -33,7 +33,6 @@ import { BackupSettings, GeneralSettings, NeuronSettings, AdvancedSettings } fro
 
 import Focus from "../../api/focus";
 import PageHeader from "../modules/PageHeader";
-import Saving from "../modules/Saving";
 
 const Store = require("electron-store");
 const store = new Store();
@@ -53,7 +52,9 @@ class Preferences extends React.Component {
     darkMode: "system",
     neurons: store.get("neurons"),
     selectedNeuron: 0,
-    neuronID: ""
+    neuronID: "",
+    kbData: {},
+    defaultLayer: 126
   };
 
   componentDidMount() {
@@ -79,7 +80,86 @@ class Preferences extends React.Component {
       neuronID = neuronID.replace(/\s/g, "");
       this.setState({ neuronID });
     });
+    focus.command("settings.defaultLayer").then(layer => {
+      layer = layer ? parseInt(layer) : 126;
+      this.setState({ defaultLayer: layer <= 126 ? layer : 126 });
+    });
   }
+
+  saveKeymapChanges = async () => {
+    const focus = new Focus();
+
+    const {
+      keymap,
+      defaultLayer,
+      showDefaults,
+      ledBrightness,
+      ledIdleTimeLimit,
+      qukeysHoldTimeout,
+      qukeysOverlapThreshold,
+      SuperTimeout,
+      SuperRepeat,
+      SuperWaitfor,
+      SuperHoldstart,
+      SuperOverlapThreshold,
+      mouseSpeed,
+      mouseSpeedDelay,
+      mouseAccelSpeed,
+      mouseAccelDelay,
+      mouseWheelSpeed,
+      mouseWheelDelay,
+      mouseSpeedLimit
+    } = this.state;
+
+    await focus.command("keymap.onlyCustom", keymap.onlyCustom);
+    await focus.command("settings.defaultLayer", defaultLayer);
+    await focus.command("led.brightness", ledBrightness);
+    if (ledIdleTimeLimit >= 0) await focus.command("idleleds.time_limit", ledIdleTimeLimit);
+    store.set("settings.showDefaults", showDefaults);
+    // QUKEYS
+    await focus.command("qukeys.holdTimeout", qukeysHoldTimeout);
+    await focus.command("qukeys.overlapThreshold", qukeysOverlapThreshold);
+    // SUPER KEYS
+    await focus.command("superkeys.timeout", SuperTimeout);
+    await focus.command("superkeys.repeat", SuperRepeat);
+    await focus.command("superkeys.waitfor", SuperWaitfor);
+    await focus.command("superkeys.holdstart", SuperHoldstart);
+    // await focus.command("superkeys.overlap", SuperOverlapThreshold);
+    // MOUSE KEYS
+    await focus.command("mouse.speed", mouseSpeed);
+    await focus.command("mouse.speedDelay", mouseSpeedDelay);
+    await focus.command("mouse.accelSpeed", mouseAccelSpeed);
+    await focus.command("mouse.accelDelay", mouseAccelDelay);
+    await focus.command("mouse.wheelSpeed", mouseWheelSpeed);
+    await focus.command("mouse.wheelDelay", mouseWheelDelay);
+    await focus.command("mouse.speedLimit", mouseSpeedLimit);
+
+    const commands = await this.bkp.Commands();
+    const backup = await this.bkp.DoBackup(commands, this.state.neuronID);
+    this.bkp.SaveBackup(backup);
+    this.props.cancelContext();
+  };
+
+  // GENERAL FUNCTIONS
+  setLanguage = async event => {
+    i18n.setLanguage(event.target.value);
+    await this.setState({});
+    await store.set("settings.language", event.target.value);
+  };
+
+  selectDefaultLayer = value => {
+    this.setState({
+      defaultLayer: parseInt(value)
+    });
+    this.props.startContext();
+  };
+
+  // ADVANCED FUNCTIONS
+  toggleAdvanced = () => {
+    this.setState(state => ({
+      advanced: !state.advanced
+    }));
+  };
 
   toggleDevTools = event => {
     this.setState({ devTools: event.target.checked });
@@ -90,18 +170,7 @@ class Preferences extends React.Component {
     }
   };
 
-  setLanguage = async event => {
-    i18n.setLanguage(event.target.value);
-    await this.setState({});
-    await store.set("settings.language", event.target.value);
-  };
-
-  toggleAdvanced = () => {
-    this.setState(state => ({
-      advanced: !state.advanced
-    }));
-  };
-
+  // THEME MODE FUNCTIONS
   selectDarkMode = key => {
     this.setState({ darkMode: key });
     this.props.toggleDarkMode(key);
@@ -113,6 +182,7 @@ class Preferences extends React.Component {
     focus.debug = event.target.checked;
   };
 
+  // NEURON FUNCTIONS
   selectNeuron = value => {
     this.setState({
       selectedNeuron: parseInt(value)
@@ -146,7 +216,7 @@ class Preferences extends React.Component {
   };
 
   render() {
-    const { neurons, selectedNeuron, darkMode, neuronID, devTools, verboseFocus } = this.state;
+    const { neurons, selectedNeuron, defaultLayer, darkMode, neuronID, devTools, verboseFocus, kbData } = this.state;
     const { startContext, cancelContext, inContext, connected } = this.props;
     const devToolsSwitch = <Form.Check type="switch" checked={devTools} onChange={this.toggleDevTools} />;
     const verboseSwitch = <Form.Check type="switch" checked={verboseFocus} onChange={this.toggleVerboseFocus} />;
@@ -154,7 +224,15 @@ class Preferences extends React.Component {
     return (
       <Styles>
         <Container fluid>
-          <PageHeader text={i18n.preferences.title} style={"pageHeaderFlatBottom"} saving={<Saving />} />
+          <PageHeader
+            text={i18n.preferences.title}
+            style={"pageHeaderFlatBottom"}
+            showSaving={true}
+            showContentSelector={false}
+            saveContext={this.saveKeymapChanges}
+            cancelContext={cancelContext}
+            inContext={inContext}
+          />
           {this.state.working && <Spinner role="status" />}
           <div className="wrapper wrapperBackground">
             <Form className="mb-5">
@@ -162,13 +240,12 @@ class Preferences extends React.Component {
                 <Row className="justify-content-center">
                   <Col lg={6} md={12}>
                     <GeneralSettings
-                      startContext={startContext}
-                      cancelContext={cancelContext}
-                      inContext={inContext}
                       selectDarkMode={this.selectDarkMode}
+                      darkMode={darkMode}
                       neurons={neurons}
                       selectedNeuron={selectedNeuron}
-                      darkMode={darkMode}
+                      defaultLayer={defaultLayer}
+                      selectDefaultLayer={this.selectDefaultLayer}
                       connected={connected}
                     />
                     <BackupSettings neurons={neurons} selectedNeuron={selectedNeuron} neuronID={neuronID} connected={connected} />
@@ -182,12 +259,7 @@ class Preferences extends React.Component {
                     <AdvancedSettings devToolsSwitch={devToolsSwitch} verboseSwitch={verboseSwitch} connected={connected} />
                   </Col>
                   <Col lg={6} md={12}>
-                    <KeyboardSettings
-                      startContext={startContext}
-                      cancelContext={cancelContext}
-                      inContext={inContext}
-                      connected={connected}
-                    />
+                    <KeyboardSettings kbData={kbData} connected={connected} />
                   </Col>
                 </Row>
               </Container>

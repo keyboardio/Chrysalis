@@ -317,7 +317,7 @@ class App extends React.Component {
               onDisconnect={this.onKeyboardDisconnect}
               startContext={this.startContext}
               cancelContext={this.cancelContext}
-              inContext={this.state.contextBar}
+              inContext={contextBar}
               titleElement={() => document.querySelector("#page-title")}
               appBarElement={() => document.querySelector("#appbar")}
               darkMode={darkMode}
@@ -327,7 +327,7 @@ class App extends React.Component {
               onDisconnect={this.onKeyboardDisconnect}
               startContext={this.startContext}
               cancelContext={this.cancelContext}
-              inContext={this.state.contextBar}
+              inContext={contextBar}
               titleElement={() => document.querySelector("#page-title")}
             />
             <SuperkeysConfigurator
@@ -335,7 +335,7 @@ class App extends React.Component {
               onDisconnect={this.onKeyboardDisconnect}
               startContext={this.startContext}
               cancelContext={this.cancelContext}
-              inContext={this.state.contextBar}
+              inContext={contextBar}
               titleElement={() => document.querySelector("#page-title")}
             />
             <FirmwareUpdate
@@ -350,11 +350,11 @@ class App extends React.Component {
               connected={connected}
               path="/preferences"
               titleElement={() => document.querySelector("#page-title")}
-              darkMode={this.state.darkMode}
+              darkMode={darkMode}
               toggleDarkMode={this.toggleDarkMode}
               startContext={this.startContext}
               cancelContext={this.cancelContext}
-              inContext={this.state.contextBar}
+              inContext={contextBar}
             />
           </Switch>
         </div>

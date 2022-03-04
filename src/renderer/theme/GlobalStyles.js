@@ -870,6 +870,33 @@ div.card.card-preferences .card-body {
     right: 46px;
   }
 }
+
+
+::-webkit-scrollbar {
+  background-color: rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: transparent;
+}
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: transparent;
+  background-transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.85);
+  outline: 2px solid transparent;
+  border-radius: 3px;
+}
+::-webkit-scrollbar:vertical {
+  width: 8px; 
+}
+::-webkit-scrollbar-thumb:vertical {
+  width: 6px; 
+}
+::-webkit-scrollbar:horizontal {
+  height: 8px; 
+}
+::-webkit-scrollbar-thumb:horizontal {
+  height: 6px; 
+}
 `;
 
 export default GlobalStyles;

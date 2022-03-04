@@ -60,6 +60,19 @@ const Style = Styled.div`
   }
 }
 `;
+/**
+ * This ToastMessage function returns a styled body of react-toastfy object
+ * The object will accept the following parameters
+ *
+ * @param {string} title - The text to render the title fo the Toast
+ * @param {string} content [Optional] - The content to render above the title
+ * @param {function} icon [Optional] - A compontent/SVG
+ * @param {function} onClickAction [Optional] - The function that act when a Primary button is clicked.
+ * @param {string} clickActionText [Optional] - The text to render the primary button
+ * @param {function} onClickDismiss [Optional] - The function that act when a Secondary button is clicked.
+ * @param {string} clickDismissText [Optional] - The text to render the secondary button
+ * @returns {<ToastMessage>} ToastMessage component.
+ */
 const ToastMessage = ({ title, content, icon, onClickAction, clickActionText, onClickDismiss, clickDismissText }) => {
   return (
     <Style className={`toastContentWrapper`}>

@@ -26,6 +26,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Spinner from "react-bootstrap/Spinner";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Custom modules imports
 import { KeyboardSettings } from "../screens/Preferences/KeyboardSettings";
@@ -34,6 +36,8 @@ import { BackupSettings, GeneralSettings, NeuronSettings, AdvancedSettings } fro
 import Focus from "../../api/focus";
 import Backup from "../../api/backup";
 import PageHeader from "../modules/PageHeader";
+import ToastMessage from "../component/ToastMessage";
+import { IconFloppyDisk } from "../component/Icon";
 
 const Store = require("electron-store");
 const store = new Store();
@@ -267,6 +271,24 @@ class Preferences extends React.Component {
     const backup = await this.bkp.DoBackup(commands, this.state.neuronID);
     this.bkp.SaveBackup(backup);
     //TODO: Create toast popup to inform of success/error when saving data.
+    toast.success(
+      <ToastMessage
+        title="Success toast!"
+        content={
+          "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus"
+        }
+        icon={<IconFloppyDisk />}
+      />,
+      {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+      }
+    );
     this.props.cancelContext();
   };
 

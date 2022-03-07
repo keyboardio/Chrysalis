@@ -18,7 +18,7 @@
 import React from "react";
 import settings from "electron-settings";
 import { Switch, Redirect, Route, withRouter } from "react-router-dom";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { ThemeProvider } from "styled-components";
 
 import usb from "usb";
@@ -34,7 +34,7 @@ import Light from "./theme/LightTheme";
 import Dark from "./theme/DarkTheme";
 
 import SelectKeyboard from "./views/SelectKeyboard";
-import FirmwareUpdate from "./screens/FirmwareUpdate";
+import FirmwareUpdate from "./views/FirmwareUpdate";
 import Editor from "./screens/Editor/Editor";
 import MacrosConfigurator from "./screens/Macros/MacrosConfigurator";
 import SuperkeysConfigurator from "./screens/Superkeys/SuperkeysConfigurator";
@@ -358,6 +358,7 @@ class App extends React.Component {
             />
           </Switch>
         </div>
+        <ToastContainer />
       </ThemeProvider>
     );
   }

@@ -52,6 +52,9 @@ align-self: flex-start;
     .pageTitle {
       width: 216px;
       white-space: nowrap;
+      br {
+        content: ' ';
+      }
     } 
     .pageTools {
       width: calc(100% - 216px);

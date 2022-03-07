@@ -22,7 +22,13 @@ const English = {
     deviceDisconnectedContent:
       "Houston we have a problem! Could not connect with Neuron, configure if cables are connected and if everything is ok.",
     invalidLayerFile: "Not a valid Layer file",
-    exportError: "Error at Exporting: "
+    exportError: "Error at Exporting: ",
+    preferenceFailOnSave: "Whoops, Something Went Wrong!",
+    preferenceFailOnSaveBody: "Please try again."
+  },
+  success: {
+    preferencesSaved: "Your preferecens have been saved.",
+    preferencesSavedBody: ""
   },
   components: {
     layer: "Layer {0}",
@@ -49,7 +55,7 @@ const English = {
       editor: "Layout <br>Editor",
       macros: "Macro <br>Editor",
       superkeys: "Superkeys <br>Editor",
-      firmwareUpdate: "Firmware <zbr>Update",
+      firmwareUpdate: "Firmware <br>Update",
       keyboardSettings: "Keyboard Settings",
       preferences: "Preferences",
       selectAKeyboard: "Keyboard <br>Selection",

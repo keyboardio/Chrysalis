@@ -219,6 +219,17 @@ svg text{
 // 
 // Components
 // 
+.simpleAccordion {
+  background-color: ${({ theme }) => theme.styles.accordion.background};
+  border-radius: 3px;
+  margin-top: 24px;
+  .card .card-header {
+    background: transparent;
+    color: ${({ theme }) => theme.colors.purple300};
+    font-size: 13px;
+    font-weight: 600;
+  }
+}
 .accordion .card {
   border-radius: 6px;
   padding: 0;

@@ -115,6 +115,9 @@ const Dark = {
   },
   font: "Libre Franklin",
   styles: {
+    accordion: {
+      background: settingColorOpacity(Tokens.colors.gray500, 0.2)
+    },
     backupConfiguratorFolder: {
       headingColor: Tokens.colors.gray100,
       inputColor: Tokens.colors.gray50,

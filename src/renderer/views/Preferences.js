@@ -267,19 +267,12 @@ class Preferences extends React.Component {
     await await focus.command("mouse.wheelDelay", mouseWheelDelay);
     await await focus.command("mouse.speedLimit", mouseSpeedLimit);
 
-    const commands = await this.bkp.Commands();
-    const backup = await this.bkp.DoBackup(commands, this.state.neuronID);
-    this.bkp.SaveBackup(backup);
-    //TODO: Create toast popup to inform of success/error when saving data.
-    toast.success(
-      <ToastMessage
-        title="Success toast!"
-        content={
-          "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus"
-        }
-        icon={<IconFloppyDisk />}
-      />,
-      {
+    //TODO: Review toast popup on try/catch works well.
+    try {
+      const commands = await this.bkp.Commands();
+      const backup = await this.bkp.DoBackup(commands, this.state.neuronID);
+      this.bkp.SaveBackup(backup);
+      toast.success(<ToastMessage title={i18n.success.preferencesSaved} icon={<IconFloppyDisk />} />, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -287,8 +280,27 @@ class Preferences extends React.Component {
         pauseOnHover: true,
         draggable: true,
         progress: undefined
-      }
-    );
+      });
+    } catch (error) {
+      console.error(error);
+      toast.error(
+        <ToastMessage
+          title={i18n.errors.preferenceFailOnSave}
+          content={i18n.errors.preferenceFailOnSaveBody}
+          icon={<IconFloppyDisk />}
+        />,
+        {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        }
+      );
+    }
+
     this.props.cancelContext();
   };
 
@@ -429,7 +441,6 @@ class Preferences extends React.Component {
             </Form>
           </div>
         </Container>
-        <ToastContainer />
       </Styles>
     );
   }

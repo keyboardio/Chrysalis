@@ -34,7 +34,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import Accordion from "react-bootstrap/Accordion";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import { MdArrowDropDown } from "react-icons/md";
 
@@ -43,6 +42,7 @@ import i18n from "../i18n";
 import { throws } from "assert";
 
 import PageHeader from "../modules/PageHeader";
+import FirmwareUpdatePanel from "../modules/FirmwareUpdatePanel";
 
 const Styles = Styled.div`
 height: 100%;
@@ -600,26 +600,27 @@ class FirmwareUpdate extends React.Component {
           </Row>
           <Row className="mt-auto">{advancedUsers}</Row>
         </Card>
-        <Accordion className="simpleAccordion" defaultActiveKey="0">
-          <Card className="simpleAccordionHeader">
-            <Accordion.Toggle as={Card.Header} eventKey="1">
-              <div className="accordionHeader">
-                <div className="accordionTitle">See what&apos;s new in Bazecor</div>
-                <span className="plus">icon plus</span>
-              </div>
-            </Accordion.Toggle>
-            <Accordion.Collapse eventKey="1">
-              <Card.Body>
-                <h3>What&apos;s new content</h3>
-              </Card.Body>
-            </Accordion.Collapse>
-          </Card>
-        </Accordion>
       </div>
     );
 
-    let showCard = countdown == -1 ? statusCard : countdown == 0 ? disclaimerCard : countdown == 1 ? flashCard : progress;
-
+    //let showCard = countdown == -1 ? statusCard : countdown == 0 ? disclaimerCard : countdown == 1 ? flashCard : progress;
+    let showCard =
+      countdown == -1 ? (
+        <FirmwareUpdatePanel
+          versions={versions}
+          currentlyRunning={currentlyRunning}
+          latestAvailable={latestAvailable}
+          onClick={this.state.device.device.info.product === "Raise" ? this.uploadRaise : this.upload}
+          advancedUsers={advancedUsers}
+          onClickToggleAdvanced={this.toggleAdvanced}
+        />
+      ) : countdown == 0 ? (
+        disclaimerCard
+      ) : countdown == 1 ? (
+        flashCard
+      ) : (
+        progress
+      );
     return (
       <Styles>
         <Container fluid className="firmware-update">

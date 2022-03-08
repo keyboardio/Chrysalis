@@ -84,29 +84,50 @@ h6 {
   vertical-align: 2px;
   display: inline-block;
 }
-.warning {
+.titleAlert {
 	position: relative;
-	color: var(--brand-warning-lighter);
-}
-.warning:before {
-	content: "";
+	&:before {
+		content: "";
 	position: absolute;
 	left: -32px;	
 	top: 50%;
-	background-image: url(${LightWarning});
 	background-repeat: no-repeat;
 	width: 32px;
 	height: 96px;
 	transform: translate3d(0, -50%, 0);
+	} 
+	&:after {
+		content: "";
+		position: absolute;
+		left: -35px;	
+		top: 50%;
+		width: 3px;
+		height: 24px;	
+		border-radius: 3px 0px 0px 3px;	
+	transform: translate3d(0, -50%, 0);
+	}
+}
+.warning {
+	color: var(--brand-warning-lighter);
+}
+.warning:before {
+	
+	background-image: url(${LightWarning});
+	
 }
 .warning:after {
+	
+	background: ${({ theme }) => theme.colors.gradientWarning};
+	
+}
+.success:after {
 	content: "";
 	position: absolute;
 	left: -35px;	
 	top: 50%;
 	width: 3px;
 	height: 24px;
-	background: linear-gradient(180deg, #FE007C 0%, #FF9F43 0.01%, #FECA57 100%);
+	background: ${({ theme }) => theme.colors.gradientWarning};
 	border-radius: 3px 0px 0px 3px;	
 	transform: translate3d(0, -50%, 0);
 }
@@ -117,7 +138,9 @@ const Title = ({ text, headingLevel, size, color, type, tooltip, tooltipSize, to
 
   return (
     <Style>
-      <Tag className={`${size ? size : ""} ${type ? type : ""} ${color ? color : ""} ${svgICO ? "hasIcon" : ""}`}>
+      <Tag
+        className={`${size ? size : ""} ${type && "titleAlert"} ${type && type} ${color ? color : ""} ${svgICO ? "hasIcon" : ""}`}
+      >
         {svgICO && svgICO}
         <span dangerouslySetInnerHTML={{ __html: text }} />
         {tooltip && (

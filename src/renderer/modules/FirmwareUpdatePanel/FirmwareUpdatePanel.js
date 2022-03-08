@@ -58,10 +58,10 @@ const FirmwareUpdatePanel = ({
   onClickToggleAdvanced
 }) => {
   // production
-  const isUpdated = currentlyVersionRunning === latestVersionAvailable ? true : false;
+  //const isUpdated = currentlyVersionRunning === latestVersionAvailable ? true : false;
 
   // development
-  //const isUpdated = false;
+  const isUpdated = false;
 
   console.log("Versions: ", versions);
   console.log("currentlyVersionRunning: ", currentlyVersionRunning);

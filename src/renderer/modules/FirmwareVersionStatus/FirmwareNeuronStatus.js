@@ -24,6 +24,10 @@ const Style = Styled.div`
 align-self: center;
 justify-content: center;
 .versionsStatus {
+    svg {
+        margin-left: auto;
+        margin-right: auto;
+    }
     .fillNeuron {
         fill: ${({ theme }) => theme.styles.firmwareUpdatePanel.neuronStatusLineWarning}; 
     }

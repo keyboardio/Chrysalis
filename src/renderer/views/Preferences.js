@@ -77,7 +77,7 @@ class Preferences extends React.Component {
       mouseWheelSpeed: 1,
       mouseWheelDelay: 100,
       mouseSpeedLimit: 1,
-      modified: false,
+      modified: props.inContext,
       showDefaults: false
     };
 
@@ -89,7 +89,8 @@ class Preferences extends React.Component {
       neurons: store.get("neurons"),
       selectedNeuron: 0,
       neuronID: "",
-      kbData: this.kbData
+      kbData: this.kbData,
+      modified: props.inContext
     };
   }
 
@@ -301,10 +302,12 @@ class Preferences extends React.Component {
       );
     }
 
-    this.props.cancelContext();
+    this.destroyContext();
   };
 
   destroyContext = () => {
+    this.kbData.modified = false;
+    this.setState({ modified: false });
     this.getNeuronData();
     this.props.cancelContext();
   };
@@ -317,16 +320,25 @@ class Preferences extends React.Component {
   };
 
   setKbData = kbData => {
-    if (this.kbData.modified == false && kbData.modified == true) this.props.startContext();
-    this.kbData = kbData;
+    if (this.kbData.modified == false && kbData.modified == true) {
+      this.kbData = kbData;
+      this.props.startContext();
+      this.setState({ modified: kbData.modified });
+    } else {
+      this.kbData = kbData;
+    }
   };
 
   selectDefaultLayer = value => {
     if (this.kbData.modified == false) {
       this.kbData.modified = true;
+      this.setState({ modified: true });
       this.props.startContext();
+      this.kbData.defaultLayer = parseInt(value);
+    } else {
+      this.kbData.defaultLayer = parseInt(value);
+      this.forceUpdate();
     }
-    this.kbData.defaultLayer = parseInt(value);
   };
 
   // ADVANCED FUNCTIONS
@@ -391,10 +403,13 @@ class Preferences extends React.Component {
   };
 
   render() {
-    const { neurons, selectedNeuron, darkMode, neuronID, devTools, verboseFocus, kbData } = this.state;
+    const { neurons, selectedNeuron, darkMode, neuronID, devTools, verboseFocus, kbData, modified } = this.state;
     const { inContext, connected } = this.props;
+    const { defaultLayer } = this.kbData;
     const devToolsSwitch = <Form.Check type="switch" checked={devTools} onChange={this.toggleDevTools} />;
     const verboseSwitch = <Form.Check type="switch" checked={verboseFocus} onChange={this.toggleVerboseFocus} />;
+    console.log("CHECKING STATUS MOD", modified);
+    console.log("CHECKING STATUS CTX", inContext);
 
     return (
       <Styles>
@@ -406,7 +421,7 @@ class Preferences extends React.Component {
             showContentSelector={false}
             saveContext={this.saveKeymapChanges}
             destroyContext={this.destroyContext}
-            inContext={inContext}
+            inContext={modified}
           />
           {this.state.working && <Spinner role="status" />}
           <div className="wrapper wrapperBackground">
@@ -418,7 +433,7 @@ class Preferences extends React.Component {
                     darkMode={darkMode}
                     neurons={neurons}
                     selectedNeuron={selectedNeuron}
-                    defaultLayer={kbData.defaultLayer}
+                    defaultLayer={defaultLayer}
                     selectDefaultLayer={this.selectDefaultLayer}
                     connected={connected}
                   />

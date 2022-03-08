@@ -18,7 +18,22 @@
 import React from "react";
 import Styled from "styled-components";
 
-const Style = Styled.div`
+const Style = Styled.div`	
+&.mt-xs {
+	margin-top: 8px;
+}
+&.mt-sm {
+	margin-top: 16px;
+}
+&.mt-md {
+	margin-top: 24px;
+}
+&.mt-lg {
+	margin-top: 32px;
+}
+&.mt-xl {
+	margin-top: 42px;
+}
 .callOutIcon {	
 	position: absolute;
 	top: 16px;
@@ -59,9 +74,9 @@ const Style = Styled.div`
 }
 
 `;
-const Callout = ({ content, media, size }) => {
+const Callout = ({ content, media, size, className }) => {
   return (
-    <Style>
+    <Style className={className}>
       <div className={`callOut ${size && size}`}>
         <svg className="callOutIcon" width="36" height="37" viewBox="0 0 36 37" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="19" cy="20" r="17" fill="currentColor" className="infoShadow" />

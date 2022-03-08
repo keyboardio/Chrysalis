@@ -81,6 +81,7 @@ const Dark = {
     body: "#222",
     text: Tokens.colors.gray25,
     textWarning: Tokens.colors.brandWarningLighter,
+    textSuccess: Tokens.colors.brandSuccess,
     textDanger: Tokens.colors.brandDangerLighter,
     subtext: "#555555",
     tipIcon: "#DDD",

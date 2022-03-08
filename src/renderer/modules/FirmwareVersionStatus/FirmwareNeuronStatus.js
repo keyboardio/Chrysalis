@@ -21,9 +21,25 @@ import { useTheme } from "styled-components";
 import i18n from "../../i18n";
 
 const Style = Styled.div`
-align-self: center;
-justify-content: center;
+height: 100%;
 .versionsStatus {
+    display: flex;
+    margin-top: auto;
+    flex-wrap: wrap;
+    align-self: center;
+    text-align: center;
+    justify-content: center;
+    height: inherit;
+    padding: 32px;
+    .versionStatusInner {
+        margin: auto;
+    }
+    .versionNeuronText {
+        margin-top: 16px;
+        color: ${({ theme }) => theme.colors.gray200}; 
+        font-size: 14px;
+        font-weight: 500;
+    }
     svg {
         margin-left: auto;
         margin-right: auto;

@@ -31,7 +31,9 @@ import WhatsNew from "../WhatsNew";
 
 const Style = Styled.div`
 .firmware-wrapper {
-  max-width: 960px;
+  max-width: 960px;   
+  width: 100%;
+  
   .firmware-row {
     width: 100%;
     display: flex;
@@ -44,6 +46,22 @@ const Style = Styled.div`
   .firmware-sidebar {
     flex: 0 0 33%;
     background: ${({ theme }) => theme.styles.firmwareUpdatePanel.backgroundSidebar}; 
+  }
+  .firmware-content--inner {
+    padding: 32px;
+  }   
+
+  .borderLeftTopRadius {
+    border-top-left-radius: 14px;
+  } 
+  .borderRightTopRadius {
+    border-top-right-radius: 14px;
+  }
+  .borderLeftBottomRadius {
+    border-bottom-left-radius: 14px;
+  } 
+  .borderRightBottomRadius {
+    border-bottom-right-radius: 14px;
   }
 }
 
@@ -71,29 +89,29 @@ const FirmwareUpdatePanel = ({
     <Style>
       <div className="firmware-wrapper home-firmware">
         <div className="firmware-row">
-          <div className="firmware-content">
+          <div className="firmware-content borderLeftTopRadius">
             <div className="firmware-content--inner">
               <Title
                 text={isUpdated ? i18n.firmwareUpdate.texts.versionUpdatedTitle : i18n.firmwareUpdate.texts.versionOutdatedTitle}
                 headingLevel={3}
                 type={isUpdated ? "success" : "warning"}
               />
-              <Callout content={i18n.firmwareUpdate.texts.calloutIntroText} size="md" />
+              <Callout content={i18n.firmwareUpdate.texts.calloutIntroText} className="mt-lg" size="md" />
             </div>
           </div>
-          <div className="firmware-sidebar">
+          <div className="firmware-sidebar borderRightTopRadius">
             <FirmwareNeuronStatus isUpdated={isUpdated} />
           </div>
         </div>
         <div className="firmware-row">
-          <div className="firmware-content">
+          <div className="firmware-content borderLeftBottomRadius">
             <FirmwareVersionStatus
               currentlyVersionRunning={currentlyVersionRunning}
               latestVersionAvailable={latestVersionAvailable}
               isUpdated={isUpdated}
             />
           </div>
-          <div className="firmware-sidebar"></div>
+          <div className="firmware-sidebar borderRightBottomRadius"></div>
         </div>
 
         <Card className="firmware-card">

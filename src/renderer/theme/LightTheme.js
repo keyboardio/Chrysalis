@@ -81,6 +81,7 @@ const Light = {
     body: "#eaeff1",
     text: Tokens.colors.gray400,
     textWarning: Tokens.colors.brandWarning,
+    textSuccess: Tokens.colors.brandSuccess,
     textDanger: Tokens.colors.brandDanger,
     subtext: "#555555",
     tipIcon: "#666",

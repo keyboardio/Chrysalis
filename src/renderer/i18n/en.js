@@ -429,8 +429,8 @@ const English = {
       progressCardBar4: "4. Restoring your Layers",
       progressCardTitle1: "Press and hold the top left key to start the firmware update.",
       progressCardTitle2: "Don't release the key until the process finishes.",
-      currentlyRunningCardTitle: "Your Raise's firmware version is",
-      latestAvailableText: "Latest available version is v"
+      currentlyRunningCardTitle: "Your Raise's firmware version",
+      latestAvailableText: "Latest version avaliable"
     },
     milestones: {
       backup: "Next",

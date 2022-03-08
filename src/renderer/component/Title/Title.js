@@ -21,6 +21,8 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import { IconInformationBubble } from "../Icon";
 import LightWarning from "../../../../static/base/light-warning.png";
+import LightDanger from "../../../../static/base/light-danger.png";
+import LightSuccess from "../../../../static/base/light-success.png";
 
 const Style = Styled.div`
 .lg {
@@ -88,13 +90,13 @@ h6 {
 	position: relative;
 	&:before {
 		content: "";
-	position: absolute;
-	left: -32px;	
-	top: 50%;
-	background-repeat: no-repeat;
-	width: 32px;
-	height: 96px;
-	transform: translate3d(0, -50%, 0);
+		position: absolute;
+		left: -32px;	
+		top: 50%;
+		background-repeat: no-repeat;
+		width: 32px;
+		height: 96px;
+		transform: translate3d(0, -50%, 0);
 	} 
 	&:after {
 		content: "";
@@ -104,32 +106,37 @@ h6 {
 		width: 3px;
 		height: 24px;	
 		border-radius: 3px 0px 0px 3px;	
-	transform: translate3d(0, -50%, 0);
+		transform: translate3d(0, -50%, 0);
 	}
 }
 .warning {
-	color: var(--brand-warning-lighter);
+	color: ${({ theme }) => theme.colors.textWarning};
+	&:before {
+		background-image: url(${LightWarning});
+	}
+	&:after {
+		background: ${({ theme }) => theme.colors.gradientWarning};
+	}
 }
-.warning:before {
-	
-	background-image: url(${LightWarning});
-	
+.error,
+.danger {
+	color: ${({ theme }) => theme.colors.textDanger};
+	&:before {
+		background-image: url(${LightSuccess});
+	}
+	&:after {
+		background: ${({ theme }) => theme.colors.gradientDanger};
+	}
 }
-.warning:after {
-	
-	background: ${({ theme }) => theme.colors.gradientWarning};
-	
-}
-.success:after {
-	content: "";
-	position: absolute;
-	left: -35px;	
-	top: 50%;
-	width: 3px;
-	height: 24px;
-	background: ${({ theme }) => theme.colors.gradientWarning};
-	border-radius: 3px 0px 0px 3px;	
-	transform: translate3d(0, -50%, 0);
+
+.success {
+	color: ${({ theme }) => theme.colors.textSuccess};
+	&:before {
+		background-image: url(${LightSuccess});
+	}
+	&:after {
+		background: ${({ theme }) => theme.colors.gradientSuccess};
+	}
 }
 
 `;

@@ -44,9 +44,18 @@ const Style = Styled.div`
 	font-size: 14px; 
 	font-weight: 500;
 	line-height: 1.35em;
+	&.sm {
+		font-size: 13px; 
+	}
 	&.md {
 		font-size: 15px; 
-	}
+	}	
+	&.lg {
+		font-size: 16px; 
+	}		
+	&.xl {
+		font-size: 18px; 
+	}	
 }
 
 `;

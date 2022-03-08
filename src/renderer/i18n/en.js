@@ -400,6 +400,8 @@ const English = {
       versionUpdatedTitle: "Your firmware is up to date 🤙",
       versionOutdatedTitle: "New update is avaliable",
       calloutIntroText: "Updating your Raise firmware is how we implement new cool features and bug fixes.",
+      neuronUpdatedText: "[Solid as a rock!]",
+      neuronOutdatedText: "[Almost is never enough]",
       versionExists: "Raise Firmware Update",
       versionNotExists: "Firmware Update Process via Bootloader Mode",
       advUsersText1: "For advanced users: ",

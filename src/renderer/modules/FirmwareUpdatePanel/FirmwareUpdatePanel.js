@@ -25,6 +25,7 @@ import i18n from "../../i18n";
 
 import Title from "../../component/Title";
 import Callout from "../../component/Callout";
+import { FirmwareVersionStatus, FirmwareNeuronStatus } from "../FirmwareVersionStatus";
 import { RegularButton } from "../../component/Button";
 import WhatsNew from "../WhatsNew";
 
@@ -32,6 +33,7 @@ const Style = Styled.div`
 .firmware-wrapper {
   max-width: 960px;
   .firmware-row {
+    width: 100%;
     display: flex;
     flex-wrap: nowrap;
   }
@@ -70,17 +72,27 @@ const FirmwareUpdatePanel = ({
       <div className="firmware-wrapper home-firmware">
         <div className="firmware-row">
           <div className="firmware-content">
-            <Title
-              text={isUpdated ? i18n.firmwareUpdate.texts.versionUpdatedTitle : i18n.firmwareUpdate.texts.versionOutdatedTitle}
-              headingLevel={2}
-              type={isUpdated ? "success" : "warning"}
-            />
-            <Callout content={i18n.firmwareUpdate.texts.calloutIntroText} size="md" />
+            <div className="firmware-content--inner">
+              <Title
+                text={isUpdated ? i18n.firmwareUpdate.texts.versionUpdatedTitle : i18n.firmwareUpdate.texts.versionOutdatedTitle}
+                headingLevel={3}
+                type={isUpdated ? "success" : "warning"}
+              />
+              <Callout content={i18n.firmwareUpdate.texts.calloutIntroText} size="md" />
+            </div>
           </div>
-          <div className="firmware-sidebar"></div>
+          <div className="firmware-sidebar">
+            <FirmwareNeuronStatus isUpdated={isUpdated} />
+          </div>
         </div>
         <div className="firmware-row">
-          <div className="firmware-content"></div>
+          <div className="firmware-content">
+            <FirmwareVersionStatus
+              currentlyVersionRunning={currentlyVersionRunning}
+              latestVersionAvailable={latestVersionAvailable}
+              isUpdated={isUpdated}
+            />
+          </div>
           <div className="firmware-sidebar"></div>
         </div>
 
@@ -90,8 +102,6 @@ const FirmwareUpdatePanel = ({
           </Card.Header>
           <Card.Body className="body d-flex flex-column">
             <Card.Title className="title"></Card.Title>
-            {currentlyVersionRunning}
-            {latestVersionAvailable}
           </Card.Body>
           <Row className="mt-auto">
             <Col xs={6} className="flashingcol">

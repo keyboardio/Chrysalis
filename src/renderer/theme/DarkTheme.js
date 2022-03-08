@@ -186,6 +186,15 @@ const Dark = {
         backgroundHover: Tokens.colors.gray400
       }
     },
+    callout: {
+      iconInfo: "white",
+      iconInfoBackground: Tokens.colors.gray500,
+      iconInfoBorder: Tokens.colors.gray700,
+      iconInfoShadowColor: settingColorOpacity(Tokens.colors.gray800, 0.2),
+      calloutColor: "white",
+      calloutBackground: "Transparent",
+      calloutBorderColor: settingColorOpacity(Tokens.colors.gray600, 0.7)
+    },
     card: {
       color: "#fff",
       altColor: "#f2f2f2",
@@ -231,6 +240,10 @@ const Dark = {
         color: Tokens.colors.gray100,
         arrowsColor: Tokens.colors.gray300
       }
+    },
+    firmwareUpdatePanel: {
+      backgroundContent: Tokens.colors.gray800,
+      backgroundSidebar: settingColorOpacity(Tokens.colors.gray400, 0.05)
     },
     form: {
       formLabelTextcolor: Tokens.colors.gray100,

@@ -422,6 +422,7 @@ class FirmwareUpdate extends React.Component {
     let latestAvailable = <h5 className="title thintext">{`${i18n.firmwareUpdate.texts.latestAvailableText}${fwVersion}`}</h5>;
 
     let currentlyRunning;
+    let currentlyVersionRunning;
     if (versions) {
       currentlyRunning = (
         <React.Fragment>
@@ -433,7 +434,10 @@ class FirmwareUpdate extends React.Component {
           </Card>
         </React.Fragment>
       );
+      currentlyVersionRunning = versions.bazecor;
     }
+
+    const latestVersionAvailable = `v${fwVersion}`;
     const progress = (
       <Card className="firmware-card">
         <Card.Header className="header">
@@ -608,8 +612,8 @@ class FirmwareUpdate extends React.Component {
       countdown == -1 ? (
         <FirmwareUpdatePanel
           versions={versions}
-          currentlyRunning={currentlyRunning}
-          latestAvailable={latestAvailable}
+          currentlyVersionRunning={currentlyVersionRunning}
+          latestVersionAvailable={latestVersionAvailable}
           onClick={this.state.device.device.info.product === "Raise" ? this.uploadRaise : this.upload}
           advancedUsers={advancedUsers}
           onClickToggleAdvanced={this.toggleAdvanced}

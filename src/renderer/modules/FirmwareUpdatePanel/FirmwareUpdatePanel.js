@@ -23,26 +23,75 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import i18n from "../../i18n";
 
+import Title from "../../component/Title";
+import Callout from "../../component/Callout";
+import { RegularButton } from "../../component/Button";
 import WhatsNew from "../WhatsNew";
 
 const Style = Styled.div`
+.firmware-wrapper {
+  max-width: 960px;
+  .firmware-row {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  .firmware-content {
+    flex: 0 0 66%;
+    background: ${({ theme }) => theme.styles.firmwareUpdatePanel.backgroundContent}; 
+  }
+  .firmware-sidebar {
+    flex: 0 0 33%;
+    background: ${({ theme }) => theme.styles.firmwareUpdatePanel.backgroundSidebar}; 
+  }
+}
 
 `;
 
-const FirmwareUpdatePanel = ({ versions, currentlyRunning, latestAvailable, onClick, advancedUsers, onClickToggleAdvanced }) => {
+const FirmwareUpdatePanel = ({
+  versions,
+  currentlyVersionRunning,
+  latestVersionAvailable,
+  onClick,
+  advancedUsers,
+  onClickToggleAdvanced
+}) => {
+  // production
+  const isUpdated = currentlyVersionRunning === latestVersionAvailable ? true : false;
+
+  // development
+  //const isUpdated = false;
+
+  console.log("Versions: ", versions);
+  console.log("currentlyVersionRunning: ", currentlyVersionRunning);
+  console.log("latestVersionAvailable: ", latestVersionAvailable);
+
   return (
     <Style>
       <div className="firmware-wrapper home-firmware">
+        <div className="firmware-row">
+          <div className="firmware-content">
+            <Title
+              text={isUpdated ? i18n.firmwareUpdate.texts.versionUpdatedTitle : i18n.firmwareUpdate.texts.versionOutdatedTitle}
+              headingLevel={2}
+              type={isUpdated ? "success" : "warning"}
+            />
+            <Callout content={i18n.firmwareUpdate.texts.calloutIntroText} size="md" />
+          </div>
+          <div className="firmware-sidebar"></div>
+        </div>
+        <div className="firmware-row">
+          <div className="firmware-content"></div>
+          <div className="firmware-sidebar"></div>
+        </div>
+
         <Card className="firmware-card">
           <Card.Header className="header">
             {versions ? i18n.firmwareUpdate.texts.versionExists : i18n.firmwareUpdate.texts.versionNotExists}
           </Card.Header>
           <Card.Body className="body d-flex flex-column">
-            <Card.Title className="title">
-              Updating your Raise firmware is how we implement new cool features and bug fixes.
-            </Card.Title>
-            {currentlyRunning}
-            {latestAvailable}
+            <Card.Title className="title"></Card.Title>
+            {currentlyVersionRunning}
+            {latestVersionAvailable}
           </Card.Body>
           <Row className="mt-auto">
             <Col xs={6} className="flashingcol">
@@ -58,7 +107,7 @@ const FirmwareUpdatePanel = ({ versions, currentlyRunning, latestAvailable, onCl
           </Row>
           <Row className="mt-auto">{advancedUsers}</Row>
         </Card>
-        <WhatsNew />
+        {!isUpdated && <WhatsNew />}
       </div>
     </Style>
   );

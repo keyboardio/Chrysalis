@@ -4,6 +4,7 @@ import NeuronLoaderLight from "../../../static/light/neuron-loader.jpg";
 import CheckedIconLight from "../../../static/dark/icon-check-animated.gif";
 import closeButton from "../../../static/light/X.svg";
 import Tokens from "./Tokens";
+import { TokenClass } from "typescript";
 
 const settingColorOpacity = (color, opacity) => {
   let newColorArray = color;
@@ -188,6 +189,15 @@ const Light = {
           "linear-gradient(90deg, rgba(255, 255, 255, 0.4) -22.96%, rgba(255, 255, 255, 0) 123.24%), rgba(196, 201, 213, 0.8)"
       }
     },
+    callout: {
+      iconInfo: "white",
+      iconInfoBackground: Tokens.colors.gray100,
+      iconInfoBorder: Tokens.colors.gray200,
+      iconInfoShadowColor: settingColorOpacity(Tokens.colors.gray800, 0.1),
+      calloutColor: Tokens.colors.gray400,
+      calloutBackground: "rgba(255,255,255,0.1)",
+      calloutBorderColor: settingColorOpacity(Tokens.colors.gray600, 0.7)
+    },
     card: {
       color: "#000",
       altColor: "#333",
@@ -230,6 +240,10 @@ const Light = {
         color: Tokens.colors.gray600,
         arrowsColor: Tokens.colors.gray300
       }
+    },
+    firmwareUpdatePanel: {
+      backgroundContent: Tokens.colors.gray800,
+      backgroundSidebar: settingColorOpacity(Tokens.colors.gray400, 0.05)
     },
     form: {
       formLabelTextcolor: Tokens.colors.gray500,

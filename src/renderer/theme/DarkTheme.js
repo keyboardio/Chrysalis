@@ -13,6 +13,15 @@ const settingColorOpacity = (color, opacity) => {
   newColor = `rgba(${newColorArray[0]}, ${newColorArray[1]}, ${newColorArray[2]},  ${opacity})`;
   return newColor;
 };
+const settingColorMatrix = (color, opacity) => {
+  let newColorArray = color;
+  let newColor;
+  newColorArray = newColorArray.replace(/[^\d,]/g, "").split(",");
+  newColor = `0 0 0 0 ${(newColorArray[0] / 255).toFixed(2)} 0 0 0 0 ${(newColorArray[1] / 255).toFixed(2)} 0 0 0 0 ${(
+    newColorArray[2] / 255
+  ).toFixed(2)} 0 0 0 ${opacity} 0`;
+  return newColor;
+};
 
 const Dark = {
   name: "Dark",
@@ -243,7 +252,12 @@ const Dark = {
     },
     firmwareUpdatePanel: {
       backgroundContent: Tokens.colors.gray800,
-      backgroundSidebar: settingColorOpacity(Tokens.colors.gray400, 0.05)
+      backgroundSidebar: settingColorOpacity(Tokens.colors.gray400, 0.05),
+      neuronStatusLineColor: Tokens.colors.gray500,
+      neuronStatusLineWarning: Tokens.colors.brandWarning,
+      neuronStatusLineSuccess: Tokens.colors.brandSuccess,
+      neuronLightMatrixWarning: "0 0 0 0 0.996078 0 0 0 0 0.792157 0 0 0 0 0.341176 0 0 0 0.5 0",
+      neuronLightMatrixSuccess: "0 0 0 0 0 0 0 0 0 0.807843 0 0 0 0 0.788235 0 0 0 1 0"
     },
     form: {
       formLabelTextcolor: Tokens.colors.gray100,

@@ -17,12 +17,31 @@
 
 import React from "react";
 import Styled from "styled-components";
+import { useTheme } from "styled-components";
 import i18n from "../../i18n";
 
 const Style = Styled.div`
+align-self: center;
+justify-content: center;
+.versionsStatus {
+    .fillNeuron {
+        fill: ${({ theme }) => theme.styles.firmwareUpdatePanel.neuronStatusLineWarning}; 
+    }
+    &.isUpdated {
+        .fillNeuron {
+            fill: ${({ theme }) => theme.styles.firmwareUpdatePanel.neuronStatusLineSuccess}; 
+        }
+    }
+}
+.lineColor {
+    stroke: ${({ theme }) => theme.styles.firmwareUpdatePanel.neuronStatusLineColor}; 
+}
 
 `;
 const FirmwareNeuronStatus = ({ isUpdated }) => {
+  let connectionColorMatrixSucess = useTheme().styles.firmwareUpdatePanel.neuronLightMatrixSuccess;
+  let connectionColorMatrixWarning = useTheme().styles.firmwareUpdatePanel.neuronLightMatrixWarning;
+
   return (
     <Style>
       <div className={`versionsStatus ${isUpdated && "isUpdated"}`}>
@@ -37,11 +56,13 @@ const FirmwareNeuronStatus = ({ isUpdated }) => {
                 strokeMiterlimit={1.5}
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                className={`lineColor ${isUpdated && "isUpdated"}`}
               />
               <g filter="url(#prefix__filter0_d_1082_146499)">
                 <path
                   d="M60.02 40.455h-1.764c-2.45.096-4.803.577-7.058 1.251l7.45 2.695 1.765.674 1.568.578-2.647 11.357a50.484 50.484 0 01-5.391 14.15l4.803-5.39 1.667-1.83.196-.192 2.549-2.791c.392-.385.686-.867.784-1.444l.882-2.888 4.411-14.341c-2.843-1.155-5.98-1.733-9.214-1.83z"
                   fill="#FECA57"
+                  className="fillNeuron"
                 />
                 <path
                   d="M59.005 43.467l-.008-.003-.008-.003-4.356-1.576a24.548 24.548 0 013.643-.43H60.006c2.807.085 5.516.543 7.998 1.43L63.868 56.33v.002l-.883 2.888-.018.061-.011.064c-.056.331-.227.63-.499.897l-.02.02-.018.02-2.53 2.77-.177.174-.02.02-.018.02-1.667 1.829h0l-.007.008-.127.143a51.084 51.084 0 002.437-8.018l2.645-11.35.2-.86-.828-.305-1.563-.575-1.759-.672z"
@@ -54,6 +75,7 @@ const FirmwareNeuronStatus = ({ isUpdated }) => {
                 <path
                   d="M35.319 52.197c.392.385.686.77 1.078 1.155a28.649 28.649 0 002.45 2.407l-.98-4.428-.392-1.925-.882-3.658 12.743-4.62a27.086 27.086 0 018.921-1.54h1.765c.686 0 1.47.096 2.156.193l-2.255-.77-1.862-.674-4.215-1.444-3.235-1.155a4.151 4.151 0 00-2.647 0l-3.627 1.251-11.47 4.043-3.528 1.155a31.437 31.437 0 005.98 10.01z"
                   fill="#FECA57"
+                  className="fillNeuron"
                 />
                 <path
                   d="M30.65 42.81l2.529-.828.01-.003.011-.004 11.466-4.042h.004l3.612-1.247a3.15 3.15 0 012.006-.002l3.222 1.15h0l.012.005 2.467.845a28.378 28.378 0 00-6.983 1.5h0l-.01.004-12.744 4.62-.841.305.21.87.878 3.64.388 1.908.002.008.002.008.252 1.14-.005-.006-.02-.022-.02-.02a10.66 10.66 0 01-.494-.53l-.008-.008a12.76 12.76 0 00-.55-.591 30.506 30.506 0 01-5.395-8.7z"
@@ -66,6 +88,7 @@ const FirmwareNeuronStatus = ({ isUpdated }) => {
                 <path
                   d="M53.453 62.978l-2.06 1.636-2.156 1.733-9.705-7.893c-1.372-1.155-2.744-2.406-3.92-3.754-.393-.385-.687-.77-1.079-1.251-1.274-1.54-2.352-3.176-3.333-5.005l2.059 6.641.196.77.686 2.214.392 1.348c.196.48.392 1.058.784 1.444.392.385.883.962 1.47 1.636.393.481.883.962 1.373 1.54 4.215 4.716 10.98 12.32 11.175 12.416 3.627-4.908 6.274-10.491 7.843-16.555l-3.725 3.08z"
                   fill="#FECA57"
+                  className="fillNeuron"
                 />
                 <path
                   d="M54.075 63.76l.007-.005.008-.006 1.207-.998a46.692 46.692 0 01-6.069 12.139l-.389-.427A634.302 634.302 0 0146 71.31c-1.446-1.614-3.1-3.468-4.659-5.213l-2.426-2.717c-.244-.287-.486-.55-.703-.786l-.038-.04a15.493 15.493 0 01-.61-.689l-.01-.013-.012-.013-.283-.325c-.459-.528-.884-1.018-1.24-1.367-.184-.18-.294-.453-.486-.928l-.053-.131-.378-1.298-.002-.009-.003-.008-.678-2.19-.19-.744-.007-.025-.007-.025-.073-.235c.23.28.466.558.742.832 1.219 1.392 2.625 2.671 4.006 3.833l.006.006.007.005 9.704 7.893.627.51.63-.507 2.153-1.729.004-.003 2.055-1.633z"
@@ -89,7 +112,7 @@ const FirmwareNeuronStatus = ({ isUpdated }) => {
                   <feOffset dy={4} />
                   <feGaussianBlur stdDeviation={6} />
                   <feComposite in2="hardAlpha" operator="out" />
-                  <feColorMatrix values="0 0 0 0 0.996078 0 0 0 0 0.792157 0 0 0 0 0.341176 0 0 0 0.5 0" />
+                  <feColorMatrix values={`${isUpdated ? connectionColorMatrixSucess : connectionColorMatrixWarning}`} />
                   <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_1082_146499" />
                   <feBlend in="SourceGraphic" in2="effect1_dropShadow_1082_146499" result="shape" />
                 </filter>
@@ -107,7 +130,7 @@ const FirmwareNeuronStatus = ({ isUpdated }) => {
                   <feOffset dy={4} />
                   <feGaussianBlur stdDeviation={6} />
                   <feComposite in2="hardAlpha" operator="out" />
-                  <feColorMatrix values="0 0 0 0 0.996078 0 0 0 0 0.792157 0 0 0 0 0.341176 0 0 0 0.5 0" />
+                  <feColorMatrix values={`${isUpdated ? connectionColorMatrixSucess : connectionColorMatrixWarning}`} />
                   <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_1082_146499" />
                   <feBlend in="SourceGraphic" in2="effect1_dropShadow_1082_146499" result="shape" />
                 </filter>
@@ -125,7 +148,7 @@ const FirmwareNeuronStatus = ({ isUpdated }) => {
                   <feOffset dy={4} />
                   <feGaussianBlur stdDeviation={6} />
                   <feComposite in2="hardAlpha" operator="out" />
-                  <feColorMatrix values="0 0 0 0 0.996078 0 0 0 0 0.792157 0 0 0 0 0.341176 0 0 0 0.5 0" />
+                  <feColorMatrix values={`${isUpdated ? connectionColorMatrixSucess : connectionColorMatrixWarning}`} />
                   <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_1082_146499" />
                   <feBlend in="SourceGraphic" in2="effect1_dropShadow_1082_146499" result="shape" />
                 </filter>

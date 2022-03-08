@@ -410,35 +410,33 @@ class Preferences extends React.Component {
           />
           {this.state.working && <Spinner role="status" />}
           <div className="wrapper wrapperBackground">
-            <Form className="mb-5">
-              <Container fluid>
-                <Row className="justify-content-center">
-                  <Col lg={6} md={12}>
-                    <GeneralSettings
-                      selectDarkMode={this.selectDarkMode}
-                      darkMode={darkMode}
-                      neurons={neurons}
-                      selectedNeuron={selectedNeuron}
-                      defaultLayer={kbData.defaultLayer}
-                      selectDefaultLayer={this.selectDefaultLayer}
-                      connected={connected}
-                    />
-                    <BackupSettings neurons={neurons} selectedNeuron={selectedNeuron} neuronID={neuronID} connected={connected} />
-                    <NeuronSettings
-                      neurons={neurons}
-                      selectedNeuron={selectedNeuron}
-                      selectNeuron={this.selectNeuron}
-                      updateNeuronName={this.updateNeuronName}
-                      deleteNeuron={this.deleteNeuron}
-                    />
-                    <AdvancedSettings devToolsSwitch={devToolsSwitch} verboseSwitch={verboseSwitch} connected={connected} />
-                  </Col>
-                  <Col lg={6} md={12}>
-                    <KeyboardSettings kbData={kbData} setKbData={this.setKbData} connected={connected} />
-                  </Col>
-                </Row>
-              </Container>
-            </Form>
+            <Container fluid>
+              <Row className="justify-content-center">
+                <Col lg={6} md={12}>
+                  <GeneralSettings
+                    selectDarkMode={this.selectDarkMode}
+                    darkMode={darkMode}
+                    neurons={neurons}
+                    selectedNeuron={selectedNeuron}
+                    defaultLayer={kbData.defaultLayer}
+                    selectDefaultLayer={this.selectDefaultLayer}
+                    connected={connected}
+                  />
+                  <BackupSettings neurons={neurons} selectedNeuron={selectedNeuron} neuronID={neuronID} connected={connected} />
+                  <NeuronSettings
+                    neurons={neurons}
+                    selectedNeuron={selectedNeuron}
+                    selectNeuron={this.selectNeuron}
+                    updateNeuronName={this.updateNeuronName}
+                    deleteNeuron={this.deleteNeuron}
+                  />
+                  <AdvancedSettings devToolsSwitch={devToolsSwitch} verboseSwitch={verboseSwitch} connected={connected} />
+                </Col>
+                <Col lg={connected ? 6 : 0} md={12}>
+                  <KeyboardSettings kbData={kbData} setKbData={this.setKbData} connected={connected} />
+                </Col>
+              </Row>
+            </Container>
           </div>
         </Container>
       </Styles>

@@ -92,34 +92,36 @@ export default class GeneralSettings extends Component {
           <Title text={i18n.keyboardSettings.keymap.title} headingLevel={3} svgICO={<IconWrench />} />
         </Card.Title>
         <Card.Body>
-          <Row>
-            <Col lg={6} md={12}>
-              <Form.Group controlId="selectLanguage" className="mb-3">
-                <Form.Label>{i18n.preferences.language}</Form.Label>
-                <Select onSelect={this.changeLanguage} value={selectedLanguage} listElements={language} />
-              </Form.Group>
-            </Col>
-            <Col lg={6} md={12}>
-              <Form.Group controlId="defaultLayer" className="mb-3">
-                <Form.Label>{i18n.keyboardSettings.keymap.defaultLayer}</Form.Label>
-                <Select onSelect={selectDefaultLayer} value={defaultLayer} listElements={layersNames} disabled={!connected} />
-              </Form.Group>
-            </Col>
-          </Row>
-          <Row>
-            <Col md={12}>
-              <Form.Group controlId="DarkMode" className="m-0">
-                <Form.Label>{i18n.preferences.darkMode.label}</Form.Label>
-                <ToggleButtons
-                  selectDarkMode={selectDarkMode}
-                  value={darkMode}
-                  listElements={layoutsModes}
-                  style={"flex"}
-                  size={"sm"}
-                />
-              </Form.Group>
-            </Col>
-          </Row>
+          <Form>
+            <Row>
+              <Col lg={6} md={12}>
+                <Form.Group controlId="selectLanguage" className="mb-3">
+                  <Form.Label>{i18n.preferences.language}</Form.Label>
+                  <Select onSelect={this.changeLanguage} value={selectedLanguage} listElements={language} />
+                </Form.Group>
+              </Col>
+              <Col lg={6} md={12}>
+                <Form.Group controlId="defaultLayer" className="mb-3">
+                  <Form.Label>{i18n.keyboardSettings.keymap.defaultLayer}</Form.Label>
+                  <Select onSelect={selectDefaultLayer} value={defaultLayer} listElements={layersNames} disabled={!connected} />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <Form.Group controlId="DarkMode" className="m-0">
+                  <Form.Label>{i18n.preferences.darkMode.label}</Form.Label>
+                  <ToggleButtons
+                    selectDarkMode={selectDarkMode}
+                    value={darkMode}
+                    listElements={layoutsModes}
+                    style={"flex"}
+                    size={"sm"}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+          </Form>
         </Card.Body>
       </Card>
     );

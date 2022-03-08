@@ -21,7 +21,7 @@ import React from "react";
 const RegularButton = ({ selected, onClick, size, buttonText, style, icoSVG, disabled }) => {
   return (
     <div
-      onClick={onClick}
+      onClick={disabled ? () => {} : onClick}
       className={`${size ? size : ""} ${selected ? "active" : ""} button ${style && style}`}
       disabled={disabled}
     >

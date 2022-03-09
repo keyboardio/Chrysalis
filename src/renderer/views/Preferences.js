@@ -408,8 +408,6 @@ class Preferences extends React.Component {
     const { defaultLayer } = this.kbData;
     const devToolsSwitch = <Form.Check type="switch" checked={devTools} onChange={this.toggleDevTools} />;
     const verboseSwitch = <Form.Check type="switch" checked={verboseFocus} onChange={this.toggleVerboseFocus} />;
-    console.log("CHECKING STATUS MOD", modified);
-    console.log("CHECKING STATUS CTX", inContext);
 
     return (
       <Styles>

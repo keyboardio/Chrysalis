@@ -36,7 +36,20 @@ const WhatsNew = () => {
       try {
         const response = await fetch(url);
         const json = await response.json();
-        setDatePublished(json.published_at);
+        let d = new Date(json.published_at);
+        setDatePublished(
+          d.getFullYear() +
+            "-" +
+            ("0" + (d.getMonth() + 1)).slice(-2) +
+            "-" +
+            ("0" + d.getDate()).slice(-2) +
+            " / " +
+            ("0" + d.getHours()).slice(-2) +
+            "-" +
+            ("0" + d.getMinutes()).slice(-2) +
+            "-" +
+            ("0" + d.getSeconds()).slice(-2)
+        );
         setContentRelease(json);
       } catch (error) {
         setError(true);
@@ -46,6 +59,8 @@ const WhatsNew = () => {
     }
     fetchContent(`https://api.github.com/repos/Dygmalab/Bazecor/releases/latest`);
   };
+
+  console.log("TESTING DATE", datePublished, new Date(datePublished));
 
   return (
     <Style>

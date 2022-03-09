@@ -33,6 +33,7 @@ import IconNoSignal from "./IconNoSignal";
 import IconNeuronManager from "./IconNeuronManager";
 import IconMouse from "./IconMouse";
 import IconMoon from "./IconMoon";
+import IconMoreVertical from "./IconMoreVertical";
 import IconSun from "./IconSun";
 import IconScreen from "./IconScreen";
 import IconLayers from "./IconLayers";
@@ -61,6 +62,7 @@ export {
   IconNoSignal,
   IconMouse,
   IconMoon,
+  IconMoreVertical,
   IconSun,
   IconScreen,
   IconLayers,

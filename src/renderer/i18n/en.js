@@ -404,6 +404,8 @@ const English = {
       neuronOutdatedText: "[Almost is never enough]",
       versionExists: "Raise Firmware Update",
       versionNotExists: "Firmware Update Process via Bootloader Mode",
+      advUsersHTML:
+        "<p>For advanced users: If you have installed your own <a href='https://support.dygma.com/hc/en-us/articles/360017062197'>Custom Firmware</a>, this update will overwrite it.</p>",
       advUsersText1: "For advanced users: ",
       advUsersText2: "If you have installed your own ",
       advUsersText3: ", this update will overwrite it.",
@@ -447,7 +449,7 @@ const English = {
       error: "Error flashing the firmware",
       troubleshooting: "Troubleshooting",
       success: "Firmware flashed successfully!",
-      button: "Next",
+      button: "Update now",
       buttonSuccess: "Updated!"
     },
     backupSuccessful: "Backup created successfully!",

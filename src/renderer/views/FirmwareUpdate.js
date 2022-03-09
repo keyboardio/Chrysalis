@@ -617,6 +617,8 @@ class FirmwareUpdate extends React.Component {
           onClick={this.state.device.device.info.product === "Raise" ? this.uploadRaise : this.upload}
           advancedUsers={advancedUsers}
           onClickToggleAdvanced={this.toggleAdvanced}
+          firmwareFilename={firmwareFilename}
+          selectFirmware={this.selectFirmware}
         />
       ) : countdown == 0 ? (
         disclaimerCard

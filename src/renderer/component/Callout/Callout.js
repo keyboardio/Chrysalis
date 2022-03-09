@@ -43,6 +43,7 @@ const Style = Styled.div`
 	}
 	.infoShadow {
 		fill: ${({ theme }) => theme.styles.callout.iconInfoShadowColor}; 
+		mix-blend-modes: multiply;
 	}
 	.infoCircle {
 		fill: ${({ theme }) => theme.styles.callout.iconInfoBackground}; 

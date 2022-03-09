@@ -21,6 +21,7 @@ import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import Dropdown from "react-bootstrap/Dropdown";
 import i18n from "../../i18n";
 
 import Title from "../../component/Title";
@@ -73,13 +74,15 @@ const FirmwareUpdatePanel = ({
   latestVersionAvailable,
   onClick,
   advancedUsers,
-  onClickToggleAdvanced
+  onClickToggleAdvanced,
+  selectFirmware,
+  firmwareFilename
 }) => {
   // production
-  //const isUpdated = currentlyVersionRunning === latestVersionAvailable ? true : false;
+  const isUpdated = currentlyVersionRunning === latestVersionAvailable ? true : false;
 
   // development
-  const isUpdated = false;
+  //const isUpdated = false;
 
   console.log("Versions: ", versions);
   console.log("currentlyVersionRunning: ", currentlyVersionRunning);
@@ -111,30 +114,33 @@ const FirmwareUpdatePanel = ({
               isUpdated={isUpdated}
             />
           </div>
-          <div className="firmware-sidebar borderRightBottomRadius"></div>
+          <div className="firmware-sidebar borderRightBottomRadius">
+            {!isUpdated && (
+              <RegularButton
+                className="flashingbutton nooutlined"
+                style="primary"
+                buttonText={i18n.firmwareUpdate.flashing.button}
+                onClick={onClick}
+              />
+            )}
+            <Dropdown className="dropdownAdvancedUsers">
+              <Dropdown.Toggle className="toggler">Icon advanced</Dropdown.Toggle>
+              <Dropdown.Menu className="dropdownMenu">
+                <div
+                  className={"dropdownMenuContent"}
+                  dangerouslySetInnerHTML={{ __html: i18n.firmwareUpdate.texts.advUsersHTML }}
+                />
+                <RegularButton
+                  className="flashingbutton nooutlined"
+                  style="outline gradient"
+                  buttonText={firmwareFilename == "" ? i18n.firmwareUpdate.custom : i18n.firmwareUpdate.rcustom}
+                  onClick={selectFirmware}
+                />
+                {firmwareFilename}
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
         </div>
-
-        <Card className="firmware-card">
-          <Card.Header className="header">
-            {versions ? i18n.firmwareUpdate.texts.versionExists : i18n.firmwareUpdate.texts.versionNotExists}
-          </Card.Header>
-          <Card.Body className="body d-flex flex-column">
-            <Card.Title className="title"></Card.Title>
-          </Card.Body>
-          <Row className="mt-auto">
-            <Col xs={6} className="flashingcol">
-              <Button className="custombutton outlined pr-1" size="lg" onClick={onClickToggleAdvanced}>
-                {i18n.firmwareUpdate.texts.advUsers}
-              </Button>
-            </Col>
-            <Col xs={6} className="flashingcol">
-              <Button className="flashingbutton nooutlined" size="lg" onClick={onClick}>
-                {i18n.firmwareUpdate.flashing.button}
-              </Button>
-            </Col>
-          </Row>
-          <Row className="mt-auto">{advancedUsers}</Row>
-        </Card>
         {!isUpdated && <WhatsNew />}
       </div>
     </Style>

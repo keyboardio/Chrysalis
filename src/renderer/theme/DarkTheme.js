@@ -3,6 +3,7 @@ import BackgroundImageDark2x from "../../../static/dark/darkBackground-2x.png";
 import CheckedIconDark from "../../../static/dark/icon-check-animated.gif";
 import NeuronLoaderDark from "../../../static/dark/neuron-loader.jpg";
 import closeButton from "../../../static/dark/X.svg";
+import IconPlusXS from "../../../static/dark/plusIcon.svg";
 import Tokens from "./Tokens";
 import { TokenClass } from "typescript";
 
@@ -196,6 +197,9 @@ const Dark = {
         backgroundHover: Tokens.colors.gray400
       }
     },
+    collpase: {
+      iconBackgroud: IconPlusXS
+    },
     callout: {
       iconInfo: "white",
       iconInfoBackground: Tokens.colors.gray500,
@@ -259,7 +263,13 @@ const Dark = {
       neuronStatusLineWarning: Tokens.colors.brandWarning,
       neuronStatusLineSuccess: Tokens.colors.brandSuccess,
       neuronLightMatrixWarning: "0 0 0 0 0.996078 0 0 0 0 0.792157 0 0 0 0 0.341176 0 0 0 0.5 0",
-      neuronLightMatrixSuccess: "0 0 0 0 0 0 0 0 0 0.807843 0 0 0 0 0.788235 0 0 0 1 0"
+      neuronLightMatrixSuccess: "0 0 0 0 0 0 0 0 0 0.807843 0 0 0 0 0.788235 0 0 0 1 0",
+      versionInstalledTitle: Tokens.colors.gray200,
+      nextVersionAvaliableTitle: Tokens.colors.gray25,
+      nextVersionAvaliableBadge: Tokens.colors.gray100,
+      versionSuccessTitle: Tokens.colors.brandSuccess,
+      versionSuccessBadge: settingColorOpacity(Tokens.colors.brandSuccess, 0.3),
+      iconDropodownColor: Tokens.colors.gray300
     },
     form: {
       formLabelTextcolor: Tokens.colors.gray100,

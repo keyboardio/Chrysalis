@@ -22,6 +22,8 @@ import i18n from "../../i18n";
 import Title from "../../component/Title";
 import Badge from "../../component/Badge";
 
+import { IconCheckmarkSm } from "../../component/Icon";
+
 const Style = Styled.div`
 margin-left:32px;
 .versionsStatus {
@@ -39,21 +41,46 @@ margin-left:32px;
   .versionStatusInstalled,
   .versionStatusNext {
     padding: 24px;
+    h6 {
+      margin-top: 6px;
+      margin-bottom: 10px;
+    }
   } 
   .versionStatusInstalled {
-    
+    flex: 1;
     background: linear-gradient(90deg, #3F425A -136.64%, #25273B 94.29%);
   }
   .versionStatusNext {
     position: relative;
-    
     .caret {
       position: absolute;
       top: 12px;
       left: -6px;
     }
   }
-  
+}
+h6 {
+  color: ${({ theme }) => theme.styles.firmwareUpdatePanel.versionInstalledTitle};
+}
+.badge {
+  color: ${({ theme }) => theme.styles.firmwareUpdatePanel.versionInstalledTitle};
+} 
+.versionStatusNext {
+  h6 {
+    color: ${({ theme }) => theme.styles.firmwareUpdatePanel.nextVersionAvaliableTitle};
+  }
+  .badge {
+    color: ${({ theme }) => theme.styles.firmwareUpdatePanel.nextVersionAvaliableBadge};
+  } 
+}
+.isUpdated {
+  .versionStatusNext {
+    .badge {  
+      padding: 4px;
+      color: ${({ theme }) => theme.styles.firmwareUpdatePanel.versionSuccessTitle};
+      border-color: ${({ theme }) => theme.styles.firmwareUpdatePanel.versionSuccessBadge};
+    } 
+  }
 }
 
 `;
@@ -76,7 +103,7 @@ const FirmwareVersionStatus = ({ currentlyVersionRunning, latestVersionAvailable
             {isUpdated ? (
               <>
                 <Title text={i18n.firmwareUpdate.texts.latestVersionInstalled} headingLevel={6} />
-                <Badge content="Add check icon" />
+                <Badge icon={<IconCheckmarkSm />} />
               </>
             ) : (
               <>

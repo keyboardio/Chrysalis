@@ -84,6 +84,17 @@ const GlobalStyles = createGlobalStyle`
     cursor: pointer;
   }
 
+  .marginCenter {
+    .spinner-border {
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+    }
+    
+  }
+.loading {
+  color: ${({ theme }) => theme.colors.purple300};
+}
   .longtooltip > .tooltip-inner {
     max-width: 100%;
   }
@@ -228,6 +239,20 @@ svg text{
     color: ${({ theme }) => theme.colors.purple300};
     font-size: 13px;
     font-weight: 600;
+  }
+  .accordionTitle {
+    &:after {
+      content: '';
+      width: 8px;
+      height: 8px;
+      display: inline-block;
+      margin-left: 8px;
+      background: url(${({ theme }) => theme.styles.collpase.iconBackgroud});
+    }
+  }
+  .cardContent {
+    padding-left: 24px;
+    padding-right: 24px;
   }
 }
 .accordion .card {

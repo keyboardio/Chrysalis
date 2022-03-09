@@ -3,6 +3,7 @@ import BackgroundImageLight2x from "../../../static/light/lightBackground-2x.png
 import NeuronLoaderLight from "../../../static/light/neuron-loader.jpg";
 import CheckedIconLight from "../../../static/dark/icon-check-animated.gif";
 import closeButton from "../../../static/light/X.svg";
+import IconPlusXS from "../../../static/light/plusIcon.svg";
 import Tokens from "./Tokens";
 import { TokenClass } from "typescript";
 
@@ -189,6 +190,9 @@ const Light = {
         backgroundHover:
           "linear-gradient(90deg, rgba(255, 255, 255, 0.4) -22.96%, rgba(255, 255, 255, 0) 123.24%), rgba(196, 201, 213, 0.8)"
       }
+    },
+    collpase: {
+      iconBackgroud: IconPlusXS
     },
     callout: {
       iconInfo: "white",

@@ -20,18 +20,24 @@ import Styled from "styled-components";
 
 const Style = Styled.div`	
 .badge {
-	border-radius: 4px;
+	border-radius: 3px;
 	font-size: 13px;
 	font-weight: 600;
-	padding: 6px 12px;
+	padding: 8px 12px;
 	border: 1px solid ${({ theme }) => theme.colors.gray500};
+  &.success {
+    color: ${({ theme }) => theme.colors.brandSuccess};
+    border: 1px solid ${({ theme }) => theme.colors.brandSuccess};
+  }
 }
+
 `;
-const Badge = ({ content, size, style, className }) => {
+const Badge = ({ content, icon, size, style, className }) => {
   return (
     <Style className={className}>
-      <div className={`badge ${size && size} ${style && style}`}>
-        <span dangerouslySetInnerHTML={{ __html: content }} />
+      <div className={`badge ${size ? size : ""} ${style ? style : ""} ${icon ? "hasIcon" : ""} `}>
+        {icon && icon}
+        {content && <span dangerouslySetInnerHTML={{ __html: content }} />}
       </div>
     </Style>
   );

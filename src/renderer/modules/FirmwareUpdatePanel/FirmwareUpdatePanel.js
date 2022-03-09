@@ -28,10 +28,12 @@ import WhatsNew from "../WhatsNew";
 
 import { IconMoreVertical } from "../../component/Icon";
 
-const Style = Styled.div`
+const Style = Styled.div`   
+width: 100%;
 .firmware-wrapper {
   max-width: 960px;   
   width: 100%;
+  margin: auto;
   
   .firmware-row {
     width: 100%;
@@ -43,7 +45,7 @@ const Style = Styled.div`
     background: ${({ theme }) => theme.styles.firmwareUpdatePanel.backgroundContent}; 
   }
   .firmware-sidebar {
-    flex: 0 0 33%;
+    flex: 0 0 34%;
     background: ${({ theme }) => theme.styles.firmwareUpdatePanel.backgroundSidebar}; 
   }
   .firmware-content--inner {
@@ -82,6 +84,8 @@ const Style = Styled.div`
   right: 24px;
   transform: translate3d(0, -50%,0);
   margin-top: 0;
+  z-index: 9;
+  color: ${({ theme }) => theme.styles.firmwareUpdatePanel.iconDropodownColor}; 
 }
 `;
 
@@ -97,7 +101,7 @@ const FirmwareUpdatePanel = ({
   const isUpdated = currentlyVersionRunning === latestVersionAvailable ? true : false;
 
   // development
-  //const isUpdated = false;
+  //const isUpdated = true;
 
   console.log("Versions: ", versions);
   console.log("currentlyVersionRunning: ", currentlyVersionRunning);

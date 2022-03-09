@@ -19,6 +19,7 @@ import React from "react";
 import Styled from "styled-components";
 import Card from "react-bootstrap/Card";
 import Accordion from "react-bootstrap/Accordion";
+import Spinner from "react-bootstrap/Spinner";
 
 const Style = Styled.div`
 
@@ -29,7 +30,6 @@ const WhatsNew = () => {
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(false);
   const [datePublished, setDatePublished] = React.useState(null);
-  const dateOptions = { year: "numeric", month: "long", day: "numeric" };
 
   const fetchContentOnClick = () => {
     async function fetchContent(url) {
@@ -47,26 +47,6 @@ const WhatsNew = () => {
     fetchContent(`https://api.github.com/repos/Dygmalab/Bazecor/releases/latest`);
   };
 
-  // React.useEffect(() => {
-  //   async function fetchContent(url) {
-  //     try {
-  //       setLoading(true);
-  //       const response = await fetch(url);
-  //       const json = await response.json();
-  //       setDatePublished(json.published_at);
-  //       setContentRelease(json);
-  //     } catch (error) {
-  //       setError(true);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   }
-  //   fetchContent(`https://api.github.com/repos/Dygmalab/Bazecor/releases/latest`);
-  // }, []);
-
-  // if (loading) return <div className="loading"></div>;
-  // if (error) return <p>{error}</p>;
-  // if (contentRelease === null) return null;
   return (
     <Style>
       <Accordion className="simpleAccordion" defaultActiveKey="0">
@@ -74,12 +54,17 @@ const WhatsNew = () => {
           <Accordion.Toggle as={Card.Header} eventKey="1" onClick={fetchContentOnClick}>
             <div className="accordionHeader">
               <div className="accordionTitle">See what&apos;s new in Bazecor</div>
-              <span className="plus">icon plus</span>
             </div>
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="1">
             <Card.Body>
-              {loading && !error ? <div className="loading"></div> : ""}
+              {loading && !error ? (
+                <div className="loading marginCenter">
+                  <Spinner className="spinner-border" role="status" />
+                </div>
+              ) : (
+                ""
+              )}
               {error ? <div className="error">Error</div> : ""}
               {!loading && (
                 <div className="cardContent">

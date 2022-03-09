@@ -15,6 +15,7 @@
  */
 
 import IconArrowsSmallSeparating from "./IconArrowsSmallSeparating";
+import IconCheckmarkSm from "./IconCheckmarkSm";
 import IconChip from "./IconChip";
 import IconDelete from "./IconDelete";
 import IconKeyboardSelector from "./IconKeyboardSelector";
@@ -44,6 +45,7 @@ import IconSettings from "./IconSettings";
 
 export {
   IconArrowsSmallSeparating,
+  IconCheckmarkSm,
   IconChip,
   IconDelete,
   IconKeyboardSelector,

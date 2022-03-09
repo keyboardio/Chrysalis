@@ -232,7 +232,8 @@ const Light = {
         itemTextColor: Tokens.colors.gray400,
         itemTextColorHover: Tokens.colors.gray500,
         itemBackgroundColorHover: Tokens.colors.gray25,
-        itemBackgroundColorActive: Tokens.colors.purple100
+        itemBackgroundColorActive: Tokens.colors.purple100,
+        linkColor: Tokens.colors.purple200
       },
       selector: {
         numberColor: Tokens.colors.gray500,

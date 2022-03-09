@@ -17,10 +17,6 @@
 
 import React from "react";
 import Styled from "styled-components";
-import Card from "react-bootstrap/Card";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
 import i18n from "../../i18n";
 
@@ -29,6 +25,8 @@ import Callout from "../../component/Callout";
 import { FirmwareVersionStatus, FirmwareNeuronStatus } from "../FirmwareVersionStatus";
 import { RegularButton } from "../../component/Button";
 import WhatsNew from "../WhatsNew";
+
+import { IconMoreVertical } from "../../component/Icon";
 
 const Style = Styled.div`
 .firmware-wrapper {
@@ -66,6 +64,25 @@ const Style = Styled.div`
   }
 }
 
+.buttonActions {
+  position: relative;
+  display: flex;
+  height: 116px;
+  margin-bottom: 42px;
+  margin-right: 32px;
+  background-color: rgba(43, 44, 67, 1);    
+  border-bottom-right-radius: 16px;
+  border-top-right-radius: 16px;
+  align-items:center;
+  justify-content: center;
+}
+.dropdownCustomFirmware {
+  position: absolute;
+  top: 50%;
+  right: 24px;
+  transform: translate3d(0, -50%,0);
+  margin-top: 0;
+}
 `;
 
 const FirmwareUpdatePanel = ({
@@ -73,8 +90,6 @@ const FirmwareUpdatePanel = ({
   currentlyVersionRunning,
   latestVersionAvailable,
   onClick,
-  advancedUsers,
-  onClickToggleAdvanced,
   selectFirmware,
   firmwareFilename
 }) => {
@@ -115,30 +130,38 @@ const FirmwareUpdatePanel = ({
             />
           </div>
           <div className="firmware-sidebar borderRightBottomRadius">
-            {!isUpdated && (
-              <RegularButton
-                className="flashingbutton nooutlined"
-                style="primary"
-                buttonText={i18n.firmwareUpdate.flashing.button}
-                onClick={onClick}
-              />
-            )}
-            <Dropdown className="dropdownAdvancedUsers">
-              <Dropdown.Toggle className="toggler">Icon advanced</Dropdown.Toggle>
-              <Dropdown.Menu className="dropdownMenu">
-                <div
-                  className={"dropdownMenuContent"}
-                  dangerouslySetInnerHTML={{ __html: i18n.firmwareUpdate.texts.advUsersHTML }}
-                />
+            <div className="buttonActions">
+              {!isUpdated && (
                 <RegularButton
                   className="flashingbutton nooutlined"
-                  style="outline gradient"
-                  buttonText={firmwareFilename == "" ? i18n.firmwareUpdate.custom : i18n.firmwareUpdate.rcustom}
-                  onClick={selectFirmware}
+                  style="primary"
+                  buttonText={i18n.firmwareUpdate.flashing.button}
+                  onClick={onClick}
                 />
-                {firmwareFilename}
-              </Dropdown.Menu>
-            </Dropdown>
+              )}
+              <div className="dropdownCustomFirmware">
+                <Dropdown className="dropdownWithContent AdvancedUsers">
+                  <Dropdown.Toggle className="buttonToggler">
+                    <IconMoreVertical />
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu className="dropdownMenu">
+                    <div className="dropdownMenuPadding">
+                      <div
+                        className={"dropdownMenuContent"}
+                        dangerouslySetInnerHTML={{ __html: i18n.firmwareUpdate.texts.advUsersHTML }}
+                      />
+                      <RegularButton
+                        className="flashingbutton nooutlined"
+                        style="outline gradient"
+                        buttonText={firmwareFilename == "" ? i18n.firmwareUpdate.custom : i18n.firmwareUpdate.rcustom}
+                        onClick={selectFirmware}
+                      />
+                      {firmwareFilename}
+                    </div>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
+            </div>
           </div>
         </div>
         {!isUpdated && <WhatsNew />}

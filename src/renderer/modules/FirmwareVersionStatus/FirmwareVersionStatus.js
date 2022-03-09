@@ -73,8 +73,17 @@ const FirmwareVersionStatus = ({ currentlyVersionRunning, latestVersionAvailable
                 fill="#25263B"
               />
             </svg>
-            <Title text={i18n.firmwareUpdate.texts.latestAvailableText} headingLevel={6} />
-            {isUpdated ? <Badge content="Add check icon" /> : <Badge content={latestVersionAvailable} />}
+            {isUpdated ? (
+              <>
+                <Title text={i18n.firmwareUpdate.texts.latestVersionInstalled} headingLevel={6} />
+                <Badge content="Add check icon" />
+              </>
+            ) : (
+              <>
+                <Title text={i18n.firmwareUpdate.texts.latestAvailableText} headingLevel={6} />
+                <Badge content={latestVersionAvailable} />
+              </>
+            )}
           </div>
         </div>
       </div>

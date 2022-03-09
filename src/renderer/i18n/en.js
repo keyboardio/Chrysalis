@@ -432,7 +432,8 @@ const English = {
       progressCardTitle1: "Press and hold the top left key to start the firmware update.",
       progressCardTitle2: "Don't release the key until the process finishes.",
       currentlyRunningCardTitle: "Your Raise's firmware version",
-      latestAvailableText: "Latest version avaliable"
+      latestAvailableText: "Latest version avaliable",
+      latestVersionInstalled: "You are using the latest version"
     },
     milestones: {
       backup: "Next",

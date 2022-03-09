@@ -615,8 +615,6 @@ class FirmwareUpdate extends React.Component {
           currentlyVersionRunning={currentlyVersionRunning}
           latestVersionAvailable={latestVersionAvailable}
           onClick={this.state.device.device.info.product === "Raise" ? this.uploadRaise : this.upload}
-          advancedUsers={advancedUsers}
-          onClickToggleAdvanced={this.toggleAdvanced}
           firmwareFilename={firmwareFilename}
           selectFirmware={this.selectFirmware}
         />

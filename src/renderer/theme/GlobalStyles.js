@@ -51,7 +51,7 @@ const GlobalStyles = createGlobalStyle`
     padding-left: calc(90px + 8px);
     padding-right: 8px;
     transition: all 0.50s linear;
-    overflow: auto;
+    // overflow: auto;
     height: 100vh;
   }
   .wrapper {
@@ -576,6 +576,30 @@ svg text{
 }
 .dropdownInner .dropdownItem {
   flex: calc(100% -32px);
+}
+.buttonToggler.dropdown-toggle.btn.btn-primary{
+  background-color: transparent;
+  border: none; 
+  width: 36px;
+  padding: 12px 0;
+  margin-top: 0;
+  text-align: center;
+  &:after{
+    content: none;
+  } 
+}
+.dropdownWithContent {
+  .dropdownMenuPadding {
+    padding: 8px 4px;
+    color: white;
+    font-size: 12px;
+    a {
+      color: ${({ theme }) => theme.styles.dropdown.dropdownMenu.linkColor};
+    }
+    .button {
+      white-space: nowrap;
+    }
+  }
 }
 
 .tooltip .tooltip-inner{

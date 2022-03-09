@@ -20,16 +20,17 @@ import Styled from "styled-components";
 import i18n from "../../i18n";
 
 import Title from "../../component/Title";
+import Badge from "../../component/Badge";
 
 const Style = Styled.div`
 margin-left:32px;
-
 .versionsStatus {
-    
-
-    background-color: rgba(43, 44, 67, 1);
     height: 116px;
     margin-bottom: 42px;
+    background-color: rgba(43, 44, 67, 1);    
+    border-bottom-left-radius: 16px;
+    border-top-left-radius: 16px;
+    overflow: hidden;
 }
 .versionStatusInner {
   display: flex;
@@ -40,12 +41,12 @@ margin-left:32px;
     padding: 24px;
   } 
   .versionStatusInstalled {
-    border-bottom-left-radius: 16px;
-    border-top-left-radius: 16px;
+    
     background: linear-gradient(90deg, #3F425A -136.64%, #25273B 94.29%);
   }
   .versionStatusNext {
     position: relative;
+    
     .caret {
       position: absolute;
       top: 12px;
@@ -63,7 +64,7 @@ const FirmwareVersionStatus = ({ currentlyVersionRunning, latestVersionAvailable
         <div className="versionStatusInner">
           <div className="versionStatusInstalled">
             <Title text={i18n.firmwareUpdate.texts.currentlyRunningCardTitle} headingLevel={6} />
-            {currentlyVersionRunning}
+            <Badge content={currentlyVersionRunning} />
           </div>
           <div className="versionStatusNext">
             <svg className="caret" width={18} height={27} viewBox="0 0 18 27" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -72,9 +73,8 @@ const FirmwareVersionStatus = ({ currentlyVersionRunning, latestVersionAvailable
                 fill="#25263B"
               />
             </svg>
-
             <Title text={i18n.firmwareUpdate.texts.latestAvailableText} headingLevel={6} />
-            {latestVersionAvailable}
+            {isUpdated ? <Badge content="Add check icon" /> : <Badge content={latestVersionAvailable} />}
           </div>
         </div>
       </div>

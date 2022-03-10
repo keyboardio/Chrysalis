@@ -17,7 +17,6 @@
 
 import React from "react";
 import Styled from "styled-components";
-import Dropdown from "react-bootstrap/Dropdown";
 import i18n from "../../i18n";
 
 import Title from "../../component/Title";
@@ -25,8 +24,7 @@ import Callout from "../../component/Callout";
 import { FirmwareVersionStatus, FirmwareNeuronStatus } from "../FirmwareVersionStatus";
 import { RegularButton } from "../../component/Button";
 import WhatsNew from "../WhatsNew";
-
-import { IconMoreVertical } from "../../component/Icon";
+import FirmwareAdvancedOptions from "../FirmwareAdvancedOptions";
 
 const Style = Styled.div`   
 width: 100%;
@@ -214,26 +212,7 @@ const FirmwareUpdatePanel = ({
                     />
                   )}
                   <div className="dropdownCustomFirmware">
-                    <Dropdown className="dropdownWithContent AdvancedUsers">
-                      <Dropdown.Toggle className="buttonToggler">
-                        <IconMoreVertical />
-                      </Dropdown.Toggle>
-                      <Dropdown.Menu className="dropdownMenu">
-                        <div className="dropdownMenuPadding">
-                          <div
-                            className={"dropdownMenuContent"}
-                            dangerouslySetInnerHTML={{ __html: i18n.firmwareUpdate.texts.advUsersHTML }}
-                          />
-                          <RegularButton
-                            className="flashingbutton nooutlined"
-                            style="outline gradient"
-                            buttonText={firmwareFilename == "" ? i18n.firmwareUpdate.custom : i18n.firmwareUpdate.rcustom}
-                            onClick={selectFirmware}
-                          />
-                          {firmwareFilename}
-                        </div>
-                      </Dropdown.Menu>
-                    </Dropdown>
+                    <FirmwareAdvancedOptions firmwareFilename={firmwareFilename} selectFirmware={selectFirmware} />
                   </div>
                 </div>
               </div>

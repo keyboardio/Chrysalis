@@ -127,7 +127,7 @@ const Light = {
   font: "Libre Franklin",
   styles: {
     accordion: {
-      background: settingColorOpacity(Tokens.colors.gray500, 0.2)
+      background: settingColorOpacity(Tokens.colors.gray25, 0.8)
     },
     backupConfiguratorFolder: {
       headingColor: Tokens.colors.gray500,
@@ -204,7 +204,7 @@ const Light = {
       iconInfoShadowColor: settingColorOpacity(Tokens.colors.gray800, 0.1),
       calloutColor: Tokens.colors.gray400,
       calloutBackground: "rgba(255,255,255,0.1)",
-      calloutBorderColor: settingColorOpacity(Tokens.colors.gray600, 0.7)
+      calloutBorderColor: settingColorOpacity(Tokens.colors.gray100, 0.7)
     },
     card: {
       color: "#000",
@@ -240,7 +240,8 @@ const Light = {
         itemTextColorHover: Tokens.colors.gray500,
         itemBackgroundColorHover: Tokens.colors.gray25,
         itemBackgroundColorActive: Tokens.colors.purple100,
-        linkColor: Tokens.colors.purple200
+        linkColor: Tokens.colors.purple200,
+        textColor: Tokens.colors.gray400
       },
       selector: {
         numberColor: Tokens.colors.gray500,
@@ -251,19 +252,23 @@ const Light = {
       }
     },
     firmwareUpdatePanel: {
-      backgroundContent: Tokens.colors.gray800,
-      backgroundSidebar: settingColorOpacity(Tokens.colors.gray400, 0.05),
-      neuronStatusLineColor: Tokens.colors.gray500,
+      backgroundContent: Tokens.colors.gray25,
+      backgroundSidebar: "rgba(255,255,255,0.15)",
+      neuronStatusLineColor: Tokens.colors.gray100,
       neuronStatusLineWarning: Tokens.colors.brandWarning,
       neuronStatusLineSuccess: Tokens.colors.brandSuccess,
       neuronLightMatrixWarning: "0 0 0 0 0.996078 0 0 0 0 0.792157 0 0 0 0 0.341176 0 0 0 0.5 0",
       neuronLightMatrixSuccess: "0 0 0 0 0 0 0 0 0 0.807843 0 0 0 0 0.788235 0 0 0 1 0",
-      versionInstalledTitle: Tokens.colors.gray200,
-      nextVersionAvaliableTitle: Tokens.colors.gray25,
-      nextVersionAvaliableBadge: Tokens.colors.gray100,
+      versionInstalledTitle: Tokens.colors.gray300,
+      nextVersionAvaliableTitle: Tokens.colors.gray500,
+      nextVersionAvaliableBadge: Tokens.colors.gray200,
       versionSuccessTitle: Tokens.colors.brandSuccess,
       versionSuccessBadge: settingColorOpacity(Tokens.colors.brandSuccess, 0.3),
-      iconDropodownColor: Tokens.colors.gray300
+      badgeBorderColor: Tokens.colors.gray50,
+      iconDropodownColor: Tokens.colors.purple200,
+      backgroundStripeColor: "white",
+      backgroundStripeGradientColor: "linear-gradient(90deg, #FFFFFF -9.28%, #F4F4F5 94.29%)",
+      caretColor: "#F4F4F5"
     },
     form: {
       formLabelTextcolor: Tokens.colors.gray500,

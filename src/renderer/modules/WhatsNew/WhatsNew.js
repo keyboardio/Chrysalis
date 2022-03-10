@@ -22,8 +22,19 @@ import Accordion from "react-bootstrap/Accordion";
 import Spinner from "react-bootstrap/Spinner";
 import i18n from "../../i18n";
 
-const Style = Styled.div`
+import Title from "../../component/Title";
 
+const Style = Styled.div`
+.card-header:hover {
+  cursor: pointer;
+}
+h5 {
+  color: ${({ theme }) => theme.colors.gray400};
+  font-size: 14px;
+  margin-bottom: 32px;
+  text-transform: none;
+  letter-spacing: -0.03em;
+}
 `;
 
 const WhatsNew = () => {
@@ -73,10 +84,8 @@ const WhatsNew = () => {
               {error ? <div className="error">Error</div> : ""}
               {!loading && (
                 <div className="cardContent">
-                  <h3>
-                    {i18n.firmwareUpdate.texts.whatsNewTitleVersion} {contentRelease.name}
-                  </h3>
-                  <h4>{datePublished}</h4>
+                  <Title text={`${i18n.firmwareUpdate.texts.whatsNewTitleVersion} ${contentRelease.name}`} headingLevel={3} />
+                  <Title text={datePublished} headingLevel={5} />
                   <div className="versionContent" dangerouslySetInnerHTML={{ __html: contentRelease.body }} />
                 </div>
               )}

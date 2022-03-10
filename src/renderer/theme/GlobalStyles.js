@@ -234,6 +234,9 @@ svg text{
   background-color: ${({ theme }) => theme.styles.accordion.background};
   border-radius: 3px;
   margin-top: 24px;
+  .card {
+    background:transparent;
+  } 
   .card .card-header {
     background: transparent;
     color: ${({ theme }) => theme.colors.purple300};
@@ -616,7 +619,7 @@ svg text{
 .dropdownWithContent {
   .dropdownMenuPadding {
     padding: 8px 4px;
-    color: white;
+    color: ${({ theme }) => theme.styles.dropdown.dropdownMenu.textColor};
     font-size: 12px;
     a {
       color: ${({ theme }) => theme.styles.dropdown.dropdownMenu.linkColor};

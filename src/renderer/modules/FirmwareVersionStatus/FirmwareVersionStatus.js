@@ -29,7 +29,7 @@ margin-left:32px;
 .versionsStatus {
     height: 116px;
     margin-bottom: 42px;
-    background-color: rgba(43, 44, 67, 1);    
+    background-color: ${({ theme }) => theme.styles.firmwareUpdatePanel.backgroundStripeColor};    
     border-bottom-left-radius: 16px;
     border-top-left-radius: 16px;
     overflow: hidden;
@@ -48,7 +48,7 @@ margin-left:32px;
   } 
   .versionStatusInstalled {
     flex: 1;
-    background: linear-gradient(90deg, #3F425A -136.64%, #25273B 94.29%);
+    background: ${({ theme }) => theme.styles.firmwareUpdatePanel.backgroundStripeGradientColor};
   }
   .versionStatusNext {
     position: relative;
@@ -56,6 +56,7 @@ margin-left:32px;
       position: absolute;
       top: 24px;
       left: -6px;
+      color: ${({ theme }) => theme.styles.firmwareUpdatePanel.caretColor};
     }
   }
 }
@@ -64,6 +65,7 @@ h6 {
 }
 .badge {
   color: ${({ theme }) => theme.styles.firmwareUpdatePanel.versionInstalledTitle};
+  border-color: ${({ theme }) => theme.styles.firmwareUpdatePanel.badgeBorderColor};
 } 
 .versionStatusNext {
   h6 {
@@ -97,7 +99,7 @@ const FirmwareVersionStatus = ({ currentlyVersionRunning, latestVersionAvailable
             <svg className="caret" width={18} height={27} viewBox="0 0 18 27" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M16.4222 12.0346C17.2741 12.8258 17.2741 14.1742 16.4222 14.9654L4.11106 26.3998C2.83142 27.5883 0.750001 26.6808 0.750001 24.9343L0.750002 2.06565C0.750002 0.319217 2.83142 -0.588284 4.11107 0.600225L16.4222 12.0346Z"
-                fill="#25263B"
+                fill="currentColor"
               />
             </svg>
             {isUpdated ? (

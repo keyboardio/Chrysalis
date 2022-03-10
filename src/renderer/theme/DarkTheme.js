@@ -246,7 +246,8 @@ const Dark = {
         itemTextColorHover: Tokens.colors.gray25,
         itemBackgroundColorHover: settingColorOpacity(Tokens.colors.gray400, 0.2),
         itemBackgroundColorActive: Tokens.colors.purple200,
-        linkColor: Tokens.colors.purple200
+        linkColor: Tokens.colors.purple200,
+        textColor: Tokens.colors.gray25
       },
       selector: {
         numberColor: Tokens.colors.gray200,
@@ -269,7 +270,11 @@ const Dark = {
       nextVersionAvaliableBadge: Tokens.colors.gray100,
       versionSuccessTitle: Tokens.colors.brandSuccess,
       versionSuccessBadge: settingColorOpacity(Tokens.colors.brandSuccess, 0.3),
-      iconDropodownColor: Tokens.colors.gray300
+      badgeBorderColor: Tokens.colors.gray100,
+      iconDropodownColor: Tokens.colors.gray300,
+      backgroundStripeColor: "rgba(43, 44, 67, 1)",
+      backgroundStripeGradientColor: "linear-gradient(90deg, #3F425A -136.64%, #25273B 94.29%)",
+      caretColor: "#25273B"
     },
     form: {
       formLabelTextcolor: Tokens.colors.gray100,

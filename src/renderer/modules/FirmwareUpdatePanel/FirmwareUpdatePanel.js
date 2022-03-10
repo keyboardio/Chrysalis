@@ -72,7 +72,7 @@ width: 100%;
   height: 116px;
   margin-bottom: 42px;
   margin-right: 32px;
-  background-color: rgba(43, 44, 67, 1);    
+  background-color: ${({ theme }) => theme.styles.firmwareUpdatePanel.backgroundStripeColor};  
   border-bottom-right-radius: 16px;
   border-top-right-radius: 16px;
   align-items:center;
@@ -101,10 +101,10 @@ const FirmwareUpdatePanel = ({
   firmwareFilename
 }) => {
   // production
-  const isUpdated = currentlyVersionRunning === latestVersionAvailable ? true : false;
+  //const isUpdated = currentlyVersionRunning === latestVersionAvailable ? true : false;
 
   // development
-  //const isUpdated = true;
+  const isUpdated = true;
 
   console.log("Versions: ", versions);
   console.log("currentlyVersionRunning: ", currentlyVersionRunning);

@@ -651,6 +651,11 @@ svg text{
   font-weight: 500;
   font-size: 14px;
 }
+.tooltip.tooltipWide .tooltip-inner{
+  max-width: 364px!important;
+  font-weight: 500;
+  font-size: 14px;
+}
 
 }
 //

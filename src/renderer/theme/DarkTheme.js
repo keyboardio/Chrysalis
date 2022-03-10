@@ -202,8 +202,8 @@ const Dark = {
     },
     callout: {
       iconInfo: "white",
-      iconInfoBackground: Tokens.colors.gray500,
-      iconInfoBorder: Tokens.colors.gray700,
+      iconInfoBackground: Tokens.colors.gray700,
+      iconInfoBorder: Tokens.colors.gray500,
       iconInfoShadowColor: settingColorOpacity(Tokens.colors.gray800, 0.2),
       calloutColor: "white",
       calloutBackground: "Transparent",

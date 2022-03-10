@@ -81,7 +81,7 @@ h6 {
 	vertical-align: -0.2em;
 }
 .tooltipIcon {
-  color: var(--purple-100);
+  color: ${({ theme }) => theme.colors.purple100};
   margin-left: 8px;
   vertical-align: 2px;
   display: inline-block;

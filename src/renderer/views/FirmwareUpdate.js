@@ -43,6 +43,7 @@ import { throws } from "assert";
 
 import PageHeader from "../modules/PageHeader";
 import FirmwareUpdatePanel from "../modules/FirmwareUpdatePanel";
+import FirmwareUpdateProcess from "../modules/FirmwareUpdateProcess";
 
 const Styles = Styled.div`
 height: 100%;
@@ -628,7 +629,8 @@ class FirmwareUpdate extends React.Component {
           onBackup={this.backup}
         />
       ) : countdown == 1 ? (
-        flashCard
+        //flashCard
+        <FirmwareUpdateProcess onCancelDialog={this.cancelDialog} />
       ) : (
         progress
       );

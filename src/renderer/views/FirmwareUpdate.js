@@ -56,6 +56,12 @@ height: 100%;
   flex-wrap: wrap;
   justify-content: center;
 }
+.disclaimerContent {
+  font-size: 15px;
+  margin-top: 32px;
+  line-height: 1.5em;
+  font-weight: 500;
+}
 
 `;
 
@@ -609,7 +615,7 @@ class FirmwareUpdate extends React.Component {
 
     //let showCard = countdown == -1 ? statusCard : countdown == 0 ? disclaimerCard : countdown == 1 ? flashCard : progress;
     let showCard =
-      countdown == -1 ? (
+      countdown == -1 || countdown == 0 ? (
         <FirmwareUpdatePanel
           versions={versions}
           currentlyVersionRunning={currentlyVersionRunning}
@@ -617,9 +623,10 @@ class FirmwareUpdate extends React.Component {
           onClick={this.state.device.device.info.product === "Raise" ? this.uploadRaise : this.upload}
           firmwareFilename={firmwareFilename}
           selectFirmware={this.selectFirmware}
+          disclaimerCard={countdown + 1}
+          onCancelDialog={this.cancelDialog}
+          onBackup={this.backup}
         />
-      ) : countdown == 0 ? (
-        disclaimerCard
       ) : countdown == 1 ? (
         flashCard
       ) : (

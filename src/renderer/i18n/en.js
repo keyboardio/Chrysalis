@@ -397,6 +397,7 @@ const English = {
       cstomFW: "Custom Firmware",
       backwds: "Back",
       cancel: "Cancel",
+      letsStart: "Let's start",
       versionUpdatedTitle: "Your firmware is up to date 🤙",
       versionOutdatedTitle: "New update is avaliable",
       calloutIntroText: "Updating your Raise firmware is how we implement new cool features and bug fixes.",
@@ -411,6 +412,11 @@ const English = {
       advUsersText1: "For advanced users: ",
       advUsersText2: "If you have installed your own ",
       advUsersText3: ", this update will overwrite it.",
+      disclaimerTitle: "Start update process",
+      disclaimerCallout:
+        "If the firmware update process isn't successful, don't worry. It won't damage your Raise, but you will need to repeat the process.",
+      disclaimerContent:
+        "<strong>Before the update the Neuron will backup your layers and settings after that the update process will begin automatically.</strong> During the update, Neuron will pulse a blue pattern followed by a flash of multiple colors for a few seconds.",
       disclaimerCard1:
         "During the update, the Neuron will pulse a blue pattern followed by a flash of multiple colors for a few seconds.",
       disclaimerCard2:

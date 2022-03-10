@@ -90,6 +90,26 @@ width: 100%;
     color: ${({ theme }) => theme.styles.firmwareUpdatePanel.iconDropodownColor}; 
   }
 }
+.wrapperActions { 
+  display: flex;
+  padding-left: 32px;
+  margin-left: 32px;
+  align-items: center;
+  height: 116px;
+  margin-bottom: 42px;
+  background-color: ${({ theme }) => theme.styles.firmwareUpdatePanel.backgroundStripeColor};    
+  border-bottom-left-radius: 16px;
+  border-top-left-radius: 16px;
+  overflow: hidden;
+  .button {
+    align-self: center;
+  }
+} 
+.disclaimer-firmware {
+  .lineColor {
+      stroke: ${({ theme }) => theme.styles.firmwareUpdatePanel.neuronStatusLineWarning}; 
+  }
+}
 `;
 
 const FirmwareUpdatePanel = ({
@@ -98,13 +118,16 @@ const FirmwareUpdatePanel = ({
   latestVersionAvailable,
   onClick,
   selectFirmware,
-  firmwareFilename
+  firmwareFilename,
+  disclaimerCard,
+  onCancelDialog,
+  onBackup
 }) => {
   // production
-  //const isUpdated = currentlyVersionRunning === latestVersionAvailable ? true : false;
+  const isUpdated = currentlyVersionRunning === latestVersionAvailable ? true : false;
 
   // development
-  const isUpdated = true;
+  //const isUpdated = true;
 
   console.log("Versions: ", versions);
   console.log("currentlyVersionRunning: ", currentlyVersionRunning);
@@ -112,67 +135,113 @@ const FirmwareUpdatePanel = ({
 
   return (
     <Style>
-      <div className="firmware-wrapper home-firmware">
-        <div className="firmware-row">
-          <div className="firmware-content borderLeftTopRadius">
-            <div className="firmware-content--inner">
-              <Title
-                text={isUpdated ? i18n.firmwareUpdate.texts.versionUpdatedTitle : i18n.firmwareUpdate.texts.versionOutdatedTitle}
-                headingLevel={3}
-                type={isUpdated ? "success" : "warning"}
-              />
-              <Callout content={i18n.firmwareUpdate.texts.calloutIntroText} className="mt-lg" size="md" />
+      <>
+        {disclaimerCard ? (
+          <div className="firmware-wrapper disclaimer-firmware">
+            <div className="firmware-row">
+              <div className="firmware-content borderLeftTopRadius">
+                <div className="firmware-content--inner">
+                  <Title text={i18n.firmwareUpdate.texts.disclaimerTitle} headingLevel={3} />
+                  <div
+                    className={"disclaimerContent"}
+                    dangerouslySetInnerHTML={{ __html: i18n.firmwareUpdate.texts.disclaimerContent }}
+                  />
+                  <Callout content={i18n.firmwareUpdate.texts.calloutIntroText} className="mt-lg" size="md" />
+                </div>
+              </div>
+              <div className="firmware-sidebar borderRightTopRadius">
+                <FirmwareNeuronStatus isUpdated={isUpdated} />
+              </div>
             </div>
-          </div>
-          <div className="firmware-sidebar borderRightTopRadius">
-            <FirmwareNeuronStatus isUpdated={isUpdated} />
-          </div>
-        </div>
-        <div className="firmware-row">
-          <div className="firmware-content borderLeftBottomRadius">
-            <FirmwareVersionStatus
-              currentlyVersionRunning={currentlyVersionRunning}
-              latestVersionAvailable={latestVersionAvailable}
-              isUpdated={isUpdated}
-            />
-          </div>
-          <div className="firmware-sidebar borderRightBottomRadius">
-            <div className="buttonActions">
-              {!isUpdated && (
-                <RegularButton
-                  className="flashingbutton nooutlined"
-                  style="primary"
-                  buttonText={i18n.firmwareUpdate.flashing.button}
-                  onClick={onClick}
-                />
-              )}
-              <div className="dropdownCustomFirmware">
-                <Dropdown className="dropdownWithContent AdvancedUsers">
-                  <Dropdown.Toggle className="buttonToggler">
-                    <IconMoreVertical />
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu className="dropdownMenu">
-                    <div className="dropdownMenuPadding">
-                      <div
-                        className={"dropdownMenuContent"}
-                        dangerouslySetInnerHTML={{ __html: i18n.firmwareUpdate.texts.advUsersHTML }}
-                      />
-                      <RegularButton
-                        className="flashingbutton nooutlined"
-                        style="outline gradient"
-                        buttonText={firmwareFilename == "" ? i18n.firmwareUpdate.custom : i18n.firmwareUpdate.rcustom}
-                        onClick={selectFirmware}
-                      />
-                      {firmwareFilename}
-                    </div>
-                  </Dropdown.Menu>
-                </Dropdown>
+            <div className="firmware-row">
+              <div className="firmware-content borderLeftBottomRadius">
+                <div className="wrapperActions">
+                  <RegularButton
+                    className="flashingbutton nooutlined"
+                    style="outline"
+                    buttonText={i18n.firmwareUpdate.texts.backwds}
+                    onClick={onCancelDialog}
+                  />
+                </div>
+              </div>
+              <div className="firmware-sidebar borderRightBottomRadius">
+                <div className="buttonActions">
+                  <RegularButton
+                    className="flashingbutton nooutlined"
+                    style="primary"
+                    buttonText={i18n.firmwareUpdate.texts.letsStart}
+                    onClick={onBackup}
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        {!isUpdated && <WhatsNew />}
-      </div>
+        ) : (
+          <div className="firmware-wrapper home-firmware">
+            <div className="firmware-row">
+              <div className="firmware-content borderLeftTopRadius">
+                <div className="firmware-content--inner">
+                  <Title
+                    text={
+                      isUpdated ? i18n.firmwareUpdate.texts.versionUpdatedTitle : i18n.firmwareUpdate.texts.versionOutdatedTitle
+                    }
+                    headingLevel={3}
+                    type={isUpdated ? "success" : "warning"}
+                  />
+                  <Callout content={i18n.firmwareUpdate.texts.calloutIntroText} className="mt-lg" size="md" />
+                </div>
+              </div>
+              <div className="firmware-sidebar borderRightTopRadius">
+                <FirmwareNeuronStatus isUpdated={isUpdated} />
+              </div>
+            </div>
+            <div className="firmware-row">
+              <div className="firmware-content borderLeftBottomRadius">
+                <FirmwareVersionStatus
+                  currentlyVersionRunning={currentlyVersionRunning}
+                  latestVersionAvailable={latestVersionAvailable}
+                  isUpdated={isUpdated}
+                />
+              </div>
+              <div className="firmware-sidebar borderRightBottomRadius">
+                <div className="buttonActions">
+                  {!isUpdated && (
+                    <RegularButton
+                      className="flashingbutton nooutlined"
+                      style="primary"
+                      buttonText={i18n.firmwareUpdate.flashing.button}
+                      onClick={onClick}
+                    />
+                  )}
+                  <div className="dropdownCustomFirmware">
+                    <Dropdown className="dropdownWithContent AdvancedUsers">
+                      <Dropdown.Toggle className="buttonToggler">
+                        <IconMoreVertical />
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu className="dropdownMenu">
+                        <div className="dropdownMenuPadding">
+                          <div
+                            className={"dropdownMenuContent"}
+                            dangerouslySetInnerHTML={{ __html: i18n.firmwareUpdate.texts.advUsersHTML }}
+                          />
+                          <RegularButton
+                            className="flashingbutton nooutlined"
+                            style="outline gradient"
+                            buttonText={firmwareFilename == "" ? i18n.firmwareUpdate.custom : i18n.firmwareUpdate.rcustom}
+                            onClick={selectFirmware}
+                          />
+                          {firmwareFilename}
+                        </div>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {!isUpdated && <WhatsNew />}
+          </div>
+        )}
+      </>
     </Style>
   );
 };

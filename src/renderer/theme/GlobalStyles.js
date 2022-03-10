@@ -934,6 +934,18 @@ div.card.card-preferences .card-body {
   }
 }
 
+.animRight {
+    transform: translateX(82px);
+    opacity: 0;
+    animation: animRight 0.3s forwards;
+}
+  
+@keyframes animRight {
+    to {
+      transform: initial;
+      opacity: initial;
+    }
+}
 
 ::-webkit-scrollbar {
   background-color: rgba(0, 0, 0, 0.25);

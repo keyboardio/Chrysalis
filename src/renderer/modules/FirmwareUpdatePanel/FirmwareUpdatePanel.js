@@ -85,7 +85,10 @@ width: 100%;
   transform: translate3d(0, -50%,0);
   margin-top: 0;
   z-index: 9;
-  color: ${({ theme }) => theme.styles.firmwareUpdatePanel.iconDropodownColor}; 
+  
+  .buttonToggler.dropdown-toggle.btn {
+    color: ${({ theme }) => theme.styles.firmwareUpdatePanel.iconDropodownColor}; 
+  }
 }
 `;
 

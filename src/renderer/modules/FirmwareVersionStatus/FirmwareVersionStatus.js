@@ -54,7 +54,7 @@ margin-left:32px;
     position: relative;
     .caret {
       position: absolute;
-      top: 12px;
+      top: 24px;
       left: -6px;
     }
   }

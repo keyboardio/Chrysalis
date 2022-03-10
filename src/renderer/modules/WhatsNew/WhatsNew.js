@@ -30,6 +30,7 @@ const WhatsNew = () => {
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(false);
   const [datePublished, setDatePublished] = React.useState(null);
+  let dateOptions = { year: "numeric", month: "long", day: "numeric" };
 
   const fetchContentOnClick = () => {
     async function fetchContent(url) {
@@ -37,19 +38,20 @@ const WhatsNew = () => {
         const response = await fetch(url);
         const json = await response.json();
         let d = new Date(json.published_at);
-        setDatePublished(
-          d.getFullYear() +
-            "-" +
-            ("0" + (d.getMonth() + 1)).slice(-2) +
-            "-" +
-            ("0" + d.getDate()).slice(-2) +
-            " / " +
-            ("0" + d.getHours()).slice(-2) +
-            "-" +
-            ("0" + d.getMinutes()).slice(-2) +
-            "-" +
-            ("0" + d.getSeconds()).slice(-2)
-        );
+        // setDatePublished(
+        //   d.getFullYear() +
+        //     "-" +
+        //     ("0" + (d.getMonth() + 1)).slice(-2) +
+        //     "-" +
+        //     ("0" + d.getDate()).slice(-2) +
+        //     " / " +
+        //     ("0" + d.getHours()).slice(-2) +
+        //     "-" +
+        //     ("0" + d.getMinutes()).slice(-2) +
+        //     "-" +
+        //     ("0" + d.getSeconds()).slice(-2)
+        // );
+        setDatePublished(d.toLocaleDateString("en-US", dateOptions));
         setContentRelease(json);
       } catch (error) {
         setError(true);

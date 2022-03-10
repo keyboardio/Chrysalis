@@ -20,6 +20,7 @@ import Styled from "styled-components";
 import Card from "react-bootstrap/Card";
 import Accordion from "react-bootstrap/Accordion";
 import Spinner from "react-bootstrap/Spinner";
+import i18n from "../../i18n";
 
 const Style = Styled.div`
 
@@ -38,19 +39,6 @@ const WhatsNew = () => {
         const response = await fetch(url);
         const json = await response.json();
         let d = new Date(json.published_at);
-        // setDatePublished(
-        //   d.getFullYear() +
-        //     "-" +
-        //     ("0" + (d.getMonth() + 1)).slice(-2) +
-        //     "-" +
-        //     ("0" + d.getDate()).slice(-2) +
-        //     " / " +
-        //     ("0" + d.getHours()).slice(-2) +
-        //     "-" +
-        //     ("0" + d.getMinutes()).slice(-2) +
-        //     "-" +
-        //     ("0" + d.getSeconds()).slice(-2)
-        // );
         setDatePublished(d.toLocaleDateString("en-US", dateOptions));
         setContentRelease(json);
       } catch (error) {
@@ -70,7 +58,7 @@ const WhatsNew = () => {
         <Card className="simpleAccordionHeader">
           <Accordion.Toggle as={Card.Header} eventKey="1" onClick={fetchContentOnClick}>
             <div className="accordionHeader">
-              <div className="accordionTitle">See what&apos;s new in Bazecor</div>
+              <div className="accordionTitle">{i18n.firmwareUpdate.texts.whatsNewTitle}</div>
             </div>
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="1">
@@ -85,7 +73,9 @@ const WhatsNew = () => {
               {error ? <div className="error">Error</div> : ""}
               {!loading && (
                 <div className="cardContent">
-                  <h3>What&apos;s new with {contentRelease.name}</h3>
+                  <h3>
+                    {i18n.firmwareUpdate.texts.whatsNewTitleVersion} {contentRelease.name}
+                  </h3>
                   <h4>{datePublished}</h4>
                   <div className="versionContent" dangerouslySetInnerHTML={{ __html: contentRelease.body }} />
                 </div>

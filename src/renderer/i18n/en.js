@@ -404,6 +404,8 @@ const English = {
       neuronOutdatedText: "[Almost is never enough]",
       versionExists: "Raise Firmware Update",
       versionNotExists: "Firmware Update Process via Bootloader Mode",
+      whatsNewTitle: "See what's new in Bazecor",
+      whatsNewTitleVersion: "Whats new with",
       advUsersHTML:
         "<p>For advanced users: If you have installed your own <a href='https://support.dygma.com/hc/en-us/articles/360017062197'>Custom Firmware</a>, this update will overwrite it.</p>",
       advUsersText1: "For advanced users: ",

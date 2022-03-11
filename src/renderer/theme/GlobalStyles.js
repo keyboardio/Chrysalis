@@ -52,7 +52,7 @@ const GlobalStyles = createGlobalStyle`
     padding-right: 8px;
     transition: all 0.50s linear;
     // overflow: auto;
-    height: 100vh;
+    min-height: 100vh;
   }
   .wrapper {
     margin-top: 2px;

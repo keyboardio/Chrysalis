@@ -46,7 +46,7 @@ const Store = require("electron-store");
 const store = new Store();
 
 const Styles = Styled.div`
-height: 100%;
+height: 100vh;
 .main-container {
   overflow: hidden;
   height: 100vh;
@@ -485,7 +485,7 @@ class SelectKeyboard extends Component {
 
     return (
       <Styles>
-        <Container fluid className="keyboard-select">
+        <Container fluid className="keyboard-select center-content">
           <PageHeader text={i18n.keyboardSelect.title} />
           <NeuronConnection
             loading={loading}

@@ -146,7 +146,9 @@ const Title = ({ text, headingLevel, size, color, type, tooltip, tooltipSize, to
   return (
     <Style>
       <Tag
-        className={`${size ? size : ""} ${type && "titleAlert"} ${type && type} ${color ? color : ""} ${svgICO ? "hasIcon" : ""}`}
+        className={`${size ? size : ""} ${type && "titleAlert"} ${type ? type : ""} ${color ? color : ""} ${
+          svgICO ? "hasIcon" : ""
+        }`}
       >
         {svgICO && svgICO}
         <span dangerouslySetInnerHTML={{ __html: text }} />

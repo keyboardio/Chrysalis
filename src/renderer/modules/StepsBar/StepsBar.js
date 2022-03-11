@@ -28,25 +28,42 @@ margin-bottom: 62px;
 }
 .step {
   position: relative;
+  &.active {  
+    .stepIcon {
+      color: ${({ theme }) => theme.colors.purple300};
+      animation: splashBullet 400ms normal forwards ease-in-out;
+      animation-iteration-count: 1;
+    }
+    .stepBullet {
+      box-shadow: 0px 4px 12px #303949;
+      border: 3px solid ${({ theme }) => theme.colors.purple200};
+      background-color: ${({ theme }) => theme.colors.purple300};
+      animation: splashBullet 400ms normal forwards ease-in-out;
+      animation-iteration-count: 1;
+    }
+  }
 }
 .stepIcon {
   position: absolute;
-  left: 0; 
+  left: -3px; 
   top: -42px;
-  transform: translate3d(-50%,0, 0);
+  transition: color 300ms ease-in-out;
+  transform: scale(1) translate3d(0,0, 0);
+  color: ${({ theme }) => theme.colors.gray300};
 }
 .stepBullet {
   position: absolute;
   left: 0;
-  transform: translate3d(-50%,0, 0);
-  width: 14px;
-  height: 14px;
+  transform: scale(1) translate3d(0,0, 0);
+  transform-origin: center center;
+  width: 13px;
+  height: 13px;
   border-radius: 50%;
   box-shadow: 0px 4px 12px #303949;
   border: 3px solid ${({ theme }) => theme.colors.gray800};
   background-color: ${({ theme }) => theme.colors.gray600};
   z-index: 2;
-  top: -5px;
+  top: -6px;    
   &.active {
     box-shadow: 0px 4px 12px #303949;
     border: 3px solid ${({ theme }) => theme.colors.purple200};
@@ -57,8 +74,9 @@ margin-bottom: 62px;
   width: 100%;
   height: 3px;
   border-radius: 3px;
-  background-color: ${({ theme }) => theme.colors.gray400};
+  background-color: ${({ theme }) => theme.colors.gray600};
   position: relative;
+  overflow: hidden;
   .progressBarActive {
     left: 0;
     top: 0;
@@ -67,33 +85,71 @@ margin-bottom: 62px;
     border-radius: 3px;
     background-color: ${({ theme }) => theme.colors.purple300};
     position: absolute;
-    transition: width 250ms ease-in-out;
+    transition: width 1s ease-in-out;
   }
 }
 
+@keyframes splashBullet {
+  0% {
+      transform: scale(1) translate3d(0,0, 0);
+  }
+  25% {
+      transform: scale(0.75) translate3d(0,0, 0);
+  }
+  80% {
+    transform: scale(1.2) translate3d(0,0, 0);
+  }
+  100% {
+    transform: scale(1) translate3d(0,0, 0);
+  }
+}
 `;
-const StepsBar = ({ steps }) => {
+const StepsBar = ({ steps, stepActive }) => {
+  let [stepsPosition, setStepsPosition] = React.useState(parseInt(stepActive));
+  let [refreshPositionStyle, setRefreshPositionStyle] = React.useState({
+    width: `${(100 / (steps.length - 1)) * stepsPosition}%`
+  });
   const constructGrid = {
-    gridTemplateColumns: `repeat(${steps.length - 1}, 1fr)`,
-    background: "red"
+    gridTemplateColumns: `repeat(${steps.length - 1}, 1fr)`
   };
+
+  const handleClick = event => {
+    console.log(event.target);
+    if (steps.length > stepsPosition) {
+      setStepsPosition(stepsPosition + 1);
+      const widthPercentage = {
+        width: `${(100 / (steps.length - 1)) * (stepsPosition + 1)}%`
+      };
+      setRefreshPositionStyle(widthPercentage);
+    }
+  };
+
   return (
     <Style>
       <div className="stepsBarWrapper">
         <div className="stepsBarWrapperInner">
           <div className="stepsElements" style={constructGrid}>
             {steps.map((item, index) => (
-              <div className="step" data-order={index + 1} key={`${item.name}-${index}`}>
+              <div
+                className={`step ${index <= stepsPosition ? "active" : ""}`}
+                data-order={index}
+                key={`${item.name}-${index}`}
+                onClick={handleClick}
+              >
                 <div className="stepIcon">{item.icon}</div>
                 <div className="stepBullet"></div>
               </div>
             ))}
           </div>
           <div className="progressBar">
-            <div className="progressBarActive"></div>
+            <div className="progressBarActive" style={refreshPositionStyle}></div>
           </div>
         </div>
       </div>
+      <hr />
+      <button className="button primary" onClick={handleClick}>
+        Add step
+      </button>
     </Style>
   );
 };

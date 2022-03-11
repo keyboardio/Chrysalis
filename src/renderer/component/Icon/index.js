@@ -22,6 +22,8 @@ import IconKeysPress from "./IconKeysPress";
 import IconKeysTapHold from "./IconKeysTapHold";
 import IconKeys2Tap from "./IconKeys2Tap";
 import IconKeys2TapHold from "./IconKeys2TapHold";
+import IconKeysRelease from "./IconKeysRelease";
+import IconKeysStopWatch from "./IconKeysStopWatch";
 import IconKeyboardSelector from "./IconKeyboardSelector";
 import IconKeyboard2Stroke from "./IconKeyboard2Stroke";
 import IconMemory2Stroke from "./IconMemory2Stroke";
@@ -30,6 +32,7 @@ import IconPen from "./IconPen";
 import IconRobot2Stroke from "./IconRobot2Stroke";
 import IconThunder2Stroke from "./IconThunder2Stroke";
 import IconInformationBubble from "./IconInformationBubble";
+import IconInformationBubbleSm from "./IconInformationBubbleSm";
 import IconWrench from "./IconWrench";
 import IconFlashlight from "./IconFLashlight";
 import IconFloppyDisk from "./IconFloppyDisk";
@@ -56,6 +59,8 @@ export {
   IconKeysTapHold,
   IconKeys2Tap,
   IconKeys2TapHold,
+  IconKeysRelease,
+  IconKeysStopWatch,
   IconKeyboardSelector,
   IconKeyboard2Stroke,
   IconMemory2Stroke,
@@ -64,6 +69,7 @@ export {
   IconRobot2Stroke,
   IconThunder2Stroke,
   IconInformationBubble,
+  IconInformationBubbleSm,
   IconWrench,
   IconFlashlight,
   IconFloppyDisk,

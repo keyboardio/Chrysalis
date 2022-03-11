@@ -426,7 +426,7 @@ const English = {
       flashCardTitle2: "Don't release the key until the process finishes.",
       flashCardHelp: "Why do I need to press and hold a key when updating the Raise firmware?",
       flashCardHelpTooltip:
-        "<div class='text-left'><h6>Why do I need to press and hold the key?</h6> <p>When updating the firmware, we require the user to physically press and hold a key in order for the Firmware to be loaded. This is for security reasons.</p><p>The update process is designed so that it will never be triggered accidentally. <strong>This makes the keyboard secure against undesired firmware modifications.</strong></p></div>",
+        "<div class='text-left'><h5>Why do I need to press and hold the key?</h5><p>When updating the firmware, we require the user to physically press and hold a key in order for the Firmware to be loaded. This is for security reasons.</p><p>The update process is designed so that it will never be triggered accidentally. <strong>This makes the keyboard secure against undesired firmware modifications.</strong></p></div>",
       flashCardOverlay1: "*Why do I need to press and hold the key? ",
       flashCardOverlay2: "When updating the firmware, we require the user to physically press and hold a key",
       flashCardOverlay3: "in order for the Firmware to be loaded. This is for security reasons.",

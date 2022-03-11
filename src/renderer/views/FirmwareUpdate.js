@@ -46,7 +46,7 @@ import FirmwareUpdatePanel from "../modules/FirmwareUpdatePanel";
 import FirmwareUpdateProcess from "../modules/FirmwareUpdateProcess";
 
 const Styles = Styled.div`
-height: 100%;
+height: 100vh;
 .main-container {
   overflow: hidden;
   height: 100vh;

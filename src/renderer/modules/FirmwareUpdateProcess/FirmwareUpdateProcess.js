@@ -23,7 +23,7 @@ import Title from "../../component/Title";
 import { RegularButton } from "../../component/Button";
 import StepsBar from "../StepsBar";
 
-import { IconCheckmarkSm, IconKeysPress } from "../../component/Icon";
+import { IconInformationBubbleSm, IconCheckmarkSm, IconKeysPress, IconKeysRelease } from "../../component/Icon";
 
 const Style = Styled.div`   
 width: 100%;  
@@ -68,39 +68,38 @@ height:inherit;
   margin-top: 62px;
 }
 .holdButton { 
-  
   margin-bottom: 32px;
+}
+.holdTootip {
+  h6 {
+    font-size: 13px;  
+    font-weight: 400;
+    letter-spacing: 0;
+    color:  ${({ theme }) => theme.colors.gray300}; 
+  }
 }
 `;
 
 const FirmwareUpdateProcess = ({ onCancelDialog }) => {
   const steps = [
     {
-      name: "Intro",
-      icon: "icon",
-      step: 1
+      icon: <IconInformationBubbleSm />
     },
     {
-      name: "Press",
-      icon: <IconKeysPress />,
-      step: 2
+      icon: <IconKeysPress />
     },
     {
-      name: "Release",
-      icon: "icon",
-      step: 3
+      icon: <IconKeysRelease />
     },
     {
-      name: "Finish",
-      icon: <IconCheckmarkSm />,
-      step: 4
+      icon: <IconCheckmarkSm />
     }
   ];
   return (
     <Style>
       <div className="firmware-wrapper upgrade-firmware">
         <div className="firmware-row">
-          <StepsBar steps={steps} />
+          <StepsBar steps={steps} stepActive={0} />
         </div>
         <div className="firmware-row">Keyboard</div>
         <div className="firmware-footer">
@@ -108,6 +107,7 @@ const FirmwareUpdateProcess = ({ onCancelDialog }) => {
             <RegularButton
               className="flashingbutton nooutlined"
               style="outline"
+              size="sm"
               buttonText="Cancel update process"
               onClick={onCancelDialog}
             />

@@ -18,6 +18,10 @@ import IconArrowsSmallSeparating from "./IconArrowsSmallSeparating";
 import IconCheckmarkSm from "./IconCheckmarkSm";
 import IconChip from "./IconChip";
 import IconDelete from "./IconDelete";
+import IconKeysPress from "./IconKeysPress";
+import IconKeysTapHold from "./IconKeysTapHold";
+import IconKeys2Tap from "./IconKeys2Tap";
+
 import IconKeyboardSelector from "./IconKeyboardSelector";
 import IconKeyboard2Stroke from "./IconKeyboard2Stroke";
 import IconMemory2Stroke from "./IconMemory2Stroke";
@@ -48,6 +52,9 @@ export {
   IconCheckmarkSm,
   IconChip,
   IconDelete,
+  IconKeysPress,
+  IconKeysTapHold,
+  IconKeys2Tap,
   IconKeyboardSelector,
   IconKeyboard2Stroke,
   IconMemory2Stroke,

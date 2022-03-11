@@ -21,6 +21,9 @@ import i18n from "../../i18n";
 
 import Title from "../../component/Title";
 import { RegularButton } from "../../component/Button";
+import StepsBar from "../StepsBar";
+
+import { IconCheckmarkSm, IconKeysPress } from "../../component/Icon";
 
 const Style = Styled.div`   
 width: 100%;  
@@ -71,10 +74,34 @@ height:inherit;
 `;
 
 const FirmwareUpdateProcess = ({ onCancelDialog }) => {
+  const steps = [
+    {
+      name: "Intro",
+      icon: "icon",
+      step: 1
+    },
+    {
+      name: "Press",
+      icon: <IconKeysPress />,
+      step: 2
+    },
+    {
+      name: "Release",
+      icon: "icon",
+      step: 3
+    },
+    {
+      name: "Finish",
+      icon: <IconCheckmarkSm />,
+      step: 4
+    }
+  ];
   return (
     <Style>
       <div className="firmware-wrapper upgrade-firmware">
-        <div className="firmware-row">Steps</div>
+        <div className="firmware-row">
+          <StepsBar steps={steps} />
+        </div>
         <div className="firmware-row">Keyboard</div>
         <div className="firmware-footer">
           <div className="holdButton">

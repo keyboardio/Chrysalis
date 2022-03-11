@@ -4,6 +4,7 @@ import CheckedIconDark from "../../../static/dark/icon-check-animated.gif";
 import NeuronLoaderDark from "../../../static/dark/neuron-loader.jpg";
 import closeButton from "../../../static/dark/X.svg";
 import IconPlusXS from "../../../static/dark/plusIcon.svg";
+import RaiseFirmwareUpgrade from "../../../static/dark/raiseFirmwareupgrade.svg";
 import Tokens from "./Tokens";
 import { TokenClass } from "typescript";
 
@@ -275,6 +276,9 @@ const Dark = {
       backgroundStripeColor: "rgba(43, 44, 67, 1)",
       backgroundStripeGradientColor: "linear-gradient(90deg, #3F425A -136.64%, #25273B 94.29%)",
       caretColor: "#25273B"
+    },
+    firmwareUpdateProcess: {
+      raiseSVG: RaiseFirmwareUpgrade
     },
     form: {
       formLabelTextcolor: Tokens.colors.gray100,

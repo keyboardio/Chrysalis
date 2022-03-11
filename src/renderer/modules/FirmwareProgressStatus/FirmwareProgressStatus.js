@@ -53,12 +53,53 @@ width: 100%;
     border-top-right-radius: 16px;
   }
 }
+.processRaise {
+  position: relative;
+  canvas {
+    max-width: 100%;
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    background-image: url(${({ theme }) => theme.styles.firmwareUpdateProcess.raiseSVG});
+  }
+  .status-icon {
+    position: absolute;
+    top: 61px;
+    left: 85px;
+  }
+}
 .process-footer {
   width: 100%;
   padding: 24px;
   background-color: ${({ theme }) => theme.colors.gray800}; 
   border-radius: 0px 0px 16px 16px;
   text-align: center;
+}
+.blob {
+  background: #33d9b2;
+  box-shadow: 0 0 0 0 #33d9b2;
+  animation: pulse-green 2s infinite;
+  border-radius: 50%;
+  margin: 10px;
+  height: 8px;
+  width: 8px;
+  transform: scale(1);
+}
+
+@keyframes pulse-green {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(51, 217, 178, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 42px rgba(51, 217, 178, 0);
+  }
+
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(51, 217, 178, 0);
+  }
 }
 `;
 
@@ -70,7 +111,14 @@ const FirmwareProgressStatus = ({ flashProgress }) => {
           <div className="process-col process-image">
             <img src={PressKeyImageSource} className="img-center img-fluid" />
           </div>
-          <div className="process-col process-neuron"></div>
+          <div className="process-col process-neuron">
+            <div className="processRaise">
+              <div className="status-icon">
+                <div className="blob green"></div>
+              </div>
+              <canvas className="" width={340} height={259}></canvas>
+            </div>
+          </div>
         </div>
         <div className="process-row">
           <ProgressBar>

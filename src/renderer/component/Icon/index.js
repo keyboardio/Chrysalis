@@ -21,7 +21,7 @@ import IconDelete from "./IconDelete";
 import IconKeysPress from "./IconKeysPress";
 import IconKeysTapHold from "./IconKeysTapHold";
 import IconKeys2Tap from "./IconKeys2Tap";
-
+import IconKeys2TapHold from "./IconKeys2TapHold";
 import IconKeyboardSelector from "./IconKeyboardSelector";
 import IconKeyboard2Stroke from "./IconKeyboard2Stroke";
 import IconMemory2Stroke from "./IconMemory2Stroke";
@@ -55,6 +55,7 @@ export {
   IconKeysPress,
   IconKeysTapHold,
   IconKeys2Tap,
+  IconKeys2TapHold,
   IconKeyboardSelector,
   IconKeyboard2Stroke,
   IconMemory2Stroke,

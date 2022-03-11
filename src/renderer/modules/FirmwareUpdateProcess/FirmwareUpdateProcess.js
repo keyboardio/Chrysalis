@@ -21,6 +21,8 @@ import i18n from "../../i18n";
 
 import Title from "../../component/Title";
 import { RegularButton } from "../../component/Button";
+
+import FirmwareProgressStatus from "../FirmwareProgressStatus";
 import StepsBar from "../StepsBar";
 
 import { IconInformationBubbleSm, IconCheckmarkSm, IconKeysPress, IconKeysRelease } from "../../component/Icon";
@@ -80,7 +82,7 @@ height:inherit;
 }
 `;
 
-const FirmwareUpdateProcess = ({ onCancelDialog }) => {
+const FirmwareUpdateProcess = ({ onCancelDialog, flashProgress }) => {
   const steps = [
     {
       icon: <IconInformationBubbleSm />
@@ -101,7 +103,9 @@ const FirmwareUpdateProcess = ({ onCancelDialog }) => {
         <div className="firmware-row">
           <StepsBar steps={steps} stepActive={0} />
         </div>
-        <div className="firmware-row">Keyboard</div>
+        <div className="firmware-row">
+          <FirmwareProgressStatus flashProgress={flashProgress} />
+        </div>
         <div className="firmware-footer">
           <div className="holdButton">
             <RegularButton

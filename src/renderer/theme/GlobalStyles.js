@@ -734,6 +734,12 @@ div.card.card-preferences .card-body {
   color: ${({ theme }) => theme.styles.modal.titleColor};
 }
 
+.progress {
+  border-radius: 0;
+  height: 6px;
+  background-color: ${({ theme }) => theme.colors.gray600};
+}
+
 //
 // Toast
 // 

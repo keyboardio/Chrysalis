@@ -116,7 +116,7 @@ const StepsBar = ({ steps, stepActive }) => {
   const handleClick = event => {
     console.log(event.target);
     if (steps.length > stepsPosition) {
-      setStepsPosition(stepsPosition + 1);
+      setStepsPosition(oldValue => oldValue + 1);
       const widthPercentage = {
         width: `${(100 / (steps.length - 1)) * (stepsPosition + 1)}%`
       };

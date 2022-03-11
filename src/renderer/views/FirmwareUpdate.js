@@ -46,16 +46,19 @@ import FirmwareUpdatePanel from "../modules/FirmwareUpdatePanel";
 import FirmwareUpdateProcess from "../modules/FirmwareUpdateProcess";
 
 const Styles = Styled.div`
-height: 100vh;
+height: inherit;
 .main-container {
   overflow: hidden;
-  height: 100vh;
+  height: 100vh;  
 }
 .firmware-update {
   height: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  &.center-content {
+    height: 100vh;  
+  }
 }
 .disclaimerContent {
   font-size: 15px;
@@ -636,7 +639,7 @@ class FirmwareUpdate extends React.Component {
       );
     return (
       <Styles>
-        <Container fluid className="firmware-update">
+        <Container fluid className={`firmware-update ${countdown == -1 || countdown == 0 ? "center-content" : ""}`}>
           <PageHeader text={i18n.app.menu.firmwareUpdate} />
           {showCard}
         </Container>

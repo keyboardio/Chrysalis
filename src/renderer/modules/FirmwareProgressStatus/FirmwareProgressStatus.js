@@ -23,7 +23,6 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 
 import Title from "../../component/Title";
 
-import PressKeyImageSource from "../../../../static/base/update-keep-holding-firmware--once.gif";
 import videoFirmwareUpdate from "../../../../static/base/update-firmware.mp4";
 
 const Style = Styled.div`     
@@ -105,7 +104,7 @@ width: 100%;
 }
 `;
 
-const FirmwareProgressStatus = ({ flashProgress }) => {
+const FirmwareProgressStatus = ({ fakeCountdown, flashProgress }) => {
   const videoRef = React.useRef(null);
 
   React.useEffect(() => {
@@ -124,18 +123,21 @@ const FirmwareProgressStatus = ({ flashProgress }) => {
       <div className="mainProcessWrapper">
         <div className="process-row process-header">
           <div className="process-col process-image">
-            <img src={PressKeyImageSource} className="img-center img-fluid sr-only" />
             <video ref={videoRef} width={520} height={520} autoPlay={`true`} className="img-center img-fluid">
               <source src={videoFirmwareUpdate} type="video/mp4" />
             </video>
           </div>
           <div className="process-col process-neuron">
-            <div className="processRaise">
-              <div className="status-icon">
-                <div className="blob green"></div>
+            {fakeCountdown === 1 ? (
+              <div className="processRaise">
+                <div className="status-icon">
+                  <div className="blob green"></div>
+                </div>
+                <canvas className="" width={340} height={259}></canvas>
               </div>
-              <canvas className="" width={340} height={259}></canvas>
-            </div>
+            ) : (
+              <div className="updatingRaise">{fakeCountdown}</div>
+            )}
           </div>
         </div>
         <div className="process-row">
@@ -144,8 +146,26 @@ const FirmwareProgressStatus = ({ flashProgress }) => {
           </ProgressBar>
         </div>
         <div className="process-row process-footer">
-          <Title text="Hold the key" headingLevel={3} />
-          <Title text="1. Preparing layers" headingLevel={6} />
+          {fakeCountdown === 1 ? <Title text={i18n.firmwareUpdate.texts.progressCardStatus1} headingLevel={3} /> : ""}
+          {fakeCountdown === 2 ? <Title text={i18n.firmwareUpdate.texts.progressCardStatus2} headingLevel={3} /> : ""}
+          {fakeCountdown > 2 ? <Title text={i18n.firmwareUpdate.texts.progressCardStatus3} headingLevel={3} /> : ""}
+
+          {fakeCountdown === 1 ? (
+            <Title text={i18n.firmwareUpdate.texts.flashCardTitle2} headingLevel={6} />
+          ) : (
+            <Title
+              text={
+                flashProgress <= 15
+                  ? i18n.firmwareUpdate.texts.progressCardBar1
+                  : flashProgress <= 29
+                  ? i18n.firmwareUpdate.texts.progressCardBar2
+                  : flashProgress <= 69
+                  ? i18n.firmwareUpdate.texts.progressCardBar3
+                  : i18n.firmwareUpdate.texts.progressCardBar4
+              }
+              headingLevel={6}
+            />
+          )}
         </div>
       </div>
     </Style>

@@ -105,7 +105,7 @@ margin-bottom: 62px;
   }
 }
 `;
-const StepsBar = ({ steps, stepActive }) => {
+const StepsBar = ({ steps, stepActive, fakeCountdown }) => {
   let [stepsPosition, setStepsPosition] = React.useState(parseInt(stepActive));
   let [refreshPositionStyle, setRefreshPositionStyle] = React.useState({
     width: `${(100 / (steps.length - 1)) * stepsPosition}%`
@@ -123,6 +123,7 @@ const StepsBar = ({ steps, stepActive }) => {
       };
       setRefreshPositionStyle(widthPercentage);
     }
+    fakeCountdown(oldValue => oldValue + 1);
   };
 
   return (

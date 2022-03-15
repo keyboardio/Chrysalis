@@ -82,7 +82,9 @@ height:inherit;
 }
 `;
 
-const FirmwareUpdateProcess = ({ onCancelDialog, flashProgress }) => {
+const FirmwareUpdateProcess = ({ onCancelDialog, flashProgress, countdown }) => {
+  let [fakeCountdown, setFakeCountdown] = React.useState(1);
+
   const steps = [
     {
       icon: <IconInformationBubbleSm />
@@ -101,30 +103,34 @@ const FirmwareUpdateProcess = ({ onCancelDialog, flashProgress }) => {
     <Style>
       <div className="firmware-wrapper upgrade-firmware">
         <div className="firmware-row">
-          <StepsBar steps={steps} stepActive={0} />
+          <StepsBar steps={steps} stepActive={0} fakeCountdown={setFakeCountdown} />
         </div>
         <div className="firmware-row">
-          <FirmwareProgressStatus flashProgress={flashProgress} />
+          <FirmwareProgressStatus flashProgress={flashProgress} fakeCountdown={fakeCountdown} />
         </div>
-        <div className="firmware-footer">
-          <div className="holdButton">
-            <RegularButton
-              className="flashingbutton nooutlined"
-              style="outline"
-              size="sm"
-              buttonText="Cancel update process"
-              onClick={onCancelDialog}
-            />
+        {fakeCountdown <= 1 ? (
+          <div className="firmware-footer">
+            <div className="holdButton">
+              <RegularButton
+                className="flashingbutton nooutlined"
+                style="outline"
+                size="sm"
+                buttonText="Cancel update process"
+                onClick={onCancelDialog}
+              />
+            </div>
+            <div className="holdTootip">
+              <Title
+                text={i18n.firmwareUpdate.texts.flashCardHelp}
+                headingLevel={6}
+                tooltip={i18n.firmwareUpdate.texts.flashCardHelpTooltip}
+                tooltipSize="wide"
+              />
+            </div>
           </div>
-          <div className="holdTootip">
-            <Title
-              text={i18n.firmwareUpdate.texts.flashCardHelp}
-              headingLevel={6}
-              tooltip={i18n.firmwareUpdate.texts.flashCardHelpTooltip}
-              tooltipSize="wide"
-            />
-          </div>
-        </div>
+        ) : (
+          ""
+        )}
       </div>
     </Style>
   );

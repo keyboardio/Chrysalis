@@ -16,6 +16,7 @@
  */
 
 import React from "react";
+import ReactDOM from "react-dom";
 import Styled from "styled-components";
 import i18n from "../../i18n";
 import ProgressBar from "react-bootstrap/ProgressBar";
@@ -23,6 +24,7 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import Title from "../../component/Title";
 
 import PressKeyImageSource from "../../../../static/base/update-keep-holding-firmware--once.gif";
+import videoFirmwareUpdate from "../../../../static/base/update-firmware.mp4";
 
 const Style = Styled.div`     
 width: 100%;
@@ -104,12 +106,28 @@ width: 100%;
 `;
 
 const FirmwareProgressStatus = ({ flashProgress }) => {
+  const videoRef = React.useRef(null);
+
+  React.useEffect(() => {
+    videoRef.current.addEventListener(
+      "ended",
+      function () {
+        videoRef.current.currentTime = 3;
+        videoRef.current.play();
+      },
+      false
+    );
+  }, []);
+
   return (
     <Style>
       <div className="mainProcessWrapper">
         <div className="process-row process-header">
           <div className="process-col process-image">
-            <img src={PressKeyImageSource} className="img-center img-fluid" />
+            <img src={PressKeyImageSource} className="img-center img-fluid sr-only" />
+            <video ref={videoRef} width={520} height={520} autoPlay={`true`} className="img-center img-fluid">
+              <source src={videoFirmwareUpdate} type="video/mp4" />
+            </video>
           </div>
           <div className="process-col process-neuron">
             <div className="processRaise">

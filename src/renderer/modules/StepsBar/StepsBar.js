@@ -18,7 +18,8 @@
 import React from "react";
 import Styled from "styled-components";
 
-const Style = Styled.div` 
+const Style = Styled.div`   
+padding-right: 12px;
 width: 100%;
 margin-top: 92px;
 margin-bottom: 62px;

@@ -18,12 +18,17 @@
 import React from "react";
 import Styled from "styled-components";
 
+import { FirmwareNeuronHelp } from "../FirmwareImageHelp";
+
 import videoFirmwareUpdate from "../../../../static/base/update-firmware.mp4";
 import videoFirmwareUpdateReleaseKey from "../../../../static/base/release-key.mp4";
 import { IconCheckmarkSm } from "../../component/Icon";
 
 const Style = Styled.div`   
-
+.updatingRaise {
+  margin:auto;
+  align-self: center;
+}
 `;
 
 const FirmwareImageHelp = ({ countdown }) => {
@@ -81,7 +86,9 @@ const FirmwareImageHelp = ({ countdown }) => {
               <canvas className="" width={340} height={259}></canvas>
             </div>
           ) : (
-            <div className="updatingRaise">{countdown}</div>
+            <div className="updatingRaise">
+              <FirmwareNeuronHelp countdown={countdown} />
+            </div>
           )}
         </div>
       </div>

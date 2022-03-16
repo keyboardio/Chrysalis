@@ -5,6 +5,7 @@ import NeuronLoaderDark from "../../../static/dark/neuron-loader.jpg";
 import closeButton from "../../../static/dark/X.svg";
 import IconPlusXS from "../../../static/dark/plusIcon.svg";
 import RaiseFirmwareUpgrade from "../../../static/dark/raiseFirmwareupgrade.svg";
+import neuronBlinking from "../../../static/base/neuron-blinking.gif";
 import Tokens from "./Tokens";
 import { TokenClass } from "typescript";
 
@@ -276,7 +277,8 @@ const Dark = {
       iconDropodownColor: Tokens.colors.gray300,
       backgroundStripeColor: "rgba(43, 44, 67, 1)",
       backgroundStripeGradientColor: "linear-gradient(90deg, #3F425A -136.64%, #25273B 94.29%)",
-      caretColor: "#25273B"
+      caretColor: "#25273B",
+      imageNeuronBlinking: neuronBlinking
     },
     firmwareUpdateProcess: {
       raiseSVG: RaiseFirmwareUpgrade

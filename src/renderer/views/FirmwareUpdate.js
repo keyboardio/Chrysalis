@@ -631,11 +631,12 @@ class FirmwareUpdate extends React.Component {
           onCancelDialog={this.cancelDialog}
           onBackup={this.backup}
         />
-      ) : countdown == 1 ? (
+      ) : countdown >= 1 ? (
         //flashCard
         <FirmwareUpdateProcess onCancelDialog={this.cancelDialog} countdown={this.countdown} flashProgress={flashProgress} />
       ) : (
-        progress
+        //progress
+        ""
       );
     return (
       <Styles>

@@ -126,6 +126,17 @@ const StepsBar = ({ steps, stepActive, fakeCountdown }) => {
     fakeCountdown(oldValue => oldValue + 1);
   };
 
+  const removeClick = event => {
+    console.log(event.target);
+
+    setStepsPosition(oldValue => oldValue - 1);
+    const widthPercentage = {
+      width: `${(100 / (steps.length - 1)) * (stepsPosition + 1)}%`
+    };
+    setRefreshPositionStyle(widthPercentage);
+    fakeCountdown(oldValue => oldValue - 1);
+  };
+
   return (
     <Style>
       <div className="stepsBarWrapper">
@@ -151,6 +162,9 @@ const StepsBar = ({ steps, stepActive, fakeCountdown }) => {
       <hr />
       <button className="button primary" onClick={handleClick}>
         Add step
+      </button>
+      <button className="button primary" onClick={removeClick}>
+        Remove step
       </button>
     </Style>
   );

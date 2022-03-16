@@ -958,6 +958,44 @@ div.card.card-preferences .card-body {
     }
 }
 
+.animWaiting {
+  transform: scale(0);
+  opacity: 0;
+}
+
+.animIn {
+  animation: animIn 0.3s forwards;
+  animation-timing-function: cubic-bezier(0.75, -1.27, 0.3, 2.33);
+}
+@keyframes animIn {
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.animOut {
+  animation: animOut  0.3s forwards;
+  animation-timing-function: cubic-bezier(0.75, -1.27, 0.3, 2.33);
+}
+@keyframes animOut {
+  to {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+.animInCheck {
+  animation: animInCheck 0.3s forwards;
+  animation-timing-function: cubic-bezier(0.75, -1.27, 0.3, 2.33);
+}
+@keyframes animInCheck {
+  to {
+    transform: scale(1) translate3d(-50%, -50%, 0);
+    opacity: 1;
+  }
+}
+
+
 ::-webkit-scrollbar {
   background-color: rgba(0, 0, 0, 0.25);
   -webkit-box-shadow: transparent;

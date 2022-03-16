@@ -24,6 +24,8 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import Title from "../../component/Title";
 
 import videoFirmwareUpdate from "../../../../static/base/update-firmware.mp4";
+import videoFirmwareUpdateReleaseKey from "../../../../static/base/release-key.mp4";
+import { IconCheckmarkSm } from "../../component/Icon";
 
 const Style = Styled.div`     
 width: 100%;
@@ -45,6 +47,11 @@ width: 100%;
     height: inherit;
     background-color: rgba(196, 201, 213, 0.05);
     border-top-left-radius: 16px;
+    position: relative; 
+    .img-center {
+      width: 162px;     
+      position: absolute;
+    }
   }
   .process-neuron {
     display: flex;
@@ -52,6 +59,37 @@ width: 100%;
     height: inherit;
     background-color: ${({ theme }) => theme.colors.gray800};
     border-top-right-radius: 16px;
+  }
+  .videoWrapper{
+    position: relative;
+    left: 50%;
+    top: 50%;
+    width: 162px; 
+    height: 162px;
+    transform: translate3d(-50%, -50%, 0);
+  }
+  .videoInner{
+    position: relative;
+    width: 162px; 
+    height: 162px;
+  } 
+  .firmwareCheck {  
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    width: 74px;
+    height: 74px;
+    line-height: 69px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: rgba(0, 206, 201, 0.8);   
+    transform-origin: center center;
+    transform: scale(0) translate3d(-50%, -50%, 0);
+    opacity: 0;
+    svg {
+      transform: scale(1.5);
+    }
   }
 }
 .processRaise {
@@ -74,6 +112,14 @@ width: 100%;
   background-color: ${({ theme }) => theme.colors.gray800}; 
   border-radius: 0px 0px 16px 16px;
   text-align: center;
+  h3 {
+    color: ${({ theme }) => theme.colors.brandSuccess}; 
+  }
+  h6 {
+    font-weight: 400;
+    letter-spacing:0;
+    font-size: 15px;
+  }
 }
 .blob {
   background: #33d9b2;
@@ -105,27 +151,58 @@ width: 100%;
 `;
 
 const FirmwareProgressStatus = ({ fakeCountdown, flashProgress }) => {
-  const videoRef = React.useRef(null);
+  const videoIntro = React.useRef(null);
+  const videoRelease = React.useRef(null);
+  const checkSuccess = React.useRef(null);
 
   React.useEffect(() => {
-    videoRef.current.addEventListener(
-      "ended",
-      function () {
-        videoRef.current.currentTime = 3;
-        videoRef.current.play();
-      },
-      false
-    );
-  }, []);
+    if (fakeCountdown === 1) {
+      videoIntro.current.addEventListener(
+        "ended",
+        function () {
+          videoIntro.current.currentTime = 3;
+          videoIntro.current.play();
+        },
+        false
+      );
+      videoRelease.current.pause();
+    }
+    if (fakeCountdown === 2) {
+      videoIntro.current.classList.add("animOut");
+      videoRelease.current.classList.add("animIn");
+    }
+    if (fakeCountdown === 3) {
+      videoRelease.current.play();
+    }
+    if (fakeCountdown > 3) {
+      checkSuccess.current.classList.add("animInCheck");
+    }
+  }, [fakeCountdown]);
 
   return (
     <Style>
       <div className="mainProcessWrapper">
         <div className="process-row process-header">
           <div className="process-col process-image">
-            <video ref={videoRef} width={520} height={520} autoPlay={`true`} className="img-center img-fluid">
-              <source src={videoFirmwareUpdate} type="video/mp4" />
-            </video>
+            <div className="videoWrapper">
+              <div className="videoInner">
+                <div className="firmwareCheck animWaiting" ref={checkSuccess}>
+                  <IconCheckmarkSm />
+                </div>
+                <video ref={videoIntro} width={520} height={520} autoPlay={`true`} className="img-center img-fluid animIn">
+                  <source src={videoFirmwareUpdate} type="video/mp4" />
+                </video>
+                <video
+                  ref={videoRelease}
+                  width={520}
+                  height={520}
+                  autoPlay={`false`}
+                  className="img-center img-fluid animWaiting"
+                >
+                  <source src={videoFirmwareUpdateReleaseKey} type="video/mp4" />
+                </video>
+              </div>
+            </div>
           </div>
           <div className="process-col process-neuron">
             {fakeCountdown === 1 ? (

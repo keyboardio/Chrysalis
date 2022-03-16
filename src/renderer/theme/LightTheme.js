@@ -265,6 +265,7 @@ const Light = {
       versionSuccessTitle: Tokens.colors.brandSuccess,
       versionSuccessBadge: settingColorOpacity(Tokens.colors.brandSuccess, 0.3),
       badgeBorderColor: Tokens.colors.gray50,
+      badgeBorderColorActive: Tokens.colors.gray100,
       iconDropodownColor: Tokens.colors.purple200,
       backgroundStripeColor: "white",
       backgroundStripeGradientColor: "linear-gradient(90deg, #FFFFFF -9.28%, #F4F4F5 94.29%)",

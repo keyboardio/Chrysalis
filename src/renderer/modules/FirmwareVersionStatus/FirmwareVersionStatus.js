@@ -73,6 +73,7 @@ h6 {
   }
   .badge {
     color: ${({ theme }) => theme.styles.firmwareUpdatePanel.nextVersionAvaliableBadge};
+    border-color: ${({ theme }) => theme.styles.firmwareUpdatePanel.badgeBorderColorActive};
   } 
 }
 .isUpdated {

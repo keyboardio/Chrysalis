@@ -103,7 +103,7 @@ const FirmwareUpdateProcess = ({ onCancelDialog, flashProgress, countdown }) => 
     <Style>
       <div className="firmware-wrapper upgrade-firmware">
         <div className="firmware-row">
-          <StepsBar steps={steps} stepActive={0} fakeCountdown={setFakeCountdown} />
+          <StepsBar steps={steps} stepActive={fakeCountdown - 1} fakeCountdown={setFakeCountdown} />
         </div>
         <div className="firmware-row">
           <FirmwareProgressStatus flashProgress={flashProgress} fakeCountdown={fakeCountdown} />

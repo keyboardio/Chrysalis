@@ -16,16 +16,12 @@
  */
 
 import React from "react";
-import ReactDOM from "react-dom";
 import Styled from "styled-components";
 import i18n from "../../i18n";
 import ProgressBar from "react-bootstrap/ProgressBar";
 
 import Title from "../../component/Title";
-
-import videoFirmwareUpdate from "../../../../static/base/update-firmware.mp4";
-import videoFirmwareUpdateReleaseKey from "../../../../static/base/release-key.mp4";
-import { IconCheckmarkSm } from "../../component/Icon";
+import { FirmwareImageHelp } from "../FirmwareImageHelp";
 
 const Style = Styled.div`     
 width: 100%;
@@ -150,84 +146,22 @@ width: 100%;
 }
 `;
 
-const FirmwareProgressStatus = ({ fakeCountdown, flashProgress }) => {
-  const videoIntro = React.useRef(null);
-  const videoRelease = React.useRef(null);
-  const checkSuccess = React.useRef(null);
-
-  React.useEffect(() => {
-    if (fakeCountdown === 1) {
-      videoIntro.current.addEventListener(
-        "ended",
-        function () {
-          videoIntro.current.currentTime = 3;
-          videoIntro.current.play();
-        },
-        false
-      );
-      videoRelease.current.pause();
-    }
-    if (fakeCountdown === 2) {
-      videoIntro.current.classList.add("animOut");
-      videoRelease.current.classList.add("animIn");
-    }
-    if (fakeCountdown === 3) {
-      videoRelease.current.play();
-    }
-    if (fakeCountdown > 3) {
-      checkSuccess.current.classList.add("animInCheck");
-    }
-  }, [fakeCountdown]);
-
+const FirmwareProgressStatus = ({ countdown, flashProgress }) => {
   return (
     <Style>
       <div className="mainProcessWrapper">
-        <div className="process-row process-header">
-          <div className="process-col process-image">
-            <div className="videoWrapper">
-              <div className="videoInner">
-                <div className="firmwareCheck animWaiting" ref={checkSuccess}>
-                  <IconCheckmarkSm />
-                </div>
-                <video ref={videoIntro} width={520} height={520} autoPlay={`true`} className="img-center img-fluid animIn">
-                  <source src={videoFirmwareUpdate} type="video/mp4" />
-                </video>
-                <video
-                  ref={videoRelease}
-                  width={520}
-                  height={520}
-                  autoPlay={`false`}
-                  className="img-center img-fluid animWaiting"
-                >
-                  <source src={videoFirmwareUpdateReleaseKey} type="video/mp4" />
-                </video>
-              </div>
-            </div>
-          </div>
-          <div className="process-col process-neuron">
-            {fakeCountdown === 1 ? (
-              <div className="processRaise">
-                <div className="status-icon">
-                  <div className="blob green"></div>
-                </div>
-                <canvas className="" width={340} height={259}></canvas>
-              </div>
-            ) : (
-              <div className="updatingRaise">{fakeCountdown}</div>
-            )}
-          </div>
-        </div>
+        <FirmwareImageHelp countdown={countdown} />
         <div className="process-row">
           <ProgressBar>
             <ProgressBar now={flashProgress} />
           </ProgressBar>
         </div>
         <div className="process-row process-footer">
-          {fakeCountdown === 1 ? <Title text={i18n.firmwareUpdate.texts.progressCardStatus1} headingLevel={3} /> : ""}
-          {fakeCountdown === 2 ? <Title text={i18n.firmwareUpdate.texts.progressCardStatus2} headingLevel={3} /> : ""}
-          {fakeCountdown > 2 ? <Title text={i18n.firmwareUpdate.texts.progressCardStatus3} headingLevel={3} /> : ""}
+          {countdown === 1 ? <Title text={i18n.firmwareUpdate.texts.progressCardStatus1} headingLevel={3} /> : ""}
+          {countdown === 2 ? <Title text={i18n.firmwareUpdate.texts.progressCardStatus2} headingLevel={3} /> : ""}
+          {countdown > 2 ? <Title text={i18n.firmwareUpdate.texts.progressCardStatus3} headingLevel={3} /> : ""}
 
-          {fakeCountdown === 1 ? (
+          {countdown === 1 ? (
             <Title text={i18n.firmwareUpdate.texts.flashCardTitle2} headingLevel={6} />
           ) : (
             <Title

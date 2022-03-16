@@ -105,7 +105,7 @@ margin-bottom: 62px;
   }
 }
 `;
-const StepsBar = ({ steps, stepActive, fakeCountdown }) => {
+const StepsBar = ({ steps, stepActive, countdown }) => {
   let [stepsPosition, setStepsPosition] = React.useState(parseInt(stepActive));
   let [refreshPositionStyle, setRefreshPositionStyle] = React.useState({
     width: `${(100 / (steps.length - 1)) * stepsPosition}%`
@@ -123,7 +123,7 @@ const StepsBar = ({ steps, stepActive, fakeCountdown }) => {
       };
       setRefreshPositionStyle(widthPercentage);
     }
-    fakeCountdown(oldValue => oldValue + 1);
+    countdown(oldValue => oldValue + 1);
   };
 
   const removeClick = event => {
@@ -134,7 +134,7 @@ const StepsBar = ({ steps, stepActive, fakeCountdown }) => {
       width: `${(100 / (steps.length - 1)) * (stepsPosition + 1)}%`
     };
     setRefreshPositionStyle(widthPercentage);
-    fakeCountdown(oldValue => oldValue - 1);
+    countdown(oldValue => oldValue - 1);
   };
 
   return (

@@ -737,14 +737,14 @@ div.card.card-preferences .card-body {
 .progress {
   border-radius: 0;
   height: 6px;
-  background-color: ${({ theme }) => theme.colors.gray600};
+  background-color: ${({ theme }) => theme.styles.progress.progressBackground};
   overflow: visible;
 } 
 .progress-bar {
   height: 6px;
   border-radius: 3px;
-  background-color: ${({ theme }) => theme.colors.brandSuccess};
-  box-shadow: 0px 0px 4px rgba(50, 238, 238, 0.5);
+  background-color: ${({ theme }) => theme.styles.progress.progressBarBackground};
+  box-shadow: ${({ theme }) => theme.styles.progress.boxShadow};
 }
 
 //

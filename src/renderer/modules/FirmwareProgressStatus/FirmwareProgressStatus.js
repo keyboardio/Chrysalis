@@ -41,7 +41,7 @@ width: 100%;
     display: flex;
     flex: 0 0 50%;
     height: inherit;
-    background-color: rgba(196, 201, 213, 0.05);
+    background-color: ${({ theme }) => theme.styles.firmwareUpdateProcess.processImageBackground};
     border-top-left-radius: 16px;
     position: relative; 
     .img-center {
@@ -53,7 +53,7 @@ width: 100%;
     display: flex;
     flex: 0 0 50%;
     height: inherit;
-    background-color: ${({ theme }) => theme.colors.gray800};
+    background-color: ${({ theme }) => theme.styles.firmwareUpdateProcess.processNeuronBackground};
     border-top-right-radius: 16px;
   }
   .videoWrapper{
@@ -83,6 +83,7 @@ width: 100%;
     transform-origin: center center;
     transform: scale(0) translate3d(-50%, -50%, 0);
     opacity: 0;
+    color: white;
     svg {
       transform: scale(1.5);
     }
@@ -105,7 +106,7 @@ width: 100%;
 .process-footer {
   width: 100%;
   padding: 24px;
-  background-color: ${({ theme }) => theme.colors.gray800}; 
+  background-color: ${({ theme }) => theme.styles.firmwareUpdateProcess.processFooterBackground}; 
   border-radius: 0px 0px 16px 16px;
   text-align: center;
   h3 {

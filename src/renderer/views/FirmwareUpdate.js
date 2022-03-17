@@ -42,6 +42,7 @@ import i18n from "../i18n";
 import { throws } from "assert";
 
 import PageHeader from "../modules/PageHeader";
+import Title from "../component/Title";
 import FirmwareUpdatePanel from "../modules/FirmwareUpdatePanel";
 import FirmwareUpdateProcess from "../modules/FirmwareUpdateProcess";
 
@@ -642,6 +643,7 @@ class FirmwareUpdate extends React.Component {
       <Styles>
         <Container fluid className={`firmware-update ${countdown == -1 || countdown == 0 ? "center-content" : ""}`}>
           <PageHeader text={i18n.app.menu.firmwareUpdate} />
+          <Title text={countdown} headingLevel={3} />
           {showCard}
         </Container>
       </Styles>

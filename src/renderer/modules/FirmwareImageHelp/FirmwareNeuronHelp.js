@@ -20,12 +20,19 @@ import Styled from "styled-components";
 import { useTheme } from "styled-components";
 
 const Style = Styled.div`   
+.lineColor {
+  stroke: ${({ theme }) => theme.styles.firmwareUpdateProcess.neuronLineColor};
+}
 .neuronBlinking {
     opacity: 0;
 }   
 .neuronSuccess {
     opacity: 0;
     transition: 300ms opacity ease-in-out;
+    path {
+      fill: ${({ theme }) => theme.styles.neuronStatus.connectionSuccessFill};
+      stroke-opacity: ${({ theme }) => theme.styles.neuronStatus.connectionStrokeOpacity};
+    }
 } 
 .neuronUpdate-2 {
     .neuronBlinking {
@@ -160,6 +167,10 @@ const Style = Styled.div`
 `;
 
 const FirmwareNeuronHelp = ({ countdown }) => {
+  let neuronLoader = useTheme().styles.neuronStatus.neuronLoader;
+  let checkedIcon = useTheme().styles.neuronStatus.checkedIcon;
+  let connectionColorMatrix = useTheme().styles.neuronStatus.connectionColorMatrix;
+  let connectionColorMatrixOnLoading = useTheme().styles.neuronStatus.connectionColorMatrixOnLoading;
   return (
     <Style>
       <div className={`neuronUpdate-${countdown} neuronUpdateAnimation`}>
@@ -167,7 +178,7 @@ const FirmwareNeuronHelp = ({ countdown }) => {
           <path
             clipRule="evenodd"
             d="M44.167 112.847c-.683 1.64-2.596 2.46-4.236 1.708-.068 0-.068-.068-.136-.068L6.657 98.772C1.738 96.45-.38 90.573 1.943 85.586L22.03 42.405c1.913-4.1 2.87-8.54 2.87-13.05V8.175A7.173 7.173 0 0132.074 1h37.852A7.173 7.173 0 0177.1 8.174v21.18c0 4.51.957 8.951 2.87 13.05l20.087 43.182c2.323 4.919.205 10.795-4.714 13.186l-33.138 15.715c-1.64.751-3.553.068-4.304-1.572 0-.068-.069-.068-.069-.136-1.571-3.758-5.875-5.534-9.633-3.963-1.913.82-3.28 2.255-4.032 4.031z"
-            stroke="#3F425A"
+            stroke="currentColor"
             strokeWidth={1.5}
             strokeMiterlimit={1.5}
             strokeLinecap="round"
@@ -302,6 +313,7 @@ const FirmwareNeuronHelp = ({ countdown }) => {
               <feBlend in="SourceGraphic" in2="effect1_dropShadow_2147_218552" result="shape" />
             </filter>
           </defs>
+
           <defs>
             <filter
               id="prefix__filter0_d_1082_162210"
@@ -317,7 +329,7 @@ const FirmwareNeuronHelp = ({ countdown }) => {
               <feOffset dy={4} />
               <feGaussianBlur stdDeviation={6} />
               <feComposite in2="hardAlpha" operator="out" />
-              <feColorMatrix values="0 0 0 0 0 0 0 0 0 0.807843 0 0 0 0 0.788235 0 0 0 1 0" />
+              <feColorMatrix values={connectionColorMatrix} />
               <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_1082_162210" />
               <feBlend in="SourceGraphic" in2="effect1_dropShadow_1082_162210" result="shape" />
             </filter>
@@ -335,7 +347,7 @@ const FirmwareNeuronHelp = ({ countdown }) => {
               <feOffset dy={4} />
               <feGaussianBlur stdDeviation={6} />
               <feComposite in2="hardAlpha" operator="out" />
-              <feColorMatrix values="0 0 0 0 0 0 0 0 0 0.807843 0 0 0 0 0.788235 0 0 0 1 0" />
+              <feColorMatrix values={connectionColorMatrix} />
               <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_1082_162210" />
               <feBlend in="SourceGraphic" in2="effect1_dropShadow_1082_162210" result="shape" />
             </filter>
@@ -353,7 +365,7 @@ const FirmwareNeuronHelp = ({ countdown }) => {
               <feOffset dy={4} />
               <feGaussianBlur stdDeviation={6} />
               <feComposite in2="hardAlpha" operator="out" />
-              <feColorMatrix values="0 0 0 0 0 0 0 0 0 0.807843 0 0 0 0 0.788235 0 0 0 1 0" />
+              <feColorMatrix values={connectionColorMatrix} />
               <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_1082_162210" />
               <feBlend in="SourceGraphic" in2="effect1_dropShadow_1082_162210" result="shape" />
             </filter>

@@ -79,7 +79,7 @@ width: 100%;
 .dropdownCustomFirmware {
   position: absolute;
   top: 50%;
-  right: 24px;
+  right: 14px;
   transform: translate3d(0, -50%,0);
   margin-top: 0;
   z-index: 9;
@@ -107,7 +107,14 @@ width: 100%;
   .lineColor {
       stroke: ${({ theme }) => theme.styles.firmwareUpdatePanel.neuronStatusLineWarning}; 
   }
+  .firmware-content--inner h3 {
+    color: ${({ theme }) => theme.styles.firmwareUpdatePanel.disclaimerTitle}; 
+  }
+}     
+.buttonActions .button.primary {
+  margin-right: -32px;
 }
+
 `;
 
 const FirmwareUpdatePanel = ({

@@ -59,6 +59,7 @@ const FirmwareImageHelp = ({ countdown }) => {
       checkSuccess.current.classList.add("animInCheck");
     }
   }, [countdown]);
+
   return (
     <Style>
       <div className="process-row process-header">

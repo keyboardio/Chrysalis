@@ -5,7 +5,7 @@ import NeuronLoaderDark from "../../../static/dark/neuron-loader.jpg";
 import closeButton from "../../../static/dark/X.svg";
 import IconPlusXS from "../../../static/dark/plusIcon.svg";
 import RaiseFirmwareUpgrade from "../../../static/dark/raiseFirmwareupgrade.svg";
-import neuronBlinking from "../../../static/base/neuron-blinking.gif";
+
 import Tokens from "./Tokens";
 import { TokenClass } from "typescript";
 
@@ -278,10 +278,14 @@ const Dark = {
       backgroundStripeColor: "rgba(43, 44, 67, 1)",
       backgroundStripeGradientColor: "linear-gradient(90deg, #3F425A -136.64%, #25273B 94.29%)",
       caretColor: "#25273B",
-      imageNeuronBlinking: neuronBlinking
+      disclaimerTitle: "white"
     },
     firmwareUpdateProcess: {
-      raiseSVG: RaiseFirmwareUpgrade
+      raiseSVG: RaiseFirmwareUpgrade,
+      processFooterBackground: Tokens.colors.gray800,
+      processImageBackground: settingColorOpacity(Tokens.colors.gray100, 0.05),
+      processNeuronBackground: Tokens.colors.gray800,
+      neuronLineColor: Tokens.colors.gray600
     },
     form: {
       formLabelTextcolor: Tokens.colors.gray100,
@@ -347,6 +351,11 @@ const Dark = {
       backgroundColor: settingColorOpacity(Tokens.colors.gray400, 0.15),
       titleColor: Tokens.colors.gray50
     },
+    progress: {
+      progressBackground: Tokens.colors.gray600,
+      progressBarBackground: Tokens.colors.brandSuccess,
+      boxShadow: "0px 0px 4px rgba(50, 238, 238, 0.5)"
+    },
     slider: {
       trackColor: Tokens.colors.gray400,
       progressColor: Tokens.colors.purple300,
@@ -354,6 +363,17 @@ const Dark = {
       handleBackgroundColor: Tokens.colors.purple300,
       handleBoxShadow: Tokens.colors.purple300,
       labelColor: Tokens.colors.gray200
+    },
+    stepsBar: {
+      stepBarBackground: Tokens.colors.gray600,
+      stepBarBackgroundActive: Tokens.colors.purple300,
+      bulletIconColor: Tokens.colors.gray300,
+      bulletBackground: Tokens.colors.gray600,
+      bulletBackgroundActive: Tokens.colors.purple300,
+      bulletBorder: Tokens.colors.gray800,
+      bulletBorderActive: Tokens.colors.purple200,
+      bulletBoxShadow: "0px 4px 12px #303949",
+      bulletBoxShadowActive: "0px 4px 12px #303949"
     },
     switch: {
       background: Tokens.colors.gray600,

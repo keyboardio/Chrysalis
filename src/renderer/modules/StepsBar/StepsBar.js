@@ -50,7 +50,7 @@ margin-bottom: 62px;
   top: -42px;
   transition: color 300ms ease-in-out;
   transform: scale(1) translate3d(0,0, 0);
-  color: ${({ theme }) => theme.colors.gray300};
+  color: ${({ theme }) => theme.styles.stepsBar.bulletIconColor};
 }
 .stepBullet {
   position: absolute;
@@ -60,22 +60,22 @@ margin-bottom: 62px;
   width: 13px;
   height: 13px;
   border-radius: 50%;
-  box-shadow: 0px 4px 12px #303949;
-  border: 3px solid ${({ theme }) => theme.colors.gray800};
-  background-color: ${({ theme }) => theme.colors.gray600};
+  box-shadow: ${({ theme }) => theme.styles.stepsBar.bulletBoxShadow};
+  border: 3px solid ${({ theme }) => theme.styles.stepsBar.bulletBorder};
+  background-color: ${({ theme }) => theme.styles.stepsBar.bulletBackground};
   z-index: 2;
   top: -6px;    
   &.active {
-    box-shadow: 0px 4px 12px #303949;
-    border: 3px solid ${({ theme }) => theme.colors.purple200};
-    background-color: ${({ theme }) => theme.colors.purple300};
+    box-shadow: ${({ theme }) => theme.styles.stepsBar.bulletBoxShadowActive};
+    border: 3px solid ${({ theme }) => theme.styles.stepsBar.bulletBorderActive};
+    background-color: ${({ theme }) => theme.styles.stepsBar.bulletBackgroundActive};
   }
 }
 .progressBar {
   width: 100%;
   height: 3px;
   border-radius: 3px;
-  background-color: ${({ theme }) => theme.colors.gray600};
+  background-color: ${({ theme }) => theme.styles.stepsBar.stepBarBackground};
   position: relative;
   overflow: hidden;
   .progressBarActive {
@@ -84,7 +84,7 @@ margin-bottom: 62px;
     width: 50%;
     height: 3px;
     border-radius: 3px;
-    background-color: ${({ theme }) => theme.colors.purple300};
+    background-color: ${({ theme }) => theme.styles.stepsBar.stepBarBackgroundActive};
     position: absolute;
     transition: width 1s ease-in-out;
   }

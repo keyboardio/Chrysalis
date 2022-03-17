@@ -23,8 +23,14 @@ const Style = Styled.div`
 .lineColor {
   stroke: ${({ theme }) => theme.styles.firmwareUpdateProcess.neuronLineColor};
 }
+.neuronBase {
+  path {
+    fill: ${({ theme }) => theme.styles.firmwareUpdateProcess.neuronSleepingMode};
+  }
+}
 .neuronBlinking {
     opacity: 0;
+    color: #5C61E7;
 }   
 .neuronSuccess {
     opacity: 0;
@@ -37,7 +43,7 @@ const Style = Styled.div`
 .neuronUpdate-2 {
     .neuronBlinking {
         animation-name: neuronBlink;
-        animation-duration: 4s; 
+        animation-duration: 4.5s; 
         animation-fill-mode: forwards;
         animation-delay: 500ms;
     }
@@ -56,38 +62,81 @@ const Style = Styled.div`
     0% {
         opacity: 0;
     }
+    2% {
+        opacity: 1;
+    }
     4% {
         opacity: 1;
     }
+    6% {
+        opacity: 0;
+    }
+    7% {
+      color: ${({ theme }) => theme.colors.brandPrimary};
+    }
     8% {
-        opacity: 1;
+        opacity: 1;  
     }
     10% {
-        opacity: 0;
+      opacity: 0;  
+      color: #5D5FEF; 
+    }
+    11% {
+      opacity: 0;  
     }
     12% {
-        opacity: 0;
+        opacity: 1;
+    }
+    13% {
+        opacity: 0; 
     }
     14% {
+      opacity: 1; 
+    }
+    15% {
+        opacity: 0;
+    }
+    16% {
         opacity: 1;
     }
     18% {
         opacity: 1;
     }
+    20% {
+        opacity: 1;
+    }
     22% {
         opacity: 0;
     }
-    26% {
+    24% {
         opacity: 0;
     }
-    30% {
-        opacity: 1;
-    }
-    34% {
+    26% {
         opacity: 1;
     }
     38% {
         opacity: 0;
+    }
+    40% {
+        opacity: 1;
+    }
+    42% {
+        opacity: 0;
+    }
+    44% {
+        opacity: 1;
+    }
+    46% {
+        opacity: 0;
+    }
+    48% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    52% {
+        opacity: 1;
     }
     54% {
         opacity: 0;
@@ -97,63 +146,96 @@ const Style = Styled.div`
     }
     58% {
         opacity: 0;
-    }
+    }   
+    59% {
+      opacity: 1;
+    }     
     60% {
-        opacity: 1;
+      opacity: 0;
+    }
+    61% {
+      opacity: 1;
     }
     62% {
-        opacity: 0;
+      opacity: 0;
+    }
+    63% {
+      opacity: 1;
     }
     64% {
-        opacity: 1;
+        opacity: 0;
+    }
+    65% {
+      opacity: 1;
     }
     66% {
         opacity: 0;
     }
+    67% {
+        opacity: 1;
+    }
     68% {
+        opacity: 0;
+    }
+    69% {
         opacity: 1;
     }
     70% {
-        opacity: 0;
+      opacity: 0;
+    }
+    71% {
+      opacity: 1;
     }
     72% {
-        opacity: 1;
+      opacity: 0;
+    }
+    73% {
+      opacity: 1;
     }
     74% {
         opacity: 0;
     }
+    75% {
+      opacity: 1;
+    }
     76% {
+        opacity: 0;
+    }
+    77% {
         opacity: 1;
     }
     78% {
         opacity: 0;
-    }       
-    80% {
+    }
+    79% {
         opacity: 1;
-    }   
+    }
+    80% {
+      opacity: 0;
+    }
+    81% {
+      opacity: 1;
+    }
     82% {
-        opacity: 0;
+      opacity: 0;
+    }
+    83% {
+      opacity: 1;
     }
     84% {
-        opacity: 1;
+        opacity: 0;
+    }
+    85% {
+      opacity: 1;
     }
     86% {
         opacity: 0;
     }
+    87% {
+        opacity: 1;
+    }
     88% {
-        opacity: 1;
-    }
-    90% {
         opacity: 0;
-    }
-    92% {
-        opacity: 1;
-    }
-    94% {
-        opacity: 0;
-    }
-    96% {
-        opacity: 1;
     }
     98% {
         opacity: 0;
@@ -167,10 +249,7 @@ const Style = Styled.div`
 `;
 
 const FirmwareNeuronHelp = ({ countdown }) => {
-  let neuronLoader = useTheme().styles.neuronStatus.neuronLoader;
-  let checkedIcon = useTheme().styles.neuronStatus.checkedIcon;
   let connectionColorMatrix = useTheme().styles.neuronStatus.connectionColorMatrix;
-  let connectionColorMatrixOnLoading = useTheme().styles.neuronStatus.connectionColorMatrixOnLoading;
   return (
     <Style>
       <div className={`neuronUpdate-${countdown} neuronUpdateAnimation`}>
@@ -203,19 +282,19 @@ const FirmwareNeuronHelp = ({ countdown }) => {
             <g filter="url(#prefix__filter0_d_2147_218552)">
               <path
                 d="M62.098 41.844H60.27c-2.537.1-4.972.598-7.306 1.295l7.712 2.79 1.827.697 1.623.598-2.74 11.758a52.259 52.259 0 01-5.58 14.647l4.972-5.58 1.725-1.893.203-.199 2.638-2.89c.406-.398.71-.896.812-1.494l.913-2.99 4.567-14.846c-2.943-1.196-6.19-1.794-9.54-1.893z"
-                fill="#5D5FEF"
+                fill="currentColor"
               />
             </g>
             <g filter="url(#prefix__filter1_d_2147_218552)">
               <path
                 d="M36.526 54c.406.398.71.797 1.116 1.195a29.648 29.648 0 002.537 2.491l-1.015-4.583-.405-1.993-.914-3.786 13.193-4.783a28.041 28.041 0 019.234-1.594H62.099c.71 0 1.522.1 2.232.199l-2.334-.797-1.928-.698-4.364-1.495-3.348-1.195a4.298 4.298 0 00-2.74 0l-3.755 1.295-11.873 4.185-3.653 1.196a32.545 32.545 0 006.19 10.362z"
-                fill="#5D5FEF"
+                fill="currentColor"
               />
             </g>
             <g filter="url(#prefix__filter2_d_2147_218552)">
               <path
                 d="M55.298 65.16l-2.13 1.694-2.233 1.793-10.047-8.17c-1.42-1.196-2.841-2.491-4.059-3.886-.406-.399-.71-.797-1.116-1.296-1.32-1.594-2.435-3.288-3.45-5.181l2.13 6.875.204.797.71 2.292.406 1.395c.203.498.406 1.096.812 1.495.406.398.913.996 1.522 1.694.406.498.913.996 1.42 1.594 4.364 4.882 11.366 12.754 11.57 12.854 3.754-5.082 6.494-10.861 8.117-17.139l-3.856 3.189z"
-                fill="#5D5FEF"
+                fill="currentColor"
               />
             </g>
           </g>

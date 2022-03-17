@@ -279,7 +279,8 @@ const Light = {
       processFooterBackground: "white",
       processImageBackground: settingColorOpacity(Tokens.colors.gray25, 0.25),
       processNeuronBackground: Tokens.colors.gray25,
-      neuronLineColor: Tokens.colors.gray100
+      neuronLineColor: Tokens.colors.gray100,
+      neuronSleepingMode: Tokens.colors.gray100
     },
     form: {
       formLabelTextcolor: Tokens.colors.gray500,

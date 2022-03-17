@@ -83,8 +83,6 @@ height:inherit;
 `;
 
 const FirmwareUpdateProcess = ({ onCancelDialog, flashProgress, countdown }) => {
-  let [fakeCountdown, setFakeCountdown] = React.useState(1);
-
   const steps = [
     {
       icon: <IconInformationBubbleSm />
@@ -103,12 +101,12 @@ const FirmwareUpdateProcess = ({ onCancelDialog, flashProgress, countdown }) => 
     <Style>
       <div className="firmware-wrapper upgrade-firmware">
         <div className="firmware-row">
-          <StepsBar steps={steps} stepActive={fakeCountdown - 1} countdown={setFakeCountdown} />
+          <StepsBar steps={steps} stepActive={countdown - 1} />
         </div>
         <div className="firmware-row">
-          <FirmwareProgressStatus flashProgress={flashProgress} countdown={fakeCountdown} />
+          <FirmwareProgressStatus flashProgress={flashProgress} countdown={countdown} />
         </div>
-        {fakeCountdown <= 1 ? (
+        {countdown <= 1 ? (
           <div className="firmware-footer">
             <div className="holdButton">
               <RegularButton

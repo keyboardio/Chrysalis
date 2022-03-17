@@ -114,6 +114,15 @@ const StepsBar = ({ steps, stepActive, countdown }) => {
     gridTemplateColumns: `repeat(${steps.length - 1}, 1fr)`
   };
 
+  React.useEffect(() => {
+    if (steps.length > stepActive) {
+      const widthPercentage = {
+        width: `${(100 / (steps.length - 1)) * stepActive}%`
+      };
+      setRefreshPositionStyle(widthPercentage);
+    }
+  }, [stepActive]);
+
   const handleClick = event => {
     console.log(event.target);
     if (steps.length > stepsPosition) {
@@ -144,7 +153,7 @@ const StepsBar = ({ steps, stepActive, countdown }) => {
           <div className="stepsElements" style={constructGrid}>
             {steps.map((item, index) => (
               <div
-                className={`step ${index <= stepsPosition ? "active" : ""}`}
+                className={`step ${index <= stepActive ? "active" : ""}`}
                 data-order={index}
                 key={`${item.name}-${index}`}
                 onClick={handleClick}
@@ -159,13 +168,15 @@ const StepsBar = ({ steps, stepActive, countdown }) => {
           </div>
         </div>
       </div>
-      <hr />
-      <button className="button primary" onClick={handleClick}>
-        Add step
-      </button>
-      <button className="button primary" onClick={removeClick}>
-        Remove step
-      </button>
+      <div className="sr-only devPurpose">
+        <hr />
+        <button className="button primary" onClick={handleClick}>
+          Add step
+        </button>
+        <button className="button primary" onClick={removeClick}>
+          Remove step
+        </button>
+      </div>
     </Style>
   );
 };

@@ -158,12 +158,22 @@ const FirmwareProgressStatus = ({ countdown, flashProgress }) => {
           </ProgressBar>
         </div>
         <div className="process-row process-footer">
-          {countdown === 1 ? <Title text={i18n.firmwareUpdate.texts.progressCardStatus1} headingLevel={3} /> : ""}
-          {countdown === 2 ? <Title text={i18n.firmwareUpdate.texts.progressCardStatus2} headingLevel={3} /> : ""}
-          {countdown > 2 ? <Title text={i18n.firmwareUpdate.texts.progressCardStatus3} headingLevel={3} /> : ""}
+          {countdown === 1 ? (
+            <Title text={i18n.firmwareUpdate.texts.flashCardTitle1} headingLevel={3} />
+          ) : countdown === 2 ? (
+            <Title text={i18n.firmwareUpdate.texts.progressCardStatus1} headingLevel={3} />
+          ) : countdown === 3 ? (
+            <Title text={i18n.firmwareUpdate.texts.progressCardStatus3} headingLevel={3} />
+          ) : countdown === 4 ? (
+            <Title text={i18n.firmwareUpdate.texts.firmwareUpdatedTitle} headingLevel={3} />
+          ) : (
+            ""
+          )}
 
           {countdown === 1 ? (
             <Title text={i18n.firmwareUpdate.texts.flashCardTitle2} headingLevel={6} />
+          ) : countdown === 4 ? (
+            <Title text={i18n.firmwareUpdate.texts.firmwareUpdatedMessage} headingLevel={6} />
           ) : (
             <Title
               text={

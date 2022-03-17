@@ -24,7 +24,9 @@ const English = {
     invalidLayerFile: "Not a valid Layer file",
     exportError: "Error at Exporting: ",
     preferenceFailOnSave: "Whoops, Something Went Wrong!",
-    preferenceFailOnSaveBody: "Please try again."
+    preferenceFailOnSaveBody: "Please try again.",
+    dismiss: "Dismiss",
+    troubleshooting: "Troubleshooting"
   },
   success: {
     preferencesSaved: "Your preferecens have been saved.",
@@ -443,7 +445,9 @@ const English = {
       progressCardTitle2: "Don't release the key until the process finishes.",
       currentlyRunningCardTitle: "Your Raise's firmware version",
       latestAvailableText: "Latest version avaliable",
-      latestVersionInstalled: "You are using the latest version"
+      latestVersionInstalled: "You are using the latest version",
+      firmwareUpdatedTitle: "Firmware update!",
+      firmwareUpdatedMessage: "Solid as a rock! 💪"
     },
     milestones: {
       backup: "Next",

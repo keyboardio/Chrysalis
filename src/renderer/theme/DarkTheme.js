@@ -285,7 +285,8 @@ const Dark = {
       processFooterBackground: Tokens.colors.gray800,
       processImageBackground: settingColorOpacity(Tokens.colors.gray100, 0.05),
       processNeuronBackground: Tokens.colors.gray800,
-      neuronLineColor: Tokens.colors.gray600
+      neuronLineColor: Tokens.colors.gray600,
+      neuronSleepingMode: Tokens.colors.gray600
     },
     form: {
       formLabelTextcolor: Tokens.colors.gray100,

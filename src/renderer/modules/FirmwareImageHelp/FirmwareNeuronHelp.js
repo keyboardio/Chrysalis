@@ -45,7 +45,6 @@ const Style = Styled.div`
         animation-name: neuronBlink;
         animation-duration: 4.5s; 
         animation-fill-mode: forwards;
-        animation-delay: 500ms;
     }
 }       
 .neuronUpdate-3 {

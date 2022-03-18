@@ -16,6 +16,7 @@
  */
 
 import React from "react";
+import PropTypes from "prop-types";
 import Styled from "styled-components";
 import i18n from "../../i18n";
 import ProgressBar from "react-bootstrap/ProgressBar";
@@ -121,12 +122,15 @@ width: 100%;
 .blob {
   background: #33d9b2;
   box-shadow: 0 0 0 0 #33d9b2;
-  animation: pulse-green 2s infinite;
   border-radius: 50%;
   margin: 10px;
   height: 8px;
   width: 8px;
   transform: scale(1);
+
+  //animation: pulse-green 2s infinite;
+  transform: scale(1);
+  box-shadow: 0 0 0 32px rgba(51, 217, 178, 0.15);
 }
 
 @keyframes pulse-green {
@@ -146,6 +150,15 @@ width: 100%;
   }
 }
 `;
+
+/**
+ * This FirmwareProgressStatus function returns a card with text and images that reacts according the process update
+ * The object will accept the following parameters
+ *
+ * @param {number} countdown - A number that represents the actual step on the firmware update process.
+ * @param {number} flashProgress - The value used to render the progress bar.
+ * @returns {<FirmwareProgressStatus>} FirmwareProgressStatus component.
+ */
 
 const FirmwareProgressStatus = ({ countdown, flashProgress }) => {
   return (
@@ -192,6 +205,11 @@ const FirmwareProgressStatus = ({ countdown, flashProgress }) => {
       </div>
     </Style>
   );
+};
+
+FirmwareProgressStatus.propTypes = {
+  countdown: PropTypes.number.isRequired,
+  flashProgress: PropTypes.number
 };
 
 export default FirmwareProgressStatus;

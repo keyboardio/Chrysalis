@@ -16,6 +16,7 @@
  */
 
 import React from "react";
+import PropTypes from "prop-types";
 import Styled from "styled-components";
 import i18n from "../../i18n";
 
@@ -80,30 +81,43 @@ height:inherit;
     color:  ${({ theme }) => theme.colors.gray300}; 
   }
 }
+.progress-visualizer {
+  margin-top: 162px;
+}
 `;
 
+/**
+ * This FirmwareUpdateProcess function returns a card with text and images that reacts according the process update
+ * The object will accept the following parameters
+ *
+ * @param {function} onCancelDialog - The function used to cancel the update process.
+ * @param {number} flashProgress - The value used to render the progress bar.
+ * @param {number} countdown - A number that represents the actual step on the firmware update process.
+ * @returns {<FirmwareUpdateProcess>} FirmwareUpdateProcess component.
+ */
+
 const FirmwareUpdateProcess = ({ onCancelDialog, flashProgress, countdown }) => {
-  const steps = [
-    {
-      icon: <IconInformationBubbleSm />
-    },
-    {
-      icon: <IconKeysPress />
-    },
-    {
-      icon: <IconKeysRelease />
-    },
-    {
-      icon: <IconCheckmarkSm />
-    }
-  ];
+  // used to set the stepbar position
+  // const steps = [
+  //   {
+  //     icon: <IconInformationBubbleSm />
+  //   },
+  //   {
+  //     icon: <IconKeysPress />
+  //   },
+  //   {
+  //     icon: <IconKeysRelease />
+  //   },
+  //   {
+  //     icon: <IconCheckmarkSm />
+  //   }
+  // ];
+
   return (
     <Style>
       <div className="firmware-wrapper upgrade-firmware">
-        <div className="firmware-row">
-          <StepsBar steps={steps} stepActive={countdown - 1} />
-        </div>
-        <div className="firmware-row">
+        <div className="firmware-row">{/* <StepsBar steps={steps} stepActive={countdown - 1} /> */}</div>
+        <div className="firmware-row progress-visualizer">
           <FirmwareProgressStatus flashProgress={flashProgress} countdown={countdown} />
         </div>
         {countdown <= 1 ? (
@@ -132,6 +146,12 @@ const FirmwareUpdateProcess = ({ onCancelDialog, flashProgress, countdown }) => 
       </div>
     </Style>
   );
+};
+
+FirmwareUpdateProcess.propTypes = {
+  countdown: PropTypes.number.isRequired,
+  flashProgress: PropTypes.number,
+  onCancelDialog: PropTypes.func
 };
 
 export default FirmwareUpdateProcess;

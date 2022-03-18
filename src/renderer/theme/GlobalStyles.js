@@ -29,6 +29,7 @@ const GlobalStyles = createGlobalStyle`
     background-image: url(${({ theme }) => theme.body.backgroundImage});
     background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: fixed;
     color: ${({ theme }) => theme.colors.text};
     font-family: ${({ theme }) => theme.font};;
     transition: all 0.50s linear;

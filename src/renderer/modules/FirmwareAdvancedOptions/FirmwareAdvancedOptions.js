@@ -16,6 +16,7 @@
  */
 
 import React from "react";
+import PropTypes from "prop-types";
 import Styled from "styled-components";
 import Dropdown from "react-bootstrap/Dropdown";
 import i18n from "../../i18n";
@@ -26,6 +27,14 @@ import { IconMoreVertical } from "../../component/Icon";
 const Style = Styled.div`
 
 `;
+/**
+ * This FirmwareAdvancedOptions function returns a dropdwon component to help the user to intall a custom firmware
+ * The object will accept the following parameters
+ *
+ * @param {string} firmwareFilename - [Optional] String that receive the route where is located the custom software
+ * @param {function} selectFirmware - The function that allows the user select the custom software
+ * @returns {<FirmwareAdvancedOptions>} FirmwareAdvancedOptions component.
+ */
 const FirmwareAdvancedOptions = ({ firmwareFilename, selectFirmware }) => {
   return (
     <Style>
@@ -48,6 +57,11 @@ const FirmwareAdvancedOptions = ({ firmwareFilename, selectFirmware }) => {
       </Dropdown>
     </Style>
   );
+};
+
+FirmwareAdvancedOptions.propTypes = {
+  firmwareFilename: PropTypes.string,
+  selectFirmware: PropTypes.func.isRequired
 };
 
 export default FirmwareAdvancedOptions;

@@ -105,7 +105,7 @@ margin-bottom: 62px;
   }
 }
 `;
-const StepsBar = ({ steps, stepActive, countdown }) => {
+const StepsBar = ({ steps, stepActive }) => {
   let [stepsPosition, setStepsPosition] = React.useState(parseInt(stepActive));
   let [refreshPositionStyle, setRefreshPositionStyle] = React.useState({
     width: `${(100 / (steps.length - 1)) * stepsPosition}%`
@@ -123,41 +123,13 @@ const StepsBar = ({ steps, stepActive, countdown }) => {
     }
   }, [stepActive]);
 
-  const handleClick = event => {
-    console.log(event.target);
-    if (steps.length > stepsPosition) {
-      setStepsPosition(oldValue => oldValue + 1);
-      const widthPercentage = {
-        width: `${(100 / (steps.length - 1)) * (stepsPosition + 1)}%`
-      };
-      setRefreshPositionStyle(widthPercentage);
-    }
-    countdown(oldValue => oldValue + 1);
-  };
-
-  const removeClick = event => {
-    console.log(event.target);
-
-    setStepsPosition(oldValue => oldValue - 1);
-    const widthPercentage = {
-      width: `${(100 / (steps.length - 1)) * (stepsPosition + 1)}%`
-    };
-    setRefreshPositionStyle(widthPercentage);
-    countdown(oldValue => oldValue - 1);
-  };
-
   return (
     <Style>
       <div className="stepsBarWrapper">
         <div className="stepsBarWrapperInner">
           <div className="stepsElements" style={constructGrid}>
             {steps.map((item, index) => (
-              <div
-                className={`step ${index <= stepActive ? "active" : ""}`}
-                data-order={index}
-                key={`${item.name}-${index}`}
-                onClick={handleClick}
-              >
+              <div className={`step ${index <= stepActive ? "active" : ""}`} data-order={index} key={`${item.name}-${index}`}>
                 <div className="stepIcon">{item.icon}</div>
                 <div className="stepBullet"></div>
               </div>
@@ -167,15 +139,6 @@ const StepsBar = ({ steps, stepActive, countdown }) => {
             <div className="progressBarActive" style={refreshPositionStyle}></div>
           </div>
         </div>
-      </div>
-      <div className="sr-only devPurpose">
-        <hr />
-        <button className="button primary" onClick={handleClick}>
-          Add step
-        </button>
-        <button className="button primary" onClick={removeClick}>
-          Remove step
-        </button>
       </div>
     </Style>
   );

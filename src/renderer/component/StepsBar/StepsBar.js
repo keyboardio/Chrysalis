@@ -16,6 +16,7 @@
  */
 
 import React from "react";
+import PropTypes from "prop-types";
 import Styled from "styled-components";
 
 const Style = Styled.div`   
@@ -105,6 +106,16 @@ margin-bottom: 62px;
   }
 }
 `;
+
+/**
+ * This StepsBar function returns a progress bar with icons and its respective status
+ * The object will accept the following parameters
+ *
+ * @param {Object} steps - A list with component icons
+ * @param {number} stepActive - A number used to set the actual position
+ * @returns {<StepsBar>} StepsBar component.
+ */
+
 const StepsBar = ({ steps, stepActive }) => {
   let [stepsPosition, setStepsPosition] = React.useState(parseInt(stepActive));
   let [refreshPositionStyle, setRefreshPositionStyle] = React.useState({
@@ -142,6 +153,15 @@ const StepsBar = ({ steps, stepActive }) => {
       </div>
     </Style>
   );
+};
+
+StepsBar.defaultProps = {
+  stepActive: 0
+};
+
+StepsBar.propTypes = {
+  steps: PropTypes.object.isRequired,
+  stepActive: PropTypes.number
 };
 
 export default StepsBar;

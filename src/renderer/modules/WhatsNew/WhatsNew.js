@@ -61,8 +61,6 @@ const WhatsNew = () => {
     fetchContent(`https://api.github.com/repos/Dygmalab/Bazecor/releases/latest`);
   };
 
-  console.log("TESTING DATE", datePublished, new Date(datePublished));
-
   return (
     <Style>
       <Accordion className="simpleAccordion" defaultActiveKey="0">

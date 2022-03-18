@@ -16,6 +16,7 @@
  */
 
 import React from "react";
+import PropTypes from "prop-types";
 import Styled from "styled-components";
 
 const Style = Styled.div`	
@@ -30,8 +31,19 @@ const Style = Styled.div`
     border: 1px solid ${({ theme }) => theme.colors.brandSuccess};
   }
 }
-
 `;
+/**
+ * This Badge function returns a component that render a badge element, similar to badge on Bootstrap framework
+ * The object will accept the following parameters
+ *
+ * @param {string} content - The content rendered inside the component
+ * @param {string} icon - [Optional] SVG component
+ * @param {string} size - Not implemented
+ * @param {string} style - Not implemented
+ * @param {string} className - Not implemented
+ * @returns {<Badge>} Badge component.
+ */
+
 const Badge = ({ content, icon, size, style, className }) => {
   return (
     <Style className={className}>
@@ -41,6 +53,15 @@ const Badge = ({ content, icon, size, style, className }) => {
       </div>
     </Style>
   );
+};
+
+Badge.defaultProps = {
+  content: ""
+};
+
+Badge.propTypes = {
+  content: PropTypes.string.isRequired,
+  icon: PropTypes.string
 };
 
 export default Badge;

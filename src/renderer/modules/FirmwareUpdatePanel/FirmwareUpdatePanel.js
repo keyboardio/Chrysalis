@@ -16,6 +16,7 @@
  */
 
 import React from "react";
+import PropTypes from "prop-types";
 import Styled from "styled-components";
 import i18n from "../../i18n";
 
@@ -117,8 +118,22 @@ width: 100%;
 
 `;
 
+/**
+ * This FirmwareUpdatePanel function returns a module that wrap all modules and components to manage the first steps of firware update.
+ * The object will accept the following parameters
+ *
+ * @param {string} currentlyVersionRunning - The actual version installed
+ * @param {string} latestVersionAvailable - The last version avaliable
+ * @param {function} onClick - The function that handle the beginning of the process (Upgrade now button)
+ * @param {function} selectFirmware - The function that handle with the custom software instalation
+ * @param {string} firmwareFilename - Variable that stores the route of the local folder where the custom firmware is located
+ * @param {number} disclaimerCard - Number that indicates the software when the installation will begin.
+ * @param {function} onCancelDialog - The function that cancels the update process
+ * @param {function} onBackup - The function that starts the update process (Lets start button)
+ * @returns {<FirmwareUpdatePanel>} FirmwareUpdatePanel component.
+ */
+
 const FirmwareUpdatePanel = ({
-  versions,
   currentlyVersionRunning,
   latestVersionAvailable,
   onClick,
@@ -130,14 +145,10 @@ const FirmwareUpdatePanel = ({
 }) => {
   // production
   //const isUpdated = currentlyVersionRunning === latestVersionAvailable ? true : false;
-  const isUpdated = currentlyVersionRunning === "v1.0.0beta19" ? true : false;
 
   // development
   //const isUpdated = true;
-
-  console.log("Versions: ", versions);
-  console.log("currentlyVersionRunning: ", currentlyVersionRunning);
-  console.log("latestVersionAvailable: ", latestVersionAvailable);
+  const isUpdated = currentlyVersionRunning === "v1.0.0beta19" ? true : false;
 
   return (
     <Style>
@@ -231,6 +242,17 @@ const FirmwareUpdatePanel = ({
       </>
     </Style>
   );
+};
+
+FirmwareUpdatePanel.propTypes = {
+  currentlyVersionRunning: PropTypes.string,
+  latestVersionAvailable: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  selectFirmware: PropTypes.func.isRequired,
+  onCancelDialog: PropTypes.func.isRequired,
+  onBackup: PropTypes.func.isRequired,
+  firmwareFilename: PropTypes.string,
+  disclaimerCard: PropTypes.number
 };
 
 export default FirmwareUpdatePanel;

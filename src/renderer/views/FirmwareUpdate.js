@@ -387,7 +387,6 @@ class FirmwareUpdate extends React.Component {
           <PageHeader text={i18n.app.menu.firmwareUpdate} />
           {countdown == -1 || countdown == 0 ? (
             <FirmwareUpdatePanel
-              versions={versions}
               currentlyVersionRunning={currentlyVersionRunning}
               latestVersionAvailable={latestVersionAvailable}
               onClick={this.state.device.device.info.product === "Raise" ? this.uploadRaise : this.upload}

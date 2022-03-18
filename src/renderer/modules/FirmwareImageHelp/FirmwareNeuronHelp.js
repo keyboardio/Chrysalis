@@ -16,6 +16,7 @@
  */
 
 import React from "react";
+import PropTypes from "prop-types";
 import Styled from "styled-components";
 import { useTheme } from "styled-components";
 
@@ -243,10 +244,15 @@ const Style = Styled.div`
         opacity: 1;
     }
   }
-
-  
 `;
 
+/**
+ * This FirmwareNeuronHelp function returns a Neuron that reacts according the firmware update status
+ * The object will accept the following parameters
+ *
+ * @param {number} countdown - Number representing the position during the update process
+ * @returns {<FirmwareNeuronHelp>} FirmwareNeuronHelp component.
+ */
 const FirmwareNeuronHelp = ({ countdown }) => {
   let connectionColorMatrix = useTheme().styles.neuronStatus.connectionColorMatrix;
   return (
@@ -452,6 +458,10 @@ const FirmwareNeuronHelp = ({ countdown }) => {
       </div>
     </Style>
   );
+};
+
+FirmwareNeuronHelp.propTypes = {
+  countdown: PropTypes.number.isRequired
 };
 
 export default FirmwareNeuronHelp;

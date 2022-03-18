@@ -16,6 +16,7 @@
  */
 
 import React from "react";
+import PropTypes from "prop-types";
 import Styled from "styled-components";
 
 import { FirmwareNeuronHelp } from "../FirmwareImageHelp";
@@ -30,7 +31,13 @@ const Style = Styled.div`
   align-self: center;
 }
 `;
-
+/**
+ * This FirmwareImageHelp function returns a video that reacts according the firmware update status
+ * The object will accept the following parameters
+ *
+ * @param {number} countdown - Number representing the position during the update process
+ * @returns {<FirmwareImageHelp>} FirmwareImageHelp component.
+ */
 const FirmwareImageHelp = ({ countdown }) => {
   const videoIntro = React.useRef(null);
   const videoRelease = React.useRef(null);
@@ -95,6 +102,10 @@ const FirmwareImageHelp = ({ countdown }) => {
       </div>
     </Style>
   );
+};
+
+FirmwareImageHelp.propTypes = {
+  countdown: PropTypes.number.isRequired
 };
 
 export default FirmwareImageHelp;

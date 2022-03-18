@@ -23,7 +23,7 @@ import Title from "../../component/Title";
 import { RegularButton } from "../../component/Button";
 
 import FirmwareProgressStatus from "../FirmwareProgressStatus";
-import StepsBar from "../StepsBar";
+import StepsBar from "../../component/StepsBar";
 
 import { IconInformationBubbleSm, IconCheckmarkSm, IconKeysPress, IconKeysRelease } from "../../component/Icon";
 

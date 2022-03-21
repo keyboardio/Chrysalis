@@ -427,7 +427,7 @@ class Preferences extends React.Component {
           <div className="wrapper wrapperBackground">
             <Container fluid>
               <Row className="justify-content-center">
-                <Col lg={6}>
+                <Col lg={9} xl={6}>
                   <GeneralSettings
                     selectDarkMode={this.selectDarkMode}
                     darkMode={darkMode}

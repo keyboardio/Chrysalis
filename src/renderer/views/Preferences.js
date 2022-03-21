@@ -427,7 +427,7 @@ class Preferences extends React.Component {
           <div className="wrapper wrapperBackground">
             <Container fluid>
               <Row className="justify-content-center">
-                <Col lg={6} md={12}>
+                <Col lg={6}>
                   <GeneralSettings
                     selectDarkMode={this.selectDarkMode}
                     darkMode={darkMode}
@@ -445,10 +445,8 @@ class Preferences extends React.Component {
                     updateNeuronName={this.updateNeuronName}
                     deleteNeuron={this.deleteNeuron}
                   />
-                  <AdvancedSettings devToolsSwitch={devToolsSwitch} verboseSwitch={verboseSwitch} connected={connected} />
-                </Col>
-                <Col lg={connected ? 6 : 0} md={12}>
                   <KeyboardSettings kbData={kbData} setKbData={this.setKbData} connected={connected} />
+                  <AdvancedSettings devToolsSwitch={devToolsSwitch} verboseSwitch={verboseSwitch} connected={connected} />
                 </Col>
               </Row>
             </Container>

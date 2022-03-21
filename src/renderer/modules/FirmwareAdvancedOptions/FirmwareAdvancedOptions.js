@@ -72,7 +72,7 @@ const FirmwareAdvancedOptions = ({ firmwareFilename, selectFirmware }) => {
       <Dropdown className="dropdownWithContent AdvancedUsers">
         <Dropdown.Toggle className="buttonToggler">
           <div className="buttonTogglerInner">
-            {firmwareFilename ? <div className="badge badge-primary">1</div> : ""}
+            {firmwareFilename ? <div className="badge badge-primary animOpacity">1</div> : ""}
             <IconMoreVertical />
           </div>
         </Dropdown.Toggle>
@@ -85,7 +85,7 @@ const FirmwareAdvancedOptions = ({ firmwareFilename, selectFirmware }) => {
               buttonText={firmwareFilename == "" ? i18n.firmwareUpdate.custom : i18n.firmwareUpdate.rcustom}
               onClick={selectFirmware}
             />
-            {firmwareFilename ? <div className="fileSelected">{firmwareFilename}</div> : ""}
+            {firmwareFilename ? <div className="fileSelected animOpacity">{firmwareFilename}</div> : ""}
           </div>
         </Dropdown.Menu>
       </Dropdown>

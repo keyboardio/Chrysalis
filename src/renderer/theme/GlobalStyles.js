@@ -953,6 +953,16 @@ div.card.card-preferences .card-body {
   }
 }
 
+.animOpacity {
+  opacity: 0;
+  animation: animOpacity 0.3s forwards;
+} 
+@keyframes animOpacity {
+  to {
+    opacity: initial;
+  }
+}
+
 .animRight {
     transform: translateX(82px);
     opacity: 0;

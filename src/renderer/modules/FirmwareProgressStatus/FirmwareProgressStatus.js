@@ -90,20 +90,6 @@ width: 100%;
     }
   }
 }
-.processRaise {
-  position: relative;
-  canvas {
-    max-width: 100%;
-    background-position: right bottom;
-    background-repeat: no-repeat;
-    background-image: url(${({ theme }) => theme.styles.firmwareUpdateProcess.raiseSVG});
-  }
-  .status-icon {
-    position: absolute;
-    top: 61px;
-    left: 85px;
-  }
-}
 .process-footer {
   width: 100%;
   padding: 24px;

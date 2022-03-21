@@ -30,6 +30,24 @@ const Style = Styled.div`
   margin:auto;
   align-self: center;
 }
+
+.processRaise {
+  position: relative;
+  canvas {
+    max-width: 100%;
+    
+  }
+  .status-icon {
+    position: absolute;
+    top: 61px;
+    left: 85px;
+  }
+}
+.process-raise {
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  background-image: url(${({ theme }) => theme.styles.firmwareUpdateProcess.raiseSVG});
+}
 `;
 /**
  * This FirmwareImageHelp function returns a video that reacts according the firmware update status
@@ -85,7 +103,7 @@ const FirmwareImageHelp = ({ countdown }) => {
             </div>
           </div>
         </div>
-        <div className="process-col process-neuron">
+        <div className={`process-col process-neuron ${countdown === 1 ? "process-raise" : ""}`}>
           {countdown === 1 ? (
             <div className="processRaise">
               <div className="status-icon">

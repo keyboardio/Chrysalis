@@ -744,8 +744,8 @@ div.card.card-preferences .card-body {
 .progress-bar {
   height: 6px;
   border-radius: 3px;
+  box-shadow: ${({ theme }) => theme.styles.progress.boxShadow};    
   background-color: ${({ theme }) => theme.styles.progress.progressBarBackground};
-  box-shadow: ${({ theme }) => theme.styles.progress.boxShadow};
 }
 
 //

@@ -8,6 +8,7 @@ import RaiseFirmwareUpgrade from "../../../static/dark/raiseFirmwareupgrade.svg"
 
 import Tokens from "./Tokens";
 import { TokenClass } from "typescript";
+import { RuntimeGlobals } from "webpack";
 
 const settingColorOpacity = (color, opacity) => {
   let newColorArray = color;
@@ -278,7 +279,8 @@ const Dark = {
       backgroundStripeColor: "rgba(43, 44, 67, 1)",
       backgroundStripeGradientColor: "linear-gradient(90deg, #3F425A -136.64%, #25273B 94.29%)",
       caretColor: "#25273B",
-      disclaimerTitle: "white"
+      disclaimerTitle: "white",
+      fileSelected: "rgba(255,255,255,0.05)"
     },
     firmwareUpdateProcess: {
       raiseSVG: RaiseFirmwareUpgrade,

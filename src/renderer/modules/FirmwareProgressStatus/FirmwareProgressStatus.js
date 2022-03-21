@@ -167,7 +167,7 @@ const FirmwareProgressStatus = ({ countdown, flashProgress }) => {
         <FirmwareImageHelp countdown={countdown} />
         <div className="process-row">
           <ProgressBar>
-            <ProgressBar now={flashProgress} />
+            <ProgressBar striped animated now={flashProgress} />
           </ProgressBar>
         </div>
         <div className="process-row process-footer">

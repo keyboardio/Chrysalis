@@ -25,7 +25,38 @@ import { RegularButton } from "../../component/Button";
 import { IconMoreVertical } from "../../component/Icon";
 
 const Style = Styled.div`
-
+.button.btn-block{
+  text-align: center;
+}
+.buttonTogglerInner {
+  position: relative;
+}
+.btn .badge {
+  position: absolute;
+  right: -8px;
+  top: -20px;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 7px;
+  background: rgba(254,0,124,1);
+  border-radius: 16px;
+}
+.buttonToggler.dropdown-toggle.btn {
+  border: 1px solid transparent;
+} 
+.dropdown-menu {
+  min-width: 14rem;
+  max-width: 14rem;
+}
+.fileSelected {
+  margin-top: 16px;
+  padding: 8px;
+  word-break: break-all;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 500;
+  background-color: ${({ theme }) => theme.styles.firmwareUpdatePanel.fileSelected};
+}
 `;
 /**
  * This FirmwareAdvancedOptions function returns a dropdwon component to help the user to intall a custom firmware
@@ -40,18 +71,21 @@ const FirmwareAdvancedOptions = ({ firmwareFilename, selectFirmware }) => {
     <Style>
       <Dropdown className="dropdownWithContent AdvancedUsers">
         <Dropdown.Toggle className="buttonToggler">
-          <IconMoreVertical />
+          <div className="buttonTogglerInner">
+            {firmwareFilename ? <div className="badge badge-primary">1</div> : ""}
+            <IconMoreVertical />
+          </div>
         </Dropdown.Toggle>
         <Dropdown.Menu className="dropdownMenu">
           <div className="dropdownMenuPadding">
             <div className={"dropdownMenuContent"} dangerouslySetInnerHTML={{ __html: i18n.firmwareUpdate.texts.advUsersHTML }} />
             <RegularButton
               className="flashingbutton nooutlined"
-              style="outline gradient"
+              style="outline gradient btn-block"
               buttonText={firmwareFilename == "" ? i18n.firmwareUpdate.custom : i18n.firmwareUpdate.rcustom}
               onClick={selectFirmware}
             />
-            {firmwareFilename}
+            {firmwareFilename ? <div className="fileSelected">{firmwareFilename}</div> : ""}
           </div>
         </Dropdown.Menu>
       </Dropdown>

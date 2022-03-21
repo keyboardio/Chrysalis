@@ -272,13 +272,14 @@ const Light = {
       backgroundStripeColor: "white",
       backgroundStripeGradientColor: "linear-gradient(90deg, #FFFFFF -9.28%, #F4F4F5 94.29%)",
       caretColor: "#F4F4F5",
-      disclaimerTitle: Tokens.colors.purple200
+      disclaimerTitle: Tokens.colors.purple200,
+      fileSelected: settingColorOpacity(Tokens.colors.gray300, 0.05)
     },
     firmwareUpdateProcess: {
       raiseSVG: RaiseFirmwareUpgrade,
-      processFooterBackground: "white",
-      processImageBackground: settingColorOpacity(Tokens.colors.gray25, 0.25),
-      processNeuronBackground: Tokens.colors.gray25,
+      processFooterBackground: settingColorOpacity(Tokens.colors.gray25, 0.8),
+      processImageBackground: settingColorOpacity(Tokens.colors.gray25, 0.5),
+      processNeuronBackground: settingColorOpacity(Tokens.colors.gray25, 0.8),
       neuronLineColor: Tokens.colors.gray100,
       neuronSleepingMode: Tokens.colors.gray100
     },

@@ -443,8 +443,8 @@ const English = {
       progressCardBar4: "4. Restoring your Layers",
       progressCardTitle1: "Press and hold the top left key to start the firmware update.",
       progressCardTitle2: "Don't release the key until the process finishes.",
-      currentlyRunningCardTitle: "Your Raise's firmware version",
-      latestAvailableText: "Latest version avaliable",
+      currentlyRunningCardTitle: "Your <span class='hidden-on-sm'>Raise's </span>firmware version",
+      latestAvailableText: "Latest version <span class='hidden-on-sm'>avaliable</span>",
       latestVersionInstalled: "You are using the latest version",
       firmwareUpdatedTitle: "Firmware update!",
       firmwareUpdatedMessage: "Solid as a rock! 💪"
@@ -465,6 +465,7 @@ const English = {
       troubleshooting: "Troubleshooting",
       success: "Firmware flashed successfully!",
       button: "Update now",
+      buttonUpdated: "Reflash",
       buttonSuccess: "Updated!"
     },
     backupSuccessful: "Backup created successfully!",

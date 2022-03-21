@@ -115,7 +115,42 @@ width: 100%;
 .buttonActions .button.primary {
   margin-right: -32px;
 }
-
+@media screen and (max-width: 1100px) {
+  .buttonActions .button.primary {
+    margin-right: -16px;
+  }
+}
+@media screen and (max-width: 980px) {
+  .buttonActions .button.primary {
+    margin-right: 6px;
+  }
+}   
+@media screen and (max-width: 860px) {
+  .buttonActions .button.primary {
+    margin-right: 16px;
+  }
+  .dropdownCustomFirmware {
+    right: 8px;
+  }
+  .buttonActions {
+    justify-content: flex-start;
+    padding-left: 8px;
+  }
+  .firmware-wrapper .firmware-content {
+    flex: 0 0 55%;
+  }
+  .firmware-wrapper .firmware-sidebar {
+    flex: 0 0 45%;
+  }
+  .badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 8px;
+  }
+  .hidden-on-sm {
+    display:none; 
+  }
+}
 `;
 
 /**
@@ -222,7 +257,14 @@ const FirmwareUpdatePanel = ({
               </div>
               <div className="firmware-sidebar borderRightBottomRadius">
                 <div className="buttonActions">
-                  {!isUpdated && (
+                  {isUpdated ? (
+                    <RegularButton
+                      className="flashingbutton nooutlined"
+                      style="outline"
+                      buttonText={i18n.firmwareUpdate.flashing.buttonUpdated}
+                      onClick={onClick}
+                    />
+                  ) : (
                     <RegularButton
                       className="flashingbutton nooutlined"
                       style="primary"

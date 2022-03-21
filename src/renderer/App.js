@@ -37,7 +37,7 @@ import SelectKeyboard from "./views/SelectKeyboard";
 import FirmwareUpdate from "./views/FirmwareUpdate";
 import Editor from "./screens/Editor/Editor";
 import MacrosConfigurator from "./screens/Macros/MacrosConfigurator";
-import SuperkeysConfigurator from "./screens/Superkeys/SuperkeysConfigurator";
+import SuperkeysEditor from "./views/SuperkeysEditor";
 import Preferences from "./views/Preferences";
 import Welcome from "./screens/Welcome";
 
@@ -330,7 +330,7 @@ class App extends React.Component {
               inContext={contextBar}
               titleElement={() => document.querySelector("#page-title")}
             />
-            <SuperkeysConfigurator
+            <SuperkeysEditor
               path="/superkeys"
               onDisconnect={this.onKeyboardDisconnect}
               startContext={this.startContext}

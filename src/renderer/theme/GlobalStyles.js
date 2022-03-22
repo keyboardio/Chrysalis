@@ -32,7 +32,7 @@ const GlobalStyles = createGlobalStyle`
     background-attachment: fixed;
     color: ${({ theme }) => theme.colors.text};
     font-family: ${({ theme }) => theme.font};;
-    transition: all 0.50s linear;
+
     text-rendering: optimizeLegibility;
     font-smoothing: antialiased;
     -moz-font-smoothing: antialiased;
@@ -51,7 +51,7 @@ const GlobalStyles = createGlobalStyle`
   div.main-container{
     padding-left: calc(90px + 8px);
     padding-right: 8px;
-    transition: all 0.50s linear;
+    
     // overflow: auto;
     min-height: 100vh;
   }
@@ -631,6 +631,9 @@ svg text{
   }
 }
 
+.tooltip {
+  z-index: 1200;
+}
 .tooltip .tooltip-inner{
   padding: 12px;
   /* background-color: ${({ theme }) => theme.styles.card.background}; */

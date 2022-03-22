@@ -15,5 +15,7 @@
  */
 
 import ToggleButtons from "./ToggleButtons";
+import LayoutViewSelector from "./LayoutViewSelector";
+import KeyboardViewSelector from "./KeyboardViewSelector";
 
-export { ToggleButtons as default };
+export { ToggleButtons, LayoutViewSelector, KeyboardViewSelector };

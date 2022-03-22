@@ -11,7 +11,7 @@ import Col from "react-bootstrap/Col";
 // Own Components
 import Title from "../../component/Title";
 import { Select } from "../../component/Select";
-import ToggleButtons from "../../component/ToggleButtons";
+import { ToggleButtons } from "../../component/ToggleButtons";
 
 // Icons Imports
 import { IconWrench, IconSun, IconMoon, IconScreen } from "../../component/Icon";

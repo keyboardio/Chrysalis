@@ -46,14 +46,22 @@ const Style = Styled.div`
   }
 }
 `;
+
+const setStandarView = () => {
+  console.log("Set Standard view");
+};
+const setSingleView = () => {
+  console.log("Set Single view");
+};
 const LayoutViewSelector = ({ tooltip }) => {
   return (
     // className={`button-config ${value == item.value ? "active" : ""}`}
-    <Style className={`toggleButtonsContainer ${style == "flex" ? "toggleButtonsContainerFlex" : ""}`}>
+    //icoSVG={item.icon}
+    <Style className={`toggleButtonsContainer`}>
       <Title content={"Edit mode"} headingLevel={6} tooltip={tooltip} />
       <div className="toggleButtonsInner">
-        <ButtonConfig onClick={setStandarView} selected={false} icoSVG={item.icon} buttonText={"Standard View"} size={"sm"} />
-        <ButtonConfig onClick={setSingleView} selected={true} icoSVG={item.icon} buttonText={"Standard View"} size={"sm"} />
+        <ButtonConfig onClick={setStandarView} selected={false} buttonText={"Standard View"} size={"sm"} />
+        <ButtonConfig onClick={setSingleView} selected={true} buttonText={"Single View"} size={"sm"} />
       </div>
     </Style>
   );

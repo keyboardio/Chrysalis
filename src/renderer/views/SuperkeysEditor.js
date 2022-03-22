@@ -31,7 +31,7 @@ import Modal from "react-bootstrap/Modal";
 import SuperkeyManager from "../components/SuperkeyManager";
 import KeyConfig from "../components/KeyManager/KeyConfig";
 import Callout from "../component/Callout";
-import LayoutViewSelector from "../component/LayoutViewSelector";
+import { LayoutViewSelector } from "../component/ToggleButtons";
 
 // Modules
 import PageHeader from "../modules/PageHeader";

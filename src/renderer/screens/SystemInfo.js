@@ -28,7 +28,9 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CloseIcon from "@material-ui/icons/Close";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
+import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
+import Link from "@material-ui/core/Link";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import Portal from "@material-ui/core/Portal";
 import TextField from "@material-ui/core/TextField";
@@ -250,6 +252,11 @@ class SystemInfo extends React.Component {
 
             <Typography component="p">
               {i18n.t("systeminfo.privacyNote")}
+            </Typography>
+            <Typography component="p">
+              <Link href="https://github.com/keyboardio/Chrysalis/issues">
+                {i18n.t("systeminfo.bugTracker")}
+              </Link>
             </Typography>
           </CardContent>
           <CardActions>

@@ -42,7 +42,7 @@ const English = {
   app: {
     menu: {
       welcome: "Welcome",
-      systemInfo: "System Information",
+      systemInfo: "Report a problem",
       editor: "Layout & Colormap Editor",
       layoutEditor: "Layout Editor",
       colormapEditor: "Colormap Editor",
@@ -52,7 +52,6 @@ const English = {
       selectAKeyboard: "Select a keyboard",
       selectAnotherKeyboard: "Select another keyboard",
       chat: "Real-time chat",
-      feedback: "Send feedback",
       exit: "Exit Chrysalis",
       keyboardSection: "Keyboard",
       chrysalisSection: "Chrysalis",
@@ -339,8 +338,9 @@ const English = {
     reconnectDescription: `There's a possibility that we misdetected the capabilities of the keyboard, or that the keyboard was starting up while we connected. In this case, you can try clicking the "{{buttonName}}" button to attempt a reconnect, and look for the necessary features again. Reconnecting is useful if you're sure there was a temporary failure upon previous attempts, and the problem has been resolved.`
   },
   systeminfo: {
-    title: "System Information",
+    title: "Report a problem",
     intro: `If you're having trouble with Chrysalis, the development team may ask you to send them some debugging information. Chrysalis can help you collect and package up everything you might need to share. This includes error logs, as well as a bit of information about this computer's operating system, connected devices, and Chrysalis itself. Keyboard information will include information about the keyboard's current firmware, as well as key layouts and LED configuration.`,
+    bugTracker: `You can find a list of known issues (or report a bug) on GitHub`,
     privacyNote: `We try hard not to include private information in this bundle, but recommend you read through it before sharing it.`,
     createBundle: "Create Bundle",
     viewBundle: "View Bundle",

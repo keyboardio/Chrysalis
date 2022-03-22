@@ -16,6 +16,7 @@
  */
 
 import React from "react";
+import PropTypes from "prop-types";
 import Styled from "styled-components";
 
 const Style = Styled.div`	
@@ -58,7 +59,7 @@ const Style = Styled.div`
 	background: ${({ theme }) => theme.styles.callout.calloutBackground}; 
 	border: 1px solid ${({ theme }) => theme.styles.callout.calloutBorderColor}; 
 	font-size: 14px; 
-	font-weight: 500;
+	font-weight: 400;
 	line-height: 1.35em;
 	&.sm {
 		font-size: 13px; 
@@ -72,13 +73,33 @@ const Style = Styled.div`
 	&.xl {
 		font-size: 18px; 
 	}	
+	p:last-of-type {
+		margin-bottom: 0;
+	}
 }
-
 `;
-const Callout = ({ content, media, size, className }) => {
+
+/**
+ * This Callout function returns an element to help the user with a piece of information with help text, how to use a specific feature, and media to expand the explanation.
+ * The object will accept the following parameters
+ *
+ * @param {string} content - The content of the card - Accepts HTML
+ * @param {string} media - Media not implemented
+ * @param {string} size - The size of the texts, supports [ sm | md | lg | xl ]
+ * @param {string} className - The addtional class name that helps style the callout in some scenarios.
+ * @param {number} maxWidth - The max with of the element.
+ * @returns {<Callout>} Callout component.
+ */
+
+const Callout = ({ content, media, size, className, maxWidth }) => {
+  let maxStyle = { maxWidth: "auto" };
+  if (maxWidth) {
+    maxStyle = { maxWidth: `${maxWidth}px` };
+  }
+
   return (
     <Style className={className}>
-      <div className={`callOut ${size && size}`}>
+      <div className={`callOut ${size && size} `} style={maxStyle}>
         <svg className="callOutIcon" width="36" height="37" viewBox="0 0 36 37" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="19" cy="20" r="17" fill="currentColor" className="infoShadow" />
           <circle cx="17" cy="17" r="16.5" fill="currentColor" stroke="currentColor" className="infoCircle" />
@@ -96,6 +117,14 @@ const Callout = ({ content, media, size, className }) => {
       </div>
     </Style>
   );
+};
+
+Callout.propTypes = {
+  content: PropTypes.string.isRequired,
+  media: PropTypes.string,
+  size: PropTypes.string,
+  className: PropTypes.string,
+  maxWidth: PropTypes.number
 };
 
 export default Callout;

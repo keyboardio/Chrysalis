@@ -213,7 +213,9 @@ const English = {
         body:"The superkey you want to delete is currently in use, by pressing remove you will replace those superkeys with NO KEY on the keyboard layout. Select how to proceed.",
         cancelButton: "Cancel",
         applyButton: "Remove"
-      }
+      },
+      callout:
+        "<p>Wow! Superpowers, my friend!</p><p>Superkeys allow up to 5 different functions in a single key. You activate each function with a tap, hold, tap and hold, double-tap or double-tap and hold. This allows you to create crazy combinations to boost your workflow.</p>"
     },
     oldMacroModal: {
       title: "Update your macros",

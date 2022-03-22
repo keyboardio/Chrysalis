@@ -94,10 +94,10 @@ const FirmwareImageHelp = ({ countdown }) => {
               <div className="firmwareCheck animWaiting" ref={checkSuccess}>
                 <IconCheckmarkSm />
               </div>
-              <video ref={videoIntro} width={520} height={520} autoPlay={`true`} className="img-center img-fluid animIn">
+              <video ref={videoIntro} width={520} height={520} autoPlay={true} className="img-center img-fluid animIn">
                 <source src={videoFirmwareUpdate} type="video/mp4" />
               </video>
-              <video ref={videoRelease} width={520} height={520} autoPlay={`false`} className="img-center img-fluid animWaiting">
+              <video ref={videoRelease} width={520} height={520} autoPlay={false} className="img-center img-fluid animWaiting">
                 <source src={videoFirmwareUpdateReleaseKey} type="video/mp4" />
               </video>
             </div>

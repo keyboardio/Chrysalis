@@ -26,11 +26,11 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { FiSave, FiTrash2 } from "react-icons/fi";
 
 // Components
 import SuperkeyManager from "../components/SuperkeyManager";
 import KeyConfig from "../components/KeyManager/KeyConfig";
+import Callout from "../component/Callout";
 
 // Modules
 import PageHeader from "../modules/PageHeader";
@@ -658,11 +658,12 @@ class SuperkeysEditor extends React.Component {
           <PageHeader
             text={i18n.app.menu.superkeys}
             showSaving={true}
-            showContentSelector={false}
+            showContentSelector={true}
             saveContext={this.writeSuper}
             destroyContext={this.loadSuperkeys}
             inContext={this.state.modified}
           />
+          <Callout content={i18n.editor.superkeys.callout} className="mt-lg" size="md" maxWidth={820} />
           <SuperkeyManager
             superkeys={superkeys}
             maxSuperkeys={maxMacros}
@@ -693,30 +694,7 @@ class SuperkeysEditor extends React.Component {
             kbtype={kbtype}
           />
         </Container>
-        <Row className="save-row">
-          <Container fluid>
-            <Row>
-              <Button
-                disabled={!this.state.modified}
-                onClick={this.writeSuper}
-                className={`button-large pt-0 mt-0 mb-2 ${this.state.modified ? "save-active" : ""}`}
-                aria-controls="save-changes"
-              >
-                <FiSave />
-              </Button>
-            </Row>
-            <Row>
-              <Button
-                disabled={!this.state.modified}
-                onClick={this.loadSuperkeys}
-                className={`button-large pt-0 mt-0 mb-2 ${this.state.modified ? "cancel-active" : ""}`}
-                aria-controls="discard-changes"
-              >
-                <FiTrash2 />
-              </Button>
-            </Row>
-          </Container>
-        </Row>
+
         <Modal show={this.state.showDeleteModal} onHide={this.toggleDeleteModal} style={{ marginTop: "100px" }}>
           <ModalStyle>
             <Modal.Header closeButton className="modalcol">

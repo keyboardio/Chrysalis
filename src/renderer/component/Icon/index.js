@@ -18,6 +18,8 @@ import IconArrowsSmallSeparating from "./IconArrowsSmallSeparating";
 import IconCheckmarkSm from "./IconCheckmarkSm";
 import IconChip from "./IconChip";
 import IconDelete from "./IconDelete";
+import IconEditModeSingleView from "./IconEditModeSingleView";
+import IconEditModeStandardView from "./IconEditModeStandardView";
 import IconKeysPress from "./IconKeysPress";
 import IconKeysTapHold from "./IconKeysTapHold";
 import IconKeys2Tap from "./IconKeys2Tap";
@@ -55,6 +57,8 @@ export {
   IconCheckmarkSm,
   IconChip,
   IconDelete,
+  IconEditModeSingleView,
+  IconEditModeStandardView,
   IconKeysPress,
   IconKeysTapHold,
   IconKeys2Tap,

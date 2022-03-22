@@ -21,6 +21,8 @@ import Styled from "styled-components";
 
 import Title from "../../component/Title";
 
+import { IconEditModeStandardView, IconEditModeSingleView } from "../../component/Icon";
+
 const Style = Styled.div`
 &.toggleButtonsContainer {
   padding: 4px;
@@ -60,8 +62,20 @@ const LayoutViewSelector = ({ tooltip }) => {
     <Style className={`toggleButtonsContainer`}>
       <Title content={"Edit mode"} headingLevel={6} tooltip={tooltip} />
       <div className="toggleButtonsInner">
-        <ButtonConfig onClick={setStandarView} selected={false} buttonText={"Standard View"} size={"sm"} />
-        <ButtonConfig onClick={setSingleView} selected={true} buttonText={"Single View"} size={"sm"} />
+        <ButtonConfig
+          onClick={setStandarView}
+          icoSVG={<IconEditModeStandardView />}
+          selected={false}
+          buttonText={"Standard View"}
+          size={"sm"}
+        />
+        <ButtonConfig
+          onClick={setSingleView}
+          icoSVG={<IconEditModeSingleView />}
+          selected={true}
+          buttonText={"Single View"}
+          size={"sm"}
+        />
       </div>
     </Style>
   );

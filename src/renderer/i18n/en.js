@@ -215,7 +215,9 @@ const English = {
         applyButton: "Remove"
       },
       callout:
-        "<p>Wow! Superpowers, my friend!</p><p>Superkeys allow up to 5 different functions in a single key. You activate each function with a tap, hold, tap and hold, double-tap or double-tap and hold. This allows you to create crazy combinations to boost your workflow.</p>"
+        "<p>Wow! Superpowers, my friend!</p><p>Superkeys allow up to 5 different functions in a single key. You activate each function with a tap, hold, tap and hold, double-tap or double-tap and hold. This allows you to create crazy combinations to boost your workflow.</p>",
+      tooltip:
+        "You can edit keys in two diffferent ways. Advanced users may prefer Single View which is designed for quick key editing."
     },
     oldMacroModal: {
       title: "Update your macros",

@@ -31,6 +31,7 @@ import Modal from "react-bootstrap/Modal";
 import SuperkeyManager from "../components/SuperkeyManager";
 import KeyConfig from "../components/KeyManager/KeyConfig";
 import Callout from "../component/Callout";
+import LayoutViewSelector from "../component/LayoutViewSelector";
 
 // Modules
 import PageHeader from "../modules/PageHeader";
@@ -663,7 +664,7 @@ class SuperkeysEditor extends React.Component {
             destroyContext={this.loadSuperkeys}
             inContext={this.state.modified}
           />
-          <Callout content={i18n.editor.superkeys.callout} className="mt-lg" size="md" maxWidth={820} />
+          <Callout content={i18n.editor.superkeys.callout} className="mt-lg" size="md" maxWidth={1060} />
           <SuperkeyManager
             superkeys={superkeys}
             maxSuperkeys={maxMacros}
@@ -694,7 +695,7 @@ class SuperkeysEditor extends React.Component {
             kbtype={kbtype}
           />
         </Container>
-
+        <LayoutViewSelector tooltip={i18n.editor.superkeys.tooltip} />
         <Modal show={this.state.showDeleteModal} onHide={this.toggleDeleteModal} style={{ marginTop: "100px" }}>
           <ModalStyle>
             <Modal.Header closeButton className="modalcol">

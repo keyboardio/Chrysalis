@@ -406,6 +406,20 @@ const Light = {
     toggleButton: {
       background: "#fff"
     },
+    toogleEditMode: {
+      titleColor: Tokens.colors.gray300,
+      containerBackground: "rgba(255, 255, 255, 0.3)",
+      containerBorder: "1px solid rgba(196, 201, 213, 0.5)",
+      buttonColor: Tokens.colors.gray400,
+      buttonColorHover: Tokens.colors.gray500,
+      buttonColorActive: Tokens.colors.gray25,
+      buttonBackground:
+        "linear-gradient(90deg, rgba(240, 242, 244, 0) 7.92%, rgba(240, 242, 244, 0.4) 73.86%), rgba(162, 155, 254, 0.05)",
+      buttonBackgroundHover:
+        "linear-gradient(90deg, rgba(240, 242, 244, 0) 7.92%, rgba(240, 242, 244, 0.4) 73.86%), rgba(162, 155, 254, 0.2)",
+      buttonBackgroundActive: "linear-gradient(90deg, rgba(255, 255, 255, 0.4) -22.96%, rgba(255, 255, 255, 0) 123.24%), #7879F1",
+      buttonBoxShadow: "0px 12px 24px -12px rgba(93, 95, 239, 0.1)"
+    },
     wrapper: {
       background: settingColorOpacity(Tokens.colors.gray25, 0.8)
     }

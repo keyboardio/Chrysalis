@@ -41,6 +41,7 @@ import i18n from "../i18n";
 import Keymap, { KeymapDB } from "../../api/keymap";
 import Focus from "../../api/focus";
 import Backup from "../../api/backup";
+import { TiHeadphones } from "react-icons/ti";
 
 const Store = require("electron-store");
 const store = new Store();
@@ -140,7 +141,8 @@ class SuperkeysEditor extends React.Component {
       listToDelete: [],
       futureSK: [],
       futureSSK: 0,
-      currentLanguageLayout: store.get("settings.language") || "english"
+      currentLanguageLayout: store.get("settings.language") || "english",
+      isStandardViewSuperkeys: true
     };
     this.changeSelected = this.changeSelected.bind(this);
     this.updateSuper = this.updateSuper.bind(this);
@@ -153,10 +155,12 @@ class SuperkeysEditor extends React.Component {
     this.checkKBSuperkeys = this.checkKBSuperkeys.bind(this);
     this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
     this.RemoveDeletedSK = this.RemoveDeletedSK.bind(this);
+    this.onToogle = this.onToogle.bind(this);
   }
 
   async componentDidMount() {
     await this.loadSuperkeys();
+    await this.configStandarView();
   }
 
   async loadSuperkeys() {
@@ -632,8 +636,48 @@ class SuperkeysEditor extends React.Component {
 
   ReNumberAllGreaterSK() {}
 
+  //Manage Standard/Single view
+  async configStandarView() {
+    try {
+      const preferencesStandardView = JSON.parse(localStorage.getItem("isStandardViewSuperkeys"));
+      console.log("preferencesStandardView: ", preferencesStandardView);
+      if (preferencesStandardView !== null) {
+        this.setState({ isStandardViewSuperkeys: preferencesStandardView });
+      } else {
+        this.setState({ isStandardViewSuperkeys: true });
+      }
+    } catch (e) {
+      console.log("error to set isStandardView");
+    }
+  }
+
+  onToogle = e => {
+    if (this.state.isStandardViewSuperkeys) {
+      this.setState({ isStandardViewSuperkeys: !isStandardViewSuperkeys });
+    }
+  };
+  onToogleSingleView = () => {
+    this.setState({ isStandardViewSuperkeys: false });
+    console.log("isStandardViewSuperkeys false", this.state.isStandardViewSuperkeys);
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.isStandardViewSuperkeys !== this.state.isStandardViewSuperkeys) {
+      localStorage.setItem("isStandardViewSuperkeys", this.state.isStandardViewSuperkeys);
+    }
+  }
+
   render() {
-    const { currentLanguageLayout, kbtype, selectedSuper, superkeys, maxMacros, macros, selectedAction } = this.state;
+    const {
+      currentLanguageLayout,
+      kbtype,
+      selectedSuper,
+      superkeys,
+      maxMacros,
+      macros,
+      selectedAction,
+      isStandardViewSuperkeys
+    } = this.state;
 
     let code = 0;
     const tempkey = this.keymapDB.parse(
@@ -695,7 +739,12 @@ class SuperkeysEditor extends React.Component {
             kbtype={kbtype}
           />
         </Container>
-        <LayoutViewSelector tooltip={i18n.editor.superkeys.tooltip} />
+        <LayoutViewSelector
+          onToogleStandardView={this.onToogle}
+          onToogleSingleView={this.onToogle}
+          isStandardView={isStandardViewSuperkeys}
+          tooltip={i18n.editor.superkeys.tooltip}
+        />
         <Modal show={this.state.showDeleteModal} onHide={this.toggleDeleteModal} style={{ marginTop: "100px" }}>
           <ModalStyle>
             <Modal.Header closeButton className="modalcol">

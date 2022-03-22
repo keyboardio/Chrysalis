@@ -233,6 +233,11 @@ const English = {
       cancelButton: "Cancel",
       applyButton: "Use existing names"
     },
+    editMode: {
+      title: "Edit mode",
+      standardView: "Standard View",
+      singleView: "Single View"
+    },
     clearLayerQuestion: "Clear layer?",
     clearLayerPrompt: "This will reset the layer to its default state.",
     pleaseSelectLayer: "Please select a layer",

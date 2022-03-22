@@ -410,6 +410,18 @@ const Dark = {
     toggleButton: {
       background: settingColorOpacity(Tokens.colors.gray900, 0.2)
     },
+    toogleEditMode: {
+      titleColor: Tokens.colors.gray500,
+      containerBackground: settingColorOpacity(Tokens.colors.gray900, 0.25),
+      containerBorder: "1px solid transparent",
+      buttonColor: Tokens.colors.gray200,
+      buttonColorHover: Tokens.colors.gray25,
+      buttonColorActive: Tokens.colors.gray25,
+      buttonBackground: "linear-gradient(90deg, rgba(255, 255, 255, 0.02) -11.11%, rgba(255, 255, 255, 0) 73.86%)",
+      buttonBackgroundHover: "linear-gradient(90deg, rgba(255, 255, 255, 0.1) -11.11%, rgba(255, 255, 255, 0) 73.86%)",
+      buttonBackgroundActive: "linear-gradient(90deg, rgba(255, 255, 255, 0.1) -11.11%, rgba(255, 255, 255, 0) 73.86%), #57617E",
+      buttonBoxShadow: "0px 12px 24px -12px rgba(93, 95, 239, 0.1)"
+    },
     wrapper: {
       background: settingColorOpacity(Tokens.colors.gray400, 0.15)
     }

@@ -18,64 +18,80 @@
 import React from "react";
 import { ButtonConfig } from "../Button";
 import Styled from "styled-components";
+import i18n from "../../i18n";
 
 import Title from "../../component/Title";
 
 import { IconEditModeStandardView, IconEditModeSingleView } from "../../component/Icon";
 
 const Style = Styled.div`
-&.toggleButtonsContainer {
+&.layoutSelector {
+  position: fixed;
+  bottom: 24px;
+}
+.toggleButtonsContainer {
   padding: 4px;
-  background: ${({ theme }) => theme.styles.toggleButton.background};
+  background: ${({ theme }) => theme.styles.toogleEditMode.containerBackground};
+  border: ${({ theme }) => theme.styles.toogleEditMode.containerBorder};
   border-radius: 6px;
   .toggleButtonsInner {
     margin-left: -2px;
     margin-right: -2px;
-    .button-config {
-      margin-left: 2px;
-      margin-right: 2px;
-    }
-  } 
-}
-&.toggleButtonsContainerFlex {
-  .toggleButtonsInner {
     display: flex;
     flex-wrap: nowrap;
-    .button-config {
-      flex: auto;
-      text-align: center;
-    }
+  } 
+}
+.button-config {
+  margin-left: 2px;
+  margin-right: 2px;
+  flex: auto;
+  padding: 10px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  color: ${({ theme }) => theme.styles.toogleEditMode.buttonColor};
+  background: ${({ theme }) => theme.styles.toogleEditMode.buttonBackground};
+  box-shadow: ${({ theme }) => theme.styles.toogleEditMode.buttonBoxShadow};
+  &:hover {
+    background: ${({ theme }) => theme.styles.toogleEditMode.buttonBackgroundHover};
+    color: ${({ theme }) => theme.styles.toogleEditMode.buttonColorHover};
+    box-shadow: ${({ theme }) => theme.styles.toogleEditMode.buttonBoxShadow};
+  } 
+  &.active {
+    background: ${({ theme }) => theme.styles.toogleEditMode.buttonBackgroundActive};
+    color: ${({ theme }) => theme.styles.toogleEditMode.buttonColorActive};
+    box-shadow: ${({ theme }) => theme.styles.toogleEditMode.buttonBoxShadow};
   }
+}
+h5 {
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: ${({ theme }) => theme.styles.toogleEditMode.titleColor};
 }
 `;
 
-const setStandarView = () => {
-  console.log("Set Standard view");
-};
-const setSingleView = () => {
-  console.log("Set Single view");
-};
-const LayoutViewSelector = ({ tooltip }) => {
+const LayoutViewSelector = ({ onToogleStandardView, onToogleSingleView, isStandardView, tooltip }) => {
   return (
     // className={`button-config ${value == item.value ? "active" : ""}`}
     //icoSVG={item.icon}
-    <Style className={`toggleButtonsContainer`}>
-      <Title content={"Edit mode"} headingLevel={6} tooltip={tooltip} />
-      <div className="toggleButtonsInner">
-        <ButtonConfig
-          onClick={setStandarView}
-          icoSVG={<IconEditModeStandardView />}
-          selected={false}
-          buttonText={"Standard View"}
-          size={"sm"}
-        />
-        <ButtonConfig
-          onClick={setSingleView}
-          icoSVG={<IconEditModeSingleView />}
-          selected={true}
-          buttonText={"Single View"}
-          size={"sm"}
-        />
+    <Style className={`layoutSelector`}>
+      <Title text={i18n.editor.editMode.title} headingLevel={5} tooltip={tooltip} />
+      <div className="toggleButtonsContainer">
+        <div className="toggleButtonsInner">
+          <ButtonConfig
+            onClick={onToogleStandardView}
+            icoSVG={<IconEditModeStandardView />}
+            selected={isStandardView}
+            buttonText={i18n.editor.editMode.standardView}
+            size={"sm"}
+          />
+          <ButtonConfig
+            onClick={onToogleSingleView}
+            icoSVG={<IconEditModeSingleView />}
+            selected={!isStandardView}
+            buttonText={i18n.editor.editMode.singleView}
+            size={"sm"}
+          />
+        </div>
       </div>
     </Style>
   );

@@ -64,6 +64,7 @@ class ColormapBase extends React.Component {
       <Collapsible
         title={i18n.t("editor.sidebar.colors.title")}
         help={i18n.t("editor.sidebar.colors.help")}
+        expanded={false}
       >
         <PalettePicker
           color={colorIndex}

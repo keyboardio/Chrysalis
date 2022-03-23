@@ -180,6 +180,8 @@ class KeyPickerBase extends React.Component {
       );
     }
 
+    const isDU = db.isInCategory(key.code, "dualuse");
+
     return (
       <React.Fragment>
         <Collapsible
@@ -209,27 +211,27 @@ class KeyPickerBase extends React.Component {
                 <FormControlLabel
                   control={this.makeSwitch("shift")}
                   label="Shift"
-                  disabled={key.baseCode == 225}
+                  disabled={key.baseCode == 225 || isDU}
                 />
                 <FormControlLabel
                   control={this.makeSwitch("ctrl")}
                   label="Control"
-                  disabled={key.baseCode == 224}
+                  disabled={key.baseCode == 224 || isDU}
                 />
                 <FormControlLabel
                   control={this.makeSwitch("alt")}
                   label="Alt"
-                  disabled={key.baseCode == 226}
+                  disabled={key.baseCode == 226 || isDU}
                 />
                 <FormControlLabel
                   control={this.makeSwitch("gui")}
                   label={GuiLabel.full}
-                  disabled={key.baseCode == 227}
+                  disabled={key.baseCode == 227 || isDU}
                 />
                 <FormControlLabel
                   control={this.makeSwitch("altgr")}
                   label="AltGr"
-                  disabled={key.baseCode == 230}
+                  disabled={key.baseCode == 230 || isDU}
                 />
               </FormGroup>
             </FormControl>

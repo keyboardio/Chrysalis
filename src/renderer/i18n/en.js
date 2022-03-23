@@ -52,6 +52,7 @@ const English = {
       selectAKeyboard: "Select a keyboard",
       selectAnotherKeyboard: "Select another keyboard",
       chat: "Real-time chat",
+      feedback: "Send feedback",
       exit: "Exit Chrysalis",
       keyboardSection: "Keyboard",
       chrysalisSection: "Chrysalis",

@@ -65,6 +65,7 @@ class CategorySelectorBase extends React.Component {
           <KeyButtonList
             keys={db.selectCategory(category)}
             onKeyChange={this.onKeyChange}
+            showHints={false}
           />
         </Collapsible>
       </React.Fragment>

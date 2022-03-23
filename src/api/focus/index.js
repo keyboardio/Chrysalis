@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import SerialPort from "serialport";
+const { SerialPort } = require("serialport");
 import Delimiter from "@serialport/parser-delimiter";
 import fs from "fs";
 import usb from "usb";

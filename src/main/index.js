@@ -33,12 +33,15 @@ import installExtension, {
   REACT_DEVELOPER_TOOLS
 } from "electron-devtools-installer";
 import { getStaticPath } from "../renderer/config";
-
 import { initialize, enable as enableRemote } from "@electron/remote/main";
 initialize();
 
+// Settings storage
 const Store = require("electron-store");
 Store.initRenderer();
+
+// USB support
+import { getDeviceList } from "usb";
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
@@ -126,6 +129,12 @@ ipcMain.handle("devtools-is-open", event => {
   const webContents = event.sender;
   console.log(webContents.isDevToolsOpened());
   return webContents.isDevToolsOpened();
+});
+
+ipcMain.handle("usb-scan-for-devices", event => {
+  const webContents = event.sender;
+  const devices = getDeviceList();
+  return devices;
 });
 
 // This is a workaround for the lack of context-awareness in two native modules

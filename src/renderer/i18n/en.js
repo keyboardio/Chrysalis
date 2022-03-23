@@ -82,7 +82,7 @@ const English = {
       warning: `We found legacy keys on the keymap that are no longer valid. To migrate to the new codes, please press the Migrate button.`
     },
     sharing: {
-      title: "Layout sharing",
+      title: "Backup & Restore",
       loadFromLibrary: "Load from library",
       loadFromFile: "Load from file...",
       exportToFile: "Export to file...",
@@ -119,7 +119,7 @@ const English = {
         color: "Color",
         hideEmptyLayers: "Hide empty layers...",
         showEmptyLayers: "Show empty layers...",
-        sharing: "Layout sharing...",
+        sharing: "Backup & Restore",
         help: `An overview of the mappings for the currently selected key. To change the shown layer, click on its row.`
       },
       secondary: {

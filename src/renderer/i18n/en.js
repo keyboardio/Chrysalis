@@ -47,7 +47,8 @@ const English = {
   dialog: {
     ok: "Ok",
     cancel: "Cancel",
-    allFiles: "All Files"
+    allFiles: "All Files",
+    loading: "Loading..."
   },
   app: {
     device: "Keyboard",

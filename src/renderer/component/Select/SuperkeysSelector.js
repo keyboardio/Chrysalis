@@ -25,9 +25,30 @@ import { IconPen } from "../Icon";
 import { IconDelete } from "../Icon";
 
 import { NameModal } from "../Modal/"; // Imported custom modal component
+import { RegularButton } from "../Button";
 
 const Style = Styled.div`
-
+.dropdownMultipleActions {
+    min-width: 320px;
+}
+.dropdownListItemSelected {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.dropdownListItemInner {
+    padding-right: 70px;
+}
+.dropdown-menu {
+    min-width: 268px;
+}
+.itemIndex {
+    display: inline-block;
+    width: 28px;
+    margin-right: 6px;
+    text-align: right;
+}
 `;
 class SuperKeysSelector extends React.Component {
   constructor(props) {
@@ -47,6 +68,10 @@ class SuperKeysSelector extends React.Component {
     this.props.updateItem(data);
   };
 
+  addNewElement = () => {
+    console.log("Click!");
+  };
+
   render() {
     const { onSelect, itemList, selectedItem, deleteItem, subtitle } = this.props;
     const { show } = this.state;
@@ -57,7 +82,7 @@ class SuperKeysSelector extends React.Component {
           <Dropdown onSelect={onSelect} value={selectedItem} className="dropdownList">
             <Dropdown.Toggle className="toggler neuronToggler">
               {itemList.length == 0 ? (
-                i18n.keyboardSettings.neuronManager.defaultNeuron
+                i18n.dialog.loading
               ) : (
                 <div className="dropdownListInner">
                   <div className="dropdownListNumber">#{parseInt(selectedItem) + 1}</div>
@@ -76,6 +101,7 @@ class SuperKeysSelector extends React.Component {
             <Dropdown.Menu className="dropdownMenu">
               {itemList.map((item, iter) => (
                 <Dropdown.Item eventKey={iter} key={`item-${iter}`} className={iter === selectedItem ? "active" : ""}>
+                  <span className="itemIndex">#{iter + 1}.</span>
                   {item.name}
                 </Dropdown.Item>
               ))}
@@ -107,6 +133,7 @@ class SuperKeysSelector extends React.Component {
             </Dropdown>
           </div>
         </div>
+        <RegularButton buttonText={"Save changes"} style="outline gradient" size="sm" onClick={this.addNewElement} />
         <NameModal
           show={show}
           name={itemList[selectedItem]}

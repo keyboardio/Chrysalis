@@ -19,7 +19,6 @@ import React from "react";
 import Styled from "styled-components";
 import Title from "../../component/Title";
 import Saving from "../Saving";
-import { SuperkeysSelector } from "../../component/Select";
 
 const Style = Styled.div`
 width: 100%;
@@ -60,6 +59,7 @@ align-self: flex-start;
     .pageTools {
       width: calc(100% - 216px);
       display: flex;
+      align-items: center;
     }
     .savingButtons {
       margin-left: auto;
@@ -70,7 +70,7 @@ align-self: flex-start;
 }
 `;
 
-const PageHeader = ({ size, text, style, contentSelector, contentType, showSaving, saveContext, destroyContext, inContext }) => {
+const PageHeader = ({ size, text, style, contentSelector, showSaving, saveContext, destroyContext, inContext }) => {
   return (
     <Style className={`${style === "pageHeaderFlatBottom" ? "pageHeaderSticky" : ""}`}>
       <div className={`pageHeader ${size && size} ${style && style}`}>
@@ -79,15 +79,7 @@ const PageHeader = ({ size, text, style, contentSelector, contentType, showSavin
         </div>
         <div className="pageTools">
           {/* //onSelect, itemList, selectedItem, deleteItem, subtitle */}
-          {contentSelector ? (
-            contentType === "Superkeys" ? (
-              <SuperkeysSelector itemList={contentSelector} selectedItem={0} subtitle={contentType} />
-            ) : (
-              ""
-            )
-          ) : (
-            ""
-          )}
+          {contentSelector ? contentSelector : ""}
           {showSaving ? <Saving saveContext={saveContext} destroyContext={destroyContext} inContext={inContext} /> : ""}
         </div>
       </div>

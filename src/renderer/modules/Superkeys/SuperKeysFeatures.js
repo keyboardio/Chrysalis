@@ -36,7 +36,7 @@ h5 {
     ul {
         padding-left: 26px;
         list-style: none;
-        line-height: 1.35em;
+        line-height: 1.45em;
         margin-bottom: 0;
         color:  ${({ theme }) => theme.styles.collpase.gridItemBody};
     }

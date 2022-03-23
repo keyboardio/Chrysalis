@@ -32,6 +32,7 @@ import SuperkeyManager from "../components/SuperkeyManager";
 import KeyConfig from "../components/KeyManager/KeyConfig";
 import Callout from "../component/Callout";
 import { LayoutViewSelector } from "../component/ToggleButtons";
+import { SuperkeysSelector } from "../component/Select";
 
 // Modules
 import PageHeader from "../modules/PageHeader";
@@ -701,9 +702,7 @@ class SuperkeysEditor extends React.Component {
           <PageHeader
             text={i18n.app.menu.superkeys}
             showSaving={true}
-            showContentSelector={true}
-            contentSelector={superkeys}
-            contentType="Superkeys"
+            contentSelector={<SuperkeysSelector itemList={superkeys} selectedItem={0} subtitle="Superkeys" />}
             saveContext={this.writeSuper}
             destroyContext={this.loadSuperkeys}
             inContext={this.state.modified}

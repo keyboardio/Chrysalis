@@ -142,7 +142,7 @@ class SuperkeysEditor extends React.Component {
       futureSK: [],
       futureSSK: 0,
       currentLanguageLayout: store.get("settings.language") || "english",
-      isStandardViewSuperkeys: true
+      isStandardViewSuperkeys: store.get("settings.isStandardViewSuperkeys") || true
     };
     this.changeSelected = this.changeSelected.bind(this);
     this.updateSuper = this.updateSuper.bind(this);
@@ -639,8 +639,7 @@ class SuperkeysEditor extends React.Component {
   //Manage Standard/Single view
   async configStandarView() {
     try {
-      const preferencesStandardView = JSON.parse(localStorage.getItem("isStandardViewSuperkeys"));
-      console.log("preferencesStandardView: ", preferencesStandardView);
+      const preferencesStandardView = JSON.parse(store.get("settings.isStandardViewSuperkeys"));
       if (preferencesStandardView !== null) {
         this.setState({ isStandardViewSuperkeys: preferencesStandardView });
       } else {
@@ -651,21 +650,19 @@ class SuperkeysEditor extends React.Component {
     }
   }
 
-  onToogle = e => {
-    if (this.state.isStandardViewSuperkeys) {
-      this.setState({ isStandardViewSuperkeys: !isStandardViewSuperkeys });
-    }
-  };
-  onToogleSingleView = () => {
-    this.setState({ isStandardViewSuperkeys: false });
-    console.log("isStandardViewSuperkeys false", this.state.isStandardViewSuperkeys);
-  };
-
   componentDidUpdate(prevProps, prevState) {
     if (prevState.isStandardViewSuperkeys !== this.state.isStandardViewSuperkeys) {
-      localStorage.setItem("isStandardViewSuperkeys", this.state.isStandardViewSuperkeys);
+      store.set("settings.isStandardViewSuperkeys", this.state.isStandardViewSuperkeys);
     }
   }
+
+  onToogle = () => {
+    if (this.state.isStandardViewSuperkeys) {
+      this.setState({ isStandardViewSuperkeys: false });
+    } else {
+      this.setState({ isStandardViewSuperkeys: true });
+    }
+  };
 
   render() {
     const {
@@ -740,8 +737,7 @@ class SuperkeysEditor extends React.Component {
           />
         </Container>
         <LayoutViewSelector
-          onToogleStandardView={this.onToogle}
-          onToogleSingleView={this.onToogle}
+          onToogle={this.onToogle}
           isStandardView={isStandardViewSuperkeys}
           tooltip={i18n.editor.superkeys.tooltip}
         />

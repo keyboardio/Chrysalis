@@ -16,11 +16,12 @@
  */
 
 import React from "react";
-import { ButtonConfig } from "../Button";
+import PropTypes from "prop-types";
 import Styled from "styled-components";
 import i18n from "../../i18n";
 
 import Title from "../../component/Title";
+import { ButtonConfig } from "../Button";
 
 import { IconEditModeStandardView, IconEditModeSingleView } from "../../component/Icon";
 
@@ -69,23 +70,31 @@ h5 {
 }
 `;
 
-const LayoutViewSelector = ({ onToogleStandardView, onToogleSingleView, isStandardView, tooltip }) => {
+/**
+ * This LayoutViewSelector function returns a component that render a toogle element that help the user select between Standard View/Single View
+ * The object will accept the following parameters
+ *
+ * @param {function} onToogle - The function that handle the states
+ * @param {boolean} isStandardView - The actual state if the Standand View is Selected
+ * @param {string} tooltip - [Optional] Help text used next to the title
+ * @returns {<LayoutViewSelector>} Badge component.
+ */
+
+const LayoutViewSelector = ({ onToogle, isStandardView, tooltip }) => {
   return (
-    // className={`button-config ${value == item.value ? "active" : ""}`}
-    //icoSVG={item.icon}
     <Style className={`layoutSelector`}>
-      <Title text={i18n.editor.editMode.title} headingLevel={5} tooltip={tooltip} />
+      <Title text={i18n.editor.editMode.title} headingLevel={5} tooltip={tooltip ? tooltip : false} />
       <div className="toggleButtonsContainer">
         <div className="toggleButtonsInner">
           <ButtonConfig
-            onClick={onToogleStandardView}
+            onClick={onToogle}
             icoSVG={<IconEditModeStandardView />}
             selected={isStandardView}
             buttonText={i18n.editor.editMode.standardView}
             size={"sm"}
           />
           <ButtonConfig
-            onClick={onToogleSingleView}
+            onClick={onToogle}
             icoSVG={<IconEditModeSingleView />}
             selected={!isStandardView}
             buttonText={i18n.editor.editMode.singleView}
@@ -95,6 +104,12 @@ const LayoutViewSelector = ({ onToogleStandardView, onToogleSingleView, isStanda
       </div>
     </Style>
   );
+};
+
+LayoutViewSelector.propTypes = {
+  onToogle: PropTypes.func.isRequired,
+  isStandardView: PropTypes.bool.isRequired,
+  tooltip: PropTypes.string
 };
 
 export default LayoutViewSelector;

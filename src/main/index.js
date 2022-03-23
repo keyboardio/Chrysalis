@@ -124,10 +124,7 @@ ipcMain.on("show-devtools", (event, boolFocus) => {
 });
 
 ipcMain.handle("devtools-is-open", event => {
-  console.log("Got here for event");
-  console.log("event");
   const webContents = event.sender;
-  console.log(webContents.isDevToolsOpened());
   return webContents.isDevToolsOpened();
 });
 

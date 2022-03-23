@@ -62,21 +62,12 @@ class CategorySelectorBase extends React.Component {
           title={title}
           help={help}
         >
-          <Button variant="contained" onClick={this.openPicker}>
-            {label.hint} {label.main}
-          </Button>
-        </Collapsible>
-        <Dialog
-          open={this.state.pickerOpen}
-          onClose={this.closePicker}
-          fullWidth
-          maxWidth="lg"
-        >
           <KeyButtonList
             keys={db.selectCategory(category)}
             onKeyChange={this.onKeyChange}
+            showHints={false}
           />
-        </Dialog>
+        </Collapsible>
       </React.Fragment>
     );
   }

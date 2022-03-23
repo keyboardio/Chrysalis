@@ -36,7 +36,7 @@ const styles = theme => ({
 const db = new KeymapDB();
 
 const KeyButtonList = withStyles(styles)(props => {
-  const { classes, keys, onKeyChange } = props;
+  const { classes, keys, onKeyChange, showHints } = props;
 
   const onClick = keyCode => {
     return () => {
@@ -54,7 +54,7 @@ const KeyButtonList = withStyles(styles)(props => {
         className={classes.button}
         onClick={onClick(k.code)}
       >
-        {label.hint} {label.main}
+        {showHints ? label.hint : ""} {label.main}
       </Button>
     );
   });

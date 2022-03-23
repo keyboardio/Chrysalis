@@ -201,7 +201,11 @@ const Dark = {
       }
     },
     collpase: {
-      iconBackgroud: IconPlusXS
+      iconBackgroud: IconPlusXS,
+      gridItemBackground: settingColorOpacity(Tokens.colors.gray500, 0.2),
+      gridItemTitle: Tokens.colors.gray100,
+      gridItemBody: Tokens.colors.gray300,
+      gridItemCaret: Tokens.colors.gray600
     },
     callout: {
       iconInfo: "white",

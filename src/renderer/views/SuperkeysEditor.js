@@ -35,6 +35,7 @@ import { LayoutViewSelector } from "../component/ToggleButtons";
 
 // Modules
 import PageHeader from "../modules/PageHeader";
+import { SuperKeysFeatures } from "../modules/SuperKeys";
 
 // API's
 import i18n from "../i18n";
@@ -701,26 +702,31 @@ class SuperkeysEditor extends React.Component {
             text={i18n.app.menu.superkeys}
             showSaving={true}
             showContentSelector={true}
+            contentSelector={superkeys}
+            contentType="Superkeys"
             saveContext={this.writeSuper}
             destroyContext={this.loadSuperkeys}
             inContext={this.state.modified}
           />
           <Callout content={i18n.editor.superkeys.callout} className="mt-lg" size="md" maxWidth={1060} />
-          <SuperkeyManager
-            superkeys={superkeys}
-            maxSuperkeys={maxMacros}
-            macros={macros}
-            saveName={this.saveName}
-            selected={selectedSuper}
-            updateSuper={this.updateSuper}
-            changeSelected={this.changeSelected}
-            selectedAction={selectedAction}
-            updateAction={this.updateAction}
-            checkKBSuperkeys={this.checkKBSuperkeys}
-            changeAction={this.changeAction}
-            keymapDB={this.keymapDB}
-            key={JSON.stringify(superkeys)}
-          />
+          {!isStandardViewSuperkeys && (
+            <SuperkeyManager
+              superkeys={superkeys}
+              maxSuperkeys={maxMacros}
+              macros={macros}
+              saveName={this.saveName}
+              selected={selectedSuper}
+              updateSuper={this.updateSuper}
+              changeSelected={this.changeSelected}
+              selectedAction={selectedAction}
+              updateAction={this.updateAction}
+              checkKBSuperkeys={this.checkKBSuperkeys}
+              changeAction={this.changeAction}
+              keymapDB={this.keymapDB}
+              key={JSON.stringify(superkeys)}
+            />
+          )}
+          {isStandardViewSuperkeys && <SuperKeysFeatures />}
         </Container>
         <Container fluid className="keyboardcontainer" hidden={selectedAction < 0}>
           <KeyConfig
@@ -736,6 +742,7 @@ class SuperkeysEditor extends React.Component {
             kbtype={kbtype}
           />
         </Container>
+
         <LayoutViewSelector
           onToogle={this.onToogle}
           isStandardView={isStandardViewSuperkeys}

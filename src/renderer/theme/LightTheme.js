@@ -197,7 +197,11 @@ const Light = {
       }
     },
     collpase: {
-      iconBackgroud: IconPlusXS
+      iconBackgroud: IconPlusXS,
+      gridItemBackground: "rgba(255,255,255, 0.3)",
+      gridItemTitle: Tokens.colors.gray400,
+      gridItemBody: Tokens.colors.gray300,
+      gridItemCaret: Tokens.colors.gray25
     },
     callout: {
       iconInfo: "white",

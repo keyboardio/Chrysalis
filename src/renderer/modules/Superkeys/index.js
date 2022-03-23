@@ -14,9 +14,5 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Select from "./Select";
-import SelectKeyboardDropdown from "./SelectKeyboardDropdown";
-import NeuronSelector from "./NeuronSelector";
-import SuperkeysSelector from "./SuperkeysSelector";
-
-export { Select, SelectKeyboardDropdown, NeuronSelector, SuperkeysSelector };
+import SuperKeysFeatures from "./SuperKeysFeatures";
+export { SuperKeysFeatures };

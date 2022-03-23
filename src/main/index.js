@@ -25,7 +25,7 @@ import { Environment } from "./dragons";
 // [1]: https://github.com/electron-userland/electron-webpack/issues/275
 process.env[`NODE_ENV`] = Environment.name;
 
-import { app, BrowserWindow, Menu } from "electron";
+import { app, BrowserWindow, Menu, ipcMain } from "electron";
 import { format as formatUrl } from "url";
 import * as path from "path";
 import windowStateKeeper from "electron-window-state";
@@ -33,6 +33,9 @@ import installExtension, {
   REACT_DEVELOPER_TOOLS
 } from "electron-devtools-installer";
 import { getStaticPath } from "../renderer/config";
+
+import { initialize, enable as enableRemote } from "@electron/remote/main";
+initialize();
 
 const Store = require("electron-store");
 Store.initRenderer();
@@ -61,7 +64,7 @@ async function createMainWindow() {
       enableRemoteModule: true
     }
   });
-
+  enableRemote(window.webContents);
   mainWindowState.manage(window);
 
   if (isDevelopment) {
@@ -97,8 +100,33 @@ async function createMainWindow() {
   window.webContents.on("will-navigate", handleRedirect);
   window.webContents.on("new-window", handleRedirect);
 
+  window.webContents.on("devtools-opened", () => {
+    window.webContents.send("devtools-opened");
+  });
+
+  window.webContents.on("devtools-closed", () => {
+    window.webContents.send("devtools-closed");
+  });
+
   return window;
 }
+
+ipcMain.on("show-devtools", (event, boolFocus) => {
+  const webContents = event.sender;
+  if (boolFocus) {
+    webContents.openDevTools();
+  } else {
+    webContents.closeDevTools();
+  }
+});
+
+ipcMain.handle("devtools-is-open", event => {
+  console.log("Got here for event");
+  console.log("event");
+  const webContents = event.sender;
+  console.log(webContents.isDevToolsOpened());
+  return webContents.isDevToolsOpened();
+});
 
 // This is a workaround for the lack of context-awareness in two native modules
 // we use, serialport (serialport/node-serialport#2051) and usb

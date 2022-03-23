@@ -18,6 +18,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Electron from "electron";
+const { ipcRenderer } = require("electron");
 
 import App from "./App";
 import Error from "./Error";
@@ -33,6 +34,6 @@ try {
     document.getElementById("app")
   );
 } catch (e) {
-  Electron.remote.getCurrentWebContents().openDevTools();
+  ipcRenderer.send("show-devtools", true);
   ReactDOM.render(<Error error={e} />, document.getElementById("app"));
 }

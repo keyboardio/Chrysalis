@@ -43,6 +43,7 @@ const KeyButton = withStyles(styles)(props => {
   return (
     <Button
       variant="contained"
+      size="small"
       className={classes.button}
       onClick={onClick(keyObj.code)}
     >

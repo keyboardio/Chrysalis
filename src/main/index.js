@@ -34,6 +34,9 @@ import installExtension, {
 } from "electron-devtools-installer";
 import { getStaticPath } from "../renderer/config";
 
+const Store = require("electron-store");
+Store.initRenderer();
+
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 let mainWindow;

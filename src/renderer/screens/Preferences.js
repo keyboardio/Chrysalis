@@ -41,7 +41,9 @@ import {
 import i18n from "../i18n";
 
 import Focus from "../../api/focus";
-import settings from "electron-settings";
+
+const Store = require("electron-store");
+const settings = new Store();
 
 const styles = theme => ({
   root: {

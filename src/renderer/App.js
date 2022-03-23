@@ -17,7 +17,8 @@
 
 import React from "react";
 import { spawn } from "child_process";
-import settings from "electron-settings";
+const Store = require("electron-store");
+const settings = new Store();
 
 import Focus from "../api/focus";
 import Log from "../api/log";
@@ -57,7 +58,7 @@ if (isDevelopment) {
   focus.debug = true;
 }
 
-const settingsLanguage = settings.getSync("ui.language");
+const settingsLanguage = settings.get("ui.language");
 if (settingsLanguage) i18n.changeLanguage(settingsLanguage);
 
 const styles = () => ({
@@ -78,7 +79,7 @@ class App extends React.Component {
     this.logger = new Log();
 
     this.state = {
-      darkMode: settings.getSync("ui.darkMode"),
+      darkMode: settings.get("ui.darkMode"),
       connected: false,
       device: null,
       pages: {},

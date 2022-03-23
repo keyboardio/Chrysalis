@@ -25,7 +25,9 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 import { toast } from "react-toastify";
-import settings from "electron-settings";
+
+const Store = require("electron-store");
+const settings = new Store();
 
 import Focus from "../../../api/focus";
 import Log from "../../../api/log";

@@ -37,7 +37,6 @@ import SystemInfoMenuItem from "./SystemInfoMenuItem";
 import EditorMenuItem from "./EditorMenuItem";
 import FlashMenuItem from "./FlashMenuItem";
 import ChatMenuItem from "./ChatMenuItem";
-import FeedbackMenuItem from "./FeedbackMenuItem";
 import ExitMenuItem from "./ExitMenuItem";
 import KeyboardMenuItem from "./KeyboardSelectMenuItem";
 import PreferencesMenuItem from "./PreferencesMenuItem";
@@ -173,12 +172,6 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
         <ChatMenuItem
           className={classes.menuItem}
           onClick={() => openExternalPage("https://keyboard.io/discord-invite")}
-        />
-        <FeedbackMenuItem
-          className={classes.menuItem}
-          onClick={() =>
-            openExternalPage("https://github.com/keyboardio/Chrysalis/issues")
-          }
         />
         <Link to="/system-info" className={classes.link}>
           <SystemInfoMenuItem

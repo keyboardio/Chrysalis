@@ -49,7 +49,6 @@ const Hungarian = {
       selectAKeyboard: "Billentyűzet választás",
       selectAnotherKeyboard: "Másik billentyűzet választás",
       chat: "Csevegőszoba",
-      feedback: "Visszajelzés küldése",
       exit: "Kilépés",
       keyboardSection: "Billentyűzet",
       chrysalisSection: "Chrysalis",

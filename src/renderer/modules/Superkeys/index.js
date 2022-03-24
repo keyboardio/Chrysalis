@@ -15,4 +15,6 @@
  */
 
 import SuperKeysFeatures from "./SuperKeysFeatures";
-export { SuperKeysFeatures };
+import SuperkeyActions from "./SuperkeyActions";
+
+export { SuperKeysFeatures, SuperkeyActions };

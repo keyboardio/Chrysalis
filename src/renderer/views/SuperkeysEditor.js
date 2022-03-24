@@ -37,6 +37,7 @@ import { SuperkeysSelector } from "../component/Select";
 // Modules
 import PageHeader from "../modules/PageHeader";
 import { SuperKeysFeatures } from "../modules/SuperKeys";
+import { SuperkeyActions } from "../modules/SuperKeys";
 
 // API's
 import i18n from "../i18n";
@@ -715,6 +716,7 @@ class SuperkeysEditor extends React.Component {
             inContext={this.state.modified}
           />
           <Callout content={i18n.editor.superkeys.callout} className="mt-lg" size="md" maxWidth={1060} />
+          <SuperkeyActions isStandardViewSuperkeys={isStandardViewSuperkeys} />
           {!isStandardViewSuperkeys && (
             <SuperkeyManager
               superkeys={superkeys}

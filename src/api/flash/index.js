@@ -83,33 +83,10 @@ async function DFUUtil(port, filename, options) {
     : function() {
         return;
       };
-  const device = options.device;
-  let timeouts = options ? options.timeouts : null;
-  timeouts = timeouts || {
-    dtrToggle: 500, // Time to wait (ms) between toggling DTR
-    bootLoaderUp: 4000 // Time to wait for the boot loader to come up
-  };
 
-  let logger = new Log();
-
-  const baudUpdate = () => {
-    return new Promise(resolve => {
-      logger.debug("baud update");
-      port.update({ baudRate: 1200 }, async () => {
-        await delay(timeouts.dtrToggle);
-        resolve();
-      });
-    });
-  };
-
-  const dtrToggle = state => {
-    return new Promise(resolve => {
-      logger.debug("dtr", state ? "on" : "off");
-      port.set({ dtr: state }, async () => {
-        await delay(timeouts.dtrToggle);
-        resolve();
-      });
-    });
+  const reboot = async () => {
+    const focus = options.focus;
+    await focus.command("device.reset");
   };
 
   const saveEEPROM = async () => {
@@ -133,9 +110,7 @@ async function DFUUtil(port, filename, options) {
   const saveKey = await saveEEPROM();
 
   await callback("bootloaderTrigger");
-  await baudUpdate();
-  await dtrToggle(true);
-  await dtrToggle(false);
+  await reboot();
 
   await callback("bootloaderWait");
   const bootloaderFound = await options.focus.waitForBootloader(options.device);
@@ -157,9 +132,7 @@ async function DFUUtil(port, filename, options) {
   await restoreEEPROM(saveKey);
 
   await callback("reboot");
-  await baudUpdate();
-  await dtrToggle(true);
-  await dtrToggle(false);
+  await reboot();
 }
 
 async function AvrDude(_, port, filename, options) {

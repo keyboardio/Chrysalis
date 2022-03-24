@@ -33,6 +33,7 @@ const Style = Styled.div`
 display: flex;
 .dropdownMultipleActions {
     min-width: 320px;
+    max-width: 320px;
 }
 .dropdownListItemSelected {
     max-width: 200px;
@@ -54,7 +55,7 @@ display: flex;
 }
 .button.outline.gradient {
   align-self: center;
-  padding: 14px;
+  padding: 12px;
   margin-left: 8px;
   .buttonFX {
     width: 50px;
@@ -145,11 +146,11 @@ class SuperKeysSelector extends React.Component {
         <RegularButton icoSVG={<IconAddNew />} style="outline gradient" onClick={this.addNewElement} />
         <NameModal
           show={show}
-          name={itemList[selectedItem]}
+          name={itemList.length == 0 ? i18n.dialog.loading : itemList[selectedItem].name}
           toggleShow={this.toggleShow}
           handleSave={this.handleSave}
-          modalTitle={i18n.keyboardSettings.neuronManager.changeLayerTitle}
-          labelInput={i18n.keyboardSettings.neuronManager.inputLabel}
+          modalTitle={`Change Superkey name`}
+          labelInput={`Supekey name`}
         />
       </Style>
     );

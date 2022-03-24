@@ -702,7 +702,14 @@ class SuperkeysEditor extends React.Component {
           <PageHeader
             text={i18n.app.menu.superkeys}
             showSaving={true}
-            contentSelector={<SuperkeysSelector itemList={superkeys} selectedItem={0} subtitle="Superkeys" />}
+            contentSelector={
+              <SuperkeysSelector
+                itemList={superkeys}
+                selectedItem={selectedSuper}
+                subtitle="Superkeys"
+                onSelect={this.changeSelected}
+              />
+            }
             saveContext={this.writeSuper}
             destroyContext={this.loadSuperkeys}
             inContext={this.state.modified}

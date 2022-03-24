@@ -16,19 +16,34 @@
  */
 
 import React from "react";
+import PropTypes from "prop-types";
 
-//className={`icon-image ${selected ? "select" : ""}`}
-const RegularButton = ({ selected, onClick, size, buttonText, style, icoSVG, disabled }) => {
+const RegularButton = ({ selected, onClick, size, buttonText, style, icoSVG, icoPosition, disabled }) => {
   return (
     <div
       onClick={disabled ? () => {} : onClick}
       className={`${size ? size : ""} ${selected ? "active" : ""} button ${style && style}`}
       disabled={disabled}
     >
-      <div className={"buttonLabel"} dangerouslySetInnerHTML={{ __html: buttonText }} />
+      <div className={"buttonLabel"}>
+        {icoSVG && icoPosition !== "right" ? icoSVG : ""}
+        <span className={"buttonText"} dangerouslySetInnerHTML={{ __html: buttonText }} />
+        {icoSVG && icoPosition === "right" ? icoSVG : ""}
+      </div>
       <div className="buttonFX"></div>
     </div>
   );
+};
+
+RegularButton.propTypes = {
+  selected: PropTypes.bool,
+  onClick: PropTypes.func,
+  size: PropTypes.string,
+  buttonText: PropTypes.string,
+  style: PropTypes.string,
+  icoSVG: PropTypes.object,
+  icoPosition: PropTypes.string,
+  disabled: PropTypes.bool
 };
 
 export default RegularButton;

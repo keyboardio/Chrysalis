@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import IconAddNew from "./IconAddNew";
 import IconArrowsSmallSeparating from "./IconArrowsSmallSeparating";
 import IconCheckmarkSm from "./IconCheckmarkSm";
 import IconChip from "./IconChip";
@@ -53,6 +54,7 @@ import IconPlus from "./IconPlus";
 import IconSettings from "./IconSettings";
 
 export {
+  IconAddNew,
   IconArrowsSmallSeparating,
   IconCheckmarkSm,
   IconChip,

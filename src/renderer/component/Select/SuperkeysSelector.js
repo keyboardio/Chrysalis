@@ -27,7 +27,10 @@ import { IconDelete } from "../Icon";
 import { NameModal } from "../Modal/"; // Imported custom modal component
 import { RegularButton } from "../Button";
 
-const Style = Styled.div`
+import { IconAddNew } from "../Icon";
+
+const Style = Styled.div` 
+display: flex;
 .dropdownMultipleActions {
     min-width: 320px;
 }
@@ -48,6 +51,14 @@ const Style = Styled.div`
     width: 28px;
     margin-right: 6px;
     text-align: right;
+}
+.button.outline.gradient {
+  align-self: center;
+  padding: 14px;
+  margin-left: 8px;
+  .buttonFX {
+    width: 50px;
+  }
 }
 `;
 class SuperKeysSelector extends React.Component {
@@ -81,22 +92,20 @@ class SuperKeysSelector extends React.Component {
         <div className="itemListelector dropdownMultipleActions">
           <Dropdown onSelect={onSelect} value={selectedItem} className="dropdownList">
             <Dropdown.Toggle className="toggler neuronToggler">
-              {itemList.length == 0 ? (
-                i18n.dialog.loading
-              ) : (
-                <div className="dropdownListInner">
-                  <div className="dropdownListNumber">#{parseInt(selectedItem) + 1}</div>
-                  <div className="dropdownListItem">
-                    <div className="dropdownListItemInner">
-                      <div className="dropdownListItemLabel">{subtitle}</div>
-                      <div className="dropdownListItemSelected">{itemList[selectedItem].name}</div>
-                      <span className="caret">
-                        <IconArrowsSmallSeparating />
-                      </span>
+              <div className="dropdownListInner">
+                <div className="dropdownListNumber">{itemList.length == 0 ? "#0" : `#${parseInt(selectedItem) + 1}`}</div>
+                <div className="dropdownListItem">
+                  <div className="dropdownListItemInner">
+                    <div className="dropdownListItemLabel">{subtitle}</div>
+                    <div className="dropdownListItemSelected">
+                      {itemList.length == 0 ? i18n.dialog.loading : itemList[selectedItem].name}
                     </div>
+                    <span className="caret">
+                      <IconArrowsSmallSeparating />
+                    </span>
                   </div>
                 </div>
-              )}
+              </div>
             </Dropdown.Toggle>
             <Dropdown.Menu className="dropdownMenu">
               {itemList.map((item, iter) => (
@@ -133,7 +142,7 @@ class SuperKeysSelector extends React.Component {
             </Dropdown>
           </div>
         </div>
-        <RegularButton buttonText={"Save changes"} style="outline gradient" size="sm" onClick={this.addNewElement} />
+        <RegularButton icoSVG={<IconAddNew />} style="outline gradient" onClick={this.addNewElement} />
         <NameModal
           show={show}
           name={itemList[selectedItem]}

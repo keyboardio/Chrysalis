@@ -41,10 +41,9 @@ import { toast } from "react-toastify";
 import Focus from "../../api/focus";
 import Hardware from "../../api/hardware";
 import Log from "../../api/log";
-
-import usb from "usb";
-
 import i18n from "../i18n";
+
+const { ipcRenderer } = require("electron");
 
 import { installUdevRules } from "../utils/installUdevRules";
 
@@ -119,36 +118,37 @@ class KeyboardSelect extends React.Component {
     scanForKeyboards: false
   };
 
-  findNonSerialKeyboards = deviceList => {
+  findNonSerialKeyboards = async deviceList => {
     const logger = new Log();
-    const devices = usb.getDeviceList().map(device => device.deviceDescriptor);
-    devices.forEach(desc => {
-      Hardware.nonSerial.forEach(device => {
-        if (
-          desc.idVendor == device.usb.vendorId &&
-          desc.idProduct == device.usb.productId
-        ) {
-          let found = false;
-          deviceList.forEach(sDevice => {
-            if (
-              sDevice.device.usb.vendorId == desc.idVendor &&
-              sDevice.device.usb.productId == desc.idProduct
-            ) {
-              found = true;
-            }
-          });
-          if (!found) {
-            deviceList.push({
-              accessible: true,
-              device: device
+    return ipcRenderer.invoke("usb-scan-for-devices").then(devicesConnected => {
+      const devices = devicesConnected.map(device => device.deviceDescriptor);
+      devices.forEach(desc => {
+        Hardware.nonSerial.forEach(device => {
+          if (
+            desc.idVendor == device.usb.vendorId &&
+            desc.idProduct == device.usb.productId
+          ) {
+            let found = false;
+            deviceList.forEach(sDevice => {
+              if (
+                sDevice.device.usb.vendorId == desc.idVendor &&
+                sDevice.device.usb.productId == desc.idProduct
+              ) {
+                found = true;
+              }
             });
+            if (!found) {
+              deviceList.push({
+                accessible: true,
+                device: device
+              });
+            }
           }
-        }
+        });
       });
-    });
 
-    logger.debug("findNonSerialKeyboards", { deviceList: deviceList });
-    return deviceList;
+      return deviceList;
+    });
   };
 
   findKeyboards = async () => {
@@ -168,7 +168,7 @@ class KeyboardSelect extends React.Component {
               supported_devices.push(device);
             }
           }
-          const list = this.findNonSerialKeyboards(supported_devices);
+          const list = await this.findNonSerialKeyboards(supported_devices);
           this.setState({
             loading: false,
             scanForKeyboards: false,
@@ -176,8 +176,9 @@ class KeyboardSelect extends React.Component {
           });
           resolve(list.length > 0);
         })
-        .catch(() => {
-          const list = this.findNonSerialKeyboards([]);
+        .catch(async e => {
+          console.error(e);
+          const list = await this.findNonSerialKeyboards([]);
           this.setState({
             loading: false,
             scanForKeyboards: false,
@@ -203,16 +204,16 @@ class KeyboardSelect extends React.Component {
       }
     }, 10000);
 
-    this.finder = () => {
+    ipcRenderer.on("usb-connected", () => {
       this.setState({ scanForKeyboards: true });
-    };
-    usb.on("attach", this.finder);
-    usb.on("detach", this.finder);
+    });
+    ipcRenderer.on("usb-disconnected", () => {
+      this.setState({ scanForKeyboards: true });
+    });
 
     this.findKeyboards().then(() => {
       let focus = new Focus();
       if (!focus._port) return;
-
       for (let device of this.state.devices) {
         if (!device.path) continue;
 
@@ -227,8 +228,8 @@ class KeyboardSelect extends React.Component {
   }
 
   componentWillUnmount() {
-    usb.off("attach", this.finder);
-    usb.off("detach", this.finder);
+    ipcRenderer.removeAllListeners("usb-connected");
+    ipcRenderer.removeAllListeners("usb-disconnected");
   }
 
   selectPort = event => {
@@ -341,7 +342,7 @@ class KeyboardSelect extends React.Component {
       <Button
         variant={devices && devices.length ? "outlined" : "contained"}
         color={devices && devices.length ? "default" : "primary"}
-        className={scanFoundDevices && classes.found}
+        className={scanFoundDevices ? classes.found : null}
         onClick={scanFoundDevices ? null : this.scanDevices}
       >
         {i18n.t("keyboardSelect.scan")}

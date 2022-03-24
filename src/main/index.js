@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
+ * Copyright (C) 2018-2022  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -25,7 +25,7 @@ import { Environment } from "./dragons";
 // [1]: https://github.com/electron-userland/electron-webpack/issues/275
 process.env[`NODE_ENV`] = Environment.name;
 
-import { app, BrowserWindow, Menu } from "electron";
+import { app, BrowserWindow, Menu, ipcMain } from "electron";
 import { format as formatUrl } from "url";
 import * as path from "path";
 import windowStateKeeper from "electron-window-state";
@@ -33,6 +33,15 @@ import installExtension, {
   REACT_DEVELOPER_TOOLS
 } from "electron-devtools-installer";
 import { getStaticPath } from "../renderer/config";
+import { initialize, enable as enableRemote } from "@electron/remote/main";
+initialize();
+
+// Settings storage
+const Store = require("electron-store");
+Store.initRenderer();
+
+// USB support
+import { getDeviceList, usb } from "usb";
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
@@ -58,7 +67,7 @@ async function createMainWindow() {
       enableRemoteModule: true
     }
   });
-
+  enableRemote(window.webContents);
   mainWindowState.manage(window);
 
   if (isDevelopment) {
@@ -94,8 +103,40 @@ async function createMainWindow() {
   window.webContents.on("will-navigate", handleRedirect);
   window.webContents.on("new-window", handleRedirect);
 
+  window.webContents.on("devtools-opened", () => {
+    window.webContents.send("devtools-opened");
+  });
+
+  window.webContents.on("devtools-closed", () => {
+    window.webContents.send("devtools-closed");
+  });
+
   return window;
 }
+
+ipcMain.on("app-exit", (event, arg) => {
+  app.quit();
+});
+
+ipcMain.on("show-devtools", (event, boolFocus) => {
+  const webContents = event.sender;
+  if (boolFocus) {
+    webContents.openDevTools();
+  } else {
+    webContents.closeDevTools();
+  }
+});
+
+ipcMain.handle("devtools-is-open", event => {
+  const webContents = event.sender;
+  return webContents.isDevToolsOpened();
+});
+
+ipcMain.handle("usb-scan-for-devices", event => {
+  const webContents = event.sender;
+  const devices = getDeviceList();
+  return devices;
+});
 
 // This is a workaround for the lack of context-awareness in two native modules
 // we use, serialport (serialport/node-serialport#2051) and usb
@@ -160,4 +201,20 @@ app.on("web-contents-created", (_, wc) => {
       }
     }
   });
+});
+
+// Focus
+import Focus from "../api/focus";
+import Hardware from "../api/hardware";
+const focus = new Focus();
+ipcMain.handle("focus-find-serial-devices", event => {
+  return focus.find(Hardware.serial);
+});
+
+usb.on("detach", device => {
+  BrowserWindow.getFocusedWindow().send("usb-disconnected", device);
+});
+
+usb.on("attach", device => {
+  BrowserWindow.getFocusedWindow().send("usb-connected", device);
 });

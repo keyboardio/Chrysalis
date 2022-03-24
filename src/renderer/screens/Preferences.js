@@ -18,6 +18,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Electron from "electron";
+const { ipcRenderer } = require("electron");
 
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
@@ -41,7 +42,9 @@ import {
 import i18n from "../i18n";
 
 import Focus from "../../api/focus";
-import settings from "electron-settings";
+
+const Store = require("electron-store");
+const settings = new Store();
 
 const styles = theme => ({
   root: {
@@ -91,26 +94,32 @@ class Preferences extends React.Component {
     verboseFocus: false
   };
 
-  componentDidMount() {
-    const webContents = Electron.remote.getCurrentWebContents();
-    this.setState({ devTools: webContents.isDevToolsOpened() });
-    webContents.on("devtools-opened", () => {
+  componentDidMount = () => {
+    ipcRenderer.invoke("devtools-is-open").then(result => {
+      this.setState({ devTools: result });
+    });
+    ipcRenderer.on("devtools-opened", () => {
       this.setState({ devTools: true });
     });
-    webContents.on("devtools-closed", () => {
+    ipcRenderer.on("devtools-closed", () => {
       this.setState({ devTools: false });
     });
 
     let focus = new Focus();
     this.setState({ verboseFocus: focus.debug });
-  }
+  };
+
+  componentWillUnmount = () => {
+    ipcRenderer.removeAllListeners("devtools-opened");
+    ipcRenderer.removeAllListeners("devtools-closed");
+  };
 
   toggleDevTools = event => {
     this.setState({ devTools: event.target.checked });
     if (event.target.checked) {
-      Electron.remote.getCurrentWebContents().openDevTools();
+      ipcRenderer.send("show-devtools", true);
     } else {
-      Electron.remote.getCurrentWebContents().closeDevTools();
+      ipcRenderer.send("show-devtools", false);
     }
   };
 

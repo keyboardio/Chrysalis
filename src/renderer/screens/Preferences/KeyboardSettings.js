@@ -42,7 +42,8 @@ import i18n from "../../i18n";
 import clearEEPROM from "../../utils/clearEEPROM";
 import checkExternalFlasher from "../../utils/checkExternalFlasher";
 
-import settings from "electron-settings";
+const Store = require("electron-store");
+const settings = new Store();
 
 const styles = theme => ({
   title: {

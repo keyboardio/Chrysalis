@@ -28,7 +28,6 @@ import i18n from "../i18n";
 const ConfirmationDialog = props => {
   return (
     <Dialog
-      disableBackdropClick
       disableEscapeKeyDown
       open={props.open}
       onClose={props.onCancel}

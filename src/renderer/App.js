@@ -17,7 +17,11 @@
 
 import React from "react";
 import { spawn } from "child_process";
-import settings from "electron-settings";
+
+const { ipcRenderer } = require("electron");
+
+const Store = require("electron-store");
+const settings = new Store();
 
 import Focus from "../api/focus";
 import Log from "../api/log";
@@ -33,7 +37,6 @@ import { MuiThemeProvider } from "@material-ui/core/styles";
 import { lightTheme } from "../styles/lightTheme";
 import { darkTheme } from "../styles/darkTheme";
 
-import usb from "usb";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -57,7 +60,7 @@ if (isDevelopment) {
   focus.debug = true;
 }
 
-const settingsLanguage = settings.getSync("ui.language");
+const settingsLanguage = settings.get("ui.language");
 if (settingsLanguage) i18n.changeLanguage(settingsLanguage);
 
 const styles = () => ({
@@ -78,7 +81,7 @@ class App extends React.Component {
     this.logger = new Log();
 
     this.state = {
-      darkMode: settings.getSync("ui.darkMode"),
+      darkMode: settings.get("ui.darkMode"),
       connected: false,
       device: null,
       pages: {},
@@ -98,7 +101,7 @@ class App extends React.Component {
   flashing = false;
 
   componentDidMount() {
-    usb.on("detach", async device => {
+    ipcRenderer.on("usb-disconnected", async device => {
       if (!focus.device) return;
       if (this.flashing) return;
 
@@ -129,6 +132,10 @@ class App extends React.Component {
       // Second call to `navigate` will actually render the proper route
       await navigate("/keyboard-select");
     });
+  }
+
+  componentWillUnmount() {
+    ipcRenderer.removeAllListeners("usb-disconnected");
   }
 
   toggleDarkMode = async () => {

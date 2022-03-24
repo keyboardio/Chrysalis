@@ -41,9 +41,6 @@ import { toast } from "react-toastify";
 import Focus from "../../api/focus";
 import Hardware from "../../api/hardware";
 import Log from "../../api/log";
-
-import usb from "usb";
-
 import i18n from "../i18n";
 
 const { ipcRenderer } = require("electron");
@@ -207,12 +204,12 @@ class KeyboardSelect extends React.Component {
       }
     }, 10000);
 
-    this.finder = () => {
+    ipcRenderer.on("usb-connected", () => {
       this.setState({ scanForKeyboards: true });
-    };
-
-    webusb.addEventListener("connect", this.finder);
-    webusb.addEventListener("disconnect", this.finder);
+    });
+    ipcRenderer.on("usb-disconnected", () => {
+      this.setState({ scanForKeyboards: true });
+    });
 
     this.findKeyboards().then(() => {
       let focus = new Focus();
@@ -231,8 +228,8 @@ class KeyboardSelect extends React.Component {
   }
 
   componentWillUnmount() {
-    usb.off("attach", this.finder);
-    usb.off("detach", this.finder);
+    ipcRenderer.removeAllListeners("usb-connected");
+    ipcRenderer.removeAllListeners("usb-disconnected");
   }
 
   selectPort = event => {

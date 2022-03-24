@@ -41,7 +41,7 @@ const Store = require("electron-store");
 Store.initRenderer();
 
 // USB support
-import { getDeviceList } from "usb";
+import { getDeviceList, usb } from "usb";
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
@@ -197,4 +197,20 @@ app.on("web-contents-created", (_, wc) => {
       }
     }
   });
+});
+
+// Focus
+import Focus from "../api/focus";
+import Hardware from "../api/hardware";
+const focus = new Focus();
+ipcMain.handle("focus-find-serial-devices", event => {
+  return focus.find(Hardware.serial);
+});
+
+usb.on("detach", device => {
+  BrowserWindow.getFocusedWindow().send("usb-disconnected", device);
+});
+
+usb.on("attach", device => {
+  BrowserWindow.getFocusedWindow().send("usb-connected", device);
 });

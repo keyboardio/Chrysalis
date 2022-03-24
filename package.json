@@ -71,7 +71,7 @@
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@reach/router": "^1.2.1",
     "archiver": "^5.0.2",
-    "avrgirl-arduino": "^4.2.2",
+    "avrgirl-arduino": "keyboardio/avrgirl-arduino#serialport-10",
     "classnames": "^2.2.6",
     "cldr": "^5.8.0",
     "electron-devtools-installer": "^3.1.1",

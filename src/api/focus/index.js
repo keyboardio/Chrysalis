@@ -15,7 +15,7 @@
  */
 
 const { SerialPort } = require("serialport");
-import Delimiter from "@serialport/parser-delimiter";
+const { DelimiterParser } = require("@serialport/parser-delimiter");
 import fs from "fs";
 import usb from "usb";
 
@@ -170,7 +170,10 @@ class Focus {
   async open(device, info) {
     if (typeof device == "string") {
       if (!info) throw new Error("Device descriptor argument is mandatory");
-      this._port = new SerialPort(device);
+      this._port = new SerialPort({
+        path: device,
+        baudRate: 9600
+      });
     } else if (typeof device == "object") {
       if (device.hasOwnProperty("binding")) {
         if (!info) throw new Error("Device descriptor argument is mandatory");
@@ -178,7 +181,10 @@ class Focus {
       } else {
         let devices = await this.find(device);
         if (devices && devices.length >= 1) {
-          this._port = new SerialPort(devices[0].path);
+          this._port = new SerialPort({
+            path: devices[0].path,
+            baudRate: 9600
+          });
         }
         info = device;
       }
@@ -187,7 +193,7 @@ class Focus {
     }
 
     this.device = info;
-    this.parser = this._port.pipe(new Delimiter({ delimiter: "\r\n" }));
+    this.parser = this._port.pipe(new DelimiterParser({ delimiter: "\r\n" }));
     this.result = "";
     this.callbacks = [];
     this.parser.on("data", data => {

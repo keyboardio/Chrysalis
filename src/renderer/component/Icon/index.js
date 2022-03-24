@@ -25,6 +25,7 @@ import IconKeysPress from "./IconKeysPress";
 import IconKeysTapHold from "./IconKeysTapHold";
 import IconKeys2Tap from "./IconKeys2Tap";
 import IconKeys2TapHold from "./IconKeys2TapHold";
+import IconKeysHold from "./IconKeysHold";
 import IconKeysRelease from "./IconKeysRelease";
 import IconKeysStopWatch from "./IconKeysStopWatch";
 import IconKeyboardSelector from "./IconKeyboardSelector";
@@ -65,6 +66,7 @@ export {
   IconKeysTapHold,
   IconKeys2Tap,
   IconKeys2TapHold,
+  IconKeysHold,
   IconKeysRelease,
   IconKeysStopWatch,
   IconKeyboardSelector,

@@ -4,7 +4,14 @@ import Styled from "styled-components";
 
 import Title from "../../component/Title";
 
-import { IconKeysPress, IconKeysTapHold, IconKeys2Tap, IconKeys2TapHold, IconKeysRelease } from "../../component/Icon";
+import {
+  IconKeysPress,
+  IconKeysTapHold,
+  IconKeysHold,
+  IconKeys2Tap,
+  IconKeys2TapHold,
+  IconKeysRelease
+} from "../../component/Icon";
 
 const Style = Styled.div` 
 .keyWrapper {
@@ -21,7 +28,7 @@ const Style = Styled.div`
             color: ${({ theme }) => theme.colors.gray25};
             font-weight: 700;
             font-size: 13px;
-            margin-top: 8px;
+            margin-top: 12px;
             letter-spacing: 0.04em;
         }
         .description {
@@ -50,6 +57,7 @@ const Style = Styled.div`
     box-shadow: 0px 4px 24px rgba(108, 92, 231, 0.65);
     border-radius: 4px; 
     padding: 1px 3px 6px 3px;
+    margin-top: 16px;
 
     transition-property: box-shadow, border;
     transition: 300ms ease-in-out;
@@ -99,7 +107,7 @@ const SuperkeyActions = ({ isStandardViewSuperkeys }) => {
 
         <div className="superkeyAction">
           <div className={`superkeyTitle ${isStandardViewSuperkeys ? "standard" : "single"}`}>
-            <IconKeysTapHold />
+            <IconKeysHold />
             <Title text="Hold" headingLevel={5} />
           </div>
           {isStandardViewSuperkeys && <div className="description">Hold the key top trigger a second key.</div>}

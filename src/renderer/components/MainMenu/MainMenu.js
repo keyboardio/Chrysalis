@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
+ * Copyright (C) 2018-2022  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -16,7 +16,7 @@
  */
 
 import React from "react";
-import Electron from "electron";
+import { ipcRenderer } from "electron";
 import { Link } from "@reach/router";
 
 import Divider from "@material-ui/core/Divider";
@@ -189,7 +189,7 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
         </Link>
         <ExitMenuItem
           className={classes.menuItem}
-          onClick={() => Electron.remote.app.exit(0)}
+          onClick={() => ipcRenderer.send("app-exit")}
         />
       </List>
       <Divider />

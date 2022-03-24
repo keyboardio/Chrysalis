@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
+ * Copyright (C) 2018-2022  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -113,6 +113,10 @@ async function createMainWindow() {
 
   return window;
 }
+
+ipcMain.on("app-exit", (event, arg) => {
+  app.quit();
+});
 
 ipcMain.on("show-devtools", (event, boolFocus) => {
   const webContents = event.sender;

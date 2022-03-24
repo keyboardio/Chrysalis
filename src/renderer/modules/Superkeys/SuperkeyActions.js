@@ -2,16 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import Styled from "styled-components";
 
-import Title from "../../component/Title";
+import { SuperkeyPicker } from "../../component/Button";
 
-import {
-  IconKeysPress,
-  IconKeysTapHold,
-  IconKeysHold,
-  IconKeys2Tap,
-  IconKeys2TapHold,
-  IconKeysRelease
-} from "../../component/Icon";
+import { IconKeysPress, IconKeysTapHold, IconKeysHold, IconKeys2Tap, IconKeys2TapHold } from "../../component/Icon";
 
 const Style = Styled.div` 
 .keyWrapper {
@@ -91,43 +84,41 @@ const Style = Styled.div`
 `;
 
 const SuperkeyActions = ({ isStandardViewSuperkeys }) => {
+  const rows = [
+    {
+      icon: <IconKeysPress />,
+      title: "Tap",
+      description: "No secrets, tap once and activate the key."
+    },
+    {
+      icon: <IconKeysHold />,
+      title: "Hold",
+      description: "Hold the key top trigger a second key."
+    },
+    {
+      icon: <IconKeysTapHold />,
+      title: "Tap & hold",
+      description: "Tap once, tap again and keep holding to activate another key."
+    },
+    {
+      icon: <IconKeys2Tap />,
+      title: "2Tap",
+      description: "Tap twice fast and trigger another key."
+    },
+    {
+      icon: <IconKeys2TapHold />,
+      title: "2Tap & hold",
+      description: "Tap twice fast and hold to see others keyboards crying."
+    }
+  ];
+
+  console.log("Rows", rows);
   return (
     <Style>
       <div className="keyWrapper">
-        <div className="superkeyAction">
-          <div className={`superkeyTitle ${isStandardViewSuperkeys ? "standard" : "single"}`}>
-            <IconKeysPress />
-            <Title text="Tap" headingLevel={5} />
-          </div>
-          {isStandardViewSuperkeys && <div className="description">No secrets, tap once and activate the key.</div>}
-          <div className="superkeyButton">
-            <div className="superkeyButtonInner">Macro.Hey Dygmate!</div>
-          </div>
-        </div>
-
-        <div className="superkeyAction">
-          <div className={`superkeyTitle ${isStandardViewSuperkeys ? "standard" : "single"}`}>
-            <IconKeysHold />
-            <Title text="Hold" headingLevel={5} />
-          </div>
-          {isStandardViewSuperkeys && <div className="description">Hold the key top trigger a second key.</div>}
-          <div className="superkeyButton">
-            <div className="superkeyButtonInner">Macro.Hey Dygmate!</div>
-          </div>
-        </div>
-
-        <div className="superkeyAction">
-          <div className={`superkeyTitle ${isStandardViewSuperkeys ? "standard" : "single"}`}>
-            <IconKeysTapHold />
-            <Title text="Tap & Hold" headingLevel={5} />
-          </div>
-          {isStandardViewSuperkeys && (
-            <div className="description">Tap once, tap again and keep holding to activate another key.</div>
-          )}
-          <div className="superkeyButton">
-            <div className="superkeyButtonInner">Macro.Hey Dygmate!</div>
-          </div>
-        </div>
+        {rows.map((item, index) => (
+          <SuperkeyPicker icon={item.icon} key={index} title={item.title} isStandardViewSuperkeys={isStandardViewSuperkeys} />
+        ))}
       </div>
     </Style>
   );

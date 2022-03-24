@@ -2,7 +2,7 @@ import * as React from "react";
 
 function IconKeys2TapHold(props) {
   return (
-    <svg width={20} height={20} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <svg width={20} height={21} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path fill="currentColor" d="M0 20h20v1H0z" />
       <path stroke="currentColor" d="M3.5 18.5h13v2h-13z" />
       <path d="M6.667 12.949L10 15.897l3.333-2.948" stroke="currentColor" strokeWidth={1.2} />

@@ -76,55 +76,57 @@ function Header({
   }
 
   return (
-    <AppBar
-      position="sticky"
-      color={contextBar ? "secondary" : "primary"}
-      id="appbar"
-      className={classes.appBar}
-    >
-      <Toolbar variant="dense">
-        <IconButton
-          edge="start"
-          color="inherit"
-          aria-label="menu"
-          className={classes.menuButton}
-          onClick={contextOnClick}
-          sx={{ mr: 2 }}
-        >
-          {contextBar ? <CloseIcon /> : <MenuIcon />}
-        </IconButton>
-        <Typography
-          variant="h6"
-          color="inherit"
-          className={classes.pageMenu}
-          id="page-title"
-          component="div"
-        />
-        <MainMenu
-          connected={connected}
-          pages={pages}
-          open={mainMenu}
-          closeMenu={closeMainMenu}
-        />
-        <div className={classes.grow} />
-        {device && (
-          <Button
-            onClick={openBoardMenu}
-            disabled={!device.urls}
-            className="button"
+    <>
+      <MainMenu
+        connected={connected}
+        pages={pages}
+        open={mainMenu}
+        closeMenu={closeMainMenu}
+      />
+      <AppBar
+        position="sticky"
+        color={contextBar ? "secondary" : "primary"}
+        id="appbar"
+        className={classes.appBar}
+      >
+        <Toolbar variant="dense">
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            className={classes.menuButton}
+            onClick={contextOnClick}
+            sx={{ mr: 2 }}
           >
-            {device.displayName}
-          </Button>
-        )}
-        {device && device.urls && (
-          <BoardMenu
-            boardAnchor={boardAnchor}
-            boardClose={closeBoardMenu}
-            device={device}
+            {contextBar ? <CloseIcon /> : <MenuIcon />}
+          </IconButton>
+          <Typography
+            variant="h6"
+            color="inherit"
+            className={classes.pageMenu}
+            id="page-title"
+            component="div"
           />
-        )}
-      </Toolbar>
-    </AppBar>
+          <div className={classes.grow} />
+          {device && (
+            <Button
+              onClick={openBoardMenu}
+              disabled={!device.urls}
+              className="button"
+            >
+              {device.displayName}
+            </Button>
+          )}
+          {device && device.urls && (
+            <BoardMenu
+              boardAnchor={boardAnchor}
+              boardClose={closeBoardMenu}
+              device={device}
+            />
+          )}
+        </Toolbar>
+      </AppBar>
+    </>
   );
 }
 

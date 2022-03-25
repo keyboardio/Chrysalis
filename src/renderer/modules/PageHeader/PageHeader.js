@@ -63,6 +63,9 @@ align-self: flex-start;
     }
     .savingButtons {
       margin-left: auto;
+      .button {
+        padding: 12px 24px;
+      }
       .button + .button {
         margin-left: 12px;
       }

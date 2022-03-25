@@ -83,7 +83,18 @@ const Style = Styled.div`
 }
 `;
 
-const SuperkeyActions = ({ isStandardViewSuperkeys }) => {
+const SuperkeyActions = ({
+  isStandardViewSuperkeys,
+  superkeys,
+  selected,
+  selectedAction,
+  changeSelected,
+  updateSuper,
+  macros,
+  updateAction,
+  changeAction,
+  keymapDB
+}) => {
   const rows = [
     {
       icon: <IconKeysPress />,
@@ -116,9 +127,23 @@ const SuperkeyActions = ({ isStandardViewSuperkeys }) => {
   return (
     <Style>
       <div className="keyWrapper">
-        {rows.map((item, index) => (
-          <SuperkeyPicker icon={item.icon} key={index} title={item.title} isStandardViewSuperkeys={isStandardViewSuperkeys} />
-        ))}
+        {superkeys
+          ? rows.map((item, index) => (
+              <SuperkeyPicker
+                index={index}
+                selected={selected}
+                superkeys={superkeys}
+                icon={item.icon}
+                key={index}
+                title={item.title}
+                isStandardViewSuperkeys={isStandardViewSuperkeys}
+                changeSelected={changeSelected}
+                updateSuper={updateSuper}
+                macros={macros}
+                keymapDB={keymapDB}
+              />
+            ))
+          : ""}
       </div>
     </Style>
   );

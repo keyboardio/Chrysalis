@@ -179,11 +179,11 @@ const FirmwareUpdatePanel = ({
   onBackup
 }) => {
   // production
-  //const isUpdated = currentlyVersionRunning === latestVersionAvailable ? true : false;
+  const isUpdated = currentlyVersionRunning === latestVersionAvailable ? true : false;
 
   // development
   //const isUpdated = true;
-  const isUpdated = currentlyVersionRunning === "v1.0.0beta19" ? true : false;
+  //const isUpdated = currentlyVersionRunning === "v1.0.0beta19" ? true : false;
 
   return (
     <Style>

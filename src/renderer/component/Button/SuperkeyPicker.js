@@ -16,7 +16,6 @@
  */
 
 import React from "react";
-import PropTypes from "prop-types";
 import Styled from "styled-components";
 
 import Title from "../../component/Title";
@@ -92,7 +91,48 @@ const Style = Styled.div`
 }
 `;
 
-const SuperkeyPicker = ({ selected, onClick, icon, title, description, selKey, isStandardViewSuperkeys }) => {
+const SuperkeyPicker = ({
+  selected,
+  onClick,
+  index,
+  icon,
+  title,
+  description,
+  selKey,
+  isStandardViewSuperkeys,
+  superkeys,
+  macros,
+  keymapDB,
+  changeSelected,
+  updateSuper
+}) => {
+  const [actualKey, setActualKey] = React.useState({});
+  const [text, setText] = React.useState("Loading...");
+
+  React.useEffect(() => {
+    console.log("Superkeys", superkeys);
+    console.log("Selected", selected);
+
+    if (Array.isArray(superkeys) && superkeys.length > 0) {
+      const auxParse = keymapDB.parse(superkeys[selected].actions[index]);
+
+      console.log("INDEX: ", index);
+      console.log("actualKey: ", actualKey);
+      console.log("superkeys[selected].actions[index]: ", superkeys[selected].actions[index]);
+      console.log("keymapDB.parse(superkeys[selected].actions[index]): ", auxParse);
+      setText(superkeys[selected].actions[index]);
+      if (auxParse.extraLabel == "MACRO") {
+        if (macros.length > parseInt(auxParse.label) && macros[parseInt(auxParse.label)].name.substr(0, 5) != "") {
+          setText((auxParse.label = macros[parseInt(auxParse.label)].name.substr(0, 5).toLowerCase()));
+        }
+      }
+      if (auxParse.label) {
+        setText((auxParse.extraLabel != undefined ? auxParse.extraLabel + " " : "") + auxParse.label);
+      }
+    }
+  }, [superkeys, selected]);
+
+  if (superkeys === null) return null;
   return (
     <Style>
       <div className={`superkeyAction ${selected ? selected : ""}`} onClick={onClick}>
@@ -102,20 +142,11 @@ const SuperkeyPicker = ({ selected, onClick, icon, title, description, selKey, i
         </div>
         {isStandardViewSuperkeys && <div className="description">{description}</div>}
         <div className="superkeyButton">
-          <div className="superkeyButtonInner">{selKey}</div>
+          <div className="superkeyButtonInner">{text}</div>
         </div>
       </div>
     </Style>
   );
-};
-
-SuperkeyPicker.propTypes = {
-  selected: PropTypes.bool,
-  onClick: PropTypes.func,
-  icon: PropTypes.object,
-  title: PropTypes.string,
-  description: PropTypes.string,
-  isStandardViewSuperkeys: PropTypes.bool
 };
 
 export default SuperkeyPicker;

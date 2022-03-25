@@ -716,7 +716,18 @@ class SuperkeysEditor extends React.Component {
             inContext={this.state.modified}
           />
           <Callout content={i18n.editor.superkeys.callout} className="mt-lg" size="md" maxWidth={1060} />
-          <SuperkeyActions isStandardViewSuperkeys={isStandardViewSuperkeys} />
+          <SuperkeyActions
+            isStandardViewSuperkeys={isStandardViewSuperkeys}
+            superkeys={superkeys}
+            selected={selectedSuper}
+            selectedAction={selectedAction}
+            macros={macros}
+            changeSelected={this.changeSelected}
+            updateSuper={this.updateSuper}
+            updateAction={this.updateAction}
+            changeAction={this.changeAction}
+            keymapDB={this.keymapDB}
+          />
           {!isStandardViewSuperkeys && (
             <SuperkeyManager
               superkeys={superkeys}

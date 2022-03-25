@@ -1,10 +1,12 @@
-import { createTheme } from "@material-ui/core/styles";
+import { createTheme, adaptV4Theme } from "@mui/material/styles";
 
-export const lightTheme = createTheme({
-  palette: {
-    type: "light"
-  },
-  typography: {
-    useNextVariants: true
-  }
-});
+export const lightTheme = createTheme(
+  adaptV4Theme({
+    palette: {
+      mode: "light"
+    },
+    typography: {
+      useNextVariants: true
+    }
+  })
+);

@@ -22,18 +22,18 @@ import path from "path";
 import fs from "fs";
 import { toast } from "react-toastify";
 
-import Button from "@material-ui/core/Button";
-import CloseIcon from "@material-ui/icons/Close";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import Divider from "@material-ui/core/Divider";
-import Drawer from "@material-ui/core/Drawer";
-import IconButton from "@material-ui/core/IconButton";
-import MenuItem from "@material-ui/core/MenuItem";
-import MenuList from "@material-ui/core/MenuList";
-import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
+import Button from "@mui/material/Button";
+import CloseIcon from "@mui/icons-material/Close";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import Divider from "@mui/material/Divider";
+import Drawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
+import MenuItem from "@mui/material/MenuItem";
+import MenuList from "@mui/material/MenuList";
+import Typography from "@mui/material/Typography";
+import withStyles from "@mui/styles/withStyles";
 
 import ConfirmationDialog from "../../../../components/ConfirmationDialog";
 
@@ -395,9 +395,13 @@ class LayoutSharingBase extends React.Component {
 
     return (
       <Dialog open={open} onClose={onClose} fullScreen>
-        <DialogTitle disableTypography>
+        <DialogTitle>
           <Typography variant="h6">{i18n.t("editor.sharing.title")}</Typography>
-          <IconButton onClick={onClose} className={classes.closeButton}>
+          <IconButton
+            onClick={onClose}
+            className={classes.closeButton}
+            size="large"
+          >
             <CloseIcon />
           </IconButton>
         </DialogTitle>

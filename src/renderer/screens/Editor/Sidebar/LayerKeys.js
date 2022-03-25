@@ -18,12 +18,12 @@
 import React from "react";
 import i18n from "i18next";
 
-import FormControl from "@material-ui/core/FormControl";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import Select from "@material-ui/core/Select";
-import { withStyles } from "@material-ui/core/styles";
+import FormControl from "@mui/material/FormControl";
+import Input from "@mui/material/Input";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import withStyles from "@mui/styles/withStyles";
 
 import Collapsible from "../components/Collapsible";
 import { KeymapDB } from "../../../../api/keymap";

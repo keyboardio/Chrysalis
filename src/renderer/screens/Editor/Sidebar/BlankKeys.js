@@ -18,7 +18,7 @@
 import React from "react";
 import i18n from "i18next";
 
-import { withStyles } from "@material-ui/core/styles";
+import withStyles from "@mui/styles/withStyles";
 
 import Collapsible from "../components/Collapsible";
 import KeyButton from "../components/KeyButton";

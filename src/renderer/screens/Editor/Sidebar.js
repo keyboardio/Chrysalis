@@ -17,9 +17,9 @@
 
 import React from "react";
 
-import Drawer from "@material-ui/core/Drawer";
-import Toolbar from "@material-ui/core/Toolbar";
-import { withStyles } from "@material-ui/core/styles";
+import Drawer from "@mui/material/Drawer";
+import Toolbar from "@mui/material/Toolbar";
+import withStyles from "@mui/styles/withStyles";
 
 import Title from "./Sidebar/Title";
 import Overview from "./Sidebar/Overview";

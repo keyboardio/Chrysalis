@@ -18,9 +18,9 @@
 import React from "react";
 import { CustomPicker } from "react-color";
 
-import Avatar from "@material-ui/core/Avatar";
-import CropSquareIcon from "@material-ui/icons/CropSquare";
-import { withStyles } from "@material-ui/core/styles";
+import Avatar from "@mui/material/Avatar";
+import CropSquareIcon from "@mui/icons-material/CropSquare";
+import withStyles from "@mui/styles/withStyles";
 
 const styles = theme => ({
   swatchContainer: {

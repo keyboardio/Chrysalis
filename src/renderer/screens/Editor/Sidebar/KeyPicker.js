@@ -18,20 +18,20 @@
 import React from "react";
 import i18n from "i18next";
 
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import Divider from "@material-ui/core/Divider";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import InputLabel from "@material-ui/core/InputLabel";
-import ListItemText from "@material-ui/core/ListItemText";
-import MenuItem from "@material-ui/core/MenuItem";
-import Select from "@material-ui/core/Select";
-import Switch from "@material-ui/core/Switch";
-import Tooltip from "@material-ui/core/Tooltip";
-import { withStyles } from "@material-ui/core/styles";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import Divider from "@mui/material/Divider";
+import FormGroup from "@mui/material/FormGroup";
+import FormControl from "@mui/material/FormControl";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormHelperText from "@mui/material/FormHelperText";
+import InputLabel from "@mui/material/InputLabel";
+import ListItemText from "@mui/material/ListItemText";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import Switch from "@mui/material/Switch";
+import Tooltip from "@mui/material/Tooltip";
+import withStyles from "@mui/styles/withStyles";
 
 import Keyboard104 from "../Keyboard104";
 import Collapsible from "../components/Collapsible";
@@ -53,7 +53,7 @@ const styles = theme => ({
     marginTop: theme.spacing(2)
   },
   modContainer: {
-    margin: `${theme.spacing(2)}px 0`
+    margin: `${theme.spacing(2)} 0`
   },
   keyPickButton: {
     marginBottom: theme.spacing(2)

@@ -18,10 +18,10 @@
 import React from "react";
 import i18n from "i18next";
 
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import withStyles from "@mui/styles/withStyles";
 
 import Collapsible from "../components/Collapsible";
 import KeyButton from "../components/KeyButton";

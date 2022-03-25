@@ -19,7 +19,7 @@ import React from "react";
 import i18n from "i18next";
 import { ChromePicker } from "react-color";
 
-import { withStyles } from "@material-ui/core/styles";
+import withStyles from "@mui/styles/withStyles";
 
 import PalettePicker from "./Colormap/PalettePicker";
 import Collapsible from "../components/Collapsible";

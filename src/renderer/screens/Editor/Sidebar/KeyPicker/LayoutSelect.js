@@ -18,12 +18,12 @@
 import React from "react";
 import i18n from "i18next";
 
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import FormControl from "@material-ui/core/FormControl";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import Select from "@material-ui/core/Select";
-import TextField from "@material-ui/core/TextField";
-import { withStyles } from "@material-ui/core/styles";
+import Autocomplete from "@mui/material/Autocomplete";
+import FormControl from "@mui/material/FormControl";
+import FormHelperText from "@mui/material/FormHelperText";
+import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
+import withStyles from "@mui/styles/withStyles";
 
 import { KeymapDB } from "../../../../../api/keymap";
 

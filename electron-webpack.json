@@ -24,14 +24,7 @@
   //  - https://github.com/facebook/react/issues/13991#issuecomment-683109390
   //  - https://github.com/electron-userland/electron-webpack/issues/283#issuecomment-487470932
   "whiteListedModules": [
-    "@mui/core",
-    "@mui/icons",
-    "@mui/lab",
-    "@mui/icons-material",
-    "@mui/material",
-    "@mui/styles",
     "@mui/system",
-    "@reach/router",
     "react",
     "react-color",
     "react-dom",
@@ -40,8 +33,6 @@
     "react-toastify",
     "react-markdown",
     "@emotion/react",
-    "@babel/preset-react",
-    "@testing-library/react",
     "@emotion/styled"
   ]
 }

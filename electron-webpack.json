@@ -1,5 +1,6 @@
 {
   "title": "Chrysalis",
+
   // "whiteListedModules" means "modules which are bundled by webpack during
   // the build rather than treated as external". Notably, "react" requires
   // being bundled to work well in the renderer process, so electron-webpack
@@ -23,9 +24,9 @@
   //  - https://github.com/facebook/react/issues/13991#issuecomment-683109390
   //  - https://github.com/electron-userland/electron-webpack/issues/283#issuecomment-487470932
   "whiteListedModules": [
-    "@material-ui/core",
-    "@material-ui/icons",
-    "@material-ui/lab",
+    "@mui/core",
+    "@mui/icons",
+    "@mui/lab",
     "@reach/router",
     "prop-types",
     "react",
@@ -34,6 +35,34 @@
     "react-i18next",
     "react-localization",
     "react-toastify",
-    "react-markdown"
+    "react-markdown",
+    "@emotion/react",
+    "@babel/preset-react",
+    "@testing-library/react",
+    "@electron/remote",
+    "@emotion/react",
+    "@emotion/styled",
+    "@material-ui/core",
+    "@material-ui/icons",
+    "@material-ui/lab",
+    "@mui/icons-material",
+    "@mui/lab",
+    "@mui/material",
+    "@mui/styles",
+    "@mui/system",
+    "@reach/router",
+    "i18next",
+    "i18next-electron-language-detector",
+    "json-stringify-pretty-compact",
+    "prop-types",
+    "react",
+    "react-color",
+    "react-dom",
+    "react-i18next",
+    "react-localization",
+    "react-markdown",
+    "react-toastify",
+    "source-map-support",
+    "sudo-prompt"
   ]
 }

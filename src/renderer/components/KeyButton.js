@@ -37,7 +37,7 @@ const KeyButton = withStyles(styles)(props => {
   return (
     <Button
       className={classes.key}
-      color={selected ? "primary" : "default"}
+      color={selected ? "primary" : "secondary"}
       variant={selected ? "contained" : "outlined"}
       {...other}
     >

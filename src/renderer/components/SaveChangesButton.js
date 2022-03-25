@@ -19,13 +19,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Button from "@material-ui/core/Button";
-import Fab from "@material-ui/core/Fab";
-import CheckIcon from "@material-ui/icons/Check";
-import SaveAltIcon from "@material-ui/icons/SaveAlt";
-import Tooltip from "@material-ui/core/Tooltip";
-import { withStyles } from "@material-ui/core/styles";
+import CircularProgress from "@mui/material/CircularProgress";
+import Button from "@mui/material/Button";
+import Fab from "@mui/material/Fab";
+import CheckIcon from "@mui/icons-material/Check";
+import SaveAltIcon from "@mui/icons-material/SaveAlt";
+import Tooltip from "@mui/material/Tooltip";
+import withStyles from "@mui/styles/withStyles";
 
 import i18n from "../i18n";
 

@@ -25,6 +25,7 @@ import "typeface-source-code-pro/index.css";
 import AppBar from "@mui/material/AppBar";
 import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
+import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -34,18 +35,8 @@ import BoardMenu from "./BoardMenu";
 import MainMenu from "./MainMenu/MainMenu";
 
 const styles = theme => ({
-  pageMenu: {
-    marginLeft: theme.spacing(2)
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20
-  },
   grow: {
     flexGrow: 1
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 3
   }
 });
 
@@ -86,20 +77,29 @@ function Header({
 
   return (
     <AppBar
-      position="static"
-      color={contextBar ? "secondary" : "inherit"}
+      position="sticky"
+      color={contextBar ? "secondary" : "primary"}
       id="appbar"
       className={classes.appBar}
     >
       <Toolbar variant="dense">
-        <Button className={classes.menuButton} onClick={contextOnClick}>
+        <IconButton
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          className={classes.menuButton}
+          onClick={contextOnClick}
+          sx={{ mr: 2 }}
+        >
           {contextBar ? <CloseIcon /> : <MenuIcon />}
-          <Typography
-            variant="h6"
-            className={classes.pageMenu}
-            id="page-title"
-          />
-        </Button>
+        </IconButton>
+        <Typography
+          variant="h6"
+          color="inherit"
+          className={classes.pageMenu}
+          id="page-title"
+          component="div"
+        />
         <MainMenu
           connected={connected}
           pages={pages}

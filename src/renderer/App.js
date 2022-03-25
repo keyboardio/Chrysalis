@@ -255,7 +255,13 @@ class App extends React.Component {
       (this.state.device && this.state.device.info);
     const theme = createTheme({
       palette: {
-        mode: this.state.darkMode ? "dark" : "light"
+        mode: this.state.darkMode ? "dark" : "light",
+        primary: {
+          main: "#EF5022"
+        },
+        secondary: {
+          main: "#939597"
+        }
       }
     });
 

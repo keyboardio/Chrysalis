@@ -17,8 +17,8 @@
 
 import React from "react";
 
-import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
+import Typography from "@mui/material/Typography";
+import withStyles from "@mui/styles/withStyles";
 
 import i18n from "../i18n";
 import { getStatic } from "../config";

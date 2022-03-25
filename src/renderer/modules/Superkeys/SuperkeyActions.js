@@ -127,17 +127,19 @@ const SuperkeyActions = ({
   return (
     <Style>
       <div className="keyWrapper">
-        {superkeys
+        {superkeys != undefined && superkeys.length > 0
           ? rows.map((item, index) => (
               <SuperkeyPicker
                 index={index}
                 selected={selected}
+                selectedAction={selectedAction}
                 superkeys={superkeys}
                 icon={item.icon}
-                key={index}
+                key={`skA-${index}`}
                 title={item.title}
                 isStandardViewSuperkeys={isStandardViewSuperkeys}
                 changeSelected={changeSelected}
+                onClick={changeAction}
                 updateSuper={updateSuper}
                 macros={macros}
                 keymapDB={keymapDB}

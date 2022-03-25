@@ -93,6 +93,7 @@ const Style = Styled.div`
 
 const SuperkeyPicker = ({
   selected,
+  selectedAction,
   onClick,
   index,
   icon,
@@ -135,7 +136,7 @@ const SuperkeyPicker = ({
   if (superkeys === null) return null;
   return (
     <Style>
-      <div className={`superkeyAction ${selected ? selected : ""}`} onClick={onClick}>
+      <div className={`superkeyAction ${selectedAction ? selectedAction : ""}`} onClick={() => onClick(index)}>
         <div className={`superkeyTitle ${isStandardViewSuperkeys ? "standard" : "single"}`}>
           {icon}
           <Title text={title} headingLevel={5} />

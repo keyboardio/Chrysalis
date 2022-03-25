@@ -20,22 +20,22 @@ import React from "react";
 import Focus from "../../api/focus";
 import Log from "../../api/log";
 
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardHeader from "@material-ui/core/CardHeader";
-import CloseIcon from "@material-ui/icons/Close";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import Link from "@material-ui/core/Link";
-import MuiDialogTitle from "@material-ui/core/DialogTitle";
-import Portal from "@material-ui/core/Portal";
-import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardHeader from "@mui/material/CardHeader";
+import CloseIcon from "@mui/icons-material/Close";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import Link from "@mui/material/Link";
+import MuiDialogTitle from "@mui/material/DialogTitle";
+import Portal from "@mui/material/Portal";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import withStyles from "@mui/styles/withStyles";
 
 import Electron from "electron";
 
@@ -207,7 +207,7 @@ class SystemInfo extends React.Component {
             <Button color="primary" onClick={this.saveBundle}>
               {i18n.t("systeminfo.saveBundle")}
             </Button>
-            <IconButton onClick={this.closeViewBundle}>
+            <IconButton onClick={this.closeViewBundle} size="large">
               <CloseIcon />
             </IconButton>
           </div>

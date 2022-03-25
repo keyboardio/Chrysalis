@@ -135,7 +135,7 @@ class SuperkeysEditor extends React.Component {
       storedMacros: [],
       superkeys: [],
       storedSuper: [],
-      maxMacros: 64,
+      maxSuperKeys: 64,
       modified: false,
       modifiedKeymap: false,
       selectedSuper: 0,
@@ -568,6 +568,40 @@ class SuperkeysEditor extends React.Component {
     });
   }
 
+  addSuperkey = SKname => {
+    console.log("TEST", this.state.superkeys.length, this.state.maxSuperKeys);
+    if (this.state.superkeys.length < this.state.maxSuperKeys) {
+      let aux = this.state.superkeys;
+      const newID = aux.length;
+      aux.push({
+        actions: [],
+        name: SKname,
+        id: newID,
+        superkey: ""
+      });
+      this.updateSuper(aux, newID);
+    }
+  };
+
+  deleteSuperkey = () => {
+    const { superkeys } = this.state;
+    if (superkeys.length > 0) {
+      let aux = JSON.parse(JSON.stringify(superkeys));
+      let selected = this.state.selectedSuper;
+      aux.splice(selected, 1);
+      aux = aux.map((item, index) => {
+        let aux = item;
+        aux.id = index;
+        return aux;
+      });
+      if (selected >= superkeys.length - 1) {
+        this.checkKBSuperkeys(aux, aux.length - 1, aux.length + 53916);
+      } else {
+        this.checkKBSuperkeys(aux, selected, selected + 53916);
+      }
+    }
+  };
+
   RemoveDeletedSK() {
     let { keymap } = this.state;
     const { selectedSuper, superkeys, listToDelete, futureSK, futureSSK } = this.state;
@@ -673,7 +707,7 @@ class SuperkeysEditor extends React.Component {
       kbtype,
       selectedSuper,
       superkeys,
-      maxMacros,
+      maxSuperKeys,
       macros,
       selectedAction,
       isStandardViewSuperkeys
@@ -709,6 +743,9 @@ class SuperkeysEditor extends React.Component {
                 selectedItem={selectedSuper}
                 subtitle="Superkeys"
                 onSelect={this.changeSelected}
+                addItem={this.addSuperkey}
+                deleteItem={this.deleteSuperkey}
+                updateItem={this.saveName}
               />
             }
             saveContext={this.writeSuper}
@@ -731,7 +768,7 @@ class SuperkeysEditor extends React.Component {
           {!isStandardViewSuperkeys && (
             <SuperkeyManager
               superkeys={superkeys}
-              maxSuperkeys={maxMacros}
+              maxSuperKeys={maxSuperKeys}
               macros={macros}
               saveName={this.saveName}
               selected={selectedSuper}

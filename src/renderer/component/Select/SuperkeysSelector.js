@@ -67,7 +67,8 @@ class SuperKeysSelector extends React.Component {
     super(props);
 
     this.state = {
-      show: false
+      show: false,
+      showAdd: false
     };
   }
 
@@ -75,18 +76,23 @@ class SuperKeysSelector extends React.Component {
     this.setState({ show: !this.state.show });
   };
 
+  toggleShowAdd = () => {
+    this.setState({ showAdd: !this.state.showAdd });
+  };
+
   handleSave = data => {
     this.toggleShow();
     this.props.updateItem(data);
   };
 
-  addNewElement = () => {
-    console.log("Click!");
+  handleAdd = data => {
+    this.toggleShowAdd();
+    this.props.addItem(data);
   };
 
   render() {
-    const { onSelect, itemList, selectedItem, deleteItem, subtitle } = this.props;
-    const { show } = this.state;
+    const { onSelect, itemList, selectedItem, deleteItem, addItem, subtitle } = this.props;
+    const { show, showAdd } = this.state;
 
     return (
       <Style>
@@ -99,7 +105,9 @@ class SuperKeysSelector extends React.Component {
                   <div className="dropdownListItemInner">
                     <div className="dropdownListItemLabel">{subtitle}</div>
                     <div className="dropdownListItemSelected">
-                      {itemList.length == 0 ? i18n.dialog.loading : itemList[selectedItem].name}
+                      {itemList == undefined || itemList.length == 0 || itemList.length <= selectedItem
+                        ? i18n.dialog.loading
+                        : itemList[selectedItem].name}
                     </div>
                     <span className="caret">
                       <IconArrowsSmallSeparating />
@@ -143,13 +151,25 @@ class SuperKeysSelector extends React.Component {
             </Dropdown>
           </div>
         </div>
-        <RegularButton icoSVG={<IconAddNew />} style="outline gradient" onClick={this.addNewElement} />
+        <RegularButton icoSVG={<IconAddNew />} style="outline gradient" onClick={this.toggleShowAdd} />
+        {itemList == undefined || itemList.length == 0 || itemList.length <= selectedItem ? (
+          ""
+        ) : (
+          <NameModal
+            show={show}
+            name={itemList[selectedItem].name}
+            toggleShow={this.toggleShow}
+            handleSave={this.handleSave}
+            modalTitle={`Change Superkey name`}
+            labelInput={`Supekey name`}
+          />
+        )}
         <NameModal
-          show={show}
-          name={itemList.length == 0 ? i18n.dialog.loading : itemList[selectedItem].name}
-          toggleShow={this.toggleShow}
-          handleSave={this.handleSave}
-          modalTitle={`Change Superkey name`}
+          show={showAdd}
+          name={""}
+          toggleShow={this.toggleShowAdd}
+          handleSave={this.handleAdd}
+          modalTitle={`Create new Superkey name`}
           labelInput={`Supekey name`}
         />
       </Style>

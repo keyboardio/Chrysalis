@@ -18,7 +18,8 @@
 import React from "react";
 import Styled from "styled-components";
 
-import Title from "../../component/Title";
+import Title from "../Title";
+import { IconCloseXs } from "../Icon";
 
 const Style = Styled.div` 
 .superkeyAction {  
@@ -26,6 +27,9 @@ const Style = Styled.div`
     padding: 24px 16px;
     border-radius: 3px;
     background-color: rgba(87, 97, 126, 0.2);
+    &.active {
+        background-color: rgba(87, 97, 126, 0.5);
+    }
     h5 {
         color: ${({ theme }) => theme.colors.gray25};
         font-weight: 700;
@@ -49,6 +53,16 @@ const Style = Styled.div`
                 margin: 0 0 0 8px;
             }
         }
+    }
+    .superkeyButtonWrapper {
+        position: relative;
+    }
+    .superkeyDeleteButton {
+        width: 24px;
+        height: 24px;
+        background-color: ${({ theme }) => theme.colors.brandPrimary};
+        border-radius: 4px;
+        color: #fff;
     }
 }
 .superkeyButton {
@@ -77,6 +91,7 @@ const Style = Styled.div`
         color: ${({ theme }) => theme.colors.gray25};
         transition-property: box-shadow, border;
     }
+    
     &:hover {
         background: linear-gradient(0deg, rgba(108, 92, 231, 0.8), rgba(108, 92, 231, 0.8)), linear-gradient(90deg, rgba(255, 255, 255, 0.2) 21.15%, rgba(255, 255, 255, 0) 100%), #303949;
         border: 2px solid rgba(255, 255, 255, 0.8);
@@ -89,6 +104,17 @@ const Style = Styled.div`
         }
     }
 }
+.active {
+    .superkeyButton {
+        background: linear-gradient(0deg, rgba(108, 92, 231, 0.8), rgba(108, 92, 231, 0.8)), linear-gradient(90deg, rgba(255, 255, 255, 0.2) 21.15%, rgba(255, 255, 255, 0) 100%), #303949;
+        border: 2px solid rgba(255, 255, 255, 0.6);
+        .superkeyButtonInner { 
+            background: linear-gradient(0deg, rgba(108, 92, 231, 0.3), rgba(108, 92, 231, 0.3)), linear-gradient(90deg, rgba(255, 255, 255, 0.2) 21.15%, rgba(255, 255, 255, 0) 100%), #303949;
+            box-shadow: 0px 4px 12px rgba(108, 92, 231, 0.1), 0px 0px 0px 2px inset rgba(255, 255, 255, 0.1);
+        }
+    }
+}
+
 `;
 
 const SuperkeyPicker = ({
@@ -101,49 +127,53 @@ const SuperkeyPicker = ({
   description,
   selKey,
   isStandardViewSuperkeys,
+  elementActive,
   superkeys,
   macros,
   keymapDB,
   changeSelected,
   updateSuper
 }) => {
+  const [superkeysLocal, setSuperkeysLocal] = React.useState(superkeys);
   const [actualKey, setActualKey] = React.useState({});
-  const [text, setText] = React.useState("Loading...");
+  const [keyContent, setKeyContent] = React.useState("Loading...");
+
+  console.log("Superkeys", superkeys);
 
   React.useEffect(() => {
-    console.log("Superkeys", superkeys);
+    console.log("asdasdasdasd", superkeys);
     console.log("Selected", selected);
 
-    if (Array.isArray(superkeys) && superkeys.length > 0) {
-      const auxParse = keymapDB.parse(superkeys[selected].actions[index]);
+    setSuperkeysLocal(superkeys);
 
-      console.log("INDEX: ", index);
-      console.log("actualKey: ", actualKey);
-      console.log("superkeys[selected].actions[index]: ", superkeys[selected].actions[index]);
-      console.log("keymapDB.parse(superkeys[selected].actions[index]): ", auxParse);
-      setText(superkeys[selected].actions[index]);
-      if (auxParse.extraLabel == "MACRO") {
-        if (macros.length > parseInt(auxParse.label) && macros[parseInt(auxParse.label)].name.substr(0, 5) != "") {
-          setText((auxParse.label = macros[parseInt(auxParse.label)].name.substr(0, 5).toLowerCase()));
-        }
-      }
-      if (auxParse.label) {
-        setText((auxParse.extraLabel != undefined ? auxParse.extraLabel + " " : "") + auxParse.label);
-      }
-    }
-  }, [superkeys, selected]);
+    const aux = keymapDB.parse(superkeys[selected].actions[index]);
+    setKeyContent(aux.label);
+    // if (actualKey.extraLabel == "MACRO") {
+    //   if (macros.length > parseInt(actualKey.label) && macros[parseInt(actualKey.label)].name.substr(0, 5) != "") {
+    //     setText((actualKey.label = macros[parseInt(actualKey.label)].name.substr(0, 5).toLowerCase()));
+    //   }
+    // }
+    // if (actualKey.label) {
+    //   setText((actualKey.extraLabel != undefined ? actualKey.extraLabel + " " : "") + actualKey.label);
+    // }
+  }, [superkeys]);
 
   if (superkeys === null) return null;
   return (
     <Style>
-      <div className={`superkeyAction ${selectedAction ? selectedAction : ""}`} onClick={() => onClick(index)}>
+      <div className={`superkeyAction ${elementActive ? "active" : ""}`}>
         <div className={`superkeyTitle ${isStandardViewSuperkeys ? "standard" : "single"}`}>
           {icon}
           <Title text={title} headingLevel={5} />
         </div>
         {isStandardViewSuperkeys && <div className="description">{description}</div>}
-        <div className="superkeyButton">
-          <div className="superkeyButtonInner">{text}</div>
+        <div className="superkeyButtonWrapper">
+          <div className="superkeyDeleteButton">
+            <IconCloseXs />
+          </div>
+          <div className="superkeyButton" onClick={() => onClick(index)}>
+            <div className="superkeyButtonInner">{keyContent}</div>
+          </div>
         </div>
       </div>
     </Style>

@@ -31,6 +31,8 @@ import "typeface-roboto/index.css";
 import "typeface-source-code-pro/index.css";
 import { LocationProvider, Router } from "@reach/router";
 
+import useMediaQuery from "@mui/material/useMediaQuery";
+
 import CssBaseline from "@mui/material/CssBaseline";
 import withStyles from "@mui/styles/withStyles";
 import {
@@ -39,8 +41,6 @@ import {
   createTheme
 } from "@mui/material/styles";
 import makeStyles from "@mui/styles/makeStyles";
-import { lightTheme } from "../styles/lightTheme";
-import { darkTheme } from "../styles/darkTheme";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -68,7 +68,6 @@ if (isDevelopment) {
 const settingsLanguage = settings.get("ui.language");
 if (settingsLanguage) i18n.changeLanguage(settingsLanguage);
 
-const theme = createTheme();
 const useStyles = makeStyles(theme => {});
 
 const styles = () => ({
@@ -254,6 +253,11 @@ class App extends React.Component {
     let device =
       (focus.device && focus.device.info) ||
       (this.state.device && this.state.device.info);
+    const theme = createTheme({
+      palette: {
+        mode: this.state.darkMode ? "dark" : "light"
+      }
+    });
 
     return (
       <StyledEngineProvider injectFirst>

@@ -25,10 +25,6 @@ import Error from "./Error";
 import "../styles/keymap.css";
 import i18n from "./i18n";
 import { I18nextProvider } from "react-i18next";
-// Add this in your component file
-require("react-dom");
-window.React2 = require("react");
-console.log(window.React === window.React2);
 
 try {
   ReactDOM.render(

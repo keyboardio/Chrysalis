@@ -18,23 +18,23 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Alert from "@material-ui/lab/Alert";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import FormControl from "@material-ui/core/FormControl";
-import KeyboardIcon from "@material-ui/icons/Keyboard";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import MenuItem from "@material-ui/core/MenuItem";
-import Portal from "@material-ui/core/Portal";
-import Select from "@material-ui/core/Select";
-import Typography from "@material-ui/core/Typography";
-import withStyles from "@material-ui/core/styles/withStyles";
+import Alert from "@mui/material/Alert";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CircularProgress from "@mui/material/CircularProgress";
+import FormControl from "@mui/material/FormControl";
+import KeyboardIcon from "@mui/icons-material/Keyboard";
+import LinearProgress from "@mui/material/LinearProgress";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import MenuItem from "@mui/material/MenuItem";
+import Portal from "@mui/material/Portal";
+import Select from "@mui/material/Select";
+import Typography from "@mui/material/Typography";
+import withStyles from "@mui/styles/withStyles";
 
 import { toast } from "react-toastify";
 
@@ -64,8 +64,8 @@ const styles = theme => ({
       marginLeft: "auto",
       marginRight: "auto"
     },
-    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px
- ${theme.spacing(3)}px`
+    padding: `${theme.spacing(2)} ${theme.spacing(3)}
+ ${theme.spacing(3)}`
   },
   preview: {
     maxWidth: 128,
@@ -76,7 +76,7 @@ const styles = theme => ({
   },
   card: {
     marginTop: theme.spacing(5),
-    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(3)}px`
+    padding: `${theme.spacing(2)} ${theme.spacing(3)} ${theme.spacing(3)}`
   },
   content: {
     display: "inline-block",
@@ -341,7 +341,7 @@ class KeyboardSelect extends React.Component {
     const scanDevicesButton = (
       <Button
         variant={devices && devices.length ? "outlined" : "contained"}
-        color={devices && devices.length ? "default" : "primary"}
+        color={devices && devices.length ? "secondary" : "primary"}
         className={scanFoundDevices ? classes.found : null}
         onClick={scanFoundDevices ? null : this.scanDevices}
       >

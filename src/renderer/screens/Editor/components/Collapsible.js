@@ -17,21 +17,21 @@
 
 import React from "react";
 
-import Accordion from "@material-ui/core/Accordion";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import Tooltip from "@material-ui/core/Tooltip";
-import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import FormHelperText from "@mui/material/FormHelperText";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+import withStyles from "@mui/styles/withStyles";
 
 const styles = theme => ({
   accordionRoot: {
     boxShadow: "none",
     margin: `0px 0px -1px 0px`,
     "&.Mui-expanded": {
-      margin: `auto auto ${theme.spacing(2)}px auto`,
+      margin: `auto auto ${theme.spacing(2)} auto`,
       minHeight: 48
     },
     "&:before": {
@@ -41,11 +41,11 @@ const styles = theme => ({
   accordionContentRoot: {
     backgroundColor: "rgba(0, 0, 0, .03)",
     border: "1px solid rgba(0, 0, 0, .125)",
-    padding: `0px ${theme.spacing(2)}px`
+    padding: `0px ${theme.spacing(2)}`
   },
   accordionDetailsRoot: {
     padding: 0,
-    margin: `${theme.spacing(2)}px 0px`,
+    margin: `${theme.spacing(2)} 0px`,
     display: "block"
   },
   help: {

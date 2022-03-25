@@ -17,9 +17,9 @@
 
 import React from "react";
 
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import { withStyles } from "@material-ui/core/styles";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import withStyles from "@mui/styles/withStyles";
 
 import KeyButtonList from "../components/KeyButtonList";
 import Collapsible from "../components/Collapsible";

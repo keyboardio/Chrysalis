@@ -17,15 +17,15 @@
 
 import React from "react";
 
-import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Divider from "@material-ui/core/Divider";
-import Portal from "@material-ui/core/Portal";
-import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import Divider from "@mui/material/Divider";
+import Portal from "@mui/material/Portal";
+import Typography from "@mui/material/Typography";
+import withStyles from "@mui/styles/withStyles";
 
 import Focus from "../../../../api/focus";
 import openURL from "../../../utils/openURL";
@@ -79,11 +79,7 @@ class OnlyCustomScreen extends React.Component {
           <Divider variant="middle" />
           <CardActions>
             <Box component="span" mr={1}>
-              <Button
-                color="default"
-                onClick={this.openFeatureRequest}
-                variant="outlined"
-              >
+              <Button onClick={this.openFeatureRequest} variant="outlined">
                 {i18n.t("editor.onlyCustom.openFR")}
               </Button>
             </Box>

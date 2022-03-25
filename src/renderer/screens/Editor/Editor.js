@@ -18,11 +18,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Alert from "@material-ui/lab/Alert";
-import Button from "@material-ui/core/Button";
-import Portal from "@material-ui/core/Portal";
-import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
+import Alert from "@mui/material/Alert";
+import Button from "@mui/material/Button";
+import Portal from "@mui/material/Portal";
+import Typography from "@mui/material/Typography";
+import withStyles from "@mui/styles/withStyles";
 
 import { toast } from "react-toastify";
 

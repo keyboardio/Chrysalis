@@ -17,9 +17,9 @@
 
 import React from "react";
 
-import Button from "@material-ui/core/Button";
-import Paper from "@material-ui/core/Paper";
-import { withStyles } from "@material-ui/core/styles";
+import Button from "@mui/material/Button";
+import Paper from "@mui/material/Paper";
+import withStyles from "@mui/styles/withStyles";
 
 import { KeymapDB } from "../../../../api/keymap";
 

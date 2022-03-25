@@ -18,7 +18,7 @@
 import React from "react";
 
 import classNames from "classnames";
-import { withStyles } from "@material-ui/core/styles";
+import withStyles from "@mui/styles/withStyles";
 import Atreus from "../data/atreus.png";
 
 import { KeymapDB } from "../../keymap";

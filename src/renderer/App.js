@@ -33,7 +33,11 @@ import { LocationProvider, Router } from "@reach/router";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { withStyles } from "@material-ui/core/styles";
-import { MuiThemeProvider } from "@material-ui/core/styles";
+import {
+  ThemeProvider,
+  createMuiTheme,
+  makeStyles
+} from "@material-ui/core/styles";
 import { lightTheme } from "../styles/lightTheme";
 import { darkTheme } from "../styles/darkTheme";
 
@@ -62,6 +66,9 @@ if (isDevelopment) {
 
 const settingsLanguage = settings.get("ui.language");
 if (settingsLanguage) i18n.changeLanguage(settingsLanguage);
+
+const theme = createMuiTheme();
+const useStyles = makeStyles(theme => {});
 
 const styles = () => ({
   root: {
@@ -248,7 +255,7 @@ class App extends React.Component {
       (this.state.device && this.state.device.info);
 
     return (
-      <MuiThemeProvider theme={this.state.darkMode ? darkTheme : lightTheme}>
+      <ThemeProvider theme={theme}>
         <div className={classes.root}>
           <LocationProvider history={history}>
             <CssBaseline />
@@ -321,7 +328,7 @@ class App extends React.Component {
             {i18n.t("app.cancelPending.content")}
           </ConfirmationDialog>
         </div>
-      </MuiThemeProvider>
+      </ThemeProvider>
     );
   }
 }

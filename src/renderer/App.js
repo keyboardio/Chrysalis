@@ -35,7 +35,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { withStyles } from "@material-ui/core/styles";
 import {
   ThemeProvider,
-  createMuiTheme,
+  createTheme,
   makeStyles
 } from "@material-ui/core/styles";
 import { lightTheme } from "../styles/lightTheme";
@@ -67,7 +67,7 @@ if (isDevelopment) {
 const settingsLanguage = settings.get("ui.language");
 if (settingsLanguage) i18n.changeLanguage(settingsLanguage);
 
-const theme = createMuiTheme();
+const theme = createTheme();
 const useStyles = makeStyles(theme => {});
 
 const styles = () => ({

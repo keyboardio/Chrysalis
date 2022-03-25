@@ -19,8 +19,8 @@
  */
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
+import withStyles from "@mui/styles/withStyles";
+import Paper from "@mui/material/Paper";
 import ColorButtonsArea from "./ColorButtonsArea";
 import PickerColorButton from "./PickerColorButton";
 import { setColorTamplate } from "../../../renderer/utils/setTemplates";
@@ -53,7 +53,7 @@ const styles = theme => ({
     alignItems: "center",
     padding: 10,
     minHeight: 80,
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("md")]: {
       width: 455
     }
   }

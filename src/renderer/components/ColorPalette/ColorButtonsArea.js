@@ -20,8 +20,8 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
+import withStyles from "@mui/styles/withStyles";
+import Grid from "@mui/material/Grid";
 import ColorButton from "./ColorButton";
 
 ColorButtonsArea.propTypes = {
@@ -36,7 +36,7 @@ ColorButtonsArea.propTypes = {
 const styles = theme => ({
   palette: {
     padding: "5px 0",
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("md")]: {
       padding: 0
     }
   }

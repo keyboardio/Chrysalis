@@ -19,12 +19,12 @@
  */
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
+import withStyles from "@mui/styles/withStyles";
 import { SketchPicker } from "react-color";
-import Fab from "@material-ui/core/Fab";
-import Tooltip from "@material-ui/core/Tooltip";
-import Popover from "@material-ui/core/Popover";
-import PaletteIcon from "@material-ui/icons/Palette";
+import Fab from "@mui/material/Fab";
+import Tooltip from "@mui/material/Tooltip";
+import Popover from "@mui/material/Popover";
+import PaletteIcon from "@mui/icons-material/Palette";
 
 PickerColorButton.propTypes = {
   classes: PropTypes.object.isRequired,

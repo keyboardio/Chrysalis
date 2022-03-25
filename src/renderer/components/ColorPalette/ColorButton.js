@@ -19,8 +19,8 @@
  */
 import React from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
+import withStyles from "@mui/styles/withStyles";
+import Button from "@mui/material/Button";
 import { setButtonSizeTamplate } from "../../../renderer/utils/setTemplates";
 
 ColorButton.propTypes = {
@@ -39,7 +39,7 @@ const styles = theme => ({
     margin: 5,
     borderRadius: 5,
     cursor: "pointer",
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("md")]: {
       ...setButtonSizeTamplate(35)
     }
   }

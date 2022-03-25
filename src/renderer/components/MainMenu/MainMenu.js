@@ -19,14 +19,14 @@ import React from "react";
 import { ipcRenderer } from "electron";
 import { Link } from "@reach/router";
 
-import Divider from "@material-ui/core/Divider";
-import Drawer from "@material-ui/core/Drawer";
-import IconButton from "@material-ui/core/IconButton";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import { withStyles } from "@material-ui/core/styles";
+import Divider from "@mui/material/Divider";
+import Drawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import ListSubheader from "@mui/material/ListSubheader";
+import withStyles from "@mui/styles/withStyles";
 
 import logo from "../../logo-small.png";
 import i18n from "../../i18n";
@@ -90,7 +90,7 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
     <Drawer open={open} onClose={closeMenu}>
       <div className={classes.toolbarIcon}>
         <Link to={homePage}>
-          <IconButton onClick={() => setCurrentPage(homePage)}>
+          <IconButton onClick={() => setCurrentPage(homePage)} size="large">
             <img src={logo} alt={i18n.t("components.logo.altText")} />
           </IconButton>
         </Link>

@@ -16,10 +16,10 @@
  */
 
 import React from "react";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import ChatIcon from "@material-ui/icons/Chat";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import ChatIcon from "@mui/icons-material/Chat";
 import i18n from "../../i18n";
 
 export default function ChatMenuItem({ onClick, className }) {

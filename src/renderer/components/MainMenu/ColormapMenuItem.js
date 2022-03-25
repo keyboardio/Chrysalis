@@ -16,10 +16,10 @@
  */
 
 import React from "react";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import HighlightIcon from "@material-ui/icons/Highlight";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import HighlightIcon from "@mui/icons-material/Highlight";
 import i18n from "../../i18n";
 
 export default function ColormapMenuItem({ selected, onClick, className }) {

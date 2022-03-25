@@ -16,10 +16,10 @@
  */
 
 import React from "react";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import i18n from "../../i18n";
 
 export default function ExitMenuItem({ onClick, className }) {

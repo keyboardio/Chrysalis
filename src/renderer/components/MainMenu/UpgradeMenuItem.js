@@ -17,9 +17,9 @@
 
 import React, { useState } from "react";
 
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
 
 import i18n from "../../i18n";
 import { version } from "../../../../package.json";

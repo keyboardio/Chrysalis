@@ -91,7 +91,7 @@ class SuperKeysSelector extends React.Component {
     return (
       <Style>
         <div className="itemListelector dropdownMultipleActions">
-          <Dropdown onSelect={onSelect} value={selectedItem} className="dropdownList">
+          <Dropdown onSelect={value => onSelect(parseInt(value))} value={selectedItem} className="dropdownList">
             <Dropdown.Toggle className="toggler neuronToggler">
               <div className="dropdownListInner">
                 <div className="dropdownListNumber">{itemList.length == 0 ? "#0" : `#${parseInt(selectedItem) + 1}`}</div>

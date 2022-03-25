@@ -33,7 +33,7 @@ align-self: flex-start;
 .pageHeader {
     border-radius: 16px;
     padding: 14px 32px;
-    margin-top: 20px; 
+    margin-top: 20px;
     display: flex;
     flex-wrap: nowrap;
     align-items: center;

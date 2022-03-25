@@ -20,20 +20,20 @@ import PropTypes from "prop-types";
 import Electron from "electron";
 const { ipcRenderer } = require("electron");
 
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
-import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Collapse from "@material-ui/core/Collapse";
-import FilledInput from "@material-ui/core/FilledInput";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import Portal from "@material-ui/core/Portal";
-import Select from "@material-ui/core/Select";
-import Switch from "@material-ui/core/Switch";
-import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Collapse from "@mui/material/Collapse";
+import FilledInput from "@mui/material/FilledInput";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Portal from "@mui/material/Portal";
+import Select from "@mui/material/Select";
+import Switch from "@mui/material/Switch";
+import Typography from "@mui/material/Typography";
+import withStyles from "@mui/styles/withStyles";
 
 import {
   KeyboardSettings,
@@ -48,10 +48,9 @@ const settings = new Store();
 
 const styles = theme => ({
   root: {
-    ...theme.mixins.gutters(),
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
-    margin: `0px ${theme.spacing(8)}px`
+    margin: `0px ${theme.spacing(8)}`
   },
   title: {
     marginTop: theme.spacing(4),

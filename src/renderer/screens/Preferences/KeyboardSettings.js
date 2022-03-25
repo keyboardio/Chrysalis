@@ -19,20 +19,20 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import FilledInput from "@material-ui/core/FilledInput";
-import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import MenuItem from "@material-ui/core/MenuItem";
-import Select from "@material-ui/core/Select";
-import Slider from "@material-ui/core/Slider";
-import Switch from "@material-ui/core/Switch";
-import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import FilledInput from "@mui/material/FilledInput";
+import FormControl from "@mui/material/FormControl";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import LinearProgress from "@mui/material/LinearProgress";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import Slider from "@mui/material/Slider";
+import Switch from "@mui/material/Switch";
+import Typography from "@mui/material/Typography";
+import withStyles from "@mui/styles/withStyles";
 
 import Focus from "../../../api/focus";
 

@@ -57,13 +57,9 @@ const styles = theme => ({
   main: {
     width: "auto",
     display: "block",
-    marginLeft: theme.spacing(3),
-    marginRight: theme.spacing(3),
-    [theme.breakpoints.up(500 + theme.spacing(3) * 2)]: {
-      width: 500,
-      marginLeft: "auto",
-      marginRight: "auto"
-    },
+    marginLeft: "auto",
+    marginRight: "auto",
+    maxWidth: "70%",
     padding: `${theme.spacing(2)} ${theme.spacing(3)}
  ${theme.spacing(3)}`
   },
@@ -78,11 +74,7 @@ const styles = theme => ({
     marginTop: theme.spacing(5),
     padding: `${theme.spacing(2)} ${theme.spacing(3)} ${theme.spacing(3)}`
   },
-  content: {
-    display: "inline-block",
-    width: "100%",
-    textAlign: "center"
-  },
+  content: {},
   selectControl: {
     display: "flex"
   },
@@ -313,7 +305,7 @@ class KeyboardSelect extends React.Component {
       });
 
       port = (
-        <FormControl className={classes.selectControl}>
+        <FormControl sx={{ display: "flex" }}>
           <Select
             value={this.state.selectedPortIndex}
             classes={{ select: classes.selectControl }}
@@ -435,7 +427,13 @@ class KeyboardSelect extends React.Component {
 
         <div className={classes.main}>
           <Card className={classes.card}>
-            <CardContent className={classes.content}>
+            <CardContent
+              sx={{
+                display: "inline-block",
+                width: "100%",
+                textAlign: "center"
+              }}
+            >
               {preview}
               {port}
             </CardContent>

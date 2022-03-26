@@ -44,7 +44,7 @@ const styles = theme => ({
     padding: `0px ${theme.spacing(2)}`
   },
   accordionDetailsRoot: {
-    padding: 0,
+    padding: `${theme.spacing(2)}`,
     margin: `${theme.spacing(2)} 0px`,
     display: "block"
   },

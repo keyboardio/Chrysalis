@@ -132,20 +132,12 @@ const SuperkeyPicker = ({
   macros,
   keymapDB,
   changeSelected,
-  updateSuper
+  updateSuper,
+  updateAction
 }) => {
-  const [superkeysLocal, setSuperkeysLocal] = React.useState(superkeys);
-  const [actualKey, setActualKey] = React.useState({});
   const [keyContent, setKeyContent] = React.useState("Loading...");
 
-  console.log("Superkeys", superkeys);
-
   React.useEffect(() => {
-    console.log("asdasdasdasd", superkeys);
-    console.log("eita", selected);
-
-    setSuperkeysLocal(superkeys);
-
     let aux = keymapDB.parse(superkeys[selected].actions[index]);
     //setKeyContent(aux.label);
 
@@ -169,7 +161,7 @@ const SuperkeyPicker = ({
         </div>
         {isStandardViewSuperkeys && <div className="description">{description}</div>}
         <div className="superkeyButtonWrapper">
-          <div className="superkeyDeleteButton">
+          <div className="superkeyDeleteButton" onClick={e => updateAction(index, 0)}>
             <IconCloseXs />
           </div>
           <div className="superkeyButton" onClick={() => onClick(index)}>

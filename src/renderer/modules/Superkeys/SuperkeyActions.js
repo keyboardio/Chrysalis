@@ -75,6 +75,7 @@ const SuperkeyActions = ({
                 updateSuper={updateSuper}
                 macros={macros}
                 keymapDB={keymapDB}
+                updateAction={updateAction}
               />
             ))
           : ""}

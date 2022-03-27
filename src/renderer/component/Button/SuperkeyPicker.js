@@ -142,21 +142,22 @@ const SuperkeyPicker = ({
 
   React.useEffect(() => {
     console.log("asdasdasdasd", superkeys);
-    console.log("Selected", selected);
+    console.log("eita", selected);
 
     setSuperkeysLocal(superkeys);
 
-    const aux = keymapDB.parse(superkeys[selected].actions[index]);
-    setKeyContent(aux.label);
-    // if (actualKey.extraLabel == "MACRO") {
-    //   if (macros.length > parseInt(actualKey.label) && macros[parseInt(actualKey.label)].name.substr(0, 5) != "") {
-    //     setText((actualKey.label = macros[parseInt(actualKey.label)].name.substr(0, 5).toLowerCase()));
-    //   }
-    // }
-    // if (actualKey.label) {
-    //   setText((actualKey.extraLabel != undefined ? actualKey.extraLabel + " " : "") + actualKey.label);
-    // }
-  }, [superkeys]);
+    let aux = keymapDB.parse(superkeys[selected].actions[index]);
+    //setKeyContent(aux.label);
+
+    if (aux.extraLabel == "MACRO") {
+      if (macros.length > parseInt(aux.label) && macros[parseInt(aux.label)].name.substr(0, 5) != "") {
+        setKeyContent((aux.label = macros[parseInt(aux.label)].name.substr(0, 5).toLowerCase()));
+      }
+    }
+    if (aux.label) {
+      setKeyContent((aux.extraLabel != undefined ? aux.extraLabel + " " : "") + aux.label);
+    }
+  }, [superkeys[selected].actions[index]]);
 
   if (superkeys === null) return null;
   return (

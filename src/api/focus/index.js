@@ -14,10 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const { ipcRenderer } = require("electron");
 const { SerialPort } = require("serialport");
 const { DelimiterParser } = require("@serialport/parser-delimiter");
 import fs from "fs";
-import usb from "usb";
 
 import Log from "../log";
 
@@ -78,27 +78,21 @@ class Focus {
 
   async waitForDFUBootloader(device) {
     const delay = ms => new Promise(res => setTimeout(res, ms));
+    const bootloader = device.usb.bootloader;
 
     for (let attempt = 0; attempt < 10; attempt++) {
-      const deviceList = usb
-        .getDeviceList()
-        .map(device => device.deviceDescriptor);
-      this.debugLog(
-        "focus.waitForBootloader: deviceList:",
-        deviceList,
-        "device:",
-        device
+      const found = await ipcRenderer.invoke(
+        "usb-scan-for-devices",
+        bootloader.productId,
+        bootloader.vendorId
       );
-
-      for (let dev of deviceList) {
-        const pid = dev.idProduct,
-          vid = dev.idVendor,
-          bootloader = device.usb.bootloader;
-
-        if (pid == bootloader.productId && vid == bootloader.vendorId) {
-          this.debugLog("focus.waitForBootloader: found!", dev);
-          return true;
-        }
+      if (found) {
+        this.debugLog(
+          "focus.waitForBootloader: found!",
+          bootloader.ProductId,
+          bootloader.vendorId
+        );
+        return true;
       }
 
       this.debugLog("focus.waitForBootloader: not found, waiting 2s");
@@ -110,6 +104,7 @@ class Focus {
   }
 
   async waitForBootloader(device) {
+    this.debugLog("In waitForBootloader", device);
     if (!device.usb.bootloader) {
       this.debugLog("No bootloader defined in the device descriptor.");
       return null;

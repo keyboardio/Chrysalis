@@ -41,7 +41,7 @@ const Store = require("electron-store");
 Store.initRenderer();
 
 // USB support
-import { getDeviceList, usb } from "usb";
+import { findByIds, getDeviceList, usb } from "usb";
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
@@ -136,6 +136,15 @@ ipcMain.handle("usb-scan-for-devices", event => {
   const webContents = event.sender;
   const devices = getDeviceList();
   return devices;
+});
+
+ipcMain.handle("usb-is-device-connected", (event, vid, pid) => {
+  const device = findByIds(vid, pid);
+  if (device) {
+    return true;
+  } else {
+    return false;
+  }
 });
 
 // This is a workaround for the lack of context-awareness in two native modules

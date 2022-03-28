@@ -38,6 +38,7 @@ import { SuperkeysSelector } from "../component/Select";
 import PageHeader from "../modules/PageHeader";
 import { SuperKeysFeatures } from "../modules/SuperKeys";
 import { SuperkeyActions } from "../modules/SuperKeys";
+import { KeyPickerKeyboard } from "../modules/KeyPickerKeyboard";
 
 // API's
 import i18n from "../i18n";
@@ -774,7 +775,7 @@ class SuperkeysEditor extends React.Component {
           {isStandardViewSuperkeys && <SuperKeysFeatures />}
         </Container>
         <Container fluid className="keyboardcontainer" hidden={selectedAction < 0}>
-          <KeyConfig
+          <KeyPickerKeyboard
             key={JSON.stringify(superkeys) + selectedAction}
             onKeySelect={this.onKeyChange}
             code={code}

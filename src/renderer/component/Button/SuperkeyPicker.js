@@ -23,6 +23,12 @@ import { IconCloseXs } from "../Icon";
 
 const Style = Styled.div` 
 .superkeyAction {  
+    display: flex;
+    flex-wrap: wrap;
+    flex-shrink: 1;
+    flex-flow: column;
+    align-items: start;
+    height: 100%;
     color: ${({ theme }) => theme.colors.gray300};
     padding: 24px 16px;
     border-radius: 3px;
@@ -42,9 +48,14 @@ const Style = Styled.div`
         margin-bottom: 8px;
         font-weight: 400;
         font-size: 14px;
+        flex-shrink: 1;
+        align-self: self-start;
+
     }   
     .superkeyTitle {
-        margin-bottom: 16px;    
+        flex-shrink: 1;
+        margin-bottom: 8px;    
+        align-self: self-start;
         &.single {
             display: flex;
             flex-wrap: nowrap;
@@ -56,6 +67,13 @@ const Style = Styled.div`
     }
     .superkeyButtonWrapper {
         position: relative;
+        align-self: self-end;
+        margin-top: auto;
+        &:hover {
+            .superkeyDeleteButton {
+                opacity: 1;
+            }
+        }
     }
     .superkeyDeleteButton {
         width: 24px;
@@ -63,6 +81,16 @@ const Style = Styled.div`
         background-color: ${({ theme }) => theme.colors.brandPrimary};
         border-radius: 4px;
         color: #fff;
+        position: absolute;
+        text-align: center;
+        line-height: 22px;
+        top: 4px;
+        right: -10px;
+        transition: 300ms opacity ease-in-out;
+        opacity: 0;
+        &:hover {
+            cursor: pointer;
+        }
     }
 }
 .superkeyButton {
@@ -135,11 +163,17 @@ const SuperkeyPicker = ({
   updateSuper,
   updateAction
 }) => {
+  const [controlDeleteButton, setControlDeleteButton] = React.useState(false);
   const [keyContent, setKeyContent] = React.useState("Loading...");
 
   React.useEffect(() => {
     let aux = keymapDB.parse(superkeys[selected].actions[index]);
     //setKeyContent(aux.label);
+    if (superkeys[selected].actions[index]) {
+      setControlDeleteButton(true);
+    } else {
+      setControlDeleteButton(false);
+    }
 
     if (aux.extraLabel == "MACRO") {
       if (macros.length > parseInt(aux.label) && macros[parseInt(aux.label)].name.substr(0, 5) != "") {
@@ -161,9 +195,11 @@ const SuperkeyPicker = ({
         </div>
         {isStandardViewSuperkeys && <div className="description">{description}</div>}
         <div className="superkeyButtonWrapper">
-          <div className="superkeyDeleteButton" onClick={e => updateAction(index, 0)}>
-            <IconCloseXs />
-          </div>
+          {controlDeleteButton && (
+            <div className="superkeyDeleteButton" onClick={e => updateAction(index, 0)}>
+              <IconCloseXs />
+            </div>
+          )}
           <div className="superkeyButton" onClick={() => onClick(index)}>
             <div className="superkeyButtonInner">{keyContent}</div>
           </div>

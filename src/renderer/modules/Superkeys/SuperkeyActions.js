@@ -68,6 +68,7 @@ const SuperkeyActions = ({
                 icon={item.icon}
                 key={`skA-${index}`}
                 title={item.title}
+                description={item.description}
                 elementActive={selectedAction == index ? true : false}
                 isStandardViewSuperkeys={isStandardViewSuperkeys}
                 changeSelected={changeSelected}

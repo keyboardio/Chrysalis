@@ -25,6 +25,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import Spinner from "react-bootstrap/Spinner";
 import Modal from "react-bootstrap/Modal";
 
 // Components
@@ -753,18 +754,24 @@ class SuperkeysEditor extends React.Component {
             inContext={this.state.modified}
           />
           <Callout content={i18n.editor.superkeys.callout} className="mt-lg" size="md" maxWidth={1060} />
-          <SuperkeyActions
-            isStandardViewSuperkeys={isStandardViewSuperkeys}
-            superkeys={superkeys}
-            selected={selectedSuper}
-            selectedAction={selectedAction}
-            macros={macros}
-            changeSelected={this.changeSelected}
-            updateSuper={this.updateSuper}
-            updateAction={this.updateAction}
-            changeAction={this.changeAction}
-            keymapDB={this.keymapDB}
-          />
+          {superkeys.length > 0 ? (
+            <div className="loading marginCenter">
+              <Spinner className="spinner-border" role="status" />
+            </div>
+          ) : (
+            <SuperkeyActions
+              isStandardViewSuperkeys={isStandardViewSuperkeys}
+              superkeys={superkeys}
+              selected={selectedSuper}
+              selectedAction={selectedAction}
+              macros={macros}
+              changeSelected={this.changeSelected}
+              updateSuper={this.updateSuper}
+              updateAction={this.updateAction}
+              changeAction={this.changeAction}
+              keymapDB={this.keymapDB}
+            />
+          )}
           {!isStandardViewSuperkeys && (
             <SuperkeyManager
               superkeys={superkeys}

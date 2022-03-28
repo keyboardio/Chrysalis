@@ -29,7 +29,6 @@ import Spinner from "react-bootstrap/Spinner";
 import Modal from "react-bootstrap/Modal";
 
 // Components
-import SuperkeyManager from "../components/SuperkeyManager";
 import KeyConfig from "../components/KeyManager/KeyConfig";
 import Callout from "../component/Callout";
 import { LayoutViewSelector } from "../component/ToggleButtons";
@@ -754,7 +753,7 @@ class SuperkeysEditor extends React.Component {
             inContext={this.state.modified}
           />
           <Callout content={i18n.editor.superkeys.callout} className="mt-lg" size="md" maxWidth={1060} />
-          {superkeys.length > 0 ? (
+          {superkeys.length == 0 || !Array.isArray(superkeys) ? (
             <div className="loading marginCenter">
               <Spinner className="spinner-border" role="status" />
             </div>
@@ -770,23 +769,6 @@ class SuperkeysEditor extends React.Component {
               updateAction={this.updateAction}
               changeAction={this.changeAction}
               keymapDB={this.keymapDB}
-            />
-          )}
-          {!isStandardViewSuperkeys && (
-            <SuperkeyManager
-              superkeys={superkeys}
-              maxSuperKeys={maxSuperKeys}
-              macros={macros}
-              saveName={this.saveName}
-              selected={selectedSuper}
-              updateSuper={this.updateSuper}
-              changeSelected={this.changeSelected}
-              selectedAction={selectedAction}
-              updateAction={this.updateAction}
-              checkKBSuperkeys={this.checkKBSuperkeys}
-              changeAction={this.changeAction}
-              keymapDB={this.keymapDB}
-              key={JSON.stringify(superkeys)}
             />
           )}
           {isStandardViewSuperkeys && <SuperKeysFeatures />}

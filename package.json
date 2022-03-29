@@ -24,7 +24,7 @@
     "prettier": "prettier --write \"src/**/*.{js,json,css,scss,md}\"",
     "lint:all": "npm-run-all lint:js lint:css",
     "lint:js": "eslint src/**/*.js",
-    "lint:css": "stylelint \"src/**/*.js src/**/*.css\"",
+    "lint:css": "stylelint src/**/*.css",
     "clean:code": "npm-run-all prettier lint:all",
     "test": "ELECTRON_RUN_AS_NODE=true ./node_modules/.bin/electron ./node_modules/.bin/jest",
     "test:watch": "jest --watchAll",

@@ -233,6 +233,7 @@ ipcMain.on("file-save", (event, data) => {
   let options = {
     title: data.title,
     defaultPath: data.defaultPath,
+    filters: data.filters,
   };
   dialog.showSaveDialog(options).then((filename) => {
     const { canceled, filePath } = filename;

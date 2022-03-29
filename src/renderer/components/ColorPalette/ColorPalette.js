@@ -23,7 +23,7 @@ import withStyles from "@mui/styles/withStyles";
 import Paper from "@mui/material/Paper";
 import ColorButtonsArea from "./ColorButtonsArea";
 import PickerColorButton from "./PickerColorButton";
-import { setColorTamplate } from "../../../renderer/utils/setTemplates";
+import { setColorTemplate } from "../../../renderer/utils/setTemplates";
 import i18n from "../../i18n";
 
 ColorPalette.propTypes = {
@@ -119,7 +119,7 @@ function ColorPalette(props) {
    */
   const toSetColorFocusButton = (color) => {
     onColorPick(indexFocusButton, color.r, color.g, color.b);
-    setColorFocusButton(setColorTamplate(color));
+    setColorFocusButton(setColorTemplate(color));
   };
 
   /**
@@ -136,7 +136,7 @@ function ColorPalette(props) {
     }
     onColorButtonSelect("another_button_click");
     setIndexFocusButton(index);
-    setColorFocusButton(setColorTamplate(color));
+    setColorFocusButton(setColorTemplate(color));
     onColorSelect(index);
   };
 

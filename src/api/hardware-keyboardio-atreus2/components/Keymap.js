@@ -93,7 +93,7 @@ class Keymap extends React.Component {
       let legendClass = "";
       const legend = key && db.format(key);
       if (key && (legend.main || "").length <= 1 && !legend.hint)
-        legendClass = "shortLegend";
+        legendClass = "short-legend";
       if (key && key.code == 0) textColor = "#888888";
 
       return (

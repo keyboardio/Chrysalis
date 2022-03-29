@@ -20,7 +20,7 @@ button {
 }
 
 .layer {
-  font-family: "Source Code Pro", "monospace";
+  font-family: "Source Code Pro", monospace;
   font-size: 8px;
   font-weight: 700;
   min-width: 550px;
@@ -28,11 +28,11 @@ button {
   max-width: calc(100vw - 360px);
 }
 
-.shortLegend {
+.short-legend {
   font-size: 16px;
 }
 
-.extraKey {
+.extra-key {
   font-size: 8px;
 }
 

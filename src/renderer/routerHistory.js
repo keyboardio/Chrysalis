@@ -1,4 +1,4 @@
-import { createMemorySource, createHistory } from "@reach/router";
+import { createMemorySource, createHistory } from "@gatsbyjs/reach-router";
 
 const source = createMemorySource("/keyboard-select");
 export const history = createHistory(source);

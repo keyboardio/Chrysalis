@@ -25,9 +25,10 @@ import { Environment } from "./dragons";
 // [1]: https://github.com/electron-userland/electron-webpack/issues/275
 process.env[`NODE_ENV`] = Environment.name;
 
-import { app, BrowserWindow, Menu, ipcMain } from "electron";
+import { app, BrowserWindow, Menu, ipcMain, dialog } from "electron";
 import { format as formatUrl } from "url";
 import * as path from "path";
+import fs from "fs";
 import windowStateKeeper from "electron-window-state";
 import installExtension, {
   REACT_DEVELOPER_TOOLS,
@@ -226,4 +227,21 @@ usb.on("detach", (device) => {
 
 usb.on("attach", (device) => {
   BrowserWindow.getFocusedWindow().send("usb-connected", device);
+});
+
+ipcMain.on("file-save", (event, data) => {
+  let options = {
+    title: data.title,
+    defaultPath: data.defaultPath,
+  };
+  dialog.showSaveDialog(options).then((filename) => {
+    const { canceled, filePath } = filename;
+    if (!canceled) {
+      fs.writeFileSync(filePath, data.content, (err) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+    }
+  });
 });

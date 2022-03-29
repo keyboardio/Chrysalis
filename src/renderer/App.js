@@ -29,7 +29,7 @@ import "../api/keymap";
 import "../api/colormap";
 import "typeface-roboto/index.css";
 import "typeface-source-code-pro/index.css";
-import { LocationProvider, Router } from "@reach/router";
+import { LocationProvider, Router } from "@gatsbyjs/reach-router";
 
 import useMediaQuery from "@mui/material/useMediaQuery";
 

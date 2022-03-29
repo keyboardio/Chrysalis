@@ -17,7 +17,7 @@
 
 import React from "react";
 import { ipcRenderer } from "electron";
-import { Link } from "@reach/router";
+import { Link } from "@gatsbyjs/reach-router";
 
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";

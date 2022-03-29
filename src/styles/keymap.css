@@ -28,11 +28,11 @@ button {
   max-width: calc(100vw - 360px);
 }
 
-.shortLegend {
+.short-legend {
   font-size: 16px;
 }
 
-.extraKey {
+.extra-key {
   font-size: 8px;
 }
 

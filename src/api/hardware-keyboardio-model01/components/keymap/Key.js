@@ -67,7 +67,7 @@ class Key extends React.Component {
           <text
             x={this.props.x}
             y={this.props.y - 3}
-            className="extraKey"
+            className="extra-key"
             fill={getContrastText(this.props.color)}
           >
             {label.hint}

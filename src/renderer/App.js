@@ -107,42 +107,42 @@ class App extends React.Component {
   }
   flashing = false;
 
-  componentDidMount() {
-    ipcRenderer.on("usb-disconnected", async (device) => {
-      if (!focus.device) return;
-      if (this.flashing) return;
+  handleDeviceDisconnect = async (sender, vid, pid) => {
+    if (!focus.device) return;
+    if (this.flashing) return;
 
-      if (
-        focus.device.usb.vendorId != device.deviceDescriptor.idVendor ||
-        focus.device.usb.productId != device.deviceDescriptor.idProduct
-      ) {
-        return;
-      }
+    if (focus.device.usb.vendorId != vid || focus.device.usb.productId != pid) {
+      return;
+    }
+    // Must await this to stop re-render of components reliant on `focus.device`
+    // However, it only renders a blank screen. New route is rendered below.
+    await navigate("./");
 
-      // Must await this to stop re-render of components reliant on `focus.device`
-      // However, it only renders a blank screen. New route is rendered below.
-      await navigate("./");
+    if (!focus._port.isOpen) {
+      toast.warning(i18n.t("errors.deviceDisconnected"));
+    }
 
-      if (!focus._port.isOpen) {
-        toast.warning(i18n.t("errors.deviceDisconnected"));
-      }
-
-      await focus.close();
-      await this.setState({
-        contextBar: false,
-        cancelPendingOpen: false,
-        connected: false,
-        device: null,
-        pages: {},
-      });
-
-      // Second call to `navigate` will actually render the proper route
-      await navigate("/keyboard-select");
+    await focus.close();
+    await this.setState({
+      contextBar: false,
+      cancelPendingOpen: false,
+      connected: false,
+      device: null,
+      pages: {},
     });
+
+    // Second call to `navigate` will actually render the proper route
+    await navigate("/keyboard-select");
+  };
+  componentDidMount() {
+    ipcRenderer.on("usb-device-disconnected", this.handleDeviceDisconnect);
   }
 
   componentWillUnmount() {
-    ipcRenderer.removeAllListeners("usb-disconnected");
+    ipcRenderer.removeListener(
+      "usb-device-disconnected",
+      this.handleDeviceDisconnect
+    );
   }
 
   toggleDarkMode = async () => {

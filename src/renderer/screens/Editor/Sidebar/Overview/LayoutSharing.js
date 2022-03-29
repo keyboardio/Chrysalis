@@ -373,7 +373,7 @@ class LayoutSharingBase extends React.Component {
     return (
       <Dialog open={open} onClose={onClose} fullScreen>
         <DialogTitle>
-          <Typography variant="h6">{i18n.t("editor.sharing.title")}</Typography>
+          <Typography>{i18n.t("editor.sharing.title")}</Typography>
           <IconButton
             onClick={onClose}
             className={classes.closeButton}

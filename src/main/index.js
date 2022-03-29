@@ -41,11 +41,16 @@ const Store = require("electron-store");
 Store.initRenderer();
 
 // USB support
-import { findByIds, getDeviceList, usb } from "usb";
+import { findByIds, getDeviceList, usb, WebUSB } from "usb";
+
+const webusb = new WebUSB({
+  allowAllDevices: true,
+});
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 let mainWindow;
+let windows = [];
 
 async function createMainWindow() {
   let mainWindowState = windowStateKeeper({
@@ -111,8 +116,30 @@ async function createMainWindow() {
     window.webContents.send("devtools-closed");
   });
 
+  windows.push(window);
+
   return window;
 }
+
+const notifyUsbDisconnect = (event) => {
+  let vendor_id = event?.device?.vendorId;
+  let product_id = event?.device?.productId;
+  windows.forEach((win) => {
+    if (win) {
+      win.send("usb-device-disconnected", vendor_id, product_id);
+    }
+  });
+};
+
+const notifyUsbConnect = (event) => {
+  let vendor_id = event?.device?.vendorId;
+  let product_id = event?.device?.productId;
+  windows.forEach((win) => {
+    if (win) {
+      win.send("usb-device-connected", vendor_id, product_id);
+    }
+  });
+};
 
 ipcMain.on("app-exit", (event, arg) => {
   app.quit();
@@ -150,7 +177,7 @@ ipcMain.handle("usb-is-device-connected", (event, vid, pid) => {
 // This is a workaround for the lack of context-awareness in two native modules
 // we use, serialport (serialport/node-serialport#2051) and usb
 // (tessel/node-usb#380). See electron/electron#18397 for more context.
-app.allowRendererProcessReuse = false;
+//app.allowRendererProcessReuse = true;
 
 /**
  *
@@ -171,6 +198,9 @@ if (isDevelopment && process.env.ELECTRON_WEBPACK_APP_DEBUG_PORT) {
 
 // quit application when all windows are closed
 app.on("window-all-closed", () => {
+  webusb.removeEventListener("connect", notifyUsbConnect);
+  webusb.removeEventListener("disconnect", notifyUsbDisconnect);
+
   // on macOS it is common for applications to stay open until the user explicitly quits
   if (process.platform !== "darwin") {
     app.quit();
@@ -185,7 +215,9 @@ app.on("activate", () => {
 });
 
 // create main BrowserWindow when electron is ready
-app.on("ready", async () => {
+app.whenReady().then(async () => {
+  webusb.addEventListener("connect", notifyUsbConnect);
+  webusb.addEventListener("disconnect", notifyUsbDisconnect);
   if (isDevelopment) {
     await installExtension(REACT_DEVELOPER_TOOLS)
       .then((name) => console.log(`Added Extension:  ${name}`))
@@ -219,11 +251,6 @@ const focus = new Focus();
 ipcMain.handle("focus-find-serial-devices", (event) => {
   return focus.find(Hardware.serial);
 });
-
-usb.on("detach", (device) => {
-  BrowserWindow.getFocusedWindow().send("usb-disconnected", device);
-});
-
-usb.on("attach", (device) => {
-  BrowserWindow.getFocusedWindow().send("usb-connected", device);
+process.on("uncaughtException", function (error) {
+  console.log(error); // Handle the error
 });

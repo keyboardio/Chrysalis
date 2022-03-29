@@ -107,7 +107,6 @@ class KeyboardSelect extends React.Component {
     opening: false,
     devices: null,
     loading: false,
-    scanForKeyboards: false,
   };
 
   findNonSerialKeyboards = async (deviceList) => {
@@ -167,7 +166,6 @@ class KeyboardSelect extends React.Component {
           const list = await this.findNonSerialKeyboards(supported_devices);
           this.setState({
             loading: false,
-            scanForKeyboards: false,
             devices: list,
           });
           resolve(list.length > 0);
@@ -177,7 +175,6 @@ class KeyboardSelect extends React.Component {
           const list = await this.findNonSerialKeyboards([]);
           this.setState({
             loading: false,
-            scanForKeyboards: false,
             devices: list,
           });
           resolve(list.length > 0);
@@ -194,18 +191,8 @@ class KeyboardSelect extends React.Component {
   };
 
   componentDidMount() {
-    setInterval(() => {
-      if (this.state.scanForKeyboards) {
-        this.findKeyboards();
-      }
-    }, 10000);
-
-    ipcRenderer.on("usb-connected", () => {
-      this.setState({ scanForKeyboards: true });
-    });
-    ipcRenderer.on("usb-disconnected", () => {
-      this.setState({ scanForKeyboards: true });
-    });
+    ipcRenderer.on("usb-device-connected", this.scanDevices);
+    ipcRenderer.on("usb-device-disconnected", this.scanDevices);
 
     this.findKeyboards().then(() => {
       let focus = new Focus();
@@ -224,8 +211,8 @@ class KeyboardSelect extends React.Component {
   }
 
   componentWillUnmount() {
-    ipcRenderer.removeAllListeners("usb-connected");
-    ipcRenderer.removeAllListeners("usb-disconnected");
+    ipcRenderer.removeListener("usb-device-connected", this.scanDevices);
+    ipcRenderer.removeListener("usb-device-disconnected", this.scanDevices);
   }
 
   selectPort = (event) => {

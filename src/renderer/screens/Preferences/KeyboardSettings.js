@@ -26,6 +26,7 @@ import CardContent from "@mui/material/CardContent";
 import FilledInput from "@mui/material/FilledInput";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import FormGroup from "@mui/material/FormGroup";
 import LinearProgress from "@mui/material/LinearProgress";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
@@ -261,7 +262,7 @@ class KeyboardSettings extends React.Component {
         </Typography>
         <Card>
           <CardContent>
-            <FormControl className={classes.group}>
+            <FormGroup className={classes.group}>
               <FormControlLabel
                 className={classes.control}
                 classes={{ label: classes.grow }}
@@ -290,7 +291,7 @@ class KeyboardSettings extends React.Component {
                   label={i18n.t("keyboardSettings.led.brightness")}
                 />
               )}
-            </FormControl>
+            </FormGroup>
           </CardContent>
           <CardActions className={classes.flex}>
             <span className={classes.grow} />

@@ -16,7 +16,7 @@
 
 import addCategories from "../addCategories";
 
-const makeConsumer = keyCode => {
+const makeConsumer = (keyCode) => {
   return keyCode + 18432;
 };
 
@@ -27,8 +27,8 @@ const consumer = addCategories(
       code: makeConsumer(0xe2),
       legacyCode: 19682,
       label: {
-        base: "Mute"
-      }
+        base: "Mute",
+      },
     },
     {
       code: makeConsumer(0xb5),
@@ -36,9 +36,9 @@ const consumer = addCategories(
       label: {
         base: {
           full: "Next track",
-          "1u": "⏭"
-        }
-      }
+          "1u": "⏭",
+        },
+      },
     },
     {
       code: makeConsumer(0xb6),
@@ -46,16 +46,16 @@ const consumer = addCategories(
       label: {
         base: {
           full: "Previous track",
-          "1u": "⏮"
-        }
-      }
+          "1u": "⏮",
+        },
+      },
     },
     {
       code: makeConsumer(0xb7),
       legacyCode: 22711,
       label: {
-        base: "Stop"
-      }
+        base: "Stop",
+      },
     },
     {
       code: makeConsumer(0xcd),
@@ -63,9 +63,9 @@ const consumer = addCategories(
       label: {
         base: {
           full: "Play / pause",
-          "1u": "⏯"
-        }
-      }
+          "1u": "⏯",
+        },
+      },
     },
     {
       code: makeConsumer(0xe9),
@@ -73,13 +73,13 @@ const consumer = addCategories(
       label: {
         hint: {
           full: "Volume",
-          "1u": "Vol."
+          "1u": "Vol.",
         },
         base: {
           full: "Up",
-          "1u": "🔊"
-        }
-      }
+          "1u": "🔊",
+        },
+      },
     },
     {
       code: makeConsumer(0xea),
@@ -87,13 +87,13 @@ const consumer = addCategories(
       label: {
         hint: {
           full: "Volume",
-          "1u": "Vol."
+          "1u": "Vol.",
         },
         base: {
           full: "Down",
-          "1u": "🔉"
-        }
-      }
+          "1u": "🔉",
+        },
+      },
     },
     {
       code: makeConsumer(0x6f),
@@ -101,13 +101,13 @@ const consumer = addCategories(
       label: {
         hint: {
           full: "Brightness",
-          "1u": "Brght."
+          "1u": "Brght.",
         },
         base: {
           full: "Up",
-          "1u": "🔆"
-        }
-      }
+          "1u": "🔆",
+        },
+      },
     },
     {
       code: makeConsumer(0x70),
@@ -115,14 +115,14 @@ const consumer = addCategories(
       label: {
         hint: {
           full: "Brightness",
-          "1u": "Brght."
+          "1u": "Brght.",
         },
         base: {
           full: "Down",
-          "1u": "🔅"
-        }
-      }
-    }
+          "1u": "🔅",
+        },
+      },
+    },
   ]
 );
 

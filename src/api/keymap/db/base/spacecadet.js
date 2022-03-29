@@ -24,27 +24,27 @@ const spacecadet = addCategories(
       label: {
         hint: {
           full: "SpaceCadet",
-          "1u": "SC"
+          "1u": "SC",
         },
         base: {
           full: "Enable",
-          "1u": "On"
-        }
-      }
+          "1u": "On",
+        },
+      },
     },
     {
       code: 53593,
       label: {
         hint: {
           full: "SpaceCadet",
-          "1u": "SC"
+          "1u": "SC",
         },
         base: {
           full: "Disable",
-          "1u": "Off"
-        }
-      }
-    }
+          "1u": "Off",
+        },
+      },
+    },
   ]
 );
 

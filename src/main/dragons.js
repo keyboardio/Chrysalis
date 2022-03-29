@@ -22,7 +22,7 @@
 // We set this up here, so we can set $NODE_ENV in the main process, see the
 // comments there.
 const Environment = {
-  name: process.env.NODE_ENV
+  name: process.env.NODE_ENV,
 };
 
 export { Environment };

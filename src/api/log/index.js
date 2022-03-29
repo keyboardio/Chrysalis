@@ -29,7 +29,7 @@ class Log {
   _log(level, ...args) {
     const msg = {
       level: level,
-      message: args
+      message: args,
     };
     this._messages.push(msg);
   }

@@ -77,10 +77,10 @@ const cldr2keycode = {
   B09: 55,
   B10: 56,
 
-  A03: 44
+  A03: 44,
 };
 
-const decode = code => {
+const decode = (code) => {
   if (code.match(/^\\u/)) {
     return unraw(code);
   }
@@ -104,8 +104,8 @@ const loadKeyboard = async (group, isDefault, file) => {
         keymap[key["$"].iso] = {
           code: cldr2keycode[key["$"].iso] || 0,
           label: {
-            base: decode(key["$"].to)
-          }
+            base: decode(key["$"].to),
+          },
         };
       }
     } else if (map["$"].modifiers == "shift") {
@@ -119,8 +119,8 @@ const loadKeyboard = async (group, isDefault, file) => {
           code: moddedCode,
           baseCode: code,
           label: {
-            base: decode(key["$"].to)
-          }
+            base: decode(key["$"].to),
+          },
         };
       }
     } else if (map["$"].modifiers == "altR") {
@@ -134,8 +134,8 @@ const loadKeyboard = async (group, isDefault, file) => {
           code: moddedCode,
           baseCode: code,
           label: {
-            base: decode(key["$"].to)
-          }
+            base: decode(key["$"].to),
+          },
         };
       }
     }
@@ -149,7 +149,7 @@ const loadKeyboard = async (group, isDefault, file) => {
     name: name,
     group: group,
     default: isDefault,
-    codetable: db
+    codetable: db,
   };
 };
 
@@ -163,7 +163,7 @@ const loadAllKeymaps = async () => {
   // inconsistent, so we go on a case-by-case basis for now.
   const osxFiles = fs
     .readdirSync(path.join(getStaticPath(), "cldr/keyboards/osx"))
-    .filter(fn => fn.match("^hr-t-k0"));
+    .filter((fn) => fn.match("^hr-t-k0"));
   const files = windowsFiles.concat(osxFiles);
 
   // Load the default layout for each language
@@ -212,7 +212,7 @@ const loadAllKeymaps = async () => {
 };
 
 const cldr = {
-  loadAllKeymaps: loadAllKeymaps
+  loadAllKeymaps: loadAllKeymaps,
 };
 
 export default cldr;

@@ -18,14 +18,14 @@
 import React from "react";
 import i18n from "i18next";
 
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import InputLabel from "@material-ui/core/InputLabel";
-import Switch from "@material-ui/core/Switch";
+import FormGroup from "@mui/material/FormGroup";
+import FormControl from "@mui/material/FormControl";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormHelperText from "@mui/material/FormHelperText";
+import InputLabel from "@mui/material/InputLabel";
+import Switch from "@mui/material/Switch";
 
-import { withStyles } from "@material-ui/core/styles";
+import withStyles from "@mui/styles/withStyles";
 
 import Collapsible from "../components/Collapsible";
 import KeyButton from "../components/KeyButton";
@@ -35,17 +35,17 @@ import { KeymapDB } from "../../../../api/keymap";
 
 const db = new KeymapDB();
 
-const styles = theme => ({
+const styles = (theme) => ({
   cancelContainer: {
-    margin: `${theme.spacing(2)}px 0`
-  }
+    margin: `${theme.spacing(2)} 0`,
+  },
 });
 
 const cancelKeyCode = 53630;
 
 class OneShotKeysBase extends React.Component {
   state = {
-    escCancel: true
+    escCancel: true,
   };
 
   async componentDidMount() {
@@ -59,7 +59,7 @@ class OneShotKeysBase extends React.Component {
     }
 
     this.setState({
-      escCacnel: escCancel
+      escCacnel: escCancel,
     });
   }
 
@@ -67,7 +67,7 @@ class OneShotKeysBase extends React.Component {
     const { classes, keymap, selectedKey, layer, onKeyChange } = this.props;
     const key = keymap.custom[layer][selectedKey];
 
-    const toggleEscapeCancel = async event => {
+    const toggleEscapeCancel = async (event) => {
       const focus = new Focus();
       const escCancel = event.target.checked;
       let newCancelKeyCode = cancelKeyCode;

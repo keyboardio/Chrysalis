@@ -44,7 +44,7 @@ const led_map = [
     3 + LEDS_LEFT_KEYS,
     2 + LEDS_LEFT_KEYS,
     1 + LEDS_LEFT_KEYS,
-    0 + LEDS_LEFT_KEYS
+    0 + LEDS_LEFT_KEYS,
   ],
   [
     7,
@@ -62,7 +62,7 @@ const led_map = [
     10 + LEDS_LEFT_KEYS,
     9 + LEDS_LEFT_KEYS,
     8 + LEDS_LEFT_KEYS,
-    7 + LEDS_LEFT_KEYS
+    7 + LEDS_LEFT_KEYS,
   ],
   [
     13,
@@ -80,7 +80,7 @@ const led_map = [
     18 + LEDS_LEFT_KEYS,
     17 + LEDS_LEFT_KEYS,
     16 + LEDS_LEFT_KEYS,
-    15 + LEDS_LEFT_KEYS
+    15 + LEDS_LEFT_KEYS,
   ],
   [
     19,
@@ -98,7 +98,7 @@ const led_map = [
     25 + LEDS_LEFT_KEYS,
     24 + LEDS_LEFT_KEYS,
     23 + LEDS_LEFT_KEYS,
-    22 + LEDS_LEFT_KEYS
+    22 + LEDS_LEFT_KEYS,
   ],
   [
     26,
@@ -116,8 +116,8 @@ const led_map = [
     31 + LEDS_LEFT_KEYS,
     30 + LEDS_LEFT_KEYS,
     29 + LEDS_LEFT_KEYS,
-    28 + LEDS_LEFT_KEYS
-  ]
+    28 + LEDS_LEFT_KEYS,
+  ],
 ];
 
 class KeymapISO extends React.Component {
@@ -128,7 +128,7 @@ class KeymapISO extends React.Component {
         .fill()
         .map(() => 0);
 
-    const getContrastText = color => {
+    const getContrastText = (color) => {
       return this.props.theme
         ? this.props.theme.palette.getContrastText(color)
         : null;
@@ -160,7 +160,7 @@ class KeymapISO extends React.Component {
         : Array(16)
             .fill()
             .map(() => ({
-              rgb: "#ffffff"
+              rgb: "#ffffff",
             }));
 
     let getColor = (row, col) => {

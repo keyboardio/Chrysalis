@@ -21,360 +21,360 @@ const keyCodeTable = [
     code: 4,
     label: {
       base: "a",
-      shifted: "A"
-    }
+      shifted: "A",
+    },
   },
   {
     code: 5,
     label: {
       base: "b",
-      shifted: "B"
-    }
+      shifted: "B",
+    },
   },
   {
     code: 6,
     label: {
       base: "c",
-      shifted: "C"
-    }
+      shifted: "C",
+    },
   },
   {
     code: 7,
     label: {
       base: "d",
-      shifted: "D"
-    }
+      shifted: "D",
+    },
   },
   {
     code: 8,
     label: {
       base: "e",
-      shifted: "E"
-    }
+      shifted: "E",
+    },
   },
   {
     code: 9,
     label: {
       base: "f",
-      shifted: "F"
-    }
+      shifted: "F",
+    },
   },
   {
     code: 10,
     label: {
       base: "g",
-      shifted: "G"
-    }
+      shifted: "G",
+    },
   },
   {
     code: 11,
     label: {
       base: "h",
-      shifted: "H"
-    }
+      shifted: "H",
+    },
   },
   {
     code: 12,
     label: {
       base: "i",
-      shifted: "I"
-    }
+      shifted: "I",
+    },
   },
   {
     code: 13,
     label: {
       base: "j",
-      shifted: "J"
-    }
+      shifted: "J",
+    },
   },
   {
     code: 14,
     label: {
       base: "k",
-      shifted: "K"
-    }
+      shifted: "K",
+    },
   },
   {
     code: 15,
     label: {
       base: "l",
-      shifted: "L"
-    }
+      shifted: "L",
+    },
   },
   {
     code: 16,
     label: {
       base: "m",
-      shifted: "M"
-    }
+      shifted: "M",
+    },
   },
   {
     code: 17,
     label: {
       base: "n",
-      shifted: "N"
-    }
+      shifted: "N",
+    },
   },
   {
     code: 18,
     label: {
       base: "o",
-      shifted: "O"
-    }
+      shifted: "O",
+    },
   },
   {
     code: 19,
     label: {
       base: "p",
-      shifted: "P"
-    }
+      shifted: "P",
+    },
   },
   {
     code: 20,
     label: {
       base: "q",
-      shifted: "Q"
-    }
+      shifted: "Q",
+    },
   },
   {
     code: 21,
     label: {
       base: "r",
-      shifted: "R"
-    }
+      shifted: "R",
+    },
   },
   {
     code: 22,
     label: {
       base: "s",
-      shifted: "S"
-    }
+      shifted: "S",
+    },
   },
   {
     code: 23,
     label: {
       base: "t",
-      shifted: "T"
-    }
+      shifted: "T",
+    },
   },
   {
     code: 24,
     label: {
       base: "u",
-      shifted: "U"
-    }
+      shifted: "U",
+    },
   },
   {
     code: 25,
     label: {
       base: "v",
-      shifted: "V"
-    }
+      shifted: "V",
+    },
   },
   {
     code: 26,
     label: {
       base: "w",
-      shifted: "W"
-    }
+      shifted: "W",
+    },
   },
   {
     code: 27,
     label: {
       base: "x",
-      shifted: "X"
-    }
+      shifted: "X",
+    },
   },
   {
     code: 28,
     label: {
       base: "y",
-      shifted: "Y"
-    }
+      shifted: "Y",
+    },
   },
   {
     code: 29,
     label: {
       base: "z",
-      shifted: "Z"
-    }
+      shifted: "Z",
+    },
   },
   {
     code: 47,
     label: {
       base: "[",
-      shifted: "{"
-    }
+      shifted: "{",
+    },
   },
   {
     code: 48,
     label: {
       base: "]",
-      shifted: "}"
-    }
+      shifted: "}",
+    },
   },
   {
     code: 49,
     label: {
       base: "\\",
-      shifted: "|"
-    }
+      shifted: "|",
+    },
   },
   {
     code: 50,
     label: {
       hint: {
         full: "Alternate",
-        "1u": "Alt."
+        "1u": "Alt.",
       },
       base: "#",
-      shifted: "~"
-    }
+      shifted: "~",
+    },
   },
   {
     code: 53,
     label: {
       base: "`",
-      shifted: "~"
-    }
+      shifted: "~",
+    },
   },
   {
     code: 30,
     label: {
       base: "1",
-      shifted: "!"
-    }
+      shifted: "!",
+    },
   },
   {
     code: 31,
     label: {
       base: "2",
-      shifted: "@"
-    }
+      shifted: "@",
+    },
   },
   {
     code: 32,
     label: {
       base: "3",
-      shifted: "#"
-    }
+      shifted: "#",
+    },
   },
   {
     code: 33,
     label: {
       base: "4",
-      shifted: "$"
-    }
+      shifted: "$",
+    },
   },
   {
     code: 34,
     label: {
       base: "5",
-      shifted: "%"
-    }
+      shifted: "%",
+    },
   },
   {
     code: 35,
     label: {
       base: "6",
-      shifted: "^"
-    }
+      shifted: "^",
+    },
   },
   {
     code: 36,
     label: {
       base: "7",
-      shifted: "&"
-    }
+      shifted: "&",
+    },
   },
   {
     code: 37,
     label: {
       base: "8",
-      shifted: "*"
-    }
+      shifted: "*",
+    },
   },
   {
     code: 38,
     label: {
       base: "9",
-      shifted: "("
-    }
+      shifted: "(",
+    },
   },
   {
     code: 39,
     label: {
       base: "0",
-      shifted: ")"
-    }
+      shifted: ")",
+    },
   },
   {
     code: 45,
     label: {
       base: "-",
-      shifted: "_"
-    }
+      shifted: "_",
+    },
   },
   {
     code: 46,
     label: {
       base: "=",
-      shifted: "+"
-    }
+      shifted: "+",
+    },
   },
   {
     code: 51,
     label: {
       base: ";",
-      shifted: ":"
-    }
+      shifted: ":",
+    },
   },
   {
     code: 52,
     label: {
       base: "'",
-      shifted: '"'
-    }
+      shifted: '"',
+    },
   },
   {
     code: 54,
     label: {
       base: ",",
-      shifted: "<"
-    }
+      shifted: "<",
+    },
   },
   {
     code: 55,
     label: {
       base: ".",
-      shifted: ">"
-    }
+      shifted: ">",
+    },
   },
   {
     code: 56,
     label: {
       base: "/",
-      shifted: "?"
-    }
+      shifted: "?",
+    },
   },
   {
     code: 100,
     label: {
       hint: {
         full: "Alternate",
-        "1u": "Alt."
+        "1u": "Alt.",
       },
       base: "\\",
-      shifted: "|"
-    }
-  }
+      shifted: "|",
+    },
+  },
 ];
 
 const USQwerty = {
   name: "English (US)",
   default: true,
   group: "en",
-  codetable: withModifiers(keyCodeTable)
+  codetable: withModifiers(keyCodeTable),
 };
 
 export { USQwerty, keyCodeTable as baseCodeTable };

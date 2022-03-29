@@ -18,23 +18,23 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Alert from "@material-ui/lab/Alert";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import FormControl from "@material-ui/core/FormControl";
-import KeyboardIcon from "@material-ui/icons/Keyboard";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import MenuItem from "@material-ui/core/MenuItem";
-import Portal from "@material-ui/core/Portal";
-import Select from "@material-ui/core/Select";
-import Typography from "@material-ui/core/Typography";
-import withStyles from "@material-ui/core/styles/withStyles";
+import Alert from "@mui/material/Alert";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CircularProgress from "@mui/material/CircularProgress";
+import FormControl from "@mui/material/FormControl";
+import KeyboardIcon from "@mui/icons-material/Keyboard";
+import LinearProgress from "@mui/material/LinearProgress";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import MenuItem from "@mui/material/MenuItem";
+import Portal from "@mui/material/Portal";
+import Select from "@mui/material/Select";
+import Typography from "@mui/material/Typography";
+import withStyles from "@mui/styles/withStyles";
 
 import { toast } from "react-toastify";
 
@@ -47,66 +47,58 @@ const { ipcRenderer } = require("electron");
 
 import { installUdevRules } from "../utils/installUdevRules";
 
-const styles = theme => ({
+const styles = (theme) => ({
   loader: {
     position: "fixed",
     top: 0,
     left: 0,
-    right: 0
+    right: 0,
   },
   main: {
     width: "auto",
     display: "block",
-    marginLeft: theme.spacing(3),
-    marginRight: theme.spacing(3),
-    [theme.breakpoints.up(500 + theme.spacing(3) * 2)]: {
-      width: 500,
-      marginLeft: "auto",
-      marginRight: "auto"
-    },
-    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px
- ${theme.spacing(3)}px`
+    marginLeft: "auto",
+    marginRight: "auto",
+    maxWidth: "70%",
+    padding: `${theme.spacing(2)} ${theme.spacing(3)}
+ ${theme.spacing(3)}`,
   },
   preview: {
     maxWidth: 128,
     marginBottom: theme.spacing(2),
     "& .key rect, & .key path, & .key ellipse": {
-      stroke: "#000000"
-    }
+      stroke: "#000000",
+    },
   },
   card: {
     marginTop: theme.spacing(5),
-    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(3)}px`
+    padding: `${theme.spacing(2)} ${theme.spacing(3)} ${theme.spacing(3)}`,
   },
-  content: {
-    display: "inline-block",
-    width: "100%",
-    textAlign: "center"
-  },
+  content: {},
   selectControl: {
-    display: "flex"
+    display: "flex",
   },
   connect: {
     verticalAlign: "bottom",
-    marginLeft: 65
+    marginLeft: 65,
   },
   cardActions: {
-    justifyContent: "center"
+    justifyContent: "center",
   },
   supported: {
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
   },
   grow: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   error: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
-    textAlign: "center"
+    textAlign: "center",
   },
   found: {
-    color: theme.palette.success.main
-  }
+    color: theme.palette.success.main,
+  },
 });
 
 class KeyboardSelect extends React.Component {
@@ -115,50 +107,54 @@ class KeyboardSelect extends React.Component {
     opening: false,
     devices: null,
     loading: false,
-    scanForKeyboards: false
+    scanForKeyboards: false,
   };
 
-  findNonSerialKeyboards = async deviceList => {
+  findNonSerialKeyboards = async (deviceList) => {
     const logger = new Log();
-    return ipcRenderer.invoke("usb-scan-for-devices").then(devicesConnected => {
-      const devices = devicesConnected.map(device => device.deviceDescriptor);
-      devices.forEach(desc => {
-        Hardware.nonSerial.forEach(device => {
-          if (
-            desc.idVendor == device.usb.vendorId &&
-            desc.idProduct == device.usb.productId
-          ) {
-            let found = false;
-            deviceList.forEach(sDevice => {
-              if (
-                sDevice.device.usb.vendorId == desc.idVendor &&
-                sDevice.device.usb.productId == desc.idProduct
-              ) {
-                found = true;
-              }
-            });
-            if (!found) {
-              deviceList.push({
-                accessible: true,
-                device: device
+    return ipcRenderer
+      .invoke("usb-scan-for-devices")
+      .then((devicesConnected) => {
+        const devices = devicesConnected.map(
+          (device) => device.deviceDescriptor
+        );
+        devices.forEach((desc) => {
+          Hardware.nonSerial.forEach((device) => {
+            if (
+              desc.idVendor == device.usb.vendorId &&
+              desc.idProduct == device.usb.productId
+            ) {
+              let found = false;
+              deviceList.forEach((sDevice) => {
+                if (
+                  sDevice.device.usb.vendorId == desc.idVendor &&
+                  sDevice.device.usb.productId == desc.idProduct
+                ) {
+                  found = true;
+                }
               });
+              if (!found) {
+                deviceList.push({
+                  accessible: true,
+                  device: device,
+                });
+              }
             }
-          }
+          });
         });
-      });
 
-      return deviceList;
-    });
+        return deviceList;
+      });
   };
 
   findKeyboards = async () => {
     this.setState({ loading: true });
     let focus = new Focus();
 
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       focus
         .find(...Hardware.serial)
-        .then(async devices => {
+        .then(async (devices) => {
           let supported_devices = [];
           for (const device of devices) {
             device.accessible = await focus.isDeviceAccessible(device);
@@ -172,17 +168,17 @@ class KeyboardSelect extends React.Component {
           this.setState({
             loading: false,
             scanForKeyboards: false,
-            devices: list
+            devices: list,
           });
           resolve(list.length > 0);
         })
-        .catch(async e => {
+        .catch(async (e) => {
           console.error(e);
           const list = await this.findNonSerialKeyboards([]);
           this.setState({
             loading: false,
             scanForKeyboards: false,
-            devices: list
+            devices: list,
           });
           resolve(list.length > 0);
         });
@@ -218,8 +214,8 @@ class KeyboardSelect extends React.Component {
         if (!device.path) continue;
 
         if (device.path == focus._port.path) {
-          this.setState(state => ({
-            selectedPortIndex: state.devices.indexOf(device)
+          this.setState((state) => ({
+            selectedPortIndex: state.devices.indexOf(device),
           }));
           break;
         }
@@ -232,7 +228,7 @@ class KeyboardSelect extends React.Component {
     ipcRenderer.removeAllListeners("usb-disconnected");
   }
 
-  selectPort = event => {
+  selectPort = (event) => {
     this.setState({ selectedPortIndex: event.target.value });
   };
 
@@ -245,7 +241,7 @@ class KeyboardSelect extends React.Component {
       await this.props.onConnect(devices[this.state.selectedPortIndex]);
     } catch (err) {
       this.setState({
-        opening: false
+        opening: false,
       });
       toast.error(err.toString());
     }
@@ -313,7 +309,7 @@ class KeyboardSelect extends React.Component {
       });
 
       port = (
-        <FormControl className={classes.selectControl}>
+        <FormControl sx={{ display: "flex" }}>
           <Select
             value={this.state.selectedPortIndex}
             classes={{ select: classes.selectControl }}
@@ -341,7 +337,7 @@ class KeyboardSelect extends React.Component {
     const scanDevicesButton = (
       <Button
         variant={devices && devices.length ? "outlined" : "contained"}
-        color={devices && devices.length ? "default" : "primary"}
+        color={devices && devices.length ? "secondary" : "primary"}
         className={scanFoundDevices ? classes.found : null}
         onClick={scanFoundDevices ? null : this.scanDevices}
       >
@@ -367,7 +363,7 @@ class KeyboardSelect extends React.Component {
         <Alert severity="error" action={fixitButton}>
           <Typography component="p" gutterBottom>
             {i18n.t("keyboardSelect.permissionError", {
-              path: selectedDevice.path
+              path: selectedDevice.path,
             })}
           </Typography>
           <Typography component="p">
@@ -435,7 +431,13 @@ class KeyboardSelect extends React.Component {
 
         <div className={classes.main}>
           <Card className={classes.card}>
-            <CardContent className={classes.content}>
+            <CardContent
+              sx={{
+                display: "inline-block",
+                width: "100%",
+                textAlign: "center",
+              }}
+            >
               {preview}
               {port}
             </CardContent>
@@ -452,7 +454,7 @@ class KeyboardSelect extends React.Component {
 }
 
 KeyboardSelect.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(KeyboardSelect);

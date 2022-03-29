@@ -16,10 +16,10 @@
  */
 
 import React from "react";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import SettingsIcon from "@material-ui/icons/Settings";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import SettingsIcon from "@mui/icons-material/Settings";
 import i18n from "../../i18n";
 
 export default function PreferencesMenuItem({ selected, onClick, className }) {

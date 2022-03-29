@@ -18,9 +18,9 @@
 import React from "react";
 import Electron from "electron";
 
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import Divider from "@material-ui/core/Divider";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Divider from "@mui/material/Divider";
 import i18n from "../i18n";
 
 const openURL = (url, closeMenu) => {

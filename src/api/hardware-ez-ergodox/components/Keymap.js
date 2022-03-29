@@ -33,7 +33,7 @@ class Keymap extends React.Component {
       return row * 6 + col;
     };
 
-    let Key = props => {
+    let Key = (props) => {
       const { x, y, row, col, transform } = props;
       const width = props.width || 1,
         height = props.height || 1,

@@ -17,28 +17,28 @@
 
 import React from "react";
 
-import Button from "@material-ui/core/Button";
-import Paper from "@material-ui/core/Paper";
-import { withStyles } from "@material-ui/core/styles";
+import Button from "@mui/material/Button";
+import Paper from "@mui/material/Paper";
+import withStyles from "@mui/styles/withStyles";
 
 import { KeymapDB } from "../../../../api/keymap";
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     flexGrow: 1,
-    margin: theme.spacing(1)
+    margin: theme.spacing(1),
   },
   button: {
-    margin: theme.spacing(1)
-  }
+    margin: theme.spacing(1),
+  },
 });
 
 const db = new KeymapDB();
 
-const KeyButtonList = withStyles(styles)(props => {
+const KeyButtonList = withStyles(styles)((props) => {
   const { classes, keys, onKeyChange, showHints } = props;
 
-  const onClick = keyCode => {
+  const onClick = (keyCode) => {
     return () => {
       onKeyChange(keyCode);
     };

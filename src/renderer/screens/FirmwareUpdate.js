@@ -23,30 +23,30 @@ import { version } from "../../../package.json";
 
 import Focus from "../../api/focus";
 
-import BuildIcon from "@material-ui/icons/Build";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-import Divider from "@material-ui/core/Divider";
-import ExploreIcon from "@material-ui/icons/ExploreOutlined";
-import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import MenuItem from "@material-ui/core/MenuItem";
-import Portal from "@material-ui/core/Portal";
-import Select from "@material-ui/core/Select";
-import SettingsBackupRestoreIcon from "@material-ui/icons/SettingsBackupRestore";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepLabel from "@material-ui/core/StepLabel";
-import Switch from "@material-ui/core/Switch";
-import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
+import BuildIcon from "@mui/icons-material/Build";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import Divider from "@mui/material/Divider";
+import ExploreIcon from "@mui/icons-material/ExploreOutlined";
+import FormControl from "@mui/material/FormControl";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Input from "@mui/material/Input";
+import InputLabel from "@mui/material/InputLabel";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import MenuItem from "@mui/material/MenuItem";
+import Portal from "@mui/material/Portal";
+import Select from "@mui/material/Select";
+import SettingsBackupRestoreIcon from "@mui/icons-material/SettingsBackupRestore";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
+import Switch from "@mui/material/Switch";
+import Typography from "@mui/material/Typography";
+import withStyles from "@mui/styles/withStyles";
 
 import { toast } from "react-toastify";
 const Store = require("electron-store");
@@ -60,39 +60,39 @@ import i18n from "../i18n";
 import clearEEPROM from "../utils/clearEEPROM";
 import checkExternalFlasher from "../utils/checkExternalFlasher";
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   card: {
     margin: theme.spacing(4),
-    maxWidth: "50%"
+    maxWidth: "50%",
   },
   grow: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   dropdown: {
     display: "flex",
-    minWidth: "15em"
+    minWidth: "15em",
   },
   custom: {
     marginTop: "auto",
-    marginBottom: "auto"
+    marginBottom: "auto",
   },
   repo: {
-    textAlign: "center"
+    textAlign: "center",
   },
   firmwareSelect: {
-    marginLeft: theme.spacing(2)
+    marginLeft: theme.spacing(2),
   },
   control: {
     display: "flex",
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   group: {
-    display: "block"
-  }
+    display: "block",
+  },
 });
 
 class FirmwareUpdate extends React.Component {
@@ -107,13 +107,13 @@ class FirmwareUpdate extends React.Component {
       device: props.device || focus.device,
       confirmationOpen: false,
       resetOnFlash: false,
-      activeStep: -1
+      activeStep: -1,
     };
   }
 
-  setResetOnFlash = event => {
+  setResetOnFlash = (event) => {
     this.setState({
-      resetOnFlash: event.target.checked
+      resetOnFlash: event.target.checked,
     });
   };
 
@@ -124,7 +124,7 @@ class FirmwareUpdate extends React.Component {
     this.setState({ confirmationOpen: false });
   };
 
-  selectFirmware = event => {
+  selectFirmware = (event) => {
     this.setState({ selected: event.target.value });
     if (event.target.value != "custom") {
       return this.setState({ firmwareFilename: "" });
@@ -135,15 +135,15 @@ class FirmwareUpdate extends React.Component {
       filters: [
         {
           name: i18n.t("firmwareUpdate.dialog.firmwareFiles"),
-          extensions: ["hex", "bin"]
+          extensions: ["hex", "bin"],
         },
         {
           name: i18n.t("firmwareUpdate.dialog.allFiles"),
-          extensions: ["*"]
-        }
-      ]
+          extensions: ["*"],
+        },
+      ],
     });
-    files.then(result => {
+    files.then((result) => {
       this.setState({ firmwareFilename: result.filePaths[0] });
     });
   };
@@ -174,14 +174,14 @@ class FirmwareUpdate extends React.Component {
     }
 
     const _this = this;
-    const nextStep = async desiredState => {
-      return _this.setState(state => {
+    const nextStep = async (desiredState) => {
+      return _this.setState((state) => {
         let activeStep = state.activeStep + 1;
         _this.state.device.flashSteps.forEach((step, index) => {
           if (step == desiredState) activeStep = index;
         });
         return {
-          activeStep: activeStep
+          activeStep: activeStep,
         };
       });
     };
@@ -193,7 +193,7 @@ class FirmwareUpdate extends React.Component {
       preferExternalFlasher: preferExternalFlasher,
       device: this.state.device,
       focus: focus,
-      callback: nextStep
+      callback: nextStep,
     });
   };
 
@@ -202,8 +202,8 @@ class FirmwareUpdate extends React.Component {
 
     try {
       await this._flash();
-      await this.setState(state => ({
-        activeStep: state.activeStep + 1
+      await this.setState((state) => ({
+        activeStep: state.activeStep + 1,
       }));
     } catch (e) {
       console.error(e);
@@ -225,14 +225,14 @@ class FirmwareUpdate extends React.Component {
       );
       this.setState({ activeStep: -1 });
       toast.error(i18n.t("firmwareUpdate.flashing.error"), {
-        closeButton: action
+        closeButton: action,
       });
       this.props.toggleFlashing();
       this.props.onDisconnect();
       return;
     }
 
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       setTimeout(() => {
         toast.success(i18n.t("firmwareUpdate.flashing.success"));
 
@@ -287,7 +287,7 @@ class FirmwareUpdate extends React.Component {
     }
 
     const defaultFirmwareItemText = i18n.t("firmwareUpdate.defaultFirmware", {
-      version: version
+      version: version,
     });
     const defaultFirmwareItem = (
       <MenuItem value="default" selected={this.state.selected == "default"}>
@@ -354,13 +354,13 @@ class FirmwareUpdate extends React.Component {
       steps = steps.concat(["flash"]);
     }
 
-    steps = steps.map(step => {
+    steps = steps.map((step) => {
       return i18n.t("firmwareUpdate.flashing.steps." + step);
     });
 
     const stepsWidget = (
       <Stepper activeStep={this.state.activeStep}>
-        {steps.map(label => {
+        {steps.map((label) => {
           return (
             <Step key={label}>
               <StepLabel>{label}</StepLabel>

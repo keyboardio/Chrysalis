@@ -19,8 +19,8 @@
  */
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
+import withStyles from "@mui/styles/withStyles";
+import Paper from "@mui/material/Paper";
 import ColorButtonsArea from "./ColorButtonsArea";
 import PickerColorButton from "./PickerColorButton";
 import { setColorTamplate } from "../../../renderer/utils/setTemplates";
@@ -34,10 +34,10 @@ ColorPalette.propTypes = {
   disabled: PropTypes.bool.isRequired,
   selected: PropTypes.any,
   isColorButtonSelected: PropTypes.bool.isRequired,
-  onColorButtonSelect: PropTypes.func.isRequired
+  onColorButtonSelect: PropTypes.func.isRequired,
 };
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     display: "flex",
     position: "fixed",
@@ -46,17 +46,17 @@ const styles = theme => ({
     bottom: 0,
     height: 150,
     justifyContent: "center",
-    alignItems: "flex-start"
+    alignItems: "flex-start",
   },
   palette: {
     display: "flex",
     alignItems: "center",
     padding: 10,
     minHeight: 80,
-    [theme.breakpoints.down("sm")]: {
-      width: 455
-    }
-  }
+    [theme.breakpoints.down("md")]: {
+      width: 455,
+    },
+  },
 });
 
 /**
@@ -80,7 +80,7 @@ function ColorPalette(props) {
     disabled,
     selected,
     isColorButtonSelected,
-    onColorButtonSelect
+    onColorButtonSelect,
   } = props;
 
   /**
@@ -96,7 +96,7 @@ function ColorPalette(props) {
   const [colorFocusButton, setColorFocusButton] = useState(
     selected !== null
       ? {
-          ...palette[selected]
+          ...palette[selected],
         }
       : null
   );
@@ -108,7 +108,7 @@ function ColorPalette(props) {
     setIndexFocusButton(selected);
     if (selected !== null) {
       setColorFocusButton({
-        ...palette[selected]
+        ...palette[selected],
       });
     }
   }, [selected, palette]);
@@ -117,7 +117,7 @@ function ColorPalette(props) {
    * Change "colorFocusButton" and pick color of button from PickerColorButton component in functional component state
    * @param {object} color Object with keys that defining colors using the Red-green-blue-alpha (RGBA) model
    */
-  const toSetColorFocusButton = color => {
+  const toSetColorFocusButton = (color) => {
     onColorPick(indexFocusButton, color.r, color.g, color.b);
     setColorFocusButton(setColorTamplate(color));
   };
@@ -145,7 +145,7 @@ function ColorPalette(props) {
     indexFocusButton,
     setIsFocus,
     palette,
-    disabled
+    disabled,
   };
 
   return (

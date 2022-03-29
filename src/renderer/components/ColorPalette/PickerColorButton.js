@@ -19,32 +19,32 @@
  */
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
+import withStyles from "@mui/styles/withStyles";
 import { SketchPicker } from "react-color";
-import Fab from "@material-ui/core/Fab";
-import Tooltip from "@material-ui/core/Tooltip";
-import Popover from "@material-ui/core/Popover";
-import PaletteIcon from "@material-ui/icons/Palette";
+import Fab from "@mui/material/Fab";
+import Tooltip from "@mui/material/Tooltip";
+import Popover from "@mui/material/Popover";
+import PaletteIcon from "@mui/icons-material/Palette";
 
 PickerColorButton.propTypes = {
   classes: PropTypes.object.isRequired,
   setColorFocusButton: PropTypes.func.isRequired,
   colorFocusButton: PropTypes.object,
-  disabled: PropTypes.bool.isRequired
+  disabled: PropTypes.bool.isRequired,
 };
 
 const styles = {
   root: {
     position: "relative",
-    marginLeft: 10
+    marginLeft: 10,
   },
   fab: {
     width: 60,
-    height: 60
+    height: 60,
   },
   icon: {
-    fontSize: 32
-  }
+    fontSize: 32,
+  },
 };
 
 /**
@@ -59,7 +59,7 @@ function PickerColorButton(props) {
     classes,
     setColorFocusButton,
     colorFocusButton: color,
-    disabled
+    disabled,
   } = props;
 
   /**
@@ -71,7 +71,7 @@ function PickerColorButton(props) {
   /**
    * Change "anchorEl" in functional component state to open Color Picker
    */
-  const handleClick = e => {
+  const handleClick = (e) => {
     setAnchorEl(e.currentTarget);
   };
 
@@ -103,16 +103,16 @@ function PickerColorButton(props) {
           onClose={handleClose}
           anchorOrigin={{
             vertical: "top",
-            horizontal: "left"
+            horizontal: "left",
           }}
           transformOrigin={{
             vertical: "bottom",
-            horizontal: "right"
+            horizontal: "right",
           }}
         >
           <SketchPicker
             color={color}
-            onChange={color => {
+            onChange={(color) => {
               setColorFocusButton(color.rgb);
             }}
           />

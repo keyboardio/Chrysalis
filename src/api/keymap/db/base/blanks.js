@@ -24,19 +24,19 @@ const blanks = addCategories(
       label: {
         base: {
           full: "Blocked",
-          "1u": "Blkd"
-        }
-      }
+          "1u": "Blkd",
+        },
+      },
     },
     {
       code: 65535,
       label: {
         base: {
           full: "Transparent",
-          "1u": " "
-        }
-      }
-    }
+          "1u": " ",
+        },
+      },
+    },
   ]
 );
 

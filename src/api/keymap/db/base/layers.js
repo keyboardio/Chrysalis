@@ -18,11 +18,11 @@ const layer = (base, hint, type, index) => ({
   code: base + index,
   label: {
     hint: hint,
-    base: "#" + index.toString()
+    base: "#" + index.toString(),
   },
   target: index,
   rangeStart: base,
-  categories: ["layer", type]
+  categories: ["layer", type],
 });
 
 const shiftToLayer = Array(32)

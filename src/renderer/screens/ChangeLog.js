@@ -18,11 +18,11 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardHeader from "@material-ui/core/CardHeader";
-import Portal from "@material-ui/core/Portal";
-import { withStyles } from "@material-ui/core/styles";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardHeader from "@mui/material/CardHeader";
+import Portal from "@mui/material/Portal";
+import withStyles from "@mui/styles/withStyles";
 
 import Electron from "electron";
 
@@ -35,18 +35,18 @@ import path from "path";
 import { getStaticPath } from "../config";
 import i18n from "../i18n";
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   card: {
     margin: theme.spacing(4),
-    maxWidth: "50%"
+    maxWidth: "50%",
   },
   release: {
-    textDecoration: "underline"
-  }
+    textDecoration: "underline",
+  },
 });
 
 class ChangeLog extends React.Component {
@@ -75,7 +75,7 @@ class ChangeLog extends React.Component {
                       {node.children[0].value}
                     </h1>
                   );
-                }
+                },
               }}
             >
               {data}

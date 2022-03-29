@@ -25,25 +25,25 @@ const ErgoDox = {
     urls: [
       {
         name: "Homepage",
-        url: "https://ergodox-ez.com/"
-      }
-    ]
+        url: "https://ergodox-ez.com/",
+      },
+    ],
   },
   usb: {
     vendorId: 0xfeed,
-    productId: 0x1307
+    productId: 0x1307,
   },
   keyboard: {
     rows: 14,
-    columns: 6
+    columns: 6,
   },
   components: {
-    keymap: Keymap
+    keymap: Keymap,
   },
 
   flash: async (_, filename) => {
     return teensy(filename);
-  }
+  },
 };
 
 export { ErgoDox };

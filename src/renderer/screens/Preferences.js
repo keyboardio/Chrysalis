@@ -20,24 +20,24 @@ import PropTypes from "prop-types";
 import Electron from "electron";
 const { ipcRenderer } = require("electron");
 
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
-import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Collapse from "@material-ui/core/Collapse";
-import FilledInput from "@material-ui/core/FilledInput";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import Portal from "@material-ui/core/Portal";
-import Select from "@material-ui/core/Select";
-import Switch from "@material-ui/core/Switch";
-import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Collapse from "@mui/material/Collapse";
+import FilledInput from "@mui/material/FilledInput";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Portal from "@mui/material/Portal";
+import Select from "@mui/material/Select";
+import Switch from "@mui/material/Switch";
+import Typography from "@mui/material/Typography";
+import withStyles from "@mui/styles/withStyles";
 
 import {
   KeyboardSettings,
-  AdvancedKeyboardSettings
+  AdvancedKeyboardSettings,
 } from "./Preferences/KeyboardSettings";
 import i18n from "../i18n";
 
@@ -46,33 +46,32 @@ import Focus from "../../api/focus";
 const Store = require("electron-store");
 const settings = new Store();
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
-    ...theme.mixins.gutters(),
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
-    margin: `0px ${theme.spacing(8)}px`
+    margin: `0px ${theme.spacing(8)}`,
   },
   title: {
     marginTop: theme.spacing(4),
-    marginBottom: theme.spacing(1)
+    marginBottom: theme.spacing(1),
   },
   control: {
     display: "flex",
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   group: {
-    display: "block"
+    display: "block",
   },
   grow: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   flex: {
-    display: "flex"
+    display: "flex",
   },
   select: {
     paddingTop: theme.spacing(1),
-    width: 200
+    width: 200,
   },
   advanced: {
     display: "flex",
@@ -81,21 +80,21 @@ const styles = theme => ({
     "& button": {
       textTransform: "none",
       "& span svg": {
-        marginLeft: "1.5em"
-      }
-    }
-  }
+        marginLeft: "1.5em",
+      },
+    },
+  },
 });
 
 class Preferences extends React.Component {
   state = {
     devTools: false,
     advanced: false,
-    verboseFocus: false
+    verboseFocus: false,
   };
 
   componentDidMount = () => {
-    ipcRenderer.invoke("devtools-is-open").then(result => {
+    ipcRenderer.invoke("devtools-is-open").then((result) => {
       this.setState({ devTools: result });
     });
     ipcRenderer.on("devtools-opened", () => {
@@ -114,7 +113,7 @@ class Preferences extends React.Component {
     ipcRenderer.removeAllListeners("devtools-closed");
   };
 
-  toggleDevTools = event => {
+  toggleDevTools = (event) => {
     this.setState({ devTools: event.target.checked });
     if (event.target.checked) {
       ipcRenderer.send("show-devtools", true);
@@ -123,19 +122,19 @@ class Preferences extends React.Component {
     }
   };
 
-  setLanguage = async event => {
+  setLanguage = async (event) => {
     i18n.changeLanguage(event.target.value);
     await this.setState({});
     await settings.set("ui.language", event.target.value);
   };
 
   toggleAdvanced = () => {
-    this.setState(state => ({
-      advanced: !state.advanced
+    this.setState((state) => ({
+      advanced: !state.advanced,
     }));
   };
 
-  toggleVerboseFocus = event => {
+  toggleVerboseFocus = (event) => {
     this.setState({ verboseFocus: event.target.checked });
     let focus = new Focus();
     focus.debug = event.target.checked;
@@ -145,7 +144,7 @@ class Preferences extends React.Component {
     const { classes, darkMode, toggleDarkMode } = this.props;
 
     const language = i18n.language;
-    const languages = Object.keys(i18n.options.resources).map(code => {
+    const languages = Object.keys(i18n.options.resources).map((code) => {
       const t = i18n.getFixedT(code);
       return (
         <MenuItem value={code} key={code}>
@@ -268,7 +267,7 @@ class Preferences extends React.Component {
 }
 
 Preferences.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Preferences);

@@ -17,9 +17,9 @@
 
 import React from "react";
 
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import { withStyles } from "@material-ui/core/styles";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import withStyles from "@mui/styles/withStyles";
 
 import KeyButtonList from "../components/KeyButtonList";
 import Collapsible from "../components/Collapsible";
@@ -31,7 +31,7 @@ const styles = () => ({});
 
 class CategorySelectorBase extends React.Component {
   state = {
-    pickerOpen: false
+    pickerOpen: false,
   };
 
   openPicker = () => {
@@ -42,7 +42,7 @@ class CategorySelectorBase extends React.Component {
     this.setState({ pickerOpen: false });
   };
 
-  onKeyChange = keyCode => {
+  onKeyChange = (keyCode) => {
     this.props.onKeyChange(keyCode);
     this.closePicker();
   };

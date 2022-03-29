@@ -25,25 +25,25 @@ const Atreus = {
     urls: [
       {
         name: "Homepage",
-        url: "https://atreus.technomancy.us/"
-      }
-    ]
+        url: "https://atreus.technomancy.us/",
+      },
+    ],
   },
   usb: {
     vendorId: 0x1209,
-    productId: 0xa1e5
+    productId: 0xa1e5,
   },
   keyboard: {
     rows: 4,
-    columns: 11
+    columns: 11,
   },
   components: {
-    keymap: Keymap
+    keymap: Keymap,
   },
 
   flash: async (_, filename) => {
     return teensy(filename);
-  }
+  },
 };
 
 export { Atreus };

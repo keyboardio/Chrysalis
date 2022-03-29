@@ -18,12 +18,12 @@
 import React from "react";
 import i18n from "i18next";
 
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import FormControl from "@material-ui/core/FormControl";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import Select from "@material-ui/core/Select";
-import TextField from "@material-ui/core/TextField";
-import { withStyles } from "@material-ui/core/styles";
+import Autocomplete from "@mui/material/Autocomplete";
+import FormControl from "@mui/material/FormControl";
+import FormHelperText from "@mui/material/FormHelperText";
+import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
+import withStyles from "@mui/styles/withStyles";
 
 import { KeymapDB } from "../../../../../api/keymap";
 
@@ -43,12 +43,12 @@ class LayoutSelectBase extends React.Component {
     const platforms = {
       linux: "Linux",
       win32: "Windows",
-      darwin: "macOS"
+      darwin: "macOS",
     };
     const hostos = platforms[process.platform];
 
     const label = i18n.t("editor.sidebar.keypicker.hostLayout", {
-      hostos: hostos
+      hostos: hostos,
     });
 
     return (
@@ -56,12 +56,12 @@ class LayoutSelectBase extends React.Component {
         <FormControl>
           <Autocomplete
             value={layout}
-            groupBy={option => db.getLayoutLanguage(option)}
+            groupBy={(option) => db.getLayoutLanguage(option)}
             onChange={this.setLayout}
             options={db.getSupportedLayouts()}
-            getOptionLabel={option => option}
+            getOptionLabel={(option) => option}
             disableClearable
-            renderInput={params => (
+            renderInput={(params) => (
               <TextField {...params} label={label} variant="outlined" />
             )}
           />

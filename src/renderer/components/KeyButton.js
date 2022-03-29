@@ -17,27 +17,27 @@
 
 import React from "react";
 
-import Button from "@material-ui/core/Button";
-import { withStyles } from "@material-ui/core/styles";
+import Button from "@mui/material/Button";
+import withStyles from "@mui/styles/withStyles";
 
-const styles = theme => ({
+const styles = (theme) => ({
   key: {
     fontFamily: '"Source Code Pro", monospace',
     margin: theme.spacing(0.5),
     padding: "4px 8px",
     minWidth: "auto",
     minHeight: "auto",
-    whiteSpace: "nowrap"
-  }
+    whiteSpace: "nowrap",
+  },
 });
 
-const KeyButton = withStyles(styles)(props => {
+const KeyButton = withStyles(styles)((props) => {
   const { label, selected, classes, ...other } = props;
 
   return (
     <Button
       className={classes.key}
-      color={selected ? "primary" : "default"}
+      color={selected ? "primary" : "secondary"}
       variant={selected ? "contained" : "outlined"}
       {...other}
     >

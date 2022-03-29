@@ -24,29 +24,29 @@ const mousekeys = addCategories(
       code: 20481,
       label: {
         hint: "Mouse",
-        base: "Up"
-      }
+        base: "Up",
+      },
     },
     {
       code: 20482,
       label: {
         hint: "Mouse",
-        base: "Down"
-      }
+        base: "Down",
+      },
     },
     {
       code: 20484,
       label: {
         hint: "Mouse",
-        base: "Left"
-      }
+        base: "Left",
+      },
     },
     {
       code: 20488,
       label: {
         hint: "Mouse",
-        base: "Right"
-      }
+        base: "Right",
+      },
     },
 
     // Mouse wheel
@@ -55,40 +55,40 @@ const mousekeys = addCategories(
       label: {
         hint: {
           full: "Mouse Wheel",
-          "1u": "M.Whl"
+          "1u": "M.Whl",
         },
-        base: "Up"
-      }
+        base: "Up",
+      },
     },
     {
       code: 20498,
       label: {
         hint: {
           full: "Mouse Wheel",
-          "1u": "M.Whl"
+          "1u": "M.Whl",
         },
-        base: "Down"
-      }
+        base: "Down",
+      },
     },
     {
       code: 20500,
       label: {
         hint: {
           full: "Mouse Wheel",
-          "1u": "M.Whl"
+          "1u": "M.Whl",
         },
-        base: "Left"
-      }
+        base: "Left",
+      },
     },
     {
       code: 20504,
       label: {
         hint: {
           full: "Mouse Wheel",
-          "1u": "M.Whl"
+          "1u": "M.Whl",
         },
-        base: "Right"
-      }
+        base: "Right",
+      },
     },
 
     // Mouse buttons
@@ -97,50 +97,50 @@ const mousekeys = addCategories(
       label: {
         hint: {
           full: "Mouse Button",
-          "1u": "M.Btn"
+          "1u": "M.Btn",
         },
-        base: "Left"
-      }
+        base: "Left",
+      },
     },
     {
       code: 20546,
       label: {
         hint: {
           full: "Mouse Button",
-          "1u": "M.Btn"
+          "1u": "M.Btn",
         },
-        base: "Right"
-      }
+        base: "Right",
+      },
     },
     {
       code: 20548,
       label: {
         hint: {
           full: "Mouse Button",
-          "1u": "M.Btn"
+          "1u": "M.Btn",
         },
-        base: "Middle"
-      }
+        base: "Middle",
+      },
     },
     {
       code: 20552,
       label: {
         hint: {
           full: "Mouse Button",
-          "1u": "M.Btn"
+          "1u": "M.Btn",
         },
-        base: "Back"
-      }
+        base: "Back",
+      },
     },
     {
       code: 20560,
       label: {
         hint: {
           full: "Mouse Button",
-          "1u": "M.Btn"
+          "1u": "M.Btn",
         },
-        base: "Forward"
-      }
+        base: "Forward",
+      },
     },
 
     // Mouse warp
@@ -149,63 +149,63 @@ const mousekeys = addCategories(
       label: {
         hint: {
           full: "Mouse Warp",
-          "1u": "Warp"
+          "1u": "Warp",
         },
-        base: "End"
-      }
+        base: "End",
+      },
     },
     {
       code: 20517,
       label: {
         hint: {
           full: "Mouse Warp",
-          "1u": "Warp"
+          "1u": "Warp",
         },
         base: {
           full: "North-West",
-          "1u": "NW"
-        }
-      }
+          "1u": "NW",
+        },
+      },
     },
     {
       code: 20518,
       label: {
         hint: {
           full: "Mouse Warp",
-          "1u": "Warp"
+          "1u": "Warp",
         },
         base: {
           full: "South-West",
-          "1u": "SW"
-        }
-      }
+          "1u": "SW",
+        },
+      },
     },
     {
       code: 20521,
       label: {
         hint: {
           full: "Mouse Warp",
-          "1u": "Warp"
+          "1u": "Warp",
         },
         base: {
           full: "North-East",
-          "1u": "NE"
-        }
-      }
+          "1u": "NE",
+        },
+      },
     },
     {
       code: 20522,
       label: {
         hint: {
           full: "Mouse Warp",
-          "1u": "Warp"
+          "1u": "Warp",
         },
         base: {
           full: "South-East",
-          "1u": "SE"
-        }
-      }
-    }
+          "1u": "SE",
+        },
+      },
+    },
   ]
 );
 

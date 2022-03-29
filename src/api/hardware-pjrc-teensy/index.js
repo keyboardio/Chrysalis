@@ -24,18 +24,18 @@ const GenericTeensy = {
     urls: [
       {
         name: "Homepage",
-        url: "https://www.pjrc.com/teensy/"
-      }
-    ]
+        url: "https://www.pjrc.com/teensy/",
+      },
+    ],
   },
   usb: {
     vendorId: 0x16c0,
-    productId: 0x0478
+    productId: 0x0478,
   },
 
   flash: async (_, filename) => {
     return teensy(filename);
-  }
+  },
 };
 
 export { GenericTeensy };

@@ -25,26 +25,26 @@ const Planck = {
     urls: [
       {
         name: "Homepage",
-        url: "https://olkb.com/planck"
-      }
-    ]
+        url: "https://olkb.com/planck",
+      },
+    ],
   },
   usb: {
     vendorId: 0xfeed,
-    productId: 0x6060
+    productId: 0x6060,
   },
   keyboard: {
     rows: 4,
-    columns: 12
+    columns: 12,
   },
   components: {
-    keymap: Keymap
+    keymap: Keymap,
   },
 
   flash: async () => {
     let logger = new Log();
     logger.error("Planck flashing not implemented yet.");
-  }
+  },
 };
 
 export { Planck };

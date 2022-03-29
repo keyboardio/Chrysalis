@@ -19,39 +19,39 @@ import React from "react";
 
 import Focus from "../../api/focus";
 
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardHeader from "@material-ui/core/CardHeader";
-import KeyboardIcon from "@material-ui/icons/Keyboard";
-import Portal from "@material-ui/core/Portal";
-import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardHeader from "@mui/material/CardHeader";
+import KeyboardIcon from "@mui/icons-material/Keyboard";
+import Portal from "@mui/material/Portal";
+import Typography from "@mui/material/Typography";
+import withStyles from "@mui/styles/withStyles";
 
 import { toast } from "react-toastify";
 
 import i18n from "../i18n";
 import { navigate } from "../routerHistory";
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   card: {
     margin: theme.spacing(4),
-    maxWidth: "50%"
+    maxWidth: "50%",
   },
   grow: {
-    flexGrow: 1
-  }
+    flexGrow: 1,
+  },
 });
 
 class Welcome extends React.Component {
   state = {
-    factoryResetStarted: false
+    factoryResetStarted: false,
   };
 
   startFactoryReset = () => {
@@ -65,7 +65,7 @@ class Welcome extends React.Component {
     let focus = new Focus();
     const device = {
       path: focus._port.path,
-      device: focus.device
+      device: focus.device,
     };
 
     try {
@@ -89,7 +89,7 @@ class Welcome extends React.Component {
     const reconnectText = focus._port && (
       <Typography component="p" gutterBottom>
         {i18n.t("welcome.reconnectDescription", {
-          buttonName: i18n.t("welcome.reconnect")
+          buttonName: i18n.t("welcome.reconnect"),
         })}
       </Typography>
     );
@@ -112,7 +112,7 @@ class Welcome extends React.Component {
           <CardContent>
             <Typography component="p" gutterBottom>
               {i18n.t("welcome.contents", {
-                buttonName: i18n.t("app.menu.firmwareUpdate")
+                buttonName: i18n.t("app.menu.firmwareUpdate"),
               })}
             </Typography>
             {reconnectText}
@@ -128,7 +128,7 @@ class Welcome extends React.Component {
               }}
             >
               {i18n.t("welcome.gotoUpdate", {
-                buttonName: i18n.t("app.menu.firmwareUpdate")
+                buttonName: i18n.t("app.menu.firmwareUpdate"),
               })}
             </Button>
           </CardActions>

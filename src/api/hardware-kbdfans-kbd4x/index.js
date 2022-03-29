@@ -25,26 +25,25 @@ const KBD4x = {
     urls: [
       {
         name: "Homepage",
-        url:
-          "https://kbdfans.cn/collections/diy-kit/products/kbd4x-custom-mechanical-keyboard-hot-swap-diy-kit"
-      }
-    ]
+        url: "https://kbdfans.cn/collections/diy-kit/products/kbd4x-custom-mechanical-keyboard-hot-swap-diy-kit",
+      },
+    ],
   },
   usb: {
     vendorId: 0xfeed,
-    productId: 0x0000
+    productId: 0x0000,
   },
   keyboard: {
     rows: 4,
-    columns: 12
+    columns: 12,
   },
   components: {
-    keymap: Keymap
+    keymap: Keymap,
   },
 
   flash: async (_, filename) => {
     return await DFUProgrammer(filename);
-  }
+  },
 };
 
 export { KBD4x };

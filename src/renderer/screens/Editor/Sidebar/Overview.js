@@ -18,49 +18,49 @@
 import React from "react";
 import i18n from "i18next";
 
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import Paper from "@material-ui/core/Paper";
-import CropSquareIcon from "@material-ui/icons/CropSquare";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableFooter from "@material-ui/core/TableFooter";
-import TableRow from "@material-ui/core/TableRow";
-import { withStyles } from "@material-ui/core/styles";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Paper from "@mui/material/Paper";
+import CropSquareIcon from "@mui/icons-material/CropSquare";
+import FormHelperText from "@mui/material/FormHelperText";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableFooter from "@mui/material/TableFooter";
+import TableRow from "@mui/material/TableRow";
+import withStyles from "@mui/styles/withStyles";
 
 import LayoutSharing from "./Overview/LayoutSharing";
 import { KeymapDB } from "../../../../api/keymap";
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
-    marginBottom: theme.spacing(2)
+    marginBottom: theme.spacing(2),
   },
   tableRow: {
-    cursor: "pointer"
+    cursor: "pointer",
   },
   gears: {
-    padding: `0px ${theme.spacing(1)}px 0px 0px`
+    padding: `0px ${theme.spacing(1)} 0px 0px`,
   },
   colorSwatch: {
     width: theme.spacing(3),
-    height: theme.spacing(3)
+    height: theme.spacing(3),
   },
   help: {
-    marginBottom: theme.spacing(2)
-  }
+    marginBottom: theme.spacing(2),
+  },
 });
 
 class OverviewBase extends React.Component {
   state = {
     showAll: false,
-    dialogOpen: false
+    dialogOpen: false,
   };
 
-  selectLayer = index => () => {
+  selectLayer = (index) => () => {
     this.props.setLayer(index);
   };
 
@@ -90,20 +90,14 @@ class OverviewBase extends React.Component {
   };
 
   toggleAllLayers = () => {
-    this.setState(state => ({
-      showAll: !state.showAll
+    this.setState((state) => ({
+      showAll: !state.showAll,
     }));
   };
 
   render() {
-    const {
-      classes,
-      keymap,
-      selectedKey,
-      selectedLed,
-      layer,
-      colormap
-    } = this.props;
+    const { classes, keymap, selectedKey, selectedLed, layer, colormap } =
+      this.props;
     const { showAll, dialogOpen } = this.state;
     const db = new KeymapDB();
 
@@ -129,7 +123,7 @@ class OverviewBase extends React.Component {
             variant="square"
             style={{
               color: color.rgb,
-              background: color.rgb
+              background: color.rgb,
             }}
           >
             <CropSquareIcon />
@@ -188,7 +182,7 @@ class OverviewBase extends React.Component {
                 </TableCell>
                 <TableCell>
                   {i18n.t("editor.sidebar.overview.key", {
-                    index: selectedKey
+                    index: selectedKey,
                   })}
                 </TableCell>
                 {colormap && colormap.palette.length > 0 && (

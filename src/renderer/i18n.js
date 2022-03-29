@@ -24,11 +24,11 @@ import Hungarian from "./i18n/hu";
 
 const resources = {
   en: {
-    messages: English
+    messages: English,
   },
   hu: {
-    messages: Hungarian
-  }
+    messages: Hungarian,
+  },
 };
 
 i18n
@@ -36,7 +36,7 @@ i18n
   .use(LanguageDetector)
   .init({
     react: {
-      wait: true
+      wait: true,
     },
     resources: resources,
     lng: "en",
@@ -45,12 +45,12 @@ i18n
     defaultNS: "messages",
     fallbackLng: "en",
     interpolation: {
-      escapeValue: false
-    }
+      escapeValue: false,
+    },
   });
 
 i18n.refreshHardware = ({ device }) => {
-  Object.keys(i18n.options.resources).forEach(code => {
+  Object.keys(i18n.options.resources).forEach((code) => {
     const key =
       "devices." +
       device.info.vendor +
@@ -58,7 +58,7 @@ i18n.refreshHardware = ({ device }) => {
       device.info.product +
       ".updateInstructions";
     const instructions = {
-      updateInstructions: i18n.exists(key) ? i18n.t(key) : undefined
+      updateInstructions: i18n.exists(key) ? i18n.t(key) : undefined,
     };
     i18n.addResource(code, "messages", "hardware", instructions);
   });

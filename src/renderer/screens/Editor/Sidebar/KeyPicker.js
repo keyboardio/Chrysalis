@@ -18,54 +18,54 @@
 import React from "react";
 import i18n from "i18next";
 
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import Divider from "@material-ui/core/Divider";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import InputLabel from "@material-ui/core/InputLabel";
-import ListItemText from "@material-ui/core/ListItemText";
-import MenuItem from "@material-ui/core/MenuItem";
-import Select from "@material-ui/core/Select";
-import Switch from "@material-ui/core/Switch";
-import Tooltip from "@material-ui/core/Tooltip";
-import { withStyles } from "@material-ui/core/styles";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import Divider from "@mui/material/Divider";
+import FormGroup from "@mui/material/FormGroup";
+import FormControl from "@mui/material/FormControl";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormHelperText from "@mui/material/FormHelperText";
+import InputLabel from "@mui/material/InputLabel";
+import ListItemText from "@mui/material/ListItemText";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import Switch from "@mui/material/Switch";
+import Tooltip from "@mui/material/Tooltip";
+import withStyles from "@mui/styles/withStyles";
 
 import Keyboard104 from "../Keyboard104";
 import Collapsible from "../components/Collapsible";
 import { KeymapDB } from "../../../../api/keymap";
 import {
   addModifier,
-  removeModifier
+  removeModifier,
 } from "../../../../api/keymap/db/modifiers";
 import { GuiLabel } from "../../../../api/keymap/db/base/gui";
 import LayoutSelect from "./KeyPicker/LayoutSelect";
 
 const db = new KeymapDB();
 
-const styles = theme => ({
+const styles = (theme) => ({
   mods: {
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(1),
   },
   layout: {
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing(2),
   },
   modContainer: {
-    margin: `${theme.spacing(2)}px 0`
+    margin: `${theme.spacing(2)} 0`,
   },
   keyPickButton: {
-    marginBottom: theme.spacing(2)
-  }
+    marginBottom: theme.spacing(2),
+  },
 });
 
 class KeyPickerBase extends React.Component {
   state = {
-    pickerOpen: false
+    pickerOpen: false,
   };
 
-  isStandardKey = props => {
+  isStandardKey = (props) => {
     const { selectedKey, keymap, layer } = props;
     const key = keymap.custom[layer][selectedKey];
     const code = key.baseCode || key.code;
@@ -98,7 +98,7 @@ class KeyPickerBase extends React.Component {
     this.setState({ pickerOpen: false });
   };
 
-  onKeyChange = keyCode => {
+  onKeyChange = (keyCode) => {
     const { selectedKey, keymap, layer } = this.props;
     const key = keymap.custom[layer][selectedKey];
     let offset = 0;
@@ -110,7 +110,7 @@ class KeyPickerBase extends React.Component {
     this.closePicker();
   };
 
-  toggleModifier = mod => event => {
+  toggleModifier = (mod) => (event) => {
     const { selectedKey, keymap, layer } = this.props;
     const key = keymap.custom[layer][selectedKey].code;
 
@@ -121,7 +121,7 @@ class KeyPickerBase extends React.Component {
     }
   };
 
-  toggleOneShot = event => {
+  toggleOneShot = (event) => {
     const { selectedKey, keymap, layer } = this.props;
     const key = keymap.custom[layer][selectedKey];
 
@@ -132,7 +132,7 @@ class KeyPickerBase extends React.Component {
     }
   };
 
-  makeSwitch = mod => {
+  makeSwitch = (mod) => {
     const { selectedKey, keymap, layer } = this.props;
     const key = keymap.custom[layer][selectedKey].code;
 

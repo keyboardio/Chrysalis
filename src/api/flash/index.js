@@ -25,19 +25,19 @@ import Log from "../log";
 
 import { getStaticPath } from "../../renderer/config";
 
-const delay = ms => new Promise(res => setTimeout(res, ms));
+const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 async function DFUUtilBootloader(port, filename, options) {
   const callback = options
     ? options.callback
-    : function() {
+    : function () {
         return;
       };
   const device = options.device;
 
   let logger = new Log();
 
-  const formatID = desc => {
+  const formatID = (desc) => {
     return desc.vendorId.toString(16) + ":" + desc.productId.toString(16);
   };
 
@@ -48,11 +48,11 @@ async function DFUUtilBootloader(port, filename, options) {
     "dfu-util"
   );
 
-  const runCommand = async args => {
+  const runCommand = async (args) => {
     const cmd = [dfuUtil].concat(args).join(" ");
     return new Promise((resolve, reject) => {
       logger.debug("Running:", cmd);
-      sudo.exec(cmd, { name: "Chrysalis" }, error => {
+      sudo.exec(cmd, { name: "Chrysalis" }, (error) => {
         if (error) {
           reject(error);
         } else {
@@ -73,14 +73,14 @@ async function DFUUtilBootloader(port, filename, options) {
     "0",
     "--reset",
     "--download",
-    filename
+    filename,
   ]);
 }
 
 async function DFUUtil(port, filename, options) {
   const callback = options
     ? options.callback
-    : function() {
+    : function () {
         return;
       };
 
@@ -98,7 +98,7 @@ async function DFUUtil(port, filename, options) {
     return key;
   };
 
-  const restoreEEPROM = async key => {
+  const restoreEEPROM = async (key) => {
     const focus = options.focus;
     const dump = sessionStorage.getItem(key);
 
@@ -138,14 +138,14 @@ async function DFUUtil(port, filename, options) {
 async function AvrDude(_, port, filename, options) {
   const callback = options
     ? options.callback
-    : function() {
+    : function () {
         return;
       };
 
   const timeout = 1000 * 60 * 5;
   let logger = new Log();
 
-  const runCommand = async args => {
+  const runCommand = async (args) => {
     await callback("flash");
     return new Promise((resolve, reject) => {
       const avrdude = path.join(
@@ -156,17 +156,17 @@ async function AvrDude(_, port, filename, options) {
       );
       logger.debug("running avrdude", args);
       let child = spawn(avrdude, args);
-      child.stdout.on("data", data => {
+      child.stdout.on("data", (data) => {
         logger.debug("avrdude:stdout:", data.toString());
       });
-      child.stderr.on("data", data => {
+      child.stderr.on("data", (data) => {
         logger.debug("avrdude:stderr:", data.toString());
       });
       let timer = setTimeout(() => {
         child.kill();
         reject("avrdude timed out");
       }, timeout);
-      child.on("exit", code => {
+      child.on("exit", (code) => {
         clearTimeout(timer);
         if (code == 0) {
           resolve();
@@ -197,7 +197,7 @@ async function AvrDude(_, port, filename, options) {
     "-P",
     port.path,
     "-b57600",
-    "-Uflash:w:" + filename + ":i"
+    "-Uflash:w:" + filename + ":i",
   ]);
 }
 
@@ -212,12 +212,12 @@ async function Avr109Bootloader(board, port, filename, options) {
   const avrgirl = new AvrGirl({
     board: board,
     debug: true,
-    manualReset: true
+    manualReset: true,
   });
 
   const callback = options
     ? options.callback
-    : function() {
+    : function () {
         return;
       };
 
@@ -227,7 +227,7 @@ async function Avr109Bootloader(board, port, filename, options) {
       if (port.isOpen) {
         port.close();
       }
-      avrgirl.flash(filename, async error => {
+      avrgirl.flash(filename, async (error) => {
         if (error) {
           logger.error(error);
           if (avrgirl.connection.serialPort.isOpen) {
@@ -252,18 +252,18 @@ async function Avr109(board, port, filename, options) {
   let timeouts = options ? options.timeouts : null;
   const callback = options
     ? options.callback
-    : function() {
+    : function () {
         return;
       };
   timeouts = timeouts || {
     dtrToggle: 500, // Time to wait (ms) between toggling DTR
-    bootLoaderUp: 4000 // Time to wait for the boot loader to come up
+    bootLoaderUp: 4000, // Time to wait for the boot loader to come up
   };
 
   let logger = new Log();
 
   const baudUpdate = () => {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       logger.debug("baud update");
       port.update({ baudRate: 1200 }, async () => {
         await delay(timeouts.dtrToggle);
@@ -272,8 +272,8 @@ async function Avr109(board, port, filename, options) {
     });
   };
 
-  const dtrToggle = state => {
-    return new Promise(resolve => {
+  const dtrToggle = (state) => {
+    return new Promise((resolve) => {
       logger.debug("dtr", state ? "on" : "off");
       port.set({ dtr: state }, async () => {
         await delay(timeouts.dtrToggle);
@@ -302,21 +302,21 @@ async function teensy(filename) {
 
 async function DFUProgrammer(filename, mcu = "atmega32u4", timeout = 10000) {
   let logger = new Log();
-  const runCommand = async args => {
+  const runCommand = async (args) => {
     return new Promise((resolve, reject) => {
       logger.debug("Running dfu-programmer", args);
       let child = spawn("dfu-programmer", args);
-      child.stdout.on("data", data => {
+      child.stdout.on("data", (data) => {
         logger.debug("dfu-programmer:stdout:", data.toString());
       });
-      child.stderr.on("data", data => {
+      child.stderr.on("data", (data) => {
         logger.debug("dfu-programmer:stderr:", data.toString());
       });
       let timer = setTimeout(() => {
         child.kill();
         reject("dfu-programmer timed out");
       }, timeout);
-      child.on("exit", code => {
+      child.on("exit", (code) => {
         clearTimeout(timer);
         if (code == 0) {
           resolve();
@@ -327,7 +327,7 @@ async function DFUProgrammer(filename, mcu = "atmega32u4", timeout = 10000) {
     });
   };
 
-  const delay = ms => new Promise(res => setTimeout(res, ms));
+  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
   for (let i = 0; i < 10; i++) {
     try {
@@ -348,5 +348,5 @@ export {
   teensy,
   DFUProgrammer,
   DFUUtil,
-  DFUUtilBootloader
+  DFUUtilBootloader,
 };

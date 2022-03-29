@@ -22,40 +22,40 @@ const miscellaneous = withModifiers([
     label: {
       base: {
         full: "Caps Lock",
-        "1u": "CpLK"
-      }
-    }
+        "1u": "CpLK",
+      },
+    },
   },
   {
     code: 70,
     label: {
       base: {
         full: "Print Screen",
-        "1u": "PrSc"
-      }
-    }
+        "1u": "PrSc",
+      },
+    },
   },
   {
     code: 71,
     label: {
       base: {
         full: "Scroll Lock",
-        "1u": "ScLk"
-      }
-    }
+        "1u": "ScLk",
+      },
+    },
   },
   {
     code: 72,
     label: {
-      base: "Pause"
-    }
+      base: "Pause",
+    },
   },
   {
     code: 101,
     label: {
-      base: "Menu"
-    }
-  }
+      base: "Menu",
+    },
+  },
 ]);
 
 export { miscellaneous };

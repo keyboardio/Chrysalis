@@ -20,22 +20,22 @@ import React from "react";
 import Focus from "../../api/focus";
 import Log from "../../api/log";
 
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardHeader from "@material-ui/core/CardHeader";
-import CloseIcon from "@material-ui/icons/Close";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import Link from "@material-ui/core/Link";
-import MuiDialogTitle from "@material-ui/core/DialogTitle";
-import Portal from "@material-ui/core/Portal";
-import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardHeader from "@mui/material/CardHeader";
+import CloseIcon from "@mui/icons-material/Close";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import Link from "@mui/material/Link";
+import MuiDialogTitle from "@mui/material/DialogTitle";
+import Portal from "@mui/material/Portal";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import withStyles from "@mui/styles/withStyles";
 
 import Electron from "electron";
 
@@ -52,27 +52,27 @@ import { v4 as uuidv4 } from "uuid";
 
 import i18n from "../i18n";
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   dialogRoot: {
     margin: 0,
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
   },
   card: {
     margin: theme.spacing(4),
-    maxWidth: "50%"
+    maxWidth: "50%",
   },
   grow: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   dialogButtons: {
     position: "absolute",
     right: theme.spacing(1),
-    top: theme.spacing(1)
-  }
+    top: theme.spacing(1),
+  },
 });
 
 class SystemInfo extends React.Component {
@@ -80,7 +80,7 @@ class SystemInfo extends React.Component {
     collecting: false,
     collected: false,
     info: {},
-    viewing: false
+    viewing: false,
   };
 
   openViewBundle = () => {
@@ -90,7 +90,7 @@ class SystemInfo extends React.Component {
     this.setState({
       viewing: false,
       collected: false,
-      info: {}
+      info: {},
     });
   };
 
@@ -101,9 +101,9 @@ class SystemInfo extends React.Component {
       filters: [
         {
           name: i18n.t("systeminfo.dialog.bundleFiles"),
-          extensions: ["bundle.zip"]
-        }
-      ]
+          extensions: ["bundle.zip"],
+        },
+      ],
     });
 
     if (result.canceled) {
@@ -115,7 +115,7 @@ class SystemInfo extends React.Component {
     archive.pipe(output);
 
     archive.append(jsonStringify(this.state.info), {
-      name: "bundle.json"
+      name: "bundle.json",
     });
 
     archive.finalize();
@@ -124,7 +124,7 @@ class SystemInfo extends React.Component {
     this.setState({
       collected: false,
       viewing: false,
-      info: {}
+      info: {},
     });
   };
 
@@ -138,10 +138,10 @@ class SystemInfo extends React.Component {
       timestamp: new Date(),
       uuid: uuidv4(),
       chrysalis: {
-        version: version
+        version: version,
       },
       os: await si.osInfo(),
-      logs: logger.messages()
+      logs: logger.messages(),
     };
 
     if (focus.device) {
@@ -150,14 +150,14 @@ class SystemInfo extends React.Component {
         path: focus._port.path,
         commands: await focus.command("help"),
         keymap: await focus.command("keymap"),
-        colormap: await focus.command("colormap")
+        colormap: await focus.command("colormap"),
       };
     }
 
     await this.setState({
       collecting: false,
       collected: true,
-      info: sysInfo
+      info: sysInfo,
     });
   };
 
@@ -194,7 +194,7 @@ class SystemInfo extends React.Component {
       );
     }
 
-    const DialogTitle = withStyles(styles)(props => {
+    const DialogTitle = withStyles(styles)((props) => {
       const { children, classes, ...other } = props;
       return (
         <MuiDialogTitle
@@ -207,7 +207,7 @@ class SystemInfo extends React.Component {
             <Button color="primary" onClick={this.saveBundle}>
               {i18n.t("systeminfo.saveBundle")}
             </Button>
-            <IconButton onClick={this.closeViewBundle}>
+            <IconButton onClick={this.closeViewBundle} size="large">
               <CloseIcon />
             </IconButton>
           </div>

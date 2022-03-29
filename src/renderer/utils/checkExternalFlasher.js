@@ -20,7 +20,7 @@ import path from "path";
 
 import { getStaticPath } from "../config";
 
-const checkExternalFlasher = async device => {
+const checkExternalFlasher = async (device) => {
   if (!device.externalFlasher) return false;
 
   const flasherPath = path.join(

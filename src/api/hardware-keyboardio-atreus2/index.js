@@ -25,32 +25,32 @@ const Atreus2 = {
     urls: [
       {
         name: "Homepage",
-        url: "https://shop.keyboard.io/products/keyboardio-atreus"
+        url: "https://shop.keyboard.io/products/keyboardio-atreus",
       },
       {
         name: "Forum",
-        url: "https://community.keyboard.io/"
+        url: "https://community.keyboard.io/",
       },
       {
         name: "Chat",
-        url: "https://keyboard.io/discord-invite"
-      }
-    ]
+        url: "https://keyboard.io/discord-invite",
+      },
+    ],
   },
   usb: {
     vendorId: 0x1209,
     productId: 0x2303,
     bootloader: {
       vendorId: 0x1209,
-      productId: 0x2302
-    }
+      productId: 0x2302,
+    },
   },
   keyboard: {
     rows: 4,
-    columns: 12
+    columns: 12,
   },
   components: {
-    keymap: Keymap
+    keymap: Keymap,
   },
 
   flashSteps: ["bootloaderTrigger", "bootloaderWait", "flash"],
@@ -61,14 +61,14 @@ const Atreus2 = {
       baud: 9600,
       productId: ["0x2302", "0x2303"],
       protocol: "avr109",
-      signature: new Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e])
+      signature: new Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     };
     if (options.device && options.device.bootloader) {
       return Avr109Bootloader(board, port, filename, options);
     } else {
       return Avr109(board, port, filename, options);
     }
-  }
+  },
 };
 
 export { Atreus2 };

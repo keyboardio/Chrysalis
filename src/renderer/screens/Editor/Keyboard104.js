@@ -18,7 +18,7 @@
 import React from "react";
 
 import classNames from "classnames";
-import { withStyles } from "@material-ui/core/styles";
+import withStyles from "@mui/styles/withStyles";
 
 import { KeymapDB } from "../../../api/keymap";
 const db = new KeymapDB();
@@ -29,15 +29,15 @@ const styles = () => ({
   svg: {
     fontFamily: '"Source Code Pro", "monospace"',
     fontWeight: 700,
-    fontSize: Math.round(keycapunit / 4)
+    fontSize: Math.round(keycapunit / 4),
   },
   root: {
     textAlign: "center",
-    height: keycapunit * 6.5
+    height: keycapunit * 6.5,
   },
   legend1U: {
-    fontSize: Math.round(keycapunit / 2.5)
-  }
+    fontSize: Math.round(keycapunit / 2.5),
+  },
 });
 
 class KeymapBase extends React.Component {
@@ -54,7 +54,7 @@ class KeymapBase extends React.Component {
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0.5, 0, 0, 0, 0.5],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0.5],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.5, 1.5, 0, 0, 0, 0.5],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0.5]
+      [0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0.5],
     ];
 
     const keySizeX = [
@@ -63,7 +63,7 @@ class KeymapBase extends React.Component {
       [1.5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.5],
       [1.75, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.25],
       [1.25, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2.75],
-      [1.25, 1.25, 1.25, 6.25, 1.25, 1.25, 1.25, 1.25, 1, 1, 1, 2]
+      [1.25, 1.25, 1.25, 6.25, 1.25, 1.25, 1.25, 1.25, 1, 1, 1, 2],
     ];
     let keySizeY = [[], [], [], [], []];
     keySizeY[2][20] = 2;
@@ -108,7 +108,7 @@ class KeymapBase extends React.Component {
       return offset;
     };
 
-    let getY = row => {
+    let getY = (row) => {
       let y = row * keySpacingY;
       if (row > 0) y += keySpacingY * 0.5;
       return y;
@@ -127,7 +127,7 @@ class KeymapBase extends React.Component {
       return getKeySizeX(row, col).toString() + "u";
     };
 
-    const Key = props => {
+    const Key = (props) => {
       const { row, col } = props;
       const x = getX(row, col),
         y = getY(row, col),
@@ -141,7 +141,7 @@ class KeymapBase extends React.Component {
       let textColor = "#000000";
       const buttonColor = active ? "#aaaaaa" : "#ffffff";
 
-      const onClick = event => {
+      const onClick = (event) => {
         return onKeySelect(event.currentTarget.getAttribute("data-key-code"));
       };
 

@@ -25,25 +25,25 @@ const Splitography = {
     urls: [
       {
         name: "Homepage",
-        url: "https://softhruf.love/collections/writers"
-      }
-    ]
+        url: "https://softhruf.love/collections/writers",
+      },
+    ],
   },
   usb: {
     vendorId: 0xfeed,
-    productId: 0x6060
+    productId: 0x6060,
   },
   keyboard: {
     rows: 4,
-    columns: 12
+    columns: 12,
   },
   components: {
-    keymap: Keymap
+    keymap: Keymap,
   },
 
   flash: async (_, filename) => {
     return await DFUProgrammer(filename);
-  }
+  },
 };
 
 export { Splitography };

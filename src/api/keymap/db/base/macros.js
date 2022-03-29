@@ -14,14 +14,14 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-const macro = index => ({
+const macro = (index) => ({
   code: 24576 + index,
   label: {
     hint: "Macro",
-    base: "#" + index.toString()
+    base: "#" + index.toString(),
   },
   rangeStart: 24576,
-  categories: ["macros"]
+  categories: ["macros"],
 });
 
 const macros = Array(32)

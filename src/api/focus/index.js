@@ -28,7 +28,7 @@ class Focus {
     if (!global.chrysalis_focus_instance) {
       global.chrysalis_focus_instance = this;
       this.commands = {
-        help: this._help
+        help: this._help,
       };
       this.timeout = 5000;
       this.debug = false;
@@ -44,7 +44,7 @@ class Focus {
   }
 
   async waitForSerialBootloader(device) {
-    const delay = ms => new Promise(res => setTimeout(res, ms));
+    const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
     for (let attempt = 0; attempt < 10; attempt++) {
       let portList = await SerialPort.list();
@@ -77,7 +77,7 @@ class Focus {
   }
 
   async waitForDFUBootloader(device) {
-    const delay = ms => new Promise(res => setTimeout(res, ms));
+    const delay = (ms) => new Promise((res) => setTimeout(res, ms));
     const bootloader = device.usb.bootloader;
 
     for (let attempt = 0; attempt < 10; attempt++) {
@@ -150,7 +150,7 @@ class Focus {
 
     // We do not wish to have the device SVG data appear in logs, that's not
     // useful information, and just clutters the log. So we filter them out.
-    const logged_devices = found_devices.map(d => {
+    const logged_devices = found_devices.map((d) => {
       let device = Object.assign({}, d);
       device.device = Object.assign({}, d.device);
       delete device.device["components"];
@@ -167,7 +167,7 @@ class Focus {
       if (!info) throw new Error("Device descriptor argument is mandatory");
       this._port = new SerialPort({
         path: device,
-        baudRate: 9600
+        baudRate: 9600,
       });
     } else if (typeof device == "object") {
       if (device.hasOwnProperty("binding")) {
@@ -178,7 +178,7 @@ class Focus {
         if (devices && devices.length >= 1) {
           this._port = new SerialPort({
             path: devices[0].path,
-            baudRate: 9600
+            baudRate: 9600,
           });
         }
         info = device;
@@ -191,7 +191,7 @@ class Focus {
     this.parser = this._port.pipe(new DelimiterParser({ delimiter: "\r\n" }));
     this.result = "";
     this.callbacks = [];
-    this.parser.on("data", data => {
+    this.parser.on("data", (data) => {
       data = data.toString("utf-8");
       this.debugLog("focus: incoming data:", data);
 
@@ -272,7 +272,7 @@ class Focus {
       let timer = setTimeout(() => {
         reject("Communication timeout");
       }, this.timeout);
-      this._request(cmd, ...args).then(data => {
+      this._request(cmd, ...args).then((data) => {
         clearTimeout(timer);
         resolve(data);
       });
@@ -299,7 +299,7 @@ class Focus {
        * we split at each space, and send tiny chunks.
        */
       let parts = request.split(" ");
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         setTimeout(async () => {
           await this._port.flush();
           this.callbacks.push(resolve);
@@ -307,7 +307,7 @@ class Focus {
         }, 500);
       });
     } else {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         this.callbacks.push(resolve);
         this._port.write(request);
       });
@@ -344,7 +344,7 @@ class Focus {
 
   async _help(s) {
     let data = await s.request("help");
-    return data.split(/\r?\n/).filter(v => v.length > 0);
+    return data.split(/\r?\n/).filter((v) => v.length > 0);
   }
 }
 

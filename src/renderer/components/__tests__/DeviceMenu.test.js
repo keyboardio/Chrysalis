@@ -25,7 +25,7 @@ afterEach(cleanup);
 const mockOpenMenu = jest.fn();
 const device = {
   urls: { url: "http://www.keyboard.io", name: "Home" },
-  displayName: "Keyboardio Model01"
+  displayName: "Keyboardio Model01",
 };
 
 test("DeviceMenu renders a button with the proper device name", () => {

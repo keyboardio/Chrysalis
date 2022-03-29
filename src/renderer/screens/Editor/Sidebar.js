@@ -17,9 +17,8 @@
 
 import React from "react";
 
-import Drawer from "@material-ui/core/Drawer";
-import Toolbar from "@material-ui/core/Toolbar";
-import { withStyles } from "@material-ui/core/styles";
+import Drawer from "@mui/material/Drawer";
+import Toolbar from "@mui/material/Toolbar";
 
 import Title from "./Sidebar/Title";
 import Overview from "./Sidebar/Overview";
@@ -41,20 +40,6 @@ import CustomKey from "./Sidebar/CustomKey";
 
 const sidebarWidth = 360;
 
-const styles = theme => ({
-  drawer: {
-    width: sidebarWidth,
-    flexShrink: 0
-  },
-  drawerPaper: {
-    width: sidebarWidth
-  },
-  drawerContainer: {
-    overflow: "auto",
-    padding: theme.spacing(3)
-  }
-});
-
 class Sidebar extends React.Component {
   render() {
     const {
@@ -64,7 +49,7 @@ class Sidebar extends React.Component {
       selectedLed,
       layer,
       layout,
-      colormap
+      colormap,
     } = this.props;
 
     const widgets = [
@@ -82,7 +67,7 @@ class Sidebar extends React.Component {
       LeaderKeys,
       StenoKeys,
       BlankKeys,
-      CustomKey
+      CustomKey,
     ];
     const categories = widgets.map((Widget, index) => {
       return (
@@ -98,21 +83,29 @@ class Sidebar extends React.Component {
           onKeyChange={this.props.onKeyChange}
           onLedChange={this.props.onLedChange}
           onPaletteChange={this.props.onPaletteChange}
+          sx={{ p: 2 }}
         />
       );
     });
 
     return (
       <Drawer
-        className={classes.drawer}
         variant="permanent"
         anchor="right"
-        classes={{
-          paper: classes.drawerPaper
+        sx={{
+          flexShrink: 0,
+          zIndex: (theme) => theme.zIndex.appBar - 100,
+          width: sidebarWidth,
+          "& .MuiDrawer-paper": {
+            width: sidebarWidth,
+            boxSizing: "border-box",
+            p: 1,
+            zIndex: (theme) => theme.zIndex.appBar - 100,
+          },
         }}
       >
         <Toolbar />
-        <div className={classes.drawerContainer}>
+        <div sx={{ p: 3 }}>
           <Title selectedKey={selectedKey} layer={layer} keymap={keymap} />
           <Overview
             keymap={keymap}
@@ -132,6 +125,4 @@ class Sidebar extends React.Component {
   }
 }
 
-const StyledSidebar = withStyles(styles, { withTheme: true })(Sidebar);
-
-export { StyledSidebar as default, sidebarWidth };
+export { Sidebar as default, sidebarWidth };

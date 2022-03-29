@@ -23,296 +23,296 @@ const stenokeys = addCategories(
       code: 53549,
       label: {
         hint: "Steno",
-        base: "FN"
-      }
+        base: "FN",
+      },
     },
     {
       code: 53550,
       label: {
         hint: "Steno",
-        base: "N1"
-      }
+        base: "N1",
+      },
     },
     {
       code: 53551,
       label: {
         hint: "Steno",
-        base: "N2"
-      }
+        base: "N2",
+      },
     },
     {
       code: 53552,
       label: {
         hint: "Steno",
-        base: "N3"
-      }
+        base: "N3",
+      },
     },
     {
       code: 53553,
       label: {
         hint: "Steno",
-        base: "N4"
-      }
+        base: "N4",
+      },
     },
     {
       code: 53554,
       label: {
         hint: "Steno",
-        base: "N5"
-      }
+        base: "N5",
+      },
     },
     {
       code: 53555,
       label: {
         hint: "Steno",
-        base: "N6"
-      }
+        base: "N6",
+      },
     },
     {
       code: 53556,
       label: {
         hint: "Steno",
-        base: "S1"
-      }
+        base: "S1",
+      },
     },
     {
       code: 53557,
       label: {
         hint: "Steno",
-        base: "S2"
-      }
+        base: "S2",
+      },
     },
     {
       code: 53558,
       label: {
         hint: "Steno",
-        base: "TL"
-      }
+        base: "TL",
+      },
     },
     {
       code: 53559,
       label: {
         hint: "Steno",
-        base: "KL"
-      }
+        base: "KL",
+      },
     },
     {
       code: 53560,
       label: {
         hint: "Steno",
-        base: "PL"
-      }
+        base: "PL",
+      },
     },
     {
       code: 53561,
       label: {
         hint: "Steno",
-        base: "WL"
-      }
+        base: "WL",
+      },
     },
     {
       code: 53562,
       label: {
         hint: "Steno",
-        base: "HL"
-      }
+        base: "HL",
+      },
     },
     {
       code: 53563,
       label: {
         hint: "Steno",
-        base: "RL"
-      }
+        base: "RL",
+      },
     },
     {
       code: 53564,
       label: {
         hint: "Steno",
-        base: "A"
-      }
+        base: "A",
+      },
     },
     {
       code: 53565,
       label: {
         hint: "Steno",
-        base: "O"
-      }
+        base: "O",
+      },
     },
     {
       code: 53566,
       label: {
         hint: "Steno",
-        base: "ST1"
-      }
+        base: "ST1",
+      },
     },
     {
       code: 53567,
       label: {
         hint: "Steno",
-        base: "ST2"
-      }
+        base: "ST2",
+      },
     },
     {
       code: 53568,
       label: {
         hint: "Steno",
-        base: "RE1"
-      }
+        base: "RE1",
+      },
     },
     {
       code: 53569,
       label: {
         hint: "Steno",
-        base: "RE2"
-      }
+        base: "RE2",
+      },
     },
     {
       code: 53570,
       label: {
         hint: "Steno",
-        base: "PWR"
-      }
+        base: "PWR",
+      },
     },
     {
       code: 53571,
       label: {
         hint: "Steno",
-        base: "ST3"
-      }
+        base: "ST3",
+      },
     },
     {
       code: 53572,
       label: {
         hint: "Steno",
-        base: "ST4"
-      }
+        base: "ST4",
+      },
     },
     {
       code: 53573,
       label: {
         hint: "Steno",
-        base: "E"
-      }
+        base: "E",
+      },
     },
     {
       code: 53574,
       label: {
         hint: "Steno",
-        base: "U"
-      }
+        base: "U",
+      },
     },
     {
       code: 53575,
       label: {
         hint: "Steno",
-        base: "FR"
-      }
+        base: "FR",
+      },
     },
     {
       code: 53576,
       label: {
         hint: "Steno",
-        base: "RR"
-      }
+        base: "RR",
+      },
     },
     {
       code: 53577,
       label: {
         hint: "Steno",
-        base: "PR"
-      }
+        base: "PR",
+      },
     },
     {
       code: 53578,
       label: {
         hint: "Steno",
-        base: "BR"
-      }
+        base: "BR",
+      },
     },
     {
       code: 53579,
       label: {
         hint: "Steno",
-        base: "LR"
-      }
+        base: "LR",
+      },
     },
     {
       code: 53580,
       label: {
         hint: "Steno",
-        base: "GR"
-      }
+        base: "GR",
+      },
     },
     {
       code: 53581,
       label: {
         hint: "Steno",
-        base: "TR"
-      }
+        base: "TR",
+      },
     },
     {
       code: 53582,
       label: {
         hint: "Steno",
-        base: "SR"
-      }
+        base: "SR",
+      },
     },
     {
       code: 53583,
       label: {
         hint: "Steno",
-        base: "DR"
-      }
+        base: "DR",
+      },
     },
     {
       code: 53584,
       label: {
         hint: "Steno",
-        base: "N7"
-      }
+        base: "N7",
+      },
     },
     {
       code: 53585,
       label: {
         hint: "Steno",
-        base: "N8"
-      }
+        base: "N8",
+      },
     },
     {
       code: 53586,
       label: {
         hint: "Steno",
-        base: "N9"
-      }
+        base: "N9",
+      },
     },
     {
       code: 53587,
       label: {
         hint: "Steno",
-        base: "NA"
-      }
+        base: "NA",
+      },
     },
     {
       code: 53588,
       label: {
         hint: "Steno",
-        base: "NB"
-      }
+        base: "NB",
+      },
     },
     {
       code: 53589,
       label: {
         hint: "Steno",
-        base: "NC"
-      }
+        base: "NC",
+      },
     },
     {
       code: 53590,
       label: {
         hint: "Steno",
-        base: "ZR"
-      }
-    }
+        base: "ZR",
+      },
+    },
   ]
 );
 

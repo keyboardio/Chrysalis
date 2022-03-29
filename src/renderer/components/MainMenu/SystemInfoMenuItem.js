@@ -16,10 +16,10 @@
  */
 
 import React from "react";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import InfoIcon from "@material-ui/icons/Info";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import InfoIcon from "@mui/icons-material/Info";
 
 import i18n from "../../i18n";
 

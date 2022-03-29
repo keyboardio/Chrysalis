@@ -21,54 +21,54 @@ const osm = (index, mod) => ({
   label: {
     hint: {
       full: "OneShot",
-      "1u": "OSM"
+      "1u": "OSM",
     },
-    base: mod
+    base: mod,
   },
   rangeStart: 49153,
-  categories: ["oneshot", "modifier"]
+  categories: ["oneshot", "modifier"],
 });
 
-const osl = index => ({
+const osl = (index) => ({
   code: 49161 + index,
   label: {
     hint: {
       full: "OneShot",
-      "1u": "OSL"
+      "1u": "OSL",
     },
-    base: "#" + index.toString()
+    base: "#" + index.toString(),
   },
   target: index,
   rangeStart: 49161,
-  categories: ["layer", "oneshot"]
+  categories: ["layer", "oneshot"],
 });
 
 const oneshot = [
   osm(0, {
     full: "Left Control",
-    "1u": "LCtrl"
+    "1u": "LCtrl",
   }),
   osm(1, {
     full: "Left Shift",
-    "1u": "LSft"
+    "1u": "LSft",
   }),
   osm(2, "Alt"),
   osm(3, {
     full: "Left " + GuiLabel.full,
-    "1u": "L" + GuiLabel["1u"]
+    "1u": "L" + GuiLabel["1u"],
   }),
   osm(4, {
     full: "Right Control",
-    "1u": "RCtrl"
+    "1u": "RCtrl",
   }),
   osm(5, {
     full: "Right Shift",
-    "1u": "RSft"
+    "1u": "RSft",
   }),
   osm(6, "AltGr"),
   osm(7, {
     full: "Right " + GuiLabel.full,
-    "1u": "R" + GuiLabel["1u"]
+    "1u": "R" + GuiLabel["1u"],
   }),
 
   osl(0),
@@ -85,12 +85,12 @@ const oneshot = [
     label: {
       hint: {
         full: "OneShot",
-        "1u": "OS"
+        "1u": "OS",
       },
-      base: "Cancel"
+      base: "Cancel",
     },
-    categories: ["oneshot"]
-  }
+    categories: ["oneshot"],
+  },
 ];
 
 export { oneshot };

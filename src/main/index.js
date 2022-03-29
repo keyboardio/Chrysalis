@@ -30,7 +30,7 @@ import { format as formatUrl } from "url";
 import * as path from "path";
 import windowStateKeeper from "electron-window-state";
 import installExtension, {
-  REACT_DEVELOPER_TOOLS
+  REACT_DEVELOPER_TOOLS,
 } from "electron-devtools-installer";
 import { getStaticPath } from "../renderer/config";
 import { initialize, enable as enableRemote } from "@electron/remote/main";
@@ -50,7 +50,7 @@ let mainWindow;
 async function createMainWindow() {
   let mainWindowState = windowStateKeeper({
     defaultWidth: 1200,
-    defaultHeight: 900
+    defaultHeight: 900,
   });
 
   const window = new BrowserWindow({
@@ -64,8 +64,8 @@ async function createMainWindow() {
       sandbox: false,
       nodeIntegration: true,
       contextIsolation: false,
-      enableRemoteModule: true
-    }
+      enableRemoteModule: true,
+    },
   });
   enableRemote(window.webContents);
   mainWindowState.manage(window);
@@ -77,7 +77,7 @@ async function createMainWindow() {
       formatUrl({
         pathname: path.join(__dirname, "index.html"),
         protocol: "file",
-        slashes: true
+        slashes: true,
       })
     );
   }
@@ -127,12 +127,12 @@ ipcMain.on("show-devtools", (event, boolFocus) => {
   }
 });
 
-ipcMain.handle("devtools-is-open", event => {
+ipcMain.handle("devtools-is-open", (event) => {
   const webContents = event.sender;
   return webContents.isDevToolsOpened();
 });
 
-ipcMain.handle("usb-scan-for-devices", event => {
+ipcMain.handle("usb-scan-for-devices", (event) => {
   const webContents = event.sender;
   const devices = getDeviceList();
   return devices;
@@ -188,8 +188,8 @@ app.on("activate", () => {
 app.on("ready", async () => {
   if (isDevelopment) {
     await installExtension(REACT_DEVELOPER_TOOLS)
-      .then(name => console.log(`Added Extension:  ${name}`))
-      .catch(err => console.log("An error occurred: ", err));
+      .then((name) => console.log(`Added Extension:  ${name}`))
+      .catch((err) => console.log("An error occurred: ", err));
   }
 
   Menu.setApplicationMenu(null);
@@ -216,14 +216,14 @@ app.on("web-contents-created", (_, wc) => {
 import Focus from "../api/focus";
 import Hardware from "../api/hardware";
 const focus = new Focus();
-ipcMain.handle("focus-find-serial-devices", event => {
+ipcMain.handle("focus-find-serial-devices", (event) => {
   return focus.find(Hardware.serial);
 });
 
-usb.on("detach", device => {
+usb.on("detach", (device) => {
   BrowserWindow.getFocusedWindow().send("usb-disconnected", device);
 });
 
-usb.on("attach", device => {
+usb.on("attach", (device) => {
   BrowserWindow.getFocusedWindow().send("usb-connected", device);
 });

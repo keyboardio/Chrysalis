@@ -18,11 +18,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Alert from "@material-ui/lab/Alert";
-import Button from "@material-ui/core/Button";
-import Portal from "@material-ui/core/Portal";
-import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
+import Alert from "@mui/material/Alert";
+import Button from "@mui/material/Button";
+import Portal from "@mui/material/Portal";
+import Typography from "@mui/material/Typography";
+import withStyles from "@mui/styles/withStyles";
 
 import { toast } from "react-toastify";
 
@@ -42,16 +42,16 @@ import OnlyCustomScreen from "./components/OnlyCustomScreen";
 
 const db = new KeymapDB();
 
-const styles = theme => ({
+const styles = (theme) => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    width: `calc(100% - ${sidebarWidth}px)`
+    width: `calc(100% - ${sidebarWidth}px)`,
   },
   warning: {
     zIndex: theme.zIndex.drawer + 2,
-    position: "relative"
-  }
+    position: "relative",
+  },
 });
 
 class Editor extends React.Component {
@@ -63,50 +63,50 @@ class Editor extends React.Component {
     keymap: {
       custom: [],
       default: [],
-      onlyCustom: false
+      onlyCustom: false,
     },
     colorMap: {
       palette: [],
-      colorMap: []
+      colorMap: [],
     },
     modified: false,
     hasLegacy: false,
-    layout: "English (US)"
+    layout: "English (US)",
   };
   keymapDB = new KeymapDB();
 
-  setLayer = layer => {
+  setLayer = (layer) => {
     this.setState({ currentLayer: layer });
   };
   selectKey = (keyIndex, ledIndex) => {
     this.setState({
       currentKeyIndex: keyIndex,
-      currentLedIndex: ledIndex
+      currentLedIndex: ledIndex,
     });
   };
   setModified = () => {
     this.setState({ modified: true });
   };
-  setLayout = async layout => {
+  setLayout = async (layout) => {
     db.setLayout(layout);
 
-    this.setState(state => {
+    this.setState((state) => {
       let newKeymap = state.keymap;
-      newKeymap.custom = newKeymap.custom.map(layer => {
-        return layer.map(key => {
+      newKeymap.custom = newKeymap.custom.map((layer) => {
+        return layer.map((key) => {
           return db.lookup(key.code);
         });
       });
 
       return {
         layout: layout,
-        keymap: newKeymap
+        keymap: newKeymap,
       };
     });
     await settings.set("keyboard.layout", layout);
   };
 
-  onKeySelect = event => {
+  onKeySelect = (event) => {
     const target = event.currentTarget;
     const keyIndex = parseInt(target.getAttribute("data-key-index"));
     const ledIndex = parseInt(target.getAttribute("data-led-index"));
@@ -114,8 +114,8 @@ class Editor extends React.Component {
     this.selectKey(keyIndex, ledIndex);
   };
 
-  onKeyChange = keyCode => {
-    this.setState(state => {
+  onKeyChange = (keyCode) => {
+    this.setState((state) => {
       let newKeymap = state.keymap;
       const oldKey =
         newKeymap.custom[state.currentLayer][state.currentKeyIndex];
@@ -134,64 +134,64 @@ class Editor extends React.Component {
       return {
         modified: true,
         hasLegacy: hasLegacy,
-        keymap: newKeymap
+        keymap: newKeymap,
       };
     });
     this.props.startContext();
   };
 
-  onLedChange = index => {
-    this.setState(state => {
+  onLedChange = (index) => {
+    this.setState((state) => {
       let newColormap = state.colormap;
       newColormap.colorMap[state.currentLayer][state.currentLedIndex] = index;
 
       return {
         modified: true,
-        colormap: newColormap
+        colormap: newColormap,
       };
     });
 
     this.props.startContext();
   };
 
-  onPaletteChange = newPalette => {
-    this.setState(state => {
+  onPaletteChange = (newPalette) => {
+    this.setState((state) => {
       let colormap = state.colormap;
       colormap.palette = newPalette;
 
       return {
         modified: true,
-        colormap: colormap
+        colormap: colormap,
       };
     });
 
     this.props.startContext();
   };
 
-  onKeymapChange = newKeymap => {
+  onKeymapChange = (newKeymap) => {
     const k = new Keymap();
-    this.setState(state => {
+    this.setState((state) => {
       let keymap = state.keymap;
       keymap.custom = newKeymap;
 
       return {
         modified: true,
         hasLegacy: k.hasLegacyCodes(keymap.custom),
-        keymap: keymap
+        keymap: keymap,
       };
     });
 
     this.props.startContext();
   };
 
-  onColormapChange = newColormap => {
-    this.setState(state => {
+  onColormapChange = (newColormap) => {
+    this.setState((state) => {
       let colormap = state.colormap;
       colormap.colorMap = newColormap;
 
       return {
         modified: true,
-        colormap: colormap
+        colormap: colormap,
       };
     });
 
@@ -229,7 +229,7 @@ class Editor extends React.Component {
       this.setState({
         keymap: keymap,
         hasLegacy: k.hasLegacyCodes(keymap.custom),
-        colormap: colormap
+        colormap: colormap,
       });
     } catch (e) {
       toast.error(e);
@@ -255,11 +255,11 @@ class Editor extends React.Component {
     this.setState({
       currentLayer: initialLayer,
       loading: false,
-      layout: layoutSetting
+      layout: layoutSetting,
     });
   }
 
-  UNSAFE_componentWillReceiveProps = nextProps => {
+  UNSAFE_componentWillReceiveProps = (nextProps) => {
     if (this.props.inContext && !nextProps.inContext) {
       this.scanKeyboard();
       this.setState({ modified: false });
@@ -283,14 +283,14 @@ class Editor extends React.Component {
 
     this.setState({
       modified: false,
-      saving: false
+      saving: false,
     });
     logger.log("Changes saved.");
     this.props.cancelContext();
   };
 
   migrateLegacy = async () => {
-    await this.setState(oldState => {
+    await this.setState((oldState) => {
       const k = new Keymap();
       let newKeymap = k.migrateLegacyCodes(oldState.keymap.custom);
       return {
@@ -299,8 +299,8 @@ class Editor extends React.Component {
         keymap: {
           default: oldState.keymap.default,
           onlyCustom: oldState.keymap.onlyCustom,
-          custom: newKeymap
-        }
+          custom: newKeymap,
+        },
       };
     });
     let logger = new Log();
@@ -317,7 +317,7 @@ class Editor extends React.Component {
       colormap,
       currentKeyIndex,
       currentLedIndex,
-      layout
+      layout,
     } = this.state;
 
     if (this.state.loading) {
@@ -410,7 +410,7 @@ class Editor extends React.Component {
 }
 
 Editor.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles, { withTheme: true })(Editor);

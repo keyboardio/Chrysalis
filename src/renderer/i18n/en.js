@@ -18,7 +18,7 @@
 const English = {
   language: "English",
   errors: {
-    deviceDisconnected: "Keyboard disconnected"
+    deviceDisconnected: "Keyboard disconnected",
   },
   components: {
     layer: "Layer {{index}}",
@@ -27,17 +27,17 @@ const English = {
     type: "Type",
     save: {
       success: "Saved!",
-      saveChanges: "Save Changes"
+      saveChanges: "Save Changes",
     },
     pickerColorButton: "Change color",
     loading: "Reading data from device...",
     logo: {
-      altText: "Chrysalis logo"
-    }
+      altText: "Chrysalis logo",
+    },
   },
   dialog: {
     ok: "Ok",
-    cancel: "Cancel"
+    cancel: "Cancel",
   },
   app: {
     menu: {
@@ -58,28 +58,28 @@ const English = {
       chrysalisSection: "Chrysalis",
       miscSection: "Miscellaneous",
       upgradeAvailable: "An upgrade is available!",
-      changelog: "Changelog"
+      changelog: "Changelog",
     },
     deviceMenu: {
       Homepage: "Homepage",
       Forum: "Forum",
-      Chat: "Chat"
+      Chat: "Chat",
     },
     cancelPending: {
       title: "Discard pending changes?",
-      content: "You have unsaved changes. If you proceed, they will be lost."
+      content: "You have unsaved changes. If you proceed, they will be lost.",
     },
-    actionRequired: "Action required"
+    actionRequired: "Action required",
   },
   changelog: {
-    title: "Changelog"
+    title: "Changelog",
   },
   editor: {
     keyType: "Key type",
     keyCode: "Key code",
     legacy: {
       migrate: "Migrate",
-      warning: `We found legacy keys on the keymap that are no longer valid. To migrate to the new codes, please press the Migrate button.`
+      warning: `We found legacy keys on the keymap that are no longer valid. To migrate to the new codes, please press the Migrate button.`,
     },
     sharing: {
       title: "Backup & Restore",
@@ -91,28 +91,28 @@ const English = {
       selectExportFile: "Select file to export the layout to",
       dialog: {
         layoutFiles: "Layout files",
-        allFiles: "All files"
+        allFiles: "All files",
       },
       errors: {
         unableToLoad: "Unable to load layout from the selected file.",
         parseFail: "Failed to parse layout data.",
         invalidLayoutData: "File did not contain valid layout data.",
-        saveFail: "Error while saving the exported layout."
+        saveFail: "Error while saving the exported layout.",
       },
       importConfirm: {
         title: "Import the selected layout?",
-        contents: `This will overwrite your current layout, and any unsaved changes will be lost. Are you sure you want to continue?`
-      }
+        contents: `This will overwrite your current layout, and any unsaved changes will be lost. Are you sure you want to continue?`,
+      },
     },
     sidebar: {
       custom: {
         title: "Custom key code",
         help: `Lets you assign a custom key code to a key, or a code not currently known to Chrysalis.`,
-        label: "Custom key code"
+        label: "Custom key code",
       },
       blanks: {
         title: "Blanks",
-        help: "Blocked & transparent keys."
+        help: "Blocked & transparent keys.",
       },
       overview: {
         key: "Key #{{index}}",
@@ -120,7 +120,7 @@ const English = {
         hideEmptyLayers: "Hide empty layers...",
         showEmptyLayers: "Show empty layers...",
         sharing: "Backup & Restore",
-        help: `An overview of the mappings for the currently selected key. To change the shown layer, click on its row.`
+        help: `An overview of the mappings for the currently selected key. To change the shown layer, click on its row.`,
       },
       secondary: {
         title: "Secondary action",
@@ -128,21 +128,21 @@ const English = {
         type: {
           none: "No secondary action",
           layer: "Layer shift when held",
-          modifier: "Modifier when held"
+          modifier: "Modifier when held",
         },
         targetLayer: "Target layer",
-        modifier: "Modifier"
+        modifier: "Modifier",
       },
       colors: {
         title: "Colors",
-        help: `Assign colors by selecting one from the palette and clicking on a key. To change the color of a palette entry, use the color picker.`
+        help: `Assign colors by selecting one from the palette and clicking on a key. To change the color of a palette entry, use the color picker.`,
       },
       consumer: {
         title: "Consumer control",
         help: "Keys to control volume, brightness, and media controls.",
         volume: "Volume",
         media: "Media control",
-        brightness: "Brightness"
+        brightness: "Brightness",
       },
       keypicker: {
         title: "Standard keys",
@@ -154,32 +154,32 @@ const English = {
         hostHelp: "Select the key layout you use on your computer",
         oneshot: {
           label: "Sticky",
-          tooltip: `Tap to activate for next keypress, hold to act like a regular modifier, double tap to toggle modifier.`
-        }
+          tooltip: `Tap to activate for next keypress, hold to act like a regular modifier, double tap to toggle modifier.`,
+        },
       },
       layer: {
         title: "Layers and keymaps",
-        help: "Keys that let you change layers."
+        help: "Keys that let you change layers.",
       },
       leader: {
         title: "Leader",
-        help: `Assign Leader keys. To configure this feature, you can use the Arduino IDE to customize the Kaleidoscope 'Sketch' file for your keyboard.`
+        help: `Assign Leader keys. To configure this feature, you can use the Arduino IDE to customize the Kaleidoscope 'Sketch' file for your keyboard.`,
       },
       oneshot: {
         title: "One-shot",
         help: `Click button below to choose a dedicated key to cancel one-shot keys.`,
         configuration: {
           help: `When enabled, "Escape" will cancel one-shot keys.`,
-          escCancelLabel: "Escape cancels one-shot keys"
-        }
+          escCancelLabel: "Escape cancels one-shot keys",
+        },
       },
       ledcontrol: {
         title: "LED control",
-        help: "Control your keyboard's LED themes and effects."
+        help: "Control your keyboard's LED themes and effects.",
       },
       macros: {
         title: "Macros",
-        help: `Assign macros to keys. To create or modify macros, you can use the Arduino IDE to customize the Kaleidoscope 'Sketch' file for your keyboard.`
+        help: `Assign macros to keys. To create or modify macros, you can use the Arduino IDE to customize the Kaleidoscope 'Sketch' file for your keyboard.`,
       },
       mousekeys: {
         title: "Mouse control",
@@ -187,20 +187,20 @@ const English = {
         movement: "Movement",
         buttons: "Buttons",
         wheel: "Wheel",
-        warp: "Warp"
+        warp: "Warp",
       },
       spacecadet: {
         title: "SpaceCadet",
-        help: `SpaceCadet turns your left and right shift keys into your left and right parens, when tapped without also tapping any other keys. Using the Arduino IDE, you can add additional SpaceCadet mappings.`
+        help: `SpaceCadet turns your left and right shift keys into your left and right parens, when tapped without also tapping any other keys. Using the Arduino IDE, you can add additional SpaceCadet mappings.`,
       },
       steno: {
         title: "Steno",
-        help: `Your keyboard supports the GeminiPR protocol for Stenographic input. Using these keys instead of Plover's QWERTY input offer a more seamless Steno experience.`
+        help: `Your keyboard supports the GeminiPR protocol for Stenographic input. Using these keys instead of Plover's QWERTY input offer a more seamless Steno experience.`,
       },
       tapdance: {
         title: "TapDance",
-        help: `Tap-dance keys are general purpose, multi-use keys, which trigger a different action based on the number of times you tap them.`
-      }
+        help: `Tap-dance keys are general purpose, multi-use keys, which trigger a different action based on the number of times you tap them.`,
+      },
     },
     layerswitch: {
       type: "Type",
@@ -209,7 +209,7 @@ const English = {
       moveTo: "Move To Layer",
       oneshot: "Layer shift for next action",
       target: "Target Layer",
-      dualuse: "Layer shift when held"
+      dualuse: "Layer shift when held",
     },
     clearLayer: "Clear layer...",
     clearLayerQuestion: "Clear layer?",
@@ -232,8 +232,8 @@ const English = {
     onlyCustom: {
       warning: `Chrysalis no longer supports configurations containing a mix of hardcoded and EEPROM layers. If this is a feature you need, we'd love to hear more about your use case. In most cases, however, we would advise switching to custom layers only, which Chrysalis can do for you. When doing the switch, hardcoded layers will not be used, and the default layer set - if any - will be layer zero.`,
       fixItButton: "Switch to custom layers only",
-      openFR: "Open a feature request"
-    }
+      openFR: "Open a feature request",
+    },
   },
   preferences: {
     devtools: "Developer tools",
@@ -241,7 +241,7 @@ const English = {
     interface: "Interface",
     advanced: "Advanced",
     darkMode: "Dark mode",
-    verboseFocus: "Verbose logging"
+    verboseFocus: "Verbose logging",
   },
   keyboardSettings: {
     advanced: "Advanced",
@@ -250,7 +250,7 @@ const English = {
       noDefault: "No default",
       showHardcoded: "Show hardcoded layers",
       onlyCustom: "Use custom layers only",
-      defaultLayer: "Default layer"
+      defaultLayer: "Default layer",
     },
     led: {
       brightness: "Adjust LED brightness",
@@ -266,19 +266,19 @@ const English = {
         fifteenMinutes: "15 minutes",
         twentyMinutes: "20 minutes",
         thirtyMinutes: "30 minutes",
-        sixtyMinutes: "60 minutes"
-      }
+        sixtyMinutes: "60 minutes",
+      },
     },
     advancedOps: "Advanced keyboard settings & operations",
     flash: {
-      preferExternal: "Use an external program for flashing"
+      preferExternal: "Use an external program for flashing",
     },
     resetEEPROM: {
       button: "Reset EEPROM to factory defaults",
       dialogTitle: "Reset EEPROM to factory defaults?",
       dialogContents: `This will reset the EEPROM to factory defaults.
- You will lose all customizations made.`
-    }
+ You will lose all customizations made.`,
+    },
   },
   keyboardSelect: {
     unknown: "Unknown",
@@ -290,17 +290,17 @@ const English = {
     scan: "Scan",
     installUdevRules: "Fix it",
     permissionError: `Your computer won't let Chrysalis talk to your keyboard. (You do not have read/write permissions to {{path}}.)`,
-    permissionErrorSuggestion: `Chrysalis can fix this by installing a udev rules file into /etc/udev/rules.d/.`
+    permissionErrorSuggestion: `Chrysalis can fix this by installing a udev rules file into /etc/udev/rules.d/.`,
   },
   firmwareUpdate: {
     dialog: {
       selectFirmware: "Select a firmware",
       firmwareFiles: "Firmware files",
-      allFiles: "All files"
+      allFiles: "All files",
     },
     options: {
       onFlash: "Restore to factory defaults when flashing",
-      title: "Firmware update options"
+      title: "Firmware update options",
     },
     flashing: {
       error: "Error flashing the firmware",
@@ -315,12 +315,12 @@ const English = {
         saveEEPROM: "Saving EEPROM contents",
         restoreEEPROM: "Restoring EEPROM contents",
         flash: "Flashing",
-        reboot: "Rebooting"
-      }
+        reboot: "Rebooting",
+      },
     },
     confirmDialog: {
       title: "Replace the firmware and reset to factory defaults?",
-      contents: `This will replace the firmware on the device, and reset all settings to factory defaults. You will lose all customizations made.`
+      contents: `This will replace the firmware on the device, and reset all settings to factory defaults. You will lose all customizations made.`,
     },
     defaultFirmware: "Chrysalis {{version}} default",
     defaultFirmwareDescription: "Minimal, without bells and whistles",
@@ -329,14 +329,14 @@ const English = {
     selected: "Selected firmware",
     custom: "Custom firmware",
     description: `Updating or "flashing" your keyboard's firmware is how we teach it new tricks. Chrysalis will install a new version of your keyboard's firmware which includes support for customizing the key layout, as well as other features. If you've previously customized your keyboard's firmware, this will overwrite your custom firmware. You can always find the source code of the firmware Chrysalis is installing here:`,
-    postUpload: `Once the upload is done, Chrysalis will take you back to the keyboard selection screen.`
+    postUpload: `Once the upload is done, Chrysalis will take you back to the keyboard selection screen.`,
   },
   welcome: {
     title: "Welcome to Chrysalis",
     contents: `Chrysalis recognizes your keyboard, but needs to update its firmware before you can continue.`,
     gotoUpdate: "Update Firmware",
     reconnect: "Reconnect",
-    reconnectDescription: `There's a possibility that we misdetected the capabilities of the keyboard, or that the keyboard was starting up while we connected. In this case, you can try clicking the "{{buttonName}}" button to attempt a reconnect, and look for the necessary features again. Reconnecting is useful if you're sure there was a temporary failure upon previous attempts, and the problem has been resolved.`
+    reconnectDescription: `There's a possibility that we misdetected the capabilities of the keyboard, or that the keyboard was starting up while we connected. In this case, you can try clicking the "{{buttonName}}" button to attempt a reconnect, and look for the necessary features again. Reconnecting is useful if you're sure there was a temporary failure upon previous attempts, and the problem has been resolved.`,
   },
   systeminfo: {
     title: "Report a problem",
@@ -348,40 +348,40 @@ const English = {
     saveBundle: "Save Bundle",
     dialog: {
       title: "Save Chrysalis Debug Bundle",
-      bundleFiles: "Debug bundle files"
+      bundleFiles: "Debug bundle files",
     },
-    bundleSaved: `Chrysalis debug bundle saved.`
+    bundleSaved: `Chrysalis debug bundle saved.`,
   },
   devices: {
     Dygma: {
       Raise: {
-        updateInstructions: `To update the firmware, the keyboard needs a special reset. When you see the light on the Neuron go off, press and hold the Escape key. The Neuron's light should start a blue pulsing pattern.`
-      }
+        updateInstructions: `To update the firmware, the keyboard needs a special reset. When you see the light on the Neuron go off, press and hold the Escape key. The Neuron's light should start a blue pulsing pattern.`,
+      },
     },
     "SOFT/HRUF": {
       Splitography: {
         updateInstructions: `After clicking the Update button, reset your keyboard (by pressing the small
 reset button beside the USB port) to put it into programmable mode, within ten
-seconds.`
-      }
+seconds.`,
+      },
     },
     Keyboardio: {
       Atreus: {
-        updateInstructions: `Hold down the key in the bottom left corner of the keyboard (in the default layout, this key is the ESC key). Continue holding it down while you click the Update button.`
+        updateInstructions: `Hold down the key in the bottom left corner of the keyboard (in the default layout, this key is the ESC key). Continue holding it down while you click the Update button.`,
       },
       Model01: {
-        updateInstructions: `Hold down the key in the top left corner of the keyboard (in the default layout, this key is the PROG key). Continue holding it while you click the Update button. Once the keys start flashing red across the board, you can release the key.`
+        updateInstructions: `Hold down the key in the top left corner of the keyboard (in the default layout, this key is the PROG key). Continue holding it while you click the Update button. Once the keys start flashing red across the board, you can release the key.`,
       },
       Model100: {
-        updateInstructions: `Hold down the key in the top left corner of the keyboard (in the default layout, this key is the PROG key). Continue holding it while you click the Update button. Once the keys start flashing red across the board, please release the key, as holding it too long may prevent flashing from succeeding.`
-      }
+        updateInstructions: `Hold down the key in the top left corner of the keyboard (in the default layout, this key is the PROG key). Continue holding it while you click the Update button. Once the keys start flashing red across the board, please release the key, as holding it too long may prevent flashing from succeeding.`,
+      },
     },
     PJRC: {
       Teensy: {
-        updateInstructions: `Since this is a Teensy-powered device in programmable mode already, Chrysalis has no way of detecting what kind of keyboard it is. Please select a custom firmware appropriate for your keyboard, and continue.`
-      }
-    }
-  }
+        updateInstructions: `Since this is a Teensy-powered device in programmable mode already, Chrysalis has no way of detecting what kind of keyboard it is. Please select a custom firmware appropriate for your keyboard, and continue.`,
+      },
+    },
+  },
 };
 
 export { English as default };

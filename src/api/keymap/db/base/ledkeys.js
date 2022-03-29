@@ -24,24 +24,24 @@ const ledkeys = addCategories(
       label: {
         hint: {
           full: "LEDEffect",
-          "1u": "LED"
+          "1u": "LED",
         },
-        base: "Next"
-      }
+        base: "Next",
+      },
     },
     {
       code: 17153,
       label: {
         hint: {
           full: "LEDEffect",
-          "1u": "LED"
+          "1u": "LED",
         },
         base: {
           full: "Previous",
-          "1u": "Prev."
-        }
-      }
-    }
+          "1u": "Prev.",
+        },
+      },
+    },
   ]
 );
 

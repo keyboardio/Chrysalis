@@ -18,13 +18,13 @@
 import React from "react";
 import i18n from "i18next";
 
-import FormControl from "@material-ui/core/FormControl";
-import FormGroup from "@material-ui/core/FormGroup";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import Select from "@material-ui/core/Select";
-import { withStyles } from "@material-ui/core/styles";
+import FormControl from "@mui/material/FormControl";
+import FormGroup from "@mui/material/FormGroup";
+import Input from "@mui/material/Input";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import withStyles from "@mui/styles/withStyles";
 
 import Collapsible from "../components/Collapsible";
 import { KeymapDB } from "../../../../api/keymap";
@@ -36,7 +36,7 @@ const db = new KeymapDB();
 const styles = () => ({});
 
 class SecondaryFunctionBase extends React.Component {
-  onTargetLayerChange = event => {
+  onTargetLayerChange = (event) => {
     const { keymap, selectedKey, layer } = this.props;
     const key = keymap.custom[layer][selectedKey];
     const maxLayer = Math.min(keymap.custom.length, 7);
@@ -49,7 +49,7 @@ class SecondaryFunctionBase extends React.Component {
     this.props.onKeyChange(addDUL(db.lookup(code), target));
   };
 
-  onModifierChange = event => {
+  onModifierChange = (event) => {
     const { keymap, selectedKey, layer } = this.props;
     const key = keymap.custom[layer][selectedKey];
     const modifier = event.target.value;
@@ -58,7 +58,7 @@ class SecondaryFunctionBase extends React.Component {
     this.props.onKeyChange(addDUM(db.lookup(code), modifier));
   };
 
-  onTypeChange = event => {
+  onTypeChange = (event) => {
     const { keymap, selectedKey, layer } = this.props;
     const key = keymap.custom[layer][selectedKey];
     const code = key.baseCode || key.code;
@@ -77,7 +77,7 @@ class SecondaryFunctionBase extends React.Component {
     }
   };
 
-  keySupportsSecondaryAction = key => {
+  keySupportsSecondaryAction = (key) => {
     return (
       (key.code >= 4 &&
         key.code <= 255 &&

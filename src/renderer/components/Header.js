@@ -22,31 +22,22 @@ import "../../api/colormap";
 import "typeface-roboto/index.css";
 import "typeface-source-code-pro/index.css";
 
-import AppBar from "@material-ui/core/AppBar";
-import Button from "@material-ui/core/Button";
-import CloseIcon from "@material-ui/icons/Close";
-import MenuIcon from "@material-ui/icons/Menu";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
+import AppBar from "@mui/material/AppBar";
+import Button from "@mui/material/Button";
+import CloseIcon from "@mui/icons-material/Close";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import withStyles from "@mui/styles/withStyles";
 
 import BoardMenu from "./BoardMenu";
 import MainMenu from "./MainMenu/MainMenu";
 
-const styles = theme => ({
-  pageMenu: {
-    marginLeft: theme.spacing(2)
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20
-  },
+const styles = (theme) => ({
   grow: {
-    flexGrow: 1
+    flexGrow: 1,
   },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 3
-  }
 });
 
 function Header({
@@ -55,7 +46,7 @@ function Header({
   connected,
   pages,
   device,
-  cancelContext
+  cancelContext,
 }) {
   const [mainMenu, setMainMenuOpen] = useState(false);
   const [boardAnchor, setBoardMenuAnchor] = useState(null);
@@ -85,46 +76,57 @@ function Header({
   }
 
   return (
-    <AppBar
-      position="static"
-      color={contextBar ? "secondary" : "inherit"}
-      id="appbar"
-      className={classes.appBar}
-    >
-      <Toolbar variant="dense">
-        <Button className={classes.menuButton} onClick={contextOnClick}>
-          {contextBar ? <CloseIcon /> : <MenuIcon />}
+    <>
+      <MainMenu
+        connected={connected}
+        pages={pages}
+        open={mainMenu}
+        closeMenu={closeMainMenu}
+      />
+      <AppBar
+        position="sticky"
+        color={contextBar ? "secondary" : "primary"}
+        id="appbar"
+        className={classes.appBar}
+      >
+        <Toolbar variant="dense">
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            className={classes.menuButton}
+            onClick={contextOnClick}
+            sx={{ mr: 2 }}
+          >
+            {contextBar ? <CloseIcon /> : <MenuIcon />}
+          </IconButton>
           <Typography
             variant="h6"
+            color="inherit"
             className={classes.pageMenu}
             id="page-title"
+            component="div"
           />
-        </Button>
-        <MainMenu
-          connected={connected}
-          pages={pages}
-          open={mainMenu}
-          closeMenu={closeMainMenu}
-        />
-        <div className={classes.grow} />
-        {device && (
-          <Button
-            onClick={openBoardMenu}
-            disabled={!device.urls}
-            className="button"
-          >
-            {device.displayName}
-          </Button>
-        )}
-        {device && device.urls && (
-          <BoardMenu
-            boardAnchor={boardAnchor}
-            boardClose={closeBoardMenu}
-            device={device}
-          />
-        )}
-      </Toolbar>
-    </AppBar>
+          <div className={classes.grow} />
+          {device && (
+            <Button
+              onClick={openBoardMenu}
+              disabled={!device.urls}
+              className="button"
+            >
+              {device.displayName}
+            </Button>
+          )}
+          {device && device.urls && (
+            <BoardMenu
+              boardAnchor={boardAnchor}
+              boardClose={closeBoardMenu}
+              device={device}
+            />
+          )}
+        </Toolbar>
+      </AppBar>
+    </>
   );
 }
 

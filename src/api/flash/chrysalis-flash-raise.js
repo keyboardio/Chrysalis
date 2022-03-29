@@ -39,9 +39,9 @@ export default class FlashRaise {
       backup: {},
       log: ["Neuron detected"],
       serialNumber: device.serialNumber,
-      firmwareFile: "File has not being selected"
+      firmwareFile: "File has not being selected",
     };
-    this.delay = ms => new Promise(res => setTimeout(res, ms));
+    this.delay = (ms) => new Promise((res) => setTimeout(res, ms));
   }
 
   /**
@@ -68,7 +68,7 @@ export default class FlashRaise {
   async foundDevices(hardware, message) {
     let focus = new Focus();
     let isFindDevice = false;
-    await focus.find(...hardware).then(devices => {
+    await focus.find(...hardware).then((devices) => {
       for (const device of devices) {
         if (this.device.info.keyboardType == device.device.info.keyboardType) {
           this.backupFileData.log.push(message);
@@ -94,7 +94,7 @@ export default class FlashRaise {
       "led.theme",
       "palette",
       "joint.threshold",
-      "colormap.map"
+      "colormap.map",
     ];
     this.backupFileName = `Raise-backup-${this.formatedDate()}.json`;
 
@@ -130,7 +130,7 @@ export default class FlashRaise {
     fs.writeFile(
       `./${this.backupFileName}`,
       JSON.stringify(this.backupFileData),
-      err => {
+      (err) => {
         if (err) throw err;
         this.backupFileData.log.push("Backup file is created successfully");
       }
@@ -148,7 +148,7 @@ export default class FlashRaise {
     let timeouts = {
       dtrToggle: 250, // Time to wait (ms) between toggling DTR
       waitingClose: 2750, // Time to wait for boot loader
-      bootLoaderUp: 2500 // Time to wait for the boot loader to come up
+      bootLoaderUp: 2500, // Time to wait for the boot loader to come up
     };
     return new Promise((resolve, reject) => {
       port.update({ baudRate: 1200 }, async () => {
@@ -225,7 +225,7 @@ export default class FlashRaise {
     this.backupFileData.log.push("Waiting for keyboard");
     //wait until the bootloader serial port disconnects and the keyboard serial port reconnects
     const findKeyboard = async () => {
-      return new Promise(async resolve => {
+      return new Promise(async (resolve) => {
         await this.delay(timeouts);
         if (await this.foundDevices(Hardware.serial, "Keyboard detected")) {
           resolve(true);
@@ -292,7 +292,7 @@ export default class FlashRaise {
                 });
             }
           })
-          .catch(e => {
+          .catch((e) => {
             logger.error(e);
             throw new Error(errorMessage);
           });

@@ -19,8 +19,8 @@
  */
 import React from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
+import withStyles from "@mui/styles/withStyles";
+import Button from "@mui/material/Button";
 import { setButtonSizeTamplate } from "../../../renderer/utils/setTemplates";
 
 ColorButton.propTypes = {
@@ -30,25 +30,25 @@ ColorButton.propTypes = {
   index: PropTypes.number.isRequired,
   color: PropTypes.object.isRequired,
   disabled: PropTypes.bool.isRequired,
-  isSelected: PropTypes.bool
+  isSelected: PropTypes.bool,
 };
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     ...setButtonSizeTamplate(40),
     margin: 5,
     borderRadius: 5,
     cursor: "pointer",
-    [theme.breakpoints.down("sm")]: {
-      ...setButtonSizeTamplate(35)
-    }
-  }
+    [theme.breakpoints.down("md")]: {
+      ...setButtonSizeTamplate(35),
+    },
+  },
 });
 
 const styleDisabled = {
   background: "rgb(155, 155, 155)",
   pointerEvents: "none",
-  cursor: "default"
+  cursor: "default",
 };
 
 ///Minimum value for rendering border on white button
@@ -73,14 +73,14 @@ function ColorButton(props) {
     color.b >= minWhiteColorValue;
 
   const style = {
-    background: `rgb(${color.r}, ${color.g}, ${color.b})`
+    background: `rgb(${color.r}, ${color.g}, ${color.b})`,
   };
 
   const styleInFocus = {
     ...style,
     boxShadow: !isWhiteColor
       ? `0px 0px 26px 4px rgb(${color.r}, ${color.g}, ${color.b})`
-      : `0px 0px 26px 4px rgb(155, 155, 155)`
+      : `0px 0px 26px 4px rgb(155, 155, 155)`,
   };
 
   return (

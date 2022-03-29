@@ -33,13 +33,13 @@ import { KeymapDB } from "../../../../api/keymap";
 
 const db = new KeymapDB();
 
-const styles = theme => ({
+const styles = (theme) => ({
   card: {
-    marginBottom: theme.spacing(1)
-  }
+    marginBottom: theme.spacing(1),
+  },
 });
 
-const MouseMovementKeys = withStyles(styles)(props => {
+const MouseMovementKeys = withStyles(styles)((props) => {
   const mouseUp = db.lookup(20481);
   const mouseLeft = db.lookup(20484);
   const mouseDown = db.lookup(20482);
@@ -62,7 +62,7 @@ const MouseMovementKeys = withStyles(styles)(props => {
   );
 });
 
-const MouseButtonKeys = withStyles(styles)(props => {
+const MouseButtonKeys = withStyles(styles)((props) => {
   const left = db.lookup(20545);
   const middle = db.lookup(20548);
   const right = db.lookup(20546);
@@ -87,7 +87,7 @@ const MouseButtonKeys = withStyles(styles)(props => {
   );
 });
 
-const MouseWheelKeys = withStyles(styles)(props => {
+const MouseWheelKeys = withStyles(styles)((props) => {
   const up = db.lookup(20497);
   const down = db.lookup(20498);
   const left = db.lookup(20500);
@@ -109,7 +109,7 @@ const MouseWheelKeys = withStyles(styles)(props => {
   );
 });
 
-const MouseWarpKeys = withStyles(styles)(props => {
+const MouseWarpKeys = withStyles(styles)((props) => {
   const warpNW = db.lookup(20517);
   const warpNE = db.lookup(20521);
   const warpSW = db.lookup(20518);
@@ -141,7 +141,7 @@ class MouseKeysBase extends React.Component {
       MouseMovementKeys,
       MouseButtonKeys,
       MouseWheelKeys,
-      MouseWarpKeys
+      MouseWarpKeys,
     ];
     const widgets = subWidgets.map((Widget, index) => {
       return (

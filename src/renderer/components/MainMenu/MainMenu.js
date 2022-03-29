@@ -46,36 +46,36 @@ import openURL from "../../utils/openURL";
 
 import { history } from "../../routerHistory";
 
-const styles = theme => ({
+const styles = (theme) => ({
   drawer: {
-    width: 350
+    width: 350,
   },
   version: {
-    textAlign: "right"
+    textAlign: "right",
   },
   toolbarIcon: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     padding: "0 8px",
-    ...theme.mixins.toolbar
+    ...theme.mixins.toolbar,
   },
   link: {
     textDecoration: "none",
-    color: theme.palette.text.primary
+    color: theme.palette.text.primary,
   },
   menuItem: {
-    paddingLeft: theme.spacing(4)
-  }
+    paddingLeft: theme.spacing(4),
+  },
 });
 
 function MainMenu({ open, closeMenu, classes, connected, pages }) {
   const currentPage = history.location.pathname;
-  const setCurrentPage = page => {
+  const setCurrentPage = (page) => {
     history.navigate(page);
     closeMenu();
   };
-  const openExternalPage = page => {
+  const openExternalPage = (page) => {
     openURL(page)();
     closeMenu();
   };

@@ -21,10 +21,10 @@ import i18n from "i18next";
 import Typography from "@mui/material/Typography";
 import withStyles from "@mui/styles/withStyles";
 
-const styles = theme => ({
+const styles = (theme) => ({
   title: {
-    marginBottom: theme.spacing(2)
-  }
+    marginBottom: theme.spacing(2),
+  },
 });
 
 class TitleBase extends React.Component {

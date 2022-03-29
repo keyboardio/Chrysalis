@@ -35,32 +35,32 @@ import withStyles from "@mui/styles/withStyles";
 import LayoutSharing from "./Overview/LayoutSharing";
 import { KeymapDB } from "../../../../api/keymap";
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
-    marginBottom: theme.spacing(2)
+    marginBottom: theme.spacing(2),
   },
   tableRow: {
-    cursor: "pointer"
+    cursor: "pointer",
   },
   gears: {
-    padding: `0px ${theme.spacing(1)} 0px 0px`
+    padding: `0px ${theme.spacing(1)} 0px 0px`,
   },
   colorSwatch: {
     width: theme.spacing(3),
-    height: theme.spacing(3)
+    height: theme.spacing(3),
   },
   help: {
-    marginBottom: theme.spacing(2)
-  }
+    marginBottom: theme.spacing(2),
+  },
 });
 
 class OverviewBase extends React.Component {
   state = {
     showAll: false,
-    dialogOpen: false
+    dialogOpen: false,
   };
 
-  selectLayer = index => () => {
+  selectLayer = (index) => () => {
     this.props.setLayer(index);
   };
 
@@ -90,20 +90,14 @@ class OverviewBase extends React.Component {
   };
 
   toggleAllLayers = () => {
-    this.setState(state => ({
-      showAll: !state.showAll
+    this.setState((state) => ({
+      showAll: !state.showAll,
     }));
   };
 
   render() {
-    const {
-      classes,
-      keymap,
-      selectedKey,
-      selectedLed,
-      layer,
-      colormap
-    } = this.props;
+    const { classes, keymap, selectedKey, selectedLed, layer, colormap } =
+      this.props;
     const { showAll, dialogOpen } = this.state;
     const db = new KeymapDB();
 
@@ -129,7 +123,7 @@ class OverviewBase extends React.Component {
             variant="square"
             style={{
               color: color.rgb,
-              background: color.rgb
+              background: color.rgb,
             }}
           >
             <CropSquareIcon />
@@ -188,7 +182,7 @@ class OverviewBase extends React.Component {
                 </TableCell>
                 <TableCell>
                   {i18n.t("editor.sidebar.overview.key", {
-                    index: selectedKey
+                    index: selectedKey,
                   })}
                 </TableCell>
                 {colormap && colormap.palette.length > 0 && (

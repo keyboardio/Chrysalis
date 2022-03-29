@@ -29,7 +29,7 @@ function UpgradeMenuItem() {
   const [latestVersion, setLatestVersion] = useState(null);
 
   if (!latestVersion) {
-    getLatestVersion().then(v => {
+    getLatestVersion().then((v) => {
       setLatestVersion(v);
     });
     return null;

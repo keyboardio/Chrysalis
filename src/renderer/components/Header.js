@@ -34,10 +34,10 @@ import withStyles from "@mui/styles/withStyles";
 import BoardMenu from "./BoardMenu";
 import MainMenu from "./MainMenu/MainMenu";
 
-const styles = theme => ({
+const styles = (theme) => ({
   grow: {
-    flexGrow: 1
-  }
+    flexGrow: 1,
+  },
 });
 
 function Header({
@@ -46,7 +46,7 @@ function Header({
   connected,
   pages,
   device,
-  cancelContext
+  cancelContext,
 }) {
   const [mainMenu, setMainMenuOpen] = useState(false);
   const [boardAnchor, setBoardMenuAnchor] = useState(null);

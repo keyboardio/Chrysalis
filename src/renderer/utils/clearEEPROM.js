@@ -23,7 +23,7 @@ const clearEEPROM = async () => {
   let eeprom = await focus.command("eeprom.contents");
   eeprom = eeprom
     .split(" ")
-    .filter(v => v.length > 0)
+    .filter((v) => v.length > 0)
     .map(() => 255)
     .join(" ");
   await focus.command("eeprom.contents", eeprom);

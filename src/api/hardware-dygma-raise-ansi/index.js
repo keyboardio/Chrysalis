@@ -26,20 +26,20 @@ const Raise_ANSI = {
     urls: [
       {
         name: "Homepage",
-        url: "https://www.dygma.com/raise/"
-      }
-    ]
+        url: "https://www.dygma.com/raise/",
+      },
+    ],
   },
   usb: {
     vendorId: 0x1209,
-    productId: 0x2201
+    productId: 0x2201,
   },
   keyboard: {
     rows: 5,
-    columns: 16
+    columns: 16,
   },
   components: {
-    keymap: KeymapANSI
+    keymap: KeymapANSI,
   },
 
   flash: async (_, filename, flashRaise) => {
@@ -54,7 +54,7 @@ const Raise_ANSI = {
     });
   },
 
-  isDeviceSupported: async port => {
+  isDeviceSupported: async (port) => {
     let focus = new Focus();
     let layout = localStorage.getItem(port.serialNumber);
     if (!layout) {
@@ -64,7 +64,7 @@ const Raise_ANSI = {
       localStorage.setItem(port.serialNumber, layout);
     }
     return layout.trim() === "ANSI";
-  }
+  },
 };
 
 const Raise_ANSIBootloader = {
@@ -76,14 +76,14 @@ const Raise_ANSIBootloader = {
     urls: [
       {
         name: "Homepage",
-        url: "https://www.dygma.com/raise/"
-      }
-    ]
+        url: "https://www.dygma.com/raise/",
+      },
+    ],
   },
   usb: {
     vendorId: 0x1209,
-    productId: 0x2200
-  }
+    productId: 0x2200,
+  },
 };
 
 export { Raise_ANSI, Raise_ANSIBootloader };

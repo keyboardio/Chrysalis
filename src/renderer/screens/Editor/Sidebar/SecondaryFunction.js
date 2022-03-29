@@ -36,7 +36,7 @@ const db = new KeymapDB();
 const styles = () => ({});
 
 class SecondaryFunctionBase extends React.Component {
-  onTargetLayerChange = event => {
+  onTargetLayerChange = (event) => {
     const { keymap, selectedKey, layer } = this.props;
     const key = keymap.custom[layer][selectedKey];
     const maxLayer = Math.min(keymap.custom.length, 7);
@@ -49,7 +49,7 @@ class SecondaryFunctionBase extends React.Component {
     this.props.onKeyChange(addDUL(db.lookup(code), target));
   };
 
-  onModifierChange = event => {
+  onModifierChange = (event) => {
     const { keymap, selectedKey, layer } = this.props;
     const key = keymap.custom[layer][selectedKey];
     const modifier = event.target.value;
@@ -58,7 +58,7 @@ class SecondaryFunctionBase extends React.Component {
     this.props.onKeyChange(addDUM(db.lookup(code), modifier));
   };
 
-  onTypeChange = event => {
+  onTypeChange = (event) => {
     const { keymap, selectedKey, layer } = this.props;
     const key = keymap.custom[layer][selectedKey];
     const code = key.baseCode || key.code;
@@ -77,7 +77,7 @@ class SecondaryFunctionBase extends React.Component {
     }
   };
 
-  keySupportsSecondaryAction = key => {
+  keySupportsSecondaryAction = (key) => {
     return (
       (key.code >= 4 &&
         key.code <= 255 &&

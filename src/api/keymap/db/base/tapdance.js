@@ -14,17 +14,17 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-const tapdance = index => ({
+const tapdance = (index) => ({
   code: 53267 + index,
   label: {
     hint: {
       full: "TapDance",
-      "1u": "TD"
+      "1u": "TD",
     },
-    base: "#" + index.toString()
+    base: "#" + index.toString(),
   },
   rangeStart: 53267,
-  categories: ["tapdance"]
+  categories: ["tapdance"],
 });
 
 const tapdances = Array(16)

@@ -47,12 +47,12 @@ const { ipcRenderer } = require("electron");
 
 import { installUdevRules } from "../utils/installUdevRules";
 
-const styles = theme => ({
+const styles = (theme) => ({
   loader: {
     position: "fixed",
     top: 0,
     left: 0,
-    right: 0
+    right: 0,
   },
   main: {
     width: "auto",
@@ -61,44 +61,44 @@ const styles = theme => ({
     marginRight: "auto",
     maxWidth: "70%",
     padding: `${theme.spacing(2)} ${theme.spacing(3)}
- ${theme.spacing(3)}`
+ ${theme.spacing(3)}`,
   },
   preview: {
     maxWidth: 128,
     marginBottom: theme.spacing(2),
     "& .key rect, & .key path, & .key ellipse": {
-      stroke: "#000000"
-    }
+      stroke: "#000000",
+    },
   },
   card: {
     marginTop: theme.spacing(5),
-    padding: `${theme.spacing(2)} ${theme.spacing(3)} ${theme.spacing(3)}`
+    padding: `${theme.spacing(2)} ${theme.spacing(3)} ${theme.spacing(3)}`,
   },
   content: {},
   selectControl: {
-    display: "flex"
+    display: "flex",
   },
   connect: {
     verticalAlign: "bottom",
-    marginLeft: 65
+    marginLeft: 65,
   },
   cardActions: {
-    justifyContent: "center"
+    justifyContent: "center",
   },
   supported: {
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
   },
   grow: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   error: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
-    textAlign: "center"
+    textAlign: "center",
   },
   found: {
-    color: theme.palette.success.main
-  }
+    color: theme.palette.success.main,
+  },
 });
 
 class KeyboardSelect extends React.Component {
@@ -107,50 +107,54 @@ class KeyboardSelect extends React.Component {
     opening: false,
     devices: null,
     loading: false,
-    scanForKeyboards: false
+    scanForKeyboards: false,
   };
 
-  findNonSerialKeyboards = async deviceList => {
+  findNonSerialKeyboards = async (deviceList) => {
     const logger = new Log();
-    return ipcRenderer.invoke("usb-scan-for-devices").then(devicesConnected => {
-      const devices = devicesConnected.map(device => device.deviceDescriptor);
-      devices.forEach(desc => {
-        Hardware.nonSerial.forEach(device => {
-          if (
-            desc.idVendor == device.usb.vendorId &&
-            desc.idProduct == device.usb.productId
-          ) {
-            let found = false;
-            deviceList.forEach(sDevice => {
-              if (
-                sDevice.device.usb.vendorId == desc.idVendor &&
-                sDevice.device.usb.productId == desc.idProduct
-              ) {
-                found = true;
-              }
-            });
-            if (!found) {
-              deviceList.push({
-                accessible: true,
-                device: device
+    return ipcRenderer
+      .invoke("usb-scan-for-devices")
+      .then((devicesConnected) => {
+        const devices = devicesConnected.map(
+          (device) => device.deviceDescriptor
+        );
+        devices.forEach((desc) => {
+          Hardware.nonSerial.forEach((device) => {
+            if (
+              desc.idVendor == device.usb.vendorId &&
+              desc.idProduct == device.usb.productId
+            ) {
+              let found = false;
+              deviceList.forEach((sDevice) => {
+                if (
+                  sDevice.device.usb.vendorId == desc.idVendor &&
+                  sDevice.device.usb.productId == desc.idProduct
+                ) {
+                  found = true;
+                }
               });
+              if (!found) {
+                deviceList.push({
+                  accessible: true,
+                  device: device,
+                });
+              }
             }
-          }
+          });
         });
-      });
 
-      return deviceList;
-    });
+        return deviceList;
+      });
   };
 
   findKeyboards = async () => {
     this.setState({ loading: true });
     let focus = new Focus();
 
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       focus
         .find(...Hardware.serial)
-        .then(async devices => {
+        .then(async (devices) => {
           let supported_devices = [];
           for (const device of devices) {
             device.accessible = await focus.isDeviceAccessible(device);
@@ -164,17 +168,17 @@ class KeyboardSelect extends React.Component {
           this.setState({
             loading: false,
             scanForKeyboards: false,
-            devices: list
+            devices: list,
           });
           resolve(list.length > 0);
         })
-        .catch(async e => {
+        .catch(async (e) => {
           console.error(e);
           const list = await this.findNonSerialKeyboards([]);
           this.setState({
             loading: false,
             scanForKeyboards: false,
-            devices: list
+            devices: list,
           });
           resolve(list.length > 0);
         });
@@ -210,8 +214,8 @@ class KeyboardSelect extends React.Component {
         if (!device.path) continue;
 
         if (device.path == focus._port.path) {
-          this.setState(state => ({
-            selectedPortIndex: state.devices.indexOf(device)
+          this.setState((state) => ({
+            selectedPortIndex: state.devices.indexOf(device),
           }));
           break;
         }
@@ -224,7 +228,7 @@ class KeyboardSelect extends React.Component {
     ipcRenderer.removeAllListeners("usb-disconnected");
   }
 
-  selectPort = event => {
+  selectPort = (event) => {
     this.setState({ selectedPortIndex: event.target.value });
   };
 
@@ -237,7 +241,7 @@ class KeyboardSelect extends React.Component {
       await this.props.onConnect(devices[this.state.selectedPortIndex]);
     } catch (err) {
       this.setState({
-        opening: false
+        opening: false,
       });
       toast.error(err.toString());
     }
@@ -359,7 +363,7 @@ class KeyboardSelect extends React.Component {
         <Alert severity="error" action={fixitButton}>
           <Typography component="p" gutterBottom>
             {i18n.t("keyboardSelect.permissionError", {
-              path: selectedDevice.path
+              path: selectedDevice.path,
             })}
           </Typography>
           <Typography component="p">
@@ -431,7 +435,7 @@ class KeyboardSelect extends React.Component {
               sx={{
                 display: "inline-block",
                 width: "100%",
-                textAlign: "center"
+                textAlign: "center",
               }}
             >
               {preview}
@@ -450,7 +454,7 @@ class KeyboardSelect extends React.Component {
 }
 
 KeyboardSelect.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(KeyboardSelect);

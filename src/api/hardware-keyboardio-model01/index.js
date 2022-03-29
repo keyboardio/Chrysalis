@@ -25,32 +25,32 @@ const Model01 = {
     urls: [
       {
         name: "Homepage",
-        url: "https://shop.keyboard.io/"
+        url: "https://shop.keyboard.io/",
       },
       {
         name: "Forum",
-        url: "https://community.keyboard.io/"
+        url: "https://community.keyboard.io/",
       },
       {
         name: "Chat",
-        url: "https://keyboard.io/discord-invite"
-      }
-    ]
+        url: "https://keyboard.io/discord-invite",
+      },
+    ],
   },
   usb: {
     vendorId: 0x1209,
     productId: 0x2301,
     bootloader: {
       vendorId: 0x1209,
-      productId: 0x2300
-    }
+      productId: 0x2300,
+    },
   },
   keyboard: {
     rows: 4,
-    columns: 16
+    columns: 16,
   },
   components: {
-    keymap: Keymap
+    keymap: Keymap,
   },
 
   flashSteps: ["bootloaderTrigger", "bootloaderWait", "flash"],
@@ -61,14 +61,14 @@ const Model01 = {
       baud: 9600,
       productId: ["0x2300", "0x2301"],
       protocol: "avr109",
-      signature: new Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e])
+      signature: new Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     };
     if (options.device && options.device.bootloader) {
       return Avr109Bootloader(board, port, filename, options);
     } else {
       return Avr109(board, port, filename, options);
     }
-  }
+  },
 };
 
 const Model100 = {
@@ -79,17 +79,17 @@ const Model100 = {
     urls: [
       {
         name: "Homepage",
-        url: "https://shop.keyboard.io/"
+        url: "https://shop.keyboard.io/",
       },
       {
         name: "Forum",
-        url: "https://community.keyboard.io/"
+        url: "https://community.keyboard.io/",
       },
       {
         name: "Chat",
-        url: "https://keyboard.io/discord-invite"
-      }
-    ]
+        url: "https://keyboard.io/discord-invite",
+      },
+    ],
   },
   usb: {
     vendorId: 0x3496,
@@ -97,15 +97,15 @@ const Model100 = {
     bootloader: {
       vendorId: 0x3496,
       productId: 0x0005,
-      type: "dfu"
-    }
+      type: "dfu",
+    },
   },
   keyboard: {
     rows: 4,
-    columns: 16
+    columns: 16,
   },
   components: {
-    keymap: Keymap
+    keymap: Keymap,
   },
 
   flashSteps: [
@@ -114,11 +114,11 @@ const Model100 = {
     "bootloaderWait",
     "flash",
     "restoreEEPROM",
-    "reboot"
+    "reboot",
   ],
   flash: async (port, filename, options) => {
     return DFUUtil(port, filename, options);
-  }
+  },
 };
 
 const Model100Bootloader = {
@@ -129,17 +129,17 @@ const Model100Bootloader = {
     urls: [
       {
         name: "Homepage",
-        url: "https://shop.keyboard.io/"
+        url: "https://shop.keyboard.io/",
       },
       {
         name: "Forum",
-        url: "https://community.keyboard.io/"
+        url: "https://community.keyboard.io/",
       },
       {
         name: "Chat",
-        url: "https://keyboard.io/discord-invite"
-      }
-    ]
+        url: "https://keyboard.io/discord-invite",
+      },
+    ],
   },
   usb: {
     vendorId: 0x3496,
@@ -147,21 +147,21 @@ const Model100Bootloader = {
     bootloader: {
       vendorId: 0x3496,
       productId: 0x0005,
-      type: "dfu"
-    }
+      type: "dfu",
+    },
   },
   keyboard: {
     rows: 4,
-    columns: 16
+    columns: 16,
   },
   components: {
-    keymap: Keymap
+    keymap: Keymap,
   },
 
   flashSteps: ["flash"],
   flash: async (port, filename, options) => {
     return DFUUtilBootloader(port, filename, options);
-  }
+  },
 };
 
 export { Model01, Model100, Model100Bootloader };

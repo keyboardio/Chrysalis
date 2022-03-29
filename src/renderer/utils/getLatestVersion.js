@@ -27,22 +27,22 @@ const getLatestProductionRelease = async () => {
     path: "/repos/keyboardio/Chrysalis/releases/latest",
     headers: {
       Accept: "application/vnd.github.v3+json",
-      "User-Agent": `Chrysalis/${version}`
-    }
+      "User-Agent": `Chrysalis/${version}`,
+    },
   };
 
   const extensions = {
     linux: "AppImage",
     darwin: "dmg",
-    win32: "exe"
+    win32: "exe",
   };
   const extension = extensions[process.platform];
 
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     let data = "";
     try {
-      const req = https.request(options, response => {
-        response.on("data", chunk => {
+      const req = https.request(options, (response) => {
+        response.on("data", (chunk) => {
           data += chunk;
         });
         response.on("end", () => {
@@ -52,7 +52,7 @@ const getLatestProductionRelease = async () => {
             const tag_name = data.tag_name;
             resolve({
               version: release,
-              url: `https://github.com/keyboardio/Chrysalis/releases/download/${tag_name}/Chrysalis-${release}.${extension}`
+              url: `https://github.com/keyboardio/Chrysalis/releases/download/${tag_name}/Chrysalis-${release}.${extension}`,
             });
           } catch (_) {
             resolve(null);
@@ -76,22 +76,22 @@ const getLatestDevelopmentBuild = async () => {
     path: "/repos/keyboardio/Chrysalis/releases",
     headers: {
       Accept: "application/vnd.github.v3+json",
-      "User-Agent": `Chrysalis/${version}`
-    }
+      "User-Agent": `Chrysalis/${version}`,
+    },
   };
 
   const extensions = {
     linux: "AppImage",
     darwin: "dmg",
-    win32: "exe"
+    win32: "exe",
   };
   const extension = extensions[process.platform];
 
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     let data = "";
     try {
-      const req = https.request(options, response => {
-        response.on("data", chunk => {
+      const req = https.request(options, (response) => {
+        response.on("data", (chunk) => {
           data += chunk;
         });
         response.on("end", () => {
@@ -101,7 +101,7 @@ const getLatestDevelopmentBuild = async () => {
             const release = tag_name.match("v(.*-snapshot)")[1];
             resolve({
               version: release,
-              url: `https://github.com/keyboardio/Chrysalis/releases/download/${tag_name}/Chrysalis-${release}.${extension}`
+              url: `https://github.com/keyboardio/Chrysalis/releases/download/${tag_name}/Chrysalis-${release}.${extension}`,
             });
           } catch (_) {
             resolve(null);

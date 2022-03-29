@@ -35,17 +35,17 @@ import { KeymapDB } from "../../../../api/keymap";
 
 const db = new KeymapDB();
 
-const styles = theme => ({
+const styles = (theme) => ({
   cancelContainer: {
-    margin: `${theme.spacing(2)} 0`
-  }
+    margin: `${theme.spacing(2)} 0`,
+  },
 });
 
 const cancelKeyCode = 53630;
 
 class OneShotKeysBase extends React.Component {
   state = {
-    escCancel: true
+    escCancel: true,
   };
 
   async componentDidMount() {
@@ -59,7 +59,7 @@ class OneShotKeysBase extends React.Component {
     }
 
     this.setState({
-      escCacnel: escCancel
+      escCacnel: escCancel,
     });
   }
 
@@ -67,7 +67,7 @@ class OneShotKeysBase extends React.Component {
     const { classes, keymap, selectedKey, layer, onKeyChange } = this.props;
     const key = keymap.custom[layer][selectedKey];
 
-    const toggleEscapeCancel = async event => {
+    const toggleEscapeCancel = async (event) => {
       const focus = new Focus();
       const escCancel = event.target.checked;
       let newCancelKeyCode = cancelKeyCode;

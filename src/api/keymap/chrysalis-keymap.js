@@ -77,19 +77,19 @@ class Keymap {
 
   async focus(s, keymap) {
     if (keymap && keymap.custom && keymap.custom.length > 0) {
-      const flatten = arr => {
+      const flatten = (arr) => {
         return [].concat(...arr);
       };
 
       if (this.legacyInterface) {
-        const args = flatten(keymap.default.concat(keymap.custom)).map(k =>
+        const args = flatten(keymap.default.concat(keymap.custom)).map((k) =>
           this.db.serialize(k)
         );
 
         return await s.request("keymap.map", ...args);
       }
 
-      const args = flatten(keymap.custom).map(k => this.db.serialize(k));
+      const args = flatten(keymap.custom).map((k) => this.db.serialize(k));
 
       await s.request("keymap.onlyCustom", keymap.onlyCustom ? "1" : "0");
       return await s.request("keymap.custom", ...args);
@@ -105,7 +105,7 @@ class Keymap {
       if (!defaults && !custom) {
         const keymap = (await s.request("keymap.map"))
           .split(" ")
-          .filter(v => v.length > 0);
+          .filter((v) => v.length > 0);
         const roLayers = parseInt((await s.request("keymap.roLayers")) || "0");
 
         defaults = keymap.slice(0, this._layerSize * roLayers).join(" ");
@@ -118,12 +118,12 @@ class Keymap {
       }
       const defaultKeymap = defaults
         .split(" ")
-        .filter(v => v.length > 0)
-        .map(k => this.db.lookup(parseInt(k)));
+        .filter((v) => v.length > 0)
+        .map((k) => this.db.lookup(parseInt(k)));
       const customKeymap = custom
         .split(" ")
-        .filter(v => v.length > 0)
-        .map(k => this.db.lookup(parseInt(k)));
+        .filter((v) => v.length > 0)
+        .map((k) => this.db.lookup(parseInt(k)));
 
       if (customKeymap.length == 0) {
         onlyCustom = false;
@@ -132,7 +132,7 @@ class Keymap {
       return {
         onlyCustom: onlyCustom,
         custom: this._chunk(customKeymap, this._layerSize),
-        default: this._chunk(defaultKeymap, this._layerSize)
+        default: this._chunk(defaultKeymap, this._layerSize),
       };
     }
   }
@@ -151,7 +151,7 @@ class OnlyCustom {
 let focus = new Focus();
 focus.addCommands({
   keymap: new Keymap(),
-  "keymap.onlyCustom": new OnlyCustom()
+  "keymap.onlyCustom": new OnlyCustom(),
 });
 focus.addMethod("setLayerSize", "keymap");
 

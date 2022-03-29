@@ -18,22 +18,22 @@
 const Hungarian = {
   language: "Magyar",
   errors: {
-    deviceDisconnected: "Az billentyűzet lecsatlakozott"
+    deviceDisconnected: "Az billentyűzet lecsatlakozott",
   },
   components: {
     layer: "{{index}}. réteg",
     save: {
       success: "Elmentve!",
-      saveChanges: "Mentés"
+      saveChanges: "Mentés",
     },
     loading: "Adatok olvasása az eszközről...",
     logo: {
-      altText: "Chrysalis logó"
-    }
+      altText: "Chrysalis logó",
+    },
   },
   dialog: {
     ok: "Ok",
-    cancel: "Mégsem"
+    cancel: "Mégsem",
   },
   app: {
     device: "Billentyűzet",
@@ -53,18 +53,18 @@ const Hungarian = {
       keyboardSection: "Billentyűzet",
       chrysalisSection: "Chrysalis",
       miscSection: "Egyéb",
-      upgradeAvailable: "Frissítés érhető el!"
+      upgradeAvailable: "Frissítés érhető el!",
     },
     deviceMenu: {
       Homepage: "Honlap",
       Forum: "Fórum",
-      Chat: "Csevegőszoba"
+      Chat: "Csevegőszoba",
     },
     cancelPending: {
       title: "Eldobja a függőben lévő változtatásokat?",
       content: `Függőben lévő változásokat észleltünk.
- Ha folytatja, ezek elvesznek.`
-    }
+ Ha folytatja, ezek elvesznek.`,
+    },
   },
   editor: {
     keyType: "Gomb tipus",
@@ -95,7 +95,7 @@ const Hungarian = {
       Steno: "Steno",
       SpaceCadet: "SpaceCadet",
       Blank: "Üres gombok",
-      "Unknown keycodes": "Ismeretlen kódok"
+      "Unknown keycodes": "Ismeretlen kódok",
     },
     clearLayer: "Réteg ürítése...",
     clearLayerQuestion: "Ürítsük a réteget?",
@@ -118,8 +118,8 @@ const Hungarian = {
     onlyCustom: {
       warning: `A Chrysalis többé már nem támogatja a beépített- és EEPROM rétegek kevert használatát. Amennyiben erre mégis szüksége lenne, kiváncsiak lennénk miként használja őket keverve.`,
       fixItButton: "Javítás",
-      openFR: "Hibajegy nyitás"
-    }
+      openFR: "Hibajegy nyitás",
+    },
   },
   preferences: {
     devtools: "Fejlesztői eszközök",
@@ -127,7 +127,7 @@ const Hungarian = {
     interface: "Felhasználói felület",
     advanced: "Haladó beállítások",
     darkMode: "Sötét mód",
-    verboseFocus: "Bőbeszédű naplózás"
+    verboseFocus: "Bőbeszédű naplózás",
   },
   keyboardSettings: {
     advanced: "Haladó beállítások",
@@ -136,18 +136,18 @@ const Hungarian = {
       noDefault: "Nincs alapértelmezett réteg",
       showHardcoded: "Beépített rétegek mutatása",
       onlyCustom: "Kizárólag testreszabott rétegek használata",
-      defaultLayer: "Alapértelmezett réteg"
+      defaultLayer: "Alapértelmezett réteg",
     },
     advancedOps: "Haladó billentyűzet beállítások és műveletek",
     flash: {
-      preferExternal: "Külső program használata a vezérlő frissítéséhez"
+      preferExternal: "Külső program használata a vezérlő frissítéséhez",
     },
     resetEEPROM: {
       button: "EEPROM visszaállítása gyári alapbeállításokra",
       dialogTitle: "Visszaállítja az EEPROM-ot gyári alapbeállításokra?",
       dialogContents: `Ez visszaállítja az EEPROM-ot gyári alapbeállításokra.
-Minden testreszabott beállítás el fog veszni.`
-    }
+Minden testreszabott beállítás el fog veszni.`,
+    },
   },
   keyboardSelect: {
     unknown: "Ismeretlen",
@@ -158,17 +158,17 @@ Minden testreszabott beállítás el fog veszni.`
     scan: "Billentyűzet keresés",
     installUdevRules: "Javítás",
     permissionError: `A számítógépe nem engedi, hogy a Chrysalis beszéljen a billentyűzetével. (Nincs elegendő jogosultsága a {{path}} állományhoz.)`,
-    permissionErrorSuggestion: `A Chrysalis ezt ki tudja javítani, egy udev szabály állomány /etc/udev/rules.d/ alá másolásával.`
+    permissionErrorSuggestion: `A Chrysalis ezt ki tudja javítani, egy udev szabály állomány /etc/udev/rules.d/ alá másolásával.`,
   },
   firmwareUpdate: {
     dialog: {
       selectFirmware: "Válasszon vezérlőt",
       firmwareFiles: "Vezérlő állományok",
-      allFiles: "Minden állomány"
+      allFiles: "Minden állomány",
     },
     options: {
       onFlash: "Gyári alapbeállításokra visszaállás vezérlő frissítéskor",
-      title: "Vezérlő frissítés beállítások"
+      title: "Vezérlő frissítés beállítások",
     },
     flashing: {
       error: "Hiba a vezérlő frissítése közben",
@@ -180,12 +180,12 @@ Minden testreszabott beállítás el fog veszni.`
         factoryRestore: "Gyári beállítások visszaállítása",
         bootloaderTrigger: "Programozó indítása",
         bootloaderWait: "Várakozás a programozóra",
-        flash: "Frissítés"
-      }
+        flash: "Frissítés",
+      },
     },
     confirmDialog: {
       title: "Felülírja a vezérlőt, és visszaáll gyári beállításokra?",
-      contents: `Ezzel felülírja az eszköz vezérlőjét, és visszaáll a gyári beállításokra. Minden testreszabott beállítás el fog veszni.`
+      contents: `Ezzel felülírja az eszköz vezérlőjét, és visszaáll a gyári beállításokra. Minden testreszabott beállítás el fog veszni.`,
     },
     defaultFirmware: "Chrysalis {{version}} alapértelmezett",
     defaultFirmwareDescription: "Minimális, extrák nélkül",
@@ -194,14 +194,14 @@ Minden testreszabott beállítás el fog veszni.`
     selected: "Kiválasztott vezérlő",
     custom: "Egyedi vezérlő",
     description: `A billentyűzet vezérlő frissítésevel tanítjuk új trükkökre. A Chrysalis olyan új vezérlőt fog telepíteni, mely tartalmazza az eszközöket melyek lehetővé teszik a kiosztás szerkesztését, és még más dolgokat is. Ha korábban már testreszabta a vezérlőt, akkor ez a művelet felül fogja azt írni. A Chrysalis által telepíthető vezérlő forrása mindig megtalálható az alábbi címen:`,
-    postUpload: `Amint a frissítés befejeződött, a Chrysalis vissza fogja vinni a billentyűzet választó képernyőre.`
+    postUpload: `Amint a frissítés befejeződött, a Chrysalis vissza fogja vinni a billentyűzet választó képernyőre.`,
   },
   welcome: {
     title: "Üdvözöljük!",
     contents: `A Chrysalis felismerte a billentyűzetét, de a folytatáshoz frissíteni kell a vezérlőjét.`,
     gotoUpdate: "Vezérlő frissítés",
     reconnect: "Újracsatlakozás",
-    reconnectDescription: `Elképzelhető, hogy hibásan ismertük fel a billentyűzet által kínált funkcionalitást, vagy az is, hogy a billentyűzet még nem állt teljesen rendelkezésre mikor csatlakozni próbáltunk. Ebben az esetben az "{{buttonName}}" gombra kattintva újra megpróbálunk csatlakozni. Az újracsatlakozás akkor hasznos, ha biztosak vagyunk benne, hogy átmeneti hiba állt fenn, és azóta megoldódott.`
+    reconnectDescription: `Elképzelhető, hogy hibásan ismertük fel a billentyűzet által kínált funkcionalitást, vagy az is, hogy a billentyűzet még nem állt teljesen rendelkezésre mikor csatlakozni próbáltunk. Ebben az esetben az "{{buttonName}}" gombra kattintva újra megpróbálunk csatlakozni. Az újracsatlakozás akkor hasznos, ha biztosak vagyunk benne, hogy átmeneti hiba állt fenn, és azóta megoldódott.`,
   },
   systeminfo: {
     title: "Rendszer információ",
@@ -212,10 +212,10 @@ Minden testreszabott beállítás el fog veszni.`
     saveBundle: "Csomag mentése",
     dialog: {
       title: "Chrysalis hibakereső csomag mentése",
-      bundleFiles: "Hibakereső csomagok"
+      bundleFiles: "Hibakereső csomagok",
     },
-    bundleSaved: `Chrysalis hibakereső csomag elmentve.`
-  }
+    bundleSaved: `Chrysalis hibakereső csomag elmentve.`,
+  },
 };
 
 export { Hungarian as default };

@@ -26,31 +26,31 @@ import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import withStyles from "@mui/styles/withStyles";
 
-const styles = theme => ({
+const styles = (theme) => ({
   accordionRoot: {
     boxShadow: "none",
     margin: `0px 0px -1px 0px`,
     "&.Mui-expanded": {
       margin: `auto auto ${theme.spacing(2)} auto`,
-      minHeight: 48
+      minHeight: 48,
     },
     "&:before": {
-      display: "none"
-    }
+      display: "none",
+    },
   },
   accordionContentRoot: {
     backgroundColor: "rgba(0, 0, 0, .03)",
     border: "1px solid rgba(0, 0, 0, .125)",
-    padding: `0px ${theme.spacing(2)}`
+    padding: `0px ${theme.spacing(2)}`,
   },
   accordionDetailsRoot: {
     padding: `${theme.spacing(2)}`,
     margin: `${theme.spacing(2)} 0px`,
-    display: "block"
+    display: "block",
   },
   help: {
-    marginBottom: theme.spacing(2)
-  }
+    marginBottom: theme.spacing(2),
+  },
 });
 
 class CollapsibleBase extends React.Component {
@@ -58,13 +58,13 @@ class CollapsibleBase extends React.Component {
     super(props);
 
     this.state = {
-      expanded: props.expanded === undefined ? true : props.expanded
+      expanded: props.expanded === undefined ? true : props.expanded,
     };
   }
 
   handleChange = () => {
-    return this.setState(oldState => ({
-      expanded: !oldState.expanded
+    return this.setState((oldState) => ({
+      expanded: !oldState.expanded,
     }));
   };
 

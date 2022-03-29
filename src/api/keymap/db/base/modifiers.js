@@ -27,66 +27,66 @@ const modifiers = withModifiers(
         label: {
           base: {
             full: "Control",
-            "1u": "Ctrl"
-          }
+            "1u": "Ctrl",
+          },
         },
-        location: "left"
+        location: "left",
       },
       {
         code: 225,
         label: {
-          base: "Shift"
+          base: "Shift",
         },
-        location: "left"
+        location: "left",
       },
       {
         code: 226,
         label: {
-          base: "Alt"
+          base: "Alt",
         },
-        location: "left"
+        location: "left",
       },
       {
         code: 227,
         label: {
-          base: GuiLabel
+          base: GuiLabel,
         },
-        location: "left"
+        location: "left",
       },
       {
         code: 228,
         label: {
           base: {
             full: "Control",
-            "1u": "Ctrl"
-          }
+            "1u": "Ctrl",
+          },
         },
-        location: "right"
+        location: "right",
       },
       {
         code: 229,
         label: {
-          base: "Shift"
+          base: "Shift",
         },
-        location: "right"
+        location: "right",
       },
       {
         code: 230,
         label: {
           base: {
             full: "AltGr",
-            "1u": "AGr"
-          }
+            "1u": "AGr",
+          },
         },
-        location: "right"
+        location: "right",
       },
       {
         code: 231,
         label: {
-          base: GuiLabel
+          base: GuiLabel,
         },
-        location: "right"
-      }
+        location: "right",
+      },
     ]
   )
 ).concat([
@@ -96,17 +96,17 @@ const modifiers = withModifiers(
     baseCode: 226,
     categories: ["ctrl", "shift"],
     label: {
-      base: "Meh"
-    }
+      base: "Meh",
+    },
   },
   {
     code: 3043,
     baseCode: 227,
     categories: ["ctrl", "shift", "alt"],
     label: {
-      base: "Hyper"
-    }
-  }
+      base: "Hyper",
+    },
+  },
 ]);
 
 export { modifiers };

@@ -29,8 +29,8 @@ const styles = () => ({
   svg: {
     background: `url(${Atreus})`,
     backgroundSize: "100%",
-    backgroundRepeat: "no-repeat"
-  }
+    backgroundRepeat: "no-repeat",
+  },
 });
 
 class Keymap extends React.Component {
@@ -46,18 +46,7 @@ class Keymap extends React.Component {
 
     const colOffsetY = [30, 20, 4, 24, 40, 30, 30, 40, 24, 4, 20, 30];
     const colOffsetX = [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      -71.5,
-      -71.5,
-      -71.5,
-      -71.5,
-      -71.5,
-      -71.5
+      0, 0, 0, 0, 0, 0, -71.5, -71.5, -71.5, -71.5, -71.5, -71.5,
     ];
 
     const rowOffsetX = [2, 2, 2, 2];
@@ -80,7 +69,7 @@ class Keymap extends React.Component {
       return colOffsetY[col] + KeySpacingY * row;
     };
 
-    const Key = props => {
+    const Key = (props) => {
       const { row, col } = props;
       const x = getX(row, col),
         y = getY(row, col),

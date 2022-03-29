@@ -17,7 +17,7 @@
 import {
   Model01,
   Model100,
-  Model100Bootloader
+  Model100Bootloader,
 } from "../hardware-keyboardio-model01";
 import { Atreus } from "../hardware-technomancy-atreus";
 import { Atreus2 } from "../hardware-keyboardio-atreus2";
@@ -40,7 +40,7 @@ const Hardware = {
     Atreus,
     Planck,
     Splitography,
-    KBD4x
+    KBD4x,
   ],
   nonSerial: [
     Model100Bootloader,
@@ -49,8 +49,8 @@ const Hardware = {
     Planck,
     Splitography,
     KBD4x,
-    GenericTeensy
-  ]
+    GenericTeensy,
+  ],
 };
 
 export { Hardware as default };

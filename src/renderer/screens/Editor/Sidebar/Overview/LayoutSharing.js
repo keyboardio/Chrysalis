@@ -46,54 +46,54 @@ const db = new KeymapDB();
 
 const sidebarWidth = 300;
 
-const styles = theme => ({
+const styles = (theme) => ({
   closeButton: {
     position: "absolute",
     right: theme.spacing(1),
     top: theme.spacing(1),
-    color: theme.palette.grey[500]
+    color: theme.palette.grey[500],
   },
   toolbar: {
     display: "flex",
     flexWrap: "wrap",
     marginBottom: theme.spacing(2),
-    marginTop: -theme.spacing(1)
+    marginTop: -theme.spacing(1),
   },
   libraryImport: {
     minWidth: "15em",
     marginRight: theme.spacing(2),
-    marginBottom: theme.spacing(2)
+    marginBottom: theme.spacing(2),
   },
   libraryImportRoot: {
-    marginBottom: theme.spacing(2)
+    marginBottom: theme.spacing(2),
   },
   fileImportRoot: {
-    marginBottom: theme.spacing(2)
+    marginBottom: theme.spacing(2),
   },
   fileExportRoot: {
-    marginBottom: theme.spacing(2)
+    marginBottom: theme.spacing(2),
   },
   drawer: {
     width: sidebarWidth,
-    flexShrink: 0
+    flexShrink: 0,
   },
   drawerPaper: {
     width: sidebarWidth,
-    marginTop: 65
+    marginTop: 65,
   },
   drawerContainer: {
     overflow: "auto",
-    padding: theme.spacing(3)
+    padding: theme.spacing(3),
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
     marginLeft: sidebarWidth,
-    width: `calc(100% - ${sidebarWidth}px)`
-  }
+    width: `calc(100% - ${sidebarWidth}px)`,
+  },
 });
 
-const loadLayout = fileName => {
+const loadLayout = (fileName) => {
   const logger = new Log();
 
   let fileData;
@@ -102,7 +102,7 @@ const loadLayout = fileName => {
   } catch (e) {
     logger.error("Unable to read layout", {
       filename: fileName,
-      error: e.message
+      error: e.message,
     });
     toast.error(i18n.t("editor.sharing.errors.unableToLoad"));
     return null;
@@ -114,7 +114,7 @@ const loadLayout = fileName => {
   } catch (e) {
     logger.error("Failed to parse layout JSON", {
       filename: fileName,
-      error: e.message
+      error: e.message,
     });
     toast.error(i18n.t("editor.sharing.errors.parseFail"));
     return null;
@@ -122,14 +122,14 @@ const loadLayout = fileName => {
 
   let keymaps;
   try {
-    keymaps = layoutData.keymaps.map(layer => {
-      return layer.map(key => {
+    keymaps = layoutData.keymaps.map((layer) => {
+      return layer.map((key) => {
         return db.lookup(key.keyCode || key.code);
       });
     });
   } catch (_) {
     logger.error("Layout file did not contain valid layout data", {
-      filename: fileName
+      filename: fileName,
     });
     toast.error(i18n.t("editor.sharing.errors.invalidLayoutData"));
     return null;
@@ -138,21 +138,21 @@ const loadLayout = fileName => {
   return {
     keymaps: keymaps,
     colormaps: layoutData.colormaps,
-    palette: layoutData.palette
+    palette: layoutData.palette,
   };
 };
 
 class LibraryImportBase extends React.Component {
-  selectLibraryItem = item => () => {
+  selectLibraryItem = (item) => () => {
     this.loadFromLibrary(item);
   };
 
-  loadFromLibrary = layoutName => {
+  loadFromLibrary = (layoutName) => {
     const focus = new Focus();
     const { vendor, product } = focus.device.info;
     const cVendor = vendor.replace("/", "");
     const cProduct = product.replace("/", "");
-    const layoutPath = layout =>
+    const layoutPath = (layout) =>
       path.join(getStaticPath(), cVendor, cProduct, `layouts/${layout}.json`);
 
     const layoutData = loadLayout(layoutPath(layoutName));
@@ -165,7 +165,7 @@ class LibraryImportBase extends React.Component {
 
     if (library.length == 0) return null;
 
-    const layouts = library.map(name => {
+    const layouts = library.map((name) => {
       const label = name.charAt(0).toUpperCase() + name.slice(1);
 
       return (
@@ -203,15 +203,15 @@ class FileImportBase extends React.Component {
       filters: [
         {
           name: i18n.t("editor.sharing.dialog.layoutFiles"),
-          extensions: ["json", "layout"]
+          extensions: ["json", "layout"],
         },
         {
           name: i18n.t("editor.sharing.dialog.allFiles"),
-          extensions: ["*"]
-        }
-      ]
+          extensions: ["*"],
+        },
+      ],
     });
-    files.then(result => {
+    files.then((result) => {
       if (result.filePaths.length == 0) return;
 
       const layoutData = loadLayout(result.filePaths[0]);
@@ -241,15 +241,15 @@ class ExportToFileBase extends React.Component {
       filters: [
         {
           name: i18n.t("editor.sharing.dialog.layoutFiles"),
-          extensions: ["json", "layout"]
+          extensions: ["json", "layout"],
         },
         {
           name: i18n.t("editor.sharing.dialog.allFiles"),
-          extensions: ["*"]
-        }
-      ]
+          extensions: ["*"],
+        },
+      ],
     });
-    files.then(result => {
+    files.then((result) => {
       const fileName = result.filePath;
 
       if (!fileName) return;
@@ -259,7 +259,7 @@ class ExportToFileBase extends React.Component {
       const data = {
         keymaps: keymap.custom,
         colormaps: colormap.colorMap,
-        palette: colormap.palette
+        palette: colormap.palette,
       };
 
       try {
@@ -269,7 +269,7 @@ class ExportToFileBase extends React.Component {
 
         logger.error("Unable to save layout", {
           fileName: fileName,
-          e: e.message
+          e: e.message,
         });
         toast.error(i18n.t("editor.sharing.errors.saveFail"));
       }
@@ -309,23 +309,23 @@ class LayoutSharingBase extends React.Component {
     try {
       const layouts = fs
         .readdirSync(layoutDirPath, {
-          encoding: "utf-8"
+          encoding: "utf-8",
         })
-        .map(name => path.basename(name, ".json"))
+        .map((name) => path.basename(name, ".json"))
         .sort();
 
       this.state = {
         importConfirmOpen: false,
         layout: {},
         layoutName: null,
-        library: layouts
+        library: layouts,
       };
     } catch (_) {
       this.state = {
         importConfirmOpen: false,
         layout: {},
         layoutName: null,
-        library: []
+        library: [],
       };
     }
   }
@@ -333,7 +333,7 @@ class LayoutSharingBase extends React.Component {
   setLayout = (layoutName, layout) => {
     this.setState({
       layoutName: layoutName,
-      layout: layout
+      layout: layout,
     });
   };
 
@@ -365,15 +365,8 @@ class LayoutSharingBase extends React.Component {
   };
 
   render() {
-    const {
-      classes,
-      open,
-      onClose,
-      theme,
-      keymap,
-      colormap,
-      ...others
-    } = this.props;
+    const { classes, open, onClose, theme, keymap, colormap, ...others } =
+      this.props;
     const { layout, layoutName, library } = this.state;
 
     const focus = new Focus();
@@ -412,7 +405,7 @@ class LayoutSharingBase extends React.Component {
             variant="permanent"
             anchor="left"
             classes={{
-              paper: classes.drawerPaper
+              paper: classes.drawerPaper,
             }}
           >
             <div className={classes.drawerContainer}>

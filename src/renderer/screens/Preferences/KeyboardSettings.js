@@ -45,36 +45,36 @@ import checkExternalFlasher from "../../utils/checkExternalFlasher";
 const Store = require("electron-store");
 const settings = new Store();
 
-const styles = theme => ({
+const styles = (theme) => ({
   title: {
     marginTop: theme.spacing(4),
-    marginBottom: theme.spacing(1)
+    marginBottom: theme.spacing(1),
   },
   control: {
     display: "flex",
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   group: {
-    display: "block"
+    display: "block",
   },
   grow: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   flex: {
-    display: "flex"
+    display: "flex",
   },
   select: {
     paddingTop: theme.spacing(1),
-    width: 200
+    width: 200,
   },
   selectContainer: {
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing(2),
   },
   slider: {
-    width: 300
+    width: 300,
   },
   sliderContainer: {
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing(2),
   },
   advanced: {
     display: "flex",
@@ -83,10 +83,10 @@ const styles = theme => ({
     "& button": {
       textTransform: "none",
       "& span svg": {
-        marginLeft: "1.5em"
-      }
-    }
-  }
+        marginLeft: "1.5em",
+      },
+    },
+  },
 });
 
 class KeyboardSettings extends React.Component {
@@ -94,53 +94,53 @@ class KeyboardSettings extends React.Component {
     keymap: {
       custom: [],
       default: [],
-      onlyCustom: false
+      onlyCustom: false,
     },
     ledBrightness: 255,
     ledIdleTimeLimit: 0,
     defaultLayer: 126,
     modified: false,
-    working: false
+    working: false,
   };
 
   componentDidMount() {
     const focus = new Focus();
-    focus.command("keymap").then(keymap => {
+    focus.command("keymap").then((keymap) => {
       this.setState({ keymap: keymap });
     });
-    focus.command("settings.defaultLayer").then(layer => {
+    focus.command("settings.defaultLayer").then((layer) => {
       layer = layer ? parseInt(layer) : 126;
       this.setState({ defaultLayer: layer <= 126 ? layer : 126 });
     });
-    focus.command("led.brightness").then(brightness => {
+    focus.command("led.brightness").then((brightness) => {
       brightness = brightness ? parseInt(brightness) : -1;
       this.setState({ ledBrightness: brightness });
     });
-    focus.command("idleleds.time_limit").then(limit => {
+    focus.command("idleleds.time_limit").then((limit) => {
       limit = limit ? parseInt(limit) : -1;
       this.setState({ ledIdleTimeLimit: limit });
     });
   }
 
-  UNSAFE_componentWillReceiveProps = nextProps => {
+  UNSAFE_componentWillReceiveProps = (nextProps) => {
     if (this.props.inContext && !nextProps.inContext) {
       this.componentDidMount();
       this.setState({ modified: false });
     }
   };
 
-  selectDefaultLayer = event => {
+  selectDefaultLayer = (event) => {
     this.setState({
       defaultLayer: event.target.value,
-      modified: true
+      modified: true,
     });
     this.props.startContext();
   };
 
-  selectIdleLEDTime = event => {
+  selectIdleLEDTime = (event) => {
     this.setState({
       ledIdleTimeLimit: event.target.value,
-      modified: true
+      modified: true,
     });
     this.props.startContext();
   };
@@ -148,7 +148,7 @@ class KeyboardSettings extends React.Component {
   setBrightness = (event, value) => {
     this.setState({
       ledBrightness: value,
-      modified: true
+      modified: true,
     });
     this.props.startContext();
   };
@@ -168,13 +168,8 @@ class KeyboardSettings extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const {
-      keymap,
-      defaultLayer,
-      modified,
-      ledBrightness,
-      ledIdleTimeLimit
-    } = this.state;
+    const { keymap, defaultLayer, modified, ledBrightness, ledIdleTimeLimit } =
+      this.state;
 
     const layers = keymap.custom.map((_, index) => {
       return (
@@ -213,7 +208,7 @@ class KeyboardSettings extends React.Component {
           <FilledInput
             classes={{
               root: classes.selectContainer,
-              input: classes.select
+              input: classes.select,
             }}
           />
         }
@@ -288,7 +283,7 @@ class KeyboardSettings extends React.Component {
                   className={classes.control}
                   classes={{
                     label: classes.grow,
-                    root: classes.sliderContainer
+                    root: classes.sliderContainer,
                   }}
                   control={brightnessControl}
                   labelPlacement="start"
@@ -313,14 +308,14 @@ class KeyboardSettings extends React.Component {
 }
 
 KeyboardSettings.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 class AdvancedKeyboardSettings extends React.Component {
   state = {
     EEPROMResetConfirmationOpen: false,
     externalFlasherAvailable: false,
-    preferExternalFlasher: false
+    preferExternalFlasher: false,
   };
 
   resetEEPROM = async () => {
@@ -337,19 +332,21 @@ class AdvancedKeyboardSettings extends React.Component {
     this.setState({ EEPROMResetConfirmationOpen: false });
   };
 
-  setPreferExternalFlasher = async event => {
+  setPreferExternalFlasher = async (event) => {
     await settings.set("flash.preferExternalFlasher", event.target.checked);
     this.setState({
-      preferExternalFlasher: event.target.checked
+      preferExternalFlasher: event.target.checked,
     });
   };
 
   componentDidMount() {
     const focus = new Focus();
-    checkExternalFlasher(focus.device).then(async available => {
+    checkExternalFlasher(focus.device).then(async (available) => {
       this.setState({
         externalFlasherAvailable: available,
-        preferExternalFlasher: await settings.get("flash.preferExternalFlasher")
+        preferExternalFlasher: await settings.get(
+          "flash.preferExternalFlasher"
+        ),
       });
     });
   }
@@ -415,7 +412,7 @@ class AdvancedKeyboardSettings extends React.Component {
 }
 
 AdvancedKeyboardSettings.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 const StyledKeyboardSettings = withStyles(styles)(KeyboardSettings);
@@ -425,5 +422,5 @@ const StyledAdvancedKeyboardSettings = withStyles(styles)(
 
 export {
   StyledKeyboardSettings as KeyboardSettings,
-  StyledAdvancedKeyboardSettings as AdvancedKeyboardSettings
+  StyledAdvancedKeyboardSettings as AdvancedKeyboardSettings,
 };

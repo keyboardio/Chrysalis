@@ -22,18 +22,18 @@ import withStyles from "@mui/styles/withStyles";
 
 import { KeymapDB } from "../../../../api/keymap";
 
-const styles = theme => ({
+const styles = (theme) => ({
   button: {
-    margin: theme.spacing(1)
-  }
+    margin: theme.spacing(1),
+  },
 });
 
 const db = new KeymapDB();
 
-const KeyButton = withStyles(styles)(props => {
+const KeyButton = withStyles(styles)((props) => {
   const { classes, keyObj, onKeyChange, noHint } = props;
 
-  const onClick = keyCode => {
+  const onClick = (keyCode) => {
     return () => {
       onKeyChange(keyCode);
     };

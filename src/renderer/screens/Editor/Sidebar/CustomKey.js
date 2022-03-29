@@ -33,7 +33,7 @@ const db = new KeymapDB();
 const styles = () => ({});
 
 class CustomKeyBase extends React.Component {
-  onKeyChange = event => {
+  onKeyChange = (event) => {
     let value = event.target.value;
     if (value < 0) {
       value = 65535;

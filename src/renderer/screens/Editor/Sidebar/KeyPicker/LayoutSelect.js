@@ -43,12 +43,12 @@ class LayoutSelectBase extends React.Component {
     const platforms = {
       linux: "Linux",
       win32: "Windows",
-      darwin: "macOS"
+      darwin: "macOS",
     };
     const hostos = platforms[process.platform];
 
     const label = i18n.t("editor.sidebar.keypicker.hostLayout", {
-      hostos: hostos
+      hostos: hostos,
     });
 
     return (
@@ -56,12 +56,12 @@ class LayoutSelectBase extends React.Component {
         <FormControl>
           <Autocomplete
             value={layout}
-            groupBy={option => db.getLayoutLanguage(option)}
+            groupBy={(option) => db.getLayoutLanguage(option)}
             onChange={this.setLayout}
             options={db.getSupportedLayouts()}
-            getOptionLabel={option => option}
+            getOptionLabel={(option) => option}
             disableClearable
-            renderInput={params => (
+            renderInput={(params) => (
               <TextField {...params} label={label} variant="outlined" />
             )}
           />

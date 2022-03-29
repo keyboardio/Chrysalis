@@ -44,7 +44,7 @@ class LayerKeysBase extends React.Component {
     }
     return max;
   };
-  updateExpandedBasedOnKey = props => {
+  updateExpandedBasedOnKey = (props) => {
     const { selectedKey, keymap, layer } = props;
     const key = keymap.custom[layer][selectedKey];
 
@@ -55,7 +55,7 @@ class LayerKeysBase extends React.Component {
     }
   };
 
-  onKeyChange = keyCode => {
+  onKeyChange = (keyCode) => {
     this.props.onKeyChange(keyCode);
     this.closePicker();
   };
@@ -68,12 +68,12 @@ class LayerKeysBase extends React.Component {
     this.props.onKeyChange(key.rangeStart + target);
   };
 
-  onTypeChange = event => {
+  onTypeChange = (event) => {
     const typeStarts = {
       locktolayer: 17408,
       shifttolayer: 17450,
       movetolayer: 17492,
-      oneshot: 49161
+      oneshot: 49161,
     };
     const { keymap, selectedKey, layer } = this.props;
     const key = keymap.custom[layer][selectedKey];
@@ -136,7 +136,7 @@ class LayerKeysBase extends React.Component {
                 max={max}
                 value={targetLayer < 0 ? "" : targetLayer}
                 disabled={targetLayer < 0}
-                onChange={event => this.onTargetLayerChange(event, max)}
+                onChange={(event) => this.onTargetLayerChange(event, max)}
               />
             </FormControl>
           </div>

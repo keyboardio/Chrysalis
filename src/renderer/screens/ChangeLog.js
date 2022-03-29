@@ -35,18 +35,18 @@ import path from "path";
 import { getStaticPath } from "../config";
 import i18n from "../i18n";
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   card: {
     margin: theme.spacing(4),
-    maxWidth: "50%"
+    maxWidth: "50%",
   },
   release: {
-    textDecoration: "underline"
-  }
+    textDecoration: "underline",
+  },
 });
 
 class ChangeLog extends React.Component {
@@ -75,7 +75,7 @@ class ChangeLog extends React.Component {
                       {node.children[0].value}
                     </h1>
                   );
-                }
+                },
               }}
             >
               {data}

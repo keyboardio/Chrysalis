@@ -30,21 +30,21 @@ PickerColorButton.propTypes = {
   classes: PropTypes.object.isRequired,
   setColorFocusButton: PropTypes.func.isRequired,
   colorFocusButton: PropTypes.object,
-  disabled: PropTypes.bool.isRequired
+  disabled: PropTypes.bool.isRequired,
 };
 
 const styles = {
   root: {
     position: "relative",
-    marginLeft: 10
+    marginLeft: 10,
   },
   fab: {
     width: 60,
-    height: 60
+    height: 60,
   },
   icon: {
-    fontSize: 32
-  }
+    fontSize: 32,
+  },
 };
 
 /**
@@ -59,7 +59,7 @@ function PickerColorButton(props) {
     classes,
     setColorFocusButton,
     colorFocusButton: color,
-    disabled
+    disabled,
   } = props;
 
   /**
@@ -71,7 +71,7 @@ function PickerColorButton(props) {
   /**
    * Change "anchorEl" in functional component state to open Color Picker
    */
-  const handleClick = e => {
+  const handleClick = (e) => {
     setAnchorEl(e.currentTarget);
   };
 
@@ -103,16 +103,16 @@ function PickerColorButton(props) {
           onClose={handleClose}
           anchorOrigin={{
             vertical: "top",
-            horizontal: "left"
+            horizontal: "left",
           }}
           transformOrigin={{
             vertical: "bottom",
-            horizontal: "right"
+            horizontal: "right",
           }}
         >
           <SketchPicker
             color={color}
-            onChange={color => {
+            onChange={(color) => {
               setColorFocusButton(color.rgb);
             }}
           />

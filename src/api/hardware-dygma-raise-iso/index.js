@@ -26,20 +26,20 @@ const Raise_ISO = {
     urls: [
       {
         name: "Homepage",
-        url: "https://www.dygma.com/raise/"
-      }
-    ]
+        url: "https://www.dygma.com/raise/",
+      },
+    ],
   },
   usb: {
     vendorId: 0x1209,
-    productId: 0x2201
+    productId: 0x2201,
   },
   keyboard: {
     rows: 5,
-    columns: 16
+    columns: 16,
   },
   components: {
-    keymap: KeymapISO
+    keymap: KeymapISO,
   },
 
   flash: async (_, filename, flashRaise) => {
@@ -54,7 +54,7 @@ const Raise_ISO = {
     });
   },
 
-  isDeviceSupported: async port => {
+  isDeviceSupported: async (port) => {
     let focus = new Focus();
     let layout = localStorage.getItem(port.serialNumber);
     if (!layout) {
@@ -64,7 +64,7 @@ const Raise_ISO = {
       localStorage.setItem(port.serialNumber, layout);
     }
     return layout.trim() === "ISO";
-  }
+  },
 };
 
 const Raise_ISOBootloader = {
@@ -76,14 +76,14 @@ const Raise_ISOBootloader = {
     urls: [
       {
         name: "Homepage",
-        url: "https://www.dygma.com/raise/"
-      }
-    ]
+        url: "https://www.dygma.com/raise/",
+      },
+    ],
   },
   usb: {
     vendorId: 0x1209,
-    productId: 0x2200
-  }
+    productId: 0x2200,
+  },
 };
 
 export { Raise_ISO, Raise_ISOBootloader };

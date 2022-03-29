@@ -24,7 +24,7 @@ import i18n from "../i18n";
 import { getStatic } from "../config";
 import "./LoadingScreen.css";
 
-const styles = theme => ({
+const styles = (theme) => ({
   wrapper: {
     margin: theme.spacing(4),
     overflow: "hidden",
@@ -32,15 +32,15 @@ const styles = theme => ({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
-    padding: theme.spacing(4)
+    padding: theme.spacing(4),
   },
   logo: {
     animationName: "spinning-loader",
     animationIterationCount: "infinite",
     animationDuration: "5s",
     animationTimingFunction: "linear",
-    marginBottom: theme.spacing(4)
-  }
+    marginBottom: theme.spacing(4),
+  },
 });
 
 function LoadingScreen(props) {

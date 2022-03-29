@@ -38,34 +38,34 @@ import Collapsible from "../components/Collapsible";
 import { KeymapDB } from "../../../../api/keymap";
 import {
   addModifier,
-  removeModifier
+  removeModifier,
 } from "../../../../api/keymap/db/modifiers";
 import { GuiLabel } from "../../../../api/keymap/db/base/gui";
 import LayoutSelect from "./KeyPicker/LayoutSelect";
 
 const db = new KeymapDB();
 
-const styles = theme => ({
+const styles = (theme) => ({
   mods: {
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(1),
   },
   layout: {
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing(2),
   },
   modContainer: {
-    margin: `${theme.spacing(2)} 0`
+    margin: `${theme.spacing(2)} 0`,
   },
   keyPickButton: {
-    marginBottom: theme.spacing(2)
-  }
+    marginBottom: theme.spacing(2),
+  },
 });
 
 class KeyPickerBase extends React.Component {
   state = {
-    pickerOpen: false
+    pickerOpen: false,
   };
 
-  isStandardKey = props => {
+  isStandardKey = (props) => {
     const { selectedKey, keymap, layer } = props;
     const key = keymap.custom[layer][selectedKey];
     const code = key.baseCode || key.code;
@@ -98,7 +98,7 @@ class KeyPickerBase extends React.Component {
     this.setState({ pickerOpen: false });
   };
 
-  onKeyChange = keyCode => {
+  onKeyChange = (keyCode) => {
     const { selectedKey, keymap, layer } = this.props;
     const key = keymap.custom[layer][selectedKey];
     let offset = 0;
@@ -110,7 +110,7 @@ class KeyPickerBase extends React.Component {
     this.closePicker();
   };
 
-  toggleModifier = mod => event => {
+  toggleModifier = (mod) => (event) => {
     const { selectedKey, keymap, layer } = this.props;
     const key = keymap.custom[layer][selectedKey].code;
 
@@ -121,7 +121,7 @@ class KeyPickerBase extends React.Component {
     }
   };
 
-  toggleOneShot = event => {
+  toggleOneShot = (event) => {
     const { selectedKey, keymap, layer } = this.props;
     const key = keymap.custom[layer][selectedKey];
 
@@ -132,7 +132,7 @@ class KeyPickerBase extends React.Component {
     }
   };
 
-  makeSwitch = mod => {
+  makeSwitch = (mod) => {
     const { selectedKey, keymap, layer } = this.props;
     const key = keymap.custom[layer][selectedKey].code;
 

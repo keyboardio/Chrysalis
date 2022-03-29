@@ -25,7 +25,7 @@ export default function KeyboardMenuItem({
   keyboardSelectText,
   selected,
   onClick,
-  className
+  className,
 }) {
   return (
     <ListItem

@@ -31,7 +31,7 @@ const styles = () => ({});
 
 class CategorySelectorBase extends React.Component {
   state = {
-    pickerOpen: false
+    pickerOpen: false,
   };
 
   openPicker = () => {
@@ -42,7 +42,7 @@ class CategorySelectorBase extends React.Component {
     this.setState({ pickerOpen: false });
   };
 
-  onKeyChange = keyCode => {
+  onKeyChange = (keyCode) => {
     this.props.onKeyChange(keyCode);
     this.closePicker();
   };

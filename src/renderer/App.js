@@ -38,7 +38,7 @@ import withStyles from "@mui/styles/withStyles";
 import {
   ThemeProvider,
   StyledEngineProvider,
-  createTheme
+  createTheme,
 } from "@mui/material/styles";
 import makeStyles from "@mui/styles/makeStyles";
 
@@ -68,17 +68,17 @@ if (isDevelopment) {
 const settingsLanguage = settings.get("ui.language");
 if (settingsLanguage) i18n.changeLanguage(settingsLanguage);
 
-const useStyles = makeStyles(theme => {});
+const useStyles = makeStyles((theme) => {});
 
 const styles = () => ({
   root: {
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
   },
   content: {
     flexGrow: 1,
-    overflow: "auto"
-  }
+    overflow: "auto",
+  },
 });
 
 class App extends React.Component {
@@ -93,7 +93,7 @@ class App extends React.Component {
       device: null,
       pages: {},
       contextBar: false,
-      cancelPendingOpen: false
+      cancelPendingOpen: false,
     };
     localStorage.clear();
 
@@ -102,13 +102,13 @@ class App extends React.Component {
       autoClose: false,
       newestOnTop: true,
       draggable: false,
-      closeOnClick: false
+      closeOnClick: false,
     });
   }
   flashing = false;
 
   componentDidMount() {
-    ipcRenderer.on("usb-disconnected", async device => {
+    ipcRenderer.on("usb-disconnected", async (device) => {
       if (!focus.device) return;
       if (this.flashing) return;
 
@@ -133,7 +133,7 @@ class App extends React.Component {
         cancelPendingOpen: false,
         connected: false,
         device: null,
-        pages: {}
+        pages: {},
       });
 
       // Second call to `navigate` will actually render the proper route
@@ -148,7 +148,7 @@ class App extends React.Component {
   toggleDarkMode = async () => {
     const nextDarkModeState = !this.state.darkMode;
     this.setState({
-      darkMode: nextDarkModeState
+      darkMode: nextDarkModeState,
     });
     await settings.set("ui.darkMode", nextDarkModeState);
   };
@@ -159,20 +159,20 @@ class App extends React.Component {
       this.setState({
         connected: false,
         device: null,
-        pages: {}
+        pages: {},
       });
       await navigate("/keyboard-select");
     }
   };
 
-  onKeyboardConnect = async port => {
+  onKeyboardConnect = async (port) => {
     focus.close();
 
     if (!port.path) {
       this.setState({
         connected: true,
         pages: {},
-        device: port.device
+        device: port.device,
       });
       await navigate("/welcome");
       return [];
@@ -201,14 +201,14 @@ class App extends React.Component {
           commands.includes("keymap.map") > 0,
         colormap:
           commands.includes("colormap.map") > 0 &&
-          commands.includes("palette") > 0
+          commands.includes("palette") > 0,
       };
     }
 
     this.setState({
       connected: true,
       device: null,
-      pages: pages
+      pages: pages,
     });
     await navigate(pages.keymap || pages.colormap ? "/editor" : "/welcome");
     return commands;
@@ -219,13 +219,13 @@ class App extends React.Component {
     this.setState({
       connected: false,
       device: null,
-      pages: {}
+      pages: {},
     });
     localStorage.clear();
     await navigate("/keyboard-select");
   };
 
-  cancelContext = dirty => {
+  cancelContext = (dirty) => {
     if (dirty) {
       this.setState({ cancelPendingOpen: true });
     } else {
@@ -235,7 +235,7 @@ class App extends React.Component {
   doCancelContext = () => {
     this.setState({
       contextBar: false,
-      cancelPendingOpen: false
+      cancelPendingOpen: false,
     });
   };
   cancelContextCancellation = () => {
@@ -257,12 +257,12 @@ class App extends React.Component {
       palette: {
         mode: this.state.darkMode ? "dark" : "light",
         primary: {
-          main: "#EF5022"
+          main: "#EF5022",
         },
         secondary: {
-          main: "#939597"
-        }
-      }
+          main: "#939597",
+        },
+      },
     });
 
     return (

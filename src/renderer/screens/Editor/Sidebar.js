@@ -49,7 +49,7 @@ class Sidebar extends React.Component {
       selectedLed,
       layer,
       layout,
-      colormap
+      colormap,
     } = this.props;
 
     const widgets = [
@@ -67,7 +67,7 @@ class Sidebar extends React.Component {
       LeaderKeys,
       StenoKeys,
       BlankKeys,
-      CustomKey
+      CustomKey,
     ];
     const categories = widgets.map((Widget, index) => {
       return (
@@ -94,14 +94,14 @@ class Sidebar extends React.Component {
         anchor="right"
         sx={{
           flexShrink: 0,
-          zIndex: theme => theme.zIndex.appBar - 100,
+          zIndex: (theme) => theme.zIndex.appBar - 100,
           width: sidebarWidth,
           "& .MuiDrawer-paper": {
             width: sidebarWidth,
             boxSizing: "border-box",
             p: 1,
-            zIndex: theme => theme.zIndex.appBar - 100
-          }
+            zIndex: (theme) => theme.zIndex.appBar - 100,
+          },
         }}
       >
         <Toolbar />

@@ -22,16 +22,16 @@ import Avatar from "@mui/material/Avatar";
 import CropSquareIcon from "@mui/icons-material/CropSquare";
 import withStyles from "@mui/styles/withStyles";
 
-const styles = theme => ({
+const styles = (theme) => ({
   swatchContainer: {
     display: "flex",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
   },
   colorSwatch: {
     width: theme.spacing(3),
     height: theme.spacing(3),
-    margin: theme.spacing(0.75)
-  }
+    margin: theme.spacing(0.75),
+  },
 });
 
 /*
@@ -79,7 +79,7 @@ class SwatchBase extends React.Component {
         variant="square"
         style={{
           color: color.rgb,
-          background: active ? "transparent" : color.rgb
+          background: active ? "transparent" : color.rgb,
         }}
         onClick={onClick}
       >

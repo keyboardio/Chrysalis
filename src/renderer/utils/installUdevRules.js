@@ -23,7 +23,7 @@ import { getStaticPath } from "../config";
 
 import Log from "../../api/log";
 
-const installUdevRules = async devicePath => {
+const installUdevRules = async (devicePath) => {
   const rules = path.join(getStaticPath(), "udev", "60-kaleidoscope.rules");
   const tmpRules = tmp.fileSync();
   const logger = new Log();
@@ -45,7 +45,7 @@ const installUdevRules = async devicePath => {
     devicePath;
   return new Promise(async (resolve, reject) => {
     logger.debug("Running:", cmd);
-    sudo.exec(cmd, { name: "Chrysalis" }, error => {
+    sudo.exec(cmd, { name: "Chrysalis" }, (error) => {
       if (error) {
         reject(error);
       } else {

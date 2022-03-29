@@ -14,14 +14,14 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-const leader = index => ({
+const leader = (index) => ({
   code: 53283 + index,
   label: {
     hint: "Leader ",
-    base: "#" + index.toString()
+    base: "#" + index.toString(),
   },
   rangeStart: 53283,
-  categories: ["leader"]
+  categories: ["leader"],
 });
 
 const leaders = Array(8)

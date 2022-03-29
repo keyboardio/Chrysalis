@@ -32,18 +32,18 @@ import openURL from "../../../utils/openURL";
 import i18n from "../../../i18n";
 import { navigate } from "../../../routerHistory";
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   card: {
     margin: theme.spacing(4),
-    maxWidth: "50%"
+    maxWidth: "50%",
   },
   grow: {
-    flexGrow: 1
-  }
+    flexGrow: 1,
+  },
 });
 
 class OnlyCustomScreen extends React.Component {

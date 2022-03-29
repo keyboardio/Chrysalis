@@ -29,17 +29,17 @@ import { KeymapDB } from "../../../../api/keymap";
 
 const db = new KeymapDB();
 
-const styles = theme => ({
+const styles = (theme) => ({
   card: {
-    marginBottom: theme.spacing(1)
-  }
+    marginBottom: theme.spacing(1),
+  },
 });
 
-const VolumeKeys = withStyles(styles)(props => {
+const VolumeKeys = withStyles(styles)((props) => {
   const keys = [
     db.lookup(18658), // mute
     db.lookup(18665), // up
-    db.lookup(18666) // down
+    db.lookup(18666), // down
   ];
 
   const keyButtons = keys.map((button, index) => {
@@ -66,12 +66,12 @@ const VolumeKeys = withStyles(styles)(props => {
   );
 });
 
-const MediaKeys = withStyles(styles)(props => {
+const MediaKeys = withStyles(styles)((props) => {
   const keys = [
     db.lookup(18614), // prev
     db.lookup(18613), // next track
     db.lookup(18615), // stop
-    db.lookup(18637) // play/pause
+    db.lookup(18637), // play/pause
   ];
 
   const keyButtons = keys.map((button, index) => {
@@ -98,10 +98,10 @@ const MediaKeys = withStyles(styles)(props => {
   );
 });
 
-const BrightnessKeys = withStyles(styles)(props => {
+const BrightnessKeys = withStyles(styles)((props) => {
   const keys = [
     db.lookup(18543), // up
-    db.lookup(18544) // down
+    db.lookup(18544), // down
   ];
 
   const keyButtons = keys.map((button, index) => {

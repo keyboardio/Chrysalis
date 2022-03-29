@@ -35,34 +35,34 @@ const addDUL = (key, layer) => ({
   baseCode: key.code,
   label: {
     hint: "Layer #" + layer.toString() + "/",
-    base: key.label.base
+    base: key.label.base,
   },
   target: layer,
   rangeStart: 51218,
-  categories: ["layer", "dualuse"]
+  categories: ["layer", "dualuse"],
 });
 
 const duMods = {
   ctrl: {
     index: 0,
-    name: "Control"
+    name: "Control",
   },
   shift: {
     index: 1,
-    name: "Shift"
+    name: "Shift",
   },
   alt: {
     index: 2,
-    name: "Alt"
+    name: "Alt",
   },
   gui: {
     index: 3,
-    name: GuiLabel.full
+    name: GuiLabel.full,
   },
   altgr: {
     index: 6,
-    name: "AltGr"
-  }
+    name: "AltGr",
+  },
 };
 
 const addDUM = (key, mod) => ({
@@ -70,11 +70,11 @@ const addDUM = (key, mod) => ({
   baseCode: key.code,
   label: {
     hint: duMods[mod].name + "/",
-    base: key.label.base
+    base: key.label.base,
   },
   modifier: duMods[mod].name,
   rangeStart: 49169,
-  categories: ["modifier", "dualuse", mod]
+  categories: ["modifier", "dualuse", mod],
 });
 
 const dul = () => {
@@ -94,7 +94,7 @@ const dul = () => {
   return l;
 };
 
-const dum = mod => {
+const dum = (mod) => {
   let m = [];
 
   for (let k of keySet) {

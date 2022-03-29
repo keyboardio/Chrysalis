@@ -22,122 +22,122 @@ const numpad = withModifiers([
     label: {
       base: {
         full: "Num Lock",
-        "1u": "NumLK"
-      }
-    }
+        "1u": "NumLK",
+      },
+    },
   },
   {
     code: 84,
     label: {
-      base: "/"
+      base: "/",
     },
-    location: "numpad"
+    location: "numpad",
   },
   {
     code: 85,
     label: {
-      base: "*"
+      base: "*",
     },
-    location: "numpad"
+    location: "numpad",
   },
   {
     code: 86,
     label: {
-      base: "-"
+      base: "-",
     },
-    location: "numpad"
+    location: "numpad",
   },
   {
     code: 87,
     label: {
-      base: "+"
+      base: "+",
     },
-    location: "numpad"
+    location: "numpad",
   },
   {
     code: 88,
     label: {
-      base: "Enter"
+      base: "Enter",
     },
-    location: "numpad"
+    location: "numpad",
   },
   {
     code: 89,
     label: {
-      base: "1"
+      base: "1",
     },
-    location: "numpad"
+    location: "numpad",
   },
   {
     code: 90,
     label: {
-      base: "2"
+      base: "2",
     },
-    location: "numpad"
+    location: "numpad",
   },
   {
     code: 91,
     label: {
-      base: "3"
+      base: "3",
     },
-    location: "numpad"
+    location: "numpad",
   },
   {
     code: 92,
     label: {
-      base: "4"
+      base: "4",
     },
-    location: "numpad"
+    location: "numpad",
   },
   {
     code: 93,
     label: {
-      base: "5"
+      base: "5",
     },
-    location: "numpad"
+    location: "numpad",
   },
   {
     code: 94,
     label: {
-      base: "6"
+      base: "6",
     },
-    location: "numpad"
+    location: "numpad",
   },
   {
     code: 95,
     label: {
-      base: "7"
+      base: "7",
     },
-    location: "numpad"
+    location: "numpad",
   },
   {
     code: 96,
     label: {
-      base: "8"
+      base: "8",
     },
-    location: "numpad"
+    location: "numpad",
   },
   {
     code: 97,
     label: {
-      base: "9"
+      base: "9",
     },
-    location: "numpad"
+    location: "numpad",
   },
   {
     code: 98,
     label: {
-      base: "0"
+      base: "0",
     },
-    location: "numpad"
+    location: "numpad",
   },
   {
     code: 99,
     label: {
-      base: "."
+      base: ".",
     },
-    location: "numpad"
-  }
+    location: "numpad",
+  },
 ]);
 
 export { numpad };

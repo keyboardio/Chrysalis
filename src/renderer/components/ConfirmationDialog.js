@@ -25,7 +25,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 import i18n from "../i18n";
 
-const ConfirmationDialog = props => {
+const ConfirmationDialog = (props) => {
   return (
     <Dialog
       disableEscapeKeyDown

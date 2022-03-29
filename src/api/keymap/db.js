@@ -28,7 +28,7 @@ class KeymapDB {
       global.chrysalis_keymapdb_instance = this;
 
       this._layouts = {
-        "English (US)": USQwerty
+        "English (US)": USQwerty,
       };
 
       this.setLayout("English (US)");
@@ -46,7 +46,7 @@ class KeymapDB {
     );
   };
 
-  getLayoutLanguage = layout => {
+  getLayoutLanguage = (layout) => {
     const languageCode = this._layouts[layout].group;
     return cldr_.extractLanguageDisplayNames(i18n.language)[languageCode];
   };
@@ -89,7 +89,7 @@ class KeymapDB {
       this._codetable[key.code] = Object.assign({}, key);
       if (key.legacyCode) {
         this._codetable[key.legacyCode] = Object.assign({}, key, {
-          legacy: true
+          legacy: true,
         });
       }
     }
@@ -108,7 +108,7 @@ class KeymapDB {
     const table = this._layouts[layout];
 
     if (table.codetable instanceof Promise) {
-      table.codetable.then(data => {
+      table.codetable.then((data) => {
         for (const key of data) {
           if (this._codetable[key.code]) {
             const base = this._codetable[key.code];
@@ -142,9 +142,9 @@ class KeymapDB {
     return {
       code: keyCode || 0,
       label: {
-        base: "#" + (keyCode || 0).toString()
+        base: "#" + (keyCode || 0).toString(),
       },
-      categories: ["unknown"]
+      categories: ["unknown"],
     };
   }
 
@@ -242,7 +242,7 @@ class KeymapDB {
 
     return {
       main: label,
-      hint: hint
+      hint: hint,
     };
   }
 }

@@ -29,27 +29,27 @@ import withStyles from "@mui/styles/withStyles";
 
 import i18n from "../i18n";
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
   },
   wrapper: {
     margin: theme.spacing(1),
-    position: "relative"
+    position: "relative",
   },
   buttonSuccess: {
     backgroundColor: theme.palette.success.main,
     "&:hover": {
-      backgroundColor: theme.palette.success.light
-    }
+      backgroundColor: theme.palette.success.light,
+    },
   },
   fabProgress: {
     color: theme.palette.success.main,
     position: "absolute",
     top: -6,
     left: -6,
-    zIndex: 1
+    zIndex: 1,
   },
   buttonProgress: {
     color: theme.palette.success.main,
@@ -57,44 +57,44 @@ const styles = theme => ({
     top: "50%",
     left: "50%",
     marginTop: -12,
-    marginLeft: -12
+    marginLeft: -12,
   },
   icon: {
     marginRight: -16,
-    zIndex: 1
+    zIndex: 1,
   },
   disabled: {
-    backgroundColor: theme.palette.action.disabled
+    backgroundColor: theme.palette.action.disabled,
   },
   fab: {
     position: "fixed",
     justifyContent: "flex-end",
     bottom: 0,
     left: theme.spacing(4),
-    zIndex: theme.zIndex.drawer + 1
-  }
+    zIndex: theme.zIndex.drawer + 1,
+  },
 });
 
 class SaveChangesButton extends React.Component {
   state = {
     inProgress: false,
-    success: false
+    success: false,
   };
 
   componentWillUnmount() {
     clearTimeout(this.timer);
   }
 
-  handleButtonClick = async event => {
+  handleButtonClick = async (event) => {
     this.setState(
       {
-        inProgress: true
+        inProgress: true,
       },
       async () => {
         await this.props.onClick(event);
         this.setState({
           success: true,
-          inProgress: false
+          inProgress: false,
         });
         this.timer = setTimeout(() => {
           this.setState({ success: false });
@@ -107,7 +107,7 @@ class SaveChangesButton extends React.Component {
     const { inProgress, success } = this.state;
     const { classes, successMessage } = this.props;
     let buttonClassname = classNames({
-      [classes.buttonSuccess]: success
+      [classes.buttonSuccess]: success,
     });
 
     const textPart = !this.props.floating && (
@@ -128,7 +128,7 @@ class SaveChangesButton extends React.Component {
 
     const icon = this.props.icon || <SaveAltIcon />;
 
-    const OptionalTooltip = props => {
+    const OptionalTooltip = (props) => {
       if (this.props.floating) {
         return <Tooltip title={this.props.children}>{props.children}</Tooltip>;
       }
@@ -166,7 +166,7 @@ class SaveChangesButton extends React.Component {
 }
 
 SaveChangesButton.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(SaveChangesButton);

@@ -20,54 +20,54 @@ const spacing = withModifiers([
   {
     code: 41,
     label: {
-      base: "Esc"
-    }
+      base: "Esc",
+    },
   },
   {
     code: 43,
     label: {
-      base: "Tab"
-    }
+      base: "Tab",
+    },
   },
   {
     code: 44,
     label: {
-      base: "Space"
-    }
+      base: "Space",
+    },
   },
   {
     code: 40,
     label: {
-      base: "Enter"
-    }
+      base: "Enter",
+    },
   },
   {
     code: 42,
     label: {
       base: {
         full: "Backspace",
-        "1u": "Bksp"
-      }
-    }
+        "1u": "Bksp",
+      },
+    },
   },
   {
     code: 73,
     label: {
       base: {
         full: "Insert",
-        "1u": "Ins"
-      }
-    }
+        "1u": "Ins",
+      },
+    },
   },
   {
     code: 76,
     label: {
       base: {
         full: "Delete",
-        "1u": "Del"
-      }
-    }
-  }
+        "1u": "Del",
+      },
+    },
+  },
 ]);
 
 export { spacing };

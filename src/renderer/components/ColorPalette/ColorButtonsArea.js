@@ -30,16 +30,16 @@ ColorButtonsArea.propTypes = {
   indexFocusButton: PropTypes.any,
   setIsFocus: PropTypes.func.isRequired,
   palette: PropTypes.array.isRequired,
-  disabled: PropTypes.bool.isRequired
+  disabled: PropTypes.bool.isRequired,
 };
 
-const styles = theme => ({
+const styles = (theme) => ({
   palette: {
     padding: "5px 0",
     [theme.breakpoints.down("md")]: {
-      padding: 0
-    }
-  }
+      padding: 0,
+    },
+  },
 });
 
 /**
@@ -58,7 +58,7 @@ function ColorButtonsArea(props) {
     indexFocusButton,
     setIsFocus,
     palette,
-    disabled
+    disabled,
   } = props;
 
   /**

@@ -35,7 +35,7 @@ class BlankKeysBase extends React.Component {
 
     const keys = [
       db.lookup(0), // blocked
-      db.lookup(65535) // transparent
+      db.lookup(65535), // transparent
     ];
 
     const keyButtons = keys.map((button, index) => {

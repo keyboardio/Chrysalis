@@ -19,20 +19,20 @@
  * Use to reduce the amount of code
  * @param {number} value Size in pixels
  */
-export const setButtonSizeTamplate = value => ({
+export const setButtonSizeTamplate = (value) => ({
   minWidth: value,
   minHeight: value,
   maxWidth: value,
-  maxHeight: value
+  maxHeight: value,
 });
 
 /**
  * Use to reduce the amount of code
  * @param {object} color Object with keys that defining colors using the Red-green-blue-alpha (RGBA) model
  */
-export const setColorTamplate = color => ({
+export const setColorTamplate = (color) => ({
   r: color.r,
   g: color.g,
   b: color.b,
-  rgb: `rgb(${color.r}, ${color.g}, ${color.b})`
+  rgb: `rgb(${color.r}, ${color.g}, ${color.b})`,
 });

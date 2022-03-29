@@ -20,18 +20,18 @@ import React from "react";
 import Button from "@mui/material/Button";
 import withStyles from "@mui/styles/withStyles";
 
-const styles = theme => ({
+const styles = (theme) => ({
   key: {
     fontFamily: '"Source Code Pro", monospace',
     margin: theme.spacing(0.5),
     padding: "4px 8px",
     minWidth: "auto",
     minHeight: "auto",
-    whiteSpace: "nowrap"
-  }
+    whiteSpace: "nowrap",
+  },
 });
 
-const KeyButton = withStyles(styles)(props => {
+const KeyButton = withStyles(styles)((props) => {
   const { label, selected, classes, ...other } = props;
 
   return (

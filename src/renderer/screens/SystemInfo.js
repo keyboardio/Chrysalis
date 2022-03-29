@@ -83,9 +83,6 @@ class SystemInfo extends React.Component {
     viewing: false,
   };
 
-  openViewBundle = () => {
-    this.setState({ viewing: true });
-  };
   closeViewBundle = () => {
     this.setState({
       viewing: false,
@@ -137,6 +134,7 @@ class SystemInfo extends React.Component {
     await this.setState({
       collecting: false,
       collected: true,
+      viewing: true,
       info: sysInfo,
     });
   };
@@ -145,34 +143,18 @@ class SystemInfo extends React.Component {
     const { classes } = this.props;
     const { collected, viewing } = this.state;
 
-    let mainButton;
-    if (collected) {
-      mainButton = (
-        <Button
-          disabled={this.state.collecting}
-          color="primary"
-          variant="outlined"
-          onClick={async () => {
-            return await this.openViewBundle();
-          }}
-        >
-          {i18n.t("systeminfo.viewBundle")}
-        </Button>
-      );
-    } else {
-      mainButton = (
-        <Button
-          disabled={this.state.collecting}
-          color="primary"
-          variant="outlined"
-          onClick={async () => {
-            return await this.createBundle();
-          }}
-        >
-          {i18n.t("systeminfo.createBundle")}
-        </Button>
-      );
-    }
+    let mainButton = (
+      <Button
+        disabled={this.state.collecting}
+        color="primary"
+        variant="outlined"
+        onClick={async () => {
+          return await this.createBundle();
+        }}
+      >
+        {i18n.t("systeminfo.createBundle")}
+      </Button>
+    );
 
     const DialogTitle = withStyles(styles)((props) => {
       const { children, classes, ...other } = props;

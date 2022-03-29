@@ -24,7 +24,13 @@ module.exports = {
     "react/prop-types": 0,
     "no-unused-vars": 0, // disabled due to false positives
     "no-async-promise-executor": 0, // grandfathered in during eslint update; would be nice to remove
-    "no-prototype-builtins": 0 // grandfathered in during eslint update; would be nice to remove
+    "no-prototype-builtins": 0, // grandfathered in during eslint update; would be nice to remove
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
   },
   settings: {
     react: {

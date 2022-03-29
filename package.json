@@ -68,6 +68,7 @@
     ]
   },
   "dependencies": {
+    "@babel/core": "^7.17.8",
     "@electron/remote": "^2.0.8",
     "@electron/universal": "npm:@spotxyz/universal",
     "@emotion/react": "^11.8.2",

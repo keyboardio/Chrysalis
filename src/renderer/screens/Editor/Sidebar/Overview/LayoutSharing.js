@@ -17,10 +17,11 @@
 
 import React from "react";
 import i18n from "i18next";
-import Electron from "electron";
+import { Electron, ipcRenderer } from "electron";
 import path from "path";
 import fs from "fs";
 import { toast } from "react-toastify";
+import jsonStringify from "json-stringify-pretty-compact";
 
 import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
@@ -235,7 +236,15 @@ const FileImport = withStyles(styles, { withTheme: true })(FileImportBase);
 
 class ExportToFileBase extends React.Component {
   exportToFile = () => {
-    const files = Electron.remote.dialog.showSaveDialog({
+    const { keymap, colormap } = this.props;
+    const data = {
+      keymaps: keymap.custom,
+      colormaps: colormap.colorMap,
+      palette: colormap.palette,
+    };
+
+    ipcRenderer.send("file-save", {
+      content: jsonStringify(data),
       title: i18n.t("editor.sharing.selectExportFile"),
       defaultPath: "Layout.json",
       filters: [
@@ -248,31 +257,6 @@ class ExportToFileBase extends React.Component {
           extensions: ["*"],
         },
       ],
-    });
-    files.then((result) => {
-      const fileName = result.filePath;
-
-      if (!fileName) return;
-
-      const { keymap, colormap } = this.props;
-
-      const data = {
-        keymaps: keymap.custom,
-        colormaps: colormap.colorMap,
-        palette: colormap.palette,
-      };
-
-      try {
-        fs.writeFileSync(fileName, JSON.stringify(data));
-      } catch (e) {
-        const logger = new Log();
-
-        logger.error("Unable to save layout", {
-          fileName: fileName,
-          e: e.message,
-        });
-        toast.error(i18n.t("editor.sharing.errors.saveFail"));
-      }
     });
   };
 

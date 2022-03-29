@@ -37,7 +37,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import withStyles from "@mui/styles/withStyles";
 
-import Electron from "electron";
+import { ipcRenderer, Electron } from "electron";
 
 import { toast } from "react-toastify";
 
@@ -83,9 +83,6 @@ class SystemInfo extends React.Component {
     viewing: false,
   };
 
-  openViewBundle = () => {
-    this.setState({ viewing: true });
-  };
   closeViewBundle = () => {
     this.setState({
       viewing: false,
@@ -95,32 +92,12 @@ class SystemInfo extends React.Component {
   };
 
   saveBundle = async () => {
-    const result = await Electron.remote.dialog.showSaveDialog({
+    ipcRenderer.send("file-save", {
+      content: jsonStringify(this.state.info),
       title: i18n.t("systeminfo.dialog.title"),
-      defaultPath: "chrysalis-debug.bundle.zip",
-      filters: [
-        {
-          name: i18n.t("systeminfo.dialog.bundleFiles"),
-          extensions: ["bundle.zip"],
-        },
-      ],
+      defaultPath: "chrysalis-debug.bundle.json",
     });
 
-    if (result.canceled) {
-      return;
-    }
-
-    const output = fs.createWriteStream(result.filePath);
-    const archive = archiver("zip");
-    archive.pipe(output);
-
-    archive.append(jsonStringify(this.state.info), {
-      name: "bundle.json",
-    });
-
-    archive.finalize();
-
-    toast.success(i18n.t("systeminfo.bundleSaved"));
     this.setState({
       collected: false,
       viewing: false,
@@ -157,6 +134,7 @@ class SystemInfo extends React.Component {
     await this.setState({
       collecting: false,
       collected: true,
+      viewing: true,
       info: sysInfo,
     });
   };
@@ -165,34 +143,18 @@ class SystemInfo extends React.Component {
     const { classes } = this.props;
     const { collected, viewing } = this.state;
 
-    let mainButton;
-    if (collected) {
-      mainButton = (
-        <Button
-          disabled={this.state.collecting}
-          color="primary"
-          variant="outlined"
-          onClick={async () => {
-            return await this.openViewBundle();
-          }}
-        >
-          {i18n.t("systeminfo.viewBundle")}
-        </Button>
-      );
-    } else {
-      mainButton = (
-        <Button
-          disabled={this.state.collecting}
-          color="primary"
-          variant="outlined"
-          onClick={async () => {
-            return await this.createBundle();
-          }}
-        >
-          {i18n.t("systeminfo.createBundle")}
-        </Button>
-      );
-    }
+    let mainButton = (
+      <Button
+        disabled={this.state.collecting}
+        color="primary"
+        variant="outlined"
+        onClick={async () => {
+          return await this.createBundle();
+        }}
+      >
+        {i18n.t("systeminfo.createBundle")}
+      </Button>
+    );
 
     const DialogTitle = withStyles(styles)((props) => {
       const { children, classes, ...other } = props;

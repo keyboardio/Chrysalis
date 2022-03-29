@@ -3,16 +3,42 @@ import React from "react";
 import Styled, { withTheme } from "styled-components";
 
 const Style = Styled.g`
-.baseKey {
-  fill: rgba(87, 97, 126, 0.25);
-  box-shadow: 0px 2px 0px rgba(37, 39, 59, 0.1);
+.keycap {
+  .baseKey {
+    fill: rgba(87, 97, 126, 0.25);
+    transition-property: fill, fill-opacity;
+    transition: 300ms ease-in-out;
+  }
+  &:hover {
+    cursor: pointer;
+    .baseKey {
+      fill: rgba(87, 97, 126, 0.65);
+    }
+  }
+  &.active {
+    .baseKey {
+      fill: #6C5CE7;
+      fill-opacity: 1;
+    }
+  }
+  &.disabled {
+    opacity: 0.2;
+    .baseKey {
+      fill: rgba(87, 97, 126, 0.25);
+    }
+    &:hover {
+      cursor: initial;
+    }
+  }
 }
+
 `;
 
 // variable with the Key Size Library
+const keyCapRegularSize = { width: 44, height: 30 };
 const ksl = {
   "1UT": {
-    outb: { x: 44, y: 20, dx: 0, dy: 0 },
+    outb: { x: keyCapRegularSize.width, y: 26, dx: 0, dy: 0 },
     out: { x: 42, y: 18, dx: 1, dy: 1 },
     icon: { x: 14, y: -1, w: 30, h: 26 },
     text: {
@@ -60,7 +86,7 @@ const ksl = {
     }
   },
   "1U": {
-    outb: { x: 44, y: 26, dx: 0, dy: 0 },
+    outb: { x: keyCapRegularSize.width, y: keyCapRegularSize.height, dx: 0, dy: 0 },
     out: { x: 42, y: 24, dx: 1, dy: 1 },
     icon: { x: 12, y: -1, w: 30, h: 26 },
     text: {
@@ -72,7 +98,7 @@ const ksl = {
     }
   },
   "1U2": {
-    outb: { x: 54, y: 26, dx: 0, dy: 0 },
+    outb: { x: 57, y: keyCapRegularSize.height, dx: 0, dy: 0 },
     out: { x: 52, y: 24, dx: 1, dy: 1 },
     icon: { x: 16, y: -1, w: 30, h: 26 },
     text: {
@@ -156,7 +182,7 @@ const ksl = {
     }
   },
   block: {
-    outb: { x: 36, y: 32, dx: 0, dy: 0 },
+    outb: { x: 44, y: 26, dx: 0, dy: 0 },
     out: { x: 34, y: 30, dx: 1, dy: 1 },
     icon: { x: 15, y: -1, w: 30, h: 26 },
     text: {
@@ -231,10 +257,14 @@ const ksl = {
 
 class Key extends React.Component {
   render() {
-    const { x, y, selected, clicked, centered, iconpresent, icon, iconsize, iconx, icony, content, disabled } = this.props;
+    const { id, x, y, selected, clicked, centered, iconpresent, icon, iconsize, iconx, icony, content, disabled } = this.props;
+    const randomID = Math.random()
+      .toString(36)
+      .replace(/[^a-z]+/g, "")
+      .substr(0, 5);
     return (
       <Style>
-        <g className="keycap">
+        <g className={`keycap ${selected ? "active" : ""} ${disabled ? "disabled" : ""} ${content.type} id-${id}`}>
           {content.type === "enter" ? (
             <>
               <rect
@@ -308,32 +338,47 @@ class Key extends React.Component {
           {content.type !== "enter" && content.type != "title" ? (
             <>
               <defs>
-                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="-20%" style={{ stopColor: "rgb(255, 255, 255)", stopOpacity: 0.1 }} />
-                  <stop offset="120%" style={{ stopColor: "rgb(255, 255, 255)", stopOpacity: 0 }} />
+                <linearGradient id={`paint_gradient_${randomID}`} x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="5%" stopColor="#fff" />
+                  <stop offset="95%" stopColor="#fff" stopOpacity={0} />
                 </linearGradient>
+                <filter id={`filter0_d_2211_181319_${randomID}`} x="0" y="0" width="200%" height="200%">
+                  <feOffset result="offOut" in="SourceGraphic" dx="0" dy="2" />
+                  <feColorMatrix
+                    result="matrixOut"
+                    in="offOut"
+                    type="matrix"
+                    values="0.2 0 0 0 0 0 0.2 0 0 0 0 0 0.2 0 0 0 0 0 1 0"
+                  />
+                  <feGaussianBlur result="blurOut" in="matrixOut" stdDeviation="10" />
+                  <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+                </filter>
               </defs>
+              <g filter={`url(#filter0_d_2211_181319_${randomID})`}>
+                <rect
+                  x={x + ksl[content.type].outb.dx}
+                  y={y + ksl[content.type].outb.dy}
+                  width={ksl[content.type].outb.x}
+                  height={ksl[content.type].outb.y}
+                  rx="5"
+                  // fill={
+                  //   disabled
+                  //     ? this.props.theme.keyboardPicker.keyDisabledColor
+                  //     : selected
+                  //     ? this.props.theme.keyboardPicker.keyActiveColor
+                  //     : this.props.theme.keyboardPicker.keyColor
+                  // }
+
+                  className="baseKey"
+                  onClick={clicked}
+                  shapeRendering="crispEdges"
+                />
+              </g>
               <rect
                 x={x + ksl[content.type].outb.dx}
                 y={y + ksl[content.type].outb.dy}
                 width={ksl[content.type].outb.x}
                 height={ksl[content.type].outb.y}
-                rx="5"
-                fill={
-                  disabled
-                    ? this.props.theme.keyboardPicker.keyDisabledColor
-                    : selected
-                    ? this.props.theme.keyboardPicker.keyActiveColor
-                    : this.props.theme.keyboardPicker.keyColor
-                }
-                className="baseKey"
-                onClick={clicked}
-              />
-              <rect
-                x={x + ksl[content.type].out.dx}
-                y={y + ksl[content.type].out.dy}
-                width={ksl[content.type].out.x}
-                height={ksl[content.type].out.y}
                 onClick={clicked}
                 rx="5"
                 // fill={
@@ -343,7 +388,9 @@ class Key extends React.Component {
                 //     ? this.props.theme.keyboardPicker.keyActiveColor
                 //     : this.props.theme.keyboardPicker.keyColor
                 // }
-                fill="url(#grad1)"
+                fill={`url(#paint_gradient_${randomID})`}
+                fillOpacity={0.1}
+                shapeRendering="crispEdges"
               />
             </>
           ) : (

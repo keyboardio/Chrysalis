@@ -322,7 +322,7 @@
   {
     "id": 53,
     "x": 0,
-    "y": 32,
+    "y": 38,
     "centered": false,
     "icon": false,
     "idArray": "",
@@ -338,7 +338,7 @@
   {
     "id": 30,
     "x": 50,
-    "y": 32,
+    "y": 38,
     "centered": false,
     "icon": false,
     "idArray": "",
@@ -354,7 +354,7 @@
   {
     "id": 31,
     "x": 100,
-    "y": 32,
+    "y": 38,
     "centered": false,
     "icon": false,
     "idArray": "",
@@ -370,7 +370,7 @@
   {
     "id": 32,
     "x": 150,
-    "y": 32,
+    "y": 38,
     "centered": false,
     "icon": false,
     "idArray": "",
@@ -386,7 +386,7 @@
   {
     "id": 33,
     "x": 200,
-    "y": 32,
+    "y": 38,
     "centered": false,
     "icon": false,
     "idArray": "",
@@ -402,7 +402,7 @@
   {
     "id": 34,
     "x": 250,
-    "y": 32,
+    "y": 38,
     "centered": false,
     "icon": false,
     "idArray": "",
@@ -418,7 +418,7 @@
   {
     "id": 35,
     "x": 300,
-    "y": 32,
+    "y": 38,
     "centered": false,
     "icon": false,
     "idArray": "",
@@ -434,7 +434,7 @@
   {
     "id": 36,
     "x": 350,
-    "y": 32,
+    "y": 38,
     "centered": false,
     "icon": false,
     "idArray": "",
@@ -450,7 +450,7 @@
   {
     "id": 37,
     "x": 400,
-    "y": 32,
+    "y": 38,
     "centered": false,
     "icon": false,
     "idArray": "",
@@ -466,7 +466,7 @@
   {
     "id": 38,
     "x": 450,
-    "y": 32,
+    "y": 38,
     "centered": false,
     "icon": false,
     "idArray": "",
@@ -482,7 +482,7 @@
   {
     "id": 39,
     "x": 500,
-    "y": 32,
+    "y": 38,
     "centered": false,
     "icon": false,
     "idArray": "",
@@ -498,7 +498,7 @@
   {
     "id": 45,
     "x": 550,
-    "y": 32,
+    "y": 38,
     "centered": false,
     "icon": false,
     "idArray": "",
@@ -514,7 +514,7 @@
   {
     "id": 46,
     "x": 600,
-    "y": 32,
+    "y": 38,
     "centered": false,
     "icon": false,
     "idArray": "",
@@ -530,7 +530,7 @@
   {
     "id": 42,
     "x": 650,
-    "y": 32,
+    "y": 38,
     "centered": true,
     "icon": true,
     "iconsize": 16,

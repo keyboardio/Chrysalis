@@ -263,6 +263,7 @@ class KeyPicker extends Component {
       return (
         <Key
           key={`id-${key.content.first}-${id}`}
+          id={id}
           x={key.x}
           y={key.y}
           selected={

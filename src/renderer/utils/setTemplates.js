@@ -19,7 +19,7 @@
  * Use to reduce the amount of code
  * @param {number} value Size in pixels
  */
-export const setButtonSizeTamplate = (value) => ({
+export const setButtonSizeTemplate = (value) => ({
   minWidth: value,
   minHeight: value,
   maxWidth: value,

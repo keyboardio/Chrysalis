@@ -44,9 +44,12 @@
       "darkModeSupport": true,
       "hardenedRuntime": true,
       "entitlements": "./build/entitlements.mac.inherit.plist",
-      "target": [
-        "dmg"
-      ]
+      "target": {
+        "target": "dmg",
+        "arch": [
+          "universal"
+        ]
+      }
     },
     "linux": {
       "target": [
@@ -66,6 +69,7 @@
   },
   "dependencies": {
     "@electron/remote": "^2.0.8",
+    "@electron/universal": "npm:@spotxyz/universal",
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.5.1",
@@ -108,11 +112,13 @@
   },
   "devDependencies": {
     "@babel/preset-react": "^7.16.7",
+    "@spotxyz/universal": "",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",
+    "app-builder-lib": "^23.0.3",
     "core-js": "^3.21.1",
     "electron": "^17.1.2",
-    "electron-builder": "^22.14.13",
+    "electron-builder": "^23.0.3",
     "electron-builder-notarize": "^1.2.0",
     "electron-webpack": "^2.8.2",
     "electron-webpack-eslint": "^6.0.0",
@@ -136,6 +142,7 @@
   },
   "resolutions": {
     "cacache/y18n": "^4.0.1",
-    "yargs/y18n": "^4.0.1"
+    "yargs/y18n": "^4.0.1",
+    "**/@electron/universal": "npm:@spotxyz/universal"
   }
 }

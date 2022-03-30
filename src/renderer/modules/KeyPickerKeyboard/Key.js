@@ -122,7 +122,7 @@ const ksl = {
     }
   },
   "1U6": {
-    outb: { x: 84, y: 26, dx: 0, dy: 0 },
+    outb: { x: 82, y: keyCapRegularSize.height, dx: 0, dy: 0 },
     out: { x: 82, y: 24, dx: 1, dy: 1 },
     icon: { x: 29, y: -1, w: 30, h: 26 },
     text: {

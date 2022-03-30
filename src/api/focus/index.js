@@ -263,9 +263,9 @@ class Focus {
       part += " ";
     }
     this._port.write(part);
-    this._port.drain(async () => {
-      await this._write_parts(parts, cb);
-    });
+    await new Promise((timeout) => setTimeout(timeout, 50));
+    this._port.drain();
+    await this._write_parts(parts, cb);
   }
 
   request(cmd, ...args) {

@@ -310,6 +310,23 @@ class KeyPicker extends Component {
           <Row className="keys">
             <svg className="svgStyle" width="1200px" height="260px">
               {keyboard}
+              <defs>
+                <linearGradient id={`paint_gradient`} x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="5%" stopColor="#fff" />
+                  <stop offset="95%" stopColor="#fff" stopOpacity={0} />
+                </linearGradient>
+                <filter id={`filter0_d_2211_181319`} x="0" y="0" width="200%" height="200%">
+                  <feOffset result="offOut" in="SourceGraphic" dx="0" dy="2" />
+                  <feColorMatrix
+                    result="matrixOut"
+                    in="offOut"
+                    type="matrix"
+                    values="0.2 0 0 0 0 0 0.2 0 0 0 0 0 0.2 0 0 0 0 0 1 0"
+                  />
+                  <feGaussianBlur result="blurOut" in="matrixOut" stdDeviation="10" />
+                  <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+                </filter>
+              </defs>
             </svg>
           </Row>
         </Container>

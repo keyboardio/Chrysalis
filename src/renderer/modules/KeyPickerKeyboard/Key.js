@@ -6,8 +6,9 @@ const Style = Styled.g`
 .keycap {
   .baseKey {
     fill: rgba(87, 97, 126, 0.25);
+    will-change: fill, fill-opacity;
     transition-property: fill, fill-opacity;
-    transition: 300ms ease-in-out;
+    transition: 200ms ease-in-out;
   }
   &:hover {
     cursor: pointer;
@@ -46,7 +47,7 @@ const ksl = {
       b: { dx: 18, dy: 15, fs: 14 },
       c: { dx: 28, dy: 15, fs: 14 },
       d: { dx: 38, dy: 15, fs: 14 },
-      letter: { dx: 22, dy: 16, ddx: 22, ddy: 16, fs: 14, fss: 12 }
+      letter: { dx: 18, dy: 16, ddx: 22, ddy: 16, fs: 13, fss: 13 }
     }
   },
   "2UT": {
@@ -58,7 +59,7 @@ const ksl = {
       b: { dx: 60, dy: 16, fs: 16 },
       c: { dx: 28, dy: 16, fs: 14 },
       d: { dx: 38, dy: 16, fs: 14 },
-      letter: { dx: 47, dy: 16, ddx: 47, ddy: 16, fs: 16, fss: 14 }
+      letter: { dx: 47, dy: 16, ddx: 47, ddy: 16, fs: 13, fss: 13 }
     }
   },
   specialBlockT: {
@@ -70,7 +71,7 @@ const ksl = {
       b: { dx: 10, dy: 28, fs: 14 },
       c: { dx: 128, dy: 19, fs: 14 },
       d: { dx: 138, dy: 19, fs: 14 },
-      letter: { dx: 22, dy: 17, ddx: 22, ddy: 17, fs: 16, fss: 14 }
+      letter: { dx: 22, dy: 17, ddx: 22, ddy: 17, fs: 13, fss: 13 }
     }
   },
   specialBlockT2: {
@@ -82,7 +83,7 @@ const ksl = {
       b: { dx: 10, dy: 28, fs: 14 },
       c: { dx: 128, dy: 19, fs: 14 },
       d: { dx: 138, dy: 19, fs: 14 },
-      letter: { dx: 22, dy: 17, ddx: 22, ddy: 17, fs: 16, fss: 14 }
+      letter: { dx: 22, dy: 17, ddx: 22, ddy: 17, fs: 13, fss: 13 }
     }
   },
   "1U": {
@@ -90,11 +91,11 @@ const ksl = {
     out: { x: 42, y: 24, dx: 1, dy: 1 },
     icon: { x: 12, y: -1, w: 30, h: 26 },
     text: {
-      a: { dx: 6, dy: 19, fs: 20 },
-      b: { dx: 18, dy: 15, fs: 14 },
-      c: { dx: 28, dy: 15, fs: 14 },
-      d: { dx: 38, dy: 15, fs: 14 },
-      letter: { dx: 22, dy: 19, ddx: 34, ddy: 7, fs: 18, fss: 14 }
+      a: { dx: 8, dy: 16, fs: 13 },
+      b: { dx: 22, dy: 20, fs: 13 },
+      c: { dx: 28, dy: 15, fs: 13 },
+      d: { dx: 38, dy: 15, fs: 13 },
+      letter: { dx: 22, dy: 19, ddx: 34, ddy: 7, fs: 13, fss: 13 }
     }
   },
   "1U2": {
@@ -134,7 +135,7 @@ const ksl = {
     }
   },
   "1U8": {
-    outb: { x: 94, y: 26, dx: 0, dy: 0 },
+    outb: { x: 98, y: keyCapRegularSize.height, dx: 0, dy: 0 },
     out: { x: 92, y: 24, dx: 1, dy: 1 },
     icon: { x: 32, y: -1, w: 30, h: 26 },
     text: {
@@ -146,7 +147,7 @@ const ksl = {
     }
   },
   "2U": {
-    outb: { x: 104, y: 26, dx: 0, dy: 0 },
+    outb: { x: 101, y: keyCapRegularSize.height, dx: 0, dy: 0 },
     out: { x: 102, y: 24, dx: 1, dy: 1 },
     icon: { x: 40, y: -1, w: 30, h: 26 },
     text: {
@@ -155,6 +156,18 @@ const ksl = {
       c: { dx: 28, dy: 19, fs: 14 },
       d: { dx: 38, dy: 19, fs: 14 },
       letter: { dx: 52, dy: 19, ddx: 52, ddy: 19, fs: 16, fss: 14 }
+    }
+  },
+  "2U2": {
+    outb: { x: 54, y: keyCapRegularSize.height, dx: 0, dy: 0 },
+    out: { x: 54, y: 24, dx: 1, dy: 1 },
+    icon: { x: 6, y: 2, w: 30, h: 26 },
+    text: {
+      a: { dx: 6, dy: 19, fs: 20 },
+      b: { dx: 60, dy: 19, fs: 14 },
+      c: { dx: 28, dy: 19, fs: 14 },
+      d: { dx: 38, dy: 19, fs: 14 },
+      letter: { dx: 22, dy: 19, ddx: 52, ddy: 19, fs: 16, fss: 14 }
     }
   },
   "3U": {
@@ -170,7 +183,7 @@ const ksl = {
     }
   },
   "6U2": {
-    outb: { x: 284, y: 26, dx: 0, dy: 0 },
+    outb: { x: 281, y: keyCapRegularSize.height, dx: 0, dy: 0 },
     out: { x: 282, y: 24, dx: 1, dy: 1 },
     icon: { x: 130, y: -1, w: 30, h: 26 },
     text: {
@@ -182,7 +195,7 @@ const ksl = {
     }
   },
   block: {
-    outb: { x: 44, y: 26, dx: 0, dy: 0 },
+    outb: { x: 44, y: keyCapRegularSize.height, dx: 0, dy: 0 },
     out: { x: 34, y: 30, dx: 1, dy: 1 },
     icon: { x: 15, y: -1, w: 30, h: 26 },
     text: {
@@ -190,19 +203,19 @@ const ksl = {
       b: { dx: 10, dy: 28, fs: 14 },
       c: { dx: 128, dy: 19, fs: 14 },
       d: { dx: 138, dy: 19, fs: 14 },
-      letter: { dx: 18, dy: 17, ddx: 18, ddy: 17, fs: 16, fss: 14 }
+      letter: { dx: 18, dy: 17, ddx: 18, ddy: 17, fs: 11, fss: 11 }
     }
   },
   specialBlock: {
-    outb: { x: 44, y: 32, dx: 0, dy: 0 },
+    outb: { x: 44, y: keyCapRegularSize.height, dx: 0, dy: 0 },
     out: { x: 42, y: 30, dx: 1, dy: 1 },
     icon: { x: 10, y: 2, w: 30, h: 26 },
     text: {
-      a: { dx: 11, dy: 20, fs: 16 },
-      b: { dx: 10, dy: 28, fs: 14 },
-      c: { dx: 128, dy: 19, fs: 14 },
-      d: { dx: 138, dy: 19, fs: 14 },
-      letter: { dx: 22, dy: 17, ddx: 22, ddy: 17, fs: 16, fss: 14 }
+      a: { dx: 11, dy: 20, fs: 13 },
+      b: { dx: 10, dy: 28, fs: 13 },
+      c: { dx: 128, dy: 19, fs: 13 },
+      d: { dx: 138, dy: 19, fs: 13 },
+      letter: { dx: 22, dy: 14, ddx: 22, ddy: 17, fs: 11, fss: 11 }
     }
   },
   longBlock: {
@@ -218,7 +231,7 @@ const ksl = {
     }
   },
   wideBlock: {
-    outb: { x: 78, y: 32, dx: 0, dy: 0 },
+    outb: { x: 92, y: keyCapRegularSize.height, dx: 0, dy: 0 },
     out: { x: 76, y: 30, dx: 1, dy: 1 },
     icon: { x: 15, y: -1, w: 30, h: 26 },
     text: {
@@ -258,10 +271,6 @@ const ksl = {
 class Key extends React.Component {
   render() {
     const { id, x, y, selected, clicked, centered, iconpresent, icon, iconsize, iconx, icony, content, disabled } = this.props;
-    const randomID = Math.random()
-      .toString(36)
-      .replace(/[^a-z]+/g, "")
-      .substr(0, 5);
     return (
       <Style>
         <g className={`keycap ${selected ? "active" : ""} ${disabled ? "disabled" : ""} ${content.type} id-${id}`}>
@@ -337,24 +346,7 @@ class Key extends React.Component {
           )}
           {content.type !== "enter" && content.type != "title" ? (
             <>
-              <defs>
-                <linearGradient id={`paint_gradient_${randomID}`} x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="5%" stopColor="#fff" />
-                  <stop offset="95%" stopColor="#fff" stopOpacity={0} />
-                </linearGradient>
-                <filter id={`filter0_d_2211_181319_${randomID}`} x="0" y="0" width="200%" height="200%">
-                  <feOffset result="offOut" in="SourceGraphic" dx="0" dy="2" />
-                  <feColorMatrix
-                    result="matrixOut"
-                    in="offOut"
-                    type="matrix"
-                    values="0.2 0 0 0 0 0 0.2 0 0 0 0 0 0.2 0 0 0 0 0 1 0"
-                  />
-                  <feGaussianBlur result="blurOut" in="matrixOut" stdDeviation="10" />
-                  <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
-                </filter>
-              </defs>
-              <g filter={`url(#filter0_d_2211_181319_${randomID})`}>
+              <g filter={`url(#filter0_d_2211_181319)`}>
                 <rect
                   x={x + ksl[content.type].outb.dx}
                   y={y + ksl[content.type].outb.dy}
@@ -387,7 +379,7 @@ class Key extends React.Component {
                 //     ? this.props.theme.keyboardPicker.keyActiveColor
                 //     : this.props.theme.keyboardPicker.keyColor
                 // }
-                fill={`url(#paint_gradient_${randomID})`}
+                fill={`url(#paint_gradient)`}
                 fillOpacity={0.1}
               />
             </>
@@ -437,7 +429,7 @@ class Key extends React.Component {
               </text>
               <text
                 x={x + ksl[content.type].text.letter.ddx}
-                y={y + ksl[content.type].text.letter.ddy + 12}
+                y={y + ksl[content.type].text.letter.ddy + 8}
                 onClick={clicked}
                 fontSize={ksl[content.type].text.letter.fss}
                 fontWeight={600}

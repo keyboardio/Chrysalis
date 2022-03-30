@@ -252,20 +252,12 @@ class Focus {
     return await this.request("help");
   }
 
-  async _write_parts(parts, cb) {
-    if (!parts || parts.length == 0) {
-      cb();
-      return;
+  async _write_parts(request) {
+    for (let index = 0; index < request.length; index += 32) {
+      this._port.write(request.slice(index, index + 32));
+      await new Promise((timeout) => setTimeout(timeout, 50));
+      await this._port.drain();
     }
-
-    let part = parts.shift();
-    if (parts.length > 0) {
-      part += " ";
-    }
-    this._port.write(part);
-    await new Promise((timeout) => setTimeout(timeout, 50));
-    this._port.drain();
-    await this._write_parts(parts, cb);
   }
 
   request(cmd, ...args) {
@@ -289,27 +281,23 @@ class Focus {
       request = request + " " + args.join(" ");
     }
     request += "\n";
-
-    if (process.platform == "darwin") {
-      /*
-       * On macOS, we need to stagger writes, otherwise we seem to overwhelm the
-       * system, and the host will receive garbage. If we send in smaller
-       * chunks, with a slight delay between them, we can avoid this problem.
-       *
-       * We may be able to do this smarter, if we figure out the rough chunk
-       * size that is safe to send. That'd speed up writes on macOS. Until then,
-       * we split at each space, and send tiny chunks.
-       */
-      return new Promise((resolve) => {
-        this.callbacks.push(resolve);
-        this._write_parts(request.split(" "), () => {});
-      });
-    } else {
-      return new Promise((resolve) => {
-        this.callbacks.push(resolve);
+    return new Promise((resolve) => {
+      this.callbacks.push(resolve);
+      if (process.platform == "darwin") {
+        /*
+         * On macOS, we need to stagger writes, otherwise we seem to overwhelm the
+         * system, and the host will receive garbage. If we send in smaller
+         * chunks, with a slight delay between them, we can avoid this problem.
+         *
+         * We may be able to do this smarter, if we figure out the rough chunk
+         * size that is safe to send. That'd speed up writes on macOS. Until then,
+         * we split at each space, and send tiny chunks.
+         */
+        this._write_parts(request);
+      } else {
         this._port.write(request);
-      });
-    }
+      }
+    });
   }
 
   async command(cmd, ...args) {

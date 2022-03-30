@@ -77,7 +77,7 @@ const Style = Styled.div`
   }
 }
 .svgStyle {
-  max-height: 260px;
+
 }
 `;
 const IconColor = Styled.span`
@@ -308,7 +308,7 @@ class KeyPicker extends Component {
       <Style>
         <Container fluid className="keyboard">
           <Row className="keys">
-            <svg className="svgStyle" viewBox="0 0 1042 266">
+            <svg className="svgStyle" width="1200px" height="260px">
               {keyboard}
             </svg>
           </Row>

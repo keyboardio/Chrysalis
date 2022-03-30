@@ -110,7 +110,7 @@ const ksl = {
     }
   },
   "1U5": {
-    outb: { x: 64, y: 26, dx: 0, dy: 0 },
+    outb: { x: 64, y: keyCapRegularSize.height, dx: 0, dy: 0 },
     out: { x: 62, y: 24, dx: 1, dy: 1 },
     icon: { x: 22, y: -1, w: 30, h: 26 },
     text: {
@@ -371,7 +371,6 @@ class Key extends React.Component {
 
                   className="baseKey"
                   onClick={clicked}
-                  shapeRendering="crispEdges"
                 />
               </g>
               <rect
@@ -390,7 +389,6 @@ class Key extends React.Component {
                 // }
                 fill={`url(#paint_gradient_${randomID})`}
                 fillOpacity={0.1}
-                shapeRendering="crispEdges"
               />
             </>
           ) : (

@@ -300,13 +300,9 @@ class Focus {
        * size that is safe to send. That'd speed up writes on macOS. Until then,
        * we split at each space, and send tiny chunks.
        */
-      let parts = request.split(" ");
       return new Promise((resolve) => {
-        setTimeout(async () => {
-          await this._port.flush();
-          this.callbacks.push(resolve);
-          await this._write_parts(parts, () => {});
-        }, 500);
+        this.callbacks.push(resolve);
+        this._write_parts(request.split(" "), () => {});
       });
     } else {
       return new Promise((resolve) => {

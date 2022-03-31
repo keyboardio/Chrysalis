@@ -33,7 +33,6 @@ import Select from "@mui/material/Select";
 import Slider from "@mui/material/Slider";
 import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
-import withStyles from "@mui/styles/withStyles";
 
 import Focus from "../../../api/focus";
 
@@ -45,50 +44,6 @@ import checkExternalFlasher from "../../utils/checkExternalFlasher";
 
 const Store = require("electron-store");
 const settings = new Store();
-
-const styles = (theme) => ({
-  title: {
-    marginTop: theme.spacing(4),
-    marginBottom: theme.spacing(1),
-  },
-  control: {
-    display: "flex",
-    marginRight: theme.spacing(2),
-  },
-  group: {
-    display: "block",
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  flex: {
-    display: "flex",
-  },
-  select: {
-    paddingTop: theme.spacing(1),
-    width: 200,
-  },
-  selectContainer: {
-    marginTop: theme.spacing(2),
-  },
-  slider: {
-    width: 300,
-  },
-  sliderContainer: {
-    marginTop: theme.spacing(2),
-  },
-  advanced: {
-    display: "flex",
-    justifyContent: "center",
-    marginTop: theme.spacing(4),
-    "& button": {
-      textTransform: "none",
-      "& span svg": {
-        marginLeft: "1.5em",
-      },
-    },
-  },
-});
 
 class KeyboardSettings extends React.Component {
   state = {
@@ -168,7 +123,6 @@ class KeyboardSettings extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
     const { keymap, defaultLayer, modified, ledBrightness, ledIdleTimeLimit } =
       this.state;
 
@@ -184,7 +138,14 @@ class KeyboardSettings extends React.Component {
         onChange={this.selectDefaultLayer}
         value={defaultLayer}
         variant="filled"
-        input={<FilledInput classes={{ input: classes.select }} />}
+        input={
+          <FilledInput
+            sx={{
+              paddingTop: 1,
+              width: 200,
+            }}
+          />
+        }
       >
         <MenuItem value={126}>
           {i18n.t("keyboardSettings.keymap.noDefault")}
@@ -196,7 +157,7 @@ class KeyboardSettings extends React.Component {
       <Slider
         max={255}
         value={ledBrightness}
-        className={classes.slider}
+        sx={{ width: "300" }}
         onChange={this.setBrightness}
       />
     );
@@ -207,9 +168,8 @@ class KeyboardSettings extends React.Component {
         variant="filled"
         input={
           <FilledInput
-            classes={{
-              root: classes.selectContainer,
-              input: classes.select,
+            sx={{
+              marginTop: 2,
             }}
           />
         }
@@ -256,35 +216,47 @@ class KeyboardSettings extends React.Component {
         <Typography
           variant="subtitle1"
           component="h2"
-          className={classes.title}
+          sx={{
+            marginTop: 4,
+            marginBottom: 1,
+          }}
         >
           {i18n.t("keyboardSettings.keymap.title")}
         </Typography>
         <Card>
           <CardContent>
-            <FormGroup className={classes.group}>
+            <FormGroup
+              sx={{
+                display: "block",
+              }}
+            >
               <FormControlLabel
-                className={classes.control}
-                classes={{ label: classes.grow }}
                 control={defaultLayerSelect}
+                sx={{
+                  flexGrow: 1,
+                  marginRight: 2,
+                }}
                 labelPlacement="start"
                 label={i18n.t("keyboardSettings.keymap.defaultLayer")}
               />
               {ledIdleTimeLimit >= 0 && (
                 <FormControlLabel
-                  className={classes.control}
-                  classes={{ label: classes.grow }}
                   control={idleControl}
+                  sx={{
+                    flexGrow: 1,
+                    display: "flex",
+                    marginRight: 2,
+                  }}
                   labelPlacement="start"
                   label={i18n.t("keyboardSettings.led.idleTimeLimit")}
                 />
               )}
               {ledBrightness >= 0 && (
                 <FormControlLabel
-                  className={classes.control}
-                  classes={{
-                    label: classes.grow,
-                    root: classes.sliderContainer,
+                  sx={{
+                    flexGrow: 1,
+                    marginTop: 2,
+                    marginRight: 2,
                   }}
                   control={brightnessControl}
                   labelPlacement="start"
@@ -293,8 +265,7 @@ class KeyboardSettings extends React.Component {
               )}
             </FormGroup>
           </CardContent>
-          <CardActions className={classes.flex}>
-            <span className={classes.grow} />
+          <CardActions sx={{ flexGrow: 1 }}>
             <SaveChangesButton
               onClick={this.saveKeymapChanges}
               disabled={!modified}
@@ -307,10 +278,6 @@ class KeyboardSettings extends React.Component {
     );
   }
 }
-
-KeyboardSettings.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 class AdvancedKeyboardSettings extends React.Component {
   state = {
@@ -353,7 +320,6 @@ class AdvancedKeyboardSettings extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
     const { externalFlasherAvailable, preferExternalFlasher } = this.state;
 
     const preferExternalSwitch = (
@@ -370,18 +336,27 @@ class AdvancedKeyboardSettings extends React.Component {
         <Typography
           variant="subtitle1"
           component="h2"
-          className={classes.title}
+          sx={{
+            marginTop: 4,
+            marginBottom: 1,
+          }}
         >
           {i18n.t("keyboardSettings.advancedOps")}
         </Typography>
         <Card>
           {externalFlasherAvailable && (
             <CardContent>
-              <FormControl className={classes.group}>
+              <FormControl
+                sx={{
+                  display: "block",
+                }}
+              >
                 <FormControlLabel
-                  className={classes.control}
+                  sx={{
+                    display: "flex",
+                    marginRight: 2,
+                  }}
                   control={preferExternalSwitch}
-                  classes={{ label: classes.grow }}
                   labelPlacement="start"
                   label={i18n.t("keyboardSettings.flash.preferExternal")}
                 />
@@ -411,17 +386,4 @@ class AdvancedKeyboardSettings extends React.Component {
     );
   }
 }
-
-AdvancedKeyboardSettings.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-const StyledKeyboardSettings = withStyles(styles)(KeyboardSettings);
-const StyledAdvancedKeyboardSettings = withStyles(styles)(
-  AdvancedKeyboardSettings
-);
-
-export {
-  StyledKeyboardSettings as KeyboardSettings,
-  StyledAdvancedKeyboardSettings as AdvancedKeyboardSettings,
-};
+export { KeyboardSettings, AdvancedKeyboardSettings };

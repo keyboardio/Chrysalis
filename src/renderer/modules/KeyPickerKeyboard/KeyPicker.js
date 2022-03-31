@@ -301,6 +301,7 @@ class KeyPicker extends Component {
           icony={key.icony}
           iconsize={key.iconsize}
           disabled={key.mod == disableMods || key.move == disableMove || disableAll}
+          idArray={key.idArray}
         />
       );
     });
@@ -308,7 +309,7 @@ class KeyPicker extends Component {
       <Style>
         <Container fluid className="keyboard">
           <Row className="keys">
-            <svg className="svgStyle" width="1200px" height="260px">
+            <svg className="svgStyle" width="1300px" height="260px">
               {keyboard}
               <defs>
                 <linearGradient id={`paint_gradient`} x1="0%" y1="0%" x2="100%" y2="0%">

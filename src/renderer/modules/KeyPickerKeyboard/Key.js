@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from "react";
 import Styled, { withTheme } from "styled-components";
+import { SelectF13PlusKeys } from "../../component/Select";
 
 const Style = Styled.g`
 .keycap {
@@ -62,8 +63,20 @@ const ksl = {
       letter: { dx: 47, dy: 16, ddx: 47, ddy: 16, fs: 13, fss: 13 }
     }
   },
+  specialBlockDropdown: {
+    outb: { x: 65, y: 26, dx: 0, dy: 0 },
+    out: { x: 42, y: 20, dx: 1, dy: 1 },
+    icon: { x: 12, y: -3, w: 30, h: 26 },
+    text: {
+      a: { dx: 6, dy: 19, fs: 20 },
+      b: { dx: 18, dy: 15, fs: 14 },
+      c: { dx: 28, dy: 15, fs: 14 },
+      d: { dx: 38, dy: 15, fs: 14 },
+      letter: { dx: 18, dy: 16, ddx: 22, ddy: 16, fs: 13, fss: 13 }
+    }
+  },
   specialBlockT: {
-    outb: { x: 44, y: 22, dx: 0, dy: 0 },
+    outb: { x: keyCapRegularSize.width, y: 22, dx: 0, dy: 0 },
     out: { x: 42, y: 20, dx: 1, dy: 1 },
     icon: { x: 12, y: -3, w: 30, h: 26 },
     text: {
@@ -75,7 +88,7 @@ const ksl = {
     }
   },
   specialBlockT2: {
-    outb: { x: 44, y: 22, dx: 0, dy: 0 },
+    outb: { x: keyCapRegularSize.width, y: 22, dx: 0, dy: 0 },
     out: { x: 42, y: 20, dx: 1, dy: 1 },
     icon: { x: 3, y: -3, w: 42, h: 26 },
     text: {
@@ -195,7 +208,7 @@ const ksl = {
     }
   },
   block: {
-    outb: { x: 44, y: keyCapRegularSize.height, dx: 0, dy: 0 },
+    outb: { x: keyCapRegularSize.width, y: keyCapRegularSize.height, dx: 0, dy: 0 },
     out: { x: 34, y: 30, dx: 1, dy: 1 },
     icon: { x: 15, y: -1, w: 30, h: 26 },
     text: {
@@ -203,11 +216,11 @@ const ksl = {
       b: { dx: 10, dy: 28, fs: 14 },
       c: { dx: 128, dy: 19, fs: 14 },
       d: { dx: 138, dy: 19, fs: 14 },
-      letter: { dx: 18, dy: 17, ddx: 18, ddy: 17, fs: 11, fss: 11 }
+      letter: { dx: 22, dy: 14, ddx: 22, ddy: 17, fs: 11, fss: 11 }
     }
   },
   specialBlock: {
-    outb: { x: 44, y: keyCapRegularSize.height, dx: 0, dy: 0 },
+    outb: { x: keyCapRegularSize.width, y: keyCapRegularSize.height, dx: 0, dy: 0 },
     out: { x: 42, y: 30, dx: 1, dy: 1 },
     icon: { x: 10, y: 2, w: 30, h: 26 },
     text: {
@@ -219,7 +232,7 @@ const ksl = {
     }
   },
   longBlock: {
-    outb: { x: 36, y: 70, dx: 0, dy: 0 },
+    outb: { x: keyCapRegularSize.width, y: keyCapRegularSize.height * 2 + 5, dx: 0, dy: 0 },
     out: { x: 34, y: 68, dx: 1, dy: 1 },
     icon: { x: 15, y: -1, w: 30, h: 26 },
     text: {
@@ -227,11 +240,11 @@ const ksl = {
       b: { dx: 2, dy: 28, fs: 14 },
       c: { dx: 28, dy: 19, fs: 14 },
       d: { dx: 38, dy: 19, fs: 14 },
-      letter: { dx: 18, dy: 38, ddx: 18, ddy: 38, fs: 16, fss: 14 }
+      letter: { dx: 22, dy: 38, ddx: 18, ddy: 38, fs: 11, fss: 11 }
     }
   },
   wideBlock: {
-    outb: { x: 92, y: keyCapRegularSize.height, dx: 0, dy: 0 },
+    outb: { x: 93, y: keyCapRegularSize.height, dx: 0, dy: 0 },
     out: { x: 76, y: 30, dx: 1, dy: 1 },
     icon: { x: 15, y: -1, w: 30, h: 26 },
     text: {
@@ -243,7 +256,7 @@ const ksl = {
     }
   },
   enter: {
-    outb: { x: 44, y: 26, dx: 0, dy: 0 },
+    outb: { x: keyCapRegularSize.width, y: 26, dx: 0, dy: 0 },
     out: { x: 42, y: 24, dx: 1, dy: 1 },
     icon: { x: 15, y: -1, w: 30, h: 26 },
     text: {
@@ -255,7 +268,7 @@ const ksl = {
     }
   },
   title: {
-    outb: { x: 44, y: 26, dx: 0, dy: 0 },
+    outb: { x: keyCapRegularSize.width, y: 26, dx: 0, dy: 0 },
     out: { x: 42, y: 24, dx: 1, dy: 1 },
     icon: { x: 15, y: -1, w: 30, h: 26 },
     text: {
@@ -270,7 +283,8 @@ const ksl = {
 
 class Key extends React.Component {
   render() {
-    const { id, x, y, selected, clicked, centered, iconpresent, icon, iconsize, iconx, icony, content, disabled } = this.props;
+    const { id, x, y, selected, clicked, centered, iconpresent, icon, iconsize, iconx, icony, content, idArray, disabled } =
+      this.props;
     return (
       <Style>
         <g className={`keycap ${selected ? "active" : ""} ${disabled ? "disabled" : ""} ${content.type} id-${id}`}>
@@ -344,7 +358,7 @@ class Key extends React.Component {
           ) : (
             ""
           )}
-          {content.type !== "enter" && content.type != "title" ? (
+          {content.type !== "enter" && content.type != "title" && content.type != "specialBlockDropdown" ? (
             <>
               <g filter={`url(#filter0_d_2211_181319)`}>
                 <rect
@@ -386,6 +400,32 @@ class Key extends React.Component {
           ) : (
             ""
           )}
+          {content.type == "specialBlockDropdown" ? (
+            <>
+              <foreignObject
+                width={ksl[content.type].outb.x}
+                height={ksl[content.type].outb.y}
+                x={x + ksl[content.type].outb.dx}
+                y={y + ksl[content.type].outb.dy}
+                ksl={ksl}
+                style={{ overflow: "visible" }}
+              >
+                <div xmlns="http://www.w3.org/1999/xhtml">
+                  <SelectF13PlusKeys
+                    x={x + ksl[content.type].outb.dx}
+                    y={y + ksl[content.type].outb.dy}
+                    onSelect={clicked}
+                    selected={selected}
+                    value={id}
+                    listElements={idArray}
+                    content={content}
+                  />
+                </div>
+              </foreignObject>
+            </>
+          ) : (
+            ""
+          )}
           {!iconpresent && content.type == "title" ? (
             <>
               <text
@@ -412,7 +452,7 @@ class Key extends React.Component {
           ) : (
             ""
           )}
-          {!iconpresent && centered && content.type != "title" ? (
+          {!iconpresent && centered && content.type != "title" && content.type != "specialBlockDropdown" ? (
             <>
               <text
                 x={x + ksl[content.type].text.letter.dx}
@@ -506,6 +546,7 @@ class Key extends React.Component {
           ) : (
             ""
           )}
+
           {iconpresent ? (
             <foreignObject
               x={iconx ? iconx : x + ksl[content.type].icon.x}

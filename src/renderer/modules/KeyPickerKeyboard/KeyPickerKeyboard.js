@@ -269,7 +269,7 @@ class KeyPickerKeyboard extends Component {
   }
 
   render() {
-    const { action, actions, showKB, modifs, superName, disable } = this.state;
+    const { action, actions, showKB, modifs, superName, disable, Keymap } = this.state;
     const { selectedlanguage, kbtype, macros, actTab, superkeys, code, onKeySelect } = this.props;
     const activeTab = actTab != undefined ? actTab : this.state.activeTab;
     const selKey = this.parseKey(code.base + code.modified);
@@ -284,7 +284,7 @@ class KeyPickerKeyboard extends Component {
               {/* <Card.Header>SUPERPOWERS CONFIGURATOR MENU</Card.Header> */}
               <Card.Body className="section">
                 <Row className="rowsection">
-                  <Col xs={3} className="section">
+                  <Col xs={2} className="section">
                     {code.base + code.modified >= 53916 && code.base + code.modified <= 53916 + 64 ? (
                       <Selector
                         action={action}
@@ -305,7 +305,7 @@ class KeyPickerKeyboard extends Component {
                       />
                     )}
                   </Col>
-                  <Col xs={9} className="pickersection">
+                  <Col xs={10} className="pickersection">
                     <Picker
                       actions={actions}
                       action={action}

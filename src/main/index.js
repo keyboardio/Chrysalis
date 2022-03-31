@@ -50,6 +50,9 @@ const webusb = new WebUSB({
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
+// Enable Hot Module Reload in dev
+if (module.hot) module.hot.accept();
+
 let mainWindow;
 let windows = [];
 

@@ -21,6 +21,7 @@ import Focus from "../../api/focus";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -28,26 +29,11 @@ import CardHeader from "@mui/material/CardHeader";
 import KeyboardIcon from "@mui/icons-material/Keyboard";
 import Portal from "@mui/material/Portal";
 import Typography from "@mui/material/Typography";
-import withStyles from "@mui/styles/withStyles";
 
 import { toast } from "react-toastify";
 
 import i18n from "../i18n";
 import { navigate } from "../routerHistory";
-
-const styles = (theme) => ({
-  root: {
-    display: "flex",
-    justifyContent: "center",
-  },
-  card: {
-    margin: theme.spacing(4),
-    maxWidth: "50%",
-  },
-  grow: {
-    flexGrow: 1,
-  },
-});
 
 class Welcome extends React.Component {
   state = {
@@ -77,7 +63,6 @@ class Welcome extends React.Component {
 
   render() {
     let focus = new Focus();
-    const { classes } = this.props;
 
     const device = this.props.device || focus.device;
 
@@ -95,11 +80,21 @@ class Welcome extends React.Component {
     );
 
     return (
-      <div className={classes.root}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <Portal container={this.props.titleElement}>
           {i18n.t("welcome.title")}
         </Portal>
-        <Card className={classes.card}>
+        <Card
+          sx={{
+            margin: 4,
+            maxWidth: "50%",
+          }}
+        >
           <CardHeader
             avatar={
               <Avatar>
@@ -119,7 +114,7 @@ class Welcome extends React.Component {
           </CardContent>
           <CardActions>
             {reconnectButton}
-            <div className={classes.grow} />
+            <Box sx={{ flexGrow: 1 }} />
             <Button
               color="primary"
               variant="outlined"
@@ -133,9 +128,9 @@ class Welcome extends React.Component {
             </Button>
           </CardActions>
         </Card>
-      </div>
+      </Box>
     );
   }
 }
 
-export default withStyles(styles)(Welcome);
+export default Welcome;

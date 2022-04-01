@@ -283,8 +283,23 @@ const ksl = {
 
 class Key extends React.Component {
   render() {
-    const { id, x, y, selected, clicked, centered, iconpresent, icon, iconsize, iconx, icony, content, idArray, disabled } =
-      this.props;
+    const {
+      id,
+      x,
+      y,
+      selected,
+      clicked,
+      onKeyPress,
+      centered,
+      iconpresent,
+      icon,
+      iconsize,
+      iconx,
+      icony,
+      content,
+      idArray,
+      disabled
+    } = this.props;
     return (
       <Style>
         <g className={`keycap ${selected ? "active" : ""} ${disabled ? "disabled" : ""} ${content.type} id-${id}`}>
@@ -414,7 +429,7 @@ class Key extends React.Component {
                   <SelectF13PlusKeys
                     x={x + ksl[content.type].outb.dx}
                     y={y + ksl[content.type].outb.dy}
-                    onSelect={clicked}
+                    onSelect={onKeyPress}
                     selected={selected}
                     value={id}
                     listElements={idArray}

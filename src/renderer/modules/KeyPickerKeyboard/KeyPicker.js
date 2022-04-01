@@ -145,19 +145,19 @@ class KeyPicker extends Component {
     };
     const lansi = { english: ENa };
     let Lang = ENa;
-    if (selectedlanguage == "english") {
-      if (kbtype == "ansi") {
-        if (lansi[selectedlanguage] != undefined) {
-          Lang = lansi[selectedlanguage];
-        }
-      } else {
-        Lang = liso[selectedlanguage];
-      }
-    } else {
-      if (selectedlanguage != "") {
-        if (liso[selectedlanguage] != undefined) Lang = liso[selectedlanguage];
-      }
-    }
+    // if (selectedlanguage == "english") {
+    //   if (kbtype == "ansi") {
+    //     if (lansi[selectedlanguage] != undefined) {
+    //       Lang = lansi[selectedlanguage];
+    //     }
+    //   } else {
+    //     Lang = liso[selectedlanguage];
+    //   }
+    // } else {
+    //   if (selectedlanguage != "") {
+    //     if (liso[selectedlanguage] != undefined) Lang = liso[selectedlanguage];
+    //   }
+    // }
     const os = process.platform;
     const iconlist = {
       Backspace: <BsBackspace />,
@@ -284,6 +284,7 @@ class KeyPicker extends Component {
           clicked={() => {
             key.mod == disableMods || key.move == disableMove ? {} : this.onKeyPress(key.id);
           }}
+          onKeyPress={this.onKeyPress}
           centered={key.centered}
           content={key.content}
           iconpresent={key.icon}

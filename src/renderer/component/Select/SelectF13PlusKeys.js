@@ -83,7 +83,7 @@ const SelectF13PlusKeys = ({ x, y, onSelect, value, listElements, ksl, content, 
     if (content != undefined) {
       setLoad(false);
     }
-  }, [content]);
+  }, [content, value]);
 
   if (load) return null;
   return (

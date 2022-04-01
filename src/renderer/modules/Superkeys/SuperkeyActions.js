@@ -9,7 +9,7 @@ import { SuperkeyPicker } from "../../component/Button";
 import { IconKeysPress, IconKeysTapHold, IconKeysHold, IconKeys2Tap, IconKeys2TapHold } from "../../component/Icon";
 
 // API's
-import i18n from "../i18n";
+import i18n from "../../i18n";
 
 const Style = Styled.div` 
 .keyWrapper {

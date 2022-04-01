@@ -285,6 +285,7 @@ class Key extends React.Component {
   render() {
     const {
       id,
+      keyCode,
       x,
       y,
       selected,
@@ -434,6 +435,7 @@ class Key extends React.Component {
                     value={id}
                     listElements={idArray}
                     content={content}
+                    keyCode={keyCode}
                   />
                 </div>
               </foreignObject>

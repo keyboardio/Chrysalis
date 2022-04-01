@@ -78,6 +78,7 @@ const Style = Styled.div`
 }
 .svgStyle {
 
+    overflow: visible;
 }
 `;
 const IconColor = Styled.span`
@@ -305,6 +306,7 @@ class KeyPicker extends Component {
           iconsize={key.iconsize}
           disabled={key.mod == disableMods || key.move == disableMove || disableAll}
           idArray={key.idArray}
+          keyCode={code}
         />
       );
     });

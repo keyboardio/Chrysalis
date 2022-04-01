@@ -263,8 +263,17 @@ svg text{
   border-radius: 6px;
   padding: 0;
 }
-.accordion .card .card-header{
-  
+.badge.badge-primary {
+    font-weight: 800;
+    padding: 4px 7px;
+    background: rgba(254,0,124,1);
+    border-radius: 16px;
+}
+.badge-circle {
+  opacity: 0;
+}
+.keycap.active .badge-circle{
+  opacity: 1;
 }
 .button {
   font-weight: 600;

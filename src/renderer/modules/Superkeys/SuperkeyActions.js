@@ -35,28 +35,28 @@ const SuperkeyActions = ({
   const rows = [
     {
       icon: <IconKeysPress />,
-      title: i18n.editor.superkeys.actions.tap,
-      description: i18n.editor.superkeys.actions.tapLabel
+      title: i18n.editor.superkeys.actions.tapLabel,
+      description: i18n.editor.superkeys.actions.tap
     },
     {
       icon: <IconKeysHold />,
-      title: i18n.editor.superkeys.actions.hold,
-      description: i18n.editor.superkeys.actions.holdLabel
+      title: i18n.editor.superkeys.actions.holdLabel,
+      description: i18n.editor.superkeys.actions.hold
     },
     {
       icon: <IconKeysTapHold />,
-      title: "Tap & hold",
-      description: "Tap once, tap again and keep holding to activate another key."
+      title: i18n.editor.superkeys.actions.tapAndHoldLabel,
+      description: i18n.editor.superkeys.actions.tapAndHold
     },
     {
       icon: <IconKeys2Tap />,
-      title: "2Tap",
-      description: "Tap twice fast and trigger another key."
+      title: i18n.editor.superkeys.actions.doubleTapLabel,
+      description: i18n.editor.superkeys.actions.doubleTap
     },
     {
       icon: <IconKeys2TapHold />,
-      title: "2Tap & hold",
-      description: "Tap twice fast and hold to see others keyboards crying."
+      title: i18n.editor.superkeys.actions.doubleTapAndHoldLabel,
+      description: i18n.editor.superkeys.actions.doubleTapAndHold
     }
   ];
 

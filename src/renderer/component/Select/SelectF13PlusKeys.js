@@ -31,6 +31,17 @@ const Style = Styled.div`
   }
   .dropdownItemSelected {
     color: ${({ theme }) => theme.styles.dropdown.textButtonColor};
+    position: relative;
+    .badge-circle{
+        width: 8px;
+        height: 8px; 
+        border-radius: 50%;
+        background-color: rgba(254,0,124,1);
+        position: absolute;
+        right: -2px;
+        top: -4px;
+        font-size: 11px;
+    }
     &:hover {
       color: ${({ theme }) => theme.styles.dropdown.textButtonHover};
     }
@@ -70,7 +81,7 @@ const Style = Styled.div`
  * @param {listElements} listElements - The array of objects that hold the elements to be selected.\
  * @returns {<Select>} Dropdown object.
  */
-const SelectF13PlusKeys = ({ x, y, onSelect, value, listElements, ksl, content, selected, disabled }) => {
+const SelectF13PlusKeys = ({ keyCode, onSelect, value, listElements, ksl, content, selected, disabled }) => {
   const [load, setLoad] = React.useState(true);
   const keymapDB = new KeymapDB();
 
@@ -81,6 +92,7 @@ const SelectF13PlusKeys = ({ x, y, onSelect, value, listElements, ksl, content, 
 
   React.useEffect(() => {
     if (content != undefined) {
+      console.log("keyCode: ", keyCode);
       setLoad(false);
     }
   }, [content, value]);
@@ -107,11 +119,16 @@ const SelectF13PlusKeys = ({ x, y, onSelect, value, listElements, ksl, content, 
                 {content.first}
               </text>
             </svg>
+            <div className="badge-circle"></div>
           </div>
         </Dropdown.Toggle>
         <Dropdown.Menu>
           {listElements.map((item, index) => (
-            <Dropdown.Item eventKey={parseInt(item)} key={`f13Plus-${index}`} data-item={item}>
+            <Dropdown.Item
+              eventKey={parseInt(item)}
+              key={`f13Plus-${index}`}
+              className={`${keyCode.base == item ? "active" : ""}`}
+            >
               <div className="dropdownInner">
                 <div className="dropdownItem">{labelKey(item)}</div>
               </div>

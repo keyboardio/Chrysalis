@@ -1,4 +1,4 @@
-Chrysalis 0.8.7
+Chrysalis 0.9.0
 ===============
 **UNRELEASED**
 

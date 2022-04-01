@@ -21,6 +21,7 @@ import PropTypes from "prop-types";
 import Alert from "@mui/material/Alert";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -34,7 +35,6 @@ import MenuItem from "@mui/material/MenuItem";
 import Portal from "@mui/material/Portal";
 import Select from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
-import withStyles from "@mui/styles/withStyles";
 
 import { toast } from "react-toastify";
 
@@ -46,60 +46,6 @@ import i18n from "../i18n";
 const { ipcRenderer } = require("electron");
 
 import { installUdevRules } from "../utils/installUdevRules";
-
-const styles = (theme) => ({
-  loader: {
-    position: "fixed",
-    top: 0,
-    left: 0,
-    right: 0,
-  },
-  main: {
-    width: "auto",
-    display: "block",
-    marginLeft: "auto",
-    marginRight: "auto",
-    maxWidth: "70%",
-    padding: `${theme.spacing(2)} ${theme.spacing(3)}
- ${theme.spacing(3)}`,
-  },
-  preview: {
-    maxWidth: 128,
-    marginBottom: theme.spacing(2),
-    "& .key rect, & .key path, & .key ellipse": {
-      stroke: "#000000",
-    },
-  },
-  card: {
-    marginTop: theme.spacing(5),
-    padding: `${theme.spacing(2)} ${theme.spacing(3)} ${theme.spacing(3)}`,
-  },
-  content: {},
-  selectControl: {
-    display: "flex",
-  },
-  connect: {
-    verticalAlign: "bottom",
-    marginLeft: 65,
-  },
-  cardActions: {
-    justifyContent: "center",
-  },
-  supported: {
-    backgroundColor: theme.palette.secondary.main,
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  error: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-    textAlign: "center",
-  },
-  found: {
-    color: theme.palette.success.main,
-  },
-});
 
 class KeyboardSelect extends React.Component {
   state = {
@@ -251,12 +197,21 @@ class KeyboardSelect extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
     const { scanFoundDevices, devices } = this.state;
 
     let loader = null;
     if (this.state.loading) {
-      loader = <LinearProgress variant="query" className={classes.loader} />;
+      loader = (
+        <LinearProgress
+          variant="query"
+          sx={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+          }}
+        />
+      );
     }
 
     let deviceItems = null;
@@ -277,7 +232,7 @@ class KeyboardSelect extends React.Component {
 
         const icon = (
           <ListItemIcon sx={{ marginRight: 2 }}>
-            <Avatar className={option.path && classes.supported}>
+            <Avatar>
               <KeyboardIcon />
             </Avatar>
           </ListItemIcon>
@@ -299,7 +254,7 @@ class KeyboardSelect extends React.Component {
         <FormControl sx={{ display: "flex" }}>
           <Select
             value={this.state.selectedPortIndex}
-            classes={{ select: classes.selectControl }}
+            sx={{ display: "flex" }}
             onChange={this.selectPort}
           >
             {deviceItems}
@@ -310,7 +265,11 @@ class KeyboardSelect extends React.Component {
 
     if (devices?.length == 0) {
       port = (
-        <Typography variant="body1" color="error" className={classes.error}>
+        <Typography
+          variant="body1"
+          color="error"
+          sx={{ marginTop: 2, marginBottom: 2, textAlign: "center" }}
+        >
           {i18n.t("keyboardSelect.noDevices")}
         </Typography>
       );
@@ -325,7 +284,6 @@ class KeyboardSelect extends React.Component {
       <Button
         variant={devices?.length ? "outlined" : "contained"}
         color={devices?.length ? "secondary" : "primary"}
-        className={scanFoundDevices ? classes.found : null}
         onClick={scanFoundDevices ? null : this.scanDevices}
       >
         {i18n.t("keyboardSelect.scan")}
@@ -382,7 +340,7 @@ class KeyboardSelect extends React.Component {
           variant="contained"
           color="primary"
           onClick={this.onKeyboardConnect}
-          className={classes.connect}
+          sx={{ verticalAlign: "bottom", marginLeft: 65 }}
         >
           {connectContent}
         </Button>
@@ -393,19 +351,45 @@ class KeyboardSelect extends React.Component {
     if (devices?.[this.state.selectedPortIndex]?.device?.components) {
       const Keymap =
         devices[this.state.selectedPortIndex].device.components.keymap;
-      preview = <Keymap index={0} className={classes.preview} />;
+      preview = (
+        <Keymap
+          index={0}
+          sx={[
+            {
+              maxWidth: 128,
+              marginBottom: 2,
+            },
+            {
+              "& .key rect, & .key path, & .key ellipse": {
+                stroke: "#000000",
+              },
+            },
+          ]}
+        />
+      );
     }
 
     return (
       <React.Fragment>
-        <Portal container={this.props.titleElement}>
-          {i18n.t("app.menu.selectAKeyboard")}
-        </Portal>
-        {loader}
-        {permissionWarning}
-
-        <div className={classes.main}>
-          <Card className={classes.card}>
+        {" "}
+        <Box sx={{ paddingBottom: 3 }}>
+          <Portal container={this.props.titleElement}>
+            {i18n.t("app.menu.selectAKeyboard")}
+          </Portal>
+          {loader}
+          {permissionWarning}
+          <Card
+            sx={{
+              boxShadow: 3,
+              width: "auto",
+              display: "block",
+              marginLeft: "auto",
+              marginRight: "auto",
+              maxWidth: "70%",
+              marginTop: 5,
+              padding: "2 3 3",
+            }}
+          >
             <CardContent
               sx={{
                 display: "inline-block",
@@ -416,20 +400,16 @@ class KeyboardSelect extends React.Component {
               {preview}
               {port}
             </CardContent>
-            <CardActions className={classes.cardActions}>
+            <CardActions sx={{ justifyContent: "center" }}>
               {scanDevicesButton}
-              <div className={classes.grow} />
+              <Box sx={{ flexGrow: 1 }} />
               {connectionButton}
             </CardActions>
           </Card>
-        </div>
+        </Box>
       </React.Fragment>
     );
   }
 }
 
-KeyboardSelect.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(KeyboardSelect);
+export default KeyboardSelect;

@@ -18,13 +18,9 @@
 import React from "react";
 import i18n from "i18next";
 
-import withStyles from "@mui/styles/withStyles";
-
 import CategorySelector from "../components/CategorySelector";
 
-const styles = () => ({});
-
-class StenoKeysBase extends React.Component {
+class StenoKeys extends React.Component {
   render() {
     const { keymap, selectedKey, layer, onKeyChange } = this.props;
 
@@ -41,6 +37,5 @@ class StenoKeysBase extends React.Component {
     );
   }
 }
-const StenoKeys = withStyles(styles, { withTheme: true })(StenoKeysBase);
 
 export { StenoKeys as default };

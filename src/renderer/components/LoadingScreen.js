@@ -17,44 +17,54 @@
 
 import React from "react";
 
+import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import withStyles from "@mui/styles/withStyles";
-
 import i18n from "../i18n";
 import { getStatic } from "../config";
-import "./LoadingScreen.css";
-
-const styles = (theme) => ({
-  wrapper: {
-    margin: theme.spacing(4),
-    overflow: "hidden",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "column",
-    padding: theme.spacing(4),
-  },
-  logo: {
-    animationName: "spinning-loader",
-    animationIterationCount: "infinite",
-    animationDuration: "5s",
-    animationTimingFunction: "linear",
-    marginBottom: theme.spacing(4),
-  },
-});
+import { keyframes } from "@mui/system";
 
 function LoadingScreen(props) {
   const logoPath = getStatic("/logo.png");
+
+  const spin = keyframes`
+  from {
+    transform: rotate(0deg);
+    transform-origin: center center;
+  }
+  to {
+    transform: rotate(360deg);
+    transform-origin: center center;
+  }
+`;
+
   return (
-    <div className={props.classes.wrapper}>
-      <div className={props.classes.logo}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        width: 1,
+        mx: "auto",
+        alignContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Box
+        sx={{
+          p: 5,
+          mx: "auto",
+          display: "inline-flex",
+          animation: `${spin} 5s infinite linear`,
+        }}
+      >
         <img src={logoPath} alt={i18n.t("components.logo.altText")} />
-      </div>
-      <Typography component="h2" variant="h2">
-        {i18n.t("components.loading")}
-      </Typography>
-    </div>
+      </Box>
+      <Box sx={{ display: "inline-flex", mx: "auto" }}>
+        <Typography component="h2" variant="h2" sx={{ p: 5 }}>
+          {i18n.t("components.loading")}
+        </Typography>
+      </Box>
+    </Box>
   );
 }
 
-export default withStyles(styles)(LoadingScreen);
+export default LoadingScreen;

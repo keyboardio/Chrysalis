@@ -81,10 +81,6 @@ const SelectF13PlusKeys = ({ x, y, onSelect, value, listElements, ksl, content, 
 
   React.useEffect(() => {
     if (content != undefined) {
-      console.log("listElements: ", listElements);
-      console.log("selected: ", selected);
-      console.log("keymapDB: ", keymapDB.parse(105));
-
       setLoad(false);
     }
   }, [content]);
@@ -92,7 +88,11 @@ const SelectF13PlusKeys = ({ x, y, onSelect, value, listElements, ksl, content, 
   if (load) return null;
   return (
     <Style>
-      <Dropdown onSelect={onSelect} value={value} className={`custom-dropdown dropdown-Fkeys ${disabled ? "disabled" : ""}`}>
+      <Dropdown
+        onSelect={value => onSelect(parseInt(value))}
+        value={value}
+        className={`custom-dropdown dropdown-Fkeys ${disabled ? "disabled" : ""}`}
+      >
         <Dropdown.Toggle id="dropdown-Fkeys">
           <div className="dropdownItemSelected">
             <svg width={65} height={26}>
@@ -111,7 +111,7 @@ const SelectF13PlusKeys = ({ x, y, onSelect, value, listElements, ksl, content, 
         </Dropdown.Toggle>
         <Dropdown.Menu>
           {listElements.map((item, index) => (
-            <Dropdown.Item eventKey={item} key={index}>
+            <Dropdown.Item eventKey={parseInt(item)} key={`f13Plus-${index}`} data-item={item}>
               <div className="dropdownInner">
                 <div className="dropdownItem">{labelKey(item)}</div>
               </div>

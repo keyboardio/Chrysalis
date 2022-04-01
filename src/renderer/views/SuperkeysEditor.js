@@ -495,6 +495,7 @@ class SuperkeysEditor extends React.Component {
   onKeyChange(keyCode) {
     const newData = this.state.superkeys;
     newData[this.state.selectedSuper].actions[this.state.selectedAction] = keyCode;
+    console.log("keyCode: ", keyCode);
     this.setState({
       superkeys: newData,
       modified: true

@@ -104,6 +104,7 @@ class KeyPicker extends Component {
 
   onKeyPress = keycode => {
     const { onKeySelect } = this.props;
+    console.log("onKeyPress: ", keycode);
     onKeySelect(keycode);
   };
 

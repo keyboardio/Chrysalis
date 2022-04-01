@@ -112,7 +112,7 @@ function Header({
             <Button
               onClick={openBoardMenu}
               disabled={!device.urls}
-              className="button"
+              sx={{ color: "inherit" }}
             >
               {device.displayName}
             </Button>

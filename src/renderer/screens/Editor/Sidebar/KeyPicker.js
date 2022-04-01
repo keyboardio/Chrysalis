@@ -18,6 +18,7 @@
 import React from "react";
 import i18n from "i18next";
 
+import Box from "@mui/material/Button";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import Divider from "@mui/material/Divider";
@@ -31,7 +32,6 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Switch from "@mui/material/Switch";
 import Tooltip from "@mui/material/Tooltip";
-import withStyles from "@mui/styles/withStyles";
 
 import Keyboard104 from "../Keyboard104";
 import Collapsible from "../components/Collapsible";
@@ -45,22 +45,7 @@ import LayoutSelect from "./KeyPicker/LayoutSelect";
 
 const db = new KeymapDB();
 
-const styles = (theme) => ({
-  mods: {
-    marginTop: theme.spacing(1),
-  },
-  layout: {
-    marginTop: theme.spacing(2),
-  },
-  modContainer: {
-    margin: `${theme.spacing(2)} 0`,
-  },
-  keyPickButton: {
-    marginBottom: theme.spacing(2),
-  },
-});
-
-class KeyPickerBase extends React.Component {
+class KeyPicker extends React.Component {
   state = {
     pickerOpen: false,
   };
@@ -162,7 +147,7 @@ class KeyPickerBase extends React.Component {
       oneShot = (
         <FormControl
           component="fieldset"
-          className={classes.mods}
+          sx={{ mt: 1 }}
           disabled={
             !db.isInCategory(key.code, "modifier") ||
             db.isInCategory(key.code, "dualuse")
@@ -191,20 +176,20 @@ class KeyPickerBase extends React.Component {
           title={i18n.t("editor.sidebar.keypicker.title")}
           help={i18n.t("editor.sidebar.keypicker.help")}
         >
-          <div className={classes.keyPickButton}>
+          <Box sx={{ mb: 2 }}>
             <Button variant="contained" onClick={this.openPicker}>
               {i18n.t("editor.sidebar.keypicker.pickAKey")}
             </Button>
-          </div>
+          </Box>
           <Divider />
-          <div className={classes.modContainer}>
+          <Box sx={{ m: "2 0" }}>
             <InputLabel>{i18n.t("editor.sidebar.keypicker.mods")}</InputLabel>
             <FormHelperText>
               {i18n.t("editor.sidebar.keypicker.modsHelp")}
             </FormHelperText>
             <FormControl
               component="fieldset"
-              className={classes.mods}
+              sx={{ mt: 1 }}
               disabled={!this.isStandardKey(this.props)}
             >
               <FormGroup row>
@@ -236,10 +221,10 @@ class KeyPickerBase extends React.Component {
               </FormGroup>
             </FormControl>
             {oneShot}
-          </div>
+          </Box>
           <Divider />
           <LayoutSelect
-            className={classes.layout}
+            sx={{ mt: 2 }}
             layout={this.props.layout}
             setLayout={this.props.setLayout}
           />
@@ -260,6 +245,4 @@ class KeyPickerBase extends React.Component {
     );
   }
 }
-const KeyPicker = withStyles(styles, { withTheme: true })(KeyPickerBase);
-
 export { KeyPicker as default };

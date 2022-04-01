@@ -46,7 +46,6 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
-import withStyles from "@mui/styles/withStyles";
 
 import { toast } from "react-toastify";
 const Store = require("electron-store");
@@ -59,41 +58,6 @@ import i18n from "../i18n";
 
 import clearEEPROM from "../utils/clearEEPROM";
 import checkExternalFlasher from "../utils/checkExternalFlasher";
-
-const styles = (theme) => ({
-  root: {
-    display: "flex",
-    justifyContent: "center",
-  },
-  card: {
-    margin: theme.spacing(4),
-    maxWidth: "50%",
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  dropdown: {
-    display: "flex",
-    minWidth: "15em",
-  },
-  custom: {
-    marginTop: "auto",
-    marginBottom: "auto",
-  },
-  repo: {
-    textAlign: "center",
-  },
-  firmwareSelect: {
-    marginLeft: theme.spacing(2),
-  },
-  control: {
-    display: "flex",
-    marginRight: theme.spacing(2),
-  },
-  group: {
-    display: "block",
-  },
-});
 
 class FirmwareUpdate extends React.Component {
   constructor(props) {
@@ -251,7 +215,6 @@ class FirmwareUpdate extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
     const { firmwareFilename } = this.state;
 
     let filename = null;
@@ -311,12 +274,19 @@ class FirmwareUpdate extends React.Component {
     }
 
     const firmwareSelect = (
-      <FormControl className={classes.firmwareSelect}>
+      <FormControl
+        sx={{
+          marginLeft: 2,
+        }}
+      >
         <InputLabel shrink htmlFor="selected-firmware">
           {i18n.t("firmwareUpdate.selected")}
         </InputLabel>
         <Select
-          classes={{ select: classes.dropdown }}
+          sx={{
+            display: "flex",
+            minWidth: "15em",
+          }}
           value={this.state.selected}
           input={<Input id="selected-firmware" />}
           onChange={this.selectFirmware}
@@ -324,7 +294,12 @@ class FirmwareUpdate extends React.Component {
           {hasDefaultFirmware && defaultFirmwareItem}
           {hasExperimentalFirmware && experimentalFirmwareItem}
           <MenuItem selected={this.state.selected == "custom"} value="custom">
-            <ListItemIcon className={classes.custom}>
+            <ListItemIcon
+              sx={{
+                marginTop: "auto",
+                marginBottom: "auto",
+              }}
+            >
               <BuildIcon />
             </ListItemIcon>
             <ListItemText
@@ -371,16 +346,26 @@ class FirmwareUpdate extends React.Component {
     );
 
     return (
-      <div className={classes.root}>
+      <div
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <Portal container={this.props.titleElement}>
           {i18n.t("app.menu.firmwareUpdate")}
         </Portal>
-        <Card className={classes.card}>
+        <Card
+          sx={{
+            margin: 4,
+            maxWidth: "50%",
+          }}
+        >
           <CardContent>
             <Typography component="p" gutterBottom>
               {i18n.t("firmwareUpdate.description")}
             </Typography>
-            <Typography component="p" gutterBottom className={classes.repo}>
+            <Typography component="p" gutterBottom sx={{ textAlign: "center" }}>
               <a href="https://github.com/keyboardio/Chrysalis-Firmware-Bundle#readme">
                 Chrysalis-Firmware-Bundle
               </a>
@@ -397,11 +382,14 @@ class FirmwareUpdate extends React.Component {
             <Typography variant="subtitle1">
               {i18n.t("firmwareUpdate.options.title")}
             </Typography>
-            <FormControl className={classes.group}>
+            <FormControl sx={{ display: "block" }}>
               <FormControlLabel
-                className={classes.control}
                 control={resetOnFlashSwitch}
-                classes={{ label: classes.grow }}
+                sx={{
+                  flexGrow: 1,
+                  display: "flex",
+                  marginRight: 2,
+                }}
                 labelPlacement="end"
                 label={i18n.t("firmwareUpdate.options.onFlash")}
               />
@@ -410,7 +398,7 @@ class FirmwareUpdate extends React.Component {
           <Divider variant="middle" />
           <CardActions>
             {firmwareSelect}
-            <div className={classes.grow} />
+            <div sx={{ flexGrow: 1 }} />
             <SaveChangesButton
               icon={<CloudUploadIcon />}
               onClick={
@@ -440,4 +428,4 @@ class FirmwareUpdate extends React.Component {
   }
 }
 
-export default withStyles(styles)(FirmwareUpdate);
+export default FirmwareUpdate;

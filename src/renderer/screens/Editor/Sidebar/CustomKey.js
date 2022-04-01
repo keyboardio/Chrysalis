@@ -23,16 +23,13 @@ import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import withStyles from "@mui/styles/withStyles";
 
 import Collapsible from "../components/Collapsible";
 import { KeymapDB } from "../../../../api/keymap";
 
 const db = new KeymapDB();
 
-const styles = () => ({});
-
-class CustomKeyBase extends React.Component {
+class CustomKey extends React.Component {
   onKeyChange = (event) => {
     let value = event.target.value;
     if (value < 0) {
@@ -45,7 +42,7 @@ class CustomKeyBase extends React.Component {
   };
 
   render() {
-    const { classes, keymap, selectedKey, layer } = this.props;
+    const { keymap, selectedKey, layer } = this.props;
     const key = keymap.custom[layer][selectedKey];
 
     return (
@@ -56,7 +53,7 @@ class CustomKeyBase extends React.Component {
           expanded={db.isInCategory(key.code, "unknown")}
         >
           <div>
-            <FormControl className={classes.form}>
+            <FormControl>
               <InputLabel>{i18n.t("editor.sidebar.custom.label")}</InputLabel>
               <Input
                 type="number"
@@ -72,6 +69,5 @@ class CustomKeyBase extends React.Component {
     );
   }
 }
-const CustomKey = withStyles(styles, { withTheme: true })(CustomKeyBase);
 
 export { CustomKey as default };

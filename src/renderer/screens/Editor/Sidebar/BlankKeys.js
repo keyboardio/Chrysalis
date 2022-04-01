@@ -18,17 +18,13 @@
 import React from "react";
 import i18n from "i18next";
 
-import withStyles from "@mui/styles/withStyles";
-
 import Collapsible from "../components/Collapsible";
 import KeyButton from "../components/KeyButton";
 import { KeymapDB } from "../../../../api/keymap";
 
 const db = new KeymapDB();
 
-const styles = () => ({});
-
-class BlankKeysBase extends React.Component {
+class BlankKeys extends React.Component {
   render() {
     const { keymap, selectedKey, layer, onKeyChange } = this.props;
     const key = keymap.custom[layer][selectedKey];
@@ -60,6 +56,5 @@ class BlankKeysBase extends React.Component {
     );
   }
 }
-const BlankKeys = withStyles(styles, { withTheme: true })(BlankKeysBase);
 
 export { BlankKeys as default };

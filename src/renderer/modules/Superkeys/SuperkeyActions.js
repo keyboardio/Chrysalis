@@ -2,9 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import Styled from "styled-components";
 
+// Components
 import { SuperkeyPicker } from "../../component/Button";
 
+// Icons
 import { IconKeysPress, IconKeysTapHold, IconKeysHold, IconKeys2Tap, IconKeys2TapHold } from "../../component/Icon";
+
+// API's
+import i18n from "../i18n";
 
 const Style = Styled.div` 
 .keyWrapper {
@@ -30,13 +35,13 @@ const SuperkeyActions = ({
   const rows = [
     {
       icon: <IconKeysPress />,
-      title: "Tap",
-      description: "No secrets, tap once and activate the key."
+      title: i18n.editor.superkeys.actions.tap,
+      description: i18n.editor.superkeys.actions.tapLabel
     },
     {
       icon: <IconKeysHold />,
-      title: "Hold",
-      description: "Hold the key top trigger a second key."
+      title: i18n.editor.superkeys.actions.hold,
+      description: i18n.editor.superkeys.actions.holdLabel
     },
     {
       icon: <IconKeysTapHold />,

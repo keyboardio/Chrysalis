@@ -215,6 +215,18 @@ const English = {
         cancelButton: "Cancel",
         applyButton: "Remove"
       },
+      actions: {
+        tapLabel: "Tap",
+        tap: "No secrets, tap once and activate the key.",
+        holdLabel: "Hold",
+        hold: "Hold the key top trigger a second key.",
+        tapAndHoldLabel: "Tap & hold",
+        tapAndHold: "Tap once, tap again and keep holding to activate another key.",
+        doubleTapLabel: "2Tap",
+        doubleTap: "Tap twice fast and trigger another key.",
+        doubleTapAndHoldLabel: "2Tap & hold",
+        doubleTapAndHold: "Tap twice fast and hold to see others keyboards crying."
+      },
       callout:
         "<p>Wow! Superpowers, my friend!</p><p>Superkeys allow up to 5 different functions in a single key. You activate each function with a tap, hold, tap and hold, double-tap or double-tap and hold. This allows you to create crazy combinations to boost your workflow.</p>",
       tooltip:

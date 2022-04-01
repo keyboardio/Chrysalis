@@ -23,6 +23,7 @@ import fs from "fs";
 import { toast } from "react-toastify";
 import jsonStringify from "json-stringify-pretty-compact";
 
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import Dialog from "@mui/material/Dialog";
@@ -34,7 +35,6 @@ import IconButton from "@mui/material/IconButton";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import Typography from "@mui/material/Typography";
-import withStyles from "@mui/styles/withStyles";
 
 import ConfirmationDialog from "../../../../components/ConfirmationDialog";
 
@@ -44,55 +44,6 @@ import { KeymapDB } from "../../../../../api/keymap";
 import { getStaticPath } from "../../../../config";
 
 const db = new KeymapDB();
-
-const sidebarWidth = 300;
-
-const styles = (theme) => ({
-  closeButton: {
-    position: "absolute",
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: theme.palette.grey[500],
-  },
-  toolbar: {
-    display: "flex",
-    flexWrap: "wrap",
-    marginBottom: theme.spacing(2),
-    marginTop: -theme.spacing(1),
-  },
-  libraryImport: {
-    minWidth: "15em",
-    marginRight: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
-  libraryImportRoot: {
-    marginBottom: theme.spacing(2),
-  },
-  fileImportRoot: {
-    marginBottom: theme.spacing(2),
-  },
-  fileExportRoot: {
-    marginBottom: theme.spacing(2),
-  },
-  drawer: {
-    width: sidebarWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: sidebarWidth,
-    marginTop: 65,
-  },
-  drawerContainer: {
-    overflow: "auto",
-    padding: theme.spacing(3),
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    marginLeft: sidebarWidth,
-    width: `calc(100% - ${sidebarWidth}px)`,
-  },
-});
 
 const loadLayout = (fileName) => {
   const logger = new Log();
@@ -143,7 +94,7 @@ const loadLayout = (fileName) => {
   };
 };
 
-class LibraryImportBase extends React.Component {
+class LibraryImport extends React.Component {
   selectLibraryItem = (item) => () => {
     this.loadFromLibrary(item);
   };
@@ -162,7 +113,7 @@ class LibraryImportBase extends React.Component {
   };
 
   render() {
-    const { classes, library, layoutName } = this.props;
+    const { library, layoutName } = this.props;
 
     if (library.length == 0) return null;
 
@@ -182,22 +133,18 @@ class LibraryImportBase extends React.Component {
     });
 
     return (
-      <div className={classes.libraryImportRoot}>
+      <Box sx={{ marginBottom: 2 }}>
         <Typography variant="h5">
           {i18n.t("editor.sharing.loadFromLibrary")}
         </Typography>
         <MenuList>{layouts}</MenuList>
-
         <Divider />
-      </div>
+      </Box>
     );
   }
 }
-const LibraryImport = withStyles(styles, { withTheme: true })(
-  LibraryImportBase
-);
 
-class FileImportBase extends React.Component {
+class FileImport extends React.Component {
   importFromFile = () => {
     const files = Electron.remote.dialog.showOpenDialog({
       title: i18n.t("editor.sharing.selectLoadFile"),
@@ -221,20 +168,17 @@ class FileImportBase extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
-
     return (
-      <div className={classes.fileImportRoot}>
+      <Box sx={{ mb: 2 }}>
         <Button variant="outlined" onClick={this.importFromFile}>
           {i18n.t("editor.sharing.loadFromFile")}
         </Button>
-      </div>
+      </Box>
     );
   }
 }
-const FileImport = withStyles(styles, { withTheme: true })(FileImportBase);
 
-class ExportToFileBase extends React.Component {
+class ExportToFile extends React.Component {
   exportToFile = () => {
     const { keymap, colormap } = this.props;
     const data = {
@@ -261,20 +205,17 @@ class ExportToFileBase extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
-
     return (
-      <div className={classes.fileExportRoot}>
+      <Box sx={{ mb: 2 }}>
         <Button variant="outlined" onClick={this.exportToFile}>
           {i18n.t("editor.sharing.exportToFile")}
         </Button>
-      </div>
+      </Box>
     );
   }
 }
-const ExportToFile = withStyles(styles, { withTheme: true })(ExportToFileBase);
 
-class LayoutSharingBase extends React.Component {
+class LayoutSharing extends React.Component {
   constructor(props) {
     super(props);
 
@@ -349,8 +290,7 @@ class LayoutSharingBase extends React.Component {
   };
 
   render() {
-    const { classes, open, onClose, theme, keymap, colormap, ...others } =
-      this.props;
+    const { open, onClose, theme, keymap, colormap, ...others } = this.props;
     const { layout, layoutName, library } = this.state;
 
     const focus = new Focus();
@@ -370,14 +310,20 @@ class LayoutSharingBase extends React.Component {
       />
     );
 
+    const sidebarWidth = 300;
+
     return (
       <Dialog open={open} onClose={onClose} fullScreen>
         <DialogTitle>
           <Typography>{i18n.t("editor.sharing.title")}</Typography>
           <IconButton
             onClick={onClose}
-            className={classes.closeButton}
             size="large"
+            sx={{
+              position: "absolute",
+              right: 1,
+              top: 1,
+            }}
           >
             <CloseIcon />
           </IconButton>
@@ -385,14 +331,19 @@ class LayoutSharingBase extends React.Component {
         <Divider />
         <DialogContent>
           <Drawer
-            className={classes.drawer}
             variant="permanent"
             anchor="left"
-            classes={{
-              paper: classes.drawerPaper,
+            sx={{
+              width: sidebarWidth,
+              flexShrink: 0,
             }}
           >
-            <div className={classes.drawerContainer}>
+            <Box
+              sx={{
+                overflow: "auto",
+                padding: 3,
+              }}
+            >
               <LibraryImport
                 setLayout={this.setLayout}
                 library={library}
@@ -418,17 +369,22 @@ class LayoutSharingBase extends React.Component {
               >
                 {i18n.t("editor.sharing.importConfirm.contents")}
               </ConfirmationDialog>
-            </div>
+            </Box>
           </Drawer>
-
-          <div className={classes.content}>{keymapWidget}</div>
+          <Box
+            sx={{
+              flexGrow: 1,
+              padding: 3,
+              marginLeft: sidebarWidth,
+              width: `calc(100% - ${sidebarWidth}px)`,
+            }}
+          >
+            {keymapWidget}
+          </Box>
         </DialogContent>
       </Dialog>
     );
   }
 }
-const LayoutSharing = withStyles(styles, { withTheme: true })(
-  LayoutSharingBase
-);
 
 export { LayoutSharing as default };

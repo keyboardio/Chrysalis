@@ -18,13 +18,9 @@
 import React from "react";
 import i18n from "i18next";
 
-import withStyles from "@mui/styles/withStyles";
-
 import CategorySelector from "../components/CategorySelector";
 
-const styles = () => ({});
-
-class LeaderKeysBase extends React.Component {
+class LeaderKeys extends React.Component {
   render() {
     const { keymap, selectedKey, layer, onKeyChange } = this.props;
 
@@ -41,6 +37,5 @@ class LeaderKeysBase extends React.Component {
     );
   }
 }
-const LeaderKeys = withStyles(styles, { withTheme: true })(LeaderKeysBase);
 
 export { LeaderKeys as default };

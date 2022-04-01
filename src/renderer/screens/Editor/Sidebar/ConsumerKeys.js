@@ -21,7 +21,6 @@ import i18n from "i18next";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import withStyles from "@mui/styles/withStyles";
 
 import Collapsible from "../components/Collapsible";
 import KeyButton from "../components/KeyButton";
@@ -35,7 +34,7 @@ const styles = (theme) => ({
   },
 });
 
-const VolumeKeys = withStyles(styles)((props) => {
+const VolumeKeys = (props) => {
   const keys = [
     db.lookup(18658), // mute
     db.lookup(18665), // up
@@ -54,7 +53,7 @@ const VolumeKeys = withStyles(styles)((props) => {
   });
 
   return (
-    <Card variant="outlined" className={props.classes.card}>
+    <Card variant="outlined">
       <CardContent>
         <Typography color="textSecondary" gutterBottom>
           {i18n.t("editor.sidebar.consumer.volume")}
@@ -64,9 +63,9 @@ const VolumeKeys = withStyles(styles)((props) => {
       </CardContent>
     </Card>
   );
-});
+};
 
-const MediaKeys = withStyles(styles)((props) => {
+const MediaKeys = (props) => {
   const keys = [
     db.lookup(18614), // prev
     db.lookup(18613), // next track
@@ -86,7 +85,7 @@ const MediaKeys = withStyles(styles)((props) => {
   });
 
   return (
-    <Card variant="outlined" className={props.classes.card}>
+    <Card variant="outlined">
       <CardContent>
         <Typography color="textSecondary" gutterBottom>
           {i18n.t("editor.sidebar.consumer.media")}
@@ -96,9 +95,9 @@ const MediaKeys = withStyles(styles)((props) => {
       </CardContent>
     </Card>
   );
-});
+};
 
-const BrightnessKeys = withStyles(styles)((props) => {
+const BrightnessKeys = (props) => {
   const keys = [
     db.lookup(18543), // up
     db.lookup(18544), // down
@@ -116,7 +115,7 @@ const BrightnessKeys = withStyles(styles)((props) => {
   });
 
   return (
-    <Card variant="outlined" className={props.classes.card}>
+    <Card variant="outlined">
       <CardContent>
         <Typography color="textSecondary" gutterBottom>
           {i18n.t("editor.sidebar.consumer.brightness")}
@@ -126,9 +125,9 @@ const BrightnessKeys = withStyles(styles)((props) => {
       </CardContent>
     </Card>
   );
-});
+};
 
-class ConsumerKeysBase extends React.Component {
+class ConsumerKeys extends React.Component {
   render() {
     const { keymap, selectedKey, layer, onKeyChange } = this.props;
     const key = keymap.custom[layer][selectedKey];
@@ -151,6 +150,5 @@ class ConsumerKeysBase extends React.Component {
     );
   }
 }
-const ConsumerKeys = withStyles(styles, { withTheme: true })(ConsumerKeysBase);
 
 export { ConsumerKeys as default };

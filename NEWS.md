@@ -8,13 +8,26 @@ Chrysalis now supports adding the dedicated OneShot cancel key to the keymap,
 and also allows us to change whether Escape will cancel one-shot keys too -
 enabled by default with the new firmwares shipped with Chrysalis.
 
+Support for the upcoming Keyboardio Model 100 was added.
+
+Chrysalis now ships with a custom Keyboardio color theme.
+
+The macOS builds of Chrysalis are now Universal packages, and should work on
+both x86-64 and M1 hardware.
+
 ## Bugfixes
 
 Chrysalis should now launch properly on Linux distributions that aren't based on Debian.
 
+Chrysalis' communication with the keyboard should be much more stable on macOS.
+
 When selecting a layout used on the host other than the default `English (US)`,
 Chrysalis will now display the shifted symbols correctly too, when the shift
 modifier is enabled for a key.
+
+Detecting hotplug events - when keyboards are connected or disconnected - has
+been greatly improved, and Chrysalis should be more responsive to these events
+now.
 
 ## Firmware update
 
@@ -28,6 +41,15 @@ Chrysalis now has a new item in the menu: `Changelog`, which displays this very
 news file at the time of building the release. With this available, one can
 easily look at what changed between their previous version and the current one,
 without leaving Chrysalis itself.
+
+The layout editor sidebar had some of its sections redone for more clarity and
+easier access.
+
+The "System Information" and "Feedback" menu items have been combined into a
+single screen, as both are about bug reporting.
+
+"Layout sharing" has been renamed to "Backup and Restore", because that's what
+it essentially is.
 
 Chrysalis 0.8.6
 ===============

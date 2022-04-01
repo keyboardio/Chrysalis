@@ -23,6 +23,7 @@ import "typeface-roboto/index.css";
 import "typeface-source-code-pro/index.css";
 
 import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
@@ -33,12 +34,6 @@ import withStyles from "@mui/styles/withStyles";
 
 import BoardMenu from "./BoardMenu";
 import MainMenu from "./MainMenu/MainMenu";
-
-const styles = (theme) => ({
-  grow: {
-    flexGrow: 1,
-  },
-});
 
 function Header({
   classes,
@@ -107,7 +102,7 @@ function Header({
             id="page-title"
             component="div"
           />
-          <div className={classes.grow} />
+          <Box sx={{ flexGrow: 1 }} />
           {device && (
             <Button
               onClick={openBoardMenu}
@@ -130,4 +125,4 @@ function Header({
   );
 }
 
-export default withStyles(styles)(Header);
+export default withStyles({})(Header);

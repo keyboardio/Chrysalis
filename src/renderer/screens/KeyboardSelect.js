@@ -276,7 +276,7 @@ class KeyboardSelect extends React.Component {
         }
 
         const icon = (
-          <ListItemIcon>
+          <ListItemIcon sx={{ marginRight: 2 }}>
             <Avatar className={option.path && classes.supported}>
               <KeyboardIcon />
             </Avatar>

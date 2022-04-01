@@ -23,17 +23,20 @@ const { ipcRenderer } = require("electron");
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Collapse from "@mui/material/Collapse";
 import FilledInput from "@mui/material/FilledInput";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import FormGroup from "@mui/material/FormGroup";
+import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Portal from "@mui/material/Portal";
 import Select from "@mui/material/Select";
 import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
-import withStyles from "@mui/styles/withStyles";
 
 import {
   KeyboardSettings,
@@ -45,46 +48,6 @@ import Focus from "../../api/focus";
 
 const Store = require("electron-store");
 const settings = new Store();
-
-const styles = (theme) => ({
-  root: {
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
-    margin: `0px ${theme.spacing(8)}`,
-  },
-  title: {
-    marginTop: theme.spacing(4),
-    marginBottom: theme.spacing(1),
-  },
-  control: {
-    display: "flex",
-    marginRight: theme.spacing(2),
-  },
-  group: {
-    display: "block",
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  flex: {
-    display: "flex",
-  },
-  select: {
-    paddingTop: theme.spacing(1),
-    width: 200,
-  },
-  advanced: {
-    display: "flex",
-    justifyContent: "center",
-    marginTop: theme.spacing(4),
-    "& button": {
-      textTransform: "none",
-      "& span svg": {
-        marginLeft: "1.5em",
-      },
-    },
-  },
-});
 
 class Preferences extends React.Component {
   state = {
@@ -141,7 +104,7 @@ class Preferences extends React.Component {
   };
 
   render() {
-    const { classes, darkMode, toggleDarkMode } = this.props;
+    const { darkMode, toggleDarkMode } = this.props;
 
     const language = i18n.language;
     const languages = Object.keys(i18n.options.resources).map((code) => {
@@ -153,19 +116,13 @@ class Preferences extends React.Component {
       );
     });
 
-    const languageSelect = (
-      <Select
-        value={language}
-        variant="filled"
-        onChange={this.setLanguage}
-        input={<FilledInput classes={{ input: classes.select }} />}
-      >
-        {languages}
-      </Select>
-    );
-
     const darkModeSwitch = (
-      <Switch checked={darkMode} onChange={toggleDarkMode} value="devtools" />
+      <Switch
+        checked={darkMode}
+        onChange={toggleDarkMode}
+        value="devtools"
+        sx={{ mx: 3 }}
+      />
     );
 
     const devToolsSwitch = (
@@ -173,6 +130,7 @@ class Preferences extends React.Component {
         checked={this.state.devTools}
         onChange={this.toggleDevTools}
         value="devtools"
+        sx={{ mx: 3 }}
       />
     );
 
@@ -181,35 +139,43 @@ class Preferences extends React.Component {
         checked={this.state.verboseFocus}
         onChange={this.toggleVerboseFocus}
         value="verboseFocus"
+        sx={{ mx: 3 }}
       />
     );
 
     return (
-      <div className={classes.root}>
+      <Box sx={{ py: 2, px: 2, margin: "0 8" }}>
         <Portal container={this.props.titleElement}>
           {i18n.t("app.menu.preferences")}
         </Portal>
         <Typography
           variant="subtitle1"
           component="h2"
-          className={classes.title}
+          sx={{
+            marginTop: 4,
+            marginBottom: 1,
+          }}
         >
           {i18n.t("preferences.interface")}
         </Typography>
         <Card>
           <CardContent>
+            <FormControl variant="standard" fullWidth={true}>
+              <InputLabel>{i18n.t("preferences.language")}</InputLabel>
+              <Select
+                value={language}
+                sx={{ mb: 2 }}
+                onChange={this.setLanguage}
+                label={i18n.t("preferences.language")}
+                input={<FilledInput sx={{}} />}
+              >
+                {languages}
+              </Select>
+            </FormControl>
             <FormControlLabel
-              className={classes.control}
-              classes={{ label: classes.grow }}
-              control={languageSelect}
-              labelPlacement="start"
-              label={i18n.t("preferences.language")}
-            />
-            <FormControlLabel
-              className={classes.control}
-              classes={{ label: classes.grow }}
               control={darkModeSwitch}
-              labelPlacement="start"
+              sx={{ display: "flex", marginRight: 2 }}
+              labelPlacement="end"
               label={i18n.t("preferences.darkMode")}
             />
           </CardContent>
@@ -221,34 +187,47 @@ class Preferences extends React.Component {
             inContext={this.props.inContext}
           />
         )}
-        <div className={classes.advanced}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: 4,
+            "& button": {
+              textTransform: "none",
+              "& span svg": {
+                marginLeft: "1.5em",
+              },
+            },
+          }}
+        >
           <Button onClick={this.toggleAdvanced}>
             {i18n.t("preferences.advanced")}
             {this.state.advanced ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
           </Button>
-        </div>
+        </Box>
         <Collapse in={this.state.advanced} timeout="auto" unmountOnExit>
           <Typography
             variant="subtitle1"
             component="h2"
-            className={classes.title}
+            sx={{
+              marginTop: 4,
+              marginBottom: 1,
+            }}
           >
             {i18n.t("preferences.devtools")}
           </Typography>
           <Card>
             <CardContent>
               <FormControlLabel
-                className={classes.control}
-                classes={{ label: classes.grow }}
+                sx={{ display: "flex", marginRight: 2 }}
                 control={devToolsSwitch}
-                labelPlacement="start"
+                labelPlacement="end"
                 label={i18n.t("preferences.devtools")}
               />
               <FormControlLabel
-                className={classes.control}
-                classes={{ label: classes.grow }}
+                sx={{ display: "flex", marginRight: 2 }}
                 control={verboseSwitch}
-                labelPlacement="start"
+                labelPlacement="end"
                 label={i18n.t("preferences.verboseFocus")}
               />
             </CardContent>
@@ -261,13 +240,9 @@ class Preferences extends React.Component {
             />
           )}
         </Collapse>
-      </div>
+      </Box>
     );
   }
 }
 
-Preferences.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(Preferences);
+export default Preferences;

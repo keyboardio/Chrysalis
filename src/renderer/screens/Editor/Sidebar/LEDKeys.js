@@ -18,13 +18,9 @@
 import React from "react";
 import i18n from "i18next";
 
-import withStyles from "@mui/styles/withStyles";
-
 import CategorySelector from "../components/CategorySelector";
 
-const styles = () => ({});
-
-class LEDKeysBase extends React.Component {
+class LEDKeys extends React.Component {
   render() {
     const { keymap, selectedKey, layer, onKeyChange, colormap } = this.props;
 
@@ -45,6 +41,4 @@ class LEDKeysBase extends React.Component {
     );
   }
 }
-const LEDKeys = withStyles(styles, { withTheme: true })(LEDKeysBase);
-
 export { LEDKeys as default };

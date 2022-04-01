@@ -77,8 +77,9 @@ const Style = Styled.div`
   }
 }
 .svgStyle {
-
     overflow: visible;
+    max-width:1170px; 
+    min-width: 860px;
 }
 `;
 const IconColor = Styled.span`
@@ -314,7 +315,7 @@ class KeyPicker extends Component {
       <Style>
         <Container fluid className="keyboard">
           <Row className="keys">
-            <svg className="svgStyle" width="1300px" height="260px">
+            <svg className="svgStyle" viewBox="0 0 1070 260" preserveAspectRatio="xMidYMin slice">
               {keyboard}
               <defs>
                 <linearGradient id={`paint_gradient`} x1="0%" y1="0%" x2="100%" y2="0%">

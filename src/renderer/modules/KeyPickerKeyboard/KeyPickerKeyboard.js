@@ -9,40 +9,9 @@ import Selector from "../../components/KeyManager/Selector";
 
 // React Components
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Card from "react-bootstrap/Card";
 
 const Style = Styled.div`
-width: 100%;
-justify-content: center;
-display: flex;
 
-.svgContainer{
-  height:100%;
-  min-width: 60vw;
-  max-height: 20vh;
-}
-.configurator {
-  z-index: 100;
-  background-color: transparent;
-  width: 100%;
-  padding: 0;
-  bottom: 10px;
-  position: relative;
-  border-radius: 10px;
-  .rows {
-    margin: 0px;
-    padding: 0px;
-    justify-content:center;
-    .main-card{
-      border: none;
-      box-shadow: none;
-      background-color: transparent;
-      padding: 0;
-      width: -webkit-fill-available;
-  }
-}
 .type-card {
     min-height: 100%;
 }
@@ -118,11 +87,7 @@ display: flex;
   color: ${({ theme }) => theme.colors.button.text};
   background-color: ${({ theme }) => theme.card.background};
 }
-.fixed-width {
-  max-width: 321px;
-  min-width: 321px;
-  margin-top: 31px;
-}
+
 .Tabstyle {
   margin-left: 322px;
   margin-top: -31px;
@@ -278,50 +243,43 @@ class KeyPickerKeyboard extends Component {
 
     return (
       <Style>
-        <Container fluid className="configurator align-self-end">
-          <Row className="rows">
-            <Card className="main-card overflow">
-              {/* <Card.Header>SUPERPOWERS CONFIGURATOR MENU</Card.Header> */}
-              <Card.Body className="section">
-                <Row className="rowsection">
-                  <Col xs={2} className="section">
-                    {code.base + code.modified >= 53916 && code.base + code.modified <= 53916 + 64 ? (
-                      <Selector
-                        action={action}
-                        actions={actions}
-                        selKeys={selKeys}
-                        onKeySelect={onKeySelect}
-                        superkeys={superkeys}
-                        keyCode={code}
-                      />
-                    ) : (
-                      <Keys
-                        selKey={selKey}
-                        activeKB={showKB}
-                        keyCode={code}
-                        macros={macros}
-                        onKeySelect={onKeySelect}
-                        activeTab={activeTab}
-                      />
-                    )}
-                  </Col>
-                  <Col xs={10} className="pickersection">
-                    <Picker
-                      actions={actions}
-                      action={action}
-                      disable={disable}
-                      baseCode={code.base}
-                      modCode={code.modified}
-                      onKeySelect={onKeySelect}
-                      activeTab={activeTab}
-                      selectedlanguage={selectedlanguage}
-                      kbtype={kbtype}
-                    />
-                  </Col>
-                </Row>
-              </Card.Body>
-            </Card>
-          </Row>
+        <div className="singleViewWrapper">
+          <div className="keyEnhance">keyEnhance</div>
+          <div className="keyBoard">
+            <Picker
+              actions={actions}
+              action={action}
+              disable={disable}
+              baseCode={code.base}
+              modCode={code.modified}
+              onKeySelect={onKeySelect}
+              activeTab={activeTab}
+              selectedlanguage={selectedlanguage}
+              kbtype={kbtype}
+            />
+          </div>
+        </div>
+
+        <Container fluid>
+          {code.base + code.modified >= 53916 && code.base + code.modified <= 53916 + 64 ? (
+            <Selector
+              action={action}
+              actions={actions}
+              selKeys={selKeys}
+              onKeySelect={onKeySelect}
+              superkeys={superkeys}
+              keyCode={code}
+            />
+          ) : (
+            <Keys
+              selKey={selKey}
+              activeKB={showKB}
+              keyCode={code}
+              macros={macros}
+              onKeySelect={onKeySelect}
+              activeTab={activeTab}
+            />
+          )}
         </Container>
       </Style>
     );

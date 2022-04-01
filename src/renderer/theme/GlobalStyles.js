@@ -47,9 +47,13 @@ const GlobalStyles = createGlobalStyle`
         background-image: url(${({ theme }) => theme.body.backgroundImage2x});
       }
   }
-
+  #app {
+    display: grid;
+    grid-template-columns: 90px auto;
+  }
   div.main-container{
     padding-left: calc(90px + 8px);
+    padding-left: 8px;
     padding-right: 8px;
     
     // overflow: auto;
@@ -952,11 +956,15 @@ div.card.card-preferences .card-body {
   text-align: left;
 }
 @media screen and (min-width: 1000px) {
+  #app {
+    grid-template-columns: 120px auto;
+  }
   .bs-tooltip-right.tooltipMenu {
     display: none!important;
   }
   div.main-container {
     padding-left: calc(120px + 30px);
+    padding-left: 30px;
     padding-right: 30px;
   }
   .Toastify__toast-container--top-right {

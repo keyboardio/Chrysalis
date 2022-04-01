@@ -67,13 +67,7 @@ flex-direction: column;
     margin-top: 0.4rem;
     width: inherit;
   }
-  .keyboardcontainer {
-    margin-right: auto;
-    margin-left: auto;
-    width: 1440px;
-    height: -webkit-fill-available;
-    display: flex;
-  }
+ 
   .save-row {
     position: absolute;
     right: 30px;

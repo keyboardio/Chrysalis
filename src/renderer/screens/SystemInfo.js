@@ -20,6 +20,7 @@ import React from "react";
 import Focus from "../../api/focus";
 import Log from "../../api/log";
 
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -35,7 +36,6 @@ import MuiDialogTitle from "@mui/material/DialogTitle";
 import Portal from "@mui/material/Portal";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import withStyles from "@mui/styles/withStyles";
 
 import { ipcRenderer, Electron } from "electron";
 
@@ -51,29 +51,6 @@ import jsonStringify from "json-stringify-pretty-compact";
 import { v4 as uuidv4 } from "uuid";
 
 import i18n from "../i18n";
-
-const styles = (theme) => ({
-  root: {
-    display: "flex",
-    justifyContent: "center",
-  },
-  dialogRoot: {
-    margin: 0,
-    padding: theme.spacing(2),
-  },
-  card: {
-    margin: theme.spacing(4),
-    maxWidth: "50%",
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  dialogButtons: {
-    position: "absolute",
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-  },
-});
 
 class SystemInfo extends React.Component {
   state = {
@@ -156,26 +133,35 @@ class SystemInfo extends React.Component {
       </Button>
     );
 
-    const DialogTitle = withStyles(styles)((props) => {
+    const DialogTitle = (props) => {
       const { children, classes, ...other } = props;
       return (
         <MuiDialogTitle
           disableTypography
-          className={classes.dialogRoot}
+          sx={{
+            margin: 0,
+            padding: 2,
+          }}
           {...other}
         >
           <Typography variant="h6">{children}</Typography>
-          <div className={classes.dialogButtons}>
+          <Box
+            sx={{
+              position: "absolute",
+              right: 1,
+              top: 1,
+            }}
+          >
             <Button color="primary" onClick={this.saveBundle}>
               {i18n.t("systeminfo.saveBundle")}
             </Button>
             <IconButton onClick={this.closeViewBundle} size="large">
               <CloseIcon />
             </IconButton>
-          </div>
+          </Box>
         </MuiDialogTitle>
       );
-    });
+    };
 
     const viewDialog = (
       <Dialog
@@ -197,11 +183,16 @@ class SystemInfo extends React.Component {
     );
 
     return (
-      <div className={classes.root}>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
         <Portal container={this.props.titleElement}>
           {i18n.t("systeminfo.title")}
         </Portal>
-        <Card className={classes.card}>
+        <Card
+          sx={{
+            margin: 4,
+            maxWidth: "50%",
+          }}
+        >
           <CardHeader
             avatar={<img src={logo} alt={i18n.t("components.logo.altText")} />}
             title="Chrysalis"
@@ -222,14 +213,14 @@ class SystemInfo extends React.Component {
             </Typography>
           </CardContent>
           <CardActions>
-            <div className={classes.grow} />
+            <Box sx={{ flexGrow: 1 }} />
             {mainButton}
           </CardActions>
         </Card>
         {viewDialog}
-      </div>
+      </Box>
     );
   }
 }
 
-export default withStyles(styles)(SystemInfo);
+export default SystemInfo;

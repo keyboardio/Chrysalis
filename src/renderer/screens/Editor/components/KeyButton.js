@@ -18,19 +18,12 @@
 import React from "react";
 
 import Button from "@mui/material/Button";
-import withStyles from "@mui/styles/withStyles";
 
 import { KeymapDB } from "../../../../api/keymap";
 
-const styles = (theme) => ({
-  button: {
-    margin: theme.spacing(1),
-  },
-});
-
 const db = new KeymapDB();
 
-const KeyButton = withStyles(styles)((props) => {
+const KeyButton = (props) => {
   const { classes, keyObj, onKeyChange, noHint } = props;
 
   const onClick = (keyCode) => {
@@ -44,12 +37,12 @@ const KeyButton = withStyles(styles)((props) => {
     <Button
       variant="contained"
       size="small"
-      className={classes.button}
+      sx={{ m: 1 }}
       onClick={onClick(keyObj.code)}
     >
       {!noHint && label.hint} {label.main}
     </Button>
   );
-});
+};
 
 export default KeyButton;

@@ -17,26 +17,16 @@
 
 import React from "react";
 
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
-import withStyles from "@mui/styles/withStyles";
 
 import { KeymapDB } from "../../../../api/keymap";
 
-const styles = (theme) => ({
-  root: {
-    flexGrow: 1,
-    margin: theme.spacing(1),
-  },
-  button: {
-    margin: theme.spacing(1),
-  },
-});
-
 const db = new KeymapDB();
 
-const KeyButtonList = withStyles(styles)((props) => {
-  const { classes, keys, onKeyChange, showHints } = props;
+const KeyButtonList = (props) => {
+  const { keys, onKeyChange, showHints } = props;
 
   const onClick = (keyCode) => {
     return () => {
@@ -51,7 +41,7 @@ const KeyButtonList = withStyles(styles)((props) => {
       <Button
         variant="contained"
         key={key}
-        className={classes.button}
+        sx={{ m: 1 }}
         onClick={onClick(k.code)}
       >
         {showHints ? label.hint : ""} {label.main}
@@ -60,10 +50,15 @@ const KeyButtonList = withStyles(styles)((props) => {
   });
 
   return (
-    <div className={classes.root}>
+    <Box
+      sx={{
+        flexGrow: 1,
+        margin: 1,
+      }}
+    >
       <Paper elevation={0}>{buttons}</Paper>
-    </div>
+    </Box>
   );
-});
+};
 
 export default KeyButtonList;

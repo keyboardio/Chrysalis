@@ -23,15 +23,12 @@ import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
-import withStyles from "@mui/styles/withStyles";
 
 import { KeymapDB } from "../../../../../api/keymap";
 
 const db = new KeymapDB();
 
-const styles = () => ({});
-
-class LayoutSelectBase extends React.Component {
+class LayoutSelect extends React.Component {
   setLayout = (_, value) => {
     const layout = value || this.props.layout;
     this.props.setLayout(layout);
@@ -73,6 +70,5 @@ class LayoutSelectBase extends React.Component {
     );
   }
 }
-const LayoutSelect = withStyles(styles, { withTheme: true })(LayoutSelectBase);
 
 export { LayoutSelect as default };

@@ -49,42 +49,38 @@ const styles = (theme) => ({
   },
 });
 
-class ChangeLog extends React.Component {
-  render() {
-    const { classes } = this.props;
-    const file = path.join(getStaticPath(), "../NEWS.md");
-    const data = fs.readFileSync(file).toString();
+const ChangeLog = (props) => {
+  const { classes } = props;
+  const file = path.join(getStaticPath(), "../NEWS.md");
+  const data = fs.readFileSync(file).toString();
 
-    return (
-      <div className={classes.root}>
-        <Portal container={this.props.titleElement}>
-          {i18n.t("changelog.title")}
-        </Portal>
-        <Card className={classes.card}>
-          <CardHeader
-            avatar={<img src={logo} alt={i18n.t("components.logo.altText")} />}
-            title="Chrysalis"
-            subheader={version}
-          />
-          <CardContent>
-            <ReactMarkdown
-              components={{
-                h1({ node, ...props }) {
-                  return (
-                    <h1 className={classes.release}>
-                      {node.children[0].value}
-                    </h1>
-                  );
-                },
-              }}
-            >
-              {data}
-            </ReactMarkdown>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
-}
+  return (
+    <div className={classes.root}>
+      <Portal container={props.titleElement}>
+        {i18n.t("changelog.title")}
+      </Portal>
+      <Card className={classes.card}>
+        <CardHeader
+          avatar={<img src={logo} alt={i18n.t("components.logo.altText")} />}
+          title="Chrysalis"
+          subheader={version}
+        />
+        <CardContent>
+          <ReactMarkdown
+            components={{
+              h1({ node, ...props }) {
+                return (
+                  <h1 className={classes.release}>{node.children[0].value}</h1>
+                );
+              },
+            }}
+          >
+            {data}
+          </ReactMarkdown>
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
 
 export default withStyles(styles)(ChangeLog);

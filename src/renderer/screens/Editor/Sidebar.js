@@ -40,89 +40,80 @@ import CustomKey from "./Sidebar/CustomKey";
 
 const sidebarWidth = 360;
 
-class Sidebar extends React.Component {
-  render() {
-    const {
-      classes,
-      keymap,
-      selectedKey,
-      selectedLed,
-      layer,
-      layout,
-      colormap,
-    } = this.props;
+const Sidebar = (props) => {
+  const { classes, keymap, selectedKey, selectedLed, layer, layout, colormap } =
+    props;
 
-    const widgets = [
-      KeyPicker,
-      SecondaryFunction,
-      Colormap,
-      LayerKeys,
-      ConsumerKeys,
-      MouseKeys,
-      LEDKeys,
-      MacroKeys,
-      TapDanceKeys,
-      OneShotKeys,
-      SpaceCadetKeys,
-      LeaderKeys,
-      StenoKeys,
-      BlankKeys,
-      CustomKey,
-    ];
-    const categories = widgets.map((Widget, index) => {
-      return (
-        <Widget
-          key={`sidebar-category-${index}`}
+  const widgets = [
+    KeyPicker,
+    SecondaryFunction,
+    Colormap,
+    LayerKeys,
+    ConsumerKeys,
+    MouseKeys,
+    LEDKeys,
+    MacroKeys,
+    TapDanceKeys,
+    OneShotKeys,
+    SpaceCadetKeys,
+    LeaderKeys,
+    StenoKeys,
+    BlankKeys,
+    CustomKey,
+  ];
+  const categories = widgets.map((Widget, index) => {
+    return (
+      <Widget
+        key={`sidebar-category-${index}`}
+        keymap={keymap}
+        colormap={colormap}
+        selectedKey={selectedKey}
+        selectedLed={selectedLed}
+        layer={layer}
+        layout={layout}
+        setLayout={props.setLayout}
+        onKeyChange={props.onKeyChange}
+        onLedChange={props.onLedChange}
+        onPaletteChange={props.onPaletteChange}
+        sx={{ p: 2 }}
+      />
+    );
+  });
+
+  return (
+    <Drawer
+      variant="permanent"
+      anchor="right"
+      sx={{
+        flexShrink: 0,
+        zIndex: (theme) => theme.zIndex.appBar - 100,
+        width: sidebarWidth,
+        "& .MuiDrawer-paper": {
+          width: sidebarWidth,
+          boxSizing: "border-box",
+          p: 1,
+          zIndex: (theme) => theme.zIndex.appBar - 100,
+        },
+      }}
+    >
+      <Toolbar />
+      <div sx={{ p: 3 }}>
+        <Title selectedKey={selectedKey} layer={layer} keymap={keymap} />
+        <Overview
           keymap={keymap}
           colormap={colormap}
           selectedKey={selectedKey}
           selectedLed={selectedLed}
           layer={layer}
-          layout={layout}
-          setLayout={this.props.setLayout}
-          onKeyChange={this.props.onKeyChange}
-          onLedChange={this.props.onLedChange}
-          onPaletteChange={this.props.onPaletteChange}
-          sx={{ p: 2 }}
+          setLayer={props.setLayer}
+          onKeymapChange={props.onKeymapChange}
+          onPaletteChange={props.onPaletteChange}
+          onColormapChange={props.onColormapChange}
         />
-      );
-    });
-
-    return (
-      <Drawer
-        variant="permanent"
-        anchor="right"
-        sx={{
-          flexShrink: 0,
-          zIndex: (theme) => theme.zIndex.appBar - 100,
-          width: sidebarWidth,
-          "& .MuiDrawer-paper": {
-            width: sidebarWidth,
-            boxSizing: "border-box",
-            p: 1,
-            zIndex: (theme) => theme.zIndex.appBar - 100,
-          },
-        }}
-      >
-        <Toolbar />
-        <div sx={{ p: 3 }}>
-          <Title selectedKey={selectedKey} layer={layer} keymap={keymap} />
-          <Overview
-            keymap={keymap}
-            colormap={colormap}
-            selectedKey={selectedKey}
-            selectedLed={selectedLed}
-            layer={layer}
-            setLayer={this.props.setLayer}
-            onKeymapChange={this.props.onKeymapChange}
-            onPaletteChange={this.props.onPaletteChange}
-            onColormapChange={this.props.onColormapChange}
-          />
-          {categories}
-        </div>
-      </Drawer>
-    );
-  }
-}
+        {categories}
+      </div>
+    </Drawer>
+  );
+};
 
 export { Sidebar as default, sidebarWidth };

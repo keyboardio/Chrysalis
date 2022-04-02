@@ -24,7 +24,6 @@ import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import withStyles from "@mui/styles/withStyles";
 
 import Collapsible from "../components/Collapsible";
 import { KeymapDB } from "../../../../api/keymap";
@@ -33,9 +32,7 @@ import { GuiLabel } from "../../../../api/keymap/db/base/gui";
 
 const db = new KeymapDB();
 
-const styles = () => ({});
-
-class SecondaryFunctionBase extends React.Component {
+class SecondaryFunction extends React.Component {
   onTargetLayerChange = (event) => {
     const { keymap, selectedKey, layer } = this.props;
     const key = keymap.custom[layer][selectedKey];
@@ -103,7 +100,7 @@ class SecondaryFunctionBase extends React.Component {
         modifier = key.categories[2];
 
         actionTarget = (
-          <FormControl className={classes.form}>
+          <FormControl>
             <FormGroup row>
               <InputLabel>
                 {i18n.t("editor.sidebar.secondary.modifier")}
@@ -132,7 +129,7 @@ class SecondaryFunctionBase extends React.Component {
         targetLayer = key.target;
 
         actionTarget = (
-          <FormControl className={classes.form}>
+          <FormControl>
             <InputLabel>
               {i18n.t("editor.sidebar.secondary.targetLayer")}
             </InputLabel>
@@ -157,10 +154,7 @@ class SecondaryFunctionBase extends React.Component {
           expanded={this.keySupportsSecondaryAction(key)}
         >
           <div>
-            <FormControl
-              className={classes.form}
-              disabled={!this.keySupportsSecondaryAction(key)}
-            >
+            <FormControl disabled={!this.keySupportsSecondaryAction(key)}>
               <FormGroup row>
                 <InputLabel>{i18n.t("components.type")}</InputLabel>
                 <Select value={type} onChange={this.onTypeChange}>
@@ -183,8 +177,5 @@ class SecondaryFunctionBase extends React.Component {
     );
   }
 }
-const SecondaryFunction = withStyles(styles, { withTheme: true })(
-  SecondaryFunctionBase
-);
 
 export { SecondaryFunction as default };

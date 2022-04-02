@@ -18,13 +18,9 @@
 import React from "react";
 import i18n from "i18next";
 
-import withStyles from "@mui/styles/withStyles";
-
 import CategorySelector from "../components/CategorySelector";
 
-const styles = () => ({});
-
-class SpaceCadetKeysBase extends React.Component {
+class SpaceCadetKeys extends React.Component {
   render() {
     const { keymap, selectedKey, layer, onKeyChange } = this.props;
 
@@ -41,8 +37,5 @@ class SpaceCadetKeysBase extends React.Component {
     );
   }
 }
-const SpaceCadetKeys = withStyles(styles, { withTheme: true })(
-  SpaceCadetKeysBase
-);
 
 export { SpaceCadetKeys as default };

@@ -30,31 +30,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableFooter from "@mui/material/TableFooter";
 import TableRow from "@mui/material/TableRow";
-import withStyles from "@mui/styles/withStyles";
 
 import LayoutSharing from "./Overview/LayoutSharing";
 import { KeymapDB } from "../../../../api/keymap";
 
-const styles = (theme) => ({
-  root: {
-    marginBottom: theme.spacing(2),
-  },
-  tableRow: {
-    cursor: "pointer",
-  },
-  gears: {
-    padding: `0px ${theme.spacing(1)} 0px 0px`,
-  },
-  colorSwatch: {
-    width: theme.spacing(3),
-    height: theme.spacing(3),
-  },
-  help: {
-    marginBottom: theme.spacing(2),
-  },
-});
-
-class OverviewBase extends React.Component {
+class Overview extends React.Component {
   state = {
     showAll: false,
     dialogOpen: false,
@@ -96,8 +76,7 @@ class OverviewBase extends React.Component {
   };
 
   render() {
-    const { classes, keymap, selectedKey, selectedLed, layer, colormap } =
-      this.props;
+    const { keymap, selectedKey, selectedLed, layer, colormap } = this.props;
     const { showAll, dialogOpen } = this.state;
     const db = new KeymapDB();
 
@@ -119,7 +98,7 @@ class OverviewBase extends React.Component {
 
         colorWidget = (
           <Avatar
-            className={classes.colorSwatch}
+            sx={{ width: 3, height: 3 }}
             variant="square"
             style={{
               color: color.rgb,
@@ -136,7 +115,7 @@ class OverviewBase extends React.Component {
           key={`key-config-layer-${index}`}
           selected={layer == index}
           onClick={this.selectLayer(index)}
-          className={classes.tableRow}
+          sx={{ cursor: "pointer" }}
         >
           <TableCell size="small" align="left">
             #{index}
@@ -169,11 +148,11 @@ class OverviewBase extends React.Component {
     );
 
     return (
-      <div className={classes.root}>
-        <FormHelperText className={classes.help}>
+      <div sx={{ mb: 2 }}>
+        <FormHelperText sx={{ mb: 2 }}>
           {i18n.t("editor.sidebar.overview.help")}
         </FormHelperText>
-        <TableContainer component={Paper} className={classes.root}>
+        <TableContainer component={Paper} sx={{ mb: 2 }}>
           <Table size="small">
             <TableHead>
               <TableRow>
@@ -213,6 +192,5 @@ class OverviewBase extends React.Component {
     );
   }
 }
-const Overview = withStyles(styles, { withTheme: true })(OverviewBase);
 
 export { Overview as default };

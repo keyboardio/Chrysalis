@@ -41,8 +41,7 @@ import CustomKey from "./Sidebar/CustomKey";
 const sidebarWidth = 360;
 
 const Sidebar = (props) => {
-  const { classes, keymap, selectedKey, selectedLed, layer, layout, colormap } =
-    props;
+  const { keymap, selectedKey, selectedLed, layer, layout, colormap } = props;
 
   const widgets = [
     KeyPicker,

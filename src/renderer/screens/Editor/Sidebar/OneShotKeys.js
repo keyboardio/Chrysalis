@@ -35,15 +35,9 @@ import { KeymapDB } from "../../../../api/keymap";
 
 const db = new KeymapDB();
 
-const styles = (theme) => ({
-  cancelContainer: {
-    margin: `${theme.spacing(2)} 0`,
-  },
-});
-
 const cancelKeyCode = 53630;
 
-class OneShotKeysBase extends React.Component {
+class OneShotKeys extends React.Component {
   state = {
     escCancel: true,
   };
@@ -100,8 +94,8 @@ class OneShotKeysBase extends React.Component {
             onKeyChange={onKeyChange}
           />
 
-          <div className={classes.cancelContainer}>
-            <FormControl component="fieldset" className={classes.mods}>
+          <div sx={{ m: "2 0" }}>
+            <FormControl component="fieldset">
               <FormGroup row>
                 <FormControlLabel
                   control={escCancelWidget}
@@ -120,6 +114,5 @@ class OneShotKeysBase extends React.Component {
     );
   }
 }
-const OneShotKeys = withStyles(styles, { withTheme: true })(OneShotKeysBase);
 
 export { OneShotKeys as default };

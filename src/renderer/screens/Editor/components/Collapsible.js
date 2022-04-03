@@ -24,36 +24,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FormHelperText from "@mui/material/FormHelperText";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
-import withStyles from "@mui/styles/withStyles";
 
-const styles = (theme) => ({
-  accordionRoot: {
-    boxShadow: "none",
-    margin: `0px 0px -1px 0px`,
-    "&.Mui-expanded": {
-      margin: `auto auto ${theme.spacing(2)} auto`,
-      minHeight: 48,
-    },
-    "&:before": {
-      display: "none",
-    },
-  },
-  accordionContentRoot: {
-    backgroundColor: "rgba(0, 0, 0, .03)",
-    border: "1px solid rgba(0, 0, 0, .125)",
-    padding: `0px ${theme.spacing(2)}`,
-  },
-  accordionDetailsRoot: {
-    padding: `${theme.spacing(2)}`,
-    margin: `${theme.spacing(2)} 0px`,
-    display: "block",
-  },
-  help: {
-    marginBottom: theme.spacing(2),
-  },
-});
-
-class CollapsibleBase extends React.Component {
+class Collapsible extends React.Component {
   constructor(props) {
     super(props);
 
@@ -69,13 +41,17 @@ class CollapsibleBase extends React.Component {
   };
 
   render() {
-    const { classes, title, help } = this.props;
+    const { title, help } = this.props;
     const { expanded } = this.state;
 
     let summary = (
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
-        classes={{ root: classes.accordionContentRoot }}
+        sx={{
+          backgroundColor: "rgba(0, 0, 0, .03)",
+          border: "1px solid rgba(0, 0, 0, .125)",
+          padding: "0 2",
+        }}
       >
         <Typography>{title}</Typography>
       </AccordionSummary>
@@ -88,20 +64,33 @@ class CollapsibleBase extends React.Component {
       <Accordion
         square
         expanded={expanded}
-        classes={{ root: classes.accordionRoot }}
+        sx={{
+          boxShadow: "none",
+          margin: `0px 0px -1px 0px`,
+          "&.Mui-expanded": {
+            margin: "auto auto 2 auto",
+            minHeight: 48,
+          },
+          "&:before": {
+            display: "none",
+          },
+        }}
         onChange={this.handleChange}
       >
         {summary}
-        <AccordionDetails classes={{ root: classes.accordionDetailsRoot }}>
-          {help && (
-            <FormHelperText className={classes.help}>{help}</FormHelperText>
-          )}
+        <AccordionDetails
+          sx={{
+            padding: 2,
+            margin: "2 0",
+            display: "block",
+          }}
+        >
+          {help && <FormHelperText sx={{ mb: 2 }}>{help}</FormHelperText>}
           {this.props.children}
         </AccordionDetails>
       </Accordion>
     );
   }
 }
-const Collapsible = withStyles(styles, { withTheme: true })(CollapsibleBase);
 
 export { Collapsible as default };

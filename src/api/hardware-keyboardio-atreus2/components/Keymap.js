@@ -18,20 +18,11 @@
 import React from "react";
 
 import classNames from "classnames";
-import withStyles from "@mui/styles/withStyles";
 import Atreus from "../data/atreus.png";
 
 import { KeymapDB } from "../../keymap";
 
 const db = new KeymapDB();
-
-const styles = () => ({
-  svg: {
-    background: `url(${Atreus})`,
-    backgroundSize: "100%",
-    backgroundRepeat: "no-repeat",
-  },
-});
 
 class Keymap extends React.Component {
   render() {
@@ -123,14 +114,16 @@ class Keymap extends React.Component {
       );
     };
 
-    const { classes } = this.props;
-
     return (
       <svg
         viewBox="0 0 833 335"
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="xMidYMin meet"
-        className={classNames(classes.svg, this.props.className || "layer")}
+        sx={{
+          background: `url(${Atreus})`,
+          backgroundSize: "100%",
+          backgroundRepeat: "no-repeat",
+        }}
       >
         <g transform="translate(80,0)">
           <g transform="rotate(10)">
@@ -197,4 +190,4 @@ class Keymap extends React.Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(Keymap);
+export default Keymap;

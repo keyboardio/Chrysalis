@@ -19,7 +19,6 @@
  */
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import withStyles from "@mui/styles/withStyles";
 import Paper from "@mui/material/Paper";
 import ColorButtonsArea from "./ColorButtonsArea";
 import PickerColorButton from "./PickerColorButton";
@@ -27,7 +26,6 @@ import { setColorTemplate } from "../../../renderer/utils/setTemplates";
 import i18n from "../../i18n";
 
 ColorPalette.propTypes = {
-  classes: PropTypes.object.isRequired,
   onColorSelect: PropTypes.func.isRequired,
   palette: PropTypes.array.isRequired,
   onColorPick: PropTypes.func.isRequired,
@@ -37,31 +35,9 @@ ColorPalette.propTypes = {
   onColorButtonSelect: PropTypes.func.isRequired,
 };
 
-const styles = (theme) => ({
-  root: {
-    display: "flex",
-    position: "fixed",
-    left: 0,
-    right: 0,
-    bottom: 0,
-    height: 150,
-    justifyContent: "center",
-    alignItems: "flex-start",
-  },
-  palette: {
-    display: "flex",
-    alignItems: "center",
-    padding: 10,
-    minHeight: 80,
-    [theme.breakpoints.down("md")]: {
-      width: 455,
-    },
-  },
-});
 
 /**
  * Reactjs functional component that create palette for change buttons color on keyboard
- * @param {object} classes Property that sets up CSS classes that adding to HTML elements
  * @param {function} onColorSelect Callback function from Editor component for change color of buttons in keyboard. Parameter is index of color button in palette (from 0 to 15)
  * @param {array} palette Array of colors. Format [{r: 200, g: 200, b: 200, rgb: "rgb(200, 200, 200)"}, ...]
  * @param {function} onColorPick Callback function from Editor component for change color of buttons in ColorPalette. Parameters are: first - index of color button in palette (from 0 to 15), second - index of color (r: from 0 to 255), third - index of color (g: from 0 to 255), fourth - index of color (b: from 0 to 255)
@@ -73,7 +49,6 @@ const styles = (theme) => ({
  */
 function ColorPalette(props) {
   const {
-    classes,
     onColorSelect,
     palette,
     onColorPick,
@@ -149,8 +124,30 @@ function ColorPalette(props) {
   };
 
   return (
-    <div className={classes.root}>
-      <Paper className={classes.palette}>
+    <div
+      sx={{
+        display: "flex",
+        position: "fixed",
+        left: 0,
+        right: 0,
+        bottom: 0,
+        height: 150,
+        justifyContent: "center",
+        alignItems: "flex-start",
+      }}
+    >
+      <Paper
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          padding: 1,
+          minHeight: 80,
+          width: {
+            xs: 455,
+            lg: inherit,
+          },
+        }}
+      >
         <ColorButtonsArea {...propsToArea} />
         <PickerColorButton
           setColorFocusButton={toSetColorFocusButton}
@@ -164,4 +161,4 @@ function ColorPalette(props) {
   );
 }
 
-export default withStyles(styles)(ColorPalette);
+export default ColorPalette;

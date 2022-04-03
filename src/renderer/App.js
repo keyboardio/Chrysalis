@@ -34,7 +34,6 @@ import { LocationProvider, Router } from "@gatsbyjs/reach-router";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 import CssBaseline from "@mui/material/CssBaseline";
-import withStyles from "@mui/styles/withStyles";
 import {
   ThemeProvider,
   StyledEngineProvider,
@@ -69,17 +68,6 @@ const settingsLanguage = settings.get("ui.language");
 if (settingsLanguage) i18n.changeLanguage(settingsLanguage);
 
 const useStyles = makeStyles((theme) => {});
-
-const styles = () => ({
-  root: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  content: {
-    flexGrow: 1,
-    overflow: "auto",
-  },
-});
 
 class App extends React.Component {
   constructor(props) {
@@ -268,7 +256,7 @@ class App extends React.Component {
     return (
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
-          <div className={classes.root}>
+          <div sx={{ display: "flex", flexDirection: "column" }}>
             <LocationProvider history={history}>
               <CssBaseline />
               <Header
@@ -278,7 +266,7 @@ class App extends React.Component {
                 device={device}
                 cancelContext={this.cancelContext}
               />
-              <main className={classes.content}>
+              <main sx={{ flexGrow: 1, overflow: "auto" }}>
                 <Router>
                   <Welcome
                     path="/welcome"
@@ -346,6 +334,4 @@ class App extends React.Component {
   }
 }
 
-//export default withSnackbar(withStyles(styles)(App));
-//export default withStyles(styles)(withSnackbar(App));
-export default withStyles(styles)(App);
+export default App;

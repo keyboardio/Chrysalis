@@ -18,29 +18,13 @@
 import React from "react";
 
 import classNames from "classnames";
-import withStyles from "@mui/styles/withStyles";
 
 import { KeymapDB } from "../../../api/keymap";
 const db = new KeymapDB();
 
 const keycapunit = 56;
 
-const styles = () => ({
-  svg: {
-    fontFamily: '"Source Code Pro", "monospace"',
-    fontWeight: 700,
-    fontSize: Math.round(keycapunit / 4),
-  },
-  root: {
-    textAlign: "center",
-    height: keycapunit * 6.5,
-  },
-  legend1U: {
-    fontSize: Math.round(keycapunit / 2.5),
-  },
-});
-
-class KeymapBase extends React.Component {
+class Keymap extends React.Component {
   render() {
     const keymap = db.getStandardLayout();
     const { currentKeyCode, onKeySelect } = this.props;
@@ -147,14 +131,16 @@ class KeymapBase extends React.Component {
 
       const label = db.format(key, getKeycapSize(row, col));
       let keyClasses;
-      if (label.main.length == 1) {
-        keyClasses = classNames("key", classes.legend1U);
-      } else {
-        keyClasses = "key";
-      }
-
       return (
-        <g onClick={onClick} className={keyClasses} data-key-code={key.code}>
+        <g
+          onClick={onClick}
+          className="key"
+          data-key-code={key.code}
+          sx={{
+            fontSize:
+              label.main.length == 1 ? Math.round(keycapunit / 2.5) : "inherit",
+          }}
+        >
           <rect
             x={x}
             y={y}
@@ -172,8 +158,6 @@ class KeymapBase extends React.Component {
       );
     };
 
-    const { classes } = this.props;
-
     const viewBoxSize =
       "0 0 " +
       Math.round(21.5 * keycapunit + 30).toString() +
@@ -187,7 +171,12 @@ class KeymapBase extends React.Component {
         preserveAspectRatio="xMidYMin meet"
         width="100%"
         height="100%"
-        className={classNames(classes.svg, this.props.className)}
+        className={this.props.className}
+        sx={{
+          fontFamily: '"Source Code Pro", "monospace"',
+          fontWeight: 700,
+          fontSize: Math.round(keycapunit / 4),
+        }}
       >
         <g transform="translate(10, 10)">
           <g>
@@ -334,18 +323,19 @@ class KeymapBase extends React.Component {
   }
 }
 
-const Keymap = withStyles(styles, { withTheme: true })(KeymapBase);
-
 class KeySelector extends React.Component {
   render() {
-    const { classes } = this.props;
-
     return (
-      <div className={classes.root}>
+      <div
+        sx={{
+          textAlign: "center",
+          height: keycapunit * 6.5,
+        }}
+      >
         <Keymap {...this.props} />
       </div>
     );
   }
 }
 
-export default withStyles(styles, { withTheme: true })(KeySelector);
+export default KeySelector;

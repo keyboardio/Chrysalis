@@ -19,18 +19,10 @@ import React from "react";
 import i18n from "i18next";
 import { ChromePicker } from "react-color";
 
-import withStyles from "@mui/styles/withStyles";
-
 import PalettePicker from "./Colormap/PalettePicker";
 import Collapsible from "../components/Collapsible";
 
-const styles = () => ({
-  colorPicker: {
-    width: "295px !important",
-  },
-});
-
-class ColormapBase extends React.Component {
+class Colormap extends React.Component {
   colorChangeComplete = (color) => {
     const { selectedLed, layer, colormap } = this.props;
     const colorIndex = colormap.colorMap[layer][selectedLed];
@@ -53,7 +45,7 @@ class ColormapBase extends React.Component {
   };
 
   render() {
-    const { selectedLed, layer, colormap, classes } = this.props;
+    const { selectedLed, layer, colormap } = this.props;
 
     if (!colormap || colormap.palette.length == 0) return null;
 
@@ -75,13 +67,13 @@ class ColormapBase extends React.Component {
         <ChromePicker
           color={color}
           disableAlpha
-          className={classes.colorPicker}
+          sx={{
+            width: "295px !important",
+          }}
           onChangeComplete={this.colorChangeComplete}
         />
       </Collapsible>
     );
   }
 }
-const Colormap = withStyles(styles, { withTheme: true })(ColormapBase);
-
 export { Colormap as default };

@@ -47,34 +47,24 @@ import openURL from "../../utils/openURL";
 import { history } from "../../routerHistory";
 
 const styles = (theme) => ({
-  drawer: {
-    width: 350,
-  },
-  version: {
-    textAlign: "right",
-  },
   toolbarIcon: {
     display: "flex",
-    alignItems: "center",
     justifyContent: "center",
-    padding: "0 8px",
-    ...theme.mixins.toolbar,
   },
   link: {
     textDecoration: "none",
     color: theme.palette.text.primary,
   },
-  menuItem: {
-    paddingLeft: theme.spacing(4),
-  },
 });
 
 function MainMenu({ open, closeMenu, classes, connected, pages }) {
+  const drawerWidth = 350;
   const currentPage = history.location.pathname;
   const setCurrentPage = (page) => {
     history.navigate(page);
     closeMenu();
   };
+
   const openExternalPage = (page) => {
     openURL(page)();
     closeMenu();
@@ -87,7 +77,13 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
     : "/keyboard-select";
 
   return (
-    <Drawer open={open} onClose={closeMenu}>
+    <Drawer
+      open={open}
+      onClose={closeMenu}
+      sx={{
+        "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
+      }}
+    >
       <div className={classes.toolbarIcon}>
         <Link to={homePage}>
           <IconButton onClick={() => setCurrentPage(homePage)} size="large">
@@ -97,7 +93,6 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
       </div>
       {connected && (
         <List
-          className={classes.drawer}
           subheader={
             <ListSubheader disableSticky>
               {i18n.t("app.menu.keyboardSection")}
@@ -108,7 +103,6 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
             <Link to="/welcome" className={classes.link}>
               <WelcomeMenu
                 selected={currentPage == "/welcome"}
-                className={classes.menuItem}
                 onClick={() => setCurrentPage("/welcome")}
               />
             </Link>
@@ -117,7 +111,6 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
             <Link to="/editor" className={classes.link}>
               <EditorMenuItem
                 selected={currentPage == "/editor"}
-                className={classes.menuItem}
                 onClick={() => setCurrentPage("/editor")}
               />
             </Link>
@@ -125,7 +118,6 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
           <Link to="/firmware-update" className={classes.link}>
             <FlashMenuItem
               selected={currentPage == "/firmware-update"}
-              className={classes.menuItem}
               onClick={() => setCurrentPage("/firmware-update")}
             />
           </Link>
@@ -133,7 +125,6 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
       )}
       {connected && <Divider />}
       <List
-        className={classes.drawer}
         subheader={
           <ListSubheader disableSticky>
             {i18n.t("app.menu.chrysalisSection")}
@@ -142,7 +133,6 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
       >
         <Link to="/keyboard-select" className={classes.link}>
           <KeyboardMenuItem
-            className={classes.menuItem}
             keyboardSelectText={
               connected
                 ? i18n.t("app.menu.selectAnotherKeyboard")
@@ -154,7 +144,6 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
         </Link>
         <Link to="/preferences" className={classes.link}>
           <PreferencesMenuItem
-            className={classes.menuItem}
             selected={currentPage == "/preferences"}
             onClick={() => setCurrentPage("/preferences")}
           />
@@ -162,7 +151,6 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
       </List>
       <Divider />
       <List
-        className={classes.drawer}
         subheader={
           <ListSubheader disableSticky>
             {i18n.t("app.menu.miscSection")}
@@ -170,34 +158,28 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
         }
       >
         <ChatMenuItem
-          className={classes.menuItem}
           onClick={() => openExternalPage("https://keyboard.io/discord-invite")}
         />
         <Link to="/system-info" className={classes.link}>
           <SystemInfoMenuItem
-            className={classes.menuItem}
             selected={currentPage == "/system-info"}
             onClick={() => setCurrentPage("/system-info")}
           />
         </Link>
         <Link to="/changelog" className={classes.link}>
           <ChangeLogMenuItem
-            className={classes.menuItem}
             selected={currentPage == "/changelog"}
             onClick={() => setCurrentPage("/changelog")}
           />
         </Link>
-        <ExitMenuItem
-          className={classes.menuItem}
-          onClick={() => ipcRenderer.send("app-exit")}
-        />
+        <ExitMenuItem onClick={() => ipcRenderer.send("app-exit")} />
       </List>
       <Divider />
       <List>
         <ListItem disabled>
           <ListItemText
             primary={`Chrysalis ${version}`}
-            className={classes.version}
+            sx={{ textAlign: "right" }}
           />
         </ListItem>
         <UpgradeMenuItem />

@@ -18,13 +18,9 @@
 import React from "react";
 import i18n from "i18next";
 
-import withStyles from "@mui/styles/withStyles";
-
 import CategorySelector from "../components/CategorySelector";
 
-const styles = () => ({});
-
-class TapDanceKeysBase extends React.Component {
+class TapDanceKeys extends React.Component {
   render() {
     const { keymap, selectedKey, layer, onKeyChange } = this.props;
 
@@ -41,6 +37,4 @@ class TapDanceKeysBase extends React.Component {
     );
   }
 }
-const TapDanceKeys = withStyles(styles, { withTheme: true })(TapDanceKeysBase);
-
 export { TapDanceKeys as default };

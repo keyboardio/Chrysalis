@@ -30,19 +30,11 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import withStyles from "@mui/styles/withStyles";
 
 import BoardMenu from "./BoardMenu";
 import MainMenu from "./MainMenu/MainMenu";
 
-function Header({
-  classes,
-  contextBar,
-  connected,
-  pages,
-  device,
-  cancelContext,
-}) {
+function Header({ contextBar, connected, pages, device, cancelContext }) {
   const [mainMenu, setMainMenuOpen] = useState(false);
   const [boardAnchor, setBoardMenuAnchor] = useState(null);
 
@@ -82,14 +74,12 @@ function Header({
         position="sticky"
         color={contextBar ? "secondary" : "primary"}
         id="appbar"
-        className={classes.appBar}
       >
         <Toolbar variant="dense">
           <IconButton
             edge="start"
             color="inherit"
             aria-label="menu"
-            className={classes.menuButton}
             onClick={contextOnClick}
             sx={{ mr: 2 }}
           >
@@ -98,7 +88,6 @@ function Header({
           <Typography
             variant="h6"
             color="inherit"
-            className={classes.pageMenu}
             id="page-title"
             component="div"
           />
@@ -125,4 +114,4 @@ function Header({
   );
 }
 
-export default withStyles({})(Header);
+export default Header;

@@ -97,6 +97,25 @@ const Style = Styled.div`
     margin-top: 31px;
   }
 }
+
+.singleViewWrapper {
+  display: flex;
+  margin-top: 16px;
+  .keyEnhanceWrapper {
+    flex: 0 0 270px;
+    padding-right: 20px;
+  }
+  .keyBoardPickerWrapper {
+    flex: 0 0 calc(100% - 270px);
+    background: #25273B;
+    box-shadow: 0px 4px 82px rgba(0, 0, 0, 0.25), 0px 12px 62px rgba(108, 92, 231, 0.1);
+    border-radius: 6px;
+    padding: 10px 20px;
+  }
+
+}
+
+
 `;
 
 class KeyPickerKeyboard extends Component {
@@ -244,8 +263,8 @@ class KeyPickerKeyboard extends Component {
     return (
       <Style>
         <div className="singleViewWrapper">
-          <div className="keyEnhance">keyEnhance</div>
-          <div className="keyBoard">
+          <div className="keyEnhanceWrapper">keyEnhance</div>
+          <div className="keyBoardPickerWrapper">
             <Picker
               actions={actions}
               action={action}
@@ -260,7 +279,7 @@ class KeyPickerKeyboard extends Component {
           </div>
         </div>
 
-        <Container fluid>
+        <Container fluid className="sr-only">
           {code.base + code.modified >= 53916 && code.base + code.modified <= 53916 + 64 ? (
             <Selector
               action={action}

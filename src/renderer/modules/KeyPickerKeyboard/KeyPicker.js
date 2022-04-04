@@ -55,6 +55,7 @@ import NW from "./NW.json";
 import IC from "./IC.json";
 
 const Style = Styled.div`
+width: 100%;
 .keyboard {
   margin: 0;
   padding: 16px;
@@ -313,30 +314,26 @@ class KeyPicker extends Component {
     });
     return (
       <Style>
-        <Container fluid className="keyboard">
-          <Row className="keys">
-            <svg className="svgStyle" viewBox="0 0 1070 260" preserveAspectRatio="xMidYMin slice">
-              {keyboard}
-              <defs>
-                <linearGradient id={`paint_gradient`} x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="5%" stopColor="#fff" />
-                  <stop offset="95%" stopColor="#fff" stopOpacity={0} />
-                </linearGradient>
-                <filter id={`filter0_d_2211_181319`} x="0" y="0" width="200%" height="200%">
-                  <feOffset result="offOut" in="SourceGraphic" dx="0" dy="2" />
-                  <feColorMatrix
-                    result="matrixOut"
-                    in="offOut"
-                    type="matrix"
-                    values="0.2 0 0 0 0 0 0.2 0 0 0 0 0 0.2 0 0 0 0 0 1 0"
-                  />
-                  <feGaussianBlur result="blurOut" in="matrixOut" stdDeviation="10" />
-                  <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
-                </filter>
-              </defs>
-            </svg>
-          </Row>
-        </Container>
+        <svg className="svgStyle" viewBox="0 0 1070 260" preserveAspectRatio="xMidYMin slice">
+          {keyboard}
+          <defs>
+            <linearGradient id={`paint_gradient`} x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="5%" stopColor="#fff" />
+              <stop offset="95%" stopColor="#fff" stopOpacity={0} />
+            </linearGradient>
+            <filter id={`filter0_d_2211_181319`} x="0" y="0" width="200%" height="200%">
+              <feOffset result="offOut" in="SourceGraphic" dx="0" dy="2" />
+              <feColorMatrix
+                result="matrixOut"
+                in="offOut"
+                type="matrix"
+                values="0.2 0 0 0 0 0 0.2 0 0 0 0 0 0.2 0 0 0 0 0 1 0"
+              />
+              <feGaussianBlur result="blurOut" in="matrixOut" stdDeviation="10" />
+              <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+            </filter>
+          </defs>
+        </svg>
       </Style>
     );
   }

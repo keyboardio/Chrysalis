@@ -20,7 +20,8 @@ import {
   IconToolsCamera,
   IconToolsEject,
   IconToolsBrightnessLess,
-  IconToolsBrightnessMore
+  IconToolsBrightnessMore,
+  IconWrench
 } from "../../component/Icon";
 
 const Style = Styled.div`
@@ -80,17 +81,32 @@ class Picker extends Component {
         </div>
         <div className="keysContainer keysMediaTools">
           <div className="keysRow keysMedia">
-            <IconNote />
-            <ButtonConfig tooltip="Play/Pause" icoSVG={<IconMediaPlayPause />} />
-            <ButtonConfig tooltip="Stop" icoSVG={<IconMediaStop />} />
-            <ButtonConfig tooltip="Rewind" icoSVG={<IconMediaRewind />} />
-            <ButtonConfig tooltip="Forward" icoSVG={<IconMediaForward />} />
-            <ButtonConfig tooltip="Shuffle" icoSVG={<IconMediaShuffle />} />
-            <ButtonConfig tooltip="Sound More" icoSVG={<IconMediaSoundMore />} />
-            <ButtonConfig tooltip="Sound Less" icoSVG={<IconMediaSoundLess />} />
-            <ButtonConfig tooltip="Mute" icoSVG={<IconMediaSoundMute />} />
+            <div className="keyIcon">
+              <IconNote />
+            </div>
+            <div className="keysButtonsList">
+              <ButtonConfig tooltip="Play/Pause" tooltipDelay={100} icoSVG={<IconMediaPlayPause />} />
+              <ButtonConfig tooltip="Stop" tooltipDelay={100} icoSVG={<IconMediaStop />} />
+              <ButtonConfig tooltip="Rewind" tooltipDelay={100} icoSVG={<IconMediaRewind />} />
+              <ButtonConfig tooltip="Forward" tooltipDelay={100} icoSVG={<IconMediaForward />} />
+              <ButtonConfig tooltip="Shuffle" tooltipDelay={100} icoSVG={<IconMediaShuffle />} />
+              <ButtonConfig tooltip="Sound More" tooltipDelay={100} icoSVG={<IconMediaSoundMore />} />
+              <ButtonConfig tooltip="Sound Less" tooltipDelay={100} icoSVG={<IconMediaSoundLess />} />
+              <ButtonConfig tooltip="Mute" tooltipDelay={100} icoSVG={<IconMediaSoundMute />} />
+            </div>
           </div>
-          <div className="keysRow keysTools">Tools</div>
+          <div className="keysRow keysTools">
+            <div className="keyIcon">
+              <IconWrench />
+            </div>
+            <div className="keysButtonsList">
+              <ButtonConfig tooltip="Eject" tooltipDelay={100} icoSVG={<IconToolsEject />} />
+              <ButtonConfig tooltip="Calculator" tooltipDelay={100} icoSVG={<IconToolsCalculator />} />
+              <ButtonConfig tooltip="IconToolsCamera" tooltipDelay={100} icoSVG={<IconToolsCamera />} />
+              <ButtonConfig tooltip="Brightnress More" tooltipDelay={100} icoSVG={<IconToolsBrightnessMore />} />
+              <ButtonConfig tooltip="Brightnress Less" tooltipDelay={100} icoSVG={<IconToolsBrightnessLess />} />
+            </div>
+          </div>
         </div>
         <div className="keysContainer">
           <div className="keysRow keysMouseClick">

@@ -30,12 +30,13 @@ const Style = Styled.div`
 }
 `;
 
-const ButtonConfig = ({ selected, onClick, size, buttonText, tooltip, style, icoSVG, icoPosition, disabled }) => {
+const ButtonConfig = ({ selected, onClick, size, buttonText, tooltip, style, icoSVG, icoPosition, tooltipDelay, disabled }) => {
   return (
     <>
       {tooltip ? (
         <OverlayTrigger
           placement="top"
+          tooltipDelay={`${tooltipDelay ? tooltipDelay : "0"}`}
           overlay={
             <Tooltip id="tooltip-top" className="tooltipRegular">
               <div dangerouslySetInnerHTML={{ __html: tooltip }} />

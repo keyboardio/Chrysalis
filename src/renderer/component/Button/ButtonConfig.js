@@ -21,10 +21,11 @@ import Styled from "styled-components";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 
-import { IconInformationBubble } from "../Icon";
-
 const Style = Styled.div`
-svg {
+.icon-right svg {
+  margin-left: 10px;
+}
+.icon-left svg {
   margin-right: 10px;
 }
 `;
@@ -44,7 +45,9 @@ const ButtonConfig = ({ selected, onClick, size, buttonText, tooltip, style, ico
           <Style
             onClick={onClick}
             data-value={selected}
-            className={`${size} ${selected ? "active" : ""} button-config ${style}`}
+            className={`${size ? size : ""} ${selected ? "active" : ""} button-config ${style ? style : ""} ${
+              style ? style : ""
+            } icon-${icoPosition ? icoPosition : "none"}`}
             disabled={disabled}
           >
             {icoSVG && icoPosition !== "right" ? icoSVG : ""}
@@ -56,7 +59,9 @@ const ButtonConfig = ({ selected, onClick, size, buttonText, tooltip, style, ico
         <Style
           onClick={onClick}
           data-value={selected}
-          className={`${size} ${selected ? "active" : ""} button-config ${style}`}
+          className={`${size ? size : ""} ${selected ? "active" : ""} button-config ${style ? style : ""} ${
+            style ? style : ""
+          } icon-${icoPosition ? icoPosition : "none"}`}
           disabled={disabled}
         >
           {icoSVG && icoPosition !== "right" ? icoSVG : ""}

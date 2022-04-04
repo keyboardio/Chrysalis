@@ -37,7 +37,7 @@ import IconMemory2Stroke from "./IconMemory2Stroke";
 import IconMediaForward from "./IconMediaForward";
 import IconMediaPlayPause from "./IconMediaPlayPause";
 import IconMediaRewind from "./IconMediaRewind";
-import IconMediaShufflea from "./IconMediaShuffle";
+import IconMediaShuffle from "./IconMediaShuffle";
 import IconMediaSoundLess from "./IconMediaSoundLess";
 import IconMediaSoundMore from "./IconMediaSoundMore";
 import IconMediaSoundMute from "./IconMediaSoundMute";
@@ -94,7 +94,7 @@ export {
   IconMediaForward,
   IconMediaPlayPause,
   IconMediaRewind,
-  IconMediaShufflea,
+  IconMediaShuffle,
   IconMediaSoundLess,
   IconMediaSoundMore,
   IconMediaSoundMute,

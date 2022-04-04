@@ -3,7 +3,25 @@ import Styled from "styled-components";
 import { KeyPicker } from "../KeyPickerKeyboard";
 
 import { ButtonConfig } from "../../component/Button";
-import { IconNote } from "../../component/Icon";
+
+import {
+  IconNote,
+  IconLEDNextEffects,
+  IconLEDPreviousEffect,
+  IconMediaForward,
+  IconMediaPlayPause,
+  IconMediaRewind,
+  IconMediaShuffle,
+  IconMediaSoundLess,
+  IconMediaSoundMore,
+  IconMediaSoundMute,
+  IconMediaStop,
+  IconToolsCalculator,
+  IconToolsCamera,
+  IconToolsEject,
+  IconToolsBrightnessLess,
+  IconToolsBrightnessMore
+} from "../../component/Icon";
 
 const Style = Styled.div`
 .keysContainer {
@@ -63,14 +81,14 @@ class Picker extends Component {
         <div className="keysContainer keysMediaTools">
           <div className="keysRow keysMedia">
             <IconNote />
-            <ButtonConfig buttonText="Play/Pause" />
-            <ButtonConfig buttonText="Stop" />
-            <ButtonConfig buttonText="Rewind" />
-            <ButtonConfig buttonText="Forward" />
-            <ButtonConfig buttonText="Shuffle" />
-            <ButtonConfig buttonText="Sound More" />
-            <ButtonConfig buttonText="Sound Less" />
-            <ButtonConfig buttonText="Mute" />
+            <ButtonConfig tooltip="Play/Pause" icoSVG={<IconMediaPlayPause />} />
+            <ButtonConfig tooltip="Stop" icoSVG={<IconMediaStop />} />
+            <ButtonConfig tooltip="Rewind" icoSVG={<IconMediaRewind />} />
+            <ButtonConfig tooltip="Forward" icoSVG={<IconMediaForward />} />
+            <ButtonConfig tooltip="Shuffle" icoSVG={<IconMediaShuffle />} />
+            <ButtonConfig tooltip="Sound More" icoSVG={<IconMediaSoundMore />} />
+            <ButtonConfig tooltip="Sound Less" icoSVG={<IconMediaSoundLess />} />
+            <ButtonConfig tooltip="Mute" icoSVG={<IconMediaSoundMute />} />
           </div>
           <div className="keysRow keysTools">Tools</div>
         </div>

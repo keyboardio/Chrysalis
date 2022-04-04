@@ -18,23 +18,53 @@
 import React from "react";
 import Styled from "styled-components";
 
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+
+import { IconInformationBubble } from "../Icon";
+
 const Style = Styled.div`
 svg {
   margin-right: 10px;
 }
 `;
 
-const ButtonConfig = ({ selected, onClick, size, buttonText, style, icoSVG, disabled }) => {
+const ButtonConfig = ({ selected, onClick, size, buttonText, tooltip, style, icoSVG, icoPosition, disabled }) => {
   return (
-    <Style
-      onClick={onClick}
-      data-value={selected}
-      className={`${size} ${selected ? "active" : ""} button-config ${style}`}
-      disabled={disabled}
-    >
-      {icoSVG ? icoSVG : ""}
-      <span className={"buttonLabel"} dangerouslySetInnerHTML={{ __html: buttonText }} />
-    </Style>
+    <>
+      {tooltip ? (
+        <OverlayTrigger
+          placement="top"
+          overlay={
+            <Tooltip id="tooltip-top" className="tooltipRegular">
+              <div dangerouslySetInnerHTML={{ __html: tooltip }} />
+            </Tooltip>
+          }
+        >
+          <Style
+            onClick={onClick}
+            data-value={selected}
+            className={`${size} ${selected ? "active" : ""} button-config ${style}`}
+            disabled={disabled}
+          >
+            {icoSVG && icoPosition !== "right" ? icoSVG : ""}
+            {buttonText && <span className={"buttonLabel"} dangerouslySetInnerHTML={{ __html: buttonText }} />}
+            {icoSVG && icoPosition === "right" ? icoSVG : ""}
+          </Style>
+        </OverlayTrigger>
+      ) : (
+        <Style
+          onClick={onClick}
+          data-value={selected}
+          className={`${size} ${selected ? "active" : ""} button-config ${style}`}
+          disabled={disabled}
+        >
+          {icoSVG && icoPosition !== "right" ? icoSVG : ""}
+          {buttonText && <span className={"buttonLabel"} dangerouslySetInnerHTML={{ __html: buttonText }} />}
+          {icoSVG && icoPosition === "right" ? icoSVG : ""}
+        </Style>
+      )}
+    </>
   );
 };
 

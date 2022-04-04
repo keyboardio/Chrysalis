@@ -43,6 +43,32 @@ import {
 } from "react-icons/ai";
 import { MdKeyboardReturn, MdSpaceBar, MdKeyboardCapslock, MdInfoOutline, MdEject } from "react-icons/md";
 
+import { ButtonConfig } from "../../component/Button";
+
+import {
+  IconNote,
+  IconLEDSwitchLeft,
+  IconLEDNextEffect,
+  IconLEDPreviousEffect,
+  IconMediaForward,
+  IconMediaPlayPause,
+  IconMediaRewind,
+  IconMediaShuffle,
+  IconMediaSoundLess,
+  IconMediaSoundMore,
+  IconMediaSoundMute,
+  IconMediaStop,
+  IconToolsCalculator,
+  IconToolsCamera,
+  IconToolsEject,
+  IconToolsBrightnessLess,
+  IconToolsBrightnessMore,
+  IconWrench,
+  IconMouse,
+  IconRobot,
+  IconLayers
+} from "../../component/Icon";
+
 import Key from "./Key";
 import ES from "./ES.json";
 import ENi from "./ENi.json";
@@ -314,26 +340,130 @@ class KeyPicker extends Component {
     });
     return (
       <Style>
-        <svg className="svgStyle" viewBox="0 0 1070 260" preserveAspectRatio="xMidYMin slice">
-          {keyboard}
-          <defs>
-            <linearGradient id={`paint_gradient`} x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="5%" stopColor="#fff" />
-              <stop offset="95%" stopColor="#fff" stopOpacity={0} />
-            </linearGradient>
-            <filter id={`filter0_d_2211_181319`} x="0" y="0" width="200%" height="200%">
-              <feOffset result="offOut" in="SourceGraphic" dx="0" dy="2" />
-              <feColorMatrix
-                result="matrixOut"
-                in="offOut"
-                type="matrix"
-                values="0.2 0 0 0 0 0 0.2 0 0 0 0 0 0.2 0 0 0 0 0 1 0"
+        <div className="keysContainer">
+          <div className="keysRow keysOrdinaryKeyboard">
+            <svg className="svgStyle" viewBox="0 0 1070 460" preserveAspectRatio="xMidYMin slice">
+              {keyboard}
+              <defs>
+                <linearGradient id={`paint_gradient`} x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="5%" stopColor="#fff" />
+                  <stop offset="95%" stopColor="#fff" stopOpacity={0} />
+                </linearGradient>
+                <filter id={`filter0_d_2211_181319`} x="0" y="0" width="200%" height="200%">
+                  <feOffset result="offOut" in="SourceGraphic" dx="0" dy="2" />
+                  <feColorMatrix
+                    result="matrixOut"
+                    in="offOut"
+                    type="matrix"
+                    values="0.2 0 0 0 0 0 0.2 0 0 0 0 0 0.2 0 0 0 0 0 1 0"
+                  />
+                  <feGaussianBlur result="blurOut" in="matrixOut" stdDeviation="10" />
+                  <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+                </filter>
+              </defs>
+
+              {/* <foreignObject width={1070} height={150} x={0} y={220} style={{ overflow: "visible" }}>
+                <div xmlns="http://www.w3.org/1999/xhtml">
+                  
+                </div>
+              </foreignObject> */}
+            </svg>
+          </div>
+        </div>
+        <div className="keysContainer keysContainerDropdowns">
+          <div className="keysRow keysMacros">
+            <div className="keyIcon">
+              <IconRobot />
+            </div>
+            <div className="keysButtonsList">dropdown</div>
+          </div>
+          <div className="keysRow keysLayerLock">
+            <div className="keyIcon">
+              <IconLayers />
+            </div>
+            <div className="keysButtonsList">dropdown</div>
+          </div>
+          <div className="keysRow keysLED">
+            <div className="keyIcon">
+              <h4>LED</h4>
+            </div>
+            <div className="keysButtonsList">
+              <ButtonConfig
+                buttonText="On/Off"
+                icoPosition="left"
+                tooltip="Toggle effects"
+                tooltipDelay={300}
+                icoSVG={<IconLEDSwitchLeft />}
               />
-              <feGaussianBlur result="blurOut" in="matrixOut" stdDeviation="10" />
-              <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
-            </filter>
-          </defs>
-        </svg>
+              <ButtonConfig tooltip="Previous light effect" tooltipDelay={300} icoSVG={<IconLEDPreviousEffect />} />
+              <ButtonConfig tooltip="Next light effect" tooltipDelay={300} icoSVG={<IconLEDNextEffect />} />
+            </div>
+          </div>
+        </div>
+        <div className="keysContainer keysMediaTools">
+          <div className="keysRow keysMedia">
+            <div className="keyIcon">
+              <IconNote />
+            </div>
+            <div className="keysButtonsList">
+              <ButtonConfig tooltip="Play/Pause" tooltipDelay={100} icoSVG={<IconMediaPlayPause />} />
+              <ButtonConfig tooltip="Stop" tooltipDelay={100} icoSVG={<IconMediaStop />} />
+              <ButtonConfig tooltip="Rewind" tooltipDelay={100} icoSVG={<IconMediaRewind />} />
+              <ButtonConfig tooltip="Forward" tooltipDelay={100} icoSVG={<IconMediaForward />} />
+              <ButtonConfig tooltip="Shuffle" tooltipDelay={100} icoSVG={<IconMediaShuffle />} />
+              <ButtonConfig tooltip="Sound More" tooltipDelay={100} icoSVG={<IconMediaSoundMore />} />
+              <ButtonConfig tooltip="Sound Less" tooltipDelay={100} icoSVG={<IconMediaSoundLess />} />
+              <ButtonConfig tooltip="Mute" tooltipDelay={100} icoSVG={<IconMediaSoundMute />} />
+            </div>
+          </div>
+          <div className="keysRow keysTools">
+            <div className="keyIcon">
+              <IconWrench />
+            </div>
+            <div className="keysButtonsList">
+              <ButtonConfig tooltip="Eject" tooltipDelay={100} icoSVG={<IconToolsEject />} />
+              <ButtonConfig tooltip="Calculator" tooltipDelay={100} icoSVG={<IconToolsCalculator />} />
+              <ButtonConfig tooltip="Camera" tooltipDelay={100} icoSVG={<IconToolsCamera />} />
+              <ButtonConfig tooltip="Brightness More" tooltipDelay={100} icoSVG={<IconToolsBrightnessMore />} />
+              <ButtonConfig tooltip="Brightness Less" tooltipDelay={100} icoSVG={<IconToolsBrightnessLess />} />
+            </div>
+          </div>
+        </div>
+        <div className="keysContainer">
+          <div className="keysRow keysMouseEvents">
+            <div className="keyIcon">
+              <IconMouse />
+            </div>
+            <div className="keyTitle">
+              Mouse <span>Click</span>
+            </div>
+            <div className="keysButtonsList">
+              <ButtonConfig buttonText="Left" />
+              <ButtonConfig buttonText="Middle" />
+              <ButtonConfig buttonText="Right" />
+              <ButtonConfig buttonText="Back" />
+              <ButtonConfig buttonText="Fwd." />
+            </div>
+            <div className="keyTitle">
+              Mouse <span>Movement</span>
+            </div>
+            <div className="keysButtonsList">
+              <ButtonConfig buttonText="Left" />
+              <ButtonConfig buttonText="Right" />
+              <ButtonConfig buttonText="Up" />
+              <ButtonConfig buttonText="Down" />
+            </div>
+            <div className="keyTitle">
+              Mouse <span>Wheel</span>
+            </div>
+            <div className="keysButtonsList">
+              <ButtonConfig buttonText="Left" />
+              <ButtonConfig buttonText="Right" />
+              <ButtonConfig buttonText="Up" />
+              <ButtonConfig buttonText="Down" />
+            </div>
+          </div>
+        </div>
       </Style>
     );
   }

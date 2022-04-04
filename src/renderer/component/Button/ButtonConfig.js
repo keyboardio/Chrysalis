@@ -22,11 +22,7 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 
 const Style = Styled.div`
-.icon-right svg {
-  margin-left: 10px;
-}
-.icon-left svg {
-  margin-right: 10px;
+
 }
 `;
 

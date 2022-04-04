@@ -4,7 +4,7 @@ function IconEditModeStandardView(props) {
   return (
     <svg width={16} height={16} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <mask
-        id="prefix__a"
+        id="prefix__IconEditModeStandardView"
         style={{
           maskType: "alpha"
         }}
@@ -19,9 +19,9 @@ function IconEditModeStandardView(props) {
           fill="#fff"
         />
       </mask>
-      <g mask="url(#prefix__a)">
+      <g mask="url(#prefix__IconEditModeStandardView)">
         <mask
-          id="prefix__b"
+          id="prefix_b_IconEditModeStandardView"
           style={{
             maskType: "alpha"
           }}
@@ -33,7 +33,7 @@ function IconEditModeStandardView(props) {
         >
           <path d="M1 15V4.889h1.452v8.66h8.66v1.45H1z" fill="#fff" />
         </mask>
-        <g mask="url(#prefix__b)">
+        <g mask="url(#prefix_b_IconEditModeStandardView)">
           <rect x={1.6} y={5.489} width={8.911} height={8.911} rx={1.4} stroke="currentColor" strokeWidth={1.2} />
         </g>
       </g>

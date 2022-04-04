@@ -2,28 +2,6 @@ import React, { Component } from "react";
 import Styled from "styled-components";
 import { KeyPicker } from "../KeyPickerKeyboard";
 
-import { ButtonConfig } from "../../component/Button";
-
-import {
-  IconNote,
-  IconLEDNextEffects,
-  IconLEDPreviousEffect,
-  IconMediaForward,
-  IconMediaPlayPause,
-  IconMediaRewind,
-  IconMediaShuffle,
-  IconMediaSoundLess,
-  IconMediaSoundMore,
-  IconMediaSoundMute,
-  IconMediaStop,
-  IconToolsCalculator,
-  IconToolsCamera,
-  IconToolsEject,
-  IconToolsBrightnessLess,
-  IconToolsBrightnessMore,
-  IconWrench
-} from "../../component/Icon";
-
 const Style = Styled.div`
 .keysContainer {
 
@@ -37,11 +15,61 @@ const Style = Styled.div`
   background: rgba(48, 51, 73, 0.6);
   border-radius: 6px;
   padding: 3px;
+  .keyIcon {
+    flex: 0 0 42px;
+    text-align: center;
+    align-self: center;
+    color: ${({ theme }) => theme.colors.gray200};
+    h4 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      margin: 0;
+    }
+  }
+  .keyTitle {
+    font-size: 11px;
+    color: ${({ theme }) => theme.colors.gray25}; 
+    display: flex;
+    flex-grow: 1;
+    align-self: center;
+    line-height: 1.15em;
+    flex-wrap: wrap;
+    max-width: 66px;
+    span {
+      color: ${({ theme }) => theme.colors.gray200};
+      display: block;
+      flex: 0 0 100%;
+    }
+  }
 }
 .keysMediaTools {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 24px;
+  grid-gap: 16px;
+}
+.keysContainerDropdowns {
+  display: grid;
+  grid-template-columns: 35% 35% auto;
+  grid-gap: 16px;
+}
+.keysButtonsList {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}
+.keysButtonsList .button-config {
+  margin-left: 3px;
+  height: 34px;
+  display: flex;
+  flex-grow: 1;
+  text-align: center;
+  padding: 5px 8px;
+  justify-content: center;
+  font-size: 14px;
+} 
+.keysMouseEvents .button-config {
+  width: 55px;
 }
 
 `;
@@ -58,67 +86,18 @@ class Picker extends Component {
 
     return (
       <Style>
-        <div className="keysContainer">
-          <div className="keysRow keysOrdinaryKeyboard">
-            <KeyPicker
-              onKeySelect={e => onKeySelect(e)}
-              code={{
-                base: actions[action] > 255 ? baseCode : actions[action],
-                modified: modCode
-              }}
-              disableMods={[0, 3].includes(action) && activeTab == "super"}
-              disableMove={![0, 3].includes(action) && activeTab == "super"}
-              disableAll={disable}
-              selectedlanguage={selectedlanguage}
-              kbtype={kbtype}
-            />
-          </div>
-        </div>
-        <div className="keysContainer">
-          <div className="keysRow keysMacros">Macros</div>
-          <div className="keysRow keysLayerLock">Layer lock</div>
-          <div className="keysRow keysLED">LED</div>
-        </div>
-        <div className="keysContainer keysMediaTools">
-          <div className="keysRow keysMedia">
-            <div className="keyIcon">
-              <IconNote />
-            </div>
-            <div className="keysButtonsList">
-              <ButtonConfig tooltip="Play/Pause" tooltipDelay={100} icoSVG={<IconMediaPlayPause />} />
-              <ButtonConfig tooltip="Stop" tooltipDelay={100} icoSVG={<IconMediaStop />} />
-              <ButtonConfig tooltip="Rewind" tooltipDelay={100} icoSVG={<IconMediaRewind />} />
-              <ButtonConfig tooltip="Forward" tooltipDelay={100} icoSVG={<IconMediaForward />} />
-              <ButtonConfig tooltip="Shuffle" tooltipDelay={100} icoSVG={<IconMediaShuffle />} />
-              <ButtonConfig tooltip="Sound More" tooltipDelay={100} icoSVG={<IconMediaSoundMore />} />
-              <ButtonConfig tooltip="Sound Less" tooltipDelay={100} icoSVG={<IconMediaSoundLess />} />
-              <ButtonConfig tooltip="Mute" tooltipDelay={100} icoSVG={<IconMediaSoundMute />} />
-            </div>
-          </div>
-          <div className="keysRow keysTools">
-            <div className="keyIcon">
-              <IconWrench />
-            </div>
-            <div className="keysButtonsList">
-              <ButtonConfig tooltip="Eject" tooltipDelay={100} icoSVG={<IconToolsEject />} />
-              <ButtonConfig tooltip="Calculator" tooltipDelay={100} icoSVG={<IconToolsCalculator />} />
-              <ButtonConfig tooltip="IconToolsCamera" tooltipDelay={100} icoSVG={<IconToolsCamera />} />
-              <ButtonConfig tooltip="Brightnress More" tooltipDelay={100} icoSVG={<IconToolsBrightnessMore />} />
-              <ButtonConfig tooltip="Brightnress Less" tooltipDelay={100} icoSVG={<IconToolsBrightnessLess />} />
-            </div>
-          </div>
-        </div>
-        <div className="keysContainer">
-          <div className="keysRow keysMouseClick">
-            Mouse <span>Click</span>
-          </div>
-          <div className="keysRow keysMouseMovement">
-            Mouse <span>Movement</span>
-          </div>
-          <div className="keysRow keysMouseWheel">
-            Mouse <span>Wheel</span>
-          </div>
-        </div>
+        <KeyPicker
+          onKeySelect={e => onKeySelect(e)}
+          code={{
+            base: actions[action] > 255 ? baseCode : actions[action],
+            modified: modCode
+          }}
+          disableMods={[0, 3].includes(action) && activeTab == "super"}
+          disableMove={![0, 3].includes(action) && activeTab == "super"}
+          disableAll={disable}
+          selectedlanguage={selectedlanguage}
+          kbtype={kbtype}
+        />
       </Style>
     );
   }

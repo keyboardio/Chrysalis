@@ -427,6 +427,14 @@ svg text{
   border: none;
   background: transparent;
 }
+.button-config.icon-right svg {
+  margin-left: 10px;
+}
+.button-config.icon-left svg {
+  margin-right: 10px;
+}
+
+
 .button.short {
   padding: 6px 16px;
   border-radius: 4px;

@@ -31,8 +31,9 @@ import IconKeysRelease from "./IconKeysRelease";
 import IconKeysStopWatch from "./IconKeysStopWatch";
 import IconKeyboardSelector from "./IconKeyboardSelector";
 import IconKeyboard2Stroke from "./IconKeyboard2Stroke";
-import IconLEDNextEffects from "./IconLEDNextEffect";
+import IconLEDNextEffect from "./IconLEDNextEffect";
 import IconLEDPreviousEffect from "./IconLEDPreviousEffect";
+import IconLEDSwitchLeft from "./IconLEDSwitchLeft";
 import IconMemory2Stroke from "./IconMemory2Stroke";
 import IconMediaForward from "./IconMediaForward";
 import IconMediaPlayPause from "./IconMediaPlayPause";
@@ -89,7 +90,8 @@ export {
   IconKeysStopWatch,
   IconKeyboardSelector,
   IconKeyboard2Stroke,
-  IconLEDNextEffects,
+  IconLEDSwitchLeft,
+  IconLEDNextEffect,
   IconLEDPreviousEffect,
   IconMediaForward,
   IconMediaPlayPause,

@@ -68,6 +68,12 @@ h5 {
   letter-spacing: 0.05em;
   color: ${({ theme }) => theme.styles.toogleEditMode.titleColor};
 }
+.icon-right svg {
+  margin-left: 10px;
+}
+.icon-left svg {
+  margin-right: 10px;
+}
 `;
 
 /**
@@ -89,12 +95,14 @@ const LayoutViewSelector = ({ onToogle, isStandardView, tooltip }) => {
           <ButtonConfig
             onClick={onToogle}
             icoSVG={<IconEditModeStandardView />}
+            icoPosition="left"
             selected={isStandardView}
             buttonText={i18n.editor.editMode.standardView}
             size={"sm"}
           />
           <ButtonConfig
             onClick={onToogle}
+            icoPosition="left"
             icoSVG={<IconEditModeSingleView />}
             selected={!isStandardView}
             buttonText={i18n.editor.editMode.singleView}

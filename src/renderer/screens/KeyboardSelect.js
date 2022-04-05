@@ -199,12 +199,13 @@ class KeyboardSelect extends React.Component {
             display: "flex",
             align: "center",
             mx: "auto",
-            maxWidth: "100%",
+            maxWidth: "250px",
+            maxHeight: "100px",
             marginBottom: 2,
+            justifyContent: "center",
             "& *": {
               color: "#000000",
               stroke: "#000000",
-              fill: "#000000",
             },
           }}
         >

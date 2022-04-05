@@ -19,6 +19,7 @@ import React from "react";
 
 import classNames from "classnames";
 import Atreus from "../data/atreus.png";
+import Box from "@mui/material/Box";
 
 import { KeymapDB } from "../../keymap";
 
@@ -115,77 +116,82 @@ class Keymap extends React.Component {
     };
 
     return (
-      <svg
-        viewBox="0 0 833 335"
-        xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="xMidYMin meet"
+      <Box
         sx={{
           background: `url(${Atreus})`,
-          backgroundSize: "100%",
           backgroundRepeat: "no-repeat",
+          backgroundSize: "100%",
+          height: "335px",
+          width: "833px",
         }}
       >
-        <g transform="translate(80,0)">
-          <g transform="rotate(10)">
-            <Key row={0} col={0} />
-            <Key row={0} col={1} />
-            <Key row={0} col={2} />
-            <Key row={0} col={3} />
-            <Key row={0} col={4} />
+        <svg
+          viewBox="0 0 833 335"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="xMidYMin meet"
+        >
+          <g transform="translate(80,0)">
+            <g transform="rotate(10)">
+              <Key row={0} col={0} />
+              <Key row={0} col={1} />
+              <Key row={0} col={2} />
+              <Key row={0} col={3} />
+              <Key row={0} col={4} />
 
-            <Key row={1} col={0} />
-            <Key row={1} col={1} />
-            <Key row={1} col={2} />
-            <Key row={1} col={3} />
-            <Key row={1} col={4} />
+              <Key row={1} col={0} />
+              <Key row={1} col={1} />
+              <Key row={1} col={2} />
+              <Key row={1} col={3} />
+              <Key row={1} col={4} />
 
-            <Key row={2} col={0} />
-            <Key row={2} col={1} />
-            <Key row={2} col={2} />
-            <Key row={2} col={3} />
-            <Key row={2} col={4} />
-            <Key row={2} col={5} />
+              <Key row={2} col={0} />
+              <Key row={2} col={1} />
+              <Key row={2} col={2} />
+              <Key row={2} col={3} />
+              <Key row={2} col={4} />
+              <Key row={2} col={5} />
 
-            <Key row={3} col={0} />
-            <Key row={3} col={1} />
-            <Key row={3} col={2} />
-            <Key row={3} col={3} />
-            <Key row={3} col={4} />
+              <Key row={3} col={0} />
+              <Key row={3} col={1} />
+              <Key row={3} col={2} />
+              <Key row={3} col={3} />
+              <Key row={3} col={4} />
 
-            <Key row={3} col={5} />
-          </g>
+              <Key row={3} col={5} />
+            </g>
 
-          <g transform="rotate(-10)">
-            <g transform="translate(0, 116.75)">
-              <Key row={0} col={7} />
-              <Key row={0} col={8} />
-              <Key row={0} col={9} />
-              <Key row={0} col={10} />
-              <Key row={0} col={11} />
+            <g transform="rotate(-10)">
+              <g transform="translate(0, 116.75)">
+                <Key row={0} col={7} />
+                <Key row={0} col={8} />
+                <Key row={0} col={9} />
+                <Key row={0} col={10} />
+                <Key row={0} col={11} />
 
-              <Key row={1} col={7} />
-              <Key row={1} col={8} />
-              <Key row={1} col={9} />
-              <Key row={1} col={10} />
-              <Key row={1} col={11} />
+                <Key row={1} col={7} />
+                <Key row={1} col={8} />
+                <Key row={1} col={9} />
+                <Key row={1} col={10} />
+                <Key row={1} col={11} />
 
-              <Key row={2} col={6} />
-              <Key row={2} col={7} />
-              <Key row={2} col={8} />
-              <Key row={2} col={9} />
-              <Key row={2} col={10} />
-              <Key row={2} col={11} />
+                <Key row={2} col={6} />
+                <Key row={2} col={7} />
+                <Key row={2} col={8} />
+                <Key row={2} col={9} />
+                <Key row={2} col={10} />
+                <Key row={2} col={11} />
 
-              <Key row={3} col={6} />
-              <Key row={3} col={7} />
-              <Key row={3} col={8} />
-              <Key row={3} col={9} />
-              <Key row={3} col={10} />
-              <Key row={3} col={11} />
+                <Key row={3} col={6} />
+                <Key row={3} col={7} />
+                <Key row={3} col={8} />
+                <Key row={3} col={9} />
+                <Key row={3} col={10} />
+                <Key row={3} col={11} />
+              </g>
             </g>
           </g>
-        </g>
-      </svg>
+        </svg>
+      </Box>
     );
   }
 }

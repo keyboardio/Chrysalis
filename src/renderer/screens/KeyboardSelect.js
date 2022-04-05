@@ -352,20 +352,22 @@ class KeyboardSelect extends React.Component {
       const Keymap =
         devices[this.state.selectedPortIndex].device.components.keymap;
       preview = (
-        <Keymap
-          index={0}
-          sx={[
-            {
-              maxWidth: 128,
-              marginBottom: 2,
+        <Box
+          sx={{
+            display: "flex",
+            align: "center",
+            mx: "auto",
+            maxWidth: "100%",
+            marginBottom: 2,
+            "& *": {
+              color: "#000000",
+              stroke: "#000000",
+              fill: "#000000",
             },
-            {
-              "& .key rect, & .key path, & .key ellipse": {
-                stroke: "#000000",
-              },
-            },
-          ]}
-        />
+          }}
+        >
+          <Keymap index={0} />
+        </Box>
       );
     }
 

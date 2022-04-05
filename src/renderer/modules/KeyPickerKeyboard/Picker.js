@@ -14,7 +14,7 @@ const Style = Styled.div`
   flex-wrap: nowrap;
   background: rgba(48, 51, 73, 0.6);
   border-radius: 6px;
-  padding: 3px;
+  padding: 5px;
   .keyIcon {
     flex: 0 0 42px;
     text-align: center;
@@ -82,7 +82,8 @@ class Picker extends Component {
   }
 
   render() {
-    const { action, actions, onKeySelect, activeTab, selectedlanguage, kbtype, baseCode, modCode, disable } = this.props;
+    const { action, actions, onKeySelect, activeTab, selectedlanguage, kbtype, baseCode, modCode, disable, macros, keyCode } =
+      this.props;
 
     return (
       <Style>
@@ -97,6 +98,8 @@ class Picker extends Component {
           disableAll={disable}
           selectedlanguage={selectedlanguage}
           kbtype={kbtype}
+          keyCode={keyCode}
+          macros={macros}
         />
       </Style>
     );

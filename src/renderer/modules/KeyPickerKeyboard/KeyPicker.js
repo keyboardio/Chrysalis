@@ -6,8 +6,7 @@
 
 import React, { Component } from "react";
 import Styled, { withTheme } from "styled-components";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
+
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 
@@ -44,6 +43,7 @@ import {
 import { MdKeyboardReturn, MdSpaceBar, MdKeyboardCapslock, MdInfoOutline, MdEject } from "react-icons/md";
 
 import { ButtonConfig } from "../../component/Button";
+import { SelectMacro } from "../../component/Select";
 
 import {
   IconNote,
@@ -107,6 +107,7 @@ width: 100%;
     overflow: visible;
     max-width:1170px; 
     min-width: 860px;
+    margin: 6px auto;
 }
 `;
 const IconColor = Styled.span`
@@ -161,7 +162,7 @@ class KeyPicker extends Component {
   }
 
   render() {
-    const { code, disableMods, disableMove, disableAll, selectedlanguage, kbtype } = this.props;
+    const { code, disableMods, disableMove, disableAll, selectedlanguage, kbtype, macros, keyCode } = this.props;
     const liso = {
       english: ENi,
       spanish: ES,
@@ -342,7 +343,7 @@ class KeyPicker extends Component {
       <Style>
         <div className="keysContainer">
           <div className="keysRow keysOrdinaryKeyboard">
-            <svg className="svgStyle" viewBox="0 0 1070 460" preserveAspectRatio="xMidYMin slice">
+            <svg className="svgStyle" viewBox="0 0 1070 300" preserveAspectRatio="xMidYMin slice">
               {keyboard}
               <defs>
                 <linearGradient id={`paint_gradient`} x1="0%" y1="0%" x2="100%" y2="0%">
@@ -375,7 +376,9 @@ class KeyPicker extends Component {
             <div className="keyIcon">
               <IconRobot />
             </div>
-            <div className="keysButtonsList">dropdown</div>
+            <div className="keysButtonsList">
+              <SelectMacro listElements={macros} keyCode={keyCode} onKeySelect={this.onKeySelect} />
+            </div>
           </div>
           <div className="keysRow keysLayerLock">
             <div className="keyIcon">

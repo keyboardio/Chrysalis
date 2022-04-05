@@ -275,6 +275,8 @@ class KeyPickerKeyboard extends Component {
               activeTab={activeTab}
               selectedlanguage={selectedlanguage}
               kbtype={kbtype}
+              keyCode={code}
+              macros={macros}
             />
           </div>
         </div>

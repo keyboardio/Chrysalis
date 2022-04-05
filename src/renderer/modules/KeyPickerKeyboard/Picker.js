@@ -3,8 +3,9 @@ import Styled from "styled-components";
 import { KeyPicker } from "../KeyPickerKeyboard";
 
 const Style = Styled.div`
-.keysContainer {
-
+.KeysWrapper {
+  max-width: 1160px;
+  margin: auto;
 }
 .keysContainer + .keysContainer {
   margin-top: 8px;
@@ -15,6 +16,9 @@ const Style = Styled.div`
   background: rgba(48, 51, 73, 0.6);
   border-radius: 6px;
   padding: 5px;
+  &.keysOrdinaryKeyboard {
+    padding: 12px 24px;
+  }
   .keyIcon {
     flex: 0 0 42px;
     text-align: center;
@@ -31,15 +35,19 @@ const Style = Styled.div`
     font-size: 11px;
     color: ${({ theme }) => theme.colors.gray25}; 
     display: flex;
-    flex-grow: 1;
+    // flex-grow: 1;
     align-self: center;
     line-height: 1.15em;
     flex-wrap: wrap;
-    max-width: 66px;
+    // max-width: 66px;
     span {
       color: ${({ theme }) => theme.colors.gray200};
       display: block;
       flex: 0 0 100%;
+    }
+    &.keyTitleClick {
+      padding-left: 16px;
+      padding-right: 10px;
     }
   }
 }
@@ -69,7 +77,7 @@ const Style = Styled.div`
   font-size: 14px;
 } 
 .keysMouseEvents .button-config {
-  width: 55px;
+  width: 58px;
 }
 
 `;

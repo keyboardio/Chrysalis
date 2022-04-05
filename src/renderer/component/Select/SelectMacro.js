@@ -64,71 +64,41 @@ const Style = Styled.div`
  * @param {listElements} listElements - The array of objects that hold the elements to be selected.\
  * @returns {<Select>} Dropdown object.
  */
-const Select = ({ onSelect, value, listElements, disabled }) => {
+const SelectMacro = ({ onSelect, onKeySelect, value, macros, disabled, keyCode }) => {
+  const KC = keyCode.base + keyCode.modified;
+  const mcros = Array(macros.length)
+    .fill()
+    .map((_, i) => i + 53852);
   return (
     <Style>
-      <Dropdown onSelect={onSelect} value={value} className={`custom-dropdown ${disabled ? "disabled" : ""}`}>
+      <Dropdown
+        onSelect={value => {
+          onKeySelect(parseInt(value));
+        }}
+        value={macros[mcros.indexOf(KC)] != undefined ? mcros[mcros.indexOf(KC)] : ""}
+        className={`custom-dropdown ${disabled ? "disabled" : ""}`}
+      >
         <Dropdown.Toggle id="dropdown-custom">
           <div className="dropdownItemSelected">
-            {value != undefined && value != null && listElements.length > 0 ? ( // Ternary operator checking validity of variables
-              <React.Fragment>
-                {typeof value == "string" && value != "" ? ( // Ternary operator checking if string
-                  <React.Fragment>
-                    {listElements[0].icon != undefined ? ( // Ternary operator checking if icon exists
-                      <React.Fragment>
-                        <div className="dropdownIcon">
-                          <img src={listElements.filter(elem => elem.value === value)[0].icon} className="dropdwonIcon" />
-                        </div>
-                        <div className="dropdownItem">{value}</div>
-                      </React.Fragment>
-                    ) : (
-                      <div className="dropdownItem">{value}</div>
-                    )}
-                  </React.Fragment>
-                ) : (
-                  ""
-                )}
-                {typeof value == "number" && value > -1 ? ( // Ternary operator checking if number
-                  <React.Fragment>
-                    {listElements[0].icon != undefined ? ( // Ternary operator checking if icon exists
-                      <React.Fragment>
-                        <div className="dropdownIcon">
-                          <img src={listElements.filter(elem => elem.value === value)[0].icon} className="dropdwonIcon" />
-                        </div>
-                        <div className="dropdownItem">{listElements.filter(elem => elem.value === value)[0].text}</div>
-                      </React.Fragment>
-                    ) : (
-                      <div className="dropdownItem">{listElements.filter(elem => elem.value === value)[0].text}</div>
-                    )}
-                  </React.Fragment>
-                ) : (
-                  ""
-                )}
-              </React.Fragment>
-            ) : (
-              ""
-            )}
+            <div className="dropdownItem">
+              {macros[mcros.indexOf(KC)] != undefined ? `${mcros.indexOf(KC)} ${macros[mcros.indexOf(KC)].name}` : ""}
+            </div>
           </div>
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          {listElements.map((item, index) => (
-            <Dropdown.Item eventKey={item.value} key={index} className={`${value == item.text ? "active" : ""}`}>
-              <div className="dropdownInner">
-                {value != undefined && value != "" > 0 && listElements.length > 0 && listElements[0].icon != undefined ? (
-                  <div className="dropdownIcon">
-                    <img src={item.icon} className="dropdwonIcon" />
-                  </div>
-                ) : (
-                  ""
-                )}
-                <div className="dropdownItem">{item.text}</div>
-              </div>
-            </Dropdown.Item>
-          ))}
+          {mcros.map((x, id) => {
+            return (
+              <Dropdown.Item eventKey={x} key={`macro-${id}`} disabled={x == -1}>
+                <div className="dropdownInner">
+                  <div className="dropdownItem">{`${id} ${macros[id].name}`}</div>
+                </div>
+              </Dropdown.Item>
+            );
+          })}
         </Dropdown.Menu>
       </Dropdown>
     </Style>
   );
 };
 
-export default Select;
+export default SelectMacro;

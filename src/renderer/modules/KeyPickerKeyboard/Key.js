@@ -64,7 +64,7 @@ const ksl = {
     }
   },
   specialBlockDropdown: {
-    outb: { x: 65, y: 26, dx: 0, dy: 0 },
+    outb: { x: 65, y: keyCapRegularSize.height, dx: 0, dy: 0 },
     out: { x: 42, y: 20, dx: 1, dy: 1 },
     icon: { x: 12, y: -3, w: 30, h: 26 },
     text: {

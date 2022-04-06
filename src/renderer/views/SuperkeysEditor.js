@@ -54,6 +54,10 @@ const Store = require("electron-store");
 const store = new Store();
 
 const Styles = Styled.div`
+&.superkeys {
+  display: flex;
+  min-height: 100%;
+}
 height: -webkit-fill-available;
 display: flex;
 flex-direction: column;
@@ -81,17 +85,7 @@ flex-direction: column;
     width: -webkit-fill-available;
     text-align: left;
   }
-  .cancel-active{
-    background-color: ${({ theme }) => theme.colors.button.cancel};
-  }
-  .save-active{
-    background-color: ${({ theme }) => theme.colors.button.save};
-  }
-  .button-large:not(:disabled):not(.disabled):hover {
-    color: ${({ theme }) => theme.colors.button.text};
-    background-color: ${({ theme }) => theme.colors.button.active};
-    border: none;
-  }
+
 `;
 
 const ModalStyle = Styled.div`
@@ -738,8 +732,8 @@ class SuperkeysEditor extends React.Component {
       );
     });
     return (
-      <Styles>
-        <Container fluid className="superkeys">
+      <Styles className="superkeys">
+        <Container fluid>
           <PageHeader
             text={i18n.app.menu.superkeys}
             showSaving={true}

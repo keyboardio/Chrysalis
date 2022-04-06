@@ -27,8 +27,15 @@ import { IconEditModeStandardView, IconEditModeSingleView } from "../../componen
 
 const Style = Styled.div`
 &.layoutSelector {
-  position: fixed;
-  bottom: 24px;
+  // position: fixed;
+  // bottom: 24px;
+  // margin-left: 15px;
+
+  margin-left: 15px;
+  align-self: self-end;
+  margin-top: auto;
+  margin-bottom: 24px;
+  padding-top: 24px;
 }
 .toggleButtonsContainer {
   padding: 4px;
@@ -67,6 +74,7 @@ h5 {
   font-size: 11px;
   letter-spacing: 0.05em;
   color: ${({ theme }) => theme.styles.toogleEditMode.titleColor};
+  margin-left: 4px;
 }
 .icon-right svg {
   margin-left: 10px;

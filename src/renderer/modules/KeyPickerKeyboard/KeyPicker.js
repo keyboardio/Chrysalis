@@ -105,8 +105,7 @@ width: 100%;
 }
 .svgStyle {
     overflow: visible;
-    max-width:1170px; 
-    min-width: 860px;
+    max-width: 1170px; 
     margin: 6px auto;
 }
 `;

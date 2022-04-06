@@ -7,6 +7,8 @@ import { Picker } from "./../KeyPickerKeyboard";
 import Keys from "../../components/KeyManager/Keys";
 import Selector from "../../components/KeyManager/Selector";
 
+import ModPicker from "../../components/KeyManager/ModPicker";
+
 // React Components
 import Container from "react-bootstrap/Container";
 
@@ -99,14 +101,18 @@ const Style = Styled.div`
 }
 
 .singleViewWrapper {
-  display: flex;
   margin-top: 16px;
+
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: minmax(160px, 230px) minmax(840px, auto);
+  grid-gap: 24px;
   .keyEnhanceWrapper {
-    flex: 0 0 270px;
-    padding-right: 20px;
+
   }
   .keyBoardPickerWrapper {
-    flex: 0 0 calc(100% - 270px);
+    // flex: 0 0 calc(100% - 270px);
+    width: 100%;
     background: #25273B;
     box-shadow: 0px 4px 82px rgba(0, 0, 0, 0.25), 0px 12px 62px rgba(108, 92, 231, 0.1);
     border-radius: 6px;
@@ -115,6 +121,27 @@ const Style = Styled.div`
 
 }
 
+@media (max-height: 890px) {
+  .callOut {
+    max-width: 100%!important;
+  }
+}
+@media screen and (max-width: 1240px) {
+  .singleViewWrapper {
+    grid-template-columns: 1fr;
+    grid-gap: 24px;
+  }
+}
+
+
+
+.keyEnhanceWrapper {
+  background: #25273B;
+  border: 1px solid rgba(63, 66, 90, 0.3);
+  box-sizing: border-box;
+  box-shadow: 32px 32px 64px -12px rgba(11, 2, 25, 0.4), 32px 32px 72px -32px rgba(26, 17, 46, 0.5);
+  border-radius: 6px;
+}
 
 `;
 
@@ -263,7 +290,15 @@ class KeyPickerKeyboard extends Component {
     return (
       <Style>
         <div className="singleViewWrapper">
-          <div className="keyEnhanceWrapper">keyEnhance</div>
+          <div className="keyEnhanceWrapper">
+            <div className="">
+              <div className="">New value</div>
+              <div className="">
+                Add modifier
+                <ModPicker key={code} keyCode={code} onKeySelect={onKeySelect}></ModPicker>
+              </div>
+            </div>
+          </div>
           <div className="keyBoardPickerWrapper">
             <Picker
               actions={actions}

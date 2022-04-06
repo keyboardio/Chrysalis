@@ -24,6 +24,9 @@ const Style = Styled.div`
 width: 100%;
 flex: 0 0 100%;
 align-self: flex-start;
+// position: sticky;
+// top: 32px;
+z-index: 300;
 &.pageHeaderSticky {
   position: sticky;
   top: 0;
@@ -39,6 +42,7 @@ align-self: flex-start;
     align-items: center;
     min-height: 82px;
     background-color: ${({ theme }) => theme.styles.pageHeader.backgroundColor};
+    // backdrop-filter: blur(6px);
     h1, h2, h3, h4, h5, h6 {
         margin: 0;
     }

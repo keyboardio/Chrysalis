@@ -34,6 +34,9 @@ import Callout from "../component/Callout";
 import { LayoutViewSelector } from "../component/ToggleButtons";
 import { SuperkeysSelector } from "../component/Select";
 
+import ToastMessage from "../component/ToastMessage";
+import { IconFloppyDisk } from "../component/Icon";
+
 // Modules
 import PageHeader from "../modules/PageHeader";
 import { SuperKeysFeatures } from "../modules/SuperKeys";
@@ -521,9 +524,16 @@ class SuperkeysEditor extends React.Component {
       const commands = await this.bkp.Commands();
       const backup = await this.bkp.DoBackup(commands, this.state.neurons[this.state.neuronID].id);
       this.bkp.SaveBackup(backup);
-      toast.success(i18n.editor.macros.successFlash, {
-        autoClose: 2000
-      });
+      toast.success(
+        <ToastMessage
+          title="The Superkeys have been saved"
+          content={i18n.editor.macros.successFlash}
+          icon={<IconFloppyDisk />}
+        />,
+        {
+          autoClose: 2000
+        }
+      );
     } catch (error) {
       toast.error(error);
     }

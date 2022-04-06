@@ -116,33 +116,6 @@ class Preferences extends React.Component {
       );
     });
 
-    const darkModeSwitch = (
-      <Switch
-        checked={darkMode}
-        onChange={toggleDarkMode}
-        value="devtools"
-        sx={{ mx: 3 }}
-      />
-    );
-
-    const devToolsSwitch = (
-      <Switch
-        checked={this.state.devTools}
-        onChange={this.toggleDevTools}
-        value="devtools"
-        sx={{ mx: 3 }}
-      />
-    );
-
-    const verboseSwitch = (
-      <Switch
-        checked={this.state.verboseFocus}
-        onChange={this.toggleVerboseFocus}
-        value="verboseFocus"
-        sx={{ mx: 3 }}
-      />
-    );
-
     return (
       <Box sx={{ py: 2, px: 2, margin: "0 8" }}>
         <Portal container={this.props.titleElement}>
@@ -173,7 +146,14 @@ class Preferences extends React.Component {
               </Select>
             </FormControl>
             <FormControlLabel
-              control={darkModeSwitch}
+              control={
+                <Switch
+                  checked={darkMode}
+                  onChange={toggleDarkMode}
+                  value="devtools"
+                  sx={{ mx: 3 }}
+                />
+              }
               sx={{ display: "flex", marginRight: 2 }}
               labelPlacement="end"
               label={i18n.t("preferences.darkMode")}
@@ -220,13 +200,27 @@ class Preferences extends React.Component {
             <CardContent>
               <FormControlLabel
                 sx={{ display: "flex", marginRight: 2 }}
-                control={devToolsSwitch}
+                control={
+                  <Switch
+                    checked={this.state.devTools}
+                    onChange={this.toggleDevTools}
+                    value="devtools"
+                    sx={{ mx: 3 }}
+                  />
+                }
                 labelPlacement="end"
                 label={i18n.t("preferences.devtools")}
               />
               <FormControlLabel
                 sx={{ display: "flex", marginRight: 2 }}
-                control={verboseSwitch}
+                control={
+                  <Switch
+                    checked={this.state.verboseFocus}
+                    onChange={this.toggleVerboseFocus}
+                    value="verboseFocus"
+                    sx={{ mx: 3 }}
+                  />
+                }
                 labelPlacement="end"
                 label={i18n.t("preferences.verboseFocus")}
               />

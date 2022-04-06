@@ -27,6 +27,7 @@ import FilledInput from "@mui/material/FilledInput";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
+import InputLabel from "@mui/material/InputLabel";
 import LinearProgress from "@mui/material/LinearProgress";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
@@ -136,16 +137,10 @@ class KeyboardSettings extends React.Component {
     const defaultLayerSelect = (
       <Select
         onChange={this.selectDefaultLayer}
+        sx={{ mb: 2 }}
         value={defaultLayer}
         variant="filled"
-        input={
-          <FilledInput
-            sx={{
-              paddingTop: 1,
-              width: 200,
-            }}
-          />
-        }
+        input={<FilledInput sx={{}} />}
       >
         <MenuItem value={126}>
           {i18n.t("keyboardSettings.keymap.noDefault")}
@@ -230,15 +225,13 @@ class KeyboardSettings extends React.Component {
                 display: "block",
               }}
             >
-              <FormControlLabel
-                control={defaultLayerSelect}
-                sx={{
-                  flexGrow: 1,
-                  marginRight: 2,
-                }}
-                labelPlacement="start"
-                label={i18n.t("keyboardSettings.keymap.defaultLayer")}
-              />
+              <FormControl variant="standard" fullWidth={true}>
+                <InputLabel>
+                  {i18n.t("keyboardSettings.keymap.defaultLayer")}
+                </InputLabel>
+                {defaultLayerSelect}
+              </FormControl>
+
               {ledIdleTimeLimit >= 0 && (
                 <FormControlLabel
                   control={idleControl}

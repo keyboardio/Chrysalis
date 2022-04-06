@@ -33,7 +33,7 @@ class Keymap extends React.Component {
         .fill()
         .map(() => 0);
 
-    const KeySpacingY = 63;
+    const KeySpacingY = 64;
     const keySpacingX = 62.5;
 
     const colOffsetY = [30, 20, 4, 24, 40, 30, 30, 40, 24, 4, 20, 30];
@@ -121,12 +121,12 @@ class Keymap extends React.Component {
           background: `url(${Atreus})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "100%",
-          height: "335px",
-          width: "833px",
+          height: "362px",
+          width: "855px",
         }}
       >
         <svg
-          viewBox="0 0 833 335"
+          viewBox="0 0 833 362"
           xmlns="http://www.w3.org/2000/svg"
           preserveAspectRatio="xMidYMin meet"
         >

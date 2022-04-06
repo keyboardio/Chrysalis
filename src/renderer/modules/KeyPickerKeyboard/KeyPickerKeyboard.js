@@ -8,6 +8,7 @@ import Keys from "../../components/KeyManager/Keys";
 import Selector from "../../components/KeyManager/Selector";
 
 import ModPicker from "./ModPicker";
+import KeyVisualizer from "../KeyVisualizer";
 
 // React Components
 import Container from "react-bootstrap/Container";
@@ -305,7 +306,7 @@ class KeyPickerKeyboard extends Component {
         <div className="singleViewWrapper">
           <div className="keyEnhanceWrapper">
             <div className="keyEnhanceInner">
-              <div className="">New value</div>
+              <KeyVisualizer newValue={selKey} />
               <div className="ModPicker">
                 <ModPicker key={code} keyCode={code} onKeySelect={onKeySelect}></ModPicker>
               </div>

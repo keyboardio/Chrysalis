@@ -7,7 +7,7 @@ import { Picker } from "./../KeyPickerKeyboard";
 import Keys from "../../components/KeyManager/Keys";
 import Selector from "../../components/KeyManager/Selector";
 
-import ModPicker from "../../components/KeyManager/ModPicker";
+import ModPicker from "./ModPicker";
 
 // React Components
 import Container from "react-bootstrap/Container";
@@ -105,7 +105,7 @@ const Style = Styled.div`
 
   margin-top: 16px;
   display: grid;
-  grid-template-columns: minmax(160px, 230px) minmax(840px, auto);
+  grid-template-columns: minmax(160px, 250px) minmax(840px, auto);
   grid-gap: 24px;
   .keyEnhanceWrapper {
 
@@ -141,6 +141,19 @@ const Style = Styled.div`
   box-sizing: border-box;
   box-shadow: 32px 32px 64px -12px rgba(11, 2, 25, 0.4), 32px 32px 72px -32px rgba(26, 17, 46, 0.5);
   border-radius: 6px;
+}
+.keyEnhanceInner {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+}
+.ModPicker {
+  background: rgba(48, 57, 73, 0.2);
+  box-shadow: 0 0 0 1px inset rgba(63, 66, 90, 0.3);
+  border-radius: 6px;
+  margin-left: -1px;
+  margin-right: -1px;
+  margin-bottom: -1px;
 }
 
 `;
@@ -291,10 +304,9 @@ class KeyPickerKeyboard extends Component {
       <Style>
         <div className="singleViewWrapper">
           <div className="keyEnhanceWrapper">
-            <div className="">
+            <div className="keyEnhanceInner">
               <div className="">New value</div>
-              <div className="">
-                Add modifier
+              <div className="ModPicker">
                 <ModPicker key={code} keyCode={code} onKeySelect={onKeySelect}></ModPicker>
               </div>
             </div>

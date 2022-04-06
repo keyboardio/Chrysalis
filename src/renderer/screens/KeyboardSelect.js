@@ -402,7 +402,7 @@ class KeyboardSelect extends React.Component {
               {preview}
               {port}
             </CardContent>
-            <CardActions sx={{ justifyContent: "center" }}>
+            <CardActions sx={{ justifyContent: "center", m: 2 }}>
               {scanDevicesButton}
               <Box sx={{ flexGrow: 1 }} />
               {connectionButton}

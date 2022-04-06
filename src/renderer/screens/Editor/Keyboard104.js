@@ -132,15 +132,7 @@ class Keymap extends React.Component {
       const label = db.format(key, getKeycapSize(row, col));
       let keyClasses;
       return (
-        <g
-          onClick={onClick}
-          className="key"
-          data-key-code={key.code}
-          sx={{
-            fontSize:
-              label.main.length == 1 ? Math.round(keycapunit / 2.5) : "inherit",
-          }}
-        >
+        <g onClick={onClick} className="key" data-key-code={key.code} sx={{}}>
           <rect
             x={x}
             y={y}
@@ -151,7 +143,18 @@ class Keymap extends React.Component {
             strokeWidth={1.55}
             fill={buttonColor}
           />
-          <text x={x + 5} y={bottom} fill={textColor}>
+          <text
+            x={x + width / 2}
+            y={y + height / 2}
+            fill={textColor}
+            dominantBaseline="middle"
+            textAnchor="middle"
+            fontSize={
+              label.main.length == 1
+                ? Math.round(keycapunit / 2.5)
+                : Math.round(keycapunit / 4)
+            }
+          >
             {label.main}
           </text>
         </g>

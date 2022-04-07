@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Electron from "electron";
 const { ipcRenderer } = require("electron");
@@ -49,35 +49,31 @@ import Focus from "../../api/focus";
 const Store = require("electron-store");
 const settings = new Store();
 
-class Preferences extends React.Component {
-  state = {
-    devTools: false,
-    advanced: false,
-    verboseFocus: false,
-  };
-
-  componentDidMount = () => {
+function Preferences(props) {
+  let focus = new Focus();
+  const [devTools, setDevTools] = useState(false);
+  const [advanced, setAdvanced] = useState(false);
+  const [verboseFocus, setVerboseFocus] = useState(focus.debug);
+  const [language, setLanguage] = useState(i18n.language);
+  useEffect(() => {
     ipcRenderer.invoke("devtools-is-open").then((result) => {
-      this.setState({ devTools: result });
+      setDevTools(result);
     });
     ipcRenderer.on("devtools-opened", () => {
-      this.setState({ devTools: true });
+      setDevTools(true);
     });
     ipcRenderer.on("devtools-closed", () => {
-      this.setState({ devTools: false });
+      setDevTools(false);
     });
 
-    let focus = new Focus();
-    this.setState({ verboseFocus: focus.debug });
-  };
-
-  componentWillUnmount = () => {
-    ipcRenderer.removeAllListeners("devtools-opened");
-    ipcRenderer.removeAllListeners("devtools-closed");
-  };
-
-  toggleDevTools = (event) => {
-    this.setState({ devTools: event.target.checked });
+    // Cleanup when component unmounts.
+    return () => {
+      ipcRenderer.removeAllListeners("devtools-opened");
+      ipcRenderer.removeAllListeners("devtools-closed");
+    };
+  });
+  const toggleDevTools = (event) => {
+    setDevTools(event.target.checked);
     if (event.target.checked) {
       ipcRenderer.send("show-devtools", true);
     } else {
@@ -85,42 +81,104 @@ class Preferences extends React.Component {
     }
   };
 
-  setLanguage = async (event) => {
+  const updateLanguage = async (event) => {
     i18n.changeLanguage(event.target.value);
-    await this.setState({});
     await settings.set("ui.language", event.target.value);
+    // We stick language in the state system to get rerenders when it changes
+    setLanguage(event.target.value);
   };
 
-  toggleAdvanced = () => {
-    this.setState((state) => ({
-      advanced: !state.advanced,
-    }));
+  const toggleAdvanced = () => {
+    setAdvanced(!advanced);
   };
 
-  toggleVerboseFocus = (event) => {
-    this.setState({ verboseFocus: event.target.checked });
+  const toggleVerboseFocus = (event) => {
+    setVerboseFocus(event.target.checked);
     let focus = new Focus();
     focus.debug = event.target.checked;
   };
 
-  render() {
-    const { darkMode, toggleDarkMode } = this.props;
+  const { darkMode, toggleDarkMode } = props;
 
-    const language = i18n.language;
-    const languages = Object.keys(i18n.options.resources).map((code) => {
-      const t = i18n.getFixedT(code);
-      return (
-        <MenuItem value={code} key={code}>
-          {t("language")}
-        </MenuItem>
-      );
-    });
-
+  const languages = Object.keys(i18n.options.resources).map((code) => {
+    const t = i18n.getFixedT(code);
     return (
-      <Box sx={{ py: 2, px: 2, margin: "0 8" }}>
-        <Portal container={this.props.titleElement}>
-          {i18n.t("app.menu.preferences")}
-        </Portal>
+      <MenuItem value={code} key={code}>
+        {t("language")}
+      </MenuItem>
+    );
+  });
+
+  return (
+    <Box sx={{ py: 2, px: 2, margin: "0 8" }}>
+      <Portal container={props.titleElement}>
+        {i18n.t("app.menu.preferences")}
+      </Portal>
+      <Typography
+        variant="subtitle1"
+        component="h2"
+        sx={{
+          marginTop: 4,
+          marginBottom: 1,
+        }}
+      >
+        {i18n.t("preferences.interface")}
+      </Typography>
+      <Card>
+        <CardContent>
+          <FormControl variant="standard" fullWidth={true}>
+            <InputLabel>{i18n.t("preferences.language")}</InputLabel>
+            <Select
+              value={language}
+              sx={{ mb: 2 }}
+              onChange={updateLanguage}
+              label={i18n.t("preferences.language")}
+              input={<FilledInput sx={{}} />}
+            >
+              {languages}
+            </Select>
+          </FormControl>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={darkMode}
+                onChange={toggleDarkMode}
+                value="devtools"
+                sx={{ mx: 3 }}
+              />
+            }
+            sx={{ display: "flex", marginRight: 2 }}
+            labelPlacement="end"
+            label={i18n.t("preferences.darkMode")}
+          />
+        </CardContent>
+      </Card>
+      {props.connected && (
+        <KeyboardSettings
+          startContext={props.startContext}
+          cancelContext={props.cancelContext}
+          inContext={props.inContext}
+        />
+      )}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: 4,
+          "& button": {
+            textTransform: "none",
+            "& span svg": {
+              marginLeft: "1.5em",
+            },
+          },
+        }}
+      >
+        <Button onClick={toggleAdvanced}>
+          {i18n.t("preferences.advanced")}
+          {advanced ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+        </Button>
+      </Box>
+      <Collapse in={advanced} timeout="auto" unmountOnExit>
         <Typography
           variant="subtitle1"
           component="h2"
@@ -129,114 +187,48 @@ class Preferences extends React.Component {
             marginBottom: 1,
           }}
         >
-          {i18n.t("preferences.interface")}
+          {i18n.t("preferences.devtools")}
         </Typography>
         <Card>
           <CardContent>
-            <FormControl variant="standard" fullWidth={true}>
-              <InputLabel>{i18n.t("preferences.language")}</InputLabel>
-              <Select
-                value={language}
-                sx={{ mb: 2 }}
-                onChange={this.setLanguage}
-                label={i18n.t("preferences.language")}
-                input={<FilledInput sx={{}} />}
-              >
-                {languages}
-              </Select>
-            </FormControl>
             <FormControlLabel
+              sx={{ display: "flex", marginRight: 2 }}
               control={
                 <Switch
-                  checked={darkMode}
-                  onChange={toggleDarkMode}
+                  checked={devTools}
+                  onChange={toggleDevTools}
                   value="devtools"
                   sx={{ mx: 3 }}
                 />
               }
-              sx={{ display: "flex", marginRight: 2 }}
               labelPlacement="end"
-              label={i18n.t("preferences.darkMode")}
+              label={i18n.t("preferences.devtools")}
+            />
+            <FormControlLabel
+              sx={{ display: "flex", marginRight: 2 }}
+              control={
+                <Switch
+                  checked={verboseFocus}
+                  onChange={toggleVerboseFocus}
+                  value="verboseFocus"
+                  sx={{ mx: 3 }}
+                />
+              }
+              labelPlacement="end"
+              label={i18n.t("preferences.verboseFocus")}
             />
           </CardContent>
         </Card>
-        {this.props.connected && (
-          <KeyboardSettings
-            startContext={this.props.startContext}
-            cancelContext={this.props.cancelContext}
-            inContext={this.props.inContext}
+        {props.connected && (
+          <AdvancedKeyboardSettings
+            startContext={props.startContext}
+            cancelContext={props.cancelContext}
+            inContext={props.inContext}
           />
         )}
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: 4,
-            "& button": {
-              textTransform: "none",
-              "& span svg": {
-                marginLeft: "1.5em",
-              },
-            },
-          }}
-        >
-          <Button onClick={this.toggleAdvanced}>
-            {i18n.t("preferences.advanced")}
-            {this.state.advanced ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-          </Button>
-        </Box>
-        <Collapse in={this.state.advanced} timeout="auto" unmountOnExit>
-          <Typography
-            variant="subtitle1"
-            component="h2"
-            sx={{
-              marginTop: 4,
-              marginBottom: 1,
-            }}
-          >
-            {i18n.t("preferences.devtools")}
-          </Typography>
-          <Card>
-            <CardContent>
-              <FormControlLabel
-                sx={{ display: "flex", marginRight: 2 }}
-                control={
-                  <Switch
-                    checked={this.state.devTools}
-                    onChange={this.toggleDevTools}
-                    value="devtools"
-                    sx={{ mx: 3 }}
-                  />
-                }
-                labelPlacement="end"
-                label={i18n.t("preferences.devtools")}
-              />
-              <FormControlLabel
-                sx={{ display: "flex", marginRight: 2 }}
-                control={
-                  <Switch
-                    checked={this.state.verboseFocus}
-                    onChange={this.toggleVerboseFocus}
-                    value="verboseFocus"
-                    sx={{ mx: 3 }}
-                  />
-                }
-                labelPlacement="end"
-                label={i18n.t("preferences.verboseFocus")}
-              />
-            </CardContent>
-          </Card>
-          {this.props.connected && (
-            <AdvancedKeyboardSettings
-              startContext={this.props.startContext}
-              cancelContext={this.props.cancelContext}
-              inContext={this.props.inContext}
-            />
-          )}
-        </Collapse>
-      </Box>
-    );
-  }
+      </Collapse>
+    </Box>
+  );
 }
 
 export default Preferences;

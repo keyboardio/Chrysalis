@@ -12,10 +12,10 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with  this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
+import React, { useState } from "react";
 
 import Focus from "../../api/focus";
 import Log from "../../api/log";
@@ -52,39 +52,32 @@ import { v4 as uuidv4 } from "uuid";
 
 import i18n from "../i18n";
 
-class SystemInfo extends React.Component {
-  state = {
-    collecting: false,
-    collected: false,
-    info: {},
-    viewing: false,
+function SystemInfo(props) {
+  const [collecting, setCollecting] = useState(false);
+  const [collected, setCollected] = useState(false);
+  const [info, setInfo] = useState({});
+  const [viewing, setViewing] = useState(false);
+
+  const closeViewBundle = () => {
+    setViewing(false);
+    setCollected(false);
+    setInfo({});
   };
 
-  closeViewBundle = () => {
-    this.setState({
-      viewing: false,
-      collected: false,
-      info: {},
-    });
-  };
-
-  saveBundle = async () => {
+  const saveBundle = async () => {
     ipcRenderer.send("file-save", {
-      content: jsonStringify(this.state.info),
+      content: jsonStringify(info),
       title: i18n.t("systeminfo.dialog.title"),
       defaultPath: "chrysalis-debug.bundle.json",
     });
 
-    this.setState({
-      collected: false,
-      viewing: false,
-      info: {},
-    });
+    setCollected(false);
+    setViewing(false);
+    setInfo({});
   };
 
-  createBundle = async () => {
-    await this.setState({ collecting: true });
-
+  const createBundle = async () => {
+    setCollecting(true);
     const logger = new Log();
     const focus = new Focus();
 
@@ -108,119 +101,98 @@ class SystemInfo extends React.Component {
       };
     }
 
-    await this.setState({
-      collecting: false,
-      collected: true,
-      viewing: true,
-      info: sysInfo,
-    });
+    setCollecting(false);
+    setCollected(true);
+    setViewing(true);
+    setInfo(sysInfo);
   };
 
-  render() {
-    const { classes } = this.props;
-    const { collected, viewing } = this.state;
+  const DialogTitle = (props) => {
+    const { children, ...other } = props;
+    return (
+      <MuiDialogTitle
+        disableTypography
+        sx={{
+          margin: 0,
+          padding: 2,
+        }}
+        {...other}
+      >
+        <Typography variant="h6">{children}</Typography>
+        <Box
+          sx={{
+            position: "absolute",
+            right: 1,
+            top: 1,
+          }}
+        >
+          <Button color="primary" onClick={saveBundle}>
+            {i18n.t("systeminfo.saveBundle")}
+          </Button>
+          <IconButton onClick={closeViewBundle} size="large">
+            <CloseIcon />
+          </IconButton>
+        </Box>
+      </MuiDialogTitle>
+    );
+  };
 
-    let mainButton = (
-      <Button
-        disabled={this.state.collecting}
-        color="primary"
-        variant="outlined"
-        onClick={async () => {
-          return await this.createBundle();
+  const viewDialog = (
+    <Dialog open={viewing} scroll="paper" onClose={closeViewBundle} fullScreen>
+      <DialogTitle>{i18n.t("systeminfo.title")}</DialogTitle>
+      <DialogContent dividers>
+        <TextField disabled multiline fullWidth value={jsonStringify(info)} />
+      </DialogContent>
+    </Dialog>
+  );
+
+  return (
+    <Box sx={{ display: "flex", justifyContent: "center" }}>
+      <Portal container={props.titleElement}>
+        {i18n.t("systeminfo.title")}
+      </Portal>
+      <Card
+        sx={{
+          margin: 4,
+          maxWidth: "50%",
         }}
       >
-        {i18n.t("systeminfo.createBundle")}
-      </Button>
-    );
+        <CardHeader
+          avatar={<img src={logo} alt={i18n.t("components.logo.altText")} />}
+          title="Chrysalis"
+          subheader={version}
+        />
+        <CardContent>
+          <Typography component="p" gutterBottom>
+            {i18n.t("systeminfo.intro")}
+          </Typography>
 
-    const DialogTitle = (props) => {
-      const { children, classes, ...other } = props;
-      return (
-        <MuiDialogTitle
-          disableTypography
-          sx={{
-            margin: 0,
-            padding: 2,
-          }}
-          {...other}
-        >
-          <Typography variant="h6">{children}</Typography>
-          <Box
-            sx={{
-              position: "absolute",
-              right: 1,
-              top: 1,
+          <Typography component="p">
+            {i18n.t("systeminfo.privacyNote")}
+          </Typography>
+          <Typography component="p">
+            <Link href="https://github.com/keyboardio/Chrysalis/issues">
+              {i18n.t("systeminfo.bugTracker")}
+            </Link>
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <Box sx={{ flexGrow: 1 }} />
+          <Button
+            disabled={collecting}
+            color="primary"
+            variant="outlined"
+            onClick={async () => {
+              return await createBundle();
             }}
           >
-            <Button color="primary" onClick={this.saveBundle}>
-              {i18n.t("systeminfo.saveBundle")}
-            </Button>
-            <IconButton onClick={this.closeViewBundle} size="large">
-              <CloseIcon />
-            </IconButton>
-          </Box>
-        </MuiDialogTitle>
-      );
-    };
-
-    const viewDialog = (
-      <Dialog
-        open={viewing}
-        scroll="paper"
-        onClose={this.closeViewBundle}
-        fullScreen
-      >
-        <DialogTitle>{i18n.t("systeminfo.title")}</DialogTitle>
-        <DialogContent dividers>
-          <TextField
-            disabled
-            multiline
-            fullWidth
-            value={jsonStringify(this.state.info)}
-          />
-        </DialogContent>
-      </Dialog>
-    );
-
-    return (
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Portal container={this.props.titleElement}>
-          {i18n.t("systeminfo.title")}
-        </Portal>
-        <Card
-          sx={{
-            margin: 4,
-            maxWidth: "50%",
-          }}
-        >
-          <CardHeader
-            avatar={<img src={logo} alt={i18n.t("components.logo.altText")} />}
-            title="Chrysalis"
-            subheader={version}
-          />
-          <CardContent>
-            <Typography component="p" gutterBottom>
-              {i18n.t("systeminfo.intro")}
-            </Typography>
-
-            <Typography component="p">
-              {i18n.t("systeminfo.privacyNote")}
-            </Typography>
-            <Typography component="p">
-              <Link href="https://github.com/keyboardio/Chrysalis/issues">
-                {i18n.t("systeminfo.bugTracker")}
-              </Link>
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Box sx={{ flexGrow: 1 }} />
-            {mainButton}
-          </CardActions>
-        </Card>
-        {viewDialog}
-      </Box>
-    );
-  }
+            {i18n.t("systeminfo.createBundle")}
+          </Button>
+        </CardActions>
+      </Card>
+      {viewDialog}
+    </Box>
+  );
 }
 
 export default SystemInfo;

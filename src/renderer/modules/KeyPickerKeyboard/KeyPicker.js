@@ -163,8 +163,19 @@ class KeyPicker extends Component {
   }
 
   render() {
-    const { code, disableMods, disableMove, disableAll, selectedlanguage, kbtype, macros, keyCode, onKeySelect, activeTab } =
-      this.props;
+    const {
+      action,
+      code,
+      disableMods,
+      disableMove,
+      disableAll,
+      selectedlanguage,
+      kbtype,
+      macros,
+      keyCode,
+      onKeySelect,
+      activeTab
+    } = this.props;
     const liso = {
       english: ENi,
       spanish: ES,
@@ -387,7 +398,7 @@ class KeyPicker extends Component {
                       <IconLayers />
                     </div>
                     <div className="keysButtonsList">
-                      <SelectLayersLock activeTab={activeTab} keyCode={code} onKeySelect={onKeySelect} />
+                      <SelectLayersLock action={action} activeTab={activeTab} keyCode={code} onKeySelect={onKeySelect} />
                     </div>
                   </div>
                   <div className="keysRow keysLED">

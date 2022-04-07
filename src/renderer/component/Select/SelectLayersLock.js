@@ -71,9 +71,10 @@ class SelectLayersLock extends Component {
     ];
   }
   render() {
-    const { keyCode, onKeySelect, activeTab } = this.props;
+    const { action, keyCode, onKeySelect, activeTab } = this.props;
     const KC = keyCode.base + keyCode.modified;
 
+    console.log("action", action);
     return (
       <Style>
         <Dropdown
@@ -81,7 +82,7 @@ class SelectLayersLock extends Component {
           onSelect={value => onKeySelect(parseInt(value))}
           className={`custom-dropdown ${
             keyCode.modified > 0 && this.layerLock.map(i => i.keynum).includes(keyCode.base + keyCode.modified) ? "active" : ""
-          }`}
+          } ${action == 1 || action == 2 || action == 4 ? "disabled" : ""}`}
         >
           <Dropdown.Toggle id="dropdown-custom">
             <div className="dropdownItemSelected">

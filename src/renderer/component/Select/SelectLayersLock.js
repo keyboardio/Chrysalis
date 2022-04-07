@@ -53,43 +53,50 @@ width: 100%;
 }
 `;
 
-class SelectMacro extends Component {
+class SelectLayersLock extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.layerLock = [
+      { name: "None Selected", keynum: 0, alt: 0 },
+      { name: "------------", keynum: -1, alt: -1 },
+      { name: "Layer Lock 1", keynum: 17492 },
+      { name: "Layer Lock 2", keynum: 17493 },
+      { name: "Layer Lock 3", keynum: 17494 },
+      { name: "Layer Lock 4", keynum: 17495 },
+      { name: "Layer Lock 5", keynum: 17496 },
+      { name: "Layer Lock 6", keynum: 17497 },
+      { name: "Layer Lock 7", keynum: 17498 },
+      { name: "Layer Lock 8", keynum: 17499 },
+      { name: "Layer Lock 9", keynum: 17500 },
+      { name: "Layer Lock 10", keynum: 17501 }
+    ];
   }
   render() {
-    const { keyCode, onKeySelect, macros } = this.props;
+    const { keyCode, onKeySelect, activeTab } = this.props;
     const KC = keyCode.base + keyCode.modified;
-    const mcros = Array(macros.length)
-      .fill()
-      .map((_, i) => i + 53852);
 
     return (
       <Style>
         <Dropdown
-          onSelect={value => {
-            onKeySelect(parseInt(value));
-          }}
-          value={macros[mcros.indexOf(KC)] != undefined ? mcros[mcros.indexOf(KC)] : ""}
+          value={KC != 0 ? this.layerLock.map(i => i.keynum).includes(KC) : KC}
+          onSelect={value => onKeySelect(parseInt(value))}
           className={`custom-dropdown`}
         >
           <Dropdown.Toggle id="dropdown-custom">
             <div className="dropdownItemSelected">
               <div className="dropdownItem">
-                <span className="dropdownLabel">Macro</span>
-                {macros[mcros.indexOf(KC)] != undefined
-                  ? `${mcros.indexOf(KC)}. ${macros[mcros.indexOf(KC)].name}`
-                  : "Select Macro"}
+                <span className="dropdownLabel">Layer lock</span>
+                {this.layerLock[isNaN(KC) || KC < 17492 || KC > 17501 ? 0 : this.layerLock.findIndex(o => o.keynum == KC)].name}
               </div>
             </div>
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            {mcros.map((x, id) => {
+            {this.layerLock.map((item, id) => {
               return (
-                <Dropdown.Item eventKey={x} key={`macro-${id}`} disabled={x == -1}>
+                <Dropdown.Item eventKey={item.keynum} key={`item-${id}`} disabled={item.keynum == -1}>
                   <div className="dropdownInner">
-                    <div className="dropdownItem">{`${id}. ${macros[id].name}`}</div>
+                    <div className="dropdownItem">{`${id}. ${item.name}`}</div>
                   </div>
                 </Dropdown.Item>
               );
@@ -101,4 +108,4 @@ class SelectMacro extends Component {
   }
 }
 
-export default SelectMacro;
+export default SelectLayersLock;

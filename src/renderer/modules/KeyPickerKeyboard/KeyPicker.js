@@ -44,6 +44,7 @@ import { MdKeyboardReturn, MdSpaceBar, MdKeyboardCapslock, MdInfoOutline, MdEjec
 
 import { ButtonConfig } from "../../component/Button";
 import { SelectMacro } from "../../component/Select";
+import { SelectLayersLock } from "../../component/Select";
 
 import {
   IconNote,
@@ -108,6 +109,7 @@ width: 100%;
     max-width: 1170px; 
     margin: 6px auto;
 }
+
 `;
 const IconColor = Styled.span`
     color: ${props => props.color};
@@ -161,7 +163,8 @@ class KeyPicker extends Component {
   }
 
   render() {
-    const { code, disableMods, disableMove, disableAll, selectedlanguage, kbtype, macros, keyCode } = this.props;
+    const { code, disableMods, disableMove, disableAll, selectedlanguage, kbtype, macros, keyCode, onKeySelect, activeTab } =
+      this.props;
     const liso = {
       english: ENi,
       spanish: ES,
@@ -367,8 +370,8 @@ class KeyPicker extends Component {
           </div>
         </div>
         <div className="KeysWrapper">
-          <svg className="svgStyle" viewBox="0 0 1070 148" preserveAspectRatio="xMidYMin slice">
-            <foreignObject width={1070} height={150} x={0} y={0} style={{ overflow: "visible" }}>
+          <svg className="svgStyle" viewBox="0 0 1070 155" preserveAspectRatio="xMidYMin slice">
+            <foreignObject width={1070} height={195} x={0} y={0} style={{ overflow: "visible" }}>
               <div xmlns="http://www.w3.org/1999/xhtml">
                 <div className="keysContainer keysContainerDropdowns">
                   <div className="keysRow keysMacros">
@@ -376,14 +379,16 @@ class KeyPicker extends Component {
                       <IconRobot />
                     </div>
                     <div className="keysButtonsList">
-                      <SelectMacro macros={macros} keyCode={keyCode} onKeySelect={this.onKeySelect} />
+                      <SelectMacro macros={macros} keyCode={code} onKeySelect={onKeySelect} />
                     </div>
                   </div>
                   <div className="keysRow keysLayerLock">
                     <div className="keyIcon">
                       <IconLayers />
                     </div>
-                    <div className="keysButtonsList">dropdown</div>
+                    <div className="keysButtonsList">
+                      <SelectLayersLock activeTab={activeTab} keyCode={code} onKeySelect={onKeySelect} />
+                    </div>
                   </div>
                   <div className="keysRow keysLED">
                     <div className="keyIcon">

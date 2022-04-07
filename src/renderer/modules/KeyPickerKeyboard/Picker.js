@@ -108,6 +108,7 @@ class Picker extends Component {
           kbtype={kbtype}
           keyCode={keyCode}
           macros={macros}
+          activeTab={activeTab}
         />
       </Style>
     );

@@ -58,8 +58,6 @@ class SelectLayersLock extends Component {
     super(props);
     this.state = {};
     this.layerLock = [
-      { name: "None Selected", keynum: 0, alt: 0 },
-      { name: "------------", keynum: -1, alt: -1 },
       { name: "Layer Lock 1", keynum: 17492 },
       { name: "Layer Lock 2", keynum: 17493 },
       { name: "Layer Lock 3", keynum: 17494 },
@@ -81,22 +79,33 @@ class SelectLayersLock extends Component {
         <Dropdown
           value={KC != 0 ? this.layerLock.map(i => i.keynum).includes(KC) : KC}
           onSelect={value => onKeySelect(parseInt(value))}
-          className={`custom-dropdown`}
+          className={`custom-dropdown ${
+            keyCode.modified > 0 && this.layerLock.map(i => i.keynum).includes(keyCode.base + keyCode.modified) ? "active" : ""
+          }`}
         >
           <Dropdown.Toggle id="dropdown-custom">
             <div className="dropdownItemSelected">
               <div className="dropdownItem">
                 <span className="dropdownLabel">Layer lock</span>
-                {this.layerLock[isNaN(KC) || KC < 17492 || KC > 17501 ? 0 : this.layerLock.findIndex(o => o.keynum == KC)].name}
+                {`${
+                  keyCode.modified > 0 && this.layerLock.map(i => i.keynum).includes(keyCode.base + keyCode.modified)
+                    ? this.layerLock[this.layerLock.findIndex(o => o.keynum == KC)].name
+                    : "Select Layer"
+                }`}
               </div>
             </div>
           </Dropdown.Toggle>
           <Dropdown.Menu>
             {this.layerLock.map((item, id) => {
               return (
-                <Dropdown.Item eventKey={item.keynum} key={`item-${id}`} disabled={item.keynum == -1}>
+                <Dropdown.Item
+                  eventKey={item.keynum}
+                  key={`item-${id}`}
+                  disabled={item.keynum == -1}
+                  className={`${keyCode.modified > 0 && item.keynum == keyCode.base + keyCode.modified ? "active" : ""}`}
+                >
                   <div className="dropdownInner">
-                    <div className="dropdownItem">{`${id}. ${item.name}`}</div>
+                    <div className="dropdownItem">{`${id + 1}. ${item.name}`}</div>
                   </div>
                 </Dropdown.Item>
               );

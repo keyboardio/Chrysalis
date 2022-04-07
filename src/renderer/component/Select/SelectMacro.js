@@ -89,7 +89,7 @@ class SelectMacro extends Component {
               return (
                 <Dropdown.Item eventKey={x} key={`macro-${id}`} disabled={x == -1}>
                   <div className="dropdownInner">
-                    <div className="dropdownItem">{`${id}. ${macros[id].name}`}</div>
+                    <div className="dropdownItem">{`${id + 1}. ${macros[id].name}`}</div>
                   </div>
                 </Dropdown.Item>
               );

@@ -464,6 +464,7 @@ svg text{
   text-align: left;
   font-weight: 600;
 }
+.dropdown.active .dropdown-toggle.btn.btn-primary,
 .dropdown.show .dropdown-toggle.btn.btn-primary,
 .dropdown-toggle.btn.btn-primary:hover {
   border: 1px solid ${({ theme }) => theme.styles.dropdown.borderButtonActive};

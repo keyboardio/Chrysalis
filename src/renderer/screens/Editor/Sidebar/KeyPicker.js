@@ -18,7 +18,7 @@
 import React from "react";
 import i18n from "i18next";
 
-import Box from "@mui/material/Button";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import Divider from "@mui/material/Divider";
@@ -44,6 +44,21 @@ import { GuiLabel } from "../../../../api/keymap/db/base/gui";
 import LayoutSelect from "./KeyPicker/LayoutSelect";
 
 const db = new KeymapDB();
+
+const styles = (theme) => ({
+  mods: {
+    marginTop: theme.spacing(1),
+  },
+  layout: {
+    marginTop: theme.spacing(2),
+  },
+  modContainer: {
+    margin: `${theme.spacing(2)} 0`,
+  },
+  keyPickButton: {
+    marginBottom: theme.spacing(2),
+  },
+});
 
 class KeyPicker extends React.Component {
   state = {
@@ -131,7 +146,7 @@ class KeyPicker extends React.Component {
   };
 
   render() {
-    const { classes, keymap, selectedKey, layer } = this.props;
+    const { keymap, selectedKey, layer } = this.props;
     const key = keymap.custom[layer][selectedKey];
 
     let oneShot;
@@ -182,7 +197,7 @@ class KeyPicker extends React.Component {
             </Button>
           </Box>
           <Divider />
-          <Box sx={{ m: "2 0" }}>
+          <Box sx={{ margin: "2 0" }}>
             <InputLabel>{i18n.t("editor.sidebar.keypicker.mods")}</InputLabel>
             <FormHelperText>
               {i18n.t("editor.sidebar.keypicker.modsHelp")}
@@ -245,4 +260,5 @@ class KeyPicker extends React.Component {
     );
   }
 }
+
 export { KeyPicker as default };

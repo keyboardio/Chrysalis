@@ -72,14 +72,14 @@ class SelectMacro extends Component {
             onKeySelect(parseInt(value));
           }}
           value={macros[mcros.indexOf(KC)] != undefined ? mcros[mcros.indexOf(KC)] : ""}
-          className={`custom-dropdown`}
+          className={`custom-dropdown ${macros[mcros.indexOf(KC)] != undefined ? "active" : ""}`}
         >
           <Dropdown.Toggle id="dropdown-custom">
             <div className="dropdownItemSelected">
               <div className="dropdownItem">
                 <span className="dropdownLabel">Macro</span>
                 {macros[mcros.indexOf(KC)] != undefined
-                  ? `${mcros.indexOf(KC)}. ${macros[mcros.indexOf(KC)].name}`
+                  ? `${mcros.indexOf(KC) + 1}. ${macros[mcros.indexOf(KC)].name}`
                   : "Select Macro"}
               </div>
             </div>

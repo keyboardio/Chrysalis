@@ -21,7 +21,7 @@ import Electron from "electron";
 const { ipcRenderer } = require("electron");
 
 import App from "./App";
-import Error from "./Error";
+import { Error } from "./Error";
 import "../styles/keymap.css";
 import i18n from "./i18n";
 import { I18nextProvider } from "react-i18next";

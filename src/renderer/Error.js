@@ -15,23 +15,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
+import React, { ipcRenderer } from "react";
 
-class Error extends React.Component {
-  render() {
-    return (
-      <main>
-        <h1>An error occurred!</h1>
-        <p>
-          Please see the errors on the development console, and{" "}
-          <a href="https://github.com/keyboardio/Chrysalis/issues/new">
-            report the issue
-          </a>
-          .
-        </p>
-      </main>
-    );
-  }
-}
+const Error = () => {
+  ipcRenderer.send("show-devtools", true);
+  return (
+    <main>
+      <h1>An error occurred!</h1>
+      <p>
+        Please see the errors on the development console, and{" "}
+        <a href="https://github.com/keyboardio/Chrysalis/issues/new">
+          report the issue
+        </a>
+        .
+      </p>
+    </main>
+  );
+};
 
-export default Error;
+export { Error };

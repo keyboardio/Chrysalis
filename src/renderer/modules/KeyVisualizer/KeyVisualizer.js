@@ -19,9 +19,12 @@ import React from "react";
 import Styled from "styled-components";
 import Title from "../../component/Title";
 
+import ListModifiers from "../../component/ListModifiers/ListModifiers";
+
 const Style = Styled.div`
 &.KeyVisualizer {    
     padding: 16px 24px;
+    position: relative;
     h4 {
         font-size: 14px;
         color: ${({ theme }) => theme.colors.purple200};
@@ -36,6 +39,50 @@ const Style = Styled.div`
         border-radius: 4px;
         width: 132px;
         height:82px;
+    }
+    .listModifiersTags {
+      position: relative;
+      margin: 12px -5px 0 -5px;
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .labelModifier {
+      padding: 4px 8px;
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: -0.03em;
+      color: #E2E4EA;
+      margin: 2px;
+      background: rgba(107, 119, 148, 0.5);
+      border: 1px solid rgba(37, 40, 66, 0.55);
+      box-sizing: border-box;
+      backdrop-filter: blur(4px);
+      border-radius: 14px;
+    }
+    .labelHyper,
+    .labelMeh {
+      display: none;
+    }
+    .hyper-active {
+      .labelShift,
+      .labelCrtl,
+      .labelAlt,
+      .labelOs {
+        display: none;
+      }
+      .labelHyper {
+        display: inline-block;
+      }
+    }
+    .meh-active {
+      .labelShift,
+      .labelCrtl,
+      .labelAlt {
+        display: none;
+      }
+      .labelMeh {
+        display: inline-block;
+      }
     }
 }
 
@@ -91,26 +138,7 @@ class KeyVisualizer extends React.Component {
           {newValue ? (
             <div className="keySelectedBox">
               <div className="keySelectedValue">{newValue}</div>
-              <div
-                className={`listModifiersTags 
-                ${this.parseModifs(keyCode.base + keyCode.modified).includes(0, 1, 2, 4) == true ? "hyper-active" : ""} 
-                ${this.parseModifs(keyCode.base + keyCode.modified).includes(0, 1, 2) == true ? "meh-active" : ""}`}
-              >
-                {/* this is for a shift */}
-                {this.parseModifs(keyCode.base + keyCode.modified).includes(0) == true ? (
-                  <div className="label labelModifier">Shift</div>
-                ) : (
-                  "Nope"
-                )}
-                {/* this is for a Control */}
-                {/* {this.parseModifs(keyCode.base + keyCode.modified).includes(1) == true ? <div>Control</div> : "Nope"} */}
-                {/* this is for a ALt */}
-                {/* {this.parseModifs(keyCode.base + keyCode.modified).includes(2) == true ? <div>ALt</div> : "Nope"} */}
-                {/* this is for a AltGr */}
-                {/* {this.parseModifs(keyCode.base + keyCode.modified).includes(3) == true ? <div>AltGr</div> : "Nope"} */}
-                {/* this is for a Gui */}
-                {/* {this.parseModifs(keyCode.base + keyCode.modified).includes(4) == true ? <div>Gui</div> : "Nope"} */}
-              </div>
+              <ListModifiers keyCode={keyCode.base + keyCode.modified} />
             </div>
           ) : (
             ""

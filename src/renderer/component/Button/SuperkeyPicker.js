@@ -21,6 +21,8 @@ import Styled from "styled-components";
 import Title from "../Title";
 import { IconCloseXs } from "../Icon";
 
+import ListModifiers from "../ListModifiers/ListModifiers";
+
 const Style = Styled.div` 
 .superkeyAction {  
     display: flex;
@@ -202,6 +204,7 @@ const SuperkeyPicker = ({
           )}
           <div className="superkeyButton" onClick={() => onClick(index)}>
             <div className="superkeyButtonInner">{keyContent}</div>
+            <ListModifiers keyCode={superkeys[selected].actions[index]} />
           </div>
         </div>
       </div>

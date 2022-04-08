@@ -315,7 +315,7 @@ class KeyPickerKeyboard extends Component {
         <div className="singleViewWrapper">
           <div className="keyEnhanceWrapper">
             <div className="keyEnhanceInner">
-              <KeyVisualizer newValue={selKey} />
+              <KeyVisualizer newValue={selKey} keyCode={code} />
               <div className="ModPicker">
                 <ModPicker key={code} keyCode={code} onKeySelect={onKeySelect}></ModPicker>
               </div>

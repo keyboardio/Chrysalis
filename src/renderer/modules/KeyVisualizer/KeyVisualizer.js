@@ -40,58 +40,85 @@ const Style = Styled.div`
 }
 
 `;
+//}= ({ oldValue, newValue, keyCode }) => {
+class KeyVisualizer extends React.Component {
+  constructor(props) {
+    super(props);
 
-const KeyVisualizer = ({ oldValue, newValue, keyCode }) => {
-  const parseModifs = keycode => {
+    this.state = {
+      //modifs: []
+    };
+  }
+
+  parseModifs(keycode) {
     let modifs = [];
     if (keycode & 0b100000000) {
       // Ctrl Decoder
       modifs.push(1);
+      console.log("modifs", modifs);
     }
     if (keycode & 0b1000000000) {
       // Alt Decoder
       modifs.push(2);
+      console.log("modifs", modifs);
     }
     if (keycode & 0b10000000000) {
       // AltGr Decoder
       modifs.push(3);
+      console.log("modifs", modifs);
     }
     if (keycode & 0b100000000000) {
       // Shift Decoder
       modifs.push(0);
+      console.log("modifs", modifs);
     }
     if (keycode & 0b1000000000000) {
       // Win Decoder
       modifs.push(4);
+      console.log("modifs", modifs);
     }
     return modifs;
-  };
+  }
 
-  return (
-    <Style className="KeyVisualizer">
-      <div className="KeyVisualizerInner">
-        <Title text="New value" headingLevel={4} />
-        {oldValue ? oldValue : ""}
-        {newValue ? (
-          <div className="keySelectedBox">
-            <div className="keySelectedValue">{newValue}</div>
-          </div>
-        ) : (
-          ""
-        )}
-      </div>
-      {/* this is for a shift */}
-      {parseModifs(keyCode).includes(0) == true ? <div>Shift</div> : ""}
-      {/* this is for a Control */}
-      {parseModifs(keyCode).includes(1) == true ? <div>Control</div> : ""}
-      {/* this is for a ALt */}
-      {parseModifs(keyCode).includes(2) == true ? <div>ALt</div> : ""}
-      {/* this is for a AltGr */}
-      {parseModifs(keyCode).includes(3) == true ? <div>AltGr</div> : ""}
-      {/* this is for a Gui */}
-      {parseModifs(keyCode).includes(4) == true ? <div>Gui</div> : ""}
-    </Style>
-  );
-};
+  render() {
+    const { keyCode, newValue, oldValue } = this.props;
+
+    return (
+      <Style className="KeyVisualizer">
+        <div className="KeyVisualizerInner">
+          <Title text="New value" headingLevel={4} />
+          {oldValue ? oldValue : ""}
+          {newValue ? (
+            <div className="keySelectedBox">
+              <div className="keySelectedValue">{newValue}</div>
+              <div
+                className={`listModifiersTags 
+                ${this.parseModifs(keyCode.base + keyCode.modified).includes(0, 1, 2, 4) == true ? "hyper-active" : ""} 
+                ${this.parseModifs(keyCode.base + keyCode.modified).includes(0, 1, 2) == true ? "meh-active" : ""}`}
+              >
+                {/* this is for a shift */}
+                {this.parseModifs(keyCode.base + keyCode.modified).includes(0) == true ? (
+                  <div className="label labelModifier">Shift</div>
+                ) : (
+                  "Nope"
+                )}
+                {/* this is for a Control */}
+                {/* {this.parseModifs(keyCode.base + keyCode.modified).includes(1) == true ? <div>Control</div> : "Nope"} */}
+                {/* this is for a ALt */}
+                {/* {this.parseModifs(keyCode.base + keyCode.modified).includes(2) == true ? <div>ALt</div> : "Nope"} */}
+                {/* this is for a AltGr */}
+                {/* {this.parseModifs(keyCode.base + keyCode.modified).includes(3) == true ? <div>AltGr</div> : "Nope"} */}
+                {/* this is for a Gui */}
+                {/* {this.parseModifs(keyCode.base + keyCode.modified).includes(4) == true ? <div>Gui</div> : "Nope"} */}
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
+      </Style>
+    );
+  }
+}
 
 export default KeyVisualizer;

@@ -94,6 +94,16 @@ const Style = Styled.div`
             cursor: pointer;
         }
     }
+    .listModifiersTags {
+      position: absolute;
+      top: 48px;
+      left: 10px;
+      .labelModifier {
+        padding: 2px 6px;
+        font-weight: 600;
+        font-size: 10px;
+      }
+    }
 }
 .superkeyButton {
     width: 124px;

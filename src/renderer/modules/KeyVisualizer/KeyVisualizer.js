@@ -25,6 +25,7 @@ const Style = Styled.div`
     h4 {
         font-size: 14px;
         color: ${({ theme }) => theme.colors.purple200};
+        margin-top: 8px;
     }
     .keySelectedBox {
         padding: 16px;   

@@ -40,9 +40,9 @@ const ButtonConfig = ({ selected, onClick, size, buttonText, tooltip, style, ico
           }
         >
           <Style
-            onClick={onClick}
+            onClick={disabled ? () => {} : onClick}
             data-value={selected}
-            className={`${size ? size : ""} ${selected ? "active" : ""} button-config ${style ? style : ""} ${
+            className={`${size ? size : ""} ${selected ? "active" : ""}  button-config ${style ? style : ""} ${
               style ? style : ""
             } icon-${icoPosition ? icoPosition : "none"}`}
             disabled={disabled}
@@ -54,11 +54,11 @@ const ButtonConfig = ({ selected, onClick, size, buttonText, tooltip, style, ico
         </OverlayTrigger>
       ) : (
         <Style
-          onClick={onClick}
+          onClick={disabled ? () => {} : onClick}
           data-value={selected}
-          className={`${size ? size : ""} ${selected ? "active" : ""} button-config ${style ? style : ""} ${
+          className={`${size ? size : ""} ${selected ? "active" : ""} ${disabled ? "disabled" : ""}  button-config ${
             style ? style : ""
-          } icon-${icoPosition ? icoPosition : "none"}`}
+          } ${style ? style : ""} icon-${icoPosition ? icoPosition : "none"}`}
           disabled={disabled}
         >
           {icoSVG && icoPosition !== "right" ? icoSVG : ""}

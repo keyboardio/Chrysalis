@@ -404,17 +404,24 @@ svg text{
 .button-config.sm svg {
   max-width: 16px;
 }
-.button-config:hover {
+.button-config:not([disabled]):hover {
   cursor: pointer;
   color: ${({ theme }) => theme.styles.button.config.colorHover}; 
   background: ${({ theme }) => theme.styles.button.config.backgroundHover};
   box-shadow: ${({ theme }) => theme.styles.button.config.boxShadowHover};
 }
-.button-config.active,
-.button-config.active:hover {
+.button-config.active:not([disabled]),
+.button-config.active:not([disabled]):hover {
   color: ${({ theme }) => theme.styles.button.config.colorActive}; 
   background: ${({ theme }) => theme.styles.button.config.backgroundActive};
   box-shadow: ${({ theme }) => theme.styles.button.config.boxShadowActive};
+}
+
+.button-config[disabled] {
+  opacity: 0.5;
+}
+.button-config[disabled]:hover {
+  cursor: not-allowed;
 }
 
 .button-config.link {

@@ -132,6 +132,15 @@ const Style = Styled.div`
     grid-template-columns: 1fr;
     grid-gap: 24px;
   }
+  .keyEnhanceWrapper {
+    order: 2;
+  }
+  .KeyVisualizer {
+    display: none;
+  }
+  .ModPicker {
+    width: 100%;
+  }
 }
 
 

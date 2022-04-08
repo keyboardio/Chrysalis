@@ -168,7 +168,7 @@ const ksl = {
       b: { dx: 60, dy: 19, fs: 14 },
       c: { dx: 28, dy: 19, fs: 14 },
       d: { dx: 38, dy: 19, fs: 14 },
-      letter: { dx: 52, dy: 19, ddx: 52, ddy: 19, fs: 16, fss: 14 }
+      letter: { dx: 52, dy: 19, ddx: 52, ddy: 19, fs: 14, fss: 14 }
     }
   },
   "2U2": {
@@ -180,7 +180,7 @@ const ksl = {
       b: { dx: 60, dy: 19, fs: 14 },
       c: { dx: 28, dy: 19, fs: 14 },
       d: { dx: 38, dy: 19, fs: 14 },
-      letter: { dx: 22, dy: 19, ddx: 52, ddy: 19, fs: 16, fss: 14 }
+      letter: { dx: 22, dy: 19, ddx: 52, ddy: 19, fs: 14, fss: 14 }
     }
   },
   "3U": {
@@ -222,7 +222,7 @@ const ksl = {
   specialBlock: {
     outb: { x: keyCapRegularSize.width, y: keyCapRegularSize.height, dx: 0, dy: 0 },
     out: { x: 42, y: 30, dx: 1, dy: 1 },
-    icon: { x: 10, y: 2, w: 30, h: 26 },
+    icon: { x: 14, y: 2, w: 30, h: 26 },
     text: {
       a: { dx: 11, dy: 20, fs: 13 },
       b: { dx: 10, dy: 28, fs: 13 },
@@ -248,11 +248,11 @@ const ksl = {
     out: { x: 76, y: 30, dx: 1, dy: 1 },
     icon: { x: 15, y: -1, w: 30, h: 26 },
     text: {
-      a: { dx: 2, dy: 15, fs: 20 },
+      a: { dx: 2, dy: 15, fs: 14 },
       b: { dx: 2, dy: 28, fs: 14 },
       c: { dx: 28, dy: 19, fs: 14 },
       d: { dx: 38, dy: 19, fs: 14 },
-      letter: { dx: 39, dy: 17, ddx: 39, ddy: 17, fs: 20, fss: 14 }
+      letter: { dx: 45, dy: 17, ddx: 45, ddy: 17, fs: 14, fss: 14 }
     }
   },
   enter: {
@@ -424,7 +424,6 @@ class Key extends React.Component {
                 height={1000}
                 x={x + ksl[content.type].outb.dx}
                 y={y + ksl[content.type].outb.dy}
-                ksl={ksl}
                 style={{ overflow: "visible" }}
               >
                 <div xmlns="http://www.w3.org/1999/xhtml">

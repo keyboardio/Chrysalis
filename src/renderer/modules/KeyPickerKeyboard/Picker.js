@@ -10,6 +10,9 @@ const Style = Styled.div`
 .keysContainer + .keysContainer {
   margin-top: 8px;
 }
+.KeysWrapperSpecialKeys {
+  margin-top: 8px;
+}
 .keysRow {
   display: flex;
   flex-wrap: nowrap;
@@ -58,7 +61,7 @@ const Style = Styled.div`
 }
 .keysContainerDropdowns {
   display: grid;
-  grid-template-columns: 35% 35% auto;
+  grid-template-columns: minmax(25%, auto) minmax(25%, auto) minmax(25%, auto);
   grid-gap: 16px;
 }
 .keysButtonsList {

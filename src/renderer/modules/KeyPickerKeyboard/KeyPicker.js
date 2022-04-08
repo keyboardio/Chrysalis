@@ -109,7 +109,10 @@ width: 100%;
     max-width: 1170px; 
     margin: 6px auto;
 }
-
+.keysOrdinaryKeyboard {
+  position: relative;
+  z-index: 4;
+}
 `;
 const IconColor = Styled.span`
     color: ${props => props.color};
@@ -380,73 +383,78 @@ class KeyPicker extends Component {
             </div>
           </div>
         </div>
-        <div className="KeysWrapper">
-          <svg className="svgStyle" viewBox="0 0 1070 155" preserveAspectRatio="xMidYMin slice">
-            <foreignObject width={1070} height={195} x={0} y={0} style={{ overflow: "visible" }}>
+        <div className="KeysWrapper KeysWrapperSpecialKeys">
+          <div className="keysContainer keysContainerDropdowns">
+            <div className="keysRow keysMacros">
+              <div className="keyIcon">
+                <IconRobot />
+              </div>
+              <div className="keysButtonsList">
+                <SelectMacro macros={macros} keyCode={code} onKeySelect={onKeySelect} />
+              </div>
+            </div>
+            <div className="keysRow keysLayerLock">
+              <div className="keyIcon">
+                <IconLayers />
+              </div>
+              <div className="keysButtonsList">
+                <SelectLayersLock action={action} activeTab={activeTab} keyCode={code} onKeySelect={onKeySelect} />
+              </div>
+            </div>
+            <div className="keysRow keysLED">
+              <div className="keyIcon">
+                <h4>LED</h4>
+              </div>
+              <div className="keysButtonsList">
+                <ButtonConfig
+                  buttonText="On/Off"
+                  icoPosition="left"
+                  tooltip="Toggle effects"
+                  tooltipDelay={300}
+                  icoSVG={<IconLEDSwitchLeft />}
+                />
+                <ButtonConfig tooltip="Previous light effect" tooltipDelay={300} icoSVG={<IconLEDPreviousEffect />} />
+                <ButtonConfig tooltip="Next light effect" tooltipDelay={300} icoSVG={<IconLEDNextEffect />} />
+              </div>
+            </div>
+          </div>
+          <div className="keysContainer keysMediaTools">
+            <div className="keysRow keysMedia">
+              <div className="keyIcon">
+                <IconNote />
+              </div>
+              <div className="keysButtonsList">
+                <ButtonConfig
+                  tooltip="Play/Pause"
+                  tooltipDelay={100}
+                  icoSVG={<IconMediaPlayPause />}
+                  onclick={e => this.onKeyPress()}
+                />
+                <ButtonConfig tooltip="Stop" tooltipDelay={100} icoSVG={<IconMediaStop />} />
+                <ButtonConfig tooltip="Rewind" tooltipDelay={100} icoSVG={<IconMediaRewind />} />
+                <ButtonConfig tooltip="Forward" tooltipDelay={100} icoSVG={<IconMediaForward />} />
+                <ButtonConfig tooltip="Shuffle" tooltipDelay={100} icoSVG={<IconMediaShuffle />} />
+                <ButtonConfig tooltip="Sound More" tooltipDelay={100} icoSVG={<IconMediaSoundMore />} />
+                <ButtonConfig tooltip="Sound Less" tooltipDelay={100} icoSVG={<IconMediaSoundLess />} />
+                <ButtonConfig tooltip="Mute" tooltipDelay={100} icoSVG={<IconMediaSoundMute />} />
+              </div>
+            </div>
+            <div className="keysRow keysTools">
+              <div className="keyIcon">
+                <IconWrench />
+              </div>
+              <div className="keysButtonsList">
+                <ButtonConfig tooltip="Eject" tooltipDelay={100} icoSVG={<IconToolsEject />} />
+                <ButtonConfig tooltip="Calculator" tooltipDelay={100} icoSVG={<IconToolsCalculator />} />
+                <ButtonConfig tooltip="Camera" tooltipDelay={100} icoSVG={<IconToolsCamera />} />
+                <ButtonConfig tooltip="Brightness More" tooltipDelay={100} icoSVG={<IconToolsBrightnessMore />} />
+                <ButtonConfig tooltip="Brightness Less" tooltipDelay={100} icoSVG={<IconToolsBrightnessLess />} />
+              </div>
+            </div>
+          </div>
+          <svg className="svgStyle" viewBox="0 0 1070 48" preserveAspectRatio="xMidYMin slice">
+            <foreignObject width={1070} height={48} x={0} y={0} style={{ overflow: "visible" }}>
               <div xmlns="http://www.w3.org/1999/xhtml">
-                <div className="keysContainer keysContainerDropdowns">
-                  <div className="keysRow keysMacros">
-                    <div className="keyIcon">
-                      <IconRobot />
-                    </div>
-                    <div className="keysButtonsList">
-                      <SelectMacro macros={macros} keyCode={code} onKeySelect={onKeySelect} />
-                    </div>
-                  </div>
-                  <div className="keysRow keysLayerLock">
-                    <div className="keyIcon">
-                      <IconLayers />
-                    </div>
-                    <div className="keysButtonsList">
-                      <SelectLayersLock action={action} activeTab={activeTab} keyCode={code} onKeySelect={onKeySelect} />
-                    </div>
-                  </div>
-                  <div className="keysRow keysLED">
-                    <div className="keyIcon">
-                      <h4>LED</h4>
-                    </div>
-                    <div className="keysButtonsList">
-                      <ButtonConfig
-                        buttonText="On/Off"
-                        icoPosition="left"
-                        tooltip="Toggle effects"
-                        tooltipDelay={300}
-                        icoSVG={<IconLEDSwitchLeft />}
-                      />
-                      <ButtonConfig tooltip="Previous light effect" tooltipDelay={300} icoSVG={<IconLEDPreviousEffect />} />
-                      <ButtonConfig tooltip="Next light effect" tooltipDelay={300} icoSVG={<IconLEDNextEffect />} />
-                    </div>
-                  </div>
-                </div>
-                <div className="keysContainer keysMediaTools">
-                  <div className="keysRow keysMedia">
-                    <div className="keyIcon">
-                      <IconNote />
-                    </div>
-                    <div className="keysButtonsList">
-                      <ButtonConfig tooltip="Play/Pause" tooltipDelay={100} icoSVG={<IconMediaPlayPause />} />
-                      <ButtonConfig tooltip="Stop" tooltipDelay={100} icoSVG={<IconMediaStop />} />
-                      <ButtonConfig tooltip="Rewind" tooltipDelay={100} icoSVG={<IconMediaRewind />} />
-                      <ButtonConfig tooltip="Forward" tooltipDelay={100} icoSVG={<IconMediaForward />} />
-                      <ButtonConfig tooltip="Shuffle" tooltipDelay={100} icoSVG={<IconMediaShuffle />} />
-                      <ButtonConfig tooltip="Sound More" tooltipDelay={100} icoSVG={<IconMediaSoundMore />} />
-                      <ButtonConfig tooltip="Sound Less" tooltipDelay={100} icoSVG={<IconMediaSoundLess />} />
-                      <ButtonConfig tooltip="Mute" tooltipDelay={100} icoSVG={<IconMediaSoundMute />} />
-                    </div>
-                  </div>
-                  <div className="keysRow keysTools">
-                    <div className="keyIcon">
-                      <IconWrench />
-                    </div>
-                    <div className="keysButtonsList">
-                      <ButtonConfig tooltip="Eject" tooltipDelay={100} icoSVG={<IconToolsEject />} />
-                      <ButtonConfig tooltip="Calculator" tooltipDelay={100} icoSVG={<IconToolsCalculator />} />
-                      <ButtonConfig tooltip="Camera" tooltipDelay={100} icoSVG={<IconToolsCamera />} />
-                      <ButtonConfig tooltip="Brightness More" tooltipDelay={100} icoSVG={<IconToolsBrightnessMore />} />
-                      <ButtonConfig tooltip="Brightness Less" tooltipDelay={100} icoSVG={<IconToolsBrightnessLess />} />
-                    </div>
-                  </div>
-                </div>
                 <div className="keysContainer">
                   <div className="keysRow keysMouseEvents">
                     <div className="keyIcon">

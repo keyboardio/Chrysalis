@@ -128,6 +128,7 @@ const SelectF13PlusKeys = ({ keyCode, onSelect, value, listElements, ksl, conten
               eventKey={parseInt(item)}
               key={`f13Plus-${index}`}
               className={`${keyCode.base == item ? "active" : ""}`}
+              pointerEvents="all"
             >
               <div className="dropdownInner">
                 <div className="dropdownItem">{labelKey(item)}</div>

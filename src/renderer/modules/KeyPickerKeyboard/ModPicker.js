@@ -27,28 +27,6 @@ height: inherit;
   }
 }
 
-
-.modbutton:not(:disabled):not(.disabled).active, .modbutton:not(:disabled):not(.disabled):active {
-  border: 1px solid ${({ theme }) => theme.colors.button.borderColor};
-  box-shadow: none;
-}
-.modbutton {
-  margin-right: 0.4em;
-  border: 1px solid ${({ theme }) => theme.colors.button.disabled};
-  padding: .375rem .55rem;
-}
-.modbutton.focus, .modbutton:focus {
-  background-color: ${({ theme }) => theme.colors.button.deselected};
-  border-color: ${({ theme }) => theme.colors.button.borderColor};
-  box-shadow: none;
-}
-
-.modinfo {
-  align-self: center;
-  font-size: 1.2rem;
-  margin-top: 4px;
-  color: ${({ theme }) => theme.card.icon};
-}
 `;
 
 class ModPicker extends Component {
@@ -140,8 +118,23 @@ class ModPicker extends Component {
     onKeySelect(keyCode.base + this.applyModif(mod));
   }
 
+  setModifierVisibility() {
+    if (
+      (this.props.keyCode != undefined &&
+        this.props.keyCode.base + this.props.keyCode.modified >= 53852 &&
+        this.props.keyCode.base + this.props.keyCode.modified <= 53852 + 64) ||
+      this.props.keyCode.base + this.props.keyCode.modified == 0 ||
+      (this.props.keyCode.base + this.props.keyCode.modified >= 17492 &&
+        this.props.keyCode.base + this.props.keyCode.modified <= 17501)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   render() {
-    const { modifs } = this.state;
+    const { modifs, keyCode } = this.state;
 
     return (
       <Style>
@@ -153,18 +146,21 @@ class ModPicker extends Component {
               buttonText="Shift"
               className="modbutton"
               onClick={e => this.SelectModif(0)}
+              disabled={this.setModifierVisibility()}
             />
             <ButtonConfig
               selected={modifs.includes(1)}
               buttonText="Ctrl"
               className="modbutton"
               onClick={e => this.SelectModif(1)}
+              disabled={this.setModifierVisibility()}
             />
             <ButtonConfig
               selected={modifs.includes(2)}
               buttonText="Alt"
               className="modbutton"
               onClick={e => this.SelectModif(2)}
+              disabled={this.setModifierVisibility()}
             />
 
             <ButtonConfig
@@ -172,6 +168,7 @@ class ModPicker extends Component {
               buttonText="Alt Gr"
               className="modbutton"
               onClick={e => this.SelectModif(3)}
+              disabled={this.setModifierVisibility()}
             />
 
             <ButtonConfig
@@ -179,6 +176,7 @@ class ModPicker extends Component {
               buttonText="O.S."
               className="modbutton"
               onClick={e => this.SelectModif(4)}
+              disabled={this.setModifierVisibility()}
             />
           </div>
         </div>

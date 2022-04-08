@@ -411,6 +411,9 @@ class KeyPicker extends Component {
                   icoPosition="left"
                   tooltip="Toggle effects"
                   tooltipDelay={300}
+                  onClick={() => {
+                    onKeySelect(17154);
+                  }}
                   icoSVG={<IconLEDSwitchLeft />}
                 />
                 <ButtonConfig tooltip="Previous light effect" tooltipDelay={300} icoSVG={<IconLEDPreviousEffect />} />

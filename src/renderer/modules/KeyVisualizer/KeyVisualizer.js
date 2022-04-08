@@ -41,7 +41,32 @@ const Style = Styled.div`
 
 `;
 
-const KeyVisualizer = ({ oldValue, newValue }) => {
+const KeyVisualizer = ({ oldValue, newValue, keyCode }) => {
+  const parseModifs = keycode => {
+    let modifs = [];
+    if (keycode & 0b100000000) {
+      // Ctrl Decoder
+      modifs.push(1);
+    }
+    if (keycode & 0b1000000000) {
+      // Alt Decoder
+      modifs.push(2);
+    }
+    if (keycode & 0b10000000000) {
+      // AltGr Decoder
+      modifs.push(3);
+    }
+    if (keycode & 0b100000000000) {
+      // Shift Decoder
+      modifs.push(0);
+    }
+    if (keycode & 0b1000000000000) {
+      // Win Decoder
+      modifs.push(4);
+    }
+    return modifs;
+  };
+
   return (
     <Style className="KeyVisualizer">
       <div className="KeyVisualizerInner">
@@ -55,6 +80,16 @@ const KeyVisualizer = ({ oldValue, newValue }) => {
           ""
         )}
       </div>
+      {/* this is for a shift */}
+      {parseModifs(keyCode).includes(0) == true ? <div>Shift</div> : ""}
+      {/* this is for a Control */}
+      {parseModifs(keyCode).includes(1) == true ? <div>Control</div> : ""}
+      {/* this is for a ALt */}
+      {parseModifs(keyCode).includes(2) == true ? <div>ALt</div> : ""}
+      {/* this is for a AltGr */}
+      {parseModifs(keyCode).includes(3) == true ? <div>AltGr</div> : ""}
+      {/* this is for a Gui */}
+      {parseModifs(keyCode).includes(4) == true ? <div>Gui</div> : ""}
     </Style>
   );
 };

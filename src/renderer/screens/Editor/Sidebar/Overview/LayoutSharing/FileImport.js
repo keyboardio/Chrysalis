@@ -3,7 +3,7 @@ import i18n from "i18next";
 import { Electron } from "electron";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { loadLayout } from "../LayoutSharing";
+import { loadLayout } from "./loadLayout";
 
 export const FileImport = (props) => {
   const importFromFile = () => {

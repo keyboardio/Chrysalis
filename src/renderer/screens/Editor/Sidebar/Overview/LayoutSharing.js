@@ -19,7 +19,6 @@ import React from "react";
 import i18n from "i18next";
 import path from "path";
 import fs from "fs";
-import { toast } from "react-toastify";
 
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -35,63 +34,13 @@ import Typography from "@mui/material/Typography";
 import ConfirmationDialog from "../../../../components/ConfirmationDialog";
 
 import Focus from "../../../../../api/focus";
-import Log from "../../../../../api/log";
 import { KeymapDB } from "../../../../../api/keymap";
 import { getStaticPath } from "../../../../config";
 import { FileImport } from "./LayoutSharing/FileImport";
 import { ExportToFile } from "./LayoutSharing/ExportToFile";
 import { LibraryImport } from "./LayoutSharing/LibraryImport";
 
-const db = new KeymapDB();
-
-export const loadLayout = (fileName) => {
-  const logger = new Log();
-
-  let fileData;
-  try {
-    fileData = fs.readFileSync(fileName);
-  } catch (e) {
-    logger.error("Unable to read layout", {
-      filename: fileName,
-      error: e.message,
-    });
-    toast.error(i18n.t("editor.sharing.errors.unableToLoad"));
-    return null;
-  }
-
-  let layoutData;
-  try {
-    layoutData = JSON.parse(fileData);
-  } catch (e) {
-    logger.error("Failed to parse layout JSON", {
-      filename: fileName,
-      error: e.message,
-    });
-    toast.error(i18n.t("editor.sharing.errors.parseFail"));
-    return null;
-  }
-
-  let keymaps;
-  try {
-    keymaps = layoutData.keymaps.map((layer) => {
-      return layer.map((key) => {
-        return db.lookup(key.keyCode || key.code);
-      });
-    });
-  } catch (_) {
-    logger.error("Layout file did not contain valid layout data", {
-      filename: fileName,
-    });
-    toast.error(i18n.t("editor.sharing.errors.invalidLayoutData"));
-    return null;
-  }
-
-  return {
-    keymaps: keymaps,
-    colormaps: layoutData.colormaps,
-    palette: layoutData.palette,
-  };
-};
+export const db = new KeymapDB();
 
 class LayoutSharing extends React.Component {
   constructor(props) {

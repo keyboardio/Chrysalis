@@ -8,7 +8,7 @@ import MenuList from "@mui/material/MenuList";
 import Typography from "@mui/material/Typography";
 import Focus from "../../../../../../api/focus";
 import { getStaticPath } from "../../../../../config";
-import { loadLayout } from "../LayoutSharing";
+import { loadLayout } from "./loadLayout";
 
 export const LibraryImport = (props) => {
   const selectLibraryItem = (item) => () => {

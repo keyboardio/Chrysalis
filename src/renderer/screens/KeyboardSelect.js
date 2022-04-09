@@ -195,6 +195,8 @@ class KeyboardSelect extends React.Component {
     }
     const KeyboardPortSelector = (props) => {
       const devices = props.devices;
+      const selectedPortIndex = props.selectedPortIndex;
+      const selectPort = props.selectPort;
       let deviceItems = null;
       if (devices?.length > 0) {
         deviceItems = devices.map((option, index) => {
@@ -222,7 +224,7 @@ class KeyboardSelect extends React.Component {
             <MenuItem
               key={`device-${index}`}
               value={index}
-              selected={index === this.state.selectedPortIndex}
+              selected={index === selectedPortIndex}
             >
               {icon}
               {label}
@@ -232,9 +234,9 @@ class KeyboardSelect extends React.Component {
         return (
           <FormControl sx={{ display: "flex" }}>
             <Select
-              value={this.state.selectedPortIndex}
+              value={selectedPortIndex}
               sx={{ display: "flex" }}
-              onChange={this.selectPort}
+              onChange={selectPort}
             >
               {deviceItems}
             </Select>
@@ -314,7 +316,11 @@ class KeyboardSelect extends React.Component {
               }}
             >
               {preview}
-              <KeyboardPortSelector devices={devices} />
+              <KeyboardPortSelector
+                devices={devices}
+                selectedPortIndex={this.state.selectedPortIndex}
+                selectPort={this.selectPort}
+              />
             </CardContent>
             <CardActions sx={{ justifyContent: "center" }}>
               <ScanDevicesButton

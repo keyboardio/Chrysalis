@@ -125,33 +125,31 @@ const MouseWarpKeys = (props) => {
   );
 };
 
-class MouseKeys extends React.Component {
-  render() {
-    const { keymap, selectedKey, layer, onKeyChange } = this.props;
-    const key = keymap.custom[layer][selectedKey];
+const MouseKeys = (props) => {
+  const { keymap, selectedKey, layer, onKeyChange } = props;
+  const key = keymap.custom[layer][selectedKey];
 
-    const subWidgets = [
-      MouseMovementKeys,
-      MouseButtonKeys,
-      MouseWheelKeys,
-      MouseWarpKeys,
-    ];
-    const widgets = subWidgets.map((Widget, index) => {
-      return (
-        <Widget key={`mousekeys-group-${index}`} onKeyChange={onKeyChange} />
-      );
-    });
-
+  const subWidgets = [
+    MouseMovementKeys,
+    MouseButtonKeys,
+    MouseWheelKeys,
+    MouseWarpKeys,
+  ];
+  const widgets = subWidgets.map((Widget, index) => {
     return (
-      <Collapsible
-        expanded={db.isInCategory(key.code, "mousekeys")}
-        title={i18n.t("editor.sidebar.mousekeys.title")}
-        help={i18n.t("editor.sidebar.mousekeys.help")}
-      >
-        {widgets}
-      </Collapsible>
+      <Widget key={`mousekeys-group-${index}`} onKeyChange={onKeyChange} />
     );
-  }
-}
+  });
+
+  return (
+    <Collapsible
+      expanded={db.isInCategory(key.code, "mousekeys")}
+      title={i18n.t("editor.sidebar.mousekeys.title")}
+      help={i18n.t("editor.sidebar.mousekeys.help")}
+    >
+      {widgets}
+    </Collapsible>
+  );
+};
 
 export { MouseKeys as default };

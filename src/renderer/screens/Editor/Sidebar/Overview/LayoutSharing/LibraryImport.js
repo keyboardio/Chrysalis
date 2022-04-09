@@ -10,12 +10,12 @@ import Focus from "../../../../../../api/focus";
 import { getStaticPath } from "../../../../../config";
 import { loadLayout } from "../LayoutSharing";
 
-export class LibraryImport extends React.Component {
-  selectLibraryItem = (item) => () => {
-    this.loadFromLibrary(item);
+export const LibraryImport = (props) => {
+  const selectLibraryItem = (item) => () => {
+    loadFromLibrary(item);
   };
 
-  loadFromLibrary = (layoutName) => {
+  const loadFromLibrary = (layoutName) => {
     const focus = new Focus();
     const { vendor, product } = focus.device.info;
     const cVendor = vendor.replace("/", "");
@@ -25,37 +25,35 @@ export class LibraryImport extends React.Component {
 
     const layoutData = loadLayout(layoutPath(layoutName));
 
-    if (layoutData != null) this.props.setLayout(layoutName, layoutData);
+    if (layoutData != null) props.setLayout(layoutName, layoutData);
   };
 
-  render() {
-    const { library, layoutName } = this.props;
+  const { library, layoutName } = props;
 
-    if (library.length == 0) return null;
+  if (library.length == 0) return null;
 
-    const layouts = library.map((name) => {
-      const label = name.charAt(0).toUpperCase() + name.slice(1);
-
-      return (
-        <MenuItem
-          selected={layoutName == name}
-          value={name}
-          key={`library-item-${name}`}
-          onClick={this.selectLibraryItem(name)}
-        >
-          {label}
-        </MenuItem>
-      );
-    });
+  const layouts = library.map((name) => {
+    const label = name.charAt(0).toUpperCase() + name.slice(1);
 
     return (
-      <Box sx={{ marginBottom: 2 }}>
-        <Typography variant="h5">
-          {i18n.t("editor.sharing.loadFromLibrary")}
-        </Typography>
-        <MenuList>{layouts}</MenuList>
-        <Divider />
-      </Box>
+      <MenuItem
+        selected={layoutName == name}
+        value={name}
+        key={`library-item-${name}`}
+        onClick={selectLibraryItem(name)}
+      >
+        {label}
+      </MenuItem>
     );
-  }
-}
+  });
+
+  return (
+    <Box sx={{ marginBottom: 2 }}>
+      <Typography variant="h5">
+        {i18n.t("editor.sharing.loadFromLibrary")}
+      </Typography>
+      <MenuList>{layouts}</MenuList>
+      <Divider />
+    </Box>
+  );
+};

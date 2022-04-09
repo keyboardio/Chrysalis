@@ -17,11 +17,9 @@
 
 import React from "react";
 import i18n from "i18next";
-import { Electron, ipcRenderer } from "electron";
 import path from "path";
 import fs from "fs";
 import { toast } from "react-toastify";
-import jsonStringify from "json-stringify-pretty-compact";
 
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -32,8 +30,6 @@ import DialogContent from "@mui/material/DialogContent";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-import MenuItem from "@mui/material/MenuItem";
-import MenuList from "@mui/material/MenuList";
 import Typography from "@mui/material/Typography";
 
 import ConfirmationDialog from "../../../../components/ConfirmationDialog";
@@ -42,10 +38,13 @@ import Focus from "../../../../../api/focus";
 import Log from "../../../../../api/log";
 import { KeymapDB } from "../../../../../api/keymap";
 import { getStaticPath } from "../../../../config";
+import { FileImport } from "./LayoutSharing/FileImport";
+import { ExportToFile } from "./LayoutSharing/ExportToFile";
+import { LibraryImport } from "./LayoutSharing/LibraryImport";
 
 const db = new KeymapDB();
 
-const loadLayout = (fileName) => {
+export const loadLayout = (fileName) => {
   const logger = new Log();
 
   let fileData;
@@ -93,127 +92,6 @@ const loadLayout = (fileName) => {
     palette: layoutData.palette,
   };
 };
-
-class LibraryImport extends React.Component {
-  selectLibraryItem = (item) => () => {
-    this.loadFromLibrary(item);
-  };
-
-  loadFromLibrary = (layoutName) => {
-    const focus = new Focus();
-    const { vendor, product } = focus.device.info;
-    const cVendor = vendor.replace("/", "");
-    const cProduct = product.replace("/", "");
-    const layoutPath = (layout) =>
-      path.join(getStaticPath(), cVendor, cProduct, `layouts/${layout}.json`);
-
-    const layoutData = loadLayout(layoutPath(layoutName));
-
-    if (layoutData != null) this.props.setLayout(layoutName, layoutData);
-  };
-
-  render() {
-    const { library, layoutName } = this.props;
-
-    if (library.length == 0) return null;
-
-    const layouts = library.map((name) => {
-      const label = name.charAt(0).toUpperCase() + name.slice(1);
-
-      return (
-        <MenuItem
-          selected={layoutName == name}
-          value={name}
-          key={`library-item-${name}`}
-          onClick={this.selectLibraryItem(name)}
-        >
-          {label}
-        </MenuItem>
-      );
-    });
-
-    return (
-      <Box sx={{ marginBottom: 2 }}>
-        <Typography variant="h5">
-          {i18n.t("editor.sharing.loadFromLibrary")}
-        </Typography>
-        <MenuList>{layouts}</MenuList>
-        <Divider />
-      </Box>
-    );
-  }
-}
-
-class FileImport extends React.Component {
-  importFromFile = () => {
-    const files = Electron.remote.dialog.showOpenDialog({
-      title: i18n.t("editor.sharing.selectLoadFile"),
-      filters: [
-        {
-          name: i18n.t("editor.sharing.dialog.layoutFiles"),
-          extensions: ["json", "layout"],
-        },
-        {
-          name: i18n.t("editor.sharing.dialog.allFiles"),
-          extensions: ["*"],
-        },
-      ],
-    });
-    files.then((result) => {
-      if (result.filePaths.length == 0) return;
-
-      const layoutData = loadLayout(result.filePaths[0]);
-      if (layoutData != null) this.props.setLayout("custom", layoutData);
-    });
-  };
-
-  render() {
-    return (
-      <Box sx={{ mb: 2 }}>
-        <Button variant="outlined" onClick={this.importFromFile}>
-          {i18n.t("editor.sharing.loadFromFile")}
-        </Button>
-      </Box>
-    );
-  }
-}
-
-class ExportToFile extends React.Component {
-  exportToFile = () => {
-    const { keymap, colormap } = this.props;
-    const data = {
-      keymaps: keymap.custom,
-      colormaps: colormap.colorMap,
-      palette: colormap.palette,
-    };
-
-    ipcRenderer.send("file-save", {
-      content: jsonStringify(data),
-      title: i18n.t("editor.sharing.selectExportFile"),
-      defaultPath: "Layout.json",
-      filters: [
-        {
-          name: i18n.t("editor.sharing.dialog.layoutFiles"),
-          extensions: ["json", "layout"],
-        },
-        {
-          name: i18n.t("editor.sharing.dialog.allFiles"),
-          extensions: ["*"],
-        },
-      ],
-    });
-  };
-
-  render() {
-    return (
-      <Box sx={{ mb: 2 }}>
-        <Button variant="outlined" onClick={this.exportToFile}>
-          {i18n.t("editor.sharing.exportToFile")}
-        </Button>
-      </Box>
-    );
-  }
-}
 
 class LayoutSharing extends React.Component {
   constructor(props) {

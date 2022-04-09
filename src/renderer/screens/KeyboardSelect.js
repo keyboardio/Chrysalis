@@ -47,6 +47,8 @@ const { ipcRenderer } = require("electron");
 
 import { installUdevRules } from "../utils/installUdevRules";
 
+import { ConnectionButton } from "./KeyboardSelect/ConnectionButton";
+
 class KeyboardSelect extends React.Component {
   state = {
     selectedPortIndex: 0,
@@ -312,47 +314,6 @@ class KeyboardSelect extends React.Component {
         </Alert>
       );
     }
-
-    const ConnectionButton = (props) => {
-      const opening = props.opening;
-      const devices = props.devices;
-      const selectedDevice = props.selectedDevice;
-      const focusDevice = props.focusDevice;
-      const onKeyboardConnect = props.onKeyboardConnect;
-      const onKeyboardDisconnect = props.onKeyboardDisconnect;
-      if (focusDevice && selectedDevice?.device == focusDevice) {
-        return (
-          <Button
-            disabled={opening || devices?.length == 0}
-            variant="outlined"
-            color="secondary"
-            onClick={onKeyboardDisconnect}
-          >
-            {i18n.t("keyboardSelect.disconnect")}
-          </Button>
-        );
-      } else {
-        return (
-          <Button
-            disabled={
-              (selectedDevice ? !selectedDevice.accessible : false) ||
-              opening ||
-              devices?.length == 0
-            }
-            variant="contained"
-            color="primary"
-            onClick={onKeyboardConnect}
-            sx={{ verticalAlign: "bottom", marginLeft: 65 }}
-          >
-            {opening ? (
-              <CircularProgress color="secondary" size={16} />
-            ) : (
-              i18n.t("keyboardSelect.connect")
-            )}
-          </Button>
-        );
-      }
-    };
 
     let preview;
     if (devices?.[this.state.selectedPortIndex]?.device?.components) {

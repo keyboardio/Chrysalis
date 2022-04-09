@@ -16,8 +16,6 @@
  */
 
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import Electron from "electron";
 const { ipcRenderer } = require("electron");
 
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";

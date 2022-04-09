@@ -20,21 +20,19 @@ import i18n from "i18next";
 
 import CategorySelector from "../components/CategorySelector";
 
-class TapDanceKeys extends React.Component {
-  render() {
-    const { keymap, selectedKey, layer, onKeyChange } = this.props;
+const TapDanceKeys = (props) => {
+  const { keymap, selectedKey, layer, onKeyChange } = props;
 
-    return (
-      <CategorySelector
-        title={i18n.t("editor.sidebar.tapdance.title")}
-        help={i18n.t("editor.sidebar.tapdance.help")}
-        category="tapdance"
-        keymap={keymap}
-        selectedKey={selectedKey}
-        layer={layer}
-        onKeyChange={onKeyChange}
-      />
-    );
-  }
-}
+  return (
+    <CategorySelector
+      title={i18n.t("editor.sidebar.tapdance.title")}
+      help={i18n.t("editor.sidebar.tapdance.help")}
+      category="tapdance"
+      keymap={keymap}
+      selectedKey={selectedKey}
+      layer={layer}
+      onKeyChange={onKeyChange}
+    />
+  );
+};
 export { TapDanceKeys as default };

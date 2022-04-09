@@ -318,34 +318,36 @@ class KeyboardSelect extends React.Component {
       );
     }
 
-    if (focus.device && selectedDevice?.device == focus.device) {
-      connectionButton = (
-        <Button
-          disabled={this.state.opening || this.state.devices?.length == 0}
-          variant="outlined"
-          color="secondary"
-          onClick={this.props.onDisconnect}
-        >
-          {i18n.t("keyboardSelect.disconnect")}
-        </Button>
-      );
-    } else {
-      connectionButton = (
-        <Button
-          disabled={
-            (selectedDevice ? !selectedDevice.accessible : false) ||
-            this.state.opening ||
-            this.state.devices?.length == 0
-          }
-          variant="contained"
-          color="primary"
-          onClick={this.onKeyboardConnect}
-          sx={{ verticalAlign: "bottom", marginLeft: 65 }}
-        >
-          {connectContent}
-        </Button>
-      );
-    }
+    const ConnectionButton = () => {
+      if (focus.device && selectedDevice?.device == focus.device) {
+        return (
+          <Button
+            disabled={this.state.opening || this.state.devices?.length == 0}
+            variant="outlined"
+            color="secondary"
+            onClick={this.props.onDisconnect}
+          >
+            {i18n.t("keyboardSelect.disconnect")}
+          </Button>
+        );
+      } else {
+        return (
+          <Button
+            disabled={
+              (selectedDevice ? !selectedDevice.accessible : false) ||
+              this.state.opening ||
+              this.state.devices?.length == 0
+            }
+            variant="contained"
+            color="primary"
+            onClick={this.onKeyboardConnect}
+            sx={{ verticalAlign: "bottom", marginLeft: 65 }}
+          >
+            {connectContent}
+          </Button>
+        );
+      }
+    };
 
     let preview;
     if (devices?.[this.state.selectedPortIndex]?.device?.components) {
@@ -402,10 +404,10 @@ class KeyboardSelect extends React.Component {
               {preview}
               {port}
             </CardContent>
-            <CardActions sx={{ justifyContent: "center", m: 2 }}>
+            <CardActions sx={{ justifyContent: "center" }}>
               {scanDevicesButton}
               <Box sx={{ flexGrow: 1 }} />
-              {connectionButton}
+              <ConnectionButton />
             </CardActions>
           </Card>
         </Box>

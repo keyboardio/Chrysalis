@@ -189,30 +189,33 @@ class KeyboardSelect extends React.Component {
     let focus = new Focus();
     const selectedDevice = devices?.[this.state.selectedPortIndex];
 
-    let preview;
-    if (devices?.[this.state.selectedPortIndex]?.device?.components) {
-      const Keymap =
-        devices[this.state.selectedPortIndex].device.components.keymap;
-      preview = (
-        <Box
-          sx={{
-            display: "flex",
-            align: "center",
-            mx: "auto",
-            maxWidth: "250px",
-            maxHeight: "100px",
-            marginBottom: 2,
-            justifyContent: "center",
-            "& *": {
-              color: "#000000",
-              stroke: "#000000",
-            },
-          }}
-        >
-          <Keymap index={0} />
-        </Box>
-      );
-    }
+    const DeviceImage = (props) => {
+      const device = props.device;
+      if (device?.components) {
+        const Keymap = device.components?.keymap;
+        return (
+          <Box
+            sx={{
+              display: "flex",
+              align: "center",
+              mx: "auto",
+              maxWidth: "250px",
+              maxHeight: "100px",
+              marginBottom: 2,
+              justifyContent: "center",
+              "& *": {
+                color: "#000000",
+                stroke: "#000000",
+              },
+            }}
+          >
+            <Keymap index={0} />
+          </Box>
+        );
+      } else {
+        return "";
+      }
+    };
 
     return (
       <React.Fragment>
@@ -247,7 +250,9 @@ class KeyboardSelect extends React.Component {
                 textAlign: "center",
               }}
             >
-              {preview}
+              <DeviceImage
+                device={devices?.[this.state.selectedPortIndex]?.device}
+              />
               <KeyboardPortSelector
                 devices={devices}
                 selectedPortIndex={this.state.selectedPortIndex}

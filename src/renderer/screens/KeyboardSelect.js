@@ -275,11 +275,6 @@ class KeyboardSelect extends React.Component {
       );
     }
 
-    let connectContent = i18n.t("keyboardSelect.connect");
-    if (this.state.opening) {
-      connectContent = <CircularProgress color="secondary" size={16} />;
-    }
-
     const scanDevicesButton = (
       <Button
         variant={devices?.length ? "outlined" : "contained"}
@@ -318,14 +313,20 @@ class KeyboardSelect extends React.Component {
       );
     }
 
-    const ConnectionButton = () => {
-      if (focus.device && selectedDevice?.device == focus.device) {
+    const ConnectionButton = (props) => {
+      const opening = props.opening;
+      const devices = props.devices;
+      const selectedDevice = props.selectedDevice;
+      const focusDevice = props.focusDevice;
+      const onKeyboardConnect = props.onKeyboardConnect;
+      const onKeyboardDisconnect = props.onKeyboardDisconnect;
+      if (focusDevice && selectedDevice?.device == focusDevice) {
         return (
           <Button
-            disabled={this.state.opening || this.state.devices?.length == 0}
+            disabled={opening || devices?.length == 0}
             variant="outlined"
             color="secondary"
-            onClick={this.props.onDisconnect}
+            onClick={onKeyboardDisconnect}
           >
             {i18n.t("keyboardSelect.disconnect")}
           </Button>
@@ -335,15 +336,19 @@ class KeyboardSelect extends React.Component {
           <Button
             disabled={
               (selectedDevice ? !selectedDevice.accessible : false) ||
-              this.state.opening ||
-              this.state.devices?.length == 0
+              opening ||
+              devices?.length == 0
             }
             variant="contained"
             color="primary"
-            onClick={this.onKeyboardConnect}
+            onClick={onKeyboardConnect}
             sx={{ verticalAlign: "bottom", marginLeft: 65 }}
           >
-            {connectContent}
+            {opening ? (
+              <CircularProgress color="secondary" size={16} />
+            ) : (
+              i18n.t("keyboardSelect.connect")
+            )}
           </Button>
         );
       }
@@ -407,7 +412,14 @@ class KeyboardSelect extends React.Component {
             <CardActions sx={{ justifyContent: "center" }}>
               {scanDevicesButton}
               <Box sx={{ flexGrow: 1 }} />
-              <ConnectionButton />
+              <ConnectionButton
+                opening={this.state.opening}
+                devices={this.state.devices}
+                selectedDevice={selectedDevice}
+                focusDevice={focus.device}
+                onKeyboardConnect={this.onKeyboardConnect}
+                onKeyboardDisconnect={this.props.onDisconnect}
+              />
             </CardActions>
           </Card>
         </Box>

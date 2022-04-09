@@ -29,8 +29,8 @@ import { KeymapDB } from "../../../../api/keymap";
 
 const db = new KeymapDB();
 
-class CustomKey extends React.Component {
-  onKeyChange = (event) => {
+const CustomKey = (props) => {
+  const onKeyChange = (event) => {
     let value = event.target.value;
     if (value < 0) {
       value = 65535;
@@ -38,36 +38,34 @@ class CustomKey extends React.Component {
     if (value > 65535) {
       value = 0;
     }
-    this.props.onKeyChange(value);
+    props.onKeyChange(value);
   };
 
-  render() {
-    const { keymap, selectedKey, layer } = this.props;
-    const key = keymap.custom[layer][selectedKey];
+  const { keymap, selectedKey, layer } = props;
+  const key = keymap.custom[layer][selectedKey];
 
-    return (
-      <React.Fragment>
-        <Collapsible
-          title={i18n.t("editor.sidebar.custom.title")}
-          help={i18n.t("editor.sidebar.custom.help")}
-          expanded={db.isInCategory(key.code, "unknown")}
-        >
-          <div>
-            <FormControl>
-              <InputLabel>{i18n.t("editor.sidebar.custom.label")}</InputLabel>
-              <Input
-                type="number"
-                min={0}
-                max={65535}
-                value={key.code}
-                onChange={this.onKeyChange}
-              />
-            </FormControl>
-          </div>
-        </Collapsible>
-      </React.Fragment>
-    );
-  }
-}
+  return (
+    <React.Fragment>
+      <Collapsible
+        title={i18n.t("editor.sidebar.custom.title")}
+        help={i18n.t("editor.sidebar.custom.help")}
+        expanded={db.isInCategory(key.code, "unknown")}
+      >
+        <div>
+          <FormControl>
+            <InputLabel>{i18n.t("editor.sidebar.custom.label")}</InputLabel>
+            <Input
+              type="number"
+              min={0}
+              max={65535}
+              value={key.code}
+              onChange={onKeyChange}
+            />
+          </FormControl>
+        </div>
+      </Collapsible>
+    </React.Fragment>
+  );
+};
 
 export { CustomKey as default };

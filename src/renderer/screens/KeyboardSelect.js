@@ -15,19 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
-import PropTypes from "prop-types";
-
-import Alert from "@mui/material/Alert";
+import KeyboardIcon from "@mui/icons-material/Keyboard";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CircularProgress from "@mui/material/CircularProgress";
 import FormControl from "@mui/material/FormControl";
-import KeyboardIcon from "@mui/icons-material/Keyboard";
 import LinearProgress from "@mui/material/LinearProgress";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
@@ -35,19 +30,16 @@ import MenuItem from "@mui/material/MenuItem";
 import Portal from "@mui/material/Portal";
 import Select from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
-
+import React from "react";
 import { toast } from "react-toastify";
-
 import Focus from "../../api/focus";
 import Hardware from "../../api/hardware";
 import Log from "../../api/log";
 import i18n from "../i18n";
+import { ConnectionButton } from "./KeyboardSelect/ConnectionButton";
+import { LinuxPermissionsWarning } from "./KeyboardSelect/LinuxPermissionsWarning";
 
 const { ipcRenderer } = require("electron");
-
-import { installUdevRules } from "../utils/installUdevRules";
-
-import { ConnectionButton } from "./KeyboardSelect/ConnectionButton";
 
 class KeyboardSelect extends React.Component {
   state = {
@@ -184,20 +176,6 @@ class KeyboardSelect extends React.Component {
     i18n.refreshHardware(devices[this.state.selectedPortIndex]);
   };
 
-  installUdevRules = async () => {
-    const { devices } = this.state;
-    const selectedDevice = devices?.[this.state.selectedPortIndex];
-
-    try {
-      await installUdevRules(selectedDevice.path);
-    } catch (err) {
-      toast.error(err.toString());
-      return;
-    }
-
-    await this.scanDevices();
-  };
-
   render() {
     const { scanFoundDevices, devices } = this.state;
 
@@ -290,33 +268,6 @@ class KeyboardSelect extends React.Component {
     let focus = new Focus();
     const selectedDevice = devices?.[this.state.selectedPortIndex];
 
-    const PermissionsWarning = (props) => {
-      const platform = props.platform;
-      const deviceInaccessible = props.deviceInacessible;
-
-      if (platform == "linux" && deviceInaccessible) {
-        const fixitButton = (
-          <Button onClick={this.installUdevRules} variant="outlined">
-            {i18n.t("keyboardSelect.installUdevRules")}
-          </Button>
-        );
-        return (
-          <Alert severity="error" action={fixitButton}>
-            <Typography component="p" gutterBottom>
-              {i18n.t("keyboardSelect.permissionError", {
-                path: selectedDevice.path,
-              })}
-            </Typography>
-            <Typography component="p">
-              {i18n.t("keyboardSelect.permissionErrorSuggestion")}
-            </Typography>
-          </Alert>
-        );
-      } else {
-        return null;
-      }
-    };
-
     let preview;
     if (devices?.[this.state.selectedPortIndex]?.device?.components) {
       const Keymap =
@@ -349,9 +300,11 @@ class KeyboardSelect extends React.Component {
             {i18n.t("app.menu.selectAKeyboard")}
           </Portal>
           {loader}
-          <PermissionsWarning
+          <LinuxPermissionsWarning
             deviceInaccessible={selectedDevice?.accessible == false}
             platform={process.platform}
+            selectedDevice={selectedDevice}
+            scanDevices={this.scanDevices}
           />
           <Card
             sx={{

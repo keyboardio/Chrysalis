@@ -23,13 +23,13 @@ import { toast } from "react-toastify";
 import i18n from "../../i18n";
 import { installUdevRules } from "../../utils/installUdevRules";
 
-export const PermissionsWarning = (props) => {
+export const LinuxPermissionsWarning = (props) => {
   const platform = props.platform;
   const deviceInaccessible = props.deviceInacessible;
   const selectedDevice = props.selectedDevice;
   const scanDevices = props.scanDevices;
 
-  installUdevRules = async () => {
+  const doInstallUdevRules = async () => {
     try {
       await installUdevRules(selectedDevice.path);
     } catch (err) {
@@ -42,7 +42,7 @@ export const PermissionsWarning = (props) => {
 
   if (platform == "linux" && deviceInaccessible) {
     const fixitButton = (
-      <Button onClick={this.installUdevRules} variant="outlined">
+      <Button onClick={doInstallUdevRules} variant="outlined">
         {i18n.t("keyboardSelect.installUdevRules")}
       </Button>
     );
@@ -59,6 +59,6 @@ export const PermissionsWarning = (props) => {
       </Alert>
     );
   } else {
-    return null;
+    return <div />;
   }
 };

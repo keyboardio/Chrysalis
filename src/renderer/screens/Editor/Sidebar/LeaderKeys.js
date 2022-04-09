@@ -20,22 +20,20 @@ import i18n from "i18next";
 
 import CategorySelector from "../components/CategorySelector";
 
-class LeaderKeys extends React.Component {
-  render() {
-    const { keymap, selectedKey, layer, onKeyChange } = this.props;
+const LeaderKeys = (props) => {
+  const { keymap, selectedKey, layer, onKeyChange } = props;
 
-    return (
-      <CategorySelector
-        title={i18n.t("editor.sidebar.leader.title")}
-        help={i18n.t("editor.sidebar.leader.help")}
-        category="leader"
-        keymap={keymap}
-        selectedKey={selectedKey}
-        layer={layer}
-        onKeyChange={onKeyChange}
-      />
-    );
-  }
-}
+  return (
+    <CategorySelector
+      title={i18n.t("editor.sidebar.leader.title")}
+      help={i18n.t("editor.sidebar.leader.help")}
+      category="leader"
+      keymap={keymap}
+      selectedKey={selectedKey}
+      layer={layer}
+      onKeyChange={onKeyChange}
+    />
+  );
+};
 
 export { LeaderKeys as default };

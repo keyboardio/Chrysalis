@@ -38,7 +38,7 @@ import Log from "../../api/log";
 import i18n from "../i18n";
 import { ConnectionButton } from "./KeyboardSelect/ConnectionButton";
 import { LinuxPermissionsWarning } from "./KeyboardSelect/LinuxPermissionsWarning";
-
+import { ScanDevicesButton } from "./KeyboardSelect/ScanDevicesButton";
 const { ipcRenderer } = require("electron");
 
 class KeyboardSelect extends React.Component {
@@ -255,15 +255,20 @@ class KeyboardSelect extends React.Component {
       );
     }
 
-    const scanDevicesButton = (
-      <Button
-        variant={devices?.length ? "outlined" : "contained"}
-        color={devices?.length ? "secondary" : "primary"}
-        onClick={scanFoundDevices ? null : this.scanDevices}
-      >
-        {i18n.t("keyboardSelect.scan")}
-      </Button>
-    );
+    const ScanDevicesButton = (props) => {
+      const scanDevices = props.scanDevices;
+      const scanFoundDevices = props.scanFoundDevices;
+      const devices = props.devices;
+      return (
+        <Button
+          variant={devices?.length ? "outlined" : "contained"}
+          color={devices?.length ? "secondary" : "primary"}
+          onClick={scanFoundDevices ? null : scanDevices}
+        >
+          {i18n.t("keyboardSelect.scan")}
+        </Button>
+      );
+    };
 
     let focus = new Focus();
     const selectedDevice = devices?.[this.state.selectedPortIndex];
@@ -329,7 +334,12 @@ class KeyboardSelect extends React.Component {
               {port}
             </CardContent>
             <CardActions sx={{ justifyContent: "center" }}>
-              {scanDevicesButton}
+              <ScanDevicesButton
+                scanFoundDevices={scanFoundDevices}
+                scanDevices={this.scanDevices}
+                devices={devices}
+              />
+
               <Box sx={{ flexGrow: 1 }} />
               <ConnectionButton
                 opening={this.state.opening}

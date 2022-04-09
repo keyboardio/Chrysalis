@@ -193,68 +193,63 @@ class KeyboardSelect extends React.Component {
         />
       );
     }
+    const KeyboardPortSelector = (props) => {
+      const devices = props.devices;
+      let deviceItems = null;
+      if (devices?.length > 0) {
+        deviceItems = devices.map((option, index) => {
+          let label = option.path;
+          if (option.device?.info) {
+            label = (
+              <ListItemText
+                primary={option.device.info.displayName}
+                secondary={option.path || i18n.t("keyboardSelect.unknown")}
+              />
+            );
+          } else if (option.info) {
+            label = <ListItemText primary={option.info.displayName} />;
+          }
 
-    let deviceItems = null;
-    let port = null;
-    if (devices?.length > 0) {
-      deviceItems = devices.map((option, index) => {
-        let label = option.path;
-        if (option.device?.info) {
-          label = (
-            <ListItemText
-              primary={option.device.info.displayName}
-              secondary={option.path || i18n.t("keyboardSelect.unknown")}
-            />
+          const icon = (
+            <ListItemIcon sx={{ marginRight: 2 }}>
+              <Avatar>
+                <KeyboardIcon />
+              </Avatar>
+            </ListItemIcon>
           );
-        } else if (option.info) {
-          label = <ListItemText primary={option.info.displayName} />;
-        }
 
-        const icon = (
-          <ListItemIcon sx={{ marginRight: 2 }}>
-            <Avatar>
-              <KeyboardIcon />
-            </Avatar>
-          </ListItemIcon>
-        );
-
+          return (
+            <MenuItem
+              key={`device-${index}`}
+              value={index}
+              selected={index === this.state.selectedPortIndex}
+            >
+              {icon}
+              {label}
+            </MenuItem>
+          );
+        });
         return (
-          <MenuItem
-            key={`device-${index}`}
-            value={index}
-            selected={index === this.state.selectedPortIndex}
-          >
-            {icon}
-            {label}
-          </MenuItem>
+          <FormControl sx={{ display: "flex" }}>
+            <Select
+              value={this.state.selectedPortIndex}
+              sx={{ display: "flex" }}
+              onChange={this.selectPort}
+            >
+              {deviceItems}
+            </Select>
+          </FormControl>
         );
-      });
-
-      port = (
-        <FormControl sx={{ display: "flex" }}>
-          <Select
-            value={this.state.selectedPortIndex}
-            sx={{ display: "flex" }}
-            onChange={this.selectPort}
+      } else {
+        return (
+          <Typography
+            variant="body1"
+            color="error"
+            sx={{ marginTop: 2, marginBottom: 2, textAlign: "center" }}
           >
-            {deviceItems}
-          </Select>
-        </FormControl>
-      );
-    }
-
-    if (devices?.length == 0) {
-      port = (
-        <Typography
-          variant="body1"
-          color="error"
-          sx={{ marginTop: 2, marginBottom: 2, textAlign: "center" }}
-        >
-          {i18n.t("keyboardSelect.noDevices")}
-        </Typography>
-      );
-    }
-
+            {i18n.t("keyboardSelect.noDevices")}
+          </Typography>
+        );
       }
     };
 
@@ -319,7 +314,7 @@ class KeyboardSelect extends React.Component {
               }}
             >
               {preview}
-              {port}
+              <KeyboardPortSelector devices={devices} />
             </CardContent>
             <CardActions sx={{ justifyContent: "center" }}>
               <ScanDevicesButton

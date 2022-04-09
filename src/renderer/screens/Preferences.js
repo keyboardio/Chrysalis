@@ -40,44 +40,15 @@ import {
   KeyboardSettings,
   AdvancedKeyboardSettings,
 } from "./Preferences/KeyboardSettings";
+import { AdvancedPreferences } from "./Preferences/AdvancedPreferences";
 import i18n from "../i18n";
-
-import Focus from "../../api/focus";
 
 const Store = require("electron-store");
 const settings = new Store();
 
 function Preferences(props) {
-  let focus = new Focus();
-  const [devTools, setDevTools] = useState(false);
   const [advanced, setAdvanced] = useState(false);
-  const [verboseFocus, setVerboseFocus] = useState(focus.debug);
   const [language, setLanguage] = useState(i18n.language);
-  useEffect(() => {
-    ipcRenderer.invoke("devtools-is-open").then((result) => {
-      setDevTools(result);
-    });
-    ipcRenderer.on("devtools-opened", () => {
-      setDevTools(true);
-    });
-    ipcRenderer.on("devtools-closed", () => {
-      setDevTools(false);
-    });
-
-    // Cleanup when component unmounts.
-    return () => {
-      ipcRenderer.removeAllListeners("devtools-opened");
-      ipcRenderer.removeAllListeners("devtools-closed");
-    };
-  });
-  const toggleDevTools = (event) => {
-    setDevTools(event.target.checked);
-    if (event.target.checked) {
-      ipcRenderer.send("show-devtools", true);
-    } else {
-      ipcRenderer.send("show-devtools", false);
-    }
-  };
 
   const updateLanguage = async (event) => {
     i18n.changeLanguage(event.target.value);
@@ -88,12 +59,6 @@ function Preferences(props) {
 
   const toggleAdvanced = () => {
     setAdvanced(!advanced);
-  };
-
-  const toggleVerboseFocus = (event) => {
-    setVerboseFocus(event.target.checked);
-    let focus = new Focus();
-    focus.debug = event.target.checked;
   };
 
   const { darkMode, toggleDarkMode } = props;
@@ -177,46 +142,7 @@ function Preferences(props) {
         </Button>
       </Box>
       <Collapse in={advanced} timeout="auto" unmountOnExit>
-        <Typography
-          variant="subtitle1"
-          component="h2"
-          sx={{
-            marginTop: 4,
-            marginBottom: 1,
-          }}
-        >
-          {i18n.t("preferences.devtools")}
-        </Typography>
-        <Card>
-          <CardContent>
-            <FormControlLabel
-              sx={{ display: "flex", marginRight: 2 }}
-              control={
-                <Switch
-                  checked={devTools}
-                  onChange={toggleDevTools}
-                  value="devtools"
-                  sx={{ mx: 3 }}
-                />
-              }
-              labelPlacement="end"
-              label={i18n.t("preferences.devtools")}
-            />
-            <FormControlLabel
-              sx={{ display: "flex", marginRight: 2 }}
-              control={
-                <Switch
-                  checked={verboseFocus}
-                  onChange={toggleVerboseFocus}
-                  value="verboseFocus"
-                  sx={{ mx: 3 }}
-                />
-              }
-              labelPlacement="end"
-              label={i18n.t("preferences.verboseFocus")}
-            />
-          </CardContent>
-        </Card>
+        <AdvancedPreferences />
         {props.connected && (
           <AdvancedKeyboardSettings
             startContext={props.startContext}

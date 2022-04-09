@@ -238,7 +238,7 @@ class KeyboardSelect extends React.Component {
 
   installUdevRules = async () => {
     const { devices } = this.state;
-    const selectedDevice = devices && devices[this.state.selectedPortIndex];
+    const selectedDevice = devices?.[this.state.selectedPortIndex];
 
     try {
       await installUdevRules(selectedDevice.path);
@@ -261,10 +261,10 @@ class KeyboardSelect extends React.Component {
 
     let deviceItems = null;
     let port = null;
-    if (devices && devices.length > 0) {
+    if (devices?.length > 0) {
       deviceItems = devices.map((option, index) => {
         let label = option.path;
-        if (option.device && option.device.info) {
+        if (option.device?.info) {
           label = (
             <ListItemText
               primary={option.device.info.displayName}
@@ -308,7 +308,7 @@ class KeyboardSelect extends React.Component {
       );
     }
 
-    if (devices && devices.length == 0) {
+    if (devices?.length == 0) {
       port = (
         <Typography variant="body1" color="error" className={classes.error}>
           {i18n.t("keyboardSelect.noDevices")}
@@ -323,8 +323,8 @@ class KeyboardSelect extends React.Component {
 
     const scanDevicesButton = (
       <Button
-        variant={devices && devices.length ? "outlined" : "contained"}
-        color={devices && devices.length ? "secondary" : "primary"}
+        variant={devices?.length ? "outlined" : "contained"}
+        color={devices?.length ? "secondary" : "primary"}
         className={scanFoundDevices ? classes.found : null}
         onClick={scanFoundDevices ? null : this.scanDevices}
       >
@@ -334,7 +334,7 @@ class KeyboardSelect extends React.Component {
 
     let connectionButton, permissionWarning;
     let focus = new Focus();
-    const selectedDevice = devices && devices[this.state.selectedPortIndex];
+    const selectedDevice = devices?.[this.state.selectedPortIndex];
 
     if (
       process.platform == "linux" &&
@@ -360,17 +360,10 @@ class KeyboardSelect extends React.Component {
       );
     }
 
-    if (
-      focus.device &&
-      selectedDevice &&
-      selectedDevice.device == focus.device
-    ) {
+    if (focus.device && selectedDevice?.device == focus.device) {
       connectionButton = (
         <Button
-          disabled={
-            this.state.opening ||
-            (this.state.devices && this.state.devices.length == 0)
-          }
+          disabled={this.state.opening || this.state.devices?.length == 0}
           variant="outlined"
           color="secondary"
           onClick={this.props.onDisconnect}
@@ -384,7 +377,7 @@ class KeyboardSelect extends React.Component {
           disabled={
             (selectedDevice ? !selectedDevice.accessible : false) ||
             this.state.opening ||
-            (this.state.devices && this.state.devices.length == 0)
+            this.state.devices?.length == 0
           }
           variant="contained"
           color="primary"
@@ -397,12 +390,7 @@ class KeyboardSelect extends React.Component {
     }
 
     let preview;
-    if (
-      devices &&
-      devices[this.state.selectedPortIndex] &&
-      devices[this.state.selectedPortIndex].device &&
-      devices[this.state.selectedPortIndex].device.components
-    ) {
+    if (devices?.[this.state.selectedPortIndex]?.device?.components) {
       const Keymap =
         devices[this.state.selectedPortIndex].device.components.keymap;
       preview = <Keymap index={0} className={classes.preview} />;

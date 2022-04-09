@@ -255,19 +255,7 @@ class KeyboardSelect extends React.Component {
       );
     }
 
-    const ScanDevicesButton = (props) => {
-      const scanDevices = props.scanDevices;
-      const scanFoundDevices = props.scanFoundDevices;
-      const devices = props.devices;
-      return (
-        <Button
-          variant={devices?.length ? "outlined" : "contained"}
-          color={devices?.length ? "secondary" : "primary"}
-          onClick={scanFoundDevices ? null : scanDevices}
-        >
-          {i18n.t("keyboardSelect.scan")}
-        </Button>
-      );
+      }
     };
 
     let focus = new Focus();

@@ -127,28 +127,24 @@ const BrightnessKeys = (props) => {
   );
 };
 
-class ConsumerKeys extends React.Component {
-  render() {
-    const { keymap, selectedKey, layer, onKeyChange } = this.props;
-    const key = keymap.custom[layer][selectedKey];
+const ConsumerKeys = (props) => {
+  const { keymap, selectedKey, layer, onKeyChange } = props;
+  const key = keymap.custom[layer][selectedKey];
 
-    const subWidgets = [VolumeKeys, MediaKeys, BrightnessKeys];
-    const widgets = subWidgets.map((Widget, index) => {
-      return (
-        <Widget key={`consumer-group-${index}`} onKeyChange={onKeyChange} />
-      );
-    });
+  const subWidgets = [VolumeKeys, MediaKeys, BrightnessKeys];
+  const widgets = subWidgets.map((Widget, index) => {
+    return <Widget key={`consumer-group-${index}`} onKeyChange={onKeyChange} />;
+  });
 
-    return (
-      <Collapsible
-        expanded={db.isInCategory(key.code, "consumer")}
-        title={i18n.t("editor.sidebar.consumer.title")}
-        help={i18n.t("editor.sidebar.consumer.help")}
-      >
-        {widgets}
-      </Collapsible>
-    );
-  }
-}
+  return (
+    <Collapsible
+      expanded={db.isInCategory(key.code, "consumer")}
+      title={i18n.t("editor.sidebar.consumer.title")}
+      help={i18n.t("editor.sidebar.consumer.help")}
+    >
+      {widgets}
+    </Collapsible>
+  );
+};
 
 export { ConsumerKeys as default };

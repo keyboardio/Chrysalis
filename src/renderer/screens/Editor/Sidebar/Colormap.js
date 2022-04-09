@@ -22,9 +22,9 @@ import { ChromePicker } from "react-color";
 import PalettePicker from "./Colormap/PalettePicker";
 import Collapsible from "../components/Collapsible";
 
-class Colormap extends React.Component {
-  colorChangeComplete = (color) => {
-    const { selectedLed, layer, colormap } = this.props;
+const Colormap = (props) => {
+  const colorChangeComplete = (color) => {
+    const { selectedLed, layer, colormap } = props;
     const colorIndex = colormap.colorMap[layer][selectedLed];
 
     let palette = colormap.palette;
@@ -37,43 +37,41 @@ class Colormap extends React.Component {
       rgb: `rgb(${r}, ${g}, ${b})`,
     };
 
-    this.props.onPaletteChange(palette);
+    props.onPaletteChange(palette);
   };
 
-  onPaletteSwatchChange = (index) => {
-    this.props.onLedChange(index);
+  const onPaletteSwatchChange = (index) => {
+    props.onLedChange(index);
   };
 
-  render() {
-    const { selectedLed, layer, colormap } = this.props;
+  const { selectedLed, layer, colormap } = props;
 
-    if (!colormap || colormap.palette.length == 0) return null;
+  if (!colormap || colormap.palette.length == 0) return null;
 
-    const colorIndex = colormap.colorMap[layer][selectedLed];
-    const color = colormap.palette[colorIndex];
+  const colorIndex = colormap.colorMap[layer][selectedLed];
+  const color = colormap.palette[colorIndex];
 
-    return (
-      <Collapsible
-        title={i18n.t("editor.sidebar.colors.title")}
-        help={i18n.t("editor.sidebar.colors.help")}
-        expanded={false}
-      >
-        <PalettePicker
-          color={colorIndex}
-          colors={colormap.palette}
-          onClick={this.onPaletteSwatchChange}
-        />
-        <br />
-        <ChromePicker
-          color={color}
-          disableAlpha
-          sx={{
-            width: "295px !important",
-          }}
-          onChangeComplete={this.colorChangeComplete}
-        />
-      </Collapsible>
-    );
-  }
-}
+  return (
+    <Collapsible
+      title={i18n.t("editor.sidebar.colors.title")}
+      help={i18n.t("editor.sidebar.colors.help")}
+      expanded={false}
+    >
+      <PalettePicker
+        color={colorIndex}
+        colors={colormap.palette}
+        onClick={onPaletteSwatchChange}
+      />
+      <br />
+      <ChromePicker
+        color={color}
+        disableAlpha
+        sx={{
+          width: "295px !important",
+        }}
+        onChangeComplete={colorChangeComplete}
+      />
+    </Collapsible>
+  );
+};
 export { Colormap as default };

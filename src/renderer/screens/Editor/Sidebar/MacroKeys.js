@@ -20,22 +20,20 @@ import i18n from "i18next";
 
 import CategorySelector from "../components/CategorySelector";
 
-class MacroKeys extends React.Component {
-  render() {
-    const { keymap, selectedKey, layer, onKeyChange } = this.props;
+const MacroKeys = (props) => {
+  const { keymap, selectedKey, layer, onKeyChange } = props;
 
-    return (
-      <CategorySelector
-        title={i18n.t("editor.sidebar.macros.title")}
-        help={i18n.t("editor.sidebar.macros.help")}
-        category="macros"
-        keymap={keymap}
-        selectedKey={selectedKey}
-        layer={layer}
-        onKeyChange={onKeyChange}
-      />
-    );
-  }
-}
+  return (
+    <CategorySelector
+      title={i18n.t("editor.sidebar.macros.title")}
+      help={i18n.t("editor.sidebar.macros.help")}
+      category="macros"
+      keymap={keymap}
+      selectedKey={selectedKey}
+      layer={layer}
+      onKeyChange={onKeyChange}
+    />
+  );
+};
 
 export { MacroKeys as default };

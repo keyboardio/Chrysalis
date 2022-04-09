@@ -36,19 +36,12 @@ import Select from "@mui/material/Select";
 import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
 
-import {
-  KeyboardSettings,
-  AdvancedKeyboardSettings,
-} from "./Preferences/KeyboardSettings";
-import { BasicPreferences } from "./Preferences/Basic";
-import { AdvancedPreferences } from "./Preferences/Advanced";
-import i18n from "../i18n";
+import i18n from "../../i18n";
 
 const Store = require("electron-store");
 const settings = new Store();
 
-function Preferences(props) {
-  const [advanced, setAdvanced] = useState(false);
+function BasicPreferences(props) {
   const [language, setLanguage] = useState(i18n.language);
 
   const updateLanguage = async (event) => {
@@ -56,10 +49,6 @@ function Preferences(props) {
     await settings.set("ui.language", event.target.value);
     // We stick language in the state system to get rerenders when it changes
     setLanguage(event.target.value);
-  };
-
-  const toggleAdvanced = () => {
-    setAdvanced(!advanced);
   };
 
   const { darkMode, toggleDarkMode } = props;
@@ -74,48 +63,48 @@ function Preferences(props) {
   });
 
   return (
-    <Box sx={{ py: 2, px: 2, margin: "0 8" }}>
-      <Portal container={props.titleElement}>
-        {i18n.t("app.menu.preferences")}
-      </Portal>
-      <BasicPreferences props={props} />
-      {props.connected && (
-        <KeyboardSettings
-          startContext={props.startContext}
-          cancelContext={props.cancelContext}
-          inContext={props.inContext}
-        />
-      )}
-      <Box
+    <div>
+      <Typography
+        variant="subtitle1"
+        component="h2"
         sx={{
-          display: "flex",
-          justifyContent: "center",
           marginTop: 4,
-          "& button": {
-            textTransform: "none",
-            "& span svg": {
-              marginLeft: "1.5em",
-            },
-          },
+          marginBottom: 1,
         }}
       >
-        <Button onClick={toggleAdvanced}>
-          {i18n.t("preferences.advanced")}
-          {advanced ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-        </Button>
-      </Box>
-      <Collapse in={advanced} timeout="auto" unmountOnExit>
-        <AdvancedPreferences />
-        {props.connected && (
-          <AdvancedKeyboardSettings
-            startContext={props.startContext}
-            cancelContext={props.cancelContext}
-            inContext={props.inContext}
+        {i18n.t("preferences.interface")}
+      </Typography>
+      <Card>
+        <CardContent>
+          <FormControl variant="standard" fullWidth={true}>
+            <InputLabel>{i18n.t("preferences.language")}</InputLabel>
+            <Select
+              value={language}
+              sx={{ mb: 2 }}
+              onChange={updateLanguage}
+              label={i18n.t("preferences.language")}
+              input={<FilledInput sx={{}} />}
+            >
+              {languages}
+            </Select>
+          </FormControl>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={darkMode}
+                onChange={toggleDarkMode}
+                value="devtools"
+                sx={{ mx: 3 }}
+              />
+            }
+            sx={{ display: "flex", marginRight: 2 }}
+            labelPlacement="end"
+            label={i18n.t("preferences.darkMode")}
           />
-        )}
-      </Collapse>
-    </Box>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
 
-export default Preferences;
+export { BasicPreferences };

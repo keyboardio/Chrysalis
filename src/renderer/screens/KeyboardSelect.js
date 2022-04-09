@@ -31,6 +31,7 @@ import { ConnectionButton } from "./KeyboardSelect/ConnectionButton";
 import { LinuxPermissionsWarning } from "./KeyboardSelect/LinuxPermissionsWarning";
 import { ScanDevicesButton } from "./KeyboardSelect/ScanDevicesButton";
 import { KeyboardPortSelector } from "./KeyboardSelect/KeyboardPortSelector";
+import { DeviceImage } from "./KeyboardSelect/DeviceImage";
 const { ipcRenderer } = require("electron");
 
 class KeyboardSelect extends React.Component {
@@ -188,34 +189,6 @@ class KeyboardSelect extends React.Component {
 
     let focus = new Focus();
     const selectedDevice = devices?.[this.state.selectedPortIndex];
-
-    const DeviceImage = (props) => {
-      const device = props.device;
-      if (device?.components) {
-        const Keymap = device.components?.keymap;
-        return (
-          <Box
-            sx={{
-              display: "flex",
-              align: "center",
-              mx: "auto",
-              maxWidth: "250px",
-              maxHeight: "100px",
-              marginBottom: 2,
-              justifyContent: "center",
-              "& *": {
-                color: "#000000",
-                stroke: "#000000",
-              },
-            }}
-          >
-            <Keymap index={0} />
-          </Box>
-        );
-      } else {
-        return "";
-      }
-    };
 
     return (
       <React.Fragment>

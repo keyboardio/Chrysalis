@@ -24,37 +24,35 @@ import { KeymapDB } from "../../../../api/keymap";
 
 const db = new KeymapDB();
 
-class BlankKeys extends React.Component {
-  render() {
-    const { keymap, selectedKey, layer, onKeyChange } = this.props;
-    const key = keymap.custom[layer][selectedKey];
+const BlankKeys = (props) => {
+  const { keymap, selectedKey, layer, onKeyChange } = props;
+  const key = keymap.custom[layer][selectedKey];
 
-    const keys = [
-      db.lookup(0), // blocked
-      db.lookup(65535), // transparent
-    ];
+  const keys = [
+    db.lookup(0), // blocked
+    db.lookup(65535), // transparent
+  ];
 
-    const keyButtons = keys.map((button, index) => {
-      return (
-        <KeyButton
-          key={`blank-${index}`}
-          onKeyChange={onKeyChange}
-          keyObj={button}
-          noHint
-        />
-      );
-    });
-
+  const keyButtons = keys.map((button, index) => {
     return (
-      <Collapsible
-        expanded={db.isInCategory(key.code, "blanks")}
-        title={i18n.t("editor.sidebar.blanks.title")}
-        help={i18n.t("editor.sidebar.blanks.help")}
-      >
-        {keyButtons}
-      </Collapsible>
+      <KeyButton
+        key={`blank-${index}`}
+        onKeyChange={onKeyChange}
+        keyObj={button}
+        noHint
+      />
     );
-  }
-}
+  });
+
+  return (
+    <Collapsible
+      expanded={db.isInCategory(key.code, "blanks")}
+      title={i18n.t("editor.sidebar.blanks.title")}
+      help={i18n.t("editor.sidebar.blanks.help")}
+    >
+      {keyButtons}
+    </Collapsible>
+  );
+};
 
 export { BlankKeys as default };

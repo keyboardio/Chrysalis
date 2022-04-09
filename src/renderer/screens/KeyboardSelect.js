@@ -287,33 +287,35 @@ class KeyboardSelect extends React.Component {
       </Button>
     );
 
-    let connectionButton, permissionWarning;
     let focus = new Focus();
     const selectedDevice = devices?.[this.state.selectedPortIndex];
 
-    if (
-      process.platform == "linux" &&
-      selectedDevice &&
-      !selectedDevice.accessible
-    ) {
-      const fixitButton = (
-        <Button onClick={this.installUdevRules} variant="outlined">
-          {i18n.t("keyboardSelect.installUdevRules")}
-        </Button>
-      );
-      permissionWarning = (
-        <Alert severity="error" action={fixitButton}>
-          <Typography component="p" gutterBottom>
-            {i18n.t("keyboardSelect.permissionError", {
-              path: selectedDevice.path,
-            })}
-          </Typography>
-          <Typography component="p">
-            {i18n.t("keyboardSelect.permissionErrorSuggestion")}
-          </Typography>
-        </Alert>
-      );
-    }
+    const PermissionsWarning = (props) => {
+      const platform = props.platform;
+      const deviceInaccessible = props.deviceInacessible;
+
+      if (platform == "linux" && deviceInaccessible) {
+        const fixitButton = (
+          <Button onClick={this.installUdevRules} variant="outlined">
+            {i18n.t("keyboardSelect.installUdevRules")}
+          </Button>
+        );
+        return (
+          <Alert severity="error" action={fixitButton}>
+            <Typography component="p" gutterBottom>
+              {i18n.t("keyboardSelect.permissionError", {
+                path: selectedDevice.path,
+              })}
+            </Typography>
+            <Typography component="p">
+              {i18n.t("keyboardSelect.permissionErrorSuggestion")}
+            </Typography>
+          </Alert>
+        );
+      } else {
+        return null;
+      }
+    };
 
     let preview;
     if (devices?.[this.state.selectedPortIndex]?.device?.components) {
@@ -347,7 +349,10 @@ class KeyboardSelect extends React.Component {
             {i18n.t("app.menu.selectAKeyboard")}
           </Portal>
           {loader}
-          {permissionWarning}
+          <PermissionsWarning
+            deviceInaccessible={selectedDevice?.accessible == false}
+            platform={process.platform}
+          />
           <Card
             sx={{
               boxShadow: 3,

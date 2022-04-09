@@ -172,21 +172,6 @@ class KeyboardSelect extends React.Component {
   render() {
     const { scanFoundDevices, devices } = this.state;
 
-    let loader = null;
-    if (this.state.loading) {
-      loader = (
-        <LinearProgress
-          variant="query"
-          sx={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            right: 0,
-          }}
-        />
-      );
-    }
-
     let focus = new Focus();
     const selectedDevice = devices?.[this.state.selectedPortIndex];
 
@@ -197,7 +182,17 @@ class KeyboardSelect extends React.Component {
           <Portal container={this.props.titleElement}>
             {i18n.t("app.menu.selectAKeyboard")}
           </Portal>
-          {loader}
+          {this.state.loading && (
+            <LinearProgress
+              variant="query"
+              sx={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                right: 0,
+              }}
+            />
+          )}
           <LinuxPermissionsWarning
             deviceInaccessible={selectedDevice?.accessible == false}
             platform={process.platform}

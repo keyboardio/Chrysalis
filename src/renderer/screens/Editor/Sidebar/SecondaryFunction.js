@@ -26,9 +26,9 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 
 import Collapsible from "../components/Collapsible";
-import { KeymapDB } from "../../../../api/keymap";
-import { addDUM, addDUL } from "../../../../api/keymap/db/base/dualuse";
-import { GuiLabel } from "../../../../api/keymap/db/base/gui";
+import { KeymapDB } from "@api/keymap";
+import { addDUM, addDUL } from "@api/keymap/db/base/dualuse";
+import { GuiLabel } from "@api/keymap/db/base/gui";
 
 const db = new KeymapDB();
 

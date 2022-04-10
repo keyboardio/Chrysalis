@@ -29,7 +29,7 @@ import Collapsible from "../components/Collapsible";
 import KeyButton from "../components/KeyButton";
 
 import Focus from "../../../../api/focus";
-import { KeymapDB } from "../../../../api/keymap";
+import { KeymapDB } from "@api/keymap";
 
 const db = new KeymapDB();
 

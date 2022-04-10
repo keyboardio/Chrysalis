@@ -35,12 +35,9 @@ import Tooltip from "@mui/material/Tooltip";
 
 import Keyboard104 from "../Keyboard104";
 import Collapsible from "../components/Collapsible";
-import { KeymapDB } from "../../../../api/keymap";
-import {
-  addModifier,
-  removeModifier,
-} from "../../../../api/keymap/db/modifiers";
-import { GuiLabel } from "../../../../api/keymap/db/base/gui";
+import { KeymapDB } from "@api/keymap";
+import { addModifier, removeModifier } from "@api/keymap/db/modifiers";
+import { GuiLabel } from "@api/keymap/db/base/gui";
 import LayoutSelect from "./KeyPicker/LayoutSelect";
 
 const db = new KeymapDB();

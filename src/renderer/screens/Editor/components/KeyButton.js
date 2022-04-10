@@ -19,7 +19,7 @@ import React from "react";
 
 import Button from "@mui/material/Button";
 
-import { KeymapDB } from "../../../../api/keymap";
+import { KeymapDB } from "@api/keymap";
 
 const db = new KeymapDB();
 

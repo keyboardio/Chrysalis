@@ -21,7 +21,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 
-import { KeymapDB } from "../../../../api/keymap";
+import { KeymapDB } from "@api/keymap";
 
 const db = new KeymapDB();
 

@@ -24,7 +24,7 @@ import FormHelperText from "@mui/material/FormHelperText";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 
-import { KeymapDB } from "../../../../../api/keymap";
+import { KeymapDB } from "@api/keymap";
 
 const db = new KeymapDB();
 

@@ -28,7 +28,7 @@ import Typography from "@mui/material/Typography";
 
 import Collapsible from "../components/Collapsible";
 import KeyButton from "../components/KeyButton";
-import { KeymapDB } from "../../../../api/keymap";
+import { KeymapDB } from "@api/keymap";
 
 const db = new KeymapDB();
 

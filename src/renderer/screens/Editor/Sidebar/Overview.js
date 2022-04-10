@@ -32,7 +32,7 @@ import TableFooter from "@mui/material/TableFooter";
 import TableRow from "@mui/material/TableRow";
 
 import LayoutSharing from "./Overview/LayoutSharing";
-import { KeymapDB } from "../../../../api/keymap";
+import { KeymapDB } from "@api/keymap";
 
 class Overview extends React.Component {
   state = {

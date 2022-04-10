@@ -40,7 +40,7 @@ import ConfirmationDialog from "../../../../components/ConfirmationDialog";
 
 import Focus from "../../../../../api/focus";
 import Log from "../../../../../api/log";
-import { KeymapDB } from "../../../../../api/keymap";
+import { KeymapDB } from "@api/keymap";
 import { getStaticPath } from "../../../../config";
 
 const db = new KeymapDB();

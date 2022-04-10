@@ -22,7 +22,7 @@ import Dialog from "@mui/material/Dialog";
 
 import KeyButtonList from "../components/KeyButtonList";
 import Collapsible from "../components/Collapsible";
-import { KeymapDB } from "../../../../api/keymap";
+import { KeymapDB } from "@api/keymap";
 
 const db = new KeymapDB();
 

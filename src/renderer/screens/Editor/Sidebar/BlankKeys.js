@@ -20,7 +20,7 @@ import i18n from "i18next";
 
 import Collapsible from "../components/Collapsible";
 import KeyButton from "../components/KeyButton";
-import { KeymapDB } from "../../../../api/keymap";
+import { KeymapDB } from "@api/keymap";
 
 const db = new KeymapDB();
 

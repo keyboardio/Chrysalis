@@ -30,7 +30,7 @@ const settings = new Store();
 
 import Focus from "../../../api/focus";
 import Log from "../../../api/log";
-import { KeymapDB, default as Keymap } from "../../../api/keymap";
+import { KeymapDB, default as Keymap } from "@api/keymap";
 
 import Sidebar, { sidebarWidth } from "./Sidebar";
 

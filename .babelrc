@@ -28,6 +28,7 @@
     [
       "module-resolver",
       {
+        "root": ["/src"],
         "alias": {
           "@api": "/src/api",
           "@renderer": "/src/renderer",

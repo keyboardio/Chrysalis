@@ -1,4 +1,8 @@
 {
+  "renderer": {
+    "webpackConfig": "webpack.renderer.additions.js"
+  },
+
   "title": "Chrysalis",
 
   // "whiteListedModules" means "modules which are bundled by webpack during

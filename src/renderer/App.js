@@ -23,10 +23,10 @@ const { ipcRenderer } = require("electron");
 const Store = require("electron-store");
 const settings = new Store();
 
-import Focus from "../api/focus";
-import Log from "../api/log";
-import "../api/keymap";
-import "../api/colormap";
+import Focus from "@api/focus";
+import Log from "@api/log";
+import "@api/keymap";
+import "@api/colormap";
 import "typeface-roboto/index.css";
 import "typeface-source-code-pro/index.css";
 import { LocationProvider, Router } from "@gatsbyjs/reach-router";
@@ -52,7 +52,7 @@ import Preferences from "./screens/Preferences";
 import Welcome from "./screens/Welcome";
 import SystemInfo from "./screens/SystemInfo";
 import ChangeLog from "./screens/ChangeLog";
-import i18n from "./i18n";
+import i18n from "@renderer/i18n";
 
 import Header from "./components/Header";
 import ConfirmationDialog from "./components/ConfirmationDialog";

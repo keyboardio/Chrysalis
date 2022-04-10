@@ -18,7 +18,7 @@
 import React from "react";
 import i18n from "i18next";
 
-import CategorySelector from "../components/CategorySelector";
+import CategorySelector from "@renderer/screens/Editor/components/CategorySelector";
 
 const LeaderKeys = (props) => {
   const { keymap, selectedKey, layer, onKeyChange } = props;

@@ -19,7 +19,6 @@
  */
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import withStyles from "@mui/styles/withStyles";
 import { SketchPicker } from "react-color";
 import Fab from "@mui/material/Fab";
 import Tooltip from "@mui/material/Tooltip";
@@ -27,40 +26,19 @@ import Popover from "@mui/material/Popover";
 import PaletteIcon from "@mui/icons-material/Palette";
 
 PickerColorButton.propTypes = {
-  classes: PropTypes.object.isRequired,
   setColorFocusButton: PropTypes.func.isRequired,
   colorFocusButton: PropTypes.object,
   disabled: PropTypes.bool.isRequired,
 };
 
-const styles = {
-  root: {
-    position: "relative",
-    marginLeft: 10,
-  },
-  fab: {
-    width: 60,
-    height: 60,
-  },
-  icon: {
-    fontSize: 32,
-  },
-};
-
 /**
  * Reactjs functional component that create button to choose colors from Color Picker
- * @param {object} classes Property that sets up CSS classes that adding to HTML elements
  * @param {function} setColorFocusButton Callback function from ColorPalette component
  * @param {object} colorFocusButton Object with keys that defining colors using the Red-green-blue-alpha (RGBA) model for focus button
  * @param {boolean} disabled Property that disable component
  */
 function PickerColorButton(props) {
-  const {
-    classes,
-    setColorFocusButton,
-    colorFocusButton: color,
-    disabled,
-  } = props;
+  const { setColorFocusButton, colorFocusButton: color, disabled } = props;
 
   /**
    * This is Hook that lets add React state "anchorEl" to functional components
@@ -87,14 +65,22 @@ function PickerColorButton(props) {
 
   return (
     <Tooltip placement="top-start" title={props.children}>
-      <div className={classes.root}>
+      <div
+        sx={{
+          position: "relative",
+          marginLeft: 10,
+        }}
+      >
         <Fab
           color="primary"
-          className={classes.fab}
           onClick={handleClick}
           disabled={disabled}
+          sx={{
+            width: 60,
+            height: 60,
+          }}
         >
-          <PaletteIcon className={classes.icon} />
+          <PaletteIcon sx={{ fontSize: 32 }} />
         </Fab>
         <Popover
           id={"simple-popover"}
@@ -122,4 +108,4 @@ function PickerColorButton(props) {
   );
 }
 
-export default withStyles(styles)(PickerColorButton);
+export default PickerColorButton;

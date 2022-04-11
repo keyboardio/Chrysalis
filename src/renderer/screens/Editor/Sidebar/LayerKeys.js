@@ -23,16 +23,13 @@ import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import withStyles from "@mui/styles/withStyles";
 
 import Collapsible from "../components/Collapsible";
 import { KeymapDB } from "../../../../api/keymap";
 
 const db = new KeymapDB();
 
-const styles = () => ({});
-
-class LayerKeysBase extends React.Component {
+class LayerKeys extends React.Component {
   getMaxLayer = () => {
     const { keymap, selectedKey, layer } = this.props;
     const key = keymap.custom[layer][selectedKey];
@@ -83,7 +80,7 @@ class LayerKeysBase extends React.Component {
   };
 
   render() {
-    const { classes, keymap, selectedKey, layer } = this.props;
+    const { keymap, selectedKey, layer } = this.props;
     const key = keymap.custom[layer][selectedKey];
 
     let type = "none",
@@ -102,7 +99,7 @@ class LayerKeysBase extends React.Component {
           expanded={db.isInCategory(key.code, "layer")}
         >
           <div>
-            <FormControl className={classes.form}>
+            <FormControl>
               <InputLabel>{i18n.t("editor.layerswitch.type")}</InputLabel>
               <Select value={type} onChange={this.onTypeChange}>
                 <MenuItem value="none" disabled selected>
@@ -128,7 +125,7 @@ class LayerKeysBase extends React.Component {
                 </MenuItem>
               </Select>
             </FormControl>
-            <FormControl className={classes.form}>
+            <FormControl>
               <InputLabel>{i18n.t("editor.layerswitch.target")}</InputLabel>
               <Input
                 type="number"
@@ -145,6 +142,5 @@ class LayerKeysBase extends React.Component {
     );
   }
 }
-const LayerKeys = withStyles(styles, { withTheme: true })(LayerKeysBase);
 
 export { LayerKeys as default };

@@ -312,7 +312,7 @@ class KeyPickerKeyboard extends Component {
 
     return (
       <Style>
-        <div className="singleViewWrapper">
+        <div className={`singleViewWrapper ${superkeys ? "singleViewWrapperSuperkeys" : "singleViewWrapperLayoutEditor"}`}>
           <div className="keyEnhanceWrapper">
             <div className="keyEnhanceInner">
               <KeyVisualizer newValue={selKey} keyCode={code} />

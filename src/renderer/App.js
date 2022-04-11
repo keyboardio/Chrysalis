@@ -35,7 +35,7 @@ import Dark from "./theme/DarkTheme";
 
 import SelectKeyboard from "./views/SelectKeyboard";
 import FirmwareUpdate from "./views/FirmwareUpdate";
-import Editor from "./screens/Editor/Editor";
+import LayoutEditor from "./views/LayoutEditor";
 import MacrosConfigurator from "./screens/Macros/MacrosConfigurator";
 import SuperkeysEditor from "./views/SuperkeysEditor";
 import Preferences from "./views/Preferences";
@@ -312,7 +312,7 @@ class App extends React.Component {
               titleElement={() => document.querySelector("#page-title")}
               darkMode={darkMode}
             />
-            <Editor
+            <LayoutEditor
               path="/editor"
               onDisconnect={this.onKeyboardDisconnect}
               startContext={this.startContext}

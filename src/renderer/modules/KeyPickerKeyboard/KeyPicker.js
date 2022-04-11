@@ -407,9 +407,9 @@ class KeyPicker extends Component {
               </div>
               <div className="keysButtonsList">
                 <ButtonConfig
-                  buttonText="On/Off"
+                  buttonText={i18n.editor.superkeys.specialKeys.ledToggleText}
                   icoPosition="left"
-                  tooltip="Toggle effects"
+                  tooltip={i18n.editor.superkeys.specialKeys.ledToggleTootip}
                   tooltipDelay={300}
                   onClick={() => {
                     onKeySelect(17154);
@@ -417,7 +417,7 @@ class KeyPicker extends Component {
                   icoSVG={<IconLEDSwitchLeft />}
                 />
                 <ButtonConfig
-                  tooltip="Previous light effect"
+                  tooltip={i18n.editor.superkeys.specialKeys.ledPreviousEffectTootip}
                   tooltipDelay={300}
                   icoSVG={<IconLEDPreviousEffect />}
                   onClick={() => {
@@ -425,7 +425,15 @@ class KeyPicker extends Component {
                   }}
                   selected={keyCode.base + keyCode.modified == 17154 ? true : false}
                 />
-                <ButtonConfig tooltip="Next light effect" tooltipDelay={300} icoSVG={<IconLEDNextEffect />} />
+                <ButtonConfig
+                  tooltip={i18n.editor.superkeys.specialKeys.ledNextEffectTootip}
+                  tooltipDelay={300}
+                  icoSVG={<IconLEDNextEffect />}
+                  onClick={() => {
+                    onKeySelect(17152);
+                  }}
+                  selected={keyCode.base + keyCode.modified == 17152 ? true : false}
+                />
               </div>
             </div>
           </div>

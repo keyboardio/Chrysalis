@@ -22,7 +22,6 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import Portal from "@mui/material/Portal";
-import withStyles from "@mui/styles/withStyles";
 
 import Electron from "electron";
 
@@ -35,31 +34,17 @@ import path from "path";
 import { getStaticPath } from "../config";
 import i18n from "../i18n";
 
-const styles = (theme) => ({
-  root: {
-    display: "flex",
-    justifyContent: "center",
-  },
-  card: {
-    margin: theme.spacing(4),
-    maxWidth: "50%",
-  },
-  release: {
-    textDecoration: "underline",
-  },
-});
-
 const ChangeLog = (props) => {
   const { classes } = props;
   const file = path.join(getStaticPath(), "../NEWS.md");
   const data = fs.readFileSync(file).toString();
 
   return (
-    <div className={classes.root}>
+    <div>
       <Portal container={props.titleElement}>
         {i18n.t("changelog.title")}
       </Portal>
-      <Card className={classes.card}>
+      <Card sx={{ margin: "auto", maxWidth: "50%" }}>
         <CardHeader
           avatar={<img src={logo} alt={i18n.t("components.logo.altText")} />}
           title="Chrysalis"
@@ -70,7 +55,9 @@ const ChangeLog = (props) => {
             components={{
               h1({ node, ...props }) {
                 return (
-                  <h1 className={classes.release}>{node.children[0].value}</h1>
+                  <h1 sx={{ textDecoration: "underline" }}>
+                    {node.children[0].value}
+                  </h1>
                 );
               },
             }}
@@ -83,4 +70,4 @@ const ChangeLog = (props) => {
   );
 };
 
-export default withStyles(styles)(ChangeLog);
+export default ChangeLog;

@@ -44,11 +44,17 @@ import {
 import { MdKeyboardReturn, MdSpaceBar, MdKeyboardCapslock, MdInfoOutline, MdEject } from "react-icons/md";
 
 import { ButtonConfig } from "../../component/Button";
-import { SelectMacro } from "../../component/Select";
-import { SelectLayersLock } from "../../component/Select";
+import {
+  SelectMacro,
+  SelectSuperKey,
+  SelectLayersLock,
+  SelectLayersSwitch,
+  SelectOneShotModifiers,
+  SelectOneShotLayers
+} from "../../component/Select";
 
 import {
-  IconNote,
+  IconLayers,
   IconLEDSwitchLeft,
   IconLEDNextEffect,
   IconLEDPreviousEffect,
@@ -60,15 +66,18 @@ import {
   IconMediaSoundMore,
   IconMediaSoundMute,
   IconMediaStop,
+  IconNoKey,
+  IconNote,
+  IconMouse,
+  IconOneShot,
+  IconThunder,
   IconToolsCalculator,
   IconToolsCamera,
   IconToolsEject,
   IconToolsBrightnessLess,
   IconToolsBrightnessMore,
-  IconWrench,
-  IconMouse,
   IconRobot,
-  IconLayers
+  IconWrench
 } from "../../component/Icon";
 
 import Key from "./Key";
@@ -81,6 +90,7 @@ import SW from "./SW.json";
 import DN from "./DN.json";
 import NW from "./NW.json";
 import IC from "./IC.json";
+//import SelectSuperKeys from "../../component/Select/SelectSuperKey";
 
 const Style = Styled.div`
 width: 100%;
@@ -113,6 +123,91 @@ width: 100%;
 .keysOrdinaryKeyboard {
   position: relative;
   z-index: 4;
+}
+
+
+.KeysWrapper {
+  max-width: 1160px;
+  margin: auto;
+}
+.keysContainer + .keysContainer {
+  margin-top: 8px;
+}
+.KeysWrapperSpecialKeys {
+  margin-top: 8px;
+}
+.keysRow {
+  display: flex;
+  flex-wrap: nowrap;
+  background: rgba(48, 51, 73, 0.6);
+  border-radius: 6px;
+  padding: 5px;
+  &.keysOrdinaryKeyboard {
+    padding: 12px 24px;
+  }
+  .keyIcon {
+    flex: 0 0 42px;
+    text-align: center;
+    align-self: center;
+    color: ${({ theme }) => theme.colors.gray200};
+    h4 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      margin: 0;
+    }
+  }
+  .keyTitle {
+    font-size: 11px;
+    color: ${({ theme }) => theme.colors.gray25}; 
+    display: flex;
+    // flex-grow: 1;
+    align-self: center;
+    line-height: 1.15em;
+    flex-wrap: wrap;
+    // max-width: 66px;
+    span {
+      color: ${({ theme }) => theme.colors.gray200};
+      display: block;
+      flex: 0 0 100%;
+    }
+    &.keyTitleClick {
+      padding-left: 16px;
+      padding-right: 10px;
+    }
+  }
+}
+.keysMediaTools {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 16px;
+}
+.keysContainerDropdowns {
+  display: grid;
+  grid-template-columns: minmax(25%, auto) minmax(25%, auto) minmax(25%, auto);
+  grid-gap: 16px;
+}
+.keysButtonsList {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}
+.keysButtonsList .button-config {
+  margin-left: 3px;
+  height: 34px;
+  display: flex;
+  flex-grow: 1;
+  text-align: center;
+  padding: 5px 8px;
+  justify-content: center;
+  font-size: 14px;
+} 
+.keysMouseEvents .button-config {
+  width: 58px;
+}
+
+.editor {
+
 }
 `;
 const IconColor = Styled.span`
@@ -168,11 +263,14 @@ class KeyPicker extends Component {
   render() {
     const {
       action,
+      actions,
       code,
       disableMods,
       disableMove,
       disableAll,
       selectedlanguage,
+      superkeys,
+      selKeys,
       kbtype,
       macros,
       keyCode,
@@ -383,8 +481,23 @@ class KeyPicker extends Component {
             </div>
           </div>
         </div>
-        <div className="KeysWrapper KeysWrapperSpecialKeys">
+        <div className={`KeysWrapper KeysWrapperSpecialKeys editor ${activeTab}`}>
           <div className="keysContainer keysContainerDropdowns">
+            <div className="keysRow keysSuperkeys">
+              <div className="keyIcon">
+                <IconThunder />
+              </div>
+              <div className="keysButtonsList">
+                <SelectSuperKey
+                  action={action}
+                  actions={actions}
+                  selKeys={selKeys}
+                  onKeySelect={onKeySelect}
+                  superkeys={superkeys}
+                  keyCode={code}
+                />
+              </div>
+            </div>
             <div className="keysRow keysMacros">
               <div className="keyIcon">
                 <IconRobot />
@@ -398,7 +511,29 @@ class KeyPicker extends Component {
                 <IconLayers />
               </div>
               <div className="keysButtonsList">
+                <SelectLayersSwitch action={action} activeTab={activeTab} keyCode={code} onKeySelect={onKeySelect} />
                 <SelectLayersLock action={action} activeTab={activeTab} keyCode={code} onKeySelect={onKeySelect} />
+              </div>
+            </div>
+            <div className="keysRow keysNoKey">
+              <div className="keyIcon">
+                <IconNoKey />
+              </div>
+              <div className="keysButtonsList">
+                <ButtonConfig
+                  buttonText={i18n.editor.superkeys.specialKeys.noKey}
+                  onClick={() => {
+                    onKeySelect(0);
+                  }}
+                  selected={keyCode.base + keyCode.modified == 0 ? true : false}
+                />
+                <ButtonConfig
+                  buttonText={i18n.editor.superkeys.specialKeys.transparent}
+                  onClick={() => {
+                    onKeySelect(65535);
+                  }}
+                  selected={keyCode.base + keyCode.modified == 65535 ? true : false}
+                />
               </div>
             </div>
             <div className="keysRow keysLED">
@@ -415,6 +550,7 @@ class KeyPicker extends Component {
                     onKeySelect(17154);
                   }}
                   icoSVG={<IconLEDSwitchLeft />}
+                  selected={keyCode.base + keyCode.modified == 17154 ? true : false}
                 />
                 <ButtonConfig
                   tooltip={i18n.editor.superkeys.specialKeys.ledPreviousEffectTootip}
@@ -434,6 +570,15 @@ class KeyPicker extends Component {
                   }}
                   selected={keyCode.base + keyCode.modified == 17152 ? true : false}
                 />
+              </div>
+            </div>
+            <div className="keysRow keysOSM">
+              <div className="keyIcon">
+                <IconOneShot />
+              </div>
+              <div className="keysButtonsList">
+                <SelectOneShotModifiers action={action} activeTab={activeTab} keyCode={code} onKeySelect={onKeySelect} />
+                <SelectOneShotLayers action={action} activeTab={activeTab} keyCode={code} onKeySelect={onKeySelect} />
               </div>
             </div>
           </div>

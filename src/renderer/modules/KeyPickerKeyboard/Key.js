@@ -420,8 +420,7 @@ class Key extends React.Component {
             <>
               <foreignObject
                 width={ksl[content.type].outb.x}
-                // height={ksl[content.type].outb.y}
-                height={208}
+                height={ksl[content.type].outb.y}
                 x={x + ksl[content.type].outb.dx}
                 y={y + ksl[content.type].outb.dy}
                 style={{ overflow: "visible" }}

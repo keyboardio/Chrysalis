@@ -21,5 +21,21 @@ import SuperkeysSelector from "./SuperkeysSelector";
 import SelectF13PlusKeys from "./SelectF13PlusKeys";
 import SelectMacro from "./SelectMacro";
 import SelectLayersLock from "./SelectLayersLock";
+import SelectLayersSwitch from "./SelectLayersSwitch";
+import SelectOneShotLayers from "./SelectOneShotLayers";
+import SelectOneShotModifiers from "./SelectOneShotModifiers";
+import SelectSuperKey from "./SelectSuperKey";
 
-export { Select, SelectKeyboardDropdown, NeuronSelector, SuperkeysSelector, SelectF13PlusKeys, SelectMacro, SelectLayersLock };
+export {
+  Select,
+  SelectKeyboardDropdown,
+  NeuronSelector,
+  SuperkeysSelector,
+  SelectF13PlusKeys,
+  SelectMacro,
+  SelectLayersLock,
+  SelectLayersSwitch,
+  SelectOneShotLayers,
+  SelectOneShotModifiers,
+  SelectSuperKey
+};

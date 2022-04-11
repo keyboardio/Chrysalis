@@ -42,9 +42,9 @@ import i18n from "../i18n";
 import { CopyFromDialog } from "../screens/Editor/CopyFromDialog";
 import { undeglowDefaultColors } from "../screens/Editor/initialUndaglowColors";
 
-//Modules
 // Modules
 import PageHeader from "../modules/PageHeader";
+import { KeyPickerKeyboard } from "../modules/KeyPickerKeyboard";
 
 const Store = window.require("electron-store");
 const store = new Store();
@@ -1680,22 +1680,39 @@ class LayoutEditor extends React.Component {
                     toChangeAllKeysColor={this.toChangeAllKeysColor}
                   />
                 ) : (
-                  <KeyConfig
-                    id="keyboard-fade"
-                    onKeySelect={this.onKeyChange}
-                    code={code}
-                    macros={macros}
-                    superkeys={superkeys}
-                    actions={actions}
-                    superName={superName}
-                    newSuperID={this.newSuperID}
-                    setSuperKey={this.setSuperKey}
-                    delSuperKey={this.delSuperKey}
-                    keyIndex={currentKeyIndex}
-                    actTab={"editor"}
-                    selectedlanguage={currentLanguageLayout}
-                    kbtype={kbtype}
-                  />
+                  <>
+                    <KeyConfig
+                      id="keyboard-fade"
+                      onKeySelect={this.onKeyChange}
+                      code={code}
+                      macros={macros}
+                      superkeys={superkeys}
+                      actions={actions}
+                      superName={superName}
+                      newSuperID={this.newSuperID}
+                      setSuperKey={this.setSuperKey}
+                      delSuperKey={this.delSuperKey}
+                      keyIndex={currentKeyIndex}
+                      actTab={"editor"}
+                      selectedlanguage={currentLanguageLayout}
+                      kbtype={kbtype}
+                    />
+                    {/* <KeyPickerKeyboard
+                      onKeySelect={this.onKeyChange}
+                      code={code}
+                      macros={macros}
+                      superkeys={superkeys}
+                      actions={actions}
+                      superName={superName}
+                      newSuperID={this.newSuperID}
+                      setSuperKey={this.setSuperKey}
+                      delSuperKey={this.delSuperKey}
+                      keyIndex={currentKeyIndex}
+                      actTab={"editor"}
+                      selectedlanguage={currentLanguageLayout}
+                      kbtype={kbtype}
+                    /> */}
+                  </>
                 )}
               </Row>
             </Col>

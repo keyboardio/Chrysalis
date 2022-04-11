@@ -779,6 +779,7 @@ class SuperkeysEditor extends React.Component {
             onKeySelect={this.onKeyChange}
             code={code}
             macros={macros}
+            superkeys={superkeys}
             actions={actions}
             action={selectedAction}
             actTab={"super"}

@@ -44,8 +44,10 @@ import IconMediaSoundMore from "./IconMediaSoundMore";
 import IconMediaSoundMute from "./IconMediaSoundMute";
 import IconMediaStop from "./IconMediaStop";
 import IconNeuronManager from "./IconNeuronManager";
+import IconNoKey from "./IconNoKey";
 import IconNoSignal from "./IconNoSignal";
 import IconNote from "./IconNote";
+import IconOneShot from "./IconOneShot";
 import IconPreferences2Stroke from "./IconPreferences2Stroke";
 import IconPen from "./IconPen";
 import IconRobot2Stroke from "./IconRobot2Stroke";
@@ -103,8 +105,10 @@ export {
   IconMediaStop,
   IconMemory2Stroke,
   IconNeuronManager,
+  IconNoKey,
   IconNoSignal,
   IconNote,
+  IconOneShot,
   IconPen,
   IconPreferences2Stroke,
   IconRobot2Stroke,

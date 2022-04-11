@@ -29,7 +29,7 @@ const Style = Styled.div`
 .dropdown-menu.show {
   display: block;
   overflow-y: auto;
-  height: 230px;
+  height: 190px;
 }
 .dropdown-menu.show::-webkit-scrollbar {
   display: none;
@@ -312,7 +312,7 @@ class KeyPickerKeyboard extends Component {
 
     return (
       <Style>
-        <div className={`singleViewWrapper ${superkeys ? "singleViewWrapperSuperkeys" : "singleViewWrapperLayoutEditor"}`}>
+        <div className={`singleViewWrapper`}>
           <div className="keyEnhanceWrapper">
             <div className="keyEnhanceInner">
               <KeyVisualizer newValue={selKey} keyCode={code} />
@@ -331,34 +331,14 @@ class KeyPickerKeyboard extends Component {
               onKeySelect={onKeySelect}
               activeTab={activeTab}
               selectedlanguage={selectedlanguage}
+              selKeys={selKeys}
+              superkeys={superkeys}
               kbtype={kbtype}
               keyCode={code}
               macros={macros}
             />
           </div>
         </div>
-
-        <Container fluid className="sr-only">
-          {code.base + code.modified >= 53916 && code.base + code.modified <= 53916 + 64 ? (
-            <Selector
-              action={action}
-              actions={actions}
-              selKeys={selKeys}
-              onKeySelect={onKeySelect}
-              superkeys={superkeys}
-              keyCode={code}
-            />
-          ) : (
-            <Keys
-              selKey={selKey}
-              activeKB={showKB}
-              keyCode={code}
-              macros={macros}
-              onKeySelect={onKeySelect}
-              activeTab={activeTab}
-            />
-          )}
-        </Container>
       </Style>
     );
   }

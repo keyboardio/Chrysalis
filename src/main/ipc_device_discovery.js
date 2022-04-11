@@ -15,9 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { ipcMain } from "electron";
+import { ipcMain, BrowserWindow } from "electron";
 import { findByIds, getDeviceList, WebUSB } from "usb";
-import { windows } from "./index";
 // Focus
 import Focus from "../api/focus";
 import Hardware from "../api/hardware";
@@ -29,7 +28,7 @@ const webusb = new WebUSB({
 export const notifyUsbDisconnect = (event) => {
   let vendor_id = event?.device?.vendorId;
   let product_id = event?.device?.productId;
-  windows.forEach((win) => {
+  BrowserWindow.getAllWindows().forEach((win) => {
     if (win) {
       win.send("usb-device-disconnected", vendor_id, product_id);
     }
@@ -38,7 +37,7 @@ export const notifyUsbDisconnect = (event) => {
 export const notifyUsbConnect = (event) => {
   let vendor_id = event?.device?.vendorId;
   let product_id = event?.device?.productId;
-  windows.forEach((win) => {
+  BrowserWindow.getAllWindows().forEach((win) => {
     if (win) {
       win.send("usb-device-connected", vendor_id, product_id);
     }

@@ -19,12 +19,9 @@
  */
 import React from "react";
 import PropTypes from "prop-types";
-import withStyles from "@mui/styles/withStyles";
 import Button from "@mui/material/Button";
-import { setButtonSizeTamplate } from "../../../renderer/utils/setTemplates";
 
 ColorButton.propTypes = {
-  classes: PropTypes.object.isRequired,
   isFocus: PropTypes.bool.isRequired,
   setIsFocus: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
@@ -32,18 +29,6 @@ ColorButton.propTypes = {
   disabled: PropTypes.bool.isRequired,
   isSelected: PropTypes.bool,
 };
-
-const styles = (theme) => ({
-  root: {
-    ...setButtonSizeTamplate(40),
-    margin: 5,
-    borderRadius: 5,
-    cursor: "pointer",
-    [theme.breakpoints.down("md")]: {
-      ...setButtonSizeTamplate(35),
-    },
-  },
-});
 
 const styleDisabled = {
   background: "rgb(155, 155, 155)",
@@ -56,7 +41,6 @@ const minWhiteColorValue = 140;
 
 /**
  * Reactjs functional component that create color button
- * @param {object} classes Property that sets up CSS classes that adding to HTML elements
  * @param {boolean} isFocus Change CSS styles
  * @param {function} setIsFocus Callback function from ColorPalette component. Parameters are: first - index of color button in palette (from 0 to 15), second - object with keys that defining colors using the Red-green-blue-alpha (RGBA) model, third - event
  * @param {number} index Current index of button
@@ -64,7 +48,7 @@ const minWhiteColorValue = 140;
  * @param {boolean} disabled Property that disable component
  */
 function ColorButton(props) {
-  const { classes, setIsFocus, isFocus, index, color, disabled } = props;
+  const { setIsFocus, isFocus, index, color, disabled } = props;
 
   ///Checks background is white or not
   const isWhiteColor =
@@ -86,7 +70,15 @@ function ColorButton(props) {
   return (
     <Button
       variant="contained"
-      className={classes.root}
+      sx={{
+        margin: 5,
+        borderRadius: 5,
+        cursor: "pointer",
+        minWidth: { sm: 35, lg: 40 },
+        minHeight: { sm: 35, lg: 40 },
+        maxWidth: { sm: 35, lg: 40 },
+        maxHeight: { sm: 35, lg: 40 },
+      }}
       style={disabled ? styleDisabled : isFocus ? styleInFocus : style}
       onClick={setIsFocus.bind(this, index, color)}
     >
@@ -95,4 +87,4 @@ function ColorButton(props) {
   );
 }
 
-export default withStyles(styles)(ColorButton);
+export default ColorButton;

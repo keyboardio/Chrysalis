@@ -56,7 +56,7 @@ const KeyButtonList = (props) => {
         margin: 1,
       }}
     >
-      <Paper elevation={0}>{buttons}</Paper>
+      {buttons}
     </Box>
   );
 };

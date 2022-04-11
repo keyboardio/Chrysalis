@@ -62,7 +62,9 @@ const Style = Styled.div`
         display: inline-block;
     }
 }
-
+.display-hidden {
+    display: none;
+}
 `;
 //}= ({ oldValue, newValue, keyCode }) => {
 class ListModifiers extends Component {
@@ -106,7 +108,7 @@ class ListModifiers extends Component {
 
   render() {
     const { keyCode, size } = this.props;
-
+    if (keyCode >= 8192) return null;
     return (
       <Style>
         <div

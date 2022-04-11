@@ -213,9 +213,8 @@ class KeyboardSelect extends React.Component {
           >
             <CardContent
               sx={{
-                display: "inline-block",
                 width: "100%",
-                textAlign: "center",
+                px: 4,
               }}
             >
               <DeviceImage
@@ -227,7 +226,7 @@ class KeyboardSelect extends React.Component {
                 selectPort={this.selectPort}
               />
             </CardContent>
-            <CardActions sx={{ justifyContent: "center" }}>
+            <CardActions sx={{ justifyContent: "center", px: 4, pt: 2, pb: 3 }}>
               <ScanDevicesButton
                 scanFoundDevices={scanFoundDevices}
                 scanDevices={this.scanDevices}

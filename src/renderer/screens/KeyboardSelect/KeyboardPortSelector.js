@@ -67,7 +67,11 @@ export const KeyboardPortSelector = (props) => {
       <FormControl sx={{ display: "flex" }}>
         <Select
           value={selectedPortIndex}
-          sx={{ display: "flex" }}
+          sx={{
+            display: "flex",
+            "& .MuiListItemIcon-root": { minWidth: "inherit" },
+            "& .MuiListItemText-root": { display: "inline-block" },
+          }}
           onChange={selectPort}
         >
           {deviceItems}

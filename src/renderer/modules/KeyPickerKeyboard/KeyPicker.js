@@ -138,7 +138,6 @@ class KeyPicker extends Component {
 
   onKeyPress = keycode => {
     const { onKeySelect } = this.props;
-    console.log("onKeyPress: ", keycode);
     onKeySelect(keycode);
   };
 
@@ -416,7 +415,15 @@ class KeyPicker extends Component {
                   }}
                   icoSVG={<IconLEDSwitchLeft />}
                 />
-                <ButtonConfig tooltip="Previous light effect" tooltipDelay={300} icoSVG={<IconLEDPreviousEffect />} />
+                <ButtonConfig
+                  tooltip="Previous light effect"
+                  tooltipDelay={300}
+                  icoSVG={<IconLEDPreviousEffect />}
+                  onClick={() => {
+                    onKeySelect(17154);
+                  }}
+                  selected={keyCode.base + keyCode.modified == 17154 ? true : false}
+                />
                 <ButtonConfig tooltip="Next light effect" tooltipDelay={300} icoSVG={<IconLEDNextEffect />} />
               </div>
             </div>
@@ -432,8 +439,20 @@ class KeyPicker extends Component {
                   tooltipDelay={100}
                   icoSVG={<IconMediaPlayPause />}
                   onclick={e => this.onKeyPress()}
+                  selected={keyCode.base + keyCode.modified == 22733 ? true : false}
+                  onClick={() => {
+                    onKeySelect(22733);
+                  }}
                 />
-                <ButtonConfig tooltip="Stop" tooltipDelay={100} icoSVG={<IconMediaStop />} />
+                <ButtonConfig
+                  tooltip="Stop"
+                  tooltipDelay={100}
+                  icoSVG={<IconMediaStop />}
+                  selected={keyCode.base + keyCode.modified == 22711 ? true : false}
+                  onClick={() => {
+                    onKeySelect(22711);
+                  }}
+                />
                 <ButtonConfig tooltip="Rewind" tooltipDelay={100} icoSVG={<IconMediaRewind />} />
                 <ButtonConfig tooltip="Forward" tooltipDelay={100} icoSVG={<IconMediaForward />} />
                 <ButtonConfig tooltip="Shuffle" tooltipDelay={100} icoSVG={<IconMediaShuffle />} />

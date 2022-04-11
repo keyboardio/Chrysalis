@@ -234,6 +234,28 @@ const English = {
       collapse: {
         title: "See what you are able to do",
         content: ""
+      },
+      specialKeys: {
+        playPause: "Play/Pause",
+        stop: "Stop",
+        rewind: "Rewind",
+        forward: "Forward",
+        shuffle: "Shuffle",
+        soundMore: "",
+        soundLess: "",
+        mute: "",
+        eject: "",
+        calculator: "",
+        camera: "",
+        brightnessMore: "",
+        brightnessLess: "",
+        mouseClick: "Mouse <span>Click</span>",
+        mouseMovement: "Mouse <span>Movement</span>",
+        mouseWheel: "Mouse <span>Wheel</span>",
+        left: "Left",
+        right: "Right",
+        middle: "Middle",
+        fwd: "Fwd."
       }
     },
     oldMacroModal: {

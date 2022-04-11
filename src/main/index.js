@@ -25,28 +25,27 @@ import { Environment } from "./dragons";
 // [1]: https://github.com/electron-userland/electron-webpack/issues/275
 process.env[`NODE_ENV`] = Environment.name;
 
-import { app, BrowserWindow, Menu, ipcMain, dialog } from "electron";
+import { app, BrowserWindow, Menu, ipcMain } from "electron";
 import { format as formatUrl } from "url";
 import * as path from "path";
-import fs from "fs";
 import windowStateKeeper from "electron-window-state";
 import installExtension, {
   REACT_DEVELOPER_TOOLS,
 } from "electron-devtools-installer";
 import { getStaticPath } from "../renderer/config";
 import { initialize, enable as enableRemote } from "@electron/remote/main";
+import {
+  registerDeviceDiscoveryHandlers,
+  addUsbEventListeners,
+  removeUsbEventListeners,
+} from "./ipc_device_discovery";
+import { registerFileIoHandlers } from "./ipc_file_io";
+import { registerDevtoolsHandlers } from "./ipc_devtools";
 initialize();
 
 // Settings storage
 const Store = require("electron-store");
 Store.initRenderer();
-
-// USB support
-import { findByIds, getDeviceList, usb, WebUSB } from "usb";
-
-const webusb = new WebUSB({
-  allowAllDevices: true,
-});
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
@@ -54,7 +53,7 @@ const isDevelopment = process.env.NODE_ENV !== "production";
 if (module.hot) module.hot.accept();
 
 let mainWindow;
-let windows = [];
+export let windows = [];
 
 async function createMainWindow() {
   let mainWindowState = windowStateKeeper({
@@ -124,58 +123,8 @@ async function createMainWindow() {
 
   return window;
 }
-
-const notifyUsbDisconnect = (event) => {
-  let vendor_id = event?.device?.vendorId;
-  let product_id = event?.device?.productId;
-  windows.forEach((win) => {
-    if (win) {
-      win.send("usb-device-disconnected", vendor_id, product_id);
-    }
-  });
-};
-
-const notifyUsbConnect = (event) => {
-  let vendor_id = event?.device?.vendorId;
-  let product_id = event?.device?.productId;
-  windows.forEach((win) => {
-    if (win) {
-      win.send("usb-device-connected", vendor_id, product_id);
-    }
-  });
-};
-
 ipcMain.on("app-exit", (event, arg) => {
   app.quit();
-});
-
-ipcMain.on("show-devtools", (event, boolFocus) => {
-  const webContents = event.sender;
-  if (boolFocus) {
-    webContents.openDevTools();
-  } else {
-    webContents.closeDevTools();
-  }
-});
-
-ipcMain.handle("devtools-is-open", (event) => {
-  const webContents = event.sender;
-  return webContents.isDevToolsOpened();
-});
-
-ipcMain.handle("usb-scan-for-devices", (event) => {
-  const webContents = event.sender;
-  const devices = getDeviceList();
-  return devices;
-});
-
-ipcMain.handle("usb-is-device-connected", (event, vid, pid) => {
-  const device = findByIds(vid, pid);
-  if (device) {
-    return true;
-  } else {
-    return false;
-  }
 });
 
 // This is a workaround for the lack of context-awareness in two native modules
@@ -202,8 +151,7 @@ if (isDevelopment && process.env.ELECTRON_WEBPACK_APP_DEBUG_PORT) {
 
 // quit application when all windows are closed
 app.on("window-all-closed", () => {
-  webusb.removeEventListener("connect", notifyUsbConnect);
-  webusb.removeEventListener("disconnect", notifyUsbDisconnect);
+  removeUsbEventListeners();
 
   // on macOS it is common for applications to stay open until the user explicitly quits
   if (process.platform !== "darwin") {
@@ -220,8 +168,7 @@ app.on("activate", () => {
 
 // create main BrowserWindow when electron is ready
 app.whenReady().then(async () => {
-  webusb.addEventListener("connect", notifyUsbConnect);
-  webusb.addEventListener("disconnect", notifyUsbDisconnect);
+  addUsbEventListeners();
   if (isDevelopment) {
     await installExtension(REACT_DEVELOPER_TOOLS)
       .then((name) => console.log(`Added Extension:  ${name}`))
@@ -248,31 +195,10 @@ app.on("web-contents-created", (_, wc) => {
   });
 });
 
-// Focus
-import Focus from "../api/focus";
-import Hardware from "../api/hardware";
-const focus = new Focus();
-ipcMain.handle("focus-find-serial-devices", (event) => {
-  return focus.find(Hardware.serial);
-});
 process.on("uncaughtException", function (error) {
   console.log(error); // Handle the error
 });
 
-ipcMain.on("file-save", (event, data) => {
-  let options = {
-    title: data.title,
-    defaultPath: data.defaultPath,
-    filters: data.filters,
-  };
-  dialog.showSaveDialog(options).then((filename) => {
-    const { canceled, filePath } = filename;
-    if (!canceled) {
-      fs.writeFileSync(filePath, data.content, (err) => {
-        if (err) {
-          console.log(err);
-        }
-      });
-    }
-  });
-});
+registerDeviceDiscoveryHandlers();
+registerFileIoHandlers();
+registerDevtoolsHandlers();

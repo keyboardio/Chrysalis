@@ -18,20 +18,8 @@
 import React from "react";
 
 import Button from "@mui/material/Button";
-import withStyles from "@mui/styles/withStyles";
 
-const styles = (theme) => ({
-  key: {
-    fontFamily: '"Source Code Pro", monospace',
-    margin: theme.spacing(0.5),
-    padding: "4px 8px",
-    minWidth: "auto",
-    minHeight: "auto",
-    whiteSpace: "nowrap",
-  },
-});
-
-const KeyButton = withStyles(styles)((props) => {
+const KeyButton = (props) => {
   const { label, selected, classes, ...other } = props;
 
   return (
@@ -39,11 +27,19 @@ const KeyButton = withStyles(styles)((props) => {
       className={classes.key}
       color={selected ? "primary" : "secondary"}
       variant={selected ? "contained" : "outlined"}
+      sx={{
+        fontFamily: '"Source Code Pro", monospace',
+        margin: 0.5,
+        padding: "4px 8px",
+        minWidth: "auto",
+        minHeight: "auto",
+        whiteSpace: "nowrap",
+      }}
       {...other}
     >
       {label}
     </Button>
   );
-});
+};
 
 export default KeyButton;

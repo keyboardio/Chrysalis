@@ -22,7 +22,6 @@ import PropTypes from "prop-types";
 import Paper from "@mui/material/Paper";
 import ColorButtonsArea from "./ColorButtonsArea";
 import PickerColorButton from "./PickerColorButton";
-import { setColorTemplate } from "../../../renderer/utils/setTemplates";
 import i18n from "../../i18n";
 
 ColorPalette.propTypes = {
@@ -34,7 +33,6 @@ ColorPalette.propTypes = {
   isColorButtonSelected: PropTypes.bool.isRequired,
   onColorButtonSelect: PropTypes.func.isRequired,
 };
-
 
 /**
  * Reactjs functional component that create palette for change buttons color on keyboard
@@ -97,6 +95,16 @@ function ColorPalette(props) {
     setColorFocusButton(setColorTemplate(color));
   };
 
+  /**
+   * Use to reduce the amount of code
+   * @param {object} color Object with keys that defining colors using the Red-green-blue-alpha (RGBA) model
+   */
+  export const setColorTemplate = (color) => ({
+    r: color.r,
+    g: color.g,
+    b: color.b,
+    rgb: `rgb(${color.r}, ${color.g}, ${color.b})`,
+  });
   /**
    * Change "indexFocusButton" in its state, "colorFocusButton" in ColorPalette's state, and call function onColorSelect from props, if ctrl or shift key is clicked.
    * @param {number} index Number of value in array that focusing by mouse

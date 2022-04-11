@@ -20,19 +20,6 @@ import { CustomPicker } from "react-color";
 
 import Avatar from "@mui/material/Avatar";
 import CropSquareIcon from "@mui/icons-material/CropSquare";
-import withStyles from "@mui/styles/withStyles";
-
-const styles = (theme) => ({
-  swatchContainer: {
-    display: "flex",
-    flexWrap: "wrap",
-  },
-  colorSwatch: {
-    width: theme.spacing(3),
-    height: theme.spacing(3),
-    margin: theme.spacing(0.75),
-  },
-});
 
 /*
 export const Circle = ({ width, onChange, onSwatchHover, colors, hex, circleSize,
@@ -69,13 +56,17 @@ export const Circle = ({ width, onChange, onSwatchHover, colors, hex, circleSize
                          }
 */
 
-class SwatchBase extends React.Component {
+class Swatch extends React.Component {
   render() {
     const { classes, color, active, onClick } = this.props;
 
     return (
       <Avatar
-        className={classes.colorSwatch}
+        sx={{
+          width: 3,
+          height: 3,
+          margin: 0.75,
+        }}
         variant="square"
         style={{
           color: color.rgb,
@@ -88,14 +79,18 @@ class SwatchBase extends React.Component {
     );
   }
 }
-const Swatch = withStyles(styles, { withTheme: true })(SwatchBase);
 
-class PalettePickerBase extends React.Component {
+class PalettePicker extends React.Component {
   render() {
     const { classes, colors, color, onClick } = this.props;
 
     return (
-      <div className={classes.swatchContainer}>
+      <div
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+        }}
+      >
         {colors.map((c, i) => (
           <Swatch
             key={`palette-swatch-${i}`}
@@ -108,8 +103,5 @@ class PalettePickerBase extends React.Component {
     );
   }
 }
-const PalettePicker = withStyles(styles, { withTheme: true })(
-  PalettePickerBase
-);
 
 export default CustomPicker(PalettePicker);

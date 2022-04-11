@@ -207,7 +207,13 @@ width: 100%;
 }
 
 .editor {
-
+  .keysContainerDropdowns {
+    grid-template-columns: minmax(25%, 25%) minmax(25%, 25%) minmax(50%, 50%);
+    grid-gap: 8px 16px;
+  }
+  .keysMediaTools {
+    grid-template-columns: minmax(50%, 50%) minmax(50%, 50%);
+  }
 }
 `;
 const IconColor = Styled.span`

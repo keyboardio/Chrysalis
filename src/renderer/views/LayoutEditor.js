@@ -1660,7 +1660,7 @@ class LayoutEditor extends React.Component {
                   />
                 ) : (
                   <>
-                    <KeyConfig
+                    {/* <KeyConfig
                       id="keyboard-fade"
                       onKeySelect={this.onKeyChange}
                       code={code}
@@ -1675,22 +1675,20 @@ class LayoutEditor extends React.Component {
                       actTab={"editor"}
                       selectedlanguage={currentLanguageLayout}
                       kbtype={kbtype}
-                    />
-                    {/* <KeyPickerKeyboard
+                    /> */}
+                    <KeyPickerKeyboard
                       onKeySelect={this.onKeyChange}
                       code={code}
                       macros={macros}
                       superkeys={superkeys}
                       actions={actions}
+                      action={0}
                       superName={superName}
-                      newSuperID={this.newSuperID}
-                      setSuperKey={this.setSuperKey}
-                      delSuperKey={this.delSuperKey}
                       keyIndex={currentKeyIndex}
                       actTab={"editor"}
                       selectedlanguage={currentLanguageLayout}
                       kbtype={kbtype}
-                    /> */}
+                    />
                   </>
                 )}
               </Row>

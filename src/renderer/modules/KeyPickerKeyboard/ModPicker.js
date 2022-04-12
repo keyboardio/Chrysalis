@@ -46,7 +46,11 @@ class ModPicker extends Component {
   }
 
   componentDidUpdate(previousProps, previousState) {
-    if (this.props.keyCode.base + this.props.keyCode.modified != previousProps.keyCode.base + previousProps.keyCode.modified) {
+    if (
+      this.props.keyCode != 0 &&
+      this.props.keyCode.base + this.props.keyCode.modified != previousProps.keyCode.base + previousProps.keyCode.modified
+    ) {
+      console.log("props PROBLEM", this.props.keyCode, previousProps.keyCode);
       if (this.props.keyCode.base + this.props.keyCode.modified > 10000) {
         this.setState({
           modifs: []

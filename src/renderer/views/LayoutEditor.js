@@ -72,7 +72,6 @@ color: ${({ theme }) => theme.card.color};
 `;
 
 const Styles = Styled.div`
-height: 100%;
 max-width: 1900px;
 min-width: 1690px;
 margin: auto;
@@ -115,13 +114,14 @@ margin: auto;
   }
 }
 .buttons-row {
-  margin: 0;
+  position: absolute;
+  bottom: 10px;
   flex-flow: nowrap;
   height: fit-content;
-  bottom: 10px;
   padding: 0;
-  place-content: space-evenly;
+  margin: 0px 15px;
   border-radius: 10px;
+  width: fit-content;
   background-color: ${({ theme }) => theme.colors.button.background};
 }
 .center-self {
@@ -133,7 +133,9 @@ margin: auto;
   place-content: flex-end;
 }
 .save-row {
-
+  position: absolute;
+  top: 128px;
+  right: 10px;
 }
 .full-height {
   height: 100%;
@@ -1627,29 +1629,6 @@ class LayoutEditor extends React.Component {
                   changeLayerName={this.onLayerNameChange}
                 />
               </Row>
-              <Row className="full-height mx-2 center-self">
-                <Card className="buttons-row align-self-end">
-                  <Button
-                    active={this.state.modeselect == "keyboard"}
-                    onClick={() => {
-                      this.setState({ modeselect: "keyboard" });
-                    }}
-                    className="keyboardbutton big"
-                    aria-controls="keyboard-fade"
-                  >
-                    <MdKeyboard />
-                  </Button>
-                  <Button
-                    active={this.state.modeselect == "color"}
-                    onClick={() => {
-                      this.setState({ modeselect: "color" });
-                    }}
-                    className="colorsbutton big"
-                  >
-                    <IoMdColorPalette />
-                  </Button>
-                </Card>
-              </Row>
             </Col>
             {/* </Row>
           {this.state.keymap.custom.length == 0 &&
@@ -1716,32 +1695,6 @@ class LayoutEditor extends React.Component {
                 )}
               </Row>
             </Col>
-            <Col className="save-row" xs={1}>
-              <Container fluid className="p-0">
-                <Row className="save-button-row">
-                  <Button
-                    disabled={!this.state.modified}
-                    onClick={this.onApply}
-                    className={`button-large pt-0 mt-0 mb-2 ${this.state.modified ? "save-active" : ""}`}
-                    aria-controls="save-changes"
-                  >
-                    <FiSave />
-                  </Button>
-                </Row>
-                <Row className="save-button-row">
-                  <Button
-                    disabled={!this.state.modified}
-                    onClick={() => {
-                      this.props.cancelContext();
-                    }}
-                    className={`button-large pt-0 mt-0 mb-2 ${this.state.modified ? "cancel-active" : ""}`}
-                    aria-controls="discard-changes"
-                  >
-                    <FiTrash2 />
-                  </Button>
-                </Row>
-              </Container>
-            </Col>
           </Row>
           <ConfirmationDialog
             title={i18n.editor.clearLayerQuestion}
@@ -1759,6 +1712,51 @@ class LayoutEditor extends React.Component {
             layers={copyFromLayerOptions}
             currentLayer={currentLayer}
           />
+        </Container>
+        <Card className="buttons-row">
+          <Button
+            active={this.state.modeselect == "keyboard"}
+            onClick={() => {
+              this.setState({ modeselect: "keyboard" });
+            }}
+            className="keyboardbutton big"
+            aria-controls="keyboard-fade"
+          >
+            <MdKeyboard />
+          </Button>
+          <Button
+            active={this.state.modeselect == "color"}
+            onClick={() => {
+              this.setState({ modeselect: "color" });
+            }}
+            className="colorsbutton big"
+          >
+            <IoMdColorPalette />
+          </Button>
+        </Card>
+        <Container className="save-row">
+          <Row className="save-button-row">
+            <Button
+              disabled={!this.state.modified}
+              onClick={this.onApply}
+              className={`button-large pt-0 mt-0 mb-2 ${this.state.modified ? "save-active" : ""}`}
+              aria-controls="save-changes"
+            >
+              <FiSave />
+            </Button>
+          </Row>
+          <Row className="save-button-row">
+            <Button
+              disabled={!this.state.modified}
+              onClick={() => {
+                this.props.cancelContext();
+              }}
+              className={`button-large pt-0 mt-0 mb-2 ${this.state.modified ? "cancel-active" : ""}`}
+              aria-controls="discard-changes"
+            >
+              <FiTrash2 />
+            </Button>
+          </Row>
         </Container>
         <Modal show={this.state.showMacroModal} onHide={this.toggleMacroModal} style={{ marginTop: "300px" }}>
           <ModalStyle>

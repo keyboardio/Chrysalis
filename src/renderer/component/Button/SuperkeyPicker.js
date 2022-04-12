@@ -179,6 +179,11 @@ const SuperkeyPicker = ({
   const [keyContent, setKeyContent] = React.useState("Loading...");
 
   React.useEffect(() => {
+    if (superkeys[selected] == undefined) {
+      setControlDeleteButton(false);
+      setKeyContent(keymapDB.parse(0).label);
+      return;
+    }
     let aux = keymapDB.parse(superkeys[selected].actions[index]);
     //setKeyContent(aux.label);
     if (superkeys[selected].actions[index]) {
@@ -195,7 +200,7 @@ const SuperkeyPicker = ({
     if (aux.label) {
       setKeyContent((aux.extraLabel != undefined ? aux.extraLabel + " " : "") + aux.label);
     }
-  }, [superkeys[selected].actions[index]]);
+  }, [superkeys]);
 
   if (superkeys === null) return null;
   return (
@@ -214,7 +219,7 @@ const SuperkeyPicker = ({
           )}
           <div className="superkeyButton" onClick={() => onClick(index)}>
             <div className="superkeyButtonInner">{keyContent}</div>
-            <ListModifiers keyCode={superkeys[selected].actions[index]} />
+            {superkeys[selected] != undefined ? <ListModifiers keyCode={superkeys[selected].actions[index]} /> : ""}
           </div>
         </div>
       </div>

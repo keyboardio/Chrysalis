@@ -218,6 +218,7 @@ class SuperkeysEditor extends React.Component {
         modified: false,
         macros: parsedMacros,
         superkeys: parsedSuper,
+        selectedSuper: 0,
         keymap,
         kbtype
       });
@@ -788,7 +789,6 @@ class SuperkeysEditor extends React.Component {
             kbtype={kbtype}
           />
         </Container>
-
         <LayoutViewSelector
           onToogle={this.onToogle}
           isStandardView={isStandardViewSuperkeys}

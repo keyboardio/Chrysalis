@@ -193,6 +193,9 @@ width: 100%;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+.dropdown-toggle.btn.btn-primary {
+  padding-right: 32px;
+} 
 .keyRowsDropdowns {
   display: grid;
   grid-template-columns: minmax(42px, 42px) minmax(0, 1fr);
@@ -604,9 +607,9 @@ class KeyPicker extends Component {
                     tooltipDelay={300}
                     icoSVG={<IconLEDPreviousEffect />}
                     onClick={() => {
-                      onKeySelect(17154);
+                      onKeySelect(17153);
                     }}
-                    selected={keyCode.base + keyCode.modified == 17154 ? true : false}
+                    selected={keyCode.base + keyCode.modified == 17153 ? true : false}
                   />
                   <ButtonConfig
                     tooltip={i18n.editor.superkeys.specialKeys.ledNextEffectTootip}
@@ -732,18 +735,18 @@ class KeyPicker extends Component {
                     tooltip={i18n.editor.superkeys.specialKeys.calculator}
                     tooltipDelay={100}
                     icoSVG={<IconToolsCalculator />}
-                    selected={keyCode.base + keyCode.modified == 22712 ? true : false}
+                    selected={keyCode.base + keyCode.modified == 18834 ? true : false}
                     onClick={() => {
-                      onKeySelect(22712);
+                      onKeySelect(18834);
                     }}
                   />
                   <ButtonConfig
                     tooltip={i18n.editor.superkeys.specialKeys.camera}
                     tooltipDelay={100}
                     icoSVG={<IconToolsCamera />}
-                    selected={keyCode.base + keyCode.modified == 22712 ? true : false}
+                    selected={keyCode.base + keyCode.modified == 18552 ? true : false}
                     onClick={() => {
-                      onKeySelect(22712);
+                      onKeySelect(18552);
                     }}
                   />
 
@@ -751,18 +754,18 @@ class KeyPicker extends Component {
                     tooltip={i18n.editor.superkeys.specialKeys.brightnessLess}
                     tooltipDelay={100}
                     icoSVG={<IconToolsBrightnessLess />}
-                    selected={keyCode.base + keyCode.modified == 22712 ? true : false}
+                    selected={keyCode.base + keyCode.modified == 23664 ? true : false}
                     onClick={() => {
-                      onKeySelect(22712);
+                      onKeySelect(23664);
                     }}
                   />
                   <ButtonConfig
                     tooltip={i18n.editor.superkeys.specialKeys.brightnessMore}
                     tooltipDelay={100}
                     icoSVG={<IconToolsBrightnessMore />}
-                    selected={keyCode.base + keyCode.modified == 22712 ? true : false}
+                    selected={keyCode.base + keyCode.modified == 23663 ? true : false}
                     onClick={() => {
-                      onKeySelect(22712);
+                      onKeySelect(23663);
                     }}
                   />
                 </div>

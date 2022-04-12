@@ -9,9 +9,7 @@ import Selector from "../../components/KeyManager/Selector";
 
 import ModPicker from "./ModPicker";
 import KeyVisualizer from "../KeyVisualizer";
-
-// React Components
-import Container from "react-bootstrap/Container";
+import DualFunctionPicker from "./DualFunctionPicker";
 
 const Style = Styled.div`
 
@@ -317,7 +315,8 @@ class KeyPickerKeyboard extends Component {
             <div className="keyEnhanceInner">
               <KeyVisualizer newValue={selKey} keyCode={code} />
               <div className="ModPicker">
-                <ModPicker keyCode={code} onKeySelect={onKeySelect}></ModPicker>
+                <ModPicker key={code} keyCode={code} onKeySelect={onKeySelect}></ModPicker>
+                <DualFunctionPicker keyCode={code} onKeySelect={onKeySelect} activeTab={activeTab}></DualFunctionPicker>
               </div>
             </div>
           </div>

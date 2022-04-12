@@ -772,7 +772,6 @@ class KeyPicker extends Component {
               </div>
             </div>
           </div>
-
           <svg className="svgStyle" viewBox="0 0 1070 48" preserveAspectRatio="xMidYMin slice">
             <foreignObject width={1070} height={48} x={0} y={0} style={{ overflow: "visible" }}>
               <div xmlns="http://www.w3.org/1999/xhtml">

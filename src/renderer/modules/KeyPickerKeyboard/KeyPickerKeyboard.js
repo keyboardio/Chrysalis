@@ -316,7 +316,11 @@ class KeyPickerKeyboard extends Component {
               <KeyVisualizer newValue={selKey} keyCode={code} />
               <div className="ModPicker">
                 <ModPicker key={code} keyCode={code} onKeySelect={onKeySelect}></ModPicker>
-                <DualFunctionPicker keyCode={code} onKeySelect={onKeySelect} activeTab={activeTab}></DualFunctionPicker>
+                {actTab == "editor" ? (
+                  <DualFunctionPicker keyCode={code} onKeySelect={onKeySelect} activeTab={activeTab}></DualFunctionPicker>
+                ) : (
+                  <></>
+                )}
               </div>
             </div>
           </div>

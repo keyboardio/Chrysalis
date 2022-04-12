@@ -139,7 +139,8 @@ width: 100%;
 .keysRow {
   display: flex;
   flex-wrap: nowrap;
-  background: rgba(48, 51, 73, 0.6);
+  background:  ${({ theme }) => theme.styles.keyboardPicker.keysRowBackground};
+  box-shadow:  ${({ theme }) => theme.styles.keyboardPicker.keysRowBoxShadow};
   border-radius: 6px;
   padding: 5px;
   &.keysOrdinaryKeyboard {
@@ -149,7 +150,7 @@ width: 100%;
     flex: 0 0 42px;
     text-align: center;
     align-self: center;
-    color: ${({ theme }) => theme.colors.gray200};
+    color: ${({ theme }) => theme.styles.keyPicker.iconColor};
     h4 {
       font-size: 11px;
       font-weight: 700;
@@ -159,7 +160,7 @@ width: 100%;
   }
   .keyTitle {
     font-size: 11px;
-    color: ${({ theme }) => theme.colors.gray25}; 
+    color: ${({ theme }) => theme.styles.keyPicker.titleColor};
     display: flex;
     // flex-grow: 1;
     align-self: center;
@@ -167,7 +168,7 @@ width: 100%;
     flex-wrap: wrap;
     // max-width: 66px;
     span {
-      color: ${({ theme }) => theme.colors.gray200};
+      color: ${({ theme }) => theme.styles.keyPicker.titleSpan};
       display: block;
       flex: 0 0 100%;
     }

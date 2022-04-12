@@ -264,6 +264,17 @@ const Dark = {
         arrowsColor: Tokens.colors.gray300
       }
     },
+    keyPicker: {
+      iconColor: Tokens.colors.gray200,
+      titleColor: Tokens.colors.gray25,
+      titleSpan: Tokens.colors.gray200
+    },
+    keyboardPicker: {
+      keyBoardPickerBackground: "#25273B",
+      keyEnhanceWrapperBackground: "#25273B",
+      keysRowBackground: "rgba(48, 51, 73, 0.6)",
+      keysRowBoxShadow: "none"
+    },
     firmwareUpdatePanel: {
       backgroundContent: Tokens.colors.gray800,
       backgroundSidebar: settingColorOpacity(Tokens.colors.gray400, 0.05),

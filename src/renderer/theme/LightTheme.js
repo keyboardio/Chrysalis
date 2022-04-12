@@ -257,6 +257,17 @@ const Light = {
         arrowsColor: Tokens.colors.gray300
       }
     },
+    keyPicker: {
+      iconColor: Tokens.colors.gray200,
+      titleColor: Tokens.colors.gray25,
+      titleSpan: Tokens.colors.gray200
+    },
+    keyboardPicker: {
+      keyBoardPickerBackground: Tokens.colors.gray25,
+      keyEnhanceWrapperBackground: Tokens.colors.gray25,
+      keysRowBackground: "#fff",
+      keysRowBoxShadow: "0px 4px 16px rgba(120, 121, 241, 0.08)"
+    },
     firmwareUpdatePanel: {
       backgroundContent: Tokens.colors.gray25,
       backgroundSidebar: "rgba(255,255,255,0.15)",

@@ -146,7 +146,7 @@ const Style = Styled.div`
 }
 .active {
     .superkeyButton {
-        background: ${({ theme }) => theme.styles.superkeyButton.backgroundColorInnerActive};
+        background: ${({ theme }) => theme.styles.superkeyButton.backgroundColorActive};
         border: 2px solid rgba(255, 255, 255, 0.6);
         .superkeyButtonInner { 
             background: ${({ theme }) => theme.styles.superkeyButton.backgroundColorInnerActive};

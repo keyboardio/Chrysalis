@@ -112,7 +112,7 @@ width: -webkit-fill-available;
   .keyBoardPickerWrapper {
     // flex: 0 0 calc(100% - 270px);
     width: 100%;
-    background: #25273B;
+    background: ${({ theme }) => theme.styles.keyboardPicker.keyBoardPickerBackground};
     box-shadow: 0px 4px 82px rgba(0, 0, 0, 0.25), 0px 12px 62px rgba(108, 92, 231, 0.1);
     border-radius: 6px;
     padding: 10px 20px;
@@ -144,7 +144,7 @@ width: -webkit-fill-available;
 
 
 .keyEnhanceWrapper {
-  background: #25273B;
+  background: ${({ theme }) => theme.styles.keyboardPicker.keyEnhanceWrapperBackground};
   border: 1px solid rgba(63, 66, 90, 0.3);
   box-sizing: border-box;
   box-shadow: 32px 32px 64px -12px rgba(11, 2, 25, 0.4), 32px 32px 72px -32px rgba(26, 17, 46, 0.5);

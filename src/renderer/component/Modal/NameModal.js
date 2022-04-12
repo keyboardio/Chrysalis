@@ -12,8 +12,17 @@ export default class NameModal extends React.Component {
     };
   }
 
+  componentDidUpdate(previousProps, previousState) {
+    if (this.props != previousProps) {
+      // console.log("PROBLEM", this.props.name, previousProps.name);
+      this.setState({
+        name: this.props.name
+      });
+    }
+  }
+
   render() {
-    const { show, toggleShow, handleSave, modalTitle, labelInput } = this.props;
+    const { show, toggleShow, handleSave, modalTitle, labelInput, id } = this.props;
     return (
       <Modal size="lg" show={show} onHide={toggleShow} aria-labelledby="contained-modal-title-vcenter" centered>
         <Modal.Header closeButton>

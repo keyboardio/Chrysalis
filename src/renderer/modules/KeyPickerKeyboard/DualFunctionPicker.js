@@ -50,8 +50,12 @@ class DualFunctionPicker extends Component {
   render() {
     const { keyCode, onKeySelect, activeTab } = this.props;
     const isMod = [224, 225, 226, 227, 228, 229, 230, 231, 2530, 3043].includes(keyCode.base + keyCode.modified);
-    // console.log("Check ISMOD", isMod);
+    const isNotNK = !(keyCode.base + keyCode.modified > 3 && keyCode.base + keyCode.modified < 256);
+    const isNotDF = !(keyCode.base + keyCode.modified > 49169 && keyCode.base + keyCode.modified < 53266);
+    const disabled = isMod || (isNotNK && isNotDF);
+    // console.log("CHECKING", isMod, isNotNK, isNotDF, keyCode);
 
+    if (disabled) return <></>;
     const layers = (
       <React.Fragment>
         <Dropdown
@@ -81,7 +85,7 @@ class DualFunctionPicker extends Component {
                 <Dropdown.Item
                   eventKey={item.keynum}
                   key={`itemDualFunctionLayer-${id}`}
-                  disabled={item.keynum == -1}
+                  disabled={item.keynum == -1 || isMod}
                   className={`${keyCode.modified > 0 && item.keynum == keyCode.base + keyCode.modified ? "active" : ""}`}
                 >
                   <div className="dropdownInner">
@@ -120,7 +124,7 @@ class DualFunctionPicker extends Component {
                 <Dropdown.Item
                   eventKey={item.keynum}
                   key={`itemDualFunctionMod-${id}`}
-                  disabled={item.keynum == -1}
+                  disabled={item.keynum == -1 || isMod}
                   className={`${keyCode.modified > 0 && item.keynum == keyCode.base + keyCode.modified ? "active" : ""}`}
                 >
                   <div className="dropdownInner">

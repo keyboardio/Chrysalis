@@ -32,10 +32,10 @@ const Style = Styled.div`
     }
     .keySelectedBox {
         padding: 16px;   
-        background: linear-gradient(90deg, rgba(255, 255, 255, 0.2) 21.15%, rgba(63, 66, 90, 0.2) 100%), #303949;
-        border: 2px solid #7879F1;
+        background: ${({ theme }) => theme.styles.keyVisualizer.background};
+        border: ${({ theme }) => theme.styles.keyVisualizer.border};
         box-sizing: border-box;
-        box-shadow: 24px 0px 32px -12px rgba(93, 95, 239, 0.25), 0px 4px 12px rgba(0, 0, 0, 0.25), 24px 24px 52px -10px rgba(93, 95, 239, 0.25);
+        box-shadow: ${({ theme }) => theme.styles.keyVisualizer.boxShadow};
         border-radius: 4px;
         width: 132px;
         height:82px;

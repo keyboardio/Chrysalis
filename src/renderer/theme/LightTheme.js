@@ -259,14 +259,26 @@ const Light = {
     },
     keyPicker: {
       iconColor: Tokens.colors.gray200,
-      titleColor: Tokens.colors.gray25,
-      titleSpan: Tokens.colors.gray200
+      titleColor: Tokens.colors.gray200,
+      titleSpan: Tokens.colors.gray500
     },
     keyboardPicker: {
       keyBoardPickerBackground: Tokens.colors.gray25,
       keyEnhanceWrapperBackground: Tokens.colors.gray25,
+      keyEnhanceWrapperBoxShadow: "32px 32px 64px -12px rgba(11, 2, 25, 0.1), 32px 32px 72px -32px rgba(26, 17, 46, 0.2)",
+      keyEnhanceWrapperBorder: "none",
+      modPickerBackground: "rgba(255, 255, 255, 0.6)",
+      modPickerBoxShadow: "none",
+      modPickerAlignAdjust: "0",
       keysRowBackground: "#fff",
       keysRowBoxShadow: "0px 4px 16px rgba(120, 121, 241, 0.08)"
+    },
+    keyVisualizer: {
+      background: "linear-gradient(90deg, rgba(196, 201, 213, 0.2) 26.28%, rgba(63, 66, 90, 0.2) 124.24%)",
+      border: "2px solid #A29BFE",
+      color: Tokens.colors.gray500,
+      boxShadow:
+        "24px 0px 32px -12px rgba(93, 95, 239, 0.25), 0px 4px 12px rgba(0, 0, 0, 0.25), 24px 24px 52px -10px rgba(93, 95, 239, 0.25)"
     },
     firmwareUpdatePanel: {
       backgroundContent: Tokens.colors.gray25,

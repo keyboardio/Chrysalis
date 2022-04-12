@@ -272,8 +272,20 @@ const Dark = {
     keyboardPicker: {
       keyBoardPickerBackground: "#25273B",
       keyEnhanceWrapperBackground: "#25273B",
+      keyEnhanceWrapperBoxShadow: "32px 32px 64px -12px rgba(11, 2, 25, 0.4), 32px 32px 72px -32px rgba(26, 17, 46, 0.5)",
+      keyEnhanceWrapperBorder: "1px solid rgba(63, 66, 90, 0.3)",
+      modPickerBackground: "rgba(48, 57, 73, 0.2)",
+      modPickerBoxShadow: "0 0 0 1px inset rgba(63, 66, 90, 0.3)",
+      modPickerAlignAdjust: "-1px",
       keysRowBackground: "rgba(48, 51, 73, 0.6)",
       keysRowBoxShadow: "none"
+    },
+    keyVisualizer: {
+      background: "linear-gradient(90deg, rgba(255, 255, 255, 0.2) 21.15%, rgba(63, 66, 90, 0.2) 100%), #303949",
+      border: "2px solid #7879F1",
+      color: Tokens.colors.gray500,
+      boxShadow:
+        "24px 0px 32px -12px rgba(93, 95, 239, 0.25), 0px 4px 12px rgba(0, 0, 0, 0.25), 24px 24px 52px -10px rgba(93, 95, 239, 0.25)"
     },
     firmwareUpdatePanel: {
       backgroundContent: Tokens.colors.gray800,

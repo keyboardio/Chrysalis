@@ -145,9 +145,9 @@ width: -webkit-fill-available;
 
 .keyEnhanceWrapper {
   background: ${({ theme }) => theme.styles.keyboardPicker.keyEnhanceWrapperBackground};
-  border: 1px solid rgba(63, 66, 90, 0.3);
+  border: ${({ theme }) => theme.styles.keyboardPicker.keyEnhanceWrapperBackground};
   box-sizing: border-box;
-  box-shadow: 32px 32px 64px -12px rgba(11, 2, 25, 0.4), 32px 32px 72px -32px rgba(26, 17, 46, 0.5);
+  box-shadow: ;
   border-radius: 6px;
 }
 .keyEnhanceInner {
@@ -156,12 +156,12 @@ width: -webkit-fill-available;
   height: 100%;
 }
 .ModPicker {
-  background: rgba(48, 57, 73, 0.2);
-  box-shadow: 0 0 0 1px inset rgba(63, 66, 90, 0.3);
+  background: ${({ theme }) => theme.styles.keyboardPicker.modPickerBackground};
+  box-shadow:  ${({ theme }) => theme.styles.keyboardPicker.modPickerBoxShadow};
   border-radius: 6px;
-  margin-left: -1px;
-  margin-right: -1px;
-  margin-bottom: -1px;
+  margin-left: ${({ theme }) => theme.styles.keyboardPicker.modPickerAlignAdjust};
+  margin-right: ${({ theme }) => theme.styles.keyboardPicker.modPickerAlignAdjust};
+  margin-bottom: ${({ theme }) => theme.styles.keyboardPicker.modPickerAlignAdjust};
 }
 
 `;

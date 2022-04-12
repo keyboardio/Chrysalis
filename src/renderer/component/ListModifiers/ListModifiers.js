@@ -81,27 +81,22 @@ class ListModifiers extends Component {
     if (keycode & 0b100000000) {
       // Ctrl Decoder
       modifs.push(1);
-      console.log("modifs", modifs);
     }
     if (keycode & 0b1000000000) {
       // Alt Decoder
       modifs.push(2);
-      console.log("modifs", modifs);
     }
     if (keycode & 0b10000000000) {
       // AltGr Decoder
       modifs.push(3);
-      console.log("modifs", modifs);
     }
     if (keycode & 0b100000000000) {
       // Shift Decoder
       modifs.push(0);
-      console.log("modifs", modifs);
     }
     if (keycode & 0b1000000000000) {
       // Win Decoder
       modifs.push(4);
-      console.log("modifs", modifs);
     }
     return modifs;
   }

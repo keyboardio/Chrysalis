@@ -82,22 +82,7 @@ margin: auto;
   .title-row {
     // margin-bottom: 40px;
   }
-  .editor {
-    margin-left: 210px;
-    display: flex;
-    justify-content: space-between;
 
-    .raise-editor {
-      text-align: center;
-      align-self: center;
-      padding: unset;
-      margin-top: 0px;
-      svg {
-        max-height: 77vh;
-        max-width: 80vw;
-      }
-    }
-  }
   .keyconfig {
     position: absolute;
     bottom: 0;

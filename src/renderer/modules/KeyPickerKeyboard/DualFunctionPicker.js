@@ -14,6 +14,12 @@ const Style = Styled.div`
     font-size: 14px;
   }
 }
+.dropdown-toggle.btn.btn-primary {
+  padding: 8px 16px;
+}
+.dropdownInner, .dropdownItemSelected {
+  font-size: 14px;
+}
 `;
 
 class DualFunctionPicker extends Component {

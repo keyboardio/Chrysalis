@@ -44,41 +44,20 @@ import { BasicPreferences } from "./Preferences/Basic";
 import { AdvancedPreferences } from "./Preferences/Advanced";
 import i18n from "../i18n";
 
-const Store = require("electron-store");
-const settings = new Store();
-
 function Preferences(props) {
   const [advanced, setAdvanced] = useState(false);
-  const [language, setLanguage] = useState(i18n.language);
-
-  const updateLanguage = async (event) => {
-    i18n.changeLanguage(event.target.value);
-    await settings.set("ui.language", event.target.value);
-    // We stick language in the state system to get rerenders when it changes
-    setLanguage(event.target.value);
-  };
-
+  const darkMode = props.darkMode;
+  const toggleDarkMode = props.toggleDarkMode;
   const toggleAdvanced = () => {
     setAdvanced(!advanced);
   };
-
-  const { darkMode, toggleDarkMode } = props;
-
-  const languages = Object.keys(i18n.options.resources).map((code) => {
-    const t = i18n.getFixedT(code);
-    return (
-      <MenuItem value={code} key={code}>
-        {t("language")}
-      </MenuItem>
-    );
-  });
 
   return (
     <Box sx={{ py: 2, px: 2, margin: "0 8" }}>
       <Portal container={props.titleElement}>
         {i18n.t("app.menu.preferences")}
       </Portal>
-      <BasicPreferences props={props} />
+      <BasicPreferences darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       {props.connected && (
         <KeyboardSettings
           startContext={props.startContext}

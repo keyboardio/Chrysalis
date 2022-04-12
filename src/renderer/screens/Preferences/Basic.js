@@ -15,23 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useEffect, useState } from "react";
-const { ipcRenderer } = require("electron");
-
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
+import React, { useState } from "react";
+import App from "@renderer/App";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import Collapse from "@mui/material/Collapse";
 import FilledInput from "@mui/material/FilledInput";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
-import FormGroup from "@mui/material/FormGroup";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import Portal from "@mui/material/Portal";
 import Select from "@mui/material/Select";
 import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
@@ -43,6 +35,8 @@ const settings = new Store();
 
 function BasicPreferences(props) {
   const [language, setLanguage] = useState(i18n.language);
+  const darkMode = props.darkMode;
+  const toggleDarkMode = props.toggleDarkMode;
 
   const updateLanguage = async (event) => {
     i18n.changeLanguage(event.target.value);
@@ -50,8 +44,6 @@ function BasicPreferences(props) {
     // We stick language in the state system to get rerenders when it changes
     setLanguage(event.target.value);
   };
-
-  const { darkMode, toggleDarkMode } = props;
 
   const languages = Object.keys(i18n.options.resources).map((code) => {
     const t = i18n.getFixedT(code);

@@ -221,7 +221,22 @@ width: 100%;
 }
 
 
-.editor {
+.colSuperKeysMacros { grid-area: colSuperKeysMacros; }
+.colLayers { grid-area: colLayers; }
+.colNoKeyLED { grid-area: colNoKeyLED; }
+.colOneShotModifiers { grid-area: colOneShotModifiers; }
+.colMedia { grid-area: colMedia; }
+.colTools { grid-area: colTools; }
+
+.editor { 
+  .keysLED .button-config {
+    svg {
+      margin-right: 0;
+    }
+    .buttonLabel {
+      display: none;
+    }
+  }
   .keysContainerGrid {
     display: grid; 
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr); 
@@ -252,6 +267,22 @@ width: 100%;
     .colOneShotModifiers { grid-area: colOneShotModifiers; }
     .colMedia { grid-area: colMedia; }
     .colTools { grid-area: colTools; }
+  }
+}
+.super {
+  .keysContainerGrid {
+    display: grid; 
+    grid-template-columns:  0.8fr 1fr 1fr 1fr 1.2fr 0.25fr 1.75fr 1fr; 
+    
+    grid-template-rows: 1fr 1fr; 
+    gap: 8px 16px; 
+    grid-template-areas: 
+      "colSuperKeysMacros colSuperKeysMacros colSuperKeysMacros colLayers colLayers colLayers colNoKeyLED colNoKeyLED"
+      "colMedia colMedia colMedia colMedia colTools colTools colTools colTools"; 
+  }
+  .keysRow {
+    height: 100%;
+    align-items: center;
   }
 }
 `;
@@ -526,24 +557,29 @@ class KeyPicker extends Component {
             </div>
           </div>
         </div>
-        <div className={`KeysWrapper KeysWrapperSpecialKeys editor ${activeTab}`}>
+        <div className={`KeysWrapper KeysWrapperSpecialKeys ${activeTab}`}>
           <div className="keysContainer keysContainerGrid">
             <div className="colSuperKeysMacros">
-              <div className="keysRow keysSuperkeys keyRowsDropdowns">
-                <div className="keyIcon">
-                  <IconThunder />
+              {activeTab == "super" ? (
+                <></>
+              ) : (
+                <div className="keysRow keysSuperkeys keyRowsDropdowns">
+                  <div className="keyIcon">
+                    <IconThunder />
+                  </div>
+                  <div className="keysButtonsList">
+                    <SelectSuperKey
+                      action={action}
+                      actions={actions}
+                      selKeys={selKeys}
+                      onKeySelect={onKeySelect}
+                      superkeys={superkeys}
+                      keyCode={code}
+                    />
+                  </div>
                 </div>
-                <div className="keysButtonsList">
-                  <SelectSuperKey
-                    action={action}
-                    actions={actions}
-                    selKeys={selKeys}
-                    onKeySelect={onKeySelect}
-                    superkeys={superkeys}
-                    keyCode={code}
-                  />
-                </div>
-              </div>
+              )}
+
               <div className="keysRow keysMacros keyRowsDropdowns">
                 <div className="keyIcon">
                   <IconRobot />
@@ -559,33 +595,41 @@ class KeyPicker extends Component {
                   <IconLayers />
                 </div>
                 <div className="keysButtonsList">
-                  <SelectLayersSwitch action={action} activeTab={activeTab} keyCode={code} onKeySelect={onKeySelect} />
+                  {activeTab == "super" ? (
+                    <></>
+                  ) : (
+                    <SelectLayersSwitch action={action} activeTab={activeTab} keyCode={code} onKeySelect={onKeySelect} />
+                  )}
                   <SelectLayersLock action={action} activeTab={activeTab} keyCode={code} onKeySelect={onKeySelect} />
                 </div>
               </div>
             </div>
             <div className="colNoKeyLED">
-              <div className="keysRow keysNoKey keyRowsDropdowns">
-                <div className="keyIcon">
-                  <IconNoKey />
+              {activeTab == "super" ? (
+                <></>
+              ) : (
+                <div className="keysRow keysNoKey keyRowsDropdowns">
+                  <div className="keyIcon">
+                    <IconNoKey />
+                  </div>
+                  <div className="keysButtonsList">
+                    <ButtonConfig
+                      buttonText={i18n.editor.superkeys.specialKeys.noKey}
+                      onClick={() => {
+                        onKeySelect(0);
+                      }}
+                      selected={keyCode.base + keyCode.modified == 0 ? true : false}
+                    />
+                    <ButtonConfig
+                      buttonText={i18n.editor.superkeys.specialKeys.transparent}
+                      onClick={() => {
+                        onKeySelect(65535);
+                      }}
+                      selected={keyCode.base + keyCode.modified == 65535 ? true : false}
+                    />
+                  </div>
                 </div>
-                <div className="keysButtonsList">
-                  <ButtonConfig
-                    buttonText={i18n.editor.superkeys.specialKeys.noKey}
-                    onClick={() => {
-                      onKeySelect(0);
-                    }}
-                    selected={keyCode.base + keyCode.modified == 0 ? true : false}
-                  />
-                  <ButtonConfig
-                    buttonText={i18n.editor.superkeys.specialKeys.transparent}
-                    onClick={() => {
-                      onKeySelect(65535);
-                    }}
-                    selected={keyCode.base + keyCode.modified == 65535 ? true : false}
-                  />
-                </div>
-              </div>
+              )}
               <div className="keysRow keysLED">
                 <div className="keyIcon">
                   <h4>LED</h4>
@@ -601,6 +645,7 @@ class KeyPicker extends Component {
                     }}
                     icoSVG={<IconLEDSwitchLeft />}
                     selected={keyCode.base + keyCode.modified == 17154 ? true : false}
+                    className="buttonConfigLED"
                   />
                   <ButtonConfig
                     tooltip={i18n.editor.superkeys.specialKeys.ledPreviousEffectTootip}
@@ -623,17 +668,21 @@ class KeyPicker extends Component {
                 </div>
               </div>
             </div>
-            <div className="colOneShotModifiers">
-              <div className="keysRow keysOSM keyRowsDropdowns">
-                <div className="keyIcon">
-                  <IconOneShot />
-                </div>
-                <div className="keysButtonsList">
-                  <SelectOneShotModifiers action={action} activeTab={activeTab} keyCode={code} onKeySelect={onKeySelect} />
-                  <SelectOneShotLayers action={action} activeTab={activeTab} keyCode={code} onKeySelect={onKeySelect} />
+            {activeTab == "super" ? (
+              <></>
+            ) : (
+              <div className="colOneShotModifiers">
+                <div className="keysRow keysOSM keyRowsDropdowns">
+                  <div className="keyIcon">
+                    <IconOneShot />
+                  </div>
+                  <div className="keysButtonsList">
+                    <SelectOneShotModifiers action={action} activeTab={activeTab} keyCode={code} onKeySelect={onKeySelect} />
+                    <SelectOneShotLayers action={action} activeTab={activeTab} keyCode={code} onKeySelect={onKeySelect} />
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
             <div className="colMedia">
               <div className="keysRow keysMedia">
                 <div className="keyIcon">

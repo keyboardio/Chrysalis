@@ -31,22 +31,22 @@ const Style = Styled.div`
     flex-flow: column;
     align-items: start;
     height: 100%;
-    color: ${({ theme }) => theme.colors.gray300};
+    color: ${({ theme }) => theme.styles.superkeyAction.color};
     padding: 24px 16px;
     border-radius: 3px;
-    background-color: rgba(87, 97, 126, 0.2);
+    background-color: ${({ theme }) => theme.styles.superkeyAction.background};
     &.active {
-        background-color: rgba(87, 97, 126, 0.5);
+        background-color: ${({ theme }) => theme.styles.superkeyAction.backgroundActive};
     }
     h5 {
-        color: ${({ theme }) => theme.colors.gray25};
+        color: ${({ theme }) => theme.styles.superkeyAction.titleColor};
         font-weight: 700;
         font-size: 13px;
         margin-top: 12px;
         letter-spacing: 0.04em;
     }
     .description {
-        color: ${({ theme }) => theme.colors.gray100};
+        color: ${({ theme }) => theme.styles.superkeyAction.descriptionColor};
         margin-bottom: 8px;
         font-weight: 400;
         font-size: 14px;
@@ -107,9 +107,9 @@ const Style = Styled.div`
 }
 .superkeyButton {
     width: 124px;
-    background: linear-gradient(0deg, rgba(108, 92, 231, 0.8), rgba(108, 92, 231, 0.8)), linear-gradient(90deg, rgba(255, 255, 255, 0.2) 21.15%, rgba(255, 255, 255, 0) 100%), #303949;
-    border: 2px solid #6C5CE7;
-    box-shadow: 0px 4px 24px rgba(108, 92, 231, 0.65);
+    background: ${({ theme }) => theme.styles.superkeyButton.backgroundColor};
+    border: ${({ theme }) => theme.styles.superkeyButton.border};
+    box-shadow: ${({ theme }) => theme.styles.superkeyButton.boxShadow};
     border-radius: 4px; 
     padding: 1px 3px 6px 3px;
     margin-top: 16px;
@@ -125,20 +125,20 @@ const Style = Styled.div`
         height: 50px;
         margin-top: -1px;
         padding: 8px;
-        background: linear-gradient(0deg, rgba(108, 92, 231, 0.3), rgba(108, 92, 231, 0.3)), linear-gradient(90deg, rgba(255, 255, 255, 0.2) 21.15%, rgba(255, 255, 255, 0) 100%), #303949;
-        box-shadow: 0px 4px 24px rgba(108, 92, 231, 0.65);
+        background: ${({ theme }) => theme.styles.superkeyButton.backgroundColorInner};
+        box-shadow: ${({ theme }) => theme.styles.superkeyButton.boxShadowInner};
         border-radius: 4px;
-        color: ${({ theme }) => theme.colors.gray25};
+        color: ${({ theme }) => theme.styles.superkeyButton.colorInner};
         transition-property: box-shadow, border;
     }
     
     &:hover {
-        background: linear-gradient(0deg, rgba(108, 92, 231, 0.8), rgba(108, 92, 231, 0.8)), linear-gradient(90deg, rgba(255, 255, 255, 0.2) 21.15%, rgba(255, 255, 255, 0) 100%), #303949;
+        background: ${({ theme }) => theme.styles.superkeyButton.backgroundColorHover};
         border: 2px solid rgba(255, 255, 255, 0.8);
-        box-shadow: 0px 4px 12px rgba(108, 92, 231, 0.1);
+        box-shadow: ${({ theme }) => theme.styles.superkeyButton.boxShadowHover};
         cursor: pointer;
         .superkeyButtonInner { 
-            background: linear-gradient(0deg, rgba(108, 92, 231, 0.3), rgba(108, 92, 231, 0.3)), linear-gradient(90deg, rgba(255, 255, 255, 0.2) 21.15%, rgba(255, 255, 255, 0) 100%), #303949;
+            background: ${({ theme }) => theme.styles.superkeyButton.backgroundColorInnerActive};
             box-sizing: border-box;
             box-shadow: 0px 4px 24px rgba(108, 92, 231, 0.65), 0px 0px 0px 2px inset rgba(255, 255, 255, 0.1);
         }
@@ -146,10 +146,10 @@ const Style = Styled.div`
 }
 .active {
     .superkeyButton {
-        background: linear-gradient(0deg, rgba(108, 92, 231, 0.8), rgba(108, 92, 231, 0.8)), linear-gradient(90deg, rgba(255, 255, 255, 0.2) 21.15%, rgba(255, 255, 255, 0) 100%), #303949;
+        background: ${({ theme }) => theme.styles.superkeyButton.backgroundColorInnerActive};
         border: 2px solid rgba(255, 255, 255, 0.6);
         .superkeyButtonInner { 
-            background: linear-gradient(0deg, rgba(108, 92, 231, 0.3), rgba(108, 92, 231, 0.3)), linear-gradient(90deg, rgba(255, 255, 255, 0.2) 21.15%, rgba(255, 255, 255, 0) 100%), #303949;
+            background: ${({ theme }) => theme.styles.superkeyButton.backgroundColorInnerActive};
             box-shadow: 0px 4px 12px rgba(108, 92, 231, 0.1), 0px 0px 0px 2px inset rgba(255, 255, 255, 0.1);
         }
     }

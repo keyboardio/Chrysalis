@@ -374,6 +374,30 @@ const Light = {
       bulletBoxShadow: "0px 4px 12px rgba(107, 119, 148, 0.4)",
       bulletBoxShadowActive: "0px 4px 12px #6C5CE7"
     },
+    superkeyAction: {
+      color: Tokens.colors.gray400,
+      background: settingColorOpacity(Tokens.colors.gray25, 0.7),
+      backgroundActive: settingColorOpacity(Tokens.colors.gray25, 1),
+      titleColor: Tokens.colors.gray400,
+      descriptionColor: Tokens.colors.gray400
+    },
+    superkeyButton: {
+      backgroundColor:
+        "linear-gradient(0deg, rgba(120, 121, 241, 0.8), rgba(120, 121, 241, 0.8)), linear-gradient(90deg, rgba(255, 255, 255, 0.2) 21.15%, rgba(255, 255, 255, 0) 100%), #303949",
+      backgroundColorHover:
+        "linear-gradient(0deg, rgba(120, 121, 241, 0.8), rgba(120, 121, 241, 0.8)), linear-gradient(90deg, rgba(255, 255, 255, 0.2) 21.15%, rgba(255, 255, 255, 0) 100%), #303949",
+      backgroundColorActive:
+        "linear-gradient(0deg, rgba(120, 121, 241, 0.8), rgba(120, 121, 241, 0.8)), linear-gradient(90deg, rgba(255, 255, 255, 0.2) 21.15%, rgba(255, 255, 255, 0) 100%), #303949",
+      border: "2px solid #7879F1",
+      boxShadow: "0px 4px 24px rgba(120, 121, 241, 0.65)",
+      boxShadowHover: "0px 4px 24px rgba(120, 121, 241, 0.1)",
+      backgroundColorInner:
+        "linear-gradient(90deg, rgba(255, 255, 255, 0.2) 21.15%, rgba(255, 255, 255, 0) 100%), linear-gradient(0deg, rgba(120, 121, 241, 0.3), rgba(120, 121, 241, 0.3)), #E2E4EA",
+      backgroundColorInnerActive:
+        "linear-gradient(90deg, rgba(255, 255, 255, 0.2) 21.15%, rgba(255, 255, 255, 0) 100%), linear-gradient(0deg, rgba(120, 121, 241, 0.3), rgba(120, 121, 241, 0.3)), #E2E4EA",
+      boxShadowInner: "0px 4px 24px rgba(120, 121, 241, 0.65)",
+      colorInner: Tokens.colors.gray600
+    },
     switch: {
       background:
         "linear-gradient(90deg, rgba(255, 255, 255, 0.3) 21.15%, rgba(255, 255, 255, 0) 100%), rgba(176, 175, 194, 0.5)",

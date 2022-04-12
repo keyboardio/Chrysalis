@@ -99,8 +99,8 @@ margin: auto;
   }
 }
 .buttons-row {
-  position: absolute;
-  bottom: 10px;
+  position: fixed;
+  bottom: 20px;
   flex-flow: nowrap;
   height: fit-content;
   padding: 0;
@@ -118,7 +118,7 @@ margin: auto;
   place-content: flex-end;
 }
 .save-row {
-  position: absolute;
+  position: fixed;
   top: 128px;
   right: 10px;
 }
@@ -157,6 +157,7 @@ margin: auto;
 .LayerHolder {
   width: 100%;
   height: 100%;
+  padding: 0px 75px;
 }
 `;
 

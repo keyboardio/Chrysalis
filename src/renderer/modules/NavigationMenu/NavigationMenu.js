@@ -62,7 +62,7 @@ const Styles = Styled.div`
 .left-navbar {
   width: ${({ theme }) => theme.drawerWidth}px; 
   width: 120px;
-  height: 100vh;
+  height: 100%;
   display: block !important;
 
   position: fixed !important;

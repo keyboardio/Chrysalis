@@ -12,7 +12,7 @@ import KeyVisualizer from "../KeyVisualizer";
 import DualFunctionPicker from "./DualFunctionPicker";
 
 const Style = Styled.div`
-
+width: -webkit-fill-available;
 .type-card {
     min-height: 100%;
 }
@@ -310,7 +310,7 @@ class KeyPickerKeyboard extends Component {
 
     return (
       <Style>
-        <div className={`singleViewWrapper`}>
+        <div className="singleViewWrapper">
           <div className="keyEnhanceWrapper">
             <div className="keyEnhanceInner">
               <KeyVisualizer newValue={selKey} keyCode={code} />

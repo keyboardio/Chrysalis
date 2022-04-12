@@ -237,7 +237,7 @@ const English = {
       },
       specialKeys: {
         noKey: "No Key",
-        transparent: "Trasnparent",
+        transparent: "Transparent",
         playPause: "Play/Pause",
         stop: "Stop",
         rewind: "Rewind",

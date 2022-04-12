@@ -139,8 +139,8 @@ width: 100%;
 .keysRow {
   display: flex;
   flex-wrap: nowrap;
-  background:  ${({ theme }) => theme.styles.keyboardPicker.keysRowBackground};
-  box-shadow:  ${({ theme }) => theme.styles.keyboardPicker.keysRowBoxShadow};
+  background: ${({ theme }) => theme.styles.keyboardPicker.keysRowBackground};
+  box-shadow: ${({ theme }) => theme.styles.keyboardPicker.keysRowBoxShadow};
   border-radius: 6px;
   padding: 5px;
   &.keysOrdinaryKeyboard {
@@ -354,6 +354,9 @@ class KeyPicker extends Component {
       onKeySelect,
       activeTab
     } = this.props;
+
+    //let boxShadowMatrix = useTheme().styles.keyPicker.keyMatrixShadow;
+
     const liso = {
       english: ENi,
       spanish: ES,
@@ -548,7 +551,7 @@ class KeyPicker extends Component {
                       result="matrixOut"
                       in="offOut"
                       type="matrix"
-                      values="0.2 0 0 0 0 0 0.2 0 0 0 0 0 0.2 0 0 0 0 0 1 0"
+                      values={`0 0 0 0 0.552941 0 0 0 0 0.517647 0 0 0 0 0.737255 0 0 0 0.1 0`}
                     />
                     <feGaussianBlur result="blurOut" in="matrixOut" stdDeviation="0" />
                     <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />

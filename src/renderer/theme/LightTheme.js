@@ -260,7 +260,14 @@ const Light = {
     keyPicker: {
       iconColor: Tokens.colors.gray200,
       titleColor: Tokens.colors.gray200,
-      titleSpan: Tokens.colors.gray500
+      titleSpan: Tokens.colors.gray500,
+      keyMatrixShadow: settingColorMatrix("rgba(141, 132, 188, 1)", 0.1),
+      keyFill: "rgba(176, 175, 194, 0.3)",
+      keyFillHover: "rgba(196, 201, 213, 0.8)",
+      keyFillActive: Tokens.colors.purple300,
+      keyColor: Tokens.colors.gray500,
+      keyColorActive: Tokens.colors.gray25,
+      keyStrokeColor: "rgba(209, 207, 234, 0.5)"
     },
     keyboardPicker: {
       keyBoardPickerBackground: Tokens.colors.gray25,

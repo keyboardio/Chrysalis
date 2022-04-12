@@ -267,7 +267,14 @@ const Dark = {
     keyPicker: {
       iconColor: Tokens.colors.gray200,
       titleColor: Tokens.colors.gray25,
-      titleSpan: Tokens.colors.gray200
+      titleSpan: Tokens.colors.gray200,
+      keyMatrixShadow: settingColorMatrix("rgba(141, 132, 188, 1)", 0.1),
+      keyFill: "rgba(87, 97, 126, 0.25)",
+      keyFillHover: "rgba(87, 97, 126, 0.65)",
+      keyFillActive: Tokens.colors.purple300,
+      keyColor: Tokens.colors.gray25,
+      keyColorActive: Tokens.colors.gray25,
+      keyStrokeColor: "transparent"
     },
     keyboardPicker: {
       keyBoardPickerBackground: "#25273B",

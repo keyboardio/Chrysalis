@@ -6,27 +6,46 @@ import { SelectF13PlusKeys } from "../../component/Select";
 const Style = Styled.g`
 .keycap {
   .baseKey {
-    fill: rgba(87, 97, 126, 0.25);
+    fill: ${({ theme }) => theme.styles.keyPicker.keyFill};
     will-change: fill, fill-opacity;
     transition-property: fill, fill-opacity;
     transition: 200ms ease-in-out;
+    
+  }
+  .shapeKey {
+    stroke: ${({ theme }) => theme.styles.keyPicker.keyStrokeColor}
+  }
+  text {
+    fill: ${({ theme }) => theme.styles.keyPicker.keyColor};
+  }
+  span {
+    color: ${({ theme }) => theme.styles.keyPicker.keyColor};
   }
   &:hover {
     cursor: pointer;
     .baseKey {
-      fill: rgba(87, 97, 126, 0.65);
+      fill: ${({ theme }) => theme.styles.keyPicker.keyFillHover};
     }
   }
   &.active {
     .baseKey {
-      fill: #6C5CE7;
+      fill: ${({ theme }) => theme.styles.keyPicker.keyFillActive};
       fill-opacity: 1;
+    }
+    text {
+      fill: ${({ theme }) => theme.styles.keyPicker.keyColorActive};
+    }
+    span {
+      color: ${({ theme }) => theme.styles.keyPicker.keyColorActive};
+    }
+    .shapeKey {
+      stroke: ${({ theme }) => theme.styles.keyPicker.keyColorActive}
     }
   }
   &.disabled {
     opacity: 0.2;
     .baseKey {
-      fill: rgba(87, 97, 126, 0.25);
+      fill: ${({ theme }) => theme.styles.keyPicker.keyFill};
     }
     &:hover {
       cursor: initial;
@@ -411,6 +430,7 @@ class Key extends React.Component {
                 // }
                 fill={`url(#paint_gradient)`}
                 fillOpacity={0.1}
+                className="shapeKey"
               />
             </>
           ) : (

@@ -42,7 +42,7 @@ const Style = Styled.div`
     }
     .listModifiersTags {
       position: relative;
-      margin: 12px -5px 0 -5px;
+      margin: 5px -46px 0 -5px;
       display: flex;
       flex-wrap: wrap;
     }

@@ -264,6 +264,17 @@ const Dark = {
         arrowsColor: Tokens.colors.gray300
       }
     },
+    keyPicker: {
+      iconColor: Tokens.colors.gray200,
+      titleColor: Tokens.colors.gray25,
+      titleSpan: Tokens.colors.gray200
+    },
+    keyboardPicker: {
+      keyBoardPickerBackground: "#25273B",
+      keyEnhanceWrapperBackground: "#25273B",
+      keysRowBackground: "rgba(48, 51, 73, 0.6)",
+      keysRowBoxShadow: "none"
+    },
     firmwareUpdatePanel: {
       backgroundContent: Tokens.colors.gray800,
       backgroundSidebar: settingColorOpacity(Tokens.colors.gray400, 0.05),
@@ -381,6 +392,30 @@ const Dark = {
       bulletBorderActive: Tokens.colors.purple200,
       bulletBoxShadow: "0px 4px 12px #303949",
       bulletBoxShadowActive: "0px 4px 12px #303949"
+    },
+    superkeyAction: {
+      color: Tokens.colors.gray500,
+      background: settingColorOpacity(Tokens.colors.gray500, 0.2),
+      backgroundActive: settingColorOpacity(Tokens.colors.gray500, 0.4),
+      titleColor: Tokens.colors.gray25,
+      descriptionColor: Tokens.colors.gray100
+    },
+    superkeyButton: {
+      backgroundColor:
+        "linear-gradient(0deg, rgba(108, 92, 231, 0.8), rgba(108, 92, 231, 0.8)), linear-gradient(90deg, rgba(255, 255, 255, 0.2) 21.15%, rgba(255, 255, 255, 0) 100%), #303949",
+      backgroundColorHover:
+        "linear-gradient(0deg, rgba(108, 92, 231, 0.8), rgba(108, 92, 231, 0.8)), linear-gradient(90deg, rgba(255, 255, 255, 0.2) 21.15%, rgba(255, 255, 255, 0) 100%), #303949",
+      backgroundColorActive:
+        "linear-gradient(0deg, rgba(108, 92, 231, 0.8), rgba(108, 92, 231, 0.8)), linear-gradient(90deg, rgba(255, 255, 255, 0.2) 21.15%, rgba(255, 255, 255, 0) 100%), #303949",
+      border: "2px solid #6C5CE7",
+      boxShadow: "0px 4px 24px rgba(108, 92, 231, 0.65)",
+      boxShadowHover: "0px 4px 12px rgba(108, 92, 231, 0.1)",
+      backgroundColorInner:
+        "linear-gradient(0deg, rgba(108, 92, 231, 0.3), rgba(108, 92, 231, 0.3)), linear-gradient(90deg, rgba(255, 255, 255, 0.2) 21.15%, rgba(255, 255, 255, 0) 100%), #303949",
+      backgroundColorInnerActive:
+        "linear-gradient(0deg, rgba(108, 92, 231, 0.3), rgba(108, 92, 231, 0.3)), linear-gradient(90deg, rgba(255, 255, 255, 0.2) 21.15%, rgba(255, 255, 255, 0) 100%), #303949",
+      boxShadowInner: "0px 4px 24px rgba(108, 92, 231, 0.65)",
+      colorInner: Tokens.colors.gray25
     },
     switch: {
       background: Tokens.colors.gray600,

@@ -113,7 +113,7 @@ width: -webkit-fill-available;
     // flex: 0 0 calc(100% - 270px);
     width: 100%;
     background: ${({ theme }) => theme.styles.keyboardPicker.keyBoardPickerBackground};
-    box-shadow: 0px 4px 82px rgba(0, 0, 0, 0.25), 0px 12px 62px rgba(108, 92, 231, 0.1);
+    box-shadow: ${({ theme }) => theme.styles.keyboardPicker.keyEnhanceWrapperBoxShadow};
     border-radius: 6px;
     padding: 10px 20px;
   }

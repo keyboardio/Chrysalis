@@ -46,19 +46,7 @@ const Style = Styled.div`
       display: flex;
       flex-wrap: wrap;
     }
-    .labelModifier {
-      padding: 4px 8px;
-      font-weight: 600;
-      font-size: 12px;
-      letter-spacing: -0.03em;
-      color: #E2E4EA;
-      margin: 2px;
-      background: rgba(107, 119, 148, 0.5);
-      border: 1px solid rgba(37, 40, 66, 0.55);
-      box-sizing: border-box;
-      backdrop-filter: blur(4px);
-      border-radius: 14px;
-    }
+    
     .labelHyper,
     .labelMeh {
       display: none;

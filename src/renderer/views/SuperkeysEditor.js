@@ -356,7 +356,7 @@ class SuperkeysEditor extends React.Component {
       superindex = 0;
 
     if (raw === "") {
-      return [];
+      return [{ actions: [53, 2101, 1077, 41, 0], name: "Welcome to superkeys", id: superindex }];
     }
     // console.log(raw, raw.length);
     while (raw.length > iter) {
@@ -536,6 +536,10 @@ class SuperkeysEditor extends React.Component {
   }
 
   checkKBSuperkeys(newSuper, newID, SKC) {
+    if (newSuper.length == 0) {
+      newSuper = [{ actions: [53, 2101, 1077, 41, 0], name: "Welcome to superkeys", id: 0 }];
+      newID = 0;
+    }
     let LOK = this.state.keymap.custom
       .map((l, c) =>
         l

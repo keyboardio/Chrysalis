@@ -503,6 +503,7 @@ class MacroEditor extends React.Component {
   }
 
   render() {
+    const mem = this.state.macros.map(m => m.actions).flat().length;
     const ListOfMacros = this.state.listToDelete.map(({ layer, pos, key }, id) => {
       return (
         <Row key={id}>
@@ -561,7 +562,7 @@ class MacroEditor extends React.Component {
           <Container fluid>
             <Row>
               <Button
-                disabled={!this.state.modified}
+                disabled={!this.state.modified || mem > 1999}
                 onClick={this.writeMacros}
                 className={`button-large pt-0 mt-0 mb-2 ${this.state.modified ? "save-active" : ""}`}
                 aria-controls="save-changes"

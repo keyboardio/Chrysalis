@@ -21,6 +21,7 @@ import Card from "react-bootstrap/Card";
 import i18n from "../../i18n";
 
 import MacroForm from "./MacroForm";
+import Slider from "react-rangeslider";
 
 const Styles = Styled.div`
 .card {
@@ -34,6 +35,31 @@ const Styles = Styled.div`
 }
 .card::-webkit-scrollbar {
   display: none;
+}
+.macroHeaderMem{
+  display: flex;
+  justify-content: space-between;
+}
+.macroHeaderTitle {
+  align-self: center;
+}
+.macroFreeMem {
+  width: 30%;
+  display: flex;
+  align-items: center;
+}
+.memSlider {
+  width: -webkit-fill-available;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+.outOfMem {
+  .rangeslider__fill {
+    background-color: red;
+  }
+  .rangeslider__handle {
+    background-color: red;
+  }
 }
 .cardcontent {
   padding: 0px;
@@ -65,6 +91,7 @@ class MacroManager extends Component {
     this.state = {
       macros: props.macros,
       selected: selected,
+      freeMemory: 0,
       open: false
     };
 
@@ -100,6 +127,7 @@ class MacroManager extends Component {
     this.props.updateMacro(macros, -1);
     this.props.changeSelected(this.state.selected);
     this.exit();
+    this.updateFreeMemory(macros);
   }
 
   addMacro() {
@@ -158,13 +186,37 @@ class MacroManager extends Component {
     this.props.updateMacro(macros, -1);
   }
 
+  updateFreeMemory = macros => {
+    let mem = macros.map(m => m.actions).flat().length;
+    this.setState({ freeMemory: mem });
+    if (mem > 1999) {
+      alert(
+        "You exceeded the maximum capacity of actions in your macros. Please decrease the number of actions until the top right bar is no longer red"
+      );
+    }
+  };
+
   render() {
     const { keymapDB } = this.props;
 
     return (
       <Styles>
         <Card className={"card"}>
-          <Card.Header classes={"cardHeader cardTitle"}>{i18n.editor.macros.title}</Card.Header>
+          <Card.Header classes={"cardHeader cardTitle"}>
+            <div className="macroHeaderMem">
+              <div className="macroHeaderTitle">{i18n.editor.macros.title}</div>
+              <div className="macroFreeMem">
+                <span className="tagsfix">Empty</span>
+                <Slider
+                  className={`memSlider ${this.state.freeMemory > 1999 ? "outOfMem" : ""}`}
+                  min={0}
+                  max={2000}
+                  value={this.state.freeMemory}
+                />
+                <span className="tagsfix">Full</span>
+              </div>
+            </div>
+          </Card.Header>
           <Card.Body classes={"cardcontent"}>
             <MacroForm
               key={this.state.macros.length + this.state.selected}

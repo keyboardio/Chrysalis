@@ -273,6 +273,7 @@ const Dark = {
       keyFillHover: "rgba(87, 97, 126, 0.65)",
       keyFillActive: Tokens.colors.purple300,
       keyColor: Tokens.colors.gray25,
+      keyColorSecondary: Tokens.colors.gray200,
       keyColorActive: Tokens.colors.gray25,
       keyStrokeColor: "transparent",
       keyStrokeColorActive: "transparent"

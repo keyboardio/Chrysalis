@@ -21,6 +21,15 @@ const Style = Styled.g`
   span {
     color: ${({ theme }) => theme.styles.keyPicker.keyColor};
   }
+  .KeyPositionEnter {
+    transform: translate(649px,73px);
+  }
+  .contentFirst {
+    fill: ${({ theme }) => theme.styles.keyPicker.keyColor};
+  }
+  .contentSecondary {
+    fill: ${({ theme }) => theme.styles.keyPicker.keyColorSecondary};
+  }
   &:hover {
     cursor: pointer;
     .baseKey {
@@ -32,7 +41,9 @@ const Style = Styled.g`
       fill: ${({ theme }) => theme.styles.keyPicker.keyFillActive};
       fill-opacity: 1;
     }
-    text {
+    text,
+    .contentFirst,
+    .contentSecondary  {
       fill: ${({ theme }) => theme.styles.keyPicker.keyColorActive};
     }
     span {
@@ -196,10 +207,10 @@ const ksl = {
     icon: { x: 6, y: 2, w: 30, h: 26 },
     text: {
       a: { dx: 6, dy: 19, fs: 20 },
-      b: { dx: 60, dy: 19, fs: 14 },
-      c: { dx: 28, dy: 19, fs: 14 },
-      d: { dx: 38, dy: 19, fs: 14 },
-      letter: { dx: 22, dy: 19, ddx: 52, ddy: 19, fs: 14, fss: 14 }
+      b: { dx: 60, dy: 19, fs: 13 },
+      c: { dx: 28, dy: 19, fs: 13 },
+      d: { dx: 38, dy: 19, fs: 13 },
+      letter: { dx: 22, dy: 19, ddx: 52, ddy: 19, fs: 13, fss: 13 }
     }
   },
   "3U": {
@@ -271,7 +282,7 @@ const ksl = {
       b: { dx: 2, dy: 28, fs: 14 },
       c: { dx: 28, dy: 19, fs: 14 },
       d: { dx: 38, dy: 19, fs: 14 },
-      letter: { dx: 45, dy: 17, ddx: 45, ddy: 17, fs: 14, fss: 14 }
+      letter: { dx: 45, dy: 17, ddx: 45, ddy: 17, fs: 11, fss: 11 }
     }
   },
   enter: {
@@ -325,68 +336,18 @@ class Key extends React.Component {
         <g className={`keycap ${selected ? "active" : ""} ${disabled ? "disabled" : ""} ${content.type} id-${id}`}>
           {content.type === "enter" ? (
             <>
-              <rect
-                x={x + ksl[content.type].outb.dx + 10}
-                y={y + ksl[content.type].outb.dy}
-                width="34"
-                height="60"
-                rx="5"
-                fill={
-                  disabled
-                    ? this.props.theme.keyboardPicker.keyDisabledColor
-                    : selected
-                    ? this.props.theme.keyboardPicker.keyActiveColor
-                    : this.props.theme.keyboardPicker.keyColor
-                }
-                onClick={clicked}
-                className="baseKey"
-              />
-
-              <rect
-                x={x + ksl[content.type].outb.dx}
-                y={y + ksl[content.type].outb.dy}
-                width="44"
-                height="26"
-                rx="5"
-                fill={
-                  disabled
-                    ? this.props.theme.keyboardPicker.keyDisabledColor
-                    : selected
-                    ? this.props.theme.keyboardPicker.keyActiveColor
-                    : this.props.theme.keyboardPicker.keyColor
-                }
-                onClick={clicked}
-              />
-
-              <rect
-                x={x + ksl[content.type].out.dx + 10}
-                y={y + ksl[content.type].out.dy + 1}
-                width="32"
-                height="57"
-                rx="5"
-                fill={
-                  disabled
-                    ? this.props.theme.card.background
-                    : selected
-                    ? this.props.theme.keyboardPicker.keyActiveColor
-                    : this.props.theme.keyboardPicker.keyColor
-                }
-                onClick={clicked}
-              />
-
-              <rect
-                x={x + ksl[content.type].out.dx}
-                y={y + ksl[content.type].out.dy}
-                width="42"
-                height="24"
-                rx="5"
-                fill={
-                  disabled
-                    ? this.props.theme.card.background
-                    : selected
-                    ? this.props.theme.keyboardPicker.keyActiveColor
-                    : this.props.theme.keyboardPicker.keyColor
-                }
+              <g filter={`url(#filter0_d_2211_181319)`}>
+                <path
+                  d="M0 3a3 3 0 013-3h35a3 3 0 013 3v60a3 3 0 01-3 3H14a3 3 0 01-3-3V33a3 3 0 00-3-3H3a3 3 0 01-3-3V3z"
+                  className="baseKey KeyPositionEnter"
+                  onClick={clicked}
+                />
+              </g>
+              <path
+                d="M0 3a3 3 0 013-3h35a3 3 0 013 3v60a3 3 0 01-3 3H14a3 3 0 01-3-3V33a3 3 0 00-3-3H3a3 3 0 01-3-3V3z"
+                fill={`url(#paint_gradient)`}
+                fillOpacity={0.1}
+                className="shapeKey KeyPositionEnter"
                 onClick={clicked}
               />
             </>
@@ -469,8 +430,8 @@ class Key extends React.Component {
                 y={y + ksl[content.type].text.letter.dy}
                 onClick={clicked}
                 fontSize={ksl[content.type].text.letter.fs}
-                fill={this.props.theme.keyboardPicker.titleColor}
                 fontWeight={600}
+                className="contentPrimary"
               >
                 {content.first}
               </text>
@@ -480,7 +441,7 @@ class Key extends React.Component {
                 onClick={clicked}
                 fontSize={ksl[content.type].text.letter.fss}
                 fontWeight={600}
-                fill={this.props.theme.keyboardPicker.subTitleColor}
+                className="contentSeconday"
               >
                 {content.second}
               </text>
@@ -500,6 +461,7 @@ class Key extends React.Component {
                 }
                 fontWeight={600}
                 textAnchor="middle"
+                className="contentFirst"
               >
                 {content.first}
               </text>
@@ -515,6 +477,7 @@ class Key extends React.Component {
                     : this.props.theme.keyboardPicker.keySubTextColor
                 }
                 textAnchor="middle"
+                className="contentSeconday"
               >
                 {content.second}
               </text>
@@ -530,9 +493,10 @@ class Key extends React.Component {
                 onClick={clicked}
                 fontSize={ksl[content.type].text.a.fs}
                 fontWeight={600}
-                fill={
-                  disabled ? this.props.theme.keyboardPicker.keyTextDisabledColor : this.props.theme.keyboardPicker.keyTextColor
-                }
+                // fill={
+                //   disabled ? this.props.theme.keyboardPicker.keyTextDisabledColor : this.props.theme.keyboardPicker.keyTextColor
+                // }
+                className="contentFirst"
               >
                 {content.first}
               </text>
@@ -542,11 +506,12 @@ class Key extends React.Component {
                 onClick={clicked}
                 fontSize={ksl[content.type].text.b.fs}
                 fontWeight={600}
-                fill={
-                  selected
-                    ? this.props.theme.keyboardPicker.keyActiveSubTextColor
-                    : this.props.theme.keyboardPicker.keySubTextColor
-                }
+                // fill={
+                //   selected
+                //     ? this.props.theme.keyboardPicker.keyActiveSubTextColor
+                //     : this.props.theme.keyboardPicker.keySubTextColor
+                // }
+                className="contentSecondary"
               >
                 {content.second}
               </text>
@@ -556,11 +521,12 @@ class Key extends React.Component {
                 onClick={clicked}
                 fontSize={ksl[content.type].text.c.fs}
                 fontWeight={600}
-                fill={
-                  selected
-                    ? this.props.theme.keyboardPicker.keyActiveSubTextColor
-                    : this.props.theme.keyboardPicker.keySubTextColor
-                }
+                // fill={
+                //   selected
+                //     ? this.props.theme.keyboardPicker.keyActiveSubTextColor
+                //     : this.props.theme.keyboardPicker.keySubTextColor
+                // }
+                className="contentSecondary"
               >
                 {content.third}
               </text>
@@ -570,11 +536,12 @@ class Key extends React.Component {
                 onClick={clicked}
                 fontSize={ksl[content.type].text.d.fs}
                 fontWeight={600}
-                fill={
-                  selected
-                    ? this.props.theme.keyboardPicker.keyActiveSubTextColor
-                    : this.props.theme.keyboardPicker.keySubTextColor
-                }
+                // fill={
+                //   selected
+                //     ? this.props.theme.keyboardPicker.keyActiveSubTextColor
+                //     : this.props.theme.keyboardPicker.keySubTextColor
+                // }
+                className="contentSecondary"
               >
                 {content.fourth}
               </text>

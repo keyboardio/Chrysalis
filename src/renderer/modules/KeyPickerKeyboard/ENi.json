@@ -9,7 +9,7 @@
     "iconname": "",
     "content": {
       "type": "1UT",
-      "first": "Esc",
+      "first": "ESC",
       "second": "",
       "third": "",
       "fourth": ""
@@ -534,7 +534,8 @@
     "centered": true,
     "icon": true,
     "iconsize": 16,
-    "iconx": 668,
+    "iconx": 655,
+    "icony": 40,
     "idArray": "",
     "iconname": "Backspace",
     "content": {
@@ -571,7 +572,7 @@
     "iconname": "",
     "content": {
       "type": "specialBlock",
-      "first": "Hom",
+      "first": "Home",
       "second": "",
       "third": "",
       "fourth": ""
@@ -664,8 +665,8 @@
     "centered": true,
     "icon": true,
     "iconsize": 15,
-    "iconx": 20,
-    "icony": 64,
+    "iconx": 21,
+    "icony": 75,
     "idArray": "",
     "iconname": "Tab",
     "content": {
@@ -875,8 +876,8 @@
     "centered": true,
     "icon": true,
     "iconsize": 20,
-    "iconx": 674,
-    "icony": 61,
+    "iconx": 660,
+    "icony": 73,
     "idArray": "",
     "iconname": "Enter",
     "content": {
@@ -943,7 +944,7 @@
     "icon": true,
     "iconsize": 22,
     "iconx": 22,
-    "icony": 90,
+    "icony": 105,
     "idArray": "",
     "iconname": "CapsLock",
     "content": {
@@ -1201,8 +1202,8 @@
     "centered": true,
     "icon": true,
     "iconsize": 18,
-    "iconx": 14,
-    "icony": 125,
+    "iconx": 12,
+    "icony": 142,
     "idArray": "",
     "iconname": "Shift",
     "content": {
@@ -1397,8 +1398,8 @@
     "centered": true,
     "icon": true,
     "iconsize": 18,
-    "iconx": 641,
-    "icony": 125,
+    "iconx": 630,
+    "icony": 142,
     "idArray": "",
     "iconname": "Shift",
     "content": {
@@ -1549,7 +1550,7 @@
     "icon": true,
     "iconsize": 20,
     "iconx": 310,
-    "icony": 157,
+    "icony": 173,
     "idArray": "",
     "iconname": "Space",
     "content": {
@@ -1601,8 +1602,8 @@
     "centered": true,
     "icon": true,
     "iconsize": 19,
-    "iconx": 607,
-    "icony": 157,
+    "iconx": 584,
+    "icony": 176,
     "idArray": "",
     "iconname": "App",
     "content": {

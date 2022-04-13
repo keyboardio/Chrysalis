@@ -266,6 +266,7 @@ const Light = {
       keyFillHover: "rgba(196, 201, 213, 0.8)",
       keyFillActive: Tokens.colors.purple300,
       keyColor: Tokens.colors.gray500,
+      keyColorSecondary: Tokens.colors.gray300,
       keyColorActive: Tokens.colors.gray25,
       keyStrokeColor: "rgba(209, 207, 234, 0.5)",
       keyStrokeColorActive: Tokens.colors.purple300

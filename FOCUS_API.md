@@ -559,7 +559,53 @@ This empty command has no support as of today, or is disabled / not working prop
 
 This command reads/writes the macros map (2048 bytes of max lenght), each action in a macro is composed of an action type and a key attached to it.
 
+- MACRO_ACTION_END = 0
+  - Ends the current macro play sequence, it's used at the end of a macro to separate it from the second
+  - Example: " 0 "
+  - Total cost = 1
+- MACRO_ACTION_STEP_INTERVAL = 1
+  - Changes the reproduction interval between each key of the sequence when a tap sequence or a tap code sequence (12 or 13) are used
+  - The step uses a 16bit integer splitted into two 8bit numbers to send it to the keyboard, first comes the higher weight
+  - Example: " 1 1 44 " for a 300ms delay
+  - Total cost = 3
+- MACRO_ACTION_STEP_WAIT = 2
+  - Custom delay that lets the macro wait for any event before continuing the sequence.
+  - The step uses a 16bit integer splitted into two 8bit numbers to send it to the keyboard, first comes the higher weight
+  - Example: " 2 1 44 " for a 300ms delay
+  - Total cost = 3
+- MACRO_ACTION_STEP_KEYDOWN = 3
+  - Activates the keydown event for a KeyCode defined by two 8bit numbers, the higher weight carries the flags, the lower weight carries the code.
+  - The step uses a 16bit integer that identifies any key, splitted into two 8bit numbers to send it to the keyboard. First comes the higher weight.
+  - Example: " 3 76 226 " for the keyCode 19682, which activates the keydown action for the Media.Mute button.
+  - Total cost = 3
+- MACRO_ACTION_STEP_KEYUP = 4
+  - Activates the keyup event for a KeyCode defined by two 8bit numbers, the higher weight carries the flags, the lower weight carries the code.
+  - The step uses a 16bit integer that identifies any key, splitted into two 8bit numbers to send it to the keyboard. First comes the higher weight.
+  - Example: " 4 76 226 " for the keyCode 19682, which activates the keyup action for the Media.Mute button.
+  - Total cost = 3
+- MACRO_ACTION_STEP_TAP = 5
+  - Activates the tap event for a KeyCode defined by two 8bit numbers, the higher weight carries the flags, the lower weight carries the code.
+  - The step uses a 16bit integer that identifies any key, splitted into two 8bit numbers to send it to the keyboard. First comes the higher weight.
+  - Example: " 5 76 226 " for the keyCode 19682, which activates the tap action for the Media.Mute button.
+  - Total cost = 3
+- MACRO_ACTION_STEP_KEYCODEDOWN = 6
+  - Activates the keydown event for a KeyCode defined by one 8bit number, it only carries the code up to 255, which means only normal keys can be sent this way.
+  - The step uses a lone 8bit number to identify any key < 256, as no flags are sent, 0 is used for the flag identifier instead.
+  - Example: " 6 225 " for the keyCode 225, which activates the keydown action for the Right Shift button.
+  - Total cost = 2
+- MACRO_ACTION_STEP_KEYCODEUP
+  - Activates the keyup event for a KeyCode defined by one 8bit number, it only carries the code up to 255, which means only normal keys can be sent this way.
+  - The step uses a lone 8bit number to identify any key < 256, as no flags are sent, 0 is used for the flag identifier instead.
+  - Example: " 7 225 " for the keyCode 225, which activates the keyup action for the Right Shift button.
+  - Total cost = 2
+- MACRO_ACTION_STEP_TAPCODE
+- MACRO_ACTION_STEP_EXPLICIT_REPORT
+- MACRO_ACTION_STEP_IMPLICIT_REPORT
+- MACRO_ACTION_STEP_SEND_REPORT
+- MACRO_ACTION_STEP_TAP_SEQUENCE
+- MACRO_ACTION_STEP_TAP_CODE_SEQUENCE
 - action 2 is delay
+  - hhasd
 - action 3 is function key press
 - action 4 is function key release
 - action 5 is function press & release
@@ -601,6 +647,7 @@ To use:
 #### Expected output
 
 Allows you to test any macro stored in the EEPROM without assigning it to a key
+
 ### superkeys.map
 
 This command reads/writes the superkeys map (1024 bytes of max lenght), each action in a superkey is represented by a keyCode number that encodes the action, for example if you use the number 44, you are encoding space, etc... to know more about keycodes and to find the right one for your actions, check [keymap database](https://github.com/Dygmalab/Bazecor/tree/development/src/api/keymap/db)

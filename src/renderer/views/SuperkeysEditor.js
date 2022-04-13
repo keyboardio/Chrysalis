@@ -173,7 +173,7 @@ class SuperkeysEditor extends React.Component {
       }
       this.setState({
         neurons,
-        neuronID: neurons.findIndex(n => n.chipID == this.state.chipID),
+        neuronID: neurons.findIndex(n => n.id == chipID),
         storedMacros: neuron.macros,
         storedSuper: neuron.superkeys
       });
@@ -507,8 +507,9 @@ class SuperkeysEditor extends React.Component {
       modified: false,
       modifiedKeymap: false
     });
-    let neurons = this.state.neurons;
+    let neurons = JSON.parse(JSON.stringify(this.state.neurons));
     neurons[this.state.neuronID].superkeys = superkeys;
+    console.log(JSON.stringify(neurons));
     store.set("neurons", neurons);
     try {
       await focus.command("superkeys.map", this.superkeyMap(superkeys));

@@ -168,7 +168,7 @@ class MacroEditor extends React.Component {
       }
       this.setState({
         neurons,
-        neuronID: neurons.findIndex(n => n.chipID == this.state.chipID),
+        neuronID: neurons.findIndex(n => n.id == chipID),
         storedMacros: neuron.macros,
         storedSuper: neuron.superkeys
       });
@@ -426,7 +426,9 @@ class MacroEditor extends React.Component {
       macros: newMacros,
       storedMacros: newMacros
     });
-    let neurons = this.state.neurons;
+    let neurons = JSON.parse(JSON.stringify(this.state.neurons));
+    console.log(this.state.neuronID);
+    console.log(neurons[this.state.neuronID].macros);
     neurons[this.state.neuronID].macros = newMacros;
     store.set("neurons", neurons);
     try {

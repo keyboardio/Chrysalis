@@ -274,7 +274,8 @@ const Dark = {
       keyFillActive: Tokens.colors.purple300,
       keyColor: Tokens.colors.gray25,
       keyColorActive: Tokens.colors.gray25,
-      keyStrokeColor: "transparent"
+      keyStrokeColor: "transparent",
+      keyStrokeColorActive: "transparent"
     },
     keyboardPicker: {
       keyBoardPickerBackground: "#25273B",

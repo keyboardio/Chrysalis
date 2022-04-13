@@ -39,7 +39,7 @@ const Style = Styled.g`
       color: ${({ theme }) => theme.styles.keyPicker.keyColorActive};
     }
     .shapeKey {
-      stroke: ${({ theme }) => theme.styles.keyPicker.keyColorActive}
+      stroke: ${({ theme }) => theme.styles.keyPicker.keyStrokeColorActive}
     }
   }
   &.disabled {

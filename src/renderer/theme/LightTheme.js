@@ -267,7 +267,8 @@ const Light = {
       keyFillActive: Tokens.colors.purple300,
       keyColor: Tokens.colors.gray500,
       keyColorActive: Tokens.colors.gray25,
-      keyStrokeColor: "rgba(209, 207, 234, 0.5)"
+      keyStrokeColor: "rgba(209, 207, 234, 0.5)",
+      keyStrokeColorActive: Tokens.colors.purple300
     },
     keyboardPicker: {
       keyBoardPickerBackground: Tokens.colors.gray25,

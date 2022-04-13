@@ -368,7 +368,9 @@ class KeyPicker extends Component {
       icelandic: IC
     };
     const lansi = { english: ENa };
-    let Lang = ENa;
+    //let Lang = ENa;
+    let Lang = ENi;
+
     //TODO: quitar este comentario para que vuelva a funcionar el idioma seleccionado
     // if (selectedlanguage == "english") {
     //   if (kbtype == "ansi") {

@@ -116,17 +116,17 @@ Plugin's section to configure them, like the DynamicMacros plugin.
 
 [macros.trigger](#macrostrigger)
 
-[superkeys.map](#supermap)
+[superkeys.map](#superkeysmap)
 
-[superkeys.waitfor](#superwaitfor)
+[superkeys.waitfor](#superkeyswaitfor)
 
-[superkeys.timeout](#supertimeout)
+[superkeys.timeout](#superkeystimeout)
 
-[superkeys.repeat](#superrepeat)
+[superkeys.repeat](#superkeysrepeat)
 
-[superkeys.holdstart](#superholdstart)
+[superkeys.holdstart](#superkeysholdstart)
 
-[superkeys.overlap](#superoverlap)
+[superkeys.overlap](#superkeysoverlap)
 
 **Sides Section**
 

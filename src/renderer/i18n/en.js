@@ -378,22 +378,33 @@ const English = {
     },
     qukeys: {
       title: "DUAL FUNCTION KEY PARAMETERS",
-      holdTimeout: "Adjust time to start 'when held' action",
+      holdTimeout: "Dual function - Hold timeout",
       holdTimeoutsub: " - From 0 to 65,534 milliseconds",
-      overlapThreshold: "Adjust overlap threshold between dual-function key and subsequent key",
-      overlapThresholdsub: " - Percentage from 0 to 100"
+      overlapThreshold: "Dual function - Overlap Threshold",
+      overlapThresholdTip1: "This setting only affects Dual function keys.",
+      overlapThresholdTip2:
+        "If you select More, Dual function keys will allow more overlap, thus allowing longer chordings when typing faster.",
+      overlapThresholdTip3: "For example, holding the key to switch to a layer or activate a modifier (like Shift, Control...).",
+      overlapThresholdTip4:
+        "If you change it to Less, you will nearly always affect the subsequent pressed key with the dual function as it will be counting as double pressing instead of chording.",
+      overlapThresholdsub: " - Percentage from 0 to 100",
+      holdTimeoutTip1: "This setting only affects Dual function keys.",
+      holdTimeoutTip2: "Let's say you have a Layer&Key with 'Layer 1' on hold and 'Space' on tap.",
+      holdTimeoutTip3:
+        "If the slider is at 'None' and you press another key before completely releasing the Space, this will trigger the hold function.",
+      holdTimeoutTip4: "If the slider is at 'High', it'll take a bit more time for the hold function to activate."
     },
     superkeys: {
       title: "Typing",
-      timeout: "Typing speed",
-      timeoutTip1: "This setting only affects Layer&Key and Superkeys.",
+      timeout: "Superkeys - Typing speed",
+      timeoutTip1: "This setting only affects Superkeys.",
       timeoutTip2:
         "If you select a slow typing speed, some functions of Layer&Key and Superkeys will take slightly more time to trigger.",
       timeoutTip3: "For example, holding the key to switch to a layer or activate a modifier (like Shift, Control...).",
       timeoutTip4:
         "If you choose a fast typing speed, you might activate those actions by mistake if you 'linger' too much on the key.",
-      chordingTip1: "This setting only affects Layer&Key.",
-      chordingTip2: "Let's say you have a Layer&Key with 'Layer 1' on hold and 'Space' on tap.",
+      chordingTip1: "This setting only affects Superkeys.",
+      chordingTip2: "Let's say you have a superkey with shift on hold and 'Space' on tap.",
       chordingTip3:
         "If the slider is at 'None' and you press another key before completely releasing the Space, this will trigger the hold function.",
       chordingTip4: "If the slider is at 'High', it'll take a bit more time for the hold function to activate.",
@@ -402,7 +413,7 @@ const English = {
       repeatsub: " - time from 0 to 254 milliseconds",
       waitfor: "Adjust time between first and subsequent emmisions of the hold keys",
       waitforsub: " - time from 0 to 65,534 milliseconds",
-      holdstart: "Chording while typing",
+      holdstart: "Superkeys - Chording while typing",
       holdstartsub: " - time from 0 to 65,534 milliseconds",
       overlap:
         "Adjust percentage that changes the way the hold function will trigger depending on the typing speed of the previous normal key",

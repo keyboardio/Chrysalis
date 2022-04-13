@@ -30,7 +30,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // Custom modules imports
-import { KeyboardSettings } from "../screens/Preferences/KeyboardSettings";
+import { KeyboardSettings } from "../modules/Settings/KeyboardSettings";
 import { BackupSettings, GeneralSettings, NeuronSettings, AdvancedSettings } from "../modules/Settings";
 
 import Focus from "../../api/focus";

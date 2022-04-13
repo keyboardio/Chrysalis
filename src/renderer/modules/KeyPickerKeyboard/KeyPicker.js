@@ -368,23 +368,23 @@ class KeyPicker extends Component {
       icelandic: IC
     };
     const lansi = { english: ENa };
-    //let Lang = ENa;
-    let Lang = IC;
+    let Lang = ENa;
+    //let Lang = DN;
 
     //TODO: quitar este comentario para que vuelva a funcionar el idioma seleccionado
-    // if (selectedlanguage == "english") {
-    //   if (kbtype == "ansi") {
-    //     if (lansi[selectedlanguage] != undefined) {
-    //       Lang = lansi[selectedlanguage];
-    //     }
-    //   } else {
-    //     Lang = liso[selectedlanguage];
-    //   }
-    // } else {
-    //   if (selectedlanguage != "") {
-    //     if (liso[selectedlanguage] != undefined) Lang = liso[selectedlanguage];
-    //   }
-    // }
+    if (selectedlanguage == "english") {
+      if (kbtype == "ansi") {
+        if (lansi[selectedlanguage] != undefined) {
+          Lang = lansi[selectedlanguage];
+        }
+      } else {
+        Lang = liso[selectedlanguage];
+      }
+    } else {
+      if (selectedlanguage != "") {
+        if (liso[selectedlanguage] != undefined) Lang = liso[selectedlanguage];
+      }
+    }
     const os = process.platform;
     const iconlist = {
       Backspace: <BsBackspace />,

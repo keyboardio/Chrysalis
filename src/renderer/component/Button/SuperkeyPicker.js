@@ -177,6 +177,7 @@ const SuperkeyPicker = ({
 }) => {
   const [controlDeleteButton, setControlDeleteButton] = React.useState(false);
   const [keyContent, setKeyContent] = React.useState("Loading...");
+  let action = superkeys[selected] == undefined ? 0 : superkeys[selected].actions[index];
 
   React.useEffect(() => {
     if (superkeys[selected] == undefined) {
@@ -200,7 +201,7 @@ const SuperkeyPicker = ({
     if (aux.label) {
       setKeyContent((aux.extraLabel != undefined ? aux.extraLabel + " " : "") + aux.label);
     }
-  }, [superkeys]);
+  }, [action]);
 
   if (superkeys === null) return null;
   return (

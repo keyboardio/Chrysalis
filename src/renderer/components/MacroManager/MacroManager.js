@@ -189,7 +189,7 @@ class MacroManager extends Component {
   updateFreeMemory = macros => {
     let mem = macros.map(m => m.actions).flat().length;
     this.setState({ freeMemory: mem });
-    if (mem > 1999) {
+    if (mem > 1899) {
       alert(
         "You exceeded the maximum capacity of actions in your macros. Please decrease the number of actions until the top right bar is no longer red"
       );
@@ -208,7 +208,7 @@ class MacroManager extends Component {
               <div className="macroFreeMem">
                 <span className="tagsfix">Empty</span>
                 <Slider
-                  className={`memSlider ${this.state.freeMemory > 1999 ? "outOfMem" : ""}`}
+                  className={`memSlider ${this.state.freeMemory > 1899 ? "outOfMem" : ""}`}
                   min={0}
                   max={2000}
                   value={this.state.freeMemory}

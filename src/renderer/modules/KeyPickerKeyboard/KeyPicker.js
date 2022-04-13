@@ -369,7 +369,7 @@ class KeyPicker extends Component {
     };
     const lansi = { english: ENa };
     //let Lang = ENa;
-    let Lang = GR;
+    let Lang = FR;
 
     //TODO: quitar este comentario para que vuelva a funcionar el idioma seleccionado
     // if (selectedlanguage == "english") {

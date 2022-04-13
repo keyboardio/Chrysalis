@@ -135,8 +135,8 @@ const ksl = {
     icon: { x: 12, y: -1, w: 30, h: 26 },
     text: {
       a: { dx: 8, dy: 16, fs: 13 },
-      b: { dx: 22, dy: 20, fs: 13 },
-      c: { dx: 28, dy: 15, fs: 13 },
+      b: { dx: 18, dy: 22, fs: 13 },
+      c: { dx: 29, dy: 14, fs: 13 },
       d: { dx: 38, dy: 15, fs: 13 },
       letter: { dx: 22, dy: 19, ddx: 34, ddy: 7, fs: 13, fss: 13 }
     }

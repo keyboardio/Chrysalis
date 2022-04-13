@@ -36,7 +36,7 @@ import Dark from "./theme/DarkTheme";
 import SelectKeyboard from "./views/SelectKeyboard";
 import FirmwareUpdate from "./views/FirmwareUpdate";
 import LayoutEditor from "./views/LayoutEditor";
-import MacrosConfigurator from "./screens/Macros/MacrosConfigurator";
+import MacroEditor from "./views/MacroEditor";
 import SuperkeysEditor from "./views/SuperkeysEditor";
 import Preferences from "./views/Preferences";
 import Welcome from "./screens/Welcome";
@@ -322,7 +322,7 @@ class App extends React.Component {
               appBarElement={() => document.querySelector("#appbar")}
               darkMode={darkMode}
             />
-            <MacrosConfigurator
+            <MacroEditor
               path="/macros"
               onDisconnect={this.onKeyboardDisconnect}
               startContext={this.startContext}

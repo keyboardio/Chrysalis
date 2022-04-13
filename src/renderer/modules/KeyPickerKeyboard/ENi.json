@@ -871,7 +871,7 @@
   },
   {
     "id": 40,
-    "x": 650,
+    "x": 653,
     "y": 73,
     "centered": true,
     "icon": true,
@@ -1377,7 +1377,7 @@
   },
   {
     "id": 56,
-    "x": 541,
+    "x": 542,
     "y": 143,
     "centered": false,
     "icon": false,
@@ -1393,7 +1393,7 @@
   },
   {
     "id": 229,
-    "x": 590,
+    "x": 592,
     "y": 143,
     "centered": true,
     "icon": true,
@@ -1597,7 +1597,7 @@
   },
   {
     "id": 101,
-    "x": 579,
+    "x": 580,
     "y": 178,
     "centered": true,
     "icon": true,
@@ -1616,7 +1616,7 @@
   },
   {
     "id": 228,
-    "x": 637,
+    "x": 639,
     "y": 178,
     "centered": true,
     "icon": false,

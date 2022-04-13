@@ -121,6 +121,8 @@ margin: auto;
   position: fixed;
   top: 128px;
   right: 10px;
+  margin-left: auto;
+  width: fit-content;
 }
 .full-height {
   height: 100%;
@@ -1498,7 +1500,7 @@ class LayoutEditor extends React.Component {
             macros[parseInt(key.label)].name.substr(0, 5) != "" &&
             !/\p{L}/u.test(key.label)
           ) {
-            newMKey.label = macros[parseInt(key.label)].name.substr(0, 5).toLowerCase();
+            newMKey.label = macros[parseInt(key.label)].name.substr(0, 5);
           }
         }
         return newMKey;
@@ -1516,7 +1518,7 @@ class LayoutEditor extends React.Component {
             superkeys[parseInt(key.label) - 1].name != "" &&
             !/\p{L}/u.test(key.label)
           ) {
-            newSKey.label = superkeys[parseInt(key.label) - 1].name.substr(0, 5).toLowerCase();
+            newSKey.label = superkeys[parseInt(key.label) - 1].name.substr(0, 5);
           }
         }
         return newSKey;

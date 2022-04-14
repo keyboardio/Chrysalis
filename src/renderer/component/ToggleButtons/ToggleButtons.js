@@ -56,6 +56,7 @@ const ToggleButtons = ({ selectDarkMode, value, listElements, style, size }) => 
             onClick={e => selectDarkMode(item.value)}
             selected={value === item.value ? true : false}
             icoSVG={item.icon}
+            icoPosition="left"
             key={index}
             buttonText={item.name}
             size={size}

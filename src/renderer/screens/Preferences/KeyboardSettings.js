@@ -134,76 +134,6 @@ class KeyboardSettings extends React.Component {
         </MenuItem>
       );
     });
-    const defaultLayerSelect = (
-      <Select
-        onChange={this.selectDefaultLayer}
-        sx={{ mb: 2 }}
-        value={defaultLayer}
-        variant="filled"
-        input={<FilledInput sx={{}} />}
-      >
-        <MenuItem value={126}>
-          {i18n.t("keyboardSettings.keymap.noDefault")}
-        </MenuItem>
-        {layers}
-      </Select>
-    );
-    const brightnessControl = (
-      <Slider
-        max={255}
-        value={ledBrightness}
-        sx={{ width: "300" }}
-        onChange={this.setBrightness}
-      />
-    );
-    const idleControl = (
-      <Select
-        onChange={this.selectIdleLEDTime}
-        value={ledIdleTimeLimit}
-        variant="filled"
-        input={
-          <FilledInput
-            sx={{
-              marginTop: 2,
-            }}
-          />
-        }
-      >
-        <MenuItem value={0}>
-          {i18n.t("keyboardSettings.led.idleDisabled")}
-        </MenuItem>
-        <MenuItem value={60}>
-          {i18n.t("keyboardSettings.led.idle.oneMinute")}
-        </MenuItem>
-        <MenuItem value={120}>
-          {i18n.t("keyboardSettings.led.idle.twoMinutes")}
-        </MenuItem>
-        <MenuItem value={180}>
-          {i18n.t("keyboardSettings.led.idle.threeMinutes")}
-        </MenuItem>
-        <MenuItem value={240}>
-          {i18n.t("keyboardSettings.led.idle.fourMinutes")}
-        </MenuItem>
-        <MenuItem value={300}>
-          {i18n.t("keyboardSettings.led.idle.fiveMinutes")}
-        </MenuItem>
-        <MenuItem value={600}>
-          {i18n.t("keyboardSettings.led.idle.tenMinutes")}
-        </MenuItem>
-        <MenuItem value={900}>
-          {i18n.t("keyboardSettings.led.idle.fifteenMinutes")}
-        </MenuItem>
-        <MenuItem value={1200}>
-          {i18n.t("keyboardSettings.led.idle.twentyMinutes")}
-        </MenuItem>
-        <MenuItem value={1800}>
-          {i18n.t("keyboardSettings.led.idle.thirtyMinutes")}
-        </MenuItem>
-        <MenuItem value={3600}>
-          {i18n.t("keyboardSettings.led.idle.sixtyMinutes")}
-        </MenuItem>
-      </Select>
-    );
 
     return (
       <React.Fragment>
@@ -229,32 +159,79 @@ class KeyboardSettings extends React.Component {
                 <InputLabel>
                   {i18n.t("keyboardSettings.keymap.defaultLayer")}
                 </InputLabel>
-                {defaultLayerSelect}
+                <Select
+                  onChange={this.selectDefaultLayer}
+                  sx={{ mb: 2 }}
+                  value={defaultLayer}
+                  variant="filled"
+                  input={<FilledInput sx={{}} />}
+                >
+                  <MenuItem value={126}>
+                    {i18n.t("keyboardSettings.keymap.noDefault")}
+                  </MenuItem>
+                  {layers}
+                </Select>
               </FormControl>
 
               {ledIdleTimeLimit >= 0 && (
-                <FormControlLabel
-                  control={idleControl}
-                  sx={{
-                    flexGrow: 1,
-                    display: "flex",
-                    marginRight: 2,
-                  }}
-                  labelPlacement="start"
-                  label={i18n.t("keyboardSettings.led.idleTimeLimit")}
-                />
+                <FormControl variant="standard" fullWidth={true}>
+                  <InputLabel>
+                    {i18n.t("keyboardSettings.led.idleTimeLimit")}
+                  </InputLabel>
+                  <Select
+                    onChange={this.selectIdleLEDTime}
+                    value={ledIdleTimeLimit}
+                    variant="filled"
+                    input={<FilledInput sx={{}} />}
+                  >
+                    <MenuItem value={0}>
+                      {i18n.t("keyboardSettings.led.idleDisabled")}
+                    </MenuItem>
+                    <MenuItem value={60}>
+                      {i18n.t("keyboardSettings.led.idle.oneMinute")}
+                    </MenuItem>
+                    <MenuItem value={120}>
+                      {i18n.t("keyboardSettings.led.idle.twoMinutes")}
+                    </MenuItem>
+                    <MenuItem value={180}>
+                      {i18n.t("keyboardSettings.led.idle.threeMinutes")}
+                    </MenuItem>
+                    <MenuItem value={240}>
+                      {i18n.t("keyboardSettings.led.idle.fourMinutes")}
+                    </MenuItem>
+                    <MenuItem value={300}>
+                      {i18n.t("keyboardSettings.led.idle.fiveMinutes")}
+                    </MenuItem>
+                    <MenuItem value={600}>
+                      {i18n.t("keyboardSettings.led.idle.tenMinutes")}
+                    </MenuItem>
+                    <MenuItem value={900}>
+                      {i18n.t("keyboardSettings.led.idle.fifteenMinutes")}
+                    </MenuItem>
+                    <MenuItem value={1200}>
+                      {i18n.t("keyboardSettings.led.idle.twentyMinutes")}
+                    </MenuItem>
+                    <MenuItem value={1800}>
+                      {i18n.t("keyboardSettings.led.idle.thirtyMinutes")}
+                    </MenuItem>
+                    <MenuItem value={3600}>
+                      {i18n.t("keyboardSettings.led.idle.sixtyMinutes")}
+                    </MenuItem>
+                  </Select>
+                </FormControl>
               )}
               {ledBrightness >= 0 && (
-                <FormControlLabel
-                  sx={{
-                    flexGrow: 1,
-                    marginTop: 2,
-                    marginRight: 2,
-                  }}
-                  control={brightnessControl}
-                  labelPlacement="start"
-                  label={i18n.t("keyboardSettings.led.brightness")}
-                />
+                <FormControl variant="standard" fullWidth={true}>
+                  <Typography variant="caption" gutterBottom>
+                    {i18n.t("keyboardSettings.led.brightness")}
+                  </Typography>
+                  <Slider
+                    max={255}
+                    value={ledBrightness}
+                    sx={{ width: "300" }}
+                    onChange={this.setBrightness}
+                  />
+                </FormControl>
               )}
             </FormGroup>
           </CardContent>

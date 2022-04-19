@@ -798,6 +798,7 @@ class SuperkeysEditor extends React.Component {
           onToogle={this.onToogle}
           isStandardView={isStandardViewSuperkeys}
           tooltip={i18n.editor.superkeys.tooltip}
+          isDisabled={true}
         />
         <Modal show={this.state.showDeleteModal} onHide={this.toggleDeleteModal} style={{ marginTop: "100px" }}>
           <ModalStyle>

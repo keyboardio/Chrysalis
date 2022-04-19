@@ -94,7 +94,7 @@ h5 {
  * @returns {<LayoutViewSelector>} Badge component.
  */
 
-const LayoutViewSelector = ({ onToogle, isStandardView, tooltip }) => {
+const LayoutViewSelector = ({ onToogle, isStandardView, tooltip, isDisabled }) => {
   return (
     <Style className={`layoutSelector`}>
       <Title text={i18n.editor.editMode.title} headingLevel={5} tooltip={tooltip ? tooltip : false} />
@@ -107,6 +107,7 @@ const LayoutViewSelector = ({ onToogle, isStandardView, tooltip }) => {
             selected={isStandardView}
             buttonText={i18n.editor.editMode.standardView}
             size={"sm"}
+            disabled={isDisabled}
           />
           <ButtonConfig
             onClick={onToogle}
@@ -115,6 +116,7 @@ const LayoutViewSelector = ({ onToogle, isStandardView, tooltip }) => {
             selected={!isStandardView}
             buttonText={i18n.editor.editMode.singleView}
             size={"sm"}
+            disabled={isDisabled}
           />
         </div>
       </div>

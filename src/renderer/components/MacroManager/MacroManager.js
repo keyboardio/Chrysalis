@@ -23,6 +23,8 @@ import i18n from "../../i18n";
 import MacroForm from "./MacroForm";
 import Slider from "react-rangeslider";
 
+import { IconFloppyDisk } from "../../component/Icon";
+
 const Styles = Styled.div`
 .card {
   width: auto;
@@ -66,6 +68,10 @@ const Styles = Styled.div`
   &:last-child {
     padding-bottom: 0px;
   }
+}
+.iconFloppy{
+  margin-right: 6px;
+  width: 27px;
 }
 .cardHeader {
   background-color: ${({ theme }) => theme.card.background};
@@ -206,6 +212,7 @@ class MacroManager extends Component {
             <div className="macroHeaderMem">
               <div className="macroHeaderTitle">{i18n.editor.macros.title}</div>
               <div className="macroFreeMem">
+                <IconFloppyDisk className="iconFloppy" />
                 <span className="tagsfix">Empty</span>
                 <Slider
                   className={`memSlider ${this.state.freeMemory > 1899 ? "outOfMem" : ""}`}

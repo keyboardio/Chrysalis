@@ -18,18 +18,9 @@
 import React, { useEffect, useState } from "react";
 const { ipcRenderer } = require("electron");
 
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import Collapse from "@mui/material/Collapse";
-import FilledInput from "@mui/material/FilledInput";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import FormGroup from "@mui/material/FormGroup";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
 import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
 
@@ -38,12 +29,10 @@ import i18n from "../../i18n";
 import Focus from "../../../api/focus";
 
 const Store = require("electron-store");
-const settings = new Store();
 
-function AdvancedPreferences(props) {
+function DevtoolsPreferences(props) {
   let focus = new Focus();
   const [devTools, setDevTools] = useState(false);
-  const [advanced, setAdvanced] = useState(false);
   const [verboseFocus, setVerboseFocus] = useState(focus.debug);
   useEffect(() => {
     ipcRenderer.invoke("devtools-is-open").then((result) => {
@@ -123,4 +112,4 @@ function AdvancedPreferences(props) {
   );
 }
 
-export { AdvancedPreferences };
+export { DevtoolsPreferences };

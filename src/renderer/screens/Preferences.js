@@ -15,84 +15,136 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useEffect, useState } from "react";
-const { ipcRenderer } = require("electron");
+import React from "react";
 
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Collapse from "@mui/material/Collapse";
-import FilledInput from "@mui/material/FilledInput";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import FormGroup from "@mui/material/FormGroup";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
 import Portal from "@mui/material/Portal";
-import Select from "@mui/material/Select";
-import Switch from "@mui/material/Switch";
-import Typography from "@mui/material/Typography";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import PropTypes from "prop-types";
 
 import {
   KeyboardSettings,
   AdvancedKeyboardSettings,
 } from "./Preferences/KeyboardSettings";
 import { BasicPreferences } from "./Preferences/Basic";
-import { AdvancedPreferences } from "./Preferences/Advanced";
+import { DevtoolsPreferences } from "./Preferences/Devtools";
 import i18n from "../i18n";
 
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`vertical-tabpanel-${index}`}
+      aria-labelledby={`vertical-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box
+          sx={{
+            px: 3,
+            width: "100%",
+          }}
+        >
+          {children}
+        </Box>
+      )}
+    </div>
+  );
+}
+function a11yProps(index) {
+  return {
+    id: `vertical-tab-${index}`,
+    "aria-controls": `vertical-tabpanel-${index}`,
+  };
+}
+
 function Preferences(props) {
-  const [advanced, setAdvanced] = useState(false);
-  const darkMode = props.darkMode;
-  const toggleDarkMode = props.toggleDarkMode;
-  const toggleAdvanced = () => {
-    setAdvanced(!advanced);
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
   };
 
   return (
-    <Box sx={{ py: 2, px: 2, margin: "0 8" }}>
+    <Box
+      sx={{
+        flexGrow: 1,
+        bgcolor: "background.paper",
+        display: "flex",
+        height: "100%",
+        width: "100%",
+      }}
+    >
       <Portal container={props.titleElement}>
         {i18n.t("app.menu.preferences")}
       </Portal>
-      <BasicPreferences darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-      {props.connected && (
-        <KeyboardSettings
-          startContext={props.startContext}
-          cancelContext={props.cancelContext}
-          inContext={props.inContext}
-        />
-      )}
-      <Box
+      <Tabs
+        orientation="vertical"
+        variant="scrollable"
+        value={value}
+        onChange={handleChange}
         sx={{
+          borderRight: 1,
+          borderColor: "divider",
           display: "flex",
-          justifyContent: "center",
-          marginTop: 4,
-          "& button": {
-            textTransform: "none",
-            "& span svg": {
-              marginLeft: "1.5em",
-            },
-          },
+          alignItems: "left",
+          height: "100%",
+          minWidth: 300,
         }}
       >
-        <Button onClick={toggleAdvanced}>
-          {i18n.t("preferences.advanced")}
-          {advanced ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-        </Button>
-      </Box>
-      <Collapse in={advanced} timeout="auto" unmountOnExit>
-        <AdvancedPreferences />
-        {props.connected && (
+        <Tab label={i18n.t("preferences.interface")} {...a11yProps(0)} />
+        <Tab
+          label={i18n.t("keyboardSettings.title")}
+          {...a11yProps(1)}
+          disabled={!props.connected}
+        />
+        <Tab
+          label={i18n.t("keyboardSettings.advanced")}
+          {...a11yProps(2)}
+          disabled={!props.connected}
+        />
+        <Tab label={i18n.t("preferences.devtools")} {...a11yProps(3)} />
+      </Tabs>
+      <Box
+        sx={{
+          flexGrow: 1,
+        }}
+      >
+        <TabPanel value={value} index={0}>
+          <BasicPreferences
+            darkMode={props.darkMode}
+            toggleDarkMode={props.toggleDarkMode}
+          />
+        </TabPanel>
+
+        <TabPanel value={value} index={1}>
+          <KeyboardSettings
+            startContext={props.startContext}
+            cancelContext={props.cancelContext}
+            inContext={props.inContext}
+          />
+        </TabPanel>
+        <TabPanel value={value} index={2}>
           <AdvancedKeyboardSettings
             startContext={props.startContext}
             cancelContext={props.cancelContext}
             inContext={props.inContext}
           />
-        )}
-      </Collapse>
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+          <DevtoolsPreferences />
+        </TabPanel>
+      </Box>
     </Box>
   );
 }

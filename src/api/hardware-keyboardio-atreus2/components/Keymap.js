@@ -72,8 +72,8 @@ class Keymap extends React.Component {
       const keyIndex = parseInt(row) * 12 + parseInt(col);
       const strokeColor = "transparent" || "#b3b3b3";
       const stroke = active ? "#f3b3b3" : strokeColor;
-      const height = props.height || 42;
-      const width = props.width || 42;
+      const height = props.height || 44;
+      const width = props.width || 44;
       const bottom = y + height - 5;
       /*
         const textColor = "#000000";
@@ -115,17 +115,19 @@ class Keymap extends React.Component {
       );
     };
 
+    const { classes } = this.props;
+
     return (
       <svg
         viewBox="0 0 855 362"
         xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="xMidYMin meet"
+        preserveAspectRatio="xMinYMin meet"
         style={{
           background: `url(${Atreus})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "100%",
         }}
-        className="layer"
+        className={classNames(classes?.svg, this.props.className || "layer")}
       >
         <g transform="translate(80,0)">
           <g transform="rotate(10)">
@@ -158,7 +160,7 @@ class Keymap extends React.Component {
           </g>
 
           <g transform="rotate(-10)">
-            <g transform="translate(0, 116.75)">
+            <g transform="translate(0, 120.5)">
               <Key row={0} col={7} />
               <Key row={0} col={8} />
               <Key row={0} col={9} />

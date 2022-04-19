@@ -18,33 +18,26 @@
 import React from "react";
 import i18n from "i18next";
 
-import withStyles from "@mui/styles/withStyles";
+import CategorySelector from "@renderer/screens/Editor/components/CategorySelector";
 
-import CategorySelector from "../components/CategorySelector";
+const LEDKeys = (props) => {
+  const { keymap, selectedKey, layer, onKeyChange, colormap } = props;
 
-const styles = () => ({});
-
-class LEDKeysBase extends React.Component {
-  render() {
-    const { keymap, selectedKey, layer, onKeyChange, colormap } = this.props;
-
-    if (!colormap || colormap.palette.length == 0) {
-      return null;
-    }
-
-    return (
-      <CategorySelector
-        title={i18n.t("editor.sidebar.ledcontrol.title")}
-        help={i18n.t("editor.sidebar.ledcontrol.help")}
-        category="ledkeys"
-        keymap={keymap}
-        selectedKey={selectedKey}
-        layer={layer}
-        onKeyChange={onKeyChange}
-      />
-    );
+  if (!colormap || colormap.palette.length == 0) {
+    return null;
   }
-}
-const LEDKeys = withStyles(styles, { withTheme: true })(LEDKeysBase);
+
+  return (
+    <CategorySelector
+      title={i18n.t("editor.sidebar.ledcontrol.title")}
+      help={i18n.t("editor.sidebar.ledcontrol.help")}
+      category="ledkeys"
+      keymap={keymap}
+      selectedKey={selectedKey}
+      layer={layer}
+      onKeyChange={onKeyChange}
+    />
+  );
+};
 
 export { LEDKeys as default };

@@ -18,31 +18,22 @@
 import React from "react";
 import i18n from "i18next";
 
-import withStyles from "@mui/styles/withStyles";
+import CategorySelector from "@renderer/screens/Editor/components/CategorySelector";
 
-import CategorySelector from "../components/CategorySelector";
+const SpaceCadetKeys = (props) => {
+  const { keymap, selectedKey, layer, onKeyChange } = props;
 
-const styles = () => ({});
-
-class SpaceCadetKeysBase extends React.Component {
-  render() {
-    const { keymap, selectedKey, layer, onKeyChange } = this.props;
-
-    return (
-      <CategorySelector
-        title={i18n.t("editor.sidebar.spacecadet.title")}
-        help={i18n.t("editor.sidebar.spacecadet.help")}
-        category="spacecadet"
-        keymap={keymap}
-        selectedKey={selectedKey}
-        layer={layer}
-        onKeyChange={onKeyChange}
-      />
-    );
-  }
-}
-const SpaceCadetKeys = withStyles(styles, { withTheme: true })(
-  SpaceCadetKeysBase
-);
+  return (
+    <CategorySelector
+      title={i18n.t("editor.sidebar.spacecadet.title")}
+      help={i18n.t("editor.sidebar.spacecadet.help")}
+      category="spacecadet"
+      keymap={keymap}
+      selectedKey={selectedKey}
+      layer={layer}
+      onKeyChange={onKeyChange}
+    />
+  );
+};
 
 export { SpaceCadetKeys as default };

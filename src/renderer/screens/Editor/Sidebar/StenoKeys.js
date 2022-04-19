@@ -18,29 +18,22 @@
 import React from "react";
 import i18n from "i18next";
 
-import withStyles from "@mui/styles/withStyles";
+import CategorySelector from "@renderer/screens/Editor/components/CategorySelector";
 
-import CategorySelector from "../components/CategorySelector";
+const StenoKeys = (props) => {
+  const { keymap, selectedKey, layer, onKeyChange } = props;
 
-const styles = () => ({});
-
-class StenoKeysBase extends React.Component {
-  render() {
-    const { keymap, selectedKey, layer, onKeyChange } = this.props;
-
-    return (
-      <CategorySelector
-        title={i18n.t("editor.sidebar.steno.title")}
-        help={i18n.t("editor.sidebar.steno.help")}
-        category="steno"
-        keymap={keymap}
-        selectedKey={selectedKey}
-        layer={layer}
-        onKeyChange={onKeyChange}
-      />
-    );
-  }
-}
-const StenoKeys = withStyles(styles, { withTheme: true })(StenoKeysBase);
+  return (
+    <CategorySelector
+      title={i18n.t("editor.sidebar.steno.title")}
+      help={i18n.t("editor.sidebar.steno.help")}
+      category="steno"
+      keymap={keymap}
+      selectedKey={selectedKey}
+      layer={layer}
+      onKeyChange={onKeyChange}
+    />
+  );
+};
 
 export { StenoKeys as default };

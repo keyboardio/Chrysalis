@@ -20,12 +20,10 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
 import PropTypes from "prop-types";
-import withStyles from "@mui/styles/withStyles";
 import Grid from "@mui/material/Grid";
 import ColorButton from "./ColorButton";
 
 ColorButtonsArea.propTypes = {
-  classes: PropTypes.object.isRequired,
   colorFocusButton: PropTypes.object,
   indexFocusButton: PropTypes.any,
   setIsFocus: PropTypes.func.isRequired,
@@ -33,18 +31,8 @@ ColorButtonsArea.propTypes = {
   disabled: PropTypes.bool.isRequired,
 };
 
-const styles = (theme) => ({
-  palette: {
-    padding: "5px 0",
-    [theme.breakpoints.down("md")]: {
-      padding: 0,
-    },
-  },
-});
-
 /**
  * Reactjs functional component that create area for color buttons
- * @param {object} classes Property that sets up CSS classes that adding to HTML elements
  * @param {object} colorFocusButton Object with keys that defining colors using the Red-green-blue-alpha (RGBA) model for focus button
  * @param {number} indexFocusButton Number of focus button (from 0 to 15)
  * @param {function} setIsFocus Callback function from ColorPalette component. Parameters are: first - index of color button in palette (from 0 to 15), second - object with keys that defining colors using the Red-green-blue-alpha (RGBA) model, third - event
@@ -52,14 +40,8 @@ const styles = (theme) => ({
  * @param {boolean} disabled Property that disable component
  */
 function ColorButtonsArea(props) {
-  const {
-    classes,
-    colorFocusButton,
-    indexFocusButton,
-    setIsFocus,
-    palette,
-    disabled,
-  } = props;
+  const { colorFocusButton, indexFocusButton, setIsFocus, palette, disabled } =
+    props;
 
   /**
    * This is Hook that lets add React state "colorButtonsAmount" to functional components
@@ -98,10 +80,14 @@ function ColorButtonsArea(props) {
   };
 
   return (
-    <div className={classes.palette}>
+    <div
+      sx={{
+        padding: { sm: 0, md: "5px 0" },
+      }}
+    >
       <Grid container>{displayGrids()}</Grid>
     </div>
   );
 }
 
-export default withStyles(styles)(ColorButtonsArea);
+export default ColorButtonArea;

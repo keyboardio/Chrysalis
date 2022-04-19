@@ -16,11 +16,12 @@
  */
 
 import React from "react";
+import i18n from "i18next";
 
 import Drawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
 
-import Title from "./Sidebar/Title";
 import Overview from "./Sidebar/Overview";
 import Colormap from "./Sidebar/Colormap";
 import KeyPicker from "./Sidebar/KeyPicker";
@@ -41,8 +42,7 @@ import CustomKey from "./Sidebar/CustomKey";
 const sidebarWidth = 360;
 
 const Sidebar = (props) => {
-  const { classes, keymap, selectedKey, selectedLed, layer, layout, colormap } =
-    props;
+  const { keymap, selectedKey, selectedLed, layer, layout, colormap } = props;
 
   const widgets = [
     KeyPicker,
@@ -98,7 +98,9 @@ const Sidebar = (props) => {
     >
       <Toolbar />
       <div sx={{ p: 3 }}>
-        <Title selectedKey={selectedKey} layer={layer} keymap={keymap} />
+        <Typography variant="h6" sx={{ mb: 2 }}>
+          {i18n.t("components.layer", { index: layer })}
+        </Typography>
         <Overview
           keymap={keymap}
           colormap={colormap}

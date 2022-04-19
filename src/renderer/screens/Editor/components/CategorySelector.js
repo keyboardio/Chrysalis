@@ -19,17 +19,14 @@ import React from "react";
 
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-import withStyles from "@mui/styles/withStyles";
 
 import KeyButtonList from "../components/KeyButtonList";
 import Collapsible from "../components/Collapsible";
-import { KeymapDB } from "../../../../api/keymap";
+import { KeymapDB } from "@api/keymap";
 
 const db = new KeymapDB();
 
-const styles = () => ({});
-
-class CategorySelectorBase extends React.Component {
+class CategorySelector extends React.Component {
   state = {
     pickerOpen: false,
   };
@@ -72,8 +69,5 @@ class CategorySelectorBase extends React.Component {
     );
   }
 }
-const CategorySelector = withStyles(styles, { withTheme: true })(
-  CategorySelectorBase
-);
 
 export { CategorySelector as default };

@@ -25,21 +25,14 @@ import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import withStyles from "@mui/styles/withStyles";
 
 import Collapsible from "../components/Collapsible";
 import KeyButton from "../components/KeyButton";
-import { KeymapDB } from "../../../../api/keymap";
+import { KeymapDB } from "@api/keymap";
 
 const db = new KeymapDB();
 
-const styles = (theme) => ({
-  card: {
-    marginBottom: theme.spacing(1),
-  },
-});
-
-const MouseMovementKeys = withStyles(styles)((props) => {
+const MouseMovementKeys = (props) => {
   const mouseUp = db.lookup(20481);
   const mouseLeft = db.lookup(20484);
   const mouseDown = db.lookup(20482);
@@ -60,9 +53,9 @@ const MouseMovementKeys = withStyles(styles)((props) => {
       </Box>
     </div>
   );
-});
+};
 
-const MouseButtonKeys = withStyles(styles)((props) => {
+const MouseButtonKeys = (props) => {
   const left = db.lookup(20545);
   const middle = db.lookup(20548);
   const right = db.lookup(20546);
@@ -85,9 +78,9 @@ const MouseButtonKeys = withStyles(styles)((props) => {
       </Box>
     </div>
   );
-});
+};
 
-const MouseWheelKeys = withStyles(styles)((props) => {
+const MouseWheelKeys = (props) => {
   const up = db.lookup(20497);
   const down = db.lookup(20498);
   const left = db.lookup(20500);
@@ -107,9 +100,9 @@ const MouseWheelKeys = withStyles(styles)((props) => {
       </Box>
     </div>
   );
-});
+};
 
-const MouseWarpKeys = withStyles(styles)((props) => {
+const MouseWarpKeys = (props) => {
   const warpNW = db.lookup(20517);
   const warpNE = db.lookup(20521);
   const warpSW = db.lookup(20518);
@@ -130,36 +123,33 @@ const MouseWarpKeys = withStyles(styles)((props) => {
       <KeyButton onKeyChange={props.onKeyChange} keyObj={warpEnd} noHint />
     </div>
   );
-});
+};
 
-class MouseKeysBase extends React.Component {
-  render() {
-    const { keymap, selectedKey, layer, onKeyChange } = this.props;
-    const key = keymap.custom[layer][selectedKey];
+const MouseKeys = (props) => {
+  const { keymap, selectedKey, layer, onKeyChange } = props;
+  const key = keymap.custom[layer][selectedKey];
 
-    const subWidgets = [
-      MouseMovementKeys,
-      MouseButtonKeys,
-      MouseWheelKeys,
-      MouseWarpKeys,
-    ];
-    const widgets = subWidgets.map((Widget, index) => {
-      return (
-        <Widget key={`mousekeys-group-${index}`} onKeyChange={onKeyChange} />
-      );
-    });
-
+  const subWidgets = [
+    MouseMovementKeys,
+    MouseButtonKeys,
+    MouseWheelKeys,
+    MouseWarpKeys,
+  ];
+  const widgets = subWidgets.map((Widget, index) => {
     return (
-      <Collapsible
-        expanded={db.isInCategory(key.code, "mousekeys")}
-        title={i18n.t("editor.sidebar.mousekeys.title")}
-        help={i18n.t("editor.sidebar.mousekeys.help")}
-      >
-        {widgets}
-      </Collapsible>
+      <Widget key={`mousekeys-group-${index}`} onKeyChange={onKeyChange} />
     );
-  }
-}
-const MouseKeys = withStyles(styles, { withTheme: true })(MouseKeysBase);
+  });
+
+  return (
+    <Collapsible
+      expanded={db.isInCategory(key.code, "mousekeys")}
+      title={i18n.t("editor.sidebar.mousekeys.title")}
+      help={i18n.t("editor.sidebar.mousekeys.help")}
+    >
+      {widgets}
+    </Collapsible>
+  );
+};
 
 export { MouseKeys as default };

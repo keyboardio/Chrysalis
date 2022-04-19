@@ -23,17 +23,14 @@ import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import withStyles from "@mui/styles/withStyles";
 
 import Collapsible from "../components/Collapsible";
-import { KeymapDB } from "../../../../api/keymap";
+import { KeymapDB } from "@api/keymap";
 
 const db = new KeymapDB();
 
-const styles = () => ({});
-
-class CustomKeyBase extends React.Component {
-  onKeyChange = (event) => {
+const CustomKey = (props) => {
+  const onKeyChange = (event) => {
     let value = event.target.value;
     if (value < 0) {
       value = 65535;
@@ -41,37 +38,34 @@ class CustomKeyBase extends React.Component {
     if (value > 65535) {
       value = 0;
     }
-    this.props.onKeyChange(value);
+    props.onKeyChange(value);
   };
 
-  render() {
-    const { classes, keymap, selectedKey, layer } = this.props;
-    const key = keymap.custom[layer][selectedKey];
+  const { keymap, selectedKey, layer } = props;
+  const key = keymap.custom[layer][selectedKey];
 
-    return (
-      <React.Fragment>
-        <Collapsible
-          title={i18n.t("editor.sidebar.custom.title")}
-          help={i18n.t("editor.sidebar.custom.help")}
-          expanded={db.isInCategory(key.code, "unknown")}
-        >
-          <div>
-            <FormControl className={classes.form}>
-              <InputLabel>{i18n.t("editor.sidebar.custom.label")}</InputLabel>
-              <Input
-                type="number"
-                min={0}
-                max={65535}
-                value={key.code}
-                onChange={this.onKeyChange}
-              />
-            </FormControl>
-          </div>
-        </Collapsible>
-      </React.Fragment>
-    );
-  }
-}
-const CustomKey = withStyles(styles, { withTheme: true })(CustomKeyBase);
+  return (
+    <React.Fragment>
+      <Collapsible
+        title={i18n.t("editor.sidebar.custom.title")}
+        help={i18n.t("editor.sidebar.custom.help")}
+        expanded={db.isInCategory(key.code, "unknown")}
+      >
+        <div>
+          <FormControl>
+            <InputLabel>{i18n.t("editor.sidebar.custom.label")}</InputLabel>
+            <Input
+              type="number"
+              min={0}
+              max={65535}
+              value={key.code}
+              onChange={onKeyChange}
+            />
+          </FormControl>
+        </div>
+      </Collapsible>
+    </React.Fragment>
+  );
+};
 
 export { CustomKey as default };

@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
+import React, { useState } from "react";
 import i18n from "i18next";
 
 import FormControl from "@mui/material/FormControl";
@@ -23,18 +23,16 @@ import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import withStyles from "@mui/styles/withStyles";
 
 import Collapsible from "../components/Collapsible";
-import { KeymapDB } from "../../../../api/keymap";
+import { KeymapDB } from "@api/keymap";
 
 const db = new KeymapDB();
 
-const styles = () => ({});
-
-class LayerKeysBase extends React.Component {
-  getMaxLayer = () => {
-    const { keymap, selectedKey, layer } = this.props;
+const LayerKeys = (props) => {
+  const [expanded, setExpanded] = useState(false);
+  const getMaxLayer = () => {
+    const { keymap, selectedKey, layer } = props;
     const key = keymap.custom[layer][selectedKey];
     let max = keymap.custom.length - 1;
 
@@ -44,107 +42,100 @@ class LayerKeysBase extends React.Component {
     }
     return max;
   };
-  updateExpandedBasedOnKey = (props) => {
+  const updateExpandedBasedOnKey = (props) => {
     const { selectedKey, keymap, layer } = props;
     const key = keymap.custom[layer][selectedKey];
 
     if (db.isInCategory(key.code, "layer")) {
-      this.setState({ expanded: true });
+      setExpanded(true);
     } else {
-      this.setState({ expanded: false });
+      setExpanded(false);
     }
   };
 
-  onKeyChange = (keyCode) => {
-    this.props.onKeyChange(keyCode);
-    this.closePicker();
+  const onKeyChange = (keyCode) => {
+    props.onKeyChange(keyCode);
   };
 
-  onTargetLayerChange = (event, max) => {
-    const { keymap, selectedKey, layer } = this.props;
+  const onTargetLayerChange = (event, max) => {
+    const { keymap, selectedKey, layer } = props;
     const key = keymap.custom[layer][selectedKey];
     const target = Math.min(parseInt(event.target.value) || 0, max);
 
-    this.props.onKeyChange(key.rangeStart + target);
+    props.onKeyChange(key.rangeStart + target);
   };
 
-  onTypeChange = (event) => {
+  const onTypeChange = (event) => {
     const typeStarts = {
       locktolayer: 17408,
       shifttolayer: 17450,
       movetolayer: 17492,
       oneshot: 49161,
     };
-    const { keymap, selectedKey, layer } = this.props;
+    const { keymap, selectedKey, layer } = props;
     const key = keymap.custom[layer][selectedKey];
     const targetLayer = key.target || 0;
 
-    this.props.onKeyChange(typeStarts[event.target.value] + targetLayer);
+    props.onKeyChange(typeStarts[event.target.value] + targetLayer);
   };
 
-  render() {
-    const { classes, keymap, selectedKey, layer } = this.props;
-    const key = keymap.custom[layer][selectedKey];
+  const { keymap, selectedKey, layer } = props;
+  const key = keymap.custom[layer][selectedKey];
 
-    let type = "none",
-      targetLayer = -1;
+  let type = "none",
+    targetLayer = -1;
 
-    if (db.isInCategory(key.code, "layer")) {
-      targetLayer = key.target;
-      type = key.categories[1];
-    }
-    const max = this.getMaxLayer();
-    return (
-      <React.Fragment>
-        <Collapsible
-          title={i18n.t("editor.sidebar.layer.title")}
-          help={i18n.t("editor.sidebar.layer.help")}
-          expanded={db.isInCategory(key.code, "layer")}
-        >
-          <div>
-            <FormControl className={classes.form}>
-              <InputLabel>{i18n.t("editor.layerswitch.type")}</InputLabel>
-              <Select value={type} onChange={this.onTypeChange}>
-                <MenuItem value="none" disabled selected>
-                  {i18n.t("components.none")}
-                </MenuItem>
-                <MenuItem
-                  value="shifttolayer"
-                  selected={type == "shifttolayer"}
-                >
-                  {i18n.t("editor.layerswitch.shiftTo")}
-                </MenuItem>
-                <MenuItem value="locktolayer" selected={type == "locktolayer"}>
-                  {i18n.t("editor.layerswitch.lockTo")}
-                </MenuItem>
-                <MenuItem value="movetolayer" selected={type == "movetolayer"}>
-                  {i18n.t("editor.layerswitch.moveTo")}
-                </MenuItem>
-                <MenuItem value="oneshot" selected={type == "oneshot"}>
-                  {i18n.t("editor.layerswitch.oneshot")}
-                </MenuItem>
-                <MenuItem value="dualuse" selected={type == "dualuse"} disabled>
-                  {i18n.t("editor.layerswitch.dualuse")}
-                </MenuItem>
-              </Select>
-            </FormControl>
-            <FormControl className={classes.form}>
-              <InputLabel>{i18n.t("editor.layerswitch.target")}</InputLabel>
-              <Input
-                type="number"
-                min={0}
-                max={max}
-                value={targetLayer < 0 ? "" : targetLayer}
-                disabled={targetLayer < 0}
-                onChange={(event) => this.onTargetLayerChange(event, max)}
-              />
-            </FormControl>
-          </div>
-        </Collapsible>
-      </React.Fragment>
-    );
+  if (db.isInCategory(key.code, "layer")) {
+    targetLayer = key.target;
+    type = key.categories[1];
   }
-}
-const LayerKeys = withStyles(styles, { withTheme: true })(LayerKeysBase);
+  const max = getMaxLayer();
+  return (
+    <React.Fragment>
+      <Collapsible
+        title={i18n.t("editor.sidebar.layer.title")}
+        help={i18n.t("editor.sidebar.layer.help")}
+        expanded={db.isInCategory(key.code, "layer")}
+      >
+        <div>
+          <FormControl>
+            <InputLabel>{i18n.t("editor.layerswitch.type")}</InputLabel>
+            <Select value={type} onChange={onTypeChange}>
+              <MenuItem value="none" disabled selected>
+                {i18n.t("components.none")}
+              </MenuItem>
+              <MenuItem value="shifttolayer" selected={type == "shifttolayer"}>
+                {i18n.t("editor.layerswitch.shiftTo")}
+              </MenuItem>
+              <MenuItem value="locktolayer" selected={type == "locktolayer"}>
+                {i18n.t("editor.layerswitch.lockTo")}
+              </MenuItem>
+              <MenuItem value="movetolayer" selected={type == "movetolayer"}>
+                {i18n.t("editor.layerswitch.moveTo")}
+              </MenuItem>
+              <MenuItem value="oneshot" selected={type == "oneshot"}>
+                {i18n.t("editor.layerswitch.oneshot")}
+              </MenuItem>
+              <MenuItem value="dualuse" selected={type == "dualuse"} disabled>
+                {i18n.t("editor.layerswitch.dualuse")}
+              </MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl>
+            <InputLabel>{i18n.t("editor.layerswitch.target")}</InputLabel>
+            <Input
+              type="number"
+              min={0}
+              max={max}
+              value={targetLayer < 0 ? "" : targetLayer}
+              disabled={targetLayer < 0}
+              onChange={(event) => onTargetLayerChange(event, max)}
+            />
+          </FormControl>
+        </div>
+      </Collapsible>
+    </React.Fragment>
+  );
+};
 
 export { LayerKeys as default };

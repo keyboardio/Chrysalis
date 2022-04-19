@@ -22,7 +22,6 @@ import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import Portal from "@mui/material/Portal";
 import Typography from "@mui/material/Typography";
-import withStyles from "@mui/styles/withStyles";
 
 import { toast } from "react-toastify";
 
@@ -31,7 +30,7 @@ const settings = new Store();
 
 import Focus from "../../../api/focus";
 import Log from "../../../api/log";
-import { KeymapDB, default as Keymap } from "../../../api/keymap";
+import { KeymapDB, default as Keymap } from "@api/keymap";
 
 import Sidebar, { sidebarWidth } from "./Sidebar";
 
@@ -41,18 +40,6 @@ import LoadingScreen from "../../components/LoadingScreen";
 import OnlyCustomScreen from "./components/OnlyCustomScreen";
 
 const db = new KeymapDB();
-
-const styles = (theme) => ({
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    width: `calc(100% - ${sidebarWidth}px)`,
-  },
-  warning: {
-    zIndex: theme.zIndex.drawer + 2,
-    position: "relative",
-  },
-});
 
 class Editor extends React.Component {
   state = {
@@ -310,7 +297,6 @@ class Editor extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
     const {
       currentLayer,
       keymap,
@@ -340,7 +326,10 @@ class Editor extends React.Component {
         <Alert
           severity="error"
           action={migrateButton}
-          className={classes.warning}
+          sx={{
+            zIndex: "modal",
+            position: "relative",
+          }}
         >
           <Typography component="p">
             {i18n.t("editor.legacy.warning")}
@@ -353,7 +342,7 @@ class Editor extends React.Component {
     const focus = new Focus();
     const KeymapSVG = focus.device.components.keymap;
     const keymapWidget = (
-      <div className={classes.editor}>
+      <div>
         <KeymapSVG
           className="layer"
           index={currentLayer}
@@ -362,7 +351,6 @@ class Editor extends React.Component {
           selectedKey={currentKeyIndex}
           palette={colormap.palette}
           colormap={colormap.colorMap[currentLayer]}
-          theme={this.props.theme}
         />
       </div>
     );
@@ -380,7 +368,15 @@ class Editor extends React.Component {
       <React.Fragment>
         <Portal container={this.props.titleElement}>{title}</Portal>
         {legacyAlert}
-        <main className={classes.content}>{keymapWidget}</main>
+        <main
+          sx={{
+            flexGrow: 1,
+            padding: 3,
+            width: `calc(100% - ${sidebarWidth}px)`,
+          }}
+        >
+          {keymapWidget}
+        </main>
         <Sidebar
           keymap={keymap}
           colormap={colormap}
@@ -409,8 +405,4 @@ class Editor extends React.Component {
   }
 }
 
-Editor.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles, { withTheme: true })(Editor);
+export default Editor;

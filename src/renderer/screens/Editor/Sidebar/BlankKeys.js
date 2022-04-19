@@ -18,48 +18,41 @@
 import React from "react";
 import i18n from "i18next";
 
-import withStyles from "@mui/styles/withStyles";
-
 import Collapsible from "../components/Collapsible";
 import KeyButton from "../components/KeyButton";
-import { KeymapDB } from "../../../../api/keymap";
+import { KeymapDB } from "@api/keymap";
 
 const db = new KeymapDB();
 
-const styles = () => ({});
+const BlankKeys = (props) => {
+  const { keymap, selectedKey, layer, onKeyChange } = props;
+  const key = keymap.custom[layer][selectedKey];
 
-class BlankKeysBase extends React.Component {
-  render() {
-    const { keymap, selectedKey, layer, onKeyChange } = this.props;
-    const key = keymap.custom[layer][selectedKey];
+  const keys = [
+    db.lookup(0), // blocked
+    db.lookup(65535), // transparent
+  ];
 
-    const keys = [
-      db.lookup(0), // blocked
-      db.lookup(65535), // transparent
-    ];
-
-    const keyButtons = keys.map((button, index) => {
-      return (
-        <KeyButton
-          key={`blank-${index}`}
-          onKeyChange={onKeyChange}
-          keyObj={button}
-          noHint
-        />
-      );
-    });
-
+  const keyButtons = keys.map((button, index) => {
     return (
-      <Collapsible
-        expanded={db.isInCategory(key.code, "blanks")}
-        title={i18n.t("editor.sidebar.blanks.title")}
-        help={i18n.t("editor.sidebar.blanks.help")}
-      >
-        {keyButtons}
-      </Collapsible>
+      <KeyButton
+        key={`blank-${index}`}
+        onKeyChange={onKeyChange}
+        keyObj={button}
+        noHint
+      />
     );
-  }
-}
-const BlankKeys = withStyles(styles, { withTheme: true })(BlankKeysBase);
+  });
+
+  return (
+    <Collapsible
+      expanded={db.isInCategory(key.code, "blanks")}
+      title={i18n.t("editor.sidebar.blanks.title")}
+      help={i18n.t("editor.sidebar.blanks.help")}
+    >
+      {keyButtons}
+    </Collapsible>
+  );
+};
 
 export { BlankKeys as default };

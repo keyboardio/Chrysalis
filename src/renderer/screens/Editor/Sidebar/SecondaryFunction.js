@@ -12,7 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with  this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 import React from "react";
@@ -24,20 +24,17 @@ import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import withStyles from "@mui/styles/withStyles";
 
 import Collapsible from "../components/Collapsible";
-import { KeymapDB } from "../../../../api/keymap";
-import { addDUM, addDUL } from "../../../../api/keymap/db/base/dualuse";
-import { GuiLabel } from "../../../../api/keymap/db/base/gui";
+import { KeymapDB } from "@api/keymap";
+import { addDUM, addDUL } from "@api/keymap/db/base/dualuse";
+import { GuiLabel } from "@api/keymap/db/base/gui";
 
 const db = new KeymapDB();
 
-const styles = () => ({});
-
-class SecondaryFunctionBase extends React.Component {
-  onTargetLayerChange = (event) => {
-    const { keymap, selectedKey, layer } = this.props;
+const SecondaryFunction = (props) => {
+  const onTargetLayerChange = (event) => {
+    const { keymap, selectedKey, layer } = props;
     const key = keymap.custom[layer][selectedKey];
     const maxLayer = Math.min(keymap.custom.length, 7);
     let target = parseInt(event.target.value) || 0;
@@ -46,38 +43,38 @@ class SecondaryFunctionBase extends React.Component {
     if (target < 0) target = maxLayer;
     if (target > maxLayer) target = 0;
 
-    this.props.onKeyChange(addDUL(db.lookup(code), target));
+    props.onKeyChange(addDUL(db.lookup(code), target));
   };
 
-  onModifierChange = (event) => {
-    const { keymap, selectedKey, layer } = this.props;
+  const onModifierChange = (event) => {
+    const { keymap, selectedKey, layer } = props;
     const key = keymap.custom[layer][selectedKey];
     const modifier = event.target.value;
     const code = key.baseCode || key.code;
 
-    this.props.onKeyChange(addDUM(db.lookup(code), modifier));
+    props.onKeyChange(addDUM(db.lookup(code), modifier));
   };
 
-  onTypeChange = (event) => {
-    const { keymap, selectedKey, layer } = this.props;
+  const onTypeChange = (event) => {
+    const { keymap, selectedKey, layer } = props;
     const key = keymap.custom[layer][selectedKey];
     const code = key.baseCode || key.code;
     const type = event.target.value;
 
     if (type == "none") {
-      return this.props.onKeyChange(code);
+      return props.onKeyChange(code);
     }
     if (type == "layer") {
       const newKey = addDUL(db.lookup(code), 0);
-      return this.props.onKeyChange(newKey.code);
+      return props.onKeyChange(newKey.code);
     }
     if (type == "modifier") {
       const newKey = addDUM(db.lookup(code), "ctrl");
-      return this.props.onKeyChange(newKey.code);
+      return props.onKeyChange(newKey.code);
     }
   };
 
-  keySupportsSecondaryAction = (key) => {
+  const keySupportsSecondaryAction = (key) => {
     return (
       (key.code >= 4 &&
         key.code <= 255 &&
@@ -86,105 +83,97 @@ class SecondaryFunctionBase extends React.Component {
     );
   };
 
-  render() {
-    const { classes, keymap, selectedKey, layer } = this.props;
-    const key = keymap.custom[layer][selectedKey];
-    const maxLayer = Math.min(keymap.custom.length, 7);
+  const { classes, keymap, selectedKey, layer } = props;
+  const key = keymap.custom[layer][selectedKey];
+  const maxLayer = Math.min(keymap.custom.length, 7);
 
-    let type = "none",
-      targetLayer = -1,
-      modifier = "ctrl";
+  let type = "none",
+    targetLayer = -1,
+    modifier = "ctrl";
 
-    let actionTarget;
-    if (db.isInCategory(key.code, "dualuse")) {
-      type = key.categories[0];
+  let actionTarget;
+  if (db.isInCategory(key.code, "dualuse")) {
+    type = key.categories[0];
 
-      if (db.isInCategory(key.code, "modifier")) {
-        modifier = key.categories[2];
+    if (db.isInCategory(key.code, "modifier")) {
+      modifier = key.categories[2];
 
-        actionTarget = (
-          <FormControl className={classes.form}>
+      actionTarget = (
+        <FormControl>
+          <FormGroup row>
+            <InputLabel>
+              {i18n.t("editor.sidebar.secondary.modifier")}
+            </InputLabel>
+            <Select value={modifier} onChange={onModifierChange}>
+              <MenuItem value="ctrl" selected={modifier == "ctrl"}>
+                Control
+              </MenuItem>
+              <MenuItem value="shift" selected={modifier == "shift"}>
+                Shift
+              </MenuItem>
+              <MenuItem value="alt" selected={modifier == "alt"}>
+                Alt
+              </MenuItem>
+              <MenuItem value="gui" selected={modifier == "gui"}>
+                {GuiLabel.full}
+              </MenuItem>
+              <MenuItem value="altgr" selected={modifier == "altgr"}>
+                AltGr
+              </MenuItem>
+            </Select>
+          </FormGroup>
+        </FormControl>
+      );
+    } else if (db.isInCategory(key.code, "layer")) {
+      targetLayer = key.target;
+
+      actionTarget = (
+        <FormControl>
+          <InputLabel>
+            {i18n.t("editor.sidebar.secondary.targetLayer")}
+          </InputLabel>
+          <Input
+            type="number"
+            min={0}
+            max={maxLayer}
+            value={targetLayer < 0 ? "" : targetLayer}
+            disabled={targetLayer < 0}
+            onChange={onTargetLayerChange}
+          />
+        </FormControl>
+      );
+    }
+  }
+
+  return (
+    <React.Fragment>
+      <Collapsible
+        title={i18n.t("editor.sidebar.secondary.title")}
+        help={i18n.t("editor.sidebar.secondary.help")}
+        expanded={keySupportsSecondaryAction(key)}
+      >
+        <div>
+          <FormControl disabled={!keySupportsSecondaryAction(key)}>
             <FormGroup row>
-              <InputLabel>
-                {i18n.t("editor.sidebar.secondary.modifier")}
-              </InputLabel>
-              <Select value={modifier} onChange={this.onModifierChange}>
-                <MenuItem value="ctrl" selected={modifier == "ctrl"}>
-                  Control
+              <InputLabel>{i18n.t("components.type")}</InputLabel>
+              <Select value={type} onChange={onTypeChange}>
+                <MenuItem value="none" selected={type == "none"}>
+                  {i18n.t("editor.sidebar.secondary.type.none")}
                 </MenuItem>
-                <MenuItem value="shift" selected={modifier == "shift"}>
-                  Shift
+                <MenuItem value="modifier" selected={type == "modifier"}>
+                  {i18n.t("editor.sidebar.secondary.type.modifier")}
                 </MenuItem>
-                <MenuItem value="alt" selected={modifier == "alt"}>
-                  Alt
-                </MenuItem>
-                <MenuItem value="gui" selected={modifier == "gui"}>
-                  {GuiLabel.full}
-                </MenuItem>
-                <MenuItem value="altgr" selected={modifier == "altgr"}>
-                  AltGr
+                <MenuItem value="layer" selected={type == "layer"}>
+                  {i18n.t("editor.sidebar.secondary.type.layer")}
                 </MenuItem>
               </Select>
             </FormGroup>
           </FormControl>
-        );
-      } else if (db.isInCategory(key.code, "layer")) {
-        targetLayer = key.target;
-
-        actionTarget = (
-          <FormControl className={classes.form}>
-            <InputLabel>
-              {i18n.t("editor.sidebar.secondary.targetLayer")}
-            </InputLabel>
-            <Input
-              type="number"
-              min={0}
-              max={maxLayer}
-              value={targetLayer < 0 ? "" : targetLayer}
-              disabled={targetLayer < 0}
-              onChange={this.onTargetLayerChange}
-            />
-          </FormControl>
-        );
-      }
-    }
-
-    return (
-      <React.Fragment>
-        <Collapsible
-          title={i18n.t("editor.sidebar.secondary.title")}
-          help={i18n.t("editor.sidebar.secondary.help")}
-          expanded={this.keySupportsSecondaryAction(key)}
-        >
-          <div>
-            <FormControl
-              className={classes.form}
-              disabled={!this.keySupportsSecondaryAction(key)}
-            >
-              <FormGroup row>
-                <InputLabel>{i18n.t("components.type")}</InputLabel>
-                <Select value={type} onChange={this.onTypeChange}>
-                  <MenuItem value="none" selected={type == "none"}>
-                    {i18n.t("editor.sidebar.secondary.type.none")}
-                  </MenuItem>
-                  <MenuItem value="modifier" selected={type == "modifier"}>
-                    {i18n.t("editor.sidebar.secondary.type.modifier")}
-                  </MenuItem>
-                  <MenuItem value="layer" selected={type == "layer"}>
-                    {i18n.t("editor.sidebar.secondary.type.layer")}
-                  </MenuItem>
-                </Select>
-              </FormGroup>
-            </FormControl>
-            {actionTarget}
-          </div>
-        </Collapsible>
-      </React.Fragment>
-    );
-  }
-}
-const SecondaryFunction = withStyles(styles, { withTheme: true })(
-  SecondaryFunctionBase
-);
+          {actionTarget}
+        </div>
+      </Collapsible>
+    </React.Fragment>
+  );
+};
 
 export { SecondaryFunction as default };

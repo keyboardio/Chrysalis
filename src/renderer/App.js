@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { spawn } from "child_process";
 
 const { ipcRenderer } = require("electron");
@@ -31,10 +31,7 @@ import "typeface-roboto/index.css";
 import "typeface-source-code-pro/index.css";
 import { LocationProvider, Router } from "@gatsbyjs/reach-router";
 
-import useMediaQuery from "@mui/material/useMediaQuery";
-
 import CssBaseline from "@mui/material/CssBaseline";
-import withStyles from "@mui/styles/withStyles";
 import {
   ThemeProvider,
   StyledEngineProvider,
@@ -68,48 +65,30 @@ if (isDevelopment) {
 const settingsLanguage = settings.get("ui.language");
 if (settingsLanguage) i18n.changeLanguage(settingsLanguage);
 
-const useStyles = makeStyles((theme) => {});
+const App = (props) => {
+  const logger = new Log();
 
-const styles = () => ({
-  root: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  content: {
-    flexGrow: 1,
-    overflow: "auto",
-  },
-});
+  const [darkMode, setDarkMode] = useState(settings.get("ui.darkMode"));
+  const [connected, setConnected] = useState(false);
+  const [device, setDevice] = useState(null);
+  const [pages, setPages] = useState({});
+  const [contextBar, setContextBar] = useState(false);
+  const [cancelPendingOpen, setCancelPendingOpen] = useState(false);
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
+  localStorage.clear();
 
-    this.logger = new Log();
+  toast.configure({
+    position: "bottom-left",
+    autoClose: false,
+    newestOnTop: true,
+    draggable: false,
+    closeOnClick: false,
+  });
+  let flashing = false;
 
-    this.state = {
-      darkMode: settings.get("ui.darkMode"),
-      connected: false,
-      device: null,
-      pages: {},
-      contextBar: false,
-      cancelPendingOpen: false,
-    };
-    localStorage.clear();
-
-    toast.configure({
-      position: "bottom-left",
-      autoClose: false,
-      newestOnTop: true,
-      draggable: false,
-      closeOnClick: false,
-    });
-  }
-  flashing = false;
-
-  handleDeviceDisconnect = async (sender, vid, pid) => {
+  const handleDeviceDisconnect = async (sender, vid, pid) => {
     if (!focus.device) return;
-    if (this.flashing) return;
+    if (flashing) return;
 
     if (focus.device.usb.vendorId != vid || focus.device.usb.productId != pid) {
       return;
@@ -123,62 +102,57 @@ class App extends React.Component {
     }
 
     await focus.close();
-    await this.setState({
-      contextBar: false,
-      cancelPendingOpen: false,
-      connected: false,
-      device: null,
-      pages: {},
-    });
+    setContextBar(false);
+    setCancelPendingOpen(false);
+    setConnected(false);
+    setDevice(null);
+    setPages({});
 
     // Second call to `navigate` will actually render the proper route
     await navigate("/keyboard-select");
   };
-  componentDidMount() {
-    ipcRenderer.on("usb-device-disconnected", this.handleDeviceDisconnect);
-  }
 
-  componentWillUnmount() {
-    ipcRenderer.removeListener(
-      "usb-device-disconnected",
-      this.handleDeviceDisconnect
-    );
-  }
+  useEffect(() => {
+    ipcRenderer.on("usb-device-disconnected", handleDeviceDisconnect);
 
-  toggleDarkMode = async () => {
-    const nextDarkModeState = !this.state.darkMode;
-    this.setState({
-      darkMode: nextDarkModeState,
-    });
+    // Specify how to clean up after this effect:
+    return function cleanup() {
+      ipcRenderer.removeListener(
+        "usb-device-disconnected",
+        handleDeviceDisconnect
+      );
+    };
+  });
+  const toggleDarkMode = async () => {
+    const nextDarkModeState = !darkMode;
+    setDarkMode(nextDarkModeState);
     await settings.set("ui.darkMode", nextDarkModeState);
   };
 
-  toggleFlashing = async () => {
-    this.flashing = !this.flashing;
-    if (!this.flashing) {
-      this.setState({
-        connected: false,
-        device: null,
-        pages: {},
-      });
+  const toggleFlashing = async () => {
+    flashing = !flashing;
+    if (!flashing) {
+      setConnected(false);
+      setDevice(null);
+      setPages({});
+
       await navigate("/keyboard-select");
     }
   };
 
-  onKeyboardConnect = async (port) => {
+  const onKeyboardConnect = async (port) => {
     focus.close();
 
     if (!port.path) {
-      this.setState({
-        connected: true,
-        pages: {},
-        device: port.device,
-      });
+      setConnected(true);
+      setPages({});
+      setDevice(port.device);
+
       await navigate("/welcome");
       return [];
     }
 
-    this.logger.log("Connecting to", port.path);
+    logger.log("Connecting to", port.path);
     await focus.open(port.path, port.device);
     if (process.platform == "darwin") {
       await spawn("stty", ["-f", port.path, "clocal"]);
@@ -187,7 +161,7 @@ class App extends React.Component {
     let commands = [];
     let pages = [];
     if (!port.device.bootloader) {
-      this.logger.log("Probing for Focus support...");
+      logger.log("Probing for Focus support...");
       try {
         commands = await focus.probe();
       } catch (e) {
@@ -205,147 +179,134 @@ class App extends React.Component {
       };
     }
 
-    this.setState({
-      connected: true,
-      device: null,
-      pages: pages,
-    });
+    setConnected(true);
+    setDevice(null);
+    setPages(pages);
+
     await navigate(pages.keymap || pages.colormap ? "/editor" : "/welcome");
     return commands;
   };
 
-  onKeyboardDisconnect = async () => {
+  const onKeyboardDisconnect = async () => {
     focus.close();
-    this.setState({
-      connected: false,
-      device: null,
-      pages: {},
-    });
+    setConnected(false);
+    setDevice(null);
+    setPages({});
+
     localStorage.clear();
     await navigate("/keyboard-select");
   };
 
-  cancelContext = (dirty) => {
+  const cancelContext = (dirty) => {
     if (dirty) {
-      this.setState({ cancelPendingOpen: true });
+      setCancelPendingOpen(true);
     } else {
-      this.doCancelContext();
+      doCancelContext();
     }
   };
-  doCancelContext = () => {
-    this.setState({
-      contextBar: false,
-      cancelPendingOpen: false,
-    });
+  const doCancelContext = () => {
+    setContextBar(false);
+    setCancelPendingOpen(false);
   };
-  cancelContextCancellation = () => {
-    this.setState({ cancelPendingOpen: false });
+  const cancelContextCancellation = () => {
+    setCancelPendingOpen(false);
   };
-  startContext = () => {
-    this.setState({ contextBar: true });
+  const startContext = () => {
+    setContextBar(true);
   };
 
-  render() {
-    const { classes } = this.props;
-    const { connected, pages, contextBar } = this.state;
-
-    let focus = new Focus();
-    let device =
-      (focus.device && focus.device.info) ||
-      (this.state.device && this.state.device.info);
-    const theme = createTheme({
-      palette: {
-        mode: this.state.darkMode ? "dark" : "light",
-        primary: {
-          main: "#EF5022",
-        },
-        secondary: {
-          main: "#939597",
-        },
+  let focus = new Focus();
+  const deviceInfo = focus?.device?.info || device?.info;
+  const theme = createTheme({
+    palette: {
+      mode: darkMode ? "dark" : "light",
+      primary: {
+        main: "#EF5022",
       },
-    });
+      secondary: {
+        main: "#939597",
+      },
+    },
+  });
 
-    return (
-      <StyledEngineProvider injectFirst>
-        <ThemeProvider theme={theme}>
-          <div className={classes.root}>
-            <LocationProvider history={history}>
-              <CssBaseline />
-              <Header
-                contextBar={contextBar}
-                connected={connected}
-                pages={pages}
-                device={device}
-                cancelContext={this.cancelContext}
-              />
-              <main className={classes.content}>
-                <Router>
-                  <Welcome
-                    path="/welcome"
-                    device={this.state.device}
-                    onConnect={this.onKeyboardConnect}
-                    titleElement={() => document.querySelector("#page-title")}
-                  />
-                  <KeyboardSelect
-                    path="/keyboard-select"
-                    onConnect={this.onKeyboardConnect}
-                    onDisconnect={this.onKeyboardDisconnect}
-                    titleElement={() => document.querySelector("#page-title")}
-                  />
-                  <Editor
-                    path="/editor"
-                    onDisconnect={this.onKeyboardDisconnect}
-                    startContext={this.startContext}
-                    cancelContext={this.cancelContext}
-                    inContext={this.state.contextBar}
-                    titleElement={() => document.querySelector("#page-title")}
-                    appBarElement={() => document.querySelector("#appbar")}
-                  />
-                  <FirmwareUpdate
-                    path="/firmware-update"
-                    device={this.state.device}
-                    toggleFlashing={this.toggleFlashing}
-                    onDisconnect={this.onKeyboardDisconnect}
-                    titleElement={() => document.querySelector("#page-title")}
-                  />
-                  <Preferences
-                    connected={connected}
-                    path="/preferences"
-                    titleElement={() => document.querySelector("#page-title")}
-                    darkMode={this.state.darkMode}
-                    toggleDarkMode={this.toggleDarkMode}
-                    startContext={this.startContext}
-                    cancelContext={this.cancelContext}
-                    inContext={this.state.contextBar}
-                  />
-                  <SystemInfo
-                    connected={connected}
-                    path="/system-info"
-                    titleElement={() => document.querySelector("#page-title")}
-                  />
-                  <ChangeLog
-                    connected={connected}
-                    path="/changelog"
-                    titleElement={() => document.querySelector("#page-title")}
-                  />
-                </Router>
-              </main>
-            </LocationProvider>
-            <ConfirmationDialog
-              title={i18n.t("app.cancelPending.title")}
-              open={this.state.cancelPendingOpen}
-              onConfirm={this.doCancelContext}
-              onCancel={this.cancelContextCancellation}
-            >
-              {i18n.t("app.cancelPending.content")}
-            </ConfirmationDialog>
-          </div>
-        </ThemeProvider>
-      </StyledEngineProvider>
-    );
-  }
-}
+  return (
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <div sx={{ display: "flex", flexDirection: "column" }}>
+          <LocationProvider history={history}>
+            <CssBaseline />
+            <Header
+              contextBar={contextBar}
+              connected={connected}
+              pages={pages}
+              device={deviceInfo}
+              cancelContext={cancelContext}
+            />
+            <main sx={{ flexGrow: 1, overflow: "auto" }}>
+              <Router>
+                <Welcome
+                  path="/welcome"
+                  device={device}
+                  onConnect={onKeyboardConnect}
+                  titleElement={() => document.querySelector("#page-title")}
+                />
+                <KeyboardSelect
+                  path="/keyboard-select"
+                  onConnect={onKeyboardConnect}
+                  onDisconnect={onKeyboardDisconnect}
+                  titleElement={() => document.querySelector("#page-title")}
+                />
+                <Editor
+                  path="/editor"
+                  onDisconnect={onKeyboardDisconnect}
+                  startContext={startContext}
+                  cancelContext={cancelContext}
+                  inContext={contextBar}
+                  titleElement={() => document.querySelector("#page-title")}
+                  appBarElement={() => document.querySelector("#appbar")}
+                />
+                <FirmwareUpdate
+                  path="/firmware-update"
+                  device={device}
+                  toggleFlashing={toggleFlashing}
+                  onDisconnect={onKeyboardDisconnect}
+                  titleElement={() => document.querySelector("#page-title")}
+                />
+                <Preferences
+                  connected={connected}
+                  path="/preferences"
+                  titleElement={() => document.querySelector("#page-title")}
+                  darkMode={darkMode}
+                  toggleDarkMode={toggleDarkMode}
+                  startContext={startContext}
+                  cancelContext={cancelContext}
+                  inContext={contextBar}
+                />
+                <SystemInfo
+                  connected={connected}
+                  path="/system-info"
+                  titleElement={() => document.querySelector("#page-title")}
+                />
+                <ChangeLog
+                  connected={connected}
+                  path="/changelog"
+                  titleElement={() => document.querySelector("#page-title")}
+                />
+              </Router>
+            </main>
+          </LocationProvider>
+          <ConfirmationDialog
+            title={i18n.t("app.cancelPending.title")}
+            open={cancelPendingOpen}
+            onConfirm={doCancelContext}
+            onCancel={cancelContextCancellation}
+          >
+            {i18n.t("app.cancelPending.content")}
+          </ConfirmationDialog>
+        </div>
+      </ThemeProvider>
+    </StyledEngineProvider>
+  );
+};
 
-//export default withSnackbar(withStyles(styles)(App));
-//export default withStyles(styles)(withSnackbar(App));
-export default withStyles(styles)(App);
+export default App;

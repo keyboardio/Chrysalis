@@ -18,29 +18,22 @@
 import React from "react";
 import i18n from "i18next";
 
-import withStyles from "@mui/styles/withStyles";
+import CategorySelector from "@renderer/screens/Editor/components/CategorySelector";
 
-import CategorySelector from "../components/CategorySelector";
+const LeaderKeys = (props) => {
+  const { keymap, selectedKey, layer, onKeyChange } = props;
 
-const styles = () => ({});
-
-class LeaderKeysBase extends React.Component {
-  render() {
-    const { keymap, selectedKey, layer, onKeyChange } = this.props;
-
-    return (
-      <CategorySelector
-        title={i18n.t("editor.sidebar.leader.title")}
-        help={i18n.t("editor.sidebar.leader.help")}
-        category="leader"
-        keymap={keymap}
-        selectedKey={selectedKey}
-        layer={layer}
-        onKeyChange={onKeyChange}
-      />
-    );
-  }
-}
-const LeaderKeys = withStyles(styles, { withTheme: true })(LeaderKeysBase);
+  return (
+    <CategorySelector
+      title={i18n.t("editor.sidebar.leader.title")}
+      help={i18n.t("editor.sidebar.leader.help")}
+      category="leader"
+      keymap={keymap}
+      selectedKey={selectedKey}
+      layer={layer}
+      onKeyChange={onKeyChange}
+    />
+  );
+};
 
 export { LeaderKeys as default };

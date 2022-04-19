@@ -25,16 +25,24 @@ export const DeviceImage = (props) => {
     return (
       <Box
         sx={{
-          display: "flex",
+          display: "block",
           align: "center",
           mx: "auto",
           maxWidth: "250px",
           maxHeight: "100px",
           marginBottom: 2,
           justifyContent: "center",
-          "& *": {
-            color: "#000000",
-            stroke: "#000000",
+          "&>.layer": {
+            display: "flex",
+            margin: "auto",
+            maxWidth: "250px",
+            maxHeight: "100px",
+            minWidth: "inherit",
+            minHeight: "inherit",
+          },
+          "&>layer .key *": {
+            fill: "#00000088",
+            stroke: "#00000088",
           },
         }}
       >

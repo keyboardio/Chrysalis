@@ -24,6 +24,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import { RegularButton } from "../component/Button";
 import Card from "react-bootstrap/Card";
 import Spinner from "react-bootstrap/Spinner";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -448,14 +449,15 @@ class KeyboardSelect extends Component {
       );
     } else {
       connectionButton = (
-        <Button
+        <RegularButton
           disabled={(selectedDevice ? !selectedDevice.accessible : false) || opening || (devices && devices.length === 0)}
-          color="primary"
+          style="primary"
           onClick={this.onKeyboardConnect}
+          buttonText={i18n.keyboardSelect.connect}
           className=""
         >
           {connectContent}
-        </Button>
+        </RegularButton>
       );
     }
 

@@ -77,10 +77,10 @@ class MacroSelector extends Component {
                       }}
                     >
                       <Row>
-                        <Col xs={1}>
+                        <Col xs={2}>
                           <span>{index}</span>
                         </Col>
-                        <Col xs={8}>
+                        <Col xs={7}>
                           <p className="extrapadding">{item.name}</p>
                         </Col>
                         {/* <Col xs={5}>

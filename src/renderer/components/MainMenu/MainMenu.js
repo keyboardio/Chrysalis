@@ -41,6 +41,14 @@ import PreferencesMenuItem from "./PreferencesMenuItem";
 import SoftwareUpdateMenuItem from "./SoftwareUpdateMenuItem";
 import ExitMenuItem from "./ExitMenuItem";
 
+import { NavigationButton } from "../../component/Button";
+import { IconKeyboardSelector } from "../../component/Icon";
+import { IconKeyboard2Stroke } from "../../component/Icon";
+import { IconMemory2Stroke } from "../../component/Icon";
+import { IconRobot2Stroke } from "../../component/Icon";
+import { IconThunder2Stroke } from "../../component/Icon";
+import { IconPreferences2Stroke } from "../../component/Icon";
+
 import DygmaLogo from "../../../../static/logo.png";
 import { fwVersion } from "../../../../package.json";
 
@@ -51,10 +59,12 @@ const drawerWidth = 64;
 const Styles = Styled.div`
 .brand-image {
   padding: 0 !important;
-  margin-left: 8px;
-  margin-top: 8px;
-  margin-bottom: 20px;
+  margin-left: 0;
+  margin-top: 20px;
+  margin-bottom: 32px;
   display: block;
+  width: 100%;
+  text-align: center;
   -webkit-app-region: drag;
   img {
     margin: 0;
@@ -65,12 +75,15 @@ const Styles = Styled.div`
 .left-navbar {
   // background: ${({ theme }) => theme.colors.gardient};
   background-color: ${({ theme }) => theme.navbar.background};
-  width: ${({ theme }) => theme.drawerWidth}px;
+  background-color: #0B0219;
+  width: ${({ theme }) => theme.drawerWidth}px; 
+  width: 120px;
   height: 100vh;
   display: block !important;
+
   position: fixed !important;
   z-index: 10;
-  padding: 0 !important;
+  padding: 12px !important;
 }
 .list-link {
   display: flex;
@@ -103,6 +116,12 @@ const Styles = Styled.div`
       }
     }
   }
+  &:hover {
+    text-decoration: none;
+  }
+}
+.list-link+.list-link {
+  margin-top: 8px;
 }
 .disabled {
   color: ${({ theme }) => theme.card.disabled};
@@ -242,96 +261,68 @@ class MainMenu extends Component {
                 <>
                   {pages.keymap && (
                     <React.Fragment>
-                      <OverlayTrigger
-                        rootClose
-                        placement="right"
-                        delay={{ show: 250, hide: 400 }}
-                        overlay={this.renderTooltip(i18n.app.menu.editor)}
-                      >
-                        <Link to="/editor" className="list-link">
-                          <EditorMenuItem
-                            selected={currentPage === "/editor"}
-                            drawerWidth={drawerWidth}
-                            onClick={() => setCurrentPage("/editor")}
-                          />
-                        </Link>
-                      </OverlayTrigger>
-                      <OverlayTrigger
-                        rootClose
-                        placement="right"
-                        delay={{ show: 250, hide: 400 }}
-                        overlay={this.renderTooltip(i18n.app.menu.macros)}
-                      >
-                        <Link to="/macros" className="list-link">
-                          <MacroEditorItem
-                            selected={currentPage === "/macros"}
-                            drawerWidth={drawerWidth}
-                            onClick={() => setCurrentPage("/macros")}
-                          />
-                        </Link>
-                      </OverlayTrigger>
-                      <OverlayTrigger
-                        rootClose
-                        placement="right"
-                        delay={{ show: 250, hide: 400 }}
-                        overlay={this.renderTooltip(i18n.app.menu.superkeys)}
-                      >
-                        <Link to="/superkeys" className="list-link">
-                          <SuperkeyEditorItem
-                            selected={currentPage === "/superkeys"}
-                            drawerWidth={drawerWidth}
-                            onClick={() => setCurrentPage("/superkeys")}
-                          />
-                        </Link>
-                      </OverlayTrigger>
+                      <Link to="/editor" className="list-link">
+                        <NavigationButton
+                          selected={currentPage === "/editor"}
+                          drawerWidth={drawerWidth}
+                          onClick={() => setCurrentPage("/editor")}
+                          buttonText={"Layout <br>Editor"}
+                          icoSVG={<IconKeyboard2Stroke />}
+                        />
+                      </Link>
+                      <Link to="/macros" className="list-link">
+                        <NavigationButton
+                          selected={currentPage === "/macros"}
+                          drawerWidth={drawerWidth}
+                          onClick={() => setCurrentPage("/macros")}
+                          buttonText={"Macro <br>Editor"}
+                          icoSVG={<IconRobot2Stroke />}
+                        />
+                      </Link>
+
+                      <Link to="/superkeys" className="list-link">
+                        <NavigationButton
+                          selected={currentPage === "/superkeys"}
+                          drawerWidth={drawerWidth}
+                          onClick={() => setCurrentPage("/superkeys")}
+                          buttonText={"Superkeys <br>Editor"}
+                          icoSVG={<IconThunder2Stroke />}
+                        />
+                      </Link>
                     </React.Fragment>
                   )}
-                  <OverlayTrigger
-                    rootClose
-                    placement="right"
-                    delay={{ show: 250, hide: 400 }}
-                    overlay={this.renderTooltip(i18n.app.menu.firmwareUpdate)}
-                  >
-                    <Link to="/firmware-update" className="list-link">
-                      <FlashMenuItem
-                        selected={currentPage === "/firmware-update"}
-                        drawerWidth={drawerWidth}
-                        onClick={() => setCurrentPage("/firmware-update")}
-                        showNotif={showNotif != 0 ? (showNotif > 0 ? true : false) : false}
-                      />
-                    </Link>
-                  </OverlayTrigger>
+
+                  <Link to="/firmware-update" className="list-link">
+                    <NavigationButton
+                      selected={currentPage === "/firmware-update"}
+                      drawerWidth={drawerWidth}
+                      onClick={() => setCurrentPage("/firmware-update")}
+                      showNotif={showNotif != 0 ? (showNotif > 0 ? true : false) : false}
+                      buttonText={"Firmware <br>Update"}
+                      icoSVG={<IconMemory2Stroke />}
+                    />
+                  </Link>
                 </>
               )}
-              <OverlayTrigger
-                rootClose
-                placement="right"
-                delay={{ show: 250, hide: 400 }}
-                overlay={this.renderTooltip(i18n.app.menu.selectAKeyboard)}
-              >
-                <Link to="/keyboard-select" className="list-link">
-                  <KeyboardMenuItem
-                    keyboardSelectText={connected ? i18n.app.menu.selectAnotherKeyboard : i18n.app.menu.selectAKeyboard}
-                    drawerWidth={drawerWidth}
-                    selected={currentPage === "/keyboard-select"}
-                    onClick={() => setCurrentPage("/keyboard-select")}
-                  />
-                </Link>
-              </OverlayTrigger>
-              <OverlayTrigger
-                rootClose
-                placement="right"
-                delay={{ show: 250, hide: 400 }}
-                overlay={this.renderTooltip(i18n.app.menu.preferences)}
-              >
-                <Link to="/preferences" className="list-link">
-                  <PreferencesMenuItem
-                    drawerWidth={drawerWidth}
-                    selected={currentPage === "/preferences"}
-                    onClick={() => setCurrentPage("/preferences")}
-                  />
-                </Link>
-              </OverlayTrigger>
+              <Link to="/keyboard-select" className="list-link">
+                <NavigationButton
+                  keyboardSelectText={connected ? i18n.app.menu.selectAnotherKeyboard : i18n.app.menu.selectAKeyboard}
+                  drawerWidth={drawerWidth}
+                  selected={currentPage === "/keyboard-select"}
+                  onClick={() => setCurrentPage("/keyboard-select")}
+                  buttonText={"Keyboard <br>Selection"}
+                  icoSVG={<IconKeyboardSelector />}
+                />
+              </Link>
+              <Link to="/preferences" className="list-link">
+                <NavigationButton
+                  drawerWidth={drawerWidth}
+                  selected={currentPage === "/preferences"}
+                  onClick={() => setCurrentPage("/preferences")}
+                  buttonText={"Preferences"}
+                  icoSVG={<IconPreferences2Stroke />}
+                />
+              </Link>
               {/* <OverlayTrigger
                 rootClose
                 placement="right"

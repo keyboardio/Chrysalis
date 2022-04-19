@@ -317,7 +317,7 @@ class KeymapISO extends React.Component {
         strokeLinejoin="round"
         strokeMiterlimit="1.5"
         clipRule="evenodd"
-        viewBox={this.props.showUnderglow ? "0 0 1029 634" : "0 0 1029 420"}
+        viewBox={this.props.showUnderglow ? "0 0 1029 634" : "0 0 1029 380"}
         className={this.props.className || "layer"}
       >
         <path

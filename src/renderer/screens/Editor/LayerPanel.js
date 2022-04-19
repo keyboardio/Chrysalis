@@ -28,6 +28,7 @@ const Styles = Styled.div`
   z-index: 11;
   float: left;
   margin: 0;
+  margin-top: 20px;
   width: auto;
   padding: 0;
   background-color: ${({ theme }) => theme.card.background};

@@ -18,7 +18,7 @@
 import React from "react";
 import settings from "electron-settings";
 import { Switch, Redirect, Route, withRouter } from "react-router-dom";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { ThemeProvider } from "styled-components";
 
 import usb from "usb";
@@ -33,17 +33,17 @@ import GlobalStyles from "./theme/GlobalStyles";
 import Light from "./theme/LightTheme";
 import Dark from "./theme/DarkTheme";
 
-import Container from "react-bootstrap/Container";
-
-import KeyboardSelect from "./screens/KeyboardSelect";
-import FirmwareUpdate from "./screens/FirmwareUpdate";
-import Editor from "./screens/Editor/Editor";
-import MacrosConfigurator from "./screens/Macros/MacrosConfigurator";
-import SuperkeysConfigurator from "./screens/Superkeys/SuperkeysConfigurator";
-import Preferences from "./screens/Preferences";
+import SelectKeyboard from "./views/SelectKeyboard";
+import FirmwareUpdate from "./views/FirmwareUpdate";
+import LayoutEditor from "./views/LayoutEditor";
+import MacroEditor from "./views/MacroEditor";
+import SuperkeysEditor from "./views/SuperkeysEditor";
+import Preferences from "./views/Preferences";
 import Welcome from "./screens/Welcome";
 
-import Header from "./components/Header";
+import Header from "./modules/NavigationMenu";
+import ToastMessage from "./component/ToastMessage";
+import { IconNoSignal } from "./component/Icon";
 
 const Store = require("electron-store");
 const store = new Store();
@@ -82,10 +82,10 @@ class App extends React.Component {
     localStorage.clear();
 
     toast.configure({
-      position: "bottom-left",
+      position: "top-right",
       autoClose: false,
       hideProgressBar: false,
-      newestOnTop: true,
+      newestOnTop: false,
       draggable: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -119,7 +119,7 @@ class App extends React.Component {
 
   componentDidMount() {
     // Loading font to be sure it wont blink
-    document.fonts.load("Titillium Web");
+    document.fonts.load("Libre Franklin");
     // Setting up function to receive O.S. dark theme changes
     const self = this;
     ipcRenderer.on("darkTheme-update", function (evt, message) {
@@ -146,7 +146,13 @@ class App extends React.Component {
       this.props.history.push("./");
 
       if (!focus._port.isOpen) {
-        toast.warning(i18n.errors.deviceDisconnected);
+        toast.warning(
+          <ToastMessage
+            icon={<IconNoSignal />}
+            title={i18n.errors.deviceDisconnected}
+            content={i18n.errors.deviceDisconnectedContent}
+          />
+        );
       }
       await focus.close();
       await this.setState({
@@ -288,7 +294,7 @@ class App extends React.Component {
           theme={darkMode}
           flashing={!connected}
         />
-        <Container fluid className="main-container">
+        <div className="main-container">
           <Switch>
             <Route exact path="/">
               <Redirect to="/keyboard-select" />
@@ -299,36 +305,37 @@ class App extends React.Component {
               onConnect={this.onKeyboardConnect}
               titleElement={() => document.querySelector("#page-title")}
             />
-            <KeyboardSelect
+            <SelectKeyboard
               path="/keyboard-select"
               onConnect={this.onKeyboardConnect}
               onDisconnect={this.onKeyboardDisconnect}
               titleElement={() => document.querySelector("#page-title")}
+              darkMode={darkMode}
             />
-            <Editor
+            <LayoutEditor
               path="/editor"
               onDisconnect={this.onKeyboardDisconnect}
               startContext={this.startContext}
               cancelContext={this.cancelContext}
-              inContext={this.state.contextBar}
+              inContext={contextBar}
               titleElement={() => document.querySelector("#page-title")}
               appBarElement={() => document.querySelector("#appbar")}
               darkMode={darkMode}
             />
-            <MacrosConfigurator
+            <MacroEditor
               path="/macros"
               onDisconnect={this.onKeyboardDisconnect}
               startContext={this.startContext}
               cancelContext={this.cancelContext}
-              inContext={this.state.contextBar}
+              inContext={contextBar}
               titleElement={() => document.querySelector("#page-title")}
             />
-            <SuperkeysConfigurator
+            <SuperkeysEditor
               path="/superkeys"
               onDisconnect={this.onKeyboardDisconnect}
               startContext={this.startContext}
               cancelContext={this.cancelContext}
-              inContext={this.state.contextBar}
+              inContext={contextBar}
               titleElement={() => document.querySelector("#page-title")}
             />
             <FirmwareUpdate
@@ -343,14 +350,15 @@ class App extends React.Component {
               connected={connected}
               path="/preferences"
               titleElement={() => document.querySelector("#page-title")}
-              darkMode={this.state.darkMode}
+              darkMode={darkMode}
               toggleDarkMode={this.toggleDarkMode}
               startContext={this.startContext}
               cancelContext={this.cancelContext}
-              inContext={this.state.contextBar}
+              inContext={contextBar}
             />
           </Switch>
-        </Container>
+        </div>
+        <ToastContainer />
       </ThemeProvider>
     );
   }

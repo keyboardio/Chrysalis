@@ -1501,6 +1501,7 @@ class Editor extends React.Component {
         if (key.extraLabel == "MACRO") {
           if (
             macros.length > parseInt(key.label) &&
+            macros[parseInt(key.label)] != undefined &&
             macros[parseInt(key.label)].name != undefined &&
             macros[parseInt(key.label)].name.substr(0, 5) != "" &&
             !/\p{L}/u.test(key.label)
@@ -1518,6 +1519,7 @@ class Editor extends React.Component {
         if (key.extraLabel == "SUPER") {
           if (
             superkeys.length > parseInt(key.label) - 1 &&
+            superkeys[parseInt(key.label) - 1] != undefined &&
             superkeys[parseInt(key.label) - 1].name != undefined &&
             superkeys[parseInt(key.label) - 1].name != "" &&
             !/\p{L}/u.test(key.label)

@@ -27,13 +27,13 @@ import FilledInput from "@mui/material/FilledInput";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
+import InputLabel from "@mui/material/InputLabel";
 import LinearProgress from "@mui/material/LinearProgress";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Slider from "@mui/material/Slider";
 import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
-import withStyles from "@mui/styles/withStyles";
 
 import Focus from "../../../api/focus";
 
@@ -45,50 +45,6 @@ import checkExternalFlasher from "../../utils/checkExternalFlasher";
 
 const Store = require("electron-store");
 const settings = new Store();
-
-const styles = (theme) => ({
-  title: {
-    marginTop: theme.spacing(4),
-    marginBottom: theme.spacing(1),
-  },
-  control: {
-    display: "flex",
-    marginRight: theme.spacing(2),
-  },
-  group: {
-    display: "block",
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  flex: {
-    display: "flex",
-  },
-  select: {
-    paddingTop: theme.spacing(1),
-    width: 200,
-  },
-  selectContainer: {
-    marginTop: theme.spacing(2),
-  },
-  slider: {
-    width: 300,
-  },
-  sliderContainer: {
-    marginTop: theme.spacing(2),
-  },
-  advanced: {
-    display: "flex",
-    justifyContent: "center",
-    marginTop: theme.spacing(4),
-    "& button": {
-      textTransform: "none",
-      "& span svg": {
-        marginLeft: "1.5em",
-      },
-    },
-  },
-});
 
 class KeyboardSettings extends React.Component {
   state = {
@@ -168,7 +124,6 @@ class KeyboardSettings extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
     const { keymap, defaultLayer, modified, ledBrightness, ledIdleTimeLimit } =
       this.state;
 
@@ -179,76 +134,6 @@ class KeyboardSettings extends React.Component {
         </MenuItem>
       );
     });
-    const defaultLayerSelect = (
-      <Select
-        onChange={this.selectDefaultLayer}
-        value={defaultLayer}
-        variant="filled"
-        input={<FilledInput classes={{ input: classes.select }} />}
-      >
-        <MenuItem value={126}>
-          {i18n.t("keyboardSettings.keymap.noDefault")}
-        </MenuItem>
-        {layers}
-      </Select>
-    );
-    const brightnessControl = (
-      <Slider
-        max={255}
-        value={ledBrightness}
-        className={classes.slider}
-        onChange={this.setBrightness}
-      />
-    );
-    const idleControl = (
-      <Select
-        onChange={this.selectIdleLEDTime}
-        value={ledIdleTimeLimit}
-        variant="filled"
-        input={
-          <FilledInput
-            classes={{
-              root: classes.selectContainer,
-              input: classes.select,
-            }}
-          />
-        }
-      >
-        <MenuItem value={0}>
-          {i18n.t("keyboardSettings.led.idleDisabled")}
-        </MenuItem>
-        <MenuItem value={60}>
-          {i18n.t("keyboardSettings.led.idle.oneMinute")}
-        </MenuItem>
-        <MenuItem value={120}>
-          {i18n.t("keyboardSettings.led.idle.twoMinutes")}
-        </MenuItem>
-        <MenuItem value={180}>
-          {i18n.t("keyboardSettings.led.idle.threeMinutes")}
-        </MenuItem>
-        <MenuItem value={240}>
-          {i18n.t("keyboardSettings.led.idle.fourMinutes")}
-        </MenuItem>
-        <MenuItem value={300}>
-          {i18n.t("keyboardSettings.led.idle.fiveMinutes")}
-        </MenuItem>
-        <MenuItem value={600}>
-          {i18n.t("keyboardSettings.led.idle.tenMinutes")}
-        </MenuItem>
-        <MenuItem value={900}>
-          {i18n.t("keyboardSettings.led.idle.fifteenMinutes")}
-        </MenuItem>
-        <MenuItem value={1200}>
-          {i18n.t("keyboardSettings.led.idle.twentyMinutes")}
-        </MenuItem>
-        <MenuItem value={1800}>
-          {i18n.t("keyboardSettings.led.idle.thirtyMinutes")}
-        </MenuItem>
-        <MenuItem value={3600}>
-          {i18n.t("keyboardSettings.led.idle.sixtyMinutes")}
-        </MenuItem>
-      </Select>
-    );
 
     return (
       <React.Fragment>
@@ -256,45 +141,101 @@ class KeyboardSettings extends React.Component {
         <Typography
           variant="subtitle1"
           component="h2"
-          className={classes.title}
+          sx={{
+            marginTop: 4,
+            marginBottom: 1,
+          }}
         >
           {i18n.t("keyboardSettings.keymap.title")}
         </Typography>
         <Card>
           <CardContent>
-            <FormGroup className={classes.group}>
-              <FormControlLabel
-                className={classes.control}
-                classes={{ label: classes.grow }}
-                control={defaultLayerSelect}
-                labelPlacement="start"
-                label={i18n.t("keyboardSettings.keymap.defaultLayer")}
-              />
+            <FormGroup
+              sx={{
+                display: "block",
+              }}
+            >
+              <FormControl variant="standard" fullWidth={true}>
+                <InputLabel>
+                  {i18n.t("keyboardSettings.keymap.defaultLayer")}
+                </InputLabel>
+                <Select
+                  onChange={this.selectDefaultLayer}
+                  sx={{ mb: 2 }}
+                  value={defaultLayer}
+                  variant="filled"
+                  input={<FilledInput sx={{}} />}
+                >
+                  <MenuItem value={126}>
+                    {i18n.t("keyboardSettings.keymap.noDefault")}
+                  </MenuItem>
+                  {layers}
+                </Select>
+              </FormControl>
+
               {ledIdleTimeLimit >= 0 && (
-                <FormControlLabel
-                  className={classes.control}
-                  classes={{ label: classes.grow }}
-                  control={idleControl}
-                  labelPlacement="start"
-                  label={i18n.t("keyboardSettings.led.idleTimeLimit")}
-                />
+                <FormControl variant="standard" fullWidth={true}>
+                  <InputLabel>
+                    {i18n.t("keyboardSettings.led.idleTimeLimit")}
+                  </InputLabel>
+                  <Select
+                    onChange={this.selectIdleLEDTime}
+                    value={ledIdleTimeLimit}
+                    variant="filled"
+                    input={<FilledInput sx={{}} />}
+                  >
+                    <MenuItem value={0}>
+                      {i18n.t("keyboardSettings.led.idleDisabled")}
+                    </MenuItem>
+                    <MenuItem value={60}>
+                      {i18n.t("keyboardSettings.led.idle.oneMinute")}
+                    </MenuItem>
+                    <MenuItem value={120}>
+                      {i18n.t("keyboardSettings.led.idle.twoMinutes")}
+                    </MenuItem>
+                    <MenuItem value={180}>
+                      {i18n.t("keyboardSettings.led.idle.threeMinutes")}
+                    </MenuItem>
+                    <MenuItem value={240}>
+                      {i18n.t("keyboardSettings.led.idle.fourMinutes")}
+                    </MenuItem>
+                    <MenuItem value={300}>
+                      {i18n.t("keyboardSettings.led.idle.fiveMinutes")}
+                    </MenuItem>
+                    <MenuItem value={600}>
+                      {i18n.t("keyboardSettings.led.idle.tenMinutes")}
+                    </MenuItem>
+                    <MenuItem value={900}>
+                      {i18n.t("keyboardSettings.led.idle.fifteenMinutes")}
+                    </MenuItem>
+                    <MenuItem value={1200}>
+                      {i18n.t("keyboardSettings.led.idle.twentyMinutes")}
+                    </MenuItem>
+                    <MenuItem value={1800}>
+                      {i18n.t("keyboardSettings.led.idle.thirtyMinutes")}
+                    </MenuItem>
+                    <MenuItem value={3600}>
+                      {i18n.t("keyboardSettings.led.idle.sixtyMinutes")}
+                    </MenuItem>
+                  </Select>
+                </FormControl>
               )}
               {ledBrightness >= 0 && (
-                <FormControlLabel
-                  className={classes.control}
-                  classes={{
-                    label: classes.grow,
-                    root: classes.sliderContainer,
-                  }}
-                  control={brightnessControl}
-                  labelPlacement="start"
-                  label={i18n.t("keyboardSettings.led.brightness")}
-                />
+                <FormControl variant="standard" fullWidth={true}>
+                  <Typography variant="caption" gutterBottom>
+                    {i18n.t("keyboardSettings.led.brightness")}
+                  </Typography>
+                  <Slider
+                    max={255}
+                    value={ledBrightness}
+                    sx={{ width: "300" }}
+                    onChange={this.setBrightness}
+                  />
+                </FormControl>
               )}
             </FormGroup>
           </CardContent>
-          <CardActions className={classes.flex}>
-            <span className={classes.grow} />
+          <CardActions sx={{ flexGrow: 1 }}>
             <SaveChangesButton
               onClick={this.saveKeymapChanges}
               disabled={!modified}
@@ -307,10 +248,6 @@ class KeyboardSettings extends React.Component {
     );
   }
 }
-
-KeyboardSettings.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 class AdvancedKeyboardSettings extends React.Component {
   state = {
@@ -353,7 +290,6 @@ class AdvancedKeyboardSettings extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
     const { externalFlasherAvailable, preferExternalFlasher } = this.state;
 
     const preferExternalSwitch = (
@@ -370,18 +306,27 @@ class AdvancedKeyboardSettings extends React.Component {
         <Typography
           variant="subtitle1"
           component="h2"
-          className={classes.title}
+          sx={{
+            marginTop: 4,
+            marginBottom: 1,
+          }}
         >
           {i18n.t("keyboardSettings.advancedOps")}
         </Typography>
         <Card>
           {externalFlasherAvailable && (
             <CardContent>
-              <FormControl className={classes.group}>
+              <FormControl
+                sx={{
+                  display: "block",
+                }}
+              >
                 <FormControlLabel
-                  className={classes.control}
+                  sx={{
+                    display: "flex",
+                    marginRight: 2,
+                  }}
                   control={preferExternalSwitch}
-                  classes={{ label: classes.grow }}
                   labelPlacement="start"
                   label={i18n.t("keyboardSettings.flash.preferExternal")}
                 />
@@ -411,17 +356,4 @@ class AdvancedKeyboardSettings extends React.Component {
     );
   }
 }
-
-AdvancedKeyboardSettings.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-const StyledKeyboardSettings = withStyles(styles)(KeyboardSettings);
-const StyledAdvancedKeyboardSettings = withStyles(styles)(
-  AdvancedKeyboardSettings
-);
-
-export {
-  StyledKeyboardSettings as KeyboardSettings,
-  StyledAdvancedKeyboardSettings as AdvancedKeyboardSettings,
-};
+export { KeyboardSettings, AdvancedKeyboardSettings };

@@ -157,9 +157,9 @@ margin: auto;
   padding-left: 0.3rem;
 }
 .LayerHolder {
-  width: 100%;
+  width: 70%;
   height: 100%;
-  padding: 0px 75px;
+  margin: auto;
 }
 `;
 

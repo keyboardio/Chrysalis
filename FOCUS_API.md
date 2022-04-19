@@ -18,6 +18,10 @@ The serial interface will always end the current message by a newline feed plus 
 
 You can expand on this knowledge in the docs about the [kaleidoscope Firmware](https://kaleidoscope.readthedocs.io/en/latest/index.html) from which the Raise extends
 
+## ⚠ Memory usage disclaimer ⚠
+
+When sending focus commands to the keyboard, keep in mind that every time you put data after the command, that stores the information in the kyeboard, this means that the flash memory is using up it's lifespan, so avoid loops that save data to the keyboard frequently, so that the chip will last you as long as possible.
+
 ## Available Methods
 
 Running `focus.command("help")` will get you the following list of available commands:
@@ -116,17 +120,17 @@ Plugin's section to configure them, like the DynamicMacros plugin.
 
 [macros.trigger](#macrostrigger)
 
-[superkeys.map](#supermap)
+[superkeys.map](#superkeysmap)
 
-[superkeys.waitfor](#superwaitfor)
+[superkeys.waitfor](#superkeyswaitfor)
 
-[superkeys.timeout](#supertimeout)
+[superkeys.timeout](#superkeystimeout)
 
-[superkeys.repeat](#superrepeat)
+[superkeys.repeat](#superkeysrepeat)
 
-[superkeys.holdstart](#superholdstart)
+[superkeys.holdstart](#superkeysholdstart)
 
-[superkeys.overlap](#superoverlap)
+[superkeys.overlap](#superkeysoverlap)
 
 **Sides Section**
 
@@ -559,13 +563,61 @@ This empty command has no support as of today, or is disabled / not working prop
 
 This command reads/writes the macros map (2048 bytes of max lenght), each action in a macro is composed of an action type and a key attached to it.
 
-- action 2 is delay
-- action 3 is function key press
-- action 4 is function key release
-- action 5 is function press & release
-- action 6 is keyCode press
-- action 7 is keyCode release
-- action 8 is keyCode press & release
+- MACRO_ACTION_END = 0
+  - Ends the current macro play sequence, it's used at the end of a macro to separate it from the second
+  - Example: " 0 "
+  - Total cost = 1
+- MACRO_ACTION_STEP_INTERVAL = 1
+  - Changes the reproduction interval between each key of the sequence when a tap sequence or a tap code sequence (12 or 13) are used
+  - The step uses a 16bit integer splitted into two 8bit numbers to send it to the keyboard, first comes the higher weight
+  - Example: " 1 1 44 " for a 300ms delay
+  - Total cost = 3
+- MACRO_ACTION_STEP_WAIT = 2
+  - Custom delay that lets the macro wait for any event before continuing the sequence.
+  - The step uses a 16bit integer splitted into two 8bit numbers to send it to the keyboard, first comes the higher weight
+  - Example: " 2 1 44 " for a 300ms delay
+  - Total cost = 3
+- MACRO_ACTION_STEP_KEYDOWN = 3
+  - Activates the keydown event for a KeyCode defined by two 8bit numbers, the higher weight carries the flags, the lower weight carries the code.
+  - The step uses a 16bit integer that identifies any key, splitted into two 8bit numbers to send it to the keyboard. First comes the higher weight.
+  - Example: " 3 76 226 " for the keyCode 19682, which activates the keydown action for the Media.Mute button.
+  - Total cost = 3
+- MACRO_ACTION_STEP_KEYUP = 4
+  - Activates the keyup event for a KeyCode defined by two 8bit numbers, the higher weight carries the flags, the lower weight carries the code.
+  - The step uses a 16bit integer that identifies any key, splitted into two 8bit numbers to send it to the keyboard. First comes the higher weight.
+  - Example: " 4 76 226 " for the keyCode 19682, which activates the keyup action for the Media.Mute button.
+  - Total cost = 3
+- MACRO_ACTION_STEP_TAP = 5
+  - Activates the tap event for a KeyCode defined by two 8bit numbers, the higher weight carries the flags, the lower weight carries the code.
+  - The step uses a 16bit integer that identifies any key, splitted into two 8bit numbers to send it to the keyboard. First comes the higher weight.
+  - Example: " 5 76 226 " for the keyCode 19682, which activates the tap action for the Media.Mute button.
+  - Total cost = 3
+- MACRO_ACTION_STEP_KEYCODEDOWN = 6
+  - Activates the keydown event for a KeyCode defined by one 8bit number, it only carries the code up to 255, which means only normal keys can be sent this way.
+  - The step uses a lone 8bit number to identify any key < 256, as no flags are sent, 0 is used for the flag identifier instead.
+  - Example: " 6 225 " for the keyCode 225, which activates the keydown action for the Right Shift button.
+  - Total cost = 2
+- MACRO_ACTION_STEP_KEYCODEUP = 7
+  - Activates the keyup event for a KeyCode defined by one 8bit number, it only carries the code up to 255, which means only normal keys can be sent this way.
+  - The step uses a lone 8bit number to identify any key < 256, as no flags are sent, 0 is used for the flag identifier instead.
+  - Example: " 7 225 " for the keyCode 225, which activates the keyup action for the Right Shift button.
+  - Total cost = 2
+- MACRO_ACTION_STEP_TAPCODE = 8
+  - Activates the tap event for a KeyCode defined by one 8bit number, it only carries the code up to 255, which means only normal keys can be sent this way.
+  - The step uses a lone 8bit number to identify any key < 256, as no flags are sent, 0 is used for the flag identifier instead.
+  - Example: " 8 225 " for the keyCode 225, which activates the tap action for the Right Shift button.
+  - Total cost = 2
+- MACRO_ACTION_STEP_EXPLICIT_REPORT = 9
+- MACRO_ACTION_STEP_IMPLICIT_REPORT = 10
+- MACRO_ACTION_STEP_SEND_REPORT = 11
+  - The functions 9,10,11 are not implemented in the newer versions of the keyboard, they are no longer needed as there is no reason to change the way the report is sent to the host PC.
+- MACRO_ACTION_STEP_TAP_SEQUENCE = 12
+- MACRO_ACTION_STEP_TAP_CODE_SEQUENCE = 13
+  - The functions 12 & 13 behave in the same way, 13 should allow the flag sending for the block, but this introduces a double zero which will make the whole macro sequence unreadable, so this has to change to be able to work.
+  - Activates the tap event for a sequence of KeyCodes (which will be reproduced as a number of taps) defined by one 8bit number each, it only carries the code up to 255, which means only normal keys can be sent this way.
+  - The step uses a sequence of 8bit numbers to identify any key < 256, as no flags are sent, 0 is used for the flag identifier instead.
+  - Example: " 12 14 7 18 18 26 0" for the keyCode 225, which activates the tap action for the Right Shift button.
+  - Total cost = N + 1, being N the number of actions to be performed in a closed while loop
 
 then we send the actual keyCode that we can find in the [keymap database](https://github.com/Dygmalab/Bazecor/tree/development/src/api/keymap/db)
 
@@ -601,6 +653,7 @@ To use:
 #### Expected output
 
 Allows you to test any macro stored in the EEPROM without assigning it to a key
+
 ### superkeys.map
 
 This command reads/writes the superkeys map (1024 bytes of max lenght), each action in a superkey is represented by a keyCode number that encodes the action, for example if you use the number 44, you are encoding space, etc... to know more about keycodes and to find the right one for your actions, check [keymap database](https://github.com/Dygmalab/Bazecor/tree/development/src/api/keymap/db)
@@ -608,12 +661,20 @@ This command reads/writes the superkeys map (1024 bytes of max lenght), each act
 The structure is composed of the encoded actions in this order
 
 - TAP
+  - Tap action which is the first tap to activate. There are certain keys that should not be sent with taps (this applies to any other tap after this one), which are:
+    - modifiers
+    - one-shot keys
+    - other superkeys
 - HOLD
+  - Hold action which is the first hold to activate. There are certain keys that should not be sent with holds (this applies to any other hold after this one), which are:
+    - Layer keys
+    - one-shot keys
+    - other superkeys
 - TAP & HOLD
 - DOUBLE TAP
 - DOUBLE TAP & HOLD
 
-To end a superkey, place the number of actions you want to use as keyCodes and then a zero is required to close the superkey, we can then start a new superkey or end the superkey list with a " 0 0 " to tell the plugin, no further superkeys have been configured.
+To end a superkey, place the number of actions you want to use as keyCodes and then a zero. The zero is required to close the superkey. We can then start a new superkey or end the superkey list with a double zero " 0 0 ". This will allow the plugin to know when no further superkeys have been configured.
 
 #### Commands
 
@@ -770,20 +831,79 @@ The output of this command is a list of all available commands including itself,
 
 ### layer.activate
 
-This empty command has no support as of today, or is disabled / not working properly.
+This command allows the host PC to activate a certain layer remotely just by sending it's order number. The layer number will start by 0 to address the first one and will end with 9 if we suppose a 10 layer list to address the last one. This command does not affect the memory usage as the value is stored in RAM.
+
+#### Commands
+
+To use:
+
+- JavaScript: `focus.command("layer.activate 1")`
+- Serial Command (Unix): `echo 'layer.activate 1' > /dev/ttyACM0`
+
+#### Expected output
+
+The layer will change inmediately according to the one sent with the command, this allows for example to use a software to recognize which app is in the foreground and switch layers accordingly if any specific layer for that software is configured.
 
 ### layer.deactivate
 
-This empty command has no support as of today, or is disabled / not working properly.
+This command allows the host PC to deactivate the last layer that the keyboard switched to, this same function is the way the shift to layer key works on the keyboard. Just add the layer number at the end of the command to make the keyboard go back one layer. The layer number will start by 0 to address the first one and will end with 9 if we suppose a 10 layer list to address the last one.
+
+#### Commands
+
+To use:
+
+- JavaScript: `focus.command("layer.deactivate")`
+- Serial Command (Unix): `echo 'layer.deactivate' > /dev/ttyACM0`
+
+#### Expected output
+
+The layer will change inmediately according to the previous one used, this allows to deactivate the layer when changing the app that is in the foreground to restore the previous layer in case no specific layer is required.
 
 ### layer.isActive
 
-This empty command has no support as of today, or is disabled / not working properly.
+This command allows the host PC to ask the keyboard which layer is in use right now. The layer number will start by 0 to address the first one and will end with 9 if we suppose a 10 layer list to address the last one.
+
+#### Commands
+
+To use:
+
+- JavaScript: `focus.command("layer.isActive")`
+- Serial Command (Unix): `echo 'layer.isActive' > /dev/ttyACM0`
+
+#### Expected output
+
+The command will return the active layer inmediately after launching it.
 
 ### layer.moveTo
 
-This empty command has no support as of today, or is disabled / not working properly.
+This command allows the host PC to activate a certain layer remotely just by sending it's order number. The layer number will start by 0 to address the first one and will end with 9 if we suppose a 10 layer list to address the last one.
+
+The difference between this command and the layer.activate alternative, is that the activate command adds to the layer switching history, but moveTo will erase that memory and return it to an array lenght 1 and holding the current layer the keyboard moved to.
+
+This command does not affect the memory usage as the value is stored in RAM.
+
+#### Commands
+
+To use:
+
+- JavaScript: `focus.command("layer.moveTo 1")`
+- Serial Command (Unix): `echo 'layer.moveTo 1' > /dev/ttyACM0`
+
+#### Expected output
+
+The layer will change inmediately according to the one sent with the command, this command equals the layer move from bazecor, which will permanently leave you in the new layer.
 
 ### layer.state
 
-This empty command has no support as of today, or is disabled / not working properly.
+This command returns the isActive status for up to 32 layers. It will return a 32 number line answer with the state of each layer represented for a 0 when the layer is not active, or 1 when the layer is active.
+
+#### Commands
+
+To use:
+
+- JavaScript: `focus.command("layer.state")`
+- Serial Command (Unix): `echo 'layer.state' > /dev/ttyACM0`
+
+#### Expected output
+
+This is the typical answer when the first layer is active: "1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "

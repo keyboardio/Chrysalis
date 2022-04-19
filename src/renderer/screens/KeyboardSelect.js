@@ -15,91 +15,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
-import PropTypes from "prop-types";
-
-import Alert from "@mui/material/Alert";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CircularProgress from "@mui/material/CircularProgress";
-import FormControl from "@mui/material/FormControl";
-import KeyboardIcon from "@mui/icons-material/Keyboard";
 import LinearProgress from "@mui/material/LinearProgress";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import MenuItem from "@mui/material/MenuItem";
 import Portal from "@mui/material/Portal";
-import Select from "@mui/material/Select";
-import Typography from "@mui/material/Typography";
-import withStyles from "@mui/styles/withStyles";
-
+import React from "react";
 import { toast } from "react-toastify";
-
 import Focus from "../../api/focus";
 import Hardware from "../../api/hardware";
 import Log from "../../api/log";
 import i18n from "../i18n";
-
+import { ConnectionButton } from "./KeyboardSelect/ConnectionButton";
+import { LinuxPermissionsWarning } from "./KeyboardSelect/LinuxPermissionsWarning";
+import { ScanDevicesButton } from "./KeyboardSelect/ScanDevicesButton";
+import { KeyboardPortSelector } from "./KeyboardSelect/KeyboardPortSelector";
+import { DeviceImage } from "./KeyboardSelect/DeviceImage";
 const { ipcRenderer } = require("electron");
-
-import { installUdevRules } from "../utils/installUdevRules";
-
-const styles = (theme) => ({
-  loader: {
-    position: "fixed",
-    top: 0,
-    left: 0,
-    right: 0,
-  },
-  main: {
-    width: "auto",
-    display: "block",
-    marginLeft: "auto",
-    marginRight: "auto",
-    maxWidth: "70%",
-    padding: `${theme.spacing(2)} ${theme.spacing(3)}
- ${theme.spacing(3)}`,
-  },
-  preview: {
-    maxWidth: 128,
-    marginBottom: theme.spacing(2),
-    "& .key rect, & .key path, & .key ellipse": {
-      stroke: "#000000",
-    },
-  },
-  card: {
-    marginTop: theme.spacing(5),
-    padding: `${theme.spacing(2)} ${theme.spacing(3)} ${theme.spacing(3)}`,
-  },
-  content: {},
-  selectControl: {
-    display: "flex",
-  },
-  connect: {
-    verticalAlign: "bottom",
-    marginLeft: 65,
-  },
-  cardActions: {
-    justifyContent: "center",
-  },
-  supported: {
-    backgroundColor: theme.palette.secondary.main,
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  error: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-    textAlign: "center",
-  },
-  found: {
-    color: theme.palette.success.main,
-  },
-});
 
 class KeyboardSelect extends React.Component {
   state = {
@@ -236,200 +169,85 @@ class KeyboardSelect extends React.Component {
     i18n.refreshHardware(devices[this.state.selectedPortIndex]);
   };
 
-  installUdevRules = async () => {
-    const { devices } = this.state;
-    const selectedDevice = devices?.[this.state.selectedPortIndex];
-
-    try {
-      await installUdevRules(selectedDevice.path);
-    } catch (err) {
-      toast.error(err.toString());
-      return;
-    }
-
-    await this.scanDevices();
-  };
-
   render() {
-    const { classes } = this.props;
     const { scanFoundDevices, devices } = this.state;
 
-    let loader = null;
-    if (this.state.loading) {
-      loader = <LinearProgress variant="query" className={classes.loader} />;
-    }
-
-    let deviceItems = null;
-    let port = null;
-    if (devices?.length > 0) {
-      deviceItems = devices.map((option, index) => {
-        let label = option.path;
-        if (option.device?.info) {
-          label = (
-            <ListItemText
-              primary={option.device.info.displayName}
-              secondary={option.path || i18n.t("keyboardSelect.unknown")}
-            />
-          );
-        } else if (option.info) {
-          label = <ListItemText primary={option.info.displayName} />;
-        }
-
-        const icon = (
-          <ListItemIcon sx={{ marginRight: 2 }}>
-            <Avatar className={option.path && classes.supported}>
-              <KeyboardIcon />
-            </Avatar>
-          </ListItemIcon>
-        );
-
-        return (
-          <MenuItem
-            key={`device-${index}`}
-            value={index}
-            selected={index === this.state.selectedPortIndex}
-          >
-            {icon}
-            {label}
-          </MenuItem>
-        );
-      });
-
-      port = (
-        <FormControl sx={{ display: "flex" }}>
-          <Select
-            value={this.state.selectedPortIndex}
-            classes={{ select: classes.selectControl }}
-            onChange={this.selectPort}
-          >
-            {deviceItems}
-          </Select>
-        </FormControl>
-      );
-    }
-
-    if (devices?.length == 0) {
-      port = (
-        <Typography variant="body1" color="error" className={classes.error}>
-          {i18n.t("keyboardSelect.noDevices")}
-        </Typography>
-      );
-    }
-
-    let connectContent = i18n.t("keyboardSelect.connect");
-    if (this.state.opening) {
-      connectContent = <CircularProgress color="secondary" size={16} />;
-    }
-
-    const scanDevicesButton = (
-      <Button
-        variant={devices?.length ? "outlined" : "contained"}
-        color={devices?.length ? "secondary" : "primary"}
-        className={scanFoundDevices ? classes.found : null}
-        onClick={scanFoundDevices ? null : this.scanDevices}
-      >
-        {i18n.t("keyboardSelect.scan")}
-      </Button>
-    );
-
-    let connectionButton, permissionWarning;
     let focus = new Focus();
     const selectedDevice = devices?.[this.state.selectedPortIndex];
 
-    if (
-      process.platform == "linux" &&
-      selectedDevice &&
-      !selectedDevice.accessible
-    ) {
-      const fixitButton = (
-        <Button onClick={this.installUdevRules} variant="outlined">
-          {i18n.t("keyboardSelect.installUdevRules")}
-        </Button>
-      );
-      permissionWarning = (
-        <Alert severity="error" action={fixitButton}>
-          <Typography component="p" gutterBottom>
-            {i18n.t("keyboardSelect.permissionError", {
-              path: selectedDevice.path,
-            })}
-          </Typography>
-          <Typography component="p">
-            {i18n.t("keyboardSelect.permissionErrorSuggestion")}
-          </Typography>
-        </Alert>
-      );
-    }
-
-    if (focus.device && selectedDevice?.device == focus.device) {
-      connectionButton = (
-        <Button
-          disabled={this.state.opening || this.state.devices?.length == 0}
-          variant="outlined"
-          color="secondary"
-          onClick={this.props.onDisconnect}
-        >
-          {i18n.t("keyboardSelect.disconnect")}
-        </Button>
-      );
-    } else {
-      connectionButton = (
-        <Button
-          disabled={
-            (selectedDevice ? !selectedDevice.accessible : false) ||
-            this.state.opening ||
-            this.state.devices?.length == 0
-          }
-          variant="contained"
-          color="primary"
-          onClick={this.onKeyboardConnect}
-          className={classes.connect}
-        >
-          {connectContent}
-        </Button>
-      );
-    }
-
-    let preview;
-    if (devices?.[this.state.selectedPortIndex]?.device?.components) {
-      const Keymap =
-        devices[this.state.selectedPortIndex].device.components.keymap;
-      preview = <Keymap index={0} className={classes.preview} />;
-    }
-
     return (
       <React.Fragment>
-        <Portal container={this.props.titleElement}>
-          {i18n.t("app.menu.selectAKeyboard")}
-        </Portal>
-        {loader}
-        {permissionWarning}
-
-        <div className={classes.main}>
-          <Card className={classes.card}>
+        {" "}
+        <Box sx={{ paddingBottom: 3 }}>
+          <Portal container={this.props.titleElement}>
+            {i18n.t("app.menu.selectAKeyboard")}
+          </Portal>
+          {this.state.loading && (
+            <LinearProgress
+              variant="query"
+              sx={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                right: 0,
+              }}
+            />
+          )}
+          <LinuxPermissionsWarning
+            deviceInaccessible={selectedDevice?.accessible == false}
+            platform={process.platform}
+            selectedDevice={selectedDevice}
+            scanDevices={this.scanDevices}
+          />
+          <Card
+            sx={{
+              boxShadow: 3,
+              width: "auto",
+              display: "block",
+              marginLeft: "auto",
+              marginRight: "auto",
+              maxWidth: "70%",
+              marginTop: 5,
+              padding: "2 3 3",
+            }}
+          >
             <CardContent
               sx={{
-                display: "inline-block",
                 width: "100%",
-                textAlign: "center",
+                px: 4,
               }}
             >
-              {preview}
-              {port}
+              <DeviceImage
+                device={devices?.[this.state.selectedPortIndex]?.device}
+              />
+              <KeyboardPortSelector
+                devices={devices}
+                selectedPortIndex={this.state.selectedPortIndex}
+                selectPort={this.selectPort}
+              />
             </CardContent>
-            <CardActions className={classes.cardActions}>
-              {scanDevicesButton}
-              <div className={classes.grow} />
-              {connectionButton}
+            <CardActions sx={{ justifyContent: "center", px: 4, pt: 2, pb: 3 }}>
+              <ScanDevicesButton
+                scanFoundDevices={scanFoundDevices}
+                scanDevices={this.scanDevices}
+                devices={devices}
+              />
+
+              <Box sx={{ flexGrow: 1 }} />
+              <ConnectionButton
+                opening={this.state.opening}
+                devices={this.state.devices}
+                selectedDevice={selectedDevice}
+                focusDevice={focus.device}
+                onKeyboardConnect={this.onKeyboardConnect}
+                onKeyboardDisconnect={this.props.onDisconnect}
+              />
             </CardActions>
           </Card>
-        </div>
+        </Box>
       </React.Fragment>
     );
   }
 }
 
-KeyboardSelect.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(KeyboardSelect);
+export default KeyboardSelect;

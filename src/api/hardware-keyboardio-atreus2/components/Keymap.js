@@ -18,20 +18,12 @@
 import React from "react";
 
 import classNames from "classnames";
-import withStyles from "@mui/styles/withStyles";
 import Atreus from "../data/atreus.png";
+import Box from "@mui/material/Box";
 
 import { KeymapDB } from "../../keymap";
 
 const db = new KeymapDB();
-
-const styles = () => ({
-  svg: {
-    background: `url(${Atreus})`,
-    backgroundSize: "100%",
-    backgroundRepeat: "no-repeat",
-  },
-});
 
 class Keymap extends React.Component {
   render() {
@@ -41,8 +33,8 @@ class Keymap extends React.Component {
         .fill()
         .map(() => 0);
 
-    const KeySpacingY = 63;
-    const keySpacingX = 62.5;
+    const KeySpacingY = 64;
+    const keySpacingX = 64;
 
     const colOffsetY = [30, 20, 4, 24, 40, 30, 30, 40, 24, 4, 20, 30];
     const colOffsetX = [
@@ -80,8 +72,8 @@ class Keymap extends React.Component {
       const keyIndex = parseInt(row) * 12 + parseInt(col);
       const strokeColor = "transparent" || "#b3b3b3";
       const stroke = active ? "#f3b3b3" : strokeColor;
-      const height = props.height || 42;
-      const width = props.width || 42;
+      const height = props.height || 44;
+      const width = props.width || 44;
       const bottom = y + height - 5;
       /*
         const textColor = "#000000";
@@ -127,10 +119,15 @@ class Keymap extends React.Component {
 
     return (
       <svg
-        viewBox="0 0 833 335"
+        viewBox="0 0 855 362"
         xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="xMidYMin meet"
-        className={classNames(classes.svg, this.props.className || "layer")}
+        preserveAspectRatio="xMinYMin meet"
+        style={{
+          background: `url(${Atreus})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "100%",
+        }}
+        className={classNames(classes?.svg, this.props.className || "layer")}
       >
         <g transform="translate(80,0)">
           <g transform="rotate(10)">
@@ -163,7 +160,7 @@ class Keymap extends React.Component {
           </g>
 
           <g transform="rotate(-10)">
-            <g transform="translate(0, 116.75)">
+            <g transform="translate(0, 120.5)">
               <Key row={0} col={7} />
               <Key row={0} col={8} />
               <Key row={0} col={9} />
@@ -197,4 +194,4 @@ class Keymap extends React.Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(Keymap);
+export default Keymap;

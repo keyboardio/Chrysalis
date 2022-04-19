@@ -101,8 +101,8 @@ class Overview extends React.Component {
             sx={{ width: 3, height: 3 }}
             variant="square"
             style={{
-              color: color.rgb,
-              background: color.rgb,
+              color: color?.rgb,
+              background: color?.rgb,
             }}
           >
             <CropSquareIcon />

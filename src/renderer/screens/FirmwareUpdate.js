@@ -357,7 +357,8 @@ class FirmwareUpdate extends React.Component {
         </Portal>
         <Card
           sx={{
-            margin: 4,
+            my: 4,
+            mx: "auto",
             maxWidth: "50%",
           }}
         >

@@ -122,8 +122,8 @@ class OverviewBase extends React.Component {
             className={classes.colorSwatch}
             variant="square"
             style={{
-              color: color.rgb,
-              background: color.rgb,
+              color: color?.rgb,
+              background: color?.rgb,
             }}
           >
             <CropSquareIcon />

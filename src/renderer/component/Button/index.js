@@ -15,7 +15,7 @@
  */
 
 import NavigationButton from "./NavigationButton";
-import RegularButton from "./RegularButton";
+import RegularButton from "./regularButton";
 import ButtonConfig from "./ButtonConfig";
 import ButtonSettings from "./ButtonSettings";
 import SuperkeyPicker from "./SuperkeyPicker";

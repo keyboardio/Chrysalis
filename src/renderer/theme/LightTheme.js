@@ -7,7 +7,6 @@ import IconPlusXS from "../../../static/light/plusIcon.svg";
 import RaiseFirmwareUpgrade from "../../../static/light/raiseFirmwareupgrade.svg";
 
 import Tokens from "./Tokens";
-import { TokenClass } from "typescript";
 
 const settingColorOpacity = (color, opacity) => {
   let newColorArray = color;

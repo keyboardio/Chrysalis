@@ -371,7 +371,7 @@ class Editor extends React.Component {
         <main
           sx={{
             flexGrow: 1,
-            padding: 3,
+            margin: 3,
             width: `calc(100% - ${sidebarWidth}px)`,
           }}
         >

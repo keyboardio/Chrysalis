@@ -682,7 +682,8 @@ class SuperkeysEditor extends React.Component {
   //Manage Standard/Single view
   async configStandarView() {
     try {
-      const preferencesStandardView = JSON.parse(store.get("settings.isStandardViewSuperkeys"));
+      // const preferencesStandardView = JSON.parse(store.get("settings.isStandardViewSuperkeys"));
+      const preferencesStandardView = false;
       if (preferencesStandardView !== null) {
         this.setState({ isStandardViewSuperkeys: preferencesStandardView });
       } else {
@@ -700,11 +701,9 @@ class SuperkeysEditor extends React.Component {
   }
 
   onToogle = () => {
-    if (this.state.isStandardViewSuperkeys) {
-      this.setState({ isStandardViewSuperkeys: false });
-    } else {
-      this.setState({ isStandardViewSuperkeys: true });
-    }
+    this.setState(state => {
+      ({ isStandardViewSuperkeys: !state.isStandardViewSuperkeys });
+    });
   };
 
   render() {

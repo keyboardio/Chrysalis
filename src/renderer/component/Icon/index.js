@@ -66,7 +66,7 @@ import IconLayers from "./IconLayers";
 import IconRobot from "./IconRobot";
 import IconThunder from "./IconThunder";
 import IconToolsCalculator from "./IconToolsCalculator";
-import IconToolsCamera from "./IconToolscamera";
+import IconToolsCamera from "./IconToolsCamera";
 import IconToolsEject from "./IconToolsEject";
 import IconToolsBrightnessLess from "./IconToolsBrightnessLess";
 import IconToolsBrightnessMore from "./IconToolsBrightnessMore";

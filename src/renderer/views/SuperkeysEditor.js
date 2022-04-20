@@ -39,8 +39,7 @@ import { IconFloppyDisk } from "../component/Icon";
 
 // Modules
 import PageHeader from "../modules/PageHeader";
-import { SuperKeysFeatures } from "../modules/SuperKeys";
-import { SuperkeyActions } from "../modules/SuperKeys";
+import { SuperKeysFeatures, SuperkeyActions } from "../modules/SuperKeys";
 import { KeyPickerKeyboard } from "../modules/KeyPickerKeyboard";
 
 // API's

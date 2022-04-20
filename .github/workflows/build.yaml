@@ -13,12 +13,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - os: macos-latest
-          gyp: ""
-        - os: windows-latest
-          gyp: ""
-        - os: ubuntu-latest
-          gyp: use_udev=0 use_system_libusb=true
+          - os: macos-latest
+            gyp: ""
+          - os: windows-latest
+            gyp: ""
+          - os: ubuntu-latest
+            gyp: use_udev=0 use_system_libusb=true
 
     steps:
       - name: Check out Git repository
@@ -27,7 +27,7 @@ jobs:
       - name: Install USB compilation dependencies
         uses: lyricwulf/abc@v1
         with:
-          linux: build-essential libusb-1.0-0 libusb-1.0-0-dev
+          linux: build-essential libusb-1.0-0 libudev-dev
 
       - name: Install Node.js, NPM and Yarn
         uses: actions/setup-node@v2
@@ -48,10 +48,10 @@ jobs:
           # release the app after building
           release: ${{ startsWith(github.ref, 'refs/tags/v') }}
       - name: Save Artifact
-        uses: 'actions/upload-artifact@v2'
+        uses: "actions/upload-artifact@v2"
         with:
           name: Bazecor ${{ matrix.node-version }}
           path: |
-              ${{ github.workspace }}/dist/*.exe
-              ${{ github.workspace }}/dist/*.AppImage
-              ${{ github.workspace }}/dist/*.dmg
+            ${{ github.workspace }}/dist/*.exe
+            ${{ github.workspace }}/dist/*.AppImage
+            ${{ github.workspace }}/dist/*.dmg

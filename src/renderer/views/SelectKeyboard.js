@@ -36,7 +36,7 @@ import { MdKeyboard } from "react-icons/md";
 import Focus from "../../api/focus";
 import Hardware from "../../api/hardware";
 
-import usb from "usb";
+import { usb, getDeviceList } from "usb";
 
 import i18n from "../i18n";
 import NeuronConnection from "../modules/NeuronConnection";
@@ -188,7 +188,7 @@ class SelectKeyboard extends Component {
   }
 
   findNonSerialKeyboards = deviceList => {
-    const devices = usb.getDeviceList().map(device => device.deviceDescriptor);
+    const devices = getDeviceList().map(device => device.deviceDescriptor);
     devices.forEach(desc => {
       Hardware.nonSerial.forEach(device => {
         if (desc.idVendor == device.usb.vendorId && desc.idProduct == device.usb.productId) {

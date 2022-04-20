@@ -93,7 +93,7 @@
     "source-map-support": "^0.5.16",
     "styled-components": "^5.2.3",
     "sudo-prompt": "^9.2.1",
-    "usb": "1.7.2"
+    "usb": "^2.3.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.10",
@@ -106,7 +106,7 @@
     "@svgr/webpack": "^6.2.1",
     "babel-loader": "^8.2.2",
     "electron": "^13.6.6",
-    "electron-builder": "^22.14.2",
+    "electron-builder": "^23.0.2",
     "electron-notarize": "^1.0.0",
     "electron-webpack": "^2.8.2",
     "electron-webpack-eslint": "^6.0.0",

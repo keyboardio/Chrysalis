@@ -21,7 +21,8 @@ import { Switch, Redirect, Route, withRouter } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { ThemeProvider } from "styled-components";
 
-import usb from "usb";
+import { usb } from "usb";
+
 import i18n from "./i18n";
 
 import Focus from "../api/focus";

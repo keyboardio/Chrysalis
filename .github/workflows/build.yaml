@@ -15,7 +15,7 @@ jobs:
         include:
           - os: macos-latest
             gyp: ""
-          - os: windows-latest
+          - os: windows-2019
             gyp: ""
           - os: ubuntu-latest
             gyp: use_udev=0 use_system_libusb=true

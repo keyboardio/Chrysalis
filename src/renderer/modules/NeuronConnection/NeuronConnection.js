@@ -92,7 +92,7 @@ const NeuronConnection = ({
     <Style>
       <div className="neuronConnection">
         <NeuronStatus
-          loading={loading}
+          loading={loading ? "loading" : undefined}
           connected={connected}
           scanFoundDevices={scanFoundDevices}
           deviceItems={deviceItems.length}

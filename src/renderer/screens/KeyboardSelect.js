@@ -294,7 +294,7 @@ class KeyboardSelect extends Component {
     const { onDisconnect } = this.props;
 
     let loader = null;
-    if (this.state.loading) {
+    if (loading) {
       loader = (
         <Card.Body className="loader">
           <Spinner className="spinner-border text-danger" role="status" />

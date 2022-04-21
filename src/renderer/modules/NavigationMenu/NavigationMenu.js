@@ -251,8 +251,8 @@ class NavigationMenu extends Component {
                       selected={currentPage === "/firmware-update"}
                       drawerWidth={drawerWidth}
                       onClick={() => setCurrentPage("/firmware-update")}
-                      //showNotif={showNotif != 0 ? (showNotif > 0 ? true : false) : false}
-                      showNotif={true}
+                      showNotif={showNotif != 0 ? (showNotif > 0 ? true : false) : false}
+                      // showNotif={true}
                       buttonText={i18n.app.menu.firmwareUpdate}
                       icoSVG={<IconMemory2Stroke />}
                     />

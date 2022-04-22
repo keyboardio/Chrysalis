@@ -23,8 +23,6 @@ import i18n from "../../i18n";
 import MacroForm from "./MacroForm";
 import Slider from "react-rangeslider";
 
-import { IconFloppyDisk } from "../../component/Icon";
-
 const Styles = Styled.div`
 .card {
   width: auto;

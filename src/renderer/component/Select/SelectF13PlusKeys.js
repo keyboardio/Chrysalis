@@ -95,7 +95,7 @@ const SelectF13PlusKeys = ({ keyCode, onSelect, value, listElements, ksl, conten
       console.log("keyCode: ", keyCode);
       setLoad(false);
     }
-  }, [content, value]);
+  }, [content, value, keyCode]);
 
   if (load) return null;
   return (

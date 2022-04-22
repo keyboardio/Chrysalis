@@ -131,7 +131,7 @@ const StepsBar = ({ steps, stepActive }) => {
       };
       setRefreshPositionStyle(widthPercentage);
     }
-  }, [stepActive]);
+  }, [stepActive, steps.length]);
 
   return (
     <Style>

@@ -201,7 +201,7 @@ const SuperkeyPicker = ({
     if (aux.label) {
       setKeyContent((aux.extraLabel != undefined ? aux.extraLabel + " " : "") + aux.label);
     }
-  }, [action]);
+  }, [index, keymapDB, macros, selected, superkeys, action]);
 
   if (superkeys === null) return null;
   return (

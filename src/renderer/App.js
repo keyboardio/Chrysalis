@@ -49,7 +49,7 @@ import { IconNoSignal } from "./component/Icon";
 const Store = require("electron-store");
 const store = new Store();
 
-const { app, remote, ipcRenderer } = require("electron");
+const { remote, ipcRenderer } = require("electron");
 const path = require("path");
 
 let focus = new Focus();
@@ -106,15 +106,33 @@ class App extends React.Component {
       console.log("settings already upgraded, returning");
       return;
     }
+    // create locale language identifier
+    const lang = remote.app.getLocale();
+    const translator = {
+      en: "english",
+      es: "spanish",
+      fr: "french",
+      de: "german",
+      sv: "swedish",
+      da: "danish",
+      no: "norwegian",
+      is: "icelandic"
+    };
+    // console.log("languageTEST", lang, translator[lang.split("-")[0]], translator["hh"]);
 
     // Store all settings from electron settings in electron store.
     let data = {};
     data.backupFolder =
       (await settings.get("backupFolder")) != undefined
         ? await settings.get("backupFolder")
-        : path.join(app.getPath("home"), "Raise", "Backups");
+        : path.join(remote.app.getPath("home"), "Raise", "Backups");
     data.backupFrequency = (await settings.get("backupFrequency")) != undefined ? await settings.get("backupFrequency") : 30;
-    data.language = (await settings.get("ui.language")) != undefined ? await settings.get("ui.language") : "default";
+    data.language =
+      (await settings.get("ui.language")) != undefined
+        ? await settings.get("ui.language")
+        : translator[lang.split("-")[0]] != ""
+        ? translator[lang.split("-")[0]]
+        : "english";
     data.darkMode = (await settings.get("ui.darkMode")) != undefined ? await settings.get("ui.darkMode") : "system";
     data.showDefaults =
       (await settings.get("keymap.showDefaults")) != undefined ? await settings.get("keymap.showDefaults") : false;

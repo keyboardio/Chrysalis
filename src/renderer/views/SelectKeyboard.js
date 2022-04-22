@@ -321,10 +321,12 @@ class SelectKeyboard extends Component {
     let port = null;
     if (devices && devices.length > 0) {
       deviceItems = devices.map((option, index) => {
-        let userName = store.get("neurons");
-        userName = userName.filter(n =>
-          n.id.toLowerCase() == option.serialNumber > 6 ? option.serialNumber.slice(0, -6).toLowerCase() : option.serialNumber
-        );
+        let neurons = store.get("neurons");
+        let userName = "Neuron";
+        if (neurons != undefined)
+          userName = neurons.filter(n =>
+            n.id.toLowerCase() == option.serialNumber > 6 ? option.serialNumber.slice(0, -6).toLowerCase() : option.serialNumber
+          );
         if (userName.length > 0) {
           userName = userName[0].name;
         } else {

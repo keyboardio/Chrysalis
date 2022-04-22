@@ -49,7 +49,8 @@ import { IconNoSignal } from "./component/Icon";
 const Store = require("electron-store");
 const store = new Store();
 
-const { remote, ipcRenderer } = require("electron");
+const { app, remote, ipcRenderer } = require("electron");
+const path = require("path");
 
 let focus = new Focus();
 focus.debug = true;
@@ -108,11 +109,15 @@ class App extends React.Component {
 
     // Store all settings from electron settings in electron store.
     let data = {};
-    data.backupFolder = await settings.get("backupFolder");
-    data.backupFrequency = await settings.get("backupFrequency");
-    data.language = await settings.get("ui.language");
-    data.darkMode = await settings.get("ui.darkMode");
-    data.showDefaults = await settings.get("keymap.showDefaults");
+    data.backupFolder =
+      (await settings.get("backupFolder")) != undefined
+        ? await settings.get("backupFolder")
+        : path.join(app.getPath("home"), "Raise", "Backups");
+    data.backupFrequency = (await settings.get("backupFrequency")) != undefined ? await settings.get("backupFrequency") : 30;
+    data.language = (await settings.get("ui.language")) != undefined ? await settings.get("ui.language") : "default";
+    data.darkMode = (await settings.get("ui.darkMode")) != undefined ? await settings.get("ui.darkMode") : "system";
+    data.showDefaults =
+      (await settings.get("keymap.showDefaults")) != undefined ? await settings.get("keymap.showDefaults") : false;
     store.set("settings", data);
     store.set("neurons", []);
     console.log("Testing results: ", data, store.get("settings"), store.get("settings.darkMode"));

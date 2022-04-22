@@ -678,13 +678,13 @@ class KeyboardSettings extends React.Component {
                     </Row>
                     <Row>
                       <Col xs={2} md={1} className="p-0 text-center align-self-center">
-                        <span className="tagsfix">Slow</span>
+                        <span className="tagsfix">Less</span>
                       </Col>
                       <Col xs={8} md={10} className="px-2">
                         <Slider min={1} max={500} value={SuperTimeout} onChange={this.setSuperTimeout} />
                       </Col>
                       <Col xs={2} md={1} className="p-0 text-center align-self-center">
-                        <span className="tagsfix">Fast</span>
+                        <span className="tagsfix">More</span>
                       </Col>
                     </Row>
                   </Form.Group>
@@ -706,13 +706,13 @@ class KeyboardSettings extends React.Component {
                     </Row>
                     <Row>
                       <Col xs={2} md={1} className="p-0 text-center align-self-center">
-                        <span className="tagsfix">None</span>
+                        <span className="tagsfix">Less</span>
                       </Col>
                       <Col xs={8} md={10} className="px-2">
                         <Slider min={1} max={500} value={SuperHoldstart} onChange={this.setSuperHoldstart} />
                       </Col>
                       <Col xs={2} md={1} className="p-0 text-center align-self-center">
-                        <span className="tagsfix">High</span>
+                        <span className="tagsfix">More</span>
                       </Col>
                     </Row>
                   </Form.Group>

@@ -46,7 +46,7 @@ const Styles = Styled.div`
   align-self: center;
 }
 .macroFreeMem {
-  width: 30%;
+  width: 40%;
   display: flex;
   align-items: center;
 }
@@ -54,6 +54,14 @@ const Styles = Styled.div`
   width: -webkit-fill-available;
   margin-left: 8px;
   margin-right: 8px;
+}
+.memSlider {
+  .rangeslider__fill {
+    background-color: lightgreen;
+  }
+  .rangeslider__handle {
+    display: none;
+  }
 }
 .outOfMem {
   .rangeslider__fill {
@@ -195,7 +203,7 @@ class MacroManager extends Component {
   updateFreeMemory = macros => {
     let mem = macros.map(m => m.actions).flat().length;
     this.setState({ freeMemory: mem });
-    if (mem > 1899) {
+    if (mem > 1999) {
       alert(
         "You exceeded the maximum capacity of actions in your macros. Please decrease the number of actions until the top right bar is no longer red"
       );
@@ -212,15 +220,15 @@ class MacroManager extends Component {
             <div className="macroHeaderMem">
               <div className="macroHeaderTitle">{i18n.editor.macros.title}</div>
               <div className="macroFreeMem">
-                <IconFloppyDisk className="iconFloppy" />
-                <span className="tagsfix">Empty</span>
+                <span className="tagsfix">Keyboard Memory Used - 0%</span>
                 <Slider
                   className={`memSlider ${this.state.freeMemory > 1899 ? "outOfMem" : ""}`}
                   min={0}
                   max={2000}
                   value={this.state.freeMemory}
+                  tooltip={false}
                 />
-                <span className="tagsfix">Full</span>
+                <span className="tagsfix">100%</span>
               </div>
             </div>
           </Card.Header>

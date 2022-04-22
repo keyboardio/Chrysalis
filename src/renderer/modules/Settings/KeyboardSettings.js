@@ -364,7 +364,7 @@ class KeyboardSettings extends React.Component {
   setAccelSpeed = value => {
     this.setState(
       state => ({
-        mouseAccelSpeed: parseInt(value) < 128 ? parseInt(value) : 128 - (parseInt(value) - 128),
+        mouseAccelSpeed: parseInt(value),
         mouseAccelDelay: Math.ceil(50 / parseInt(value)),
         modified: true
       }),

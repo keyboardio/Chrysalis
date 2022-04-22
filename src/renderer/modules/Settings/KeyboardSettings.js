@@ -653,7 +653,7 @@ class KeyboardSettings extends React.Component {
                         <span className="tagsfix">Less</span>
                       </Col>
                       <Col xs={8} md={10} className="px-2">
-                        <Slider min={0} max={500} value={qukeysHoldTimeout} onChange={this.setHoldTimeout} />
+                        <Slider min={1} max={500} value={qukeysHoldTimeout} onChange={this.setHoldTimeout} />
                       </Col>
                       <Col xs={2} md={1} className="p-0 text-center align-self-center">
                         <span className="tagsfix">More</span>
@@ -681,7 +681,7 @@ class KeyboardSettings extends React.Component {
                         <span className="tagsfix">Slow</span>
                       </Col>
                       <Col xs={8} md={10} className="px-2">
-                        <Slider min={0} max={500} value={SuperTimeout} onChange={this.setSuperTimeout} />
+                        <Slider min={1} max={500} value={SuperTimeout} onChange={this.setSuperTimeout} />
                       </Col>
                       <Col xs={2} md={1} className="p-0 text-center align-self-center">
                         <span className="tagsfix">Fast</span>
@@ -709,7 +709,7 @@ class KeyboardSettings extends React.Component {
                         <span className="tagsfix">None</span>
                       </Col>
                       <Col xs={8} md={10} className="px-2">
-                        <Slider min={0} max={500} value={SuperHoldstart} onChange={this.setSuperHoldstart} />
+                        <Slider min={1} max={500} value={SuperHoldstart} onChange={this.setSuperHoldstart} />
                       </Col>
                       <Col xs={2} md={1} className="p-0 text-center align-self-center">
                         <span className="tagsfix">High</span>

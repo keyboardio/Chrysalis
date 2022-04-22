@@ -98,70 +98,70 @@ const ShiftToLayerTable = {
       code: 17450,
       labels: {
         primary: "1",
-        top: "SWITCH"
+        top: "SHIFT"
       }
     },
     {
       code: 17451,
       labels: {
         primary: "2",
-        top: "SWITCH"
+        top: "SHIFT"
       }
     },
     {
       code: 17452,
       labels: {
         primary: "3",
-        top: "SWITCH"
+        top: "SHIFT"
       }
     },
     {
       code: 17453,
       labels: {
         primary: "4",
-        top: "SWITCH"
+        top: "SHIFT"
       }
     },
     {
       code: 17454,
       labels: {
         primary: "5",
-        top: "SWITCH"
+        top: "SHIFT"
       }
     },
     {
       code: 17455,
       labels: {
         primary: "6",
-        top: "SWITCH"
+        top: "SHIFT"
       }
     },
     {
       code: 17456,
       labels: {
         primary: "7",
-        top: "SWITCH"
+        top: "SHIFT"
       }
     },
     {
       code: 17457,
       labels: {
         primary: "8",
-        top: "SWITCH"
+        top: "SHIFT"
       }
     },
     {
       code: 17458,
       labels: {
         primary: "9",
-        top: "SWITCH"
+        top: "SHIFT"
       }
     },
     {
       code: 17459,
       labels: {
         primary: "10",
-        top: "SWITCH"
+        top: "SHIFT"
       }
     }
   ]

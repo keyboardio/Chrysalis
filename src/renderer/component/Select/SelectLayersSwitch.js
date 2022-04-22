@@ -57,17 +57,17 @@ class SelectLayersSwitch extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.layerSwitch = [
-      { name: "Layer Switch 1", keynum: 17450 },
-      { name: "Layer Switch 2", keynum: 17451 },
-      { name: "Layer Switch 3", keynum: 17452 },
-      { name: "Layer Switch 4", keynum: 17453 },
-      { name: "Layer Switch 5", keynum: 17454 },
-      { name: "Layer Switch 6", keynum: 17455 },
-      { name: "Layer Switch 7", keynum: 17456 },
-      { name: "Layer Switch 8", keynum: 17457 },
-      { name: "Layer Switch 9", keynum: 17458 },
-      { name: "Layer Switch 10", keynum: 17459 }
+    this.layerShift = [
+      { name: "Layer Shift 1", keynum: 17450 },
+      { name: "Layer Shift 2", keynum: 17451 },
+      { name: "Layer Shift 3", keynum: 17452 },
+      { name: "Layer Shift 4", keynum: 17453 },
+      { name: "Layer Shift 5", keynum: 17454 },
+      { name: "Layer Shift 6", keynum: 17455 },
+      { name: "Layer Shift 7", keynum: 17456 },
+      { name: "Layer Shift 8", keynum: 17457 },
+      { name: "Layer Shift 9", keynum: 17458 },
+      { name: "Layer Shift 10", keynum: 17459 }
     ];
   }
   render() {
@@ -77,10 +77,10 @@ class SelectLayersSwitch extends Component {
     return (
       <Style>
         <Dropdown
-          value={KC != 0 ? this.layerSwitch.map(i => i.keynum).includes(KC) : KC}
+          value={KC != 0 ? this.layerShift.map(i => i.keynum).includes(KC) : KC}
           onSelect={value => onKeySelect(parseInt(value))}
           className={`custom-dropdown ${
-            keyCode.modified > 0 && this.layerSwitch.map(i => i.keynum).includes(keyCode.base + keyCode.modified) ? "active" : ""
+            keyCode.modified > 0 && this.layerShift.map(i => i.keynum).includes(keyCode.base + keyCode.modified) ? "active" : ""
           } ${action == 1 || action == 2 || action == 4 ? "disabled" : ""}`}
         >
           <Dropdown.Toggle id="dropdown-custom">
@@ -88,15 +88,15 @@ class SelectLayersSwitch extends Component {
               <div className="dropdownItem">
                 <span className="dropdownLabel">Layer Switch</span>
                 {`${
-                  keyCode.modified > 0 && this.layerSwitch.map(i => i.keynum).includes(keyCode.base + keyCode.modified)
-                    ? this.layerSwitch[this.layerSwitch.findIndex(o => o.keynum == KC)].name
+                  keyCode.modified > 0 && this.layerShift.map(i => i.keynum).includes(keyCode.base + keyCode.modified)
+                    ? this.layerShift[this.layerShift.findIndex(o => o.keynum == KC)].name
                     : "Select Layer"
                 }`}
               </div>
             </div>
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            {this.layerSwitch.map((item, id) => {
+            {this.layerShift.map((item, id) => {
               return (
                 <Dropdown.Item
                   eventKey={item.keynum}

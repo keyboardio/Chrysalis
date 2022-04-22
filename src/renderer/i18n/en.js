@@ -378,42 +378,40 @@ const English = {
     },
     qukeys: {
       title: "DUAL FUNCTION KEY PARAMETERS",
-      holdTimeout: "Dual function - Hold timeout",
+      holdTimeout: "Dual-Function Keys - Hold timeout",
       holdTimeoutsub: " - From 0 to 65,534 milliseconds",
-      overlapThreshold: "Dual function - Overlap Threshold",
-      overlapThresholdTip1: "This setting only affects Dual function keys.",
+      overlapThreshold: "Dual-Function Keys- Overlap Threshold",
+      overlapThresholdTip1: "This setting adjusts how much chording you are allowed without triggering the hold function.",
       overlapThresholdTip2:
-        "If you select More, Dual function keys will allow more overlap, thus allowing longer chordings when typing faster.",
-      overlapThresholdTip3: "For example, holding the key to switch to a layer or activate a modifier (like Shift, Control...).",
+        "High values let you press the next key before releasing the Dual-Function key without triggering the hold function.",
+      overlapThresholdTip3:
+        "Low values will mean that you’ll trigger the hold function whenever pressing a key without having totally released a Dual-Function key.",
       overlapThresholdTip4:
         "If you change it to Less, you will nearly always affect the subsequent pressed key with the dual function as it will be counting as double pressing instead of chording.",
       overlapThresholdsub: " - Percentage from 0 to 100",
-      holdTimeoutTip1: "This setting only affects Dual function keys.",
-      holdTimeoutTip2: "Let's say you have a Layer&Key with 'Layer 1' on hold and 'Space' on tap.",
-      holdTimeoutTip3:
-        "If the slider is at 'None' and you press another key before completely releasing the Space, this will trigger the hold function.",
+      holdTimeoutTip1: "This setting determines the amount of time it takes for the “hold” function to activate.",
+      holdTimeoutTip2: "With a high value, it’ll take more time to activate the hold function.",
+      holdTimeoutTip3: "With a low value, you might trigger the hold function if you linger on the key too much while typing.",
       holdTimeoutTip4: "If the slider is at 'High', it'll take a bit more time for the hold function to activate."
     },
     superkeys: {
       title: "Typing",
-      timeout: "Superkeys - Typing speed",
-      timeoutTip1: "This setting only affects Superkeys.",
-      timeoutTip2:
-        "If you select a slow typing speed, some functions of Layer&Key and Superkeys will take slightly more time to trigger.",
-      timeoutTip3: "For example, holding the key to switch to a layer or activate a modifier (like Shift, Control...).",
+      timeout: "Superkeys - Next tap timeout",
+      timeoutTip1: "This setting determines how much a Superkey waits for the next tap.",
+      timeoutTip2: "With a low value, you need to be fast pressing the next tap, or the Superkey will output the previous tap.",
+      timeoutTip3: "With a high value, it will take more time for the Superkey to output the second tap.",
       timeoutTip4:
         "If you choose a fast typing speed, you might activate those actions by mistake if you 'linger' too much on the key.",
-      chordingTip1: "This setting only affects Superkeys.",
-      chordingTip2: "Let's say you have a superkey with shift on hold and 'Space' on tap.",
-      chordingTip3:
-        "If the slider is at 'None' and you press another key before completely releasing the Space, this will trigger the hold function.",
+      chordingTip1: "This setting determines the amount of time it takes for the “hold” function to activate.",
+      chordingTip2: "With a high value, it’ll take more time to activate the hold function.",
+      chordingTip3: "With a low value, you might trigger the hold function if you linger on the key too much while typing.",
       chordingTip4: "If the slider is at 'High', it'll take a bit more time for the hold function to activate.",
       repeat:
         "Adjust repeat time interval between the emmision of holded keys after waitfor period. (this doesn't affect all keys)",
       repeatsub: " - time from 0 to 254 milliseconds",
       waitfor: "Adjust time between first and subsequent emmisions of the hold keys",
       waitforsub: " - time from 0 to 65,534 milliseconds",
-      holdstart: "Superkeys - Chording while typing",
+      holdstart: "Superkeys - Hold timeout",
       holdstartsub: " - time from 0 to 65,534 milliseconds",
       overlap:
         "Adjust percentage that changes the way the hold function will trigger depending on the typing speed of the previous normal key",

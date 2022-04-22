@@ -613,7 +613,7 @@ class KeyboardSettings extends React.Component {
                           <Title
                             text={i18n.keyboardSettings.qukeys.overlapThreshold}
                             headingLevel={6}
-                            tooltip={`<h5 class="text-left">${i18n.keyboardSettings.qukeys.overlapThresholdTip1}</h5><ul><li class="text-left">${i18n.keyboardSettings.qukeys.overlapThresholdTip2}</li><li class="text-left">${i18n.keyboardSettings.qukeys.overlapThresholdTip3}</li><li class="text-left">${i18n.keyboardSettings.qukeys.overlapThresholdTip4}</li></ul>`}
+                            tooltip={`<h5 class="text-left">${i18n.keyboardSettings.qukeys.overlapThresholdTip1}</h5><ul><li class="text-left">${i18n.keyboardSettings.qukeys.overlapThresholdTip2}</li><li class="text-left">${i18n.keyboardSettings.qukeys.overlapThresholdTip3}</li></ul>`}
                             tooltipPlacement="bottom"
                             tooltipSize="wide"
                           />
@@ -641,7 +641,7 @@ class KeyboardSettings extends React.Component {
                           <Title
                             text={i18n.keyboardSettings.qukeys.holdTimeout}
                             headingLevel={6}
-                            tooltip={`<h5 class="text-left">${i18n.keyboardSettings.qukeys.holdTimeoutTip1}</h5><ul><li class="text-left">${i18n.keyboardSettings.qukeys.holdTimeoutTip2}</li><li class="text-left">${i18n.keyboardSettings.qukeys.holdTimeoutTip3}</li><li class="text-left">${i18n.keyboardSettings.qukeys.holdTimeoutTip4}</li></ul>`}
+                            tooltip={`<h5 class="text-left">${i18n.keyboardSettings.qukeys.holdTimeoutTip1}</h5><ul><li class="text-left">${i18n.keyboardSettings.qukeys.holdTimeoutTip2}</li><li class="text-left">${i18n.keyboardSettings.qukeys.holdTimeoutTip3}</li></ul>`}
                             tooltipPlacement="bottom"
                             tooltipSize="wide"
                           />
@@ -653,7 +653,7 @@ class KeyboardSettings extends React.Component {
                         <span className="tagsfix">Less</span>
                       </Col>
                       <Col xs={8} md={10} className="px-2">
-                        <Slider min={1} max={500} value={qukeysHoldTimeout} onChange={this.setHoldTimeout} />
+                        <Slider min={1} max={255} value={qukeysHoldTimeout} onChange={this.setHoldTimeout} />
                       </Col>
                       <Col xs={2} md={1} className="p-0 text-center align-self-center">
                         <span className="tagsfix">More</span>
@@ -669,7 +669,7 @@ class KeyboardSettings extends React.Component {
                           <Title
                             text={i18n.keyboardSettings.superkeys.timeout}
                             headingLevel={6}
-                            tooltip={`<h5 class="text-left">${i18n.keyboardSettings.superkeys.timeoutTip1}</h5><ul><li class="text-left">${i18n.keyboardSettings.superkeys.timeoutTip2}</li><li class="text-left">${i18n.keyboardSettings.superkeys.timeoutTip3}</li><li class="text-left">${i18n.keyboardSettings.superkeys.timeoutTip4}</li></ul>`}
+                            tooltip={`<h5 class="text-left">${i18n.keyboardSettings.superkeys.timeoutTip1}</h5><ul><li class="text-left">${i18n.keyboardSettings.superkeys.timeoutTip2}</li><li class="text-left">${i18n.keyboardSettings.superkeys.timeoutTip3}</li></ul>`}
                             tooltipPlacement="bottom"
                             tooltipSize="wide"
                           />
@@ -697,7 +697,7 @@ class KeyboardSettings extends React.Component {
                           <Title
                             text={i18n.keyboardSettings.superkeys.holdstart}
                             headingLevel={6}
-                            tooltip={`<h5 class="text-left">${i18n.keyboardSettings.superkeys.chordingTip1}</h5><ul><li class="text-left">${i18n.keyboardSettings.superkeys.chordingTip2}</li><li class="text-left">${i18n.keyboardSettings.superkeys.chordingTip3}</li><li class="text-left">${i18n.keyboardSettings.superkeys.chordingTip4}</li></ul>`}
+                            tooltip={`<h5 class="text-left">${i18n.keyboardSettings.superkeys.chordingTip1}</h5><ul><li class="text-left">${i18n.keyboardSettings.superkeys.chordingTip2}</li><li class="text-left">${i18n.keyboardSettings.superkeys.chordingTip3}</li></ul>`}
                             tooltipPlacement="bottom"
                             tooltipSize="wide"
                           />

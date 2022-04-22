@@ -27,13 +27,13 @@ import { RegularButton } from "../../component/Button";
 import WhatsNew from "../WhatsNew";
 import FirmwareAdvancedOptions from "../FirmwareAdvancedOptions";
 
-const Style = Styled.div`   
+const Style = Styled.div`
 width: 100%;
 .firmware-wrapper {
-  max-width: 960px;   
+  max-width: 960px;
   width: 100%;
   margin: auto;
-  
+
   .firmware-row {
     width: 100%;
     display: flex;
@@ -41,25 +41,25 @@ width: 100%;
   }
   .firmware-content {
     flex: 0 0 66%;
-    background: ${({ theme }) => theme.styles.firmwareUpdatePanel.backgroundContent}; 
+    background: ${({ theme }) => theme.styles.firmwareUpdatePanel.backgroundContent};
   }
   .firmware-sidebar {
     flex: 0 0 34%;
-    background: ${({ theme }) => theme.styles.firmwareUpdatePanel.backgroundSidebar}; 
+    background: ${({ theme }) => theme.styles.firmwareUpdatePanel.backgroundSidebar};
   }
   .firmware-content--inner {
     padding: 32px;
-  }   
+  }
 
   .borderLeftTopRadius {
     border-top-left-radius: 14px;
-  } 
+  }
   .borderRightTopRadius {
     border-top-right-radius: 14px;
   }
   .borderLeftBottomRadius {
     border-bottom-left-radius: 14px;
-  } 
+  }
   .borderRightBottomRadius {
     border-bottom-right-radius: 14px;
   }
@@ -71,7 +71,7 @@ width: 100%;
   height: 116px;
   margin-bottom: 42px;
   margin-right: 32px;
-  background-color: ${({ theme }) => theme.styles.firmwareUpdatePanel.backgroundStripeColor};  
+  background-color: ${({ theme }) => theme.styles.firmwareUpdatePanel.backgroundStripeColor};
   border-bottom-right-radius: 16px;
   border-top-right-radius: 16px;
   align-items:center;
@@ -84,34 +84,34 @@ width: 100%;
   transform: translate3d(0, -50%,0);
   margin-top: 0;
   z-index: 9;
-  
+
   .buttonToggler.dropdown-toggle.btn {
-    color: ${({ theme }) => theme.styles.firmwareUpdatePanel.iconDropodownColor}; 
+    color: ${({ theme }) => theme.styles.firmwareUpdatePanel.iconDropodownColor};
   }
 }
-.wrapperActions { 
+.wrapperActions {
   display: flex;
   padding-left: 32px;
   margin-left: 32px;
   align-items: center;
   height: 116px;
   margin-bottom: 42px;
-  background-color: ${({ theme }) => theme.styles.firmwareUpdatePanel.backgroundStripeColor};    
+  background-color: ${({ theme }) => theme.styles.firmwareUpdatePanel.backgroundStripeColor};
   border-bottom-left-radius: 16px;
   border-top-left-radius: 16px;
   overflow: hidden;
   .button {
     align-self: center;
   }
-} 
+}
 .disclaimer-firmware {
   .lineColor {
-      stroke: ${({ theme }) => theme.styles.firmwareUpdatePanel.neuronStatusLineWarning}; 
+      stroke: ${({ theme }) => theme.styles.firmwareUpdatePanel.neuronStatusLineWarning};
   }
   .firmware-content--inner h3 {
-    color: ${({ theme }) => theme.styles.firmwareUpdatePanel.disclaimerTitle}; 
+    color: ${({ theme }) => theme.styles.firmwareUpdatePanel.disclaimerTitle};
   }
-}     
+}
 .buttonActions .button.primary {
   margin-right: -32px;
 }
@@ -124,7 +124,7 @@ width: 100%;
   .buttonActions .button.primary {
     margin-right: 6px;
   }
-}   
+}
 @media screen and (max-width: 860px) {
   .buttonActions .button.primary {
     margin-right: 16px;
@@ -148,7 +148,7 @@ width: 100%;
     padding: 8px;
   }
   .hidden-on-sm {
-    display:none; 
+    display:none;
   }
 }
 `;

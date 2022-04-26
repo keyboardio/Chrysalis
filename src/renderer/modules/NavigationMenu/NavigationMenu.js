@@ -160,6 +160,10 @@ class NavigationMenu extends Component {
   }
 
   compareFWVer(oldVer, newVer) {
+    if (oldVer == "") return -1;
+    let old = oldVer.split("beta");
+    let nw = newVer.split("beta");
+    console.log("Testing FW detection", old, nw);
     if (oldVer.length != newVer.length) {
       if (oldVer.length > newVer.length) {
         return -1;

@@ -180,6 +180,7 @@ const FirmwareUpdatePanel = ({
 }) => {
   // production
   const isUpdated = currentlyVersionRunning === latestVersionAvailable ? true : false;
+  const isBeta = latestVersionAvailable.includes("beta");
 
   // development
   //const isUpdated = true;
@@ -278,7 +279,7 @@ const FirmwareUpdatePanel = ({
                 </div>
               </div>
             </div>
-            {!isUpdated && <WhatsNew />}
+            {!isUpdated && !isBeta && <WhatsNew />}
           </div>
         )}
       </>

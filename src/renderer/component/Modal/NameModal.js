@@ -1,12 +1,14 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+import i18n from "../../i18n";
+
 import { RegularButton } from "../Button";
 
 export default class NameModal extends React.Component {
   constructor(props) {
     super(props);
-
+    this.inputText = React.createRef();
     this.state = {
       name: props.name
     };
@@ -30,12 +32,17 @@ export default class NameModal extends React.Component {
         </Modal.Header>
         <Modal.Body>
           <Form.Label>{labelInput}</Form.Label>
-          <Form.Control type="text" value={this.state.name} onChange={event => this.setState({ name: event.target.value })} />
+          <Form.Control
+            type="text"
+            value={this.state.name}
+            onChange={event => this.setState({ name: event.target.value })}
+            ref={this.inputText}
+          />
         </Modal.Body>
         <Modal.Footer>
-          <RegularButton buttonText={"Discard changes"} style="outline" size="sm" onClick={toggleShow} />
+          <RegularButton buttonText={i18n.app.cancelPending.button} style="outline" size="sm" onClick={toggleShow} />
           <RegularButton
-            buttonText={"Save changes"}
+            buttonText={i18n.components.save.button}
             style="outline gradient"
             size="sm"
             onClick={event => handleSave(this.state.name)}

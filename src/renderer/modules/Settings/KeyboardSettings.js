@@ -343,8 +343,8 @@ class KeyboardSettings extends React.Component {
   setSpeed = value => {
     this.setState(
       state => ({
-        mouseSpeed: parseInt(value) < 128 ? parseInt(value) : 128 - (parseInt(value) - 128),
-        mouseSpeedDelay: Math.ceil(50 / parseInt(value)),
+        mouseSpeed: parseInt(value),
+        mouseSpeedDelay: 10,
         modified: true
       }),
       this.props.setKbData(this.state)
@@ -365,7 +365,7 @@ class KeyboardSettings extends React.Component {
     this.setState(
       state => ({
         mouseAccelSpeed: parseInt(value),
-        mouseAccelDelay: Math.ceil(50 / parseInt(value)),
+        mouseAccelDelay: 600,
         modified: true
       }),
       this.props.setKbData(this.state)
@@ -416,7 +416,7 @@ class KeyboardSettings extends React.Component {
   setSpeedLimit = value => {
     this.setState(
       state => ({
-        mouseSpeedLimit: value,
+        mouseSpeedLimit: parseInt(value),
         modified: true
       }),
       this.props.setKbData(this.state)
@@ -535,7 +535,7 @@ class KeyboardSettings extends React.Component {
           <span className="tagsfix">Slow</span>
         </Col>
         <Col xs={8} md={10} className="px-2">
-          <Slider min={0} max={127} value={mouseSpeedLimit} onChange={this.setSpeedLimit} />
+          <Slider min={0} max={255} value={mouseSpeedLimit} onChange={this.setSpeedLimit} />
         </Col>
         <Col xs={2} md={1} className="p-0 text-center align-self-center">
           <span className="tagsfix">Fast</span>

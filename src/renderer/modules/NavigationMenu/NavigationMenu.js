@@ -153,17 +153,15 @@ class NavigationMenu extends Component {
 
   cleanFWVer(version) {
     let ver = version != null ? (version[0] != "v" ? version : version.substring(1)) : null;
-    return ver
-      .replace(/beta/g, "")
-      .split(".")
-      .map(n => parseInt(n));
+    ver = ver.split("beta");
+    let aux = ver[0].split(".").map(x => parseInt(x));
+    if (ver[1] != "") aux.push(parseInt(ver[1]));
+    else aux.push(0);
+    return aux;
   }
 
   compareFWVer(oldVer, newVer) {
-    if (oldVer == "") return -1;
-    let old = oldVer.split("beta");
-    let nw = newVer.split("beta");
-    console.log("Testing FW detection", old, nw);
+    console.log("comparing versions ", oldVer, newVer);
     if (oldVer.length != newVer.length) {
       if (oldVer.length > newVer.length) {
         return -1;

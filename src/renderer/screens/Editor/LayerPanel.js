@@ -69,24 +69,27 @@ const Styles = Styled.div`
       width: 95%;
       border: 0px;
       font-size: medium;
-      color: ${({ theme }) => theme.colors.button.text};
-      background-color: transparent;
+      font-weight: 600;
+      color: ${({ theme }) => theme.styles.button.config.color};
+      background: transparent;
     }
     button:hover {
-      background-color: ${({ theme }) => theme.colors.button.hover};
+      background: ${({ theme }) => theme.styles.button.config.backgroundHover};
+      color: ${({ theme }) => theme.styles.button.config.colorHover};
     }
     button:focus {
-      background-color: ${({ theme }) => theme.colors.button.hover};
-      color: ${({ theme }) => theme.colors.button.text};
+      background: ${({ theme }) => theme.styles.button.config.backgroundHover};
+      color: ${({ theme }) => theme.styles.button.config.colorHover};
       box-shadow: none;
     }
     button:active {
-      background-color: ${({ theme }) => theme.colors.button.active};
+      background: ${({ theme }) => theme.styles.button.config.backgroundActive};
+      color: ${({ theme }) => theme.styles.button.config.colorActive};
       box-shadow: none !important;
     }
     .btn-primary:not(:disabled):not(.disabled).active {
-      background-color: ${({ theme }) => theme.colors.button.active};
-      color: ${({ theme }) => theme.colors.button.text};
+      background: ${({ theme }) => theme.styles.button.config.backgroundActive};
+      color: ${({ theme }) => theme.styles.button.config.colorActive};
       box-shadow: none !important;
     }
     .button-content,
@@ -103,7 +106,6 @@ const Styles = Styled.div`
     }
     .left{
       float: left;
-      font-weight: 200;
       padding-left: 10px;
       vertical-align: middle;
     }

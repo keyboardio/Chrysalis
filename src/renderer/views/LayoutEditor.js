@@ -140,16 +140,43 @@ margin: auto;
   font-size: 2rem;
   text-align: left;
 }
-.cancel-active{
+
+// .button-large:not(:disabled):not(.disabled):hover {
+//   color: ${({ theme }) => theme.colors.button.text};
+//   background-color: ${({ theme }) => theme.colors.button.active};
+//   border: none;
+// }
+.save-button {
+  background: ${({ theme }) => theme.styles.button.primary.disabledBackgroundColor};
+  color: ${({ theme }) => theme.styles.button.primary.disabledTextColor};
+}
+.cancel-button {
   background-color: ${({ theme }) => theme.colors.button.cancel};
+  opacity: ${({ theme }) => theme.styles.button.outline.disabledOpacity}; 
+  color: ${({ theme }) => theme.styles.button.outline.disabledTextColor};
+  border: 1px solid ${({ theme }) => theme.styles.button.outline.disabledBorderColor};
+  box-shadow: 0px 0px 0px 1px ${({ theme }) => theme.styles.button.outline.disabledBoxShadowColor} inset;
 }
-.save-active{
-  background-color: ${({ theme }) => theme.colors.button.save};
+.cancel-button.cancel-active{
+  border: 1px solid ${({ theme }) => theme.styles.button.outline.borderColor};
+  box-shadow: 0px 0px 0px 1px ${({ theme }) => theme.styles.button.outline.borderColor} inset;
+  transition-property: border, box-shadow, background;
+  transition: 300ms ease-in-out;
+  background-color: ${({ theme }) => theme.colors.button.cancel};
+  backdrop-filter: blur(5px);
+  color: ${({ theme }) => theme.styles.button.outline.color};
+  opacity: 1;
+  &:hover {
+    border: 1px solid ${({ theme }) => theme.styles.button.outline.borderColorHover};
+     box-shadow: 0px 0px 0px 1px ${({ theme }) => theme.styles.button.outline.boxShadowColorHover} inset;
+  }
 }
-.button-large:not(:disabled):not(.disabled):hover {
-  color: ${({ theme }) => theme.colors.button.text};
-  background-color: ${({ theme }) => theme.colors.button.active};
-  border: none;
+.save-button.save-active{
+  background: ${({ theme }) => theme.colors.button.save};
+  color: white;
+  &:hover {
+    color: white;
+  }
 }
 .save-span {
   font-size: 1.5rem;
@@ -1725,7 +1752,7 @@ class LayoutEditor extends React.Component {
             <Button
               disabled={!this.state.modified}
               onClick={this.onApply}
-              className={`button-large pt-0 mt-0 mb-2 ${this.state.modified ? "save-active" : ""}`}
+              className={`button-large pt-0 mt-0 mb-2 save-button ${this.state.modified ? "save-active" : ""}`}
               aria-controls="save-changes"
             >
               <FiSave />
@@ -1737,7 +1764,7 @@ class LayoutEditor extends React.Component {
               onClick={() => {
                 this.props.cancelContext();
               }}
-              className={`button-large pt-0 mt-0 mb-2 ${this.state.modified ? "cancel-active" : ""}`}
+              className={`button-large pt-0 mt-0 mb-2 cancel-button ${this.state.modified ? "cancel-active" : ""}`}
               aria-controls="discard-changes"
             >
               <FiTrash2 />

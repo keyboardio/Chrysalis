@@ -550,7 +550,9 @@ svg text{
 }
 .dropdownListNumber {
   align-self: center;
-  width: 32px;
+  width: 42px;
+  text-align: center;
+  padding-right: 8px;
   font-size: 16px;
   font-weight: 600;
   letter-spacing: -0.03em;
@@ -570,7 +572,7 @@ svg text{
 .dropdownListItem {
   display: flex;
   flex-wrap: wrap;
-  width: calc(100% - 32px);
+  width: calc(100% - 42px);
   padding-left: 12px;
   line-height: 1.25em;
 }
@@ -601,7 +603,7 @@ svg text{
   top: 4px;
 }
 .dropdownMultipleActions .dropdown-toggle.btn.btn-primary {
-  padding: 8px 16px;
+  padding: 8px 16px 8px 8px;
   margin: 0;
 }
 .dropdownMultipleActions .dropdown-toggle.btn.btn-primary:after {
@@ -1074,6 +1076,17 @@ div.card.card-preferences .card-body {
 }
 ::-webkit-scrollbar-thumb:horizontal {
   height: 6px; 
+}
+
+@media screen and (max-width: 1229px){
+  .main-container .superkeys {
+    .pageHeader .pageTitle {
+      display: none;
+    }
+    .pageHeader .pageTools {
+      width: 100%;
+    }
+  }
 }
 `;
 

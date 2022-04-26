@@ -105,9 +105,16 @@ margin: auto;
   height: fit-content;
   padding: 0;
   margin: 0px 15px;
-  border-radius: 10px;
   width: fit-content;
-  background-color: ${({ theme }) => theme.colors.button.background};
+  padding: 4px;
+  background: ${({ theme }) => theme.styles.toggleButton.background};
+  border-radius: 6px;
+  button.btn {
+    background: transparent;
+  } 
+  button.btn + button.btn {   
+    margin-left: 4px;
+  }
 }
 .center-self {
   place-self: flex-start;
@@ -1732,7 +1739,7 @@ class LayoutEditor extends React.Component {
             onClick={() => {
               this.setState({ modeselect: "keyboard" });
             }}
-            className="keyboardbutton big"
+            className="keyboardbutton big button-config"
             aria-controls="keyboard-fade"
           >
             <MdKeyboard />
@@ -1742,7 +1749,7 @@ class LayoutEditor extends React.Component {
             onClick={() => {
               this.setState({ modeselect: "color" });
             }}
-            className="colorsbutton big"
+            className="colorsbutton big button-config"
           >
             <IoMdColorPalette />
           </Button>

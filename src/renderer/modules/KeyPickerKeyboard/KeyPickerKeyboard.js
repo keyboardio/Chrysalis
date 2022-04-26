@@ -126,19 +126,19 @@ width: -webkit-fill-available;
   }
 }
 @media screen and (max-width: 1240px) {
-  .singleViewWrapper {
-    grid-template-columns: 1fr;
-    grid-gap: 24px;
-  }
-  .keyEnhanceWrapper {
-    order: 2;
-  }
-  .KeyVisualizer {
-    display: none;
-  }
-  .ModPicker {
-    width: 100%;
-  }
+  // .singleViewWrapper {
+  //   grid-template-columns: 1fr;
+  //   grid-gap: 24px;
+  // }
+  // .keyEnhanceWrapper {
+  //   order: 2;
+  // }
+  // .KeyVisualizer {
+  //   display: none;
+  // }
+  // .ModPicker {
+  //   width: 100%;
+  // }
 }
 
 

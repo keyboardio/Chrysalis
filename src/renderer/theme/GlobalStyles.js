@@ -383,7 +383,7 @@ svg text{
   bottom: -5px;
   filter: blur(15px);
 }
-
+.btn-primary.button-config,
 .button-config {
   font-size: 16px;
   font-weight: 600;
@@ -404,12 +404,15 @@ svg text{
 .button-config.sm svg {
   max-width: 16px;
 }
+.btn-primary.button-config:not([disabled]):hover,
 .button-config:not([disabled]):hover {
   cursor: pointer;
   color: ${({ theme }) => theme.styles.button.config.colorHover}; 
   background: ${({ theme }) => theme.styles.button.config.backgroundHover};
   box-shadow: ${({ theme }) => theme.styles.button.config.boxShadowHover};
 }
+.btn-primary.button-config.active:not([disabled]),
+.btn-primary.button-config.active:not([disabled]):hover,
 .button-config.active:not([disabled]),
 .button-config.active:not([disabled]):hover {
   color: ${({ theme }) => theme.styles.button.config.colorActive}; 
@@ -1084,6 +1087,24 @@ div.card.card-preferences .card-body {
       display: none;
     }
     .pageHeader .pageTools {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 1240px) {
+  .main-container .superkeys {
+    .singleViewWrapper {
+      grid-template-columns: 1fr;
+      grid-gap: 24px;
+    }
+    .keyEnhanceWrapper {
+      order: 2;
+    }
+    .KeyVisualizer {
+      display: none;
+    }
+    .ModPicker {
       width: 100%;
     }
   }

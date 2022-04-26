@@ -79,7 +79,7 @@ class SelectOneShotModifiers extends Component {
             if (KC == x.keynum) return x.keynum;
           })}
           onSelect={value => onKeySelect(parseInt(value))}
-          className={`custom-dropdown 
+          className={`custom-dropdown dropdownOneShotModifiers
           ${
             keyCode.modified > 0 && this.oneShotModifiers.map(i => i.keynum).includes(keyCode.base + keyCode.modified)
               ? "active"

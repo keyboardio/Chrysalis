@@ -475,7 +475,7 @@ class KeyboardSettings extends React.Component {
           <span className="tagsfix">Slow</span>
         </Col>
         <Col xs={8} md={10} className="px-2">
-          <Slider min={0} max={254} value={mouseSpeed} onChange={this.setSpeed} />
+          <Slider min={0} max={127} value={mouseSpeed} onChange={this.setSpeed} />
         </Col>
         <Col xs={2} md={1} className="p-0 text-center align-self-center">
           <span className="tagsfix">Fast</span>
@@ -535,7 +535,7 @@ class KeyboardSettings extends React.Component {
           <span className="tagsfix">Slow</span>
         </Col>
         <Col xs={8} md={10} className="px-2">
-          <Slider min={0} max={127} value={mouseSpeedLimit} onChange={this.setSpeedLimit} />
+          <Slider min={0} max={255} value={mouseSpeedLimit} onChange={this.setSpeedLimit} />
         </Col>
         <Col xs={2} md={1} className="p-0 text-center align-self-center">
           <span className="tagsfix">Fast</span>

@@ -170,7 +170,9 @@ const English = {
         body: "The macro you want to delete is currently in use, select how to proceed, THIS MAKES PERMANENT CHANGES.",
         cancelButton: "Cancel",
         applyButton: "Update Keyboard"
-      }
+      },
+      callout:
+        "<p>Macros are sequences of events (such as keystrokes, mouse clicks, and delays) that can be played back to help with repetitive strings of texts or tasks. </p><p>They can also be used to replay sequences that are long or difficult to run.</p>"
     },
     superkeys: {
       add: "Add new superkey",

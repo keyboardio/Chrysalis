@@ -37,8 +37,11 @@ import Backup from "../../api/backup";
 
 import PageHeader from "../modules/PageHeader";
 import { MacroSelector } from "../component/Select";
+import Callout from "../component/Callout";
 import ToastMessage from "../component/ToastMessage";
 import { IconFloppyDisk } from "../component/Icon";
+
+import MacroCreator from "../modules/Macros/MacroCreator";
 
 const Store = require("electron-store");
 const store = new Store();
@@ -510,6 +513,44 @@ class MacroEditor extends React.Component {
     return;
   }
 
+  addMacro() {
+    if (this.state.macros.length < this.props.maxMacros) {
+      let aux = this.state.macros;
+      const newID = aux.length;
+      aux.push({
+        actions: [],
+        name: "Empty Macro",
+        id: newID,
+        macro: ""
+      });
+      this.props.updateMacro(aux, -1);
+      this.changeSelected(newID);
+    }
+  }
+
+  deleteMacro(selected) {
+    if (this.state.macros.length > 0) {
+      let aux = this.state.macros;
+      aux.splice(selected, 1);
+      aux = aux.map((item, index) => {
+        let aux = item;
+        aux.id = index;
+        return aux;
+      });
+      if (selected >= this.state.macros.length - 1) {
+        this.changeSelected(this.state.macros.length - 1);
+      }
+      this.props.updateMacro(aux, selected);
+    }
+  }
+
+  saveName(name) {
+    console.log("MACROS: ", this.state.macros);
+    // let macrosList = this.state.macros;
+    // macrosList[this.state.selectedMacro].name = name;
+    // this.setState({ macrosList, modified: true });
+  }
+
   render() {
     const mem = this.state.macros.map(m => m.actions).flat().length;
     const ListOfMacros = this.state.listToDelete.map(({ layer, pos, key }, id) => {
@@ -561,11 +602,25 @@ class MacroEditor extends React.Component {
                 selectedItem={this.state.selectedMacro}
                 subtitle="Macros"
                 onSelect={this.changeSelected}
-                addItem={this.addSuperkey}
-                deleteItem={this.deleteSuperkey}
+                addItem={this.addMacro}
+                deleteItem={this.deleteMacro}
                 updateItem={this.saveName}
               />
             }
+            showSaving={true}
+            saveContext={this.writeMacros}
+            destroyContext={this.loadMacros}
+            inContext={this.state.modified}
+          />
+          <Callout content={i18n.editor.macros.callout} className="mt-lg" size="md" maxWidth={1100} />
+          <MacroCreator
+            macros={this.state.macros}
+            maxMacros={this.state.maxMacros}
+            selected={this.state.selectedMacro}
+            updateMacro={this.updateMacros}
+            changeSelected={this.changeSelected}
+            keymapDB={this.keymapDB}
+            key={JSON.stringify(this.state.macros)}
           />
           <div className="macrocontainer">
             <MacroManager
@@ -579,30 +634,7 @@ class MacroEditor extends React.Component {
             />
           </div>
         </Container>
-        <Row className="save-row">
-          <Container fluid>
-            <Row>
-              <Button
-                disabled={!this.state.modified || mem > 1999}
-                onClick={this.writeMacros}
-                className={`button-large pt-0 mt-0 mb-2 ${this.state.modified ? "save-active" : ""}`}
-                aria-controls="save-changes"
-              >
-                <FiSave />
-              </Button>
-            </Row>
-            <Row>
-              <Button
-                disabled={!this.state.modified}
-                onClick={this.loadMacros}
-                className={`button-large pt-0 mt-0 mb-2 ${this.state.modified ? "cancel-active" : ""}`}
-                aria-controls="discard-changes"
-              >
-                <FiTrash2 />
-              </Button>
-            </Row>
-          </Container>
-        </Row>
+
         <Modal show={this.state.showDeleteModal} onHide={this.toggleDeleteModal} style={{ marginTop: "100px" }}>
           <ModalStyle>
             <Modal.Header closeButton className="modalcol">

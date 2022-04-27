@@ -64,7 +64,9 @@ class NeuronSelector extends React.Component {
                   <div className="dropdownListItem">
                     <div className="dropdownListItemInner">
                       <div className="dropdownListItemLabel">{subtitle}</div>
-                      <div className="dropdownListItemSelected">{itemList[selectedItem].name}</div>
+                      <div className="dropdownListItemSelected">
+                        {itemList[selectedItem].name == "" ? i18n.general.noname : itemList[selectedItem].name}
+                      </div>
                       <span className="caret">
                         <IconArrowsSmallSeparating />
                       </span>
@@ -76,7 +78,7 @@ class NeuronSelector extends React.Component {
             <Dropdown.Menu className="dropdownMenu">
               {itemList.map((item, iter) => (
                 <Dropdown.Item eventKey={iter} key={`item-${iter}`} className={iter === selectedItem ? "active" : ""}>
-                  {item.name}
+                  {item.name == "" ? i18n.general.noname : item.name}
                 </Dropdown.Item>
               ))}
             </Dropdown.Menu>

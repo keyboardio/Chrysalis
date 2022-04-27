@@ -163,6 +163,7 @@ const English = {
       selectMacro: "Select a Macro",
       selectMouseFunction: "Select Mouse Function",
       title: "Macro Editor",
+      successFlashTitle: "Your macros have been saved.",
       successFlash: "Succesfully sent the macros to the Raise",
       deleteModal: {
         title: "This macro is in use",
@@ -557,6 +558,9 @@ You can find the LED Rainbow mode with the "LED Next" key. In the default Dygma 
     gotoUpdate: "Update Firmware",
     reconnect: "Reconnect",
     reconnectDescription: `There's a possibility that we misdetected the capabilities of the keyboard, or that the keyboard was starting up while we connected. In this case, you can try clicking the "{0}" button to attempt a reconnect, and look for the necessary features again. Reconnecting is useful if you're sure there was a temporary failure upon previous attempts, and the problem has been resolved.`
+  },
+  general: {
+    noname: "No name"
   }
 };
 

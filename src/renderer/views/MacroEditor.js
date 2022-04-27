@@ -36,6 +36,7 @@ import Focus from "../../api/focus";
 import Backup from "../../api/backup";
 
 import PageHeader from "../modules/PageHeader";
+import { MacroSelector } from "../component/Select";
 import ToastMessage from "../component/ToastMessage";
 import { IconFloppyDisk } from "../component/Icon";
 
@@ -200,7 +201,7 @@ class MacroEditor extends React.Component {
     } catch (e) {
       console.log("error when loading macros");
       console.error(e);
-      toast.error(e);
+      toast.error(<ToastMessage title={e} icon={<IconFloppyDisk />} />);
       this.props.onDisconnect();
     }
   }
@@ -438,11 +439,18 @@ class MacroEditor extends React.Component {
       const commands = await this.bkp.Commands();
       const backup = await this.bkp.DoBackup(commands, this.state.neurons[this.state.neuronID].id);
       this.bkp.SaveBackup(backup);
-      toast.success(i18n.editor.macros.successFlash, {
-        autoClose: 2000
-      });
+      toast.success(
+        <ToastMessage
+          title={i18n.editor.macros.successFlashTitle}
+          content={i18n.editor.macros.successFlash}
+          icon={<IconFloppyDisk />}
+        />,
+        {
+          autoClose: 2000
+        }
+      );
     } catch (error) {
-      toast.error(error);
+      toast.error(<ToastMessage title={error} icon={<IconFloppyDisk />} />);
     }
   }
 
@@ -545,7 +553,20 @@ class MacroEditor extends React.Component {
     return (
       <Styles>
         <Container fluid className="center-content">
-          <PageHeader text={i18n.app.menu.macros} />
+          <PageHeader
+            text={i18n.app.menu.macros}
+            contentSelector={
+              <MacroSelector
+                itemList={this.state.macros}
+                selectedItem={this.state.selectedMacro}
+                subtitle="Macros"
+                onSelect={this.changeSelected}
+                addItem={this.addSuperkey}
+                deleteItem={this.deleteSuperkey}
+                updateItem={this.saveName}
+              />
+            }
+          />
           <div className="macrocontainer">
             <MacroManager
               macros={this.state.macros}

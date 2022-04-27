@@ -24,7 +24,7 @@ import { IconArrowsSmallSeparating } from "../Icon";
 import { IconPen } from "../Icon";
 import { IconDelete } from "../Icon";
 
-import { NameModal } from "../Modal/"; // Imported custom modal component
+import { NameModal } from "../Modal"; // Imported custom modal component
 import { RegularButton } from "../Button";
 
 import { IconAddNew } from "../Icon";
@@ -62,7 +62,7 @@ display: flex;
   }
 }
 `;
-class SuperKeysSelector extends React.Component {
+class MacroSelector extends React.Component {
   constructor(props) {
     super(props);
 
@@ -162,8 +162,8 @@ class SuperKeysSelector extends React.Component {
             name={itemList[selectedItem].name}
             toggleShow={this.toggleShow}
             handleSave={this.handleSave}
-            modalTitle={`Change Superkey name`}
-            labelInput={`Supekey name`}
+            modalTitle={`Change macro name`}
+            labelInput={`Macro name`}
           />
         )}
         <NameModal
@@ -171,12 +171,12 @@ class SuperKeysSelector extends React.Component {
           name={""}
           toggleShow={this.toggleShowAdd}
           handleSave={this.handleAdd}
-          modalTitle={`Create new Superkey name`}
-          labelInput={`Supekey name`}
+          modalTitle={`Create new macro name`}
+          labelInput={`Macro name`}
         />
       </Style>
     );
   }
 }
 
-export default SuperKeysSelector;
+export default MacroSelector;

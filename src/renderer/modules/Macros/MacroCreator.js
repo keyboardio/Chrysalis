@@ -217,25 +217,45 @@ class MacroCreator extends Component {
 
     return (
       <Styles>
-        <Tab.Container id="left-tabs-example" defaultActiveKey="first">
-          <Row>
-            <Col sm={3}>
+        <Tab.Container id="macroCreator" defaultActiveKey="tabText">
+          <div className="tabWrapper">
+            <div className="tabCategories">
               <Nav variant="pills" className="flex-column">
                 <Nav.Item>
-                  <Nav.Link eventKey="first">Tab 1</Nav.Link>
+                  <Nav.Link eventKey="tabText">Text</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey="second">Tab 2</Nav.Link>
+                  <Nav.Link eventKey="tabKeys">Keys</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="tabLayers">Layers</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="tabMacro">Macro</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="tabMedia">Media & LED</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="tabMouse">Mouse</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="tabDelay">Delay</Nav.Link>
                 </Nav.Item>
               </Nav>
-            </Col>
-            <Col sm={9}>
+            </div>
+            <div className="tabContent">
               <Tab.Content>
-                <Tab.Pane eventKey="first">Text</Tab.Pane>
-                <Tab.Pane eventKey="second">Keys</Tab.Pane>
+                <Tab.Pane eventKey="tabText">Text</Tab.Pane>
+                <Tab.Pane eventKey="tabKeys">Keys</Tab.Pane>
+                <Tab.Pane eventKey="tabLayers">Layers</Tab.Pane>
+                <Tab.Pane eventKey="tabMacro">Macro</Tab.Pane>
+                <Tab.Pane eventKey="tabMedia">Media & LED</Tab.Pane>
+                <Tab.Pane eventKey="tabMouse">Mouse</Tab.Pane>
+                <Tab.Pane eventKey="tabDelay">Delay</Tab.Pane>
               </Tab.Content>
-            </Col>
-          </Row>
+            </div>
+          </div>
         </Tab.Container>
         <Card className={"card"}>
           <Card.Header classes={"cardHeader cardTitle"}>

@@ -335,6 +335,10 @@ const Dark = {
       inputBackgroundColor: settingColorOpacity(Tokens.colors.gray900, 0.2),
       inputBackgroundColorActive: settingColorOpacity(Tokens.colors.gray900, 0.2)
     },
+    macro: {
+      tabCategoriesBackground: Tokens.colors.gray600,
+      tabContentBackground: Tokens.colors.gray800
+    },
     modal: {
       closeButton: closeButton,
       backdropColor: settingColorOpacity(Tokens.colors.gray800, 0.85),

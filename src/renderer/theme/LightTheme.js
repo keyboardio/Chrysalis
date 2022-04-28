@@ -329,6 +329,10 @@ const Light = {
       inputBackgroundColor: "rgba(255,255,255,0.6)",
       inputBackgroundColorActive: "rgba(255,255,255,1)"
     },
+    macro: {
+      tabCategoriesBackground: Tokens.colors.gray600,
+      tabContentBackground: Tokens.colors.gray800
+    },
     modal: {
       closeButton: closeButton,
       backdropColor: "rgba(214, 217, 224, 0.85)",

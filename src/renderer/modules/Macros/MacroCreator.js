@@ -27,6 +27,11 @@ import i18n from "../../i18n";
 import MacroForm from "../../components/MacroManager/MacroForm";
 import Slider from "react-rangeslider";
 
+import Title from "../../component/Title";
+import CustomTab from "../../component/Tab";
+
+import { IconMouse, IconLayers, IconRobot } from "../../component/Icon";
+
 const Styles = Styled.div`
 .card {
   width: auto;
@@ -89,6 +94,26 @@ const Styles = Styled.div`
 }
 .cardTitle {
   color: ${({ theme }) => theme.card.color};
+}
+
+
+.tabWrapper {
+  display: grid;
+  grid-template-columns: minmax(auto, 270px) 1fr;
+  h3 {
+    margin-bottom: 16px;
+  }
+  margin-top: 24px;
+  .tabCategories {
+    padding: 32px 24px;
+    border-top-left-radius: 16px;
+    background-color: ${({ theme }) => theme.styles.macro.tabCategoriesBackground};
+  }
+  .tabContent { 
+    padding: 32px 24px;
+    border-top-right-radius: 16px;
+    background-color: ${({ theme }) => theme.styles.macro.tabContentBackground};
+  }
 }
 `;
 
@@ -220,31 +245,19 @@ class MacroCreator extends Component {
         <Tab.Container id="macroCreator" defaultActiveKey="tabText">
           <div className="tabWrapper">
             <div className="tabCategories">
+              <Title headingLevel={3} text="Select" />
               <Nav variant="pills" className="flex-column">
-                <Nav.Item>
-                  <Nav.Link eventKey="tabText">Text</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                  <Nav.Link eventKey="tabKeys">Keys</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                  <Nav.Link eventKey="tabLayers">Layers</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                  <Nav.Link eventKey="tabMacro">Macro</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                  <Nav.Link eventKey="tabMedia">Media & LED</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                  <Nav.Link eventKey="tabMouse">Mouse</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                  <Nav.Link eventKey="tabDelay">Delay</Nav.Link>
-                </Nav.Item>
+                <CustomTab eventKey="tabText" text="Text" icon={<IconLayers />} />
+                <CustomTab eventKey="tabKeys" text="Keys" icon={<IconLayers />} />
+                <CustomTab eventKey="tabLayers" text="Layers" icon={<IconLayers />} />
+                <CustomTab eventKey="tabMacro" text="Macro" icon={<IconMouse />} />
+                <CustomTab eventKey="tabMedia" text="Media & LED" icon={<IconMouse />} />
+                <CustomTab eventKey="tabMouse" text="Mouse" icon={<IconMouse />} />
+                <CustomTab eventKey="tabDelay" text="Delay" icon={<IconMouse />} />
               </Nav>
             </div>
             <div className="tabContent">
+              <Title headingLevel={3} text="Configure" />
               <Tab.Content>
                 <Tab.Pane eventKey="tabText">Text</Tab.Pane>
                 <Tab.Pane eventKey="tabKeys">Keys</Tab.Pane>

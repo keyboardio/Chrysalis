@@ -43,7 +43,7 @@ const SecondaryFunction = (props) => {
     if (target < 0) target = maxLayer;
     if (target > maxLayer) target = 0;
 
-    props.onKeyChange(addDUL(db.lookup(code), target));
+    props.onKeyChange(addDUL(db.lookup(code), target).code);
   };
 
   const onModifierChange = (event) => {
@@ -52,7 +52,7 @@ const SecondaryFunction = (props) => {
     const modifier = event.target.value;
     const code = key.baseCode || key.code;
 
-    props.onKeyChange(addDUM(db.lookup(code), modifier));
+    props.onKeyChange(addDUM(db.lookup(code), modifier).code);
   };
 
   const onTypeChange = (event) => {

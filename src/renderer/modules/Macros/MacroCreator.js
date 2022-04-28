@@ -102,6 +102,7 @@ const Styles = Styled.div`
   grid-template-columns: minmax(auto, 270px) 1fr;
   h3 {
     margin-bottom: 16px;
+    color: ${({ theme }) => theme.styles.macro.tabTile};
   }
   margin-top: 24px;
   .tabCategories {

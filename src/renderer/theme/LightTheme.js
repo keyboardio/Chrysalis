@@ -330,8 +330,9 @@ const Light = {
       inputBackgroundColorActive: "rgba(255,255,255,1)"
     },
     macro: {
-      tabCategoriesBackground: Tokens.colors.gray600,
-      tabContentBackground: Tokens.colors.gray800
+      tabCategoriesBackground: Tokens.colors.gray50,
+      tabContentBackground: Tokens.colors.gray25,
+      tabTile: Tokens.colors.gray500
     },
     modal: {
       closeButton: closeButton,
@@ -448,13 +449,11 @@ const Light = {
       thumbBoxShadowActive: "0px 4px 12px rgba(97, 32, 234, 1)"
     },
     tab: {
-      color: Tokens.colors.gray200,
-      colorHover: Tokens.colors.gray25,
-      colorActive: Tokens.colors.gray25,
-      backgroundHover:
-        "linear-gradient(99.42deg, rgba(240, 242, 244, 0.05) -23.66%, rgba(255, 255, 255, 0) 38.79%), rgba(18, 19, 36, 0.15)",
-      backgroundActive:
-        "linear-gradient(99.42deg, rgba(240, 242, 244, 0.12) -23.66%, rgba(255, 255, 255, 0) 38.79%), rgba(18, 19, 36, 0.6)",
+      color: Tokens.colors.gray500,
+      colorHover: Tokens.colors.gray600,
+      colorActive: Tokens.colors.purple300,
+      backgroundHover: "linear-gradient(122.87deg, rgba(238, 241, 248, 0.2) 52.49%, rgba(255, 255, 255, 0.2) 99.24%)",
+      backgroundActive: "linear-gradient(122.87deg, rgba(238, 241, 248, 0.7) 52.49%, rgba(255, 255, 255, 0.7) 99.24%)",
       lightOpacity: 0.5
     },
     toast: {

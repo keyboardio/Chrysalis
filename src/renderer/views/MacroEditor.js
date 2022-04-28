@@ -592,8 +592,8 @@ class MacroEditor extends React.Component {
       </Col>
     );
     return (
-      <Styles>
-        <Container fluid className="center-content">
+      <Styles className="macroEditor">
+        <Container fluid>
           <PageHeader
             text={i18n.app.menu.macros}
             contentSelector={

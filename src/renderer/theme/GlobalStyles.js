@@ -1082,7 +1082,8 @@ div.card.card-preferences .card-body {
 }
 
 @media screen and (max-width: 1229px){
-  .main-container .superkeys {
+  .main-container .superkeys,
+  .main-container .macroEditor {
     .pageHeader .pageTitle {
       display: none;
     }

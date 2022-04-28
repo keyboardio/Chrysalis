@@ -447,6 +447,16 @@ const Light = {
       thumbBoxShadow: "0px 4px 12px rgba(97, 32, 234, 0)",
       thumbBoxShadowActive: "0px 4px 12px rgba(97, 32, 234, 1)"
     },
+    tab: {
+      color: Tokens.colors.gray200,
+      colorHover: Tokens.colors.gray25,
+      colorActive: Tokens.colors.gray25,
+      backgroundHover:
+        "linear-gradient(99.42deg, rgba(240, 242, 244, 0.05) -23.66%, rgba(255, 255, 255, 0) 38.79%), rgba(18, 19, 36, 0.15)",
+      backgroundActive:
+        "linear-gradient(99.42deg, rgba(240, 242, 244, 0.12) -23.66%, rgba(255, 255, 255, 0) 38.79%), rgba(18, 19, 36, 0.6)",
+      lightOpacity: 0.5
+    },
     toast: {
       boxShadow: `0px 32px 32px -32px ${settingColorOpacity(Tokens.colors.gray300, 0.1)}, 0px 0px 32px ${settingColorOpacity(
         Tokens.colors.gray300,

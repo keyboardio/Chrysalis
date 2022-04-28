@@ -336,7 +336,7 @@ const Dark = {
       inputBackgroundColorActive: settingColorOpacity(Tokens.colors.gray900, 0.2)
     },
     macro: {
-      tabCategoriesBackground: Tokens.colors.gray600,
+      tabCategoriesBackground: "rgba(43, 44, 67, 1)",
       tabContentBackground: Tokens.colors.gray800
     },
     modal: {
@@ -453,12 +453,22 @@ const Dark = {
       thumbBoxShadow: "0px 4px 12px rgba(97, 32, 234, 0)",
       thumbBoxShadowActive: "0px 4px 12px rgba(97, 32, 234, 1)"
     },
+    tab: {
+      color: Tokens.colors.gray200,
+      colorHover: Tokens.colors.gray25,
+      colorActive: Tokens.colors.gray25,
+      backgroundHover:
+        "linear-gradient(260.58deg, rgba(240, 242, 244, 0.05) -23.66%, rgba(255, 255, 255, 0) 38.79%), rgba(18, 19, 36, 0.15)",
+      backgroundActive:
+        "linear-gradient(278.53deg, rgba(240, 242, 244, 0.12) -19.7%, rgba(255, 255, 255, 0) 41.94%), rgba(18, 19, 36, 0.6)",
+      lightOpacity: 1
+    },
     toast: {
       boxShadow: "0px 32px 32px -32px rgba(0, 0, 0, 0.25), 0px 0px 32px rgba(0, 0, 0, 0.25)",
       background: Tokens.colors.gray800,
       backgroundNoStatus: Tokens.colors.gray600,
       backgroundSuccess: `linear-gradient(90deg, rgba(0, 206, 201, 0.25) -10.33%, rgba(0, 206, 201, 0) 41.03%), ${Tokens.colors.gray800}`,
-      backgroundDanger: ` linear-gradient(90deg, ${settingColorOpacity(
+      backgroundDanger: `linear-gradient(90deg, ${settingColorOpacity(
         Tokens.colors.brandDanger,
         0.25
       )} -10.33%, ${settingColorOpacity(Tokens.colors.brandDanger, 0)} 41.03%), ${Tokens.colors.gray800}`,

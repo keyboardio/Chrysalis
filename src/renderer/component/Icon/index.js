@@ -29,11 +29,13 @@ import IconKeys2TapHold from "./IconKeys2TapHold";
 import IconKeysHold from "./IconKeysHold";
 import IconKeysRelease from "./IconKeysRelease";
 import IconKeysStopWatch from "./IconKeysStopWatch";
+import IconKeyboard from "./IconKeyboard";
 import IconKeyboardSelector from "./IconKeyboardSelector";
 import IconKeyboard2Stroke from "./IconKeyboard2Stroke";
 import IconLEDNextEffect from "./IconLEDNextEffect";
 import IconLEDPreviousEffect from "./IconLEDPreviousEffect";
 import IconLEDSwitchLeft from "./IconLEDSwitchLeft";
+import IconLetterColor from "./IconLetterColor";
 import IconMemory2Stroke from "./IconMemory2Stroke";
 import IconMediaForward from "./IconMediaForward";
 import IconMediaPlayPause from "./IconMediaPlayPause";
@@ -62,6 +64,7 @@ import IconMoon from "./IconMoon";
 import IconMoreVertical from "./IconMoreVertical";
 import IconSun from "./IconSun";
 import IconScreen from "./IconScreen";
+import IconStopWatch from "./IconStopWatch";
 import IconLayers from "./IconLayers";
 import IconRobot from "./IconRobot";
 import IconThunder from "./IconThunder";
@@ -90,11 +93,13 @@ export {
   IconKeysHold,
   IconKeysRelease,
   IconKeysStopWatch,
+  IconKeyboard,
   IconKeyboardSelector,
   IconKeyboard2Stroke,
   IconLEDSwitchLeft,
   IconLEDNextEffect,
   IconLEDPreviousEffect,
+  IconLetterColor,
   IconMediaForward,
   IconMediaPlayPause,
   IconMediaRewind,
@@ -123,6 +128,7 @@ export {
   IconMoreVertical,
   IconSun,
   IconScreen,
+  IconStopWatch,
   IconLayers,
   IconRobot,
   IconThunder,

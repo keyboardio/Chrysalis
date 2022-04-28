@@ -30,7 +30,7 @@ import Slider from "react-rangeslider";
 import Title from "../../component/Title";
 import CustomTab from "../../component/Tab";
 
-import { IconMouse, IconLayers, IconRobot } from "../../component/Icon";
+import { IconKeyboard, IconLetterColor, IconMouse, IconLayers, IconRobot, IconNote, IconStopWatch } from "../../component/Icon";
 
 const Styles = Styled.div`
 .card {
@@ -105,12 +105,12 @@ const Styles = Styled.div`
   }
   margin-top: 24px;
   .tabCategories {
-    padding: 32px 24px;
+    padding: 32px 14px 32px 32px;
     border-top-left-radius: 16px;
     background-color: ${({ theme }) => theme.styles.macro.tabCategoriesBackground};
   }
   .tabContent { 
-    padding: 32px 24px;
+    padding: 32px ;
     border-top-right-radius: 16px;
     background-color: ${({ theme }) => theme.styles.macro.tabContentBackground};
   }
@@ -246,14 +246,14 @@ class MacroCreator extends Component {
           <div className="tabWrapper">
             <div className="tabCategories">
               <Title headingLevel={3} text="Select" />
-              <Nav variant="pills" className="flex-column">
-                <CustomTab eventKey="tabText" text="Text" icon={<IconLayers />} />
-                <CustomTab eventKey="tabKeys" text="Keys" icon={<IconLayers />} />
+              <Nav className="flex-column">
+                <CustomTab eventKey="tabText" text="Text" icon={<IconLetterColor />} />
+                <CustomTab eventKey="tabKeys" text="Keys" icon={<IconKeyboard />} />
                 <CustomTab eventKey="tabLayers" text="Layers" icon={<IconLayers />} />
-                <CustomTab eventKey="tabMacro" text="Macro" icon={<IconMouse />} />
-                <CustomTab eventKey="tabMedia" text="Media & LED" icon={<IconMouse />} />
+                <CustomTab eventKey="tabMacro" text="Macro" icon={<IconRobot />} />
+                <CustomTab eventKey="tabMedia" text="Media & LED" icon={<IconNote />} />
                 <CustomTab eventKey="tabMouse" text="Mouse" icon={<IconMouse />} />
-                <CustomTab eventKey="tabDelay" text="Delay" icon={<IconMouse />} />
+                <CustomTab eventKey="tabDelay" text="Delay" icon={<IconStopWatch />} />
               </Nav>
             </div>
             <div className="tabContent">

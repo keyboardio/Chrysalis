@@ -21,16 +21,58 @@ import Styled from "styled-components";
 
 import Nav from "react-bootstrap/Nav";
 
+import lightNavImage from "../../../../static/base/light-accent--md.png";
+
 const Style = Styled.div`	
-.badge {
-	border-radius: 3px;
-	font-size: 13px;
+.nav-link {
+	border-radius: 6px;
+	font-size: 14px;
 	font-weight: 600;
-	padding: 8px 12px;
-	border: 1px solid ${({ theme }) => theme.colors.gray500};
-  &.success {
-    color: ${({ theme }) => theme.colors.brandSuccess};
-    border: 1px solid ${({ theme }) => theme.colors.brandSuccess};
+	padding: 16px 14px;
+  color: ${({ theme }) => theme.styles.tab.color};
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 2px;
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    right: 0; 
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: 250ms opacity ease-in-out;
+  }
+  &:before {  
+    width: 32px;
+    height: 68px;
+    right: -14px;
+    background: url(${lightNavImage});
+  }
+  &:after {
+    width: 3px;
+    height: 24px;
+    right: -17px;
+    background: linear-gradient(180deg, #FE007C 0%, #6B14F9 100%);
+    border-radius: 0px 3px 3px 0px;   
+  }
+  svg {
+    margin-right: 12px;
+  }
+  &:hover {
+    color: ${({ theme }) => theme.styles.tab.colorHover};
+    background: ${({ theme }) => theme.styles.tab.backgroundHover};
+  } 
+  &.active {
+    color: ${({ theme }) => theme.styles.tab.colorActive};
+    background: ${({ theme }) => theme.styles.tab.backgroundActive};
+    &:after {
+      opacity: 1;
+    }
+    &:before {
+      opacity: ${({ theme }) => theme.styles.tab.lightOpacity};
+    }
   }
 }
 `;

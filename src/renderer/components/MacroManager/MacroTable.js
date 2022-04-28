@@ -38,9 +38,6 @@ const Styles = Styled.div`
   min-height: 429px;
   overflow: auto;
 }
-.list::-webkit-scrollbar {
-  display: none;
-}
 .border {
   border: solid 1px #bbbbbb;
   border-radius: 4px;

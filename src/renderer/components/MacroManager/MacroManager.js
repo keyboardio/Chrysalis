@@ -199,7 +199,19 @@ class MacroManager extends Component {
   }
 
   updateFreeMemory = macros => {
-    let mem = macros.map(m => m.actions).flat().length;
+    const actionMap = macros.map(macro => {
+      return macro.actions
+        .map(action => {
+          if (action.type > 1 && action.type < 6) {
+            return [[action.type], [action.keyCode >> 8], [action.keyCode & 255]];
+          } else {
+            return [[action.type], [action.keyCode]];
+          }
+        })
+        .concat([0]);
+    });
+    let mem = [].concat.apply([], actionMap.flat()).concat([0]).length;
+    console.log(mem);
     this.setState({ freeMemory: mem });
     if (mem > 1999) {
       alert(

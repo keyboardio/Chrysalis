@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import Styled from "styled-components";
 
 import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
 import i18n from "../../i18n";
 
 import Title from "../../component/Title";
-import Callout from "../../component/Callout";
 import { RegularButton } from "../../component/Button";
 
 import { IconArrowInBoxDown } from "../../component/Icon";
@@ -18,6 +18,10 @@ h4 {
     font-size: 16px;
     margin-top: 32px;
     flex: 0 0 100%;
+}
+.description {
+    font-size: 14px;
+    color: ${({ theme }) => theme.styles.macro.descriptionColor};
 }
 .form-control {
     color: ${({ theme }) => theme.styles.form.inputColor};
@@ -33,7 +37,7 @@ h4 {
 }
 `;
 
-class TextTab extends Component {
+class DelayTab extends Component {
   constructor(props) {
     super(props);
   }
@@ -42,16 +46,18 @@ class TextTab extends Component {
     return (
       <Styles>
         <div className="tabContentWrapper">
-          <Callout content={i18n.editor.macros.textTabs.callout} className="mt-lg" size="md" />
-          <Title text={i18n.editor.macros.textTabs.title} headingLevel={4} />
-          <Form.Control
-            type="text"
-            placeholder={i18n.editor.macros.textTabs.placeholder}
-            value={this.props.addText}
-            onChange={this.props.onTextChange}
-            as="textarea"
-            rows={3}
-          />
+          <Title text={i18n.editor.macros.delayTabs.title} headingLevel={4} />
+          <p className="description">{i18n.editor.macros.delayTabs.description}</p>
+          <InputGroup className="mb-3">
+            <Form.Control
+              placeholder={i18n.editor.macros.delayTabs.title}
+              aria-label="Recipient's username"
+              aria-describedby="basic-addon2"
+              value={100}
+              type="number"
+            />
+            <InputGroup.Text id="basic-addon2">ms</InputGroup.Text>
+          </InputGroup>
         </div>
         <div className="tabSaveButton">
           <RegularButton
@@ -67,4 +73,4 @@ class TextTab extends Component {
   }
 }
 
-export default TextTab;
+export default DelayTab;

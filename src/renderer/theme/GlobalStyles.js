@@ -311,6 +311,8 @@ svg text{
 .button .buttonLabel {
   position: relative;
   z-index: 2;
+  display: flex;
+  line-height: 1.5em;
 }
 .button.primary {
   color: #fff;

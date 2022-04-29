@@ -332,7 +332,8 @@ const Light = {
     macro: {
       tabCategoriesBackground: Tokens.colors.gray50,
       tabContentBackground: Tokens.colors.gray25,
-      tabTile: Tokens.colors.gray500
+      tabTile: Tokens.colors.gray500,
+      descriptionColor: Tokens.colors.gray400
     },
     modal: {
       closeButton: closeButton,

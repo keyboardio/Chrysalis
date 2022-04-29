@@ -338,7 +338,8 @@ const Dark = {
     macro: {
       tabCategoriesBackground: "rgba(43, 44, 67, 1)",
       tabContentBackground: Tokens.colors.gray800,
-      tabTile: Tokens.colors.gray25
+      tabTile: Tokens.colors.gray25,
+      descriptionColor: Tokens.colors.gray200
     },
     modal: {
       closeButton: closeButton,

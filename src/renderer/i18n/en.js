@@ -178,6 +178,10 @@ const English = {
         callout: "<p>Using text you can add an entire sequence of commands using only one key.</p>",
         placeholder: "Enter text",
         buttonText: "Add to timeline"
+      },
+      delayTabs: {
+        title: "Delay",
+        description: "Add mouse clicks events in your key."
       }
     },
     superkeys: {

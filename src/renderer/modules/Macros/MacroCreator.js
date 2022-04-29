@@ -28,6 +28,7 @@ import Slider from "react-rangeslider";
 import Title from "../../component/Title";
 import CustomTab from "../../component/Tab";
 import TextTab from "../KeysTabs/TextTab";
+import DelayTab from "../KeysTabs/DelayTab";
 
 import { IconKeyboard, IconLetterColor, IconMouse, IconLayers, IconRobot, IconNote, IconStopWatch } from "../../component/Icon";
 
@@ -113,6 +114,28 @@ const Styles = Styled.div`
     padding: 32px ;
     border-top-right-radius: 16px;
     background-color: ${({ theme }) => theme.styles.macro.tabContentBackground};
+  }
+  .tabContentInner {
+    height: 100%;
+  }
+  .tab-content {
+    height: inherit;
+  }
+  .tab-pane {
+    height: calc(100% - 24px);
+  }
+  .tabContentWrapper {
+      display: flex;
+      flex-wrap: wrap;
+      flex: 0 0 100%;
+      height: fit-content;
+  }
+  .tabSaveButton {
+      height: fit-content;
+      margin-top: auto;
+      margin-left: auto;
+      display: flex;
+      align-self: flex-end;
   }
 }
 `;
@@ -257,18 +280,22 @@ class MacroCreator extends Component {
               </Nav>
             </div>
             <div className="tabContent">
-              <Title headingLevel={3} text="Configure" />
-              <Tab.Content>
-                <Tab.Pane eventKey="tabText">
-                  <TextTab />
-                </Tab.Pane>
-                <Tab.Pane eventKey="tabKeys">Keys</Tab.Pane>
-                <Tab.Pane eventKey="tabLayers">Layers</Tab.Pane>
-                <Tab.Pane eventKey="tabMacro">Macro</Tab.Pane>
-                <Tab.Pane eventKey="tabMedia">Media & LED</Tab.Pane>
-                <Tab.Pane eventKey="tabMouse">Mouse</Tab.Pane>
-                <Tab.Pane eventKey="tabDelay">Delay</Tab.Pane>
-              </Tab.Content>
+              <div className="tabContentInner">
+                <Title headingLevel={3} text="Configure" />
+                <Tab.Content>
+                  <Tab.Pane eventKey="tabText">
+                    <TextTab />
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="tabKeys">Keys</Tab.Pane>
+                  <Tab.Pane eventKey="tabLayers">Layers</Tab.Pane>
+                  <Tab.Pane eventKey="tabMacro">Macro</Tab.Pane>
+                  <Tab.Pane eventKey="tabMedia">Media & LED</Tab.Pane>
+                  <Tab.Pane eventKey="tabMouse">Mouse</Tab.Pane>
+                  <Tab.Pane eventKey="tabDelay">
+                    <DelayTab />
+                  </Tab.Pane>
+                </Tab.Content>
+              </div>
             </div>
           </div>
         </Tab.Container>

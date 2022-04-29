@@ -230,6 +230,12 @@ const Dark = {
       radius: "10",
       boxShadow: "0 0 0.5rem 0.3rem rgba(0,0,0,0.1)"
     },
+    cardButtons: {
+      background: settingColorOpacity(Tokens.colors.gray700, 0.5),
+      color: Tokens.colors.gray200,
+      titleColor: Tokens.colors.gray50,
+      groupButtonsBackground: settingColorOpacity(Tokens.colors.gray900, 0.2)
+    },
     dropdown: {
       backgroundButtonColor: settingColorOpacity(Tokens.colors.gray900, 0.2),
       backgroundButtonHover: settingColorOpacity(Tokens.colors.gray900, 0.35),
@@ -331,9 +337,12 @@ const Dark = {
       formLabelTextcolor: Tokens.colors.gray100,
       inputColor: Tokens.colors.gray50,
       inputBorder: Tokens.colors.gray500,
+      inputBorderSolid: Tokens.colors.gray600,
       inputBorderActive: Tokens.colors.purple300,
       inputBackgroundColor: settingColorOpacity(Tokens.colors.gray900, 0.2),
-      inputBackgroundColorActive: settingColorOpacity(Tokens.colors.gray900, 0.2)
+      inputBackgroundColorActive: settingColorOpacity(Tokens.colors.gray900, 0.2),
+      inputGroupColor: Tokens.colors.gray300,
+      inputGroupBackground: "rgba(11, 2, 25, 0.2)"
     },
     macro: {
       tabCategoriesBackground: "rgba(43, 44, 67, 1)",

@@ -19,10 +19,18 @@ h4 {
     margin-top: 32px;
     flex: 0 0 100%;
 }
+.w100 {
+  width: 100%;
+  flex: 0 0 100%;
+}
+.callOut {
+  width: 100%;
+  flex: 0 0 100%;
+}
 .form-control {
     color: ${({ theme }) => theme.styles.form.inputColor};
     background: ${({ theme }) => theme.styles.form.inputBackgroundColor};
-    border-color: ${({ theme }) => theme.styles.form.inputBorder};
+    border-color: ${({ theme }) => theme.styles.form.inputBorderSolid};
     font-weight: 600;
     &:focus {
         background: ${({ theme }) => theme.styles.form.inputBackgroundColorActive};
@@ -42,7 +50,7 @@ class TextTab extends Component {
     return (
       <Styles>
         <div className="tabContentWrapper">
-          <Callout content={i18n.editor.macros.textTabs.callout} className="mt-lg" size="md" />
+          <Callout content={i18n.editor.macros.textTabs.callout} className="w100" size="md" />
           <Title text={i18n.editor.macros.textTabs.title} headingLevel={4} />
           <Form.Control
             type="text"

@@ -677,6 +677,36 @@ svg text{
   }
 }
 
+.cardButtons {
+  border-radius: 6px;
+  background-color: ${({ theme }) => theme.styles.cardButtons.background};  
+  flex: 0 0 100%;
+  padding: 24px 16px 20px 16px;
+  h4 {
+    color: ${({ theme }) => theme.styles.cardButtons.titleColor};
+  }
+  p {
+    color: ${({ theme }) => theme.styles.cardButtons.color};
+    font-weight: 400; 
+    font-size: 14px;
+  }
+  .groupButtons {
+    display: flex;
+    padding: 4px 2px;
+    flex-wrap: nowrap;
+    background-color: ${({ theme }) => theme.styles.cardButtons.groupButtonsBackground};
+    border-radius: 6px;
+    max-width: 500px;
+    .button-config {  
+      width: 42px;
+      margin: 0 2px;
+      padding: 10px 2px;  
+      text-align: center;
+      flex: 1;
+    }
+  }
+}
+
 .tooltip {
   z-index: 1200;
 }

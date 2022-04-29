@@ -97,7 +97,10 @@ const English = {
       exportTitle: "Share selected layer",
       exportAllTitle: "Backup all layers (Excluding Macros)",
       clearLayer: "Clear layer",
-      copyFrom: "Copy from layer"
+      copyFrom: "Copy from layer",
+      title: "Layers",
+      layerLock: "Layer Lock",
+      layerLockDescription: "Tap to permanently move to another layer."
     },
     groups: {
       Letters: "Letters",

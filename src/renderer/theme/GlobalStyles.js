@@ -287,6 +287,16 @@ svg text{
   border-radius: 6px;
   display: inline-block;
   transition: all 250ms ease-in-out;
+  &.iconOnright {
+    svg {
+      margin-left: 12px;
+    }
+  }
+  &.iconOnleft {
+    svg {
+      margin-right: 12px;
+    }
+  }
 }
 .button:hover {
   cursor: pointer;

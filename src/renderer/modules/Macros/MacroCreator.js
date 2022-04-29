@@ -17,8 +17,6 @@
 import React, { Component } from "react";
 
 import Styled from "styled-components";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
@@ -29,6 +27,7 @@ import Slider from "react-rangeslider";
 
 import Title from "../../component/Title";
 import CustomTab from "../../component/Tab";
+import TextTab from "../KeysTabs/TextTab";
 
 import { IconKeyboard, IconLetterColor, IconMouse, IconLayers, IconRobot, IconNote, IconStopWatch } from "../../component/Icon";
 
@@ -260,7 +259,9 @@ class MacroCreator extends Component {
             <div className="tabContent">
               <Title headingLevel={3} text="Configure" />
               <Tab.Content>
-                <Tab.Pane eventKey="tabText">Text</Tab.Pane>
+                <Tab.Pane eventKey="tabText">
+                  <TextTab />
+                </Tab.Pane>
                 <Tab.Pane eventKey="tabKeys">Keys</Tab.Pane>
                 <Tab.Pane eventKey="tabLayers">Layers</Tab.Pane>
                 <Tab.Pane eventKey="tabMacro">Macro</Tab.Pane>

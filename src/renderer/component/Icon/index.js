@@ -15,6 +15,7 @@
  */
 
 import IconAddNew from "./IconAddNew";
+import IconArrowInBoxDown from "./IconArrowInBoxDown";
 import IconArrowsSmallSeparating from "./IconArrowsSmallSeparating";
 import IconCheckmarkSm from "./IconCheckmarkSm";
 import IconChip from "./IconChip";
@@ -79,6 +80,7 @@ import IconWrench from "./IconWrench";
 
 export {
   IconAddNew,
+  IconArrowInBoxDown,
   IconArrowsSmallSeparating,
   IconCheckmarkSm,
   IconChip,

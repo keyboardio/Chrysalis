@@ -10,7 +10,8 @@ enabled by default with the new firmwares shipped with Chrysalis.
 
 Support for the upcoming Keyboardio Model 100 was added.
 
-Chrysalis now ships with a custom Keyboardio color theme.
+Chrysalis now ships with a custom Keyboardio color theme, and the Preferences
+screen has been redesigned to be more accessible.
 
 The macOS builds of Chrysalis are now Universal packages, and should work on
 both x86-64 and M1 hardware.
@@ -23,7 +24,8 @@ Chrysalis' communication with the keyboard should be much more stable on macOS.
 
 When selecting a layout used on the host other than the default `English (US)`,
 Chrysalis will now display the shifted symbols correctly too, when the shift
-modifier is enabled for a key.
+modifier is enabled for a key. Additionally, keys with secondary functionality
+now display labels according to the selected layout properly.
 
 Detecting hotplug events - when keyboards are connected or disconnected - has
 been greatly improved, and Chrysalis should be more responsive to these events

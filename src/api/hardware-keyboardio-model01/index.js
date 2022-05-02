@@ -125,6 +125,7 @@ const Model100Bootloader = {
   info: {
     vendor: "Keyboardio",
     product: "Model100",
+    firmwareType: "bin",
     displayName: "Keyboardio Model100",
     urls: [
       {

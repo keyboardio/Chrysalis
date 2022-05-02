@@ -577,6 +577,19 @@ You can find the LED Rainbow mode with the "LED Next" key. In the default Dygma 
       reset: `Firmware Update Process`
     }
   },
+  mouse: {
+    mouseClickTitle: "Click",
+    mouseClickDescription: "Add mouse clicks events in your key.",
+    clickLeft: "Left Click",
+    clickMiddle: "Middle Click",
+    clickRight: "Right Click",
+    clickBack: "Back Click",
+    clickForward: "Forward Click",
+    movementTitle: "Movement",
+    movementDescription: "Control move using keys.",
+    wheelTitle: "Wheel",
+    wheelDescription: "Control the wheel using keys."
+  },
   welcome: {
     title: "Welcome to Bazecor",
     contents: `Bazecor recognizes your keyboard, but needs to update its firmware before you can continue.`,

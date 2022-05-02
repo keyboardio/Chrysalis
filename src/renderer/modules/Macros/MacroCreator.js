@@ -32,6 +32,7 @@ import LayersTab from "../KeysTabs/LayersTab";
 import MacroTab from "../KeysTabs/MacroTab";
 import DelayTab from "../KeysTabs/DelayTab";
 import MediaAndLightTab from "../KeysTabs/MediaAndLightTab";
+import MouseTab from "../KeysTabs/MouseTab";
 
 import { IconKeyboard, IconLetterColor, IconMouse, IconLayers, IconRobot, IconNote, IconStopWatch } from "../../component/Icon";
 
@@ -299,7 +300,9 @@ class MacroCreator extends Component {
                   <Tab.Pane eventKey="tabMedia">
                     <MediaAndLightTab />
                   </Tab.Pane>
-                  <Tab.Pane eventKey="tabMouse">Mouse</Tab.Pane>
+                  <Tab.Pane eventKey="tabMouse">
+                    <MouseTab />
+                  </Tab.Pane>
                   <Tab.Pane eventKey="tabDelay">
                     <DelayTab />
                   </Tab.Pane>

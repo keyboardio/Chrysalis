@@ -15,7 +15,15 @@ import {
   IconMediaSoundMute,
   IconMediaSoundLess,
   IconMediaSoundMore,
-  IconArrowInBoxDown
+  IconArrowInBoxDown,
+  IconToolsBrightnessMore,
+  IconToolsBrightnessLess,
+  IconToolsCamera,
+  IconToolsCalculator,
+  IconToolsEject,
+  IconLEDSwitchLeft,
+  IconLEDPreviousEffect,
+  IconLEDNextEffect
 } from "../../component/Icon";
 
 const Styles = Styled.div`
@@ -41,6 +49,26 @@ h4 {
     color: ${({ theme }) => theme.styles.macro.descriptionColor};
     flex: 0 0 100%;
     width: 100%;
+}
+
+.keysButtonsList {
+    display: flex;
+    flex-grow: 1;
+    flex: 100%;
+    margin-left: -8px;
+    margin-right: -8px;
+}
+
+.buttonsRow {
+    flex: 0 0 100%;
+    display: grid;
+    grid-template-columns: auto auto;
+    grtid-gap: 24px;
+    .button-config {
+        margin-left: 8px;
+        height: 34px;
+    }
+    padding-bottom: 12px;
 }
 `;
 
@@ -99,12 +127,58 @@ class MediaAndLightTab extends Component {
             <div className="LEDButtons">
               <Title text={i18n.editor.superkeys.specialKeys.LEDTitle} headingLevel={4} />
               <p className="description">{i18n.editor.superkeys.specialKeys.LEDDescrition}</p>
+              <div className="keysButtonsList">
+                <ButtonConfig
+                  buttonText={i18n.editor.superkeys.specialKeys.ledToggleText}
+                  icoPosition="left"
+                  tooltip={i18n.editor.superkeys.specialKeys.ledToggleTootip}
+                  tooltipDelay={300}
+                  icoSVG={<IconLEDSwitchLeft />}
+                  className="buttonConfigLED"
+                />
+                <ButtonConfig
+                  tooltip={i18n.editor.superkeys.specialKeys.ledPreviousEffectTootip}
+                  tooltipDelay={300}
+                  icoSVG={<IconLEDPreviousEffect />}
+                />
+                <ButtonConfig
+                  tooltip={i18n.editor.superkeys.specialKeys.ledNextEffectTootip}
+                  tooltipDelay={300}
+                  icoSVG={<IconLEDNextEffect />}
+                />
+              </div>
             </div>
           </div>
           <div className="buttonsRow">
             <div className="othersButtons">
               <Title text={i18n.editor.superkeys.specialKeys.othersTitle} headingLevel={4} />
               <p className="description">{i18n.editor.superkeys.specialKeys.othersDescription}</p>
+              <div className="keysButtonsList">
+                <ButtonConfig tooltip={i18n.editor.superkeys.specialKeys.eject} tooltipDelay={100} icoSVG={<IconToolsEject />} />
+
+                <ButtonConfig
+                  tooltip={i18n.editor.superkeys.specialKeys.calculator}
+                  tooltipDelay={100}
+                  icoSVG={<IconToolsCalculator />}
+                />
+
+                <ButtonConfig
+                  tooltip={i18n.editor.superkeys.specialKeys.camera}
+                  tooltipDelay={100}
+                  icoSVG={<IconToolsCamera />}
+                />
+
+                <ButtonConfig
+                  tooltip={i18n.editor.superkeys.specialKeys.brightnessLess}
+                  tooltipDelay={100}
+                  icoSVG={<IconToolsBrightnessLess />}
+                />
+                <ButtonConfig
+                  tooltip={i18n.editor.superkeys.specialKeys.brightnessMore}
+                  tooltipDelay={100}
+                  icoSVG={<IconToolsBrightnessMore />}
+                />
+              </div>
             </div>
           </div>
         </div>

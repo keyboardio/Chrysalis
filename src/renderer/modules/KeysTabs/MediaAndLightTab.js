@@ -66,7 +66,8 @@ h4 {
     grtid-gap: 24px;
     .button-config {
         margin-left: 8px;
-        height: 34px;
+        padding-top: 12px;
+        padding-bottom: 12px;
     }
     padding-bottom: 12px;
 }

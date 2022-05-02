@@ -55,20 +55,29 @@ h4 {
     display: flex;
     flex-grow: 1;
     flex: 100%;
-    margin-left: -8px;
-    margin-right: -8px;
+    margin-left: -4px;
+    margin-right: -4px;
 }
 
 .buttonsRow {
     flex: 0 0 100%;
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto auto auto;
     grtid-gap: 24px;
     .button-config {
-        margin-left: 8px;
-        height: 34px;
+        margin: 4px;
+        padding-top: 12px;
+        padding-bottom: 12px;
     }
     padding-bottom: 12px;
+}
+.clickButtons .keysButtonsList {    
+    max-width: 430px;
+    flex-wrap: wrap;
+    .button-config {
+        width: 134px;
+        text-align: center;
+    }
 }
 `;
 
@@ -86,35 +95,35 @@ class MouseTab extends Component {
               <Title text={i18n.mouse.mouseClickTitle} headingLevel={4} />
               <p className="description">{i18n.mouse.mouseClickDescription}</p>
               <div className="keysButtonsList">
-                <ButtonConfig tooltip={i18n.mouse.clickLeft} tooltipDelay={100} />
+                <ButtonConfig buttonText={i18n.mouse.clickLeft} tooltipDelay={100} />
+                <ButtonConfig buttonText={i18n.mouse.clickMiddle} tooltipDelay={100} />
+                <ButtonConfig buttonText={i18n.mouse.clickRight} tooltipDelay={100} />
+                <ButtonConfig buttonText={i18n.mouse.clickBack} tooltipDelay={100} />
+                <ButtonConfig buttonText={i18n.mouse.clickForward} tooltipDelay={100} />
               </div>
             </div>
             <div className="movementButtons">
-              <Title text={i18n.mouse.mouseClickTitle} headingLevel={4} />
-              <p className="description">{i18n.mouse.mouseClickDescription}</p>
+              <Title text={i18n.mouse.movementTitle} headingLevel={4} />
+              <p className="description">{i18n.mouse.movementDescription}</p>
               <div className="keysButtonsList">
-                <ButtonConfig
-                  buttonText={i18n.editor.superkeys.specialKeys.ledToggleText}
-                  icoPosition="left"
-                  tooltip={i18n.editor.superkeys.specialKeys.ledToggleTootip}
-                  tooltipDelay={300}
-                  icoSVG={<IconLEDSwitchLeft />}
-                  className="buttonConfigLED"
-                />
+                <div className="mouseButtons mouseButtonsMovement">
+                  <div className="mouseButton mouseButtonUp"></div>
+                  <div className="mouseButton mouseButtonRight"></div>
+                  <div className="mouseButton mouseButtonUp"></div>
+                  <div className="mouseButton mouseButtonRight"></div>
+                </div>
               </div>
             </div>
             <div className="wheelButtons">
-              <Title text={i18n.mouse.mouseClickTitle} headingLevel={4} />
-              <p className="description">{i18n.mouse.mouseClickDescription}</p>
+              <Title text={i18n.mouse.wheelTitle} headingLevel={4} />
+              <p className="description">{i18n.mouse.wheelDescription}</p>
               <div className="keysButtonsList">
-                <ButtonConfig
-                  buttonText={i18n.editor.superkeys.specialKeys.ledToggleText}
-                  icoPosition="left"
-                  tooltip={i18n.editor.superkeys.specialKeys.ledToggleTootip}
-                  tooltipDelay={300}
-                  icoSVG={<IconLEDSwitchLeft />}
-                  className="buttonConfigLED"
-                />
+                <div className="mouseButtons mouseButtonsMovement">
+                  <div className="mouseButton mouseButtonUp"></div>
+                  <div className="mouseButton mouseButtonRight"></div>
+                  <div className="mouseButton mouseButtonUp"></div>
+                  <div className="mouseButton mouseButtonRight"></div>
+                </div>
               </div>
             </div>
           </div>

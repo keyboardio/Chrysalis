@@ -125,18 +125,26 @@ class KeymapDB {
           if (!this._codetable[key.code + 49169]?.baseCode) continue;
 
           // dual-use modifiers
-          for (const j of [0, 1, 2, 3, 6]) {
-            if (this._codetable[key.code + 49169 + j * 256]) {
-              this._codetable[key.code + 49169 + j * 256].label.base =
-                key.label.base;
+          for (const m of [0, 1, 2, 3, 6]) {
+            const dumCode = key.code + 49169 + m * 256;
+            if (this._codetable[dumCode]) {
+              const base = this._codetable[dumCode];
+              this._codetable[dumCode].label = Object.assign(
+                {},
+                { hint: base.label.hint, base: key.label.base }
+              );
             }
           }
 
           // dual-use layers
-          for (const j of [0, 1, 2, 3, 4, 5, 6, 7]) {
-            if (this._codetable[key.code + 51218 + j * 256]) {
-              this._codetable[key.code + 51218 + j * 256].label.base =
-                key.label.base;
+          for (const l of [0, 1, 2, 3, 4, 5, 6, 7]) {
+            const dulCode = key.code + 51218 + l * 256;
+            if (this._codetable[dulCode]) {
+              const base = this._codetable[dulCode];
+              this._codetable[dulCode].label = Object.assign(
+                {},
+                { hint: base.label.hint, base: key.label.base }
+              );
             }
           }
         }
@@ -158,18 +166,26 @@ class KeymapDB {
         if (!this._codetable[key.code + 49169]?.baseCode) continue;
 
         // dual-use modifiers
-        for (const j of [0, 1, 2, 3, 6]) {
-          if (this._codetable[key.code + 49169 + j * 256]) {
-            this._codetable[key.code + 49169 + j * 256].label.base =
-              key.label.base;
+        for (const m of [0, 1, 2, 3, 6]) {
+          const dumCode = key.code + 49169 + m * 256;
+          if (this._codetable[dumCode]) {
+            const base = this._codetable[dumCode];
+            this._codetable[dumCode].label = Object.assign(
+              {},
+              { hint: base.label.hint, base: key.label.base }
+            );
           }
         }
 
         // dual-use layers
-        for (const j of [0, 1, 2, 3, 4, 5, 6, 7]) {
-          if (this._codetable[key.code + 51218 + j * 256]) {
-            this._codetable[key.code + 51218 + j * 256].label.base =
-              key.label.base;
+        for (const l of [0, 1, 2, 3, 4, 5, 6, 7]) {
+          const dulCode = key.code + 51218 + l * 256;
+          if (this._codetable[dulCode]) {
+            const base = this._codetable[dulCode];
+            this._codetable[dulCode].label = Object.assign(
+              {},
+              { hint: base.label.hint, base: key.label.base }
+            );
           }
         }
       }

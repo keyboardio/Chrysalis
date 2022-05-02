@@ -284,7 +284,13 @@ const English = {
         back: "Back",
         fwd: "Fwd.",
         up: "Up",
-        down: "Down"
+        down: "Down",
+        mediaTitle: "Media",
+        mediaDescription: "Skip boring songs, turn the sound louder. Harder, better, faster, stronger!",
+        LEDTitle: "LED",
+        LEDDescrition: "Turn the RBG lighting On or Off and control the cycle throught the lights effects.",
+        othersTitle: "Others",
+        othersDescription: "Control your media, apps and brightness. Safe and sound!"
       }
     },
     oldMacroModal: {

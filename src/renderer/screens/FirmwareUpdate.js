@@ -133,7 +133,7 @@ class FirmwareUpdate extends React.Component {
       getStaticPath(),
       cVendor,
       cProduct,
-      "experimental" + firmwareType
+      "experimental." + firmwareType
     );
   };
 

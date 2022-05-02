@@ -123,6 +123,7 @@ class KeymapDB {
           // If there is no dualuse key for this keycode, continue with the next
           // one.
           if (!this._codetable[key.code + 49169]?.baseCode) continue;
+          if (key.code >= 256) continue;
 
           // dual-use modifiers
           for (const m of [0, 1, 2, 3, 6]) {
@@ -164,6 +165,7 @@ class KeymapDB {
         // If there is no dualuse key for this keycode, continue with the next
         // one.
         if (!this._codetable[key.code + 49169]?.baseCode) continue;
+        if (key.code >= 256) continue;
 
         // dual-use modifiers
         for (const m of [0, 1, 2, 3, 6]) {

@@ -185,6 +185,10 @@ const English = {
       delayTabs: {
         title: "Delay",
         description: "Add mouse clicks events in your key."
+      },
+      macroTab: {
+        callout: "<p>That's right! You can add macros inside macros! 🔥</p>",
+        label: "Select macro"
       }
     },
     superkeys: {

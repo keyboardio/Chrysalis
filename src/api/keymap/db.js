@@ -120,6 +120,25 @@ class KeymapDB {
           } else {
             this._codetable[key.code] = Object.assign({}, key);
           }
+          // If there is no dualuse key for this keycode, continue with the next
+          // one.
+          if (!this._codetable[key.code + 49169]?.baseCode) continue;
+
+          // dual-use modifiers
+          for (const j of [0, 1, 2, 3, 6]) {
+            if (this._codetable[key.code + 49169 + j * 256]) {
+              this._codetable[key.code + 49169 + j * 256].label.base =
+                key.label.base;
+            }
+          }
+
+          // dual-use layers
+          for (const j of [0, 1, 2, 3, 4, 5, 6, 7]) {
+            if (this._codetable[key.code + 51218 + j * 256]) {
+              this._codetable[key.code + 51218 + j * 256].label.base =
+                key.label.base;
+            }
+          }
         }
       });
     } else {
@@ -133,6 +152,25 @@ class KeymapDB {
           );
         } else {
           this._codetable[key.code] = Object.assign({}, key);
+        }
+        // If there is no dualuse key for this keycode, continue with the next
+        // one.
+        if (!this._codetable[key.code + 49169]?.baseCode) continue;
+
+        // dual-use modifiers
+        for (const j of [0, 1, 2, 3, 6]) {
+          if (this._codetable[key.code + 49169 + j * 256]) {
+            this._codetable[key.code + 49169 + j * 256].label.base =
+              key.label.base;
+          }
+        }
+
+        // dual-use layers
+        for (const j of [0, 1, 2, 3, 4, 5, 6, 7]) {
+          if (this._codetable[key.code + 51218 + j * 256]) {
+            this._codetable[key.code + 51218 + j * 256].label.base =
+              key.label.base;
+          }
         }
       }
     }

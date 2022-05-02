@@ -6,7 +6,7 @@ import i18n from "../../i18n";
 
 import Title from "../../component/Title";
 import Callout from "../../component/Callout";
-import { SelectMacro } from "../../component/Select";
+import { Select } from "../../component/Select";
 import { RegularButton } from "../../component/Button";
 
 import { IconArrowInBoxDown } from "../../component/Icon";
@@ -19,40 +19,18 @@ h4 {
     font-size: 16px;
     flex: 0 0 100%;
     width: 100%;
+    margin-top: 24px;
 }
 .callOut {
     width: 100%;
     flex: 0 0 100%;
-  }
-.form-control {
-    color: ${({ theme }) => theme.styles.form.inputColor};
-    background: ${({ theme }) => theme.styles.form.inputBackgroundColor};
-    border-color: ${({ theme }) => theme.styles.form.inputBorderSolid};
-    font-weight: 600;
-    padding: 16px;
-    height: auto;
-    &:focus {
-        background: ${({ theme }) => theme.styles.form.inputBackgroundColorActive};
-        border-color: ${({ theme }) => theme.styles.form.inputBorderActive};
-        box-shadow: none;
-    }
-    margin-bottom: 0;
 }
-.input-group {
+.w100 {
+    width: 100%;
+    flex: 0 0 100%;
+}
+.dropdown {
     max-width: 290px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    .input-group-text {
-        margin-left: -1px;
-        font-weight: 600;
-        padding: 16px 18px;
-        color: ${({ theme }) => theme.styles.form.inputGroupColor};
-        background: ${({ theme }) => theme.styles.form.inputGroupBackground};
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-        border-color: ${({ theme }) => theme.styles.form.inputBorderSolid};
-    }
-
 }
 `;
 
@@ -62,13 +40,26 @@ class MacroTab extends Component {
   }
 
   render() {
-    const { macros } = this.props;
+    const { macros, selectedMacro } = this.props;
+    const macrosAux = macros.map(item => {
+      const macrosContainer = {};
+      if (item.name == "") {
+        macrosContainer.text = i18n.general.noname;
+      } else {
+        macrosContainer.text = item.name;
+      }
+      return macrosContainer;
+    });
+
+    console.log("Macros inside: ", selectedMacro);
     return (
       <Styles>
         <div className="tabContentWrapper">
           <Callout content={i18n.editor.macros.macroTab.callout} className="w100" size="md" />
           <Title text={i18n.editor.macros.macroTab.label} headingLevel={4} />
-          <SelectMacro macros={macros} />
+          <div className="w100">
+            <Select value={macrosAux.length > 0 ? macrosAux[0].text : "Loading"} listElements={macrosAux} />
+          </div>
         </div>
         <div className="tabSaveButton">
           <RegularButton

@@ -82,7 +82,7 @@ const Style = Styled.div`
  *
  * @param {string} text - The content rendered inside the component
  * @param {string} eventKey - The argument that handles the active content
- * @param {string} icon - [Optional] SVG component
+ * @param {object} icon - [Optional] SVG component
  * @param {string} className - If special styles/customization is necessary
  * @returns {<CustomTab>} CustomTab component.
  */
@@ -105,7 +105,7 @@ CustomTab.defaultProps = {
 
 CustomTab.propTypes = {
   text: PropTypes.string,
-  icon: PropTypes.string,
+  icon: PropTypes.object,
   eventKey: PropTypes.string,
   className: PropTypes.string
 };

@@ -293,7 +293,7 @@ class MacroCreator extends Component {
                     <LayersTab />
                   </Tab.Pane>
                   <Tab.Pane eventKey="tabMacro">
-                    <MacroTab macros={this.state.macros} />
+                    <MacroTab macros={this.state.macros} selectedMacro={this.state.selected} />
                   </Tab.Pane>
                   <Tab.Pane eventKey="tabMedia">Media & LED</Tab.Pane>
                   <Tab.Pane eventKey="tabMouse">Mouse</Tab.Pane>

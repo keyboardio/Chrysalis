@@ -5,6 +5,7 @@ import NeuronLoaderDark from "../../../static/dark/neuron-loader.jpg";
 import closeButton from "../../../static/dark/X.svg";
 import IconPlusXS from "../../../static/dark/plusIcon.svg";
 import RaiseFirmwareUpgrade from "../../../static/dark/raiseFirmwareupgrade.svg";
+import mouseWheelBackgroundDark from "../../../static/dark/mouseWheel.png";
 
 import Tokens from "./Tokens";
 
@@ -196,6 +197,15 @@ const Dark = {
         border: "none",
         background: Tokens.colors.gray600,
         backgroundHover: Tokens.colors.gray400
+      },
+      buttonMouse: {
+        backgroundColor: "linear-gradient(-90deg, rgba(11, 2, 25, 0.25) 0.39%, rgba(49, 50, 74, 0.25) 74.37%)",
+        backgroundColorHover:
+          "linear-gradient(-90deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 70.91%), rgba(87, 97, 126, 0.6)",
+        backgroundColorActive: Tokens.colors.purple300,
+        color: "#fff",
+        colorHover: "#fff",
+        colorActive: "#fff"
       }
     },
     collpase: {
@@ -356,6 +366,11 @@ const Dark = {
       background: Tokens.colors.gray600,
       titleColor: Tokens.colors.gray25,
       footerBackground: settingColorOpacity(Tokens.colors.gray900, 0.1)
+    },
+    mouseButtons: {
+      background: "#2B2B42",
+      backgroundWheelCircle: Tokens.colors.gray600,
+      mouseWheel: mouseWheelBackgroundDark
     },
     navbar: {
       color: "#555",

@@ -5,6 +5,7 @@ import CheckedIconLight from "../../../static/dark/icon-check-animated.gif";
 import closeButton from "../../../static/light/X.svg";
 import IconPlusXS from "../../../static/light/plusIcon.svg";
 import RaiseFirmwareUpgrade from "../../../static/light/raiseFirmwareupgrade.svg";
+import mouseWheelBackground from "../../../static/light/mouseWheel.png";
 
 import Tokens from "./Tokens";
 
@@ -193,6 +194,15 @@ const Light = {
           "linear-gradient(90deg, rgba(255, 255, 255, 0.3) 21.15%, rgba(255, 255, 255, 0) 100%), rgba(176, 175, 194, 0.3)",
         backgroundHover:
           "linear-gradient(90deg, rgba(255, 255, 255, 0.4) -22.96%, rgba(255, 255, 255, 0) 123.24%), rgba(196, 201, 213, 0.8)"
+      },
+      buttonMouse: {
+        backgroundColor: "linear-gradient(-90deg, rgba(11, 2, 25, 0.25) 0.39%, rgba(49, 50, 74, 0.25) 74.37%)",
+        backgroundColorHover:
+          "linear-gradient(-90deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 70.91%), rgba(87, 97, 126, 0.6)",
+        backgroundColorActive: Tokens.colors.purple300,
+        color: Tokens.colors.gray500,
+        colorHover: Tokens.colors.gray500,
+        colorActive: "#fff"
       }
     },
     collpase: {
@@ -350,6 +360,11 @@ const Light = {
       background: Tokens.colors.gray25,
       titleColor: Tokens.colors.gray400,
       footerBackground: settingColorOpacity(Tokens.colors.gray200, 0.075)
+    },
+    mouseButtons: {
+      background: Tokens.colors.gray50,
+      backgroundWheelCircle: Tokens.colors.gray50,
+      mouseWheel: mouseWheelBackground
     },
     navbar: {
       background: Tokens.colors.gray25,

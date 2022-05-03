@@ -4,7 +4,7 @@ import Styled from "styled-components";
 import i18n from "../../i18n";
 
 import Title from "../../component/Title";
-import { RegularButton, ButtonConfig } from "../../component/Button";
+import { RegularButton, ButtonConfig, ButtonMouse } from "../../component/Button";
 
 import {
   IconMediaPlayPause,
@@ -79,6 +79,36 @@ h4 {
         text-align: center;
     }
 }
+
+.mouseButtons {
+    width: 156px;
+    height: 156px;
+    border-radius: 50%;
+    background:  ${({ theme }) => theme.styles.mouseButtons.background};
+    position: relative;
+    &.mouseButtonsWheel {
+        &:before, &:after {
+            content: "";
+            position: absolute; 
+            left: 50%;
+            top: 50%;
+            transform: translate3d(-50%, -50%, 0);
+        }
+        &:before {
+            border-radius: 50%; 
+            width: 52px;
+            height: 52px;
+            background:  ${({ theme }) => theme.styles.mouseButtons.backgroundWheelCircle};
+            z-index: 2;
+        }
+        &:after {
+            width: 28px;
+            height: 70px;
+            background-image:  url(${({ theme }) => theme.styles.mouseButtons.mouseWheel});
+            z-index: 3;
+        }
+    }
+}
 `;
 
 class MouseTab extends Component {
@@ -107,10 +137,10 @@ class MouseTab extends Component {
               <p className="description">{i18n.mouse.movementDescription}</p>
               <div className="keysButtonsList">
                 <div className="mouseButtons mouseButtonsMovement">
-                  <div className="mouseButton mouseButtonUp"></div>
-                  <div className="mouseButton mouseButtonRight"></div>
-                  <div className="mouseButton mouseButtonUp"></div>
-                  <div className="mouseButton mouseButtonRight"></div>
+                  <ButtonMouse eventType="movement" direction="up" />
+                  <ButtonMouse eventType="movement" direction="right" />
+                  <ButtonMouse eventType="movement" direction="down" />
+                  <ButtonMouse eventType="movement" direction="left" />
                 </div>
               </div>
             </div>
@@ -118,11 +148,11 @@ class MouseTab extends Component {
               <Title text={i18n.mouse.wheelTitle} headingLevel={4} />
               <p className="description">{i18n.mouse.wheelDescription}</p>
               <div className="keysButtonsList">
-                <div className="mouseButtons mouseButtonsMovement">
-                  <div className="mouseButton mouseButtonUp"></div>
-                  <div className="mouseButton mouseButtonRight"></div>
-                  <div className="mouseButton mouseButtonUp"></div>
-                  <div className="mouseButton mouseButtonRight"></div>
+                <div className="mouseButtons mouseButtonsWheel">
+                  <ButtonMouse eventType="wheel" direction="up" />
+                  <ButtonMouse eventType="wheel" direction="right" />
+                  <ButtonMouse eventType="wheel" direction="down" />
+                  <ButtonMouse eventType="wheel" direction="left" />
                 </div>
               </div>
             </div>

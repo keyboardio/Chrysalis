@@ -17,17 +17,15 @@
 import React, { Component } from "react";
 
 import Styled from "styled-components";
-import Card from "react-bootstrap/Card";
+
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import i18n from "../../i18n";
 
-import MacroForm from "../../components/MacroManager/MacroForm";
-import Slider from "react-rangeslider";
-
 import Title from "../../component/Title";
 import CustomTab from "../../component/Tab";
 import TextTab from "../KeysTabs/TextTab";
+import KeysTab from "../KeysTabs/KeysTab";
 import LayersTab from "../KeysTabs/LayersTab";
 import MacroTab from "../KeysTabs/MacroTab";
 import DelayTab from "../KeysTabs/DelayTab";
@@ -158,121 +156,17 @@ class MacroCreator extends Component {
 
     this.state = {
       macros: props.macros,
-      selected: selected,
-      freeMemory: 0,
-      open: false
+      selected: selected
     };
-
-    this.close = this.close.bind(this);
-    this.accept = this.accept.bind(this);
-    this.deleteMacro = this.deleteMacro.bind(this);
-    this.duplicateMacro = this.duplicateMacro.bind(this);
-    this.addMacro = this.addMacro.bind(this);
-    this.changeSelected = this.changeSelected.bind(this);
-    this.exit = this.exit.bind(this);
-    this.macrosRestore = this.macrosRestore.bind(this);
   }
-
-  close() {
-    let macros = this.state.macros;
-    macros[this.state.selected] = this.props.macros[this.state.selected];
-    this.setState({
-      macros
-    });
-    this.exit();
-  }
-
-  exit() {
-    this.setState({
-      open: false
-    });
-  }
-
-  accept(macros) {
-    this.setState({
-      macros: macros
-    });
-    this.props.updateMacro(macros, -1);
-    this.props.changeSelected(this.state.selected);
-    this.exit();
-    this.updateFreeMemory(macros);
-  }
-
-  addMacro() {
-    if (this.state.macros.length < this.props.maxMacros) {
-      let aux = this.state.macros;
-      const newID = aux.length;
-      aux.push({
-        actions: [],
-        name: "Empty Macro",
-        id: newID,
-        macro: ""
-      });
-      this.props.updateMacro(aux, -1);
-      this.changeSelected(newID);
-    }
-  }
-
-  deleteMacro(selected) {
-    if (this.state.macros.length > 0) {
-      let aux = this.state.macros;
-      aux.splice(selected, 1);
-      aux = aux.map((item, index) => {
-        let aux = item;
-        aux.id = index;
-        return aux;
-      });
-      if (selected >= this.state.macros.length - 1) {
-        this.changeSelected(this.state.macros.length - 1);
-      }
-      this.props.updateMacro(aux, selected);
-    }
-  }
-
-  duplicateMacro(selected) {
-    let macros = this.state.macros;
-    let aux = Object.assign({}, this.state.macros[selected]);
-    aux.id = this.state.macros.length;
-    aux.name = "Copy of " + aux.name;
-    macros.push(aux);
-    this.props.updateMacro(macros, -1);
-    this.changeSelected(aux.id);
-  }
-
-  changeSelected(selected) {
-    this.setState({
-      selected
-    });
-    this.props.changeSelected(selected);
-  }
-
-  macrosRestore(macros) {
-    this.setState({
-      macros: macros
-    });
-    this.changeSelected(0);
-    this.props.updateMacro(macros, -1);
-  }
-
-  updateFreeMemory = macros => {
-    let mem = macros.map(m => m.actions).flat().length;
-    this.setState({ freeMemory: mem });
-    if (mem > 1999) {
-      alert(
-        "You exceeded the maximum capacity of actions in your macros. Please decrease the number of actions until the top right bar is no longer red"
-      );
-    }
-  };
 
   render() {
-    const { keymapDB } = this.props;
-
     return (
       <Styles>
         <Tab.Container id="macroCreator" defaultActiveKey="tabText">
           <div className="tabWrapper">
             <div className="tabCategories">
-              <Title headingLevel={3} text="Select" />
+              <Title headingLevel={3} text={i18n.general.select} />
               <Nav className="flex-column">
                 <CustomTab eventKey="tabText" text="Text" icon={<IconLetterColor />} />
                 <CustomTab eventKey="tabKeys" text="Keys" icon={<IconKeyboard />} />
@@ -285,12 +179,14 @@ class MacroCreator extends Component {
             </div>
             <div className="tabContent">
               <div className="tabContentInner">
-                <Title headingLevel={3} text="Configure" />
+                <Title headingLevel={3} text={i18n.general.configure} />
                 <Tab.Content>
                   <Tab.Pane eventKey="tabText">
                     <TextTab />
                   </Tab.Pane>
-                  <Tab.Pane eventKey="tabKeys">Keys</Tab.Pane>
+                  <Tab.Pane eventKey="tabKeys">
+                    <KeysTab />
+                  </Tab.Pane>
                   <Tab.Pane eventKey="tabLayers">
                     <LayersTab />
                   </Tab.Pane>
@@ -311,40 +207,6 @@ class MacroCreator extends Component {
             </div>
           </div>
         </Tab.Container>
-        <Card className={"card"}>
-          <Card.Header classes={"cardHeader cardTitle"}>
-            <div className="macroHeaderMem">
-              <div className="macroHeaderTitle">{i18n.editor.macros.title}</div>
-              <div className="macroFreeMem">
-                <span className="tagsfix">Keyboard Memory Used - 0%</span>
-                <Slider
-                  className={`memSlider ${this.state.freeMemory > 1899 ? "outOfMem" : ""}`}
-                  min={0}
-                  max={2000}
-                  value={this.state.freeMemory}
-                  tooltip={false}
-                />
-                <span className="tagsfix">100%</span>
-              </div>
-            </div>
-          </Card.Header>
-          <Card.Body classes={"cardcontent"}>
-            <MacroForm
-              key={this.state.macros.length + this.state.selected}
-              macros={this.state.macros}
-              close={this.close}
-              selected={this.state.selected}
-              accept={this.accept}
-              keymapDB={keymapDB}
-              deleteMacro={this.deleteMacro}
-              addMacro={this.addMacro}
-              disableAdd={this.state.macros.length === this.props.maxMacros}
-              changeSelected={this.changeSelected}
-              duplicateMacro={this.duplicateMacro}
-              macrosRestore={this.macrosRestore}
-            />
-          </Card.Body>
-        </Card>
       </Styles>
     );
   }

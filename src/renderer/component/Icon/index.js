@@ -22,6 +22,7 @@ import IconArrowsSmallSeparating from "./IconArrowsSmallSeparating";
 import IconCheckmarkSm from "./IconCheckmarkSm";
 import IconChip from "./IconChip";
 import IconCloseXs from "./IconCloseXs";
+import IconDragAndDrop from "./IconDragAndDrop";
 import IconDelete from "./IconDelete";
 import IconEditModeSingleView from "./IconEditModeSingleView";
 import IconEditModeStandardView from "./IconEditModeStandardView";
@@ -76,6 +77,7 @@ import IconToolsCamera from "./IconToolsCamera";
 import IconToolsEject from "./IconToolsEject";
 import IconToolsBrightnessLess from "./IconToolsBrightnessLess";
 import IconToolsBrightnessMore from "./IconToolsBrightnessMore";
+import IconThreeDots from "./IconThreeDots";
 import IconPlus from "./IconPlus";
 import IconSettings from "./IconSettings";
 import IconWrench from "./IconWrench";
@@ -89,6 +91,7 @@ export {
   IconCheckmarkSm,
   IconChip,
   IconCloseXs,
+  IconDragAndDrop,
   IconDelete,
   IconEditModeSingleView,
   IconEditModeStandardView,
@@ -143,6 +146,7 @@ export {
   IconToolsEject,
   IconToolsBrightnessLess,
   IconToolsBrightnessMore,
+  IconThreeDots,
   IconPlus,
   IconSettings,
   IconWrench

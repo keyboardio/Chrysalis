@@ -42,6 +42,7 @@ import ToastMessage from "../component/ToastMessage";
 import { IconFloppyDisk } from "../component/Icon";
 
 import MacroCreator from "../modules/Macros/MacroCreator";
+import TimelineEditorManager from "../modules/Macros/TimelineEditorManager";
 
 const Store = require("electron-store");
 const store = new Store();
@@ -614,6 +615,15 @@ class MacroEditor extends React.Component {
           />
           <Callout content={i18n.editor.macros.callout} className="mt-lg" size="md" maxWidth={1100} />
           <MacroCreator
+            macros={this.state.macros}
+            maxMacros={this.state.maxMacros}
+            selected={this.state.selectedMacro}
+            updateMacro={this.updateMacros}
+            changeSelected={this.changeSelected}
+            keymapDB={this.keymapDB}
+            key={JSON.stringify(this.state.macros)}
+          />
+          <TimelineEditorManager
             macros={this.state.macros}
             maxMacros={this.state.maxMacros}
             selected={this.state.selectedMacro}

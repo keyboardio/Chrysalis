@@ -16,6 +16,8 @@
 
 import IconAddNew from "./IconAddNew";
 import IconArrowInBoxDown from "./IconArrowInBoxDown";
+import IconArrowsMouseMovement from "./IconArrowsMouseMovement";
+import IconArrowsMouseWheel from "./IconArrowsMouseWheel";
 import IconArrowsSmallSeparating from "./IconArrowsSmallSeparating";
 import IconCheckmarkSm from "./IconCheckmarkSm";
 import IconChip from "./IconChip";
@@ -82,6 +84,8 @@ export {
   IconAddNew,
   IconArrowInBoxDown,
   IconArrowsSmallSeparating,
+  IconArrowsMouseMovement,
+  IconArrowsMouseWheel,
   IconCheckmarkSm,
   IconChip,
   IconCloseXs,

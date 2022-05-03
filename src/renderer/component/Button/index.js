@@ -19,5 +19,6 @@ import RegularButton from "./regularButton";
 import ButtonConfig from "./ButtonConfig";
 import ButtonSettings from "./ButtonSettings";
 import SuperkeyPicker from "./SuperkeyPicker";
+import MouseEventButton from "./MouseEventButton";
 
-export { NavigationButton, RegularButton, ButtonConfig, ButtonSettings, SuperkeyPicker };
+export { NavigationButton, RegularButton, ButtonConfig, ButtonSettings, SuperkeyPicker, MouseEventButton };

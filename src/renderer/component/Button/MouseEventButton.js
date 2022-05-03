@@ -16,14 +16,13 @@
  */
 
 import React from "react";
-import PropTypes from "prop-types";
 
-const MouseEventButton = ({ selected, onClick, direction, eventType, disabled }) => {
+const MouseEventButton = ({ selected, onClick, size, buttonText, style, icoSVG, icoPosition, disabled }) => {
   return (
     <div
       onClick={disabled ? () => {} : onClick}
-      className={`mouseButton mouseButton${direction ? direction : "none"} eventType${eventType ? eventType : "none"} ${
-        selected ? "active" : ""
+      className={`${size ? size : ""} ${selected ? "active" : ""} button ${style && style} iconOn${
+        icoPosition ? icoPosition : "None"
       }`}
       disabled={disabled}
     >
@@ -35,17 +34,6 @@ const MouseEventButton = ({ selected, onClick, direction, eventType, disabled })
       <div className="buttonFX"></div>
     </div>
   );
-};
-
-RegularButton.propTypes = {
-  selected: PropTypes.bool,
-  onClick: PropTypes.func,
-  size: PropTypes.string,
-  buttonText: PropTypes.string,
-  style: PropTypes.string,
-  icoSVG: PropTypes.object,
-  icoPosition: PropTypes.string,
-  disabled: PropTypes.bool
 };
 
 export default MouseEventButton;

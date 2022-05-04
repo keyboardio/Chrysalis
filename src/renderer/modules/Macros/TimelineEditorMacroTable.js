@@ -503,7 +503,7 @@ class TimelineEditorMacroTable extends Component {
     return (
       <Styles>
         <DragDropContext onDragEnd={this.onDragEnd}>
-          <Droppable droppableId="droppable">
+          <Droppable droppableId="droppable" direction="horizontal">
             {provided => (
               <div ref={provided.innerRef}>
                 <div className={"timelinetracking"}>

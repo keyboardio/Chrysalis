@@ -358,7 +358,16 @@ const Dark = {
       tabCategoriesBackground: "rgba(43, 44, 67, 1)",
       tabContentBackground: Tokens.colors.gray800,
       tabTile: Tokens.colors.gray25,
-      descriptionColor: Tokens.colors.gray200
+      descriptionColor: Tokens.colors.gray200,
+      trackingBackground: "#212235",
+      timelineBackground: "#2B2C43",
+      colorTitle: Tokens.colors.gray25,
+      keyMacroMiniDashboardBackground: Tokens.colors.gray700,
+      keyInfoBackground: Tokens.colors.gray800,
+      keyInfoTitle: Tokens.colors.gray500,
+      keyFunctionsBorder: Tokens.colors.gray700,
+      keyValueColor: Tokens.colors.gray100,
+      keyFunctionTile: Tokens.colors.gray50
     },
     macroKey: {
       background: Tokens.colors.gray500,

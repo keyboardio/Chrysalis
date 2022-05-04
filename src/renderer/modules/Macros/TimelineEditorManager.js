@@ -24,6 +24,18 @@ import TimelineEditorForm from "./TimelineEditorForm";
 import Title from "../../component/Title";
 
 const Styles = Styled.div`
+background-color: ${({ theme }) => theme.styles.macro.timelineBackground};
+border-radius: 0px 0px 16px 16px;
+padding-bottom: 20px;   
+margin-top: 2px;
+.timelineHeader {
+    padding: 24px 32px;
+    h4 {
+        font-size: 21px; 
+        color: ${({ theme }) => theme.styles.macro.colorTitle};
+        margin: 0;
+    }
+}
 .card {
   width: auto;
   height: 100%;
@@ -213,7 +225,9 @@ class MacroManager extends Component {
 
     return (
       <Styles>
-        <Title text={i18n.editor.macros.timelineTitle} headingLevel={4} />
+        <div className="timelineHeader">
+          <Title text={i18n.editor.macros.timelineTitle} headingLevel={4} />
+        </div>
         <TimelineEditorForm
           key={this.state.macros.length + this.state.selected}
           macros={this.state.macros}

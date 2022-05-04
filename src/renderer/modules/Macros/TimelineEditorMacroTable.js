@@ -51,10 +51,16 @@ const Styles = Styled.div`
   margin: 1rem;
 }
 
+&.trackingWrapper {
+    position: relative;
+    z-index: 1;
+    width: 1522px;
+}
 .timelinetracking {
     display: flex; 
     flex-wrap: nowrap;
     flex-direction: row;
+    background-color: ${({ theme }) => theme.styles.macro.trackingBackground};
 }
 `;
 
@@ -501,7 +507,7 @@ class TimelineEditorMacroTable extends Component {
     // const {} = this.props;
 
     return (
-      <Styles>
+      <Styles className="trackingWrapper">
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId="droppable" direction="horizontal">
             {provided => (

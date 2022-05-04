@@ -7,11 +7,18 @@ import Dropdown from "react-bootstrap/Dropdown";
 import { MdClose } from "react-icons/md";
 import i18n from "../../i18n";
 
+import Title from "../../component/Title";
+import { ButtonConfig } from "../../component/Button";
 import { IconDragAndDrop, IconThreeDots } from "../../component/Icon";
 
 const Styles = Styled.div`
 .chip {
   font-weight: 600;
+  margin: 0;
+  padding: 6px;
+  background-color: transparent;
+  font-size: 13px;
+  color: ${({ theme }) => theme.styles.macroKey.color};
 }
 .listitem {
   display: flex;
@@ -26,7 +33,7 @@ const Styles = Styled.div`
 
 .keyMacro {
     border-radius: 4px;
-    background-color:  ${({ theme }) => theme.styles.macroKey.background};
+    background-color: ${({ theme }) => theme.styles.macroKey.background};
     padding: 3px;
     width: 100px;
     margin: 4px 2px;
@@ -54,6 +61,55 @@ const Styles = Styled.div`
         &:after {
             content: none;
         }
+    }
+    .keyMacroMiniDashboard {
+        border-radius: 6px;
+        
+        background: ${({ theme }) => theme.styles.macro.keyInfoBackground}; 
+        overflow: hidden;
+    }
+    .keyInfo {
+        padding: 12px 8px;
+        background: ${({ theme }) => theme.styles.macro.keyInfoBackground}; 
+        h4 {
+            font-weight: 600;
+            text-transform: uppercase;
+            margin: 0;
+            font-size: 13px;
+            font-weight: 500;
+            color: ${({ theme }) => theme.styles.macro.keyInfoTitle}; 
+        }
+    }
+    .keyFunctions {
+        border-top: 1px solid ${({ theme }) => theme.styles.macro.keyFunctionsBorder};
+        padding: 6px;
+        
+        h5 {
+            color: ${({ theme }) => theme.styles.macro.keyFunctionTile};
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: none; 
+            letter-spacingL: -0.025em; 
+            margin: 0;
+        }
+    }
+    .keyModifiers {
+        h4 {
+            color: ${({ theme }) => theme.styles.macro.keyFunctionTile};
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: none; 
+            letter-spacingL: -0.025em; 
+            margin: 0; 
+        }
+        background: ${({ theme }) => theme.styles.macro.keyMacroMiniDashboardBackground}; 
+    }
+    .keyValue {
+        color: ${({ theme }) => theme.styles.macro.keyValueColor};
+        font-size: 24px;
+        font-weight: 600;
+        text-transform: capitalize;
+        margin: 0;
     }
 }
 `;
@@ -101,7 +157,7 @@ class KeyMacro extends Component {
 
   render() {
     const { provided, snapshot, item, modifiers, addModifier, actionTypes } = this.props;
-
+    console.log("actionTypes", actionTypes);
     return (
       <Styles>
         <div
@@ -126,24 +182,41 @@ class KeyMacro extends Component {
                     addModifier(item.id, e);
                   }}
                 >
-                  <Dropdown.Toggle variant="primary" id="dropdown-basic">
+                  <Dropdown.Toggle variant="primary" id="dropdown-basic" drop="up" align="end">
                     <IconThreeDots />
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    {modifiers.map((item, id) => (
-                      <Dropdown.Item eventKey={id} key={`item-${id}`} className="compact">
-                        <span className="compact">{item.name}</span>
-                      </Dropdown.Item>
-                    ))}
-                    <Dropdown.Item key={`item-delete`} className="compact">
-                      <div
-                        onClick={() => {
-                          this.props.onDeleteRow(item.id);
-                        }}
-                      >
-                        <MdClose /> Delete
+                    <div className="keyMacroMiniDashboard">
+                      <div className="keyInfo">
+                        <Title headingLevel={4} text="Key" />
+                        <p className="keyValue">{item.symbol}</p>
                       </div>
-                    </Dropdown.Item>
+                      <div className="keyFunctions">
+                        <Title headingLevel={5} text="Edit function" />
+                        <div className="keyFunctionsButtons">
+                          <ButtonConfig buttonText={actionTypes[item.action].name} />
+                        </div>
+                      </div>
+                      <div className="keyModifiers">
+                        <Title headingLevel={4} text="Add modifier" />
+                        {modifiers.map((item, id) => (
+                          <Dropdown.Item eventKey={id} key={`item-${id}`} className="compact">
+                            <span className="compact">{item.name}</span>
+                          </Dropdown.Item>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="keyMacroItemOptions">
+                      <Dropdown.Item key={`item-delete`} className="compact">
+                        <div
+                          onClick={() => {
+                            this.props.onDeleteRow(item.id);
+                          }}
+                        >
+                          <MdClose /> Delete
+                        </div>
+                      </Dropdown.Item>
+                    </div>
                   </Dropdown.Menu>
                 </Dropdown>
               </div>
@@ -151,13 +224,15 @@ class KeyMacro extends Component {
             <div className="bodyDrag">
               <p
                 className="chip"
-                style={{
-                  backgroundColor: item.color,
-                  borderColor: item.color,
-                  // HACK allow the text to be visible on darkTheme
-                  // without completely rewriting the code which assigns the background colors
-                  color: "#000"
-                }}
+                style={
+                  {
+                    //backgroundColor: item.color,
+                    //borderColor: item.color,
+                    // HACK allow the text to be visible on darkTheme
+                    // without completely rewriting the code which assigns the background colors
+                    //color: "#000"
+                  }
+                }
               >
                 {item.symbol}
               </p>

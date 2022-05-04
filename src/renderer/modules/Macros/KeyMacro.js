@@ -9,7 +9,8 @@ import i18n from "../../i18n";
 
 import Title from "../../component/Title";
 import { ButtonConfig } from "../../component/Button";
-import { IconDragAndDrop, IconThreeDots } from "../../component/Icon";
+
+import { IconDragAndDrop, IconThreeDots, IconKeysPress, IconKeysHold } from "../../component/Icon";
 
 const Styles = Styled.div`
 .chip {
@@ -194,7 +195,24 @@ class KeyMacro extends Component {
                       <div className="keyFunctions">
                         <Title headingLevel={5} text="Edit function" />
                         <div className="keyFunctionsButtons">
-                          <ButtonConfig buttonText={actionTypes[item.action].name} />
+                          <ButtonConfig
+                            buttonText={"Press"}
+                            icoPosition="left"
+                            iconSVG={<IconKeysPress />}
+                            selected={actionTypes[item.action].name == "Key Press" ? true : false}
+                          />
+                          <ButtonConfig
+                            buttonText={"Release"}
+                            icoPosition="left"
+                            iconSVG={<IconKeysPress />}
+                            selected={actionTypes[item.action].name == "Key Release" ? true : false}
+                          />
+                          <ButtonConfig
+                            buttonText={"Press & Release"}
+                            icoPosition="left"
+                            iconSVG={<IconKeysPress />}
+                            selected={actionTypes[item.action].icon == "Key Press & Rel." ? true : false}
+                          />
                         </div>
                       </div>
                       <div className="keyModifiers">

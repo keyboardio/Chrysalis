@@ -10,7 +10,16 @@ import i18n from "../../i18n";
 import Title from "../../component/Title";
 import { ButtonConfig } from "../../component/Button";
 
-import { IconDragAndDrop, IconThreeDots, IconKeysPress, IconKeysHold } from "../../component/Icon";
+import {
+  IconDragAndDrop,
+  IconThreeDots,
+  IconPressSm,
+  IconReleaseSm,
+  IconPressAndReleaseSm,
+  IconDelete
+} from "../../component/Icon";
+import { FaLinux } from "react-icons/fa";
+import { AiFillWindows, AiFillApple } from "react-icons/ai";
 
 const Styles = Styled.div`
 .chip {
@@ -65,12 +74,10 @@ const Styles = Styled.div`
     }
     .keyMacroMiniDashboard {
         border-radius: 6px;
-        
-        background: ${({ theme }) => theme.styles.macro.keyInfoBackground}; 
         overflow: hidden;
     }
     .keyInfo {
-        padding: 12px 8px;
+        padding: 16px 12px 12px 12px;
         background: ${({ theme }) => theme.styles.macro.keyInfoBackground}; 
         h4 {
             font-weight: 600;
@@ -83,8 +90,8 @@ const Styles = Styled.div`
     }
     .keyFunctions {
         border-top: 1px solid ${({ theme }) => theme.styles.macro.keyFunctionsBorder};
-        padding: 6px;
-        
+        padding: 12px 8px;
+        background: ${({ theme }) => theme.styles.macro.keyInfoBackground}; 
         h5 {
             color: ${({ theme }) => theme.styles.macro.keyFunctionTile};
             font-size: 13px;
@@ -92,18 +99,35 @@ const Styles = Styled.div`
             text-transform: none; 
             letter-spacingL: -0.025em; 
             margin: 0;
+            margin-bottom: 8px;
         }
     }
+    .keyFunctionsButtons {
+      display: flex;
+      flex-wrap: nowrap;
+      margin-left: -2px;
+      margin-right: -2px;
+    }
+    .button-config {
+      color: ${({ theme }) => theme.styles.button.config.color};
+      white-space: nowrap;
+      margin: 0 2px;
+      flex-grow: 1;
+      &:hover {
+        color: ${({ theme }) => theme.styles.button.config.colorHover};
+      }
+    }
     .keyModifiers {
-        h4 {
-            color: ${({ theme }) => theme.styles.macro.keyFunctionTile};
-            font-size: 13px;
-            font-weight: 500;
-            text-transform: none; 
-            letter-spacingL: -0.025em; 
-            margin: 0; 
-        }
-        background: ${({ theme }) => theme.styles.macro.keyMacroMiniDashboardBackground}; 
+      padding: 12px 8px;
+      h4 {
+          color: ${({ theme }) => theme.styles.macro.keyFunctionTile};
+          font-size: 13px;
+          font-weight: 500;
+          text-transform: none; 
+          letter-spacingL: -0.025em; 
+          margin-bottom: 8px;
+      }
+      background: ${({ theme }) => theme.styles.macro.keyMacroMiniDashboardBackground}; 
     }
     .keyValue {
         color: ${({ theme }) => theme.styles.macro.keyValueColor};
@@ -111,6 +135,24 @@ const Styles = Styled.div`
         font-weight: 600;
         text-transform: capitalize;
         margin: 0;
+    }
+    .keyMacroItemOptions {
+      padding-top: 8px;
+    }
+    .keyModifiersButtons {
+      display: flex;
+      flex-wrap: nowrap;
+      margin-left: -2px;
+      margin-right: -2px;
+    }
+    .dropdown-menu {
+      min-width: 362px;
+      padding: 8px;
+    }
+    .dropdown-item.unstyled {
+      padding: 0;
+      margin: 0 2px;
+
     }
 }
 `;
@@ -158,6 +200,45 @@ class KeyMacro extends Component {
 
   render() {
     const { provided, snapshot, item, modifiers, addModifier, actionTypes } = this.props;
+    const operationSystem = process.platform;
+    let operationSystemIcons = [];
+    if (operationSystem === "darwin") {
+      operationSystemIcons = {
+        shift: "Shift",
+        control: "Control ^",
+        os: {
+          icon: false,
+          text: "⌘"
+        },
+        alt: "Alt ⌥",
+        altGr: "Right Alt ⌥"
+      };
+    } else {
+      if (operationSystem === "win32") {
+        operationSystemIcons = {
+          shift: "Shift",
+          control: "Control",
+          os: {
+            icon: <AiFillWindows />,
+            text: false
+          },
+          alt: "Alt",
+          altGr: "Alt Gr."
+        };
+      } else {
+        operationSystemIcons = {
+          shift: "Shift",
+          control: "Control",
+          os: {
+            icon: <FaLinux />,
+            text: false
+          },
+          alt: "Alt",
+          altGr: "Alt Gr."
+        };
+      }
+    }
+
     console.log("actionTypes", actionTypes);
     return (
       <Styles>
@@ -174,7 +255,6 @@ class KeyMacro extends Component {
               </div>
               <div className="moreOptions">
                 <Dropdown
-                  id="insert-modifiers"
                   label={i18n.editor.macros.insertModifiers}
                   value=""
                   size="small"
@@ -198,30 +278,63 @@ class KeyMacro extends Component {
                           <ButtonConfig
                             buttonText={"Press"}
                             icoPosition="left"
-                            iconSVG={<IconKeysPress />}
+                            icoSVG={<IconPressSm />}
                             selected={actionTypes[item.action].name == "Key Press" ? true : false}
                           />
                           <ButtonConfig
                             buttonText={"Release"}
                             icoPosition="left"
-                            iconSVG={<IconKeysPress />}
+                            icoSVG={<IconReleaseSm />}
                             selected={actionTypes[item.action].name == "Key Release" ? true : false}
                           />
                           <ButtonConfig
                             buttonText={"Press & Release"}
                             icoPosition="left"
-                            iconSVG={<IconKeysPress />}
-                            selected={actionTypes[item.action].icon == "Key Press & Rel." ? true : false}
+                            icoSVG={<IconPressAndReleaseSm />}
+                            selected={actionTypes[item.action].name == "Key Press & Rel." ? true : false}
                           />
                         </div>
                       </div>
                       <div className="keyModifiers">
                         <Title headingLevel={4} text="Add modifier" />
-                        {modifiers.map((item, id) => (
-                          <Dropdown.Item eventKey={id} key={`item-${id}`} className="compact">
-                            <span className="compact">{item.name}</span>
-                          </Dropdown.Item>
-                        ))}
+                        <div className="keyModifiersButtons">
+                          {modifiers.map(
+                            (item, id) =>
+                              item.name == "LEFT SHIFT" ? (
+                                <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
+                                  <ButtonConfig buttonText={operationSystemIcons.shift} />
+                                </Dropdown.Item>
+                              ) : item.name == "LEFT CTRL" ? (
+                                <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
+                                  <ButtonConfig buttonText={operationSystemIcons.control} />
+                                </Dropdown.Item>
+                              ) : item.name == "LEFT ALT" ? (
+                                <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
+                                  <ButtonConfig buttonText={operationSystemIcons.alt} />
+                                </Dropdown.Item>
+                              ) : item.name == "RIGHT ALT" ? (
+                                <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
+                                  <ButtonConfig buttonText={operationSystemIcons.altGr} />
+                                </Dropdown.Item>
+                              ) : (
+                                <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
+                                  {operationSystemIcons.os.text ? (
+                                    <ButtonConfig buttonText={operationSystemIcons.os.text} />
+                                  ) : (
+                                    <ButtonConfig icoSVG={operationSystemIcons.os.icon} />
+                                  )}
+                                </Dropdown.Item>
+                              )
+
+                            // <ButtonConfig
+                            //   key={`itemButton-${id}`}
+                            //   buttonText={item.name}
+                            //   onClick={e => {
+                            //     addModifier(item.id, e);
+                            //   }}
+                            // />
+                          )}
+                        </div>
                       </div>
                     </div>
                     <div className="keyMacroItemOptions">
@@ -230,8 +343,12 @@ class KeyMacro extends Component {
                           onClick={() => {
                             this.props.onDeleteRow(item.id);
                           }}
+                          className="dropdownInner"
                         >
-                          <MdClose /> Delete
+                          <div className="dropdownIcon">
+                            <IconDelete />
+                          </div>
+                          <div className="dropdownItem">Delete</div>
                         </div>
                       </Dropdown.Item>
                     </div>
@@ -254,7 +371,15 @@ class KeyMacro extends Component {
               >
                 {item.symbol}
               </p>
-              <div className="actionicon">{actionTypes[item.action].icon}</div>
+              <div className="actionicon">
+                {actionTypes[item.action].name == "Key Press" ? (
+                  <IconPressSm />
+                ) : actionTypes[item.action].name == "Key Release" ? (
+                  actionTypes[item.action].name == "Key Release"
+                ) : (
+                  <IconPressAndReleaseSm />
+                )}
+              </div>
             </div>
           </div>
         </div>

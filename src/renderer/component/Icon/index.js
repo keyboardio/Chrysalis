@@ -55,7 +55,10 @@ import IconNoSignal from "./IconNoSignal";
 import IconNote from "./IconNote";
 import IconOneShot from "./IconOneShot";
 import IconPreferences2Stroke from "./IconPreferences2Stroke";
+import IconPressSm from "./IconPressSm";
+import IconPressAndReleaseSm from "./IconPressAndReleaseSm";
 import IconPen from "./IconPen";
+import IconReleaseSm from "./IconReleaseSm";
 import IconRobot2Stroke from "./IconRobot2Stroke";
 import IconThunder2Stroke from "./IconThunder2Stroke";
 import IconInformationBubble from "./IconInformationBubble";
@@ -125,6 +128,9 @@ export {
   IconOneShot,
   IconPen,
   IconPreferences2Stroke,
+  IconPressSm,
+  IconPressAndReleaseSm,
+  IconReleaseSm,
   IconRobot2Stroke,
   IconThunder2Stroke,
   IconInformationBubble,

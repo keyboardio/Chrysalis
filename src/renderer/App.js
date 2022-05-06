@@ -123,11 +123,17 @@ const App = (props) => {
       );
     };
   });
-  const toggleDarkMode = async () => {
-    const nextDarkModeState = !darkMode;
-    setDarkMode(nextDarkModeState);
-    await settings.set("ui.darkMode", nextDarkModeState);
-  };
+
+  useEffect(() => {
+    const darkmode_toggle_channel = new BroadcastChannel("ui.darkMode");
+    darkmode_toggle_channel.onmessage = (event) => {
+      setDarkMode(event.data);
+    };
+
+    return function cleanup() {
+      darkmode_toggle_channel.close();
+    };
+  });
 
   const toggleFlashing = async () => {
     flashing = !flashing;
@@ -276,8 +282,6 @@ const App = (props) => {
                   connected={connected}
                   path="/preferences"
                   titleElement={() => document.querySelector("#page-title")}
-                  darkMode={darkMode}
-                  toggleDarkMode={toggleDarkMode}
                   startContext={startContext}
                   cancelContext={cancelContext}
                   inContext={contextBar}

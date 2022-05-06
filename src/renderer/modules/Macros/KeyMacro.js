@@ -43,6 +43,7 @@ const Styles = Styled.div`
 .keyMacroWrapper {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
   &.isModifier {
     .keyMacro {
       order: 2;

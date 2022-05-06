@@ -28,14 +28,20 @@ import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
 
 import i18n from "../../i18n";
-
 const Store = require("electron-store");
 const settings = new Store();
 
 function BasicPreferences(props) {
   const [language, setLanguage] = useState(i18n.language);
-  const darkMode = props.darkMode;
-  const toggleDarkMode = props.toggleDarkMode;
+  const [darkMode, setDarkMode] = useState(settings.get("ui.darkMode"));
+
+  const darkmode_toggle_channel = new BroadcastChannel("ui.darkMode");
+
+  const toggleDarkMode = async () => {
+    darkmode_toggle_channel.postMessage(!darkMode);
+    settings.set("ui.darkMode", !darkMode);
+    setDarkMode(!darkMode);
+  };
 
   const updateLanguage = async (event) => {
     i18n.changeLanguage(event.target.value);

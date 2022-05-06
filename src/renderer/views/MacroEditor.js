@@ -621,7 +621,6 @@ class MacroEditor extends React.Component {
             updateMacro={this.updateMacros}
             changeSelected={this.changeSelected}
             keymapDB={this.keymapDB}
-            key={JSON.stringify(this.state.macros)}
           />
           <TimelineEditorManager
             macros={this.state.macros}

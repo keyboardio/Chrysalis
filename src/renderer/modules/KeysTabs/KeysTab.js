@@ -4,7 +4,7 @@ import Styled from "styled-components";
 import i18n from "../../i18n";
 
 import Title from "../../component/Title";
-import KeyPickerReduced from "../../modules/KeyPickerKeyboard/KeyPickerReduced";
+import { KeyPickerReduced } from "../../modules/KeyPickerKeyboard";
 import { RegularButton, ButtonConfig, ButtonMouse } from "../../component/Button";
 
 import {
@@ -58,6 +58,18 @@ class KeysTab extends Component {
       <Styles>
         <div className="tabContentWrapper">
           <Title text="Keys" headingLevel={4} />
+          <KeyPickerReduced
+            onKeySelect={this.onKeyChange}
+            code={{ base: 4, modified: 0 }}
+            macros={this.props.macros}
+            superkeys={[]}
+            actions={this.props.actions}
+            action={0}
+            actTab={"super"}
+            superName={"superName"}
+            selectedlanguage={"english"}
+            kbtype={"iso"}
+          />
         </div>
         <div className="tabSaveButton">
           <RegularButton

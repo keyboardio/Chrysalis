@@ -185,7 +185,7 @@ class MacroCreator extends Component {
                     <TextTab />
                   </Tab.Pane>
                   <Tab.Pane eventKey="tabKeys">
-                    <KeysTab />
+                    <KeysTab macros={this.props.macros} />
                   </Tab.Pane>
                   <Tab.Pane eventKey="tabLayers">
                     <LayersTab />

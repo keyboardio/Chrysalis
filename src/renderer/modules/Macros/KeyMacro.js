@@ -47,7 +47,7 @@ const Styles = Styled.div`
   &.isModifier {
     .keyMacro {
       order: 2;
-      width: 86px;
+      // width: 86px;
       .headerDrag {
         order: 2;
         border-radius: 0px 0px 4px 4px ;
@@ -268,7 +268,7 @@ class KeyMacro extends Component {
       }
     }
     let isModifier = false;
-    if (item.keyCode > 223 && item.keyCode < 231) {
+    if (item.keyCode > 223 && item.keyCode < 232) {
       isModifier = true;
     }
 
@@ -333,33 +333,36 @@ class KeyMacro extends Component {
                           <Title headingLevel={4} text="Add modifier" />
                           <div className="keyModifiersButtons">
                             {modifiers.map(
-                              (item, id) =>
-                                item.name == "LEFT SHIFT" ? (
-                                  <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
-                                    <ButtonConfig buttonText={operationSystemIcons.shift} />
-                                  </Dropdown.Item>
-                                ) : item.name == "LEFT CTRL" ? (
-                                  <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
-                                    <ButtonConfig buttonText={operationSystemIcons.control} />
-                                  </Dropdown.Item>
-                                ) : item.name == "LEFT ALT" ? (
-                                  <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
-                                    <ButtonConfig buttonText={operationSystemIcons.alt} />
-                                  </Dropdown.Item>
-                                ) : item.name == "RIGHT ALT" ? (
-                                  <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
-                                    <ButtonConfig buttonText={operationSystemIcons.altGr} />
-                                  </Dropdown.Item>
-                                ) : (
-                                  <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
-                                    {operationSystemIcons.os.text ? (
-                                      <ButtonConfig buttonText={operationSystemIcons.os.text} />
-                                    ) : (
-                                      <ButtonConfig icoSVG={operationSystemIcons.os.icon} />
-                                    )}
-                                  </Dropdown.Item>
-                                )
-
+                              (item, id) => (
+                                // item.name == "LEFT SHIFT" ? (
+                                //   <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
+                                //     <ButtonConfig buttonText={operationSystemIcons.shift} />
+                                //   </Dropdown.Item>
+                                // ) : item.name == "LEFT CTRL" ? (
+                                //   <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
+                                //     <ButtonConfig buttonText={operationSystemIcons.control} />
+                                //   </Dropdown.Item>
+                                // ) : item.name == "LEFT ALT" ? (
+                                //   <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
+                                //     <ButtonConfig buttonText={operationSystemIcons.alt} />
+                                //   </Dropdown.Item>
+                                // ) : item.name == "RIGHT ALT" ? (
+                                //   <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
+                                //     <ButtonConfig buttonText={operationSystemIcons.altGr} />
+                                //   </Dropdown.Item>
+                                // ) : (
+                                //   <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
+                                //     {operationSystemIcons.os.text ? (
+                                //       <ButtonConfig buttonText={operationSystemIcons.os.text} />
+                                //     ) : (
+                                //       <ButtonConfig icoSVG={operationSystemIcons.os.icon} />
+                                //     )}
+                                //   </Dropdown.Item>
+                                // )
+                                <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
+                                  <ButtonConfig buttonText={item.name} />
+                                </Dropdown.Item>
+                              )
                               // <ButtonConfig
                               //   key={`itemButton-${id}`}
                               //   buttonText={item.name}

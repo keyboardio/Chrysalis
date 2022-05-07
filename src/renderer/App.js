@@ -244,6 +244,7 @@ const App = (props) => {
                 <Preferences connected={connected} path="/preferences" />
                 <SystemInfo path="/system-info" />
                 <ChangeLog path="/changelog" />
+                />
               </Router>
             </Box>
           </LocationProvider>

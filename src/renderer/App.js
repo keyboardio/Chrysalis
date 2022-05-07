@@ -282,6 +282,7 @@ const App = (props) => {
                 />
                 <SystemInfo path="/system-info" />
                 <ChangeLog path="/changelog" />
+                />
               </Router>
             </main>
           </LocationProvider>

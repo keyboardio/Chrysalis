@@ -287,12 +287,10 @@ const App = (props) => {
                   inContext={contextBar}
                 />
                 <SystemInfo
-                  connected={connected}
                   path="/system-info"
                   titleElement={() => document.querySelector("#page-title")}
                 />
                 <ChangeLog
-                  connected={connected}
                   path="/changelog"
                   titleElement={() => document.querySelector("#page-title")}
                 />

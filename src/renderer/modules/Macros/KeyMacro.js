@@ -30,37 +30,21 @@ const Styles = Styled.div`
   padding: 6px;
   background-color: transparent;
   font-size: 13px;
-  color: ${({ theme }) => theme.styles.macroKey.color};
-}
-.listitem {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  padding-right: 80px;
-}
-.actionicon {
-
 }
 
 .keyMacroWrapper {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  &.isModifier {
-    .keyMacro {
-      order: 2;
-      // width: 86px;
-      .headerDrag {
-        order: 2;
-        border-radius: 0px 0px 4px 4px ;
-      }
-      .bodyDrag {
-        order: 1;
-      }
-    }
-    .keyMacroFreeSlot {
-      order: 1;
-    }
+  position: relative;
+  &:after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 2px;
+    top: 71px;
+    left: 0; 
+    background-color: ${({ theme }) => theme.styles.macro.timelineBackground};
   }
 }
 .keyMacro {
@@ -72,9 +56,6 @@ const Styles = Styled.div`
     margin: 4px 2px;
     display: flex;
     flex-wrap: wrap;
-    &.isDelay {
-      background-color: ${({ theme }) => theme.styles.macroKey.backgroundDelay};
-    }
     .headerDrag {
         border-radius: 4px 4px 0px 0px;
         background-color:  ${({ theme }) => theme.styles.macroKey.backgroundHeader};
@@ -83,8 +64,17 @@ const Styles = Styled.div`
         flex-wrap: nowrap;
         justify-content: space-between;
         align-items: center;
-        padding: 0 6px; 
+        padding: 0; 
+        padding-right: 4px;
         flex: 0 0 100%;
+    }
+    .dragable {
+      color:  ${({ theme }) => theme.styles.macroKey.iconDragColor};  
+      padding: 0 6px;
+    }
+    .actionicon {
+      color:  ${({ theme }) => theme.styles.macroKey.actionIconColor};
+      opacity: 0.7;
     }
     .bodyDrag {
         display: flex;
@@ -94,7 +84,7 @@ const Styles = Styled.div`
         flex: 0 0 100%;
     }
     .dropdown-toggle.btn.btn-primary {
-        padding: 0;
+        padding: 0 2px;
         background-color: transparent;
         margin: 0;
         border: none;
@@ -166,6 +156,11 @@ const Styles = Styled.div`
         font-weight: 600;
         text-transform: capitalize;
         margin: 0;
+        small {
+          text-transform: none;
+          font-size: 16px;
+          font-weight: 600;
+        }
     }
     .keyMacroItemOptions {
       padding-top: 8px;
@@ -191,6 +186,74 @@ const Styles = Styled.div`
 }
 .keyMacroFreeSlot {
   background: transparent;
+}
+.keyMacroOptions {
+  .dropdown-toggle.btn.btn-primary{
+    color: ${({ theme }) => theme.styles.macroKey.dropdownIconColor};
+  }
+  &.show {
+    .dropdown-toggle.btn.btn-primary {
+      color: #fff;
+      background-color: ${({ theme }) => theme.styles.macroKey.dropdownIconColor};
+    }
+  }
+}
+.isModifier {
+  .keyMacro {
+    order: 2;
+    // width: 86px;
+    .headerDrag {
+      order: 2;
+      border-radius: 0px 0px 4px 4px;
+      background-color: ${({ theme }) => theme.styles.macroKey.backgroundHeaderModifier};
+      border-bottom: none;
+      border-top: 1px solid ${({ theme }) => theme.styles.macroKey.borderColorModifier}; 
+    }
+    .bodyDrag {
+      order: 1;
+    }
+    .dragable {
+      color:  ${({ theme }) => theme.styles.macroKey.iconDragColorModifier};
+    }
+  }
+  .keyMacroFreeSlot {
+    order: 1;
+  }
+  .actionicon {
+    color:  ${({ theme }) => theme.styles.macroKey.shift.color};
+    opacity: 0.6;
+  }
+
+  // Shift modifiers
+  &.keyCode-229,
+  &.keyCode-225 {
+    .keyMacro {
+      background: ${({ theme }) => theme.styles.macroKey.shift.background}; 
+      color: ${({ theme }) => theme.styles.macroKey.shift.color}; 
+    }
+    .keyMacroFreeSlot {
+      background: transparent;
+    }
+    .actionicon {
+      color:  ${({ theme }) => theme.styles.macroKey.shift.color};
+    }
+  }
+}
+.isDelay {
+  .keyMacro {
+    background-color: ${({ theme }) => theme.styles.macroKey.delay.background};
+    color: ${({ theme }) => theme.styles.macroKey.delay.color}; 
+  }
+  .keyMacroFreeSlot {
+    background: transparent;
+  }
+  .dragable {
+    color:  ${({ theme }) => theme.styles.macroKey.iconDragColorModifier};
+  }
+  .actionicon {
+    color:  ${({ theme }) => theme.styles.macroKey.delay.actionIconColor};
+    opacity: 0.7;
+  }
 }
 `;
 
@@ -290,7 +353,9 @@ class KeyMacro extends Component {
           style={this.getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
         >
           <div
-            className={`keyMacroWrapper ${item.keyCode} ${isModifier ? "isModifier" : ""} ${item.action == 2 ? "isDelay" : ""}`}
+            className={`keyMacroWrapper keyCode-${item.keyCode} ${isModifier ? "isModifier" : ""} ${
+              item.action == 2 ? "isDelay" : ""
+            }`}
           >
             <div className="keyMacro">
               <div className="headerDrag">
@@ -319,35 +384,36 @@ class KeyMacro extends Component {
                             <Title headingLevel={4} text={i18n.general.key} />
                           )}
                           <p className="keyValue">
-                            {item.symbol} {item.action == 2 ? <small>sm</small> : ""}
+                            {item.symbol} {item.action == 2 ? <small>ms</small> : ""}
                           </p>
                         </div>
-                        <div className="keyFunctions">
-                          <Title headingLevel={5} text="Edit function" />
-                          <div className="keyFunctionsButtons">
-                            <ButtonConfig
-                              buttonText={"Press"}
-                              icoPosition="left"
-                              icoSVG={<IconPressSm />}
-                              selected={actionTypes[item.action].name == "Key Press" ? true : false}
-                              disabled={item.action == 2 ? true : false}
-                            />
-                            <ButtonConfig
-                              buttonText={"Release"}
-                              icoPosition="left"
-                              icoSVG={<IconReleaseSm />}
-                              selected={actionTypes[item.action].name == "Key Release" ? true : false}
-                              disabled={item.action == 2 ? true : false}
-                            />
-                            <ButtonConfig
-                              buttonText={"Press & Release"}
-                              icoPosition="left"
-                              icoSVG={<IconPressAndReleaseSm />}
-                              selected={actionTypes[item.action].name == "Key Press & Rel." ? true : false}
-                              disabled={item.action == 2 ? true : false}
-                            />
+                        {item.action != 2 ? (
+                          <div className="keyFunctions">
+                            <Title headingLevel={5} text="Edit function" />
+                            <div className="keyFunctionsButtons">
+                              <ButtonConfig
+                                buttonText={"Press"}
+                                icoPosition="left"
+                                icoSVG={<IconPressSm />}
+                                selected={actionTypes[item.action].name == "Key Press" ? true : false}
+                              />
+                              <ButtonConfig
+                                buttonText={"Release"}
+                                icoPosition="left"
+                                icoSVG={<IconReleaseSm />}
+                                selected={actionTypes[item.action].name == "Key Release" ? true : false}
+                              />
+                              <ButtonConfig
+                                buttonText={"Press & Release"}
+                                icoPosition="left"
+                                icoSVG={<IconPressAndReleaseSm />}
+                                selected={actionTypes[item.action].name == "Key Press & Rel." ? true : false}
+                              />
+                            </div>
                           </div>
-                        </div>
+                        ) : (
+                          ""
+                        )}
                         <div className="keyModifiers">
                           <Title headingLevel={4} text="Add modifier" />
                           <div className="keyModifiersButtons">

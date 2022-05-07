@@ -371,10 +371,28 @@ const Dark = {
     },
     macroKey: {
       background: Tokens.colors.gray500,
-      backgroundDelay: Tokens.colors.brandDangerLighter,
+      altBackground:
+        "linear-gradient(90deg, rgba(206, 207, 222, 0.2) 21.15%, rgba(123, 134, 158, 0.2) 100%), linear-gradient(0deg, #F178B6, #F178B6), #303949",
+      osBackground: "#7879F1",
+      controlBackground: Tokens.colors.pastelShadesGreen300,
       color: Tokens.colors.gray50,
       backgroundHeader: "rgba(51, 53, 74, 0.3)",
-      borderColor: "rgba(63, 66, 90, 0.7)"
+      backgroundHeaderModifier: "rgba(51, 53, 74, 0.2)",
+      borderColor: "rgba(63, 66, 90, 0.7)",
+      borderColorModifier: "rgba(63, 66, 90, 0.3)",
+      iconDragColor: Tokens.colors.gray400,
+      iconDragColorModifier: Tokens.colors.gray25,
+      actionIconColor: Tokens.colors.gray50,
+      dropdownIconColor: Tokens.colors.purple100,
+      delay: {
+        background: Tokens.colors.brandDangerLighter,
+        color: Tokens.colors.gray600,
+        actionIconColor: "#fff"
+      },
+      shift: {
+        background: Tokens.colors.brandWarningLighter,
+        color: Tokens.colors.gray600
+      }
     },
     modal: {
       closeButton: closeButton,

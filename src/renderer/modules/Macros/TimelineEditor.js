@@ -5,7 +5,6 @@ import { MdUnfoldLess, MdKeyboardArrowUp, MdKeyboardArrowDown, MdTimer } from "r
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 import MacroTableRow from "../../components/MacroManager/MacroTableRow";
-import MacroToolTab from "../../components/MacroManager/MacroToolTab";
 
 const Styles = Styled.div`
 .root {

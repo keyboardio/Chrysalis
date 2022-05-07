@@ -371,6 +371,7 @@ const Dark = {
     },
     macroKey: {
       background: Tokens.colors.gray500,
+      backgroundDelay: Tokens.colors.brandDangerLighter,
       color: Tokens.colors.gray50,
       backgroundHeader: "rgba(51, 53, 74, 0.3)",
       borderColor: "rgba(63, 66, 90, 0.7)"

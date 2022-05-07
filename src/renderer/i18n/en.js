@@ -601,7 +601,8 @@ You can find the LED Rainbow mode with the "LED Next" key. In the default Dygma 
   general: {
     noname: "No name",
     select: "Select",
-    configure: "Configure"
+    configure: "Configure",
+    key: "Key"
   }
 };
 

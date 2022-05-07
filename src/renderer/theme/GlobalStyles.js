@@ -310,7 +310,7 @@ svg text{
 
 .button .buttonLabel {
   position: relative;
-  z-index: 2;
+  z-index: 1;
   display: flex;
   line-height: 1.5em;
 }

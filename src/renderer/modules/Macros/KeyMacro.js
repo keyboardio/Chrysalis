@@ -16,7 +16,9 @@ import {
   IconPressSm,
   IconReleaseSm,
   IconPressAndReleaseSm,
-  IconDelete
+  IconDelete,
+  IconAddLayer,
+  IconStopWatchSm
 } from "../../component/Icon";
 import { FaLinux } from "react-icons/fa";
 import { AiFillWindows, AiFillApple } from "react-icons/ai";
@@ -70,6 +72,9 @@ const Styles = Styled.div`
     margin: 4px 2px;
     display: flex;
     flex-wrap: wrap;
+    &.isDelay {
+      background-color: ${({ theme }) => theme.styles.macroKey.backgroundDelay};
+    }
     .headerDrag {
         border-radius: 4px 4px 0px 0px;
         background-color:  ${({ theme }) => theme.styles.macroKey.backgroundHeader};
@@ -170,6 +175,9 @@ const Styles = Styled.div`
       flex-wrap: nowrap;
       margin-left: -2px;
       margin-right: -2px;
+      display: grid;
+      grid-gap: 6px 4px;
+      grid-template-columns: repeat(4, 1fr);
     }
     .dropdown-menu {
       min-width: 362px;
@@ -268,7 +276,7 @@ class KeyMacro extends Component {
       }
     }
     let isModifier = false;
-    if (item.keyCode > 223 && item.keyCode < 232) {
+    if (item.keyCode > 223 && item.keyCode < 232 && item.action != 2) {
       isModifier = true;
     }
 
@@ -281,7 +289,9 @@ class KeyMacro extends Component {
           {...provided.dragHandleProps}
           style={this.getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
         >
-          <div className={`keyMacroWrapper ${item.keyCode} ${isModifier ? "isModifier" : ""}`}>
+          <div
+            className={`keyMacroWrapper ${item.keyCode} ${isModifier ? "isModifier" : ""} ${item.action == 2 ? "isDelay" : ""}`}
+          >
             <div className="keyMacro">
               <div className="headerDrag">
                 <div className="dragable">
@@ -303,8 +313,14 @@ class KeyMacro extends Component {
                     <Dropdown.Menu>
                       <div className="keyMacroMiniDashboard">
                         <div className="keyInfo">
-                          <Title headingLevel={4} text="Key" />
-                          <p className="keyValue">{item.symbol}</p>
+                          {item.action == 2 ? (
+                            <Title headingLevel={4} text={i18n.editor.macros.delay} />
+                          ) : (
+                            <Title headingLevel={4} text={i18n.general.key} />
+                          )}
+                          <p className="keyValue">
+                            {item.symbol} {item.action == 2 ? <small>sm</small> : ""}
+                          </p>
                         </div>
                         <div className="keyFunctions">
                           <Title headingLevel={5} text="Edit function" />
@@ -314,18 +330,21 @@ class KeyMacro extends Component {
                               icoPosition="left"
                               icoSVG={<IconPressSm />}
                               selected={actionTypes[item.action].name == "Key Press" ? true : false}
+                              disabled={item.action == 2 ? true : false}
                             />
                             <ButtonConfig
                               buttonText={"Release"}
                               icoPosition="left"
                               icoSVG={<IconReleaseSm />}
                               selected={actionTypes[item.action].name == "Key Release" ? true : false}
+                              disabled={item.action == 2 ? true : false}
                             />
                             <ButtonConfig
                               buttonText={"Press & Release"}
                               icoPosition="left"
                               icoSVG={<IconPressAndReleaseSm />}
                               selected={actionTypes[item.action].name == "Key Press & Rel." ? true : false}
+                              disabled={item.action == 2 ? true : false}
                             />
                           </div>
                         </div>
@@ -333,7 +352,7 @@ class KeyMacro extends Component {
                           <Title headingLevel={4} text="Add modifier" />
                           <div className="keyModifiersButtons">
                             {modifiers.map(
-                              (item, id) => (
+                              (item, id) =>
                                 // item.name == "LEFT SHIFT" ? (
                                 //   <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
                                 //     <ButtonConfig buttonText={operationSystemIcons.shift} />
@@ -359,10 +378,45 @@ class KeyMacro extends Component {
                                 //     )}
                                 //   </Dropdown.Item>
                                 // )
-                                <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
-                                  <ButtonConfig buttonText={item.name} />
-                                </Dropdown.Item>
-                              )
+                                item.name == "LEFT SHIFT" ? (
+                                  <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
+                                    <ButtonConfig buttonText="L. Shift" />
+                                  </Dropdown.Item>
+                                ) : item.name == "RIGHT SHIFT" ? (
+                                  <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
+                                    <ButtonConfig buttonText="R. Shift" />
+                                  </Dropdown.Item>
+                                ) : item.name == "LEFT CTRL" ? (
+                                  <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
+                                    <ButtonConfig buttonText="L. Ctrl" />
+                                  </Dropdown.Item>
+                                ) : item.name == "RIGHT CTRL" ? (
+                                  <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
+                                    <ButtonConfig buttonText="R. Ctrl" />
+                                  </Dropdown.Item>
+                                ) : item.name == "LEFT ALT" ? (
+                                  <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
+                                    <ButtonConfig buttonText="Alt" />
+                                  </Dropdown.Item>
+                                ) : item.name == "RIGHT ALT" ? (
+                                  <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
+                                    <ButtonConfig buttonText="Alt Gr." />
+                                  </Dropdown.Item>
+                                ) : item.name == "RIGHT ALT" ? (
+                                  <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
+                                    <ButtonConfig buttonText="R. Alt" />
+                                  </Dropdown.Item>
+                                ) : item.name == "LEFT GUI" ? (
+                                  <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
+                                    <ButtonConfig buttonText="L. OS" />
+                                  </Dropdown.Item>
+                                ) : item.name == "RIGHT GUI" ? (
+                                  <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
+                                    <ButtonConfig buttonText="R. OS" />
+                                  </Dropdown.Item>
+                                ) : (
+                                  ""
+                                )
                               // <ButtonConfig
                               //   key={`itemButton-${id}`}
                               //   buttonText={item.name}
@@ -375,6 +429,19 @@ class KeyMacro extends Component {
                         </div>
                       </div>
                       <div className="keyMacroItemOptions">
+                        <Dropdown.Item key={`item-clone`} className="compact">
+                          <div
+                            onClick={() => {
+                              this.props.onDeleteRow(item.id);
+                            }}
+                            className="dropdownInner"
+                          >
+                            <div className="dropdownIcon">
+                              <IconAddLayer />
+                            </div>
+                            <div className="dropdownItem">Clone</div>
+                          </div>
+                        </Dropdown.Item>
                         <Dropdown.Item key={`item-delete`} className="compact">
                           <div
                             onClick={() => {
@@ -413,8 +480,10 @@ class KeyMacro extends Component {
                     <IconPressSm />
                   ) : actionTypes[item.action].name == "Key Release" ? (
                     <IconReleaseSm />
-                  ) : (
+                  ) : actionTypes[item.action].name == "Key Press & Rel." ? (
                     <IconPressAndReleaseSm />
+                  ) : (
+                    <IconStopWatchSm />
                   )}
                 </div>
               </div>

@@ -355,7 +355,20 @@ const Light = {
       descriptionColor: Tokens.colors.gray400,
       trackingBackground: Tokens.colors.gray25,
       timelineBackground: "rgba(255, 255, 255, 0.8)",
-      colorTitle: Tokens.colors.gray500
+      colorTitle: Tokens.colors.gray500,
+      keyMacroMiniDashboardBackground: Tokens.colors.gray700,
+      keyInfoBackground: Tokens.colors.gray800,
+      keyInfoTitle: Tokens.colors.gray500,
+      keyFunctionsBorder: Tokens.colors.gray700,
+      keyValueColor: Tokens.colors.gray100,
+      keyFunctionTile: Tokens.colors.gray50
+    },
+    macroKey: {
+      background: Tokens.colors.gray500,
+      backgroundDelay: Tokens.colors.brandDangerLighter,
+      color: Tokens.colors.gray50,
+      backgroundHeader: "rgba(51, 53, 74, 0.3)",
+      borderColor: "rgba(63, 66, 90, 0.7)"
     },
     modal: {
       closeButton: closeButton,

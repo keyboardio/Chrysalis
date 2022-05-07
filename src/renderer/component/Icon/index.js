@@ -15,6 +15,7 @@
  */
 
 import IconAddNew from "./IconAddNew";
+import IconAddLayer from "./IconAddLayer";
 import IconArrowInBoxDown from "./IconArrowInBoxDown";
 import IconArrowsMouseMovement from "./IconArrowsMouseMovement";
 import IconArrowsMouseWheel from "./IconArrowsMouseWheel";
@@ -72,6 +73,7 @@ import IconMoreVertical from "./IconMoreVertical";
 import IconSun from "./IconSun";
 import IconScreen from "./IconScreen";
 import IconStopWatch from "./IconStopWatch";
+import IconStopWatchSm from "./IconStopWatchSm";
 import IconLayers from "./IconLayers";
 import IconRobot from "./IconRobot";
 import IconThunder from "./IconThunder";
@@ -87,6 +89,7 @@ import IconWrench from "./IconWrench";
 
 export {
   IconAddNew,
+  IconAddLayer,
   IconArrowInBoxDown,
   IconArrowsSmallSeparating,
   IconArrowsMouseMovement,
@@ -144,6 +147,7 @@ export {
   IconSun,
   IconScreen,
   IconStopWatch,
+  IconStopWatchSm,
   IconLayers,
   IconRobot,
   IconThunder,

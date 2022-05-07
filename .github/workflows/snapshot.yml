@@ -101,7 +101,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Delete the snapshot tag locally too
-        run: git tag -d snapshot
+        shell: bash
+        run: git tag -d snapshot || true
 
       - name: Recreate the snapshot release
         env:

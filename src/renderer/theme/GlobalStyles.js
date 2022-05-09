@@ -979,107 +979,112 @@ div.card.card-preferences .card-body {
   .keyMacroMiniDashboard {
     border-radius: 6px;
     overflow: hidden;
-}
-  .keyInfo {
-    padding: 16px 12px 12px 12px;
-    background: ${({ theme }) => theme.styles.macro.keyInfoBackground}; 
-    h4 {
-        font-weight: 600;
-        text-transform: uppercase;
-        margin: 0;
-        font-size: 13px;
-        font-weight: 500;
-        color: ${({ theme }) => theme.styles.macro.keyInfoTitle}; 
-    }
-}
-.keyFunctions {
-    border-top: 1px solid ${({ theme }) => theme.styles.macro.keyFunctionsBorder};
-    padding: 12px 8px;
-    background: ${({ theme }) => theme.styles.macro.keyInfoBackground}; 
-    h5 {
-        color: ${({ theme }) => theme.styles.macro.keyFunctionTile};
-        font-size: 13px;
-        font-weight: 500;
-        text-transform: none; 
-        letter-spacingL: -0.025em; 
-        margin: 0;
-        margin-bottom: 8px;
-    }
-}
-.keyFunctionsButtons {
-  display: flex;
-  flex-wrap: nowrap;
-  margin-left: -2px;
-  margin-right: -2px;
-}
-.button-config {
-  color: ${({ theme }) => theme.styles.button.config.color};
-  white-space: nowrap;
-  margin: 0 2px;
-  flex-grow: 1;
-  text-align: center;
-  &:hover {
-    color: ${({ theme }) => theme.styles.button.config.colorHover};
   }
-}
-  .keyModifiers {
-    padding: 12px 8px;
-    h4 {
-        color: ${({ theme }) => theme.styles.macro.keyFunctionTile};
-        font-size: 13px;
-        font-weight: 500;
-        text-transform: none; 
-        letter-spacingL: -0.025em; 
-        margin-bottom: 8px;
+    .keyInfo {
+      padding: 16px 12px 12px 12px;
+      background: ${({ theme }) => theme.styles.macro.keyInfoBackground}; 
+      h4 {
+          font-weight: 600;
+          text-transform: uppercase;
+          margin: 0;
+          font-size: 13px;
+          font-weight: 500;
+          color: ${({ theme }) => theme.styles.macro.keyInfoTitle}; 
+      }
     }
-    background: ${({ theme }) => theme.styles.macro.keyMacroMiniDashboardBackground}; 
-  }
-  .keyValue {
-    color: ${({ theme }) => theme.styles.macro.keyValueColor};
-    font-size: 24px;
-    font-weight: 600;
-    text-transform: capitalize;
-    margin: 0;
-    small {
-      text-transform: none;
-      font-size: 16px;
+    .keyFunctions {
+        border-top: 1px solid ${({ theme }) => theme.styles.macro.keyFunctionsBorder};
+        padding: 12px 8px;
+        background: ${({ theme }) => theme.styles.macro.keyInfoBackground}; 
+        h5 {
+            color: ${({ theme }) => theme.styles.macro.keyFunctionTile};
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: none; 
+            letter-spacingL: -0.025em; 
+            margin: 0;
+            margin-bottom: 8px;
+        }
+    }
+    .keyFunctionsButtons {
+      display: flex;
+      flex-wrap: nowrap;
+      margin-left: -2px;
+      margin-right: -2px;
+    }
+    .button-config {
+      color: ${({ theme }) => theme.styles.button.config.color};
+      white-space: nowrap;
+      margin: 0 2px;
+      flex-grow: 1;
+      text-align: center;
+      &:hover {
+        color: ${({ theme }) => theme.styles.button.config.colorHover};
+      }
+    }
+    .keyModifiers {
+      padding: 12px 8px;
+      background: ${({ theme }) => theme.styles.macro.keyMacroMiniDashboardBackground}; 
+      h4 {
+          color: ${({ theme }) => theme.styles.macro.keyFunctionTile};
+          font-size: 13px;
+          font-weight: 500;
+          text-transform: none; 
+          letter-spacingL: -0.025em; 
+          margin-bottom: 8px;
+      }
+    }
+    .keyValue {
+      color: ${({ theme }) => theme.styles.macro.keyValueColor};
+      font-size: 24px;
       font-weight: 600;
+      text-transform: capitalize;
+      margin: 0;
+      small {
+        text-transform: none;
+        font-size: 16px;
+        font-weight: 600;
+      }
     }
-}
-  .keyMacroItemOptions {
-    padding-top: 8px;
+    .keyMacroItemOptions {
+      padding-top: 8px;
+    }
+    .keyModifiersButtons {
+      display: flex;
+      flex-wrap: nowrap;
+      margin-left: -2px;
+      margin-right: -2px;
+      display: grid;
+      grid-gap: 6px 4px;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .dropdown-menu {
+      min-width: 362px;
+      padding: 8px;
+    }
+    .dropdown-item.unstyled {
+      padding: 0;
+      margin: 0 2px;
+    }
+    .dropdown-toggle.btn.btn-primary {
+      border: none;
+    }
   }
-  .keyModifiersButtons {
-    display: flex;
-    flex-wrap: nowrap;
-    margin-left: -2px;
-    margin-right: -2px;
-    display: grid;
-    grid-gap: 6px 4px;
-    grid-template-columns: repeat(4, 1fr);
+  .keyMacroFreeSlot {
+    background: transparent;
   }
-  .dropdown-menu {
-    min-width: 362px;
-    padding: 8px;
+  .keyMacroOptions {
+    .dropdown-toggle.btn.btn-primary{
+      color: ${({ theme }) => theme.styles.macroKey.dropdownIconColor};
+      border: none;
+    }
+    &.show {
+    .dropdown-toggle.btn.btn-primary {
+      color: #fff;
+      background-color: ${({ theme }) => theme.styles.macroKey.dropdownIconColor};
+      border: none;
+    }
   }
-  .dropdown-item.unstyled {
-    padding: 0;
-    margin: 0 2px;
-  }
-}
-.keyMacroFreeSlot {
-  background: transparent;
-}
-.keyMacroOptions {
-.dropdown-toggle.btn.btn-primary{
-  color: ${({ theme }) => theme.styles.macroKey.dropdownIconColor};
-}
-&.show {
-  .dropdown-toggle.btn.btn-primary {
-    color: #fff;
-    background-color: ${({ theme }) => theme.styles.macroKey.dropdownIconColor};
-  }
-}
 }
 .isModifier {
 .keyMacroOptions {

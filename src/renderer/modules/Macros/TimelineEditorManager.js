@@ -18,6 +18,7 @@ import React, { Component } from "react";
 
 import Styled from "styled-components";
 import i18n from "../../i18n";
+import Spinner from "react-bootstrap/Spinner";
 
 import TimelineEditorForm from "./TimelineEditorForm";
 import Title from "../../component/Title";
@@ -103,6 +104,8 @@ class MacroManager extends Component {
   constructor(props) {
     super(props);
 
+    this.trackingWidth = React.createRef();
+
     let selected;
 
     if (props.macros.length <= props.selected) {
@@ -115,7 +118,8 @@ class MacroManager extends Component {
       macros: props.macros,
       selected: selected,
       freeMemory: 0,
-      open: false
+      open: false,
+      componentWidth: 0
     };
 
     this.close = this.close.bind(this);
@@ -126,6 +130,8 @@ class MacroManager extends Component {
     this.changeSelected = this.changeSelected.bind(this);
     this.exit = this.exit.bind(this);
     this.macrosRestore = this.macrosRestore.bind(this);
+
+    this.updateWidth = this.updateWidth.bind(this);
   }
 
   close() {
@@ -219,28 +225,54 @@ class MacroManager extends Component {
     }
   };
 
+  updateWidth() {
+    this.setState({
+      componentWidth: 50
+    });
+    this.setState({
+      componentWidth: this.trackingWidth.current.clientWidth
+    });
+  }
+
+  componentDidMount() {
+    // Additionally I could have just used an arrow function for the binding `this` to the component...
+    this.updateWidth();
+    window.addEventListener("resize", this.updateWidth);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateWidth);
+  }
+
   render() {
     const { keymapDB } = this.props;
 
     return (
       <Styles>
-        <div className="timelineHeader">
+        <div className="timelineHeader" ref={this.trackingWidth}>
           <Title text={i18n.editor.macros.timelineTitle} headingLevel={4} />
         </div>
-        <TimelineEditorForm
-          key={this.state.macros.length + this.state.selected}
-          macros={this.state.macros}
-          close={this.close}
-          selected={this.state.selected}
-          accept={this.accept}
-          keymapDB={keymapDB}
-          deleteMacro={this.deleteMacro}
-          addMacro={this.addMacro}
-          disableAdd={this.state.macros.length === this.props.maxMacros}
-          changeSelected={this.changeSelected}
-          duplicateMacro={this.duplicateMacro}
-          macrosRestore={this.macrosRestore}
-        />
+        {this.state.macros.length == 0 || !Array.isArray(this.state.macros) ? (
+          <div className="loading marginCenter">
+            <Spinner className="spinner-border" role="status" />
+          </div>
+        ) : (
+          <TimelineEditorForm
+            key={this.state.macros.length + this.state.selected}
+            macros={this.state.macros}
+            close={this.close}
+            selected={this.state.selected}
+            accept={this.accept}
+            keymapDB={keymapDB}
+            deleteMacro={this.deleteMacro}
+            addMacro={this.addMacro}
+            disableAdd={this.state.macros.length === this.props.maxMacros}
+            changeSelected={this.changeSelected}
+            duplicateMacro={this.duplicateMacro}
+            macrosRestore={this.macrosRestore}
+            componentWidth={this.state.componentWidth}
+          />
+        )}
         <div id="portalMacro"></div>
       </Styles>
     );

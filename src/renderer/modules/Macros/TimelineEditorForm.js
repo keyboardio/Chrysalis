@@ -278,7 +278,7 @@ class MacroForm extends Component {
   }
 
   render() {
-    const { close, keymapDB } = this.props;
+    const { close, keymapDB, componentWidth } = this.props;
     const currentMacro = this.state.macros[this.state.selected];
     return (
       <Styles>
@@ -289,6 +289,7 @@ class MacroForm extends Component {
           keymapDB={keymapDB}
           number={this.props.macros.length}
           selected={this.state.selected}
+          componentWidth={componentWidth}
         />
       </Styles>
     );

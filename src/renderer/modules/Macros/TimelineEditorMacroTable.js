@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import KeyMacro from "./KeyMacro";
 
 import Styled from "styled-components";
-import ListGroup from "react-bootstrap/ListGroup";
+
 import { MdUnfoldLess, MdKeyboardArrowUp, MdKeyboardArrowDown, MdTimer } from "react-icons/md";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
@@ -509,9 +509,11 @@ class TimelineEditorMacroTable extends Component {
 
   render() {
     // const {} = this.props;
-
+    const cssObjectWidth = {
+      width: this.props.componentWidth
+    };
     return (
-      <Styles className="trackingWrapper">
+      <Styles className="trackingWrapper" style={cssObjectWidth}>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId="droppable" direction="horizontal">
             {provided => (

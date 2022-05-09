@@ -74,7 +74,6 @@ const Styles = Styled.div`
     }
     .actionicon {
       color:  ${({ theme }) => theme.styles.macroKey.actionIconColor};
-      opacity: 0.7;
     }
     .bodyDrag {
         display: flex;
@@ -199,9 +198,15 @@ const Styles = Styled.div`
   }
 }
 .isModifier {
+  .keyMacroOptions {
+    .dropdown-toggle.btn.btn-primary{
+      color: ${({ theme }) => theme.styles.macroKey.dropdownIconColorModifier};
+    }
+  }
   .keyMacro {
     order: 2;
     // width: 86px;
+    color: ${({ theme }) => theme.styles.macroKey.colorModifier}; 
     .headerDrag {
       order: 2;
       border-radius: 0px 0px 4px 4px;
@@ -220,8 +225,7 @@ const Styles = Styled.div`
     order: 1;
   }
   .actionicon {
-    color:  ${({ theme }) => theme.styles.macroKey.shift.color};
-    opacity: 0.6;
+    color:  ${({ theme }) => theme.styles.macroKey.actionColorModifier};
   }
 
   // Shift modifiers
@@ -229,20 +233,58 @@ const Styles = Styled.div`
   &.keyCode-225 {
     .keyMacro {
       background: ${({ theme }) => theme.styles.macroKey.shift.background}; 
-      color: ${({ theme }) => theme.styles.macroKey.shift.color}; 
+      color:  ${({ theme }) => theme.styles.macroKey.shift.color};
     }
     .keyMacroFreeSlot {
       background: transparent;
     }
     .actionicon {
-      color:  ${({ theme }) => theme.styles.macroKey.shift.color};
+      color:  ${({ theme }) => theme.styles.macroKey.shift.actionColor};
+    }
+  }
+  // Control modifiers
+  &.keyCode-224,
+  &.keyCode-228 {
+    .keyMacro {
+      background: ${({ theme }) => theme.styles.macroKey.control.background}; 
+    }
+    .keyMacroFreeSlot {
+      background: transparent;
+    }
+  }
+  // Alt modifiers
+  &.keyCode-226,
+  &.keyCode-230 {
+    .keyMacro {
+      background: ${({ theme }) => theme.styles.macroKey.alt.background}; 
+    }
+    .keyMacroFreeSlot {
+      background: transparent;
+    }
+  }
+  // OS modifiers
+  &.keyCode-227,
+  &.keyCode-231 {
+    .keyMacro {
+      background: ${({ theme }) => theme.styles.macroKey.os.background}; 
+    }
+    .keyMacroFreeSlot {
+      background: transparent;
     }
   }
 }
 .isDelay {
+  .keyMacroOptions {
+    .dropdown-toggle.btn.btn-primary{
+      color: ${({ theme }) => theme.styles.macroKey.dropdownIconColorModifier};
+    }
+  }
   .keyMacro {
-    background-color: ${({ theme }) => theme.styles.macroKey.delay.background};
+    background-color:  ${({ theme }) => theme.styles.macroKey.delay.background};
     color: ${({ theme }) => theme.styles.macroKey.delay.color}; 
+    .headerDrag {
+      border-bottom: 1px solid ${({ theme }) => theme.styles.macroKey.delay.borderColor};
+    }
   }
   .keyMacroFreeSlot {
     background: transparent;
@@ -252,7 +294,6 @@ const Styles = Styled.div`
   }
   .actionicon {
     color:  ${({ theme }) => theme.styles.macroKey.delay.actionIconColor};
-    opacity: 0.7;
   }
 }
 `;

@@ -17,7 +17,6 @@
 import React, { Component } from "react";
 
 import Styled from "styled-components";
-import Card from "react-bootstrap/Card";
 import i18n from "../../i18n";
 
 import TimelineEditorForm from "./TimelineEditorForm";

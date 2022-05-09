@@ -34,7 +34,10 @@ const tokens = {
     pastelShadesGreen100: "rgba(95,206,221,1)",
     pastelShadesMint300: "rgba(135,162,67,1)",
     pastelShadesMint200: "rgba(161,188,94,1)",
-    pastelShadesMint100: "rgba(181,203,129,1)"
+    pastelShadesMint100: "rgba(181,203,129,1)",
+    pink300: "rgba(239, 93, 168, 1)",
+    pink200: "rgba(241, 120, 182, 1)",
+    pink100: "rgba(252, 221, 236, 1)"
   }
 };
 

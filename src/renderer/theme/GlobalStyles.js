@@ -359,7 +359,7 @@ svg text{
   position: relative;
 }
 .button.outline.gradient .buttonLabel{
-  z-index: 2;
+  z-index: 1;
   position: relative;
 }
 

@@ -241,6 +241,7 @@ class MacroManager extends Component {
           duplicateMacro={this.duplicateMacro}
           macrosRestore={this.macrosRestore}
         />
+        <div id="portalMacro"></div>
       </Styles>
     );
   }

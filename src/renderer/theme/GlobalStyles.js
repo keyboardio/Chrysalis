@@ -927,6 +927,260 @@ div.card.card-preferences .card-body {
 }
 
 
+//
+// MACROKEY
+//
+.keyMacro {
+  border-radius: 4px;
+  background-color: ${({ theme }) => theme.styles.macroKey.background};
+  padding: 3px;
+  width: 100px;
+  height: 64px;
+  margin: 4px 2px;
+  display: flex;
+  flex-wrap: wrap;
+  .headerDrag {
+      border-radius: 4px 4px 0px 0px;
+      background-color:  ${({ theme }) => theme.styles.macroKey.backgroundHeader};
+      border-bottom: 1px solid ${({ theme }) => theme.styles.macroKey.borderColor}; 
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0; 
+      padding-right: 4px;
+      flex: 0 0 100%;
+  }
+  .dragable {
+    color:  ${({ theme }) => theme.styles.macroKey.iconDragColor};  
+    padding: 0 6px;
+  }
+  .actionicon {
+    color:  ${({ theme }) => theme.styles.macroKey.actionIconColor};
+  }
+  .bodyDrag {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;  
+      flex: 0 0 100%;
+  }
+  .dropdown-toggle.btn.btn-primary {
+      padding: 0 2px;
+      background-color: transparent;
+      margin: 0;
+      border: none;
+      &:after {
+          content: none;
+      }
+  } 
+}
+#portalMacro {
+  .keyMacroMiniDashboard {
+    border-radius: 6px;
+    overflow: hidden;
+}
+  .keyInfo {
+    padding: 16px 12px 12px 12px;
+    background: ${({ theme }) => theme.styles.macro.keyInfoBackground}; 
+    h4 {
+        font-weight: 600;
+        text-transform: uppercase;
+        margin: 0;
+        font-size: 13px;
+        font-weight: 500;
+        color: ${({ theme }) => theme.styles.macro.keyInfoTitle}; 
+    }
+}
+.keyFunctions {
+    border-top: 1px solid ${({ theme }) => theme.styles.macro.keyFunctionsBorder};
+    padding: 12px 8px;
+    background: ${({ theme }) => theme.styles.macro.keyInfoBackground}; 
+    h5 {
+        color: ${({ theme }) => theme.styles.macro.keyFunctionTile};
+        font-size: 13px;
+        font-weight: 500;
+        text-transform: none; 
+        letter-spacingL: -0.025em; 
+        margin: 0;
+        margin-bottom: 8px;
+    }
+}
+.keyFunctionsButtons {
+  display: flex;
+  flex-wrap: nowrap;
+  margin-left: -2px;
+  margin-right: -2px;
+}
+.button-config {
+  color: ${({ theme }) => theme.styles.button.config.color};
+  white-space: nowrap;
+  margin: 0 2px;
+  flex-grow: 1;
+  text-align: center;
+  &:hover {
+    color: ${({ theme }) => theme.styles.button.config.colorHover};
+  }
+}
+  .keyModifiers {
+    padding: 12px 8px;
+    h4 {
+        color: ${({ theme }) => theme.styles.macro.keyFunctionTile};
+        font-size: 13px;
+        font-weight: 500;
+        text-transform: none; 
+        letter-spacingL: -0.025em; 
+        margin-bottom: 8px;
+    }
+    background: ${({ theme }) => theme.styles.macro.keyMacroMiniDashboardBackground}; 
+  }
+  .keyValue {
+    color: ${({ theme }) => theme.styles.macro.keyValueColor};
+    font-size: 24px;
+    font-weight: 600;
+    text-transform: capitalize;
+    margin: 0;
+    small {
+      text-transform: none;
+      font-size: 16px;
+      font-weight: 600;
+    }
+}
+  .keyMacroItemOptions {
+    padding-top: 8px;
+  }
+  .keyModifiersButtons {
+    display: flex;
+    flex-wrap: nowrap;
+    margin-left: -2px;
+    margin-right: -2px;
+    display: grid;
+    grid-gap: 6px 4px;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .dropdown-menu {
+    min-width: 362px;
+    padding: 8px;
+  }
+  .dropdown-item.unstyled {
+    padding: 0;
+    margin: 0 2px;
+  }
+}
+.keyMacroFreeSlot {
+  background: transparent;
+}
+.keyMacroOptions {
+.dropdown-toggle.btn.btn-primary{
+  color: ${({ theme }) => theme.styles.macroKey.dropdownIconColor};
+}
+&.show {
+  .dropdown-toggle.btn.btn-primary {
+    color: #fff;
+    background-color: ${({ theme }) => theme.styles.macroKey.dropdownIconColor};
+  }
+}
+}
+.isModifier {
+.keyMacroOptions {
+  .dropdown-toggle.btn.btn-primary{
+    color: ${({ theme }) => theme.styles.macroKey.dropdownIconColorModifier};
+  }
+}
+.keyMacro {
+  order: 2;
+  // width: 86px;
+  color: ${({ theme }) => theme.styles.macroKey.colorModifier}; 
+  .headerDrag {
+    order: 2;
+    border-radius: 0px 0px 4px 4px;
+    background-color: ${({ theme }) => theme.styles.macroKey.backgroundHeaderModifier};
+    border-bottom: none;
+    border-top: 1px solid ${({ theme }) => theme.styles.macroKey.borderColorModifier}; 
+  }
+  .bodyDrag {
+    order: 1;
+  }
+  .dragable {
+    color:  ${({ theme }) => theme.styles.macroKey.iconDragColorModifier};
+  }
+}
+.keyMacroFreeSlot {
+  order: 1;
+}
+.actionicon {
+  color:  ${({ theme }) => theme.styles.macroKey.actionColorModifier};
+}
+
+// Shift modifiers
+&.keyCode-229,
+&.keyCode-225 {
+  .keyMacro {
+    background: ${({ theme }) => theme.styles.macroKey.shift.background}; 
+    color:  ${({ theme }) => theme.styles.macroKey.shift.color};
+  }
+  .keyMacroFreeSlot {
+    background: transparent;
+  }
+  .actionicon {
+    color:  ${({ theme }) => theme.styles.macroKey.shift.actionColor};
+  }
+}
+// Control modifiers
+&.keyCode-224,
+&.keyCode-228 {
+  .keyMacro {
+    background: ${({ theme }) => theme.styles.macroKey.control.background}; 
+  }
+  .keyMacroFreeSlot {
+    background: transparent;
+  }
+}
+// Alt modifiers
+&.keyCode-226,
+&.keyCode-230 {
+  .keyMacro {
+    background: ${({ theme }) => theme.styles.macroKey.alt.background}; 
+  }
+  .keyMacroFreeSlot {
+    background: transparent;
+  }
+}
+// OS modifiers
+&.keyCode-227,
+&.keyCode-231 {
+  .keyMacro {
+    background: ${({ theme }) => theme.styles.macroKey.os.background}; 
+  }
+  .keyMacroFreeSlot {
+    background: transparent;
+  }
+}
+}
+.isDelay {
+.keyMacroOptions {
+  .dropdown-toggle.btn.btn-primary{
+    color: ${({ theme }) => theme.styles.macroKey.dropdownIconColorModifier};
+  }
+}
+.keyMacro {
+  background-color:  ${({ theme }) => theme.styles.macroKey.delay.background};
+  color: ${({ theme }) => theme.styles.macroKey.delay.color}; 
+  .headerDrag {
+    border-bottom: 1px solid ${({ theme }) => theme.styles.macroKey.delay.borderColor};
+  }
+}
+.keyMacroFreeSlot {
+  background: transparent;
+}
+.dragable {
+  color:  ${({ theme }) => theme.styles.macroKey.iconDragColorModifier};
+}
+.actionicon {
+  color:  ${({ theme }) => theme.styles.macroKey.delay.actionIconColor};
+}
+}
+
 
 //
 // Form

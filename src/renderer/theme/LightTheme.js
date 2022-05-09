@@ -365,10 +365,41 @@ const Light = {
     },
     macroKey: {
       background: Tokens.colors.gray500,
-      backgroundDelay: Tokens.colors.brandDangerLighter,
+      backgroundColorDrag: settingColorOpacity(Tokens.colors.gray600, 0.5),
+      backgroundDrag: `linear-gradient(45deg, rgba(11, 2, 25, 0.25) 25%, transparent 25%, transparent 50%, rgba(11, 2, 25, 0.25) 50%, rgba(11, 2, 25, 0.25) 75%, transparent 75%, transparent 100%)`,
+      boxShadowOnDrag: "0 12px 24px rgba(11, 2, 25, 0.25)",
       color: Tokens.colors.gray50,
+      colorModifier: Tokens.colors.gray600,
       backgroundHeader: "rgba(51, 53, 74, 0.3)",
-      borderColor: "rgba(63, 66, 90, 0.7)"
+      backgroundHeaderModifier: "rgba(51, 53, 74, 0.2)",
+      borderColor: "rgba(63, 66, 90, 0.7)",
+      borderColorModifier: "rgba(63, 66, 90, 0.15)",
+      iconDragColor: Tokens.colors.gray400,
+      iconDragColorModifier: Tokens.colors.gray25,
+      actionIconColor: settingColorOpacity(Tokens.colors.gray25, 0.5),
+      actionColorModifier: settingColorOpacity(Tokens.colors.gray600, 0.8),
+      dropdownIconColor: Tokens.colors.purple100,
+      dropdownIconColorModifier: Tokens.colors.gray25,
+      alt: {
+        background: Tokens.colors.pink200
+      },
+      control: {
+        background: Tokens.colors.pastelShadesGreen300
+      },
+      delay: {
+        background: Tokens.colors.brandDangerLighter,
+        color: Tokens.colors.gray700,
+        borderColor: "rgba(63, 66, 90, 0.3)",
+        actionIconColor: settingColorOpacity(Tokens.colors.gray25, 0.85)
+      },
+      os: {
+        background: "rgba(120, 121, 241, 1)"
+      },
+      shift: {
+        background: Tokens.colors.brandWarningLighter,
+        color: Tokens.colors.gray600,
+        actionColor: settingColorOpacity(Tokens.colors.gray600, 0.6)
+      }
     },
     modal: {
       closeButton: closeButton,

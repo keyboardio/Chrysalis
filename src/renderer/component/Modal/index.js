@@ -15,5 +15,6 @@
  */
 
 import NameModal from "./NameModal";
+import MacroKeyModal from "./MacroKeyModal";
 
-export { NameModal };
+export { NameModal, MacroKeyModal };

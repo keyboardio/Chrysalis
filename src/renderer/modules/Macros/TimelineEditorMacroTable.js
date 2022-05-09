@@ -55,12 +55,16 @@ const Styles = Styled.div`
     position: relative;
     z-index: 1;
     width: 1522px;
+    overflow-x: auto;
+    background-color: ${({ theme }) => theme.styles.macro.trackingBackground};
+    padding-left: 62px;
 }
 .timelinetracking {
     display: flex; 
     flex-wrap: nowrap;
     flex-direction: row;
-    background-color: ${({ theme }) => theme.styles.macro.trackingBackground};
+    width: fit-content;
+    padding-right: 62px;
 }
 `;
 

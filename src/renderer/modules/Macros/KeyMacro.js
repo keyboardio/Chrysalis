@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 
-import Styled from "styled-components";
+import Styled, { withTheme } from "styled-components";
 
 import Dropdown from "react-bootstrap/Dropdown";
-
-import { MdClose } from "react-icons/md";
 import i18n from "../../i18n";
 
 import Title from "../../component/Title";
@@ -312,7 +310,11 @@ class KeyMacro extends Component {
     ...(isDragging && {
       // HACK This gives us some readability on both light and dark themes
       // , but it actually needs to be refactored to allow theme use
-      background: "#9e9e9e"
+      backgroundColor: this.props.theme.styles.macroKey.backgroundColorDrag,
+      backgroundImage: this.props.theme.styles.macroKey.backgroundDrag,
+      backgroundSize: "56.57px 56.57px",
+      borderRadius: "6px",
+      boxsShadow: this.props.theme.styles.macroKey.boxShadowOnDrag
     })
   });
 
@@ -603,4 +605,4 @@ class KeyMacro extends Component {
   }
 }
 
-export default KeyMacro;
+export default withTheme(KeyMacro);

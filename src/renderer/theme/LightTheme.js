@@ -355,6 +355,8 @@ const Light = {
       descriptionColor: Tokens.colors.gray400,
       trackingBackground: Tokens.colors.gray25,
       timelineBackground: "rgba(255, 255, 255, 0.8)",
+      timelineHiddenTracking: "linear-gradient(90deg, rgba(33, 34, 53, 0) 0%, #212235 80%)",
+      timelineHiddenTrackingBefore: "linear-gradient(-90deg, rgba(33, 34, 53, 0) 0%, #212235 80%)",
       colorTitle: Tokens.colors.gray500,
       keyMacroMiniDashboardBackground: Tokens.colors.gray700,
       keyInfoBackground: Tokens.colors.gray800,

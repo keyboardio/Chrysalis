@@ -1,13 +1,8 @@
 import React, { Component } from "react";
-import TimelineEditorMacroTable from "./TimelineEditorMacroTable";
-
 import Styled from "styled-components";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-
 import i18n from "../../i18n";
+
+import TimelineEditorMacroTable from "./TimelineEditorMacroTable";
 
 const Styles = Styled.div`
 .root {
@@ -48,6 +43,29 @@ const Styles = Styled.div`
 .applybutton {
   float: right;
   margin-right: 1rem;
+}
+
+
+position: relative;
+&:before,
+&:after {
+  position: absolute;
+  top: 0;
+  content: "";
+  width: 62px;
+  height: 100%;
+  background: ${({ theme }) => theme.styles.macro.timelineHiddenTracking};
+  z-index: 1;
+}
+&:before {
+  left: 0;
+  z-index: 2;
+  background: ${({ theme }) => theme.styles.macro.timelineHiddenTrackingBefore};
+  width: 42px;
+}
+&:after {
+  right: 0;
+
 }
 `;
 

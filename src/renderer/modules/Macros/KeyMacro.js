@@ -26,9 +26,13 @@ const Styles = Styled.div`
 .chip {
   font-weight: 600;
   margin: 0;
-  padding: 6px;
+  padding: 6px 0 6px 6px;
   background-color: transparent;
   font-size: 13px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 74px;
+  overflow: hidden;
 }
 
 .keyMacroWrapper {
@@ -61,13 +65,12 @@ class KeyMacro extends Component {
     ...draggableStyle,
 
     ...(isDragging && {
-      // HACK This gives us some readability on both light and dark themes
-      // , but it actually needs to be refactored to allow theme use
       backgroundColor: this.props.theme.styles.macroKey.backgroundColorDrag,
       backgroundImage: this.props.theme.styles.macroKey.backgroundDrag,
       backgroundSize: "56.57px 56.57px",
       borderRadius: "6px",
-      boxsShadow: this.props.theme.styles.macroKey.boxShadowOnDrag
+      boxShadow: this.props.theme.styles.macroKey.boxShadowOnDrag,
+      backdropFilter: "blur(12px)"
     })
   });
 

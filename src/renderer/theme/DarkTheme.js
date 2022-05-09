@@ -361,6 +361,8 @@ const Dark = {
       descriptionColor: Tokens.colors.gray200,
       trackingBackground: "#212235",
       timelineBackground: "#2B2C43",
+      timelineHiddenTracking: "linear-gradient(90deg, rgba(33, 34, 53, 0) 0%, #212235 80%)",
+      timelineHiddenTrackingBefore: "linear-gradient(-90deg, rgba(33, 34, 53, 0) 0%, #212235 80%)",
       colorTitle: Tokens.colors.gray25,
       keyMacroMiniDashboardBackground: Tokens.colors.gray700,
       keyInfoBackground: Tokens.colors.gray800,

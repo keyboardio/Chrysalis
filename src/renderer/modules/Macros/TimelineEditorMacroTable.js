@@ -57,7 +57,8 @@ const Styles = Styled.div`
     width: 1522px;
     overflow-x: auto;
     background-color: ${({ theme }) => theme.styles.macro.trackingBackground};
-    padding-left: 62px;
+    padding-left: 32px;
+    position: relative;
 }
 .timelinetracking {
     display: flex; 

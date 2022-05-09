@@ -379,7 +379,7 @@ const Dark = {
       backgroundHeader: "rgba(51, 53, 74, 0.3)",
       backgroundHeaderModifier: "rgba(51, 53, 74, 0.2)",
       borderColor: "rgba(63, 66, 90, 0.7)",
-      borderColorModifier: "rgba(63, 66, 90, 0.3)",
+      borderColorModifier: "rgba(63, 66, 90, 0.15)",
       iconDragColor: Tokens.colors.gray400,
       iconDragColorModifier: Tokens.colors.gray25,
       actionIconColor: Tokens.colors.gray50,

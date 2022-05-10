@@ -233,11 +233,7 @@ const App = (props) => {
                   onConnect={onKeyboardConnect}
                   onDisconnect={onKeyboardDisconnect}
                 />
-                <Editor
-                  path="/editor"
-                  onDisconnect={onKeyboardDisconnect}
-                  appBarElement={() => document.querySelector("#appbar")}
-                />
+                <Editor path="/editor" onDisconnect={onKeyboardDisconnect} />
                 <FirmwareUpdate
                   path="/firmware-update"
                   device={device}

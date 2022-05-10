@@ -54,11 +54,15 @@ const Styles = Styled.div`
 &.trackingWrapper {
     position: relative;
     z-index: 1;
-    width: 1522px;
-    overflow-x: auto;
+    
     background-color: ${({ theme }) => theme.styles.macro.trackingBackground};
-    padding-left: 32px;
+    overflow-x: hidden;
     position: relative;
+    > div {
+      width: inherit;
+      overflow-x: auto; 
+      padding-left: 32px;
+    }
 }
 .timelinetracking {
     display: flex; 
@@ -191,7 +195,7 @@ class TimelineEditorMacroTable extends Component {
     if (this.props.macro !== undefined) {
       this.updateRows(this.createConversion(this.props.macro.actions));
     }
-    const scrollContainer = this.horizontalWheel.current;
+    const scrollContainer = this.horizontalWheel.current.firstChild;
     scrollContainer.addEventListener("wheel", evt => {
       evt.preventDefault();
       scrollContainer.scrollLeft += evt.deltaY;
@@ -516,7 +520,7 @@ class TimelineEditorMacroTable extends Component {
   }
 
   componentWillUnmount() {
-    const scrollContainer = this.horizontalWheel.current;
+    const scrollContainer = this.horizontalWheel.current.firstChild;
 
     scrollContainer.removeEventListener("wheel", evt => {
       evt.preventDefault();

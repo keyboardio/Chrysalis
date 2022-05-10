@@ -366,39 +366,42 @@ const Light = {
       keyFunctionTile: Tokens.colors.gray500
     },
     macroKey: {
-      background: Tokens.colors.gray500,
+      background: "linear-gradient(90deg, rgba(255, 255, 255, 0.3) 21.15%, rgba(255, 255, 255, 0) 100%), #DADDE4",
       backgroundColorDrag: settingColorOpacity(Tokens.colors.gray600, 0.5),
       backgroundDrag: `linear-gradient(45deg, rgba(11, 2, 25, 0.25) 25%, transparent 25%, transparent 50%, rgba(11, 2, 25, 0.25) 50%, rgba(11, 2, 25, 0.25) 75%, transparent 75%, transparent 100%)`,
       boxShadowOnDrag: "0 12px 24px rgba(11, 2, 25, 0.25)",
       color: Tokens.colors.gray50,
       colorModifier: Tokens.colors.gray600,
-      backgroundHeader: "rgba(51, 53, 74, 0.3)",
+      backgroundHeader: "rgba(51, 53, 74, 0.1)",
       backgroundHeaderModifier: "rgba(51, 53, 74, 0.2)",
-      borderColor: "rgba(63, 66, 90, 0.7)",
+      borderColor: Tokens.colors.gray100,
       borderColorModifier: "rgba(63, 66, 90, 0.15)",
-      iconDragColor: Tokens.colors.gray400,
+      iconDragColor: Tokens.colors.gray200,
       iconDragColorModifier: Tokens.colors.gray25,
-      actionIconColor: settingColorOpacity(Tokens.colors.gray25, 0.5),
+      actionIconColor: settingColorOpacity(Tokens.colors.gray500, 0.6),
       actionColorModifier: settingColorOpacity(Tokens.colors.gray600, 0.8),
-      dropdownIconColor: Tokens.colors.purple100,
+      dropdownIconColor: Tokens.colors.purple200,
       dropdownIconColorModifier: Tokens.colors.gray25,
       alt: {
-        background: Tokens.colors.pink200
+        background: "linear-gradient(90deg, rgba(206, 207, 222, 0.2) 21.15%, rgba(123, 134, 158, 0.2) 100%), #F178B6"
+      },
+      altGr: {
+        background: "linear-gradient(90deg, rgba(206, 207, 222, 0.2) 21.15%, rgba(123, 134, 158, 0.2) 100%), #A1BC5E"
       },
       control: {
-        background: Tokens.colors.pastelShadesGreen300
+        background: "linear-gradient(90deg, rgba(206, 207, 222, 0.2) 21.15%, rgba(123, 134, 158, 0.2) 100%), #35C2D5"
       },
       delay: {
-        background: Tokens.colors.brandDangerLighter,
+        background: "linear-gradient(90deg, rgba(255, 255, 255, 0.3) 21.15%, rgba(255, 255, 255, 0) 100%), #FF6B6B",
         color: Tokens.colors.gray700,
         borderColor: "rgba(63, 66, 90, 0.3)",
         actionIconColor: settingColorOpacity(Tokens.colors.gray25, 0.85)
       },
       os: {
-        background: "rgba(120, 121, 241, 1)"
+        background: "linear-gradient(90deg, rgba(206, 207, 222, 0.2) 21.15%, rgba(123, 134, 158, 0.2) 100%), #7879F1"
       },
       shift: {
-        background: Tokens.colors.brandWarningLighter,
+        background: "linear-gradient(90deg, rgba(255, 255, 255, 0.3) 21.15%, rgba(255, 255, 255, 0) 100%), #FECA57",
         color: Tokens.colors.gray600,
         actionColor: settingColorOpacity(Tokens.colors.gray600, 0.6)
       }

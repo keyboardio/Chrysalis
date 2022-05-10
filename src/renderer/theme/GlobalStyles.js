@@ -932,7 +932,7 @@ div.card.card-preferences .card-body {
 //
 .keyMacro {
   border-radius: 4px;
-  background-color: ${({ theme }) => theme.styles.macroKey.background};
+  background: ${({ theme }) => theme.styles.macroKey.background};
   padding: 3px;
   width: 100px;
   height: 64px;
@@ -1173,7 +1173,7 @@ div.card.card-preferences .card-body {
   }
 }
 .keyMacro {
-  background-color:  ${({ theme }) => theme.styles.macroKey.delay.background};
+  background:  ${({ theme }) => theme.styles.macroKey.delay.background};
   color: ${({ theme }) => theme.styles.macroKey.delay.color}; 
   .headerDrag {
     border-bottom: 1px solid ${({ theme }) => theme.styles.macroKey.delay.borderColor};

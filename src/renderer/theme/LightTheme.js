@@ -341,7 +341,7 @@ const Light = {
       formLabelTextcolor: Tokens.colors.gray500,
       inputColor: Tokens.colors.gray400,
       inputBorder: settingColorOpacity(Tokens.colors.gray100, 0.6),
-      inputBorderSolid: Tokens.colors.gray600,
+      inputBorderSolid: "rgba(196, 201, 213, 0.6)",
       inputBorderActive: Tokens.colors.purple200,
       inputBackgroundColor: "rgba(255,255,255,0.6)",
       inputBackgroundColorActive: "rgba(255,255,255,1)",

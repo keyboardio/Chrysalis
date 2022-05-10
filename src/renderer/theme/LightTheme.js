@@ -345,7 +345,7 @@ const Light = {
       inputBackgroundColor: "rgba(255,255,255,0.6)",
       inputBackgroundColorActive: "rgba(255,255,255,1)",
       inputGroupColor: Tokens.colors.gray300,
-      inputGroupBackground: "rgba(11, 2, 25, 0.2)"
+      inputGroupBackground: Tokens.colors.gray25
     },
     macro: {
       tabCategoriesBackground: Tokens.colors.gray50,

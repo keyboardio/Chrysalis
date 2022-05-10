@@ -254,13 +254,11 @@ const App = (props) => {
                   path="/welcome"
                   device={device}
                   onConnect={onKeyboardConnect}
-                  titleElement={() => document.querySelector("#page-title")}
                 />
                 <KeyboardSelect
                   path="/keyboard-select"
                   onConnect={onKeyboardConnect}
                   onDisconnect={onKeyboardDisconnect}
-                  titleElement={() => document.querySelector("#page-title")}
                 />
                 <Editor
                   path="/editor"
@@ -268,7 +266,6 @@ const App = (props) => {
                   startContext={startContext}
                   cancelContext={cancelContext}
                   inContext={contextBar}
-                  titleElement={() => document.querySelector("#page-title")}
                   appBarElement={() => document.querySelector("#appbar")}
                 />
                 <FirmwareUpdate
@@ -276,26 +273,16 @@ const App = (props) => {
                   device={device}
                   toggleFlashing={toggleFlashing}
                   onDisconnect={onKeyboardDisconnect}
-                  titleElement={() => document.querySelector("#page-title")}
                 />
                 <Preferences
                   connected={connected}
                   path="/preferences"
-                  titleElement={() => document.querySelector("#page-title")}
                   startContext={startContext}
                   cancelContext={cancelContext}
                   inContext={contextBar}
                 />
-                <SystemInfo
-                  connected={connected}
-                  path="/system-info"
-                  titleElement={() => document.querySelector("#page-title")}
-                />
-                <ChangeLog
-                  connected={connected}
-                  path="/changelog"
-                  titleElement={() => document.querySelector("#page-title")}
-                />
+                <SystemInfo path="/system-info" />
+                <ChangeLog path="/changelog" />
               </Router>
             </main>
           </LocationProvider>

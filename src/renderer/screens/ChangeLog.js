@@ -34,6 +34,8 @@ import path from "path";
 import { getStaticPath } from "../config";
 import i18n from "../i18n";
 
+import { PageTitle } from "../components/PageTitle";
+
 const ChangeLog = (props) => {
   const { classes } = props;
   const file = path.join(getStaticPath(), "../NEWS.md");
@@ -41,9 +43,7 @@ const ChangeLog = (props) => {
 
   return (
     <div>
-      <Portal container={props.titleElement}>
-        {i18n.t("changelog.title")}
-      </Portal>
+      <PageTitle title={i18n.t("changelog.title")} />
       <Card sx={{ margin: "auto", maxWidth: "50%" }}>
         <CardHeader
           avatar={<img src={logo} alt={i18n.t("components.logo.altText")} />}

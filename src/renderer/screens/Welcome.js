@@ -27,13 +27,13 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import KeyboardIcon from "@mui/icons-material/Keyboard";
-import Portal from "@mui/material/Portal";
 import Typography from "@mui/material/Typography";
 
 import { toast } from "react-toastify";
 
 import i18n from "../i18n";
 import { navigate } from "../routerHistory";
+import { PageTitle } from "../components/PageTitle";
 
 class Welcome extends React.Component {
   state = {
@@ -86,9 +86,7 @@ class Welcome extends React.Component {
           justifyContent: "center",
         }}
       >
-        <Portal container={this.props.titleElement}>
-          {i18n.t("welcome.title")}
-        </Portal>
+        <PageTitle title={i18n.t("welcome.title")} />
         <Card
           sx={{
             margin: 4,

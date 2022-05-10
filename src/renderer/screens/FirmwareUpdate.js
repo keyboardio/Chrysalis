@@ -38,7 +38,6 @@ import InputLabel from "@mui/material/InputLabel";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuItem from "@mui/material/MenuItem";
-import Portal from "@mui/material/Portal";
 import Select from "@mui/material/Select";
 import SettingsBackupRestoreIcon from "@mui/icons-material/SettingsBackupRestore";
 import Stepper from "@mui/material/Stepper";
@@ -58,6 +57,7 @@ import i18n from "../i18n";
 
 import clearEEPROM from "../utils/clearEEPROM";
 import checkExternalFlasher from "../utils/checkExternalFlasher";
+import { PageTitle } from "../components/PageTitle";
 
 class FirmwareUpdate extends React.Component {
   constructor(props) {
@@ -364,9 +364,7 @@ class FirmwareUpdate extends React.Component {
           justifyContent: "center",
         }}
       >
-        <Portal container={this.props.titleElement}>
-          {i18n.t("app.menu.firmwareUpdate")}
-        </Portal>
+        <PageTitle title={i18n.t("app.menu.firmwareUpdate")} />
         <Card
           sx={{
             my: 4,

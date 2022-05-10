@@ -35,6 +35,7 @@ import { KeymapDB, default as Keymap } from "@api/keymap";
 import Sidebar, { sidebarWidth } from "./Sidebar";
 
 import SaveChangesButton from "../../components/SaveChangesButton";
+import { PageTitle } from "../../components/PageTitle";
 import i18n from "../../i18n";
 import LoadingScreen from "../../components/LoadingScreen";
 import OnlyCustomScreen from "./components/OnlyCustomScreen";
@@ -311,7 +312,7 @@ class Editor extends React.Component {
     }
 
     if (!this.state.keymap.onlyCustom) {
-      return <OnlyCustomScreen titleElement={this.props.titleElement} />;
+      return <OnlyCustomScreen />;
     }
 
     const k = new Keymap();
@@ -366,7 +367,8 @@ class Editor extends React.Component {
 
     return (
       <React.Fragment>
-        <Portal container={this.props.titleElement}>{title}</Portal>
+        <PageTitle title={title} />
+
         {legacyAlert}
         <main
           sx={{

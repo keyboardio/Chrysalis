@@ -56,6 +56,7 @@ display: flex;
 .button.outline.gradient {
   align-self: center;
   padding: 12px;
+  padding-right: 18px;
   margin-left: 8px;
   .buttonFX {
     width: 50px;

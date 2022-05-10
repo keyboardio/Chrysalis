@@ -349,8 +349,10 @@ class KeyMacro extends Component {
                     <IconReleaseSm />
                   ) : actionTypes[item.action].name == "Key Press & Rel." ? (
                     <IconPressAndReleaseSm />
-                  ) : (
+                  ) : actionTypes[item.action].name == "Delay" ? (
                     <IconStopWatchSm />
+                  ) : (
+                    ""
                   )}
                 </div>
               </div>

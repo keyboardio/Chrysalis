@@ -367,8 +367,8 @@ const Light = {
     },
     macroKey: {
       background: "linear-gradient(90deg, rgba(255, 255, 255, 0.3) 21.15%, rgba(255, 255, 255, 0) 100%), #DADDE4",
-      backgroundColorDrag: settingColorOpacity(Tokens.colors.gray600, 0.5),
-      backgroundDrag: `linear-gradient(45deg, rgba(11, 2, 25, 0.25) 25%, transparent 25%, transparent 50%, rgba(11, 2, 25, 0.25) 50%, rgba(11, 2, 25, 0.25) 75%, transparent 75%, transparent 100%)`,
+      backgroundColorDrag: settingColorOpacity(Tokens.colors.gray100, 0.5),
+      backgroundDrag: `linear-gradient(45deg, rgba(11, 2, 25, 0.05) 25%, transparent 25%, transparent 50%, rgba(11, 2, 25, 0.05) 50%, rgba(11, 2, 25, 0.05) 75%, transparent 75%, transparent 100%)`,
       boxShadowOnDrag: "0 12px 24px rgba(11, 2, 25, 0.25)",
       color: Tokens.colors.gray50,
       colorModifier: Tokens.colors.gray600,

@@ -23,14 +23,13 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Divider from "@mui/material/Divider";
-import Portal from "@mui/material/Portal";
 import Typography from "@mui/material/Typography";
 
 import Focus from "../../../../api/focus";
 import openURL from "../../../utils/openURL";
 import i18n from "../../../i18n";
 import { navigate } from "../../../routerHistory";
-
+import { PageTitle } from "../../../components/PageTitle";
 const OnlyCustomScreen = (props) => {
   const enableOnlyCustom = async () => {
     let focus = new Focus();
@@ -48,9 +47,8 @@ const OnlyCustomScreen = (props) => {
 
   return (
     <div sx={{ display: "flex", justifyContent: "center" }}>
-      <Portal container={props.titleElement}>
-        {i18n.t("app.actionRequired")}
-      </Portal>
+      <PageTitle title={i18n.t("app.actionRequired")} />
+
       <Card
         sx={{
           margin: 4,

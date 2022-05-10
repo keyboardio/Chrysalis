@@ -49,7 +49,7 @@ import archiver from "archiver";
 import fs from "fs";
 import jsonStringify from "json-stringify-pretty-compact";
 import { v4 as uuidv4 } from "uuid";
-
+import { PageTitle } from "../components/PageTitle";
 import i18n from "../i18n";
 
 function SystemInfo(props) {
@@ -148,9 +148,7 @@ function SystemInfo(props) {
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
-      <Portal container={props.titleElement}>
-        {i18n.t("systeminfo.title")}
-      </Portal>
+      <PageTitle title={i18n.t("systeminfo.title")} />
       <Card
         sx={{
           margin: 4,

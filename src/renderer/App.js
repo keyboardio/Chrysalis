@@ -227,18 +227,15 @@ const App = (props) => {
                   path="/welcome"
                   device={device}
                   onConnect={onKeyboardConnect}
-                  titleElement={() => document.querySelector("#page-title")}
                 />
                 <KeyboardSelect
                   path="/keyboard-select"
                   onConnect={onKeyboardConnect}
                   onDisconnect={onKeyboardDisconnect}
-                  titleElement={() => document.querySelector("#page-title")}
                 />
                 <Editor
                   path="/editor"
                   onDisconnect={onKeyboardDisconnect}
-                  titleElement={() => document.querySelector("#page-title")}
                   appBarElement={() => document.querySelector("#appbar")}
                 />
                 <FirmwareUpdate
@@ -246,21 +243,10 @@ const App = (props) => {
                   device={device}
                   toggleFlashing={toggleFlashing}
                   onDisconnect={onKeyboardDisconnect}
-                  titleElement={() => document.querySelector("#page-title")}
                 />
-                <Preferences
-                  connected={connected}
-                  path="/preferences"
-                  titleElement={() => document.querySelector("#page-title")}
-                />
-                <SystemInfo
-                  path="/system-info"
-                  titleElement={() => document.querySelector("#page-title")}
-                />
-                <ChangeLog
-                  path="/changelog"
-                  titleElement={() => document.querySelector("#page-title")}
-                />
+                <Preferences connected={connected} path="/preferences" />
+                <SystemInfo path="/system-info" />
+                <ChangeLog path="/changelog" />
               </Router>
             </main>
           </LocationProvider>

@@ -1,3 +1,4 @@
+import { PageTitle } from "./../components/PageTitle";
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
  * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
@@ -179,9 +180,7 @@ class KeyboardSelect extends React.Component {
       <React.Fragment>
         {" "}
         <Box sx={{ paddingBottom: 3 }}>
-          <Portal container={this.props.titleElement}>
-            {i18n.t("app.menu.selectAKeyboard")}
-          </Portal>
+          <PageTitle title={i18n.t("app.menu.selectAKeyboard")} />
           {this.state.loading && (
             <LinearProgress
               variant="query"

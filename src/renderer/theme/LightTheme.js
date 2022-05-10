@@ -196,9 +196,8 @@ const Light = {
           "linear-gradient(90deg, rgba(255, 255, 255, 0.4) -22.96%, rgba(255, 255, 255, 0) 123.24%), rgba(196, 201, 213, 0.8)"
       },
       buttonMouse: {
-        backgroundColor: "linear-gradient(-90deg, rgba(11, 2, 25, 0.25) 0.39%, rgba(49, 50, 74, 0.25) 74.37%)",
-        backgroundColorHover:
-          "linear-gradient(-90deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 70.91%), rgba(87, 97, 126, 0.6)",
+        backgroundColor: "linear-gradient(269.56deg, rgba(87, 97, 126, 0.25) 0.39%, rgba(226, 228, 234, 0.25) 74.37%)",
+        backgroundColorHover: "linear-gradient(270deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 70.91%), #C4C9D5",
         backgroundColorActive: Tokens.colors.purple300,
         color: Tokens.colors.gray500,
         colorHover: Tokens.colors.gray500,

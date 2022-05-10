@@ -43,6 +43,11 @@ import i18n from "../../i18n";
 import clearEEPROM from "../../utils/clearEEPROM";
 import checkExternalFlasher from "../../utils/checkExternalFlasher";
 
+import {
+  showContextBar,
+  hideContextBar,
+} from "@renderer/components/ContextBar";
+
 const Store = require("electron-store");
 const settings = new Store();
 
@@ -61,7 +66,10 @@ class KeyboardSettings extends React.Component {
   };
 
   componentDidMount() {
+    this.context_bar_channel = new BroadcastChannel("context_bar");
+
     const focus = new Focus();
+
     focus.command("keymap").then((keymap) => {
       this.setState({ keymap: keymap });
     });
@@ -77,21 +85,26 @@ class KeyboardSettings extends React.Component {
       limit = limit ? parseInt(limit) : -1;
       this.setState({ ledIdleTimeLimit: limit });
     });
+
+    this.context_bar_channel.onmessage = (event) => {
+      if (event.data === "changes-discarded") {
+        this.componentDidMount();
+
+        this.setState({ modified: false });
+      }
+    };
   }
 
-  UNSAFE_componentWillReceiveProps = (nextProps) => {
-    if (this.props.inContext && !nextProps.inContext) {
-      this.componentDidMount();
-      this.setState({ modified: false });
-    }
-  };
+  componentWillUnmount() {
+    this.context_bar_channel.close();
+  }
 
   selectDefaultLayer = (event) => {
     this.setState({
       defaultLayer: event.target.value,
       modified: true,
     });
-    this.props.startContext();
+    showContextBar();
   };
 
   selectIdleLEDTime = (event) => {
@@ -99,7 +112,7 @@ class KeyboardSettings extends React.Component {
       ledIdleTimeLimit: event.target.value,
       modified: true,
     });
-    this.props.startContext();
+    showContextBar();
   };
 
   setBrightness = (event, value) => {
@@ -107,7 +120,7 @@ class KeyboardSettings extends React.Component {
       ledBrightness: value,
       modified: true,
     });
-    this.props.startContext();
+    showContextBar();
   };
 
   saveKeymapChanges = async () => {
@@ -120,7 +133,7 @@ class KeyboardSettings extends React.Component {
     if (ledIdleTimeLimit >= 0)
       await focus.command("idleleds.time_limit", ledIdleTimeLimit);
     this.setState({ modified: false });
-    this.props.cancelContext();
+    hideContextBar();
   };
 
   render() {

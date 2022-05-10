@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import "../../api/keymap";
 import "../../api/colormap";
@@ -30,13 +30,36 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
+import i18n from "@renderer/i18n";
 
 import BoardMenu from "./BoardMenu";
 import MainMenu from "./MainMenu/MainMenu";
+import { hideContextBar, contextBarChangesDiscarded } from "./ContextBar";
 
-function Header({ contextBar, connected, pages, device, cancelContext }) {
+function Header({ connected, pages, device }) {
   const [mainMenu, setMainMenuOpen] = useState(false);
   const [boardAnchor, setBoardMenuAnchor] = useState(null);
+  const [contextBarVisibility, setContextBarVisibility] = useState(false);
+  const [discardChangesDialogVisibility, setDiscardChangesDialogVisibility] =
+    useState(false);
+
+  useEffect(() => {
+    const context_bar_channel = new BroadcastChannel("context_bar");
+
+    context_bar_channel.onmessage = (event) => {
+      if (event.data === "cancel") {
+        setContextBarVisibility(false);
+        setDiscardChangesDialogVisibility(false);
+      } else if (event.data === "show") {
+        setContextBarVisibility(true);
+      }
+    };
+
+    return function cleanup() {
+      context_bar_channel.close();
+    };
+  });
 
   function openMainMenu() {
     setMainMenuOpen(true);
@@ -55,12 +78,23 @@ function Header({ contextBar, connected, pages, device, cancelContext }) {
   }
 
   function contextOnClick() {
-    if (contextBar) {
-      cancelContext(true);
+    if (contextBarVisibility) {
+      setDiscardChangesDialogVisibility(true);
     } else {
       openMainMenu();
     }
   }
+
+  // TODO - figure out what the heck this naming is meant to imply and change it.
+  const contextBarDoNotDiscardChanges = () => {
+    setDiscardChangesDialogVisibility(false);
+  };
+
+  const contextBarDoDiscardChanges = () => {
+    setDiscardChangesDialogVisibility(false);
+    contextBarChangesDiscarded();
+    setContextBarVisibility(false);
+  };
 
   return (
     <>
@@ -72,7 +106,7 @@ function Header({ contextBar, connected, pages, device, cancelContext }) {
       />
       <AppBar
         position="sticky"
-        color={contextBar ? "secondary" : "primary"}
+        color={contextBarVisibility ? "secondary" : "primary"}
         id="appbar"
       >
         <Toolbar variant="dense">
@@ -83,7 +117,7 @@ function Header({ contextBar, connected, pages, device, cancelContext }) {
             onClick={contextOnClick}
             sx={{ mr: 2 }}
           >
-            {contextBar ? <CloseIcon /> : <MenuIcon />}
+            {contextBarVisibility ? <CloseIcon /> : <MenuIcon />}
           </IconButton>
           <Typography
             variant="h6"
@@ -110,6 +144,14 @@ function Header({ contextBar, connected, pages, device, cancelContext }) {
           )}
         </Toolbar>
       </AppBar>
+      <ConfirmationDialog
+        title={i18n.t("app.cancelPending.title")}
+        open={discardChangesDialogVisibility}
+        onConfirm={contextBarDoDiscardChanges}
+        onCancel={contextBarDoNotDiscardChanges}
+      >
+        {i18n.t("app.cancelPending.content")}
+      </ConfirmationDialog>
     </>
   );
 }

@@ -37,7 +37,6 @@ import {
   StyledEngineProvider,
   createTheme,
 } from "@mui/material/styles";
-import makeStyles from "@mui/styles/makeStyles";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -52,9 +51,8 @@ import ChangeLog from "./screens/ChangeLog";
 import i18n from "@renderer/i18n";
 
 import Header from "./components/Header";
-import ConfirmationDialog from "./components/ConfirmationDialog";
 import { history, navigate } from "./routerHistory";
-
+import { hideContextBar } from "./components/ContextBar";
 import { isDevelopment } from "./config";
 
 let focus = new Focus();
@@ -72,8 +70,6 @@ const App = (props) => {
   const [connected, setConnected] = useState(false);
   const [device, setDevice] = useState(null);
   const [pages, setPages] = useState({});
-  const [contextBar, setContextBar] = useState(false);
-  const [cancelPendingOpen, setCancelPendingOpen] = useState(false);
 
   localStorage.clear();
 
@@ -102,8 +98,8 @@ const App = (props) => {
     }
 
     await focus.close();
-    setContextBar(false);
-    setCancelPendingOpen(false);
+    hideContextBar();
+
     setConnected(false);
     setDevice(null);
     setPages({});
@@ -203,26 +199,9 @@ const App = (props) => {
     await navigate("/keyboard-select");
   };
 
-  const cancelContext = (dirty) => {
-    if (dirty) {
-      setCancelPendingOpen(true);
-    } else {
-      doCancelContext();
-    }
-  };
-  const doCancelContext = () => {
-    setContextBar(false);
-    setCancelPendingOpen(false);
-  };
-  const cancelContextCancellation = () => {
-    setCancelPendingOpen(false);
-  };
-  const startContext = () => {
-    setContextBar(true);
-  };
-
   let focus = new Focus();
   const deviceInfo = focus?.device?.info || device?.info;
+
   const theme = createTheme({
     palette: {
       mode: darkMode ? "dark" : "light",
@@ -241,13 +220,7 @@ const App = (props) => {
         <div sx={{ display: "flex", flexDirection: "column" }}>
           <LocationProvider history={history}>
             <CssBaseline />
-            <Header
-              contextBar={contextBar}
-              connected={connected}
-              pages={pages}
-              device={deviceInfo}
-              cancelContext={cancelContext}
-            />
+            <Header connected={connected} pages={pages} device={deviceInfo} />
             <main sx={{ flexGrow: 1, overflow: "auto" }}>
               <Router>
                 <Welcome
@@ -265,9 +238,6 @@ const App = (props) => {
                 <Editor
                   path="/editor"
                   onDisconnect={onKeyboardDisconnect}
-                  startContext={startContext}
-                  cancelContext={cancelContext}
-                  inContext={contextBar}
                   titleElement={() => document.querySelector("#page-title")}
                   appBarElement={() => document.querySelector("#appbar")}
                 />
@@ -282,9 +252,6 @@ const App = (props) => {
                   connected={connected}
                   path="/preferences"
                   titleElement={() => document.querySelector("#page-title")}
-                  startContext={startContext}
-                  cancelContext={cancelContext}
-                  inContext={contextBar}
                 />
                 <SystemInfo
                   path="/system-info"
@@ -297,14 +264,6 @@ const App = (props) => {
               </Router>
             </main>
           </LocationProvider>
-          <ConfirmationDialog
-            title={i18n.t("app.cancelPending.title")}
-            open={cancelPendingOpen}
-            onConfirm={doCancelContext}
-            onCancel={cancelContextCancellation}
-          >
-            {i18n.t("app.cancelPending.content")}
-          </ConfirmationDialog>
         </div>
       </ThemeProvider>
     </StyledEngineProvider>

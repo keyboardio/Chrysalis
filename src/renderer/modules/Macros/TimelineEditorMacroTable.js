@@ -73,6 +73,8 @@ class TimelineEditorMacroTable extends Component {
   constructor(props) {
     super(props);
 
+    this.horizontalWheel = React.createRef();
+
     this.state = {
       addText: "",
       rows: [],
@@ -189,6 +191,11 @@ class TimelineEditorMacroTable extends Component {
     if (this.props.macro !== undefined) {
       this.updateRows(this.createConversion(this.props.macro.actions));
     }
+    const scrollContainer = this.horizontalWheel.current;
+    scrollContainer.addEventListener("wheel", evt => {
+      evt.preventDefault();
+      scrollContainer.scrollLeft += evt.deltaY;
+    });
   }
 
   createConversion(actions) {
@@ -508,13 +515,22 @@ class TimelineEditorMacroTable extends Component {
     this.setState({ addText: event.target.value });
   }
 
+  componentWillUnmount() {
+    const scrollContainer = this.horizontalWheel.current;
+
+    scrollContainer.removeEventListener("wheel", evt => {
+      evt.preventDefault();
+      scrollContainer.scrollLeft += evt.deltaY;
+    });
+  }
+
   render() {
     // const {} = this.props;
     const cssObjectWidth = {
       width: this.props.componentWidth
     };
     return (
-      <Styles className="trackingWrapper" style={cssObjectWidth}>
+      <Styles className="trackingWrapper" style={cssObjectWidth} ref={this.horizontalWheel}>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId="droppable" direction="horizontal">
             {provided => (

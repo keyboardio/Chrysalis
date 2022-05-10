@@ -606,6 +606,7 @@ class MacroEditor extends React.Component {
                 addItem={this.addMacro}
                 deleteItem={this.deleteMacro}
                 updateItem={this.saveName}
+                maxMacros={this.state.maxMacros}
               />
             }
             showSaving={true}

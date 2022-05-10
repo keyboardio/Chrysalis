@@ -20,6 +20,7 @@ import Styled from "styled-components";
 import i18n from "../../i18n";
 import Dropdown from "react-bootstrap/Dropdown";
 import { ButtonSettings } from "../Button";
+import MacrosMemoryUsage from "../../modules/Macros/MacrosMemoryUsage";
 import { IconArrowsSmallSeparating } from "../Icon";
 import { IconPen } from "../Icon";
 import { IconDelete } from "../Icon";
@@ -161,6 +162,7 @@ class MacroSelector extends React.Component {
           style="outline gradient"
           onClick={this.toggleShowAdd}
         />
+        <MacrosMemoryUsage macros={itemList} />
         {itemList == undefined || itemList.length == 0 || itemList.length <= selectedItem ? (
           ""
         ) : (

@@ -153,7 +153,13 @@ class SuperKeysSelector extends React.Component {
             </Dropdown>
           </div>
         </div>
-        <RegularButton icoSVG={<IconAddNew />} style="outline gradient" onClick={this.toggleShowAdd} />
+        <RegularButton
+          icoSVG={<IconAddNew />}
+          icoPosition="left"
+          buttonText={i18n.general.new}
+          style="outline gradient"
+          onClick={this.toggleShowAdd}
+        />
         {itemList == undefined || itemList.length == 0 || itemList.length <= selectedItem ? (
           ""
         ) : (

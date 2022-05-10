@@ -599,10 +599,11 @@ You can find the LED Rainbow mode with the "LED Next" key. In the default Dygma 
     reconnectDescription: `There's a possibility that we misdetected the capabilities of the keyboard, or that the keyboard was starting up while we connected. In this case, you can try clicking the "{0}" button to attempt a reconnect, and look for the necessary features again. Reconnecting is useful if you're sure there was a temporary failure upon previous attempts, and the problem has been resolved.`
   },
   general: {
-    noname: "No name",
-    select: "Select",
     configure: "Configure",
-    key: "Key"
+    key: "Key",
+    new: "New",
+    noname: "No name",
+    select: "Select"
   }
 };
 

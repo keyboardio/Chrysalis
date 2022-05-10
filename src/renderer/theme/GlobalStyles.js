@@ -979,6 +979,7 @@ div.card.card-preferences .card-body {
   .keyMacroMiniDashboard {
     border-radius: 6px;
     overflow: hidden;
+    border: ${({ theme }) => theme.styles.macro.keyMacroMiniDashboardBorder}; 
   }
     .keyInfo {
       padding: 16px 12px 12px 12px;
@@ -1020,6 +1021,9 @@ div.card.card-preferences .card-body {
       text-align: center;
       &:hover {
         color: ${({ theme }) => theme.styles.button.config.colorHover};
+      }
+      &.active {
+        color: #fff;
       }
     }
     .keyModifiers {

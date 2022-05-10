@@ -365,6 +365,7 @@ const Dark = {
       timelineHiddenTrackingBefore: "linear-gradient(-90deg, rgba(33, 34, 53, 0) 0%, #212235 80%)",
       colorTitle: Tokens.colors.gray25,
       keyMacroMiniDashboardBackground: Tokens.colors.gray700,
+      keyMacroMiniDashboardBorder: "none",
       keyInfoBackground: Tokens.colors.gray800,
       keyInfoTitle: Tokens.colors.gray500,
       keyFunctionsBorder: Tokens.colors.gray700,

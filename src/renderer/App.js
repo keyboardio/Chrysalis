@@ -266,7 +266,6 @@ const App = (props) => {
                   startContext={startContext}
                   cancelContext={cancelContext}
                   inContext={contextBar}
-                  appBarElement={() => document.querySelector("#appbar")}
                 />
                 <FirmwareUpdate
                   path="/firmware-update"

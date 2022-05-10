@@ -238,10 +238,10 @@ const Light = {
       boxShadow: "0 0 0.5rem 0.3rem rgba(0,0,0,0.1)"
     },
     cardButtons: {
-      background: settingColorOpacity(Tokens.colors.gray700, 0.5),
-      color: Tokens.colors.gray200,
-      titleColor: Tokens.colors.gray50,
-      groupButtonsBackground: settingColorOpacity(Tokens.colors.gray900, 0.2)
+      background: "rgba(255, 255, 255, 0.6)",
+      color: Tokens.colors.gray300,
+      titleColor: Tokens.colors.gray500,
+      groupButtonsBackground: "rgba(255,255,255,1)"
     },
     dropdown: {
       backgroundButtonColor: "rgba(255, 255, 255, 0.5)",

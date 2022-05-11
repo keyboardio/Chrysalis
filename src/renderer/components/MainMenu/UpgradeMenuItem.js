@@ -34,7 +34,6 @@ function UpgradeMenuItem() {
     });
     return null;
   }
-
   if (latestVersion.version <= version) return null;
 
   return (

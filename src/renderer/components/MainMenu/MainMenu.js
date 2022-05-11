@@ -44,7 +44,6 @@ import KeyboardIcon from "@mui/icons-material/Keyboard";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 import { history } from "../../routerHistory";
-import { Cloud } from "@mui/icons-material";
 
 function MainMenu({ open, closeMenu, classes, connected, pages }) {
   const drawerWidth = 350;

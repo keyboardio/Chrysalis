@@ -44,6 +44,7 @@ import KeyboardIcon from "@mui/icons-material/Keyboard";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 import { history } from "../../routerHistory";
+import { Cloud } from "@mui/icons-material";
 
 function MainMenu({ open, closeMenu, classes, connected, pages }) {
   const drawerWidth = 350;
@@ -63,6 +64,20 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
       ? "/editor"
       : "/welcome"
     : "/keyboard-select";
+
+  const listItem = (icon, label, page, callback) => {
+    if (callback === undefined) {
+      callback = () => {
+        setCurrentPage(page);
+      };
+    }
+    return (
+      <ListItem button selected={currentPage == page} onClick={callback}>
+        <ListItemIcon>{icon}</ListItemIcon>
+        <ListItemText primary={label} />
+      </ListItem>
+    );
+  };
 
   return (
     <Drawer
@@ -90,40 +105,17 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
             </ListSubheader>
           }
         >
-          {!pages.keymap && !pages.colormap && (
-            <ListItem
-              button
-              selected={currentPage == "/welcome"}
-              onClick={() => setCurrentPage("/welcome")}
-            >
-              <ListItemIcon>
-                <InfoIcon />
-              </ListItemIcon>
-              <ListItemText primary={i18n.t("app.menu.welcome")} />
-            </ListItem>
+          {!pages.keymap &&
+            !pages.colormap &&
+            listItem(<InfoIcon />, i18n.t("app.menu.welcome"), "/welcome")}
+          {pages.keymap &&
+            listItem(<KeyboardIcon />, i18n.t("app.menu.editor"), "/editor")}
+          {listItem(
+            <CloudUploadIcon />,
+            i18n.t("app.menu.firmwareUpdate"),
+            "/firmware-update"
           )}
-          {pages.keymap && (
-            <ListItem
-              button
-              selected={currentPage == "/editor"}
-              onClick={() => setCurrentPage("/editor")}
-            >
-              <ListItemIcon>
-                <KeyboardIcon />
-              </ListItemIcon>
-              <ListItemText primary={i18n.t("app.menu.editor")} />
-            </ListItem>
-          )}
-          <ListItem
-            button
-            selected={currentPage == "/firmware-update"}
-            onClick={() => setCurrentPage("/firmware-update")}
-          >
-            <ListItemIcon>
-              <CloudUploadIcon />
-            </ListItemIcon>
-            <ListItemText primary={i18n.t("app.menu.firmwareUpdate")} />
-          </ListItem>
+          ;
         </List>
       )}
       {connected && <Divider />}
@@ -134,33 +126,18 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
           </ListSubheader>
         }
       >
-        <ListItem
-          button
-          selected={currentPage == "/keyboard-select"}
-          onClick={() => setCurrentPage("/keyboard-select")}
-        >
-          <ListItemIcon>
-            <KeyboardIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary={
-              connected
-                ? i18n.t("app.menu.selectAnotherKeyboard")
-                : i18n.t("app.menu.selectAKeyboard")
-            }
-          />
-        </ListItem>
-
-        <ListItem
-          button
-          selected={currentPage == "/preferences"}
-          onClick={() => setCurrentPage("/preferences")}
-        >
-          <ListItemIcon>
-            <SettingsIcon />
-          </ListItemIcon>
-          <ListItemText primary={i18n.t("app.menu.preferences")} />
-        </ListItem>
+        {listItem(
+          <KeyboardIcon />,
+          connected
+            ? i18n.t("app.menu.selectAnotherKeyboard")
+            : i18n.t("app.menu.selectAKeyboard"),
+          "/keyboard-select"
+        )}
+        {listItem(
+          <SettingsIcon />,
+          i18n.t("app.menu.preferences"),
+          "/preferences"
+        )}
       </List>
       <Divider />
       <List
@@ -170,43 +147,15 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
           </ListSubheader>
         }
       >
-        <ListItem
-          button
-          onClick={() => openExternalPage("https://keyboard.io/discord-invite")}
-        >
-          <ListItemIcon>
-            <ChatIcon />
-          </ListItemIcon>
-          <ListItemText primary={i18n.t("app.menu.chat")} />
-        </ListItem>
+        {listItem(<ChatIcon />, i18n.t("app.menu.chat"), null, () =>
+          openExternalPage("https://keyboard.io/discord-invite")
+        )}
 
-        <ListItem
-          button
-          selected={currentPage == "/system-info"}
-          onClick={() => setCurrentPage("/system-info")}
-        >
-          <ListItemIcon>
-            <InfoIcon />
-          </ListItemIcon>
-          <ListItemText primary={i18n.t("app.menu.systemInfo")} />
-        </ListItem>
-
-        <ListItem
-          button
-          selected={currentPage == "/changelog"}
-          onClick={() => setCurrentPage("/changelog")}
-        >
-          <ListItemIcon>
-            <ListIcon />
-          </ListItemIcon>
-          <ListItemText primary={i18n.t("app.menu.changelog")} />
-        </ListItem>
-        <ListItem button onClick={() => ipcRenderer.send("app-exit")}>
-          <ListItemIcon>
-            <ExitToAppIcon />
-          </ListItemIcon>
-          <ListItemText primary={i18n.t("app.menu.exit")} />
-        </ListItem>
+        {listItem(<InfoIcon />, i18n.t("app.menu.systemInfo"), "/system-info")}
+        {listItem(<ListIcon />, i18n.t("app.menu.changelog"), "/changelog")}
+        {listItem(<ExitToAppIcon />, i18n.t("app.menu.exit"), null, () =>
+          ipcRenderer.send("app-exit")
+        )}
       </List>
       <Divider />
       <List>

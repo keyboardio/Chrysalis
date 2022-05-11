@@ -47,7 +47,7 @@ import { history } from "../../routerHistory";
 
 import { GlobalContext } from "../GlobalContext";
 
-function MainMenu({ open, closeMenu, classes, pages }) {
+function MainMenu({ open, closeMenu, classes }) {
   const drawerWidth = 350;
   const currentPage = history.location.pathname;
   const globalContext = useContext(GlobalContext);
@@ -63,7 +63,7 @@ function MainMenu({ open, closeMenu, classes, pages }) {
   };
 
   const homePage = globalContext.state.connected
-    ? pages.keymap
+    ? globalContext.state.pages.keymap
       ? "/editor"
       : "/welcome"
     : "/keyboard-select";
@@ -108,17 +108,23 @@ function MainMenu({ open, closeMenu, classes, pages }) {
             </ListSubheader>
           }
         >
-          {!pages.keymap &&
-            !pages.colormap &&
+          {!globalContext.state.pages.keymap &&
+            !globalContext.state.pages.colormap &&
             listItem(<InfoIcon />, i18n.t("app.menu.welcome"), "/welcome")}
-          {pages.keymap &&
-            listItem(<KeyboardIcon />, i18n.t("app.menu.editor"), "/editor")}
+          {globalContext.state.pages.keymap &&
+            listItem(
+              <KeyboardIcon />,
+              globalContext.state.pages.colormap
+                ? i18n.t("app.menu.editor")
+                : i18n.t("app.menu.layoutEditor"),
+
+              "/editor"
+            )}
           {listItem(
             <CloudUploadIcon />,
             i18n.t("app.menu.firmwareUpdate"),
             "/firmware-update"
           )}
-          ;
         </List>
       )}
       {globalContext.state.connected && <Divider />}

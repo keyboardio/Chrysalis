@@ -37,7 +37,7 @@ import BoardMenu from "./BoardMenu";
 import MainMenu from "./MainMenu/MainMenu";
 import { hideContextBar, contextBarChangesDiscarded } from "./ContextBar";
 
-function Header({ pages, device }) {
+function Header({ device }) {
   const [mainMenu, setMainMenuOpen] = useState(false);
   const [boardAnchor, setBoardMenuAnchor] = useState(null);
   const [contextBarVisibility, setContextBarVisibility] = useState(false);
@@ -98,7 +98,7 @@ function Header({ pages, device }) {
 
   return (
     <>
-      <MainMenu pages={pages} open={mainMenu} closeMenu={closeMainMenu} />
+      <MainMenu open={mainMenu} closeMenu={closeMainMenu} />
       <AppBar
         position="sticky"
         color={contextBarVisibility ? "secondary" : "primary"}

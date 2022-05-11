@@ -77,7 +77,6 @@ const App = (props) => {
   const [darkMode, setDarkMode] = useState(settings.get("ui.darkMode"));
 
   const [device, setDevice] = useState(null);
-  const [pages, setPages] = useState({});
 
   localStorage.clear();
 
@@ -106,7 +105,7 @@ const App = (props) => {
     hideContextBar();
     globalContext.state.connected = false;
     setDevice(null);
-    setPages({});
+    globalContext.state.pages = {};
 
     // Second call to `navigate` will actually render the proper route
     await navigate("/keyboard-select");
@@ -139,7 +138,7 @@ const App = (props) => {
     if (!flashing) {
       globalContext.state.connected = false;
       setDevice(null);
-      setPages({});
+      globalContext.state.pages = {};
 
       await navigate("/keyboard-select");
     }
@@ -150,7 +149,7 @@ const App = (props) => {
 
     if (!port.path) {
       globalContext.state.connected = true;
-      setPages({});
+      globalContext.state.pages = {};
       setDevice(port.device);
 
       await navigate("/welcome");
@@ -183,7 +182,7 @@ const App = (props) => {
 
     globalContext.state.connected = true;
     setDevice(null);
-    setPages(pages);
+    globalContext.state.pages = pages;
 
     await navigate(pages.keymap || pages.colormap ? "/editor" : "/welcome");
     return commands;
@@ -193,7 +192,7 @@ const App = (props) => {
     focus.close();
     globalContext.state.connected = false;
     setDevice(null);
-    setPages({});
+    globalContext.state.pages = {};
 
     localStorage.clear();
     await navigate("/keyboard-select");
@@ -217,7 +216,7 @@ const App = (props) => {
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <LocationProvider history={history}>
             <CssBaseline />
-            <Header pages={pages} device={deviceInfo} />
+            <Header device={deviceInfo} />
             <Box component="main" sx={{ flexGrow: 1, overflow: "auto" }}>
               <Router>
                 <Welcome

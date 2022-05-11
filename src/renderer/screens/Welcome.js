@@ -36,7 +36,6 @@ import { navigate } from "../routerHistory";
 import { PageTitle } from "../components/PageTitle";
 
 class Welcome extends React.Component {
-  
   reconnect = async () => {
     let focus = new Focus();
     const device = {
@@ -55,19 +54,6 @@ class Welcome extends React.Component {
     let focus = new Focus();
 
     const device = this.props.device || focus.device;
-
-    const reconnectButton = focus._port && (
-      <Button color="secondary" onClick={this.reconnect}>
-        {i18n.t("welcome.reconnect")}
-      </Button>
-    );
-    const reconnectText = focus._port && (
-      <Typography component="p" gutterBottom>
-        {i18n.t("welcome.reconnectDescription", {
-          buttonName: i18n.t("welcome.reconnect"),
-        })}
-      </Typography>
-    );
 
     return (
       <Box
@@ -98,10 +84,20 @@ class Welcome extends React.Component {
                 buttonName: i18n.t("app.menu.firmwareUpdate"),
               })}
             </Typography>
-            {reconnectText}
+            {focus._port && (
+              <Typography component="p" gutterBottom>
+                {i18n.t("welcome.reconnectDescription", {
+                  buttonName: i18n.t("welcome.reconnect"),
+                })}
+              </Typography>
+            )}
           </CardContent>
           <CardActions>
-            {reconnectButton}
+            {focus._port && (
+              <Button color="secondary" onClick={this.reconnect}>
+                {i18n.t("welcome.reconnect")}
+              </Button>
+            )}
             <Box sx={{ flexGrow: 1 }} />
             <Button
               color="primary"

@@ -156,9 +156,6 @@ const App = (props) => {
 
     logger.log("Connecting to", port.path);
     await focus.open(port.path, port.device);
-    if (process.platform == "darwin") {
-      await spawn("stty", ["-f", port.path, "clocal"]);
-    }
 
     let commands = [];
     let pages = [];

@@ -35,7 +35,7 @@ import i18n from "../i18n";
 import { navigate } from "../routerHistory";
 import { PageTitle } from "../components/PageTitle";
 
-const Welcome = (props) => {
+const FocusNotDetected = (props) => {
   let focus = new Focus();
   const device = props.device || focus.device;
 
@@ -57,7 +57,7 @@ const Welcome = (props) => {
         justifyContent: "center",
       }}
     >
-      <PageTitle title={i18n.t("welcome.title")} />
+      <PageTitle title={i18n.t("focus-not-detected.title")} />
       <Card
         sx={{
           margin: 4,
@@ -75,14 +75,14 @@ const Welcome = (props) => {
         />
         <CardContent>
           <Typography component="p" gutterBottom>
-            {i18n.t("welcome.contents", {
+            {i18n.t("focus-not-detected.contents", {
               buttonName: i18n.t("app.menu.firmwareUpdate"),
             })}
           </Typography>
           {focus._port && (
             <Typography component="p" gutterBottom>
-              {i18n.t("welcome.reconnectDescription", {
-                buttonName: i18n.t("welcome.reconnect"),
+              {i18n.t("focus-not-detected.reconnectDescription", {
+                buttonName: i18n.t("focus-not-detected.reconnect"),
               })}
             </Typography>
           )}
@@ -90,7 +90,7 @@ const Welcome = (props) => {
         <CardActions>
           {focus._port && (
             <Button color="secondary" onClick={reconnect}>
-              {i18n.t("welcome.reconnect")}
+              {i18n.t("focus-not-detected.reconnect")}
             </Button>
           )}
           <Box sx={{ flexGrow: 1 }} />
@@ -101,7 +101,7 @@ const Welcome = (props) => {
               await navigate("/firmware-update");
             }}
           >
-            {i18n.t("welcome.gotoUpdate", {
+            {i18n.t("focus-not-detected.gotoUpdate", {
               buttonName: i18n.t("app.menu.firmwareUpdate"),
             })}
           </Button>
@@ -111,4 +111,4 @@ const Welcome = (props) => {
   );
 };
 
-export default Welcome;
+export default FocusNotDetected;

@@ -41,7 +41,7 @@ const English = {
   },
   app: {
     menu: {
-      welcome: "Welcome",
+      "focus-not-detected": "Welcome",
       systemInfo: "Report a problem",
       editor: "Layout & Colormap Editor",
       layoutEditor: "Layout Editor",
@@ -332,7 +332,7 @@ const English = {
     description: `Updating or "flashing" your keyboard's firmware is how we teach it new tricks. Chrysalis will install a new version of your keyboard's firmware which includes support for customizing the key layout, as well as other features. If you've previously customized your keyboard's firmware, this will overwrite your custom firmware. You can always find the source code of the firmware Chrysalis is installing here:`,
     postUpload: `Once the upload is done, Chrysalis will take you back to the keyboard selection screen.`,
   },
-  welcome: {
+  "focus-not-detected": {
     title: "Welcome to Chrysalis",
     contents: `Chrysalis recognizes your keyboard, but needs to update its firmware before you can continue.`,
     gotoUpdate: "Update Firmware",

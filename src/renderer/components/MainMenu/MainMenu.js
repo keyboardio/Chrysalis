@@ -65,7 +65,7 @@ function MainMenu({ open, closeMenu, classes }) {
   const homePage = globalContext.state.connected
     ? globalContext.state.pages.keymap
       ? "/editor"
-      : "/welcome"
+      : "/focus-not-detected"
     : "/keyboard-select";
 
   const listItem = (icon, label, page, callback) => {
@@ -110,7 +110,11 @@ function MainMenu({ open, closeMenu, classes }) {
         >
           {!globalContext.state.pages.keymap &&
             !globalContext.state.pages.colormap &&
-            listItem(<InfoIcon />, i18n.t("app.menu.welcome"), "/welcome")}
+            listItem(
+              <InfoIcon />,
+              i18n.t("app.menu.focus-not-detected"),
+              "/focus-not-detected"
+            )}
           {globalContext.state.pages.keymap &&
             listItem(
               <KeyboardIcon />,

@@ -17,7 +17,6 @@
 
 import React from "react";
 import { ipcRenderer } from "electron";
-import { Link } from "@gatsbyjs/reach-router";
 
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
@@ -78,11 +77,9 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
       }}
     >
       <div className="toolbarIcon">
-        <Link to={homePage}>
-          <IconButton onClick={() => setCurrentPage(homePage)} size="large">
-            <img src={logo} alt={i18n.t("components.logo.altText")} />
-          </IconButton>
-        </Link>
+        <IconButton onClick={() => setCurrentPage(homePage)} size="large">
+          <img src={logo} alt={i18n.t("components.logo.altText")} />
+        </IconButton>
       </div>
       {connected && (
         <List
@@ -93,27 +90,21 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
           }
         >
           {!pages.keymap && !pages.colormap && (
-            <Link to="/welcome">
-              <WelcomeMenu
-                selected={currentPage == "/welcome"}
-                onClick={() => setCurrentPage("/welcome")}
-              />
-            </Link>
+            <WelcomeMenu
+              selected={currentPage == "/welcome"}
+              onClick={() => setCurrentPage("/welcome")}
+            />
           )}
           {pages.keymap && (
-            <Link to="/editor">
-              <EditorMenuItem
-                selected={currentPage == "/editor"}
-                onClick={() => setCurrentPage("/editor")}
-              />
-            </Link>
-          )}
-          <Link to="/firmware-update">
-            <FlashMenuItem
-              selected={currentPage == "/firmware-update"}
-              onClick={() => setCurrentPage("/firmware-update")}
+            <EditorMenuItem
+              selected={currentPage == "/editor"}
+              onClick={() => setCurrentPage("/editor")}
             />
-          </Link>
+          )}
+          <FlashMenuItem
+            selected={currentPage == "/firmware-update"}
+            onClick={() => setCurrentPage("/firmware-update")}
+          />
         </List>
       )}
       {connected && <Divider />}
@@ -124,23 +115,19 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
           </ListSubheader>
         }
       >
-        <Link to="/keyboard-select">
-          <KeyboardMenuItem
-            keyboardSelectText={
-              connected
-                ? i18n.t("app.menu.selectAnotherKeyboard")
-                : i18n.t("app.menu.selectAKeyboard")
-            }
-            selected={currentPage == "/keyboard-select"}
-            onClick={() => setCurrentPage("/keyboard-select")}
-          />
-        </Link>
-        <Link to="/preferences">
-          <PreferencesMenuItem
-            selected={currentPage == "/preferences"}
-            onClick={() => setCurrentPage("/preferences")}
-          />
-        </Link>
+        <KeyboardMenuItem
+          keyboardSelectText={
+            connected
+              ? i18n.t("app.menu.selectAnotherKeyboard")
+              : i18n.t("app.menu.selectAKeyboard")
+          }
+          selected={currentPage == "/keyboard-select"}
+          onClick={() => setCurrentPage("/keyboard-select")}
+        />
+        <PreferencesMenuItem
+          selected={currentPage == "/preferences"}
+          onClick={() => setCurrentPage("/preferences")}
+        />
       </List>
       <Divider />
       <List
@@ -153,18 +140,14 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
         <ChatMenuItem
           onClick={() => openExternalPage("https://keyboard.io/discord-invite")}
         />
-        <Link to="/system-info">
-          <SystemInfoMenuItem
-            selected={currentPage == "/system-info"}
-            onClick={() => setCurrentPage("/system-info")}
-          />
-        </Link>
-        <Link to="/changelog">
-          <ChangeLogMenuItem
-            selected={currentPage == "/changelog"}
-            onClick={() => setCurrentPage("/changelog")}
-          />
-        </Link>
+        <SystemInfoMenuItem
+          selected={currentPage == "/system-info"}
+          onClick={() => setCurrentPage("/system-info")}
+        />
+        <ChangeLogMenuItem
+          selected={currentPage == "/changelog"}
+          onClick={() => setCurrentPage("/changelog")}
+        />
         <ExitMenuItem onClick={() => ipcRenderer.send("app-exit")} />
       </List>
       <Divider />

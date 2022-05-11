@@ -406,6 +406,13 @@ const Light = {
         actionColor: settingColorOpacity(Tokens.colors.gray600, 0.6)
       }
     },
+    memoryUsage: {
+      color: Tokens.colors.gray200,
+      borderColor: Tokens.colors.gray50,
+      percentageColor: Tokens.colors.gray500,
+      progressBaseColor: Tokens.colors.gray100,
+      progressFill: Tokens.colors.brandSuccess
+    },
     modal: {
       closeButton: closeButton,
       backdropColor: "rgba(214, 217, 224, 0.85)",

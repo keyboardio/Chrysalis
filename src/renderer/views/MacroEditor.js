@@ -133,7 +133,8 @@ class MacroEditor extends React.Component {
       showDeleteModal: false,
       listToDelete: [],
       listToDeleteS: [],
-      selectedList: 0
+      selectedList: 0,
+      freeMemory: 0
     };
     this.updateMacros = this.updateMacros.bind(this);
     this.changeSelected = this.changeSelected.bind(this);
@@ -201,6 +202,9 @@ class MacroEditor extends React.Component {
         macros: parsedMacros,
         superkeys: parsedSuper,
         keymap
+      });
+      this.setState({
+        freeMemory: parsedMacros.map(m => m.actions).flat().length
       });
     } catch (e) {
       console.log("error when loading macros");
@@ -419,6 +423,9 @@ class MacroEditor extends React.Component {
     console.log("Updating Macros", recievedMacros);
     if (selected > -1) this.updateKeyboard(recievedMacros, selected);
     this.setState({ macros: recievedMacros, modified: true });
+    this.setState({
+      freeMemory: recievedMacros.map(m => m.actions).flat().length
+    });
     this.props.startContext();
   }
 
@@ -553,7 +560,7 @@ class MacroEditor extends React.Component {
   }
 
   render() {
-    const mem = this.state.macros.map(m => m.actions).flat().length;
+    // const mem = this.state.macros.map(m => m.actions).flat().length;
     const ListOfMacros = this.state.listToDelete.map(({ layer, pos, key }, id) => {
       return (
         <Row key={id}>
@@ -607,6 +614,7 @@ class MacroEditor extends React.Component {
                 deleteItem={this.deleteMacro}
                 updateItem={this.saveName}
                 maxMacros={this.state.maxMacros}
+                mem={this.state.freeMemory}
               />
             }
             showSaving={true}

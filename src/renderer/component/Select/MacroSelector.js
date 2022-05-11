@@ -32,6 +32,7 @@ import { IconAddNew } from "../Icon";
 
 const Style = Styled.div` 
 display: flex;
+align-items: center;
 .dropdownMultipleActions {
     min-width: 320px;
     max-width: 320px;
@@ -93,7 +94,7 @@ class MacroSelector extends React.Component {
   };
 
   render() {
-    const { onSelect, itemList, selectedItem, deleteItem, addItem, subtitle } = this.props;
+    const { onSelect, itemList, selectedItem, deleteItem, addItem, subtitle, mem } = this.props;
     const { show, showAdd } = this.state;
 
     return (
@@ -162,7 +163,7 @@ class MacroSelector extends React.Component {
           style="outline gradient"
           onClick={this.toggleShowAdd}
         />
-        <MacrosMemoryUsage macros={itemList} />
+        <MacrosMemoryUsage mem={mem} />
         {itemList == undefined || itemList.length == 0 || itemList.length <= selectedItem ? (
           ""
         ) : (

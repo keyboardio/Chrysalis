@@ -139,8 +139,7 @@ width: 100%;
 .keysRow {
   display: flex;
   flex-wrap: nowrap;
-  background: ${({ theme }) => theme.styles.keyboardPicker.keysRowBackground};
-  box-shadow: ${({ theme }) => theme.styles.keyboardPicker.keysRowBoxShadow};
+  
   border-radius: 6px;
   padding: 5px;
   &.keysOrdinaryKeyboard {
@@ -233,7 +232,10 @@ width: 100%;
 .colMedia { grid-area: colMedia; }
 .colTools { grid-area: colTools; }
 
-
+.dropdown-menu.show {
+  overflow-y: auto;
+  height: 190px;
+}
 
 .editor { 
   .keysLED .button-config {
@@ -496,7 +498,8 @@ class KeyPickerReduced extends Component {
           iconx={key.iconx}
           icony={key.icony}
           iconsize={key.iconsize}
-          disabled={key.mod == disableMods || key.move == disableMove || disableAll}
+          // disabled={key.mod == disableMods || key.move == disableMove || disableAll}
+          disabled={false}
           idArray={key.idArray}
           keyCode={code}
         />

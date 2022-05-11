@@ -2,7 +2,13 @@ const path = require("path");
 module.exports = {
   stats: {
     children: false,
+    loggingTrace: false,
+    logging: "info",
   },
+  devServer: {
+    stats: "errors-only",
+  },
+
   resolve: {
     alias: {
       "@api": path.resolve(__dirname, "src/api"),

@@ -18,7 +18,6 @@
 import React from "react";
 import Styled from "styled-components";
 import i18n from "../../i18n";
-import Spinner from "react-bootstrap/Spinner";
 import { toast } from "react-toastify";
 
 import Title from "../../component/Title";
@@ -31,8 +30,9 @@ const Styles = Styled.div`
 margin: 0 24px;
 border: 1px solid ${({ theme }) => theme.styles.memoryUsage.borderColor};
 border-radius: 4px;
-padding: 8px 12px;
+padding: 7px 12px;
 color: ${({ theme }) => theme.styles.memoryUsage.color};
+height: 52px;
 h4 {
   font-weight: 600;
   font-size: 13px;
@@ -49,7 +49,7 @@ h4 {
   font-weight: 600;
   font-size: 13px;
   letter-spacing: -0.03em;
-  padding: 0 6px;
+  padding: 0 2px 0 6px;
   color: ${({ theme }) => theme.styles.memoryUsage.percentageColor};
 }
 .progressBaseColor {
@@ -122,7 +122,7 @@ const MacrosMemoryUsage = ({ mem }) => {
         <div className="progressIndicatorBar">
           <DotsProgressBar progressWidth={memoryUsage} />
         </div>
-        <div className="progressIndicatorPercentage">{memoryUsage}%</div>
+        <div className="progressIndicatorPercentage">{memoryUsage >= 100 ? "100" : memoryUsage}%</div>
       </div>
     </Styles>
   );

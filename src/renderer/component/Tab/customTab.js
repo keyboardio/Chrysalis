@@ -34,6 +34,7 @@ const Style = Styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 2px;
+  white-space: nowrap;
   &:before,
   &:after {
     content: "";

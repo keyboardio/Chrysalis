@@ -26,7 +26,6 @@ const Style = Styled.div`
 `;
 
 const MacrosMemoryUsage = ({ macros }) => {
-  console.log("Quem é macros: ", macros);
   const [memoryUsage, setMemoryUsage] = React.useState(0);
   const [isLoading, setIsLoading] = React.useState(true);
 

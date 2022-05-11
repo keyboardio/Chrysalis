@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
+import React, { useContext } from "react";
 import { ipcRenderer } from "electron";
 
 import Divider from "@mui/material/Divider";
@@ -45,9 +45,13 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 import { history } from "../../routerHistory";
 
-function MainMenu({ open, closeMenu, classes, connected, pages }) {
+import { GlobalContext } from "../GlobalContext";
+
+function MainMenu({ open, closeMenu, classes, pages }) {
   const drawerWidth = 350;
   const currentPage = history.location.pathname;
+  const globalContext = useContext(GlobalContext);
+
   const setCurrentPage = (page) => {
     history.navigate(page);
     closeMenu();
@@ -58,7 +62,7 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
     closeMenu();
   };
 
-  const homePage = connected
+  const homePage = globalContext.state.connected
     ? pages.keymap
       ? "/editor"
       : "/welcome"
@@ -96,7 +100,7 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
           <img src={logo} alt={i18n.t("components.logo.altText")} />
         </IconButton>
       </div>
-      {connected && (
+      {globalContext.state.connected && (
         <List
           subheader={
             <ListSubheader disableSticky>
@@ -117,7 +121,7 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
           ;
         </List>
       )}
-      {connected && <Divider />}
+      {globalContext.state.connected && <Divider />}
       <List
         subheader={
           <ListSubheader disableSticky>
@@ -127,7 +131,7 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
       >
         {listItem(
           <KeyboardIcon />,
-          connected
+          globalContext.state.connected
             ? i18n.t("app.menu.selectAnotherKeyboard")
             : i18n.t("app.menu.selectAKeyboard"),
           "/keyboard-select"

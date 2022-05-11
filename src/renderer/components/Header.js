@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import "../../api/keymap";
 import "../../api/colormap";
@@ -37,7 +37,7 @@ import BoardMenu from "./BoardMenu";
 import MainMenu from "./MainMenu/MainMenu";
 import { hideContextBar, contextBarChangesDiscarded } from "./ContextBar";
 
-function Header({ connected, pages, device }) {
+function Header({ pages, device }) {
   const [mainMenu, setMainMenuOpen] = useState(false);
   const [boardAnchor, setBoardMenuAnchor] = useState(null);
   const [contextBarVisibility, setContextBarVisibility] = useState(false);
@@ -98,12 +98,7 @@ function Header({ connected, pages, device }) {
 
   return (
     <>
-      <MainMenu
-        connected={connected}
-        pages={pages}
-        open={mainMenu}
-        closeMenu={closeMainMenu}
-      />
+      <MainMenu pages={pages} open={mainMenu} closeMenu={closeMainMenu} />
       <AppBar
         position="sticky"
         color={contextBarVisibility ? "secondary" : "primary"}

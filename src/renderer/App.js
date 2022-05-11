@@ -15,8 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useState, useEffect } from "react";
-import { spawn } from "child_process";
+import React, { useState, useEffect, useContext } from "react";
 import Box from "@mui/material/Box";
 
 const { ipcRenderer } = require("electron");
@@ -38,7 +37,7 @@ import {
   StyledEngineProvider,
   createTheme,
 } from "@mui/material/styles";
-
+import { GlobalContext } from "./components/GlobalContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -56,6 +55,14 @@ import { history, navigate } from "./routerHistory";
 import { hideContextBar } from "./components/ContextBar";
 import { isDevelopment } from "./config";
 
+toast.configure({
+  position: "bottom-left",
+  autoClose: false,
+  newestOnTop: true,
+  draggable: false,
+  closeOnClick: false,
+});
+
 let focus = new Focus();
 if (isDevelopment) {
   focus.debug = true;
@@ -69,22 +76,16 @@ const App = (props) => {
 
   const [darkMode, setDarkMode] = useState(settings.get("ui.darkMode"));
 
-  const [connected, setConnected] = useState(false);
   const [device, setDevice] = useState(null);
   const [pages, setPages] = useState({});
 
   localStorage.clear();
 
-  toast.configure({
-    position: "bottom-left",
-    autoClose: false,
-    newestOnTop: true,
-    draggable: false,
-    closeOnClick: false,
-  });
   let flashing = false;
   let focus = new Focus();
   const deviceInfo = focus?.device?.info || device?.info;
+
+  const globalContext = useContext(GlobalContext);
 
   const handleDeviceDisconnect = async (sender, vid, pid) => {
     if (!focus.device) return;
@@ -103,8 +104,7 @@ const App = (props) => {
 
     await focus.close();
     hideContextBar();
-
-    setConnected(false);
+    globalContext.state.connected = false;
     setDevice(null);
     setPages({});
 
@@ -137,7 +137,7 @@ const App = (props) => {
   const toggleFlashing = async () => {
     flashing = !flashing;
     if (!flashing) {
-      setConnected(false);
+      globalContext.state.connected = false;
       setDevice(null);
       setPages({});
 
@@ -149,7 +149,7 @@ const App = (props) => {
     focus.close();
 
     if (!port.path) {
-      setConnected(true);
+      globalContext.state.connected = true;
       setPages({});
       setDevice(port.device);
 
@@ -181,7 +181,7 @@ const App = (props) => {
       };
     }
 
-    setConnected(true);
+    globalContext.state.connected = true;
     setDevice(null);
     setPages(pages);
 
@@ -191,7 +191,7 @@ const App = (props) => {
 
   const onKeyboardDisconnect = async () => {
     focus.close();
-    setConnected(false);
+    globalContext.state.connected = false;
     setDevice(null);
     setPages({});
 
@@ -217,7 +217,7 @@ const App = (props) => {
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <LocationProvider history={history}>
             <CssBaseline />
-            <Header connected={connected} pages={pages} device={deviceInfo} />
+            <Header pages={pages} device={deviceInfo} />
             <Box component="main" sx={{ flexGrow: 1, overflow: "auto" }}>
               <Router>
                 <Welcome
@@ -237,7 +237,7 @@ const App = (props) => {
                   toggleFlashing={toggleFlashing}
                   onDisconnect={onKeyboardDisconnect}
                 />
-                <Preferences connected={connected} path="/preferences" />
+                <Preferences path="/preferences" />
                 <SystemInfo path="/system-info" />
                 <ChangeLog path="/changelog" />
                 />

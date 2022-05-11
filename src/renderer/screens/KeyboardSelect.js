@@ -34,6 +34,7 @@ import { ScanDevicesButton } from "./KeyboardSelect/ScanDevicesButton";
 import { KeyboardPortSelector } from "./KeyboardSelect/KeyboardPortSelector";
 import { DeviceImage } from "./KeyboardSelect/DeviceImage";
 const { ipcRenderer } = require("electron");
+import { useContext } from "react";
 
 class KeyboardSelect extends React.Component {
   state = {

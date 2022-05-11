@@ -67,6 +67,7 @@ const App = (props) => {
   const logger = new Log();
 
   const [darkMode, setDarkMode] = useState(settings.get("ui.darkMode"));
+
   const [connected, setConnected] = useState(false);
   const [device, setDevice] = useState(null);
   const [pages, setPages] = useState({});
@@ -81,6 +82,8 @@ const App = (props) => {
     closeOnClick: false,
   });
   let flashing = false;
+  let focus = new Focus();
+  const deviceInfo = focus?.device?.info || device?.info;
 
   const handleDeviceDisconnect = async (sender, vid, pid) => {
     if (!focus.device) return;
@@ -125,7 +128,6 @@ const App = (props) => {
     darkmode_toggle_channel.onmessage = (event) => {
       setDarkMode(event.data);
     };
-
     return function cleanup() {
       darkmode_toggle_channel.close();
     };
@@ -195,9 +197,6 @@ const App = (props) => {
     localStorage.clear();
     await navigate("/keyboard-select");
   };
-
-  let focus = new Focus();
-  const deviceInfo = focus?.device?.info || device?.info;
 
   const theme = createTheme({
     palette: {

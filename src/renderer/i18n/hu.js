@@ -38,7 +38,7 @@ const Hungarian = {
   app: {
     device: "Billentyűzet",
     menu: {
-      welcome: "Üdvözlet",
+      "focus-not-detected": "Üdvözlet",
       systemInfo: "Rendszer információ",
       editor: "Kiosztás & színtérkép szerkesztő",
       layoutEditor: "Kiosztás szerkesztő",
@@ -196,7 +196,7 @@ Minden testreszabott beállítás el fog veszni.`,
     description: `A billentyűzet vezérlő frissítésevel tanítjuk új trükkökre. A Chrysalis olyan új vezérlőt fog telepíteni, mely tartalmazza az eszközöket melyek lehetővé teszik a kiosztás szerkesztését, és még más dolgokat is. Ha korábban már testreszabta a vezérlőt, akkor ez a művelet felül fogja azt írni. A Chrysalis által telepíthető vezérlő forrása mindig megtalálható az alábbi címen:`,
     postUpload: `Amint a frissítés befejeződött, a Chrysalis vissza fogja vinni a billentyűzet választó képernyőre.`,
   },
-  welcome: {
+  "focus-not-detected": {
     title: "Üdvözöljük!",
     contents: `A Chrysalis felismerte a billentyűzetét, de a folytatáshoz frissíteni kell a vezérlőjét.`,
     gotoUpdate: "Vezérlő frissítés",

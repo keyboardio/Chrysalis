@@ -45,7 +45,7 @@ import KeyboardSelect from "./screens/KeyboardSelect";
 import FirmwareUpdate from "./screens/FirmwareUpdate";
 import Editor from "./screens/Editor/Editor";
 import Preferences from "./screens/Preferences";
-import Welcome from "./screens/Welcome";
+import FocusNotDetected from "./screens/FocusNotDetected";
 import SystemInfo from "./screens/SystemInfo";
 import ChangeLog from "./screens/ChangeLog";
 import i18n from "@renderer/i18n";
@@ -152,7 +152,7 @@ const App = (props) => {
       globalContext.state.pages = {};
       setDevice(port.device);
 
-      await navigate("/welcome");
+      await navigate("/focus-not-detected");
       return [];
     }
 
@@ -184,7 +184,9 @@ const App = (props) => {
     setDevice(null);
     globalContext.state.pages = pages;
 
-    await navigate(pages.keymap || pages.colormap ? "/editor" : "/welcome");
+    await navigate(
+      pages.keymap || pages.colormap ? "/editor" : "/focus-not-detected"
+    );
     return commands;
   };
 
@@ -219,8 +221,8 @@ const App = (props) => {
             <Header device={deviceInfo} />
             <Box component="main" sx={{ flexGrow: 1, overflow: "auto" }}>
               <Router>
-                <Welcome
-                  path="/welcome"
+                <FocusNotDetected
+                  path="/focus-not-detected"
                   device={device}
                   onConnect={onKeyboardConnect}
                 />

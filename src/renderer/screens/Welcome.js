@@ -36,17 +36,7 @@ import { navigate } from "../routerHistory";
 import { PageTitle } from "../components/PageTitle";
 
 class Welcome extends React.Component {
-  state = {
-    factoryResetStarted: false,
-  };
-
-  startFactoryReset = () => {
-    this.setState({ factoryResetStarted: true });
-  };
-  cancelFactoryReset = () => {
-    this.setState({ factoryResetStarted: false });
-  };
-
+  
   reconnect = async () => {
     let focus = new Focus();
     const device = {

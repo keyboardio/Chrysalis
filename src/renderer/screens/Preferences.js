@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
+import React, { useContext } from "react";
 
 import Box from "@mui/material/Box";
 import Portal from "@mui/material/Portal";
@@ -31,6 +31,7 @@ import {
 import { BasicPreferences } from "./Preferences/Basic";
 import { DevtoolsPreferences } from "./Preferences/Devtools";
 import i18n from "../i18n";
+import { GlobalContext } from "../components/GlobalContext";
 
 TabPanel.propTypes = {
   children: PropTypes.node,
@@ -71,6 +72,7 @@ function a11yProps(index) {
 
 function Preferences(props) {
   const [value, setValue] = React.useState(0);
+  const globalContext = useContext(GlobalContext);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -105,12 +107,12 @@ function Preferences(props) {
         <Tab
           label={i18n.t("keyboardSettings.title")}
           {...a11yProps(1)}
-          disabled={!props.connected}
+          disabled={!globalContext.state.connected}
         />
         <Tab
           label={i18n.t("keyboardSettings.advanced")}
           {...a11yProps(2)}
-          disabled={!props.connected}
+          disabled={!globalContext.state.connected}
         />
         <Tab label={i18n.t("preferences.devtools")} {...a11yProps(3)} />
       </Tabs>

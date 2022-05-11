@@ -71,13 +71,13 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
       sx={{
         "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
         "& a": { textDecoration: "none", color: "text.primary" },
-        "& ztoolbarIcon": {
+        "& .toolbarIcon": {
           display: "flex",
           justifyContent: "center",
         },
       }}
     >
-      <div className={classes.toolbarIcon}>
+      <div className="toolbarIcon">
         <Link to={homePage}>
           <IconButton onClick={() => setCurrentPage(homePage)} size="large">
             <img src={logo} alt={i18n.t("components.logo.altText")} />
@@ -93,7 +93,7 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
           }
         >
           {!pages.keymap && !pages.colormap && (
-            <Link to="/welcome" className={classes.link}>
+            <Link to="/welcome">
               <WelcomeMenu
                 selected={currentPage == "/welcome"}
                 onClick={() => setCurrentPage("/welcome")}
@@ -101,14 +101,14 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
             </Link>
           )}
           {pages.keymap && (
-            <Link to="/editor" className={classes.link}>
+            <Link to="/editor">
               <EditorMenuItem
                 selected={currentPage == "/editor"}
                 onClick={() => setCurrentPage("/editor")}
               />
             </Link>
           )}
-          <Link to="/firmware-update" className={classes.link}>
+          <Link to="/firmware-update">
             <FlashMenuItem
               selected={currentPage == "/firmware-update"}
               onClick={() => setCurrentPage("/firmware-update")}
@@ -124,7 +124,7 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
           </ListSubheader>
         }
       >
-        <Link to="/keyboard-select" className={classes.link}>
+        <Link to="/keyboard-select">
           <KeyboardMenuItem
             keyboardSelectText={
               connected
@@ -135,7 +135,7 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
             onClick={() => setCurrentPage("/keyboard-select")}
           />
         </Link>
-        <Link to="/preferences" className={classes.link}>
+        <Link to="/preferences">
           <PreferencesMenuItem
             selected={currentPage == "/preferences"}
             onClick={() => setCurrentPage("/preferences")}
@@ -153,13 +153,13 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
         <ChatMenuItem
           onClick={() => openExternalPage("https://keyboard.io/discord-invite")}
         />
-        <Link to="/system-info" className={classes.link}>
+        <Link to="/system-info">
           <SystemInfoMenuItem
             selected={currentPage == "/system-info"}
             onClick={() => setCurrentPage("/system-info")}
           />
         </Link>
-        <Link to="/changelog" className={classes.link}>
+        <Link to="/changelog">
           <ChangeLogMenuItem
             selected={currentPage == "/changelog"}
             onClick={() => setCurrentPage("/changelog")}

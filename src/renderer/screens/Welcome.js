@@ -35,86 +35,80 @@ import i18n from "../i18n";
 import { navigate } from "../routerHistory";
 import { PageTitle } from "../components/PageTitle";
 
-class Welcome extends React.Component {
-  reconnect = async () => {
-    let focus = new Focus();
-    const device = {
-      path: focus._port.path,
-      device: focus.device,
-    };
+const Welcome = (props) => {
+  let focus = new Focus();
+  const device = props.device || focus.device;
 
+  const reconnect = async () => {
     try {
-      await this.props.onConnect(device);
+      await props.onConnect({
+        path: focus._port.path,
+        device: focus.device,
+      });
     } catch (err) {
       toast.error(err.toString());
     }
   };
 
-  render() {
-    let focus = new Focus();
-
-    const device = this.props.device || focus.device;
-
-    return (
-      <Box
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <PageTitle title={i18n.t("welcome.title")} />
+      <Card
         sx={{
-          display: "flex",
-          justifyContent: "center",
+          margin: 4,
+          maxWidth: "50%",
         }}
       >
-        <PageTitle title={i18n.t("welcome.title")} />
-        <Card
-          sx={{
-            margin: 4,
-            maxWidth: "50%",
-          }}
-        >
-          <CardHeader
-            avatar={
-              <Avatar>
-                <KeyboardIcon />
-              </Avatar>
-            }
-            title={device.info.displayName}
-            subheader={focus._port && focus._port.path}
-          />
-          <CardContent>
+        <CardHeader
+          avatar={
+            <Avatar>
+              <KeyboardIcon />
+            </Avatar>
+          }
+          title={device.info.displayName}
+          subheader={focus._port && focus._port.path}
+        />
+        <CardContent>
+          <Typography component="p" gutterBottom>
+            {i18n.t("welcome.contents", {
+              buttonName: i18n.t("app.menu.firmwareUpdate"),
+            })}
+          </Typography>
+          {focus._port && (
             <Typography component="p" gutterBottom>
-              {i18n.t("welcome.contents", {
-                buttonName: i18n.t("app.menu.firmwareUpdate"),
+              {i18n.t("welcome.reconnectDescription", {
+                buttonName: i18n.t("welcome.reconnect"),
               })}
             </Typography>
-            {focus._port && (
-              <Typography component="p" gutterBottom>
-                {i18n.t("welcome.reconnectDescription", {
-                  buttonName: i18n.t("welcome.reconnect"),
-                })}
-              </Typography>
-            )}
-          </CardContent>
-          <CardActions>
-            {focus._port && (
-              <Button color="secondary" onClick={this.reconnect}>
-                {i18n.t("welcome.reconnect")}
-              </Button>
-            )}
-            <Box sx={{ flexGrow: 1 }} />
-            <Button
-              color="primary"
-              variant="outlined"
-              onClick={async () => {
-                await navigate("/firmware-update");
-              }}
-            >
-              {i18n.t("welcome.gotoUpdate", {
-                buttonName: i18n.t("app.menu.firmwareUpdate"),
-              })}
+          )}
+        </CardContent>
+        <CardActions>
+          {focus._port && (
+            <Button color="secondary" onClick={reconnect}>
+              {i18n.t("welcome.reconnect")}
             </Button>
-          </CardActions>
-        </Card>
-      </Box>
-    );
-  }
-}
+          )}
+          <Box sx={{ flexGrow: 1 }} />
+          <Button
+            color="primary"
+            variant="outlined"
+            onClick={async () => {
+              await navigate("/firmware-update");
+            }}
+          >
+            {i18n.t("welcome.gotoUpdate", {
+              buttonName: i18n.t("app.menu.firmwareUpdate"),
+            })}
+          </Button>
+        </CardActions>
+      </Card>
+    </Box>
+  );
+};
 
 export default Welcome;

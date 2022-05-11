@@ -26,7 +26,6 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
-import withStyles from "@mui/styles/withStyles";
 
 import logo from "../../logo-small.png";
 import i18n from "../../i18n";
@@ -45,17 +44,6 @@ import ChangeLogMenuItem from "./ChangeLogMenuItem";
 import openURL from "../../utils/openURL";
 
 import { history } from "../../routerHistory";
-
-const styles = (theme) => ({
-  toolbarIcon: {
-    display: "flex",
-    justifyContent: "center",
-  },
-  link: {
-    textDecoration: "none",
-    color: theme.palette.text.primary,
-  },
-});
 
 function MainMenu({ open, closeMenu, classes, connected, pages }) {
   const drawerWidth = 350;
@@ -82,6 +70,11 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
       onClose={closeMenu}
       sx={{
         "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
+        "& a": { textDecoration: "none", color: "text.primary" },
+        "& ztoolbarIcon": {
+          display: "flex",
+          justifyContent: "center",
+        },
       }}
     >
       <div className={classes.toolbarIcon}>
@@ -188,4 +181,4 @@ function MainMenu({ open, closeMenu, classes, connected, pages }) {
   );
 }
 
-export default withStyles(styles)(MainMenu);
+export default MainMenu;

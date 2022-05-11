@@ -415,7 +415,9 @@ const Dark = {
       borderColor: Tokens.colors.gray600,
       percentageColor: Tokens.colors.gray25,
       progressBaseColor: Tokens.colors.gray600,
-      progressFill: Tokens.colors.brandSuccess
+      progressFill: Tokens.colors.brandSuccess,
+      colorWarning: Tokens.colors.brandWarningLighter,
+      colorError: Tokens.colors.brandDangerLighter
     },
     modal: {
       closeButton: closeButton,

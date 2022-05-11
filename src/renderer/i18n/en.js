@@ -190,6 +190,14 @@ const English = {
       macroTab: {
         callout: "<p>That's right! You can add macros inside macros! 🔥</p>",
         label: "Select macro"
+      },
+      memoryUsage: {
+        title: "Memory Usage",
+        errorTitle: "You exceeded the maximum capacity of actions in your macros.",
+        errordBody: "Please decrease the number of actions until the Memory Usage indicator is no longer red.",
+        alertTitle: "You are almost out of memory",
+        alertBody:
+          "Everything will still work perfectly but consider deleting macros you don't use to continue adding more actions to your macros."
       }
     },
     superkeys: {

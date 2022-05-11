@@ -18,9 +18,14 @@
 import React from "react";
 import Styled from "styled-components";
 import i18n from "../../i18n";
+import Spinner from "react-bootstrap/Spinner";
+import { toast } from "react-toastify";
 
 import Title from "../../component/Title";
 import DotsProgressBar from "./DotsProgressBar";
+
+import ToastMessage from "../../component/ToastMessage";
+import { IconFloppyDisk } from "../../component/Icon";
 
 const Styles = Styled.div`
 margin: 0 24px;
@@ -53,6 +58,22 @@ h4 {
 .progressFill {
   fill: ${({ theme }) => theme.styles.memoryUsage.progressFill};
 }
+&.memoryWarning {
+  h4 {
+    color: ${({ theme }) => theme.styles.memoryUsage.colorWarning};
+  }
+  .progressFill {
+    fill: ${({ theme }) => theme.styles.memoryUsage.colorWarning};
+  }
+}
+&.memoryError {
+  h4 {
+    color: ${({ theme }) => theme.styles.memoryUsage.colorError};
+  }
+  .progressFill {
+    fill: ${({ theme }) => theme.styles.memoryUsage.colorError};
+  }
+}
 `;
 
 const MacrosMemoryUsage = ({ mem }) => {
@@ -63,16 +84,40 @@ const MacrosMemoryUsage = ({ mem }) => {
     //setMemoryUsage(macros.map(m => m.actions).flat().length);
     setMemoryUsage(((mem / 2000) * 100).toFixed(1));
     setIsLoading(false);
+    if (mem > 1950 && mem < 1998) {
+      toast.warn(
+        <ToastMessage
+          title={i18n.editor.macros.memoryUsage.alertTitle}
+          content={i18n.editor.macros.memoryUsage.alertBody}
+          icon={<IconFloppyDisk />}
+        />
+      );
+    }
     if (mem > 1999) {
-      console.log(
-        "You exceeded the maximum capacity of actions in your macros. Please decrease the number of actions until the top right bar is no longer red"
+      toast.error(
+        <ToastMessage
+          title={i18n.editor.macros.memoryUsage.errorTitle}
+          content={i18n.editor.macros.memoryUsage.alertBody}
+          icon={<IconFloppyDisk />}
+        />,
+        {
+          position: "top-right",
+          autoClose: false,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        }
       );
     }
   }, [mem]);
   if (isLoading) return null;
   return (
-    <Styles>
-      <Title text="Memory Usage" headingLevel={4} />
+    <Styles
+      className={`${memoryUsage > 95 && memoryUsage < 98 ? "memoryWarning" : ""} ${memoryUsage > 99 ? "memoryError" : ""} `}
+    >
+      <Title text={i18n.editor.macros.memoryUsage.title} headingLevel={4} />
       <div className="progressIndicator">
         <div className="progressIndicatorBar">
           <DotsProgressBar progressWidth={memoryUsage} />

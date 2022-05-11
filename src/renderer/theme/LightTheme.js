@@ -411,7 +411,9 @@ const Light = {
       borderColor: Tokens.colors.gray50,
       percentageColor: Tokens.colors.gray500,
       progressBaseColor: Tokens.colors.gray100,
-      progressFill: Tokens.colors.brandSuccess
+      progressFill: Tokens.colors.brandSuccess,
+      colorWarning: Tokens.colors.brandWarning,
+      colorError: Tokens.colors.brandDanger
     },
     modal: {
       closeButton: closeButton,

@@ -48,16 +48,16 @@ const KeyboardSelect = (props) => {
           (device) => device.deviceDescriptor
         );
         devices.forEach((desc) => {
-          Hardware.nonSerial.forEach((device) => {
+          Hardware.nonSerial.forEach((port) => {
             if (
-              desc.idVendor == device.usb.vendorId &&
-              desc.idProduct == device.usb.productId
+              desc.idVendor == port.usb.vendorId &&
+              desc.idProduct == port.usb.productId
             ) {
               let found = false;
-              deviceList.forEach((sDevice) => {
+              deviceList.forEach((port) => {
                 if (
-                  sDevice.device.usb.vendorId == desc.idVendor &&
-                  sDevice.device.usb.productId == desc.idProduct
+                  port.focusDeviceDescriptor.usb.vendorId == desc.idVendor &&
+                  port.focusDeviceDescriptor.usb.productId == desc.idProduct
                 ) {
                   found = true;
                 }
@@ -65,7 +65,7 @@ const KeyboardSelect = (props) => {
               if (!found) {
                 deviceList.push({
                   accessible: true,
-                  device: device,
+                  port: port,
                 });
               }
             }
@@ -193,7 +193,7 @@ const KeyboardSelect = (props) => {
               px: 4,
             }}
           >
-            <DeviceImage device={selectedDevicePort?.device} />
+            <DeviceImage device={selectedDevicePort?.focusDeviceDescriptor} />
             <KeyboardPortSelector
               devices={devices}
               selectedPortIndex={selectedPortIndex}
@@ -212,7 +212,7 @@ const KeyboardSelect = (props) => {
               opening={opening}
               devices={devices}
               selectedDevicePort={selectedDevicePort}
-              focusDevice={focus.device}
+              focusDevice={focus.focusDeviceDescriptor}
               onKeyboardConnect={onKeyboardConnect}
               onKeyboardDisconnect={props.onDisconnect}
             />

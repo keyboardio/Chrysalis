@@ -64,7 +64,9 @@ const FirmwareUpdate = (props) => {
 
   const [firmwareFilename, setFirmwareFilename] = useState("");
   const [selected, setSelected] = useState("default");
-  const [device, setDevice] = useState(props.device || focus.device);
+  const [device, setDevice] = useState(
+    props.device || focus.focusDeviceDescriptor
+  );
   const [confirmationOpen, setConfirmationOpen] = useState(false);
   const [resetOnFlash, setResetOnFlash] = useState(false);
   const [activeStep, setActiveStep] = useState(-1);

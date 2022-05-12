@@ -32,7 +32,7 @@ import { arduino } from "./raiseFlasher/arduino-flasher";
  */
 export default class FlashRaise {
   constructor(device) {
-    this.device = device.device;
+    this.focusDeviceDescriptor = device.focusDeviceDescriptor;
     this.currentPort = null;
     this.backupFileName = null;
     this.backupFileData = {
@@ -70,7 +70,10 @@ export default class FlashRaise {
     let isFindDevice = false;
     await focus.find(...hardware).then((devices) => {
       for (const device of devices) {
-        if (this.device.info.keyboardType == device.device.info.keyboardType) {
+        if 
+          this.focusDeviceDescriptor.info.keyboardType ==
+          device.focusDeviceDescriptor.info.keyboardType
+        ) {
           this.backupFileData.log.push(message);
           this.currentPort = { ...device };
           isFindDevice = true;
@@ -196,7 +199,7 @@ export default class FlashRaise {
     this.backupFileData.firmwareFile = filename;
     return new Promise(async (resolve, reject) => {
       try {
-        await focus.open(this.currentPort.path, this.currentPort.device);
+        await focus.open(this.currentPort.path, this.currentPort.focusDeviceDescriptor);
         await arduino.flash(filename, async (err, result) => {
           if (err) throw new Error(`Flash error ${result}`);
           else {
@@ -274,7 +277,7 @@ export default class FlashRaise {
       "Firmware update failed, because the settings could not be restore";
     return new Promise(async (resolve, reject) => {
       try {
-        await focus.open(this.currentPort.path, this.currentPort.device.info);
+        await focus.open(this.currentPort.path, this.currentPort.focusDeviceDescriptor.info);
         await focus
           .probe()
           .then(async () => {

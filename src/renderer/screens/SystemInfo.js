@@ -91,9 +91,9 @@ function SystemInfo(props) {
       logs: logger.messages(),
     };
 
-    if (focus.device) {
+    if (focus.focusDeviceDescriptor) {
       sysInfo.device = {
-        info: focus.device.info,
+        info: focus.focusDeviceDescriptor.info,
         path: focus._port.path,
         commands: await focus.command("help"),
         keymap: await focus.command("keymap"),

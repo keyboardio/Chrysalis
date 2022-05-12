@@ -150,7 +150,7 @@ class LibraryImportBase extends React.Component {
 
   loadFromLibrary = (layoutName) => {
     const focus = new Focus();
-    const { vendor, product } = focus.device.info;
+    const { vendor, product } = focus.focusDeviceDescriptor.info;
     const cVendor = vendor.replace("/", "");
     const cProduct = product.replace("/", "");
     const layoutPath = (layout) =>
@@ -280,7 +280,7 @@ class LayoutSharingBase extends React.Component {
 
     const focus = new Focus();
 
-    const { vendor, product } = focus.device.info;
+    const { vendor, product } = focus.focusDeviceDescriptor.info;
     const cVendor = vendor.replace("/", "");
     const cProduct = product.replace("/", "");
     const layoutDirPath = path.join(
@@ -354,7 +354,7 @@ class LayoutSharingBase extends React.Component {
     const { layout, layoutName, library } = this.state;
 
     const focus = new Focus();
-    const Keymap = focus.device.components.keymap;
+    const Keymap = focus.focusDeviceDescriptor.components.keymap;
     const previewLayout = layout.keymaps ? layout.keymaps[0] : keymap.custom[0];
     const palette = layout.palette || colormap.palette;
     const previewColormap = layout.colormaps

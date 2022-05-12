@@ -88,13 +88,16 @@ const App = (props) => {
   setDarkMode(settings.get("ui.darkMode"));
 
   const handleDeviceDisconnect = async (sender, vid, pid) => {
-    if (!focus.device) return;
+    if (!focus.focusDeviceDescriptor) return;
     if (flashing) return;
 
-    if (focus.device.usb.vendorId != vid || focus.device.usb.productId != pid) {
+    if (
+      focus.focusDeviceDescriptor.usb.vendorId != vid ||
+      focus.focusDeviceDescriptor.usb.productId != pid
+    ) {
       return;
     }
-    // Must await this to stop re-render of components reliant on `focus.device`
+    // Must await this to stop re-render of components reliant on `focus.focusDeviceDescriptor`
     // However, it only renders a blank screen. New route is rendered below.
     await navigate("./");
 
@@ -137,23 +140,23 @@ const App = (props) => {
 
   const onKeyboardConnect = async (port) => {
     focus.close();
-
+    console.log(port);
     if (!port.path) {
       setConnected(true);
       setPages({});
-      setDevice(port.device);
-      i18n.refreshHardware(port.device);
+      setDevice(port.focusDeviceDescriptor);
+      i18n.refreshHardware(port.focusDeviceDescriptor);
 
       await navigate("/focus-not-detected");
       return [];
     }
 
     logger.log("Connecting to", port.path);
-    await focus.open(port.path, port.device);
+    await focus.open(port.path, port.focusDeviceDescriptor);
 
     let commands = [];
     let pages = [];
-    if (!port.device.bootloader) {
+    if (!port.focusDeviceDescriptor.bootloader) {
       logger.log("Probing for Focus support...");
       try {
         commands = await focus.probe();
@@ -161,7 +164,7 @@ const App = (props) => {
         commands = [];
       }
 
-      focus.setLayerSize(focus.device);
+      focus.setLayerSize(focus.focusDeviceDescriptor);
       pages = {
         keymap:
           commands.includes("keymap.custom") > 0 ||
@@ -204,7 +207,7 @@ const App = (props) => {
     },
   });
 
-  const deviceInfo = focus?.device?.info || device?.info;
+  const deviceInfo = focus?.focusDeviceDescriptor?.info || device?.info;
 
   return (
     <StyledEngineProvider injectFirst>

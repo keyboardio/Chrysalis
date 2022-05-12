@@ -19,9 +19,9 @@ import Box from "@mui/material/Box";
 import React from "react";
 
 export const DeviceImage = (props) => {
-  const device = props.device;
-  if (device?.components) {
-    const Keymap = device.components?.keymap;
+  const focusDeviceDescriptor = props.focusDeviceDescriptor;
+  if (focusDeviceDescriptor?.components) {
+    const Keymap = focusDeviceDescriptor.components?.keymap;
     return (
       <Box
         sx={{

@@ -117,7 +117,7 @@ const KeyboardSelect = (props) => {
   useEffect(() => {
     const interval = setInterval(() => {
       scanDevices();
-    }, 1000);
+    }, 5000);
     return function cleanup() {
       clearInterval(interval);
     };

@@ -210,10 +210,18 @@ const KeyboardSelect = (props) => {
 
             <Box sx={{ flexGrow: 1 }} />
             <ConnectionButton
+              disabled={
+                (selectedDevicePort ? !selectedDevicePort.accessible : false) ||
+                opening ||
+                devices?.length == 0
+              }
+              connected={
+                focus.focusDeviceDescriptor &&
+                selectedDevicePort?.focusDeviceDescriptor ==
+                  focus.focusDeviceDescriptor
+              }
               opening={opening}
               devices={devices}
-              selectedDevicePort={selectedDevicePort}
-              focusDevice={focus.focusDeviceDescriptor}
               onKeyboardConnect={onKeyboardConnect}
               onKeyboardDisconnect={props.onDisconnect}
             />

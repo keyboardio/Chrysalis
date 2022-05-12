@@ -171,7 +171,6 @@ const KeyboardSelect = (props) => {
         )}
         <LinuxPermissionsWarning
           deviceInaccessible={selectedDevicePort?.accessible == false}
-          platform={process.platform}
           selectedDevicePort={selectedDevicePort}
           scanDevices={scanDevices}
         />

@@ -192,7 +192,9 @@ const KeyboardSelect = (props) => {
               px: 4,
             }}
           >
-            <DeviceImage device={selectedDevicePort?.focusDeviceDescriptor} />
+            <DeviceImage
+              focusDeviceDescriptor={selectedDevicePort?.focusDeviceDescriptor}
+            />
             <KeyboardPortSelector
               devices={devices}
               selectedPortIndex={selectedPortIndex}

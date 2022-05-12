@@ -187,33 +187,34 @@ class KeyMacro extends Component {
                               {item.symbol} {item.action == 2 ? <small>ms</small> : ""}
                             </p>
                           </div>
-                          {item.action != 2 ? (
-                            <div className="keyFunctions">
-                              <Title headingLevel={5} text="Edit function" />
-                              <div className="keyFunctionsButtons">
-                                <ButtonConfig
-                                  buttonText={"Press"}
-                                  icoPosition="left"
-                                  icoSVG={<IconPressSm />}
-                                  selected={actionTypes[item.action].name == "Key Press" ? true : false}
-                                />
-                                <ButtonConfig
-                                  buttonText={"Release"}
-                                  icoPosition="left"
-                                  icoSVG={<IconReleaseSm />}
-                                  selected={actionTypes[item.action].name == "Key Release" ? true : false}
-                                />
-                                <ButtonConfig
-                                  buttonText={"Press & Release"}
-                                  icoPosition="left"
-                                  icoSVG={<IconPressAndReleaseSm />}
-                                  selected={actionTypes[item.action].name == "Key Press & Rel." ? true : false}
-                                />
-                              </div>
+
+                          <div className="keyFunctions">
+                            <Title headingLevel={5} text="Edit function" />
+                            <div className="keyFunctionsButtons">
+                              <ButtonConfig
+                                buttonText={"Press"}
+                                icoPosition="left"
+                                icoSVG={<IconPressSm />}
+                                selected={actionTypes[item.action].name == "Key Press" ? true : false}
+                                disabled={item.action == 2 ? true : false}
+                              />
+                              <ButtonConfig
+                                buttonText={"Release"}
+                                icoPosition="left"
+                                icoSVG={<IconReleaseSm />}
+                                selected={actionTypes[item.action].name == "Key Release" ? true : false}
+                                disabled={item.action == 2 ? true : false}
+                              />
+                              <ButtonConfig
+                                buttonText={"Press & Release"}
+                                icoPosition="left"
+                                icoSVG={<IconPressAndReleaseSm />}
+                                selected={actionTypes[item.action].name == "Key Press & Rel." ? true : false}
+                                disabled={item.action == 2 ? true : false}
+                              />
                             </div>
-                          ) : (
-                            ""
-                          )}
+                          </div>
+
                           <div className="keyModifiers">
                             <Title headingLevel={4} text="Add modifier" />
                             <div className="keyModifiersButtons">

@@ -25,7 +25,6 @@ import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import Focus from "../../api/focus";
 import Hardware from "../../api/hardware";
-import Log from "../../api/log";
 import i18n from "../i18n";
 import { ConnectionButton } from "./KeyboardSelect/ConnectionButton";
 import { LinuxPermissionsWarning } from "./KeyboardSelect/LinuxPermissionsWarning";

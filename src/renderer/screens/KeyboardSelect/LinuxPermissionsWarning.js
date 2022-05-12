@@ -24,10 +24,10 @@ import i18n from "../../i18n";
 import { installUdevRules } from "../../utils/installUdevRules";
 
 export const LinuxPermissionsWarning = (props) => {
-  const platform = props.platform;
   const deviceInaccessible = props.deviceInacessible;
   const selectedDevicePort = props.selectedDevicePort;
   const scanDevices = props.scanDevices;
+  const platform = process.platform;
 
   const doInstallUdevRules = async () => {
     try {

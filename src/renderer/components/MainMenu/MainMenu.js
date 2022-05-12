@@ -52,6 +52,11 @@ function MainMenu({ open, closeMenu, classes }) {
   const currentPage = history.location.pathname;
   const globalContext = useContext(GlobalContext);
 
+  const [connected, setConnected] = globalContext.state.connected;
+  const [device, setDevice] = globalContext.state.device;
+  const [pages, setPages] = globalContext.state.pages;
+  const [darkMode, setDarkMode] = globalContext.state.darkMode;
+
   const setCurrentPage = (page) => {
     history.navigate(page);
     closeMenu();
@@ -62,8 +67,8 @@ function MainMenu({ open, closeMenu, classes }) {
     closeMenu();
   };
 
-  const homePage = globalContext.state.connected
-    ? globalContext.state.pages.keymap
+  const homePage = connected
+    ? pages.keymap
       ? "/editor"
       : "/focus-not-detected"
     : "/keyboard-select";
@@ -100,7 +105,7 @@ function MainMenu({ open, closeMenu, classes }) {
           <img src={logo} alt={i18n.t("components.logo.altText")} />
         </IconButton>
       </div>
-      {globalContext.state.connected && (
+      {connected && (
         <List
           subheader={
             <ListSubheader disableSticky>
@@ -108,17 +113,17 @@ function MainMenu({ open, closeMenu, classes }) {
             </ListSubheader>
           }
         >
-          {!globalContext.state.pages.keymap &&
-            !globalContext.state.pages.colormap &&
+          {!pages.keymap &&
+            !pages.colormap &&
             listItem(
               <InfoIcon />,
               i18n.t("app.menu.focus-not-detected"),
               "/focus-not-detected"
             )}
-          {globalContext.state.pages.keymap &&
+          {pages.keymap &&
             listItem(
               <KeyboardIcon />,
-              globalContext.state.pages.colormap
+              pages.colormap
                 ? i18n.t("app.menu.editor")
                 : i18n.t("app.menu.layoutEditor"),
 
@@ -131,7 +136,7 @@ function MainMenu({ open, closeMenu, classes }) {
           )}
         </List>
       )}
-      {globalContext.state.connected && <Divider />}
+      {connected && <Divider />}
       <List
         subheader={
           <ListSubheader disableSticky>
@@ -141,7 +146,7 @@ function MainMenu({ open, closeMenu, classes }) {
       >
         {listItem(
           <KeyboardIcon />,
-          globalContext.state.connected
+          connected
             ? i18n.t("app.menu.selectAnotherKeyboard")
             : i18n.t("app.menu.selectAKeyboard"),
           "/keyboard-select"

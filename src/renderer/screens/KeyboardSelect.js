@@ -147,8 +147,6 @@ const KeyboardSelect = (props) => {
       setOpening(false);
       toast.error(err.toString());
     }
-
-    i18n.refreshHardware(selectedDevice);
   };
 
   let focus = new Focus();

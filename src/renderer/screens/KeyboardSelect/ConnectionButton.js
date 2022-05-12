@@ -23,11 +23,11 @@ import i18n from "../../i18n";
 export const ConnectionButton = (props) => {
   const opening = props.opening;
   const devices = props.devices;
-  const selectedDevice = props.selectedDevice;
+  const selectedDevicePort = props.selectedDevicePort;
   const focusDevice = props.focusDevice;
   const onKeyboardConnect = props.onKeyboardConnect;
   const onKeyboardDisconnect = props.onKeyboardDisconnect;
-  if (focusDevice && selectedDevice?.device == focusDevice) {
+  if (focusDevice && selectedDevicePort?.device == focusDevice) {
     return (
       <Button
         disabled={opening || devices?.length == 0}
@@ -42,7 +42,7 @@ export const ConnectionButton = (props) => {
     return (
       <Button
         disabled={
-          (selectedDevice ? !selectedDevice.accessible : false) ||
+          (selectedDevicePort ? !selectedDevicePort.accessible : false) ||
           opening ||
           devices?.length == 0
         }

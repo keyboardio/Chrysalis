@@ -139,10 +139,10 @@ const KeyboardSelect = (props) => {
 
   const onKeyboardConnect = async () => {
     setOpening(true);
-    const selectedDevice = devices?.[selectedPortIndex];
+    const selectedDevicePort = devices?.[selectedPortIndex];
 
     try {
-      await props.onConnect(selectedDevice);
+      await props.onConnect(selectedDevicePort);
     } catch (err) {
       setOpening(false);
       toast.error(err.toString());
@@ -151,7 +151,7 @@ const KeyboardSelect = (props) => {
 
   let focus = new Focus();
 
-  const selectedDevice = devices?.[selectedPortIndex];
+  const selectedDevicePort = devices?.[selectedPortIndex];
 
   return (
     <React.Fragment>
@@ -170,9 +170,9 @@ const KeyboardSelect = (props) => {
           />
         )}
         <LinuxPermissionsWarning
-          deviceInaccessible={selectedDevice?.accessible == false}
+          deviceInaccessible={selectedDevicePort?.accessible == false}
           platform={process.platform}
-          selectedDevice={selectedDevice}
+          selectedDevicePort={selectedDevicePort}
           scanDevices={scanDevices}
         />
         <Card
@@ -193,7 +193,7 @@ const KeyboardSelect = (props) => {
               px: 4,
             }}
           >
-            <DeviceImage device={devices?.[selectedPortIndex]?.device} />
+            <DeviceImage device={selectedDevicePort?.device} />
             <KeyboardPortSelector
               devices={devices}
               selectedPortIndex={selectedPortIndex}
@@ -211,7 +211,7 @@ const KeyboardSelect = (props) => {
             <ConnectionButton
               opening={opening}
               devices={devices}
-              selectedDevice={selectedDevice}
+              selectedDevicePort={selectedDevicePort}
               focusDevice={focus.device}
               onKeyboardConnect={onKeyboardConnect}
               onKeyboardDisconnect={props.onDisconnect}

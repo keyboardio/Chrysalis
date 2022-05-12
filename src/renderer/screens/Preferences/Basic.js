@@ -16,6 +16,8 @@
  */
 
 import React, { useState } from "react";
+import { GlobalContext } from "../../components/GlobalContext";
+
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import FilledInput from "@mui/material/FilledInput";
@@ -33,12 +35,12 @@ const settings = new Store();
 
 function BasicPreferences(props) {
   const [language, setLanguage] = useState(i18n.language);
-  const [darkMode, setDarkMode] = useState(settings.get("ui.darkMode"));
 
-  const darkmode_toggle_channel = new BroadcastChannel("ui.darkMode");
+  const globalContext = React.useContext(GlobalContext);
+
+  const [darkMode, setDarkMode] = globalContext.state.darkMode;
 
   const toggleDarkMode = async () => {
-    darkmode_toggle_channel.postMessage(!darkMode);
     settings.set("ui.darkMode", !darkMode);
     setDarkMode(!darkMode);
   };

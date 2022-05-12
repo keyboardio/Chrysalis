@@ -74,6 +74,11 @@ function Preferences(props) {
   const [value, setValue] = React.useState(0);
   const globalContext = useContext(GlobalContext);
 
+  const [connected, setConnected] = globalContext.state.connected;
+  const [device, setDevice] = globalContext.state.device;
+  const [pages, setPages] = globalContext.state.pages;
+  const [darkMode, setDarkMode] = globalContext.state.darkMode;
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -107,12 +112,12 @@ function Preferences(props) {
         <Tab
           label={i18n.t("keyboardSettings.title")}
           {...a11yProps(1)}
-          disabled={!globalContext.state.connected}
+          disabled={!connected}
         />
         <Tab
           label={i18n.t("keyboardSettings.advanced")}
           {...a11yProps(2)}
-          disabled={!globalContext.state.connected}
+          disabled={!connected}
         />
         <Tab label={i18n.t("preferences.devtools")} {...a11yProps(3)} />
       </Tabs>

@@ -74,17 +74,19 @@ if (settingsLanguage) i18n.changeLanguage(settingsLanguage);
 const App = (props) => {
   const logger = new Log();
 
-  const [darkMode, setDarkMode] = useState(settings.get("ui.darkMode"));
-
-  const [device, setDevice] = useState(null);
-
   localStorage.clear();
 
   let flashing = false;
   let focus = new Focus();
-  const deviceInfo = focus?.device?.info || device?.info;
 
   const globalContext = useContext(GlobalContext);
+
+  const [connected, setConnected] = globalContext.state.connected;
+  const [device, setDevice] = globalContext.state.device;
+  const [pages, setPages] = globalContext.state.pages;
+  const [darkMode, setDarkMode] = globalContext.state.darkMode;
+
+  setDarkMode(settings.get("ui.darkMode"));
 
   const handleDeviceDisconnect = async (sender, vid, pid) => {
     if (!focus.device) return;
@@ -103,9 +105,9 @@ const App = (props) => {
 
     await focus.close();
     hideContextBar();
-    globalContext.state.connected = false;
+    setConnected(false);
     setDevice(null);
-    globalContext.state.pages = {};
+    setPages({});
 
     // Second call to `navigate` will actually render the proper route
     await navigate("/keyboard-select");
@@ -123,22 +125,12 @@ const App = (props) => {
     };
   });
 
-  useEffect(() => {
-    const darkmode_toggle_channel = new BroadcastChannel("ui.darkMode");
-    darkmode_toggle_channel.onmessage = (event) => {
-      setDarkMode(event.data);
-    };
-    return function cleanup() {
-      darkmode_toggle_channel.close();
-    };
-  });
-
   const toggleFlashing = async () => {
     flashing = !flashing;
     if (!flashing) {
-      globalContext.state.connected = false;
+      setConnected(false);
       setDevice(null);
-      globalContext.state.pages = {};
+      setPages({});
 
       await navigate("/keyboard-select");
     }
@@ -148,8 +140,8 @@ const App = (props) => {
     focus.close();
 
     if (!port.path) {
-      globalContext.state.connected = true;
-      globalContext.state.pages = {};
+      setConnected(true);
+      setPages({});
       setDevice(port.device);
       i18n.refreshHardware(port.device);
 
@@ -181,9 +173,9 @@ const App = (props) => {
       };
     }
 
-    globalContext.state.connected = true;
+    setConnected(true);
     setDevice(null);
-    globalContext.state.pages = pages;
+    setPages(pages);
 
     await navigate(
       pages.keymap || pages.colormap ? "/editor" : "/focus-not-detected"
@@ -193,9 +185,9 @@ const App = (props) => {
 
   const onKeyboardDisconnect = async () => {
     focus.close();
-    globalContext.state.connected = false;
+    setConnected(false);
     setDevice(null);
-    globalContext.state.pages = {};
+    setPages({});
 
     localStorage.clear();
     await navigate("/keyboard-select");
@@ -212,6 +204,8 @@ const App = (props) => {
       },
     },
   });
+
+  const deviceInfo = focus?.device?.info || device?.info;
 
   return (
     <StyledEngineProvider injectFirst>

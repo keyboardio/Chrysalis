@@ -350,7 +350,7 @@ class Editor extends React.Component {
 
     const layerData = keymap.custom && keymap.custom[currentLayer];
     const focus = new Focus();
-    const KeymapSVG = focus.device.components.keymap;
+    const KeymapSVG = focus.focusDeviceDescriptor.components.keymap;
     const keymapWidget = (
       <div>
         <KeymapSVG

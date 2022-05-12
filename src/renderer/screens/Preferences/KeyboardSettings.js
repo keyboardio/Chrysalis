@@ -292,14 +292,16 @@ class AdvancedKeyboardSettings extends React.Component {
 
   componentDidMount() {
     const focus = new Focus();
-    checkExternalFlasher(focus.device).then(async (available) => {
-      this.setState({
-        externalFlasherAvailable: available,
-        preferExternalFlasher: await settings.get(
-          "flash.preferExternalFlasher"
-        ),
-      });
-    });
+    checkExternalFlasher(focus.focusDeviceDescriptor).then(
+      async (available) => {
+        this.setState({
+          externalFlasherAvailable: available,
+          preferExternalFlasher: await settings.get(
+            "flash.preferExternalFlasher"
+          ),
+        });
+      }
+    );
   }
 
   render() {

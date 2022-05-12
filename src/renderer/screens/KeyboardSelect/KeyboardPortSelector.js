@@ -33,10 +33,10 @@ export const KeyboardPortSelector = (props) => {
   if (devices?.length > 0) {
     deviceItems = devices.map((option, index) => {
       let label = option.path;
-      if (option.device?.info) {
+      if (option.focusDeviceDescriptor?.info) {
         label = (
           <ListItemText
-            primary={option.device.info.displayName}
+            primary={option.focusDeviceDescriptor.info.displayName}
             secondary={option.path || i18n.t("keyboardSelect.unknown")}
           />
         );

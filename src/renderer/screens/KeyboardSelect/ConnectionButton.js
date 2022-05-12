@@ -27,7 +27,7 @@ export const ConnectionButton = (props) => {
   const focusDevice = props.focusDevice;
   const onKeyboardConnect = props.onKeyboardConnect;
   const onKeyboardDisconnect = props.onKeyboardDisconnect;
-  if (focusDevice && selectedDevicePort?.device == focusDevice) {
+  if (focusDevice && selectedDevicePort?.focusDeviceDescriptor == focusDevice) {
     return (
       <Button
         disabled={opening || devices?.length == 0}

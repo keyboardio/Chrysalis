@@ -150,6 +150,7 @@ const App = (props) => {
       globalContext.state.connected = true;
       globalContext.state.pages = {};
       setDevice(port.device);
+      i18n.refreshHardware(port.device);
 
       await navigate("/focus-not-detected");
       return [];

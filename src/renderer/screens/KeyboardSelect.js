@@ -139,15 +139,16 @@ const KeyboardSelect = (props) => {
 
   const onKeyboardConnect = async () => {
     setOpening(true);
+    const selectedDevice = devices?.[selectedPortIndex];
 
     try {
-      await props.onConnect(devices[selectedPortIndex]);
+      await props.onConnect(selectedDevice);
     } catch (err) {
       setOpening(false);
       toast.error(err.toString());
     }
 
-    i18n.refreshHardware(devices[selectedPortIndex]);
+    i18n.refreshHardware(selectedDevice);
   };
 
   let focus = new Focus();

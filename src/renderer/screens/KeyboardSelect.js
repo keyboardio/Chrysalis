@@ -21,8 +21,7 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import LinearProgress from "@mui/material/LinearProgress";
-import Portal from "@mui/material/Portal";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import Focus from "../../api/focus";
 import Hardware from "../../api/hardware";
@@ -34,18 +33,15 @@ import { ScanDevicesButton } from "./KeyboardSelect/ScanDevicesButton";
 import { KeyboardPortSelector } from "./KeyboardSelect/KeyboardPortSelector";
 import { DeviceImage } from "./KeyboardSelect/DeviceImage";
 const { ipcRenderer } = require("electron");
-import { useContext } from "react";
 
-class KeyboardSelect extends React.Component {
-  state = {
-    selectedPortIndex: 0,
-    opening: false,
-    devices: null,
-    loading: false,
-  };
+const KeyboardSelect = (props) => {
+  const [selectedPortIndex, setSelectedPortIndex] = useState(0);
+  const [scanFoundDevices, setScanFoundDevices] = useState(undefined);
+  const [opening, setOpening] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [devices, setDevices] = useState(null);
 
-  findNonSerialKeyboards = async (deviceList) => {
-    const logger = new Log();
+  const findNonSerialKeyboards = async (deviceList) => {
     return ipcRenderer
       .invoke("usb-scan-for-devices")
       .then((devicesConnected) => {
@@ -81,8 +77,8 @@ class KeyboardSelect extends React.Component {
       });
   };
 
-  findKeyboards = async () => {
-    this.setState({ loading: true });
+  const findKeyboards = async () => {
+    setLoading(true);
     let focus = new Focus();
 
     return new Promise((resolve) => {
@@ -98,156 +94,135 @@ class KeyboardSelect extends React.Component {
               supported_devices.push(device);
             }
           }
-          const list = await this.findNonSerialKeyboards(supported_devices);
-          this.setState({
-            loading: false,
-            devices: list,
-          });
+          const list = await findNonSerialKeyboards(supported_devices);
+          setLoading(false);
+          setDevices(list);
           resolve(list.length > 0);
         })
         .catch(async (e) => {
           console.error(e);
-          const list = await this.findNonSerialKeyboards([]);
-          this.setState({
-            loading: false,
-            devices: list,
-          });
+          const list = await findNonSerialKeyboards([]);
+          setLoading(false);
+          setDevices(list);
           resolve(list.length > 0);
         });
     });
   };
 
-  scanDevices = async () => {
-    let found = await this.findKeyboards();
-    this.setState({ scanFoundDevices: found });
-    setTimeout(() => {
-      this.setState({ scanFoundDevices: undefined });
+  const scanDevices = async () => {
+    let found = await findKeyboards();
+    setScanFoundDevices(found);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      scanDevices();
     }, 1000);
+    return function cleanup() {
+      clearInterval(interval);
+    };
+  });
+
+  useEffect(() => {
+    ipcRenderer.on("usb-device-connected", scanDevices);
+    ipcRenderer.on("usb-device-disconnected", scanDevices);
+
+    // Specify how to clean up after this effect:
+    return function cleanup() {
+      ipcRenderer.removeListener("usb-device-connected", scanDevices);
+      ipcRenderer.removeListener("usb-device-disconnected", scanDevices);
+    };
+  });
+
+  const selectPort = (event) => {
+    setSelectedPortIndex(event.target.value);
   };
 
-  componentDidMount() {
-    ipcRenderer.on("usb-device-connected", this.scanDevices);
-    ipcRenderer.on("usb-device-disconnected", this.scanDevices);
-
-    this.findKeyboards().then(() => {
-      let focus = new Focus();
-      if (!focus._port) return;
-      for (let device of this.state.devices) {
-        if (!device.path) continue;
-
-        if (device.path == focus._port.path) {
-          this.setState((state) => ({
-            selectedPortIndex: state.devices.indexOf(device),
-          }));
-          break;
-        }
-      }
-    });
-  }
-
-  componentWillUnmount() {
-    ipcRenderer.removeListener("usb-device-connected", this.scanDevices);
-    ipcRenderer.removeListener("usb-device-disconnected", this.scanDevices);
-  }
-
-  selectPort = (event) => {
-    this.setState({ selectedPortIndex: event.target.value });
-  };
-
-  onKeyboardConnect = async () => {
-    this.setState({ opening: true });
-
-    const { devices } = this.state;
+  const onKeyboardConnect = async () => {
+    setOpening(true);
 
     try {
-      await this.props.onConnect(devices[this.state.selectedPortIndex]);
+      await props.onConnect(devices[selectedPortIndex]);
     } catch (err) {
-      this.setState({
-        opening: false,
-      });
+      setOpening(false);
       toast.error(err.toString());
     }
 
-    i18n.refreshHardware(devices[this.state.selectedPortIndex]);
+    i18n.refreshHardware(devices[selectedPortIndex]);
   };
 
-  render() {
-    const { scanFoundDevices, devices } = this.state;
+  let focus = new Focus();
 
-    let focus = new Focus();
-    const selectedDevice = devices?.[this.state.selectedPortIndex];
+  const selectedDevice = devices?.[selectedPortIndex];
 
-    return (
-      <React.Fragment>
-        {" "}
-        <Box sx={{ paddingBottom: 3 }}>
-          <PageTitle title={i18n.t("app.menu.selectAKeyboard")} />
-          {this.state.loading && (
-            <LinearProgress
-              variant="query"
-              sx={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                right: 0,
-              }}
-            />
-          )}
-          <LinuxPermissionsWarning
-            deviceInaccessible={selectedDevice?.accessible == false}
-            platform={process.platform}
-            selectedDevice={selectedDevice}
-            scanDevices={this.scanDevices}
-          />
-          <Card
+  return (
+    <React.Fragment>
+      {" "}
+      <Box sx={{ paddingBottom: 3 }}>
+        <PageTitle title={i18n.t("app.menu.selectAKeyboard")} />
+        {loading && (
+          <LinearProgress
+            variant="query"
             sx={{
-              boxShadow: 3,
-              width: "auto",
-              display: "block",
-              marginLeft: "auto",
-              marginRight: "auto",
-              maxWidth: "70%",
-              marginTop: 5,
-              padding: "2 3 3",
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+            }}
+          />
+        )}
+        <LinuxPermissionsWarning
+          deviceInaccessible={selectedDevice?.accessible == false}
+          platform={process.platform}
+          selectedDevice={selectedDevice}
+          scanDevices={scanDevices}
+        />
+        <Card
+          sx={{
+            boxShadow: 3,
+            width: "auto",
+            display: "block",
+            marginLeft: "auto",
+            marginRight: "auto",
+            maxWidth: "70%",
+            marginTop: 5,
+            padding: "2 3 3",
+          }}
+        >
+          <CardContent
+            sx={{
+              width: "100%",
+              px: 4,
             }}
           >
-            <CardContent
-              sx={{
-                width: "100%",
-                px: 4,
-              }}
-            >
-              <DeviceImage
-                device={devices?.[this.state.selectedPortIndex]?.device}
-              />
-              <KeyboardPortSelector
-                devices={devices}
-                selectedPortIndex={this.state.selectedPortIndex}
-                selectPort={this.selectPort}
-              />
-            </CardContent>
-            <CardActions sx={{ justifyContent: "center", px: 4, pt: 2, pb: 3 }}>
-              <ScanDevicesButton
-                scanFoundDevices={scanFoundDevices}
-                scanDevices={this.scanDevices}
-                devices={devices}
-              />
+            <DeviceImage device={devices?.[selectedPortIndex]?.device} />
+            <KeyboardPortSelector
+              devices={devices}
+              selectedPortIndex={selectedPortIndex}
+              selectPort={selectPort}
+            />
+          </CardContent>
+          <CardActions sx={{ justifyContent: "center", px: 4, pt: 2, pb: 3 }}>
+            <ScanDevicesButton
+              scanFoundDevices={scanFoundDevices}
+              scanDevices={scanDevices}
+              devices={devices}
+            />
 
-              <Box sx={{ flexGrow: 1 }} />
-              <ConnectionButton
-                opening={this.state.opening}
-                devices={this.state.devices}
-                selectedDevice={selectedDevice}
-                focusDevice={focus.device}
-                onKeyboardConnect={this.onKeyboardConnect}
-                onKeyboardDisconnect={this.props.onDisconnect}
-              />
-            </CardActions>
-          </Card>
-        </Box>
-      </React.Fragment>
-    );
-  }
-}
+            <Box sx={{ flexGrow: 1 }} />
+            <ConnectionButton
+              opening={opening}
+              devices={devices}
+              selectedDevice={selectedDevice}
+              focusDevice={focus.device}
+              onKeyboardConnect={onKeyboardConnect}
+              onKeyboardDisconnect={props.onDisconnect}
+            />
+          </CardActions>
+        </Card>
+      </Box>
+    </React.Fragment>
+  );
+};
 
 export default KeyboardSelect;

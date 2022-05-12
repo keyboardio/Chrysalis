@@ -26,12 +26,12 @@ import { installUdevRules } from "../../utils/installUdevRules";
 export const LinuxPermissionsWarning = (props) => {
   const platform = props.platform;
   const deviceInaccessible = props.deviceInacessible;
-  const selectedDevice = props.selectedDevice;
+  const selectedDevicePort = props.selectedDevicePort;
   const scanDevices = props.scanDevices;
 
   const doInstallUdevRules = async () => {
     try {
-      await installUdevRules(selectedDevice.path);
+      await installUdevRules(selectedDevicePort.path);
     } catch (err) {
       toast.error(err.toString());
       return;
@@ -50,7 +50,7 @@ export const LinuxPermissionsWarning = (props) => {
       <Alert severity="error" action={fixitButton}>
         <Typography component="p" gutterBottom>
           {i18n.t("keyboardSelect.permissionError", {
-            path: selectedDevice.path,
+            path: selectedDevicePort.path,
           })}
         </Typography>
         <Typography component="p">

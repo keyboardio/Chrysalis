@@ -82,7 +82,8 @@ const App = (props) => {
   const globalContext = useContext(GlobalContext);
 
   const [connected, setConnected] = globalContext.state.connected;
-  const [device, setDevice] = globalContext.state.device;
+  const [focusDeviceDescriptor, setFocusDeviceDescriptor] =
+    globalContext.state.focusDeviceDescriptor;
   const [darkMode, setDarkMode] = globalContext.state.darkMode;
   const [activeDevice, setActiveDevice] = globalContext.state.activeDevice;
 
@@ -109,7 +110,7 @@ const App = (props) => {
     await focus.close();
     hideContextBar();
     setConnected(false);
-    setDevice(null);
+    setFocusDeviceDescriptor(null);
     setActiveDevice(null);
 
     // Second call to `navigate` will actually render the proper route
@@ -132,7 +133,7 @@ const App = (props) => {
     flashing = !flashing;
     if (!flashing) {
       setConnected(false);
-      setDevice(null);
+      setFocusDeviceDescriptor(null);
 
       await navigate("/keyboard-select");
     }
@@ -143,7 +144,7 @@ const App = (props) => {
     console.log(port);
     if (!port.path) {
       setConnected(true);
-      setDevice(port.focusDeviceDescriptor);
+      setFocusDeviceDescriptor(port.focusDeviceDescriptor);
       i18n.refreshHardware(port.focusDeviceDescriptor);
 
       await navigate("/focus-not-detected");
@@ -164,7 +165,7 @@ const App = (props) => {
     }
 
     setConnected(true);
-    setDevice(null);
+    setFocusDeviceDescriptor(null);
 
     await navigate(
       newActiveDevice.focusDetected() ? "/editor" : "/focus-not-detected"
@@ -175,7 +176,7 @@ const App = (props) => {
   const onKeyboardDisconnect = async () => {
     focus.close();
     setConnected(false);
-    setDevice(null);
+    setFocusDeviceDescriptor(null);
     setActiveDevice(null);
 
     localStorage.clear();
@@ -194,7 +195,8 @@ const App = (props) => {
     },
   });
 
-  const deviceInfo = focus?.focusDeviceDescriptor?.info || device?.info;
+  const deviceInfo =
+    focus?.focusDeviceDescriptor?.info || focusDeviceDescriptor?.info;
 
   return (
     <StyledEngineProvider injectFirst>
@@ -207,7 +209,7 @@ const App = (props) => {
               <Router>
                 <FocusNotDetected
                   path="/focus-not-detected"
-                  device={device}
+                  focusDeviceDescriptor={focusDeviceDescriptor}
                   onConnect={onKeyboardConnect}
                 />
                 <KeyboardSelect
@@ -218,7 +220,7 @@ const App = (props) => {
                 <Editor path="/editor" onDisconnect={onKeyboardDisconnect} />
                 <FirmwareUpdate
                   path="/firmware-update"
-                  device={device}
+                  focusDeviceDescriptor={focusDeviceDescriptor}
                   toggleFlashing={toggleFlashing}
                   onDisconnect={onKeyboardDisconnect}
                 />

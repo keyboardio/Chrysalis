@@ -64,12 +64,12 @@ const FirmwareUpdate = (props) => {
 
   const [firmwareFilename, setFirmwareFilename] = useState("");
   const [selected, setSelected] = useState("default");
-  const [device, setDevice] = useState(
-    props.device || focus.focusDeviceDescriptor
-  );
   const [confirmationOpen, setConfirmationOpen] = useState(false);
   const [resetOnFlash, setResetOnFlash] = useState(false);
   const [activeStep, setActiveStep] = useState(-1);
+
+  const focusDeviceDescriptor =
+    props.focusDeviceDescriptor || focus.focusDeviceDescriptor;
 
   const toggleResetOnFlash = (event) => {
     setResetOnFlash(event.target.checked);
@@ -107,8 +107,8 @@ const FirmwareUpdate = (props) => {
   };
 
   const _defaultFirmwareFilename = () => {
-    const { vendor, product } = device.info;
-    const firmwareType = device.info.firmwareType || "hex";
+    const { vendor, product } = focusDeviceDescriptor.info;
+    const firmwareType = focusDeviceDescriptor.info.firmwareType || "hex";
     const cVendor = vendor.replace("/", ""),
       cProduct = product.replace("/", "");
     return path.join(
@@ -119,8 +119,8 @@ const FirmwareUpdate = (props) => {
     );
   };
   const _experimentalFirmwareFilename = () => {
-    const { vendor, product } = device.info;
-    const firmwareType = device.info.firmwareType || "hex";
+    const { vendor, product } = focusDeviceDescriptor.info;
+    const firmwareType = focusDeviceDescriptor.info.firmwareType || "hex";
     const cVendor = vendor.replace("/", ""),
       cProduct = product.replace("/", "");
     return path.join(
@@ -145,7 +145,7 @@ const FirmwareUpdate = (props) => {
 
     const nextStep = async (desiredState) => {
       setActiveStep(activeStep + 1);
-      device.flashSteps.forEach((step, index) => {
+      focusDeviceDescriptor.flashSteps.forEach((step, index) => {
         if (step == desiredState) {
           setActiveStep(index);
         }
@@ -157,10 +157,10 @@ const FirmwareUpdate = (props) => {
 
     const preferExternalFlasher =
       (await settings.get("flash.preferExternalFlasher")) &&
-      (await checkExternalFlasher(device));
-    return device.flash(focus._port, filename, {
+      (await checkExternalFlasher(focusDeviceDescriptor));
+    return focusDeviceDescriptor.flash(focus._port, filename, {
       preferExternalFlasher: preferExternalFlasher,
-      device: device,
+      device: focusDeviceDescriptor,
       focus: focus,
       callback: nextStep,
     });
@@ -321,8 +321,8 @@ const FirmwareUpdate = (props) => {
   if (resetOnFlash) {
     steps = ["factoryRestore"];
   }
-  if (device.flashSteps) {
-    steps = steps.concat(device.flashSteps);
+  if (focusDeviceDescriptor.flashSteps) {
+    steps = steps.concat(focusDeviceDescriptor.flashSteps);
   } else {
     steps = steps.concat(["flash"]);
   }

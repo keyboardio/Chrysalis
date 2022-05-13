@@ -5,13 +5,13 @@ export const GlobalContext = createContext();
 export const GlobalContextProvider = (props) => {
   const [darkMode, setDarkMode] = useState(false);
   const [connected, setConnected] = useState(false);
-  const [device, setDevice] = useState(null);
+  const [focusDeviceDescriptor, setFocusDeviceDescriptor] = useState(null);
   const [activeDevice, setActiveDevice] = useState(null);
 
   const state = {
     connected: [connected, setConnected],
     darkMode: [darkMode, setDarkMode],
-    device: [device, setDevice],
+    focusDeviceDescriptor: [focusDeviceDescriptor, setFocusDeviceDescriptor],
     activeDevice: [activeDevice, setActiveDevice],
   };
 

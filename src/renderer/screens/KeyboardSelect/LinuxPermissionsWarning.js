@@ -25,7 +25,6 @@ import { installUdevRules } from "../../utils/installUdevRules";
 
 export const LinuxPermissionsWarning = (props) => {
   const selectedDevicePort = props.selectedDevicePort;
-  const scanDevices = props.scanDevices;
   const platform = process.platform;
 
   const doInstallUdevRules = async () => {
@@ -35,8 +34,6 @@ export const LinuxPermissionsWarning = (props) => {
       toast.error(err.toString());
       return;
     }
-
-    await scanDevices();
   };
 
   if (platform == "linux" && !selectedDevicePort?.accessible) {

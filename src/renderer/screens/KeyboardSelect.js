@@ -165,10 +165,7 @@ const KeyboardSelect = (props) => {
             }}
           />
         )}
-        <LinuxPermissionsWarning
-          selectedDevicePort={selectedDevicePort}
-          scanDevices={scanDevices}
-        />
+        <LinuxPermissionsWarning selectedDevicePort={selectedDevicePort} />
         <Card
           sx={{
             boxShadow: 3,

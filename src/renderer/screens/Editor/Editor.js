@@ -305,8 +305,6 @@ class Editor extends React.Component {
       return <OnlyCustomScreen />;
     }
 
-    const k = new Keymap();
-
     const KeymapSVG = focus.focusDeviceDescriptor.components.keymap;
 
     let title;

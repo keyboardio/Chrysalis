@@ -228,10 +228,7 @@ const App = (props) => {
                   onConnect={onKeyboardConnect}
                   onDisconnect={onKeyboardDisconnect}
                 />
-                <Editor
-                  path="/editor"
-                  onDisconnect={onKeyboardDisconnect}
-                />
+                <Editor path="/editor" onDisconnect={onKeyboardDisconnect} />
                 <FirmwareUpdate
                   path="/firmware-update"
                   device={device}

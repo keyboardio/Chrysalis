@@ -78,9 +78,7 @@ class Editor extends React.Component {
       currentLedIndex: ledIndex,
     });
   };
-  setModified = () => {
-    this.setState({ modified: true });
-  };
+
   setLayout = async (layout) => {
     db.setLayout(layout);
 

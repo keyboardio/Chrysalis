@@ -31,8 +31,17 @@ const Style = Styled.div`
 display: flex;
 align-items: center;
 .dropdownMultipleActions {
-    min-width: 320px;
-    max-width: 320px;
+    min-width: 350px;
+    max-width: 350px;
+    .dropdownActions {
+      display: flex;
+      flex-wrap: nowrap;
+      background: rgba(123, 134, 158, 0.1);
+      border-radius: 3px;
+      top: 5px;
+      right: 5px;
+      height: 48px;
+    }
 }
 .dropdownListItemSelected {
     max-width: 200px;
@@ -41,7 +50,10 @@ align-items: center;
     text-overflow: ellipsis;
 }
 .dropdownListItemInner {
-    padding-right: 70px;
+    padding-right: 128px;
+    .caret {
+      right: 112px;
+    }
 }
 .dropdown-menu {
     min-width: 268px;
@@ -60,6 +72,10 @@ align-items: center;
   .buttonFX {
     width: 50px;
   }
+}
+.button-config {
+  background: transparent;
+  padding: 12px 8px;
 }
 `;
 class MacroSelector extends React.Component {
@@ -131,29 +147,6 @@ class MacroSelector extends React.Component {
             <ButtonConfig onClick={this.toggleShow} icoSVG={<IconPen />} tooltip={i18n.app.menu.changeName} />
             <ButtonConfig onClick={cloneItem} icoSVG={<IconClone />} tooltip={i18n.general.clone} />
             <ButtonConfig onClick={deleteItem} icoSVG={<IconDelete />} tooltip={i18n.general.delete} />
-            <Dropdown drop="down" align="end" className="dropdownActionsList">
-              <Dropdown.Toggle className="button-settings">
-                <ButtonSettings />
-              </Dropdown.Toggle>
-              <Dropdown.Menu className="dropdownMenu">
-                <Dropdown.Item onClick={this.toggleShow}>
-                  <div className="dropdownInner">
-                    <div className="dropdownIcon">
-                      <IconPen />
-                    </div>
-                    <div className="dropdownItem">Change name</div>
-                  </div>
-                </Dropdown.Item>
-                <Dropdown.Item onClick={deleteItem}>
-                  <div className="dropdownInner">
-                    <div className="dropdownIcon">
-                      <IconDelete />
-                    </div>
-                    <div className="dropdownItem">Delete</div>
-                  </div>
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
           </div>
         </div>
         <RegularButton

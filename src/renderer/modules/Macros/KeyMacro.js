@@ -10,13 +10,13 @@ import { ButtonConfig } from "../../component/Button";
 import { MacroKeyModal } from "../../component/Modal";
 
 import {
+  IconClone,
   IconDragAndDrop,
   IconThreeDots,
   IconPressSm,
   IconReleaseSm,
   IconPressAndReleaseSm,
   IconDelete,
-  IconAddLayer,
   IconStopWatchSm
 } from "../../component/Icon";
 import { FaLinux } from "react-icons/fa";
@@ -304,7 +304,7 @@ class KeyMacro extends Component {
                               className="dropdownInner"
                             >
                               <div className="dropdownIcon">
-                                <IconAddLayer />
+                                <IconClone />
                               </div>
                               <div className="dropdownItem">Clone</div>
                             </div>

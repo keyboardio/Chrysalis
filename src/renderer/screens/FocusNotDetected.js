@@ -37,13 +37,14 @@ import { PageTitle } from "../components/PageTitle";
 
 const FocusNotDetected = (props) => {
   let focus = new Focus();
-  const device = props.device || focus.focusDeviceDescriptor;
+  const focusDeviceDescriptor =
+    props.focusDeviceDescriptor || focus.focusDeviceDescriptor;
 
   const reconnect = async () => {
     try {
       await props.onConnect({
         path: focus._port.path,
-        focusDeviceDescriptor: focus.focusDeviceDescriptor,
+        focusDeviceDescriptor: focusDeviceDescriptor,
       });
     } catch (err) {
       toast.error(err.toString());
@@ -70,7 +71,7 @@ const FocusNotDetected = (props) => {
               <KeyboardIcon />
             </Avatar>
           }
-          title={device.info.displayName}
+          title={focusDeviceDescriptor.info.displayName}
           subheader={focus._port && focus._port.path}
         />
         <CardContent>

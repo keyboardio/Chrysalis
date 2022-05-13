@@ -75,8 +75,6 @@ function Preferences(props) {
   const globalContext = useContext(GlobalContext);
 
   const [connected, setConnected] = globalContext.state.connected;
-  const [device, setDevice] = globalContext.state.device;
-  const [darkMode, setDarkMode] = globalContext.state.darkMode;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

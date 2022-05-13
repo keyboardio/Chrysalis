@@ -43,7 +43,6 @@ import {
 } from "@renderer/components/ContextBar";
 
 const db = new KeymapDB();
-const context_bar_channel = new BroadcastChannel("context_bar");
 
 class Editor extends React.Component {
   state = {
@@ -243,7 +242,7 @@ class Editor extends React.Component {
       loading: false,
       layout: layoutSetting,
     });
-    context_bar_channel.onmessage = (event) => {
+    this.context_bar_channel.onmessage = (event) => {
       if (event.data === "changes-discarded") {
         this.componentDidMount();
 

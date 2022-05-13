@@ -239,7 +239,6 @@ const App = (props) => {
                 <Preferences path="/preferences" />
                 <SystemInfo path="/system-info" />
                 <ChangeLog path="/changelog" />
-                />
               </Router>
             </Box>
           </LocationProvider>

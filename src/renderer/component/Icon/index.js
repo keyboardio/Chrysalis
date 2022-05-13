@@ -22,6 +22,7 @@ import IconArrowsMouseWheel from "./IconArrowsMouseWheel";
 import IconArrowsSmallSeparating from "./IconArrowsSmallSeparating";
 import IconCheckmarkSm from "./IconCheckmarkSm";
 import IconChip from "./IconChip";
+import IconClone from "./IconClone";
 import IconCloseXs from "./IconCloseXs";
 import IconDragAndDrop from "./IconDragAndDrop";
 import IconDelete from "./IconDelete";
@@ -96,6 +97,7 @@ export {
   IconArrowsMouseWheel,
   IconCheckmarkSm,
   IconChip,
+  IconClone,
   IconCloseXs,
   IconDragAndDrop,
   IconDelete,

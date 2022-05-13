@@ -73,7 +73,8 @@ const English = {
       bazecorSection: "Bazecor",
       miscSection: "Miscellaneous",
       upgradeAvailable: "An upgrade is available!",
-      badgeNew: "New"
+      badgeNew: "New",
+      changeName: "Change name"
     },
     deviceMenu: {
       Homepage: "Homepage",
@@ -608,6 +609,8 @@ You can find the LED Rainbow mode with the "LED Next" key. In the default Dygma 
   },
   general: {
     configure: "Configure",
+    clone: "Clone",
+    delete: "Delete",
     key: "Key",
     new: "New",
     noname: "No name",

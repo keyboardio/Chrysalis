@@ -21,14 +21,11 @@ import i18n from "../../i18n";
 import Dropdown from "react-bootstrap/Dropdown";
 import { ButtonSettings } from "../Button";
 import MacrosMemoryUsage from "../../modules/Macros/MacrosMemoryUsage";
-import { IconArrowsSmallSeparating } from "../Icon";
-import { IconPen } from "../Icon";
 import { IconDelete } from "../Icon";
+import { IconArrowsSmallSeparating, IconPen, IconAddNew, IconClone } from "../Icon";
 
 import { NameModal } from "../Modal"; // Imported custom modal component
-import { RegularButton } from "../Button";
-
-import { IconAddNew } from "../Icon";
+import { RegularButton, ButtonConfig } from "../Button";
 
 const Style = Styled.div` 
 display: flex;
@@ -94,7 +91,7 @@ class MacroSelector extends React.Component {
   };
 
   render() {
-    const { onSelect, itemList, selectedItem, deleteItem, addItem, subtitle, mem } = this.props;
+    const { onSelect, itemList, selectedItem, deleteItem, addItem, cloneItem, subtitle, mem } = this.props;
     const { show, showAdd } = this.state;
 
     return (
@@ -130,7 +127,10 @@ class MacroSelector extends React.Component {
               ))}
             </Dropdown.Menu>
           </Dropdown>
-          <div className="dropdownActions">
+          <div className="dropdownActions dropdownActionsIcons">
+            <ButtonConfig onClick={this.toggleShow} icoSVG={<IconPen />} tooltip={i18n.app.menu.changeName} />
+            <ButtonConfig onClick={cloneItem} icoSVG={<IconClone />} tooltip={i18n.general.clone} />
+            <ButtonConfig onClick={deleteItem} icoSVG={<IconDelete />} tooltip={i18n.general.delete} />
             <Dropdown drop="down" align="end" className="dropdownActionsList">
               <Dropdown.Toggle className="button-settings">
                 <ButtonSettings />

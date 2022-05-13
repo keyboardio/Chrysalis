@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { autocompleteClasses } from "@mui/material";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 import React from "react";
@@ -33,6 +34,7 @@ export const ConnectionButton = (props) => {
         variant="outlined"
         color="secondary"
         onClick={onKeyboardDisconnect}
+        sx={{ verticalAlign: "bottom", marginLeft: "auto", marginRight: 3 }}
       >
         {i18n.t("keyboardSelect.disconnect")}
       </Button>
@@ -44,7 +46,7 @@ export const ConnectionButton = (props) => {
         variant="contained"
         color="primary"
         onClick={onKeyboardConnect}
-        sx={{ verticalAlign: "bottom", marginLeft: 65 }}
+        sx={{ verticalAlign: "bottom", marginLeft: "auto", marginRight: 3 }}
       >
         {opening ? (
           <CircularProgress color="secondary" size={16} />

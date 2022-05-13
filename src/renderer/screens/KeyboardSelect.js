@@ -29,7 +29,6 @@ import i18n from "../i18n";
 import { useIntervalImmediate } from "../utils/useInterval";
 import { ConnectionButton } from "./KeyboardSelect/ConnectionButton";
 import { LinuxPermissionsWarning } from "./KeyboardSelect/LinuxPermissionsWarning";
-import { ScanDevicesButton } from "./KeyboardSelect/ScanDevicesButton";
 import { KeyboardPortSelector } from "./KeyboardSelect/KeyboardPortSelector";
 import { DeviceImage } from "./KeyboardSelect/DeviceImage";
 const { ipcRenderer } = require("electron");
@@ -112,8 +111,7 @@ const KeyboardSelect = (props) => {
   };
 
   const scanDevices = async () => {
-    let found = await findKeyboards();
-    setScanFoundDevices(found);
+    await findKeyboards();
   };
 
   useIntervalImmediate(() => {
@@ -200,14 +198,7 @@ const KeyboardSelect = (props) => {
               selectPort={selectPort}
             />
           </CardContent>
-          <CardActions sx={{ justifyContent: "center", px: 4, pt: 2, pb: 3 }}>
-            <ScanDevicesButton
-              scanFoundDevices={scanFoundDevices}
-              scanDevices={scanDevices}
-              foundDevices={devices?.length > 0}
-            />
-
-            <Box sx={{ flexGrow: 1 }} />
+          <CardActions sx={{ justifyContent: "center", pt: 2, pb: 3 }}>
             <ConnectionButton
               disabled={
                 (selectedDevicePort ? !selectedDevicePort.accessible : false) ||

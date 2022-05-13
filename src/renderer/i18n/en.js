@@ -284,8 +284,7 @@ const English = {
   keyboardSelect: {
     unknown: "Unknown",
     selectPrompt: "Please select a keyboard:",
-    noDevices: `No keyboards found.
- Please connect your keyboard, then click "Scan"`,
+    noDevices: `No keyboards found.`,
     connect: "Connect",
     disconnect: "Disconnect",
     scan: "Scan",

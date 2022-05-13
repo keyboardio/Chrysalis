@@ -62,7 +62,6 @@ class Editor extends React.Component {
     hasLegacy: false,
     layout: "English (US)",
   };
-  keymapDB = new KeymapDB();
 
   setLayer = (layer) => {
     this.setState({ currentLayer: layer });

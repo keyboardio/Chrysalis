@@ -53,6 +53,7 @@ import Header from "./components/Header";
 import { history, navigate } from "./routerHistory";
 import { hideContextBar } from "./components/ContextBar";
 import { isDevelopment } from "./config";
+import { ActiveDevice } from "./ActiveDevice";
 
 toast.configure({
   position: "bottom-left",
@@ -82,8 +83,8 @@ const App = (props) => {
 
   const [connected, setConnected] = globalContext.state.connected;
   const [device, setDevice] = globalContext.state.device;
-  const [pages, setPages] = globalContext.state.pages;
   const [darkMode, setDarkMode] = globalContext.state.darkMode;
+  const [activeDevice, setActiveDevice] = globalContext.state.activeDevice;
 
   setDarkMode(settings.get("ui.darkMode"));
 
@@ -109,7 +110,7 @@ const App = (props) => {
     hideContextBar();
     setConnected(false);
     setDevice(null);
-    setPages({});
+    setActiveDevice(null);
 
     // Second call to `navigate` will actually render the proper route
     await navigate("/keyboard-select");
@@ -132,7 +133,6 @@ const App = (props) => {
     if (!flashing) {
       setConnected(false);
       setDevice(null);
-      setPages({});
 
       await navigate("/keyboard-select");
     }
@@ -143,7 +143,6 @@ const App = (props) => {
     console.log(port);
     if (!port.path) {
       setConnected(true);
-      setPages({});
       setDevice(port.focusDeviceDescriptor);
       i18n.refreshHardware(port.focusDeviceDescriptor);
 
@@ -155,32 +154,22 @@ const App = (props) => {
     await focus.open(port.path, port.focusDeviceDescriptor);
 
     let commands = [];
-    let pages = [];
+    // TODO: I'm not quite sure how to set activeDevice in a way that
+    // I can access it in this context, since activeDevice is const
+    const newActiveDevice = new ActiveDevice();
+    setActiveDevice(newActiveDevice);
+
     if (!port.focusDeviceDescriptor.bootloader) {
       logger.log("Probing for Focus support...");
-      try {
-        commands = await focus.probe();
-      } catch (e) {
-        commands = [];
-      }
-
+      commands = await newActiveDevice.focusCommands();
       focus.setLayerSize(focus.focusDeviceDescriptor);
-      pages = {
-        keymap:
-          commands.includes("keymap.custom") > 0 ||
-          commands.includes("keymap.map") > 0,
-        colormap:
-          commands.includes("colormap.map") > 0 &&
-          commands.includes("palette") > 0,
-      };
     }
 
     setConnected(true);
     setDevice(null);
-    setPages(pages);
 
     await navigate(
-      pages.keymap || pages.colormap ? "/editor" : "/focus-not-detected"
+      newActiveDevice.focusDetected() ? "/editor" : "/focus-not-detected"
     );
     return commands;
   };
@@ -189,7 +178,7 @@ const App = (props) => {
     focus.close();
     setConnected(false);
     setDevice(null);
-    setPages({});
+    setActiveDevice(null);
 
     localStorage.clear();
     await navigate("/keyboard-select");

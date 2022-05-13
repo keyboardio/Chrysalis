@@ -26,6 +26,7 @@ import { toast } from "react-toastify";
 import Focus from "../../api/focus";
 import Hardware from "../../api/hardware";
 import i18n from "../i18n";
+import { useIntervalImmediate } from "../utils/useInterval";
 import { ConnectionButton } from "./KeyboardSelect/ConnectionButton";
 import { LinuxPermissionsWarning } from "./KeyboardSelect/LinuxPermissionsWarning";
 import { ScanDevicesButton } from "./KeyboardSelect/ScanDevicesButton";
@@ -113,14 +114,10 @@ const KeyboardSelect = (props) => {
     setScanFoundDevices(found);
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      scanDevices();
-    }, 5000);
-    return function cleanup() {
-      clearInterval(interval);
-    };
-  });
+  useIntervalImmediate(() => {
+    // Run once as we start up, then run every 5s.
+    scanDevices();
+  }, 5000);
 
   useEffect(() => {
     ipcRenderer.on("usb-device-connected", scanDevices);

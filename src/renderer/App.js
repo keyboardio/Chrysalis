@@ -148,13 +148,12 @@ const App = (props) => {
       i18n.refreshHardware(port.focusDeviceDescriptor);
 
       await navigate("/focus-not-detected");
-      return [];
+      return false;
     }
 
     logger.log("Connecting to", port.path);
     await focus.open(port.path, port.focusDeviceDescriptor);
 
-    let commands = [];
     // TODO: I'm not quite sure how to set activeDevice in a way that
     // I can access it in this context, since activeDevice is const
     const newActiveDevice = new ActiveDevice();
@@ -162,7 +161,6 @@ const App = (props) => {
 
     if (!port.focusDeviceDescriptor.bootloader) {
       logger.log("Probing for Focus support...");
-      commands = await newActiveDevice.focusCommands();
       focus.setLayerSize(focus.focusDeviceDescriptor);
     }
 
@@ -172,7 +170,7 @@ const App = (props) => {
     await navigate(
       newActiveDevice.focusDetected() ? "/editor" : "/focus-not-detected"
     );
-    return commands;
+    return true;
   };
 
   const onKeyboardDisconnect = async () => {

@@ -65,18 +65,13 @@ const Editor = (props) => {
   const [hasLegacy, setHasLegacy] = useState(false);
 
   const initialize = async () => {
-    if (loading) {
-      scanKeyboard();
-      const layoutSetting = await settings.get(
-        "keyboard.layout",
-        "English (US)"
-      );
-      db.setLayout(layoutSetting);
+    await scanKeyboard();
+    const layoutSetting = await settings.get("keyboard.layout", "English (US)");
+    db.setLayout(layoutSetting);
 
-      setCurrentLayer(0);
-      setLoading(false);
-      _setLayout(layoutSetting);
-    }
+    setCurrentLayer(0);
+    _setLayout(layoutSetting);
+    setLoading(false);
   };
 
   const setLayout = async (layout) => {
@@ -215,6 +210,12 @@ const Editor = (props) => {
     };
   });
 
+  useEffect(() => {
+    initialize();
+
+    // code to run after render goes here
+  }, []); // <-- empty array means 'run once'
+
   const onApply = async () => {
     await focus.command("keymap", keymap);
     await focus.command("colormap", colormap.palette, colormap.colorMap);
@@ -240,13 +241,9 @@ const Editor = (props) => {
     showContextBar();
   };
 
-  initialize();
-
   if (loading) {
     return <LoadingScreen />;
-  }
-
-  if (!keymap.onlyCustom) {
+  } else if (!keymap.onlyCustom) {
     return <OnlyCustomScreen />;
   }
 

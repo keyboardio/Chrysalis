@@ -24,7 +24,6 @@ import LinearProgress from "@mui/material/LinearProgress";
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import Focus from "../../api/focus";
-import Hardware from "../../api/hardware";
 import i18n from "../i18n";
 import { useIntervalImmediate } from "../utils/useInterval";
 import { ConnectionButton } from "./KeyboardSelect/ConnectionButton";
@@ -32,86 +31,20 @@ import { LinuxPermissionsWarning } from "./KeyboardSelect/LinuxPermissionsWarnin
 import { KeyboardPortSelector } from "./KeyboardSelect/KeyboardPortSelector";
 import { DeviceImage } from "./KeyboardSelect/DeviceImage";
 const { ipcRenderer } = require("electron");
+import { findKeyboards } from "../utils/findKeyboards";
 
 const KeyboardSelect = (props) => {
   const [selectedPortIndex, setSelectedPortIndex] = useState(0);
 
-  // Did we find any devices while scanning?
-  const [scanFoundDevices, setScanFoundDevices] = useState(undefined);
   const [opening, setOpening] = useState(false);
   const [loading, setLoading] = useState(false);
   const [devices, setDevices] = useState(null);
 
-  const findNonSerialKeyboards = async (deviceList) => {
-    return ipcRenderer
-      .invoke("usb-scan-for-devices")
-      .then((devicesConnected) => {
-        const devices = devicesConnected.map(
-          (device) => device.deviceDescriptor
-        );
-        devices.forEach((desc) => {
-          Hardware.nonSerial.forEach((port) => {
-            if (
-              desc.idVendor == port.usb.vendorId &&
-              desc.idProduct == port.usb.productId
-            ) {
-              let found = false;
-              deviceList.forEach((port) => {
-                if (
-                  port.focusDeviceDescriptor.usb.vendorId == desc.idVendor &&
-                  port.focusDeviceDescriptor.usb.productId == desc.idProduct
-                ) {
-                  found = true;
-                }
-              });
-              if (!found) {
-                deviceList.push({
-                  accessible: true,
-                  port: port,
-                });
-              }
-            }
-          });
-        });
-
-        return deviceList;
-      });
-  };
-
-  const findKeyboards = async () => {
-    setLoading(true);
-    let focus = new Focus();
-
-    return new Promise((resolve) => {
-      focus
-        .find(...Hardware.serial)
-        .then(async (devices) => {
-          let supported_devices = [];
-          for (const device of devices) {
-            device.accessible = await focus.isDeviceAccessible(device);
-            if (device.accessible && (await focus.isDeviceSupported(device))) {
-              supported_devices.push(device);
-            } else if (!device.accessible) {
-              supported_devices.push(device);
-            }
-          }
-          const list = await findNonSerialKeyboards(supported_devices);
-          setLoading(false);
-          setDevices(list);
-          resolve(list.length > 0);
-        })
-        .catch(async (e) => {
-          console.error(e);
-          const list = await findNonSerialKeyboards([]);
-          setLoading(false);
-          setDevices(list);
-          resolve(list.length > 0);
-        });
-    });
-  };
-
   const scanDevices = async () => {
-    await findKeyboards();
+    setLoading(true);
+    const deviceList = await findKeyboards();
+    setDevices(deviceList);
+    setLoading(false);
   };
 
   useIntervalImmediate(() => {

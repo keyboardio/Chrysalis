@@ -136,10 +136,9 @@ const KeyboardSelect = (props) => {
 
   const onKeyboardConnect = async () => {
     setOpening(true);
-    const selectedDevicePort = devices?.[selectedPortIndex];
 
     try {
-      await props.onConnect(selectedDevicePort);
+      await props.onConnect(devices?.[selectedPortIndex]);
     } catch (err) {
       setOpening(false);
       toast.error(err.toString());

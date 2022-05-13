@@ -76,6 +76,8 @@ align-items: center;
 .button-config {
   background: transparent;
   padding: 12px 8px;
+  border: none;
+  box-shadow: none;
 }
 `;
 class MacroSelector extends React.Component {

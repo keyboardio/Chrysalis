@@ -36,6 +36,8 @@ const { ipcRenderer } = require("electron");
 
 const KeyboardSelect = (props) => {
   const [selectedPortIndex, setSelectedPortIndex] = useState(0);
+
+  // Did we find any devices while scanning?
   const [scanFoundDevices, setScanFoundDevices] = useState(undefined);
   const [opening, setOpening] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -202,7 +204,7 @@ const KeyboardSelect = (props) => {
             <ScanDevicesButton
               scanFoundDevices={scanFoundDevices}
               scanDevices={scanDevices}
-              devices={devices}
+              foundDevices={devices?.length > 0}
             />
 
             <Box sx={{ flexGrow: 1 }} />

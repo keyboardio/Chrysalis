@@ -22,11 +22,11 @@ import i18n from "../../i18n";
 export const ScanDevicesButton = (props) => {
   const scanDevices = props.scanDevices;
   const scanFoundDevices = props.scanFoundDevices;
-  const devices = props.devices;
+  const foundDevices = props.foundDevices;
   return (
     <Button
-      variant={devices?.length ? "outlined" : "contained"}
-      color={devices?.length ? "secondary" : "primary"}
+      variant={foundDevices ? "outlined" : "contained"}
+      color={foundDevices ? "secondary" : "primary"}
       onClick={scanFoundDevices ? null : scanDevices}
     >
       {i18n.t("keyboardSelect.scan")}

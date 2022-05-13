@@ -67,12 +67,6 @@ class Editor extends React.Component {
   setLayer = (layer) => {
     this.setState({ currentLayer: layer });
   };
-  selectKey = (keyIndex, ledIndex) => {
-    this.setState({
-      currentKeyIndex: keyIndex,
-      currentLedIndex: ledIndex,
-    });
-  };
 
   setLayout = async (layout) => {
     db.setLayout(layout);
@@ -97,8 +91,10 @@ class Editor extends React.Component {
     const target = event.currentTarget;
     const keyIndex = parseInt(target.getAttribute("data-key-index"));
     const ledIndex = parseInt(target.getAttribute("data-led-index"));
-
-    this.selectKey(keyIndex, ledIndex);
+    this.setState({
+      currentKeyIndex: keyIndex,
+      currentLedIndex: ledIndex,
+    });
   };
 
   onKeyChange = (keyCode) => {

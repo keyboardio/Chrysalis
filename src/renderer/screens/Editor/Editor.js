@@ -16,7 +16,7 @@ import { LegacyAlert } from "./components/LegacyAlert";
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { toast } from "react-toastify";
 
@@ -44,149 +44,126 @@ const db = new KeymapDB();
 const focus = new Focus();
 const logger = new Log();
 
-class Editor extends React.Component {
-  state = {
-    loading: true,
-    currentLayer: 0,
-    currentKeyIndex: 0,
-    currentLedIndex: 0,
-    keymap: {
-      custom: [],
-      default: [],
-      onlyCustom: false,
-    },
-    colorMap: {
-      palette: [],
-      colorMap: [],
-    },
-    modified: false,
-    hasLegacy: false,
-    layout: "English (US)",
+const Editor = (props) => {
+  const [colormap, setColormap] = useState({
+    palette: [],
+    colorMap: [],
+  });
+
+  const [keymap, setKeymap] = useState({
+    custom: [],
+    default: [],
+    onlyCustom: false,
+  });
+
+  const [layout, _setLayout] = useState("English (US)");
+  const [currentLedIndex, setCurrentLedIndex] = useState(0);
+  const [currentKeyIndex, setCurrentKeyIndex] = useState(0);
+  const [modified, setModified] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [currentLayer, setCurrentLayer] = useState(0);
+  const [hasLegacy, setHasLegacy] = useState(false);
+
+  const initialize = async () => {
+    if (loading) {
+      scanKeyboard();
+      const layoutSetting = await settings.get(
+        "keyboard.layout",
+        "English (US)"
+      );
+      db.setLayout(layoutSetting);
+
+      setCurrentLayer(0);
+      setLoading(false);
+      _setLayout(layoutSetting);
+    }
   };
 
-  setLayer = (layer) => {
-    this.setState({ currentLayer: layer });
-  };
-
-  setLayout = async (layout) => {
+  const setLayout = async (layout) => {
     db.setLayout(layout);
 
-    this.setState((state) => {
-      let newKeymap = state.keymap;
-      newKeymap.custom = newKeymap.custom.map((layer) => {
-        return layer.map((key) => {
-          return db.lookup(key.code);
-        });
+    let newKeymap = { ...keymap };
+    newKeymap.custom = newKeymap.custom.map((layer) => {
+      return layer.map((key) => {
+        return db.lookup(key.code);
       });
-
-      return {
-        layout: layout,
-        keymap: newKeymap,
-      };
     });
+    _setLayout(layout);
+    setKeymap(newKeymap);
+
     settings.set("keyboard.layout", layout);
   };
 
-  onKeySelect = (event) => {
+  const onKeySelect = (event) => {
     const target = event.currentTarget;
     const keyIndex = parseInt(target.getAttribute("data-key-index"));
     const ledIndex = parseInt(target.getAttribute("data-led-index"));
-    this.setState({
-      currentKeyIndex: keyIndex,
-      currentLedIndex: ledIndex,
-    });
+    setCurrentKeyIndex(keyIndex);
+    setCurrentLedIndex(ledIndex);
   };
 
-  onKeyChange = (keyCode) => {
-    this.setState((state) => {
-      let newKeymap = state.keymap;
-      const oldKey =
-        newKeymap.custom[state.currentLayer][state.currentKeyIndex];
-      const newKey = db.lookup(keyCode);
-      newKeymap.custom[state.currentLayer][state.currentKeyIndex] = newKey;
-      let hasLegacy = state.hasLegacy;
+  const onKeyChange = (keyCode) => {
+    let newKeymap = { ...keymap };
+    //      const oldKey =  newKeymap.custom[currentLayer][currentKeyIndex];
+    const newKey = db.lookup(keyCode);
+    newKeymap.custom[currentLayer][currentKeyIndex] = newKey;
 
-      if (hasLegacy) {
-        const k = new Keymap();
-        hasLegacy = k.hasLegacyCodes(newKeymap.custom);
-      }
-      if (newKey.legacy) {
-        hasLegacy = true;
-      }
-
-      return {
-        modified: true,
-        hasLegacy: hasLegacy,
-        keymap: newKeymap,
-      };
-    });
+    if (hasLegacy) {
+      const k = new Keymap();
+      setHasLegacy(k.hasLegacyCodes(newKeymap.custom));
+    }
+    if (newKey.legacy) {
+      setHasLegacy(true);
+    }
+    setModified(true);
+    setKeymap(newKeymap);
     showContextBar();
   };
 
-  onLedChange = (index) => {
-    this.setState((state) => {
-      let newColormap = state.colormap;
-      newColormap.colorMap[state.currentLayer][state.currentLedIndex] = index;
-
-      return {
-        modified: true,
-        colormap: newColormap,
-      };
-    });
+  const onLedChange = (index) => {
+    let newColormap = { ...colormap };
+    newColormap.colorMap[currentLayer][currentLedIndex] = index;
+    setModified(true);
+    setColormap(newColormap);
 
     showContextBar();
   };
 
-  onPaletteChange = (newPalette) => {
-    this.setState((state) => {
-      let colormap = state.colormap;
-      colormap.palette = newPalette;
-
-      return {
-        modified: true,
-        colormap: colormap,
-      };
-    });
+  const onPaletteChange = (newPalette) => {
+    let newColormap = { ...colormap };
+    newColormap.palette = newPalette;
+    setModified(true);
+    setColormap(newColormap);
 
     showContextBar();
   };
 
-  onKeymapChange = (newKeymap) => {
+  const onKeymapChange = (newKeymap) => {
     const k = new Keymap();
-    this.setState((state) => {
-      let keymap = state.keymap;
-      keymap.custom = newKeymap;
-
-      return {
-        modified: true,
-        hasLegacy: k.hasLegacyCodes(keymap.custom),
-        keymap: keymap,
-      };
-    });
+    let updatedKeymap = { ...keymap };
+    updatedKeymap.custom = newKeymap;
+    setHasLegacy(k.hasLegacyCodes(keymap.custom));
+    setModified(true);
+    setKeymap(updatedKeymap);
 
     showContextBar();
   };
 
-  onColormapChange = (newColormap) => {
-    this.setState((state) => {
-      let colormap = state.colormap;
-      colormap.colorMap = newColormap;
-
-      return {
-        modified: true,
-        colormap: colormap,
-      };
-    });
+  const onColormapChange = (newColormap) => {
+    let newcolormap = { ...colormap };
+    newcolormap.colorMap = newColormap;
+    setModified(true);
+    setColormap(newcolormap);
 
     showContextBar();
   };
 
-  scanKeyboard = async () => {
+  const scanKeyboard = async () => {
     try {
-      let keymap = await focus.command("keymap");
+      let deviceKeymap = await focus.command("keymap");
 
       let empty = true;
-      for (let layer of keymap.custom) {
+      for (let layer of deviceKeymap.custom) {
         for (let i of layer) {
           if (i.code != 65535) {
             empty = false;
@@ -195,177 +172,138 @@ class Editor extends React.Component {
         }
       }
 
-      if (empty && !keymap.onlyCustom && keymap.custom.length > 0) {
+      if (empty && !deviceKeymap.onlyCustom && deviceKeymap.custom.length > 0) {
         logger.log("Custom keymap is empty, copying defaults");
-        for (let i = 0; i < keymap.default.length; i++) {
-          keymap.custom[i] = keymap.default[i].slice();
+        for (let i = 0; i < deviceKeymap.default.length; i++) {
+          deviceKeymap.custom[i] = deviceKeymap.default[i].slice();
         }
-        keymap.onlyCustom = true;
+        deviceKeymap.onlyCustom = true;
         await focus.command("keymap", keymap);
       }
 
-      let colormap = await focus.command("colormap");
+      let deviceColormap = await focus.command("colormap");
       const k = new Keymap();
-      this.setState({
-        keymap: keymap,
-        hasLegacy: k.hasLegacyCodes(keymap.custom),
-        colormap: colormap,
-      });
+      setHasLegacy(k.hasLegacyCodes(deviceKeymap.custom));
+      setKeymap(deviceKeymap);
+      setColormap(deviceColormap);
     } catch (e) {
       toast.error(e);
-      this.props.onDisconnect();
+      props.onDisconnect();
     }
   };
 
-  hasKeymap = () => {
-    return this.state.keymap.custom.length > 0;
+  const hasKeymap = () => {
+    return keymap.custom.length > 0;
   };
 
-  hasColormap = () => {
-    return this.state.colormap.colorMap.length > 0;
+  const hasColormap = () => {
+    return colormap.colorMap.length > 0;
   };
 
-  async componentDidMount() {
-    this.context_bar_channel = new BroadcastChannel("context_bar");
+  useEffect(() => {
+    const context_bar_channel = new BroadcastChannel("context_bar");
 
-    const layoutSetting = await settings.get("keyboard.layout", "English (US)");
-    db.setLayout(layoutSetting);
-
-    await this.scanKeyboard();
-
-    this.setState({
-      currentLayer: 0,
-      loading: false,
-      layout: layoutSetting,
-    });
-    this.context_bar_channel.onmessage = (event) => {
+    context_bar_channel.onmessage = (event) => {
       if (event.data === "changes-discarded") {
-        this.componentDidMount();
-
-        this.setState({ modified: false });
+        setLoading(true);
+        initialize();
+        setModified(false);
       }
     };
-  }
-  async componentWillUnmount() {
-    this.context_bar_channel.close();
-  }
+    return () => {
+      context_bar_channel.close();
+    };
+  });
 
-  onApply = async () => {
-    this.setState({ saving: true });
+  const onApply = async () => {
+    await focus.command("keymap", keymap);
+    await focus.command("colormap", colormap.palette, colormap.colorMap);
+    setModified(false);
 
-    await focus.command("keymap", this.state.keymap);
-    await focus.command(
-      "colormap",
-      this.state.colormap.palette,
-      this.state.colormap.colorMap
-    );
-
-    this.setState({
-      modified: false,
-      saving: false,
-    });
     logger.log("Changes saved.");
     hideContextBar();
   };
 
-  migrateLegacy = async () => {
-    this.setState((oldState) => {
-      const k = new Keymap();
-      let newKeymap = k.migrateLegacyCodes(oldState.keymap.custom);
-      return {
-        modified: true,
-        hasLegacy: false,
-        keymap: {
-          default: oldState.keymap.default,
-          onlyCustom: oldState.keymap.onlyCustom,
-          custom: newKeymap,
-        },
-      };
+  const migrateLegacy = async () => {
+    const k = new Keymap();
+    let newKeymap = k.migrateLegacyCodes(keymap.custom);
+    setHasLegacy(false);
+    setModified(true);
+    setKeymap({
+      default: keymap.default,
+      onlyCustom: keymap.onlyCustom,
+      custom: newKeymap,
     });
+
     logger.log("Legacy keycodes migrated to new ones.");
 
     showContextBar();
   };
 
-  render() {
-    const {
-      currentLayer,
-      keymap,
-      colormap,
-      currentKeyIndex,
-      currentLedIndex,
-      layout,
-    } = this.state;
+  initialize();
 
-    if (this.state.loading) {
-      return <LoadingScreen />;
-    }
-
-    if (!this.state.keymap.onlyCustom) {
-      return <OnlyCustomScreen />;
-    }
-
-    const KeymapSVG = focus.focusDeviceDescriptor.components.keymap;
-
-    let title;
-    if (this.hasColormap() && this.hasKeymap()) {
-      title = i18n.t("app.menu.editor");
-    } else if (this.hasKeymap()) {
-      title = i18n.t("app.menu.layoutEditor");
-    } else {
-      title = i18n.t("app.menu.colormapEditor");
-    }
-
-    return (
-      <React.Fragment>
-        <PageTitle title={title} />
-
-        {this.state.hasLegacy && (
-          <LegacyAlert migrateLegacy={this.migrateLegacy} />
-        )}
-        <main
-          sx={{
-            flexGrow: 1,
-            margin: 3,
-            width: `calc(100% - ${sidebarWidth}px)`,
-          }}
-        >
-          <KeymapSVG
-            className="layer"
-            index={currentLayer}
-            keymap={keymap?.custom[currentLayer]}
-            onKeySelect={this.onKeySelect}
-            selectedKey={currentKeyIndex}
-            palette={colormap.palette}
-            colormap={colormap.colorMap[currentLayer]}
-          />
-        </main>
-        <Sidebar
-          keymap={keymap}
-          colormap={colormap}
-          selectedKey={currentKeyIndex}
-          selectedLed={currentLedIndex}
-          layer={currentLayer}
-          layout={layout}
-          setLayer={this.setLayer}
-          setLayout={this.setLayout}
-          onKeyChange={this.onKeyChange}
-          onKeymapChange={this.onKeymapChange}
-          onColormapChange={this.onColormapChange}
-          onPaletteChange={this.onPaletteChange}
-          onLedChange={this.onLedChange}
-        />
-
-        <SaveChangesButton
-          floating
-          onClick={this.onApply}
-          disabled={!this.state.modified}
-        >
-          {i18n.t("components.save.saveChanges")}
-        </SaveChangesButton>
-      </React.Fragment>
-    );
+  if (loading) {
+    return <LoadingScreen />;
   }
-}
+
+  if (!keymap.onlyCustom) {
+    return <OnlyCustomScreen />;
+  }
+
+  const KeymapSVG = focus.focusDeviceDescriptor.components.keymap;
+
+  let title;
+  if (hasColormap() && hasKeymap()) {
+    title = i18n.t("app.menu.editor");
+  } else if (hasKeymap()) {
+    title = i18n.t("app.menu.layoutEditor");
+  } else {
+    title = i18n.t("app.menu.colormapEditor");
+  }
+
+  return (
+    <React.Fragment>
+      <PageTitle title={title} />
+
+      {hasLegacy && <LegacyAlert migrateLegacy={migrateLegacy} />}
+      <main
+        sx={{
+          flexGrow: 1,
+          margin: 3,
+          width: `calc(100% - ${sidebarWidth}px)`,
+        }}
+      >
+        <KeymapSVG
+          className="layer"
+          index={currentLayer}
+          keymap={keymap?.custom[currentLayer]}
+          onKeySelect={onKeySelect}
+          selectedKey={currentKeyIndex}
+          palette={colormap.palette}
+          colormap={colormap.colorMap[currentLayer]}
+        />
+      </main>
+      <Sidebar
+        keymap={keymap}
+        colormap={colormap}
+        selectedKey={currentKeyIndex}
+        selectedLed={currentLedIndex}
+        layer={currentLayer}
+        layout={layout}
+        setLayer={setCurrentLayer}
+        setLayout={setLayout}
+        onKeyChange={onKeyChange}
+        onKeymapChange={onKeymapChange}
+        onColormapChange={onColormapChange}
+        onPaletteChange={onPaletteChange}
+        onLedChange={onLedChange}
+      />
+
+      <SaveChangesButton floating onClick={onApply} disabled={!modified}>
+        {i18n.t("components.save.saveChanges")}
+      </SaveChangesButton>
+    </React.Fragment>
+  );
+};
 
 export default Editor;

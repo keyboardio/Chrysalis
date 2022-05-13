@@ -84,7 +84,7 @@ class Editor extends React.Component {
         keymap: newKeymap,
       };
     });
-    await settings.set("keyboard.layout", layout);
+    settings.set("keyboard.layout", layout);
   };
 
   onKeySelect = (event) => {

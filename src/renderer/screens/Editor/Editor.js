@@ -314,7 +314,6 @@ class Editor extends React.Component {
 
     const k = new Keymap();
 
-    const layerData = keymap.custom && keymap.custom[currentLayer];
     const focus = new Focus();
     const KeymapSVG = focus.focusDeviceDescriptor.components.keymap;
 
@@ -344,7 +343,7 @@ class Editor extends React.Component {
           <KeymapSVG
             className="layer"
             index={currentLayer}
-            keymap={layerData}
+            keymap={keymap?.custom[currentLayer]}
             onKeySelect={this.onKeySelect}
             selectedKey={currentKeyIndex}
             palette={colormap.palette}

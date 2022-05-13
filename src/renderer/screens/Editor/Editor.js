@@ -43,6 +43,8 @@ import {
 } from "@renderer/components/ContextBar";
 
 const db = new KeymapDB();
+const focus = new Focus();
+const logger = new Log();
 
 class Editor extends React.Component {
   state = {
@@ -182,9 +184,6 @@ class Editor extends React.Component {
   };
 
   scanKeyboard = async () => {
-    let focus = new Focus();
-    let logger = new Log();
-
     try {
       let keymap = await focus.command("keymap");
 
@@ -256,8 +255,6 @@ class Editor extends React.Component {
 
   onApply = async () => {
     this.setState({ saving: true });
-    let focus = new Focus();
-    let logger = new Log();
 
     await focus.command("keymap", this.state.keymap);
     await focus.command(
@@ -288,7 +285,6 @@ class Editor extends React.Component {
         },
       };
     });
-    let logger = new Log();
     logger.log("Legacy keycodes migrated to new ones.");
 
     showContextBar();
@@ -314,7 +310,6 @@ class Editor extends React.Component {
 
     const k = new Keymap();
 
-    const focus = new Focus();
     const KeymapSVG = focus.focusDeviceDescriptor.components.keymap;
 
     let title;

@@ -1,3 +1,4 @@
+import { LegacyAlert } from "./components/LegacyAlert";
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
  * Copyright (C) 2020-2021  Keyboardio, Inc.
@@ -17,10 +18,7 @@
 
 import React from "react";
 
-import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 
 import { toast } from "react-toastify";
 
@@ -321,28 +319,6 @@ class Editor extends React.Component {
     }
 
     const k = new Keymap();
-    let legacyAlert;
-    if (this.state.hasLegacy) {
-      const migrateButton = (
-        <Button color="primary" onClick={this.migrateLegacy}>
-          {i18n.t("editor.legacy.migrate")}
-        </Button>
-      );
-      legacyAlert = (
-        <Alert
-          severity="error"
-          action={migrateButton}
-          sx={{
-            zIndex: "modal",
-            position: "relative",
-          }}
-        >
-          <Typography component="p">
-            {i18n.t("editor.legacy.warning")}
-          </Typography>
-        </Alert>
-      );
-    }
 
     const layerData = keymap.custom && keymap.custom[currentLayer];
     const focus = new Focus();
@@ -374,7 +350,10 @@ class Editor extends React.Component {
       <React.Fragment>
         <PageTitle title={title} />
 
-        {legacyAlert}
+
+        {this.state.hasLegacy && (
+          <LegacyAlert migrateLegacy={this.migrateLegacy} />
+        )}
         <Box
           component="main"
           sx={{

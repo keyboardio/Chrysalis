@@ -53,9 +53,7 @@ function MainMenu({ open, closeMenu, classes }) {
   const globalContext = useContext(GlobalContext);
 
   const [connected, setConnected] = globalContext.state.connected;
-  const [device, setDevice] = globalContext.state.device;
-  const [pages, setPages] = globalContext.state.pages;
-  const [darkMode, setDarkMode] = globalContext.state.darkMode;
+  const [activeDevice, setActiveDevice] = globalContext.state.activeDevice;
 
   const setCurrentPage = (page) => {
     history.navigate(page);
@@ -68,7 +66,7 @@ function MainMenu({ open, closeMenu, classes }) {
   };
 
   const homePage = connected
-    ? pages.keymap
+    ? activeDevice.hasCustomizableKeymaps()
       ? "/editor"
       : "/focus-not-detected"
     : "/keyboard-select";
@@ -113,17 +111,16 @@ function MainMenu({ open, closeMenu, classes }) {
             </ListSubheader>
           }
         >
-          {!pages.keymap &&
-            !pages.colormap &&
+          {!activeDevice.focusDetected() &&
             listItem(
               <InfoIcon />,
               i18n.t("app.menu.focus-not-detected"),
               "/focus-not-detected"
             )}
-          {pages.keymap &&
+          {activeDevice.hasCustomizableKeymaps() &&
             listItem(
               <KeyboardIcon />,
-              pages.colormap
+              activeDevice.hasCustomizableLEDMaps()
                 ? i18n.t("app.menu.editor")
                 : i18n.t("app.menu.layoutEditor"),
 

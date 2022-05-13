@@ -24,7 +24,6 @@ import i18n from "../../i18n";
 import { installUdevRules } from "../../utils/installUdevRules";
 
 export const LinuxPermissionsWarning = (props) => {
-  const deviceInaccessible = props.deviceInacessible;
   const selectedDevicePort = props.selectedDevicePort;
   const scanDevices = props.scanDevices;
   const platform = process.platform;
@@ -40,7 +39,7 @@ export const LinuxPermissionsWarning = (props) => {
     await scanDevices();
   };
 
-  if (platform == "linux" && deviceInaccessible) {
+  if (platform == "linux" && !selectedDevicePort?.accessible) {
     const fixitButton = (
       <Button onClick={doInstallUdevRules} variant="outlined">
         {i18n.t("keyboardSelect.installUdevRules")}

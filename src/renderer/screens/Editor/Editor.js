@@ -232,10 +232,9 @@ class Editor extends React.Component {
     db.setLayout(layoutSetting);
 
     await this.scanKeyboard();
-    let initialLayer = 0;
 
     this.setState({
-      currentLayer: initialLayer,
+      currentLayer: 0,
       loading: false,
       layout: layoutSetting,
     });

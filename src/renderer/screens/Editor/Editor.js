@@ -269,7 +269,7 @@ class Editor extends React.Component {
   };
 
   migrateLegacy = async () => {
-    await this.setState((oldState) => {
+    this.setState((oldState) => {
       const k = new Keymap();
       let newKeymap = k.migrateLegacyCodes(oldState.keymap.custom);
       return {

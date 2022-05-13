@@ -26,12 +26,24 @@ const Style = Styled.div`
 }
 `;
 
-const ButtonConfig = ({ selected, onClick, size, buttonText, tooltip, style, icoSVG, icoPosition, tooltipDelay, disabled }) => {
+const ButtonConfig = ({
+  selected,
+  onClick,
+  size,
+  buttonText,
+  tooltip,
+  tooltipPlacement,
+  style,
+  icoSVG,
+  icoPosition,
+  tooltipDelay,
+  disabled
+}) => {
   return (
     <>
       {tooltip ? (
         <OverlayTrigger
-          placement="top"
+          placement={tooltipPlacement ? tooltipPlacement : "top"}
           tooltipDelay={`${tooltipDelay ? tooltipDelay : "0"}`}
           overlay={
             <Tooltip id="tooltip-top" className="tooltipRegular">

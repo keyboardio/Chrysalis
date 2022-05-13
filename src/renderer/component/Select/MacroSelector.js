@@ -144,9 +144,14 @@ class MacroSelector extends React.Component {
             </Dropdown.Menu>
           </Dropdown>
           <div className="dropdownActions dropdownActionsIcons">
-            <ButtonConfig onClick={this.toggleShow} icoSVG={<IconPen />} tooltip={i18n.app.menu.changeName} />
-            <ButtonConfig onClick={cloneItem} icoSVG={<IconClone />} tooltip={i18n.general.clone} />
-            <ButtonConfig onClick={deleteItem} icoSVG={<IconDelete />} tooltip={i18n.general.delete} />
+            <ButtonConfig
+              onClick={this.toggleShow}
+              icoSVG={<IconPen />}
+              tooltip={i18n.app.menu.changeName}
+              tooltipPlacement="bottom"
+            />
+            <ButtonConfig onClick={cloneItem} icoSVG={<IconClone />} tooltip={i18n.general.clone} tooltipPlacement="bottom" />
+            <ButtonConfig onClick={deleteItem} icoSVG={<IconDelete />} tooltip={i18n.general.delete} tooltipPlacement="bottom" />
           </div>
         </div>
         <RegularButton

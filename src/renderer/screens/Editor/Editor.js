@@ -323,19 +323,6 @@ class Editor extends React.Component {
     const layerData = keymap.custom && keymap.custom[currentLayer];
     const focus = new Focus();
     const KeymapSVG = focus.focusDeviceDescriptor.components.keymap;
-    const keymapWidget = (
-      <div>
-        <KeymapSVG
-          className="layer"
-          index={currentLayer}
-          keymap={layerData}
-          onKeySelect={this.onKeySelect}
-          selectedKey={currentKeyIndex}
-          palette={colormap.palette}
-          colormap={colormap.colorMap[currentLayer]}
-        />
-      </div>
-    );
 
     let title;
     if (this.hasColormap() && this.hasKeymap()) {
@@ -362,7 +349,15 @@ class Editor extends React.Component {
             width: `calc(100% - ${sidebarWidth}px)`,
           }}
         >
-          {keymapWidget}
+          <KeymapSVG
+            className="layer"
+            index={currentLayer}
+            keymap={layerData}
+            onKeySelect={this.onKeySelect}
+            selectedKey={currentKeyIndex}
+            palette={colormap.palette}
+            colormap={colormap.colorMap[currentLayer]}
+          />
         </Box>
         <Sidebar
           keymap={keymap}

@@ -15,11 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
+import React, { useState } from "react";
 import i18n from "i18next";
 
 import Avatar from "@mui/material/Avatar";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import CropSquareIcon from "@mui/icons-material/CropSquare";
@@ -35,27 +34,17 @@ import TableRow from "@mui/material/TableRow";
 import LayoutSharing from "./Overview/LayoutSharing";
 import { KeymapDB } from "@api/keymap";
 
-class Overview extends React.Component {
-  state = {
-    showAll: false,
-    dialogOpen: false,
+const Overview = (props) => {
+  const [showAll, setShowAll] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const selectLayer = (index) => () => {
+    props.setLayer(index);
   };
 
-  selectLayer = (index) => () => {
-    this.props.setLayer(index);
-  };
-
-  closeDialog = () => {
-    this.setState({ dialogOpen: false });
-  };
-
-  openDialog = () => {
-    this.setState({ dialogOpen: true });
-  };
-
-  findLastUsedLayer = () => {
+  const findLastUsedLayer = () => {
     let lastUsedLayer = 0;
-    const { keymap } = this.props;
+    const { keymap } = props;
 
     for (let index = 0; index < keymap.custom.length; index++) {
       const layer = keymap.custom[index];
@@ -70,128 +59,125 @@ class Overview extends React.Component {
     return lastUsedLayer;
   };
 
-  toggleAllLayers = () => {
-    this.setState((state) => ({
-      showAll: !state.showAll,
-    }));
+  const toggleAllLayers = () => {
+    setShowAll(!showAll);
   };
 
-  render() {
-    const { keymap, selectedKey, selectedLed, layer, colormap } = this.props;
-    const { showAll, dialogOpen } = this.state;
-    const db = new KeymapDB();
+  const { keymap, selectedKey, selectedLed, layer, colormap } = props;
+  const db = new KeymapDB();
 
-    const lastUsedLayer = this.findLastUsedLayer();
-    let usedLayers;
+  const lastUsedLayer = findLastUsedLayer();
+  let usedLayers;
 
-    if (showAll) {
-      usedLayers = keymap.custom;
-    } else {
-      usedLayers = keymap.custom.slice(0, lastUsedLayer + 1);
+  if (showAll) {
+    usedLayers = keymap.custom;
+  } else {
+    usedLayers = keymap.custom.slice(0, lastUsedLayer + 1);
+  }
+
+  const config = usedLayers.map((layerData, index) => {
+    const label = db.format(layerData[selectedKey], "full");
+    let colorWidget;
+    if (colormap && colormap.palette.length > 0) {
+      const colorIndex = colormap.colorMap[index][selectedLed];
+      const color = colormap.palette[colorIndex];
+
+      colorWidget = (
+        <Avatar
+          sx={{ width: 3, height: 3 }}
+          variant="square"
+          style={{
+            color: color?.rgb,
+            background: color?.rgb,
+          }}
+        >
+          <CropSquareIcon />
+        </Avatar>
+      );
     }
 
-    const config = usedLayers.map((layerData, index) => {
-      const label = db.format(layerData[selectedKey], "full");
-      let colorWidget;
-      if (colormap && colormap.palette.length > 0) {
-        const colorIndex = colormap.colorMap[index][selectedLed];
-        const color = colormap.palette[colorIndex];
-
-        colorWidget = (
-          <Avatar
-            sx={{ width: 3, height: 3 }}
-            variant="square"
-            style={{
-              color: color?.rgb,
-              background: color?.rgb,
-            }}
-          >
-            <CropSquareIcon />
-          </Avatar>
-        );
-      }
-
-      return (
-        <TableRow
-          key={`key-config-layer-${index}`}
-          selected={layer == index}
-          onClick={this.selectLayer(index)}
-          sx={{ cursor: "pointer" }}
-        >
-          <TableCell size="small" align="left">
-            #{index}
-          </TableCell>
-          <TableCell>
-            {label.hint} {label.main}
-          </TableCell>
-          {colormap && colormap.palette.length > 0 && (
-            <TableCell>{colorWidget}</TableCell>
-          )}
-        </TableRow>
-      );
-    });
-
-    const toggleButtonText = showAll
-      ? i18n.t("editor.sidebar.overview.hideEmptyLayers")
-      : i18n.t("editor.sidebar.overview.showEmptyLayers");
-
-    const footer = lastUsedLayer + 1 < keymap.custom.length && (
-      <TableFooter>
-        <TableRow>
-          <TableCell
-            colSpan={colormap && colormap.palette.length > 0 ? 3 : 2}
-            align="right"
-          >
-            <Button onClick={this.toggleAllLayers}>{toggleButtonText}</Button>
-          </TableCell>
-        </TableRow>
-      </TableFooter>
-    );
-
     return (
-      <Box sx={{ mb: 2 }}>
-        <FormHelperText sx={{ mb: 2 }}>
-          {i18n.t("editor.sidebar.overview.help")}
-        </FormHelperText>
-        <TableContainer component={Paper} sx={{ mb: 2 }}>
-          <Table size="small">
-            <TableHead>
-              <TableRow>
-                <TableCell size="small">
-                  {i18n.t("components.layerRaw")}
-                </TableCell>
-                <TableCell>
-                  {i18n.t("editor.sidebar.overview.key", {
-                    index: selectedKey,
-                  })}
-                </TableCell>
-                {colormap && colormap.palette.length > 0 && (
-                  <TableCell>
-                    {i18n.t("editor.sidebar.overview.color")}
-                  </TableCell>
-                )}
-              </TableRow>
-            </TableHead>
-            <TableBody>{config}</TableBody>
-            {footer}
-          </Table>
-        </TableContainer>
-        <Button onClick={this.openDialog} color="secondary" variant="outlined">
-          {i18n.t("editor.sidebar.overview.sharing")}
-        </Button>
-        <LayoutSharing
-          open={dialogOpen}
-          onClose={this.closeDialog}
-          keymap={keymap}
-          colormap={colormap}
-          layer={layer}
-          onKeymapChange={this.props.onKeymapChange}
-          onPaletteChange={this.props.onPaletteChange}
-          onColormapChange={this.props.onColormapChange}
-        />
-      </Box>
+      <TableRow
+        key={`key-config-layer-${index}`}
+        selected={layer == index}
+        onClick={selectLayer(index)}
+        sx={{ cursor: "pointer" }}
+      >
+        <TableCell size="small" align="left">
+          #{index}
+        </TableCell>
+        <TableCell>
+          {label.hint} {label.main}
+        </TableCell>
+        {colormap && colormap.palette.length > 0 && (
+          <TableCell>{colorWidget}</TableCell>
+        )}
+      </TableRow>
     );
-  }
-}
+  });
+
+  const footer = lastUsedLayer + 1 < keymap.custom.length && (
+    <TableFooter>
+      <TableRow>
+        <TableCell
+          colSpan={colormap && colormap.palette.length > 0 ? 3 : 2}
+          align="right"
+        >
+          <Button onClick={() => setShowAll(!showAll)}>
+            {showAll
+              ? i18n.t("editor.sidebar.overview.hideEmptyLayers")
+              : i18n.t("editor.sidebar.overview.showEmptyLayers")}
+          </Button>
+        </TableCell>
+      </TableRow>
+    </TableFooter>
+  );
+
+  return (
+    <div sx={{ mb: 2 }}>
+      <FormHelperText sx={{ mb: 2 }}>
+        {i18n.t("editor.sidebar.overview.help")}
+      </FormHelperText>
+      <TableContainer component={Paper} sx={{ mb: 2 }}>
+        <Table size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell size="small">
+                {i18n.t("components.layerRaw")}
+              </TableCell>
+              <TableCell>
+                {i18n.t("editor.sidebar.overview.key", {
+                  index: selectedKey,
+                })}
+              </TableCell>
+              {colormap && colormap.palette.length > 0 && (
+                <TableCell>{i18n.t("editor.sidebar.overview.color")}</TableCell>
+              )}
+            </TableRow>
+          </TableHead>
+          <TableBody>{config}</TableBody>
+          {footer}
+        </Table>
+      </TableContainer>
+      <Button
+        onClick={() => setDialogOpen(true)}
+        color="secondary"
+        variant="outlined"
+      >
+        {i18n.t("editor.sidebar.overview.sharing")}
+      </Button>
+      <LayoutSharing
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        keymap={keymap}
+        colormap={colormap}
+        layer={layer}
+        onKeymapChange={props.onKeymapChange}
+        onPaletteChange={props.onPaletteChange}
+        onColormapChange={props.onColormapChange}
+      />
+    </div>
+  );
+};
 
 export { Overview as default };

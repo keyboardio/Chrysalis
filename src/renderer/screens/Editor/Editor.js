@@ -226,6 +226,7 @@ const Editor = (props) => {
 
     // code to run after render goes here
   }, []); // <-- empty array means 'run once'
+  // TODO - react exhaustive-deps doesn't like this, but I'm not quite sure how to refactor it
 
   const onApply = async () => {
     await focus.command("keymap", keymap);

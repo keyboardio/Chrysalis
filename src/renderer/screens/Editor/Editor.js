@@ -66,13 +66,16 @@ const Editor = (props) => {
   const [currentLayer, setCurrentLayer] = useState(0);
   const [hasLegacy, setHasLegacy] = useState(false);
 
-  const initialize = async () => {
-    await scanKeyboard();
+  const initializeHostKeyboardLayout = async () => {
     const layoutSetting = await settings.get("keyboard.layout", "English (US)");
     db.setLayout(layoutSetting);
-
-    setCurrentLayer(0);
     _setLayout(layoutSetting);
+  };
+
+  const initialize = async () => {
+    await scanKeyboard();
+    await initializeHostKeyboardLayout();
+
     setLoading(false);
   };
 
@@ -209,6 +212,7 @@ const Editor = (props) => {
       if (event.data === "changes-discarded") {
         setLoading(true);
         initialize();
+        setCurrentLayer(0);
         setModified(false);
       }
     };

@@ -283,6 +283,7 @@ class KeymapDB {
 
   format(key, keycapSize = "1u") {
     let label = key.label.base;
+    let shifted = key.label.shifted;
     if (typeof label != "string") {
       label = key.label.base[keycapSize] || key.label.base.full;
     }
@@ -296,10 +297,15 @@ class KeymapDB {
     }
     if (key.legacy) hint = "Legacy";
 
-    return {
+    let data = {
       main: label,
       hint: hint,
     };
+    if (shifted !== label) {
+      data.shifted = shifted;
+    }
+
+    return data;
   }
 }
 

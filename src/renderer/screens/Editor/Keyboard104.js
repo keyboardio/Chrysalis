@@ -17,8 +17,6 @@
 
 import React from "react";
 
-import classNames from "classnames";
-
 import Box from "@mui/material/Box";
 
 import { KeymapDB } from "@api/keymap";
@@ -132,7 +130,16 @@ class Keymap extends React.Component {
       };
 
       const label = db.format(key, getKeycapSize(row, col));
-      let keyClasses;
+      let fontSize =
+        label.main.length == 1
+          ? Math.round(keycapunit / 2.5)
+          : Math.round(keycapunit / 4);
+      let mainLegendY = y + height / 2;
+      if (label.shifted) {
+        fontSize -= 3;
+        mainLegendY += fontSize / 2 + 2;
+      }
+
       return (
         <g onClick={onClick} className="key" data-key-code={key.code} sx={{}}>
           <rect
@@ -145,17 +152,25 @@ class Keymap extends React.Component {
             strokeWidth={1.55}
             fill={buttonColor}
           />
+          {label.shifted && (
+            <text
+              x={x + width / 2}
+              y={mainLegendY - (fontSize + 2)}
+              fill={textColor}
+              dominantBaseline="middle"
+              textAnchor="middle"
+              fontSize={fontSize}
+            >
+              {label.shifted}
+            </text>
+          )}
           <text
             x={x + width / 2}
-            y={y + height / 2}
+            y={mainLegendY}
             fill={textColor}
             dominantBaseline="middle"
             textAnchor="middle"
-            fontSize={
-              label.main.length == 1
-                ? Math.round(keycapunit / 2.5)
-                : Math.round(keycapunit / 4)
-            }
+            fontSize={fontSize}
           >
             {label.main}
           </text>

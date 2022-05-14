@@ -33,27 +33,30 @@ export function ActiveDevice() {
     }
   };
   this.hasCustomizableKeymaps = async () => {
-    const commands = await this.focusCommands();
-
-    if (
-      commands.includes("keymap.custom") > 0 ||
-      commands.includes("keymap.map") > 0
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+    this.focusCommands().then((commands) => {
+      if (
+        commands.includes("keymap.custom") > 0 ||
+        commands.includes("keymap.map") > 0
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    });
   };
 
-  this.hasCustomizableLEDMaps = async () => {
-    const commands = await this.focusCommands();
-    if (
-      commands.includes("colormap.map") > 0 &&
-      commands.includes("palette") > 0
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+  this.hasCustomizableLEDMaps = () => {
+    this.focusCommands().then((commands) => {
+      if (
+        commands.includes("colormap.map") > 0 &&
+        commands.includes("palette") > 0
+      ) {
+        console.log("it has customizable LED maps");
+        console.log(commands);
+        return true;
+      } else {
+        return false;
+      }
+    });
   };
 }

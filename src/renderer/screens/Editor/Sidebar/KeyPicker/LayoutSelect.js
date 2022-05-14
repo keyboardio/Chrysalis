@@ -21,7 +21,6 @@ import i18n from "i18next";
 import Autocomplete from "@mui/material/Autocomplete";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
-import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 
 import { KeymapDB } from "@api/keymap";

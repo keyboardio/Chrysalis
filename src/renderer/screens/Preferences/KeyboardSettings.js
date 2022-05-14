@@ -62,12 +62,9 @@ const KeyboardSettings = (props) => {
 
   const [modified, setModified] = useState(false);
   const [working, setWorking] = useState(false);
+  const focus = new Focus();
 
-  useEffect(() => {
-    const context_bar_channel = new BroadcastChannel("context_bar");
-
-    const focus = new Focus();
-
+  const initState = async () => {
     focus.command("keymap").then((keymap) => {
       setKeymap(keymap);
     });
@@ -84,18 +81,24 @@ const KeyboardSettings = (props) => {
       limit = limit ? parseInt(limit) : -1;
       setLedIdleTimeLimit(limit);
     });
+  };
+
+  useEffect(() => {
+    const context_bar_channel = new BroadcastChannel("context_bar");
 
     context_bar_channel.onmessage = (event) => {
       if (event.data === "changes-discarded") {
-        // XXX TODO .componentDidMount();
-        alert("HEY");
-        setModified(false);
+        initState().then(() => setModified(false));
       }
     };
     return () => {
       context_bar_channel.close();
     };
   });
+
+  useEffect(() => {
+    initState();
+  }, []);
 
   const selectDefaultLayer = (event) => {
     setDefaultLayer(event.target.value);

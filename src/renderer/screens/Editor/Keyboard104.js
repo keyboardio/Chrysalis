@@ -17,14 +17,12 @@
 
 import React from "react";
 
-import Box from "@mui/material/Box";
-
 import { KeymapDB } from "@api/keymap";
 const db = new KeymapDB();
 
 const keycapunit = 56;
 
-class Keymap extends React.Component {
+class KeySelector extends React.Component {
   render() {
     const keymap = db.getStandardLayout();
     const { currentKeyCode, onKeySelect } = this.props;
@@ -185,175 +183,162 @@ class Keymap extends React.Component {
       (6.5 * keycapunit + 40).toString();
 
     return (
-      <svg
-        viewBox={viewBoxSize}
-        xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="xMidYMin meet"
-        width="100%"
-        height="100%"
-        className={this.props.className}
-        sx={{
-          fontFamily: '"Source Code Pro", "monospace"',
-          fontWeight: 700,
-          fontSize: Math.round(keycapunit / 4),
-        }}
-      >
-        <g transform="translate(10, 10)">
-          <g>
-            <Key row={0} col={0} />
+      <div>
+        <svg
+          viewBox={viewBoxSize}
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="xMidYMin meet"
+          width="100%"
+          height="100%"
+          className={this.props.className}
+          sx={{
+            fontFamily: '"Source Code Pro", "monospace"',
+            fontWeight: 700,
+            fontSize: Math.round(keycapunit / 4),
+          }}
+        >
+          <g transform="translate(10, 10)">
+            <g>
+              <Key row={0} col={0} />
 
-            <Key row={0} col={1} />
-            <Key row={0} col={2} />
-            <Key row={0} col={3} />
-            <Key row={0} col={4} />
+              <Key row={0} col={1} />
+              <Key row={0} col={2} />
+              <Key row={0} col={3} />
+              <Key row={0} col={4} />
 
-            <Key row={0} col={5} />
-            <Key row={0} col={6} />
-            <Key row={0} col={7} />
-            <Key row={0} col={8} />
+              <Key row={0} col={5} />
+              <Key row={0} col={6} />
+              <Key row={0} col={7} />
+              <Key row={0} col={8} />
 
-            <Key row={0} col={9} />
-            <Key row={0} col={10} />
-            <Key row={0} col={11} />
-            <Key row={0} col={12} />
+              <Key row={0} col={9} />
+              <Key row={0} col={10} />
+              <Key row={0} col={11} />
+              <Key row={0} col={12} />
+            </g>
+
+            <g>
+              <Key row={1} col={0} />
+              <Key row={1} col={1} />
+              <Key row={1} col={2} />
+              <Key row={1} col={3} />
+              <Key row={1} col={4} />
+              <Key row={1} col={5} />
+              <Key row={1} col={6} />
+              <Key row={1} col={7} />
+              <Key row={1} col={8} />
+              <Key row={1} col={9} />
+              <Key row={1} col={10} />
+              <Key row={1} col={11} />
+              <Key row={1} col={12} />
+              <Key row={1} col={13} />
+
+              <Key row={1} col={14} />
+              <Key row={1} col={15} />
+              <Key row={1} col={16} />
+
+              <Key row={1} col={17} />
+              <Key row={1} col={18} />
+              <Key row={1} col={19} />
+              <Key row={1} col={20} />
+            </g>
+
+            <g>
+              <Key row={2} col={0} />
+              <Key row={2} col={1} />
+              <Key row={2} col={2} />
+              <Key row={2} col={3} />
+              <Key row={2} col={4} />
+              <Key row={2} col={5} />
+              <Key row={2} col={6} />
+              <Key row={2} col={7} />
+              <Key row={2} col={8} />
+              <Key row={2} col={9} />
+              <Key row={2} col={10} />
+              <Key row={2} col={11} />
+              <Key row={2} col={12} />
+              <Key row={2} col={13} />
+
+              <Key row={2} col={14} />
+              <Key row={2} col={15} />
+              <Key row={2} col={16} />
+
+              <Key row={2} col={17} />
+              <Key row={2} col={18} />
+              <Key row={2} col={19} />
+              <Key row={2} col={20} />
+            </g>
+
+            <g>
+              <Key row={3} col={0} />
+              <Key row={3} col={1} />
+              <Key row={3} col={2} />
+              <Key row={3} col={3} />
+              <Key row={3} col={4} />
+              <Key row={3} col={5} />
+              <Key row={3} col={6} />
+              <Key row={3} col={7} />
+              <Key row={3} col={8} />
+              <Key row={3} col={9} />
+              <Key row={3} col={10} />
+              <Key row={3} col={11} />
+              <Key row={3} col={12} />
+              <Key row={3} col={13} />
+
+              <Key row={3} col={14} />
+              <Key row={3} col={15} />
+              <Key row={3} col={16} />
+
+              <Key row={3} col={17} />
+              <Key row={3} col={18} />
+              <Key row={3} col={19} />
+            </g>
+
+            <g>
+              <Key row={4} col={0} />
+              <Key row={4} col={1} />
+              <Key row={4} col={2} />
+              <Key row={4} col={3} />
+              <Key row={4} col={4} />
+              <Key row={4} col={5} />
+              <Key row={4} col={6} />
+              <Key row={4} col={7} />
+              <Key row={4} col={8} />
+              <Key row={4} col={9} />
+              <Key row={4} col={10} />
+              <Key row={4} col={11} />
+              <Key row={4} col={12} />
+
+              <Key row={4} col={13} />
+
+              <Key row={4} col={14} />
+              <Key row={4} col={15} />
+              <Key row={4} col={16} />
+              <Key row={4} col={17} />
+            </g>
+
+            <g>
+              <Key row={5} col={0} />
+              <Key row={5} col={1} />
+              <Key row={5} col={2} />
+
+              <Key row={5} col={3} />
+
+              <Key row={5} col={4} />
+              <Key row={5} col={5} />
+              <Key row={5} col={6} />
+              <Key row={5} col={7} />
+
+              <Key row={5} col={8} />
+              <Key row={5} col={9} />
+              <Key row={5} col={10} />
+
+              <Key row={5} col={11} />
+              <Key row={5} col={12} />
+            </g>
           </g>
-
-          <g>
-            <Key row={1} col={0} />
-            <Key row={1} col={1} />
-            <Key row={1} col={2} />
-            <Key row={1} col={3} />
-            <Key row={1} col={4} />
-            <Key row={1} col={5} />
-            <Key row={1} col={6} />
-            <Key row={1} col={7} />
-            <Key row={1} col={8} />
-            <Key row={1} col={9} />
-            <Key row={1} col={10} />
-            <Key row={1} col={11} />
-            <Key row={1} col={12} />
-            <Key row={1} col={13} />
-
-            <Key row={1} col={14} />
-            <Key row={1} col={15} />
-            <Key row={1} col={16} />
-
-            <Key row={1} col={17} />
-            <Key row={1} col={18} />
-            <Key row={1} col={19} />
-            <Key row={1} col={20} />
-          </g>
-
-          <g>
-            <Key row={2} col={0} />
-            <Key row={2} col={1} />
-            <Key row={2} col={2} />
-            <Key row={2} col={3} />
-            <Key row={2} col={4} />
-            <Key row={2} col={5} />
-            <Key row={2} col={6} />
-            <Key row={2} col={7} />
-            <Key row={2} col={8} />
-            <Key row={2} col={9} />
-            <Key row={2} col={10} />
-            <Key row={2} col={11} />
-            <Key row={2} col={12} />
-            <Key row={2} col={13} />
-
-            <Key row={2} col={14} />
-            <Key row={2} col={15} />
-            <Key row={2} col={16} />
-
-            <Key row={2} col={17} />
-            <Key row={2} col={18} />
-            <Key row={2} col={19} />
-            <Key row={2} col={20} />
-          </g>
-
-          <g>
-            <Key row={3} col={0} />
-            <Key row={3} col={1} />
-            <Key row={3} col={2} />
-            <Key row={3} col={3} />
-            <Key row={3} col={4} />
-            <Key row={3} col={5} />
-            <Key row={3} col={6} />
-            <Key row={3} col={7} />
-            <Key row={3} col={8} />
-            <Key row={3} col={9} />
-            <Key row={3} col={10} />
-            <Key row={3} col={11} />
-            <Key row={3} col={12} />
-            <Key row={3} col={13} />
-
-            <Key row={3} col={14} />
-            <Key row={3} col={15} />
-            <Key row={3} col={16} />
-
-            <Key row={3} col={17} />
-            <Key row={3} col={18} />
-            <Key row={3} col={19} />
-          </g>
-
-          <g>
-            <Key row={4} col={0} />
-            <Key row={4} col={1} />
-            <Key row={4} col={2} />
-            <Key row={4} col={3} />
-            <Key row={4} col={4} />
-            <Key row={4} col={5} />
-            <Key row={4} col={6} />
-            <Key row={4} col={7} />
-            <Key row={4} col={8} />
-            <Key row={4} col={9} />
-            <Key row={4} col={10} />
-            <Key row={4} col={11} />
-            <Key row={4} col={12} />
-
-            <Key row={4} col={13} />
-
-            <Key row={4} col={14} />
-            <Key row={4} col={15} />
-            <Key row={4} col={16} />
-            <Key row={4} col={17} />
-          </g>
-
-          <g>
-            <Key row={5} col={0} />
-            <Key row={5} col={1} />
-            <Key row={5} col={2} />
-
-            <Key row={5} col={3} />
-
-            <Key row={5} col={4} />
-            <Key row={5} col={5} />
-            <Key row={5} col={6} />
-            <Key row={5} col={7} />
-
-            <Key row={5} col={8} />
-            <Key row={5} col={9} />
-            <Key row={5} col={10} />
-
-            <Key row={5} col={11} />
-            <Key row={5} col={12} />
-          </g>
-        </g>
-      </svg>
-    );
-  }
-}
-
-class KeySelector extends React.Component {
-  render() {
-    return (
-      <Box
-        sx={{
-          textAlign: "center",
-          height: keycapunit * 6.5,
-        }}
-      >
-        <Keymap {...this.props} />
-      </Box>
+        </svg>
+      </div>
     );
   }
 }

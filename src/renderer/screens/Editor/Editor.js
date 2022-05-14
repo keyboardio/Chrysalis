@@ -173,7 +173,7 @@ const Editor = (props) => {
           deviceKeymap.custom[i] = deviceKeymap.default[i].slice();
         }
         deviceKeymap.onlyCustom = true;
-        await focus.command("keymap", keymap);
+        await focus.command("keymap", deviceKeymap);
       }
 
       let deviceColormap = await focus.command("colormap");

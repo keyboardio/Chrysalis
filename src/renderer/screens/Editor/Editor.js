@@ -153,28 +153,33 @@ const Editor = (props) => {
     showContextBar();
   };
 
+  const updateEmptyKeymap = async (deviceKeymap) => {
+    let empty = true;
+    for (let layer of deviceKeymap.custom) {
+      for (let i of layer) {
+        if (i.code != 65535) {
+          empty = false;
+          break;
+        }
+      }
+    }
+
+    if (empty && !deviceKeymap.onlyCustom && deviceKeymap.custom.length > 0) {
+      logger.log("Custom keymap is empty, copying defaults");
+      for (let i = 0; i < deviceKeymap.default.length; i++) {
+        deviceKeymap.custom[i] = deviceKeymap.default[i].slice();
+      }
+      deviceKeymap.onlyCustom = true;
+      await focus.command("keymap", deviceKeymap);
+    }
+    return deviceKeymap;
+  };
+
   const scanKeyboard = async () => {
     try {
       let deviceKeymap = await focus.command("keymap");
 
-      let empty = true;
-      for (let layer of deviceKeymap.custom) {
-        for (let i of layer) {
-          if (i.code != 65535) {
-            empty = false;
-            break;
-          }
-        }
-      }
-
-      if (empty && !deviceKeymap.onlyCustom && deviceKeymap.custom.length > 0) {
-        logger.log("Custom keymap is empty, copying defaults");
-        for (let i = 0; i < deviceKeymap.default.length; i++) {
-          deviceKeymap.custom[i] = deviceKeymap.default[i].slice();
-        }
-        deviceKeymap.onlyCustom = true;
-        await focus.command("keymap", deviceKeymap);
-      }
+      deviceKeymap = await updateEmptyKeymap(deviceKeymap);
 
       let deviceColormap = await focus.command("colormap");
       const k = new Keymap();

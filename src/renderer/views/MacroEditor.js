@@ -486,6 +486,7 @@ class MacroEditor extends React.Component {
   }
 
   changeSelected(id) {
+    console.log("SELECTING", id);
     this.setState({
       selectedMacro: id < 0 ? 0 : id
     });
@@ -553,15 +554,16 @@ class MacroEditor extends React.Component {
   }
 
   saveName(name) {
-    console.log("MACROS: ", this.state.macros);
-    // let macrosList = this.state.macros;
-    // macrosList[this.state.selectedMacro].name = name;
-    // this.setState({ macrosList, modified: true });
+    console.log("MACROS: ", this.state.macros, name);
+    let macrosList = this.state.macros;
+    macrosList[this.state.selectedMacro].name = name;
+    this.setState({ macros: macrosList, modified: true });
   }
 
   render() {
-    // const mem = this.state.macros.map(m => m.actions).flat().length;
-    const ListOfMacros = this.state.listToDelete.map(({ layer, pos, key }, id) => {
+    const { selectedMacro, macros, listToDelete, selectedList, maxMacros, freeMemory, modified, showDeleteModal } = this.state;
+    // const mem = macros.map(m => m.actions).flat().length;
+    const ListOfMacros = listToDelete.map(({ layer, pos, key }, id) => {
       return (
         <Row key={id}>
           <Col xs={12} className="px-0 text-center gridded">
@@ -576,12 +578,8 @@ class MacroEditor extends React.Component {
           id="Selectlayers"
           className="selectButton"
           drop={"up"}
-          title={
-            this.state.macros.length > 0 && this.state.selectedList > -1
-              ? this.state.macros[this.state.selectedList].name
-              : "No Key"
-          }
-          value={this.state.selectedList}
+          title={macros.length > 0 && selectedList > -1 ? macros[selectedList].name : "No Key"}
+          value={selectedList}
           onSelect={this.UpdateList}
         >
           <Dropdown.Item eventKey={-1} key={`macro-${-1}`} disabled={false}>
@@ -589,7 +587,7 @@ class MacroEditor extends React.Component {
               <p>{"No Key"}</p>
             </div>
           </Dropdown.Item>
-          {this.state.macros.map((macro, id) => (
+          {macros.map((macro, id) => (
             <Dropdown.Item eventKey={macro.id} key={`macro-${id}`} disabled={macro.id == -1}>
               <div className="item-layer">
                 <p>{macro.name}</p>
@@ -606,54 +604,54 @@ class MacroEditor extends React.Component {
             text={i18n.app.menu.macros}
             contentSelector={
               <MacroSelector
-                itemList={this.state.macros}
-                selectedItem={this.state.selectedMacro}
+                itemList={macros}
+                selectedItem={selectedMacro}
                 subtitle="Macros"
                 onSelect={this.changeSelected}
                 addItem={this.addMacro}
                 deleteItem={this.deleteMacro}
                 updateItem={this.saveName}
-                maxMacros={this.state.maxMacros}
-                mem={this.state.freeMemory}
+                maxMacros={maxMacros}
+                mem={freeMemory}
               />
             }
             showSaving={true}
             saveContext={this.writeMacros}
             destroyContext={this.loadMacros}
-            inContext={this.state.modified}
+            inContext={modified}
           />
           <Callout content={i18n.editor.macros.callout} className="mt-lg" size="md" maxWidth={1100} />
           <MacroCreator
-            macros={this.state.macros}
-            maxMacros={this.state.maxMacros}
-            selected={this.state.selectedMacro}
+            macros={macros}
+            maxMacros={maxMacros}
+            selected={selectedMacro}
             updateMacro={this.updateMacros}
             changeSelected={this.changeSelected}
             keymapDB={this.keymapDB}
           />
           <TimelineEditorManager
-            macros={this.state.macros}
-            maxMacros={this.state.maxMacros}
-            selected={this.state.selectedMacro}
+            macros={macros}
+            maxMacros={maxMacros}
+            selected={selectedMacro}
             updateMacro={this.updateMacros}
             changeSelected={this.changeSelected}
             keymapDB={this.keymapDB}
-            key={JSON.stringify(this.state.macros)}
+            key={JSON.stringify(macros) + selectedMacro}
           />
           <div className="macrocontainer">
             <MacroManager
-              macros={this.state.macros}
-              maxMacros={this.state.maxMacros}
-              selected={this.state.selectedMacro}
+              macros={macros}
+              maxMacros={maxMacros}
+              selected={selectedMacro}
               updateMacro={this.updateMacros}
               changeSelected={this.changeSelected}
               keymapDB={this.keymapDB}
-              key={JSON.stringify(this.state.macros)}
+              key={JSON.stringify(macros)}
             />
           </div>
         </Container>
 
-        <Modal show={this.state.showDeleteModal} onHide={this.toggleDeleteModal} style={{ marginTop: "100px" }}>
+        <Modal show={showDeleteModal} onHide={this.toggleDeleteModal} style={{ marginTop: "100px" }}>
           <ModalStyle>
             <Modal.Header closeButton className="modalcol">
               <Modal.Title>{i18n.editor.macros.deleteModal.title}</Modal.Title>

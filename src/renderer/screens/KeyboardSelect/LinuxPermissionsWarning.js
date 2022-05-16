@@ -46,7 +46,7 @@ export const LinuxPermissionsWarning = (props) => {
       <Alert severity="error" action={fixitButton}>
         <Typography component="p" gutterBottom>
           {i18n.t("keyboardSelect.permissionError", {
-            path: selectedDevicePort.path,
+            path: selectedDevicePort?.path,
           })}
         </Typography>
         <Typography component="p">

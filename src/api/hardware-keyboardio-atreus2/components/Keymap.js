@@ -44,7 +44,7 @@ class Keymap extends React.Component {
     const rowOffsetX = [2, 2, 2, 2];
 
     let getKey = (row, col) => {
-      if (!props.keymap) return null;
+      if (!this.props.keymap) return null;
       let keyIndex = parseInt(row) * 12 + parseInt(col),
         key = keymap[keyIndex];
       return key;

@@ -42,21 +42,6 @@ import LayoutSelect from "./KeyPicker/LayoutSelect";
 
 const db = new KeymapDB();
 
-const styles = (theme) => ({
-  mods: {
-    marginTop: theme.spacing(1),
-  },
-  layout: {
-    marginTop: theme.spacing(2),
-  },
-  modContainer: {
-    margin: `${theme.spacing(2)} 0`,
-  },
-  keyPickButton: {
-    marginBottom: theme.spacing(2),
-  },
-});
-
 const KeyPicker = (props) => {
   const [pickerOpen, setPickerOpen] = useState(false);
 

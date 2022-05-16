@@ -532,14 +532,16 @@ class MacroEditor extends React.Component {
         id: newID,
         macro: ""
       });
-      this.props.updateMacro(aux, -1);
+      this.updateMacros(aux, -1);
       this.changeSelected(newID);
     }
   }
 
-  deleteMacro(selected) {
+  deleteMacro = () => {
+    // console.log("DELETING");
     if (this.state.macros.length > 0) {
-      let aux = this.state.macros;
+      let selected = this.state.selectedMacro;
+      let aux = JSON.parse(JSON.stringify(this.state.macros));
       aux.splice(selected, 1);
       aux = aux.map((item, index) => {
         let aux = item;
@@ -549,9 +551,9 @@ class MacroEditor extends React.Component {
       if (selected >= this.state.macros.length - 1) {
         this.changeSelected(this.state.macros.length - 1);
       }
-      this.props.updateMacro(aux, selected);
+      this.updateMacros(aux, selected);
     }
-  }
+  };
 
   saveName = name => {
     // console.log("MACROS: ", this.state.macros, name);
@@ -610,6 +612,7 @@ class MacroEditor extends React.Component {
                 onSelect={this.changeSelected}
                 addItem={this.addMacro}
                 deleteItem={this.deleteMacro}
+                cloneItem={this.cloneMacro}
                 updateItem={this.saveName}
                 maxMacros={maxMacros}
                 mem={freeMemory}

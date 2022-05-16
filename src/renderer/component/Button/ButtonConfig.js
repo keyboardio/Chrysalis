@@ -44,7 +44,7 @@ const ButtonConfig = ({
       {tooltip ? (
         <OverlayTrigger
           placement={tooltipPlacement ? tooltipPlacement : "top"}
-          delay={`${tooltipDelay ? tooltipDelay : "0"}`}
+          delay={{ show: `${tooltipDelay ? tooltipDelay : "0"}`, hide: "0" }}
           overlay={
             <Tooltip id="tooltip-top" className="tooltipRegular">
               <div dangerouslySetInnerHTML={{ __html: tooltip }} />

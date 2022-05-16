@@ -20,6 +20,11 @@ import Focus from "../../api/focus";
 const clearEEPROM = async () => {
   const focus = new Focus();
 
+  const commands = await focus.command("help");
+  if (commands.includes("eeprom.erase")) {
+    return await focus.command("eeprom.erase");
+  }
+
   let eeprom = await focus.command("eeprom.contents");
   eeprom = eeprom
     .split(" ")

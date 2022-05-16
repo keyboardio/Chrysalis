@@ -23,6 +23,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import PropTypes from "prop-types";
 
+import { PageTitle } from "../components/PageTitle";
 import {
   KeyboardSettings,
   AdvancedKeyboardSettings,
@@ -85,9 +86,7 @@ function Preferences(props) {
         width: "100%",
       }}
     >
-      <Portal container={props.titleElement}>
-        {i18n.t("app.menu.preferences")}
-      </Portal>
+      <PageTitle title={i18n.t("app.menu.preferences")} />
       <Tabs
         orientation="vertical"
         variant="scrollable"

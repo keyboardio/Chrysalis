@@ -19,10 +19,9 @@ import React from "react";
 import Styled from "styled-components";
 import i18n from "../../i18n";
 import Dropdown from "react-bootstrap/Dropdown";
-import { ButtonSettings } from "../Button";
+
 import MacrosMemoryUsage from "../../modules/Macros/MacrosMemoryUsage";
-import { IconDelete } from "../Icon";
-import { IconArrowsSmallSeparating, IconPen, IconAddNew, IconClone } from "../Icon";
+import { IconArrowsSmallSeparating, IconPen, IconAddNew, IconClone, IconDelete } from "../Icon";
 
 import { NameModal } from "../Modal"; // Imported custom modal component
 import { RegularButton, ButtonConfig } from "../Button";
@@ -151,9 +150,22 @@ class MacroSelector extends React.Component {
               icoSVG={<IconPen />}
               tooltip={i18n.app.menu.changeName}
               tooltipPlacement="bottom"
+              tooltipDelay={600}
             />
-            <ButtonConfig onClick={cloneItem} icoSVG={<IconClone />} tooltip={i18n.general.clone} tooltipPlacement="bottom" />
-            <ButtonConfig onClick={deleteItem} icoSVG={<IconDelete />} tooltip={i18n.general.delete} tooltipPlacement="bottom" />
+            <ButtonConfig
+              onClick={cloneItem}
+              icoSVG={<IconClone />}
+              tooltip={i18n.general.clone}
+              tooltipPlacement="bottom"
+              tooltipDelay={600}
+            />
+            <ButtonConfig
+              onClick={deleteItem}
+              icoSVG={<IconDelete />}
+              tooltip={i18n.general.delete}
+              tooltipPlacement="bottom"
+              tooltipDelay={600}
+            />
           </div>
         </div>
         <RegularButton

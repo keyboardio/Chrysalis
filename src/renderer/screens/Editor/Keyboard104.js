@@ -16,7 +16,7 @@
  */
 
 import React from "react";
-
+import Box from "@mui/material/Box";
 import { KeymapDB } from "@api/keymap";
 const db = new KeymapDB();
 
@@ -178,12 +178,12 @@ class KeySelector extends React.Component {
 
     const viewBoxSize =
       "0 0 " +
-      Math.round(21.5 * keycapunit + 30).toString() +
+      Math.round(23 * keycapunit).toString() +
       " " +
-      (6.5 * keycapunit + 40).toString();
+      (6.5 * keycapunit).toString();
 
     return (
-      <div>
+      <Box sx={{ margin: 2 }}>
         <svg
           viewBox={viewBoxSize}
           xmlns="http://www.w3.org/2000/svg"
@@ -197,7 +197,7 @@ class KeySelector extends React.Component {
             fontSize: Math.round(keycapunit / 4),
           }}
         >
-          <g transform="translate(10, 10)">
+          <g transform="">
             <g>
               <Key row={0} col={0} />
 
@@ -338,7 +338,7 @@ class KeySelector extends React.Component {
             </g>
           </g>
         </svg>
-      </div>
+      </Box>
     );
   }
 }

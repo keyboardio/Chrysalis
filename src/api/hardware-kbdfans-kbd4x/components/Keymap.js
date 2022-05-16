@@ -34,6 +34,7 @@ class Keymap extends React.Component {
     };
 
     let Key = (props) => {
+      if (!this.props.keymap) return null;
       const { x, y, row, col, transform } = props;
       const width = props.width || 1,
         height = props.height || 1,

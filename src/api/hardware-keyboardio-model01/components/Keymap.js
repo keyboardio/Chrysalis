@@ -68,6 +68,7 @@ const Keymap = (props) => {
     return led_map[parseInt(row)][parseInt(col)];
   };
   let getKey = (row, col) => {
+    if (!props.keymap) return null;
     let keyIndex = parseInt(row) * 16 + parseInt(col),
       key = keymap[keyIndex];
     return key;

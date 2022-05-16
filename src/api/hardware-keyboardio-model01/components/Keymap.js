@@ -40,7 +40,6 @@ const Keymap = (props) => {
       .fill()
       .map(() => 0);
   const getContrastText = (color) => {
-    console.log(theme);
     return theme.palette.getContrastText(color);
   };
 

@@ -8,6 +8,7 @@ import RaiseFirmwareUpgrade from "../../../static/dark/raiseFirmwareupgrade.svg"
 import mouseWheelBackgroundDark from "../../../static/dark/mouseWheel.png";
 
 import Tokens from "./Tokens";
+import { RiGitBranchFill } from "react-icons/ri";
 
 const settingColorOpacity = (color, opacity) => {
   let newColorArray = color;
@@ -421,8 +422,8 @@ const Dark = {
     },
     modal: {
       closeButton: closeButton,
-      backdropColor: settingColorOpacity(Tokens.colors.gray800, 0.85),
-      background: Tokens.colors.gray600,
+      backdropColor: "rgba(43,44,67,0.85)",
+      background: Tokens.colors.gray800,
       titleColor: Tokens.colors.gray25,
       footerBackground: settingColorOpacity(Tokens.colors.gray900, 0.1)
     },

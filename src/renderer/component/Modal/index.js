@@ -16,5 +16,6 @@
 
 import NameModal from "./NameModal";
 import MacroKeyModal from "./MacroKeyModal";
+import PreviewMacroModal from "./PreviewMacroModal";
 
-export { NameModal, MacroKeyModal };
+export { NameModal, MacroKeyModal, PreviewMacroModal };

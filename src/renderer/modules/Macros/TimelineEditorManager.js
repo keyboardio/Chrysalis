@@ -33,10 +33,19 @@ padding-bottom: 20px;
 margin-top: 2px;
 .timelineHeader {
     padding: 24px 32px;
+    display: flex;
+    align-items: baseline;
     h4 {
         font-size: 21px; 
         color: ${({ theme }) => theme.styles.macro.colorTitle};
         margin: 0;
+    }
+    .outline-sm {
+      padding: 6px 12px;
+      border: 1px solid ${({ theme }) => theme.colors.gray600};
+      color: ${({ theme }) => theme.colors.gray300};
+      margin-left: 24px;
+      font-size: 14px;
     }
 }
 .card {
@@ -254,14 +263,7 @@ class MacroManager extends Component {
       <Styles>
         <div className="timelineHeader" ref={this.trackingWidth}>
           <Title text={i18n.editor.macros.timelineTitle} headingLevel={4} />
-          <RegularButton
-            buttonText="Preview macro"
-            size="sm"
-            icoSVG={<IconEye />}
-            style="outline-sm"
-            icoPosition="right"
-            onClick={this.openModal}
-          />
+          <div id="portalPreviewMacroModal"></div>
         </div>
         {this.state.macros.length == 0 || !Array.isArray(this.state.macros) ? (
           <div className="loading marginCenter">

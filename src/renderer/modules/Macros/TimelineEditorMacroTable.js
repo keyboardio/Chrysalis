@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import KeyMacro from "./KeyMacro";
+import { PreviewMacroModal } from "../../component/Modal";
 
 import Styled from "styled-components";
 
@@ -561,9 +562,13 @@ class TimelineEditorMacroTable extends Component {
             )}
           </Droppable>
         </DragDropContext>
-        {this.state.rows.map((item, index) => (
-          <span key={`literal-${index}`}>{item.symbol}</span>
-        ))}
+        <PreviewMacroModal>
+          {this.state.rows.map((item, index) => (
+            <span key={`literal-${index}`} className={`action-${item.action} keyCode-${item.keyCode} symbol-${item.symbol}`}>
+              {item.symbol == "SPACE" ? " " : item.symbol}
+            </span>
+          ))}
+        </PreviewMacroModal>
       </Styles>
     );
   }

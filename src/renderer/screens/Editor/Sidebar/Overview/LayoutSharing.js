@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2020  Keyboardio, Inc.
+ * Copyright (C) 2020-2022  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -17,7 +17,7 @@
 
 import React from "react";
 import i18n from "i18next";
-import { Electron, ipcRenderer } from "electron";
+import { ipcRenderer } from "electron";
 import path from "path";
 import fs from "fs";
 import { toast } from "react-toastify";
@@ -94,24 +94,34 @@ const styles = (theme) => ({
   },
 });
 
-const loadLayout = (fileName) => {
+const loadLayout = (fileName, fileData) => {
   const logger = new Log();
 
-  let fileData;
-  try {
-    fileData = fs.readFileSync(fileName);
-  } catch (e) {
+  if (!fileData) {
+    try {
+      fileData = fs.readFileSync(fileName);
+    } catch (e) {
+      logger.error("Unable to read layout", {
+        filename: fileName,
+        error: e.message,
+      });
+      toast.error(i18n.t("editor.sharing.errors.unableToLoad"));
+      return null;
+    }
+  }
+
+  if (!fileData) {
     logger.error("Unable to read layout", {
       filename: fileName,
-      error: e.message,
     });
+
     toast.error(i18n.t("editor.sharing.errors.unableToLoad"));
     return null;
   }
 
   let layoutData;
   try {
-    layoutData = JSON.parse(fileData);
+    layoutData = JSON.parse(new TextDecoder().decode(fileData));
   } catch (e) {
     logger.error("Failed to parse layout JSON", {
       filename: fileName,
@@ -199,7 +209,7 @@ const LibraryImport = withStyles(styles, { withTheme: true })(
 
 class FileImportBase extends React.Component {
   importFromFile = () => {
-    const files = Electron.remote.dialog.showOpenDialog({
+    const [fileName, fileData] = ipcRenderer.sendSync("file-open", {
       title: i18n.t("editor.sharing.selectLoadFile"),
       filters: [
         {
@@ -212,12 +222,8 @@ class FileImportBase extends React.Component {
         },
       ],
     });
-    files.then((result) => {
-      if (result.filePaths.length == 0) return;
-
-      const layoutData = loadLayout(result.filePaths[0]);
-      if (layoutData != null) this.props.setLayout("custom", layoutData);
-    });
+    const layoutData = loadLayout(fileName, fileData);
+    if (layoutData != null) this.props.setLayout("custom", layoutData);
   };
 
   render() {

@@ -46,7 +46,7 @@ const OnlyCustomScreen = (props) => {
   };
 
   return (
-    <div sx={{ display: "flex", justifyContent: "center" }}>
+    <Box sx={{ display: "flex", justifyContent: "center" }}>
       <PageTitle title={i18n.t("app.actionRequired")} />
 
       <Card
@@ -67,13 +67,13 @@ const OnlyCustomScreen = (props) => {
               {i18n.t("editor.onlyCustom.openFR")}
             </Button>
           </Box>
-          <div sx={{ flexGrow: 1 }} />
+          <Box sx={{ flexGrow: 1 }} />
           <Button onClick={enableOnlyCustom} color="primary" variant="outlined">
             {i18n.t("editor.onlyCustom.fixItButton")}
           </Button>
         </CardActions>
       </Card>
-    </div>
+    </Box>
   );
 };
 

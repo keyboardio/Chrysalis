@@ -22,6 +22,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import Portal from "@mui/material/Portal";
+import Typography from "@mui/material/Typography";
 
 import Electron from "electron";
 
@@ -55,9 +56,13 @@ const ChangeLog = (props) => {
             components={{
               h1({ node, ...props }) {
                 return (
-                  <h1 sx={{ textDecoration: "underline" }}>
+                  <Typography
+                    component="h1"
+                    variant="h1"
+                    sx={{ textDecoration: "underline" }}
+                  >
                     {node.children[0].value}
-                  </h1>
+                  </Typography>
                 );
               },
             }}

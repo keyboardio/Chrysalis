@@ -18,6 +18,7 @@
 import React from "react";
 import i18n from "i18next";
 
+import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -97,7 +98,7 @@ const Sidebar = (props) => {
       }}
     >
       <Toolbar />
-      <div sx={{ p: 3 }}>
+      <Box sx={{ p: 3 }}>
         <Typography variant="h6" sx={{ mb: 2 }}>
           {i18n.t("components.layer", { index: layer })}
         </Typography>
@@ -113,7 +114,7 @@ const Sidebar = (props) => {
           onColormapChange={props.onColormapChange}
         />
         {categories}
-      </div>
+      </Box>
     </Drawer>
   );
 };

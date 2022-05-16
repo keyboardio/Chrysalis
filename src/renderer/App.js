@@ -17,6 +17,7 @@
 
 import React, { useState, useEffect } from "react";
 import { spawn } from "child_process";
+import Box from "@mui/material/Box";
 
 const { ipcRenderer } = require("electron");
 
@@ -217,11 +218,11 @@ const App = (props) => {
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        <div sx={{ display: "flex", flexDirection: "column" }}>
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
           <LocationProvider history={history}>
             <CssBaseline />
             <Header connected={connected} pages={pages} device={deviceInfo} />
-            <main sx={{ flexGrow: 1, overflow: "auto" }}>
+            <Box component="main" sx={{ flexGrow: 1, overflow: "auto" }}>
               <Router>
                 <Welcome
                   path="/welcome"
@@ -244,9 +245,9 @@ const App = (props) => {
                 <SystemInfo path="/system-info" />
                 <ChangeLog path="/changelog" />
               </Router>
-            </main>
+            </Box>
           </LocationProvider>
-        </div>
+        </Box>
       </ThemeProvider>
     </StyledEngineProvider>
   );

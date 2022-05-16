@@ -19,6 +19,7 @@
  */
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import ColorButtonsArea from "./ColorButtonsArea";
 import PickerColorButton from "./PickerColorButton";
@@ -132,7 +133,7 @@ function ColorPalette(props) {
   };
 
   return (
-    <div
+    <Box
       sx={{
         display: "flex",
         position: "fixed",
@@ -165,7 +166,7 @@ function ColorPalette(props) {
           {i18n.t("components.pickerColorButton")}
         </PickerColorButton>
       </Paper>
-    </div>
+    </Box>
   );
 }
 

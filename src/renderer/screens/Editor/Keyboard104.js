@@ -19,6 +19,8 @@ import React from "react";
 
 import classNames from "classnames";
 
+import Box from "@mui/material/Box";
+
 import { KeymapDB } from "@api/keymap";
 const db = new KeymapDB();
 
@@ -329,14 +331,14 @@ class Keymap extends React.Component {
 class KeySelector extends React.Component {
   render() {
     return (
-      <div
+      <Box
         sx={{
           textAlign: "center",
           height: keycapunit * 6.5,
         }}
       >
         <Keymap {...this.props} />
-      </div>
+      </Box>
     );
   }
 }

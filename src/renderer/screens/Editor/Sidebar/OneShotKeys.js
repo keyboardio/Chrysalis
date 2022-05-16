@@ -18,6 +18,7 @@
 import React from "react";
 import i18n from "i18next";
 
+import Box from "@mui/material/Box";
 import FormGroup from "@mui/material/FormGroup";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -92,7 +93,7 @@ class OneShotKeys extends React.Component {
             onKeyChange={onKeyChange}
           />
 
-          <div sx={{ m: "2 0" }}>
+          <Box sx={{ m: "2 0" }}>
             <FormControl component="fieldset">
               <FormGroup row>
                 <FormControlLabel
@@ -106,7 +107,7 @@ class OneShotKeys extends React.Component {
                 {i18n.t("editor.sidebar.oneshot.configuration.help")}
               </FormHelperText>
             </FormControl>
-          </div>
+          </Box>
         </Collapsible>
       </React.Fragment>
     );

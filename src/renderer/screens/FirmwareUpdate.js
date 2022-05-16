@@ -23,6 +23,7 @@ import { version } from "../../../package.json";
 
 import Focus from "../../api/focus";
 
+import Box from "@mui/material/Box";
 import BuildIcon from "@mui/icons-material/Build";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -359,7 +360,7 @@ class FirmwareUpdate extends React.Component {
     );
 
     return (
-      <div
+      <Box
         sx={{
           display: "flex",
           justifyContent: "center",
@@ -410,7 +411,7 @@ class FirmwareUpdate extends React.Component {
           <Divider variant="middle" />
           <CardActions>
             {firmwareSelect}
-            <div sx={{ flexGrow: 1 }} />
+            <Box sx={{ flexGrow: 1 }} />
             <SaveChangesButton
               icon={<CloudUploadIcon />}
               onClick={
@@ -435,7 +436,7 @@ class FirmwareUpdate extends React.Component {
         >
           {i18n.t("firmwareUpdate.confirmDialog.contents")}
         </ConfirmationDialog>
-      </div>
+      </Box>
     );
   }
 }

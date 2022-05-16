@@ -20,6 +20,7 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
 import PropTypes from "prop-types";
+import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import ColorButton from "./ColorButton";
 
@@ -80,13 +81,13 @@ function ColorButtonsArea(props) {
   };
 
   return (
-    <div
+    <Box
       sx={{
         padding: { sm: 0, md: "5px 0" },
       }}
     >
       <Grid container>{displayGrids()}</Grid>
-    </div>
+    </Box>
   );
 }
 

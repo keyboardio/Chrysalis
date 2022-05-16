@@ -19,6 +19,7 @@ import React from "react";
 import i18n from "i18next";
 
 import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import CropSquareIcon from "@mui/icons-material/CropSquare";
@@ -148,7 +149,7 @@ class Overview extends React.Component {
     );
 
     return (
-      <div sx={{ mb: 2 }}>
+      <Box sx={{ mb: 2 }}>
         <FormHelperText sx={{ mb: 2 }}>
           {i18n.t("editor.sidebar.overview.help")}
         </FormHelperText>
@@ -188,7 +189,7 @@ class Overview extends React.Component {
           onPaletteChange={this.props.onPaletteChange}
           onColormapChange={this.props.onColormapChange}
         />
-      </div>
+      </Box>
     );
   }
 }

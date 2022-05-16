@@ -19,6 +19,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import Alert from "@mui/material/Alert";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Portal from "@mui/material/Portal";
 import Typography from "@mui/material/Typography";
@@ -378,7 +379,8 @@ class Editor extends React.Component {
         <PageTitle title={title} />
 
         {legacyAlert}
-        <main
+        <Box
+          component="main"
           sx={{
             flexGrow: 1,
             margin: 3,
@@ -386,7 +388,7 @@ class Editor extends React.Component {
           }}
         >
           {keymapWidget}
-        </main>
+        </Box>
         <Sidebar
           keymap={keymap}
           colormap={colormap}

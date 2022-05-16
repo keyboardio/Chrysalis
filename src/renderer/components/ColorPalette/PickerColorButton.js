@@ -20,6 +20,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { SketchPicker } from "react-color";
+import Box from "@mui/material/Box";
 import Fab from "@mui/material/Fab";
 import Tooltip from "@mui/material/Tooltip";
 import Popover from "@mui/material/Popover";
@@ -65,7 +66,7 @@ function PickerColorButton(props) {
 
   return (
     <Tooltip placement="top-start" title={props.children}>
-      <div
+      <Box
         sx={{
           position: "relative",
           marginLeft: 10,
@@ -103,7 +104,7 @@ function PickerColorButton(props) {
             }}
           />
         </Popover>
-      </div>
+      </Box>
     </Tooltip>
   );
 }

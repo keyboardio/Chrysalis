@@ -19,6 +19,7 @@ import React from "react";
 import { CustomPicker } from "react-color";
 
 import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
 import CropSquareIcon from "@mui/icons-material/CropSquare";
 
 /*
@@ -85,7 +86,7 @@ class PalettePicker extends React.Component {
     const { classes, colors, color, onClick } = this.props;
 
     return (
-      <div
+      <Box
         sx={{
           display: "flex",
           flexWrap: "wrap",
@@ -99,7 +100,7 @@ class PalettePicker extends React.Component {
             onClick={() => onClick(i)}
           />
         ))}
-      </div>
+      </Box>
     );
   }
 }

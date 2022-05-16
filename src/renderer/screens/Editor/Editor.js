@@ -39,7 +39,13 @@ import i18n from "../../i18n";
 import LoadingScreen from "../../components/LoadingScreen";
 import OnlyCustomScreen from "./components/OnlyCustomScreen";
 
+import {
+  showContextBar,
+  hideContextBar,
+} from "@renderer/components/ContextBar";
+
 const db = new KeymapDB();
+const context_bar_channel = new BroadcastChannel("context_bar");
 
 class Editor extends React.Component {
   state = {
@@ -124,7 +130,7 @@ class Editor extends React.Component {
         keymap: newKeymap,
       };
     });
-    this.props.startContext();
+    showContextBar();
   };
 
   onLedChange = (index) => {
@@ -138,7 +144,7 @@ class Editor extends React.Component {
       };
     });
 
-    this.props.startContext();
+    showContextBar();
   };
 
   onPaletteChange = (newPalette) => {
@@ -152,7 +158,7 @@ class Editor extends React.Component {
       };
     });
 
-    this.props.startContext();
+    showContextBar();
   };
 
   onKeymapChange = (newKeymap) => {
@@ -168,7 +174,7 @@ class Editor extends React.Component {
       };
     });
 
-    this.props.startContext();
+    showContextBar();
   };
 
   onColormapChange = (newColormap) => {
@@ -182,7 +188,7 @@ class Editor extends React.Component {
       };
     });
 
-    this.props.startContext();
+    showContextBar();
   };
 
   scanKeyboard = async () => {
@@ -233,6 +239,8 @@ class Editor extends React.Component {
   };
 
   async componentDidMount() {
+    this.context_bar_channel = new BroadcastChannel("context_bar");
+
     const layoutSetting = await settings.get("keyboard.layout", "English (US)");
     db.setLayout(layoutSetting);
 
@@ -244,17 +252,17 @@ class Editor extends React.Component {
       loading: false,
       layout: layoutSetting,
     });
-  }
+    context_bar_channel.onmessage = (event) => {
+      if (event.data === "changes-discarded") {
+        this.componentDidMount();
 
-  UNSAFE_componentWillReceiveProps = (nextProps) => {
-    if (this.props.inContext && !nextProps.inContext) {
-      this.scanKeyboard();
-      this.setState({ modified: false });
-    }
-    if (!this.state.keymap.onlyCustom) {
-      this.scanKeyboard();
-    }
-  };
+        this.setState({ modified: false });
+      }
+    };
+  }
+  async componentWillUnmount() {
+    this.context_bar_channel.close();
+  }
 
   onApply = async () => {
     this.setState({ saving: true });
@@ -273,7 +281,7 @@ class Editor extends React.Component {
       saving: false,
     });
     logger.log("Changes saved.");
-    this.props.cancelContext();
+    hideContextBar();
   };
 
   migrateLegacy = async () => {
@@ -293,7 +301,7 @@ class Editor extends React.Component {
     let logger = new Log();
     logger.log("Legacy keycodes migrated to new ones.");
 
-    this.props.startContext();
+    showContextBar();
   };
 
   render() {

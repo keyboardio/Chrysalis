@@ -128,18 +128,10 @@ function Preferences(props) {
         </TabPanel>
 
         <TabPanel value={value} index={1}>
-          <KeyboardSettings
-            startContext={props.startContext}
-            cancelContext={props.cancelContext}
-            inContext={props.inContext}
-          />
+          <KeyboardSettings inContext={props.inContext} />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <AdvancedKeyboardSettings
-            startContext={props.startContext}
-            cancelContext={props.cancelContext}
-            inContext={props.inContext}
-          />
+          <AdvancedKeyboardSettings inContext={props.inContext} />
         </TabPanel>
         <TabPanel value={value} index={3}>
           <DevtoolsPreferences />

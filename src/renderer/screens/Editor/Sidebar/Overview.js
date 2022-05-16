@@ -19,6 +19,7 @@ import React, { useState } from "react";
 import i18n from "i18next";
 
 import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import CropSquareIcon from "@mui/icons-material/CropSquare";
@@ -134,7 +135,7 @@ const Overview = (props) => {
   );
 
   return (
-    <div sx={{ mb: 2 }}>
+    <Box sx={{ mb: 2 }}>
       <FormHelperText sx={{ mb: 2 }}>
         {i18n.t("editor.sidebar.overview.help")}
       </FormHelperText>
@@ -176,7 +177,7 @@ const Overview = (props) => {
         onPaletteChange={props.onPaletteChange}
         onColormapChange={props.onColormapChange}
       />
-    </div>
+    </Box>
   );
 };
 

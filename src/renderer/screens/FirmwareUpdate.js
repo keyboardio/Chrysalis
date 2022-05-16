@@ -346,7 +346,7 @@ const FirmwareUpdate = (props) => {
   );
 
   return (
-    <div
+    <Box
       sx={{
         display: "flex",
         justifyContent: "center",
@@ -397,7 +397,7 @@ const FirmwareUpdate = (props) => {
         <Divider variant="middle" />
         <CardActions>
           {firmwareSelect}
-          <div sx={{ flexGrow: 1 }} />
+          <Box sx={{ flexGrow: 1 }} />
           <SaveChangesButton
             icon={<CloudUploadIcon />}
             onClick={resetOnFlash ? openConfirmationDialog : upload}
@@ -416,7 +416,7 @@ const FirmwareUpdate = (props) => {
       >
         {i18n.t("firmwareUpdate.confirmDialog.contents")}
       </ConfirmationDialog>
-    </div>
+    </Box>
   );
 };
 

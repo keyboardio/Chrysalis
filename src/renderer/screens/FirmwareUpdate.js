@@ -16,7 +16,7 @@
  */
 
 import React from "react";
-import Electron from "electron";
+import { Electron, ipcRenderer } from "electron";
 import path from "path";
 import fs from "fs";
 import { version } from "../../../package.json";
@@ -94,7 +94,7 @@ class FirmwareUpdate extends React.Component {
       return this.setState({ firmwareFilename: "" });
     }
 
-    let files = Electron.remote.dialog.showOpenDialog({
+    const [fileName, fileData] = ipcRenderer.sendSync("file-open", {
       title: i18n.t("firmwareUpdate.dialog.selectFirmware"),
       filters: [
         {
@@ -107,9 +107,10 @@ class FirmwareUpdate extends React.Component {
         },
       ],
     });
-    files.then((result) => {
-      this.setState({ firmwareFilename: result.filePaths[0] });
-    });
+
+    if (fileName) {
+      this.setState({ firmwareFilename: fileName });
+    }
   };
 
   _defaultFirmwareFilename = () => {

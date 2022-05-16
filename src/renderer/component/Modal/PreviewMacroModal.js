@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDom from "react-dom";
+
 import { RegularButton } from "../Button";
 import { IconEye } from "../Icon";
 import Modal from "react-bootstrap/Modal";
@@ -25,9 +26,11 @@ export default function PreviewMacroModal({ children }) {
       />
       <Modal size="lg" show={show} onHide={toogleShow} aria-labelledby="contained-modal-title-vcenter" centered>
         <Modal.Header closeButton>
-          <Modal.Title>Preview macro</Modal.Title>
+          <Modal.Title>{i18n.editor.macros.previewMacro}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>{children}</Modal.Body>
+        <Modal.Body>
+          <div className="modalInner previewMacro">{children}</div>
+        </Modal.Body>
       </Modal>
     </>,
     document.getElementById("portalPreviewMacroModal")

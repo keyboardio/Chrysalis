@@ -22,9 +22,6 @@ import Spinner from "react-bootstrap/Spinner";
 
 import TimelineEditorForm from "./TimelineEditorForm";
 import Title from "../../component/Title";
-import { RegularButton } from "../../component/Button";
-
-import { IconEye } from "../../component/Icon";
 
 const Styles = Styled.div`
 background-color: ${({ theme }) => theme.styles.macro.timelineBackground};

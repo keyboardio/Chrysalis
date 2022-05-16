@@ -7,6 +7,8 @@ import Styled from "styled-components";
 import { MdUnfoldLess, MdKeyboardArrowUp, MdKeyboardArrowDown, MdTimer } from "react-icons/md";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
+import { IconStopWatchXs } from "../../component/Icon";
+
 const Styles = Styled.div`
 .root {
   display: flex;
@@ -564,7 +566,13 @@ class TimelineEditorMacroTable extends Component {
         </DragDropContext>
         <PreviewMacroModal>
           {this.state.rows.map((item, index) => (
-            <span key={`literal-${index}`} className={`action-${item.action} keyCode-${item.keyCode} symbol-${item.symbol}`}>
+            <span
+              key={`literal-${index}`}
+              className={`previewKey action-${item.action} keyCode-${item.keyCode} ${
+                item.keyCode > 223 && item.keyCode < 232 && item.action != 2 ? "isModifier" : ""
+              }`}
+            >
+              {item.action == 2 ? <IconStopWatchXs /> : ""}
               {item.symbol == "SPACE" ? " " : item.symbol}
             </span>
           ))}

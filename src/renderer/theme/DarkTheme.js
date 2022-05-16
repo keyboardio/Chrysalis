@@ -371,7 +371,8 @@ const Dark = {
       keyInfoTitle: Tokens.colors.gray500,
       keyFunctionsBorder: Tokens.colors.gray700,
       keyValueColor: Tokens.colors.gray100,
-      keyFunctionTile: Tokens.colors.gray50
+      keyFunctionTile: Tokens.colors.gray50,
+      previewColor: Tokens.colors.gray200
     },
     macroKey: {
       background: Tokens.colors.gray500,
@@ -424,6 +425,7 @@ const Dark = {
       closeButton: closeButton,
       backdropColor: "rgba(43,44,67,0.85)",
       background: Tokens.colors.gray800,
+      backgroundInner: "#2B2C43",
       titleColor: Tokens.colors.gray25,
       footerBackground: settingColorOpacity(Tokens.colors.gray900, 0.1)
     },

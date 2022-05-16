@@ -170,6 +170,7 @@ const English = {
       timelineTitle: "Timeline editor",
       successFlashTitle: "Your macros have been saved.",
       successFlash: "Succesfully sent the macros to the Raise",
+      previewMacro: "Preview macro",
       deleteModal: {
         title: "This macro is in use",
         body: "The macro you want to delete is currently in use, select how to proceed, THIS MAKES PERMANENT CHANGES.",

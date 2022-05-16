@@ -788,6 +788,11 @@ div.card.card-preferences .card-body {
 }
 .modal .modal-body {
   padding: 24px 32px;
+  .modalInner {
+    padding: 16px 24px;
+    border-radius: 6px;
+    background-color: ${({ theme }) => theme.styles.modal.backgroundInner};
+  }
 }
 .modal .modal-body .form-control {
   font-weight: 600;
@@ -812,6 +817,64 @@ div.card.card-preferences .card-body {
   letter-spacing: -0.03em;
   font-weight:600;
   color: ${({ theme }) => theme.styles.modal.titleColor};
+}
+
+//
+// Preview macro
+//
+.previewMacro {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  .previewKey {
+    line-height: 2em;
+    font-size: 14px;
+    border-radius: 3px;
+    color: ${({ theme }) => theme.styles.macro.previewColor};
+  }
+  .action-2 {
+    color: ${({ theme }) => theme.colors.brandDangerLighter};
+    border: 1px solid ${({ theme }) => theme.colors.brandDangerLighter};
+    padding: 0 6px 0 24px;
+    position: relative;
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-bottom: 2px;
+    svg {
+      position: absolute;
+      top: 50%;
+      left: 3px;
+      transform: translate3d(0, -55%, 0);
+    }
+  }
+  .isModifier {
+    color: ${({ theme }) => theme.styles.macro.previewColor};
+    border: 1px solid ${({ theme }) => theme.styles.macro.previewColor};
+    padding: 0 6px;
+    position: relative;
+    margin-right: 3px;
+    margin-bottom: 2px;
+    &.keyCode-229,
+    &.keyCode-225 {
+      border-color: ${({ theme }) => theme.styles.macroKey.shift.background}; 
+      color:  ${({ theme }) => theme.styles.macroKey.shift.background};
+    }
+    &.keyCode-224,
+    &.keyCode-228 {
+      border-color: ${({ theme }) => theme.styles.macroKey.control.background}; 
+      color:  ${({ theme }) => theme.styles.macroKey.control.background};
+    }
+    &.keyCode-226,
+    &.keyCode-230 {
+      border-color: ${({ theme }) => theme.styles.macroKey.alt.background}; 
+      color:  ${({ theme }) => theme.styles.macroKey.alt.background};
+    }
+    &.keyCode-227,
+    &.keyCode-231 {
+      border-color: ${({ theme }) => theme.styles.macroKey.os.background}; 
+      color:  ${({ theme }) => theme.styles.macroKey.os.background};
+    }
+  }
 }
 
 .progress {

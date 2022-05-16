@@ -363,7 +363,8 @@ const Light = {
       keyInfoTitle: Tokens.colors.gray300,
       keyFunctionsBorder: Tokens.colors.gray50,
       keyValueColor: Tokens.colors.gray600,
-      keyFunctionTile: Tokens.colors.gray500
+      keyFunctionTile: Tokens.colors.gray500,
+      previewColor: Tokens.colors.gray200
     },
     macroKey: {
       background: "linear-gradient(90deg, rgba(255, 255, 255, 0.3) 21.15%, rgba(255, 255, 255, 0) 100%), #DADDE4",
@@ -419,6 +420,7 @@ const Light = {
       closeButton: closeButton,
       backdropColor: "rgba(214, 217, 224, 0.85)",
       background: Tokens.colors.gray25,
+      backgroundInner: "#fff",
       titleColor: Tokens.colors.gray400,
       footerBackground: settingColorOpacity(Tokens.colors.gray200, 0.075)
     },

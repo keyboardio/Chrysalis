@@ -86,7 +86,7 @@ const FirmwareUpdate = (props) => {
   const selectFirmware = (event) => {
     setSelected(event.target.value);
     if (event.target.value != "custom") {
-      setFirmwareFilename("");
+      return setFirmwareFilename("");
     }
 
     const [fileName, fileData] = ipcRenderer.sendSync("file-open", {
@@ -104,7 +104,7 @@ const FirmwareUpdate = (props) => {
     });
 
     if (fileName) {
-      this.setState({ firmwareFilename: fileName });
+      setFirmwareFilename(fileName);
     }
   };
 

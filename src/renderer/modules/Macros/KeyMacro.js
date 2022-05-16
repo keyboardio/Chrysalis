@@ -69,8 +69,7 @@ class KeyMacro extends Component {
       backgroundImage: this.props.theme.styles.macroKey.backgroundDrag,
       backgroundSize: "56.57px 56.57px",
       borderRadius: "6px",
-      boxShadow: this.props.theme.styles.macroKey.boxShadowOnDrag,
-      backdropFilter: "blur(12px)"
+      boxShadow: this.props.theme.styles.macroKey.boxShadowOnDrag
     })
   });
 

@@ -561,6 +561,9 @@ class TimelineEditorMacroTable extends Component {
             )}
           </Droppable>
         </DragDropContext>
+        {this.state.rows.map((item, index) => (
+          <span key={`literal-${index}`}>{item.symbol}</span>
+        ))}
       </Styles>
     );
   }

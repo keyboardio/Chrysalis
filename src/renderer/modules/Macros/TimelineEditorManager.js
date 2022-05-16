@@ -22,6 +22,9 @@ import Spinner from "react-bootstrap/Spinner";
 
 import TimelineEditorForm from "./TimelineEditorForm";
 import Title from "../../component/Title";
+import { RegularButton } from "../../component/Button";
+
+import { IconEye } from "../../component/Icon";
 
 const Styles = Styled.div`
 background-color: ${({ theme }) => theme.styles.macro.timelineBackground};
@@ -251,6 +254,14 @@ class MacroManager extends Component {
       <Styles>
         <div className="timelineHeader" ref={this.trackingWidth}>
           <Title text={i18n.editor.macros.timelineTitle} headingLevel={4} />
+          <RegularButton
+            buttonText="Preview macro"
+            size="sm"
+            icoSVG={<IconEye />}
+            style="outline-sm"
+            icoPosition="right"
+            onClick={this.openModal}
+          />
         </div>
         {this.state.macros.length == 0 || !Array.isArray(this.state.macros) ? (
           <div className="loading marginCenter">

@@ -486,7 +486,7 @@ class MacroEditor extends React.Component {
   }
 
   changeSelected(id) {
-    console.log("SELECTING", id);
+    // console.log("SELECTING", id);
     this.setState({
       selectedMacro: id < 0 ? 0 : id
     });
@@ -553,12 +553,12 @@ class MacroEditor extends React.Component {
     }
   }
 
-  saveName(name) {
-    console.log("MACROS: ", this.state.macros, name);
+  saveName = name => {
+    // console.log("MACROS: ", this.state.macros, name);
     let macrosList = this.state.macros;
     macrosList[this.state.selectedMacro].name = name;
     this.setState({ macros: macrosList, modified: true });
-  }
+  };
 
   render() {
     const { selectedMacro, macros, listToDelete, selectedList, maxMacros, freeMemory, modified, showDeleteModal } = this.state;

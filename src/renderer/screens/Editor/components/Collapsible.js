@@ -51,6 +51,10 @@ class Collapsible extends React.Component {
           backgroundColor: "rgba(0, 0, 0, .03)",
           border: "1px solid rgba(0, 0, 0, .125)",
           padding: "0 2",
+          "&.Mui-expanded": {
+            margin: "0 0",
+            minHeight: "0",
+          },
         }}
       >
         <Typography>{title}</Typography>
@@ -68,7 +72,7 @@ class Collapsible extends React.Component {
           boxShadow: "none",
           margin: `0px 0px -1px 0px`,
           "&.Mui-expanded": {
-            margin: "auto auto 2 auto",
+            margin: "0 0",
             minHeight: 48,
           },
           "&:before": {

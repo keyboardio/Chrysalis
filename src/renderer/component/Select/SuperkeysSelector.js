@@ -157,9 +157,22 @@ class SuperKeysSelector extends React.Component {
               icoSVG={<IconPen />}
               tooltip={i18n.app.menu.changeName}
               tooltipPlacement="bottom"
+              tooltipDelay={600}
             />
-            <ButtonConfig onClick={cloneItem} icoSVG={<IconClone />} tooltip={i18n.general.clone} tooltipPlacement="bottom" />
-            <ButtonConfig onClick={deleteItem} icoSVG={<IconDelete />} tooltip={i18n.general.delete} tooltipPlacement="bottom" />
+            <ButtonConfig
+              onClick={cloneItem}
+              icoSVG={<IconClone />}
+              tooltip={i18n.general.clone}
+              tooltipPlacement="bottom"
+              tooltipDelay={600}
+            />
+            <ButtonConfig
+              onClick={deleteItem}
+              icoSVG={<IconDelete />}
+              tooltip={i18n.general.delete}
+              tooltipPlacement="bottom"
+              tooltipDelay={600}
+            />
             {/* <Dropdown drop="down" align="end" className="dropdownActionsList">
               <Dropdown.Toggle className="button-settings">
                 <ButtonSettings />

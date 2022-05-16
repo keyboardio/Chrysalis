@@ -300,6 +300,13 @@ class FirmwareUpdate extends React.Component {
           sx={{
             display: "flex",
             minWidth: "15em",
+            "& .MuiInputBase-input": { display: "flex" },
+            "& .MuiListItemIcon-root": {
+              marginTop: "auto",
+              marginBottom: "auto",
+              marginLeft: 1,
+              marginRight: 2,
+            },
           }}
           value={this.state.selected}
           input={<Input id="selected-firmware" />}

@@ -27,7 +27,7 @@ class Keymap extends React.Component {
         .map(() => 0);
 
     let getKey = (row, col) => {
-      if (!props.keymap) return null;
+      if (!this.props.keymap) return null;
       let keyIndex = parseInt(row) * 11 + parseInt(col),
         key = keymap[keyIndex];
       return key;

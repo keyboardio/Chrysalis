@@ -40,6 +40,7 @@ import ConfirmationDialog from "../../components/ConfirmationDialog";
 import SaveChangesButton from "../../components/SaveChangesButton";
 import i18n from "../../i18n";
 import clearEEPROM from "../../utils/clearEEPROM";
+import deviceReset from "../../utils/deviceReset";
 import checkExternalFlasher from "../../utils/checkExternalFlasher";
 
 import {
@@ -260,6 +261,7 @@ const AdvancedKeyboardSettings = () => {
     closeEEPROMResetConfirmation();
 
     await clearEEPROM();
+    await deviceReset();
     setWorking(false);
   };
   const openEEPROMResetConfirmation = () => {

@@ -90,15 +90,13 @@ const LayoutCard = (props) => {
       if (j.code != 65535) {
         // If it's not empty, add it to the keymap_pix array
         keymap_pix.push(
-          <Box sx={{ width: "auto" }}>
+          <Box sx={{ width: "auto", breakInside: "avoid" }}>
             <Typography
               variant="h3"
               sx={{
                 marginTop: 4,
                 marginBottom: 1,
                 marginLeft: 5,
-                background: "red",
-                display: "inline-block",
               }}
             >
               {i18n.t("components.layer", { index: i })}
@@ -115,15 +113,12 @@ const LayoutCard = (props) => {
   return (
     <React.Fragment>
       <PageTitle title={title} />
-      <Box
-        component="main"
-        sx={{ width: 1, border: "1px solid red", margin: "auto" }}
-      >
+
+      <Box component="main">
         <Box
           sx={{
             display: "block",
             margin: "auto",
-            border: "1px solid blue",
           }}
         >
           <div>{keymap_pix}</div>

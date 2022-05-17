@@ -101,3 +101,10 @@ button {
 .select-keycode ul li.highlight {
   font-weight: bold;
 }
+
+@media print {
+  /* https://stackoverflow.com/questions/5949897/how-to-get-a-background-image-to-print-using-css#16322665 */
+  * {
+    -webkit-print-color-adjust: exact;
+  }
+}

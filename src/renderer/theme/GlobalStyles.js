@@ -1515,6 +1515,11 @@ div.card.card-preferences .card-body {
 .pageHeader .savingButtons {
   display: flex;
   flex-wrap: nowrap;
+  
+}
+.pageHeader .itemListelector .dropdown-menu {
+  max-height: 80vh;
+  overflow-y: auto;
 }
 @media screen and (max-width: 1229px){
   .main-container .superkeys,

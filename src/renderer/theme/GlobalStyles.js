@@ -377,7 +377,7 @@ svg text{
 .buttonFX {
   position: absolute;
   z-index: 0;
-  width: 100px;
+  width: 60px;
   height: 32px;
   bottom: 2px;
   left: 50%;
@@ -394,6 +394,7 @@ svg text{
 .button.outline.gradient:hover .buttonFX {
   bottom: -5px;
   filter: blur(15px);
+  width: 100px;
 }
 .btn-primary.button-config,
 .button-config {
@@ -1410,6 +1411,8 @@ div.card.card-preferences .card-body {
   .bs-tooltip-right.tooltipMenu {
     display: none!important;
   }
+}
+@media screen and (min-width: 1299px) {
   div.main-container {
     padding-left: calc(120px + 30px);
     padding-left: 30px;
@@ -1508,6 +1511,11 @@ div.card.card-preferences .card-body {
   height: 6px; 
 }
 
+
+.pageHeader .savingButtons {
+  display: flex;
+  flex-wrap: nowrap;
+}
 @media screen and (max-width: 1229px){
   .main-container .superkeys,
   .main-container .macroEditor {
@@ -1534,6 +1542,29 @@ div.card.card-preferences .card-body {
     }
     .ModPicker {
       width: 100%;
+    }
+  }
+}
+@media screen and (max-width: 1360px) {
+  .pageHeader .button.outline.gradient.addNew {
+    padding-right: 12px;
+    svg {
+      margin-right: 0;
+    }
+    .buttonText {
+      display: none;
+    }
+  }
+}
+@media screen and (max-width: 1460px) {
+  .pageHeader .savingButtons .buttonText span {
+    display: none;
+  }
+}
+@media screen and (max-width: 1520px){
+  .main-container .macroEditor {
+    .progressIndicatorBar svg {
+      width: 45px;
     }
   }
 }

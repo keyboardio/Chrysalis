@@ -172,7 +172,7 @@ class MacroSelector extends React.Component {
           icoSVG={<IconAddNew />}
           icoPosition="left"
           buttonText={i18n.general.new}
-          style="outline gradient"
+          style="outline gradient addNew"
           onClick={this.toggleShowAdd}
         />
         <MacrosMemoryUsage mem={mem} />

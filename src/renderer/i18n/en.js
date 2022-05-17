@@ -38,7 +38,7 @@ const English = {
       success: "Sent!",
       saveChanges: "Send changes to the Raise",
       savePreferences: "Save preferences",
-      button: "Save changes"
+      button: "Save<span> changes</span>"
     },
     pickerColorButton: "Change color",
     underglowColorButton: "Change color of all underglows",
@@ -82,7 +82,7 @@ const English = {
       Chat: "Chat"
     },
     cancelPending: {
-      button: "Discard changes",
+      button: "Discard<span> changes</span>",
       title: "Cancel pending changes?",
       content: "You have unsaved changes. If you proceed, they will be lost."
     }

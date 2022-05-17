@@ -26,7 +26,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 
 const Collapsible = (props) => {
-  const [expanded, setExpanded] = useState(props.expanded);
+  const [expanded, setExpanded] = useState(undefined);
   const handleChange = () => {
     setExpanded(!expanded);
   };
@@ -51,11 +51,12 @@ const Collapsible = (props) => {
   if (help) {
     summary = <Tooltip title={help}>{summary}</Tooltip>;
   }
-
+  const show_expanded = expanded !== undefined ? expanded : props.expanded;
   return (
     <Accordion
       square
-      expanded={expanded}
+      TransitionProps={{ unmountOnExit: true }}
+      expanded={show_expanded}
       sx={{
         boxShadow: "none",
         margin: `0px 0px -1px 0px`,

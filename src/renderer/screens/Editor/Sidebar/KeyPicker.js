@@ -188,27 +188,27 @@ const KeyPicker = (props) => {
               <FormControlLabel
                 control={makeSwitch("shift")}
                 label="Shift"
-                disabled={key.baseCode == 225 || isDU}
+                disabled={key.baseCode == 225 || key.code == 225 || isDU}
               />
               <FormControlLabel
                 control={makeSwitch("ctrl")}
                 label="Control"
-                disabled={key.baseCode == 224 || isDU}
+                disabled={key.baseCode == 224 || key.code == 224 || isDU}
               />
               <FormControlLabel
                 control={makeSwitch("alt")}
                 label="Alt"
-                disabled={key.baseCode == 226 || isDU}
+                disabled={key.baseCode == 226 || key.code == 226 || isDU}
               />
               <FormControlLabel
                 control={makeSwitch("gui")}
                 label={GuiLabel.full}
-                disabled={key.baseCode == 227 || isDU}
+                disabled={key.baseCode == 227 || key.code == 227 || isDU}
               />
               <FormControlLabel
                 control={makeSwitch("altgr")}
                 label="AltGr"
-                disabled={key.baseCode == 230 || isDU}
+                disabled={key.baseCode == 230 || key.code == 230 || isDU}
               />
             </FormGroup>
           </FormControl>

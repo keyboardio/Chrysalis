@@ -50,6 +50,7 @@ const English = {
       keyboardSettings: "Keyboard Settings",
       preferences: "Preferences",
       selectAKeyboard: "Select a keyboard",
+      layoutCard: "Layout Card",
       selectAnotherKeyboard: "Select another keyboard",
       chat: "Discord chat",
       feedback: "Send feedback",

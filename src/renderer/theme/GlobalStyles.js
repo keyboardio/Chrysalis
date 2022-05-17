@@ -826,11 +826,16 @@ div.card.card-preferences .card-body {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
+  margin-left: -2px;
+  margin-right: -2px;
   .previewKey {
     line-height: 2em;
     font-size: 14px;
     border-radius: 3px;
     color: ${({ theme }) => theme.styles.macro.previewColor};
+    border: 1px solid ${({ theme }) => theme.colors.previewColor};
+    padding: 0 6px;
+    margin: 2px;
   }
   .action-2 {
     color: ${({ theme }) => theme.colors.brandDangerLighter};
@@ -845,6 +850,60 @@ div.card.card-preferences .card-body {
       top: 50%;
       left: 3px;
       transform: translate3d(0, -55%, 0);
+    }
+  }
+  .action-8 { 
+    margin: 0;
+    border-color: transparent;
+    padding: 0;
+    &.keyCode-40,
+    &.keyCode-41,
+    &.keyCode-42,
+    &.keyCode-43,
+    &.keyCode-57,
+    &.keyCode-58,
+    &.keyCode-59,
+    &.keyCode-60,
+    &.keyCode-61,
+    &.keyCode-62,
+    &.keyCode-63,
+    &.keyCode-64,
+    &.keyCode-65,
+    &.keyCode-66,
+    &.keyCode-67,
+    &.keyCode-68,
+    &.keyCode-69,
+    &.keyCode-70,
+    &.keyCode-71,
+    &.keyCode-72,
+    &.keyCode-73,
+    &.keyCode-74,
+    &.keyCode-75,
+    &.keyCode-76,
+    &.keyCode-77,
+    &.keyCode-78,
+    &.keyCode-79,
+    &.keyCode-80,
+    &.keyCode-81,
+    &.keyCode-82,
+    &.keyCode-83,
+    &.keyCode-88,
+    &.keyCode-101, 
+    &.keyCode-104,
+    &.keyCode-105,
+    &.keyCode-106,
+    &.keyCode-107,
+    &.keyCode-108,
+    &.keyCode-109,
+    &.keyCode-110,
+    &.keyCode-111,
+    &.keyCode-112,
+    &.keyCode-113,
+    &.keyCode-114,
+    &.keyCode-115 {
+      border: 1px solid ${({ theme }) => theme.colors.previewColor};
+      padding: 0 6px;
+      margin: 2px;
     }
   }
   .isModifier {

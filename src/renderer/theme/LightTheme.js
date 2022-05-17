@@ -160,6 +160,13 @@ const Light = {
         background: `linear-gradient(98.12deg, #F0DDE9 0%, #F0F2F4 56.24%) padding-box,
         ${Tokens.colors.gradient} border-box`
       },
+      previewButton: {
+        color: Tokens.colors.gray400,
+        borderColor: Tokens.colors.gray50,
+        colorHover: Tokens.colors.gray600,
+        borderHover: Tokens.colors.gray100,
+        backgroundHover: settingColorOpacity(Tokens.colors.gray100, 0.05)
+      },
       danger: {
         color: Tokens.colors.gray25,
         backgroundColor: Tokens.colors.brandDanger,

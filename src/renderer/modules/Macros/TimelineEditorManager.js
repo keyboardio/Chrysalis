@@ -39,10 +39,17 @@ margin-top: 2px;
     }
     .outline-sm {
       padding: 6px 12px;
-      border: 1px solid ${({ theme }) => theme.colors.gray600};
-      color: ${({ theme }) => theme.colors.gray300};
+      border: 1px solid ${({ theme }) => theme.styles.button.previewButton.borderColor};
+      color:  ${({ theme }) => theme.styles.button.previewButton.color};
       margin-left: 24px;
       font-size: 14px;
+      transition: 300ms ease-in-out;
+      transition-property: background, color, border;
+      &:hover {
+        border: 1px solid  ${({ theme }) => theme.styles.button.previewButton.borderHover};
+        color: ${({ theme }) => theme.styles.button.previewButton.colorHover};
+        background-color: ${({ theme }) => theme.styles.button.previewButton.backgroundHover};
+      }
     }
 }
 .card {

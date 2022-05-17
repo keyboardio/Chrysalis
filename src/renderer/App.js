@@ -166,6 +166,7 @@ const App = (props) => {
     }
 
     setConnected(true);
+    i18n.refreshHardware(port.focusDeviceDescriptor);
     setFocusDeviceDescriptor(null);
 
     await navigate(

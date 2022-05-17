@@ -49,7 +49,7 @@ i18n
     },
   });
 
-i18n.refreshHardware = ({ device }) => {
+i18n.refreshHardware = (device) => {
   Object.keys(i18n.options.resources).forEach((code) => {
     const key =
       "devices." +

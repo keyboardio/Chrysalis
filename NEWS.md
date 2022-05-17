@@ -1,6 +1,6 @@
-Chrysalis 0.9.1-snapshot
-========================
-**UNRELEASED**
+Chrysalis 0.9.1
+===============
+Released on 2022-05-18
 
 ## Bugfixes
 

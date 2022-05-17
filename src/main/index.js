@@ -69,6 +69,7 @@ async function createMainWindow() {
     height: mainWindowState.height,
     resizable: true,
     icon: path.join(getStaticPath(), "/logo.png"),
+    autoHideMenuBar: true,
     webPreferences: {
       sandbox: false,
       nodeIntegration: true,

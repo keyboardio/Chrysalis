@@ -384,7 +384,9 @@ class Editor extends React.Component {
           sx={{
             flexGrow: 1,
             margin: 3,
-            width: `calc(100% - ${sidebarWidth}px)`,
+            // width is screen width, minus the sidebar, minus the horizontal
+            // margins.
+            width: `calc(100% - ${sidebarWidth}px - 48px)`,
           }}
         >
           {keymapWidget}

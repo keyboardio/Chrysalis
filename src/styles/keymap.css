@@ -23,9 +23,6 @@ button {
   font-family: "Source Code Pro", monospace;
   font-size: 8px;
   font-weight: 700;
-  min-width: 550px;
-  min-height: 280px;
-  max-width: calc(100vw - 360px);
 }
 
 .short-legend {

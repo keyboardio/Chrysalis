@@ -61,12 +61,15 @@ class Swatch extends React.Component {
   render() {
     const { classes, color, active, onClick } = this.props;
 
+    // TODO(anyone): The width, height and margin properties should be relative
+    // to theme spacings. They were 3/3/0.75 previously. However, using those
+    // numbers here gets us 3px "big" swatches, which isn't what we want.
     return (
       <Avatar
         sx={{
-          width: 3,
-          height: 3,
-          margin: 0.75,
+          width: "24px",
+          height: "24px",
+          margin: "2.25px",
         }}
         variant="square"
         style={{

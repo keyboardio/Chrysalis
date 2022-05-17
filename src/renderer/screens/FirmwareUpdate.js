@@ -330,7 +330,7 @@ const FirmwareUpdate = (props) => {
   if (resetOnFlash) {
     steps = ["factoryRestore"];
   }
-  if (focusDeviceDescriptor.flashSteps) {
+  if (focusDeviceDescriptor?.flashSteps) {
     steps = steps.concat(focusDeviceDescriptor.flashSteps);
   } else {
     steps = steps.concat(["flash"]);

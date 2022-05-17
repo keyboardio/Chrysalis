@@ -40,7 +40,7 @@ import {
 import { GlobalContext } from "./components/GlobalContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import LayoutCard from "./screens/LayoutCard";
 import KeyboardSelect from "./screens/KeyboardSelect";
 import FirmwareUpdate from "./screens/FirmwareUpdate";
 import Editor from "./screens/Editor/Editor";
@@ -214,6 +214,7 @@ const App = (props) => {
                   focusDeviceDescriptor={focusDeviceDescriptor}
                   onConnect={onKeyboardConnect}
                 />
+                <LayoutCard path="/layout-card" />
                 <KeyboardSelect
                   path="/keyboard-select"
                   onConnect={onKeyboardConnect}

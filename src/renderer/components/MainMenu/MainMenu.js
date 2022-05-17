@@ -127,6 +127,12 @@ function MainMenu({ open, closeMenu, classes }) {
               "/editor"
             )}
           {listItem(
+            <InfoIcon />,
+            i18n.t("app.menu.layoutCard"),
+            "/layout-card"
+          )}
+
+          {listItem(
             <CloudUploadIcon />,
             i18n.t("app.menu.firmwareUpdate"),
             "/firmware-update"

@@ -41,6 +41,7 @@ import {
 } from "./ipc_device_discovery";
 import { registerFileIoHandlers } from "./ipc_file_io";
 import { registerDevtoolsHandlers } from "./ipc_devtools";
+import { buildMenu } from "./menu";
 initialize();
 
 // Settings storage
@@ -175,8 +176,8 @@ app.whenReady().then(async () => {
       .catch((err) => console.log("An error occurred: ", err));
   }
 
-  Menu.setApplicationMenu(null);
   mainWindow = createMainWindow();
+  buildMenu();
 });
 
 app.on("web-contents-created", (_, wc) => {

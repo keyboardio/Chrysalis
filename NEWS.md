@@ -1,3 +1,12 @@
+Chrysalis 0.9.1-snapshot
+========================
+**UNRELEASED**
+
+## Bugfixes
+
+A number of small, but particularly painful display issues (such as the color
+swatches above the color picker being tiny) were fixed.
+
 Chrysalis 0.9.0
 ===============
 Released on 2022-05-17

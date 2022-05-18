@@ -360,10 +360,15 @@ class Focus {
       backup[cmd] = dump;
     }
     console.log(backup);
-
+    return backup;
     //const key = ".internal." + uuidv4();
     // sessionStorage.setItem(key, JSON.stringify(backup));
     //return key;
+  }
+  async restoreKeyboardConfiguration(s, backup) {
+    for (const cmd of this.eepromRestoreCommands) {
+      await s.request(cmd, backup[cmd]);
+    }
   }
 }
 

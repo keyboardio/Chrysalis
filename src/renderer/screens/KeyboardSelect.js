@@ -17,6 +17,8 @@ import { PageTitle } from "./../components/PageTitle";
  */
 
 import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -25,6 +27,8 @@ import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import Focus from "../../api/focus";
 import i18n from "../i18n";
+import logo from "../logo-small.png";
+
 import { useIntervalImmediate } from "../utils/useInterval";
 import { ConnectionButton } from "./KeyboardSelect/ConnectionButton";
 import { LinuxPermissionsWarning } from "./KeyboardSelect/LinuxPermissionsWarning";
@@ -117,9 +121,18 @@ const KeyboardSelect = (props) => {
               px: 4,
             }}
           >
-            <DeviceImage
-              focusDeviceDescriptor={selectedDevicePort?.focusDeviceDescriptor}
-            />
+            {selectedDevicePort ? (
+              <DeviceImage
+                focusDeviceDescriptor={
+                  selectedDevicePort?.focusDeviceDescriptor
+                }
+              />
+            ) : (
+              <Grid container justifyContent="center">
+                <img src={logo} alt={i18n.t("components.logo.altText")} />
+              </Grid>
+            )}
+
             <KeyboardPortSelector
               devices={devices}
               selectedPortIndex={selectedPortIndex}

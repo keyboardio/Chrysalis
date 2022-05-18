@@ -254,6 +254,12 @@ const Dark = {
       titleColor: Tokens.colors.gray50,
       groupButtonsBackground: settingColorOpacity(Tokens.colors.gray900, 0.2)
     },
+    customCheckbox: {
+      background: Tokens.colors.gray700,
+      borderColor: Tokens.colors.gray400,
+      backgroundActive: Tokens.colors.brandSuccess,
+      borderColorActive: Tokens.colors.brandSuccess
+    },
     dropdown: {
       backgroundButtonColor: settingColorOpacity(Tokens.colors.gray900, 0.2),
       backgroundButtonHover: settingColorOpacity(Tokens.colors.gray900, 0.35),

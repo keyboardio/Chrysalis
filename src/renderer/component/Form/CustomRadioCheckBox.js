@@ -21,8 +21,59 @@ import Form from "react-bootstrap/Form";
 
 import Title from "../Title";
 
-const Style = Styled.div`	
-}`;
+const Style = Styled.div`
+&.customCheckbox {
+    .customCheckboxInner {
+        display: flex;
+        flex-wrap: nowrap;
+    }
+    label,
+    label h6 {
+        margin-bottom: 0;
+    }	
+    label:hover {
+        cursor: pointer;
+    }
+    label h6 {
+        line-height: 32px;
+    }
+    .tooltipIcon {
+        vertical-align: 0;
+    }
+    input[type=checkbox], input[type=radio] {
+        display: none;
+    }
+    .form-check {
+        padding-left: 26px;
+    }
+    .form-check:before,
+    .form-check:after {
+        content: "";
+        position: absolute;
+        transition: 300ms ease-in-out;
+        display: inline-block;
+        transform: translate3d(0, -50%, 0);
+        top: 50%;
+        left: 0;
+    }
+    .form-check::before {
+        width: 18px;
+        height: 18px;
+        border-radius: 4px; 
+        transition-property: border;
+    }
+    .form-check::after {
+        width: 10px;
+        height: 10px;
+        border-radius: 2px;
+        margin-left: 4px;
+        transition-property: background;
+    }   
+}
+&:hover {
+    cursor: pointer;
+}
+`;
 
 const CustomRadioCheckBox = ({
   label,
@@ -34,12 +85,13 @@ const CustomRadioCheckBox = ({
   tooltipPlacement,
   className,
   onClick,
-  disabled
+  disabled,
+  checked
 }) => {
   return (
     <Style className={`customCheckbox ${className}`} onClick={onClick}>
-      <div id={`input-${id}`}>
-        <Form.Check type={type} id={`input-${id}-${type}`} name={name} disabled={disabled ? disabled : false} />
+      <div className="customCheckboxInner" id={`input-${id}`}>
+        <Form.Check type={type} id={`input-${id}-${type}`} name={name} disabled={disabled ? disabled : false} checked={checked} />
         <label htmlFor={`input-${id}-${type}`}>
           <Title text={label} tooltip={tooltip} headingLevel={6} />
         </label>

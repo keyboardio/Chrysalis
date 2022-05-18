@@ -9,7 +9,7 @@ import Title from "../../component/Title";
 import { RegularButton } from "../../component/Button";
 import { CustomRadioCheckBox } from "../../component/Form";
 
-import { IconArrowInBoxDown } from "../../component/Icon";
+import { IconArrowInBoxDown, IconMediaShuffle } from "../../component/Icon";
 
 const Styles = Styled.div`
 display: flex;
@@ -41,7 +41,7 @@ h4 {
     margin-bottom: 0;
 }
 .input-group {
-    max-width: 290px;
+    max-width: 280px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     .input-group-text {
@@ -60,12 +60,51 @@ h4 {
 .formWrapper {
   display: flex;
   flex: 0 0 100%;
+  .customCheckbox + .customCheckbox {
+    margin-left: 16px;
+  }
+}
+.inputMax {
+  text-align: right;
+}
+.inputGroupRandom {
+  position: relative;
+  .inputIcon {
+    position: absolute;
+    top: 50%;
+    left: 95px;
+    transform: translate3d(0, -50%, 0);
+    width: 32px;
+    height: 32px;
+    padding: 4px;
+    border-radius: 50%;
+    z-index: 3;
+    background-color: #202033;
+  }
+  .inputMin {
+    border-right-color: transparent;
+    &:focus {
+      border-right: 1px solid ${({ theme }) => theme.styles.form.inputBorderActive};
+    }
+  }
+  .inputMax {
+    border-left-color: transparent;
+    &:focus {
+      border-left: 1px solid ${({ theme }) => theme.styles.form.inputBorderActive};
+    }
+  }
+  .form-control {
+    background-color: #202033;
+  }
 }
 `;
 
 class DelayTab extends Component {
   constructor(props) {
     super(props);
+
+    this.inputMin = React.createRef();
+    this.inputMax = React.createRef();
 
     this.state = {
       fixedValue: true,
@@ -81,7 +120,20 @@ class DelayTab extends Component {
     this.setState({ fixedValue: false });
   };
 
+  setMinRandomRange = event => {
+    let minVal = Number(this.inputMin.current.value);
+    let maxVal = Number(this.inputMax.current.value);
+    if (minVal >= maxVal) {
+      maxVal = minVal + 1;
+      this.inputMax.current.value = minVal + 1;
+    }
+    this.setState({ randomValue: { min: minVal, max: maxVal } });
+    console.log("Random min & max: ", this.state.randomValue);
+  };
+
   render() {
+    const classFixed = this.state.fixedValue ? "active" : "inactive";
+    const classRandom = this.state.fixedValue ? "inactive" : "active";
     return (
       <Styles>
         <div className="tabContentWrapper">
@@ -93,6 +145,7 @@ class DelayTab extends Component {
               type="radio"
               name="addDelay"
               id="addFixedDelay"
+              className={classFixed}
             />
             <CustomRadioCheckBox
               label="Random value"
@@ -101,20 +154,42 @@ class DelayTab extends Component {
               name="addDelay"
               id="addRandomDelay"
               tooltip="You can configure a maximum value and minimum value for each time the macro is executed Bazecor choose a delay between this range."
+              className={classRandom}
             />
           </div>
-          <div className="inputsrapper">
+          <div className="inputsWrapper mt-3">
             {this.state.fixedValue ? (
-              <InputGroup>
-                <Form.Control placeholder={i18n.editor.macros.delayTabs.title} min={0} type="number" />
-                <InputGroup.Text>ms</InputGroup.Text>
-              </InputGroup>
+              <div className="inputGroupFixed">
+                <InputGroup>
+                  <Form.Control placeholder={i18n.editor.macros.delayTabs.title} min={0} type="number" />
+                  <InputGroup.Text>ms</InputGroup.Text>
+                </InputGroup>
+              </div>
             ) : (
-              <InputGroup>
-                <Form.Control placeholder="Min." min={0} type="number" />
-                <Form.Control placeholder="Max" min={1} type="number" />
-                <InputGroup.Text>ms</InputGroup.Text>
-              </InputGroup>
+              <div className="inputGroupRandom">
+                <InputGroup>
+                  <Form.Control
+                    className="inputMin"
+                    placeholder="Min."
+                    min={0}
+                    type="number"
+                    onChange={this.setMinRandomRange}
+                    ref={this.inputMin}
+                  />
+                  <Form.Control
+                    className="inputMax"
+                    placeholder="Max"
+                    min={1}
+                    type="number"
+                    onChange={this.setMaxRandomRange}
+                    ref={this.inputMax}
+                  />
+                  <InputGroup.Text>ms</InputGroup.Text>
+                </InputGroup>
+                <div className="inputIcon">
+                  <IconMediaShuffle />
+                </div>
+              </div>
             )}
           </div>
         </div>

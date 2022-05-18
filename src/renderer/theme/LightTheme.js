@@ -249,6 +249,12 @@ const Light = {
       titleColor: Tokens.colors.gray500,
       groupButtonsBackground: "rgba(255,255,255,1)"
     },
+    customCheckbox: {
+      background: Tokens.colors.gray700,
+      borderColor: Tokens.colors.gray400,
+      backgroundActive: Tokens.colors.brandSuccess,
+      borderColorActive: Tokens.colors.brandSuccess
+    },
     dropdown: {
       backgroundButtonColor: "rgba(255, 255, 255, 0.5)",
       backgroundButtonHover: "rgba(255, 255, 255, 0.75)",

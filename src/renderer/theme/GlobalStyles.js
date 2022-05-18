@@ -1484,6 +1484,25 @@ div.card.card-preferences .card-body {
   }
 }
 
+//
+// CustomCheckbox
+//
+.customCheckbox {
+  .form-check::before {
+    border: 2px solid ${({ theme }) => theme.styles.customCheckbox.borderColor};
+  }
+  .form-check::after {
+    background-color: ${({ theme }) => theme.styles.customCheckbox.background};
+  }
+  &.active {
+    .form-check::before {
+      border: 2px solid ${({ theme }) => theme.styles.customCheckbox.borderColorActive};
+    }
+    .form-check::after {
+      background-color: ${({ theme }) => theme.styles.customCheckbox.backgroundActive};
+    } 
+  }
+}
 
 ::-webkit-scrollbar {
   background-color: rgba(0, 0, 0, 0.25);

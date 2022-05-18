@@ -36,7 +36,14 @@ export const LinuxPermissionsWarning = (props) => {
     }
   };
 
-  if (platform == "linux" && !selectedDevicePort?.accessible) {
+  // We do explicitly want to check selectedDevicePort for truthiness, do NOT
+  // combine it with the .accessible check into selectedDevicePort?.accessible,
+  // as that defeats the purpose.
+  if (
+    platform == "linux" &&
+    selectedDevicePort &&
+    selectedDevicePort.accessible
+  ) {
     const fixitButton = (
       <Button onClick={doInstallUdevRules} variant="outlined">
         {i18n.t("keyboardSelect.installUdevRules")}

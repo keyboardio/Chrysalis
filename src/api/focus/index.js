@@ -365,7 +365,7 @@ class Focus {
     // sessionStorage.setItem(key, JSON.stringify(backup));
     //return key;
   }
-  async restoreKeyboardConfiguration(s, backup) {
+  async writeKeyboardConfiguration(s, backup) {
     for (const cmd of this.eepromRestoreCommands) {
       await s.request(cmd, backup[cmd]);
     }

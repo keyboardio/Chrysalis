@@ -7,6 +7,7 @@ import i18n from "../../i18n";
 
 import Title from "../../component/Title";
 import { RegularButton } from "../../component/Button";
+import { CustomRadioCheckBox } from "../../component/Form";
 
 import { IconArrowInBoxDown } from "../../component/Icon";
 
@@ -55,23 +56,67 @@ h4 {
     }
 
 }
+
+.formWrapper {
+  display: flex;
+  flex: 0 0 100%;
+}
 `;
 
 class DelayTab extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      fixedValue: true,
+      randomValue: { min: 0, max: 0 }
+    };
   }
+
+  setFixedValue = () => {
+    this.setState({ fixedValue: true });
+  };
+
+  setRandomValue = () => {
+    this.setState({ fixedValue: false });
+  };
 
   render() {
     return (
       <Styles>
         <div className="tabContentWrapper">
           <Title text={i18n.editor.macros.delayTabs.title} headingLevel={4} />
-          <p className="description">{i18n.editor.macros.delayTabs.description}</p>
-          <InputGroup>
-            <Form.Control placeholder={i18n.editor.macros.delayTabs.title} type="number" />
-            <InputGroup.Text id="basic-addon2">ms</InputGroup.Text>
-          </InputGroup>
+          <div className="formWrapper">
+            <CustomRadioCheckBox
+              label="Fixed value"
+              onClick={this.setFixedValue}
+              type="radio"
+              name="addDelay"
+              id="addFixedDelay"
+            />
+            <CustomRadioCheckBox
+              label="Random value"
+              onClick={this.setRandomValue}
+              type="radio"
+              name="addDelay"
+              id="addRandomDelay"
+              tooltip="You can configure a maximum value and minimum value for each time the macro is executed Bazecor choose a delay between this range."
+            />
+          </div>
+          <div className="inputsrapper">
+            {this.state.fixedValue ? (
+              <InputGroup>
+                <Form.Control placeholder={i18n.editor.macros.delayTabs.title} min={0} type="number" />
+                <InputGroup.Text>ms</InputGroup.Text>
+              </InputGroup>
+            ) : (
+              <InputGroup>
+                <Form.Control placeholder="Min." min={0} type="number" />
+                <Form.Control placeholder="Max" min={1} type="number" />
+                <InputGroup.Text>ms</InputGroup.Text>
+              </InputGroup>
+            )}
+          </div>
         </div>
         <div className="tabSaveButton">
           <RegularButton

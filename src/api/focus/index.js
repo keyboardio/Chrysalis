@@ -332,6 +332,39 @@ class Focus {
     let data = await s.request("help");
     return data.split(/\r?\n/).filter((v) => v.length > 0);
   }
+
+  eepromBackupCommands = [
+    "keymap.custom",
+    "settings.defaultLayer",
+    "escape_oneshot.cancel_key",
+    "keymap.onlyCustom",
+    "keymap.default",
+    "help",
+    "plugins",
+    "eeprom.contents",
+    "eeprom.free",
+    "settings.valid?",
+    "settings.version",
+    "settings.crc",
+  ];
+  eepromRestoreCommands = [
+    "keymap.custom",
+    "settings.defaultLayer",
+    "escape_oneshot.cancel_key",
+    "keymap.onlyCustom",
+  ];
+  async readKeyboardConfiguration(s) {
+    let backup = {};
+    for (const cmd of this.eepromBackupCommands) {
+      const dump = await s.request(cmd);
+      backup[cmd] = dump;
+    }
+    console.log(backup);
+
+    //const key = ".internal." + uuidv4();
+    // sessionStorage.setItem(key, JSON.stringify(backup));
+    //return key;
+  }
 }
 
 export default Focus;

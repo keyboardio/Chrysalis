@@ -1,6 +1,6 @@
 Chrysalis 0.9.2
 ===============
-**UNRELEASED**
+Released on 2022-05-20
 
 ## New features
 

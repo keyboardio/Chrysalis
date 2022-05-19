@@ -58,7 +58,6 @@ function FocusCommands(options) {
       });
     };
 
-
     // Attempt calling device.reset first, if present.
     const commands = await focus.command("help");
     if (commands.includes("device.reset")) {

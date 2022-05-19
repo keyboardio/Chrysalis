@@ -39,7 +39,7 @@ import StenoKeys from "./Sidebar/StenoKeys";
 import TapDanceKeys from "./Sidebar/TapDanceKeys";
 import BlankKeys from "./Sidebar/BlankKeys";
 import CustomKey from "./Sidebar/CustomKey";
-
+import LogicalLayout from "./Sidebar/LogicalLayout";
 const sidebarWidth = 360;
 
 const Sidebar = (props) => {
@@ -61,6 +61,7 @@ const Sidebar = (props) => {
     StenoKeys,
     BlankKeys,
     CustomKey,
+    LogicalLayout,
   ];
   const categories = widgets.map((Widget, index) => {
     return (

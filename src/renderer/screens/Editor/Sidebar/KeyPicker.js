@@ -38,7 +38,7 @@ import Collapsible from "../components/Collapsible";
 import { KeymapDB } from "@api/keymap";
 import { addModifier, removeModifier } from "@api/keymap/db/modifiers";
 import { GuiLabel } from "@api/keymap/db/base/gui";
-import LayoutSelect from "./KeyPicker/LayoutSelect";
+import LayoutSelect from "./LogicalLayout/LayoutSelect";
 
 const db = new KeymapDB();
 
@@ -214,12 +214,6 @@ const KeyPicker = (props) => {
           </FormControl>
           {oneShot}
         </Box>
-        <Divider />
-        <LayoutSelect
-          sx={{ mt: 2 }}
-          layout={props.layout}
-          setLayout={props.setLayout}
-        />
       </Collapsible>
       <Dialog open={pickerOpen} onClose={closePicker} fullWidth maxWidth="lg">
         <Keyboard104

@@ -315,6 +315,7 @@ const English = {
         bootloaderWait: "Waiting for bootloader",
         saveEEPROM: "Saving EEPROM contents",
         restoreEEPROM: "Restoring EEPROM contents",
+        reconnect: "Reconnecting",
         flash: "Flashing",
         reboot: "Rebooting",
       },

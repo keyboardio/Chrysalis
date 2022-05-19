@@ -27,6 +27,109 @@ import { getStaticPath } from "../../renderer/config";
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
+function FocusCommands(options) {
+  let logger = new Log();
+
+  this.reboot = async () => {
+    const focus = options.focus;
+    const timeouts = options?.timeouts || {
+      dtrToggle: 500, // Time to wait (ms) between toggling DTR
+      bootLoaderUp: 4000, // Time to wait for the boot loader to come up
+    };
+    const port = focus._port;
+
+    const baudUpdate = () => {
+      return new Promise((resolve) => {
+        logger.debug("baud update");
+        port.update({ baudRate: 1200 }, async () => {
+          await delay(timeouts.dtrToggle);
+          resolve();
+        });
+      });
+    };
+
+    const dtrToggle = (state) => {
+      return new Promise((resolve) => {
+        logger.debug("dtr", state ? "on" : "off");
+        port.set({ dtr: state }, async () => {
+          await delay(timeouts.dtrToggle);
+          resolve();
+        });
+      });
+    };
+
+
+    // Attempt calling device.reset first, if present.
+    const commands = await focus.command("help");
+    if (commands.includes("device.reset")) {
+      await focus.command("device.reset");
+    }
+
+    // Attempt to reset the device with a serial HUP.
+    // If the device supports `device.reset`, this will be a no-op, because we're
+    // likely rebooting already. Worst case, we'll reboot twice. If the device
+    // does not support `device.reset`, then this will hopefully do the trick.
+    await baudUpdate();
+    await dtrToggle(true);
+    await dtrToggle(false);
+  };
+
+  // Saves the data from the keyboard's EEPROM using eeprom.contents, in one,
+  // unstructured blob.
+  this.saveEEPROMContents = async () => {
+    const focus = options.focus;
+    const dump = focus.command("eeprom.contents");
+    const key = ".internal." + uuidv4();
+    logger.debug("Saving EEPROM to session storage", dump);
+
+    return key;
+  };
+
+  // Restores `eeprom.contents` in full, not caring about structure.
+  this.restoreEEPROMContents = async (key) => {
+    const focus = options.focus;
+    const dump = sessionStorage.getItem(key);
+
+    logger.debug("Restoring EEPROM from session storage", key, dump);
+    sessionStorage.setItem(key, dump);
+    return key;
+  };
+
+  // Saves the data from the keyboard's EEPROM using
+  // focus.readKeyboardConfiguration, which saves each known slot in the EEPROM
+  // using individual focus commands.
+  // Use restoreEEPROM() to restore the data saved by this function.
+  this.saveEEPROM = async () => {
+    const focus = options.focus;
+    const structured_dump = await focus.readKeyboardConfiguration();
+
+    const key = ".internal." + uuidv4();
+    logger.debug(
+      "Writing structured EEPROM data to session storage",
+      key,
+      structured_dump
+    );
+    sessionStorage.setItem(key, JSON.stringify(structured_dump));
+    return key;
+  };
+
+  // Restores the data the keyboard's EEPROM using focus.writeKeyboardConfiguration, which
+  // updates each known slot in the EEPROM using individual focus commands.
+  // This method is more able to handle changes to the keyboard's EEPROM layout.
+  this.restoreEEPROM = async (key) => {
+    const focus = options.focus;
+    const structured_dump = JSON.parse(sessionStorage.getItem(key));
+
+    logger.debug(
+      "Restoring structured EEPROM data from session storage",
+      key,
+      structured_dump
+    );
+    await focus.writeKeyboardConfiguration(structured_dump);
+    sessionStorage.removeItem(key);
+  };
+}
+
 async function DFUUtilBootloader(port, filename, options) {
   const callback = options
     ? options.callback
@@ -34,7 +137,6 @@ async function DFUUtilBootloader(port, filename, options) {
         return;
       };
   const device = options.device;
-
   let logger = new Log();
 
   const formatID = (desc) => {
@@ -78,39 +180,20 @@ async function DFUUtilBootloader(port, filename, options) {
 }
 
 async function DFUUtil(port, filename, options) {
+  let logger = new Log();
+  const focusCommands = new FocusCommands(options);
+  const device = options.device;
   const callback = options
     ? options.callback
     : function () {
         return;
       };
 
-  const reboot = async () => {
-    const focus = options.focus;
-    await focus.command("device.reset");
-  };
-
-  const saveEEPROM = async () => {
-    const focus = options.focus;
-    const dump = await focus.command("eeprom.contents");
-    const key = ".internal." + uuidv4();
-
-    sessionStorage.setItem(key, dump);
-    return key;
-  };
-
-  const restoreEEPROM = async (key) => {
-    const focus = options.focus;
-    const dump = sessionStorage.getItem(key);
-
-    await focus.command("eeprom.conents", dump);
-    sessionStorage.removeItem(key);
-  };
-
   await callback("save-eeprom");
-  const saveKey = await saveEEPROM();
+  const saveKey = await focusCommands.saveEEPROM();
 
   await callback("bootloaderTrigger");
-  await reboot();
+  await focusCommands.reboot();
 
   await callback("bootloaderWait");
   const bootloaderFound = await options.focus.waitForBootloader(options.device);
@@ -128,11 +211,14 @@ async function DFUUtil(port, filename, options) {
 
   await DFUUtilBootloader(port, filename, options);
 
+  await callback("reconnect");
+  await options.focus.reconnectToKeyboard(device);
+
   await callback("restore-eeprom");
-  await restoreEEPROM(saveKey);
+  await focusCommands.restoreEEPROM(saveKey);
 
   await callback("reboot");
-  await reboot();
+  await focusCommands.reboot();
 }
 
 async function AvrDude(_, port, filename, options) {
@@ -141,8 +227,9 @@ async function AvrDude(_, port, filename, options) {
     : function () {
         return;
       };
-
+  const device = options.device;
   const timeout = 1000 * 60 * 5;
+  const focusCommands = new FocusCommands(options);
   let logger = new Log();
 
   const runCommand = async (args) => {
@@ -177,14 +264,17 @@ async function AvrDude(_, port, filename, options) {
     });
   };
 
+  await callback("save-eeprom");
+  const saveKey = await focusCommands.saveEEPROM();
+
   try {
     await port.close();
   } catch (_) {
     /* ignore the error */
   }
   await delay(1000);
-  logger.debug("launching avrdude...");
 
+  logger.debug("launching avrdude...");
   const configFile = path.join(getStaticPath(), "avrdude", "avrdude.conf");
   await runCommand([
     "-C",
@@ -199,6 +289,15 @@ async function AvrDude(_, port, filename, options) {
     "-b57600",
     "-Uflash:w:" + filename + ":i",
   ]);
+
+  await callback("reconnect");
+  await options.focus.reconnectToKeyboard(device);
+
+  await callback("restore-eeprom");
+  await focusCommands.restoreEEPROM(saveKey);
+
+  await callback("reboot");
+  await focusCommands.reboot();
 }
 
 async function Avr109Bootloader(board, port, filename, options) {
@@ -249,59 +348,76 @@ async function Avr109Bootloader(board, port, filename, options) {
 }
 
 async function Avr109(board, port, filename, options) {
-  let timeouts = options ? options.timeouts : null;
   const callback = options
     ? options.callback
     : function () {
         return;
       };
-  timeouts = timeouts || {
-    dtrToggle: 500, // Time to wait (ms) between toggling DTR
-    bootLoaderUp: 4000, // Time to wait for the boot loader to come up
-  };
-
+  const device = options.device;
+  const focusCommands = new FocusCommands(options);
   let logger = new Log();
 
-  const baudUpdate = () => {
-    return new Promise((resolve) => {
-      logger.debug("baud update");
-      port.update({ baudRate: 1200 }, async () => {
-        await delay(timeouts.dtrToggle);
-        resolve();
-      });
-    });
-  };
-
-  const dtrToggle = (state) => {
-    return new Promise((resolve) => {
-      logger.debug("dtr", state ? "on" : "off");
-      port.set({ dtr: state }, async () => {
-        await delay(timeouts.dtrToggle);
-        resolve();
-      });
-    });
-  };
+  await callback("save-eeprom");
+  const saveKey = await focusCommands.saveEEPROM();
 
   await callback("bootloaderTrigger");
-  await baudUpdate();
-  await dtrToggle(true);
-  await dtrToggle(false);
+  await focusCommands.reboot();
 
   await callback("bootloaderWait");
-  let bootPort = await options.focus.waitForBootloader(options.device);
-
-  if (!bootPort) {
+  const bootloaderFound = await options.focus.waitForBootloader(options.device);
+  if (!bootloaderFound) {
     throw new Error("Bootloader not found");
   }
-  await Avr109Bootloader(board, bootPort, filename, options);
+
+  await Avr109Bootloader(board, bootloaderFound, filename, options);
+
+  await callback("reconnect");
+  await options.focus.reconnectToKeyboard(options.device);
+
+  await callback("restore-eeprom");
+  await focusCommands.restoreEEPROM(saveKey);
+
+  await callback("reboot");
+  await focusCommands.reboot();
 }
 
-async function teensy(filename) {
-  return TeensyLoader.upload(0x16c0, 0x0478, filename);
-}
-
-async function DFUProgrammer(filename, mcu = "atmega32u4", timeout = 10000) {
+async function teensy(filename, options) {
+  const callback = options
+    ? options.callback
+    : function () {
+        return;
+      };
+  const device = options.device;
+  const focusCommands = new FocusCommands(options);
   let logger = new Log();
+
+  await callback("save-eeprom");
+  const saveKey = await focusCommands.saveEEPROM();
+
+  await callback("flash");
+  await TeensyLoader.upload(0x16c0, 0x0478, filename);
+
+  await callback("reconnect");
+  await options.focus.reconnectToKeyboard(device);
+
+  await callback("restore-eeprom");
+  await focusCommands.restoreEEPROM(saveKey);
+
+  await callback("reboot");
+  await focusCommands.reboot();
+}
+
+async function DFUProgrammer(filename, options, mcu = "atmega32u4") {
+  const callback = options
+    ? options.callback
+    : function () {
+        return;
+      };
+  const timeout = options.timeout || 10000;
+  const device = options.device;
+  const focusCommands = new FocusCommands(options);
+  let logger = new Log();
+
   const runCommand = async (args) => {
     return new Promise((resolve, reject) => {
       logger.debug("Running dfu-programmer", args);
@@ -327,8 +443,10 @@ async function DFUProgrammer(filename, mcu = "atmega32u4", timeout = 10000) {
     });
   };
 
-  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+  await callback("save-eeprom");
+  const saveKey = await focusCommands.saveEEPROM();
 
+  await callback("flash");
   for (let i = 0; i < 10; i++) {
     try {
       await runCommand([mcu, "erase"]);
@@ -340,6 +458,15 @@ async function DFUProgrammer(filename, mcu = "atmega32u4", timeout = 10000) {
   }
   await runCommand([mcu, "flash", filename]);
   await runCommand([mcu, "start"]);
+
+  await callback("reconnect");
+  await options.focus.reconnectToKeyboard(device);
+
+  await callback("restore-eeprom");
+  await focusCommands.restoreEEPROM(saveKey);
+
+  await callback("reboot");
+  await focusCommands.reboot();
 }
 
 export {
@@ -349,4 +476,5 @@ export {
   DFUProgrammer,
   DFUUtil,
   DFUUtilBootloader,
+  FocusCommands,
 };

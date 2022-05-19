@@ -53,7 +53,15 @@ const Atreus2 = {
     keymap: Keymap,
   },
 
-  flashSteps: ["bootloaderTrigger", "bootloaderWait", "flash"],
+  flashSteps: [
+    "saveEEPROM",
+    "bootloaderTrigger",
+    "bootloaderWait",
+    "flash",
+    "reconnect",
+    "restoreEEPROM",
+    "reboot",
+  ],
   externalFlasher: "avrdude",
   flash: async (port, filename, options) => {
     const board = {

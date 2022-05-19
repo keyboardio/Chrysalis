@@ -78,6 +78,7 @@ import IconStopWatch from "./IconStopWatch";
 import IconStopWatchSm from "./IconStopWatchSm";
 import IconStopWatchXs from "./IconStopWatchXs";
 import IconLayers from "./IconLayers";
+import IconRecord from "./IconRecord";
 import IconRobot from "./IconRobot";
 import IconThunder from "./IconThunder";
 import IconToolsCalculator from "./IconToolsCalculator";
@@ -155,6 +156,7 @@ export {
   IconStopWatchSm,
   IconStopWatchXs,
   IconLayers,
+  IconRecord,
   IconRobot,
   IconThunder,
   IconToolsCalculator,

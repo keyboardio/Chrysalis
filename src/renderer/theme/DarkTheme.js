@@ -564,6 +564,9 @@ const Dark = {
         "linear-gradient(278.53deg, rgba(240, 242, 244, 0.12) -19.7%, rgba(255, 255, 255, 0) 41.94%), rgba(18, 19, 36, 0.6)",
       lightOpacity: 1
     },
+    tabButton: {
+      background: "rgba(28, 29, 48, 0.2)"
+    },
     toast: {
       boxShadow: "0px 32px 32px -32px rgba(0, 0, 0, 0.25), 0px 0px 32px rgba(0, 0, 0, 0.25)",
       background: Tokens.colors.gray800,

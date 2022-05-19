@@ -2,12 +2,25 @@ import React from "react";
 import Styled from "styled-components";
 
 import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/Form";
 import i18n from "../../i18n";
 
 import { RegularButton } from "../Button";
+import { IconRecord } from "../Icon";
 
 const Styles = Styled.div`
+.tabButton {
+  border-radius: 6px;
+	font-size: 14px;
+	font-weight: 600;
+	padding: 16px 14px;
+  color: ${({ theme }) => theme.styles.tab.color};
+  background-color: ${({ theme }) => theme.styles.tabButton.background};
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 2px;
+  white-space: nowrap;
+}
 `;
 
 export default class RecordMacroModal extends React.Component {
@@ -39,9 +52,9 @@ export default class RecordMacroModal extends React.Component {
       <Styles>
         <RegularButton
           buttonText={i18n.editor.macros.recordMacro}
-          size="sm"
-          style="outline-sm"
-          icoPosition="right"
+          style="tabButton"
+          icoSVG={<IconRecord />}
+          icoPosition="left"
           onClick={this.toggleShow}
         />
         <Modal

@@ -351,6 +351,17 @@ class Focus {
     "led.brightness",
     "palette",
     "colormap.map",
+    "macros.map",
+    "tapdance.map",
+    "hostos.type",
+    "autoshift.enabled",
+    "autoshift.timeout",
+    "autoshift.categories",
+    "typingbreaks.idleTimeLimit",
+    "typingbreaks.lockTimeOut",
+    "typingbreaks.lockLength",
+    "typingbreaks.leftMaxKeys",
+    "typingbreaks.rightMaxKeys",
   ];
 
   eepromBackupCommands = [

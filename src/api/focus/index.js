@@ -355,21 +355,17 @@ class Focus {
     "settings.version",
     "settings.crc",
   ];
-  async readKeyboardConfiguration(s) {
+  async readKeyboardConfiguration() {
     let backup = {};
     for (const cmd of this.eepromBackupCommands) {
-      const dump = await s.request(cmd);
+      const dump = await this.request(cmd);
       backup[cmd] = dump;
     }
-    console.log(backup);
     return backup;
-    //const key = ".internal." + uuidv4();
-    // sessionStorage.setItem(key, JSON.stringify(backup));
-    //return key;
   }
-  async writeKeyboardConfiguration(s, backup) {
+  async writeKeyboardConfiguration(backup) {
     for (const cmd of this.eepromRestoreCommands) {
-      await s.request(cmd, backup[cmd]);
+      await this.request(cmd, backup[cmd]);
     }
   }
 }

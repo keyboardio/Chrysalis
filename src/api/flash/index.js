@@ -27,10 +27,10 @@ import { getStaticPath } from "../../renderer/config";
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
-const FocusCommands = (options) => {
+function FocusCommands(options) {
   let logger = new Log();
 
-  const reboot = async () => {
+  this.reboot = async () => {
     const focus = options.focus;
     const timeouts = options?.timeouts || {
       dtrToggle: 500, // Time to wait (ms) between toggling DTR
@@ -72,7 +72,7 @@ const FocusCommands = (options) => {
     await dtrToggle(false);
   };
 
-  const saveEEPROM = async () => {
+  this.saveEEPROM = async () => {
     const focus = options.focus;
     const structured_dump = await focus.readKeyboardConfiguration();
 
@@ -86,10 +86,10 @@ const FocusCommands = (options) => {
     return key;
   };
 
-  const restoreEEPROM = async (key) => {
+  this.restoreEEPROM = async (key) => {
     const focus = options.focus;
     const dump = sessionStorage.getItem(key);
-    logger.deubg("Restoring EEPROM from session storage", dump);
+    logger.debug("Restoring EEPROM from session storage", dump);
 
     await focus.command("eeprom.contents", dump["eeprom.contents"]);
     sessionStorage.removeItem(key);
@@ -98,13 +98,13 @@ const FocusCommands = (options) => {
   // Restores the data the keyboard's EEPROM using focus.writeKeyboardConfiguration, which
   // updates each known slot in the EEPROM using individual focus commands
   // This method is more able to handle changes to the keyboard's EEPROM layout.
-  const restoreStructuredEEPROM = async (key) => {
+  this.restoreStructuredEEPROM = async (key) => {
     const focus = options.focus;
     const dump = sessionStorage.getItem(key);
     await focus.writeKeyboardConfiguration(dump);
     sessionStorage.removeItem(key);
   };
-};
+}
 
 async function DFUUtilBootloader(port, filename, options) {
   const callback = options

@@ -21,8 +21,10 @@ will automatically fix the problem. If you have not upgraded to such a firmware,
 upgrading now will do the right thing.
 
 Additionally, each time you flash new firmware, a backup of the keyboard
-configuration is saved to a file under Chrysalis's application data folder. This
-file can be used for recovery in case something does go wrong.
+configuration is saved to a file under Chrysalis's application data folder.
+These files can be used for recovery in case something does go wrong: the
+"Backup & restore" screen (accessible via the Editor) will offer these backups
+automatically.
 
 ### Automatically connect on startup
 

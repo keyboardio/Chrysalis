@@ -1,6 +1,5 @@
-import { ipcMain, dialog, app } from "electron";
+import { ipcMain, dialog } from "electron";
 import fs from "fs";
-import path from "path";
 
 export const registerFileIoHandlers = () => {
   ipcMain.on("file-save", (event, data) => {
@@ -40,25 +39,5 @@ export const registerFileIoHandlers = () => {
         event.returnValue = [null, null];
       }
     });
-  });
-
-  ipcMain.on("eeprom-backup", async (event, stamp, data) => {
-    const dirName = path.join(app.getPath("userData"), "eeprom-backup");
-    const fileName = path.join(dirName, stamp.toString() + ".json");
-
-    try {
-      fs.mkdirSync(dirName, { recursive: true });
-    } catch (e) {
-      event.returnValue = [null, e];
-      return;
-    }
-
-    try {
-      fs.writeFileSync(fileName, data);
-    } catch (e) {
-      event.returnValue = [null, e];
-      return;
-    }
-    event.returnValue = [fileName];
   });
 };

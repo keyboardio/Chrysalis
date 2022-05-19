@@ -43,13 +43,13 @@ class Focus {
     this.logger.debug(...args);
   }
 
-  async waitForSerialBootloader(device) {
+  async waitForSerialDevice(device, usbInfo) {
     const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
     for (let attempt = 0; attempt < 10; attempt++) {
       let portList = await SerialPort.list();
       this.debugLog(
-        "focus.waitForBootloader: portList:",
+        "focus.waitForSerialDevice: portList:",
         portList,
         "device:",
         device
@@ -57,23 +57,26 @@ class Focus {
 
       for (let port of portList) {
         const pid = parseInt("0x" + port.productId),
-          vid = parseInt("0x" + port.vendorId),
-          bootloader = device.usb.bootloader;
+          vid = parseInt("0x" + port.vendorId);
 
-        if (pid == bootloader.productId && vid == bootloader.vendorId) {
+        if (pid == usbInfo.productId && vid == usbInfo.vendorId) {
           let newPort = Object.assign({}, port);
           newPort.device = device;
           newPort.device.bootloader = true;
-          this.debugLog("focus.waitForBootloader: found!", newPort);
+          this.debugLog("focus.waitForSerialDevice: found!", newPort);
           return newPort;
         }
       }
-      this.debugLog("focus.waitForBootloader: not found, waiting 2s");
+      this.debugLog("focus.waitForSerialDevice: not found, waiting 2s");
       await delay(2000);
     }
 
-    this.debugLog("focus.waitForBootloader: none found");
+    this.debugLog("focus.waitForSerialDevice: none found");
     return null;
+  }
+
+  async waitForSerialBootloader(device) {
+    return await this.waitForSerialDevice(device, device.usb.bootloader);
   }
 
   async waitForDFUBootloader(device) {
@@ -115,6 +118,12 @@ class Focus {
     } else {
       return await this.waitForSerialBootloader(device);
     }
+  }
+
+  async reconnectToKeyboard(device) {
+    this.debugLog("In reconnectToKeyboard", device);
+    const d = await this.waitForSerialDevice(device, device.usb);
+    return await this.open(d.path, d);
   }
 
   async find(...devices) {

@@ -84,6 +84,7 @@ const English = {
     sharing: {
       title: "Backup & Restore",
       loadFromLibrary: "Load from library",
+      loadFromBackup: "Load from backups",
       loadFromFile: "Load from file...",
       exportToFile: "Export to file...",
       import: "Import",

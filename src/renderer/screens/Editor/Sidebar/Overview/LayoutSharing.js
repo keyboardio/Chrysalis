@@ -224,6 +224,8 @@ class FileImportBase extends React.Component {
         },
       ],
     });
+    // If we have no filename, then the dialog was canceled.
+    if (!fileName) return;
     const layoutData = loadLayout(fileName, fileData);
     if (layoutData != null) this.props.setLayout("custom", layoutData);
   };

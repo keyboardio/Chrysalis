@@ -72,36 +72,58 @@ function FocusCommands(options) {
     await dtrToggle(false);
   };
 
+  // Saves the data from the keyboard's EEPROM using eeprom.contents, in one,
+  // unstructured blob.
+  this.saveEEPROMContents = async () => {
+    const focus = options.focus;
+    const dump = focus.command("eeprom.contents");
+    const key = ".internal." + uuidv4();
+    logger.debug("Saving EEPROM to session storage", dump);
+
+    return key;
+  };
+
+  // Restores `eeprom.contents` in full, not caring about structure.
+  this.restoreEEPROMContents = async (key) => {
+    const focus = options.focus;
+    const dump = sessionStorage.getItem(key);
+
+    logger.debug("Restoring EEPROM from session storage", key, dump);
+    sessionStorage.setItem(key, dump);
+    return key;
+  };
+
+  // Saves the data from the keyboard's EEPROM using
+  // focus.readKeyboardConfiguration, which saves each known slot in the EEPROM
+  // using individual focus commands.
+  // Use restoreEEPROM() to restore the data saved by this function.
   this.saveEEPROM = async () => {
     const focus = options.focus;
     const structured_dump = await focus.readKeyboardConfiguration();
 
     const key = ".internal." + uuidv4();
     logger.debug(
-      "Writing EEPROM data to session storage",
+      "Writing structured EEPROM data to session storage",
       key,
       structured_dump
     );
-    sessionStorage.setItem(key, structured_dump);
+    sessionStorage.setItem(key, JSON.stringify(structured_dump));
     return key;
   };
 
+  // Restores the data the keyboard's EEPROM using focus.writeKeyboardConfiguration, which
+  // updates each known slot in the EEPROM using individual focus commands.
+  // This method is more able to handle changes to the keyboard's EEPROM layout.
   this.restoreEEPROM = async (key) => {
     const focus = options.focus;
-    const dump = sessionStorage.getItem(key);
-    logger.debug("Restoring EEPROM from session storage", dump);
+    const structured_dump = JSON.parse(sessionStorage.getItem(key));
 
-    await focus.command("eeprom.contents", dump["eeprom.contents"]);
-    sessionStorage.removeItem(key);
-  };
-
-  // Restores the data the keyboard's EEPROM using focus.writeKeyboardConfiguration, which
-  // updates each known slot in the EEPROM using individual focus commands
-  // This method is more able to handle changes to the keyboard's EEPROM layout.
-  this.restoreStructuredEEPROM = async (key) => {
-    const focus = options.focus;
-    const dump = sessionStorage.getItem(key);
-    await focus.writeKeyboardConfiguration(dump);
+    logger.debug(
+      "Restoring structured EEPROM data from session storage",
+      key,
+      structured_dump
+    );
+    await focus.writeKeyboardConfiguration(structured_dump);
     sessionStorage.removeItem(key);
   };
 }

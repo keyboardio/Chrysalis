@@ -53,7 +53,14 @@ const Model01 = {
     keymap: Keymap,
   },
 
-  flashSteps: ["bootloaderTrigger", "bootloaderWait", "flash"],
+  flashSteps: [
+    "saveEEPROM",
+    "bootloaderTrigger",
+    "bootloaderWait",
+    "flash",
+    "restoreEEPROM",
+    "reboot",
+  ],
   externalFlasher: "avrdude",
   flash: async (port, filename, options) => {
     const board = {

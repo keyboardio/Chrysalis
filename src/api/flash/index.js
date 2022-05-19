@@ -200,8 +200,8 @@ async function AvrDude(_, port, filename, options) {
     : function () {
         return;
       };
-
   const timeout = 1000 * 60 * 5;
+  const focusCommands = new FocusCommands(options);
   let logger = new Log();
 
   const runCommand = async (args) => {
@@ -236,14 +236,17 @@ async function AvrDude(_, port, filename, options) {
     });
   };
 
+  await callback("save-eeprom");
+  const saveKey = await focusCommands.saveEEPROM();
+
   try {
     await port.close();
   } catch (_) {
     /* ignore the error */
   }
   await delay(1000);
-  logger.debug("launching avrdude...");
 
+  logger.debug("launching avrdude...");
   const configFile = path.join(getStaticPath(), "avrdude", "avrdude.conf");
   await runCommand([
     "-C",
@@ -258,6 +261,12 @@ async function AvrDude(_, port, filename, options) {
     "-b57600",
     "-Uflash:w:" + filename + ":i",
   ]);
+
+  await callback("restore-eeprom");
+  await focusCommands.restoreEEPROM(saveKey);
+
+  await callback("reboot");
+  await focusCommands.reboot();
 }
 
 async function Avr109Bootloader(board, port, filename, options) {
@@ -316,24 +325,59 @@ async function Avr109(board, port, filename, options) {
   const focusCommands = new FocusCommands(options);
   let logger = new Log();
 
+  await callback("save-eeprom");
+  const saveKey = await focusCommands.saveEEPROM();
+
   await callback("bootloaderTrigger");
   await focusCommands.reboot();
 
   await callback("bootloaderWait");
-  let bootPort = await options.focus.waitForBootloader(options.device);
-
-  if (!bootPort) {
+  const bootloaderFound = await options.focus.waitForBootloader(options.device);
+  if (!bootloaderFound) {
     throw new Error("Bootloader not found");
   }
-  await Avr109Bootloader(board, bootPort, filename, options);
+
+  await Avr109Bootloader(board, bootloaderFound, filename, options);
+
+  await callback("restore-eeprom");
+  await focusCommands.restoreEEPROM(saveKey);
+
+  await callback("reboot");
+  await focusCommands.reboot();
 }
 
-async function teensy(filename) {
-  return TeensyLoader.upload(0x16c0, 0x0478, filename);
-}
-
-async function DFUProgrammer(filename, mcu = "atmega32u4", timeout = 10000) {
+async function teensy(filename, options) {
+  const callback = options
+    ? options.callback
+    : function () {
+        return;
+      };
+  const focusCommands = new FocusCommands(options);
   let logger = new Log();
+
+  await callback("save-eeprom");
+  const saveKey = await focusCommands.saveEEPROM();
+
+  await callback("flash");
+  await TeensyLoader.upload(0x16c0, 0x0478, filename);
+
+  await callback("restore-eeprom");
+  await focusCommands.restoreEEPROM(saveKey);
+
+  await callback("reboot");
+  await focusCommands.reboot();
+}
+
+async function DFUProgrammer(filename, options, mcu = "atmega32u4") {
+  const callback = options
+    ? options.callback
+    : function () {
+        return;
+      };
+  const timeout = options.timeout || 10000;
+  const focusCommands = new FocusCommands(options);
+  let logger = new Log();
+
   const runCommand = async (args) => {
     return new Promise((resolve, reject) => {
       logger.debug("Running dfu-programmer", args);
@@ -359,8 +403,10 @@ async function DFUProgrammer(filename, mcu = "atmega32u4", timeout = 10000) {
     });
   };
 
-  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+  await callback("save-eeprom");
+  const saveKey = await focusCommands.saveEEPROM();
 
+  await callback("flash");
   for (let i = 0; i < 10; i++) {
     try {
       await runCommand([mcu, "erase"]);
@@ -372,6 +418,12 @@ async function DFUProgrammer(filename, mcu = "atmega32u4", timeout = 10000) {
   }
   await runCommand([mcu, "flash", filename]);
   await runCommand([mcu, "start"]);
+
+  await callback("restore-eeprom");
+  await focusCommands.restoreEEPROM(saveKey);
+
+  await callback("reboot");
+  await focusCommands.reboot();
 }
 
 export {

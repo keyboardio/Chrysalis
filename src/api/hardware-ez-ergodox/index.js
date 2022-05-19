@@ -41,8 +41,9 @@ const ErgoDox = {
     keymap: Keymap,
   },
 
-  flash: async (_, filename) => {
-    return teensy(filename);
+  flashSteps: ["saveEEPROM", "flash", "restoreEEPROM", "reboot"],
+  flash: async (_, filename, options) => {
+    return teensy(filename, options);
   },
 };
 

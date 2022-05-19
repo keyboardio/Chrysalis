@@ -418,6 +418,7 @@ class LayoutSharingBase extends React.Component {
       : colormap.colorMap;
     const newPalette = layout.palette || colormap.palette;
 
+    this.closeImportConfirm();
     this.props.onKeymapChange(newKeymap);
     this.props.onColormapChange(newColormap);
     this.props.onPaletteChange(newPalette);

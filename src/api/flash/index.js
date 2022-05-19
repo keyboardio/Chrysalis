@@ -215,9 +215,6 @@ async function DFUUtil(port, filename, options) {
 
   await callback("restore-eeprom");
   await focusCommands.restoreEEPROM(saveKey);
-
-  await callback("reboot");
-  await focusCommands.reboot();
 }
 
 async function AvrDude(_, port, filename, options) {
@@ -294,9 +291,6 @@ async function AvrDude(_, port, filename, options) {
 
   await callback("restore-eeprom");
   await focusCommands.restoreEEPROM(saveKey);
-
-  await callback("reboot");
-  await focusCommands.reboot();
 }
 
 async function Avr109Bootloader(board, port, filename, options) {
@@ -375,9 +369,6 @@ async function Avr109(board, port, filename, options) {
 
   await callback("restore-eeprom");
   await focusCommands.restoreEEPROM(saveKey);
-
-  await callback("reboot");
-  await focusCommands.reboot();
 }
 
 async function teensy(filename, options) {
@@ -401,9 +392,6 @@ async function teensy(filename, options) {
 
   await callback("restore-eeprom");
   await focusCommands.restoreEEPROM(saveKey);
-
-  await callback("reboot");
-  await focusCommands.reboot();
 }
 
 async function DFUProgrammer(filename, options, mcu = "atmega32u4") {
@@ -463,9 +451,6 @@ async function DFUProgrammer(filename, options, mcu = "atmega32u4") {
 
   await callback("restore-eeprom");
   await focusCommands.restoreEEPROM(saveKey);
-
-  await callback("reboot");
-  await focusCommands.reboot();
 }
 
 export {

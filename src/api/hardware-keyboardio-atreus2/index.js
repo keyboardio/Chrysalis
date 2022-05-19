@@ -59,8 +59,7 @@ const Atreus2 = {
     "bootloaderWait",
     "flash",
     "reconnect",
-    "restoreEEPROM",
-    "reboot",
+    "restoreEEPROM"
   ],
   externalFlasher: "avrdude",
   flash: async (port, filename, options) => {

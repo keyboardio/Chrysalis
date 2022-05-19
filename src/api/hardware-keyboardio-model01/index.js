@@ -60,7 +60,6 @@ const Model01 = {
     "flash",
     "reconnect",
     "restoreEEPROM",
-    "reboot",
   ],
   externalFlasher: "avrdude",
   flash: async (port, filename, options) => {
@@ -123,7 +122,6 @@ const Model100 = {
     "flash",
     "reconnect",
     "restoreEEPROM",
-    "reboot",
   ],
   flash: async (port, filename, options) => {
     return DFUUtil(port, filename, options);

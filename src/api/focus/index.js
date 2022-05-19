@@ -343,14 +343,12 @@ class Focus {
   }
 
   eepromRestoreCommands = [
-    "keymap.custom",
+    "keymap",
+    "colormap",
     "settings.defaultLayer",
     "escape_oneshot.cancel_key",
-    "keymap.onlyCustom",
     "idleleds.time_limit",
     "led.brightness",
-    "palette",
-    "colormap.map",
     "macros.map",
     "tapdance.map",
     "hostos.type",
@@ -368,7 +366,6 @@ class Focus {
     ...this.eepromRestoreCommands,
     "help",
     "plugins",
-    "keymap.default",
     "eeprom.contents",
     "eeprom.free",
     "settings.valid?",
@@ -378,14 +375,14 @@ class Focus {
   async readKeyboardConfiguration() {
     let backup = {};
     for (const cmd of this.eepromBackupCommands) {
-      const dump = await this.request(cmd);
+      const dump = await this.command(cmd);
       backup[cmd] = dump;
     }
     return backup;
   }
   async writeKeyboardConfiguration(backup) {
     for (const cmd of this.eepromRestoreCommands) {
-      await this.request(cmd, backup[cmd]);
+      await this.command(cmd, backup[cmd]);
     }
   }
 }

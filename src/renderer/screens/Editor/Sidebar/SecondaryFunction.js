@@ -155,7 +155,9 @@ const SecondaryFunction = (props) => {
         <div>
           <FormControl disabled={!keySupportsSecondaryAction(key)}>
             <FormGroup row>
-              <InputLabel>{i18n.t("components.type")}</InputLabel>
+              <InputLabel>
+                {i18n.t("editor.sidebar.secondary.whenHeld")}
+              </InputLabel>
               <Select value={type} onChange={onTypeChange}>
                 <MenuItem value="none" selected={type == "none"}>
                   {i18n.t("editor.sidebar.secondary.type.none")}

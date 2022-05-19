@@ -126,10 +126,11 @@ const English = {
       secondary: {
         title: "Secondary action",
         help: `Lets you assign secondary functionality to a key. When tapping these augmented keys, you'll get the primary function. When holding them, the secondary action will be performed.`,
+        whenHeld: "When held",
         type: {
           none: "No secondary action",
-          layer: "Layer shift when held",
-          modifier: "Modifier when held",
+          layer: "Layer shift",
+          modifier: "Modifier",
         },
         targetLayer: "Target layer",
         modifier: "Modifier",

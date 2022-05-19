@@ -96,6 +96,7 @@
     "react-i18next": "^11.8.5",
     "react-localization": "^1.0.15",
     "react-markdown": "^7.1.0",
+    "react-rnd": "^10.3.7",
     "react-toastify": "^6.0.9",
     "serialport": "^10.4.0",
     "source-map-support": "^0.5.16",

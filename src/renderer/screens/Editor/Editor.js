@@ -36,6 +36,9 @@ import { PageTitle } from "../../components/PageTitle";
 import i18n from "../../i18n";
 import LoadingScreen from "../../components/LoadingScreen";
 import OnlyCustomScreen from "./components/OnlyCustomScreen";
+import { Rnd } from "react-rnd";
+import Keyboard104 from "./Keyboard104";
+import useTheme from "@mui/material/styles/useTheme";
 
 import {
   showContextBar,
@@ -65,6 +68,8 @@ const Editor = (props) => {
   const [loading, setLoading] = useState(true);
   const [currentLayer, setCurrentLayer] = useState(0);
   const [hasLegacy, setHasLegacy] = useState(false);
+
+  const theme = useTheme();
 
   const initializeHostKeyboardLayout = async () => {
     const layoutSetting = await settings.get("keyboard.layout", "English (US)");
@@ -270,6 +275,9 @@ const Editor = (props) => {
     title = i18n.t("app.menu.colormapEditor");
   }
 
+  const key = keymap.custom[currentLayer][currentKeyIndex];
+  console.log(theme.zIndex);
+
   return (
     <React.Fragment>
       <PageTitle title={title} />
@@ -278,7 +286,6 @@ const Editor = (props) => {
       <Box
         component="main"
         sx={{
-          flexGrow: 1,
           width: `calc(100% - ${sidebarWidth}px)`,
         }}
       >
@@ -307,6 +314,33 @@ const Editor = (props) => {
         onPaletteChange={onPaletteChange}
         onLedChange={onLedChange}
       />
+      <Rnd
+        default={{
+          x: (window.innerWidth - sidebarWidth) / 2 - 400,
+          y: window.innerHeight - 348,
+          width: 800,
+          height: 300,
+        }}
+        style={{ overflow: "hidden", zIndex: theme.zIndex.appBar - 50 }}
+        minWidth={400}
+        lockAspectRatio={true}
+        bounds="window"
+      >
+        <Box
+          boxShadow={3}
+          sx={{
+            bgcolor: "background.paper",
+            p: 0.25,
+            m: 3,
+          }}
+        >
+          <Keyboard104
+            onKeySelect={onKeyChange}
+            currentKeyCode={key.baseCode || key.code}
+            keymap={keymap}
+          />
+        </Box>
+      </Rnd>
 
       <SaveChangesButton floating onClick={onApply} disabled={!modified}>
         {i18n.t("components.save.saveChanges")}

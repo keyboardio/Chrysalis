@@ -39,7 +39,7 @@ import { KeymapDB } from "@api/keymap";
 import { addModifier, removeModifier } from "@api/keymap/db/modifiers";
 import { GuiLabel } from "@api/keymap/db/base/gui";
 import LayoutSelect from "./LogicalLayout/LayoutSelect";
-
+import { Rnd } from "react-rnd";
 const db = new KeymapDB();
 
 const KeyPicker = (props) => {
@@ -215,13 +215,6 @@ const KeyPicker = (props) => {
           {oneShot}
         </Box>
       </Collapsible>
-      <Dialog open={pickerOpen} onClose={closePicker} fullWidth maxWidth="lg">
-        <Keyboard104
-          onKeySelect={onKeyChange}
-          currentKeyCode={key.baseCode || key.code}
-          keymap={keymap}
-        />
-      </Dialog>
     </React.Fragment>
   );
 };

@@ -143,7 +143,11 @@ class App extends React.Component {
 
   componentDidMount() {
     // Loading font to be sure it wont blink
-    document.fonts.load("Libre Franklin");
+    //document.fonts.load("Libre Franklin");
+
+    const fontFace = new FontFace("Libre Franklin", "./theme/fonts/LibreFranklin/LibreFranklin-VariableFont_wght.ttf");
+    document.fonts.load(fontFace);
+
     // Setting up function to receive O.S. dark theme changes
     const self = this;
     ipcRenderer.on("darkTheme-update", function (evt, message) {

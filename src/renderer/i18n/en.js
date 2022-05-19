@@ -132,6 +132,7 @@ const English = {
       "Unknown keycodes": "Unknown keycodes"
     },
     macros: {
+      actions: "Actions",
       add: "Add new macro",
       applyAndExit: "Apply",
       saveName: "Save name",
@@ -155,6 +156,7 @@ const English = {
       macroName: "Macro Name",
       macroShort: "Macro Short",
       mouse: "Mouse",
+      recordMacro: "Record macro",
       restore: "Restore All",
       restoreMacros: "Restore Macros",
       restoreMacrosFile: "Restore Macros file",
@@ -609,13 +611,16 @@ You can find the LED Rainbow mode with the "LED Next" key. In the default Dygma 
     reconnectDescription: `There's a possibility that we misdetected the capabilities of the keyboard, or that the keyboard was starting up while we connected. In this case, you can try clicking the "{0}" button to attempt a reconnect, and look for the necessary features again. Reconnecting is useful if you're sure there was a temporary failure upon previous attempts, and the problem has been resolved.`
   },
   general: {
+    actions: "Actions",
+    add: "Add",
     configure: "Configure",
     clone: "Clone",
     delete: "Delete",
     key: "Key",
     new: "New",
     noname: "No name",
-    select: "Select"
+    select: "Select",
+    record: "Record"
   }
 };
 

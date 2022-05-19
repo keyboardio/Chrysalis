@@ -14,6 +14,7 @@ const GlobalStyles = createGlobalStyle`
     font-weight: 100 900;
     font-style: normal;
     src: url(${LibreFranklin}) format("truetype");
+    font-display: block;
   }
 
   @font-face {
@@ -21,6 +22,7 @@ const GlobalStyles = createGlobalStyle`
     font-weight: 100 900;
     font-style: italic;
     src: url(${LibreFranklinItalic}) format("truetype");
+    font-display: block;
   }
   
   body {
@@ -31,7 +33,8 @@ const GlobalStyles = createGlobalStyle`
     background-size: cover;
     background-attachment: fixed;
     color: ${({ theme }) => theme.colors.text};
-    font-family: ${({ theme }) => theme.font};;
+    font-family: ${({ theme }) => theme.font};
+    // font-family: ${({ theme }) => theme.font},  -apple-system, sans-serif;
 
     text-rendering: optimizeLegibility;
     font-smoothing: antialiased;

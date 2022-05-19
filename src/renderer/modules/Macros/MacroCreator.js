@@ -31,6 +31,7 @@ import MacroTab from "../KeysTabs/MacroTab";
 import DelayTab from "../KeysTabs/DelayTab";
 import MediaAndLightTab from "../KeysTabs/MediaAndLightTab";
 import MouseTab from "../KeysTabs/MouseTab";
+import { RecordMacroModal } from "../../component/Modal";
 
 import { IconKeyboard, IconLetterColor, IconMouse, IconLayers, IconRobot, IconNote, IconStopWatch } from "../../component/Icon";
 
@@ -166,7 +167,10 @@ class MacroCreator extends Component {
         <Tab.Container id="macroCreator" defaultActiveKey="tabText">
           <div className="tabWrapper">
             <div className="tabCategories">
-              <Title headingLevel={3} text={i18n.general.select} />
+              <Title headingLevel={3} text={i18n.general.actions} />
+              <Title headingLevel={5} text={i18n.general.record} />
+              <RecordMacroModal />
+              <Title headingLevel={5} text={i18n.general.add} />
               <Nav className="flex-column">
                 <CustomTab eventKey="tabText" text="Text" icon={<IconLetterColor />} />
                 <CustomTab eventKey="tabKeys" text="Keys" icon={<IconKeyboard />} />

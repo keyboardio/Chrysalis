@@ -28,6 +28,8 @@ import { getStaticPath } from "../../renderer/config";
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 const FocusCommands = (options) => {
+  let logger = new Log();
+
   const reboot = async () => {
     const focus = options.focus;
     await focus.command("device.reset");

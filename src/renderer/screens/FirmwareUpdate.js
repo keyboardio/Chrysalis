@@ -355,7 +355,7 @@ class FirmwareUpdate extends React.Component {
     });
 
     const stepsWidget = (
-      <Stepper activeStep={this.state.activeStep}>
+      <Stepper activeStep={this.state.activeStep} alternativeLabel>
         {steps.map((label) => {
           return (
             <Step key={label}>

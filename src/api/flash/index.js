@@ -32,7 +32,44 @@ const FocusCommands = (options) => {
 
   const reboot = async () => {
     const focus = options.focus;
+    const timeouts = options?.timeouts || {
+      dtrToggle: 500, // Time to wait (ms) between toggling DTR
+      bootLoaderUp: 4000, // Time to wait for the boot loader to come up
+    };
+    const port = focus._port;
+
+    const baudUpdate = () => {
+      return new Promise((resolve) => {
+        logger.debug("baud update");
+        port.update({ baudRate: 1200 }, async () => {
+          await delay(timeouts.dtrToggle);
+          resolve();
+        });
+      });
+    };
+
+    const dtrToggle = (state) => {
+      return new Promise((resolve) => {
+        logger.debug("dtr", state ? "on" : "off");
+        port.set({ dtr: state }, async () => {
+          await delay(timeouts.dtrToggle);
+          resolve();
+        });
+      });
+    };
+
+    // Attempt calling device.reset first.
+    // If the firmware supports it, we'll reboot quickly. If it does not, we'll
+    // fall back to the serial HUP below.
     await focus.command("device.reset");
+
+    // Attempt to reset the device with a serial HUP.
+    // If the device supports `device.reset`, this will be a no-op, because we're
+    // likely rebooting already. Worst case, we'll reboot twice. If the device
+    // does not support `device.reset`, then this will hopefully do the trick.
+    await baudUpdate();
+    await dtrToggle(true);
+    await dtrToggle(false);
   };
 
   const saveEEPROM = async () => {
@@ -57,7 +94,8 @@ const FocusCommands = (options) => {
     await focus.command("eeprom.contents", dump["eeprom.contents"]);
     sessionStorage.removeItem(key);
   };
-  // Restores the data the keyboard's EEPROM using focus.wroteKeyboardConfiguration, which
+
+  // Restores the data the keyboard's EEPROM using focus.writeKeyboardConfiguration, which
   // updates each known slot in the EEPROM using individual focus commands
   // This method is more able to handle changes to the keyboard's EEPROM layout.
   const restoreStructuredEEPROM = async (key) => {

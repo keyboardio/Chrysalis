@@ -58,10 +58,12 @@ function FocusCommands(options) {
       });
     };
 
-    // Attempt calling device.reset first.
-    // If the firmware supports it, we'll reboot quickly. If it does not, we'll
-    // fall back to the serial HUP below.
-    await focus.command("device.reset");
+
+    // Attempt calling device.reset first, if present.
+    const commands = await focus.command("help");
+    if (commands.includes("device.reset")) {
+      await focus.command("device.reset");
+    }
 
     // Attempt to reset the device with a serial HUP.
     // If the device supports `device.reset`, this will be a no-op, because we're

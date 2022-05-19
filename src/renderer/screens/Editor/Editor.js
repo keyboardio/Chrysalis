@@ -279,7 +279,6 @@ const Editor = (props) => {
         component="main"
         sx={{
           flexGrow: 1,
-          margin: 3,
           width: `calc(100% - ${sidebarWidth}px)`,
         }}
       >

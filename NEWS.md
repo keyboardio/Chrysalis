@@ -1,3 +1,35 @@
+Chrysalis 0.9.2
+===============
+**UNRELEASED**
+
+## New features
+
+### Resilient configuration transfer during flashing
+
+Chrysalis will now save and restore the keyboard configuration during the
+flashing process. This in turn makes the upgrade process more resilient, because
+if the layout of the configuration changes on the firmware side, our restore
+procedure will do the right thing, and rearrange the old layout to fit the new.
+
+As it happens, between 0.8.6 and 0.9.1, we shipped firmware that did change the
+layout, which resulted in the keyboard configuration getting slightly clobbered.
+If you have upgraded to such a firmware, and have fixed the problem yourself,
+upgrading to 0.9.2 will not clobber it again. If you have upgraded, but not
+fixed it yet, you can downgrade to Chrysalis 0.8.6 first, downgrade to the
+firmware shipped with that version, and then upgrading to 0.9.2 and its firmware
+will automatically fix the problem. If you have not upgraded to such a firmware,
+upgrading now will do the right thing.
+
+Additionally, each time you flash new firmware, a backup of the keyboard
+configuration is saved to a file under Chrysalis's application data folder. This
+file can be used for recovery in case something does go wrong.
+
+### Automatically connect on startup
+
+When there is a single supported keyboard available, Chrysalis will now
+automatically connect to it when starting up, removing the need to click the
+"Connect" button first.
+
 Chrysalis 0.9.1
 ===============
 Released on 2022-05-18

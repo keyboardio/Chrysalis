@@ -13,13 +13,23 @@ const Styles = Styled.div`
 	font-size: 14px;
 	font-weight: 600;
 	padding: 16px 14px;
-  color: ${({ theme }) => theme.styles.tab.color};
+  color: ${({ theme }) => theme.styles.tabButton.color};
   background-color: ${({ theme }) => theme.styles.tabButton.background};
   position: relative;
   display: flex;
   align-items: center;
   margin-bottom: 2px;
   white-space: nowrap;
+  svg {
+    color: ${({ theme }) => theme.styles.tabButton.svgColor};
+  }
+  &:hover {
+    color: ${({ theme }) => theme.styles.tabButton.colorHover};
+    background-color: ${({ theme }) => theme.styles.tabButton.backgroundHover};
+    svg {
+      color: ${({ theme }) => theme.styles.tabButton.svgHover};
+    }
+  }
 }
 `;
 
@@ -52,7 +62,7 @@ export default class RecordMacroModal extends React.Component {
       <Styles>
         <RegularButton
           buttonText={i18n.editor.macros.recordMacro}
-          style="tabButton"
+          style="tabButton mb-3"
           icoSVG={<IconRecord />}
           icoPosition="left"
           onClick={this.toggleShow}

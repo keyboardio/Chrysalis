@@ -372,6 +372,7 @@ const Dark = {
       tabCategoriesBackground: "rgba(43, 44, 67, 1)",
       tabContentBackground: Tokens.colors.gray800,
       tabTile: Tokens.colors.gray25,
+      tabSubTitle: Tokens.colors.gray300,
       descriptionColor: Tokens.colors.gray200,
       trackingBackground: "#212235",
       timelineBackground: "#2B2C43",
@@ -565,7 +566,12 @@ const Dark = {
       lightOpacity: 1
     },
     tabButton: {
-      background: "rgba(28, 29, 48, 0.2)"
+      background: "rgba(28, 29, 48, 0.2)",
+      backgroundHover: "rgba(28, 29, 48, 0.4)",
+      color: Tokens.colors.gray50,
+      colorHover: Tokens.colors.gray25,
+      svgColor: Tokens.colors.gray300,
+      svgHover: Tokens.colors.brandDanger
     },
     toast: {
       boxShadow: "0px 32px 32px -32px rgba(0, 0, 0, 0.25), 0px 0px 32px rgba(0, 0, 0, 0.25)",

@@ -112,6 +112,15 @@ const Styles = Styled.div`
     padding: 32px 14px 32px 32px;
     border-top-left-radius: 16px;
     background-color: ${({ theme }) => theme.styles.macro.tabCategoriesBackground};
+    h5 {
+      font-size: 11px; 
+      line-height: 32px;
+      font-weight: 600; 
+      margin-bottom: 0;
+      letter-spacing: 0.21em;
+      text-transform: uppercase;
+      color: ${({ theme }) => theme.styles.macro.tabSubTitle};
+    }
   }
   .tabContent { 
     padding: 32px ;

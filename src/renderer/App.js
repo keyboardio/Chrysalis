@@ -146,7 +146,7 @@ class App extends React.Component {
     //document.fonts.load("Libre Franklin");
 
     const fontFace = new FontFace("Libre Franklin", "./theme/fonts/LibreFranklin/LibreFranklin-VariableFont_wght.ttf");
-    document.fonts.load(fontFace);
+    document.fonts.add(fontFace);
 
     // Setting up function to receive O.S. dark theme changes
     const self = this;

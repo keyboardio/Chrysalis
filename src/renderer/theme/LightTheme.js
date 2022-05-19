@@ -364,6 +364,7 @@ const Light = {
       tabCategoriesBackground: Tokens.colors.gray50,
       tabContentBackground: Tokens.colors.gray25,
       tabTile: Tokens.colors.gray500,
+      tabSubTitle: Tokens.colors.gray300,
       descriptionColor: Tokens.colors.gray400,
       trackingBackground: Tokens.colors.gray25,
       timelineBackground: "rgba(255, 255, 255, 0.8)",

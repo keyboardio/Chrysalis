@@ -180,7 +180,7 @@ async function DFUUtilBootloader(port, filename, options) {
 async function DFUUtil(port, filename, options) {
   let logger = new Log();
   const focusCommands = new FocusCommands(options);
-
+  const device = options.device;
   const callback = options
     ? options.callback
     : function () {
@@ -209,6 +209,9 @@ async function DFUUtil(port, filename, options) {
 
   await DFUUtilBootloader(port, filename, options);
 
+  await callback("reconnect");
+  await options.focus.reconnectToKeyboard(device);
+
   await callback("restore-eeprom");
   await focusCommands.restoreEEPROM(saveKey);
 
@@ -222,6 +225,7 @@ async function AvrDude(_, port, filename, options) {
     : function () {
         return;
       };
+  const device = options.device;
   const timeout = 1000 * 60 * 5;
   const focusCommands = new FocusCommands(options);
   let logger = new Log();
@@ -284,6 +288,9 @@ async function AvrDude(_, port, filename, options) {
     "-Uflash:w:" + filename + ":i",
   ]);
 
+  await callback("reconnect");
+  await options.focus.reconnectToKeyboard(device);
+
   await callback("restore-eeprom");
   await focusCommands.restoreEEPROM(saveKey);
 
@@ -344,6 +351,7 @@ async function Avr109(board, port, filename, options) {
     : function () {
         return;
       };
+  const device = options.device;
   const focusCommands = new FocusCommands(options);
   let logger = new Log();
 
@@ -361,6 +369,9 @@ async function Avr109(board, port, filename, options) {
 
   await Avr109Bootloader(board, bootloaderFound, filename, options);
 
+  await callback("reconnect");
+  await options.focus.reconnectToKeyboard(options.device);
+
   await callback("restore-eeprom");
   await focusCommands.restoreEEPROM(saveKey);
 
@@ -374,6 +385,7 @@ async function teensy(filename, options) {
     : function () {
         return;
       };
+  const device = options.device;
   const focusCommands = new FocusCommands(options);
   let logger = new Log();
 
@@ -382,6 +394,9 @@ async function teensy(filename, options) {
 
   await callback("flash");
   await TeensyLoader.upload(0x16c0, 0x0478, filename);
+
+  await callback("reconnect");
+  await options.focus.reconnectToKeyboard(device);
 
   await callback("restore-eeprom");
   await focusCommands.restoreEEPROM(saveKey);
@@ -397,6 +412,7 @@ async function DFUProgrammer(filename, options, mcu = "atmega32u4") {
         return;
       };
   const timeout = options.timeout || 10000;
+  const device = options.device;
   const focusCommands = new FocusCommands(options);
   let logger = new Log();
 
@@ -440,6 +456,9 @@ async function DFUProgrammer(filename, options, mcu = "atmega32u4") {
   }
   await runCommand([mcu, "flash", filename]);
   await runCommand([mcu, "start"]);
+
+  await callback("reconnect");
+  await options.focus.reconnectToKeyboard(device);
 
   await callback("restore-eeprom");
   await focusCommands.restoreEEPROM(saveKey);

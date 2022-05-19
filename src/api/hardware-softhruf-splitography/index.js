@@ -41,7 +41,7 @@ const Splitography = {
     keymap: Keymap,
   },
 
-  flashSteps: ["saveEEPROM", "flash", "restoreEEPROM", "reboot"],
+  flashSteps: ["saveEEPROM", "flash", "reconnect", "restoreEEPROM", "reboot"],
   flash: async (_, filename, options) => {
     return await DFUProgrammer(filename, options);
   },

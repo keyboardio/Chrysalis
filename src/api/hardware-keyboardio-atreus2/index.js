@@ -58,6 +58,7 @@ const Atreus2 = {
     "bootloaderTrigger",
     "bootloaderWait",
     "flash",
+    "reconnect",
     "restoreEEPROM",
     "reboot",
   ],

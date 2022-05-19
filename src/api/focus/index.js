@@ -52,7 +52,7 @@ class Focus {
         "focus.waitForSerialDevice: portList:",
         portList,
         "device:",
-        device
+        usbInfo
       );
 
       for (let port of portList) {

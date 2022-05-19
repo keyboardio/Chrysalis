@@ -33,7 +33,7 @@ const GenericTeensy = {
     productId: 0x0478,
   },
 
-  flashSteps: ["saveEEPROM", "flash", "restoreEEPROM", "reboot"],
+  flashSteps: ["saveEEPROM", "flash", "reconnect", "restoreEEPROM", "reboot"],
   flash: async (_, filename, options) => {
     return teensy(filename, options);
   },

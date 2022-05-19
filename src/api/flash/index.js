@@ -433,4 +433,5 @@ export {
   DFUProgrammer,
   DFUUtil,
   DFUUtilBootloader,
+  FocusCommands,
 };

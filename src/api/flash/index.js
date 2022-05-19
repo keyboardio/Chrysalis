@@ -27,6 +27,45 @@ import { getStaticPath } from "../../renderer/config";
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
+const FocusCommands = (options) => {
+  const reboot = async () => {
+    const focus = options.focus;
+    await focus.command("device.reset");
+  };
+
+  const saveEEPROM = async () => {
+    const focus = options.focus;
+    const structured_dump = await focus.readKeyboardConfiguration();
+
+    const key = ".internal." + uuidv4();
+    logger.debug(
+      "Writing EEPROM data to session storage",
+      key,
+      structured_dump
+    );
+    sessionStorage.setItem(key, structured_dump);
+    return key;
+  };
+
+  const restoreEEPROM = async (key) => {
+    const focus = options.focus;
+    const dump = sessionStorage.getItem(key);
+    logger.deubg("Restoring EEPROM from session storage", dump);
+
+    await focus.command("eeprom.contents", dump["eeprom.contents"]);
+    sessionStorage.removeItem(key);
+  };
+  // Restores the data the keyboard's EEPROM using focus.wroteKeyboardConfiguration, which
+  // updates each known slot in the EEPROM using individual focus commands
+  // This method is more able to handle changes to the keyboard's EEPROM layout.
+  const restoreStructuredEEPROM = async (key) => {
+    const focus = options.focus;
+    const dump = sessionStorage.getItem(key);
+    await focus.writeKeyboardConfiguration(dump);
+    sessionStorage.removeItem(key);
+  };
+};
+
 async function DFUUtilBootloader(port, filename, options) {
   const callback = options
     ? options.callback
@@ -34,7 +73,6 @@ async function DFUUtilBootloader(port, filename, options) {
         return;
       };
   const device = options.device;
-
   let logger = new Log();
 
   const formatID = (desc) => {
@@ -79,6 +117,7 @@ async function DFUUtilBootloader(port, filename, options) {
 
 async function DFUUtil(port, filename, options) {
   let logger = new Log();
+  const focusCommands = new FocusCommands(options);
 
   const callback = options
     ? options.callback
@@ -86,48 +125,11 @@ async function DFUUtil(port, filename, options) {
         return;
       };
 
-  const reboot = async () => {
-    const focus = options.focus;
-    await focus.command("device.reset");
-  };
-
-  const saveEEPROM = async () => {
-    const focus = options.focus;
-    const structured_dump = await focus.readKeyboardConfiguration();
-
-    const key = ".internal." + uuidv4();
-    logger.debug(
-      "Writing EEPROM data to session storage",
-      key,
-      structured_dump
-    );
-    sessionStorage.setItem(key, structured_dump);
-    return key;
-  };
-
-  const restoreEEPROM = async (key) => {
-    const focus = options.focus;
-    const dump = sessionStorage.getItem(key);
-    logger.deubg("Restoring EEPROM from session storage", dump);
-
-    await focus.command("eeprom.contents", dump["eeprom.contents"]);
-    sessionStorage.removeItem(key);
-  };
-  // Restores the data the keyboard's EEPROM using focus.wroteKeyboardConfiguration, which
-  // updates each known slot in the EEPROM using individual focus commands
-  // This method is more able to handle changes to the keyboard's EEPROM layout.
-  const restoreStructuredEEPROM = async (key) => {
-    const focus = options.focus;
-    const dump = sessionStorage.getItem(key);
-    await focus.writeKeyboardConfiguration(dump);
-    sessionStorage.removeItem(key);
-  };
-
   await callback("save-eeprom");
-  const saveKey = await saveEEPROM();
+  const saveKey = await focusCommands.saveEEPROM();
 
   await callback("bootloaderTrigger");
-  await reboot();
+  await focusCommands.reboot();
 
   await callback("bootloaderWait");
   const bootloaderFound = await options.focus.waitForBootloader(options.device);
@@ -146,10 +148,10 @@ async function DFUUtil(port, filename, options) {
   await DFUUtilBootloader(port, filename, options);
 
   await callback("restore-eeprom");
-  await restoreEEPROM(saveKey);
+  await focusCommands.restoreEEPROM(saveKey);
 
   await callback("reboot");
-  await reboot();
+  await focusCommands.reboot();
 }
 
 async function AvrDude(_, port, filename, options) {

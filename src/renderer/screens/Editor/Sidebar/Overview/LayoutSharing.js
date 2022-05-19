@@ -131,9 +131,11 @@ const loadLayout = (fileName, fileData) => {
     return null;
   }
 
+  const src_keymaps = layoutData.keymaps || layoutData.keymap.custom;
+
   let keymaps;
   try {
-    keymaps = layoutData.keymaps.map((layer) => {
+    keymaps = src_keymaps.map((layer) => {
       return layer.map((key) => {
         return db.lookup(key.keyCode || key.code);
       });
@@ -148,8 +150,8 @@ const loadLayout = (fileName, fileData) => {
 
   return {
     keymaps: keymaps,
-    colormaps: layoutData.colormaps,
-    palette: layoutData.palette,
+    colormaps: layoutData.colormaps || layoutData.colormap?.colorMap,
+    palette: layoutData.palette || layoutData.colormap?.palette,
   };
 };
 

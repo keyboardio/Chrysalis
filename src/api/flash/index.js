@@ -15,6 +15,7 @@
  */
 
 import AvrGirl from "avrgirl-arduino";
+import { ipcRenderer } from "electron";
 import TeensyLoader from "teensy-loader";
 import { spawn } from "child_process";
 import sudo from "sudo-prompt";
@@ -101,6 +102,7 @@ function FocusCommands(options) {
   this.saveEEPROM = async () => {
     const focus = options.focus;
     const structured_dump = await focus.readKeyboardConfiguration();
+    const json_dump = JSON.stringify(structured_dump);
 
     const key = ".internal." + uuidv4();
     logger.debug(
@@ -108,7 +110,11 @@ function FocusCommands(options) {
       key,
       structured_dump
     );
-    sessionStorage.setItem(key, JSON.stringify(structured_dump));
+    sessionStorage.setItem(key, json_dump);
+
+    const r = ipcRenderer.sendSync("eeprom-backup", Date.now(), json_dump);
+    console.debug("eeprom-backup", r);
+
     return key;
   };
 

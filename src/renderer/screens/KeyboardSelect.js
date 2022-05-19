@@ -130,7 +130,12 @@ class KeyboardSelect extends React.Component {
 
     this.findKeyboards().then(() => {
       let focus = new Focus();
-      if (!focus._port) return;
+      if (!focus._port) {
+        if (this.state.devices.length != 1) return;
+
+        // We have a single device in the list, try to connect
+        this.onKeyboardConnect();
+      }
       for (let device of this.state.devices) {
         if (!device.path) continue;
 

@@ -75,16 +75,26 @@ export default class RecordMacroModal extends React.Component {
           centered
         >
           <Modal.Header closeButton>
-            <Modal.Title>Record macro</Modal.Title>
+            <Modal.Title className="text-center">Record macro</Modal.Title>
           </Modal.Header>
           <Modal.Body>
+            <p>Compontent switch Add delay</p>
+            <div className="timelineRecordTracking">
+              <div className="timelineRecordSequence">Lotem ipsum dolor aemet sit</div>
+            </div>
+            <div className="recordMacrosButton">
+              <RegularButton buttonText="Undo" style="outline gradient" size="sm" onClick={this.toggleShow} />
+              <RegularButton buttonText="Start record" style="outline gradient" size="sm" onClick={this.toggleShow} />
+            </div>
             <RegularButton
               buttonText={i18n.components.save.button}
               style="outline gradient"
               size="sm"
               onClick={this.toggleShow}
             />
-            <p className="text-center">This house allows you to fail!</p>
+            <p className="text-center">
+              Did you make a mistake? Dont worry, you can edit the created sequence after adding the recording to the timeline.
+            </p>
           </Modal.Body>
         </Modal>
       </Styles>

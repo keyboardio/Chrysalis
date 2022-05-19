@@ -272,11 +272,7 @@ class Editor extends React.Component {
     let logger = new Log();
 
     await focus.command("keymap", this.state.keymap);
-    await focus.command(
-      "colormap",
-      this.state.colormap.palette,
-      this.state.colormap.colorMap
-    );
+    await focus.command("colormap", this.state.colormap);
 
     this.setState({
       modified: false,

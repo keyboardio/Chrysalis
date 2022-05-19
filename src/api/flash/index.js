@@ -308,43 +308,16 @@ async function Avr109Bootloader(board, port, filename, options) {
 }
 
 async function Avr109(board, port, filename, options) {
-  let timeouts = options ? options.timeouts : null;
   const callback = options
     ? options.callback
     : function () {
         return;
       };
-  timeouts = timeouts || {
-    dtrToggle: 500, // Time to wait (ms) between toggling DTR
-    bootLoaderUp: 4000, // Time to wait for the boot loader to come up
-  };
-
+  const focusCommands = new FocusCommands(options);
   let logger = new Log();
 
-  const baudUpdate = () => {
-    return new Promise((resolve) => {
-      logger.debug("baud update");
-      port.update({ baudRate: 1200 }, async () => {
-        await delay(timeouts.dtrToggle);
-        resolve();
-      });
-    });
-  };
-
-  const dtrToggle = (state) => {
-    return new Promise((resolve) => {
-      logger.debug("dtr", state ? "on" : "off");
-      port.set({ dtr: state }, async () => {
-        await delay(timeouts.dtrToggle);
-        resolve();
-      });
-    });
-  };
-
   await callback("bootloaderTrigger");
-  await baudUpdate();
-  await dtrToggle(true);
-  await dtrToggle(false);
+  await focusCommands.reboot();
 
   await callback("bootloaderWait");
   let bootPort = await options.focus.waitForBootloader(options.device);

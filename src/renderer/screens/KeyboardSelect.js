@@ -43,12 +43,30 @@ const KeyboardSelect = (props) => {
   const [opening, setOpening] = useState(false);
   const [loading, setLoading] = useState(false);
   const [devices, setDevices] = useState(null);
+  const [tryAutoConnect, setTryAutoConnect] = useState(true);
+
+  let focus = new Focus();
 
   const scanDevices = async () => {
     setLoading(true);
     const deviceList = await findKeyboards();
-    setDevices(deviceList);
-    setLoading(false);
+
+    if (!focus._port && deviceList.length == 1 && tryAutoConnect) {
+      try {
+        await props.onConnect(deviceList[0]);
+      } catch (err) {
+        setOpening(false);
+        toast.error(err.toString());
+      }
+    } else {
+      setDevices(deviceList);
+      setLoading(false);
+    }
+  };
+
+  const onDisconnect = () => {
+    setTryAutoConnect(false);
+    props.onDisconnect();
   };
 
   useIntervalImmediate(() => {
@@ -81,8 +99,6 @@ const KeyboardSelect = (props) => {
       toast.error(err.toString());
     }
   };
-
-  let focus = new Focus();
 
   const selectedDevicePort = devices?.[selectedPortIndex];
 

@@ -81,7 +81,8 @@ const Collapsible = (props) => {
       {summary}
       <AccordionDetails
         sx={{
-          padding: 2,
+          padding: 1,
+          paddingTop: 0,
           margin: "2 0",
           display: "block",
         }}

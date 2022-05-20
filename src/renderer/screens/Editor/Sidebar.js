@@ -28,7 +28,9 @@ import Colormap from "./Sidebar/Colormap";
 import KeyPicker from "./Sidebar/Modifiers";
 import SecondaryFunction from "./Sidebar/SecondaryFunction";
 import LayerKeys from "./Sidebar/LayerKeys";
-import ConsumerKeys from "./Sidebar/ConsumerKeys";
+import MediaKeys from "./Sidebar/MediaKeys";
+import BrightnessKeys from "./Sidebar/BrightnessKeys";
+import VolumeKeys from "./Sidebar/VolumeKeys";
 import LeaderKeys from "./Sidebar/LeaderKeys";
 import LEDKeys from "./Sidebar/LEDKeys";
 import MacroKeys from "./Sidebar/MacroKeys";
@@ -50,7 +52,9 @@ const Sidebar = (props) => {
     SecondaryFunction,
     Colormap,
     LayerKeys,
-    ConsumerKeys,
+    BrightnessKeys,
+    VolumeKeys,
+    MediaKeys,
     MouseKeys,
     LEDKeys,
     MacroKeys,

@@ -48,9 +48,6 @@ const Collapsible = (props) => {
     </AccordionSummary>
   );
 
-  if (help) {
-    summary = <Tooltip title={help}>{summary}</Tooltip>;
-  }
   const show_expanded = expanded !== undefined ? expanded : props.expanded;
   return (
     <Accordion

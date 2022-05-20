@@ -386,7 +386,8 @@ const Dark = {
       keyFunctionsBorder: Tokens.colors.gray700,
       keyValueColor: Tokens.colors.gray100,
       keyFunctionTile: Tokens.colors.gray50,
-      previewColor: Tokens.colors.gray200
+      previewColor: Tokens.colors.gray200,
+      recordingMessageColor: Tokens.colors.gray200
     },
     macroKey: {
       background: Tokens.colors.gray500,

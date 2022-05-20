@@ -691,7 +691,7 @@ svg text{
   }
   p {
     color: ${({ theme }) => theme.styles.cardButtons.color};
-    font-weight: 400; 
+    font-weight: 395; 
     font-size: 14px;
   }
   .groupButtons {

@@ -48,7 +48,7 @@ const Style = Styled.div`
     .description {
         color: ${({ theme }) => theme.styles.superkeyAction.descriptionColor};
         margin-bottom: 8px;
-        font-weight: 400;
+        font-weight: 395;
         font-size: 14px;
         flex-shrink: 1;
         align-self: self-start;

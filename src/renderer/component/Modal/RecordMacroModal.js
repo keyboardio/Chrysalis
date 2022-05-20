@@ -5,7 +5,7 @@ import Modal from "react-bootstrap/Modal";
 import i18n from "../../i18n";
 
 import { RegularButton } from "../Button";
-import { IconRecord } from "../Icon";
+import { IconRecord, IconArrowInBoxDown } from "../Icon";
 
 const Styles = Styled.div`
 .tabButton {
@@ -30,6 +30,14 @@ const Styles = Styled.div`
       color: ${({ theme }) => theme.styles.tabButton.svgHover};
     }
   }
+}
+.recordingMessage {
+  text-align: center;
+  margin: 24px auto;
+  max-width: 720px;
+  color: ${({ theme }) => theme.styles.macro.recordingMessageColor};
+  font-size: 14px;
+  font-weight: 395;
 }
 `;
 
@@ -86,15 +94,16 @@ export default class RecordMacroModal extends React.Component {
               <RegularButton buttonText="Undo" style="outline gradient" size="sm" onClick={this.toggleShow} />
               <RegularButton buttonText="Start record" style="outline gradient" size="sm" onClick={this.toggleShow} />
             </div>
-            <RegularButton
-              buttonText={i18n.components.save.button}
-              style="outline gradient"
-              size="sm"
-              onClick={this.toggleShow}
-            />
-            <p className="text-center">
-              Did you make a mistake? Dont worry, you can edit the created sequence after adding the recording to the timeline.
-            </p>
+            <div className="tabSaveButton">
+              <RegularButton
+                buttonText={i18n.editor.macros.textTabs.buttonText}
+                style="outline gradient"
+                icoSVG={<IconArrowInBoxDown />}
+                icoPosition="right"
+                disabled={true}
+              />
+            </div>
+            <p className="recordingMessage">{i18n.editor.macros.recordingMessage}</p>
           </Modal.Body>
         </Modal>
       </Styles>

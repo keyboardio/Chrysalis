@@ -53,7 +53,7 @@ const Style = Styled.div`
     border: 2px solid ${({ theme }) => theme.colors.button.background};
     color: ${({ theme }) => theme.colors.text};
     font-size: small;
-    font-weight: 400;
+    font-weight: 395;
     line-height: 0.5;
     padding: 0.8em;
   }

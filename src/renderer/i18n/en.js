@@ -157,6 +157,9 @@ const English = {
       macroShort: "Macro Short",
       mouse: "Mouse",
       recordMacro: "Record macro",
+      recordingMacro: "Recording Macro",
+      recordingMessage:
+        "Did you make a mistake? Don't worry, you can edit the created sequence after adding the recording to the timeline.",
       restore: "Restore All",
       restoreMacros: "Restore Macros",
       restoreMacrosFile: "Restore Macros file",
@@ -168,6 +171,7 @@ const English = {
       selectKey: "Select Key",
       selectMacro: "Select a Macro",
       selectMouseFunction: "Select Mouse Function",
+      startRecord: "Start record",
       title: "Macro Editor",
       timelineTitle: "Timeline editor",
       successFlashTitle: "Your macros have been saved.",
@@ -620,7 +624,8 @@ You can find the LED Rainbow mode with the "LED Next" key. In the default Dygma 
     new: "New",
     noname: "No name",
     select: "Select",
-    record: "Record"
+    record: "Record",
+    resume: "Resume"
   }
 };
 

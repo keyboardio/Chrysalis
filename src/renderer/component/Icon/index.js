@@ -78,6 +78,7 @@ import IconScreen from "./IconScreen";
 import IconStopWatch from "./IconStopWatch";
 import IconStopWatchSm from "./IconStopWatchSm";
 import IconStopWatchXs from "./IconStopWatchXs";
+import IconStopWatchCrossed from "./IconStopWatchCrossed";
 import IconLayers from "./IconLayers";
 import IconRecord from "./IconRecord";
 import IconRobot from "./IconRobot";
@@ -158,6 +159,7 @@ export {
   IconStopWatch,
   IconStopWatchSm,
   IconStopWatchXs,
+  IconStopWatchCrossed,
   IconLayers,
   IconRecord,
   IconRobot,

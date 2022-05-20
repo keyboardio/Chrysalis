@@ -5,7 +5,8 @@ import Modal from "react-bootstrap/Modal";
 import i18n from "../../i18n";
 
 import { RegularButton, ButtonConfig } from "../Button";
-import { IconRecord, IconArrowInBoxDown, IconPauseXl, IconUndoRestart } from "../Icon";
+import Title from "../Title";
+import { IconRecord, IconArrowInBoxDown, IconPauseXl, IconUndoRestart, IconStopWatch, IconStopWatchCrossed } from "../Icon";
 import AnimatedTimelineRecording from "../../modules/Macros/AnimatedTimelineRecording";
 
 const Styles = Styled.div`
@@ -102,7 +103,23 @@ export default class RecordMacroModal extends React.Component {
           </Modal.Header>
           <Modal.Body>
             <div className="recordMacroOptions">
-              <p>Compontent switch Add delay</p>
+              <Title text={i18n.editor.macros.delay} headingLevel={4} />
+              <div className="recordMacroButtons">
+                <ButtonConfig
+                  icoSVG={<IconStopWatch />}
+                  icoPosition="left"
+                  buttonText={i18n.editor.macros.recordDelays}
+                  style={`buttonMinimal`}
+                  onClick={this.undoRecording}
+                />
+                <ButtonConfig
+                  icoSVG={<IconStopWatchCrossed />}
+                  icoPosition="left"
+                  buttonText={i18n.editor.macros.ignoreDelays}
+                  style={`buttonMinimal`}
+                  onClick={this.undoRecording}
+                />
+              </div>
             </div>
             <div className="timelineRecordTracking">
               {this.state.cleanRecord ? (

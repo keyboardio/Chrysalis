@@ -44,7 +44,8 @@ export default class RecordMacroModal extends React.Component {
     this.state = {
       showModal: false,
       cleanRecord: true,
-      isRecording: false
+      isRecording: false,
+      isDelayActive: true
     };
   }
 
@@ -65,6 +66,17 @@ export default class RecordMacroModal extends React.Component {
     this.setState({
       isRecording: false,
       cleanRecord: true
+    });
+  };
+
+  setDelayOn = () => {
+    this.setState({
+      isDelayActive: true
+    });
+  };
+  setDelayOff = () => {
+    this.setState({
+      isDelayActive: false
     });
   };
 
@@ -109,15 +121,15 @@ export default class RecordMacroModal extends React.Component {
                   icoSVG={<IconStopWatch />}
                   icoPosition="left"
                   buttonText={i18n.editor.macros.recordDelays}
-                  style={`buttonConfigMinimal`}
-                  onClick={this.undoRecording}
+                  style={`buttonConfigMinimal ${this.state.isDelayActive ? "config-active" : ""}`}
+                  onClick={this.setDelayOn}
                 />
                 <ButtonConfig
                   icoSVG={<IconStopWatchCrossed />}
                   icoPosition="left"
                   buttonText={i18n.editor.macros.ignoreDelays}
-                  style={`buttonConfigMinimal`}
-                  onClick={this.undoRecording}
+                  style={`buttonConfigMinimal ${!this.state.isDelayActive ? "config-active" : ""}`}
+                  onClick={this.setDelayOff}
                 />
               </div>
             </div>

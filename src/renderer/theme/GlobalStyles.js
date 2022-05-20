@@ -414,17 +414,23 @@ svg text{
   transition: all 300ms ease-in-out;
 }
 .button-config.buttonConfigMinimal {
-  padding: 9px 12px;
+  padding: 9px 16px 9px 12px;
   border: 1px solid ${({ theme }) => theme.styles.button.configMinimal.border};
   color: ${({ theme }) => theme.styles.button.configMinimal.color};
   background: ${({ theme }) => theme.styles.button.configMinimal.background};
   box-shadow: none;
-  &.active {
+  &:hover {
+    background: inherit!important;
+  }
+  &.config-active {
     border: 1px solid ${({ theme }) => theme.styles.button.configMinimal.borderActive};
     color: ${({ theme }) => theme.styles.button.configMinimal.colorActive};
     background: ${({ theme }) => theme.styles.button.configMinimal.backgroundActive};
     svg {
       color: ${({ theme }) => theme.styles.button.configMinimal.iconColorActive};
+    }
+    &:hover {
+      background: ${({ theme }) => theme.styles.button.configMinimal.backgroundActive}!important;
     }
   }
 }

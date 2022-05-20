@@ -1,7 +1,7 @@
 import { LegacyAlert } from "./components/LegacyAlert";
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2020-2021  Keyboardio, Inc.
+ * Copyright (C) 2020-2022  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software

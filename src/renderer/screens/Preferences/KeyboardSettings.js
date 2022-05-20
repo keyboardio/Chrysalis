@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
+ * Copyright (C) 2018-2022  Keyboardio, Inc.
  * Copyright (C) 2020  DygmaLab SE.
  *
  * This program is free software: you can redistribute it and/or modify it under

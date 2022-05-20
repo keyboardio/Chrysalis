@@ -4,10 +4,11 @@ import Styled from "styled-components";
 import Modal from "react-bootstrap/Modal";
 import i18n from "../../i18n";
 
-import { RegularButton } from "../Button";
+import { RegularButton, ButtonConfig } from "../Button";
 import { IconRecord, IconArrowInBoxDown } from "../Icon";
 
 const Styles = Styled.div`
+
 .tabButton {
   border-radius: 6px;
 	font-size: 14px;
@@ -31,14 +32,7 @@ const Styles = Styled.div`
     }
   }
 }
-.recordingMessage {
-  text-align: center;
-  margin: 24px auto;
-  max-width: 720px;
-  color: ${({ theme }) => theme.styles.macro.recordingMessageColor};
-  font-size: 14px;
-  font-weight: 395;
-}
+
 `;
 
 export default class RecordMacroModal extends React.Component {
@@ -81,6 +75,7 @@ export default class RecordMacroModal extends React.Component {
           onHide={this.toggleShow}
           aria-labelledby="contained-modal-title-vcenter"
           centered
+          className="modal-recordMacro"
         >
           <Modal.Header closeButton>
             <Modal.Title className="text-center">Record macro</Modal.Title>
@@ -91,8 +86,8 @@ export default class RecordMacroModal extends React.Component {
               <div className="timelineRecordSequence">Lotem ipsum dolor aemet sit</div>
             </div>
             <div className="recordMacrosButton">
-              <RegularButton buttonText="Undo" style="outline gradient" size="sm" onClick={this.toggleShow} />
-              <RegularButton buttonText="Start record" style="outline gradient" size="sm" onClick={this.toggleShow} />
+              <ButtonConfig buttonText="Undo" style="rounded" onClick={this.toggleShow} />
+              <RegularButton buttonText="Start record" style="recordButton" onClick={this.toggleShow} />
             </div>
             <div className="tabSaveButton">
               <RegularButton

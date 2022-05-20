@@ -824,6 +824,62 @@ div.card.card-preferences .card-body {
 }
 
 //
+// Recording Macro
+//
+.modal.modal-recordMacro {
+  .modal-body {
+    padding: 24px 0;
+  }
+  .modal-title {
+    flex: 0 0 100%;
+  }
+  .recordMacrosButton {
+    width: 100%;
+    text-align: center;
+    margin-top: -27px;
+    margin-bottom: 32px;
+    position: relative;
+  }
+  .tabSaveButton {
+    text-align: center;
+  }
+  .button-config.rounded {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate3d(-120px,0, 0);
+  }
+  .recordButton {
+    border: 2px solid ${({ theme }) => theme.styles.button.recordButton.borderColor};
+    background:  ${({ theme }) => theme.styles.button.recordButton.background};
+    color: ${({ theme }) => theme.styles.button.recordButton.color};
+    backdrop-filter: blur(5px);
+    border-radius: 32px;
+    width: 204px;
+    font-weight: 700;
+    .buttonLabel {
+      justify-content: center;
+    }
+  }
+}
+.timelineRecordTracking {
+  padding: 12px 0;
+  background-color: ${({ theme }) => theme.styles.macro.timelineRecordTrackingBackground};
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  height: 124px;
+}
+.recordingMessage {
+  text-align: center;
+  margin: 32px auto;
+  max-width: 550px;
+  color: ${({ theme }) => theme.styles.macro.recordingMessageColor};
+  font-size: 14px;
+  font-weight: 395;
+}
+
+//
 // Preview macro
 //
 .previewMacro {

@@ -214,6 +214,11 @@ const Dark = {
         color: "#fff",
         colorHover: "#fff",
         colorActive: "#fff"
+      },
+      recordButton: {
+        background: settingColorOpacity(Tokens.colors.gray700, 0.3),
+        borderColor: Tokens.colors.brandPrimary,
+        color: Tokens.colors.brandPrimary
       }
     },
     collpase: {
@@ -387,7 +392,8 @@ const Dark = {
       keyValueColor: Tokens.colors.gray100,
       keyFunctionTile: Tokens.colors.gray50,
       previewColor: Tokens.colors.gray200,
-      recordingMessageColor: Tokens.colors.gray200
+      recordingMessageColor: Tokens.colors.gray200,
+      timelineRecordTrackingBackground: settingColorOpacity(Tokens.colors.gray900, 0.3)
     },
     macroKey: {
       background: Tokens.colors.gray500,

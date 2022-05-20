@@ -25,7 +25,7 @@ import Typography from "@mui/material/Typography";
 
 import Overview from "./Sidebar/Overview";
 import Colormap from "./Sidebar/Colormap";
-import KeyPicker from "./Sidebar/KeyPicker";
+import KeyPicker from "./Sidebar/Modifiers";
 import SecondaryFunction from "./Sidebar/SecondaryFunction";
 import LayerKeys from "./Sidebar/LayerKeys";
 import ConsumerKeys from "./Sidebar/ConsumerKeys";

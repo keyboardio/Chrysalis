@@ -33,6 +33,7 @@ class Focus {
       this.timeout = 5000;
       this.debug = false;
       this.logger = new Log();
+      this._supported_commands = [];
     }
 
     return global.chrysalis_focus_instance;
@@ -230,6 +231,7 @@ class Focus {
       }
     });
 
+    this._supported_commands = [];
     return this._port;
   }
 
@@ -239,6 +241,7 @@ class Focus {
     }
     this._port = null;
     this.focusDeviceDescriptor = null;
+    this._supported_commands = [];
   }
 
   async isDeviceAccessible(port) {
@@ -266,8 +269,11 @@ class Focus {
     return supported;
   }
 
-  async probe() {
-    return await this.request("help");
+  async supported_commands() {
+    if (this._supported_commands.length == 0) {
+      this._supported_commands = await this.request("help");
+    }
+    return this._supported_commands;
   }
 
   async _write_parts(request) {
@@ -279,6 +285,16 @@ class Focus {
   }
 
   request(cmd, ...args) {
+    if (
+      this._supported_commands.length > 0 &&
+      !this._supported_commands.includes(cmd)
+    ) {
+      this.debugLog("focus.request: (noop)", cmd, ...args);
+      return new Promise((resolve) => {
+        resolve("");
+      });
+    }
+
     this.debugLog("focus.request:", cmd, ...args);
     return new Promise((resolve, reject) => {
       let timer = setTimeout(() => {

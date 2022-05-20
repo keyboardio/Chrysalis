@@ -14,7 +14,7 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Focus from "../focus";
+import Focus from "@api/focus";
 
 import KeymapDB from "./db";
 

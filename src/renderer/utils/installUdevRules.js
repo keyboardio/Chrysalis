@@ -19,9 +19,9 @@ import sudo from "sudo-prompt";
 import path from "path";
 import tmp from "tmp";
 import { spawn } from "child_process";
-import { getStaticPath } from "../config";
 
-import Log from "../../api/log";
+import { getStaticPath } from "@renderer/config";
+import Log from "@api/log";
 
 const installUdevRules = async (devicePath) => {
   const rules = path.join(getStaticPath(), "udev", "60-kaleidoscope.rules");

@@ -17,8 +17,8 @@
 
 import React, { useState, useEffect, useContext } from "react";
 
-import "../../api/keymap";
-import "../../api/colormap";
+import "@api/keymap";
+import "@api/colormap";
 import "typeface-roboto/index.css";
 import "typeface-source-code-pro/index.css";
 

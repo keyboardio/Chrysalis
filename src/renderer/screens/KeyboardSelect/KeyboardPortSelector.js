@@ -24,7 +24,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
 import React from "react";
-import i18n from "../../i18n";
+import i18n from "@renderer/i18n";
+
 export const KeyboardPortSelector = (props) => {
   const devices = props.devices;
   const selectedPortIndex = props.selectedPortIndex;

@@ -24,9 +24,9 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
 
-import i18n from "../../i18n";
+import i18n from "@renderer/i18n";
 
-import Focus from "../../../api/focus";
+import Focus from "@api/focus";
 
 const Store = require("electron-store");
 

@@ -32,7 +32,8 @@
         "alias": {
           "@api": "/src/api",
           "@renderer": "/src/renderer",
-          "@main": "/src/main"
+          "@main": "/src/main",
+          "@root": "/"
         }
       }
     ]

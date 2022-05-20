@@ -17,7 +17,7 @@
 
 import React from "react";
 
-import { KeymapDB } from "../../keymap";
+import { KeymapDB } from "@api/keymap";
 
 const db = new KeymapDB();
 

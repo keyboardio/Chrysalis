@@ -16,7 +16,7 @@
  */
 
 import React, { useState } from "react";
-import { GlobalContext } from "../../components/GlobalContext";
+import { GlobalContext } from "@renderer/components/GlobalContext";
 
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -29,7 +29,8 @@ import Select from "@mui/material/Select";
 import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
 
-import i18n from "../../i18n";
+import i18n from "@renderer/i18n";
+
 const Store = require("electron-store");
 const settings = new Store();
 

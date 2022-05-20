@@ -15,7 +15,12 @@
  */
 
 import Keymap from "./components/Keymap";
-import { Avr109, Avr109Bootloader, DFUUtil, DFUUtilBootloader } from "../flash";
+import {
+  Avr109,
+  Avr109Bootloader,
+  DFUUtil,
+  DFUUtilBootloader,
+} from "@api/flash";
 
 const Model01 = {
   info: {

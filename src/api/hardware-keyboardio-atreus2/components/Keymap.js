@@ -21,7 +21,7 @@ import classNames from "classnames";
 import Atreus from "../data/atreus.png";
 import Box from "@mui/material/Box";
 
-import { KeymapDB } from "../../keymap";
+import { KeymapDB } from "@api/keymap";
 
 const db = new KeymapDB();
 

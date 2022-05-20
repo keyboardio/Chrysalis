@@ -22,9 +22,9 @@ import sudo from "sudo-prompt";
 import path from "path";
 import { v4 as uuidv4 } from "uuid";
 
-import Log from "../log";
+import Log from "@api/log";
 
-import { getStaticPath } from "../../renderer/config";
+import { getStaticPath } from "@renderer/config";
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 

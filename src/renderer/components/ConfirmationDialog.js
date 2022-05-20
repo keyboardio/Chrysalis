@@ -23,7 +23,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 
-import i18n from "../i18n";
+import i18n from "@renderer/i18n";
 
 const ConfirmationDialog = (props) => {
   return (

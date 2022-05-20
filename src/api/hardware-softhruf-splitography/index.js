@@ -15,7 +15,7 @@
  */
 
 import Keymap from "./components/Keymap";
-import { DFUProgrammer } from "../flash";
+import { DFUProgrammer } from "@api/flash";
 
 const Splitography = {
   info: {

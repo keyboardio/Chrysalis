@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Focus from "../../api/focus";
+import Focus from "@api/focus";
 
 const clearEEPROM = async () => {
   const focus = new Focus();

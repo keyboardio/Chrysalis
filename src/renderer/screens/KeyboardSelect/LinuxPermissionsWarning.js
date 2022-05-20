@@ -20,8 +20,8 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import React from "react";
 import { toast } from "react-toastify";
-import i18n from "../../i18n";
-import { installUdevRules } from "../../utils/installUdevRules";
+import i18n from "@renderer/i18n";
+import { installUdevRules } from "@renderer/utils/installUdevRules";
 
 export const LinuxPermissionsWarning = (props) => {
   const selectedDevicePort = props.selectedDevicePort;

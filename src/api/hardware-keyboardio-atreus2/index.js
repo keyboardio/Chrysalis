@@ -15,7 +15,7 @@
  */
 
 import Keymap from "./components/Keymap";
-import { Avr109, Avr109Bootloader } from "../flash";
+import { Avr109, Avr109Bootloader } from "@api/flash";
 
 const Atreus2 = {
   info: {

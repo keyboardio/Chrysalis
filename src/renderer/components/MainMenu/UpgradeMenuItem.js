@@ -21,9 +21,9 @@ import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 
-import i18n from "../../i18n";
-import { version } from "../../../../package.json";
-import getLatestVersion from "../../utils/getLatestVersion";
+import { version } from "@root/package.json";
+import i18n from "@renderer/i18n";
+import getLatestVersion from "@renderer/utils/getLatestVersion";
 
 function UpgradeMenuItem() {
   const [latestVersion, setLatestVersion] = useState(null);

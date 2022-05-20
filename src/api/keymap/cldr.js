@@ -18,7 +18,7 @@ import fs from "fs";
 import path from "path";
 import xml2js from "xml2js";
 import unraw from "unraw";
-import { getStaticPath } from "../../renderer/config";
+import { getStaticPath } from "@renderer/config";
 
 import { addModifier } from "./db/modifiers";
 

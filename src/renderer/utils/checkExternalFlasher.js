@@ -18,7 +18,7 @@
 import fs from "fs";
 import path from "path";
 
-import { getStaticPath } from "../config";
+import { getStaticPath } from "@renderer/config";
 
 const checkExternalFlasher = async (device) => {
   if (!device.externalFlasher) return false;

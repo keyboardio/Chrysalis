@@ -16,7 +16,7 @@
  */
 
 import https from "https";
-import { version } from "../../../package.json";
+import { version } from "@root/package.json";
 
 let __latestVersion;
 

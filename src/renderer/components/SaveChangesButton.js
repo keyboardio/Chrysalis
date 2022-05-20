@@ -27,7 +27,7 @@ import SaveAltIcon from "@mui/icons-material/SaveAlt";
 import Tooltip from "@mui/material/Tooltip";
 import withStyles from "@mui/styles/withStyles";
 
-import i18n from "../i18n";
+import i18n from "@renderer/i18n";
 
 const styles = (theme) => ({
   root: {

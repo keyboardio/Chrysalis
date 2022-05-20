@@ -18,8 +18,8 @@
 import { ipcMain, BrowserWindow } from "electron";
 import { findByIds, getDeviceList, WebUSB } from "usb";
 // Focus
-import Focus from "../api/focus";
-import Hardware from "../api/hardware";
+import Focus from "@api/focus";
+import Hardware from "@api/hardware";
 const focus = new Focus();
 
 const webusb = new WebUSB({

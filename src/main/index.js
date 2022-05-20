@@ -32,7 +32,7 @@ import windowStateKeeper from "electron-window-state";
 import installExtension, {
   REACT_DEVELOPER_TOOLS,
 } from "electron-devtools-installer";
-import { getStaticPath } from "../renderer/config";
+import { getStaticPath } from "@renderer/config";
 import { initialize, enable as enableRemote } from "@electron/remote/main";
 import {
   registerDeviceDiscoveryHandlers,

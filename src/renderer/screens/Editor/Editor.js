@@ -1,4 +1,3 @@
-import { LegacyAlert } from "./components/LegacyAlert";
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
  * Copyright (C) 2020-2022  Keyboardio, Inc.
@@ -25,16 +24,17 @@ import { toast } from "react-toastify";
 const Store = require("electron-store");
 const settings = new Store();
 
-import Focus from "../../../api/focus";
-import Log from "../../../api/log";
+import Focus from "@api/focus";
+import Log from "@api/log";
 import { KeymapDB, default as Keymap } from "@api/keymap";
 
 import Sidebar, { sidebarWidth } from "./Sidebar";
 
-import SaveChangesButton from "../../components/SaveChangesButton";
-import { PageTitle } from "../../components/PageTitle";
-import i18n from "../../i18n";
-import LoadingScreen from "../../components/LoadingScreen";
+import { LegacyAlert } from "./components/LegacyAlert";
+import SaveChangesButton from "@renderer/components/SaveChangesButton";
+import { PageTitle } from "@renderer/components/PageTitle";
+import i18n from "@renderer/i18n";
+import LoadingScreen from "@renderer/components/LoadingScreen";
 import OnlyCustomScreen from "./components/OnlyCustomScreen";
 import { FloatingKeyPicker } from "./components/FloatingKeyPicker";
 import {

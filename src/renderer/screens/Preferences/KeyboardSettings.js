@@ -34,14 +34,14 @@ import Slider from "@mui/material/Slider";
 import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
 
-import Focus from "../../../api/focus";
+import Focus from "@api/focus";
 import { FocusCommands } from "@api/flash";
 
-import ConfirmationDialog from "../../components/ConfirmationDialog";
-import SaveChangesButton from "../../components/SaveChangesButton";
-import i18n from "../../i18n";
-import clearEEPROM from "../../utils/clearEEPROM";
-import checkExternalFlasher from "../../utils/checkExternalFlasher";
+import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
+import SaveChangesButton from "@renderer/components/SaveChangesButton";
+import i18n from "@renderer/i18n";
+import clearEEPROM from "@renderer/utils/clearEEPROM";
+import checkExternalFlasher from "@renderer/utils/checkExternalFlasher";
 
 import {
   showContextBar,

@@ -21,7 +21,7 @@ import Electron from "electron";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
-import i18n from "../i18n";
+import i18n from "@renderer/i18n";
 
 const openURL = (url, closeMenu) => {
   const shell = Electron.remote && Electron.remote.shell;

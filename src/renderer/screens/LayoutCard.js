@@ -18,6 +18,7 @@
 import React, { useState, useEffect } from "react";
 
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 import { toast } from "react-toastify";
 
@@ -27,10 +28,9 @@ const settings = new Store();
 import Focus from "@api/focus";
 import { KeymapDB, default as Keymap } from "@api/keymap";
 
-import { PageTitle } from "../components/PageTitle";
-import i18n from "../i18n";
-import LoadingScreen from "../components/LoadingScreen";
-import Typography from "@mui/material/Typography";
+import { PageTitle } from "@renderer/components/PageTitle";
+import i18n from "@renderer/i18n";
+import LoadingScreen from "@renderer/components/LoadingScreen";
 
 const db = new KeymapDB();
 const focus = new Focus();

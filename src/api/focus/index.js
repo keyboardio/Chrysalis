@@ -19,7 +19,7 @@ const { SerialPort } = require("serialport");
 const { DelimiterParser } = require("@serialport/parser-delimiter");
 import fs from "fs";
 
-import Log from "../log";
+import Log from "@api/log";
 
 global.chrysalis_focus_instance = null;
 

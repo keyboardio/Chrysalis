@@ -15,7 +15,7 @@
  */
 
 import Keymap from "./components/Keymap";
-import { teensy } from "../flash";
+import { teensy } from "@api/flash";
 
 const ErgoDox = {
   info: {

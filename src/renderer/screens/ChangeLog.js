@@ -26,16 +26,16 @@ import Typography from "@mui/material/Typography";
 
 import Electron from "electron";
 
-import logo from "../logo-small.png";
-import { version } from "../../../package.json";
+import { version } from "@root/package.json";
+import logo from "@renderer/logo-small.png";
 
 import fs from "fs";
 import path from "path";
 
-import { getStaticPath } from "../config";
-import i18n from "../i18n";
+import { getStaticPath } from "@renderer/config";
+import i18n from "@renderer/i18n";
 
-import { PageTitle } from "../components/PageTitle";
+import { PageTitle } from "@renderer/components/PageTitle";
 
 const ChangeLog = (props) => {
   const { classes } = props;

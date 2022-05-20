@@ -19,7 +19,7 @@ import { autocompleteClasses } from "@mui/material";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 import React from "react";
-import i18n from "../../i18n";
+import i18n from "@renderer/i18n";
 
 export const ConnectionButton = (props) => {
   const disabled = props.disabled;

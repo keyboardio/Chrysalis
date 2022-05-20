@@ -18,7 +18,7 @@
 import React from "react";
 import i18n from "i18next";
 
-import CategorySelector from "@renderer/screens/Editor/components/CategorySelector";
+import CategorySelector from "../components/CategorySelector";
 
 const MacroKeys = (props) => {
   const { keymap, selectedKey, layer, onKeyChange } = props;

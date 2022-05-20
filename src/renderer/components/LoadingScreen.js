@@ -19,9 +19,10 @@ import React from "react";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import i18n from "../i18n";
-import { getStatic } from "../config";
 import { keyframes } from "@mui/system";
+
+import i18n from "@renderer/i18n";
+import { getStatic } from "@renderer/config";
 
 function LoadingScreen(props) {
   const logoPath = getStatic("/logo.png");

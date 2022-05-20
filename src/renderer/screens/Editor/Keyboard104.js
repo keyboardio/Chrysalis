@@ -180,10 +180,10 @@ class KeySelector extends React.Component {
       "0 0 " +
       Math.round(23 * keycapunit).toString() +
       " " +
-      (6.5 * keycapunit).toString();
+      Math.round(6.5 * keycapunit).toString();
 
     return (
-      <Box sx={{ margin: 2 }}>
+      <Box sx={{ margin: 0 }}>
         <svg
           viewBox={viewBoxSize}
           xmlns="http://www.w3.org/2000/svg"

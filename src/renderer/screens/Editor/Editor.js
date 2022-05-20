@@ -317,11 +317,14 @@ const Editor = (props) => {
       <Rnd
         default={{
           x: (window.innerWidth - sidebarWidth) / 2 - 400,
-          y: window.innerHeight - 348,
+          y: window.innerHeight - 308,
           width: 800,
-          height: 300,
+          height: 260,
         }}
-        style={{ overflow: "hidden", zIndex: theme.zIndex.appBar - 50 }}
+        style={{
+          overflow: "hidden",
+          zIndex: theme.zIndex.appBar - 50,
+        }}
         minWidth={400}
         lockAspectRatio={true}
         bounds="window"
@@ -330,8 +333,8 @@ const Editor = (props) => {
           boxShadow={3}
           sx={{
             bgcolor: "background.paper",
-            p: 0.25,
-            m: 3,
+            p: 1,
+            m: 1,
           }}
         >
           <Keyboard104

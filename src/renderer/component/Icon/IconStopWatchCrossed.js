@@ -2,7 +2,7 @@ import * as React from "react";
 
 function IconStopWatchCrossed(props) {
   return (
-    <svg width={25} height={25} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <svg width={24} height={24} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <mask
         id="prefixIconStopWatchCrossed"
         style={{
@@ -11,8 +11,8 @@ function IconStopWatchCrossed(props) {
         maskUnits="userSpaceOnUse"
         x={0}
         y={0}
-        width={25}
-        height={25}
+        width={24}
+        height={24}
       >
         <path d="M22.003 22L.503.5.5 24.5h24V.5H6.198v3.576l16.947 16.947-1.142.977z" fill="#fff" />
       </mask>

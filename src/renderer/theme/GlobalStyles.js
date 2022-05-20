@@ -413,6 +413,21 @@ svg text{
   box-shadow: ${({ theme }) => theme.styles.button.config.boxShadow};
   transition: all 300ms ease-in-out;
 }
+.button-config.buttonConfigMinimal {
+  padding: 9px 12px;
+  border: 1px solid ${({ theme }) => theme.styles.button.configMinimal.border};
+  color: ${({ theme }) => theme.styles.button.configMinimal.color};
+  background: ${({ theme }) => theme.styles.button.configMinimal.background};
+  box-shadow: none;
+  &.active {
+    border: 1px solid ${({ theme }) => theme.styles.button.configMinimal.borderActive};
+    color: ${({ theme }) => theme.styles.button.configMinimal.colorActive};
+    background: ${({ theme }) => theme.styles.button.configMinimal.backgroundActive};
+    svg {
+      color: ${({ theme }) => theme.styles.button.configMinimal.iconColorActive};
+    }
+  }
+}
 .button-config.sm {
   padding: 6px 16px;
   font-size: 14px;
@@ -908,6 +923,31 @@ div.card.card-preferences .card-body {
     }
     .buttonLabel {
       justify-content: center;
+    }
+  }
+  .recordMacroOptions {
+    padding: 12px;
+    background-color: ${({ theme }) => theme.styles.macro.recordMacroOptionsBackground};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    box-shadow: ${({ theme }) => theme.styles.macro.recordMacroOptionsBoxShadow};
+    h5 {
+      letter-spacing: 0.2em;
+      color: ${({ theme }) => theme.styles.macro.recordMacroOptionsTitle};
+      margin-right: 8px;
+      margin-bottom: 0;
+    }
+    .recordMacroButtons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: nowrap;
+      .button-config {
+        margin-left: 2px;
+        margin-right: 2px;
+      }
     }
   }
 }

@@ -194,6 +194,15 @@ const Dark = {
           0.25
         )}, 0px 16px 16px -8px ${settingColorOpacity(Tokens.colors.gray500, 0.3)}`
       },
+      configMinimal: {
+        border: Tokens.colors.gray600,
+        borderActive: Tokens.colors.gray500,
+        color: Tokens.colors.gray300,
+        colorActive: Tokens.colors.gray50,
+        iconColorActive: Tokens.colors.brandSuccess,
+        background: "transparent",
+        backgroundActive: "linear-gradient(90deg, rgba(255, 255, 255, 0.1) -22.96%, rgba(255, 255, 255, 0) 123.24%)"
+      },
       settings: {
         color: Tokens.colors.gray100,
         colorHover: Tokens.colors.gray50,
@@ -401,7 +410,10 @@ const Dark = {
       tabSaveButtonBorder:
         "linear-gradient(98.12deg,#555769 0%,#303349 56.24%) padding-box, linear-gradient(90deg,#57617E 0%,#40425B 100%) border-box",
       specialKeyColor: Tokens.colors.gray400,
-      timelinePointeText: Tokens.colors.gray50
+      timelinePointeText: Tokens.colors.gray50,
+      recordMacroOptionsBackground: settingColorOpacity(Tokens.colors.gray900, 0.1),
+      recordMacroOptionsBoxShadow: "0 4px 0 rgba(11, 2, 25, 0.05)",
+      recordMacroOptionsTitle: Tokens.colors.gray300
     },
     macroKey: {
       background: Tokens.colors.gray500,

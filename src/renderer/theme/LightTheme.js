@@ -186,6 +186,15 @@ const Light = {
         boxShadowHover: "0px 2px 0px rgba(141, 132, 188, 0.4)",
         boxShadowActive: "0px 3px 0px rgba(37, 39, 59, 0.05), 0px 16px 16px -8px rgba(76, 102, 177, 0.3)"
       },
+      configMinimal: {
+        border: Tokens.colors.gray600,
+        borderActive: Tokens.colors.gray500,
+        color: Tokens.colors.gray300,
+        colorActive: Tokens.colors.gray50,
+        iconColorActive: Tokens.colors.brandSuccess,
+        background: "transparent",
+        backgroundActive: "linear-gradient(90deg, rgba(255, 255, 255, 0.1) -22.96%, rgba(255, 255, 255, 0) 123.24%)"
+      },
       settings: {
         color: Tokens.colors.purple300,
         colorHover: Tokens.colors.purple100,
@@ -392,7 +401,11 @@ const Light = {
       tabSaveButtonColor: Tokens.colors.gray400,
       tabSaveButtonBorder:
         "linear-gradient(98.12deg,#555769 0%,#303349 56.24%) padding-box, linear-gradient(90deg,#57617E 0%,#40425B 100%) border-box",
-      specialKeyColor: Tokens.colors.gray400
+      specialKeyColor: Tokens.colors.gray400,
+      timelinePointeText: Tokens.colors.gray50,
+      recordMacroOptionsBackground: settingColorOpacity(Tokens.colors.gray900, 0.1),
+      recordMacroOptionsBoxShadow: "0 2px 0 rgba(11, 2, 25, 0.1)",
+      recordMacroOptionsTitle: Tokens.colors.gray300
     },
     macroKey: {
       background: "linear-gradient(90deg, rgba(255, 255, 255, 0.3) 21.15%, rgba(255, 255, 255, 0) 100%), #DADDE4",

@@ -103,20 +103,20 @@ export default class RecordMacroModal extends React.Component {
           </Modal.Header>
           <Modal.Body>
             <div className="recordMacroOptions">
-              <Title text={i18n.editor.macros.delay} headingLevel={4} />
+              <Title text={i18n.editor.macros.delays} headingLevel={5} />
               <div className="recordMacroButtons">
                 <ButtonConfig
                   icoSVG={<IconStopWatch />}
                   icoPosition="left"
                   buttonText={i18n.editor.macros.recordDelays}
-                  style={`buttonMinimal`}
+                  style={`buttonConfigMinimal`}
                   onClick={this.undoRecording}
                 />
                 <ButtonConfig
                   icoSVG={<IconStopWatchCrossed />}
                   icoPosition="left"
                   buttonText={i18n.editor.macros.ignoreDelays}
-                  style={`buttonMinimal`}
+                  style={`buttonConfigMinimal`}
                   onClick={this.undoRecording}
                 />
               </div>

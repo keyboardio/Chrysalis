@@ -20,6 +20,8 @@ import React, { useState } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
+import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
+
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FormHelperText from "@mui/material/FormHelperText";
 import Tooltip from "@mui/material/Tooltip";
@@ -33,15 +35,25 @@ const Collapsible = (props) => {
   const { title, help } = props;
   let summary = (
     <AccordionSummary
-      expandIcon={<ExpandMoreIcon />}
+      expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: "0.9rem" }} />}
       sx={{
         backgroundColor: "rgba(0, 0, 0, .03)",
         border: "1px solid rgba(0, 0, 0, .125)",
         padding: "0 2",
-        "&.Mui-expanded": {
-          margin: "0 0",
-          minHeight: "0",
+        flexDirection: "row-reverse",
+        "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
+          transform: "rotate(90deg)",
         },
+        "& .MuiAccordionSummary-content": {
+          marginLeft: 1,
+          py: "12px",
+          minHeight: "48px",
+          my: "0px",
+        },
+        "&.MuiButtonBase-root.MuiAccordionSummary-root.Mui-expanded.MuiAccordionSummary-gutters":
+          {
+            minHeight: "48px",
+          },
       }}
     >
       <Typography>{title}</Typography>
@@ -59,7 +71,6 @@ const Collapsible = (props) => {
         margin: `0px 0px -1px 0px`,
         "&.Mui-expanded": {
           margin: "0 0",
-          minHeight: 48,
         },
         "&:before": {
           display: "none",

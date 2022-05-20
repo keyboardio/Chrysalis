@@ -21,36 +21,12 @@ import {
 } from "@api/hardware-keyboardio-model01";
 import { Atreus } from "@api/hardware-technomancy-atreus";
 import { Atreus2 } from "@api/hardware-keyboardio-atreus2";
-import { Raise_ANSI } from "@api/hardware-dygma-raise-ansi";
-import { Raise_ISO } from "@api/hardware-dygma-raise-iso";
 import { ErgoDox } from "@api/hardware-ez-ergodox";
-import { Planck } from "@api/hardware-olkb-planck";
-import { KBD4x } from "@api/hardware-kbdfans-kbd4x";
 import { Splitography } from "@api/hardware-softhruf-splitography";
-import { GenericTeensy } from "@api/hardware-pjrc-teensy";
 
 const Hardware = {
-  serial: [
-    Model01,
-    Model100,
-    Atreus2,
-    Raise_ANSI,
-    Raise_ISO,
-    ErgoDox,
-    Atreus,
-    Planck,
-    Splitography,
-    KBD4x,
-  ],
-  nonSerial: [
-    Model100Bootloader,
-    ErgoDox,
-    Atreus,
-    Planck,
-    Splitography,
-    KBD4x,
-    GenericTeensy,
-  ],
+  serial: [Model01, Model100, Atreus2, ErgoDox, Atreus, Splitography],
+  nonSerial: [Model100Bootloader, ErgoDox, Atreus, Splitography],
 };
 
 export { Hardware as default };

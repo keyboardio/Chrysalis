@@ -57,6 +57,7 @@ import IconNoKey from "./IconNoKey";
 import IconNoSignal from "./IconNoSignal";
 import IconNote from "./IconNote";
 import IconOneShot from "./IconOneShot";
+import IconPauseXl from "./IconPauseXl";
 import IconPreferences2Stroke from "./IconPreferences2Stroke";
 import IconPressSm from "./IconPressSm";
 import IconPressAndReleaseSm from "./IconPressAndReleaseSm";
@@ -135,6 +136,7 @@ export {
   IconNoSignal,
   IconNote,
   IconOneShot,
+  IconPauseXl,
   IconPen,
   IconPreferences2Stroke,
   IconPressSm,

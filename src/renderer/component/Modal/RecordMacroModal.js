@@ -5,7 +5,8 @@ import Modal from "react-bootstrap/Modal";
 import i18n from "../../i18n";
 
 import { RegularButton, ButtonConfig } from "../Button";
-import { IconRecord, IconArrowInBoxDown } from "../Icon";
+import { IconRecord, IconArrowInBoxDown, IconPauseXl } from "../Icon";
+import AnimatedTimelineRecording from "../../modules/Macros/AnimatedTimelineRecording";
 
 const Styles = Styled.div`
 
@@ -40,13 +41,29 @@ export default class RecordMacroModal extends React.Component {
     super(props);
     this.inputText = React.createRef();
     this.state = {
-      showModal: false
+      showModal: false,
+      cleanRecord: true,
+      isRecording: false
     };
   }
 
   toggleShow = () => {
     this.setState({
       showModal: !this.state.showModal
+    });
+  };
+
+  toggleIsRecording = () => {
+    this.setState({
+      isRecording: !this.state.isRecording,
+      cleanRecord: false
+    });
+  };
+
+  undoRecording = () => {
+    this.setState({
+      isRecording: false,
+      cleanRecord: true
     });
   };
 
@@ -78,16 +95,26 @@ export default class RecordMacroModal extends React.Component {
           className="modal-recordMacro"
         >
           <Modal.Header closeButton>
-            <Modal.Title className="text-center">Record macro</Modal.Title>
+            <Modal.Title className="text-center">
+              {this.state.isRecording ? i18n.editor.macros.recordingMacro : i18n.editor.macros.recordMacro}
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <p>Compontent switch Add delay</p>
             <div className="timelineRecordTracking">
               <div className="timelineRecordSequence">Lotem ipsum dolor aemet sit</div>
+              <AnimatedTimelineRecording isRecording={this.state.isRecording} />
             </div>
             <div className="recordMacrosButton">
-              <ButtonConfig buttonText="Undo" style="rounded" onClick={this.toggleShow} />
-              <RegularButton buttonText="Start record" style="recordButton" onClick={this.toggleShow} />
+              <ButtonConfig buttonText="Undo" style="rounded" onClick={this.undoRecording} />
+              <RegularButton
+                buttonText={
+                  this.state.cleanRecord ? i18n.editor.macros.startRecord : this.state.isRecording ? "Pause icon" : "Resume"
+                }
+                icoSVG={<IconPauseXl />}
+                style={`recordButton ${this.state.isRecording ? "isRecording" : ""}`}
+                onClick={this.toggleIsRecording}
+              />
             </div>
             <div className="tabSaveButton">
               <RegularButton
@@ -95,7 +122,7 @@ export default class RecordMacroModal extends React.Component {
                 style="outline gradient"
                 icoSVG={<IconArrowInBoxDown />}
                 icoPosition="right"
-                disabled={true}
+                disabled={this.state.cleanRecord || this.state.isRecording ? true : false}
               />
             </div>
             <p className="recordingMessage">{i18n.editor.macros.recordingMessage}</p>

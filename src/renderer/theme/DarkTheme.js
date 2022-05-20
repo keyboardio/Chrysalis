@@ -217,6 +217,7 @@ const Dark = {
       },
       recordButton: {
         background: settingColorOpacity(Tokens.colors.gray700, 0.3),
+        backgroundHover: "linear-gradient(0deg, rgba(254, 0, 124, 0.05), rgba(254, 0, 124, 0.05)), rgba(48, 51, 73, 0.5)",
         borderColor: Tokens.colors.brandPrimary,
         color: Tokens.colors.brandPrimary
       }
@@ -393,7 +394,8 @@ const Dark = {
       keyFunctionTile: Tokens.colors.gray50,
       previewColor: Tokens.colors.gray200,
       recordingMessageColor: Tokens.colors.gray200,
-      timelineRecordTrackingBackground: settingColorOpacity(Tokens.colors.gray900, 0.3)
+      timelineRecordTrackingBackground: settingColorOpacity(Tokens.colors.gray900, 0.3),
+      timelineBarBackground: Tokens.colors.gray700
     },
     macroKey: {
       background: Tokens.colors.gray500,

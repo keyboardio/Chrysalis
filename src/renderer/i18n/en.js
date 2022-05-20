@@ -157,7 +157,7 @@ const English = {
       macroShort: "Macro Short",
       mouse: "Mouse",
       recordMacro: "Record macro",
-      recordingMacro: "Recording Macro",
+      recordingMacro: "Recording Macro...",
       recordingMessage:
         "Did you make a mistake? Don't worry, you can edit the created sequence after adding the recording to the timeline.",
       restore: "Restore All",

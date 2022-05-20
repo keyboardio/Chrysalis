@@ -385,7 +385,8 @@ const Light = {
       keyFunctionTile: Tokens.colors.gray500,
       previewColor: Tokens.colors.gray200,
       recordingMessageColor: Tokens.colors.gray200,
-      timelineRecordTrackingBackground: settingColorOpacity(Tokens.colors.gray100, 0.3)
+      timelineRecordTrackingBackground: settingColorOpacity(Tokens.colors.gray100, 0.3),
+      timelineBarBackground: Tokens.colors.gray700
     },
     macroKey: {
       background: "linear-gradient(90deg, rgba(255, 255, 255, 0.3) 21.15%, rgba(255, 255, 255, 0) 100%), #DADDE4",

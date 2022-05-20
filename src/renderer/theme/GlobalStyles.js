@@ -832,6 +832,7 @@ div.card.card-preferences .card-body {
   }
   .modal-title {
     flex: 0 0 100%;
+    font-size: 32px;
   }
   .recordMacrosButton {
     width: 100%;
@@ -850,13 +851,18 @@ div.card.card-preferences .card-body {
     transform: translate3d(-120px,0, 0);
   }
   .recordButton {
-    border: 2px solid ${({ theme }) => theme.styles.button.recordButton.borderColor};
+    border: 3px solid ${({ theme }) => theme.styles.button.recordButton.borderColor};
     background:  ${({ theme }) => theme.styles.button.recordButton.background};
     color: ${({ theme }) => theme.styles.button.recordButton.color};
     backdrop-filter: blur(5px);
     border-radius: 32px;
     width: 204px;
     font-weight: 700;
+    z-index: 3;
+    position: relative;
+    &:hover {
+      background:  ${({ theme }) => theme.styles.button.recordButton.backgroundHover};
+    }
     .buttonLabel {
       justify-content: center;
     }
@@ -869,6 +875,10 @@ div.card.card-preferences .card-body {
   width: 100%;
   overflow: hidden;
   height: 124px;
+  .AnimatedTimelineRecording {
+    bottom: 6px;
+    position: absolute;
+  }
 }
 .recordingMessage {
   text-align: center;

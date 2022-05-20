@@ -45,7 +45,7 @@ const Collapsible = (props) => {
           transform: "rotate(90deg)",
         },
         "& .MuiAccordionSummary-content": {
-          marginLeft: 1,
+          marginLeft: 2,
           py: "12px",
           minHeight: "48px",
           my: "0px",
@@ -69,7 +69,7 @@ const Collapsible = (props) => {
       sx={{
         boxShadow: "none",
         margin: `0px 0px -1px 0px`,
-        "&.Mui-expanded": {
+        "& .Mui-expanded": {
           margin: "0 0",
         },
         "&:before": {
@@ -81,8 +81,7 @@ const Collapsible = (props) => {
       {summary}
       <AccordionDetails
         sx={{
-          padding: 1,
-          paddingTop: 0,
+          padding: 2,
           margin: "2 0",
           display: "block",
         }}

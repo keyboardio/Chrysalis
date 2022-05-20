@@ -90,6 +90,7 @@ export default class RecordMacroModal extends React.Component {
           size="lg"
           show={this.state.showModal}
           onHide={this.toggleShow}
+          backdrop="static"
           aria-labelledby="contained-modal-title-vcenter"
           centered
           className="modal-recordMacro"
@@ -100,9 +101,21 @@ export default class RecordMacroModal extends React.Component {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <p>Compontent switch Add delay</p>
+            <div className="recordMacroOptions">
+              <p>Compontent switch Add delay</p>
+            </div>
             <div className="timelineRecordTracking">
-              <div className="timelineRecordSequence">Lotem ipsum dolor aemet sit</div>
+              {this.state.cleanRecord ? (
+                <div className="timelineRecordSequence">...</div>
+              ) : (
+                <div className={`timelineRecordSequence ${this.state.isRecording ? "isRecording" : "isPaused"}`}>
+                  <div className="timelineRecordSequenceInner">
+                    Lotem ipsum dolor aemet sit <div className="keySpecial">500 ms</div> waiting
+                  </div>
+                  <div className="timelinePointeText"></div>
+                </div>
+              )}
+
               <AnimatedTimelineRecording isRecording={this.state.isRecording} />
             </div>
             <div className="recordMacrosButton">
@@ -110,7 +123,7 @@ export default class RecordMacroModal extends React.Component {
                 <ButtonConfig
                   tooltip={i18n.editor.macros.recordingDiscard}
                   icoSVG={<IconUndoRestart />}
-                  style="undoRecording"
+                  style={`undoRecording`}
                   onClick={this.undoRecording}
                 />
               ) : (
@@ -121,7 +134,9 @@ export default class RecordMacroModal extends React.Component {
                   this.state.cleanRecord ? i18n.editor.macros.startRecord : this.state.isRecording ? "Pause icon" : "Resume"
                 }
                 icoSVG={<IconPauseXl />}
-                style={`recordButton ${this.state.isRecording ? "isRecording" : ""}`}
+                style={`recordButton ${this.state.isRecording ? "isRecording" : ""} ${
+                  !this.state.cleanRecord && !this.state.isRecording ? "isResume" : ""
+                }`}
                 onClick={this.toggleIsRecording}
               />
             </div>

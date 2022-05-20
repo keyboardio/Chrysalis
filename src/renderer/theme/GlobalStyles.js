@@ -827,6 +827,17 @@ div.card.card-preferences .card-body {
 // Recording Macro
 //
 .modal.modal-recordMacro {
+  .modal-header {
+    align-items: center;
+    position: relative;
+    justify-content: center;
+    .close {
+      margin-right: 0;
+      position: absolute;
+      top: 42px;
+      right: 32px;
+    }
+  }
   .modal-body {
     padding: 24px 0;
   }
@@ -843,6 +854,16 @@ div.card.card-preferences .card-body {
   }
   .tabSaveButton {
     text-align: center;
+    .button.outline.gradient[disabled] {
+      opacity: 1;
+      color: ${({ theme }) => theme.styles.macro.tabSaveButtonColor}; 
+      &:before {
+        background: ${({ theme }) => theme.styles.macro.tabSaveButtonBorder};  
+      }
+      .buttonFX {
+        display: none;
+      }
+    }
   }
   .button-config.undoRecording {
     position: absolute;
@@ -871,6 +892,9 @@ div.card.card-preferences .card-body {
     svg {
       display: none;
     }
+    &.isResume {
+      border: 3px solid ${({ theme }) => theme.styles.button.recordButton.borderColorResume};
+    }
     &.isRecording {
       svg {
         display: inline-block;
@@ -894,9 +918,48 @@ div.card.card-preferences .card-body {
   width: 100%;
   overflow: hidden;
   height: 124px;
+  .timelineRecordSequence {
+    position: absolute;
+    width: 50%;
+    top: 50%;
+    transform: translate(0, -50%);
+    text-align: right;
+    margin-top: -8px;
+    .timelineRecordSequenceInner {
+      display: flex;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+      align-content: flex-end;
+      justify-content: flex-end;
+      flex: 0 0 100%;
+      align-items: center;
+    }
+  }
+  .timelinePointeText {
+    position: absolute;
+    height: 62px;
+    width: 1px;
+    background-color: ${({ theme }) => theme.styles.macro.timelinePointeText};
+    top: 50%;
+    right: -2px;
+    transform: translate(0, -50%);
+    display: none;
+  }
+  .isRecording .timelinePointeText {
+    display: inline-block;
+    animation: cursor-blink 1.5s steps(2) infinite;
+  }
   .AnimatedTimelineRecording {
     bottom: 6px;
     position: absolute;
+  }
+  .keySpecial {
+    padding: 6px;
+    border-radius: 3px;
+    color: ${({ theme }) => theme.styles.macro.specialKeyColor};
+    margin: 0 3px;
+    border: 1px solid ${({ theme }) => theme.styles.macro.specialKeyColor};
+    font-size: 13px;
   }
 }
 .recordingMessage {
@@ -1569,6 +1632,11 @@ div.card.card-preferences .card-body {
   to {
     transform: scale(1) translate3d(-50%, -50%, 0);
     opacity: 1;
+  }
+}
+@keyframes cursor-blink {
+  0% {
+    opacity: 0;
   }
 }
 

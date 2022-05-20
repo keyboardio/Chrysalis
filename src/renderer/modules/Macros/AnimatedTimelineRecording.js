@@ -44,7 +44,7 @@ const Styles = Styled.div`
 .recBar {
     background-color:  ${({ theme }) => theme.styles.macro.timelineBarBackground};;
     width: 2px;
-    height: 8px;
+    height: 4px;
     border-radius: 2px;
     margin: auto 2px;
     transition: 300ms height;
@@ -54,6 +54,9 @@ const Styles = Styled.div`
 &.isRecording {
     .marquee .marqueeInner {
         animation-play-state: running;
+    }
+    .recBar {
+      height: 8px;
     }
     .recBar.recBarSeparator {
         height: 16px;

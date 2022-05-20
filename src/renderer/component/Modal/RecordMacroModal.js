@@ -123,6 +123,7 @@ export default class RecordMacroModal extends React.Component {
                   buttonText={i18n.editor.macros.recordDelays}
                   style={`buttonConfigMinimal ${this.state.isDelayActive ? "config-active" : ""}`}
                   onClick={this.setDelayOn}
+                  disabled={this.state.isRecording}
                 />
                 <ButtonConfig
                   icoSVG={<IconStopWatchCrossed />}
@@ -130,6 +131,7 @@ export default class RecordMacroModal extends React.Component {
                   buttonText={i18n.editor.macros.ignoreDelays}
                   style={`buttonConfigMinimal ${!this.state.isDelayActive ? "config-active" : ""}`}
                   onClick={this.setDelayOff}
+                  disabled={this.state.isRecording}
                 />
               </div>
             </div>

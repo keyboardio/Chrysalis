@@ -1,3 +1,47 @@
+Chrysalis 0.9.3-snapshot
+========================
+**UNRELEASED**
+
+## New features
+
+This release brings set of new features that we hope will make Chrysalis even
+more useful! There likely will be a few rough edges around both these features,
+we'll be releasing frequent updates to address them swiftly.
+
+### Layout cards
+
+The first new feature is a new screen: Layout Cards. On this screen, Chrysalis
+renders all your layers onto a single, printable screen. We also made it easy to
+print: just press Control+P (or Command+P on macOS), and you can print any
+screen, including the layout cards.
+
+### Floating key selector
+
+We have redesigned the way you pick keys in the layout editor: rather than
+picking a key to modify on the keymap, mousing over to the sidebar, selecting
+"Pick a key", then find the key on the 104-key keyboard image that pops up, we
+now have a permanent, floating key selector at the bottom of the screen. You
+select the key you want to change on the keyboard, then click the key you want
+on the floating selector, and you're done!
+
+Rearranging the standard set of keys is one of the most common things people do
+with Chrysalis. We hope this new selector makes the experience not only more
+convenient, but faster and more efficient too!
+
+## Bugfixes
+
+The previous release introduced a new feature where every time a keyboard is
+flashed, it's configuration (the EEPROM) gets automatically backed up, and the
+"Backup & Restore" feature of the Editor offers these backups for restoration.
+
+Unfortunately, these backups weren't device-type specific, so Chrysalis would
+happily offer a backup made on an Atreus when restoring to a Model01. We have
+fixed that, and Chrysalis will only offer backups for restoration for the same
+type of keyboard.
+
+Additionally, we also fixed an issue where the "Backup & Restore" screen made
+the application unresponsive until one flashed new firmware onto a keyboard.
+
 Chrysalis 0.9.2
 ===============
 Released on 2022-05-20

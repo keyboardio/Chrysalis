@@ -42,7 +42,7 @@ export const LinuxPermissionsWarning = (props) => {
   if (
     platform == "linux" &&
     selectedDevicePort &&
-    selectedDevicePort.accessible
+    !selectedDevicePort.accessible
   ) {
     const fixitButton = (
       <Button onClick={doInstallUdevRules} variant="outlined">

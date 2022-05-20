@@ -112,8 +112,12 @@ function FocusCommands(options) {
     );
     sessionStorage.setItem(key, json_dump);
 
-    const r = ipcRenderer.sendSync("eeprom-backup", Date.now(), json_dump);
-    console.debug("eeprom-backup", r);
+    const r = ipcRenderer.sendSync(
+      "backups.save-file",
+      focus.focusDeviceDescriptor.info,
+      Date.now(),
+      json_dump
+    );
 
     return key;
   };

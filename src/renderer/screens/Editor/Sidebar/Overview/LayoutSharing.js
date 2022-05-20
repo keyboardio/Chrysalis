@@ -44,6 +44,7 @@ import { KeymapDB } from "@api/keymap";
 import { getStaticPath } from "../../../../config";
 
 const db = new KeymapDB();
+const focus = new Focus();
 
 const sidebarWidth = 300;
 
@@ -161,7 +162,6 @@ class LibraryImportBase extends React.Component {
   };
 
   loadFromLibrary = (layoutName) => {
-    const focus = new Focus();
     const { vendor, product } = focus.focusDeviceDescriptor.info;
     const cVendor = vendor.replace("/", "");
     const cProduct = product.replace("/", "");
@@ -214,7 +214,8 @@ class BackupImportBase extends React.Component {
 
   selectBackupItem = (item) => () => {
     const [layoutFileData, error] = ipcRenderer.sendSync(
-      "backups.load-backup",
+      "backups.load-file",
+      focus.focusDeviceDescriptor.info,
       item
     );
 
@@ -229,7 +230,10 @@ class BackupImportBase extends React.Component {
   };
 
   componentDidMount() {
-    const library = ipcRenderer.sendSync("backups.list-library");
+    const library = ipcRenderer.sendSync(
+      "backups.list-library",
+      focus.focusDeviceDescriptor.info
+    );
 
     this.setState({ library: library });
   }
@@ -354,8 +358,6 @@ class LayoutSharingBase extends React.Component {
   constructor(props) {
     super(props);
 
-    const focus = new Focus();
-
     const { vendor, product } = focus.focusDeviceDescriptor.info;
     const cVendor = vendor.replace("/", "");
     const cProduct = product.replace("/", "");
@@ -430,7 +432,6 @@ class LayoutSharingBase extends React.Component {
       this.props;
     const { layout, layoutName, library } = this.state;
 
-    const focus = new Focus();
     const Keymap = focus.focusDeviceDescriptor.components.keymap;
     const previewLayout = layout.keymaps ? layout.keymaps[0] : keymap.custom[0];
     const palette = layout.palette || colormap.palette;

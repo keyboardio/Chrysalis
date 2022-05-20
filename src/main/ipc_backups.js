@@ -2,11 +2,26 @@ import { ipcMain, app } from "electron";
 import fs from "fs";
 import path from "path";
 
+const backupDir = (deviceInfo) => {
+  return path.join(
+    app.getPath("userData"),
+    "eeprom-backup",
+    deviceInfo.vendor,
+    deviceInfo.product
+  );
+};
+
 export const registerBackupHandlers = () => {
-  ipcMain.on("backups.list-library", async (event) => {
-    const dirName = path.join(app.getPath("userData"), "eeprom-backup");
+  ipcMain.on("backups.list-library", async (event, deviceInfo) => {
+    try {
+      fs.accessSync(backupDir(deviceInfo));
+    } catch (_) {
+      event.returnValue = [];
+      return;
+    }
+
     const library = fs
-      .readdirSync(dirName, { encoding: "utf-8" })
+      .readdirSync(backupDir(deviceInfo), { encoding: "utf-8" })
       .map((name) => path.basename(name, ".json"))
       .sort((a, b) => {
         if (a > b) return -1;
@@ -17,9 +32,11 @@ export const registerBackupHandlers = () => {
     event.returnValue = library;
   });
 
-  ipcMain.on("backups.load-backup", async (event, stamp) => {
-    const dirName = path.join(app.getPath("userData"), "eeprom-backup");
-    const fileName = path.join(dirName, stamp.toString() + ".json");
+  ipcMain.on("backups.load-file", async (event, deviceInfo, stamp) => {
+    const fileName = path.join(
+      backupDir(deviceInfo),
+      stamp.toString() + ".json"
+    );
 
     let data;
     try {
@@ -32,12 +49,14 @@ export const registerBackupHandlers = () => {
     event.returnValue = [data];
   });
 
-  ipcMain.on("eeprom-backup", async (event, stamp, data) => {
-    const dirName = path.join(app.getPath("userData"), "eeprom-backup");
-    const fileName = path.join(dirName, stamp.toString() + ".json");
+  ipcMain.on("backups.save-file", async (event, deviceInfo, stamp, data) => {
+    const fileName = path.join(
+      backupDir(deviceInfo),
+      stamp.toString() + ".json"
+    );
 
     try {
-      fs.mkdirSync(dirName, { recursive: true });
+      fs.mkdirSync(backupDir(deviceInfo), { recursive: true });
     } catch (e) {
       event.returnValue = [null, e];
       return;

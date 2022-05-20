@@ -29,8 +29,11 @@ import Typography from "@mui/material/Typography";
 
 const Collapsible = (props) => {
   const [expanded, setExpanded] = useState(undefined);
+
+  const show_expanded = expanded !== undefined ? expanded : props.expanded;
+
   const handleChange = () => {
-    setExpanded(!expanded);
+    setExpanded(!show_expanded);
   };
   const { title, help } = props;
   let summary = (
@@ -60,7 +63,6 @@ const Collapsible = (props) => {
     </AccordionSummary>
   );
 
-  const show_expanded = expanded !== undefined ? expanded : props.expanded;
   return (
     <Accordion
       square

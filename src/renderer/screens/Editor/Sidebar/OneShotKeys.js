@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2020-2021  Keyboardio, Inc.
+ * Copyright (C) 2020-2022  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -27,7 +27,7 @@ import Switch from "@mui/material/Switch";
 import Collapsible from "../components/Collapsible";
 import KeyButton from "../components/KeyButton";
 
-import Focus from "../../../../api/focus";
+import Focus from "@api/focus";
 import { KeymapDB } from "@api/keymap";
 
 const db = new KeymapDB();

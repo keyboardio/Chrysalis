@@ -1,5 +1,5 @@
 /* chrysalis-hardware-keyboardio-atreus2 -- Chrysalis Atreus2 support
- * Copyright (C) 2019, 2020  Keyboardio, Inc.
+ * Copyright (C) 2019-2022  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -15,7 +15,7 @@
  */
 
 import Keymap from "./components/Keymap";
-import { Avr109, Avr109Bootloader } from "../flash";
+import { Avr109, Avr109Bootloader } from "@api/flash";
 
 const Atreus2 = {
   info: {

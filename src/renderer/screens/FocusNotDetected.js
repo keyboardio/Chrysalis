@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
+ * Copyright (C) 2018-2022  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -17,7 +17,7 @@
 
 import React from "react";
 
-import Focus from "../../api/focus";
+import Focus from "@api/focus";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -31,9 +31,9 @@ import Typography from "@mui/material/Typography";
 
 import { toast } from "react-toastify";
 
-import i18n from "../i18n";
-import { navigate } from "../routerHistory";
-import { PageTitle } from "../components/PageTitle";
+import i18n from "@renderer/i18n";
+import { navigate } from "@renderer/routerHistory";
+import { PageTitle } from "@renderer/components/PageTitle";
 
 const FocusNotDetected = (props) => {
   let focus = new Focus();

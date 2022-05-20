@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
+ * Copyright (C) 2018-2022  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -24,9 +24,9 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
 
-import i18n from "../../i18n";
+import i18n from "@renderer/i18n";
 
-import Focus from "../../../api/focus";
+import Focus from "@api/focus";
 
 const Store = require("electron-store");
 

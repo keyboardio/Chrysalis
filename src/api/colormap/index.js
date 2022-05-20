@@ -1,5 +1,5 @@
 /* chrysalis-colormap -- Chrysalis colormap library
- * Copyright (C) 2018-2020  Keyboardio, Inc.
+ * Copyright (C) 2018-2022  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -14,7 +14,7 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Focus from "../focus";
+import Focus from "@api/focus";
 
 global.chrysalis_colormap_instance = null;
 

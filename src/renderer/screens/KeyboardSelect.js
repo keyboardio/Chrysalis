@@ -1,7 +1,6 @@
-import { PageTitle } from "./../components/PageTitle";
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
+ * Copyright (C) 2018-2022  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -24,18 +23,20 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import LinearProgress from "@mui/material/LinearProgress";
 import React, { useState, useEffect } from "react";
+const { ipcRenderer } = require("electron");
 import { toast } from "react-toastify";
-import Focus from "../../api/focus";
-import i18n from "../i18n";
-import logo from "../logo-small.png";
 
-import { useIntervalImmediate } from "../utils/useInterval";
+import Focus from "@api/focus";
+import i18n from "@renderer/i18n";
+import logo from "@renderer/logo-small.png";
+import { useIntervalImmediate } from "@renderer/utils/useInterval";
+import { findKeyboards } from "@renderer/utils/findKeyboards";
+import { PageTitle } from "@renderer/components/PageTitle";
+
 import { ConnectionButton } from "./KeyboardSelect/ConnectionButton";
 import { LinuxPermissionsWarning } from "./KeyboardSelect/LinuxPermissionsWarning";
 import { KeyboardPortSelector } from "./KeyboardSelect/KeyboardPortSelector";
 import { DeviceImage } from "./KeyboardSelect/DeviceImage";
-const { ipcRenderer } = require("electron");
-import { findKeyboards } from "../utils/findKeyboards";
 
 const KeyboardSelect = (props) => {
   const [selectedPortIndex, setSelectedPortIndex] = useState(0);

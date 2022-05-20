@@ -1,5 +1,5 @@
 /* chrysalis-flash -- Keyboard flash helpers for Chrysalis
- * Copyright (C) 2018-2021  Keyboardio, Inc.
+ * Copyright (C) 2018-2022  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -22,9 +22,9 @@ import sudo from "sudo-prompt";
 import path from "path";
 import { v4 as uuidv4 } from "uuid";
 
-import Log from "../log";
+import Log from "@api/log";
 
-import { getStaticPath } from "../../renderer/config";
+import { getStaticPath } from "@renderer/config";
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 

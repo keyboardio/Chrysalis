@@ -1,5 +1,5 @@
 /* chrysalis-focus -- Chrysalis Focus protocol library
- * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
+ * Copyright (C) 2018-2022  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -19,7 +19,7 @@ const { SerialPort } = require("serialport");
 const { DelimiterParser } = require("@serialport/parser-delimiter");
 import fs from "fs";
 
-import Log from "../log";
+import Log from "@api/log";
 
 global.chrysalis_focus_instance = null;
 

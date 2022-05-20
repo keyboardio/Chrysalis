@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* chrysalis-bundle-keyboardio -- Chrysalis Bundle for Keyboard.io
- * Copyright (C) 2018-2020  Keyboardio, Inc.
+ * Copyright (C) 2018-2022  Keyboardio, Inc.
  * Copyright (C) 2017, 2018  Simon-Claudius Wystrach
  *
  * Based on the SVG done by Simon-Claudius for the previous incarnation of

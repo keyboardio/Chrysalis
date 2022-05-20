@@ -2,6 +2,9 @@
   "renderer": {
     "webpackConfig": "webpack.renderer.additions.js"
   },
+  "main": {
+    "webpackConfig": "webpack.main.additions.js"
+  },
 
   "title": "Chrysalis",
 

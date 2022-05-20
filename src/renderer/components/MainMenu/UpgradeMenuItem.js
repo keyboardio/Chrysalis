@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
+ * Copyright (C) 2018-2022  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -21,9 +21,9 @@ import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 
-import i18n from "../../i18n";
-import { version } from "../../../../package.json";
-import getLatestVersion from "../../utils/getLatestVersion";
+import { version } from "@root/package.json";
+import i18n from "@renderer/i18n";
+import getLatestVersion from "@renderer/utils/getLatestVersion";
 
 function UpgradeMenuItem() {
   const [latestVersion, setLatestVersion] = useState(null);

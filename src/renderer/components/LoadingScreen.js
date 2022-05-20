@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2020  Keyboardio, Inc.
+ * Copyright (C) 2020-2022  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -19,9 +19,10 @@ import React from "react";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import i18n from "../i18n";
-import { getStatic } from "../config";
 import { keyframes } from "@mui/system";
+
+import i18n from "@renderer/i18n";
+import { getStatic } from "@renderer/config";
 
 function LoadingScreen(props) {
   const logoPath = getStatic("/logo.png");

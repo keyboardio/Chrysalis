@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
+ * Copyright (C) 2018-2022  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -23,15 +23,15 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import PropTypes from "prop-types";
 
-import { PageTitle } from "../components/PageTitle";
+import { PageTitle } from "@renderer/components/PageTitle";
 import {
   KeyboardSettings,
   AdvancedKeyboardSettings,
 } from "./Preferences/KeyboardSettings";
 import { BasicPreferences } from "./Preferences/Basic";
 import { DevtoolsPreferences } from "./Preferences/Devtools";
-import i18n from "../i18n";
-import { GlobalContext } from "../components/GlobalContext";
+import i18n from "@renderer/i18n";
+import { GlobalContext } from "@renderer/components/GlobalContext";
 
 TabPanel.propTypes = {
   children: PropTypes.node,

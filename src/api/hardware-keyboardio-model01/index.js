@@ -1,5 +1,5 @@
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018-2021  Keyboardio, Inc.
+ * Copyright (C) 2018-2022  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -15,7 +15,12 @@
  */
 
 import Keymap from "./components/Keymap";
-import { Avr109, Avr109Bootloader, DFUUtil, DFUUtilBootloader } from "../flash";
+import {
+  Avr109,
+  Avr109Bootloader,
+  DFUUtil,
+  DFUUtilBootloader,
+} from "@api/flash";
 
 const Model01 = {
   info: {

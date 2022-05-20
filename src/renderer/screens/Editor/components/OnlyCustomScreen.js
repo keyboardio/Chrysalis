@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2021  Keyboardio, Inc.
+ * Copyright (C) 2021-2022  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -25,11 +25,12 @@ import CardContent from "@mui/material/CardContent";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 
-import Focus from "../../../../api/focus";
-import openURL from "../../../utils/openURL";
-import i18n from "../../../i18n";
-import { navigate } from "../../../routerHistory";
-import { PageTitle } from "../../../components/PageTitle";
+import Focus from "@api/focus";
+import openURL from "@renderer/utils/openURL";
+import i18n from "@renderer/i18n";
+import { navigate } from "@renderer/routerHistory";
+import { PageTitle } from "@renderer/components/PageTitle";
+
 const OnlyCustomScreen = (props) => {
   const enableOnlyCustom = async () => {
     let focus = new Focus();

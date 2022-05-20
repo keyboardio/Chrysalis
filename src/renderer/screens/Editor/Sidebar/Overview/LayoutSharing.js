@@ -36,12 +36,12 @@ import MenuList from "@mui/material/MenuList";
 import Typography from "@mui/material/Typography";
 import withStyles from "@mui/styles/withStyles";
 
-import ConfirmationDialog from "../../../../components/ConfirmationDialog";
+import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
 
-import Focus from "../../../../../api/focus";
-import Log from "../../../../../api/log";
+import Focus from "@api/focus";
+import Log from "@api/log";
 import { KeymapDB } from "@api/keymap";
-import { getStaticPath } from "../../../../config";
+import { getStaticPath } from "@renderer/config";
 
 const db = new KeymapDB();
 const focus = new Focus();

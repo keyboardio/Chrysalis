@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018, 2019, 2020  Keyboardio, Inc.
+ * Copyright (C) 2018-2022  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -19,9 +19,9 @@ import React, { useState } from "react";
 import { Electron, ipcRenderer } from "electron";
 import path from "path";
 import fs from "fs";
-import { version } from "../../../package.json";
+import { version } from "@root/package.json";
 
-import Focus from "../../api/focus";
+import Focus from "@api/focus";
 
 import Box from "@mui/material/Box";
 import BuildIcon from "@mui/icons-material/Build";
@@ -51,14 +51,14 @@ import { toast } from "react-toastify";
 const Store = require("electron-store");
 const settings = new Store();
 
-import { getStaticPath } from "../config";
-import ConfirmationDialog from "../components/ConfirmationDialog";
-import SaveChangesButton from "../components/SaveChangesButton";
-import i18n from "../i18n";
+import { getStaticPath } from "@renderer/config";
+import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
+import SaveChangesButton from "@renderer/components/SaveChangesButton";
+import i18n from "@renderer/i18n";
 
-import clearEEPROM from "../utils/clearEEPROM";
-import checkExternalFlasher from "../utils/checkExternalFlasher";
-import { PageTitle } from "../components/PageTitle";
+import clearEEPROM from "@renderer/utils/clearEEPROM";
+import checkExternalFlasher from "@renderer/utils/checkExternalFlasher";
+import { PageTitle } from "@renderer/components/PageTitle";
 
 const FirmwareUpdate = (props) => {
   let focus = new Focus();

@@ -1,5 +1,5 @@
 /* chrysalis-hardware -- Chrysalis Hardware library collection
- * Copyright (C) 2019-2021  Keyboardio, Inc.
+ * Copyright (C) 2019-2022  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -18,16 +18,16 @@ import {
   Model01,
   Model100,
   Model100Bootloader,
-} from "../hardware-keyboardio-model01";
-import { Atreus } from "../hardware-technomancy-atreus";
-import { Atreus2 } from "../hardware-keyboardio-atreus2";
-import { Raise_ANSI } from "../hardware-dygma-raise-ansi";
-import { Raise_ISO } from "../hardware-dygma-raise-iso";
-import { ErgoDox } from "../hardware-ez-ergodox";
-import { Planck } from "../hardware-olkb-planck";
-import { KBD4x } from "../hardware-kbdfans-kbd4x";
-import { Splitography } from "../hardware-softhruf-splitography";
-import { GenericTeensy } from "../hardware-pjrc-teensy";
+} from "@api/hardware-keyboardio-model01";
+import { Atreus } from "@api/hardware-technomancy-atreus";
+import { Atreus2 } from "@api/hardware-keyboardio-atreus2";
+import { Raise_ANSI } from "@api/hardware-dygma-raise-ansi";
+import { Raise_ISO } from "@api/hardware-dygma-raise-iso";
+import { ErgoDox } from "@api/hardware-ez-ergodox";
+import { Planck } from "@api/hardware-olkb-planck";
+import { KBD4x } from "@api/hardware-kbdfans-kbd4x";
+import { Splitography } from "@api/hardware-softhruf-splitography";
+import { GenericTeensy } from "@api/hardware-pjrc-teensy";
 
 const Hardware = {
   serial: [

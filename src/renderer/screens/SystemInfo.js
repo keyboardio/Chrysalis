@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2020  Keyboardio, Inc.
+ * Copyright (C) 2020-2022  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -17,8 +17,8 @@
 
 import React, { useState } from "react";
 
-import Focus from "../../api/focus";
-import Log from "../../api/log";
+import Focus from "@api/focus";
+import Log from "@api/log";
 
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -41,16 +41,16 @@ import { ipcRenderer, Electron } from "electron";
 
 import { toast } from "react-toastify";
 
-import logo from "../logo-small.png";
-import { version } from "../../../package.json";
+import { version } from "@root/package.json";
+import logo from "@renderer/logo-small.png";
 
 import si from "systeminformation";
 import archiver from "archiver";
 import fs from "fs";
 import jsonStringify from "json-stringify-pretty-compact";
 import { v4 as uuidv4 } from "uuid";
-import { PageTitle } from "../components/PageTitle";
-import i18n from "../i18n";
+import { PageTitle } from "@renderer/components/PageTitle";
+import i18n from "@renderer/i18n";
 
 function SystemInfo(props) {
   const [collecting, setCollecting] = useState(false);

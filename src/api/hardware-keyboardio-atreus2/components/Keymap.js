@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* chrysalis-hardware-keyboardio-atreus2 -- Chrysalis Atreus2 support
- * Copyright (C) 2019, 2020  Keyboardio, Inc.
+ * Copyright (C) 2019-2022  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -21,7 +21,7 @@ import classNames from "classnames";
 import Atreus from "../data/atreus.png";
 import Box from "@mui/material/Box";
 
-import { KeymapDB } from "../../keymap";
+import { KeymapDB } from "@api/keymap";
 
 const db = new KeymapDB();
 

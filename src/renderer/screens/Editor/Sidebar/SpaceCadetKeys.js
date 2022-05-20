@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2020  Keyboardio, Inc.
+ * Copyright (C) 2020-2022  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -18,7 +18,7 @@
 import React from "react";
 import i18n from "i18next";
 
-import CategorySelector from "@renderer/screens/Editor/components/CategorySelector";
+import CategorySelector from "../components/CategorySelector";
 
 const SpaceCadetKeys = (props) => {
   const { keymap, selectedKey, layer, onKeyChange } = props;

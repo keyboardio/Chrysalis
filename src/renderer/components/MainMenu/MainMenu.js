@@ -27,13 +27,13 @@ import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
 import ListItemIcon from "@mui/material/ListItemIcon";
 
-import logo from "../../logo-small.png";
-import i18n from "../../i18n";
+import logo from "@renderer/logo-small.png";
+import i18n from "@renderer/i18n";
 
-import { version } from "../../../../package.json";
+import { version } from "@root/package.json";
 
 import UpgradeMenuItem from "./UpgradeMenuItem";
-import openURL from "../../utils/openURL";
+import openURL from "@renderer/utils/openURL";
 import ChatIcon from "@mui/icons-material/Chat";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import InfoIcon from "@mui/icons-material/Info";
@@ -43,9 +43,9 @@ import KeyboardIcon from "@mui/icons-material/Keyboard";
 
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
-import { history } from "../../routerHistory";
+import { history } from "@renderer/routerHistory";
 
-import { GlobalContext } from "../GlobalContext";
+import { GlobalContext } from "@renderer/components/GlobalContext";
 
 function MainMenu({ open, closeMenu, classes }) {
   const drawerWidth = 350;

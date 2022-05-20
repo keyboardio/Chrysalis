@@ -90,7 +90,10 @@ const LayoutCard = (props) => {
       if (j.code != 65535) {
         // If it's not empty, add it to the keymap_pix array
         keymap_pix.push(
-          <Box sx={{ width: "auto", breakInside: "avoid" }}>
+          <Box
+            sx={{ width: "auto", breakInside: "avoid" }}
+            key={`LayerCard-${i}`}
+          >
             <Typography
               variant="h3"
               sx={{

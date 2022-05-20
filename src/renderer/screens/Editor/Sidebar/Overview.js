@@ -23,6 +23,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import CropSquareIcon from "@mui/icons-material/CropSquare";
+import Tooltip from "@mui/material/Tooltip";
 import FormHelperText from "@mui/material/FormHelperText";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -136,26 +137,27 @@ const Overview = (props) => {
 
   return (
     <Box sx={{ mb: 2 }}>
-      <FormHelperText sx={{ mb: 2 }}>
-        {i18n.t("editor.sidebar.overview.help")}
-      </FormHelperText>
       <TableContainer component={Paper} sx={{ mb: 2 }}>
         <Table size="small">
-          <TableHead>
-            <TableRow>
-              <TableCell size="small">
-                {i18n.t("components.layerRaw")}
-              </TableCell>
-              <TableCell>
-                {i18n.t("editor.sidebar.overview.key", {
-                  index: selectedKey,
-                })}
-              </TableCell>
-              {colormap && colormap.palette.length > 0 && (
-                <TableCell>{i18n.t("editor.sidebar.overview.color")}</TableCell>
-              )}
-            </TableRow>
-          </TableHead>
+          <Tooltip title={i18n.t("editor.sidebar.overview.help")}>
+            <TableHead>
+              <TableRow>
+                <TableCell size="small">
+                  {i18n.t("components.layerRaw")}
+                </TableCell>
+                <TableCell>
+                  {i18n.t("editor.sidebar.overview.key", {
+                    index: selectedKey,
+                  })}
+                </TableCell>
+                {colormap && colormap.palette.length > 0 && (
+                  <TableCell>
+                    {i18n.t("editor.sidebar.overview.color")}
+                  </TableCell>
+                )}
+              </TableRow>
+            </TableHead>
+          </Tooltip>
           <TableBody>{config}</TableBody>
           {footer}
         </Table>

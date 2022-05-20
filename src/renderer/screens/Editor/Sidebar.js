@@ -97,16 +97,13 @@ const Sidebar = (props) => {
         "& .MuiDrawer-paper": {
           width: sidebarWidth,
           boxSizing: "border-box",
-          p: 1,
+          p: 0,
           zIndex: (theme) => theme.zIndex.appBar - 100,
         },
       }}
     >
       <Toolbar />
-      <Box sx={{ p: 3 }}>
-        <Typography variant="h6" sx={{ mb: 2 }}>
-          {i18n.t("components.layer", { index: layer })}
-        </Typography>
+      <Box sx={{ px: 1 }}>
         <Overview
           keymap={keymap}
           colormap={colormap}

@@ -5,7 +5,7 @@ import Modal from "react-bootstrap/Modal";
 import i18n from "../../i18n";
 
 import { RegularButton, ButtonConfig } from "../Button";
-import { IconRecord, IconArrowInBoxDown, IconPauseXl } from "../Icon";
+import { IconRecord, IconArrowInBoxDown, IconPauseXl, IconUndoRestart } from "../Icon";
 import AnimatedTimelineRecording from "../../modules/Macros/AnimatedTimelineRecording";
 
 const Styles = Styled.div`
@@ -106,7 +106,16 @@ export default class RecordMacroModal extends React.Component {
               <AnimatedTimelineRecording isRecording={this.state.isRecording} />
             </div>
             <div className="recordMacrosButton">
-              <ButtonConfig buttonText="Undo" style="rounded" onClick={this.undoRecording} />
+              {!this.state.cleanRecord ? (
+                <ButtonConfig
+                  tooltip={i18n.editor.macros.recordingDiscard}
+                  icoSVG={<IconUndoRestart />}
+                  style="undoRecording"
+                  onClick={this.undoRecording}
+                />
+              ) : (
+                ""
+              )}
               <RegularButton
                 buttonText={
                   this.state.cleanRecord ? i18n.editor.macros.startRecord : this.state.isRecording ? "Pause icon" : "Resume"

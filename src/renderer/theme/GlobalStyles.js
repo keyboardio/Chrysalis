@@ -405,7 +405,7 @@ svg text{
   font-weight: 600;
   letter-spacing: -0.03em;
   padding: 8px 16px;
-  border: ${({ theme }) => theme.styles.button.config.border} 
+  border: ${({ theme }) => theme.styles.button.config.border};
   color: ${({ theme }) => theme.styles.button.config.color}; 
   background: ${({ theme }) => theme.styles.button.config.background};
   border: none;
@@ -844,11 +844,19 @@ div.card.card-preferences .card-body {
   .tabSaveButton {
     text-align: center;
   }
-  .button-config.rounded {
+  .button-config.undoRecording {
     position: absolute;
     top: 0;
     left: 50%;
-    transform: translate3d(-120px,0, 0);
+    transform: translate3d(-164px, 3px, 0);
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
   }
   .recordButton {
     border: 3px solid ${({ theme }) => theme.styles.button.recordButton.borderColor};
@@ -860,6 +868,17 @@ div.card.card-preferences .card-body {
     font-weight: 700;
     z-index: 3;
     position: relative;
+    svg {
+      display: none;
+    }
+    &.isRecording {
+      svg {
+        display: inline-block;
+      }
+      .buttonText {
+        display: none;
+      }
+    }
     &:hover {
       background:  ${({ theme }) => theme.styles.button.recordButton.backgroundHover};
     }

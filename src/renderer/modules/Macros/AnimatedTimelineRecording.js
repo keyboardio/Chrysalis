@@ -33,7 +33,7 @@ const Styles = Styled.div`
     display: flex;
     position: relative;
     transform: translate3d(var(--move-initial), 0, 0);
-    animation: marquee 5s linear infinite;
+    animation: marquee 8s linear infinite;
     animation-play-state: paused;
 }
 .blockRect {

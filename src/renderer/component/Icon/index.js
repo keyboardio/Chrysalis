@@ -90,6 +90,7 @@ import IconToolsBrightnessMore from "./IconToolsBrightnessMore";
 import IconThreeDots from "./IconThreeDots";
 import IconPlus from "./IconPlus";
 import IconSettings from "./IconSettings";
+import IconUndoRestart from "./IconUndoRestart";
 import IconWrench from "./IconWrench";
 
 export {
@@ -169,5 +170,6 @@ export {
   IconThreeDots,
   IconPlus,
   IconSettings,
+  IconUndoRestart,
   IconWrench
 };

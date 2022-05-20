@@ -44,18 +44,25 @@ const Collapsible = (props) => {
         border: "1px solid rgba(0, 0, 0, .125)",
         padding: "0 2",
         flexDirection: "row-reverse",
+        "&.Mui-expanded": {
+          margin: "0 0",
+          minHeight: 0,
+        },
         "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
           transform: "rotate(90deg)",
         },
         "& .MuiAccordionSummary-content": {
           marginLeft: 2,
           py: "12px",
-          minHeight: "48px",
           my: "0px",
+        },
+        "& .MuiAccordionSummary-content.Mui-expanded": {
+          marginLeft: 2,
+          my: 0,
         },
         "&.MuiButtonBase-root.MuiAccordionSummary-root.Mui-expanded.MuiAccordionSummary-gutters":
           {
-            minHeight: "48px",
+            my: 0,
           },
       }}
     >
@@ -71,8 +78,8 @@ const Collapsible = (props) => {
       sx={{
         boxShadow: "none",
         margin: `0px 0px -1px 0px`,
-        "& .Mui-expanded": {
-          margin: "0 0",
+        "&.Mui-expanded": {
+          margin: `0px 0px -1px 0px`,
         },
         "&:before": {
           display: "none",

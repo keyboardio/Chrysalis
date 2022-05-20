@@ -53,7 +53,14 @@ const Model01 = {
     keymap: Keymap,
   },
 
-  flashSteps: ["bootloaderTrigger", "bootloaderWait", "flash"],
+  flashSteps: [
+    "saveEEPROM",
+    "bootloaderTrigger",
+    "bootloaderWait",
+    "flash",
+    "reconnect",
+    "restoreEEPROM",
+  ],
   externalFlasher: "avrdude",
   flash: async (port, filename, options) => {
     const board = {
@@ -113,8 +120,8 @@ const Model100 = {
     "bootloaderTrigger",
     "bootloaderWait",
     "flash",
+    "reconnect",
     "restoreEEPROM",
-    "reboot",
   ],
   flash: async (port, filename, options) => {
     return DFUUtil(port, filename, options);

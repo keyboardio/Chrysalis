@@ -35,12 +35,12 @@ import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
 
 import Focus from "../../../api/focus";
+import { FocusCommands } from "@api/flash";
 
 import ConfirmationDialog from "../../components/ConfirmationDialog";
 import SaveChangesButton from "../../components/SaveChangesButton";
 import i18n from "../../i18n";
 import clearEEPROM from "../../utils/clearEEPROM";
-import deviceReset from "../../utils/deviceReset";
 import checkExternalFlasher from "../../utils/checkExternalFlasher";
 
 import {
@@ -256,12 +256,14 @@ const AdvancedKeyboardSettings = () => {
     useState(false);
   const [preferExternalFlasher, _setPreferExternalFlasher] = useState(false);
   const [working, setWorking] = useState(false);
+  const focusCommands = new FocusCommands({ focus: new Focus() });
   const resetEEPROM = async () => {
     setWorking(true);
     closeEEPROMResetConfirmation();
 
     await clearEEPROM();
-    await deviceReset();
+    await focusCommands.reboot();
+
     setWorking(false);
   };
   const openEEPROMResetConfirmation = () => {

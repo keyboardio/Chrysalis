@@ -85,6 +85,7 @@ const English = {
     sharing: {
       title: "Backup & Restore",
       loadFromLibrary: "Load from library",
+      loadFromBackup: "Load from backups",
       loadFromFile: "Load from file...",
       exportToFile: "Export to file...",
       import: "Import",
@@ -316,6 +317,7 @@ const English = {
         bootloaderWait: "Waiting for bootloader",
         saveEEPROM: "Saving EEPROM contents",
         restoreEEPROM: "Restoring EEPROM contents",
+        reconnect: "Reconnecting",
         flash: "Flashing",
         reboot: "Rebooting",
       },

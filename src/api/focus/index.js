@@ -43,37 +43,43 @@ class Focus {
     this.logger.debug(...args);
   }
 
-  async waitForSerialBootloader(focusDeviceDescriptor) {
+  async waitForSerialDevice(focusDeviceDescriptor, usbInfo) {
     const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
     for (let attempt = 0; attempt < 10; attempt++) {
       let portList = await SerialPort.list();
       this.debugLog(
-        "focus.waitForBootloader: portList:",
+        "focus.waitForSerialDevice: portList:",
         portList,
         "device:",
-        focusDeviceDescriptor
+        usbInfo
       );
 
       for (let port of portList) {
         const pid = parseInt("0x" + port.productId),
-          vid = parseInt("0x" + port.vendorId),
-          bootloader = focusDeviceDescriptor.usb.bootloader;
+          vid = parseInt("0x" + port.vendorId);
 
-        if (pid == bootloader.productId && vid == bootloader.vendorId) {
+        if (pid == usbInfo.productId && vid == usbInfo.vendorId) {
           let newPort = Object.assign({}, port);
           newPort.focusDeviceDescriptor = focusDeviceDescriptor;
           newPort.focusDeviceDescriptor.bootloader = true;
-          this.debugLog("focus.waitForBootloader: found!", newPort);
+          this.debugLog("focus.waitForSerialDevice: found!", newPort);
           return newPort;
         }
       }
-      this.debugLog("focus.waitForBootloader: not found, waiting 2s");
+      this.debugLog("focus.waitForSerialDevice: not found, waiting 2s");
       await delay(2000);
     }
 
-    this.debugLog("focus.waitForBootloader: none found");
+    this.debugLog("focus.waitForSerialDevice: none found");
     return null;
+  }
+
+  async waitForSerialBootloader(focusDeviceDescriptor) {
+    return await this.waitForSerialDevice(
+      focusDeviceDescriptor,
+      focusDeviceDescriptor.usb.bootloader
+    );
   }
 
   async waitForDFUBootloader(focusDeviceDescriptor) {
@@ -115,6 +121,15 @@ class Focus {
     } else {
       return await this.waitForSerialBootloader(focusDeviceDescriptor);
     }
+  }
+
+  async reconnectToKeyboard(focusDeviceDescriptor) {
+    this.debugLog("In reconnectToKeyboard", focusDeviceDescriptor);
+    const d = await this.waitForSerialDevice(
+      focusDeviceDescriptor,
+      focusDeviceDescriptor.usb
+    );
+    return await this.open(d.path, d);
   }
 
   async find(...device_descriptors) {
@@ -334,6 +349,50 @@ class Focus {
   async _help(s) {
     let data = await s.request("help");
     return data.split(/\r?\n/).filter((v) => v.length > 0);
+  }
+
+  eepromRestoreCommands = [
+    "keymap",
+    "colormap",
+    "settings.defaultLayer",
+    "escape_oneshot.cancel_key",
+    "idleleds.time_limit",
+    "led.brightness",
+    "macros.map",
+    "tapdance.map",
+    "hostos.type",
+    "autoshift.enabled",
+    "autoshift.timeout",
+    "autoshift.categories",
+    "typingbreaks.idleTimeLimit",
+    "typingbreaks.lockTimeOut",
+    "typingbreaks.lockLength",
+    "typingbreaks.leftMaxKeys",
+    "typingbreaks.rightMaxKeys",
+  ];
+
+  eepromBackupCommands = [
+    ...this.eepromRestoreCommands,
+    "help",
+    "plugins",
+    "eeprom.contents",
+    "eeprom.free",
+    "settings.valid?",
+    "settings.version",
+    "settings.crc",
+  ];
+  async readKeyboardConfiguration() {
+    let backup = {};
+    for (const cmd of this.eepromBackupCommands) {
+      const dump = await this.command(cmd);
+      backup[cmd] = dump;
+    }
+    return backup;
+  }
+  async writeKeyboardConfiguration(backup) {
+    for (const cmd of this.eepromRestoreCommands) {
+      await this.command(cmd, backup[cmd]);
+    }
   }
 }
 

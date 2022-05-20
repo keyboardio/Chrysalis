@@ -41,8 +41,9 @@ const Atreus = {
     keymap: Keymap,
   },
 
-  flash: async (_, filename) => {
-    return teensy(filename);
+  flashSteps: ["saveEEPROM", "flash", "reconnect", "restoreEEPROM"],
+  flash: async (_, filename, options) => {
+    return teensy(filename, options);
   },
 };
 

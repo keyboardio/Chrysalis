@@ -41,8 +41,9 @@ const KBD4x = {
     keymap: Keymap,
   },
 
-  flash: async (_, filename) => {
-    return await DFUProgrammer(filename);
+  flashSteps: ["saveEEPROM", "flash", "reconnect", "restoreEEPROM"],
+  flash: async (_, filename, options) => {
+    return await DFUProgrammer(filename, options);
   },
 };
 

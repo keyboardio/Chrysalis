@@ -235,7 +235,7 @@ const Editor = (props) => {
 
   const onApply = async () => {
     await focus.command("keymap", keymap);
-    await focus.command("colormap", colormap.palette, colormap.colorMap);
+    await focus.command("colormap", colormap);
     setModified(false);
 
     logger.log("Changes saved.");

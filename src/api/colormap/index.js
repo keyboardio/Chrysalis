@@ -97,10 +97,12 @@ export default class Colormap {
     return await s.request("colormap.map", ...args);
   }
 
-  async focus(s, palette, colormap) {
-    if (!palette && !colormap) {
+  async focus(s, data) {
+    if (!data) {
       return this._pull(s);
     }
+
+    const { palette, colormap } = data;
 
     if (palette) await this._updatePalette(s, palette);
     if (colormap) await this._updateColormap(s, colormap);

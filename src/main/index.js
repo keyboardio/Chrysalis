@@ -41,7 +41,9 @@ import {
 } from "./ipc_device_discovery";
 import { registerFileIoHandlers } from "./ipc_file_io";
 import { registerDevtoolsHandlers } from "./ipc_devtools";
+import { registerBackupHandlers } from "./ipc_backups";
 import { buildMenu } from "./menu";
+
 initialize();
 
 // Settings storage
@@ -204,3 +206,4 @@ process.on("uncaughtException", function (error) {
 registerDeviceDiscoveryHandlers();
 registerFileIoHandlers();
 registerDevtoolsHandlers();
+registerBackupHandlers();

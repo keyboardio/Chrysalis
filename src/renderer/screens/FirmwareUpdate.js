@@ -341,7 +341,7 @@ const FirmwareUpdate = (props) => {
   });
 
   const stepsWidget = (
-    <Stepper activeStep={activeStep}>
+    <Stepper activeStep={activeStep} alternativeLabel>
       {steps.map((label) => {
         return (
           <Step key={label}>

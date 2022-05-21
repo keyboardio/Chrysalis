@@ -37,12 +37,7 @@ import Typography from "@mui/material/Typography";
 import { green } from "@mui/material/colors";
 
 import AddIcon from "@mui/icons-material/Add";
-import AvTimerIcon from "@mui/icons-material/AvTimer";
 import CloseIcon from "@mui/icons-material/Close";
-import TouchAppIcon from "@mui/icons-material/TouchApp";
-import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 import { PageTitle } from "@renderer/components/PageTitle";
 
@@ -65,68 +60,7 @@ const MacroStepAdd = (props) => {
   );
 };
 
-const MacroStepAsIconChip = (props) => {
-  const { step } = props;
-
-  const onDelete = () => {};
-
-  const formatLabel = (step) => {
-    if (step.type == "INTERVAL" || step.type == "WAIT")
-      return step.value.toString();
-    if (step.type == "TAP" || step.type == "KEYUP" || step.type == "KEYDOWN")
-      return db.format(step.value).main;
-    if (step.type == "TAPSEQUENCE") {
-      const seq = step.value.map((k) => db.format(k).main);
-      return seq.join(" ");
-    }
-    return "<unknown>";
-  };
-  const icons = {
-    WAIT: (
-      <Tooltip title="Wait for the given milliseconds" arrow>
-        <HourglassEmptyIcon />
-      </Tooltip>
-    ),
-    TAP: (
-      <Tooltip title="Tap the given key" arrow>
-        <TouchAppIcon />
-      </Tooltip>
-    ),
-    INTERVAL: (
-      <Tooltip
-        title="Wait for the given milliseconds between each following step"
-        arrow
-      >
-        <AvTimerIcon />
-      </Tooltip>
-    ),
-    TAPSEQUENCE: (
-      <Tooltip title="Tap a sequence of keys" arrow>
-        <TouchAppIcon />
-      </Tooltip>
-    ),
-    KEYUP: (
-      <Tooltip title="Release the given key" arrow>
-        <KeyboardArrowUpIcon />
-      </Tooltip>
-    ),
-    KEYDOWN: (
-      <Tooltip title="Push the given key down" arrow>
-        <KeyboardArrowDownIcon />
-      </Tooltip>
-    ),
-  };
-
-  return (
-    <Chip
-      onDelete={onDelete}
-      icon={icons[step.type]}
-      label={formatLabel(step)}
-    />
-  );
-};
-
-const MacroStepAsTextChip = (props) => {
+const MacroStep = (props) => {
   const { step } = props;
 
   const onDelete = () => {};
@@ -162,8 +96,6 @@ const MacroStepAsTextChip = (props) => {
 
   return <Chip onDelete={onDelete} label={createLabel(step)} sx={{ m: 0.5 }} />;
 };
-
-const MacroStep = MacroStepAsTextChip;
 
 const MacroEditor = (props) => {
   const { macroId, onClose } = props;

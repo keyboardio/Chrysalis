@@ -139,7 +139,7 @@ const MacroStepAsTextChip = (props) => {
     );
   };
 
-  return <Chip onDelete={onDelete} label={createLabel(step)} />;
+  return <Chip onDelete={onDelete} label={createLabel(step)} sx={{ m: 0.5 }} />;
 };
 
 const MacroStep = MacroStepAsTextChip;
@@ -189,7 +189,7 @@ const MacroEditor = (props) => {
           title={`Macro ${macroId}`}
         />
         <CardContent>
-          <Stack direction="row" spacing={1}>
+          <Stack direction="row" flexWrap="wrap">
             {steps}
           </Stack>
         </CardContent>

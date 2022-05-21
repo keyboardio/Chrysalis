@@ -61,9 +61,11 @@ const MacroStepAdd = (props) => {
 };
 
 const MacroStep = (props) => {
-  const { step } = props;
+  const { step, index, onDelete } = props;
 
-  const onDelete = () => {};
+  const onStepDelete = () => {
+    onDelete(index);
+  };
 
   const formatLabel = (step) => {
     if (step.type == "INTERVAL" || step.type == "WAIT")
@@ -94,28 +96,38 @@ const MacroStep = (props) => {
     );
   };
 
-  return <Chip onDelete={onDelete} label={createLabel(step)} sx={{ m: 0.5 }} />;
+  return (
+    <Chip onDelete={onStepDelete} label={createLabel(step)} sx={{ m: 0.5 }} />
+  );
 };
 
 const MacroEditor = (props) => {
   const { macroId, onClose } = props;
-  const [macros, setMacros] = useState({ macros: [] });
+  const [macro, setMacro] = useState(null);
 
-  const getMacros = async () => {
-    setMacros(await focus.command("macros"));
+  const getMacro = async (id) => {
+    const macros = await focus.command("macros");
+    setMacro(macros.macros[id]);
+  };
+
+  const onDelete = (index) => {
+    const m = macro.map((v) => Object.assign({}, v));
+    m.splice(index, 1);
+    setMacro(m);
   };
 
   useEffect(() => {
-    getMacros();
+    if (macro == null) getMacro(macroId);
   }, []);
 
   if (macroId == null) return null;
-  if (macroId > macros.macros.length) return null;
-  const macro = macros.macros[macroId];
+  if (macro == null) return null;
 
   const steps = macro.map((step, index) => {
     const key = "macro-step-" + index.toString();
-    return <MacroStep key={key} step={step} />;
+    return (
+      <MacroStep key={key} step={step} index={index} onDelete={onDelete} />
+    );
   });
 
   return (

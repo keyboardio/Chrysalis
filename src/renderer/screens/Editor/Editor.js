@@ -74,6 +74,18 @@ const Editor = (props) => {
     _setLayout(layoutSetting);
   };
 
+  const onMacroEditorApply = async (id, macro) => {
+    const newMacros = {
+      storageSize: macros.storageSize,
+      macros: macros.macros.map((m, index) => {
+        if (index == id) return macro;
+        return m;
+      }),
+    };
+    setMacros(newMacros);
+    // await focus.command("macros", newMacros);
+  };
+
   const pullMacros = async () => {
     if (macros == null) setMacros(await focus.command("macros"));
   };
@@ -291,6 +303,7 @@ const Editor = (props) => {
     mainWidget = (
       <MacroEditor
         onClose={onMacroEditorClose}
+        onApply={onMacroEditorApply}
         macroId={currentMacroId}
         macro={macros.macros[currentMacroId]}
       />

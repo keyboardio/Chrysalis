@@ -49,9 +49,14 @@ const MacroEditor = (props) => {
     setWipMacro(m);
   };
 
+  const onApply = async () => {
+    await props.onApply(macroId, wipMacro);
+    await props.onClose();
+  };
+
   useEffect(() => {
     if (wipMacro == null) setWipMacro(macro);
-  });
+  }, [macro, wipMacro]);
 
   if (macroId == null) return null;
   if (wipMacro == null) return null;
@@ -94,7 +99,9 @@ const MacroEditor = (props) => {
         </CardContent>
         <CardActions>
           <Box sx={{ flexGrow: 1 }} />
-          <Button color="primary">Apply</Button>
+          <Button color="primary" onClick={onApply}>
+            Apply
+          </Button>
         </CardActions>
       </Card>
     </Box>

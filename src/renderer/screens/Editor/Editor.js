@@ -32,6 +32,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FloatingKeyPicker } from "./components/FloatingKeyPicker";
 import { LegacyAlert } from "./components/LegacyAlert";
+import MacroEditor from "./Macros/MacroEditor";
 import OnlyCustomScreen from "./components/OnlyCustomScreen";
 import Sidebar, { sidebarWidth } from "./Sidebar";
 
@@ -61,6 +62,8 @@ const Editor = (props) => {
   const [loading, setLoading] = useState(true);
   const [currentLayer, setCurrentLayer] = useState(0);
   const [hasLegacy, setHasLegacy] = useState(false);
+  const [openMacroEditor, setOpenMacroEditor] = useState(false);
+  const [currentMacroId, setCurrentMacroId] = useState(null);
 
   const { t } = useTranslation();
 
@@ -92,12 +95,24 @@ const Editor = (props) => {
     settings.set("keyboard.layout", layout);
   };
 
-  const onKeySelect = (event) => {
+  const onKeySelect = async (event) => {
     const target = event.currentTarget;
     const keyIndex = parseInt(target.getAttribute("data-key-index"));
     const ledIndex = parseInt(target.getAttribute("data-led-index"));
-    setCurrentKeyIndex(keyIndex);
-    setCurrentLedIndex(ledIndex);
+    await setCurrentKeyIndex(keyIndex);
+    await setCurrentLedIndex(ledIndex);
+
+    const key = keymap.custom[currentLayer][keyIndex];
+    if (db.isInCategory(key, "macros")) {
+      const macroId = key.code - key.rangeStart;
+
+      await setCurrentMacroId(macroId);
+      await setOpenMacroEditor(true);
+    }
+  };
+
+  const onMacroEditorClose = () => {
+    setOpenMacroEditor(false);
   };
 
   const onKeyChange = (keyCode) => {
@@ -307,6 +322,11 @@ const Editor = (props) => {
         keymap={keymap}
         currentKeyIndex={currentKeyIndex}
         currentLayer={currentLayer}
+      />
+      <MacroEditor
+        open={openMacroEditor}
+        onClose={onMacroEditorClose}
+        macroId={currentMacroId}
       />
       <SaveChangesButton floating onClick={onApply} disabled={!modified}>
         {t("components.save.saveChanges")}

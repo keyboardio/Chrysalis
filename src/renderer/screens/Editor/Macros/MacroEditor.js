@@ -20,86 +20,24 @@ import React, { useEffect, useState } from "react";
 import Focus from "@api/focus";
 import { KeymapDB } from "@api/keymap";
 
-import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
-import Chip from "@mui/material/Chip";
-import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
-import Tooltip from "@mui/material/Tooltip";
-import Typography from "@mui/material/Typography";
 
-import { green } from "@mui/material/colors";
-
-import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
 
 import { PageTitle } from "@renderer/components/PageTitle";
 
+import MacroStep from "./MacroStep";
+import MacroStepAdd from "./MacroStepAdd";
+
 const focus = new Focus();
 const db = new KeymapDB();
-
-const MacroStepAdd = (props) => {
-  return (
-    <Avatar
-      component="a"
-      sx={{
-        bgcolor: green[500],
-        width: 32,
-        height: 32,
-        m: 0.5,
-      }}
-    >
-      <AddIcon />
-    </Avatar>
-  );
-};
-
-const MacroStep = (props) => {
-  const { step, index, onDelete } = props;
-
-  const onStepDelete = () => {
-    onDelete(index);
-  };
-
-  const formatLabel = (step) => {
-    if (step.type == "INTERVAL" || step.type == "WAIT")
-      return step.value.toString() + "ms";
-    if (step.type == "TAP" || step.type == "KEYUP" || step.type == "KEYDOWN")
-      return db.format(step.value).main;
-    if (step.type == "TAPSEQUENCE") {
-      const seq = step.value.map((k) => db.format(k).main);
-      return seq.join(", ");
-    }
-    return "<unknown>";
-  };
-
-  const createLabel = (step) => {
-    const descs = {
-      INTERVAL: "Delay between steps:",
-      TAP: "Tap:",
-      TAPSEQUENCE: "Tap:",
-      WAIT: "Wait:",
-      KEYUP: "Release key:",
-      KEYDOWN: "Hold key:",
-    };
-
-    return (
-      <React.Fragment>
-        <strong>{descs[step.type]}</strong> {formatLabel(step)}
-      </React.Fragment>
-    );
-  };
-
-  return (
-    <Chip onDelete={onStepDelete} label={createLabel(step)} sx={{ m: 0.5 }} />
-  );
-};
 
 const MacroEditor = (props) => {
   const { macroId, onClose } = props;

@@ -20,6 +20,7 @@ import React, { useEffect, useState } from "react";
 import Focus from "@api/focus";
 import { KeymapDB } from "@api/keymap";
 
+import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -33,6 +34,9 @@ import Stack from "@mui/material/Stack";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 
+import { green } from "@mui/material/colors";
+
+import AddIcon from "@mui/icons-material/Add";
 import AvTimerIcon from "@mui/icons-material/AvTimer";
 import CloseIcon from "@mui/icons-material/Close";
 import TouchAppIcon from "@mui/icons-material/TouchApp";
@@ -44,6 +48,22 @@ import { PageTitle } from "@renderer/components/PageTitle";
 
 const focus = new Focus();
 const db = new KeymapDB();
+
+const MacroStepAdd = (props) => {
+  return (
+    <Avatar
+      component="a"
+      sx={{
+        bgcolor: green[500],
+        width: 32,
+        height: 32,
+        m: 0.5,
+      }}
+    >
+      <AddIcon />
+    </Avatar>
+  );
+};
 
 const MacroStepAsIconChip = (props) => {
   const { step } = props;
@@ -192,6 +212,7 @@ const MacroEditor = (props) => {
         <CardContent>
           <Stack direction="row" flexWrap="wrap">
             {steps}
+            <MacroStepAdd />
           </Stack>
         </CardContent>
         <CardActions>

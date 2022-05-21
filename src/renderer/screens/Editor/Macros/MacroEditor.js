@@ -96,7 +96,44 @@ const MacroStepAsIconChip = (props) => {
   );
 };
 
-const MacroStep = MacroStepAsIconChip;
+const MacroStepAsTextChip = (props) => {
+  const { step } = props;
+
+  const onDelete = () => {};
+
+  const formatLabel = (step) => {
+    if (step.type == "INTERVAL" || step.type == "WAIT")
+      return step.value.toString() + "ms";
+    if (step.type == "TAP" || step.type == "KEYUP" || step.type == "KEYDOWN")
+      return db.format(step.value).main;
+    if (step.type == "TAPSEQUENCE") {
+      const seq = step.value.map((k) => db.format(k).main);
+      return seq.join(", ");
+    }
+    return "<unknown>";
+  };
+
+  const createLabel = (step) => {
+    const descs = {
+      INTERVAL: "Delay between steps:",
+      TAP: "Tap:",
+      TAPSEQUENCE: "Tap:",
+      WAIT: "Wait:",
+      KEYUP: "Release key:",
+      KEYDOWN: "Hold key:",
+    };
+
+    return (
+      <React.Fragment>
+        <strong>{descs[step.type]}</strong> {formatLabel(step)}
+      </React.Fragment>
+    );
+  };
+
+  return <Chip onDelete={onDelete} label={createLabel(step)} />;
+};
+
+const MacroStep = MacroStepAsTextChip;
 
 const MacroEditor = (props) => {
   const { onClose, macroId, open } = props;

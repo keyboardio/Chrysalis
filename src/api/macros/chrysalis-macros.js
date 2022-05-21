@@ -251,13 +251,65 @@ class Macros {
     return macros;
   }
 
+  expandMacro(macro) {
+    let m = macro.map((v) => Object.assign({}, v));
+    const mapping = {
+      KEYCODEUP: "KEYUP",
+      KEYCODEDOWN: "KEYDOWN",
+      TAPCODE: "TAP",
+      TAPCODESEQUENCE: "TAPSEQUENCE",
+    };
+
+    for (let step of m) {
+      if (mapping[step.type]) {
+        step.type = mapping[step.type];
+      }
+    }
+
+    return m;
+  }
+
+  compressMacro(macro) {
+    let m = macro.map((v) => Object.assign({}, v));
+    for (let step of m) {
+      if (step.type == "KEYUP" && step.value.code < 256)
+        step.type = "KEYCODEUP";
+      if (step.type == "KEYDOWN" && step.value.code < 256)
+        step.type = "KEYCODEDOWN";
+      if (step.type == "TAP" && step.value.code < 256) step.type = "TAPCODE";
+      if (step.type == "TAPSEQUENCE") {
+        if (step.value.filter((c) => c.code >= 256).length == 0) {
+          step.type = "TAPCODESEQUENCE";
+        }
+      }
+    }
+    return m;
+  }
+
+  compress(macros) {
+    const m = macros.macros.map((m) => {
+      return this.compressMacro(m.map((v) => Object.assign({}, v)));
+    });
+
+    return {
+      storageSize: macros.storageSize,
+      macros: m,
+    };
+  }
+
+  getStoredSize(macros) {
+    return this.serializeMacros(this.compress(macros).macros).length;
+  }
+
   async focus(s, macros) {
     if (macros) {
-      const ser = this.serializeMacros(macros.macros);
-      if (ser.length > macros.storageSize) {
+      const m = this.compress(macros);
+      const ser = this.serializeMacros(m.macros);
+      if (ser.length > m.storageSize) {
         throw new Error("Not enough macro storage space!");
       }
-      await s.request("macros.map", ...this.serializeMacros(macros.macros));
+
+      await s.request("macros.map", ...ser);
     } else {
       const macroMap = (await s.request("macros.map"))
         .trimEnd()
@@ -266,7 +318,7 @@ class Macros {
 
       return {
         storageSize: macroMap.length,
-        macros: this.parseMacros(macroMap),
+        macros: this.parseMacros(macroMap).map((m) => this.expandMacro(m)),
       };
     }
   }

@@ -19,18 +19,27 @@ import React, { useEffect, useState } from "react";
 
 import Focus from "@api/focus";
 import { KeymapDB } from "@api/keymap";
+
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardHeader from "@mui/material/CardHeader";
 import Chip from "@mui/material/Chip";
-import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
 
 import AvTimerIcon from "@mui/icons-material/AvTimer";
+import CloseIcon from "@mui/icons-material/Close";
 import TouchAppIcon from "@mui/icons-material/TouchApp";
 import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+
+import { PageTitle } from "@renderer/components/PageTitle";
 
 const focus = new Focus();
 const db = new KeymapDB();
@@ -136,7 +145,7 @@ const MacroStepAsTextChip = (props) => {
 const MacroStep = MacroStepAsTextChip;
 
 const MacroEditor = (props) => {
-  const { onClose, macroId, open } = props;
+  const { macroId } = props;
   const [macros, setMacros] = useState({ macros: [] });
 
   const getMacros = async () => {
@@ -157,14 +166,35 @@ const MacroEditor = (props) => {
   });
 
   return (
-    <Dialog onClose={onClose} open={open} maxWidth="xl" fullWidth>
-      <DialogTitle>Macro #{macroId}</DialogTitle>
-      <DialogContent>
-        <Stack direction="row" spacing={1}>
-          {steps}
-        </Stack>
-      </DialogContent>
-    </Dialog>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <PageTitle title=": Macro Editor" />
+      <Card
+        sx={{
+          my: 4,
+          mx: "auto",
+          maxWidth: "75%",
+        }}
+      >
+        <CardHeader
+          action={
+            <IconButton>
+              <CloseIcon />
+            </IconButton>
+          }
+          title={`Macro ${macroId}`}
+        />
+        <CardContent>
+          <Stack direction="row" spacing={1}>
+            {steps}
+          </Stack>
+        </CardContent>
+      </Card>
+    </Box>
   );
 };
 

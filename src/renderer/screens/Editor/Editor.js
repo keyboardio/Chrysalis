@@ -280,6 +280,23 @@ const Editor = (props) => {
     title = t("app.menu.colormapEditor");
   }
 
+  let mainWidget;
+  if (openMacroEditor) {
+    mainWidget = <MacroEditor macroId={currentMacroId} />;
+  } else {
+    mainWidget = (
+      <KeymapSVG
+        className="layer"
+        index={currentLayer}
+        keymap={keymap?.custom[currentLayer]}
+        onKeySelect={onKeySelect}
+        selectedKey={currentKeyIndex}
+        palette={colormap.palette}
+        colormap={colormap.colorMap[currentLayer]}
+      />
+    );
+  }
+
   return (
     <React.Fragment>
       <PageTitle title={title} />
@@ -291,15 +308,7 @@ const Editor = (props) => {
           width: `calc(100% - ${sidebarWidth}px)`,
         }}
       >
-        <KeymapSVG
-          className="layer"
-          index={currentLayer}
-          keymap={keymap?.custom[currentLayer]}
-          onKeySelect={onKeySelect}
-          selectedKey={currentKeyIndex}
-          palette={colormap.palette}
-          colormap={colormap.colorMap[currentLayer]}
-        />
+        {mainWidget}
       </Box>
       <Sidebar
         keymap={keymap}
@@ -322,11 +331,6 @@ const Editor = (props) => {
         keymap={keymap}
         currentKeyIndex={currentKeyIndex}
         currentLayer={currentLayer}
-      />
-      <MacroEditor
-        open={openMacroEditor}
-        onClose={onMacroEditorClose}
-        macroId={currentMacroId}
       />
       <SaveChangesButton floating onClick={onApply} disabled={!modified}>
         {t("components.save.saveChanges")}

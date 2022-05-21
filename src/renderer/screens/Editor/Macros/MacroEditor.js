@@ -35,7 +35,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 const focus = new Focus();
 const db = new KeymapDB();
 
-const MacroStep = (props) => {
+const MacroStepAsIconChip = (props) => {
   const { step } = props;
 
   const onDelete = () => {};
@@ -95,6 +95,8 @@ const MacroStep = (props) => {
     />
   );
 };
+
+const MacroStep = MacroStepAsIconChip;
 
 const MacroEditor = (props) => {
   const { onClose, macroId, open } = props;

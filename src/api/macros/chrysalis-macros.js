@@ -242,16 +242,17 @@ const Macros = function () {
     return macro.map((v) => Object.assign({}, v));
   };
 
+  const fitsInU8 = (v) => v.code < 256;
+
   const compressMacro = (macro) => {
     let m = clone(macro);
     for (let step of m) {
-      if (step.type == "KEYUP" && step.value.code < 256)
-        step.type = "KEYCODEUP";
-      if (step.type == "KEYDOWN" && step.value.code < 256)
+      if (step.type == "KEYUP" && fitsInU8(step.value)) step.type = "KEYCODEUP";
+      if (step.type == "KEYDOWN" && fitsInU8(step.value))
         step.type = "KEYCODEDOWN";
-      if (step.type == "TAP" && step.value.code < 256) step.type = "TAPCODE";
+      if (step.type == "TAP" && fitsInU8(step.value)) step.type = "TAPCODE";
       if (step.type == "TAPSEQUENCE") {
-        if (step.value.filter((c) => c.code >= 256).length == 0) {
+        if (step.value.filter((c) => !fitsInU8(c)).length == 0) {
           step.type = "TAPCODESEQUENCE";
         }
       }

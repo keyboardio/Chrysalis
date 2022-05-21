@@ -145,7 +145,7 @@ const MacroStepAsTextChip = (props) => {
 const MacroStep = MacroStepAsTextChip;
 
 const MacroEditor = (props) => {
-  const { macroId } = props;
+  const { macroId, onClose } = props;
   const [macros, setMacros] = useState({ macros: [] });
 
   const getMacros = async () => {
@@ -182,7 +182,7 @@ const MacroEditor = (props) => {
       >
         <CardHeader
           action={
-            <IconButton>
+            <IconButton onClick={onClose}>
               <CloseIcon />
             </IconButton>
           }

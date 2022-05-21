@@ -282,7 +282,9 @@ const Editor = (props) => {
 
   let mainWidget;
   if (openMacroEditor) {
-    mainWidget = <MacroEditor macroId={currentMacroId} />;
+    mainWidget = (
+      <MacroEditor onClose={onMacroEditorClose} macroId={currentMacroId} />
+    );
   } else {
     mainWidget = (
       <KeymapSVG

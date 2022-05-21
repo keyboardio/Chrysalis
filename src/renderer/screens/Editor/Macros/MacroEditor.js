@@ -139,7 +139,7 @@ const MacroEditor = (props) => {
               <CloseIcon />
             </IconButton>
           }
-          title={`Macro ${macroId}`}
+          title={`Macro #${macroId}`}
         />
         <CardContent>
           <Stack direction="row" flexWrap="wrap">

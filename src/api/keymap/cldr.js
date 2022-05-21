@@ -14,12 +14,11 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { getStaticPath } from "@renderer/config";
 import fs from "fs";
 import path from "path";
-import xml2js from "xml2js";
 import unraw from "unraw";
-import { getStaticPath } from "@renderer/config";
-
+import xml2js from "xml2js";
 import { addModifier } from "./db/modifiers";
 
 const cldr2keycode = {

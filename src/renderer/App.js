@@ -15,46 +15,43 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useState, useEffect, useContext } from "react";
+import "@api/colormap";
+import Focus from "@api/focus";
+import "@api/keymap";
+import Log from "@api/log";
+import { LocationProvider, Router } from "@gatsbyjs/reach-router";
 import Box from "@mui/material/Box";
+import CssBaseline from "@mui/material/CssBaseline";
+import {
+  createTheme,
+  StyledEngineProvider,
+  ThemeProvider,
+} from "@mui/material/styles";
+import i18n from "@renderer/i18n";
+import React, { useContext, useEffect } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "typeface-roboto/index.css";
+import "typeface-source-code-pro/index.css";
+import { ActiveDevice } from "./ActiveDevice";
+import { hideContextBar } from "./components/ContextBar";
+import { GlobalContext } from "./components/GlobalContext";
+import Header from "./components/Header";
+import { isDevelopment } from "./config";
+import { history, navigate } from "./routerHistory";
+import ChangeLog from "./screens/ChangeLog";
+import Editor from "./screens/Editor/Editor";
+import FirmwareUpdate from "./screens/FirmwareUpdate";
+import FocusNotDetected from "./screens/FocusNotDetected";
+import KeyboardSelect from "./screens/KeyboardSelect";
+import LayoutCard from "./screens/LayoutCard";
+import Preferences from "./screens/Preferences";
+import SystemInfo from "./screens/SystemInfo";
 
 const { ipcRenderer } = require("electron");
 
 const Store = require("electron-store");
 const settings = new Store();
-
-import Focus from "@api/focus";
-import Log from "@api/log";
-import "@api/keymap";
-import "@api/colormap";
-import "typeface-roboto/index.css";
-import "typeface-source-code-pro/index.css";
-import { LocationProvider, Router } from "@gatsbyjs/reach-router";
-
-import CssBaseline from "@mui/material/CssBaseline";
-import {
-  ThemeProvider,
-  StyledEngineProvider,
-  createTheme,
-} from "@mui/material/styles";
-import { GlobalContext } from "./components/GlobalContext";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import LayoutCard from "./screens/LayoutCard";
-import KeyboardSelect from "./screens/KeyboardSelect";
-import FirmwareUpdate from "./screens/FirmwareUpdate";
-import Editor from "./screens/Editor/Editor";
-import Preferences from "./screens/Preferences";
-import FocusNotDetected from "./screens/FocusNotDetected";
-import SystemInfo from "./screens/SystemInfo";
-import ChangeLog from "./screens/ChangeLog";
-import i18n from "@renderer/i18n";
-
-import Header from "./components/Header";
-import { history, navigate } from "./routerHistory";
-import { hideContextBar } from "./components/ContextBar";
-import { isDevelopment } from "./config";
-import { ActiveDevice } from "./ActiveDevice";
 
 toast.configure({
   position: "bottom-left",

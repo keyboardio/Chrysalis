@@ -16,9 +16,8 @@
  */
 
 import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-electron-language-detector";
-
+import { initReactI18next } from "react-i18next";
 import English from "./i18n/en";
 import Hungarian from "./i18n/hu";
 
@@ -31,7 +30,7 @@ const resources = {
   },
 };
 
-i18n
+i18n // eslint-disable-line import/no-named-as-default-member
   .use(initReactI18next)
   .use(LanguageDetector)
   .init({
@@ -58,7 +57,7 @@ i18n.refreshHardware = (device) => {
       device.info.product +
       ".updateInstructions";
     const instructions = {
-      updateInstructions: i18n.exists(key) ? i18n.t(key) : undefined,
+      updateInstructions: i18n.exists(key) ? i18n.t(key) : undefined, // eslint-disable-line import/no-named-as-default-member
     };
     i18n.addResource(code, "messages", "hardware", instructions);
   });

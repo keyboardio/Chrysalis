@@ -23,8 +23,8 @@ import ListItemText from "@mui/material/ListItemText";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
-import React from "react";
 import i18n from "@renderer/i18n";
+import React from "react";
 
 export const KeyboardPortSelector = (props) => {
   const devices = props.devices;

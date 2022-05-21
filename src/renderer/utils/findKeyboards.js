@@ -14,9 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { ipcRenderer } from "electron";
-import Hardware from "@api/hardware";
 import Focus from "@api/focus";
+import Hardware from "@api/hardware";
+import { ipcRenderer } from "electron";
 
 const findNonSerialKeyboards = async (deviceList) => {
   return ipcRenderer.invoke("usb-scan-for-devices").then((devicesConnected) => {

@@ -14,21 +14,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import React, { useState, useEffect } from "react";
-import i18n from "i18next";
-
-import Box from "@mui/material/Box";
-import FormGroup from "@mui/material/FormGroup";
-import FormControl from "@mui/material/FormControl";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormHelperText from "@mui/material/FormHelperText";
-import Switch from "@mui/material/Switch";
-
-import Collapsible from "../components/Collapsible";
-import KeyButton from "../components/KeyButton";
-
 import Focus from "@api/focus";
 import { KeymapDB } from "@api/keymap";
+import Box from "@mui/material/Box";
+import FormControl from "@mui/material/FormControl";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormGroup from "@mui/material/FormGroup";
+import FormHelperText from "@mui/material/FormHelperText";
+import Switch from "@mui/material/Switch";
+import i18n from "i18next";
+import React, { useEffect, useState } from "react";
+import Collapsible from "../components/Collapsible";
+import KeyButton from "../components/KeyButton";
 
 const db = new KeymapDB();
 

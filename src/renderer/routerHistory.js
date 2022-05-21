@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { createMemorySource, createHistory } from "@gatsbyjs/reach-router";
+import { createHistory, createMemorySource } from "@gatsbyjs/reach-router";
 
 const source = createMemorySource("/keyboard-select");
 export const history = createHistory(source);

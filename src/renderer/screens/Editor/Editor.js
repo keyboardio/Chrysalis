@@ -15,32 +15,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useState, useEffect } from "react";
-
+import Focus from "@api/focus";
+import { default as Keymap, KeymapDB } from "@api/keymap";
+import Log from "@api/log";
 import Box from "@mui/material/Box";
-
+import {
+  hideContextBar,
+  showContextBar,
+} from "@renderer/components/ContextBar";
+import LoadingScreen from "@renderer/components/LoadingScreen";
+import { PageTitle } from "@renderer/components/PageTitle";
+import SaveChangesButton from "@renderer/components/SaveChangesButton";
+import i18n from "@renderer/i18n";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { FloatingKeyPicker } from "./components/FloatingKeyPicker";
+import { LegacyAlert } from "./components/LegacyAlert";
+import OnlyCustomScreen from "./components/OnlyCustomScreen";
+import Sidebar, { sidebarWidth } from "./Sidebar";
 
 const Store = require("electron-store");
 const settings = new Store();
-
-import Focus from "@api/focus";
-import Log from "@api/log";
-import { KeymapDB, default as Keymap } from "@api/keymap";
-
-import Sidebar, { sidebarWidth } from "./Sidebar";
-
-import { LegacyAlert } from "./components/LegacyAlert";
-import SaveChangesButton from "@renderer/components/SaveChangesButton";
-import { PageTitle } from "@renderer/components/PageTitle";
-import i18n from "@renderer/i18n";
-import LoadingScreen from "@renderer/components/LoadingScreen";
-import OnlyCustomScreen from "./components/OnlyCustomScreen";
-import { FloatingKeyPicker } from "./components/FloatingKeyPicker";
-import {
-  showContextBar,
-  hideContextBar,
-} from "@renderer/components/ContextBar";
 
 const db = new KeymapDB();
 const focus = new Focus();

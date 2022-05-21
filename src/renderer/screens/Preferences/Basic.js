@@ -15,21 +15,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useState } from "react";
-import { GlobalContext } from "@renderer/components/GlobalContext";
-
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import FilledInput from "@mui/material/FilledInput";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
-
+import { GlobalContext } from "@renderer/components/GlobalContext";
 import i18n from "@renderer/i18n";
+import React, { useState } from "react";
 
 const Store = require("electron-store");
 const settings = new Store();

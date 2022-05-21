@@ -15,12 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
-import { CustomPicker } from "react-color";
-
+import CropSquareIcon from "@mui/icons-material/CropSquare";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
-import CropSquareIcon from "@mui/icons-material/CropSquare";
+import React from "react";
+import { CustomPicker } from "react-color";
 
 /*
 export const Circle = ({ width, onChange, onSwatchHover, colors, hex, circleSize,

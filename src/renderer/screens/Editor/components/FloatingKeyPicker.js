@@ -17,11 +17,10 @@
 
 import Box from "@mui/material/Box";
 import useTheme from "@mui/material/styles/useTheme";
+import { useWindowSize } from "@renderer/hooks/useWindowSize";
 import React, { useState } from "react";
 import { Rnd } from "react-rnd";
 import Keyboard104 from "../Keyboard104";
-
-import { useWindowSize } from "@renderer/hooks/useWindowSize";
 
 export const FloatingKeyPicker = (props) => {
   const { sidebarWidth, onKeyChange, keymap, currentLayer, currentKeyIndex } =

@@ -14,15 +14,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { ErgoDox } from "@api/hardware-ez-ergodox";
+import { Atreus2 } from "@api/hardware-keyboardio-atreus2";
 import {
   Model01,
   Model100,
   Model100Bootloader,
 } from "@api/hardware-keyboardio-model01";
-import { Atreus } from "@api/hardware-technomancy-atreus";
-import { Atreus2 } from "@api/hardware-keyboardio-atreus2";
-import { ErgoDox } from "@api/hardware-ez-ergodox";
 import { Splitography } from "@api/hardware-softhruf-splitography";
+import { Atreus } from "@api/hardware-technomancy-atreus";
 
 const Hardware = {
   serial: [Model01, Model100, Atreus2, ErgoDox, Atreus, Splitography],

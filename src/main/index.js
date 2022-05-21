@@ -15,7 +15,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { enable as enableRemote, initialize } from "@electron/remote/main";
+import { getStaticPath } from "@renderer/config";
+import { app, BrowserWindow, ipcMain } from "electron";
+import installExtension, {
+  REACT_DEVELOPER_TOOLS,
+} from "electron-devtools-installer";
+import windowStateKeeper from "electron-window-state";
+import * as path from "path";
+import { format as formatUrl } from "url";
 import { Environment } from "./dragons";
+import { registerBackupHandlers } from "./ipc_backups";
+import {
+  addUsbEventListeners,
+  registerDeviceDiscoveryHandlers,
+  removeUsbEventListeners,
+} from "./ipc_device_discovery";
+import { registerDevtoolsHandlers } from "./ipc_devtools";
+import { registerFileIoHandlers } from "./ipc_file_io";
+import { buildMenu } from "./menu";
 
 // This is a workaround for electron-webpack#275[1]. We need to use backticks
 // for NODE_ENV, otherwise the code would fail to compile with webpack. We also
@@ -24,25 +42,6 @@ import { Environment } from "./dragons";
 //
 // [1]: https://github.com/electron-userland/electron-webpack/issues/275
 process.env[`NODE_ENV`] = Environment.name;
-
-import { app, BrowserWindow, Menu, ipcMain } from "electron";
-import { format as formatUrl } from "url";
-import * as path from "path";
-import windowStateKeeper from "electron-window-state";
-import installExtension, {
-  REACT_DEVELOPER_TOOLS,
-} from "electron-devtools-installer";
-import { getStaticPath } from "@renderer/config";
-import { initialize, enable as enableRemote } from "@electron/remote/main";
-import {
-  registerDeviceDiscoveryHandlers,
-  addUsbEventListeners,
-  removeUsbEventListeners,
-} from "./ipc_device_discovery";
-import { registerFileIoHandlers } from "./ipc_file_io";
-import { registerDevtoolsHandlers } from "./ipc_devtools";
-import { registerBackupHandlers } from "./ipc_backups";
-import { buildMenu } from "./menu";
 
 initialize();
 

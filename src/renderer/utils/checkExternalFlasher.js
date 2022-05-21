@@ -15,10 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { getStaticPath } from "@renderer/config";
 import fs from "fs";
 import path from "path";
-
-import { getStaticPath } from "@renderer/config";
 
 const checkExternalFlasher = async (device) => {
   if (!device.externalFlasher) return false;

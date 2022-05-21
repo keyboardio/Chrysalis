@@ -15,25 +15,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
-
 import Focus from "@api/focus";
-
+import KeyboardIcon from "@mui/icons-material/Keyboard";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
-import KeyboardIcon from "@mui/icons-material/Keyboard";
 import Typography from "@mui/material/Typography";
-
-import { toast } from "react-toastify";
-
+import { PageTitle } from "@renderer/components/PageTitle";
 import i18n from "@renderer/i18n";
 import { navigate } from "@renderer/routerHistory";
-import { PageTitle } from "@renderer/components/PageTitle";
+import React from "react";
+import { toast } from "react-toastify";
 
 const FocusNotDetected = (props) => {
   let focus = new Focus();

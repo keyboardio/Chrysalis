@@ -15,28 +15,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import Focus from "@api/focus";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
+import Grid from "@mui/material/Grid";
 import LinearProgress from "@mui/material/LinearProgress";
-import React, { useState, useEffect } from "react";
-const { ipcRenderer } = require("electron");
-import { toast } from "react-toastify";
-
-import Focus from "@api/focus";
+import { PageTitle } from "@renderer/components/PageTitle";
 import i18n from "@renderer/i18n";
 import logo from "@renderer/logo-small.png";
-import { useIntervalImmediate } from "@renderer/utils/useInterval";
 import { findKeyboards } from "@renderer/utils/findKeyboards";
-import { PageTitle } from "@renderer/components/PageTitle";
-
+import { useIntervalImmediate } from "@renderer/utils/useInterval";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { ConnectionButton } from "./KeyboardSelect/ConnectionButton";
-import { LinuxPermissionsWarning } from "./KeyboardSelect/LinuxPermissionsWarning";
-import { KeyboardPortSelector } from "./KeyboardSelect/KeyboardPortSelector";
 import { DeviceImage } from "./KeyboardSelect/DeviceImage";
+import { KeyboardPortSelector } from "./KeyboardSelect/KeyboardPortSelector";
+import { LinuxPermissionsWarning } from "./KeyboardSelect/LinuxPermissionsWarning";
+
+const { ipcRenderer } = require("electron");
 
 const KeyboardSelect = (props) => {
   const [selectedPortIndex, setSelectedPortIndex] = useState(0);

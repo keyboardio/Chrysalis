@@ -14,11 +14,11 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { Base } from "./db/base";
-import { USQwerty } from "./db/us/qwerty";
-import cldr from "./cldr";
 import cldr_ from "cldr";
 import i18n from "i18next";
+import cldr from "./cldr";
+import { Base } from "./db/base";
+import { USQwerty } from "./db/us/qwerty";
 
 global.chrysalis_keymapdb_instance = null;
 

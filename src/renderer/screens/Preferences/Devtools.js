@@ -15,18 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useEffect, useState } from "react";
-const { ipcRenderer } = require("electron");
-
+import Focus from "@api/focus";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
-
 import i18n from "@renderer/i18n";
-
-import Focus from "@api/focus";
+import React, { useEffect, useState } from "react";
+const { ipcRenderer } = require("electron");
 
 const Store = require("electron-store");
 

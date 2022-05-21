@@ -25,7 +25,7 @@ import FormGroup from "@mui/material/FormGroup";
 import Switch from "@mui/material/Switch";
 import Tooltip from "@mui/material/Tooltip";
 import i18n from "i18next";
-import React, { useState } from "react";
+import React from "react";
 import Collapsible from "../components/Collapsible";
 
 const db = new KeymapDB();

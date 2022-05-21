@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 // Hook from https://usehooks.com/useWindowSize/
 export function useWindowSize() {

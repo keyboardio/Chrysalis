@@ -15,22 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useState, useEffect } from "react";
-
+import Focus from "@api/focus";
+import { KeymapDB } from "@api/keymap";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-
+import LoadingScreen from "@renderer/components/LoadingScreen";
+import { PageTitle } from "@renderer/components/PageTitle";
+import i18n from "@renderer/i18n";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const Store = require("electron-store");
 const settings = new Store();
-
-import Focus from "@api/focus";
-import { KeymapDB, default as Keymap } from "@api/keymap";
-
-import { PageTitle } from "@renderer/components/PageTitle";
-import i18n from "@renderer/i18n";
-import LoadingScreen from "@renderer/components/LoadingScreen";
 
 const db = new KeymapDB();
 const focus = new Focus();

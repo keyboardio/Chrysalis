@@ -16,7 +16,6 @@
  */
 
 import Focus from "@api/focus";
-import { truncate } from "original-fs";
 
 export function ActiveDevice() {
   this.port = undefined;

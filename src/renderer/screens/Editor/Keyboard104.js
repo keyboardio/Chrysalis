@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
-import Box from "@mui/material/Box";
 import { KeymapDB } from "@api/keymap";
+import Box from "@mui/material/Box";
+import React from "react";
 const db = new KeymapDB();
 
 const keycapunit = 56;

@@ -15,10 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
-import { render, fireEvent, cleanup } from "react-testing-library";
 import "jest-dom/extend-expect";
-
+import React from "react";
+import { cleanup, fireEvent, render } from "react-testing-library";
 import DeviceMenu from "../DeviceMenu";
 
 afterEach(cleanup);

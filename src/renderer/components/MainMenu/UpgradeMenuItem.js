@@ -15,15 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useState } from "react";
-
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-
-import { version } from "@root/package.json";
 import i18n from "@renderer/i18n";
 import getLatestVersion from "@renderer/utils/getLatestVersion";
+import { version } from "@root/package.json";
+import React, { useState } from "react";
 
 function UpgradeMenuItem() {
   const [latestVersion, setLatestVersion] = useState(null);

@@ -15,13 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
-import Electron from "electron";
-
+import Divider from "@mui/material/Divider";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import Divider from "@mui/material/Divider";
 import i18n from "@renderer/i18n";
+import Electron from "electron";
+import React from "react";
 
 const openURL = (url, closeMenu) => {
   const shell = Electron.remote && Electron.remote.shell;

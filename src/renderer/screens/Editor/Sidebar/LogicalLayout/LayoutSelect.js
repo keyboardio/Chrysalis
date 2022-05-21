@@ -15,15 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
-import i18n from "i18next";
-
+import { KeymapDB } from "@api/keymap";
 import Autocomplete from "@mui/material/Autocomplete";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 import TextField from "@mui/material/TextField";
-
-import { KeymapDB } from "@api/keymap";
+import i18n from "i18next";
+import React from "react";
 
 const db = new KeymapDB();
 

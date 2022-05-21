@@ -15,12 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
 import i18n from "i18next";
+import React from "react";
 import { ChromePicker } from "react-color";
-
-import PalettePicker from "./Colormap/PalettePicker";
 import Collapsible from "../components/Collapsible";
+import PalettePicker from "./Colormap/PalettePicker";
 
 const Colormap = (props) => {
   const colorChangeComplete = (color) => {

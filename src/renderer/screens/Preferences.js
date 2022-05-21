@@ -15,23 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useContext } from "react";
-
 import Box from "@mui/material/Box";
-import Portal from "@mui/material/Portal";
-import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import PropTypes from "prop-types";
-
+import Tabs from "@mui/material/Tabs";
+import { GlobalContext } from "@renderer/components/GlobalContext";
 import { PageTitle } from "@renderer/components/PageTitle";
-import {
-  KeyboardSettings,
-  AdvancedKeyboardSettings,
-} from "./Preferences/KeyboardSettings";
+import i18n from "@renderer/i18n";
+import PropTypes from "prop-types";
+import React, { useContext } from "react";
 import { BasicPreferences } from "./Preferences/Basic";
 import { DevtoolsPreferences } from "./Preferences/Devtools";
-import i18n from "@renderer/i18n";
-import { GlobalContext } from "@renderer/components/GlobalContext";
+import {
+  AdvancedKeyboardSettings,
+  KeyboardSettings,
+} from "./Preferences/KeyboardSettings";
 
 TabPanel.propTypes = {
   children: PropTypes.node,

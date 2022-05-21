@@ -15,8 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
 import Portal from "@mui/material/Portal";
+import React from "react";
 
 export function PageTitle({ title }) {
   return (

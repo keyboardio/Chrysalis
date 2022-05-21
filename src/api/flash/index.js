@@ -14,17 +14,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import AvrGirl from "avrgirl-arduino";
-import { ipcRenderer } from "electron";
-import TeensyLoader from "teensy-loader";
-import { spawn } from "child_process";
-import sudo from "sudo-prompt";
-import path from "path";
-import { v4 as uuidv4 } from "uuid";
-
 import Log from "@api/log";
-
 import { getStaticPath } from "@renderer/config";
+import AvrGirl from "avrgirl-arduino";
+import { spawn } from "child_process";
+import { ipcRenderer } from "electron";
+import path from "path";
+import sudo from "sudo-prompt";
+import TeensyLoader from "teensy-loader";
+import { v4 as uuidv4 } from "uuid";
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 

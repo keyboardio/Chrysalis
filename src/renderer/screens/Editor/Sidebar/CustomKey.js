@@ -15,17 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
-import i18n from "i18next";
-
+import { KeymapDB } from "@api/keymap";
 import FormControl from "@mui/material/FormControl";
 import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-
+import i18n from "i18next";
+import React from "react";
 import Collapsible from "../components/Collapsible";
-import { KeymapDB } from "@api/keymap";
 
 const db = new KeymapDB();
 

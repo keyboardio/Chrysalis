@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useEffect, useState } from "react";
-
+import { FocusCommands } from "@api/flash";
+import Focus from "@api/focus";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -33,20 +33,16 @@ import Select from "@mui/material/Select";
 import Slider from "@mui/material/Slider";
 import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
-
-import Focus from "@api/focus";
-import { FocusCommands } from "@api/flash";
-
 import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
+import {
+  hideContextBar,
+  showContextBar,
+} from "@renderer/components/ContextBar";
 import SaveChangesButton from "@renderer/components/SaveChangesButton";
 import i18n from "@renderer/i18n";
-import clearEEPROM from "@renderer/utils/clearEEPROM";
 import checkExternalFlasher from "@renderer/utils/checkExternalFlasher";
-
-import {
-  showContextBar,
-  hideContextBar,
-} from "@renderer/components/ContextBar";
+import clearEEPROM from "@renderer/utils/clearEEPROM";
+import React, { useEffect, useState } from "react";
 
 const Store = require("electron-store");
 const settings = new Store();

@@ -15,13 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
-
-import classNames from "classnames";
-import Atreus from "../data/atreus.png";
-import Box from "@mui/material/Box";
-
 import { KeymapDB } from "@api/keymap";
+import classNames from "classnames";
+import React from "react";
+import Atreus from "../data/atreus.png";
 
 const db = new KeymapDB();
 

@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { ipcMain, dialog } from "electron";
+import { dialog, ipcMain } from "electron";
 import fs from "fs";
 
 export const registerFileIoHandlers = () => {

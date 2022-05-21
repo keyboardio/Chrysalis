@@ -15,14 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
-
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-
-import KeyButtonList from "../components/KeyButtonList";
-import Collapsible from "../components/Collapsible";
 import { KeymapDB } from "@api/keymap";
+import React from "react";
+import Collapsible from "../components/Collapsible";
+import KeyButtonList from "../components/KeyButtonList";
 
 const db = new KeymapDB();
 

@@ -15,8 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import https from "https";
 import { version } from "@root/package.json";
+import https from "https";
 
 let __latestVersion;
 

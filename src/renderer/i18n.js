@@ -16,9 +16,8 @@
  */
 
 import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-electron-language-detector";
-
+import { initReactI18next } from "react-i18next";
 import English from "./i18n/en";
 import Hungarian from "./i18n/hu";
 

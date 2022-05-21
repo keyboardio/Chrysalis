@@ -15,8 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
-
+import Focus from "@api/focus";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -24,12 +23,11 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
-
-import Focus from "@api/focus";
-import openURL from "@renderer/utils/openURL";
+import { PageTitle } from "@renderer/components/PageTitle";
 import i18n from "@renderer/i18n";
 import { navigate } from "@renderer/routerHistory";
-import { PageTitle } from "@renderer/components/PageTitle";
+import openURL from "@renderer/utils/openURL";
+import React from "react";
 
 const OnlyCustomScreen = (props) => {
   const enableOnlyCustom = async () => {

@@ -15,27 +15,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useState, useEffect, useContext } from "react";
-
-import "@api/keymap";
 import "@api/colormap";
-import "typeface-roboto/index.css";
-import "typeface-source-code-pro/index.css";
-
+import "@api/keymap";
+import CloseIcon from "@mui/icons-material/Close";
+import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
 import i18n from "@renderer/i18n";
-
+import React, { useEffect, useState } from "react";
+import "typeface-roboto/index.css";
+import "typeface-source-code-pro/index.css";
 import BoardMenu from "./BoardMenu";
+import { contextBarChangesDiscarded } from "./ContextBar";
 import MainMenu from "./MainMenu/MainMenu";
-import { hideContextBar, contextBarChangesDiscarded } from "./ContextBar";
 
 function Header({ device }) {
   const [mainMenu, setMainMenuOpen] = useState(false);

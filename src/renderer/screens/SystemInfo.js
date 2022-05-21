@@ -15,42 +15,31 @@
  * along with  this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useState } from "react";
-
 import Focus from "@api/focus";
 import Log from "@api/log";
-
+import CloseIcon from "@mui/icons-material/Close";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
-import CloseIcon from "@mui/icons-material/Close";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
-import Divider from "@mui/material/Divider";
+import MuiDialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
 import Link from "@mui/material/Link";
-import MuiDialogTitle from "@mui/material/DialogTitle";
-import Portal from "@mui/material/Portal";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-
-import { ipcRenderer, Electron } from "electron";
-
-import { toast } from "react-toastify";
-
-import { version } from "@root/package.json";
-import logo from "@renderer/logo-small.png";
-
-import si from "systeminformation";
-import archiver from "archiver";
-import fs from "fs";
-import jsonStringify from "json-stringify-pretty-compact";
-import { v4 as uuidv4 } from "uuid";
 import { PageTitle } from "@renderer/components/PageTitle";
 import i18n from "@renderer/i18n";
+import logo from "@renderer/logo-small.png";
+import { version } from "@root/package.json";
+import { ipcRenderer } from "electron";
+import jsonStringify from "json-stringify-pretty-compact";
+import React, { useState } from "react";
+import si from "systeminformation";
+import { v4 as uuidv4 } from "uuid";
 
 function SystemInfo(props) {
   const [collecting, setCollecting] = useState(false);

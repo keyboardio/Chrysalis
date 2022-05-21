@@ -15,23 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useState } from "react";
-import { Electron, ipcRenderer } from "electron";
-import path from "path";
-import fs from "fs";
-import { version } from "@root/package.json";
-
 import Focus from "@api/focus";
-
-import Box from "@mui/material/Box";
 import BuildIcon from "@mui/icons-material/Build";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import ExploreIcon from "@mui/icons-material/ExploreOutlined";
+import SettingsBackupRestoreIcon from "@mui/icons-material/SettingsBackupRestore";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import Divider from "@mui/material/Divider";
-import ExploreIcon from "@mui/icons-material/ExploreOutlined";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Input from "@mui/material/Input";
@@ -40,25 +34,27 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import SettingsBackupRestoreIcon from "@mui/icons-material/SettingsBackupRestore";
-import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
+import Stepper from "@mui/material/Stepper";
 import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
-
+import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
+import { PageTitle } from "@renderer/components/PageTitle";
+import SaveChangesButton from "@renderer/components/SaveChangesButton";
+import { getStaticPath } from "@renderer/config";
+import i18n from "@renderer/i18n";
+import checkExternalFlasher from "@renderer/utils/checkExternalFlasher";
+import clearEEPROM from "@renderer/utils/clearEEPROM";
+import { version } from "@root/package.json";
+import { Electron, ipcRenderer } from "electron";
+import fs from "fs";
+import path from "path";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
+
 const Store = require("electron-store");
 const settings = new Store();
-
-import { getStaticPath } from "@renderer/config";
-import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
-import SaveChangesButton from "@renderer/components/SaveChangesButton";
-import i18n from "@renderer/i18n";
-
-import clearEEPROM from "@renderer/utils/clearEEPROM";
-import checkExternalFlasher from "@renderer/utils/checkExternalFlasher";
-import { PageTitle } from "@renderer/components/PageTitle";
 
 const FirmwareUpdate = (props) => {
   let focus = new Focus();

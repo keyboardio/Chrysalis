@@ -15,19 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-
-import CircularProgress from "@mui/material/CircularProgress";
-import Button from "@mui/material/Button";
-import Fab from "@mui/material/Fab";
 import CheckIcon from "@mui/icons-material/Check";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
+import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
+import Fab from "@mui/material/Fab";
 import Tooltip from "@mui/material/Tooltip";
 import withStyles from "@mui/styles/withStyles";
-
 import i18n from "@renderer/i18n";
+import classNames from "classnames";
+import PropTypes from "prop-types";
+import React from "react";
 
 const styles = (theme) => ({
   root: {

@@ -20,9 +20,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import useTheme from "@mui/material/styles/useTheme";
 import React from "react";
 import Key from "./keymap/Key";
-import useTheme from "@mui/material/styles/useTheme";
 
 const led_map = [
   [3, 4, 11, 12, 19, 20, 26, 27, 36, 37, 43, 44, 51, 52, 59, 60],

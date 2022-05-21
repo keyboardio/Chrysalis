@@ -17,9 +17,8 @@
 const { ipcRenderer } = require("electron");
 const { SerialPort } = require("serialport");
 const { DelimiterParser } = require("@serialport/parser-delimiter");
-import fs from "fs";
-
 import Log from "@api/log";
+import fs from "fs";
 
 global.chrysalis_focus_instance = null;
 

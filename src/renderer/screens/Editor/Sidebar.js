@@ -15,33 +15,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
-import i18n from "i18next";
-
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-
-import Overview from "./Sidebar/Overview";
-import Colormap from "./Sidebar/Colormap";
-import KeyPicker from "./Sidebar/Modifiers";
-import SecondaryFunction from "./Sidebar/SecondaryFunction";
-import LayerKeys from "./Sidebar/LayerKeys";
-import MediaKeys from "./Sidebar/MediaKeys";
+import React from "react";
+import BlankKeys from "./Sidebar/BlankKeys";
 import BrightnessKeys from "./Sidebar/BrightnessKeys";
-import VolumeKeys from "./Sidebar/VolumeKeys";
+import Colormap from "./Sidebar/Colormap";
+import CustomKey from "./Sidebar/CustomKey";
+import LayerKeys from "./Sidebar/LayerKeys";
 import LeaderKeys from "./Sidebar/LeaderKeys";
 import LEDKeys from "./Sidebar/LEDKeys";
+import LogicalLayout from "./Sidebar/LogicalLayout";
 import MacroKeys from "./Sidebar/MacroKeys";
+import MediaKeys from "./Sidebar/MediaKeys";
+import KeyPicker from "./Sidebar/Modifiers";
 import MouseKeys from "./Sidebar/MouseKeys";
 import OneShotKeys from "./Sidebar/OneShotKeys";
+import Overview from "./Sidebar/Overview";
+import SecondaryFunction from "./Sidebar/SecondaryFunction";
 import SpaceCadetKeys from "./Sidebar/SpaceCadetKeys";
 import StenoKeys from "./Sidebar/StenoKeys";
 import TapDanceKeys from "./Sidebar/TapDanceKeys";
-import BlankKeys from "./Sidebar/BlankKeys";
-import CustomKey from "./Sidebar/CustomKey";
-import LogicalLayout from "./Sidebar/LogicalLayout";
+import VolumeKeys from "./Sidebar/VolumeKeys";
+
 const sidebarWidth = 360;
 
 const Sidebar = (props) => {

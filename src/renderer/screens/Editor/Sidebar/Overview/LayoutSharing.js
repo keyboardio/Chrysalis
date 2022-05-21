@@ -15,19 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
-import i18n from "i18next";
-import { ipcRenderer } from "electron";
-import path from "path";
-import fs from "fs";
-import { toast } from "react-toastify";
-import jsonStringify from "json-stringify-pretty-compact";
-
-import Button from "@mui/material/Button";
+import Focus from "@api/focus";
+import { KeymapDB } from "@api/keymap";
+import Log from "@api/log";
 import CloseIcon from "@mui/icons-material/Close";
+import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
@@ -35,13 +30,15 @@ import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import Typography from "@mui/material/Typography";
 import withStyles from "@mui/styles/withStyles";
-
 import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
-
-import Focus from "@api/focus";
-import Log from "@api/log";
-import { KeymapDB } from "@api/keymap";
 import { getStaticPath } from "@renderer/config";
+import { ipcRenderer } from "electron";
+import fs from "fs";
+import i18n from "i18next";
+import jsonStringify from "json-stringify-pretty-compact";
+import path from "path";
+import React from "react";
+import { toast } from "react-toastify";
 
 const db = new KeymapDB();
 const focus = new Focus();

@@ -15,11 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useState } from "react";
 import i18n from "i18next";
-
+import React from "react";
 import Collapsible from "../components/Collapsible";
 import LayoutSelect from "./LogicalLayout/LayoutSelect";
+
 const platforms = {
   linux: "Linux",
   win32: "Windows",

@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { ipcMain, app } from "electron";
+import { app, ipcMain } from "electron";
 import fs from "fs";
 import path from "path";
 

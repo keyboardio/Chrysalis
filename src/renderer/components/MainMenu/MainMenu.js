@@ -15,37 +15,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useContext } from "react";
-import { ipcRenderer } from "electron";
-
+import ChatIcon from "@mui/icons-material/Chat";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import InfoIcon from "@mui/icons-material/Info";
+import KeyboardIcon from "@mui/icons-material/Keyboard";
+import ListIcon from "@mui/icons-material/List";
+import SettingsIcon from "@mui/icons-material/Settings";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
-import ListItemIcon from "@mui/material/ListItemIcon";
-
-import logo from "@renderer/logo-small.png";
-import i18n from "@renderer/i18n";
-
-import { version } from "@root/package.json";
-
-import UpgradeMenuItem from "./UpgradeMenuItem";
-import openURL from "@renderer/utils/openURL";
-import ChatIcon from "@mui/icons-material/Chat";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import InfoIcon from "@mui/icons-material/Info";
-import ListIcon from "@mui/icons-material/List";
-import SettingsIcon from "@mui/icons-material/Settings";
-import KeyboardIcon from "@mui/icons-material/Keyboard";
-
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-
-import { history } from "@renderer/routerHistory";
-
 import { GlobalContext } from "@renderer/components/GlobalContext";
+import i18n from "@renderer/i18n";
+import logo from "@renderer/logo-small.png";
+import { history } from "@renderer/routerHistory";
+import openURL from "@renderer/utils/openURL";
+import { version } from "@root/package.json";
+import { ipcRenderer } from "electron";
+import React, { useContext } from "react";
+import UpgradeMenuItem from "./UpgradeMenuItem";
 
 function MainMenu({ open, closeMenu, classes }) {
   const drawerWidth = 350;

@@ -15,27 +15,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
-import ReactMarkdown from "react-markdown";
-
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
-import Portal from "@mui/material/Portal";
 import Typography from "@mui/material/Typography";
-
-import Electron from "electron";
-
-import { version } from "@root/package.json";
-import logo from "@renderer/logo-small.png";
-
-import fs from "fs";
-import path from "path";
-
+import { PageTitle } from "@renderer/components/PageTitle";
 import { getStaticPath } from "@renderer/config";
 import i18n from "@renderer/i18n";
-
-import { PageTitle } from "@renderer/components/PageTitle";
+import logo from "@renderer/logo-small.png";
+import { version } from "@root/package.json";
+import fs from "fs";
+import path from "path";
+import React from "react";
+import ReactMarkdown from "react-markdown";
 
 const ChangeLog = (props) => {
   const { classes } = props;

@@ -15,11 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { autocompleteClasses } from "@mui/material";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
-import React from "react";
 import i18n from "@renderer/i18n";
+import React from "react";
 
 export const ConnectionButton = (props) => {
   const disabled = props.disabled;

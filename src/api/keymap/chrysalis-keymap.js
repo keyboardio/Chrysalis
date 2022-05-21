@@ -15,7 +15,6 @@
  */
 
 import Focus from "@api/focus";
-
 import KeymapDB from "./db";
 
 global.chrysalis_keymap_instance = null;

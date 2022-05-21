@@ -15,9 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
-
 import { KeymapDB } from "@api/keymap";
+import React from "react";
 
 const db = new KeymapDB();
 

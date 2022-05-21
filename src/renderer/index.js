@@ -17,16 +17,13 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import Electron from "electron";
-const { ipcRenderer } = require("electron");
-
-import App from "./App";
-import { Error } from "./Error";
-import "../styles/keymap.css";
-import i18n from "./i18n";
 import { I18nextProvider } from "react-i18next";
-
+import "../styles/keymap.css";
+import App from "./App";
 import { GlobalContextProvider } from "./components/GlobalContext";
+import { Error } from "./Error";
+import i18n from "./i18n";
+const { ipcRenderer } = require("electron");
 
 // Enable Hot Module Reload in dev
 if (module.hot) module.hot.accept();

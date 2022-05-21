@@ -15,11 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { ipcMain, BrowserWindow } from "electron";
-import { findByIds, getDeviceList, WebUSB } from "usb";
 // Focus
 import Focus from "@api/focus";
 import Hardware from "@api/hardware";
+import { BrowserWindow, ipcMain } from "electron";
+import { findByIds, getDeviceList, WebUSB } from "usb";
 const focus = new Focus();
 
 const webusb = new WebUSB({

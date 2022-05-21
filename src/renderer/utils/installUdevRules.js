@@ -15,13 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import sudo from "sudo-prompt";
-import path from "path";
-import tmp from "tmp";
-import { spawn } from "child_process";
-
-import { getStaticPath } from "@renderer/config";
 import Log from "@api/log";
+import { getStaticPath } from "@renderer/config";
+import { spawn } from "child_process";
+import path from "path";
+import sudo from "sudo-prompt";
+import tmp from "tmp";
 
 const installUdevRules = async (devicePath) => {
   const rules = path.join(getStaticPath(), "udev", "60-kaleidoscope.rules");

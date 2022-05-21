@@ -19,197 +19,166 @@ import { KeymapDB } from "../keymap";
 
 global.chrysalis_macros_instance = null;
 
-class Macros {
-  constructor(opts) {
-    if (!global.chrysalis_macros_instance) {
-      this.steps = [
-        this.stepEnd(),
-        this.stepu8("INTERVAL", 1),
-        this.stepu8("WAIT", 2),
-        this.stepkey("KEYDOWN", 3),
-        this.stepkey("KEYUP", 4),
-        this.stepkey("TAP", 5),
-        this.stepkeyCode("KEYCODEDOWN", 6),
-        this.stepkeyCode("KEYCODEUP", 7),
-        this.stepkeyCode("TAPCODE", 8),
-        this.stepEmpty("EXPLICIT_REPORT", 9),
-        this.stepEmpty("IMPLICIT_REPORT", 10),
-        this.stepEmpty("SEND_REPORT", 11),
-        this.stepTapSequence(),
-        this.stepTapCodeSequence(),
-      ];
-      global.chrysalis_macros_instance = this;
-    }
+function Macros() {
+  if (global.chrysalis_macros_instance) return global.chrysalis_macros_instance;
 
-    return global.chrysalis_macros_instance;
-  }
+  const db = new KeymapDB();
 
-  stepEnd() {
-    return {
-      // We do not need to parse the END step, as we handle that specially.
-      serialize: function (data) {
-        if (data.type == "END") {
-          return [0];
+  const stepEnd = () => ({
+    // We do not need to parse the END step, as we handle that specially.
+    serialize: (data) => {
+      if (data.type == "END") {
+        return [0];
+      }
+    },
+  });
+
+  const stepEmpty = (type, id) => ({
+    parse: () => ({
+      macroStep: {
+        type: type,
+      },
+      advance: 0,
+    }),
+    serialize: (data) => {
+      if (data.type == type) {
+        return [id];
+      }
+    },
+  });
+
+  const stepu8 = (type, id) => ({
+    parse: (data) => ({
+      macroStep: {
+        type: type,
+        value: data[0],
+      },
+      advance: 1,
+    }),
+    serialize: (data) => {
+      if (data.type == type) {
+        return [id, data.value];
+      }
+    },
+  });
+
+  const stepkey = (type, id) => ({
+    parse: (data) => ({
+      macroStep: {
+        type: type,
+        value: db.lookup(data[0] * 256 + data[1]),
+      },
+      advance: 2,
+    }),
+    serialize: (data) => {
+      if (data.type == type) {
+        return [id, Math.floor(data.value.code / 256), data.value.code % 256];
+      }
+    },
+  });
+
+  const stepkeyCode = (type, id) => ({
+    parse: (data) => ({
+      macroStep: {
+        type: type,
+        value: db.lookup(data[0]),
+      },
+      advance: 1,
+    }),
+    serialize: (data) => {
+      if (data.type == type) {
+        return [id, data.value.code];
+      }
+    },
+  });
+
+  const stepTapSequence = () => ({
+    parse: (data) => {
+      let pos = 0;
+      let sequence = [];
+      let key = 0;
+      do {
+        key = db.lookup(data[pos] * 256 + data[pos + 1]);
+        if (key.code > 0) sequence.push(key);
+        pos += 2;
+      } while (key.code > 0);
+
+      return {
+        macroStep: {
+          type: "TAPSEQUENCE",
+          value: sequence,
+        },
+        advance: pos,
+      };
+    },
+    serialize: (data) => {
+      if (data.type == "TAPSEQUENCE") {
+        let ser = [12];
+        for (let i = 0; i < data.value.length; i++) {
+          ser.push(Math.floor(data.value[i].code / 256));
+          ser.push(data.value[i].code % 256);
         }
-      },
-    };
-  }
+        ser.push(0);
+        ser.push(0);
+        return ser;
+      }
+    },
+  });
 
-  stepEmpty(type, id) {
-    return {
-      parse: function () {
-        return {
-          macroStep: {
-            type: type,
-          },
-          advance: 0,
-        };
-      },
-      serialize: function (data) {
-        if (data.type == type) {
-          return [id];
+  const stepTapCodeSequence = () => ({
+    parse: (data) => {
+      let pos = 0;
+      let sequence = [];
+      let key = 0;
+      do {
+        key = db.lookup(data[pos]);
+        if (key.code > 0) sequence.push(key);
+        pos += 1;
+      } while (key.code > 0);
+
+      return {
+        macroStep: {
+          type: "TAPCODESEQUENCE",
+          value: sequence,
+        },
+        advance: pos,
+      };
+    },
+    serialize: (data) => {
+      if (data.type == "TAPCODESEQUENCE") {
+        let ser = [13];
+        for (let i = 0; i < data.value.length; i++) {
+          ser.push(data.value[i].code);
         }
-      },
-    };
-  }
+        ser.push(0);
+        return ser;
+      }
+    },
+  });
 
-  stepu8(type, id) {
-    return {
-      parse: function (data) {
-        return {
-          macroStep: {
-            type: type,
-            value: data[0],
-          },
-          advance: 1,
-        };
-      },
-      serialize: function (data) {
-        if (data.type == type) {
-          return [id, data.value];
-        }
-      },
-    };
-  }
+  const steps = [
+    stepEnd(),
+    stepu8("INTERVAL", 1),
+    stepu8("WAIT", 2),
+    stepkey("KEYDOWN", 3),
+    stepkey("KEYUP", 4),
+    stepkey("TAP", 5),
+    stepkeyCode("KEYCODEDOWN", 6),
+    stepkeyCode("KEYCODEUP", 7),
+    stepkeyCode("TAPCODE", 8),
+    stepEmpty("EXPLICIT_REPORT", 9),
+    stepEmpty("IMPLICIT_REPORT", 10),
+    stepEmpty("SEND_REPORT", 11),
+    stepTapSequence(),
+    stepTapCodeSequence(),
+  ];
 
-  stepkey(type, id) {
-    return {
-      parse: function (data) {
-        const db = new KeymapDB();
-
-        return {
-          macroStep: {
-            type: type,
-            value: db.lookup(data[0] * 256 + data[1]),
-          },
-          advance: 2,
-        };
-      },
-      serialize: function (data) {
-        if (data.type == type) {
-          return [id, Math.floor(data.value.code / 256), data.value.code % 256];
-        }
-      },
-    };
-  }
-
-  stepkeyCode(type, id) {
-    return {
-      parse: function (data) {
-        const db = new KeymapDB();
-
-        return {
-          macroStep: {
-            type: type,
-            value: db.lookup(data[0]),
-          },
-          advance: 1,
-        };
-      },
-      serialize: function (data) {
-        if (data.type == type) {
-          return [id, data.value.code];
-        }
-      },
-    };
-  }
-
-  stepTapSequence() {
-    return {
-      parse: function (data) {
-        const db = new KeymapDB();
-
-        let pos = 0;
-        let sequence = [];
-        let key = 0;
-        do {
-          key = db.lookup(data[pos] * 256 + data[pos + 1]);
-          if (key.code > 0) sequence.push(key);
-          pos += 2;
-        } while (key.code > 0);
-        return {
-          macroStep: {
-            type: "TAPSEQUENCE",
-            value: sequence,
-          },
-          advance: pos,
-        };
-      },
-      serialize: function (data) {
-        if (data.type == "TAPSEQUENCE") {
-          let ser = [12];
-          for (let i = 0; i < data.value.length; i++) {
-            ser.push(Math.floor(data.value[i].code / 256));
-            ser.push(data.value[i].code % 256);
-          }
-          ser.push(0);
-          ser.push(0);
-          return ser;
-        }
-      },
-    };
-  }
-
-  stepTapCodeSequence() {
-    return {
-      parse: function (data) {
-        const db = new KeymapDB();
-
-        let pos = 0;
-        let sequence = [];
-        let key = 0;
-        do {
-          key = db.lookup(data[pos]);
-          if (key.code > 0) sequence.push(key);
-          pos += 1;
-        } while (key.code > 0);
-        return {
-          macroStep: {
-            type: "TAPCODESEQUENCE",
-            value: sequence,
-          },
-          advance: pos,
-        };
-      },
-      serialize: function (data) {
-        if (data.type == "TAPCODESEQUENCE") {
-          let ser = [13];
-          for (let i = 0; i < data.value.length; i++) {
-            ser.push(data.value[i].code);
-          }
-          ser.push(0);
-          return ser;
-        }
-      },
-    };
-  }
-
-  serializeMacros(macros) {
+  this.serialize = (macroMap) => {
     let ser = [];
 
-    for (const macro of macros) {
+    for (const macro of macroMap) {
       for (const macroStep of macro) {
-        for (const step of this.steps) {
+        for (const step of steps) {
           const s = step.serialize(macroStep);
           if (s) {
             ser = ser.concat(s);
@@ -220,9 +189,9 @@ class Macros {
     }
 
     return ser;
-  }
+  };
 
-  parseMacros(macroMap) {
+  this.parse = (macroMap) => {
     // First, check if we're all 255 bytes, when we're uninitialized
     if (macroMap.filter((n) => n != 255).length == 0) {
       return [];
@@ -236,8 +205,8 @@ class Macros {
       if (step == 0) {
         currentMacro++;
         pos++;
-      } else if (this.steps[step]) {
-        const res = this.steps[step].parse(macroMap.slice(pos + 1));
+      } else if (steps[step]) {
+        const res = steps[step].parse(macroMap.slice(pos + 1));
         pos += res.advance + 1;
         if (macros[currentMacro]) {
           macros[currentMacro].push(res.macroStep);
@@ -249,9 +218,9 @@ class Macros {
       }
     }
     return macros;
-  }
+  };
 
-  expandMacro(macro) {
+  const expandMacro = (macro) => {
     let m = macro.map((v) => Object.assign({}, v));
     const mapping = {
       KEYCODEUP: "KEYUP",
@@ -267,10 +236,14 @@ class Macros {
     }
 
     return m;
-  }
+  };
 
-  compressMacro(macro) {
-    let m = macro.map((v) => Object.assign({}, v));
+  const clone = (macro) => {
+    return macro.map((v) => Object.assign({}, v));
+  };
+
+  const compressMacro = (macro) => {
+    let m = clone(macro);
     for (let step of m) {
       if (step.type == "KEYUP" && step.value.code < 256)
         step.type = "KEYCODEUP";
@@ -284,27 +257,20 @@ class Macros {
       }
     }
     return m;
-  }
+  };
 
-  compress(macros) {
-    const m = macros.macros.map((m) => {
-      return this.compressMacro(m.map((v) => Object.assign({}, v)));
-    });
+  this.compress = (macros) => ({
+    storageSize: macros.storageSize,
+    macros: macros.macros.map((macro) => compressMacro(clone(macro))),
+  });
 
-    return {
-      storageSize: macros.storageSize,
-      macros: m,
-    };
-  }
+  this.getStoredSize = (macros) =>
+    this.serialize(this.compress(macros).macros).length;
 
-  getStoredSize(macros) {
-    return this.serializeMacros(this.compress(macros).macros).length;
-  }
-
-  async focus(s, macros) {
+  this.focus = async (s, macros) => {
     if (macros) {
       const m = this.compress(macros);
-      const ser = this.serializeMacros(m.macros);
+      const ser = this.serialize(m.macros);
       if (ser.length > m.storageSize) {
         throw new Error("Not enough macro storage space!");
       }
@@ -318,10 +284,12 @@ class Macros {
 
       return {
         storageSize: macroMap.length,
-        macros: this.parseMacros(macroMap).map((m) => this.expandMacro(m)),
+        macros: this.parse(macroMap).map((m) => expandMacro(m)),
       };
     }
-  }
+  };
+
+  return this;
 }
 
 let focus = new Focus();

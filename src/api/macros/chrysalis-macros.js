@@ -19,7 +19,7 @@ import { KeymapDB } from "../keymap";
 
 global.chrysalis_macros_instance = null;
 
-function Macros() {
+const Macros = function () {
   if (global.chrysalis_macros_instance) return global.chrysalis_macros_instance;
 
   const db = new KeymapDB();
@@ -290,7 +290,7 @@ function Macros() {
   };
 
   return this;
-}
+};
 
 let focus = new Focus();
 focus.addCommands({

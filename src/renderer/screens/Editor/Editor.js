@@ -64,6 +64,7 @@ const Editor = (props) => {
   const [hasLegacy, setHasLegacy] = useState(false);
   const [openMacroEditor, setOpenMacroEditor] = useState(false);
   const [currentMacroId, setCurrentMacroId] = useState(null);
+  const [macros, setMacros] = useState(null);
 
   const { t } = useTranslation();
 
@@ -73,9 +74,14 @@ const Editor = (props) => {
     _setLayout(layoutSetting);
   };
 
+  const pullMacros = async () => {
+    if (macros == null) setMacros(await focus.command("macros"));
+  };
+
   const initialize = async () => {
     await scanKeyboard();
     await initializeHostKeyboardLayout();
+    await pullMacros();
 
     setLoading(false);
   };
@@ -283,7 +289,11 @@ const Editor = (props) => {
   let mainWidget;
   if (openMacroEditor) {
     mainWidget = (
-      <MacroEditor onClose={onMacroEditorClose} macroId={currentMacroId} />
+      <MacroEditor
+        onClose={onMacroEditorClose}
+        macroId={currentMacroId}
+        macro={macros.macros[currentMacroId]}
+      />
     );
   } else {
     mainWidget = (

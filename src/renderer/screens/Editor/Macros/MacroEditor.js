@@ -40,28 +40,23 @@ const focus = new Focus();
 const db = new KeymapDB();
 
 const MacroEditor = (props) => {
-  const { macroId, onClose } = props;
-  const [macro, setMacro] = useState(null);
-
-  const getMacro = async (id) => {
-    const macros = await focus.command("macros");
-    setMacro(macros.macros[id]);
-  };
+  const { macroId, macro, onClose } = props;
+  const [wipMacro, setWipMacro] = useState(null);
 
   const onDelete = (index) => {
-    const m = macro.map((v) => Object.assign({}, v));
+    const m = wipMacro.map((v) => Object.assign({}, v));
     m.splice(index, 1);
-    setMacro(m);
+    setWipMacro(m);
   };
 
   useEffect(() => {
-    if (macro == null) getMacro(macroId);
-  }, []);
+    if (wipMacro == null) setWipMacro(macro);
+  });
 
   if (macroId == null) return null;
-  if (macro == null) return null;
+  if (wipMacro == null) return null;
 
-  const steps = macro.map((step, index) => {
+  const steps = wipMacro.map((step, index) => {
     const key = "macro-step-" + index.toString();
     return (
       <MacroStep key={key} step={step} index={index} onDelete={onDelete} />

@@ -21,6 +21,7 @@ import Focus from "@api/focus";
 import { KeymapDB } from "@api/keymap";
 
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -193,6 +194,10 @@ const MacroEditor = (props) => {
             {steps}
           </Stack>
         </CardContent>
+        <CardActions>
+          <Box sx={{ flexGrow: 1 }} />
+          <Button color="primary">Apply</Button>
+        </CardActions>
       </Card>
     </Box>
   );

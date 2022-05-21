@@ -253,7 +253,11 @@ class Macros {
 
   async focus(s, macros) {
     if (macros) {
-      // serialize and update
+      const ser = this.serializeMacros(macros.macros);
+      if (ser.length > macros.storageSize) {
+        throw new Error("Not enough macro storage space!");
+      }
+      await s.request("macros.map", ...this.serializeMacros(macros.macros));
     } else {
       const macroMap = (await s.request("macros.map"))
         .trimEnd()

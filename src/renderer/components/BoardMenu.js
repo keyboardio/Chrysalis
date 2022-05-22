@@ -34,7 +34,7 @@ const openURL = (url, closeMenu) => {
 };
 
 export default function BoardMenu({ boardAnchor, boardClose, device }) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <Menu anchorEl={boardAnchor} open={!!boardAnchor} onClose={boardClose}>

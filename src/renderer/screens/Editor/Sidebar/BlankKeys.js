@@ -27,7 +27,7 @@ const BlankKeys = (props) => {
   const { keymap, selectedKey, layer, onKeyChange } = props;
   const key = keymap.custom[layer][selectedKey];
 
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const keys = [
     db.lookup(0), // blocked

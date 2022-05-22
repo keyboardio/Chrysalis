@@ -25,7 +25,7 @@ import { useTranslation } from "react-i18next";
 
 function UpgradeMenuItem() {
   const [latestVersion, setLatestVersion] = useState(null);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   if (!latestVersion) {
     getLatestVersion().then((v) => {
@@ -40,7 +40,7 @@ function UpgradeMenuItem() {
       <Divider />
       <ListItem button component="a" href={latestVersion.url}>
         <ListItemText
-          primary={i18n.t("app.menu.upgradeAvailable")}
+          primary={t("app.menu.upgradeAvailable")}
           secondary={latestVersion.version}
         />
       </ListItem>

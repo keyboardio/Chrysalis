@@ -263,7 +263,39 @@ const Macros = function () {
   const fitsInU8 = (v) => v.code < 256;
 
   const compressMacro = (macro) => {
-    const m = clone(macro);
+    const expanded = clone(macro);
+    const m = [];
+    let taps = [];
+
+    for (const step of expanded) {
+      if (taps.length == 0) {
+        // We don't have previous taps
+        if (step.type == "TAP") {
+          taps.push(step.value);
+        } else {
+          m.push(step);
+        }
+      } else {
+        if (step.type == "TAP") {
+          taps.push(step.value);
+        } else {
+          m.push({
+            type: "TAPSEQUENCE",
+            value: taps,
+          });
+          m.push(step);
+          taps = [];
+        }
+      }
+    }
+    if (taps.length > 0) {
+      m.push({
+        type: "TAPSEQUENCE",
+        value: taps,
+      });
+    }
+
+    // Downscale
     for (const step of m) {
       if (step.type == "KEYUP" && fitsInU8(step.value)) step.type = "KEYCODEUP";
       if (step.type == "KEYDOWN" && fitsInU8(step.value))

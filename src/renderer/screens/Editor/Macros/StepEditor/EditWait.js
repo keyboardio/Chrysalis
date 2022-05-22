@@ -16,19 +16,23 @@
  */
 
 import React from "react";
+import { useTranslation } from "react-i18next";
+
 import TextField from "@mui/material/TextField";
 
 const EditWait = (props) => {
+  const { t } = useTranslation();
+
   return (
     <TextField
-      label="Wait"
+      label={t("editor.macros.steps.WAIT")}
       type="number"
       value={props.value}
       onChange={props.onChange}
       InputLabelProps={{
         shrink: true,
       }}
-      helperText="In milliseconds"
+      helperText={t("editor.macros.steps.in_ms")}
     />
   );
 };

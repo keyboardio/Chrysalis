@@ -16,6 +16,7 @@
  */
 
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import Focus from "@api/focus";
 import { KeymapDB } from "@api/keymap";
@@ -39,6 +40,7 @@ const db = new KeymapDB();
 const MacroEditor = (props) => {
   const { macroId, macro, onMacroChange, macroStep, setMacroStep } = props;
   const [stepEditorOpen, setStepEditorOpen] = useState(false);
+  const { t } = useTranslation();
 
   const onStepDelete = (index) => {
     const m = macro.map((v) => Object.assign({}, v));
@@ -124,7 +126,7 @@ const MacroEditor = (props) => {
         }}
       >
         <CardHeader
-          title={`Macro #${macroId}`}
+          title={t("editor.macros.title", { index: macroId })}
           action={
             <IconButton onClick={onClose}>
               <CloseIcon />

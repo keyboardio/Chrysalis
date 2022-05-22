@@ -24,20 +24,24 @@ import { useTranslation } from "react-i18next";
 
 const MacroSpace = (props) => {
   const { macros } = props;
+  const { t } = useTranslation();
 
   if (!macros) return null;
 
   const m = new Macros();
-  const size = m.getStoredSize(macros);
+  const used = m.getStoredSize(macros);
 
   return (
     <Box sx={{ my: 1.5, mx: 0.5 }}>
       <Typography variant="body1">
-        Macro space used:{" "}
+        {t("editor.macros.usage_overview.label")}{" "}
         <strong>
-          {size}/{macros.storageSize}
+          {t("editor.macros.usage_overview.usage", {
+            used: used,
+            size: macros.storageSize,
+          })}
         </strong>{" "}
-        bytes.
+        {t("editor.macros.usage_overview.bytes")}
       </Typography>
     </Box>
   );

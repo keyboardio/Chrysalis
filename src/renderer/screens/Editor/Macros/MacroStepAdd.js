@@ -16,6 +16,7 @@
  */
 
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import Divider from "@mui/material/Divider";
 import Fab from "@mui/material/Fab";
@@ -29,6 +30,7 @@ const MacroStepAdd = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const { addStep } = props;
+  const { t } = useTranslation();
 
   const db = new KeymapDB();
 
@@ -84,15 +86,23 @@ const MacroStepAdd = (props) => {
           horizontal: "left",
         }}
       >
-        <MenuItem onClick={selectType("TAP")}>Tap</MenuItem>
-        <MenuItem onClick={selectType("KEYDOWN")}>Hold key</MenuItem>
-        <MenuItem onClick={selectType("KEYUP")}>Release key</MenuItem>
-        <MenuItem onClick={selectType("WAIT")}>Wait</MenuItem>
+        <MenuItem onClick={selectType("TAP")}>
+          {t("editor.macros.steps.TAP")}
+        </MenuItem>
+        <MenuItem onClick={selectType("KEYDOWN")}>
+          {t("editor.macros.steps.KEYDOWN")}
+        </MenuItem>
+        <MenuItem onClick={selectType("KEYUP")}>
+          {t("editor.macros.steps.KEYUP")}
+        </MenuItem>
+        <MenuItem onClick={selectType("WAIT")}>
+          {t("editor.macros.steps.WAIT")}
+        </MenuItem>
         <MenuItem onClick={selectType("INTERVAL")}>
-          Delay between steps
+          {t("editor.macros.steps.INTERVAL")}
         </MenuItem>
         <Divider />
-        <MenuItem onClick={closeMenu}>Close</MenuItem>
+        <MenuItem onClick={closeMenu}>{t("dialog.close")}</MenuItem>
       </Menu>
     </React.Fragment>
   );

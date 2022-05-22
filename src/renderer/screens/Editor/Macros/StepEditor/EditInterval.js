@@ -16,19 +16,23 @@
  */
 
 import React from "react";
+import { useTranslation } from "react-i18next";
+
 import TextField from "@mui/material/TextField";
 
 const EditInterval = (props) => {
+  const { t } = useTranslation();
+
   return (
     <TextField
-      label="Delay between steps"
+      label={t("editor.macros.steps.INTERVAL")}
       type="number"
       value={props.value}
       onChange={props.onChange}
       InputLabelProps={{
         shrink: true,
       }}
-      helperText="In milliseconds"
+      helperText={t("editor.macros.steps.in_ms")}
     />
   );
 };

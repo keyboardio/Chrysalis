@@ -16,6 +16,7 @@
  */
 
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import Chip from "@mui/material/Chip";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -26,6 +27,7 @@ const db = new KeymapDB();
 
 const MacroStep = (props) => {
   const { step, index, selected } = props;
+  const { t } = useTranslation();
 
   const onDelete = () => {
     props.onDelete(index);
@@ -37,24 +39,18 @@ const MacroStep = (props) => {
 
   const formatLabel = (step) => {
     if (step.type == "INTERVAL" || step.type == "WAIT")
-      return step.value.toString() + "ms";
+      return t("editor.macros.steps.time_ms", { value: step.value });
     if (["KEYDOWN", "KEYUP", "TAP"].includes(step.type))
       return db.format(step.value).main;
-    return "<unknown>";
+    return t("editor.macros.steps.unknown");
   };
 
   const createLabel = (step) => {
-    const descs = {
-      INTERVAL: "Delay between steps:",
-      WAIT: "Wait:",
-      KEYDOWN: "Hold key:",
-      KEYUP: "Release key:",
-      TAP: "Tap:",
-    };
+    const label = t("editor.macros.steps." + step.type);
 
     return (
       <React.Fragment>
-        <strong>{descs[step.type]}</strong> {formatLabel(step)}
+        <strong>{label}:</strong> {formatLabel(step)}
       </React.Fragment>
     );
   };

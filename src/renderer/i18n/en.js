@@ -38,6 +38,7 @@ const English = {
   dialog: {
     ok: "Ok",
     cancel: "Cancel",
+    close: "Close",
   },
   app: {
     menu: {
@@ -237,6 +238,24 @@ const English = {
       warning: `Chrysalis no longer supports configurations containing a mix of hardcoded and EEPROM layers. If this is a feature you need, we'd love to hear more about your use case. In most cases, however, we would advise switching to custom layers only, which Chrysalis can do for you. When doing the switch, hardcoded layers will not be used, and the default layer set - if any - will be layer zero.`,
       fixItButton: "Switch to custom layers only",
       openFR: "Open a feature request",
+    },
+    macros: {
+      title: "Macro #{{ index }}",
+      steps: {
+        time_ms: "{{ value }}ms",
+        in_ms: "In milliseconds",
+        unknown: "<unknown>",
+        INTERVAL: "Delay between steps",
+        WAIT: "Wait",
+        KEYDOWN: "Hold key",
+        KEYUP: "Release key",
+        TAP: "Tap",
+      },
+      usage_overview: {
+        label: "Macro space used:",
+        usage: "{{ used }}/{{ size }}",
+        bytes: "bytes",
+      },
     },
   },
   preferences: {

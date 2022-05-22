@@ -129,8 +129,11 @@ const Editor = (props) => {
     }
   };
 
-  const onMacroEditorClose = () => {
-    setOpenMacroEditor(false);
+  const onMacroEditorClose = async () => {
+    const key = keymap.custom[currentLayer][currentKeyIndex];
+
+    await setSelectorKey(key);
+    await setOpenMacroEditor(false);
   };
 
   const onKeyChangeForKeymap = (keyCode) => {
@@ -146,6 +149,8 @@ const Editor = (props) => {
     if (newKey.legacy) {
       setHasLegacy(true);
     }
+
+    setSelectorKey(newKey);
     setKeymap(newKeymap);
   };
 

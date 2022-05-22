@@ -132,12 +132,8 @@ const MacroEditor = (props) => {
         </CardContent>
         <CardActions>
           <Box sx={{ flexGrow: 1 }} />
-          <Button color="secondary" onClick={onClose}>
-            Cancel
-          </Button>
-          <Button color="primary" onClick={onApply}>
-            Apply
-          </Button>
+          <Button onClick={onClose}>Cancel</Button>
+          <Button onClick={onApply}>Apply</Button>
         </CardActions>
       </Card>
       <MacroStepEditor

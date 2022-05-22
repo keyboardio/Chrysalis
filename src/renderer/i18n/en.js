@@ -186,6 +186,15 @@ const English = {
         title: "Macros",
         help: `Assign macros to keys. To create or modify macros, you can use the Arduino IDE to customize the Kaleidoscope 'Sketch' file for your keyboard.`,
       },
+      dynmacros: {
+        title: "Dynamic Macros",
+        help: `Assign and edit dynamic macros to keys.`,
+        usage_overview: {
+          label: "Macro space used:",
+          usage: "{{ used }}/{{ size }}",
+          bytes: "bytes",
+        },
+      },
       mousekeys: {
         title: "Mouse control",
         help: `Emulate a mouse using your keyboard's keys.`,
@@ -251,11 +260,6 @@ const English = {
         KEYDOWN: "Hold key",
         KEYUP: "Release key",
         TAP: "Tap",
-      },
-      usage_overview: {
-        label: "Macro space used:",
-        usage: "{{ used }}/{{ size }}",
-        bytes: "bytes",
       },
     },
   },

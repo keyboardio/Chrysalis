@@ -32,7 +32,6 @@ import Tooltip from "@mui/material/Tooltip";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import LayoutSharing from "./LayoutSharing";
-import MacroSpace from "./Overview/MacroSpace";
 
 const Overview = (props) => {
   const [showAll, setShowAll] = useState(false);
@@ -158,7 +157,6 @@ const Overview = (props) => {
           {footer}
         </Table>
       </TableContainer>
-      <MacroSpace macros={props.macros} />
       <Button
         onClick={() => setDialogOpen(true)}
         color="secondary"

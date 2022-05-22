@@ -18,25 +18,13 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import CategorySelector from "../components/CategorySelector";
 
-import { KeymapDB } from "@api/keymap";
-
 const MacroKeys = (props) => {
-  const { keymap, selectedKey, layer, onKeyChange, currentKey } = props;
+  const { keymap, selectedKey, layer, onKeyChange } = props;
   const { t } = useTranslation();
   const pluginVisible = usePluginVisibility("Macros");
   if (!pluginVisible) return null;
-
-  const db = new KeymapDB();
-
-  const disabled = currentKey && !db.isInCategory(currentKey, "macros");
-
-  const onClick = () => {
-    props.setOpenMacroEditor(true);
-  };
 
   return (
     <CategorySelector
@@ -47,19 +35,7 @@ const MacroKeys = (props) => {
       selectedKey={selectedKey}
       layer={layer}
       onKeyChange={onKeyChange}
-    >
-      <Box
-        sx={{
-          mb: 2,
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <Button variant="contained" disabled={disabled} onClick={onClick}>
-          {t("editor.macros.edit")}
-        </Button>
-      </Box>
-    </CategorySelector>
+    />
   );
 };
 

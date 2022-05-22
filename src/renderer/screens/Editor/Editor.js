@@ -122,7 +122,7 @@ const Editor = (props) => {
 
     const key = keymap.custom[currentLayer][keyIndex];
     await setSelectorKey(key);
-    if (db.isInCategory(key, "macros")) {
+    if (db.isInCategory(key, "dynmacros")) {
       const macroId = key.code - key.rangeStart;
 
       await setCurrentMacroId(macroId);

@@ -241,6 +241,7 @@ const English = {
     },
     macros: {
       title: "Macro #{{ index }}",
+      edit: "Edit macro",
       steps: {
         time_ms: "{{ value }}ms",
         in_ms: "In milliseconds",

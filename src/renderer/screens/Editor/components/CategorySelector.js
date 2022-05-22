@@ -36,6 +36,7 @@ const CategorySelector = (props) => {
         title={title}
         help={help}
       >
+        {props.children}
         <KeyButtonList
           keys={db.selectCategory(category)}
           onKeyChange={onKeyChange}

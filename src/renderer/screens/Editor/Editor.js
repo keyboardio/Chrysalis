@@ -65,7 +65,7 @@ const Editor = (props) => {
   const [currentLayer, setCurrentLayer] = useState(0);
   const [hasLegacy, setHasLegacy] = useState(false);
   const [openMacroEditor, setOpenMacroEditor] = useState(false);
-  const [currentMacroId, setCurrentMacroId] = useState(null);
+  const [currentMacroId, setCurrentMacroId] = useState(0);
   const [currentMacroStep, setCurrentMacroStep] = useState(null);
   const [selectorKey, setSelectorKey] = useState(null);
 
@@ -126,7 +126,6 @@ const Editor = (props) => {
       const macroId = key.code - key.rangeStart;
 
       await setCurrentMacroId(macroId);
-      await setOpenMacroEditor(true);
     }
   };
 
@@ -388,6 +387,8 @@ const Editor = (props) => {
         onColormapChange={onColormapChange}
         onPaletteChange={onPaletteChange}
         onLedChange={onLedChange}
+        setOpenMacroEditor={setOpenMacroEditor}
+        currentKey={selectorKey}
       />
       <FloatingKeyPicker
         sidebarWidth={sidebarWidth}

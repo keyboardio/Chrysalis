@@ -78,6 +78,8 @@ const Sidebar = (props) => {
         onKeyChange={props.onKeyChange}
         onLedChange={props.onLedChange}
         onPaletteChange={props.onPaletteChange}
+        setOpenMacroEditor={props.setOpenMacroEditor}
+        currentKey={props.currentKey}
         sx={{ p: 2 }}
       />
     );

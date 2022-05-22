@@ -117,12 +117,7 @@ const MacroEditor = (props) => {
   });
 
   return (
-    <Stack
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-      }}
-    >
+    <React.Fragment>
       <PageTitle title=": Macro Editor" />
       <Card
         sx={{
@@ -144,16 +139,16 @@ const MacroEditor = (props) => {
             {steps}
             <MacroStepAdd addStep={addStep} />
           </Stack>
+          <MacroStepEditor
+            setSelectorKey={props.setSelectorKey}
+            onChange={onMacroStepChange}
+            stepIndex={macroStep}
+            step={macro[macroStep]}
+            open={stepEditorOpen}
+          />
         </CardContent>
       </Card>
-      <MacroStepEditor
-        setSelectorKey={props.setSelectorKey}
-        onChange={onMacroStepChange}
-        stepIndex={macroStep}
-        step={macro[macroStep]}
-        open={stepEditorOpen}
-      />
-    </Stack>
+    </React.Fragment>
   );
 };
 

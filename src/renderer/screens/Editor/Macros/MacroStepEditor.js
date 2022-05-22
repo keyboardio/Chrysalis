@@ -15,13 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useEffect, useState } from "react";
-
+import React from "react";
 import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardHeader from "@mui/material/CardHeader";
-import Divider from "@mui/material/Divider";
 
 import EditInterval from "./StepEditor/EditInterval";
 import EditWait from "./StepEditor/EditWait";
@@ -47,26 +42,7 @@ const MacroStepEditor = (props) => {
     mainWidget = <EditWait value={step.value} onChange={onValueChange} />;
   }
 
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-      }}
-    >
-      <Card
-        sx={{
-          my: 4,
-          mx: "auto",
-          width: "75%",
-        }}
-      >
-        <CardHeader title={`Step #${stepIndex}`} />
-        <Divider />
-        <CardContent>{mainWidget}</CardContent>
-      </Card>
-    </Box>
-  );
+  return <Box sx={{ my: 2 }}>{mainWidget}</Box>;
 };
 
 export default MacroStepEditor;

@@ -187,11 +187,11 @@ const Light = {
         boxShadowActive: "0px 3px 0px rgba(37, 39, 59, 0.05), 0px 16px 16px -8px rgba(76, 102, 177, 0.3)"
       },
       configMinimal: {
-        border: Tokens.colors.gray600,
-        borderActive: Tokens.colors.gray500,
+        border: Tokens.colors.gray100,
+        borderActive: Tokens.colors.purple200,
         color: Tokens.colors.gray300,
-        colorActive: Tokens.colors.gray50,
-        iconColorActive: Tokens.colors.brandSuccess,
+        colorActive: Tokens.colors.purple200,
+        iconColorActive: Tokens.colors.purple200,
         background: "transparent",
         backgroundActive: "linear-gradient(90deg, rgba(255, 255, 255, 0.1) -22.96%, rgba(255, 255, 255, 0) 123.24%)"
       },
@@ -220,10 +220,10 @@ const Light = {
         colorActive: "#fff"
       },
       recordButton: {
-        background: settingColorOpacity(Tokens.colors.gray700, 0.3),
-        backgroundHover: "linear-gradient(0deg, rgba(254, 0, 124, 0.05), rgba(254, 0, 124, 0.05)), rgba(48, 51, 73, 0.5)",
+        background: settingColorOpacity(Tokens.colors.gray25, 0.5),
+        backgroundHover: "linear-gradient(0deg, rgba(254, 0, 124, 0.05), rgba(254, 0, 124, 0.05)), rgba(240, 242, 244, 0.5)",
         borderColor: Tokens.colors.brandPrimary,
-        borderColorResume: Tokens.colors.gray700,
+        borderColorResume: Tokens.colors.gray400,
         color: Tokens.colors.brandPrimary
       }
     },
@@ -395,17 +395,16 @@ const Light = {
       keyValueColor: Tokens.colors.gray600,
       keyFunctionTile: Tokens.colors.gray500,
       previewColor: Tokens.colors.gray200,
-      recordingMessageColor: Tokens.colors.gray200,
-      timelineRecordTrackingBackground: settingColorOpacity(Tokens.colors.gray100, 0.3),
-      timelineBarBackground: Tokens.colors.gray700,
-      tabSaveButtonColor: Tokens.colors.gray400,
-      tabSaveButtonBorder:
-        "linear-gradient(98.12deg,#555769 0%,#303349 56.24%) padding-box, linear-gradient(90deg,#57617E 0%,#40425B 100%) border-box",
+      recordingMessageColor: Tokens.colors.gray300,
+      timelineRecordTrackingBackground: settingColorOpacity(Tokens.colors.gray100, 0.35),
+      timelineBarBackground: Tokens.colors.gray100,
+      tabSaveButtonColor: Tokens.colors.gray200,
+      tabSaveButtonBorder: `linear-gradient(98.12deg, ${Tokens.colors.gray50} 0%, ${Tokens.colors.gray25} 56.24%) padding-box, linear-gradient(90deg, ${Tokens.colors.gray100} 0%, ${Tokens.colors.gray50}  100%) border-box`,
       specialKeyColor: Tokens.colors.gray400,
-      timelinePointeText: Tokens.colors.gray50,
-      recordMacroOptionsBackground: settingColorOpacity(Tokens.colors.gray900, 0.1),
-      recordMacroOptionsBoxShadow: "0 2px 0 rgba(11, 2, 25, 0.1)",
-      recordMacroOptionsTitle: Tokens.colors.gray300
+      timelinePointeText: Tokens.colors.gray400,
+      recordMacroOptionsBackground: settingColorOpacity(Tokens.colors.gray100, 0.15),
+      recordMacroOptionsBoxShadow: "0 2px 0 rgba(151,160,180,0.1)",
+      recordMacroOptionsTitle: Tokens.colors.gray200
     },
     macroKey: {
       background: "linear-gradient(90deg, rgba(255, 255, 255, 0.3) 21.15%, rgba(255, 255, 255, 0) 100%), #DADDE4",
@@ -584,6 +583,14 @@ const Light = {
       backgroundHover: "linear-gradient(122.87deg, rgba(238, 241, 248, 0.2) 52.49%, rgba(255, 255, 255, 0.2) 99.24%)",
       backgroundActive: "linear-gradient(122.87deg, rgba(238, 241, 248, 0.7) 52.49%, rgba(255, 255, 255, 0.7) 99.24%)",
       lightOpacity: 0.5
+    },
+    tabButton: {
+      background: settingColorOpacity(Tokens.colors.gray25, 0.2),
+      backgroundHover: Tokens.colors.gray25,
+      color: Tokens.colors.gray500,
+      colorHover: Tokens.colors.gray600,
+      svgColor: Tokens.colors.gray300,
+      svgHover: Tokens.colors.brandDanger
     },
     toast: {
       boxShadow: `0px 32px 32px -32px ${settingColorOpacity(Tokens.colors.gray300, 0.1)}, 0px 0px 32px ${settingColorOpacity(

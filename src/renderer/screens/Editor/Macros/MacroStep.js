@@ -18,6 +18,7 @@
 import React from "react";
 
 import Chip from "@mui/material/Chip";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import { KeymapDB } from "@api/keymap";
 
@@ -71,6 +72,7 @@ const MacroStep = (props) => {
       onDelete={onDelete}
       color={color}
       label={createLabel(step)}
+      deleteIcon={<DeleteIcon />}
       sx={{ m: 0.5 }}
     />
   );

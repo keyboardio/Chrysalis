@@ -151,13 +151,6 @@ const Editor = (props) => {
   };
 
   const onKeyChangeForMacros = async (keyCode) => {
-    console.log(
-      "onKeyChangeForMacros",
-      currentMacroId,
-      currentMacroStep,
-      keyCode
-    );
-
     const newKey = db.lookup(keyCode);
     const macro = macros.macros[currentMacroId].map((step, index) => {
       if (index == currentMacroStep) {

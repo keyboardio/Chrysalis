@@ -90,7 +90,6 @@ const KeyPicker = (props) => {
   };
 
   const { currentKey: key } = props;
-  if (!key) return null;
 
   let oneShot;
   if (oneShotVisible && db.isInCategory(key.baseCode || key.code, "modifier")) {

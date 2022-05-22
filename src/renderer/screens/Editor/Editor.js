@@ -337,6 +337,9 @@ const Editor = (props) => {
     title = t("app.menu.colormapEditor");
   }
 
+  const currentKey =
+    selectorKey || keymap.custom[currentLayer][currentKeyIndex];
+
   let mainWidget;
   if (openMacroEditor) {
     mainWidget = (
@@ -347,6 +350,7 @@ const Editor = (props) => {
         macro={macros.macros[currentMacroId]}
         macroStep={currentMacroStep}
         setMacroStep={setCurrentMacroStep}
+        currentKey={currentKey}
         setSelectorKey={setSelectorKey}
       />
     );
@@ -393,13 +397,13 @@ const Editor = (props) => {
         onPaletteChange={onPaletteChange}
         onLedChange={onLedChange}
         setOpenMacroEditor={setOpenMacroEditor}
-        currentKey={selectorKey}
+        currentKey={currentKey}
       />
       <FloatingKeyPicker
         sidebarWidth={sidebarWidth}
         onKeyChange={onKeyChange}
         keymap={keymap}
-        currentKey={selectorKey}
+        currentKey={currentKey}
       />
       <SaveChangesButton floating onClick={onApply} disabled={!modified}>
         {t("components.save.saveChanges")}

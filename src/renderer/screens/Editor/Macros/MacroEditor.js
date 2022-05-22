@@ -110,6 +110,7 @@ const MacroEditor = (props) => {
         index={index}
         onDelete={onStepDelete}
         onClick={onStepSelect}
+        currentKey={props.currentKey}
         setSelectorKey={props.setSelectorKey}
         selected={index == macroStep}
       />

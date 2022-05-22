@@ -175,8 +175,16 @@ const Macros = function () {
 
   this.serialize = (macroMap) => {
     let ser = [];
+    let last = 0;
 
-    for (const macro of macroMap) {
+    // Find the last non-empty macro
+    for (let i = 0; i < macroMap.length; i++) {
+      if (macroMap[i].length > 0) last = i;
+    }
+
+    // Serialize macros, but not the trailing empty ones.
+    for (let i = 0; i <= last; i++) {
+      const macro = macroMap[i];
       for (const macroStep of macro) {
         for (const step of steps) {
           const s = step.serialize(macroStep);
@@ -322,6 +330,14 @@ const Macros = function () {
   this.getStoredSize = (macros) =>
     this.serialize(this.compress(macros).macros).length;
 
+  const fill = (macros) => {
+    const rem = 255 - macros.length;
+    for (let i = 0; i < rem; i++) {
+      macros.push([]);
+    }
+    return macros;
+  };
+
   this.focus = async (s, macros) => {
     if (macros) {
       const m = this.compress(macros);
@@ -339,7 +355,7 @@ const Macros = function () {
 
       return {
         storageSize: macroMap.length,
-        macros: this.parse(macroMap).map((m) => expandMacro(m)),
+        macros: fill(this.parse(macroMap).map((m) => expandMacro(m))),
       };
     }
   };

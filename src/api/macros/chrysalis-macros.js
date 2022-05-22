@@ -233,6 +233,10 @@ const Macros = function () {
       if (mapping[step.type]) {
         step.type = mapping[step.type];
       }
+      if (step.type == "TAP") {
+        step.type = "TAPSEQUENCE";
+        step.value = [step.value];
+      }
     }
 
     return m;
@@ -250,6 +254,10 @@ const Macros = function () {
       if (step.type == "KEYUP" && fitsInU8(step.value)) step.type = "KEYCODEUP";
       if (step.type == "KEYDOWN" && fitsInU8(step.value))
         step.type = "KEYCODEDOWN";
+      if (step.type == "TAPSEQUENCE" && step.value.length == 1) {
+        step.type = "TAP";
+        step.value = step.value[0];
+      }
       if (step.type == "TAP" && fitsInU8(step.value)) step.type = "TAPCODE";
       if (step.type == "TAPSEQUENCE") {
         if (step.value.filter((c) => !fitsInU8(c)).length == 0) {

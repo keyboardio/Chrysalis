@@ -38,7 +38,7 @@ const MacroStep = (props) => {
   const formatLabel = (step) => {
     if (step.type == "INTERVAL" || step.type == "WAIT")
       return step.value.toString() + "ms";
-    if (step.type == "TAP" || step.type == "KEYUP" || step.type == "KEYDOWN")
+    if (step.type == "KEYUP" || step.type == "KEYDOWN")
       return db.format(step.value).main;
     if (step.type == "TAPSEQUENCE") {
       const seq = step.value.map((k) => db.format(k).main);
@@ -50,7 +50,6 @@ const MacroStep = (props) => {
   const createLabel = (step) => {
     const descs = {
       INTERVAL: "Delay between steps:",
-      TAP: "Tap:",
       TAPSEQUENCE: "Tap:",
       WAIT: "Wait:",
       KEYUP: "Release key:",

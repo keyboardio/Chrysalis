@@ -173,18 +173,18 @@ const Macros = function () {
     stepTapCodeSequence(),
   ];
 
-  this.serialize = (macroMap) => {
+  this.serialize = (macros, fillUp = true) => {
     let ser = [];
     let last = 0;
 
     // Find the last non-empty macro
-    for (let i = 0; i < macroMap.length; i++) {
-      if (macroMap[i].length > 0) last = i;
+    for (let i = 0; i < macros.macros.length; i++) {
+      if (macros.macros[i].length > 0) last = i;
     }
 
     // Serialize macros, but not the trailing empty ones.
     for (let i = 0; i <= last; i++) {
-      const macro = macroMap[i];
+      const macro = macros.macros[i];
       for (const macroStep of macro) {
         for (const step of steps) {
           const s = step.serialize(macroStep);
@@ -195,6 +195,9 @@ const Macros = function () {
       }
       ser = ser.concat([0]);
     }
+
+    // Fill up the rest of the storage with 255 to clear it.
+    if (fillUp) while (ser.length < macros.storageSize) ser = ser.concat(255);
 
     return ser;
   };
@@ -328,7 +331,7 @@ const Macros = function () {
   });
 
   this.getStoredSize = (macros) =>
-    this.serialize(this.compress(macros).macros).length;
+    this.serialize(this.compress(macros), false).length;
 
   const fill = (macros) => {
     const rem = 255 - macros.length;
@@ -341,7 +344,7 @@ const Macros = function () {
   this.focus = async (s, macros) => {
     if (macros) {
       const m = this.compress(macros);
-      const ser = this.serialize(m.macros);
+      const ser = this.serialize(m);
       if (ser.length > m.storageSize) {
         throw new Error("Not enough macro storage space!");
       }

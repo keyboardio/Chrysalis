@@ -68,19 +68,6 @@ const EditWait = (props) => {
 const MacroStepEditor = (props) => {
   const { stepIndex, step, open } = props;
 
-  const onStepTypeChange = async (event) => {
-    const newStep = { type: event.target.value };
-
-    if (newStep.type == "INTERVAL" || newStep.type == "WAIT") {
-      newStep.value = 0;
-    } else {
-      // TODO(algernon): Need to implement these parts...
-      return;
-    }
-
-    props.onChange(stepIndex, newStep);
-  };
-
   const onValueChange = (event) => {
     const newStep = Object.assign({}, step);
     newStep.value = event.target.value;
@@ -90,20 +77,6 @@ const MacroStepEditor = (props) => {
   if (!open) return null;
   if (stepIndex == null) return null;
   if (step == null) return null;
-
-  const stepType = (
-    <FormControl fullWidth>
-      <InputLabel>Type</InputLabel>
-      <Select label="Type" value={step.type} onChange={onStepTypeChange}>
-        <MenuItem value="INTERVAL">Delay between steps</MenuItem>
-        <MenuItem value="WAIT">Wait</MenuItem>
-        <MenuItem value="TAP">Tap</MenuItem>
-        <MenuItem value="TAPSEQUENCE">Tap a sequence</MenuItem>
-        <MenuItem value="KEYDOWN">Hold key</MenuItem>
-        <MenuItem value="KEYUP">Release key</MenuItem>
-      </Select>
-    </FormControl>
-  );
 
   let mainWidget;
   if (step.type == "INTERVAL") {
@@ -127,15 +100,7 @@ const MacroStepEditor = (props) => {
           width: "75%",
         }}
       >
-        <CardHeader
-          title={`Step #${stepIndex}`}
-          action={stepType}
-          sx={{
-            "& .MuiCardHeader-action": {
-              width: "25%",
-            },
-          }}
-        />
+        <CardHeader title={`Step #${stepIndex}`} />
         <Divider />
         <CardContent>{mainWidget}</CardContent>
       </Card>

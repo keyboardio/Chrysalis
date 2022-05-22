@@ -61,7 +61,7 @@ toast.configure({
   closeOnClick: false,
 });
 
-let focus = new Focus();
+const focus = new Focus();
 if (isDevelopment) {
   focus.debug = true;
 }
@@ -75,7 +75,7 @@ const App = (props) => {
   localStorage.clear();
 
   let flashing = false;
-  let focus = new Focus();
+  const focus = new Focus();
 
   const globalContext = useContext(GlobalContext);
 

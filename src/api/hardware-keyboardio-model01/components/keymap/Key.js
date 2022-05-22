@@ -55,7 +55,7 @@ class Key extends React.Component {
       );
     }
 
-    let keyIndex = parseInt(this.props.row) * 16 + parseInt(this.props.col);
+    const keyIndex = parseInt(this.props.row) * 16 + parseInt(this.props.col);
     let extraLabel;
     const key = this.props.keyObj;
     const label = key && db.format(key);

@@ -19,7 +19,7 @@ import fs from "fs";
 
 export const registerFileIoHandlers = () => {
   ipcMain.on("file-save", (event, data) => {
-    let options = {
+    const options = {
       title: data.title,
       defaultPath: data.defaultPath,
       filters: data.filters,
@@ -37,7 +37,7 @@ export const registerFileIoHandlers = () => {
   });
 
   ipcMain.on("file-open", (event, data) => {
-    let options = {
+    const options = {
       title: data.title,
       filters: data.filters,
     };

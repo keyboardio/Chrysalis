@@ -26,7 +26,7 @@ const Colormap = (props) => {
     const { selectedLed, layer, colormap } = props;
     const colorIndex = colormap.colorMap[layer][selectedLed];
 
-    let palette = colormap.palette;
+    const palette = colormap.palette;
     const { r, g, b } = color.rgb;
 
     palette[colorIndex] = {

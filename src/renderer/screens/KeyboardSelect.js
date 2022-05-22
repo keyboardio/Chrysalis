@@ -44,7 +44,7 @@ const KeyboardSelect = (props) => {
   const [devices, setDevices] = useState(null);
   const [tryAutoConnect, setTryAutoConnect] = useState(true);
 
-  let focus = new Focus();
+  const focus = new Focus();
 
   const scanDevices = async () => {
     setLoading(true);

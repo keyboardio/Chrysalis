@@ -28,7 +28,7 @@ const { ipcRenderer } = require("electron");
 const Store = require("electron-store");
 
 function DevtoolsPreferences(props) {
-  let focus = new Focus();
+  const focus = new Focus();
   const [devTools, setDevTools] = useState(false);
   const [verboseFocus, setVerboseFocus] = useState(focus.debug);
   useEffect(() => {
@@ -59,7 +59,7 @@ function DevtoolsPreferences(props) {
 
   const toggleVerboseFocus = (event) => {
     setVerboseFocus(event.target.checked);
-    let focus = new Focus();
+    const focus = new Focus();
     focus.debug = event.target.checked;
   };
 

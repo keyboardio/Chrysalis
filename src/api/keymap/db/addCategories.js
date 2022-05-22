@@ -15,7 +15,7 @@
  */
 
 const addCategories = (categories, keys) => {
-  let newKeys = [];
+  const newKeys = [];
 
   for (const key of keys) {
     newKeys.push(Object.assign({}, key, { categories: categories }));

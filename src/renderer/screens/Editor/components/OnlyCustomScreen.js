@@ -31,7 +31,7 @@ import React from "react";
 
 const OnlyCustomScreen = (props) => {
   const enableOnlyCustom = async () => {
-    let focus = new Focus();
+    const focus = new Focus();
     await focus.command("keymap.onlyCustom", true);
     await focus.command("settings.defaultLayer", 0);
     await navigate("/editor");

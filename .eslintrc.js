@@ -27,6 +27,7 @@ module.exports = {
     "no-unused-vars": 0, // disabled due to false positives
     "no-async-promise-executor": 0, // grandfathered in during eslint update; would be nice to remove
     "no-prototype-builtins": 0, // grandfathered in during eslint update; would be nice to remove
+    "prefer-const": "error",
     "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
     "prettier/prettier": "error",
   },

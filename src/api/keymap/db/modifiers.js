@@ -33,7 +33,7 @@ const removeModifier = (keyCode, mod) => {
 };
 
 const withModifiers = (keys) => {
-  let newKeys = [];
+  const newKeys = [];
 
   const modLabels = {
     ctrl: {
@@ -67,7 +67,7 @@ const withModifiers = (keys) => {
   };
 
   const combine = (...mods) => {
-    let label = {
+    const label = {
       full: "",
       "1u": "",
     };

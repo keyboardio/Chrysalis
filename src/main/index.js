@@ -55,10 +55,10 @@ const isDevelopment = process.env.NODE_ENV !== "production";
 if (module.hot) module.hot.accept();
 
 let mainWindow;
-export let windows = [];
+export const windows = [];
 
 async function createMainWindow() {
-  let mainWindowState = windowStateKeeper({
+  const mainWindowState = windowStateKeeper({
     defaultWidth: 1200,
     defaultHeight: 900,
   });
@@ -104,7 +104,7 @@ async function createMainWindow() {
     });
   });
 
-  let handleRedirect = (e, url) => {
+  const handleRedirect = (e, url) => {
     if (url != window.webContents.getURL()) {
       e.preventDefault();
       require("electron").shell.openExternal(url);

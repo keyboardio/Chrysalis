@@ -48,10 +48,10 @@ export default class Colormap {
   }
 
   async _pull(s) {
-    let paletteData = await s.request("palette");
-    let colorMapData = await s.request("colormap.map");
+    const paletteData = await s.request("palette");
+    const colorMapData = await s.request("colormap.map");
 
-    let palette = this._chunk(
+    const palette = this._chunk(
       paletteData
         .split(" ")
         .filter((v) => v.length > 0)
@@ -66,7 +66,7 @@ export default class Colormap {
       };
     });
 
-    let colorMap = this._chunk(
+    const colorMap = this._chunk(
       colorMapData
         .split(" ")
         .filter((v) => v.length > 0)
@@ -85,7 +85,7 @@ export default class Colormap {
   }
 
   async _updatePalette(s, palette) {
-    let args = this._flatten(
+    const args = this._flatten(
       palette.map((color) => [color.r, color.g, color.b])
     ).map((v) => v.toString());
 
@@ -93,7 +93,7 @@ export default class Colormap {
   }
 
   async _updateColormap(s, colormap) {
-    let args = this._flatten(colormap).map((v) => v.toString());
+    const args = this._flatten(colormap).map((v) => v.toString());
     return await s.request("colormap.map", ...args);
   }
 
@@ -109,6 +109,6 @@ export default class Colormap {
   }
 }
 
-let focus = new Focus();
+const focus = new Focus();
 focus.addCommands({ colormap: new Colormap() });
 focus.addMethod("setLayerSize", "colormap");

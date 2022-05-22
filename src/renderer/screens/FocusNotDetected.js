@@ -32,7 +32,7 @@ import React from "react";
 import { toast } from "react-toastify";
 
 const FocusNotDetected = (props) => {
-  let focus = new Focus();
+  const focus = new Focus();
   const focusDeviceDescriptor =
     props.focusDeviceDescriptor || focus.focusDeviceDescriptor;
 

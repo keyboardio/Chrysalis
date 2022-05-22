@@ -51,8 +51,8 @@ class Keymap {
   }
 
   hasLegacyCodes(keymap) {
-    for (let layer of keymap) {
-      for (let key of layer) {
+    for (const layer of keymap) {
+      for (const key of layer) {
         if (key.legacy) return true;
       }
     }
@@ -60,9 +60,9 @@ class Keymap {
   }
 
   migrateLegacyCodes(keymap) {
-    let newKeymap = [];
-    for (let layer of keymap) {
-      let newLayer = [];
+    const newKeymap = [];
+    for (const layer of keymap) {
+      const newLayer = [];
       for (let key of layer) {
         if (key.legacy) {
           key = this.db.lookup(key.code);
@@ -147,7 +147,7 @@ class OnlyCustom {
   }
 }
 
-let focus = new Focus();
+const focus = new Focus();
 focus.addCommands({
   keymap: new Keymap(),
   "keymap.onlyCustom": new OnlyCustom(),

@@ -57,7 +57,7 @@ const Store = require("electron-store");
 const settings = new Store();
 
 const FirmwareUpdate = (props) => {
-  let focus = new Focus();
+  const focus = new Focus();
 
   const [firmwareFilename, setFirmwareFilename] = useState("");
   const [selected, setSelected] = useState("default");
@@ -130,7 +130,7 @@ const FirmwareUpdate = (props) => {
   };
 
   const _flash = async () => {
-    let focus = new Focus();
+    const focus = new Focus();
     let filename;
 
     if (selected == "default") {

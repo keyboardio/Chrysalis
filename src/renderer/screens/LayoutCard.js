@@ -56,7 +56,7 @@ const LayoutCard = (props) => {
 
   const scanKeyboard = async () => {
     try {
-      let deviceKeymap = await focus.command("keymap");
+      const deviceKeymap = await focus.command("keymap");
 
       setKeymap(deviceKeymap);
     } catch (e) {
@@ -78,11 +78,11 @@ const LayoutCard = (props) => {
 
   const KeymapSVG = focus.focusDeviceDescriptor.components.keymap;
 
-  let keymap_pix = [];
-  let title = i18n.t("Keyboard layout");
+  const keymap_pix = [];
+  const title = i18n.t("Keyboard layout");
 
   for (let i = 0; i < keymap.custom.length; i++) {
-    for (let j of keymap.custom[i]) {
+    for (const j of keymap.custom[i]) {
       if (j.code != 65535) {
         // If it's not empty, add it to the keymap_pix array
         keymap_pix.push(

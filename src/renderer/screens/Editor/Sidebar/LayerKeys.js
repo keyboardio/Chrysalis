@@ -32,7 +32,7 @@ const LayerKeys = (props) => {
   const getMaxLayer = () => {
     const { keymap, selectedKey, layer } = props;
     const key = keymap.custom[layer][selectedKey];
-    let max = keymap.custom.length - 1;
+    const max = keymap.custom.length - 1;
 
     if (db.isInCategory(key.code, "layer") && key.categories[1] == "oneshot") {
       // for oneshots Kaleidoscope supports max 8 layers so index is 7

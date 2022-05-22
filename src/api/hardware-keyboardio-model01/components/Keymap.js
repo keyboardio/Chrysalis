@@ -57,24 +57,24 @@ const Keymap = (props) => {
             rgb: "#ffffff",
           }));
 
-  let getColor = (row, col) => {
-    let ledIndex = led_map[parseInt(row)][parseInt(col)],
+  const getColor = (row, col) => {
+    const ledIndex = led_map[parseInt(row)][parseInt(col)],
       colorIndex = colormap[ledIndex],
       color = palette[colorIndex].rgb;
 
     return color;
   };
-  let getLEDIndex = (row, col) => {
+  const getLEDIndex = (row, col) => {
     return led_map[parseInt(row)][parseInt(col)];
   };
-  let getKey = (row, col) => {
+  const getKey = (row, col) => {
     if (!props.keymap) return null;
-    let keyIndex = parseInt(row) * 16 + parseInt(col),
+    const keyIndex = parseInt(row) * 16 + parseInt(col),
       key = keymap[keyIndex];
     return key;
   };
-  let isActive = (row, col) => {
-    let keyIndex = parseInt(row) * 16 + parseInt(col);
+  const isActive = (row, col) => {
+    const keyIndex = parseInt(row) * 16 + parseInt(col);
     return props.selectedKey == keyIndex;
   };
 

@@ -70,7 +70,7 @@ function SystemInfo(props) {
     const logger = new Log();
     const focus = new Focus();
 
-    let sysInfo = {
+    const sysInfo = {
       timestamp: new Date(),
       uuid: uuidv4(),
       chrysalis: {

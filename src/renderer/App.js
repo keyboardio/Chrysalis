@@ -71,9 +71,6 @@ if (settingsLanguage) i18n.changeLanguage(settingsLanguage);
 
 const App = (props) => {
   const logger = new Log();
-
-  localStorage.clear();
-
   let flashing = false;
   const focus = new Focus();
 

@@ -40,8 +40,10 @@ const MacroStep = (props) => {
   const formatLabel = (step) => {
     if (step.type == "INTERVAL" || step.type == "WAIT")
       return t("editor.macros.steps.time_ms", { value: step.value });
-    if (["KEYDOWN", "KEYUP", "TAP"].includes(step.type))
-      return db.format(step.value).main;
+    if (["KEYDOWN", "KEYUP", "TAP"].includes(step.type)) {
+      const format = db.format(step.value, "full");
+      return (format.hint ? format.hint + " " : "") + format.main;
+    }
     return t("editor.macros.steps.unknown");
   };
 

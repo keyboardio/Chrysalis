@@ -48,6 +48,12 @@ const MacroEditor = (props) => {
     onMacroChange(macroId, m);
   };
 
+  const addStep = (step) => {
+    const m = macro.map((v) => Object.assign({}, v));
+    m.push(step);
+    onMacroChange(macroId, m);
+  };
+
   const onStepSelect = (index) => {
     if (index == macroStep) {
       setMacroStep(null);
@@ -136,7 +142,7 @@ const MacroEditor = (props) => {
         <CardContent>
           <Stack direction="row" flexWrap="wrap">
             {steps}
-            <MacroStepAdd />
+            <MacroStepAdd addStep={addStep} />
           </Stack>
         </CardContent>
       </Card>

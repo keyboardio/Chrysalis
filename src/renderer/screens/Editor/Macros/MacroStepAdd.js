@@ -15,25 +15,86 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
+import React, { useState } from "react";
 
-import Avatar from "@mui/material/Avatar";
-import { green } from "@mui/material/colors";
+import Divider from "@mui/material/Divider";
+import Fab from "@mui/material/Fab";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import AddIcon from "@mui/icons-material/Add";
 
+import { KeymapDB } from "@api/keymap";
+
 const MacroStepAdd = (props) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const { addStep } = props;
+
+  const db = new KeymapDB();
+
+  const openMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const closeMenu = () => {
+    setAnchorEl(null);
+  };
+
+  const selectType = (stepType) => () => {
+    const defaults = {
+      INTERVAL: 0,
+      WAIT: 0,
+      KEYDOWN: db.lookup(0),
+      KEYUP: db.lookup(0),
+      TAP: db.lookup(),
+    };
+    const step = { type: stepType };
+    if (defaults[stepType] !== undefined) {
+      step.value = defaults[stepType];
+    } else {
+      return closeMenu();
+    }
+
+    addStep(step);
+    closeMenu();
+  };
+
   return (
-    <Avatar
-      component="a"
-      sx={{
-        bgcolor: green[500],
-        width: 32,
-        height: 32,
-        m: 0.5,
-      }}
-    >
-      <AddIcon />
-    </Avatar>
+    <React.Fragment>
+      <Fab
+        onClick={openMenu}
+        size="small"
+        color="success"
+        sx={{
+          m: 0.5,
+        }}
+      >
+        <AddIcon />
+      </Fab>
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={closeMenu}
+        anchorOrigin={{
+          vertical: "center",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+      >
+        <MenuItem onClick={selectType("TAP")}>Tap</MenuItem>
+        <MenuItem onClick={selectType("KEYDOWN")}>Hold key</MenuItem>
+        <MenuItem onClick={selectType("KEYUP")}>Release key</MenuItem>
+        <MenuItem onClick={selectType("WAIT")}>Wait</MenuItem>
+        <MenuItem onClick={selectType("INTERVAL")}>
+          Delay between steps
+        </MenuItem>
+        <Divider />
+        <MenuItem onClick={closeMenu}>Close</MenuItem>
+      </Menu>
+    </React.Fragment>
   );
 };
 

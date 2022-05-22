@@ -41,7 +41,7 @@ const focus = new Focus();
 const db = new KeymapDB();
 
 const MacroEditor = (props) => {
-  const { macroId, macro, onClose } = props;
+  const { macroId, macro } = props;
   const [wipMacro, setWipMacro] = useState(null);
   const [stepEditorOpen, setStepEditorOpen] = useState(false);
   const [selectedStep, setSelectedStep] = useState(null);
@@ -67,6 +67,14 @@ const MacroEditor = (props) => {
     await props.onClose();
   };
 
+  const onClose = async () => {
+    const fkp_channel = new BroadcastChannel("floating-key-picker");
+    await fkp_channel.postMessage("show");
+    await fkp_channel.close();
+
+    props.onClose();
+  };
+
   const onMacroStepChange = async (stepIndex, step) => {
     const m = wipMacro.map((s, index) => {
       if (index == stepIndex) return step;
@@ -77,6 +85,13 @@ const MacroEditor = (props) => {
 
   useEffect(() => {
     if (wipMacro == null) setWipMacro(macro);
+
+    const fkp_channel = new BroadcastChannel("floating-key-picker");
+    fkp_channel.postMessage("hide");
+
+    return function cleanup() {
+      fkp_channel.close();
+    };
   });
 
   if (macroId == null) return null;

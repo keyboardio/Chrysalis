@@ -18,14 +18,17 @@
 import Box from "@mui/material/Box";
 import useTheme from "@mui/material/styles/useTheme";
 import { useWindowSize } from "@renderer/hooks/useWindowSize";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Rnd } from "react-rnd";
 import Keyboard104 from "../Keyboard104";
+
+const fkp_channel = new BroadcastChannel("floating-key-picker");
 
 export const FloatingKeyPicker = (props) => {
   const { sidebarWidth, onKeyChange, keymap, currentLayer, currentKeyIndex } =
     props;
 
+  const [visible, setVisible] = useState(true);
   const [width, setWidth] = useState(800);
   const [height, setHeight] = useState(260);
   const [x, setX] = useState((window.innerWidth - sidebarWidth) / 2 - 400);
@@ -46,6 +49,18 @@ export const FloatingKeyPicker = (props) => {
     }
     setLastWindowSize(windowSize);
   }
+
+  useEffect(() => {
+    fkp_channel.onmessage = (event) => {
+      if (event.data == "show") {
+        setVisible(true);
+      } else if (event.data == "hide") {
+        setVisible(false);
+      }
+    };
+  });
+
+  if (!visible) return null;
 
   return (
     <Rnd

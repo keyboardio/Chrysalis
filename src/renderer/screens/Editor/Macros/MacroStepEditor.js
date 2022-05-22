@@ -39,16 +39,13 @@ const MacroStepEditor = (props) => {
   if (!open) return null;
   if (stepIndex == null) return null;
   if (step == null) return null;
+  if (["KEYUP", "KEYDOWN"].includes(step.type)) return null;
 
   let mainWidget;
   if (step.type == "INTERVAL") {
     mainWidget = <EditInterval value={step.value} onChange={onValueChange} />;
   } else if (step.type == "WAIT") {
     mainWidget = <EditWait value={step.value} onChange={onValueChange} />;
-  } else if (step.type == "KEYDOWN") {
-    mainWidget = <EditKey value={step.value} direction="down" />;
-  } else if (step.type == "KEYUP") {
-    mainWidget = <EditKey value={step.value} direction="up" />;
   }
 
   return (

@@ -25,7 +25,6 @@ import Divider from "@mui/material/Divider";
 
 import EditInterval from "./StepEditor/EditInterval";
 import EditWait from "./StepEditor/EditWait";
-import EditKey from "./StepEditor/EditKey";
 
 const MacroStepEditor = (props) => {
   const { stepIndex, step, open } = props;

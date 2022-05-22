@@ -39,7 +39,7 @@ const MacroStepEditor = (props) => {
   if (!open) return null;
   if (stepIndex == null) return null;
   if (step == null) return null;
-  if (["KEYUP", "KEYDOWN"].includes(step.type)) return null;
+  if (["KEYUP", "KEYDOWN", "TAP"].includes(step.type)) return null;
 
   let mainWidget;
   if (step.type == "INTERVAL") {

@@ -221,25 +221,39 @@ const Macros = function () {
   };
 
   const expandMacro = (macro) => {
-    const m = macro.map((v) => Object.assign({}, v));
     const mapping = {
       KEYCODEUP: "KEYUP",
       KEYCODEDOWN: "KEYDOWN",
       TAPCODE: "TAP",
       TAPCODESEQUENCE: "TAPSEQUENCE",
     };
+    // Upscale from code -> key
+    const m = macro.map((step) => {
+      const newStep = Object.assign({}, step);
 
-    for (const step of m) {
       if (mapping[step.type]) {
-        step.type = mapping[step.type];
+        newStep.type = mapping[step.type];
       }
-      if (step.type == "TAP") {
-        step.type = "TAPSEQUENCE";
-        step.value = [step.value];
+
+      return newStep;
+    });
+
+    // Expand TAPSEQUENCE into discrete taps
+    const expanded = [];
+    for (const step of m) {
+      if (step.type == "TAPSEQUENCE") {
+        for (const s of step.value) {
+          expanded.push({
+            type: "TAP",
+            value: s,
+          });
+        }
+      } else {
+        expanded.push(step);
       }
     }
 
-    return m;
+    return expanded;
   };
 
   const clone = (macro) => {

@@ -56,7 +56,7 @@ const MacroEditor = (props) => {
       setMacroStep(index);
       setStepEditorOpen(true);
 
-      if (["KEYUP", "KEYDOWN"].includes(macro[index].type)) {
+      if (["KEYUP", "KEYDOWN", "TAP"].includes(macro[index].type)) {
         props.setSelectorKey(macro[index].value);
       }
     }
@@ -82,7 +82,7 @@ const MacroEditor = (props) => {
     const fkp_channel = new BroadcastChannel("floating-key-picker");
 
     const step = macro && macro[macroStep];
-    if (["KEYDOWN", "KEYUP", "TAPSEQUENCE"].includes(step?.type)) {
+    if (["KEYDOWN", "KEYUP", "TAP"].includes(step?.type)) {
       fkp_channel.postMessage("show");
     } else {
       fkp_channel.postMessage("hide");

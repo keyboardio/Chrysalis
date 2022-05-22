@@ -38,22 +38,18 @@ const MacroStep = (props) => {
   const formatLabel = (step) => {
     if (step.type == "INTERVAL" || step.type == "WAIT")
       return step.value.toString() + "ms";
-    if (step.type == "KEYUP" || step.type == "KEYDOWN")
+    if (["KEYDOWN", "KEYUP", "TAP"].includes(step.type))
       return db.format(step.value).main;
-    if (step.type == "TAPSEQUENCE") {
-      const seq = step.value.map((k) => db.format(k).main);
-      return seq.join(", ");
-    }
     return "<unknown>";
   };
 
   const createLabel = (step) => {
     const descs = {
       INTERVAL: "Delay between steps:",
-      TAPSEQUENCE: "Tap:",
       WAIT: "Wait:",
-      KEYUP: "Release key:",
       KEYDOWN: "Hold key:",
+      KEYUP: "Release key:",
+      TAP: "Tap:",
     };
 
     return (

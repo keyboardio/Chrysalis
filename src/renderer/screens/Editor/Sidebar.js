@@ -102,6 +102,7 @@ const Sidebar = (props) => {
       <Toolbar />
       <Box sx={{ px: 1, mb: 2 }}>
         <Overview
+          macros={props.macros}
           keymap={keymap}
           colormap={colormap}
           selectedKey={selectedKey}

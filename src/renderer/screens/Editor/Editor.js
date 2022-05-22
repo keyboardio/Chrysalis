@@ -375,6 +375,7 @@ const Editor = (props) => {
         {mainWidget}
       </Box>
       <Sidebar
+        macros={macros}
         keymap={keymap}
         colormap={colormap}
         selectedKey={currentKeyIndex}

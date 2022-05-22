@@ -21,12 +21,13 @@ import Focus from "@api/focus";
 import { KeymapDB } from "@api/keymap";
 
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
+import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
+
+import CloseIcon from "@mui/icons-material/Close";
 
 import { PageTitle } from "@renderer/components/PageTitle";
 
@@ -38,34 +39,27 @@ const focus = new Focus();
 const db = new KeymapDB();
 
 const MacroEditor = (props) => {
-  const { macroId, macro } = props;
-  const [wipMacro, setWipMacro] = useState(null);
+  const { macroId, macro, onMacroChange, macroStep, setMacroStep } = props;
   const [stepEditorOpen, setStepEditorOpen] = useState(false);
-  const [selectedStep, setSelectedStep] = useState(null);
 
   const onStepDelete = (index) => {
-    const m = wipMacro.map((v) => Object.assign({}, v));
+    const m = macro.map((v) => Object.assign({}, v));
     m.splice(index, 1);
-    setWipMacro(m);
+    onMacroChange(macroId, m);
   };
 
   const onStepSelect = (index) => {
-    if (index == selectedStep) {
-      setSelectedStep(null);
+    if (index == macroStep) {
+      setMacroStep(null);
       setStepEditorOpen(false);
     } else {
-      setSelectedStep(index);
+      setMacroStep(index);
       setStepEditorOpen(true);
 
-      if (["KEYUP", "KEYDOWN"].includes(wipMacro[index].type)) {
-        props.setSelectorKey(wipMacro[index].value);
+      if (["KEYUP", "KEYDOWN"].includes(macro[index].type)) {
+        props.setSelectorKey(macro[index].value);
       }
     }
-  };
-
-  const onApply = async () => {
-    await props.onApply(macroId, wipMacro);
-    await props.onClose();
   };
 
   const onClose = async () => {
@@ -77,19 +71,17 @@ const MacroEditor = (props) => {
   };
 
   const onMacroStepChange = async (stepIndex, step) => {
-    const m = wipMacro.map((s, index) => {
+    const m = macro.map((s, index) => {
       if (index == stepIndex) return step;
       return s;
     });
-    setWipMacro(m);
+    onMacroChange(macroId, m);
   };
 
   useEffect(() => {
-    if (wipMacro == null) setWipMacro(macro);
-
     const fkp_channel = new BroadcastChannel("floating-key-picker");
 
-    const step = wipMacro && wipMacro[selectedStep];
+    const step = macro && macro[macroStep];
     if (["KEYDOWN", "KEYUP", "TAPSEQUENCE"].includes(step?.type)) {
       fkp_channel.postMessage("show");
     } else {
@@ -102,9 +94,8 @@ const MacroEditor = (props) => {
   });
 
   if (macroId == null) return null;
-  if (wipMacro == null) return null;
 
-  const steps = wipMacro.map((step, index) => {
+  const steps = macro.map((step, index) => {
     const key = "macro-step-" + index.toString();
     return (
       <MacroStep
@@ -114,7 +105,7 @@ const MacroEditor = (props) => {
         onDelete={onStepDelete}
         onClick={onStepSelect}
         setSelectorKey={props.setSelectorKey}
-        selected={index == selectedStep}
+        selected={index == macroStep}
       />
     );
   });
@@ -134,24 +125,26 @@ const MacroEditor = (props) => {
           width: "75%",
         }}
       >
-        <CardHeader title={`Macro #${macroId}`} />
+        <CardHeader
+          title={`Macro #${macroId}`}
+          action={
+            <IconButton onClick={onClose}>
+              <CloseIcon />
+            </IconButton>
+          }
+        />
         <CardContent>
           <Stack direction="row" flexWrap="wrap">
             {steps}
             <MacroStepAdd />
           </Stack>
         </CardContent>
-        <CardActions>
-          <Box sx={{ flexGrow: 1 }} />
-          <Button onClick={onClose}>Cancel</Button>
-          <Button onClick={onApply}>Apply</Button>
-        </CardActions>
       </Card>
       <MacroStepEditor
         setSelectorKey={props.setSelectorKey}
         onChange={onMacroStepChange}
-        stepIndex={selectedStep}
-        step={wipMacro[selectedStep]}
+        stepIndex={macroStep}
+        step={macro[macroStep]}
         open={stepEditorOpen}
       />
     </Stack>

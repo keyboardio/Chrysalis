@@ -55,6 +55,8 @@ const Editor = (props) => {
     onlyCustom: false,
   });
 
+  const [macros, setMacros] = useState(null);
+
   const [layout, _setLayout] = useState("English (US)");
   const [currentLedIndex, setCurrentLedIndex] = useState(0);
   const [currentKeyIndex, setCurrentKeyIndex] = useState(0);
@@ -64,18 +66,12 @@ const Editor = (props) => {
   const [hasLegacy, setHasLegacy] = useState(false);
   const [openMacroEditor, setOpenMacroEditor] = useState(false);
   const [currentMacroId, setCurrentMacroId] = useState(null);
-  const [macros, setMacros] = useState(null);
+  const [currentMacroStep, setCurrentMacroStep] = useState(null);
   const [selectorKey, setSelectorKey] = useState(null);
 
   const { t } = useTranslation();
 
-  const initializeHostKeyboardLayout = async () => {
-    const layoutSetting = await settings.get("keyboard.layout", "English (US)");
-    db.setLayout(layoutSetting);
-    _setLayout(layoutSetting);
-  };
-
-  const onMacroEditorApply = async (id, macro) => {
+  const onMacroChange = async (id, macro) => {
     const newMacros = {
       storageSize: macros.storageSize,
       macros: macros.macros.map((m, index) => {
@@ -83,18 +79,21 @@ const Editor = (props) => {
         return m;
       }),
     };
-    setMacros(newMacros);
-    // await focus.command("macros", newMacros);
+    await setMacros(newMacros);
+
+    setModified(true);
+    showContextBar();
   };
 
-  const pullMacros = async () => {
-    if (macros == null) setMacros(await focus.command("macros"));
+  const initializeHostKeyboardLayout = async () => {
+    const layoutSetting = await settings.get("keyboard.layout", "English (US)");
+    db.setLayout(layoutSetting);
+    _setLayout(layoutSetting);
   };
 
   const initialize = async () => {
     await scanKeyboard();
     await initializeHostKeyboardLayout();
-    await pullMacros();
 
     setLoading(false);
   };
@@ -148,22 +147,46 @@ const Editor = (props) => {
     if (newKey.legacy) {
       setHasLegacy(true);
     }
-    setModified(true);
     setKeymap(newKeymap);
-    showContextBar();
   };
 
-  const onKeyChangeForMacros = (keyCode) => {
+  const onKeyChangeForMacros = async (keyCode) => {
+    console.log(
+      "onKeyChangeForMacros",
+      currentMacroId,
+      currentMacroStep,
+      keyCode
+    );
+
     const newKey = db.lookup(keyCode);
-    setSelectorKey(newKey);
+    const macro = macros.macros[currentMacroId].map((step, index) => {
+      if (index == currentMacroStep) {
+        const newStep = Object.assign({}, step);
+        newStep.value = newKey;
+        return newStep;
+      }
+      return Object.assign({}, step);
+    });
+    const newMacros = {
+      storageSize: macros.storageSize,
+      macros: macros.macros.map((m, index) => {
+        if (index == currentMacroId) return macro;
+        return m;
+      }),
+    };
+    await setMacros(newMacros);
+    await setSelectorKey(newKey);
   };
 
-  const onKeyChange = (keyCode) => {
+  const onKeyChange = async (keyCode) => {
     if (openMacroEditor) {
-      return onKeyChangeForMacros(keyCode);
+      await onKeyChangeForMacros(keyCode);
     } else {
-      return onKeyChangeForKeymap(keyCode);
+      await onKeyChangeForKeymap(keyCode);
     }
+
+    setModified(true);
+    showContextBar();
   };
 
   const onLedChange = (index) => {
@@ -229,14 +252,15 @@ const Editor = (props) => {
   const scanKeyboard = async () => {
     try {
       let deviceKeymap = await focus.command("keymap");
-
       deviceKeymap = await updateEmptyKeymap(deviceKeymap);
-
       const deviceColormap = await focus.command("colormap");
       const k = new Keymap();
       setHasLegacy(k.hasLegacyCodes(deviceKeymap.custom));
       setKeymap(deviceKeymap);
       setColormap(deviceColormap);
+
+      const deviceMacros = await focus.command("macros");
+      setMacros(deviceMacros);
     } catch (e) {
       toast.error(e);
       props.onDisconnect();
@@ -274,6 +298,10 @@ const Editor = (props) => {
   const onApply = async () => {
     await focus.command("keymap", keymap);
     await focus.command("colormap", colormap);
+
+    // TODO(algernon): Reenable this once we're done
+    //await focus.command("macros", macros);
+    console.log("macros:", macros);
     setModified(false);
 
     logger.log("Changes saved.");
@@ -318,9 +346,11 @@ const Editor = (props) => {
     mainWidget = (
       <MacroEditor
         onClose={onMacroEditorClose}
-        onApply={onMacroEditorApply}
+        onMacroChange={onMacroChange}
         macroId={currentMacroId}
         macro={macros.macros[currentMacroId]}
+        macroStep={currentMacroStep}
+        setMacroStep={setCurrentMacroStep}
         setSelectorKey={setSelectorKey}
       />
     );
@@ -338,7 +368,6 @@ const Editor = (props) => {
     );
   }
 
-  //const currentKey = keymap.custom[currentLayer][currentKeyIndex];
   return (
     <React.Fragment>
       <PageTitle title={title} />

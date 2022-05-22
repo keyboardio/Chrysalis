@@ -95,7 +95,7 @@ const Macros = function () {
   const stepTapSequence = () => ({
     parse: (data) => {
       let pos = 0;
-      let sequence = [];
+      const sequence = [];
       let key = 0;
       do {
         key = db.lookup(data[pos] * 256 + data[pos + 1]);
@@ -113,7 +113,7 @@ const Macros = function () {
     },
     serialize: (data) => {
       if (data.type == "TAPSEQUENCE") {
-        let ser = [12];
+        const ser = [12];
         for (let i = 0; i < data.value.length; i++) {
           ser.push(Math.floor(data.value[i].code / 256));
           ser.push(data.value[i].code % 256);
@@ -128,7 +128,7 @@ const Macros = function () {
   const stepTapCodeSequence = () => ({
     parse: (data) => {
       let pos = 0;
-      let sequence = [];
+      const sequence = [];
       let key = 0;
       do {
         key = db.lookup(data[pos]);
@@ -146,7 +146,7 @@ const Macros = function () {
     },
     serialize: (data) => {
       if (data.type == "TAPCODESEQUENCE") {
-        let ser = [13];
+        const ser = [13];
         for (let i = 0; i < data.value.length; i++) {
           ser.push(data.value[i].code);
         }
@@ -196,7 +196,7 @@ const Macros = function () {
     if (macroMap.filter((n) => n != 255).length == 0) {
       return [];
     }
-    let macros = [];
+    const macros = [];
     let currentMacro = 0;
     let pos = 0;
 
@@ -221,7 +221,7 @@ const Macros = function () {
   };
 
   const expandMacro = (macro) => {
-    let m = macro.map((v) => Object.assign({}, v));
+    const m = macro.map((v) => Object.assign({}, v));
     const mapping = {
       KEYCODEUP: "KEYUP",
       KEYCODEDOWN: "KEYDOWN",
@@ -229,7 +229,7 @@ const Macros = function () {
       TAPCODESEQUENCE: "TAPSEQUENCE",
     };
 
-    for (let step of m) {
+    for (const step of m) {
       if (mapping[step.type]) {
         step.type = mapping[step.type];
       }
@@ -249,8 +249,8 @@ const Macros = function () {
   const fitsInU8 = (v) => v.code < 256;
 
   const compressMacro = (macro) => {
-    let m = clone(macro);
-    for (let step of m) {
+    const m = clone(macro);
+    for (const step of m) {
       if (step.type == "KEYUP" && fitsInU8(step.value)) step.type = "KEYCODEUP";
       if (step.type == "KEYDOWN" && fitsInU8(step.value))
         step.type = "KEYCODEDOWN";
@@ -301,7 +301,7 @@ const Macros = function () {
   return this;
 };
 
-let focus = new Focus();
+const focus = new Focus();
 focus.addCommands({
   macros: new Macros(),
 });

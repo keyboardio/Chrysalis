@@ -35,6 +35,7 @@ import { PageTitle } from "@renderer/components/PageTitle";
 
 import MacroStep from "./MacroStep";
 import MacroStepAdd from "./MacroStepAdd";
+import MacroStepEditor from "./MacroStepEditor";
 
 const focus = new Focus();
 const db = new KeymapDB();
@@ -42,11 +43,23 @@ const db = new KeymapDB();
 const MacroEditor = (props) => {
   const { macroId, macro, onClose } = props;
   const [wipMacro, setWipMacro] = useState(null);
+  const [stepEditorOpen, setStepEditorOpen] = useState(false);
+  const [selectedStep, setSelectedStep] = useState(null);
 
-  const onDelete = (index) => {
+  const onStepDelete = (index) => {
     const m = wipMacro.map((v) => Object.assign({}, v));
     m.splice(index, 1);
     setWipMacro(m);
+  };
+
+  const onStepSelect = (index) => {
+    if (index == selectedStep) {
+      setSelectedStep(null);
+      setStepEditorOpen(false);
+    } else {
+      setSelectedStep(index);
+      setStepEditorOpen(true);
+    }
   };
 
   const onApply = async () => {
@@ -54,9 +67,17 @@ const MacroEditor = (props) => {
     await props.onClose();
   };
 
+  const onMacroStepChange = async (stepIndex, step) => {
+    const m = wipMacro.map((s, index) => {
+      if (index == stepIndex) return step;
+      return s;
+    });
+    setWipMacro(m);
+  };
+
   useEffect(() => {
     if (wipMacro == null) setWipMacro(macro);
-  }, [macro, wipMacro]);
+  });
 
   if (macroId == null) return null;
   if (wipMacro == null) return null;
@@ -64,12 +85,19 @@ const MacroEditor = (props) => {
   const steps = wipMacro.map((step, index) => {
     const key = "macro-step-" + index.toString();
     return (
-      <MacroStep key={key} step={step} index={index} onDelete={onDelete} />
+      <MacroStep
+        key={key}
+        step={step}
+        index={index}
+        onDelete={onStepDelete}
+        onClick={onStepSelect}
+        selected={index == selectedStep}
+      />
     );
   });
 
   return (
-    <Box
+    <Stack
       sx={{
         display: "flex",
         justifyContent: "center",
@@ -80,7 +108,7 @@ const MacroEditor = (props) => {
         sx={{
           my: 4,
           mx: "auto",
-          maxWidth: "75%",
+          width: "75%",
         }}
       >
         <CardHeader
@@ -104,7 +132,13 @@ const MacroEditor = (props) => {
           </Button>
         </CardActions>
       </Card>
-    </Box>
+      <MacroStepEditor
+        onChange={onMacroStepChange}
+        stepIndex={selectedStep}
+        step={wipMacro[selectedStep]}
+        open={stepEditorOpen}
+      />
+    </Stack>
   );
 };
 

@@ -24,10 +24,14 @@ import { KeymapDB } from "@api/keymap";
 const db = new KeymapDB();
 
 const MacroStep = (props) => {
-  const { step, index, onDelete } = props;
+  const { step, index, selected } = props;
 
-  const onStepDelete = () => {
-    onDelete(index);
+  const onDelete = () => {
+    props.onDelete(index);
+  };
+
+  const onClick = () => {
+    props.onClick(index);
   };
 
   const formatLabel = (step) => {
@@ -59,8 +63,16 @@ const MacroStep = (props) => {
     );
   };
 
+  const color = selected ? "primary" : "default";
+
   return (
-    <Chip onDelete={onStepDelete} label={createLabel(step)} sx={{ m: 0.5 }} />
+    <Chip
+      onClick={onClick}
+      onDelete={onDelete}
+      color={color}
+      label={createLabel(step)}
+      sx={{ m: 0.5 }}
+    />
   );
 };
 

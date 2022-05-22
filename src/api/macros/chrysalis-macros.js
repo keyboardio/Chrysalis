@@ -334,7 +334,7 @@ const Macros = function () {
     this.serialize(this.compress(macros), false).length;
 
   const fill = (macros) => {
-    const rem = 255 - macros.length;
+    const rem = 32 - macros.length;
     for (let i = 0; i < rem; i++) {
       macros.push([]);
     }

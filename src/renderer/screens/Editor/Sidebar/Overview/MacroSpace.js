@@ -29,14 +29,13 @@ const MacroSpace = (props) => {
 
   const m = new Macros();
   const size = m.getStoredSize(macros);
-  const freeSpace = macros.storageSize - size;
 
   return (
     <Box sx={{ my: 1.5, mx: 0.5 }}>
       <Typography variant="body1">
-        Available macro space:{" "}
+        Macro space used:{" "}
         <strong>
-          {freeSpace}/{macros.storageSize}
+          {size}/{macros.storageSize}
         </strong>{" "}
         bytes.
       </Typography>

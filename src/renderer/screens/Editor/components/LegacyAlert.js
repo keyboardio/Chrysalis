@@ -18,16 +18,18 @@
 import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import i18n from "@renderer/i18n";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export const LegacyAlert = (migrateLegacy) => {
+  const { t } = useTranslation();
+
   return (
     <Alert
       severity="error"
       action={
         <Button color="primary" onClick={migrateLegacy}>
-          {i18n.t("editor.legacy.migrate")}
+          {t("editor.legacy.migrate")}
         </Button>
       }
       sx={{
@@ -35,7 +37,7 @@ export const LegacyAlert = (migrateLegacy) => {
         position: "relative",
       }}
     >
-      <Typography component="p">{i18n.t("editor.legacy.warning")}</Typography>
+      <Typography component="p">{t("editor.legacy.warning")}</Typography>
     </Alert>
   );
 };

@@ -26,8 +26,8 @@ import {
 import LoadingScreen from "@renderer/components/LoadingScreen";
 import { PageTitle } from "@renderer/components/PageTitle";
 import SaveChangesButton from "@renderer/components/SaveChangesButton";
-import i18n from "@renderer/i18n";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { FloatingKeyPicker } from "./components/FloatingKeyPicker";
 import { LegacyAlert } from "./components/LegacyAlert";
@@ -60,6 +60,8 @@ const Editor = (props) => {
   const [loading, setLoading] = useState(true);
   const [currentLayer, setCurrentLayer] = useState(0);
   const [hasLegacy, setHasLegacy] = useState(false);
+
+  const { t } = useTranslation();
 
   const initializeHostKeyboardLayout = async () => {
     const layoutSetting = await settings.get("keyboard.layout", "English (US)");
@@ -258,11 +260,11 @@ const Editor = (props) => {
 
   let title;
   if (hasColormap() && hasKeymap()) {
-    title = i18n.t("app.menu.editor");
+    title = t("app.menu.editor");
   } else if (hasKeymap()) {
-    title = i18n.t("app.menu.layoutEditor");
+    title = t("app.menu.layoutEditor");
   } else {
-    title = i18n.t("app.menu.colormapEditor");
+    title = t("app.menu.colormapEditor");
   }
 
   return (
@@ -309,7 +311,7 @@ const Editor = (props) => {
         currentLayer={currentLayer}
       />
       <SaveChangesButton floating onClick={onApply} disabled={!modified}>
-        {i18n.t("components.save.saveChanges")}
+        {t("components.save.saveChanges")}
       </SaveChangesButton>
     </React.Fragment>
   );

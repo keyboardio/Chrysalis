@@ -29,13 +29,15 @@ import TableFooter from "@mui/material/TableFooter";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Tooltip from "@mui/material/Tooltip";
-import i18n from "i18next";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import LayoutSharing from "./Overview/LayoutSharing";
 
 const Overview = (props) => {
   const [showAll, setShowAll] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
+
+  const { t } = useTranslation();
 
   const selectLayer = (index) => () => {
     props.setLayer(index);
@@ -124,8 +126,8 @@ const Overview = (props) => {
         >
           <Button onClick={() => setShowAll(!showAll)}>
             {showAll
-              ? i18n.t("editor.sidebar.overview.hideEmptyLayers")
-              : i18n.t("editor.sidebar.overview.showEmptyLayers")}
+              ? t("editor.sidebar.overview.hideEmptyLayers")
+              : t("editor.sidebar.overview.showEmptyLayers")}
           </Button>
         </TableCell>
       </TableRow>
@@ -136,21 +138,17 @@ const Overview = (props) => {
     <Box sx={{ mb: 2 }}>
       <TableContainer component={Paper} sx={{ mb: 2 }}>
         <Table size="small">
-          <Tooltip title={i18n.t("editor.sidebar.overview.help")}>
+          <Tooltip title={t("editor.sidebar.overview.help")}>
             <TableHead>
               <TableRow>
-                <TableCell size="small">
-                  {i18n.t("components.layerRaw")}
-                </TableCell>
+                <TableCell size="small">{t("components.layerRaw")}</TableCell>
                 <TableCell>
-                  {i18n.t("editor.sidebar.overview.key", {
+                  {t("editor.sidebar.overview.key", {
                     index: selectedKey,
                   })}
                 </TableCell>
                 {colormap && colormap.palette.length > 0 && (
-                  <TableCell>
-                    {i18n.t("editor.sidebar.overview.color")}
-                  </TableCell>
+                  <TableCell>{t("editor.sidebar.overview.color")}</TableCell>
                 )}
               </TableRow>
             </TableHead>
@@ -164,7 +162,7 @@ const Overview = (props) => {
         color="secondary"
         variant="outlined"
       >
-        {i18n.t("editor.sidebar.overview.sharing")}
+        {t("editor.sidebar.overview.sharing")}
       </Button>
       <LayoutSharing
         open={dialogOpen}

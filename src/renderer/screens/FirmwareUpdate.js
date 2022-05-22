@@ -43,7 +43,6 @@ import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
 import { PageTitle } from "@renderer/components/PageTitle";
 import SaveChangesButton from "@renderer/components/SaveChangesButton";
 import { getStaticPath } from "@renderer/config";
-import i18n from "@renderer/i18n";
 import checkExternalFlasher from "@renderer/utils/checkExternalFlasher";
 import clearEEPROM from "@renderer/utils/clearEEPROM";
 import { version } from "@root/package.json";
@@ -51,6 +50,7 @@ import { Electron, ipcRenderer } from "electron";
 import fs from "fs";
 import path from "path";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 const Store = require("electron-store");
@@ -64,7 +64,7 @@ const FirmwareUpdate = (props) => {
   const [confirmationOpen, setConfirmationOpen] = useState(false);
   const [resetOnFlash, setResetOnFlash] = useState(false);
   const [activeStep, setActiveStep] = useState(-1);
-
+  const { t } = useTranslation();
   const focusDeviceDescriptor =
     props.focusDeviceDescriptor || focus.focusDeviceDescriptor;
 
@@ -86,14 +86,14 @@ const FirmwareUpdate = (props) => {
     }
 
     const [fileName, fileData] = ipcRenderer.sendSync("file-open", {
-      title: i18n.t("firmwareUpdate.dialog.selectFirmware"),
+      title: t("firmwareUpdate.dialog.selectFirmware"),
       filters: [
         {
-          name: i18n.t("firmwareUpdate.dialog.firmwareFiles"),
+          name: t("firmwareUpdate.dialog.firmwareFiles"),
           extensions: ["hex", "bin"],
         },
         {
-          name: i18n.t("firmwareUpdate.dialog.allFiles"),
+          name: t("firmwareUpdate.dialog.allFiles"),
           extensions: ["*"],
         },
       ],
@@ -189,7 +189,7 @@ const FirmwareUpdate = (props) => {
         </React.Fragment>
       );
       setActiveStep(-1);
-      toast.error(i18n.t("firmwareUpdate.flashing.error"), {
+      toast.error(t("firmwareUpdate.flashing.error"), {
         closeButton: action,
       });
       props.toggleFlashing();
@@ -199,7 +199,7 @@ const FirmwareUpdate = (props) => {
 
     return new Promise((resolve) => {
       setTimeout(() => {
-        toast.success(i18n.t("firmwareUpdate.flashing.success"));
+        toast.success(t("firmwareUpdate.flashing.success"));
 
         props.toggleFlashing();
         props.onDisconnect();
@@ -221,7 +221,7 @@ const FirmwareUpdate = (props) => {
     filename = filename[filename.length - 1];
   }
 
-  const experimentalFirmwareItemText = i18n.t(
+  const experimentalFirmwareItemText = t(
     "firmwareUpdate.experimentalFirmware",
     { version: version }
   );
@@ -232,7 +232,7 @@ const FirmwareUpdate = (props) => {
       </ListItemIcon>
       <ListItemText
         primary={experimentalFirmwareItemText}
-        secondary={i18n.t("firmwareUpdate.experimentalFirmwareDescription")}
+        secondary={t("firmwareUpdate.experimentalFirmwareDescription")}
       />
     </MenuItem>
   );
@@ -244,7 +244,7 @@ const FirmwareUpdate = (props) => {
     hasExperimentalFirmware = false;
   }
 
-  const defaultFirmwareItemText = i18n.t("firmwareUpdate.defaultFirmware", {
+  const defaultFirmwareItemText = t("firmwareUpdate.defaultFirmware", {
     version: version,
   });
 
@@ -257,7 +257,7 @@ const FirmwareUpdate = (props) => {
         primary={defaultFirmwareItemText}
         secondary={
           hasExperimentalFirmware &&
-          i18n.t("firmwareUpdate.defaultFirmwareDescription")
+          t("firmwareUpdate.defaultFirmwareDescription")
         }
       />
     </MenuItem>
@@ -276,7 +276,7 @@ const FirmwareUpdate = (props) => {
       }}
     >
       <InputLabel shrink htmlFor="selected-firmware">
-        {i18n.t("firmwareUpdate.selected")}
+        {t("firmwareUpdate.selected")}
       </InputLabel>
       <Select
         sx={{
@@ -306,7 +306,7 @@ const FirmwareUpdate = (props) => {
             <BuildIcon />
           </ListItemIcon>
           <ListItemText
-            primary={i18n.t("firmwareUpdate.custom")}
+            primary={t("firmwareUpdate.custom")}
             secondary={filename}
           />
         </MenuItem>
@@ -333,7 +333,7 @@ const FirmwareUpdate = (props) => {
   }
 
   steps = steps.map((step) => {
-    return i18n.t("firmwareUpdate.flashing.steps." + step);
+    return t("firmwareUpdate.flashing.steps." + step);
   });
 
   const stepsWidget = (
@@ -355,7 +355,7 @@ const FirmwareUpdate = (props) => {
         justifyContent: "center",
       }}
     >
-      <PageTitle title={i18n.t("app.menu.firmwareUpdate")} />
+      <PageTitle title={t("app.menu.firmwareUpdate")} />
       <Card
         sx={{
           my: 4,
@@ -365,7 +365,7 @@ const FirmwareUpdate = (props) => {
       >
         <CardContent>
           <Typography component="p" gutterBottom>
-            {i18n.t("firmwareUpdate.description")}
+            {t("firmwareUpdate.description")}
           </Typography>
           <Typography component="p" gutterBottom sx={{ textAlign: "center" }}>
             <a href="https://github.com/keyboardio/Chrysalis-Firmware-Bundle#readme">
@@ -373,16 +373,16 @@ const FirmwareUpdate = (props) => {
             </a>
           </Typography>
           <Typography component="p" gutterBottom>
-            {i18n.t("hardware.updateInstructions")}
+            {t("hardware.updateInstructions")}
           </Typography>
           <Typography component="p" gutterBottom>
-            {i18n.t("firmwareUpdate.postUpload")}
+            {t("firmwareUpdate.postUpload")}
           </Typography>
         </CardContent>
         <Divider variant="middle" />
         <CardContent>
           <Typography variant="subtitle1">
-            {i18n.t("firmwareUpdate.options.title")}
+            {t("firmwareUpdate.options.title")}
           </Typography>
           <FormControl sx={{ display: "block" }}>
             <FormControlLabel
@@ -393,7 +393,7 @@ const FirmwareUpdate = (props) => {
                 marginRight: 2,
               }}
               labelPlacement="end"
-              label={i18n.t("firmwareUpdate.options.onFlash")}
+              label={t("firmwareUpdate.options.onFlash")}
             />
           </FormControl>
         </CardContent>
@@ -404,20 +404,20 @@ const FirmwareUpdate = (props) => {
           <SaveChangesButton
             icon={<CloudUploadIcon />}
             onClick={resetOnFlash ? openConfirmationDialog : upload}
-            successMessage={i18n.t("firmwareUpdate.flashing.buttonSuccess")}
+            successMessage={t("firmwareUpdate.flashing.buttonSuccess")}
           >
-            {i18n.t("firmwareUpdate.flashing.button")}
+            {t("firmwareUpdate.flashing.button")}
           </SaveChangesButton>
         </CardActions>
         {activeStep >= 0 && <CardContent>{stepsWidget}</CardContent>}
       </Card>
       <ConfirmationDialog
-        title={i18n.t("firmwareUpdate.confirmDialog.title")}
+        title={t("firmwareUpdate.confirmDialog.title")}
         open={confirmationOpen}
         onConfirm={replace}
         onCancel={closeConfirmationDialog}
       >
-        {i18n.t("firmwareUpdate.confirmDialog.contents")}
+        {t("firmwareUpdate.confirmDialog.contents")}
       </ConfirmationDialog>
     </Box>
   );

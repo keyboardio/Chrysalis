@@ -15,17 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import i18n from "i18next";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import CategorySelector from "../components/CategorySelector";
 
 const LeaderKeys = (props) => {
   const { keymap, selectedKey, layer, onKeyChange } = props;
-
+  const { t } = useTranslation();
   return (
     <CategorySelector
-      title={i18n.t("editor.sidebar.leader.title")}
-      help={i18n.t("editor.sidebar.leader.help")}
+      title={t("editor.sidebar.leader.title")}
+      help={t("editor.sidebar.leader.help")}
       category="leader"
       keymap={keymap}
       selectedKey={selectedKey}

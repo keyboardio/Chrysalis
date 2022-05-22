@@ -15,21 +15,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import i18n from "i18next";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import CategorySelector from "../components/CategorySelector";
 
 const LEDKeys = (props) => {
   const { keymap, selectedKey, layer, onKeyChange, colormap } = props;
-
+  const { t } = useTranslation();
   if (!colormap || colormap.palette.length == 0) {
     return null;
   }
 
   return (
     <CategorySelector
-      title={i18n.t("editor.sidebar.ledcontrol.title")}
-      help={i18n.t("editor.sidebar.ledcontrol.help")}
+      title={t("editor.sidebar.ledcontrol.title")}
+      help={t("editor.sidebar.ledcontrol.help")}
       category="ledkeys"
       keymap={keymap}
       selectedKey={selectedKey}

@@ -20,9 +20,9 @@ import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 import { PageTitle } from "@renderer/components/PageTitle";
-import i18n from "@renderer/i18n";
 import PropTypes from "prop-types";
 import React, { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { BasicPreferences } from "./Preferences/Basic";
 import { DevtoolsPreferences } from "./Preferences/Devtools";
 import {
@@ -38,7 +38,6 @@ TabPanel.propTypes = {
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-
   return (
     <div
       role="tabpanel"
@@ -73,6 +72,8 @@ function Preferences(props) {
 
   const [connected, setConnected] = globalContext.state.connected;
 
+  const { t } = useTranslation();
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -87,7 +88,7 @@ function Preferences(props) {
         width: "100%",
       }}
     >
-      <PageTitle title={i18n.t("app.menu.preferences")} />
+      <PageTitle title={t("app.menu.preferences")} />
       <Tabs
         orientation="vertical"
         variant="scrollable"
@@ -102,18 +103,18 @@ function Preferences(props) {
           minWidth: 300,
         }}
       >
-        <Tab label={i18n.t("preferences.interface")} {...a11yProps(0)} />
+        <Tab label={t("preferences.interface")} {...a11yProps(0)} />
         <Tab
-          label={i18n.t("keyboardSettings.title")}
+          label={t("keyboardSettings.title")}
           {...a11yProps(1)}
           disabled={!connected}
         />
         <Tab
-          label={i18n.t("keyboardSettings.advanced")}
+          label={t("keyboardSettings.advanced")}
           {...a11yProps(2)}
           disabled={!connected}
         />
-        <Tab label={i18n.t("preferences.devtools")} {...a11yProps(3)} />
+        <Tab label={t("preferences.devtools")} {...a11yProps(3)} />
       </Tabs>
       <Box
         sx={{

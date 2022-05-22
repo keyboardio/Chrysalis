@@ -21,8 +21,8 @@ import CardContent from "@mui/material/CardContent";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
-import i18n from "@renderer/i18n";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 const { ipcRenderer } = require("electron");
 
 const Store = require("electron-store");
@@ -31,6 +31,8 @@ function DevtoolsPreferences(props) {
   const focus = new Focus();
   const [devTools, setDevTools] = useState(false);
   const [verboseFocus, setVerboseFocus] = useState(focus.debug);
+  const { t } = useTranslation();
+
   useEffect(() => {
     ipcRenderer.invoke("devtools-is-open").then((result) => {
       setDevTools(result);
@@ -73,7 +75,7 @@ function DevtoolsPreferences(props) {
           marginBottom: 1,
         }}
       >
-        {i18n.t("preferences.devtools")}
+        {t.t("preferences.devtools")}
       </Typography>
       <Card>
         <CardContent>
@@ -88,7 +90,7 @@ function DevtoolsPreferences(props) {
               />
             }
             labelPlacement="end"
-            label={i18n.t("preferences.devtools")}
+            label={t.t("preferences.devtools")}
           />
           <FormControlLabel
             sx={{ display: "flex", marginRight: 2 }}
@@ -101,7 +103,7 @@ function DevtoolsPreferences(props) {
               />
             }
             labelPlacement="end"
-            label={i18n.t("preferences.verboseFocus")}
+            label={t.t("preferences.verboseFocus")}
           />
         </CardContent>
       </Card>

@@ -18,14 +18,16 @@
 import { KeymapDB } from "@api/keymap";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import i18n from "i18next";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import Collapsible from "../components/Collapsible";
 import KeyButton from "../components/KeyButton";
 
 const db = new KeymapDB();
 
 const MouseMovementKeys = (props) => {
+  const { t } = useTranslation();
+
   const mouseUp = db.lookup(20481);
   const mouseLeft = db.lookup(20484);
   const mouseDown = db.lookup(20482);
@@ -34,7 +36,7 @@ const MouseMovementKeys = (props) => {
   return (
     <div>
       <Typography color="textSecondary" gutterBottom>
-        {i18n.t("editor.sidebar.mousekeys.movement")}
+        {t("editor.sidebar.mousekeys.movement")}
       </Typography>
       <Box mx="auto" p={1} textAlign="center">
         <KeyButton onKeyChange={props.onKeyChange} keyObj={mouseUp} noHint />
@@ -49,6 +51,7 @@ const MouseMovementKeys = (props) => {
 };
 
 const MouseButtonKeys = (props) => {
+  const { t } = useTranslation();
   const left = db.lookup(20545);
   const middle = db.lookup(20548);
   const right = db.lookup(20546);
@@ -58,7 +61,7 @@ const MouseButtonKeys = (props) => {
   return (
     <div>
       <Typography color="textSecondary" gutterBottom>
-        {i18n.t("editor.sidebar.mousekeys.buttons")}
+        {t("editor.sidebar.mousekeys.buttons")}
       </Typography>
 
       <Box mx="auto" p={1} textAlign="center">
@@ -74,6 +77,7 @@ const MouseButtonKeys = (props) => {
 };
 
 const MouseWheelKeys = (props) => {
+  const { t } = useTranslation();
   const up = db.lookup(20497);
   const down = db.lookup(20498);
   const left = db.lookup(20500);
@@ -81,7 +85,7 @@ const MouseWheelKeys = (props) => {
   return (
     <div>
       <Typography color="textSecondary" gutterBottom>
-        {i18n.t("editor.sidebar.mousekeys.wheel")}
+        {t("editor.sidebar.mousekeys.wheel")}
       </Typography>
       <Box mx="auto" p={1} textAlign="center">
         <KeyButton onKeyChange={props.onKeyChange} keyObj={up} noHint />
@@ -96,6 +100,7 @@ const MouseWheelKeys = (props) => {
 };
 
 const MouseWarpKeys = (props) => {
+  const { t } = useTranslation();
   const warpNW = db.lookup(20517);
   const warpNE = db.lookup(20521);
   const warpSW = db.lookup(20518);
@@ -105,7 +110,7 @@ const MouseWarpKeys = (props) => {
   return (
     <div>
       <Typography color="textSecondary" gutterBottom>
-        {i18n.t("editor.sidebar.mousekeys.warp")}
+        {t("editor.sidebar.mousekeys.warp")}
       </Typography>
       <KeyButton onKeyChange={props.onKeyChange} keyObj={warpNW} noHint />
       <KeyButton onKeyChange={props.onKeyChange} keyObj={warpNE} noHint />
@@ -120,6 +125,7 @@ const MouseWarpKeys = (props) => {
 
 const MouseKeys = (props) => {
   const { keymap, selectedKey, layer, onKeyChange } = props;
+  const { t } = useTranslation();
   const key = keymap.custom[layer][selectedKey];
 
   const subWidgets = [
@@ -137,8 +143,8 @@ const MouseKeys = (props) => {
   return (
     <Collapsible
       expanded={db.isInCategory(key.code, "mousekeys")}
-      title={i18n.t("editor.sidebar.mousekeys.title")}
-      help={i18n.t("editor.sidebar.mousekeys.help")}
+      title={t("editor.sidebar.mousekeys.title")}
+      help={t("editor.sidebar.mousekeys.help")}
     >
       {widgets}
     </Collapsible>

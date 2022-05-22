@@ -18,13 +18,14 @@
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import i18n from "@renderer/i18n";
 import getLatestVersion from "@renderer/utils/getLatestVersion";
 import { version } from "@root/package.json";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 function UpgradeMenuItem() {
   const [latestVersion, setLatestVersion] = useState(null);
+  const { t, i18n } = useTranslation();
 
   if (!latestVersion) {
     getLatestVersion().then((v) => {

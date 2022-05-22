@@ -20,10 +20,11 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import i18n from "@renderer/i18n";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const ConfirmationDialog = (props) => {
+  const { t } = useTranslation();
   return (
     <Dialog
       disableEscapeKeyDown
@@ -35,10 +36,10 @@ const ConfirmationDialog = (props) => {
       <DialogContent>{props.children}</DialogContent>
       <DialogActions>
         <Button onClick={props.onCancel} color="primary">
-          {i18n.t("dialog.cancel")}
+          {t("dialog.cancel")}
         </Button>
         <Button onClick={props.onConfirm} color="primary">
-          {i18n.t("dialog.ok")}
+          {t("dialog.ok")}
         </Button>
       </DialogActions>
     </Dialog>

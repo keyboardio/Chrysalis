@@ -23,11 +23,11 @@ import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
 import LinearProgress from "@mui/material/LinearProgress";
 import { PageTitle } from "@renderer/components/PageTitle";
-import i18n from "@renderer/i18n";
 import logo from "@renderer/logo-small.png";
 import { findKeyboards } from "@renderer/utils/findKeyboards";
 import { useIntervalImmediate } from "@renderer/utils/useInterval";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { ConnectionButton } from "./KeyboardSelect/ConnectionButton";
 import { DeviceImage } from "./KeyboardSelect/DeviceImage";
@@ -44,6 +44,7 @@ const KeyboardSelect = (props) => {
   const [devices, setDevices] = useState(null);
   const [tryAutoConnect, setTryAutoConnect] = useState(true);
 
+  const { t } = useTranslation();
   const focus = new Focus();
 
   const scanDevices = async () => {
@@ -105,7 +106,7 @@ const KeyboardSelect = (props) => {
     <React.Fragment>
       {" "}
       <Box sx={{ paddingBottom: 3 }}>
-        <PageTitle title={i18n.t("app.menu.selectAKeyboard")} />
+        <PageTitle title={t("app.menu.selectAKeyboard")} />
         {loading && (
           <LinearProgress
             variant="query"
@@ -144,7 +145,7 @@ const KeyboardSelect = (props) => {
               />
             ) : (
               <Grid container justifyContent="center">
-                <img src={logo} alt={i18n.t("components.logo.altText")} />
+                <img src={logo} alt={t("components.logo.altText")} />
               </Grid>
             )}
 

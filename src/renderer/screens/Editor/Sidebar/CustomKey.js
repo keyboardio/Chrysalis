@@ -19,13 +19,14 @@ import { KeymapDB } from "@api/keymap";
 import FormControl from "@mui/material/FormControl";
 import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
-import i18n from "i18next";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import Collapsible from "../components/Collapsible";
 
 const db = new KeymapDB();
 
 const CustomKey = (props) => {
+  const { t } = useTranslation();
   const onKeyChange = (event) => {
     let value = event.target.value;
     if (value < 0) {
@@ -43,13 +44,13 @@ const CustomKey = (props) => {
   return (
     <React.Fragment>
       <Collapsible
-        title={i18n.t("editor.sidebar.custom.title")}
-        help={i18n.t("editor.sidebar.custom.help")}
+        title={t("editor.sidebar.custom.title")}
+        help={t("editor.sidebar.custom.help")}
         expanded={db.isInCategory(key.code, "unknown")}
       >
         <div>
           <FormControl>
-            <InputLabel>{i18n.t("editor.sidebar.custom.label")}</InputLabel>
+            <InputLabel>{t("editor.sidebar.custom.label")}</InputLabel>
             <Input
               type="number"
               min={0}

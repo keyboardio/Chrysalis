@@ -15,8 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import i18n from "i18next";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import Collapsible from "../components/Collapsible";
 import LayoutSelect from "./LogicalLayout/LayoutSelect";
 
@@ -27,11 +27,11 @@ const platforms = {
 };
 const hostos = platforms[process.platform];
 
-const label = i18n.t("editor.sidebar.keypicker.hostLayout", {
-  hostos: hostos,
-});
-
 const LogicalLayout = (props) => {
+  const { t } = useTranslation();
+  const label = t("editor.sidebar.keypicker.hostLayout", {
+    hostos: hostos,
+  });
   return (
     <React.Fragment>
       <Collapsible title={label}>

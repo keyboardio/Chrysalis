@@ -22,8 +22,8 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
 import FormHelperText from "@mui/material/FormHelperText";
 import Switch from "@mui/material/Switch";
-import i18n from "i18next";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import Collapsible from "../components/Collapsible";
 import KeyButton from "../components/KeyButton";
 
@@ -33,6 +33,8 @@ const cancelKeyCode = 53630;
 
 const OneShotKeys = (props) => {
   const [escCancel, setEscCancel] = useState(true);
+  const { t } = useTranslation();
+
   useEffect(() => {
     const focus = new Focus();
     focus.command("escape_oneshot.cancel_key").then((escCancel) => {
@@ -69,8 +71,8 @@ const OneShotKeys = (props) => {
     <React.Fragment>
       <Collapsible
         expanded={key.code == cancelKeyCode || key.code == 41}
-        title={i18n.t("editor.sidebar.oneshot.title")}
-        help={i18n.t("editor.sidebar.oneshot.help")}
+        title={t("editor.sidebar.oneshot.title")}
+        help={t("editor.sidebar.oneshot.help")}
       >
         <KeyButton
           keyObj={db.lookup(cancelKeyCode)}
@@ -86,13 +88,11 @@ const OneShotKeys = (props) => {
             <FormGroup row>
               <FormControlLabel
                 control={escCancelWidget}
-                label={i18n.t(
-                  "editor.sidebar.oneshot.configuration.escCancelLabel"
-                )}
+                label={t("editor.sidebar.oneshot.configuration.escCancelLabel")}
               />
             </FormGroup>
             <FormHelperText>
-              {i18n.t("editor.sidebar.oneshot.configuration.help")}
+              {t("editor.sidebar.oneshot.configuration.help")}
             </FormHelperText>
           </FormControl>
         </Box>

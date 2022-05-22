@@ -32,12 +32,12 @@ import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { PageTitle } from "@renderer/components/PageTitle";
-import i18n from "@renderer/i18n";
 import logo from "@renderer/logo-small.png";
 import { version } from "@root/package.json";
 import { ipcRenderer } from "electron";
 import jsonStringify from "json-stringify-pretty-compact";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import si from "systeminformation";
 import { v4 as uuidv4 } from "uuid";
 
@@ -47,6 +47,7 @@ function SystemInfo(props) {
   const [info, setInfo] = useState({});
   const [viewing, setViewing] = useState(false);
 
+  const { t } = useTranslation();
   const closeViewBundle = () => {
     setViewing(false);
     setCollected(false);
@@ -56,7 +57,7 @@ function SystemInfo(props) {
   const saveBundle = async () => {
     ipcRenderer.send("file-save", {
       content: jsonStringify(info),
-      title: i18n.t("systeminfo.dialog.title"),
+      title: t("systeminfo.dialog.title"),
       defaultPath: "chrysalis-debug.bundle.json",
     });
 
@@ -116,7 +117,7 @@ function SystemInfo(props) {
           }}
         >
           <Button color="primary" onClick={saveBundle}>
-            {i18n.t("systeminfo.saveBundle")}
+            {t("systeminfo.saveBundle")}
           </Button>
           <IconButton onClick={closeViewBundle} size="large">
             <CloseIcon />
@@ -128,7 +129,7 @@ function SystemInfo(props) {
 
   const viewDialog = (
     <Dialog open={viewing} scroll="paper" onClose={closeViewBundle} fullScreen>
-      <DialogTitle>{i18n.t("systeminfo.title")}</DialogTitle>
+      <DialogTitle>{t("systeminfo.title")}</DialogTitle>
       <DialogContent dividers>
         <TextField disabled multiline fullWidth value={jsonStringify(info)} />
       </DialogContent>
@@ -137,7 +138,7 @@ function SystemInfo(props) {
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
-      <PageTitle title={i18n.t("systeminfo.title")} />
+      <PageTitle title={t("systeminfo.title")} />
       <Card
         sx={{
           margin: 4,
@@ -145,21 +146,19 @@ function SystemInfo(props) {
         }}
       >
         <CardHeader
-          avatar={<img src={logo} alt={i18n.t("components.logo.altText")} />}
+          avatar={<img src={logo} alt={t("components.logo.altText")} />}
           title="Chrysalis"
           subheader={version}
         />
         <CardContent>
           <Typography component="p" gutterBottom>
-            {i18n.t("systeminfo.intro")}
+            {t("systeminfo.intro")}
           </Typography>
 
-          <Typography component="p">
-            {i18n.t("systeminfo.privacyNote")}
-          </Typography>
+          <Typography component="p">{t("systeminfo.privacyNote")}</Typography>
           <Typography component="p">
             <Link href="https://github.com/keyboardio/Chrysalis/issues">
-              {i18n.t("systeminfo.bugTracker")}
+              {t("systeminfo.bugTracker")}
             </Link>
           </Typography>
         </CardContent>
@@ -173,7 +172,7 @@ function SystemInfo(props) {
               return await createBundle();
             }}
           >
-            {i18n.t("systeminfo.createBundle")}
+            {t("systeminfo.createBundle")}
           </Button>
         </CardActions>
       </Card>

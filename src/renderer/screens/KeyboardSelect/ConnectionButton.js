@@ -17,8 +17,8 @@
 
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
-import i18n from "@renderer/i18n";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export const ConnectionButton = (props) => {
   const disabled = props.disabled;
@@ -26,6 +26,8 @@ export const ConnectionButton = (props) => {
   const connected = props.connected;
   const onKeyboardConnect = props.onKeyboardConnect;
   const onKeyboardDisconnect = props.onKeyboardDisconnect;
+
+  const { t } = useTranslation();
   if (connected) {
     return (
       <Button
@@ -35,7 +37,7 @@ export const ConnectionButton = (props) => {
         onClick={onKeyboardDisconnect}
         sx={{ verticalAlign: "bottom", marginLeft: "auto", marginRight: 3 }}
       >
-        {i18n.t("keyboardSelect.disconnect")}
+        {t("keyboardSelect.disconnect")}
       </Button>
     );
   } else {
@@ -50,7 +52,7 @@ export const ConnectionButton = (props) => {
         {opening ? (
           <CircularProgress color="secondary" size={16} />
         ) : (
-          i18n.t("keyboardSelect.connect")
+          t("keyboardSelect.connect")
         )}
       </Button>
     );

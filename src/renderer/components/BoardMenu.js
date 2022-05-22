@@ -18,9 +18,9 @@
 import Divider from "@mui/material/Divider";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import i18n from "@renderer/i18n";
 import Electron from "electron";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const openURL = (url, closeMenu) => {
   const shell = Electron.remote && Electron.remote.shell;
@@ -34,6 +34,8 @@ const openURL = (url, closeMenu) => {
 };
 
 export default function BoardMenu({ boardAnchor, boardClose, device }) {
+  const { t, i18n } = useTranslation();
+
   return (
     <Menu anchorEl={boardAnchor} open={!!boardAnchor} onClose={boardClose}>
       <MenuItem disabled>{device.displayName}</MenuItem>
@@ -41,7 +43,7 @@ export default function BoardMenu({ boardAnchor, boardClose, device }) {
       {device.urls.map(({ url, name }) => {
         return (
           <MenuItem key={name} onClick={openURL(url, boardClose)}>
-            {i18n.t("app.deviceMenu." + name, name)}
+            {t("app.deviceMenu." + name, name)}
           </MenuItem>
         );
       })}

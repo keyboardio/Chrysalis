@@ -24,15 +24,18 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
 import Switch from "@mui/material/Switch";
 import Tooltip from "@mui/material/Tooltip";
-import i18n from "i18next";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import Collapsible from "../components/Collapsible";
 
 const db = new KeymapDB();
 
 const KeyPicker = (props) => {
+  const { t } = useTranslation();
+
   const isStandardKey = (props) => {
     const { selectedKey, keymap, layer } = props;
+
     const key = keymap.custom[layer][selectedKey];
     const code = key.baseCode || key.code;
 
@@ -114,10 +117,10 @@ const KeyPicker = (props) => {
         }
       >
         <FormGroup row>
-          <Tooltip title={i18n.t("editor.sidebar.keypicker.oneshot.tooltip")}>
+          <Tooltip title={t("editor.sidebar.keypicker.oneshot.tooltip")}>
             <FormControlLabel
               control={osmControl}
-              label={i18n.t("editor.sidebar.keypicker.oneshot.label")}
+              label={t("editor.sidebar.keypicker.oneshot.label")}
             />
           </Tooltip>
         </FormGroup>
@@ -130,8 +133,8 @@ const KeyPicker = (props) => {
   return (
     <Collapsible
       expanded={isStandardKey(props) || isOSM() || isDualUse()}
-      title={i18n.t("editor.sidebar.keypicker.mods")}
-      help={i18n.t("editor.sidebar.keypicker.modsHelp")}
+      title={t("editor.sidebar.keypicker.mods")}
+      help={t("editor.sidebar.keypicker.modsHelp")}
     >
       <Box sx={{ margin: "2 0" }}>
         <FormControl

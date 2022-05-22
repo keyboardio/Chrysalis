@@ -26,12 +26,13 @@ import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import Typography from "@mui/material/Typography";
 import { PageTitle } from "@renderer/components/PageTitle";
-import i18n from "@renderer/i18n";
 import { navigate } from "@renderer/routerHistory";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 const FocusNotDetected = (props) => {
+  const { t } = useTranslation();
   const focus = new Focus();
   const focusDeviceDescriptor =
     props.focusDeviceDescriptor || focus.focusDeviceDescriptor;
@@ -54,7 +55,7 @@ const FocusNotDetected = (props) => {
         justifyContent: "center",
       }}
     >
-      <PageTitle title={i18n.t("focus-not-detected.title")} />
+      <PageTitle title={t("focus-not-detected.title")} />
       <Card
         sx={{
           margin: 4,
@@ -72,14 +73,14 @@ const FocusNotDetected = (props) => {
         />
         <CardContent>
           <Typography component="p" gutterBottom>
-            {i18n.t("focus-not-detected.contents", {
-              buttonName: i18n.t("app.menu.firmwareUpdate"),
+            {t("focus-not-detected.contents", {
+              buttonName: t("app.menu.firmwareUpdate"),
             })}
           </Typography>
           {focus._port && (
             <Typography component="p" gutterBottom>
-              {i18n.t("focus-not-detected.reconnectDescription", {
-                buttonName: i18n.t("focus-not-detected.reconnect"),
+              {t("focus-not-detected.reconnectDescription", {
+                buttonName: t("focus-not-detected.reconnect"),
               })}
             </Typography>
           )}
@@ -87,7 +88,7 @@ const FocusNotDetected = (props) => {
         <CardActions>
           {focus._port && (
             <Button color="secondary" onClick={reconnect}>
-              {i18n.t("focus-not-detected.reconnect")}
+              {t("focus-not-detected.reconnect")}
             </Button>
           )}
           <Box sx={{ flexGrow: 1 }} />
@@ -98,8 +99,8 @@ const FocusNotDetected = (props) => {
               await navigate("/firmware-update");
             }}
           >
-            {i18n.t("focus-not-detected.gotoUpdate", {
-              buttonName: i18n.t("app.menu.firmwareUpdate"),
+            {t("focus-not-detected.gotoUpdate", {
+              buttonName: t("app.menu.firmwareUpdate"),
             })}
           </Button>
         </CardActions>

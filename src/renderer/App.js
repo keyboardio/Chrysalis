@@ -27,8 +27,8 @@ import {
   StyledEngineProvider,
   ThemeProvider,
 } from "@mui/material/styles";
-import i18n from "@renderer/i18n";
 import React, { useContext, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "typeface-roboto/index.css";
@@ -66,13 +66,15 @@ if (isDevelopment) {
   focus.debug = true;
 }
 
-const settingsLanguage = settings.get("ui.language");
-if (settingsLanguage) i18n.changeLanguage(settingsLanguage);
-
 const App = (props) => {
   const logger = new Log();
   let flashing = false;
   const focus = new Focus();
+
+  const { t, i18n } = useTranslation();
+
+  const settingsLanguage = settings.get("ui.language");
+  if (settingsLanguage) i18n.changeLanguage(settingsLanguage);
 
   const globalContext = useContext(GlobalContext);
 
@@ -99,7 +101,7 @@ const App = (props) => {
     await navigate("./");
 
     if (!focus._port.isOpen) {
-      toast.warning(i18n.t("errors.deviceDisconnected"));
+      toast.warning(t("errors.deviceDisconnected"));
     }
 
     await focus.close();

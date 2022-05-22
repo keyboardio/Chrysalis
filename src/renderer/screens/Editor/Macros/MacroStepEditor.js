@@ -25,6 +25,7 @@ import Divider from "@mui/material/Divider";
 
 import EditInterval from "./StepEditor/EditInterval";
 import EditWait from "./StepEditor/EditWait";
+import EditKey from "./StepEditor/EditKey";
 
 const MacroStepEditor = (props) => {
   const { stepIndex, step, open } = props;
@@ -42,9 +43,12 @@ const MacroStepEditor = (props) => {
   let mainWidget;
   if (step.type == "INTERVAL") {
     mainWidget = <EditInterval value={step.value} onChange={onValueChange} />;
-  }
-  if (step.type == "WAIT") {
+  } else if (step.type == "WAIT") {
     mainWidget = <EditWait value={step.value} onChange={onValueChange} />;
+  } else if (step.type == "KEYDOWN") {
+    mainWidget = <EditKey value={step.value} direction="down" />;
+  } else if (step.type == "KEYUP") {
+    mainWidget = <EditKey value={step.value} direction="up" />;
   }
 
   return (

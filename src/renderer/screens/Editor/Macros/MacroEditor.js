@@ -84,7 +84,13 @@ const MacroEditor = (props) => {
     if (wipMacro == null) setWipMacro(macro);
 
     const fkp_channel = new BroadcastChannel("floating-key-picker");
-    fkp_channel.postMessage("hide");
+
+    const step = wipMacro && wipMacro[selectedStep];
+    if (["KEYDOWN", "KEYUP", "TAPSEQUENCE"].includes(step?.type)) {
+      fkp_channel.postMessage("show");
+    } else {
+      fkp_channel.postMessage("hide");
+    }
 
     return function cleanup() {
       fkp_channel.close();

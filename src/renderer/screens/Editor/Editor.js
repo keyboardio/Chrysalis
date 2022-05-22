@@ -314,7 +314,6 @@ const Editor = (props) => {
   }
 
   let mainWidget;
-  let saveChangesButton;
   if (openMacroEditor) {
     mainWidget = (
       <MacroEditor
@@ -336,11 +335,6 @@ const Editor = (props) => {
         palette={colormap.palette}
         colormap={colormap.colorMap[currentLayer]}
       />
-    );
-    saveChangesButton = (
-      <SaveChangesButton floating onClick={onApply} disabled={!modified}>
-        {t("components.save.saveChanges")}
-      </SaveChangesButton>
     );
   }
 
@@ -379,7 +373,9 @@ const Editor = (props) => {
         keymap={keymap}
         currentKey={selectorKey}
       />
-      {saveChangesButton}
+      <SaveChangesButton floating onClick={onApply} disabled={!modified}>
+        {t("components.save.saveChanges")}
+      </SaveChangesButton>
     </React.Fragment>
   );
 };

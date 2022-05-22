@@ -25,8 +25,8 @@ import Keyboard104 from "../Keyboard104";
 const fkp_channel = new BroadcastChannel("floating-key-picker");
 
 export const FloatingKeyPicker = (props) => {
-  const { sidebarWidth, onKeyChange, keymap, currentLayer, currentKeyIndex } =
-    props;
+  const { sidebarWidth, onKeyChange, keymap } = props;
+  const key = props.currentKey;
 
   const [visible, setVisible] = useState(true);
   const [width, setWidth] = useState(800);
@@ -38,7 +38,6 @@ export const FloatingKeyPicker = (props) => {
     height: window.innerHeight,
   });
   const theme = useTheme();
-  const key = keymap.custom[currentLayer][currentKeyIndex];
 
   const windowSize = useWindowSize();
 
@@ -60,6 +59,7 @@ export const FloatingKeyPicker = (props) => {
     };
   });
 
+  if (!key) return null;
   if (!visible) return null;
 
   return (

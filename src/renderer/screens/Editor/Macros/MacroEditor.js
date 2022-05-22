@@ -56,6 +56,10 @@ const MacroEditor = (props) => {
     } else {
       setSelectedStep(index);
       setStepEditorOpen(true);
+
+      if (["KEYUP", "KEYDOWN"].includes(wipMacro[index].type)) {
+        props.setSelectorKey(wipMacro[index].value);
+      }
     }
   };
 
@@ -109,6 +113,7 @@ const MacroEditor = (props) => {
         index={index}
         onDelete={onStepDelete}
         onClick={onStepSelect}
+        setSelectorKey={props.setSelectorKey}
         selected={index == selectedStep}
       />
     );
@@ -143,6 +148,7 @@ const MacroEditor = (props) => {
         </CardActions>
       </Card>
       <MacroStepEditor
+        setSelectorKey={props.setSelectorKey}
         onChange={onMacroStepChange}
         stepIndex={selectedStep}
         step={wipMacro[selectedStep]}

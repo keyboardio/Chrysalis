@@ -65,6 +65,7 @@ const Editor = (props) => {
   const [openMacroEditor, setOpenMacroEditor] = useState(false);
   const [currentMacroId, setCurrentMacroId] = useState(null);
   const [macros, setMacros] = useState(null);
+  const [selectorKey, setSelectorKey] = useState(null);
 
   const { t } = useTranslation();
 
@@ -121,6 +122,7 @@ const Editor = (props) => {
     await setCurrentLedIndex(ledIndex);
 
     const key = keymap.custom[currentLayer][keyIndex];
+    await setSelectorKey(key);
     if (db.isInCategory(key, "macros")) {
       const macroId = key.code - key.rangeStart;
 
@@ -133,7 +135,7 @@ const Editor = (props) => {
     setOpenMacroEditor(false);
   };
 
-  const onKeyChange = (keyCode) => {
+  const onKeyChangeForKeymap = (keyCode) => {
     const newKeymap = { ...keymap };
     //      const oldKey =  newKeymap.custom[currentLayer][currentKeyIndex];
     const newKey = db.lookup(keyCode);
@@ -149,6 +151,19 @@ const Editor = (props) => {
     setModified(true);
     setKeymap(newKeymap);
     showContextBar();
+  };
+
+  const onKeyChangeForMacros = (keyCode) => {
+    const newKey = db.lookup(keyCode);
+    setSelectorKey(newKey);
+  };
+
+  const onKeyChange = (keyCode) => {
+    if (openMacroEditor) {
+      return onKeyChangeForMacros(keyCode);
+    } else {
+      return onKeyChangeForKeymap(keyCode);
+    }
   };
 
   const onLedChange = (index) => {
@@ -307,6 +322,7 @@ const Editor = (props) => {
         onApply={onMacroEditorApply}
         macroId={currentMacroId}
         macro={macros.macros[currentMacroId]}
+        setSelectorKey={setSelectorKey}
       />
     );
   } else {
@@ -328,6 +344,7 @@ const Editor = (props) => {
     );
   }
 
+  //const currentKey = keymap.custom[currentLayer][currentKeyIndex];
   return (
     <React.Fragment>
       <PageTitle title={title} />
@@ -360,8 +377,7 @@ const Editor = (props) => {
         sidebarWidth={sidebarWidth}
         onKeyChange={onKeyChange}
         keymap={keymap}
-        currentKeyIndex={currentKeyIndex}
-        currentLayer={currentLayer}
+        currentKey={selectorKey}
       />
       {saveChangesButton}
     </React.Fragment>

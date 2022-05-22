@@ -291,12 +291,9 @@ const Editor = (props) => {
   const onApply = async () => {
     await focus.command("keymap", keymap);
     await focus.command("colormap", colormap);
+    await focus.command("macros", macros);
 
-    // TODO(algernon): Reenable this once we're done
-    //await focus.command("macros", macros);
-    console.log("macros:", macros);
     setModified(false);
-
     logger.log("Changes saved.");
     hideContextBar();
   };

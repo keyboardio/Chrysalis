@@ -46,6 +46,7 @@ const English = {
       editor: "Layout & Colormap Editor",
       layoutEditor: "Layout Editor",
       colormapEditor: "Colormap Editor",
+      macroEditor: "Macro Editor",
       firmwareUpdate: "Firmware Update",
       keyboardSettings: "Keyboard Settings",
       preferences: "Preferences",

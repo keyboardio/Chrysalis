@@ -29,8 +29,6 @@ import Stack from "@mui/material/Stack";
 
 import CloseIcon from "@mui/icons-material/Close";
 
-import { PageTitle } from "@renderer/components/PageTitle";
-
 import MacroStep from "./MacroStep";
 import MacroStepAdd from "./MacroStepAdd";
 import MacroStepEditor from "./MacroStepEditor";
@@ -118,7 +116,6 @@ const MacroEditor = (props) => {
 
   return (
     <React.Fragment>
-      <PageTitle title=": Macro Editor" />
       <Card
         sx={{
           my: 4,

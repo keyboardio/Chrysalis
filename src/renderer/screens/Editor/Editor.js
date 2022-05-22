@@ -326,7 +326,9 @@ const Editor = (props) => {
   const KeymapSVG = focus.focusDeviceDescriptor.components.keymap;
 
   let title;
-  if (hasColormap() && hasKeymap()) {
+  if (openMacroEditor) {
+    title = t("app.menu.macroEditor");
+  } else if (hasColormap() && hasKeymap()) {
     title = t("app.menu.editor");
   } else if (hasKeymap()) {
     title = t("app.menu.layoutEditor");

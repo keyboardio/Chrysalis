@@ -16,33 +16,56 @@
  */
 
 import React from "react";
-import Box from "@mui/material/Box";
+import { useTranslation } from "react-i18next";
 
-import EditInterval from "./StepEditor/EditInterval";
-import EditWait from "./StepEditor/EditWait";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 
 const MacroStepEditor = (props) => {
   const { stepIndex, step, open } = props;
-
-  const onValueChange = (event) => {
-    const newStep = Object.assign({}, step);
-    newStep.value = event.target.value;
-    props.onChange(stepIndex, newStep);
-  };
+  const { t } = useTranslation();
 
   if (!open) return null;
   if (stepIndex == null) return null;
   if (step == null) return null;
-  if (["KEYUP", "KEYDOWN", "TAP"].includes(step.type)) return null;
+  if (!["INTERVAL", "WAIT"].includes(step.type)) return null;
 
-  let mainWidget;
-  if (step.type == "INTERVAL") {
-    mainWidget = <EditInterval value={step.value} onChange={onValueChange} />;
-  } else if (step.type == "WAIT") {
-    mainWidget = <EditWait value={step.value} onChange={onValueChange} />;
-  }
+  const onValueChange = (event) => {
+    let value = event.target.value;
+    try {
+      value = parseInt(value);
+    } catch (e) {
+      value = 0;
+    }
+    if (isNaN(value)) value = 0;
+    if (value < 0) {
+      value = 255;
+    }
+    if (value > 255) {
+      value = 0;
+    }
 
-  return <Box sx={{ my: 2 }}>{mainWidget}</Box>;
+    const newStep = Object.assign({}, step);
+    newStep.value = value;
+    props.onChange(stepIndex, newStep);
+  };
+
+  return (
+    <Box sx={{ my: 2 }}>
+      <TextField
+        label={t("editor.macros.steps.INTERVAL")}
+        type="number"
+        min={0}
+        max={255}
+        value={step.value}
+        onChange={onValueChange}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        helperText={t("editor.macros.steps.in_ms")}
+      />
+    </Box>
+  );
 };
 
 export default MacroStepEditor;

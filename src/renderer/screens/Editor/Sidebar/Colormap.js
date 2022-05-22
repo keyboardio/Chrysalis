@@ -15,18 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import i18n from "i18next";
 import React from "react";
 import { ChromePicker } from "react-color";
+import { useTranslation } from "react-i18next";
 import Collapsible from "../components/Collapsible";
 import PalettePicker from "./Colormap/PalettePicker";
 
 const Colormap = (props) => {
+  const { t } = useTranslation();
+
   const colorChangeComplete = (color) => {
     const { selectedLed, layer, colormap } = props;
     const colorIndex = colormap.colorMap[layer][selectedLed];
 
-    let palette = colormap.palette;
+    const palette = colormap.palette;
     const { r, g, b } = color.rgb;
 
     palette[colorIndex] = {
@@ -52,8 +54,8 @@ const Colormap = (props) => {
 
   return (
     <Collapsible
-      title={i18n.t("editor.sidebar.colors.title")}
-      help={i18n.t("editor.sidebar.colors.help")}
+      title={t("editor.sidebar.colors.title")}
+      help={t("editor.sidebar.colors.help")}
       expanded={false}
     >
       <PalettePicker

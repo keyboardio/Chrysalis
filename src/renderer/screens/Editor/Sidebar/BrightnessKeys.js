@@ -16,8 +16,8 @@
  */
 
 import { KeymapDB } from "@api/keymap";
-import i18n from "i18next";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import Collapsible from "../components/Collapsible";
 import KeyButton from "../components/KeyButton";
 
@@ -26,6 +26,8 @@ const db = new KeymapDB();
 const BrightnessKeys = (props) => {
   const { keymap, selectedKey, layer, onKeyChange } = props;
   const key = keymap.custom[layer][selectedKey];
+
+  const { t, i18n } = useTranslation();
 
   const keys = [
     db.lookup(18543), // up
@@ -46,7 +48,7 @@ const BrightnessKeys = (props) => {
   return (
     <Collapsible
       expanded={db.isInCategory(key.code, "consumer")}
-      title={i18n.t("editor.sidebar.consumer.brightness")}
+      title={t("editor.sidebar.consumer.brightness")}
     >
       {keyButtons}
     </Collapsible>

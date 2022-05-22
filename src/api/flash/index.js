@@ -27,7 +27,7 @@ import { v4 as uuidv4 } from "uuid";
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 function FocusCommands(options) {
-  let logger = new Log();
+  const logger = new Log();
 
   this.reboot = async () => {
     const focus = options.focus;
@@ -144,7 +144,7 @@ async function DFUUtilBootloader(port, filename, options) {
         return;
       };
   const device = options.device;
-  let logger = new Log();
+  const logger = new Log();
 
   const formatID = (desc) => {
     return desc.vendorId.toString(16) + ":" + desc.productId.toString(16);
@@ -187,7 +187,7 @@ async function DFUUtilBootloader(port, filename, options) {
 }
 
 async function DFUUtil(port, filename, options) {
-  let logger = new Log();
+  const logger = new Log();
   const focusCommands = new FocusCommands(options);
   const device = options.device;
   const callback = options
@@ -234,7 +234,7 @@ async function AvrDude(_, port, filename, options) {
   const device = options.device;
   const timeout = 1000 * 60 * 5;
   const focusCommands = new FocusCommands(options);
-  let logger = new Log();
+  const logger = new Log();
 
   const runCommand = async (args) => {
     await callback("flash");
@@ -246,14 +246,14 @@ async function AvrDude(_, port, filename, options) {
         "avrdude"
       );
       logger.debug("running avrdude", args);
-      let child = spawn(avrdude, args);
+      const child = spawn(avrdude, args);
       child.stdout.on("data", (data) => {
         logger.debug("avrdude:stdout:", data.toString());
       });
       child.stderr.on("data", (data) => {
         logger.debug("avrdude:stderr:", data.toString());
       });
-      let timer = setTimeout(() => {
+      const timer = setTimeout(() => {
         child.kill();
         reject("avrdude timed out");
       }, timeout);
@@ -307,7 +307,7 @@ async function Avr109Bootloader(board, port, filename, options) {
   const preferExternalFlasher = options && options.preferExternalFlasher;
   if (preferExternalFlasher) return AvrDude(board, port, filename, options);
 
-  let logger = new Log();
+  const logger = new Log();
 
   const avrgirl = new AvrGirl({
     board: board,
@@ -356,7 +356,7 @@ async function Avr109(board, port, filename, options) {
       };
   const device = options.device;
   const focusCommands = new FocusCommands(options);
-  let logger = new Log();
+  const logger = new Log();
 
   await callback("save-eeprom");
   const saveKey = await focusCommands.saveEEPROM();
@@ -387,7 +387,7 @@ async function teensy(filename, options) {
       };
   const device = options.device;
   const focusCommands = new FocusCommands(options);
-  let logger = new Log();
+  const logger = new Log();
 
   await callback("save-eeprom");
   const saveKey = await focusCommands.saveEEPROM();
@@ -411,19 +411,19 @@ async function DFUProgrammer(filename, options, mcu = "atmega32u4") {
   const timeout = options.timeout || 10000;
   const device = options.device;
   const focusCommands = new FocusCommands(options);
-  let logger = new Log();
+  const logger = new Log();
 
   const runCommand = async (args) => {
     return new Promise((resolve, reject) => {
       logger.debug("Running dfu-programmer", args);
-      let child = spawn("dfu-programmer", args);
+      const child = spawn("dfu-programmer", args);
       child.stdout.on("data", (data) => {
         logger.debug("dfu-programmer:stdout:", data.toString());
       });
       child.stderr.on("data", (data) => {
         logger.debug("dfu-programmer:stderr:", data.toString());
       });
-      let timer = setTimeout(() => {
+      const timer = setTimeout(() => {
         child.kill();
         reject("dfu-programmer timed out");
       }, timeout);

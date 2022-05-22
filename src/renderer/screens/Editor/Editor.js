@@ -26,8 +26,8 @@ import {
 import LoadingScreen from "@renderer/components/LoadingScreen";
 import { PageTitle } from "@renderer/components/PageTitle";
 import SaveChangesButton from "@renderer/components/SaveChangesButton";
-import i18n from "@renderer/i18n";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { FloatingKeyPicker } from "./components/FloatingKeyPicker";
 import { LegacyAlert } from "./components/LegacyAlert";
@@ -61,6 +61,8 @@ const Editor = (props) => {
   const [currentLayer, setCurrentLayer] = useState(0);
   const [hasLegacy, setHasLegacy] = useState(false);
 
+  const { t } = useTranslation();
+
   const initializeHostKeyboardLayout = async () => {
     const layoutSetting = await settings.get("keyboard.layout", "English (US)");
     db.setLayout(layoutSetting);
@@ -77,7 +79,7 @@ const Editor = (props) => {
   const setLayout = async (layout) => {
     db.setLayout(layout);
 
-    let newKeymap = { ...keymap };
+    const newKeymap = { ...keymap };
     newKeymap.custom = newKeymap.custom.map((layer) => {
       return layer.map((key) => {
         return db.lookup(key.code);
@@ -98,7 +100,7 @@ const Editor = (props) => {
   };
 
   const onKeyChange = (keyCode) => {
-    let newKeymap = { ...keymap };
+    const newKeymap = { ...keymap };
     //      const oldKey =  newKeymap.custom[currentLayer][currentKeyIndex];
     const newKey = db.lookup(keyCode);
     newKeymap.custom[currentLayer][currentKeyIndex] = newKey;
@@ -116,7 +118,7 @@ const Editor = (props) => {
   };
 
   const onLedChange = (index) => {
-    let newColormap = { ...colormap };
+    const newColormap = { ...colormap };
     newColormap.colorMap[currentLayer][currentLedIndex] = index;
     setModified(true);
     setColormap(newColormap);
@@ -125,7 +127,7 @@ const Editor = (props) => {
   };
 
   const onPaletteChange = (newPalette) => {
-    let newColormap = { ...colormap };
+    const newColormap = { ...colormap };
     newColormap.palette = newPalette;
     setModified(true);
     setColormap(newColormap);
@@ -135,7 +137,7 @@ const Editor = (props) => {
 
   const onKeymapChange = (newKeymap) => {
     const k = new Keymap();
-    let updatedKeymap = { ...keymap };
+    const updatedKeymap = { ...keymap };
     updatedKeymap.custom = newKeymap;
     setHasLegacy(k.hasLegacyCodes(keymap.custom));
     setModified(true);
@@ -145,7 +147,7 @@ const Editor = (props) => {
   };
 
   const onColormapChange = (newColormap) => {
-    let newcolormap = { ...colormap };
+    const newcolormap = { ...colormap };
     newcolormap.colorMap = newColormap;
     setModified(true);
     setColormap(newcolormap);
@@ -155,8 +157,8 @@ const Editor = (props) => {
 
   const updateEmptyKeymap = async (deviceKeymap) => {
     let empty = true;
-    for (let layer of deviceKeymap.custom) {
-      for (let i of layer) {
+    for (const layer of deviceKeymap.custom) {
+      for (const i of layer) {
         if (i.code != 65535) {
           empty = false;
           break;
@@ -181,7 +183,7 @@ const Editor = (props) => {
 
       deviceKeymap = await updateEmptyKeymap(deviceKeymap);
 
-      let deviceColormap = await focus.command("colormap");
+      const deviceColormap = await focus.command("colormap");
       const k = new Keymap();
       setHasLegacy(k.hasLegacyCodes(deviceKeymap.custom));
       setKeymap(deviceKeymap);
@@ -234,7 +236,7 @@ const Editor = (props) => {
 
   const migrateLegacy = async () => {
     const k = new Keymap();
-    let newKeymap = k.migrateLegacyCodes(keymap.custom);
+    const newKeymap = k.migrateLegacyCodes(keymap.custom);
     setHasLegacy(false);
     setModified(true);
     setKeymap({
@@ -258,11 +260,11 @@ const Editor = (props) => {
 
   let title;
   if (hasColormap() && hasKeymap()) {
-    title = i18n.t("app.menu.editor");
+    title = t("app.menu.editor");
   } else if (hasKeymap()) {
-    title = i18n.t("app.menu.layoutEditor");
+    title = t("app.menu.layoutEditor");
   } else {
-    title = i18n.t("app.menu.colormapEditor");
+    title = t("app.menu.colormapEditor");
   }
 
   return (
@@ -309,7 +311,7 @@ const Editor = (props) => {
         currentLayer={currentLayer}
       />
       <SaveChangesButton floating onClick={onApply} disabled={!modified}>
-        {i18n.t("components.save.saveChanges")}
+        {t("components.save.saveChanges")}
       </SaveChangesButton>
     </React.Fragment>
   );

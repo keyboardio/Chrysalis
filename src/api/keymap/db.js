@@ -52,7 +52,7 @@ class KeymapDB {
   };
 
   getSupportedLayouts() {
-    let layouts = [];
+    const layouts = [];
     for (const layout of Object.entries(this._layouts)) {
       layouts.push(layout[0]);
     }
@@ -215,7 +215,7 @@ class KeymapDB {
   }
 
   selectCategory(category) {
-    let cdb = [];
+    const cdb = [];
 
     for (const k of this._codetable) {
       if (k && k.categories && k.categories.includes(category)) {
@@ -283,7 +283,7 @@ class KeymapDB {
 
   format(key, keycapSize = "1u") {
     let label = key.label.base;
-    let shifted = key.label.shifted;
+    const shifted = key.label.shifted;
     if (typeof label != "string") {
       label = key.label.base[keycapSize] || key.label.base.full;
     }
@@ -297,7 +297,7 @@ class KeymapDB {
     }
     if (key.legacy) hint = "Legacy";
 
-    let data = {
+    const data = {
       main: label,
       hint: hint,
     };

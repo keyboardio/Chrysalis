@@ -31,13 +31,13 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
 import { GlobalContext } from "@renderer/components/GlobalContext";
-import i18n from "@renderer/i18n";
 import logo from "@renderer/logo-small.png";
 import { history } from "@renderer/routerHistory";
 import openURL from "@renderer/utils/openURL";
 import { version } from "@root/package.json";
 import { ipcRenderer } from "electron";
 import React, { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import UpgradeMenuItem from "./UpgradeMenuItem";
 
 function MainMenu({ open, closeMenu, classes }) {
@@ -47,6 +47,8 @@ function MainMenu({ open, closeMenu, classes }) {
 
   const [connected, setConnected] = globalContext.state.connected;
   const [activeDevice, setActiveDevice] = globalContext.state.activeDevice;
+
+  const { t } = useTranslation();
 
   const setCurrentPage = (page) => {
     history.navigate(page);
@@ -93,41 +95,37 @@ function MainMenu({ open, closeMenu, classes }) {
     >
       <div className="toolbarIcon">
         <IconButton onClick={() => setCurrentPage(homePage)} size="large">
-          <img src={logo} alt={i18n.t("components.logo.altText")} />
+          <img src={logo} alt={t("components.logo.altText")} />
         </IconButton>
       </div>
       {connected && (
         <List
           subheader={
             <ListSubheader disableSticky>
-              {i18n.t("app.menu.keyboardSection")}
+              {t("app.menu.keyboardSection")}
             </ListSubheader>
           }
         >
           {!activeDevice.focusDetected() &&
             listItem(
               <InfoIcon />,
-              i18n.t("app.menu.focus-not-detected"),
+              t("app.menu.focus-not-detected"),
               "/focus-not-detected"
             )}
           {activeDevice.hasCustomizableKeymaps() &&
             listItem(
               <KeyboardIcon />,
               activeDevice.hasCustomizableLEDMaps()
-                ? i18n.t("app.menu.editor")
-                : i18n.t("app.menu.layoutEditor"),
+                ? t("app.menu.editor")
+                : t("app.menu.layoutEditor"),
 
               "/editor"
             )}
-          {listItem(
-            <InfoIcon />,
-            i18n.t("app.menu.layoutCard"),
-            "/layout-card"
-          )}
+          {listItem(<InfoIcon />, t("app.menu.layoutCard"), "/layout-card")}
 
           {listItem(
             <CloudUploadIcon />,
-            i18n.t("app.menu.firmwareUpdate"),
+            t("app.menu.firmwareUpdate"),
             "/firmware-update"
           )}
         </List>
@@ -136,38 +134,34 @@ function MainMenu({ open, closeMenu, classes }) {
       <List
         subheader={
           <ListSubheader disableSticky>
-            {i18n.t("app.menu.chrysalisSection")}
+            {t("app.menu.chrysalisSection")}
           </ListSubheader>
         }
       >
         {listItem(
           <KeyboardIcon />,
           connected
-            ? i18n.t("app.menu.selectAnotherKeyboard")
-            : i18n.t("app.menu.selectAKeyboard"),
+            ? t("app.menu.selectAnotherKeyboard")
+            : t("app.menu.selectAKeyboard"),
           "/keyboard-select"
         )}
-        {listItem(
-          <SettingsIcon />,
-          i18n.t("app.menu.preferences"),
-          "/preferences"
-        )}
+        {listItem(<SettingsIcon />, t("app.menu.preferences"), "/preferences")}
       </List>
       <Divider />
       <List
         subheader={
           <ListSubheader disableSticky>
-            {i18n.t("app.menu.miscSection")}
+            {t("app.menu.miscSection")}
           </ListSubheader>
         }
       >
-        {listItem(<ChatIcon />, i18n.t("app.menu.chat"), null, () =>
+        {listItem(<ChatIcon />, t("app.menu.chat"), null, () =>
           openExternalPage("https://keyboard.io/discord-invite")
         )}
 
-        {listItem(<InfoIcon />, i18n.t("app.menu.systemInfo"), "/system-info")}
-        {listItem(<ListIcon />, i18n.t("app.menu.changelog"), "/changelog")}
-        {listItem(<ExitToAppIcon />, i18n.t("app.menu.exit"), null, () =>
+        {listItem(<InfoIcon />, t("app.menu.systemInfo"), "/system-info")}
+        {listItem(<ListIcon />, t("app.menu.changelog"), "/changelog")}
+        {listItem(<ExitToAppIcon />, t("app.menu.exit"), null, () =>
           ipcRenderer.send("app-exit")
         )}
       </List>

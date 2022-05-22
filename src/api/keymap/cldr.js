@@ -94,8 +94,8 @@ const loadKeyboard = async (group, isDefault, file) => {
 
   const name = cldrKeyboard.names[0].name[0]["$"].value;
 
-  let keymap = {};
-  let db = [];
+  const keymap = {};
+  const db = [];
 
   for (const map of cldrKeymap) {
     if (!map["$"]) {
@@ -173,7 +173,7 @@ const loadAllKeymaps = async () => {
     }
   }
 
-  let db = {};
+  const db = {};
   for (const l of languages) {
     const os = l.match("-(windows|osx)")[1];
     const layout = await loadKeyboard(

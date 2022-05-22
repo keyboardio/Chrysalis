@@ -31,7 +31,7 @@ const Collapsible = (props) => {
     setExpanded(!show_expanded);
   };
   const { title, help } = props;
-  let summary = (
+  const summary = (
     <AccordionSummary
       expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: "0.9rem" }} />}
       sx={{

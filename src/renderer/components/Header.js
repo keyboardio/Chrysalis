@@ -26,8 +26,8 @@ import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
-import i18n from "@renderer/i18n";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import "typeface-roboto/index.css";
 import "typeface-source-code-pro/index.css";
 import BoardMenu from "./BoardMenu";
@@ -41,6 +41,7 @@ function Header({ device }) {
   const [discardChangesDialogVisibility, setDiscardChangesDialogVisibility] =
     useState(false);
 
+  const { t } = useTranslation();
   useEffect(() => {
     const context_bar_channel = new BroadcastChannel("context_bar");
 
@@ -137,12 +138,12 @@ function Header({ device }) {
         </Toolbar>
       </AppBar>
       <ConfirmationDialog
-        title={i18n.t("app.cancelPending.title")}
+        title={t("app.cancelPending.title")}
         open={discardChangesDialogVisibility}
         onConfirm={contextBarDoDiscardChanges}
         onCancel={contextBarDoNotDiscardChanges}
       >
-        {i18n.t("app.cancelPending.content")}
+        {t("app.cancelPending.content")}
       </ConfirmationDialog>
     </>
   );

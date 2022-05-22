@@ -39,10 +39,10 @@ import {
   showContextBar,
 } from "@renderer/components/ContextBar";
 import SaveChangesButton from "@renderer/components/SaveChangesButton";
-import i18n from "@renderer/i18n";
 import checkExternalFlasher from "@renderer/utils/checkExternalFlasher";
 import clearEEPROM from "@renderer/utils/clearEEPROM";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const Store = require("electron-store");
 const settings = new Store();
@@ -53,12 +53,15 @@ const KeyboardSettings = (props) => {
     default: [],
     onlyCustom: false,
   });
+
   const [defaultLayer, setDefaultLayer] = useState(126);
   const [ledBrightness, setLedBrightness] = useState(255);
   const [ledIdleTimeLimit, setLedIdleTimeLimit] = useState(0);
 
   const [modified, setModified] = useState(false);
   const [working, setWorking] = useState(false);
+  const { t } = useTranslation();
+
   const focus = new Focus();
 
   const initState = async () => {
@@ -130,7 +133,7 @@ const KeyboardSettings = (props) => {
   const layers = keymap.custom.map((_, index) => {
     return (
       <MenuItem value={index} key={index}>
-        {i18n.t("components.layer", { index: index })}
+        {t("components.layer", { index: index })}
       </MenuItem>
     );
   });
@@ -146,7 +149,7 @@ const KeyboardSettings = (props) => {
           marginBottom: 1,
         }}
       >
-        {i18n.t("keyboardSettings.keymap.title")}
+        {t("keyboardSettings.keymap.title")}
       </Typography>
       <Card>
         <CardContent>
@@ -157,7 +160,7 @@ const KeyboardSettings = (props) => {
           >
             <FormControl variant="standard" fullWidth={true}>
               <InputLabel>
-                {i18n.t("keyboardSettings.keymap.defaultLayer")}
+                {t("keyboardSettings.keymap.defaultLayer")}
               </InputLabel>
               <Select
                 onChange={selectDefaultLayer}
@@ -167,7 +170,7 @@ const KeyboardSettings = (props) => {
                 input={<FilledInput sx={{}} />}
               >
                 <MenuItem value={126}>
-                  {i18n.t("keyboardSettings.keymap.noDefault")}
+                  {t("keyboardSettings.keymap.noDefault")}
                 </MenuItem>
                 {layers}
               </Select>
@@ -176,7 +179,7 @@ const KeyboardSettings = (props) => {
             {ledIdleTimeLimit >= 0 && (
               <FormControl variant="standard" fullWidth={true}>
                 <InputLabel>
-                  {i18n.t("keyboardSettings.led.idleTimeLimit")}
+                  {t("keyboardSettings.led.idleTimeLimit")}
                 </InputLabel>
                 <Select
                   onChange={selectIdleLEDTime}
@@ -185,37 +188,37 @@ const KeyboardSettings = (props) => {
                   input={<FilledInput sx={{}} />}
                 >
                   <MenuItem value={0}>
-                    {i18n.t("keyboardSettings.led.idleDisabled")}
+                    {t("keyboardSettings.led.idleDisabled")}
                   </MenuItem>
                   <MenuItem value={60}>
-                    {i18n.t("keyboardSettings.led.idle.oneMinute")}
+                    {t("keyboardSettings.led.idle.oneMinute")}
                   </MenuItem>
                   <MenuItem value={120}>
-                    {i18n.t("keyboardSettings.led.idle.twoMinutes")}
+                    {t("keyboardSettings.led.idle.twoMinutes")}
                   </MenuItem>
                   <MenuItem value={180}>
-                    {i18n.t("keyboardSettings.led.idle.threeMinutes")}
+                    {t("keyboardSettings.led.idle.threeMinutes")}
                   </MenuItem>
                   <MenuItem value={240}>
-                    {i18n.t("keyboardSettings.led.idle.fourMinutes")}
+                    {t("keyboardSettings.led.idle.fourMinutes")}
                   </MenuItem>
                   <MenuItem value={300}>
-                    {i18n.t("keyboardSettings.led.idle.fiveMinutes")}
+                    {t("keyboardSettings.led.idle.fiveMinutes")}
                   </MenuItem>
                   <MenuItem value={600}>
-                    {i18n.t("keyboardSettings.led.idle.tenMinutes")}
+                    {t("keyboardSettings.led.idle.tenMinutes")}
                   </MenuItem>
                   <MenuItem value={900}>
-                    {i18n.t("keyboardSettings.led.idle.fifteenMinutes")}
+                    {t("keyboardSettings.led.idle.fifteenMinutes")}
                   </MenuItem>
                   <MenuItem value={1200}>
-                    {i18n.t("keyboardSettings.led.idle.twentyMinutes")}
+                    {t("keyboardSettings.led.idle.twentyMinutes")}
                   </MenuItem>
                   <MenuItem value={1800}>
-                    {i18n.t("keyboardSettings.led.idle.thirtyMinutes")}
+                    {t("keyboardSettings.led.idle.thirtyMinutes")}
                   </MenuItem>
                   <MenuItem value={3600}>
-                    {i18n.t("keyboardSettings.led.idle.sixtyMinutes")}
+                    {t("keyboardSettings.led.idle.sixtyMinutes")}
                   </MenuItem>
                 </Select>
               </FormControl>
@@ -223,7 +226,7 @@ const KeyboardSettings = (props) => {
             {ledBrightness >= 0 && (
               <FormControl variant="standard" fullWidth={true}>
                 <Typography variant="caption" gutterBottom>
-                  {i18n.t("keyboardSettings.led.brightness")}
+                  {t("keyboardSettings.led.brightness")}
                 </Typography>
                 <Slider
                   max={255}
@@ -237,7 +240,7 @@ const KeyboardSettings = (props) => {
         </CardContent>
         <CardActions sx={{ flexGrow: 1 }}>
           <SaveChangesButton onClick={saveKeymapChanges} disabled={!modified}>
-            {i18n.t("components.save.saveChanges")}
+            {t("components.save.saveChanges")}
           </SaveChangesButton>
         </CardActions>
       </Card>
@@ -253,6 +256,9 @@ const AdvancedKeyboardSettings = () => {
   const [preferExternalFlasher, _setPreferExternalFlasher] = useState(false);
   const [working, setWorking] = useState(false);
   const focusCommands = new FocusCommands({ focus: new Focus() });
+
+  const { t } = useTranslation();
+
   const resetEEPROM = async () => {
     setWorking(true);
     closeEEPROMResetConfirmation();
@@ -305,7 +311,7 @@ const AdvancedKeyboardSettings = () => {
           marginBottom: 1,
         }}
       >
-        {i18n.t("keyboardSettings.advancedOps")}
+        {t("keyboardSettings.advancedOps")}
       </Typography>
       <Card>
         {externalFlasherAvailable && (
@@ -322,7 +328,7 @@ const AdvancedKeyboardSettings = () => {
                 }}
                 control={preferExternalSwitch}
                 labelPlacement="start"
-                label={i18n.t("keyboardSettings.flash.preferExternal")}
+                label={t("keyboardSettings.flash.preferExternal")}
               />
             </FormControl>
           </CardContent>
@@ -334,17 +340,17 @@ const AdvancedKeyboardSettings = () => {
             color="secondary"
             onClick={openEEPROMResetConfirmation}
           >
-            {i18n.t("keyboardSettings.resetEEPROM.button")}
+            {t("keyboardSettings.resetEEPROM.button")}
           </Button>
         </CardActions>
       </Card>
       <ConfirmationDialog
-        title={i18n.t("keyboardSettings.resetEEPROM.dialogTitle")}
+        title={t("keyboardSettings.resetEEPROM.dialogTitle")}
         open={EEPROMResetConfirmationOpen}
         onConfirm={resetEEPROM}
         onCancel={closeEEPROMResetConfirmation}
       >
-        {i18n.t("keyboardSettings.resetEEPROM.dialogContents")}
+        {t("keyboardSettings.resetEEPROM.dialogContents")}
       </ConfirmationDialog>
     </React.Fragment>
   );

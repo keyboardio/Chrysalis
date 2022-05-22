@@ -28,11 +28,11 @@ class Keymap extends React.Component {
         .fill()
         .map(() => 0);
 
-    let keyIndex = (row, col) => {
+    const keyIndex = (row, col) => {
       return row * 6 + col;
     };
 
-    let Key = (props) => {
+    const Key = (props) => {
       if (!this.props.keymap) return null;
       const { x, y, row, col, transform } = props;
       const width = props.width || 1,

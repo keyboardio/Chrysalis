@@ -40,22 +40,22 @@ class Keymap extends React.Component {
 
     const rowOffsetX = [2, 2, 2, 2];
 
-    let getKey = (row, col) => {
+    const getKey = (row, col) => {
       if (!this.props.keymap) return null;
-      let keyIndex = parseInt(row) * 12 + parseInt(col),
+      const keyIndex = parseInt(row) * 12 + parseInt(col),
         key = keymap[keyIndex];
       return key;
     };
-    let isActive = (row, col) => {
-      let keyIndex = parseInt(row) * 12 + parseInt(col);
+    const isActive = (row, col) => {
+      const keyIndex = parseInt(row) * 12 + parseInt(col);
       return this.props.selectedKey == keyIndex;
     };
 
-    let getX = (row, col) => {
+    const getX = (row, col) => {
       return rowOffsetX[row] + keySpacingX * col + colOffsetX[col];
     };
 
-    let getY = (row, col) => {
+    const getY = (row, col) => {
       return colOffsetY[col] + KeySpacingY * row;
     };
 

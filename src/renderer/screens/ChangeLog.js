@@ -21,25 +21,28 @@ import CardHeader from "@mui/material/CardHeader";
 import Typography from "@mui/material/Typography";
 import { PageTitle } from "@renderer/components/PageTitle";
 import { getStaticPath } from "@renderer/config";
-import i18n from "@renderer/i18n";
 import logo from "@renderer/logo-small.png";
 import { version } from "@root/package.json";
 import fs from "fs";
 import path from "path";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import ReactMarkdown from "react-markdown";
 
 const ChangeLog = (props) => {
   const { classes } = props;
+
+  const { t } = useTranslation();
+
   const file = path.join(getStaticPath(), "../NEWS.md");
   const data = fs.readFileSync(file).toString();
 
   return (
     <div>
-      <PageTitle title={i18n.t("changelog.title")} />
+      <PageTitle title={t("changelog.title")} />
       <Card sx={{ margin: "auto", maxWidth: "50%" }}>
         <CardHeader
-          avatar={<img src={logo} alt={i18n.t("components.logo.altText")} />}
+          avatar={<img src={logo} alt={t("components.logo.altText")} />}
           title="Chrysalis"
           subheader={version}
         />

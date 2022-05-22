@@ -26,8 +26,8 @@ import Select from "@mui/material/Select";
 import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
 import { GlobalContext } from "@renderer/components/GlobalContext";
-import i18n from "@renderer/i18n";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const Store = require("electron-store");
 const settings = new Store();
@@ -38,6 +38,8 @@ function BasicPreferences(props) {
   const globalContext = React.useContext(GlobalContext);
 
   const [darkMode, setDarkMode] = globalContext.state.darkMode;
+
+  const { t, i18n } = useTranslation();
 
   const toggleDarkMode = async () => {
     settings.set("ui.darkMode", !darkMode);
@@ -70,17 +72,17 @@ function BasicPreferences(props) {
           marginBottom: 1,
         }}
       >
-        {i18n.t("preferences.interface")}
+        {t("preferences.interface")}
       </Typography>
       <Card>
         <CardContent>
           <FormControl variant="standard" fullWidth={true}>
-            <InputLabel>{i18n.t("preferences.language")}</InputLabel>
+            <InputLabel>{t("preferences.language")}</InputLabel>
             <Select
               value={language}
               sx={{ mb: 2 }}
               onChange={updateLanguage}
-              label={i18n.t("preferences.language")}
+              label={t("preferences.language")}
               input={<FilledInput sx={{}} />}
             >
               {languages}
@@ -97,7 +99,7 @@ function BasicPreferences(props) {
             }
             sx={{ display: "flex", marginRight: 2 }}
             labelPlacement="end"
-            label={i18n.t("preferences.darkMode")}
+            label={t("preferences.darkMode")}
           />
         </CardContent>
       </Card>

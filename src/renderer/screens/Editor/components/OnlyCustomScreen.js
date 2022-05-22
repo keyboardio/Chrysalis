@@ -24,14 +24,16 @@ import CardContent from "@mui/material/CardContent";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import { PageTitle } from "@renderer/components/PageTitle";
-import i18n from "@renderer/i18n";
 import { navigate } from "@renderer/routerHistory";
 import openURL from "@renderer/utils/openURL";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const OnlyCustomScreen = (props) => {
+  const { t } = useTranslation();
+
   const enableOnlyCustom = async () => {
-    let focus = new Focus();
+    const focus = new Focus();
     await focus.command("keymap.onlyCustom", true);
     await focus.command("settings.defaultLayer", 0);
     await navigate("/editor");
@@ -46,7 +48,7 @@ const OnlyCustomScreen = (props) => {
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
-      <PageTitle title={i18n.t("app.actionRequired")} />
+      <PageTitle title={t("app.actionRequired")} />
 
       <Card
         sx={{
@@ -56,19 +58,19 @@ const OnlyCustomScreen = (props) => {
       >
         <CardContent>
           <Typography component="p" gutterBottom>
-            {i18n.t("editor.onlyCustom.warning")}
+            {t("editor.onlyCustom.warning")}
           </Typography>
         </CardContent>
         <Divider variant="middle" />
         <CardActions>
           <Box component="span" mr={1}>
             <Button onClick={openFeatureRequest} variant="outlined">
-              {i18n.t("editor.onlyCustom.openFR")}
+              {t("editor.onlyCustom.openFR")}
             </Button>
           </Box>
           <Box sx={{ flexGrow: 1 }} />
           <Button onClick={enableOnlyCustom} color="primary" variant="outlined">
-            {i18n.t("editor.onlyCustom.fixItButton")}
+            {t("editor.onlyCustom.fixItButton")}
           </Button>
         </CardActions>
       </Card>

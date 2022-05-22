@@ -21,18 +21,20 @@ import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import i18n from "i18next";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import Collapsible from "../components/Collapsible";
 
 const db = new KeymapDB();
 
 const LayerKeys = (props) => {
   const [expanded, setExpanded] = useState(false);
+  const { t } = useTranslation();
+
   const getMaxLayer = () => {
     const { keymap, selectedKey, layer } = props;
     const key = keymap.custom[layer][selectedKey];
-    let max = keymap.custom.length - 1;
+    const max = keymap.custom.length - 1;
 
     if (db.isInCategory(key.code, "layer") && key.categories[1] == "oneshot") {
       // for oneshots Kaleidoscope supports max 8 layers so index is 7
@@ -91,36 +93,36 @@ const LayerKeys = (props) => {
   return (
     <React.Fragment>
       <Collapsible
-        title={i18n.t("editor.sidebar.layer.title")}
-        help={i18n.t("editor.sidebar.layer.help")}
+        title={t("editor.sidebar.layer.title")}
+        help={t("editor.sidebar.layer.help")}
         expanded={db.isInCategory(key.code, "layer")}
       >
         <div>
           <FormControl>
-            <InputLabel>{i18n.t("editor.layerswitch.type")}</InputLabel>
+            <InputLabel>{t("editor.layerswitch.type")}</InputLabel>
             <Select value={type} onChange={onTypeChange}>
               <MenuItem value="none" disabled selected>
-                {i18n.t("components.none")}
+                {t("components.none")}
               </MenuItem>
               <MenuItem value="shifttolayer" selected={type == "shifttolayer"}>
-                {i18n.t("editor.layerswitch.shiftTo")}
+                {t("editor.layerswitch.shiftTo")}
               </MenuItem>
               <MenuItem value="locktolayer" selected={type == "locktolayer"}>
-                {i18n.t("editor.layerswitch.lockTo")}
+                {t("editor.layerswitch.lockTo")}
               </MenuItem>
               <MenuItem value="movetolayer" selected={type == "movetolayer"}>
-                {i18n.t("editor.layerswitch.moveTo")}
+                {t("editor.layerswitch.moveTo")}
               </MenuItem>
               <MenuItem value="oneshot" selected={type == "oneshot"}>
-                {i18n.t("editor.layerswitch.oneshot")}
+                {t("editor.layerswitch.oneshot")}
               </MenuItem>
               <MenuItem value="dualuse" selected={type == "dualuse"} disabled>
-                {i18n.t("editor.layerswitch.dualuse")}
+                {t("editor.layerswitch.dualuse")}
               </MenuItem>
             </Select>
           </FormControl>
           <FormControl>
-            <InputLabel>{i18n.t("editor.layerswitch.target")}</InputLabel>
+            <InputLabel>{t("editor.layerswitch.target")}</InputLabel>
             <Input
               type="number"
               min={0}

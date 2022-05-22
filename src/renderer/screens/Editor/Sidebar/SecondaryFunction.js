@@ -24,13 +24,14 @@ import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import i18n from "i18next";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import Collapsible from "../components/Collapsible";
 
 const db = new KeymapDB();
 
 const SecondaryFunction = (props) => {
+  const { t } = useTranslation();
   const onTargetLayerChange = (event) => {
     const { keymap, selectedKey, layer } = props;
     const key = keymap.custom[layer][selectedKey];
@@ -99,9 +100,7 @@ const SecondaryFunction = (props) => {
       actionTarget = (
         <FormControl>
           <FormGroup row>
-            <InputLabel>
-              {i18n.t("editor.sidebar.secondary.modifier")}
-            </InputLabel>
+            <InputLabel>{t("editor.sidebar.secondary.modifier")}</InputLabel>
             <Select value={modifier} onChange={onModifierChange}>
               <MenuItem value="ctrl" selected={modifier == "ctrl"}>
                 Control
@@ -127,9 +126,7 @@ const SecondaryFunction = (props) => {
 
       actionTarget = (
         <FormControl>
-          <InputLabel>
-            {i18n.t("editor.sidebar.secondary.targetLayer")}
-          </InputLabel>
+          <InputLabel>{t("editor.sidebar.secondary.targetLayer")}</InputLabel>
           <Input
             type="number"
             min={0}
@@ -146,25 +143,23 @@ const SecondaryFunction = (props) => {
   return (
     <React.Fragment>
       <Collapsible
-        title={i18n.t("editor.sidebar.secondary.title")}
-        help={i18n.t("editor.sidebar.secondary.help")}
+        title={t("editor.sidebar.secondary.title")}
+        help={t("editor.sidebar.secondary.help")}
         expanded={keySupportsSecondaryAction(key)}
       >
         <div>
           <FormControl disabled={!keySupportsSecondaryAction(key)}>
             <FormGroup row>
-              <InputLabel>
-                {i18n.t("editor.sidebar.secondary.whenHeld")}
-              </InputLabel>
+              <InputLabel>{t("editor.sidebar.secondary.whenHeld")}</InputLabel>
               <Select value={type} onChange={onTypeChange}>
                 <MenuItem value="none" selected={type == "none"}>
-                  {i18n.t("editor.sidebar.secondary.type.none")}
+                  {t("editor.sidebar.secondary.type.none")}
                 </MenuItem>
                 <MenuItem value="modifier" selected={type == "modifier"}>
-                  {i18n.t("editor.sidebar.secondary.type.modifier")}
+                  {t("editor.sidebar.secondary.type.modifier")}
                 </MenuItem>
                 <MenuItem value="layer" selected={type == "layer"}>
-                  {i18n.t("editor.sidebar.secondary.type.layer")}
+                  {t("editor.sidebar.secondary.type.layer")}
                 </MenuItem>
               </Select>
             </FormGroup>

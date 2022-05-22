@@ -18,15 +18,16 @@
 import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import i18n from "@renderer/i18n";
 import { installUdevRules } from "@renderer/utils/installUdevRules";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 export const LinuxPermissionsWarning = (props) => {
   const selectedDevicePort = props.selectedDevicePort;
   const platform = process.platform;
 
+  const { t } = useTranslation();
   const doInstallUdevRules = async () => {
     try {
       await installUdevRules(selectedDevicePort.path);
@@ -46,18 +47,18 @@ export const LinuxPermissionsWarning = (props) => {
   ) {
     const fixitButton = (
       <Button onClick={doInstallUdevRules} variant="outlined">
-        {i18n.t("keyboardSelect.installUdevRules")}
+        {t("keyboardSelect.installUdevRules")}
       </Button>
     );
     return (
       <Alert severity="error" action={fixitButton}>
         <Typography component="p" gutterBottom>
-          {i18n.t("keyboardSelect.permissionError", {
+          {t("keyboardSelect.permissionError", {
             path: selectedDevicePort?.path,
           })}
         </Typography>
         <Typography component="p">
-          {i18n.t("keyboardSelect.permissionErrorSuggestion")}
+          {t("keyboardSelect.permissionErrorSuggestion")}
         </Typography>
       </Alert>
     );

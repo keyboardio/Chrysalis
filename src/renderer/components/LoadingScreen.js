@@ -19,8 +19,8 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { keyframes } from "@mui/system";
 import { getStatic } from "@renderer/config";
-import i18n from "@renderer/i18n";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 function LoadingScreen(props) {
   const logoPath = getStatic("/logo.png");
@@ -35,6 +35,8 @@ function LoadingScreen(props) {
     transform-origin: center center;
   }
 `;
+
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -55,11 +57,11 @@ function LoadingScreen(props) {
           animation: `${spin} 5s infinite linear`,
         }}
       >
-        <img src={logoPath} alt={i18n.t("components.logo.altText")} />
+        <img src={logoPath} alt={t("components.logo.altText")} />
       </Box>
       <Box sx={{ display: "inline-flex", mx: "auto" }}>
         <Typography component="h2" variant="h2" sx={{ p: 5 }}>
-          {i18n.t("components.loading")}
+          {t("components.loading")}
         </Typography>
       </Box>
     </Box>

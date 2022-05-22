@@ -23,13 +23,16 @@ import ListItemText from "@mui/material/ListItemText";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
-import i18n from "@renderer/i18n";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export const KeyboardPortSelector = (props) => {
   const devices = props.devices;
   const selectedPortIndex = props.selectedPortIndex;
   const selectPort = props.selectPort;
+
+  const { t } = useTranslation();
+
   let deviceItems = null;
   if (devices?.length > 0) {
     deviceItems = devices.map((option, index) => {
@@ -38,7 +41,7 @@ export const KeyboardPortSelector = (props) => {
         label = (
           <ListItemText
             primary={option.focusDeviceDescriptor.info.displayName}
-            secondary={option.path || i18n.t("keyboardSelect.unknown")}
+            secondary={option.path || t("keyboardSelect.unknown")}
           />
         );
       } else if (option.info) {
@@ -86,7 +89,7 @@ export const KeyboardPortSelector = (props) => {
         color="error"
         sx={{ marginTop: 2, marginBottom: 2, textAlign: "center" }}
       >
-        {i18n.t("keyboardSelect.noDevices")}
+        {t("keyboardSelect.noDevices")}
       </Typography>
     );
   }

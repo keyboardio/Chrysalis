@@ -26,8 +26,8 @@ const webusb = new WebUSB({
   allowAllDevices: true,
 });
 export const notifyUsbDisconnect = (event) => {
-  let vendor_id = event?.device?.vendorId;
-  let product_id = event?.device?.productId;
+  const vendor_id = event?.device?.vendorId;
+  const product_id = event?.device?.productId;
   BrowserWindow.getAllWindows().forEach((win) => {
     if (win) {
       win.send("usb-device-disconnected", vendor_id, product_id);
@@ -35,8 +35,8 @@ export const notifyUsbDisconnect = (event) => {
   });
 };
 export const notifyUsbConnect = (event) => {
-  let vendor_id = event?.device?.vendorId;
-  let product_id = event?.device?.productId;
+  const vendor_id = event?.device?.vendorId;
+  const product_id = event?.device?.productId;
   BrowserWindow.getAllWindows().forEach((win) => {
     if (win) {
       win.send("usb-device-connected", vendor_id, product_id);

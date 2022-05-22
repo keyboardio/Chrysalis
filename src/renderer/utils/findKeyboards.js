@@ -51,13 +51,13 @@ const findNonSerialKeyboards = async (deviceList) => {
 };
 
 export const findKeyboards = async () => {
-  let focus = new Focus();
+  const focus = new Focus();
 
   return new Promise((resolve) => {
     focus
       .find(...Hardware.serial)
       .then(async (devices) => {
-        let supported_devices = [];
+        const supported_devices = [];
         for (const device of devices) {
           device.accessible = await focus.isDeviceAccessible(device);
           if (device.accessible && (await focus.isDeviceSupported(device))) {

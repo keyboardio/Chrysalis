@@ -47,18 +47,18 @@ class KeySelector extends React.Component {
       [1.25, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2.75],
       [1.25, 1.25, 1.25, 6.25, 1.25, 1.25, 1.25, 1.25, 1, 1, 1, 2],
     ];
-    let keySizeY = [[], [], [], [], []];
+    const keySizeY = [[], [], [], [], []];
     keySizeY[2][20] = 2;
     keySizeY[4][17] = 2;
 
-    let getKeySizeX = (row, col) => {
+    const getKeySizeX = (row, col) => {
       if (keySizeX[row] && keySizeX[row][col]) {
         return keySizeX[row][col];
       } else {
         return 1;
       }
     };
-    let getKeySizeY = (row, col) => {
+    const getKeySizeY = (row, col) => {
       if (keySizeY[row] && keySizeY[row][col]) {
         return keySizeY[row][col];
       } else {
@@ -66,7 +66,7 @@ class KeySelector extends React.Component {
       }
     };
 
-    let getKey = (row, col) => {
+    const getKey = (row, col) => {
       if (keymap[row]) {
         return db.lookup(keymap[row][col]);
       } else {
@@ -74,7 +74,7 @@ class KeySelector extends React.Component {
       }
     };
 
-    let getX = (row, col) => {
+    const getX = (row, col) => {
       let offset = 0;
 
       for (let i = 0; i < col; i++) {
@@ -90,22 +90,22 @@ class KeySelector extends React.Component {
       return offset;
     };
 
-    let getY = (row) => {
+    const getY = (row) => {
       let y = row * keySpacingY;
       if (row > 0) y += keySpacingY * 0.5;
       return y;
     };
 
-    let getKeyWidth = (row, col) => {
+    const getKeyWidth = (row, col) => {
       const size = getKeySizeX(row, col);
       return keycapunit * size;
     };
 
-    let getKeyHeight = (row, col) => {
+    const getKeyHeight = (row, col) => {
       return keycapunit * getKeySizeY(row, col);
     };
 
-    let getKeycapSize = (row, col) => {
+    const getKeycapSize = (row, col) => {
       return getKeySizeX(row, col).toString() + "u";
     };
 
@@ -120,7 +120,7 @@ class KeySelector extends React.Component {
       const height = getKeyHeight(row, col);
       const width = getKeyWidth(row, col);
       const bottom = y + height - 8;
-      let textColor = "#000000";
+      const textColor = "#000000";
       const buttonColor = active ? "#aaaaaa" : "#ffffff";
 
       const onClick = (event) => {

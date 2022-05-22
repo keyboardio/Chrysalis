@@ -21,8 +21,8 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import LoadingScreen from "@renderer/components/LoadingScreen";
 import { PageTitle } from "@renderer/components/PageTitle";
-import i18n from "@renderer/i18n";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 const Store = require("electron-store");
@@ -40,6 +40,7 @@ const LayoutCard = (props) => {
 
   const [layout, _setLayout] = useState("English (US)");
   const [loading, setLoading] = useState(true);
+  const { t } = useTranslation();
 
   const initializeHostKeyboardLayout = async () => {
     const layoutSetting = await settings.get("keyboard.layout", "English (US)");
@@ -56,7 +57,7 @@ const LayoutCard = (props) => {
 
   const scanKeyboard = async () => {
     try {
-      let deviceKeymap = await focus.command("keymap");
+      const deviceKeymap = await focus.command("keymap");
 
       setKeymap(deviceKeymap);
     } catch (e) {
@@ -78,11 +79,11 @@ const LayoutCard = (props) => {
 
   const KeymapSVG = focus.focusDeviceDescriptor.components.keymap;
 
-  let keymap_pix = [];
-  let title = i18n.t("Keyboard layout");
+  const keymap_pix = [];
+  const title = t("Keyboard layout");
 
   for (let i = 0; i < keymap.custom.length; i++) {
-    for (let j of keymap.custom[i]) {
+    for (const j of keymap.custom[i]) {
       if (j.code != 65535) {
         // If it's not empty, add it to the keymap_pix array
         keymap_pix.push(
@@ -98,7 +99,7 @@ const LayoutCard = (props) => {
                 marginLeft: 5,
               }}
             >
-              {i18n.t("components.layer", { index: i })}
+              {t("components.layer", { index: i })}
             </Typography>
             <KeymapSVG className="layer" index={i} keymap={keymap?.custom[i]} />
           </Box>

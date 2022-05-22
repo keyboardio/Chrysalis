@@ -47,7 +47,7 @@ class Focus {
     const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
     for (let attempt = 0; attempt < 10; attempt++) {
-      let portList = await SerialPort.list();
+      const portList = await SerialPort.list();
       this.debugLog(
         "focus.waitForSerialDevice: portList:",
         portList,
@@ -55,12 +55,12 @@ class Focus {
         usbInfo
       );
 
-      for (let port of portList) {
+      for (const port of portList) {
         const pid = parseInt("0x" + port.productId),
           vid = parseInt("0x" + port.vendorId);
 
         if (pid == usbInfo.productId && vid == usbInfo.vendorId) {
-          let newPort = Object.assign({}, port);
+          const newPort = Object.assign({}, port);
           newPort.focusDeviceDescriptor = focusDeviceDescriptor;
           newPort.focusDeviceDescriptor.bootloader = true;
           this.debugLog("focus.waitForSerialDevice: found!", newPort);
@@ -133,14 +133,14 @@ class Focus {
   }
 
   async find(...device_descriptors) {
-    let portList = await SerialPort.list();
+    const portList = await SerialPort.list();
 
-    let found_devices = [];
+    const found_devices = [];
 
     this.debugLog("focus.find: portList:", portList);
 
-    for (let port of portList) {
-      for (let device_descriptor of device_descriptors) {
+    for (const port of portList) {
+      for (const device_descriptor of device_descriptors) {
         const pid = parseInt("0x" + port.productId),
           vid = parseInt("0x" + port.vendorId);
 
@@ -148,7 +148,7 @@ class Focus {
           pid == device_descriptor.usb.productId &&
           vid == device_descriptor.usb.vendorId
         ) {
-          let newPort = Object.assign({}, port);
+          const newPort = Object.assign({}, port);
           newPort.focusDeviceDescriptor = device_descriptor;
           newPort.focusDeviceDescriptor.bootloader = false;
           found_devices.push(newPort);
@@ -158,7 +158,7 @@ class Focus {
           pid == device_descriptor.usb.bootloader.productId &&
           vid == device_descriptor.usb.bootloader.vendorId
         ) {
-          let newPort = Object.assign({}, port);
+          const newPort = Object.assign({}, port);
           newPort.focusDeviceDescriptor = device_descriptor;
           newPort.focusDeviceDescriptor.bootloader = true;
           found_devices.push(newPort);
@@ -169,7 +169,7 @@ class Focus {
     // We do not wish to have the device SVG data appear in logs, that's not
     // useful information, and just clutters the log. So we filter them out.
     const logged_devices = found_devices.map((d) => {
-      let device = Object.assign({}, d);
+      const device = Object.assign({}, d);
       device.focusDeviceDescriptor = Object.assign({}, d.focusDeviceDescriptor);
       delete device.focusDeviceDescriptor["components"];
       return device;
@@ -192,7 +192,7 @@ class Focus {
         if (!info) throw new Error("Device descriptor argument is mandatory");
         this._port = device_identifier;
       } else {
-        let devices = await this.find(device_identifier);
+        const devices = await this.find(device_identifier);
         if (devices && devices.length >= 1) {
           this._port = new SerialPort({
             path: devices[0].path,
@@ -214,7 +214,7 @@ class Focus {
       this.debugLog("focus: incoming data:", data);
 
       if (data == ".") {
-        let result = this.result,
+        const result = this.result,
           resolve = this.callbacks.shift();
 
         this.result = "";
@@ -296,7 +296,7 @@ class Focus {
 
     this.debugLog("focus.request:", cmd, ...args);
     return new Promise((resolve, reject) => {
-      let timer = setTimeout(() => {
+      const timer = setTimeout(() => {
         reject("Communication timeout");
       }, this.timeout);
       this._request(cmd, ...args).then((data) => {
@@ -349,7 +349,7 @@ class Focus {
 
   addMethod(methodName, command) {
     if (this[methodName]) {
-      let tmp = this[methodName];
+      const tmp = this[methodName];
       this[methodName] = (...args) => {
         tmp(...args);
         this.commands[command][methodName](...args);
@@ -362,7 +362,7 @@ class Focus {
   }
 
   async _help(s) {
-    let data = await s.request("help");
+    const data = await s.request("help");
     return data.split(/\r?\n/).filter((v) => v.length > 0);
   }
 
@@ -397,7 +397,7 @@ class Focus {
     "settings.crc",
   ];
   async readKeyboardConfiguration() {
-    let backup = {};
+    const backup = {};
     for (const cmd of this.eepromBackupCommands) {
       const dump = await this.command(cmd);
       backup[cmd] = dump;

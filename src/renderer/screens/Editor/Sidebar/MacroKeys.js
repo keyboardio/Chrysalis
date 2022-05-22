@@ -15,17 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import i18n from "i18next";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import CategorySelector from "../components/CategorySelector";
 
 const MacroKeys = (props) => {
   const { keymap, selectedKey, layer, onKeyChange } = props;
-
+  const { t } = useTranslation();
   return (
     <CategorySelector
-      title={i18n.t("editor.sidebar.macros.title")}
-      help={i18n.t("editor.sidebar.macros.help")}
+      title={t("editor.sidebar.macros.title")}
+      help={t("editor.sidebar.macros.help")}
       category="macros"
       keymap={keymap}
       selectedKey={selectedKey}

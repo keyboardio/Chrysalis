@@ -104,7 +104,7 @@ class SaveChangesButton extends React.Component {
   render() {
     const { inProgress, success } = this.state;
     const { classes, successMessage } = this.props;
-    let buttonClassname = classNames({
+    const buttonClassname = classNames({
       [classes.buttonSuccess]: success,
     });
 

@@ -24,6 +24,7 @@ import { miscellaneous } from "./misc";
 import { consumer } from "./consumer";
 import { mousekeys } from "./mousekeys";
 import { macros } from "./macros";
+import { dynmacros } from "./dynamicmacros";
 import { leaders } from "./leader";
 import { tapdances } from "./tapdance";
 import { stenokeys } from "./steno";
@@ -59,6 +60,7 @@ const keyCodeTable = []
   .concat(consumer)
   .concat(mousekeys)
   .concat(macros)
+  .concat(dynmacros)
   .concat(leaders)
   .concat(tapdances)
   .concat(stenokeys)

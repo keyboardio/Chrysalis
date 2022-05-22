@@ -24,9 +24,6 @@ import KeyButton from "../components/KeyButton";
 const db = new KeymapDB();
 
 const BrightnessKeys = (props) => {
-  const { keymap, selectedKey, layer, onKeyChange } = props;
-  const key = keymap.custom[layer][selectedKey];
-
   const { t } = useTranslation();
 
   const keys = [
@@ -47,7 +44,7 @@ const BrightnessKeys = (props) => {
 
   return (
     <Collapsible
-      expanded={db.isInCategory(key.code, "consumer")}
+      expanded={db.isInCategory(props.currentKey.code, "consumer")}
       title={t("editor.sidebar.consumer.brightness")}
     >
       {keyButtons}

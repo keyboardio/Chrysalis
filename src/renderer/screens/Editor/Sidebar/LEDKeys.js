@@ -20,7 +20,7 @@ import { useTranslation } from "react-i18next";
 import CategorySelector from "../components/CategorySelector";
 
 const LEDKeys = (props) => {
-  const { keymap, selectedKey, layer, onKeyChange, colormap } = props;
+  const { colormap } = props;
   const { t } = useTranslation();
   if (!colormap || colormap.palette.length == 0) {
     return null;
@@ -31,10 +31,8 @@ const LEDKeys = (props) => {
       title={t("editor.sidebar.ledcontrol.title")}
       help={t("editor.sidebar.ledcontrol.help")}
       category="ledkeys"
-      keymap={keymap}
-      selectedKey={selectedKey}
-      layer={layer}
-      onKeyChange={onKeyChange}
+      currentKey={props.currentKey}
+      onKeyChange={props.onKeyChange}
     />
   );
 };

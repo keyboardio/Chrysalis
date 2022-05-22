@@ -34,8 +34,7 @@ const LayerKeys = (props) => {
   const oneShotVisible = usePluginVisibility("OneShot");
 
   const getMaxLayer = () => {
-    const { keymap, selectedKey, layer } = props;
-    const key = keymap.custom[layer][selectedKey];
+    const { keymap, currentKey: key } = props;
     const max = keymap.custom.length - 1;
 
     if (db.isInCategory(key.code, "layer") && key.categories[1] == "oneshot") {
@@ -45,10 +44,7 @@ const LayerKeys = (props) => {
     return max;
   };
   const updateExpandedBasedOnKey = (props) => {
-    const { selectedKey, keymap, layer } = props;
-    const key = keymap.custom[layer][selectedKey];
-
-    if (db.isInCategory(key.code, "layer")) {
+    if (db.isInCategory(props.currentKey.code, "layer")) {
       setExpanded(true);
     } else {
       setExpanded(false);
@@ -60,11 +56,9 @@ const LayerKeys = (props) => {
   };
 
   const onTargetLayerChange = (event, max) => {
-    const { keymap, selectedKey, layer } = props;
-    const key = keymap.custom[layer][selectedKey];
     const target = Math.min(parseInt(event.target.value) || 0, max);
 
-    props.onKeyChange(key.rangeStart + target);
+    props.onKeyChange(props.currentKey.rangeStart + target);
   };
 
   const onTypeChange = (event) => {
@@ -74,15 +68,13 @@ const LayerKeys = (props) => {
       movetolayer: 17492,
       oneshot: 49161,
     };
-    const { keymap, selectedKey, layer } = props;
-    const key = keymap.custom[layer][selectedKey];
-    const targetLayer = key.target || 0;
+    const { currentKey } = props;
+    const targetLayer = currentKey.target || 0;
 
     props.onKeyChange(typeStarts[event.target.value] + targetLayer);
   };
 
-  const { keymap, selectedKey, layer } = props;
-  const key = keymap.custom[layer][selectedKey];
+  const { currentKey: key } = props;
 
   let type = "none",
     targetLayer = -1;

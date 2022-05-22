@@ -125,12 +125,9 @@ const MouseWarpKeys = (props) => {
 };
 
 const MouseKeys = (props) => {
-  const { keymap, selectedKey, layer, onKeyChange } = props;
   const { t } = useTranslation();
   const pluginVisible = usePluginVisibility("MouseKeys");
   if (!pluginVisible) return null;
-
-  const key = keymap.custom[layer][selectedKey];
 
   const subWidgets = [
     MouseMovementKeys,
@@ -140,13 +137,16 @@ const MouseKeys = (props) => {
   ];
   const widgets = subWidgets.map((Widget, index) => {
     return (
-      <Widget key={`mousekeys-group-${index}`} onKeyChange={onKeyChange} />
+      <Widget
+        key={`mousekeys-group-${index}`}
+        onKeyChange={props.onKeyChange}
+      />
     );
   });
 
   return (
     <Collapsible
-      expanded={db.isInCategory(key.code, "mousekeys")}
+      expanded={db.isInCategory(props.currentKey.code, "mousekeys")}
       title={t("editor.sidebar.mousekeys.title")}
       help={t("editor.sidebar.mousekeys.help")}
     >

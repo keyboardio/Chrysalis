@@ -21,7 +21,6 @@ import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
 import CategorySelector from "../components/CategorySelector";
 
 const SpaceCadetKeys = (props) => {
-  const { keymap, selectedKey, layer, onKeyChange } = props;
   const { t } = useTranslation();
   const pluginVisible = usePluginVisibility("SpaceCadet");
   if (!pluginVisible) return null;
@@ -31,10 +30,8 @@ const SpaceCadetKeys = (props) => {
       title={t("editor.sidebar.spacecadet.title")}
       help={t("editor.sidebar.spacecadet.help")}
       category="spacecadet"
-      keymap={keymap}
-      selectedKey={selectedKey}
-      layer={layer}
-      onKeyChange={onKeyChange}
+      currentKey={props.currentKey}
+      onKeyChange={props.onKeyChange}
     />
   );
 };

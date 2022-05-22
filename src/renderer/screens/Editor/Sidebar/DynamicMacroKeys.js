@@ -27,14 +27,15 @@ import CategorySelector from "../components/CategorySelector";
 import { KeymapDB } from "@api/keymap";
 
 const DynamicMacroKeys = (props) => {
-  const { keymap, selectedKey, layer, onKeyChange, currentKey, macros } = props;
+  const { currentKey } = props;
   const { t } = useTranslation();
-  const db = new KeymapDB();
 
-  if (!macros) return null;
+  if (!props.macros) return null;
 
   const m = new Macros();
-  const used = m.getStoredSize(macros);
+  const db = new KeymapDB();
+
+  const used = m.getStoredSize(props.macros);
   const disabled = currentKey && !db.isInCategory(currentKey, "dynmacros");
 
   const onClick = () => {
@@ -46,10 +47,8 @@ const DynamicMacroKeys = (props) => {
       title={t("editor.sidebar.dynmacros.title")}
       help={t("editor.sidebar.dynmacros.help")}
       category="dynmacros"
-      keymap={keymap}
-      selectedKey={selectedKey}
-      layer={layer}
-      onKeyChange={onKeyChange}
+      currentKey={currentKey}
+      onKeyChange={props.onKeyChange}
     >
       <Stack spacing={2}>
         <Box
@@ -65,7 +64,7 @@ const DynamicMacroKeys = (props) => {
             <strong>
               {t("editor.sidebar.dynmacros.usage_overview.usage", {
                 used: used,
-                size: macros.storageSize,
+                size: props.macros.storageSize,
               })}
             </strong>{" "}
             {t("editor.sidebar.dynmacros.usage_overview.bytes")}

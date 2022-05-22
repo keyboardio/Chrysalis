@@ -24,10 +24,7 @@ import KeyButton from "../components/KeyButton";
 const db = new KeymapDB();
 
 const VolumeKeys = (props) => {
-  const { keymap, selectedKey, layer, onKeyChange } = props;
   const { t } = useTranslation();
-
-  const key = keymap.custom[layer][selectedKey];
 
   const keys = [
     db.lookup(18658), // mute
@@ -48,7 +45,7 @@ const VolumeKeys = (props) => {
 
   return (
     <Collapsible
-      expanded={db.isInCategory(key.code, "consumer")}
+      expanded={db.isInCategory(props.currentKey.code, "consumer")}
       title={t("editor.sidebar.consumer.volume")}
     >
       {keyButtons}

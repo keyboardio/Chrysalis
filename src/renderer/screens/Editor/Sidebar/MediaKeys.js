@@ -24,10 +24,7 @@ import KeyButton from "../components/KeyButton";
 const db = new KeymapDB();
 
 const MediaKeys = (props) => {
-  const { keymap, selectedKey, layer, onKeyChange } = props;
   const { t } = useTranslation();
-
-  const key = keymap.custom[layer][selectedKey];
 
   const keys = [
     db.lookup(18614), // prev
@@ -49,7 +46,7 @@ const MediaKeys = (props) => {
 
   return (
     <Collapsible
-      expanded={db.isInCategory(key.code, "consumer")}
+      expanded={db.isInCategory(props.currentKey.code, "consumer")}
       title={t("editor.sidebar.consumer.media")}
     >
       {keyButtons}

@@ -24,9 +24,6 @@ import KeyButton from "../components/KeyButton";
 const db = new KeymapDB();
 
 const BlankKeys = (props) => {
-  const { keymap, selectedKey, layer, onKeyChange } = props;
-  const key = keymap.custom[layer][selectedKey];
-
   const { t } = useTranslation();
 
   const keys = [
@@ -38,7 +35,7 @@ const BlankKeys = (props) => {
     return (
       <KeyButton
         key={`blank-${index}`}
-        onKeyChange={onKeyChange}
+        onKeyChange={props.onKeyChange}
         keyObj={button}
         noHint
       />
@@ -47,7 +44,7 @@ const BlankKeys = (props) => {
 
   return (
     <Collapsible
-      expanded={db.isInCategory(key.code, "blanks")}
+      expanded={db.isInCategory(props.currentKey.code, "blanks")}
       title={t("editor.sidebar.blanks.title")}
       help={t("editor.sidebar.blanks.help")}
     >

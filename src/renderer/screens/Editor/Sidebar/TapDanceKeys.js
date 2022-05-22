@@ -21,7 +21,6 @@ import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
 import CategorySelector from "../components/CategorySelector";
 
 const TapDanceKeys = (props) => {
-  const { keymap, selectedKey, layer, onKeyChange } = props;
   const { t } = useTranslation();
   const pluginVisible = usePluginVisibility("TapDance");
   if (!pluginVisible) return null;
@@ -31,10 +30,8 @@ const TapDanceKeys = (props) => {
       title={t("editor.sidebar.tapdance.title")}
       help={t("editor.sidebar.tapdance.help")}
       category="tapdance"
-      keymap={keymap}
-      selectedKey={selectedKey}
-      layer={layer}
-      onKeyChange={onKeyChange}
+      currentKey={props.currentKey}
+      onKeyChange={props.onKeyChange}
     />
   );
 };

@@ -34,8 +34,7 @@ const db = new KeymapDB();
 const SecondaryFunction = (props) => {
   const { t } = useTranslation();
   const onTargetLayerChange = (event) => {
-    const { keymap, selectedKey, layer } = props;
-    const key = keymap.custom[layer][selectedKey];
+    const { currentKey: key } = props;
     const maxLayer = Math.min(keymap.custom.length, 7);
     let target = parseInt(event.target.value) || 0;
     const code = key.baseCode || key.code;
@@ -47,8 +46,7 @@ const SecondaryFunction = (props) => {
   };
 
   const onModifierChange = (event) => {
-    const { keymap, selectedKey, layer } = props;
-    const key = keymap.custom[layer][selectedKey];
+    const { currentKey: key } = props;
     const modifier = event.target.value;
     const code = key.baseCode || key.code;
 
@@ -56,8 +54,7 @@ const SecondaryFunction = (props) => {
   };
 
   const onTypeChange = (event) => {
-    const { keymap, selectedKey, layer } = props;
-    const key = keymap.custom[layer][selectedKey];
+    const { currentKey: key } = props;
     const code = key.baseCode || key.code;
     const type = event.target.value;
 
@@ -86,8 +83,7 @@ const SecondaryFunction = (props) => {
   const pluginVisible = usePluginVisibility("Qukeys");
   if (!pluginVisible) return null;
 
-  const { classes, keymap, selectedKey, layer } = props;
-  const key = keymap.custom[layer][selectedKey];
+  const { currentKey: key, keymap } = props;
   const maxLayer = Math.min(keymap.custom.length, 7);
 
   let type = "none",

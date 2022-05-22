@@ -17,53 +17,14 @@
 
 import React, { useEffect, useState } from "react";
 
-import Focus from "@api/focus";
-import { KeymapDB } from "@api/keymap";
-
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import Divider from "@mui/material/Divider";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
 
-const focus = new Focus();
-const db = new KeymapDB();
-
-const EditInterval = (props) => {
-  return (
-    <TextField
-      label="Delay between steps"
-      type="number"
-      value={props.value}
-      onChange={props.onChange}
-      InputLabelProps={{
-        shrink: true,
-      }}
-      helperText="In milliseconds"
-    />
-  );
-};
-
-const EditWait = (props) => {
-  return (
-    <TextField
-      label="Wait"
-      type="number"
-      value={props.value}
-      onChange={props.onChange}
-      InputLabelProps={{
-        shrink: true,
-      }}
-      helperText="In milliseconds"
-    />
-  );
-};
+import EditInterval from "./StepEditor/EditInterval";
+import EditWait from "./StepEditor/EditWait";
 
 const MacroStepEditor = (props) => {
   const { stepIndex, step, open } = props;

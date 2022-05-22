@@ -26,10 +26,7 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
-import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
-
-import CloseIcon from "@mui/icons-material/Close";
 
 import { PageTitle } from "@renderer/components/PageTitle";
 
@@ -126,14 +123,7 @@ const MacroEditor = (props) => {
           width: "75%",
         }}
       >
-        <CardHeader
-          action={
-            <IconButton onClick={onClose}>
-              <CloseIcon />
-            </IconButton>
-          }
-          title={`Macro #${macroId}`}
-        />
+        <CardHeader title={`Macro #${macroId}`} />
         <CardContent>
           <Stack direction="row" flexWrap="wrap">
             {steps}
@@ -142,6 +132,9 @@ const MacroEditor = (props) => {
         </CardContent>
         <CardActions>
           <Box sx={{ flexGrow: 1 }} />
+          <Button color="secondary" onClick={onClose}>
+            Cancel
+          </Button>
           <Button color="primary" onClick={onApply}>
             Apply
           </Button>

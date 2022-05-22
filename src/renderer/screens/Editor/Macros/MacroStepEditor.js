@@ -69,11 +69,16 @@ const MacroStepEditor = (props) => {
   const { stepIndex, step, open } = props;
 
   const onStepTypeChange = async (event) => {
-    /*
-    const newStep = Object.assign({}, wipStep);
-    newStep.type = event.target.value;
-    setWipStep(newStep);
-    */
+    const newStep = { type: event.target.value };
+
+    if (newStep.type == "INTERVAL" || newStep.type == "WAIT") {
+      newStep.value = 0;
+    } else {
+      // TODO(algernon): Need to implement these parts...
+      return;
+    }
+
+    props.onChange(stepIndex, newStep);
   };
 
   const onValueChange = (event) => {

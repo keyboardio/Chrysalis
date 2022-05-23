@@ -177,6 +177,8 @@ const Macros = function () {
     let ser = [];
     let last = 0;
 
+    if (macros.storageSize == 0) return [];
+
     // Find the last non-empty macro
     for (let i = 0; i < macros.macros.length; i++) {
       if (macros.macros[i].length > 0) last = i;
@@ -325,10 +327,13 @@ const Macros = function () {
     return m;
   };
 
-  this.compress = (macros) => ({
-    storageSize: macros.storageSize,
-    macros: macros.macros.map((macro) => compressMacro(clone(macro))),
-  });
+  this.compress = (macros) => {
+    if (macros.macros.length == 0) return macros;
+    return {
+      storageSize: macros.storageSize,
+      macros: macros.macros.map((macro) => compressMacro(clone(macro))),
+    };
+  };
 
   this.getStoredSize = (macros) =>
     this.serialize(this.compress(macros), false).length;
@@ -351,10 +356,14 @@ const Macros = function () {
 
       await s.request("macros.map", ...ser);
     } else {
-      const macroMap = (await s.request("macros.map"))
-        .trimEnd()
-        .split(" ")
-        .map((v) => parseInt(v));
+      const map = (await s.request("macros.map")).trimEnd();
+      if (map == "") {
+        return {
+          storageSize: 0,
+          macros: [],
+        };
+      }
+      const macroMap = map.split(" ").map((v) => parseInt(v));
 
       return {
         storageSize: macroMap.length,

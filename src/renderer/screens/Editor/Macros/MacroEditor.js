@@ -52,6 +52,7 @@ const MacroEditor = (props) => {
     const m = macro.map((v) => Object.assign({}, v));
     m.push(step);
     onMacroChange(macroId, m);
+    setMacroStep(m.length - 1);
   };
 
   const onStepSelect = (index) => {

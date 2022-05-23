@@ -23,6 +23,7 @@ import { KeymapDB } from "@api/keymap";
 
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import IconButton from "@mui/material/IconButton";
@@ -33,6 +34,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import MacroStep from "./MacroStep";
 import MacroStepAdd from "./MacroStepAdd";
 import MacroStepEditor from "./MacroStepEditor";
+import MacroTestArea from "./MacroTestArea";
 
 const focus = new Focus();
 const db = new KeymapDB();
@@ -148,6 +150,9 @@ const MacroEditor = (props) => {
             open={stepEditorOpen}
           />
         </CardContent>
+        <CardActions>
+          <MacroTestArea macroIndex={macroId} />
+        </CardActions>
       </Card>
     </React.Fragment>
   );

@@ -252,6 +252,10 @@ const English = {
       title: "Macro #{{ index }}",
       edit: "Edit macro",
       out_of_space: `Dynamic macros are using too much space, please free up {{ overflow }} bytes.`,
+      test: {
+        button: "Test",
+        placeholder: "Click 'Test', and the macro will play out here.",
+      },
       steps: {
         time_ms: "{{ value }}ms",
         in_ms: "In milliseconds",

@@ -33,13 +33,13 @@ const Store = require("electron-store");
 const settings = new Store();
 
 function BasicPreferences(props) {
+  const { t, i18n } = useTranslation();
+
   const [language, setLanguage] = useState(i18n.language);
 
   const globalContext = React.useContext(GlobalContext);
 
   const [darkMode, setDarkMode] = globalContext.state.darkMode;
-
-  const { t, i18n } = useTranslation();
 
   const toggleDarkMode = async () => {
     settings.set("ui.darkMode", !darkMode);

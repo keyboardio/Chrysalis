@@ -17,6 +17,7 @@
 
 import CheckIcon from "@mui/icons-material/Check";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 import Fab from "@mui/material/Fab";
@@ -28,14 +29,6 @@ import PropTypes from "prop-types";
 import React from "react";
 
 const styles = (theme) => ({
-  root: {
-    display: "flex",
-    alignItems: "center",
-  },
-  wrapper: {
-    margin: theme.spacing(1),
-    position: "relative",
-  },
   buttonSuccess: {
     backgroundColor: theme.palette.success.main,
     "&:hover": {
@@ -56,13 +49,6 @@ const styles = (theme) => ({
     left: "50%",
     marginTop: -12,
     marginLeft: -12,
-  },
-  icon: {
-    marginRight: -16,
-    zIndex: 1,
-  },
-  disabled: {
-    backgroundColor: theme.palette.action.disabled,
   },
   fab: {
     position: "fixed",
@@ -109,7 +95,7 @@ class SaveChangesButton extends React.Component {
     });
 
     const textPart = !this.props.floating && (
-      <div className={classes.wrapper}>
+      <Box className={classes.wrapper}>
         <Button
           variant="contained"
           color="primary"
@@ -121,7 +107,7 @@ class SaveChangesButton extends React.Component {
             ? successMessage || i18n.t("components.save.success")
             : this.props.children}
         </Button>
-      </div>
+      </Box>
     );
 
     const icon = this.props.icon || <SaveAltIcon />;
@@ -135,14 +121,14 @@ class SaveChangesButton extends React.Component {
 
     return (
       <OptionalTooltip>
-        <div
+        <Box
           className={classNames(
             classes.root,
             this.props.className,
             this.props.floating && classes.fab
           )}
         >
-          <div className={classNames(classes.wrapper, classes.icon)}>
+          <Box className={classNames(classes.wrapper, classes.icon)}>
             <Fab
               disabled={inProgress || (this.props.disabled && !success)}
               color="primary"
@@ -155,9 +141,9 @@ class SaveChangesButton extends React.Component {
             {inProgress && (
               <CircularProgress size={68} className={classes.fabProgress} />
             )}
-          </div>
+          </Box>
           {textPart}
-        </div>
+        </Box>
       </OptionalTooltip>
     );
   }

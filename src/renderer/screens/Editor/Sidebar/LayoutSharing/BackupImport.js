@@ -11,10 +11,12 @@ import { loadLayout } from "./LoadLayout";
 
 const focus = new Focus();
 
-export class BackupImport extends React.Component {
-  state = { library: [] };
-
-  selectBackupItem = (item) => () => {
+export const BackupImport = (props) => {
+  const library = ipcRenderer.sendSync(
+    "backups.list-library",
+    focus.focusDeviceDescriptor.info
+  );
+  const selectBackupItem = (item) => () => {
     const [layoutFileData, error] = ipcRenderer.sendSync(
       "backups.load-file",
       focus.focusDeviceDescriptor.info,
@@ -28,54 +30,42 @@ export class BackupImport extends React.Component {
     }
 
     const layoutData = loadLayout("$userData/" + item, layoutFileData);
-    if (layoutData != null) this.props.setLayout(item, layoutData);
+    if (layoutData != null) props.setLayout(item, layoutData);
   };
 
-  componentDidMount() {
-    const library = ipcRenderer.sendSync(
-      "backups.list-library",
-      focus.focusDeviceDescriptor.info
-    );
-
-    this.setState({ library: library });
-  }
-
-  formatName = (name) => {
+  const formatName = (name) => {
     const ts = new Date(parseInt(name));
 
     return ts.toISOString();
   };
 
-  render() {
-    const { layoutName } = this.props;
-    const { library } = this.state;
+  const { layoutName } = props;
 
-    if (library.length == 0) return null;
+  if (library.length == 0) return null;
 
-    const layouts = library.map((name) => {
-      const label = this.formatName(name);
-
-      return (
-        <MenuItem
-          selected={layoutName == name}
-          value={name}
-          key={`backup-item-${name}`}
-          onClick={this.selectBackupItem(name)}
-        >
-          {label}
-        </MenuItem>
-      );
-    });
+  const layouts = library.map((name) => {
+    const label = formatName(name);
 
     return (
-      <Box sx={{ sb: 2 }}>
-        <Typography variant="h5">
-          {i18n.t("editor.sharing.loadFromBackup")}
-        </Typography>
-        <MenuList>{layouts}</MenuList>
-
-        <Divider />
-      </Box>
+      <MenuItem
+        selected={layoutName == name}
+        value={name}
+        key={`backup-item-${name}`}
+        onClick={selectBackupItem(name)}
+      >
+        {label}
+      </MenuItem>
     );
-  }
-}
+  });
+
+  return (
+    <Box sx={{ sb: 2 }}>
+      <Typography variant="h5">
+        {i18n.t("editor.sharing.loadFromBackup")}
+      </Typography>
+      <MenuList>{layouts}</MenuList>
+
+      <Divider />
+    </Box>
+  );
+};

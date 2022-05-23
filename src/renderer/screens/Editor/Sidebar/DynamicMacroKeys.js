@@ -50,38 +50,40 @@ const DynamicMacroKeys = (props) => {
       currentKey={currentKey}
       onKeyChange={props.onKeyChange}
     >
-      <Stack spacing={2}>
-        <Box
-          sx={{
-            border: "1px solid grey",
-            p: 1,
-            justifyContent: "center",
-            display: "flex",
-          }}
-        >
-          <Typography variant="body2">
-            {t("editor.sidebar.dynmacros.usage_overview.label")}{" "}
-            <strong>
-              {t("editor.sidebar.dynmacros.usage_overview.usage", {
-                used: used,
-                size: props.macros.storageSize,
-              })}
-            </strong>{" "}
-            {t("editor.sidebar.dynmacros.usage_overview.bytes")}
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            mb: 2,
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <Button variant="contained" disabled={disabled} onClick={onClick}>
-            {t("editor.macros.edit")}
-          </Button>
-        </Box>
-      </Stack>
+      {props.macros.storageSize > 0 && (
+        <Stack spacing={2}>
+          <Box
+            sx={{
+              border: "1px solid grey",
+              p: 1,
+              justifyContent: "center",
+              display: "flex",
+            }}
+          >
+            <Typography variant="body2">
+              {t("editor.sidebar.dynmacros.usage_overview.label")}{" "}
+              <strong>
+                {t("editor.sidebar.dynmacros.usage_overview.usage", {
+                  used: used,
+                  size: props.macros.storageSize,
+                })}
+              </strong>{" "}
+              {t("editor.sidebar.dynmacros.usage_overview.bytes")}
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              mb: 2,
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <Button variant="contained" disabled={disabled} onClick={onClick}>
+              {t("editor.macros.edit")}
+            </Button>
+          </Box>
+        </Stack>
+      )}
     </CategorySelector>
   );
 };

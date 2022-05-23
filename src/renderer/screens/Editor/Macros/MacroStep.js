@@ -37,22 +37,36 @@ const MacroStep = (props) => {
     props.onClick(index);
   };
 
-  const formatLabel = (step) => {
+  const formatStep = (step) => {
     if (step.type == "INTERVAL" || step.type == "WAIT")
       return t("editor.macros.steps.time_ms", { value: step.value });
     if (["KEYDOWN", "KEYUP", "TAP"].includes(step.type)) {
       const format = db.format(step.value, "full");
       return (format.hint ? format.hint + " " : "") + format.main;
     }
+    if (
+      ["EXPLICIT_REPORT", "IMPLICIT_REPORT", "SEND_REPORT"].includes(step.type)
+    ) {
+      return t("editor.macros.steps." + step.type);
+    }
     return t("editor.macros.steps.unknown");
   };
 
+  const formatLabel = (step) => {
+    if (
+      ["EXPLICIT_REPORT", "IMPLICIT_REPORT", "SEND_REPORT"].includes(step.type)
+    ) {
+      return t("editor.macros.steps.unsupported");
+    }
+    return t("editor.macros.steps." + step.type);
+  };
+
   const createLabel = (step) => {
-    const label = t("editor.macros.steps." + step.type);
+    const label = formatLabel(step);
 
     return (
       <React.Fragment>
-        <strong>{label}:</strong> {formatLabel(step)}
+        <strong>{label}:</strong> {formatStep(step)}
       </React.Fragment>
     );
   };

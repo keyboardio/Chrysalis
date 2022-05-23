@@ -74,7 +74,7 @@ const App = (props) => {
   const { t, i18n } = useTranslation();
 
   const settingsLanguage = settings.get("ui.language");
-  if (settingsLanguage) i18n.changeLanguage(settingsLanguage);
+  if (i18n.language !== settingsLanguage) i18n.changeLanguage(settingsLanguage);
 
   const globalContext = useContext(GlobalContext);
 

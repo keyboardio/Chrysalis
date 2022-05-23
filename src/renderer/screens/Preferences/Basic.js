@@ -50,7 +50,9 @@ function BasicPreferences(props) {
     i18n.changeLanguage(event.target.value);
     await settings.set("ui.language", event.target.value);
     // We stick language in the state system to get rerenders when it changes
-    setLanguage(event.target.value);
+    if (i18n.language !== event.target.value) {
+      setLanguage(event.target.value);
+    }
   };
 
   const languages = Object.keys(i18n.options.resources).map((code) => {

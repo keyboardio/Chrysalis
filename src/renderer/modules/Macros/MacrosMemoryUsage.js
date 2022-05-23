@@ -17,6 +17,8 @@
 
 import React from "react";
 import Styled from "styled-components";
+import PropTypes from "prop-types";
+
 import i18n from "../../i18n";
 import { toast } from "react-toastify";
 
@@ -127,4 +129,9 @@ const MacrosMemoryUsage = ({ mem }) => {
     </Styles>
   );
 };
+
+MacrosMemoryUsage.propTypes = {
+  mem: PropTypes.number
+};
+
 export default MacrosMemoryUsage;

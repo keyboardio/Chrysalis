@@ -23,119 +23,92 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Fab from "@mui/material/Fab";
 import Tooltip from "@mui/material/Tooltip";
 import i18n from "@renderer/i18n";
-import classNames from "classnames";
-import PropTypes from "prop-types";
 import React from "react";
 
-class SaveChangesButton extends React.Component {
-  state = {
-    inProgress: false,
-    success: false,
+const SaveChangesButton = (props) => {
+  const [inProgress, setInProgress] = React.useState(false);
+  const [success, setSuccess] = React.useState(false);
+
+  const { successMessage } = props;
+
+  const handleButtonClick = async (event) => {
+    setInProgress(true);
+    console.log("about to do aysnc sutff");
+    console.log(" about to call  the onlick handler");
+    await props.onClick(event);
+    console.log("Got back from click");
+    setSuccess(true);
+    setInProgress(false);
+    setTimeout(() => {
+      console.log("running the timeout callback ");
+      setSuccess(false);
+      console.log("finishied timeout callback");
+    }, 2000);
   };
 
-  componentWillUnmount() {
-    clearTimeout(this.timer);
-  }
+  const textPart = !props.floating && (
+    <Box sx={{ position: "relative" }}>
+      <Button
+        variant="contained"
+        disabled={inProgress || (props.disabled && !success)}
+        onClick={handleButtonClick}
+        color={success ? "success" : "primary"}
+      >
+        {success
+          ? successMessage || i18n.t("components.save.success")
+          : props.children}
+      </Button>
+    </Box>
+  );
 
-  handleButtonClick = async (event) => {
-    this.setState(
-      {
-        inProgress: true,
-      },
-      async () => {
-        await this.props.onClick(event);
-        this.setState({
-          success: true,
-          inProgress: false,
-        });
-        this.timer = setTimeout(() => {
-          this.setState({ success: false });
-        }, 2000);
-      }
-    );
+  const icon = props.icon || <SaveAltIcon />;
+
+  const OptionalTooltip = (props) => {
+    if (props.floating) {
+      return <Tooltip title={props.children}>{props.children}</Tooltip>;
+    }
+    return props.children;
   };
 
-  render() {
-    const { inProgress, success } = this.state;
-    const { classes, successMessage } = this.props;
-    const buttonClassname = classNames({
-      [classes.buttonSuccess]: success,
-    });
-
-    const textPart = !this.props.floating && (
-      <Box className={classes.wrapper}>
-        <Button
-          variant="contained"
-          className={buttonClassname}
-          disabled={inProgress || (this.props.disabled && !success)}
-          onClick={this.handleButtonClick}
-          color={success ? "success" : "primary"}
-        >
-          {success
-            ? successMessage || i18n.t("components.save.success")
-            : this.props.children}
-        </Button>
-      </Box>
-    );
-
-    const icon = this.props.icon || <SaveAltIcon />;
-
-    const OptionalTooltip = (props) => {
-      if (this.props.floating) {
-        return <Tooltip title={this.props.children}>{props.children}</Tooltip>;
-      }
-      return props.children;
-    };
-
-    return (
-      <OptionalTooltip>
-        <Box
-          className={classNames(
-            classes.root,
-            this.props.className,
-            this.props.floating && classes.fab
+  return (
+    <OptionalTooltip>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-end",
+          position: props.floating && "fixed",
+          bottom: props.floating && 32,
+          left: props.floating && 32,
+          zIndex: props.floating && ((theme) => theme.zIndex.drawer - 1),
+        }}
+      >
+        <Box sx={{ position: "relative" }}>
+          <Fab
+            disabled={inProgress || (props.disabled && !success)}
+            color={success ? "success" : "primary"}
+            onClick={handleButtonClick}
+            sx={{ marginRight: "-16px" }}
+          >
+            {success ? <CheckIcon /> : icon}
+          </Fab>
+          {inProgress && (
+            <CircularProgress
+              size={68}
+              color="success"
+              sx={{
+                position: "absolute",
+                top: -6,
+                left: -6,
+                zIndex: 1,
+              }}
+            />
           )}
-          sx={{
-            position: "fixed",
-            justifyContent: "flex-end",
-            bottom: 0,
-            left: 32,
-            zIndex: (theme) => theme.zIndex.drawer + 1,
-          }}
-        >
-          <Box className={classNames(classes.wrapper, classes.icon)}>
-            <Fab
-              disabled={inProgress || (this.props.disabled && !success)}
-              color={success ? "success" : "primary"}
-              className={buttonClassname}
-              classes={{ disabled: classes.disabled }}
-              onClick={this.handleButtonClick}
-            >
-              {success ? <CheckIcon /> : icon}
-            </Fab>
-            {inProgress && (
-              <CircularProgress
-                size={68}
-                color="success"
-                className={classes.fabProgress}
-                sx={{
-                  position: "absolute",
-                  top: -6,
-                  left: -6,
-                  zIndex: 1,
-                }}
-              />
-            )}
-          </Box>
-          {textPart}
         </Box>
-      </OptionalTooltip>
-    );
-  }
-}
-
-SaveChangesButton.propTypes = {
-  classes: PropTypes.object.isRequired,
+        {textPart}
+      </Box>
+    </OptionalTooltip>
+  );
 };
 
 export default SaveChangesButton;

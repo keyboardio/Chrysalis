@@ -290,7 +290,8 @@ const Light = {
         itemBackgroundColorHover: Tokens.colors.gray25,
         itemBackgroundColorActive: Tokens.colors.purple100,
         linkColor: Tokens.colors.purple200,
-        textColor: Tokens.colors.gray400
+        textColor: Tokens.colors.gray400,
+        dropdownDivider: Tokens.colors.gray25
       },
       selector: {
         numberColor: Tokens.colors.gray500,

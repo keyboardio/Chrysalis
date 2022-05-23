@@ -23,11 +23,11 @@ import Dropdown from "react-bootstrap/Dropdown";
 import {
   IconArrowsSmallSeparating,
   IconPen,
-  IconAddNew,
   IconClone,
   IconDelete,
   IconArrowUpWithLine,
-  IconArrowDownWithLine
+  IconArrowDownWithLine,
+  IconFileDownload
 } from "../Icon";
 
 import { NameModal } from "../Modal"; // Imported custom modal component
@@ -84,6 +84,9 @@ align-items: center;
   border: none;
   box-shadow: none;
 }
+.dropdown-divider {
+    border-top-color: ${({ theme }) => theme.styles.dropdown.dropdownMenu.dropdownDivider};
+}
 `;
 class LayerSelector extends React.Component {
   constructor(props) {
@@ -114,8 +117,7 @@ class LayerSelector extends React.Component {
   };
 
   render() {
-    const { onSelect, itemList, selectedItem, deleteItem, addItem, cloneItem, subtitle, exportFunc, importFunc, clearFunc } =
-      this.props;
+    const { onSelect, itemList, selectedItem, subtitle, exportFunc, importFunc, copyFunc, clearFunc } = this.props;
     const { show, showAdd } = this.state;
 
     return (
@@ -182,13 +184,29 @@ class LayerSelector extends React.Component {
                     <div className="dropdownItem">{i18n.editor.layers.importTitle}</div>
                   </div>
                 </Dropdown.Item>
-
+                <Dropdown.Item onClick={copyFunc}>
+                  <div className="dropdownInner">
+                    <div className="dropdownIcon">
+                      <IconClone />
+                    </div>
+                    <div className="dropdownItem">{i18n.editor.layers.copyFrom}</div>
+                  </div>
+                </Dropdown.Item>
                 <Dropdown.Item onClick={clearFunc}>
                   <div className="dropdownInner">
                     <div className="dropdownIcon">
                       <IconDelete />
                     </div>
                     <div className="dropdownItem">{i18n.editor.layers.clearLayer}</div>
+                  </div>
+                </Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item onClick={clearFunc}>
+                  <div className="dropdownInner">
+                    <div className="dropdownIcon">
+                      <IconFileDownload />
+                    </div>
+                    <div className="dropdownItem">{i18n.editor.layers.exportToPdf}</div>
                   </div>
                 </Dropdown.Item>
               </Dropdown.Menu>

@@ -1680,6 +1680,7 @@ class LayoutEditor extends React.Component {
                 exportFunc={this.toExport}
                 importFunc={this.toImport}
                 clearFunc={this.confirmClear}
+                copyFunc={this.copyFromDialog}
               />
             }
           />

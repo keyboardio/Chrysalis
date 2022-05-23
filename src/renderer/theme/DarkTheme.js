@@ -298,7 +298,8 @@ const Dark = {
         itemBackgroundColorHover: settingColorOpacity(Tokens.colors.gray400, 0.2),
         itemBackgroundColorActive: Tokens.colors.purple200,
         linkColor: Tokens.colors.purple200,
-        textColor: Tokens.colors.gray25
+        textColor: Tokens.colors.gray25,
+        dropdownDivider: Tokens.colors.gray500
       },
       selector: {
         numberColor: Tokens.colors.gray200,

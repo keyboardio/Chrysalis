@@ -6,25 +6,7 @@ import i18n from "../../i18n";
 import Title from "../../component/Title";
 import { RegularButton, ButtonConfig, ButtonMouse } from "../../component/Button";
 
-import {
-  IconMediaPlayPause,
-  IconMediaStop,
-  IconMediaRewind,
-  IconMediaForward,
-  IconMediaShuffle,
-  IconMediaSoundMute,
-  IconMediaSoundLess,
-  IconMediaSoundMore,
-  IconArrowInBoxDown,
-  IconToolsBrightnessMore,
-  IconToolsBrightnessLess,
-  IconToolsCamera,
-  IconToolsCalculator,
-  IconToolsEject,
-  IconLEDSwitchLeft,
-  IconLEDPreviousEffect,
-  IconLEDNextEffect
-} from "../../component/Icon";
+import { IconArrowInBoxDown } from "../../component/Icon";
 
 const Styles = Styled.div`
 display: flex;
@@ -63,7 +45,7 @@ h4 {
     flex: 0 0 100%;
     display: grid;
     grid-template-columns: auto auto auto;
-    grtid-gap: 24px;
+    grid-gap: 24px;
     .button-config {
         margin: 4px;
         padding-top: 12px;
@@ -108,6 +90,14 @@ h4 {
             z-index: 3;
         }
     }
+}
+@media screen and (max-width: 1200px) {
+  .buttonsRow {
+    grid-template-columns: 1fr 1fr;
+    .clickButtons {
+      grid-column: 1 / -1;
+    }
+  }
 }
 `;
 

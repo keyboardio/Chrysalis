@@ -22,42 +22,10 @@ import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 import Fab from "@mui/material/Fab";
 import Tooltip from "@mui/material/Tooltip";
-import withStyles from "@mui/styles/withStyles";
 import i18n from "@renderer/i18n";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
-
-const styles = (theme) => ({
-  buttonSuccess: {
-    backgroundColor: theme.palette.success.main,
-    "&:hover": {
-      backgroundColor: theme.palette.success.light,
-    },
-  },
-  fabProgress: {
-    color: theme.palette.success.main,
-    position: "absolute",
-    top: -6,
-    left: -6,
-    zIndex: 1,
-  },
-  buttonProgress: {
-    color: theme.palette.success.main,
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    marginTop: -12,
-    marginLeft: -12,
-  },
-  fab: {
-    position: "fixed",
-    justifyContent: "flex-end",
-    bottom: 0,
-    left: theme.spacing(4),
-    zIndex: theme.zIndex.drawer + 1,
-  },
-});
 
 class SaveChangesButton extends React.Component {
   state = {
@@ -98,10 +66,10 @@ class SaveChangesButton extends React.Component {
       <Box className={classes.wrapper}>
         <Button
           variant="contained"
-          color="primary"
           className={buttonClassname}
           disabled={inProgress || (this.props.disabled && !success)}
           onClick={this.handleButtonClick}
+          color={success ? "success" : "primary"}
         >
           {success
             ? successMessage || i18n.t("components.save.success")
@@ -127,11 +95,18 @@ class SaveChangesButton extends React.Component {
             this.props.className,
             this.props.floating && classes.fab
           )}
+          sx={{
+            position: "fixed",
+            justifyContent: "flex-end",
+            bottom: 0,
+            left: 32,
+            zIndex: (theme) => theme.zIndex.drawer + 1,
+          }}
         >
           <Box className={classNames(classes.wrapper, classes.icon)}>
             <Fab
               disabled={inProgress || (this.props.disabled && !success)}
-              color="primary"
+              color={success ? "success" : "primary"}
               className={buttonClassname}
               classes={{ disabled: classes.disabled }}
               onClick={this.handleButtonClick}
@@ -139,7 +114,17 @@ class SaveChangesButton extends React.Component {
               {success ? <CheckIcon /> : icon}
             </Fab>
             {inProgress && (
-              <CircularProgress size={68} className={classes.fabProgress} />
+              <CircularProgress
+                size={68}
+                color="success"
+                className={classes.fabProgress}
+                sx={{
+                  position: "absolute",
+                  top: -6,
+                  left: -6,
+                  zIndex: 1,
+                }}
+              />
             )}
           </Box>
           {textPart}
@@ -153,4 +138,4 @@ SaveChangesButton.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SaveChangesButton);
+export default SaveChangesButton;

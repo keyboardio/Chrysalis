@@ -17,12 +17,11 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import { I18nextProvider } from "react-i18next";
 import "../styles/keymap.css";
 import App from "./App";
 import { GlobalContextProvider } from "./components/GlobalContext";
 import { Error } from "./Error";
-import i18n from "./i18n";
+import "./i18n"; // to initialize the i18n system
 const { ipcRenderer } = require("electron");
 
 // Enable Hot Module Reload in dev
@@ -30,11 +29,9 @@ if (module.hot) module.hot.accept();
 
 try {
   ReactDOM.render(
-    <I18nextProvider i18n={i18n}>
-      <GlobalContextProvider>
-        <App />
-      </GlobalContextProvider>
-    </I18nextProvider>,
+    <GlobalContextProvider>
+      <App />
+    </GlobalContextProvider>,
     document.getElementById("app")
   );
 } catch (e) {

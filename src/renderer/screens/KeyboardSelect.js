@@ -55,6 +55,7 @@ const KeyboardSelect = (props) => {
       try {
         await props.onConnect(deviceList[0]);
       } catch (err) {
+        console.log(err);
         setOpening(false);
         toast.error(err.toString());
       }

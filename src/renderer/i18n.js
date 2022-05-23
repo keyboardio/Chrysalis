@@ -52,9 +52,9 @@ i18n.refreshHardware = (device) => {
   Object.keys(i18n.options.resources).forEach((code) => {
     const key =
       "devices." +
-      device.info.vendor +
+      device?.info.vendor +
       "." +
-      device.info.product +
+      device?.info.product +
       ".updateInstructions";
     const instructions = {
       updateInstructions: i18n.exists(key) ? i18n.t(key) : undefined, // eslint-disable-line import/no-named-as-default-member

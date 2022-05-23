@@ -68,7 +68,7 @@ const FocusNotDetected = (props) => {
               <KeyboardIcon />
             </Avatar>
           }
-          title={focusDeviceDescriptor.info.displayName}
+          title={focusDeviceDescriptor?.info.displayName}
           subheader={focus._port && focus._port.path}
         />
         <CardContent>

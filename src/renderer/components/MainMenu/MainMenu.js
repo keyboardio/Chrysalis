@@ -61,7 +61,7 @@ function MainMenu({ open, closeMenu, classes }) {
   };
 
   const homePage = connected
-    ? activeDevice.hasCustomizableKeymaps()
+    ? activeDevice?.hasCustomizableKeymaps()
       ? "/editor"
       : "/focus-not-detected"
     : "/keyboard-select";
@@ -106,16 +106,17 @@ function MainMenu({ open, closeMenu, classes }) {
             </ListSubheader>
           }
         >
-          {!activeDevice.focusDetected() &&
+          {activeDevice &&
+            !activeDevice.focusDetected() &&
             listItem(
               <InfoIcon />,
               t("app.menu.focus-not-detected"),
               "/focus-not-detected"
             )}
-          {activeDevice.hasCustomizableKeymaps() &&
+          {activeDevice?.hasCustomizableKeymaps() &&
             listItem(
               <KeyboardIcon />,
-              activeDevice.hasCustomizableLEDMaps()
+              activeDevice?.hasCustomizableLEDMaps()
                 ? t("app.menu.editor")
                 : t("app.menu.layoutEditor"),
 

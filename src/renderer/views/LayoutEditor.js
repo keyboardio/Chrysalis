@@ -1670,6 +1670,7 @@ class LayoutEditor extends React.Component {
         <Container fluid className="keyboard-editor">
           <PageHeader
             text={i18n.app.menu.editor}
+            showSaving={true}
             contentSelector={
               <LayerSelector
                 itemList={layerMenu}
@@ -1681,31 +1682,17 @@ class LayoutEditor extends React.Component {
                 importFunc={this.toImport}
                 clearFunc={this.confirmClear}
                 copyFunc={this.copyFromDialog}
+                editModeActual={this.state.modeselect}
+                editModeFunc={this.modeSelectToggle}
               />
             }
+            saveContext={this.onApply}
+            destroyContext={() => {
+              this.props.cancelContext();
+            }}
+            inContext={this.state.modified}
           />
           <Row className="full-height">
-            <Col xs={2} className="full-height layer-col">
-              <Row className="mx-2">
-                <LayerPanel
-                  layers={layerMenu}
-                  selectLayer={this.selectLayer}
-                  currentLayer={currentLayer}
-                  isReadOnly={isReadOnly}
-                  importTitle={i18n.editor.layers.importTitle}
-                  exportTitle={i18n.editor.layers.exportTitle}
-                  exportAllTitle={i18n.editor.layers.exportAllTitle}
-                  importFunc={this.toImport}
-                  exportFunc={this.toExport}
-                  exportAllFunc={this.toExportAll}
-                  copyTitle={i18n.editor.layers.copyFrom}
-                  copyFunc={this.copyFromDialog}
-                  clearTitle={i18n.editor.layers.clearLayer}
-                  clearFunc={this.confirmClear}
-                  changeLayerName={this.onLayerNameChange}
-                />
-              </Row>
-            </Col>
             {/* </Row>
           {this.state.keymap.custom.length == 0 &&
             this.state.keymap.default.length == 0 && (
@@ -1808,30 +1795,7 @@ class LayoutEditor extends React.Component {
             <IoMdColorPalette />
           </Button>
         </Card>
-        <Container className="save-row">
-          <Row className="save-button-row">
-            <Button
-              disabled={!this.state.modified}
-              onClick={this.onApply}
-              className={`button-large pt-0 mt-0 mb-2 save-button ${this.state.modified ? "save-active" : ""}`}
-              aria-controls="save-changes"
-            >
-              <FiSave />
-            </Button>
-          </Row>
-          <Row className="save-button-row">
-            <Button
-              disabled={!this.state.modified}
-              onClick={() => {
-                this.props.cancelContext();
-              }}
-              className={`button-large pt-0 mt-0 mb-2 cancel-button ${this.state.modified ? "cancel-active" : ""}`}
-              aria-controls="discard-changes"
-            >
-              <FiTrash2 />
-            </Button>
-          </Row>
-        </Container>
+
         <Modal show={this.state.showMacroModal} onHide={this.toggleMacroModal} style={{ marginTop: "300px" }}>
           <ModalStyle>
             <Modal.Header closeButton className="title noborder">

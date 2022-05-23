@@ -55,6 +55,7 @@ const KeyboardViewSelector = ({ selectDarkMode, value, listElements, style, size
           <ButtonConfig
             onClick={e => selectDarkMode(item.value)}
             selected={value === item.value ? true : false}
+            iconPosition="left"
             icoSVG={item.icon}
             key={index}
             buttonText={item.name}

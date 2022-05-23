@@ -32,6 +32,7 @@ import {
 
 import { NameModal } from "../Modal"; // Imported custom modal component
 import { RegularButton, ButtonSettings } from "../Button";
+import { KeyboardViewSelector } from "../ToggleButtons";
 
 const Style = Styled.div` 
 display: flex;
@@ -117,9 +118,31 @@ class LayerSelector extends React.Component {
   };
 
   render() {
-    const { onSelect, itemList, selectedItem, subtitle, exportFunc, importFunc, copyFunc, clearFunc } = this.props;
+    const {
+      onSelect,
+      itemList,
+      selectedItem,
+      subtitle,
+      exportFunc,
+      importFunc,
+      copyFunc,
+      clearFunc,
+      editModeActual,
+      editModeFunc
+    } = this.props;
     const { show, showAdd } = this.state;
-
+    const layoutsMode = [
+      {
+        name: "Keys",
+        value: "keyboard",
+        icon: <IconArrowsSmallSeparating />
+      },
+      {
+        name: "Color",
+        value: "color",
+        icon: <IconArrowsSmallSeparating />
+      }
+    ];
     return (
       <Style>
         <div className="itemListelector dropdownMultipleActions">
@@ -213,6 +236,7 @@ class LayerSelector extends React.Component {
             </Dropdown>
           </div>
         </div>
+        <KeyboardViewSelector listElements={layoutsMode} value={editModeActual} style="flex" />
 
         {itemList == undefined || itemList.length == 0 || itemList.length <= selectedItem ? (
           ""

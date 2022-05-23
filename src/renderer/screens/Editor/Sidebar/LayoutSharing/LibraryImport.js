@@ -5,6 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import Typography from "@mui/material/Typography";
 import { getStaticPath } from "@renderer/config";
+import fs from "fs";
 import path from "path";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -30,8 +31,33 @@ export const LibraryImport = (props) => {
     if (layoutData != null) props.setLayout(layoutName, layoutData);
   };
 
-  const { library, layoutName } = props;
+  const { layoutName } = props;
 
+  const findAvailableLayouts = () => {
+    const { vendor, product } = focus.focusDeviceDescriptor.info;
+    const cVendor = vendor.replace("/", "");
+    const cProduct = product.replace("/", "");
+    const layoutDirPath = path.join(
+      getStaticPath(),
+      cVendor,
+      cProduct,
+      "layouts"
+    );
+
+    try {
+      const layouts = fs
+        .readdirSync(layoutDirPath, {
+          encoding: "utf-8",
+        })
+        .map((name) => path.basename(name, ".json"))
+        .sort();
+      return layouts;
+    } catch (_) {
+      return [];
+    }
+  };
+
+  const library = findAvailableLayouts();
   if (library.length == 0) return null;
 
   const layouts = library.map((name) => {

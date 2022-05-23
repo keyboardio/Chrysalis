@@ -20,7 +20,6 @@ import AvrGirl from "avrgirl-arduino";
 import { spawn } from "child_process";
 import { ipcRenderer } from "electron";
 import path from "path";
-import sudo from "sudo-prompt";
 import TeensyLoader from "teensy-loader";
 import { v4 as uuidv4 } from "uuid";
 
@@ -157,15 +156,40 @@ async function DFUUtilBootloader(port, filename, options) {
     "dfu-util"
   );
 
+  let dyld_library_path = "";
+  // dfu-util on darwin needs to know where its custom libusb is
+  if (process.platform === "darwin") {
+    dyld_library_path = path.join(
+      getStaticPath(),
+      "dfu-util",
+      process.platform
+    );
+  }
+
   const runCommand = async (args) => {
-    const cmd = [dfuUtil].concat(args).join(" ");
+    const timeout = 1000 * 60 * 5;
     return new Promise((resolve, reject) => {
-      logger.debug("Running:", cmd);
-      sudo.exec(cmd, { name: "Chrysalis" }, (error) => {
-        if (error) {
-          reject(error);
+      logger.debug("running dfu-util", args);
+      const child = spawn(dfuUtil, args, {
+        env: { ...process.env, DYLD_LIBRARY_PATH: dyld_library_path },
+      });
+      child.stdout.on("data", (data) => {
+        logger.debug("dfu-util:stdout:", data.toString());
+      });
+      child.stderr.on("data", (data) => {
+        logger.debug("dfu-util:stderr:", data.toString());
+      });
+      const timer = setTimeout(() => {
+        child.kill();
+        reject("dfu-util timed out");
+      }, timeout);
+      child.on("exit", (code) => {
+        clearTimeout(timer);
+        console.log("dfu-util exited with code", code);
+        if (code == 0 || code == 251) {
+          resolve();
         } else {
-          resolve(true);
+          reject("dfu-util exited abnormally with an error code of " + code);
         }
       });
     });

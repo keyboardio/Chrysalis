@@ -42,7 +42,7 @@ const KeyboardSelect = (props) => {
   const [opening, setOpening] = useState(false);
   const [loading, setLoading] = useState(false);
   const [devices, setDevices] = useState(null);
-  const [tryAutoConnect, setTryAutoConnect] = useState(true);
+  const [tryAutoConnect, setTryAutoConnect] = useState(false);
 
   const { t } = useTranslation();
   const focus = new Focus();
@@ -50,7 +50,6 @@ const KeyboardSelect = (props) => {
   const scanDevices = async () => {
     setLoading(true);
     const deviceList = await findKeyboards();
-
     if (!focus._port && deviceList.length == 1 && tryAutoConnect) {
       try {
         await props.onConnect(deviceList[0]);
@@ -96,6 +95,7 @@ const KeyboardSelect = (props) => {
     try {
       await props.onConnect(devices?.[selectedPortIndex]);
     } catch (err) {
+      console.error(err);
       setOpening(false);
       toast.error(err.toString());
     }

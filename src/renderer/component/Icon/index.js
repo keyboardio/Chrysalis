@@ -20,6 +20,8 @@ import IconArrowInBoxDown from "./IconArrowInBoxDown";
 import IconArrowsMouseMovement from "./IconArrowsMouseMovement";
 import IconArrowsMouseWheel from "./IconArrowsMouseWheel";
 import IconArrowsSmallSeparating from "./IconArrowsSmallSeparating";
+import IconArrowUpWithLine from "./IconArrowUpWithLine";
+import IconArrowDownWithLine from "./IconArrowDownWithLine";
 import IconCheckmarkSm from "./IconCheckmarkSm";
 import IconChip from "./IconChip";
 import IconClone from "./IconClone";
@@ -101,6 +103,8 @@ export {
   IconArrowsSmallSeparating,
   IconArrowsMouseMovement,
   IconArrowsMouseWheel,
+  IconArrowUpWithLine,
+  IconArrowDownWithLine,
   IconCheckmarkSm,
   IconChip,
   IconClone,

@@ -18,6 +18,7 @@
 import React from "react";
 import Styled from "styled-components";
 import { toast } from "react-toastify";
+import ToastMessage from "../component/ToastMessage";
 
 // Bootstrap components
 import Container from "react-bootstrap/Container";
@@ -46,6 +47,8 @@ import { undeglowDefaultColors } from "../screens/Editor/initialUndaglowColors";
 import PageHeader from "../modules/PageHeader";
 import { KeyPickerKeyboard } from "../modules/KeyPickerKeyboard";
 import { LayerSelector } from "../component/Select";
+
+import { IconArrowUpWithLine, IconArrowDownWithLine } from "../component/Icon";
 
 const Store = window.require("electron-store");
 const store = new Store();
@@ -1315,9 +1318,16 @@ class LayoutEditor extends React.Component {
             if (Array.isArray(layers.keymap)) {
               console.log(layers.keymap[0]);
               this.importLayer(layers);
-              toast.success(i18n.editor.importSuccessCurrentLayer, {
-                autoClose: 2000
-              });
+              toast.success(
+                <ToastMessage
+                  title={i18n.editor.importSuccessCurrentLayerTitle}
+                  content={i18n.editor.importSuccessCurrentLayer}
+                  icon={<IconArrowDownWithLine />}
+                />,
+                {
+                  autoClose: 2000
+                }
+              );
             } else {
               console.log(layers.keymap.custom[0]);
               this.setState({
@@ -1335,9 +1345,16 @@ class LayoutEditor extends React.Component {
             }
           } catch (e) {
             console.error(e);
-            toast.error(i18n.errors.invalidLayerFile, {
-              autoClose: 2000
-            });
+            toast.error(
+              <ToastMessage
+                title={i18n.errors.preferenceFailOnSave}
+                content={i18n.errors.invalidLayerFile}
+                icon={<IconArrowDownWithLine />}
+              />,
+              {
+                autoClose: 2000
+              }
+            );
             return;
           }
         } else {
@@ -1386,18 +1403,32 @@ class LayoutEditor extends React.Component {
         if (!resp.canceled) {
           console.log(resp.filePath, data);
           require("fs").writeFileSync(resp.filePath, data);
-          toast.success(i18n.editor.exportSuccessCurrentLayer, {
-            autoClose: 2000
-          });
+          toast.success(
+            <ToastMessage
+              title={i18n.editor.exportSuccessCurrentLayer}
+              content={i18n.editor.exportSuccessCurrentLayerContent}
+              icon={<IconArrowUpWithLine />}
+            />,
+            {
+              autoClose: 2000
+            }
+          );
         } else {
           console.log("user closed SaveDialog");
         }
       })
       .catch(err => {
         console.error(err);
-        toast.error(i18n.errors.exportError + err, {
-          autoClose: 2000
-        });
+        toast.error(
+          <ToastMessage
+            title={i18n.errors.exportFailed}
+            content={i18n.errors.exportError + err}
+            icon={<IconArrowUpWithLine />}
+          />,
+          {
+            autoClose: 2000
+          }
+        );
       });
   }
 
@@ -1431,9 +1462,16 @@ class LayoutEditor extends React.Component {
         if (!resp.canceled) {
           console.log(resp.filePath, data);
           require("fs").writeFileSync(resp.filePath, data);
-          toast.success(i18n.editor.exportSuccessAllLayers, {
-            autoClose: 2000
-          });
+          toast.success(
+            <ToastMessage
+              title={i18n.editor.exportSuccessAllLayers}
+              content={i18n.editor.exportSuccessAllLayers}
+              icon={<IconArrowUpWithLine />}
+            />,
+            {
+              autoClose: 2000
+            }
+          );
         } else {
           console.log("user closed SaveDialog");
         }
@@ -1636,9 +1674,12 @@ class LayoutEditor extends React.Component {
               <LayerSelector
                 itemList={layerMenu}
                 selectedItem={currentLayer}
-                subtitle="Layers"
+                subtitle={i18n.editor.layers.title}
                 onSelect={this.selectLayer}
                 updateItem={this.onLayerNameChange}
+                exportFunc={this.toExport}
+                importFunc={this.toImport}
+                clearFunc={this.confirmClear}
               />
             }
           />

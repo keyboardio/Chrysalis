@@ -20,7 +20,15 @@ import Styled from "styled-components";
 import i18n from "../../i18n";
 import Dropdown from "react-bootstrap/Dropdown";
 
-import { IconArrowsSmallSeparating, IconPen, IconAddNew, IconClone, IconDelete } from "../Icon";
+import {
+  IconArrowsSmallSeparating,
+  IconPen,
+  IconAddNew,
+  IconClone,
+  IconDelete,
+  IconArrowUpWithLine,
+  IconArrowDownWithLine
+} from "../Icon";
 
 import { NameModal } from "../Modal"; // Imported custom modal component
 import { RegularButton, ButtonSettings } from "../Button";
@@ -34,10 +42,9 @@ align-items: center;
     .dropdownActions {
       display: flex;
       flex-wrap: nowrap;
-      background: rgba(123, 134, 158, 0.1);
       border-radius: 3px;
-      top: 5px;
-      right: 5px;
+    //   top: 5px;
+    //   right: 5px;
       height: 48px;
     }
 }
@@ -107,7 +114,8 @@ class LayerSelector extends React.Component {
   };
 
   render() {
-    const { onSelect, itemList, selectedItem, deleteItem, addItem, cloneItem, subtitle, mem } = this.props;
+    const { onSelect, itemList, selectedItem, deleteItem, addItem, cloneItem, subtitle, exportFunc, importFunc, clearFunc } =
+      this.props;
     const { show, showAdd } = this.state;
 
     return (
@@ -143,7 +151,7 @@ class LayerSelector extends React.Component {
               ))}
             </Dropdown.Menu>
           </Dropdown>
-          <div className="dropdownActions dropdownActionsIcons">
+          <div className="dropdownActions">
             <Dropdown drop="down" align="end" className="dropdownActionsList">
               <Dropdown.Toggle className="button-settings">
                 <ButtonSettings />
@@ -154,28 +162,39 @@ class LayerSelector extends React.Component {
                     <div className="dropdownIcon">
                       <IconPen />
                     </div>
-                    <div className="dropdownItem">Change name</div>
+                    <div className="dropdownItem">{i18n.app.menu.changeName}</div>
                   </div>
                 </Dropdown.Item>
-                <Dropdown.Item onClick={deleteItem}>
+
+                <Dropdown.Item onClick={exportFunc}>
+                  <div className="dropdownInner">
+                    <div className="dropdownIcon">
+                      <IconArrowUpWithLine />
+                    </div>
+                    <div className="dropdownItem">{i18n.editor.layers.exportTitle}</div>
+                  </div>
+                </Dropdown.Item>
+                <Dropdown.Item onClick={importFunc}>
+                  <div className="dropdownInner">
+                    <div className="dropdownIcon">
+                      <IconArrowDownWithLine />
+                    </div>
+                    <div className="dropdownItem">{i18n.editor.layers.importTitle}</div>
+                  </div>
+                </Dropdown.Item>
+
+                <Dropdown.Item onClick={clearFunc}>
                   <div className="dropdownInner">
                     <div className="dropdownIcon">
                       <IconDelete />
                     </div>
-                    <div className="dropdownItem">Delete</div>
+                    <div className="dropdownItem">{i18n.editor.layers.clearLayer}</div>
                   </div>
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </div>
         </div>
-        <RegularButton
-          icoSVG={<IconAddNew />}
-          icoPosition="left"
-          buttonText={i18n.general.new}
-          style="outline gradient addNew"
-          onClick={this.toggleShowAdd}
-        />
 
         {itemList == undefined || itemList.length == 0 || itemList.length <= selectedItem ? (
           ""

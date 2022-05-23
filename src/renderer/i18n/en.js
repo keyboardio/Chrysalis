@@ -23,6 +23,7 @@ const English = {
       "Houston we have a problem! Could not connect with Neuron, configure if cables are connected and if everything is ok.",
     invalidLayerFile: "Not a valid Layer file",
     exportError: "Error at Exporting: ",
+    exportFailed: "Export failed!",
     preferenceFailOnSave: "Whoops, Something Went Wrong!",
     preferenceFailOnSaveBody: "Please try again.",
     dismiss: "Dismiss",
@@ -348,9 +349,11 @@ const English = {
     copySuccess: "Copied!",
     pasteFromClipboard: "Paste from clipboard",
     pasteSuccess: "Pasted!",
-    importSuccessCurrentLayer: "Imported to current Layer succesfully",
+    importSuccessCurrentLayerTitle: "Imported successfully!",
+    importSuccessCurrentLayer: "Imported to current Layer successfully",
     importSuccessAllLayers: "Imported all Layers succesfully",
-    exportSuccessCurrentLayer: "Export Successful",
+    exportSuccessCurrentLayer: "Ready to share!",
+    exportSuccessCurrentLayerContent: "Your layer has been successfully exported.",
     exportSuccessAllLayers: "Exported all Layers succesfully"
   },
   preferences: {

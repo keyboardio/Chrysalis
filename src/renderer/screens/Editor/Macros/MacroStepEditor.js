@@ -19,6 +19,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import Box from "@mui/material/Box";
+import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
 
 const MacroStepEditor = (props) => {
@@ -62,7 +63,13 @@ const MacroStepEditor = (props) => {
         InputLabelProps={{
           shrink: true,
         }}
-        helperText={t("editor.macros.steps.in_ms")}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              {t("editor.macros.steps.in_ms")}
+            </InputAdornment>
+          ),
+        }}
       />
     </Box>
   );

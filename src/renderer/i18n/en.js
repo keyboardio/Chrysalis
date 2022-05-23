@@ -258,7 +258,7 @@ const English = {
       },
       steps: {
         time_ms: "{{ value }}ms",
-        in_ms: "In milliseconds",
+        in_ms: "ms",
         unknown: "<unknown>",
         INTERVAL: "Delay between steps",
         WAIT: "Wait",

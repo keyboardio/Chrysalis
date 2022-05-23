@@ -5,13 +5,15 @@ import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import Typography from "@mui/material/Typography";
 import { ipcRenderer } from "electron";
-import i18n from "i18next";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { loadLayout } from "./LoadLayout";
 
 const focus = new Focus();
 
 export const BackupImport = (props) => {
+  const { t } = useTranslation();
+
   const library = ipcRenderer.sendSync(
     "backups.list-library",
     focus.focusDeviceDescriptor.info
@@ -60,9 +62,7 @@ export const BackupImport = (props) => {
 
   return (
     <Box sx={{ sb: 2 }}>
-      <Typography variant="h5">
-        {i18n.t("editor.sharing.loadFromBackup")}
-      </Typography>
+      <Typography variant="h5">{t("editor.sharing.loadFromBackup")}</Typography>
       <MenuList>{layouts}</MenuList>
 
       <Divider />

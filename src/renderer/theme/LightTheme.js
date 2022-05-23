@@ -266,8 +266,8 @@ const Light = {
       groupButtonsBackground: "rgba(255,255,255,1)"
     },
     customCheckbox: {
-      background: Tokens.colors.gray700,
-      borderColor: Tokens.colors.gray400,
+      background: Tokens.colors.gray100,
+      borderColor: Tokens.colors.gray100,
       backgroundActive: Tokens.colors.brandSuccess,
       borderColorActive: Tokens.colors.brandSuccess
     },
@@ -371,10 +371,13 @@ const Light = {
       inputBorder: settingColorOpacity(Tokens.colors.gray100, 0.6),
       inputBorderSolid: "rgba(196, 201, 213, 0.6)",
       inputBorderActive: Tokens.colors.purple200,
-      inputBackgroundColor: "rgba(255,255,255,0.6)",
+      inputBackgroundColor: "#F9FAFB",
       inputBackgroundColorActive: "rgba(255,255,255,1)",
       inputGroupColor: Tokens.colors.gray300,
-      inputGroupBackground: Tokens.colors.gray25
+      inputGroupBackground: Tokens.colors.gray25,
+      inputGroup: {
+        background: "#F9FAFB"
+      }
     },
     macro: {
       tabCategoriesBackground: Tokens.colors.gray50,

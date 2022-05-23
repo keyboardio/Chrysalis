@@ -382,7 +382,10 @@ const Dark = {
       inputBackgroundColor: settingColorOpacity(Tokens.colors.gray900, 0.2),
       inputBackgroundColorActive: settingColorOpacity(Tokens.colors.gray900, 0.2),
       inputGroupColor: Tokens.colors.gray300,
-      inputGroupBackground: "rgba(11, 2, 25, 0.2)"
+      inputGroupBackground: "rgba(11, 2, 25, 0.2)",
+      inputGroup: {
+        background: "#202033"
+      }
     },
     macro: {
       tabCategoriesBackground: "rgba(43, 44, 67, 1)",

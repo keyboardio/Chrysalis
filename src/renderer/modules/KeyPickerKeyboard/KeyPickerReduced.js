@@ -127,7 +127,7 @@ width: 100%;
 
 
 .KeysWrapper {
-  max-width: 1160px;
+  max-width: 1260px;
   margin: auto;
 }
 .keysContainer + .keysContainer {

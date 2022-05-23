@@ -79,7 +79,7 @@ h4 {
     padding: 4px;
     border-radius: 50%;
     z-index: 3;
-    background-color: #202033;
+    background-color: ${({ theme }) => theme.styles.form.inputGroup.background};
   }
   .inputMin {
     border-right-color: transparent;
@@ -94,7 +94,7 @@ h4 {
     }
   }
   .form-control {
-    background-color: #202033;
+    background-color: ${({ theme }) => theme.styles.form.inputGroup.background};
   }
 }
 `;

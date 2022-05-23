@@ -143,7 +143,7 @@ width: 100%;
   border-radius: 6px;
   padding: 5px;
   &.keysOrdinaryKeyboard {
-    padding: 12px 24px;
+    padding: 12px 0;
   }
   .keyIcon {
     flex: 0 0 42px;

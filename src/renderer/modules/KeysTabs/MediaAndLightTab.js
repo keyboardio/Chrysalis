@@ -63,13 +63,29 @@ h4 {
     flex: 0 0 100%;
     display: grid;
     grid-template-columns: auto auto;
-    grtid-gap: 24px;
+    grid-gap: 24px;
     .button-config {
         margin-left: 8px;
         padding-top: 12px;
         padding-bottom: 12px;
     }
     padding-bottom: 12px;
+}
+@media screen and (max-width: 1320px) {
+  .mediaButtons {
+    .keysButtonsList {
+      flex-wrap: wrap;
+      .button-config {
+        margin-bottom: 8px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 1120px) {
+  .buttonsRow {
+    grid-template-columns: 1fr;
+    grid-gap: 0;
+  }
 }
 `;
 

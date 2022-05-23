@@ -20,111 +20,108 @@ import React from "react";
 
 const db = new KeymapDB();
 
-class Keymap extends React.Component {
-  render() {
-    const keymap =
-      this.props.keymap ||
-      Array(48)
-        .fill()
-        .map(() => 0);
+const Keymap = (props) => {
+  const keymap =
+    props.keymap ||
+    Array(48)
+      .fill()
+      .map(() => 0);
+  const layer = props.index;
+  const onKeySelect = props.onKeySelect;
+  const selectedKey = props.selectedKey;
+  const keyIndex = (row, col) => {
+    return row * 12 + col;
+  };
 
-    const keyIndex = (row, col) => {
-      return row * 12 + col;
-    };
-
-    const Key = (props) => {
-      if (!this.props.keymap) return null;
-      const { x, y, row, col, transform } = props;
-      const width = props.width || 1,
-        height = props.height || 1,
-        bottom = y + height * 40 - 4;
-
-      const key = keymap[keyIndex(row, col)],
-        stroke =
-          this.props.selectedKey == keyIndex(row, col) ? "#f3b3b3" : "#b3b3b3";
-
-      return (
-        <g
-          transform={transform}
-          onClick={this.props.onKeySelect}
-          data-layer={this.props.index}
-          data-key-index={keyIndex(row, col)}
-          className="key"
-        >
-          <rect
-            x={x}
-            y={y}
-            rx={3}
-            width={width * 40 + 8}
-            height={height * 40 + 8}
-            stroke={stroke}
-            strokeWidth="1.55"
-            fill="#ffffff"
-          />
-          <text x={x + 3} y={y + 14}>
-            {key && key.label && key.label.hint}
-          </text>
-          <text x={x + 3} y={bottom}>
-            {key && key.label && db.format(key).main}
-          </text>
-        </g>
-      );
-    };
-
+  const Key = (props) => {
+    if (!keymap) return null;
+    const { x, y, row, col, transform } = props;
+    const width = props.width || 1,
+      height = props.height || 1,
+      bottom = y + height * 40 - 4;
+    const key = keymap[keyIndex(row, col)],
+      stroke = selectedKey == keyIndex(row, col) ? "#f3b3b3" : "#b3b3b3";
     return (
-      <svg
-        viewBox="0 0 700 213"
-        xmlns="http://www.w3.org/2000/svg"
-        className={this.props.className || "layer"}
+      <g
+        transform={transform}
+        onClick={onKeySelect}
+        data-layer={layer}
+        data-key-index={keyIndex(row, col)}
+        className="key"
       >
-        <g>
-          <Key x={1} y={1} row={0} col={0} />
-          <Key x={55} y={1} row={0} col={1} />
-          <Key x={109} y={1} row={0} col={2} />
-          <Key x={163} y={1} row={0} col={3} />
-          <Key x={217} y={1} row={0} col={4} />
-          <Key x={271} y={1} row={0} col={5} />
-          <Key x={379} y={1} row={0} col={6} />
-          <Key x={433} y={1} row={0} col={7} />
-          <Key x={487} y={1} row={0} col={8} />
-          <Key x={541} y={1} row={0} col={9} />
-          <Key x={595} y={1} row={0} col={10} />
-          <Key x={649} y={1} row={0} col={11} />
-
-          <Key x={1} y={55} row={1} col={0} />
-          <Key x={55} y={55} row={1} col={1} />
-          <Key x={109} y={55} row={1} col={2} />
-          <Key x={163} y={55} row={1} col={3} />
-          <Key x={217} y={55} row={1} col={4} />
-          <Key x={271} y={55} row={1} col={5} />
-          <Key x={379} y={55} row={1} col={6} />
-          <Key x={433} y={55} row={1} col={7} />
-          <Key x={487} y={55} row={1} col={8} />
-          <Key x={541} y={55} row={1} col={9} />
-          <Key x={595} y={55} row={1} col={10} />
-          <Key x={649} y={55} row={1} col={11} />
-
-          <Key x={1} y={109} row={2} col={0} />
-          <Key x={55} y={109} row={2} col={1} />
-          <Key x={109} y={109} row={2} col={2} />
-          <Key x={163} y={109} row={2} col={3} />
-          <Key x={217} y={109} row={2} col={4} />
-          <Key x={271} y={109} row={2} col={5} />
-          <Key x={379} y={109} row={2} col={6} />
-          <Key x={433} y={109} row={2} col={7} />
-          <Key x={487} y={109} row={2} col={8} />
-          <Key x={541} y={109} row={2} col={9} />
-          <Key x={595} y={109} row={2} col={10} />
-          <Key x={649} y={109} row={2} col={11} />
-
-          <Key x={190} y={163} row={3} col={4} />
-          <Key x={244} y={163} row={3} col={5} />
-          <Key x={406} y={163} row={3} col={6} />
-          <Key x={460} y={163} row={3} col={7} />
-        </g>
-      </svg>
+        <rect
+          x={x}
+          y={y}
+          rx={3}
+          width={width * 40 + 8}
+          height={height * 40 + 8}
+          stroke={stroke}
+          strokeWidth="1.55"
+          fill="#ffffff"
+        />
+        <text x={x + 3} y={y + 14}>
+          {key && key.label && key.label.hint}
+        </text>
+        <text x={x + 3} y={bottom}>
+          {key && key.label && db.format(key).main}
+        </text>
+      </g>
     );
-  }
-}
+  };
+
+  return (
+    <svg
+      viewBox="0 0 700 213"
+      xmlns="http://www.w3.org/2000/svg"
+      className={props.className || "layer"}
+    >
+      <g>
+        <Key x={1} y={1} row={0} col={0} />
+        <Key x={55} y={1} row={0} col={1} />
+        <Key x={109} y={1} row={0} col={2} />
+        <Key x={163} y={1} row={0} col={3} />
+        <Key x={217} y={1} row={0} col={4} />
+        <Key x={271} y={1} row={0} col={5} />
+        <Key x={379} y={1} row={0} col={6} />
+        <Key x={433} y={1} row={0} col={7} />
+        <Key x={487} y={1} row={0} col={8} />
+        <Key x={541} y={1} row={0} col={9} />
+        <Key x={595} y={1} row={0} col={10} />
+        <Key x={649} y={1} row={0} col={11} />
+
+        <Key x={1} y={55} row={1} col={0} />
+        <Key x={55} y={55} row={1} col={1} />
+        <Key x={109} y={55} row={1} col={2} />
+        <Key x={163} y={55} row={1} col={3} />
+        <Key x={217} y={55} row={1} col={4} />
+        <Key x={271} y={55} row={1} col={5} />
+        <Key x={379} y={55} row={1} col={6} />
+        <Key x={433} y={55} row={1} col={7} />
+        <Key x={487} y={55} row={1} col={8} />
+        <Key x={541} y={55} row={1} col={9} />
+        <Key x={595} y={55} row={1} col={10} />
+        <Key x={649} y={55} row={1} col={11} />
+
+        <Key x={1} y={109} row={2} col={0} />
+        <Key x={55} y={109} row={2} col={1} />
+        <Key x={109} y={109} row={2} col={2} />
+        <Key x={163} y={109} row={2} col={3} />
+        <Key x={217} y={109} row={2} col={4} />
+        <Key x={271} y={109} row={2} col={5} />
+        <Key x={379} y={109} row={2} col={6} />
+        <Key x={433} y={109} row={2} col={7} />
+        <Key x={487} y={109} row={2} col={8} />
+        <Key x={541} y={109} row={2} col={9} />
+        <Key x={595} y={109} row={2} col={10} />
+        <Key x={649} y={109} row={2} col={11} />
+
+        <Key x={190} y={163} row={3} col={4} />
+        <Key x={244} y={163} row={3} col={5} />
+        <Key x={406} y={163} row={3} col={6} />
+        <Key x={460} y={163} row={3} col={7} />
+      </g>
+    </svg>
+  );
+};
 
 export default Keymap;

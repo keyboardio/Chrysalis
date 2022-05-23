@@ -45,6 +45,7 @@ import { undeglowDefaultColors } from "../screens/Editor/initialUndaglowColors";
 // Modules
 import PageHeader from "../modules/PageHeader";
 import { KeyPickerKeyboard } from "../modules/KeyPickerKeyboard";
+import { LayerSelector } from "../component/Select";
 
 const Store = window.require("electron-store");
 const store = new Store();
@@ -1629,7 +1630,18 @@ class LayoutEditor extends React.Component {
     return (
       <Styles>
         <Container fluid className="keyboard-editor">
-          <PageHeader text={i18n.app.menu.editor} />
+          <PageHeader
+            text={i18n.app.menu.editor}
+            contentSelector={
+              <LayerSelector
+                itemList={layerMenu}
+                selectedItem={currentLayer}
+                subtitle="Layers"
+                onSelect={this.selectLayer}
+                updateItem={this.onLayerNameChange}
+              />
+            }
+          />
           <Row className="full-height">
             <Col xs={2} className="full-height layer-col">
               <Row className="mx-2">

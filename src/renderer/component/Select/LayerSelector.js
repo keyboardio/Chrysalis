@@ -20,11 +20,10 @@ import Styled from "styled-components";
 import i18n from "../../i18n";
 import Dropdown from "react-bootstrap/Dropdown";
 
-import MacrosMemoryUsage from "../../modules/Macros/MacrosMemoryUsage";
 import { IconArrowsSmallSeparating, IconPen, IconAddNew, IconClone, IconDelete } from "../Icon";
 
 import { NameModal } from "../Modal"; // Imported custom modal component
-import { RegularButton, ButtonConfig } from "../Button";
+import { RegularButton, ButtonSettings } from "../Button";
 
 const Style = Styled.div` 
 display: flex;
@@ -49,9 +48,9 @@ align-items: center;
     text-overflow: ellipsis;
 }
 .dropdownListItemInner {
-    padding-right: 128px;
+    padding-right: 64px;
     .caret {
-      right: 112px;
+      right: 46px;
     }
 }
 .dropdown-menu {
@@ -145,27 +144,29 @@ class LayerSelector extends React.Component {
             </Dropdown.Menu>
           </Dropdown>
           <div className="dropdownActions dropdownActionsIcons">
-            <ButtonConfig
-              onClick={this.toggleShow}
-              icoSVG={<IconPen />}
-              tooltip={i18n.app.menu.changeName}
-              tooltipPlacement="bottom"
-              tooltipDelay={600}
-            />
-            <ButtonConfig
-              onClick={cloneItem}
-              icoSVG={<IconClone />}
-              tooltip={i18n.general.clone}
-              tooltipPlacement="bottom"
-              tooltipDelay={600}
-            />
-            <ButtonConfig
-              onClick={deleteItem}
-              icoSVG={<IconDelete />}
-              tooltip={i18n.general.delete}
-              tooltipPlacement="bottom"
-              tooltipDelay={600}
-            />
+            <Dropdown drop="down" align="end" className="dropdownActionsList">
+              <Dropdown.Toggle className="button-settings">
+                <ButtonSettings />
+              </Dropdown.Toggle>
+              <Dropdown.Menu className="dropdownMenu">
+                <Dropdown.Item onClick={this.toggleShow}>
+                  <div className="dropdownInner">
+                    <div className="dropdownIcon">
+                      <IconPen />
+                    </div>
+                    <div className="dropdownItem">Change name</div>
+                  </div>
+                </Dropdown.Item>
+                <Dropdown.Item onClick={deleteItem}>
+                  <div className="dropdownInner">
+                    <div className="dropdownIcon">
+                      <IconDelete />
+                    </div>
+                    <div className="dropdownItem">Delete</div>
+                  </div>
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </div>
         </div>
         <RegularButton
@@ -175,7 +176,7 @@ class LayerSelector extends React.Component {
           style="outline gradient addNew"
           onClick={this.toggleShowAdd}
         />
-        <MacrosMemoryUsage mem={mem} />
+
         {itemList == undefined || itemList.length == 0 || itemList.length <= selectedItem ? (
           ""
         ) : (
@@ -188,14 +189,6 @@ class LayerSelector extends React.Component {
             labelInput={`Layer name`}
           />
         )}
-        <NameModal
-          show={showAdd}
-          name={""}
-          toggleShow={this.toggleShowAdd}
-          handleSave={this.handleAdd}
-          modalTitle={`Edit layer name`}
-          labelInput={`Layer name`}
-        />
       </Style>
     );
   }

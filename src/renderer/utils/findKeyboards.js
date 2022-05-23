@@ -39,7 +39,7 @@ const findNonSerialKeyboards = async (deviceList) => {
           if (!found) {
             deviceList.push({
               accessible: true,
-              port: port,
+              focusDeviceDescriptor: port,
             });
           }
         }

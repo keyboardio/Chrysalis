@@ -59,13 +59,22 @@ function FocusCommands(options) {
     // Attempt calling device.reset first, if present.
     const commands = await focus.command("help");
     if (commands.includes("device.reset")) {
-      await focus.command("device.reset");
+      try {
+        await focus.request("device.reset");
+      } catch (e) {
+        // If there's a comms timeout, that's exactly what we want. the keyboard is rebooting.
+        if ("Communication timeout" !== e) {
+          console.log(e);
+          throw e;
+        }
+      }
     }
 
     // Attempt to reset the device with a serial HUP.
     // If the device supports `device.reset`, this will be a no-op, because we're
     // likely rebooting already. Worst case, we'll reboot twice. If the device
     // does not support `device.reset`, then this will hopefully do the trick.
+
     await baudUpdate();
     await dtrToggle(true);
     await dtrToggle(false);

@@ -75,7 +75,7 @@ function DevtoolsPreferences(props) {
           marginBottom: 1,
         }}
       >
-        {t.t("preferences.devtools")}
+        {t("preferences.devtools")}
       </Typography>
       <Card>
         <CardContent>
@@ -90,7 +90,7 @@ function DevtoolsPreferences(props) {
               />
             }
             labelPlacement="end"
-            label={t.t("preferences.devtools")}
+            label={t("preferences.devtools")}
           />
           <FormControlLabel
             sx={{ display: "flex", marginRight: 2 }}
@@ -103,7 +103,7 @@ function DevtoolsPreferences(props) {
               />
             }
             labelPlacement="end"
-            label={t.t("preferences.verboseFocus")}
+            label={t("preferences.verboseFocus")}
           />
         </CardContent>
       </Card>

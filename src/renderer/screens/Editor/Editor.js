@@ -18,6 +18,7 @@
 import Focus from "@api/focus";
 import { default as Keymap, KeymapDB } from "@api/keymap";
 import Log from "@api/log";
+import Macros from "@api/macros";
 import Box from "@mui/material/Box";
 import {
   hideContextBar,
@@ -32,6 +33,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FloatingKeyPicker } from "./components/FloatingKeyPicker";
 import { LegacyAlert } from "./components/LegacyAlert";
+import { MacroStorageAlert } from "./components/MacroStorageAlert";
 import MacroEditor from "./Macros/MacroEditor";
 import OnlyCustomScreen from "./components/OnlyCustomScreen";
 import Sidebar, { sidebarWidth } from "./Sidebar";
@@ -368,11 +370,16 @@ const Editor = (props) => {
     );
   }
 
+  const M = new Macros();
+  const saveChangesDisabled =
+    !modified || M.getStoredSize(macros) > macros.storageSize;
+
   return (
     <React.Fragment>
       <PageTitle title={title} />
 
       {hasLegacy && <LegacyAlert migrateLegacy={migrateLegacy} />}
+      {macros && <MacroStorageAlert macros={macros} />}
       <Box
         component="main"
         sx={{
@@ -405,7 +412,11 @@ const Editor = (props) => {
         keymap={keymap}
         currentKey={currentKey}
       />
-      <SaveChangesButton floating onClick={onApply} disabled={!modified}>
+      <SaveChangesButton
+        floating
+        onClick={onApply}
+        disabled={saveChangesDisabled}
+      >
         {t("components.save.saveChanges")}
       </SaveChangesButton>
     </React.Fragment>

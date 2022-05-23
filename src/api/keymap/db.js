@@ -281,13 +281,13 @@ class KeymapDB {
     return this._layout;
   }
 
-  format(key, keycapSize = "1u") {
+  format(key, keycapSize = "1u", autoCase = true) {
     let label = key.label.base;
     const shifted = key.label.shifted;
     if (typeof label != "string") {
       label = key.label.base[keycapSize] || key.label.base.full;
     }
-    if (label.length == 1) {
+    if (label.length == 1 && autoCase) {
       label = label.toUpperCase();
     }
 

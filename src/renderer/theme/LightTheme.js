@@ -500,9 +500,10 @@ const Light = {
     neuronStatus: {
       neuronStatusBackgroundColor: "rgba(255, 255, 255, 0.15)",
       lineStrokeColor: settingColorOpacity(Tokens.colors.gray200, 0.4),
-      lineStrokeColorConnected: "#7ACD92",
-      connectionSuccessFill: "#7ACD92",
-      connectionColorMatrix: "0 0 0 0 0.566745 0 0 0 0 0.898039 0 0 0 0 0.145098 0 0 0 0.5 0",
+      // lineStrokeColorConnected: "#7ACD92",
+      lineStrokeColorConnected: Tokens.colors.purple200,
+      connectionSuccessFill: Tokens.colors.purple200,
+      connectionColorMatrix: settingColorMatrix(Tokens.colors.purple200, 0.3),
       connectionColorMatrixOnLoading: settingColorMatrix("rgba(107, 20, 249, 1)", 0.3),
       neuronNotFoundedColor: Tokens.colors.gray400,
       connectionStrokeOpacity: 0.05,

@@ -19,6 +19,7 @@ import Focus from "@api/focus";
 import { KeymapDB } from "@api/keymap";
 import Log from "@api/log";
 import CloseIcon from "@mui/icons-material/Close";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
@@ -38,8 +39,8 @@ import i18n from "i18next";
 import jsonStringify from "json-stringify-pretty-compact";
 import path from "path";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
-
 const db = new KeymapDB();
 const focus = new Focus();
 
@@ -153,12 +154,12 @@ const loadLayout = (fileName, fileData) => {
   };
 };
 
-class LibraryImportBase extends React.Component {
-  selectLibraryItem = (item) => () => {
-    this.loadFromLibrary(item);
+const LibraryImport = (props) => {
+  const selectLibraryItem = (item) => () => {
+    loadFromLibrary(item);
   };
 
-  loadFromLibrary = (layoutName) => {
+  const loadFromLibrary = (layoutName) => {
     const { vendor, product } = focus.focusDeviceDescriptor.info;
     const cVendor = vendor.replace("/", "");
     const cProduct = product.replace("/", "");
@@ -167,44 +168,39 @@ class LibraryImportBase extends React.Component {
 
     const layoutData = loadLayout(layoutPath(layoutName));
 
-    if (layoutData != null) this.props.setLayout(layoutName, layoutData);
+    if (layoutData != null) props.setLayout(layoutName, layoutData);
   };
 
-  render() {
-    const { classes, library, layoutName } = this.props;
+  const { classes, library, layoutName } = props;
 
-    if (library.length == 0) return null;
+  if (library.length == 0) return null;
 
-    const layouts = library.map((name) => {
-      const label = name.charAt(0).toUpperCase() + name.slice(1);
-
-      return (
-        <MenuItem
-          selected={layoutName == name}
-          value={name}
-          key={`library-item-${name}`}
-          onClick={this.selectLibraryItem(name)}
-        >
-          {label}
-        </MenuItem>
-      );
-    });
+  const layouts = library.map((name) => {
+    const label = name.charAt(0).toUpperCase() + name.slice(1);
 
     return (
-      <div className={classes.libraryImportRoot}>
-        <Typography variant="h5">
-          {i18n.t("editor.sharing.loadFromLibrary")}
-        </Typography>
-        <MenuList>{layouts}</MenuList>
-
-        <Divider />
-      </div>
+      <MenuItem
+        selected={layoutName == name}
+        value={name}
+        key={`library-item-${name}`}
+        onClick={selectLibraryItem(name)}
+      >
+        {label}
+      </MenuItem>
     );
-  }
-}
-const LibraryImport = withStyles(styles, { withTheme: true })(
-  LibraryImportBase
-);
+  });
+
+  return (
+    <Box sx={{ sb: 2 }}>
+      <Typography variant="h5">
+        {i18n.t("editor.sharing.loadFromLibrary")}
+      </Typography>
+      <MenuList>{layouts}</MenuList>
+
+      <Divider />
+    </Box>
+  );
+};
 
 class BackupImportBase extends React.Component {
   state = { library: [] };
@@ -263,21 +259,22 @@ class BackupImportBase extends React.Component {
     });
 
     return (
-      <div className={classes.libraryImportRoot}>
+      <Box sx={{ sb: 2 }}>
         <Typography variant="h5">
           {i18n.t("editor.sharing.loadFromBackup")}
         </Typography>
         <MenuList>{layouts}</MenuList>
 
         <Divider />
-      </div>
+      </Box>
     );
   }
 }
+
 const BackupImport = withStyles(styles, { withTheme: true })(BackupImportBase);
 
-class FileImportBase extends React.Component {
-  importFromFile = () => {
+const FileImport = (props) => {
+  const importFromFile = () => {
     const [fileName, fileData] = ipcRenderer.sendSync("file-open", {
       title: i18n.t("editor.sharing.selectLoadFile"),
       filters: [
@@ -294,32 +291,27 @@ class FileImportBase extends React.Component {
     // If we have no filename, then the dialog was canceled.
     if (!fileName) return;
     const layoutData = loadLayout(fileName, fileData);
-    if (layoutData != null) this.props.setLayout("custom", layoutData);
+    if (layoutData != null) props.setLayout("custom", layoutData);
   };
 
-  render() {
-    const { classes } = this.props;
+  return (
+    <Box sx={{ mb: 2 }}>
+      <Button variant="outlined" onClick={importFromFile}>
+        {i18n.t("editor.sharing.loadFromFile")}
+      </Button>
+    </Box>
+  );
+};
 
-    return (
-      <div className={classes.fileImportRoot}>
-        <Button variant="outlined" onClick={this.importFromFile}>
-          {i18n.t("editor.sharing.loadFromFile")}
-        </Button>
-      </div>
-    );
-  }
-}
-const FileImport = withStyles(styles, { withTheme: true })(FileImportBase);
-
-class ExportToFileBase extends React.Component {
-  exportToFile = () => {
-    const { keymap, colormap } = this.props;
+const ExportToFileBase = (props) => {
+  const { t } = useTranslation();
+  const exportToFile = () => {
+    const { keymap, colormap } = props;
     const data = {
       keymaps: keymap.custom,
       colormaps: colormap.colorMap,
       palette: colormap.palette,
     };
-
     ipcRenderer.send("file-save", {
       content: jsonStringify(data),
       title: i18n.t("editor.sharing.selectExportFile"),
@@ -336,19 +328,14 @@ class ExportToFileBase extends React.Component {
       ],
     });
   };
-
-  render() {
-    const { classes } = this.props;
-
-    return (
-      <div className={classes.fileExportRoot}>
-        <Button variant="outlined" onClick={this.exportToFile}>
-          {i18n.t("editor.sharing.exportToFile")}
-        </Button>
-      </div>
-    );
-  }
-}
+  return (
+    <Box sx={{ mb: 2 }}>
+      <Button variant="outlined" onClick={exportToFile}>
+        {i18n.t("editor.sharing.exportToFile")}
+      </Button>
+    </Box>
+  );
+};
 const ExportToFile = withStyles(styles, { withTheme: true })(ExportToFileBase);
 
 class LayoutSharingBase extends React.Component {

@@ -27,7 +27,7 @@ import {
   StyledEngineProvider,
   ThemeProvider,
 } from "@mui/material/styles";
-import React, { useContext, useEffect } from "react";
+import React, { Suspense, useContext, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -47,9 +47,7 @@ import KeyboardSelect from "./screens/KeyboardSelect";
 import LayoutCard from "./screens/LayoutCard";
 import Preferences from "./screens/Preferences";
 import SystemInfo from "./screens/SystemInfo";
-
 const { ipcRenderer } = require("electron");
-
 const Store = require("electron-store");
 const settings = new Store();
 
@@ -197,41 +195,43 @@ const App = (props) => {
     focus?.focusDeviceDescriptor?.info || focusDeviceDescriptor?.info;
 
   return (
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={theme}>
-        <Box sx={{ display: "flex", flexDirection: "column" }}>
-          <LocationProvider history={history}>
-            <CssBaseline />
-            <Header device={deviceInfo} />
-            <Box component="main" sx={{ flexGrow: 1, overflow: "auto" }}>
-              <Router>
-                <FocusNotDetected
-                  path="/focus-not-detected"
-                  focusDeviceDescriptor={focusDeviceDescriptor}
-                  onConnect={onKeyboardConnect}
-                />
-                <LayoutCard path="/layout-card" />
-                <KeyboardSelect
-                  path="/keyboard-select"
-                  onConnect={onKeyboardConnect}
-                  onDisconnect={onKeyboardDisconnect}
-                />
-                <Editor path="/editor" onDisconnect={onKeyboardDisconnect} />
-                <FirmwareUpdate
-                  path="/firmware-update"
-                  focusDeviceDescriptor={focusDeviceDescriptor}
-                  toggleFlashing={toggleFlashing}
-                  onDisconnect={onKeyboardDisconnect}
-                />
-                <Preferences path="/preferences" />
-                <SystemInfo path="/system-info" />
-                <ChangeLog path="/changelog" />
-              </Router>
-            </Box>
-          </LocationProvider>
-        </Box>
-      </ThemeProvider>
-    </StyledEngineProvider>
+    <Suspense>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <LocationProvider history={history}>
+              <CssBaseline />
+              <Header device={deviceInfo} />
+              <Box component="main" sx={{ flexGrow: 1, overflow: "auto" }}>
+                <Router>
+                  <FocusNotDetected
+                    path="/focus-not-detected"
+                    focusDeviceDescriptor={focusDeviceDescriptor}
+                    onConnect={onKeyboardConnect}
+                  />
+                  <LayoutCard path="/layout-card" />
+                  <KeyboardSelect
+                    path="/keyboard-select"
+                    onConnect={onKeyboardConnect}
+                    onDisconnect={onKeyboardDisconnect}
+                  />
+                  <Editor path="/editor" onDisconnect={onKeyboardDisconnect} />
+                  <FirmwareUpdate
+                    path="/firmware-update"
+                    focusDeviceDescriptor={focusDeviceDescriptor}
+                    toggleFlashing={toggleFlashing}
+                    onDisconnect={onKeyboardDisconnect}
+                  />
+                  <Preferences path="/preferences" />
+                  <SystemInfo path="/system-info" />
+                  <ChangeLog path="/changelog" />
+                </Router>
+              </Box>
+            </LocationProvider>
+          </Box>
+        </ThemeProvider>
+      </StyledEngineProvider>
+    </Suspense>
   );
 };
 

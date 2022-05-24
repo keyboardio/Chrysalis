@@ -142,6 +142,13 @@ const FirmwareUpdate = (props) => {
     }
 
     const nextStep = async (desiredState) => {
+      if (desiredState == "bootloaderWait") {
+        toast.info(t("firmwareUpdate.flashing.releasePROG"), {
+          autoClose: 5000,
+          closeOnClick: true,
+        });
+      }
+
       setActiveStep(activeStep + 1);
       focusDeviceDescriptor.flashSteps.forEach((step, index) => {
         if (step == desiredState) {

@@ -307,6 +307,7 @@ const English = {
     },
     flashing: {
       error: "Error flashing the firmware",
+      releasePROG: `Bootloader detected. If you're holding a key down, please release it.`,
       troubleshooting: "Troubleshooting",
       success: "Firmware flashed successfully!",
       button: "Update",

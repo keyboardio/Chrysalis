@@ -1,3 +1,44 @@
+Chrysalis 0.9.4-snapshot
+========================
+**UNRELEASED**
+
+This release is mostly about stabilizing and improving the Keyboard.io Model 100
+support, but comes with important fixes for other supported devices as well.
+
+## Bugfixes
+
+We have fixed numerous bugs in the Model 100 flashing process, which should now
+be as stable as the flashing process of any of the other supported keyboards. A
+part of these fixes is a new firmware, which fixes a number of shortcomings in
+the firmware-side handling of the protocol between the keyboard and Chrysalis.
+
+Chrysalis also ships with updated udev rules for our Linux users, adding support
+for the Model 100.
+
+## UI/UX improvements
+
+During the flashing process, Chrysalis will now show a notification when the key
+held to enter programmable mode can be released.
+
+## Firmware update
+
+All of the firmware files Chrysalis ships with have been updated. The new
+firmware brings a number of stability improvements, and bugfixes in the firmware
+side handling of the protocol between Kaleidoscope-powered keyboards and
+Chrysalis.
+
+We're now shipping experimental firmware for the Keyboard.io Model 100 and the
+Atreus too, with additional plugins enabled. If you want to make use of
+secondary actions for select keys, or use sticky modifiers or layer keys, the
+experimental firmware has the necessary plugins enabled.
+
+## Miscellaneous
+
+We have dropped support for the Dygma Raise, KBDFans KBD4x, and OLKB Planck
+keyboards. Our support for these devices haven't been up to the standards one
+would expect, so rather than carrying them around in an inferior state, we opted
+to remove support for the time being.
+
 Chrysalis 0.9.3
 ===============
 Released on 2022-05-20

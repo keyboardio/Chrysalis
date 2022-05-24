@@ -154,6 +154,12 @@ const Editor = (props) => {
 
     setSelectorKey(newKey);
     setKeymap(newKeymap);
+
+    if (db.isInCategory(newKey, "dynmacros")) {
+      const macroId = newKey.code - newKey.rangeStart;
+
+      setCurrentMacroId(macroId);
+    }
   };
 
   const onKeyChangeForMacros = async (keyCode) => {

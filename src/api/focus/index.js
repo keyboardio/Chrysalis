@@ -220,7 +220,7 @@ class Focus {
 
         this.result = "";
         if (resolve) {
-          resolve(result);
+          resolve(result.trim());
         }
       } else {
         if (this.result.length == 0) {

@@ -216,6 +216,9 @@ const Macros = function () {
     while (pos < macroMap.length) {
       const step = macroMap[pos];
       if (step == 0) {
+        if (!macros[currentMacro]) {
+          macros[currentMacro] = [];
+        }
         currentMacro++;
         pos++;
       } else if (steps[step]) {

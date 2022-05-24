@@ -24,44 +24,76 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 
+import { RegularButton } from "../../component/Button";
+import Title from "../../component/Title";
+
 const Styles = Styled.div`
-background-color: ${({ theme }) => theme.card.background};
-color: ${({ theme }) => theme.card.color};
-.title {
-  font-weight: 300;
-  font-size: xx-large;
+.list-group-item {
+  border-radius: none;
 }
-.body {
-  font-weight: 200;
-  font-size: 1.1em;
+.list-group-item:first-child {
+  border-top-left-radius: .25rem;
+  border-top-right-radius: .25rem;
 }
-.noborder {
-  border: none;
+.list-group-item:last-child {
+  border-bottom-left-radius: .25rem;
+  border-bottom-right-radius: .25rem;
 }
 .listitem {
-  background-color: ${({ theme }) => theme.colors.button.background};
-  color: ${({ theme }) => theme.colors.button.text};
+  background-color: ${({ theme }) => theme.styles.listGroup.listItem.background};
+  color: ${({ theme }) => theme.styles.listGroup.listItem.color};
+  font-weight: 410;
+  margin-top: 1px;
+  transition: 300ms background ease-in-out;
+  border: none;
+  span {
+    display: none;
+    font-size: 80%;
+    margin-left: 8px
+  }
+  &:focus,
+  &:hover {
+    background-color: ${({ theme }) => theme.styles.listGroup.listItem.backgroundHover};
+    outline: none;
+    box-shadow: none;
+  }
 }
 .disabled {
-  background-color: ${({ theme }) => theme.colors.button.disabled};
-  color: ${({ theme }) => theme.colors.button.secondary};
+  background-color: ${({ theme }) => theme.styles.listGroup.listItem.backgroundDisabled};
+  color: ${({ theme }) => theme.styles.listGroup.listItem.colorDisabled};
 }
 .selected {
-  background-color: ${({ theme }) => theme.colors.button.secondary};
-  color: ${({ theme }) => theme.colors.button.activeText};
+  background-color: ${({ theme }) => theme.styles.listGroup.listItem.backgroundSelected};
+  color: ${({ theme }) => theme.styles.listGroup.listItem.colorSelected};
+  span {
+    display: inline-block;
+    color: ${({ theme }) => theme.styles.listGroup.listItem.colorSelectedSpan};
+  }
+  &:focus,
+  &:hover {
+    background-color: ${({ theme }) => theme.styles.listGroup.listItem.backgroundSelected};
+    color: ${({ theme }) => theme.styles.listGroup.listItem.colorSelected};
+  }
 }
 `;
 
 export const CopyFromDialog = props => {
   const [selectedLayer, setSelectedLayer] = useState(-1);
   return (
-    <Modal backdrop="static" show={props.open} onHide={props.onCancel}>
+    <Modal
+      backdrop="static"
+      show={props.open}
+      onHide={props.onCancel}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
       <Styles>
-        <Modal.Header closeButton className="noborder">
-          <Modal.Title className="title">{i18n.editor.copyFrom}</Modal.Title>
+        <Modal.Header closeButton>
+          <Modal.Title>{i18n.editor.layers.copyFrom}</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="body">
-          <h4>{i18n.editor.pleaseSelectLayer}</h4>
+        <Modal.Body>
+          <Title text={i18n.editor.pleaseSelectLayer} headingLevel={4} />
           <ListGroup variant="flush">
             {props.layers.map(layer => {
               return (
@@ -76,33 +108,32 @@ export const CopyFromDialog = props => {
                     setSelectedLayer(layer.index);
                   }}
                 >
-                  {layer.label}
+                  {layer.label} {layer.index == selectedLayer ? <span>{i18n.editor.layers.layerToCopy}</span> : ""}
                 </ListGroup.Item>
               );
             })}
           </ListGroup>
         </Modal.Body>
-        <Modal.Footer className="noborder">
-          <Button
-            color="primary"
+        <Modal.Footer>
+          <RegularButton
+            buttonText={i18n.dialog.cancel}
+            style="outline"
+            size="sm"
             onClick={() => {
               setSelectedLayer(-1);
               props.onCancel();
             }}
-          >
-            {i18n.dialog.cancel}
-          </Button>
-          <Button
+          />
+          <RegularButton
+            buttonText={i18n.dialog.ok}
+            style="outline gradient"
+            size="sm"
             onClick={() => {
               const layer = selectedLayer;
               setSelectedLayer(-1);
               props.onCopy(layer);
             }}
-            color="primary"
-            disabled={selectedLayer == -1}
-          >
-            {i18n.dialog.ok}
-          </Button>
+          />
         </Modal.Footer>
       </Styles>
     </Modal>

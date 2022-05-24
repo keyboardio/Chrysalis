@@ -104,7 +104,8 @@ const English = {
       title: "Layers",
       layerLock: "Layer Lock",
       layerLockDescription: "Tap to permanently move to another layer.",
-      exportToPdf: "Export layouts to pdf"
+      exportToPdf: "Export layouts to pdf",
+      layerToCopy: "You will copy the layout of this layer"
     },
     groups: {
       Letters: "Letters",

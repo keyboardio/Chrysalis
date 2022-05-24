@@ -380,6 +380,19 @@ const Light = {
         background: "#F9FAFB"
       }
     },
+    listGroup: {
+      listItem: {
+        background: Tokens.colors.gray50,
+        backgroundHover: Tokens.colors.gray100,
+        backgroundSelected: Tokens.colors.purple200,
+        backgroundDisabled: Tokens.colors.gray25,
+        color: Tokens.colors.gray500,
+        colorSelected: Tokens.colors.gray25,
+        colorSelectedSpan: Tokens.colors.gray50,
+        colorDisabled: Tokens.colors.gray200,
+        colorDisabledSpan: Tokens.colors.gray300
+      }
+    },
     macro: {
       tabCategoriesBackground: Tokens.colors.gray50,
       tabContentBackground: Tokens.colors.gray25,

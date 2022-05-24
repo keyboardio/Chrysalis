@@ -388,6 +388,19 @@ const Dark = {
         background: "#202033"
       }
     },
+    listGroup: {
+      listItem: {
+        background: Tokens.colors.gray700,
+        backgroundHover: Tokens.colors.gray600,
+        backgroundSelected: Tokens.colors.purple300,
+        backgroundDisabled: settingColorOpacity(Tokens.colors.gray900, 0.1),
+        color: Tokens.colors.gray25,
+        colorSelected: Tokens.colors.gray25,
+        colorSelectedSpan: Tokens.colors.gray50,
+        colorDisabled: Tokens.colors.gray300,
+        colorDisabledSpan: Tokens.colors.gray200
+      }
+    },
     macro: {
       tabCategoriesBackground: "rgba(43, 44, 67, 1)",
       tabContentBackground: Tokens.colors.gray800,

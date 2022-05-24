@@ -385,7 +385,7 @@ class Focus {
     "escape_oneshot.cancel_key",
     "idleleds.time_limit",
     "led.brightness",
-    "macros.map",
+    "macros",
     "tapdance.map",
     "hostos.type",
     "autoshift.enabled",

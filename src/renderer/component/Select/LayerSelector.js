@@ -27,7 +27,9 @@ import {
   IconDelete,
   IconArrowUpWithLine,
   IconArrowDownWithLine,
-  IconFileDownload
+  IconFileDownload,
+  IconKeyboard,
+  IconFlashlight
 } from "../Icon";
 
 import { NameModal } from "../Modal"; // Imported custom modal component
@@ -135,12 +137,12 @@ class LayerSelector extends React.Component {
       {
         name: "Keys",
         value: "keyboard",
-        icon: <IconArrowsSmallSeparating />
+        icon: <IconKeyboard />
       },
       {
         name: "Color",
         value: "color",
-        icon: <IconArrowsSmallSeparating />
+        icon: <IconFlashlight />
       }
     ];
     return (
@@ -236,7 +238,7 @@ class LayerSelector extends React.Component {
             </Dropdown>
           </div>
         </div>
-        <KeyboardViewSelector listElements={layoutsMode} value={editModeActual} style="flex" />
+        <KeyboardViewSelector listElements={layoutsMode} value={editModeActual} style="flex" editModeFunc={editModeFunc} />
 
         {itemList == undefined || itemList.length == 0 || itemList.length <= selectedItem ? (
           ""

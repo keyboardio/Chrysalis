@@ -137,6 +137,7 @@ margin: auto;
 }
 .full-height {
   height: 100%;
+  padding-top: 24px;
 }
 .layer-col {
   display: flex;
@@ -1526,6 +1527,11 @@ class LayoutEditor extends React.Component {
   layerName(index) {
     return this.state.layerNames.length >= index ? this.state.layerNames[index].name : this.defaultLayerNames[index];
   }
+  modeSelectToggle = data => {
+    this.setState({
+      modeselect: data
+    });
+  };
 
   render() {
     const {
@@ -1774,27 +1780,6 @@ class LayoutEditor extends React.Component {
             currentLayer={currentLayer}
           />
         </Container>
-        <Card className="buttons-row">
-          <Button
-            active={this.state.modeselect == "keyboard"}
-            onClick={() => {
-              this.setState({ modeselect: "keyboard" });
-            }}
-            className="keyboardbutton big button-config"
-            aria-controls="keyboard-fade"
-          >
-            <MdKeyboard />
-          </Button>
-          <Button
-            active={this.state.modeselect == "color"}
-            onClick={() => {
-              this.setState({ modeselect: "color" });
-            }}
-            className="colorsbutton big button-config"
-          >
-            <IoMdColorPalette />
-          </Button>
-        </Card>
 
         <Modal show={this.state.showMacroModal} onHide={this.toggleMacroModal} style={{ marginTop: "300px" }}>
           <ModalStyle>

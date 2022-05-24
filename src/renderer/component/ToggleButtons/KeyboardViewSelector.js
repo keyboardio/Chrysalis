@@ -24,12 +24,18 @@ const Style = Styled.div`
   padding: 4px;
   background: ${({ theme }) => theme.styles.toggleButton.background};
   border-radius: 6px;
+  margin-left: 12px;
   .toggleButtonsInner {
-    margin-left: -2px;
-    margin-right: -2px;
+    margin-left: 0;
+    margin-right: 0;
     .button-config {
-      margin-left: 2px;
-      margin-right: 2px;
+      margin-left: 0;
+      margin-right: 0;
+      width: 112px;
+      font-size: 14px;
+    }
+    .button-config + .button-config {
+      margin-left: 3px;
     }
   } 
 }
@@ -43,8 +49,30 @@ const Style = Styled.div`
     }
   }
 }
+
+.button-config {
+  margin-left: 2px;
+  margin-right: 2px;
+  flex: auto;
+  padding: 10px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  color: ${({ theme }) => theme.styles.toogleEditMode.buttonColor};
+  background: ${({ theme }) => theme.styles.toogleEditMode.buttonBackground};
+  box-shadow: ${({ theme }) => theme.styles.toogleEditMode.buttonBoxShadow};
+  &:hover {
+    background: ${({ theme }) => theme.styles.toogleEditMode.buttonBackgroundHover};
+    color: ${({ theme }) => theme.styles.toogleEditMode.buttonColorHover};
+    box-shadow: ${({ theme }) => theme.styles.toogleEditMode.buttonBoxShadow};
+  } 
+  &.active {
+    background: ${({ theme }) => theme.styles.toogleEditMode.buttonBackgroundActive};
+    color: ${({ theme }) => theme.styles.toogleEditMode.buttonColorActive};
+    box-shadow: ${({ theme }) => theme.styles.toogleEditMode.buttonBoxShadow};
+  }
+}
 `;
-const KeyboardViewSelector = ({ selectDarkMode, value, listElements, style, size }) => {
+const KeyboardViewSelector = ({ editModeFunc, value, listElements, style, size }) => {
   console.log("Data from props", value, listElements);
   return (
     // className={`button-config ${value == item.value ? "active" : ""}`}
@@ -53,9 +81,9 @@ const KeyboardViewSelector = ({ selectDarkMode, value, listElements, style, size
       <div className="toggleButtonsInner">
         {listElements.map((item, index) => (
           <ButtonConfig
-            onClick={e => selectDarkMode(item.value)}
+            onClick={e => editModeFunc(item.value)}
             selected={value === item.value ? true : false}
-            iconPosition="left"
+            icoPosition="left"
             icoSVG={item.icon}
             key={index}
             buttonText={item.name}

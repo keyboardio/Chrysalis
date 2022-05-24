@@ -22,7 +22,8 @@ align-self: flex-end!important;
   .color-editor {
     width: 400px;
     bottom: 10px;
-    left: 45%;
+    left: 50%;
+    transform: translate3d(-50%, 0, 0);
     position: fixed;
     z-index: 2;
     padding: 0;

@@ -56,7 +56,7 @@ const store = new Store();
 
 const Styles = Styled.div`
 max-width: 1900px;
-min-width: 1690px;
+min-width: 1120px;
 margin: auto;
 .keyboard-editor {
   height: 100%;

@@ -23,37 +23,30 @@ import Button from "react-bootstrap/Button";
 
 import i18n from "../i18n";
 
+import { RegularButton } from "../component/Button";
+
 const Styles = Styled.div`
-background-color: ${({ theme }) => theme.card.background};
-color: ${({ theme }) => theme.card.color};
-.title {
-  font-weight: 300;
-  font-size: xx-large;
-}
-.body {
-  font-weight: 200;
-  font-size: 1.1em;
-}
-.noborder {
-  border: none;
-}
+
 `;
 
 const ConfirmationDialog = props => {
   return (
-    <Modal backdrop="static" show={props.open} onHide={props.onCancel}>
+    <Modal
+      backdrop="static"
+      show={props.open}
+      onHide={props.onCancel}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
       <Styles>
-        <Modal.Header closeButton className="noborder">
+        <Modal.Header closeButton>
           <Modal.Title className="title">{props.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body className="body">{props.text}</Modal.Body>
-        <Modal.Footer className="noborder">
-          <Button onClick={props.onCancel} className="mr-auto" variant="secondary">
-            {i18n.dialog.cancel}
-          </Button>
-          <Button onClick={props.onConfirm} variant="primary">
-            {i18n.dialog.ok}
-          </Button>
+        <Modal.Footer>
+          <RegularButton buttonText={i18n.dialog.cancel} style="outline" size="sm" onClick={props.onCancel} />
+          <RegularButton buttonText={i18n.dialog.applyChanges} style="outline gradient" size="sm" onClick={props.onConfirm} />
         </Modal.Footer>
       </Styles>
     </Modal>

@@ -48,32 +48,11 @@ import PageHeader from "../modules/PageHeader";
 import { KeyPickerKeyboard } from "../modules/KeyPickerKeyboard";
 import { LayerSelector } from "../component/Select";
 
+import { RegularButton } from "../component/Button";
 import { IconArrowUpWithLine, IconArrowDownWithLine } from "../component/Icon";
 
 const Store = window.require("electron-store");
 const store = new Store();
-
-const ModalStyle = Styled.div`
-background-color: ${({ theme }) => theme.card.background};
-color: ${({ theme }) => theme.card.color};
-.title {
-  font-weight: 300;
-  font-size: xx-large;
-}
-.body {
-  font-weight: 200;
-  font-size: 1.1em;
-}
-.noborder {
-  border: none;
-}
-.modal-footer {
-  justify-content: space-between;
-}
-.italic {
-  font-style: italic;
-}
-`;
 
 const Styles = Styled.div`
 max-width: 1900px;
@@ -1781,43 +1760,63 @@ class LayoutEditor extends React.Component {
           />
         </Container>
 
-        <Modal show={this.state.showMacroModal} onHide={this.toggleMacroModal} style={{ marginTop: "300px" }}>
-          <ModalStyle>
-            <Modal.Header closeButton className="title noborder">
-              <Modal.Title>{i18n.editor.oldMacroModal.title}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body className="body">
-              <p>{i18n.editor.oldMacroModal.body}</p>
-              <p className="italic">{i18n.editor.oldMacroModal.body2}</p>
-            </Modal.Body>
-            <Modal.Footer className="noborder">
-              <Button variant="secondary" onClick={this.toggleMacroModal}>
-                {i18n.editor.oldMacroModal.cancelButton}
-              </Button>
-              <Button variant="primary" onClick={this.updateOldMacros}>
-                {i18n.editor.oldMacroModal.applyButton}
-              </Button>
-            </Modal.Footer>
-          </ModalStyle>
+        <Modal
+          show={this.state.showMacroModal}
+          size="lg"
+          onHide={this.toggleMacroModal}
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>{i18n.editor.oldMacroModal.title}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body className="body">
+            <p>{i18n.editor.oldMacroModal.body}</p>
+            <p className="italic">{i18n.editor.oldMacroModal.body2}</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <RegularButton
+              buttonText={i18n.editor.oldMacroModal.cancelButton}
+              style="outline"
+              size="sm"
+              onClick={this.toggleMacroModal}
+            />
+            <RegularButton
+              buttonText={i18n.editor.oldMacroModal.applyButton}
+              style="outline gradient"
+              size="sm"
+              onClick={this.updateOldMacros}
+            />
+          </Modal.Footer>
         </Modal>
-        <Modal show={this.state.showNeuronModal} onHide={this.toggleNeuronModal} style={{ marginTop: "300px" }}>
-          <ModalStyle>
-            <Modal.Header closeButton className="title noborder">
-              <Modal.Title>{i18n.editor.oldNeuronModal.title}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body className="body">
-              <p>{i18n.editor.oldNeuronModal.body}</p>
-              <p className="italic">{i18n.editor.oldNeuronModal.body2}</p>
-            </Modal.Body>
-            <Modal.Footer className="noborder">
-              <Button variant="secondary" onClick={this.toggleNeuronModal}>
-                {i18n.editor.oldNeuronModal.cancelButton}
-              </Button>
-              <Button variant="primary" onClick={this.CloneExistingNeuron}>
-                {i18n.editor.oldNeuronModal.applyButton}
-              </Button>
-            </Modal.Footer>
-          </ModalStyle>
+        <Modal
+          show={this.state.showNeuronModal}
+          size="lg"
+          onHide={this.toggleNeuronModal}
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>{i18n.editor.oldNeuronModal.title}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>{i18n.editor.oldNeuronModal.body}</p>
+            <p className="italic">{i18n.editor.oldNeuronModal.body2}</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <RegularButton
+              buttonText={i18n.editor.oldNeuronModal.cancelButton}
+              style="outline"
+              size="sm"
+              onClick={this.toggleNeuronModal}
+            />
+            <RegularButton
+              buttonText={i18n.editor.oldNeuronModal.applyButton}
+              style="outline gradient"
+              size="sm"
+              onClick={this.CloneExistingNeuron}
+            />
+          </Modal.Footer>
         </Modal>
       </Styles>
     );

@@ -49,7 +49,8 @@ const English = {
     ok: "Ok",
     cancel: "Cancel",
     allFiles: "All Files",
-    loading: "Loading..."
+    loading: "Loading...",
+    applyChanges: "Apply changes"
   },
   app: {
     device: "Keyboard",

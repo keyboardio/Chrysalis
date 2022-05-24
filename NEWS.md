@@ -1,6 +1,6 @@
-Chrysalis 0.9.4-snapshot
-========================
-**UNRELEASED**
+Chrysalis 0.9.4
+===============
+Released on 2022-05-25
 
 This release is mostly about stabilizing and improving the Keyboard.io Model 100
 support, but comes with important fixes for other supported devices as well.

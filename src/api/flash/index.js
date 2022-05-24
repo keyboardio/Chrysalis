@@ -241,12 +241,14 @@ async function DFUUtil(port, filename, options) {
   if (!bootloaderFound) {
     throw new Error("Bootloader not found");
   }
-
-  try {
-    await port.close();
-  } catch (_) {
-    /* ignore the error */
+  if (port.isOpen) {
+    try {
+      await port.close();
+    } catch (_) {
+      /* ignore the error */
+    }
   }
+
   await delay(1000);
 
   await DFUUtilBootloader(port, filename, options);

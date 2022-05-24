@@ -87,6 +87,7 @@ const Model100 = {
   info: {
     vendor: "Keyboardio",
     product: "Model100",
+    firmwareType: "bin",
     displayName: "Keyboardio Model100",
     urls: [
       {

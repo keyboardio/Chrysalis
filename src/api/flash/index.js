@@ -57,7 +57,7 @@ function FocusCommands(options) {
     };
 
     // Attempt calling device.reset first, if present.
-    const commands = await focus.command("help");
+    const commands = await focus.supported_commands();
     if (commands.includes("device.reset")) {
       try {
         await focus.request("device.reset");

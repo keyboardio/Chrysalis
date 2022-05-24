@@ -129,7 +129,8 @@ class Focus {
       focusDeviceDescriptor,
       focusDeviceDescriptor.usb
     );
-    return await this.open(d.path, d);
+    await this.open(d.path, d);
+    return await this.supported_commands();
   }
 
   async find(...device_descriptors) {

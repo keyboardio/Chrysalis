@@ -20,7 +20,6 @@ import AvrGirl from "avrgirl-arduino";
 import { spawn } from "child_process";
 import { ipcRenderer } from "electron";
 import path from "path";
-import sudo from "sudo-prompt";
 import TeensyLoader from "teensy-loader";
 import { v4 as uuidv4 } from "uuid";
 
@@ -60,13 +59,22 @@ function FocusCommands(options) {
     // Attempt calling device.reset first, if present.
     const commands = await focus.command("help");
     if (commands.includes("device.reset")) {
-      await focus.command("device.reset");
+      try {
+        await focus.request("device.reset");
+      } catch (e) {
+        // If there's a comms timeout, that's exactly what we want. the keyboard is rebooting.
+        if ("Communication timeout" !== e) {
+          console.log(e);
+          throw e;
+        }
+      }
     }
 
     // Attempt to reset the device with a serial HUP.
     // If the device supports `device.reset`, this will be a no-op, because we're
     // likely rebooting already. Worst case, we'll reboot twice. If the device
     // does not support `device.reset`, then this will hopefully do the trick.
+
     await baudUpdate();
     await dtrToggle(true);
     await dtrToggle(false);
@@ -157,15 +165,40 @@ async function DFUUtilBootloader(port, filename, options) {
     "dfu-util"
   );
 
+  let dyld_library_path = "";
+  // dfu-util on darwin needs to know where its custom libusb is
+  if (process.platform === "darwin") {
+    dyld_library_path = path.join(
+      getStaticPath(),
+      "dfu-util",
+      process.platform
+    );
+  }
+
   const runCommand = async (args) => {
-    const cmd = [dfuUtil].concat(args).join(" ");
+    const timeout = 1000 * 60 * 5;
     return new Promise((resolve, reject) => {
-      logger.debug("Running:", cmd);
-      sudo.exec(cmd, { name: "Chrysalis" }, (error) => {
-        if (error) {
-          reject(error);
+      logger.debug("running dfu-util", args);
+      const child = spawn(dfuUtil, args, {
+        env: { ...process.env, DYLD_LIBRARY_PATH: dyld_library_path },
+      });
+      child.stdout.on("data", (data) => {
+        logger.debug("dfu-util:stdout:", data.toString());
+      });
+      child.stderr.on("data", (data) => {
+        logger.debug("dfu-util:stderr:", data.toString());
+      });
+      const timer = setTimeout(() => {
+        child.kill();
+        reject("dfu-util timed out");
+      }, timeout);
+      child.on("exit", (code) => {
+        clearTimeout(timer);
+        console.log("dfu-util exited with code", code);
+        if (code == 0 || code == 251) {
+          resolve();
         } else {
-          resolve(true);
+          reject("dfu-util exited abnormally with an error code of " + code);
         }
       });
     });
@@ -208,12 +241,14 @@ async function DFUUtil(port, filename, options) {
   if (!bootloaderFound) {
     throw new Error("Bootloader not found");
   }
-
-  try {
-    await port.close();
-  } catch (_) {
-    /* ignore the error */
+  if (port.isOpen) {
+    try {
+      await port.close();
+    } catch (_) {
+      /* ignore the error */
+    }
   }
+
   await delay(1000);
 
   await DFUUtilBootloader(port, filename, options);

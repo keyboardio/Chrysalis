@@ -47,7 +47,12 @@ const SaveChangesButton = (props) => {
   };
 
   const textPart = !props.floating && (
-    <Box sx={{ position: "relative" }}>
+    <Box
+      sx={{
+        position: "relative",
+        m: 1,
+      }}
+    >
       <Button
         variant="contained"
         disabled={inProgress || (props.disabled && !success)}

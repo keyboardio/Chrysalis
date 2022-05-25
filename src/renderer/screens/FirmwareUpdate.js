@@ -20,6 +20,8 @@ import BuildIcon from "@mui/icons-material/Build";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import ExploreIcon from "@mui/icons-material/ExploreOutlined";
 import SettingsBackupRestoreIcon from "@mui/icons-material/SettingsBackupRestore";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -379,9 +381,10 @@ const FirmwareUpdate = (props) => {
               Chrysalis-Firmware-Bundle
             </a>
           </Typography>
-          <Typography component="p" gutterBottom>
+          <Alert severity="info" sx={{ my: 2 }}>
+            <AlertTitle>{t("firmwareUpdate.calloutTitle")}</AlertTitle>
             {t("hardware.updateInstructions")}
-          </Typography>
+          </Alert>
           <Typography component="p" gutterBottom>
             {t("firmwareUpdate.postUpload")}
           </Typography>

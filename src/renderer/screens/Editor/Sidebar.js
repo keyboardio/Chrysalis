@@ -100,7 +100,7 @@ const Sidebar = (props) => {
       }}
     >
       <Toolbar />
-      <Box sx={{ px: 1 }}>
+      <Box sx={{ px: 1, mb: 2 }}>
         <Overview
           keymap={keymap}
           colormap={colormap}

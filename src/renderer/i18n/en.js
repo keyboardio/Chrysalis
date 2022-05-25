@@ -23,6 +23,7 @@ const English = {
       "Houston we have a problem! Could not connect with Neuron, configure if cables are connected and if everything is ok.",
     invalidLayerFile: "Not a valid Layer file",
     exportError: "Error at Exporting: ",
+    exportFailed: "Export failed!",
     preferenceFailOnSave: "Whoops, Something Went Wrong!",
     preferenceFailOnSaveBody: "Please try again.",
     dismiss: "Dismiss",
@@ -38,7 +39,7 @@ const English = {
       success: "Sent!",
       saveChanges: "Send changes to the Raise",
       savePreferences: "Save preferences",
-      button: "Save changes"
+      button: "Save<span> changes</span>"
     },
     pickerColorButton: "Change color",
     underglowColorButton: "Change color of all underglows",
@@ -48,7 +49,8 @@ const English = {
     ok: "Ok",
     cancel: "Cancel",
     allFiles: "All Files",
-    loading: "Loading..."
+    loading: "Loading...",
+    applyChanges: "Apply changes"
   },
   app: {
     device: "Keyboard",
@@ -73,7 +75,8 @@ const English = {
       bazecorSection: "Bazecor",
       miscSection: "Miscellaneous",
       upgradeAvailable: "An upgrade is available!",
-      badgeNew: "New"
+      badgeNew: "New",
+      changeName: "Change name"
     },
     deviceMenu: {
       Homepage: "Homepage",
@@ -81,7 +84,7 @@ const English = {
       Chat: "Chat"
     },
     cancelPending: {
-      button: "Discard changes",
+      button: "Discard<span> changes</span>",
       title: "Cancel pending changes?",
       content: "You have unsaved changes. If you proceed, they will be lost."
     }
@@ -97,7 +100,12 @@ const English = {
       exportTitle: "Share selected layer",
       exportAllTitle: "Backup all layers (Excluding Macros)",
       clearLayer: "Clear layer",
-      copyFrom: "Copy from layer"
+      copyFrom: "Copy from layer",
+      title: "Layers",
+      layerLock: "Layer Lock",
+      layerLockDescription: "Tap to permanently move to another layer.",
+      exportToPdf: "Export layouts to pdf",
+      layerToCopy: "You will copy the layout of this layer"
     },
     groups: {
       Letters: "Letters",
@@ -128,6 +136,7 @@ const English = {
       "Unknown keycodes": "Unknown keycodes"
     },
     macros: {
+      actions: "Actions",
       add: "Add new macro",
       applyAndExit: "Apply",
       saveName: "Save name",
@@ -137,10 +146,12 @@ const English = {
       copy: "Copy",
       editMacros: "Edit macros",
       delay: "Delay",
+      delays: "Delays",
       delete: "Delete",
       errorExport: "The file is not a valid macro export",
       export: "Export",
       functions: "Functions",
+      ignoreDelays: "Ignore delays",
       import: "Import",
       inputText: "Input Text",
       inputTextBox: "Type text into Macro editor",
@@ -151,6 +162,12 @@ const English = {
       macroName: "Macro Name",
       macroShort: "Macro Short",
       mouse: "Mouse",
+      recordDelays: "Record delays",
+      recordMacro: "Record macro",
+      recordingMacro: "Recording macro...",
+      recordingDiscard: "Discard record",
+      recordingMessage:
+        "Did you make a mistake? Don't worry, you can edit the created sequence after adding the recording to the timeline.",
       restore: "Restore All",
       restoreMacros: "Restore Macros",
       restoreMacrosFile: "Restore Macros file",
@@ -162,13 +179,41 @@ const English = {
       selectKey: "Select Key",
       selectMacro: "Select a Macro",
       selectMouseFunction: "Select Mouse Function",
+      startRecord: "Start record",
       title: "Macro Editor",
+      timelineTitle: "Timeline editor",
+      successFlashTitle: "Your macros have been saved.",
       successFlash: "Succesfully sent the macros to the Raise",
+      previewMacro: "Preview macro",
       deleteModal: {
         title: "This macro is in use",
         body: "The macro you want to delete is currently in use, select how to proceed, THIS MAKES PERMANENT CHANGES.",
         cancelButton: "Cancel",
         applyButton: "Update Keyboard"
+      },
+      callout:
+        "<p>Macros are sequences of events (such as keystrokes, mouse clicks, and delays) that can be played back to help with repetitive strings of texts or tasks. </p><p>They can also be used to replay sequences that are long or difficult to run.</p>",
+      textTabs: {
+        title: "Text",
+        callout: "<p>Using text you can add an entire sequence of commands using only one key.</p>",
+        placeholder: "Enter text",
+        buttonText: "Add to timeline"
+      },
+      delayTabs: {
+        title: "Delay",
+        description: "Add mouse clicks events in your key."
+      },
+      macroTab: {
+        callout: "<p>That's right! You can add macros inside macros! 🔥</p>",
+        label: "Select macro"
+      },
+      memoryUsage: {
+        title: "Memory Usage",
+        errorTitle: "You exceeded the maximum capacity of actions in your macros.",
+        errordBody: "Please decrease the number of actions until the Memory Usage indicator is no longer red.",
+        alertTitle: "You are almost out of memory",
+        alertBody:
+          "Everything will still work perfectly but consider deleting macros you don't use to continue adding more actions to your macros."
       }
     },
     superkeys: {
@@ -264,7 +309,13 @@ const English = {
         back: "Back",
         fwd: "Fwd.",
         up: "Up",
-        down: "Down"
+        down: "Down",
+        mediaTitle: "Media",
+        mediaDescription: "Skip boring songs, turn the sound louder. Harder, better, faster, stronger!",
+        LEDTitle: "LED",
+        LEDDescrition: "Turn the RBG lighting On or Off and control the cycle throught the lights effects.",
+        othersTitle: "Others",
+        othersDescription: "Control your media, apps and brightness. Safe and sound!"
       }
     },
     oldMacroModal: {
@@ -301,9 +352,11 @@ const English = {
     copySuccess: "Copied!",
     pasteFromClipboard: "Paste from clipboard",
     pasteSuccess: "Pasted!",
-    importSuccessCurrentLayer: "Imported to current Layer succesfully",
+    importSuccessCurrentLayerTitle: "Imported successfully!",
+    importSuccessCurrentLayer: "Imported to current Layer successfully",
     importSuccessAllLayers: "Imported all Layers succesfully",
-    exportSuccessCurrentLayer: "Export Successful",
+    exportSuccessCurrentLayer: "Ready to share!",
+    exportSuccessCurrentLayerContent: "Your layer has been successfully exported.",
     exportSuccessAllLayers: "Exported all Layers succesfully"
   },
   preferences: {
@@ -551,12 +604,38 @@ You can find the LED Rainbow mode with the "LED Next" key. In the default Dygma 
       reset: `Firmware Update Process`
     }
   },
+  mouse: {
+    mouseClickTitle: "Click",
+    mouseClickDescription: "Add mouse clicks events in your key.",
+    clickLeft: "Left Click",
+    clickMiddle: "Middle Click",
+    clickRight: "Right Click",
+    clickBack: "Back Click",
+    clickForward: "Forward Click",
+    movementTitle: "Movement",
+    movementDescription: "Control move using keys.",
+    wheelTitle: "Wheel",
+    wheelDescription: "Control the wheel using keys."
+  },
   welcome: {
     title: "Welcome to Bazecor",
     contents: `Bazecor recognizes your keyboard, but needs to update its firmware before you can continue.`,
     gotoUpdate: "Update Firmware",
     reconnect: "Reconnect",
     reconnectDescription: `There's a possibility that we misdetected the capabilities of the keyboard, or that the keyboard was starting up while we connected. In this case, you can try clicking the "{0}" button to attempt a reconnect, and look for the necessary features again. Reconnecting is useful if you're sure there was a temporary failure upon previous attempts, and the problem has been resolved.`
+  },
+  general: {
+    actions: "Actions",
+    add: "Add",
+    configure: "Configure",
+    clone: "Clone",
+    delete: "Delete",
+    key: "Key",
+    new: "New",
+    noname: "No name",
+    select: "Select",
+    record: "Record",
+    resume: "Resume"
   }
 };
 

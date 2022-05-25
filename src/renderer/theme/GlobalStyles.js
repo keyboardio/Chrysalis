@@ -14,6 +14,7 @@ const GlobalStyles = createGlobalStyle`
     font-weight: 100 900;
     font-style: normal;
     src: url(${LibreFranklin}) format("truetype");
+    font-display: block;
   }
 
   @font-face {
@@ -21,6 +22,7 @@ const GlobalStyles = createGlobalStyle`
     font-weight: 100 900;
     font-style: italic;
     src: url(${LibreFranklinItalic}) format("truetype");
+    font-display: block;
   }
   
   body {
@@ -31,7 +33,8 @@ const GlobalStyles = createGlobalStyle`
     background-size: cover;
     background-attachment: fixed;
     color: ${({ theme }) => theme.colors.text};
-    font-family: ${({ theme }) => theme.font};;
+    font-family: ${({ theme }) => theme.font};
+    // font-family: ${({ theme }) => theme.font},  -apple-system, sans-serif;
 
     text-rendering: optimizeLegibility;
     font-smoothing: antialiased;
@@ -287,6 +290,16 @@ svg text{
   border-radius: 6px;
   display: inline-block;
   transition: all 250ms ease-in-out;
+  &.iconOnright {
+    svg {
+      margin-left: 12px;
+    }
+  }
+  &.iconOnleft {
+    svg {
+      margin-right: 12px;
+    }
+  }
 }
 .button:hover {
   cursor: pointer;
@@ -300,7 +313,9 @@ svg text{
 
 .button .buttonLabel {
   position: relative;
-  z-index: 2;
+  z-index: 1;
+  display: flex;
+  line-height: 1.5em;
 }
 .button.primary {
   color: #fff;
@@ -347,7 +362,7 @@ svg text{
   position: relative;
 }
 .button.outline.gradient .buttonLabel{
-  z-index: 2;
+  z-index: 1;
   position: relative;
 }
 
@@ -365,7 +380,7 @@ svg text{
 .buttonFX {
   position: absolute;
   z-index: 0;
-  width: 100px;
+  width: 60px;
   height: 32px;
   bottom: 2px;
   left: 50%;
@@ -382,6 +397,7 @@ svg text{
 .button.outline.gradient:hover .buttonFX {
   bottom: -5px;
   filter: blur(15px);
+  width: 100px;
 }
 .btn-primary.button-config,
 .button-config {
@@ -389,13 +405,34 @@ svg text{
   font-weight: 600;
   letter-spacing: -0.03em;
   padding: 8px 16px;
-  border: ${({ theme }) => theme.styles.button.config.border} 
+  border: ${({ theme }) => theme.styles.button.config.border};
   color: ${({ theme }) => theme.styles.button.config.color}; 
   background: ${({ theme }) => theme.styles.button.config.background};
   border: none;
   border-radius: 6px;
   box-shadow: ${({ theme }) => theme.styles.button.config.boxShadow};
   transition: all 300ms ease-in-out;
+}
+.button-config.buttonConfigMinimal {
+  padding: 9px 16px 9px 12px;
+  border: 1px solid ${({ theme }) => theme.styles.button.configMinimal.border};
+  color: ${({ theme }) => theme.styles.button.configMinimal.color};
+  background: ${({ theme }) => theme.styles.button.configMinimal.background};
+  box-shadow: none;
+  &:hover {
+    background: inherit!important;
+  }
+  &.config-active {
+    border: 1px solid ${({ theme }) => theme.styles.button.configMinimal.borderActive};
+    color: ${({ theme }) => theme.styles.button.configMinimal.colorActive};
+    background: ${({ theme }) => theme.styles.button.configMinimal.backgroundActive};
+    svg {
+      color: ${({ theme }) => theme.styles.button.configMinimal.iconColorActive};
+    }
+    &:hover {
+      background: ${({ theme }) => theme.styles.button.configMinimal.backgroundActive}!important;
+    }
+  }
 }
 .button-config.sm {
   padding: 6px 16px;
@@ -665,6 +702,36 @@ svg text{
   }
 }
 
+.cardButtons {
+  border-radius: 6px;
+  background-color: ${({ theme }) => theme.styles.cardButtons.background};  
+  flex: 0 0 100%;
+  padding: 24px 16px 20px 16px;
+  h4 {
+    color: ${({ theme }) => theme.styles.cardButtons.titleColor};
+  }
+  p {
+    color: ${({ theme }) => theme.styles.cardButtons.color};
+    font-weight: 395; 
+    font-size: 14px;
+  }
+  .groupButtons {
+    display: flex;
+    padding: 4px 2px;
+    flex-wrap: nowrap;
+    background-color: ${({ theme }) => theme.styles.cardButtons.groupButtonsBackground};
+    border-radius: 6px;
+    max-width: 500px;
+    .button-config {  
+      width: 42px;
+      margin: 0 2px;
+      padding: 10px 2px;  
+      text-align: center;
+      flex: 1;
+    }
+  }
+}
+
 .tooltip {
   z-index: 1200;
 }
@@ -746,6 +813,11 @@ div.card.card-preferences .card-body {
 }
 .modal .modal-body {
   padding: 24px 32px;
+  .modalInner {
+    padding: 16px 24px;
+    border-radius: 6px;
+    background-color: ${({ theme }) => theme.styles.modal.backgroundInner};
+  }
 }
 .modal .modal-body .form-control {
   font-weight: 600;
@@ -770,6 +842,296 @@ div.card.card-preferences .card-body {
   letter-spacing: -0.03em;
   font-weight:600;
   color: ${({ theme }) => theme.styles.modal.titleColor};
+}
+
+//
+// Recording Macro
+//
+.modal.modal-recordMacro {
+  .modal-header {
+    align-items: center;
+    position: relative;
+    justify-content: center;
+    .close {
+      margin-right: 0;
+      position: absolute;
+      top: 42px;
+      right: 32px;
+    }
+  }
+  .modal-body {
+    padding: 24px 0;
+  }
+  .modal-title {
+    flex: 0 0 100%;
+    font-size: 32px;
+  }
+  .recordMacrosButton {
+    width: 100%;
+    text-align: center;
+    margin-top: -27px;
+    margin-bottom: 32px;
+    position: relative;
+  }
+  .tabSaveButton {
+    text-align: center;
+    .button.outline.gradient[disabled] {
+      opacity: 1;
+      color: ${({ theme }) => theme.styles.macro.tabSaveButtonColor}; 
+      &:before {
+        background: ${({ theme }) => theme.styles.macro.tabSaveButtonBorder};  
+      }
+      .buttonFX {
+        display: none;
+      }
+    }
+  }
+  .button-config.undoRecording {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate3d(-164px, 3px, 0);
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+  }
+  .recordButton {
+    border: 3px solid ${({ theme }) => theme.styles.button.recordButton.borderColor};
+    background:  ${({ theme }) => theme.styles.button.recordButton.background};
+    color: ${({ theme }) => theme.styles.button.recordButton.color};
+    backdrop-filter: blur(5px);
+    border-radius: 32px;
+    width: 204px;
+    font-weight: 700;
+    z-index: 3;
+    position: relative;
+    svg {
+      display: none;
+    }
+    &.isResume {
+      border: 3px solid ${({ theme }) => theme.styles.button.recordButton.borderColorResume};
+    }
+    &.isRecording {
+      svg {
+        display: inline-block;
+      }
+      .buttonText {
+        display: none;
+      }
+    }
+    &:hover {
+      background:  ${({ theme }) => theme.styles.button.recordButton.backgroundHover};
+    }
+    .buttonLabel {
+      justify-content: center;
+    }
+  }
+  .recordMacroOptions {
+    padding: 12px;
+    background-color: ${({ theme }) => theme.styles.macro.recordMacroOptionsBackground};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    box-shadow: ${({ theme }) => theme.styles.macro.recordMacroOptionsBoxShadow};
+    h5 {
+      letter-spacing: 0.2em;
+      color: ${({ theme }) => theme.styles.macro.recordMacroOptionsTitle};
+      margin-right: 8px;
+      margin-bottom: 0;
+    }
+    .recordMacroButtons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: nowrap;
+      .button-config {
+        margin-left: 2px;
+        margin-right: 2px;
+      }
+    }
+  }
+}
+.timelineRecordTracking {
+  padding: 12px 0;
+  background-color: ${({ theme }) => theme.styles.macro.timelineRecordTrackingBackground};
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  height: 124px;
+  .timelineRecordSequence {
+    position: absolute;
+    width: 50%;
+    top: 50%;
+    transform: translate(0, -50%);
+    text-align: right;
+    margin-top: -8px;
+    .timelineRecordSequenceInner {
+      display: flex;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+      align-content: flex-end;
+      justify-content: flex-end;
+      flex: 0 0 100%;
+      align-items: center;
+    }
+  }
+  .timelinePointeText {
+    position: absolute;
+    height: 62px;
+    width: 1px;
+    background-color: ${({ theme }) => theme.styles.macro.timelinePointeText};
+    top: 50%;
+    right: -2px;
+    transform: translate(0, -50%);
+    display: none;
+  }
+  .isRecording .timelinePointeText {
+    display: inline-block;
+    animation: cursor-blink 1.5s steps(2) infinite;
+  }
+  .AnimatedTimelineRecording {
+    bottom: 6px;
+    position: absolute;
+  }
+  .keySpecial {
+    padding: 6px;
+    border-radius: 3px;
+    color: ${({ theme }) => theme.styles.macro.specialKeyColor};
+    margin: 0 3px;
+    border: 1px solid ${({ theme }) => theme.styles.macro.specialKeyColor};
+    font-size: 13px;
+  }
+}
+.recordingMessage {
+  text-align: center;
+  margin: 32px auto;
+  max-width: 550px;
+  color: ${({ theme }) => theme.styles.macro.recordingMessageColor};
+  font-size: 14px;
+  font-weight: 395;
+}
+
+//
+// Preview macro
+//
+.previewMacro {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  margin-left: -2px;
+  margin-right: -2px;
+  .previewKey {
+    line-height: 2em;
+    font-size: 14px;
+    border-radius: 3px;
+    color: ${({ theme }) => theme.styles.macro.previewColor};
+    border: 1px solid ${({ theme }) => theme.colors.previewColor};
+    padding: 0 6px;
+    margin: 2px;
+  }
+  .action-2 {
+    color: ${({ theme }) => theme.colors.brandDangerLighter};
+    border: 1px solid ${({ theme }) => theme.colors.brandDangerLighter};
+    padding: 0 6px 0 24px;
+    position: relative;
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-bottom: 2px;
+    svg {
+      position: absolute;
+      top: 50%;
+      left: 3px;
+      transform: translate3d(0, -55%, 0);
+    }
+  }
+  .action-8 { 
+    margin: 0;
+    border-color: transparent;
+    padding: 0;
+    &.keyCode-40,
+    &.keyCode-41,
+    &.keyCode-42,
+    &.keyCode-43,
+    &.keyCode-57,
+    &.keyCode-58,
+    &.keyCode-59,
+    &.keyCode-60,
+    &.keyCode-61,
+    &.keyCode-62,
+    &.keyCode-63,
+    &.keyCode-64,
+    &.keyCode-65,
+    &.keyCode-66,
+    &.keyCode-67,
+    &.keyCode-68,
+    &.keyCode-69,
+    &.keyCode-70,
+    &.keyCode-71,
+    &.keyCode-72,
+    &.keyCode-73,
+    &.keyCode-74,
+    &.keyCode-75,
+    &.keyCode-76,
+    &.keyCode-77,
+    &.keyCode-78,
+    &.keyCode-79,
+    &.keyCode-80,
+    &.keyCode-81,
+    &.keyCode-82,
+    &.keyCode-83,
+    &.keyCode-88,
+    &.keyCode-101, 
+    &.keyCode-104,
+    &.keyCode-105,
+    &.keyCode-106,
+    &.keyCode-107,
+    &.keyCode-108,
+    &.keyCode-109,
+    &.keyCode-110,
+    &.keyCode-111,
+    &.keyCode-112,
+    &.keyCode-113,
+    &.keyCode-114,
+    &.keyCode-115 {
+      border: 1px solid ${({ theme }) => theme.colors.previewColor};
+      padding: 0 6px;
+      margin: 2px;
+    }
+  }
+  .isModifier {
+    color: ${({ theme }) => theme.styles.macro.previewColor};
+    border: 1px solid ${({ theme }) => theme.styles.macro.previewColor};
+    padding: 0 6px;
+    position: relative;
+    margin-right: 3px;
+    margin-bottom: 2px;
+    &.keyCode-229,
+    &.keyCode-225 {
+      border-color: ${({ theme }) => theme.styles.macroKey.shift.background}; 
+      color:  ${({ theme }) => theme.styles.macroKey.shift.background};
+    }
+    &.keyCode-224,
+    &.keyCode-228 {
+      border-color: ${({ theme }) => theme.styles.macroKey.control.background}; 
+      color:  ${({ theme }) => theme.styles.macroKey.control.background};
+    }
+    &.keyCode-226,
+    &.keyCode-230 {
+      border-color: ${({ theme }) => theme.styles.macroKey.alt.background}; 
+      color:  ${({ theme }) => theme.styles.macroKey.alt.background};
+    }
+    &.keyCode-227,
+    &.keyCode-231 {
+      border-color: ${({ theme }) => theme.styles.macroKey.os.background}; 
+      color:  ${({ theme }) => theme.styles.macroKey.os.background};
+    }
+  }
 }
 
 .progress {
@@ -885,6 +1247,269 @@ div.card.card-preferences .card-body {
 }
 
 
+//
+// MACROKEY
+//
+.keyMacro {
+  border-radius: 4px;
+  background: ${({ theme }) => theme.styles.macroKey.background};
+  padding: 3px;
+  width: 100px;
+  height: 64px;
+  margin: 4px 2px;
+  display: flex;
+  flex-wrap: wrap;
+  .headerDrag {
+      border-radius: 4px 4px 0px 0px;
+      background-color:  ${({ theme }) => theme.styles.macroKey.backgroundHeader};
+      border-bottom: 1px solid ${({ theme }) => theme.styles.macroKey.borderColor}; 
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0; 
+      padding-right: 4px;
+      flex: 0 0 100%;
+  }
+  .dragable {
+    color:  ${({ theme }) => theme.styles.macroKey.iconDragColor};  
+    padding: 0 6px;
+  }
+  .actionicon {
+    color:  ${({ theme }) => theme.styles.macroKey.actionIconColor};
+  }
+  .bodyDrag {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;  
+      flex: 0 0 100%;
+  }
+  .dropdown-toggle.btn.btn-primary {
+      padding: 0 2px;
+      background-color: transparent;
+      margin: 0;
+      border: none;
+      &:after {
+          content: none;
+      }
+  } 
+}
+#portalMacro {
+  .keyMacroMiniDashboard {
+    border-radius: 6px;
+    overflow: hidden;
+    border: ${({ theme }) => theme.styles.macro.keyMacroMiniDashboardBorder}; 
+  }
+    .keyInfo {
+      padding: 16px 12px 12px 12px;
+      background: ${({ theme }) => theme.styles.macro.keyInfoBackground}; 
+      h4 {
+          font-weight: 600;
+          text-transform: uppercase;
+          margin: 0;
+          font-size: 13px;
+          font-weight: 500;
+          color: ${({ theme }) => theme.styles.macro.keyInfoTitle}; 
+      }
+    }
+    .keyFunctions {
+        border-top: 1px solid ${({ theme }) => theme.styles.macro.keyFunctionsBorder};
+        padding: 12px 8px;
+        background: ${({ theme }) => theme.styles.macro.keyInfoBackground}; 
+        h5 {
+            color: ${({ theme }) => theme.styles.macro.keyFunctionTile};
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: none; 
+            letter-spacingL: -0.025em; 
+            margin: 0;
+            margin-bottom: 8px;
+        }
+    }
+    .keyFunctionsButtons {
+      display: flex;
+      flex-wrap: nowrap;
+      margin-left: -2px;
+      margin-right: -2px;
+    }
+    .button-config {
+      color: ${({ theme }) => theme.styles.button.config.color};
+      white-space: nowrap;
+      margin: 0 2px;
+      flex-grow: 1;
+      text-align: center;
+      &:hover {
+        color: ${({ theme }) => theme.styles.button.config.colorHover};
+      }
+      &.active {
+        color: #fff;
+      }
+    }
+    .keyModifiers {
+      padding: 12px 8px;
+      background: ${({ theme }) => theme.styles.macro.keyMacroMiniDashboardBackground}; 
+      h4 {
+          color: ${({ theme }) => theme.styles.macro.keyFunctionTile};
+          font-size: 13px;
+          font-weight: 500;
+          text-transform: none; 
+          letter-spacingL: -0.025em; 
+          margin-bottom: 8px;
+      }
+    }
+    .keyValue {
+      color: ${({ theme }) => theme.styles.macro.keyValueColor};
+      font-size: 24px;
+      font-weight: 600;
+      text-transform: capitalize;
+      margin: 0;
+      small {
+        text-transform: none;
+        font-size: 16px;
+        font-weight: 600;
+      }
+    }
+    .keyMacroItemOptions {
+      padding-top: 8px;
+    }
+    .keyModifiersButtons {
+      display: flex;
+      flex-wrap: nowrap;
+      margin-left: -2px;
+      margin-right: -2px;
+      display: grid;
+      grid-gap: 6px 4px;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .dropdown-menu {
+      min-width: 362px;
+      padding: 8px;
+    }
+    .dropdown-item.unstyled {
+      padding: 0;
+      margin: 0 2px;
+    }
+    .dropdown-toggle.btn.btn-primary {
+      border: none;
+    }
+  }
+  .keyMacroFreeSlot {
+    background: transparent;
+  }
+  .keyMacroOptions {
+    .dropdown-toggle.btn.btn-primary{
+      color: ${({ theme }) => theme.styles.macroKey.dropdownIconColor};
+      border: none;
+    }
+    &.show {
+    .dropdown-toggle.btn.btn-primary {
+      color: #fff;
+      background-color: ${({ theme }) => theme.styles.macroKey.dropdownIconColor};
+      border: none;
+    }
+  }
+}
+.isModifier {
+.keyMacroOptions {
+  .dropdown-toggle.btn.btn-primary{
+    color: ${({ theme }) => theme.styles.macroKey.dropdownIconColorModifier};
+  }
+}
+.keyMacro {
+  order: 2;
+  // width: 86px;
+  color: ${({ theme }) => theme.styles.macroKey.colorModifier}; 
+  .headerDrag {
+    order: 2;
+    border-radius: 0px 0px 4px 4px;
+    background-color: ${({ theme }) => theme.styles.macroKey.backgroundHeaderModifier};
+    border-bottom: none;
+    border-top: 1px solid ${({ theme }) => theme.styles.macroKey.borderColorModifier}; 
+  }
+  .bodyDrag {
+    order: 1;
+  }
+  .dragable {
+    color:  ${({ theme }) => theme.styles.macroKey.iconDragColorModifier};
+  }
+}
+.keyMacroFreeSlot {
+  order: 1;
+}
+.actionicon {
+  color:  ${({ theme }) => theme.styles.macroKey.actionColorModifier};
+}
+
+// Shift modifiers
+&.keyCode-229,
+&.keyCode-225 {
+  .keyMacro {
+    background: ${({ theme }) => theme.styles.macroKey.shift.background}; 
+    color:  ${({ theme }) => theme.styles.macroKey.shift.color};
+  }
+  .keyMacroFreeSlot {
+    background: transparent;
+  }
+  .actionicon {
+    color:  ${({ theme }) => theme.styles.macroKey.shift.actionColor};
+  }
+}
+// Control modifiers
+&.keyCode-224,
+&.keyCode-228 {
+  .keyMacro {
+    background: ${({ theme }) => theme.styles.macroKey.control.background}; 
+  }
+  .keyMacroFreeSlot {
+    background: transparent;
+  }
+}
+// Alt modifiers
+&.keyCode-226,
+&.keyCode-230 {
+  .keyMacro {
+    background: ${({ theme }) => theme.styles.macroKey.alt.background}; 
+  }
+  .keyMacroFreeSlot {
+    background: transparent;
+  }
+}
+// OS modifiers
+&.keyCode-227,
+&.keyCode-231 {
+  .keyMacro {
+    background: ${({ theme }) => theme.styles.macroKey.os.background}; 
+  }
+  .keyMacroFreeSlot {
+    background: transparent;
+  }
+}
+}
+.isDelay {
+.keyMacroOptions {
+  .dropdown-toggle.btn.btn-primary{
+    color: ${({ theme }) => theme.styles.macroKey.dropdownIconColorModifier};
+  }
+}
+.keyMacro {
+  background:  ${({ theme }) => theme.styles.macroKey.delay.background};
+  color: ${({ theme }) => theme.styles.macroKey.delay.color}; 
+  .headerDrag {
+    border-bottom: 1px solid ${({ theme }) => theme.styles.macroKey.delay.borderColor};
+  }
+}
+.keyMacroFreeSlot {
+  background: transparent;
+}
+.dragable {
+  color:  ${({ theme }) => theme.styles.macroKey.iconDragColorModifier};
+}
+.actionicon {
+  color:  ${({ theme }) => theme.styles.macroKey.delay.actionIconColor};
+}
+}
+
 
 //
 // Form
@@ -983,6 +1608,8 @@ div.card.card-preferences .card-body {
   .bs-tooltip-right.tooltipMenu {
     display: none!important;
   }
+}
+@media screen and (min-width: 1299px) {
   div.main-container {
     padding-left: calc(120px + 30px);
     padding-left: 30px;
@@ -1053,7 +1680,31 @@ div.card.card-preferences .card-body {
     opacity: 1;
   }
 }
+@keyframes cursor-blink {
+  0% {
+    opacity: 0;
+  }
+}
 
+//
+// CustomCheckbox
+//
+.customCheckbox {
+  .form-check::before {
+    border: 2px solid ${({ theme }) => theme.styles.customCheckbox.borderColor};
+  }
+  .form-check::after {
+    background-color: ${({ theme }) => theme.styles.customCheckbox.background};
+  }
+  &.active {
+    .form-check::before {
+      border: 2px solid ${({ theme }) => theme.styles.customCheckbox.borderColorActive};
+    }
+    .form-check::after {
+      background-color: ${({ theme }) => theme.styles.customCheckbox.backgroundActive};
+    } 
+  }
+}
 
 ::-webkit-scrollbar {
   background-color: rgba(0, 0, 0, 0.25);
@@ -1081,8 +1732,19 @@ div.card.card-preferences .card-body {
   height: 6px; 
 }
 
+
+.pageHeader .savingButtons {
+  display: flex;
+  flex-wrap: nowrap;
+  
+}
+.pageHeader .itemListelector .dropdown-menu {
+  max-height: 80vh;
+  overflow-y: auto;
+}
 @media screen and (max-width: 1229px){
-  .main-container .superkeys {
+  .main-container .superkeys,
+  .main-container .macroEditor {
     .pageHeader .pageTitle {
       display: none;
     }
@@ -1106,6 +1768,29 @@ div.card.card-preferences .card-body {
     }
     .ModPicker {
       width: 100%;
+    }
+  }
+}
+@media screen and (max-width: 1360px) {
+  .pageHeader .button.outline.gradient.addNew {
+    padding-right: 12px;
+    svg {
+      margin-right: 0;
+    }
+    .buttonText {
+      display: none;
+    }
+  }
+}
+@media screen and (max-width: 1460px) {
+  .pageHeader .savingButtons .buttonText span {
+    display: none;
+  }
+}
+@media screen and (max-width: 1520px){
+  .main-container .macroEditor {
+    .progressIndicatorBar svg {
+      width: 45px;
     }
   }
 }

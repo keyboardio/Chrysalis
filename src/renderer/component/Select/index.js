@@ -14,9 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import LayerSelector from "./LayerSelector";
 import Select from "./Select";
 import SelectKeyboardDropdown from "./SelectKeyboardDropdown";
 import NeuronSelector from "./NeuronSelector";
+import MacroSelector from "./MacroSelector";
 import SuperkeysSelector from "./SuperkeysSelector";
 import SelectF13PlusKeys from "./SelectF13PlusKeys";
 import SelectMacro from "./SelectMacro";
@@ -27,8 +29,10 @@ import SelectOneShotModifiers from "./SelectOneShotModifiers";
 import SelectSuperKey from "./SelectSuperKey";
 
 export {
+  LayerSelector,
   Select,
   SelectKeyboardDropdown,
+  MacroSelector,
   NeuronSelector,
   SuperkeysSelector,
   SelectF13PlusKeys,

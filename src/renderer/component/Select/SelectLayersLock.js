@@ -80,7 +80,7 @@ class SelectLayersLock extends Component {
         <Dropdown
           value={KC != 0 ? this.layerLock.map(i => i.keynum).includes(KC) : KC}
           onSelect={value => onKeySelect(parseInt(value))}
-          className={`custom-dropdown ${
+          className={`custom-dropdown dropdownLayerLock ${
             keyCode.modified > 0 && this.layerLock.map(i => i.keynum).includes(keyCode.base + keyCode.modified) ? "active" : ""
           } ${action == 1 || action == 2 || action == 4 ? "disabled" : ""}`}
         >

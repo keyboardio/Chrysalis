@@ -195,8 +195,12 @@ width: 100%;
   text-overflow: ellipsis;
 }
 .dropdown-toggle.btn.btn-primary {
-  padding-right: 32px;
+  padding-right: 24px;
+  padding-left: 8px;
 } 
+.dropdown-toggle::after {
+  right: 12px;
+}
 .keyRowsDropdowns {
   display: grid;
   grid-template-columns: minmax(42px, 42px) minmax(0, 1fr);
@@ -213,7 +217,7 @@ width: 100%;
   display: flex;
   flex-grow: 1;
   text-align: center;
-  padding: 5px 8px;
+  padding: 5px 3px;
   justify-content: center;
   font-size: 14px;
 } 
@@ -228,6 +232,8 @@ width: 100%;
 .colOneShotModifiers { grid-area: colOneShotModifiers; }
 .colMedia { grid-area: colMedia; }
 .colTools { grid-area: colTools; }
+
+
 
 .editor { 
   .keysLED .button-config {
@@ -268,6 +274,16 @@ width: 100%;
     .colOneShotModifiers { grid-area: colOneShotModifiers; }
     .colMedia { grid-area: colMedia; }
     .colTools { grid-area: colTools; }
+  }
+  .dropdownLayerShift .dropdown-toggle.btn.btn-primary,
+  .dropdownOneShotModifiers .dropdown-toggle.btn.btn-primary{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .dropdownLayerLock .dropdown-toggle.btn.btn-primary,
+  .dropdownOneShotLayers .dropdown-toggle.btn.btn-primary{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
   }
 }
 .super {

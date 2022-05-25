@@ -36,8 +36,13 @@ import Focus from "../../api/focus";
 import Backup from "../../api/backup";
 
 import PageHeader from "../modules/PageHeader";
+import { MacroSelector } from "../component/Select";
+import Callout from "../component/Callout";
 import ToastMessage from "../component/ToastMessage";
 import { IconFloppyDisk } from "../component/Icon";
+
+import MacroCreator from "../modules/Macros/MacroCreator";
+import TimelineEditorManager from "../modules/Macros/TimelineEditorManager";
 
 const Store = require("electron-store");
 const store = new Store();
@@ -128,7 +133,8 @@ class MacroEditor extends React.Component {
       showDeleteModal: false,
       listToDelete: [],
       listToDeleteS: [],
-      selectedList: 0
+      selectedList: 0,
+      freeMemory: 0
     };
     this.updateMacros = this.updateMacros.bind(this);
     this.changeSelected = this.changeSelected.bind(this);
@@ -197,10 +203,13 @@ class MacroEditor extends React.Component {
         superkeys: parsedSuper,
         keymap
       });
+      this.setState({
+        freeMemory: parsedMacros.map(m => m.actions).flat().length
+      });
     } catch (e) {
       console.log("error when loading macros");
       console.error(e);
-      toast.error(e);
+      toast.error(<ToastMessage title={e} icon={<IconFloppyDisk />} />);
       this.props.onDisconnect();
     }
   }
@@ -414,6 +423,9 @@ class MacroEditor extends React.Component {
     console.log("Updating Macros", recievedMacros);
     if (selected > -1) this.updateKeyboard(recievedMacros, selected);
     this.setState({ macros: recievedMacros, modified: true });
+    this.setState({
+      freeMemory: recievedMacros.map(m => m.actions).flat().length
+    });
     this.props.startContext();
   }
 
@@ -438,11 +450,18 @@ class MacroEditor extends React.Component {
       const commands = await this.bkp.Commands();
       const backup = await this.bkp.DoBackup(commands, this.state.neurons[this.state.neuronID].id);
       this.bkp.SaveBackup(backup);
-      toast.success(i18n.editor.macros.successFlash, {
-        autoClose: 2000
-      });
+      toast.success(
+        <ToastMessage
+          title={i18n.editor.macros.successFlashTitle}
+          content={i18n.editor.macros.successFlash}
+          icon={<IconFloppyDisk />}
+        />,
+        {
+          autoClose: 2000
+        }
+      );
     } catch (error) {
-      toast.error(error);
+      toast.error(<ToastMessage title={error} icon={<IconFloppyDisk />} />);
     }
   }
 
@@ -502,8 +521,46 @@ class MacroEditor extends React.Component {
     return;
   }
 
+  addMacro() {
+    if (this.state.macros.length < this.props.maxMacros) {
+      let aux = this.state.macros;
+      const newID = aux.length;
+      aux.push({
+        actions: [],
+        name: "Empty Macro",
+        id: newID,
+        macro: ""
+      });
+      this.props.updateMacro(aux, -1);
+      this.changeSelected(newID);
+    }
+  }
+
+  deleteMacro(selected) {
+    if (this.state.macros.length > 0) {
+      let aux = this.state.macros;
+      aux.splice(selected, 1);
+      aux = aux.map((item, index) => {
+        let aux = item;
+        aux.id = index;
+        return aux;
+      });
+      if (selected >= this.state.macros.length - 1) {
+        this.changeSelected(this.state.macros.length - 1);
+      }
+      this.props.updateMacro(aux, selected);
+    }
+  }
+
+  saveName(name) {
+    console.log("MACROS: ", this.state.macros);
+    // let macrosList = this.state.macros;
+    // macrosList[this.state.selectedMacro].name = name;
+    // this.setState({ macrosList, modified: true });
+  }
+
   render() {
-    const mem = this.state.macros.map(m => m.actions).flat().length;
+    // const mem = this.state.macros.map(m => m.actions).flat().length;
     const ListOfMacros = this.state.listToDelete.map(({ layer, pos, key }, id) => {
       return (
         <Row key={id}>
@@ -543,9 +600,46 @@ class MacroEditor extends React.Component {
       </Col>
     );
     return (
-      <Styles>
-        <Container fluid className="center-content">
-          <PageHeader text={i18n.app.menu.macros} />
+      <Styles className="macroEditor">
+        <Container fluid>
+          <PageHeader
+            text={i18n.app.menu.macros}
+            contentSelector={
+              <MacroSelector
+                itemList={this.state.macros}
+                selectedItem={this.state.selectedMacro}
+                subtitle="Macros"
+                onSelect={this.changeSelected}
+                addItem={this.addMacro}
+                deleteItem={this.deleteMacro}
+                updateItem={this.saveName}
+                maxMacros={this.state.maxMacros}
+                mem={this.state.freeMemory}
+              />
+            }
+            showSaving={true}
+            saveContext={this.writeMacros}
+            destroyContext={this.loadMacros}
+            inContext={this.state.modified}
+          />
+          <Callout content={i18n.editor.macros.callout} className="mt-lg" size="md" />
+          <MacroCreator
+            macros={this.state.macros}
+            maxMacros={this.state.maxMacros}
+            selected={this.state.selectedMacro}
+            updateMacro={this.updateMacros}
+            changeSelected={this.changeSelected}
+            keymapDB={this.keymapDB}
+          />
+          <TimelineEditorManager
+            macros={this.state.macros}
+            maxMacros={this.state.maxMacros}
+            selected={this.state.selectedMacro}
+            updateMacro={this.updateMacros}
+            changeSelected={this.changeSelected}
+            keymapDB={this.keymapDB}
+            key={JSON.stringify(this.state.macros)}
+          />
           <div className="macrocontainer">
             <MacroManager
               macros={this.state.macros}
@@ -558,30 +652,7 @@ class MacroEditor extends React.Component {
             />
           </div>
         </Container>
-        <Row className="save-row">
-          <Container fluid>
-            <Row>
-              <Button
-                disabled={!this.state.modified || mem > 1999}
-                onClick={this.writeMacros}
-                className={`button-large pt-0 mt-0 mb-2 ${this.state.modified ? "save-active" : ""}`}
-                aria-controls="save-changes"
-              >
-                <FiSave />
-              </Button>
-            </Row>
-            <Row>
-              <Button
-                disabled={!this.state.modified}
-                onClick={this.loadMacros}
-                className={`button-large pt-0 mt-0 mb-2 ${this.state.modified ? "cancel-active" : ""}`}
-                aria-controls="discard-changes"
-              >
-                <FiTrash2 />
-              </Button>
-            </Row>
-          </Container>
-        </Row>
+
         <Modal show={this.state.showDeleteModal} onHide={this.toggleDeleteModal} style={{ marginTop: "100px" }}>
           <ModalStyle>
             <Modal.Header closeButton className="modalcol">

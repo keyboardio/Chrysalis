@@ -100,7 +100,7 @@ width: 100%;
     color: ${({ theme }) => theme.colors.brandSuccess}; 
   }
   h6 {
-    font-weight: 400;
+    font-weight: 395;
     letter-spacing:0;
     font-size: 15px;
   }

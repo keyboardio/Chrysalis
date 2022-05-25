@@ -76,7 +76,7 @@ height:inherit;
 .holdTootip {
   h6 {
     font-size: 13px;  
-    font-weight: 400;
+    font-weight: 395;
     letter-spacing: 0;
     color:  ${({ theme }) => theme.colors.gray300}; 
   }

@@ -22,7 +22,9 @@ const RegularButton = ({ selected, onClick, size, buttonText, style, icoSVG, ico
   return (
     <div
       onClick={disabled ? () => {} : onClick}
-      className={`${size ? size : ""} ${selected ? "active" : ""} button ${style && style}`}
+      className={`${size ? size : ""} ${selected ? "active" : ""} button ${style && style} iconOn${
+        icoPosition ? icoPosition : "None"
+      }`}
       disabled={disabled}
     >
       <div className={"buttonLabel"}>

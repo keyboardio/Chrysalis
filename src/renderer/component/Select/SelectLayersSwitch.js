@@ -79,7 +79,7 @@ class SelectLayersSwitch extends Component {
         <Dropdown
           value={KC != 0 ? this.layerShift.map(i => i.keynum).includes(KC) : KC}
           onSelect={value => onKeySelect(parseInt(value))}
-          className={`custom-dropdown ${
+          className={`custom-dropdown dropdownLayerShift ${
             keyCode.modified > 0 && this.layerShift.map(i => i.keynum).includes(keyCode.base + keyCode.modified) ? "active" : ""
           } ${action == 1 || action == 2 || action == 4 ? "disabled" : ""}`}
         >

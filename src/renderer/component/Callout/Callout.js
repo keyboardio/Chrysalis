@@ -59,7 +59,7 @@ const Style = Styled.div`
 	background: ${({ theme }) => theme.styles.callout.calloutBackground}; 
 	border: 1px solid ${({ theme }) => theme.styles.callout.calloutBorderColor}; 
 	font-size: 14px; 
-	font-weight: 400;
+	font-weight: 395;
 	line-height: 1.35em;
 	&.sm {
 		font-size: 13px; 

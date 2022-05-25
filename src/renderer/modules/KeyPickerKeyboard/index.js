@@ -15,8 +15,9 @@
  */
 
 import KeyPickerKeyboard from "./KeyPickerKeyboard";
+import KeyPickerReduced from "./KeyPickerReduced";
 import Picker from "./Picker";
 import KeyPicker from "./KeyPicker";
 import Key from "./Key";
 
-export { KeyPickerKeyboard, Picker, KeyPicker, Key };
+export { KeyPickerKeyboard, KeyPickerReduced, Picker, KeyPicker, Key };

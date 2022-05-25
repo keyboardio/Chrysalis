@@ -19,21 +19,17 @@ import React from "react";
 import Styled from "styled-components";
 import i18n from "../../i18n";
 import Dropdown from "react-bootstrap/Dropdown";
-import { ButtonSettings } from "../Button";
-import { IconArrowsSmallSeparating } from "../Icon";
-import { IconPen } from "../Icon";
-import { IconDelete } from "../Icon";
-
+1;
 import { NameModal } from "../Modal/"; // Imported custom modal component
-import { RegularButton } from "../Button";
+import { RegularButton, ButtonConfig, ButtonSettings } from "../Button";
 
-import { IconAddNew } from "../Icon";
+import { IconArrowsSmallSeparating, IconPen, IconAddNew, IconClone, IconDelete } from "../Icon";
 
 const Style = Styled.div` 
 display: flex;
 .dropdownMultipleActions {
-    min-width: 320px;
-    max-width: 320px;
+  min-width: 320px;
+  max-width: 320px;
 }
 .dropdownListItemSelected {
     max-width: 200px;
@@ -56,11 +52,39 @@ display: flex;
 .button.outline.gradient {
   align-self: center;
   padding: 12px;
+  padding-right: 18px;
   margin-left: 8px;
   .buttonFX {
     width: 50px;
   }
 }
+.noDropdown.dropdownMultipleActions {
+    min-width: 350px;
+    max-width: 350px;
+    .dropdownActions {
+      display: flex;
+      flex-wrap: nowrap;
+      background: rgba(123, 134, 158, 0.1);
+      border-radius: 3px;
+      top: 5px;
+      right: 5px;
+      height: 48px;
+    }
+  }
+  .dropdownListItemInner {
+    padding-right: 128px;
+    .caret {
+      right: 112px;
+    }
+  }
+  .button-config {
+    background: transparent;
+    padding: 12px 8px;
+    border: none;
+    box-shadow: none;
+  }
+}
+
 `;
 class SuperKeysSelector extends React.Component {
   constructor(props) {
@@ -91,12 +115,12 @@ class SuperKeysSelector extends React.Component {
   };
 
   render() {
-    const { onSelect, itemList, selectedItem, deleteItem, addItem, subtitle } = this.props;
+    const { onSelect, itemList, selectedItem, deleteItem, addItem, cloneItem, subtitle } = this.props;
     const { show, showAdd } = this.state;
 
     return (
       <Style>
-        <div className="itemListelector dropdownMultipleActions">
+        <div className="itemListelector dropdownMultipleActions noDropdown">
           <Dropdown onSelect={value => onSelect(parseInt(value))} value={selectedItem} className="dropdownList">
             <Dropdown.Toggle className="toggler neuronToggler">
               <div className="dropdownListInner">
@@ -107,6 +131,8 @@ class SuperKeysSelector extends React.Component {
                     <div className="dropdownListItemSelected">
                       {itemList == undefined || itemList.length == 0 || itemList.length <= selectedItem
                         ? i18n.dialog.loading
+                        : itemList[selectedItem].name == ""
+                        ? i18n.general.noname
                         : itemList[selectedItem].name}
                     </div>
                     <span className="caret">
@@ -116,17 +142,38 @@ class SuperKeysSelector extends React.Component {
                 </div>
               </div>
             </Dropdown.Toggle>
-            <Dropdown.Menu className="dropdownMenu">
+            <Dropdown.Menu className="dropdownMenu dropdownActionsIcons">
               {itemList.map((item, iter) => (
                 <Dropdown.Item eventKey={iter} key={`item-${iter}`} className={iter === selectedItem ? "active" : ""}>
                   <span className="itemIndex">#{iter + 1}.</span>
-                  {item.name}
+                  {item.name == "" ? i18n.general.noname : item.name}
                 </Dropdown.Item>
               ))}
             </Dropdown.Menu>
           </Dropdown>
           <div className="dropdownActions">
-            <Dropdown drop="down" align="end" className="dropdownActionsList">
+            <ButtonConfig
+              onClick={this.toggleShow}
+              icoSVG={<IconPen />}
+              tooltip={i18n.app.menu.changeName}
+              tooltipPlacement="bottom"
+              tooltipDelay={600}
+            />
+            <ButtonConfig
+              onClick={cloneItem}
+              icoSVG={<IconClone />}
+              tooltip={i18n.general.clone}
+              tooltipPlacement="bottom"
+              tooltipDelay={600}
+            />
+            <ButtonConfig
+              onClick={deleteItem}
+              icoSVG={<IconDelete />}
+              tooltip={i18n.general.delete}
+              tooltipPlacement="bottom"
+              tooltipDelay={600}
+            />
+            {/* <Dropdown drop="down" align="end" className="dropdownActionsList">
               <Dropdown.Toggle className="button-settings">
                 <ButtonSettings />
               </Dropdown.Toggle>
@@ -148,10 +195,16 @@ class SuperKeysSelector extends React.Component {
                   </div>
                 </Dropdown.Item>
               </Dropdown.Menu>
-            </Dropdown>
+            </Dropdown> */}
           </div>
         </div>
-        <RegularButton icoSVG={<IconAddNew />} style="outline gradient" onClick={this.toggleShowAdd} />
+        <RegularButton
+          icoSVG={<IconAddNew />}
+          icoPosition="left"
+          buttonText={i18n.general.new}
+          style="outline gradient addNew"
+          onClick={this.toggleShowAdd}
+        />
         {itemList == undefined || itemList.length == 0 || itemList.length <= selectedItem ? (
           ""
         ) : (

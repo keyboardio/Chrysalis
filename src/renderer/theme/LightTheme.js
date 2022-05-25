@@ -5,6 +5,7 @@ import CheckedIconLight from "../../../static/dark/icon-check-animated.gif";
 import closeButton from "../../../static/light/X.svg";
 import IconPlusXS from "../../../static/light/plusIcon.svg";
 import RaiseFirmwareUpgrade from "../../../static/light/raiseFirmwareupgrade.svg";
+import mouseWheelBackground from "../../../static/light/mouseWheel.png";
 
 import Tokens from "./Tokens";
 
@@ -159,6 +160,13 @@ const Light = {
         background: `linear-gradient(98.12deg, #F0DDE9 0%, #F0F2F4 56.24%) padding-box,
         ${Tokens.colors.gradient} border-box`
       },
+      previewButton: {
+        color: Tokens.colors.gray400,
+        borderColor: Tokens.colors.gray50,
+        colorHover: Tokens.colors.gray600,
+        borderHover: Tokens.colors.gray100,
+        backgroundHover: settingColorOpacity(Tokens.colors.gray100, 0.05)
+      },
       danger: {
         color: Tokens.colors.gray25,
         backgroundColor: Tokens.colors.brandDanger,
@@ -178,6 +186,15 @@ const Light = {
         boxShadowHover: "0px 2px 0px rgba(141, 132, 188, 0.4)",
         boxShadowActive: "0px 3px 0px rgba(37, 39, 59, 0.05), 0px 16px 16px -8px rgba(76, 102, 177, 0.3)"
       },
+      configMinimal: {
+        border: Tokens.colors.gray100,
+        borderActive: Tokens.colors.purple200,
+        color: Tokens.colors.gray300,
+        colorActive: Tokens.colors.purple200,
+        iconColorActive: Tokens.colors.purple200,
+        background: "transparent",
+        backgroundActive: "linear-gradient(90deg, rgba(255, 255, 255, 0.1) -22.96%, rgba(255, 255, 255, 0) 123.24%)"
+      },
       settings: {
         color: Tokens.colors.purple300,
         colorHover: Tokens.colors.purple100,
@@ -193,6 +210,21 @@ const Light = {
           "linear-gradient(90deg, rgba(255, 255, 255, 0.3) 21.15%, rgba(255, 255, 255, 0) 100%), rgba(176, 175, 194, 0.3)",
         backgroundHover:
           "linear-gradient(90deg, rgba(255, 255, 255, 0.4) -22.96%, rgba(255, 255, 255, 0) 123.24%), rgba(196, 201, 213, 0.8)"
+      },
+      buttonMouse: {
+        backgroundColor: "linear-gradient(269.56deg, rgba(87, 97, 126, 0.25) 0.39%, rgba(226, 228, 234, 0.25) 74.37%)",
+        backgroundColorHover: "linear-gradient(270deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 70.91%), #C4C9D5",
+        backgroundColorActive: Tokens.colors.purple300,
+        color: Tokens.colors.gray500,
+        colorHover: Tokens.colors.gray500,
+        colorActive: "#fff"
+      },
+      recordButton: {
+        background: settingColorOpacity(Tokens.colors.gray25, 0.5),
+        backgroundHover: "linear-gradient(0deg, rgba(254, 0, 124, 0.05), rgba(254, 0, 124, 0.05)), rgba(240, 242, 244, 0.5)",
+        borderColor: Tokens.colors.brandPrimary,
+        borderColorResume: Tokens.colors.gray400,
+        color: Tokens.colors.brandPrimary
       }
     },
     collpase: {
@@ -227,6 +259,18 @@ const Light = {
       radius: "10",
       boxShadow: "0 0 0.5rem 0.3rem rgba(0,0,0,0.1)"
     },
+    cardButtons: {
+      background: "rgba(255, 255, 255, 0.6)",
+      color: Tokens.colors.gray300,
+      titleColor: Tokens.colors.gray500,
+      groupButtonsBackground: "rgba(255,255,255,1)"
+    },
+    customCheckbox: {
+      background: Tokens.colors.gray100,
+      borderColor: Tokens.colors.gray100,
+      backgroundActive: Tokens.colors.brandSuccess,
+      borderColorActive: Tokens.colors.brandSuccess
+    },
     dropdown: {
       backgroundButtonColor: "rgba(255, 255, 255, 0.5)",
       backgroundButtonHover: "rgba(255, 255, 255, 0.75)",
@@ -246,7 +290,8 @@ const Light = {
         itemBackgroundColorHover: Tokens.colors.gray25,
         itemBackgroundColorActive: Tokens.colors.purple100,
         linkColor: Tokens.colors.purple200,
-        textColor: Tokens.colors.gray400
+        textColor: Tokens.colors.gray400,
+        dropdownDivider: Tokens.colors.gray25
       },
       selector: {
         numberColor: Tokens.colors.gray500,
@@ -325,16 +370,121 @@ const Light = {
       formLabelTextcolor: Tokens.colors.gray500,
       inputColor: Tokens.colors.gray400,
       inputBorder: settingColorOpacity(Tokens.colors.gray100, 0.6),
+      inputBorderSolid: "rgba(196, 201, 213, 0.6)",
       inputBorderActive: Tokens.colors.purple200,
-      inputBackgroundColor: "rgba(255,255,255,0.6)",
-      inputBackgroundColorActive: "rgba(255,255,255,1)"
+      inputBackgroundColor: "#F9FAFB",
+      inputBackgroundColorActive: "rgba(255,255,255,1)",
+      inputGroupColor: Tokens.colors.gray300,
+      inputGroupBackground: Tokens.colors.gray25,
+      inputGroup: {
+        background: "#F9FAFB"
+      }
+    },
+    listGroup: {
+      listItem: {
+        background: Tokens.colors.gray50,
+        backgroundHover: Tokens.colors.gray100,
+        backgroundSelected: Tokens.colors.purple200,
+        backgroundDisabled: Tokens.colors.gray25,
+        color: Tokens.colors.gray500,
+        colorSelected: Tokens.colors.gray25,
+        colorSelectedSpan: Tokens.colors.gray50,
+        colorDisabled: Tokens.colors.gray200,
+        colorDisabledSpan: Tokens.colors.gray300
+      }
+    },
+    macro: {
+      tabCategoriesBackground: Tokens.colors.gray50,
+      tabContentBackground: Tokens.colors.gray25,
+      tabTile: Tokens.colors.gray500,
+      tabSubTitle: Tokens.colors.gray300,
+      descriptionColor: Tokens.colors.gray400,
+      trackingBackground: Tokens.colors.gray25,
+      timelineBackground: "rgba(255, 255, 255, 0.8)",
+      timelineHiddenTracking: "linear-gradient(90deg, rgba(240, 242, 244, 0) 0%, #F0F2F4 72.31%)",
+      timelineHiddenTrackingBefore: "linear-gradient(-90deg, rgba(240, 242, 244, 0) 0%, #F0F2F4 72.31%)",
+      colorTitle: Tokens.colors.gray500,
+      keyMacroMiniDashboardBackground: settingColorOpacity(Tokens.colors.gray25, 0.4),
+      keyMacroMiniDashboardBorder: `1px solid ${settingColorOpacity(Tokens.colors.gray50, 0.75)}`,
+      keyInfoBackground: settingColorOpacity(Tokens.colors.gray50, 0.4),
+      keyInfoTitle: Tokens.colors.gray300,
+      keyFunctionsBorder: Tokens.colors.gray50,
+      keyValueColor: Tokens.colors.gray600,
+      keyFunctionTile: Tokens.colors.gray500,
+      previewColor: Tokens.colors.gray200,
+      recordingMessageColor: Tokens.colors.gray300,
+      timelineRecordTrackingBackground: settingColorOpacity(Tokens.colors.gray100, 0.35),
+      timelineBarBackground: Tokens.colors.gray100,
+      tabSaveButtonColor: Tokens.colors.gray200,
+      tabSaveButtonBorder: `linear-gradient(98.12deg, ${Tokens.colors.gray50} 0%, ${Tokens.colors.gray25} 56.24%) padding-box, linear-gradient(90deg, ${Tokens.colors.gray100} 0%, ${Tokens.colors.gray50}  100%) border-box`,
+      specialKeyColor: Tokens.colors.gray400,
+      timelinePointeText: Tokens.colors.gray400,
+      recordMacroOptionsBackground: settingColorOpacity(Tokens.colors.gray100, 0.15),
+      recordMacroOptionsBoxShadow: "0 2px 0 rgba(151,160,180,0.1)",
+      recordMacroOptionsTitle: Tokens.colors.gray200
+    },
+    macroKey: {
+      background: "linear-gradient(90deg, rgba(255, 255, 255, 0.3) 21.15%, rgba(255, 255, 255, 0) 100%), #DADDE4",
+      backgroundColorDrag: settingColorOpacity(Tokens.colors.gray100, 0.5),
+      backgroundDrag: `linear-gradient(45deg, rgba(11, 2, 25, 0.05) 25%, transparent 25%, transparent 50%, rgba(11, 2, 25, 0.05) 50%, rgba(11, 2, 25, 0.05) 75%, transparent 75%, transparent 100%)`,
+      boxShadowOnDrag: "0 12px 24px rgba(11, 2, 25, 0.25)",
+      color: Tokens.colors.gray50,
+      colorModifier: Tokens.colors.gray600,
+      backgroundHeader: "rgba(51, 53, 74, 0.1)",
+      backgroundHeaderModifier: "rgba(51, 53, 74, 0.2)",
+      borderColor: Tokens.colors.gray100,
+      borderColorModifier: "rgba(63, 66, 90, 0.15)",
+      iconDragColor: Tokens.colors.gray200,
+      iconDragColorModifier: Tokens.colors.gray25,
+      actionIconColor: settingColorOpacity(Tokens.colors.gray500, 0.6),
+      actionColorModifier: settingColorOpacity(Tokens.colors.gray600, 0.8),
+      dropdownIconColor: Tokens.colors.purple200,
+      dropdownIconColorModifier: Tokens.colors.gray25,
+      alt: {
+        background: "linear-gradient(90deg, rgba(206, 207, 222, 0.2) 21.15%, rgba(123, 134, 158, 0.2) 100%), #F178B6"
+      },
+      altGr: {
+        background: "linear-gradient(90deg, rgba(206, 207, 222, 0.2) 21.15%, rgba(123, 134, 158, 0.2) 100%), #A1BC5E"
+      },
+      control: {
+        background: "linear-gradient(90deg, rgba(206, 207, 222, 0.2) 21.15%, rgba(123, 134, 158, 0.2) 100%), #35C2D5"
+      },
+      delay: {
+        background: "linear-gradient(90deg, rgba(255, 255, 255, 0.3) 21.15%, rgba(255, 255, 255, 0) 100%), #FF6B6B",
+        color: Tokens.colors.gray700,
+        borderColor: "rgba(63, 66, 90, 0.3)",
+        actionIconColor: settingColorOpacity(Tokens.colors.gray25, 0.85)
+      },
+      os: {
+        background: "linear-gradient(90deg, rgba(206, 207, 222, 0.2) 21.15%, rgba(123, 134, 158, 0.2) 100%), #7879F1"
+      },
+      shift: {
+        background: "linear-gradient(90deg, rgba(255, 255, 255, 0.3) 21.15%, rgba(255, 255, 255, 0) 100%), #FECA57",
+        color: Tokens.colors.gray600,
+        actionColor: settingColorOpacity(Tokens.colors.gray600, 0.6)
+      }
+    },
+    memoryUsage: {
+      color: Tokens.colors.gray200,
+      borderColor: Tokens.colors.gray50,
+      percentageColor: Tokens.colors.gray500,
+      progressBaseColor: Tokens.colors.gray100,
+      progressFill: Tokens.colors.brandSuccess,
+      colorWarning: Tokens.colors.brandWarning,
+      colorError: Tokens.colors.brandDanger
     },
     modal: {
       closeButton: closeButton,
       backdropColor: "rgba(214, 217, 224, 0.85)",
       background: Tokens.colors.gray25,
+      backgroundInner: "#fff",
       titleColor: Tokens.colors.gray400,
       footerBackground: settingColorOpacity(Tokens.colors.gray200, 0.075)
+    },
+    mouseButtons: {
+      background: Tokens.colors.gray50,
+      backgroundWheelCircle: Tokens.colors.gray50,
+      mouseWheel: mouseWheelBackground
     },
     navbar: {
       background: Tokens.colors.gray25,
@@ -367,9 +517,10 @@ const Light = {
     neuronStatus: {
       neuronStatusBackgroundColor: "rgba(255, 255, 255, 0.15)",
       lineStrokeColor: settingColorOpacity(Tokens.colors.gray200, 0.4),
-      lineStrokeColorConnected: "#7ACD92",
-      connectionSuccessFill: "#7ACD92",
-      connectionColorMatrix: "0 0 0 0 0.566745 0 0 0 0 0.898039 0 0 0 0 0.145098 0 0 0 0.5 0",
+      // lineStrokeColorConnected: "#7ACD92",
+      lineStrokeColorConnected: Tokens.colors.purple200,
+      connectionSuccessFill: Tokens.colors.purple200,
+      connectionColorMatrix: settingColorMatrix(Tokens.colors.purple200, 0.3),
       connectionColorMatrixOnLoading: settingColorMatrix("rgba(107, 20, 249, 1)", 0.3),
       neuronNotFoundedColor: Tokens.colors.gray400,
       connectionStrokeOpacity: 0.05,
@@ -442,6 +593,22 @@ const Light = {
       thumbBorderColorActive: Tokens.colors.purple200,
       thumbBoxShadow: "0px 4px 12px rgba(97, 32, 234, 0)",
       thumbBoxShadowActive: "0px 4px 12px rgba(97, 32, 234, 1)"
+    },
+    tab: {
+      color: Tokens.colors.gray500,
+      colorHover: Tokens.colors.gray600,
+      colorActive: Tokens.colors.purple300,
+      backgroundHover: "linear-gradient(122.87deg, rgba(238, 241, 248, 0.2) 52.49%, rgba(255, 255, 255, 0.2) 99.24%)",
+      backgroundActive: "linear-gradient(122.87deg, rgba(238, 241, 248, 0.7) 52.49%, rgba(255, 255, 255, 0.7) 99.24%)",
+      lightOpacity: 0.5
+    },
+    tabButton: {
+      background: settingColorOpacity(Tokens.colors.gray25, 0.2),
+      backgroundHover: Tokens.colors.gray25,
+      color: Tokens.colors.gray500,
+      colorHover: Tokens.colors.gray600,
+      svgColor: Tokens.colors.gray300,
+      svgHover: Tokens.colors.brandDanger
     },
     toast: {
       boxShadow: `0px 32px 32px -32px ${settingColorOpacity(Tokens.colors.gray300, 0.1)}, 0px 0px 32px ${settingColorOpacity(

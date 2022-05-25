@@ -18,6 +18,7 @@
 import React from "react";
 import Styled from "styled-components";
 import { toast } from "react-toastify";
+import ToastMessage from "../component/ToastMessage";
 
 // Bootstrap components
 import Container from "react-bootstrap/Container";
@@ -45,35 +46,17 @@ import { undeglowDefaultColors } from "../screens/Editor/initialUndaglowColors";
 // Modules
 import PageHeader from "../modules/PageHeader";
 import { KeyPickerKeyboard } from "../modules/KeyPickerKeyboard";
+import { LayerSelector } from "../component/Select";
+
+import { RegularButton } from "../component/Button";
+import { IconArrowUpWithLine, IconArrowDownWithLine } from "../component/Icon";
 
 const Store = window.require("electron-store");
 const store = new Store();
 
-const ModalStyle = Styled.div`
-background-color: ${({ theme }) => theme.card.background};
-color: ${({ theme }) => theme.card.color};
-.title {
-  font-weight: 300;
-  font-size: xx-large;
-}
-.body {
-  font-weight: 200;
-  font-size: 1.1em;
-}
-.noborder {
-  border: none;
-}
-.modal-footer {
-  justify-content: space-between;
-}
-.italic {
-  font-style: italic;
-}
-`;
-
 const Styles = Styled.div`
 max-width: 1900px;
-min-width: 1690px;
+min-width: 1120px;
 margin: auto;
 .keyboard-editor {
   height: 100%;
@@ -133,6 +116,7 @@ margin: auto;
 }
 .full-height {
   height: 100%;
+  padding-top: 24px;
 }
 .layer-col {
   display: flex;
@@ -1314,9 +1298,16 @@ class LayoutEditor extends React.Component {
             if (Array.isArray(layers.keymap)) {
               console.log(layers.keymap[0]);
               this.importLayer(layers);
-              toast.success(i18n.editor.importSuccessCurrentLayer, {
-                autoClose: 2000
-              });
+              toast.success(
+                <ToastMessage
+                  title={i18n.editor.importSuccessCurrentLayerTitle}
+                  content={i18n.editor.importSuccessCurrentLayer}
+                  icon={<IconArrowDownWithLine />}
+                />,
+                {
+                  autoClose: 2000
+                }
+              );
             } else {
               console.log(layers.keymap.custom[0]);
               this.setState({
@@ -1334,9 +1325,16 @@ class LayoutEditor extends React.Component {
             }
           } catch (e) {
             console.error(e);
-            toast.error(i18n.errors.invalidLayerFile, {
-              autoClose: 2000
-            });
+            toast.error(
+              <ToastMessage
+                title={i18n.errors.preferenceFailOnSave}
+                content={i18n.errors.invalidLayerFile}
+                icon={<IconArrowDownWithLine />}
+              />,
+              {
+                autoClose: 2000
+              }
+            );
             return;
           }
         } else {
@@ -1385,18 +1383,32 @@ class LayoutEditor extends React.Component {
         if (!resp.canceled) {
           console.log(resp.filePath, data);
           require("fs").writeFileSync(resp.filePath, data);
-          toast.success(i18n.editor.exportSuccessCurrentLayer, {
-            autoClose: 2000
-          });
+          toast.success(
+            <ToastMessage
+              title={i18n.editor.exportSuccessCurrentLayer}
+              content={i18n.editor.exportSuccessCurrentLayerContent}
+              icon={<IconArrowUpWithLine />}
+            />,
+            {
+              autoClose: 2000
+            }
+          );
         } else {
           console.log("user closed SaveDialog");
         }
       })
       .catch(err => {
         console.error(err);
-        toast.error(i18n.errors.exportError + err, {
-          autoClose: 2000
-        });
+        toast.error(
+          <ToastMessage
+            title={i18n.errors.exportFailed}
+            content={i18n.errors.exportError + err}
+            icon={<IconArrowUpWithLine />}
+          />,
+          {
+            autoClose: 2000
+          }
+        );
       });
   }
 
@@ -1430,9 +1442,16 @@ class LayoutEditor extends React.Component {
         if (!resp.canceled) {
           console.log(resp.filePath, data);
           require("fs").writeFileSync(resp.filePath, data);
-          toast.success(i18n.editor.exportSuccessAllLayers, {
-            autoClose: 2000
-          });
+          toast.success(
+            <ToastMessage
+              title={i18n.editor.exportSuccessAllLayers}
+              content={i18n.editor.exportSuccessAllLayers}
+              icon={<IconArrowUpWithLine />}
+            />,
+            {
+              autoClose: 2000
+            }
+          );
         } else {
           console.log("user closed SaveDialog");
         }
@@ -1487,6 +1506,11 @@ class LayoutEditor extends React.Component {
   layerName(index) {
     return this.state.layerNames.length >= index ? this.state.layerNames[index].name : this.defaultLayerNames[index];
   }
+  modeSelectToggle = data => {
+    this.setState({
+      modeselect: data
+    });
+  };
 
   render() {
     const {
@@ -1629,29 +1653,31 @@ class LayoutEditor extends React.Component {
     return (
       <Styles>
         <Container fluid className="keyboard-editor">
-          <PageHeader text={i18n.app.menu.editor} />
+          <PageHeader
+            text={i18n.app.menu.editor}
+            showSaving={true}
+            contentSelector={
+              <LayerSelector
+                itemList={layerMenu}
+                selectedItem={currentLayer}
+                subtitle={i18n.editor.layers.title}
+                onSelect={this.selectLayer}
+                updateItem={this.onLayerNameChange}
+                exportFunc={this.toExport}
+                importFunc={this.toImport}
+                clearFunc={this.confirmClear}
+                copyFunc={this.copyFromDialog}
+                editModeActual={this.state.modeselect}
+                editModeFunc={this.modeSelectToggle}
+              />
+            }
+            saveContext={this.onApply}
+            destroyContext={() => {
+              this.props.cancelContext();
+            }}
+            inContext={this.state.modified}
+          />
           <Row className="full-height">
-            <Col xs={2} className="full-height layer-col">
-              <Row className="mx-2">
-                <LayerPanel
-                  layers={layerMenu}
-                  selectLayer={this.selectLayer}
-                  currentLayer={currentLayer}
-                  isReadOnly={isReadOnly}
-                  importTitle={i18n.editor.layers.importTitle}
-                  exportTitle={i18n.editor.layers.exportTitle}
-                  exportAllTitle={i18n.editor.layers.exportAllTitle}
-                  importFunc={this.toImport}
-                  exportFunc={this.toExport}
-                  exportAllFunc={this.toExportAll}
-                  copyTitle={i18n.editor.layers.copyFrom}
-                  copyFunc={this.copyFromDialog}
-                  clearTitle={i18n.editor.layers.clearLayer}
-                  clearFunc={this.confirmClear}
-                  changeLayerName={this.onLayerNameChange}
-                />
-              </Row>
-            </Col>
             {/* </Row>
           {this.state.keymap.custom.length == 0 &&
             this.state.keymap.default.length == 0 && (
@@ -1733,88 +1759,64 @@ class LayoutEditor extends React.Component {
             currentLayer={currentLayer}
           />
         </Container>
-        <Card className="buttons-row">
-          <Button
-            active={this.state.modeselect == "keyboard"}
-            onClick={() => {
-              this.setState({ modeselect: "keyboard" });
-            }}
-            className="keyboardbutton big button-config"
-            aria-controls="keyboard-fade"
-          >
-            <MdKeyboard />
-          </Button>
-          <Button
-            active={this.state.modeselect == "color"}
-            onClick={() => {
-              this.setState({ modeselect: "color" });
-            }}
-            className="colorsbutton big button-config"
-          >
-            <IoMdColorPalette />
-          </Button>
-        </Card>
-        <Container className="save-row">
-          <Row className="save-button-row">
-            <Button
-              disabled={!this.state.modified}
-              onClick={this.onApply}
-              className={`button-large pt-0 mt-0 mb-2 save-button ${this.state.modified ? "save-active" : ""}`}
-              aria-controls="save-changes"
-            >
-              <FiSave />
-            </Button>
-          </Row>
-          <Row className="save-button-row">
-            <Button
-              disabled={!this.state.modified}
-              onClick={() => {
-                this.props.cancelContext();
-              }}
-              className={`button-large pt-0 mt-0 mb-2 cancel-button ${this.state.modified ? "cancel-active" : ""}`}
-              aria-controls="discard-changes"
-            >
-              <FiTrash2 />
-            </Button>
-          </Row>
-        </Container>
-        <Modal show={this.state.showMacroModal} onHide={this.toggleMacroModal} style={{ marginTop: "300px" }}>
-          <ModalStyle>
-            <Modal.Header closeButton className="title noborder">
-              <Modal.Title>{i18n.editor.oldMacroModal.title}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body className="body">
-              <p>{i18n.editor.oldMacroModal.body}</p>
-              <p className="italic">{i18n.editor.oldMacroModal.body2}</p>
-            </Modal.Body>
-            <Modal.Footer className="noborder">
-              <Button variant="secondary" onClick={this.toggleMacroModal}>
-                {i18n.editor.oldMacroModal.cancelButton}
-              </Button>
-              <Button variant="primary" onClick={this.updateOldMacros}>
-                {i18n.editor.oldMacroModal.applyButton}
-              </Button>
-            </Modal.Footer>
-          </ModalStyle>
+
+        <Modal
+          show={this.state.showMacroModal}
+          size="lg"
+          onHide={this.toggleMacroModal}
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>{i18n.editor.oldMacroModal.title}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body className="body">
+            <p>{i18n.editor.oldMacroModal.body}</p>
+            <p className="italic">{i18n.editor.oldMacroModal.body2}</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <RegularButton
+              buttonText={i18n.editor.oldMacroModal.cancelButton}
+              style="outline"
+              size="sm"
+              onClick={this.toggleMacroModal}
+            />
+            <RegularButton
+              buttonText={i18n.editor.oldMacroModal.applyButton}
+              style="outline gradient"
+              size="sm"
+              onClick={this.updateOldMacros}
+            />
+          </Modal.Footer>
         </Modal>
-        <Modal show={this.state.showNeuronModal} onHide={this.toggleNeuronModal} style={{ marginTop: "300px" }}>
-          <ModalStyle>
-            <Modal.Header closeButton className="title noborder">
-              <Modal.Title>{i18n.editor.oldNeuronModal.title}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body className="body">
-              <p>{i18n.editor.oldNeuronModal.body}</p>
-              <p className="italic">{i18n.editor.oldNeuronModal.body2}</p>
-            </Modal.Body>
-            <Modal.Footer className="noborder">
-              <Button variant="secondary" onClick={this.toggleNeuronModal}>
-                {i18n.editor.oldNeuronModal.cancelButton}
-              </Button>
-              <Button variant="primary" onClick={this.CloneExistingNeuron}>
-                {i18n.editor.oldNeuronModal.applyButton}
-              </Button>
-            </Modal.Footer>
-          </ModalStyle>
+        <Modal
+          show={this.state.showNeuronModal}
+          size="lg"
+          onHide={this.toggleNeuronModal}
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>{i18n.editor.oldNeuronModal.title}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>{i18n.editor.oldNeuronModal.body}</p>
+            <p className="italic">{i18n.editor.oldNeuronModal.body2}</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <RegularButton
+              buttonText={i18n.editor.oldNeuronModal.cancelButton}
+              style="outline"
+              size="sm"
+              onClick={this.toggleNeuronModal}
+            />
+            <RegularButton
+              buttonText={i18n.editor.oldNeuronModal.applyButton}
+              style="outline gradient"
+              size="sm"
+              onClick={this.CloneExistingNeuron}
+            />
+          </Modal.Footer>
         </Modal>
       </Styles>
     );

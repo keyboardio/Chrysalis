@@ -19,7 +19,8 @@ import { KeymapDB } from "@api/keymap";
 import Log from "@api/log";
 import fs from "fs";
 import { t } from "i18next";
-import { toast } from "react-toastify";
+import { toast } from "@renderer/components/Toast";
+
 const db = new KeymapDB();
 
 export const loadLayout = (fileName, fileData) => {

@@ -21,9 +21,9 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import LoadingScreen from "@renderer/components/LoadingScreen";
 import { PageTitle } from "@renderer/components/PageTitle";
+import { toast } from "@renderer/components/Toast";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
 
 const Store = require("electron-store");
 const settings = new Store();

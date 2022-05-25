@@ -26,10 +26,10 @@ import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import Typography from "@mui/material/Typography";
 import { PageTitle } from "@renderer/components/PageTitle";
+import { toast } from "@renderer/components/Toast";
 import { navigate } from "@renderer/routerHistory";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
 
 const FocusNotDetected = (props) => {
   const { t } = useTranslation();

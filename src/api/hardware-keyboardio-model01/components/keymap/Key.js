@@ -20,83 +20,77 @@ import React from "react";
 
 const db = new KeymapDB();
 
-class Key extends React.Component {
-  render() {
-    let shape,
-      stroke = "#b3b3b3";
+const Key = (props) => {
+  let shape,
+    stroke = "#b3b3b3";
 
-    if (this.props.active) {
-      stroke = "#f3b3b3";
-    }
+  if (props.active) {
+    stroke = "#f3b3b3";
+  }
 
-    const { getContrastText } = this.props;
+  const { getContrastText } = props;
 
-    if (this.props.palmKey) {
-      shape = (
-        <ellipse
-          fill={this.props.color}
-          stroke={stroke}
-          strokeWidth="2.73"
-          cx="610.765"
-          cy="953.469"
-          rx="75.6"
-          ry="56.001"
-          transform={this.props.shape}
-        />
-      );
-    } else {
-      shape = (
-        <path
-          fill={this.props.color}
-          stroke={stroke}
-          strokeWidth="1.55"
-          d={this.props.shape}
-        />
-      );
-    }
+  if (props.palmKey) {
+    shape = (
+      <ellipse
+        fill={props.color}
+        stroke={stroke}
+        strokeWidth="2.73"
+        cx="610.765"
+        cy="953.469"
+        rx="75.6"
+        ry="56.001"
+        transform={props.shape}
+      />
+    );
+  } else {
+    shape = (
+      <path
+        fill={props.color}
+        stroke={stroke}
+        strokeWidth="1.55"
+        d={props.shape}
+      />
+    );
+  }
 
-    const keyIndex = parseInt(this.props.row) * 16 + parseInt(this.props.col);
-    let extraLabel;
-    const key = this.props.keyObj;
-    const label = key && db.format(key);
+  const keyIndex = parseInt(props.row) * 16 + parseInt(props.col);
+  let extraLabel;
+  const key = props.keyObj;
+  const label = key && db.format(key);
 
-    if (this.props.extraLabelTransform && label && label.hint) {
-      extraLabel = (
-        <g transform={this.props.extraLabelTransform}>
-          <text
-            x={this.props.x}
-            y={this.props.y - 3}
-            className="extra-key"
-            fill={getContrastText(this.props.color)}
-          >
-            {label.hint}
-          </text>
-        </g>
-      );
-    }
-
-    return (
-      <g
-        onClick={this.props.onClick}
-        className="key"
-        data-key-index={keyIndex}
-        data-layer={this.props.layer}
-        data-led-index={this.props.ledIndex}
-      >
-        {shape}
-        <g transform={this.props.primaryLabelTransform}>
-          <text
-            x={this.props.x}
-            y={this.props.y}
-            fill={getContrastText(this.props.color)}
-          >
-            {label && label.main}
-          </text>
-        </g>
-        {extraLabel}
+  if (props.extraLabelTransform && label && label.hint) {
+    extraLabel = (
+      <g transform={props.extraLabelTransform}>
+        <text
+          x={props.x}
+          y={props.y - 3}
+          className="extra-key"
+          fill={getContrastText(props.color)}
+        >
+          {label.hint}
+        </text>
       </g>
     );
   }
-}
+
+  return (
+    <g
+      onClick={props.onClick}
+      className="key"
+      data-key-index={keyIndex}
+      data-layer={props.layer}
+      data-led-index={props.ledIndex}
+    >
+      {shape}
+      <g transform={props.primaryLabelTransform}>
+        <text x={props.x} y={props.y} fill={getContrastText(props.color)}>
+          {label && label.main}
+        </text>
+      </g>
+      {extraLabel}
+    </g>
+  );
+};
 
 export default Key;

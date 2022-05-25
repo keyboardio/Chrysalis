@@ -22,174 +22,169 @@ import Atreus from "../data/atreus.png";
 
 const db = new KeymapDB();
 
-class Keymap extends React.Component {
-  render() {
-    const keymap =
-      this.props.keymap ||
-      Array(48)
-        .fill()
-        .map(() => 0);
+const Keymap = (props) => {
+  const keymap =
+    props.keymap ||
+    Array(48)
+      .fill()
+      .map(() => 0);
+  const KeySpacingY = 64;
+  const keySpacingX = 64;
+  const colOffsetY = [30, 20, 4, 24, 40, 30, 30, 40, 24, 4, 20, 30];
+  const colOffsetX = [
+    0, 0, 0, 0, 0, 0, -71.5, -71.5, -71.5, -71.5, -71.5, -71.5,
+  ];
+  const rowOffsetX = [2, 2, 2, 2];
+  const layer = props.index;
+  const onKeySelect = props.onKeySelect;
 
-    const KeySpacingY = 64;
-    const keySpacingX = 64;
+  const getKey = (row, col) => {
+    if (!props.keymap) return null;
+    const keyIndex = parseInt(row) * 12 + parseInt(col),
+      key = keymap[keyIndex];
+    return key;
+  };
 
-    const colOffsetY = [30, 20, 4, 24, 40, 30, 30, 40, 24, 4, 20, 30];
-    const colOffsetX = [
-      0, 0, 0, 0, 0, 0, -71.5, -71.5, -71.5, -71.5, -71.5, -71.5,
-    ];
+  const isActive = (row, col) => {
+    const keyIndex = parseInt(row) * 12 + parseInt(col);
+    return props.selectedKey == keyIndex;
+  };
 
-    const rowOffsetX = [2, 2, 2, 2];
+  const getX = (row, col) => {
+    return rowOffsetX[row] + keySpacingX * col + colOffsetX[col];
+  };
 
-    const getKey = (row, col) => {
-      if (!this.props.keymap) return null;
-      const keyIndex = parseInt(row) * 12 + parseInt(col),
-        key = keymap[keyIndex];
-      return key;
-    };
-    const isActive = (row, col) => {
-      const keyIndex = parseInt(row) * 12 + parseInt(col);
-      return this.props.selectedKey == keyIndex;
-    };
+  const getY = (row, col) => {
+    return colOffsetY[col] + KeySpacingY * row;
+  };
 
-    const getX = (row, col) => {
-      return rowOffsetX[row] + keySpacingX * col + colOffsetX[col];
-    };
+  const Key = (props) => {
+    const { row, col } = props;
+    const x = getX(row, col),
+      y = getY(row, col),
+      active = isActive(row, col),
+      key = getKey(row, col),
+      onClick = onKeySelect;
+    const keyIndex = parseInt(row) * 12 + parseInt(col);
+    const strokeColor = "transparent" || "#b3b3b3";
+    const stroke = active ? "#f3b3b3" : strokeColor;
+    const height = props.height || 44;
+    const width = props.width || 44;
+    const bottom = y + height - 5;
+    /*
+      const textColor = "#000000";
+      const buttonColor = "#ffffff";
+    */
 
-    const getY = (row, col) => {
-      return colOffsetY[col] + KeySpacingY * row;
-    };
-
-    const Key = (props) => {
-      const { row, col } = props;
-      const x = getX(row, col),
-        y = getY(row, col),
-        active = isActive(row, col),
-        layer = this.props.index,
-        key = getKey(row, col),
-        onClick = this.props.onKeySelect;
-      const keyIndex = parseInt(row) * 12 + parseInt(col);
-      const strokeColor = "transparent" || "#b3b3b3";
-      const stroke = active ? "#f3b3b3" : strokeColor;
-      const height = props.height || 44;
-      const width = props.width || 44;
-      const bottom = y + height - 5;
-      /*
-        const textColor = "#000000";
-        const buttonColor = "#ffffff";
-      */
-      let textColor = "#ffffff";
-      const buttonColor = "transparent";
-
-      let legendClass = "";
-      const legend = key && db.format(key);
-      if (key && (legend.main || "").length <= 1 && !legend.hint)
-        legendClass = "short-legend";
-      if (key && key.code == 0) textColor = "#888888";
-
-      return (
-        <g
-          onClick={onClick}
-          className="key"
-          data-key-index={keyIndex}
-          data-layer={layer}
-        >
-          <rect
-            x={x}
-            y={y}
-            rx={2}
-            width={width}
-            height={height}
-            stroke={stroke}
-            strokeWidth={1.55}
-            fill={buttonColor}
-          />
-          <text x={x + 5} y={y + 14} fill={textColor} className={legendClass}>
-            {key && db.format(key).hint}
-          </text>
-          <text x={x + 5} y={bottom} fill={textColor} className={legendClass}>
-            {key && db.format(key).main}
-          </text>
-        </g>
-      );
-    };
-
-    const { classes } = this.props;
-
+    let textColor = "#ffffff";
+    const buttonColor = "transparent";
+    let legendClass = "";
+    const legend = key && db.format(key);
+    if (key && (legend.main || "").length <= 1 && !legend.hint)
+      legendClass = "short-legend";
+    if (key && key.code == 0) textColor = "#888888";
     return (
-      <svg
-        viewBox="0 0 855 362"
-        xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="xMinYMin meet"
-        style={{
-          background: `url(${Atreus})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "100%",
-        }}
-        className={classNames(classes?.svg, this.props.className || "layer")}
+      <g
+        onClick={onClick}
+        className="key"
+        data-key-index={keyIndex}
+        data-layer={layer}
       >
-        <g transform="translate(80,0)">
-          <g transform="rotate(10)">
-            <Key row={0} col={0} />
-            <Key row={0} col={1} />
-            <Key row={0} col={2} />
-            <Key row={0} col={3} />
-            <Key row={0} col={4} />
+        <rect
+          x={x}
+          y={y}
+          rx={2}
+          width={width}
+          height={height}
+          stroke={stroke}
+          strokeWidth={1.55}
+          fill={buttonColor}
+        />
+        <text x={x + 5} y={y + 14} fill={textColor} className={legendClass}>
+          {key && db.format(key).hint}
+        </text>
+        <text x={x + 5} y={bottom} fill={textColor} className={legendClass}>
+          {key && db.format(key).main}
+        </text>
+      </g>
+    );
+  };
 
-            <Key row={1} col={0} />
-            <Key row={1} col={1} />
-            <Key row={1} col={2} />
-            <Key row={1} col={3} />
-            <Key row={1} col={4} />
+  const { classes } = props;
+  return (
+    <svg
+      viewBox="0 0 855 362"
+      xmlns="http://www.w3.org/2000/svg"
+      preserveAspectRatio="xMinYMin meet"
+      style={{
+        background: `url(${Atreus})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "100%",
+      }}
+      className={classNames(classes?.svg, props.className || "layer")}
+    >
+      <g transform="translate(80,0)">
+        <g transform="rotate(10)">
+          <Key row={0} col={0} />
+          <Key row={0} col={1} />
+          <Key row={0} col={2} />
+          <Key row={0} col={3} />
+          <Key row={0} col={4} />
 
-            <Key row={2} col={0} />
-            <Key row={2} col={1} />
-            <Key row={2} col={2} />
-            <Key row={2} col={3} />
-            <Key row={2} col={4} />
-            <Key row={2} col={5} />
+          <Key row={1} col={0} />
+          <Key row={1} col={1} />
+          <Key row={1} col={2} />
+          <Key row={1} col={3} />
+          <Key row={1} col={4} />
 
-            <Key row={3} col={0} />
-            <Key row={3} col={1} />
-            <Key row={3} col={2} />
-            <Key row={3} col={3} />
-            <Key row={3} col={4} />
+          <Key row={2} col={0} />
+          <Key row={2} col={1} />
+          <Key row={2} col={2} />
+          <Key row={2} col={3} />
+          <Key row={2} col={4} />
+          <Key row={2} col={5} />
 
-            <Key row={3} col={5} />
-          </g>
+          <Key row={3} col={0} />
+          <Key row={3} col={1} />
+          <Key row={3} col={2} />
+          <Key row={3} col={3} />
+          <Key row={3} col={4} />
 
-          <g transform="rotate(-10)">
-            <g transform="translate(0, 120.5)">
-              <Key row={0} col={7} />
-              <Key row={0} col={8} />
-              <Key row={0} col={9} />
-              <Key row={0} col={10} />
-              <Key row={0} col={11} />
+          <Key row={3} col={5} />
+        </g>
 
-              <Key row={1} col={7} />
-              <Key row={1} col={8} />
-              <Key row={1} col={9} />
-              <Key row={1} col={10} />
-              <Key row={1} col={11} />
+        <g transform="rotate(-10)">
+          <g transform="translate(0, 120.5)">
+            <Key row={0} col={7} />
+            <Key row={0} col={8} />
+            <Key row={0} col={9} />
+            <Key row={0} col={10} />
+            <Key row={0} col={11} />
 
-              <Key row={2} col={6} />
-              <Key row={2} col={7} />
-              <Key row={2} col={8} />
-              <Key row={2} col={9} />
-              <Key row={2} col={10} />
-              <Key row={2} col={11} />
+            <Key row={1} col={7} />
+            <Key row={1} col={8} />
+            <Key row={1} col={9} />
+            <Key row={1} col={10} />
+            <Key row={1} col={11} />
 
-              <Key row={3} col={6} />
-              <Key row={3} col={7} />
-              <Key row={3} col={8} />
-              <Key row={3} col={9} />
-              <Key row={3} col={10} />
-              <Key row={3} col={11} />
-            </g>
+            <Key row={2} col={6} />
+            <Key row={2} col={7} />
+            <Key row={2} col={8} />
+            <Key row={2} col={9} />
+            <Key row={2} col={10} />
+            <Key row={2} col={11} />
+
+            <Key row={3} col={6} />
+            <Key row={3} col={7} />
+            <Key row={3} col={8} />
+            <Key row={3} col={9} />
+            <Key row={3} col={10} />
+            <Key row={3} col={11} />
           </g>
         </g>
-      </svg>
-    );
-  }
-}
+      </g>
+    </svg>
+  );
+};
 
 export default Keymap;

@@ -21,90 +21,48 @@ import Box from "@mui/material/Box";
 import React from "react";
 import { CustomPicker } from "react-color";
 
-/*
-export const Circle = ({ width, onChange, onSwatchHover, colors, hex, circleSize,
-                         styles: passedStyles = {}, circleSpacing, className = '' }) => {
-                           const styles = reactCSS(merge({
-                             'default': {
-                               card: {
-                                 width,
-                                 display: 'flex',
-                                 flexWrap: 'wrap',
-                                 marginRight: -circleSpacing,
-                                 marginBottom: -circleSpacing,
-                               },
-                             },
-                           }, passedStyles))
+const Swatch = (props) => {
+  const { classes, color, active, onClick } = props; // TODO(anyone): The width, height and margin properties should be relative
+  // to theme spacings. They were 3/3/0.75 previously. However, using those
+  // numbers here gets us 3px "big" swatches, which isn't what we want.
 
-                           const handleChange = (hexCode, e) => onChange({ hex: hexCode, source: 'hex' }, e)
-
-                           return (
-                             <div style={ styles.card } className={ `circle-picker ${ className }` }>
-                               { map(colors, c => (
-                                 <CircleSwatch
-                                   key={ c }
-                                   color={ c }
-                                   onClick={ handleChange }
-                                   onSwatchHover={ onSwatchHover }
-                                   active={ hex === c.toLowerCase() }
-                                   circleSize={ circleSize }
-                                   circleSpacing={ circleSpacing }
-                                   />
-                               )) }
-                             </div>
-                           )
-                         }
-*/
-
-class Swatch extends React.Component {
-  render() {
-    const { classes, color, active, onClick } = this.props;
-
-    // TODO(anyone): The width, height and margin properties should be relative
-    // to theme spacings. They were 3/3/0.75 previously. However, using those
-    // numbers here gets us 3px "big" swatches, which isn't what we want.
-    return (
-      <Avatar
-        sx={{
-          width: "24px",
-          height: "24px",
-          margin: "2.25px",
-        }}
-        variant="square"
-        style={{
-          color: color.rgb,
-          background: active ? "transparent" : color.rgb,
-        }}
-        onClick={onClick}
-      >
-        <CropSquareIcon />
-      </Avatar>
-    );
-  }
-}
-
-class PalettePicker extends React.Component {
-  render() {
-    const { classes, colors, color, onClick } = this.props;
-
-    return (
-      <Box
-        sx={{
-          display: "flex",
-          flexWrap: "wrap",
-        }}
-      >
-        {colors.map((c, i) => (
-          <Swatch
-            key={`palette-swatch-${i}`}
-            color={colors[i]}
-            active={i == color}
-            onClick={() => onClick(i)}
-          />
-        ))}
-      </Box>
-    );
-  }
-}
+  return (
+    <Avatar
+      sx={{
+        width: "24px",
+        height: "24px",
+        margin: "2.25px",
+      }}
+      variant="square"
+      style={{
+        color: color.rgb,
+        background: active ? "transparent" : color.rgb,
+      }}
+      onClick={onClick}
+    >
+      <CropSquareIcon />
+    </Avatar>
+  );
+};
+const PalettePicker = (props) => {
+  const { classes, colors, color, onClick } = props;
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexWrap: "wrap",
+      }}
+    >
+      {colors.map((c, i) => (
+        <Swatch
+          key={`palette-swatch-${i}`}
+          color={colors[i]}
+          active={i == color}
+          onClick={() => onClick(i)}
+        />
+      ))}
+    </Box>
+  );
+};
 
 export default CustomPicker(PalettePicker);

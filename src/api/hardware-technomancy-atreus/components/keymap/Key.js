@@ -20,40 +20,36 @@ import React from "react";
 
 const db = new KeymapDB();
 
-class Key extends React.Component {
-  render() {
-    const { x, y, keyObj, row, col, layer, onClick } = this.props;
-    const keyIndex = parseInt(row) * 11 + parseInt(col);
-    const stroke = this.props.active ? "#f3b3b3" : "#b3b3b3";
-    const height = this.props.height || 48;
-    const bottom = y + height - 16;
-
-    return (
-      <g
-        onClick={onClick}
-        className="key"
-        data-key-index={keyIndex}
-        data-layer={layer}
-      >
-        <rect
-          x={x}
-          y={y}
-          rx={3}
-          width="48"
-          height={height}
-          stroke={stroke}
-          strokeWidth={1.55}
-          fill="#ffffff"
-        />
-        <text x={x + 3} y={y + 14}>
-          {keyObj && keyObj.label && keyObj.label.hint}
-        </text>
-        <text x={x + 3} y={bottom}>
-          {keyObj && keyObj.label && db.format(keyObj).main}
-        </text>
-      </g>
-    );
-  }
-}
-
+const Key = (props) => {
+  const { x, y, keyObj, row, col, layer, onClick } = props;
+  const keyIndex = parseInt(row) * 11 + parseInt(col);
+  const stroke = props.active ? "#f3b3b3" : "#b3b3b3";
+  const height = props.height || 48;
+  const bottom = y + height - 16;
+  return (
+    <g
+      onClick={onClick}
+      className="key"
+      data-key-index={keyIndex}
+      data-layer={layer}
+    >
+      <rect
+        x={x}
+        y={y}
+        rx={3}
+        width="48"
+        height={height}
+        stroke={stroke}
+        strokeWidth={1.55}
+        fill="#ffffff"
+      />
+      <text x={x + 3} y={y + 14}>
+        {keyObj && keyObj.label && keyObj.label.hint}
+      </text>
+      <text x={x + 3} y={bottom}>
+        {keyObj && keyObj.label && db.format(keyObj).main}
+      </text>
+    </g>
+  );
+};
 export default Key;

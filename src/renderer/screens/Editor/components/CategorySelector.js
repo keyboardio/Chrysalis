@@ -22,48 +22,28 @@ import KeyButtonList from "../components/KeyButtonList";
 
 const db = new KeymapDB();
 
-class CategorySelector extends React.Component {
-  state = {
-    pickerOpen: false,
+const CategorySelector = (props) => {
+  const onKeyChange = (keyCode) => {
+    props.onKeyChange(keyCode);
   };
+  const { keymap, selectedKey, layer, category, title, help } = props;
+  const key = keymap.custom[layer][selectedKey];
 
-  openPicker = () => {
-    this.setState({ pickerOpen: true });
-  };
-
-  closePicker = () => {
-    this.setState({ pickerOpen: false });
-  };
-
-  onKeyChange = (keyCode) => {
-    this.props.onKeyChange(keyCode);
-    this.closePicker();
-  };
-
-  render() {
-    const { keymap, selectedKey, layer, category, title, help } = this.props;
-
-    const key = keymap.custom[layer][selectedKey];
-    const label = db.isInCategory(key.code, category)
-      ? db.format(key, "full")
-      : { main: title + "..." };
-
-    return (
-      <React.Fragment>
-        <Collapsible
-          expanded={db.isInCategory(key.code, category)}
-          title={title}
-          help={help}
-        >
-          <KeyButtonList
-            keys={db.selectCategory(category)}
-            onKeyChange={this.onKeyChange}
-            showHints={false}
-          />
-        </Collapsible>
-      </React.Fragment>
-    );
-  }
-}
+  return (
+    <React.Fragment>
+      <Collapsible
+        expanded={db.isInCategory(key.code, category)}
+        title={title}
+        help={help}
+      >
+        <KeyButtonList
+          keys={db.selectCategory(category)}
+          onKeyChange={onKeyChange}
+          showHints={false}
+        />
+      </Collapsible>
+    </React.Fragment>
+  );
+};
 
 export { CategorySelector as default };

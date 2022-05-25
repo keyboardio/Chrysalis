@@ -77,7 +77,6 @@
     "@mui/icons-material": "^5.5.1",
     "@mui/lab": "^5.0.0-alpha.74",
     "@mui/material": "^5.5.2",
-    "@mui/styles": "^5.5.1",
     "@mui/system": "^5.5.2",
     "archiver": "^5.0.2",
     "avrgirl-arduino": "keyboardio/avrgirl-arduino#serialport-10",

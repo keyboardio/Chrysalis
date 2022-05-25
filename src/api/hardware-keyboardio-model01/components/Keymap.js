@@ -33,12 +33,12 @@ const led_map = [
 
 const Keymap = (props) => {
   const theme = useTheme();
-
   const keymap =
     props.keymap ||
     Array(64)
       .fill()
       .map(() => 0);
+
   const getContrastText = (color) => {
     return theme.palette.getContrastText(color);
   };
@@ -61,18 +61,20 @@ const Keymap = (props) => {
     const ledIndex = led_map[parseInt(row)][parseInt(col)],
       colorIndex = colormap[ledIndex],
       color = palette[colorIndex].rgb;
-
     return color;
   };
+
   const getLEDIndex = (row, col) => {
     return led_map[parseInt(row)][parseInt(col)];
   };
+
   const getKey = (row, col) => {
     if (!props.keymap) return null;
     const keyIndex = parseInt(row) * 16 + parseInt(col),
       key = keymap[keyIndex];
     return key;
   };
+
   const isActive = (row, col) => {
     const keyIndex = parseInt(row) * 16 + parseInt(col);
     return props.selectedKey == keyIndex;

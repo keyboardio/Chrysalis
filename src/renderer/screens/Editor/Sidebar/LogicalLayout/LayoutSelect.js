@@ -20,52 +20,49 @@ import Autocomplete from "@mui/material/Autocomplete";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 import TextField from "@mui/material/TextField";
-import i18n from "i18next";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const db = new KeymapDB();
 
-class LayoutSelect extends React.Component {
-  setLayout = (_, value) => {
-    const layout = value || this.props.layout;
-    this.props.setLayout(layout);
+const LayoutSelect = (props) => {
+  const { t } = useTranslation();
+
+  const setLayout = (_, value) => {
+    props.setLayout(value || props.layout);
   };
 
-  render() {
-    const { className, layout } = this.props;
+  const { className, layout } = props;
+  const platforms = {
+    linux: "Linux",
+    win32: "Windows",
+    darwin: "macOS",
+  };
+  const hostos = platforms[process.platform];
+  const label = t("editor.sidebar.keypicker.hostLayout", {
+    hostos: hostos,
+  });
 
-    const platforms = {
-      linux: "Linux",
-      win32: "Windows",
-      darwin: "macOS",
-    };
-    const hostos = platforms[process.platform];
-
-    const label = i18n.t("editor.sidebar.keypicker.hostLayout", {
-      hostos: hostos,
-    });
-
-    return (
-      <div className={className}>
-        <FormControl>
-          <Autocomplete
-            value={layout}
-            groupBy={(option) => db.getLayoutLanguage(option)}
-            onChange={this.setLayout}
-            options={db.getSupportedLayouts()}
-            getOptionLabel={(option) => option}
-            disableClearable
-            renderInput={(params) => (
-              <TextField {...params} label={label} variant="outlined" />
-            )}
-          />
-          <FormHelperText>
-            {i18n.t("editor.sidebar.keypicker.hostHelp")}
-          </FormHelperText>
-        </FormControl>
-      </div>
-    );
-  }
-}
+  return (
+    <div className={className}>
+      <FormControl>
+        <Autocomplete
+          value={layout}
+          groupBy={(option) => db.getLayoutLanguage(option)}
+          onChange={setLayout}
+          options={db.getSupportedLayouts()}
+          getOptionLabel={(option) => option}
+          disableClearable
+          renderInput={(params) => (
+            <TextField {...params} label={label} variant="outlined" />
+          )}
+        />
+        <FormHelperText>
+          {t("editor.sidebar.keypicker.hostHelp")}
+        </FormHelperText>
+      </FormControl>
+    </div>
+  );
+};
 
 export { LayoutSelect as default };

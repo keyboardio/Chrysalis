@@ -31,7 +31,7 @@ import TableRow from "@mui/material/TableRow";
 import Tooltip from "@mui/material/Tooltip";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import LayoutSharing from "./Overview/LayoutSharing";
+import LayoutSharing from "./LayoutSharing";
 
 const Overview = (props) => {
   const [showAll, setShowAll] = useState(false);

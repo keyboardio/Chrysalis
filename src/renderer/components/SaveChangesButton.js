@@ -17,154 +17,98 @@
 
 import CheckIcon from "@mui/icons-material/Check";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 import Fab from "@mui/material/Fab";
 import Tooltip from "@mui/material/Tooltip";
-import withStyles from "@mui/styles/withStyles";
 import i18n from "@renderer/i18n";
-import classNames from "classnames";
-import PropTypes from "prop-types";
 import React from "react";
 
-const styles = (theme) => ({
-  root: {
-    display: "flex",
-    alignItems: "center",
-  },
-  wrapper: {
-    margin: theme.spacing(1),
-    position: "relative",
-  },
-  buttonSuccess: {
-    backgroundColor: theme.palette.success.main,
-    "&:hover": {
-      backgroundColor: theme.palette.success.light,
-    },
-  },
-  fabProgress: {
-    color: theme.palette.success.main,
-    position: "absolute",
-    top: -6,
-    left: -6,
-    zIndex: 1,
-  },
-  buttonProgress: {
-    color: theme.palette.success.main,
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    marginTop: -12,
-    marginLeft: -12,
-  },
-  icon: {
-    marginRight: -16,
-    zIndex: 1,
-  },
-  disabled: {
-    backgroundColor: theme.palette.action.disabled,
-  },
-  fab: {
-    position: "fixed",
-    justifyContent: "flex-end",
-    bottom: 0,
-    left: theme.spacing(4),
-    zIndex: theme.zIndex.drawer + 1,
-  },
-});
+const SaveChangesButton = (props) => {
+  const [inProgress, setInProgress] = React.useState(false);
+  const [success, setSuccess] = React.useState(false);
 
-class SaveChangesButton extends React.Component {
-  state = {
-    inProgress: false,
-    success: false,
+  const { successMessage } = props;
+
+  const handleButtonClick = async (event) => {
+    setInProgress(true);
+    console.log("about to do aysnc sutff");
+    console.log(" about to call  the onlick handler");
+    await props.onClick(event);
+    console.log("Got back from click");
+    setSuccess(true);
+    setInProgress(false);
+    setTimeout(() => {
+      console.log("running the timeout callback ");
+      setSuccess(false);
+      console.log("finishied timeout callback");
+    }, 2000);
   };
 
-  componentWillUnmount() {
-    clearTimeout(this.timer);
-  }
+  const textPart = !props.floating && (
+    <Box sx={{ position: "relative" }}>
+      <Button
+        variant="contained"
+        disabled={inProgress || (props.disabled && !success)}
+        onClick={handleButtonClick}
+        color={success ? "success" : "primary"}
+      >
+        {success
+          ? successMessage || i18n.t("components.save.success")
+          : props.children}
+      </Button>
+    </Box>
+  );
 
-  handleButtonClick = async (event) => {
-    this.setState(
-      {
-        inProgress: true,
-      },
-      async () => {
-        await this.props.onClick(event);
-        this.setState({
-          success: true,
-          inProgress: false,
-        });
-        this.timer = setTimeout(() => {
-          this.setState({ success: false });
-        }, 2000);
-      }
-    );
+  const icon = props.icon || <SaveAltIcon />;
+
+  const OptionalTooltip = (props) => {
+    if (props.floating) {
+      return <Tooltip title={props.children}>{props.children}</Tooltip>;
+    }
+    return props.children;
   };
 
-  render() {
-    const { inProgress, success } = this.state;
-    const { classes, successMessage } = this.props;
-    const buttonClassname = classNames({
-      [classes.buttonSuccess]: success,
-    });
-
-    const textPart = !this.props.floating && (
-      <div className={classes.wrapper}>
-        <Button
-          variant="contained"
-          color="primary"
-          className={buttonClassname}
-          disabled={inProgress || (this.props.disabled && !success)}
-          onClick={this.handleButtonClick}
-        >
-          {success
-            ? successMessage || i18n.t("components.save.success")
-            : this.props.children}
-        </Button>
-      </div>
-    );
-
-    const icon = this.props.icon || <SaveAltIcon />;
-
-    const OptionalTooltip = (props) => {
-      if (this.props.floating) {
-        return <Tooltip title={this.props.children}>{props.children}</Tooltip>;
-      }
-      return props.children;
-    };
-
-    return (
-      <OptionalTooltip>
-        <div
-          className={classNames(
-            classes.root,
-            this.props.className,
-            this.props.floating && classes.fab
+  return (
+    <OptionalTooltip>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-end",
+          position: props.floating && "fixed",
+          bottom: props.floating && 32,
+          left: props.floating && 32,
+          zIndex: props.floating && ((theme) => theme.zIndex.drawer - 1),
+        }}
+      >
+        <Box sx={{ position: "relative" }}>
+          <Fab
+            disabled={inProgress || (props.disabled && !success)}
+            color={success ? "success" : "primary"}
+            onClick={handleButtonClick}
+            sx={{ marginRight: "-16px" }}
+          >
+            {success ? <CheckIcon /> : icon}
+          </Fab>
+          {inProgress && (
+            <CircularProgress
+              size={68}
+              color="success"
+              sx={{
+                position: "absolute",
+                top: -6,
+                left: -6,
+                zIndex: 1,
+              }}
+            />
           )}
-        >
-          <div className={classNames(classes.wrapper, classes.icon)}>
-            <Fab
-              disabled={inProgress || (this.props.disabled && !success)}
-              color="primary"
-              className={buttonClassname}
-              classes={{ disabled: classes.disabled }}
-              onClick={this.handleButtonClick}
-            >
-              {success ? <CheckIcon /> : icon}
-            </Fab>
-            {inProgress && (
-              <CircularProgress size={68} className={classes.fabProgress} />
-            )}
-          </div>
-          {textPart}
-        </div>
-      </OptionalTooltip>
-    );
-  }
-}
-
-SaveChangesButton.propTypes = {
-  classes: PropTypes.object.isRequired,
+        </Box>
+        {textPart}
+      </Box>
+    </OptionalTooltip>
+  );
 };
 
-export default withStyles(styles)(SaveChangesButton);
+export default SaveChangesButton;

@@ -44,6 +44,7 @@ import Typography from "@mui/material/Typography";
 import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
 import { PageTitle } from "@renderer/components/PageTitle";
 import SaveChangesButton from "@renderer/components/SaveChangesButton";
+import { toast } from "@renderer/components/Toast";
 import { getStaticPath } from "@renderer/config";
 import checkExternalFlasher from "@renderer/utils/checkExternalFlasher";
 import clearEEPROM from "@renderer/utils/clearEEPROM";
@@ -53,7 +54,6 @@ import fs from "fs";
 import path from "path";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
 
 const Store = require("electron-store");
 const settings = new Store();
@@ -146,8 +146,7 @@ const FirmwareUpdate = (props) => {
     const nextStep = async (desiredState) => {
       if (desiredState == "bootloaderWait") {
         toast.info(t("firmwareUpdate.flashing.releasePROG"), {
-          autoClose: 5000,
-          closeOnClick: true,
+          autoHideDuration: 5000,
         });
       }
 
@@ -181,26 +180,8 @@ const FirmwareUpdate = (props) => {
       setActiveStep(activeStep + 1);
     } catch (e) {
       console.error(e);
-      const action = ({ closeToast }) => (
-        <React.Fragment>
-          <Button
-            variant="contained"
-            onClick={() => {
-              const shell = Electron.remote && Electron.remote.shell;
-              shell.openExternal(
-                "https://github.com/keyboardio/Chrysalis/wiki/Troubleshooting"
-              );
-            }}
-          >
-            Troubleshooting
-          </Button>
-          <Button onClick={closeToast}>Dismiss</Button>
-        </React.Fragment>
-      );
       setActiveStep(-1);
-      toast.error(t("firmwareUpdate.flashing.error"), {
-        closeButton: action,
-      });
+      toast.error(t("firmwareUpdate.flashing.error"));
       props.toggleFlashing();
       props.onDisconnect();
       return;

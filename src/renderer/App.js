@@ -22,6 +22,7 @@ import Log from "@api/log";
 import { LocationProvider, Router } from "@gatsbyjs/reach-router";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
+import Snackbar from "@mui/material/Snackbar";
 import {
   createTheme,
   StyledEngineProvider,
@@ -29,8 +30,6 @@ import {
 } from "@mui/material/styles";
 import React, { Suspense, useContext, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import "typeface-roboto/index.css";
 import "typeface-source-code-pro/index.css";
 import { ActiveDevice } from "./ActiveDevice";
@@ -51,13 +50,7 @@ const { ipcRenderer } = require("electron");
 const Store = require("electron-store");
 const settings = new Store();
 
-toast.configure({
-  position: "bottom-left",
-  autoClose: false,
-  newestOnTop: true,
-  draggable: false,
-  closeOnClick: false,
-});
+import Toast, { toast } from "./components/Toast";
 
 const focus = new Focus();
 if (isDevelopment) {
@@ -230,6 +223,7 @@ const App = (props) => {
               </Box>
             </LocationProvider>
           </Box>
+          <Toast />
         </ThemeProvider>
       </StyledEngineProvider>
     </Suspense>

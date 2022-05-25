@@ -18,10 +18,10 @@
 import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { toast } from "@renderer/components/Toast";
 import { installUdevRules } from "@renderer/utils/installUdevRules";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
 
 export const LinuxPermissionsWarning = (props) => {
   const selectedDevicePort = props.selectedDevicePort;

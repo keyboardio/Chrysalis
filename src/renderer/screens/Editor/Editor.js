@@ -26,9 +26,9 @@ import {
 import LoadingScreen from "@renderer/components/LoadingScreen";
 import { PageTitle } from "@renderer/components/PageTitle";
 import SaveChangesButton from "@renderer/components/SaveChangesButton";
+import { toast } from "@renderer/components/Toast";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
 import { FloatingKeyPicker } from "./components/FloatingKeyPicker";
 import { LegacyAlert } from "./components/LegacyAlert";
 import OnlyCustomScreen from "./components/OnlyCustomScreen";

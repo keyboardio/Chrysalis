@@ -296,6 +296,7 @@ const English = {
     permissionErrorSuggestion: `Chrysalis can fix this by installing a udev rules file into /etc/udev/rules.d/.`,
   },
   firmwareUpdate: {
+    calloutTitle: "Important!",
     dialog: {
       selectFirmware: "Select a firmware",
       firmwareFiles: "Firmware files",

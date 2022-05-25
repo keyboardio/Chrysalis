@@ -93,6 +93,7 @@ const LayoutSharing = (props) => {
             sx: {
               width: sidebarWidth,
               marginTop: "65px",
+              paddingBottom: "65px",
             },
           }}
         >

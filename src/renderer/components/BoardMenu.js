@@ -18,23 +18,17 @@
 import Divider from "@mui/material/Divider";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import Electron from "electron";
+import openURL from "@renderer/utils/openURL";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-const openURL = (url, closeMenu) => {
-  const shell = Electron.remote && Electron.remote.shell;
-
-  if (!shell) return;
-
-  return () => {
-    shell.openExternal(url);
-    closeMenu();
-  };
-};
-
 export default function BoardMenu({ boardAnchor, boardClose, device }) {
   const { t } = useTranslation();
+
+  const onClick = (url) => () => {
+    openURL(url)();
+    boardClose();
+  };
 
   return (
     <Menu anchorEl={boardAnchor} open={!!boardAnchor} onClose={boardClose}>
@@ -42,7 +36,7 @@ export default function BoardMenu({ boardAnchor, boardClose, device }) {
       <Divider variant="middle" />
       {device.urls.map(({ url, name }) => {
         return (
-          <MenuItem key={name} onClick={openURL(url, boardClose)}>
+          <MenuItem key={name} onClick={onClick(url)}>
             {t("app.deviceMenu." + name, name)}
           </MenuItem>
         );

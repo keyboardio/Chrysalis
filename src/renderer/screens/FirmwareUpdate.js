@@ -150,15 +150,14 @@ const FirmwareUpdate = (props) => {
         });
       }
 
-      setActiveStep(activeStep + 1);
+      setActiveStep(
+        Math.min(activeStep + 1, focusDeviceDescriptor.flashSteps.length)
+      );
       focusDeviceDescriptor.flashSteps.forEach((step, index) => {
         if (step == desiredState) {
           setActiveStep(index);
         }
       });
-      return {
-        activeStep: activeStep,
-      };
     };
 
     const preferExternalFlasher =

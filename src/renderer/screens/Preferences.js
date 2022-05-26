@@ -23,12 +23,9 @@ import { PageTitle } from "@renderer/components/PageTitle";
 import PropTypes from "prop-types";
 import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
-import { BasicPreferences } from "./Preferences/Basic";
+import { UserInterfacePreferences } from "./Preferences/UserInterface";
 import { DevtoolsPreferences } from "./Preferences/Devtools";
-import {
-  AdvancedKeyboardSettings,
-  KeyboardSettings,
-} from "./Preferences/KeyboardSettings";
+import { MyKeyboardPreferences } from "./Preferences/MyKeyboard";
 
 TabPanel.propTypes = {
   children: PropTypes.node,
@@ -49,8 +46,8 @@ function TabPanel(props) {
       {value === index && (
         <Box
           sx={{
+            m: 2,
             px: 3,
-            width: "100%",
           }}
         >
           {children}
@@ -109,32 +106,22 @@ function Preferences(props) {
           {...a11yProps(1)}
           disabled={!connected}
         />
-        <Tab
-          label={t("keyboardSettings.advanced")}
-          {...a11yProps(2)}
-          disabled={!connected}
-        />
-        <Tab label={t("preferences.devtools")} {...a11yProps(3)} />
+        <Tab label={t("preferences.devtools")} {...a11yProps(2)} />
       </Tabs>
       <Box
         sx={{
           flexGrow: 1,
+          mb: 2,
         }}
       >
         <TabPanel value={value} index={0}>
-          <BasicPreferences
-            darkMode={props.darkMode}
-            toggleDarkMode={props.toggleDarkMode}
-          />
+          <UserInterfacePreferences />
         </TabPanel>
 
         <TabPanel value={value} index={1}>
-          <KeyboardSettings inContext={props.inContext} />
+          <MyKeyboardPreferences inContext={props.inContext} />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <AdvancedKeyboardSettings inContext={props.inContext} />
-        </TabPanel>
-        <TabPanel value={value} index={3}>
           <DevtoolsPreferences />
         </TabPanel>
       </Box>

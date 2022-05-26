@@ -15,8 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import FilledInput from "@mui/material/FilledInput";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -24,7 +22,6 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Switch from "@mui/material/Switch";
-import Typography from "@mui/material/Typography";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -32,7 +29,7 @@ import { useTranslation } from "react-i18next";
 const Store = require("electron-store");
 const settings = new Store();
 
-function BasicPreferences(props) {
+function UserInterfacePreferences(props) {
   const { t, i18n } = useTranslation();
 
   const [language, setLanguage] = useState(i18n.language);
@@ -65,48 +62,34 @@ function BasicPreferences(props) {
   });
 
   return (
-    <div>
-      <Typography
-        variant="subtitle1"
-        component="h2"
-        sx={{
-          marginTop: 4,
-          marginBottom: 1,
-        }}
-      >
-        {t("preferences.interface")}
-      </Typography>
-      <Card>
-        <CardContent>
-          <FormControl variant="standard" fullWidth={true}>
-            <InputLabel>{t("preferences.language")}</InputLabel>
-            <Select
-              value={language}
-              sx={{ mb: 2 }}
-              onChange={updateLanguage}
-              label={t("preferences.language")}
-              input={<FilledInput sx={{}} />}
-            >
-              {languages}
-            </Select>
-          </FormControl>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={darkMode}
-                onChange={toggleDarkMode}
-                value="devtools"
-                sx={{ mx: 3 }}
-              />
-            }
-            sx={{ display: "flex", marginRight: 2 }}
-            labelPlacement="end"
-            label={t("preferences.darkMode")}
+    <>
+      <FormControl variant="standard" fullWidth={true}>
+        <InputLabel>{t("preferences.language")}</InputLabel>
+        <Select
+          value={language}
+          sx={{ mb: 2 }}
+          onChange={updateLanguage}
+          label={t("preferences.language")}
+          input={<FilledInput sx={{}} />}
+        >
+          {languages}
+        </Select>
+      </FormControl>
+      <FormControlLabel
+        control={
+          <Switch
+            checked={darkMode}
+            onChange={toggleDarkMode}
+            value="devtools"
+            sx={{ mx: 3 }}
           />
-        </CardContent>
-      </Card>
-    </div>
+        }
+        sx={{ display: "flex", marginRight: 2 }}
+        labelPlacement="end"
+        label={t("preferences.darkMode")}
+      />
+    </>
   );
 }
 
-export { BasicPreferences };
+export { UserInterfacePreferences };

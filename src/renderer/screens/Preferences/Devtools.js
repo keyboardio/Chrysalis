@@ -16,11 +16,8 @@
  */
 
 import Focus from "@api/focus";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
-import Typography from "@mui/material/Typography";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 const { ipcRenderer } = require("electron");
@@ -66,48 +63,34 @@ function DevtoolsPreferences(props) {
   };
 
   return (
-    <div>
-      <Typography
-        variant="subtitle1"
-        component="h2"
-        sx={{
-          marginTop: 4,
-          marginBottom: 1,
-        }}
-      >
-        {t("preferences.devtools")}
-      </Typography>
-      <Card>
-        <CardContent>
-          <FormControlLabel
-            sx={{ display: "flex", marginRight: 2 }}
-            control={
-              <Switch
-                checked={devTools}
-                onChange={toggleDevTools}
-                value="devtools"
-                sx={{ mx: 3 }}
-              />
-            }
-            labelPlacement="end"
-            label={t("preferences.devtools")}
+    <>
+      <FormControlLabel
+        sx={{ display: "flex", marginRight: 2 }}
+        control={
+          <Switch
+            checked={devTools}
+            onChange={toggleDevTools}
+            value="devtools"
+            sx={{ mx: 3 }}
           />
-          <FormControlLabel
-            sx={{ display: "flex", marginRight: 2 }}
-            control={
-              <Switch
-                checked={verboseFocus}
-                onChange={toggleVerboseFocus}
-                value="verboseFocus"
-                sx={{ mx: 3 }}
-              />
-            }
-            labelPlacement="end"
-            label={t("preferences.verboseFocus")}
+        }
+        labelPlacement="end"
+        label={t("preferences.devtools")}
+      />
+      <FormControlLabel
+        sx={{ display: "flex", marginRight: 2 }}
+        control={
+          <Switch
+            checked={verboseFocus}
+            onChange={toggleVerboseFocus}
+            value="verboseFocus"
+            sx={{ mx: 3 }}
           />
-        </CardContent>
-      </Card>
-    </div>
+        }
+        labelPlacement="end"
+        label={t("preferences.verboseFocus")}
+      />
+    </>
   );
 }
 

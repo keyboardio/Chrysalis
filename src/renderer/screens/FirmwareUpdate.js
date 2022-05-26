@@ -46,6 +46,7 @@ import { PageTitle } from "@renderer/components/PageTitle";
 import SaveChangesButton from "@renderer/components/SaveChangesButton";
 import { toast } from "@renderer/components/Toast";
 import { getStaticPath } from "@renderer/config";
+import useEffectOnce from "@renderer/hooks/useEffectOnce";
 import checkExternalFlasher from "@renderer/utils/checkExternalFlasher";
 import clearEEPROM from "@renderer/utils/clearEEPROM";
 import { version } from "@root/package.json";
@@ -66,9 +67,14 @@ const FirmwareUpdate = (props) => {
   const [confirmationOpen, setConfirmationOpen] = useState(false);
   const [resetOnFlash, setResetOnFlash] = useState(false);
   const [activeStep, setActiveStep] = useState(-1);
+  const [flashSteps, setFlashSteps] = useState([]);
   const { t } = useTranslation();
   const focusDeviceDescriptor =
     props.focusDeviceDescriptor || focus.focusDeviceDescriptor;
+
+  useEffectOnce(() => {
+    setFlashSteps(focusDeviceDescriptor.flashSteps);
+  });
 
   const toggleResetOnFlash = (event) => {
     setResetOnFlash(event.target.checked);
@@ -149,11 +155,8 @@ const FirmwareUpdate = (props) => {
           autoHideDuration: 5000,
         });
       }
-
-      setActiveStep(
-        Math.min(activeStep + 1, focusDeviceDescriptor.flashSteps.length)
-      );
-      focusDeviceDescriptor.flashSteps.forEach((step, index) => {
+      setActiveStep(Math.min(activeStep + 1, flashSteps.length));
+      flashSteps.forEach((step, index) => {
         if (step == desiredState) {
           setActiveStep(index);
         }
@@ -176,7 +179,7 @@ const FirmwareUpdate = (props) => {
 
     try {
       await _flash();
-      setActiveStep(activeStep + 1);
+      await setActiveStep(activeStep + 1);
     } catch (e) {
       console.error(e);
       setActiveStep(-1);
@@ -315,8 +318,9 @@ const FirmwareUpdate = (props) => {
   if (resetOnFlash) {
     steps = ["factoryRestore"];
   }
-  if (focusDeviceDescriptor?.flashSteps) {
-    steps = steps.concat(focusDeviceDescriptor.flashSteps);
+
+  if (flashSteps) {
+    steps = steps.concat(flashSteps);
   } else {
     steps = steps.concat(["flash"]);
   }

@@ -22,11 +22,13 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
 import LinearProgress from "@mui/material/LinearProgress";
+import { GlobalContext } from "@renderer/components/GlobalContext";
 import { PageTitle } from "@renderer/components/PageTitle";
 import { toast } from "@renderer/components/Toast";
+import useEffectOnce from "@renderer/hooks/useEffectOnce";
 import logo from "@renderer/logo-small.png";
 import { findKeyboards } from "@renderer/utils/findKeyboards";
-import { useIntervalImmediate } from "@renderer/utils/useInterval";
+import { useInterval } from "@renderer/utils/useInterval";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ConnectionButton } from "./KeyboardSelect/ConnectionButton";
@@ -43,6 +45,9 @@ const KeyboardSelect = (props) => {
   const [loading, setLoading] = useState(false);
   const [devices, setDevices] = useState(null);
   const [tryAutoConnect, setTryAutoConnect] = useState(false);
+
+  const globalContext = React.useContext(GlobalContext);
+  const [activeDevice, _] = globalContext.state.activeDevice;
 
   const { t } = useTranslation();
   const focus = new Focus();
@@ -62,6 +67,7 @@ const KeyboardSelect = (props) => {
       setDevices(deviceList);
       setLoading(false);
     }
+    return deviceList;
   };
 
   const onDisconnect = () => {
@@ -69,10 +75,23 @@ const KeyboardSelect = (props) => {
     props.onDisconnect();
   };
 
-  useIntervalImmediate(() => {
-    // Run once as we start up, then run every 5s.
+  useInterval(() => {
+    // Run every 5s.
     scanDevices();
   }, 5000);
+
+  useEffectOnce(async () => {
+    const deviceList = await scanDevices();
+
+    for (const device of deviceList) {
+      if (!device.path) continue;
+
+      if (device.path == (await activeDevice.devicePath())) {
+        setSelectedPortIndex(deviceList.indexOf(device));
+        break;
+      }
+    }
+  });
 
   useEffect(() => {
     ipcRenderer.on("usb-device-connected", scanDevices);

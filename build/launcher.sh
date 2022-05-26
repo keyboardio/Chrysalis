@@ -2,6 +2,7 @@
 set -e
 
 if [[ -n "$WAYLAND_DISPLAY" ]]; then
+  export GDK_BACKEND=xorg
 	set -- --enable-features=UseOzonePlatform --ozone-platform=wayland "$@"
 fi
 

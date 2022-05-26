@@ -15,6 +15,10 @@ current, Material design of Chrysalis.
 
 Chrysalis will now save color maps correctly again.
 
+Under Wayland, Chrysalis will - for the time being - use an Xorg backend,
+because Chromium (which Chrysalis uses under the hood) does not support some of
+the required features with a Wayland backend.
+
 Chrysalis 0.9.4
 ===============
 Released on 2022-05-25

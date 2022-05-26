@@ -247,8 +247,8 @@ const English = {
     verboseFocus: "Verbose logging",
   },
   keyboardSettings: {
-    advanced: "Advanced Keyboard",
-    title: "Keyboard",
+    advanced: "Advanced Tools & Preferences",
+    title: "My Keyboard",
     keymap: {
       title: "Keymap settings",
       noDefault: "No default",

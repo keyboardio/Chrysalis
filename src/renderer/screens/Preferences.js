@@ -25,10 +25,7 @@ import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { UserInterfacePreferences } from "./Preferences/UserInterface";
 import { DevtoolsPreferences } from "./Preferences/Devtools";
-import {
-  AdvancedKeyboardSettings,
-  KeyboardSettings,
-} from "./Preferences/KeyboardSettings";
+import { MyKeyboardPreferences } from "./Preferences/MyKeyboard";
 
 TabPanel.propTypes = {
   children: PropTypes.node,
@@ -109,12 +106,7 @@ function Preferences(props) {
           {...a11yProps(1)}
           disabled={!connected}
         />
-        <Tab
-          label={t("keyboardSettings.advanced")}
-          {...a11yProps(2)}
-          disabled={!connected}
-        />
-        <Tab label={t("preferences.devtools")} {...a11yProps(3)} />
+        <Tab label={t("preferences.devtools")} {...a11yProps(2)} />
       </Tabs>
       <Box
         sx={{
@@ -127,12 +119,9 @@ function Preferences(props) {
         </TabPanel>
 
         <TabPanel value={value} index={1}>
-          <KeyboardSettings inContext={props.inContext} />
+          <MyKeyboardPreferences inContext={props.inContext} />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <AdvancedKeyboardSettings inContext={props.inContext} />
-        </TabPanel>
-        <TabPanel value={value} index={3}>
           <DevtoolsPreferences />
         </TabPanel>
       </Box>

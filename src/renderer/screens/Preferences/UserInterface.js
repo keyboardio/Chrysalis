@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Box from "@mui/material/Box";
 import FilledInput from "@mui/material/FilledInput";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -63,7 +62,7 @@ function UserInterfacePreferences(props) {
   });
 
   return (
-    <Box sx={{ m: 2 }}>
+    <>
       <FormControl variant="standard" fullWidth={true}>
         <InputLabel>{t("preferences.language")}</InputLabel>
         <Select
@@ -89,7 +88,7 @@ function UserInterfacePreferences(props) {
         labelPlacement="end"
         label={t("preferences.darkMode")}
       />
-    </Box>
+    </>
   );
 }
 

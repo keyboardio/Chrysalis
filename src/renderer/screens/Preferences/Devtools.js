@@ -16,7 +16,6 @@
  */
 
 import Focus from "@api/focus";
-import Box from "@mui/material/Box";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import React, { useEffect, useState } from "react";
@@ -64,7 +63,7 @@ function DevtoolsPreferences(props) {
   };
 
   return (
-    <Box sx={{ my: 2 }}>
+    <>
       <FormControlLabel
         sx={{ display: "flex", marginRight: 2 }}
         control={
@@ -91,7 +90,7 @@ function DevtoolsPreferences(props) {
         labelPlacement="end"
         label={t("preferences.verboseFocus")}
       />
-    </Box>
+    </>
   );
 }
 

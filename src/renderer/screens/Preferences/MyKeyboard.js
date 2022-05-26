@@ -184,7 +184,7 @@ const MyKeyboardPreferences = (props) => {
   );
 
   return (
-    <Box sx={{ m: 2 }} component="form">
+    <>
       <FormGroup
         sx={{
           display: "block",
@@ -311,7 +311,7 @@ const MyKeyboardPreferences = (props) => {
           {t("keyboardSettings.resetEEPROM.dialogContents")}
         </ConfirmationDialog>
       </Box>
-    </Box>
+    </>
   );
 };
 

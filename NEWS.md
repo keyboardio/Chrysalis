@@ -15,9 +15,10 @@ current, Material design of Chrysalis.
 
 Chrysalis will now save color maps correctly again.
 
-Under Wayland, Chrysalis will - for the time being - use an Xorg backend,
-because Chromium (which Chrysalis uses under the hood) does not support some of
-the required features with a Wayland backend.
+Under Wayland, Chrysalis will disable GPU-accelerated rendering, because
+Chromium does not support that under Wayland yet. This allows Chrysalis to start
+up under Wayland out of the box, without further command-line arguments or
+workarounds, still using the Wayland backend.
 
 Chrysalis 0.9.4
 ===============

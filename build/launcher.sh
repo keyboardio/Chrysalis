@@ -2,8 +2,7 @@
 set -e
 
 if [[ -n "$WAYLAND_DISPLAY" ]]; then
-  export GDK_BACKEND=xorg
-	set -- --enable-features=UseOzonePlatform --ozone-platform=wayland "$@"
+	set -- --enable-features=UseOzonePlatform --ozone-platform=wayland --disable-gpu "$@"
 fi
 
 if [ -e /proc/sys/kernel/unprivileged_userns_clone ]; then

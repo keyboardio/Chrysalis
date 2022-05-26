@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { enable as enableRemote, initialize } from "@electron/remote/main";
 import { getStaticPath } from "@renderer/config";
 import { app, BrowserWindow, ipcMain } from "electron";
 import installExtension, {
@@ -42,8 +41,6 @@ import { buildMenu } from "./menu";
 //
 // [1]: https://github.com/electron-userland/electron-webpack/issues/275
 process.env[`NODE_ENV`] = Environment.name;
-
-initialize();
 
 // Settings storage
 const Store = require("electron-store");
@@ -75,10 +72,8 @@ async function createMainWindow() {
       sandbox: false,
       nodeIntegration: true,
       contextIsolation: false,
-      enableRemoteModule: true,
     },
   });
-  enableRemote(window.webContents);
   mainWindowState.manage(window);
 
   if (isDevelopment) {

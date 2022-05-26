@@ -229,7 +229,7 @@ async function DFUUtil(port, filename, options) {
         return;
       };
 
-  await callback("save-eeprom");
+  await callback("saveEEPROM");
   const saveKey = await focusCommands.saveEEPROM();
 
   await callback("bootloaderTrigger");
@@ -256,7 +256,7 @@ async function DFUUtil(port, filename, options) {
   await callback("reconnect");
   await options.focus.reconnectToKeyboard(device);
 
-  await callback("restore-eeprom");
+  await callback("restoreEEPROM");
   await focusCommands.restoreEEPROM(saveKey);
 }
 
@@ -303,7 +303,7 @@ async function AvrDude(_, port, filename, options) {
     });
   };
 
-  await callback("save-eeprom");
+  await callback("saveEEPROM");
   const saveKey = await focusCommands.saveEEPROM();
 
   try {
@@ -332,7 +332,7 @@ async function AvrDude(_, port, filename, options) {
   await callback("reconnect");
   await options.focus.reconnectToKeyboard(device);
 
-  await callback("restore-eeprom");
+  await callback("restoreEEPROM");
   await focusCommands.restoreEEPROM(saveKey);
 }
 
@@ -393,7 +393,7 @@ async function Avr109(board, port, filename, options) {
   const focusCommands = new FocusCommands(options);
   const logger = new Log();
 
-  await callback("save-eeprom");
+  await callback("saveEEPROM");
   const saveKey = await focusCommands.saveEEPROM();
 
   await callback("bootloaderTrigger");
@@ -410,7 +410,7 @@ async function Avr109(board, port, filename, options) {
   await callback("reconnect");
   await options.focus.reconnectToKeyboard(options.device);
 
-  await callback("restore-eeprom");
+  await callback("restoreEEPROM");
   await focusCommands.restoreEEPROM(saveKey);
 }
 
@@ -424,7 +424,7 @@ async function teensy(filename, options) {
   const focusCommands = new FocusCommands(options);
   const logger = new Log();
 
-  await callback("save-eeprom");
+  await callback("saveEEPROM");
   const saveKey = await focusCommands.saveEEPROM();
 
   await callback("flash");
@@ -433,7 +433,7 @@ async function teensy(filename, options) {
   await callback("reconnect");
   await options.focus.reconnectToKeyboard(device);
 
-  await callback("restore-eeprom");
+  await callback("restoreEEPROM");
   await focusCommands.restoreEEPROM(saveKey);
 }
 
@@ -473,7 +473,7 @@ async function DFUProgrammer(filename, options, mcu = "atmega32u4") {
     });
   };
 
-  await callback("save-eeprom");
+  await callback("saveEEPROM");
   const saveKey = await focusCommands.saveEEPROM();
 
   await callback("flash");
@@ -492,7 +492,7 @@ async function DFUProgrammer(filename, options, mcu = "atmega32u4") {
   await callback("reconnect");
   await options.focus.reconnectToKeyboard(device);
 
-  await callback("restore-eeprom");
+  await callback("restoreEEPROM");
   await focusCommands.restoreEEPROM(saveKey);
 }
 

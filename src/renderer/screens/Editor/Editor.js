@@ -159,6 +159,7 @@ const Editor = (props) => {
       const macroId = newKey.code - newKey.rangeStart;
 
       setCurrentMacroId(macroId);
+      setOpenMacroEditor(true);
     }
   };
 

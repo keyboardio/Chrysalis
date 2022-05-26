@@ -241,7 +241,7 @@ const English = {
   preferences: {
     devtools: "Developer tools",
     language: "Language",
-    interface: "Interface",
+    interface: "User Interface",
     advanced: "Advanced",
     darkMode: "Dark mode",
     verboseFocus: "Verbose logging",

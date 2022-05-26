@@ -23,7 +23,7 @@ import { PageTitle } from "@renderer/components/PageTitle";
 import PropTypes from "prop-types";
 import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
-import { BasicPreferences } from "./Preferences/Basic";
+import { UserInterfacePreferences } from "./Preferences/UserInterface";
 import { DevtoolsPreferences } from "./Preferences/Devtools";
 import {
   AdvancedKeyboardSettings,
@@ -123,10 +123,7 @@ function Preferences(props) {
         }}
       >
         <TabPanel value={value} index={0}>
-          <BasicPreferences
-            darkMode={props.darkMode}
-            toggleDarkMode={props.toggleDarkMode}
-          />
+          <UserInterfacePreferences />
         </TabPanel>
 
         <TabPanel value={value} index={1}>

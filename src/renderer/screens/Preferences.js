@@ -119,6 +119,7 @@ function Preferences(props) {
       <Box
         sx={{
           flexGrow: 1,
+          mb: 2,
         }}
       >
         <TabPanel value={value} index={0}>

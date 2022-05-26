@@ -55,10 +55,12 @@ const LayoutCard = (props) => {
   const scanKeyboard = async () => {
     try {
       const deviceKeymap = await focus.command("keymap");
-      const deviceColormap = await focus.command("colormap");
-
       setKeymap(deviceKeymap);
-      setColormap(deviceColormap);
+
+      if (settings.get("ui.layoutCards.colored")) {
+        const deviceColormap = await focus.command("colormap");
+        setColormap(deviceColormap);
+      }
     } catch (e) {
       toast.error(e);
       props.onDisconnect();

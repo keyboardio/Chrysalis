@@ -23,7 +23,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Switch from "@mui/material/Switch";
 import { GlobalContext } from "@renderer/components/GlobalContext";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 const Store = require("electron-store");
@@ -37,10 +37,16 @@ function UserInterfacePreferences(props) {
   const globalContext = React.useContext(GlobalContext);
 
   const [darkMode, setDarkMode] = globalContext.state.darkMode;
+  const [coloredLayoutCards, setColoredLayoutCards] = useState(false);
 
   const toggleDarkMode = async () => {
     settings.set("ui.darkMode", !darkMode);
     setDarkMode(!darkMode);
+  };
+
+  const toggleColoredLayoutCards = () => {
+    settings.set("ui.layoutCards.colored", !coloredLayoutCards);
+    setColoredLayoutCards(!coloredLayoutCards);
   };
 
   const updateLanguage = async (event) => {
@@ -51,6 +57,10 @@ function UserInterfacePreferences(props) {
       setLanguage(event.target.value);
     }
   };
+
+  useEffect(() => {
+    setColoredLayoutCards(settings.get("ui.layoutCards.colored"));
+  });
 
   const languages = Object.keys(i18n.options.resources).map((code) => {
     const t = i18n.getFixedT(code);
@@ -87,6 +97,18 @@ function UserInterfacePreferences(props) {
         sx={{ display: "flex", marginRight: 2 }}
         labelPlacement="end"
         label={t("preferences.darkMode")}
+      />
+      <FormControlLabel
+        control={
+          <Switch
+            checked={coloredLayoutCards}
+            onChange={toggleColoredLayoutCards}
+            sx={{ mx: 3 }}
+          />
+        }
+        sx={{ display: "flex", marginRight: 2 }}
+        labelPlacement="end"
+        label={t("preferences.coloredLayoutCards")}
       />
     </>
   );

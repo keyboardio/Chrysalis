@@ -73,6 +73,17 @@ const FirmwareUpdate = (props) => {
     props.focusDeviceDescriptor || focus.focusDeviceDescriptor;
 
   useEffectOnce(() => {
+    // We're caching the device-specific flashSteps here, because during the
+    // flashing process, we will reboot and reconnect to the keyboard, which can
+    // - and often does - turn `focusDeviceDescriptor` into null, at least
+    // temporarily.
+    //
+    // We do not want to fall back to the default `["flash"]` step list, not
+    // even temporarily.
+    //
+    // As such, we cache the steps on mount. We can do that, because the steps
+    // are device-specific, but static, and when this component gets first
+    // mounted, `props.focusDeviceDescriptor` *will* be available.
     setFlashSteps(focusDeviceDescriptor.flashSteps);
   });
 

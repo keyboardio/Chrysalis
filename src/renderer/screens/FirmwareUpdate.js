@@ -191,7 +191,9 @@ const FirmwareUpdate = (props) => {
 
     return new Promise((resolve) => {
       setTimeout(() => {
-        toast.success(t("firmwareUpdate.flashing.success"));
+        toast.success(t("firmwareUpdate.flashing.success"), {
+          autoHideDuration: 10000,
+        });
 
         props.toggleFlashing();
         props.onDisconnect();

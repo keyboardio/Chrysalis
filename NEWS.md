@@ -1,3 +1,20 @@
+Chrysalis 0.9.5-snapshot
+========================
+**UNRELEASED**
+
+## UI/UX improvements
+
+When upgrading the firmware, Chrysalis now makes the device specific
+instructions stand out. While we always had these instructions on the screen,
+they blended into the normal set of instructions, and were too easy to miss.
+
+The style of the notifications Chrysalis uses have been updated to match the
+current, Material design of Chrysalis.
+
+## Bugfixes
+
+Chrysalis will now save color maps correctly again.
+
 Chrysalis 0.9.4
 ===============
 Released on 2022-05-25

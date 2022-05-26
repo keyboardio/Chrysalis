@@ -179,7 +179,7 @@ const FirmwareUpdate = (props) => {
 
     try {
       await _flash();
-      await setActiveStep(activeStep + 1);
+      await setActiveStep(flashSteps.length);
     } catch (e) {
       console.error(e);
       setActiveStep(-1);

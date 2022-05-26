@@ -102,10 +102,10 @@ export default class Colormap {
       return this._pull(s);
     }
 
-    const { palette, colormap } = data;
+    const { palette, colorMap } = data;
 
     if (palette) await this._updatePalette(s, palette);
-    if (colormap) await this._updateColormap(s, colormap);
+    if (colorMap) await this._updateColormap(s, colorMap);
   }
 }
 

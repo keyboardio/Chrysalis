@@ -27,6 +27,7 @@ import LoadingScreen from "@renderer/components/LoadingScreen";
 import { PageTitle } from "@renderer/components/PageTitle";
 import SaveChangesButton from "@renderer/components/SaveChangesButton";
 import { toast } from "@renderer/components/Toast";
+import useEffectOnce from "@renderer/hooks/useEffectOnce";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FloatingKeyPicker } from "./components/FloatingKeyPicker";
@@ -218,12 +219,9 @@ const Editor = (props) => {
     };
   });
 
-  useEffect(() => {
+  useEffectOnce(() => {
     initialize();
-
-    // code to run after render goes here
-  }, []); // <-- empty array means 'run once'
-  // TODO - react exhaustive-deps doesn't like this, but I'm not quite sure how to refactor it
+  });
 
   const onApply = async () => {
     await focus.command("keymap", keymap);

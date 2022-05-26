@@ -62,9 +62,9 @@ const KeyboardSettings = (props) => {
   const [working, setWorking] = useState(false);
   const { t } = useTranslation();
 
-  const focus = new Focus();
-
   const initState = async () => {
+    const focus = new Focus();
+
     focus.command("keymap").then((keymap) => {
       setKeymap(keymap);
     });
@@ -94,7 +94,7 @@ const KeyboardSettings = (props) => {
     return () => {
       context_bar_channel.close();
     };
-  });
+  }, []);
 
   useEffect(() => {
     initState();

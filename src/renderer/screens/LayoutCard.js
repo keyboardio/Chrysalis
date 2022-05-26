@@ -22,9 +22,9 @@ import Typography from "@mui/material/Typography";
 import LoadingScreen from "@renderer/components/LoadingScreen";
 import { PageTitle } from "@renderer/components/PageTitle";
 import { toast } from "@renderer/components/Toast";
-import React, { useEffect, useState } from "react";
+import useEffectOnce from "@renderer/hooks/useEffectOnce";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-
 const Store = require("electron-store");
 const settings = new Store();
 
@@ -48,13 +48,6 @@ const LayoutCard = (props) => {
     _setLayout(layoutSetting);
   };
 
-  const initialize = async () => {
-    await scanKeyboard();
-    await initializeHostKeyboardLayout();
-
-    setLoading(false);
-  };
-
   const scanKeyboard = async () => {
     try {
       const deviceKeymap = await focus.command("keymap");
@@ -66,13 +59,12 @@ const LayoutCard = (props) => {
     }
   };
 
-  useEffect(() => {
-    initialize();
+  useEffectOnce(async () => {
+    await scanKeyboard();
+    await initializeHostKeyboardLayout();
 
-    // code to run after render goes here
-  }, []); // <-- empty array means 'run once'
-  // TODO - react exhaustive-deps doesn't like this, but I'm not quite sure how to refactor it
-
+    setLoading(false);
+  });
   if (loading) {
     return <LoadingScreen />;
   }

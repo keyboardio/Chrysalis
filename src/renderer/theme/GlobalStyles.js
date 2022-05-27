@@ -702,6 +702,12 @@ svg text{
   }
 }
 
+.selectButton .dropdown-menu {
+  display: block;
+  max-height: 28vh;
+  overflow-y: auto;
+}
+
 .cardButtons {
   border-radius: 6px;
   background-color: ${({ theme }) => theme.styles.cardButtons.background};  

@@ -37,6 +37,7 @@ import Backup from "../../api/backup";
 
 import PageHeader from "../modules/PageHeader";
 import { MacroSelector } from "../component/Select";
+import { RegularButton } from "../component/Button";
 import Callout from "../component/Callout";
 import ToastMessage from "../component/ToastMessage";
 import { IconFloppyDisk } from "../component/Icon";
@@ -571,33 +572,27 @@ class MacroEditor extends React.Component {
       );
     });
     const ListCombo = (
-      <Col xs={12} className="px-0 text-center gridded">
-        <DropdownButton
-          id="Selectlayers"
-          className="selectButton"
-          drop={"up"}
-          title={
-            this.state.macros.length > 0 && this.state.selectedList > -1
-              ? this.state.macros[this.state.selectedList].name
-              : "No Key"
-          }
-          value={this.state.selectedList}
-          onSelect={this.UpdateList}
-        >
-          <Dropdown.Item eventKey={-1} key={`macro-${-1}`} disabled={false}>
-            <div className="item-layer">
-              <p>{"No Key"}</p>
-            </div>
+      <DropdownButton
+        id="Selectlayers"
+        className="selectButton"
+        // drop={"up"}
+        title={
+          this.state.macros.length > 0 && this.state.selectedList > -1
+            ? this.state.macros[this.state.selectedList].name
+            : "No Key"
+        }
+        value={this.state.selectedList}
+        onSelect={this.UpdateList}
+      >
+        <Dropdown.Item eventKey={-1} key={`macro-${-1}`} disabled={false}>
+          {"No Key"}
+        </Dropdown.Item>
+        {this.state.macros.map((macro, id) => (
+          <Dropdown.Item eventKey={macro.id} key={`macro-${id}`} disabled={macro.id == -1}>
+            {macro.name}
           </Dropdown.Item>
-          {this.state.macros.map((macro, id) => (
-            <Dropdown.Item eventKey={macro.id} key={`macro-${id}`} disabled={macro.id == -1}>
-              <div className="item-layer">
-                <p>{macro.name}</p>
-              </div>
-            </Dropdown.Item>
-          ))}
-        </DropdownButton>
-      </Col>
+        ))}
+      </DropdownButton>
     );
     return (
       <Styles className="macroEditor">
@@ -653,25 +648,35 @@ class MacroEditor extends React.Component {
           </div>
         </Container>
 
-        <Modal show={this.state.showDeleteModal} onHide={this.toggleDeleteModal} style={{ marginTop: "100px" }}>
-          <ModalStyle>
-            <Modal.Header closeButton className="modalcol">
-              <Modal.Title>{i18n.editor.macros.deleteModal.title}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body className="modalcol">
-              <p>{i18n.editor.macros.deleteModal.body}</p>
-              {ListOfMacros}
-              {ListCombo}
-            </Modal.Body>
-            <Modal.Footer className="modalcol">
-              <Button variant="secondary" onClick={this.toggleDeleteModal}>
-                {i18n.editor.macros.deleteModal.cancelButton}
-              </Button>
-              <Button variant="primary" onClick={this.ActUponDelete}>
-                {i18n.editor.macros.deleteModal.applyButton}
-              </Button>
-            </Modal.Footer>
-          </ModalStyle>
+        <Modal
+          show={this.state.showDeleteModal}
+          onHide={this.toggleDeleteModal}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>{i18n.editor.macros.deleteModal.title}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>{i18n.editor.macros.deleteModal.body}</p>
+            {ListOfMacros}
+            {ListCombo}
+          </Modal.Body>
+          <Modal.Footer>
+            <RegularButton
+              buttonText={i18n.editor.macros.deleteModal.cancelButton}
+              style="outline"
+              size="sm"
+              onClick={this.toggleDeleteModal}
+            />
+            <RegularButton
+              buttonText={i18n.editor.macros.deleteModal.applyButton}
+              style="outline gradient"
+              size="sm"
+              onClick={this.ActUponDelete}
+            />
+          </Modal.Footer>
         </Modal>
       </Styles>
     );

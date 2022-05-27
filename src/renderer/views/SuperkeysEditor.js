@@ -33,6 +33,7 @@ import KeyConfig from "../components/KeyManager/KeyConfig";
 import Callout from "../component/Callout";
 import { LayoutViewSelector } from "../component/ToggleButtons";
 import { SuperkeysSelector } from "../component/Select";
+import { RegularButton } from "../component/Button";
 
 import ToastMessage from "../component/ToastMessage";
 import { IconFloppyDisk } from "../component/Icon";
@@ -798,24 +799,34 @@ class SuperkeysEditor extends React.Component {
           tooltip={i18n.editor.superkeys.tooltip}
           isDisabled={true}
         />
-        <Modal show={this.state.showDeleteModal} onHide={this.toggleDeleteModal} style={{ marginTop: "100px" }}>
-          <ModalStyle>
-            <Modal.Header closeButton className="modalcol">
-              <Modal.Title>{i18n.editor.superkeys.deleteModal.title}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body className="modalcol">
-              <p>{i18n.editor.superkeys.deleteModal.body}</p>
-              {listOfSKK}
-            </Modal.Body>
-            <Modal.Footer className="modalcol">
-              <Button variant="secondary" onClick={this.toggleDeleteModal}>
-                {i18n.editor.superkeys.deleteModal.cancelButton}
-              </Button>
-              <Button variant="primary" onClick={this.RemoveDeletedSK}>
-                {i18n.editor.superkeys.deleteModal.applyButton}
-              </Button>
-            </Modal.Footer>
-          </ModalStyle>
+        <Modal
+          show={this.state.showDeleteModal}
+          onHide={this.toggleDeleteModal}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>{i18n.editor.superkeys.deleteModal.title}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>{i18n.editor.superkeys.deleteModal.body}</p>
+            {listOfSKK}
+          </Modal.Body>
+          <Modal.Footer>
+            <RegularButton
+              buttonText={i18n.editor.superkeys.deleteModal.cancelButton}
+              style="outline"
+              size="sm"
+              onClick={this.toggleDeleteModal}
+            />
+            <RegularButton
+              buttonText={i18n.editor.superkeys.deleteModal.applyButton}
+              style="outline gradient"
+              size="sm"
+              onClick={this.RemoveDeletedSK}
+            />
+          </Modal.Footer>
         </Modal>
       </Styles>
     );

@@ -244,6 +244,7 @@ const English = {
     interface: "User Interface",
     advanced: "Advanced",
     darkMode: "Dark mode",
+    coloredLayoutCards: "Show key colors on layout cards",
     verboseFocus: "Verbose logging",
   },
   keyboardSettings: {

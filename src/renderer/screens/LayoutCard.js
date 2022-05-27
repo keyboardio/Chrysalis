@@ -37,6 +37,10 @@ const LayoutCard = (props) => {
     default: [],
     onlyCustom: false,
   });
+  const [colormap, setColormap] = useState({
+    palette: [],
+    colorMap: [],
+  });
 
   const [layout, _setLayout] = useState("English (US)");
   const [loading, setLoading] = useState(true);
@@ -51,8 +55,12 @@ const LayoutCard = (props) => {
   const scanKeyboard = async () => {
     try {
       const deviceKeymap = await focus.command("keymap");
-
       setKeymap(deviceKeymap);
+
+      if (settings.get("ui.layoutCards.colored")) {
+        const deviceColormap = await focus.command("colormap");
+        setColormap(deviceColormap);
+      }
     } catch (e) {
       toast.error(e);
       props.onDisconnect();
@@ -93,7 +101,13 @@ const LayoutCard = (props) => {
             >
               {t("components.layer", { index: i })}
             </Typography>
-            <KeymapSVG className="layer" index={i} keymap={keymap?.custom[i]} />
+            <KeymapSVG
+              className="layer"
+              index={i}
+              keymap={keymap?.custom[i]}
+              colormap={colormap?.colorMap[i]}
+              palette={colormap?.palette}
+            />
           </Box>
         );
 

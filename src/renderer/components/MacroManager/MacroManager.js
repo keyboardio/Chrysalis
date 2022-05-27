@@ -110,7 +110,6 @@ class MacroManager extends Component {
     this.close = this.close.bind(this);
     this.accept = this.accept.bind(this);
     this.deleteMacro = this.deleteMacro.bind(this);
-    this.duplicateMacro = this.duplicateMacro.bind(this);
     this.addMacro = this.addMacro.bind(this);
     this.changeSelected = this.changeSelected.bind(this);
     this.exit = this.exit.bind(this);
@@ -171,16 +170,6 @@ class MacroManager extends Component {
       }
       this.props.updateMacro(aux, selected);
     }
-  }
-
-  duplicateMacro(selected) {
-    let macros = this.state.macros;
-    let aux = Object.assign({}, this.state.macros[selected]);
-    aux.id = this.state.macros.length;
-    aux.name = "Copy of " + aux.name;
-    macros.push(aux);
-    this.props.updateMacro(macros, -1);
-    this.changeSelected(aux.id);
   }
 
   changeSelected(selected) {
@@ -254,7 +243,6 @@ class MacroManager extends Component {
               addMacro={this.addMacro}
               disableAdd={this.state.macros.length === this.props.maxMacros}
               changeSelected={this.changeSelected}
-              duplicateMacro={this.duplicateMacro}
               macrosRestore={this.macrosRestore}
             />
           </Card.Body>

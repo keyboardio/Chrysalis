@@ -334,6 +334,17 @@ class MacroEditor extends React.Component {
     return finalMacros;
   }
 
+  duplicateMacro = () => {
+    let macros = this.state.macros;
+    let selected = this.state.selectedMacro;
+    let aux = Object.assign({}, this.state.macros[selected]);
+    aux.id = this.state.macros.length;
+    aux.name = "Copy of " + aux.name;
+    macros.push(aux);
+    this.updateMacros(macros, -1);
+    this.changeSelected(aux.id);
+  };
+
   superTranslator(raw) {
     let superkey = [],
       superkeys = [],
@@ -537,9 +548,10 @@ class MacroEditor extends React.Component {
     }
   }
 
-  deleteMacro(selected) {
+  deleteMacro = () => {
     if (this.state.macros.length > 0) {
       let aux = this.state.macros;
+      let selected = this.state.selectedMacro;
       aux.splice(selected, 1);
       aux = aux.map((item, index) => {
         let aux = item;
@@ -551,7 +563,7 @@ class MacroEditor extends React.Component {
       }
       this.props.updateMacro(aux, selected);
     }
-  }
+  };
 
   saveName(name) {
     console.log("MACROS: ", this.state.macros);
@@ -608,6 +620,7 @@ class MacroEditor extends React.Component {
                 addItem={this.addMacro}
                 deleteItem={this.deleteMacro}
                 updateItem={this.saveName}
+                cloneItem={this.duplicateMacro}
                 maxMacros={this.state.maxMacros}
                 mem={this.state.freeMemory}
               />

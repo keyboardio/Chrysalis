@@ -37,16 +37,16 @@ const MacroEditor = (props) => {
   const { t } = useTranslation();
 
   const onStepDelete = (index) => {
-    const m = macro.map((v) => Object.assign({}, v));
-    m.splice(index, 1);
-    onMacroChange(macroId, m);
+    const newMacro = macro.map((v) => Object.assign({}, v));
+    newMacro.splice(index, 1);
+    onMacroChange(macroId, newMacro);
   };
 
   const addStep = (step) => {
-    const m = macro.map((v) => Object.assign({}, v));
-    m.push(step);
-    onMacroChange(macroId, m);
-    setMacroStep(m.length - 1);
+    const newMacro = macro.map((v) => Object.assign({}, v));
+    newMacro.push(step);
+    onMacroChange(macroId, newMacro);
+    setMacroStep(newMacro.length - 1);
   };
 
   const onStepSelect = (index) => {
@@ -72,11 +72,11 @@ const MacroEditor = (props) => {
   };
 
   const onMacroStepChange = async (stepIndex, step) => {
-    const m = macro.map((s, index) => {
+    const newMacro = macro.map((s, index) => {
       if (index == stepIndex) return step;
       return s;
     });
-    onMacroChange(macroId, m);
+    onMacroChange(macroId, newMacro);
   };
 
   useEffect(() => {

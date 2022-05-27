@@ -16,7 +16,6 @@
  */
 
 import { KeymapDB } from "@api/keymap";
-import classNames from "classnames";
 import React from "react";
 import Atreus from "../data/atreus.png";
 
@@ -121,7 +120,7 @@ const Keymap = (props) => {
         backgroundRepeat: "no-repeat",
         backgroundSize: "100%",
       }}
-      className={classNames(classes?.svg, props.className || "layer")}
+      className={props.className || "layer"}
     >
       <g transform="translate(80,0)">
         <g transform="rotate(10)">

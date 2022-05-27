@@ -20,18 +20,11 @@ import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 import { PageTitle } from "@renderer/components/PageTitle";
-import PropTypes from "prop-types";
 import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { UserInterfacePreferences } from "./Preferences/UserInterface";
 import { DevtoolsPreferences } from "./Preferences/Devtools";
 import { MyKeyboardPreferences } from "./Preferences/MyKeyboard";
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

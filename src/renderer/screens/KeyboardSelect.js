@@ -86,7 +86,7 @@ const KeyboardSelect = (props) => {
     for (const device of deviceList) {
       if (!device.path) continue;
 
-      if (device.path == (await activeDevice.devicePath())) {
+      if (device.path == (await activeDevice?.devicePath())) {
         setSelectedPortIndex(deviceList.indexOf(device));
         break;
       }

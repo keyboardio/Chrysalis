@@ -18,6 +18,7 @@
 import FilledInput from "@mui/material/FilledInput";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import FormHelperText from "@mui/material/FormHelperText";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
@@ -38,6 +39,7 @@ function UserInterfacePreferences(props) {
 
   const [darkMode, setDarkMode] = globalContext.state.darkMode;
   const [coloredLayoutCards, setColoredLayoutCards] = useState(false);
+  const [hideUnavailableFeatures, setHideUnavailableFeatures] = useState(true);
 
   const toggleDarkMode = async () => {
     settings.set("ui.darkMode", !darkMode);
@@ -47,6 +49,14 @@ function UserInterfacePreferences(props) {
   const toggleColoredLayoutCards = () => {
     settings.set("ui.layoutCards.colored", !coloredLayoutCards);
     setColoredLayoutCards(!coloredLayoutCards);
+  };
+
+  const toggleHideUnavailableFeatures = () => {
+    settings.set(
+      "ui.hideFeaturesNotAvailableInCurrentFirmware",
+      !hideUnavailableFeatures
+    );
+    setHideUnavailableFeatures(!hideUnavailableFeatures);
   };
 
   const updateLanguage = async (event) => {
@@ -60,6 +70,12 @@ function UserInterfacePreferences(props) {
 
   useEffect(() => {
     setColoredLayoutCards(settings.get("ui.layoutCards.colored"));
+
+    const hideUnavail = settings.get(
+      "ui.hideFeaturesNotAvailableInCurrentFirmware",
+      true
+    );
+    setHideUnavailableFeatures(hideUnavail);
   });
 
   const languages = Object.keys(i18n.options.resources).map((code) => {
@@ -110,6 +126,21 @@ function UserInterfacePreferences(props) {
         labelPlacement="end"
         label={t("preferences.coloredLayoutCards")}
       />
+      <FormControlLabel
+        control={
+          <Switch
+            checked={hideUnavailableFeatures}
+            onChange={toggleHideUnavailableFeatures}
+            sx={{ mx: 3 }}
+          />
+        }
+        sx={{ display: "flex", marginRight: 2 }}
+        labelPlacement="end"
+        label={t("preferences.hideUnavailableFeatures.label")}
+      />
+      <FormHelperText sx={{ mx: 3 }}>
+        {t("preferences.hideUnavailableFeatures.help")}
+      </FormHelperText>
     </>
   );
 }

@@ -246,6 +246,10 @@ const English = {
     darkMode: "Dark mode",
     coloredLayoutCards: "Show key colors on layout cards",
     verboseFocus: "Verbose logging",
+    hideUnavailableFeatures: {
+      label: "Hide features not supported by your keyboard's current firmware",
+      help: `When enabled, Chrysalis will hide configuration options for features that your keyboard's firmware doesn't support.`,
+    },
   },
   keyboardSettings: {
     advanced: "Advanced Tools & Preferences",

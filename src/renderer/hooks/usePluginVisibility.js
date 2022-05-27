@@ -17,6 +17,9 @@
 import { useEffect, useContext, useState } from "react";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 
+const Store = require("electron-store");
+const settings = new Store();
+
 export default function usePluginVisibility(plugin) {
   const globalContext = useContext(GlobalContext);
   const [activeDevice, _] = globalContext.state.activeDevice;
@@ -25,7 +28,19 @@ export default function usePluginVisibility(plugin) {
   useEffect(() => {
     const fetchData = async () => {
       const plugins = await activeDevice.plugins();
-      setPluginSupported(plugins.includes(plugin));
+      const hideUnavailableFeatures = settings.get(
+        "ui.hideFeaturesNotAvailableInCurrentFirmware",
+        true
+      );
+      const commands = await activeDevice.supported_commands();
+
+      if (commands.includes("plugins")) {
+        setPluginSupported(
+          !hideUnavailableFeatures || plugins.includes(plugin)
+        );
+      } else {
+        setPluginSupported(true);
+      }
     };
     fetchData();
   }, [activeDevice, plugin]);

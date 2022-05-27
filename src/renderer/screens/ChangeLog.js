@@ -40,7 +40,7 @@ const ChangeLog = (props) => {
   return (
     <div>
       <PageTitle title={t("changelog.title")} />
-      <Card sx={{ margin: "auto", maxWidth: "50%" }}>
+      <Card sx={{ mx: "auto", my: 2, maxWidth: "50%" }}>
         <CardHeader
           avatar={<img src={logo} alt={t("components.logo.altText")} />}
           title="Chrysalis"

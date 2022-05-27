@@ -166,6 +166,35 @@ const Style = Styled.div`
         right: -18px;
     }
   }
+  @media screen and (max-height: 719px) {
+    .menuLink,
+    .menuLinkInner,
+    .menuLinkInner:before {
+      width: 64px;
+      height: 64px;
+    }
+    .menuLinkText {
+        display: none;
+    }
+    .menuLink:after {
+        right: -14px;
+    }
+    .menuLink:before {
+        right: -17px;
+        height: 36px;
+    }
+    .menuLinkInner {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
+    .menuLinkInner svg {
+        transform: scale(0.85);
+    }
+    .menuLink .badge {
+        right: -18px;
+    }
+  }
 `;
 //className={`icon-image ${selected ? "select" : ""}`}
 const NavigationButton = ({ selected, onClick, showNotif, buttonText, icoSVG }) => {

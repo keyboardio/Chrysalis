@@ -54,7 +54,7 @@ const GlobalStyles = createGlobalStyle`
     display: grid;
     grid-template-columns: 90px auto;
   }
-  div.main-container{
+  div.main-container {
     padding-left: calc(90px + 8px);
     padding-left: 8px;
     padding-right: 8px;
@@ -1627,6 +1627,20 @@ div.card.card-preferences .card-body {
   }
 }
 
+@media screen and (max-height: 719px) {
+  #app {
+    grid-template-columns: 90px auto;
+  }
+  div.main-container {
+    padding-left: calc(90px + 8px);
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .bs-tooltip-right.tooltipMenu {
+    display: inline-block!important;
+  }
+}
+
 .animOpacity {
   opacity: 0;
   animation: animOpacity 0.3s forwards;
@@ -1749,6 +1763,7 @@ div.card.card-preferences .card-body {
   overflow-y: auto;
 }
 @media screen and (max-width: 1229px){
+  .main-container .layoutEditor,
   .main-container .superkeys,
   .main-container .macroEditor {
     .pageHeader .pageTitle {

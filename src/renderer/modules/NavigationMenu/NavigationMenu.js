@@ -101,6 +101,11 @@ const Styles = Styled.div`
     width: 90px;
   }
 }
+@media screen and (max-height: 719px) {
+  .left-navbar {
+    width: 90px;
+  }
+}
 `;
 
 class NavigationMenu extends Component {

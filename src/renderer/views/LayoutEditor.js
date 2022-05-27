@@ -56,7 +56,7 @@ const store = new Store();
 
 const Styles = Styled.div`
 max-width: 1900px;
-min-width: 1120px;
+// min-width: 1120px;
 margin: auto;
 .keyboard-editor {
   height: 100%;
@@ -1652,7 +1652,7 @@ class LayoutEditor extends React.Component {
 
     return (
       <Styles>
-        <Container fluid className="keyboard-editor">
+        <Container fluid className="keyboard-editor layoutEditor">
           <PageHeader
             text={i18n.app.menu.editor}
             showSaving={true}

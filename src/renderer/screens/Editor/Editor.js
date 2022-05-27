@@ -18,7 +18,7 @@
 import Focus from "@api/focus";
 import Keymap from "@api/focus/keymap";
 import KeymapDB from "@api/focus/keymap/db";
-import Macros from "@api/focus/macros";
+import Macros, { Step as MacroStep } from "@api/focus/macros";
 import Log from "@api/log";
 import Box from "@mui/material/Box";
 import {
@@ -165,6 +165,15 @@ const Editor = (props) => {
   };
 
   const onKeyChangeForMacros = async (keyCode) => {
+    const currStepType = macros.macros[currentMacroId][currentMacroStep].type;
+    if (
+      ![MacroStep.TAP, MacroStep.KEYDOWN, MacroStep.KEYUP].includes(
+        currStepType
+      )
+    ) {
+      return;
+    }
+
     const newKey = db.lookup(keyCode);
     const macro = macros.macros[currentMacroId].map((step, index) => {
       if (index == currentMacroStep) {

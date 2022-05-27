@@ -30,8 +30,6 @@ process.env[`NODE_ENV`] = Environment.name;
 // we use, serialport (serialport/node-serialport#2051) and usb
 // (tessel/node-usb#380). See electron/electron#18397 for more context.
 app.allowRendererProcessReuse = false;
-app.commandLine.appendSwitch("high-dpi-support", 1);
-app.commandLine.appendSwitch("force-device-scale-factor", 1);
 
 import { app, BrowserWindow, Menu, nativeTheme, dialog } from "electron";
 import { format as formatUrl } from "url";
@@ -190,6 +188,10 @@ app.on("window-all-closed", () => {
 });
 
 app.on("activate", () => {
+  if (process.platform !== "darwin") {
+    app.commandLine.appendSwitch("high-dpi-support", 1);
+    app.commandLine.appendSwitch("force-device-scale-factor", 1);
+  }
   // on macOS it is common to re-create a window even after all windows have been closed
   if (mainWindow === null) {
     mainWindow = createMainWindow();

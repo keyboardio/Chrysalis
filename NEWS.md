@@ -8,12 +8,29 @@ When upgrading the firmware, Chrysalis now makes the device specific
 instructions stand out. While we always had these instructions on the screen,
 they blended into the normal set of instructions, and were too easy to miss.
 
+The Preferences screen has been updated to use a simpler, more consistent
+design, and the "Keyboard" and "Advanced Keyboard" tabs have been merged into
+"My Keyboard".
+
 The style of the notifications Chrysalis uses have been updated to match the
 current, Material design of Chrysalis.
+
+## New features
+
+Layout Cards can optionally display the color map of each layer. This can be
+toggled in the "User Interface" tab of the Preferences.
 
 ## Bugfixes
 
 Chrysalis will now save color maps correctly again.
+
+The Firmware Upgrade screen has had numerous bugs squashed, and the steps of the
+flashing process are now displayed properly, and consistently. These are purely
+display fixes.
+
+In case there are multiple Chrysalis-enabled devices present, and we go back to
+the Keyboard selection screen while being connected to one, Chrysalis will once
+again show the connected keyboard as the default selection in the menu.
 
 Under Wayland, Chrysalis will disable GPU-accelerated rendering, because
 Chromium does not support that under Wayland yet. This allows Chrysalis to start

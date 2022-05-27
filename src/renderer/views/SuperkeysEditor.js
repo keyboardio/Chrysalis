@@ -589,6 +589,16 @@ class SuperkeysEditor extends React.Component {
     }
   };
 
+  duplicateSuperkey = () => {
+    let { superkeys, selectedSuper } = this.state;
+    let aux = Object.assign({}, this.state.superkeys[selectedSuper]);
+    aux.id = this.state.superkeys.length;
+    aux.name = "Copy of " + aux.name;
+    superkeys.push(aux);
+    this.updateSuper(superkeys, -1);
+    this.changeSelected(aux.id);
+  };
+
   deleteSuperkey = () => {
     const { superkeys } = this.state;
     if (superkeys.length > 0) {
@@ -751,6 +761,7 @@ class SuperkeysEditor extends React.Component {
                 addItem={this.addSuperkey}
                 deleteItem={this.deleteSuperkey}
                 updateItem={this.saveName}
+                cloneItem={this.duplicateSuperkey}
               />
             }
             saveContext={this.writeSuper}

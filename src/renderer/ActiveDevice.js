@@ -24,6 +24,10 @@ export function ActiveDevice() {
 
   this.focus = new Focus();
 
+  this.devicePath = async () => {
+    return this.focus._port?.settings.path;
+  };
+
   this.focusDetected = async () => {
     if (this.hasCustomizableKeymaps() || this.hasCustomizableLEDMaps()) {
       return true;

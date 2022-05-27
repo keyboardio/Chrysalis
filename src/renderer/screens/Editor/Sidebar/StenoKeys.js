@@ -17,11 +17,15 @@
 
 import React from "react";
 import { useTranslation } from "react-i18next";
+import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
 import CategorySelector from "../components/CategorySelector";
 
 const StenoKeys = (props) => {
   const { keymap, selectedKey, layer, onKeyChange } = props;
   const { t } = useTranslation();
+  const pluginVisible = usePluginVisibility("Steno");
+  if (!pluginVisible) return null;
+
   return (
     <CategorySelector
       title={t("editor.sidebar.steno.title")}

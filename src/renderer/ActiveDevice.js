@@ -28,6 +28,14 @@ export function ActiveDevice() {
     return this.focus._port?.settings.path;
   };
 
+  this.plugins = () => {
+    return this.focus.plugins();
+  };
+
+  this.supported_commands = () => {
+    return this.focus.supported_commands();
+  };
+
   this.focusDetected = async () => {
     if (this.hasCustomizableKeymaps() || this.hasCustomizableLEDMaps()) {
       return true;

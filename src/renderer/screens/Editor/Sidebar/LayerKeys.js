@@ -21,6 +21,7 @@ import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Collapsible from "../components/Collapsible";
@@ -30,6 +31,7 @@ const db = new KeymapDB();
 const LayerKeys = (props) => {
   const [expanded, setExpanded] = useState(false);
   const { t } = useTranslation();
+  const oneShotVisible = usePluginVisibility("OneShot");
 
   const getMaxLayer = () => {
     const { keymap, selectedKey, layer } = props;
@@ -113,9 +115,11 @@ const LayerKeys = (props) => {
               <MenuItem value="movetolayer" selected={type == "movetolayer"}>
                 {t("editor.layerswitch.moveTo")}
               </MenuItem>
-              <MenuItem value="oneshot" selected={type == "oneshot"}>
-                {t("editor.layerswitch.oneshot")}
-              </MenuItem>
+              {oneShotVisible && (
+                <MenuItem value="oneshot" selected={type == "oneshot"}>
+                  {t("editor.layerswitch.oneshot")}
+                </MenuItem>
+              )}
               <MenuItem value="dualuse" selected={type == "dualuse"} disabled>
                 {t("editor.layerswitch.dualuse")}
               </MenuItem>

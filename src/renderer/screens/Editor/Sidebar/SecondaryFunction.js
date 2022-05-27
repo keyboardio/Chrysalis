@@ -24,6 +24,7 @@ import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import Collapsible from "../components/Collapsible";
@@ -81,6 +82,9 @@ const SecondaryFunction = (props) => {
       db.isInCategory(key.code, "dualuse")
     );
   };
+
+  const pluginVisible = usePluginVisibility("Qukeys");
+  if (!pluginVisible) return null;
 
   const { classes, keymap, selectedKey, layer } = props;
   const key = keymap.custom[layer][selectedKey];

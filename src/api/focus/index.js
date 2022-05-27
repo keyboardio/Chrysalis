@@ -33,6 +33,7 @@ class Focus {
       this.debug = false;
       this.logger = new Log();
       this._supported_commands = [];
+      this._plugins = [];
     }
 
     return global.chrysalis_focus_instance;
@@ -130,7 +131,8 @@ class Focus {
       focusDeviceDescriptor.usb
     );
     await this.open(d.path, d);
-    return await this.supported_commands();
+    await this.supported_commands();
+    await this.plugins();
   }
 
   async find(...device_descriptors) {
@@ -232,6 +234,7 @@ class Focus {
     });
 
     this._supported_commands = [];
+    this._plugins = [];
     return this._port;
   }
 
@@ -242,6 +245,7 @@ class Focus {
     this._port = null;
     this.focusDeviceDescriptor = null;
     this._supported_commands = [];
+    this._plugins = [];
   }
 
   async isDeviceAccessible(port) {
@@ -274,6 +278,13 @@ class Focus {
       this._supported_commands = await this.request("help");
     }
     return this._supported_commands;
+  }
+
+  async plugins() {
+    if (this._plugins.length == 0) {
+      this._plugins = await this.request("plugins");
+    }
+    return this._plugins;
   }
 
   async _write_parts(request) {

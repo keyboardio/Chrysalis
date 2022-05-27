@@ -1743,6 +1743,7 @@ div.card.card-preferences .card-body {
   overflow-y: auto;
 }
 @media screen and (max-width: 1229px){
+  .main-container .layoutEditor,
   .main-container .superkeys,
   .main-container .macroEditor {
     .pageHeader .pageTitle {

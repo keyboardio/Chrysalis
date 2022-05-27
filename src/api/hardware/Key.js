@@ -44,12 +44,7 @@ const Key = ({
   const heightShape2 = height - 8;
   const [extraLabelClass, setExtraLabelClass] = React.useState(false);
   const setExtralabel = React.useRef(null);
-  let keyInternalType;
-  if (keyInternalType === undefined) {
-    keyInternalType = "regularKey";
-  } else {
-    keyInternalType = keyType;
-  }
+
   React.useEffect(() => {
     setColor(fill);
     setColorMatrix(colorMatrixCalc(fill, 0.65));
@@ -69,20 +64,23 @@ const Key = ({
   }, [centerPrimary, centerExtra]);
 
   return (
-    <g
-      id={id}
-      className={`${stroke === "#fff" ? "keyOnFocus" : "keyOnHold"} ${keyInternalType}`}
-      onClick={onClick}
-      data-led-index={dataLedIndex}
-      data-key-index={dataKeyIndex}
-      data-layer={dataLayer}
-    >
-      {keyInternalType === "regularKey" ? (
-        <>
-          <g xmlns="http://www.w3.org/2000/svg" filter={`url(#filter${id}01)`} className="shadowHover">
+    <>
+      {keyType == "regularKey" ? (
+        <g
+          id={id}
+          className={`${stroke === "#fff" || stroke === "#000" ? "keyOnFocus" : "keyOnHold"} keyItem ${keyType}`}
+          onClick={onClick}
+          data-led-index={dataLedIndex}
+          data-key-index={dataKeyIndex}
+          data-layer={dataLayer}
+        >
+          {/* <g xmlns="http://www.w3.org/2000/svg" filter={`url(#filter${id}01)`} className="shadowHover">
             <rect x={x} y={y} width={width} height={height} rx="4" className="keyBase" />
+          </g> */}
+          <g className="shadowHover">
+            <rect x={x} y={y + 4} width={width} height={height} rx="4" fill={color} />
           </g>
-          <g xmlns="http://www.w3.org/2000/svg">
+          <g>
             <rect x={x} y={y} width={width} height={height} rx="4" fill={`#303949`} />
             <rect x={x} y={y} width={width} height={height} rx="4" fill={`url(#paintGradient${id})`} fillOpacity="0.2" />
             <rect x={x} y={y} width={width} height={height} rx="4" fill={color} className="keyColorOpacity" />
@@ -98,9 +96,6 @@ const Key = ({
               fill="transparent"
             />
           </g>
-          {/* <g className="shadowMiddle">
-      <rect x={xShape2 + 10} y={yShape2 + 20} width={widthShape2 - 20} height={heightShape2 - 20} rx="4" fill={`#303949`} />
-    </g> */}
           <g xmlns="http://www.w3.org/2000/svg" filter={`url(#filter${id}01)`}>
             <rect x={xShape2} y={yShape2} width={widthShape2} height={heightShape2} rx="4" className="keyBase" />
             <rect
@@ -142,46 +137,136 @@ const Key = ({
       <text id={`${id}_t_extra`} fill={contrastText}>
         {centerExtra}
       </text> */}
+            <defs>
+              <filter
+                id={`filter${id}01`}
+                //   x={65}
+                // x={x - width / 2}
+                //   y="14"
+                // y={y - height / 4}
+                x={x}
+                y={y}
+                width={width * 1.5}
+                height={height * 1.5}
+                filterUnits="userSpaceOnUse"
+                colorInterpolationFilters="sRGB"
+              >
+                <feFlood floodOpacity="0" result="BackgroundImageFix" />
+                <feColorMatrix
+                  in="SourceAlpha"
+                  type="matrix"
+                  values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                  result="hardAlpha"
+                />
+                <feOffset dy="4" />
+                <feGaussianBlur stdDeviation="12" />
+                <feComposite in2="hardAlpha" operator="out" />
+                <feColorMatrix type="matrix" values={colorMatrix} />
+                <feBlend mode="normal" in2="BackgroundImageFix" result={`effect1_dropShadow_${id}`} />
+                <feBlend mode="normal" in="SourceGraphic" in2={`effect1_dropShadow_${id}`} result="shape" />
+              </filter>
+              <linearGradient
+                id={`paintGradient${id}`}
+                x1={xShape2}
+                y1={yShape2}
+                x2={xShape2 + widthShape2}
+                y2={yShape2}
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop offset="25%" stopColor="#ffffff" stopOpacity="1" />
+                <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+              </linearGradient>
+            </defs>
           </g>
-        </>
+        </g>
       ) : (
         ""
       )}
 
-      <defs>
-        <filter
-          id={`filter${id}01`}
-          //   x={65}
-          x={x - width / 2}
-          //   y="14"
-          y={y - height / 4}
-          width={width * 2 - 5}
-          height={height * 2 - 5}
-          filterUnits="userSpaceOnUse"
-          colorInterpolationFilters="sRGB"
+      {keyType == "t5" ? (
+        <g
+          id={id}
+          className={`${stroke === "#fff" || stroke === "#000" ? "keyOnFocus" : "keyOnHold"} keyItem ${keyType}`}
+          onClick={onClick}
+          data-led-index={dataLedIndex}
+          data-key-index={dataKeyIndex}
+          data-layer={dataLayer}
+          transform={`translate(${x - width / 2},${y - height / 2})`}
         >
-          <feFlood floodOpacity="0" result="BackgroundImageFix" />
-          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-          <feOffset dy="4" />
-          <feGaussianBlur stdDeviation="12" />
-          <feComposite in2="hardAlpha" operator="out" />
-          <feColorMatrix type="matrix" values={colorMatrix} />
-          <feBlend mode="normal" in2="BackgroundImageFix" result={`effect1_dropShadow_${id}`} />
-          <feBlend mode="normal" in="SourceGraphic" in2={`effect1_dropShadow_${id}`} result="shape" />
-        </filter>
-        <linearGradient
-          id={`paintGradient${id}`}
-          x1={xShape2}
-          y1={yShape2}
-          x2={xShape2 + widthShape2}
-          y2={yShape2}
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="25%" stopColor="#ffffff" stopOpacity="1" />
-          <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
-        </linearGradient>
-      </defs>
-    </g>
+          <g className="shadowHover">
+            <path
+              d="M26.3777 25.9806C24.674 24.0422 26.0504 21 28.631 21H140C142.209 21 144 22.7909 144 25V74C144 76.2091 142.209 78 140 78H74.8154C73.0899 78 71.4479 77.2571 70.3088 75.9611L26.3777 25.9806Z"
+              fill={color}
+              x={x}
+              y={y + 4}
+            />
+          </g>
+          <g filter="url(#filter0_d_409_401)">
+            <path
+              d="M26.3777 25.9806C24.674 24.0422 26.0504 21 28.631 21H140C142.209 21 144 22.7909 144 25V74C144 76.2091 142.209 78 140 78H74.8154C73.0899 78 71.4479 77.2571 70.3088 75.9611L26.3777 25.9806Z"
+              fill="#303949"
+              x={x}
+              y={y}
+            />
+            <path
+              d="M26.3777 25.9806C24.674 24.0422 26.0504 21 28.631 21H140C142.209 21 144 22.7909 144 25V74C144 76.2091 142.209 78 140 78H74.8154C73.0899 78 71.4479 77.2571 70.3088 75.9611L26.3777 25.9806Z"
+              fill="url(#paint0_linear_409_401)"
+              fillOpacity="0.2"
+              x={x}
+              y={y}
+            />
+            <path
+              d="M26.3777 25.9806C24.674 24.0422 26.0504 21 28.631 21H140C142.209 21 144 22.7909 144 25V74C144 76.2091 142.209 78 140 78H74.8154C73.0899 78 71.4479 77.2571 70.3088 75.9611L26.3777 25.9806Z"
+              fill="#F178B6"
+              fillOpacity="0.8"
+              x={x}
+              y={y}
+            />
+            <path
+              d="M26.3777 25.9806C24.674 24.0422 26.0504 21 28.631 21H140C142.209 21 144 22.7909 144 25V74C144 76.2091 142.209 78 140 78H74.8154C73.0899 78 71.4479 77.2571 70.3088 75.9611L26.3777 25.9806Z"
+              stroke="#F178B6"
+              strokeWidth="2"
+              x={x}
+              y={y}
+            />
+          </g>
+          <g filter="url(#filter1_d_409_401)" transform={`translate(${xShape2}, ${yShape2})`}>
+            <path
+              d="M28.9169 26.0853C27.076 24.1813 28.4252 21 31.0737 21H138C140.209 21 142 22.7909 142 25V69C142 71.2091 140.209 73 138 73H76.8229C75.1966 73 73.6399 72.3398 72.5095 71.1706L28.9169 26.0853Z"
+              fill="#303949"
+              x={xShape2}
+              y={yShape2}
+            />
+            <path
+              d="M28.9169 26.0853C27.076 24.1813 28.4252 21 31.0737 21H138C140.209 21 142 22.7909 142 25V69C142 71.2091 140.209 73 138 73H76.8229C75.1966 73 73.6399 72.3398 72.5095 71.1706L28.9169 26.0853Z"
+              fill="url(#paint1_linear_409_401)"
+              fillOpacity="0.2"
+              x={xShape2}
+              y={yShape2}
+            />
+            <path
+              d="M28.9169 26.0853C27.076 24.1813 28.4252 21 31.0737 21H138C140.209 21 142 22.7909 142 25V69C142 71.2091 140.209 73 138 73H76.8229C75.1966 73 73.6399 72.3398 72.5095 71.1706L28.9169 26.0853Z"
+              fill="#F178B6"
+              fillOpacity="0.3"
+              x={xShape2}
+              y={yShape2}
+            />
+            <foreignObject x={xShape2} y={yShape2} width={widthShape2} height={heightShape2}>
+              <div xmlns="http://www.w3.org/1999/xhtml" className={`keyContentLabel`}>
+                <ul>
+                  <li ref={setExtralabel} className={`${extraLabelClass ? "extraLabel" : ""}`}>
+                    {centerExtra}
+                  </li>
+                  <li>{centerPrimary}</li>
+                </ul>
+              </div>
+            </foreignObject>
+          </g>
+        </g>
+      ) : (
+        ""
+      )}
+    </>
   );
 };
 export default Key;

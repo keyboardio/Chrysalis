@@ -51,7 +51,7 @@ const store = new Store();
 
 const Styles = Styled.div`
 max-width: 1900px;
-min-width: 1120px;
+// min-width: 1120px;
 margin: auto;
 .keyboard-editor {
   height: 100%;
@@ -197,7 +197,7 @@ margin: auto;
 .keyColorOpacity {
   fill-opacity: ${({ theme }) => theme.styles.raiseKeyboard.keyColorOpacity};
 }
-.regularKey {
+.keyItem {
   font-size: 12px;
   font-weight: 600;
   letter-spacing: -0.03em;
@@ -227,18 +227,21 @@ margin: auto;
   }
   .shadowHover {
     transition: all 300ms ease-in-out;
+    filter: blur(18px);
+    opacity: 0.8;
   }
   .shadowMiddle {
     filter: blur(10px);
+    opacity: 0.5;
   }
   &.keyOnFocus { 
     .keyOpacityInternal {
       stroke-opacity: 0.7;
-      stroke: #ffffff;
+      stroke: ${({ theme }) => theme.styles.raiseKeyboard.keyOnFocusBorder};
     }
     .keyOpacity{
       stroke-opacity: 0.2;
-      stroke: #ffffff;
+      stroke: ${({ theme }) => theme.styles.raiseKeyboard.keyOnFocusBorder};
     }
     .shadowHover {
       opacity: 0;
@@ -1724,7 +1727,7 @@ class LayoutEditor extends React.Component {
 
     return (
       <Styles>
-        <Container fluid className="keyboard-editor">
+        <Container fluid className="keyboard-editor layoutEditor">
           <PageHeader
             text={i18n.app.menu.editor}
             showSaving={true}

@@ -347,6 +347,7 @@ class KeymapANSI extends React.Component {
 
         <g id="keyshapes">
           <Key
+            keyType="regularKey"
             id="R0C0_keyshape"
             onClick={onClick}
             className="key"
@@ -365,6 +366,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(0, 0, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R0C1_keyshape"
             onClick={onClick}
             className="key"
@@ -383,6 +385,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(0, 1, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R0C2_keyshape"
             onClick={onClick}
             className="key"
@@ -401,6 +404,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(0, 2, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R0C3_keyshape"
             onClick={onClick}
             className="key"
@@ -419,6 +423,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(0, 3, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R0C4_keyshape"
             onClick={onClick}
             className="key"
@@ -437,6 +442,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(0, 4, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R0C5_keyshape"
             onClick={onClick}
             className="key"
@@ -455,6 +461,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(0, 5, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R0C6_keyshape"
             onClick={onClick}
             className="key"
@@ -473,6 +480,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(0, 6, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R0C9_keyshape"
             onClick={onClick}
             className="key"
@@ -491,6 +499,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(0, 9, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R0C10_keyshape"
             onClick={onClick}
             className="key"
@@ -509,6 +518,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(0, 10, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R0C11_keyshape"
             onClick={onClick}
             className="key"
@@ -527,6 +537,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(0, 11, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R0C12_keyshape"
             onClick={onClick}
             className="key"
@@ -545,6 +556,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(0, 12, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R0C13_keyshape"
             onClick={onClick}
             className="key"
@@ -563,6 +575,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(0, 13, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R0C14_keyshape"
             onClick={onClick}
             className="key"
@@ -581,6 +594,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(0, 14, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R0C15_keyshape"
             onClick={onClick}
             className="key"
@@ -599,6 +613,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(0, 15, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R1C0_keyshape"
             onClick={onClick}
             className="key"
@@ -617,6 +632,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(1, 0, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R1C1_keyshape"
             onClick={onClick}
             className="key"
@@ -635,6 +651,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(1, 1, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R1C2_keyshape"
             onClick={onClick}
             className="key"
@@ -653,6 +670,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(1, 2, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R1C3_keyshape"
             onClick={onClick}
             className="key"
@@ -671,6 +689,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(1, 3, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R1C4_keyshape"
             onClick={onClick}
             className="key"
@@ -689,6 +708,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(1, 4, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R1C5_keyshape"
             onClick={onClick}
             className="key"
@@ -707,6 +727,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(1, 5, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R1C8_keyshape"
             onClick={onClick}
             className="key"
@@ -725,6 +746,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(1, 8, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R1C9_keyshape"
             onClick={onClick}
             className="key"
@@ -743,6 +765,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(1, 9, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R1C10_keyshape"
             onClick={onClick}
             className="key"
@@ -761,6 +784,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(1, 10, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R1C11_keyshape"
             onClick={onClick}
             className="key"
@@ -779,6 +803,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(1, 11, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R1C12_keyshape"
             onClick={onClick}
             className="key"
@@ -797,12 +822,13 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(1, 12, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R1C13_keyshape"
             onClick={onClick}
             className="key"
             width={57}
             height={57}
-            x={939}
+            x={935}
             y={keysRowsPosition.row2}
             fill={getColor(1, 13)}
             stroke={stroke(1, 13)}
@@ -815,6 +841,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(1, 13, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R1C14_keyshape"
             onClick={onClick}
             className="key"
@@ -833,6 +860,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(1, 14, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R1C15_keyshape"
             onClick={onClick}
             className="key"
@@ -851,6 +879,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(2, 15, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R2C0_keyshape"
             onClick={onClick}
             className="key"
@@ -869,6 +898,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(2, 0, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R2C1_keyshape"
             onClick={onClick}
             className="key"
@@ -887,6 +917,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(2, 1, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R2C2_keyshape"
             onClick={onClick}
             className="key"
@@ -905,6 +936,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(2, 2, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R2C3_keyshape"
             onClick={onClick}
             className="key"
@@ -923,6 +955,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(2, 3, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R2C4_keyshape"
             onClick={onClick}
             className="key"
@@ -941,6 +974,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(2, 4, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R2C5_keyshape"
             onClick={onClick}
             className="key"
@@ -959,6 +993,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(2, 5, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R2C9_keyshape"
             onClick={onClick}
             className="key"
@@ -977,6 +1012,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(2, 9, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R2C10_keyshape"
             onClick={onClick}
             className="key"
@@ -995,6 +1031,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(2, 10, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R2C11_keyshape"
             onClick={onClick}
             className="key"
@@ -1013,6 +1050,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(2, 11, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R2C12_keyshape"
             onClick={onClick}
             className="key"
@@ -1031,6 +1069,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(2, 12, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R2C13_keyshape"
             onClick={onClick}
             className="key"
@@ -1049,6 +1088,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(2, 13, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R2C14_keyshape"
             onClick={onClick}
             className="key"
@@ -1067,6 +1107,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(2, 14, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R2C15_keyshape"
             onClick={onClick}
             className="key"
@@ -1085,10 +1126,11 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(1, 15, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R3C0_keyshape"
             onClick={onClick}
             className="key"
-            width={138}
+            width={130}
             height={57}
             x={84}
             y={keysRowsPosition.row4}
@@ -1103,12 +1145,13 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(3, 0, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R3C2_keyshape"
             onClick={onClick}
             className="key"
             width={57}
             height={57}
-            x={236}
+            x={224}
             y={keysRowsPosition.row4}
             fill={getColor(3, 2)}
             stroke={stroke(3, 2)}
@@ -1121,12 +1164,13 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(3, 2, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R3C3_keyshape"
             onClick={onClick}
             className="key"
             width={57}
             height={57}
-            x={301}
+            x={291}
             y={keysRowsPosition.row4}
             fill={getColor(3, 3)}
             stroke={stroke(3, 3)}
@@ -1139,12 +1183,13 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(3, 3, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R3C4_keyshape"
             onClick={onClick}
             className="key"
             width={57}
             height={57}
-            x={366}
+            x={358}
             y={keysRowsPosition.row4}
             fill={getColor(3, 4)}
             stroke={stroke(3, 4)}
@@ -1157,12 +1202,13 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(3, 4, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R3C5_keyshape"
             onClick={onClick}
             className="key"
             width={57}
             height={57}
-            x={431}
+            x={425}
             y={keysRowsPosition.row4}
             fill={getColor(3, 5)}
             stroke={stroke(3, 5)}
@@ -1175,12 +1221,13 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(3, 5, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R3C6_keyshape"
             onClick={onClick}
             className="key"
             width={57}
             height={57}
-            x={496}
+            x={492}
             y={keysRowsPosition.row4}
             fill={getColor(3, 6)}
             stroke={stroke(3, 6)}
@@ -1193,6 +1240,7 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(3, 6, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R3C10_keyshape"
             onClick={onClick}
             className="key"
@@ -1211,12 +1259,13 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(3, 10, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R3C11_keyshape"
             onClick={onClick}
             className="key"
             width={57}
             height={57}
-            x={717}
+            x={719}
             y={keysRowsPosition.row4}
             fill={getColor(3, 11)}
             stroke={stroke(3, 11)}
@@ -1229,12 +1278,13 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(3, 11, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R3C12_keyshape"
             onClick={onClick}
             className="key"
             width={57}
             height={57}
-            x={782}
+            x={786}
             y={keysRowsPosition.row4}
             fill={getColor(3, 12)}
             stroke={stroke(3, 12)}
@@ -1247,12 +1297,13 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(3, 12, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R3C13_keyshape"
             onClick={onClick}
             className="key"
             width={57}
             height={57}
-            x={847}
+            x={853}
             y={keysRowsPosition.row4}
             fill={getColor(3, 13)}
             stroke={stroke(3, 13)}
@@ -1265,12 +1316,13 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(3, 13, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R3C14_keyshape"
             onClick={onClick}
             className="key"
             width={57}
             height={57}
-            x={912}
+            x={920}
             y={keysRowsPosition.row4}
             fill={getColor(3, 14)}
             stroke={stroke(3, 14)}
@@ -1283,12 +1335,13 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(3, 14, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R3C15_keyshape"
             onClick={onClick}
             className="key"
             width={151}
             height={57}
-            x={977}
+            x={987}
             y={keysRowsPosition.row4}
             fill={getColor(3, 15)}
             stroke={stroke(3, 15)}
@@ -1301,10 +1354,11 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(3, 15, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R4C0_keyshape"
             onClick={onClick}
             className="key"
-            width={66}
+            width={67}
             height={57}
             x={84}
             y={keysRowsPosition.row5}
@@ -1319,12 +1373,13 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(4, 0, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R4C1_keyshape"
             onClick={onClick}
             className="key"
-            width={66}
+            width={67}
             height={57}
-            x={166}
+            x={162}
             y={keysRowsPosition.row5}
             fill={getColor(4, 1)}
             stroke={stroke(4, 1)}
@@ -1337,12 +1392,13 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(4, 1, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R4C2_keyshape"
             onClick={onClick}
             className="key"
-            width={66}
+            width={67}
             height={57}
-            x={241}
+            x={239}
             y={keysRowsPosition.row5}
             fill={getColor(4, 2)}
             stroke={stroke(4, 2)}
@@ -1355,10 +1411,11 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(4, 2, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R4C3_keyshape"
             onClick={onClick}
             className="key"
-            width={113}
+            width={115}
             height={57}
             x={316}
             y={keysRowsPosition.row5}
@@ -1373,12 +1430,13 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(4, 3, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R4C4_keyshape"
             onClick={onClick}
             className="key"
             width={81}
             height={57}
-            x={437}
+            x={441}
             y={keysRowsPosition.row5}
             fill={getColor(4, 4)}
             stroke={stroke(4, 4)}
@@ -1391,12 +1449,13 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(4, 4, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R4C10_keyshape"
             onClick={onClick}
             className="key"
             width={66}
             height={57}
-            x={643}
+            x={645}
             y={keysRowsPosition.row5}
             fill={getColor(4, 10)}
             stroke={stroke(4, 10)}
@@ -1409,12 +1468,13 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(4, 10, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R4C11_keyshape"
             onClick={onClick}
             className="key"
-            width={113}
+            width={115}
             height={57}
-            x={717}
+            x={719}
             y={keysRowsPosition.row5}
             fill={getColor(4, 11)}
             stroke={stroke(4, 11)}
@@ -1427,12 +1487,13 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(4, 11, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R4C12_keyshape"
             onClick={onClick}
             className="key"
             width={66}
             height={57}
-            x={838}
+            x={844}
             y={keysRowsPosition.row5}
             fill={getColor(4, 12)}
             stroke={stroke(4, 12)}
@@ -1445,12 +1506,13 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(4, 12, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R4C13_keyshape"
             onClick={onClick}
             className="key"
             width={66}
             height={57}
-            x={912}
+            x={920}
             y={keysRowsPosition.row5}
             fill={getColor(4, 13)}
             stroke={stroke(4, 13)}
@@ -1463,12 +1525,13 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(4, 13, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R4C14_keyshape"
             onClick={onClick}
             className="key"
             width={66}
             height={57}
-            x={987}
+            x={996}
             y={keysRowsPosition.row5}
             fill={getColor(4, 14)}
             stroke={stroke(4, 14)}
@@ -1481,12 +1544,13 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(4, 14, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R4C15_keyshape"
             onClick={onClick}
             className="key"
             width={66}
             height={57}
-            x={1062}
+            x={1072}
             y={keysRowsPosition.row5}
             fill={getColor(4, 15)}
             stroke={stroke(4, 15)}
@@ -1500,12 +1564,33 @@ class KeymapANSI extends React.Component {
           />
 
           <Key
+            keyType="t5"
+            id="R4C6_keyshape"
+            onClick={onClick}
+            className="key"
+            width={123}
+            height={57}
+            x={325}
+            y={keysRowsPosition.row6}
+            fill={getColor(4, 6)}
+            stroke={stroke(4, 6)}
+            strokeWidth={getStrokeWidth(4, 6)}
+            dataLedIndex={getLEDIndex(4, 6)}
+            dataKeyIndex={keyIndex(4, 6)}
+            dataLayer={layer}
+            contrastText={getContrastText(getColor(4, 6))}
+            centerPrimary={getCenterPrimary(4, 6, 0, 0, true)}
+            centerExtra={getCenterExtra(4, 6, 0, 0, true)}
+          />
+
+          <Key
+            keyType="regularKey"
             id="R4C7_keyshape"
             onClick={onClick}
             className="key"
             width={57}
             height={57}
-            x={460}
+            x={464}
             y={keysRowsPosition.row6}
             fill={getColor(4, 7)}
             stroke={stroke(4, 7)}
@@ -1518,12 +1603,13 @@ class KeymapANSI extends React.Component {
             centerExtra={getCenterExtra(4, 7, 0, 0, true)}
           />
           <Key
+            keyType="regularKey"
             id="R4C8_keyshape"
             onClick={onClick}
             className="key"
             width={57}
             height={57}
-            x={642}
+            x={644}
             y={keysRowsPosition.row6}
             fill={getColor(4, 8)}
             stroke={stroke(4, 8)}

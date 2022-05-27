@@ -303,7 +303,8 @@ const Light = {
     },
     raiseKeyboard: {
       keyBase: "#E2E4EA",
-      keyColorOpacity: 0.65
+      keyColorOpacity: 0.65,
+      keyOnFocusBorder: "#000"
     },
     keyPicker: {
       iconColor: Tokens.colors.gray200,

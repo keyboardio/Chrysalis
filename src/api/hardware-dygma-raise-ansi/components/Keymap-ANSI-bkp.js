@@ -15,8 +15,6 @@
  */
 
 import React from "react";
-import Neuron from "../../hardware/Neuron";
-import Key from "../../hardware/Key";
 
 const XX = 255;
 const LEDS_LEFT_KEYS = 33;
@@ -117,21 +115,6 @@ const led_map = [
 
 const no_key_led_map = [...Array.apply(0, Array(63)).map((_, i) => i + UNDERGLOW)];
 
-const keysRowsPosition = {
-  row1: 35,
-  row2: 102,
-  row3: 169,
-  row4: 236,
-  row5: 303,
-  row6: 370
-};
-const textOffsetPosition = {
-  x: 9,
-  xCenter: 25,
-  y: 28,
-  yCenter: 20
-};
-
 class KeymapANSI extends React.Component {
   constructor(props) {
     super(props);
@@ -225,11 +208,11 @@ class KeymapANSI extends React.Component {
      */
     const GetCurrentKeyElement = props => {
       return (
-        <span>
-          <span className={props.class} textAnchor="middle" x={props.x} y={props.y} dy={props.dy} textLength={props.textLength}>
+        <tspan>
+          <tspan className={props.class} textAnchor="middle" x={props.x} y={props.y} dy={props.dy} textLength={props.textLength}>
             {props.word}
-          </span>
-        </span>
+          </tspan>
+        </tspan>
       );
     };
     /**
@@ -257,10 +240,10 @@ class KeymapANSI extends React.Component {
         ));
       } else if (str.toLowerCase().endsWith("to")) {
         return longWords.map((word, index) => (
-          <span key={index}>
+          <tspan key={index}>
             <GetCurrentKeyElement x={xCord} y={String(+yCord + 9)} dy={0} word={word.slice(0, word.indexOf("to") - 1)} />
             <GetCurrentKeyElement x={String(+xCord - 5)} y={String(+yCord + 9)} dy={interval} word={word.slice(-2)} />
-          </span>
+          </tspan>
         ));
       } else if (
         str.length > 8 &&
@@ -277,10 +260,10 @@ class KeymapANSI extends React.Component {
         smallKey
       ) {
         return longWords.map((word, index) => (
-          <span key={index}>
+          <tspan key={index}>
             <GetCurrentKeyElement x={xCord} y={String(+yCord - 10)} word={word.slice(0, 4)} dy={"0"} />
             <GetCurrentKeyElement x={xCord} y={String(+yCord - 10)} word={word.slice(4)} dy={interval} />
-          </span>
+          </tspan>
         ));
       } else if (longWords.length === 1) {
         return longWords.map((word, index) => <GetCurrentKeyElement key={index} x={xCord} y={yCord} word={word} />);
@@ -299,24 +282,24 @@ class KeymapANSI extends React.Component {
     const getCenterExtra = (row, col, xCord, yCord, smallKey = false) =>
       getLabel(row, col).extraLabel !== ""
         ? topsArr.includes(getLabel(row, col).extraLabel)
-          ? getLabel(row, col).extraLabel && getDivideKeys(getLabel(row, col).extraLabel, xCord, yCord - 5, smallKey)
+          ? getLabel(row, col).extraLabel && getDivideKeys(getLabel(row, col).extraLabel, xCord, yCord, smallKey)
           : getLabel(row, col).extraLabel && getDivideKeys(getLabel(row, col).extraLabel, xCord, String(+yCord - 5), smallKey)
         : getLabel(row, col).extraLabel === getLabel(row, col).extraLabel.toLowerCase().endsWith("to")
-        ? getLabel(row, col).extraLabel && getDivideKeys(getLabel(row, col).extraLabel, xCord, yCord - 5, smallKey)
+        ? getLabel(row, col).extraLabel && getDivideKeys(getLabel(row, col).extraLabel, xCord, yCord, smallKey)
         : getLabel(row, col).extraLabel;
 
     const getCenterPrimary = (row, col, xCord, yCord, smallKey = false) =>
       getLabel(row, col).extraLabel !== ""
         ? topsArr.includes(getLabel(row, col).extraLabel)
-          ? getLabel(row, col).label && getDivideKeys(getLabel(row, col).label, xCord, yCord + 5, smallKey)
+          ? getLabel(row, col).label && getDivideKeys(getLabel(row, col).label, xCord, yCord, smallKey)
           : topsArrTransfer.includes(getLabel(row, col).extraLabel)
-          ? getLabel(row, col).label && getDivideKeys(getLabel(row, col).label, String(+xCord + 10), yCord + 5, smallKey)
-          : getLabel(row, col).label && getDivideKeys(getLabel(row, col).label, xCord, String(yCord + 7), smallKey)
+          ? getLabel(row, col).label && getDivideKeys(getLabel(row, col).label, String(+xCord + 10), yCord, smallKey)
+          : getLabel(row, col).label && getDivideKeys(getLabel(row, col).label, xCord, String(yCord + 2), smallKey)
         : topsArrTransfer.includes(getLabel(row, col).extraLabel)
         ? getLabel(row, col).label &&
-          getDivideKeys(getLabel(row, col).label, xCord, yCord + 5, smallKey) &&
-          getDivideKeys(getLabel(row, col).label, String(+xCord + 10), yCord + 5, smallKey)
-        : getLabel(row, col).label && getDivideKeys(getLabel(row, col).label, xCord, String(yCord + 7), smallKey);
+          getDivideKeys(getLabel(row, col).label, xCord, yCord, smallKey) &&
+          getDivideKeys(getLabel(row, col).label, String(+xCord + 10), yCord, smallKey)
+        : getLabel(row, col).label && getDivideKeys(getLabel(row, col).label, xCord, String(yCord + 2), smallKey);
 
     return (
       <svg
@@ -326,1214 +309,923 @@ class KeymapANSI extends React.Component {
         strokeLinejoin="round"
         strokeMiterlimit="1.5"
         clipRule="evenodd"
-        viewBox={this.props.showUnderglow ? "0 0 1222 705" : "0 0 1222 430"}
+        viewBox={this.props.showUnderglow ? "0 0 1029 634" : "0 0 1029 380"}
         className={this.props.className || "layer"}
       >
-        <Neuron
-          visibility={this.props.showUnderglow ? true : false}
-          color="#b4b4b4"
-          id="neuron_led"
-          onClick={e => {
-            setUndeglowIndex(131, e);
-          }}
-          className="key"
-          fill={getColor(131)}
-          stroke={stroke(131)}
-          strokeWidth={getStrokeWidth(131)}
-          dataLedIndex={getLEDIndex(131)}
-          dataKeyIndex={keyIndex(131)}
-          dataLayer={layer}
+        <path
+          id="neuron_outline"
+          visibility={this.props.showUnderglow ? "visible" : "hidden"}
+          fill="none"
+          stroke="#b4b4b4"
+          strokeWidth="1.5"
+          d="M474.8,610.2c-1,2.4-3.8,3.6-6.2,2.5c-0.1,0-0.1-0.1-0.2-0.1l-48.5-23
+	c-7.2-3.4-10.3-12-6.9-19.3l29.4-63.2c2.8-6,4.2-12.5,4.2-19.1v-31c0-5.8,4.7-10.5,10.5-10.5l0,0h55.4c5.8,0,10.5,4.7,10.5,10.5l0,0
+	v31c0,6.6,1.4,13.1,4.2,19.1l29.4,63.2c3.4,7.2,0.3,15.8-6.9,19.3l-48.5,23c-2.4,1.1-5.2,0.1-6.3-2.3c0-0.1-0.1-0.1-0.1-0.2l0,0
+	c-2.3-5.5-8.6-8.1-14.1-5.8C477.9,605.5,475.9,607.6,474.8,610.2L474.8,610.2z"
         />
-
         <g id="keyshapes">
-          <Key
-            id="R0C0_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={84}
-            y={keysRowsPosition.row1}
-            fill={getColor(0, 0)}
-            stroke={stroke(0, 0)}
-            strokeWidth={getStrokeWidth(0, 0)}
-            dataLedIndex={getLEDIndex(0, 0)}
-            dataKeyIndex={keyIndex(0, 0)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(0, 0))}
-            centerPrimary={getCenterPrimary(0, 0, 0, 0, true)}
-            centerExtra={getCenterExtra(0, 0, 0, 0, true)}
-          />
-          <Key
-            id="R0C1_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={151}
-            y={keysRowsPosition.row1}
-            fill={getColor(0, 1)}
-            stroke={stroke(0, 1)}
-            strokeWidth={getStrokeWidth(0, 1)}
-            dataLedIndex={getLEDIndex(0, 1)}
-            dataKeyIndex={keyIndex(0, 1)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(0, 1))}
-            centerPrimary={getCenterPrimary(0, 1, 0, 0, true)}
-            centerExtra={getCenterExtra(0, 1, 0, 0, true)}
-          />
-          <Key
-            id="R0C2_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={218}
-            y={keysRowsPosition.row1}
-            fill={getColor(0, 2)}
-            stroke={stroke(0, 2)}
-            strokeWidth={getStrokeWidth(0, 2)}
-            dataLedIndex={getLEDIndex(0, 2)}
-            dataKeyIndex={keyIndex(0, 2)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(0, 2))}
-            centerPrimary={getCenterPrimary(0, 2, 0, 0, true)}
-            centerExtra={getCenterExtra(0, 2, 0, 0, true)}
-          />
-          <Key
-            id="R0C3_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={285}
-            y={keysRowsPosition.row1}
-            fill={getColor(0, 3)}
-            stroke={stroke(0, 3)}
-            strokeWidth={getStrokeWidth(0, 3)}
-            dataLedIndex={getLEDIndex(0, 3)}
-            dataKeyIndex={keyIndex(0, 3)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(0, 3))}
-            centerPrimary={getCenterPrimary(0, 3, 0, 0, true)}
-            centerExtra={getCenterExtra(0, 3, 0, 0, true)}
-          />
-          <Key
-            id="R0C4_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={352}
-            y={keysRowsPosition.row1}
-            fill={getColor(0, 4)}
-            stroke={stroke(0, 4)}
-            strokeWidth={getStrokeWidth(0, 4)}
-            dataLedIndex={getLEDIndex(0, 4)}
-            dataKeyIndex={keyIndex(0, 4)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(0, 4))}
-            centerPrimary={getCenterPrimary(0, 4, 0, 0, true)}
-            centerExtra={getCenterExtra(0, 4, 0, 0, true)}
-          />
-          <Key
-            id="R0C5_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={419}
-            y={keysRowsPosition.row1}
-            fill={getColor(0, 5)}
-            stroke={stroke(0, 5)}
-            strokeWidth={getStrokeWidth(0, 5)}
-            dataLedIndex={getLEDIndex(0, 5)}
-            dataKeyIndex={keyIndex(0, 5)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(0, 5))}
-            centerPrimary={getCenterPrimary(0, 5, 0, 0, true)}
-            centerExtra={getCenterExtra(0, 5, 0, 0, true)}
-          />
-          <Key
-            id="R0C6_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={486}
-            y={keysRowsPosition.row1}
-            fill={getColor(0, 6)}
-            stroke={stroke(0, 6)}
-            strokeWidth={getStrokeWidth(0, 6)}
-            dataLedIndex={getLEDIndex(0, 6)}
-            dataKeyIndex={keyIndex(0, 6)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(0, 6))}
-            centerPrimary={getCenterPrimary(0, 6, 0, 0, true)}
-            centerExtra={getCenterExtra(0, 6, 0, 0, true)}
-          />
-          <Key
-            id="R0C9_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={624}
-            y={keysRowsPosition.row1}
-            fill={getColor(0, 9)}
-            stroke={stroke(0, 9)}
-            strokeWidth={getStrokeWidth(0, 9)}
-            dataLedIndex={getLEDIndex(0, 9)}
-            dataKeyIndex={keyIndex(0, 9)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(0, 9))}
-            centerPrimary={getCenterPrimary(0, 9, 0, 0, true)}
-            centerExtra={getCenterExtra(0, 9, 0, 0, true)}
-          />
-          <Key
-            id="R0C10_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={691}
-            y={keysRowsPosition.row1}
-            fill={getColor(0, 10)}
-            stroke={stroke(0, 10)}
-            strokeWidth={getStrokeWidth(0, 10)}
-            dataLedIndex={getLEDIndex(0, 10)}
-            dataKeyIndex={keyIndex(0, 10)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(0, 10))}
-            centerPrimary={getCenterPrimary(0, 10, 0, 0, true)}
-            centerExtra={getCenterExtra(0, 10, 0, 0, true)}
-          />
-          <Key
-            id="R0C11_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={758}
-            y={keysRowsPosition.row1}
-            fill={getColor(0, 11)}
-            stroke={stroke(0, 11)}
-            strokeWidth={getStrokeWidth(0, 11)}
-            dataLedIndex={getLEDIndex(0, 11)}
-            dataKeyIndex={keyIndex(0, 11)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(0, 11))}
-            centerPrimary={getCenterPrimary(0, 11, 0, 0, true)}
-            centerExtra={getCenterExtra(0, 11, 0, 0, true)}
-          />
-          <Key
-            id="R0C12_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={825}
-            y={keysRowsPosition.row1}
-            fill={getColor(0, 12)}
-            stroke={stroke(0, 12)}
-            strokeWidth={getStrokeWidth(0, 12)}
-            dataLedIndex={getLEDIndex(0, 12)}
-            dataKeyIndex={keyIndex(0, 12)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(0, 12))}
-            centerPrimary={getCenterPrimary(0, 12, 0, 0, true)}
-            centerExtra={getCenterExtra(0, 12, 0, 0, true)}
-          />
-          <Key
-            id="R0C13_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={892}
-            y={keysRowsPosition.row1}
-            fill={getColor(0, 13)}
-            stroke={stroke(0, 13)}
-            strokeWidth={getStrokeWidth(0, 13)}
-            dataLedIndex={getLEDIndex(0, 13)}
-            dataKeyIndex={keyIndex(0, 13)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(0, 13))}
-            centerPrimary={getCenterPrimary(0, 13, 0, 0, true)}
-            centerExtra={getCenterExtra(0, 13, 0, 0, true)}
-          />
-          <Key
-            id="R0C14_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={959}
-            y={keysRowsPosition.row1}
-            fill={getColor(0, 14)}
-            stroke={stroke(0, 14)}
-            strokeWidth={getStrokeWidth(0, 14)}
-            dataLedIndex={getLEDIndex(0, 14)}
-            dataKeyIndex={keyIndex(0, 14)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(0, 14))}
-            centerPrimary={getCenterPrimary(0, 14, 0, 0, true)}
-            centerExtra={getCenterExtra(0, 14, 0, 0, true)}
-          />
-          <Key
-            id="R0C15_keyshape"
-            onClick={onClick}
-            className="key"
-            width={112}
-            height={57}
-            x={1026}
-            y={keysRowsPosition.row1}
-            fill={getColor(0, 15)}
-            stroke={stroke(0, 15)}
-            strokeWidth={getStrokeWidth(0, 15)}
-            dataLedIndex={getLEDIndex(0, 15)}
-            dataKeyIndex={keyIndex(0, 15)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(0, 15))}
-            centerPrimary={getCenterPrimary(0, 15, 0, 0, true)}
-            centerExtra={getCenterExtra(0, 15, 0, 0, true)}
-          />
-          <Key
-            id="R1C0_keyshape"
-            onClick={onClick}
-            className="key"
-            width={94}
-            height={57}
-            x={84}
-            y={keysRowsPosition.row2}
-            fill={getColor(1, 0)}
-            stroke={stroke(1, 0)}
-            strokeWidth={getStrokeWidth(1, 0)}
-            dataLedIndex={getLEDIndex(1, 0)}
-            dataKeyIndex={keyIndex(1, 0)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(1, 0))}
-            centerPrimary={getCenterPrimary(1, 0, 0, 0, true)}
-            centerExtra={getCenterExtra(1, 0, 0, 0, true)}
-          />
-          <Key
-            id="R1C1_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={188}
-            y={keysRowsPosition.row2}
-            fill={getColor(1, 1)}
-            stroke={stroke(1, 1)}
-            strokeWidth={getStrokeWidth(1, 1)}
-            dataLedIndex={getLEDIndex(1, 1)}
-            dataKeyIndex={keyIndex(1, 1)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(1, 1))}
-            centerPrimary={getCenterPrimary(1, 1, 0, 0, true)}
-            centerExtra={getCenterExtra(1, 1, 0, 0, true)}
-          />
-          <Key
-            id="R1C2_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={255}
-            y={keysRowsPosition.row2}
-            fill={getColor(1, 2)}
-            stroke={stroke(1, 2)}
-            strokeWidth={getStrokeWidth(1, 2)}
-            dataLedIndex={getLEDIndex(1, 2)}
-            dataKeyIndex={keyIndex(1, 2)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(1, 2))}
-            centerPrimary={getCenterPrimary(1, 2, 0, 0, true)}
-            centerExtra={getCenterExtra(1, 2, 0, 0, true)}
-          />
-          <Key
-            id="R1C3_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={322}
-            y={keysRowsPosition.row2}
-            fill={getColor(1, 3)}
-            stroke={stroke(1, 3)}
-            strokeWidth={getStrokeWidth(1, 3)}
-            dataLedIndex={getLEDIndex(1, 3)}
-            dataKeyIndex={keyIndex(1, 3)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(1, 3))}
-            centerPrimary={getCenterPrimary(1, 3, 0, 0, true)}
-            centerExtra={getCenterExtra(1, 3, 0, 0, true)}
-          />
-          <Key
-            id="R1C4_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={389}
-            y={keysRowsPosition.row2}
-            fill={getColor(1, 4)}
-            stroke={stroke(1, 4)}
-            strokeWidth={getStrokeWidth(1, 4)}
-            dataLedIndex={getLEDIndex(1, 4)}
-            dataKeyIndex={keyIndex(1, 4)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(1, 4))}
-            centerPrimary={getCenterPrimary(1, 4, 0, 0, true)}
-            centerExtra={getCenterExtra(1, 4, 0, 0, true)}
-          />
-          <Key
-            id="R1C5_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={456}
-            y={keysRowsPosition.row2}
-            fill={getColor(1, 5)}
-            stroke={stroke(1, 5)}
-            strokeWidth={getStrokeWidth(1, 5)}
-            dataLedIndex={getLEDIndex(1, 5)}
-            dataKeyIndex={keyIndex(1, 5)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(1, 5))}
-            centerPrimary={getCenterPrimary(1, 5, 0, 0, true)}
-            centerExtra={getCenterExtra(1, 5, 0, 0, true)}
-          />
-          <Key
-            id="R1C8_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={600}
-            y={keysRowsPosition.row2}
-            fill={getColor(1, 8)}
-            stroke={stroke(1, 8)}
-            strokeWidth={getStrokeWidth(1, 8)}
-            dataLedIndex={getLEDIndex(1, 8)}
-            dataKeyIndex={keyIndex(1, 8)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(1, 8))}
-            centerPrimary={getCenterPrimary(1, 8, 0, 0, true)}
-            centerExtra={getCenterExtra(1, 8, 0, 0, true)}
-          />
-          <Key
-            id="R1C9_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={667}
-            y={keysRowsPosition.row2}
-            fill={getColor(1, 9)}
-            stroke={stroke(1, 9)}
-            strokeWidth={getStrokeWidth(1, 9)}
-            dataLedIndex={getLEDIndex(1, 9)}
-            dataKeyIndex={keyIndex(1, 9)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(1, 9))}
-            centerPrimary={getCenterPrimary(1, 9, 0, 0, true)}
-            centerExtra={getCenterExtra(1, 9, 0, 0, true)}
-          />
-          <Key
-            id="R1C10_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={734}
-            y={keysRowsPosition.row2}
-            fill={getColor(1, 10)}
-            stroke={stroke(1, 10)}
-            strokeWidth={getStrokeWidth(1, 10)}
-            dataLedIndex={getLEDIndex(1, 10)}
-            dataKeyIndex={keyIndex(1, 10)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(1, 10))}
-            centerPrimary={getCenterPrimary(1, 10, 0, 0, true)}
-            centerExtra={getCenterExtra(1, 10, 0, 0, true)}
-          />
-          <Key
-            id="R1C11_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={801}
-            y={keysRowsPosition.row2}
-            fill={getColor(1, 11)}
-            stroke={stroke(1, 11)}
-            strokeWidth={getStrokeWidth(1, 11)}
-            dataLedIndex={getLEDIndex(1, 11)}
-            dataKeyIndex={keyIndex(1, 11)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(1, 11))}
-            centerPrimary={getCenterPrimary(1, 11, 0, 0, true)}
-            centerExtra={getCenterExtra(1, 11, 0, 0, true)}
-          />
-          <Key
-            id="R1C12_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={868}
-            y={keysRowsPosition.row2}
-            fill={getColor(1, 12)}
-            stroke={stroke(1, 12)}
-            strokeWidth={getStrokeWidth(1, 12)}
-            dataLedIndex={getLEDIndex(1, 12)}
-            dataKeyIndex={keyIndex(1, 12)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(1, 12))}
-            centerPrimary={getCenterPrimary(1, 12, 0, 0, true)}
-            centerExtra={getCenterExtra(1, 12, 0, 0, true)}
-          />
-          <Key
-            id="R1C13_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={939}
-            y={keysRowsPosition.row2}
-            fill={getColor(1, 13)}
-            stroke={stroke(1, 13)}
-            strokeWidth={getStrokeWidth(1, 13)}
-            dataLedIndex={getLEDIndex(1, 13)}
-            dataKeyIndex={keyIndex(1, 13)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(1, 13))}
-            centerPrimary={getCenterPrimary(1, 13, 0, 0, true)}
-            centerExtra={getCenterExtra(1, 13, 0, 0, true)}
-          />
-          <Key
-            id="R1C14_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={1002}
-            y={keysRowsPosition.row2}
-            fill={getColor(1, 14)}
-            stroke={stroke(1, 14)}
-            strokeWidth={getStrokeWidth(1, 14)}
-            dataLedIndex={getLEDIndex(1, 14)}
-            dataKeyIndex={keyIndex(1, 14)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(1, 14))}
-            centerPrimary={getCenterPrimary(1, 14, 0, 0, true)}
-            centerExtra={getCenterExtra(1, 14, 0, 0, true)}
-          />
-          <Key
-            id="R1C15_keyshape"
-            onClick={onClick}
-            className="key"
-            width={69}
-            height={57}
-            x={1069}
-            y={keysRowsPosition.row2}
-            fill={getColor(2, 15)}
-            stroke={stroke(2, 15)}
-            strokeWidth={getStrokeWidth(2, 15)}
-            dataLedIndex={getLEDIndex(2, 15)}
-            dataKeyIndex={keyIndex(2, 15)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(2, 15))}
-            centerPrimary={getCenterPrimary(2, 15, 0, 0, true)}
-            centerExtra={getCenterExtra(2, 15, 0, 0, true)}
-          />
-          <Key
-            id="R2C0_keyshape"
-            onClick={onClick}
-            className="key"
-            width={112}
-            height={57}
-            x={84}
-            y={keysRowsPosition.row3}
-            fill={getColor(2, 0)}
-            stroke={stroke(2, 0)}
-            strokeWidth={getStrokeWidth(2, 0)}
-            dataLedIndex={getLEDIndex(2, 0)}
-            dataKeyIndex={keyIndex(2, 0)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(2, 0))}
-            centerPrimary={getCenterPrimary(2, 0, 0, 0, true)}
-            centerExtra={getCenterExtra(2, 0, 0, 0, true)}
-          />
-          <Key
-            id="R2C1_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={206}
-            y={keysRowsPosition.row3}
-            fill={getColor(2, 1)}
-            stroke={stroke(2, 1)}
-            strokeWidth={getStrokeWidth(2, 1)}
-            dataLedIndex={getLEDIndex(2, 1)}
-            dataKeyIndex={keyIndex(2, 1)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(2, 1))}
-            centerPrimary={getCenterPrimary(2, 1, 0, 0, true)}
-            centerExtra={getCenterExtra(2, 1, 0, 0, true)}
-          />
-          <Key
-            id="R2C2_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={273}
-            y={keysRowsPosition.row3}
-            fill={getColor(2, 2)}
-            stroke={stroke(2, 2)}
-            strokeWidth={getStrokeWidth(2, 2)}
-            dataLedIndex={getLEDIndex(2, 2)}
-            dataKeyIndex={keyIndex(2, 2)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(2, 2))}
-            centerPrimary={getCenterPrimary(2, 2, 0, 0, true)}
-            centerExtra={getCenterExtra(2, 2, 0, 0, true)}
-          />
-          <Key
-            id="R2C3_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={340}
-            y={keysRowsPosition.row3}
-            fill={getColor(2, 3)}
-            stroke={stroke(2, 3)}
-            strokeWidth={getStrokeWidth(2, 3)}
-            dataLedIndex={getLEDIndex(2, 3)}
-            dataKeyIndex={keyIndex(2, 3)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(2, 3))}
-            centerPrimary={getCenterPrimary(2, 3, 0, 0, true)}
-            centerExtra={getCenterExtra(2, 3, 0, 0, true)}
-          />
-          <Key
-            id="R2C4_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={407}
-            y={keysRowsPosition.row3}
-            fill={getColor(2, 4)}
-            stroke={stroke(2, 4)}
-            strokeWidth={getStrokeWidth(2, 4)}
-            dataLedIndex={getLEDIndex(2, 4)}
-            dataKeyIndex={keyIndex(2, 4)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(2, 4))}
-            centerPrimary={getCenterPrimary(2, 4, 0, 0, true)}
-            centerExtra={getCenterExtra(2, 4, 0, 0, true)}
-          />
-          <Key
-            id="R2C5_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={474}
-            y={keysRowsPosition.row3}
-            fill={getColor(2, 5)}
-            stroke={stroke(2, 5)}
-            strokeWidth={getStrokeWidth(2, 5)}
-            dataLedIndex={getLEDIndex(2, 5)}
-            dataKeyIndex={keyIndex(2, 5)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(2, 5))}
-            centerPrimary={getCenterPrimary(2, 5, 0, 0, true)}
-            centerExtra={getCenterExtra(2, 5, 0, 0, true)}
-          />
-          <Key
-            id="R2C9_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={621}
-            y={keysRowsPosition.row3}
-            fill={getColor(2, 9)}
-            stroke={stroke(2, 9)}
-            strokeWidth={getStrokeWidth(2, 9)}
-            dataLedIndex={getLEDIndex(2, 9)}
-            dataKeyIndex={keyIndex(2, 9)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(2, 9))}
-            centerPrimary={getCenterPrimary(2, 9, 0, 0, true)}
-            centerExtra={getCenterExtra(2, 9, 0, 0, true)}
-          />
-          <Key
-            id="R2C10_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={688}
-            y={keysRowsPosition.row3}
-            fill={getColor(2, 10)}
-            stroke={stroke(2, 10)}
-            strokeWidth={getStrokeWidth(2, 10)}
-            dataLedIndex={getLEDIndex(2, 10)}
-            dataKeyIndex={keyIndex(2, 10)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(2, 10))}
-            centerPrimary={getCenterPrimary(2, 10, 0, 0, true)}
-            centerExtra={getCenterExtra(2, 10, 0, 0, true)}
-          />
-          <Key
-            id="R2C11_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={755}
-            y={keysRowsPosition.row3}
-            fill={getColor(2, 11)}
-            stroke={stroke(2, 11)}
-            strokeWidth={getStrokeWidth(2, 11)}
-            dataLedIndex={getLEDIndex(2, 11)}
-            dataKeyIndex={keyIndex(2, 11)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(2, 11))}
-            centerPrimary={getCenterPrimary(2, 11, 0, 0, true)}
-            centerExtra={getCenterExtra(2, 11, 0, 0, true)}
-          />
-          <Key
-            id="R2C12_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={822}
-            y={keysRowsPosition.row3}
-            fill={getColor(2, 12)}
-            stroke={stroke(2, 12)}
-            strokeWidth={getStrokeWidth(2, 12)}
-            dataLedIndex={getLEDIndex(2, 12)}
-            dataKeyIndex={keyIndex(2, 12)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(2, 12))}
-            centerPrimary={getCenterPrimary(2, 12, 0, 0, true)}
-            centerExtra={getCenterExtra(2, 12, 0, 0, true)}
-          />
-          <Key
-            id="R2C13_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={889}
-            y={keysRowsPosition.row3}
-            fill={getColor(2, 13)}
-            stroke={stroke(2, 13)}
-            strokeWidth={getStrokeWidth(2, 13)}
-            dataLedIndex={getLEDIndex(2, 13)}
-            dataKeyIndex={keyIndex(2, 13)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(2, 13))}
-            centerPrimary={getCenterPrimary(2, 13, 0, 0, true)}
-            centerExtra={getCenterExtra(2, 13, 0, 0, true)}
-          />
-          <Key
-            id="R2C14_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={956}
-            y={keysRowsPosition.row3}
-            fill={getColor(2, 14)}
-            stroke={stroke(2, 14)}
-            strokeWidth={getStrokeWidth(2, 14)}
-            dataLedIndex={getLEDIndex(2, 14)}
-            dataKeyIndex={keyIndex(2, 14)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(2, 14))}
-            centerPrimary={getCenterPrimary(2, 14, 0, 0, true)}
-            centerExtra={getCenterExtra(2, 14, 0, 0, true)}
-          />
-          <Key
-            id="R2C15_keyshape"
-            onClick={onClick}
-            className="key"
-            width={115}
-            height={57}
-            x={1023}
-            y={keysRowsPosition.row3}
-            fill={getColor(1, 15)}
-            stroke={stroke(1, 15)}
-            strokeWidth={getStrokeWidth(1, 15)}
-            dataLedIndex={getLEDIndex(1, 15)}
-            dataKeyIndex={keyIndex(1, 15)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(1, 15))}
-            centerPrimary={getCenterPrimary(1, 15, 0, 0, true)}
-            centerExtra={getCenterExtra(1, 15, 0, 0, true)}
-          />
-          <Key
-            id="R3C0_keyshape"
-            onClick={onClick}
-            className="key"
-            width={138}
-            height={57}
-            x={84}
-            y={keysRowsPosition.row4}
-            fill={getColor(3, 0)}
-            stroke={stroke(3, 0)}
-            strokeWidth={getStrokeWidth(3, 0)}
-            dataLedIndex={getLEDIndex(3, 0)}
-            dataKeyIndex={keyIndex(3, 0)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(3, 0))}
-            centerPrimary={getCenterPrimary(3, 0, 0, 0, true)}
-            centerExtra={getCenterExtra(3, 0, 0, 0, true)}
-          />
-          <Key
-            id="R3C2_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={236}
-            y={keysRowsPosition.row4}
-            fill={getColor(3, 2)}
-            stroke={stroke(3, 2)}
-            strokeWidth={getStrokeWidth(3, 2)}
-            dataLedIndex={getLEDIndex(3, 2)}
-            dataKeyIndex={keyIndex(3, 2)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(3, 2))}
-            centerPrimary={getCenterPrimary(3, 2, 0, 0, true)}
-            centerExtra={getCenterExtra(3, 2, 0, 0, true)}
-          />
-          <Key
-            id="R3C3_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={301}
-            y={keysRowsPosition.row4}
-            fill={getColor(3, 3)}
-            stroke={stroke(3, 3)}
-            strokeWidth={getStrokeWidth(3, 3)}
-            dataLedIndex={getLEDIndex(3, 3)}
-            dataKeyIndex={keyIndex(3, 3)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(3, 3))}
-            centerPrimary={getCenterPrimary(3, 3, 0, 0, true)}
-            centerExtra={getCenterExtra(3, 3, 0, 0, true)}
-          />
-          <Key
-            id="R3C4_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={366}
-            y={keysRowsPosition.row4}
-            fill={getColor(3, 4)}
-            stroke={stroke(3, 4)}
-            strokeWidth={getStrokeWidth(3, 4)}
-            dataLedIndex={getLEDIndex(3, 4)}
-            dataKeyIndex={keyIndex(3, 4)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(3, 4))}
-            centerPrimary={getCenterPrimary(3, 4, 0, 0, true)}
-            centerExtra={getCenterExtra(3, 4, 0, 0, true)}
-          />
-          <Key
-            id="R3C5_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={431}
-            y={keysRowsPosition.row4}
-            fill={getColor(3, 5)}
-            stroke={stroke(3, 5)}
-            strokeWidth={getStrokeWidth(3, 5)}
-            dataLedIndex={getLEDIndex(3, 5)}
-            dataKeyIndex={keyIndex(3, 5)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(3, 5))}
-            centerPrimary={getCenterPrimary(3, 5, 0, 0, true)}
-            centerExtra={getCenterExtra(3, 5, 0, 0, true)}
-          />
-          <Key
-            id="R3C6_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={496}
-            y={keysRowsPosition.row4}
-            fill={getColor(3, 6)}
-            stroke={stroke(3, 6)}
-            strokeWidth={getStrokeWidth(3, 6)}
-            dataLedIndex={getLEDIndex(3, 6)}
-            dataKeyIndex={keyIndex(3, 6)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(3, 6))}
-            centerPrimary={getCenterPrimary(3, 6, 0, 0, true)}
-            centerExtra={getCenterExtra(3, 6, 0, 0, true)}
-          />
-          <Key
-            id="R3C10_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={652}
-            y={keysRowsPosition.row4}
-            fill={getColor(3, 10)}
-            stroke={stroke(3, 10)}
-            strokeWidth={getStrokeWidth(3, 10)}
-            dataLedIndex={getLEDIndex(3, 10)}
-            dataKeyIndex={keyIndex(3, 10)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(3, 10))}
-            centerPrimary={getCenterPrimary(3, 10, 0, 0, true)}
-            centerExtra={getCenterExtra(3, 10, 0, 0, true)}
-          />
-          <Key
-            id="R3C11_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={717}
-            y={keysRowsPosition.row4}
-            fill={getColor(3, 11)}
-            stroke={stroke(3, 11)}
-            strokeWidth={getStrokeWidth(3, 11)}
-            dataLedIndex={getLEDIndex(3, 11)}
-            dataKeyIndex={keyIndex(3, 11)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(3, 11))}
-            centerPrimary={getCenterPrimary(3, 11, 0, 0, true)}
-            centerExtra={getCenterExtra(3, 11, 0, 0, true)}
-          />
-          <Key
-            id="R3C12_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={782}
-            y={keysRowsPosition.row4}
-            fill={getColor(3, 12)}
-            stroke={stroke(3, 12)}
-            strokeWidth={getStrokeWidth(3, 12)}
-            dataLedIndex={getLEDIndex(3, 12)}
-            dataKeyIndex={keyIndex(3, 12)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(3, 12))}
-            centerPrimary={getCenterPrimary(3, 12, 0, 0, true)}
-            centerExtra={getCenterExtra(3, 12, 0, 0, true)}
-          />
-          <Key
-            id="R3C13_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={847}
-            y={keysRowsPosition.row4}
-            fill={getColor(3, 13)}
-            stroke={stroke(3, 13)}
-            strokeWidth={getStrokeWidth(3, 13)}
-            dataLedIndex={getLEDIndex(3, 13)}
-            dataKeyIndex={keyIndex(3, 13)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(3, 13))}
-            centerPrimary={getCenterPrimary(3, 13, 0, 0, true)}
-            centerExtra={getCenterExtra(3, 13, 0, 0, true)}
-          />
-          <Key
-            id="R3C14_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={912}
-            y={keysRowsPosition.row4}
-            fill={getColor(3, 14)}
-            stroke={stroke(3, 14)}
-            strokeWidth={getStrokeWidth(3, 14)}
-            dataLedIndex={getLEDIndex(3, 14)}
-            dataKeyIndex={keyIndex(3, 14)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(3, 14))}
-            centerPrimary={getCenterPrimary(3, 14, 0, 0, true)}
-            centerExtra={getCenterExtra(3, 14, 0, 0, true)}
-          />
-          <Key
-            id="R3C15_keyshape"
-            onClick={onClick}
-            className="key"
-            width={151}
-            height={57}
-            x={977}
-            y={keysRowsPosition.row4}
-            fill={getColor(3, 15)}
-            stroke={stroke(3, 15)}
-            strokeWidth={getStrokeWidth(3, 15)}
-            dataLedIndex={getLEDIndex(3, 15)}
-            dataKeyIndex={keyIndex(3, 15)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(3, 15))}
-            centerPrimary={getCenterPrimary(3, 15, 0, 0, true)}
-            centerExtra={getCenterExtra(3, 15, 0, 0, true)}
-          />
-          <Key
-            id="R4C0_keyshape"
-            onClick={onClick}
-            className="key"
-            width={66}
-            height={57}
-            x={84}
-            y={keysRowsPosition.row5}
-            fill={getColor(4, 0)}
-            stroke={stroke(4, 0)}
-            strokeWidth={getStrokeWidth(4, 0)}
-            dataLedIndex={getLEDIndex(4, 0)}
-            dataKeyIndex={keyIndex(4, 0)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(4, 0))}
-            centerPrimary={getCenterPrimary(4, 0, 0, 0, true)}
-            centerExtra={getCenterExtra(4, 0, 0, 0, true)}
-          />
-          <Key
-            id="R4C1_keyshape"
-            onClick={onClick}
-            className="key"
-            width={66}
-            height={57}
-            x={166}
-            y={keysRowsPosition.row5}
-            fill={getColor(4, 1)}
-            stroke={stroke(4, 1)}
-            strokeWidth={getStrokeWidth(4, 1)}
-            dataLedIndex={getLEDIndex(4, 1)}
-            dataKeyIndex={keyIndex(4, 1)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(4, 1))}
-            centerPrimary={getCenterPrimary(4, 1, 0, 0, true)}
-            centerExtra={getCenterExtra(4, 1, 0, 0, true)}
-          />
-          <Key
-            id="R4C2_keyshape"
-            onClick={onClick}
-            className="key"
-            width={66}
-            height={57}
-            x={241}
-            y={keysRowsPosition.row5}
-            fill={getColor(4, 2)}
-            stroke={stroke(4, 2)}
-            strokeWidth={getStrokeWidth(4, 2)}
-            dataLedIndex={getLEDIndex(4, 2)}
-            dataKeyIndex={keyIndex(4, 2)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(4, 2))}
-            centerPrimary={getCenterPrimary(4, 2, 0, 0, true)}
-            centerExtra={getCenterExtra(4, 2, 0, 0, true)}
-          />
-          <Key
-            id="R4C3_keyshape"
-            onClick={onClick}
-            className="key"
-            width={113}
-            height={57}
-            x={316}
-            y={keysRowsPosition.row5}
-            fill={getColor(4, 3)}
-            stroke={stroke(4, 3)}
-            strokeWidth={getStrokeWidth(4, 3)}
-            dataLedIndex={getLEDIndex(4, 3)}
-            dataKeyIndex={keyIndex(4, 3)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(4, 3))}
-            centerPrimary={getCenterPrimary(4, 3, 0, 0, true)}
-            centerExtra={getCenterExtra(4, 3, 0, 0, true)}
-          />
-          <Key
-            id="R4C4_keyshape"
-            onClick={onClick}
-            className="key"
-            width={81}
-            height={57}
-            x={437}
-            y={keysRowsPosition.row5}
-            fill={getColor(4, 4)}
-            stroke={stroke(4, 4)}
-            strokeWidth={getStrokeWidth(4, 4)}
-            dataLedIndex={getLEDIndex(4, 4)}
-            dataKeyIndex={keyIndex(4, 4)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(4, 4))}
-            centerPrimary={getCenterPrimary(4, 4, 0, 0, true)}
-            centerExtra={getCenterExtra(4, 4, 0, 0, true)}
-          />
-          <Key
-            id="R4C10_keyshape"
-            onClick={onClick}
-            className="key"
-            width={66}
-            height={57}
-            x={643}
-            y={keysRowsPosition.row5}
-            fill={getColor(4, 10)}
-            stroke={stroke(4, 10)}
-            strokeWidth={getStrokeWidth(4, 10)}
-            dataLedIndex={getLEDIndex(4, 10)}
-            dataKeyIndex={keyIndex(4, 10)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(4, 10))}
-            centerPrimary={getCenterPrimary(4, 10, 0, 0, true)}
-            centerExtra={getCenterExtra(4, 10, 0, 0, true)}
-          />
-          <Key
-            id="R4C11_keyshape"
-            onClick={onClick}
-            className="key"
-            width={113}
-            height={57}
-            x={717}
-            y={keysRowsPosition.row5}
-            fill={getColor(4, 11)}
-            stroke={stroke(4, 11)}
-            strokeWidth={getStrokeWidth(4, 11)}
-            dataLedIndex={getLEDIndex(4, 11)}
-            dataKeyIndex={keyIndex(4, 11)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(4, 11))}
-            centerPrimary={getCenterPrimary(4, 11, 0, 0, true)}
-            centerExtra={getCenterExtra(4, 11, 0, 0, true)}
-          />
-          <Key
-            id="R4C12_keyshape"
-            onClick={onClick}
-            className="key"
-            width={66}
-            height={57}
-            x={838}
-            y={keysRowsPosition.row5}
-            fill={getColor(4, 12)}
-            stroke={stroke(4, 12)}
-            strokeWidth={getStrokeWidth(4, 12)}
-            dataLedIndex={getLEDIndex(4, 12)}
-            dataKeyIndex={keyIndex(4, 12)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(4, 12))}
-            centerPrimary={getCenterPrimary(4, 12, 0, 0, true)}
-            centerExtra={getCenterExtra(4, 12, 0, 0, true)}
-          />
-          <Key
-            id="R4C13_keyshape"
-            onClick={onClick}
-            className="key"
-            width={66}
-            height={57}
-            x={912}
-            y={keysRowsPosition.row5}
-            fill={getColor(4, 13)}
-            stroke={stroke(4, 13)}
-            strokeWidth={getStrokeWidth(4, 13)}
-            dataLedIndex={getLEDIndex(4, 13)}
-            dataKeyIndex={keyIndex(4, 13)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(4, 13))}
-            centerPrimary={getCenterPrimary(4, 13, 0, 0, true)}
-            centerExtra={getCenterExtra(4, 13, 0, 0, true)}
-          />
-          <Key
-            id="R4C14_keyshape"
-            onClick={onClick}
-            className="key"
-            width={66}
-            height={57}
-            x={987}
-            y={keysRowsPosition.row5}
-            fill={getColor(4, 14)}
-            stroke={stroke(4, 14)}
-            strokeWidth={getStrokeWidth(4, 14)}
-            dataLedIndex={getLEDIndex(4, 14)}
-            dataKeyIndex={keyIndex(4, 14)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(4, 14))}
-            centerPrimary={getCenterPrimary(4, 14, 0, 0, true)}
-            centerExtra={getCenterExtra(4, 14, 0, 0, true)}
-          />
-          <Key
-            id="R4C15_keyshape"
-            onClick={onClick}
-            className="key"
-            width={66}
-            height={57}
-            x={1062}
-            y={keysRowsPosition.row5}
-            fill={getColor(4, 15)}
-            stroke={stroke(4, 15)}
-            strokeWidth={getStrokeWidth(4, 15)}
-            dataLedIndex={getLEDIndex(4, 15)}
-            dataKeyIndex={keyIndex(4, 15)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(4, 15))}
-            centerPrimary={getCenterPrimary(4, 15, 0, 0, true)}
-            centerExtra={getCenterExtra(4, 15, 0, 0, true)}
-          />
-
-          <Key
-            id="R4C7_keyshape"
-            onClick={onClick}
-            className="key"
-            width={57}
-            height={57}
-            x={460}
-            y={keysRowsPosition.row6}
-            fill={getColor(4, 7)}
-            stroke={stroke(4, 7)}
-            strokeWidth={getStrokeWidth(4, 7)}
-            dataLedIndex={getLEDIndex(4, 7)}
-            dataKeyIndex={keyIndex(4, 7)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(4, 7))}
-            centerPrimary={getCenterPrimary(4, 7, 0, 0, true)}
-            centerExtra={getCenterExtra(4, 7, 0, 0, true)}
-          />
-          <Key
+          <path
+            id="neuron_led"
+            onClick={e => {
+              setUndeglowIndex(131, e);
+            }}
+            className="key"
+            visibility={this.props.showUnderglow ? "visible" : "hidden"}
+            fill={getColor(131)}
+            stroke={stroke(131)}
+            strokeWidth={getStrokeWidth(131)}
+            data-led-index={getLEDIndex(131)}
+            data-key-index={keyIndex(131)}
+            data-layer={layer}
+            d="M454.5,510c-0.2-0.6,0.2-1.2,0.7-1.3l28.6-9.8c0.2-0.1,0.5-0.1,0.7,0l29.7,9.8
+		c0.6,0.2,0.9,0.8,0.7,1.3l-7.5,26.9c0,0.2-0.1,0.3-0.2,0.4L485,561.9c-0.4,0.5-1.1,0.5-1.6,0.1l-0.1-0.1l-21.1-24.6
+		c-0.1-0.1-0.2-0.3-0.2-0.4L454.5,510L454.5,510z M465.2,514.6c-0.1-0.5,0.2-1.1,0.7-1.3l18.1-6c0.2-0.1,0.5-0.1,0.7,0l18.8,6
+		c0.5,0.2,0.9,0.7,0.8,1.3l-3.7,19.6c0,0.3-0.2,0.5-0.4,0.7l-15.1,12c-0.4,0.3-1,0.3-1.4,0l-14.3-12c-0.2-0.2-0.3-0.4-0.4-0.6
+		L465.2,514.6L465.2,514.6z"
+          />
+          <path
+            id="R4C9_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(4, 9)}
+            stroke={stroke(4, 9)}
+            strokeWidth={getStrokeWidth(4, 9)}
+            data-led-index={getLEDIndex(4, 9)}
+            data-key-index={keyIndex(4, 9)}
+            data-layer={layer}
+            d="M652.4,325.7c0.6-0.9,1-1.9,1-3c0-2.9-2.4-5.3-5.3-5.3h-76.9c-2.9,0-5.3,2.4-5.3,5.3v40.7
+		c0,2.9,2.4,5.3,5.3,5.3h48.3c1.7,0,3.3-0.8,4.3-2.2L652.4,325.7z"
+          />
+          <path
             id="R4C8_keyshape"
             onClick={onClick}
             className="key"
-            width={57}
-            height={57}
-            x={642}
-            y={keysRowsPosition.row6}
             fill={getColor(4, 8)}
             stroke={stroke(4, 8)}
             strokeWidth={getStrokeWidth(4, 8)}
-            dataLedIndex={getLEDIndex(4, 8)}
-            dataKeyIndex={keyIndex(4, 8)}
-            dataLayer={layer}
-            contrastText={getContrastText(getColor(4, 8))}
-            centerPrimary={getCenterPrimary(4, 8, 0, 0, true)}
-            centerExtra={getCenterExtra(4, 8, 0, 0, true)}
+            data-led-index={getLEDIndex(4, 8)}
+            data-key-index={keyIndex(4, 8)}
+            data-layer={layer}
+            d="M508.2,322.7c0-2.9,2.4-5.3,5.3-5.3H554c2.9,0,5.3,2.4,5.3,5.3v40.7c0,2.9-2.4,5.3-5.3,5.3
+		h-40.5c-2.9,0-5.3-2.4-5.3-5.3L508.2,322.7L508.2,322.7z"
+          />
+          <path
+            id="R4C7_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(4, 7)}
+            stroke={stroke(4, 7)}
+            strokeWidth={getStrokeWidth(4, 7)}
+            data-led-index={getLEDIndex(4, 7)}
+            data-key-index={keyIndex(4, 7)}
+            data-layer={layer}
+            d="M410.6,322.7c0-2.9,2.4-5.3,5.3-5.3h40.5c2.9,0,5.3,2.4,5.3,5.3v40.7
+		c0,2.9-2.4,5.3-5.3,5.3h-40.5c-2.9,0-5.3-2.4-5.3-5.3V322.7z"
+          />
+          <path
+            id="R4C6_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(4, 6)}
+            stroke={stroke(4, 6)}
+            strokeWidth={getStrokeWidth(4, 6)}
+            data-led-index={getLEDIndex(4, 6)}
+            data-key-index={keyIndex(4, 6)}
+            data-layer={layer}
+            d="M317.1,325.7c-0.6-0.9-1-1.9-1-3c0-2.9,2.4-5.3,5.3-5.3h76.9c2.9,0,5.3,2.4,5.3,5.3v40.7
+		c0,2.9-2.4,5.3-5.3,5.3H350c-1.7,0-3.3-0.8-4.3-2.2L317.1,325.7z"
+          />
+          <path
+            id="R4C15_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(4, 15)}
+            stroke={stroke(4, 15)}
+            strokeWidth={getStrokeWidth(4, 15)}
+            data-led-index={getLEDIndex(4, 15)}
+            data-key-index={keyIndex(4, 15)}
+            data-layer={layer}
+            d="M904.4,263.2c0-2.9,2.4-5.3,5.3-5.3h55.7c2.9,0,5.3,2.4,5.3,5.3l0,0v40.7
+		c0,2.9-2.4,5.3-5.3,5.3l0,0h-55.7c-2.9,0-5.3-2.4-5.3-5.3V263.2z"
+          />
+          <path
+            id="R4C14_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(4, 14)}
+            stroke={stroke(4, 14)}
+            strokeWidth={getStrokeWidth(4, 14)}
+            data-led-index={getLEDIndex(4, 14)}
+            data-key-index={keyIndex(4, 14)}
+            data-layer={layer}
+            d="M844.6,263.2c0-2.9,2.4-5.3,5.3-5.3h40.5c2.9,0,5.3,2.4,5.3,5.3v40.7
+		c0,2.9-2.4,5.3-5.3,5.3h-40.5c-2.9,0-5.3-2.4-5.3-5.3V263.2z"
+          />
+          <path
+            id="R4C13_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(4, 13)}
+            stroke={stroke(4, 13)}
+            strokeWidth={getStrokeWidth(4, 13)}
+            data-led-index={getLEDIndex(4, 13)}
+            data-key-index={keyIndex(4, 13)}
+            data-layer={layer}
+            d="M769.4,263.2c0-2.9,2.4-5.3,5.3-5.3h55.7c2.9,0,5.3,2.4,5.3,5.3l0,0v40.7
+		c0,2.9-2.4,5.3-5.3,5.3l0,0h-55.7c-2.9,0-5.3-2.4-5.3-5.3V263.2z"
+          />
+          <path
+            id="R4C12_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(4, 12)}
+            stroke={stroke(4, 12)}
+            strokeWidth={getStrokeWidth(4, 12)}
+            data-led-index={getLEDIndex(4, 12)}
+            data-key-index={keyIndex(4, 12)}
+            data-layer={layer}
+            d="M694.3,263.2c0-2.9,2.4-5.3,5.3-5.3h55.7c2.9,0,5.3,2.4,5.3,5.3l0,0v40.7
+		c0,2.9-2.4,5.3-5.3,5.3l0,0h-55.7c-2.9,0-5.3-2.4-5.3-5.3V263.2z"
+          />
+          <path
+            id="R4C11_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(4, 11)}
+            stroke={stroke(4, 11)}
+            strokeWidth={getStrokeWidth(4, 11)}
+            data-led-index={getLEDIndex(4, 11)}
+            data-key-index={keyIndex(4, 11)}
+            data-layer={layer}
+            d="M609.6,263.2c0-2.9,2.4-5.3,5.3-5.3l0,0h65.6c2.9,0,5.3,2.4,5.3,5.3l0,0v40.7
+		c0,2.9-2.3,5.3-5.2,5.3l0,0H615c-2.9,0-5.3-2.4-5.3-5.3l0,0L609.6,263.2L609.6,263.2z"
+          />
+          <path
+            id="R4C10_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(4, 10)}
+            stroke={stroke(4, 10)}
+            strokeWidth={getStrokeWidth(4, 10)}
+            data-led-index={getLEDIndex(4, 10)}
+            data-key-index={keyIndex(4, 10)}
+            data-layer={layer}
+            d="M508.6,263.2c0-2.9,2.4-5.3,5.3-5.3h83.6c2.9,0,5.3,2.4,5.3,5.3v40.7
+		c0,2.9-2.4,5.3-5.3,5.3h-83.6c-2.9,0-5.3-2.4-5.3-5.3V263.2z"
+          />
+          <path
+            id="R4C4_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(4, 4)}
+            stroke={stroke(4, 4)}
+            strokeWidth={getStrokeWidth(4, 4)}
+            data-led-index={getLEDIndex(4, 4)}
+            data-key-index={keyIndex(4, 4)}
+            data-layer={layer}
+            d="M367.7,263.2c0-2.9,2.4-5.3,5.3-5.3h83.6c2.9,0,5.3,2.4,5.3,5.3v40.7
+		c0,2.9-2.4,5.3-5.3,5.3H373c-2.9,0-5.3-2.4-5.3-5.3V263.2z"
+          />
+          <path
+            id="R4C3_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(4, 3)}
+            stroke={stroke(4, 3)}
+            strokeWidth={getStrokeWidth(4, 3)}
+            data-led-index={getLEDIndex(4, 3)}
+            data-key-index={keyIndex(4, 3)}
+            data-layer={layer}
+            d="M282.8,263.2c0-2.9,2.4-5.3,5.3-5.3h65.6c2.9,0,5.3,2.4,5.3,5.3l0,0v40.7
+		c0,2.9-2.3,5.3-5.2,5.3l0,0H288c-2.9,0-5.3-2.4-5.3-5.3l0,0L282.8,263.2L282.8,263.2z"
+          />
+          <path
+            id="R4C2_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(4, 2)}
+            stroke={stroke(4, 2)}
+            strokeWidth={getStrokeWidth(4, 2)}
+            data-led-index={getLEDIndex(4, 2)}
+            data-key-index={keyIndex(4, 2)}
+            data-layer={layer}
+            d="M207.7,263.2c0-2.9,2.4-5.3,5.3-5.3h55.7c2.9,0,5.3,2.4,5.3,5.3v40.7
+		c0,2.9-2.4,5.3-5.3,5.3H213c-2.9,0-5.3-2.4-5.3-5.3V263.2z"
+          />
+          <path
+            id="R4C1_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(4, 1)}
+            stroke={stroke(4, 1)}
+            strokeWidth={getStrokeWidth(4, 1)}
+            data-led-index={getLEDIndex(4, 1)}
+            data-key-index={keyIndex(4, 1)}
+            data-layer={layer}
+            d="M132.7,263.2c0-2.9,2.4-5.3,5.3-5.3h55.7c2.9,0,5.3,2.4,5.3,5.3v40.7
+		c0,2.9-2.4,5.3-5.3,5.3H138c-2.9,0-5.3-2.4-5.3-5.3V263.2z"
+          />
+          <path
+            id="R4C0_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(4, 0)}
+            stroke={stroke(4, 0)}
+            strokeWidth={getStrokeWidth(4, 0)}
+            data-led-index={getLEDIndex(4, 0)}
+            data-key-index={keyIndex(4, 0)}
+            data-layer={layer}
+            d="M57.7,263.2c0-2.9,2.4-5.3,5.3-5.3h55.7c2.9,0,5.3,2.4,5.3,5.3v40.7c0,2.9-2.4,5.3-5.3,5.3
+		H62.9c-2.9,0-5.3-2.4-5.3-5.3L57.7,263.2L57.7,263.2z"
+          />
+          <path
+            id="R3C15_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(3, 15)}
+            stroke={stroke(3, 15)}
+            strokeWidth={getStrokeWidth(3, 15)}
+            data-led-index={getLEDIndex(3, 15)}
+            data-key-index={keyIndex(3, 15)}
+            data-layer={layer}
+            d="M814.2,203.6c0-2.9,2.4-5.3,5.3-5.3l0,0h146c2.9,0,5.3,2.4,5.3,5.3l0,0v40.9
+		c0,2.9-2.4,5.3-5.3,5.3l0,0h-146c-2.9,0-5.3-2.4-5.3-5.3l0,0V203.6z"
+          />
+          <path
+            id="R3C14_keyshape"
+            onClick={onClick}
+            className="key-config key"
+            fill={getColor(3, 14)}
+            stroke={stroke(3, 14)}
+            strokeWidth={getStrokeWidth(3, 14)}
+            data-led-index={getLEDIndex(3, 14)}
+            data-key-index={keyIndex(3, 14)}
+            data-layer={layer}
+            d="M755.7,203.6c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3V203.6L755.7,203.6L755.7,203.6z"
+          />
+          <path
+            id="R3C13_keyshape"
+            onClick={onClick}
+            className="key-config key"
+            fill={getColor(3, 13)}
+            stroke={stroke(3, 13)}
+            strokeWidth={getStrokeWidth(3, 13)}
+            data-led-index={getLEDIndex(3, 13)}
+            data-key-index={keyIndex(3, 13)}
+            data-layer={layer}
+            d="M696.9,203.6c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3V203.6z"
+          />
+          <path
+            id="R3C12_keyshape"
+            onClick={onClick}
+            className="key-config key"
+            fill={getColor(3, 12)}
+            stroke={stroke(3, 12)}
+            strokeWidth={getStrokeWidth(3, 12)}
+            data-led-index={getLEDIndex(3, 12)}
+            data-key-index={keyIndex(3, 12)}
+            data-layer={layer}
+            d="M638.2,203.6c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3V203.6z"
+          />
+          <path
+            id="R3C11_keyshape"
+            onClick={onClick}
+            className="letter-config key"
+            fill={getColor(3, 11)}
+            stroke={stroke(3, 11)}
+            strokeWidth={getStrokeWidth(3, 11)}
+            data-led-index={getLEDIndex(3, 11)}
+            data-key-index={keyIndex(3, 11)}
+            data-layer={layer}
+            d="M579.4,203.6c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3V203.6z"
+          />
+          <path
+            id="R3C10_keyshape"
+            onClick={onClick}
+            className="letter-config key"
+            fill={getColor(3, 10)}
+            stroke={stroke(3, 10)}
+            strokeWidth={getStrokeWidth(3, 10)}
+            data-led-index={getLEDIndex(3, 10)}
+            data-key-index={keyIndex(3, 10)}
+            data-layer={layer}
+            d="M522.5,203.6c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3V203.6z"
+          />
+          <path
+            id="R3C6_keyshape"
+            onClick={onClick}
+            className="letter-config key"
+            fill={getColor(3, 6)}
+            stroke={stroke(3, 6)}
+            strokeWidth={getStrokeWidth(3, 6)}
+            data-led-index={getLEDIndex(3, 6)}
+            data-key-index={keyIndex(3, 6)}
+            data-layer={layer}
+            d="M411,203.6c0-2.9,2.4-5.3,5.3-5.3H457c2.9,0,5.3,2.4,5.3,5.3v40.9c0,2.9-2.4,5.3-5.3,5.3
+		h-40.7c-2.9,0-5.3-2.4-5.3-5.3V203.6z"
+          />
+          <path
+            id="R3C5_keyshape"
+            onClick={onClick}
+            className="letter-config key"
+            fill={getColor(3, 5)}
+            stroke={stroke(3, 5)}
+            strokeWidth={getStrokeWidth(3, 5)}
+            data-led-index={getLEDIndex(3, 5)}
+            data-key-index={keyIndex(3, 5)}
+            data-layer={layer}
+            d="M352.1,203.6c0-2.9,2.4-5.3,5.3-5.3H398c2.9,0,5.3,2.4,5.3,5.3v40.9c0,2.9-2.4,5.3-5.3,5.3
+		h-40.7c-2.9,0-5.3-2.4-5.3-5.3L352.1,203.6L352.1,203.6z"
+          />
+          <path
+            id="R3C4_keyshape"
+            onClick={onClick}
+            className="letter-config key"
+            fill={getColor(3, 4)}
+            stroke={stroke(3, 4)}
+            strokeWidth={getStrokeWidth(3, 4)}
+            data-led-index={getLEDIndex(3, 4)}
+            data-key-index={keyIndex(3, 4)}
+            data-layer={layer}
+            d="M293.3,203.6c0-2.9,2.4-5.3,5.3-5.3h40.6c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3L293.3,203.6L293.3,203.6z"
+          />
+          <path
+            id="R3C3_keyshape"
+            onClick={onClick}
+            className="letter-config key"
+            fill={getColor(3, 3)}
+            stroke={stroke(3, 3)}
+            strokeWidth={getStrokeWidth(3, 3)}
+            data-led-index={getLEDIndex(3, 3)}
+            data-key-index={keyIndex(3, 3)}
+            data-layer={layer}
+            d="M234.5,203.6c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3V203.6z"
+          />
+          <path
+            id="R3C2_keyshape"
+            onClick={onClick}
+            className="letter-config key"
+            fill={getColor(3, 2)}
+            stroke={stroke(3, 2)}
+            strokeWidth={getStrokeWidth(3, 2)}
+            data-led-index={getLEDIndex(3, 2)}
+            data-key-index={keyIndex(3, 2)}
+            data-layer={layer}
+            d="M175.7,203.6c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.8c-2.9,0-5.3-2.4-5.3-5.3L175.7,203.6L175.7,203.6z"
+          />
+          <path
+            id="R3C0_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(3, 0)}
+            stroke={stroke(3, 0)}
+            strokeWidth={getStrokeWidth(3, 0)}
+            data-led-index={getLEDIndex(3, 0)}
+            data-key-index={keyIndex(3, 0)}
+            data-layer={layer}
+            d="M57.7,203.6c0-2.9,2.1-5.3,4.7-5.3h100.9c2.6,0,4.7,2.4,4.7,5.3v40.9
+		c0,2.9-2.1,5.3-4.7,5.3H62.4c-2.6,0-4.7-2.4-4.7-5.3V203.6z"
+          />
+          <path
+            id="R2C15_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(1, 15)}
+            stroke={stroke(1, 15)}
+            strokeWidth={getStrokeWidth(1, 15)}
+            data-led-index={getLEDIndex(1, 15)}
+            data-key-index={keyIndex(1, 15)}
+            data-layer={layer}
+            d="M861.3,144c0-2.9,2.1-5.3,4.7-5.3l0,0h100c2.6,0,4.7,2.4,4.7,5.3l0,0v40.9
+		c0,2.9-2.1,5.3-4.7,5.3l0,0H866c-2.6,0-4.7-2.4-4.7-5.3l0,0V144z"
+          />
+          <path
+            id="R2C14_keyshape"
+            onClick={onClick}
+            className="key-config key"
+            fill={getColor(2, 14)}
+            stroke={stroke(2, 14)}
+            strokeWidth={getStrokeWidth(2, 14)}
+            data-led-index={getLEDIndex(2, 14)}
+            data-key-index={keyIndex(2, 14)}
+            data-layer={layer}
+            d="M802.5,144L802.5,144c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3V144z"
+          />
+          <path
+            id="R2C13_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(2, 13)}
+            stroke={stroke(2, 13)}
+            strokeWidth={getStrokeWidth(2, 13)}
+            data-led-index={getLEDIndex(2, 13)}
+            data-key-index={keyIndex(2, 13)}
+            data-layer={layer}
+            d="M743.7,144L743.7,144c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3H749c-2.9,0-5.3-2.4-5.3-5.3V144L743.7,144L743.7,144z"
+          />
+          <path
+            id="R2C12_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(2, 12)}
+            stroke={stroke(2, 12)}
+            strokeWidth={getStrokeWidth(2, 12)}
+            data-led-index={getLEDIndex(2, 12)}
+            data-key-index={keyIndex(2, 12)}
+            data-layer={layer}
+            d="M684.9,144L684.9,144c0-2.9,2.4-5.3,5.3-5.3H731c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3V144z"
+          />
+          <path
+            id="R2C11_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(2, 11)}
+            stroke={stroke(2, 11)}
+            strokeWidth={getStrokeWidth(2, 11)}
+            data-led-index={getLEDIndex(2, 11)}
+            data-key-index={keyIndex(2, 11)}
+            data-layer={layer}
+            d="M626.2,144L626.2,144c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3V144z"
+          />
+          <path
+            id="R2C10_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(2, 10)}
+            stroke={stroke(2, 10)}
+            strokeWidth={getStrokeWidth(2, 10)}
+            data-led-index={getLEDIndex(2, 10)}
+            data-key-index={keyIndex(2, 10)}
+            data-layer={layer}
+            d="M567.4,144L567.4,144c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3V144z"
+          />
+          <path
+            id="R2C9_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(2, 9)}
+            stroke={stroke(2, 9)}
+            strokeWidth={getStrokeWidth(2, 9)}
+            data-led-index={getLEDIndex(2, 9)}
+            data-key-index={keyIndex(2, 9)}
+            data-layer={layer}
+            d="M508.6,144L508.6,144c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3L508.6,144L508.6,144z"
+          />
+          <path
+            id="R2C5_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(2, 5)}
+            stroke={stroke(2, 5)}
+            strokeWidth={getStrokeWidth(2, 5)}
+            data-led-index={getLEDIndex(2, 5)}
+            data-key-index={keyIndex(2, 5)}
+            data-layer={layer}
+            d="M389,144L389,144c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3V144z"
+          />
+          <path
+            id="R2C4_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(2, 4)}
+            stroke={stroke(2, 4)}
+            strokeWidth={getStrokeWidth(2, 4)}
+            data-led-index={getLEDIndex(2, 4)}
+            data-key-index={keyIndex(2, 4)}
+            data-layer={layer}
+            d="M330.2,144L330.2,144c0-2.9,2.4-5.3,5.3-5.3h40.6c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3L330.2,144L330.2,144z"
+          />
+          <path
+            id="R2C3_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(2, 3)}
+            stroke={stroke(2, 3)}
+            strokeWidth={getStrokeWidth(2, 3)}
+            data-led-index={getLEDIndex(2, 3)}
+            data-key-index={keyIndex(2, 3)}
+            data-layer={layer}
+            d="M271.4,144L271.4,144c0-2.9,2.4-5.3,5.3-5.3h40.6c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3L271.4,144L271.4,144z"
+          />
+          <path
+            id="R2C2_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(2, 2)}
+            stroke={stroke(2, 2)}
+            strokeWidth={getStrokeWidth(2, 2)}
+            data-led-index={getLEDIndex(2, 2)}
+            data-key-index={keyIndex(2, 2)}
+            data-layer={layer}
+            d="M212.6,144L212.6,144c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3V144z"
+          />
+          <path
+            id="R2C1_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(2, 1)}
+            stroke={stroke(2, 1)}
+            strokeWidth={getStrokeWidth(2, 1)}
+            data-led-index={getLEDIndex(2, 1)}
+            data-key-index={keyIndex(2, 1)}
+            data-layer={layer}
+            d="M153.8,144L153.8,144c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3H159c-2.9,0-5.3-2.4-5.3-5.3L153.8,144L153.8,144z"
+          />
+          <path
+            id="R2C0_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(2, 0)}
+            stroke={stroke(2, 0)}
+            strokeWidth={getStrokeWidth(2, 0)}
+            data-led-index={getLEDIndex(2, 0)}
+            data-key-index={keyIndex(2, 0)}
+            data-layer={layer}
+            d="M57.7,144c0-2.9,2.2-5.3,4.9-5.3l0,0h79.3c2.7,0,4.9,2.4,4.9,5.3l0,0v40.9
+		c0,2.9-2.2,5.3-4.9,5.3l0,0H62.6c-2.7,0-4.9-2.4-4.9-5.3l0,0C57.7,184.9,57.7,144,57.7,144z"
+          />
+          <path
+            id="R1C15_keyshape"
+            onClick={onClick}
+            className="letter-config key"
+            fill={getColor(2, 15)}
+            stroke={stroke(2, 15)}
+            strokeWidth={getStrokeWidth(2, 15)}
+            data-led-index={getLEDIndex(2, 15)}
+            data-key-index={keyIndex(2, 15)}
+            data-layer={layer}
+            d="M892.8,84.4c0-2.9,2.3-5.3,5.2-5.3l0,0h67.5c2.9,0,5.2,2.4,5.2,5.3v40.9
+		c0,2.9-2.3,5.3-5.2,5.3l0,0H898c-2.9,0-5.2-2.4-5.2-5.3l0,0V84.4z"
+          />
+          <path
+            id="R1C14_keyshape"
+            onClick={onClick}
+            className="key-config key"
+            fill={getColor(1, 14)}
+            stroke={stroke(1, 14)}
+            strokeWidth={getStrokeWidth(1, 14)}
+            data-led-index={getLEDIndex(1, 14)}
+            data-key-index={keyIndex(1, 14)}
+            data-layer={layer}
+            d="M835.4,84.4L835.4,84.4c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3V84.4z"
+          />
+          <path
+            id="R1C13_keyshape"
+            onClick={onClick}
+            className="key-config key"
+            fill={getColor(1, 13)}
+            stroke={stroke(1, 13)}
+            strokeWidth={getStrokeWidth(1, 13)}
+            data-led-index={getLEDIndex(1, 13)}
+            data-key-index={keyIndex(1, 13)}
+            data-layer={layer}
+            d="M777.9,84.4L777.9,84.4c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3V84.4z"
+          />
+          <path
+            id="R1C12_keyshape"
+            onClick={onClick}
+            className="letter-config key"
+            fill={getColor(1, 12)}
+            stroke={stroke(1, 12)}
+            strokeWidth={getStrokeWidth(1, 12)}
+            data-led-index={getLEDIndex(1, 12)}
+            data-key-index={keyIndex(1, 12)}
+            data-layer={layer}
+            d="M720.5,84.4L720.5,84.4c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3V84.4L720.5,84.4L720.5,84.4z"
+          />
+          <path
+            id="R1C11_keyshape"
+            onClick={onClick}
+            className="letter-config key"
+            fill={getColor(1, 11)}
+            stroke={stroke(1, 11)}
+            strokeWidth={getStrokeWidth(1, 11)}
+            data-led-index={getLEDIndex(1, 11)}
+            data-key-index={keyIndex(1, 11)}
+            data-layer={layer}
+            d="M663,84.4L663,84.4c0-2.9,2.4-5.3,5.3-5.3H709c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3V84.4z"
+          />
+          <path
+            id="R1C10_keyshape"
+            onClick={onClick}
+            className="letter-config key"
+            fill={getColor(1, 10)}
+            stroke={stroke(1, 10)}
+            strokeWidth={getStrokeWidth(1, 10)}
+            data-led-index={getLEDIndex(1, 10)}
+            data-key-index={keyIndex(1, 10)}
+            data-layer={layer}
+            d="M605.6,84.4L605.6,84.4c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3V84.4z"
+          />
+          <path
+            id="R1C9_keyshape"
+            onClick={onClick}
+            className="letter-config key"
+            fill={getColor(1, 9)}
+            stroke={stroke(1, 9)}
+            strokeWidth={getStrokeWidth(1, 9)}
+            data-led-index={getLEDIndex(1, 9)}
+            data-key-index={keyIndex(1, 9)}
+            data-layer={layer}
+            d="M548.1,84.4L548.1,84.4c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3V84.4z"
+          />
+          <path
+            id="R1C8_keyshape"
+            onClick={onClick}
+            className="letter-config key"
+            fill={getColor(1, 8)}
+            stroke={stroke(1, 8)}
+            strokeWidth={getStrokeWidth(1, 8)}
+            data-led-index={getLEDIndex(1, 8)}
+            data-key-index={keyIndex(1, 8)}
+            data-layer={layer}
+            d="M490.7,84.4L490.7,84.4c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3L490.7,84.4L490.7,84.4z"
+          />
+          <path
+            id="R1C5_keyshape"
+            onClick={onClick}
+            className="letter-config key"
+            fill={getColor(1, 5)}
+            stroke={stroke(1, 5)}
+            strokeWidth={getStrokeWidth(1, 5)}
+            data-led-index={getLEDIndex(1, 5)}
+            data-key-index={keyIndex(1, 5)}
+            data-layer={layer}
+            d="M381.1,84.4L381.1,84.4c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3V84.4z"
+          />
+          <path
+            id="R1C4_keyshape"
+            onClick={onClick}
+            className="letter-config key"
+            fill={getColor(1, 4)}
+            stroke={stroke(1, 4)}
+            strokeWidth={getStrokeWidth(1, 4)}
+            data-led-index={getLEDIndex(1, 4)}
+            data-key-index={keyIndex(1, 4)}
+            data-layer={layer}
+            d="M322.2,84.4L322.2,84.4c0-2.9,2.4-5.3,5.3-5.3h40.6c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3L322.2,84.4L322.2,84.4z"
+          />
+          <path
+            id="R1C3_keyshape"
+            onClick={onClick}
+            className="letter-config key"
+            fill={getColor(1, 3)}
+            stroke={stroke(1, 3)}
+            strokeWidth={getStrokeWidth(1, 3)}
+            data-led-index={getLEDIndex(1, 3)}
+            data-key-index={keyIndex(1, 3)}
+            data-layer={layer}
+            d="M263.5,84.4L263.5,84.4c0-2.9,2.4-5.3,5.3-5.3h40.6c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3L263.5,84.4L263.5,84.4z"
+          />
+          <path
+            id="R1C2_keyshape"
+            onClick={onClick}
+            className="letter-config key"
+            fill={getColor(1, 2)}
+            stroke={stroke(1, 2)}
+            strokeWidth={getStrokeWidth(1, 2)}
+            data-led-index={getLEDIndex(1, 2)}
+            data-key-index={keyIndex(1, 2)}
+            data-layer={layer}
+            d="M204.6,84.4L204.6,84.4c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3L204.6,84.4L204.6,84.4z"
+          />
+          <path
+            id="R1C1_keyshape"
+            onClick={onClick}
+            className="letter-config key"
+            fill={getColor(1, 1)}
+            stroke={stroke(1, 1)}
+            strokeWidth={getStrokeWidth(1, 1)}
+            data-led-index={getLEDIndex(1, 1)}
+            data-key-index={keyIndex(1, 1)}
+            data-layer={layer}
+            d="M145.8,84.4L145.8,84.4c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3H151c-2.9,0-5.3-2.4-5.3-5.3L145.8,84.4L145.8,84.4z"
+          />
+          <path
+            id="R1C0_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(1, 0)}
+            stroke={stroke(1, 0)}
+            strokeWidth={getStrokeWidth(1, 0)}
+            data-led-index={getLEDIndex(1, 0)}
+            data-key-index={keyIndex(1, 0)}
+            data-layer={layer}
+            d="M57.7,84.4c0-2.9,2.4-5.3,5.3-5.3h70.9c2.9,0,5.3,2.4,5.3,5.3l0,0v40.9
+		c0,2.9-2.4,5.3-5.3,5.3l0,0h-71c-2.9,0-5.3-2.4-5.3-5.3L57.7,84.4L57.7,84.4z"
+          />
+          <path
+            id="R0C15_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(0, 15)}
+            stroke={stroke(0, 15)}
+            strokeWidth={getStrokeWidth(0, 15)}
+            data-led-index={getLEDIndex(0, 15)}
+            data-key-index={keyIndex(0, 15)}
+            data-layer={layer}
+            d="M861.3,24.8c0-2.9,2.4-5.3,5.3-5.3l0,0h98.8c2.9,0,5.3,2.4,5.3,5.3l0,0v40.9
+		c0,2.9-2.4,5.3-5.3,5.3l0,0h-98.8c-2.9,0-5.3-2.4-5.3-5.3l0,0V24.8z"
+          />
+          <path
+            id="R0C14_keyshape"
+            onClick={onClick}
+            className="key-config key"
+            fill={getColor(0, 14)}
+            stroke={stroke(0, 14)}
+            strokeWidth={getStrokeWidth(0, 14)}
+            data-led-index={getLEDIndex(0, 14)}
+            data-key-index={keyIndex(0, 14)}
+            data-layer={layer}
+            d="M802.5,24.8L802.5,24.8c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3V24.8z"
+          />
+          <path
+            id="R0C13_keyshape"
+            onClick={onClick}
+            className="key-config key"
+            fill={getColor(0, 13)}
+            stroke={stroke(0, 13)}
+            strokeWidth={getStrokeWidth(0, 13)}
+            data-led-index={getLEDIndex(0, 13)}
+            data-key-index={keyIndex(0, 13)}
+            data-layer={layer}
+            d="M743.8,24.8L743.8,24.8c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3H749c-2.9,0-5.3-2.4-5.3-5.3V24.8z"
+          />
+          <path
+            id="R0C12_keyshape"
+            onClick={onClick}
+            className="key key-config"
+            fill={getColor(0, 12)}
+            stroke={stroke(0, 12)}
+            strokeWidth={getStrokeWidth(0, 12)}
+            data-led-index={getLEDIndex(0, 12)}
+            data-key-index={keyIndex(0, 12)}
+            data-layer={layer}
+            d="M685,24.8L685,24.8c0-2.9,2.4-5.3,5.3-5.3H731c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3V24.8L685,24.8L685,24.8z"
+          />
+          <path
+            id="R0C11_keyshape"
+            onClick={onClick}
+            className="key-config key"
+            fill={getColor(0, 11)}
+            stroke={stroke(0, 11)}
+            strokeWidth={getStrokeWidth(0, 11)}
+            data-led-index={getLEDIndex(0, 11)}
+            data-key-index={keyIndex(0, 11)}
+            data-layer={layer}
+            d="M626.2,24.8L626.2,24.8c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3V24.8z"
+          />
+          <path
+            id="R0C10_keyshape"
+            onClick={onClick}
+            className="key key-config"
+            fill={getColor(0, 10)}
+            stroke={stroke(0, 10)}
+            strokeWidth={getStrokeWidth(0, 10)}
+            data-led-index={getLEDIndex(0, 10)}
+            data-key-index={keyIndex(0, 10)}
+            data-layer={layer}
+            d="M567.4,24.8L567.4,24.8c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3V24.8z"
+          />
+          <path
+            id="R0C9_keyshape"
+            onClick={onClick}
+            className="key-config key"
+            fill={getColor(0, 9)}
+            stroke={stroke(0, 9)}
+            strokeWidth={getStrokeWidth(0, 9)}
+            data-led-index={getLEDIndex(0, 9)}
+            data-key-index={keyIndex(0, 9)}
+            data-layer={layer}
+            d="M508.7,24.8L508.7,24.8c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3H514c-2.9,0-5.3-2.4-5.3-5.3L508.7,24.8L508.7,24.8z"
+          />
+          <path
+            id="R0C6_keyshape"
+            onClick={onClick}
+            className="key-config key"
+            fill={getColor(0, 6)}
+            stroke={stroke(0, 6)}
+            strokeWidth={getStrokeWidth(0, 6)}
+            data-led-index={getLEDIndex(0, 6)}
+            data-key-index={keyIndex(0, 6)}
+            data-layer={layer}
+            d="M410,24.8L410,24.8c0-2.9,2.4-5.3,5.3-5.3H456c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3V24.8z"
+          />
+          <path
+            id="R0C5_keyshape"
+            onClick={onClick}
+            className="key-config key"
+            fill={getColor(0, 5)}
+            stroke={stroke(0, 5)}
+            strokeWidth={getStrokeWidth(0, 5)}
+            data-led-index={getLEDIndex(0, 5)}
+            data-key-index={keyIndex(0, 5)}
+            data-layer={layer}
+            d="M351.2,24.8L351.2,24.8c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3V24.8z"
+          />
+          <path
+            id="R0C4_keyshape"
+            onClick={onClick}
+            className="key-config key"
+            fill={getColor(0, 4)}
+            stroke={stroke(0, 4)}
+            strokeWidth={getStrokeWidth(0, 4)}
+            data-led-index={getLEDIndex(0, 4)}
+            data-key-index={keyIndex(0, 4)}
+            data-layer={layer}
+            d="M292.3,24.8L292.3,24.8c0-2.9,2.4-5.3,5.3-5.3h40.6c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3L292.3,24.8L292.3,24.8z"
+          />
+          <path
+            id="R0C3_keyshape"
+            onClick={onClick}
+            className="key-config key"
+            fill={getColor(0, 3)}
+            stroke={stroke(0, 3)}
+            strokeWidth={getStrokeWidth(0, 3)}
+            data-led-index={getLEDIndex(0, 3)}
+            data-key-index={keyIndex(0, 3)}
+            data-layer={layer}
+            d="M233.6,24.8L233.6,24.8c0-2.9,2.4-5.3,5.3-5.3h40.6c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.7c-2.9,0-5.3-2.4-5.3-5.3L233.6,24.8L233.6,24.8z"
+          />
+          <path
+            id="R0C2_keyshape"
+            onClick={onClick}
+            className="key-config key"
+            fill={getColor(0, 2)}
+            stroke={stroke(0, 2)}
+            strokeWidth={getStrokeWidth(0, 2)}
+            data-led-index={getLEDIndex(0, 2)}
+            data-key-index={keyIndex(0, 2)}
+            data-layer={layer}
+            d="M174.7,24.8L174.7,24.8c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3H180c-2.9,0-5.3-2.4-5.3-5.3V24.8z"
+          />
+          <path
+            id="R0C1_keyshape"
+            onClick={onClick}
+            className="key-config key"
+            fill={getColor(0, 1)}
+            stroke={stroke(0, 1)}
+            strokeWidth={getStrokeWidth(0, 1)}
+            data-led-index={getLEDIndex(0, 1)}
+            data-key-index={keyIndex(0, 1)}
+            data-layer={layer}
+            d="M116,24.8L116,24.8c0-2.9,2.4-5.3,5.3-5.3H162c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3h-40.8c-2.9,0-5.3-2.4-5.3-5.3L116,24.8L116,24.8z"
+          />
+          <path
+            id="R0C0_keyshape"
+            onClick={onClick}
+            className="key"
+            fill={getColor(0, 0)}
+            stroke={stroke(0, 0)}
+            strokeWidth={getStrokeWidth(0, 0)}
+            data-led-index={getLEDIndex(0, 0)}
+            data-key-index={keyIndex(0, 0)}
+            data-layer={layer}
+            d="M57.1,24.8L57.1,24.8c0-2.9,2.4-5.3,5.3-5.3h40.7c2.9,0,5.3,2.4,5.3,5.3v40.9
+		c0,2.9-2.4,5.3-5.3,5.3H62.3c-2.9,0-5.3-2.4-5.3-5.3L57.1,24.8L57.1,24.8z"
           />
         </g>
         <g id="Areas">
@@ -2534,7 +2226,7 @@ class KeymapANSI extends React.Component {
             points="915.2,14 909.7,14 904,14 898.4,14 892.4,14 886.5,14 879.6,14 872.9,14 865.6,14 858.4,14 851.2,14
 		843.6,14 843.6,1.8 915.2,1.4 	"
           />
-          <g id="labels" pointerEvents="none" style={{ display: "none" }}>
+          <g id="labels" pointerEvents="none">
             <text id="R4C9_t_primary" fill={getContrastText(getColor(4, 9))}>
               {getCenterPrimary(4, 9, 600, 351, true)}
             </text>
@@ -2744,6 +2436,204 @@ class KeymapANSI extends React.Component {
             </text>
             <text id="R2C5_t_extra" fill={getContrastText(getColor(2, 5))}>
               {getCenterExtra(2, 5, 413, 159, true)}
+            </text>
+            <text id="R2C4_t_primary" fill={getContrastText(getColor(2, 4))}>
+              {getCenterPrimary(2, 4, 355, 174, true)}
+            </text>
+            <text id="R2C4_t_extra" fill={getContrastText(getColor(2, 4))}>
+              {getCenterExtra(2, 4, 355, 159, true)}
+            </text>
+            <text id="R2C3_t_primary" fill={getContrastText(getColor(2, 3))}>
+              {getCenterPrimary(2, 3, 297, 174, true)}
+            </text>
+            <text id="R2C3_t_extra" fill={getContrastText(getColor(2, 3))}>
+              {getCenterExtra(2, 3, 297, 159, true)}
+            </text>
+            <text id="R2C2_t_primary" fill={getContrastText(getColor(2, 2))}>
+              {getCenterPrimary(2, 2, 238, 174, true)}
+            </text>
+            <text id="R2C2_t_extra" fill={getContrastText(getColor(2, 2))}>
+              {getCenterExtra(2, 2, 238, 159, true)}
+            </text>
+            <text id="R2C1_t_primary" fill={getContrastText(getColor(2, 1))}>
+              {getCenterPrimary(2, 1, 180, 174, true)}
+            </text>
+            <text id="R2C1_t_extra" fill={getContrastText(getColor(2, 1))}>
+              {getCenterExtra(2, 1, 180, 159, true)}
+            </text>
+            <text id="R2C0_t_primary" fill={getContrastText(getColor(2, 0))}>
+              {getCenterPrimary(2, 0, 103, 174)}
+            </text>
+            <text id="R2C0_t_extra" fill={getContrastText(getColor(2, 0))}>
+              {getCenterExtra(2, 0, 103, 159)}
+            </text>
+            <text id="R1C15_t_primary" fill={getContrastText(getColor(1, 15))}>
+              {getCenterPrimary(1, 15, 915, 174)}
+            </text>
+            <text id="R1C15_t_extra" fill={getContrastText(getColor(1, 15))}>
+              {getCenterExtra(1, 15, 915, 158)}
+            </text>
+            <text id="R1C14_t_primary" fill={getContrastText(getColor(1, 14))}>
+              {getCenterPrimary(1, 14, 860, 114.5, true)}
+            </text>
+            <text id="R1C14_t_extra" fill={getContrastText(getColor(1, 14))}>
+              {getCenterExtra(1, 14, 860, 100, true)}
+            </text>
+            <text id="R1C13_t_primary" fill={getContrastText(getColor(1, 13))}>
+              {getCenterPrimary(1, 13, 805, 114.5, true)}
+            </text>
+            <text id="R1C13_t_extra" fill={getContrastText(getColor(1, 13))}>
+              {getCenterExtra(1, 13, 805, 100, true)}
+            </text>
+            <text id="R1C12_t_primary" fill={getContrastText(getColor(1, 12))}>
+              {getCenterPrimary(1, 12, 745, 114.5, true)}
+            </text>
+            <text id="R1C12_t_extra" fill={getContrastText(getColor(1, 12))}>
+              {getCenterExtra(1, 12, 745, 100, true)}
+            </text>
+            <text id="R1C11_t_primary" fill={getContrastText(getColor(1, 11))}>
+              {getCenterPrimary(1, 11, 688, 114.5, true)}
+            </text>
+            <text id="R1C11_t_extra" fill={getContrastText(getColor(1, 11))}>
+              {getCenterExtra(1, 11, 688, 100, true)}
+            </text>
+            <text id="R1C10_t_primary" fill={getContrastText(getColor(1, 10))}>
+              {getCenterPrimary(1, 10, 630, 114.5, true)}
+            </text>
+            <text id="R1C10_t_extra" fill={getContrastText(getColor(1, 10))}>
+              {getCenterExtra(1, 10, 630, 100, true)}
+            </text>
+            <text id="R1C9_t_primary" fill={getContrastText(getColor(1, 9))}>
+              {getCenterPrimary(1, 9, 574, 114.5, true)}
+            </text>
+            <text id="R1C9_t_extra" fill={getContrastText(getColor(1, 9))}>
+              {getCenterExtra(1, 9, 574, 100, true)}
+            </text>
+            <text id="R1C8_t_primary" fill={getContrastText(getColor(1, 8))}>
+              {getCenterPrimary(1, 8, 516, 114.5, true)}
+            </text>
+            <text id="R1C8_t_extra" fill={getContrastText(getColor(1, 8))}>
+              {getCenterExtra(1, 8, 516, 100, true)}
+            </text>
+            <text id="R1C5_t_primary" fill={getContrastText(getColor(1, 5))}>
+              {getCenterPrimary(1, 5, 407, 114.5, true)}
+            </text>
+            <text id="R1C5_t_extra" fill={getContrastText(getColor(1, 5))}>
+              {getCenterExtra(1, 5, 407, 100, true)}
+            </text>
+            <text id="R1C4_t_primary" fill={getContrastText(getColor(1, 4))}>
+              {getCenterPrimary(1, 4, 348, 114.5, true)}
+            </text>
+            <text id="R1C4_t_extra" fill={getContrastText(getColor(1, 4))}>
+              {getCenterExtra(1, 4, 348, 100, true)}
+            </text>
+            <text id="R1C3_t_primary" fill={getContrastText(getColor(1, 3))}>
+              {getCenterPrimary(1, 3, 289, 114.5, true)}
+            </text>
+            <text id="R1C3_t_extra" fill={getContrastText(getColor(1, 3))}>
+              {getCenterExtra(1, 3, 289, 100, true)}
+            </text>
+            <text id="R1C2_t_primary" fill={getContrastText(getColor(1, 2))}>
+              {getCenterPrimary(1, 2, 230, 114.5, true)}
+            </text>
+            <text id="R1C2_t_extra" fill={getContrastText(getColor(1, 2))}>
+              {getCenterExtra(1, 2, 230, 100, true)}
+            </text>
+            <text id="R1C1_t_primary" fill={getContrastText(getColor(1, 1))}>
+              {getCenterPrimary(1, 1, 171, 114.5, true)}
+            </text>
+            <text id="R1C1_t_extra" fill={getContrastText(getColor(1, 1))}>
+              {getCenterExtra(1, 1, 171, 100)}
+            </text>
+            <text id="R1C0_t_primary" fill={getContrastText(getColor(1, 0))}>
+              {getCenterPrimary(1, 0, 100, 114.5)}
+            </text>
+            <text id="R1C0_t_extra" fill={getContrastText(getColor(1, 0))}>
+              {getCenterExtra(1, 0, 100, 100)}
+            </text>
+            <text id="R0C15_t_primary" fill={getContrastText(getColor(0, 15))}>
+              {getCenterPrimary(0, 15, 915, 55)}
+            </text>
+            <text id="R0C15_t_extra" fill={getContrastText(getColor(0, 15))}>
+              {getCenterExtra(0, 15, 915, 40)}
+            </text>
+            <text id="R0C14_t_primary" fill={getContrastText(getColor(0, 14))}>
+              {getCenterPrimary(0, 14, 828, 55, true)}
+            </text>
+            <text id="R0C14_t_extra" fill={getContrastText(getColor(0, 14))}>
+              {getCenterExtra(0, 14, 828, 40, true)}
+            </text>
+            <text id="R0C13_t_primary" fill={getContrastText(getColor(0, 13))}>
+              {getCenterPrimary(0, 13, 769, 55, true)}
+            </text>
+            <text id="R0C13_t_extra" fill={getContrastText(getColor(0, 13))}>
+              {getCenterExtra(0, 13, 769, 40, true)}
+            </text>
+            <text id="R0C12_t_primary" fill={getContrastText(getColor(0, 12))}>
+              {getCenterPrimary(0, 12, 711, 55, true)}
+            </text>
+            <text id="R0C12_t_extra" fill={getContrastText(getColor(0, 12))}>
+              {getCenterExtra(0, 12, 711, 40, true)}
+            </text>
+            <text id="R0C11_t_primary" fill={getContrastText(getColor(0, 11))}>
+              {getCenterPrimary(0, 11, 652, 55, true)}
+            </text>
+            <text id="R0C11_t_extra" fill={getContrastText(getColor(0, 11))}>
+              {getCenterExtra(0, 11, 652, 40, true)}
+            </text>
+            <text id="R0C10_t_primary" fill={getContrastText(getColor(0, 10))}>
+              {getCenterPrimary(0, 10, 593, 55, true)}
+            </text>
+            <text id="R0C10_t_extra" fill={getContrastText(getColor(0, 10))}>
+              {getCenterExtra(0, 10, 593, 40, true)}
+            </text>
+            <text id="R0C9_t_primary" fill={getContrastText(getColor(0, 9))}>
+              {getCenterPrimary(0, 9, 534, 55, true)}
+            </text>
+            <text id="R0C9_t_extra" fill={getContrastText(getColor(0, 9))}>
+              {getCenterExtra(0, 9, 534, 40, true)}
+            </text>
+            <text id="R0C6_t_primary" fill={getContrastText(getColor(0, 6))}>
+              {getCenterPrimary(0, 6, 435.5, 55, true)}
+            </text>
+            <text id="R0C6_t_extra" fill={getContrastText(getColor(0, 6))}>
+              {getCenterExtra(0, 6, 435.5, 40, true)}
+            </text>
+            <text id="R0C5_t_primary" fill={getContrastText(getColor(0, 5))}>
+              {getCenterPrimary(0, 5, 376, 55, true)}
+            </text>
+            <text id="R0C5_t_extra" fill={getContrastText(getColor(0, 5))}>
+              {getCenterExtra(0, 5, 376, 40, true)}
+            </text>
+            <text id="R0C4_t_primary" fill={getContrastText(getColor(0, 4))}>
+              {getCenterPrimary(0, 4, 317, 55, true)}
+            </text>
+            <text id="R0C4_t_extra" fill={getContrastText(getColor(0, 4))}>
+              {getCenterExtra(0, 4, 317, 40, true)}
+            </text>
+            <text id="R0C3_t_primary" fill={getContrastText(getColor(0, 3))}>
+              {getCenterPrimary(0, 3, 257, 55, true)}
+            </text>
+            <text id="R0C3_t_extra" fill={getContrastText(getColor(0, 3))}>
+              {getCenterExtra(0, 3, 257, 40, true)}
+            </text>
+            <text id="R0C2_t_primary" fill={getContrastText(getColor(0, 2))}>
+              {getCenterPrimary(0, 2, 200, 55, true)}
+            </text>
+            <text id="R0C2_t_extra" fill={getContrastText(getColor(0, 2))}>
+              {getCenterExtra(0, 2, 200, 40, true)}
+            </text>
+            <text id="R0C1_t_primary" fill={getContrastText(getColor(0, 1))}>
+              {getCenterPrimary(0, 1, 141, 55, true)}
+            </text>
+            <text id="R0C1_t_extra" fill={getContrastText(getColor(0, 1))}>
+              {getCenterExtra(0, 1, 141, 40, true)}
+            </text>
+            <text id="R0C0_t_primary" fill={getContrastText(getColor(0, 0))}>
+              {getCenterPrimary(0, 0, 83, 55, true)}
+            </text>
+            <text id="R0C0_t_extra" fill={getContrastText(getColor(0, 0))}>
+              {getCenterExtra(0, 0, 83, 40, true)}
             </text>
           </g>
         </g>

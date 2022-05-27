@@ -309,6 +309,10 @@ const Dark = {
         arrowsColor: Tokens.colors.gray300
       }
     },
+    raiseKeyboard: {
+      keyBase: "#303949",
+      keyColorOpacity: 0.4
+    },
     keyPicker: {
       iconColor: Tokens.colors.gray200,
       titleColor: Tokens.colors.gray25,

@@ -25,11 +25,6 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
-import { MdKeyboard } from "react-icons/md";
-import { IoMdColorPalette } from "react-icons/io";
-import { FiSave, FiTrash2 } from "react-icons/fi";
 
 import Focus from "../../api/focus";
 import Backup from "../../api/backup";
@@ -178,6 +173,83 @@ margin: auto;
   width: 70%;
   height: 100%;
   margin: auto;
+}
+
+
+.NeuronLine {
+  stroke: ${({ theme }) => theme.styles.neuronStatus.lineStrokeColor};
+}
+.neuronLights {
+  .keyOnFocus .keyOpacity{
+    stroke-opacity: 0.4;
+  }
+  .keyOnHold .keyOpacity{
+    stroke-opacity: 0.2;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.keyBase {
+  fill: ${({ theme }) => theme.styles.raiseKeyboard.keyBase};
+}
+.keyColorOpacity {
+  fill-opacity: ${({ theme }) => theme.styles.raiseKeyboard.keyColorOpacity};
+}
+.regularKey {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  .keyContentLabel {
+    height: inherit;
+    display: flex;
+    align-items: center;
+    padding: 3px;
+    flex-wrap: wrap;
+    line-height: 1.1em;
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .extraLabel {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.025em;
+    }
+    tspan {
+      display: inline-block;
+    }
+  }
+  tspan {
+    text-anchor: start;
+  }
+  .shadowHover {
+    transition: all 300ms ease-in-out;
+  }
+  .shadowMiddle {
+    filter: blur(10px);
+  }
+  &.keyOnFocus { 
+    .keyOpacityInternal {
+      stroke-opacity: 0.7;
+      stroke: #ffffff;
+    }
+    .keyOpacity{
+      stroke-opacity: 0.2;
+      stroke: #ffffff;
+    }
+    .shadowHover {
+      opacity: 0;
+    }
+  }
+  &:hover {
+    cursor: pointer;
+    .shadowHover {
+      opacity: 0;
+    }
+  }
 }
 `;
 

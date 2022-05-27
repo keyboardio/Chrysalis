@@ -301,6 +301,10 @@ const Light = {
         arrowsColor: Tokens.colors.gray300
       }
     },
+    raiseKeyboard: {
+      keyBase: "#E2E4EA",
+      keyColorOpacity: 0.65
+    },
     keyPicker: {
       iconColor: Tokens.colors.gray200,
       titleColor: Tokens.colors.gray200,

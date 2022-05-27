@@ -18,6 +18,7 @@
 import { KeymapDB } from "@api/keymap";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import Collapsible from "../components/Collapsible";
@@ -126,6 +127,9 @@ const MouseWarpKeys = (props) => {
 const MouseKeys = (props) => {
   const { keymap, selectedKey, layer, onKeyChange } = props;
   const { t } = useTranslation();
+  const pluginVisible = usePluginVisibility("MouseKeys");
+  if (!pluginVisible) return null;
+
   const key = keymap.custom[layer][selectedKey];
 
   const subWidgets = [

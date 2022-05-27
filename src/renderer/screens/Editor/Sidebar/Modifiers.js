@@ -24,6 +24,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
 import Switch from "@mui/material/Switch";
 import Tooltip from "@mui/material/Tooltip";
+import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import Collapsible from "../components/Collapsible";
@@ -32,6 +33,7 @@ const db = new KeymapDB();
 
 const KeyPicker = (props) => {
   const { t } = useTranslation();
+  const oneShotVisible = usePluginVisibility("OneShot");
 
   const isStandardKey = (props) => {
     const { selectedKey, keymap, layer } = props;
@@ -98,7 +100,7 @@ const KeyPicker = (props) => {
   const key = keymap.custom[layer][selectedKey];
 
   let oneShot;
-  if (db.isInCategory(key.baseCode || key.code, "modifier")) {
+  if (oneShotVisible && db.isInCategory(key.baseCode || key.code, "modifier")) {
     const osmControl = (
       <Switch
         checked={db.isInCategory(key, "oneshot")}

@@ -17,11 +17,15 @@
 
 import React from "react";
 import { useTranslation } from "react-i18next";
+import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
 import CategorySelector from "../components/CategorySelector";
 
 const SpaceCadetKeys = (props) => {
   const { keymap, selectedKey, layer, onKeyChange } = props;
   const { t } = useTranslation();
+  const pluginVisible = usePluginVisibility("SpaceCadet");
+  if (!pluginVisible) return null;
+
   return (
     <CategorySelector
       title={t("editor.sidebar.spacecadet.title")}

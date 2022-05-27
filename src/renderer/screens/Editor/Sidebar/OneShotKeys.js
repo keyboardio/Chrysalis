@@ -22,6 +22,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
 import FormHelperText from "@mui/material/FormHelperText";
 import Switch from "@mui/material/Switch";
+import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Collapsible from "../components/Collapsible";
@@ -47,6 +48,9 @@ const OneShotKeys = (props) => {
       setEscCancel(escCancel);
     });
   }, []);
+
+  const pluginVisible = usePluginVisibility("OneShot");
+  if (!pluginVisible) return null;
 
   const { classes, keymap, selectedKey, layer, onKeyChange } = props;
   const key = keymap.custom[layer][selectedKey];

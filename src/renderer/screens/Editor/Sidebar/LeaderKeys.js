@@ -17,11 +17,15 @@
 
 import React from "react";
 import { useTranslation } from "react-i18next";
+import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
 import CategorySelector from "../components/CategorySelector";
 
 const LeaderKeys = (props) => {
   const { keymap, selectedKey, layer, onKeyChange } = props;
   const { t } = useTranslation();
+  const pluginVisible = usePluginVisibility("Leader");
+  if (!pluginVisible) return null;
+
   return (
     <CategorySelector
       title={t("editor.sidebar.leader.title")}

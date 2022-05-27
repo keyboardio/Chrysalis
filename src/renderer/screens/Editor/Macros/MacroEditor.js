@@ -47,6 +47,7 @@ const MacroEditor = (props) => {
     newMacro.push(step);
     onMacroChange(macroId, newMacro);
     setMacroStep(newMacro.length - 1);
+    setStepEditorOpen(true);
   };
 
   const onStepSelect = (index) => {

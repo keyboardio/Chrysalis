@@ -23,6 +23,7 @@ import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
 import CategorySelector from "../components/CategorySelector";
 
 import { KeymapDB } from "@api/keymap";
@@ -30,6 +31,9 @@ import { KeymapDB } from "@api/keymap";
 const DynamicMacroKeys = (props) => {
   const { currentKey } = props;
   const { t } = useTranslation();
+
+  const pluginVisible = usePluginVisibility("DynamicMacros");
+  if (!pluginVisible) return null;
 
   if (!props.macros) return null;
 

@@ -22,6 +22,7 @@ import Chip from "@mui/material/Chip";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import KeymapDB from "@api/focus/keymap/db";
+import { Step } from "@api/focus/macros";
 
 const db = new KeymapDB();
 
@@ -38,14 +39,16 @@ const MacroStep = (props) => {
   };
 
   const formatStep = (step) => {
-    if (step.type == "INTERVAL" || step.type == "WAIT")
+    if (step.type == Step.INTERVAL || step.type == Step.WAIT)
       return t("editor.macros.steps.time_ms", { value: step.value });
-    if (["KEYDOWN", "KEYUP", "TAP"].includes(step.type)) {
+    if ([Step.KEYDOWN, Step.KEYUP, Step.TAP].includes(step.type)) {
       const format = db.format(step.value, "full", false);
       return (format.hint ? format.hint + " " : "") + format.main;
     }
     if (
-      ["EXPLICIT_REPORT", "IMPLICIT_REPORT", "SEND_REPORT"].includes(step.type)
+      [Step.EXPLICIT_REPORT, Step.IMPLICIT_REPORT, Step.SEND_REPORT].includes(
+        step.type
+      )
     ) {
       return t("editor.macros.steps." + step.type);
     }
@@ -54,7 +57,9 @@ const MacroStep = (props) => {
 
   const formatLabel = (step) => {
     if (
-      ["EXPLICIT_REPORT", "IMPLICIT_REPORT", "SEND_REPORT"].includes(step.type)
+      [Step.EXPLICIT_REPORT, Step.IMPLICIT_REPORT, Step.SEND_REPORT].includes(
+        step.type
+      )
     ) {
       return t("editor.macros.steps.unsupported");
     }

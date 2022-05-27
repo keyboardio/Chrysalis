@@ -19,6 +19,23 @@ import KeymapDB from "./keymap/db";
 
 global.chrysalis_macros_instance = null;
 
+const Step = {
+  END: "END",
+  INTERVAL: "INTERVAL",
+  WAIT: "WAIT",
+  KEYDOWN: "KEYDOWN",
+  KEYUP: "KEYUP",
+  TAP: "TAP",
+  KEYCODEDOWN: "KEYCODEDOWN",
+  KEYCODEUP: "KEYCODEUP",
+  TAPCODE: "TAPCODE",
+  EXPLICIT_REPORT: "EXPLICIT_REPORT",
+  IMPLICIT_REPORT: "IMPLICIT_REPORT",
+  SEND_REPORT: "SEND_REPORT",
+  TAPSEQUENCE: "TAPSEQUENCE",
+  TAPCODESEQUENCE: "TAPCODESEQUENCE",
+};
+
 const Macros = function () {
   if (global.chrysalis_macros_instance) return global.chrysalis_macros_instance;
 
@@ -27,7 +44,7 @@ const Macros = function () {
   const stepEnd = () => ({
     // We do not need to parse the END step, as we handle that specially.
     serialize: (data) => {
-      if (data.type == "END") {
+      if (data.type == Step.END) {
         return [0];
       }
     },
@@ -105,14 +122,14 @@ const Macros = function () {
 
       return {
         macroStep: {
-          type: "TAPSEQUENCE",
+          type: Step.TAPSEQUENCE,
           value: sequence,
         },
         advance: pos,
       };
     },
     serialize: (data) => {
-      if (data.type == "TAPSEQUENCE") {
+      if (data.type == Step.TAPSEQUENCE) {
         const ser = [12];
         for (let i = 0; i < data.value.length; i++) {
           ser.push(Math.floor(data.value[i].code / 256));
@@ -138,14 +155,14 @@ const Macros = function () {
 
       return {
         macroStep: {
-          type: "TAPCODESEQUENCE",
+          type: Step.TAPCODESEQUENCE,
           value: sequence,
         },
         advance: pos,
       };
     },
     serialize: (data) => {
-      if (data.type == "TAPCODESEQUENCE") {
+      if (data.type == Step.TAPCODESEQUENCE) {
         const ser = [13];
         for (let i = 0; i < data.value.length; i++) {
           ser.push(data.value[i].code);
@@ -158,17 +175,17 @@ const Macros = function () {
 
   const steps = [
     stepEnd(),
-    stepu8("INTERVAL", 1),
-    stepu8("WAIT", 2),
-    stepkey("KEYDOWN", 3),
-    stepkey("KEYUP", 4),
-    stepkey("TAP", 5),
-    stepkeyCode("KEYCODEDOWN", 6),
-    stepkeyCode("KEYCODEUP", 7),
-    stepkeyCode("TAPCODE", 8),
-    stepEmpty("EXPLICIT_REPORT", 9),
-    stepEmpty("IMPLICIT_REPORT", 10),
-    stepEmpty("SEND_REPORT", 11),
+    stepu8(Step.INTERVAL, 1),
+    stepu8(Step.WAIT, 2),
+    stepkey(Step.KEYDOWN, 3),
+    stepkey(Step.KEYUP, 4),
+    stepkey(Step.TAP, 5),
+    stepkeyCode(Step.KEYCODEDOWN, 6),
+    stepkeyCode(Step.KEYCODEUP, 7),
+    stepkeyCode(Step.TAPCODE, 8),
+    stepEmpty(Step.EXPLICIT_REPORT, 9),
+    stepEmpty(Step.IMPLICIT_REPORT, 10),
+    stepEmpty(Step.SEND_REPORT, 11),
     stepTapSequence(),
     stepTapCodeSequence(),
   ];
@@ -238,10 +255,10 @@ const Macros = function () {
 
   const expandMacro = (macro) => {
     const mapping = {
-      KEYCODEUP: "KEYUP",
-      KEYCODEDOWN: "KEYDOWN",
-      TAPCODE: "TAP",
-      TAPCODESEQUENCE: "TAPSEQUENCE",
+      [Step.KEYCODEUP]: Step.KEYUP,
+      [Step.KEYCODEDOWN]: Step.KEYDOWN,
+      [Step.TAPCODE]: Step.TAP,
+      [Step.TAPCODESEQUENCE]: Step.TAPSEQUENCE,
     };
     // Upscale from code -> key
     const m = macro.map((step) => {
@@ -257,10 +274,10 @@ const Macros = function () {
     // Expand TAPSEQUENCE into discrete taps
     const expanded = [];
     for (const step of m) {
-      if (step.type == "TAPSEQUENCE") {
+      if (step.type == Step.TAPSEQUENCE) {
         for (const s of step.value) {
           expanded.push({
-            type: "TAP",
+            type: Step.TAP,
             value: s,
           });
         }
@@ -286,17 +303,17 @@ const Macros = function () {
     for (const step of expanded) {
       if (taps.length == 0) {
         // We don't have previous taps
-        if (step.type == "TAP") {
+        if (step.type == Step.TAP) {
           taps.push(step.value);
         } else {
           m.push(step);
         }
       } else {
-        if (step.type == "TAP") {
+        if (step.type == Step.TAP) {
           taps.push(step.value);
         } else {
           m.push({
-            type: "TAPSEQUENCE",
+            type: Step.TAPSEQUENCE,
             value: taps,
           });
           m.push(step);
@@ -306,24 +323,26 @@ const Macros = function () {
     }
     if (taps.length > 0) {
       m.push({
-        type: "TAPSEQUENCE",
+        type: Step.TAPSEQUENCE,
         value: taps,
       });
     }
 
     // Downscale
     for (const step of m) {
-      if (step.type == "KEYUP" && fitsInU8(step.value)) step.type = "KEYCODEUP";
-      if (step.type == "KEYDOWN" && fitsInU8(step.value))
-        step.type = "KEYCODEDOWN";
-      if (step.type == "TAPSEQUENCE" && step.value.length == 1) {
-        step.type = "TAP";
+      if (step.type == Step.KEYUP && fitsInU8(step.value))
+        step.type = Step.KEYCODEUP;
+      if (step.type == Step.KEYDOWN && fitsInU8(step.value))
+        step.type = Step.KEYCODEDOWN;
+      if (step.type == Step.TAPSEQUENCE && step.value.length == 1) {
+        step.type = Step.TAP;
         step.value = step.value[0];
       }
-      if (step.type == "TAP" && fitsInU8(step.value)) step.type = "TAPCODE";
-      if (step.type == "TAPSEQUENCE") {
+      if (step.type == Step.TAP && fitsInU8(step.value))
+        step.type = Step.TAPCODE;
+      if (step.type == Step.TAPSEQUENCE) {
         if (step.value.filter((c) => !fitsInU8(c)).length == 0) {
-          step.type = "TAPCODESEQUENCE";
+          step.type = Step.TAPCODESEQUENCE;
         }
       }
     }
@@ -383,4 +402,4 @@ focus.addCommands({
   macros: new Macros(),
 });
 
-export { Macros as default };
+export { Macros as default, Step };

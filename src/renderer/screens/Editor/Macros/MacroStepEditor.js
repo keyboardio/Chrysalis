@@ -18,6 +18,8 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
+import { Step } from "@api/focus/macros";
+
 import Box from "@mui/material/Box";
 import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
@@ -29,7 +31,7 @@ const MacroStepEditor = (props) => {
   if (!open) return null;
   if (stepIndex == null) return null;
   if (step == null) return null;
-  if (!["INTERVAL", "WAIT"].includes(step.type)) return null;
+  if (![Step.INTERVAL, Step.WAIT].includes(step.type)) return null;
 
   const onValueChange = (event) => {
     let value = event.target.value;

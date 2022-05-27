@@ -1,6 +1,6 @@
-Chrysalis 0.9.5-snapshot
-========================
-**UNRELEASED**
+Chrysalis 0.9.5
+===============
+Released on 2022-05-27
 
 ## UI/UX improvements
 

@@ -18,9 +18,6 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import Focus from "@api/focus";
-import { KeymapDB } from "@api/keymap";
-
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -33,9 +30,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import MacroStep from "./MacroStep";
 import MacroStepAdd from "./MacroStepAdd";
 import MacroStepEditor from "./MacroStepEditor";
-
-const focus = new Focus();
-const db = new KeymapDB();
 
 const MacroEditor = (props) => {
   const { macroId, macro, onMacroChange, macroStep, setMacroStep } = props;

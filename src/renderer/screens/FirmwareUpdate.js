@@ -46,6 +46,7 @@ import { PageTitle } from "@renderer/components/PageTitle";
 import SaveChangesButton from "@renderer/components/SaveChangesButton";
 import { toast } from "@renderer/components/Toast";
 import { getStaticPath } from "@renderer/config";
+import useEffectOnce from "@renderer/hooks/useEffectOnce";
 import checkExternalFlasher from "@renderer/utils/checkExternalFlasher";
 import clearEEPROM from "@renderer/utils/clearEEPROM";
 import { version } from "@root/package.json";
@@ -66,9 +67,25 @@ const FirmwareUpdate = (props) => {
   const [confirmationOpen, setConfirmationOpen] = useState(false);
   const [resetOnFlash, setResetOnFlash] = useState(false);
   const [activeStep, setActiveStep] = useState(-1);
+  const [flashSteps, setFlashSteps] = useState([]);
   const { t } = useTranslation();
   const focusDeviceDescriptor =
     props.focusDeviceDescriptor || focus.focusDeviceDescriptor;
+
+  useEffectOnce(() => {
+    // We're caching the device-specific flashSteps here, because during the
+    // flashing process, we will reboot and reconnect to the keyboard, which can
+    // - and often does - turn `focusDeviceDescriptor` into null, at least
+    // temporarily.
+    //
+    // We do not want to fall back to the default `["flash"]` step list, not
+    // even temporarily.
+    //
+    // As such, we cache the steps on mount. We can do that, because the steps
+    // are device-specific, but static, and when this component gets first
+    // mounted, `props.focusDeviceDescriptor` *will* be available.
+    setFlashSteps(focusDeviceDescriptor.flashSteps);
+  });
 
   const toggleResetOnFlash = (event) => {
     setResetOnFlash(event.target.checked);
@@ -149,16 +166,12 @@ const FirmwareUpdate = (props) => {
           autoHideDuration: 5000,
         });
       }
-
-      setActiveStep(activeStep + 1);
-      focusDeviceDescriptor.flashSteps.forEach((step, index) => {
+      setActiveStep(Math.min(activeStep + 1, flashSteps.length));
+      flashSteps.forEach((step, index) => {
         if (step == desiredState) {
           setActiveStep(index);
         }
       });
-      return {
-        activeStep: activeStep,
-      };
     };
 
     const preferExternalFlasher =
@@ -177,7 +190,7 @@ const FirmwareUpdate = (props) => {
 
     try {
       await _flash();
-      setActiveStep(activeStep + 1);
+      await setActiveStep(flashSteps.length);
     } catch (e) {
       console.error(e);
       setActiveStep(-1);
@@ -189,7 +202,9 @@ const FirmwareUpdate = (props) => {
 
     return new Promise((resolve) => {
       setTimeout(() => {
-        toast.success(t("firmwareUpdate.flashing.success"));
+        toast.success(t("firmwareUpdate.flashing.success"), {
+          autoHideDuration: 10000,
+        });
 
         props.toggleFlashing();
         props.onDisconnect();
@@ -316,8 +331,9 @@ const FirmwareUpdate = (props) => {
   if (resetOnFlash) {
     steps = ["factoryRestore"];
   }
-  if (focusDeviceDescriptor?.flashSteps) {
-    steps = steps.concat(focusDeviceDescriptor.flashSteps);
+
+  if (flashSteps) {
+    steps = steps.concat(flashSteps);
   } else {
     steps = steps.concat(["flash"]);
   }

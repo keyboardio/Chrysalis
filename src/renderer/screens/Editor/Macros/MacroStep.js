@@ -21,7 +21,7 @@ import { useTranslation } from "react-i18next";
 import Chip from "@mui/material/Chip";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-import { KeymapDB } from "@api/keymap";
+import KeymapDB from "@api/focus/keymap/db";
 
 const db = new KeymapDB();
 

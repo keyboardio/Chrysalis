@@ -22,7 +22,7 @@ import Typography from "@mui/material/Typography";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import Macros from "@api/macros";
+import Macros from "@api/focus/macros";
 
 export const MacroStorageAlert = (props) => {
   const { t } = useTranslation();

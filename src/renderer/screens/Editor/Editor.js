@@ -16,9 +16,10 @@
  */
 
 import Focus from "@api/focus";
-import { default as Keymap, KeymapDB } from "@api/keymap";
+import Keymap from "@api/focus/keymap";
+import KeymapDB from "@api/focus/keymap/db";
+import Macros from "@api/focus/macros";
 import Log from "@api/log";
-import Macros from "@api/macros";
 import Box from "@mui/material/Box";
 import {
   hideContextBar,

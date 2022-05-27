@@ -15,9 +15,9 @@
  * along with  this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { KeymapDB } from "@api/keymap";
-import { addDUL, addDUM } from "@api/keymap/db/base/dualuse";
-import { GuiLabel } from "@api/keymap/db/base/gui";
+import KeymapDB from "@api/focus/keymap/db";
+import { addDUL, addDUM } from "@api/focus/keymap/db/base/dualuse";
+import { GuiLabel } from "@api/focus/keymap/db/base/gui";
 import FormControl from "@mui/material/FormControl";
 import FormGroup from "@mui/material/FormGroup";
 import Input from "@mui/material/Input";

@@ -14,7 +14,6 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Keymap from "./chrysalis-keymap.js";
-import KeymapDB from "./db.js";
+import Keymap from "./keymap";
 
-export { Keymap as default, KeymapDB };
+export { Keymap as default };

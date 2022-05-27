@@ -14,8 +14,8 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Focus from "../focus";
-import { KeymapDB } from "../keymap";
+import Focus from "./focus";
+import KeymapDB from "./keymap/db";
 
 global.chrysalis_macros_instance = null;
 

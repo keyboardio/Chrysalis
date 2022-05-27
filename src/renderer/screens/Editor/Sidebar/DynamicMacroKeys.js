@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Macros from "@api/macros";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import Box from "@mui/material/Box";
@@ -26,7 +25,8 @@ import Typography from "@mui/material/Typography";
 import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
 import CategorySelector from "../components/CategorySelector";
 
-import { KeymapDB } from "@api/keymap";
+import Macros from "@api/focus/macros";
+import KeymapDB from "@api/focus/keymap/db";
 
 const DynamicMacroKeys = (props) => {
   const { currentKey } = props;

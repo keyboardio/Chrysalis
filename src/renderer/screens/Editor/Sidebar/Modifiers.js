@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { KeymapDB } from "@api/keymap";
-import { GuiLabel } from "@api/keymap/db/base/gui";
-import { addModifier, removeModifier } from "@api/keymap/db/modifiers";
+import KeymapDB from "@api/focus/keymap/db";
+import { GuiLabel } from "@api/focus/keymap/db/base/gui";
+import { addModifier, removeModifier } from "@api/focus/keymap/db/modifiers";
 import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";

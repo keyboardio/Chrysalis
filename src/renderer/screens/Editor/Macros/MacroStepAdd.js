@@ -24,7 +24,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import AddIcon from "@mui/icons-material/Add";
 
-import { KeymapDB } from "@api/keymap";
+import KeymapDB from "@api/focus/keymap/db";
 
 const MacroStepAdd = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);

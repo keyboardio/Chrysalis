@@ -58,6 +58,7 @@ const SaveChangesButton = (props) => {
         disabled={inProgress || (props.disabled && !success)}
         onClick={handleButtonClick}
         color={success ? "success" : "primary"}
+        sx={{ "&.Mui-disabled": { backgroundColor: "lightGrey" } }}
       >
         {success
           ? successMessage || i18n.t("components.save.success")
@@ -93,7 +94,10 @@ const SaveChangesButton = (props) => {
             disabled={inProgress || (props.disabled && !success)}
             color={success ? "success" : "primary"}
             onClick={handleButtonClick}
-            sx={{ marginRight: "-16px" }}
+            sx={{
+              marginRight: "-16px",
+              "&.Mui-disabled": { backgroundColor: "lightGrey" },
+            }}
           >
             {success ? <CheckIcon /> : icon}
           </Fab>

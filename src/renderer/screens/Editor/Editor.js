@@ -74,6 +74,11 @@ const Editor = (props) => {
 
   const { t } = useTranslation();
 
+  const maybeOpenMacroEditor = (state) => {
+    if (macros.storageSize == 0) return;
+    setOpenMacroEditor(state);
+  };
+
   const onMacroChange = async (id, macro) => {
     const newMacros = {
       storageSize: macros.storageSize,
@@ -160,7 +165,7 @@ const Editor = (props) => {
       const macroId = newKey.code - newKey.rangeStart;
 
       setCurrentMacroId(macroId);
-      setOpenMacroEditor(true);
+      maybeOpenMacroEditor(true);
     }
   };
 
@@ -420,7 +425,7 @@ const Editor = (props) => {
         onColormapChange={onColormapChange}
         onPaletteChange={onPaletteChange}
         onLedChange={onLedChange}
-        setOpenMacroEditor={setOpenMacroEditor}
+        setOpenMacroEditor={maybeOpenMacroEditor}
         currentKey={currentKey}
       />
       <FloatingKeyPicker

@@ -30,7 +30,6 @@ import Modal from "react-bootstrap/Modal";
 import { FiSave, FiTrash2 } from "react-icons/fi";
 
 import i18n from "../i18n";
-import MacroManager from "../components/MacroManager/index";
 import Keymap, { KeymapDB } from "../../api/keymap";
 import Focus from "../../api/focus";
 import Backup from "../../api/backup";
@@ -86,32 +85,6 @@ const Styles = Styled.div`
     color: ${({ theme }) => theme.colors.button.text};
     background-color: ${({ theme }) => theme.colors.button.active};
     border: none;
-  }
-`;
-
-const ModalStyle = Styled.div`
-  .modalcol {
-    color: ${({ theme }) => theme.colors.text};
-    background-color: ${({ theme }) => theme.colors.button.deselected};
-  }
-  .modal-footer {
-    justify-content: space-between;
-  }
-  .titles {
-    margin-bottom: 0;
-  }
-  .alignvert {
-    padding-top: 10px;
-    float: left;
-  }
-  .selectButton {
-    float: left;
-    .dropdown-toggle{
-      font-size: 0.97rem;
-    }
-  }
-  .gridded {
-    display: grid;
   }
 `;
 
@@ -400,6 +373,7 @@ class MacroEditor extends React.Component {
   updateKeyboard(macros, selected) {
     let list = [];
     let listS = [];
+    console.log("Updating keyboard", this.state.macros, selected);
     const macroID = this.state.macros[selected].id + 53852;
     for (let layer = 0; layer < this.state.keymap.custom.length; layer++) {
       list.push(
@@ -533,24 +507,25 @@ class MacroEditor extends React.Component {
     return;
   }
 
-  addMacro() {
-    if (this.state.macros.length < this.props.maxMacros) {
+  addMacro = name => {
+    if (this.state.macros.length < this.state.maxMacros) {
       let aux = this.state.macros;
       const newID = aux.length;
       aux.push({
         actions: [],
-        name: "Empty Macro",
+        name: name,
         id: newID,
         macro: ""
       });
-      this.props.updateMacro(aux, -1);
+      console.log("Adding Macro", aux);
+      this.updateMacros(aux, -1);
       this.changeSelected(newID);
     }
-  }
+  };
 
   deleteMacro = () => {
     if (this.state.macros.length > 0) {
-      let aux = this.state.macros;
+      let aux = JSON.parse(JSON.stringify(this.state.macros));
       let selected = this.state.selectedMacro;
       aux.splice(selected, 1);
       aux = aux.map((item, index) => {
@@ -561,7 +536,7 @@ class MacroEditor extends React.Component {
       if (selected >= this.state.macros.length - 1) {
         this.changeSelected(this.state.macros.length - 1);
       }
-      this.props.updateMacro(aux, selected);
+      this.updateMacros(aux, selected);
     }
   };
 
@@ -648,17 +623,6 @@ class MacroEditor extends React.Component {
             keymapDB={this.keymapDB}
             key={JSON.stringify(this.state.macros)}
           />
-          <div className="macrocontainer">
-            <MacroManager
-              macros={this.state.macros}
-              maxMacros={this.state.maxMacros}
-              selected={this.state.selectedMacro}
-              updateMacro={this.updateMacros}
-              changeSelected={this.changeSelected}
-              keymapDB={this.keymapDB}
-              key={JSON.stringify(this.state.macros)}
-            />
-          </div>
         </Container>
 
         <Modal

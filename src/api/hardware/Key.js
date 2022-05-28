@@ -191,67 +191,88 @@ const Key = ({
           data-led-index={dataLedIndex}
           data-key-index={dataKeyIndex}
           data-layer={dataLayer}
-          transform={`translate(${x - width / 2},${y - height / 2})`}
+          transform={`translate(${x},${y})`}
+        >
+          <g>
+            <path
+              d="M1.37773 4.98057C-0.325982 3.04224 1.05038 0 3.63103 0H115C117.209 0 119 1.79086 119 4V53C119 55.2091 117.209 57 115 57H49.8154C48.0899 57 46.4479 56.2571 45.3088 54.9611L1.37773 4.98057Z"
+              fill={color}
+            />
+          </g>
+          <g>
+            <path
+              d="M0.916945 5.08532C-0.923996 3.18134 0.425228 0 3.07366 0H110C112.209 0 114 1.79086 114 4V48C114 50.2091 112.209 52 110 52H48.8229C47.1966 52 45.6399 51.3398 44.5095 50.1706L0.916945 5.08532Z"
+              fill={`yellow`}
+            />
+          </g>
+          <foreignObject x={1} y={1} width={widthShape2} height={heightShape2}>
+            <div xmlns="http://www.w3.org/1999/xhtml" className={`keyContentLabel`}>
+              <ul>
+                <li ref={setExtralabel} className={`${extraLabelClass ? "extraLabel" : ""}`}>
+                  {centerExtra}
+                </li>
+                <li>{centerPrimary}</li>
+              </ul>
+            </div>
+          </foreignObject>
+        </g>
+      ) : (
+        ""
+      )}
+
+      {keyType == "t9" ? (
+        <g
+          id={id}
+          className={`${stroke === "#fff" || stroke === "#000" ? "keyOnFocus" : "keyOnHold"} keyItem ${keyType}`}
+          onClick={onClick}
+          data-led-index={dataLedIndex}
+          data-key-index={dataKeyIndex}
+          data-layer={dataLayer}
+          transform={`translate(${x + 24},${y + 24})`}
         >
           <g className="shadowHover">
             <path
               d="M26.3777 25.9806C24.674 24.0422 26.0504 21 28.631 21H140C142.209 21 144 22.7909 144 25V74C144 76.2091 142.209 78 140 78H74.8154C73.0899 78 71.4479 77.2571 70.3088 75.9611L26.3777 25.9806Z"
               fill={color}
-              x={x}
-              y={y + 4}
             />
           </g>
           <g filter="url(#filter0_d_409_401)">
             <path
               d="M26.3777 25.9806C24.674 24.0422 26.0504 21 28.631 21H140C142.209 21 144 22.7909 144 25V74C144 76.2091 142.209 78 140 78H74.8154C73.0899 78 71.4479 77.2571 70.3088 75.9611L26.3777 25.9806Z"
               fill="#303949"
-              x={x}
-              y={y}
             />
             <path
               d="M26.3777 25.9806C24.674 24.0422 26.0504 21 28.631 21H140C142.209 21 144 22.7909 144 25V74C144 76.2091 142.209 78 140 78H74.8154C73.0899 78 71.4479 77.2571 70.3088 75.9611L26.3777 25.9806Z"
               fill="url(#paint0_linear_409_401)"
               fillOpacity="0.2"
-              x={x}
-              y={y}
             />
             <path
               d="M26.3777 25.9806C24.674 24.0422 26.0504 21 28.631 21H140C142.209 21 144 22.7909 144 25V74C144 76.2091 142.209 78 140 78H74.8154C73.0899 78 71.4479 77.2571 70.3088 75.9611L26.3777 25.9806Z"
               fill="#F178B6"
               fillOpacity="0.8"
-              x={x}
-              y={y}
             />
             <path
               d="M26.3777 25.9806C24.674 24.0422 26.0504 21 28.631 21H140C142.209 21 144 22.7909 144 25V74C144 76.2091 142.209 78 140 78H74.8154C73.0899 78 71.4479 77.2571 70.3088 75.9611L26.3777 25.9806Z"
               stroke="#F178B6"
               strokeWidth="2"
-              x={x}
-              y={y}
             />
           </g>
-          <g filter="url(#filter1_d_409_401)" transform={`translate(${xShape2}, ${yShape2})`}>
+          <g filter="url(#filter1_d_409_401)" transform={`translate(1, 1)`}>
             <path
               d="M28.9169 26.0853C27.076 24.1813 28.4252 21 31.0737 21H138C140.209 21 142 22.7909 142 25V69C142 71.2091 140.209 73 138 73H76.8229C75.1966 73 73.6399 72.3398 72.5095 71.1706L28.9169 26.0853Z"
               fill="#303949"
-              x={xShape2}
-              y={yShape2}
             />
             <path
               d="M28.9169 26.0853C27.076 24.1813 28.4252 21 31.0737 21H138C140.209 21 142 22.7909 142 25V69C142 71.2091 140.209 73 138 73H76.8229C75.1966 73 73.6399 72.3398 72.5095 71.1706L28.9169 26.0853Z"
               fill="url(#paint1_linear_409_401)"
               fillOpacity="0.2"
-              x={xShape2}
-              y={yShape2}
             />
             <path
               d="M28.9169 26.0853C27.076 24.1813 28.4252 21 31.0737 21H138C140.209 21 142 22.7909 142 25V69C142 71.2091 140.209 73 138 73H76.8229C75.1966 73 73.6399 72.3398 72.5095 71.1706L28.9169 26.0853Z"
               fill="#F178B6"
               fillOpacity="0.3"
-              x={xShape2}
-              y={yShape2}
             />
-            <foreignObject x={xShape2} y={yShape2} width={widthShape2} height={heightShape2}>
+            <foreignObject x={1} y={1} width={width} height={height}>
               <div xmlns="http://www.w3.org/1999/xhtml" className={`keyContentLabel`}>
                 <ul>
                   <li ref={setExtralabel} className={`${extraLabelClass ? "extraLabel" : ""}`}>

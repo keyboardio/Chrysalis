@@ -14,7 +14,6 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Focus from "./focus";
 import KeymapDB from "./keymap/db";
 
 global.chrysalis_macros_instance = null;
@@ -396,10 +395,5 @@ const Macros = function () {
 
   return this;
 };
-
-const focus = new Focus();
-focus.addCommands({
-  macros: new Macros(),
-});
 
 export { Macros as default, Step };

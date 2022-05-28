@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 import Focus from "@api/focus";
-import { KeymapDB } from "@api/keymap";
+import KeymapDB from "@api/focus/keymap/db";
 import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -52,8 +52,7 @@ const OneShotKeys = (props) => {
   const pluginVisible = usePluginVisibility("OneShot");
   if (!pluginVisible) return null;
 
-  const { classes, keymap, selectedKey, layer, onKeyChange } = props;
-  const key = keymap.custom[layer][selectedKey];
+  const { currentKey: key } = props;
 
   const toggleEscapeCancel = async (event) => {
     const focus = new Focus();
@@ -80,7 +79,7 @@ const OneShotKeys = (props) => {
       >
         <KeyButton
           keyObj={db.lookup(cancelKeyCode)}
-          onKeyChange={onKeyChange}
+          onKeyChange={props.onKeyChange}
         />
 
         <Box

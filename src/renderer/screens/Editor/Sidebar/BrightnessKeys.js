@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { KeymapDB } from "@api/keymap";
+import KeymapDB from "@api/focus/keymap/db";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import Collapsible from "../components/Collapsible";
@@ -24,9 +24,6 @@ import KeyButton from "../components/KeyButton";
 const db = new KeymapDB();
 
 const BrightnessKeys = (props) => {
-  const { keymap, selectedKey, layer, onKeyChange } = props;
-  const key = keymap.custom[layer][selectedKey];
-
   const { t } = useTranslation();
 
   const keys = [
@@ -47,7 +44,7 @@ const BrightnessKeys = (props) => {
 
   return (
     <Collapsible
-      expanded={db.isInCategory(key.code, "consumer")}
+      expanded={db.isInCategory(props.currentKey.code, "consumer")}
       title={t("editor.sidebar.consumer.brightness")}
     >
       {keyButtons}

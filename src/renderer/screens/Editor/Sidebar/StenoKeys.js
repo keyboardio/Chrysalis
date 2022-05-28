@@ -21,7 +21,6 @@ import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
 import CategorySelector from "../components/CategorySelector";
 
 const StenoKeys = (props) => {
-  const { keymap, selectedKey, layer, onKeyChange } = props;
   const { t } = useTranslation();
   const pluginVisible = usePluginVisibility("Steno");
   if (!pluginVisible) return null;
@@ -31,10 +30,8 @@ const StenoKeys = (props) => {
       title={t("editor.sidebar.steno.title")}
       help={t("editor.sidebar.steno.help")}
       category="steno"
-      keymap={keymap}
-      selectedKey={selectedKey}
-      layer={layer}
-      onKeyChange={onKeyChange}
+      currentKey={props.currentKey}
+      onKeyChange={props.onKeyChange}
     />
   );
 };

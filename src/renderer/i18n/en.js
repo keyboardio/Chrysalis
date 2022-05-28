@@ -38,6 +38,7 @@ const English = {
   dialog: {
     ok: "Ok",
     cancel: "Cancel",
+    close: "Close",
   },
   app: {
     menu: {
@@ -46,6 +47,7 @@ const English = {
       editor: "Layout & Colormap Editor",
       layoutEditor: "Layout Editor",
       colormapEditor: "Colormap Editor",
+      macroEditor: "Macro Editor",
       firmwareUpdate: "Firmware Update",
       keyboardSettings: "Keyboard Settings",
       preferences: "Preferences",
@@ -184,6 +186,15 @@ const English = {
         title: "Macros",
         help: `Assign macros to keys. To create or modify macros, you can use the Arduino IDE to customize the Kaleidoscope 'Sketch' file for your keyboard.`,
       },
+      dynmacros: {
+        title: "Dynamic Macros",
+        help: `Assign and edit dynamic macros to keys.`,
+        usage_overview: {
+          label: "Macro space used:",
+          usage: "{{ used }}/{{ size }}",
+          bytes: "bytes",
+        },
+      },
       mousekeys: {
         title: "Mouse control",
         help: `Emulate a mouse using your keyboard's keys.`,
@@ -236,6 +247,29 @@ const English = {
       warning: `Chrysalis no longer supports configurations containing a mix of hardcoded and EEPROM layers. If this is a feature you need, we'd love to hear more about your use case. In most cases, however, we would advise switching to custom layers only, which Chrysalis can do for you. When doing the switch, hardcoded layers will not be used, and the default layer set - if any - will be layer zero.`,
       fixItButton: "Switch to custom layers only",
       openFR: "Open a feature request",
+    },
+    macros: {
+      title: "Macro #{{ index }}",
+      edit: "Edit macro",
+      out_of_space: `Dynamic macros are using too much space, please free up {{ overflow }} bytes.`,
+      test: {
+        button: "Test",
+        placeholder: "Click 'Test', and the macro will play out here.",
+      },
+      steps: {
+        time_ms: "{{ value }}ms",
+        in_ms: "ms",
+        unknown: "<unknown>",
+        INTERVAL: "Delay between steps",
+        WAIT: "Wait",
+        KEYDOWN: "Hold key",
+        KEYUP: "Release key",
+        TAP: "Tap",
+        EXPLICIT_REPORT: "Do not send a report between steps",
+        IMPLICIT_REPORT: "Send a report between steps",
+        SEND_REPORT: "Send a report now",
+        unsupported: "Unsupported",
+      },
     },
   },
   preferences: {

@@ -17,8 +17,13 @@
 const { ipcRenderer } = require("electron");
 const { SerialPort } = require("serialport");
 const { DelimiterParser } = require("@serialport/parser-delimiter");
+
 import Log from "@api/log";
 import fs from "fs";
+
+import Colormap from "./focus/colormap";
+import Macros from "./focus/macros";
+import Keymap, { OnlyCustom } from "./focus/keymap";
 
 global.chrysalis_focus_instance = null;
 
@@ -385,7 +390,7 @@ class Focus {
     "escape_oneshot.cancel_key",
     "idleleds.time_limit",
     "led.brightness",
-    "macros.map",
+    "macros",
     "tapdance.map",
     "hostos.type",
     "autoshift.enabled",
@@ -422,5 +427,15 @@ class Focus {
     }
   }
 }
+
+const focus = new Focus();
+focus.addCommands({ colormap: new Colormap() });
+focus.addMethod("setLayerSize", "colormap");
+focus.addCommands({ macros: new Macros() });
+focus.addCommands({
+  keymap: new Keymap(),
+  "keymap.onlyCustom": new OnlyCustom(),
+});
+focus.addMethod("setLayerSize", "keymap");
 
 export default Focus;

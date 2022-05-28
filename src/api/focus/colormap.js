@@ -14,8 +14,6 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Focus from "@api/focus";
-
 global.chrysalis_colormap_instance = null;
 
 export default class Colormap {
@@ -108,7 +106,3 @@ export default class Colormap {
     if (colorMap) await this._updateColormap(s, colorMap);
   }
 }
-
-const focus = new Focus();
-focus.addCommands({ colormap: new Colormap() });
-focus.addMethod("setLayerSize", "colormap");

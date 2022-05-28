@@ -16,7 +16,7 @@
  */
 
 import Focus from "@api/focus";
-import { KeymapDB } from "@api/keymap";
+import KeymapDB from "@api/focus/keymap/db";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import LoadingScreen from "@renderer/components/LoadingScreen";

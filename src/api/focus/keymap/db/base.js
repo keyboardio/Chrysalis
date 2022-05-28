@@ -14,24 +14,25 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { blanks } from "./blanks";
-import { modifiers } from "./modifiers";
-import { numpad } from "./numpad";
-import { navigation } from "./navigation";
-import { fx } from "./fx";
-import { spacing } from "./spacing";
-import { miscellaneous } from "./misc";
-import { consumer } from "./consumer";
-import { mousekeys } from "./mousekeys";
-import { macros } from "./macros";
-import { leaders } from "./leader";
-import { tapdances } from "./tapdance";
-import { stenokeys } from "./steno";
-import { ledkeys } from "./ledkeys";
-import { spacecadet } from "./spacecadet";
-import { oneshot } from "./oneshot";
-import { layers } from "./layers";
-import { dualuse } from "./dualuse";
+import { blanks } from "./base/blanks";
+import { modifiers } from "./base/modifiers";
+import { numpad } from "./base/numpad";
+import { navigation } from "./base/navigation";
+import { fx } from "./base/fx";
+import { spacing } from "./base/spacing";
+import { miscellaneous } from "./base/misc";
+import { consumer } from "./base/consumer";
+import { mousekeys } from "./base/mousekeys";
+import { macros } from "./base/macros";
+import { dynmacros } from "./base/dynamicmacros";
+import { leaders } from "./base/leader";
+import { tapdances } from "./base/tapdance";
+import { stenokeys } from "./base/steno";
+import { ledkeys } from "./base/ledkeys";
+import { spacecadet } from "./base/spacecadet";
+import { oneshot } from "./base/oneshot";
+import { layers } from "./base/layers";
+import { dualuse } from "./base/dualuse";
 
 const layout = [
   [41, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69],
@@ -59,6 +60,7 @@ const keyCodeTable = []
   .concat(consumer)
   .concat(mousekeys)
   .concat(macros)
+  .concat(dynmacros)
   .concat(leaders)
   .concat(tapdances)
   .concat(stenokeys)

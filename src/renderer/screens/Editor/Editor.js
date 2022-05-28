@@ -16,7 +16,9 @@
  */
 
 import Focus from "@api/focus";
-import { default as Keymap, KeymapDB } from "@api/keymap";
+import Keymap from "@api/focus/keymap";
+import KeymapDB from "@api/focus/keymap/db";
+import Macros, { Step as MacroStep } from "@api/focus/macros";
 import Log from "@api/log";
 import Box from "@mui/material/Box";
 import {
@@ -32,6 +34,8 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FloatingKeyPicker } from "./components/FloatingKeyPicker";
 import { LegacyAlert } from "./components/LegacyAlert";
+import { MacroStorageAlert } from "./components/MacroStorageAlert";
+import MacroEditor from "./Macros/MacroEditor";
 import OnlyCustomScreen from "./components/OnlyCustomScreen";
 import Sidebar, { sidebarWidth } from "./Sidebar";
 
@@ -54,6 +58,8 @@ const Editor = (props) => {
     onlyCustom: false,
   });
 
+  const [macros, setMacros] = useState(null);
+
   const [layout, _setLayout] = useState("English (US)");
   const [currentLedIndex, setCurrentLedIndex] = useState(0);
   const [currentKeyIndex, setCurrentKeyIndex] = useState(0);
@@ -61,8 +67,26 @@ const Editor = (props) => {
   const [loading, setLoading] = useState(true);
   const [currentLayer, setCurrentLayer] = useState(0);
   const [hasLegacy, setHasLegacy] = useState(false);
+  const [openMacroEditor, setOpenMacroEditor] = useState(false);
+  const [currentMacroId, setCurrentMacroId] = useState(0);
+  const [currentMacroStep, setCurrentMacroStep] = useState(null);
+  const [selectorKey, setSelectorKey] = useState(null);
 
   const { t } = useTranslation();
+
+  const onMacroChange = async (id, macro) => {
+    const newMacros = {
+      storageSize: macros.storageSize,
+      macros: macros.macros.map((m, index) => {
+        if (index == id) return macro;
+        return m;
+      }),
+    };
+    await setMacros(newMacros);
+
+    setModified(true);
+    showContextBar();
+  };
 
   const initializeHostKeyboardLayout = async () => {
     const layoutSetting = await settings.get("keyboard.layout", "English (US)");
@@ -92,15 +116,30 @@ const Editor = (props) => {
     settings.set("keyboard.layout", layout);
   };
 
-  const onKeySelect = (event) => {
+  const onKeySelect = async (event) => {
     const target = event.currentTarget;
     const keyIndex = parseInt(target.getAttribute("data-key-index"));
     const ledIndex = parseInt(target.getAttribute("data-led-index"));
-    setCurrentKeyIndex(keyIndex);
-    setCurrentLedIndex(ledIndex);
+    await setCurrentKeyIndex(keyIndex);
+    await setCurrentLedIndex(ledIndex);
+
+    const key = keymap.custom[currentLayer][keyIndex];
+    await setSelectorKey(key);
+    if (db.isInCategory(key, "dynmacros")) {
+      const macroId = key.code - key.rangeStart;
+
+      await setCurrentMacroId(macroId);
+    }
   };
 
-  const onKeyChange = (keyCode) => {
+  const onMacroEditorClose = async () => {
+    const key = keymap.custom[currentLayer][currentKeyIndex];
+
+    await setSelectorKey(key);
+    await setOpenMacroEditor(false);
+  };
+
+  const onKeyChangeForKeymap = (keyCode) => {
     const newKeymap = { ...keymap };
     //      const oldKey =  newKeymap.custom[currentLayer][currentKeyIndex];
     const newKey = db.lookup(keyCode);
@@ -113,8 +152,56 @@ const Editor = (props) => {
     if (newKey.legacy) {
       setHasLegacy(true);
     }
-    setModified(true);
+
+    setSelectorKey(newKey);
     setKeymap(newKeymap);
+
+    if (db.isInCategory(newKey, "dynmacros")) {
+      const macroId = newKey.code - newKey.rangeStart;
+
+      setCurrentMacroId(macroId);
+      setOpenMacroEditor(true);
+    }
+  };
+
+  const onKeyChangeForMacros = async (keyCode) => {
+    const currStepType = macros.macros[currentMacroId][currentMacroStep].type;
+    if (
+      ![MacroStep.TAP, MacroStep.KEYDOWN, MacroStep.KEYUP].includes(
+        currStepType
+      )
+    ) {
+      return;
+    }
+
+    const newKey = db.lookup(keyCode);
+    const macro = macros.macros[currentMacroId].map((step, index) => {
+      if (index == currentMacroStep) {
+        const newStep = Object.assign({}, step);
+        newStep.value = newKey;
+        return newStep;
+      }
+      return Object.assign({}, step);
+    });
+    const newMacros = {
+      storageSize: macros.storageSize,
+      macros: macros.macros.map((m, index) => {
+        if (index == currentMacroId) return macro;
+        return m;
+      }),
+    };
+    await setMacros(newMacros);
+    await setSelectorKey(newKey);
+  };
+
+  const onKeyChange = async (keyCode) => {
+    if (openMacroEditor) {
+      await onKeyChangeForMacros(keyCode);
+    } else {
+      await onKeyChangeForKeymap(keyCode);
+    }
+
+    setModified(true);
     showContextBar();
   };
 
@@ -181,14 +268,15 @@ const Editor = (props) => {
   const scanKeyboard = async () => {
     try {
       let deviceKeymap = await focus.command("keymap");
-
       deviceKeymap = await updateEmptyKeymap(deviceKeymap);
-
       const deviceColormap = await focus.command("colormap");
       const k = new Keymap();
       setHasLegacy(k.hasLegacyCodes(deviceKeymap.custom));
       setKeymap(deviceKeymap);
       setColormap(deviceColormap);
+
+      const deviceMacros = await focus.command("macros");
+      setMacros(deviceMacros);
     } catch (e) {
       toast.error(e);
       props.onDisconnect();
@@ -226,8 +314,9 @@ const Editor = (props) => {
   const onApply = async () => {
     await focus.command("keymap", keymap);
     await focus.command("colormap", colormap);
-    setModified(false);
+    await focus.command("macros", macros);
 
+    setModified(false);
     logger.log("Changes saved.");
     hideContextBar();
   };
@@ -257,7 +346,9 @@ const Editor = (props) => {
   const KeymapSVG = focus.focusDeviceDescriptor.components.keymap;
 
   let title;
-  if (hasColormap() && hasKeymap()) {
+  if (openMacroEditor) {
+    title = t("app.menu.macroEditor");
+  } else if (hasColormap() && hasKeymap()) {
     title = t("app.menu.editor");
   } else if (hasKeymap()) {
     title = t("app.menu.layoutEditor");
@@ -265,28 +356,57 @@ const Editor = (props) => {
     title = t("app.menu.colormapEditor");
   }
 
+  const currentKey =
+    selectorKey || keymap.custom[currentLayer][currentKeyIndex];
+
+  let mainWidget;
+  if (openMacroEditor) {
+    mainWidget = (
+      <MacroEditor
+        onClose={onMacroEditorClose}
+        onMacroChange={onMacroChange}
+        macroId={currentMacroId}
+        macro={macros.macros[currentMacroId]}
+        macroStep={currentMacroStep}
+        setMacroStep={setCurrentMacroStep}
+        currentKey={currentKey}
+        setSelectorKey={setSelectorKey}
+      />
+    );
+  } else {
+    mainWidget = (
+      <KeymapSVG
+        className="layer"
+        index={currentLayer}
+        keymap={keymap?.custom[currentLayer]}
+        onKeySelect={onKeySelect}
+        selectedKey={currentKeyIndex}
+        palette={colormap.palette}
+        colormap={colormap.colorMap[currentLayer]}
+      />
+    );
+  }
+
+  const M = new Macros();
+  const saveChangesDisabled =
+    !modified || M.getStoredSize(macros) > macros.storageSize;
+
   return (
     <React.Fragment>
       <PageTitle title={title} />
 
       {hasLegacy && <LegacyAlert migrateLegacy={migrateLegacy} />}
+      {macros && <MacroStorageAlert macros={macros} />}
       <Box
         component="main"
         sx={{
           width: `calc(100% - ${sidebarWidth}px)`,
         }}
       >
-        <KeymapSVG
-          className="layer"
-          index={currentLayer}
-          keymap={keymap?.custom[currentLayer]}
-          onKeySelect={onKeySelect}
-          selectedKey={currentKeyIndex}
-          palette={colormap.palette}
-          colormap={colormap.colorMap[currentLayer]}
-        />
+        {mainWidget}
       </Box>
       <Sidebar
+        macros={macros}
         keymap={keymap}
         colormap={colormap}
         selectedKey={currentKeyIndex}
@@ -300,15 +420,20 @@ const Editor = (props) => {
         onColormapChange={onColormapChange}
         onPaletteChange={onPaletteChange}
         onLedChange={onLedChange}
+        setOpenMacroEditor={setOpenMacroEditor}
+        currentKey={currentKey}
       />
       <FloatingKeyPicker
         sidebarWidth={sidebarWidth}
         onKeyChange={onKeyChange}
         keymap={keymap}
-        currentKeyIndex={currentKeyIndex}
-        currentLayer={currentLayer}
+        currentKey={currentKey}
       />
-      <SaveChangesButton floating onClick={onApply} disabled={!modified}>
+      <SaveChangesButton
+        floating
+        onClick={onApply}
+        disabled={saveChangesDisabled}
+      >
         {t("components.save.saveChanges")}
       </SaveChangesButton>
     </React.Fragment>

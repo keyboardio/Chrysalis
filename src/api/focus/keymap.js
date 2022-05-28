@@ -14,8 +14,7 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Focus from "@api/focus";
-import KeymapDB from "./db";
+import KeymapDB from "./keymap/db";
 
 global.chrysalis_keymap_instance = null;
 
@@ -147,11 +146,4 @@ class OnlyCustom {
   }
 }
 
-const focus = new Focus();
-focus.addCommands({
-  keymap: new Keymap(),
-  "keymap.onlyCustom": new OnlyCustom(),
-});
-focus.addMethod("setLayerSize", "keymap");
-
-export { Keymap as default };
+export { Keymap as default, OnlyCustom };

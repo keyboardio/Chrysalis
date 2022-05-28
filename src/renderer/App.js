@@ -15,9 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import "@api/colormap";
 import Focus from "@api/focus";
-import "@api/keymap";
 import Log from "@api/log";
 import { LocationProvider, Router } from "@gatsbyjs/reach-router";
 import Box from "@mui/material/Box";

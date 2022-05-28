@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { KeymapDB } from "@api/keymap";
+import KeymapDB from "@api/focus/keymap/db";
 import React from "react";
 import Collapsible from "../components/Collapsible";
 import KeyButtonList from "../components/KeyButtonList";
@@ -26,18 +26,17 @@ const CategorySelector = (props) => {
   const onKeyChange = (keyCode) => {
     props.onKeyChange(keyCode);
   };
-  const { keymap, selectedKey, layer, category, title, help } = props;
-  const key = keymap.custom[layer][selectedKey];
 
   return (
     <React.Fragment>
       <Collapsible
-        expanded={db.isInCategory(key.code, category)}
-        title={title}
-        help={help}
+        expanded={db.isInCategory(props.currentKey.code, props.category)}
+        title={props.title}
+        help={props.help}
       >
+        {props.children}
         <KeyButtonList
-          keys={db.selectCategory(category)}
+          keys={db.selectCategory(props.category)}
           onKeyChange={onKeyChange}
           showHints={false}
         />

@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { KeymapDB } from "@api/keymap";
-import { GuiLabel } from "@api/keymap/db/base/gui";
-import { addModifier, removeModifier } from "@api/keymap/db/modifiers";
+import KeymapDB from "@api/focus/keymap/db";
+import { GuiLabel } from "@api/focus/keymap/db/base/gui";
+import { addModifier, removeModifier } from "@api/focus/keymap/db/modifiers";
 import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -36,17 +36,14 @@ const KeyPicker = (props) => {
   const oneShotVisible = usePluginVisibility("OneShot");
 
   const isStandardKey = (props) => {
-    const { selectedKey, keymap, layer } = props;
-
-    const key = keymap.custom[layer][selectedKey];
+    const { currentKey: key } = props;
     const code = key.baseCode || key.code;
 
     return code >= 4 && code <= 255 && !db.isInCategory(key.code, "dualuse");
   };
 
   const isOSM = () => {
-    const { selectedKey, keymap, layer } = props;
-    const key = keymap.custom[layer][selectedKey];
+    const { currentKey: key } = props;
 
     return (
       db.isInCategory(key.code, "modifier") &&
@@ -55,26 +52,23 @@ const KeyPicker = (props) => {
   };
 
   const isDualUse = () => {
-    const { selectedKey, keymap, layer } = props;
-    const key = keymap.custom[layer][selectedKey];
+    const { currentKey: key } = props;
 
     return db.isInCategory(key.code, "dualuse");
   };
 
   const toggleModifier = (mod) => (event) => {
-    const { selectedKey, keymap, layer } = props;
-    const key = keymap.custom[layer][selectedKey].code;
+    const { currentKey: key } = props;
 
     if (event.target.checked) {
-      props.onKeyChange(addModifier(key, mod));
+      props.onKeyChange(addModifier(key.code, mod));
     } else {
-      props.onKeyChange(removeModifier(key, mod));
+      props.onKeyChange(removeModifier(key.code, mod));
     }
   };
 
   const toggleOneShot = (event) => {
-    const { selectedKey, keymap, layer } = props;
-    const key = keymap.custom[layer][selectedKey];
+    const { currentKey: key } = props;
 
     if (event.target.checked) {
       props.onKeyChange(key.code - 224 + 49153);
@@ -84,8 +78,7 @@ const KeyPicker = (props) => {
   };
 
   const makeSwitch = (mod) => {
-    const { selectedKey, keymap, layer } = props;
-    const key = keymap.custom[layer][selectedKey].code;
+    const { currentKey: key } = props;
 
     return (
       <Switch
@@ -96,8 +89,7 @@ const KeyPicker = (props) => {
     );
   };
 
-  const { keymap, selectedKey, layer } = props;
-  const key = keymap.custom[layer][selectedKey];
+  const { currentKey: key } = props;
 
   let oneShot;
   if (oneShotVisible && db.isInCategory(key.baseCode || key.code, "modifier")) {

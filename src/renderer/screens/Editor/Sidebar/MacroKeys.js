@@ -21,7 +21,6 @@ import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
 import CategorySelector from "../components/CategorySelector";
 
 const MacroKeys = (props) => {
-  const { keymap, selectedKey, layer, onKeyChange } = props;
   const { t } = useTranslation();
   const pluginVisible = usePluginVisibility("Macros");
   if (!pluginVisible) return null;
@@ -31,10 +30,8 @@ const MacroKeys = (props) => {
       title={t("editor.sidebar.macros.title")}
       help={t("editor.sidebar.macros.help")}
       category="macros"
-      keymap={keymap}
-      selectedKey={selectedKey}
-      layer={layer}
-      onKeyChange={onKeyChange}
+      currentKey={props.currentKey}
+      onKeyChange={props.onKeyChange}
     />
   );
 };

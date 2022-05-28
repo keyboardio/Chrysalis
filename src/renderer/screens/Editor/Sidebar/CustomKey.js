@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { KeymapDB } from "@api/keymap";
+import KeymapDB from "@api/focus/keymap/db";
 import FormControl from "@mui/material/FormControl";
 import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
@@ -28,7 +28,7 @@ const db = new KeymapDB();
 const CustomKey = (props) => {
   const { t } = useTranslation();
   const onKeyChange = (event) => {
-    let value = event.target.value;
+    let value = parseInt(event.target.value);
     if (value < 0) {
       value = 65535;
     }
@@ -38,8 +38,7 @@ const CustomKey = (props) => {
     props.onKeyChange(value);
   };
 
-  const { keymap, selectedKey, layer } = props;
-  const key = keymap.custom[layer][selectedKey];
+  const { currentKey: key } = props;
 
   return (
     <React.Fragment>

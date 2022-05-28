@@ -23,6 +23,7 @@ import BlankKeys from "./Sidebar/BlankKeys";
 import BrightnessKeys from "./Sidebar/BrightnessKeys";
 import Colormap from "./Sidebar/Colormap";
 import CustomKey from "./Sidebar/CustomKey";
+import DynamicMacroKeys from "./Sidebar/DynamicMacroKeys";
 import LayerKeys from "./Sidebar/LayerKeys";
 import LeaderKeys from "./Sidebar/LeaderKeys";
 import LEDKeys from "./Sidebar/LEDKeys";
@@ -54,6 +55,7 @@ const Sidebar = (props) => {
     MediaKeys,
     MouseKeys,
     LEDKeys,
+    DynamicMacroKeys,
     MacroKeys,
     TapDanceKeys,
     OneShotKeys,
@@ -78,6 +80,9 @@ const Sidebar = (props) => {
         onKeyChange={props.onKeyChange}
         onLedChange={props.onLedChange}
         onPaletteChange={props.onPaletteChange}
+        macros={props.macros}
+        setOpenMacroEditor={props.setOpenMacroEditor}
+        currentKey={props.currentKey}
         sx={{ p: 2 }}
       />
     );

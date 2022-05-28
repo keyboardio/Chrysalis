@@ -1,5 +1,5 @@
-/* chrysalis-keymap -- Chrysalis keymap library
- * Copyright (C) 2018-2022  Keyboardio, Inc.
+/* Chrysalis -- Kaleidoscope Command Center
+ * Copyright (C) 2020-2022  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -14,7 +14,21 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Keymap from "./chrysalis-keymap.js";
-import KeymapDB from "./db.js";
+const dynmacro = (index) => ({
+  code: 53596 + index,
+  label: {
+    hint: {
+      full: "Dynamic Macro",
+      "1u": "DM",
+    },
+    base: "#" + index.toString(),
+  },
+  rangeStart: 53596,
+  categories: ["dynmacros"],
+});
 
-export { Keymap as default, KeymapDB };
+const dynmacros = Array(32)
+  .fill()
+  .map((_, index) => dynmacro(index));
+
+export { dynmacros };

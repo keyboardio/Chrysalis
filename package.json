@@ -102,7 +102,7 @@
     "typeface-roboto": "^0.0.54",
     "typeface-source-code-pro": "^0.0.71",
     "unraw": "^2.0.0",
-    "usb": "^2.3.1",
+    "usb": "^2.4.2",
     "uuid": "^8.3.1",
     "xml2js": "^0.4.23"
   },

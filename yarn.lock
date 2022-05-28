@@ -11984,10 +11984,19 @@ url@^0.11.0:
     punycode "1.3.2"
     querystring "0.2.0"
 
-usb@^2.1.3, usb@^2.3.1:
+usb@^2.1.3:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/usb/-/usb-2.4.1.tgz#bcf28e80e935fdd5ab057e5a5c58a4760e856615"
   integrity sha512-eXrbWIWG09ReeXCoHXI8dfOa72z7f6n9yGu2GLeiBnd990M6GJUwjWIqjquzlSr3bnqlXM86Ce8VHCoLcCVfKg==
+  dependencies:
+    "@types/w3c-web-usb" "1.0.6"
+    node-addon-api "^4.2.0"
+    node-gyp-build "^4.3.0"
+
+usb@^2.4.2:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/usb/-/usb-2.4.2.tgz#f2230d594fded7924fd9e922a4afcca7a8e114dd"
+  integrity sha512-GzxxhFbH0TnjutDXRb7HhjNUCfcg3L6rC0Ya6oveiGeNbs0saQbCZh0G71xd8TKOyI9KKWzcZprsqnDoTFZRTw==
   dependencies:
     "@types/w3c-web-usb" "1.0.6"
     node-addon-api "^4.2.0"

@@ -14,10 +14,10 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Focus from "./focus";
-import Keymap from "./keymap/keymap";
-import KeymapDB from "./keymap/db";
-import Colormap from "./colormap";
-import Macros from "./macros";
+import Focus from "./focus/focus";
+import Keymap from "./focus/keymap";
+import KeymapDB from "./focus/keymap/db";
+import Colormap from "./focus/colormap";
+import Macros from "./focus/macros";
 
 export { Focus as default };

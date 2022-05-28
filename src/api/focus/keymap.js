@@ -14,6 +14,6 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Keymap from "./keymap";
+import Keymap from "./keymap/keymap";
 
 export { Keymap as default };

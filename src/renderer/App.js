@@ -190,12 +190,25 @@ const App = (props) => {
     <Suspense>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              height: "100%",
+            }}
+          >
             <LocationProvider history={history}>
               <CssBaseline />
               <Header device={deviceInfo} />
-              <Box component="main" sx={{ flexGrow: 1, overflow: "auto" }}>
-                <Router>
+              <Box
+                component="main"
+                sx={{
+                  flexGrow: 1,
+                  overflow: "auto",
+                  height: "100%",
+                }}
+              >
+                <Router id="router">
                   <FocusNotDetected
                     path="/focus-not-detected"
                     focusDeviceDescriptor={focusDeviceDescriptor}

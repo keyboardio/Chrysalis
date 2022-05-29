@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
 import Box from "@mui/material/Box";
@@ -64,13 +64,13 @@ const MacroEditor = (props) => {
     }
   };
 
-  const onClose = async () => {
+  const onClose = useCallback(async () => {
     const fkp_channel = new BroadcastChannel("floating-key-picker");
     await fkp_channel.postMessage("show");
     await fkp_channel.close();
 
     props.onClose();
-  };
+  }, []);
 
   const onMacroStepChange = async (stepIndex, step) => {
     const newMacro = macro.map((s, index) => {
@@ -79,6 +79,15 @@ const MacroEditor = (props) => {
     });
     onMacroChange(macroId, newMacro);
   };
+
+  const onKeyPress = useCallback(
+    (event) => {
+      if (event.key == "Escape") {
+        onClose();
+      }
+    },
+    [onClose]
+  );
 
   useEffect(() => {
     const fkp_channel = new BroadcastChannel("floating-key-picker");
@@ -90,10 +99,13 @@ const MacroEditor = (props) => {
       fkp_channel.postMessage("hide");
     }
 
+    document.addEventListener("keydown", onKeyPress);
+
     return function cleanup() {
       fkp_channel.close();
+      document.removeEventListener("keydown", onKeyPress);
     };
-  });
+  }, [onKeyPress, macro, macroStep]);
 
   if (macroId == null) return null;
 

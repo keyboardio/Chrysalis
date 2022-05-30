@@ -17,6 +17,7 @@
 
 import KeymapDB from "@api/focus/keymap/db";
 import Box from "@mui/material/Box";
+import useTheme from "@mui/material/styles/useTheme";
 import React from "react";
 const db = new KeymapDB();
 
@@ -24,6 +25,7 @@ const keycapunit = 56;
 
 const KeySelector = (props) => {
   const keymap = db.getStandardLayout();
+  const theme = useTheme();
   const { currentKeyCode, onKeySelect } = props;
   const keySpacingX = keycapunit;
   const keySpacingY = keycapunit;
@@ -116,13 +118,15 @@ const KeySelector = (props) => {
       y = getY(row, col),
       key = getKey(row, col),
       active = key.code == currentKeyCode;
-    const strokeColor = "#b3b3b3";
-    const stroke = active ? "#f3b3b3" : strokeColor;
+    const stroke = theme.palette.divider;
     const height = getKeyHeight(row, col);
     const width = getKeyWidth(row, col);
     const bottom = y + height - 8;
-    const textColor = "#000000";
-    const buttonColor = active ? "#aaaaaa" : "#ffffff";
+    const buttonColor = active
+      ? theme.palette.primary.light
+      : theme.palette.background.paper;
+
+    const textColor = theme.palette.getContrastText(buttonColor);
 
     const onClick = (event) => {
       return onKeySelect(event.currentTarget.getAttribute("data-key-code"));

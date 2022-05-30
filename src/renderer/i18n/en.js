@@ -135,7 +135,7 @@ const English = {
           layer: "Layer shift",
           modifier: "Modifier",
         },
-        targetLayer: "Target layer",
+        targetLayer: "Layer",
         modifier: "Modifier",
       },
       colors: {
@@ -220,7 +220,7 @@ const English = {
       lockTo: "Lock To Layer",
       moveTo: "Move To Layer",
       oneshot: "Layer shift for next action",
-      target: "Target Layer",
+      target: "Layer",
       dualuse: "Layer shift when held",
     },
     clearLayer: "Clear layer...",

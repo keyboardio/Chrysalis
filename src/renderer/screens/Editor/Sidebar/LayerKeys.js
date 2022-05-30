@@ -16,6 +16,8 @@
  */
 
 import KeymapDB from "@api/focus/keymap/db";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -50,16 +52,6 @@ const LayerKeys = (props) => {
     }
   };
 
-  const onKeyChange = (keyCode) => {
-    props.onKeyChange(keyCode);
-  };
-
-  const onTargetLayerChange = (event, max) => {
-    const target = Math.min(parseInt(event.target.value) || 0, max);
-
-    props.onKeyChange(props.currentKey.rangeStart + target);
-  };
-
   const onTypeChange = (event) => {
     const typeStarts = {
       locktolayer: 17408,
@@ -82,7 +74,20 @@ const LayerKeys = (props) => {
     targetLayer = key.target;
     type = key.categories[1];
   }
-  const max = getMaxLayer();
+
+  const layerKeys = [...Array(getMaxLayer())].map((x, i) => (
+    <Button
+      disabled={type == "none"}
+      key={`layerkey-${i.toString()}`}
+      variant="contained"
+      size="small"
+      sx={{ m: 1 }}
+      onClick={() => props.onKeyChange(props.currentKey.rangeStart + i)}
+    >
+      #{i}
+    </Button>
+  ));
+
   return (
     <React.Fragment>
       <Collapsible
@@ -91,7 +96,7 @@ const LayerKeys = (props) => {
         expanded={db.isInCategory(key.code, "layer")}
       >
         <div>
-          <FormControl>
+          <FormControl fullWidth>
             <InputLabel id="editor.layerswitch.type">
               {t("editor.layerswitch.type")}
             </InputLabel>
@@ -123,25 +128,7 @@ const LayerKeys = (props) => {
               </MenuItem>
             </Select>
           </FormControl>
-          <FormControl sx={{ mx: 1 }}>
-            <InputLabel id="editor.layerswitch.target">
-              {t("editor.layerswitch.target")}
-            </InputLabel>
-            <Select
-              labelId="editor.layerswitch.target"
-              value={targetLayer}
-              onChange={(event) => onTargetLayerChange(event, max)}
-              label={t("editor.layerswitch.target")}
-              disabled={targetLayer < 0}
-            >
-              <MenuItem value="-1" disabled></MenuItem>
-              {[...Array(max)].map((x, i) => (
-                <MenuItem key={i} name={i} value={i}>
-                  {i}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          <Box sx={{ mt: 1 }}>{layerKeys}</Box>
         </div>
       </Collapsible>
     </React.Fragment>

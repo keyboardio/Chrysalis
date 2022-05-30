@@ -26,42 +26,37 @@ import { useTranslation } from "react-i18next";
 const db = new KeymapDB();
 
 const LayoutSelect = (props) => {
+  const { layout, setLayout, ...rest } = props;
   const { t } = useTranslation();
-
-  const setLayout = (_, value) => {
-    props.setLayout(value || props.layout);
-  };
-
-  const { className, layout } = props;
   const platforms = {
     linux: "Linux",
     win32: "Windows",
     darwin: "macOS",
   };
   const hostos = platforms[process.platform];
-  const label = t("editor.sidebar.keypicker.hostLayout", {
+  const label = t("preferences.ui.host.layout", {
     hostos: hostos,
   });
 
+  const changeLayout = (_, value) => {
+    setLayout(value || props.layout);
+  };
+
   return (
-    <div className={className}>
-      <FormControl>
-        <Autocomplete
-          value={layout}
-          groupBy={(option) => db.getLayoutLanguage(option)}
-          onChange={setLayout}
-          options={db.getSupportedLayouts()}
-          getOptionLabel={(option) => option}
-          disableClearable
-          renderInput={(params) => (
-            <TextField {...params} label={label} variant="outlined" />
-          )}
-        />
-        <FormHelperText>
-          {t("editor.sidebar.keypicker.hostHelp")}
-        </FormHelperText>
-      </FormControl>
-    </div>
+    <FormControl {...rest}>
+      <Autocomplete
+        value={layout}
+        groupBy={(option) => db.getLayoutLanguage(option)}
+        onChange={changeLayout}
+        options={db.getSupportedLayouts()}
+        getOptionLabel={(option) => option}
+        disableClearable
+        renderInput={(params) => (
+          <TextField {...params} label={label} variant="outlined" />
+        )}
+      />
+      <FormHelperText>{t("preferences.ui.host.help")}</FormHelperText>
+    </FormControl>
   );
 };
 

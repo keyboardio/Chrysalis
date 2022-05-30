@@ -27,7 +27,6 @@ import DynamicMacroKeys from "./Sidebar/DynamicMacroKeys";
 import LayerKeys from "./Sidebar/LayerKeys";
 import LeaderKeys from "./Sidebar/LeaderKeys";
 import LEDKeys from "./Sidebar/LEDKeys";
-import LogicalLayout from "./Sidebar/LogicalLayout";
 import MacroKeys from "./Sidebar/MacroKeys";
 import MediaKeys from "./Sidebar/MediaKeys";
 import KeyPicker from "./Sidebar/Modifiers";
@@ -43,7 +42,7 @@ import VolumeKeys from "./Sidebar/VolumeKeys";
 const sidebarWidth = 360;
 
 const Sidebar = (props) => {
-  const { keymap, selectedKey, selectedLed, layer, layout, colormap } = props;
+  const { keymap, selectedKey, selectedLed, layer, colormap } = props;
 
   const widgets = [
     KeyPicker,
@@ -64,7 +63,6 @@ const Sidebar = (props) => {
     StenoKeys,
     BlankKeys,
     CustomKey,
-    LogicalLayout,
   ];
   const categories = widgets.map((Widget, index) => {
     return (
@@ -75,8 +73,6 @@ const Sidebar = (props) => {
         selectedKey={selectedKey}
         selectedLed={selectedLed}
         layer={layer}
-        layout={layout}
-        setLayout={props.setLayout}
         onKeyChange={props.onKeyChange}
         onLedChange={props.onLedChange}
         onPaletteChange={props.onPaletteChange}

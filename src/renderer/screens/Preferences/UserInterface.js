@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import KeymapDB from "@api/focus/keymap/db";
+
 import FilledInput from "@mui/material/FilledInput";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -24,15 +26,21 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Switch from "@mui/material/Switch";
 import { GlobalContext } from "@renderer/components/GlobalContext";
+import useEffectOnce from "@renderer/hooks/useEffectOnce";
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+
+import LayoutSelect from "./LayoutSelect";
 
 const Store = require("electron-store");
 const settings = new Store();
 
+const db = new KeymapDB();
+
 function UserInterfacePreferences(props) {
   const { t, i18n } = useTranslation();
 
+  const [layout, setLayout] = useState("English (US)");
   const [language, setLanguage] = useState(i18n.language);
 
   const globalContext = React.useContext(GlobalContext);
@@ -40,6 +48,18 @@ function UserInterfacePreferences(props) {
   const [darkMode, setDarkMode] = globalContext.state.darkMode;
   const [coloredLayoutCards, setColoredLayoutCards] = useState(false);
   const [hideUnavailableFeatures, setHideUnavailableFeatures] = useState(true);
+
+  const initializeHostKeyboardLayout = async () => {
+    const layoutSetting = await settings.get("keyboard.layout", "English (US)");
+    db.setLayout(layoutSetting);
+    setLayout(layoutSetting);
+  };
+
+  const changeLayout = async (layout) => {
+    db.setLayout(layout);
+    setLayout(layout);
+    settings.set("keyboard.layout", layout);
+  };
 
   const toggleDarkMode = async () => {
     settings.set("ui.darkMode", !darkMode);
@@ -76,6 +96,10 @@ function UserInterfacePreferences(props) {
       true
     );
     setHideUnavailableFeatures(hideUnavail);
+  }, []);
+
+  useEffectOnce(() => {
+    initializeHostKeyboardLayout();
   });
 
   const languages = Object.keys(i18n.options.resources).map((code) => {
@@ -101,6 +125,7 @@ function UserInterfacePreferences(props) {
           {languages}
         </Select>
       </FormControl>
+      <LayoutSelect sx={{ my: 2 }} layout={layout} setLayout={changeLayout} />
       <FormControlLabel
         control={
           <Switch

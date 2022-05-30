@@ -155,8 +155,6 @@ const English = {
         help: `Letters, number, symbols, and modifiers - the keys you find on a standard keyboard layout.`,
         mods: "Modifiers",
         modsHelp: `Choose modifier keys that are automatically pressed as you press this key.`,
-        hostLayout: "{{hostos}} layout",
-        hostHelp: "Select the key layout you use on your computer",
         oneshot: {
           label: "Sticky",
           tooltip: `Tap to activate for next keypress, hold to act like a regular modifier, double tap to toggle modifier.`,
@@ -283,6 +281,12 @@ const English = {
     hideUnavailableFeatures: {
       label: "Hide features not supported by your keyboard's current firmware",
       help: `When enabled, Chrysalis will hide configuration options for features that your keyboard's firmware doesn't support.`,
+    },
+    ui: {
+      host: {
+        layout: "{{hostos}} layout",
+        help: "Select the key layout you use on your computer",
+      },
     },
   },
   keyboardSettings: {

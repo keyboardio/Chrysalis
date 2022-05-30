@@ -59,8 +59,6 @@ const Editor = (props) => {
   });
 
   const [macros, setMacros] = useState(null);
-
-  const [layout, _setLayout] = useState("English (US)");
   const [currentLedIndex, setCurrentLedIndex] = useState(0);
   const [currentKeyIndex, setCurrentKeyIndex] = useState(0);
   const [modified, setModified] = useState(false);
@@ -93,32 +91,10 @@ const Editor = (props) => {
     showContextBar();
   };
 
-  const initializeHostKeyboardLayout = async () => {
-    const layoutSetting = await settings.get("keyboard.layout", "English (US)");
-    db.setLayout(layoutSetting);
-    _setLayout(layoutSetting);
-  };
-
   const initialize = async () => {
     await scanKeyboard();
-    await initializeHostKeyboardLayout();
 
     setLoading(false);
-  };
-
-  const setLayout = async (layout) => {
-    db.setLayout(layout);
-
-    const newKeymap = { ...keymap };
-    newKeymap.custom = newKeymap.custom.map((layer) => {
-      return layer.map((key) => {
-        return db.lookup(key.code);
-      });
-    });
-    _setLayout(layout);
-    setKeymap(newKeymap);
-
-    settings.set("keyboard.layout", layout);
   };
 
   const onKeySelect = async (event) => {
@@ -417,9 +393,7 @@ const Editor = (props) => {
         selectedKey={currentKeyIndex}
         selectedLed={currentLedIndex}
         layer={currentLayer}
-        layout={layout}
         setLayer={setCurrentLayer}
-        setLayout={setLayout}
         onKeyChange={onKeyChange}
         onKeymapChange={onKeymapChange}
         onColormapChange={onColormapChange}

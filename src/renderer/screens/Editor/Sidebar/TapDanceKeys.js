@@ -24,6 +24,7 @@ const TapDanceKeys = (props) => {
   const { t } = useTranslation();
   const pluginVisible = usePluginVisibility("TapDance");
   if (!pluginVisible) return null;
+  if (props.macroEditorOpen) return null;
 
   return (
     <CategorySelector

@@ -387,6 +387,7 @@ const Editor = (props) => {
         {mainWidget}
       </Box>
       <Sidebar
+        macroEditorOpen={openMacroEditor}
         macros={macros}
         keymap={keymap}
         colormap={colormap}

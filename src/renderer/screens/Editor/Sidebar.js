@@ -42,7 +42,8 @@ import VolumeKeys from "./Sidebar/VolumeKeys";
 const sidebarWidth = 360;
 
 const Sidebar = (props) => {
-  const { keymap, selectedKey, selectedLed, layer, colormap } = props;
+  const { keymap, selectedKey, selectedLed, layer, colormap, macroEditorOpen } =
+    props;
 
   const widgets = [
     KeyPicker,
@@ -68,6 +69,7 @@ const Sidebar = (props) => {
     return (
       <Widget
         key={`sidebar-category-${index}`}
+        macroEditorOpen={macroEditorOpen}
         keymap={keymap}
         colormap={colormap}
         selectedKey={selectedKey}
@@ -103,6 +105,7 @@ const Sidebar = (props) => {
       <Toolbar />
       <Box sx={{ px: 1, mb: 2 }}>
         <Overview
+          macroEditorOpen={macroEditorOpen}
           keymap={keymap}
           colormap={colormap}
           selectedKey={selectedKey}

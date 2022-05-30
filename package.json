@@ -143,6 +143,7 @@
     "yarn": "^1.22.0"
   },
   "resolutions": {
+    "teensy-loader/usb": "^2.4.2",
     "cacache/y18n": "^4.0.1",
     "yargs/y18n": "^4.0.1",
     "**/@electron/universal": "npm:@spotxyz/universal"

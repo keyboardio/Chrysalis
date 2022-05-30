@@ -50,6 +50,20 @@ prompt_for_firmware_update() {
     esac
 }
 
+prompt_for_screenshot() {
+    echo -n "Is the screenshot up to date? (Y/n) "
+
+    read a
+
+    case "$a" in
+        n|N)
+            exit 1
+        ;;
+        *)
+            ;;
+    esac
+}
+
 prompt_for_package_version() {
     package="$1"
     version="$(yarn why ${package} | awk '/=> Found/ { print $4 }' | tr -d '"')"
@@ -145,6 +159,7 @@ create_and_push_tag() {
 }
 
 verify_version
+prompt_for_screenshot
 prompt_for_package_version usb
 prompt_for_package_version serialport
 prompt_for_firmware_update

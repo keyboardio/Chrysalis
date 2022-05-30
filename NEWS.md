@@ -1,3 +1,49 @@
+Chrysalis 0.10.0-snapshot
+=========================
+**UNRELEASED**
+
+## New features
+
+A long requested feature landed in Chrysalis this release: it now has a Macro
+Editor.
+
+When the firmware supports it, Chrysalis now supports assigning dynamic macros
+to keys, and editing them within the application. Up to 32 such macros are
+supported, they can be of any length, limited only by storage space on the
+connected keyboard.
+
+For now the Macro Editor is simple, plenty of convenience functions are planned
+in the future, but it is usable in its current form.
+
+The experimental firmware for the Keyboardio Model 100 and Atreus both have
+support for this feature.
+
+## UI/UX improvements
+
+The Preferences screen has seen another large update: we have organized settings
+within a page into logically similar groups, improved and added plenty of help
+text and descriptions. We hope this is more discoverable, and less intimidating
+now.
+
+Choosing the host-side keyboard layout has been moved from the bottom of the
+sidebar on the Layout Editor screen to the Preferences, for ease of use and
+better discoverability.
+
+On the Layout Editor screen, the sidebar will now hide sections and
+functionality not supported by the firmware of the connected keyboard. This can
+be disabled in the Preferences screen.
+
+The sidebar of the Layout Editor has also had a number of glitches fixed:
+dropdowns and other widgets should no longer overlap, among other things.
+
+## Bugfixes
+
+The flashing instructions for the Keyboardio Model 100 have been updated to
+match production keyboards, and a layout library has been added too.
+
+We fixed an issue that prevented Chrysalis from connecting to keyboards on
+Windows, and we also improved Chrysalis' stability on Linux under Wayland.
+
 Chrysalis 0.9.5
 ===============
 Released on 2022-05-27

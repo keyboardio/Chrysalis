@@ -42,6 +42,8 @@ const GlobalStyles = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -moz-font-feature-settings: "liga" on;
+
+    overflow: overlay;
   }
 
   @media screen and (-webkit-min-device-pixel-ratio: 2), 

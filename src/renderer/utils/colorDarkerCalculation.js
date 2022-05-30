@@ -24,9 +24,9 @@ export default function colorDarkerCalculation(color) {
   const sumColor = rgbColor => {
     let shadeDarkerInternal;
     rgbColor = rgbColor.replace(/[^\d,]/g, "").split(",");
-    shadeDarkerInternal = `rgb(${(rgbColor[0] * 0.25).toFixed(2)}, ${(rgbColor[1] * 0.5).toFixed(2)}, ${(
+    shadeDarkerInternal = `rgb(${(rgbColor[0] * 0.25).toFixed(0)}, ${(rgbColor[1] * 0.5).toFixed(0)}, ${(
       rgbColor[2] * 0.75
-    ).toFixed(2)} )`;
+    ).toFixed(0)} )`;
     return shadeDarkerInternal;
   };
 

@@ -97,11 +97,6 @@ margin: auto;
 .center-self {
   place-self: flex-start;
 }
-}
-.save-button-row {
-  margin: auto;
-  place-content: flex-end;
-}
 .save-row {
   position: fixed;
   top: 128px;
@@ -127,55 +122,18 @@ margin: auto;
   text-align: left;
 }
 
-// .button-large:not(:disabled):not(.disabled):hover {
-//   color: ${({ theme }) => theme.colors.button.text};
-//   background-color: ${({ theme }) => theme.colors.button.active};
-//   border: none;
-// }
-.save-button {
-  background: ${({ theme }) => theme.styles.button.primary.disabledBackgroundColor};
-  color: ${({ theme }) => theme.styles.button.primary.disabledTextColor};
-}
-.cancel-button {
-  background-color: ${({ theme }) => theme.colors.button.cancel};
-  opacity: ${({ theme }) => theme.styles.button.outline.disabledOpacity}; 
-  color: ${({ theme }) => theme.styles.button.outline.disabledTextColor};
-  border: 1px solid ${({ theme }) => theme.styles.button.outline.disabledBorderColor};
-  box-shadow: 0px 0px 0px 1px ${({ theme }) => theme.styles.button.outline.disabledBoxShadowColor} inset;
-}
-.cancel-button.cancel-active{
-  border: 1px solid ${({ theme }) => theme.styles.button.outline.borderColor};
-  box-shadow: 0px 0px 0px 1px ${({ theme }) => theme.styles.button.outline.borderColor} inset;
-  transition-property: border, box-shadow, background;
-  transition: 300ms ease-in-out;
-  background-color: ${({ theme }) => theme.colors.button.cancel};
-  backdrop-filter: blur(5px);
-  color: ${({ theme }) => theme.styles.button.outline.color};
-  opacity: 1;
-  &:hover {
-    border: 1px solid ${({ theme }) => theme.styles.button.outline.borderColorHover};
-     box-shadow: 0px 0px 0px 1px ${({ theme }) => theme.styles.button.outline.boxShadowColorHover} inset;
-  }
-}
-.save-button.save-active{
-  background: ${({ theme }) => theme.colors.button.save};
-  color: white;
-  &:hover {
-    color: white;
-  }
-}
-.save-span {
-  font-size: 1.5rem;
-  vertical-align: -2px;
-  padding-left: 0.3rem;
-}
+
+
+
 .LayerHolder {
-  width: 70%;
-  height: 100%;
-  margin: auto;
+  display: flex;
+  flex: 0 0 100%;
 }
-
-
+.raiseKeyboard {
+  overflow: visible;
+  margin: 0 auto;
+  max-width: 1225px;
+}
 .NeuronLine {
   stroke: ${({ theme }) => theme.styles.neuronStatus.lineStrokeColor};
 }
@@ -231,7 +189,7 @@ margin: auto;
     opacity: 0.8;
   }
   .shadowMiddle {
-    filter: blur(10px);
+    filter: blur(18px);
     opacity: 0.5;
   }
   &.keyOnFocus { 
@@ -250,6 +208,31 @@ margin: auto;
   &:hover {
     cursor: pointer;
     .shadowHover {
+      opacity: 0;
+    }
+  }
+}
+.underGlowStrip {
+  .underGlowStripStroke {
+      stroke-opacity: 0.5;
+  }
+  .underGlowStripShadow {
+    transition: all 300ms ease-in-out;
+    filter: blur(18px);
+    opacity: 0.8;
+  }
+  &.keyOnFocus {
+    .underGlowStripShadow {
+      opacity: 0;
+    }
+    .underGlowStripStroke {
+      stroke-opacity: 0.8;
+      stroke: ${({ theme }) => theme.styles.raiseKeyboard.keyOnFocusBorder};
+    }
+  }
+  &:hover {
+    cursor: pointer;
+    .underGlowStripShadow {
       opacity: 0;
     }
   }
@@ -1673,6 +1656,7 @@ class LayoutEditor extends React.Component {
           darkMode={this.props.darkMode}
           style={{ width: "50vw" }}
           showUnderglow={this.state.modeselect != "keyboard"}
+          className={`raiseKeyboard layer`}
         />
       </div>
       // </fade>

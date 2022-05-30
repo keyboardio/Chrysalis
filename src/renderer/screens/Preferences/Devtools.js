@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import Focus from "@api/focus";
 import Skeleton from "@mui/material/Skeleton";
-import { GlobalContext } from "@renderer/components/GlobalContext";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 const { ipcRenderer } = require("electron");
 
@@ -27,12 +27,11 @@ import PreferenceSwitch from "./components/PreferenceSwitch";
 const Store = require("electron-store");
 
 function DevtoolsPreferences(props) {
+  const focus = new Focus();
   const { t } = useTranslation();
-  const globalContext = useContext(GlobalContext);
 
-  const [activeDevice] = globalContext.state.activeDevice;
   const [devConsole, setDevConsole] = useState(false);
-  const [verboseFocus, setVerboseFocus] = useState(activeDevice.focus.debug);
+  const [verboseFocus, setVerboseFocus] = useState(focus.debug);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -70,7 +69,7 @@ function DevtoolsPreferences(props) {
 
   const toggleVerboseFocus = (event) => {
     setVerboseFocus(event.target.checked);
-    activeDevice.focus.debug = event.target.checked;
+    focus.debug = event.target.checked;
   };
 
   return (

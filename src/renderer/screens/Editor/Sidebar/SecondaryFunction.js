@@ -20,7 +20,6 @@ import { addDUL, addDUM } from "@api/focus/keymap/db/base/dualuse";
 import { GuiLabel } from "@api/focus/keymap/db/base/gui";
 import FormControl from "@mui/material/FormControl";
 import FormGroup from "@mui/material/FormGroup";
-import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
@@ -33,9 +32,8 @@ const db = new KeymapDB();
 
 const SecondaryFunction = (props) => {
   const { t } = useTranslation();
-  const onTargetLayerChange = (event) => {
+  const onTargetLayerChange = (event, maxLayer) => {
     const { currentKey: key } = props;
-    const maxLayer = Math.min(keymap.custom.length, 7);
     let target = parseInt(event.target.value) || 0;
     const code = key.baseCode || key.code;
 
@@ -129,16 +127,24 @@ const SecondaryFunction = (props) => {
       targetLayer = key.target;
 
       actionTarget = (
-        <FormControl>
-          <InputLabel>{t("editor.sidebar.secondary.targetLayer")}</InputLabel>
-          <Input
-            type="number"
-            min={0}
-            max={maxLayer}
-            value={targetLayer < 0 ? "" : targetLayer}
+        <FormControl sx={{ mx: 1 }}>
+          <InputLabel id="editor.sidebar.secondary.targetLayer">
+            {t("editor.sidebar.secondary.targetLayer")}{" "}
+          </InputLabel>
+          <Select
+            labelId="editor.sidebar.secondary.targetLayer"
+            value={targetLayer}
+            onChange={(event) => onTargetLayerChange(event, maxLayer)}
+            label={t("editor.sidebar.secondary.targetLayer")}
             disabled={targetLayer < 0}
-            onChange={onTargetLayerChange}
-          />
+          >
+            <MenuItem value="-1" disabled></MenuItem>
+            {[...Array(maxLayer)].map((x, i) => (
+              <MenuItem key={i} name={i} value={i}>
+                {i}
+              </MenuItem>
+            ))}
+          </Select>
         </FormControl>
       );
     }

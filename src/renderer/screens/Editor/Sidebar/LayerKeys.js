@@ -20,7 +20,6 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import TextField from "@mui/material/TextField";
 import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -56,6 +55,7 @@ const LayerKeys = (props) => {
   };
 
   const onTargetLayerChange = (event, max) => {
+    console.log("onTargetLayerChange", event, max);
     const target = Math.min(parseInt(event.target.value) || 0, max);
 
     props.onKeyChange(props.currentKey.rangeStart + target);
@@ -124,16 +124,25 @@ const LayerKeys = (props) => {
               </MenuItem>
             </Select>
           </FormControl>
-          <TextField
-            label={t("editor.layerswitch.target")}
-            type="number"
-            min={0}
-            max={max}
-            value={targetLayer < 0 ? "" : targetLayer}
-            disabled={targetLayer < 0}
-            onChange={(event) => onTargetLayerChange(event, max)}
-            sx={{ mx: 1 }}
-          />
+          <FormControl sx={{ mx: 1 }}>
+            <InputLabel id="editor.layerswitch.target">
+              {t("editor.layerswitch.target")}
+            </InputLabel>
+            <Select
+              labelId="editor.layerswitch.target"
+              value={targetLayer}
+              onChange={(event) => onTargetLayerChange(event, max)}
+              label={t("editor.layerswitch.target")}
+              disabled={targetLayer < 0}
+            >
+              <MenuItem value="-1" disabled></MenuItem>
+              {[...Array(max)].map((x, i) => (
+                <MenuItem key={i} name={i} value={i}>
+                  {i}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </div>
       </Collapsible>
     </React.Fragment>

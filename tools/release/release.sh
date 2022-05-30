@@ -154,7 +154,7 @@ push_changes() {
 
 create_and_push_tag() {
     VERSION=$(package_version)
-    git tag v${VERSION}
+    git tag -a -s -m "Chrysalis ${VERSION} release." v${VERSION}
     git push origin v${VERSION}
 }
 

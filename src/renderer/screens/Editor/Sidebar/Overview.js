@@ -64,6 +64,8 @@ const Overview = (props) => {
     setShowAll(!showAll);
   };
 
+  if (props.macroEditorOpen) return null;
+
   const { keymap, selectedKey, selectedLed, layer, colormap } = props;
   const db = new KeymapDB();
 

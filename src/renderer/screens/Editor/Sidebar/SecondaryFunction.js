@@ -80,6 +80,7 @@ const SecondaryFunction = (props) => {
 
   const pluginVisible = usePluginVisibility("Qukeys");
   if (!pluginVisible) return null;
+  if (props.macroEditorOpen) return null;
 
   const { currentKey: key, keymap } = props;
   const maxLayer = Math.min(keymap.custom.length, 7);

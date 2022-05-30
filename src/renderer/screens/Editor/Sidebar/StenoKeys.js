@@ -24,6 +24,7 @@ const StenoKeys = (props) => {
   const { t } = useTranslation();
   const pluginVisible = usePluginVisibility("Steno");
   if (!pluginVisible) return null;
+  if (props.macroEditorOpen) return null;
 
   return (
     <CategorySelector

@@ -48,6 +48,7 @@ const Colormap = (props) => {
   const { selectedLed, layer, colormap } = props;
 
   if (!colormap || colormap.palette.length == 0) return null;
+  if (props.macroEditorOpen) return null;
 
   const colorIndex = colormap.colorMap[layer][selectedLed];
   const color = colormap.palette[colorIndex];

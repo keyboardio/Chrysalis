@@ -105,3 +105,10 @@ button {
     -webkit-print-color-adjust: exact;
   }
 }
+
+html,
+body,
+#app,
+#router {
+  height: 100%;
+}

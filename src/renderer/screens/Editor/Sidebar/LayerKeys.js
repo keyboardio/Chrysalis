@@ -17,10 +17,10 @@
 
 import KeymapDB from "@api/focus/keymap/db";
 import FormControl from "@mui/material/FormControl";
-import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
 import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -93,8 +93,15 @@ const LayerKeys = (props) => {
       >
         <div>
           <FormControl>
-            <InputLabel>{t("editor.layerswitch.type")}</InputLabel>
-            <Select value={type} onChange={onTypeChange}>
+            <InputLabel id="editor.layerswitch.type">
+              {t("editor.layerswitch.type")}
+            </InputLabel>
+            <Select
+              value={type}
+              onChange={onTypeChange}
+              labelid="editor.layerswitch.type"
+              label={t("editor.layerswitch.type")}
+            >
               <MenuItem value="none" disabled selected>
                 {t("components.none")}
               </MenuItem>
@@ -117,17 +124,16 @@ const LayerKeys = (props) => {
               </MenuItem>
             </Select>
           </FormControl>
-          <FormControl>
-            <InputLabel>{t("editor.layerswitch.target")}</InputLabel>
-            <Input
-              type="number"
-              min={0}
-              max={max}
-              value={targetLayer < 0 ? "" : targetLayer}
-              disabled={targetLayer < 0}
-              onChange={(event) => onTargetLayerChange(event, max)}
-            />
-          </FormControl>
+          <TextField
+            label={t("editor.layerswitch.target")}
+            type="number"
+            min={0}
+            max={max}
+            value={targetLayer < 0 ? "" : targetLayer}
+            disabled={targetLayer < 0}
+            onChange={(event) => onTargetLayerChange(event, max)}
+            sx={{ mx: 1 }}
+          />
         </div>
       </Collapsible>
     </React.Fragment>

@@ -98,10 +98,14 @@ const SecondaryFunction = (props) => {
       modifier = key.categories[2];
 
       actionTarget = (
-        <FormControl>
+        <FormControl sx={{ mx: 1 }}>
           <FormGroup row>
             <InputLabel>{t("editor.sidebar.secondary.modifier")}</InputLabel>
-            <Select value={modifier} onChange={onModifierChange}>
+            <Select
+              value={modifier}
+              onChange={onModifierChange}
+              label={t("editor.sidebar.secondary.modifier")}
+            >
               <MenuItem value="ctrl" selected={modifier == "ctrl"}>
                 Control
               </MenuItem>
@@ -151,7 +155,11 @@ const SecondaryFunction = (props) => {
           <FormControl disabled={!keySupportsSecondaryAction(key)}>
             <FormGroup row>
               <InputLabel>{t("editor.sidebar.secondary.whenHeld")}</InputLabel>
-              <Select value={type} onChange={onTypeChange}>
+              <Select
+                value={type}
+                onChange={onTypeChange}
+                label={t("editor.sidebar.secondary.whenHeld")}
+              >
                 <MenuItem value="none" selected={type == "none"}>
                   {t("editor.sidebar.secondary.type.none")}
                 </MenuItem>

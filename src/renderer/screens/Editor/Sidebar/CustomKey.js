@@ -16,9 +16,7 @@
  */
 
 import KeymapDB from "@api/focus/keymap/db";
-import FormControl from "@mui/material/FormControl";
-import Input from "@mui/material/Input";
-import InputLabel from "@mui/material/InputLabel";
+import TextField from "@mui/material/TextField";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import Collapsible from "../components/Collapsible";
@@ -48,16 +46,14 @@ const CustomKey = (props) => {
         expanded={db.isInCategory(key.code, "unknown")}
       >
         <div>
-          <FormControl>
-            <InputLabel>{t("editor.sidebar.custom.label")}</InputLabel>
-            <Input
-              type="number"
-              min={0}
-              max={65535}
-              value={key.code}
-              onChange={onKeyChange}
-            />
-          </FormControl>
+          <TextField
+            label={t("editor.sidebar.custom.label")}
+            variant="outlined"
+            min={0}
+            max={65535}
+            value={key.code}
+            onChange={onKeyChange}
+          />
         </div>
       </Collapsible>
     </React.Fragment>

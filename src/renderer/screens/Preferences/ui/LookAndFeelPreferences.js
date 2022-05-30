@@ -17,16 +17,19 @@
 
 import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormLabel from "@mui/material/FormLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
 import Select from "@mui/material/Select";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import PreferenceSection from "../components/PreferenceSection";
-import PreferenceSwitch from "../components/PreferenceSwitch";
 
 const Store = require("electron-store");
 const settings = new Store();
@@ -34,12 +37,14 @@ const settings = new Store();
 function LookAndFeelPreferences(props) {
   const { t, i18n } = useTranslation();
   const globalContext = React.useContext(GlobalContext);
-  const [darkMode, setDarkMode] = globalContext.state.darkMode;
+  const [theme, setTheme] = globalContext.state.theme;
   const [language, setLanguage] = useState(i18n.language);
 
-  const toggleDarkMode = async () => {
-    settings.set("ui.darkMode", !darkMode);
-    setDarkMode(!darkMode);
+  const changeTheme = async (event) => {
+    const newTheme = event.target.value;
+
+    settings.set("ui.theme", newTheme);
+    setTheme(newTheme);
   };
 
   const updateLanguage = async (event) => {
@@ -73,12 +78,27 @@ function LookAndFeelPreferences(props) {
         </Select>
         <FormHelperText>{t("preferences.ui.language.help")}</FormHelperText>
       </FormControl>
-      <Box sx={{ my: 1 }}>
-        <PreferenceSwitch
-          option="ui.darkMode"
-          checked={darkMode}
-          onChange={toggleDarkMode}
-        />
+      <Box sx={{ my: 2 }}>
+        <FormControl>
+          <FormLabel>{t("preferences.ui.theme.label")}</FormLabel>
+          <RadioGroup value={theme} onChange={changeTheme} sx={{ ml: 1 }}>
+            <FormControlLabel
+              value="system"
+              control={<Radio />}
+              label={t("preferences.ui.theme.system")}
+            />
+            <FormControlLabel
+              value="light"
+              control={<Radio />}
+              label={t("preferences.ui.theme.light")}
+            />
+            <FormControlLabel
+              value="dark"
+              control={<Radio />}
+              label={t("preferences.ui.theme.dark")}
+            />
+          </RadioGroup>
+        </FormControl>
       </Box>
     </PreferenceSection>
   );

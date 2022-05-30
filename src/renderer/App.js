@@ -44,6 +44,8 @@ import KeyboardSelect from "./screens/KeyboardSelect";
 import LayoutCard from "./screens/LayoutCard";
 import Preferences from "./screens/Preferences";
 import SystemInfo from "./screens/SystemInfo";
+import { migrateDarkModeToTheme } from "./utils/darkMode";
+
 const { ipcRenderer } = require("electron");
 const Store = require("electron-store");
 const settings = new Store();
@@ -71,10 +73,12 @@ const App = (props) => {
   const [connected, setConnected] = globalContext.state.connected;
   const [focusDeviceDescriptor, setFocusDeviceDescriptor] =
     globalContext.state.focusDeviceDescriptor;
-  const [darkMode, setDarkMode] = globalContext.state.darkMode;
+  const [theme, setTheme] = globalContext.state.theme;
+  const darkMode = globalContext.state.darkMode;
   const [activeDevice, setActiveDevice] = globalContext.state.activeDevice;
 
-  setDarkMode(settings.get("ui.darkMode"));
+  migrateDarkModeToTheme();
+  setTheme(settings.get("ui.theme", "system"));
 
   const handleDeviceDisconnect = async (sender, vid, pid) => {
     if (!focus.focusDeviceDescriptor) return;
@@ -104,11 +108,24 @@ const App = (props) => {
     await navigate("/keyboard-select");
   };
 
+  const handleNativeThemeUpdate = (event, v) => {
+    if (theme != "system") return;
+
+    // This enforces a re-render, without having to use another state.
+    setTheme(null);
+    setTheme("system");
+  };
+
   useEffect(() => {
     ipcRenderer.on("usb-device-disconnected", handleDeviceDisconnect);
+    ipcRenderer.on("native-theme-updated", handleNativeThemeUpdate);
 
     // Specify how to clean up after this effect:
     return function cleanup() {
+      ipcRenderer.removeListener(
+        "native-theme-updated",
+        handleNativeThemeUpdate
+      );
       ipcRenderer.removeListener(
         "usb-device-disconnected",
         handleDeviceDisconnect
@@ -171,9 +188,9 @@ const App = (props) => {
     await navigate("/keyboard-select");
   };
 
-  const theme = createTheme({
+  const uiTheme = createTheme({
     palette: {
-      mode: darkMode ? "dark" : "light",
+      mode: darkMode() ? "dark" : "light",
       primary: {
         main: "#EF5022",
       },
@@ -189,7 +206,7 @@ const App = (props) => {
   return (
     <Suspense>
       <StyledEngineProvider injectFirst>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={uiTheme}>
           <Box
             sx={{
               display: "flex",

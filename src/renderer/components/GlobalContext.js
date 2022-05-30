@@ -15,19 +15,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { ipcRenderer } from "electron";
 import React, { createContext, useState } from "react";
 
 export const GlobalContext = createContext();
 
 export const GlobalContextProvider = (props) => {
-  const [darkMode, setDarkMode] = useState(false);
+  const [theme, setTheme] = useState("system");
   const [connected, setConnected] = useState(false);
   const [focusDeviceDescriptor, setFocusDeviceDescriptor] = useState(null);
   const [activeDevice, setActiveDevice] = useState(null);
 
+  const getDarkMode = () => {
+    if (theme == "system") {
+      return ipcRenderer.sendSync("native-theme-should-use-dark-colors");
+    }
+    return theme == "dark";
+  };
+
   const state = {
     connected: [connected, setConnected],
-    darkMode: [darkMode, setDarkMode],
+    darkMode: getDarkMode,
+    theme: [theme, setTheme],
     focusDeviceDescriptor: [focusDeviceDescriptor, setFocusDeviceDescriptor],
     activeDevice: [activeDevice, setActiveDevice],
   };

@@ -303,9 +303,11 @@ const English = {
         label: "Look & Feel",
         description: `The settings below control the general look an feel of Chrysalis.`,
       },
-      darkMode: {
-        label: "Enable dark mode",
-        help: "Choose between a Light or a Dark theme.",
+      theme: {
+        label: "Choose the theme Chrysalis should use:",
+        system: "Match the system theme",
+        dark: "Use a dark theme",
+        light: "Use a light theme",
       },
       language: {
         label: "Language",

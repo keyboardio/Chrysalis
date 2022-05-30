@@ -171,10 +171,6 @@ const English = {
       oneshot: {
         title: "One-shot",
         help: `Click button below to choose a dedicated key to cancel one-shot keys.`,
-        configuration: {
-          help: `When enabled, "Escape" will cancel one-shot keys.`,
-          escCancelLabel: "Escape cancels one-shot keys",
-        },
       },
       ledcontrol: {
         title: "LED control",
@@ -368,6 +364,13 @@ const English = {
         brightness: {
           label: "LED Brightness",
           help: "Adjust the brightness of the LEDs on the keyboard.",
+        },
+      },
+      plugins: {
+        label: "Plugin preferences",
+        escOneShot: {
+          label: `Let Escape cancel one-shot keys`,
+          help: `When enabled, "Escape" will cancel one-shot keys, otherwise a dedicated cancel key can do so.`,
         },
       },
     },

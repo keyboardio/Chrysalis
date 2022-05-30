@@ -14,14 +14,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import Focus from "@api/focus";
+
 import KeymapDB from "@api/focus/keymap/db";
-import Box from "@mui/material/Box";
-import FormControl from "@mui/material/FormControl";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormGroup from "@mui/material/FormGroup";
-import FormHelperText from "@mui/material/FormHelperText";
-import Switch from "@mui/material/Switch";
 import usePluginVisibility from "@renderer/hooks/usePluginVisibility";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -33,43 +27,13 @@ const db = new KeymapDB();
 const cancelKeyCode = 53630;
 
 const OneShotKeys = (props) => {
-  const [escCancel, setEscCancel] = useState(true);
   const { t } = useTranslation();
-
-  useEffect(() => {
-    const focus = new Focus();
-    focus.command("escape_oneshot.cancel_key").then((escCancel) => {
-      if (escCancel.length == 0) {
-        escCancel = false;
-      } else {
-        escCancel = parseInt(escCancel) == cancelKeyCode;
-      }
-
-      setEscCancel(escCancel);
-    });
-  }, []);
 
   const pluginVisible = usePluginVisibility("OneShot");
   if (!pluginVisible) return null;
 
   const { currentKey: key } = props;
 
-  const toggleEscapeCancel = async (event) => {
-    const focus = new Focus();
-    const escCancel = event.target.checked;
-    let newCancelKeyCode = cancelKeyCode;
-
-    if (escCancel) {
-      newCancelKeyCode = 41; // Esc
-    }
-
-    await focus.command("escape_oneshot.cancel_key", newCancelKeyCode);
-    setEscCancel(escCancel);
-  };
-
-  const escCancelWidget = (
-    <Switch checked={escCancel} color="primary" onChange={toggleEscapeCancel} />
-  );
   return (
     <React.Fragment>
       <Collapsible
@@ -81,24 +45,6 @@ const OneShotKeys = (props) => {
           keyObj={db.lookup(cancelKeyCode)}
           onKeyChange={props.onKeyChange}
         />
-
-        <Box
-          sx={{
-            m: "2 0",
-          }}
-        >
-          <FormControl component="fieldset">
-            <FormGroup row>
-              <FormControlLabel
-                control={escCancelWidget}
-                label={t("editor.sidebar.oneshot.configuration.escCancelLabel")}
-              />
-            </FormGroup>
-            <FormHelperText>
-              {t("editor.sidebar.oneshot.configuration.help")}
-            </FormHelperText>
-          </FormControl>
-        </Box>
       </Collapsible>
     </React.Fragment>
   );

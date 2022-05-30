@@ -144,8 +144,12 @@
   },
   "resolutions": {
     "teensy-loader/usb": "^2.4.2",
+    "avrgirl-arduino/stk500-v2/async": "^2.6.4",
+    "avrgirl-arduino/stk500/async": "^2.6.4",
     "cacache/y18n": "^4.0.1",
     "yargs/y18n": "^4.0.1",
+    "**/node-forge": "^1.3.0",
+    "**/glob-parent": "^5.1.2",
     "**/@electron/universal": "npm:@spotxyz/universal"
   }
 }

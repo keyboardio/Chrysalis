@@ -1,6 +1,6 @@
 // -*- mode: js-jsx -*-
 /* Chrysalis -- Kaleidoscope Command Center
- * Copyright (C) 2018-2022  Keyboardio, Inc.
+ * Copyright (C) 2022  Keyboardio, Inc.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -17,18 +17,30 @@
 
 import React from "react";
 
-import LayoutCardsPreferences from "./ui/LayoutCardsPreferences";
-import LayoutEditorPreferences from "./ui/LayoutEditorPreferences";
-import LookAndFeelPreferences from "./ui/LookAndFeelPreferences";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
+import Typography from "@mui/material/Typography";
 
-const UserInterfacePreferences = (props) => {
+import { useTranslation } from "react-i18next";
+
+const PreferenceSection = (props) => {
+  const { t } = useTranslation();
+
+  const description = t("preferences." + props.name + ".description", "");
+
   return (
     <>
-      <LookAndFeelPreferences />
-      <LayoutEditorPreferences />
-      <LayoutCardsPreferences />
+      <Divider textAlign="left" sx={{ my: 2 }}>
+        {t("preferences." + props.name + ".label")}
+      </Divider>
+      {description && (
+        <Typography variant="body2" gutterBottom>
+          {description}
+        </Typography>
+      )}
+      <Box sx={{ my: 2 }}>{props.children}</Box>
     </>
   );
 };
 
-export { UserInterfacePreferences };
+export { PreferenceSection as default };

@@ -271,60 +271,103 @@ const English = {
     },
   },
   preferences: {
-    devtools: "Developer tools",
-    language: "Language",
     interface: "User Interface",
     advanced: "Advanced",
-    darkMode: "Dark mode",
-    coloredLayoutCards: "Show key colors on layout cards",
     verboseFocus: "Verbose logging",
-    hideUnavailableFeatures: {
-      label: "Hide features not supported by your keyboard's current firmware",
-      help: `When enabled, Chrysalis will hide configuration options for features that your keyboard's firmware doesn't support.`,
+    devtools: {
+      main: {
+        label: "Developer tools",
+        description: `These preferences primarily aid developers. You may be asked to turn them on, to collect more information about an issue.`,
+      },
+      verboseLogging: {
+        label: "Enable verbose logging",
+        help: "Turns on a fair amount of extra logging, useful for debugging only.",
+      },
+      console: {
+        label: "Open the developer console",
+        help: "The developer console lets you peek inside Chrysalis. Use with care.",
+      },
     },
     ui: {
+      layoutEditor: {
+        label: "Layout Editor Preferences",
+      },
+      layoutCards: {
+        label: "Layout Cards Preferences",
+      },
+      hideUnavailableFeatures: {
+        label: `Hide features not supported by your keyboard's current firmware`,
+        help: `When enabled, Chrysalis will hide configuration options for features that your keyboard's firmware doesn't support.`,
+      },
+      lookNFeel: {
+        label: "Look & Feel",
+        description: `The settings below control the general look an feel of Chrysalis.`,
+      },
+      darkMode: {
+        label: "Enable dark mode",
+        help: "Choose between a Light or a Dark theme.",
+      },
+      language: {
+        label: "Language",
+        help: "Choose the language Chrysalis should use.",
+      },
+      coloredLayoutCards: {
+        label: "Enable colors on the layout cards",
+        help: `When enabled, the layout cards will show not only key labels, but if available, colors too.`,
+      },
       host: {
         layout: "{{hostos}} layout",
         help: "Select the key layout you use on your computer",
       },
     },
-  },
-  keyboardSettings: {
-    advanced: "Advanced Tools & Preferences",
-    title: "My Keyboard",
-    keymap: {
-      title: "Keymap settings",
-      noDefault: "No default",
-      showHardcoded: "Show hardcoded layers",
-      onlyCustom: "Use custom layers only",
-      defaultLayer: "Default layer",
-    },
-    led: {
-      brightness: "Adjust LED brightness",
-      idleDisabled: "Disabled",
-      idleTimeLimit: "Idle time before LEDs turn off",
-      idle: {
-        oneMinute: "1 minute",
-        twoMinutes: "2 minutes",
-        threeMinutes: "3 minutes",
-        fourMinutes: "4 minutes",
-        fiveMinutes: "5 minutes",
-        tenMinutes: "10 minutes",
-        fifteenMinutes: "15 minutes",
-        twentyMinutes: "20 minutes",
-        thirtyMinutes: "30 minutes",
-        sixtyMinutes: "60 minutes",
+    keyboard: {
+      title: "My Keyboard",
+      advanced: {
+        label: "Advanced Tools & Preferences",
+        description: `These are dangerous tools, please make sure you know what they do before using any of them.`,
       },
-    },
-    advancedOps: "Advanced keyboard settings & operations",
-    flash: {
-      preferExternal: "Use an external program for flashing",
-    },
-    resetEEPROM: {
-      button: "Reset EEPROM to factory defaults",
-      dialogTitle: "Reset EEPROM to factory defaults?",
-      dialogContents: `This will reset the EEPROM to factory defaults.
- You will lose all customizations made.`,
+      layers: {
+        label: "Layer preferences",
+      },
+      defaultLayer: {
+        label: "Default layer",
+        noDefault: "No default",
+        help: `The default layer the keyboard will start up with.`,
+      },
+      factoryReset: {
+        button: "Reset EEPROM to factory defaults",
+        dialog: {
+          title: "Reset EEPROM to factory defaults?",
+          contents: `This will reset the EEPROM to factory defaults. You will lose all customizations made.`,
+        },
+      },
+      flash: {
+        preferExternal: {
+          label: "Use an external program for flashing",
+        },
+      },
+      led: {
+        label: "LED preferences",
+        idle: {
+          label: "Idle time before LEDs turn off",
+          help: `Unless disabled, LEDs will turn off after a configured amount of time.`,
+          disabled: "Disabled",
+          oneMinute: "1 minute",
+          twoMinutes: "2 minutes",
+          threeMinutes: "3 minutes",
+          fourMinutes: "4 minutes",
+          fiveMinutes: "5 minutes",
+          tenMinutes: "10 minutes",
+          fifteenMinutes: "15 minutes",
+          twentyMinutes: "20 minutes",
+          thirtyMinutes: "30 minutes",
+          sixtyMinutes: "60 minutes",
+        },
+        brightness: {
+          label: "LED Brightness",
+          help: "Adjust the brightness of the LEDs on the keyboard.",
+        },
+      },
     },
   },
   keyboardSelect: {

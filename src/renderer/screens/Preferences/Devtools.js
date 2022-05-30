@@ -15,31 +15,42 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Focus from "@api/focus";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
-import React, { useEffect, useState } from "react";
+import Skeleton from "@mui/material/Skeleton";
+import { GlobalContext } from "@renderer/components/GlobalContext";
+import React, { useEffect, useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
 const { ipcRenderer } = require("electron");
+
+import PreferenceSection from "./components/PreferenceSection";
+import PreferenceSwitch from "./components/PreferenceSwitch";
 
 const Store = require("electron-store");
 
 function DevtoolsPreferences(props) {
-  const focus = new Focus();
-  const [devTools, setDevTools] = useState(false);
-  const [verboseFocus, setVerboseFocus] = useState(focus.debug);
   const { t } = useTranslation();
+  const globalContext = useContext(GlobalContext);
+
+  const [activeDevice] = globalContext.state.activeDevice;
+  const [devConsole, setDevConsole] = useState(false);
+  const [verboseFocus, setVerboseFocus] = useState(activeDevice.focus.debug);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    ipcRenderer.invoke("devtools-is-open").then((result) => {
-      setDevTools(result);
-    });
-    ipcRenderer.on("devtools-opened", () => {
-      setDevTools(true);
-    });
-    ipcRenderer.on("devtools-closed", () => {
-      setDevTools(false);
-    });
+    const initialize = async () => {
+      const isOpen = await ipcRenderer.invoke("devtools-is-open");
+      await setDevConsole(isOpen);
+
+      ipcRenderer.on("devtools-opened", () => {
+        setDevConsole(true);
+      });
+      ipcRenderer.on("devtools-closed", () => {
+        setDevConsole(false);
+      });
+
+      setLoaded(true);
+    };
+
+    initialize();
 
     // Cleanup when component unmounts.
     return () => {
@@ -47,8 +58,9 @@ function DevtoolsPreferences(props) {
       ipcRenderer.removeAllListeners("devtools-closed");
     };
   });
-  const toggleDevTools = (event) => {
-    setDevTools(event.target.checked);
+
+  const toggleDevConsole = (event) => {
+    setDevConsole(event.target.checked);
     if (event.target.checked) {
       ipcRenderer.send("show-devtools", true);
     } else {
@@ -58,39 +70,26 @@ function DevtoolsPreferences(props) {
 
   const toggleVerboseFocus = (event) => {
     setVerboseFocus(event.target.checked);
-    const focus = new Focus();
-    focus.debug = event.target.checked;
+    activeDevice.focus.debug = event.target.checked;
   };
 
   return (
-    <>
-      <FormControlLabel
-        sx={{ display: "flex", marginRight: 2 }}
-        control={
-          <Switch
-            checked={devTools}
-            onChange={toggleDevTools}
-            value="devtools"
-            sx={{ mx: 3 }}
-          />
-        }
-        labelPlacement="end"
-        label={t("preferences.devtools")}
+    <PreferenceSection name="devtools.main">
+      {loaded ? (
+        <PreferenceSwitch
+          option="devtools.console"
+          checked={devConsole}
+          onChange={toggleDevConsole}
+        />
+      ) : (
+        <Skeleton variant="text" width="100%" height={56} />
+      )}
+      <PreferenceSwitch
+        option="devtools.verboseLogging"
+        checked={verboseFocus}
+        onChange={toggleVerboseFocus}
       />
-      <FormControlLabel
-        sx={{ display: "flex", marginRight: 2 }}
-        control={
-          <Switch
-            checked={verboseFocus}
-            onChange={toggleVerboseFocus}
-            value="verboseFocus"
-            sx={{ mx: 3 }}
-          />
-        }
-        labelPlacement="end"
-        label={t("preferences.verboseFocus")}
-      />
-    </>
+    </PreferenceSection>
   );
 }
 

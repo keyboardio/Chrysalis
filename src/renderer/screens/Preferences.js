@@ -95,11 +95,11 @@ function Preferences(props) {
       >
         <Tab label={t("preferences.interface")} {...a11yProps(0)} />
         <Tab
-          label={t("keyboardSettings.title")}
+          label={t("preferences.keyboard.title")}
           {...a11yProps(1)}
           disabled={!connected}
         />
-        <Tab label={t("preferences.devtools")} {...a11yProps(2)} />
+        <Tab label={t("preferences.devtools.main.label")} {...a11yProps(2)} />
       </Tabs>
       <Box
         sx={{

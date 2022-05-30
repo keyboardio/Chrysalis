@@ -15,14 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from "react";
-import { useTranslation } from "react-i18next";
-
-import Chip from "@mui/material/Chip";
-import DeleteIcon from "@mui/icons-material/Delete";
-
 import KeymapDB from "@api/focus/keymap/db";
 import { Step } from "@api/focus/macros";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Chip from "@mui/material/Chip";
+import React from "react";
+import { useTranslation } from "react-i18next";
 
 const db = new KeymapDB();
 
@@ -85,7 +83,7 @@ const MacroStep = (props) => {
       color={color}
       label={createLabel(step)}
       deleteIcon={<DeleteIcon />}
-      sx={{ m: 0.5 }}
+      sx={{ m: 0.5, py: 2.5, px: 0.5 }}
     />
   );
 };

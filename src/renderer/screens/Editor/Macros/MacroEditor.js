@@ -70,6 +70,7 @@ const MacroEditor = (props) => {
     await fkp_channel.close();
 
     props.onClose();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onMacroStepChange = async (stepIndex, step) => {

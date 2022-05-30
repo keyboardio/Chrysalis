@@ -133,21 +133,25 @@ margin: auto;
   overflow: visible;
   margin: 0 auto;
   max-width: 1225px;
+  * {
+    transform-box: fill-box;
+  }
 }
 .NeuronLine {
   stroke: ${({ theme }) => theme.styles.neuronStatus.lineStrokeColor};
 }
-.neuronLights {
-  .keyOnFocus .keyOpacity{
+#neuronWrapper {
+  &.keyOnFocus .keyOpacity{
     stroke-opacity: 0.4;
   }
-  .keyOnHold .keyOpacity{
+  &.keyOnHold .keyOpacity{
     stroke-opacity: 0.2;
   }
-  &:hover {
+  .neuronLights:hover {
     cursor: pointer;
   }
 }
+
 
 .keyBase {
   fill: ${({ theme }) => theme.styles.raiseKeyboard.keyBase};
@@ -185,14 +189,15 @@ margin: auto;
   }
   .shadowHover {
     transition: all 300ms ease-in-out;
-    filter: blur(18px);
-    opacity: 0.8;
+    filter: blur(16px);
+    opacity: 0.2;
   }
   .shadowMiddle {
     filter: blur(18px);
-    opacity: 0.5;
+    opacity: 0.4;
   }
   &.keyOnFocus { 
+    filter: drop-shadow(0px 4px 0px white);
     .keyOpacityInternal {
       stroke-opacity: 0.7;
       stroke: ${({ theme }) => theme.styles.raiseKeyboard.keyOnFocusBorder};
@@ -202,13 +207,15 @@ margin: auto;
       stroke: ${({ theme }) => theme.styles.raiseKeyboard.keyOnFocusBorder};
     }
     .shadowHover {
-      opacity: 0;
+      filter: blur(16px);
+      opacity: 0.6;
     }
   }
   &:hover {
     cursor: pointer;
     .shadowHover {
-      opacity: 0;
+      filter: blur(16px);
+      opacity: 0.6;
     }
   }
 }
@@ -218,12 +225,14 @@ margin: auto;
   }
   .underGlowStripShadow {
     transition: all 300ms ease-in-out;
-    filter: blur(18px);
+    filter: blur(12px);
     opacity: 0.8;
   }
   &.keyOnFocus {
+    // filter: drop-shadow(0px 1px 1px white);
     .underGlowStripShadow {
-      opacity: 0;
+      filter: blur(4px);
+      opacity: 1;
     }
     .underGlowStripStroke {
       stroke-opacity: 0.8;
@@ -233,7 +242,8 @@ margin: auto;
   &:hover {
     cursor: pointer;
     .underGlowStripShadow {
-      opacity: 0;
+      filter: blur(4px);
+      opacity: 1;
     }
   }
 }

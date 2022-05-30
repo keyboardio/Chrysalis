@@ -50,6 +50,23 @@ prompt_for_firmware_update() {
     esac
 }
 
+prompt_for_package_version() {
+    package="$1"
+    version="$(yarn why ${package} | awk '/=> Found/ { print $4 }' | tr -d '"')"
+
+    echo -n "The \"${package}\" package is at version \"${version}\". Is that ok? (y/N) "
+
+    read a
+
+    case "$a" in
+        y|Y)
+            ;;
+        *)
+            exit 1
+            ;;
+    esac
+}
+
 update_shipped_firmware() {
     echo -n "Do the firmware files need updating? (Y/n) "
     read a
@@ -128,6 +145,8 @@ create_and_push_tag() {
 }
 
 verify_version
+prompt_for_package_version usb
+prompt_for_package_version serialport
 prompt_for_firmware_update
 update_shipped_firmware
 update_version

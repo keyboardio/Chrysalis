@@ -28,12 +28,17 @@ import { useTranslation } from "react-i18next";
 import AdvancedKeyboardPreferences from "./keyboard/AdvancedKeyboardPreferences";
 import KeyboardLayerPreferences from "./keyboard/KeyboardLayerPreferences";
 import KeyboardLEDPreferences from "./keyboard/KeyboardLEDPreferences";
+import PluginPreferences from "./keyboard/PluginPreferences";
 
 const MyKeyboardPreferences = (props) => {
+  const oneShotCancelKeyCode = 53630;
+  const escKeyCode = 41;
+
   const [modified, setModified] = useState(false);
   const [defaultLayer, setDefaultLayer] = useState(126);
   const [ledBrightness, setLedBrightness] = useState(255);
   const [ledIdleTimeLimit, setLedIdleTimeLimit] = useState(0);
+  const [escOneShot, setEscOneShot] = useState(true);
 
   const { t } = useTranslation();
   const globalContext = useContext(GlobalContext);
@@ -43,6 +48,10 @@ const MyKeyboardPreferences = (props) => {
     await activeDevice.focus.command("settings.defaultLayer", defaultLayer);
     await activeDevice.focus.command("led.brightness", ledBrightness);
     await activeDevice.focus.command("idleleds.time_limit", ledIdleTimeLimit);
+    await activeDevice.focus.command(
+      "escape_oneshot.cancel_key",
+      escOneShot ? escKeyCode : oneShotCancelKeyCode
+    );
 
     await setModified(false);
     await hideContextBar();
@@ -62,6 +71,11 @@ const MyKeyboardPreferences = (props) => {
         setLedBrightness={setLedBrightness}
         ledIdleTimeLimit={ledIdleTimeLimit}
         setLedIdleTimeLimit={setLedIdleTimeLimit}
+      />
+      <PluginPreferences
+        setModified={setModified}
+        escOneShot={escOneShot}
+        setEscOneShot={setEscOneShot}
       />
       <AdvancedKeyboardPreferences />
 

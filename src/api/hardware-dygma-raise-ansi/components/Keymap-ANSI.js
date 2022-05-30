@@ -1903,8 +1903,40 @@ class KeymapANSI extends React.Component {
           />
 
           <UnderGlowStrip
+            id="90_undeglow"
+            x={123}
+            y={688}
+            onClick={e => {
+              setUndeglowIndex(90, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(90)}
+            stroke={stroke(90)}
+            strokeWidth={getStrokeWidth(90)}
+            dataLedIndex={getLEDIndex(90)}
+            dataKeyIndex={keyIndex(90)}
+            dataLayer={layer}
+            path="M3.34235 6.09998H78.6576C80.5516 6.09998 82 4.79998 82 3.09998C82 1.39998 80.5516 0.0999756 78.6576 0.0999756H3.34235C1.44833 0.0999756 -4.05312e-06 1.39998 -4.05312e-06 3.09998C-4.05312e-06 4.79998 1.55974 6.09998 3.34235 6.09998Z"
+          />
+          <UnderGlowStrip
+            id="91_undeglow"
+            x={32}
+            y={687}
+            onClick={e => {
+              setUndeglowIndex(91, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(91)}
+            stroke={stroke(91)}
+            strokeWidth={getStrokeWidth(91)}
+            dataLedIndex={getLEDIndex(91)}
+            dataKeyIndex={keyIndex(91)}
+            dataLayer={layer}
+            path="M7.90002 7.10002H83C84.7 7.10002 86 5.80002 86 4.10002C86 2.40002 84.7 1.10002 83 1.10002H7.90002C6.70002 1.10002 5.49999 0.900048 4.29999 0.500048C2.69999 4.825e-05 1 0.800073 0.5 2.40007C0 4.00007 0.800024 5.70006 2.40002 6.20006C4.10002 6.80006 6.00002 7.10002 7.90002 7.10002Z"
+          />
+          <UnderGlowStrip
             id="92_undeglow"
-            x={22}
+            x={19}
             y={618}
             onClick={e => {
               setUndeglowIndex(92, e);
@@ -1920,8 +1952,8 @@ class KeymapANSI extends React.Component {
           />
           <UnderGlowStrip
             id="93_undeglow"
-            x={19}
-            y={552}
+            x={18}
+            y={553}
             onClick={e => {
               setUndeglowIndex(93, e);
             }}
@@ -1936,10 +1968,10 @@ class KeymapANSI extends React.Component {
           />
           <UnderGlowStrip
             id="94_undeglow"
-            x={17}
-            y={480}
+            x={16}
+            y={481}
             onClick={e => {
-              setUndeglowIndex(95, e);
+              setUndeglowIndex(94, e);
             }}
             visibility={this.props.showUnderglow ? true : false}
             fill={getColor(94)}
@@ -1952,8 +1984,8 @@ class KeymapANSI extends React.Component {
           />
           <UnderGlowStrip
             id="95_undeglow"
-            x={17}
-            y={410}
+            x={14}
+            y={409}
             onClick={e => {
               setUndeglowIndex(95, e);
             }}

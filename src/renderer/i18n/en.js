@@ -422,7 +422,7 @@ seconds.`,
         updateInstructions: `Hold down the key in the top left corner of the keyboard (in the default layout, this key is the PROG key). Continue holding it while you click the Update button. Once the keys start flashing red across the board, you can release the key.`,
       },
       Model100: {
-        updateInstructions: `Hold down the key in the top left corner of the keyboard (in the default layout, this key is the PROG key). Continue holding it while you click the Update button. Once the keys start flashing red across the board, please release the key, as holding it too long may prevent flashing from succeeding.`,
+        updateInstructions: `Hold down the key in the top left corner of the keyboard (in the default layout, this key is the PROG key). Continue holding it while you click the Update button. Once the keys start flashing green across the first column of the board, please release the key, as holding it too long may prevent flashing from succeeding.`,
       },
     },
     PJRC: {

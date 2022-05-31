@@ -174,6 +174,7 @@ margin: auto;
       list-style: none;
       padding: 0;
       margin: 0;
+      color: ${({ theme }) => theme.styles.raiseKeyboard.contentColor};
     }
     .extraLabel {
       font-size: 9px;
@@ -197,7 +198,7 @@ margin: auto;
     opacity: 0.4;
   }
   &.keyOnFocus { 
-    filter: drop-shadow(0px 4px 0px white);
+    filter: drop-shadow(0px 4px 0px ${({ theme }) => theme.styles.raiseKeyboard.keyShadow});
     .keyOpacityInternal {
       stroke-opacity: 0.7;
       stroke: ${({ theme }) => theme.styles.raiseKeyboard.keyOnFocusBorder};

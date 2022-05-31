@@ -311,8 +311,10 @@ const Dark = {
     },
     raiseKeyboard: {
       keyBase: "#303949",
+      keyShadow: Tokens.colors.gray25,
       keyColorOpacity: 0.4,
-      keyOnFocusBorder: "#fff"
+      keyOnFocusBorder: "#fff",
+      contentColor: "#fff"
     },
     keyPicker: {
       iconColor: Tokens.colors.gray200,

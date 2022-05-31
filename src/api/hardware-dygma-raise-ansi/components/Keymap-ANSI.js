@@ -1645,6 +1645,7 @@ class KeymapANSI extends React.Component {
           />
         </g>
         <g id="Areas">
+          {/* Left side */}
           <UnderGlowStrip
             id="71_undeglow"
             x={54}
@@ -2128,6 +2129,522 @@ class KeymapANSI extends React.Component {
             dataLayer={layer}
             path="M3 52C4.7 52 6 50.5556 6 48.6667V3.33333C6 1.44444 4.7 0 3 0C1.3 0 0 1.44444 0 3.33333V48.6667C0 50.4444 1.4 52 3 52Z"
           />
+          {/* End Left side */}
+          {/* Right side */}
+          <UnderGlowStrip
+            id="107_undeglow"
+            x={601}
+            y={14}
+            onClick={e => {
+              setUndeglowIndex(107, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(107)}
+            stroke={stroke(107)}
+            strokeWidth={getStrokeWidth(107)}
+            dataLedIndex={getLEDIndex(107)}
+            dataKeyIndex={keyIndex(107)}
+            dataLayer={layer}
+            path="M71.9673 6H3.03266C1.31415 6 0 4.7 0 3C0 1.3 1.31415 0 3.03266 0H71.9673C73.6858 0 75 1.3 75 3C75 4.7 73.5848 6 71.9673 6Z"
+          />
+          <UnderGlowStrip
+            id="106_undeglow"
+            x={680}
+            y={14}
+            onClick={e => {
+              setUndeglowIndex(106, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(106)}
+            stroke={stroke(106)}
+            strokeWidth={getStrokeWidth(106)}
+            dataLedIndex={getLEDIndex(106)}
+            dataKeyIndex={keyIndex(106)}
+            dataLayer={layer}
+            path="M70.8908 6H3.10924C1.34734 6 0 4.7 0 3C0 1.3 1.34734 0 3.10924 0H70.8908C72.6527 0 74 1.3 74 3C74 4.7 72.6527 6 70.8908 6Z"
+          />
+          <UnderGlowStrip
+            id="105_undeglow"
+            x={758}
+            y={14}
+            onClick={e => {
+              setUndeglowIndex(105, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(105)}
+            stroke={stroke(105)}
+            strokeWidth={getStrokeWidth(105)}
+            dataLedIndex={getLEDIndex(105)}
+            dataKeyIndex={keyIndex(105)}
+            dataLayer={layer}
+            path="M82.6275 6H3.37255C1.46144 6 0 4.7 0 3C0 1.3 1.46144 0 3.37255 0H82.6275C84.5386 0 86 1.3 86 3C86 4.7 84.4261 6 82.6275 6Z"
+          />
+          <UnderGlowStrip
+            id="104_undeglow"
+            x={848}
+            y={14}
+            onClick={e => {
+              setUndeglowIndex(104, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(104)}
+            stroke={stroke(104)}
+            strokeWidth={getStrokeWidth(104)}
+            dataLedIndex={getLEDIndex(104)}
+            dataKeyIndex={keyIndex(104)}
+            dataLayer={layer}
+            path="M68.9832 6H3.01676C1.30726 6 0 4.7 0 3C0 1.3 1.30726 0 3.01676 0H68.9832C70.6927 0 72 1.3 72 3C72 4.7 70.6927 6 68.9832 6Z"
+          />
+          <UnderGlowStrip
+            id="103_undeglow"
+            x={924}
+            y={14}
+            onClick={e => {
+              setUndeglowIndex(103, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(103)}
+            stroke={stroke(103)}
+            strokeWidth={getStrokeWidth(103)}
+            dataLedIndex={getLEDIndex(103)}
+            dataKeyIndex={keyIndex(103)}
+            dataLayer={layer}
+            path="M71.0028 6H3.10056C1.34358 6 0 4.7 0 3C0 1.3 1.34358 0 3.10056 0H70.8994C72.6564 0 74 1.3 74 3C74 4.7 72.6564 6 71.0028 6Z"
+          />
+          <UnderGlowStrip
+            id="102_undeglow"
+            x={1002}
+            y={14}
+            onClick={e => {
+              setUndeglowIndex(102, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(102)}
+            stroke={stroke(102)}
+            strokeWidth={getStrokeWidth(102)}
+            dataLedIndex={getLEDIndex(102)}
+            dataKeyIndex={keyIndex(102)}
+            dataLayer={layer}
+            path="M70.8994 6H3.10056C1.34358 6 0 4.7 0 3C0 1.3 1.34358 0 3.10056 0H70.8994C72.6564 0 74 1.3 74 3C74 4.7 72.6564 6 70.8994 6Z"
+          />
+          <UnderGlowStrip
+            id="101_undeglow"
+            x={1080}
+            y={14}
+            onClick={e => {
+              setUndeglowIndex(101, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(101)}
+            stroke={stroke(101)}
+            strokeWidth={getStrokeWidth(101)}
+            dataLedIndex={getLEDIndex(101)}
+            dataKeyIndex={keyIndex(101)}
+            dataLayer={layer}
+            path="M85.0001 33C83.3001 33 82.0001 31.7 82.0001 30V17C82.0001 10.9 77.1001 6 71.0001 6H3.30005C1.60005 6 0.300049 4.7 0.300049 3C0.300049 1.3 1.60005 0 3.30005 0H71.0001C80.4001 0 88.0001 7.6 88.0001 17V30C88.0001 31.6 86.6001 33 85.0001 33Z"
+          />
+          <UnderGlowStrip
+            id="100_undeglow"
+            x={1162}
+            y={51}
+            onClick={e => {
+              setUndeglowIndex(100, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(100)}
+            stroke={stroke(100)}
+            strokeWidth={getStrokeWidth(100)}
+            dataLedIndex={getLEDIndex(100)}
+            dataKeyIndex={keyIndex(100)}
+            dataLayer={layer}
+            path="M3 52C1.3 52 0 50.5556 0 48.6667V3.33333C0 1.44444 1.3 0 3 0C4.7 0 6 1.44444 6 3.33333V48.6667C6 50.4444 4.6 52 3 52Z"
+          />
+          <UnderGlowStrip
+            id="99_undeglow"
+            x={1162}
+            y={107}
+            onClick={e => {
+              setUndeglowIndex(99, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(99)}
+            stroke={stroke(99)}
+            strokeWidth={getStrokeWidth(99)}
+            dataLedIndex={getLEDIndex(99)}
+            dataKeyIndex={keyIndex(99)}
+            dataLayer={layer}
+            path="M3 52C1.3 52 0 50.5556 0 48.6667V3.33333C0 1.44444 1.3 0 3 0C4.7 0 6 1.44444 6 3.33333V48.6667C6 50.5556 4.6 52 3 52Z"
+          />
+          <UnderGlowStrip
+            id="130_undeglow"
+            x={1162}
+            y={163}
+            onClick={e => {
+              setUndeglowIndex(130, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(130)}
+            stroke={stroke(130)}
+            strokeWidth={getStrokeWidth(130)}
+            dataLedIndex={getLEDIndex(130)}
+            dataKeyIndex={keyIndex(130)}
+            dataLayer={layer}
+            path="M3 52C1.3 52 0 50.6693 0 48.9291V3.07087C0 1.33071 1.3 0 3 0C4.7 0 6 1.33071 6 3.07087V48.9291C6 50.6693 4.6 52 3 52Z"
+          />
+          <UnderGlowStrip
+            id="129_undeglow"
+            x={1162}
+            y={219}
+            onClick={e => {
+              setUndeglowIndex(129, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(129)}
+            stroke={stroke(129)}
+            strokeWidth={getStrokeWidth(129)}
+            dataLedIndex={getLEDIndex(129)}
+            dataKeyIndex={keyIndex(129)}
+            dataLayer={layer}
+            path="M45.6 112H45.5C43.8 111.9 42.6 110.5 42.6 108.9L42.8 104.5C43.1 96.1 40.6 87.7 35.9 80.8L8 40.6C2.7 33 0 24.1 0 14.9V3C0 1.3 1.3 0 3 0C4.7 0 6 1.3 6 3V15C6 23 8.4 30.7 13 37.2L40.9 77.4C46.4 85.3 49.3 95 48.9 104.7L48.7 109.1C48.6 110.7 47.2 112 45.6 112Z"
+          />
+          <UnderGlowStrip
+            id="128_undeglow"
+            x={1201}
+            y={336}
+            onClick={e => {
+              setUndeglowIndex(128, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(128)}
+            stroke={stroke(128)}
+            strokeWidth={getStrokeWidth(128)}
+            dataLedIndex={getLEDIndex(128)}
+            dataKeyIndex={keyIndex(128)}
+            dataLayer={layer}
+            path="M3.67102 67.8054H3.57105C1.87105 67.7054 0.671023 66.3054 0.671023 64.7054L2.97101 2.90543C3.07101 1.20543 4.47105 -0.0945679 6.07105 0.00543213C7.77105 0.105432 8.97101 1.50544 8.97101 3.10544L6.67102 64.9054C6.67102 66.6054 5.27102 67.8054 3.67102 67.8054Z"
+          />
+          <UnderGlowStrip
+            id="127_undeglow"
+            x={1199}
+            y={409}
+            onClick={e => {
+              setUndeglowIndex(127, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(127)}
+            stroke={stroke(127)}
+            strokeWidth={getStrokeWidth(127)}
+            dataLedIndex={getLEDIndex(127)}
+            dataKeyIndex={keyIndex(127)}
+            dataLayer={layer}
+            path="M3.67102 67.8054H3.57105C1.87105 67.7054 0.671023 66.3054 0.671023 64.7054L2.97101 2.90543C3.07101 1.20543 4.47105 -0.0945679 6.07105 0.00543213C7.77105 0.105432 8.97101 1.50544 8.97101 3.10544L6.67102 64.9054C6.67102 66.6054 5.27102 67.8054 3.67102 67.8054Z"
+          />
+          <UnderGlowStrip
+            id="126_undeglow"
+            x={1197}
+            y={481}
+            onClick={e => {
+              setUndeglowIndex(126, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(126)}
+            stroke={stroke(126)}
+            strokeWidth={getStrokeWidth(126)}
+            dataLedIndex={getLEDIndex(126)}
+            dataKeyIndex={keyIndex(126)}
+            dataLayer={layer}
+            path="M3.97852 67.8054H3.87848C2.17848 67.7054 0.978516 66.3054 0.978516 64.7054L2.57849 3.80539C2.67849 2.10539 3.97847 0.905396 5.67847 0.905396C7.37847 1.0054 8.57849 2.4054 8.57849 4.0054L6.97852 64.9054C6.97852 66.5054 5.57852 67.8054 3.97852 67.8054Z"
+          />
+          <UnderGlowStrip
+            id="125_undeglow"
+            x={1195}
+            y={553}
+            onClick={e => {
+              setUndeglowIndex(125, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(125)}
+            stroke={stroke(125)}
+            strokeWidth={getStrokeWidth(125)}
+            dataLedIndex={getLEDIndex(125)}
+            dataKeyIndex={keyIndex(125)}
+            dataLayer={layer}
+            path="M3.17847 61.2054H3.07849C1.37849 61.1054 0.178467 59.7054 0.178467 58.1054L1.57849 3.70541C1.67849 2.00541 2.97847 0.80542 4.67847 0.80542C6.37847 0.90542 7.57849 2.30543 7.57849 3.90543L6.17847 58.3054C6.07847 59.9054 4.77847 61.2054 3.17847 61.2054Z"
+          />
+          <UnderGlowStrip
+            id="124_undeglow"
+            x={1191}
+            y={619}
+            onClick={e => {
+              setUndeglowIndex(124, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(124)}
+            stroke={stroke(124)}
+            strokeWidth={getStrokeWidth(124)}
+            dataLedIndex={getLEDIndex(124)}
+            dataKeyIndex={keyIndex(124)}
+            dataLayer={layer}
+            path="M2.97851 68.5055C2.47851 68.5055 1.97848 68.4055 1.57848 68.1055C0.0784807 67.3055 -0.421532 65.5055 0.378468 64.0055C1.17847 62.5055 1.67846 60.9055 1.67846 59.2055L3.77849 3.00549C3.87849 1.30549 5.17847 0.105469 6.87847 0.105469C8.57847 0.205469 9.77849 1.60551 9.77849 3.20551L7.67846 59.4055C7.57846 62.0055 6.87846 64.6055 5.67846 66.9055C5.07846 68.0055 4.07851 68.5055 2.97851 68.5055Z"
+          />
+          <UnderGlowStrip
+            id="123_undeglow"
+            x={1109}
+            y={688}
+            onClick={e => {
+              setUndeglowIndex(123, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(123)}
+            stroke={stroke(123)}
+            strokeWidth={getStrokeWidth(123)}
+            dataLedIndex={getLEDIndex(123)}
+            dataKeyIndex={keyIndex(123)}
+            dataLayer={layer}
+            path="M72.1 7.10002H3C1.3 7.10002 0 5.80002 0 4.10002C0 2.40002 1.3 1.10002 3 1.10002H72.1C73.3 1.10002 74.5 0.900048 75.7 0.500048C77.3 4.825e-05 79 0.800073 79.5 2.40007C80 4.00007 79.2 5.70006 77.6 6.20006C75.9 6.80006 74 7.10002 72.1 7.10002Z"
+          />
+          <UnderGlowStrip
+            id="122_undeglow"
+            x={1027}
+            y={688}
+            onClick={e => {
+              setUndeglowIndex(122, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(122)}
+            stroke={stroke(122)}
+            strokeWidth={getStrokeWidth(122)}
+            dataLedIndex={getLEDIndex(122)}
+            dataKeyIndex={keyIndex(122)}
+            dataLayer={layer}
+            path="M74.9412 6.09998H3.05882C1.32549 6.09998 0 4.79998 0 3.09998C0 1.39998 1.32549 0.0999756 3.05882 0.0999756H74.9412C76.6745 0.0999756 78 1.39998 78 3.09998C78 4.79998 76.6745 6.09998 74.9412 6.09998Z"
+          />
+          <UnderGlowStrip
+            id="121_undeglow"
+            x={945}
+            y={688}
+            onClick={e => {
+              setUndeglowIndex(121, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(121)}
+            stroke={stroke(121)}
+            strokeWidth={getStrokeWidth(121)}
+            dataLedIndex={getLEDIndex(121)}
+            dataKeyIndex={keyIndex(121)}
+            dataLayer={layer}
+            path="M74.9412 6.09998H3.05882C1.32549 6.09998 0 4.79998 0 3.09998C0 1.39998 1.32549 0.0999756 3.05882 0.0999756H74.9412C76.6745 0.0999756 78 1.39998 78 3.09998C78 4.79998 76.6745 6.09998 74.9412 6.09998Z"
+          />
+
+          <UnderGlowStrip
+            id="120_undeglow"
+            x={863}
+            y={688}
+            onClick={e => {
+              setUndeglowIndex(120, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(120)}
+            stroke={stroke(120)}
+            strokeWidth={getStrokeWidth(120)}
+            dataLedIndex={getLEDIndex(120)}
+            dataKeyIndex={keyIndex(120)}
+            dataLayer={layer}
+            path="M74.6714 6.09998H3.32859C1.44239 6.09998 0 4.79998 0 3.09998C0 1.39998 1.44239 0.0999756 3.32859 0.0999756H74.6714C76.5576 0.0999756 78 1.39998 78 3.09998C78 4.79998 76.4467 6.09998 74.6714 6.09998Z"
+          />
+          <UnderGlowStrip
+            id="119_undeglow"
+            x={781}
+            y={688}
+            onClick={e => {
+              setUndeglowIndex(119, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(119)}
+            stroke={stroke(119)}
+            strokeWidth={getStrokeWidth(119)}
+            dataLedIndex={getLEDIndex(119)}
+            dataKeyIndex={keyIndex(119)}
+            dataLayer={layer}
+            path="M74.6761 6.09998H3.32386C1.44034 6.09998 0 4.79998 0 3.09998C0 1.39998 1.44034 0.0999756 3.32386 0.0999756H74.6761C76.5597 0.0999756 78 1.39998 78 3.09998C78 4.79998 76.5597 6.09998 74.6761 6.09998Z"
+          />
+          <UnderGlowStrip
+            id="118_undeglow"
+            x={744}
+            y={654}
+            onClick={e => {
+              setUndeglowIndex(118, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(118)}
+            stroke={stroke(118)}
+            strokeWidth={getStrokeWidth(118)}
+            dataLedIndex={getLEDIndex(118)}
+            dataKeyIndex={keyIndex(118)}
+            dataLayer={layer}
+            path="M29.9 40.0999H22.6C14.8 40.0999 8.10001 34.7999 6.10001 27.2999L0.100013 3.69996C-0.299987 2.09996 0.70001 0.49992 2.30001 0.0999204C3.90001 -0.30008 5.5 0.699932 5.9 2.29993L11.9 25.9C13.1 30.8 17.5 34.2 22.6 34.2H29.9C31.6 34.2 32.9 35.5 32.9 37.2C32.9 38.9 31.5 40.0999 29.9 40.0999Z"
+          />
+          <UnderGlowStrip
+            id="117_undeglow"
+            x={725}
+            y={581}
+            onClick={e => {
+              setUndeglowIndex(117, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(117)}
+            stroke={stroke(117)}
+            strokeWidth={getStrokeWidth(117)}
+            dataLedIndex={getLEDIndex(117)}
+            dataKeyIndex={keyIndex(117)}
+            dataLayer={layer}
+            path="M19.4764 69.2C18.1764 69.2 16.8764 68.3 16.5764 66.9L0.87641 3.9C0.47641 2.3 1.47641 0.699995 3.07641 0.299995C4.67641 -0.100005 6.27641 0.899977 6.67641 2.49998L22.3764 65.5C22.7764 67.1 21.7764 68.7 20.1764 69.1C19.9764 69.2 19.7764 69.2 19.4764 69.2Z"
+          />
+          <UnderGlowStrip
+            id="116_undeglow"
+            x={707}
+            y={509}
+            onClick={e => {
+              setUndeglowIndex(116, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(116)}
+            stroke={stroke(116)}
+            strokeWidth={getStrokeWidth(116)}
+            dataLedIndex={getLEDIndex(116)}
+            dataKeyIndex={keyIndex(116)}
+            dataLayer={layer}
+            path="M18.6882 67.9882C17.3882 67.9882 16.0882 67.0882 15.7882 65.6882L0.0882021 3.68821C-0.311798 2.08821 0.688207 0.488203 2.28821 0.0882035C3.88821 -0.311797 5.48821 0.688185 5.88821 2.28819L21.5882 64.2882C21.9882 65.8882 20.9882 67.4882 19.3882 67.8882C19.1882 67.9882 18.9882 67.9882 18.6882 67.9882Z"
+          />
+          <UnderGlowStrip
+            id="115_undeglow"
+            x={667}
+            y={443}
+            onClick={e => {
+              setUndeglowIndex(115, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(115)}
+            stroke={stroke(115)}
+            strokeWidth={getStrokeWidth(115)}
+            dataLedIndex={getLEDIndex(115)}
+            dataKeyIndex={keyIndex(115)}
+            dataLayer={layer}
+            path="M25.7 12.9999L36.9835 59.5445C37.3774 61.1694 39.0255 62.1571 40.6442 61.7385C42.2284 61.3288 43.1906 59.7235 42.805 58.1332L31.5 11.4999C29.8 4.79994 23.9 0.199951 17 0.199951H3C1.3 0.199951 0 1.49995 0 3.19995C0 4.89995 1.3 6.19995 3 6.19995H17C21.1 6.19995 24.7 8.99994 25.7 12.9999Z"
+          />
+          <UnderGlowStrip
+            id="114_undeglow"
+            x={598}
+            y={419}
+            onClick={e => {
+              setUndeglowIndex(114, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(114)}
+            stroke={stroke(114)}
+            strokeWidth={getStrokeWidth(114)}
+            dataLedIndex={getLEDIndex(114)}
+            dataKeyIndex={keyIndex(114)}
+            dataLayer={layer}
+            path="M62 30.2H0V3C0 1.3 1.3 0 3 0C4.7 0 6 1.3 6 3V24.2H62C63.7 24.2 65 25.5 65 27.2C65 28.9 63.7 30.2 62 30.2Z"
+          />
+          <UnderGlowStrip
+            id="113_undeglow"
+            x={598}
+            y={351}
+            onClick={e => {
+              setUndeglowIndex(113, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(113)}
+            stroke={stroke(113)}
+            strokeWidth={getStrokeWidth(113)}
+            dataLedIndex={getLEDIndex(113)}
+            dataKeyIndex={keyIndex(113)}
+            dataLayer={layer}
+            path="M3 64C1.3 64 0 62.6271 0 60.8317V3.16832C0 1.37294 1.3 0 3 0C4.7 0 6 1.37294 6 3.16832V60.9373C6 62.6271 4.6 64 3 64Z"
+          />
+          <UnderGlowStrip
+            id="112_undeglow"
+            x={598}
+            y={290}
+            onClick={e => {
+              setUndeglowIndex(112, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(112)}
+            stroke={stroke(112)}
+            strokeWidth={getStrokeWidth(112)}
+            dataLedIndex={getLEDIndex(112)}
+            dataKeyIndex={keyIndex(112)}
+            dataLayer={layer}
+            path="M3 57C1.3 57 0 55.7 0 54V27C0 24.8 1.8 23 4 23H14V3C14 1.3 15.3 0 17 0C18.7 0 20 1.3 20 3V25C20 27.2 18.2 29 16 29H6V54C6 55.6 4.6 57 3 57Z"
+          />
+          <UnderGlowStrip
+            id="111_undeglow"
+            x={604}
+            y={212}
+            onClick={e => {
+              setUndeglowIndex(111, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(111)}
+            stroke={stroke(111)}
+            strokeWidth={getStrokeWidth(111)}
+            dataLedIndex={getLEDIndex(111)}
+            dataKeyIndex={keyIndex(111)}
+            dataLayer={layer}
+            path="M11 74C9.3 74 8 72.7 8 71V6H3C1.3 6 0 4.7 0 3C0 1.3 1.3 0 3 0H10C12.2 0 14 1.8 14 4V71C14 72.7 12.7 74 11 74Z"
+          />
+          <UnderGlowStrip
+            id="110_undeglow"
+            x={573}
+            y={138}
+            onClick={e => {
+              setUndeglowIndex(110, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(110)}
+            stroke={stroke(110)}
+            strokeWidth={getStrokeWidth(110)}
+            dataLedIndex={getLEDIndex(110)}
+            dataKeyIndex={keyIndex(110)}
+            dataLayer={layer}
+            path="M24 80H17C14.8 80 13 78.2 13 76V19H4C1.8 19 0 17.2 0 15V3.00001C0 1.30001 1.3 0 3 0C4.7 0 6 1.30001 6 3.00001V13H15C17.2 13 19 14.8 19 17V74H24C25.7 74 27 75.3 27 77C27 78.7 25.6 80 24 80Z"
+          />
+          <UnderGlowStrip
+            id="109_undeglow"
+            x={573}
+            y={90}
+            onClick={e => {
+              setUndeglowIndex(109, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(109)}
+            stroke={stroke(109)}
+            strokeWidth={getStrokeWidth(109)}
+            dataLedIndex={getLEDIndex(109)}
+            dataKeyIndex={keyIndex(109)}
+            dataLayer={layer}
+            path="M3 44.1469C1.3 44.1469 0 42.8469 0 41.1469V22C0 19.8 1.8 18 4 18H19.1V3C19.1 1.3 20.4 0 22.1 0C23.8 0 25.1 1.3 25.1 3V20C25.1 22.2 23.3 24 21.1 24H6V41.0469C6 42.7469 4.7 44.1469 3 44.1469Z"
+          />
+          <UnderGlowStrip
+            id="108_undeglow"
+            x={592}
+            y={14}
+            onClick={e => {
+              setUndeglowIndex(108, e);
+            }}
+            visibility={this.props.showUnderglow ? true : false}
+            fill={getColor(108)}
+            stroke={stroke(108)}
+            strokeWidth={getStrokeWidth(108)}
+            dataLedIndex={getLEDIndex(108)}
+            dataKeyIndex={keyIndex(108)}
+            dataLayer={layer}
+            path="M3 72C1.3 72 0 70.6817 0 68.9577V3.04225C0 1.31831 1.3 2.41777e-07 3 2.41777e-07C4.7 2.41777e-07 6 1.31831 6 3.04225V69.0592C6 70.6817 4.7 72 3 72Z"
+          />
+          {/* End Right side */}
         </g>
       </svg>
     );

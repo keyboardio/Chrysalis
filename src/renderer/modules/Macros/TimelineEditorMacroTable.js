@@ -536,6 +536,7 @@ class TimelineEditorMacroTable extends Component {
     const cssObjectWidth = {
       width: this.props.componentWidth
     };
+    console.log("Rows Content", this.state.rows);
     return (
       <Styles className="trackingWrapper" style={cssObjectWidth} ref={this.horizontalWheel}>
         <DragDropContext onDragEnd={this.onDragEnd}>
@@ -564,19 +565,6 @@ class TimelineEditorMacroTable extends Component {
             )}
           </Droppable>
         </DragDropContext>
-        <PreviewMacroModal>
-          {this.state.rows.map((item, index) => (
-            <span
-              key={`literal-${index}`}
-              className={`previewKey action-${item.action} keyCode-${item.keyCode} ${
-                item.keyCode > 223 && item.keyCode < 232 && item.action != 2 ? "isModifier" : ""
-              }`}
-            >
-              {item.action == 2 ? <IconStopWatchXs /> : ""}
-              {item.symbol == "SPACE" ? " " : item.symbol}
-            </span>
-          ))}
-        </PreviewMacroModal>
       </Styles>
     );
   }

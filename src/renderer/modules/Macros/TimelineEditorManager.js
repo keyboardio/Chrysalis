@@ -160,6 +160,23 @@ class MacroManager extends Component {
         <div className="timelineHeader" ref={this.trackingWidth}>
           <Title text={i18n.editor.macros.timelineTitle} headingLevel={4} />
           <div id="portalPreviewMacroModal"></div>
+          {/* <PreviewMacroModal>
+            {this.state.rows.length == 0 ? (
+              <></>
+            ) : (
+              this.state.rows.map((item, index) => (
+                <span
+                  key={`literal-${index}`}
+                  className={`previewKey action-${item.action} keyCode-${item.keyCode} ${
+                    item.keyCode > 223 && item.keyCode < 232 && item.action != 2 ? "isModifier" : ""
+                  }`}
+                >
+                  {item.action == 2 ? <IconStopWatchXs /> : ""}
+                  {item.symbol == "SPACE" ? " " : item.symbol}
+                </span>
+              ))
+            )}
+          </PreviewMacroModal> */}
         </div>
         {macro?.actions?.lenght > 0 ? (
           <div className="loading marginCenter">

@@ -85,7 +85,7 @@ class TimelineEditorMacroTable extends Component {
     this.state = {
       addText: "",
       rows: [],
-      macro: props.macro === undefined ? "" : props.macro.macro
+      macro: props.macro
     };
     this.keymapDB = props.keymapDB;
     this.modifiers = [

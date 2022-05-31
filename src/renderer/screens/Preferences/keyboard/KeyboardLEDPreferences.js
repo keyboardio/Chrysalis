@@ -26,6 +26,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
 
 import Brightness from "./leds/Brightness";
+import DefaultLedMode from "./leds/DefaultLedMode";
 import IdleTimeLimit from "./leds/IdleTimeLimit";
 import PreferenceSection from "../components/PreferenceSection";
 
@@ -37,6 +38,7 @@ const KeyboardLEDPreferences = (props) => {
   const [activeDevice] = globalContext.state.activeDevice;
   const [hasBrightness, setHasBrightness] = useState(false);
   const [hasIdleTime, setHasIdleTime] = useState(false);
+  const [hasPersistentLedMode, setHasPersistentLedMode] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [initialized, setInitialized] = useState(false);
 
@@ -47,6 +49,10 @@ const KeyboardLEDPreferences = (props) => {
     setLedBrightness,
     ledIdleTimeLimit,
     setLedIdleTimeLimit,
+    ledModeDefault,
+    setLedModeDefault,
+    ledModeAutoSave,
+    setLedModeAutoSave,
   } = props;
 
   // Do the initial loading
@@ -57,6 +63,9 @@ const KeyboardLEDPreferences = (props) => {
 
       if (plugins.includes("PersistentIdleLEDs")) {
         setHasIdleTime(true);
+      }
+      if (plugins.includes("PersistentLEDMode")) {
+        setHasPersistentLedMode(true);
       }
       if (commands.includes("led.brightness")) {
         setHasBrightness(true);
@@ -83,6 +92,14 @@ const KeyboardLEDPreferences = (props) => {
         setLedIdleTimeLimit(limit);
       }
 
+      if (hasPersistentLedMode) {
+        const def = await activeDevice.focus.command("led_mode.default");
+        const autoSave = await activeDevice.focus.command("led_mode.auto_save");
+
+        setLedModeDefault(parseInt(def));
+        setLedModeAutoSave(autoSave == "1");
+      }
+
       setLoaded(true);
     };
 
@@ -105,9 +122,12 @@ const KeyboardLEDPreferences = (props) => {
     activeDevice,
     hasBrightness,
     hasIdleTime,
+    hasPersistentLedMode,
     initialized,
     setLedBrightness,
     setLedIdleTimeLimit,
+    setLedModeDefault,
+    setLedModeAutoSave,
     setModified,
   ]);
 
@@ -123,10 +143,36 @@ const KeyboardLEDPreferences = (props) => {
     showContextBar();
   };
 
-  if (initialized && !hasIdleTime && !hasBrightness) return null;
+  const selectLedModeDefault = (event) => {
+    const v = event.target.value;
+    const value = Math.max(0, Math.min(32, v == "" ? 0 : parseInt(v)));
+    setLedModeDefault(value);
+    setModified(true);
+    showContextBar();
+  };
+
+  const toggleLedModeAutoSave = (event) => {
+    setLedModeAutoSave(event.target.checked);
+    setModified(true);
+    showContextBar();
+  };
+
+  if (initialized && !hasIdleTime && !hasBrightness && !hasPersistentLedMode)
+    return null;
 
   return (
     <PreferenceSection name="keyboard.led">
+      {loaded ? (
+        <DefaultLedMode
+          visible={hasPersistentLedMode}
+          onLedModeChange={selectLedModeDefault}
+          ledMode={ledModeDefault}
+          onAutoSaveChange={toggleLedModeAutoSave}
+          autoSave={ledModeAutoSave}
+        />
+      ) : (
+        <Skeleton variant="rectange" width={600} height={167} sx={{ my: 2 }} />
+      )}
       {loaded ? (
         <IdleTimeLimit
           visible={hasIdleTime}

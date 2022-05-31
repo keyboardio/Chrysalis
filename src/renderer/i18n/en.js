@@ -365,6 +365,14 @@ const English = {
           label: "LED Brightness",
           help: "Adjust the brightness of the LEDs on the keyboard.",
         },
+        default: {
+          autoSave: {
+            label: "Enable automatically saving the default led mode",
+            help: `When enabled, whenever the led mode is changed, it gets saved as the default.`,
+          },
+          label: "Default led mode",
+          help: "Select the led mode the keyboard should start up with.",
+        },
       },
       plugins: {
         label: "Plugin preferences",

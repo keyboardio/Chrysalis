@@ -390,6 +390,8 @@ class Focus {
     "escape_oneshot.cancel_key",
     "idleleds.time_limit",
     "led.brightness",
+    "led_mode.auto_save",
+    "led_mode.default",
     "macros",
     "tapdance.map",
     "hostos.type",

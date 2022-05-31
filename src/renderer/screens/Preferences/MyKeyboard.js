@@ -38,6 +38,8 @@ const MyKeyboardPreferences = (props) => {
   const [defaultLayer, setDefaultLayer] = useState(126);
   const [ledBrightness, setLedBrightness] = useState(255);
   const [ledIdleTimeLimit, setLedIdleTimeLimit] = useState(0);
+  const [ledModeDefault, setLedModeDefault] = useState(0);
+  const [ledModeAutoSave, setLedModeAutoSave] = useState(true);
   const [escOneShot, setEscOneShot] = useState(true);
 
   const { t } = useTranslation();
@@ -48,6 +50,11 @@ const MyKeyboardPreferences = (props) => {
     await activeDevice.focus.command("settings.defaultLayer", defaultLayer);
     await activeDevice.focus.command("led.brightness", ledBrightness);
     await activeDevice.focus.command("idleleds.time_limit", ledIdleTimeLimit);
+    await activeDevice.focus.command("led_mode.default", ledModeDefault);
+    await activeDevice.focus.command(
+      "led_mode.auto_save",
+      ledModeAutoSave ? 1 : 0
+    );
     await activeDevice.focus.command(
       "escape_oneshot.cancel_key",
       escOneShot ? escKeyCode : oneShotCancelKeyCode
@@ -71,6 +78,10 @@ const MyKeyboardPreferences = (props) => {
         setLedBrightness={setLedBrightness}
         ledIdleTimeLimit={ledIdleTimeLimit}
         setLedIdleTimeLimit={setLedIdleTimeLimit}
+        ledModeDefault={ledModeDefault}
+        setLedModeDefault={setLedModeDefault}
+        ledModeAutoSave={ledModeAutoSave}
+        setLedModeAutoSave={setLedModeAutoSave}
       />
       <PluginPreferences
         setModified={setModified}

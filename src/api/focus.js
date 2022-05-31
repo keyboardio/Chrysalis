@@ -34,7 +34,7 @@ class Focus {
       this.commands = {
         help: this._help,
       };
-      this.timeout = 5000;
+      this.timeout = 30000;
       this.debug = false;
       this.logger = new Log();
       this._supported_commands = [];

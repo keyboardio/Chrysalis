@@ -1,6 +1,8 @@
 // -*- mode: js-jsx -*-
-/* bazecor-hardware-dygma-raise -- Bazecor support for Dygma Raise
+/* Bazecor -- Kaleidoscope Command Center
+ * Copyright (C) 2018, 2019  Keyboardio, Inc.
  * Copyright (C) 2019  DygmaLab SE
+ *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, version 3.
@@ -125,12 +127,6 @@ const keysRowsPosition = {
   row4: 236,
   row5: 303,
   row6: 370
-};
-const textOffsetPosition = {
-  x: 9,
-  xCenter: 25,
-  y: 28,
-  yCenter: 20
 };
 
 class KeymapANSI extends React.Component {

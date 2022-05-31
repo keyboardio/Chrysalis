@@ -16,6 +16,7 @@
  */
 
 import KeymapANSI from "./components/Keymap-ANSI";
+import KeymapISO from "../hardware-dygma-raise-iso/components/Keymap-ISO";
 import Focus from "../focus";
 
 const Raise_ANSI = {
@@ -44,7 +45,8 @@ const Raise_ANSI = {
     columns: 22
   },
   components: {
-    keymap: KeymapANSI
+    // keymap: KeymapANSI
+    keymap: KeymapISO
   },
 
   instructions: {

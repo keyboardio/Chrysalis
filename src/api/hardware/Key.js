@@ -304,6 +304,100 @@ const Key = ({
         ""
       )}
 
+      {keyType == "enterKey" ? (
+        <g
+          id={id}
+          className={`${stroke === "#fff" || stroke === "#000" ? "keyOnFocus" : "keyOnHold"} keyItem ${keyType}`}
+          onClick={onClick}
+          data-led-index={dataLedIndex}
+          data-key-index={dataKeyIndex}
+          data-layer={dataLayer}
+          transform={`translate(${x},${y})`}
+        >
+          <g className="shadowHover" transform={`translate(${0},${3})`}>
+            <path
+              xmlns="http://www.w3.org/2000/svg"
+              d="M69 4C69 1.79086 67.2091 0 65 0H4C1.79086 0 0 1.79086 0 4V53C0 55.2091 1.79086 57 4 57H17C19.2091 57 21 58.7909 21 61V120C21 122.209 22.7909 124 25 124H65C67.2091 124 69 122.209 69 120V4Z"
+              fill={color}
+            />
+          </g>
+          <g>
+            <path
+              xmlns="http://www.w3.org/2000/svg"
+              d="M69 4C69 1.79086 67.2091 0 65 0H4C1.79086 0 0 1.79086 0 4V53C0 55.2091 1.79086 57 4 57H17C19.2091 57 21 58.7909 21 61V120C21 122.209 22.7909 124 25 124H65C67.2091 124 69 122.209 69 120V4Z"
+              fill={`#303949`}
+            />
+            <path
+              xmlns="http://www.w3.org/2000/svg"
+              d="M69 4C69 1.79086 67.2091 0 65 0H4C1.79086 0 0 1.79086 0 4V53C0 55.2091 1.79086 57 4 57H17C19.2091 57 21 58.7909 21 61V120C21 122.209 22.7909 124 25 124H65C67.2091 124 69 122.209 69 120V4Z"
+              fill={`url(#paintGradient${id})`}
+              fillOpacity="0.2"
+            />
+            <path
+              xmlns="http://www.w3.org/2000/svg"
+              d="M69 4C69 1.79086 67.2091 0 65 0H4C1.79086 0 0 1.79086 0 4V53C0 55.2091 1.79086 57 4 57H17C19.2091 57 21 58.7909 21 61V120C21 122.209 22.7909 124 25 124H65C67.2091 124 69 122.209 69 120V4Z"
+              fill={color}
+              className="keyColorOpacity"
+            />
+            <path
+              xmlns="http://www.w3.org/2000/svg"
+              d="M69 4C69 1.79086 67.2091 0 65 0H4C1.79086 0 0 1.79086 0 4V53C0 55.2091 1.79086 57 4 57H17C19.2091 57 21 58.7909 21 61V120C21 122.209 22.7909 124 25 124H65C67.2091 124 69 122.209 69 120V4Z"
+              className="keyOpacityInternal"
+              stroke={color}
+              strokeWidth="2"
+              fill="transparent"
+            />
+          </g>
+          <g className="shadowMiddle" transform={`translate(${4},${0})`}>
+            <path
+              xmlns="http://www.w3.org/2000/svg"
+              d="M61 4C61 1.79086 59.2091 0 57 0H4C1.79086 0 0 1.79086 0 4V47C0 49.2091 1.79086 51 4 51H17C19.2091 51 21 52.7909 21 55V114C21 116.209 22.7909 118 25 118H57C59.2091 118 61 116.209 61 114V4Z"
+              fill={color}
+            />
+          </g>
+          <g xmlns="http://www.w3.org/2000/svg" transform={`translate(${4},${0})`}>
+            <path
+              xmlns="http://www.w3.org/2000/svg"
+              d="M61 4C61 1.79086 59.2091 0 57 0H4C1.79086 0 0 1.79086 0 4V47C0 49.2091 1.79086 51 4 51H17C19.2091 51 21 52.7909 21 55V114C21 116.209 22.7909 118 25 118H57C59.2091 118 61 116.209 61 114V4Z"
+              className="keyBase"
+            />
+            <path
+              xmlns="http://www.w3.org/2000/svg"
+              d="M61 4C61 1.79086 59.2091 0 57 0H4C1.79086 0 0 1.79086 0 4V47C0 49.2091 1.79086 51 4 51H17C19.2091 51 21 52.7909 21 55V114C21 116.209 22.7909 118 25 118H57C59.2091 118 61 116.209 61 114V4Z"
+              fill={`url(#paintGradient${id})`}
+              fillOpacity="0.25"
+            />
+            <path
+              xmlns="http://www.w3.org/2000/svg"
+              d="M61 4C61 1.79086 59.2091 0 57 0H4C1.79086 0 0 1.79086 0 4V47C0 49.2091 1.79086 51 4 51H17C19.2091 51 21 52.7909 21 55V114C21 116.209 22.7909 118 25 118H57C59.2091 118 61 116.209 61 114V4Z"
+              fill={color}
+              fillOpacity="0.2"
+            />
+            <path
+              xmlns="http://www.w3.org/2000/svg"
+              d="M61 4C61 1.79086 59.2091 0 57 0H4C1.79086 0 0 1.79086 0 4V47C0 49.2091 1.79086 51 4 51H17C19.2091 51 21 52.7909 21 55V114C21 116.209 22.7909 118 25 118H57C59.2091 118 61 116.209 61 114V4Z"
+              className="keyOpacity"
+              stroke="#fff"
+              strokeWidth="2"
+              fill="transparent"
+              strokeOpacity="0"
+            />
+          </g>
+          <foreignObject x={3} y={0} width={widthShape2 - 6} height={49}>
+            <div xmlns="http://www.w3.org/1999/xhtml" className={`keyContentLabel`}>
+              <ul>
+                <li ref={setExtralabel} className={`${extraLabelClass ? "extraLabel" : ""}`}>
+                  {centerExtra}
+                </li>
+                <li>{centerPrimary}</li>
+              </ul>
+            </div>
+          </foreignObject>
+        </g>
+      ) : (
+        ""
+      )}
+
       <defs>
         <linearGradient
           id={`paintGradient${id}`}

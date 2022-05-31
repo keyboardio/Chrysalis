@@ -16,6 +16,7 @@
  */
 
 import React from "react";
+import Box from "@mui/material/Box";
 import { ChromePicker } from "react-color";
 import { useTranslation } from "react-i18next";
 import Collapsible from "../components/Collapsible";
@@ -65,14 +66,13 @@ const Colormap = (props) => {
         onClick={onPaletteSwatchChange}
       />
       <br />
-      <ChromePicker
-        color={color}
-        disableAlpha
-        sx={{
-          width: "295px !important",
-        }}
-        onChangeComplete={colorChangeComplete}
-      />
+      <Box sx={{ justifyContent: "center", display: "flex" }}>
+        <ChromePicker
+          color={color}
+          disableAlpha
+          onChangeComplete={colorChangeComplete}
+        />
+      </Box>
     </Collapsible>
   );
 };

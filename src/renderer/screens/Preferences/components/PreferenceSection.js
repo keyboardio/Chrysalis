@@ -27,7 +27,15 @@ import { useTranslation } from "react-i18next";
 const PreferenceSection = (props) => {
   const { t } = useTranslation();
 
-  const loaded = props.loaded === undefined ? true : props.loaded;
+  // The goal here is to make <PreferenceSection> usable in contexts where
+  // loading makes no sense (because the data is readily available), without
+  // having to pass a `loaded={true}` property.
+  //
+  // We check if the property has been defined, and if not, default to true,
+  // otherwise we use the property as specified.
+  // prettier-ignore
+  const loaded = (props.loaded === undefined) ? true : props.loaded;
+
   const description = t("preferences." + props.name + ".description", "");
 
   return (

@@ -29,7 +29,7 @@ const PluginPreferences = (props) => {
 
   const [loaded, plugins] = useCheckDeviceSupportsPlugins(["EscapeOneShot"]);
 
-  const foundSomePlugins = Object.values(plugins).filter((v) => v).length > 0;
+  const foundSomePlugins = Object.values(plugins).some((v) => v);
   if (loaded && !foundSomePlugins) return null;
 
   return (

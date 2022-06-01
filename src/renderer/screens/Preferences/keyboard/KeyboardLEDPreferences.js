@@ -29,8 +29,6 @@ import PreferenceSection from "../components/PreferenceSection";
 
 import { dividePreferences } from "../utils/dividePreferences";
 
-const delay = (ms) => new Promise((res) => setTimeout(res, ms));
-
 const KeyboardLEDPreferences = (props) => {
   const { t } = useTranslation();
   const { onSaveChanges } = props;
@@ -41,7 +39,7 @@ const KeyboardLEDPreferences = (props) => {
     "led.brightness",
   ]);
 
-  const foundSomePlugins = Object.values(plugins).filter((v) => v).length > 0;
+  const foundSomePlugins = Object.values(plugins).some((v) => v);
   if (loaded && !foundSomePlugins) return null;
 
   const preferences = [

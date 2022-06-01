@@ -17,7 +17,6 @@
 
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
-import Skeleton from "@mui/material/Skeleton";
 import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
 
@@ -60,13 +59,10 @@ const EscapeOneShotPreferences = (props) => {
     );
   };
 
-  if (!loaded) {
-    return <Skeleton variant="rectangle" />;
-  }
-
   return (
     <PreferenceSwitch
       option="keyboard.plugins.escOneShot"
+      loaded={loaded}
       checked={escOneShot}
       onChange={onChange}
     />

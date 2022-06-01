@@ -19,6 +19,7 @@ import React from "react";
 
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
+import Skeleton from "@mui/material/Skeleton";
 import Typography from "@mui/material/Typography";
 
 import { useTranslation } from "react-i18next";
@@ -26,6 +27,7 @@ import { useTranslation } from "react-i18next";
 const PreferenceSection = (props) => {
   const { t } = useTranslation();
 
+  const loaded = props.loaded === undefined ? true : props.loaded;
   const description = t("preferences." + props.name + ".description", "");
 
   return (
@@ -33,7 +35,13 @@ const PreferenceSection = (props) => {
       <Typography variant="h6" gutterBottom>
         {t("preferences." + props.name + ".label")}
       </Typography>
-      <Paper sx={{ p: 2, width: "75%" }}>{props.children}</Paper>
+      <Paper sx={{ p: 2, width: "75%" }}>
+        {loaded ? (
+          props.children
+        ) : (
+          <Skeleton variant="rectangle" width="100%" height={80} />
+        )}
+      </Paper>
     </Box>
   );
 };

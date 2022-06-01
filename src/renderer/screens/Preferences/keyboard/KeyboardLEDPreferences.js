@@ -43,7 +43,7 @@ const KeyboardLEDPreferences = (props) => {
   if (loaded && !foundSomePlugins) return null;
 
   return (
-    <PreferenceSection name="keyboard.led">
+    <PreferenceSection name="keyboard.led" loaded={loaded}>
       {plugins["PersistentLEDMode"] && (
         <DefaultLedMode registerModifications={registerModifications} />
       )}

@@ -49,10 +49,6 @@ const Brightness = (props) => {
     await registerModifications("led.brightness", brightness);
   };
 
-  if (!loaded) {
-    return <Skeleton variant="rectangle" />;
-  }
-
   return (
     <Box sx={{ display: "flex" }}>
       <Box>
@@ -64,16 +60,20 @@ const Brightness = (props) => {
         </Typography>
       </Box>
       <span style={{ flexGrow: 1 }} />
-      <Slider
-        max={255}
-        step={16}
-        marks
-        valueLabelDisplay="auto"
-        valueLabelFormat={formatValue}
-        value={ledBrightness}
-        onChange={onChange}
-        sx={{ width: "20em", mr: 1 }}
-      />
+      {loaded ? (
+        <Slider
+          max={255}
+          step={16}
+          marks
+          valueLabelDisplay="auto"
+          valueLabelFormat={formatValue}
+          value={ledBrightness}
+          onChange={onChange}
+          sx={{ width: "20em", mr: 1 }}
+        />
+      ) : (
+        <Skeleton variant="rectangle" width="20em" height={30} />
+      )}
     </Box>
   );
 };

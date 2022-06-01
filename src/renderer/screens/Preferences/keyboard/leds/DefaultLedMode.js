@@ -42,10 +42,6 @@ const DefaultLedMode = (props) => {
   };
   const loaded = usePluginEffect(initialize);
 
-  if (!loaded) {
-    return <Skeleton variant="rectangle" />;
-  }
-
   const onAutoSaveChange = async (event) => {
     const autoSave = event.target.checked;
     await setLedModeAutoSave(autoSave);
@@ -59,13 +55,10 @@ const DefaultLedMode = (props) => {
     await registerModifications("led_mode.default", mode);
   };
 
-  if (!loaded) {
-    return <Skeleton variant="rectangle" />;
-  }
-
   return (
     <>
       <PreferenceSwitch
+        loaded={loaded}
         option="keyboard.led.default.autoSave"
         checked={ledModeAutoSave}
         onChange={onAutoSaveChange}
@@ -80,19 +73,23 @@ const DefaultLedMode = (props) => {
           </Typography>
         </Box>
         <span style={{ flexGrow: 1 }} />
-        <TextField
-          sx={{ width: "10em" }}
-          size="small"
-          disabled={ledModeAutoSave}
-          type="number"
-          min={0}
-          max={31}
-          value={ledModeDefault}
-          onChange={onLedModeChange}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
+        {loaded ? (
+          <TextField
+            sx={{ width: "10em" }}
+            size="small"
+            disabled={ledModeAutoSave}
+            type="number"
+            min={0}
+            max={31}
+            value={ledModeDefault}
+            onChange={onLedModeChange}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+        ) : (
+          <Skeleton variant="rectangle" width="10em" height={40} />
+        )}
       </Box>
     </>
   );

@@ -122,15 +122,12 @@ function LayoutEditorPreferences(props) {
         )}
       </Box>
       <Divider sx={{ my: 2, mx: -2 }} />
-      {loaded ? (
-        <PreferenceSwitch
-          option="ui.hideUnavailableFeatures"
-          checked={hideUnavailableFeatures}
-          onChange={toggleHideUnavailableFeatures}
-        />
-      ) : (
-        <Skeleton variant="text" width="100%" height={56} />
-      )}
+      <PreferenceSwitch
+        loaded={loaded}
+        option="ui.hideUnavailableFeatures"
+        checked={hideUnavailableFeatures}
+        onChange={toggleHideUnavailableFeatures}
+      />
     </PreferenceSection>
   );
 }

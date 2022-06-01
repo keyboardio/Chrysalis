@@ -20,11 +20,14 @@ import React from "react";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
+import Skeleton from "@mui/material/Skeleton";
 import Switch from "@mui/material/Switch";
 import { useTranslation } from "react-i18next";
 
 const PreferenceSwitch = (props) => {
   const { t } = useTranslation();
+
+  const loaded = props.loaded === undefined ? true : props.loaded;
 
   const SwitchLabel = (props) => {
     const secondary = t("preferences." + props.option + ".help", "");
@@ -45,7 +48,13 @@ const PreferenceSwitch = (props) => {
         display: "flex",
         mx: 0,
       }}
-      control={<Switch checked={props.checked} onChange={props.onChange} />}
+      control={
+        loaded ? (
+          <Switch checked={props.checked} onChange={props.onChange} />
+        ) : (
+          <Skeleton variant="rectangle" width={58} height={38} />
+        )
+      }
       labelPlacement="start"
       label={<SwitchLabel option={props.option} />}
       disableTypography

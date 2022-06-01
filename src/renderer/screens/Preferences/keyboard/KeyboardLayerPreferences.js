@@ -62,10 +62,6 @@ const KeyboardLayerPreferences = (props) => {
     );
   });
 
-  if (!loaded) {
-    return <Skeleton variant="rectangle" />;
-  }
-
   return (
     <PreferenceSection name="keyboard.layers">
       <Box sx={{ display: "flex" }}>
@@ -78,18 +74,22 @@ const KeyboardLayerPreferences = (props) => {
           </Typography>
         </Box>
         <span style={{ flexGrow: 1 }} />
-        <FormControl size="small">
-          <Select
-            onChange={selectDefaultLayer}
-            value={defaultLayer}
-            sx={{ minWidth: "10em" }}
-          >
-            <MenuItem value={126}>
-              {t("preferences.keyboard.defaultLayer.noDefault")}
-            </MenuItem>
-            {layers}
-          </Select>
-        </FormControl>
+        {loaded ? (
+          <FormControl size="small">
+            <Select
+              onChange={selectDefaultLayer}
+              value={defaultLayer}
+              sx={{ minWidth: "10em" }}
+            >
+              <MenuItem value={126}>
+                {t("preferences.keyboard.defaultLayer.noDefault")}
+              </MenuItem>
+              {layers}
+            </Select>
+          </FormControl>
+        ) : (
+          <Skeleton variant="rectangle" width="10em" height={40} />
+        )}
       </Box>
     </PreferenceSection>
   );

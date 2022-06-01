@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Skeleton from "@mui/material/Skeleton";
 import usePluginCheck from "@renderer/hooks/usePluginCheck";
 
 import React, { useState } from "react";
@@ -30,15 +29,11 @@ const PluginPreferences = (props) => {
 
   const [loaded, plugins] = usePluginCheck(["EscapeOneShot"]);
 
-  if (!loaded) {
-    return <Skeleton variant="rectangle" />;
-  }
-
   const foundSomePlugins = Object.values(plugins).filter((v) => v).length > 0;
   if (loaded && !foundSomePlugins) return null;
 
   return (
-    <PreferenceSection name="keyboard.plugins">
+    <PreferenceSection name="keyboard.plugins" loaded={loaded}>
       {plugins["EscapeOneShot"] && (
         <EscapeOneShotPreferences
           registerModifications={registerModifications}

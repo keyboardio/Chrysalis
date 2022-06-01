@@ -15,12 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
-import FormHelperText from "@mui/material/FormHelperText";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Skeleton from "@mui/material/Skeleton";
+import Typography from "@mui/material/Typography";
 import {
   hideContextBar,
   showContextBar,
@@ -87,24 +87,29 @@ const KeyboardLayerPreferences = (props) => {
   return (
     <PreferenceSection name="keyboard.layers">
       {loaded ? (
-        <FormControl sx={{ minWidth: "20em" }}>
-          <InputLabel>
-            {t("preferences.keyboard.defaultLayer.label")}
-          </InputLabel>
-          <Select
-            onChange={selectDefaultLayer}
-            value={defaultLayer}
-            label={t("preferences.keyboard.defaultLayer.label")}
-          >
-            <MenuItem value={126}>
-              {t("preferences.keyboard.defaultLayer.noDefault")}
-            </MenuItem>
-            {layers}
-          </Select>
-          <FormHelperText>
-            {t("preferences.keyboard.defaultLayer.help")}
-          </FormHelperText>
-        </FormControl>
+        <Box sx={{ display: "flex" }}>
+          <Box>
+            <Typography variant="body1">
+              {t("preferences.keyboard.defaultLayer.label")}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {t("preferences.keyboard.defaultLayer.help")}
+            </Typography>
+          </Box>
+          <span style={{ flexGrow: 1 }} />
+          <FormControl size="small">
+            <Select
+              onChange={selectDefaultLayer}
+              value={defaultLayer}
+              sx={{ minWidth: "10em" }}
+            >
+              <MenuItem value={126}>
+                {t("preferences.keyboard.defaultLayer.noDefault")}
+              </MenuItem>
+              {layers}
+            </Select>
+          </FormControl>
+        </Box>
       ) : (
         <Skeleton variant="rectangular" width={320} height={79} />
       )}

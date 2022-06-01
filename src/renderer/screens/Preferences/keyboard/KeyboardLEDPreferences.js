@@ -184,6 +184,7 @@ const KeyboardLEDPreferences = (props) => {
       ) : (
         <Skeleton variant="rectangle" width={422} height={79} sx={{ mb: 2 }} />
       )}
+      <Divider sx={{ mx: -2, my: 2 }} />
       {loaded ? (
         <Brightness
           onChange={setBrightness}

@@ -73,10 +73,7 @@ function Preferences(props) {
     <Box
       sx={{
         flexGrow: 1,
-        bgcolor: "action.hover",
         display: "flex",
-        height: "100%",
-        width: "100%",
       }}
     >
       <PageTitle title={t("app.menu.preferences")} />
@@ -91,7 +88,10 @@ function Preferences(props) {
           borderColor: "divider",
           display: "flex",
           alignItems: "left",
-          minWidth: 300,
+          width: 300,
+          position: "fixed",
+          top: "48px",
+          bottom: 0,
         }}
       >
         <Tab label={t("preferences.interface")} {...a11yProps(0)} />
@@ -105,6 +105,7 @@ function Preferences(props) {
       <Box
         sx={{
           flexGrow: 1,
+          ml: "300px",
         }}
       >
         <TabPanel value={value} index={0}>

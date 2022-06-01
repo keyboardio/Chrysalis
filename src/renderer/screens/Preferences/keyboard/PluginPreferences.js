@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import usePluginCheck from "@renderer/hooks/usePluginCheck";
+import useCheckDeviceSupportsPlugins from "@renderer/hooks/useCheckDeviceSupportsPlugins";
 
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -27,7 +27,7 @@ const PluginPreferences = (props) => {
   const { t } = useTranslation();
   const { registerModifications } = props;
 
-  const [loaded, plugins] = usePluginCheck(["EscapeOneShot"]);
+  const [loaded, plugins] = useCheckDeviceSupportsPlugins(["EscapeOneShot"]);
 
   const foundSomePlugins = Object.values(plugins).filter((v) => v).length > 0;
   if (loaded && !foundSomePlugins) return null;

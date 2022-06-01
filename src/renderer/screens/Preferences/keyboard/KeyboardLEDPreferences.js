@@ -18,7 +18,7 @@
 
 import Divider from "@mui/material/Divider";
 
-import usePluginCheck from "@renderer/hooks/usePluginCheck";
+import useCheckDeviceSupportsPlugins from "@renderer/hooks/useCheckDeviceSupportsPlugins";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -33,7 +33,7 @@ const KeyboardLEDPreferences = (props) => {
   const { t } = useTranslation();
   const { registerModifications } = props;
 
-  const [loaded, plugins] = usePluginCheck([
+  const [loaded, plugins] = useCheckDeviceSupportsPlugins([
     "PersistentIdleLEDs",
     "PersistentLEDMode",
     "led.brightness",

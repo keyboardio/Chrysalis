@@ -18,7 +18,7 @@ import { GlobalContext } from "@renderer/components/GlobalContext";
 
 import { useEffect, useState, useContext } from "react";
 
-const usePluginCheck = (desiredPlugins) => {
+const useCheckDeviceSupportsPlugins = (desiredPlugins) => {
   const globalContext = useContext(GlobalContext);
   const [activeDevice] = globalContext.state.activeDevice;
   const [foundPlugins, setFoundPlugins] = useState({});
@@ -44,4 +44,4 @@ const usePluginCheck = (desiredPlugins) => {
   return [initialized, foundPlugins];
 };
 
-export { usePluginCheck as default };
+export { useCheckDeviceSupportsPlugins as default };

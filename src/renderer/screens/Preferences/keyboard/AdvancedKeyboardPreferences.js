@@ -19,6 +19,7 @@ import { FocusCommands } from "@api/flash";
 import Backdrop from "@mui/material/Backdrop";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
+import Divider from "@mui/material/Divider";
 import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 import checkExternalFlasher from "@renderer/utils/checkExternalFlasher";
@@ -84,16 +85,18 @@ const AdvancedKeyboardPreferences = (props) => {
   return (
     <PreferenceSection name="keyboard.advanced">
       {externalFlasherAvailable && (
-        <PreferenceSwitch
-          option="keyboard.flash.preferExternal"
-          checked={preferExternalFlasher}
-          onChange={setPreferExternalFlasher}
-        />
+        <>
+          <PreferenceSwitch
+            option="keyboard.flash.preferExternal"
+            checked={preferExternalFlasher}
+            onChange={setPreferExternalFlasher}
+          />
+          <Divider sx={{ mx: -2, my: 2 }} />
+        </>
       )}
       <Button
-        sx={{ my: 2 }}
         disabled={working}
-        variant="contained"
+        variant="outlined"
         color="secondary"
         onClick={openEEPROMResetConfirmation}
       >

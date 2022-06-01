@@ -18,6 +18,8 @@
 import React, { Component, Fragment } from "react";
 import { SketchPicker } from "react-color";
 import Styled from "styled-components";
+import i18n from "../../i18n";
+
 // Bootstrap components
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -25,6 +27,8 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+
+import Title from "../../component/Title";
 
 // Icons
 import { CgSmartHomeLight, CgColorPicker } from "react-icons/cg";
@@ -262,13 +266,20 @@ export default class ColorEditor extends Component {
 
     return (
       <Styles>
-        <Container fluid className="color-editor">
+        <div className="panelInner">
+          <div className="panelTitle">
+            <Title text={i18n.editor.color.colorPalette} headingLevel={4} />
+          </div>
+        </div>
+        <div className="panelTools">
           {displayColorPicker ? (
             <div style={popover}>
               <div style={cover} onClick={this.showColorPicker} aria-hidden="true" />
               <SketchPicker color={colors[selected]} onChange={this.handleChange} />
             </div>
           ) : null}
+        </div>
+        <Container fluid className="color-editor">
           <Row className="m-0">
             <Col xs={1} className="color-options">
               {edit}

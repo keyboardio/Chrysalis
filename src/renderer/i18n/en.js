@@ -107,6 +107,14 @@ const English = {
       exportToPdf: "Export layouts to pdf",
       layerToCopy: "You will copy the layout of this layer"
     },
+    color: {
+      colorPalette: "Color Palette",
+      selectedColor: "Selected color",
+      editColor: "Edit Color",
+      applyColor: "Apply color",
+      allKeys: "All Keys",
+      underglow: "Underglow"
+    },
     groups: {
       Letters: "Letters",
       Digits: "Digits",

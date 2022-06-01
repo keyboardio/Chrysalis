@@ -539,12 +539,12 @@ class MacroEditor extends React.Component {
     }
   };
 
-  saveName(name) {
-    console.log("MACROS: ", this.state.macros);
-    // let macrosList = this.state.macros;
-    // macrosList[this.state.selectedMacro].name = name;
-    // this.setState({ macrosList, modified: true });
-  }
+  saveName = data => {
+    console.log("CHANGING MACRO NAME: ", data, this.state.macros);
+    let macros = JSON.parse(JSON.stringify(this.state.macros));
+    macros[this.state.selectedMacro].name = data;
+    this.setState({ macros, modified: true });
+  };
 
   // Define updateActions function to update the actions of the selected macro
   updateActions = actions => {

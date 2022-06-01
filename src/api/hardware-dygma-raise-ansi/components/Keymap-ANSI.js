@@ -222,10 +222,9 @@ class KeymapANSI extends React.Component {
      */
     const GetCurrentKeyElement = props => {
       return (
-        <span>
-          <span className={props.class} textAnchor="middle" x={props.x} y={props.y} dy={props.dy} textLength={props.textLength}>
-            {props.word}
-          </span>
+        <span className={props.class} textAnchor="middle" x={props.x} y={props.y} dy={props.dy} textLength={props.textLength}>
+          {props.word}
+          {` `}
         </span>
       );
     };

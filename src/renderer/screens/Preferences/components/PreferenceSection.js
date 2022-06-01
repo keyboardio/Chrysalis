@@ -18,7 +18,7 @@
 import React from "react";
 
 import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
+import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 
 import { useTranslation } from "react-i18next";
@@ -29,17 +29,12 @@ const PreferenceSection = (props) => {
   const description = t("preferences." + props.name + ".description", "");
 
   return (
-    <>
-      <Divider textAlign="left" sx={{ my: 2 }}>
+    <Box sx={{ my: 2 }}>
+      <Typography variant="h6" gutterBottom>
         {t("preferences." + props.name + ".label")}
-      </Divider>
-      {description && (
-        <Typography variant="body2" gutterBottom>
-          {description}
-        </Typography>
-      )}
-      <Box sx={{ my: 2 }}>{props.children}</Box>
-    </>
+      </Typography>
+      <Paper sx={{ p: 2, width: "75%" }}>{props.children}</Paper>
+    </Box>
   );
 };
 

@@ -533,7 +533,7 @@ class MacroEditor extends React.Component {
         return aux;
       });
       if (selected >= this.state.macros.length - 1) {
-        this.changeSelected(this.state.macros.length - 1);
+        this.changeSelected(this.state.macros.length - 2);
       }
       this.updateMacros(aux, selected);
     }

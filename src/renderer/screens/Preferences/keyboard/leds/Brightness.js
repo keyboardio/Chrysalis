@@ -16,8 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import FormControl from "@mui/material/FormControl";
-import FormHelperText from "@mui/material/FormHelperText";
+import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
 
@@ -35,10 +34,16 @@ const Brightness = (props) => {
   if (!visible) return null;
 
   return (
-    <FormControl sx={{ display: "flex" }}>
-      <Typography gutterBottom>
-        {t("preferences.keyboard.led.brightness.label")}
-      </Typography>
+    <Box sx={{ display: "flex" }}>
+      <Box>
+        <Typography variant="body1">
+          {t("preferences.keyboard.led.brightness.label")}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {t("preferences.keyboard.led.brightness.help")}
+        </Typography>
+      </Box>
+      <span style={{ flexGrow: 1 }} />
       <Slider
         max={255}
         step={16}
@@ -47,12 +52,9 @@ const Brightness = (props) => {
         valueLabelFormat={formatValue}
         value={value}
         onChange={onChange}
-        sx={{ width: "20em" }}
+        sx={{ width: "20em", mr: 1 }}
       />
-      <FormHelperText>
-        {t("preferences.keyboard.led.brightness.help")}
-      </FormHelperText>
-    </FormControl>
+    </Box>
   );
 };
 

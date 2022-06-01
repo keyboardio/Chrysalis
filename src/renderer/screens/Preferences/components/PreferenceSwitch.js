@@ -43,9 +43,10 @@ const PreferenceSwitch = (props) => {
       sx={{
         alignItems: "start",
         display: "flex",
+        mx: 0,
       }}
       control={<Switch checked={props.checked} onChange={props.onChange} />}
-      labelPlacement="end"
+      labelPlacement="start"
       label={<SwitchLabel option={props.option} />}
       disableTypography
     />

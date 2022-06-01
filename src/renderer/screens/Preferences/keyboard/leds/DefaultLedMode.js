@@ -16,27 +16,77 @@
  */
 
 import Box from "@mui/material/Box";
+import Skeleton from "@mui/material/Skeleton";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 
-import React from "react";
+import { GlobalContext } from "@renderer/components/GlobalContext";
+import React, { useEffect, useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
 
 import PreferenceSwitch from "../../components/PreferenceSwitch";
 
 const DefaultLedMode = (props) => {
   const { t } = useTranslation();
+  const globalContext = useContext(GlobalContext);
 
-  const { visible, onLedModeChange, ledMode, onAutoSaveChange, autoSave } =
-    props;
+  const [activeDevice] = globalContext.state.activeDevice;
+  const [ledModeDefault, setLedModeDefault] = useState(0);
+  const [ledModeAutoSave, setLedModeAutoSave] = useState(true);
+  const [loaded, setLoaded] = useState(false);
 
-  if (!visible) return null;
+  const { registerModifications } = props;
+
+  useEffect(() => {
+    const initialize = async () => {
+      const def = await activeDevice.focus.command("led_mode.default");
+      const autoSave = await activeDevice.focus.command("led_mode.auto_save");
+
+      setLedModeDefault(parseInt(def));
+      setLedModeAutoSave(autoSave == "1");
+      setLoaded(true);
+    };
+
+    const context_bar_channel = new BroadcastChannel("context_bar");
+    context_bar_channel.onmessage = async (event) => {
+      if (event.data === "changes-discarded") {
+        await initialize();
+      }
+    };
+
+    initialize();
+
+    return () => {
+      context_bar_channel.close();
+    };
+  }, [activeDevice]);
+
+  if (!loaded) {
+    return <Skeleton variant="rectangle" />;
+  }
+
+  const onAutoSaveChange = async (event) => {
+    const autoSave = event.target.checked;
+    await setLedModeAutoSave(autoSave);
+    await registerModifications("led_mode.auto_save", autoSave ? 1 : 0);
+  };
+
+  const onLedModeChange = async (event) => {
+    const v = event.target.value;
+    const mode = Math.max(0, Math.min(32, v == "" ? 0 : parseInt(v)));
+    await setLedModeDefault(mode);
+    await registerModifications("led_mode.default", mode);
+  };
+
+  if (!loaded) {
+    return <Skeleton variant="rectangle" />;
+  }
 
   return (
     <>
       <PreferenceSwitch
         option="keyboard.led.default.autoSave"
-        checked={autoSave}
+        checked={ledModeAutoSave}
         onChange={onAutoSaveChange}
       />
       <Box sx={{ display: "flex" }}>
@@ -52,11 +102,11 @@ const DefaultLedMode = (props) => {
         <TextField
           sx={{ width: "10em" }}
           size="small"
-          disabled={autoSave}
+          disabled={ledModeAutoSave}
           type="number"
           min={0}
           max={31}
-          value={ledMode}
+          value={ledModeDefault}
           onChange={onLedModeChange}
           InputLabelProps={{
             shrink: true,

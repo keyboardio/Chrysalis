@@ -17,21 +17,60 @@
  */
 
 import Box from "@mui/material/Box";
+import Skeleton from "@mui/material/Skeleton";
 import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
 
-import React from "react";
+import { GlobalContext } from "@renderer/components/GlobalContext";
+import React, { useEffect, useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
 
 const Brightness = (props) => {
   const { t } = useTranslation();
-  const { value, onChange, visible } = props;
+  const globalContext = useContext(GlobalContext);
+
+  const [activeDevice] = globalContext.state.activeDevice;
+  const [ledBrightness, setLedBrightness] = useState(255);
+  const [loaded, setLoaded] = useState(false);
+
+  const { registerModifications } = props;
+
+  useEffect(() => {
+    const initialize = async () => {
+      let brightness = await activeDevice.focus.command("led.brightness");
+      brightness = parseInt(brightness);
+
+      setLedBrightness(brightness);
+      setLoaded(true);
+    };
+
+    const context_bar_channel = new BroadcastChannel("context_bar");
+    context_bar_channel.onmessage = async (event) => {
+      if (event.data === "changes-discarded") {
+        await initialize();
+      }
+    };
+
+    initialize();
+
+    return () => {
+      context_bar_channel.close();
+    };
+  }, [activeDevice]);
 
   const formatValue = (value) => {
     return ((value / 255) * 100).toFixed(0) + "%";
   };
 
-  if (!visible) return null;
+  const onChange = async (event) => {
+    const brightness = event.target.value;
+    await setLedBrightness(brightness);
+    await registerModifications("led.brightness", brightness);
+  };
+
+  if (!loaded) {
+    return <Skeleton variant="rectangle" />;
+  }
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -50,7 +89,7 @@ const Brightness = (props) => {
         marks
         valueLabelDisplay="auto"
         valueLabelFormat={formatValue}
-        value={value}
+        value={ledBrightness}
         onChange={onChange}
         sx={{ width: "20em", mr: 1 }}
       />

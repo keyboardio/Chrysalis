@@ -21,10 +21,6 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Skeleton from "@mui/material/Skeleton";
 import Typography from "@mui/material/Typography";
-import {
-  hideContextBar,
-  showContextBar,
-} from "@renderer/components/ContextBar";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 import React, { useEffect, useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
@@ -35,13 +31,14 @@ const KeyboardLayerPreferences = (props) => {
   const { t } = useTranslation();
   const globalContext = useContext(GlobalContext);
   const [activeDevice] = globalContext.state.activeDevice;
-  const { setModified, defaultLayer, setDefaultLayer } = props;
+  const { registerModifications } = props;
 
   const [keymap, setKeymap] = useState({
     custom: [],
     default: [],
     onlyCustom: false,
   });
+  const [defaultLayer, setDefaultLayer] = useState(126);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -58,7 +55,6 @@ const KeyboardLayerPreferences = (props) => {
     context_bar_channel.onmessage = async (event) => {
       if (event.data === "changes-discarded") {
         await initialize();
-        setModified(false);
       }
     };
 
@@ -67,13 +63,12 @@ const KeyboardLayerPreferences = (props) => {
     return () => {
       context_bar_channel.close();
     };
-  }, [activeDevice, setDefaultLayer, setModified]);
+  }, [activeDevice]);
 
-  const selectDefaultLayer = (event) => {
-    setDefaultLayer(event.target.value);
-
-    setModified(true);
-    showContextBar();
+  const selectDefaultLayer = async (event) => {
+    const layer = event.target.value;
+    await setDefaultLayer(layer);
+    await registerModifications("settings.defaultLayer", layer);
   };
 
   const layers = keymap.custom.map((_, index) => {

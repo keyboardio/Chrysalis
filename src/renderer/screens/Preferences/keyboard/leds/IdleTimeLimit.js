@@ -20,17 +20,55 @@ import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import Skeleton from "@mui/material/Skeleton";
 import Typography from "@mui/material/Typography";
 
-import React from "react";
+import { GlobalContext } from "@renderer/components/GlobalContext";
+import React, { useEffect, useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
 
 const IdleTimeLimit = (props) => {
   const { t } = useTranslation();
+  const globalContext = useContext(GlobalContext);
 
-  const { onChange, value, visible } = props;
+  const [activeDevice] = globalContext.state.activeDevice;
+  const [ledIdleTimeLimit, setLedIdleTimeLimit] = useState(0);
+  const [loaded, setLoaded] = useState(false);
 
-  if (!visible) return null;
+  const { registerModifications } = props;
+
+  useEffect(() => {
+    const initialize = async () => {
+      let limit = await activeDevice.focus.command("idleleds.time_limit");
+      limit = parseInt(limit);
+
+      setLedIdleTimeLimit(limit);
+      setLoaded(true);
+    };
+
+    const context_bar_channel = new BroadcastChannel("context_bar");
+    context_bar_channel.onmessage = async (event) => {
+      if (event.data === "changes-discarded") {
+        await initialize();
+      }
+    };
+
+    initialize();
+
+    return () => {
+      context_bar_channel.close();
+    };
+  }, [activeDevice]);
+
+  const onChange = async (event) => {
+    const limit = event.target.checked;
+    await setLedIdleTimeLimit(limit);
+    await registerModifications("idleleds.time_limit", limit);
+  };
+
+  if (!loaded) {
+    return <Skeleton variant="rectangle" />;
+  }
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -44,7 +82,11 @@ const IdleTimeLimit = (props) => {
       </Box>
       <span style={{ flexGrow: 1 }} />
       <FormControl size="small">
-        <Select onChange={onChange} value={value} sx={{ width: "10em" }}>
+        <Select
+          onChange={onChange}
+          value={ledIdleTimeLimit}
+          sx={{ width: "10em" }}
+        >
           <MenuItem value={0}>
             {t("preferences.keyboard.led.idle.disabled")}
           </MenuItem>

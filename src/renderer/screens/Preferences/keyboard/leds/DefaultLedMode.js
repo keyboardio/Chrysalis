@@ -20,46 +20,27 @@ import Skeleton from "@mui/material/Skeleton";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 
-import { GlobalContext } from "@renderer/components/GlobalContext";
-import React, { useEffect, useState, useContext } from "react";
+import usePluginEffect from "@renderer/hooks/usePluginEffect";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import PreferenceSwitch from "../../components/PreferenceSwitch";
 
 const DefaultLedMode = (props) => {
   const { t } = useTranslation();
-  const globalContext = useContext(GlobalContext);
-
-  const [activeDevice] = globalContext.state.activeDevice;
-  const [ledModeDefault, setLedModeDefault] = useState(0);
-  const [ledModeAutoSave, setLedModeAutoSave] = useState(true);
-  const [loaded, setLoaded] = useState(false);
-
   const { registerModifications } = props;
 
-  useEffect(() => {
-    const initialize = async () => {
-      const def = await activeDevice.focus.command("led_mode.default");
-      const autoSave = await activeDevice.focus.command("led_mode.auto_save");
+  const [ledModeDefault, setLedModeDefault] = useState(0);
+  const [ledModeAutoSave, setLedModeAutoSave] = useState(true);
 
-      setLedModeDefault(parseInt(def));
-      setLedModeAutoSave(autoSave == "1");
-      setLoaded(true);
-    };
+  const initialize = async (focus) => {
+    const def = await focus.command("led_mode.default");
+    const autoSave = await focus.command("led_mode.auto_save");
 
-    const context_bar_channel = new BroadcastChannel("context_bar");
-    context_bar_channel.onmessage = async (event) => {
-      if (event.data === "changes-discarded") {
-        await initialize();
-      }
-    };
-
-    initialize();
-
-    return () => {
-      context_bar_channel.close();
-    };
-  }, [activeDevice]);
+    setLedModeDefault(parseInt(def));
+    setLedModeAutoSave(autoSave == "1");
+  };
+  const loaded = usePluginEffect(initialize);
 
   if (!loaded) {
     return <Skeleton variant="rectangle" />;

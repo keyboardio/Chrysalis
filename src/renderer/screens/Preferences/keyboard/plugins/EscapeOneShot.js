@@ -21,10 +21,10 @@ import Skeleton from "@mui/material/Skeleton";
 import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
 
+import usePluginEffect from "@renderer/hooks/usePluginEffect";
 import PreferenceSwitch from "../../components/PreferenceSwitch";
 
-import { GlobalContext } from "@renderer/components/GlobalContext";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const EscapeOneShotPreferences = (props) => {
@@ -32,42 +32,24 @@ const EscapeOneShotPreferences = (props) => {
   const escKeyCode = 41;
 
   const { t } = useTranslation();
-  const globalContext = useContext(GlobalContext);
-
-  const [activeDevice] = globalContext.state.activeDevice;
-  const [escOneShot, setEscOneShot] = useState(true);
-  const [loaded, setLoaded] = useState(false);
-
   const { registerModifications } = props;
 
-  useEffect(() => {
-    const initialize = async () => {
-      const doesEscCancelOneShot = (value) => {
-        if (value.length == 0) {
-          return false;
-        }
+  const [escOneShot, setEscOneShot] = useState(true);
 
-        return parseInt(value) == escKeyCode;
-      };
-
-      const key = await activeDevice.focus.command("escape_oneshot.cancel_key");
-      setEscOneShot(doesEscCancelOneShot(key));
-      setLoaded(true);
-    };
-
-    const context_bar_channel = new BroadcastChannel("context_bar");
-    context_bar_channel.onmessage = async (event) => {
-      if (event.data === "changes-discarded") {
-        await initialize();
+  const initialize = async (focus) => {
+    const doesEscCancelOneShot = (value) => {
+      if (value.length == 0) {
+        return false;
       }
+
+      return parseInt(value) == escKeyCode;
     };
 
-    initialize();
+    const key = await focus.command("escape_oneshot.cancel_key");
+    setEscOneShot(doesEscCancelOneShot(key));
+  };
 
-    return () => {
-      context_bar_channel.close();
-    };
-  }, [activeDevice]);
+  const loaded = usePluginEffect(initialize);
 
   const onChange = async (event) => {
     const v = event.target.checked;

@@ -23,42 +23,23 @@ import Select from "@mui/material/Select";
 import Skeleton from "@mui/material/Skeleton";
 import Typography from "@mui/material/Typography";
 
-import { GlobalContext } from "@renderer/components/GlobalContext";
-import React, { useEffect, useState, useContext } from "react";
+import usePluginEffect from "@renderer/hooks/usePluginEffect";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const IdleTimeLimit = (props) => {
   const { t } = useTranslation();
-  const globalContext = useContext(GlobalContext);
-
-  const [activeDevice] = globalContext.state.activeDevice;
-  const [ledIdleTimeLimit, setLedIdleTimeLimit] = useState(0);
-  const [loaded, setLoaded] = useState(false);
-
   const { registerModifications } = props;
 
-  useEffect(() => {
-    const initialize = async () => {
-      let limit = await activeDevice.focus.command("idleleds.time_limit");
-      limit = parseInt(limit);
+  const [ledIdleTimeLimit, setLedIdleTimeLimit] = useState(0);
 
-      setLedIdleTimeLimit(limit);
-      setLoaded(true);
-    };
+  const initialize = async (focus) => {
+    let limit = await focus.command("idleleds.time_limit");
+    limit = parseInt(limit);
 
-    const context_bar_channel = new BroadcastChannel("context_bar");
-    context_bar_channel.onmessage = async (event) => {
-      if (event.data === "changes-discarded") {
-        await initialize();
-      }
-    };
-
-    initialize();
-
-    return () => {
-      context_bar_channel.close();
-    };
-  }, [activeDevice]);
+    setLedIdleTimeLimit(limit);
+  };
+  const loaded = usePluginEffect(initialize);
 
   const onChange = async (event) => {
     const limit = event.target.checked;

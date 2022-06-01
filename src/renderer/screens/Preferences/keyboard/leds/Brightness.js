@@ -21,42 +21,23 @@ import Skeleton from "@mui/material/Skeleton";
 import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
 
-import { GlobalContext } from "@renderer/components/GlobalContext";
-import React, { useEffect, useState, useContext } from "react";
+import usePluginEffect from "@renderer/hooks/usePluginEffect";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const Brightness = (props) => {
   const { t } = useTranslation();
-  const globalContext = useContext(GlobalContext);
-
-  const [activeDevice] = globalContext.state.activeDevice;
-  const [ledBrightness, setLedBrightness] = useState(255);
-  const [loaded, setLoaded] = useState(false);
-
   const { registerModifications } = props;
 
-  useEffect(() => {
-    const initialize = async () => {
-      let brightness = await activeDevice.focus.command("led.brightness");
-      brightness = parseInt(brightness);
+  const [ledBrightness, setLedBrightness] = useState(255);
 
-      setLedBrightness(brightness);
-      setLoaded(true);
-    };
+  const initialize = async (focus) => {
+    let brightness = await focus.command("led.brightness");
+    brightness = parseInt(brightness);
 
-    const context_bar_channel = new BroadcastChannel("context_bar");
-    context_bar_channel.onmessage = async (event) => {
-      if (event.data === "changes-discarded") {
-        await initialize();
-      }
-    };
-
-    initialize();
-
-    return () => {
-      context_bar_channel.close();
-    };
-  }, [activeDevice]);
+    setLedBrightness(brightness);
+  };
+  const loaded = usePluginEffect(initialize);
 
   const formatValue = (value) => {
     return ((value / 255) * 100).toFixed(0) + "%";

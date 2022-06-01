@@ -45,6 +45,14 @@
     "buildDependenciesFromSource": true,
     "npmRebuild": false,
     "mac": {
+      "target": {
+        "target": "default",
+        "arch": [
+          "arm64",
+          "x64"
+        ]
+      },
+      "type": "distribution",
       "darkModeSupport": true,
       "hardenedRuntime": true,
       "entitlements": "./build/entitlements.mac.inherit.plist"

@@ -161,7 +161,7 @@ async function DFUUtilBootloader(port, filename, options) {
   const dfuUtil = path.join(
     getStaticPath(),
     "dfu-util",
-    process.platform,
+    `${process.platform}-${process.arch}`,
     "dfu-util"
   );
 

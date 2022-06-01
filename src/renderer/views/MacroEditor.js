@@ -614,7 +614,7 @@ class MacroEditor extends React.Component {
             macros={macros}
             maxMacros={maxMacros}
             selected={selectedMacro}
-            updateMacro={this.updateMacros}
+            updateActions={this.updateActions}
             changeSelected={this.changeSelected}
             keymapDB={this.keymapDB}
           />

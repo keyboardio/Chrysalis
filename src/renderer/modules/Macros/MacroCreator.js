@@ -329,6 +329,7 @@ class MacroCreator extends Component {
         return actions;
       })
     );
+    console.log("TEST", JSON.stringify(newRows), JSON.stringify(this.props.macro));
     this.setState({
       addText: ""
     });
@@ -406,7 +407,7 @@ class MacroCreator extends Component {
   };
 
   updateRows = rows => {
-    console.log("updaterows", rows);
+    console.log("updaterows", JSON.stringify(rows));
     let texted = rows.map(k => this.keymapDB.parse(k.keyCode).label).join(" ");
     let newRows = rows.map((item, index) => {
       let aux = item;
@@ -527,6 +528,20 @@ class MacroCreator extends Component {
     return actions;
   };
 
+  onTextChange = event => {
+    this.setState({ addText: event.target.value });
+  };
+
+  assignColor = keyCode => {
+    let color = this.modifiers.filter(x => x.keyCode === keyCode);
+    if (color === undefined || color.length == 0) {
+      color = "#ededed";
+    } else {
+      color = color[0].color;
+    }
+    return color;
+  };
+
   render() {
     return (
       <Styles>
@@ -552,7 +567,7 @@ class MacroCreator extends Component {
                 <Title headingLevel={3} text={i18n.general.configure} />
                 <Tab.Content>
                   <Tab.Pane eventKey="tabText">
-                    <TextTab onAddText={this.onAddText} />
+                    <TextTab onAddText={this.onAddText} onTextChange={this.onTextChange} addText={this.state.addText} />
                   </Tab.Pane>
                   <Tab.Pane eventKey="tabKeys">
                     <KeysTab macros={this.props.macros} />

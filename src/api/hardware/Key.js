@@ -153,7 +153,15 @@ const Key = ({
                   >
                     {centerExtra}
                   </li>
-                  <li>{centerPrimary}</li>
+                  <li
+                    className={`labelClass ${
+                      altApplied || altGrApplied || ctrlApplied || osApplied || shiftApplied || mehApplied || hyperApplied
+                        ? "labelClass-withModifiers"
+                        : ""
+                    }`}
+                  >
+                    {centerPrimary}
+                  </li>
                 </ul>
               </div>
             </foreignObject>
@@ -256,7 +264,15 @@ const Key = ({
                 >
                   {centerExtra}
                 </li>
-                <li>{centerPrimary}</li>
+                <li
+                  className={`labelClass ${
+                    altApplied || altGrApplied || ctrlApplied || osApplied || shiftApplied || mehApplied || hyperApplied
+                      ? "labelClass-withModifiers"
+                      : ""
+                  }`}
+                >
+                  {centerPrimary}
+                </li>
               </ul>
             </div>
           </foreignObject>
@@ -358,7 +374,15 @@ const Key = ({
                 >
                   {centerExtra}
                 </li>
-                <li>{centerPrimary}</li>
+                <li
+                  className={`labelClass ${
+                    altApplied || altGrApplied || ctrlApplied || osApplied || shiftApplied || mehApplied || hyperApplied
+                      ? "labelClass-withModifiers"
+                      : ""
+                  }`}
+                >
+                  {centerPrimary}
+                </li>
               </ul>
             </div>
           </foreignObject>
@@ -470,7 +494,15 @@ const Key = ({
                 >
                   {centerExtra}
                 </li>
-                <li>{centerPrimary}</li>
+                <li
+                  className={`labelClass ${
+                    altApplied || altGrApplied || ctrlApplied || osApplied || shiftApplied || mehApplied || hyperApplied
+                      ? "labelClass-withModifiers"
+                      : ""
+                  }`}
+                >
+                  {centerPrimary}
+                </li>
               </ul>
             </div>
           </foreignObject>

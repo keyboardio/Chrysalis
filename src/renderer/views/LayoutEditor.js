@@ -182,7 +182,9 @@ margin: auto;
         hyphens: auto;
       }
     }
-    
+    .labelClass-withModifiers {
+      margin-bottom: 8px;
+    }
     .extraLabel {
       font-size: 9px;
       font-weight: 700;

@@ -30,6 +30,7 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import PreferenceSection from "../components/PreferenceSection";
+import PreferenceWithHeading from "../components/PreferenceWithHeading";
 
 const Store = require("electron-store");
 const settings = new Store();
@@ -190,11 +191,7 @@ function LookAndFeelPreferences(props) {
         />
       </Box>
       <Divider sx={{ my: 2, mx: -2 }} />
-      <Box sx={{ display: "flex" }}>
-        <Typography sx={{ my: "auto" }} variant="body1">
-          {t("preferences.ui.language.help")}
-        </Typography>
-        <span style={{ flexGrow: 1 }} />
+      <PreferenceWithHeading heading={t("preferences.ui.language.help")}>
         <Select
           size="small"
           value={language}
@@ -203,7 +200,7 @@ function LookAndFeelPreferences(props) {
         >
           {languages}
         </Select>
-      </Box>
+      </PreferenceWithHeading>
     </PreferenceSection>
   );
 }

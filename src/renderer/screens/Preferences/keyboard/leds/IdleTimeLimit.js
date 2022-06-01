@@ -16,16 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Skeleton from "@mui/material/Skeleton";
-import Typography from "@mui/material/Typography";
 
 import usePluginEffect from "@renderer/hooks/usePluginEffect";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+
+import PreferenceWithHeading from "../../components/PreferenceWithHeading";
 
 const IdleTimeLimit = (props) => {
   const { t } = useTranslation();
@@ -48,16 +48,10 @@ const IdleTimeLimit = (props) => {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <Box>
-        <Typography variant="body1">
-          {t("preferences.keyboard.led.idle.label")}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {t("preferences.keyboard.led.idle.help")}
-        </Typography>
-      </Box>
-      <span style={{ flexGrow: 1 }} />
+    <PreferenceWithHeading
+      heading={t("preferences.keyboard.led.idle.label")}
+      subheading={t("preferences.keyboard.led.idle.help")}
+    >
       {loaded ? (
         <FormControl size="small">
           <Select
@@ -103,7 +97,7 @@ const IdleTimeLimit = (props) => {
       ) : (
         <Skeleton variant="rectangle" width="10em" height={40} />
       )}
-    </Box>
+    </PreferenceWithHeading>
   );
 };
 

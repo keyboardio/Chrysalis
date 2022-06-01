@@ -18,19 +18,16 @@
 import KeymapDB from "@api/focus/keymap/db";
 
 import Autocomplete from "@mui/material/Autocomplete";
-import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
-import FormControl from "@mui/material/FormControl";
-import FormHelperText from "@mui/material/FormHelperText";
 import Skeleton from "@mui/material/Skeleton";
 import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
 
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 import PreferenceSection from "../components/PreferenceSection";
 import PreferenceSwitch from "../components/PreferenceSwitch";
+import PreferenceWithHeading from "../components/PreferenceWithHeading";
 
 const Store = require("electron-store");
 const settings = new Store();
@@ -105,22 +102,16 @@ function LayoutEditorPreferences(props) {
 
   return (
     <PreferenceSection name="ui.layoutEditor">
-      <Box sx={{ display: "flex" }}>
-        <Box sx={{ my: "auto" }}>
-          <Typography variant="body1">
-            {t("preferences.ui.host.label")}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {t("preferences.ui.host.help")}
-          </Typography>
-        </Box>
-        <span style={{ flexGrow: 1 }} />
+      <PreferenceWithHeading
+        heading={t("preferences.ui.host.label")}
+        subheading={t("preferences.ui.host.help")}
+      >
         {loaded ? (
           <LayoutSelect layout={layout} setLayout={changeLayout} />
         ) : (
           <Skeleton variant="rectangular" />
         )}
-      </Box>
+      </PreferenceWithHeading>
       <Divider sx={{ my: 2, mx: -2 }} />
       <PreferenceSwitch
         loaded={loaded}

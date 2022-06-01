@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 import Slider from "@mui/material/Slider";
-import Typography from "@mui/material/Typography";
 
 import usePluginEffect from "@renderer/hooks/usePluginEffect";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+
+import PreferenceWithHeading from "../../components/PreferenceWithHeading";
 
 const Brightness = (props) => {
   const { t } = useTranslation();
@@ -50,16 +50,10 @@ const Brightness = (props) => {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <Box>
-        <Typography variant="body1">
-          {t("preferences.keyboard.led.brightness.label")}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {t("preferences.keyboard.led.brightness.help")}
-        </Typography>
-      </Box>
-      <span style={{ flexGrow: 1 }} />
+    <PreferenceWithHeading
+      heading={t("preferences.keyboard.led.brightness.label")}
+      subheading={t("preferences.keyboard.led.brightness.help")}
+    >
       {loaded ? (
         <Slider
           max={255}
@@ -74,7 +68,7 @@ const Brightness = (props) => {
       ) : (
         <Skeleton variant="rectangle" width="20em" height={30} />
       )}
-    </Box>
+    </PreferenceWithHeading>
   );
 };
 

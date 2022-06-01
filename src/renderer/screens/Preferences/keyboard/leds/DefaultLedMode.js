@@ -15,16 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
 
 import usePluginEffect from "@renderer/hooks/usePluginEffect";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import PreferenceSwitch from "../../components/PreferenceSwitch";
+import PreferenceWithHeading from "../../components/PreferenceWithHeading";
 
 const DefaultLedMode = (props) => {
   const { t } = useTranslation();
@@ -63,16 +62,10 @@ const DefaultLedMode = (props) => {
         checked={ledModeAutoSave}
         onChange={onAutoSaveChange}
       />
-      <Box sx={{ display: "flex" }}>
-        <Box>
-          <Typography variant="body1">
-            {t("preferences.keyboard.led.default.label")}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {t("preferences.keyboard.led.default.help")}
-          </Typography>
-        </Box>
-        <span style={{ flexGrow: 1 }} />
+      <PreferenceWithHeading
+        heading={t("preferences.keyboard.led.default.label")}
+        subheading={t("preferences.keyboard.led.default.help")}
+      >
         {loaded ? (
           <TextField
             sx={{ width: "10em" }}
@@ -90,7 +83,7 @@ const DefaultLedMode = (props) => {
         ) : (
           <Skeleton variant="rectangle" width="10em" height={40} />
         )}
-      </Box>
+      </PreferenceWithHeading>
     </>
   );
 };

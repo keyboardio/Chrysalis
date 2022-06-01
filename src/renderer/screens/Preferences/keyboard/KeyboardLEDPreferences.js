@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import Divider from "@mui/material/Divider";
 import Skeleton from "@mui/material/Skeleton";
 import {
   hideContextBar,
@@ -173,6 +174,7 @@ const KeyboardLEDPreferences = (props) => {
       ) : (
         <Skeleton variant="rectange" width={600} height={167} sx={{ my: 2 }} />
       )}
+      <Divider sx={{ mx: -2, my: 2 }} />
       {loaded ? (
         <IdleTimeLimit
           visible={hasIdleTime}

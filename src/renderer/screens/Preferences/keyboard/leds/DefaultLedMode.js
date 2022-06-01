@@ -16,12 +16,8 @@
  */
 
 import Box from "@mui/material/Box";
-import FormControl from "@mui/material/FormControl";
-import FormHelperText from "@mui/material/FormHelperText";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -37,16 +33,26 @@ const DefaultLedMode = (props) => {
   if (!visible) return null;
 
   return (
-    <Box sx={{ my: 2 }}>
+    <>
       <PreferenceSwitch
         option="keyboard.led.default.autoSave"
         checked={autoSave}
         onChange={onAutoSaveChange}
       />
-      <FormControl sx={{ my: 2 }}>
+      <Box sx={{ display: "flex" }}>
+        <Box>
+          <Typography variant="body1">
+            {t("preferences.keyboard.led.default.label")}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {t("preferences.keyboard.led.default.help")}
+          </Typography>
+        </Box>
+        <span style={{ flexGrow: 1 }} />
         <TextField
+          sx={{ width: "10em" }}
+          size="small"
           disabled={autoSave}
-          label={t("preferences.keyboard.led.default.label")}
           type="number"
           min={0}
           max={31}
@@ -56,11 +62,8 @@ const DefaultLedMode = (props) => {
             shrink: true,
           }}
         />
-        <FormHelperText>
-          {t("preferences.keyboard.led.default.help")}
-        </FormHelperText>
-      </FormControl>
-    </Box>
+      </Box>
+    </>
   );
 };
 

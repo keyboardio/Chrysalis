@@ -40,6 +40,7 @@ import { undeglowDefaultColors } from "../screens/Editor/initialUndaglowColors";
 
 // Modules
 import PageHeader from "../modules/PageHeader";
+import ColorEditor from "../modules/ColorEditor";
 import { KeyPickerKeyboard } from "../modules/KeyPickerKeyboard";
 import { LayerSelector } from "../component/Select";
 
@@ -1789,6 +1790,21 @@ class LayoutEditor extends React.Component {
                 editModeFunc={this.modeSelectToggle}
               />
             }
+            colorEditor={
+              <ColorEditor
+                key={palette}
+                colors={palette}
+                disabled={isReadOnly || currentLayer > this.state.colorMap.length}
+                onColorSelect={this.onColorSelect}
+                colorButtonIsSelected={this.state.colorButtonIsSelected}
+                onColorPick={this.onColorPick}
+                selected={this.state.selectedPaletteColor}
+                isColorButtonSelected={isColorButtonSelected}
+                onColorButtonSelect={this.onColorButtonSelect}
+                toChangeAllKeysColor={this.toChangeAllKeysColor}
+              />
+            }
+            isColorActive={this.state.modeselect == "keyboard" ? false : true}
             saveContext={this.onApply}
             destroyContext={() => {
               this.props.cancelContext();

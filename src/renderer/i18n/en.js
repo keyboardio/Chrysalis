@@ -313,7 +313,7 @@ const English = {
         help: `When enabled, the layout cards will show not only key labels, but if available, colors too.`,
       },
       host: {
-        layout: "{{hostos}} layout",
+        label: "Keyboard layout",
         help: "Select the key layout you use on your computer",
       },
     },

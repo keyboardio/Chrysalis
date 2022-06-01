@@ -18,10 +18,13 @@
 import KeymapDB from "@api/focus/keymap/db";
 
 import Autocomplete from "@mui/material/Autocomplete";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 import Skeleton from "@mui/material/Skeleton";
 import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -35,37 +38,24 @@ const settings = new Store();
 const db = new KeymapDB();
 
 const LayoutSelect = (props) => {
-  const { layout, setLayout, ...rest } = props;
-  const { t } = useTranslation();
-  const platforms = {
-    linux: "Linux",
-    win32: "Windows",
-    darwin: "macOS",
-  };
-  const hostos = platforms[process.platform];
-  const label = t("preferences.ui.host.layout", {
-    hostos: hostos,
-  });
+  const { layout, setLayout } = props;
 
   const changeLayout = (_, value) => {
     setLayout(value || props.layout);
   };
 
   return (
-    <FormControl {...rest}>
-      <Autocomplete
-        value={layout}
-        groupBy={(option) => db.getLayoutLanguage(option)}
-        onChange={changeLayout}
-        options={db.getSupportedLayouts()}
-        getOptionLabel={(option) => option}
-        disableClearable
-        renderInput={(params) => (
-          <TextField {...params} label={label} variant="outlined" />
-        )}
-      />
-      <FormHelperText>{t("preferences.ui.host.help")}</FormHelperText>
-    </FormControl>
+    <Autocomplete
+      size="small"
+      sx={{ minWidth: "20em" }}
+      value={layout}
+      groupBy={(option) => db.getLayoutLanguage(option)}
+      onChange={changeLayout}
+      options={db.getSupportedLayouts()}
+      getOptionLabel={(option) => option}
+      disableClearable
+      renderInput={(params) => <TextField {...params} variant="outlined" />}
+    />
   );
 };
 
@@ -115,18 +105,23 @@ function LayoutEditorPreferences(props) {
 
   return (
     <PreferenceSection name="ui.layoutEditor">
-      {loaded ? (
-        <LayoutSelect
-          sx={{
-            my: 2,
-            minWidth: "20em",
-          }}
-          layout={layout}
-          setLayout={changeLayout}
-        />
-      ) : (
-        <Skeleton variant="rectangular" width={320} height={111} />
-      )}
+      <Box sx={{ display: "flex" }}>
+        <Box sx={{ my: "auto" }}>
+          <Typography variant="body1">
+            {t("preferences.ui.host.label")}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {t("preferences.ui.host.help")}
+          </Typography>
+        </Box>
+        <span style={{ flexGrow: 1 }} />
+        {loaded ? (
+          <LayoutSelect layout={layout} setLayout={changeLayout} />
+        ) : (
+          <Skeleton variant="rectangular" />
+        )}
+      </Box>
+      <Divider sx={{ my: 2, mx: -2 }} />
       {loaded ? (
         <PreferenceSwitch
           option="ui.hideUnavailableFeatures"

@@ -16,8 +16,9 @@
  */
 
 import Skeleton from "@mui/material/Skeleton";
-import { GlobalContext } from "@renderer/components/GlobalContext";
-import React, { useEffect, useState, useContext } from "react";
+import usePluginCheck from "@renderer/hooks/usePluginCheck";
+
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import PreferenceSection from "../components/PreferenceSection";
@@ -25,37 +26,20 @@ import EscapeOneShotPreferences from "./plugins/EscapeOneShot";
 
 const PluginPreferences = (props) => {
   const { t } = useTranslation();
-  const globalContext = useContext(GlobalContext);
-  const [activeDevice] = globalContext.state.activeDevice;
-
-  const [initialized, setInitialized] = useState(false);
-  const [hasEscOneShot, setHasEscOneShot] = useState(false);
-
   const { registerModifications } = props;
 
-  // Initialize: check for plugins
-  useEffect(() => {
-    const initialize = async () => {
-      const plugins = await activeDevice.plugins();
+  const [loaded, plugins] = usePluginCheck(["EscapeOneShot"]);
 
-      if (plugins.includes("EscapeOneShot")) {
-        setHasEscOneShot(true);
-      }
-
-      setInitialized(true);
-    };
-
-    if (!initialized) initialize();
-  }, [activeDevice, initialized]);
-
-  if (!initialized) {
+  if (!loaded) {
     return <Skeleton variant="rectangle" />;
   }
-  if (initialized && !hasEscOneShot) return null;
+
+  const foundSomePlugins = Object.values(plugins).filter((v) => v).length > 0;
+  if (loaded && !foundSomePlugins) return null;
 
   return (
     <PreferenceSection name="keyboard.plugins">
-      {hasEscOneShot && (
+      {plugins["EscapeOneShot"] && (
         <EscapeOneShotPreferences
           registerModifications={registerModifications}
         />

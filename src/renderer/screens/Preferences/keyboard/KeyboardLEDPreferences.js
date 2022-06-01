@@ -18,8 +18,8 @@
 
 import Divider from "@mui/material/Divider";
 
-import { GlobalContext } from "@renderer/components/GlobalContext";
-import React, { useEffect, useState, useContext } from "react";
+import usePluginCheck from "@renderer/hooks/usePluginCheck";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import Brightness from "./leds/Brightness";
@@ -31,55 +31,34 @@ const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 const KeyboardLEDPreferences = (props) => {
   const { t } = useTranslation();
-  const globalContext = useContext(GlobalContext);
-  const [activeDevice] = globalContext.state.activeDevice;
-  const [hasBrightness, setHasBrightness] = useState(false);
-  const [hasIdleTime, setHasIdleTime] = useState(false);
-  const [hasPersistentLedMode, setHasPersistentLedMode] = useState(false);
-  const [initialized, setInitialized] = useState(false);
-
   const { registerModifications } = props;
 
-  // Do the initial loading
-  useEffect(() => {
-    const initialize = async () => {
-      const plugins = await activeDevice.plugins();
-      const commands = await activeDevice.supported_commands();
+  const [loaded, plugins] = usePluginCheck([
+    "PersistentIdleLEDs",
+    "PersistentLEDMode",
+    "led.brightness",
+  ]);
 
-      if (plugins.includes("PersistentIdleLEDs")) {
-        setHasIdleTime(true);
-      }
-      if (plugins.includes("PersistentLEDMode")) {
-        setHasPersistentLedMode(true);
-      }
-      if (commands.includes("led.brightness")) {
-        setHasBrightness(true);
-      }
-
-      setInitialized(true);
-    };
-
-    if (!initialized) initialize();
-  }, [activeDevice, initialized]);
-
-  if (initialized && !hasIdleTime && !hasBrightness && !hasPersistentLedMode)
-    return null;
+  const foundSomePlugins = Object.values(plugins).filter((v) => v).length > 0;
+  if (loaded && !foundSomePlugins) return null;
 
   return (
     <PreferenceSection name="keyboard.led">
-      {hasPersistentLedMode && (
+      {plugins["PersistentLEDMode"] && (
         <DefaultLedMode registerModifications={registerModifications} />
       )}
-      {hasPersistentLedMode && (hasIdleTime || hasBrightness) && (
-        <Divider sx={{ mx: -2, my: 2 }} />
-      )}
-      {hasIdleTime && (
+      {plugins["PersistentLEDMode"] &&
+        (plugins["PersistentIdleLEDs"] || plugins["led.brightness"]) && (
+          <Divider sx={{ mx: -2, my: 2 }} />
+        )}
+      {plugins["PersistentIdleLEDs"] && (
         <IdleTimeLimit registerModifications={registerModifications} />
       )}
-      {hasBrightness && (hasIdleTime || hasPersistentLedMode) && (
-        <Divider sx={{ mx: -2, my: 2 }} />
-      )}
-      {hasBrightness && (
+      {plugins["led.brightness"] &&
+        (plugins["PersistentIdleLEDs"] || plugins["PersistentLEDMode"]) && (
+          <Divider sx={{ mx: -2, my: 2 }} />
+        )}
+      {plugins["led.brightness"] && (
         <Brightness registerModifications={registerModifications} />
       )}
     </PreferenceSection>

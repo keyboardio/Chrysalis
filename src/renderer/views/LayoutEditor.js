@@ -170,16 +170,21 @@ margin: auto;
     padding: 3px;
     flex-wrap: wrap;
     line-height: 1.1em;
+    position: relative;
     ul {
       list-style: none;
       padding: 0;
       margin: 0;
       color: ${({ theme }) => theme.styles.raiseKeyboard.contentColor};
     }
+    
     .extraLabel {
       font-size: 9px;
       font-weight: 700;
       letter-spacing: 0.025em;
+    }
+    .hidden-extraLabel {
+      display: none;
     }
     tspan {
       display: inline-block;
@@ -220,6 +225,42 @@ margin: auto;
     }
   }
 }
+.keyContentModifiers {
+  .labelModifier {
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    bottom: 6px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-left: 6px;
+    margin-right: -1px;
+    &.extraBottom { 
+      margin-left: 1px;
+      li {
+        margin-left: 1px;
+        margin-right: 0;
+      }
+    }
+    li {
+      padding: 0px 3px;
+      border-radius: 3px;
+      
+      display: inline-block;
+      margin: 1px;
+
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      color: rgba(48, 57, 73, 0.7);
+      background: rgba(255, 255, 255, 0.6);
+      box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.15);
+    }
+  }
+}
+
+
 .underGlowStrip {
   .underGlowStripStroke {
       stroke-opacity: 0.5;

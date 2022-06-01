@@ -222,8 +222,8 @@ class KeymapISO extends React.Component {
      */
     const GetCurrentKeyElement = props => {
       return (
-        <tspan>
-          <tspan
+        <span>
+          <span
             className={props.class}
             textAnchor="middle"
             key={props.index}
@@ -233,8 +233,8 @@ class KeymapISO extends React.Component {
             textLength={props.textLength}
           >
             {props.word}
-          </tspan>
-        </tspan>
+          </span>
+        </span>
       );
     };
     /**
@@ -262,10 +262,10 @@ class KeymapISO extends React.Component {
         ));
       } else if (str.toLowerCase().endsWith("to")) {
         return longWords.map((word, index) => (
-          <tspan key={index}>
+          <span key={index}>
             <GetCurrentKeyElement x={xCord} y={String(+yCord + 9)} dy={0} word={word.slice(0, word.indexOf("to") - 1)} />
             <GetCurrentKeyElement x={String(+xCord - 5)} y={String(+yCord + 9)} dy={interval} word={word.slice(-2)} />
-          </tspan>
+          </span>
         ));
       } else if (
         str.length > 8 &&
@@ -282,10 +282,10 @@ class KeymapISO extends React.Component {
         smallKey
       ) {
         return longWords.map((word, index) => (
-          <tspan key={index}>
+          <span key={index}>
             <GetCurrentKeyElement x={xCord} y={String(+yCord - 10)} word={word.slice(0, 4)} dy={"0"} />
             <GetCurrentKeyElement x={xCord} y={String(+yCord - 10)} word={word.slice(4)} dy={interval} />
-          </tspan>
+          </span>
         ));
       } else if (longWords.length === 1) {
         return longWords.map((word, index) => <GetCurrentKeyElement key={index} x={xCord} y={yCord} word={word} />);

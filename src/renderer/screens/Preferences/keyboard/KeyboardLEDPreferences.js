@@ -27,6 +27,8 @@ import DefaultLedMode from "./leds/DefaultLedMode";
 import IdleTimeLimit from "./leds/IdleTimeLimit";
 import PreferenceSection from "../components/PreferenceSection";
 
+import { dividePreferences } from "../utils/dividePreferences";
+
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 const KeyboardLEDPreferences = (props) => {
@@ -42,25 +44,15 @@ const KeyboardLEDPreferences = (props) => {
   const foundSomePlugins = Object.values(plugins).filter((v) => v).length > 0;
   if (loaded && !foundSomePlugins) return null;
 
+  const preferences = [
+    { plugin: "PersistentLEDMode", Component: DefaultLedMode },
+    { plugin: "PersistentIdleLEDs", Component: IdleTimeLimit },
+    { plugin: "led.brightness", Component: Brightness },
+  ];
+
   return (
     <PreferenceSection name="keyboard.led" loaded={loaded}>
-      {plugins["PersistentLEDMode"] && (
-        <DefaultLedMode onSaveChanges={onSaveChanges} />
-      )}
-      {plugins["PersistentLEDMode"] &&
-        (plugins["PersistentIdleLEDs"] || plugins["led.brightness"]) && (
-          <Divider sx={{ mx: -2, my: 2 }} />
-        )}
-      {plugins["PersistentIdleLEDs"] && (
-        <IdleTimeLimit onSaveChanges={onSaveChanges} />
-      )}
-      {plugins["led.brightness"] &&
-        (plugins["PersistentIdleLEDs"] || plugins["PersistentLEDMode"]) && (
-          <Divider sx={{ mx: -2, my: 2 }} />
-        )}
-      {plugins["led.brightness"] && (
-        <Brightness onSaveChanges={onSaveChanges} />
-      )}
+      {dividePreferences(plugins, preferences, onSaveChanges, "keyboard.led")}
     </PreferenceSection>
   );
 };

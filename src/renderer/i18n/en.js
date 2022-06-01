@@ -286,28 +286,27 @@ const English = {
     },
     ui: {
       layoutEditor: {
-        label: "Layout Editor Preferences",
+        label: "Customize the Layout Editor",
       },
       layoutCards: {
-        label: "Layout Cards Preferences",
+        label: "Customize Layout Cards",
       },
       hideUnavailableFeatures: {
         label: `Hide features not supported by your keyboard's current firmware`,
         help: `When enabled, Chrysalis will hide configuration options for features that your keyboard's firmware doesn't support.`,
       },
       lookNFeel: {
-        label: "Look & Feel",
-        description: `The settings below control the general look an feel of Chrysalis.`,
+        label: "Customize appearance",
       },
       theme: {
-        label: "Choose the theme Chrysalis should use:",
-        system: "Match the system theme",
-        dark: "Use a dark theme",
-        light: "Use a light theme",
+        label: "Overall appearance",
+        system: "System default",
+        dark: "Dark",
+        light: "Light",
       },
       language: {
         label: "Language",
-        help: "Choose the language Chrysalis should use.",
+        help: "Choose the language Chrysalis should use",
       },
       coloredLayoutCards: {
         label: "Enable colors on the layout cards",

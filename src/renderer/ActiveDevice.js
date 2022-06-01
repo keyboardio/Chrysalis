@@ -61,8 +61,6 @@ export function ActiveDevice() {
       commands.includes("colormap.map") > 0 &&
       commands.includes("palette") > 0
     ) {
-      console.log("it has customizable LED maps");
-      console.log(commands);
       return true;
     } else {
       return false;

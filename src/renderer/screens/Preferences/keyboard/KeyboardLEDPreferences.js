@@ -31,7 +31,7 @@ const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 const KeyboardLEDPreferences = (props) => {
   const { t } = useTranslation();
-  const { registerModifications } = props;
+  const { onSaveChanges } = props;
 
   const [loaded, plugins] = useCheckDeviceSupportsPlugins([
     "PersistentIdleLEDs",
@@ -45,21 +45,21 @@ const KeyboardLEDPreferences = (props) => {
   return (
     <PreferenceSection name="keyboard.led" loaded={loaded}>
       {plugins["PersistentLEDMode"] && (
-        <DefaultLedMode registerModifications={registerModifications} />
+        <DefaultLedMode onSaveChanges={onSaveChanges} />
       )}
       {plugins["PersistentLEDMode"] &&
         (plugins["PersistentIdleLEDs"] || plugins["led.brightness"]) && (
           <Divider sx={{ mx: -2, my: 2 }} />
         )}
       {plugins["PersistentIdleLEDs"] && (
-        <IdleTimeLimit registerModifications={registerModifications} />
+        <IdleTimeLimit onSaveChanges={onSaveChanges} />
       )}
       {plugins["led.brightness"] &&
         (plugins["PersistentIdleLEDs"] || plugins["PersistentLEDMode"]) && (
           <Divider sx={{ mx: -2, my: 2 }} />
         )}
       {plugins["led.brightness"] && (
-        <Brightness registerModifications={registerModifications} />
+        <Brightness onSaveChanges={onSaveChanges} />
       )}
     </PreferenceSection>
   );

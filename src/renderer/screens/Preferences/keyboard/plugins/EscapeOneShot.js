@@ -31,7 +31,7 @@ const EscapeOneShotPreferences = (props) => {
   const escKeyCode = 41;
 
   const { t } = useTranslation();
-  const { registerModifications } = props;
+  const { onSaveChanges } = props;
 
   const [escOneShot, setEscOneShot] = useState(true);
 
@@ -53,7 +53,7 @@ const EscapeOneShotPreferences = (props) => {
   const onChange = async (event) => {
     const v = event.target.checked;
     await setEscOneShot(v);
-    await registerModifications(
+    await onSaveChanges(
       "escape_oneshot.cancel_key",
       v ? escKeyCode : oneShotCancelKeyCode
     );

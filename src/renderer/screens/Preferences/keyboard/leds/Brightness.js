@@ -27,7 +27,7 @@ import { useTranslation } from "react-i18next";
 
 const Brightness = (props) => {
   const { t } = useTranslation();
-  const { registerModifications } = props;
+  const { onSaveChanges } = props;
 
   const [ledBrightness, setLedBrightness] = useState(255);
 
@@ -46,7 +46,7 @@ const Brightness = (props) => {
   const onChange = async (event) => {
     const brightness = event.target.value;
     await setLedBrightness(brightness);
-    await registerModifications("led.brightness", brightness);
+    await onSaveChanges("led.brightness", brightness);
   };
 
   return (

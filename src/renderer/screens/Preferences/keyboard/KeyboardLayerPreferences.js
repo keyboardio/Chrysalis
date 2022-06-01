@@ -30,7 +30,7 @@ import PreferenceSection from "../components/PreferenceSection";
 
 const KeyboardLayerPreferences = (props) => {
   const { t } = useTranslation();
-  const { registerModifications } = props;
+  const { onSaveChanges } = props;
 
   const [keymap, setKeymap] = useState({
     custom: [],
@@ -51,7 +51,7 @@ const KeyboardLayerPreferences = (props) => {
   const selectDefaultLayer = async (event) => {
     const layer = event.target.value;
     await setDefaultLayer(layer);
-    await registerModifications("settings.defaultLayer", layer);
+    await onSaveChanges("settings.defaultLayer", layer);
   };
 
   const layers = keymap.custom.map((_, index) => {

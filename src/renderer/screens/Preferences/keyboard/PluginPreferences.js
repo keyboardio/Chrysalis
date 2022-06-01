@@ -25,7 +25,7 @@ import EscapeOneShotPreferences from "./plugins/EscapeOneShot";
 
 const PluginPreferences = (props) => {
   const { t } = useTranslation();
-  const { registerModifications } = props;
+  const { onSaveChanges } = props;
 
   const [loaded, plugins] = useCheckDeviceSupportsPlugins(["EscapeOneShot"]);
 
@@ -35,9 +35,7 @@ const PluginPreferences = (props) => {
   return (
     <PreferenceSection name="keyboard.plugins" loaded={loaded}>
       {plugins["EscapeOneShot"] && (
-        <EscapeOneShotPreferences
-          registerModifications={registerModifications}
-        />
+        <EscapeOneShotPreferences onSaveChanges={onSaveChanges} />
       )}
     </PreferenceSection>
   );

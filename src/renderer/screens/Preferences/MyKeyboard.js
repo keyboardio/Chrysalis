@@ -32,27 +32,27 @@ import PluginPreferences from "./keyboard/PluginPreferences";
 
 const MyKeyboardPreferences = (props) => {
   const [modified, setModified] = useState(false);
-  const [saveCallbacks, setSaveCallbacks] = useState({});
+  const [changes, setChanges] = useState({});
 
   const { t } = useTranslation();
   const globalContext = useContext(GlobalContext);
   const [activeDevice] = globalContext.state.activeDevice;
 
-  const registerModifications = (command, args) => {
-    const newCbs = Object.assign({}, saveCallbacks);
-    newCbs[command] = args;
-    setSaveCallbacks(newCbs);
+  const onSaveChanges = (command, args) => {
+    const newChanges = Object.assign({}, changes);
+    newChanges[command] = args;
+    setChanges(newChanges);
 
     setModified(true);
     showContextBar();
   };
 
-  const saveKeymapChanges = async () => {
-    for (const cmd of Object.keys(saveCallbacks)) {
-      const args = saveCallbacks[cmd];
+  const saveChanges = async () => {
+    for (const cmd of Object.keys(changes)) {
+      const args = changes[cmd];
       await activeDevice.focus.command(cmd, args);
     }
-    setSaveCallbacks({});
+    setChanges({});
 
     await setModified(false);
     await hideContextBar();
@@ -62,7 +62,7 @@ const MyKeyboardPreferences = (props) => {
     const channel = new BroadcastChannel("context_bar");
     channel.onmessage = async (event) => {
       if (event.data === "changes-discarded") {
-        setSaveCallbacks({});
+        setChanges({});
         setModified(false);
       }
     };
@@ -73,16 +73,12 @@ const MyKeyboardPreferences = (props) => {
 
   return (
     <>
-      <KeyboardLayerPreferences registerModifications={registerModifications} />
-      <KeyboardLEDPreferences registerModifications={registerModifications} />
-      <PluginPreferences registerModifications={registerModifications} />
+      <KeyboardLayerPreferences onSaveChanges={onSaveChanges} />
+      <KeyboardLEDPreferences onSaveChanges={onSaveChanges} />
+      <PluginPreferences onSaveChanges={onSaveChanges} />
       <AdvancedKeyboardPreferences />
 
-      <SaveChangesButton
-        floating
-        onClick={saveKeymapChanges}
-        disabled={!modified}
-      >
+      <SaveChangesButton floating onClick={saveChanges} disabled={!modified}>
         {t("components.save.saveChanges")}
       </SaveChangesButton>
     </>

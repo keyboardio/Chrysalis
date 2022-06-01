@@ -29,7 +29,7 @@ import { useTranslation } from "react-i18next";
 
 const IdleTimeLimit = (props) => {
   const { t } = useTranslation();
-  const { registerModifications } = props;
+  const { onSaveChanges } = props;
 
   const [ledIdleTimeLimit, setLedIdleTimeLimit] = useState(0);
 
@@ -44,7 +44,7 @@ const IdleTimeLimit = (props) => {
   const onChange = async (event) => {
     const limit = event.target.checked;
     await setLedIdleTimeLimit(limit);
-    await registerModifications("idleleds.time_limit", limit);
+    await onSaveChanges("idleleds.time_limit", limit);
   };
 
   return (

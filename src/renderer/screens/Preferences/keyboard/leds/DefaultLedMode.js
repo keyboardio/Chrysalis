@@ -28,7 +28,7 @@ import PreferenceSwitch from "../../components/PreferenceSwitch";
 
 const DefaultLedMode = (props) => {
   const { t } = useTranslation();
-  const { registerModifications } = props;
+  const { onSaveChanges } = props;
 
   const [ledModeDefault, setLedModeDefault] = useState(0);
   const [ledModeAutoSave, setLedModeAutoSave] = useState(true);
@@ -45,14 +45,14 @@ const DefaultLedMode = (props) => {
   const onAutoSaveChange = async (event) => {
     const autoSave = event.target.checked;
     await setLedModeAutoSave(autoSave);
-    await registerModifications("led_mode.auto_save", autoSave ? 1 : 0);
+    await onSaveChanges("led_mode.auto_save", autoSave ? 1 : 0);
   };
 
   const onLedModeChange = async (event) => {
     const v = event.target.value;
     const mode = Math.max(0, Math.min(32, v == "" ? 0 : parseInt(v)));
     await setLedModeDefault(mode);
-    await registerModifications("led_mode.default", mode);
+    await onSaveChanges("led_mode.default", mode);
   };
 
   return (

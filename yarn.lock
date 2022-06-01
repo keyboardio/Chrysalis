@@ -1019,7 +1019,7 @@
     ajv "^6.12.0"
     ajv-keywords "^3.4.1"
 
-"@electron/get@^1.14.1":
+"@electron/get@^1.13.0":
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/@electron/get/-/get-1.14.1.tgz#16ba75f02dffb74c23965e72d617adc721d27f40"
   integrity sha512-BrZYyL/6m0ZXz/lDxy/nlVhQz+WF+iPS6qXolEU8atw7h6v1aYkjwJZ63m+bJMBTxDE66X+r2tPS4a/8C82sZw==
@@ -4832,12 +4832,12 @@ electron-window-state@^5.0.3:
     jsonfile "^4.0.0"
     mkdirp "^0.5.1"
 
-electron@^19.0.1:
-  version "19.0.1"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-19.0.1.tgz#9370cb4d43db959bbe1dfa85ba582b3a012af5aa"
-  integrity sha512-zuhJVV7nTDFrRZ7uAIylSD0Eoi1xcUV4UzGfpWsREI4W5GsxNGyZQeqQDpg43w8+7oED812oDrGfPh5kb9rcQA==
+electron@18:
+  version "18.3.1"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-18.3.1.tgz#822ca54bd0a32098712377376617cfdd230846d6"
+  integrity sha512-46lH3iEdvbbDSa0s2JiOysGruQlJwGUae0UrEfZ4NgHZUnHbglkvezfKSoRSOEob3c9rENZlvgEv9gCbhYx5Yw==
   dependencies:
-    "@electron/get" "^1.14.1"
+    "@electron/get" "^1.13.0"
     "@types/node" "^16.11.26"
     extract-zip "^1.0.3"
 

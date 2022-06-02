@@ -23,31 +23,30 @@ const Style = Styled.div`
 .colorIndicator {
   border-radius: 4px;
   border: 1px solid black;
-  wildth: 24px;
+  width: 24px;
   height: 24px;
+  display: inline-block;
 }
 `;
 
 const ColorButton = ({ selected, onClick, label, text, icoSVG, color }) => {
-  const [colorStyle, setColorStyle] = React.useState(null);
+  const [disabled, setDisabled] = React.useState(true);
   React.useEffect(() => {
-    setColorStyle({ background: `${color.rgb}` });
+    if (color) {
+      setDisabled(false);
+    }
   }, [color]);
 
   return (
     <Style>
       <div
-        onClick={colorStyle ? () => {} : onClick}
+        onClick={disabled ? () => {} : onClick}
         className={`${selected ? "active" : ""} button buttonColor`}
-        disabled={colorStyle ? false : true}
+        disabled={disabled}
       >
         <div className={"buttonIcon"}>
           {icoSVG ? icoSVG : null}
-          {color ? (
-            <div className="colorIndicator" style={{ colorStyle }}>
-              {colorStyle}
-            </div>
-          ) : null}
+          {color ? <div className="colorIndicator" style={{ background: `${color.rgb}` }}></div> : null}
         </div>
         <div className={"buttonLabel"}>
           {label ? <div className="subtitle">{label}</div> : null}

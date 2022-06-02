@@ -22,6 +22,7 @@ import IconArrowsMouseWheel from "./IconArrowsMouseWheel";
 import IconArrowsSmallSeparating from "./IconArrowsSmallSeparating";
 import IconArrowUpWithLine from "./IconArrowUpWithLine";
 import IconArrowDownWithLine from "./IconArrowDownWithLine";
+import IconColorPallete from "./IconColorPallete";
 import IconCheckmarkSm from "./IconCheckmarkSm";
 import IconChip from "./IconChip";
 import IconClone from "./IconClone";
@@ -42,6 +43,8 @@ import IconKeysStopWatch from "./IconKeysStopWatch";
 import IconKeyboard from "./IconKeyboard";
 import IconKeyboardSelector from "./IconKeyboardSelector";
 import IconKeyboard2Stroke from "./IconKeyboard2Stroke";
+import IconKeysLight from "./IconKeysLight";
+import IconKeysUnderglow from "./IconKeysUnderglow";
 import IconLEDNextEffect from "./IconLEDNextEffect";
 import IconLEDPreviousEffect from "./IconLEDPreviousEffect";
 import IconLEDSwitchLeft from "./IconLEDSwitchLeft";
@@ -106,6 +109,7 @@ export {
   IconArrowsMouseWheel,
   IconArrowUpWithLine,
   IconArrowDownWithLine,
+  IconColorPallete,
   IconCheckmarkSm,
   IconChip,
   IconClone,
@@ -126,6 +130,8 @@ export {
   IconKeyboard,
   IconKeyboardSelector,
   IconKeyboard2Stroke,
+  IconKeysLight,
+  IconKeysUnderglow,
   IconLEDSwitchLeft,
   IconLEDNextEffect,
   IconLEDPreviousEffect,

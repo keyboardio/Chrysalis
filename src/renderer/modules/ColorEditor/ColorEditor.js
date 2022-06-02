@@ -34,6 +34,8 @@ import { ColorButton } from "../../component/Button";
 // Icons
 import { CgSmartHomeLight, CgColorPicker } from "react-icons/cg";
 
+import { IconColorPallete, IconKeysLight, IconKeysUnderglow } from "../../component/Icon";
+
 const toolsWidth = 45;
 
 const Styles = Styled.div`
@@ -209,34 +211,6 @@ export default class ColorEditor extends Component {
 
     const iconStyles = { transform: "rotate(180deg)" };
 
-    const under = (
-      <>
-        {this.CButton(
-          "Apply color to Underglow",
-          () => {
-            toChangeAllKeysColor(selected, 69, 142);
-          },
-          <CgSmartHomeLight />,
-          selected != undefined ? false : true,
-          "last otherbutts"
-        )}
-      </>
-    );
-
-    const backl = (
-      <>
-        {this.CButton(
-          "Apply color to Backlight",
-          () => {
-            toChangeAllKeysColor(selected, 0, 69);
-          },
-          <CgSmartHomeLight style={iconStyles} />,
-          selected != undefined ? false : true,
-          "last otherbutts"
-        )}
-      </>
-    );
-
     const edit = <>{this.CButton("Edit current color", this.showColorPicker, <CgColorPicker />, false, "first colorpick")}</>;
 
     const popover = {
@@ -268,15 +242,23 @@ export default class ColorEditor extends Component {
             <div className="buttonEditColor">{edit}</div>
             <div className="buttonsApplyAll">
               <ColorButton
-                onCLick={() => {
+                onClick={() => {
                   toChangeAllKeysColor(selected, 0, 69);
                 }}
                 label={i18n.editor.color.applyColor}
-                text={i18n.editor.color.underglow}
+                text={i18n.editor.color.allKeys}
+                icoSVG={<IconKeysLight />}
                 color={colors[selected]}
               />
-              {under}
-              {backl}
+              <ColorButton
+                onClick={() => {
+                  toChangeAllKeysColor(selected, 69, 142);
+                }}
+                label={i18n.editor.color.applyColor}
+                text={i18n.editor.color.underglow}
+                icoSVG={<IconKeysUnderglow />}
+                color={colors[selected]}
+              />
             </div>
           </div>
         </div>

@@ -70,9 +70,10 @@ const SecondaryFunction = (props) => {
   };
 
   const keySupportsSecondaryAction = (key) => {
+    const stdRange = db.constants.ranges.standard;
     return (
-      (key.code >= 4 &&
-        key.code <= 255 &&
+      (key.code >= stdRange.start &&
+        key.code <= stdRange.end &&
         !db.isInCategory(key.code, "modifier")) ||
       db.isInCategory(key.code, "dualuse")
     );

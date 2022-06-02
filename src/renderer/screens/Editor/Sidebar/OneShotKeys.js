@@ -24,8 +24,6 @@ import KeyButton from "../components/KeyButton";
 
 const db = new KeymapDB();
 
-const cancelKeyCode = 53630;
-
 const OneShotKeys = (props) => {
   const { t } = useTranslation();
 
@@ -33,16 +31,17 @@ const OneShotKeys = (props) => {
   if (!pluginVisible) return null;
 
   const { currentKey: key } = props;
+  const c = db.constants.codes;
 
   return (
     <React.Fragment>
       <Collapsible
-        expanded={key.code == cancelKeyCode || key.code == 41}
+        expanded={key.code == c.ONESHOT_CANCEL || key.code == c.ESCAPE}
         title={t("editor.sidebar.oneshot.title")}
         help={t("editor.sidebar.oneshot.help")}
       >
         <KeyButton
-          keyObj={db.lookup(cancelKeyCode)}
+          keyObj={db.lookup(c.ONESHOT_CANCEL)}
           onKeyChange={props.onKeyChange}
         />
       </Collapsible>

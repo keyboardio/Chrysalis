@@ -50,7 +50,7 @@ const Overview = (props) => {
     for (let index = 0; index < keymap.custom.length; index++) {
       const layer = keymap.custom[index];
       for (let keyIdx = 0; keyIdx < layer.length; keyIdx++) {
-        if (layer[keyIdx].code != 65535) {
+        if (layer[keyIdx].code != db.constants.codes.EMPTY) {
           lastUsedLayer = index;
           break;
         }

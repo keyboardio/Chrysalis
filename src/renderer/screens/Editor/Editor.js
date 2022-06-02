@@ -228,7 +228,7 @@ const Editor = (props) => {
     let empty = true;
     for (const layer of deviceKeymap.custom) {
       for (const i of layer) {
-        if (i.code != 65535) {
+        if (i.code != db.constants.codes.EMPTY) {
           empty = false;
           break;
         }

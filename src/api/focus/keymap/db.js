@@ -19,6 +19,7 @@ import i18n from "i18next";
 import cldr from "./cldr";
 import { Base } from "./db/base";
 import { USQwerty } from "./db/us/qwerty";
+import { constants } from "./db/constants";
 
 global.chrysalis_keymapdb_instance = null;
 
@@ -33,6 +34,7 @@ class KeymapDB {
 
       this.setLayout("English (US)");
       this.loadLayouts();
+      this.constants = constants;
     }
 
     return global.chrysalis_keymapdb_instance;

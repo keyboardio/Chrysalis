@@ -1,0 +1,48 @@
+#!/bin/sh
+
+echo "This is only going to work on an ARM Mac"
+mkdir work
+cd work
+git clone https://github.com/libusb/libusb
+git clone git://git.code.sf.net/p/dfu-util/dfu-util
+
+cd libusb && ./bootstrap.sh && cd ..
+cd dfu-util && ./autogen.sh && cd ..
+
+mkdir -p dist/darwin-x64
+mkdir -p dist/darwin-arm64
+
+cd libusb
+make clean
+export LIBUSB_DIR=`pwd`
+arch -x86_64 ./configure --enable-static --disable-shared
+arch -x86_64 make
+cd ..
+
+
+cd dfu-util
+make clean
+USB_CFLAGS="-I$LIBUSB_DIR/libusb/ -framework IOKit -framework CoreFoundation -framework Security"  \
+USB_LIBS="-L$LIBUSB_DIR/libusb/.libs/ -lusb-1.0 -lobjc" \
+arch -x86_64 ./configure 
+CFLAGS=-static arch -x86_64 make
+cp src/dfu-suffix src/dfu-prefix src/dfu-util ../dist/darwin-x64
+cd ..
+
+
+cd libusb
+export LIBUSB_DIR=`pwd`
+make clean
+arch -arm64 ./configure --enable-static --disable-shared
+arch -arm64 make
+cd ..
+
+
+cd dfu-util
+make clean
+USB_CFLAGS="-I$LIBUSB_DIR/libusb/ -framework IOKit -framework CoreFoundation -framework Security"  \
+USB_LIBS="-L$LIBUSB_DIR/libusb/.libs/ -lusb-1.0 -lobjc" \
+arch -arm64 ./configure 
+CFLAGS=-static arch -arm64 make
+cp src/dfu-suffix src/dfu-prefix src/dfu-util ../dist/darwin-arm64
+cd ..

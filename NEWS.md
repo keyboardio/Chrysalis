@@ -1,3 +1,47 @@
+Chrysalis 0.10.1-snapshot
+=========================
+**UNRELEASED**
+
+## New features
+
+Iterating on the Macro Editing feature introduced in the last release, it is now
+possible to rearrange macro steps by dragging and dropping them.
+
+Chrysalis can now configure the default LED mode to be used on keyboards that
+support it. This requires the `PersistentLEDMode` plugin on the firmware side,
+which the firmware Chrysalis ships with don't have enabled yet.
+
+## UI/UX improvements
+
+We have improved our dark mode support, by making it possible to choose an
+option that follows the system theme preferences. If your system is set to use
+dark mode for applications, Chrysalis will respect that preference, if it is set
+to follow the system settings. This includes following automatic switching on
+systems that support it.
+
+The Layout Editor will now - by default - hide features from the Sidebar that
+the currently running firmware does not support. This feature was added to
+reduce potential confusion, when the Layout Editor offered keys that the
+firmware did not support. The feature can be turned off on the Preferences
+screen.
+
+The configuration option that lets us configure whether Esc cancels OneShot or
+not has been moved from the Layout Editor sidebar onto the "My Keyboard" tab of
+the Preferences screen.
+
+The Preferences screen has seen major improvements in this release too.
+
+## Bugfixes
+
+Chrysalis no longer ends up showing a white screen when trying to visit the
+"Developer Tools" section of the Preferences screen without being connected to a
+keyboard. Similarly, Chrysalis will properly handle stray files in the directory
+where it stores EEPROM backups, and will not end up on a white screen when it
+finds unexpected files.
+
+Worked around an issue in Electron that caused Chrysalis to crash on Windows and
+macOS when trying to print.
+
 Chrysalis 0.10.0
 ================
 Released on 2022-05-30

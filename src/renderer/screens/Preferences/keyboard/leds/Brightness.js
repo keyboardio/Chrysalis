@@ -16,43 +16,59 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import FormControl from "@mui/material/FormControl";
-import FormHelperText from "@mui/material/FormHelperText";
+import Skeleton from "@mui/material/Skeleton";
 import Slider from "@mui/material/Slider";
-import Typography from "@mui/material/Typography";
 
-import React from "react";
+import usePluginEffect from "@renderer/hooks/usePluginEffect";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+
+import PreferenceWithHeading from "../../components/PreferenceWithHeading";
 
 const Brightness = (props) => {
   const { t } = useTranslation();
-  const { value, onChange, visible } = props;
+  const { onSaveChanges } = props;
+
+  const [ledBrightness, setLedBrightness] = useState(255);
+
+  const initialize = async (focus) => {
+    let brightness = await focus.command("led.brightness");
+    brightness = parseInt(brightness);
+
+    setLedBrightness(brightness);
+  };
+  const loaded = usePluginEffect(initialize);
 
   const formatValue = (value) => {
     return ((value / 255) * 100).toFixed(0) + "%";
   };
 
-  if (!visible) return null;
+  const onChange = async (event) => {
+    const brightness = event.target.value;
+    await setLedBrightness(brightness);
+    await onSaveChanges("led.brightness", brightness);
+  };
 
   return (
-    <FormControl sx={{ display: "flex" }}>
-      <Typography gutterBottom>
-        {t("preferences.keyboard.led.brightness.label")}
-      </Typography>
-      <Slider
-        max={255}
-        step={16}
-        marks
-        valueLabelDisplay="auto"
-        valueLabelFormat={formatValue}
-        value={value}
-        onChange={onChange}
-        sx={{ width: "20em" }}
-      />
-      <FormHelperText>
-        {t("preferences.keyboard.led.brightness.help")}
-      </FormHelperText>
-    </FormControl>
+    <PreferenceWithHeading
+      heading={t("preferences.keyboard.led.brightness.label")}
+      subheading={t("preferences.keyboard.led.brightness.help")}
+    >
+      {loaded ? (
+        <Slider
+          max={255}
+          step={16}
+          marks
+          valueLabelDisplay="auto"
+          valueLabelFormat={formatValue}
+          value={ledBrightness}
+          onChange={onChange}
+          sx={{ width: "20em", mr: 1 }}
+        />
+      ) : (
+        <Skeleton variant="rectangle" width="20em" height={30} />
+      )}
+    </PreferenceWithHeading>
   );
 };
 

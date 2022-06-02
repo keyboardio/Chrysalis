@@ -16,135 +16,41 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Skeleton from "@mui/material/Skeleton";
-import {
-  hideContextBar,
-  showContextBar,
-} from "@renderer/components/ContextBar";
-import { GlobalContext } from "@renderer/components/GlobalContext";
-import React, { useEffect, useState, useContext } from "react";
+import Divider from "@mui/material/Divider";
+
+import useCheckDeviceSupportsPlugins from "@renderer/hooks/useCheckDeviceSupportsPlugins";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import Brightness from "./leds/Brightness";
+import DefaultLedMode from "./leds/DefaultLedMode";
 import IdleTimeLimit from "./leds/IdleTimeLimit";
 import PreferenceSection from "../components/PreferenceSection";
 
-const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+import { dividePreferences } from "../utils/dividePreferences";
 
 const KeyboardLEDPreferences = (props) => {
   const { t } = useTranslation();
-  const globalContext = useContext(GlobalContext);
-  const [activeDevice] = globalContext.state.activeDevice;
-  const [hasBrightness, setHasBrightness] = useState(false);
-  const [hasIdleTime, setHasIdleTime] = useState(false);
-  const [loaded, setLoaded] = useState(false);
-  const [initialized, setInitialized] = useState(false);
+  const { onSaveChanges } = props;
 
-  const {
-    modified,
-    setModified,
-    ledBrightness,
-    setLedBrightness,
-    ledIdleTimeLimit,
-    setLedIdleTimeLimit,
-  } = props;
-
-  // Do the initial loading
-  useEffect(() => {
-    const initialize = async () => {
-      const plugins = await activeDevice.plugins();
-      const commands = await activeDevice.supported_commands();
-
-      if (plugins.includes("PersistentIdleLEDs")) {
-        setHasIdleTime(true);
-      }
-      if (commands.includes("led.brightness")) {
-        setHasBrightness(true);
-      }
-
-      setInitialized(true);
-    };
-
-    if (!initialized) initialize();
-  }, [activeDevice, initialized]);
-
-  // Fetch the data, once we're initialized
-  useEffect(() => {
-    const fetchData = async () => {
-      if (hasBrightness) {
-        let brightness = await activeDevice.focus.command("led.brightness");
-        brightness = parseInt(brightness);
-        setLedBrightness(brightness);
-      }
-
-      if (hasIdleTime) {
-        let limit = await activeDevice.focus.command("idleleds.time_limit");
-        limit = parseInt(limit);
-        setLedIdleTimeLimit(limit);
-      }
-
-      setLoaded(true);
-    };
-
-    const context_bar_channel = new BroadcastChannel("context_bar");
-    context_bar_channel.onmessage = async (event) => {
-      if (event.data === "changes-discarded") {
-        await fetchData();
-        setModified(false);
-      }
-    };
-
-    if (initialized) {
-      fetchData();
-    }
-
-    return () => {
-      context_bar_channel.close();
-    };
-  }, [
-    activeDevice,
-    hasBrightness,
-    hasIdleTime,
-    initialized,
-    setLedBrightness,
-    setLedIdleTimeLimit,
-    setModified,
+  const [loaded, plugins] = useCheckDeviceSupportsPlugins([
+    "PersistentIdleLEDs",
+    "PersistentLEDMode",
+    "led.brightness",
   ]);
 
-  const selectIdleLEDTime = (event) => {
-    setLedIdleTimeLimit(event.target.value);
-    setModified(true);
-    showContextBar();
-  };
+  const foundSomePlugins = Object.values(plugins).some((v) => v);
+  if (loaded && !foundSomePlugins) return null;
 
-  const setBrightness = (event, value) => {
-    setLedBrightness(value);
-    setModified(true);
-    showContextBar();
-  };
-
-  if (initialized && !hasIdleTime && !hasBrightness) return null;
+  const preferences = [
+    { plugin: "PersistentLEDMode", Component: DefaultLedMode },
+    { plugin: "PersistentIdleLEDs", Component: IdleTimeLimit },
+    { plugin: "led.brightness", Component: Brightness },
+  ];
 
   return (
-    <PreferenceSection name="keyboard.led">
-      {loaded ? (
-        <IdleTimeLimit
-          visible={hasIdleTime}
-          onChange={selectIdleLEDTime}
-          value={ledIdleTimeLimit}
-        />
-      ) : (
-        <Skeleton variant="rectangle" width={422} height={79} sx={{ mb: 2 }} />
-      )}
-      {loaded ? (
-        <Brightness
-          onChange={setBrightness}
-          value={ledBrightness}
-          visible={hasBrightness}
-        />
-      ) : (
-        <Skeleton variant="rectangle" width={422} height={79} sx={{ mb: 2 }} />
-      )}
+    <PreferenceSection name="keyboard.led" loaded={loaded}>
+      {dividePreferences(plugins, preferences, onSaveChanges, "keyboard.led")}
     </PreferenceSection>
   );
 };

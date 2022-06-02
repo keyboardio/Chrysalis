@@ -22,7 +22,7 @@ import {
 } from "@renderer/components/ContextBar";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 import SaveChangesButton from "@renderer/components/SaveChangesButton";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 import AdvancedKeyboardPreferences from "./keyboard/AdvancedKeyboardPreferences";
@@ -31,59 +31,54 @@ import KeyboardLEDPreferences from "./keyboard/KeyboardLEDPreferences";
 import PluginPreferences from "./keyboard/PluginPreferences";
 
 const MyKeyboardPreferences = (props) => {
-  const oneShotCancelKeyCode = 53630;
-  const escKeyCode = 41;
-
   const [modified, setModified] = useState(false);
-  const [defaultLayer, setDefaultLayer] = useState(126);
-  const [ledBrightness, setLedBrightness] = useState(255);
-  const [ledIdleTimeLimit, setLedIdleTimeLimit] = useState(0);
-  const [escOneShot, setEscOneShot] = useState(true);
+  const [changes, setChanges] = useState({});
 
   const { t } = useTranslation();
   const globalContext = useContext(GlobalContext);
   const [activeDevice] = globalContext.state.activeDevice;
 
-  const saveKeymapChanges = async () => {
-    await activeDevice.focus.command("settings.defaultLayer", defaultLayer);
-    await activeDevice.focus.command("led.brightness", ledBrightness);
-    await activeDevice.focus.command("idleleds.time_limit", ledIdleTimeLimit);
-    await activeDevice.focus.command(
-      "escape_oneshot.cancel_key",
-      escOneShot ? escKeyCode : oneShotCancelKeyCode
-    );
+  const onSaveChanges = (command, args) => {
+    const newChanges = Object.assign({}, changes);
+    newChanges[command] = args;
+    setChanges(newChanges);
+
+    setModified(true);
+    showContextBar();
+  };
+
+  const saveChanges = async () => {
+    for (const cmd of Object.keys(changes)) {
+      const args = changes[cmd];
+      await activeDevice.focus.command(cmd, args);
+    }
+    setChanges({});
 
     await setModified(false);
     await hideContextBar();
   };
 
+  useEffect(() => {
+    const channel = new BroadcastChannel("context_bar");
+    channel.onmessage = async (event) => {
+      if (event.data === "changes-discarded") {
+        setChanges({});
+        setModified(false);
+      }
+    };
+    return () => {
+      channel.close();
+    };
+  });
+
   return (
     <>
-      <KeyboardLayerPreferences
-        setModified={setModified}
-        defaultLayer={defaultLayer}
-        setDefaultLayer={setDefaultLayer}
-      />
-      <KeyboardLEDPreferences
-        modified={modified}
-        setModified={setModified}
-        ledBrightness={ledBrightness}
-        setLedBrightness={setLedBrightness}
-        ledIdleTimeLimit={ledIdleTimeLimit}
-        setLedIdleTimeLimit={setLedIdleTimeLimit}
-      />
-      <PluginPreferences
-        setModified={setModified}
-        escOneShot={escOneShot}
-        setEscOneShot={setEscOneShot}
-      />
+      <KeyboardLayerPreferences onSaveChanges={onSaveChanges} />
+      <KeyboardLEDPreferences onSaveChanges={onSaveChanges} />
+      <PluginPreferences onSaveChanges={onSaveChanges} />
       <AdvancedKeyboardPreferences />
 
-      <SaveChangesButton
-        floating
-        onClick={saveKeymapChanges}
-        disabled={!modified}
-      >
+      <SaveChangesButton floating onClick={saveChanges} disabled={!modified}>
         {t("components.save.saveChanges")}
       </SaveChangesButton>
     </>

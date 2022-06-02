@@ -16,64 +16,41 @@
  */
 
 import FormControl from "@mui/material/FormControl";
-import FormHelperText from "@mui/material/FormHelperText";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Skeleton from "@mui/material/Skeleton";
-import {
-  hideContextBar,
-  showContextBar,
-} from "@renderer/components/ContextBar";
-import { GlobalContext } from "@renderer/components/GlobalContext";
-import React, { useEffect, useState, useContext } from "react";
+
+import usePluginEffect from "@renderer/hooks/usePluginEffect";
+import React, { useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
 
 import PreferenceSection from "../components/PreferenceSection";
+import PreferenceWithHeading from "../components/PreferenceWithHeading";
 
 const KeyboardLayerPreferences = (props) => {
   const { t } = useTranslation();
-  const globalContext = useContext(GlobalContext);
-  const [activeDevice] = globalContext.state.activeDevice;
-  const { setModified, defaultLayer, setDefaultLayer } = props;
+  const { onSaveChanges } = props;
 
   const [keymap, setKeymap] = useState({
     custom: [],
     default: [],
     onlyCustom: false,
   });
-  const [loaded, setLoaded] = useState(false);
+  const [defaultLayer, setDefaultLayer] = useState(126);
 
-  useEffect(() => {
-    const initialize = async () => {
-      setKeymap(await activeDevice.focus.command("keymap"));
+  const initialize = async (focus) => {
+    setKeymap(await focus.command("keymap"));
 
-      let layer = await activeDevice.focus.command("settings.defaultLayer");
-      layer = layer ? parseInt(layer) : 126;
-      setDefaultLayer(layer <= 126 ? layer : layer);
-      setLoaded(true);
-    };
+    let layer = await focus.command("settings.defaultLayer");
+    layer = layer ? parseInt(layer) : 126;
+    setDefaultLayer(layer <= 126 ? layer : layer);
+  };
+  const loaded = usePluginEffect(initialize);
 
-    const context_bar_channel = new BroadcastChannel("context_bar");
-    context_bar_channel.onmessage = async (event) => {
-      if (event.data === "changes-discarded") {
-        await initialize();
-        setModified(false);
-      }
-    };
-
-    initialize();
-
-    return () => {
-      context_bar_channel.close();
-    };
-  }, [activeDevice, setDefaultLayer, setModified]);
-
-  const selectDefaultLayer = (event) => {
-    setDefaultLayer(event.target.value);
-
-    setModified(true);
-    showContextBar();
+  const selectDefaultLayer = async (event) => {
+    const layer = event.target.value;
+    await setDefaultLayer(layer);
+    await onSaveChanges("settings.defaultLayer", layer);
   };
 
   const layers = keymap.custom.map((_, index) => {
@@ -86,28 +63,27 @@ const KeyboardLayerPreferences = (props) => {
 
   return (
     <PreferenceSection name="keyboard.layers">
-      {loaded ? (
-        <FormControl sx={{ minWidth: "20em" }}>
-          <InputLabel>
-            {t("preferences.keyboard.defaultLayer.label")}
-          </InputLabel>
-          <Select
-            onChange={selectDefaultLayer}
-            value={defaultLayer}
-            label={t("preferences.keyboard.defaultLayer.label")}
-          >
-            <MenuItem value={126}>
-              {t("preferences.keyboard.defaultLayer.noDefault")}
-            </MenuItem>
-            {layers}
-          </Select>
-          <FormHelperText>
-            {t("preferences.keyboard.defaultLayer.help")}
-          </FormHelperText>
-        </FormControl>
-      ) : (
-        <Skeleton variant="rectangular" width={320} height={79} />
-      )}
+      <PreferenceWithHeading
+        heading={t("preferences.keyboard.defaultLayer.label")}
+        subheading={t("preferences.keyboard.defaultLayer.help")}
+      >
+        {loaded ? (
+          <FormControl size="small">
+            <Select
+              onChange={selectDefaultLayer}
+              value={defaultLayer}
+              sx={{ minWidth: "10em" }}
+            >
+              <MenuItem value={126}>
+                {t("preferences.keyboard.defaultLayer.noDefault")}
+              </MenuItem>
+              {layers}
+            </Select>
+          </FormControl>
+        ) : (
+          <Skeleton variant="rectangle" width="10em" height={40} />
+        )}
+      </PreferenceWithHeading>
     </PreferenceSection>
   );
 };

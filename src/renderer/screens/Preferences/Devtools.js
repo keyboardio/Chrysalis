@@ -16,6 +16,7 @@
  */
 
 import Focus from "@api/focus";
+import Divider from "@mui/material/Divider";
 import Skeleton from "@mui/material/Skeleton";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -83,6 +84,7 @@ function DevtoolsPreferences(props) {
       ) : (
         <Skeleton variant="text" width="100%" height={56} />
       )}
+      <Divider sx={{ my: 2, mx: -2 }} />
       <PreferenceSwitch
         option="devtools.verboseLogging"
         checked={verboseFocus}

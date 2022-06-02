@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Skeleton from "@mui/material/Skeleton";
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -47,15 +46,12 @@ function LayoutCardsPreferences(props) {
 
   return (
     <PreferenceSection name="ui.layoutCards">
-      {loaded ? (
-        <PreferenceSwitch
-          option="ui.coloredLayoutCards"
-          checked={coloredLayoutCards}
-          onChange={toggleColoredLayoutCards}
-        />
-      ) : (
-        <Skeleton variant="text" width="100%" height={56} />
-      )}
+      <PreferenceSwitch
+        loaded={loaded}
+        option="ui.coloredLayoutCards"
+        checked={coloredLayoutCards}
+        onChange={toggleColoredLayoutCards}
+      />
     </PreferenceSection>
   );
 }

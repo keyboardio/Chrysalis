@@ -20,21 +20,50 @@ import FormHelperText from "@mui/material/FormHelperText";
 import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
 
+import usePluginEffect from "@renderer/hooks/usePluginEffect";
 import PreferenceSwitch from "../../components/PreferenceSwitch";
 
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const EscapeOneShotPreferences = (props) => {
-  const { t } = useTranslation();
-  const { value, onChange, visible } = props;
+  const oneShotCancelKeyCode = 53630;
+  const escKeyCode = 41;
 
-  if (!visible) return null;
+  const { t } = useTranslation();
+  const { onSaveChanges } = props;
+
+  const [escOneShot, setEscOneShot] = useState(true);
+
+  const initialize = async (focus) => {
+    const doesEscCancelOneShot = (value) => {
+      if (value.length == 0) {
+        return false;
+      }
+
+      return parseInt(value) == escKeyCode;
+    };
+
+    const key = await focus.command("escape_oneshot.cancel_key");
+    setEscOneShot(doesEscCancelOneShot(key));
+  };
+
+  const loaded = usePluginEffect(initialize);
+
+  const onChange = async (event) => {
+    const v = event.target.checked;
+    await setEscOneShot(v);
+    await onSaveChanges(
+      "escape_oneshot.cancel_key",
+      v ? escKeyCode : oneShotCancelKeyCode
+    );
+  };
 
   return (
     <PreferenceSwitch
       option="keyboard.plugins.escOneShot"
-      checked={value}
+      loaded={loaded}
+      checked={escOneShot}
       onChange={onChange}
     />
   );

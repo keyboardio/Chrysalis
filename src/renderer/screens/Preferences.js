@@ -29,7 +29,7 @@ import { MyKeyboardPreferences } from "./Preferences/MyKeyboard";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
   return (
-    <div
+    <Box
       role="tabpanel"
       hidden={value !== index}
       id={`vertical-tabpanel-${index}`}
@@ -39,14 +39,15 @@ function TabPanel(props) {
       {value === index && (
         <Box
           sx={{
-            m: 2,
-            px: 3,
+            height: "100%",
+            mt: 2,
+            px: 5,
           }}
         >
           {children}
         </Box>
       )}
-    </div>
+    </Box>
   );
 }
 function a11yProps(index) {
@@ -72,10 +73,7 @@ function Preferences(props) {
     <Box
       sx={{
         flexGrow: 1,
-        bgcolor: "background.paper",
         display: "flex",
-        height: "100%",
-        width: "100%",
       }}
     >
       <PageTitle title={t("app.menu.preferences")} />
@@ -85,12 +83,15 @@ function Preferences(props) {
         value={value}
         onChange={handleChange}
         sx={{
+          bgcolor: "background.paper",
           borderRight: 1,
           borderColor: "divider",
           display: "flex",
           alignItems: "left",
-          height: "100%",
-          minWidth: 300,
+          width: 300,
+          position: "fixed",
+          top: "48px",
+          bottom: 0,
         }}
       >
         <Tab label={t("preferences.interface")} {...a11yProps(0)} />
@@ -104,7 +105,7 @@ function Preferences(props) {
       <Box
         sx={{
           flexGrow: 1,
-          mb: 2,
+          ml: "300px",
         }}
       >
         <TabPanel value={value} index={0}>

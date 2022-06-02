@@ -26,7 +26,8 @@ import {
   StyledEngineProvider,
   ThemeProvider,
 } from "@mui/material/styles";
-import React, { Suspense, useContext, useEffect } from "react";
+import React, { Suspense, useState, useContext, useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
 import "typeface-roboto/index.css";
 import "typeface-source-code-pro/index.css";
@@ -76,6 +77,7 @@ const App = (props) => {
   const [theme, setTheme] = globalContext.state.theme;
   const darkMode = globalContext.state.darkMode;
   const [activeDevice, setActiveDevice] = globalContext.state.activeDevice;
+  const [bgColor, setBgColor] = useState(null);
 
   migrateDarkModeToTheme();
   setTheme(settings.get("ui.theme", "system"));
@@ -133,6 +135,23 @@ const App = (props) => {
     };
   });
 
+  const uiTheme = createTheme({
+    palette: {
+      mode: darkMode() ? "dark" : "light",
+      primary: {
+        main: "#EF5022",
+      },
+      secondary: {
+        main: "#939597",
+      },
+      body: darkMode() ? "#353535" : "#f5f5f5",
+    },
+  });
+
+  useEffect(() => {
+    setBgColor(uiTheme.palette.body);
+  }, [theme, uiTheme]);
+
   const toggleFlashing = async () => {
     flashing = !flashing;
     if (!flashing) {
@@ -188,18 +207,6 @@ const App = (props) => {
     await navigate("/keyboard-select");
   };
 
-  const uiTheme = createTheme({
-    palette: {
-      mode: darkMode() ? "dark" : "light",
-      primary: {
-        main: "#EF5022",
-      },
-      secondary: {
-        main: "#939597",
-      },
-    },
-  });
-
   const deviceInfo =
     focus?.focusDeviceDescriptor?.info || focusDeviceDescriptor?.info;
 
@@ -207,6 +214,9 @@ const App = (props) => {
     <Suspense>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={uiTheme}>
+          <Helmet>
+            <body style={`background-color: ${bgColor}`} />
+          </Helmet>
           <Box
             sx={{
               display: "flex",

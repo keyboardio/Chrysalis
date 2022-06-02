@@ -27,7 +27,6 @@ import {
   ThemeProvider,
 } from "@mui/material/styles";
 import React, { Suspense, useState, useContext, useEffect } from "react";
-import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
 import "typeface-roboto/index.css";
 import "typeface-source-code-pro/index.css";
@@ -144,7 +143,9 @@ const App = (props) => {
       secondary: {
         main: "#939597",
       },
-      body: darkMode() ? "#353535" : "#f5f5f5",
+      background: {
+        default: darkMode() ? "#353535" : "#f5f5f5",
+      },
     },
   });
 
@@ -214,9 +215,6 @@ const App = (props) => {
     <Suspense>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={uiTheme}>
-          <Helmet>
-            <body style={`background-color: ${bgColor}`} />
-          </Helmet>
           <Box
             sx={{
               display: "flex",

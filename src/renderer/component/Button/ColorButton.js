@@ -31,6 +31,7 @@ const Style = Styled.div`
   width: 162px;
   align-items: center;
   padding: 2px 16px;
+  color: ${({ theme }) => theme.styles.button.buttonColor.color};
   .buttonIcon {
     width: 24px;
     position: relative;
@@ -57,6 +58,7 @@ const Style = Styled.div`
       font-size: 11px;
       letter-spacing: -0.03em;
       font-weight: 600;
+      color: ${({ theme }) => theme.styles.button.buttonColor.subtitleColor};
     }
   }
 }

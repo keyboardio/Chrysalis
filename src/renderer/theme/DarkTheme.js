@@ -215,6 +215,10 @@ const Dark = {
         background: Tokens.colors.gray600,
         backgroundHover: Tokens.colors.gray400
       },
+      buttonColor: {
+        color: Tokens.colors.gray100,
+        subtitleColor: Tokens.colors.gray200
+      },
       buttonMouse: {
         backgroundColor: "linear-gradient(-90deg, rgba(11, 2, 25, 0.25) 0.39%, rgba(49, 50, 74, 0.25) 74.37%)",
         backgroundColorHover:
@@ -231,6 +235,9 @@ const Dark = {
         borderColorResume: Tokens.colors.gray700,
         color: Tokens.colors.brandPrimary
       }
+    },
+    colorPanel: {
+      colorTitle: Tokens.colors.gray100
     },
     collpase: {
       iconBackgroud: IconPlusXS,

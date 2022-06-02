@@ -211,6 +211,10 @@ const Light = {
         backgroundHover:
           "linear-gradient(90deg, rgba(255, 255, 255, 0.4) -22.96%, rgba(255, 255, 255, 0) 123.24%), rgba(196, 201, 213, 0.8)"
       },
+      buttonColor: {
+        color: Tokens.colors.gray300,
+        subtitleColor: Tokens.colors.gray500
+      },
       buttonMouse: {
         backgroundColor: "linear-gradient(269.56deg, rgba(87, 97, 126, 0.25) 0.39%, rgba(226, 228, 234, 0.25) 74.37%)",
         backgroundColorHover: "linear-gradient(270deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 70.91%), #C4C9D5",
@@ -226,6 +230,9 @@ const Light = {
         borderColorResume: Tokens.colors.gray400,
         color: Tokens.colors.brandPrimary
       }
+    },
+    colorPanel: {
+      colorTitle: Tokens.colors.gray500
     },
     collpase: {
       iconBackgroud: IconPlusXS,

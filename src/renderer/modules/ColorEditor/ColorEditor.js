@@ -40,92 +40,35 @@ const toolsWidth = 45;
 
 const Styles = Styled.div`
 width: 100%;
-  .color-editor {
-
-    background-color: ${({ theme }) => theme.card.background};
-    border-radius: 10px;
-    box-shadow: 0px 1px 3px 0px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 2px 1px -1px rgb(0 0 0 / 12%);
-    svg {
-      vertical-align: initial;
-    }
-    .colors {
-      margin: 0;
-      padding: 5px;
-      justify-content: center;
-      .color-button {
-        width: 12%;
-        padding: 5px 0px;
-        border-radius: 0px;
-        color: ${({ theme }) => theme.colors.button.text};
-        background-color: ${({ theme }) => theme.card.background};
-        border: 0px;
-        font-size: larger;
-        text-align: -webkit-center;
-        box-shadow: none;
-
-        .color {
-          height: 28px;
-          width: 28px;
-          border-radius: 4px;
-          border: 0px solid ${({ theme }) => theme.card.background};
-          box-shadow: 2px 2px 4px 1px darkgrey;
-        }
-        .color.actv{
-          box-shadow: 0px 0px 3px 5px ${({ theme }) => theme.colors.button.active};
-        }
-        .color:hover {
-          box-shadow: 0px 0px 4px 3px ${({ theme }) => theme.colors.button.hover};
-        }
-        .color:focus {
-          height: 28px;
-          width: 28px;
-          border-radius: 4px;
-          border: 3px solid black;
-        }
-      }
-      .btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show>.btn-primary.dropdown-toggle:focus {
-        box-shadow: none;
-      }
-    }
-    .color-options {
-      margin: 0;
-      justify-content: center;
-      padding: 6px 0px;
-      button {
-        border: none;
-        font-size: large;
-        color: ${({ theme }) => theme.colors.button.text};
-        background-color: transparent;
-      }
-      button:hover {
-        background-color: ${({ theme }) => theme.colors.button.disabled};
-      }
-      button:focus {
-        background-color: ${({ theme }) => theme.colors.button.background};
-        color: ${({ theme }) => theme.colors.button.text};
-        box-shadow: none;
-      }
-      button:active {
-        background-color: grey !important;
-        box-shadow: none !important;
-      }
-      .btn-primary:not(:disabled):not(.disabled).active {
-        background-color: ${({ theme }) => theme.colors.button.background};
-        color: ${({ theme }) => theme.colors.button.text};
-        box-shadow: none !important;
-      }
-    }
+.panelTitle {
+  white-space: nowrap;
+  padding-right: 24px;
+  h4 {
+    color: ${({ theme }) => theme.styles.colorPanel.colorTitle};
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    margin: 0;
   }
-
-  .colorpick {
-    padding: 28px 8px;
-    margin-left: 4px;
-    margin-top: 4px;
+}
+.panelTools {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  width: 100%;
+}
+.buttonsGroup {
+  display: flex;
+  flex-wrap: nowrap;
+  .buttonColor {
+    margin-left: 8px;
   }
-  .otherbutts {
-    padding: 6px 8px;
-    margin-left: -4px;
-  }
+}
+.buttonsApplyAll {
+  display: flex;
+  flex-wrap: nowrap;
+}
 `;
 
 export default class ColorEditor extends Component {

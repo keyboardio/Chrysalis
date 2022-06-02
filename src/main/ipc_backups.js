@@ -38,6 +38,7 @@ export const registerBackupHandlers = () => {
 
     const library = fs
       .readdirSync(backupDir(deviceInfo), { encoding: "utf-8" })
+      .filter((name) => name.match(/^[0-9]+\.json$/))
       .map((name) => path.basename(name, ".json"))
       .sort((a, b) => {
         if (a > b) return -1;

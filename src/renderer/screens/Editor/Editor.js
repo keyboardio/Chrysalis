@@ -258,6 +258,9 @@ const Editor = (props) => {
 
       const deviceMacros = await focus.command("macros");
       setMacros(deviceMacros);
+
+      const defLayer = await focus.command("settings.defaultLayer");
+      if (defLayer <= deviceKeymap.custom.length) setCurrentLayer(defLayer);
     } catch (e) {
       toast.error(e);
       props.onDisconnect();

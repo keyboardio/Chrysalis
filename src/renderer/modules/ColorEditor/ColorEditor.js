@@ -29,6 +29,7 @@ import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 
 import Title from "../../component/Title";
+import { ColorButton } from "../../component/Button";
 
 // Icons
 import { CgSmartHomeLight, CgColorPicker } from "react-icons/cg";
@@ -37,17 +38,8 @@ const toolsWidth = 45;
 
 const Styles = Styled.div`
 width: 100%;
-bottom: 10px;
-position: relative;
-align-self: flex-end!important;
   .color-editor {
-    width: 400px;
-    bottom: 10px;
-    left: 50%;
-    transform: translate3d(-50%, 0, 0);
-    position: fixed;
-    z-index: 2;
-    padding: 0;
+
     background-color: ${({ theme }) => theme.card.background};
     border-radius: 10px;
     box-shadow: 0px 1px 3px 0px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 2px 1px -1px rgb(0 0 0 / 12%);
@@ -122,12 +114,7 @@ align-self: flex-end!important;
       }
     }
   }
-  .first {
-    padding-top: 30px;
-  }
-  .last {
-    padding-left: 5px;
-  }
+
   .colorpick {
     padding: 28px 8px;
     margin-left: 4px;
@@ -265,11 +252,9 @@ export default class ColorEditor extends Component {
     };
 
     return (
-      <Styles>
-        <div className="panelInner">
-          <div className="panelTitle">
-            <Title text={i18n.editor.color.colorPalette} headingLevel={4} />
-          </div>
+      <Styles className="extraPanel">
+        <div className="panelTitle">
+          <Title text={i18n.editor.color.colorPalette} headingLevel={4} />
         </div>
         <div className="panelTools">
           {displayColorPicker ? (
@@ -278,21 +263,23 @@ export default class ColorEditor extends Component {
               <SketchPicker color={colors[selected]} onChange={this.handleChange} />
             </div>
           ) : null}
-        </div>
-        <Container fluid className="color-editor">
-          <Row className="m-0">
-            <Col xs={1} className="color-options">
-              {edit}
-            </Col>
-            <Col xs={10} className="colors">
-              {layerButtons}
-            </Col>
-            <Col xs={1} className="color-options">
+          <div className="colorPallete">{layerButtons}</div>
+          <div className="buttonsGroup">
+            <div className="buttonEditColor">{edit}</div>
+            <div className="buttonsApplyAll">
+              <ColorButton
+                onCLick={() => {
+                  toChangeAllKeysColor(selected, 0, 69);
+                }}
+                label={i18n.editor.color.applyColor}
+                text={i18n.editor.color.underglow}
+                color={colors[selected]}
+              />
               {under}
               {backl}
-            </Col>
-          </Row>
-        </Container>
+            </div>
+          </div>
+        </div>
       </Styles>
     );
   }

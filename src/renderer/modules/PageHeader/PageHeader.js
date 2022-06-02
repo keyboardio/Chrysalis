@@ -80,15 +80,15 @@ z-index: 300;
     }
 }
 .extraPanel {
-    border-bottom-right-radius: 16px;
-    border-bottom-left-radius: 16px;
-    padding: 14px 32px;
-    margin-top: 2px;
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    min-height: 56px;
-    background-color: ${({ theme }) => theme.styles.pageHeader.backgroundColor};
+  border-bottom-right-radius: 16px;
+  border-bottom-left-radius: 16px;
+  padding: 14px 32px;
+  margin-top: 2px;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  min-height: 56px;
+  background-color: ${({ theme }) => theme.styles.pageHeader.backgroundColor};
 }
 `;
 
@@ -116,7 +116,7 @@ const PageHeader = ({
           {showSaving ? <Saving saveContext={saveContext} destroyContext={destroyContext} inContext={inContext} /> : ""}
         </div>
       </div>
-      {isColorActive ? <div className="extraPanel">{colorEditor}</div> : ""}
+      {isColorActive ? colorEditor : ""}
     </Style>
   );
 };

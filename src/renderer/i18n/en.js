@@ -113,7 +113,9 @@ const English = {
       editColor: "Edit Color",
       applyColor: "Apply color",
       allKeys: "All Keys",
-      underglow: "Underglow"
+      underglow: "Underglow",
+      selectColorFirst: "Select a color first",
+      selectColorFirstContent: "To use the color controls select a color to enable all buttons."
     },
     groups: {
       Letters: "Letters",

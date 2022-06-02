@@ -1,6 +1,6 @@
 import * as React from "react";
 
-function IconColorPallete(props) {
+function IconColorPalette(props) {
   return (
     <svg width={24} height={24} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path
@@ -18,4 +18,4 @@ function IconColorPallete(props) {
   );
 }
 
-export default IconColorPallete;
+export default IconColorPalette;

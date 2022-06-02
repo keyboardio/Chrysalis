@@ -18,19 +18,62 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Styled from "styled-components";
+import i18n from "../../i18n";
+
+import { toast } from "react-toastify";
+import ToastMessage from "../../component/ToastMessage";
+import { IconColorPicker } from "../../component/Icon";
 
 const Style = Styled.div` 
-.colorIndicator {
-  border-radius: 4px;
-  border: 1px solid black;
-  width: 24px;
-  height: 24px;
-  display: inline-block;
+.buttonColor {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 162px;
+  align-items: center;
+  padding: 2px 16px;
+  .buttonIcon {
+    width: 24px;
+    position: relative;
+    .colorIndicator {
+      box-shadow: 4px 4px 12px rgba(11, 2, 25, 0.5);
+      border-radius: 2px;
+      width: 12px;
+      height: 12px;
+      display: inline-block;
+      position: absolute;
+      bottom: -6px;
+      right: -8px;
+    }
+  }
+  .buttonLabel {
+    flex: 0 0 calc(100% - 24px);
+    padding-left: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    line-height: 1.2em;
+    .subtitle {
+      color: #97A0B4;
+      font-size: 11px;
+      letter-spacing: -0.03em;
+      font-weight: 600;
+    }
+  }
 }
 `;
 
 const ColorButton = ({ selected, onClick, label, text, icoSVG, color }) => {
   const [disabled, setDisabled] = React.useState(true);
+
+  const colorToastMessage = () => {
+    toast.warn(
+      <ToastMessage
+        title={i18n.editor.color.selectColorFirst}
+        content={i18n.editor.color.selectColorFirstContent}
+        icon={<IconColorPicker />}
+      />
+    );
+  };
   React.useEffect(() => {
     if (color) {
       setDisabled(false);
@@ -40,8 +83,8 @@ const ColorButton = ({ selected, onClick, label, text, icoSVG, color }) => {
   return (
     <Style>
       <div
-        onClick={disabled ? () => {} : onClick}
-        className={`${selected ? "active" : ""} button buttonColor`}
+        onClick={disabled ? colorToastMessage : onClick}
+        className={`${selected ? "active" : ""} button button-config buttonColor`}
         disabled={disabled}
       >
         <div className={"buttonIcon"}>
@@ -50,7 +93,7 @@ const ColorButton = ({ selected, onClick, label, text, icoSVG, color }) => {
         </div>
         <div className={"buttonLabel"}>
           {label ? <div className="subtitle">{label}</div> : null}
-          {text}
+          <div className="title">{text}</div>
         </div>
       </div>
     </Style>

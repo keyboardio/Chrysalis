@@ -22,7 +22,8 @@ import IconArrowsMouseWheel from "./IconArrowsMouseWheel";
 import IconArrowsSmallSeparating from "./IconArrowsSmallSeparating";
 import IconArrowUpWithLine from "./IconArrowUpWithLine";
 import IconArrowDownWithLine from "./IconArrowDownWithLine";
-import IconColorPallete from "./IconColorPallete";
+import IconColorPalette from "./IconColorPalette";
+import IconColorPicker from "./IconColorPicker";
 import IconCheckmarkSm from "./IconCheckmarkSm";
 import IconChip from "./IconChip";
 import IconClone from "./IconClone";
@@ -109,7 +110,8 @@ export {
   IconArrowsMouseWheel,
   IconArrowUpWithLine,
   IconArrowDownWithLine,
-  IconColorPallete,
+  IconColorPalette,
+  IconColorPicker,
   IconCheckmarkSm,
   IconChip,
   IconClone,

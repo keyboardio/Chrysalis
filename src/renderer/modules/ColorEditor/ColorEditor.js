@@ -34,7 +34,7 @@ import { ColorButton } from "../../component/Button";
 // Icons
 import { CgSmartHomeLight, CgColorPicker } from "react-icons/cg";
 
-import { IconColorPallete, IconKeysLight, IconKeysUnderglow } from "../../component/Icon";
+import { IconColorPalette, IconKeysLight, IconKeysUnderglow } from "../../component/Icon";
 
 const toolsWidth = 45;
 
@@ -231,15 +231,23 @@ export default class ColorEditor extends Component {
           <Title text={i18n.editor.color.colorPalette} headingLevel={4} />
         </div>
         <div className="panelTools">
-          {displayColorPicker ? (
-            <div style={popover}>
-              <div style={cover} onClick={this.showColorPicker} aria-hidden="true" />
-              <SketchPicker color={colors[selected]} onChange={this.handleChange} />
-            </div>
-          ) : null}
           <div className="colorPallete">{layerButtons}</div>
           <div className="buttonsGroup">
-            <div className="buttonEditColor">{edit}</div>
+            <div className="buttonEditColor">
+              <ColorButton
+                onClick={this.showColorPicker}
+                label={i18n.editor.color.selectedColor}
+                text={i18n.editor.color.editColor}
+                icoSVG={<IconColorPalette />}
+                color={colors[selected]}
+              />
+              {displayColorPicker ? (
+                <div style={popover}>
+                  <div style={cover} onClick={this.showColorPicker} aria-hidden="true" />
+                  <SketchPicker color={colors[selected]} onChange={this.handleChange} />
+                </div>
+              ) : null}
+            </div>
             <div className="buttonsApplyAll">
               <ColorButton
                 onClick={() => {

@@ -252,6 +252,13 @@ const Macros = function () {
     return macros;
   };
 
+  const indexMacro = (macro) => {
+    return macro.map((step, index) => {
+      step.id = index;
+      return step;
+    });
+  };
+
   const expandMacro = (macro) => {
     const mapping = {
       [Step.KEYCODEUP]: Step.KEYUP,
@@ -388,7 +395,9 @@ const Macros = function () {
 
       return {
         storageSize: macroMap.length,
-        macros: fill(this.parse(macroMap).map((m) => expandMacro(m))),
+        macros: fill(
+          this.parse(macroMap).map((m) => indexMacro(expandMacro(m)))
+        ),
       };
     }
   };

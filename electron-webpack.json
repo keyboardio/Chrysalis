@@ -33,6 +33,8 @@
   "whiteListedModules": [
     "@mui/system",
     "react",
+    "react-dnd",
+    "react-dnd-html5-backend",
     "react-color",
     "react-dom",
     "react-i18next",

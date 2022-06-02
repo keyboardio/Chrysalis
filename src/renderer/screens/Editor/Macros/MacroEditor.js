@@ -15,18 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useEffect, useState, useCallback } from "react";
-import { useTranslation } from "react-i18next";
-
-import Box from "@mui/material/Box";
+import CloseIcon from "@mui/icons-material/Close";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
-
-import CloseIcon from "@mui/icons-material/Close";
-
+import update from "immutability-helper";
+import React, { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import MacroStep from "./MacroStep";
 import MacroStepAdd from "./MacroStepAdd";
 import MacroStepEditor from "./MacroStepEditor";
@@ -49,6 +46,23 @@ const MacroEditor = (props) => {
     setMacroStep(newMacro.length - 1);
     setStepEditorOpen(true);
   };
+
+  const setSteps = (macroSteps) => {
+    onMacroChange(macroId, macroSteps);
+  };
+
+  const moveStep = useCallback(
+    (dragIndex, hoverIndex) => {
+      const foo = update(macro, {
+        $splice: [
+          [dragIndex, 1],
+          [hoverIndex, 0, macro[dragIndex]],
+        ],
+      });
+      setSteps(foo);
+    },
+    [macro, setSteps]
+  );
 
   const onStepSelect = (index) => {
     if (index == macroStep) {
@@ -114,13 +128,15 @@ const MacroEditor = (props) => {
     const key = "macro-step-" + index.toString();
     return (
       <MacroStep
-        key={key}
+        key={step.id}
         step={step}
+        id={step.id}
         index={index}
         onDelete={onStepDelete}
         onClick={onStepSelect}
         currentKey={props.currentKey}
         setSelectorKey={props.setSelectorKey}
+        moveStep={moveStep}
         selected={index == macroStep}
       />
     );

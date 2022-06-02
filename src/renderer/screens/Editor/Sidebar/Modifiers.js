@@ -38,8 +38,13 @@ const KeyPicker = (props) => {
   const isStandardKey = (props) => {
     const { currentKey: key } = props;
     const code = key.baseCode || key.code;
+    const stdRange = db.constants.ranges.standard;
 
-    return code >= 4 && code <= 255 && !db.isInCategory(key.code, "dualuse");
+    return (
+      code >= stdRange.start &&
+      code <= stdRange.end &&
+      !db.isInCategory(key.code, "dualuse")
+    );
   };
 
   const isOSM = () => {
@@ -69,11 +74,12 @@ const KeyPicker = (props) => {
 
   const toggleOneShot = (event) => {
     const { currentKey: key } = props;
+    const c = db.constants.codes;
 
     if (event.target.checked) {
-      props.onKeyChange(key.code - 224 + 49153);
+      props.onKeyChange(key.code - c.FIRST_MODIFIER + c.FIRST_ONESHOT_MODIFIER);
     } else {
-      props.onKeyChange(key.code - key.rangeStart + 224);
+      props.onKeyChange(key.code - key.rangeStart + c.FIRST_MODIFIER);
     }
   };
 
@@ -123,6 +129,8 @@ const KeyPicker = (props) => {
   }
 
   const isDU = db.isInCategory(key.code, "dualuse");
+  const isMod = (key, mod) => key.baseCode == mod || key.code == mod;
+  const c = db.constants.codes;
 
   return (
     <Collapsible
@@ -140,27 +148,27 @@ const KeyPicker = (props) => {
             <FormControlLabel
               control={makeSwitch("shift")}
               label="Shift"
-              disabled={key.baseCode == 225 || key.code == 225 || isDU}
+              disabled={isMod(key, c.LEFT_SHIFT) || isDU}
             />
             <FormControlLabel
               control={makeSwitch("ctrl")}
               label="Control"
-              disabled={key.baseCode == 224 || key.code == 224 || isDU}
+              disabled={isMod(key, c.LEFT_CONTROL) || isDU}
             />
             <FormControlLabel
               control={makeSwitch("alt")}
               label="Alt"
-              disabled={key.baseCode == 226 || key.code == 226 || isDU}
+              disabled={isMod(key, c.LEFT_ALT) || isDU}
             />
             <FormControlLabel
               control={makeSwitch("gui")}
               label={GuiLabel.full}
-              disabled={key.baseCode == 227 || key.code == 227 || isDU}
+              disabled={isMod(key, c.LEFT_GUI) || isDU}
             />
             <FormControlLabel
               control={makeSwitch("altgr")}
               label="AltGr"
-              disabled={key.baseCode == 230 || key.code == 230 || isDU}
+              disabled={isMod(key, c.RIGHT_ALT) || isDU}
             />
           </FormGroup>
         </FormControl>

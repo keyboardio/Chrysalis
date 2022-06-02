@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import KeymapDB from "@api/focus/keymap/db";
+
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 import Slider from "@mui/material/Slider";
@@ -26,10 +28,9 @@ import PreferenceSwitch from "../../components/PreferenceSwitch";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-const EscapeOneShotPreferences = (props) => {
-  const oneShotCancelKeyCode = 53630;
-  const escKeyCode = 41;
+const db = new KeymapDB();
 
+const EscapeOneShotPreferences = (props) => {
   const { t } = useTranslation();
   const { onSaveChanges } = props;
 
@@ -41,7 +42,7 @@ const EscapeOneShotPreferences = (props) => {
         return false;
       }
 
-      return parseInt(value) == escKeyCode;
+      return parseInt(value) == db.constants.codes.ESCAPE;
     };
 
     const key = await focus.command("escape_oneshot.cancel_key");
@@ -52,10 +53,11 @@ const EscapeOneShotPreferences = (props) => {
 
   const onChange = async (event) => {
     const v = event.target.checked;
+    const c = db.constants.codes;
     await setEscOneShot(v);
     await onSaveChanges(
       "escape_oneshot.cancel_key",
-      v ? escKeyCode : oneShotCancelKeyCode
+      v ? c.ESCAPE : c.ONESHOT_CANCEL
     );
   };
 

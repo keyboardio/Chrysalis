@@ -84,7 +84,7 @@ const LayoutCard = (props) => {
 
   for (let i = 0; i < keymap.custom.length; i++) {
     for (const j of keymap.custom[i]) {
-      if (j.code != 65535) {
+      if (j.code != db.constants.codes.EMPTY) {
         // If it's not empty, add it to the keymap_pix array
         keymap_pix.push(
           <Box

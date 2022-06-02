@@ -35,8 +35,8 @@ import { useTranslation } from "react-i18next";
 import { FloatingKeyPicker } from "./components/FloatingKeyPicker";
 import { LegacyAlert } from "./components/LegacyAlert";
 import { MacroStorageAlert } from "./components/MacroStorageAlert";
-import MacroEditor from "./Macros/MacroEditor";
 import OnlyCustomScreen from "./components/OnlyCustomScreen";
+import MacroEditor from "./Macros/MacroEditor";
 import Sidebar, { sidebarWidth } from "./Sidebar";
 
 const Store = require("electron-store");

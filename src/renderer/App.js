@@ -20,13 +20,14 @@ import Log from "@api/log";
 import { LocationProvider, Router } from "@gatsbyjs/reach-router";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-import Snackbar from "@mui/material/Snackbar";
 import {
   createTheme,
   StyledEngineProvider,
   ThemeProvider,
 } from "@mui/material/styles";
-import React, { Suspense, useState, useContext, useEffect } from "react";
+import React, { Suspense, useContext, useEffect, useState } from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import { useTranslation } from "react-i18next";
 import "typeface-roboto/index.css";
 import "typeface-source-code-pro/index.css";
@@ -34,6 +35,7 @@ import { ActiveDevice } from "./ActiveDevice";
 import { hideContextBar } from "./components/ContextBar";
 import { GlobalContext } from "./components/GlobalContext";
 import Header from "./components/Header";
+import Toast, { toast } from "./components/Toast";
 import { isDevelopment } from "./config";
 import { history, navigate } from "./routerHistory";
 import ChangeLog from "./screens/ChangeLog";
@@ -49,8 +51,6 @@ import { migrateDarkModeToTheme } from "./utils/darkMode";
 const { ipcRenderer } = require("electron");
 const Store = require("electron-store");
 const settings = new Store();
-
-import Toast, { toast } from "./components/Toast";
 
 const focus = new Focus();
 if (isDevelopment) {
@@ -215,51 +215,56 @@ const App = (props) => {
     <Suspense>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={uiTheme}>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              height: "100%",
-            }}
-          >
-            <LocationProvider history={history}>
-              <CssBaseline />
-              <Header device={deviceInfo} />
-              <Box
-                component="main"
-                sx={{
-                  flexGrow: 1,
-                  overflow: "auto",
-                  height: "100%",
-                }}
-              >
-                <Router id="router">
-                  <FocusNotDetected
-                    path="/focus-not-detected"
-                    focusDeviceDescriptor={focusDeviceDescriptor}
-                    onConnect={onKeyboardConnect}
-                  />
-                  <LayoutCard path="/layout-card" />
-                  <KeyboardSelect
-                    path="/keyboard-select"
-                    onConnect={onKeyboardConnect}
-                    onDisconnect={onKeyboardDisconnect}
-                  />
-                  <Editor path="/editor" onDisconnect={onKeyboardDisconnect} />
-                  <FirmwareUpdate
-                    path="/firmware-update"
-                    focusDeviceDescriptor={focusDeviceDescriptor}
-                    toggleFlashing={toggleFlashing}
-                    onDisconnect={onKeyboardDisconnect}
-                  />
-                  <Preferences path="/preferences" />
-                  <SystemInfo path="/system-info" />
-                  <ChangeLog path="/changelog" />
-                </Router>
-              </Box>
-            </LocationProvider>
-          </Box>
-          <Toast />
+          <DndProvider backend={HTML5Backend}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+              }}
+            >
+              <LocationProvider history={history}>
+                <CssBaseline />
+                <Header device={deviceInfo} />
+                <Box
+                  component="main"
+                  sx={{
+                    flexGrow: 1,
+                    overflow: "auto",
+                    height: "100%",
+                  }}
+                >
+                  <Router id="router">
+                    <FocusNotDetected
+                      path="/focus-not-detected"
+                      focusDeviceDescriptor={focusDeviceDescriptor}
+                      onConnect={onKeyboardConnect}
+                    />
+                    <LayoutCard path="/layout-card" />
+                    <KeyboardSelect
+                      path="/keyboard-select"
+                      onConnect={onKeyboardConnect}
+                      onDisconnect={onKeyboardDisconnect}
+                    />
+                    <Editor
+                      path="/editor"
+                      onDisconnect={onKeyboardDisconnect}
+                    />
+                    <FirmwareUpdate
+                      path="/firmware-update"
+                      focusDeviceDescriptor={focusDeviceDescriptor}
+                      toggleFlashing={toggleFlashing}
+                      onDisconnect={onKeyboardDisconnect}
+                    />
+                    <Preferences path="/preferences" />
+                    <SystemInfo path="/system-info" />
+                    <ChangeLog path="/changelog" />
+                  </Router>
+                </Box>
+              </LocationProvider>
+            </Box>
+            <Toast />
+          </DndProvider>
         </ThemeProvider>
       </StyledEngineProvider>
     </Suspense>

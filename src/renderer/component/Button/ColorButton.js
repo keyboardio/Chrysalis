@@ -28,9 +28,9 @@ const Style = Styled.div`
 .buttonColor {
   display: flex;
   flex-wrap: nowrap;
-  width: 162px;
+  width: 132px;
   align-items: center;
-  padding: 2px 16px;
+  padding: 5px 8px;
   color: ${({ theme }) => theme.styles.button.buttonColor.color};
   .buttonIcon {
     width: 24px;
@@ -52,7 +52,8 @@ const Style = Styled.div`
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    line-height: 1.2em;
+    line-height: 1.1em;
+    font-size: 13px;
     .subtitle {
       color: #97A0B4;
       font-size: 11px;

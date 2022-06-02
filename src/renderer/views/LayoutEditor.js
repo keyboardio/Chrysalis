@@ -47,6 +47,8 @@ import { LayerSelector } from "../component/Select";
 import { RegularButton } from "../component/Button";
 import { IconArrowUpWithLine, IconArrowDownWithLine } from "../component/Icon";
 
+import customCursor from "../../../static/base/cursorBucket.png";
+
 const Store = window.require("electron-store");
 const store = new Store();
 
@@ -296,6 +298,9 @@ margin: auto;
       opacity: 1;
     }
   }
+}
+.layoutEditor.color .keyItem:hover {
+  cursor: url(${customCursor}), auto;
 }
 `;
 
@@ -1771,7 +1776,7 @@ class LayoutEditor extends React.Component {
 
     return (
       <Styles>
-        <Container fluid className="keyboard-editor layoutEditor">
+        <Container fluid className={`keyboard-editor layoutEditor ${this.state.modeselect}`}>
           <PageHeader
             text={i18n.app.menu.editor}
             showSaving={true}

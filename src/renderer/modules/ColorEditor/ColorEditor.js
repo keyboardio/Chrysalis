@@ -21,15 +21,13 @@ import Styled from "styled-components";
 import i18n from "../../i18n";
 
 // Bootstrap components
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+
 import Button from "react-bootstrap/Button";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 
 import Title from "../../component/Title";
-import { ColorButton } from "../../component/Button";
+import { ColorButton, ColorPicker } from "../../component/Button";
 
 // Icons
 import { CgSmartHomeLight, CgColorPicker } from "react-icons/cg";
@@ -65,9 +63,20 @@ width: 100%;
     margin-left: 8px;
   }
 }
+.buttonEditColor {
+  position: relative;
+}
 .buttonsApplyAll {
   display: flex;
   flex-wrap: nowrap;
+}
+
+.colorPallete {
+  display: grid;
+  grid-auto-columns: auto;
+  grid-auto-flow: column;
+  align-items: center;
+  grid-gap: 2px;
 }
 `;
 
@@ -137,18 +146,29 @@ export default class ColorEditor extends Component {
         backgroundColor: data.rgb
       };
       return (
-        <Button
-          key={menuKey}
+        // <Button
+        //   key={menuKey}
+        //   onClick={ev => {
+        //     this.selectColor(ev, idx);
+        //   }}
+        //   className="color-button sr-only"
+        //   data-id={data.rgb}
+        // >
+        //   <div className="button-content">
+        //     <div key={colors[idx]} className={`color ${selected === idx ? "actv" : ""}`} style={buttonStyle} />
+        //   </div>
+        // </Button>
+        <ColorPicker
           onClick={ev => {
             this.selectColor(ev, idx);
           }}
-          className="color-button"
-          data-id={data.rgb}
-        >
-          <div className="button-content">
-            <div key={colors[idx]} className={`color ${selected === idx ? "actv" : ""}`} style={buttonStyle} />
-          </div>
-        </Button>
+          menuKey={menuKey}
+          key={colors[idx]}
+          id={idx}
+          selected={selected}
+          buttonStyle={buttonStyle}
+          dataID={data.rgb}
+        />
       );
     });
 
@@ -158,7 +178,7 @@ export default class ColorEditor extends Component {
 
     const popover = {
       position: "absolute",
-      bottom: "120px"
+      top: "42px"
     };
     const cover = {
       position: "fixed",

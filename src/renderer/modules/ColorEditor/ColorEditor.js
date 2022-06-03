@@ -78,6 +78,13 @@ width: 100%;
   align-items: center;
   grid-gap: 2px;
 }
+.sketch-picker {
+  font-weight: 600;
+  input {
+    font-weight: 500;
+    width: 100%;
+  }
+}
 `;
 
 export default class ColorEditor extends Component {
@@ -163,7 +170,7 @@ export default class ColorEditor extends Component {
             this.selectColor(ev, idx);
           }}
           menuKey={menuKey}
-          key={colors[idx]}
+          key={`${menuKey}-key-${colors[idx]}`}
           id={idx}
           selected={selected}
           buttonStyle={buttonStyle}

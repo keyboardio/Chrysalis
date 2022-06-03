@@ -71,6 +71,17 @@ const Style = Styled.div`
     box-shadow: ${({ theme }) => theme.styles.toogleEditMode.buttonBoxShadow};
   }
 }
+@media screen and (max-width: 1259px) {
+  &.toggleButtonsContainer .toggleButtonsInner .button-config {
+    width: 52px;
+    svg {
+      margin-right: 0;
+    }
+    .buttonLabel {
+      display: none;
+    }
+  }
+}
 `;
 const KeyboardViewSelector = ({ editModeFunc, value, listElements, style, size }) => {
   console.log("Data from props", value, listElements);
@@ -88,6 +99,10 @@ const KeyboardViewSelector = ({ editModeFunc, value, listElements, style, size }
             key={index}
             buttonText={item.name}
             size={size}
+            tooltip={item.tooltip}
+            tooltipPlacement={"bottom"}
+            tooltipDelay={300}
+            tooltipClassName="tooltipRegular tooltipKeyboardViewSelector"
           />
         ))}
       </div>

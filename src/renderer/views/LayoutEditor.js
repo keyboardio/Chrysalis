@@ -131,11 +131,14 @@ margin: auto;
 .LayerHolder {
   display: flex;
   flex: 0 0 100%;
+  margin: 0 auto;
+  min-width: 680px;
+  max-width: 1222px;
 }
 .raiseKeyboard {
   overflow: visible;
   margin: 0 auto;
-  max-width: 1225px;
+  max-width: 100%;
   * {
     transform-box: fill-box;
   }
@@ -1832,52 +1835,21 @@ class LayoutEditor extends React.Component {
             <Col className="raise-editor layer-col">
               <Row className="m-0">{layer}</Row>
               <Row className="full-height m-0">
-                {this.state.modeselect != "keyboard" ? (
-                  <ColorPanel
-                    key={palette}
-                    colors={palette}
-                    disabled={isReadOnly || currentLayer > this.state.colorMap.length}
-                    onColorSelect={this.onColorSelect}
-                    colorButtonIsSelected={this.state.colorButtonIsSelected}
-                    onColorPick={this.onColorPick}
-                    selected={this.state.selectedPaletteColor}
-                    isColorButtonSelected={isColorButtonSelected}
-                    onColorButtonSelect={this.onColorButtonSelect}
-                    toChangeAllKeysColor={this.toChangeAllKeysColor}
+                {this.state.modeselect == "keyboard" ? (
+                  <KeyPickerKeyboard
+                    onKeySelect={this.onKeyChange}
+                    code={code}
+                    macros={macros}
+                    superkeys={superkeys}
+                    actions={actions}
+                    action={0}
+                    superName={superName}
+                    keyIndex={currentKeyIndex}
+                    actTab={"editor"}
+                    selectedlanguage={currentLanguageLayout}
+                    kbtype={kbtype}
                   />
-                ) : (
-                  <>
-                    {/* <KeyConfig
-                      id="keyboard-fade"
-                      onKeySelect={this.onKeyChange}
-                      code={code}
-                      macros={macros}
-                      superkeys={superkeys}
-                      actions={actions}
-                      superName={superName}
-                      newSuperID={this.newSuperID}
-                      setSuperKey={this.setSuperKey}
-                      delSuperKey={this.delSuperKey}
-                      keyIndex={currentKeyIndex}
-                      actTab={"editor"}
-                      selectedlanguage={currentLanguageLayout}
-                      kbtype={kbtype}
-                    /> */}
-                    <KeyPickerKeyboard
-                      onKeySelect={this.onKeyChange}
-                      code={code}
-                      macros={macros}
-                      superkeys={superkeys}
-                      actions={actions}
-                      action={0}
-                      superName={superName}
-                      keyIndex={currentKeyIndex}
-                      actTab={"editor"}
-                      selectedlanguage={currentLanguageLayout}
-                      kbtype={kbtype}
-                    />
-                  </>
-                )}
+                ) : null}
               </Row>
             </Col>
           </Row>

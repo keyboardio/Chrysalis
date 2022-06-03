@@ -1603,6 +1603,12 @@ div.card.card-preferences .card-body {
   white-space: nowrap!important;
   text-align: left;
 }
+
+@media screen and (min-width: 1260px) {
+  .tooltipKeyboardViewSelector {
+    display: none!important;
+  }
+}
 @media screen and (min-width: 1000px) {
   #app {
     grid-template-columns: 120px auto;

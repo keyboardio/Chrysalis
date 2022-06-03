@@ -42,12 +42,12 @@ const Style = Styled.div`
 
 `;
 
-const ColorPicker = ({ menuKey, key, id, onClick, dataID, selected, buttonStyle }) => {
+const ColorPicker = ({ menuKey, id, onClick, dataID, selected, buttonStyle }) => {
   return (
     <Style>
       <div key={menuKey} onClick={onClick} className={`colorPickerButton ${selected === id ? "active" : ""}`} data-id={dataID}>
         <div className="button-content">
-          <div key={key} className={`colorItem`} style={buttonStyle} />
+          <div className={`colorItem`} style={buttonStyle} />
         </div>
       </div>
     </Style>

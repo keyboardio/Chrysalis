@@ -87,7 +87,10 @@ const Overview = (props) => {
 
       colorWidget = (
         <Avatar
-          sx={{ width: 3, height: 3 }}
+          sx={{
+            width: (theme) => theme.spacing(3),
+            height: (theme) => theme.spacing(3),
+          }}
           variant="square"
           style={{
             color: color?.rgb,

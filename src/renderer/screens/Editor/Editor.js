@@ -294,6 +294,14 @@ const Editor = (props) => {
     initialize();
   });
 
+  const onApplyError = async (error) => {
+    logger().error("Error applying layout editor changes", { error: error });
+    toast.error(error);
+
+    hideContextBar();
+    props.onDisconnect();
+  };
+
   const onApply = async () => {
     await focus.command("keymap", keymap);
     await focus.command("colormap", colormap);
@@ -411,7 +419,11 @@ const Editor = (props) => {
         keymap={keymap}
         currentKey={currentKey}
       />
-      <SaveChangesButton onClick={onApply} disabled={saveChangesDisabled}>
+      <SaveChangesButton
+        onClick={onApply}
+        onError={onApplyError}
+        disabled={saveChangesDisabled}
+      >
         {t("components.save.saveChanges")}
       </SaveChangesButton>
     </React.Fragment>

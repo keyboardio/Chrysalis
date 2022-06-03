@@ -113,7 +113,10 @@ function Preferences(props) {
         </TabPanel>
 
         <TabPanel value={value} index={1}>
-          <MyKeyboardPreferences inContext={props.inContext} />
+          <MyKeyboardPreferences
+            inContext={props.inContext}
+            onDisconnect={props.onDisconnect}
+          />
         </TabPanel>
         <TabPanel value={value} index={2}>
           <DevtoolsPreferences />

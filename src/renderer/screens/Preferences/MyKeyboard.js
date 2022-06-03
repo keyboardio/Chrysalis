@@ -16,12 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { logger } from "@api/log";
 import {
   hideContextBar,
   showContextBar,
 } from "@renderer/components/ContextBar";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 import SaveChangesButton from "@renderer/components/SaveChangesButton";
+import { toast } from "@renderer/components/Toast";
+
 import React, { useState, useContext, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -45,6 +48,14 @@ const MyKeyboardPreferences = (props) => {
 
     setModified(true);
     showContextBar();
+  };
+
+  const onError = async (error) => {
+    logger().error("Error applying keyboard preferences", { error: error });
+    toast.error(error);
+
+    hideContextBar();
+    props.onDisconnect();
   };
 
   const saveChanges = async () => {
@@ -78,7 +89,11 @@ const MyKeyboardPreferences = (props) => {
       <PluginPreferences onSaveChanges={onSaveChanges} />
       <AdvancedKeyboardPreferences />
 
-      <SaveChangesButton onClick={saveChanges} disabled={!modified}>
+      <SaveChangesButton
+        onClick={saveChanges}
+        onError={onError}
+        disabled={!modified}
+      >
         {t("components.save.saveChanges")}
       </SaveChangesButton>
     </>

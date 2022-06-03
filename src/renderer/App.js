@@ -252,7 +252,10 @@ const App = (props) => {
                       toggleFlashing={toggleFlashing}
                       onDisconnect={onKeyboardDisconnect}
                     />
-                    <Preferences path="/preferences" />
+                    <Preferences
+                      path="/preferences"
+                      onDisconnect={onKeyboardDisconnect}
+                    />
                     <SystemInfo path="/system-info" />
                     <ChangeLog path="/changelog" />
                   </Router>

@@ -38,8 +38,13 @@ const SaveChangesButton = (props) => {
     logger().debug("about to call the onlick handler", {
       label: "save-changes",
     });
-    await props.onClick(event);
+    try {
+      await props.onClick(event);
+    } catch (e) {
+      return props.onError(e);
+    }
     logger().debug("Got back from click", { label: "save-changes" });
+
     setSuccess(true);
     setInProgress(false);
     setTimeout(() => {

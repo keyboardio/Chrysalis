@@ -195,12 +195,15 @@ const App = (props) => {
     logger().info("Disconnecting from keyboard", {
       path: await activeDevice.devicePath(),
     });
-    focus.close();
+    await navigate("./");
+
+    await focus.close();
+    hideContextBar();
     setConnected(false);
     setFocusDeviceDescriptor(null);
     setActiveDevice(null);
 
-    localStorage.clear();
+    // Second call to `navigate` will actually render the proper route
     await navigate("/keyboard-select");
   };
 

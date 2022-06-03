@@ -76,13 +76,24 @@ width: 100%;
   grid-auto-columns: auto;
   grid-auto-flow: column;
   align-items: center;
-  grid-gap: 2px;
+  grid-gap: 4px;
 }
 .sketch-picker {
   font-weight: 600;
   input {
     font-weight: 500;
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 1599px) {
+  .panelTitle {
+    padding-right: 12px;
+  }
+}
+@media screen and (max-width: 1499px) {
+  .panelTitle {
+    display: none;
   }
 }
 `;

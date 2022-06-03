@@ -25,10 +25,11 @@ const Style = Styled.div`
     height: 38px;
     background: ${({ theme }) => theme.styles.colorPanel.colorPickerBase};
     border: 1px solid ${({ theme }) => theme.styles.colorPanel.colorPickerBorder};
+    // box-shadow:inset 0px 0px 0px 1px #f00;
     border-radius: 4px;
-    padding: 3px;
+    
     box-shadow: 0px 0px 24px rgba(108, 92, 231, 0);
-    transition-property: background, border, box-shadow;
+    transition-property: background, border, box-shadow, width;
     transition: 300ms ease-in-out;
     &:hover{
       border: 1px solid ${({ theme }) => theme.styles.colorPanel.colorPickerBorderHover};
@@ -43,9 +44,14 @@ const Style = Styled.div`
         box-shadow: 0px 4px 24px rgba(108, 92, 231, 0.6);
     }
 }
-.button-content, 
+.button-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 3px;
+}
 .colorItem {
-    width: 100%;
+  width: 100%;
     height: 100%;
     border-radius: 3px;
 }
@@ -63,6 +69,30 @@ const Style = Styled.div`
   }
 }
 
+@media screen and (max-width: 1599px) {
+  .colorPickerButton {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+@media screen and (max-width: 1499px) {
+  .colorPickerButton {
+    width: 32px;
+    height: 32px;
+  }
+}
+@media screen and (max-width: 1355px) {
+  .colorPickerButton {
+    width: 16px;
+    height: 36px;
+    &:hover,
+    &.active {
+      width: 24px;
+    }
+  }
+}
+
 `;
 
 const ColorPicker = ({ menuKey, id, onClick, dataID, selected, buttonStyle }) => {
@@ -70,7 +100,7 @@ const ColorPicker = ({ menuKey, id, onClick, dataID, selected, buttonStyle }) =>
     <Style>
       <div key={menuKey} onClick={onClick} className={`colorPickerButton ${selected === id ? "active" : ""}`} data-id={dataID}>
         <div className="button-content">
-          <div className={`colorItem`} style={buttonStyle} />
+          <div className={`colorItem`} style={buttonStyle}>{` `}</div>
         </div>
       </div>
     </Style>

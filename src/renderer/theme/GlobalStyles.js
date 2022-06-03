@@ -647,6 +647,7 @@ svg text{
 .dropdownMultipleActions .dropdown-toggle.btn.btn-primary {
   padding: 8px 16px 8px 8px;
   margin: 0;
+  height: 58px;
 }
 .dropdownMultipleActions .dropdown-toggle.btn.btn-primary:after {
   content: none;
@@ -1764,6 +1765,7 @@ div.card.card-preferences .card-body {
 }
 
 @media screen and (max-width: 1240px) {
+  .main-container .layoutEditor,
   .main-container .superkeys {
     .singleViewWrapper {
       grid-template-columns: 1fr;

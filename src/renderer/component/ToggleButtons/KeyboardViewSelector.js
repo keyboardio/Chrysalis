@@ -21,10 +21,11 @@ import Styled from "styled-components";
 
 const Style = Styled.div`
 &.toggleButtonsContainer {
-  padding: 4px;
+  padding: 3px 4px;
   background: ${({ theme }) => theme.styles.toggleButton.background};
   border-radius: 6px;
   margin-left: 12px;
+  height: 54px;
   .toggleButtonsInner {
     margin-left: 0;
     margin-right: 0;

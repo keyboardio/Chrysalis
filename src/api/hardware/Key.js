@@ -139,6 +139,18 @@ const Key = ({
               fill="transparent"
               strokeOpacity="0"
             />
+            <rect
+              x={xShape2}
+              y={yShape2}
+              width={widthShape2}
+              height={heightShape2}
+              rx="4"
+              className="keyAnimation"
+              stroke="#fff"
+              strokeWidth="1"
+              fill="transparent"
+              strokeOpacity="1"
+            />
 
             <foreignObject x={xShape2} y={yShape2} width={widthShape2} height={heightShape2}>
               <div xmlns="http://www.w3.org/1999/xhtml" className={`keyContentLabel`}>
@@ -250,6 +262,15 @@ const Key = ({
               fill="transparent"
               strokeOpacity="0"
             />
+
+            <path
+              d="M0.930799 5.08781C-0.913514 3.18477 0.434998 0 3.0851 0H108C110.209 0 112 1.79086 112 4V47C112 49.2091 110.209 51 108 51H47.9666C46.3427 51 44.7882 50.3418 43.658 49.1756L0.930799 5.08781Z"
+              className="keyAnimation"
+              stroke="#fff"
+              strokeWidth="1"
+              fill="transparent"
+              strokeOpacity="1"
+            />
           </g>
           <foreignObject x={42} y={1} width={widthShape2 - 52} height={heightShape2}>
             <div xmlns="http://www.w3.org/1999/xhtml" className={`keyContentLabel`}>
@@ -359,6 +380,15 @@ const Key = ({
               strokeWidth="2"
               fill="transparent"
               strokeOpacity="0"
+            />
+
+            <path
+              d="M111.825 5.08781C113.67 3.18477 112.321 0 109.671 0H4.75611C2.54697 0 0.756104 1.79086 0.756104 4V47C0.756104 49.2091 2.54696 51 4.7561 51H64.7895C66.4134 51 67.9679 50.3418 69.0981 49.1756L111.825 5.08781Z"
+              className="keyAnimation"
+              stroke="#fff"
+              strokeWidth="1"
+              fill="transparent"
+              strokeOpacity="1"
             />
           </g>
           <foreignObject x={3} y={1} width={widthShape2 - 52} height={heightShape2}>
@@ -479,6 +509,15 @@ const Key = ({
               strokeWidth="2"
               fill="transparent"
               strokeOpacity="0"
+            />
+            <path
+              xmlns="http://www.w3.org/2000/svg"
+              d="M61 4C61 1.79086 59.2091 0 57 0H4C1.79086 0 0 1.79086 0 4V47C0 49.2091 1.79086 51 4 51H17C19.2091 51 21 52.7909 21 55V114C21 116.209 22.7909 118 25 118H57C59.2091 118 61 116.209 61 114V4Z"
+              className="keyAnimation"
+              stroke="#fff"
+              strokeWidth="1"
+              fill="transparent"
+              strokeOpacity="1"
             />
           </g>
           <foreignObject x={3} y={0} width={widthShape2 - 6} height={49}>

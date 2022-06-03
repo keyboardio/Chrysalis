@@ -139,6 +139,7 @@ margin: auto;
   overflow: visible;
   margin: 0 auto;
   max-width: 100%;
+  max-height: 75vh;
   * {
     transform-box: fill-box;
   }
@@ -229,6 +230,9 @@ margin: auto;
       filter: blur(16px);
       opacity: 0.6;
     }
+    .keyAnimation {
+      display: inline-block;
+    }
   }
   &:hover {
     cursor: pointer;
@@ -272,8 +276,23 @@ margin: auto;
     }
   }
 }
-
-
+.keyAnimation {
+  display: none;
+  transform: scale(1);
+  animation: pulse-black 1.2s infinite;
+  filter: blur(1px);
+}
+@keyframes pulse-black {
+  0% {
+    opacity: 0;
+  }
+  70% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 .underGlowStrip {
   .underGlowStripStroke {
       stroke-opacity: 0.5;

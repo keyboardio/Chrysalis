@@ -32,3 +32,6 @@ jobs:
         run: |
           yarn lint:css
           yarn lint:js
+
+      - name: Check if yarn.lock is up to date
+        run: git diff --exit-code -- yarn.lock

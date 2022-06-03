@@ -78,7 +78,7 @@ const MyKeyboardPreferences = (props) => {
       <PluginPreferences onSaveChanges={onSaveChanges} />
       <AdvancedKeyboardPreferences />
 
-      <SaveChangesButton floating onClick={saveChanges} disabled={!modified}>
+      <SaveChangesButton onClick={saveChanges} disabled={!modified}>
         {t("components.save.saveChanges")}
       </SaveChangesButton>
     </>

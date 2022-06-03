@@ -17,6 +17,7 @@
 
 import Focus from "@api/focus";
 import BuildIcon from "@mui/icons-material/Build";
+import CheckIcon from "@mui/icons-material/Check";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import ExploreIcon from "@mui/icons-material/ExploreOutlined";
 import SettingsBackupRestoreIcon from "@mui/icons-material/SettingsBackupRestore";
@@ -43,7 +44,6 @@ import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
 import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
 import { PageTitle } from "@renderer/components/PageTitle";
-import SaveChangesButton from "@renderer/components/SaveChangesButton";
 import { toast } from "@renderer/components/Toast";
 import { getStaticPath } from "@renderer/config";
 import useEffectOnce from "@renderer/hooks/useEffectOnce";
@@ -68,6 +68,7 @@ const FirmwareUpdate = (props) => {
   const [resetOnFlash, setResetOnFlash] = useState(false);
   const [activeStep, setActiveStep] = useState(-1);
   const [flashSteps, setFlashSteps] = useState([]);
+  const [progress, setProgress] = useState("idle");
   const { t } = useTranslation();
   const focusDeviceDescriptor =
     props.focusDeviceDescriptor || focus.focusDeviceDescriptor;
@@ -187,12 +188,14 @@ const FirmwareUpdate = (props) => {
 
   const upload = async () => {
     await props.toggleFlashing();
+    setProgress("flashing");
 
     try {
       await _flash();
       await setActiveStep(flashSteps.length);
     } catch (e) {
       console.error(e);
+      setProgress("error");
       setActiveStep(-1);
       toast.error(t("firmwareUpdate.flashing.error"));
       props.toggleFlashing();
@@ -200,12 +203,13 @@ const FirmwareUpdate = (props) => {
       return;
     }
 
+    setProgress("success");
+
     return new Promise((resolve) => {
       setTimeout(() => {
         toast.success(t("firmwareUpdate.flashing.success"), {
           autoHideDuration: 10000,
         });
-
         props.toggleFlashing();
         props.onDisconnect();
         resolve();
@@ -408,13 +412,20 @@ const FirmwareUpdate = (props) => {
         <CardActions>
           {firmwareSelect}
           <Box sx={{ flexGrow: 1 }} />
-          <SaveChangesButton
-            icon={<CloudUploadIcon />}
+          <Button
+            startIcon={
+              progress == "success" ? <CheckIcon /> : <CloudUploadIcon />
+            }
+            variant="contained"
             onClick={resetOnFlash ? openConfirmationDialog : upload}
-            successMessage={t("firmwareUpdate.flashing.buttonSuccess")}
+            disabled={progress == "flashing"}
+            color={
+              ((progress == "success" || progress == "error") && progress) ||
+              "primary"
+            }
           >
             {t("firmwareUpdate.flashing.button")}
-          </SaveChangesButton>
+          </Button>
         </CardActions>
         {activeStep >= 0 && <CardContent>{stepsWidget}</CardContent>}
       </Card>

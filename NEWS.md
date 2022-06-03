@@ -25,6 +25,9 @@ reduce potential confusion, when the Layout Editor offered keys that the
 firmware did not support. The feature can be turned off on the Preferences
 screen.
 
+After connecting to a Keyboard, Chrysalis will now switch the initial layer
+shown in the Layout Editor to the default layer, if it is set for the keyboard.
+
 The configuration option that lets us configure whether Esc cancels OneShot or
 not has been moved from the Layout Editor sidebar onto the "My Keyboard" tab of
 the Preferences screen.

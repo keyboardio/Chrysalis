@@ -16,7 +16,7 @@
  */
 
 import Focus from "@api/focus";
-import Log from "@api/log";
+import { logger } from "@api/log";
 import { LocationProvider, Router } from "@gatsbyjs/reach-router";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -52,13 +52,7 @@ const { ipcRenderer } = require("electron");
 const Store = require("electron-store");
 const settings = new Store();
 
-const focus = new Focus();
-if (isDevelopment) {
-  focus.debug = true;
-}
-
 const App = (props) => {
-  const logger = new Log();
   let flashing = false;
   const focus = new Focus();
 
@@ -165,7 +159,6 @@ const App = (props) => {
 
   const onKeyboardConnect = async (port) => {
     focus.close();
-    console.log(port);
     if (!port.path) {
       setConnected(true);
       setFocusDeviceDescriptor(port.focusDeviceDescriptor);
@@ -175,7 +168,7 @@ const App = (props) => {
       return false;
     }
 
-    logger.log("Connecting to", port.path);
+    logger().info("Connecting to port", { path: port.path });
     await focus.open(port.path, port.focusDeviceDescriptor);
 
     // TODO: I'm not quite sure how to set activeDevice in a way that
@@ -184,7 +177,7 @@ const App = (props) => {
     setActiveDevice(newActiveDevice);
 
     if (!port.focusDeviceDescriptor.bootloader) {
-      logger.log("Probing for Focus support...");
+      logger().info("Probing for focus support...");
       focus.setLayerSize(focus.focusDeviceDescriptor);
     }
 
@@ -199,6 +192,9 @@ const App = (props) => {
   };
 
   const onKeyboardDisconnect = async () => {
+    logger().info("Disconnecting from keyboard", {
+      path: await activeDevice.devicePath(),
+    });
     focus.close();
     setConnected(false);
     setFocusDeviceDescriptor(null);

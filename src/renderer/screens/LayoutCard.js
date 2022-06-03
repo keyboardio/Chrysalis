@@ -16,6 +16,7 @@
  */
 
 import Focus from "@api/focus";
+import { logger } from "@api/log";
 import KeymapDB from "@api/focus/keymap/db";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -62,6 +63,9 @@ const LayoutCard = (props) => {
         setColormap(deviceColormap);
       }
     } catch (e) {
+      logger().error("error while fetching keymap & colormap", {
+        error: e,
+      });
       toast.error(e);
       props.onDisconnect();
     }

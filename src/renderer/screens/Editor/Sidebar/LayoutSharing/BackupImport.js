@@ -16,6 +16,7 @@
  */
 
 import Focus from "@api/focus";
+import { logger } from "@api/log";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import MenuItem from "@mui/material/MenuItem";
@@ -44,7 +45,11 @@ export const BackupImport = (props) => {
 
     if (error) {
       // TODO(anyone): show toast
-      console.error(error);
+      logger().error("error loading a layout file", {
+        device: focus.focusDeviceDescriptor.info,
+        fileName: item,
+        error: error,
+      });
       return;
     }
 

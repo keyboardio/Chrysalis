@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Log from "@api/log";
+import { logger } from "@api/log";
 import { getStaticPath } from "@renderer/config";
 import { spawn } from "child_process";
 import path from "path";
@@ -25,9 +25,11 @@ import tmp from "tmp";
 const installUdevRules = async (devicePath) => {
   const rules = path.join(getStaticPath(), "udev", "60-kaleidoscope.rules");
   const tmpRules = tmp.fileSync();
-  const logger = new Log();
 
-  logger.debug("Running: ", "cp " + rules + " " + tmpRules.name);
+  logger().debug("copying udev rules to temporary place", {
+    source: rules,
+    destination: tmpRules.name,
+  });
   await spawn("cp", [rules, tmpRules.name]);
 
   const cmd =
@@ -43,11 +45,13 @@ const installUdevRules = async (devicePath) => {
     "udevadm trigger " +
     devicePath;
   return new Promise(async (resolve, reject) => {
-    logger.debug("Running:", cmd);
+    logger().debug("installing udev rules with sudo", { command: cmd });
     sudo.exec(cmd, { name: "Chrysalis" }, (error) => {
       if (error) {
+        logger().error("error installing udev rules", { error: error });
         reject(error);
       } else {
+        logger().debug("udev rules installed");
         resolve(true);
       }
     });

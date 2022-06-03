@@ -73,7 +73,6 @@ export const FloatingKeyPicker = (props) => {
       onResizeStop={(e, direction, ref, delta, position) => {
         setWidth(ref.style.width);
         setHeight(ref.style.height);
-        console.log(position);
       }}
       style={{
         overflow: "hidden",

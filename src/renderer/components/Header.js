@@ -40,6 +40,7 @@ function Header({ device }) {
     useState(false);
 
   const { t } = useTranslation();
+
   useEffect(() => {
     const context_bar_channel = new BroadcastChannel("context_bar");
 
@@ -55,7 +56,7 @@ function Header({ device }) {
     return function cleanup() {
       context_bar_channel.close();
     };
-  });
+  }, []);
 
   function openMainMenu() {
     setMainMenuOpen(true);

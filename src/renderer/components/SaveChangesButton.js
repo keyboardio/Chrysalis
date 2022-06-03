@@ -18,7 +18,6 @@
 import CheckIcon from "@mui/icons-material/Check";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 import Fab from "@mui/material/Fab";
 import Tooltip from "@mui/material/Tooltip";
@@ -46,47 +45,19 @@ const SaveChangesButton = (props) => {
     }, 2000);
   };
 
-  const textPart = !props.floating && (
-    <Box
-      sx={{
-        position: "relative",
-        m: 1,
-      }}
-    >
-      <Button
-        variant="contained"
-        disabled={inProgress || (props.disabled && !success)}
-        onClick={handleButtonClick}
-        color={success ? "success" : "primary"}
-        sx={{ "&.Mui-disabled": { backgroundColor: "lightGrey" } }}
-      >
-        {success
-          ? successMessage || i18n.t("components.save.success")
-          : props.children}
-      </Button>
-    </Box>
-  );
-
   const icon = props.icon || <SaveAltIcon />;
 
-  const OptionalTooltip = (props) => {
-    if (props.floating) {
-      return <Tooltip title={props.children}>{props.children}</Tooltip>;
-    }
-    return props.children;
-  };
-
   return (
-    <OptionalTooltip>
+    <Tooltip title={props.children}>
       <Box
         sx={{
           display: "flex",
           alignItems: "center",
           justifyContent: "flex-end",
-          position: props.floating && "fixed",
-          bottom: props.floating && 32,
-          left: props.floating && 32,
-          zIndex: props.floating && ((theme) => theme.zIndex.drawer - 1),
+          position: "fixed",
+          bottom: 32,
+          left: 32,
+          zIndex: (theme) => theme.zIndex.drawer - 1,
         }}
       >
         <Box sx={{ position: "relative" }}>
@@ -94,10 +65,6 @@ const SaveChangesButton = (props) => {
             disabled={inProgress || (props.disabled && !success)}
             color={success ? "success" : "primary"}
             onClick={handleButtonClick}
-            sx={{
-              marginRight: "-16px",
-              "&.Mui-disabled": { backgroundColor: "lightGrey" },
-            }}
           >
             {success ? <CheckIcon /> : icon}
           </Fab>
@@ -114,9 +81,8 @@ const SaveChangesButton = (props) => {
             />
           )}
         </Box>
-        {textPart}
       </Box>
-    </OptionalTooltip>
+    </Tooltip>
   );
 };
 

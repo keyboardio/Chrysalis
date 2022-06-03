@@ -409,11 +409,7 @@ const Editor = (props) => {
         keymap={keymap}
         currentKey={currentKey}
       />
-      <SaveChangesButton
-        floating
-        onClick={onApply}
-        disabled={saveChangesDisabled}
-      >
+      <SaveChangesButton onClick={onApply} disabled={saveChangesDisabled}>
         {t("components.save.saveChanges")}
       </SaveChangesButton>
     </React.Fragment>

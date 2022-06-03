@@ -240,7 +240,10 @@ const App = (props) => {
                       focusDeviceDescriptor={focusDeviceDescriptor}
                       onConnect={onKeyboardConnect}
                     />
-                    <LayoutCard path="/layout-card" />
+                    <LayoutCard
+                      path="/layout-card"
+                      onDisconnect={onKeyboardDisconnect}
+                    />
                     <KeyboardSelect
                       path="/keyboard-select"
                       onConnect={onKeyboardConnect}

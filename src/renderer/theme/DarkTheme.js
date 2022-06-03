@@ -217,7 +217,8 @@ const Dark = {
       },
       buttonColor: {
         color: Tokens.colors.gray100,
-        subtitleColor: Tokens.colors.gray200
+        subtitleColor: Tokens.colors.gray200,
+        borderColor: "#2B2B2B"
       },
       buttonMouse: {
         backgroundColor: "linear-gradient(-90deg, rgba(11, 2, 25, 0.25) 0.39%, rgba(49, 50, 74, 0.25) 74.37%)",
@@ -237,7 +238,12 @@ const Dark = {
       }
     },
     colorPanel: {
-      colorTitle: Tokens.colors.gray100
+      colorTitle: Tokens.colors.gray100,
+      colorPickerBase: "rgba(11, 2, 25, 0.2)",
+      colorPickerBaseActive: "rgba(11, 2, 25, 0.6)",
+      colorPickerBorder: "rgba(123, 134, 158, 0.1)",
+      colorPickerBorderActive: Tokens.colors.purple300,
+      colorPickerBorderHover: settingColorOpacity(Tokens.colors.gray300, 0.4)
     },
     collpase: {
       iconBackgroud: IconPlusXS,

@@ -44,6 +44,7 @@ const Style = Styled.div`
       position: absolute;
       bottom: -6px;
       right: -8px;
+      border: 1px solid ${({ theme }) => theme.styles.button.buttonColor.borderColor};
     }
   }
   .buttonLabel {

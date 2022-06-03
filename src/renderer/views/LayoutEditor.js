@@ -302,8 +302,9 @@ margin: auto;
     }
   }
 }
-.layoutEditor.color .keyItem:hover {
-  cursor: url(${customCursor}), auto;
+.layoutEditor.color.colorSelected .keyItem:hover,
+.layoutEditor.color.colorSelected .underGlowStrip:hover {
+  cursor: url(${customCursor}) 12 12, auto;
 }
 `;
 
@@ -1779,7 +1780,12 @@ class LayoutEditor extends React.Component {
 
     return (
       <Styles>
-        <Container fluid className={`keyboard-editor layoutEditor ${this.state.modeselect}`}>
+        <Container
+          fluid
+          className={`keyboard-editor layoutEditor ${this.state.modeselect} ${
+            typeof this.state.selectedPaletteColor == "number" ? "colorSelected" : ""
+          }`}
+        >
           <PageHeader
             text={i18n.app.menu.editor}
             showSaving={true}

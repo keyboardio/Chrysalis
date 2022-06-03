@@ -23,13 +23,23 @@ const Style = Styled.div`
 .colorPickerButton {
     width: 38px;
     height: 38px;
-    background: rgba(11, 2, 25, 0.2);
-    border: 1px solid rgba(123, 134, 158, 0.1);
+    background: ${({ theme }) => theme.styles.colorPanel.colorPickerBase};
+    border: 1px solid ${({ theme }) => theme.styles.colorPanel.colorPickerBorder};
     border-radius: 4px;
     padding: 3px;
+    box-shadow: 0px 0px 24px rgba(108, 92, 231, 0);
+    transition-property: background, border, box-shadow;
+    transition: 300ms ease-in-out;
+    &:hover{
+      border: 1px solid ${({ theme }) => theme.styles.colorPanel.colorPickerBorderHover};
+      cursor: pointer;
+      .colorItem:after {
+        opacity: 1;
+      }
+    }
     &.active {
-        background: rgba(11, 2, 25, 0.6);
-        border: 1px solid #7879F1;
+        background: ${({ theme }) => theme.styles.colorPanel.colorPickerBaseActive};
+        border: 1px solid ${({ theme }) => theme.styles.colorPanel.colorPickerBorderActive};
         box-shadow: 0px 4px 24px rgba(108, 92, 231, 0.6);
     }
 }
@@ -38,6 +48,19 @@ const Style = Styled.div`
     width: 100%;
     height: 100%;
     border-radius: 3px;
+}
+.colorItem {
+  position: relative;
+  overflow: hidden;
+  &:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 50%), rgba(255,255,255,0.1);
+    opacity: 0;
+    transition: 300ms opacity ease-in-out;
+  }
 }
 
 `;

@@ -55,6 +55,12 @@ export const removeUsbEventListeners = () => {
 };
 
 export const registerDeviceDiscoveryHandlers = () => {
+  // We're relying on webusb to send us notifications about device
+  // connect/disconnect events, but it only sends disconnect events for devices
+  // it knows. If there are devices connected when we start up, we need to scan
+  // them first to notice disconnects. We do that here.
+  webusb.getDevices();
+
   ipcMain.handle("usb-scan-for-devices", (event) => {
     const webContents = event.sender;
     const devices = getDeviceList();

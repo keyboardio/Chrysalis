@@ -16,6 +16,7 @@
  */
 
 import Focus from "@api/focus";
+import { logger } from "@api/log";
 import BuildIcon from "@mui/icons-material/Build";
 import CheckIcon from "@mui/icons-material/Check";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
@@ -190,11 +191,12 @@ const FirmwareUpdate = (props) => {
     await props.toggleFlashing();
     setProgress("flashing");
 
+    logger().info("Starting to flash");
     try {
       await _flash();
       await setActiveStep(flashSteps.length);
     } catch (e) {
-      console.error(e);
+      logger().error("Error while uploading firmware", { error: e });
       setProgress("error");
       setActiveStep(-1);
       toast.error(t("firmwareUpdate.flashing.error"));
@@ -204,7 +206,7 @@ const FirmwareUpdate = (props) => {
     }
 
     setProgress("success");
-
+    logger().info("Successfully flashed");
     return new Promise((resolve) => {
       setTimeout(() => {
         toast.success(t("firmwareUpdate.flashing.success"), {

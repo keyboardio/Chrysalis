@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Focus from "@api/focus";
+import { getLogLevel, setLogLevel } from "@api/log";
 import Divider from "@mui/material/Divider";
 import Skeleton from "@mui/material/Skeleton";
 import React, { useEffect, useState } from "react";
@@ -25,14 +25,11 @@ const { ipcRenderer } = require("electron");
 import PreferenceSection from "./components/PreferenceSection";
 import PreferenceSwitch from "./components/PreferenceSwitch";
 
-const Store = require("electron-store");
-
 function DevtoolsPreferences(props) {
-  const focus = new Focus();
   const { t } = useTranslation();
 
   const [devConsole, setDevConsole] = useState(false);
-  const [verboseFocus, setVerboseFocus] = useState(focus.debug);
+  const [verbose, setVerbose] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -46,6 +43,13 @@ function DevtoolsPreferences(props) {
       ipcRenderer.on("devtools-closed", () => {
         setDevConsole(false);
       });
+
+      const logLevel = getLogLevel();
+      if (logLevel == "info") {
+        setVerbose(false);
+      } else {
+        setVerbose(true);
+      }
 
       setLoaded(true);
     };
@@ -68,9 +72,11 @@ function DevtoolsPreferences(props) {
     }
   };
 
-  const toggleVerboseFocus = (event) => {
-    setVerboseFocus(event.target.checked);
-    focus.debug = event.target.checked;
+  const toggleVerbose = (event) => {
+    const verbose = event.target.checked;
+    setVerbose(verbose);
+
+    setLogLevel(verbose ? "verbose" : "info");
   };
 
   return (
@@ -86,9 +92,10 @@ function DevtoolsPreferences(props) {
       )}
       <Divider sx={{ my: 2, mx: -2 }} />
       <PreferenceSwitch
+        loaded={loaded}
         option="devtools.verboseLogging"
-        checked={verboseFocus}
-        onChange={toggleVerboseFocus}
+        checked={verbose}
+        onChange={toggleVerbose}
       />
     </PreferenceSection>
   );

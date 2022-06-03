@@ -15,6 +15,7 @@
  */
 
 import Focus from "@api/focus";
+import { logger } from "@api/log";
 import Hardware from "@api/hardware";
 import { ipcRenderer } from "electron";
 
@@ -70,7 +71,9 @@ export const findKeyboards = async () => {
         resolve(list);
       })
       .catch(async (e) => {
-        console.error(e);
+        logger().warn("(non-fatal) error while finding keyboards", {
+          error: e,
+        });
         const list = await findNonSerialKeyboards([]);
         resolve(list);
       });

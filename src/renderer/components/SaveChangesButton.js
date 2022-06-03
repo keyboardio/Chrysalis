@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { logger } from "@api/log";
+
 import CheckIcon from "@mui/icons-material/Check";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
 import Box from "@mui/material/Box";
@@ -32,16 +34,18 @@ const SaveChangesButton = (props) => {
 
   const handleButtonClick = async (event) => {
     setInProgress(true);
-    console.log("about to do aysnc sutff");
-    console.log(" about to call  the onlick handler");
+    logger().debug("about to do async stuff", { label: "save-changes" });
+    logger().debug("about to call the onlick handler", {
+      label: "save-changes",
+    });
     await props.onClick(event);
-    console.log("Got back from click");
+    logger().debug("Got back from click", { label: "save-changes" });
     setSuccess(true);
     setInProgress(false);
     setTimeout(() => {
-      console.log("running the timeout callback ");
+      logger().debug("running the timeout callback", { label: "save-changes" });
       setSuccess(false);
-      console.log("finishied timeout callback");
+      logger().debug("finishied timeout callback", { label: "save-changes" });
     }, 2000);
   };
 

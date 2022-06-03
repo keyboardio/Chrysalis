@@ -19,7 +19,7 @@ import Focus from "@api/focus";
 import Keymap from "@api/focus/keymap";
 import KeymapDB from "@api/focus/keymap/db";
 import Macros, { Step as MacroStep } from "@api/focus/macros";
-import Log from "@api/log";
+import { logger } from "@api/log";
 import Box from "@mui/material/Box";
 import {
   hideContextBar,
@@ -44,7 +44,6 @@ const settings = new Store();
 
 const db = new KeymapDB();
 const focus = new Focus();
-const logger = new Log();
 
 const Editor = (props) => {
   const [colormap, setColormap] = useState({
@@ -236,7 +235,7 @@ const Editor = (props) => {
     }
 
     if (empty && !deviceKeymap.onlyCustom && deviceKeymap.custom.length > 0) {
-      logger.log("Custom keymap is empty, copying defaults");
+      logger().info("Custom keymap is empty, copying defaults");
       for (let i = 0; i < deviceKeymap.default.length; i++) {
         deviceKeymap.custom[i] = deviceKeymap.default[i].slice();
       }
@@ -301,7 +300,7 @@ const Editor = (props) => {
     await focus.command("macros", macros);
 
     setModified(false);
-    logger.log("Changes saved.");
+    logger().info("Changes saved.");
     hideContextBar();
   };
 
@@ -316,7 +315,7 @@ const Editor = (props) => {
       custom: newKeymap,
     });
 
-    logger.log("Legacy keycodes migrated to new ones.");
+    logger().info("Legacy keycodes migrated to new ones.");
 
     showContextBar();
   };

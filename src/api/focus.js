@@ -18,8 +18,8 @@ const { ipcRenderer } = require("electron");
 const { SerialPort } = require("serialport");
 const { DelimiterParser } = require("@serialport/parser-delimiter");
 
-import Log from "@api/log";
 import fs from "fs";
+import { logger } from "@api/log";
 
 import Colormap from "./focus/colormap";
 import Macros from "./focus/macros";
@@ -35,8 +35,6 @@ class Focus {
         help: this._help,
       };
       this.timeout = 30000;
-      this.debug = false;
-      this.logger = new Log();
       this._supported_commands = [];
       this._plugins = [];
     }
@@ -44,22 +42,16 @@ class Focus {
     return global.chrysalis_focus_instance;
   }
 
-  debugLog(...args) {
-    if (!this.debug) return;
-    this.logger.debug(...args);
-  }
-
   async waitForSerialDevice(focusDeviceDescriptor, usbInfo) {
     const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
     for (let attempt = 0; attempt < 10; attempt++) {
       const portList = await SerialPort.list();
-      this.debugLog(
-        "focus.waitForSerialDevice: portList:",
-        portList,
-        "device:",
-        usbInfo
-      );
+      logger("focus").debug("serial port list obtained", {
+        portList: portList,
+        device: usbInfo,
+        function: "waitForSerialDevice",
+      });
 
       for (const port of portList) {
         const pid = parseInt("0x" + port.productId),
@@ -69,15 +61,22 @@ class Focus {
           const newPort = Object.assign({}, port);
           newPort.focusDeviceDescriptor = focusDeviceDescriptor;
           newPort.focusDeviceDescriptor.bootloader = true;
-          this.debugLog("focus.waitForSerialDevice: found!", newPort);
+          logger("focus").info("serial port found", {
+            port: newPort,
+            function: "waitForSerialDevice",
+          });
           return newPort;
         }
       }
-      this.debugLog("focus.waitForSerialDevice: not found, waiting 2s");
+      logger("focus").debug("serial device not found, waiting 2s", {
+        function: "waitForSerialDevice",
+      });
       await delay(2000);
     }
 
-    this.debugLog("focus.waitForSerialDevice: none found");
+    logger("focus").warn("serial device not found after 10 attempts", {
+      function: "waitForSerialDevice",
+    });
     return null;
   }
 
@@ -99,28 +98,36 @@ class Focus {
         bootloader.vendorId
       );
       if (found) {
-        this.debugLog(
-          "focus.waitForBootloader: found!",
-          bootloader.ProductId,
-          bootloader.vendorId
-        );
+        logger("focus").info("bootloader found", {
+          vid: bootloader.vendorId,
+          pid: bootloader.productId,
+          function: "waitForDFUBootloader",
+        });
         return true;
       }
 
-      this.debugLog("focus.waitForBootloader: not found, waiting 2s");
+      logger("focus").debug("bootloader not found, waiting 2s", {
+        function: "waitForDFUBootloader",
+      });
       await delay(2000);
     }
 
-    this.debugLog("focus.waitForBootloader: none found");
+    logger("focus").warn("bootloader not found after 10 attempts", {
+      function: "waitForDFUBootloader",
+    });
     return false;
   }
 
   async waitForBootloader(focusDeviceDescriptor) {
-    this.debugLog("In waitForBootloader", focusDeviceDescriptor);
     if (!focusDeviceDescriptor.usb.bootloader) {
-      this.debugLog("No bootloader defined in the device descriptor.");
+      this.logger.warn("No bootloader defined in the device descriptor", {
+        descriptor: focusDeviceDescriptor,
+      });
       return null;
     }
+    logger("focus").info("waiting for bootloader", {
+      descriptor: focusDeviceDescriptor,
+    });
 
     if (focusDeviceDescriptor.usb.bootloader.type == "dfu") {
       return await this.waitForDFUBootloader(focusDeviceDescriptor);
@@ -130,7 +137,9 @@ class Focus {
   }
 
   async reconnectToKeyboard(focusDeviceDescriptor) {
-    this.debugLog("In reconnectToKeyboard", focusDeviceDescriptor);
+    logger("focus").info("reconnecting to keyboard", {
+      descriptor: focusDeviceDescriptor,
+    });
     const d = await this.waitForSerialDevice(
       focusDeviceDescriptor,
       focusDeviceDescriptor.usb
@@ -145,7 +154,10 @@ class Focus {
 
     const found_devices = [];
 
-    this.debugLog("focus.find: portList:", portList);
+    logger("focus").debug("serial port list obtained", {
+      portList: portList,
+      function: "find",
+    });
 
     for (const port of portList) {
       for (const device_descriptor of device_descriptors) {
@@ -183,7 +195,16 @@ class Focus {
       return device;
     });
 
-    this.debugLog("focus.find: found_devices:", logged_devices);
+    if (logged_devices.length > 0) {
+      logger("focus").debug("supported devices found", {
+        devices: logged_devices,
+        function: "find",
+      });
+    } else {
+      logger("focus").warn("no supported devices found", {
+        function: "find",
+      });
+    }
 
     return found_devices;
   }
@@ -219,7 +240,7 @@ class Focus {
     this.callbacks = [];
     this.parser.on("data", (data) => {
       data = data.toString("utf-8");
-      this.debugLog("focus: incoming data:", data);
+      logger("focus").verbose("incoming data", { data: data });
 
       if (data == ".") {
         const result = this.result,
@@ -269,12 +290,10 @@ class Focus {
       return true;
     }
     const supported = await port.focusDeviceDescriptor.isDeviceSupported(port);
-    this.debugLog(
-      "focus.isDeviceSupported: port=",
-      port,
-      "supported=",
-      supported
-    );
+    logger("focus").debug("isDeviceSupported?", {
+      port: port,
+      supported: supported,
+    });
     return supported;
   }
 
@@ -305,15 +324,19 @@ class Focus {
       this._supported_commands.length > 0 &&
       !this._supported_commands.includes(cmd)
     ) {
-      this.debugLog("focus.request: (noop)", cmd, ...args);
+      logger("focus").verbose("request (noop)", {
+        command: cmd,
+        args: args,
+      });
       return new Promise((resolve) => {
         resolve("");
       });
     }
 
-    this.debugLog("focus.request:", cmd, ...args);
+    logger("focus").verbose("request", { command: cmd, args: args });
     return new Promise((resolve, reject) => {
       const timer = setTimeout(() => {
+        logger("focus").error("Connection timeout");
         reject("Communication timeout");
       }, this.timeout);
       this._request(cmd, ...args).then((data) => {

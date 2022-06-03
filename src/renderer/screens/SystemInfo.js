@@ -16,7 +16,7 @@
  */
 
 import Focus from "@api/focus";
-import Log from "@api/log";
+import { collectLogs } from "@api/log";
 import CloseIcon from "@mui/icons-material/Close";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -68,7 +68,6 @@ function SystemInfo(props) {
 
   const createBundle = async () => {
     setCollecting(true);
-    const logger = new Log();
     const focus = new Focus();
 
     const sysInfo = {
@@ -78,7 +77,7 @@ function SystemInfo(props) {
         version: version,
       },
       os: await si.osInfo(),
-      logs: logger.messages(),
+      logs: await collectLogs(),
     };
 
     if (focus.focusDeviceDescriptor) {

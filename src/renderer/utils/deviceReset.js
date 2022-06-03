@@ -16,7 +16,7 @@
  */
 
 import Focus from "@api/focus";
-import Log from "@api/log";
+import { logger } from "@api/log";
 
 const deviceReset = async () => {
   const focus = new Focus();
@@ -24,14 +24,13 @@ const deviceReset = async () => {
     dtrToggle: 500, // Time to wait (ms) between toggling DTR
     bootLoaderUp: 4000, // Time to wait for the boot loader to come up
   };
-  const logger = new Log();
   const port = focus._port;
 
   const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
   const baudUpdate = () => {
     return new Promise((resolve) => {
-      logger.debug("baud update");
+      logger("focus").debug("baud update");
       port.update({ baudRate: 1200 }, async () => {
         await delay(timeouts.dtrToggle);
         resolve();
@@ -41,7 +40,7 @@ const deviceReset = async () => {
 
   const dtrToggle = (state) => {
     return new Promise((resolve) => {
-      logger.debug("dtr", state ? "on" : "off");
+      logger("focus").debug(`dtr ${state ? "on" : "off"}`);
       port.set({ dtr: state }, async () => {
         await delay(timeouts.dtrToggle);
         resolve();

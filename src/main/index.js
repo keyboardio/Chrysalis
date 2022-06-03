@@ -33,6 +33,7 @@ import {
 import { registerDevtoolsHandlers } from "./ipc_devtools";
 import { registerFileIoHandlers } from "./ipc_file_io";
 import { registerNativeThemeHandlers } from "./ipc_nativetheme";
+import { registerLoggingHandlers } from "./ipc_logging";
 import { buildMenu } from "./menu";
 
 // This is a workaround for electron-webpack#275[1]. We need to use backticks
@@ -203,3 +204,4 @@ registerFileIoHandlers();
 registerDevtoolsHandlers();
 registerBackupHandlers();
 registerNativeThemeHandlers();
+registerLoggingHandlers();

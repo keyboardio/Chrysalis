@@ -16,6 +16,7 @@
  */
 
 import Focus from "@api/focus";
+import { logger } from "@api/log";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -56,10 +57,16 @@ const KeyboardSelect = (props) => {
     setLoading(true);
     const deviceList = await findKeyboards();
     if (!focus._port && deviceList.length == 1 && tryAutoConnect) {
+      logger().verbose("Attempting to auto-connect", {
+        device: deviceList[0],
+      });
       try {
         await props.onConnect(deviceList[0]);
       } catch (err) {
-        console.log(err);
+        logger().error("Error while auto-connecting", {
+          error: err,
+          device: deviceList[0],
+        });
         setOpening(false);
         toast.error(err.toString());
       }
@@ -114,7 +121,10 @@ const KeyboardSelect = (props) => {
     try {
       await props.onConnect(devices?.[selectedPortIndex]);
     } catch (err) {
-      console.error(err);
+      logger().error("error while trying to connect", {
+        error: err,
+        device: devices?.[selectedPortIndex],
+      });
       setOpening(false);
       toast.error(err.toString());
     }

@@ -140,7 +140,7 @@ const MacroStep = (props) => {
   return (
     <Chip
       onClick={onClick}
-      dataHandlerId={handlerId}
+      data-handler-id={handlerId}
       id={props.id}
       ref={ref}
       onDelete={onDelete}

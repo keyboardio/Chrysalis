@@ -41,7 +41,9 @@ const DynamicMacroKeys = (props) => {
   const db = new KeymapDB();
 
   const used = m.getStoredSize(props.macros);
-  const disabled = currentKey && !db.isInCategory(currentKey, "dynmacros");
+  const disabled =
+    (currentKey && !db.isInCategory(currentKey, "dynmacros")) ||
+    props.macroEditorOpen;
 
   const onClick = () => {
     props.setOpenMacroEditor(true);

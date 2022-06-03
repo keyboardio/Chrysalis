@@ -266,9 +266,9 @@ margin: auto;
       font-size: 10px;
       font-weight: 600;
       letter-spacing: -0.03em;
-      color: rgba(48, 57, 73, 0.7);
-      background: rgba(255, 255, 255, 0.6);
-      box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.15);
+      color: ${({ theme }) => theme.styles.raiseKeyboard.modifier.color};
+      background: ${({ theme }) => theme.styles.raiseKeyboard.modifier.background};
+      box-shadow: ${({ theme }) => theme.styles.raiseKeyboard.modifier.boxShadow};
     }
   }
 }

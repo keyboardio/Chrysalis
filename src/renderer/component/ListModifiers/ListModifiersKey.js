@@ -23,7 +23,13 @@ import React from "react";
 const ListModifiersKey = ({ altApplied, altGrApplied, osApplied, shiftApplied, ctrlApplied, mehApplied, hyperApplied }) => {
   return (
     <div xmlns="http://www.w3.org/1999/xhtml" className={`keyContentModifiers`}>
-      <ul className={`labelModifier ${altApplied && altGrApplied && osApplied && shiftApplied ? "extraBottom" : ""}`}>
+      <ul
+        className={`labelModifier ${
+          (altApplied && altGrApplied && osApplied && shiftApplied) || (ctrlApplied && altGrApplied && osApplied && shiftApplied)
+            ? "extraBottom"
+            : ""
+        }`}
+      >
         {mehApplied ? <li className="badge-modifier meh">Meh</li> : ""}
         {hyperApplied ? <li className="badge-modifier hyper">Hyper</li> : ""}
         {altApplied ? <li className="badge-modifier alt">a</li> : ""}

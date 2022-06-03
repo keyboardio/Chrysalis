@@ -313,7 +313,12 @@ const Light = {
       keyShadow: Tokens.colors.gray600,
       keyColorOpacity: 0.65,
       keyOnFocusBorder: "#000",
-      contentColor: Tokens.colors.gray700
+      contentColor: Tokens.colors.gray700,
+      modifier: {
+        color: Tokens.colors.gray25,
+        background: "rgba(63, 66, 90, 0.6)",
+        boxShadow: "0px 1px 0px rgba(0, 0, 0, 0.15)"
+      }
     },
     keyPicker: {
       iconColor: Tokens.colors.gray200,

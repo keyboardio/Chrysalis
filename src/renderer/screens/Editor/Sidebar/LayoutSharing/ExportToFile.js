@@ -15,8 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { logger } from "@api/log";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import { toast } from "@renderer/components/Toast";
 import { ipcRenderer } from "electron";
 import jsonStringify from "json-stringify-pretty-compact";
 import React from "react";
@@ -24,14 +26,14 @@ import { useTranslation } from "react-i18next";
 
 export const ExportToFile = (props) => {
   const { t } = useTranslation();
-  const exportToFile = () => {
+  const exportToFile = async () => {
     const { keymap, colormap } = props;
     const data = {
       keymaps: keymap.custom,
       colormaps: colormap.colorMap,
       palette: colormap.palette,
     };
-    ipcRenderer.send("file-save", {
+    const error = await ipcRenderer.sendSync("file.save-with-dialog", {
       content: jsonStringify(data),
       title: t("editor.sharing.selectExportFile"),
       defaultPath: "Layout.json",
@@ -46,6 +48,10 @@ export const ExportToFile = (props) => {
         },
       ],
     });
+    if (error) {
+      logger().error("Error saving a layout export", { error: error });
+      toast.error(t("errors.saveFile", { error: error }));
+    }
   };
   return (
     <Box sx={{ mb: 2 }}>

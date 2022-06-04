@@ -106,7 +106,7 @@ const FirmwareUpdate = (props) => {
       return setFirmwareFilename("");
     }
 
-    const [fileName, fileData] = ipcRenderer.sendSync("file-open", {
+    const [fileName, fileData] = ipcRenderer.sendSync("file.open-with-dialog", {
       title: t("firmwareUpdate.dialog.selectFirmware"),
       filters: [
         {

@@ -94,7 +94,7 @@ class Focus {
 
     for (let attempt = 0; attempt < 10; attempt++) {
       const found = await ipcRenderer.invoke(
-        "usb-scan-for-devices",
+        "usb.scan-for-devices",
         bootloader.productId,
         bootloader.vendorId
       );

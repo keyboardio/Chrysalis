@@ -20,7 +20,7 @@ import Hardware from "@api/hardware";
 import { ipcRenderer } from "electron";
 
 const findNonSerialKeyboards = async (deviceList) => {
-  return ipcRenderer.invoke("usb-scan-for-devices").then((devicesConnected) => {
+  return ipcRenderer.invoke("usb.scan-for-devices").then((devicesConnected) => {
     const devices = devicesConnected.map((device) => device.deviceDescriptor);
     devices.forEach((desc) => {
       Hardware.nonSerial.forEach((port) => {

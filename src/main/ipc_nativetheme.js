@@ -17,14 +17,14 @@
 import { ipcMain, nativeTheme, BrowserWindow } from "electron";
 
 export const registerNativeThemeHandlers = () => {
-  ipcMain.on("native-theme-should-use-dark-colors", (event) => {
+  ipcMain.on("native-theme.should-use-dark-colors", (event) => {
     event.returnValue = nativeTheme.shouldUseDarkColors;
   });
 
   nativeTheme.on("updated", () => {
     BrowserWindow.getAllWindows().forEach((win) => {
       win.webContents.send(
-        "native-theme-updated",
+        "native-theme.updated",
         nativeTheme.shouldUseDarkColors
       );
     });

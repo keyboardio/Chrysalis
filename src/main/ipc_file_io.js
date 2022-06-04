@@ -18,7 +18,7 @@ import { dialog, ipcMain } from "electron";
 import fs from "fs";
 
 export const registerFileIoHandlers = () => {
-  ipcMain.on("file-save", (event, data) => {
+  ipcMain.on("file.save-with-dialog", (event, data) => {
     const options = {
       title: data.title,
       defaultPath: data.defaultPath,
@@ -27,16 +27,17 @@ export const registerFileIoHandlers = () => {
     dialog.showSaveDialog(options).then((filename) => {
       const { canceled, filePath } = filename;
       if (!canceled) {
-        fs.writeFileSync(filePath, data.content, (err) => {
-          if (err) {
-            console.log(err);
-          }
-        });
+        try {
+          fs.writeFileSync(filePath, data.content);
+        } catch (err) {
+          event.returnValue = err;
+        }
       }
+      event.returnValue = null;
     });
   });
 
-  ipcMain.on("file-open", (event, data) => {
+  ipcMain.on("file.open-with-dialog", (event, data) => {
     const options = {
       title: data.title,
       filters: data.filters,
@@ -45,14 +46,16 @@ export const registerFileIoHandlers = () => {
       const { canceled, filePaths } = result;
       if (!canceled) {
         let fileData;
+        let error;
         try {
           fileData = fs.readFileSync(filePaths[0]);
         } catch (e) {
           fileData = null;
+          error = e;
         }
-        event.returnValue = [filePaths[0], fileData];
+        event.returnValue = [filePaths[0], fileData, error];
       } else {
-        event.returnValue = [null, null];
+        event.returnValue = [null, null, null];
       }
     });
   });

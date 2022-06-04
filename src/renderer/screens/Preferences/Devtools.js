@@ -34,13 +34,13 @@ function DevtoolsPreferences(props) {
 
   useEffect(() => {
     const initialize = async () => {
-      const isOpen = await ipcRenderer.invoke("devtools-is-open");
+      const isOpen = await ipcRenderer.invoke("devtools.is-open");
       await setDevConsole(isOpen);
 
-      ipcRenderer.on("devtools-opened", () => {
+      ipcRenderer.on("devtools.opened", () => {
         setDevConsole(true);
       });
-      ipcRenderer.on("devtools-closed", () => {
+      ipcRenderer.on("devtools.closed", () => {
         setDevConsole(false);
       });
 
@@ -58,17 +58,17 @@ function DevtoolsPreferences(props) {
 
     // Cleanup when component unmounts.
     return () => {
-      ipcRenderer.removeAllListeners("devtools-opened");
-      ipcRenderer.removeAllListeners("devtools-closed");
+      ipcRenderer.removeAllListeners("devtools.opened");
+      ipcRenderer.removeAllListeners("devtools.closed");
     };
   });
 
   const toggleDevConsole = (event) => {
     setDevConsole(event.target.checked);
     if (event.target.checked) {
-      ipcRenderer.send("show-devtools", true);
+      ipcRenderer.invoke("devtools.open");
     } else {
-      ipcRenderer.send("show-devtools", false);
+      ipcRenderer.invoke("devtools.close");
     }
   };
 

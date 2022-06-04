@@ -28,7 +28,7 @@ export const GlobalContextProvider = (props) => {
 
   const getDarkMode = () => {
     if (theme == "system") {
-      return ipcRenderer.sendSync("native-theme-should-use-dark-colors");
+      return ipcRenderer.sendSync("native-theme.should-use-dark-colors");
     }
     return theme == "dark";
   };

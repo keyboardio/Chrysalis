@@ -112,17 +112,17 @@ const App = (props) => {
   };
 
   useEffect(() => {
-    ipcRenderer.on("usb-device-disconnected", handleDeviceDisconnect);
-    ipcRenderer.on("native-theme-updated", handleNativeThemeUpdate);
+    ipcRenderer.on("usb.device-disconnected", handleDeviceDisconnect);
+    ipcRenderer.on("native-theme.updated", handleNativeThemeUpdate);
 
     // Specify how to clean up after this effect:
     return function cleanup() {
       ipcRenderer.removeListener(
-        "native-theme-updated",
+        "native-theme.updated",
         handleNativeThemeUpdate
       );
       ipcRenderer.removeListener(
-        "usb-device-disconnected",
+        "usb.device-disconnected",
         handleDeviceDisconnect
       );
     };

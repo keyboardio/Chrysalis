@@ -112,11 +112,11 @@ async function createMainWindow() {
   window.webContents.on("new-window", handleRedirect);
 
   window.webContents.on("devtools-opened", () => {
-    window.webContents.send("devtools-opened");
+    window.webContents.send("devtools.opened");
   });
 
   window.webContents.on("devtools-closed", () => {
-    window.webContents.send("devtools-closed");
+    window.webContents.send("devtools.closed");
   });
 
   windows.push(window);

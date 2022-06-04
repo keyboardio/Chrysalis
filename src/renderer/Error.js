@@ -18,7 +18,7 @@
 import React, { ipcRenderer } from "react";
 
 const Error = () => {
-  ipcRenderer.send("show-devtools", true);
+  ipcRenderer.invoke("devtools.open");
   return (
     <main>
       <h1>An error occurred!</h1>

@@ -16,7 +16,7 @@
  */
 
 import Focus from "@api/focus";
-import { collectLogs } from "@api/log";
+import { logger, collectLogs } from "@api/log";
 import CloseIcon from "@mui/icons-material/Close";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -32,6 +32,7 @@ import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { PageTitle } from "@renderer/components/PageTitle";
+import { toast } from "@renderer/components/Toast";
 import logo from "@renderer/logo-small.png";
 import { version } from "@root/package.json";
 import { ipcRenderer } from "electron";
@@ -55,15 +56,19 @@ function SystemInfo(props) {
   };
 
   const saveBundle = async () => {
-    ipcRenderer.send("file-save", {
+    const error = await ipcRenderer.sendSync("file.save-with-dialog", {
       content: jsonStringify(info),
       title: t("systeminfo.dialog.title"),
       defaultPath: "chrysalis-debug.bundle.json",
     });
-
-    setCollected(false);
-    setViewing(false);
-    setInfo({});
+    if (error) {
+      logger().error("Error saving the debug bundle", { error: error });
+      toast.error(t("errors.saveFile", { error: error }));
+    } else {
+      setCollected(false);
+      setViewing(false);
+      setInfo({});
+    }
   };
 
   const createBundle = async () => {

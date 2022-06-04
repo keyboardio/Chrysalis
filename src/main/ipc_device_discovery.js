@@ -15,12 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Focus
-import Focus from "@api/focus";
-import Hardware from "@api/hardware";
 import { BrowserWindow, ipcMain } from "electron";
 import { findByIds, getDeviceList, WebUSB } from "usb";
-const focus = new Focus();
 
 const webusb = new WebUSB({
   allowAllDevices: true,
@@ -30,7 +26,7 @@ export const notifyUsbDisconnect = (event) => {
   const product_id = event?.device?.productId;
   BrowserWindow.getAllWindows().forEach((win) => {
     if (win) {
-      win.send("usb-device-disconnected", vendor_id, product_id);
+      win.send("usb.device-disconnected", vendor_id, product_id);
     }
   });
 };
@@ -39,7 +35,7 @@ export const notifyUsbConnect = (event) => {
   const product_id = event?.device?.productId;
   BrowserWindow.getAllWindows().forEach((win) => {
     if (win) {
-      win.send("usb-device-connected", vendor_id, product_id);
+      win.send("usb.device-connected", vendor_id, product_id);
     }
   });
 };
@@ -61,21 +57,17 @@ export const registerDeviceDiscoveryHandlers = () => {
   // them first to notice disconnects. We do that here.
   webusb.getDevices();
 
-  ipcMain.handle("usb-scan-for-devices", (event) => {
+  ipcMain.handle("usb.scan-for-devices", (event) => {
     const webContents = event.sender;
     const devices = getDeviceList();
     return devices;
   });
-  ipcMain.handle("usb-is-device-connected", (event, vid, pid) => {
+  ipcMain.handle("usb.is-device-connected", (event, vid, pid) => {
     const device = findByIds(vid, pid);
     if (device) {
       return true;
     } else {
       return false;
     }
-  });
-
-  ipcMain.handle("focus-find-serial-devices", (event) => {
-    return focus.find(Hardware.serial);
   });
 };

@@ -19,6 +19,7 @@ const English = {
   language: "English",
   errors: {
     deviceDisconnected: "Keyboard disconnected",
+    saveFile: "Error saving a file: {{ error }}",
   },
   components: {
     layer: "Layer {{index}}",

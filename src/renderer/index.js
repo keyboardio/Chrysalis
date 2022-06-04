@@ -39,6 +39,6 @@ try {
     document.getElementById("app")
   );
 } catch (e) {
-  ipcRenderer.send("show-devtools", true);
+  ipcRenderer.invoke("devtools.open");
   ReactDOM.render(<Error error={e} />, document.getElementById("app"));
 }

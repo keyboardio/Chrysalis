@@ -101,13 +101,13 @@ const KeyboardSelect = (props) => {
   });
 
   useEffect(() => {
-    ipcRenderer.on("usb-device-connected", scanDevices);
-    ipcRenderer.on("usb-device-disconnected", scanDevices);
+    ipcRenderer.on("usb.device-connected", scanDevices);
+    ipcRenderer.on("usb.device-disconnected", scanDevices);
 
     // Specify how to clean up after this effect:
     return function cleanup() {
-      ipcRenderer.removeListener("usb-device-connected", scanDevices);
-      ipcRenderer.removeListener("usb-device-disconnected", scanDevices);
+      ipcRenderer.removeListener("usb.device-connected", scanDevices);
+      ipcRenderer.removeListener("usb.device-disconnected", scanDevices);
     };
   });
 

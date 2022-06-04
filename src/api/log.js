@@ -18,6 +18,8 @@ import fs from "fs";
 import winston from "winston";
 import { ipcRenderer } from "electron";
 
+import { suppress } from "./log/format";
+
 const Store = require("electron-store");
 const settings = new Store();
 
@@ -32,13 +34,14 @@ export const setupLogging = async () => {
 
   winston.loggers.add("default", {
     transports: [new transports.Console({ level: logLevel }), fileLogger],
-    format: format.combine(format.timestamp(), format.json()),
+    format: format.combine(suppress(), format.timestamp(), format.json()),
   });
 
   winston.loggers.add("focus", {
     transports: [new transports.Console({ level: logLevel }), fileLogger],
     format: format.combine(
       format.label({ label: "focus" }),
+      suppress(),
       format.timestamp(),
       format.json()
     ),
@@ -48,6 +51,7 @@ export const setupLogging = async () => {
     transports: [new transports.Console({ level: logLevel }), fileLogger],
     format: format.combine(
       format.label({ label: "flash" }),
+      suppress(),
       format.timestamp(),
       format.json()
     ),

@@ -33,6 +33,7 @@ class Focus {
       global.chrysalis_focus_instance = this;
       this.commands = {
         help: this._help,
+        "device.reset": this._reboot,
       };
       this.timeout = 30000;
       this._supported_commands = [];
@@ -427,6 +428,18 @@ class Focus {
   async _help(s) {
     const data = await s.request("help");
     return data.split(/\r?\n/).filter((v) => v.length > 0);
+  }
+
+  async _reboot(s) {
+    // This is a gross hack, but we currently have no other easy way to
+    // accomplish the same thing: sending a command with a shorter timeout than
+    // usual.
+
+    const timeout = this.timeout;
+    this.timeout = 500;
+    const result = await s.request("device.reset");
+    this.timeout = timeout;
+    return result;
   }
 
   eepromRestoreCommands = [

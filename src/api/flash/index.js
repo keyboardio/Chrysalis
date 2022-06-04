@@ -59,19 +59,21 @@ function FocusCommands(options) {
       });
     };
 
-    // Attempt calling device.reset first, if present.
-    const commands = await focus.supported_commands();
-    if (commands.includes("device.reset")) {
-      try {
-        await focus.request("device.reset");
-      } catch (e) {
-        // If there's a comms timeout, that's exactly what we want. the keyboard is rebooting.
-        if ("Communication timeout" !== e) {
-          logger("flash").error("Error while calling `device.reset`", {
-            error: e,
-          });
-          throw e;
-        }
+    // Attempt rebooting the keyboard programmatically. We rely on focus doing
+    // this, so it uses a shorter timeout, because if it succeeds, the keyboard
+    // isn't coming back.
+    //
+    // We do not need to check if the command exists, focus handles that
+    // transparently.
+    try {
+      await focus.command("device.reset");
+    } catch (e) {
+      // If there's a comms timeout, that's exactly what we want. the keyboard is rebooting.
+      if ("Communication timeout" !== e) {
+        logger("flash").error("Error while calling `device.reset`", {
+          error: e,
+        });
+        throw e;
       }
     }
 

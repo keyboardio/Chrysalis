@@ -37,6 +37,7 @@ class Focus {
       this.timeout = 30000;
       this._supported_commands = [];
       this._plugins = [];
+      this._request_id = 0;
     }
 
     return global.chrysalis_focus_instance;
@@ -240,7 +241,7 @@ class Focus {
     this.callbacks = [];
     this.parser.on("data", (data) => {
       data = data.toString("utf-8");
-      logger("focus").verbose("incoming data", { data: data });
+      logger("focus").debug("incoming data", { data: data });
 
       if (data == ".") {
         const result = this.result,
@@ -333,14 +334,36 @@ class Focus {
       });
     }
 
-    logger("focus").verbose("request", { command: cmd, args: args });
+    const rid = this._request_id;
+    this._request_id += 1;
+    logger("focus").verbose("request", {
+      request: {
+        id: rid,
+        command: cmd,
+        args: args,
+      },
+    });
     return new Promise((resolve, reject) => {
       const timer = setTimeout(() => {
-        logger("focus").error("Connection timeout");
+        logger("focus").error("request timed out", {
+          request: {
+            id: rid,
+            command: cmd,
+            args: args,
+          },
+        });
         reject("Communication timeout");
       }, this.timeout);
       this._request(cmd, ...args).then((data) => {
         clearTimeout(timer);
+        logger("focus").verbose("response", {
+          request: {
+            id: rid,
+            command: cmd,
+            args: args,
+          },
+          response: data,
+        });
         resolve(data);
       });
     });

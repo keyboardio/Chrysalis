@@ -15,12 +15,37 @@
  */
 
 import { app, ipcMain } from "electron";
+import fs from "fs";
 import path from "path";
+import winston from "winston";
 
 export const registerLoggingHandlers = () => {
-  const logFileName = path.join(app.getPath("logs"), `${Date.now()}.json`);
+  const { format, transports } = winston;
+  const fn = path.join(app.getPath("logs"), `${Date.now()}.json`);
+  const logger = winston.createLogger({
+    transports: [new transports.File({ level: "silly", filename: fn })],
+    format: format.printf((info) => {
+      return info.message;
+    }),
+  });
+  console.info(`Logging to ${fn}`);
 
-  ipcMain.handle("logging.get-filename", async (event) => {
-    return logFileName;
+  ipcMain.handle("logging.store-info", async (event, level, message) => {
+    logger.log(level, message);
+  });
+
+  ipcMain.handle("logging.get-session-logs", async (event) => {
+    return fs
+      .readFileSync(fn, "UTF-8")
+      .split(/\r?\n/)
+      .filter((line) => line.length > 0)
+      .map((line) => {
+        try {
+          return JSON.parse(line);
+        } catch (_) {
+          // We're collecting logs, and failed to parse a line. We could log the
+          // event, but that wouldn't help discovery much, so we just ignore it.
+        }
+      });
   });
 };

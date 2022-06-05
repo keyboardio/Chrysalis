@@ -14,9 +14,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { ipcRenderer } from "electron";
 import winston from "winston";
 import { LEVEL, MESSAGE, SPLAT } from "triple-beam";
 import TransportStream from "winston-transport";
+
+export class Ipc extends TransportStream {
+  constructor(opts) {
+    super(opts);
+
+    this.port = new MessageChannel().port1;
+  }
+
+  log(info, next) {
+    setImmediate(() => this.emit("logged", info));
+
+    ipcRenderer.invoke("logging.store-info", info[LEVEL], info[MESSAGE]);
+
+    if (next) {
+      next();
+    }
+  }
+}
 
 export class BrowserConsole extends TransportStream {
   methods = {

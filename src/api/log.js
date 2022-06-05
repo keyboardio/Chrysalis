@@ -14,32 +14,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import fs from "fs";
 import winston from "winston";
 import { ipcRenderer } from "electron";
 
 import { suppress } from "./log/format";
-import { BrowserConsole } from "./log/transports";
+import { BrowserConsole, Ipc } from "./log/transports";
 
 const Store = require("electron-store");
 const settings = new Store();
 
 export const setupLogging = async () => {
-  const { transports, format } = winston;
+  const { format } = winston;
 
-  const fn = await ipcRenderer.invoke("logging.get-filename");
-  console.info("Logging to", fn);
-
-  const fileLogger = new transports.File({ level: "silly", filename: fn });
+  const ipcLogger = new Ipc({ level: "silly" });
   const logLevel = await settings.get("log.level", "info");
 
   winston.loggers.add("default", {
-    transports: [new BrowserConsole({ level: logLevel }), fileLogger],
+    transports: [new BrowserConsole({ level: logLevel }), ipcLogger],
     format: format.combine(suppress(), format.timestamp(), format.json()),
   });
 
   winston.loggers.add("focus", {
-    transports: [new BrowserConsole({ level: logLevel }), fileLogger],
+    transports: [new BrowserConsole({ level: logLevel }), ipcLogger],
     format: format.combine(
       format.label({ label: "focus" }),
       suppress(),
@@ -49,7 +45,7 @@ export const setupLogging = async () => {
   });
 
   winston.loggers.add("flash", {
-    transports: [new BrowserConsole({ level: logLevel }), fileLogger],
+    transports: [new BrowserConsole({ level: logLevel }), ipcLogger],
     format: format.combine(
       format.label({ label: "flash" }),
       suppress(),
@@ -57,6 +53,10 @@ export const setupLogging = async () => {
       format.json()
     ),
   });
+};
+
+export const collectLogs = async () => {
+  return await ipcRenderer.invoke("logging.get-session-logs");
 };
 
 export const logger = (slot = "default") => {
@@ -79,22 +79,4 @@ export const getLogLevel = () => {
   // cheat here, and just return the log level of the first transport of the
   // default logger.
   return logger().transports[0].level;
-};
-
-export const collectLogs = async () => {
-  const fn = await ipcRenderer.invoke("logging.get-filename");
-  const logs = fs
-    .readFileSync(fn, "UTF-8")
-    .split(/\r?\n/)
-    .filter((line) => line.length > 0)
-    .map((line) => {
-      try {
-        return JSON.parse(line);
-      } catch (_) {
-        // We're collecting logs, and failed to parse a line. We could log the
-        // event, but that wouldn't help discovery much, so we just ignore it.
-      }
-    });
-
-  return logs;
 };

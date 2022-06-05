@@ -111,6 +111,7 @@
     "@babel/plugin-proposal-optional-chaining": "^7.16.7",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
+    "@spotxyz/universal": "",
     "app-builder-lib": "^23.0.3",
     "babel-plugin-module-resolver": "^4.1.0",
     "core-js": "^3.21.1",

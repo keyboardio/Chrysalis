@@ -30,6 +30,38 @@ export const registerLoggingHandlers = () => {
   });
   console.info(`Logging to ${fn}`);
 
+  const createLink = () => {
+    // Create a symlink to the current file
+    const latestFn = path.join(app.getPath("logs"), "current.json");
+    try {
+      fs.unlinkSync(latestFn);
+      fs.symlinkSync(fn, latestFn);
+    } catch (_) {
+      // Ignore the error. If we don't have a symlink to delete, that's fine. If
+      // we can't create one, that's also fine, not a fatal error, not even
+      // worth reporting.
+    }
+  };
+
+  const cullOldLogs = ({ keep } = { keep: 10 }) => {
+    // Cull old log files, keep only the most recent 10
+    const logs = fs
+      .readdirSync(app.getPath("logs"))
+      .filter((fn) => fn.match(/^[0-9]+\.json/))
+      .sort();
+    const cullable = logs.slice(0, logs.length - keep);
+    for (const fn of cullable) {
+      try {
+        fs.unlinkSync(path.join(app.getPath("logs"), fn));
+      } catch {
+        // We don't care much if we can't remove old logfiles.
+      }
+    }
+  };
+
+  createLink();
+  cullOldLogs({ keep: 10 });
+
   ipcMain.handle("logging.store-info", async (event, level, message) => {
     logger.log(level, message);
   });

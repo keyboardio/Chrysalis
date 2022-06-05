@@ -15,7 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { ipcRenderer } from "react";
+import React from "react";
+import { ipcRenderer } from "electron";
 
 const Error = () => {
   ipcRenderer.invoke("devtools.open");

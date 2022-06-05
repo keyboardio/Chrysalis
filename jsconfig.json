@@ -15,6 +15,6 @@
   "include": ["src/**/*"],
   "typeAcquisition": {
     "enable": true,
-    "include": ["react", "react-dom", "jest", "testing-library__jest-dom"]
+    "include": ["react", "react-dom"]
   }
 }

@@ -107,7 +107,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.17.8",
-    "@electron/universal": "^1.3.0",
     "@babel/plugin-proposal-optional-chaining": "^7.16.7",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
@@ -147,6 +146,6 @@
     "yargs/y18n": "^4.0.1",
     "**/node-forge": "^1.3.0",
     "**/glob-parent": "^5.1.2",
-    "**/@electron/universal": "^1.3.0"
+    "**/@electron/universal": "npm:@spotxyz/universal"
   }
 }

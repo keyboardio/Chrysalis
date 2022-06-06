@@ -103,13 +103,16 @@ export default class ColorEditor extends Component {
     super(props);
 
     this.state = {
-      displayColorPicker: false
+      displayColorPicker: false,
+      maxColorsPalette: 16,
+      internalColors: props.colors
     };
 
     this.showColorPicker = this.showColorPicker.bind(this);
     this.selectColor = this.selectColor.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.spare = this.spare.bind(this);
+    this.addNewColorPalette = this.addNewColorPalette.bind(this);
   }
 
   handleChange(color) {
@@ -154,40 +157,67 @@ export default class ColorEditor extends Component {
     });
   }
 
+  removeColorPalette(idx) {
+    console.log("Entrou no remove Palette", this.state.internalColors);
+    let arrayColorPalette = [...this.state.internalColors]; // make a separate copy of the array
+    //let index = arrayColorPalette.indexOf(idx)
+    let index = idx;
+    if (index !== -1) {
+      arrayColorPalette.splice(index, 1);
+      this.setState({ internalColors: arrayColorPalette });
+    }
+    //this.setState({ maxColorsPalette: this.internalColors.length + 1 });
+  }
+
+  addNewColorPalette() {
+    // this.setState(prevState => ({
+    //   internalColors: [...prevState.state.internalColors, { r: 122, g: 121, b: 241, rgb: "(122, 121, 241)" }]
+    // }));
+    console.log("Entrou no add Palette", this.state.internalColors);
+
+    let arrayColorPalette = [...this.state.internalColors];
+    arrayColorPalette.push({ r: 122, g: 121, b: 241, rgb: "(122, 121, 241)" });
+    this.setState({ internalColors: arrayColorPalette });
+  }
+
   render() {
     const { colors, selected, toChangeAllKeysColor, onBacklightColorSelect, onColorButtonSelect } = this.props;
-    const { displayColorPicker } = this.state;
+    const { displayColorPicker, internalColors, maxColorsPalette } = this.state;
 
-    const layerButtons = colors.map((data, idx) => {
+    const layerButtons = internalColors.map((data, idx) => {
       const menuKey = `color-${idx.toString()}-${colors[idx].rgb.toString()}`;
       const buttonStyle = {
-        backgroundColor: data.rgb
+        //backgroundColor: data.rgb
+        backgroundColor: colors[idx].rgb
       };
-      return (
-        // <Button
-        //   key={menuKey}
-        //   onClick={ev => {
-        //     this.selectColor(ev, idx);
-        //   }}
-        //   className="color-button sr-only"
-        //   data-id={data.rgb}
-        // >
-        //   <div className="button-content">
-        //     <div key={colors[idx]} className={`color ${selected === idx ? "actv" : ""}`} style={buttonStyle} />
-        //   </div>
-        // </Button>
-        <ColorPicker
-          onClick={ev => {
-            this.selectColor(ev, idx);
-          }}
-          menuKey={menuKey}
-          key={`${menuKey}-key-${colors[idx]}`}
-          id={idx}
-          selected={selected}
-          buttonStyle={buttonStyle}
-          dataID={data.rgb}
-        />
-      );
+      if (
+        idx > 0 &&
+        data.rgb == "rgb(0, 0, 0)" &&
+        internalColors[idx - 1].rgb == "rgb(0, 0, 0)" &&
+        data.rgb == internalColors[idx - 1].rgb
+      ) {
+        //internalColors.slice(idx, 1);
+        this.removeColorPalette(idx);
+      } else {
+        return (
+          <ColorPicker
+            onClick={ev => {
+              this.selectColor(ev, idx);
+            }}
+            menuKey={menuKey}
+            key={`${menuKey}-key-${colors[idx]}`}
+            id={idx}
+            selected={selected}
+            buttonStyle={buttonStyle}
+            dataID={data.rgb}
+            className={
+              idx > 0 && data.rgb == "rgb(0, 0, 0)" && colors[idx - 1].rgb == "rgb(0, 0, 0)" && data.rgb == colors[idx - 1].rgb
+                ? `sameColor`
+                : ``
+            }
+          />
+        );
+      }
     });
 
     const iconStyles = { transform: "rotate(180deg)" };
@@ -212,7 +242,13 @@ export default class ColorEditor extends Component {
           <Title text={i18n.editor.color.colorPalette} headingLevel={4} />
         </div>
         <div className="panelTools">
-          <div className="colorPallete">{layerButtons}</div>
+          <div className="colorPallete">
+            <div className="colorPallete-items">{layerButtons}</div>
+            {internalColors.length}
+            <button className="btn" onClick={this.addNewColorPalette}>
+              Add new color
+            </button>
+          </div>
           <div className="buttonsGroup">
             <div className="buttonEditColor">
               <ColorButton

@@ -139,7 +139,7 @@ margin: auto;
   overflow: visible;
   margin: 0 auto;
   max-width: 100%;
-  max-height: 75vh;
+      max-height: 75vh;
   * {
     transform-box: fill-box;
   }

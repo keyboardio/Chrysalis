@@ -19,7 +19,9 @@ import React from "react";
 import Styled from "styled-components";
 
 const Style = Styled.div` 
-
+&.sameColor {
+  display: none;
+}
 .colorPickerButton {
     width: 38px;
     height: 38px;
@@ -95,9 +97,9 @@ const Style = Styled.div`
 
 `;
 
-const ColorPicker = ({ menuKey, id, onClick, dataID, selected, buttonStyle }) => {
+const ColorPicker = ({ menuKey, id, onClick, dataID, selected, buttonStyle, className }) => {
   return (
-    <Style>
+    <Style className={className}>
       <div key={menuKey} onClick={onClick} className={`colorPickerButton ${selected === id ? "active" : ""}`} data-id={dataID}>
         <div className="button-content">
           <div className={`colorItem`} style={buttonStyle}>{` `}</div>

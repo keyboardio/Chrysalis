@@ -16,9 +16,10 @@
 
 const { ipcRenderer } = require("electron");
 const { SerialPort } = require("serialport");
-const { DelimiterParser } = require("@serialport/parser-delimiter");
 
 import fs from "fs";
+import stream from "stream";
+
 import { logger } from "@api/log";
 
 import Colormap from "./focus/colormap";
@@ -26,6 +27,70 @@ import Macros from "./focus/macros";
 import Keymap, { OnlyCustom } from "./focus/keymap";
 
 global.chrysalis_focus_instance = null;
+
+class FocusParser extends stream.Transform {
+  constructor({ interval, ...transformOptions }) {
+    super(transformOptions);
+
+    if (!interval) {
+      throw new TypeError('"interval" is required');
+    }
+
+    if (typeof interval !== "number" || Number.isNaN(interval)) {
+      throw new TypeError('"interval" is not a number');
+    }
+
+    if (interval < 1) {
+      throw new TypeError('"interval" is not greater than 0');
+    }
+
+    this.interval = interval;
+    this.stopSignal = Buffer.from("\r\n.\r\n");
+    this.buffer = Buffer.alloc(0);
+  }
+
+  startTimer() {
+    this.endTimer();
+    this.timerId = setTimeout(() => {
+      this.emit("timeout");
+    }, this.interval);
+  }
+
+  endTimer() {
+    if (this.timerId) {
+      clearTimeout(this.timerId);
+      this.timerId = null;
+    }
+  }
+
+  _transform(chunk, encoding, cb) {
+    this.endTimer();
+
+    let data = Buffer.concat([this.buffer, chunk]);
+    let position;
+    while ((position = data.indexOf(this.stopSignal)) !== -1) {
+      const pushData = data.slice(0, position);
+      if (pushData.length == 0) {
+        this.push(".");
+      } else {
+        this.push(pushData);
+      }
+      data = data.slice(position + this.stopSignal.length);
+    }
+    this.buffer = data;
+
+    if (this.buffer.length != 0) {
+      this.startTimer();
+    }
+    cb();
+  }
+
+  _flush(cb) {
+    this.push(this.buffer);
+    this.buffer = Buffer.alloc(0);
+    cb;
+  }
+}
 
 class Focus {
   constructor() {
@@ -236,28 +301,37 @@ class Focus {
     }
 
     this.focusDeviceDescriptor = info;
-    this.parser = this._port.pipe(new DelimiterParser({ delimiter: "\r\n" }));
-    this.result = "";
+    this._parser = this._port.pipe(new FocusParser({ interval: this.timeout }));
+
     this.callbacks = [];
-    this.parser.on("data", (data) => {
+    this._parser.on("data", (data) => {
       data = data.toString("utf-8");
       logger("focus").debug("incoming data", { data: data });
 
+      const [resolve] = this.callbacks.shift();
+      this._parser.endTimer();
       if (data == ".") {
-        const result = this.result,
-          resolve = this.callbacks.shift();
-
-        this.result = "";
-        if (resolve) {
-          resolve(result.trim());
-        }
+        resolve();
       } else {
-        if (this.result.length == 0) {
-          this.result = data;
-        } else {
-          this.result += "\r\n" + data;
-        }
+        resolve(data.trim());
       }
+    });
+    this._parser.on("timeout", () => {
+      while (this.callbacks.length > 0) {
+        const [_, reject] = this.callbacks.shift();
+        reject("Communication timeout");
+      }
+      this.close();
+    });
+    this._port.on("close", (error) => {
+      if (this._parser) {
+        this._parser.endTimer();
+      }
+      while (this.callbacks.length > 0) {
+        const [_, reject] = this.callbacks.shift();
+        reject("Device disconnected");
+      }
+      this.close();
     });
 
     this._supported_commands = [];
@@ -270,6 +344,7 @@ class Focus {
       this._port.close();
     }
     this._port = null;
+    this._parser = null;
     this.focusDeviceDescriptor = null;
     this._supported_commands = [];
     this._plugins = [];
@@ -343,29 +418,31 @@ class Focus {
         args: args,
       },
     });
+
     return new Promise((resolve, reject) => {
-      const timer = setTimeout(() => {
-        logger("focus").error("request timed out", {
-          request: {
-            id: rid,
-            command: cmd,
-            args: args,
-          },
+      this._request(cmd, ...args)
+        .then((data) => {
+          logger("focus").verbose("response", {
+            request: {
+              id: rid,
+              command: cmd,
+              args: args,
+            },
+            response: data,
+          });
+          resolve(data);
+        })
+        .catch((error) => {
+          logger("focus").error("request timed out", {
+            request: {
+              id: rid,
+              command: cmd,
+              args: args,
+            },
+            error: error,
+          });
+          reject("Communication timeout");
         });
-        reject("Communication timeout");
-      }, this.timeout);
-      this._request(cmd, ...args).then((data) => {
-        clearTimeout(timer);
-        logger("focus").verbose("response", {
-          request: {
-            id: rid,
-            command: cmd,
-            args: args,
-          },
-          response: data,
-        });
-        resolve(data);
-      });
     });
   }
 
@@ -377,8 +454,9 @@ class Focus {
       request = request + " " + args.join(" ");
     }
     request += "\n";
-    return new Promise((resolve) => {
-      this.callbacks.push(resolve);
+    return new Promise((resolve, reject) => {
+      this._parser.startTimer();
+      this.callbacks.push([resolve, reject]);
       if (process.platform == "darwin") {
         /*
          * On macOS, we need to stagger writes, otherwise we seem to overwhelm the

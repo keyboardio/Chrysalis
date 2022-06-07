@@ -61,6 +61,7 @@ function Preferences(props) {
   const [value, setValue] = React.useState(0);
   const globalContext = useContext(GlobalContext);
 
+  const [inContext, setInContext] = React.useState(false);
   const [connected, setConnected] = globalContext.state.connected;
 
   const { t } = useTranslation();
@@ -94,13 +95,21 @@ function Preferences(props) {
           bottom: 0,
         }}
       >
-        <Tab label={t("preferences.interface")} {...a11yProps(0)} />
+        <Tab
+          label={t("preferences.interface")}
+          disabled={inContext}
+          {...a11yProps(0)}
+        />
         <Tab
           label={t("preferences.keyboard.title")}
           {...a11yProps(1)}
           disabled={!connected}
         />
-        <Tab label={t("preferences.devtools.main.label")} {...a11yProps(2)} />
+        <Tab
+          label={t("preferences.devtools.main.label")}
+          disabled={inContext}
+          {...a11yProps(2)}
+        />
       </Tabs>
       <Box
         sx={{
@@ -114,7 +123,7 @@ function Preferences(props) {
 
         <TabPanel value={value} index={1}>
           <MyKeyboardPreferences
-            inContext={props.inContext}
+            setInContext={setInContext}
             onDisconnect={props.onDisconnect}
           />
         </TabPanel>

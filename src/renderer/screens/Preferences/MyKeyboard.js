@@ -46,6 +46,7 @@ const MyKeyboardPreferences = (props) => {
     newChanges[command] = args;
     setChanges(newChanges);
 
+    props.setInContext(true);
     setModified(true);
     showContextBar();
   };
@@ -65,6 +66,7 @@ const MyKeyboardPreferences = (props) => {
     }
     setChanges({});
 
+    await props.setInContext(false);
     await setModified(false);
     await hideContextBar();
   };
@@ -75,6 +77,7 @@ const MyKeyboardPreferences = (props) => {
       if (event.data === "changes-discarded") {
         setChanges({});
         setModified(false);
+        props.setInContext(false);
       }
     };
     return () => {

@@ -36,7 +36,7 @@ import { toast } from "@renderer/components/Toast";
 import logo from "@renderer/logo-small.png";
 import { version } from "@root/package.json";
 import { ipcRenderer } from "electron";
-import jsonStringify from "json-stringify-pretty-compact";
+import stringify from "json-stringify-pretty-compact";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import si from "systeminformation";
@@ -57,7 +57,7 @@ function SystemInfo(props) {
 
   const saveBundle = async () => {
     const error = await ipcRenderer.sendSync("file.save-with-dialog", {
-      content: jsonStringify(info),
+      content: stringify(info, { maxLength: 1024 }),
       title: t("systeminfo.dialog.title"),
       defaultPath: "chrysalis-debug.bundle.json",
     });
@@ -135,7 +135,12 @@ function SystemInfo(props) {
     <Dialog open={viewing} scroll="paper" onClose={closeViewBundle} fullScreen>
       <DialogTitle>{t("systeminfo.title")}</DialogTitle>
       <DialogContent dividers>
-        <TextField disabled multiline fullWidth value={jsonStringify(info)} />
+        <TextField
+          disabled
+          multiline
+          fullWidth
+          value={stringify(info, { maxLength: 1024 })}
+        />
       </DialogContent>
     </Dialog>
   );

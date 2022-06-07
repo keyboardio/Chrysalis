@@ -41,6 +41,7 @@ const MacroEditor = (props) => {
 
   const addStep = (step) => {
     const newMacro = macro.map((v) => Object.assign({}, v));
+    step.id = Date.now();
     newMacro.push(step);
     onMacroChange(macroId, newMacro);
     setMacroStep(newMacro.length - 1);
@@ -125,10 +126,10 @@ const MacroEditor = (props) => {
   if (macroId == null) return null;
 
   const steps = macro.map((step, index) => {
-    const key = "macro-step-" + index.toString();
+    const key = "macro-step-" + step.id.toString();
     return (
       <MacroStep
-        key={step.id}
+        key={key}
         step={step}
         id={step.id}
         index={index}

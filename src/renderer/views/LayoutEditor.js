@@ -185,6 +185,7 @@ margin: auto;
       padding: 0;
       margin: 0;
       color: ${({ theme }) => theme.styles.raiseKeyboard.contentColor};
+      width: 100%;
       li {
         overflow-wrap: break-word;
         word-wrap: break-word;
@@ -1691,15 +1692,11 @@ class LayoutEditor extends React.Component {
   }
 
   onToogle = () => {
-    console.log("isStandardView Toggle: ", this.state.ç);
     if (this.state.isStandardView) {
       this.setState({ isStandardView: false });
     } else {
       this.setState({ isStandardView: true });
     }
-    // this.setState(state => {
-    //   ({ isStandardView: !state.isStandardView });
-    // });
   };
 
   render() {
@@ -1790,6 +1787,7 @@ class LayoutEditor extends React.Component {
           style={{ width: "50vw" }}
           showUnderglow={this.state.modeselect != "keyboard"}
           className={`raiseKeyboard layer`}
+          isStandardView={isStandardView}
         />
       </div>
       // </fade>

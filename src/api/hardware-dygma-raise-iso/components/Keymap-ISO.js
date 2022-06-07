@@ -222,18 +222,16 @@ class KeymapISO extends React.Component {
      */
     const GetCurrentKeyElement = props => {
       return (
-        <span>
-          <span
-            className={props.class}
-            textAnchor="middle"
-            key={props.index}
-            x={props.x}
-            y={props.y}
-            dy={props.dy}
-            textLength={props.textLength}
-          >
-            {props.word}
-          </span>
+        <span
+          className={props.class}
+          textAnchor="middle"
+          key={props.index}
+          x={props.x}
+          y={props.y}
+          dy={props.dy}
+          textLength={props.textLength}
+        >
+          {props.word}{" "}
         </span>
       );
     };

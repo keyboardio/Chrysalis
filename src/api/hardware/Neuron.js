@@ -19,7 +19,7 @@ import React from "react";
 
 import colorMatrixCalc from "../../renderer/utils/colorMatrixCalculation";
 
-const Neuron = ({ visibility, onClick, fill, stroke, strokeWidth, dataLedIndex, dataKeyIndex, dataLayer }) => {
+const Neuron = ({ visibility, onClick, clickAble, fill, stroke, strokeWidth, dataLedIndex, dataKeyIndex, dataLayer }) => {
   const [color, setColor] = React.useState("rgb(255,255,255)");
   const [colorMatrix, setColorMatrix] = React.useState(colorMatrixCalc("rgb(255,255,255)", 0.65));
 
@@ -30,7 +30,7 @@ const Neuron = ({ visibility, onClick, fill, stroke, strokeWidth, dataLedIndex, 
 
   if (!visibility) return null;
   return (
-    <g id="neuronWrapper" className={`${stroke === "#fff" ? "keyOnFocus" : "keyOnHold"} `}>
+    <g id="neuronWrapper" className={`${stroke === "#fff" ? "keyOnFocus" : "keyOnHold"} ${clickAble ? "clickAble" : ""}`}>
       <g className="neuronOutline">
         <path
           xmlns="http://www.w3.org/2000/svg"
@@ -47,7 +47,7 @@ const Neuron = ({ visibility, onClick, fill, stroke, strokeWidth, dataLedIndex, 
       </g>
       <g
         className="neuronLights"
-        onClick={onClick}
+        onClick={clickAble ? onClick : () => {}}
         data-led-index={dataLedIndex}
         data-key-index={dataKeyIndex}
         data-layer={dataLayer}

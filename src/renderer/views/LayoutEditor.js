@@ -316,7 +316,7 @@ margin: auto;
       stroke: ${({ theme }) => theme.styles.raiseKeyboard.keyOnFocusBorder};
     }
   }
-  &:hover {
+  &.clickAble:hover {
     cursor: pointer;
     .underGlowStripShadow {
       filter: blur(4px);

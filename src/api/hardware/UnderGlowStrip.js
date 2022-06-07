@@ -17,7 +17,20 @@
 
 import React from "react";
 import colorDarkerCalculation from "../../renderer/utils/colorDarkerCalculation";
-const UnderGlowStrip = ({ id, onClick, fill, stroke, visibility, x, y, dataLedIndex, dataKeyIndex, dataLayer, path }) => {
+const UnderGlowStrip = ({
+  id,
+  onClick,
+  fill,
+  stroke,
+  visibility,
+  clickAble,
+  x,
+  y,
+  dataLedIndex,
+  dataKeyIndex,
+  dataLayer,
+  path
+}) => {
   const [color, setColor] = React.useState("rgb(255,255,255)");
   const [strokeColor, setStrokeColor] = React.useState(colorDarkerCalculation("rgb(255,255,255)"));
 
@@ -30,11 +43,13 @@ const UnderGlowStrip = ({ id, onClick, fill, stroke, visibility, x, y, dataLedIn
   return (
     <g
       id={id}
-      onClick={onClick}
+      onClick={clickAble ? onClick : () => {}}
       data-led-index={dataLedIndex}
       data-key-index={dataKeyIndex}
       data-layer={dataLayer}
-      className={`${stroke == "#fff" || stroke == "#000" ? "keyOnFocus" : "keyOnHold"} underGlowStrip`}
+      className={`${stroke == "#fff" || stroke == "#000" ? "keyOnFocus" : "keyOnHold"} underGlowStrip ${
+        clickAble ? "clickAble" : ""
+      }`}
       transform={`translate(${x},${y})`}
     >
       <path d={path} fill={color} className="underGlowStripShadow" />

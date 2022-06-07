@@ -91,20 +91,7 @@ const Style = Styled.div`
   }
 }
 
-@media screen and (max-width: 1599px) {
-  .colorPickerButton {
-    width: 36px;
-    height: 36px;
-  }
-}
-
-@media screen and (max-width: 1499px) {
-  .colorPickerButton {
-    width: 32px;
-    height: 32px;
-  }
-}
-@media screen and (max-width: 1355px) {
+@media screen and (max-width: 1200px) {
   .colorPickerButton {
     width: 16px;
     height: 36px;
@@ -118,6 +105,24 @@ const Style = Styled.div`
   }
 }
 
+@media screen and (min-width: 1201px) and (max-width: 1334px) {
+  .colorPickerButton {
+    width: 24px;
+    height: 32px;
+  }
+}
+@media screen and (min-width: 1335px) and (max-width: 1558px) {
+  .colorPickerButton {
+    width: 32px;
+    height: 32px;
+  }
+}
+@media screen and (min-width: 1599px) {
+  .colorPickerButton {
+    width: 36px;
+    height: 36px;
+  }
+}
 `;
 
 const ColorPicker = ({ menuKey, id, onClick, dataID, selected, buttonStyle, className }) => {

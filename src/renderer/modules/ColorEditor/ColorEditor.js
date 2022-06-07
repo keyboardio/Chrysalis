@@ -104,7 +104,6 @@ export default class ColorEditor extends Component {
 
     this.state = {
       displayColorPicker: false,
-      maxColorsPalette: 16,
       internalColors: props.colors
     };
 
@@ -158,31 +157,26 @@ export default class ColorEditor extends Component {
   }
 
   removeColorPalette(idx) {
-    console.log("Entrou no remove Palette", this.state.internalColors);
-    let arrayColorPalette = [...this.state.internalColors]; // make a separate copy of the array
-    //let index = arrayColorPalette.indexOf(idx)
+    let arrayColorPalette = [...this.state.internalColors];
     let index = idx;
     if (index !== -1) {
       arrayColorPalette.splice(index, 1);
       this.setState({ internalColors: arrayColorPalette });
     }
-    //this.setState({ maxColorsPalette: this.internalColors.length + 1 });
   }
 
   addNewColorPalette() {
-    // this.setState(prevState => ({
-    //   internalColors: [...prevState.state.internalColors, { r: 122, g: 121, b: 241, rgb: "(122, 121, 241)" }]
-    // }));
-    console.log("Entrou no add Palette", this.state.internalColors);
-
     let arrayColorPalette = [...this.state.internalColors];
     arrayColorPalette.push({ r: 122, g: 121, b: 241, rgb: "(122, 121, 241)" });
     this.setState({ internalColors: arrayColorPalette });
+
+    this.selectColor(null, this.state.internalColors.length);
+    this.setState({ displayColorPicker: true });
   }
 
   render() {
     const { colors, selected, toChangeAllKeysColor, onBacklightColorSelect, onColorButtonSelect } = this.props;
-    const { displayColorPicker, internalColors, maxColorsPalette } = this.state;
+    const { displayColorPicker, internalColors } = this.state;
 
     const layerButtons = internalColors.map((data, idx) => {
       const menuKey = `color-${idx.toString()}-${colors[idx].rgb.toString()}`;
@@ -210,11 +204,7 @@ export default class ColorEditor extends Component {
             selected={selected}
             buttonStyle={buttonStyle}
             dataID={data.rgb}
-            className={
-              idx > 0 && data.rgb == "rgb(0, 0, 0)" && colors[idx - 1].rgb == "rgb(0, 0, 0)" && data.rgb == colors[idx - 1].rgb
-                ? `sameColor`
-                : ``
-            }
+            className="colorPicker"
           />
         );
       }
@@ -243,11 +233,17 @@ export default class ColorEditor extends Component {
         </div>
         <div className="panelTools">
           <div className="colorPallete">
-            <div className="colorPallete-items">{layerButtons}</div>
-            {internalColors.length}
-            <button className="btn" onClick={this.addNewColorPalette}>
-              Add new color
-            </button>
+            {layerButtons}
+            {internalColors.length < 16 ? (
+              <ColorPicker
+                onClick={this.addNewColorPalette}
+                menuKey="menuKeyAddNewColor"
+                key={`buttonAddNewColor`}
+                className="addColorButton"
+              />
+            ) : (
+              ""
+            )}
           </div>
           <div className="buttonsGroup">
             <div className="buttonEditColor">

@@ -238,7 +238,10 @@ const Light = {
       colorPickerBaseActive: "linear-gradient(270deg, #FFFFFF 0%, #F0F2F4 100%)",
       colorPickerBorder: Tokens.colors.gray100,
       colorPickerBorderActive: Tokens.colors.purple200,
-      colorPickerBorderHover: Tokens.colors.gray200
+      colorPickerBorderHover: Tokens.colors.gray200,
+      addButtonBackground:
+        "linear-gradient(90deg, rgba(255, 255, 255, 0.3) 21.15%, rgba(255, 255, 255, 0) 100%), rgba(176, 175, 194, 0.3)",
+      addButtonColor: Tokens.colors.gray500
     },
     collpase: {
       iconBackgroud: IconPlusXS,

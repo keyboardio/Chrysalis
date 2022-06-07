@@ -65,6 +65,8 @@ import IconNoSignal from "./IconNoSignal";
 import IconNote from "./IconNote";
 import IconOneShot from "./IconOneShot";
 import IconPauseXl from "./IconPauseXl";
+import IconPlus from "./IconPlus";
+import IconPlusXs from "./IconPlusXs";
 import IconPreferences2Stroke from "./IconPreferences2Stroke";
 import IconPressSm from "./IconPressSm";
 import IconPressAndReleaseSm from "./IconPressAndReleaseSm";
@@ -96,7 +98,6 @@ import IconToolsEject from "./IconToolsEject";
 import IconToolsBrightnessLess from "./IconToolsBrightnessLess";
 import IconToolsBrightnessMore from "./IconToolsBrightnessMore";
 import IconThreeDots from "./IconThreeDots";
-import IconPlus from "./IconPlus";
 import IconSettings from "./IconSettings";
 import IconUndoRestart from "./IconUndoRestart";
 import IconWrench from "./IconWrench";
@@ -153,6 +154,8 @@ export {
   IconNote,
   IconOneShot,
   IconPauseXl,
+  IconPlus,
+  IconPlusXs,
   IconPen,
   IconPreferences2Stroke,
   IconPressSm,
@@ -184,7 +187,6 @@ export {
   IconToolsBrightnessLess,
   IconToolsBrightnessMore,
   IconThreeDots,
-  IconPlus,
   IconSettings,
   IconUndoRestart,
   IconWrench

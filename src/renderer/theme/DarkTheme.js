@@ -243,7 +243,9 @@ const Dark = {
       colorPickerBaseActive: "rgba(11, 2, 25, 0.6)",
       colorPickerBorder: "rgba(123, 134, 158, 0.1)",
       colorPickerBorderActive: Tokens.colors.purple300,
-      colorPickerBorderHover: settingColorOpacity(Tokens.colors.gray300, 0.4)
+      colorPickerBorderHover: settingColorOpacity(Tokens.colors.gray300, 0.4),
+      addButtonBackground: settingColorOpacity(Tokens.colors.gray600, 0.6),
+      addButtonColor: Tokens.colors.gray100
     },
     collpase: {
       iconBackgroud: IconPlusXS,

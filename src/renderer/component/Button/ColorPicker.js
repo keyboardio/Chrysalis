@@ -18,23 +18,25 @@
 import React from "react";
 import Styled from "styled-components";
 
+import { IconPlusXs } from "../Icon";
+
 const Style = Styled.div` 
-&.sameColor {
-  display: none;
-}
+
 .colorPickerButton {
     width: 38px;
     height: 38px;
     background: ${({ theme }) => theme.styles.colorPanel.colorPickerBase};
-    border: 1px solid ${({ theme }) => theme.styles.colorPanel.colorPickerBorder};
+    border: thin solid ${({ theme }) => theme.styles.colorPanel.colorPickerBorder};
     // box-shadow:inset 0px 0px 0px 1px #f00;
     border-radius: 4px;
+
+    padding: 3px;
     
     box-shadow: 0px 0px 24px rgba(108, 92, 231, 0);
     transition-property: background, border, box-shadow, width;
     transition: 300ms ease-in-out;
     &:hover{
-      border: 1px solid ${({ theme }) => theme.styles.colorPanel.colorPickerBorderHover};
+      border: thin solid ${({ theme }) => theme.styles.colorPanel.colorPickerBorderHover};
       cursor: pointer;
       .colorItem:after {
         opacity: 1;
@@ -42,27 +44,45 @@ const Style = Styled.div`
     }
     &.active {
         background: ${({ theme }) => theme.styles.colorPanel.colorPickerBaseActive};
-        border: 1px solid ${({ theme }) => theme.styles.colorPanel.colorPickerBorderActive};
+        border: thin solid ${({ theme }) => theme.styles.colorPanel.colorPickerBorderActive};
         box-shadow: 0px 4px 24px rgba(108, 92, 231, 0.6);
     }
+    &.addColorButton {
+      svg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .colorItem {
+        color:  ${({ theme }) => theme.styles.colorPanel.addButtonColor};
+        background: ${({ theme }) => theme.styles.colorPanel.addButtonBackground};
+      }
+      &.active {
+        background: ${({ theme }) => theme.styles.colorPanel.colorPickerBase};
+        border: thin solid ${({ theme }) => theme.styles.colorPanel.colorPickerBorder};
+        box-shadow: 0px 0px 24px rgba(108, 92, 231, 0);
+      }
+    }
 }
+
 .button-content {
   position: relative;
   width: 100%;
   height: 100%;
-  padding: 3px;
-}
-.colorItem {
-  width: 100%;
-    height: 100%;
-    border-radius: 3px;
 }
 .colorItem {
   position: relative;
   overflow: hidden;
+  width: 100%;
+  height: 100%;
+  border-radius: 3px;
+  text-align: center;
   &:after {
     content: "";
     position: absolute;
+    left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
     background: linear-gradient(90deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 50%), rgba(255,255,255,0.1);
@@ -93,16 +113,26 @@ const Style = Styled.div`
       width: 24px;
     }
   }
+  .addColorButton.colorPickerButton {
+    width: 32px;
+  }
 }
 
 `;
 
 const ColorPicker = ({ menuKey, id, onClick, dataID, selected, buttonStyle, className }) => {
   return (
-    <Style className={className}>
-      <div key={menuKey} onClick={onClick} className={`colorPickerButton ${selected === id ? "active" : ""}`} data-id={dataID}>
+    <Style>
+      <div
+        key={menuKey}
+        onClick={onClick}
+        className={`colorPickerButton ${className} ${selected === id ? "active" : ""}`}
+        data-id={dataID}
+      >
         <div className="button-content">
-          <div className={`colorItem`} style={buttonStyle}>{` `}</div>
+          <div className={`colorItem`} style={buttonStyle}>
+            {className == "addColorButton" ? <IconPlusXs /> : " "}
+          </div>
         </div>
       </div>
     </Style>

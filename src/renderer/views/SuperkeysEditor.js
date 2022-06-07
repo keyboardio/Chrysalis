@@ -681,8 +681,9 @@ class SuperkeysEditor extends React.Component {
   //Manage Standard/Single view
   async configStandarView() {
     try {
-      // const preferencesStandardView = JSON.parse(store.get("settings.isStandardViewSuperkeys"));
+      //const preferencesStandardViewJSON = JSON.parse(store.get("settings.isStandardViewSuperkeys"));
       const preferencesStandardView = false;
+      //console.log("Preferences StandardView", preferencesStandardViewJSON);
       if (preferencesStandardView !== null) {
         this.setState({ isStandardViewSuperkeys: preferencesStandardView });
       } else {

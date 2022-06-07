@@ -42,9 +42,11 @@ import { undeglowDefaultColors } from "../screens/Editor/initialUndaglowColors";
 import PageHeader from "../modules/PageHeader";
 import ColorEditor from "../modules/ColorEditor";
 import { KeyPickerKeyboard } from "../modules/KeyPickerKeyboard";
-import { LayerSelector } from "../component/Select";
 
+// Components
+import { LayerSelector } from "../component/Select";
 import { RegularButton } from "../component/Button";
+import { LayoutViewSelector } from "../component/ToggleButtons";
 import { IconArrowUpWithLine, IconArrowDownWithLine } from "../component/Icon";
 
 import customCursor from "../../../static/base/cursorBucket.png";
@@ -408,7 +410,8 @@ class LayoutEditor extends React.Component {
       currentLanguageLayout: "",
       undeglowColors: null,
       showMacroModal: false,
-      showNeuronModal: false
+      showNeuronModal: false,
+      isStandardView: store.get("settings.isStandardView") || true
     };
     this.onLayerNameChange = this.onLayerNameChange.bind(this);
     this.updateMacros = this.updateMacros.bind(this);
@@ -423,6 +426,7 @@ class LayoutEditor extends React.Component {
     this.toggleNeuronModal = this.toggleNeuronModal.bind(this);
     this.CloneExistingNeuron = this.CloneExistingNeuron.bind(this);
     this.updateOldMacros = this.updateOldMacros.bind(this);
+    this.onToogle = this.onToogle.bind(this);
   }
 
   keymapDB = new KeymapDB();
@@ -894,6 +898,7 @@ class LayoutEditor extends React.Component {
       });
     });
     this.onChangeLanguageLayout();
+    await this.configStandarView();
   }
 
   UNSAFE_componentWillReceiveProps = nextProps => {
@@ -1658,6 +1663,45 @@ class LayoutEditor extends React.Component {
     });
   };
 
+  //Manage Standard/Single view
+  async configStandarView() {
+    try {
+      const preferencesStandardView = JSON.parse(store.get("settings.isStandardView", true));
+      //const preferencesStandardView = false;
+      //console.log("Preferences StandardView", preferencesStandardViewJSON);
+
+      console.log("preferencesStandardView: ", preferencesStandardView);
+      //const preferencesStandardView = false;
+      if (preferencesStandardView !== null) {
+        this.setState({ isStandardView: preferencesStandardView });
+      } else {
+        this.setState({ isStandardView: true });
+      }
+    } catch (e) {
+      console.log(e);
+      this.setState({ isStandardView: true });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.isStandardView !== this.state.isStandardView) {
+      store.set("settings.isStandardView", this.state.isStandardView);
+      console.log("Did update: ", this.state.isStandardView);
+    }
+  }
+
+  onToogle = () => {
+    console.log("isStandardView Toggle: ", this.state.ç);
+    if (this.state.isStandardView) {
+      this.setState({ isStandardView: false });
+    } else {
+      this.setState({ isStandardView: true });
+    }
+    // this.setState(state => {
+    //   ({ isStandardView: !state.isStandardView });
+    // });
+  };
+
   render() {
     const {
       keymap,
@@ -1668,7 +1712,8 @@ class LayoutEditor extends React.Component {
       currentLedIndex,
       currentLanguageLayout,
       macros,
-      superkeys
+      superkeys,
+      isStandardView
     } = this.state;
 
     let { Layer, kbtype } = this.getLayout();
@@ -1859,8 +1904,8 @@ class LayoutEditor extends React.Component {
           <Row className="editor"> */}
             <Col className="raise-editor layer-col">
               <Row className="m-0">{layer}</Row>
-              <Row className="full-height m-0">
-                {this.state.modeselect == "keyboard" ? (
+              {this.state.modeselect == "keyboard" && !isStandardView ? (
+                <Row className="full-height m-0">
                   <KeyPickerKeyboard
                     onKeySelect={this.onKeyChange}
                     code={code}
@@ -1874,10 +1919,18 @@ class LayoutEditor extends React.Component {
                     selectedlanguage={currentLanguageLayout}
                     kbtype={kbtype}
                   />
-                ) : null}
-              </Row>
+                </Row>
+              ) : null}
             </Col>
           </Row>
+
+          <LayoutViewSelector
+            onToogle={this.onToogle}
+            isStandardView={isStandardView}
+            tooltip={i18n.editor.superkeys.tooltip}
+            isDisabled={this.state.modeselect != "keyboard"}
+          />
+
           <ConfirmationDialog
             title={i18n.editor.clearLayerQuestion}
             text={i18n.editor.clearLayerPrompt}

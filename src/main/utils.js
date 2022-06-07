@@ -14,15 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { ipcMain, nativeTheme } from "electron";
-import { sendToRenderer } from "./utils";
+import { BrowserWindow } from "electron";
 
-export const registerNativeThemeHandlers = () => {
-  ipcMain.on("native-theme.should-use-dark-colors", (event) => {
-    event.returnValue = nativeTheme.shouldUseDarkColors;
-  });
-
-  nativeTheme.on("updated", () => {
-    sendToRenderer("native-theme.updated", nativeTheme.shouldUseDarkColors);
+export const sendToRenderer = (...args) => {
+  BrowserWindow.getAllWindows().forEach((win) => {
+    win.webContents.send(...args);
   });
 };

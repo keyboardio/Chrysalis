@@ -15,8 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { BrowserWindow, ipcMain } from "electron";
+import { ipcMain } from "electron";
 import { findByIds, getDeviceList, WebUSB } from "usb";
+import { sendToRenderer } from "./utils";
 
 const webusb = new WebUSB({
   allowAllDevices: true,
@@ -24,20 +25,12 @@ const webusb = new WebUSB({
 export const notifyUsbDisconnect = (event) => {
   const vendor_id = event?.device?.vendorId;
   const product_id = event?.device?.productId;
-  BrowserWindow.getAllWindows().forEach((win) => {
-    if (win) {
-      win.send("usb.device-disconnected", vendor_id, product_id);
-    }
-  });
+  sendToRenderer("usb.device-disconnected", vendor_id, product_id);
 };
 export const notifyUsbConnect = (event) => {
   const vendor_id = event?.device?.vendorId;
   const product_id = event?.device?.productId;
-  BrowserWindow.getAllWindows().forEach((win) => {
-    if (win) {
-      win.send("usb.device-connected", vendor_id, product_id);
-    }
-  });
+  sendToRenderer("usb.device-connected", vendor_id, product_id);
 };
 
 export const addUsbEventListeners = () => {

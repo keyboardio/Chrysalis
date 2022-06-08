@@ -42,7 +42,7 @@ const IdleTimeLimit = (props) => {
   const loaded = usePluginEffect(initialize);
 
   const onChange = async (event) => {
-    const limit = event.target.checked;
+    const limit = event.target.value;
     await setLedIdleTimeLimit(limit);
     await onSaveChanges("idleleds.time_limit", limit);
   };

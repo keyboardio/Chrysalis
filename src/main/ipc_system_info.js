@@ -31,6 +31,7 @@ export const registerSystemInfoHandlers = () => {
           version: version,
         },
         os: await si.osInfo(),
+        usb: await si.usb(),
       };
     } catch (_) {
       console.log("Error getting system info", _);

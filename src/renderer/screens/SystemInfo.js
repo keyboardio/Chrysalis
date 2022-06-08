@@ -16,7 +16,7 @@
  */
 
 import Focus from "@api/focus";
-import { logger, collectLogs } from "@api/log";
+import { collectLogs, logger } from "@api/log";
 import CloseIcon from "@mui/icons-material/Close";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -39,8 +39,6 @@ import { ipcRenderer } from "electron";
 import stringify from "json-stringify-pretty-compact";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import si from "systeminformation";
-import { v4 as uuidv4 } from "uuid";
 
 function SystemInfo(props) {
   const [collecting, setCollecting] = useState(false);
@@ -75,16 +73,7 @@ function SystemInfo(props) {
     setCollecting(true);
     const focus = new Focus();
 
-    const sysInfo = {
-      timestamp: new Date(),
-      uuid: uuidv4(),
-      chrysalis: {
-        version: version,
-      },
-      os: await si.osInfo(),
-      logs: await collectLogs(),
-    };
-
+    const sysInfo = ipcRenderer.sendSync("system-info.get");
     if (focus.focusDeviceDescriptor) {
       sysInfo.device = {
         info: focus.focusDeviceDescriptor.info,
@@ -94,6 +83,8 @@ function SystemInfo(props) {
         colormap: await focus.command("colormap"),
       };
     }
+
+    sysInfo.logs = await collectLogs();
 
     setCollecting(false);
     setCollected(true);

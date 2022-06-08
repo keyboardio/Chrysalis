@@ -32,8 +32,9 @@ import {
 } from "./ipc_device_discovery";
 import { registerDevtoolsHandlers } from "./ipc_devtools";
 import { registerFileIoHandlers } from "./ipc_file_io";
-import { registerNativeThemeHandlers } from "./ipc_nativetheme";
 import { registerLoggingHandlers } from "./ipc_logging";
+import { registerNativeThemeHandlers } from "./ipc_nativetheme";
+import { registerSystemInfoHandlers } from "./ipc_system_info";
 import { buildMenu } from "./menu";
 
 // This is a workaround for electron-webpack#275[1]. We need to use backticks
@@ -199,9 +200,10 @@ process.on("uncaughtException", function (error) {
   console.log(error); // Handle the error
 });
 
-registerDeviceDiscoveryHandlers();
-registerFileIoHandlers();
-registerDevtoolsHandlers();
 registerBackupHandlers();
-registerNativeThemeHandlers();
+registerDeviceDiscoveryHandlers();
+registerDevtoolsHandlers();
+registerFileIoHandlers();
 registerLoggingHandlers();
+registerNativeThemeHandlers();
+registerSystemInfoHandlers();

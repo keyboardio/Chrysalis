@@ -8,8 +8,19 @@ Iterating on the Macro Editing feature introduced in the last release, it is now
 possible to rearrange macro steps by dragging and dropping them.
 
 Chrysalis can now configure the default LED mode to be used on keyboards that
-support it. This requires the `PersistentLEDMode` plugin on the firmware side,
-which the firmware Chrysalis ships with don't have enabled yet.
+support it. This requires the `DefaultLEDModeConfig` plugin on the firmware
+side. The firmware Chrysalis ships with don't have it enabled yet.
+
+## Firmware update
+
+All of the firmware files Chrysalis ships with have been updated. The new
+firmware contains bugfixes for the Keyboardio Model 100, which we hope will
+enable Chrysalis to connect to the keyboard properly.
+
+If you are unable to connect Chrysalis to your Model 100, unplug the keyboard
+first, hold down the `PROG` key, and plug it back in while still holding it.
+That will put the keyboard into programmable mode, and Chrysalis will be able to
+flash new firmware onto it.
 
 ## UI/UX improvements
 

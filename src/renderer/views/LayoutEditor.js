@@ -2027,7 +2027,21 @@ class LayoutEditor extends React.Component {
         </Modal>
 
         {this.state.modeselect == "keyboard" && isStandardView ? (
-          <StandardView showStandardView={this.state.showStandardView} closeStandardView={this.closeStandardViewModal} />
+          <StandardView
+            showStandardView={this.state.showStandardView}
+            closeStandardView={this.closeStandardViewModal}
+            onKeySelect={this.onKeyChange}
+            code={code}
+            macros={macros}
+            superkeys={superkeys}
+            actions={actions}
+            action={0}
+            superName={superName}
+            keyIndex={currentKeyIndex}
+            actTab={"editor"}
+            selectedlanguage={currentLanguageLayout}
+            kbtype={kbtype}
+          />
         ) : (
           ""
         )}

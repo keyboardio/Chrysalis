@@ -26,65 +26,57 @@ import PreferenceSwitch from "../../components/PreferenceSwitch";
 import PreferenceWithHeading from "../../components/PreferenceWithHeading";
 
 const DefaultLedMode = (props) => {
+  // The lowest LED mode index we can set
+  const minIndex = 0;
+  // The highest LED mode index we can set. This is *not* 255, because 255 is
+  // the uninitialized EEPROM byte, and Kaleidoscope treats that differently,
+  // the same as 0.
+  const maxIndex = 254;
+
   const { t } = useTranslation();
   const { onSaveChanges } = props;
 
   const [ledModeDefault, setLedModeDefault] = useState(0);
-  const [ledModeAutoSave, setLedModeAutoSave] = useState(true);
 
   const initialize = async (focus) => {
     const def = await focus.command("led_mode.default");
-    const autoSave = await focus.command("led_mode.auto_save");
 
     setLedModeDefault(parseInt(def));
-    setLedModeAutoSave(autoSave == "1");
   };
   const loaded = usePluginEffect(initialize);
 
-  const onAutoSaveChange = async (event) => {
-    const autoSave = event.target.checked;
-    await setLedModeAutoSave(autoSave);
-    await onSaveChanges("led_mode.auto_save", autoSave ? 1 : 0);
-  };
-
   const onLedModeChange = async (event) => {
     const v = event.target.value;
-    const mode = Math.max(0, Math.min(32, v == "" ? 0 : parseInt(v)));
+    const mode = Math.max(
+      minIndex,
+      Math.min(maxIndex, v == "" ? minIndex : parseInt(v))
+    );
     await setLedModeDefault(mode);
     await onSaveChanges("led_mode.default", mode);
   };
 
   return (
-    <>
-      <PreferenceSwitch
-        loaded={loaded}
-        option="keyboard.led.default.autoSave"
-        checked={ledModeAutoSave}
-        onChange={onAutoSaveChange}
-      />
-      <PreferenceWithHeading
-        heading={t("preferences.keyboard.led.default.label")}
-        subheading={t("preferences.keyboard.led.default.help")}
-      >
-        {loaded ? (
-          <TextField
-            sx={{ width: "10em" }}
-            size="small"
-            disabled={ledModeAutoSave}
-            type="number"
-            min={0}
-            max={31}
-            value={ledModeDefault}
-            onChange={onLedModeChange}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        ) : (
-          <Skeleton variant="rectangle" width="10em" height={40} />
-        )}
-      </PreferenceWithHeading>
-    </>
+    <PreferenceWithHeading
+      heading={t("preferences.keyboard.led.default.label")}
+      subheading={t("preferences.keyboard.led.default.help")}
+    >
+      {loaded ? (
+        <TextField
+          sx={{ width: "10em" }}
+          size="small"
+          type="number"
+          min={minIndex}
+          max={maxIndex}
+          value={ledModeDefault}
+          onChange={onLedModeChange}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+      ) : (
+        <Skeleton variant="rectangle" width="10em" height={40} />
+      )}
+    </PreferenceWithHeading>
   );
 };
 

@@ -35,7 +35,7 @@ const KeyboardLEDPreferences = (props) => {
 
   const [loaded, plugins] = useCheckDeviceSupportsPlugins([
     "PersistentIdleLEDs",
-    "PersistentLEDMode",
+    "DefaultLEDModeConfig",
     "led.brightness",
   ]);
 
@@ -43,7 +43,7 @@ const KeyboardLEDPreferences = (props) => {
   if (loaded && !foundSomePlugins) return null;
 
   const preferences = [
-    { plugin: "PersistentLEDMode", Component: DefaultLedMode },
+    { plugin: "DefaultLEDModeConfig", Component: DefaultLedMode },
     { plugin: "PersistentIdleLEDs", Component: IdleTimeLimit },
     { plugin: "led.brightness", Component: Brightness },
   ];

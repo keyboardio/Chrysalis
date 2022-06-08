@@ -42,6 +42,7 @@ import { undeglowDefaultColors } from "../screens/Editor/initialUndaglowColors";
 import PageHeader from "../modules/PageHeader";
 import ColorEditor from "../modules/ColorEditor";
 import { KeyPickerKeyboard } from "../modules/KeyPickerKeyboard";
+import StandardView from "../modules/StandardView";
 
 // Components
 import { LayerSelector } from "../component/Select";
@@ -412,7 +413,8 @@ class LayoutEditor extends React.Component {
       undeglowColors: null,
       showMacroModal: false,
       showNeuronModal: false,
-      isStandardView: store.get("settings.isStandardView") || true
+      isStandardView: store.get("settings.isStandardView") || true,
+      showStandardView: false
     };
     this.onLayerNameChange = this.onLayerNameChange.bind(this);
     this.updateMacros = this.updateMacros.bind(this);
@@ -775,11 +777,24 @@ class LayoutEditor extends React.Component {
   };
 
   onKeySelect = event => {
-    const { selectedPaletteColor, currentLayer, isMultiSelected, isColorButtonSelected, currentKeyIndex } = this.state;
+    const {
+      selectedPaletteColor,
+      currentLayer,
+      isMultiSelected,
+      isColorButtonSelected,
+      currentKeyIndex,
+      isStandardView,
+      showStandardView
+    } = this.state;
     const currentTarget = event.currentTarget;
     let layer = parseInt(currentTarget.getAttribute("data-layer")),
       keyIndex = parseInt(currentTarget.getAttribute("data-key-index")),
       ledIndex = parseInt(currentTarget.getAttribute("data-led-index"));
+
+    if (isStandardView) {
+      this.setState({ showStandardView: true });
+      console.log("Show Standard View IF: ", showStandardView);
+    }
 
     if (keyIndex == currentKeyIndex) {
       if (event.ctrlKey || (event.shiftKey && !isColorButtonSelected)) {
@@ -1699,6 +1714,10 @@ class LayoutEditor extends React.Component {
     }
   };
 
+  closeStandardViewModal = () => {
+    this.setState({ showStandardView: false });
+  };
+
   render() {
     const {
       keymap,
@@ -1710,7 +1729,8 @@ class LayoutEditor extends React.Component {
       currentLanguageLayout,
       macros,
       superkeys,
-      isStandardView
+      isStandardView,
+      showStandardView
     } = this.state;
 
     let { Layer, kbtype } = this.getLayout();
@@ -2005,6 +2025,12 @@ class LayoutEditor extends React.Component {
             />
           </Modal.Footer>
         </Modal>
+
+        {this.state.modeselect == "keyboard" && isStandardView ? (
+          <StandardView showStandardView={this.state.showStandardView} closeStandardView={this.closeStandardViewModal} />
+        ) : (
+          ""
+        )}
       </Styles>
     );
   }

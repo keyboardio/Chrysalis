@@ -267,6 +267,10 @@ const English = {
       selectMouseFunction: "Select Mouse Function",
       title: "Superkeys Editor",
       successFlash: "Succesfully sent the superkeys to the Raise",
+      createModal: {
+        createNew: "Create new Superkey name",
+        inputLabel: "Superkey name"
+      },
       deleteModal: {
         title: "This superkey is in use",
         // prettier-ignore

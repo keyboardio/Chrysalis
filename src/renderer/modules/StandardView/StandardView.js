@@ -27,26 +27,37 @@ const Styles = Styled.div`
     height: 100vh;
     top: 0;
     left: 0;
-    background-color: rgba(50,50,50,0.8);
+    background-color: ${({ theme }) => theme.styles.standardView.modalBackground};
     z-index: 500;
     padding: 32px 32px 32px 164px;
     .standardViewInner {
         width: 100%;
-        height: 100vh;
+        height: 100%;
         display: grid;
-        grid-template-columns: minmax(200px, 320px) 1fr;
+        grid-gap: 14px;
+        grid-template-columns: minmax(200px, 220px) 1fr;
     }
 }
 .colContentTabs {
     height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: ${({ theme }) => theme.styles.standardView.contentBackground};
+    border-radius: 6px;
     .contentBody {
         flex-grow: 1;
         margin-bottom: auto;
     }
     .contentFooter {
-        padding: 32px;
+        width: 100%;
+        padding: 24px;
         background-color: black;
         margin-top: auto;
+        border-radius: 6px;
+        background-color: ${({ theme }) => theme.styles.standardView.footerBackground};
+        .button + .button {
+            margin-left: 12px;
+        }
     }
 }
 `;
@@ -61,15 +72,15 @@ export default class StandardView extends React.Component {
   }
 
   render() {
-    const { showStandardView, closeStandardView, macros, modalTitle, labelInput, id } = this.props;
+    const { showStandardView, closeStandardView, code, macros, handleSave, modalTitle, labelInput, id } = this.props;
     if (!showStandardView) return null;
     return (
       <Styles>
         <div className="standardView">
-          <Tab.Container id="macroCreator" defaultActiveKey="tabText">
+          <Tab.Container id="standardViewCointainer" defaultActiveKey="tabKeys">
             <div className="standardViewInner">
               <div className="colVisualizerTabs">
-                <KeyVisualizer />
+                <KeyVisualizer keyCode={code} />
                 <Nav className="flex-column">
                   <CustomTab eventKey="tabKeys" text="Keys" icon={<IconKeyboard />} />
                   <CustomTab eventKey="tabLayers" text="Layers" icon={<IconLayers />} />
@@ -99,7 +110,20 @@ export default class StandardView extends React.Component {
                   </Tab.Content>
                 </div>
                 <div className="contentFooter">
-                  <RegularButton onClick={closeStandardView} style={"outline"} buttonText={i18n.app.cancelPending.button} />
+                  <div className="d-flex justify-content-end">
+                    <RegularButton
+                      onClick={closeStandardView}
+                      style={"outline"}
+                      size="sm"
+                      buttonText={i18n.app.cancelPending.button}
+                    />
+                    <RegularButton
+                      onClick={handleSave}
+                      style={"outline gradient"}
+                      size="sm"
+                      buttonText={i18n.components.save.button}
+                    />
+                  </div>
                 </div>
               </div>
             </div>

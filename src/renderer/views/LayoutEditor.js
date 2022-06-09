@@ -235,7 +235,7 @@ margin: auto;
       opacity: 0.6;
     }
     .keyAnimation {
-      display: inline-block;
+      animation: pulse-black 2s linear infinite;
     }
   }
   &:hover {
@@ -281,20 +281,15 @@ margin: auto;
   }
 }
 .keyAnimation {
-  display: none;
-  transform: scale(1);
-  animation: pulse-black 1.2s infinite;
-  filter: blur(1px);
+  stroke-opacity: 0;
+  stroke-linecap: round;
 }
 @keyframes pulse-black {
-  0% {
-    opacity: 0;
+  from {
+    stroke-opacity: 0;
   }
-  70% {
-    opacity: 0.9;
-  }
-  100% {
-    opacity: 0;
+  to {
+    stroke-opacity: 0.8;
   }
 }
 .underGlowStrip {

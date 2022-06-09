@@ -115,7 +115,7 @@ const Key = ({
           <g className="shadowMiddle">
             <rect x={xShape2} y={yShape2 + 12} width={widthShape2} height={heightShape2} rx="4" fill={color} />
           </g>
-          <g xmlns="http://www.w3.org/2000/svg">
+          <g>
             <rect x={xShape2} y={yShape2} width={widthShape2} height={heightShape2} rx="4" className="keyBase" />
             <rect
               x={xShape2}
@@ -149,9 +149,10 @@ const Key = ({
               stroke="#fff"
               strokeWidth="1"
               fill="transparent"
-              strokeOpacity="1"
+              strokeOpacity="0"
             />
-
+          </g>
+          <g xmlns="http://www.w3.org/2000/svg">
             <foreignObject x={xShape2} y={yShape2} width={widthShape2} height={heightShape2}>
               <div xmlns="http://www.w3.org/1999/xhtml" className={`keyContentLabel`}>
                 <ul>

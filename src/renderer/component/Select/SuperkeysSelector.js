@@ -222,8 +222,8 @@ class SuperKeysSelector extends React.Component {
           name={""}
           toggleShow={this.toggleShowAdd}
           handleSave={this.handleAdd}
-          modalTitle={i18n.superkeys.createModal.createNew}
-          labelInput={i18n.superkeys.createModal.inputLabel}
+          modalTitle={i18n.editor.superkeys.createModal.createNew}
+          labelInput={i18n.editor.superkeys.createModal.inputLabel}
         />
       </Style>
     );

@@ -581,6 +581,11 @@ const Dark = {
       handleBoxShadow: Tokens.colors.purple300,
       labelColor: Tokens.colors.gray200
     },
+    standardView: {
+      modalBackground: "rgba(18, 17, 28, 0.95)",
+      contentBackground: Tokens.colors.gray800,
+      footerBackground: settingColorOpacity(Tokens.colors.gray900, 0.1)
+    },
     stepsBar: {
       stepBarBackground: Tokens.colors.gray600,
       stepBarBackgroundActive: Tokens.colors.purple300,

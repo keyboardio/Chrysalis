@@ -25,7 +25,7 @@ import { loadLayout } from "./LoadLayout";
 export const FileImport = (props) => {
   const { t } = useTranslation();
   const importFromFile = () => {
-    const [fileName, fileData] = ipcRenderer.sendSync("file-open", {
+    const [fileName, fileData] = ipcRenderer.sendSync("file.open-with-dialog", {
       title: t("editor.sharing.selectLoadFile"),
       filters: [
         {

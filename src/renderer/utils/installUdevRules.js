@@ -35,6 +35,7 @@ const installUdevRules = async (devicePath) => {
   const cmd =
     "(mv /etc/udev/rules.d/60-kaleidoscope.rules " +
     "/etc/udev/rules.d/60-kaleidoscope.rules.orig || true) && " +
+    "install -o root -g root /etc/udev/rules.d && " +
     "install -o root -g root " +
     tmpRules.name +
     " /etc/udev/rules.d/60-kaleidoscope.rules && " +

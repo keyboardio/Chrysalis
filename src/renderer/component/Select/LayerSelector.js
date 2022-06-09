@@ -40,14 +40,12 @@ const Style = Styled.div`
 display: flex;
 align-items: center;
 .dropdownMultipleActions {
-    min-width: 350px;
-    max-width: 350px;
+    min-width: 290px;
+    max-width: 290px;
     .dropdownActions {
       display: flex;
       flex-wrap: nowrap;
       border-radius: 3px;
-    //   top: 5px;
-    //   right: 5px;
       height: 48px;
     }
 }
@@ -60,7 +58,7 @@ align-items: center;
 .dropdownListItemInner {
     padding-right: 64px;
     .caret {
-      right: 46px;
+      right: 16px;
     }
 }
 .dropdown-menu {

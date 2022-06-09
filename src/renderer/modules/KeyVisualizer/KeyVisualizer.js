@@ -121,13 +121,25 @@ class KeyVisualizer extends React.Component {
     return (
       <Style className="KeyVisualizer">
         <div className="KeyVisualizerInner">
-          <Title text="New value" headingLevel={4} />
-          {oldValue ? oldValue : ""}
+          {oldValue ? (
+            <>
+              <Title text="Selected value" headingLevel={4} />
+              <div className="keySelectedBox">
+                <div className="keySelectedValue">{oldValue}</div>
+                <ListModifiers keyCode={keyCode.base + keyCode.modified} />
+              </div>
+            </>
+          ) : (
+            ""
+          )}
           {newValue ? (
-            <div className="keySelectedBox">
-              <div className="keySelectedValue">{newValue}</div>
-              <ListModifiers keyCode={keyCode.base + keyCode.modified} />
-            </div>
+            <>
+              <Title text="New value" headingLevel={4} />
+              <div className="keySelectedBox">
+                <div className="keySelectedValue">{newValue}</div>
+                <ListModifiers keyCode={keyCode.base + keyCode.modified} />
+              </div>
+            </>
           ) : (
             ""
           )}

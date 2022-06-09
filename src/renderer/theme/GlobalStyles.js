@@ -592,10 +592,10 @@ svg text{
 }
 .dropdownListNumber {
   align-self: center;
-  width: 42px;
+  width: 34px;
   text-align: center;
   padding-right: 8px;
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: -0.03em;
   position: relative;
@@ -604,7 +604,7 @@ svg text{
 .dropdownListNumber:after {
   content: '';
   width: 1px;
-  height: 34px;
+  height: 30px;
   position: absolute;
   right: 0;
   top: 50%;
@@ -622,20 +622,22 @@ svg text{
   position: relative;
   padding-right: 60px;
   width: 100%;
+  line-height: 1em;
 }
 .dropdownListItemInner .caret {
   position: absolute;
-  right: 42px;
+  right: 24px;
   top: 50%;
   transform: translate3d(0,-50%, 0) scale(0.8);
   color: ${({ theme }) => theme.styles.dropdown.selector.arrowsColor};
 }
 .dropdownListItemLabel {
   letter-spacing: -0.03em;
-  font-size: 13px; 
+  font-size: 11px; 
   color: ${({ theme }) => theme.styles.dropdown.selector.labelColor};
 }
 .dropdownListItemSelected {
+  font-size: 13px; 
   color: ${({ theme }) => theme.styles.dropdown.selector.color}
 }
 
@@ -645,17 +647,17 @@ svg text{
   top: 4px;
 }
 .dropdownMultipleActions .dropdown-toggle.btn.btn-primary {
-  padding: 8px 16px 8px 8px;
+  padding: 4px 16px 4px 8px;
   margin: 0;
-  height: 58px;
+  height: 44px;
 }
 .dropdownMultipleActions .dropdown-toggle.btn.btn-primary:after {
   content: none;
 }
 
 .dropdown-toggle.btn.btn-primary.button-settings {
-  width: 50px;
-  height: 50px;
+  width: 36px;
+  height: 36px;
   padding: 0;
   border: none;
   text-align: center;

@@ -26,8 +26,20 @@ const Style = Styled.div`
 const Saving = ({ saveContext, destroyContext, inContext }) => {
   return (
     <Style className="savingButtons">
-      <RegularButton onClick={destroyContext} buttonText={i18n.app.cancelPending.button} style="outline" disabled={!inContext} />
-      <RegularButton onClick={saveContext} buttonText={i18n.components.save.button} style="primary" disabled={!inContext} />
+      <RegularButton
+        onClick={destroyContext}
+        buttonText={i18n.app.cancelPending.button}
+        style="outline"
+        size="sm"
+        disabled={!inContext}
+      />
+      <RegularButton
+        onClick={saveContext}
+        buttonText={i18n.components.save.button}
+        style="primary"
+        size="sm"
+        disabled={!inContext}
+      />
     </Style>
   );
 };

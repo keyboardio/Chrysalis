@@ -17,6 +17,7 @@
 
 import React from "react";
 
+import AutoUpdatePreferences from "./ui/AutoUpdatePreferences";
 import LayoutCardsPreferences from "./ui/LayoutCardsPreferences";
 import LayoutEditorPreferences from "./ui/LayoutEditorPreferences";
 import LookAndFeelPreferences from "./ui/LookAndFeelPreferences";
@@ -25,6 +26,7 @@ const UserInterfacePreferences = (props) => {
   return (
     <>
       <LookAndFeelPreferences />
+      <AutoUpdatePreferences />
       <LayoutEditorPreferences />
       <LayoutCardsPreferences />
     </>

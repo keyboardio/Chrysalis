@@ -16,6 +16,11 @@
       "altText": "Chrysalis logo"
     }
   },
+  "autoUpdate": {
+    "available": "New version available: {{ version }}",
+    "downloaded": "Version {{ version }} downloaded, restart Chrysalis to finish installing",
+    "error": "Error during update: {{ error }}"
+  },
   "dialog": {
     "ok": "Ok",
     "cancel": "Cancel",
@@ -39,7 +44,6 @@
       "keyboardSection": "Keyboard",
       "chrysalisSection": "Chrysalis",
       "miscSection": "Miscellaneous",
-      "upgradeAvailable": "An upgrade is available!",
       "changelog": "Changelog"
     },
     "deviceMenu": {
@@ -232,6 +236,13 @@
       }
     },
     "ui": {
+      "autoUpdate": {
+        "label": "Customize how Chrysalis should be upgraded",
+        "mode": {
+          "label": "Enable automatic upgrades",
+          "help": "When enabled, Chrysalis will check for updates on startup, and automatically download new versions."
+        }
+      },
       "layoutEditor": {
         "label": "Customize the Layout Editor"
       },

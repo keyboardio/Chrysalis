@@ -38,7 +38,6 @@ import { version } from "@root/package.json";
 import { ipcRenderer } from "electron";
 import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
-import UpgradeMenuItem from "./UpgradeMenuItem";
 
 function MainMenu({ open, closeMenu, classes }) {
   const drawerWidth = 350;
@@ -174,7 +173,6 @@ function MainMenu({ open, closeMenu, classes }) {
             sx={{ textAlign: "right" }}
           />
         </ListItem>
-        <UpgradeMenuItem />
       </List>
     </Drawer>
   );

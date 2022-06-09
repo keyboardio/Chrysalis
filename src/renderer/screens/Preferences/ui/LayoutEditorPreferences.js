@@ -65,7 +65,6 @@ function LayoutEditorPreferences(props) {
 
   const initializeHostKeyboardLayout = async () => {
     const layoutSetting = await settings.get("keyboard.layout", "English (US)");
-    db.setLayout(layoutSetting);
     setLayout(layoutSetting);
   };
 

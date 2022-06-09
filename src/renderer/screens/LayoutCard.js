@@ -43,15 +43,8 @@ const LayoutCard = (props) => {
     colorMap: [],
   });
 
-  const [layout, _setLayout] = useState("English (US)");
   const [loading, setLoading] = useState(true);
   const { t } = useTranslation();
-
-  const initializeHostKeyboardLayout = async () => {
-    const layoutSetting = await settings.get("keyboard.layout", "English (US)");
-    db.setLayout(layoutSetting);
-    _setLayout(layoutSetting);
-  };
 
   const scanKeyboard = async () => {
     try {
@@ -73,7 +66,6 @@ const LayoutCard = (props) => {
 
   useEffectOnce(async () => {
     await scanKeyboard();
-    await initializeHostKeyboardLayout();
 
     setLoading(false);
   });

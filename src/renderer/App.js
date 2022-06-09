@@ -16,6 +16,7 @@
  */
 
 import Focus from "@api/focus";
+import KeymapDB from "@api/focus/keymap/db";
 import { logger } from "@api/log";
 import { LocationProvider, Router } from "@gatsbyjs/reach-router";
 import Box from "@mui/material/Box";
@@ -110,6 +111,14 @@ const App = (props) => {
     setTheme(null);
     setTheme("system");
   };
+
+  useEffect(async () => {
+    const layoutSetting = await settings.get("keyboard.layout", "English (US)");
+
+    const db = new KeymapDB();
+    await db.loadLayouts();
+    await db.setLayout(layoutSetting);
+  }, []);
 
   useEffect(() => {
     ipcRenderer.on("usb.device-disconnected", handleDeviceDisconnect);

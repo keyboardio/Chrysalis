@@ -120,11 +120,13 @@ function LookAndFeelPreferences(props) {
   };
 
   const updateLanguage = async (event) => {
-    i18n.changeLanguage(event.target.value);
-    await settings.set("ui.language", event.target.value);
-    // We stick language in the state system to get rerenders when it changes
-    if (i18n.language !== event.target.value) {
-      setLanguage(event.target.value);
+    const new_language = event.target.value;
+    if (i18n.language !== new_language) {
+      // Only change the language if it's actually different
+      i18n.changeLanguage(new_language);
+      await settings.set("ui.language", new_language);
+      // We stick language in the state system to get rerenders when it changes
+      setLanguage(new_language);
     }
   };
 

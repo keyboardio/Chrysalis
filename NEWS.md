@@ -1,3 +1,27 @@
+Chrysalis 0.10.2-snapshot
+=========================
+**UNRELEASED**
+
+## Bugfixes
+
+By far the most important fix in this release is that we replaced the Windows
+version of the tool we use for flashing under the hood, to a version that
+actually works. Flashing should now work properly on Windows.
+
+A slightly less severe, but equally frustrating bug that caused Chrysalis to
+hang when trying to import a layout from a file has also been squashed.
+
+On Linux, when installing the udev rules, Chrysalis will now try to be more
+cautious, and create the directory it tries to copy the rules to. This should
+make the install procedure work on distributions that do not install
+`/etc/udev/rules.d` by default.
+
+When a keyboard layout other than "English (US)" is selected in Preferences, the
+layout is now properly loaded and initialized on application startup.
+
+The dropdown used to select the language Chrysalis uses now functions correctly,
+and will show the active language.
+
 Chrysalis 0.10.1
 ================
 Released on 2022-06-08

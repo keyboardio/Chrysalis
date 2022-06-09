@@ -82,7 +82,7 @@ jobs:
           name: ${{ runner.os }}-artifact
           path: |
             dist/Chrysalis-*
-            dist/latest-*.yml
+            dist/latest*.yml
             !dist/*.blockmap
 
   publish:
@@ -119,4 +119,4 @@ jobs:
         shell: bash
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
-        run: gh release upload snapshot artifacts/*/Chrysalis-* artifacts/*/latest-*.yml
+        run: gh release upload snapshot artifacts/*/Chrysalis-* artifacts/*/latest*.yml

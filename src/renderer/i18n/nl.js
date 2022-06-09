@@ -27,8 +27,8 @@ const Dutch = {
     none: "Geen",
     type: "Type",
     save: {
-      success: "Opgeslaan!",
-      saveChanges: "Aanpassingen Opslaan",
+      success: "Opgeslagen!",
+      saveChanges: "Wijzigingen Opslaan",
     },
     pickerColorButton: "Verander kleur",
     loading: "Data lezen van toestel...",
@@ -45,15 +45,15 @@ const Dutch = {
     menu: {
       "focus-not-detected": "Welkom",
       systemInfo: "Probleem melden",
-      editor: "Layout & Kleurmap Editor",
-      layoutEditor: "Layout Editor",
+      editor: "Indeling & Kleurmap Editor",
+      layoutEditor: "Indeling Editor",
       colormapEditor: "Kleurmap Editor",
       macroEditor: "Macro Editor",
       firmwareUpdate: "Firmware Update",
-      keyboardSettings: "Toetsenbord Instellingen",
+      keyboardSettings: "Toetsenbordinstellingen",
       preferences: "Voorkeuren",
       selectAKeyboard: "Selecteer een toetsenbord",
-      layoutCard: "Layout Kaart",
+      layoutCard: "Indeling Kaart",
       selectAnotherKeyboard: "Selecteer nog een toetsenbord",
       chat: "Discord chat",
       feedback: "Verstuur feedback",
@@ -64,7 +64,7 @@ const Dutch = {
       upgradeAvailable: "Een upgrade is beschikbaar!",
     },
     deviceMenu: {
-      Homepage: "Homepagina",
+      Homepage: "Beginpagina",
       Forum: "Forum",
       Chat: "Chat",
     },
@@ -88,27 +88,27 @@ const Dutch = {
       loadFromFile: "Laden van bestand...",
       exportToFile: "Exporteren naar bestand...",
       import: "Importeren",
-      selectLoadFile: `Selecteer bestand vanwaar een layout geladen moet worden`,
-      selectExportFile: `Selecteer een bestand waarnaar de layout moet ge├½xporteerd worden`,
+      selectLoadFile: `Selecteer bestand vanwaar een toetsenbordindeling geladen moet worden`,
+      selectExportFile: `Selecteer een bestand waarnaar de toetsenbordindeling geëxporteerd moet worden`,
       dialog: {
-        layoutFiles: "Layout bestanden",
+        layoutFiles: "Indeling bestanden",
         allFiles: "Alle bestanden",
       },
       errors: {
-        unableToLoad: "Onmogelijk om layout te laden uit geselecteerd bestand.",
-        parseFail: "Parsen van layout data gefaald.",
-        invalidLayoutData: "Bestand bevatte geen geldige layout data.",
-        saveFail: "Fout tijdens opslaan van ge├½xporteerde layout.",
+        unableToLoad: `Onmogelijk om toetsenbordindeling te laden uit geselecteerd bestand.`,
+        parseFail: "Parsen van gegevens toetsenbordindeling gefaald.",
+        invalidLayoutData: `Bestand bevatte geen geldige gegevens voor een toetsenbordindeling.`,
+        saveFail: "Fout tijdens opslaan van geëxporteerde toetsenbordindeling.",
       },
       importConfirm: {
-        title: "Importeer de geselecteerde layout?",
-        contents: `Dit zal de huidige layout overschrijven, en alle niet-opgeslagen veranderingen zullen verloren gaan. Ben je zeker dat je wil verdergaan?`,
+        title: "Importeer de geselecteerde toetsenbordindeling?",
+        contents: `Dit zal de huidige toetsenbordindeling overschrijven, en alle niet-opgeslagen veranderingen zullen verloren gaan. Ben je zeker dat je wil verdergaan?`,
       },
     },
     sidebar: {
       custom: {
         title: "Aangepaste toetsencode",
-        help: `Laat je een aangepaste toetsencode toewijzen aan een toets, of een code die op dit moment niet gekend is door Chrysalis.`,
+        help: `Laat je een aangepaste toetsencode toewijzen aan een toets, of een code die op dit moment niet bekend is bij Chrysalis.`,
         label: "Aangepaste toetsencode",
       },
       blanks: {
@@ -138,7 +138,7 @@ const Dutch = {
         help: `Ken kleuren toe door te selecteren van het pallet en op een toets te klikken. Om de kleur van een pallet element te veranderen, gebruik de kleurpipet.`,
       },
       consumer: {
-        title: "Verbruikers controle",
+        title: "Gebruikers controle",
         help: "Toetsen om volume, helderheid en media te controleren.",
         volume: "Volume",
         media: "Media controle",
@@ -147,7 +147,7 @@ const Dutch = {
       keypicker: {
         title: "Standard toetsen",
         pickAKey: "Kies een toets",
-        help: `Letters, cijfers, symbolen, en modifier - de toetsen die je vindt op een standaard toetsenbord layout.`,
+        help: `Letters, cijfers, symbolen, en modifier - de toetsen die je vindt op een standaard toetsenbordindeling.`,
         mods: "Modifiers",
         modsHelp: `Kies modifier toetsen die automatisch ingedrukt worden wanneer je deze toets indrukt.`,
         oneshot: {
@@ -161,7 +161,7 @@ const Dutch = {
       },
       leader: {
         title: "Leader",
-        help: `Leader toetsen toekennen. Om deze feature te configureren kan je de Arduino IDE gebruiken om het Kaleidoscope 'Sketch' bestand voor je toetsenbord aan te passen.`,
+        help: `Leader toetsen toekennen. Om deze functie te configureren kan je de Arduino IDE gebruiken om het Kaleidoscope 'Sketch' bestand voor je toetsenbord aan te passen.`,
       },
       oneshot: {
         title: "One-shot",
@@ -198,11 +198,11 @@ const Dutch = {
       },
       steno: {
         title: "Steno",
-        help: `Je toetsenbord ondersteunt het GeminiPR protocol voor Stenografische invoer. Deze toetsen gebruiken in plaats van Plover's QWERTY invoer biedt een vlekkelozere Steno ervaring aan.`,
+        help: `Je toetsenbord ondersteunt het GeminiPR protocol voor Stenografische invoer. Deze toetsen gebruiken, in plaats van Plover's QWERTY invoer, biedt een vlekkelozere Steno ervaring aan.`,
       },
       tapdance: {
         title: "TapDance",
-        help: `Tap-dance toetsen zijn general purpose, multi-use toetsen, die een verschillende actie laten gebeuren, gebaseerd op het aantal keer dat je ze ingedrukt hebt.`,
+        help: `Tap-dance toetsen zijn algemeen inzetbare, multifunctionele toetsen, die een verschillende actie uitvoeren, gebaseerd op het aantal keer dat je ze hebt ingedrukt.`,
       },
     },
     layerswitch: {
@@ -221,7 +221,7 @@ const Dutch = {
     pleaseSelectLayer: "Selecteer een laag...",
     dualUse: "Modifier wanneer ingedrukt gehouden, anders een normale toets",
     dualUseLayer: `Laag verandering wanneer ingedrukt gehouden, anders een normale toets`,
-    layoutMode: "Pas de toetsenbord layout aan",
+    layoutMode: "Pas de toetsenbordindeling aan",
     colormapMode: "Pas de kleurmap aan",
     importExport: "Importeer/Exporteer de huidige laag",
     importExportDescription: `De data hieronder kan vrij aangepast worden of gekopieerd naar elders om terug te plakken voor ze ge├»mporteerd wordt. Dit is de interne representatie van de Chrysalis state, behandel met zorg.`,
@@ -232,7 +232,7 @@ const Dutch = {
     pasteFromClipboard: "Plakken van klipbord",
     pasteSuccess: "Geplakt!",
     onlyCustom: {
-      warning: `Chrysalis ondersteunt niet langer configuraties die een mix van hardcoded and EEPROM lagen bevat. Als dit een feature is die je nodig hebt, dan horen we graag over jouw use case. In de meeste gevallen raden we echter aan om over te schakelen naar enkel aangepaste lagen, wat Chrysalis voor jou kan doen. Wanneer je de switch maakt zullen hardcoded lagen niet gebruikt worden, en de standaard laag die gezet wordt (als er een gezet wordt) is laag nul.`,
+      warning: `Chrysalis ondersteunt niet langer configuraties die een mix van hardcoded and EEPROM lagen bevat. Als dit een functie is die je nodig hebt, dan horen we graag over jouw gebruikssituatie. In de meeste gevallen raden we echter aan om over te schakelen naar enkel aangepaste lagen, wat Chrysalis voor jou kan doen. Wanneer je de overstap maakt zullen hardcoded lagen niet gebruikt worden, en de standaard laag die gezet wordt (als er een gezet wordt) is laag nul.`,
       fixItButton: "Verander naar enkel aangepaste lagen",
       openFR: "Open een feature request",
     },
@@ -275,25 +275,25 @@ const Dutch = {
       },
       console: {
         label: "Open de ontwikkelaarsconsole",
-        help: "De ontwikkelaarsconsole laat je kijken binnenin Chrysalis. Pas op met het gebruik hiervan.",
+        help: "De ontwikkelaarsconsole laat je binnenin Chrysalis kijken. Pas op met het gebruik hiervan.",
       },
     },
     ui: {
       layoutEditor: {
-        label: "Layout Editor aanpassen",
+        label: "Indeling Editor aanpassen",
       },
       layoutCards: {
-        label: "Layout Kaarten aanpassen",
+        label: "Indeling Kaarten aanpassen",
       },
       hideUnavailableFeatures: {
-        label: `Verberg features die niet worden ondersteund door de huidige firmware van je toetsenbord`,
-        help: `Wanneer aangezet zal Chrysalis configuratieopties verbergen van features die niet ondersteund worden door de huidige firmware van je toetsenbord.`,
+        label: `Verberg functies die niet worden ondersteund door de huidige firmware van je toetsenbord`,
+        help: `Wanneer aangezet zal Chrysalis configuratieopties verbergen van functies die niet ondersteund worden door de huidige firmware van je toetsenbord.`,
       },
       lookNFeel: {
-        label: "Pas uitzicht aan",
+        label: "Pas uiterlijk aan",
       },
       theme: {
-        label: "Algemeen uitzicht",
+        label: "Algemeen uiterlijk",
         system: "Systeem default",
         dark: "Donker",
         light: "Licht",
@@ -303,12 +303,12 @@ const Dutch = {
         help: "Kies de taal die door Chrysalis gebruikt moet worden",
       },
       coloredLayoutCards: {
-        label: "Laat kleuren toe op de layout kaarten",
-        help: `Wanneer aangezet zullen de layout kaarten niet alleen toetsenlabels tonen maar, indien beschikbaar, ook kleuren.`,
+        label: "Laat kleuren toe op de indelingskaarten",
+        help: `Wanneer aangezet zullen de indelingskaarten niet alleen toetsenlabels tonen maar, indien beschikbaar, ook kleuren.`,
       },
       host: {
-        label: "Toetsenbord layout",
-        help: "Selecteer de toetsenbord layout die je gebruikt op je computer",
+        label: "Toetsenbordindeling",
+        help: "Selecteer de toetsenbordindeling die je gebruikt op je computer",
       },
     },
     keyboard: {
@@ -321,15 +321,15 @@ const Dutch = {
         label: "Laag voorkeuren",
       },
       defaultLayer: {
-        label: "Default laag",
-        noDefault: "Geen default",
-        help: `De default laag waarmee het toetsenbord zal opstarten.`,
+        label: "Standaard laag",
+        noDefault: "Geen standaard",
+        help: `De standaard laag waarmee het toetsenbord zal opstarten.`,
       },
       factoryReset: {
         button: "Reset EEPROM naar fabrieksinstellingen",
         dialog: {
           title: "Reset EEPROM naar fabrieksinstellingen",
-          contents: `Dit zal de EEPROM resetten naar de fabrieksinstellingen. Je zal al je aanpassingen verliezen.`,
+          contents: `Dit zal de EEPROM resetten naar de fabrieksinstellingen. Je zal al je wijzigingen verliezen.`,
         },
       },
       flash: {
@@ -340,7 +340,7 @@ const Dutch = {
       led: {
         label: "LED voorkeuren",
         idle: {
-          label: "Inactieve tijd voordat LEDs afgezet worden",
+          label: "Inactieve tijd waarna LEDs worden uitgeschakeld",
           help: `Tenzij dit uitgezet is, zullen de LEDs uitgaan na een ingestelde tijd.`,
           disabled: "Uit",
           oneMinute: "1 minuut",
@@ -361,7 +361,7 @@ const Dutch = {
         default: {
           autoSave: {
             label: "Zet het automatisch opslaan van de default LED mode aan",
-            help: `Wanneer dit is aangezet, wordt de LED mode automatisch als default opgeslaan elke keer ze wordt aangepast.`,
+            help: `Wanneer dit is aangezet, wordt de LED mode automatisch als default opgeslagen elke keer ze wordt aangepast.`,
           },
           label: "Default LED mode",
           help: "Selecteer de LED mode waarmee het toetsenbord moet opstarten.",
@@ -395,7 +395,7 @@ const Dutch = {
       allFiles: "Alle bestanden",
     },
     options: {
-      onFlash: "Zet terug naar fabrieksinstellengen wanneer geflasht wordt",
+      onFlash: "Zet terug naar fabrieksinstellingen tijdens flashen",
       title: "Firmware update opties",
     },
     flashing: {
@@ -418,7 +418,7 @@ const Dutch = {
     },
     confirmDialog: {
       title: "Firmware vervangen en terugzetten naar fabrieksinstellingen?",
-      contents: `Dit zal de firmware op het toestel vervangen en alle instelling terugzetten naar de fabrieksinstellingen. Je zal alle gemaakte aanpassingen verliezen.`,
+      contents: `Dit zal de firmware op het toestel vervangen en alle instelling terugzetten naar de fabrieksinstellingen. Je zal alle gemaakte wijzigingen verliezen.`,
     },
     defaultFirmware: "Chrysalis {{version}} default",
     defaultFirmwareDescription: "Minimaal, zonder toeters en bellen",
@@ -426,20 +426,20 @@ const Dutch = {
     experimentalFirmwareDescription: "Experimenteel, met meer plugins aangezet",
     selected: "Geselecteerde firmware",
     custom: "Custom firmware",
-    description: `Updaten of "flashen" van de firmware van je toetsenbord is hoe we het nieuwe kunstjes leren. Chrysalis zal een nieuwe versie van de firmware van je toestenbord installeren. Dit zorgt voor ondersteuning van een aangepaste toetsen layout, naast andere features. Indien je hiervoor al de firmware van je toetsenbord hebt aangepast, zal dit de aangepaste firmware overschrijven. Je kan de broncode van de firmware die Chrysalis aan het installeren is hier vinden:`,
+    description: `Updaten of "flashen" van de firmware van je toetsenbord is hoe we het nieuwe kunstjes leren. Chrysalis zal een nieuwe versie van de firmware van je toestenbord installeren. Dit zorgt voor ondersteuning van een aangepaste toetsenbordindeling, naast andere functies. Indien je hiervoor al de firmware van je toetsenbord hebt aangepast, zal dit de aangepaste firmware overschrijven. Je kan de broncode van de firmware die Chrysalis aan het installeren is hier vinden:`,
     postUpload: `Wanneer de upload gedaan is, zal Chrysalis je terugbrengen naar het selectiescherm voor je toetsenbord.`,
   },
   "focus-not-detected": {
     title: "Welkom bij Chrysalis",
-    contents: `Chrysalis herkent je toetsenbord maar moet de firmware updaten voordat je verder kan doen.`,
+    contents: `Chrysalis herkent je toetsenbord, maar moet de firmware updaten voordat je verder kan gaan.`,
     gotoUpdate: "Update Firmware",
     reconnect: "Opnieuw verbinden",
-    reconnectDescription: `Er is een kans dat we de mogelijkheden van je toetsenbord fout gedetecteerd hebben, of dat je toetsenbord nog aan het opstarten was terwijl we verbinding gemaakt hebben. In dat geval kan je proberen om te klikken op de "{{buttonName}}" knop om opnieuw te proberen verbinden en nogmaals te zoeken naar de nodige features. Opnieuw verbinden is normaal enkel nuttig als je zeker bent dat er een tijdelijk probleem was tijdens vorige pogingen dat in de tussentijd is opgelost.`,
+    reconnectDescription: `Er is een kans dat we de mogelijkheden van je toetsenbord fout gedetecteerd hebben, of dat je toetsenbord nog aan het opstarten was terwijl we verbinding gemaakt hebben. In dat geval kan je proberen om te klikken op de "{{buttonName}}" knop om opnieuw te proberen verbinden en nogmaals te zoeken naar de nodige functies. Opnieuw verbinden is normaal enkel nuttig als je zeker bent dat er een tijdelijk probleem was tijdens vorige pogingen dat in de tussentijd is opgelost.`,
   },
   systeminfo: {
     title: "Rapporteer een probleem",
-    intro: `Als je een probleem hebt met Chrysalis kan het ontwikkelteam je vragen om hen wat debug informatie door te sturen. Chrysalis kan je helpen om alles dat je eventueel moet delen te verzamelen en in te pakken. Dit omvat error logs en informatie over het besturingssysteem, verbonden toestellen en Chrysalis zelf. Toetsenbord informatie omvat info over de huidige firmware, de toets layouts en de LED configuratie van je toetsenbord.`,
-    bugTracker: `Je kan een lijst van gekende problemen vinden op GitHub (of een bug rapporteren)`,
+    intro: `Als je een probleem hebt met Chrysalis kan het ontwikkelteam je vragen om hen wat debug informatie door te sturen. Chrysalis kan je helpen om alles dat je eventueel moet delen te verzamelen en in te pakken. Dit omvat error logs en informatie over het besturingssysteem, verbonden toestellen en Chrysalis zelf. Toetsenbord informatie omvat info over de huidige firmware, de toetsenbordindelingen en de LED configuratie van je toetsenbord.`,
+    bugTracker: `Je kan een lijst van bekende problemen vinden op GitHub (of een bug rapporteren)`,
     privacyNote: `We doen ons best om geen gevoelige informatie te includeren in deze bundel, maar we raden je aan om erdoor te lezen alvorens hem te delen.`,
     createBundle: "Maak bundel aan",
     viewBundle: "Bekijk bundel",
@@ -448,12 +448,12 @@ const Dutch = {
       title: "Chrysalis Debug Bundel opslaan",
       bundleFiles: "Debug bundel bestanden",
     },
-    bundleSaved: `Chrysalis debug bundel opgeslaan.`,
+    bundleSaved: `Chrysalis debug bundel opgeslagen.`,
   },
   devices: {
     Dygma: {
       Raise: {
-        updateInstructions: `Om de firmware te updaten heeft je toestenbord nood aan een speciale reset. Wanneer je het licht op de Neuron ziet uitgaan, blijf dan de Escape toets ingedrukt houden. Het licht van de Neuron zou een blauw pulserend patroon moeten opstarten.`,
+        updateInstructions: `Om de firmware te updaten vereist je toestenbord een speciale reset. Wanneer je het licht op de Neuron ziet uitgaan, blijf dan de Escape toets ingedrukt houden. Het licht van de Neuron zou een blauw pulserend patroon moeten opstarten.`,
       },
     },
     "SOFT/HRUF": {
@@ -463,13 +463,13 @@ const Dutch = {
     },
     Keyboardio: {
       Atreus: {
-        updateInstructions: `Hou de toets in linker onderhoek van het toetsenbord ingedrukt (in de standaard layout is dit de ESC toets). Blijf de toets ingedrukt houden terwijl je op de Update knop klikt.`,
+        updateInstructions: `Hou de toets in linker onderhoek van het toetsenbord ingedrukt (in de standaard toetsenbordindeling is dit de ESC toets). Blijf de toets ingedrukt houden terwijl je op de Update knop klikt.`,
       },
       Model01: {
-        updateInstructions: `Hou de toets in linker bovenhoek van het toetsenbord ingedrukt (in de standaard layout is dit de PROG toets). Blijf de toets ingedrukt houden terwijl je op de Update knop klikt. Eens de toetsen rood beginnen te knipperen over het hele bord mag je de toets loslaten.`,
+        updateInstructions: `Hou de toets in linker bovenhoek van het toetsenbord ingedrukt (in de standaard toetsenbordindeling is dit de PROG toets). Blijf de toets ingedrukt houden terwijl je op de Update knop klikt. Eens de toetsen rood beginnen te knipperen over het hele bord mag je de toets loslaten.`,
       },
       Model100: {
-        updateInstructions: `Hou de toets in linker bovenhoek van het toetsenbord ingedrukt (in de standaard layout is dit de PROG toets). Blijf de toets ingedrukt houden terwijl je op de Update knop klikt. Eens de toetsen van de eerste kolom groen beginnen te knipperen moet je de toets loslaten aangezien het flashen kan falen indien je de toets te lang ingedrukt houdt.`,
+        updateInstructions: `Hou de toets in linker bovenhoek van het toetsenbord ingedrukt (in de standaard toetsenbordindeling is dit de PROG toets). Blijf de toets ingedrukt houden terwijl je op de Update knop klikt. Eens de toetsen van de eerste kolom groen beginnen te knipperen moet je de toets loslaten aangezien het flashen kan falen indien je de toets te lang ingedrukt houdt.`,
       },
     },
     PJRC: {

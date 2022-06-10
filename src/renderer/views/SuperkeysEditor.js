@@ -757,7 +757,7 @@ class SuperkeysEditor extends React.Component {
             destroyContext={this.loadSuperkeys}
             inContext={this.state.modified}
           />
-          <Callout content={i18n.editor.superkeys.callout} className="mt-lg" size="md" maxWidth={1060} />
+          <Callout content={i18n.editor.superkeys.callout} className="mt-lg" size="sm" />
           {superkeys.length == 0 || !Array.isArray(superkeys) ? (
             <div className="loading marginCenter">
               <Spinner className="spinner-border" role="status" />

@@ -622,7 +622,7 @@ class MacroEditor extends React.Component {
             destroyContext={this.loadMacros}
             inContext={this.state.modified}
           />
-          <Callout content={i18n.editor.macros.callout} className="mt-lg" size="md" />
+          <Callout content={i18n.editor.macros.callout} className="mt-lg" size="sm" />
           <MacroCreator
             macros={this.state.macros}
             maxMacros={this.state.maxMacros}

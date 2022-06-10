@@ -30,6 +30,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import { GlobalContext } from "@renderer/components/GlobalContext";
 import logo from "@renderer/logo-small.png";
 import { history } from "@renderer/routerHistory";
@@ -45,6 +46,7 @@ function MainMenu({ open, closeMenu, classes }) {
   const globalContext = useContext(GlobalContext);
 
   const [connected, setConnected] = globalContext.state.connected;
+  const [updateAvailable] = globalContext.state.updateAvailable;
   const [activeDevice, setActiveDevice] = globalContext.state.activeDevice;
 
   const { t } = useTranslation();
@@ -161,6 +163,10 @@ function MainMenu({ open, closeMenu, classes }) {
 
         {listItem(<InfoIcon />, t("app.menu.systemInfo"), "/system-info")}
         {listItem(<ListIcon />, t("app.menu.changelog"), "/changelog")}
+        {updateAvailable &&
+          listItem(<RestartAltIcon />, t("app.menu.restart"), null, () => {
+            ipcRenderer.send("app.restart");
+          })}
         {listItem(<ExitToAppIcon />, t("app.menu.exit"), null, () =>
           ipcRenderer.send("app.exit")
         )}

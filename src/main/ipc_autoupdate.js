@@ -42,4 +42,8 @@ export const registerAutoUpdaterHandlers = () => {
 
     await autoUpdater.checkForUpdates();
   });
+
+  ipcMain.on("app.restart", () => {
+    autoUpdater.quitAndInstall(true, true);
+  });
 };

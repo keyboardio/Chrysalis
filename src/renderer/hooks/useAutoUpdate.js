@@ -17,14 +17,19 @@
 
 import { ipcRenderer } from "electron";
 import Store from "electron-store";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
 
 import { logger } from "@api/log";
+import { GlobalContext } from "@renderer/components/GlobalContext";
 import { toast } from "@renderer/components/Toast";
 
 export const useAutoUpdate = () => {
   const { t } = useTranslation();
+  const globalContext = useContext(GlobalContext);
+
+  const [updateAvailable, setUpdateAvailable] =
+    globalContext.state.updateAvailable;
   const [updateInfo, setUpdateInfo] = useState(null);
 
   useEffect(() => {
@@ -47,6 +52,7 @@ export const useAutoUpdate = () => {
         label: "auto-update",
       });
       toast.success(t("autoUpdate.downloaded", { version: info.version }));
+      setUpdateAvailable(true);
     };
     const onUpdateError = (event, error) => {
       logger().error("Update error", {
@@ -54,6 +60,7 @@ export const useAutoUpdate = () => {
         label: "auto-update",
       });
       toast.error(t("autoUpdate.error", { error: error }));
+      setUpdateAvailable(false);
     };
 
     ipcRenderer.invoke(

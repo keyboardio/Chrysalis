@@ -107,10 +107,97 @@ const analyze_focus_request_timeout = (logs, error) => {
   }
 }
 
+const format_failed_step = (step) => {
+  console.log(`Flashing failed at the "${step.step}" step, at ${step.timestamp}.`)
+}
+
+const analyze_flash_reconnect_fail = (logs, flash_start_index, error_log_index, error) => {
+  let last_portlist;
+  for (let i = error_log_index; i > flash_start_index; i--) {
+    if (logs[i].message == "serial port list obtained" && logs[i].function == "waitForSerialDevice") {
+      last_portlist = logs[i];
+      break;
+    }
+  }
+
+  const bootloader = last_portlist.device.bootloader;
+
+  // Check if we find a bootloader match
+  let boot_found = false;
+  for (const port of last_portlist.portList) {
+    const vid = parseInt(`0x${port.vendorId}`), pid = parseInt(`0x${port.productId}`)
+
+    if (vid == bootloader.vendorId && pid == bootloader.productId) {
+      boot_found = true;
+      break
+    }
+  }
+
+  if (!boot_found) {
+    console.log("\nUnable to determine what went wrong, sorry.")
+    const printable = Object.assign({}, error);
+    delete printable.level;
+    console.log("Final error:", printable);
+  }
+
+  console.log("Verdict: The keyboard is still in bootloader mode.")
+  console.log(" It either failed to boot into the new firmware, or the bootloader")
+  console.log(" trigger key has been held for too long.")
+}
+
+const analyze_flash_error = (logs, error) => {
+  const error_log_index = logs.indexOf(error);
+
+  let flash_start_index;
+  for (let i = error_log_index; i > 0; i--) {
+    if (logs[i].message == "Starting to flash") {
+      flash_start_index = i;
+      break;
+    }
+  }
+
+  // Find where flashing started
+  if (!flash_start_index) {
+    // Unknown type of error
+    const printable = Object.assign({}, error);
+    delete printable.level;
+    console.log("Unable to find where flashing started for: ", printable);
+    return
+  }
+
+  // Find the executed steps
+  let executed_steps = []
+  for (let i = flash_start_index + 1; i < error_log_index; i++) {
+    if (logs[i].message == "executing step" && logs[i].label == "flash") {
+      executed_steps.push(logs[i]);
+    }
+  }
+
+  // Since we have an error, during flash, one of the steps must have failed.
+  // It's going to be the last one.
+  const failed_step = executed_steps.pop()
+
+  format_failed_step(failed_step);
+
+  if (failed_step.step != "reconnect") {
+    console.log(`\nI don't know how to analyze "${failed_step.step}" steps, exiting.`)
+
+    const printable = Object.assign({}, error);
+    delete printable.level;
+
+    console.log("Final error:", printable);
+    return
+  }
+
+  return analyze_flash_reconnect_fail(logs, flash_start_index, error_log_index, error);
+}
+
 const analyze_error = (logs, error) => {
   // Is it a focus request timeout?
   if (error.label == "focus" && error.message == "request timed out") {
     analyze_focus_request_timeout(logs, error);
+  } else if (error.message == "Error while uploading firmware") {
+    analyze_flash_error(logs, error);
   } else {
     // Unknown type of error
     const printable = Object.assign({}, error);

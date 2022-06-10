@@ -42,12 +42,20 @@
       "darkModeSupport": true,
       "hardenedRuntime": true,
       "entitlements": "./build/entitlements.mac.inherit.plist",
-      "target": {
-        "target": "dmg",
-        "arch": [
-          "universal"
-        ]
-      }
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "universal"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "universal"
+          ]
+        }
+      ]
     },
     "linux": {
       "target": [

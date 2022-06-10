@@ -37,6 +37,17 @@ const Style = Styled.div`
   backdrop-filter: blur(4px);
   border-radius: 14px;
 }
+.sm {
+  .labelModifier {
+    padding: 3px 6px;
+    font-weight: 600;
+    font-size: 11px;
+    color:${({ theme }) => theme.styles.keyVisualizer.labelModifierColorSm};
+    background: ${({ theme }) => theme.styles.keyVisualizer.labelModifierBackgroundSm};
+    border:  ${({ theme }) => theme.styles.keyVisualizer.labelBorderSm};
+    border-radius: 12px;
+  }
+}
 .labelHyper,
 .labelMeh {
     display: none;
@@ -108,6 +119,7 @@ class ListModifiers extends Component {
       <Style>
         <div
           className={`listModifiersTags 
+            ${size == "sm" ? "sm" : ""}
                 ${
                   this.parseModifs(keyCode).includes(0) == true &&
                   this.parseModifs(keyCode).includes(1) == true &&

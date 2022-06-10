@@ -26,7 +26,7 @@ const Style = Styled.div`
     padding: 16px 24px;
     position: relative;
     h4 {
-        font-size: 14px;
+        font-size: 13px;
         color: ${({ theme }) => theme.colors.purple200};
         margin-top: 8px;
     }
@@ -70,6 +70,19 @@ const Style = Styled.div`
       }
       .labelMeh {
         display: inline-block;
+      }
+    }
+    .oldKeyValue {
+      margin-bottom: 24px;
+      h4 {
+          color: ${({ theme }) => theme.styles.keyVisualizer.color};
+      }
+      .keySelectedBox {
+          padding: 8px 16px;   
+          border: 2px solid ${({ theme }) => theme.styles.keyVisualizer.borderOldValue};
+          width: 104px;
+          height:52px;
+          font-size: 12px;
       }
     }
 }
@@ -122,24 +135,24 @@ class KeyVisualizer extends React.Component {
       <Style className="KeyVisualizer">
         <div className="KeyVisualizerInner">
           {oldValue ? (
-            <>
+            <div className="oldKeyValue">
               <Title text="Selected value" headingLevel={4} />
               <div className="keySelectedBox">
                 <div className="keySelectedValue">{oldValue}</div>
-                <ListModifiers keyCode={keyCode.base + keyCode.modified} />
+                <ListModifiers keyCode={keyCode.base + keyCode.modified} size="sm" />
               </div>
-            </>
+            </div>
           ) : (
             ""
           )}
           {newValue ? (
-            <>
+            <div className="newKeyValue">
               <Title text="New value" headingLevel={4} />
               <div className="keySelectedBox">
                 <div className="keySelectedValue">{newValue}</div>
                 <ListModifiers keyCode={keyCode.base + keyCode.modified} />
               </div>
-            </>
+            </div>
           ) : (
             ""
           )}

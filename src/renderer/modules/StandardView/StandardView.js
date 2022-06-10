@@ -5,6 +5,8 @@ import i18n from "../../i18n";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 
+import Keymap, { KeymapDB } from "../../../api/keymap";
+
 //component
 import { RegularButton } from "../../component/Button";
 import KeyVisualizer from "../KeyVisualizer";
@@ -60,6 +62,15 @@ const Styles = Styled.div`
         }
     }
 }
+.KeyVisualizer {
+  margin-top: 42px;
+  width: calc(100% + 20px);
+  background: #25273B;
+  border: 1px solid rgba(63, 66, 90, 0.3);
+  box-shadow: 32px 32px 64px -12px rgba(11, 2, 25, 0.4), 32px 32px 72px -32px rgba(26, 17, 46, 0.5);
+  border-radius: 6px;
+  min-height: 262px;
+}
 `;
 
 export default class StandardView extends React.Component {
@@ -69,10 +80,30 @@ export default class StandardView extends React.Component {
     this.state = {
       name: props.name
     };
+    this.keymapDB = new KeymapDB();
+  }
+
+  parseKey(keycode) {
+    const macro = this.props.macros[parseInt(this.keymapDB.parse(keycode).label)];
+    let macroName;
+    try {
+      macroName = this.props.macros[parseInt(this.keymapDB.parse(keycode).label)].name.substr(0, 5);
+    } catch (error) {
+      macroName = "*NotFound*";
+    }
+    if (keycode >= 53852 && keycode <= 53852 + 64) {
+      if (this.props.code !== null) return this.keymapDB.parse(keycode).extraLabel + "." + macroName;
+    }
+    return this.props.code !== null
+      ? this.keymapDB.parse(keycode).extraLabel != undefined
+        ? this.keymapDB.parse(keycode).extraLabel + "." + this.keymapDB.parse(keycode).label
+        : this.keymapDB.parse(keycode).label
+      : "";
   }
 
   render() {
     const { showStandardView, closeStandardView, code, macros, handleSave, modalTitle, labelInput, id } = this.props;
+    const selKey = this.parseKey(code.base + code.modified);
     if (!showStandardView) return null;
     return (
       <Styles>
@@ -80,7 +111,7 @@ export default class StandardView extends React.Component {
           <Tab.Container id="standardViewCointainer" defaultActiveKey="tabKeys">
             <div className="standardViewInner">
               <div className="colVisualizerTabs">
-                <KeyVisualizer keyCode={code} />
+                <KeyVisualizer keyCode={code} oldValue={selKey} newValue={selKey} />
                 <Nav className="flex-column">
                   <CustomTab eventKey="tabKeys" text="Keys" icon={<IconKeyboard />} />
                   <CustomTab eventKey="tabLayers" text="Layers" icon={<IconLayers />} />

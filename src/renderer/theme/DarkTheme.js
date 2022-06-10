@@ -364,12 +364,16 @@ const Dark = {
     keyVisualizer: {
       background: "linear-gradient(90deg, rgba(255, 255, 255, 0.2) 21.15%, rgba(63, 66, 90, 0.2) 100%), #303949",
       border: "2px solid #7879F1",
+      borderOldValue: Tokens.colors.gray500,
       color: Tokens.colors.gray500,
       boxShadow:
         "24px 0px 32px -12px rgba(93, 95, 239, 0.25), 0px 4px 12px rgba(0, 0, 0, 0.25), 24px 24px 52px -10px rgba(93, 95, 239, 0.25)",
       labelModifierBackground: "rgba(107, 119, 148, 0.5)",
       labelModifierColor: "#E2E4EA",
-      labelBorder: "1px solid rgba(37, 40, 66, 0.55)"
+      labelBorder: "1px solid rgba(37, 40, 66, 0.55)",
+      labelModifierBackgroundSm: settingColorOpacity(Tokens.colors.gray600, 0.6),
+      labelModifierColorSm: Tokens.colors.gray200,
+      labelBorderSm: "none"
     },
     firmwareUpdatePanel: {
       backgroundContent: Tokens.colors.gray800,

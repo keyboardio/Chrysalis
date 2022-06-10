@@ -1786,7 +1786,7 @@ div.card.card-preferences .card-body {
 }
 @media screen and (max-width: 1360px) {
   .pageHeader .button.outline.gradient.addNew {
-    padding-right: 12px;
+    padding: 5px 6px;
     svg {
       margin-right: 0;
     }

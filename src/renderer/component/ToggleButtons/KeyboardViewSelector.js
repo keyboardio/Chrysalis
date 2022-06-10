@@ -76,7 +76,7 @@ const Style = Styled.div`
 }
 @media screen and (max-width: 1259px) {
   &.toggleButtonsContainer .toggleButtonsInner .button-config {
-    width: 52px;
+    width: 42px;
     svg {
       margin-right: 0;
     }

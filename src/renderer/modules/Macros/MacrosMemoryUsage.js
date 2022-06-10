@@ -32,12 +32,13 @@ const Styles = Styled.div`
 margin: 0 24px;
 border: 1px solid ${({ theme }) => theme.styles.memoryUsage.borderColor};
 border-radius: 4px;
-padding: 7px 12px;
+padding: 6px 12px;
 color: ${({ theme }) => theme.styles.memoryUsage.color};
-height: 52px;
+height: 44px;
+line-height: 1.15em;
 h4 {
   font-weight: 600;
-  font-size: 13px;
+  font-size: 11px;
   letter-spacing: -0.03em;
   margin-bottom: 8px;
   color: inherit;
@@ -49,7 +50,7 @@ h4 {
 }
 .progressIndicatorPercentage {
   font-weight: 600;
-  font-size: 13px;
+  font-size: 11px;
   letter-spacing: -0.03em;
   padding: 0 2px 0 6px;
   color: ${({ theme }) => theme.styles.memoryUsage.percentageColor};

@@ -55,11 +55,11 @@ z-index: 300;
       font-size: 20px;
     }
     &.pageHeaderFlatBottom {
-      border-radius: 16px 16px 0 0;
+      border-radius: 6px 6px 0 0;
     }
 
     .pageTitle {
-      width: 216px;
+      width: 190px;
       white-space: nowrap;
       br {
         content: ' ';

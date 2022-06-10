@@ -37,9 +37,9 @@ align-items: center;
       flex-wrap: nowrap;
       background: rgba(123, 134, 158, 0.1);
       border-radius: 3px;
-      top: 5px;
-      right: 5px;
-      height: 48px;
+      top: 3px;
+      right: 3px;
+      height: 36px;
     }
 }
 .dropdownListItemSelected {
@@ -65,16 +65,19 @@ align-items: center;
 }
 .button.outline.gradient {
   align-self: center;
-  padding: 12px;
-  padding-right: 18px;
+  padding: 5px 12px;
   margin-left: 8px;
+  font-size: 13px;
+  .buttonLabel {
+    line-height: 2em;
+  }
   .buttonFX {
-    width: 50px;
+    width: 36px;
   }
 }
 .button-config {
   background: transparent;
-  padding: 12px 8px;
+  padding: 6px 8px;
   border: none;
   box-shadow: none;
 }

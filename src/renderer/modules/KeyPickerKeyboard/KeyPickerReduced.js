@@ -312,14 +312,10 @@ const IconColor = Styled.span`
 class KeyPickerReduced extends Component {
   constructor(props) {
     super(props);
-
-    // this.state = { selected: 0 };
-    this.onKeyPress = this.onKeyPress.bind(this);
   }
 
   onKeyPress = keycode => {
-    const { onKeySelect } = this.props;
-    onKeySelect(keycode);
+    this.props.onKeySelect(keycode);
   };
 
   render() {

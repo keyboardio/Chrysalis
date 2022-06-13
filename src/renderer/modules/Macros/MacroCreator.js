@@ -259,6 +259,7 @@ class MacroCreator extends Component {
   onAddText = () => {
     const aux = this.state.addText;
     let newRows = this.state.rows;
+    console.log("WATCHING", newRows, aux);
     newRows = newRows.concat(
       aux.split("").flatMap((symbol, index) => {
         let item = symbol.toUpperCase();
@@ -336,9 +337,12 @@ class MacroCreator extends Component {
     this.updateRows(newRows);
   };
 
-  componentDidMount() {
-    if (this.props.macro !== undefined) {
-      this.updateRows(this.createConversion(this.props.macro.actions));
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      this.props.macros[this.props.selected]?.actions?.length > 0 &&
+      prevProps.macros[prevProps.selected] !== this.props.macros[this.props.selected]
+    ) {
+      this.updateRows(this.createConversion(this.props.macros[this.props.selected].actions));
     }
   }
 
@@ -532,6 +536,11 @@ class MacroCreator extends Component {
     this.setState({ addText: event.target.value });
   };
 
+  // onKeyPress function that pushes the received keyCode on the rows array
+  onKeyPress = keyCode => {
+    this.onAddSymbol(keyCode, 8);
+  };
+
   assignColor = keyCode => {
     let color = this.modifiers.filter(x => x.keyCode === keyCode);
     if (color === undefined || color.length == 0) {
@@ -570,7 +579,7 @@ class MacroCreator extends Component {
                     <TextTab onAddText={this.onAddText} onTextChange={this.onTextChange} addText={this.state.addText} />
                   </Tab.Pane>
                   <Tab.Pane eventKey="tabKeys">
-                    <KeysTab macros={this.props.macros} />
+                    <KeysTab onKeyPress={this.onKeyPress} />
                   </Tab.Pane>
                   <Tab.Pane eventKey="tabLayers">
                     <LayersTab />

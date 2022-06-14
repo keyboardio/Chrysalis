@@ -598,7 +598,7 @@ class MacroCreator extends Component {
                     <MacroTab macros={this.props.macros} selectedMacro={this.props.selected} onMacrosPress={this.onMacrosPress} />
                   </Tab.Pane>
                   <Tab.Pane eventKey="tabMedia">
-                    <MediaAndLightTab />
+                    <MediaAndLightTab onAddSpecial={this.onAddSpecial} />
                   </Tab.Pane>
                   <Tab.Pane eventKey="tabMouse">
                     <MouseTab />

@@ -94,6 +94,11 @@ class MediaAndLightTab extends Component {
     super(props);
   }
 
+  // function to handle button click with integer parameter and call to props.onAddSpecial
+  handleAddSpecial = special => {
+    this.props.onAddSpecial(special, 5);
+  };
+
   render() {
     return (
       <Styles>
@@ -107,37 +112,49 @@ class MediaAndLightTab extends Component {
                   tooltip={i18n.editor.superkeys.specialKeys.playPause}
                   tooltipDelay={100}
                   icoSVG={<IconMediaPlayPause />}
+                  onClick={() => this.handleAddSpecial(22733)}
                 />
-                <ButtonConfig tooltip={i18n.editor.superkeys.specialKeys.stop} tooltipDelay={100} icoSVG={<IconMediaStop />} />
+                <ButtonConfig
+                  tooltip={i18n.editor.superkeys.specialKeys.stop}
+                  tooltipDelay={100}
+                  icoSVG={<IconMediaStop />}
+                  onClick={() => this.handleAddSpecial(22711)}
+                />
                 <ButtonConfig
                   tooltip={i18n.editor.superkeys.specialKeys.rewind}
                   tooltipDelay={100}
                   icoSVG={<IconMediaRewind />}
+                  onClick={() => this.handleAddSpecial(22710)}
                 />
                 <ButtonConfig
                   tooltip={i18n.editor.superkeys.specialKeys.forward}
                   tooltipDelay={100}
                   icoSVG={<IconMediaForward />}
+                  onClick={() => this.handleAddSpecial(22709)}
                 />
                 <ButtonConfig
                   tooltip={i18n.editor.superkeys.specialKeys.shuffle}
                   tooltipDelay={100}
                   icoSVG={<IconMediaShuffle />}
+                  onClick={() => this.handleAddSpecial(22713)}
                 />
                 <ButtonConfig
                   tooltip={i18n.editor.superkeys.specialKeys.mute}
                   tooltipDelay={100}
                   icoSVG={<IconMediaSoundMute />}
+                  onClick={() => this.handleAddSpecial(19682)}
                 />
                 <ButtonConfig
                   tooltip={i18n.editor.superkeys.specialKeys.soundLess}
                   tooltipDelay={100}
                   icoSVG={<IconMediaSoundLess />}
+                  onClick={() => this.handleAddSpecial(23786)}
                 />
                 <ButtonConfig
                   tooltip={i18n.editor.superkeys.specialKeys.soundMore}
                   tooltipDelay={100}
                   icoSVG={<IconMediaSoundMore />}
+                  onClick={() => this.handleAddSpecial(23785)}
                 />
               </div>
             </div>
@@ -152,16 +169,20 @@ class MediaAndLightTab extends Component {
                   tooltipDelay={300}
                   icoSVG={<IconLEDSwitchLeft />}
                   className="buttonConfigLED"
+                  onClick={() => this.handleAddSpecial(17154)}
                 />
                 <ButtonConfig
                   tooltip={i18n.editor.superkeys.specialKeys.ledPreviousEffectTootip}
                   tooltipDelay={300}
                   icoSVG={<IconLEDPreviousEffect />}
+                  className="buttonConfigLED"
+                  onClick={() => this.handleAddSpecial(17153)}
                 />
                 <ButtonConfig
                   tooltip={i18n.editor.superkeys.specialKeys.ledNextEffectTootip}
                   tooltipDelay={300}
                   icoSVG={<IconLEDNextEffect />}
+                  onClick={() => this.handleAddSpecial(17152)}
                 />
               </div>
             </div>
@@ -171,42 +192,42 @@ class MediaAndLightTab extends Component {
               <Title text={i18n.editor.superkeys.specialKeys.othersTitle} headingLevel={4} />
               <p className="description">{i18n.editor.superkeys.specialKeys.othersDescription}</p>
               <div className="keysButtonsList">
-                <ButtonConfig tooltip={i18n.editor.superkeys.specialKeys.eject} tooltipDelay={100} icoSVG={<IconToolsEject />} />
+                <ButtonConfig
+                  tooltip={i18n.editor.superkeys.specialKeys.eject}
+                  tooltipDelay={100}
+                  icoSVG={<IconToolsEject />}
+                  onClick={() => this.handleAddSpecial(22712)}
+                />
 
                 <ButtonConfig
                   tooltip={i18n.editor.superkeys.specialKeys.calculator}
                   tooltipDelay={100}
                   icoSVG={<IconToolsCalculator />}
+                  onClick={() => this.handleAddSpecial(18834)}
                 />
 
                 <ButtonConfig
                   tooltip={i18n.editor.superkeys.specialKeys.camera}
                   tooltipDelay={100}
                   icoSVG={<IconToolsCamera />}
+                  onClick={() => this.handleAddSpecial(18552)}
                 />
 
                 <ButtonConfig
                   tooltip={i18n.editor.superkeys.specialKeys.brightnessLess}
                   tooltipDelay={100}
                   icoSVG={<IconToolsBrightnessLess />}
+                  onClick={() => this.handleAddSpecial(23664)}
                 />
                 <ButtonConfig
                   tooltip={i18n.editor.superkeys.specialKeys.brightnessMore}
                   tooltipDelay={100}
                   icoSVG={<IconToolsBrightnessMore />}
+                  onClick={() => this.handleAddSpecial(23663)}
                 />
               </div>
             </div>
           </div>
-        </div>
-        <div className="tabSaveButton">
-          <RegularButton
-            buttonText={i18n.editor.macros.textTabs.buttonText}
-            style="outline gradient"
-            onClick={this.props.onAddText}
-            icoSVG={<IconArrowInBoxDown />}
-            icoPosition="right"
-          />
         </div>
       </Styles>
     );

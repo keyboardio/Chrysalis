@@ -141,7 +141,6 @@ class KeyMacro extends Component {
       isModifier = true;
     }
 
-    console.log("Item", item);
     return (
       <Styles>
         <div

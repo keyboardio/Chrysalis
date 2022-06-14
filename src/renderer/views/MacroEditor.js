@@ -549,14 +549,14 @@ class MacroEditor extends React.Component {
   // Define updateActions function to update the actions of the selected macro
   updateActions = actions => {
     let macrosList = this.state.macros;
+    console.log("MacroEditor Updating Actions", actions, macrosList, this.state.selectedMacro);
     macrosList[this.state.selectedMacro].actions = actions;
-    this.setState({ macrosList, modified: true });
+    this.setState({ macros: macrosList, modified: true });
   };
 
   render() {
-    const { macros, maxMacros, modified, selectedList, selectedMacro, listToDelete, freeMemory, showDeleteModal } = this.state;
-    console.log("RENDERING MACROS", modified);
-    // const mem = macros.map(m => m.actions).flat().length;
+    let { macros, maxMacros, modified, selectedList, selectedMacro, listToDelete, freeMemory, showDeleteModal } = this.state;
+    console.log("RENDERING MACROS", modified, macros, selectedMacro);
     const ListOfMacros = listToDelete.map(({ layer, pos, key }, id) => {
       return (
         <Row key={id}>
@@ -585,6 +585,9 @@ class MacroEditor extends React.Component {
         ))}
       </DropdownButton>
     );
+    if (macros[selectedMacro]?.actions?.length === 0) {
+      return <div />;
+    }
     return (
       <Styles className="macroEditor">
         <Container fluid>

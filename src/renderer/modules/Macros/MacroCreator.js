@@ -159,8 +159,7 @@ class MacroCreator extends Component {
 
     this.state = {
       addText: "",
-      rows: [],
-      macro: props.macro === undefined ? "" : props.macro.macro
+      rows: []
     };
     this.keymapDB = props.keymapDB;
     this.modifiers = [
@@ -256,6 +255,44 @@ class MacroCreator extends Component {
     ];
   }
 
+  componentDidMount() {
+    if (this.props.macros[this.props.selected]?.actions?.length) {
+      this.setState({
+        rows: this.createConversion(this.props.macros[this.props.selected].actions)
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log("componentDidUpdate MacroCreator", JSON.stringify(prevState.rows), JSON.stringify(this.state.rows));
+    if (
+      this.props.macros[this.props.selected]?.actions?.length > 0 &&
+      (JSON.stringify(
+        prevState.rows.map(item => {
+          item.keyCode, item.action;
+        })
+      ) !=
+        JSON.stringify(
+          this.state.rows.map(item => {
+            item.keyCode, item.action;
+          })
+        ) ||
+        this.state.rows.length == 0)
+    ) {
+      let auxConv = this.createConversion(this.props.macros[this.props.selected].actions);
+      let texted = auxConv.map(k => this.keymapDB.parse(k.keyCode).label).join(" ");
+      let newRows = auxConv.map((item, index) => {
+        let aux = item;
+        aux.id = index;
+        return aux;
+      });
+      this.setState({
+        rows: newRows,
+        macro: texted
+      });
+    }
+  }
+
   onAddText = () => {
     const aux = this.state.addText;
     let newRows = this.state.rows;
@@ -330,21 +367,12 @@ class MacroCreator extends Component {
         return actions;
       })
     );
-    console.log("TEST", JSON.stringify(newRows), JSON.stringify(this.props.macro));
+    console.log("TEST", JSON.stringify(newRows), JSON.stringify(this.props.macros));
     this.setState({
       addText: ""
     });
     this.updateRows(newRows);
   };
-
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      this.props.macros[this.props.selected]?.actions?.length > 0 &&
-      prevProps.macros[prevProps.selected] !== this.props.macros[this.props.selected]
-    ) {
-      this.updateRows(this.createConversion(this.props.macros[this.props.selected].actions));
-    }
-  }
 
   createConversion = actions => {
     let converted = actions.map((action, i) => {
@@ -411,7 +439,7 @@ class MacroCreator extends Component {
   };
 
   updateRows = rows => {
-    console.log("updaterows", JSON.stringify(rows));
+    console.log("Macro creator updaterows", rows);
     let texted = rows.map(k => this.keymapDB.parse(k.keyCode).label).join(" ");
     let newRows = rows.map((item, index) => {
       let aux = item;
@@ -557,12 +585,12 @@ class MacroCreator extends Component {
   };
 
   onLayerPress = layer => {
-    console.log("layer", layer);
+    // console.log("layer", layer);
     this.onAddSpecial(layer, 5);
   };
 
   onMacrosPress = Macro => {
-    console.log("Macro", Macro);
+    // console.log("Macro", Macro);
     this.onAddSpecial(Macro, 5);
   };
 

@@ -260,7 +260,7 @@ class MacroTable extends Component {
   }
 
   updateRows(rows) {
-    console.log("updaterows", rows);
+    console.log("MacroTable updaterows", rows);
     let texted = rows.map(k => this.keymapDB.parse(k.keyCode).label).join(" ");
     let newRows = rows.map((item, index) => {
       let aux = item;

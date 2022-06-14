@@ -195,16 +195,43 @@ class TimelineEditorMacroTable extends Component {
 
   componentDidMount() {
     if (this.props.macro !== undefined) {
-      this.updateRows(this.createConversion(this.props.macro.actions));
+      let conv = this.createConversion(this.props.macro.actions);
+      let texted = conv.map(k => this.keymapDB.parse(k.keyCode).label).join(" ");
+      let newRows = conv.map((item, index) => {
+        let aux = item;
+        aux.id = index;
+        return aux;
+      });
+      this.setState({
+        rows: newRows,
+        macro: texted
+      });
     }
-    const scrollContainer = this.horizontalWheel.current.firstChild;
-    scrollContainer.addEventListener("wheel", evt => {
-      evt.preventDefault();
-      scrollContainer.scrollLeft += evt.deltaY;
-    });
+    if (this.state.rows.length !== 0) {
+      const scrollContainer = this.horizontalWheel.current.firstChild;
+      scrollContainer.addEventListener("wheel", evt => {
+        evt.preventDefault();
+        scrollContainer.scrollLeft += evt.deltaY;
+      });
+    }
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.rows.length !== 0 && prevState.rows.length === 0) {
+      const scrollContainer = this.horizontalWheel.current.firstChild;
+      scrollContainer.addEventListener("wheel", evt => {
+        evt.preventDefault();
+        scrollContainer.scrollLeft += evt.deltaY;
+      });
+    }
+    if (this.state.rows.length === 0 && prevState.rows.length !== 0) {
+      const scrollContainer = this.horizontalWheel.current.firstChild;
+
+      scrollContainer.removeEventListener("wheel", evt => {
+        evt.preventDefault();
+        scrollContainer.scrollLeft += evt.deltaY;
+      });
+    }
     if (this.props.macro !== prevProps.macro) {
       let rows = this.createConversion(this.props.macro.actions);
       console.log("updating state with new props", rows);
@@ -217,6 +244,16 @@ class TimelineEditorMacroTable extends Component {
       this.setState({
         rows: newRows,
         macro: texted
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.state.rows.length !== 0) {
+      const scrollContainer = this.horizontalWheel.current.firstChild;
+      scrollContainer.removeEventListener("wheel", evt => {
+        evt.preventDefault();
+        scrollContainer.scrollLeft += evt.deltaY;
       });
     }
   }
@@ -309,7 +346,7 @@ class TimelineEditorMacroTable extends Component {
   }
 
   updateRows(rows) {
-    console.log("updaterows", rows);
+    console.log("TiEMTa updaterows", rows);
     let texted = rows.map(k => this.keymapDB.parse(k.keyCode).label).join(" ");
     let newRows = rows.map((item, index) => {
       let aux = item;
@@ -320,8 +357,9 @@ class TimelineEditorMacroTable extends Component {
       rows: newRows,
       macro: texted
     });
-
-    this.props.updateActions(this.revertConversion(rows), texted);
+    let revConv = this.revertConversion(rows);
+    console.log("TiEMTa revConv", revConv);
+    this.props.updateActions(revConv);
   }
 
   reorder(list, startIndex, endIndex) {
@@ -553,21 +591,15 @@ class TimelineEditorMacroTable extends Component {
     this.setState({ addText: event.target.value });
   }
 
-  componentWillUnmount() {
-    const scrollContainer = this.horizontalWheel.current.firstChild;
-
-    scrollContainer.removeEventListener("wheel", evt => {
-      evt.preventDefault();
-      scrollContainer.scrollLeft += evt.deltaY;
-    });
-  }
-
   render() {
     // const {} = this.props;
     const cssObjectWidth = {
       width: this.props.componentWidth
     };
-    console.log("Rows Content", this.state.rows);
+    console.log("Timeline.ed.M.Table Rows", this.state.rows);
+    if (this.state.rows.length === 0) {
+      return <></>;
+    }
     return (
       <Styles className="trackingWrapper" style={cssObjectWidth} ref={this.horizontalWheel}>
         <DragDropContext onDragEnd={this.onDragEnd}>

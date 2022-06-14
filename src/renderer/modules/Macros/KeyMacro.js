@@ -97,7 +97,7 @@ class KeyMacro extends Component {
   }
 
   render() {
-    const { provided, snapshot, item, modifiers, addModifier, actionTypes } = this.props;
+    const { provided, snapshot, item, modifiers, addModifier, actionTypes, updateAction } = this.props;
     const operationSystem = process.platform;
     let operationSystemIcons = [];
     if (operationSystem === "darwin") {
@@ -188,6 +188,7 @@ class KeyMacro extends Component {
                                 icoSVG={<IconPressSm />}
                                 selected={actionTypes[item.action].name == "Key Press" ? true : false}
                                 disabled={item.action == 2 ? true : false}
+                                onClick={() => updateAction(item.id, 6)}
                               />
                               <ButtonConfig
                                 buttonText={"Release"}
@@ -195,6 +196,7 @@ class KeyMacro extends Component {
                                 icoSVG={<IconReleaseSm />}
                                 selected={actionTypes[item.action].name == "Key Release" ? true : false}
                                 disabled={item.action == 2 ? true : false}
+                                onClick={() => updateAction(item.id, 7)}
                               />
                               <ButtonConfig
                                 buttonText={"Press & Release"}
@@ -202,6 +204,7 @@ class KeyMacro extends Component {
                                 icoSVG={<IconPressAndReleaseSm />}
                                 selected={actionTypes[item.action].name == "Key Press & Rel." ? true : false}
                                 disabled={item.action == 2 ? true : false}
+                                onClick={() => updateAction(item.id, 8)}
                               />
                             </div>
                           </div>

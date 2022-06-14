@@ -412,6 +412,12 @@ class TimelineEditorMacroTable extends Component {
     this.updateRows(preAux.concat(postAux));
   };
 
+  updateAction = (id, action) => {
+    let aux = this.state.rows;
+    aux[id].action = action;
+    this.updateRows(aux);
+  };
+
   onAddText() {
     const aux = this.state.addText;
     let newRows = this.state.rows;
@@ -578,6 +584,7 @@ class TimelineEditorMacroTable extends Component {
                           item={item}
                           modifiers={this.modifiers}
                           actionTypes={this.actionTypes}
+                          updateAction={this.updateAction}
                           onDeleteRow={this.onDeleteRow}
                           onCloneRow={this.onCloneRow}
                           addModifier={this.addModifier}

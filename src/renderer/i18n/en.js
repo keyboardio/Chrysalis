@@ -230,6 +230,14 @@ const English = {
           "Everything will still work perfectly but consider deleting macros you don't use to continue adding more actions to your macros."
       }
     },
+    standardView: {
+      noKeyTransparent: "No Key/Transparent",
+      callOut: `You can remove a funcionality or inherit the funcionality of the upper layer using "No key” or ”Transparent”`,
+      noKey: "No Key",
+      noKeyDescription: "There's no function or character assigned to that key.",
+      transparent: "Transparent",
+      transparentDescription: "There's no function or character assigned to that key."
+    },
     superkeys: {
       add: "Add new superkey",
       applyAndExit: "Apply",

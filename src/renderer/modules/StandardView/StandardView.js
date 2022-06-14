@@ -13,6 +13,7 @@ import KeyVisualizer from "../KeyVisualizer";
 import CustomTab from "../../component/Tab";
 import TextTab from "../KeysTabs/TextTab";
 import KeysTab from "../KeysTabs/KeysTab";
+import NoKeyTransparentTab from "../KeysTabs/NoKeyTransparentTab";
 import LayersTab from "../KeysTabs/LayersTab";
 import MacroTab from "../KeysTabs/MacroTab";
 import DelayTab from "../KeysTabs/DelayTab";
@@ -20,7 +21,7 @@ import MediaAndLightTab from "../KeysTabs/MediaAndLightTab";
 import MouseTab from "../KeysTabs/MouseTab";
 
 //Icons
-import { IconKeyboard, IconLetterColor, IconMouse, IconLayers, IconRobot, IconNote, IconStopWatch } from "../../component/Icon";
+import { IconKeyboard, IconNoKey, IconMouse, IconLayers, IconRobot, IconNote, IconStopWatch } from "../../component/Icon";
 
 const Styles = Styled.div`
 .standardView {
@@ -102,7 +103,7 @@ export default class StandardView extends React.Component {
   }
 
   render() {
-    const { showStandardView, closeStandardView, code, macros, handleSave, modalTitle, labelInput, id } = this.props;
+    const { showStandardView, closeStandardView, code, macros, handleSave, modalTitle, labelInput, id, onKeySelect } = this.props;
     const selKey = this.parseKey(code.base + code.modified);
     if (!showStandardView) return null;
     return (
@@ -114,6 +115,7 @@ export default class StandardView extends React.Component {
                 <KeyVisualizer keyCode={code} oldValue={selKey} newValue={selKey} />
                 <Nav className="flex-column">
                   <CustomTab eventKey="tabKeys" text="Keys" icon={<IconKeyboard />} />
+                  <CustomTab eventKey="tabNoKeys" text={i18n.editor.standardView.noKeyTransparent} icon={<IconNoKey />} />
                   <CustomTab eventKey="tabLayers" text="Layers" icon={<IconLayers />} />
                   <CustomTab eventKey="tabMacro" text="Macro" icon={<IconRobot />} />
                   <CustomTab eventKey="tabMedia" text="Media & LED" icon={<IconNote />} />
@@ -126,6 +128,10 @@ export default class StandardView extends React.Component {
                     <Tab.Pane eventKey="tabKeys">
                       <KeysTab macros={macros} />
                     </Tab.Pane>
+                    <Tab.Pane eventKey="tabNoKeys">
+                      <NoKeyTransparentTab keyCode={code} onKeySelect={onKeySelect} />
+                    </Tab.Pane>
+
                     <Tab.Pane eventKey="tabLayers">
                       <LayersTab />
                     </Tab.Pane>

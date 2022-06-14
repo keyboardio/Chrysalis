@@ -194,7 +194,7 @@ class TimelineEditorMacroTable extends Component {
   }
 
   componentDidMount() {
-    if (this.props.macro !== undefined) {
+    if (this.props.macro?.actions?.length > 0) {
       let conv = this.createConversion(this.props.macro.actions);
       let texted = conv.map(k => this.keymapDB.parse(k.keyCode).label).join(" ");
       let newRows = conv.map((item, index) => {
@@ -234,7 +234,7 @@ class TimelineEditorMacroTable extends Component {
     }
     if (this.props.macro !== prevProps.macro) {
       let rows = this.createConversion(this.props.macro.actions);
-      console.log("updating state with new props", rows);
+      console.log("TiEMTa CompDidUpdate", rows);
       let texted = rows.map(k => this.keymapDB.parse(k.keyCode).label).join(" ");
       let newRows = rows.map((item, index) => {
         let aux = item;
@@ -358,7 +358,7 @@ class TimelineEditorMacroTable extends Component {
       macro: texted
     });
     let revConv = this.revertConversion(rows);
-    console.log("TiEMTa revConv", revConv);
+    // console.log("TiEMTa revConv", revConv);
     this.props.updateActions(revConv);
   }
 
@@ -596,7 +596,7 @@ class TimelineEditorMacroTable extends Component {
     const cssObjectWidth = {
       width: this.props.componentWidth
     };
-    console.log("Timeline.ed.M.Table Rows", this.state.rows);
+    // console.log("Timeline.ed.M.Table Rows", this.state.rows);
     if (this.state.rows.length === 0) {
       return <></>;
     }

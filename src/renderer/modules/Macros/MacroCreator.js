@@ -255,48 +255,34 @@ class MacroCreator extends Component {
     ];
   }
 
-  componentDidMount() {
-    if (this.props.macros[this.props.selected]?.actions?.length) {
-      this.setState({
-        rows: this.createConversion(this.props.macros[this.props.selected].actions)
-      });
-    }
-  }
-
   componentDidUpdate(prevProps, prevState) {
-    console.log("componentDidUpdate MacroCreator", JSON.stringify(prevState.rows), JSON.stringify(this.state.rows));
-    if (
-      this.props.macros[this.props.selected]?.actions?.length > 0 &&
-      (JSON.stringify(
-        prevState.rows.map(item => {
-          item.keyCode, item.action;
-        })
-      ) !=
-        JSON.stringify(
-          this.state.rows.map(item => {
-            item.keyCode, item.action;
-          })
-        ) ||
-        this.state.rows.length == 0)
-    ) {
-      let auxConv = this.createConversion(this.props.macros[this.props.selected].actions);
-      let texted = auxConv.map(k => this.keymapDB.parse(k.keyCode).label).join(" ");
-      let newRows = auxConv.map((item, index) => {
-        let aux = item;
-        aux.id = index;
-        return aux;
+    try {
+      const prevAux = prevProps.macro.actions.map((x, id) => {
+        return { keyCode: x.keyCode, type: x.type, id: id };
       });
-      this.setState({
-        rows: newRows,
-        macro: texted
+      const propAux = this.props.macro.actions.map((x, id) => {
+        return { keyCode: x.keyCode, type: x.type, id: id };
       });
+      // console.log("Testing: ", JSON.parse(JSON.stringify(prevAux)), JSON.parse(JSON.stringify(propAux)));
+      if (JSON.stringify(prevAux) !== JSON.stringify(propAux)) {
+        console.log("Updating");
+        let auxConv = this.createConversion(this.props.macro.actions);
+        let newRows = auxConv.map((item, index) => {
+          return { ...item, id: index };
+        });
+        this.setState({
+          rows: newRows
+        });
+      }
+    } catch (e) {
+      console.warn("Error Happened", e);
     }
   }
 
   onAddText = () => {
+    // console.log("MacroCreator onAddText", this.state.rows, this.props.macro);
     const aux = this.state.addText;
-    let newRows = this.state.rows;
-    console.log("WATCHING", newRows, aux);
+    let newRows = this.createConversion(this.props.macro.actions);
     newRows = newRows.concat(
       aux.split("").flatMap((symbol, index) => {
         let item = symbol.toUpperCase();
@@ -367,7 +353,7 @@ class MacroCreator extends Component {
         return actions;
       })
     );
-    console.log("TEST", JSON.stringify(newRows), JSON.stringify(this.props.macros));
+    // console.log("TEST", JSON.stringify(newRows), JSON.stringify(this.props.macros));
     this.setState({
       addText: ""
     });
@@ -451,7 +437,7 @@ class MacroCreator extends Component {
       macro: texted
     });
 
-    this.props.updateActions(this.revertConversion(rows), texted);
+    this.props.addToActions(this.revertConversion(rows));
   };
 
   onAddSymbol = (keyCode, action) => {
@@ -474,8 +460,8 @@ class MacroCreator extends Component {
     const randID = new Date().getTime() + Math.floor(Math.random() * 1000);
     let newRows = this.state.rows;
     newRows.push({
-      symbol: delay,
-      keyCode: delay,
+      symbol: parseInt(delay),
+      keyCode: parseInt(delay),
       action,
       id: newRows.length,
       color: "#faf0e3",

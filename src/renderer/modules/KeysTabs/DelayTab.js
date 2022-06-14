@@ -119,24 +119,29 @@ class DelayTab extends Component {
   };
 
   updateFixed = e => {
-    this.setState({ fixedValue: e.target.value });
+    const value = parseInt(e.target.value);
+    this.setState({ fixedValue: value > 65535 ? 65535 : value });
   };
 
   updateRandomMin = e => {
     let randomValue = this.state.randomValue;
-    if (e.target.value > randomValue.max) {
-      randomValue.max = e.target.value;
+    let valueMin = parseInt(e.target.value);
+    valueMin = valueMin > 65535 ? 65535 : valueMin;
+    if (valueMin > randomValue.max) {
+      randomValue.max = valueMin;
     }
-    randomValue.min = e.target.value;
+    randomValue.min = valueMin;
     this.setState({ randomValue: randomValue });
   };
 
   updateRandomMax = e => {
     let randomValue = this.state.randomValue;
-    if (e.target.value < randomValue.min) {
-      randomValue.min = e.target.value;
+    let valueMax = parseInt(e.target.value);
+    valueMax = valueMax > 65535 ? 65535 : valueMax;
+    if (valueMax < randomValue.min) {
+      randomValue.min = valueMax;
     }
-    randomValue.max = e.target.value;
+    randomValue.max = valueMax;
     this.setState({ randomValue: randomValue });
   };
 
@@ -189,6 +194,7 @@ class DelayTab extends Component {
                   <Form.Control
                     placeholder={i18n.editor.macros.delayTabs.title}
                     min={0}
+                    max={65535}
                     type="number"
                     onChange={this.updateFixed}
                     value={fixedValue}

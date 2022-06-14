@@ -181,7 +181,6 @@ class TimelineEditorMacroTable extends Component {
     ];
 
     this.onDragEnd = this.onDragEnd.bind(this);
-    this.onDeleteRow = this.onDeleteRow.bind(this);
     this.onAddText = this.onAddText.bind(this);
     this.addModifier = this.addModifier.bind(this);
     this.updateRows = this.updateRows.bind(this);
@@ -203,6 +202,23 @@ class TimelineEditorMacroTable extends Component {
       evt.preventDefault();
       scrollContainer.scrollLeft += evt.deltaY;
     });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.macro !== prevProps.macro) {
+      let rows = this.createConversion(this.props.macro.actions);
+      console.log("updating state with new props", rows);
+      let texted = rows.map(k => this.keymapDB.parse(k.keyCode).label).join(" ");
+      let newRows = rows.map((item, index) => {
+        let aux = item;
+        aux.id = index;
+        return aux;
+      });
+      this.setState({
+        rows: newRows,
+        macro: texted
+      });
+    }
   }
 
   createConversion(actions) {
@@ -317,6 +333,7 @@ class TimelineEditorMacroTable extends Component {
   }
 
   addModifier(rowID, modifierID) {
+    console.log("Called addModifier", rowID, modifierID);
     const { name, keyCode, color } = this.modifiers[modifierID];
     const randID = new Date().getTime() + Math.floor(Math.random() * 1000);
     const randColor = "#" + Math.floor(Math.abs(Math.sin(randID) * 16777215) % 16777215).toString(16);
@@ -381,11 +398,19 @@ class TimelineEditorMacroTable extends Component {
     this.updateRows(rows);
   }
 
-  onDeleteRow(id) {
+  onDeleteRow = id => {
     let uid = this.state.rows.filter(x => x.id === id)[0].uid;
     let aux = this.state.rows.filter(x => x.uid !== uid);
     this.updateRows(aux);
-  }
+  };
+
+  onCloneRow = id => {
+    let uid = this.state.rows.filter(x => x.id === id)[0];
+    let preAux = this.state.rows.slice(0, id);
+    let postAux = this.state.rows.slice(id);
+    preAux.push(uid);
+    this.updateRows(preAux.concat(postAux));
+  };
 
   onAddText() {
     const aux = this.state.addText;
@@ -554,6 +579,7 @@ class TimelineEditorMacroTable extends Component {
                           modifiers={this.modifiers}
                           actionTypes={this.actionTypes}
                           onDeleteRow={this.onDeleteRow}
+                          onCloneRow={this.onCloneRow}
                           addModifier={this.addModifier}
                         />
                       )}

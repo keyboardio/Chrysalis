@@ -23,6 +23,7 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -38,6 +39,7 @@ function Header({ device }) {
   const [contextBarVisibility, setContextBarVisibility] = useState(false);
   const [discardChangesDialogVisibility, setDiscardChangesDialogVisibility] =
     useState(false);
+  const isPrinting = useMediaQuery("print");
 
   const { t } = useTranslation();
 
@@ -92,6 +94,8 @@ function Header({ device }) {
     contextBarChangesDiscarded();
     setContextBarVisibility(false);
   };
+
+  if (isPrinting) return null;
 
   return (
     <>

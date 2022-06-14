@@ -66,7 +66,7 @@ z-index: 300;
       }
     } 
     .pageTools {
-      width: calc(100% - 216px);
+      width: calc(100% - 190px);
       display: flex;
       align-items: center;
     }

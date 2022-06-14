@@ -457,6 +457,21 @@ class MacroCreator extends Component {
     this.updateRows(newRows);
   };
 
+  onAddDelayRnd = (delayMin, delayMax, action) => {
+    const randID = new Date().getTime() + Math.floor(Math.random() * 1000);
+    let newRows = this.state.rows;
+    newRows.push({
+      symbol: delayMin,
+      keyCode: delayMax,
+      action,
+      id: newRows.length,
+      color: "#faf0e3",
+      uid: randID,
+      ucolor: "transparent"
+    });
+    this.updateRows(newRows);
+  };
+
   onAddSpecial = (keyCode, action) => {
     const randID = new Date().getTime() + Math.floor(Math.random() * 1000);
     let newRows = this.state.rows;
@@ -601,10 +616,10 @@ class MacroCreator extends Component {
                     <MediaAndLightTab onAddSpecial={this.onAddSpecial} />
                   </Tab.Pane>
                   <Tab.Pane eventKey="tabMouse">
-                    <MouseTab />
+                    <MouseTab onAddSpecial={this.onAddSpecial} />
                   </Tab.Pane>
                   <Tab.Pane eventKey="tabDelay">
-                    <DelayTab />
+                    <DelayTab onAddDelay={this.onAddDelay} onAddDelayRnd={this.onAddDelayRnd} />
                   </Tab.Pane>
                 </Tab.Content>
               </div>

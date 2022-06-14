@@ -103,37 +103,62 @@ class DelayTab extends Component {
   constructor(props) {
     super(props);
 
-    this.inputMin = React.createRef();
-    this.inputMax = React.createRef();
-
     this.state = {
-      fixedValue: true,
-      randomValue: { min: undefined, max: undefined }
+      fixedSelected: true,
+      fixedValue: 0,
+      randomValue: { min: 0, max: 0 }
     };
   }
 
-  setFixedValue = () => {
-    this.setState({ fixedValue: true });
+  setFixedSelected = () => {
+    this.setState({ fixedSelected: true });
   };
 
-  setRandomValue = () => {
-    this.setState({ fixedValue: false });
+  setRandomSelected = () => {
+    this.setState({ fixedSelected: false });
   };
 
-  // setMaxRandomRange = event => {
-  //   let minVal = Number(this.inputMin.current.value);
-  //   let maxVal = Number(this.inputMax.current.value);
-  //   if (minVal >= maxVal) {
-  //     minVal = maxVal - 1;
-  //     this.inputMax.current.value = maxVal - 1;
-  //   }
-  //   this.setState({ randomValue: { min: minVal, max: maxVal } });
-  //   console.log("Random min & max: ", this.state.randomValue);
-  // };
+  updateFixed = e => {
+    this.setState({ fixedValue: e.target.value });
+  };
+
+  updateRandomMin = e => {
+    let randomValue = this.state.randomValue;
+    if (e.target.value > randomValue.max) {
+      randomValue.max = e.target.value;
+    }
+    randomValue.min = e.target.value;
+    this.setState({ randomValue: randomValue });
+  };
+
+  updateRandomMax = e => {
+    let randomValue = this.state.randomValue;
+    if (e.target.value < randomValue.min) {
+      randomValue.min = e.target.value;
+    }
+    randomValue.max = e.target.value;
+    this.setState({ randomValue: randomValue });
+  };
+
+  addDelay = () => {
+    console.log("add delay", this.state.fixedSelected, this.state.fixedValue, this.state.randomValue);
+    if (this.state.fixedSelected) {
+      this.props.onAddDelay(this.state.fixedValue, 2);
+    } else {
+      this.props.onAddDelayRnd(this.state.randomValue.min, this.state.randomValue.max, 2);
+    }
+    // clean state
+    this.setState({
+      fixedSelected: true,
+      fixedValue: 0,
+      randomValue: { min: 0, max: 0 }
+    });
+  };
 
   render() {
-    const classFixed = this.state.fixedValue ? "active" : "inactive";
-    const classRandom = this.state.fixedValue ? "inactive" : "active";
+    const { fixedSelected, fixedValue, randomValue } = this.state;
+    const classFixed = fixedSelected ? "active" : "inactive";
+    const classRandom = fixedSelected ? "inactive" : "active";
     return (
       <Styles>
         <div className="tabContentWrapper">
@@ -141,7 +166,7 @@ class DelayTab extends Component {
           <div className="formWrapper">
             <CustomRadioCheckBox
               label="Fixed value"
-              onClick={this.setFixedValue}
+              onClick={this.setFixedSelected}
               type="radio"
               name="addDelay"
               id="addFixedDelay"
@@ -149,7 +174,7 @@ class DelayTab extends Component {
             />
             <CustomRadioCheckBox
               label="Random value"
-              onClick={this.setRandomValue}
+              onClick={this.setRandomSelected}
               type="radio"
               name="addDelay"
               id="addRandomDelay"
@@ -158,10 +183,16 @@ class DelayTab extends Component {
             />
           </div>
           <div className="inputsWrapper mt-3">
-            {this.state.fixedValue ? (
+            {this.state.fixedSelected ? (
               <div className="inputGroupFixed">
                 <InputGroup>
-                  <Form.Control placeholder={i18n.editor.macros.delayTabs.title} min={0} type="number" />
+                  <Form.Control
+                    placeholder={i18n.editor.macros.delayTabs.title}
+                    min={0}
+                    type="number"
+                    onChange={this.updateFixed}
+                    value={fixedValue}
+                  />
                   <InputGroup.Text>ms</InputGroup.Text>
                 </InputGroup>
               </div>
@@ -173,16 +204,16 @@ class DelayTab extends Component {
                     placeholder="Min."
                     min={0}
                     type="number"
-                    onChange={this.setMinRandomRange}
-                    ref={this.inputMin}
+                    onChange={this.updateRandomMin}
+                    value={randomValue.min}
                   />
                   <Form.Control
                     className="inputMax"
                     placeholder="Max"
                     min={1}
                     type="number"
-                    onChange={this.setMaxRandomRange}
-                    ref={this.inputMax}
+                    onChange={this.updateRandomMax}
+                    value={randomValue.max}
                   />
                   <InputGroup.Text>ms</InputGroup.Text>
                 </InputGroup>
@@ -197,7 +228,7 @@ class DelayTab extends Component {
           <RegularButton
             buttonText={i18n.editor.macros.textTabs.buttonText}
             style="outline gradient"
-            onClick={this.props.onAddText}
+            onClick={this.addDelay}
             icoSVG={<IconArrowInBoxDown />}
             icoPosition="right"
           />

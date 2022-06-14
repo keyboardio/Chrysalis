@@ -35,35 +35,53 @@ h4 {
 class MacroTab extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      selected: 0 === props.selectedMacro ? 1 : 0
+    };
   }
+
+  // update value when dropdown is changed
+  changeSelected = selected => {
+    this.setState({ selected });
+  };
+
+  // sendMacro function to props onMacrosPress function to send macro to MacroCreator
+  sendMacro = () => {
+    this.props.onMacrosPress(parseInt(this.state.selected) + 53852);
+  };
 
   render() {
     const { macros, selectedMacro } = this.props;
-    const macrosAux = macros.map(item => {
+    const macrosAux = macros.map((item, index) => {
       const macrosContainer = {};
       if (item.name == "") {
         macrosContainer.text = i18n.general.noname;
       } else {
         macrosContainer.text = item.name;
       }
+      macrosContainer.value = index;
+      macrosContainer.disabled = index === selectedMacro;
       return macrosContainer;
     });
 
-    console.log("Macros inside: ", selectedMacro);
     return (
       <Styles>
         <div className="tabContentWrapper">
           <Callout content={i18n.editor.macros.macroTab.callout} className="w100" size="md" />
           <Title text={i18n.editor.macros.macroTab.label} headingLevel={4} />
           <div className="w100">
-            <Select value={macrosAux.length > 0 ? macrosAux[0].text : "Loading"} listElements={macrosAux} />
+            <Select
+              value={macrosAux.length > 0 ? macrosAux[this.state.selected]?.text : "Loading"}
+              listElements={macrosAux}
+              onSelect={this.changeSelected}
+            />
           </div>
         </div>
         <div className="tabSaveButton">
           <RegularButton
             buttonText={i18n.editor.macros.textTabs.buttonText}
             style="outline gradient"
-            onClick={this.props.onAddText}
+            onClick={this.sendMacro}
             icoSVG={<IconArrowInBoxDown />}
             icoPosition="right"
           />

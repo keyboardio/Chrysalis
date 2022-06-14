@@ -546,6 +546,11 @@ class MacroCreator extends Component {
     this.onAddSpecial(layer, 5);
   };
 
+  onMacrosPress = Macro => {
+    console.log("Macro", Macro);
+    this.onAddSpecial(Macro, 5);
+  };
+
   assignColor = keyCode => {
     let color = this.modifiers.filter(x => x.keyCode === keyCode);
     if (color === undefined || color.length == 0) {
@@ -590,7 +595,7 @@ class MacroCreator extends Component {
                     <LayersTab onLayerPress={this.onLayerPress} />
                   </Tab.Pane>
                   <Tab.Pane eventKey="tabMacro">
-                    <MacroTab macros={this.props.macros} selectedMacro={this.props.selected} />
+                    <MacroTab macros={this.props.macros} selectedMacro={this.props.selected} onMacrosPress={this.onMacrosPress} />
                   </Tab.Pane>
                   <Tab.Pane eventKey="tabMedia">
                     <MediaAndLightTab />

@@ -28,6 +28,7 @@ function LayoutCardsPreferences(props) {
   const { t, i18n } = useTranslation();
 
   const [coloredLayoutCards, setColoredLayoutCards] = useState(false);
+  const [oneLayerPerPage, setOneLayerPerPage] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
   const toggleColoredLayoutCards = () => {
@@ -35,9 +36,17 @@ function LayoutCardsPreferences(props) {
     setColoredLayoutCards(!coloredLayoutCards);
   };
 
+  const toggleOneLayerPerPage = (event) => {
+    settings.set("ui.layoutCards.oneLayerPerPage", event.target.checked);
+    setOneLayerPerPage(event.target.checked);
+  };
+
   useEffect(() => {
     const initialize = async () => {
       await setColoredLayoutCards(settings.get("ui.layoutCards.colored"));
+      await setOneLayerPerPage(
+        settings.get("ui.layoutCards.oneLayerPerPage", false)
+      );
       await setLoaded(true);
     };
 
@@ -51,6 +60,12 @@ function LayoutCardsPreferences(props) {
         option="ui.coloredLayoutCards"
         checked={coloredLayoutCards}
         onChange={toggleColoredLayoutCards}
+      />
+      <PreferenceSwitch
+        loaded={loaded}
+        option="ui.oneLayerPerPage"
+        checked={oneLayerPerPage}
+        onChange={toggleOneLayerPerPage}
       />
     </PreferenceSection>
   );

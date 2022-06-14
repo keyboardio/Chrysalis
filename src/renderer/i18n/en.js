@@ -232,7 +232,7 @@ const English = {
     },
     standardView: {
       noKeyTransparent: "No Key/Transparent",
-      callOut: `You can remove a funcionality or inherit the funcionality of the upper layer using "No key” or ”Transparent”`,
+      callOut: 'You can remove a funcionality or inherit the funcionality of the upper layer using "No key" or "Transparent"',
       noKey: "No Key",
       noKeyDescription: "There's no function or character assigned to that key.",
       transparent: "Transparent",

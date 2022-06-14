@@ -50,6 +50,7 @@ const Styles = Styled.div`
     .contentBody {
         flex-grow: 1;
         margin-bottom: auto;
+        padding: 32px 82px;
     }
     .contentFooter {
         width: 100%;

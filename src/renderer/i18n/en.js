@@ -249,6 +249,11 @@ const English = {
         layerLock: "Layer Lock",
         layerLockDescription:
           "Tap to permanently move to another layer. To return to the previous layer set  a layer lock key on the destination that targets it."
+      },
+      macros: {
+        title: "Macro",
+        callOut:
+          "<p>Oh Yeah!! More superpowers! Here you can add macros to your keys! 🔥</p><p>Not so clear what is macros? Macros are sequences of events (such as keystrokes, mouse clicks, and delays) that can be played back to help with repetitive strings of texts or tasks.</p><p>They can also be used to replay sequences that are long or difficult to run.</p>"
       }
     },
     superkeys: {

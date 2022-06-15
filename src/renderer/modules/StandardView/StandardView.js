@@ -201,7 +201,13 @@ export default class StandardView extends React.Component {
                       />
                     </Tab.Pane>
                     <Tab.Pane eventKey="tabMacro">
-                      <MacroTab macros={macros} selectedMacro={this.state.selected} onMacrosPress={onKeySelect} />
+                      <MacroTab
+                        macros={macros}
+                        selectedMacro={this.state.selected}
+                        onMacrosPress={onKeySelect}
+                        keyCode={keyCode}
+                        isStandardView={isStandardView}
+                      />
                     </Tab.Pane>
                     <Tab.Pane eventKey="tabMedia">
                       <MediaAndLightTab onAddSpecial={this.onAddSpecial} />

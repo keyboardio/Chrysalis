@@ -45,13 +45,18 @@ class MacroTab extends Component {
     this.setState({ selected });
   };
 
+  changeSelectedStd = selected => {
+    this.setState({ selected });
+    this.props.onMacrosPress(parseInt(selected) + 53852);
+  };
+
   // sendMacro function to props onMacrosPress function to send macro to MacroCreator
   sendMacro = () => {
     this.props.onMacrosPress(parseInt(this.state.selected) + 53852);
   };
 
   render() {
-    const { macros, selectedMacro } = this.props;
+    const { macros, selectedMacro, keyCode, isStandardView } = this.props;
     const macrosAux = macros.map((item, index) => {
       const macrosContainer = {};
       if (item.name == "") {
@@ -65,27 +70,36 @@ class MacroTab extends Component {
     });
 
     return (
-      <Styles>
+      <Styles className={`${isStandardView ? "standardViewTab" : ""} tabsMacro`}>
         <div className="tabContentWrapper">
-          <Callout content={i18n.editor.macros.macroTab.callout} className="w100" size="md" />
+          {isStandardView ? (
+            <>
+              <Title text={i18n.editor.standardView.macros.title} headingLevel={3} />
+              <Callout content={i18n.editor.standardView.macros.callOut} className="w100" />
+            </>
+          ) : (
+            <Callout content={i18n.editor.macros.macroTab.callout} className="w100" />
+          )}
           <Title text={i18n.editor.macros.macroTab.label} headingLevel={4} />
           <div className="w100">
             <Select
               value={macrosAux.length > 0 ? macrosAux[this.state.selected]?.text : "Loading"}
               listElements={macrosAux}
-              onSelect={this.changeSelected}
+              onSelect={isStandardView ? this.changeSelectedStd : this.changeSelected}
             />
           </div>
         </div>
-        <div className="tabSaveButton">
-          <RegularButton
-            buttonText={i18n.editor.macros.textTabs.buttonText}
-            style="outline gradient"
-            onClick={this.sendMacro}
-            icoSVG={<IconArrowInBoxDown />}
-            icoPosition="right"
-          />
-        </div>
+        {!isStandardView ? (
+          <div className="tabSaveButton">
+            <RegularButton
+              buttonText={i18n.editor.macros.textTabs.buttonText}
+              style="outline gradient"
+              onClick={this.sendMacro}
+              icoSVG={<IconArrowInBoxDown />}
+              icoPosition="right"
+            />
+          </div>
+        ) : null}
       </Styles>
     );
   }

@@ -38,9 +38,6 @@ const Styles = Styled.div`
   min-height: 429px;
   overflow: auto;
 }
-.list::-webkit-scrollbar {
-  display: none;
-}
 .border {
   border: solid 1px #bbbbbb;
   border-radius: 4px;
@@ -263,7 +260,7 @@ class MacroTable extends Component {
   }
 
   updateRows(rows) {
-    console.log("updaterows", rows);
+    console.log("MacroTable updaterows", rows);
     let texted = rows.map(k => this.keymapDB.parse(k.keyCode).label).join(" ");
     let newRows = rows.map((item, index) => {
       let aux = item;

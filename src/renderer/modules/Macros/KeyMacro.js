@@ -97,7 +97,7 @@ class KeyMacro extends Component {
   }
 
   render() {
-    const { provided, snapshot, item, modifiers, addModifier, actionTypes } = this.props;
+    const { provided, snapshot, item, modifiers, addModifier, actionTypes, updateAction } = this.props;
     const operationSystem = process.platform;
     let operationSystemIcons = [];
     if (operationSystem === "darwin") {
@@ -141,7 +141,6 @@ class KeyMacro extends Component {
       isModifier = true;
     }
 
-    console.log("Item", item);
     return (
       <Styles>
         <div
@@ -161,15 +160,7 @@ class KeyMacro extends Component {
                   <IconDragAndDrop />
                 </div>
                 <div className="moreOptions">
-                  <Dropdown
-                    label={i18n.editor.macros.insertModifiers}
-                    value=""
-                    size="small"
-                    className={"keyMacroOptions"}
-                    onSelect={e => {
-                      addModifier(item.id, e);
-                    }}
-                  >
+                  <Dropdown label={i18n.editor.macros.insertModifiers} value="" size="small" className={"keyMacroOptions"}>
                     <Dropdown.Toggle variant="primary" id="dropdown-basic" drop="up" align="end">
                       <IconThreeDots />
                     </Dropdown.Toggle>
@@ -196,6 +187,7 @@ class KeyMacro extends Component {
                                 icoSVG={<IconPressSm />}
                                 selected={actionTypes[item.action].name == "Key Press" ? true : false}
                                 disabled={item.action == 2 ? true : false}
+                                onClick={() => updateAction(item.id, 6)}
                               />
                               <ButtonConfig
                                 buttonText={"Release"}
@@ -203,6 +195,7 @@ class KeyMacro extends Component {
                                 icoSVG={<IconReleaseSm />}
                                 selected={actionTypes[item.action].name == "Key Release" ? true : false}
                                 disabled={item.action == 2 ? true : false}
+                                onClick={() => updateAction(item.id, 7)}
                               />
                               <ButtonConfig
                                 buttonText={"Press & Release"}
@@ -210,6 +203,7 @@ class KeyMacro extends Component {
                                 icoSVG={<IconPressAndReleaseSm />}
                                 selected={actionTypes[item.action].name == "Key Press & Rel." ? true : false}
                                 disabled={item.action == 2 ? true : false}
+                                onClick={() => updateAction(item.id, 8)}
                               />
                             </div>
                           </div>
@@ -217,80 +211,101 @@ class KeyMacro extends Component {
                           <div className="keyModifiers">
                             <Title headingLevel={4} text="Add modifier" />
                             <div className="keyModifiersButtons">
-                              {modifiers.map(
-                                (item, id) =>
-                                  // item.name == "LEFT SHIFT" ? (
-                                  //   <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
-                                  //     <ButtonConfig buttonText={operationSystemIcons.shift} />
-                                  //   </Dropdown.Item>
-                                  // ) : item.name == "LEFT CTRL" ? (
-                                  //   <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
-                                  //     <ButtonConfig buttonText={operationSystemIcons.control} />
-                                  //   </Dropdown.Item>
-                                  // ) : item.name == "LEFT ALT" ? (
-                                  //   <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
-                                  //     <ButtonConfig buttonText={operationSystemIcons.alt} />
-                                  //   </Dropdown.Item>
-                                  // ) : item.name == "RIGHT ALT" ? (
-                                  //   <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
-                                  //     <ButtonConfig buttonText={operationSystemIcons.altGr} />
-                                  //   </Dropdown.Item>
-                                  // ) : (
-                                  //   <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
-                                  //     {operationSystemIcons.os.text ? (
-                                  //       <ButtonConfig buttonText={operationSystemIcons.os.text} />
-                                  //     ) : (
-                                  //       <ButtonConfig icoSVG={operationSystemIcons.os.icon} />
-                                  //     )}
-                                  //   </Dropdown.Item>
-                                  // )
-                                  item.name == "LEFT SHIFT" ? (
-                                    <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
-                                      <ButtonConfig buttonText="L. Shift" />
-                                    </Dropdown.Item>
-                                  ) : item.name == "RIGHT SHIFT" ? (
-                                    <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
-                                      <ButtonConfig buttonText="R. Shift" />
-                                    </Dropdown.Item>
-                                  ) : item.name == "LEFT CTRL" ? (
-                                    <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
-                                      <ButtonConfig buttonText="L. Ctrl" />
-                                    </Dropdown.Item>
-                                  ) : item.name == "RIGHT CTRL" ? (
-                                    <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
-                                      <ButtonConfig buttonText="R. Ctrl" />
-                                    </Dropdown.Item>
-                                  ) : item.name == "LEFT ALT" ? (
-                                    <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
-                                      <ButtonConfig buttonText="Alt" />
-                                    </Dropdown.Item>
-                                  ) : item.name == "RIGHT ALT" ? (
-                                    <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
-                                      <ButtonConfig buttonText="Alt Gr." />
-                                    </Dropdown.Item>
-                                  ) : item.name == "RIGHT ALT" ? (
-                                    <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
-                                      <ButtonConfig buttonText="R. Alt" />
-                                    </Dropdown.Item>
-                                  ) : item.name == "LEFT GUI" ? (
-                                    <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
-                                      <ButtonConfig buttonText="L. OS" />
-                                    </Dropdown.Item>
-                                  ) : item.name == "RIGHT GUI" ? (
-                                    <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
-                                      <ButtonConfig buttonText="R. OS" />
-                                    </Dropdown.Item>
-                                  ) : (
-                                    ""
-                                  )
-                                // <ButtonConfig
-                                //   key={`itemButton-${id}`}
-                                //   buttonText={item.name}
-                                //   onClick={e => {
-                                //     addModifier(item.id, e);
-                                //   }}
-                                // />
-                              )}
+                              {modifiers.map((elem, id) => {
+                                switch (elem.name) {
+                                  case "LEFT SHIFT":
+                                    return (
+                                      <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
+                                        <ButtonConfig
+                                          buttonText="L. Shift"
+                                          onClick={e => {
+                                            addModifier(item.id, id);
+                                          }}
+                                        />
+                                      </Dropdown.Item>
+                                    );
+                                  case "RIGHT SHIFT":
+                                    return (
+                                      <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
+                                        <ButtonConfig
+                                          buttonText="R. Shift"
+                                          onClick={e => {
+                                            addModifier(item.id, id);
+                                          }}
+                                        />
+                                      </Dropdown.Item>
+                                    );
+                                  case "LEFT CTRL":
+                                    return (
+                                      <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
+                                        <ButtonConfig
+                                          buttonText="L. Ctrl"
+                                          onClick={e => {
+                                            addModifier(item.id, id);
+                                          }}
+                                        />
+                                      </Dropdown.Item>
+                                    );
+                                  case "RIGHT CTRL":
+                                    return (
+                                      <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
+                                        <ButtonConfig
+                                          buttonText="R. Ctrl"
+                                          onClick={e => {
+                                            addModifier(item.id, id);
+                                          }}
+                                        />
+                                      </Dropdown.Item>
+                                    );
+                                  case "LEFT ALT":
+                                    return (
+                                      <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
+                                        <ButtonConfig
+                                          buttonText="Alt"
+                                          onClick={e => {
+                                            addModifier(item.id, id);
+                                          }}
+                                        />
+                                      </Dropdown.Item>
+                                    );
+                                  case "RIGHT ALT":
+                                    return (
+                                      <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
+                                        <ButtonConfig
+                                          buttonText="Alt Gr."
+                                          onClick={e => {
+                                            addModifier(item.id, id);
+                                          }}
+                                        />
+                                      </Dropdown.Item>
+                                    );
+                                  case "LEFT GUI":
+                                    return (
+                                      <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
+                                        <ButtonConfig
+                                          buttonText="L. OS"
+                                          onClick={e => {
+                                            addModifier(item.id, id);
+                                          }}
+                                        />
+                                      </Dropdown.Item>
+                                    );
+                                  case "RIGHT GUI":
+                                    return (
+                                      <Dropdown.Item eventKey={id} key={`item-${id}`} className="unstyled">
+                                        <ButtonConfig
+                                          buttonText="R. OS"
+                                          onClick={e => {
+                                            addModifier(item.id, id);
+                                          }}
+                                        />
+                                      </Dropdown.Item>
+                                    );
+
+                                  default:
+                                    return "";
+                                }
+                              })}
                             </div>
                           </div>
                         </div>
@@ -298,7 +313,7 @@ class KeyMacro extends Component {
                           <Dropdown.Item key={`item-clone`} className="compact">
                             <div
                               onClick={() => {
-                                this.props.onDeleteRow(item.id);
+                                this.props.onCloneRow(item.id);
                               }}
                               className="dropdownInner"
                             >

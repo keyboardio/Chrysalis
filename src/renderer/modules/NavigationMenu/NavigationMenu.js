@@ -101,6 +101,11 @@ const Styles = Styled.div`
     width: 90px;
   }
 }
+@media screen and (max-height: 719px) {
+  .left-navbar {
+    width: 90px;
+  }
+}
 `;
 
 class NavigationMenu extends Component {
@@ -153,13 +158,15 @@ class NavigationMenu extends Component {
 
   cleanFWVer(version) {
     let ver = version != null ? (version[0] != "v" ? version : version.substring(1)) : null;
-    return ver
-      .replace(/beta/g, "")
-      .split(".")
-      .map(n => parseInt(n));
+    ver = ver.split("beta");
+    let aux = ver[0].split(".").map(x => parseInt(x));
+    if (ver[1] != "") aux.push(parseInt(ver[1]));
+    else aux.push(0);
+    return aux;
   }
 
   compareFWVer(oldVer, newVer) {
+    console.log("comparing versions ", oldVer, newVer);
     if (oldVer.length != newVer.length) {
       if (oldVer.length > newVer.length) {
         return -1;

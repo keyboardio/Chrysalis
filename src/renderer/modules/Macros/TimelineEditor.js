@@ -165,7 +165,6 @@ class TimelineEditor extends Component {
     this.onAddDelay = this.onAddDelay.bind(this);
     this.onAddText = this.onAddText.bind(this);
     this.onAddSpecial = this.onAddSpecial.bind(this);
-    this.onTextChange = this.onTextChange.bind(this);
   }
 
   componentDidMount() {
@@ -262,7 +261,7 @@ class TimelineEditor extends Component {
   }
 
   updateRows(rows) {
-    console.log("updaterows", rows);
+    console.log("TimelineEditor updaterows", rows);
     let texted = rows.map(k => this.keymapDB.parse(k.keyCode).label).join(" ");
     let newRows = rows.map((item, index) => {
       let aux = item;
@@ -485,10 +484,6 @@ class TimelineEditor extends Component {
       ucolor: "transparent"
     });
     this.updateRows(newRows);
-  }
-
-  onTextChange(event) {
-    this.setState({ addText: event.target.value });
   }
 
   render() {

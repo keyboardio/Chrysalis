@@ -30,13 +30,13 @@ import Modal from "react-bootstrap/Modal";
 import { FiSave, FiTrash2 } from "react-icons/fi";
 
 import i18n from "../i18n";
-import MacroManager from "../components/MacroManager/index";
 import Keymap, { KeymapDB } from "../../api/keymap";
 import Focus from "../../api/focus";
 import Backup from "../../api/backup";
 
 import PageHeader from "../modules/PageHeader";
 import { MacroSelector } from "../component/Select";
+import { RegularButton } from "../component/Button";
 import Callout from "../component/Callout";
 import ToastMessage from "../component/ToastMessage";
 import { IconFloppyDisk } from "../component/Icon";
@@ -88,32 +88,6 @@ const Styles = Styled.div`
   }
 `;
 
-const ModalStyle = Styled.div`
-  .modalcol {
-    color: ${({ theme }) => theme.colors.text};
-    background-color: ${({ theme }) => theme.colors.button.deselected};
-  }
-  .modal-footer {
-    justify-content: space-between;
-  }
-  .titles {
-    margin-bottom: 0;
-  }
-  .alignvert {
-    padding-top: 10px;
-    float: left;
-  }
-  .selectButton {
-    float: left;
-    .dropdown-toggle{
-      font-size: 0.97rem;
-    }
-  }
-  .gridded {
-    display: grid;
-  }
-`;
-
 class MacroEditor extends React.Component {
   constructor(props) {
     super(props);
@@ -145,8 +119,8 @@ class MacroEditor extends React.Component {
     this.ActUponDelete = this.ActUponDelete.bind(this);
   }
 
-  componentDidMount() {
-    this.loadMacros();
+  async componentDidMount() {
+    await this.loadMacros();
   }
 
   async loadMacros() {
@@ -183,7 +157,6 @@ class MacroEditor extends React.Component {
       this.keymapDB = focus.commands.keymap.db;
 
       let keymap = await focus.command("keymap");
-      console.log(keymap);
       let raw = await focus.command("macros.map");
       if (raw.search(" 0 0 ") !== -1) {
         raw = raw.split(" 0 0 ")[0].split(" ").map(Number);
@@ -198,12 +171,12 @@ class MacroEditor extends React.Component {
         raw2 = "";
       }
       const parsedSuper = this.superTranslator(raw2);
+      console.log("DATA COLLECTED", parsedMacros, parsedSuper, keymap);
       this.setState({
         macros: parsedMacros,
         superkeys: parsedSuper,
-        keymap
-      });
-      this.setState({
+        keymap,
+        modified: false,
         freeMemory: parsedMacros.map(m => m.actions).flat().length
       });
     } catch (e) {
@@ -313,7 +286,6 @@ class MacroEditor extends React.Component {
     let equal = [];
     let finalMacros = [];
     const stored = this.state.storedMacros;
-    console.log(macros, stored);
     if (stored === undefined) {
       return macros;
     }
@@ -332,6 +304,17 @@ class MacroEditor extends React.Component {
     console.log("Checking differences", this.state.macros, finalMacros);
     return finalMacros;
   }
+
+  duplicateMacro = () => {
+    let macros = this.state.macros;
+    let selected = this.state.selectedMacro;
+    let aux = Object.assign({}, this.state.macros[selected]);
+    aux.id = this.state.macros.length;
+    aux.name = "Copy of " + aux.name;
+    macros.push(aux);
+    this.updateMacros(macros, -1);
+    this.changeSelected(aux.id);
+  };
 
   superTranslator(raw) {
     let superkey = [],
@@ -381,13 +364,14 @@ class MacroEditor extends React.Component {
         .concat([0]);
     });
     const mapped = [].concat.apply([], keyMap.flat()).concat([0]).join(" ");
-    console.log(mapped);
+    console.log("Mapped SuperKeys", mapped);
     return mapped;
   }
 
   updateKeyboard(macros, selected) {
     let list = [];
     let listS = [];
+    console.log("Updating keyboard", this.state.macros, selected);
     const macroID = this.state.macros[selected].id + 53852;
     for (let layer = 0; layer < this.state.keymap.custom.length; layer++) {
       list.push(
@@ -398,7 +382,7 @@ class MacroEditor extends React.Component {
           .filter(elem => elem.key.keyCode == macroID)
       );
     }
-    console.log(this.state.superkeys);
+    // console.log(this.state.superkeys);
     for (let i = 0; i < this.state.superkeys.length; i++) {
       listS.push(
         this.state.superkeys[i]
@@ -439,8 +423,7 @@ class MacroEditor extends React.Component {
       storedMacros: newMacros
     });
     let neurons = JSON.parse(JSON.stringify(this.state.neurons));
-    console.log(this.state.neuronID);
-    console.log(neurons[this.state.neuronID].macros);
+    console.log("Neuron Status", this.state.neuronID, neurons[this.state.neuronID].macros);
     neurons[this.state.neuronID].macros = newMacros;
     store.set("neurons", neurons);
     try {
@@ -481,7 +464,6 @@ class MacroEditor extends React.Component {
         .concat([0]);
     });
     const mapped = [].concat.apply([], actionMap.flat()).concat([0]).join(" ");
-    console.log(mapped);
     return mapped;
   }
 
@@ -521,24 +503,26 @@ class MacroEditor extends React.Component {
     return;
   }
 
-  addMacro() {
-    if (this.state.macros.length < this.props.maxMacros) {
+  addMacro = name => {
+    if (this.state.macros.length < this.state.maxMacros) {
       let aux = this.state.macros;
       const newID = aux.length;
       aux.push({
         actions: [],
-        name: "Empty Macro",
+        name: name,
         id: newID,
         macro: ""
       });
-      this.props.updateMacro(aux, -1);
+      console.log("Adding Macro", aux);
+      this.updateMacros(aux, -1);
       this.changeSelected(newID);
     }
-  }
+  };
 
-  deleteMacro(selected) {
+  deleteMacro = () => {
     if (this.state.macros.length > 0) {
-      let aux = this.state.macros;
+      let aux = JSON.parse(JSON.stringify(this.state.macros));
+      let selected = this.state.selectedMacro;
       aux.splice(selected, 1);
       aux = aux.map((item, index) => {
         let aux = item;
@@ -546,22 +530,37 @@ class MacroEditor extends React.Component {
         return aux;
       });
       if (selected >= this.state.macros.length - 1) {
-        this.changeSelected(this.state.macros.length - 1);
+        this.changeSelected(this.state.macros.length - 2);
       }
-      this.props.updateMacro(aux, selected);
+      this.updateMacros(aux, selected);
     }
-  }
+  };
 
-  saveName(name) {
-    console.log("MACROS: ", this.state.macros);
-    // let macrosList = this.state.macros;
-    // macrosList[this.state.selectedMacro].name = name;
-    // this.setState({ macrosList, modified: true });
-  }
+  saveName = data => {
+    // console.log("Saving name: ", data, this.state.macros);
+    let macros = JSON.parse(JSON.stringify(this.state.macros));
+    macros[this.state.selectedMacro].name = data;
+    this.setState({ macros, modified: true });
+  };
+
+  // Define updateActions function to update the actions of the selected macro
+  updateActions = actions => {
+    let macrosList = this.state.macros;
+    // console.log("MacroEditor Updating Actions", actions, macrosList, this.state.selectedMacro);
+    macrosList[this.state.selectedMacro].actions = actions;
+    this.setState({ macros: macrosList, modified: true });
+  };
+
+  addToActions = actions => {
+    // console.log("MacroEditor Adding Action", actions);
+    let macrosList = JSON.parse(JSON.stringify(this.state.macros));
+    macrosList[this.state.selectedMacro].actions = actions;
+    this.setState({ macros: macrosList, modified: true });
+  };
 
   render() {
-    // const mem = this.state.macros.map(m => m.actions).flat().length;
-    const ListOfMacros = this.state.listToDelete.map(({ layer, pos, key }, id) => {
+    const { macros, maxMacros, modified, selectedList, selectedMacro, listToDelete, freeMemory, showDeleteModal } = this.state;
+    const ListOfMacros = listToDelete.map(({ layer, pos, key }, id) => {
       return (
         <Row key={id}>
           <Col xs={12} className="px-0 text-center gridded">
@@ -571,34 +570,27 @@ class MacroEditor extends React.Component {
       );
     });
     const ListCombo = (
-      <Col xs={12} className="px-0 text-center gridded">
-        <DropdownButton
-          id="Selectlayers"
-          className="selectButton"
-          drop={"up"}
-          title={
-            this.state.macros.length > 0 && this.state.selectedList > -1
-              ? this.state.macros[this.state.selectedList].name
-              : "No Key"
-          }
-          value={this.state.selectedList}
-          onSelect={this.UpdateList}
-        >
-          <Dropdown.Item eventKey={-1} key={`macro-${-1}`} disabled={false}>
-            <div className="item-layer">
-              <p>{"No Key"}</p>
-            </div>
+      <DropdownButton
+        id="Selectlayers"
+        className="selectButton"
+        // drop={"up"}
+        title={macros.length > 0 && selectedList > -1 ? macros[selectedList].name : "No Key"}
+        value={selectedList}
+        onSelect={this.UpdateList}
+      >
+        <Dropdown.Item eventKey={-1} key={`macro-${-1}`} disabled={false}>
+          {"No Key"}
+        </Dropdown.Item>
+        {macros.map((macro, id) => (
+          <Dropdown.Item eventKey={macro.id} key={`macro-${id}`} disabled={macro.id == -1}>
+            {macro.name}
           </Dropdown.Item>
-          {this.state.macros.map((macro, id) => (
-            <Dropdown.Item eventKey={macro.id} key={`macro-${id}`} disabled={macro.id == -1}>
-              <div className="item-layer">
-                <p>{macro.name}</p>
-              </div>
-            </Dropdown.Item>
-          ))}
-        </DropdownButton>
-      </Col>
+        ))}
+      </DropdownButton>
     );
+    if (macros[selectedMacro] === undefined || macros[selectedMacro].actions?.length === 0) {
+      return <div />;
+    }
     return (
       <Styles className="macroEditor">
         <Container fluid>
@@ -606,72 +598,64 @@ class MacroEditor extends React.Component {
             text={i18n.app.menu.macros}
             contentSelector={
               <MacroSelector
-                itemList={this.state.macros}
-                selectedItem={this.state.selectedMacro}
+                itemList={macros}
+                selectedItem={selectedMacro}
                 subtitle="Macros"
                 onSelect={this.changeSelected}
                 addItem={this.addMacro}
                 deleteItem={this.deleteMacro}
                 updateItem={this.saveName}
-                maxMacros={this.state.maxMacros}
-                mem={this.state.freeMemory}
+                cloneItem={this.duplicateMacro}
+                maxMacros={maxMacros}
+                mem={freeMemory}
               />
             }
             showSaving={true}
             saveContext={this.writeMacros}
             destroyContext={this.loadMacros}
-            inContext={this.state.modified}
+            inContext={modified}
           />
           <Callout content={i18n.editor.macros.callout} className="mt-lg" size="sm" />
           <MacroCreator
-            macros={this.state.macros}
-            maxMacros={this.state.maxMacros}
-            selected={this.state.selectedMacro}
-            updateMacro={this.updateMacros}
+            macro={JSON.parse(JSON.stringify(macros[selectedMacro]))}
+            macros={macros}
+            selected={selectedMacro}
+            addToActions={this.addToActions}
             changeSelected={this.changeSelected}
             keymapDB={this.keymapDB}
           />
-          <TimelineEditorManager
-            macros={this.state.macros}
-            maxMacros={this.state.maxMacros}
-            selected={this.state.selectedMacro}
-            updateMacro={this.updateMacros}
-            changeSelected={this.changeSelected}
-            keymapDB={this.keymapDB}
-            key={JSON.stringify(this.state.macros)}
-          />
-          <div className="macrocontainer">
-            <MacroManager
-              macros={this.state.macros}
-              maxMacros={this.state.maxMacros}
-              selected={this.state.selectedMacro}
-              updateMacro={this.updateMacros}
-              changeSelected={this.changeSelected}
-              keymapDB={this.keymapDB}
-              key={JSON.stringify(this.state.macros)}
-            />
-          </div>
+          <TimelineEditorManager macro={macros[selectedMacro]} keymapDB={this.keymapDB} updateActions={this.updateActions} />
         </Container>
 
-        <Modal show={this.state.showDeleteModal} onHide={this.toggleDeleteModal} style={{ marginTop: "100px" }}>
-          <ModalStyle>
-            <Modal.Header closeButton className="modalcol">
-              <Modal.Title>{i18n.editor.macros.deleteModal.title}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body className="modalcol">
-              <p>{i18n.editor.macros.deleteModal.body}</p>
-              {ListOfMacros}
-              {ListCombo}
-            </Modal.Body>
-            <Modal.Footer className="modalcol">
-              <Button variant="secondary" onClick={this.toggleDeleteModal}>
-                {i18n.editor.macros.deleteModal.cancelButton}
-              </Button>
-              <Button variant="primary" onClick={this.ActUponDelete}>
-                {i18n.editor.macros.deleteModal.applyButton}
-              </Button>
-            </Modal.Footer>
-          </ModalStyle>
+        <Modal
+          show={showDeleteModal}
+          onHide={this.toggleDeleteModal}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>{i18n.editor.macros.deleteModal.title}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>{i18n.editor.macros.deleteModal.body}</p>
+            {ListOfMacros}
+            {ListCombo}
+          </Modal.Body>
+          <Modal.Footer>
+            <RegularButton
+              buttonText={i18n.editor.macros.deleteModal.cancelButton}
+              style="outline"
+              size="sm"
+              onClick={this.toggleDeleteModal}
+            />
+            <RegularButton
+              buttonText={i18n.editor.macros.deleteModal.applyButton}
+              style="outline gradient"
+              size="sm"
+              onClick={this.ActUponDelete}
+            />
+          </Modal.Footer>
         </Modal>
       </Styles>
     );

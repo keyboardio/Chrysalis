@@ -21,9 +21,6 @@ const Styles = Styled.div`
   border: 1px solid lightgrey;
   background-color: ${({ theme }) => theme.card.background};
 }
-.list::-webkit-scrollbar {
-  display: none;
-}
 .list-group-item.selected {
   background-color: ${({ theme }) => theme.colors.button.background};
   color: ${({ theme }) => theme.colors.text};

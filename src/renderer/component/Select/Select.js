@@ -112,7 +112,12 @@ const Select = ({ onSelect, value, listElements, disabled }) => {
         </Dropdown.Toggle>
         <Dropdown.Menu>
           {listElements.map((item, index) => (
-            <Dropdown.Item eventKey={item.value} key={index} className={`${value == item.text ? "active" : ""}`}>
+            <Dropdown.Item
+              eventKey={item.value}
+              key={index}
+              className={`${value == item.text ? "active" : ""}`}
+              disabled={item.disabled}
+            >
               <div className="dropdownInner">
                 {value != undefined && value != "" > 0 && listElements.length > 0 && listElements[0].icon != undefined ? (
                   <div className="dropdownIcon">

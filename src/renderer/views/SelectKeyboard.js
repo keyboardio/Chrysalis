@@ -452,8 +452,6 @@ class SelectKeyboard extends Component {
     let focus = new Focus();
     const selectedDevice = devices && devices[this.state.selectedPortIndex];
 
-    //TODO consider implementing fix from chrsalis
-    // https://github.com/keyboardio/Chrysalis/pull/570
     if (selectedDevice && !selectedDevice.accessible) {
       permissionWarning = <span className="selector-error">{i18n.keyboardSelect.permissionError}</span>;
     }

@@ -110,7 +110,6 @@ class MacroManager extends Component {
     this.close = this.close.bind(this);
     this.accept = this.accept.bind(this);
     this.deleteMacro = this.deleteMacro.bind(this);
-    this.duplicateMacro = this.duplicateMacro.bind(this);
     this.addMacro = this.addMacro.bind(this);
     this.changeSelected = this.changeSelected.bind(this);
     this.exit = this.exit.bind(this);
@@ -173,16 +172,6 @@ class MacroManager extends Component {
     }
   }
 
-  duplicateMacro(selected) {
-    let macros = this.state.macros;
-    let aux = Object.assign({}, this.state.macros[selected]);
-    aux.id = this.state.macros.length;
-    aux.name = "Copy of " + aux.name;
-    macros.push(aux);
-    this.props.updateMacro(macros, -1);
-    this.changeSelected(aux.id);
-  }
-
   changeSelected(selected) {
     this.setState({
       selected
@@ -199,7 +188,19 @@ class MacroManager extends Component {
   }
 
   updateFreeMemory = macros => {
-    let mem = macros.map(m => m.actions).flat().length;
+    const actionMap = macros.map(macro => {
+      return macro.actions
+        .map(action => {
+          if (action.type > 1 && action.type < 6) {
+            return [[action.type], [action.keyCode >> 8], [action.keyCode & 255]];
+          } else {
+            return [[action.type], [action.keyCode]];
+          }
+        })
+        .concat([0]);
+    });
+    let mem = [].concat.apply([], actionMap.flat()).concat([0]).length;
+    console.log(mem);
     this.setState({ freeMemory: mem });
     if (mem > 1999) {
       alert(
@@ -242,7 +243,6 @@ class MacroManager extends Component {
               addMacro={this.addMacro}
               disableAdd={this.state.macros.length === this.props.maxMacros}
               changeSelected={this.changeSelected}
-              duplicateMacro={this.duplicateMacro}
               macrosRestore={this.macrosRestore}
             />
           </Card.Body>

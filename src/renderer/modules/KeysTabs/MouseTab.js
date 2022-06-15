@@ -106,6 +106,11 @@ class MouseTab extends Component {
     super(props);
   }
 
+  // function to handle button click event and to send data to props.onAddSpecial
+  handleClick = mouse => {
+    this.props.onAddSpecial(mouse, 5);
+  };
+
   render() {
     return (
       <Styles>
@@ -115,11 +120,11 @@ class MouseTab extends Component {
               <Title text={i18n.mouse.mouseClickTitle} headingLevel={4} />
               <p className="description">{i18n.mouse.mouseClickDescription}</p>
               <div className="keysButtonsList">
-                <ButtonConfig buttonText={i18n.mouse.clickLeft} tooltipDelay={100} />
-                <ButtonConfig buttonText={i18n.mouse.clickMiddle} tooltipDelay={100} />
-                <ButtonConfig buttonText={i18n.mouse.clickRight} tooltipDelay={100} />
-                <ButtonConfig buttonText={i18n.mouse.clickBack} tooltipDelay={100} />
-                <ButtonConfig buttonText={i18n.mouse.clickForward} tooltipDelay={100} />
+                <ButtonConfig buttonText={i18n.mouse.clickLeft} tooltipDelay={100} onClick={() => this.handleClick(20545)} />
+                <ButtonConfig buttonText={i18n.mouse.clickMiddle} tooltipDelay={100} onClick={() => this.handleClick(20548)} />
+                <ButtonConfig buttonText={i18n.mouse.clickRight} tooltipDelay={100} onClick={() => this.handleClick(20546)} />
+                <ButtonConfig buttonText={i18n.mouse.clickBack} tooltipDelay={100} onClick={() => this.handleClick(20552)} />
+                <ButtonConfig buttonText={i18n.mouse.clickForward} tooltipDelay={100} onClick={() => this.handleClick(20560)} />
               </div>
             </div>
             <div className="movementButtons">
@@ -127,10 +132,10 @@ class MouseTab extends Component {
               <p className="description">{i18n.mouse.movementDescription}</p>
               <div className="keysButtonsList">
                 <div className="mouseButtons mouseButtonsMovement">
-                  <ButtonMouse eventType="movement" direction="up" />
-                  <ButtonMouse eventType="movement" direction="right" />
-                  <ButtonMouse eventType="movement" direction="down" />
-                  <ButtonMouse eventType="movement" direction="left" />
+                  <ButtonMouse eventType="movement" direction="up" onClick={() => this.handleClick(20481)} />
+                  <ButtonMouse eventType="movement" direction="right" onClick={() => this.handleClick(20488)} />
+                  <ButtonMouse eventType="movement" direction="down" onClick={() => this.handleClick(20482)} />
+                  <ButtonMouse eventType="movement" direction="left" onClick={() => this.handleClick(20484)} />
                 </div>
               </div>
             </div>
@@ -139,23 +144,14 @@ class MouseTab extends Component {
               <p className="description">{i18n.mouse.wheelDescription}</p>
               <div className="keysButtonsList">
                 <div className="mouseButtons mouseButtonsWheel">
-                  <ButtonMouse eventType="wheel" direction="up" />
-                  <ButtonMouse eventType="wheel" direction="right" />
-                  <ButtonMouse eventType="wheel" direction="down" />
-                  <ButtonMouse eventType="wheel" direction="left" />
+                  <ButtonMouse eventType="wheel" direction="up" onClick={() => this.handleClick(20497)} />
+                  <ButtonMouse eventType="wheel" direction="right" onClick={() => this.handleClick(20504)} />
+                  <ButtonMouse eventType="wheel" direction="down" onClick={() => this.handleClick(20498)} />
+                  <ButtonMouse eventType="wheel" direction="left" onClick={() => this.handleClick(20500)} />
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="tabSaveButton">
-          <RegularButton
-            buttonText={i18n.editor.macros.textTabs.buttonText}
-            style="outline gradient"
-            onClick={this.props.onAddText}
-            icoSVG={<IconArrowInBoxDown />}
-            icoPosition="right"
-          />
         </div>
       </Styles>
     );

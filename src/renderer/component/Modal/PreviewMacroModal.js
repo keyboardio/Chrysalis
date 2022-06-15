@@ -14,6 +14,8 @@ export default function PreviewMacroModal({ children }) {
     setShow(!show);
   };
 
+  console.log("Testing waters", children);
+
   return ReactDom.createPortal(
     <>
       <RegularButton

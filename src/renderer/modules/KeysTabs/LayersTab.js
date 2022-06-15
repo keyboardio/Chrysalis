@@ -27,6 +27,7 @@ class LayersTab extends Component {
   }
 
   render() {
+    const layerDelta = 17492;
     return (
       <Styles>
         <div className="tabContentWrapper">
@@ -35,27 +36,68 @@ class LayersTab extends Component {
             <Title text={i18n.editor.layers.layerLock} headingLevel={4} />
             <p>{i18n.editor.layers.layerLockDescription}</p>
             <div className="groupButtons">
-              <ButtonConfig buttonText="1" />
-              <ButtonConfig buttonText="2" />
-              <ButtonConfig buttonText="3" />
-              <ButtonConfig buttonText="4" />
-              <ButtonConfig buttonText="5" />
-              <ButtonConfig buttonText="6" />
-              <ButtonConfig buttonText="7" />
-              <ButtonConfig buttonText="8" />
-              <ButtonConfig buttonText="9" />
-              <ButtonConfig buttonText="10" />
+              <ButtonConfig
+                buttonText="1"
+                onClick={() => {
+                  this.props.onLayerPress(layerDelta + 0);
+                }}
+              />
+              <ButtonConfig
+                buttonText="2"
+                onClick={() => {
+                  this.props.onLayerPress(layerDelta + 1);
+                }}
+              />
+              <ButtonConfig
+                buttonText="3"
+                onClick={() => {
+                  this.props.onLayerPress(layerDelta + 2);
+                }}
+              />
+              <ButtonConfig
+                buttonText="4"
+                onClick={() => {
+                  this.props.onLayerPress(layerDelta + 3);
+                }}
+              />
+              <ButtonConfig
+                buttonText="5"
+                onClick={() => {
+                  this.props.onLayerPress(layerDelta + 4);
+                }}
+              />
+              <ButtonConfig
+                buttonText="6"
+                onClick={() => {
+                  this.props.onLayerPress(layerDelta + 5);
+                }}
+              />
+              <ButtonConfig
+                buttonText="7"
+                onClick={() => {
+                  this.props.onLayerPress(layerDelta + 6);
+                }}
+              />
+              <ButtonConfig
+                buttonText="8"
+                onClick={() => {
+                  this.props.onLayerPress(layerDelta + 7);
+                }}
+              />
+              <ButtonConfig
+                buttonText="9"
+                onClick={() => {
+                  this.props.onLayerPress(layerDelta + 8);
+                }}
+              />
+              <ButtonConfig
+                buttonText="10"
+                onClick={() => {
+                  this.props.onLayerPress(layerDelta + 9);
+                }}
+              />
             </div>
           </div>
-        </div>
-        <div className="tabSaveButton">
-          <RegularButton
-            buttonText={i18n.editor.macros.textTabs.buttonText}
-            style="outline gradient"
-            onClick={this.props.onAddText}
-            icoSVG={<IconArrowInBoxDown />}
-            icoPosition="right"
-          />
         </div>
       </Styles>
     );

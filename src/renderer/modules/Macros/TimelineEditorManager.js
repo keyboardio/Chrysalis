@@ -122,133 +122,20 @@ class MacroManager extends Component {
 
     this.trackingWidth = React.createRef();
 
-    let selected;
-
-    if (props.macros.length <= props.selected) {
-      selected = props.macros.length - 1;
-    } else {
-      selected = props.selected;
-    }
-
     this.state = {
-      macros: props.macros,
-      selected: selected,
-      freeMemory: 0,
       open: false,
       componentWidth: 0
     };
-
-    this.close = this.close.bind(this);
-    this.accept = this.accept.bind(this);
-    this.deleteMacro = this.deleteMacro.bind(this);
-    this.duplicateMacro = this.duplicateMacro.bind(this);
-    this.addMacro = this.addMacro.bind(this);
-    this.changeSelected = this.changeSelected.bind(this);
-    this.exit = this.exit.bind(this);
-    this.macrosRestore = this.macrosRestore.bind(this);
-
-    this.updateWidth = this.updateWidth.bind(this);
   }
 
-  close() {
-    let macros = this.state.macros;
-    macros[this.state.selected] = this.props.macros[this.state.selected];
-    this.setState({
-      macros
-    });
-    this.exit();
-  }
-
-  exit() {
-    this.setState({
-      open: false
-    });
-  }
-
-  accept(macros) {
-    this.setState({
-      macros: macros
-    });
-    this.props.updateMacro(macros, -1);
-    this.props.changeSelected(this.state.selected);
-    this.exit();
-    this.updateFreeMemory(macros);
-  }
-
-  addMacro() {
-    if (this.state.macros.length < this.props.maxMacros) {
-      let aux = this.state.macros;
-      const newID = aux.length;
-      aux.push({
-        actions: [],
-        name: "Empty Macro",
-        id: newID,
-        macro: ""
-      });
-      this.props.updateMacro(aux, -1);
-      this.changeSelected(newID);
-    }
-  }
-
-  deleteMacro(selected) {
-    if (this.state.macros.length > 0) {
-      let aux = this.state.macros;
-      aux.splice(selected, 1);
-      aux = aux.map((item, index) => {
-        let aux = item;
-        aux.id = index;
-        return aux;
-      });
-      if (selected >= this.state.macros.length - 1) {
-        this.changeSelected(this.state.macros.length - 1);
-      }
-      this.props.updateMacro(aux, selected);
-    }
-  }
-
-  duplicateMacro(selected) {
-    let macros = this.state.macros;
-    let aux = Object.assign({}, this.state.macros[selected]);
-    aux.id = this.state.macros.length;
-    aux.name = "Copy of " + aux.name;
-    macros.push(aux);
-    this.props.updateMacro(macros, -1);
-    this.changeSelected(aux.id);
-  }
-
-  changeSelected(selected) {
-    this.setState({
-      selected
-    });
-    this.props.changeSelected(selected);
-  }
-
-  macrosRestore(macros) {
-    this.setState({
-      macros: macros
-    });
-    this.changeSelected(0);
-    this.props.updateMacro(macros, -1);
-  }
-
-  updateFreeMemory = macros => {
-    let mem = macros.map(m => m.actions).flat().length;
-    this.setState({ freeMemory: mem });
-    if (mem > 1999) {
-      alert(
-        "You exceeded the maximum capacity of actions in your macros. Please decrease the number of actions until the top right bar is no longer red"
-      );
-    }
-  };
-
-  updateWidth() {
+  updateWidth = () => {
     this.setState({
       componentWidth: 50
     });
     this.setState({
       componentWidth: this.trackingWidth.current.clientWidth
     });
-  }
+  };
 
   componentDidMount() {
     // Additionally I could have just used an arrow function for the binding `this` to the component...
@@ -261,32 +148,40 @@ class MacroManager extends Component {
   }
 
   render() {
-    const { keymapDB } = this.props;
+    const { keymapDB, macro, updateActions } = this.props;
 
     return (
       <Styles>
         <div className="timelineHeader" ref={this.trackingWidth}>
           <Title text={i18n.editor.macros.timelineTitle} headingLevel={4} />
           <div id="portalPreviewMacroModal"></div>
+          {/* <PreviewMacroModal>
+            {this.state.rows.length == 0 ? (
+              <></>
+            ) : (
+              this.state.rows.map((item, index) => (
+                <span
+                  key={`literal-${index}`}
+                  className={`previewKey action-${item.action} keyCode-${item.keyCode} ${
+                    item.keyCode > 223 && item.keyCode < 232 && item.action != 2 ? "isModifier" : ""
+                  }`}
+                >
+                  {item.action == 2 ? <IconStopWatchXs /> : ""}
+                  {item.symbol == "SPACE" ? " " : item.symbol}
+                </span>
+              ))
+            )}
+          </PreviewMacroModal> */}
         </div>
-        {this.state.macros.length == 0 || !Array.isArray(this.state.macros) ? (
+        {macro?.actions?.lenght > 0 ? (
           <div className="loading marginCenter">
             <Spinner className="spinner-border" role="status" />
           </div>
         ) : (
           <TimelineEditorForm
-            key={this.state.macros.length + this.state.selected}
-            macros={this.state.macros}
-            close={this.close}
-            selected={this.state.selected}
-            accept={this.accept}
+            macro={macro}
+            updateActions={updateActions}
             keymapDB={keymapDB}
-            deleteMacro={this.deleteMacro}
-            addMacro={this.addMacro}
-            disableAdd={this.state.macros.length === this.props.maxMacros}
-            changeSelected={this.changeSelected}
-            duplicateMacro={this.duplicateMacro}
-            macrosRestore={this.macrosRestore}
             componentWidth={this.state.componentWidth}
           />
         )}

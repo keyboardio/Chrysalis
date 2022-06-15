@@ -56,7 +56,7 @@ const GlobalStyles = createGlobalStyle`
     display: grid;
     grid-template-columns: 90px auto;
   }
-  div.main-container{
+  div.main-container {
     padding-left: calc(90px + 8px);
     padding-left: 8px;
     padding-right: 8px;
@@ -705,6 +705,12 @@ svg text{
       white-space: nowrap;
     }
   }
+}
+
+.selectButton .dropdown-menu {
+  display: block;
+  max-height: 28vh;
+  overflow-y: auto;
 }
 
 .cardButtons {
@@ -1629,6 +1635,20 @@ div.card.card-preferences .card-body {
   .Toastify__toast-container--top-right {
     top: 126px;
     right: 46px;
+  }
+}
+
+@media screen and (max-height: 719px) {
+  #app {
+    grid-template-columns: 90px auto;
+  }
+  div.main-container {
+    padding-left: calc(90px + 8px);
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .bs-tooltip-right.tooltipMenu {
+    display: inline-block!important;
   }
 }
 

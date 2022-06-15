@@ -89,7 +89,11 @@ export default class StandardView extends React.Component {
   componentDidUpdate(prevProps) {
     console.log("StandardView componentDidUpdate", prevProps.keyIndex, this.props.keyIndex);
     if (prevProps.keyIndex !== this.props.keyIndex) {
-      this.setState({ code: this.props.layerData[this.props.keyIndex].keyCode });
+      if (this.props.keyIndex !== -1) {
+        this.setState({ code: this.props.layerData[this.props.keyIndex].keyCode });
+      } else {
+        this.setState({ code: 0 });
+      }
     }
   }
 

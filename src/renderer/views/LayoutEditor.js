@@ -791,7 +791,7 @@ class LayoutEditor extends React.Component {
       console.log("Show Standard View IF: ", showStandardView);
     }
 
-    if (keyIndex == currentKeyIndex) {
+    if (keyIndex == currentKeyIndex && !isStandardView) {
       if (event.ctrlKey || (event.shiftKey && !isColorButtonSelected)) {
         this.onCtrlShiftPress(layer, ledIndex);
         return;
@@ -1715,7 +1715,14 @@ class LayoutEditor extends React.Component {
   };
 
   handleSaveStandardView = () => {
-    this.setState({ showStandardView: false });
+    this.setState({
+      showStandardView: false,
+      currentKeyIndex: -1,
+      currentLedIndex: -1,
+      selectedPaletteColor: null,
+      isMultiSelected: false,
+      isColorButtonSelected: false
+    });
   };
 
   render() {

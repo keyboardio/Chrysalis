@@ -39,6 +39,20 @@ const MiscellaneousTable = {
       labels: {
         primary: "PAUSE"
       }
+    },
+    {
+      code: 20865,
+      labels: {
+        primary: "SHUT DWN",
+        verbose: "Shut Down"
+      }
+    },
+    {
+      code: 20866,
+      labels: {
+        primary: "SLEEP",
+        verbose: "Sleep"
+      }
     }
     /* These are disabled for now, since we don't want to display them in
      * Bazecor. */

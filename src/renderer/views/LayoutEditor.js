@@ -1709,7 +1709,12 @@ class LayoutEditor extends React.Component {
     }
   };
 
-  closeStandardViewModal = () => {
+  closeStandardViewModal = code => {
+    this.onKeyChange(code);
+    this.setState({ showStandardView: false });
+  };
+
+  handleSaveStandardView = () => {
     this.setState({ showStandardView: false });
   };
 
@@ -2025,14 +2030,15 @@ class LayoutEditor extends React.Component {
           <StandardView
             showStandardView={this.state.showStandardView}
             closeStandardView={this.closeStandardViewModal}
+            handleSave={this.handleSaveStandardView}
             onKeySelect={this.onKeyChange}
-            code={code}
             macros={macros}
             superkeys={superkeys}
             actions={actions}
             action={0}
             superName={superName}
             keyIndex={currentKeyIndex}
+            layerData={layerData}
             actTab={"editor"}
             selectedlanguage={currentLanguageLayout}
             kbtype={kbtype}

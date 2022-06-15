@@ -80,9 +80,17 @@ export default class StandardView extends React.Component {
     super(props);
     this.inputText = React.createRef();
     this.state = {
-      name: props.name
+      name: props.name,
+      code: 0
     };
     this.keymapDB = new KeymapDB();
+  }
+
+  componentDidUpdate(prevProps) {
+    console.log("StandardView componentDidUpdate", prevProps.keyIndex, this.props.keyIndex);
+    if (prevProps.keyIndex !== this.props.keyIndex) {
+      this.setState({ code: this.props.layerData[this.props.keyIndex].keyCode });
+    }
   }
 
   parseKey(keycode) {
@@ -103,9 +111,17 @@ export default class StandardView extends React.Component {
       : "";
   }
 
+  onAddSpecial = (keycode, action) => {
+    this.props.onKeySelect(keycode);
+  };
+
   render() {
-    const { showStandardView, closeStandardView, code, macros, handleSave, modalTitle, labelInput, id, onKeySelect } = this.props;
-    const selKey = this.parseKey(code.base + code.modified);
+    console.log("StandardView render");
+    const { showStandardView, closeStandardView, layerData, macros, handleSave, keyIndex, labelInput, id, onKeySelect } =
+      this.props;
+    const keyCode = keyIndex !== -1 ? layerData[keyIndex].keyCode : 0;
+    const selKey = this.parseKey(keyCode);
+    const oldKey = this.parseKey(this.state.code);
     if (!showStandardView) return null;
     return (
       <Styles>
@@ -113,7 +129,7 @@ export default class StandardView extends React.Component {
           <Tab.Container id="standardViewCointainer" defaultActiveKey="tabKeys">
             <div className="standardViewInner">
               <div className="colVisualizerTabs">
-                <KeyVisualizer keyCode={code} oldValue={selKey} newValue={selKey} />
+                <KeyVisualizer keyCode={keyCode} oldValue={oldKey} newValue={selKey} />
                 <Nav className="flex-column">
                   <CustomTab eventKey="tabKeys" text="Keys" icon={<IconKeyboard />} />
                   <CustomTab eventKey="tabNoKeys" text={i18n.editor.standardView.noKeyTransparent} icon={<IconNoKey />} />
@@ -127,30 +143,30 @@ export default class StandardView extends React.Component {
                 <div className="contentBody">
                   <Tab.Content>
                     <Tab.Pane eventKey="tabKeys">
-                      <KeysTab macros={macros} />
+                      <KeysTab onKeyPress={onKeySelect} />
                     </Tab.Pane>
                     <Tab.Pane eventKey="tabNoKeys">
-                      <NoKeyTransparentTab keyCode={code} onKeySelect={onKeySelect} />
+                      <NoKeyTransparentTab keyCode={keyCode} onKeySelect={onKeySelect} />
                     </Tab.Pane>
 
                     <Tab.Pane eventKey="tabLayers">
-                      <LayersTab />
+                      <LayersTab onLayerPress={onKeySelect} />
                     </Tab.Pane>
                     <Tab.Pane eventKey="tabMacro">
-                      <MacroTab macros={macros} selectedMacro={this.state.selected} />
+                      <MacroTab macros={macros} selectedMacro={this.state.selected} onMacrosPress={onKeySelect} />
                     </Tab.Pane>
                     <Tab.Pane eventKey="tabMedia">
-                      <MediaAndLightTab />
+                      <MediaAndLightTab onAddSpecial={this.onAddSpecial} />
                     </Tab.Pane>
                     <Tab.Pane eventKey="tabMouse">
-                      <MouseTab />
+                      <MouseTab onAddSpecial={this.onAddSpecial} />
                     </Tab.Pane>
                   </Tab.Content>
                 </div>
                 <div className="contentFooter">
                   <div className="d-flex justify-content-end">
                     <RegularButton
-                      onClick={closeStandardView}
+                      onClick={() => closeStandardView(this.state.code)}
                       style={"outline"}
                       size="sm"
                       buttonText={i18n.app.cancelPending.button}

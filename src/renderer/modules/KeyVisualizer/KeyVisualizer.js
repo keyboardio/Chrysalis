@@ -139,7 +139,7 @@ class KeyVisualizer extends React.Component {
               <Title text="Selected value" headingLevel={4} />
               <div className="keySelectedBox">
                 <div className="keySelectedValue">{oldValue}</div>
-                <ListModifiers keyCode={keyCode.base + keyCode.modified} size="sm" />
+                <ListModifiers keyCode={keyCode} size="sm" />
               </div>
             </div>
           ) : (
@@ -150,7 +150,7 @@ class KeyVisualizer extends React.Component {
               <Title text="New value" headingLevel={4} />
               <div className="keySelectedBox">
                 <div className="keySelectedValue">{newValue}</div>
-                <ListModifiers keyCode={keyCode.base + keyCode.modified} />
+                <ListModifiers keyCode={keyCode} />
               </div>
             </div>
           ) : (

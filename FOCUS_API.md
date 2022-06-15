@@ -20,7 +20,7 @@ You can expand on this knowledge in the docs about the [kaleidoscope Firmware](h
 
 ## ⚠ Memory usage disclaimer ⚠
 
-When sending focus commands to the keyboard, keep in mind that every time you put data after the command, that stores the information in the kyeboard, this means that the flash memory is using up it's lifespan, so avoid loops that save data to the keyboard frequently, so that the chip will last you as long as possible.
+When sending focus commands to the keyboard, keep in mind that every time you put data after the command, that stores the information in the keyboard, this means that the flash memory is using up it's lifespan, so avoid loops that save data to the keyboard frequently, so that the chip will last you as long as possible.
 
 ## Available Methods
 

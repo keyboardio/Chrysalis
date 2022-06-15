@@ -22,6 +22,8 @@ import IconArrowsMouseWheel from "./IconArrowsMouseWheel";
 import IconArrowsSmallSeparating from "./IconArrowsSmallSeparating";
 import IconArrowUpWithLine from "./IconArrowUpWithLine";
 import IconArrowDownWithLine from "./IconArrowDownWithLine";
+import IconColorPalette from "./IconColorPalette";
+import IconColorPicker from "./IconColorPicker";
 import IconCheckmarkSm from "./IconCheckmarkSm";
 import IconChip from "./IconChip";
 import IconClone from "./IconClone";
@@ -42,6 +44,8 @@ import IconKeysStopWatch from "./IconKeysStopWatch";
 import IconKeyboard from "./IconKeyboard";
 import IconKeyboardSelector from "./IconKeyboardSelector";
 import IconKeyboard2Stroke from "./IconKeyboard2Stroke";
+import IconKeysLight from "./IconKeysLight";
+import IconKeysUnderglow from "./IconKeysUnderglow";
 import IconLEDNextEffect from "./IconLEDNextEffect";
 import IconLEDPreviousEffect from "./IconLEDPreviousEffect";
 import IconLEDSwitchLeft from "./IconLEDSwitchLeft";
@@ -61,6 +65,8 @@ import IconNoSignal from "./IconNoSignal";
 import IconNote from "./IconNote";
 import IconOneShot from "./IconOneShot";
 import IconPauseXl from "./IconPauseXl";
+import IconPlus from "./IconPlus";
+import IconPlusXs from "./IconPlusXs";
 import IconPreferences2Stroke from "./IconPreferences2Stroke";
 import IconPressSm from "./IconPressSm";
 import IconPressAndReleaseSm from "./IconPressAndReleaseSm";
@@ -92,7 +98,6 @@ import IconToolsEject from "./IconToolsEject";
 import IconToolsBrightnessLess from "./IconToolsBrightnessLess";
 import IconToolsBrightnessMore from "./IconToolsBrightnessMore";
 import IconThreeDots from "./IconThreeDots";
-import IconPlus from "./IconPlus";
 import IconSettings from "./IconSettings";
 import IconUndoRestart from "./IconUndoRestart";
 import IconWrench from "./IconWrench";
@@ -106,6 +111,8 @@ export {
   IconArrowsMouseWheel,
   IconArrowUpWithLine,
   IconArrowDownWithLine,
+  IconColorPalette,
+  IconColorPicker,
   IconCheckmarkSm,
   IconChip,
   IconClone,
@@ -126,6 +133,8 @@ export {
   IconKeyboard,
   IconKeyboardSelector,
   IconKeyboard2Stroke,
+  IconKeysLight,
+  IconKeysUnderglow,
   IconLEDSwitchLeft,
   IconLEDNextEffect,
   IconLEDPreviousEffect,
@@ -145,6 +154,8 @@ export {
   IconNote,
   IconOneShot,
   IconPauseXl,
+  IconPlus,
+  IconPlusXs,
   IconPen,
   IconPreferences2Stroke,
   IconPressSm,
@@ -176,7 +187,6 @@ export {
   IconToolsBrightnessLess,
   IconToolsBrightnessMore,
   IconThreeDots,
-  IconPlus,
   IconSettings,
   IconUndoRestart,
   IconWrench

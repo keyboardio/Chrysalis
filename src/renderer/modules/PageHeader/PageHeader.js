@@ -43,6 +43,10 @@ z-index: 300;
     min-height: 82px;
     background-color: ${({ theme }) => theme.styles.pageHeader.backgroundColor};
     // backdrop-filter: blur(6px);
+    &.extraPanelActive {
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
     h1, h2, h3, h4, h5, h6 {
         margin: 0;
     }
@@ -75,12 +79,34 @@ z-index: 300;
       }
     }
 }
+.extraPanel {
+  border-bottom-right-radius: 16px;
+  border-bottom-left-radius: 16px;
+  padding: 14px 32px;
+  margin-top: 2px;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  min-height: 56px;
+  background-color: ${({ theme }) => theme.styles.pageHeader.backgroundColor};
+}
 `;
 
-const PageHeader = ({ size, text, style, contentSelector, showSaving, saveContext, destroyContext, inContext }) => {
+const PageHeader = ({
+  size,
+  text,
+  style,
+  contentSelector,
+  colorEditor,
+  isColorActive,
+  showSaving,
+  saveContext,
+  destroyContext,
+  inContext
+}) => {
   return (
     <Style className={`${style === "pageHeaderFlatBottom" ? "pageHeaderSticky" : ""}`}>
-      <div className={`pageHeader ${size && size} ${style && style}`}>
+      <div className={`pageHeader ${size && size} ${style && style} ${isColorActive ? "extraPanelActive" : ""}`}>
         <div className="pageTitle">
           <Title text={text} headingLevel={2} />
         </div>
@@ -90,6 +116,7 @@ const PageHeader = ({ size, text, style, contentSelector, showSaving, saveContex
           {showSaving ? <Saving saveContext={saveContext} destroyContext={destroyContext} inContext={inContext} /> : ""}
         </div>
       </div>
+      {isColorActive ? colorEditor : ""}
     </Style>
   );
 };

@@ -135,12 +135,14 @@ class LayerSelector extends React.Component {
     const { show, showAdd } = this.state;
     const layoutsMode = [
       {
-        name: "Keys",
+        name: i18n.editor.keys,
+        tooltip: i18n.editor.keysEditor,
         value: "keyboard",
         icon: <IconKeyboard />
       },
       {
-        name: "Color",
+        name: i18n.editor.color.color,
+        tooltip: i18n.editor.color.colorEditor,
         value: "color",
         icon: <IconFlashlight />
       }

@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install USB compilation dependencies
         uses: lyricwulf/abc@v1
@@ -30,7 +30,7 @@ jobs:
           linux: build-essential libusb-1.0-0 libudev-dev
 
       - name: Install Node.js, NPM and Yarn
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         env:
           GYP_DEFINES: ${{ matrix.gyp }}
         with:
@@ -48,7 +48,7 @@ jobs:
           # release the app after building
           release: ${{ startsWith(github.ref, 'refs/tags/v') }}
       - name: Save Artifact
-        uses: "actions/upload-artifact@v2"
+        uses: "actions/upload-artifact@v3"
         with:
           name: Bazecor ${{ matrix.node-version }}
           path: |

@@ -194,7 +194,7 @@ class TimelineEditorMacroTable extends Component {
   }
 
   componentDidMount() {
-    if (this.props.macro?.actions?.length > 0) {
+    if (this.props.macro !== null && this.props.macro.actions !== null && this.props.macro.actions.length > 0) {
       let conv = this.createConversion(this.props.macro.actions);
       let texted = conv.map(k => this.keymapDB.parse(k.keyCode).label).join(" ");
       let newRows = conv.map((item, index) => {

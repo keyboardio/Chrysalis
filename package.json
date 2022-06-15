@@ -1,6 +1,6 @@
 {
   "name": "BAZECOR",
-  "version": "1.0.0beta14",
+  "version": "1.0.0beta15",
   "fwVersion": "1.0.8beta",
   "license": "GPL-3.0-only",
   "author": {
@@ -8,6 +8,10 @@
     "email": "contact@dygma.com"
   },
   "homepage": "https://github.com/Dygmalab/Bazecor",
+  "engines":{
+    "node":">=16.0.0",
+    "npm":">=8.11.0"
+  },
   "scripts": {
     "clean": "rm -rf dist && rm -rf node_modules",
     "preinstall": "node tools/preinstall.js",
@@ -88,7 +92,7 @@
     "i18next": "^19.9.2",
     "i18next-electron-language-detector": "^0.0.10",
     "prop-types": "^15.7.2",
-    "react": "^17.0.2",
+    "react": "^17.0.0",
     "react-beautiful-dnd": "^13.1.0",
     "react-bootstrap": "^1.5.2",
     "react-color": "^2.19.3",

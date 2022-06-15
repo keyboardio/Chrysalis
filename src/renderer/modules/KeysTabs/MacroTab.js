@@ -83,7 +83,7 @@ class MacroTab extends Component {
           <Title text={i18n.editor.macros.macroTab.label} headingLevel={4} />
           <div className="w100">
             <Select
-              value={macrosAux.length > 0 ? macrosAux[this.state.selected]?.text : "Loading"}
+              value={macrosAux.length > 0 ? macrosAux[this.state.selected].text : "Loading"}
               listElements={macrosAux}
               onSelect={isStandardView ? this.changeSelectedStd : this.changeSelected}
             />

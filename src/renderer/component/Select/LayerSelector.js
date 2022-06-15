@@ -128,7 +128,8 @@ class LayerSelector extends React.Component {
       copyFunc,
       clearFunc,
       editModeActual,
-      editModeFunc
+      editModeFunc,
+      exportToPdf
     } = this.props;
     const { show, showAdd } = this.state;
     const layoutsMode = [
@@ -226,7 +227,7 @@ class LayerSelector extends React.Component {
                   </div>
                 </Dropdown.Item>
                 <Dropdown.Divider />
-                <Dropdown.Item onClick={clearFunc}>
+                <Dropdown.Item onClick={exportToPdf}>
                   <div className="dropdownInner">
                     <div className="dropdownIcon">
                       <IconFileDownload />

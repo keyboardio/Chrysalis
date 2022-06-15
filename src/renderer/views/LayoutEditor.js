@@ -982,7 +982,7 @@ class LayoutEditor extends React.Component {
       const idx = state.keymap.onlyCustom ? state.currentLayer : state.currentLayer - state.keymap.default.length;
       newKeymap[idx] = Array(newKeymap[0].length)
         .fill()
-        .map(() => ({ keyCode: 0xffff }));
+        .map(() => ({ keyCode: 65535, label: "", extraLabel: "TRANS", verbose: "Transparent" }));
 
       let newColormap = state.colorMap.slice();
       if (newColormap.length > 0) {
@@ -1723,6 +1723,17 @@ class LayoutEditor extends React.Component {
       isMultiSelected: false,
       isColorButtonSelected: false
     });
+  exportToPdf = () => {
+    toast.info(
+      <ToastMessage
+        title={"Feature not yet ready!"}
+        content={"The feature is not yet ready. its being worked on!"}
+        icon={<IconArrowUpWithLine />}
+      />,
+      {
+        autoClose: 2000
+      }
+    );
   };
 
   render() {
@@ -1891,6 +1902,7 @@ class LayoutEditor extends React.Component {
                 copyFunc={this.copyFromDialog}
                 editModeActual={this.state.modeselect}
                 editModeFunc={this.modeSelectToggle}
+                exportToPdf={this.exportToPdf}
               />
             }
             colorEditor={

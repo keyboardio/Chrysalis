@@ -4,9 +4,7 @@ import Styled from "styled-components";
 import i18n from "../../i18n";
 
 import Title from "../../component/Title";
-import { RegularButton, ButtonConfig, ButtonMouse } from "../../component/Button";
-
-import { IconArrowInBoxDown } from "../../component/Icon";
+import { ButtonConfig, ButtonMouse } from "../../component/Button";
 
 const Styles = Styled.div`
 display: flex;
@@ -112,6 +110,7 @@ class MouseTab extends Component {
   };
 
   render() {
+    const { keyCode, isStandardView } = this.props;
     return (
       <Styles>
         <div className="tabContentWrapper">

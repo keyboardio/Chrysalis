@@ -254,6 +254,13 @@ const English = {
         title: "Macro",
         callOut:
           "<p>Oh Yeah!! More superpowers! Here you can add macros to your keys! 🔥</p><p>Not so clear what is macros? Macros are sequences of events (such as keystrokes, mouse clicks, and delays) that can be played back to help with repetitive strings of texts or tasks.</p><p>They can also be used to replay sequences that are long or difficult to run.</p>"
+      },
+      mediaAndLED: {
+        title: "Media & LED",
+        callOut: "Put your hands up! Control de media and RGB lighting behaviour using keys shortcuts."
+      },
+      mouse: {
+        title: "Mouse"
       }
     },
     superkeys: {
@@ -341,7 +348,7 @@ const English = {
         brightnessMore: "Brightness More",
         brightnessLess: "Brightness Less",
         ledToggleText: "On/Off",
-        ledToggleTootip: "Toggle effects",
+        ledToggleTootip: "Toggle lights On/Off",
         ledPreviousEffectTootip: "Previous light effect",
         ledNextEffectTootip: "Next light effect",
         mouseClick: "Mouse <span>Click</span>",

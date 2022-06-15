@@ -588,7 +588,11 @@ class MacroEditor extends React.Component {
         ))}
       </DropdownButton>
     );
-    if (macros[selectedMacro] === undefined || macros[selectedMacro].actions?.length === 0) {
+    if (
+      macros[selectedMacro] === undefined ||
+      macros[selectedMacro].actions === undefined ||
+      macros[selectedMacro].actions.length === 0
+    ) {
       return <div />;
     }
     return (

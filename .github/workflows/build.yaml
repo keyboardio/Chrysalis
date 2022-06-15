@@ -33,8 +33,9 @@ jobs:
         uses: actions/setup-node@v3
         env:
           GYP_DEFINES: ${{ matrix.gyp }}
+          NODE_OPTIONS: --max-old-space-size=1024
         with:
-          node-version: 14
+          node-version: 16
           architecture: ${{ matrix.node }}
 
       - name: Build/release Electron app

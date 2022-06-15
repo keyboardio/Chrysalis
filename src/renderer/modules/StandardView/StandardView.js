@@ -50,7 +50,7 @@ const Styles = Styled.div`
     .contentBody {
         flex-grow: 1;
         margin-bottom: auto;
-        padding: 32px 82px;
+        padding: 48px 82px 32px 82px;
     }
     .contentFooter {
         width: 100%;
@@ -72,6 +72,32 @@ const Styles = Styled.div`
   box-shadow: 32px 32px 64px -12px rgba(11, 2, 25, 0.4), 32px 32px 72px -32px rgba(26, 17, 46, 0.5);
   border-radius: 6px;
   min-height: 262px;
+}
+
+.standardViewTab {
+    width: 100%;
+    h3 {
+        margin-bottom: 16px;
+    }
+    h4 {
+        font-size: 16px;
+        flex: 0 0 100%;
+        width: 100%;
+        margin-top: 24px;
+    }
+    .description {
+        font-size: 14px;
+        color: ${({ theme }) => theme.styles.macro.descriptionColor};
+        font-weight: 500;
+    }
+    .callOut {
+        margin-bottom: 16px;
+    }
+    .cardButtons {
+        h4 {
+            margin-top: 0;
+        }
+    }
 }
 `;
 
@@ -121,8 +147,18 @@ export default class StandardView extends React.Component {
 
   render() {
     console.log("StandardView render");
-    const { showStandardView, closeStandardView, layerData, macros, handleSave, keyIndex, labelInput, id, onKeySelect } =
-      this.props;
+    const {
+      showStandardView,
+      closeStandardView,
+      layerData,
+      macros,
+      handleSave,
+      keyIndex,
+      labelInput,
+      id,
+      onKeySelect,
+      isStandardView
+    } = this.props;
     const keyCode = keyIndex !== -1 ? layerData[keyIndex].keyCode : 0;
     const selKey = this.parseKey(keyCode);
     const oldKey = this.parseKey(this.state.code);
@@ -147,14 +183,19 @@ export default class StandardView extends React.Component {
                 <div className="contentBody">
                   <Tab.Content>
                     <Tab.Pane eventKey="tabKeys">
-                      <KeysTab onKeyPress={onKeySelect} />
+                      <KeysTab onKeyPress={onKeySelect} isStandardView={isStandardView} />
                     </Tab.Pane>
                     <Tab.Pane eventKey="tabNoKeys">
                       <NoKeyTransparentTab keyCode={keyCode} onKeySelect={onKeySelect} />
                     </Tab.Pane>
 
                     <Tab.Pane eventKey="tabLayers">
-                      <LayersTab onLayerPress={onKeySelect} />
+                      <LayersTab
+                        onLayerPress={onKeySelect}
+                        keyCode={keyCode}
+                        showLayerSwitch={true}
+                        isStandardView={isStandardView}
+                      />
                     </Tab.Pane>
                     <Tab.Pane eventKey="tabMacro">
                       <MacroTab macros={macros} selectedMacro={this.state.selected} onMacrosPress={onKeySelect} />

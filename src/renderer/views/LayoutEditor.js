@@ -2049,6 +2049,7 @@ class LayoutEditor extends React.Component {
             actTab={"editor"}
             selectedlanguage={currentLanguageLayout}
             kbtype={kbtype}
+            isStandardView={isStandardView}
           />
         ) : (
           ""

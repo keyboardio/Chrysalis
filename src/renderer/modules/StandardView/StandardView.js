@@ -90,6 +90,9 @@ const Styles = Styled.div`
         color: ${({ theme }) => theme.styles.macro.descriptionColor};
         font-weight: 500;
     }
+    .tabContentWrapper {
+        width: 100%;
+    }
     .callOut {
         margin-bottom: 16px;
     }
@@ -183,7 +186,7 @@ export default class StandardView extends React.Component {
                 <div className="contentBody">
                   <Tab.Content>
                     <Tab.Pane eventKey="tabKeys">
-                      <KeysTab onKeyPress={onKeySelect} isStandardView={isStandardView} />
+                      <KeysTab keyCode={keyCode} onKeyPress={onKeySelect} isStandardView={isStandardView} />
                     </Tab.Pane>
                     <Tab.Pane eventKey="tabNoKeys">
                       <NoKeyTransparentTab keyCode={keyCode} onKeySelect={onKeySelect} />

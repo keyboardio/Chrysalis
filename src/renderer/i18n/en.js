@@ -237,6 +237,9 @@ const English = {
       noKeyDescription: "There's no function or character assigned to that key.",
       transparent: "Transparent",
       transparentDescription: "There's no function or character assigned to that key.",
+      keys: {
+        keys: "Keys"
+      },
       layers: {
         title: "Layers",
         callOut: "You can navigate  between layers in different ways, adding layer switch or layer lock.",

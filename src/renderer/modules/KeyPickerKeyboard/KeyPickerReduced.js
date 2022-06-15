@@ -333,7 +333,8 @@ class KeyPickerReduced extends Component {
       macros,
       keyCode,
       onKeySelect,
-      activeTab
+      activeTab,
+      showSelected
     } = this.props;
 
     //let boxShadowMatrix = useTheme().styles.keyPicker.keyMatrixShadow;
@@ -473,6 +474,7 @@ class KeyPickerReduced extends Component {
           id={id}
           x={key.x}
           y={key.y}
+          selected={showSelected ? (keyCode === key.id ? true : false) : false}
           clicked={() => {
             key.mod == disableMods || key.move == disableMove ? {} : this.onKeyPress(key.id);
           }}

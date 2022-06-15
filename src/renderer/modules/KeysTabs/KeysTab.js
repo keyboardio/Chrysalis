@@ -54,13 +54,16 @@ class KeysTab extends Component {
   }
 
   render() {
+    const { keyCode, isStandardView } = this.props;
     return (
-      <Styles>
+      <Styles className={`${isStandardView ? "standardViewTab" : ""} tabsKey`}>
         <div className="tabContentWrapper">
-          <Title text="Keys" headingLevel={4} />
+          <Title text="Keys" headingLevel={isStandardView ? 3 : 4} />
           <KeyPickerReduced
             onKeySelect={this.props.onKeyPress}
             code={{ base: 4, modified: 0 }}
+            showSelected={isStandardView}
+            keyCode={keyCode}
             disableMove={false}
             disableMods={false}
             actTab={"super"}

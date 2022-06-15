@@ -95,6 +95,8 @@ const English = {
     searchForKeyOrCategory: "Search for a key or category",
     keyConfig: "Key Config",
     keySelectorTitle: "Select Key",
+    keys: "Keys",
+    keysEditor: "Keys Editor",
     layers: {
       importTitle: "Load single layer",
       exportTitle: "Share selected layer",
@@ -106,6 +108,18 @@ const English = {
       layerLockDescription: "Tap to permanently move to another layer.",
       exportToPdf: "Export layouts to pdf",
       layerToCopy: "You will copy the layout of this layer"
+    },
+    color: {
+      color: "Color",
+      colorEditor: "Color Editor",
+      colorPalette: "Color Palette",
+      selectedColor: "Selected color",
+      editColor: "Edit Color",
+      applyColor: "Apply color",
+      allKeys: "All Keys",
+      underglow: "Underglow",
+      selectColorFirst: "Select a color first",
+      selectColorFirstContent: "To use the color controls select a color to enable all buttons."
     },
     groups: {
       Letters: "Letters",

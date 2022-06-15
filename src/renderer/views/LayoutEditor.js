@@ -25,11 +25,6 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
-import { MdKeyboard } from "react-icons/md";
-import { IoMdColorPalette } from "react-icons/io";
-import { FiSave, FiTrash2 } from "react-icons/fi";
 
 import Focus from "../../api/focus";
 import Backup from "../../api/backup";
@@ -45,11 +40,14 @@ import { undeglowDefaultColors } from "../screens/Editor/initialUndaglowColors";
 
 // Modules
 import PageHeader from "../modules/PageHeader";
+import ColorEditor from "../modules/ColorEditor";
 import { KeyPickerKeyboard } from "../modules/KeyPickerKeyboard";
 import { LayerSelector } from "../component/Select";
 
 import { RegularButton } from "../component/Button";
 import { IconArrowUpWithLine, IconArrowDownWithLine } from "../component/Icon";
+
+import customCursor from "../../../static/base/cursorBucket.png";
 
 const Store = window.require("electron-store");
 const store = new Store();
@@ -102,11 +100,6 @@ margin: auto;
 .center-self {
   place-self: flex-start;
 }
-}
-.save-button-row {
-  margin: auto;
-  place-content: flex-end;
-}
 .save-row {
   position: fixed;
   top: 128px;
@@ -132,52 +125,205 @@ margin: auto;
   text-align: left;
 }
 
-// .button-large:not(:disabled):not(.disabled):hover {
-//   color: ${({ theme }) => theme.colors.button.text};
-//   background-color: ${({ theme }) => theme.colors.button.active};
-//   border: none;
-// }
-.save-button {
-  background: ${({ theme }) => theme.styles.button.primary.disabledBackgroundColor};
-  color: ${({ theme }) => theme.styles.button.primary.disabledTextColor};
-}
-.cancel-button {
-  background-color: ${({ theme }) => theme.colors.button.cancel};
-  opacity: ${({ theme }) => theme.styles.button.outline.disabledOpacity}; 
-  color: ${({ theme }) => theme.styles.button.outline.disabledTextColor};
-  border: 1px solid ${({ theme }) => theme.styles.button.outline.disabledBorderColor};
-  box-shadow: 0px 0px 0px 1px ${({ theme }) => theme.styles.button.outline.disabledBoxShadowColor} inset;
-}
-.cancel-button.cancel-active{
-  border: 1px solid ${({ theme }) => theme.styles.button.outline.borderColor};
-  box-shadow: 0px 0px 0px 1px ${({ theme }) => theme.styles.button.outline.borderColor} inset;
-  transition-property: border, box-shadow, background;
-  transition: 300ms ease-in-out;
-  background-color: ${({ theme }) => theme.colors.button.cancel};
-  backdrop-filter: blur(5px);
-  color: ${({ theme }) => theme.styles.button.outline.color};
-  opacity: 1;
-  &:hover {
-    border: 1px solid ${({ theme }) => theme.styles.button.outline.borderColorHover};
-     box-shadow: 0px 0px 0px 1px ${({ theme }) => theme.styles.button.outline.boxShadowColorHover} inset;
-  }
-}
-.save-button.save-active{
-  background: ${({ theme }) => theme.colors.button.save};
-  color: white;
-  &:hover {
-    color: white;
-  }
-}
-.save-span {
-  font-size: 1.5rem;
-  vertical-align: -2px;
-  padding-left: 0.3rem;
-}
+
+
+
 .LayerHolder {
-  width: 70%;
-  height: 100%;
-  margin: auto;
+  display: flex;
+  flex: 0 0 100%;
+  margin: 0 auto;
+  min-width: 680px;
+  max-width: 1222px;
+}
+.raiseKeyboard {
+  overflow: visible;
+  margin: 0 auto;
+  max-width: 100%;
+      max-height: 75vh;
+  * {
+    transform-box: fill-box;
+  }
+}
+.NeuronLine {
+  stroke: ${({ theme }) => theme.styles.neuronStatus.lineStrokeColor};
+}
+#neuronWrapper {
+  &.keyOnFocus .keyOpacity{
+    stroke-opacity: 0.4;
+  }
+  &.keyOnHold .keyOpacity{
+    stroke-opacity: 0.2;
+  }
+  .neuronLights:hover {
+    cursor: pointer;
+  }
+}
+
+
+.keyBase {
+  fill: ${({ theme }) => theme.styles.raiseKeyboard.keyBase};
+}
+.keyColorOpacity {
+  fill-opacity: ${({ theme }) => theme.styles.raiseKeyboard.keyColorOpacity};
+}
+.keyItem {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  .keyContentLabel {
+    height: inherit;
+    display: flex;
+    align-items: center;
+    padding: 3px;
+    flex-wrap: wrap;
+    line-height: 1.1em;
+    position: relative;
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      color: ${({ theme }) => theme.styles.raiseKeyboard.contentColor};
+      li {
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        hyphens: auto;
+      }
+    }
+    .labelClass-withModifiers {
+      margin-bottom: 8px;
+    }
+    .extraLabel {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.025em;
+    }
+    .hidden-extraLabel {
+      display: none;
+    }
+    tspan {
+      display: inline-block;
+    }
+  }
+  tspan {
+    text-anchor: start;
+  }
+  .shadowHover {
+    transition: all 300ms ease-in-out;
+    filter: blur(16px);
+    opacity: 0.2;
+  }
+  .shadowMiddle {
+    filter: blur(18px);
+    opacity: 0.4;
+  }
+  &.keyOnFocus { 
+    filter: drop-shadow(0px 4px 0px ${({ theme }) => theme.styles.raiseKeyboard.keyShadow});
+    .keyOpacityInternal {
+      stroke-opacity: 0.7;
+      stroke: ${({ theme }) => theme.styles.raiseKeyboard.keyOnFocusBorder};
+    }
+    .keyOpacity{
+      stroke-opacity: 0.2;
+      stroke: ${({ theme }) => theme.styles.raiseKeyboard.keyOnFocusBorder};
+    }
+    .shadowHover {
+      filter: blur(16px);
+      opacity: 0.6;
+    }
+    .keyAnimation {
+      display: inline-block;
+    }
+  }
+  &:hover {
+    cursor: pointer;
+    .shadowHover {
+      filter: blur(16px);
+      opacity: 0.6;
+    }
+  }
+}
+.keyContentModifiers {
+  .labelModifier {
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    bottom: 6px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-left: 6px;
+    margin-right: -1px;
+    &.extraBottom { 
+      margin-left: 1px;
+      li {
+        margin-left: 1px;
+        margin-right: 0;
+      }
+    }
+    li {
+      padding: 0px 3px;
+      border-radius: 3px;
+      
+      display: inline-block;
+      margin: 1px;
+
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      color: ${({ theme }) => theme.styles.raiseKeyboard.modifier.color};
+      background: ${({ theme }) => theme.styles.raiseKeyboard.modifier.background};
+      box-shadow: ${({ theme }) => theme.styles.raiseKeyboard.modifier.boxShadow};
+    }
+  }
+}
+.keyAnimation {
+  display: none;
+  transform: scale(1);
+  animation: pulse-black 1.2s infinite;
+  filter: blur(1px);
+}
+@keyframes pulse-black {
+  0% {
+    opacity: 0;
+  }
+  70% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.underGlowStrip {
+  .underGlowStripStroke {
+      stroke-opacity: 0.5;
+  }
+  .underGlowStripShadow {
+    transition: all 300ms ease-in-out;
+    filter: blur(12px);
+    opacity: 0.8;
+  }
+  &.keyOnFocus {
+    // filter: drop-shadow(0px 1px 1px white);
+    .underGlowStripShadow {
+      filter: blur(4px);
+      opacity: 1;
+    }
+    .underGlowStripStroke {
+      stroke-opacity: 0.8;
+      stroke: ${({ theme }) => theme.styles.raiseKeyboard.keyOnFocusBorder};
+    }
+  }
+  &:hover {
+    cursor: pointer;
+    .underGlowStripShadow {
+      filter: blur(4px);
+      opacity: 1;
+    }
+  }
+}
+.layoutEditor.color.colorSelected .keyItem:hover,
+.layoutEditor.color.colorSelected .underGlowStrip:hover {
+  cursor: url(${customCursor}) 12 12, auto;
 }
 `;
 
@@ -820,7 +966,7 @@ class LayoutEditor extends React.Component {
       const idx = state.keymap.onlyCustom ? state.currentLayer : state.currentLayer - state.keymap.default.length;
       newKeymap[idx] = Array(newKeymap[0].length)
         .fill()
-        .map(() => ({ keyCode: 0xffff }));
+        .map(() => ({ keyCode: 65535, label: "", extraLabel: "TRANS", verbose: "Transparent" }));
 
       let newColormap = state.colorMap.slice();
       if (newColormap.length > 0) {
@@ -1512,6 +1658,19 @@ class LayoutEditor extends React.Component {
     });
   };
 
+  exportToPdf = () => {
+    toast.info(
+      <ToastMessage
+        title={"Feature not yet ready!"}
+        content={"The feature is not yet ready. its being worked on!"}
+        icon={<IconArrowUpWithLine />}
+      />,
+      {
+        autoClose: 2000
+      }
+    );
+  };
+
   render() {
     const {
       keymap,
@@ -1598,6 +1757,7 @@ class LayoutEditor extends React.Component {
           darkMode={this.props.darkMode}
           style={{ width: "50vw" }}
           showUnderglow={this.state.modeselect != "keyboard"}
+          className={`raiseKeyboard layer`}
         />
       </div>
       // </fade>
@@ -1652,7 +1812,12 @@ class LayoutEditor extends React.Component {
 
     return (
       <Styles>
-        <Container fluid className="keyboard-editor layoutEditor">
+        <Container
+          fluid
+          className={`keyboard-editor layoutEditor ${this.state.modeselect} ${
+            typeof this.state.selectedPaletteColor == "number" ? "colorSelected" : ""
+          }`}
+        >
           <PageHeader
             text={i18n.app.menu.editor}
             showSaving={true}
@@ -1669,8 +1834,24 @@ class LayoutEditor extends React.Component {
                 copyFunc={this.copyFromDialog}
                 editModeActual={this.state.modeselect}
                 editModeFunc={this.modeSelectToggle}
+                exportToPdf={this.exportToPdf}
               />
             }
+            colorEditor={
+              <ColorEditor
+                key={palette}
+                colors={palette}
+                disabled={isReadOnly || currentLayer > this.state.colorMap.length}
+                onColorSelect={this.onColorSelect}
+                colorButtonIsSelected={this.state.colorButtonIsSelected}
+                onColorPick={this.onColorPick}
+                selected={this.state.selectedPaletteColor}
+                isColorButtonSelected={isColorButtonSelected}
+                onColorButtonSelect={this.onColorButtonSelect}
+                toChangeAllKeysColor={this.toChangeAllKeysColor}
+              />
+            }
+            isColorActive={this.state.modeselect == "keyboard" ? false : true}
             saveContext={this.onApply}
             destroyContext={() => {
               this.props.cancelContext();
@@ -1693,52 +1874,21 @@ class LayoutEditor extends React.Component {
             <Col className="raise-editor layer-col">
               <Row className="m-0">{layer}</Row>
               <Row className="full-height m-0">
-                {this.state.modeselect != "keyboard" ? (
-                  <ColorPanel
-                    key={palette}
-                    colors={palette}
-                    disabled={isReadOnly || currentLayer > this.state.colorMap.length}
-                    onColorSelect={this.onColorSelect}
-                    colorButtonIsSelected={this.state.colorButtonIsSelected}
-                    onColorPick={this.onColorPick}
-                    selected={this.state.selectedPaletteColor}
-                    isColorButtonSelected={isColorButtonSelected}
-                    onColorButtonSelect={this.onColorButtonSelect}
-                    toChangeAllKeysColor={this.toChangeAllKeysColor}
+                {this.state.modeselect == "keyboard" ? (
+                  <KeyPickerKeyboard
+                    onKeySelect={this.onKeyChange}
+                    code={code}
+                    macros={macros}
+                    superkeys={superkeys}
+                    actions={actions}
+                    action={0}
+                    superName={superName}
+                    keyIndex={currentKeyIndex}
+                    actTab={"editor"}
+                    selectedlanguage={currentLanguageLayout}
+                    kbtype={kbtype}
                   />
-                ) : (
-                  <>
-                    {/* <KeyConfig
-                      id="keyboard-fade"
-                      onKeySelect={this.onKeyChange}
-                      code={code}
-                      macros={macros}
-                      superkeys={superkeys}
-                      actions={actions}
-                      superName={superName}
-                      newSuperID={this.newSuperID}
-                      setSuperKey={this.setSuperKey}
-                      delSuperKey={this.delSuperKey}
-                      keyIndex={currentKeyIndex}
-                      actTab={"editor"}
-                      selectedlanguage={currentLanguageLayout}
-                      kbtype={kbtype}
-                    /> */}
-                    <KeyPickerKeyboard
-                      onKeySelect={this.onKeyChange}
-                      code={code}
-                      macros={macros}
-                      superkeys={superkeys}
-                      actions={actions}
-                      action={0}
-                      superName={superName}
-                      keyIndex={currentKeyIndex}
-                      actTab={"editor"}
-                      selectedlanguage={currentLanguageLayout}
-                      kbtype={kbtype}
-                    />
-                  </>
-                )}
+                ) : null}
               </Row>
             </Col>
           </Row>

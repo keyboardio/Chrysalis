@@ -159,7 +159,7 @@ class SuperkeyForm extends Component {
   }
 
   updateRows(rows) {
-    console.log("updaterows", rows);
+    console.log("SK Form updaterows", rows);
     // let texted = rows.map(k => this.keymapDB.parse(k.keyCode).label).join(" ");
     // let newRows = rows.map((item, index) => {
     //   let aux = item;

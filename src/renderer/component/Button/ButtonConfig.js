@@ -33,6 +33,7 @@ const ButtonConfig = ({
   buttonText,
   tooltip,
   tooltipPlacement,
+  tooltipClassName,
   style,
   icoSVG,
   icoPosition,
@@ -46,7 +47,7 @@ const ButtonConfig = ({
           placement={tooltipPlacement ? tooltipPlacement : "top"}
           delay={{ show: `${tooltipDelay ? tooltipDelay : "0"}`, hide: "0" }}
           overlay={
-            <Tooltip id="tooltip-top" className="tooltipRegular">
+            <Tooltip id="tooltip-top" className={`${tooltipClassName ? tooltipClassName : "tooltipRegular"}`}>
               <div dangerouslySetInnerHTML={{ __html: tooltip }} />
             </Tooltip>
           }

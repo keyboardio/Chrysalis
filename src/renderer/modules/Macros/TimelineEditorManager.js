@@ -137,11 +137,6 @@ class MacroManager extends Component {
     });
   };
 
-  // update function that sends to parent the updated macro using updateActions function
-  update = actions => {
-    this.props.updateActions(actions);
-  };
-
   componentDidMount() {
     // Additionally I could have just used an arrow function for the binding `this` to the component...
     this.updateWidth();
@@ -153,7 +148,7 @@ class MacroManager extends Component {
   }
 
   render() {
-    const { keymapDB, macro } = this.props;
+    const { keymapDB, macro, updateActions } = this.props;
 
     return (
       <Styles>
@@ -178,12 +173,17 @@ class MacroManager extends Component {
             )}
           </PreviewMacroModal> */}
         </div>
-        {macro?.actions?.lenght > 0 ? (
+        {macro !== null && macro.actions !== null && macro.actions.lenght > 0 ? (
           <div className="loading marginCenter">
             <Spinner className="spinner-border" role="status" />
           </div>
         ) : (
-          <TimelineEditorForm macro={macro} update={this.update} keymapDB={keymapDB} componentWidth={this.state.componentWidth} />
+          <TimelineEditorForm
+            macro={macro}
+            updateActions={updateActions}
+            keymapDB={keymapDB}
+            componentWidth={this.state.componentWidth}
+          />
         )}
         <div id="portalMacro"></div>
       </Styles>

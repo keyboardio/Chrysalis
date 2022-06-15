@@ -42,6 +42,8 @@ const GlobalStyles = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -moz-font-feature-settings: "liga" on;
+
+    overflow: overlay;
   }
 
   @media screen and (-webkit-min-device-pixel-ratio: 2), 
@@ -645,6 +647,7 @@ svg text{
 .dropdownMultipleActions .dropdown-toggle.btn.btn-primary {
   padding: 8px 16px 8px 8px;
   margin: 0;
+  height: 58px;
 }
 .dropdownMultipleActions .dropdown-toggle.btn.btn-primary:after {
   content: none;
@@ -1607,6 +1610,12 @@ div.card.card-preferences .card-body {
   white-space: nowrap!important;
   text-align: left;
 }
+
+@media screen and (min-width: 1260px) {
+  .tooltipKeyboardViewSelector {
+    display: none!important;
+  }
+}
 @media screen and (min-width: 1000px) {
   #app {
     grid-template-columns: 120px auto;
@@ -1776,6 +1785,7 @@ div.card.card-preferences .card-body {
 }
 
 @media screen and (max-width: 1240px) {
+  .main-container .layoutEditor,
   .main-container .superkeys {
     .singleViewWrapper {
       grid-template-columns: 1fr;

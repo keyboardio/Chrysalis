@@ -310,6 +310,8 @@ const English = {
         fwd: "Fwd.",
         up: "Up",
         down: "Down",
+        sleep: "Sleep",
+        shutdown: "Shutdown",
         mediaTitle: "Media",
         mediaDescription: "Skip boring songs, turn the sound louder. Harder, better, faster, stronger!",
         LEDTitle: "LED",

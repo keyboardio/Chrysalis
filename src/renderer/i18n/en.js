@@ -236,7 +236,17 @@ const English = {
       noKey: "No Key",
       noKeyDescription: "There's no function or character assigned to that key.",
       transparent: "Transparent",
-      transparentDescription: "There's no function or character assigned to that key."
+      transparentDescription: "There's no function or character assigned to that key.",
+      layers: {
+        title: "Layers",
+        callOut: "You can navigate  between layers in different ways, adding layer switch or layer lock.",
+        layerSwitch: "Layer Switch",
+        layerSwitchDescription:
+          "Move to another layer while holding the key, then release the key to go back to the  previous layer.",
+        layerLock: "Layer Lock",
+        layerLockDescription:
+          "Tap to permanently move to another layer. To return to the previous layer set  a layer lock key on the destination that targets it."
+      }
     },
     superkeys: {
       add: "Add new superkey",

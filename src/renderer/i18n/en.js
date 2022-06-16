@@ -260,7 +260,8 @@ const English = {
         callOut: "Put your hands up! Control de media and RGB lighting behaviour using keys shortcuts."
       },
       mouse: {
-        title: "Mouse"
+        title: "Mouse",
+        callOut: "Add mouse events in your keys. You can assign any mouse events, such as clicks, moves and mouse wheel actions."
       }
     },
     superkeys: {
@@ -343,10 +344,12 @@ const English = {
         soundLess: "Sound Less",
         mute: "Mute",
         eject: "Eject",
-        calculator: "calculator",
+        calculator: "Calculator",
         camera: "Camera",
         brightnessMore: "Brightness More",
         brightnessLess: "Brightness Less",
+        sleep: "Sleep",
+        shutdown: "Shutdown",
         ledToggleText: "On/Off",
         ledToggleTootip: "Toggle lights On/Off",
         ledPreviousEffectTootip: "Previous light effect",

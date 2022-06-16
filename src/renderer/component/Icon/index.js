@@ -91,6 +91,8 @@ import IconStopWatchCrossed from "./IconStopWatchCrossed";
 import IconLayers from "./IconLayers";
 import IconRecord from "./IconRecord";
 import IconRobot from "./IconRobot";
+import IconShutdown from "./IconShutdown";
+import IconSleep from "./IconSleep";
 import IconThunder from "./IconThunder";
 import IconToolsCalculator from "./IconToolsCalculator";
 import IconToolsCamera from "./IconToolsCamera";
@@ -180,6 +182,8 @@ export {
   IconLayers,
   IconRecord,
   IconRobot,
+  IconShutdown,
+  IconSleep,
   IconThunder,
   IconToolsCalculator,
   IconToolsCamera,

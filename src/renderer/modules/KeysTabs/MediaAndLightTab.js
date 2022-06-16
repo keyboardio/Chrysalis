@@ -24,7 +24,9 @@ import {
   IconToolsEject,
   IconLEDSwitchLeft,
   IconLEDPreviousEffect,
-  IconLEDNextEffect
+  IconLEDNextEffect,
+  IconSleep,
+  IconShutdown
 } from "../../component/Icon";
 
 const Styles = Styled.div`
@@ -248,6 +250,20 @@ class MediaAndLightTab extends Component {
                   icoSVG={<IconToolsBrightnessMore />}
                   onClick={() => this.handleAddSpecial(23663)}
                   selected={isStandardView ? (keyCode === 23663 ? true : false) : false}
+                />
+                <ButtonConfig
+                  tooltip={i18n.editor.superkeys.specialKeys.sleep}
+                  tooltipDelay={100}
+                  icoSVG={<IconSleep />}
+                  onClick={() => this.handleAddSpecial(20866)}
+                  selected={isStandardView ? (keyCode === 20866 ? true : false) : false}
+                />
+                <ButtonConfig
+                  tooltip={i18n.editor.superkeys.specialKeys.shutdown}
+                  tooltipDelay={100}
+                  icoSVG={<IconShutdown />}
+                  onClick={() => this.handleAddSpecial(20865)}
+                  selected={isStandardView ? (keyCode === 20865 ? true : false) : false}
                 />
               </div>
             </div>

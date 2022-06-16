@@ -403,7 +403,7 @@ svg text{
 }
 .btn-primary.button-config,
 .button-config {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: -0.03em;
   padding: 8px 16px;

@@ -213,7 +213,7 @@ export default class StandardView extends React.Component {
                       <MediaAndLightTab onAddSpecial={this.onAddSpecial} keyCode={keyCode} isStandardView={isStandardView} />
                     </Tab.Pane>
                     <Tab.Pane eventKey="tabMouse">
-                      <MouseTab onAddSpecial={this.onAddSpecial} />
+                      <MouseTab onAddSpecial={this.onAddSpecial} keyCode={keyCode} isStandardView={isStandardView} />
                     </Tab.Pane>
                   </Tab.Content>
                 </div>

@@ -292,6 +292,10 @@ const English = {
       layoutCards: {
         label: "Customize Layout Cards",
       },
+      oneLayerPerPage: {
+        label: "Print one layer per page",
+        help: `When enabled, Chrysalis will arrange the layout cards to print one layer per page, rather than as many as fit.`,
+      },
       hideUnavailableFeatures: {
         label: `Hide features not supported by your keyboard's current firmware`,
         help: `When enabled, Chrysalis will hide configuration options for features that your keyboard's firmware doesn't support.`,

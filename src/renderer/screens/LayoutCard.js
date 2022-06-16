@@ -44,6 +44,7 @@ const LayoutCard = (props) => {
   });
 
   const [loading, setLoading] = useState(true);
+  const [oneLayerPerPage, setOneLayerPerPage] = useState(false);
   const { t } = useTranslation();
 
   const scanKeyboard = async () => {
@@ -67,6 +68,8 @@ const LayoutCard = (props) => {
   useEffectOnce(async () => {
     await scanKeyboard();
 
+    setOneLayerPerPage(settings.get("ui.layoutCards.oneLayerPerPage", false));
+
     setLoading(false);
   });
   if (loading) {
@@ -84,7 +87,11 @@ const LayoutCard = (props) => {
         // If it's not empty, add it to the keymap_pix array
         keymap_pix.push(
           <Box
-            sx={{ width: "auto", breakInside: "avoid" }}
+            sx={{
+              width: "auto",
+              breakInside: "avoid",
+              breakAfter: oneLayerPerPage && "page",
+            }}
             key={`LayerCard-${i}`}
           >
             <Typography

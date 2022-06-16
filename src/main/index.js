@@ -98,33 +98,55 @@ async function createMainWindow() {
   nativeTheme.on("updated", function theThemeHasChanged() {
     window.webContents.send("darkTheme-update", nativeTheme.shouldUseDarkColors);
   });
+  const UiohookToName = Object.fromEntries(Object.entries(UiohookKey).map(([k, v]) => [v, k]));
 
-  // function send webContents event
-  const sendWebContentsEvent = async (event, data) => {
-    await window.webContents.send(event, data);
+  // function send webContents event for KeyDown
+  const sendkeyDown = async e => {
+    let data = { event: e, name: UiohookToName[e.keycode], time: Date.now() };
+    await window.webContents.send("recorded-key-down", data);
+  };
+
+  // function send webContents event for keyUp
+  const sendKeyUp = async e => {
+    let data = { event: e, name: UiohookToName[e.keycode], time: Date.now() };
+    await window.webContents.send("recorded-key-up", data);
+  };
+
+  // function send webContents event for keyUp
+  // const sendMouseMove = async e => {
+  //   let data = { event: e, name: UiohookToName[e.keycode], time: Date.now() };
+  //   await window.webContents.send("recorded-mouse-move", data);
+  // };
+
+  // function send webContents event for KeyDown
+  const sendMouseClick = async e => {
+    let data = { event: e, name: UiohookToName[e.keycode], time: Date.now() };
+    await window.webContents.send("recorded-mouse-click", data);
+  };
+
+  // function send webContents event for keyUp
+  const sendMouseWheel = async e => {
+    let data = { event: e, name: UiohookToName[e.keycode], time: Date.now() };
+    await window.webContents.send("recorded-mouse-wheel", data);
   };
 
   ipcMain.on("start-recording", (event, arg) => {
     console.log("start-recording");
-    uIOhook.on("keydown", async event => {
-      await sendWebContentsEvent("recorded-key-down", { event, time: Date.now() });
-    });
-    uIOhook.on("keyup", async event => {
-      await sendWebContentsEvent("recorded-key-up", { event, time: Date.now() });
-    });
-    // uIOhook.on("mousemove", event => {
-    //   sendWebContentsEvent("recorded-mouse-move", { event, time: Date.now() });
-    // });
-    uIOhook.on("click", async event => {
-      await sendWebContentsEvent("recorded-mouse-click", { event, time: Date.now() });
-    });
-    uIOhook.on("wheel", async event => {
-      await sendWebContentsEvent("recorded-mouse-wheel", { event, time: Date.now() });
-    });
+    uIOhook.on("keydown", sendkeyDown);
+    uIOhook.on("keyup", sendKeyUp);
+    // uIOhook.on("mousemove", sendMouseMove);
+    uIOhook.on("click", sendMouseClick);
+    uIOhook.on("wheel", sendMouseWheel);
     uIOhook.start();
   });
 
   ipcMain.on("stop-recording", (event, arg) => {
+    console.log("stop-recording");
+    uIOhook.off("keydown", sendkeyDown);
+    uIOhook.off("keyup", sendKeyUp);
+    // uIOhook.off("mousemove", sendMouseMove);
+    uIOhook.off("click", sendMouseClick);
+    uIOhook.off("wheel", sendMouseWheel);
     uIOhook.stop();
   });
 

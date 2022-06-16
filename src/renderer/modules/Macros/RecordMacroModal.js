@@ -48,31 +48,51 @@ const Styles = Styled.div`
 export default class RecordMacroModal extends React.Component {
   constructor(props) {
     super(props);
-    this.inputText = React.createRef();
     this.state = {
       showModal: false,
       cleanRecord: true,
       isRecording: false,
-      isDelayActive: true
+      isDelayActive: true,
+      recorded: []
     };
   }
 
   componentDidMount() {
+    console.log("COMPONENT DID MOUNT!!!!!");
     ipcRenderer.on("recorded-key-down", (event, response) => {
-      console.log(response);
+      console.log("Check key-down", response);
+      let newRecorded = this.state.recorded;
+      newRecorded.push({ char: response.name, action: 6, time: response.time });
+      this.setState({
+        recorded: newRecorded
+      });
     });
     ipcRenderer.on("recorded-key-up", (event, response) => {
-      console.log(response);
+      console.log("Check key-up", response);
+      let newRecorded = this.state.recorded;
+      newRecorded.push({ char: response.name, action: 7, time: response.time });
+      this.setState({
+        recorded: newRecorded
+      });
     });
-    ipcRenderer.on("recorded-mouse-move", (event, response) => {
-      console.log(response);
-    });
+    // ipcRenderer.on("recorded-mouse-move", (event, response) => {
+    //   console.log(response);
+    // });
     ipcRenderer.on("recorded-mouse-click", (event, response) => {
       console.log(response);
     });
     ipcRenderer.on("recorded-mouse-wheel", (event, response) => {
       console.log(response);
     });
+  }
+
+  componentWillUnmount() {
+    console.log("COMPONENT WILL UNMOUNT!!!!!");
+    ipcRenderer.removeAllListeners("recorded-key-down");
+    ipcRenderer.removeAllListeners("recorded-key-up");
+    // ipcRenderer.removeAllListeners("recorded-mouse-move");
+    ipcRenderer.removeAllListeners("recorded-mouse-click");
+    ipcRenderer.removeAllListeners("recorded-mouse-wheel");
   }
 
   toggleShow = () => {
@@ -112,6 +132,8 @@ export default class RecordMacroModal extends React.Component {
   };
 
   render() {
+    const { showModal, isRecording, cleanRecord, isDelayActive, recorded } = this.state;
+    console.log("rendering");
     return (
       <Styles>
         <RegularButton
@@ -123,7 +145,7 @@ export default class RecordMacroModal extends React.Component {
         />
         <Modal
           size="lg"
-          show={this.state.showModal}
+          show={showModal}
           onHide={this.toggleShow}
           backdrop="static"
           aria-labelledby="contained-modal-title-vcenter"
@@ -132,7 +154,7 @@ export default class RecordMacroModal extends React.Component {
         >
           <Modal.Header closeButton>
             <Modal.Title className="text-center">
-              {this.state.isRecording ? i18n.editor.macros.recordingMacro : i18n.editor.macros.recordMacro}
+              {isRecording ? i18n.editor.macros.recordingMacro : i18n.editor.macros.recordMacro}
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -143,36 +165,39 @@ export default class RecordMacroModal extends React.Component {
                   icoSVG={<IconStopWatch />}
                   icoPosition="left"
                   buttonText={i18n.editor.macros.recordDelays}
-                  style={`buttonConfigMinimal ${this.state.isDelayActive ? "config-active" : ""}`}
+                  style={`buttonConfigMinimal ${isDelayActive ? "config-active" : ""}`}
                   onClick={this.setDelayOn}
-                  disabled={this.state.isRecording}
+                  disabled={isRecording}
                 />
                 <ButtonConfig
                   icoSVG={<IconStopWatchCrossed />}
                   icoPosition="left"
                   buttonText={i18n.editor.macros.ignoreDelays}
-                  style={`buttonConfigMinimal ${!this.state.isDelayActive ? "config-active" : ""}`}
+                  style={`buttonConfigMinimal ${!isDelayActive ? "config-active" : ""}`}
                   onClick={this.setDelayOff}
-                  disabled={this.state.isRecording}
+                  disabled={isRecording}
                 />
               </div>
             </div>
             <div className="timelineRecordTracking">
-              {this.state.cleanRecord ? (
+              {cleanRecord ? (
                 <div className="timelineRecordSequence">...</div>
               ) : (
-                <div className={`timelineRecordSequence ${this.state.isRecording ? "isRecording" : "isPaused"}`}>
+                <div className={`timelineRecordSequence ${isRecording ? "isRecording" : "isPaused"}`}>
                   <div className="timelineRecordSequenceInner">
-                    Lotem ipsum dolor aemet sit <div className="keySpecial">500 ms</div> waiting
+                    {recorded.map((item, index) => {
+                      return item.char;
+                    })}
+                    {/* Lotem ipsum dolor aemet sit <div className="keySpecial">500 ms</div> waiting */}
                   </div>
                   <div className="timelinePointeText"></div>
                 </div>
               )}
 
-              <AnimatedTimelineRecording isRecording={this.state.isRecording} />
+              <AnimatedTimelineRecording isRecording={isRecording} />
             </div>
             <div className="recordMacrosButton">
-              {!this.state.cleanRecord ? (
+              {!cleanRecord ? (
                 <ButtonConfig
                   tooltip={i18n.editor.macros.recordingDiscard}
                   icoSVG={<IconUndoRestart />}
@@ -183,13 +208,9 @@ export default class RecordMacroModal extends React.Component {
                 ""
               )}
               <RegularButton
-                buttonText={
-                  this.state.cleanRecord ? i18n.editor.macros.startRecord : this.state.isRecording ? "Pause icon" : "Resume"
-                }
+                buttonText={cleanRecord ? i18n.editor.macros.startRecord : isRecording ? "Pause icon" : "Resume"}
                 icoSVG={<IconPauseXl />}
-                style={`recordButton ${this.state.isRecording ? "isRecording" : ""} ${
-                  !this.state.cleanRecord && !this.state.isRecording ? "isResume" : ""
-                }`}
+                style={`recordButton ${isRecording ? "isRecording" : ""} ${!cleanRecord && !isRecording ? "isResume" : ""}`}
                 onClick={this.toggleIsRecording}
               />
             </div>
@@ -199,7 +220,7 @@ export default class RecordMacroModal extends React.Component {
                 style="outline gradient"
                 icoSVG={<IconArrowInBoxDown />}
                 icoPosition="right"
-                disabled={this.state.cleanRecord || this.state.isRecording ? true : false}
+                disabled={cleanRecord || isRecording ? true : false}
               />
             </div>
             <p className="recordingMessage">{i18n.editor.macros.recordingMessage}</p>

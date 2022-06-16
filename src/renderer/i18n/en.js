@@ -306,7 +306,7 @@ const English = {
         soundLess: "Sound Less",
         mute: "Mute",
         eject: "Eject",
-        calculator: "calculator",
+        calculator: "Calculator",
         camera: "Camera",
         brightnessMore: "Brightness More",
         brightnessLess: "Brightness Less",

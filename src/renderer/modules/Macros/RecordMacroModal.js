@@ -15,6 +15,7 @@ import {
   IconStopWatchCrossed
 } from "../../component/Icon";
 import AnimatedTimelineRecording from "./AnimatedTimelineRecording";
+const { ipcRenderer } = require("electron");
 
 const Styles = Styled.div`
 
@@ -56,6 +57,24 @@ export default class RecordMacroModal extends React.Component {
     };
   }
 
+  componentDidMount() {
+    ipcRenderer.on("recorded-key-down", (event, response) => {
+      console.log(response);
+    });
+    ipcRenderer.on("recorded-key-up", (event, response) => {
+      console.log(response);
+    });
+    ipcRenderer.on("recorded-mouse-move", (event, response) => {
+      console.log(response);
+    });
+    ipcRenderer.on("recorded-mouse-click", (event, response) => {
+      console.log(response);
+    });
+    ipcRenderer.on("recorded-mouse-wheel", (event, response) => {
+      console.log(response);
+    });
+  }
+
   toggleShow = () => {
     this.setState({
       showModal: !this.state.showModal
@@ -63,6 +82,11 @@ export default class RecordMacroModal extends React.Component {
   };
 
   toggleIsRecording = () => {
+    if (!this.state.isRecording) {
+      ipcRenderer.send("start-recording", "");
+    } else {
+      ipcRenderer.send("stop-recording", "");
+    }
     this.setState({
       isRecording: !this.state.isRecording,
       cleanRecord: false

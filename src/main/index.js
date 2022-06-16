@@ -35,7 +35,7 @@ if (process.platform !== "darwin") {
   app.commandLine.appendSwitch("force-device-scale-factor", 1);
 }
 
-import { app, BrowserWindow, Menu, nativeTheme, dialog } from "electron";
+import { app, BrowserWindow, Menu, nativeTheme, dialog, ipcMain } from "electron";
 import { format as formatUrl } from "url";
 import * as path from "path";
 import * as fs from "fs";
@@ -43,6 +43,8 @@ import * as sudo from "sudo-prompt";
 import windowStateKeeper from "electron-window-state";
 import installExtension, { REACT_DEVELOPER_TOOLS } from "electron-devtools-installer";
 import { getStaticPath } from "../renderer/config";
+import { uIOhook, UiohookKey } from "uiohook-napi";
+import { func } from "prop-types";
 
 const Store = require("electron-store");
 const store = new Store();
@@ -182,6 +184,35 @@ function installUdev(mainWindow) {
     }
   });
 }
+
+// function send webContents event
+async function sendWebContentsEvent(event, data) {
+  await window.webContents.send(event, data);
+}
+
+ipcMain.on("start-recording", (event, arg) => {
+  console.log("start-recording");
+  uIOhook.on("keydown", async event => {
+    await sendWebContentsEvent("recorded-key-down", { event, time: Date.now() });
+  });
+  uIOhook.on("keyup", event => {
+    sendWebContentsEvent("recorded-key-up", { event, time: Date.now() });
+  });
+  uIOhook.on("mousemove", event => {
+    sendWebContentsEvent("recorded-mouse-move", { event, time: Date.now() });
+  });
+  uIOhook.on("click", event => {
+    sendWebContentsEvent("recorded-mouse-click", { event, time: Date.now() });
+  });
+  uIOhook.on("wheel", event => {
+    sendWebContentsEvent("recorded-mouse-wheel", { event, time: Date.now() });
+  });
+  uIOhook.start();
+});
+
+ipcMain.on("stop-recording", (event, arg) => {
+  uIOhook.stop();
+});
 
 // quit application when all windows are closed
 app.on("window-all-closed", () => {

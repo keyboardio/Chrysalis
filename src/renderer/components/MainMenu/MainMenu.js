@@ -163,7 +163,7 @@ function MainMenu({ open, closeMenu, classes }) {
         {listItem(<InfoIcon />, t("app.menu.systemInfo"), "/system-info")}
         {listItem(<ListIcon />, t("app.menu.changelog"), "/changelog")}
         {listItem(<ExitToAppIcon />, t("app.menu.exit"), null, () =>
-          ipcRenderer.send("app-exit")
+          ipcRenderer.send("app.exit")
         )}
       </List>
       <Divider />

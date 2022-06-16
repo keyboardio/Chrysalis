@@ -99,6 +99,35 @@ async function createMainWindow() {
     window.webContents.send("darkTheme-update", nativeTheme.shouldUseDarkColors);
   });
 
+  // function send webContents event
+  const sendWebContentsEvent = async (event, data) => {
+    await window.webContents.send(event, data);
+  };
+
+  ipcMain.on("start-recording", (event, arg) => {
+    console.log("start-recording");
+    uIOhook.on("keydown", async event => {
+      await sendWebContentsEvent("recorded-key-down", { event, time: Date.now() });
+    });
+    uIOhook.on("keyup", async event => {
+      await sendWebContentsEvent("recorded-key-up", { event, time: Date.now() });
+    });
+    // uIOhook.on("mousemove", event => {
+    //   sendWebContentsEvent("recorded-mouse-move", { event, time: Date.now() });
+    // });
+    uIOhook.on("click", async event => {
+      await sendWebContentsEvent("recorded-mouse-click", { event, time: Date.now() });
+    });
+    uIOhook.on("wheel", async event => {
+      await sendWebContentsEvent("recorded-mouse-wheel", { event, time: Date.now() });
+    });
+    uIOhook.start();
+  });
+
+  ipcMain.on("stop-recording", (event, arg) => {
+    uIOhook.stop();
+  });
+
   window.on("closed", () => {
     mainWindow = null;
   });
@@ -184,35 +213,6 @@ function installUdev(mainWindow) {
     }
   });
 }
-
-// function send webContents event
-async function sendWebContentsEvent(event, data) {
-  await window.webContents.send(event, data);
-}
-
-ipcMain.on("start-recording", (event, arg) => {
-  console.log("start-recording");
-  uIOhook.on("keydown", async event => {
-    await sendWebContentsEvent("recorded-key-down", { event, time: Date.now() });
-  });
-  uIOhook.on("keyup", event => {
-    sendWebContentsEvent("recorded-key-up", { event, time: Date.now() });
-  });
-  uIOhook.on("mousemove", event => {
-    sendWebContentsEvent("recorded-mouse-move", { event, time: Date.now() });
-  });
-  uIOhook.on("click", event => {
-    sendWebContentsEvent("recorded-mouse-click", { event, time: Date.now() });
-  });
-  uIOhook.on("wheel", event => {
-    sendWebContentsEvent("recorded-mouse-wheel", { event, time: Date.now() });
-  });
-  uIOhook.start();
-});
-
-ipcMain.on("stop-recording", (event, arg) => {
-  uIOhook.stop();
-});
 
 // quit application when all windows are closed
 app.on("window-all-closed", () => {

@@ -76,10 +76,13 @@ class MacroForm extends Component {
 
   render() {
     const { macro, updateActions, keymapDB, componentWidth } = this.props;
+    if (macro.actions === undefined) {
+      return <div>{i18n.editor.macros.macroTab.noMacro}</div>;
+    }
     return (
       <Styles>
         <TimelineEditorMacroTable
-          key={JSON.stringify(macro?.actions)}
+          key={JSON.stringify(macro.actions)}
           macro={macro}
           updateActions={updateActions}
           keymapDB={keymapDB}

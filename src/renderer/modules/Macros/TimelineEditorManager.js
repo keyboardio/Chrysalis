@@ -173,7 +173,7 @@ class MacroManager extends Component {
             )}
           </PreviewMacroModal> */}
         </div>
-        {macro?.actions?.lenght > 0 ? (
+        {macro !== null && macro.actions !== null && macro.actions.lenght > 0 ? (
           <div className="loading marginCenter">
             <Spinner className="spinner-border" role="status" />
           </div>

@@ -4,10 +4,17 @@ import Styled from "styled-components";
 import Modal from "react-bootstrap/Modal";
 import i18n from "../../i18n";
 
-import { RegularButton, ButtonConfig } from "../Button";
-import Title from "../Title";
-import { IconRecord, IconArrowInBoxDown, IconPauseXl, IconUndoRestart, IconStopWatch, IconStopWatchCrossed } from "../Icon";
-import AnimatedTimelineRecording from "../../modules/Macros/AnimatedTimelineRecording";
+import { RegularButton, ButtonConfig } from "../../component/Button";
+import Title from "../../component/Title";
+import {
+  IconRecord,
+  IconArrowInBoxDown,
+  IconPauseXl,
+  IconUndoRestart,
+  IconStopWatch,
+  IconStopWatchCrossed
+} from "../../component/Icon";
+import AnimatedTimelineRecording from "./AnimatedTimelineRecording";
 
 const Styles = Styled.div`
 
@@ -79,15 +86,6 @@ export default class RecordMacroModal extends React.Component {
       isDelayActive: false
     });
   };
-
-  // componentDidUpdate(previousProps, previousState) {
-  //   if (this.props != previousProps) {
-  //     // console.log("PROBLEM", this.props.name, previousProps.name);
-  //     this.setState({
-  //       name: this.props.name
-  //     });
-  //   }
-  // }
 
   render() {
     return (

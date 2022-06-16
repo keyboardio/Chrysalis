@@ -741,6 +741,23 @@ svg text{
       flex: 1;
     }
   }
+  .groupButtons.groupButtonsGrid {
+    background-color: transparent;
+    padding: 0;
+    .buttonsGrid {
+      display: grid;
+      grid-template-columns: repeat(4, 125px);
+      grid-template-rows: repeat(2, 1fr);
+      grid-gap: 4px;
+      padding: 4px;
+      background-color: ${({ theme }) => theme.styles.cardButtons.groupButtonsBackground};
+      border-radius: 6px;
+      .button-config {
+        width: 100%;
+        margin: 0;
+      }
+    }
+  }
 }
 
 .tooltip {

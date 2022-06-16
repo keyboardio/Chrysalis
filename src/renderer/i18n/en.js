@@ -262,6 +262,24 @@ const English = {
       mouse: {
         title: "Mouse",
         callOut: "Add mouse events in your keys. You can assign any mouse events, such as clicks, moves and mouse wheel actions."
+      },
+      oneShot: {
+        title: "OneShot",
+        callOut:
+          "Hold to shift to the layer. Tap to move to the layer, but just for one keypress. Double-tap to move to the layer until you tap it again.",
+        titleLayers: "One Shot Layers",
+        layersDescription:
+          "One press layer key, press and release once to move to the selected layer for the next keypress only.",
+        titleModifiers: "One Shot Modifiers",
+        modifiersDescription: "One press modifier keys, press and release once to affect the next keypress only.",
+        leftControl: "Left Control",
+        leftShift: "Left Shift",
+        leftAlt: "Left Alt",
+        leftOS: "Left OS",
+        rightControl: "Right Control",
+        rightShift: "Right Shift",
+        altGr: "Alt Gr.",
+        rightOS: "Right OS"
       }
     },
     superkeys: {

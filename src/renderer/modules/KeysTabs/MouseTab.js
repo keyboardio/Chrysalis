@@ -100,6 +100,20 @@ h4 {
     }
   }
 }
+
+&.standardViewTab {
+  .mouseWrapper {
+    display: grid;
+    grid-template-columns: 1fr minmax(320px, 500px);
+    grid-gap: 24px;
+  }
+  .buttonsRow {
+    grid-template-columns: 1fr 1fr;
+    .clickButtons {
+      grid-column: 1 / -1;
+    }
+  }
+}
 `;
 
 class MouseTab extends Component {

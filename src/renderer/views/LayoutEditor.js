@@ -1723,6 +1723,7 @@ class LayoutEditor extends React.Component {
       isMultiSelected: false,
       isColorButtonSelected: false
     });
+  };
   exportToPdf = () => {
     toast.info(
       <ToastMessage

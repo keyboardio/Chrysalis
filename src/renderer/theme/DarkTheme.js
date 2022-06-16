@@ -215,6 +215,11 @@ const Dark = {
         background: Tokens.colors.gray600,
         backgroundHover: Tokens.colors.gray400
       },
+      buttonColor: {
+        color: Tokens.colors.gray100,
+        subtitleColor: Tokens.colors.gray200,
+        borderColor: "#2B2B2B"
+      },
       buttonMouse: {
         backgroundColor: "linear-gradient(-90deg, rgba(11, 2, 25, 0.25) 0.39%, rgba(49, 50, 74, 0.25) 74.37%)",
         backgroundColorHover:
@@ -231,6 +236,16 @@ const Dark = {
         borderColorResume: Tokens.colors.gray700,
         color: Tokens.colors.brandPrimary
       }
+    },
+    colorPanel: {
+      colorTitle: Tokens.colors.gray100,
+      colorPickerBase: "rgba(11, 2, 25, 0.2)",
+      colorPickerBaseActive: "rgba(11, 2, 25, 0.6)",
+      colorPickerBorder: "rgba(123, 134, 158, 0.1)",
+      colorPickerBorderActive: Tokens.colors.purple300,
+      colorPickerBorderHover: settingColorOpacity(Tokens.colors.gray300, 0.4),
+      addButtonBackground: settingColorOpacity(Tokens.colors.gray600, 0.6),
+      addButtonColor: Tokens.colors.gray100
     },
     collpase: {
       iconBackgroud: IconPlusXS,
@@ -307,6 +322,18 @@ const Dark = {
         labelColor: Tokens.colors.gray200,
         color: Tokens.colors.gray100,
         arrowsColor: Tokens.colors.gray300
+      }
+    },
+    raiseKeyboard: {
+      keyBase: "#303949",
+      keyShadow: Tokens.colors.gray25,
+      keyColorOpacity: 0.4,
+      keyOnFocusBorder: "#fff",
+      contentColor: "#fff",
+      modifier: {
+        color: Tokens.colors.gray600,
+        background: "rgba(255, 255, 255, 0.6)",
+        boxShadow: "0px 1px 0px rgba(0, 0, 0, 0.15)"
       }
     },
     keyPicker: {

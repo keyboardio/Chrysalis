@@ -159,8 +159,7 @@ class MacroCreator extends Component {
 
     this.state = {
       addText: "",
-      rows: [],
-      macro: props.macro === undefined ? "" : props.macro.macro
+      rows: []
     };
     this.keymapDB = props.keymapDB;
     this.modifiers = [
@@ -256,10 +255,34 @@ class MacroCreator extends Component {
     ];
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    try {
+      const prevAux = prevProps.macro.actions.map((x, id) => {
+        return { keyCode: x.keyCode, type: x.type, id: id };
+      });
+      const propAux = this.props.macro.actions.map((x, id) => {
+        return { keyCode: x.keyCode, type: x.type, id: id };
+      });
+      // console.log("Testing: ", JSON.parse(JSON.stringify(prevAux)), JSON.parse(JSON.stringify(propAux)));
+      if (JSON.stringify(prevAux) !== JSON.stringify(propAux)) {
+        console.log("Updating");
+        let auxConv = this.createConversion(this.props.macro.actions);
+        let newRows = auxConv.map((item, index) => {
+          return { ...item, id: index };
+        });
+        this.setState({
+          rows: newRows
+        });
+      }
+    } catch (e) {
+      console.warn("Error Happened", e);
+    }
+  }
+
   onAddText = () => {
+    // console.log("MacroCreator onAddText", this.state.rows, this.props.macro);
     const aux = this.state.addText;
-    let newRows = this.state.rows;
-    console.log("WATCHING", newRows, aux);
+    let newRows = this.createConversion(this.props.macro.actions);
     newRows = newRows.concat(
       aux.split("").flatMap((symbol, index) => {
         let item = symbol.toUpperCase();
@@ -330,21 +353,12 @@ class MacroCreator extends Component {
         return actions;
       })
     );
-    console.log("TEST", JSON.stringify(newRows), JSON.stringify(this.props.macro));
+    // console.log("TEST", JSON.stringify(newRows), JSON.stringify(this.props.macros));
     this.setState({
       addText: ""
     });
     this.updateRows(newRows);
   };
-
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      this.props.macros[this.props.selected]?.actions?.length > 0 &&
-      prevProps.macros[prevProps.selected] !== this.props.macros[this.props.selected]
-    ) {
-      this.updateRows(this.createConversion(this.props.macros[this.props.selected].actions));
-    }
-  }
 
   createConversion = actions => {
     let converted = actions.map((action, i) => {
@@ -411,7 +425,7 @@ class MacroCreator extends Component {
   };
 
   updateRows = rows => {
-    console.log("updaterows", JSON.stringify(rows));
+    console.log("Macro creator updaterows", rows);
     let texted = rows.map(k => this.keymapDB.parse(k.keyCode).label).join(" ");
     let newRows = rows.map((item, index) => {
       let aux = item;
@@ -423,7 +437,7 @@ class MacroCreator extends Component {
       macro: texted
     });
 
-    this.props.updateActions(this.revertConversion(rows), texted);
+    this.props.addToActions(this.revertConversion(rows));
   };
 
   onAddSymbol = (keyCode, action) => {
@@ -446,8 +460,8 @@ class MacroCreator extends Component {
     const randID = new Date().getTime() + Math.floor(Math.random() * 1000);
     let newRows = this.state.rows;
     newRows.push({
-      symbol: delay,
-      keyCode: delay,
+      symbol: parseInt(delay),
+      keyCode: parseInt(delay),
       action,
       id: newRows.length,
       color: "#faf0e3",
@@ -557,12 +571,12 @@ class MacroCreator extends Component {
   };
 
   onLayerPress = layer => {
-    console.log("layer", layer);
+    // console.log("layer", layer);
     this.onAddSpecial(layer, 5);
   };
 
   onMacrosPress = Macro => {
-    console.log("Macro", Macro);
+    // console.log("Macro", Macro);
     this.onAddSpecial(Macro, 5);
   };
 

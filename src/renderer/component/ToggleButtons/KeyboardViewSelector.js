@@ -21,10 +21,11 @@ import Styled from "styled-components";
 
 const Style = Styled.div`
 &.toggleButtonsContainer {
-  padding: 4px;
+  padding: 3px 4px;
   background: ${({ theme }) => theme.styles.toggleButton.background};
   border-radius: 6px;
   margin-left: 12px;
+  height: 54px;
   .toggleButtonsInner {
     margin-left: 0;
     margin-right: 0;
@@ -71,6 +72,17 @@ const Style = Styled.div`
     box-shadow: ${({ theme }) => theme.styles.toogleEditMode.buttonBoxShadow};
   }
 }
+@media screen and (max-width: 1259px) {
+  &.toggleButtonsContainer .toggleButtonsInner .button-config {
+    width: 52px;
+    svg {
+      margin-right: 0;
+    }
+    .buttonLabel {
+      display: none;
+    }
+  }
+}
 `;
 const KeyboardViewSelector = ({ editModeFunc, value, listElements, style, size }) => {
   console.log("Data from props", value, listElements);
@@ -88,6 +100,10 @@ const KeyboardViewSelector = ({ editModeFunc, value, listElements, style, size }
             key={index}
             buttonText={item.name}
             size={size}
+            tooltip={item.tooltip}
+            tooltipPlacement={"bottom"}
+            tooltipDelay={300}
+            tooltipClassName="tooltipRegular tooltipKeyboardViewSelector"
           />
         ))}
       </div>

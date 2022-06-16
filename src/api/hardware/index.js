@@ -18,8 +18,14 @@
 import { Raise_ANSI, Raise_ANSIBootloader } from "../hardware-dygma-raise-ansi";
 import { Raise_ISO, Raise_ISOBootloader } from "../hardware-dygma-raise-iso";
 
+// const Hardware = {
+//   serial: [Raise_ANSI, Raise_ISO, Raise_ANSIBootloader, Raise_ISOBootloader],
+//   nonSerial: [],
+//   bootloader: [Raise_ANSIBootloader, Raise_ISOBootloader]
+// };
+
 const Hardware = {
-  serial: [Raise_ANSI, Raise_ISO, Raise_ANSIBootloader, Raise_ISOBootloader],
+  serial: [Raise_ISO, Raise_ANSI, Raise_ANSIBootloader, Raise_ISOBootloader],
   nonSerial: [],
   bootloader: [Raise_ANSIBootloader, Raise_ISOBootloader]
 };

@@ -75,8 +75,6 @@ async function createMainWindow() {
     }
   });
 
-  window.setIgnoreMouseEvents(false, { forward: true });
-
   mainWindowState.manage(window);
 
   if (isDevelopment) {

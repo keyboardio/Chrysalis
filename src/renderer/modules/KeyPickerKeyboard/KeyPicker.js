@@ -837,6 +837,22 @@ class KeyPicker extends Component {
                       onKeySelect(23663);
                     }}
                   />
+                  <ButtonConfig
+                    tooltip={i18n.editor.superkeys.specialKeys.sleep}
+                    tooltipDelay={100}
+                    selected={keyCode.base + keyCode.modified == 20866 ? true : false}
+                    onClick={() => {
+                      onKeySelect(20866);
+                    }}
+                  />
+                  <ButtonConfig
+                    tooltip={i18n.editor.superkeys.specialKeys.shutdown}
+                    tooltipDelay={100}
+                    selected={keyCode.base + keyCode.modified == 20865 ? true : false}
+                    onClick={() => {
+                      onKeySelect(20865);
+                    }}
+                  />
                 </div>
               </div>
             </div>

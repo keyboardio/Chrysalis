@@ -1692,6 +1692,19 @@ div.card.card-preferences .card-body {
     }
 }
 
+.animHide {
+  transform: initial;
+  opacity: initial;
+  animation: animHide 0.3s forwards;
+}
+
+@keyframes animHide {
+  to {
+    transform: translateX(82px);
+    opacity: 0;  
+  }
+}
+
 .animWaiting {
   transform: scale(0);
   opacity: 0;

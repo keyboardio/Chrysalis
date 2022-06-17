@@ -220,7 +220,7 @@ class SuperkeysTab extends Component {
                 </Dropdown.Menu>
               </Dropdown>
             </div>
-            <div className="superKeyInfo">
+            <div className={`superKeyInfo ${superkeys[superk.indexOf(KC)] != undefined ? "animRight" : "animHide"}`}>
               {superkeys[superk.indexOf(KC)] != undefined ? (
                 <div className="superkeyHint">
                   <Title text={superkeys[superk.indexOf(KC)].name} headingLevel={3} />

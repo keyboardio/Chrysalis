@@ -360,6 +360,21 @@ class MacroCreator extends Component {
     this.updateRows(newRows);
   };
 
+  onAddRecorded = recorded => {
+    console.log("MacroCreator onAddRecorded", recorded, this.props.macro);
+    let actions = this.props.macro.actions;
+    actions = actions.concat(
+      recorded.map((item, index) => {
+        return {
+          keyCode: item.keycode,
+          type: item.action
+        };
+      })
+    );
+    let newRows = this.createConversion(actions);
+    this.updateRows(newRows);
+  };
+
   createConversion = actions => {
     let converted = actions.map((action, i) => {
       const randID = new Date().getTime() + Math.floor(Math.random() * 1000);
@@ -598,7 +613,7 @@ class MacroCreator extends Component {
             <div className="tabCategories">
               <Title headingLevel={3} text={i18n.general.actions} />
               <Title headingLevel={5} text={i18n.general.record} />
-              <RecordMacroModal />
+              <RecordMacroModal onAddRecorded={this.onAddRecorded} />
               <Title headingLevel={5} text={i18n.general.add} />
               <Nav className="flex-column">
                 <CustomTab eventKey="tabText" text="Text" icon={<IconLetterColor />} />

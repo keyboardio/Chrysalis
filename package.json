@@ -108,6 +108,7 @@
     "source-map-support": "^0.5.16",
     "styled-components": "^5.2.3",
     "sudo-prompt": "^9.2.1",
+    "uiohook-napi": "^1.2.0",
     "usb": "^2.3.1"
   },
   "devDependencies": {

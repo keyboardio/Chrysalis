@@ -43,9 +43,75 @@ h4 {
 }
 .superkeyHint {
     border-radius: 6px;
-    padding: 24px;
-    max-width: 500px;
-    background-color: black;
+    margin-top: -12px;
+    padding: 16px;
+    max-width: 762px;
+    background-color: ${({ theme }) => theme.styles.standardView.superkeys.info.background};
+    position: relative;
+}
+.superkeyHint:after {
+  content: "";
+  position: absolute;
+  top: 28px;
+  left: -12px;
+  background-color: ${({ theme }) => theme.styles.standardView.superkeys.info.background};
+  width: 24px;
+  height: 24px;
+  border-radius: 3px;
+  transform: rotate(45deg);
+}
+.superkeyHint h3 {
+  font-size: 16px;
+  margin-top: 10px;
+}
+.superkeyItem {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  border-radius: 3px;
+  padding: 12px;
+  justify-content: space-between;
+  background-color: ${({ theme }) => theme.styles.standardView.superkeys.item.background};
+}
+
+.superkeyItem + .superkeyItem  {
+  margin-top: 1px;
+}
+.superkeyTitle {
+  flex: 0 0 calc(100% - 180px);
+  padding-right: 24px;
+}
+.superkeyTitle h5.actionTitle {
+  font-size: 11px; 
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin: 4px 0 1px 0;
+  color: ${({ theme }) => theme.styles.standardView.superkeys.item.titleColor};
+}
+.superkeyTitle p {
+  font-size: 13px; 
+  font-weight: 401;
+  margin: 0;
+  line-height: 1.2em;
+  color: ${({ theme }) => theme.styles.standardView.superkeys.item.descriptionColor};
+}
+.superKey {
+  position: relative;
+  align-self: center;
+  padding: 8px 0;
+  flex: 0 0 180px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  border: 1px solid ${({ theme }) => theme.styles.standardView.superkeys.key.border};
+  border-radius: 3px;
+  background-color: ${({ theme }) => theme.styles.standardView.superkeys.key.background};
+}
+.superKey > div{
+  position: absolute;
+  bottom: -12px;
+  left: 12px;
 }
 
 `;
@@ -157,10 +223,11 @@ class SuperkeysTab extends Component {
             <div className="superKeyInfo">
               {superkeys[superk.indexOf(KC)] != undefined ? (
                 <div className="superkeyHint">
+                  <Title text={superkeys[superk.indexOf(KC)].name} headingLevel={3} />
                   {superKeysActions.map((item, index) => (
                     <div className="superkeyItem" key={`superHint-${index}`}>
                       <div className="superkeyTitle">
-                        <h4>{item.title}</h4>
+                        <h5 className="actionTitle">{item.title}</h5>
                         <p>{item.description}</p>
                       </div>
                       <div className="superKey">

@@ -592,6 +592,15 @@ const Dark = {
       superkeys: {
         info: {
           background: "#2D3245"
+        },
+        item: {
+          titleColor: Tokens.colors.gray25,
+          descriptionColor: Tokens.colors.gray100,
+          background: settingColorOpacity(Tokens.colors.gray500, 0.2)
+        },
+        key: {
+          background: settingColorOpacity(Tokens.colors.gray300, 0.15),
+          border: Tokens.colors.gray800
         }
       }
     },

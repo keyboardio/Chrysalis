@@ -280,6 +280,12 @@ const English = {
         rightShift: "Right Shift",
         altGr: "Alt Gr.",
         rightOS: "Right OS"
+      },
+      superkeys: {
+        title: "Superkeys",
+        callOut:
+          "<p>You are about to create crazy combinations to boost your workflow! 🔥</p><p>Superkeys allow up to 5 different functions in a single key. You activate each function with a tap, hold, tap and hold, double-tap or double-tap and hold.</p>",
+        label: "Select Superkey"
       }
     },
     superkeys: {

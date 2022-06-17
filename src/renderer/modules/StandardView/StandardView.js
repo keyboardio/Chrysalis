@@ -11,18 +11,26 @@ import Keymap, { KeymapDB } from "../../../api/keymap";
 import { RegularButton } from "../../component/Button";
 import KeyVisualizer from "../KeyVisualizer";
 import CustomTab from "../../component/Tab";
-import TextTab from "../KeysTabs/TextTab";
 import KeysTab from "../KeysTabs/KeysTab";
 import NoKeyTransparentTab from "../KeysTabs/NoKeyTransparentTab";
 import LayersTab from "../KeysTabs/LayersTab";
 import MacroTab from "../KeysTabs/MacroTab";
-import DelayTab from "../KeysTabs/DelayTab";
+import SuperkeysTab from "../KeysTabs/SuperkeysTab";
 import MediaAndLightTab from "../KeysTabs/MediaAndLightTab";
 import OneShotTab from "../KeysTabs/OneShotTab";
 import MouseTab from "../KeysTabs/MouseTab";
 
 //Icons
-import { IconKeyboard, IconNoKey, IconMouse, IconLayers, IconRobot, IconNote, IconOneShot } from "../../component/Icon";
+import {
+  IconKeyboard,
+  IconNoKey,
+  IconMouse,
+  IconLayers,
+  IconRobot,
+  IconNote,
+  IconOneShot,
+  IconThunder
+} from "../../component/Icon";
 
 const Styles = Styled.div`
 .standardView {
@@ -161,6 +169,8 @@ export default class StandardView extends React.Component {
       labelInput,
       id,
       onKeySelect,
+      superkeys,
+      actions,
       isStandardView
     } = this.props;
     const keyCode = keyIndex !== -1 ? layerData[keyIndex].keyCode : 0;
@@ -177,11 +187,12 @@ export default class StandardView extends React.Component {
                 <Nav className="flex-column">
                   <CustomTab eventKey="tabKeys" text="Keys" icon={<IconKeyboard />} />
                   <CustomTab eventKey="tabNoKeys" text={i18n.editor.standardView.noKeyTransparent} icon={<IconNoKey />} />
-                  <CustomTab eventKey="tabLayers" text="Layers" icon={<IconLayers />} />
-                  <CustomTab eventKey="tabMacro" text="Macro" icon={<IconRobot />} />
-                  <CustomTab eventKey="tabMedia" text="Media & LED" icon={<IconNote />} />
+                  <CustomTab eventKey="tabLayers" text={i18n.editor.standardView.layers.title} icon={<IconLayers />} />
+                  <CustomTab eventKey="tabMacro" text={i18n.editor.standardView.macros.title} icon={<IconRobot />} />
+                  <CustomTab eventKey="tabSuperKeys" text={i18n.editor.standardView.superkeys.title} icon={<IconThunder />} />
                   <CustomTab eventKey="tabOneShot" text={i18n.editor.standardView.oneShot.title} icon={<IconOneShot />} />
-                  <CustomTab eventKey="tabMouse" text="Mouse" icon={<IconMouse />} />
+                  <CustomTab eventKey="tabMedia" text={i18n.editor.standardView.mediaAndLED.title} icon={<IconNote />} />
+                  <CustomTab eventKey="tabMouse" text={i18n.editor.standardView.mouse.title} icon={<IconMouse />} />
                 </Nav>
               </div>
               <div className="colContentTabs">
@@ -210,11 +221,21 @@ export default class StandardView extends React.Component {
                         isStandardView={isStandardView}
                       />
                     </Tab.Pane>
-                    <Tab.Pane eventKey="tabMedia">
-                      <MediaAndLightTab onAddSpecial={this.onAddSpecial} keyCode={keyCode} isStandardView={isStandardView} />
+                    <Tab.Pane eventKey="tabSuperKeys">
+                      <SuperkeysTab
+                        actions={actions}
+                        superkeys={superkeys}
+                        onKeySelect={onKeySelect}
+                        macros={macros}
+                        keyCode={keyCode}
+                        isStandardView={isStandardView}
+                      />
                     </Tab.Pane>
                     <Tab.Pane eventKey="tabOneShot">
                       <OneShotTab keyCode={keyCode} onKeySelect={onKeySelect} isStandardView={isStandardView} />
+                    </Tab.Pane>
+                    <Tab.Pane eventKey="tabMedia">
+                      <MediaAndLightTab onAddSpecial={this.onAddSpecial} keyCode={keyCode} isStandardView={isStandardView} />
                     </Tab.Pane>
                     <Tab.Pane eventKey="tabMouse">
                       <MouseTab onAddSpecial={this.onAddSpecial} keyCode={keyCode} isStandardView={isStandardView} />

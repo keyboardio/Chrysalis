@@ -588,7 +588,12 @@ const Dark = {
     standardView: {
       modalBackground: "rgba(18, 17, 28, 0.95)",
       contentBackground: Tokens.colors.gray800,
-      footerBackground: settingColorOpacity(Tokens.colors.gray900, 0.1)
+      footerBackground: settingColorOpacity(Tokens.colors.gray900, 0.1),
+      superkeys: {
+        info: {
+          background: "#2D3245"
+        }
+      }
     },
     stepsBar: {
       stepBarBackground: Tokens.colors.gray600,

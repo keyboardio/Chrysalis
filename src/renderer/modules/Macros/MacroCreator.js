@@ -359,85 +359,19 @@ class MacroCreator extends Component {
     });
     this.updateRows(newRows);
   };
+
   onAddRecorded = recorded => {
-    // TODO: Add recorded macro procedure to analyze incoming recorded data
-    // console.log("MacroCreator onAddText", this.state.rows, this.props.macro);
-    const aux = this.state.addText;
-    let newRows = this.createConversion(this.props.macro.actions);
-    newRows = newRows.concat(
-      aux.split("").flatMap((symbol, index) => {
-        let item = symbol.toUpperCase();
-        let upper = false;
-        if (symbol.toLowerCase() !== symbol) {
-          upper = true;
-        }
-        switch (item) {
-          case " ":
-            item = "SPACE";
-            break;
-          case "    ":
-            item = "TAB";
-            break;
-          default:
-            break;
-        }
-        const randID = new Date().getTime() + Math.floor(Math.random() * 1000);
-        let keyCode = this.keymapDB.reverse(item);
-        if (upper) {
-          keyCode = keyCode + 2048;
-        }
-        let actions = [
-          {
-            symbol: item,
-            keyCode,
-            action: 8,
-            id: index + newRows.length,
-            color: this.assignColor(keyCode),
-            uid: randID,
-            ucolor: "transparent"
-          }
-        ];
-        switch (true) {
-          case (keyCode & 256) === 256 && (keyCode & 512) === 512:
-            //Control pressed to modify (2)
-            actions = this.addModToKey(actions, 5, 256);
-
-            break;
-          case (keyCode & 256) === 256:
-            //Control pressed to modify (2)
-            actions = this.addModToKey(actions, 2, 256);
-
-            break;
-          case (keyCode & 512) === 512:
-            //Left Alt pressed to modify (4)
-            actions = this.addModToKey(actions, 4, 512);
-
-            break;
-          case (keyCode & 1024) === 1024:
-            //Right alt pressed to modify (5)
-            actions = this.addModToKey(actions, 5, 1024);
-
-            break;
-          case (keyCode & 2048) === 2048:
-            //Shift pressed to modify (0)
-            actions = this.addModToKey(actions, 0, 2048);
-
-            break;
-          case (keyCode & 4096) === 4096:
-            //Gui pressed to modify (6)
-            actions = this.addModToKey(actions, 6, 4096);
-
-            break;
-          default:
-            break;
-        }
-        return actions;
+    console.log("MacroCreator onAddRecorded", recorded, this.props.macro);
+    let actions = this.props.macro.actions;
+    actions = actions.concat(
+      recorded.map((item, index) => {
+        return {
+          keyCode: item.keycode,
+          type: item.action
+        };
       })
     );
-    // console.log("TEST", JSON.stringify(newRows), JSON.stringify(this.props.macros));
-    this.setState({
-      addText: ""
-    });
+    let newRows = this.createConversion(actions);
     this.updateRows(newRows);
   };
 

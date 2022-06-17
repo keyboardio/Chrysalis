@@ -177,7 +177,13 @@ export default class RecordMacroModal extends React.Component {
     ipcRenderer.on("recorded-key-down", (event, response) => {
       console.log("Check key-down", response);
       let newRecorded = this.state.recorded;
-      newRecorded.push({ char: response.name, keycode: this.translator[response.event.keycode], action: 6, time: response.time });
+      newRecorded.push({
+        char: response.name,
+        keycode: this.translator[response.event.keycode],
+        action: 6,
+        time: response.time,
+        isMod: this.translator[response.event.keycode] >= 224 && this.translator[response.event.keycode] <= 231
+      });
       this.setState({
         recorded: newRecorded
       });
@@ -188,7 +194,13 @@ export default class RecordMacroModal extends React.Component {
         return;
       }
       let newRecorded = this.state.recorded;
-      newRecorded.push({ char: response.name, keycode: this.translator[response.event.keycode], action: 7, time: response.time });
+      newRecorded.push({
+        char: response.name,
+        keycode: this.translator[response.event.keycode],
+        action: 7,
+        time: response.time,
+        isMod: this.translator[response.event.keycode] >= 224 && this.translator[response.event.keycode] <= 231
+      });
       this.setState({
         recorded: newRecorded
       });
@@ -247,11 +259,48 @@ export default class RecordMacroModal extends React.Component {
     });
   };
 
+  cleanRecorded = recorded => {
+    console.log("Clean recorded", recorded);
+    let newRecorded = [];
+    let previous = 0;
+    for (let i = 1; i < recorded.length; i++) {
+      let p = i - 1;
+      console.log(`pressed key: ${recorded[i].char}`, recorded[p], recorded[i]);
+      if (recorded[p].isMod) {
+        newRecorded.push(recorded[p]);
+        continue;
+      }
+      if (recorded[p].keycode === recorded[i].keycode && recorded[p].action === 6 && recorded[i].action === 7) {
+        console.log("pressRelease as 1", recorded[p], recorded[i]);
+        recorded[p].action = 8;
+        newRecorded.push(recorded[p]);
+        i++;
+        console.log("state of i", i);
+        if (i >= recorded.length - 1) {
+          newRecorded.push(recorded[recorded.length - 1]);
+        }
+        continue;
+      }
+      if (recorded[p].action === 7 && recorded[i].action === 6 && this.state.isDelayActive) {
+        console.log("InsertDelays", recorded[p], recorded[i]);
+        recorded[p].action = 2;
+        recorded[p].keycode = recorded[i].time - recorded[p].time;
+        newRecorded.push(recorded[p]);
+        continue;
+      }
+      console.log("Rest of elems", recorded[p], recorded[i]);
+      newRecorded.push(recorded[p]);
+    }
+    console.log("Checking cleaned", newRecorded);
+    return newRecorded;
+  };
+
   sendMacro = () => {
-    if (this.state.isRecording) {
+    const { recorded, isRecording } = this.state;
+    if (isRecording) {
       ipcRenderer.send("stop-recording", "");
     }
-    this.props.onAddRecorded(this.state.recorded);
+    this.props.onAddRecorded(this.cleanRecorded(recorded));
     this.toggleShow();
   };
 

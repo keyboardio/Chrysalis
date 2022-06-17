@@ -76,6 +76,8 @@ import {
   IconToolsEject,
   IconToolsBrightnessLess,
   IconToolsBrightnessMore,
+  IconSleep,
+  IconShutdown,
   IconRobot,
   IconWrench
 } from "../../component/Icon";
@@ -840,6 +842,7 @@ class KeyPicker extends Component {
                   <ButtonConfig
                     tooltip={i18n.editor.superkeys.specialKeys.sleep}
                     tooltipDelay={100}
+                    icoSVG={<IconSleep />}
                     selected={keyCode.base + keyCode.modified == 20866 ? true : false}
                     onClick={() => {
                       onKeySelect(20866);
@@ -848,6 +851,7 @@ class KeyPicker extends Component {
                   <ButtonConfig
                     tooltip={i18n.editor.superkeys.specialKeys.shutdown}
                     tooltipDelay={100}
+                    icoSVG={<IconShutdown />}
                     selected={keyCode.base + keyCode.modified == 20865 ? true : false}
                     onClick={() => {
                       onKeySelect(20865);

@@ -223,7 +223,7 @@ class SuperKeysSelector extends React.Component {
           toggleShow={this.toggleShowAdd}
           handleSave={this.handleAdd}
           modalTitle={`Create new Superkey name`}
-          labelInput={`Supekey name`}
+          labelInput={`Superkey name`}
         />
       </Style>
     );

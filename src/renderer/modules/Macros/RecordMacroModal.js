@@ -52,7 +52,6 @@ export default class RecordMacroModal extends React.Component {
       showModal: false,
       isRecording: false,
       isDelayActive: true,
-      skippedFirst: true,
       recorded: []
     };
     this.translator = {
@@ -185,10 +184,7 @@ export default class RecordMacroModal extends React.Component {
     });
     ipcRenderer.on("recorded-key-up", (event, response) => {
       console.log("Check key-up", response);
-      if (!this.state.skippedFirst) {
-        this.setState({
-          skippedFirst: true
-        });
+      if (response.event.keycode === 29 && !response.event.ctrlKey) {
         return;
       }
       let newRecorded = this.state.recorded;
@@ -226,9 +222,6 @@ export default class RecordMacroModal extends React.Component {
   toggleIsRecording = () => {
     if (!this.state.isRecording) {
       ipcRenderer.send("start-recording", "");
-      this.setState({
-        skippedFirst: false
-      });
     } else {
       ipcRenderer.send("stop-recording", "");
     }

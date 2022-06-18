@@ -8,12 +8,9 @@
     "layer": "Layer {{index}}",
     "layerRaw": "Layer",
     "none": "None",
-    "type": "Type",
     "save": {
-      "success": "Saved!",
       "saveChanges": "Save Changes"
     },
-    "pickerColorButton": "Change color",
     "loading": "Reading data from device...",
     "logo": {
       "altText": "Chrysalis logo"
@@ -33,13 +30,11 @@
       "colormapEditor": "Colormap Editor",
       "macroEditor": "Macro Editor",
       "firmwareUpdate": "Firmware Update",
-      "keyboardSettings": "Keyboard Settings",
       "preferences": "Preferences",
       "selectAKeyboard": "Select a keyboard",
       "layoutCard": "Layout Card",
       "selectAnotherKeyboard": "Select another keyboard",
       "chat": "Discord chat",
-      "feedback": "Send feedback",
       "exit": "Exit",
       "keyboardSection": "Keyboard",
       "chrysalisSection": "Chrysalis",
@@ -62,8 +57,6 @@
     "title": "Changelog"
   },
   "editor": {
-    "keyType": "Key type",
-    "keyCode": "Key code",
     "legacy": {
       "migrate": "Migrate",
       "warning": "We found legacy keys on the keymap that are no longer valid. To migrate to the new codes, please press the Migrate button."
@@ -85,7 +78,6 @@
         "unableToLoad": "Unable to load layout from the selected file.",
         "parseFail": "Failed to parse layout data.",
         "invalidLayoutData": "File did not contain valid layout data.",
-        "saveFail": "Error while saving the exported layout."
       },
       "importConfirm": {
         "title": "Import the selected layout?",
@@ -127,16 +119,11 @@
         "help": "Assign colors by selecting one from the palette and clicking on a key. To change the color of a palette entry, use the color picker."
       },
       "consumer": {
-        "title": "Consumer control",
-        "help": "Keys to control volume, brightness, and media controls.",
         "volume": "Volume",
         "media": "Media control",
         "brightness": "Brightness"
       },
       "keypicker": {
-        "title": "Standard keys",
-        "pickAKey": "Pick a key",
-        "help": "Letters, number, symbols, and modifiers - the keys you find on a standard keyboard layout.",
         "mods": "Modifiers",
         "modsHelp": "Choose modifier keys that are automatically pressed as you press this key.",
         "oneshot": {
@@ -203,23 +190,6 @@
       "target": "Layer",
       "dualuse": "Layer shift when held"
     },
-    "clearLayer": "Clear layer...",
-    "clearLayerQuestion": "Clear layer?",
-    "clearLayerPrompt": "This will reset the layer to its default state.",
-    "copyFrom": "Copy from layer...",
-    "pleaseSelectLayer": "Please select a layer...",
-    "dualUse": "Modifier when held, normal key otherwise",
-    "dualUseLayer": "Layer shift when held, normal key otherwise",
-    "layoutMode": "Edit the keyboard layout",
-    "colormapMode": "Edit the colormap",
-    "importExport": "Import/Export the current layer",
-    "importExportDescription": "The data below can be freely edited, or copied elsewhere to be pasted back for importing. This is the internal representation of Chrysalis state, handle with care.",
-    "loadDefault": "Load a default:",
-    "loadDefaultSuccess": "Default loaded!",
-    "copyToClipboard": "Copy to clipboard",
-    "copySuccess": "Copied!",
-    "pasteFromClipboard": "Paste from clipboard",
-    "pasteSuccess": "Pasted!",
     "onlyCustom": {
       "warning": "Chrysalis no longer supports configurations containing a mix of hardcoded and EEPROM layers. If this is a feature you need, we'd love to hear more about your use case. In most cases, however, we would advise switching to custom layers only, which Chrysalis can do for you. When doing the switch, hardcoded layers will not be used, and the default layer set - if any - will be layer zero.",
       "fixItButton": "Switch to custom layers only",
@@ -229,10 +199,6 @@
       "title": "Macro #{{ index }}",
       "edit": "Edit macro",
       "out_of_space": "Dynamic macros are using too much space, please free up {{ overflow }} bytes.",
-      "test": {
-        "button": "Test",
-        "placeholder": "Click 'Test', and the macro will play out here."
-      },
       "steps": {
         "time_ms": "{{ value }}ms",
         "in_ms": "ms",
@@ -251,8 +217,6 @@
   },
   "preferences": {
     "interface": "User Interface",
-    "advanced": "Advanced",
-    "verboseFocus": "Verbose logging",
     "devtools": {
       "main": {
         "label": "Developer tools",
@@ -367,11 +331,9 @@
   },
   "keyboardSelect": {
     "unknown": "Unknown",
-    "selectPrompt": "Please select a keyboard:",
     "noDevices": "No keyboards found.",
     "connect": "Connect",
     "disconnect": "Disconnect",
-    "scan": "Scan",
     "installUdevRules": "Fix it",
     "permissionError": "Your computer won't let Chrysalis talk to your keyboard. (You do not have read/write permissions to {{path}}.)",
     "permissionErrorSuggestion": "Chrysalis can fix this by installing a udev rules file into /etc/udev/rules.d/."
@@ -390,10 +352,8 @@
     "flashing": {
       "error": "Error flashing the firmware",
       "releasePROG": "Bootloader detected. If you're holding a key down, please release it.",
-      "troubleshooting": "Troubleshooting",
       "success": "Firmware flashed successfully!",
       "button": "Update",
-      "buttonSuccess": "Updated!",
       "steps": {
         "factoryRestore": "Restoring factory defaults",
         "bootloaderTrigger": "Triggering bootloader",
@@ -431,20 +391,12 @@
     "bugTracker": "You can find a list of known issues (or report a bug) on GitHub",
     "privacyNote": "We try hard not to include private information in this bundle, but recommend you read through it before sharing it.",
     "createBundle": "Create Bundle",
-    "viewBundle": "View Bundle",
     "saveBundle": "Save Bundle",
     "dialog": {
       "title": "Save Chrysalis Debug Bundle",
-      "bundleFiles": "Debug bundle files"
     },
-    "bundleSaved": "Chrysalis debug bundle saved."
   },
   "devices": {
-    "Dygma": {
-      "Raise": {
-        "updateInstructions": "To update the firmware, the keyboard needs a special reset. When you see the light on the Neuron go off, press and hold the Escape key. The Neuron's light should start a blue pulsing pattern."
-      }
-    },
     "SOFT/HRUF": {
       "Splitography": {
         "updateInstructions": "After clicking the Update button, reset your keyboard (by pressing the small\nreset button beside the USB port) to put it into programmable mode, within ten\nseconds."
@@ -460,11 +412,5 @@
       "Model100": {
         "updateInstructions": "Hold down the key in the top left corner of the keyboard (in the default layout, this key is the PROG key). Continue holding it while you click the Update button. Once the keys start flashing green across the first column of the board, please release the key, as holding it too long may prevent flashing from succeeding."
       }
-    },
-    "PJRC": {
-      "Teensy": {
-        "updateInstructions": "Since this is a Teensy-powered device in programmable mode already, Chrysalis has no way of detecting what kind of keyboard it is. Please select a custom firmware appropriate for your keyboard, and continue."
-      }
     }
-  }
 }

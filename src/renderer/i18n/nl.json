@@ -8,12 +8,9 @@
     "layer": "Laag {{index}}",
     "layerRaw": "Laag",
     "none": "Geen",
-    "type": "Type",
     "save": {
-      "success": "Opgeslagen!",
       "saveChanges": "Wijzigingen Opslaan"
     },
-    "pickerColorButton": "Verander kleur",
     "loading": "Data lezen van toestel...",
     "logo": {
       "altText": "Chrysalis logo"
@@ -33,13 +30,11 @@
       "colormapEditor": "Kleurmap Editor",
       "macroEditor": "Macro Editor",
       "firmwareUpdate": "Firmware Update",
-      "keyboardSettings": "Toetsenbordinstellingen",
       "preferences": "Voorkeuren",
       "selectAKeyboard": "Selecteer een toetsenbord",
       "layoutCard": "Indeling Kaart",
       "selectAnotherKeyboard": "Selecteer nog een toetsenbord",
       "chat": "Discord chat",
-      "feedback": "Verstuur feedback",
       "exit": "Afsluiten",
       "keyboardSection": "Toetsenbord",
       "chrysalisSection": "Chrysalis",
@@ -58,8 +53,6 @@
     "actionRequired": "Actie noodzakelijk"
   },
   "editor": {
-    "keyType": "Toets type",
-    "keyCode": "Toetsencode",
     "legacy": {
       "migrate": "Migreren",
       "warning": "We hebben oude toetsen gevonden op de keymap die niet langer ondersteund worden. Om te migreren naar nieuwe codes, klik op de Migreren knop."
@@ -81,7 +74,6 @@
         "unableToLoad": "Onmogelijk om toetsenbordindeling te laden uit geselecteerd bestand.",
         "parseFail": "Parsen van gegevens toetsenbordindeling gefaald.",
         "invalidLayoutData": "Bestand bevatte geen geldige gegevens voor een toetsenbordindeling.",
-        "saveFail": "Fout tijdens opslaan van geëxporteerde toetsenbordindeling."
       },
       "importConfirm": {
         "title": "Importeer de geselecteerde toetsenbordindeling?",
@@ -121,16 +113,11 @@
         "help": "Ken kleuren toe door te selecteren van het pallet en op een toets te klikken. Om de kleur van een pallet element te veranderen, gebruik de kleurpipet."
       },
       "consumer": {
-        "title": "Gebruikers controle",
-        "help": "Toetsen om volume, helderheid en media te controleren.",
         "volume": "Volume",
         "media": "Media controle",
         "brightness": "Helderheid"
       },
       "keypicker": {
-        "title": "Standard toetsen",
-        "pickAKey": "Kies een toets",
-        "help": "Letters, cijfers, symbolen, en modifier - de toetsen die je vindt op een standaard toetsenbordindeling.",
         "mods": "Modifiers",
         "modsHelp": "Kies modifier toetsen die automatisch ingedrukt worden wanneer je deze toets indrukt.",
         "oneshot": {
@@ -197,23 +184,6 @@
       "target": "Laag",
       "dualuse": "Laag veranderen wanneer ingedrukt gehouden"
     },
-    "clearLayer": "Laag leegmaken...",
-    "clearLayerQuestion": "Laag leegmaken?",
-    "clearLayerPrompt": "Dit zal de laag terugzetten naar zijn standaard toestand.",
-    "copyFrom": "Kopieer van laag...",
-    "pleaseSelectLayer": "Selecteer een laag...",
-    "dualUse": "Modifier wanneer ingedrukt gehouden, anders een normale toets",
-    "dualUseLayer": "Laag verandering wanneer ingedrukt gehouden, anders een normale toets",
-    "layoutMode": "Pas de toetsenbordindeling aan",
-    "colormapMode": "Pas de kleurmap aan",
-    "importExport": "Importeer/Exporteer de huidige laag",
-    "importExportDescription": "De data hieronder kan vrij aangepast worden of gekopieerd naar elders om terug te plakken voor ze ge├»mporteerd wordt. Dit is de interne representatie van de Chrysalis state, behandel met zorg.",
-    "loadDefault": "Laad een default:",
-    "loadDefaultSuccess": "Default ingeladen!",
-    "copyToClipboard": "Kopieer naar klipbord",
-    "copySuccess": "Gekopieerd!",
-    "pasteFromClipboard": "Plakken van klipbord",
-    "pasteSuccess": "Geplakt!",
     "onlyCustom": {
       "warning": "Chrysalis ondersteunt niet langer configuraties die een mix van hardcoded and EEPROM lagen bevat. Als dit een functie is die je nodig hebt, dan horen we graag over jouw gebruikssituatie. In de meeste gevallen raden we echter aan om over te schakelen naar enkel aangepaste lagen, wat Chrysalis voor jou kan doen. Wanneer je de overstap maakt zullen hardcoded lagen niet gebruikt worden, en de standaard laag die gezet wordt (als er een gezet wordt) is laag nul.",
       "fixItButton": "Verander naar enkel aangepaste lagen",
@@ -223,10 +193,6 @@
       "title": "Macro #{{ index }}",
       "edit": "Macro aanpassen",
       "out_of_space": "Dynamische macros nemen te veel ruimte in, maak aub {{ overflow }} bytes vrij.",
-      "test": {
-        "button": "Test",
-        "placeholder": "Klik 'Test', en de macro zal hier afspelen."
-      },
       "steps": {
         "time_ms": "{{ value }}ms",
         "in_ms": "ms",
@@ -245,8 +211,6 @@
   },
   "preferences": {
     "interface": "Gebruikersinterface",
-    "advanced": "Geavanceerd",
-    "verboseFocus": "Verbose logging",
     "devtools": {
       "main": {
         "label": "Ontwikkelaars tools",
@@ -361,11 +325,9 @@
   },
   "keyboardSelect": {
     "unknown": "Onbekend",
-    "selectPrompt": "Selecteer een toetsenbord:",
     "noDevices": "Geen toetsenborden gevonden.",
     "connect": "Verbinding maken",
     "disconnect": "Verbinding verbreken",
-    "scan": "Zoeken",
     "installUdevRules": "Installeer udev regels",
     "permissionError": "Je computer laat Chrysalis niet spreken met je toetsenbord. (Je hebt geen lees/schrijf rechten naar {{path}}.)",
     "permissionErrorSuggestion": "Chrysalis kan dit oplossen door een bestand met udev regels te installeren in /etc/udev/rules.d/"
@@ -384,10 +346,8 @@
     "flashing": {
       "error": "Fout bij het flashen van de firmware",
       "releasePROG": "Bootloader gedetecteerd. Als je een toets ingedrukt houdt, laat hem dan los.",
-      "troubleshooting": "Probleemoplossing",
       "success": "Firmware successvol geflasht!",
       "button": "Update",
-      "buttonSuccess": "Updated!",
       "steps": {
         "factoryRestore": "Terugzetten naar fabrieksinstellingen",
         "bootloaderTrigger": "Bootloader triggeren",
@@ -425,20 +385,12 @@
     "bugTracker": "Je kan een lijst van bekende problemen vinden op GitHub (of een bug rapporteren)",
     "privacyNote": "We doen ons best om geen gevoelige informatie te includeren in deze bundel, maar we raden je aan om erdoor te lezen alvorens hem te delen.",
     "createBundle": "Maak bundel aan",
-    "viewBundle": "Bekijk bundel",
     "saveBundle": "Bundel opslaan",
     "dialog": {
       "title": "Chrysalis Debug Bundel opslaan",
-      "bundleFiles": "Debug bundel bestanden"
     },
-    "bundleSaved": "Chrysalis debug bundel opgeslagen."
   },
   "devices": {
-    "Dygma": {
-      "Raise": {
-        "updateInstructions": "Om de firmware te updaten vereist je toestenbord een speciale reset. Wanneer je het licht op de Neuron ziet uitgaan, blijf dan de Escape toets ingedrukt houden. Het licht van de Neuron zou een blauw pulserend patroon moeten opstarten."
-      }
-    },
     "SOFT/HRUF": {
       "Splitography": {
         "updateInstructions": "Na het klikken op de Update knop moet je je toetsenbord herstarten binnen de 10 seconden om het in programmeerbare modus te zetten. Dit kan door de kleine reset knop naast de USB poort kort in te drukken."
@@ -453,11 +405,6 @@
       },
       "Model100": {
         "updateInstructions": "Hou de toets in linker bovenhoek van het toetsenbord ingedrukt (in de standaard toetsenbordindeling is dit de PROG toets). Blijf de toets ingedrukt houden terwijl je op de Update knop klikt. Eens de toetsen van de eerste kolom groen beginnen te knipperen moet je de toets loslaten aangezien het flashen kan falen indien je de toets te lang ingedrukt houdt."
-      }
-    },
-    "PJRC": {
-      "Teensy": {
-        "updateInstructions": "Aangezien dit een Teensy-powered toestel is dat reeds in programmeerbare mode staat, heeft Chrysalis geen manier om te detecteren welk type toetsenbord het is. Selecteer a.u.b. een aangepaste firmware die gemaakt is voor je toetsenbord en ga verder."
       }
     }
   }

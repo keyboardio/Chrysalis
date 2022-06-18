@@ -73,7 +73,7 @@
       "errors": {
         "unableToLoad": "Onmogelijk om toetsenbordindeling te laden uit geselecteerd bestand.",
         "parseFail": "Parsen van gegevens toetsenbordindeling gefaald.",
-        "invalidLayoutData": "Bestand bevatte geen geldige gegevens voor een toetsenbordindeling.",
+        "invalidLayoutData": "Bestand bevatte geen geldige gegevens voor een toetsenbordindeling."
       },
       "importConfirm": {
         "title": "Importeer de geselecteerde toetsenbordindeling?",
@@ -387,8 +387,8 @@
     "createBundle": "Maak bundel aan",
     "saveBundle": "Bundel opslaan",
     "dialog": {
-      "title": "Chrysalis Debug Bundel opslaan",
-    },
+      "title": "Chrysalis Debug Bundel opslaan"
+    }
   },
   "devices": {
     "SOFT/HRUF": {

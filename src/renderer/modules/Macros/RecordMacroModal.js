@@ -267,11 +267,14 @@ export default class RecordMacroModal extends React.Component {
       let p = i - 1;
       console.log(`pressed key: ${recorded[i].char}`, recorded[p], recorded[i]);
       if (recorded[p].isMod) {
+        console.log(`Modifier detected: ${recorded[p].char}`);
         newRecorded.push(recorded[p]);
         continue;
       }
       if (recorded[p].keycode === recorded[i].keycode && recorded[p].action === 6 && recorded[i].action === 7) {
-        console.log("pressRelease as 1", recorded[p], recorded[i]);
+        console.log(
+          `pressRelease joining ${recorded[i].char} as 1 with ${recorded[p].action} as p action and ${recorded[i].action} as i action`
+        );
         recorded[p].action = 8;
         newRecorded.push(recorded[p]);
         i++;
@@ -282,14 +285,18 @@ export default class RecordMacroModal extends React.Component {
         continue;
       }
       if (recorded[p].action === 7 && recorded[i].action === 6 && this.state.isDelayActive) {
-        console.log("InsertDelays", recorded[p], recorded[i]);
+        console.log(`Inserted Delay with ${recorded[i].time - recorded[p].time} ms`);
+        newRecorded.push(JSON.parse(JSON.stringify(recorded[p])));
         recorded[p].action = 2;
         recorded[p].keycode = recorded[i].time - recorded[p].time;
         newRecorded.push(recorded[p]);
         continue;
       }
-      console.log("Rest of elems", recorded[p], recorded[i]);
+      console.log(`Added as end of interaction ${recorded[p].char} to the rest of the elems`);
       newRecorded.push(recorded[p]);
+      if (i === recorded.length - 1) {
+        newRecorded.push(recorded[i]);
+      }
     }
     console.log("Checking cleaned", newRecorded);
     return newRecorded;

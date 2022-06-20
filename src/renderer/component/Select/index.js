@@ -21,6 +21,7 @@ import NeuronSelector from "./NeuronSelector";
 import MacroSelector from "./MacroSelector";
 import SuperkeysSelector from "./SuperkeysSelector";
 import SelectF13PlusKeys from "./SelectF13PlusKeys";
+import SelectGenericKeys from "./SelectGenericKeys";
 import SelectMacro from "./SelectMacro";
 import SelectLayersLock from "./SelectLayersLock";
 import SelectLayersSwitch from "./SelectLayersSwitch";
@@ -36,6 +37,7 @@ export {
   NeuronSelector,
   SuperkeysSelector,
   SelectF13PlusKeys,
+  SelectGenericKeys,
   SelectMacro,
   SelectLayersLock,
   SelectLayersSwitch,

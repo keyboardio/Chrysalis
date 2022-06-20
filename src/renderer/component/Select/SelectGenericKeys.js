@@ -81,8 +81,9 @@ const Style = Styled.div`
  * @param {listElements} listElements - The array of objects that hold the elements to be selected.\
  * @returns {<Select>} Dropdown object.
  */
-const SelectF13PlusKeys = ({ keyCode, onSelect, value, listElements, ksl, content, selected, disabled }) => {
+const SelectGenericKeys = ({ keyCode, onSelect, value, listElements, ksl, content, selected, disabled }) => {
   const [load, setLoad] = React.useState(true);
+  const contentWidth = 200;
   const keymapDB = new KeymapDB();
 
   const labelKey = id => {
@@ -107,17 +108,22 @@ const SelectF13PlusKeys = ({ keyCode, onSelect, value, listElements, ksl, conten
         flip="false"
         className={`custom-dropdown dropdown-Fkeys ${disabled ? "disabled" : ""}`}
       >
-        <Dropdown.Toggle id="dropdown-Fkeys">
+        <Dropdown.Toggle id="dropdown-generic">
           <div className="dropdownItemSelected">
-            <svg width={65} height={26}>
+            <svg width={contentWidth} height={26}>
               <g filter={`url(#filter0_d_2211_181319)`}>
-                <rect x={0} y={0} width={65} height={26} rx="5" className="baseKey baseKeyDropdown" />
+                <rect x={0} y={0} width={contentWidth} height={26} rx="5" className="baseKey baseKeyDropdown" />
               </g>
-              <rect x={0} y={0} width={65} height={26} rx="5" fill={`url(#paint_gradient)`} fillOpacity={0.1} />
+              <rect x={0} y={0} width={contentWidth} height={26} rx="5" fill={`url(#paint_gradient)`} fillOpacity={0.1} />
               <g width="12" height="12" fill="transparent">
-                <path d="M1.5 3.5L6 8L10.5 3.5" stroke="currentColor" strokeWidth="2" transform={`translate(${44}, ${6})`} />
+                <path
+                  d="M1.5 3.5L6 8L10.5 3.5"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  transform={`translate(${contentWidth - 22}, ${6})`}
+                />
               </g>
-              <text x={22} y={16} fontSize={13} fill={"white"} fontWeight={600} textAnchor="middle">
+              <text x={4} y={16} fontSize={13} fill={"white"} fontWeight={600} textAnchor="left">
                 {content.first}
               </text>
             </svg>
@@ -128,7 +134,7 @@ const SelectF13PlusKeys = ({ keyCode, onSelect, value, listElements, ksl, conten
           {listElements.map((item, index) => (
             <Dropdown.Item
               eventKey={parseInt(item)}
-              key={`f13Plus-${index}`}
+              key={`genericKeys-${index}`}
               className={`${keyCode.base && keyCode.base == item ? "active" : ""}`}
               pointerEvents="all"
             >
@@ -143,4 +149,4 @@ const SelectF13PlusKeys = ({ keyCode, onSelect, value, listElements, ksl, conten
   );
 };
 
-export default SelectF13PlusKeys;
+export default SelectGenericKeys;

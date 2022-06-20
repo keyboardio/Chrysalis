@@ -2155,7 +2155,7 @@ class KeymapISO extends React.Component {
           {/* Right side */}
           <UnderGlowStrip
             id="107_undeglow"
-            x={601}
+            x={595}
             y={14}
             onClick={e => {
               setUndeglowIndex(107, e);
@@ -2167,7 +2167,7 @@ class KeymapISO extends React.Component {
             dataLedIndex={getLEDIndex(107)}
             dataKeyIndex={keyIndex(107)}
             dataLayer={layer}
-            path="M71.9673 6H3.03266C1.31415 6 0 4.7 0 3C0 1.3 1.31415 0 3.03266 0H71.9673C73.6858 0 75 1.3 75 3C75 4.7 73.5848 6 71.9673 6Z"
+            path="M77.967 6H3.033C1.314 6 0 4.7 0 3s1.314-3 3.033-3h74.934C79.686 0 81 1.3 81 3s-1.415 3-3.033 3z"
           />
           <UnderGlowStrip
             id="106_undeglow"
@@ -2556,7 +2556,7 @@ class KeymapISO extends React.Component {
           />
           <UnderGlowStrip
             id="114_undeglow"
-            x={598}
+            x={590}
             y={419}
             onClick={e => {
               setUndeglowIndex(114, e);
@@ -2568,11 +2568,11 @@ class KeymapISO extends React.Component {
             dataLedIndex={getLEDIndex(114)}
             dataKeyIndex={keyIndex(114)}
             dataLayer={layer}
-            path="M62 30.2H0V3C0 1.3 1.3 0 3 0C4.7 0 6 1.3 6 3V24.2H62C63.7 24.2 65 25.5 65 27.2C65 28.9 63.7 30.2 62 30.2Z"
+            path="M70 30.2H0V3c0-1.7 1.3-3 3-3s3 1.3 3 3v21.2h64c1.7 0 3 1.3 3 3s-1.3 3-3 3z"
           />
           <UnderGlowStrip
             id="113_undeglow"
-            x={598}
+            x={590}
             y={351}
             onClick={e => {
               setUndeglowIndex(113, e);
@@ -2588,7 +2588,7 @@ class KeymapISO extends React.Component {
           />
           <UnderGlowStrip
             id="112_undeglow"
-            x={598}
+            x={590}
             y={290}
             onClick={e => {
               setUndeglowIndex(112, e);
@@ -2604,7 +2604,7 @@ class KeymapISO extends React.Component {
           />
           <UnderGlowStrip
             id="111_undeglow"
-            x={604}
+            x={596}
             y={212}
             onClick={e => {
               setUndeglowIndex(111, e);
@@ -2620,7 +2620,7 @@ class KeymapISO extends React.Component {
           />
           <UnderGlowStrip
             id="110_undeglow"
-            x={573}
+            x={565}
             y={138}
             onClick={e => {
               setUndeglowIndex(110, e);
@@ -2636,8 +2636,8 @@ class KeymapISO extends React.Component {
           />
           <UnderGlowStrip
             id="109_undeglow"
-            x={573}
-            y={90}
+            x={565}
+            y={82}
             onClick={e => {
               setUndeglowIndex(109, e);
             }}
@@ -2648,11 +2648,11 @@ class KeymapISO extends React.Component {
             dataLedIndex={getLEDIndex(109)}
             dataKeyIndex={keyIndex(109)}
             dataLayer={layer}
-            path="M3 44.1469C1.3 44.1469 0 42.8469 0 41.1469V22C0 19.8 1.8 18 4 18H19.1V3C19.1 1.3 20.4 0 22.1 0C23.8 0 25.1 1.3 25.1 3V20C25.1 22.2 23.3 24 21.1 24H6V41.0469C6 42.7469 4.7 44.1469 3 44.1469Z"
+            path="M3 52.147c-1.7 0-3-1.3-3-3V30c0-2.2 1.8-4 4-4h15.1V3c0-1.7 1.3-3 3-3s3 1.3 3 3v25c0 2.2-1.8 4-4 4H6v17.047c0 1.7-1.3 3.1-3 3.1z"
           />
           <UnderGlowStrip
             id="108_undeglow"
-            x={592}
+            x={584}
             y={14}
             onClick={e => {
               setUndeglowIndex(108, e);
@@ -2664,7 +2664,7 @@ class KeymapISO extends React.Component {
             dataLedIndex={getLEDIndex(108)}
             dataKeyIndex={keyIndex(108)}
             dataLayer={layer}
-            path="M3 72C1.3 72 0 70.6817 0 68.9577V3.04225C0 1.31831 1.3 2.41777e-07 3 2.41777e-07C4.7 2.41777e-07 6 1.31831 6 3.04225V69.0592C6 70.6817 4.7 72 3 72Z"
+            path="M3 64c-1.7 0-3-1.318-3-3.042V3.042C0 1.318 1.3 0 3 0s3 1.318 3 3.042V61.06C6 62.682 4.7 64 3 64z"
           />
           {/* End Right side */}
         </g>

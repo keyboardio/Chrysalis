@@ -1735,7 +1735,7 @@
     "idArray": [135, 136, 137, 138, 139],
     "iconname": "",
     "content": {
-      "type": "specialBlockDropdown",
+      "type": "genericBlockDropdown",
       "first": "カタカナ/ひらがな/ローマ字",
       "second": "",
       "third": "",

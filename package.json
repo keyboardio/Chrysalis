@@ -110,6 +110,8 @@
     "react-localization": "^1.0.15",
     "react-markdown": "^7.1.0",
     "react-rnd": "^10.3.7",
+    "remark-emoji": "^3.0.2",
+    "remark-gfm": "^3.0.1",
     "serialport": "^10.4.0",
     "source-map-support": "^0.5.16",
     "sudo-prompt": "^9.2.1",

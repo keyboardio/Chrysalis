@@ -355,6 +355,10 @@
     "permissionErrorSuggestion": "Chrysalis can fix this by installing a udev rules file into /etc/udev/rules.d/."
   },
   "firmwareUpdate": {
+    "firmwareChangelog": {
+      "title": "Firmware Changelog",
+      "view": "Changelog"
+    },
     "calloutTitle": "Important!",
     "dialog": {
       "selectFirmware": "Select a firmware",

@@ -56,6 +56,8 @@ import path from "path";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import FirmwareChangesDialog from "./FirmwareUpdate/FirmwareChangesDialog";
+
 const Store = require("electron-store");
 const settings = new Store();
 
@@ -69,6 +71,7 @@ const FirmwareUpdate = (props) => {
   const [activeStep, setActiveStep] = useState(-1);
   const [flashSteps, setFlashSteps] = useState([]);
   const [progress, setProgress] = useState("idle");
+  const [changelogOpen, setChangelogOpen] = useState(false);
   const { t } = useTranslation();
   const focusDeviceDescriptor =
     props.focusDeviceDescriptor || focus.focusDeviceDescriptor;
@@ -372,6 +375,14 @@ const FirmwareUpdate = (props) => {
         <CardActions>
           {firmwareSelect}
           <Box sx={{ flexGrow: 1 }} />
+          {selected == "default" && (
+            <Button
+              disabled={progress == "flashing"}
+              onClick={() => setChangelogOpen(true)}
+            >
+              {t("firmwareUpdate.firmwareChangelog.view")}
+            </Button>
+          )}
           <Button
             startIcon={
               progress == "success" ? <CheckIcon /> : <CloudUploadIcon />
@@ -397,6 +408,10 @@ const FirmwareUpdate = (props) => {
       >
         {t("firmwareUpdate.confirmDialog.contents")}
       </ConfirmationDialog>
+      <FirmwareChangesDialog
+        open={changelogOpen}
+        onClose={() => setChangelogOpen(false)}
+      />
     </Box>
   );
 };

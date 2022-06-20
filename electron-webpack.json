@@ -41,6 +41,8 @@
     "react-localization",
     "react-toastify",
     "react-markdown",
+    "remark-emoji",
+    "remark-gfm",
     "@emotion/react",
     "@emotion/styled"
   ]

@@ -158,7 +158,6 @@ export default class StandardView extends React.Component {
   };
 
   render() {
-    console.log("StandardView render");
     const {
       showStandardView,
       closeStandardView,
@@ -166,6 +165,7 @@ export default class StandardView extends React.Component {
       macros,
       handleSave,
       keyIndex,
+      code,
       labelInput,
       id,
       onKeySelect,
@@ -199,7 +199,7 @@ export default class StandardView extends React.Component {
                 <div className="contentBody">
                   <Tab.Content>
                     <Tab.Pane eventKey="tabKeys">
-                      <KeysTab keyCode={keyCode} onKeyPress={onKeySelect} isStandardView={isStandardView} />
+                      <KeysTab keyCode={keyCode} code={code} onKeyPress={onKeySelect} isStandardView={isStandardView} />
                     </Tab.Pane>
                     <Tab.Pane eventKey="tabNoKeys">
                       <NoKeyTransparentTab keyCode={keyCode} onKeySelect={onKeySelect} />

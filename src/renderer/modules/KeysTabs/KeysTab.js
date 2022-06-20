@@ -6,6 +6,7 @@ import i18n from "../../i18n";
 import Title from "../../component/Title";
 import CallOut from "../../component/Callout";
 import { KeyPickerReduced } from "../../modules/KeyPickerKeyboard";
+import ModPicker from "../KeyPickerKeyboard/ModPicker";
 import { RegularButton, ButtonConfig, ButtonMouse } from "../../component/Button";
 
 import {
@@ -56,7 +57,7 @@ class KeysTab extends Component {
   }
 
   render() {
-    const { keyCode, isStandardView } = this.props;
+    const { keyCode, code, isStandardView } = this.props;
     return (
       <Styles className={`${isStandardView ? "standardViewTab" : ""} tabsKey`}>
         <div className="tabContentWrapper">
@@ -70,7 +71,7 @@ class KeysTab extends Component {
           )}
           <KeyPickerReduced
             onKeySelect={this.props.onKeyPress}
-            code={{ base: 4, modified: 0 }}
+            code={isStandardView ? code : { base: 4, modified: 0 }}
             showSelected={isStandardView}
             keyCode={keyCode}
             disableMove={false}
@@ -84,6 +85,13 @@ class KeysTab extends Component {
             <div className="enhanceKeys">
               <Title text={i18n.editor.standardView.keys.enhanceTitle} headingLevel={3} />
               <CallOut content={i18n.editor.standardView.keys.callOutEnhance} size="sm" />
+              <div className="cardButtons">
+                <Title text={i18n.editor.standardView.keys.addModifiers} headingLevel={4} />
+                <p>{i18n.editor.standardView.keys.descriptionModifiers}</p>
+                <div className="groupButtons">
+                  <ModPicker keyCode={code} onKeySelect={this.props.onKeyPress} isStandardView={isStandardView} />
+                </div>
+              </div>
             </div>
           ) : null}
         </div>

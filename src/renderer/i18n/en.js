@@ -242,7 +242,9 @@ const English = {
         standardViewTitle: "Select a key",
         callOut: "Here you can remap ordinary keys. Say Hi or Goodbye to ordinary keyboards. 👋",
         enhanceTitle: "Enhance the selected key",
-        callOutEnhance: "You can add modifiers to your keys or putting extra action adding dual layer function."
+        callOutEnhance: "You can add modifiers to your keys or putting extra action adding dual layer function.",
+        addModifiers: "Add modifiers",
+        descriptionModifiers: "Add any of these modifiers to selected key to create combinations such as Control, Alt or Shift."
       },
       layers: {
         title: "Layers",

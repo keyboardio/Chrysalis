@@ -55,7 +55,7 @@ export default class GeneralSettings extends Component {
     const { selectedLanguage } = this.state;
     let layersNames = neurons[selectedNeuron].layers;
     let flags = [englishUSUKF, spanishF, germanF, frenchF, swedishF, danishF, norwegianF, icelandicF, japaneseF];
-    let language = ["english", "spanish", "german", "french", "swedish", "danish", "norwegian", "icelandic"];
+    let language = ["english", "spanish", "german", "french", "swedish", "danish", "norwegian", "icelandic", "japanese"];
     language = language.map((item, index) => {
       return { text: item, value: item, icon: flags[index], index };
     });

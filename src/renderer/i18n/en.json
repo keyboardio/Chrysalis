@@ -385,10 +385,8 @@
       "title": "Replace the firmware and reset to factory defaults?",
       "contents": "This will replace the firmware on the device, and reset all settings to factory defaults. You will lose all customizations made."
     },
-    "defaultFirmware": "Chrysalis {{version}} default",
-    "defaultFirmwareDescription": "Minimal, without bells and whistles",
-    "experimentalFirmware": "Chrysalis {{version}} experimental",
-    "experimentalFirmwareDescription": "Experimental, with more plugins enabled",
+    "defaultFirmware": "Chrysalis {{version}}",
+    "defaultFirmwareDescription": "Standard firmware shipped with Chrysalis",
     "selected": "Selected firmware",
     "custom": "Custom firmware",
     "description": "Updating or \"flashing\" your keyboard's firmware is how we teach it new tricks. Chrysalis will install a new version of your keyboard's firmware which includes support for customizing the key layout, as well as other features. If you've previously customized your keyboard's firmware, this will overwrite your custom firmware. You can always find the source code of the firmware Chrysalis is installing here:",

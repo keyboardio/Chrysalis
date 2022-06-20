@@ -20,7 +20,6 @@ import { logger } from "@api/log";
 import BuildIcon from "@mui/icons-material/Build";
 import CheckIcon from "@mui/icons-material/Check";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import ExploreIcon from "@mui/icons-material/ExploreOutlined";
 import SettingsBackupRestoreIcon from "@mui/icons-material/SettingsBackupRestore";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
@@ -137,18 +136,6 @@ const FirmwareUpdate = (props) => {
       "default." + firmwareType
     );
   };
-  const _experimentalFirmwareFilename = () => {
-    const { vendor, product } = focusDeviceDescriptor.info;
-    const firmwareType = focusDeviceDescriptor.info.firmwareType || "hex";
-    const cVendor = vendor.replace("/", ""),
-      cProduct = product.replace("/", "");
-    return path.join(
-      getStaticPath(),
-      cVendor,
-      cProduct,
-      "experimental." + firmwareType
-    );
-  };
 
   const _flash = async () => {
     const focus = new Focus();
@@ -156,8 +143,6 @@ const FirmwareUpdate = (props) => {
 
     if (selected == "default") {
       filename = _defaultFirmwareFilename();
-    } else if (selected == "experimental") {
-      filename = _experimentalFirmwareFilename();
     } else {
       filename = firmwareFilename;
     }
@@ -232,29 +217,6 @@ const FirmwareUpdate = (props) => {
     filename = filename[filename.length - 1];
   }
 
-  const experimentalFirmwareItemText = t(
-    "firmwareUpdate.experimentalFirmware",
-    { version: version }
-  );
-  const experimentalFirmwareItem = (
-    <MenuItem value="experimental" selected={selected == "experimental"}>
-      <ListItemIcon>
-        <ExploreIcon />
-      </ListItemIcon>
-      <ListItemText
-        primary={experimentalFirmwareItemText}
-        secondary={t("firmwareUpdate.experimentalFirmwareDescription")}
-      />
-    </MenuItem>
-  );
-  let hasExperimentalFirmware = true;
-
-  try {
-    fs.accessSync(_experimentalFirmwareFilename(), fs.constants.R_OK);
-  } catch (_) {
-    hasExperimentalFirmware = false;
-  }
-
   const defaultFirmwareItemText = t("firmwareUpdate.defaultFirmware", {
     version: version,
   });
@@ -266,10 +228,7 @@ const FirmwareUpdate = (props) => {
       </ListItemIcon>
       <ListItemText
         primary={defaultFirmwareItemText}
-        secondary={
-          hasExperimentalFirmware &&
-          t("firmwareUpdate.defaultFirmwareDescription")
-        }
+        secondary={t("firmwareUpdate.defaultFirmwareDescription")}
       />
     </MenuItem>
   );
@@ -306,7 +265,6 @@ const FirmwareUpdate = (props) => {
         onChange={selectFirmware}
       >
         {hasDefaultFirmware && defaultFirmwareItem}
-        {hasExperimentalFirmware && experimentalFirmwareItem}
         <MenuItem selected={selected == "custom"} value="custom">
           <ListItemIcon
             sx={{

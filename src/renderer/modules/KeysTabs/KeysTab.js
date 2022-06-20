@@ -4,6 +4,7 @@ import Styled from "styled-components";
 import i18n from "../../i18n";
 
 import Title from "../../component/Title";
+import CallOut from "../../component/Callout";
 import { KeyPickerReduced } from "../../modules/KeyPickerKeyboard";
 import { RegularButton, ButtonConfig, ButtonMouse } from "../../component/Button";
 
@@ -26,6 +27,7 @@ import {
   IconLEDPreviousEffect,
   IconLEDNextEffect
 } from "../../component/Icon";
+import Callout from "../../component/Callout";
 
 const Styles = Styled.div`
 display: flex;
@@ -58,7 +60,14 @@ class KeysTab extends Component {
     return (
       <Styles className={`${isStandardView ? "standardViewTab" : ""} tabsKey`}>
         <div className="tabContentWrapper">
-          <Title text="Keys" headingLevel={isStandardView ? 3 : 4} />
+          {isStandardView ? (
+            <>
+              <Title text={i18n.editor.standardView.keys.standardViewTitle} headingLevel={3} />
+              <CallOut content={i18n.editor.standardView.keys.callOut} size="sm" />
+            </>
+          ) : (
+            <Title text={i18n.editor.standardView.keys.keys} headingLevel={4} />
+          )}
           <KeyPickerReduced
             onKeySelect={this.props.onKeyPress}
             code={{ base: 4, modified: 0 }}
@@ -71,6 +80,12 @@ class KeysTab extends Component {
             selectedlanguage={"english"}
             kbtype={"iso"}
           />
+          {isStandardView ? (
+            <div className="enhanceKeys">
+              <Title text={i18n.editor.standardView.keys.enhanceTitle} headingLevel={3} />
+              <CallOut content={i18n.editor.standardView.keys.callOutEnhance} size="sm" />
+            </div>
+          ) : null}
         </div>
       </Styles>
     );

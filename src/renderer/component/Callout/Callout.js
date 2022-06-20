@@ -63,6 +63,10 @@ const Style = Styled.div`
 	line-height: 1.35em;
 	&.sm {
 		font-size: 13px; 
+		padding: 16px 28px;
+		.callOutIcon {	
+			left: -7px;
+		}
 	}
 	&.md {
 		font-size: 15px; 

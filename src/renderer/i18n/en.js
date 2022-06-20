@@ -238,7 +238,11 @@ const English = {
       transparent: "Transparent",
       transparentDescription: "There's no function or character assigned to that key.",
       keys: {
-        keys: "Keys"
+        keys: "Keys",
+        standardViewTitle: "Select a key",
+        callOut: "Here you can remap ordinary keys. Say Hi or Goodbye to ordinary keyboards. 👋",
+        enhanceTitle: "Enhance the selected key",
+        callOutEnhance: "You can add modifiers to your keys or putting extra action adding dual layer function."
       },
       layers: {
         title: "Layers",

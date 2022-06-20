@@ -51,7 +51,7 @@ class LayersTab extends Component {
       <Styles className={`${isStandardView ? "standardViewTab" : ""} tabsLayer`}>
         <div className="tabContentWrapper">
           <Title text={i18n.editor.layers.title} headingLevel={isStandardView ? 3 : 4} />
-          {isStandardView ? <Callout content={i18n.editor.standardView.layers.callOut} /> : null}
+          {isStandardView ? <Callout content={i18n.editor.standardView.layers.callOut} size="sm" /> : null}
           {showLayerSwitch ? (
             <div className="cardButtons">
               <Title text={i18n.editor.standardView.layers.layerSwitch} headingLevel={4} />

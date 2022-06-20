@@ -186,7 +186,7 @@ class SuperkeysTab extends Component {
       <Styles className={`${isStandardView ? "standardViewTab" : ""} tabsSuperkeys`}>
         <div className="tabContentWrapper">
           <Title text={i18n.editor.standardView.superkeys.title} headingLevel={3} />
-          <Callout content={i18n.editor.standardView.superkeys.callOut} />
+          <Callout content={i18n.editor.standardView.superkeys.callOut} size="sm" />
 
           <Title text={i18n.editor.standardView.superkeys.label} headingLevel={4} />
           <div className="superKeyGroup">

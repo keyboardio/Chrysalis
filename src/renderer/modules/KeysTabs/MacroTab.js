@@ -75,10 +75,10 @@ class MacroTab extends Component {
           {isStandardView ? (
             <>
               <Title text={i18n.editor.standardView.macros.title} headingLevel={3} />
-              <Callout content={i18n.editor.standardView.macros.callOut} className="w100" />
+              <Callout content={i18n.editor.standardView.macros.callOut} size="sm" className="w100" />
             </>
           ) : (
-            <Callout content={i18n.editor.macros.macroTab.callout} className="w100" />
+            <Callout content={i18n.editor.macros.macroTab.callout} className="w100" size="sm" />
           )}
           <Title text={i18n.editor.macros.macroTab.label} headingLevel={4} />
           <div className="w100">

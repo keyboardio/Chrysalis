@@ -44,7 +44,7 @@ class NoKeyTransparentTab extends Component {
         <div className="tabContentWrapper">
           <div className="buttonsRow">
             <Title text={i18n.editor.standardView.noKeyTransparent} headingLevel={3} />
-            <CallOut content={i18n.editor.standardView.callOut} />
+            <CallOut content={i18n.editor.standardView.callOut} size="sm" />
 
             <div className="keysButtonsList">
               <Title text={i18n.editor.standardView.noKey} headingLevel={4} />

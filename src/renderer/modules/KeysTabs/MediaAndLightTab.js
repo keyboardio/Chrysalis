@@ -110,7 +110,7 @@ class MediaAndLightTab extends Component {
           {isStandardView ? (
             <>
               <Title text={i18n.editor.standardView.mediaAndLED.title} headingLevel={3} />
-              <Callout content={i18n.editor.standardView.mediaAndLED.callOut} />
+              <Callout content={i18n.editor.standardView.mediaAndLED.callOut} size="sm" />
             </>
           ) : null}
           <div className="buttonsRow">

@@ -130,10 +130,6 @@ h4 {
     }
   }
 }
-.button-config {
-  opacity: 1;
-  background: black;
-}
 `;
 
 const MouseTab = ({ isStandardView, keyCode, onAddSpecial }) => {
@@ -162,7 +158,7 @@ const MouseTab = ({ isStandardView, keyCode, onAddSpecial }) => {
         {isStandardView ? (
           <>
             <Title text={i18n.editor.standardView.mouse.title} headingLevel={3} />
-            <Callout content={i18n.editor.standardView.mouse.callOut} />
+            <Callout content={i18n.editor.standardView.mouse.callOut} size="sm" />
           </>
         ) : null}
         <div className="mouseWrapper">

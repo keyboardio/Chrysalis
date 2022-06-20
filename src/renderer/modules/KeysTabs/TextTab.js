@@ -50,7 +50,7 @@ class TextTab extends Component {
     return (
       <Styles>
         <div className="tabContentWrapper">
-          <Callout content={i18n.editor.macros.textTabs.callout} className="w100" size="md" />
+          <Callout content={i18n.editor.macros.textTabs.callout} className="w100" size="sm" />
           <Title text={i18n.editor.macros.textTabs.title} headingLevel={4} />
           <Form.Control
             type="text"

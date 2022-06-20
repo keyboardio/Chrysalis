@@ -51,7 +51,7 @@ class OneShotTab extends Component {
           {isStandardView ? (
             <>
               <Title text={i18n.editor.standardView.oneShot.title} headingLevel={3} />
-              <Callout content={i18n.editor.standardView.oneShot.callOut} />
+              <Callout content={i18n.editor.standardView.oneShot.callOut} size="sm" />
             </>
           ) : null}
 

@@ -65,7 +65,7 @@ const Style = Styled.div`
 		font-size: 13px; 
 		padding: 16px 28px;
 		.callOutIcon {	
-			left: -7px;
+			top: 7px;
 		}
 	}
 	&.md {

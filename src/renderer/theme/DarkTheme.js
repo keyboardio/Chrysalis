@@ -581,6 +581,25 @@ const Dark = {
       handleBoxShadow: Tokens.colors.purple300,
       labelColor: Tokens.colors.gray200
     },
+    standardView: {
+      modalBackground: "rgba(18, 17, 28, 0.95)",
+      contentBackground: Tokens.colors.gray800,
+      footerBackground: settingColorOpacity(Tokens.colors.gray900, 0.1),
+      superkeys: {
+        info: {
+          background: "#2D3245"
+        },
+        item: {
+          titleColor: Tokens.colors.gray25,
+          descriptionColor: Tokens.colors.gray100,
+          background: settingColorOpacity(Tokens.colors.gray500, 0.2)
+        },
+        key: {
+          background: settingColorOpacity(Tokens.colors.gray300, 0.15),
+          border: Tokens.colors.gray800
+        }
+      }
+    },
     stepsBar: {
       stepBarBackground: Tokens.colors.gray600,
       stepBarBackgroundActive: Tokens.colors.purple300,

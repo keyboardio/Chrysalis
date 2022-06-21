@@ -576,6 +576,25 @@ const Light = {
       handleBoxShadow: "rgba(97, 32, 234, 0.4)",
       labelColor: Tokens.colors.gray300
     },
+    standardView: {
+      modalBackground: "rgba(214, 217, 224, 0.95)",
+      contentBackground: Tokens.colors.gray25,
+      footerBackground: settingColorOpacity(Tokens.colors.gray200, 0.05),
+      superkeys: {
+        info: {
+          background: "#2D3245"
+        },
+        item: {
+          titleColor: Tokens.colors.gray25,
+          descriptionColor: Tokens.colors.gray100,
+          background: settingColorOpacity(Tokens.colors.gray500, 0.2)
+        },
+        key: {
+          background: settingColorOpacity(Tokens.colors.gray300, 0.15),
+          border: Tokens.colors.gray800
+        }
+      }
+    },
     stepsBar: {
       stepBarBackground: settingColorOpacity(Tokens.colors.gray100, 0.5),
       stepBarBackgroundActive: Tokens.colors.purple200,

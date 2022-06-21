@@ -1,15 +1,21 @@
 import React, { Component, Fragment } from "react";
 import Styled from "styled-components";
+import i18n from "../../i18n";
 
 // Internal components
 import Keymap, { KeymapDB } from "../../../api/keymap";
 import { Picker } from "./../KeyPickerKeyboard";
 import Keys from "../../components/KeyManager/Keys";
 import Selector from "../../components/KeyManager/Selector";
+import Title from "../../component/Title";
+import ListModifiers from "../../component/ListModifiers/ListModifiers";
 
 import ModPicker from "./ModPicker";
 import KeyVisualizer from "../KeyVisualizer";
 import DualFunctionPicker from "./DualFunctionPicker";
+
+// Icons
+import { IconKeysPress, IconKeysTapHold, IconKeysHold, IconKeys2Tap, IconKeys2TapHold } from "../../component/Icon";
 
 const Style = Styled.div`
 width: -webkit-fill-available;
@@ -162,6 +168,56 @@ width: -webkit-fill-available;
   margin-left: ${({ theme }) => theme.styles.keyboardPicker.modPickerAlignAdjust};
   margin-right: ${({ theme }) => theme.styles.keyboardPicker.modPickerAlignAdjust};
   margin-bottom: ${({ theme }) => theme.styles.keyboardPicker.modPickerAlignAdjust};
+  flex: 0 0 100%;
+}
+
+.superkeyHint {
+  padding: 8px;
+}
+.superkeyItem {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  border-radius: 3px;
+  padding: 4px;
+  justify-content: space-between;
+  background-color: ${({ theme }) => theme.styles.standardView.superkeys.item.background};
+}
+.superkeyItem + .superkeyItem  {
+  margin-top: 1px;
+}
+.superkeyTitle {
+  flex: 0 0 62px;
+  padding-right: 18px;
+}
+.superkeyTitle h5.actionTitle {
+  font-size: 8px; 
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin: 4px 0 1px 0;
+  color: ${({ theme }) => theme.styles.standardView.superkeys.item.titleColor};
+}
+.superKey {
+  position: relative;
+  align-self: center;
+  padding: 4px;
+  flex: 0 0 calc(100% - 62px);
+  text-align: center;
+  font-size: 10px;
+  font-weight: 700;
+  border: 1px solid ${({ theme }) => theme.styles.standardView.superkeys.key.border};
+  border-radius: 3px;
+  background-color: ${({ theme }) => theme.styles.standardView.superkeys.key.background};
+  .listModifiersTags .labelModifier {
+    font-size: 8px;
+    padding: 3px 8px;
+  }
+}
+.superKey > div{
+  position: absolute;
+  bottom: -12px;
+  left: 12px;
 }
 
 `;
@@ -306,6 +362,25 @@ class KeyPickerKeyboard extends Component {
     this.setState({ activeTab: tab, action: 0 });
   }
 
+  translateSuperKeyAction = superkeysSelected => {
+    if (superkeysSelected === undefined) {
+      return null;
+    }
+    let aux = this.keymapDB.parse(superkeysSelected);
+    let translatedAction = "";
+    console.log("Try to translate superkey actions inside SuperKeiItem: ", aux);
+
+    if (aux.extraLabel == "MACRO") {
+      if (this.props.macros.length > parseInt(aux.label) && this.props.macros[parseInt(aux.label)].name.substr(0, 5) != "") {
+        translatedAction = aux.label = this.props.macros[parseInt(aux.label)].name.substr(0, 5).toLowerCase();
+      }
+    }
+    if (aux.label) {
+      translatedAction = (aux.extraLabel != undefined ? aux.extraLabel + " " : "") + aux.label;
+    }
+    return translatedAction;
+  };
+
   render() {
     const { action, actions, showKB, modifs, superName, disable, Keymap } = this.state;
     const { selectedlanguage, kbtype, macros, actTab, superkeys, code, onKeySelect } = this.props;
@@ -314,6 +389,41 @@ class KeyPickerKeyboard extends Component {
     const selKeys = actions.map((a, i) => this.parseAction(i));
     // console.log(code);
 
+    const KC = code.base + code.modified;
+    const superk = Array(superkeys.length)
+      .fill()
+      .map((_, i) => i + 53916);
+
+    let adjactions = actions;
+    if (adjactions.length < 5) {
+      while (adjactions.length < 5) {
+        adjactions.push(0);
+      }
+    }
+
+    const superKeysActions = [
+      {
+        title: "TAP",
+        icon: <IconKeysPress />
+      },
+      {
+        title: "HOLD",
+        icon: <IconKeysTapHold />
+      },
+      {
+        title: "TAP & HOLD",
+        icon: <IconKeysHold />
+      },
+      {
+        title: "2TAP",
+        icon: <IconKeys2Tap />
+      },
+      {
+        title: "2TAP & HOLD",
+        icon: <IconKeys2TapHold />
+      }
+    ];
+
     return (
       <Style>
         <div className="singleViewWrapper">
@@ -321,11 +431,29 @@ class KeyPickerKeyboard extends Component {
             <div className="keyEnhanceInner">
               <KeyVisualizer newValue={selKey} keyCode={code} />
               <div className="ModPicker">
-                <ModPicker key={code} keyCode={code} onKeySelect={onKeySelect}></ModPicker>
-                {actTab == "editor" ? (
-                  <DualFunctionPicker keyCode={code} onKeySelect={onKeySelect} activeTab={activeTab}></DualFunctionPicker>
+                {superkeys[superk.indexOf(KC)] != undefined ? (
+                  <div className="superkeyHint">
+                    {superKeysActions.map((item, index) => (
+                      <div className="superkeyItem" key={`superHint-${index}`}>
+                        <div className="superkeyTitle">
+                          <h5 className="actionTitle">{item.title}</h5>
+                        </div>
+                        <div className="superKey">
+                          {this.translateSuperKeyAction(superkeys[superk.indexOf(KC)].actions[index])}
+                          <ListModifiers keyCode={superkeys[superk.indexOf(KC)].actions[index]} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 ) : (
-                  <></>
+                  <>
+                    <ModPicker key={code} keyCode={code} onKeySelect={onKeySelect}></ModPicker>
+                    {actTab == "editor" ? (
+                      <DualFunctionPicker keyCode={code} onKeySelect={onKeySelect} activeTab={activeTab}></DualFunctionPicker>
+                    ) : (
+                      <></>
+                    )}
+                  </>
                 )}
               </div>
             </div>

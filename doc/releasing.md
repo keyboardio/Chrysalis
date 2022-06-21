@@ -13,12 +13,12 @@ last. Until we're in beta, we're keeping the major version at zero.
 
 Once the version is bumped, make sure that the firmware files shipped with
 Chrysalis are up to date. Hop over to the
-[Chrysalis-Firmware-Bundle][repo:bundle] repository, update the sketches if need
-be, commit the results, push it, and tag it with the same version as Chrysalis.
-Then come back to this repo, and run `yarn run firmware:update`, which will pull
-the latest firmware bundle, compile it, and refresh the shipped hexes. If those
-changed, commit them as well. Do note that this assumes you have a firmware
-build environment already set up. The script will not do that for you.
+[Chrysalis-Firmware-Bundle][repo:bundle] repository, and make sure everything is
+up to date there. If everything is up to date, bump the version therein to be
+the same as Chrysalis's version, finalise the NEWS, commit the results, and wait
+for the CI to finish, then download the tarball with the compiled firmware,
+refresh the firmware files and the firmware changelog in Chrysalis based on
+that, and commit it.
 
  [repo:bundle]: https://github.com/keyboardio/Chrysalis-Firmware-Bundle
 

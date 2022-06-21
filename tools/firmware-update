@@ -2,18 +2,35 @@
 
 set -e
 
-if [ ! -d firmware-bundle ]; then
-    echo "* Cloning the firmware bundle..."
-    git clone --quiet --recursive \
-        https://github.com/keyboardio/Chrysalis-Firmware-Bundle.git firmware-bundle
-fi
+package_version() {
+    jq -r .version <package.json
+}
 
-echo "* Updating the firmware bundle..."
-cd firmware-bundle
-git pull --quiet --ff --recurse-submodules=yes
+URL_BASE="https://github.com/keyboardio/Chrysalis-Firmware-Bundle/releases"
+TARBALL_FN="firmware-files.tar"
 
-echo "* Building firmware files..."
-make
+case "$(package_version)" in
+    *-snapshot)
+        TAG="snapshot"
+        ;;
+    *)
+        TAG="v$(package_version)"
+        ;;
+esac
 
-echo "* Updating the hex files..."
-cp -r output/* ../static/
+URL="${URL_BASE}/download/${TAG}/${TARBALL_FN}"
+
+wget -q -O - ${URL} | tar -C static -xf -
+git add static/**/default.{hex,bin} static/firmware-changelog.md
+rm static/build-info.yml
+
+TMP=$(mktemp)
+cat >${TMP} <<EOF
+Update the firmware files we ship with
+
+Artifacts downloaded from keyboardio/Chrysalis-Firmware-Bundle@${TAG}.
+
+$(head -n 17 static/release-notes.md | tail -n +3)
+EOF
+git commit -s -F "${TMP}"
+rm -f "${TMP}" static/release-notes.md

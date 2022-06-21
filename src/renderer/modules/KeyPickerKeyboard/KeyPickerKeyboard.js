@@ -331,15 +331,11 @@ class KeyPickerKeyboard extends Component {
       superk = `SUPER\n${this.props.superkeys[keycode - 53916] ? this.props.superkeys[keycode - 53916].name : keycode - 53915}`;
       return superk;
     }
-    const macro = this.props.macros[parseInt(this.keymapDB.parse(keycode).label)];
-    let macroName;
-    try {
-      macroName = this.props.macros[parseInt(this.keymapDB.parse(keycode).label)].name.substr(0, 5);
-    } catch (error) {
-      macroName = "*NotFound*";
-    }
-    if (keycode >= 53852 && keycode <= 53852 + 64) {
-      if (this.props.code !== null) return this.keymapDB.parse(keycode).extraLabel + "." + macroName;
+    if (keycode > 53851) {
+      let macroN = "";
+      console.log(this.props.macros[keycode - 53852]);
+      macroN = `SUPER\n${this.props.macros[keycode - 53852] ? this.props.macros[keycode - 53852].name : keycode - 53852}`;
+      return macroN;
     }
     return this.props.code !== null
       ? this.keymapDB.parse(keycode).extraLabel != undefined

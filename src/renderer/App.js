@@ -79,7 +79,8 @@ class App extends React.Component {
       device: null,
       pages: {},
       contextBar: false,
-      cancelPendingOpen: false
+      cancelPendingOpen: false,
+      fwUpdate: false
     };
     localStorage.clear();
 
@@ -95,7 +96,6 @@ class App extends React.Component {
     });
 
     this.forceDarkMode = this.forceDarkMode.bind(this);
-    this.toggleFlashing = this.toggleFlashing.bind(this);
   }
   flashing = false;
 
@@ -224,6 +224,12 @@ class App extends React.Component {
     }
   };
 
+  toggleFwUpdate = () => {
+    this.setState({
+      fwUpdate: !this.state.fwUpdate
+    });
+  };
+
   onKeyboardConnect = async port => {
     focus.close();
 
@@ -303,7 +309,7 @@ class App extends React.Component {
   };
 
   render() {
-    const { connected, pages, contextBar, darkMode } = this.state;
+    const { connected, pages, contextBar, darkMode, fwUpdate } = this.state;
 
     let focus = new Focus();
     let device =
@@ -322,6 +328,7 @@ class App extends React.Component {
           cancelContext={this.cancelContext}
           theme={darkMode}
           flashing={!connected}
+          fwUpdate={fwUpdate}
         />
         <div className="main-container">
           <Switch>
@@ -371,6 +378,7 @@ class App extends React.Component {
               path="/firmware-update"
               device={this.state.device}
               toggleFlashing={this.toggleFlashing}
+              toggleFwUpdate={this.toggleFwUpdate}
               onDisconnect={this.onKeyboardDisconnect}
               titleElement={() => document.querySelector("#page-title")}
               darkMode={darkMode}

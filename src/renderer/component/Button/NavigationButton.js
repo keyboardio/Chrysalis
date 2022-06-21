@@ -23,6 +23,9 @@ import Tooltip from "react-bootstrap/Tooltip";
 import LightAccent from "../../../../static/dark/light-accent--lg.png";
 
 const Style = Styled.div`
+.disabled{
+    opacity: 0.6;
+}
 .menuLink {
     width: 96px;
     height: 96px;
@@ -197,9 +200,13 @@ const Style = Styled.div`
   }
 `;
 //className={`icon-image ${selected ? "select" : ""}`}
-const NavigationButton = ({ selected, onClick, showNotif, buttonText, icoSVG }) => {
+const NavigationButton = ({ selected, onClick, showNotif, buttonText, icoSVG, disabled }) => {
   return (
-    <Style onClick={onClick}>
+    <Style
+      onClick={() => {
+        disabled ? "" : onClick();
+      }}
+    >
       <OverlayTrigger
         placement={`right`}
         overlay={
@@ -208,7 +215,7 @@ const NavigationButton = ({ selected, onClick, showNotif, buttonText, icoSVG }) 
           </Tooltip>
         }
       >
-        <div className={`menuLink ${selected ? "active" : ""}`}>
+        <div className={`menuLink ${selected ? "active" : ""} ${disabled ? "disabled" : ""}`}>
           <div className={"menuLinkInner"}>
             {icoSVG}
             {showNotif ? <div className="badge badge-primary">{i18n.app.menu.badgeNew}</div> : ""}

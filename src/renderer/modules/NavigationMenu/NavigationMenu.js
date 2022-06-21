@@ -43,7 +43,9 @@ import { fwVersion } from "../../../../package.json";
 const drawerWidth = 64;
 
 const Styles = Styled.div`
-
+.disabled {
+  pointer-events: none;
+}
 .brand-image {
   padding: 0 !important;
   margin-left: 0;
@@ -191,9 +193,8 @@ class NavigationMenu extends Component {
   }
 
   render() {
-    const { connected, pages, history, themeDark } = this.props;
+    const { connected, pages, history, themeDark, fwUpdate } = this.props;
     const currentPage = history.location.pathname;
-    const setCurrentPage = history.push;
 
     // const homePage = connected
     //   ? pages.keymap
@@ -211,7 +212,7 @@ class NavigationMenu extends Component {
             <img alt="" src={DygmaLogo} className="d-inline-block align-top" />
           </NavbarBrand>
           <Nav>
-            {/* <Link to="/welcome" className="list-link">
+            {/* <Link to="/welcome" className={`list-link ${fwUpdate ? "disabled" : ""}`}>
               <WelcomeMenu
                 selected={currentPage === "/welcome"}
                 userMenu={i18n.app.menu.userMenu}
@@ -224,56 +225,55 @@ class NavigationMenu extends Component {
                 <>
                   {pages.keymap && (
                     <React.Fragment>
-                      <Link to="/editor" className="list-link">
+                      <Link to="/editor" className={`list-link ${fwUpdate ? "disabled" : ""}`}>
                         <NavigationButton
                           selected={currentPage === "/editor"}
                           drawerWidth={drawerWidth}
-                          onClick={() => setCurrentPage("/editor")}
                           buttonText={i18n.app.menu.editor}
                           icoSVG={<IconKeyboard2Stroke />}
+                          disabled={fwUpdate}
                         />
                       </Link>
-                      <Link to="/macros" className="list-link">
+                      <Link to="/macros" className={`list-link ${fwUpdate ? "disabled" : ""}`}>
                         <NavigationButton
                           selected={currentPage === "/macros"}
                           drawerWidth={drawerWidth}
-                          onClick={() => setCurrentPage("/macros")}
                           buttonText={i18n.app.menu.macros}
                           icoSVG={<IconRobot2Stroke />}
+                          disabled={fwUpdate}
                         />
                       </Link>
-                      <Link to="/superkeys" className="list-link">
+                      <Link to="/superkeys" className={`list-link ${fwUpdate ? "disabled" : ""}`}>
                         <NavigationButton
                           selected={currentPage === "/superkeys"}
                           drawerWidth={drawerWidth}
-                          onClick={() => setCurrentPage("/superkeys")}
                           buttonText={i18n.app.menu.superkeys}
                           icoSVG={<IconThunder2Stroke />}
+                          disabled={fwUpdate}
                         />
                       </Link>
                     </React.Fragment>
                   )}
-                  <Link to="/firmware-update" className="list-link">
+                  <Link to="/firmware-update" className={`list-link ${fwUpdate ? "disabled" : ""}`}>
                     <NavigationButton
                       selected={currentPage === "/firmware-update"}
                       drawerWidth={drawerWidth}
-                      onClick={() => setCurrentPage("/firmware-update")}
                       showNotif={showNotif != 0 ? (showNotif > 0 ? true : false) : false}
-                      // showNotif={true}
                       buttonText={i18n.app.menu.firmwareUpdate}
                       icoSVG={<IconMemory2Stroke />}
+                      disabled={fwUpdate}
                     />
                   </Link>
                 </>
               )}
-              <Link to="/keyboard-select" className="list-link">
+              <Link to="/keyboard-select" className={`list-link ${fwUpdate ? "disabled" : ""}`}>
                 <NavigationButton
                   keyboardSelectText={connected ? i18n.app.menu.selectAnotherKeyboard : i18n.app.menu.selectAKeyboard}
                   drawerWidth={drawerWidth}
                   selected={currentPage === "/keyboard-select"}
-                  onClick={() => setCurrentPage("/keyboard-select")}
                   buttonText={i18n.app.menu.selectAKeyboard}
                   icoSVG={<IconKeyboardSelector />}
+                  disabled={fwUpdate}
                 />
               </Link>
 
@@ -283,7 +283,7 @@ class NavigationMenu extends Component {
                 delay={{ show: 250, hide: 400 }}
                 overlay={this.renderTooltip("Update Bazecor")}
               >
-                <div className="list-link">
+                <div className={`list-link ${fwUpdate ? "disabled" : ""}`}>
                   <SoftwareUpdateMenuItem
                     keyboardSelectText={i18n.app.menu.softwareUpdate}
                     drawerWidth={drawerWidth}
@@ -298,7 +298,7 @@ class NavigationMenu extends Component {
                 delay={{ show: 250, hide: 400 }}
                 overlay={this.renderTooltip("Exit Bazecor")}
               >
-                <div className="list-link">
+                <div className={`list-link ${fwUpdate ? "disabled" : ""}`}>
                   <ExitMenuItem
                     drawerWidth={drawerWidth}
                     onClick={() => remote.app.exit(0)}
@@ -307,13 +307,13 @@ class NavigationMenu extends Component {
               </OverlayTrigger> */}
             </div>
             <div className="bottomMenu">
-              <Link to="/preferences" className="list-link">
+              <Link to="/preferences" className={`list-link ${fwUpdate ? "disabled" : ""}`}>
                 <NavigationButton
                   drawerWidth={drawerWidth}
                   selected={currentPage === "/preferences"}
-                  onClick={() => setCurrentPage("/preferences")}
                   buttonText={i18n.app.menu.preferences}
                   icoSVG={<IconPreferences2Stroke />}
+                  disabled={fwUpdate}
                 />
               </Link>
             </div>

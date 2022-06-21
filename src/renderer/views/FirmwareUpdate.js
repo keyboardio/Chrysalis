@@ -109,6 +109,7 @@ class FirmwareUpdate extends React.Component {
         if (this.state.backupDone && this.state.countdown == 1) {
           // TODO: launch flashing procedure
           console.log("launching the flashing procedure");
+          this.props.toggleFwUpdate();
           this.setState({ countdown: 2, flashProgress: 0 });
           this.upload();
         }
@@ -271,6 +272,7 @@ class FirmwareUpdate extends React.Component {
         />
       );
       this.props.toggleFlashing();
+      this.props.toggleFwUpdate();
       this.props.onDisconnect();
       this.setState({ confirmationOpen: false });
       return;
@@ -283,6 +285,7 @@ class FirmwareUpdate extends React.Component {
       // setTimeout(() => {
       toast.success(<ToastMessage title={i18n.firmwareUpdate.flashing.success} icon={<IconFloppyDisk />} />);
       this.props.toggleFlashing();
+      this.props.toggleFwUpdate();
       this.props.onDisconnect();
       this.setState({ confirmationOpen: false });
       resolve();

@@ -598,7 +598,7 @@ class KeyPicker extends Component {
                       selKeys={selKeys}
                       onKeySelect={onKeySelect}
                       superkeys={superkeys}
-                      keyCode={code}
+                      keyCode={keyCode}
                     />
                   </div>
                 </div>

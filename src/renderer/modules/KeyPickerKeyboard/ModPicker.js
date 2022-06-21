@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Styled from "styled-components";
+import i18n from "../../i18n";
 
 //Components
 import Title from "../../component/Title";
@@ -12,7 +13,9 @@ height: inherit;
   h4 {
     font-size: 14px;
   }
-
+}
+.modPickerInner.modPickerInnerStd {
+  padding: 0;
 }
 .modPickerButtonsList {
   display: flex;
@@ -142,8 +145,8 @@ class ModPicker extends Component {
 
     return (
       <Style>
-        <div className="modPickerInner">
-          <Title text="Add a modifier" headingLevel={4} />
+        <div className={`modPickerInner ${this.props.isStandardView ? "modPickerInnerStd" : ""}`}>
+          {!this.props.isStandardView ? <Title text={i18n.editor.standardView.keys.addModifier} headingLevel={4} /> : null}
           <div className="modPickerButtonsList">
             <ButtonConfig
               selected={modifs.includes(0)}

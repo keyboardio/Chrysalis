@@ -724,7 +724,8 @@ svg text{
   p {
     color: ${({ theme }) => theme.styles.cardButtons.color};
     font-weight: 395; 
-    font-size: 14px;
+    font-size: 13px;
+    margin-bottom: 8px;
   }
   .groupButtons {
     display: flex;

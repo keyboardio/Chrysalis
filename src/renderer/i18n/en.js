@@ -244,7 +244,11 @@ const English = {
         enhanceTitle: "Enhance the selected key",
         callOutEnhance: "You can add modifiers to your keys or putting extra action adding dual layer function.",
         addModifiers: "Add modifiers",
-        descriptionModifiers: "Add any of these modifiers to selected key to create combinations such as Control, Alt or Shift."
+        addModifier: "Add a modifier",
+        descriptionModifiers: "Add any of these modifiers to selected key to create combinations such as Control, Alt or Shift.",
+        addDualFunction: "Add a dual-function",
+        dualFunctionDescription:
+          "Dual-function keys have two functionalities. 1. When tapped, they send a chartacter. 2. When held, they send a modifier o a layer key."
       },
       layers: {
         title: "Layers",

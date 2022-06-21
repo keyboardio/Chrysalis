@@ -7,6 +7,7 @@ import Title from "../../component/Title";
 import CallOut from "../../component/Callout";
 import { KeyPickerReduced } from "../../modules/KeyPickerKeyboard";
 import ModPicker from "../KeyPickerKeyboard/ModPicker";
+import DualFunctionPicker from "../KeyPickerKeyboard/DualFunctionPicker";
 import { RegularButton, ButtonConfig, ButtonMouse } from "../../component/Button";
 
 import {
@@ -48,7 +49,28 @@ h4 {
     width: 100%;
     flex: 0 0 100%;
 }
-
+.groupButtons {
+  padding: 0; 
+}
+.cardButtonsModifier .groupButtons{
+  background-color: transparent;
+  .modPickerInner {
+    padding: 0 0 0 4px;
+  }
+}
+&.tabsKey {
+  .cardButtons {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+  }
+  .cardButtons + .cardButtons {
+      margin-top: 2px;
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+  }
+}
 `;
 
 class KeysTab extends Component {
@@ -85,12 +107,20 @@ class KeysTab extends Component {
             <div className="enhanceKeys">
               <Title text={i18n.editor.standardView.keys.enhanceTitle} headingLevel={3} />
               <CallOut content={i18n.editor.standardView.keys.callOutEnhance} size="sm" />
-              <div className="cardButtons">
+              <div className="cardButtons cardButtonsModifier">
                 <Title text={i18n.editor.standardView.keys.addModifiers} headingLevel={4} />
                 <p>{i18n.editor.standardView.keys.descriptionModifiers}</p>
-                <div className="groupButtons">
-                  <ModPicker keyCode={code} onKeySelect={this.props.onKeyPress} isStandardView={isStandardView} />
-                </div>
+                <ModPicker keyCode={code} onKeySelect={this.props.onKeyPress} isStandardView={isStandardView} />
+              </div>
+              <div className="cardButtons">
+                <Title text={i18n.editor.standardView.keys.addDualFunction} headingLevel={4} />
+                <p>{i18n.editor.standardView.keys.dualFunctionDescription}</p>
+                <DualFunctionPicker
+                  keyCode={code}
+                  onKeySelect={this.props.onKeyPress}
+                  activeTab="editor"
+                  isStandardView={isStandardView}
+                />
               </div>
             </div>
           ) : null}

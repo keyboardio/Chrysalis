@@ -56,6 +56,7 @@ const Styles = Styled.div`
     flex-wrap: wrap;
     background-color: ${({ theme }) => theme.styles.standardView.contentBackground};
     border-radius: 6px;
+    overflow-y: auto;
     .contentBody {
         flex-grow: 1;
         margin-bottom: auto;

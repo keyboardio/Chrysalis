@@ -95,9 +95,12 @@ async function createMainWindow() {
     window.show();
   });
 
-  nativeTheme.on("updated", function theThemeHasChanged() {
+  const theThemeHasChanged = () => {
     window.webContents.send("darkTheme-update", nativeTheme.shouldUseDarkColors);
-  });
+  };
+
+  nativeTheme.on("updated", theThemeHasChanged);
+
   const UiohookToName = Object.fromEntries(Object.entries(UiohookKey).map(([k, v]) => [v, k]));
 
   // function send webContents event for KeyDown
@@ -151,6 +154,7 @@ async function createMainWindow() {
   });
 
   window.on("closed", () => {
+    nativeTheme.off("updated", theThemeHasChanged);
     mainWindow = null;
   });
 

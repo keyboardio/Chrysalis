@@ -269,6 +269,12 @@ class KeyPickerKeyboard extends Component {
   }
 
   parseKey(keycode) {
+    if (keycode > 53915) {
+      let superk = "";
+      console.log(this.props.superkeys[keycode - 53916]);
+      superk = `SUPER\n${this.props.superkeys[keycode - 53916] ? this.props.superkeys[keycode - 53916].name : keycode - 53915}`;
+      return superk;
+    }
     const macro = this.props.macros[parseInt(this.keymapDB.parse(keycode).label)];
     let macroName;
     try {

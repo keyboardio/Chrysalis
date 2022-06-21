@@ -94,7 +94,30 @@ width: -webkit-fill-available;
   color: ${({ theme }) => theme.colors.button.text};
   background-color: ${({ theme }) => theme.card.background};
 }
-
+.ball-container {
+  display: flex;
+  height: 47px;
+}
+.ball{
+  margin: 4px 2px;
+  width: 60px;
+  text-align: center;
+  padding: 8px 4px;
+  font-size: 16px;
+  font-weight: 600;
+  -webkit-letter-spacing: -0.03em;
+  -moz-letter-spacing: -0.03em;
+  -ms-letter-spacing: -0.03em;
+  letter-spacing: -0.03em;
+  border: none;
+  color: rgba(226,228,234,1);
+  background: linear-gradient(90deg,rgba(255,255,255,0.1) -22.96%,rgba(255,255,255,0) 123.24%),linear-gradient(0deg,rgba(87,97,126,0.25),rgba(87,97,126,0.25)),rgba(11,2,25,0.2);
+  border: none;
+  border-radius: 6px;
+  box-shadow: 0px 2px 0px rgb(0 0 0 / 10%);
+  -webkit-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+}
 .Tabstyle {
   margin-left: 322px;
   margin-top: -31px;
@@ -334,7 +357,7 @@ class KeyPickerKeyboard extends Component {
     if (keycode > 53851) {
       let macroN = "";
       console.log(this.props.macros[keycode - 53852]);
-      macroN = `SUPER\n${this.props.macros[keycode - 53852] ? this.props.macros[keycode - 53852].name : keycode - 53852}`;
+      macroN = `MACRO\n${this.props.macros[keycode - 53852] ? this.props.macros[keycode - 53852].name : keycode - 53852}`;
       return macroN;
     }
     return this.props.code !== null
@@ -427,7 +450,7 @@ class KeyPickerKeyboard extends Component {
             <div className="keyEnhanceInner">
               <KeyVisualizer newValue={selKey} keyCode={code} />
               <div className="ModPicker">
-                {superkeys[superk.indexOf(KC)] != undefined ? (
+                {superkeys[superk.indexOf(KC)] ? (
                   <div className="superkeyHint">
                     {superKeysActions.map((item, index) => (
                       <div className="superkeyItem" key={`superHint-${index}`}>
@@ -440,6 +463,16 @@ class KeyPickerKeyboard extends Component {
                         </div>
                       </div>
                     ))}
+                  </div>
+                ) : this.props.macros[KC - 53852] ? (
+                  <div className="ball-container">
+                    {this.props.macros[KC - 53852].macro.split(" ").map((data, index) => {
+                      return (
+                        <div className="ball" key={`LtrIdx-${index}`}>
+                          {data}
+                        </div>
+                      );
+                    })}
                   </div>
                 ) : (
                   <>

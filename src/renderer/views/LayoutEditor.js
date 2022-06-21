@@ -29,14 +29,9 @@ import Modal from "react-bootstrap/Modal";
 import Focus from "../../api/focus";
 import Backup from "../../api/backup";
 import Keymap, { KeymapDB } from "../../api/keymap";
-import LayerPanel from "../screens/Editor/LayerPanel";
-import ColorPanel from "../screens/Editor/ColorPanel";
-import KeyConfig from "../components/KeyManager";
-// import KeyEditor from "../../components/KeyEditor";
 import ConfirmationDialog from "../components/ConfirmationDialog";
 import i18n from "../i18n";
 import { CopyFromDialog } from "../screens/Editor/CopyFromDialog";
-import { undeglowDefaultColors } from "../screens/Editor/initialUndaglowColors";
 
 // Modules
 import PageHeader from "../modules/PageHeader";
@@ -401,7 +396,6 @@ class LayoutEditor extends React.Component {
       isMultiSelected: false,
       isColorButtonSelected: false,
       currentLanguageLayout: "",
-      undeglowColors: null,
       showMacroModal: false,
       showNeuronModal: false
     };
@@ -421,7 +415,6 @@ class LayoutEditor extends React.Component {
   }
 
   keymapDB = new KeymapDB();
-  undeglowCount = 14;
 
   onLayerNameChange(newName) {
     let layerNames = this.state.layerNames.slice();
@@ -437,25 +430,6 @@ class LayoutEditor extends React.Component {
     neurons[this.state.neuronID].layers = layerNames;
     store.set("neurons", neurons);
   }
-
-  /**
-   * Bottom menu never hide and automatically select a key at launch and have this shown in the bottom menu
-   */
-  bottomMenuNeverHide = () => {
-    this.setState(state => ({
-      currentKeyIndex: state.currentKeyIndex !== -1 ? state.currentKeyIndex : state.previousKeyIndex,
-      currentLedIndex: state.currentLedIndex !== -1 ? state.currentLedIndex : state.previousLedIndex,
-      selectedPaletteColor: null,
-      isColorButtonSelected: false
-    }));
-  };
-
-  bottomMenuNeverHideFromUnderglow = () => {
-    this.setState(state => ({
-      currentKeyIndex: state.currentKeyIndex !== -1 ? state.currentKeyIndex : state.previousKeyIndex,
-      currentLedIndex: state.currentLedIndex !== -1 ? state.currentLedIndex : state.previousLedIndex
-    }));
-  };
 
   async AnalizeChipID(chipID) {
     let neurons = store.get("neurons");
@@ -582,7 +556,6 @@ class LayoutEditor extends React.Component {
 
       let colormap = await focus.command("colormap");
       let palette = colormap.palette.slice();
-      const undeglowColors = store.get("settings.undeglowColors");
       let raw = await focus.command("macros.map");
       if (raw.search(" 0 0 ") !== -1) {
         raw = raw.split(" 0 0 ")[0].split(" ").map(Number);
@@ -597,30 +570,18 @@ class LayoutEditor extends React.Component {
         raw2 = "";
       }
       const parsedSuper = this.superTranslator(raw2);
-      this.setState(
-        () => {
-          if (!undeglowColors) {
-            store.set("settings.undeglowColors", undeglowDefaultColors);
-            return { undeglowColors: undeglowDefaultColors };
-          } else {
-            return { undeglowColors };
-          }
-        },
-        () => {
-          this.setState({
-            currentLayer: this.state.previousLayer,
-            defaultLayer: defLayer,
-            keymap: keymap,
-            showDefaults: !keymap.onlyCustom,
-            palette,
-            colorMap: colormap.colorMap,
-            macros: parsedMacros,
-            superkeys: parsedSuper,
-            registered,
-            chipID
-          });
-        }
-      );
+      this.setState({
+        currentLayer: this.state.previousLayer,
+        defaultLayer: defLayer,
+        keymap: keymap,
+        showDefaults: !keymap.onlyCustom,
+        palette,
+        colorMap: colormap.colorMap,
+        macros: parsedMacros,
+        superkeys: parsedSuper,
+        registered,
+        chipID
+      });
       if (keymap.custom) {
         const oldmacro = [...Array(64).keys()].map(x => x + 24576);
         // console.log("testing", oldmacro);
@@ -632,7 +593,6 @@ class LayoutEditor extends React.Component {
           }
         }
       }
-      this.bottomMenuNeverHide();
     } catch (e) {
       console.error(e);
       toast.error(e);
@@ -827,19 +787,13 @@ class LayoutEditor extends React.Component {
 
   selectLayer = id => {
     if (id === undefined) return;
-    const { palette, undeglowColors } = this.state;
-    let newPalette = palette.slice();
-    newPalette[this.undeglowCount] = undeglowColors[id];
     this.setState({
-      currentLayer: id,
-      palette: newPalette
+      currentLayer: id
     });
-    this.bottomMenuNeverHide();
   };
 
   onApply = async () => {
     this.setState({ saving: true });
-    store.set("settings.undeglowColors", this.state.undeglowColors);
     let focus = new Focus();
     await focus.command("keymap", this.state.keymap);
     await focus.command("colormap", this.state.palette, this.state.colorMap);
@@ -1054,14 +1008,6 @@ class LayoutEditor extends React.Component {
       palette: newPalette,
       modified: true
     });
-    if (colorIndex === this.undeglowCount) {
-      const { currentLayer } = this.state;
-      let newUndeglowColors = { ...this.state.undeglowColors };
-      newUndeglowColors[currentLayer] = setColors(r, g, b);
-      this.setState({
-        undeglowColors: newUndeglowColors
-      });
-    }
     this.props.startContext();
   };
 
@@ -1854,18 +1800,6 @@ class LayoutEditor extends React.Component {
             inContext={this.state.modified}
           />
           <Row className="full-height">
-            {/* </Row>
-          {this.state.keymap.custom.length == 0 &&
-            this.state.keymap.default.length == 0 && (
-              <div className="centerSpinner">
-                <Spinner
-                  className="spinner-border text-danger"
-                  role="status"
-                  animation="grow"
-                />
-              </div>
-            )}
-          <Row className="editor"> */}
             <Col className="raise-editor layer-col">
               <Row className="m-0">{layer}</Row>
               <Row className="full-height m-0">

@@ -27,8 +27,10 @@ const Style = Styled.div`
 .nav-link {
 	border-radius: 6px;
 	font-size: 14px;
+  font-size: 13px;
 	font-weight: 600;
 	padding: 16px 14px;
+  padding: 14px;
   color: ${({ theme }) => theme.styles.tab.color};
   position: relative;
   display: flex;

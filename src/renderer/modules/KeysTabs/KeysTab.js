@@ -63,6 +63,10 @@ h4 {
     padding: 4px 2px;
   }
 }
+.isDisabled {
+  opacity: 0.35;
+  &:hover: not-allowed;
+}
 &.tabsKey {
   .cardButtons {
       border-bottom-left-radius: 0;
@@ -85,6 +89,12 @@ class KeysTab extends Component {
 
   render() {
     const { keyCode, code, isStandardView } = this.props;
+
+    const isMod = [224, 225, 226, 227, 228, 229, 230, 231, 2530, 3043].includes(keyCode);
+    const isNotNK = !(keyCode > 3 && keyCode < 256);
+    const isNotDF = !(keyCode > 49169 && keyCode < 53266);
+    const disabled = isMod || (isNotNK && isNotDF);
+
     return (
       <Styles className={`${isStandardView ? "standardViewTab" : ""} tabsKey`}>
         <div className="tabContentWrapper">
@@ -95,7 +105,7 @@ class KeysTab extends Component {
                 headingLevel={3}
                 className="counterIndicator counter1"
               />
-              <CallOut content={i18n.editor.standardView.keys.callOut} size="sm" />
+              <CallOut content={i18n.editor.standardView.keys.callOut} className="reduceMargin" size="sm" />
             </>
           ) : (
             <Title text={i18n.editor.standardView.keys.keys} headingLevel={4} />
@@ -113,7 +123,7 @@ class KeysTab extends Component {
             kbtype={"iso"}
           />
           {isStandardView ? (
-            <div className="enhanceKeys">
+            <div className={`enhanceKeys ${disabled ? "isDisabled" : ""}`}>
               <Title
                 text={i18n.editor.standardView.keys.enhanceTitle}
                 headingLevel={3}

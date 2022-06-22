@@ -107,10 +107,31 @@ const Styles = Styled.div`
     .callOut {
         margin-bottom: 16px;
     }
+    .reduceMargin .callOut {
+        margin-bottom: 4px;
+    }
     .cardButtons {
         h4 {
             margin-top: 0;
         }
+    }
+}
+
+@media screen and (max-height: 900px) {
+    .standardView {
+        padding: 16px 24px 24px 148px;
+        h3 {
+            font-size: 18px;
+            .counterIndicator:before {
+                left: -32px;
+            }
+        }
+    }
+    .colContentTabs .contentBody {
+        padding: 24px 62px 24px 62px;
+    }
+    .KeyVisualizer {
+        margin-top: 24px;
     }
 }
 `;

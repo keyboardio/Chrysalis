@@ -85,7 +85,6 @@ const Style = Styled.div`
           font-size: 12px;
       }
     }
-
     .showConnection {
       position: relative;
     }
@@ -95,7 +94,7 @@ const Style = Styled.div`
       top: 40px;
       left: -12px;
       width: 12px;
-      height: 148px;
+      height: 128px;
       background-repeat: no-repeat;
       background-image: url(${({ theme }) => theme.styles.keyVisualizer.bgOldToNew});
     }

@@ -670,7 +670,7 @@ const Dark = {
       svgHover: Tokens.colors.brandDanger
     },
     title: {
-      counterColor: Tokens.colors.gray200
+      counterColor: Tokens.colors.gray400
     },
     toast: {
       boxShadow: "0px 32px 32px -32px rgba(0, 0, 0, 0.25), 0px 0px 32px rgba(0, 0, 0, 0.25)",

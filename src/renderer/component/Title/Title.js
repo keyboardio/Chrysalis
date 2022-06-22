@@ -144,11 +144,9 @@ h6 {
 }
 .counterIndicator:before {
 	position: absolute;
-	left: -32px;
-	bottom: 2px;
+	left: -42px;
 	content: "";
 	font-weight: 700;
-	font-size: 16px;
 	color: ${({ theme }) => theme.styles.title.counterColor};
 }
 .counter1:before {

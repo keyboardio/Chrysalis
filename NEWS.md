@@ -1,3 +1,28 @@
+Chrysalis 0.10.3-snapshot
+=========================
+**UNRELEASED**
+
+## New features
+
+Chrysalis has been translated to Dutch, and we're in the process of setting up
+Weblate to make future translations - and maintenance of them - simpler and more
+accessible.
+
+There is a new option in Preferences, which lets you select whether printing the
+Layout Card screen will print one layer per page, or as many as fit.
+
+## Bugfixes
+
+When exiting Chrysalis, or closing its main window, if there are any pending,
+unsaved changes, Chrysalis will first ask for confirmation before shutting down.
+
+On Linux, installing the udev rules works once again.
+
+## Miscellaneous
+
+The Windows builds - similar to the macOS builds - are now signed, which should
+make installation simpler in the long run.
+
 Chrysalis 0.10.2
 ================
 Released on 2022-06-09

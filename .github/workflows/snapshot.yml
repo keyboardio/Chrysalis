@@ -46,6 +46,7 @@ jobs:
           YARN_GPG: no
           GITHUB_RUN_NUMBER: ${{ github.run_number }}
         run: yarn
+
       - name: Prepare for app notarization
         if: startsWith(matrix.os, 'macos')
         # Import Apple API key for app notarization on macOS
@@ -65,6 +66,8 @@ jobs:
           github_token: ${{ secrets.github_token }}
           mac_certs: ${{ secrets.mac_certs }}
           mac_certs_password: ${{ secrets.mac_certs_password }}
+          windows_certs: ${{ secrets.win_cert }}
+          windows_certs_password: ${{ secrets.win_cert_password }}
 
           # We supply a build script name, so that we compile the source before
           # trying to package them up. Without compiling them, we won't have the

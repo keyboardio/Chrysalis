@@ -58,6 +58,11 @@ h4 {
     padding: 0 0 0 4px;
   }
 }
+.cardButtonsDual {
+  .groupButtons {
+    padding: 4px 2px;
+  }
+}
 &.tabsKey {
   .cardButtons {
       border-bottom-left-radius: 0;
@@ -112,7 +117,7 @@ class KeysTab extends Component {
                 <p>{i18n.editor.standardView.keys.descriptionModifiers}</p>
                 <ModPicker keyCode={code} onKeySelect={this.props.onKeyPress} isStandardView={isStandardView} />
               </div>
-              <div className="cardButtons">
+              <div className="cardButtons cardButtonsDual">
                 <Title text={i18n.editor.standardView.keys.addDualFunction} headingLevel={4} />
                 <p>{i18n.editor.standardView.keys.dualFunctionDescription}</p>
                 <DualFunctionPicker

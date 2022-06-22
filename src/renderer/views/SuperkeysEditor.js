@@ -127,7 +127,7 @@ class SuperkeysEditor extends React.Component {
       storedMacros: [],
       superkeys: [],
       storedSuper: [],
-      maxSuperKeys: 64,
+      maxSuperKeys: 128,
       modified: false,
       modifiedKeymap: false,
       selectedSuper: 0,
@@ -611,9 +611,9 @@ class SuperkeysEditor extends React.Component {
         return aux;
       });
       if (selected >= superkeys.length - 1) {
-        this.checkKBSuperkeys(aux, aux.length - 1, aux.length + 53916);
+        this.checkKBSuperkeys(aux, aux.length - 1, aux.length + 53980);
       } else {
-        this.checkKBSuperkeys(aux, selected, selected + 53916);
+        this.checkKBSuperkeys(aux, selected, selected + 53980);
       }
     }
   };
@@ -628,7 +628,7 @@ class SuperkeysEditor extends React.Component {
           .map((l, c) =>
             l
               .map((k, i) => {
-                if (k.keyCode == key.id + 53916) return { layer: c, pos: i, sk: key.id + 53916 };
+                if (k.keyCode == key.id + 53980) return { layer: c, pos: i, sk: key.id + 53980 };
               })
               .filter(x => x != undefined)
           )
@@ -664,7 +664,7 @@ class SuperkeysEditor extends React.Component {
           .map((l, c) =>
             l
               .map((k, i) => {
-                if (k.keyCode == key.id + 53916) return { layer: c, pos: i, sk: key.id + 53916 };
+                if (k.keyCode == key.id + 53980) return { layer: c, pos: i, sk: key.id + 53980 };
               })
               .filter(x => x != undefined)
           )

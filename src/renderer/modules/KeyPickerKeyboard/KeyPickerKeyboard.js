@@ -333,7 +333,7 @@ class KeyPickerKeyboard extends Component {
     let activeTab = "editor";
     if (
       keynum < 256 ||
-      (keynum > 53851 && keynum < 53852 + 64) ||
+      (keynum > 53851 && keynum < 53852 + 128) ||
       (keynum > 49152 && keynum < 49161) ||
       keynum == 65535 ||
       disable
@@ -360,10 +360,12 @@ class KeyPickerKeyboard extends Component {
   }
 
   parseKey(keycode) {
-    if (keycode > 53915) {
+    if (keycode >= 53980) {
       let superk = "";
-      console.log(this.props.superkeys[keycode - 53916]);
-      superk = `SUPER\n${this.props.superkeys[keycode - 53916] ? this.props.superkeys[keycode - 53916].name : keycode - 53915}`;
+      console.log(this.props.superkeys[keycode - 53980]);
+      superk = `SUPER\n${
+        this.props.superkeys[keycode - 53980] ? this.props.superkeys[keycode - 53980].name : keycode - 53980 + 1
+      }`;
       return superk;
     }
     if (keycode > 53851) {
@@ -423,7 +425,7 @@ class KeyPickerKeyboard extends Component {
     const KC = code.base + code.modified;
     const superk = Array(superkeys.length)
       .fill()
-      .map((_, i) => i + 53916);
+      .map((_, i) => i + 53980);
 
     let adjactions = actions;
     if (adjactions.length < 5) {

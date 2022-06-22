@@ -797,10 +797,6 @@ class LayoutEditor extends React.Component {
     let focus = new Focus();
     await focus.command("keymap", this.state.keymap);
     await focus.command("colormap", this.state.palette, this.state.colorMap);
-    // let newMacros = this.state.macros;
-    // let newSuperKeys = this.state.superkeys;
-    // await focus.command("macros.map", this.macrosMap(newMacros));
-    // await focus.command("superkeys.map", this.superkeyMap(newSuperKeys));
     this.setState({
       modified: false,
       saving: false,
@@ -1143,22 +1139,6 @@ class LayoutEditor extends React.Component {
     return finalSuper;
   }
 
-  superkeyMap(superkeys) {
-    if (
-      superkeys.length === 0 ||
-      (superkeys.length === 1 && superkeys[0].actions == []) ||
-      (superkeys.length === 1 && superkeys[0].actions == [0])
-    ) {
-      return "65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535 65535";
-    }
-    const keyMap = superkeys.map(superkey => {
-      return superkey.actions.filter(act => act != 0).concat([0]);
-    });
-    const mapped = [].concat.apply([], keyMap.flat()).concat([0]).join(" ");
-    console.log(mapped, keyMap);
-    return mapped;
-  }
-
   newSuperID() {
     return this.state.superkeys.length;
   }
@@ -1189,7 +1169,7 @@ class LayoutEditor extends React.Component {
     temp.splice(superid, 1);
     if (temp.length > superid) {
       aux[this.state.currentLayer]
-        .filter(key => key.keyCode > superid + 53916)
+        .filter(key => key.keyCode > superid + 53980)
         .forEach(key => {
           const auxkey = this.keymapDB.parse(key.keyCode - 1);
           key.label = auxkey.label;
@@ -1255,22 +1235,29 @@ class LayoutEditor extends React.Component {
         keyCode = [];
       }
       type = raw[iter];
-      if (type > 1 && type < 6) {
-        kcs = 2;
-      } else {
-        kcs = 1;
-      }
-      if (type === 0) {
-        kcs = 0;
-        macros[i] = {};
-        macros[i].actions = actions;
-        macros[i].id = i;
-        macros[i].name = "";
-        macros[i].macro = "";
-        i++;
-        actions = [];
-        iter++;
-        continue;
+      switch (type) {
+        case 0:
+          kcs = 0;
+          macros[i] = {};
+          macros[i].actions = actions;
+          macros[i].id = i;
+          macros[i].name = "";
+          macros[i].macro = "";
+          i++;
+          actions = [];
+          iter++;
+          continue;
+        case 1:
+          kcs = 4;
+          break;
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+          kcs = 2;
+          break;
+        default:
+          kcs = 1;
       }
       iter++;
     }
@@ -1285,21 +1272,30 @@ class LayoutEditor extends React.Component {
     macros[i].macro = "";
     macros = macros.map(macro => {
       let aux = macro.actions.map(action => {
-        let aux = 0;
-        if (action.keyCode.length > 1) {
-          aux = (action.keyCode[0] << 8) + action.keyCode[1];
-        } else {
-          aux = action.keyCode[0];
+        switch (action.type) {
+          case 1:
+            return {
+              type: action.type,
+              keyCode: [(action.keyCode[0] << 8) + action.keyCode[1], (action.keyCode[2] << 8) + action.keyCode[3]]
+            };
+          case 2:
+          case 3:
+          case 4:
+          case 5:
+            return {
+              type: action.type,
+              keyCode: (action.keyCode[0] << 8) + action.keyCode[1]
+            };
+          default:
+            return {
+              type: action.type,
+              keyCode: action.keyCode[0]
+            };
         }
-        return {
-          type: action.type,
-          keyCode: aux
-        };
       });
       return { ...macro, actions: aux };
     });
     // TODO: Check if stored macros match the received ones, if they match, retrieve name and apply it to current macros
-    let equal = [];
     let finalMacros = [];
     const stored = this.state.storedMacros;
     console.log(macros, stored);
@@ -1324,26 +1320,6 @@ class LayoutEditor extends React.Component {
     console.log("Updating Macros", recievedMacros);
     this.setState({ macros: recievedMacros, modified: true });
     this.props.startContext();
-  }
-
-  macrosMap(macros) {
-    if (macros.length === 1 && macros[0].actions === []) {
-      return "255 255 255 255 255 255 255 255 255 255";
-    }
-    const actionMap = macros.map(macro => {
-      return macro.actions
-        .map(action => {
-          if (action.type > 1 && action.type < 6) {
-            return [[action.type], [action.keyCode >> 8], [action.keyCode & 255]];
-          } else {
-            return [[action.type], [action.keyCode]];
-          }
-        })
-        .concat([0]);
-    });
-    const mapped = [].concat.apply([], actionMap.flat()).concat([0]).join(" ");
-    console.log(mapped);
-    return mapped;
   }
 
   getLayout() {
@@ -1742,12 +1718,12 @@ class LayoutEditor extends React.Component {
     let superName = "";
     if (code !== null) {
       if (
-        code.modified + code.base > 53915 &&
-        code.modified + code.base < 53980 &&
-        superkeys[code.base + code.modified - 53916] != undefined
+        code.modified + code.base > 53980 &&
+        code.modified + code.base < 54108 &&
+        superkeys[code.base + code.modified - 53980] != undefined
       ) {
-        actions = superkeys[code.base + code.modified - 53916].actions;
-        superName = superkeys[code.base + code.modified - 53916].name;
+        actions = superkeys[code.base + code.modified - 53980].actions;
+        superName = superkeys[code.base + code.modified - 53980].name;
       }
     }
 

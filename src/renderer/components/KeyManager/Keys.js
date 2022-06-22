@@ -100,12 +100,14 @@ class Keys extends Component {
           <Card.Body>
             <span>SELECTED KEY</span>
             {!(keyCode.base >= 104 && keyCode.base <= 115) &&
-            !(keyCode.base + keyCode.modified >= 53852 && keyCode.base + keyCode.modified <= 53852 + 64) ? (
+            !(keyCode.base + keyCode.modified >= 53852 && keyCode.base + keyCode.modified <= 53852 + 128) ? (
               <PickedKey selKey={selKey} />
             ) : (
               ""
             )}
-            {keyCode != undefined && keyCode.base + keyCode.modified >= 53852 && keyCode.base + keyCode.modified <= 53852 + 64 ? (
+            {keyCode != undefined &&
+            keyCode.base + keyCode.modified >= 53852 &&
+            keyCode.base + keyCode.modified <= 53852 + 128 ? (
               <MacroPicker keyCode={keyCode} onKeySelect={onKeySelect} macros={macros}></MacroPicker>
             ) : (
               ""

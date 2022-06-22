@@ -125,7 +125,7 @@ class ModPicker extends Component {
     if (
       (this.props.keyCode != undefined &&
         this.props.keyCode.base + this.props.keyCode.modified >= 53852 &&
-        this.props.keyCode.base + this.props.keyCode.modified <= 53852 + 64) ||
+        this.props.keyCode.base + this.props.keyCode.modified <= 53852 + 128) ||
       this.props.keyCode.base + this.props.keyCode.modified == 0 ||
       (this.props.keyCode.base + this.props.keyCode.modified >= 17492 &&
         this.props.keyCode.base + this.props.keyCode.modified <= 17501) ||

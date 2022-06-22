@@ -101,7 +101,7 @@ class MacroEditor extends React.Component {
       superkeys: [],
       storedMacros: [],
       storedSuper: [],
-      maxMacros: 64,
+      maxMacros: 128,
       modified: false,
       selectedMacro: 0,
       showDeleteModal: false,
@@ -239,22 +239,29 @@ class MacroEditor extends React.Component {
         keyCode = [];
       }
       type = raw[iter];
-      if (type > 1 && type < 6) {
-        kcs = 2;
-      } else {
-        kcs = 1;
-      }
-      if (type === 0) {
-        kcs = 0;
-        macros[i] = {};
-        macros[i].actions = actions;
-        macros[i].id = i;
-        macros[i].name = "";
-        macros[i].macro = "";
-        i++;
-        actions = [];
-        iter++;
-        continue;
+      switch (type) {
+        case 0:
+          kcs = 0;
+          macros[i] = {};
+          macros[i].actions = actions;
+          macros[i].id = i;
+          macros[i].name = "";
+          macros[i].macro = "";
+          i++;
+          actions = [];
+          iter++;
+          continue;
+        case 1:
+          kcs = 4;
+          break;
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+          kcs = 2;
+          break;
+        default:
+          kcs = 1;
       }
       iter++;
     }
@@ -269,21 +276,30 @@ class MacroEditor extends React.Component {
     macros[i].macro = "";
     macros = macros.map(macro => {
       let aux = macro.actions.map(action => {
-        let aux = 0;
-        if (action.keyCode.length > 1) {
-          aux = (action.keyCode[0] << 8) + action.keyCode[1];
-        } else {
-          aux = action.keyCode[0];
+        switch (action.type) {
+          case 1:
+            return {
+              type: action.type,
+              keyCode: [(action.keyCode[0] << 8) + action.keyCode[1], (action.keyCode[2] << 8) + action.keyCode[3]]
+            };
+          case 2:
+          case 3:
+          case 4:
+          case 5:
+            return {
+              type: action.type,
+              keyCode: (action.keyCode[0] << 8) + action.keyCode[1]
+            };
+          default:
+            return {
+              type: action.type,
+              keyCode: action.keyCode[0]
+            };
         }
-        return {
-          type: action.type,
-          keyCode: aux
-        };
       });
       return { ...macro, actions: aux };
     });
     // TODO: Check if stored macros match the received ones, if they match, retrieve name and apply it to current macros
-    let equal = [];
     let finalMacros = [];
     const stored = this.state.storedMacros;
     if (stored === undefined) {
@@ -300,20 +316,21 @@ class MacroEditor extends React.Component {
         return macro;
       }
     });
-    this.setState({ equalMacros: equal });
     console.log("Checking differences", this.state.macros, finalMacros);
     return finalMacros;
   }
 
   duplicateMacro = () => {
-    let macros = this.state.macros;
-    let selected = this.state.selectedMacro;
-    let aux = Object.assign({}, this.state.macros[selected]);
-    aux.id = this.state.macros.length;
-    aux.name = "Copy of " + aux.name;
-    macros.push(aux);
-    this.updateMacros(macros, -1);
-    this.changeSelected(aux.id);
+    if (this.state.macros.length < this.state.maxMacros) {
+      let macros = this.state.macros;
+      let selected = this.state.selectedMacro;
+      let aux = Object.assign({}, this.state.macros[selected]);
+      aux.id = this.state.macros.length;
+      aux.name = "Copy of " + aux.name;
+      macros.push(aux);
+      this.updateMacros(macros, -1);
+      this.changeSelected(aux.id);
+    }
   };
 
   superTranslator(raw) {
@@ -455,9 +472,19 @@ class MacroEditor extends React.Component {
     const actionMap = macros.map(macro => {
       return macro.actions
         .map(action => {
+          if (action.type == 1) {
+            return [
+              [action.type],
+              [action.keyCode[0] >> 8],
+              [action.keyCode[0] & 255],
+              [action.keyCode[1] >> 8],
+              [action.keyCode[1] & 255]
+            ];
+          }
           if (action.type > 1 && action.type < 6) {
             return [[action.type], [action.keyCode >> 8], [action.keyCode & 255]];
-          } else {
+          }
+          if (action.type >= 6) {
             return [[action.type], [action.keyCode]];
           }
         })

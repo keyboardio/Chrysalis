@@ -264,7 +264,7 @@ class KeymapDB {
         break;
       case SuperKeyTable.keys.map(r => r.code).includes(keyCode):
         // Superkeys keys
-        code = { base: keyCode - 53916, modified: 53916 };
+        code = { base: keyCode - 53980, modified: 53980 };
         break;
       default:
         code = { base: keyCode, modified: 0 };

@@ -1090,7 +1090,7 @@ class Editor extends React.Component {
     temp.splice(superid, 1);
     if (temp.length > superid) {
       aux[this.state.currentLayer]
-        .filter(key => key.keyCode > superid + 53916)
+        .filter(key => key.keyCode > superid + 53980)
         .forEach(key => {
           const auxkey = this.keymapDB.parse(key.keyCode - 1);
           key.label = auxkey.label;
@@ -1589,12 +1589,12 @@ class Editor extends React.Component {
     let superName = "";
     if (code !== null) {
       if (
-        code.modified + code.base > 53915 &&
-        code.modified + code.base < 53980 &&
-        superkeys[code.base + code.modified - 53916] != undefined
+        code.modified + code.base >= 53980 &&
+        code.modified + code.base <= 54107 &&
+        superkeys[code.base + code.modified - 53980] != undefined
       ) {
-        actions = superkeys[code.base + code.modified - 53916].actions;
-        superName = superkeys[code.base + code.modified - 53916].name;
+        actions = superkeys[code.base + code.modified - 53980].actions;
+        superName = superkeys[code.base + code.modified - 53980].name;
       }
     }
 

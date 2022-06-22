@@ -161,6 +161,7 @@ const English = {
       editMacros: "Edit macros",
       delay: "Delay",
       delays: "Delays",
+      delayr: "Random Delay",
       delete: "Delete",
       errorExport: "The file is not a valid macro export",
       export: "Export",

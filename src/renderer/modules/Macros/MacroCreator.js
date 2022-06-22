@@ -490,9 +490,9 @@ class MacroCreator extends Component {
     const randID = new Date().getTime() + Math.floor(Math.random() * 1000);
     let newRows = this.state.rows;
     newRows.push({
-      symbol: delayMin,
-      keyCode: delayMax,
-      action,
+      symbol: `${delayMin} - ${delayMax}`,
+      keyCode: [delayMin, delayMax],
+      action: action,
       id: newRows.length,
       color: "#faf0e3",
       uid: randID,

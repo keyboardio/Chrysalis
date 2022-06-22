@@ -14,14 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 const superkey = index => ({
-  code: 53916 + index,
+  code: 53980 + index,
   labels: {
     primary: (index + 1).toString(),
     top: "SUPER"
   }
 });
 
-const superkeys = Array(64)
+const superkeys = Array(128)
   .fill()
   .map((_, index) => superkey(index));
 

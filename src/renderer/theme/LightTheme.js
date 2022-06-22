@@ -6,6 +6,7 @@ import closeButton from "../../../static/light/X.svg";
 import IconPlusXS from "../../../static/light/plusIcon.svg";
 import RaiseFirmwareUpgrade from "../../../static/light/raiseFirmwareupgrade.svg";
 import mouseWheelBackground from "../../../static/light/mouseWheel.png";
+import oldToNew from "../../../static/dark/oldValueToNewValue.svg";
 
 import Tokens from "./Tokens";
 
@@ -366,7 +367,8 @@ const Light = {
       labelBorder: "1px solid rgba(37, 40, 66, 0.1)",
       labelModifierBackgroundSm: settingColorOpacity(Tokens.colors.gray600, 0.6),
       labelModifierColorSm: Tokens.colors.gray200,
-      labelBorderSm: "none"
+      labelBorderSm: "none",
+      bgOldToNew: oldToNew
     },
     firmwareUpdatePanel: {
       backgroundContent: Tokens.colors.gray25,
@@ -660,6 +662,9 @@ const Light = {
       colorHover: Tokens.colors.gray600,
       svgColor: Tokens.colors.gray300,
       svgHover: Tokens.colors.brandDanger
+    },
+    title: {
+      counterColor: Tokens.colors.gray200
     },
     toast: {
       boxShadow: `0px 32px 32px -32px ${settingColorOpacity(Tokens.colors.gray300, 0.1)}, 0px 0px 32px ${settingColorOpacity(

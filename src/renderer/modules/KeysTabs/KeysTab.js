@@ -90,7 +90,11 @@ class KeysTab extends Component {
         <div className="tabContentWrapper">
           {isStandardView ? (
             <>
-              <Title text={i18n.editor.standardView.keys.standardViewTitle} headingLevel={3} />
+              <Title
+                text={i18n.editor.standardView.keys.standardViewTitle}
+                headingLevel={3}
+                className="counterIndicator counter1"
+              />
               <CallOut content={i18n.editor.standardView.keys.callOut} size="sm" />
             </>
           ) : (
@@ -110,7 +114,11 @@ class KeysTab extends Component {
           />
           {isStandardView ? (
             <div className="enhanceKeys">
-              <Title text={i18n.editor.standardView.keys.enhanceTitle} headingLevel={3} />
+              <Title
+                text={i18n.editor.standardView.keys.enhanceTitle}
+                headingLevel={3}
+                className="counterIndicator counter2 mt-2"
+              />
               <CallOut content={i18n.editor.standardView.keys.callOutEnhance} size="sm" />
               <div className="cardButtons cardButtonsModifier">
                 <Title text={i18n.editor.standardView.keys.addModifiers} headingLevel={4} />

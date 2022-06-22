@@ -85,6 +85,20 @@ const Style = Styled.div`
           font-size: 12px;
       }
     }
+
+    .showConnection {
+      position: relative;
+    }
+    .showConnection:before {
+      position: absolute;
+      content: "";
+      top: 40px;
+      left: -12px;
+      width: 12px;
+      height: 148px;
+      background-repeat: no-repeat;
+      background-image: url(${({ theme }) => theme.styles.keyVisualizer.bgOldToNew});
+    }
 }
 
 `;
@@ -129,11 +143,11 @@ class KeyVisualizer extends React.Component {
   }
 
   render() {
-    const { keyCode, newValue, oldValue } = this.props;
+    const { keyCode, newValue, oldValue, isStandardView } = this.props;
 
     return (
       <Style className="KeyVisualizer">
-        <div className="KeyVisualizerInner">
+        <div className={`KeyVisualizerInner ${newValue != oldValue && isStandardView ? "showConnection" : ""}`}>
           {oldValue ? (
             <div className="oldKeyValue">
               <Title text="Selected value" headingLevel={4} />
@@ -145,7 +159,18 @@ class KeyVisualizer extends React.Component {
           ) : (
             ""
           )}
-          {newValue ? (
+          {newValue && !isStandardView ? (
+            <div className="newKeyValue">
+              <Title text="New value" headingLevel={4} />
+              <div className="keySelectedBox">
+                <div className="keySelectedValue">{newValue}</div>
+                <ListModifiers keyCode={keyCode.base ? keyCode.base + keyCode.modified : keyCode} />
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+          {newValue != oldValue && isStandardView ? (
             <div className="newKeyValue">
               <Title text="New value" headingLevel={4} />
               <div className="keySelectedBox">

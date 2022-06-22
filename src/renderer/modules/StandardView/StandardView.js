@@ -76,6 +76,7 @@ const Styles = Styled.div`
 }
 .KeyVisualizer {
   margin-top: 42px;
+  margin-bottom: 24px;
   width: calc(100% + 20px);
   background: #25273B;
   border: 1px solid rgba(63, 66, 90, 0.3);
@@ -184,7 +185,7 @@ export default class StandardView extends React.Component {
           <Tab.Container id="standardViewCointainer" defaultActiveKey="tabKeys">
             <div className="standardViewInner">
               <div className="colVisualizerTabs">
-                <KeyVisualizer keyCode={keyCode} oldValue={oldKey} newValue={selKey} />
+                <KeyVisualizer keyCode={keyCode} oldValue={oldKey} newValue={selKey} isStandardView={isStandardView} />
                 <Nav className="flex-column">
                   <CustomTab eventKey="tabKeys" text="Keys" icon={<IconKeyboard />} />
                   <CustomTab eventKey="tabNoKeys" text={i18n.editor.standardView.noKeyTransparent} icon={<IconNoKey />} />

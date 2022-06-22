@@ -139,8 +139,27 @@ h6 {
 	}
 }
 
+.counterIndicator {
+	position: relative;
+}
+.counterIndicator:before {
+	position: absolute;
+	left: -32px;
+	bottom: 2px;
+	content: "";
+	font-weight: 700;
+	font-size: 16px;
+	color: ${({ theme }) => theme.styles.title.counterColor};
+}
+.counter1:before {
+	content: "01";
+}
+.counter2:before {
+	content: "02";
+}
+
 `;
-const Title = ({ text, headingLevel, size, color, type, tooltip, tooltipSize, tooltipPlacement, svgICO }) => {
+const Title = ({ text, headingLevel, size, className, color, type, tooltip, tooltipSize, tooltipPlacement, svgICO }) => {
   let Tag = "h" + headingLevel;
 
   return (
@@ -148,7 +167,7 @@ const Title = ({ text, headingLevel, size, color, type, tooltip, tooltipSize, to
       <Tag
         className={`${size ? size : ""} ${type && "titleAlert"} ${type ? type : ""} ${color ? color : ""} ${
           svgICO ? "hasIcon" : ""
-        }`}
+        } ${className ? className : ""}`}
       >
         {svgICO && svgICO}
         <span dangerouslySetInnerHTML={{ __html: text }} />

@@ -719,6 +719,8 @@ You can find the LED Rainbow mode with the "LED Next" key. In the default Dygma 
     clone: "Clone",
     delete: "Delete",
     key: "Key",
+    layer: "Layer",
+    modifier: "Modifier",
     new: "New",
     noname: "No name",
     select: "Select",

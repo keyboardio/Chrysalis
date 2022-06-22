@@ -6,6 +6,7 @@ import closeButton from "../../../static/dark/X.svg";
 import IconPlusXS from "../../../static/dark/plusIcon.svg";
 import RaiseFirmwareUpgrade from "../../../static/dark/raiseFirmwareupgrade.svg";
 import mouseWheelBackgroundDark from "../../../static/dark/mouseWheel.png";
+import oldToNew from "../../../static/dark/oldValueToNewValue.svg";
 
 import Tokens from "./Tokens";
 import { RiGitBranchFill } from "react-icons/ri";
@@ -373,7 +374,8 @@ const Dark = {
       labelBorder: "1px solid rgba(37, 40, 66, 0.55)",
       labelModifierBackgroundSm: settingColorOpacity(Tokens.colors.gray600, 0.6),
       labelModifierColorSm: Tokens.colors.gray200,
-      labelBorderSm: "none"
+      labelBorderSm: "none",
+      bgOldToNew: oldToNew
     },
     firmwareUpdatePanel: {
       backgroundContent: Tokens.colors.gray800,
@@ -666,6 +668,9 @@ const Dark = {
       colorHover: Tokens.colors.gray25,
       svgColor: Tokens.colors.gray300,
       svgHover: Tokens.colors.brandDanger
+    },
+    title: {
+      counterColor: Tokens.colors.gray200
     },
     toast: {
       boxShadow: "0px 32px 32px -32px rgba(0, 0, 0, 0.25), 0px 0px 32px rgba(0, 0, 0, 0.25)",

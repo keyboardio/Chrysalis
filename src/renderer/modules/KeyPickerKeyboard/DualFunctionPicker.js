@@ -7,6 +7,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 // Local components
 import Title from "../../component/Title";
 import { ButtonConfig } from "../../component/Button";
+import i18n from "../../i18n";
 
 const Style = Styled.div`
 .dualFunctionPickerInner {
@@ -22,9 +23,27 @@ const Style = Styled.div`
   font-size: 14px;
 }
 .dualFuntionWrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   grid-gap: 24px;
+  h5 {
+    text-transform: none;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: -0.03em;
+  }
+}
+.groupButtons {
+  max-width: auto;
+}
+.layersButtons {
+    .button-config {
+      width: 40px;
+    }
+}
+.modButtons {
+  .button-config {
+    width: 60px;
+  }
 }
 `;
 
@@ -147,6 +166,7 @@ class DualFunctionPicker extends Component {
     const layersStdView = (
       <div className="dualFuntionWrapper">
         <div className="layersButtons">
+          <Title text={i18n.general.layer} headingLevel={5} />
           <div className="groupButtons">
             {this.layerKey.map((item, id) => {
               return (
@@ -162,6 +182,7 @@ class DualFunctionPicker extends Component {
           </div>
         </div>
         <div className="modButtons">
+          <Title text={i18n.general.modifier} headingLevel={5} />
           <div className="groupButtons">
             {this.modKey.map((item, id) => {
               return (

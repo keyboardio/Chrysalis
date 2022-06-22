@@ -3,8 +3,8 @@
   "version": "0.10.3-snapshot",
   "license": "GPL-3.0-only",
   "author": {
-    "name": "Gergely Nagy",
-    "email": "algernon@keyboard.io"
+    "name": "Keyboardio",
+    "email": "help@keyboard.io"
   },
   "homepage": "https://github.com/keyboardio/Chrysalis",
   "scripts": {

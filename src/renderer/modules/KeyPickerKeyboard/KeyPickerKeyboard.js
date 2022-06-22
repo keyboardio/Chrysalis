@@ -92,27 +92,36 @@ width: -webkit-fill-available;
   background-color: ${({ theme }) => theme.card.background};
 }
 .ball-container {
+  padding: 8px;
+  width: 100%;
+  
+}
+.ball-inner {
   display: flex;
-  height: 47px;
+  padding: 8px;
+  overflow-y: auto; 
+  border: 1px solid ${({ theme }) => theme.styles.standardView.superkeys.key.border};
+  border-radius: 3px;
+  background-color: ${({ theme }) => theme.styles.standardView.superkeys.key.background};
+}
+.ball-title {
+  font-size: 12px;
+  margin-top: 8px;
+  font-weight: 600;
 }
 .ball{
-  margin: 4px 2px;
-  width: 60px;
+  margin: 2px;
   text-align: center;
-  padding: 8px 4px;
-  font-size: 16px;
+  padding: 4px;
+  font-size: 10px;
   font-weight: 600;
-  -webkit-letter-spacing: -0.03em;
-  -moz-letter-spacing: -0.03em;
-  -ms-letter-spacing: -0.03em;
   letter-spacing: -0.03em;
   border: none;
   color: rgba(226,228,234,1);
   background: linear-gradient(90deg,rgba(255,255,255,0.1) -22.96%,rgba(255,255,255,0) 123.24%),linear-gradient(0deg,rgba(87,97,126,0.25),rgba(87,97,126,0.25)),rgba(11,2,25,0.2);
   border: none;
   border-radius: 6px;
-  box-shadow: 0px 2px 0px rgb(0 0 0 / 10%);
-  -webkit-transition: all 300ms ease-in-out;
+  box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.1);
   transition: all 300ms ease-in-out;
 }
 .Tabstyle {
@@ -189,6 +198,12 @@ width: -webkit-fill-available;
   margin-right: ${({ theme }) => theme.styles.keyboardPicker.modPickerAlignAdjust};
   margin-bottom: ${({ theme }) => theme.styles.keyboardPicker.modPickerAlignAdjust};
   flex: 0 0 100%;
+  &.ModPickerScroll {
+    overflow: auto;
+  }
+  &.ModPickerScrollHidden {
+    overflow: hidden;
+  }
 }
 
 .superkeyHint {
@@ -446,7 +461,7 @@ class KeyPickerKeyboard extends Component {
           <div className="keyEnhanceWrapper">
             <div className="keyEnhanceInner">
               <KeyVisualizer newValue={selKey} keyCode={code} />
-              <div className="ModPicker">
+              <div className={`ModPicker ${this.props.macros[KC - 53852] ? "ModPickerScrollHidden" : ""}`}>
                 {superkeys[superk.indexOf(KC)] ? (
                   <div className="superkeyHint">
                     {superKeysActions.map((item, index) => (
@@ -463,13 +478,16 @@ class KeyPickerKeyboard extends Component {
                   </div>
                 ) : this.props.macros[KC - 53852] ? (
                   <div className="ball-container">
-                    {this.props.macros[KC - 53852].macro.split(" ").map((data, index) => {
-                      return (
-                        <div className="ball" key={`LtrIdx-${index}`}>
-                          {data}
-                        </div>
-                      );
-                    })}
+                    <h5 className="ball-title">Preview macro</h5>
+                    <div className="ball-inner">
+                      {this.props.macros[KC - 53852].macro.split(" ").map((data, index) => {
+                        return (
+                          <div className="ball" key={`LtrIdx-${index}`}>
+                            {data}
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 ) : (
                   <>

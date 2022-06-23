@@ -1588,6 +1588,11 @@ div.card.card-preferences .card-body {
 .rangeslider-horizontal .rangeslider__handle:after {
   content: none;
 }
+.rangeslider .rangeslider__handle-tooltip {
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing; -0.03em;
+}
 .tagsfix {
   color: ${({ theme }) => theme.styles.slider.labelColor};
   font-weight: 200;

@@ -14,7 +14,7 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import cldr from "cldr";
+import { ipcRenderer } from "electron";
 import i18n from "i18next";
 import cldr_data from "./cldr_data";
 import { Base } from "./db/base";
@@ -46,7 +46,11 @@ class KeymapDB {
 
   getLayoutLanguage = (layout) => {
     const languageCode = this._layouts[layout].group;
-    return cldr.extractLanguageDisplayNames(i18n.language)[languageCode];
+    return ipcRenderer.sendSync(
+      "cldr.getLayoutLanguage",
+      i18n.language,
+      languageCode
+    );
   };
 
   getSupportedLayouts() {

@@ -14,9 +14,9 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import cldr_ from "cldr";
+import cldr from "cldr";
 import i18n from "i18next";
-import cldr from "./cldr";
+import cldr_data from "./cldr_data";
 import { Base } from "./db/base";
 import { USQwerty } from "./db/us/qwerty";
 import { constants } from "./db/constants";
@@ -41,16 +41,12 @@ class KeymapDB {
   }
 
   loadLayouts = async () => {
-    this._layouts = Object.assign(
-      {},
-      this._layouts,
-      await cldr.loadAllKeymaps()
-    );
+    this._layouts = Object.assign({}, this._layouts, cldr_data);
   };
 
   getLayoutLanguage = (layout) => {
     const languageCode = this._layouts[layout].group;
-    return cldr_.extractLanguageDisplayNames(i18n.language)[languageCode];
+    return cldr.extractLanguageDisplayNames(i18n.language)[languageCode];
   };
 
   getSupportedLayouts() {

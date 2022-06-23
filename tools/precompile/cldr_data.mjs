@@ -14,12 +14,22 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { getStaticPath } from "@renderer/config";
 import fs from "fs";
 import path from "path";
-import unraw from "unraw";
+import { unraw } from "unraw";
 import xml2js from "xml2js";
-import { addModifier } from "./db/modifiers";
+
+const modMap = {
+  ctrl: 1 << 8,
+  alt: 1 << 9,
+  altgr: 1 << 10,
+  shift: 1 << 11,
+  gui: 1 << 12,
+};
+
+const addModifier = (keyCode, mod) => {
+  return keyCode + modMap[mod];
+};
 
 const cldr2keycode = {
   E00: 53,
@@ -152,16 +162,16 @@ const loadKeyboard = async (group, isDefault, file) => {
   };
 };
 
-const loadAllKeymaps = async () => {
+export const loadAllKeymaps = async () => {
   const windowsFiles = fs.readdirSync(
-    path.join(getStaticPath(), "cldr/keyboards/windows/")
+    "./static/cldr/keyboards/windows/"
   );
   // There are some layouts that aren't available in CLDR's windows layouts, but
   // are on others. We slurp those up here in addition. We can't just slurp up
   // all of the osx layouts and filter out the duplicates, because naming is
   // inconsistent, so we go on a case-by-case basis for now.
   const osxFiles = fs
-    .readdirSync(path.join(getStaticPath(), "cldr/keyboards/osx"))
+    .readdirSync("static/cldr/keyboards/osx")
     .filter((fn) => fn.match("^hr-t-k0"));
   const files = windowsFiles.concat(osxFiles);
 
@@ -179,7 +189,7 @@ const loadAllKeymaps = async () => {
     const layout = await loadKeyboard(
       l.match("^(...?)-t-")[1],
       true,
-      path.join(getStaticPath(), "cldr/keyboards", os, l)
+      path.join("static/cldr/keyboards", os, l)
     );
 
     db[layout.name] = layout;
@@ -201,7 +211,7 @@ const loadAllKeymaps = async () => {
     const layout = await loadKeyboard(
       l.match("^(...?)-")[1],
       false,
-      path.join(getStaticPath(), "cldr/keyboards", os, l)
+      path.join("static/cldr/keyboards", os, l)
     );
 
     db[layout.name] = layout;
@@ -209,9 +219,3 @@ const loadAllKeymaps = async () => {
 
   return db;
 };
-
-const cldr = {
-  loadAllKeymaps: loadAllKeymaps,
-};
-
-export default cldr;

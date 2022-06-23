@@ -283,8 +283,8 @@ class SelectKeyboard extends Component {
     usb.off("detach", this.finder);
   }
 
-  selectPort = event => {
-    this.setState({ selectedPortIndex: event.target.value });
+  selectPort = data => {
+    this.setState({ selectedPortIndex: data });
   };
 
   onKeyboardConnect = async () => {

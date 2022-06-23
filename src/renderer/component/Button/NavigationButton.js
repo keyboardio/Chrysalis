@@ -202,11 +202,7 @@ const Style = Styled.div`
 //className={`icon-image ${selected ? "select" : ""}`}
 const NavigationButton = ({ selected, onClick, showNotif, buttonText, icoSVG, disabled }) => {
   return (
-    <Style
-      onClick={() => {
-        disabled ? "" : onClick();
-      }}
-    >
+    <Style>
       <OverlayTrigger
         placement={`right`}
         overlay={

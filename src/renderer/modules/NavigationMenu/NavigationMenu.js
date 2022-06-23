@@ -225,15 +225,6 @@ class NavigationMenu extends Component {
                 <>
                   {pages.keymap && (
                     <React.Fragment>
-                      <Link to="/welcome" className={`list-link ${fwUpdate ? "disabled" : ""}`}>
-                        <NavigationButton
-                          selected={currentPage === "/welcome"}
-                          drawerWidth={drawerWidth}
-                          buttonText={`welcome`}
-                          icoSVG={<IconKeyboard2Stroke />}
-                          disabled={fwUpdate}
-                        />
-                      </Link>
                       <Link to="/editor" className={`list-link ${fwUpdate ? "disabled" : ""}`}>
                         <NavigationButton
                           selected={currentPage === "/editor"}

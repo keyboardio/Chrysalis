@@ -300,6 +300,7 @@ const Dark = {
       textButtonHover: Tokens.colors.gray25,
       borderButtonColor: "#3F425A",
       borderButtonHover: Tokens.colors.gray500,
+      borderButtonFocus: Tokens.colors.brandPrimary,
       borderButtonActive: Tokens.colors.purple300,
       titleColor: Tokens.colors.gray100,
       subTitleColor: Tokens.colors.gray200,

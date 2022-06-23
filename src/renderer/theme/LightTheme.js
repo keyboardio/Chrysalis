@@ -295,6 +295,7 @@ const Light = {
       textButtonColor: Tokens.colors.gray500,
       textButtonHover: Tokens.colors.gray600,
       borderButtonColor: "rgba(196, 201, 213, 0.6)",
+      borderButtonFocus: Tokens.colors.brandPrimary,
       borderButtonHover: "rgba(196, 201, 213, 0.8)",
       borderButtonActive: Tokens.colors.purple200,
       titleColor: Tokens.colors.gray600,

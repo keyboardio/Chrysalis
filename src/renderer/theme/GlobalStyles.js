@@ -521,7 +521,15 @@ svg text{
   background: ${({ theme }) => theme.styles.dropdown.backgroundButtonColor};
   box-shadow: none;
 }
-.btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show>.btn-primary.dropdown-toggle:focus {
+.dropdown-toggle.btn.btn-primary:focus {
+  //border: 1px solid ${({ theme }) => theme.styles.dropdown.borderButtonFocus};
+  background: ${({ theme }) => theme.styles.dropdown.backgroundButtonColor};
+  box-shadow: none;
+  outline: auto;
+}
+.btn-primary:not(:disabled):not(.disabled).active:focus, 
+.btn-primary:not(:disabled):not(.disabled):active:focus, 
+.show>.btn-primary.dropdown-toggle:focus {
   box-shadow: none;
 }
 

@@ -29,6 +29,7 @@ class DualFunctionPicker extends Component {
     this.state = {};
 
     this.modKey = [
+      { name: "None ", keynum: 0 },
       { name: "Dual Control ", keynum: 49169 },
       { name: "Dual Shift   ", keynum: 49425 },
       { name: "Dual Alt     ", keynum: 49681 },
@@ -36,6 +37,7 @@ class DualFunctionPicker extends Component {
       { name: "Dual Alt Gr  ", keynum: 50705 }
     ];
     this.layerKey = [
+      { name: "None ", keynum: 0 },
       { name: "Dual Layer 1  ", keynum: 51218 },
       { name: "Dual Layer 2  ", keynum: 51474 },
       { name: "Dual Layer 3  ", keynum: 51730 },

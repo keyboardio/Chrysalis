@@ -360,7 +360,7 @@ class KeyPickerKeyboard extends Component {
   }
 
   parseKey(keycode) {
-    if (keycode >= 53980) {
+    if (keycode >= 53980 && keycode <= 53980 + 128) {
       let superk = "";
       console.log(this.props.superkeys[keycode - 53980]);
       superk = `SUPER\n${
@@ -368,7 +368,7 @@ class KeyPickerKeyboard extends Component {
       }`;
       return superk;
     }
-    if (keycode > 53851) {
+    if (keycode > 53851 && keycode <= 53851 + 128) {
       let macroN = "";
       console.log(this.props.macros[keycode - 53852]);
       macroN = `MACRO\n${this.props.macros[keycode - 53852] ? this.props.macros[keycode - 53852].name : keycode - 53852}`;

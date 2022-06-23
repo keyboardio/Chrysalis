@@ -523,6 +523,12 @@ svg text{
 .btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show>.btn-primary.dropdown-toggle:focus {
   box-shadow: none;
 }
+.dropdown-toggle.btn.btn-primary:focus {
+  //border: 1px solid ${({ theme }) => theme.styles.dropdown.borderButtonFocus};
+  background: ${({ theme }) => theme.styles.dropdown.backgroundButtonColor};
+  box-shadow: none;
+  outline: auto;
+}
 
 .dropdown-toggle.btn.btn-primary:hover {
   background: ${({ theme }) => theme.styles.dropdown.backgroundButtonHover};

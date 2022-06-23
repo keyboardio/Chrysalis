@@ -224,9 +224,9 @@ class App extends React.Component {
     }
   };
 
-  toggleFwUpdate = () => {
+  toggleFwUpdate = state => {
     this.setState({
-      fwUpdate: !this.state.fwUpdate
+      fwUpdate: state
     });
   };
 

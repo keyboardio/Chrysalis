@@ -109,7 +109,6 @@ class FirmwareUpdate extends React.Component {
         if (this.state.backupDone && this.state.countdown == 1) {
           // TODO: launch flashing procedure
           console.log("launching the flashing procedure");
-          this.props.toggleFwUpdate();
           this.setState({ countdown: 2, flashProgress: 0 });
           this.upload();
         }
@@ -248,7 +247,7 @@ class FirmwareUpdate extends React.Component {
 
   upload = async () => {
     await this.props.toggleFlashing();
-
+    this.props.toggleFwUpdate(true);
     try {
       await this._flash();
       this.setState({ countdown: 3, flashProgress: 90 });
@@ -272,7 +271,7 @@ class FirmwareUpdate extends React.Component {
         />
       );
       this.props.toggleFlashing();
-      this.props.toggleFwUpdate();
+      this.props.toggleFwUpdate(false);
       this.props.onDisconnect();
       this.setState({ confirmationOpen: false });
       return;
@@ -285,7 +284,7 @@ class FirmwareUpdate extends React.Component {
       // setTimeout(() => {
       toast.success(<ToastMessage title={i18n.firmwareUpdate.flashing.success} icon={<IconFloppyDisk />} />);
       this.props.toggleFlashing();
-      this.props.toggleFwUpdate();
+      this.props.toggleFwUpdate(false);
       this.props.onDisconnect();
       this.setState({ confirmationOpen: false });
       resolve();
@@ -372,8 +371,6 @@ class FirmwareUpdate extends React.Component {
       filename = firmwareFilename.split(/[\\/]/);
       filename = filename[filename.length - 1];
     }
-
-    let latestAvailable = <h5 className="title thintext">{`${i18n.firmwareUpdate.texts.latestAvailableText}${fwVersion}`}</h5>;
 
     let currentlyRunning;
     let currentlyVersionRunning;

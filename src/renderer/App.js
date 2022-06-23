@@ -40,7 +40,7 @@ import LayoutEditor from "./views/LayoutEditor";
 import MacroEditor from "./views/MacroEditor";
 import SuperkeysEditor from "./views/SuperkeysEditor";
 import Preferences from "./views/Preferences";
-import Welcome from "./screens/Welcome";
+import Welcome from "./views/Welcome";
 
 import Header from "./modules/NavigationMenu";
 import ToastMessage from "./component/ToastMessage";

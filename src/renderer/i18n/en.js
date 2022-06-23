@@ -706,6 +706,8 @@ You can find the LED Rainbow mode with the "LED Next" key. In the default Dygma 
     wheelDescription: "Control the wheel using keys."
   },
   welcome: {
+    bootloaderTitle: "Your Raise is currently on Bootloader Mode",
+    description: "The LED in your Neuron should be pulsing blue and your Raise keyboard won't type.",
     title: "Welcome to Bazecor",
     contents: `Bazecor recognizes your keyboard, but needs to update its firmware before you can continue.`,
     gotoUpdate: "Update Firmware",

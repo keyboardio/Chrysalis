@@ -114,6 +114,14 @@ production build, use `yarn run build:all`, or limit it to a particular OS:
 `yarn run build:linux`, `yarn run build:mac` or `yarn run build:win`. See the
 `scripts` section of `package.json` for more scripts.
 
+### Translations
+
+[![Translation status](https://hosted.weblate.org/widgets/chrysalis/-/svg-badge.svg)][weblate]
+
+We're using [Weblate][weblate] to manage and maintain translations.
+
+ [weblate]: https://hosted.weblate.org/engage/chrysalis/
+
 ### Debugging
 
 There are sample ENV file & debugging configurations provided in the `dev/sample` directory. There is also an example launch.json for VSCode under the `.vscode` directory under `dev/sample/.vscode/launch.json`. To debug the main process, you _may_ wish to launch from an IDE (without using the above in a terminal), configurations for VSCode are provided. If using the launch or compound configurations, the `timeout` properties must allow enough time for the app to fully launch before the debugger(s) stop trying. In the case of compound, this applies to the renderer and main process debugger.

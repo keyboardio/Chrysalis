@@ -14,6 +14,8 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+const cldrDir = "static/cldr";
+
 import fs from "fs";
 import path from "path";
 import { unraw } from "unraw";
@@ -163,15 +165,13 @@ const loadKeyboard = async (group, isDefault, file) => {
 };
 
 export const loadAllKeymaps = async () => {
-  const windowsFiles = fs.readdirSync(
-    "./static/cldr/keyboards/windows/"
-  );
+  const windowsFiles = fs.readdirSync(path.join(cldrDir, "keyboards/windows/"));
   // There are some layouts that aren't available in CLDR's windows layouts, but
   // are on others. We slurp those up here in addition. We can't just slurp up
   // all of the osx layouts and filter out the duplicates, because naming is
   // inconsistent, so we go on a case-by-case basis for now.
   const osxFiles = fs
-    .readdirSync("static/cldr/keyboards/osx")
+    .readdirSync(path.join(cldrDir, "keyboards/osx"))
     .filter((fn) => fn.match("^hr-t-k0"));
   const files = windowsFiles.concat(osxFiles);
 
@@ -189,7 +189,7 @@ export const loadAllKeymaps = async () => {
     const layout = await loadKeyboard(
       l.match("^(...?)-t-")[1],
       true,
-      path.join("static/cldr/keyboards", os, l)
+      path.join(cldrDir, "keyboards", os, l)
     );
 
     db[layout.name] = layout;
@@ -211,7 +211,7 @@ export const loadAllKeymaps = async () => {
     const layout = await loadKeyboard(
       l.match("^(...?)-")[1],
       false,
-      path.join("static/cldr/keyboards", os, l)
+      path.join(cldrDir, "keyboards", os, l)
     );
 
     db[layout.name] = layout;

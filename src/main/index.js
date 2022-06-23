@@ -44,13 +44,13 @@ import windowStateKeeper from "electron-window-state";
 import installExtension, { REACT_DEVELOPER_TOOLS } from "electron-devtools-installer";
 import { getStaticPath } from "../renderer/config";
 import { uIOhook, UiohookKey } from "uiohook-napi";
-import { func } from "prop-types";
 
 const Store = require("electron-store");
 const store = new Store();
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 let mainWindow;
+let globalRecording = false;
 
 async function createMainWindow() {
   let mainWindowState = windowStateKeeper({
@@ -135,21 +135,23 @@ async function createMainWindow() {
 
   ipcMain.on("start-recording", (event, arg) => {
     console.log("start-recording");
+    globalRecording = true;
     uIOhook.on("keydown", sendkeyDown);
     uIOhook.on("keyup", sendKeyUp);
     // uIOhook.on("mousemove", sendMouseMove);
-    uIOhook.on("click", sendMouseClick);
-    uIOhook.on("wheel", sendMouseWheel);
+    // uIOhook.on("click", sendMouseClick);
+    // uIOhook.on("wheel", sendMouseWheel);
     uIOhook.start();
   });
 
   ipcMain.on("stop-recording", (event, arg) => {
     console.log("stop-recording");
+    globalRecording = false;
     uIOhook.off("keydown", sendkeyDown);
     uIOhook.off("keyup", sendKeyUp);
     // uIOhook.off("mousemove", sendMouseMove);
-    uIOhook.off("click", sendMouseClick);
-    uIOhook.off("wheel", sendMouseWheel);
+    // uIOhook.off("click", sendMouseClick);
+    // uIOhook.off("wheel", sendMouseWheel);
     uIOhook.stop();
   });
 
@@ -291,7 +293,7 @@ app.on("ready", async () => {
 
 app.on("web-contents-created", (_, wc) => {
   wc.on("before-input-event", (_, input) => {
-    if (input.type == "keyDown" && input.control) {
+    if (!globalRecording && input.type == "keyDown" && input.control) {
       if (input.shift && input.code == "KeyI") {
         wc.openDevTools();
       }

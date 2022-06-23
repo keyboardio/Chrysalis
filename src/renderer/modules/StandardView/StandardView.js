@@ -56,19 +56,25 @@ const Styles = Styled.div`
     flex-wrap: wrap;
     background-color: ${({ theme }) => theme.styles.standardView.contentBackground};
     border-radius: 6px;
-    overflow-y: auto;
+    overflow: hidden;
+    position: relative;
     .contentBody {
         flex-grow: 1;
         margin-bottom: auto;
         padding: 48px 82px 32px 82px;
+        padding-bottom: 102px;
+        height: 100%;
+        overflow-y: auto;
     }
     .contentFooter {
+      position: absolute;
+      bottom: 0;
         width: 100%;
-        padding: 24px;
-        background-color: black;
+        padding: 16px 24px;
         margin-top: auto;
         border-radius: 6px;
         background-color: ${({ theme }) => theme.styles.standardView.footerBackground};
+        backdrop-filter: blur(6px);
         .button + .button {
             margin-left: 12px;
         }
@@ -83,6 +89,12 @@ const Styles = Styled.div`
   box-shadow: 32px 32px 64px -12px rgba(11, 2, 25, 0.4), 32px 32px 72px -32px rgba(26, 17, 46, 0.5);
   border-radius: 6px;
   min-height: 262px;
+  position: relative;
+  z-index: 2;
+}
+.tabsWrapper.nav {
+  position: relative;
+  z-index: 2;
 }
 
 .standardViewTab {
@@ -129,6 +141,7 @@ const Styles = Styled.div`
     }
     .colContentTabs .contentBody {
         padding: 24px 62px 24px 62px;
+        padding-bottom: 102px;
     }
     .KeyVisualizer {
         margin-top: 24px;
@@ -207,7 +220,7 @@ export default class StandardView extends React.Component {
             <div className="standardViewInner">
               <div className="colVisualizerTabs">
                 <KeyVisualizer keyCode={keyCode} oldValue={oldKey} newValue={selKey} isStandardView={isStandardView} />
-                <Nav className="flex-column">
+                <Nav className="flex-column tabsWrapper">
                   <CustomTab eventKey="tabKeys" text="Keys" icon={<IconKeyboard />} />
                   <CustomTab eventKey="tabNoKeys" text={i18n.editor.standardView.noKeyTransparent} icon={<IconNoKey />} />
                   <CustomTab eventKey="tabLayers" text={i18n.editor.standardView.layers.title} icon={<IconLayers />} />

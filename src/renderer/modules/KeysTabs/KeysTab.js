@@ -71,6 +71,12 @@ h4 {
   .cardButtons {
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
+      padding: 8px 16px;
+      h4 {
+        font-size: 14px; 
+        margin-top: 2px;
+        margin-bottom: 2px;
+      }
   }
   .cardButtons + .cardButtons {
       margin-top: 2px;

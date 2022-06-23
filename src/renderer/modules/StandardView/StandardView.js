@@ -103,7 +103,6 @@ const Styles = Styled.div`
         margin-bottom: 16px;
     }
     h4 {
-        font-size: 16px;
         flex: 0 0 100%;
         width: 100%;
         margin-top: 24px;
@@ -120,16 +119,17 @@ const Styles = Styled.div`
         margin-bottom: 16px;
     }
     .reduceMargin .callOut {
-        margin-bottom: 4px;
+        margin-bottom: 2px;
     }
     .cardButtons {
         h4 {
             margin-top: 0;
+            font-size: 14px;
         }
     }
 }
 
-@media screen and (max-height: 900px) {
+@media screen and (max-height: 782px) {
     .standardView {
         padding: 16px 24px 24px 148px;
         h3 {

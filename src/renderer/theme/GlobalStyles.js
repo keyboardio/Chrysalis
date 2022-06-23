@@ -502,6 +502,7 @@ svg text{
   background: ${({ theme }) => theme.styles.button.danger.backgroundColorHover};
   color: ${({ theme }) => theme.styles.button.danger.color};
 }
+
 .dropdown-toggle.btn.btn-primary {
   background: ${({ theme }) => theme.styles.dropdown.backgroundButtonColor};
   border: 1px solid ${({ theme }) => theme.styles.dropdown.borderButtonColor};
@@ -719,6 +720,7 @@ svg text{
   flex: 0 0 100%;
   padding: 24px 16px 20px 16px;
   h4 {
+    font-size: 14px;
     color: ${({ theme }) => theme.styles.cardButtons.titleColor};
   }
   p {

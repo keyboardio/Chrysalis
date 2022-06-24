@@ -15,11 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//const context_bar_channel = new BroadcastChannel("context_bar");
-
 import React, { useState, useEffect } from "react";
 
 import Alert from "@mui/material/Alert";
+import LinearProgress from "@mui/material/LinearProgress";
 import Snackbar from "@mui/material/Snackbar";
 
 const toast_channel = new BroadcastChannel("notifications");
@@ -41,6 +40,9 @@ export const toast = {
       Object.assign({ variant: "success", message: message }, options)
     );
   },
+  progress: (progress) => {
+    toast.toast({ progress: progress });
+  },
   toast: async (msg) => {
     const channel = new BroadcastChannel("notifications");
     await channel.postMessage(msg);
@@ -53,6 +55,7 @@ export default function Toast() {
   const [variant, setVariant] = useState("warning");
   const [autoHideDuration, setAutoHideDuration] = useState(null);
   const [message, setMessage] = useState(null);
+  const [progress, setProgress] = useState(null);
 
   const onClose = (event, reason) => {
     if (reason === "clickaway") return;
@@ -62,18 +65,23 @@ export default function Toast() {
 
   useEffect(() => {
     toast_channel.onmessage = (event) => {
-      const msg = Object.assign(
-        {
-          variant: "warning",
-          autoHideDuration: null,
-          message: null,
-        },
-        event.data
-      );
-      setVariant(msg.variant);
-      setAutoHideDuration(msg.autoHideDuration);
-      setMessage(msg.message);
-      setOpen(true);
+      if (event.data.message) {
+        const msg = Object.assign(
+          {
+            variant: "warning",
+            autoHideDuration: null,
+            message: null,
+          },
+          event.data
+        );
+        setVariant(msg.variant);
+        setAutoHideDuration(msg.autoHideDuration);
+        setMessage(msg.message);
+        setProgress(null);
+        setOpen(true);
+      } else if (event.data.progress) {
+        setProgress(event.data.progress);
+      }
     };
   });
 
@@ -82,11 +90,12 @@ export default function Toast() {
       <Alert
         elevation={6}
         variant="filled"
-        onClose={onClose}
+        onClose={!progress && onClose}
         severity={variant}
         sx={{ width: "100%" }}
       >
         {message}
+        {progress && <LinearProgress variant="determinate" value={progress} />}
       </Alert>
     </Snackbar>
   );

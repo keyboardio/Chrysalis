@@ -4,6 +4,7 @@
         "deviceDisconnected": "Verbinding met toetsenbord verbroken",
         "saveFile": "Fout tijdens opslaan van bestand: {{ error }}"
     },
+
     "components": {
         "layer": "Laag {{index}}",
         "layerRaw": "Laag",

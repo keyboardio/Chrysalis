@@ -49,6 +49,8 @@ import Preferences from "./screens/Preferences";
 import SystemInfo from "./screens/SystemInfo";
 import { migrateDarkModeToTheme } from "./utils/darkMode";
 
+import { useAutoUpdate } from "./hooks/useAutoUpdate";
+
 const { ipcRenderer } = require("electron");
 const Store = require("electron-store");
 const settings = new Store();
@@ -72,6 +74,8 @@ const App = (props) => {
   const darkMode = globalContext.state.darkMode;
   const [activeDevice, setActiveDevice] = globalContext.state.activeDevice;
   const [bgColor, setBgColor] = useState(null);
+
+  useAutoUpdate();
 
   migrateDarkModeToTheme();
   setTheme(settings.get("ui.theme", "system"));

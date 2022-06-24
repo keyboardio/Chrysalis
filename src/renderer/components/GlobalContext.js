@@ -25,6 +25,7 @@ export const GlobalContextProvider = (props) => {
   const [connected, setConnected] = useState(false);
   const [focusDeviceDescriptor, setFocusDeviceDescriptor] = useState(null);
   const [activeDevice, setActiveDevice] = useState(null);
+  const [updateAvailable, setUpdateAvailable] = useState(false);
 
   const getDarkMode = () => {
     if (theme == "system") {
@@ -39,6 +40,7 @@ export const GlobalContextProvider = (props) => {
     theme: [theme, setTheme],
     focusDeviceDescriptor: [focusDeviceDescriptor, setFocusDeviceDescriptor],
     activeDevice: [activeDevice, setActiveDevice],
+    updateAvailable: [updateAvailable, setUpdateAvailable],
   };
 
   return (

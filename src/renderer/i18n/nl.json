@@ -4,7 +4,6 @@
         "deviceDisconnected": "Verbinding met toetsenbord verbroken",
         "saveFile": "Fout tijdens opslaan van bestand: {{ error }}"
     },
-
     "components": {
         "layer": "Laag {{index}}",
         "layerRaw": "Laag",
@@ -39,8 +38,7 @@
             "exit": "Afsluiten",
             "keyboardSection": "Toetsenbord",
             "chrysalisSection": "Chrysalis",
-            "miscSection": "Diversen",
-            "upgradeAvailable": "Een upgrade is beschikbaar!"
+            "miscSection": "Diversen"
         },
         "deviceMenu": {
             "Homepage": "Beginpagina",

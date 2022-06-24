@@ -13,6 +13,10 @@ release_version() {
     package_version | cut -d- -f1
 }
 
+firmware_version() {
+    head -n 1 static/firmware-changelog.md | cut -d" " -f 2
+}
+
 verify_version() {
     if [ "$(news_version)" != "$(package_version)" ]; then
         cat >&2 <<EOF
@@ -36,18 +40,15 @@ EOF
     esac
 }
 
-prompt_for_firmware_update() {
-    echo -n "Is the firmware bundle up to date? (y/N) "
+verify_firmware_version() {
+    if [ "$(firmware_version)" != "$(package_version)" ]; then
+        cat >&2 <<EOF
+Package version ($(package_version)) does not match the version in  static/firmware-changelog.md ($(firmware_version)).
 
-    read a
-
-    case "$a" in
-        y|Y)
-            ;;
-        *)
-            exit 1
-            ;;
-    esac
+Please update the shipped firmware, and make sure the versions align.
+EOF
+        exit 1
+    fi
 }
 
 prompt_for_screenshot() {
@@ -90,18 +91,7 @@ update_shipped_firmware() {
             ;;
     esac
 
-    VERSION=$(release_version)
-
     tools/firmware-update
-    git add static/**/{experimental,default}.hex
-    TMP=$(mktemp)
-    cat >${TMP} <<EOF
-Update the firmware files we ship with
-
-Built using Chrysalis-Firmware-Bundle-${VERSION} and the latest Kaleidoscope.
-EOF
-    git commit -s -F "${TMP}"
-    rm -f "${TMP}"
 }
 
 update_version() {
@@ -153,8 +143,8 @@ verify_version
 prompt_for_screenshot
 prompt_for_package_version usb
 prompt_for_package_version serialport
-prompt_for_firmware_update
 update_shipped_firmware
+verify_firmware_version
 update_version
 update_release_date
 commit_preparations

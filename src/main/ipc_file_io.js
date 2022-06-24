@@ -18,6 +18,17 @@ import { dialog, ipcMain } from "electron";
 import fs from "fs";
 
 export const registerFileIoHandlers = () => {
+  ipcMain.on("file.read", (event, fileName) => {
+    let fileData, error;
+    try {
+      fileData = fs.readFileSync(fileName).toString();
+    } catch (e) {
+      fileData = null;
+      error = e;
+    }
+    event.returnValue = [fileData, error];
+  });
+
   ipcMain.on("file.save-with-dialog", (event, data) => {
     const options = {
       title: data.title,

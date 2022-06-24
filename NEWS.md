@@ -4,6 +4,11 @@ Chrysalis 0.10.3-snapshot
 
 ## New features
 
+Going forward, Chrysalis will be able to automatically update itself, without
+having to download the new version manually. This feature is opt-in, and has to
+be enabled in Preferences first. When disabled, it will still display a
+notification, but will not download or install it.
+
 Chrysalis has been translated to Dutch, and we're in the process of setting up
 Weblate to make future translations - and maintenance of them - simpler and more
 accessible.

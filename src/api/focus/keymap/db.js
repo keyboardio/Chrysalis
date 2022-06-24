@@ -21,6 +21,9 @@ import { Base } from "./db/base";
 import { USQwerty } from "./db/us/qwerty";
 import { constants } from "./db/constants";
 
+import enLangMap from "./cldr_languages/en";
+import nlLangMap from "./cldr_languages/nl";
+
 global.chrysalis_keymapdb_instance = null;
 
 class KeymapDB {
@@ -36,6 +39,10 @@ class KeymapDB {
       this.loadLayouts();
       this.constants = constants;
       this.supported_layouts = {};
+      this.layout_langs = {
+        en: enLangMap,
+        nl: nlLangMap,
+      };
     }
 
     return global.chrysalis_keymapdb_instance;
@@ -47,11 +54,7 @@ class KeymapDB {
 
   getLayoutLanguage = (layout) => {
     const languageCode = this._layouts[layout].group;
-    return ipcRenderer.sendSync(
-      "cldr.getLayoutLanguage",
-      i18n.language,
-      languageCode
-    );
+    return this.layout_langs[i18n.language][languageCode];
   };
 
   getSupportedLayouts() {

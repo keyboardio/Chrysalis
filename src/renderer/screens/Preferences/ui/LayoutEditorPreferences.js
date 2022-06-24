@@ -38,18 +38,18 @@ const LayoutSelect = (props) => {
   const { layout, setLayout } = props;
 
   const changeLayout = (_, value) => {
-    setLayout(value || props.layout);
+    setLayout(value.name || props.layout);
   };
 
   return (
     <Autocomplete
       size="small"
       sx={{ minWidth: "20em" }}
-      value={layout}
-      groupBy={(option) => db.getLayoutLanguage(option)}
+      value={db.getSupportedLayouts().find((item) => item.name === layout)}
+      groupBy={(option) => option.language || option.group}
       onChange={changeLayout}
       options={db.getSupportedLayouts()}
-      getOptionLabel={(option) => option}
+      getOptionLabel={(option) => option.name}
       disableClearable
       renderInput={(params) => <TextField {...params} variant="outlined" />}
     />

@@ -21,6 +21,9 @@ import { Base } from "./db/base";
 import { USQwerty } from "./db/us/qwerty";
 import { constants } from "./db/constants";
 
+import enLangMap from "./cldr_languages/en";
+import nlLangMap from "./cldr_languages/nl";
+
 global.chrysalis_keymapdb_instance = null;
 
 class KeymapDB {
@@ -35,6 +38,11 @@ class KeymapDB {
       this.setLayout("English (US)");
       this.loadLayouts();
       this.constants = constants;
+      this.supported_layouts = {};
+      this.layout_langs = {
+        en: enLangMap,
+        nl: nlLangMap,
+      };
     }
 
     return global.chrysalis_keymapdb_instance;
@@ -46,40 +54,41 @@ class KeymapDB {
 
   getLayoutLanguage = (layout) => {
     const languageCode = this._layouts[layout].group;
-    return ipcRenderer.sendSync(
-      "cldr.getLayoutLanguage",
-      i18n.language,
-      languageCode
-    );
+    return this.layout_langs[i18n.language][languageCode];
   };
 
   getSupportedLayouts() {
-    const layouts = [];
-    for (const layout of Object.entries(this._layouts)) {
-      layouts.push(layout[0]);
+    if (this.supported_layouts[i18n.language] === undefined) {
+      this.supported_layouts[i18n.language] = [];
+      for (const layout of Object.entries(this._layouts)) {
+        const entry = layout[1];
+        entry.language = this.getLayoutLanguage(entry.name);
+        // delete entry.codetable;
+        this.supported_layouts[i18n.language].push(Object.assign({}, entry));
+      }
+      this.supported_layouts[i18n.language].sort((a, b) => {
+        const l1 = a;
+        const l2 = b;
+
+        // Sort on group first
+        if (l1.group < l2.group) return -1;
+        if (l1.group > l2.group) return 1;
+
+        // If in the same group, sort the default one higher
+        if (l1.default) return -1;
+        if (l2.default) return 1;
+
+        // If neither is the default, sort on name.
+        const n1 = l1.name.toUpperCase();
+        const n2 = l2.name.toUpperCase();
+
+        if (n1 < n2) return -1;
+        if (n1 > n2) return 1;
+
+        return 0;
+      });
     }
-    layouts.sort((a, b) => {
-      const l1 = this._layouts[a];
-      const l2 = this._layouts[b];
-
-      // Sort on group first
-      if (l1.group < l2.group) return -1;
-      if (l1.group > l2.group) return 1;
-
-      // If in the same group, sort the default one higher
-      if (l1.default) return -1;
-      if (l2.default) return 1;
-
-      // If neither is the default, sort on name.
-      const n1 = l1.name.toUpperCase();
-      const n2 = l2.name.toUpperCase();
-
-      if (n1 < n2) return -1;
-      if (n1 > n2) return 1;
-
-      return 0;
-    });
-    return layouts;
+    return this.supported_layouts[i18n.language];
   }
 
   resetLayout() {

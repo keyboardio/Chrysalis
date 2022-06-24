@@ -14,21 +14,26 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import cldr from "cldr";
 import fs from "fs";
 
-import { loadAllKeymaps } from "./precompile/cldr_data.mjs";
-import { extractLanguageNames } from "./precompile/cldr_languages.mjs";
+export const extractLanguageNames = () => {
+  const language_names = {};
 
-const generateCLDRData = async () => {
-  console.log("* Generating CLDR data...");
-
-  const db = await loadAllKeymaps();
-  extractLanguageNames();
-
-  fs.writeFileSync(
-    "./src/api/focus/keymap/cldr_data.json",
-    JSON.stringify(db, null, 2)
+  fs.mkdir(
+    "./src/api/focus/keymap/cldr_languages/",
+    { recursive: true },
+    (err) => {
+      if (err) console.log(err);
+    }
   );
-};
 
-generateCLDRData();
+  cldr.localeIds.forEach((localeId) => {
+    fs.writeFileSync(
+      "./src/api/focus/keymap/cldr_languages/" + localeId + ".json",
+      JSON.stringify(cldr.extractLanguageDisplayNames(localeId), null, 2)
+    );
+  });
+
+  return language_names;
+};

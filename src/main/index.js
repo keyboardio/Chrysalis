@@ -30,7 +30,6 @@ import {
   addUsbEventListeners,
   registerDeviceDiscoveryHandlers,
 } from "./ipc_device_discovery";
-import { registerCLDRHandlers } from "./ipc_cldr";
 import { registerDevtoolsHandlers } from "./ipc_devtools";
 import { registerExitHandlers } from "./ipc_exit";
 import { registerFileIoHandlers } from "./ipc_file_io";
@@ -190,7 +189,6 @@ process.on("uncaughtException", function (error) {
 });
 
 registerBackupHandlers();
-registerCLDRHandlers();
 registerDeviceDiscoveryHandlers();
 registerDevtoolsHandlers();
 registerFileIoHandlers();

@@ -39,6 +39,15 @@
     "productName": "Chrysalis",
     "artifactName": "${productName}-${version}.${ext}",
     "copyright": "Copyright © 2018-2022 Keyboardio Inc.; distributed under the GPLv3",
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "portable": {
+      "artifactName": "${productName}-${version}-portable.${ext}"
+    },
     "mac": {
       "darkModeSupport": true,
       "hardenedRuntime": true,

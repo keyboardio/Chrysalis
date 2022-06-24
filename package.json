@@ -8,9 +8,10 @@
   },
   "homepage": "https://github.com/keyboardio/Chrysalis",
   "scripts": {
+    "precompile": "node tools/precompile.mjs",
     "preinstall": "node tools/preinstall.js",
     "postinstall": "electron-builder install-app-deps",
-    "start": "electron-webpack dev",
+    "start": "yarn run precompile &&  electron-webpack dev",
     "compile": "electron-webpack",
     "build:all": "npm-run-all compile --parallel 'electron-builder -m' 'electron-builder -w' 'electron-builder -l'",
     "build:osx": "yarn compile && electron-builder -m",

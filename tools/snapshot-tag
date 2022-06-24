@@ -1,0 +1,8 @@
+#! /bin/sh
+
+## The goal here is to return a tag without the "build number" in it. For
+## non-snapshot builds, this is the same as the version with a "v" prefix. For
+## snapshot builds, this is v${major}.${minor}.${patch}-snapshot, without the
+## ".${buildid}" at the end.
+
+sed -ne '/"version"/{s/.*"version": "\([0-9\.]*\(-[^\.]*\)*\).*",/\1/p}' <package.json

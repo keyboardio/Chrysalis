@@ -18,6 +18,11 @@ update_version() {
     mv "${TMP}" package.json
 }
 
+update_readme() {
+    VERSION=$(tools/snapshot-tag)
+    sed -i -e "s,\(\[build:dev\]: .*/releases/tag/\).*,\1v${VERSION}," README.md
+}
+
 commit_changes() {
     VERSION="$(jq -r .version <package.json)"
     git add package.json
@@ -29,5 +34,6 @@ push_changes() {
 }
 
 update_version
+update_readme
 commit_changes
 push_changes

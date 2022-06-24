@@ -97,21 +97,21 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Delete the snapshot release
-        uses: dev-drprasad/delete-tag-and-release@v0.2.0
-        with:
-          delete_release: true
-          tag_name: snapshot
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Delete the snapshot tag locally too
+          GITHUB_TOKEN: ${{ secrets.github_token }}
         shell: bash
-        run: git tag -d snapshot || true
+        run: |
+          gh release delete -y v$(tools/snapshot-tag) || true
+          git tag -d v$(tools/snapshot-tag) || true
 
       - name: Recreate the snapshot release
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
-        run: gh release create -p -t "Chrysalis development snapshot" -n "Development snapshot." snapshot
+        shell: bash
+        run: |
+          gh release create -p -t "Chrysalis $(tools/snapshot-tag)" \
+                            -n "Development snapshot." \
+                            v$(tools/snapshot-tag)
 
       - name: Download artifacts
         uses: actions/download-artifact@v2
@@ -122,4 +122,7 @@ jobs:
         shell: bash
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
-        run: gh release upload snapshot artifacts/*/Chrysalis-* artifacts/*/latest*.yml
+        run: |
+          gh release upload v$(tools/snapshot-tag) \
+                     artifacts/*/Chrysalis-* \
+                     artifacts/*/latest*.yml

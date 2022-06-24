@@ -36,9 +36,11 @@ export const registerAutoUpdaterHandlers = () => {
   ipcMain.handle("auto-update.check-for-updates", async (sender, mode) => {
     autoUpdater.autoDownload = mode == "automatic";
 
-    // If we're a snapshot version, auto updates aren't supported, so silently
-    // return.
-    if (version.match(/-snapshot/)) return;
+    // If we're a snapshot version, set up the autoUpdater accordingly.
+    if (version.match(/-snapshot/)) {
+      autoUpdater.allowPrerelease = true;
+      autoUpdater.channel = "snapshot";
+    }
 
     await autoUpdater.checkForUpdates();
   });

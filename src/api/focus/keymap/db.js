@@ -35,7 +35,7 @@ class KeymapDB {
       this.setLayout("English (US)");
       this.loadLayouts();
       this.constants = constants;
-      this.supported_layouts = undefined;
+      this.supported_layouts = {};
     }
 
     return global.chrysalis_keymapdb_instance;
@@ -55,15 +55,15 @@ class KeymapDB {
   };
 
   getSupportedLayouts() {
-    if (this.supported_layouts === undefined) {
-      this.supported_layouts = [];
+    if (this.supported_layouts[i18n.language] === undefined) {
+      this.supported_layouts[i18n.language] = [];
       for (const layout of Object.entries(this._layouts)) {
         const entry = layout[1];
         entry.language = this.getLayoutLanguage(entry.name);
         // delete entry.codetable;
-        this.supported_layouts.push(entry);
+        this.supported_layouts[i18n.language].push(Object.assign({}, entry));
       }
-      this.supported_layouts.sort((a, b) => {
+      this.supported_layouts[i18n.language].sort((a, b) => {
         const l1 = a;
         const l2 = b;
 
@@ -85,7 +85,7 @@ class KeymapDB {
         return 0;
       });
     }
-    return this.supported_layouts;
+    return this.supported_layouts[i18n.language];
   }
 
   resetLayout() {

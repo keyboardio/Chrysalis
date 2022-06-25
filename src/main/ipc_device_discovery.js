@@ -16,6 +16,7 @@
  */
 
 import { ipcMain } from "electron";
+import fs from "fs";
 import { findByIds, getDeviceList, WebUSB } from "usb";
 import { sendToRenderer } from "./utils";
 
@@ -63,4 +64,15 @@ export const registerDeviceDiscoveryHandlers = () => {
       return false;
     }
   });
+  if (process.platform == "linux") {
+    ipcMain.on("udev.isAvailable", (event) => {
+      try {
+        fs.accessSync("/run/udev");
+      } catch (_) {
+        event.returnValue = false;
+        return;
+      }
+      event.returnValue = true;
+    });
+  }
 };

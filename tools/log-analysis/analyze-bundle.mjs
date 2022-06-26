@@ -145,6 +145,44 @@ const analyze_flash_reconnect_fail = (logs, flash_start_index, error_log_index, 
   console.log(" trigger key has been held for too long.")
 }
 
+const analyze_flash_bootloaderWait_fail = (logs, flash_start_index, error_log_index, error) => {
+  let last_portlist;
+  for (let i = error_log_index; i > flash_start_index; i--) {
+    if (logs[i].message == "serial port list obtained" && logs[i].function == "waitForSerialDevice") {
+      last_portlist = logs[i];
+      break;
+    }
+  }
+
+  const device = last_portlist.device;
+
+  // Check if we find a non-bootloader match
+  let device_found = false;
+  for (const port of last_portlist.portList) {
+    const vid = parseInt(`0x${port.vendorId}`), pid = parseInt(`0x${port.productId}`)
+
+    // FIXME: We're checking pid + 1 here, assuming that the boot pid is the
+    // normal pid - 1. The vid/pid we fished out from the last portlist is the
+    // vid/pid Chrysalis is looking for, which would be the bootloader at this
+    // stage.
+    if (vid == device.vendorId && pid == device.productId + 1) {
+      device_found = true;
+      break
+    }
+  }
+
+  if (!device_found) {
+    console.log("\nUnable to determine what went wrong, sorry.")
+    const printable = Object.assign({}, error);
+    delete printable.level;
+    console.log("Final error:", printable);
+  }
+
+  console.log("Verdict: The keyboard is still in keyboard mode.")
+  console.log(" It either failed to go into bootloader mode in the first place,")
+  console.log(" or the trigger key has been released too early.")
+}
+
 const analyze_flash_error = (logs, error) => {
   const error_log_index = logs.indexOf(error);
 
@@ -179,17 +217,21 @@ const analyze_flash_error = (logs, error) => {
 
   format_failed_step(failed_step);
 
-  if (failed_step.step != "reconnect") {
-    console.log(`\nI don't know how to analyze "${failed_step.step}" steps, exiting.`)
-
-    const printable = Object.assign({}, error);
-    delete printable.level;
-
-    console.log("Final error:", printable);
-    return
+  if (failed_step.step == "reconnect") {
+    return analyze_flash_reconnect_fail(logs, flash_start_index, error_log_index, error);
+  }
+  if (failed_step.step == "bootloaderWait") {
+    return analyze_flash_bootloaderWait_fail(logs, flash_start_index, error_log_index, error);
   }
 
-  return analyze_flash_reconnect_fail(logs, flash_start_index, error_log_index, error);
+  // Fallback: We don't know how to analyize steps other than reconnect and
+  // bootloaderWait.
+  console.log(`\nI don't know how to analyze "${failed_step.step}" steps, exiting.`)
+
+  const printable = Object.assign({}, error);
+  delete printable.level;
+
+  console.log("Final error:", printable);
 }
 
 const analyze_error = (logs, error) => {
@@ -198,12 +240,18 @@ const analyze_error = (logs, error) => {
     analyze_focus_request_timeout(logs, error);
   } else if (error.message == "Error while uploading firmware") {
     analyze_flash_error(logs, error);
+  } else if (error.label == "flash" && error.message == "bootloader not found") {
+    // Ignore this one, because it always comes hand in hand with the above one,
+    // and we don't want to analyze the same thing twice.
+    return
   } else {
     // Unknown type of error
     const printable = Object.assign({}, error);
     delete printable.level;
     console.log("Don't know how to analyze:", printable);
   }
+
+  console.log();
 }
 
 print_header(get_meta(bundle));
@@ -212,5 +260,4 @@ const errors = find_errors(bundle.logs);
 console.log(`Found ${errors.length} errors.\n`);
 errors.forEach((error) => {
   analyze_error(bundle.logs, error);
-  console.log();
 })

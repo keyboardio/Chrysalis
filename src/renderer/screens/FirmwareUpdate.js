@@ -31,9 +31,7 @@ import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
 import { PageTitle } from "@renderer/components/PageTitle";
 import { toast } from "@renderer/components/Toast";
 import { getStaticPath } from "@renderer/config";
-import useEffectOnce from "@renderer/hooks/useEffectOnce";
 import checkExternalFlasher from "@renderer/utils/checkExternalFlasher";
-import clearEEPROM from "@renderer/utils/clearEEPROM";
 import { ipcRenderer } from "electron";
 import fs from "fs";
 import path from "path";
@@ -62,21 +60,6 @@ const FirmwareUpdate = (props) => {
   const focusDeviceDescriptor =
     props.focusDeviceDescriptor || focus.focusDeviceDescriptor;
 
-  useEffectOnce(() => {
-    // We're caching the device-specific flashSteps here, because during the
-    // flashing process, we will reboot and reconnect to the keyboard, which can
-    // - and often does - turn `focusDeviceDescriptor` into null, at least
-    // temporarily.
-    //
-    // We do not want to fall back to the default `["flash"]` step list, not
-    // even temporarily.
-    //
-    // As such, we cache the steps on mount. We can do that, because the steps
-    // are device-specific, but static, and when this component gets first
-    // mounted, `props.focusDeviceDescriptor` *will* be available.
-    setFlashSteps(focusDeviceDescriptor.flashSteps);
-  });
-
   const _defaultFirmwareFilename = () => {
     const { vendor, product } = focusDeviceDescriptor.info;
     const firmwareType = focusDeviceDescriptor.info.firmwareType || "hex";
@@ -90,7 +73,7 @@ const FirmwareUpdate = (props) => {
     );
   };
 
-  const _flash = async () => {
+  const _flash = async (options) => {
     const focus = new Focus();
     let filename;
 
@@ -101,13 +84,14 @@ const FirmwareUpdate = (props) => {
     }
 
     const nextStep = async (desiredState) => {
+      const steps = focusDeviceDescriptor.flashSteps(options);
       if (desiredState == "bootloaderWait") {
         toast.info(t("firmwareUpdate.flashing.releasePROG"), {
           autoHideDuration: 5000,
         });
       }
-      setActiveStep(Math.min(activeStep + 1, flashSteps.length));
-      flashSteps.forEach((step, index) => {
+      setActiveStep(Math.min(activeStep + 1, steps.length));
+      steps.forEach((step, index) => {
         if (step == desiredState) {
           setActiveStep(index);
         }
@@ -117,22 +101,30 @@ const FirmwareUpdate = (props) => {
     const preferExternalFlasher =
       (await settings.get("flash.preferExternalFlasher")) &&
       (await checkExternalFlasher(focusDeviceDescriptor));
-    return focusDeviceDescriptor.flash(focus._port, filename, {
-      preferExternalFlasher: preferExternalFlasher,
-      device: focusDeviceDescriptor,
-      focus: focus,
-      callback: nextStep,
-    });
+    return focusDeviceDescriptor.flash(
+      focus._port,
+      filename,
+      Object.assign({}, options, {
+        preferExternalFlasher: preferExternalFlasher,
+        device: focusDeviceDescriptor,
+        focus: focus,
+        callback: nextStep,
+      })
+    );
   };
 
-  const upload = async () => {
+  const upload = async (options) => {
+    await setFlashSteps(focusDeviceDescriptor.flashSteps(options));
+
     setConfirmationOpen(false);
+    setFactoryConfirmationOpen(false);
+
     await props.toggleFlashing();
     setProgress("flashing");
 
     logger().info("Starting to flash");
     try {
-      await _flash();
+      await _flash(options);
       await setActiveStep(flashSteps.length);
     } catch (e) {
       logger().error("Error while uploading firmware", { error: e });
@@ -157,21 +149,6 @@ const FirmwareUpdate = (props) => {
       }, 1000);
     });
   };
-
-  const replace = async () => {
-    steps = ["factoryRestore"].concat(steps);
-    setFactoryConfirmationOpen(false);
-    setActiveStep(0);
-    await clearEEPROM();
-    return await upload();
-  };
-
-  let steps = [];
-  if (flashSteps) {
-    steps = steps.concat(flashSteps);
-  } else {
-    steps = steps.concat(["flash"]);
-  }
 
   const instructions = (
     <Alert severity="info">
@@ -233,11 +210,11 @@ const FirmwareUpdate = (props) => {
           </Box>
         </Paper>
       </Container>
-      <FlashSteps steps={steps} activeStep={activeStep} />
+      <FlashSteps steps={flashSteps} activeStep={activeStep} />
       <ConfirmationDialog
         title={t("firmwareUpdate.factoryConfirmDialog.title")}
         open={factoryConfirmationOpen}
-        onConfirm={replace}
+        onConfirm={() => upload({ factoryReset: true })}
         onCancel={() => setFactoryConfirmationOpen(false)}
       >
         <Typography component="p" sx={{ mb: 2 }}>
@@ -248,7 +225,7 @@ const FirmwareUpdate = (props) => {
       <ConfirmationDialog
         title={t("firmwareUpdate.confirmDialog.title")}
         open={confirmationOpen}
-        onConfirm={upload}
+        onConfirm={() => upload()}
         onCancel={() => setConfirmationOpen(false)}
       >
         <Typography component="p" sx={{ mb: 2 }}>

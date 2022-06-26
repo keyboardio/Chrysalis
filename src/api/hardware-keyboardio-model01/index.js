@@ -14,12 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {
-  Avr109,
-  Avr109Bootloader,
-  DFUUtil,
-  DFUUtilBootloader,
-} from "@api/flash";
+import { Avr109, Avr109Bootloader } from "@api/flash/AVRGirlFlasher";
+import { DFUUtil, DFUUtilBootloader } from "@api/flash/DFUUtilFlasher";
 import Keymap from "./components/Keymap";
 
 const Model01 = {

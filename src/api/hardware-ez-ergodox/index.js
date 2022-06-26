@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { teensy } from "@api/flash";
+import { teensy } from "@api/flash/TeensyFlasher";
 import Keymap from "./components/Keymap";
 
 const ErgoDox = {

@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { Avr109, Avr109Bootloader } from "@api/flash";
+import { Avr109, Avr109Bootloader } from "@api/flash/AVRGirlFlasher";
 import Keymap from "./components/Keymap";
 
 const Atreus2 = {

@@ -17,30 +17,15 @@
 
 import Focus from "@api/focus";
 import { logger } from "@api/log";
-import BuildIcon from "@mui/icons-material/Build";
 import CheckIcon from "@mui/icons-material/Check";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import SettingsBackupRestoreIcon from "@mui/icons-material/SettingsBackupRestore";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
+import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";
-import FormControl from "@mui/material/FormControl";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Input from "@mui/material/Input";
-import InputLabel from "@mui/material/InputLabel";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import Stepper from "@mui/material/Stepper";
-import Switch from "@mui/material/Switch";
+import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
 import { PageTitle } from "@renderer/components/PageTitle";
@@ -49,14 +34,15 @@ import { getStaticPath } from "@renderer/config";
 import useEffectOnce from "@renderer/hooks/useEffectOnce";
 import checkExternalFlasher from "@renderer/utils/checkExternalFlasher";
 import clearEEPROM from "@renderer/utils/clearEEPROM";
-import { version } from "@root/package.json";
-import { Electron, ipcRenderer } from "electron";
+import { ipcRenderer } from "electron";
 import fs from "fs";
 import path from "path";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import FirmwareChangesDialog from "./FirmwareUpdate/FirmwareChangesDialog";
+import FirmwareSelect from "./FirmwareUpdate/FirmwareSelect";
+import FlashSteps from "./FirmwareUpdate/FlashSteps";
+import UpdateDescription from "./FirmwareUpdate/UpdateDescription";
 
 const Store = require("electron-store");
 const settings = new Store();
@@ -65,13 +51,13 @@ const FirmwareUpdate = (props) => {
   const focus = new Focus();
 
   const [firmwareFilename, setFirmwareFilename] = useState("");
-  const [selected, setSelected] = useState("default");
+  const [selected, setSelected] = useState("current");
+
+  const [factoryConfirmationOpen, setFactoryConfirmationOpen] = useState(false);
   const [confirmationOpen, setConfirmationOpen] = useState(false);
-  const [resetOnFlash, setResetOnFlash] = useState(false);
   const [activeStep, setActiveStep] = useState(-1);
   const [flashSteps, setFlashSteps] = useState([]);
   const [progress, setProgress] = useState("idle");
-  const [changelogOpen, setChangelogOpen] = useState(false);
   const { t } = useTranslation();
   const focusDeviceDescriptor =
     props.focusDeviceDescriptor || focus.focusDeviceDescriptor;
@@ -90,42 +76,6 @@ const FirmwareUpdate = (props) => {
     // mounted, `props.focusDeviceDescriptor` *will* be available.
     setFlashSteps(focusDeviceDescriptor.flashSteps);
   });
-
-  const toggleResetOnFlash = (event) => {
-    setResetOnFlash(event.target.checked);
-  };
-
-  const openConfirmationDialog = () => {
-    setConfirmationOpen(true);
-  };
-  const closeConfirmationDialog = () => {
-    setConfirmationOpen(false);
-  };
-
-  const selectFirmware = (event) => {
-    setSelected(event.target.value);
-    if (event.target.value != "custom") {
-      return setFirmwareFilename("");
-    }
-
-    const [fileName, fileData] = ipcRenderer.sendSync("file.open-with-dialog", {
-      title: t("firmwareUpdate.dialog.selectFirmware"),
-      filters: [
-        {
-          name: t("firmwareUpdate.dialog.firmwareFiles"),
-          extensions: ["hex", "bin"],
-        },
-        {
-          name: t("firmwareUpdate.dialog.allFiles"),
-          extensions: ["*"],
-        },
-      ],
-    });
-
-    if (fileName) {
-      setFirmwareFilename(fileName);
-    }
-  };
 
   const _defaultFirmwareFilename = () => {
     const { vendor, product } = focusDeviceDescriptor.info;
@@ -176,6 +126,7 @@ const FirmwareUpdate = (props) => {
   };
 
   const upload = async () => {
+    setConfirmationOpen(false);
     await props.toggleFlashing();
     setProgress("flashing");
 
@@ -208,211 +159,104 @@ const FirmwareUpdate = (props) => {
   };
 
   const replace = async () => {
-    closeConfirmationDialog();
+    steps = ["factoryRestore"].concat(steps);
+    setFactoryConfirmationOpen(false);
     setActiveStep(0);
     await clearEEPROM();
     return await upload();
   };
 
-  let filename = null;
-  if (firmwareFilename) {
-    filename = firmwareFilename.split(/[\\/]/);
-    filename = filename[filename.length - 1];
-  }
-
-  const defaultFirmwareItemText = t("firmwareUpdate.defaultFirmware", {
-    version: version,
-  });
-
-  const defaultFirmwareItem = (
-    <MenuItem value="default" selected={selected == "default"}>
-      <ListItemIcon>
-        <SettingsBackupRestoreIcon />
-      </ListItemIcon>
-      <ListItemText
-        primary={defaultFirmwareItemText}
-        secondary={t("firmwareUpdate.defaultFirmwareDescription")}
-      />
-    </MenuItem>
-  );
-  let hasDefaultFirmware = true;
-  try {
-    fs.accessSync(_defaultFirmwareFilename(), fs.constants.R_OK);
-  } catch (_) {
-    hasDefaultFirmware = false;
-  }
-
-  const firmwareSelect = (
-    <FormControl
-      sx={{
-        marginLeft: 2,
-      }}
-    >
-      <InputLabel shrink htmlFor="selected-firmware">
-        {t("firmwareUpdate.selected")}
-      </InputLabel>
-      <Select
-        sx={{
-          display: "flex",
-          minWidth: "15em",
-          "& .MuiInputBase-input": { display: "flex" },
-          "& .MuiListItemIcon-root": {
-            marginTop: "auto",
-            marginBottom: "auto",
-            marginLeft: 1,
-            marginRight: 2,
-          },
-        }}
-        value={selected}
-        input={<Input id="selected-firmware" />}
-        onChange={selectFirmware}
-      >
-        {hasDefaultFirmware && defaultFirmwareItem}
-        <MenuItem selected={selected == "custom"} value="custom">
-          <ListItemIcon
-            sx={{
-              marginTop: "auto",
-              marginBottom: "auto",
-            }}
-          >
-            <BuildIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary={t("firmwareUpdate.custom")}
-            secondary={filename}
-          />
-        </MenuItem>
-      </Select>
-    </FormControl>
-  );
-
-  const resetOnFlashSwitch = (
-    <Switch
-      checked={resetOnFlash}
-      value="resetOnFlash"
-      onClick={toggleResetOnFlash}
-    />
-  );
-
   let steps = [];
-  if (resetOnFlash) {
-    steps = ["factoryRestore"];
-  }
-
   if (flashSteps) {
     steps = steps.concat(flashSteps);
   } else {
     steps = steps.concat(["flash"]);
   }
 
-  steps = steps.map((step) => {
-    return t("firmwareUpdate.flashing.steps." + step);
-  });
-
-  const stepsWidget = (
-    <Stepper activeStep={activeStep} alternativeLabel>
-      {steps.map((label) => {
-        return (
-          <Step key={label}>
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        );
-      })}
-    </Stepper>
+  const instructions = (
+    <Alert severity="info">
+      <AlertTitle>{t("firmwareUpdate.calloutTitle")}</AlertTitle>
+      <Typography component="p" gutterBottom>
+        {t("hardware.updateInstructions")}
+      </Typography>
+    </Alert>
   );
 
+  const buttonsDisabled =
+    progress == "flashing" ||
+    selected == "current" ||
+    (selected == "custom" && !firmwareFilename);
+
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-      }}
-    >
+    <>
       <PageTitle title={t("app.menu.firmwareUpdate")} />
-      <Card
-        sx={{
-          my: 4,
-          mx: "auto",
-          maxWidth: "50%",
-        }}
-      >
-        <CardContent>
-          <Typography component="p" gutterBottom>
-            {t("firmwareUpdate.description")}
-          </Typography>
-          <Typography component="p" gutterBottom sx={{ textAlign: "center" }}>
-            <a href="https://github.com/keyboardio/Chrysalis-Firmware-Bundle#readme">
-              Chrysalis-Firmware-Bundle
-            </a>
-          </Typography>
-          <Alert severity="info" sx={{ my: 2 }}>
-            <AlertTitle>{t("firmwareUpdate.calloutTitle")}</AlertTitle>
-            {t("hardware.updateInstructions")}
-          </Alert>
-          <Typography component="p" gutterBottom>
-            {t("firmwareUpdate.postUpload")}
-          </Typography>
-        </CardContent>
-        <Divider variant="middle" />
-        <CardContent>
-          <Typography variant="subtitle1">
-            {t("firmwareUpdate.options.title")}
-          </Typography>
-          <FormControl sx={{ display: "block" }}>
-            <FormControlLabel
-              control={resetOnFlashSwitch}
-              sx={{
-                flexGrow: 1,
-                display: "flex",
-                marginRight: 2,
-              }}
-              labelPlacement="end"
-              label={t("firmwareUpdate.options.onFlash")}
-            />
-          </FormControl>
-        </CardContent>
-        <Divider variant="middle" />
-        <CardActions>
-          {firmwareSelect}
-          <Box sx={{ flexGrow: 1 }} />
-          {selected == "default" && (
+      <Container sx={{ my: 4, width: "50%" }}>
+        <Typography variant="h6" gutterBottom>
+          {t("firmwareUpdate.yourFirmware")}
+        </Typography>
+        <Paper sx={{ p: 2 }}>
+          <UpdateDescription />
+          <Divider sx={{ my: 2 }} />
+          <FirmwareSelect
+            focusDeviceDescriptor={focusDeviceDescriptor}
+            selectedFirmware={[selected, setSelected]}
+            firmwareFilename={[firmwareFilename, setFirmwareFilename]}
+          />
+          <Divider sx={{ my: 2 }} />
+          <Box sx={{ p: 2, display: "flex" }}>
             <Button
-              disabled={progress == "flashing"}
-              onClick={() => setChangelogOpen(true)}
+              variant="outlined"
+              onClick={() => setFactoryConfirmationOpen(true)}
+              disabled={buttonsDisabled}
+              color={
+                ((progress == "success" || progress == "error") && progress) ||
+                "primary"
+              }
             >
-              {t("firmwareUpdate.firmwareChangelog.view")}
+              {t("firmwareUpdate.flashing.factoryResetButton")}
             </Button>
-          )}
-          <Button
-            startIcon={
-              progress == "success" ? <CheckIcon /> : <CloudUploadIcon />
-            }
-            variant="contained"
-            onClick={resetOnFlash ? openConfirmationDialog : upload}
-            disabled={progress == "flashing"}
-            color={
-              ((progress == "success" || progress == "error") && progress) ||
-              "primary"
-            }
-          >
-            {t("firmwareUpdate.flashing.button")}
-          </Button>
-        </CardActions>
-        {activeStep >= 0 && <CardContent>{stepsWidget}</CardContent>}
-      </Card>
+            <Box sx={{ flexGrow: 1 }} />
+            <Button
+              startIcon={
+                progress == "success" ? <CheckIcon /> : <CloudUploadIcon />
+              }
+              variant="contained"
+              onClick={() => setConfirmationOpen(true)}
+              disabled={buttonsDisabled}
+              color={
+                ((progress == "success" || progress == "error") && progress) ||
+                "primary"
+              }
+            >
+              {t("firmwareUpdate.flashing.button")}
+            </Button>
+          </Box>
+        </Paper>
+      </Container>
+      <FlashSteps steps={steps} activeStep={activeStep} />
+      <ConfirmationDialog
+        title={t("firmwareUpdate.factoryConfirmDialog.title")}
+        open={factoryConfirmationOpen}
+        onConfirm={replace}
+        onCancel={() => setFactoryConfirmationOpen(false)}
+      >
+        <Typography component="p" sx={{ mb: 2 }}>
+          {t("firmwareUpdate.factoryConfirmDialog.contents")}
+        </Typography>
+        {instructions}
+      </ConfirmationDialog>
       <ConfirmationDialog
         title={t("firmwareUpdate.confirmDialog.title")}
         open={confirmationOpen}
-        onConfirm={replace}
-        onCancel={closeConfirmationDialog}
+        onConfirm={upload}
+        onCancel={() => setConfirmationOpen(false)}
       >
-        {t("firmwareUpdate.confirmDialog.contents")}
+        <Typography component="p" sx={{ mb: 2 }}>
+          {t("firmwareUpdate.confirmDialog.description")}
+        </Typography>
+        {instructions}
       </ConfirmationDialog>
-      <FirmwareChangesDialog
-        open={changelogOpen}
-        onClose={() => setChangelogOpen(false)}
-      />
-    </Box>
+    </>
   );
 };
 

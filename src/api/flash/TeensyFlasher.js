@@ -18,44 +18,15 @@ import { logger } from "@api/log";
 import { getStaticPath } from "@renderer/config";
 import TeensyLoader from "teensy-loader";
 
-import { FocusCommands } from "./FocusCommands";
 import { delay, toStep } from "./utils";
 
-export const teensy = async (board, port, filename, options) => {
+export const TeensyFlasher = async (board, port, filename, options) => {
   const callback = options
     ? options.callback
     : function () {
         return;
       };
-  const device = options.device;
-  const focusCommands = new FocusCommands(options);
-
-  let saveKey;
-  if (!options.factoryReset) {
-    await toStep(callback)("saveEEPROM");
-    saveKey = await focusCommands.saveEEPROM();
-  } else {
-    await toStep(callback)("factoryRestore");
-    try {
-      await focusCommands.eraseEEPROM();
-    } catch (e) {
-      if (e != "Communication timeout") {
-        throw new Error(e);
-      }
-    }
-    // Because the factory restore above rebooted the keyboard, wait a little
-    // here before starting to flash.
-    await delay(1000);
-  }
 
   await toStep(callback)("flash");
   await TeensyLoader.upload(0x16c0, 0x0478, filename);
-
-  if (!options.factoryReset) {
-    await toStep(callback)("reconnect");
-    await options.focus.reconnectToKeyboard(device);
-
-    await toStep(callback)("restoreEEPROM");
-    await focusCommands.restoreEEPROM(saveKey);
-  }
 };

@@ -14,8 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { Avr109, Avr109Bootloader } from "@api/flash/AVRGirlFlasher";
-import { DFUUtil, DFUUtilBootloader } from "@api/flash/DFUUtilFlasher";
+import { flash, flashers } from "@api/flash";
+
 import Keymap from "./components/Keymap";
 
 const Model01 = {
@@ -71,11 +71,7 @@ const Model01 = {
       protocol: "avr109",
       signature: new Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     };
-    if (options.device && options.device.bootloader) {
-      return Avr109Bootloader(board, port, filename, options);
-    } else {
-      return Avr109(board, port, filename, options);
-    }
+    return flash(flashers.avr109, board, port, filename, options);
   },
 };
 
@@ -132,7 +128,7 @@ const Model100 = {
     ];
   },
   flash: async (port, filename, options) => {
-    return DFUUtil(null, port, filename, options);
+    return flash(flashers.dfuUtil, null, port, filename, options);
   },
 };
 
@@ -178,7 +174,10 @@ const Model100Bootloader = {
     return ["flash"];
   },
   flash: async (port, filename, options) => {
-    return DFUUtilBootloader(null, port, filename, options);
+    const opts = Object.assign({}, options);
+    opts.device.bootloader = true;
+
+    return flash(flashers.dfuUtil, null, port, filename, opts);
   },
 };
 

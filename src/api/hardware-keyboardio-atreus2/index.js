@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { Avr109, Avr109Bootloader } from "@api/flash/AVRGirlFlasher";
+import { flash, flashers } from "@api/flash";
 import Keymap from "./components/Keymap";
 
 const Atreus2 = {
@@ -76,11 +76,7 @@ const Atreus2 = {
       protocol: "avr109",
       signature: new Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     };
-    if (options.device && options.device.bootloader) {
-      return Avr109Bootloader(board, port, filename, options);
-    } else {
-      return Avr109(board, port, filename, options);
-    }
+    return flash(flashers.avr109, board, port, filename, options);
   },
 };
 

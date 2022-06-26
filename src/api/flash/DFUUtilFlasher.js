@@ -19,10 +19,9 @@ import { getStaticPath } from "@renderer/config";
 import { spawn } from "child_process";
 import path from "path";
 
-import { FocusCommands } from "./FocusCommands";
 import { delay, toStep } from "./utils";
 
-export const DFUUtilBootloader = async (board, port, filename, options) => {
+export const DFUUtilFlasher = async (board, port, filename, options) => {
   const callback = options
     ? options.callback
     : function () {
@@ -96,64 +95,4 @@ export const DFUUtilBootloader = async (board, port, filename, options) => {
     "--download",
     filename,
   ]);
-};
-
-export const DFUUtil = async (board, port, filename, options) => {
-  const focusCommands = new FocusCommands(options);
-  const device = options.device;
-  const callback = options
-    ? options.callback
-    : function () {
-        return;
-      };
-
-  let saveKey;
-  if (!options.factoryReset) {
-    await toStep(callback)("saveEEPROM");
-    saveKey = await focusCommands.saveEEPROM();
-
-    await toStep(callback)("bootloaderTrigger");
-    await focusCommands.reboot();
-  } else {
-    await toStep(callback)("factoryRestore");
-    try {
-      await focusCommands.eraseEEPROM();
-    } catch (e) {
-      if (e != "Communication timeout") {
-        throw new Error(e);
-      }
-    }
-
-    // We do not need to trigger the bootloader here, the erase above did a
-    // reset for us already. Do wait a little, for a smoother transition.
-    await toStep(callback)("bootloaderTrigger");
-    await delay(500);
-  }
-
-  await toStep(callback)("bootloaderWait");
-  const bootloaderFound = await options.focus.waitForBootloader(options.device);
-
-  if (!bootloaderFound) {
-    logger("flash").error("bootloader not found");
-    throw new Error("Bootloader not found");
-  }
-  if (port.isOpen) {
-    try {
-      await port.close();
-    } catch (_) {
-      /* ignore the error */
-    }
-  }
-
-  await delay(1000);
-
-  await DFUUtilBootloader(port, filename, options);
-
-  if (!options.factoryReset) {
-    await toStep(callback)("reconnect");
-    await options.focus.reconnectToKeyboard(device);
-
-    await toStep(callback)("restoreEEPROM");
-    await focusCommands.restoreEEPROM(saveKey);
-  }
 };

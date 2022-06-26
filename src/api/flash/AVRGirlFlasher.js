@@ -20,10 +20,9 @@ import AvrGirl from "avrgirl-arduino";
 import path from "path";
 import { spawn } from "child_process";
 
-import { FocusCommands } from "./FocusCommands";
 import { delay, toStep } from "./utils";
 
-const AvrDudeBootloader = async (_, port, filename, options) => {
+const AvrDude = async (_, port, filename, options) => {
   const callback = options
     ? options.callback
     : function () {
@@ -31,7 +30,6 @@ const AvrDudeBootloader = async (_, port, filename, options) => {
       };
   const device = options.device;
   const timeout = 1000 * 60 * 5;
-  const focusCommands = new FocusCommands(options);
 
   const runCommand = async (args) => {
     await toStep(callback)("flash");
@@ -93,12 +91,12 @@ const AvrDudeBootloader = async (_, port, filename, options) => {
   ]);
 };
 
-export const Avr109Bootloader = async (board, port, filename, options) => {
+export const AVRGirlFlasher = async (board, port, filename, options) => {
   // We do not check if the external flasher exists here. The caller is
   // responsible for doing that.
   const preferExternalFlasher = options && options.preferExternalFlasher;
   if (preferExternalFlasher) {
-    return AvrDudeBootloader(board, port, filename, options);
+    return AvrDude(board, port, filename, options);
   }
 
   const avrgirl = new AvrGirl({
@@ -140,54 +138,4 @@ export const Avr109Bootloader = async (board, port, filename, options) => {
       reject(e);
     }
   });
-};
-
-export const Avr109 = async (board, port, filename, options) => {
-  const callback = options
-    ? options.callback
-    : function () {
-        return;
-      };
-  const device = options.device;
-  const focusCommands = new FocusCommands(options);
-
-  let saveKey;
-  if (!options.factoryReset) {
-    await toStep(callback)("saveEEPROM");
-    saveKey = await focusCommands.saveEEPROM();
-
-    await toStep(callback)("bootloaderTrigger");
-    await focusCommands.reboot();
-  } else {
-    await toStep(callback)("factoryRestore");
-    try {
-      await focusCommands.eraseEEPROM();
-    } catch (e) {
-      if (e != "Communication timeout") {
-        throw new Error(e);
-      }
-    }
-
-    // We do not need to trigger the bootloader here, the erase above did a
-    // reset for us already. Do wait a little, for a smoother transition.
-    await toStep(callback)("bootloaderTrigger");
-    await delay(500);
-  }
-
-  await toStep(callback)("bootloaderWait");
-  const bootloaderFound = await options.focus.waitForBootloader(options.device);
-  if (!bootloaderFound) {
-    logger("flash").error("bootloader not found");
-    throw new Error("Bootloader not found");
-  }
-
-  await Avr109Bootloader(board, bootloaderFound, filename, options);
-
-  if (!options.factoryReset) {
-    await toStep(callback)("reconnect");
-    await options.focus.reconnectToKeyboard(options.device);
-
-    await toStep(callback)("restoreEEPROM");
-    await focusCommands.restoreEEPROM(saveKey);
-  }
 };

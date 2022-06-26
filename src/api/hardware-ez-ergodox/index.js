@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { teensy } from "@api/flash/TeensyFlasher";
+import { flash, flashers } from "@api/flash";
 import Keymap from "./components/Keymap";
 
 const ErgoDox = {
@@ -49,7 +49,7 @@ const ErgoDox = {
     return ["saveEEPROM", "flash", "reconnect", "restoreEEPROM"];
   },
   flash: async (port, filename, options) => {
-    return teensy(null, port, filename, options);
+    return flash(flashers.teensy, null, port, filename, options);
   },
 };
 

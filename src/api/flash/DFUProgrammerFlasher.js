@@ -19,10 +19,9 @@ import { getStaticPath } from "@renderer/config";
 import { spawn } from "child_process";
 import path from "path";
 
-import { FocusCommands } from "./FocusCommands";
 import { delay, toStep } from "./utils";
 
-export const DFUProgrammer = async (board, port, filename, options) => {
+export const DFUProgrammerFlasher = async (board, port, filename, options) => {
   const callback = options
     ? options.callback
     : function () {
@@ -30,8 +29,6 @@ export const DFUProgrammer = async (board, port, filename, options) => {
       };
   const mcu = options.mcu || "atmega32u4";
   const timeout = options.timeout || 10000;
-  const device = options.device;
-  const focusCommands = new FocusCommands(options);
 
   const runCommand = async (args) => {
     return new Promise((resolve, reject) => {
@@ -67,24 +64,6 @@ export const DFUProgrammer = async (board, port, filename, options) => {
     });
   };
 
-  let saveKey;
-  if (!options.factoryReset) {
-    await toStep(callback)("saveEEPROM");
-    saveKey = await focusCommands.saveEEPROM();
-  } else {
-    await toStep(callback)("factoryRestore");
-    try {
-      await focusCommands.eraseEEPROM();
-    } catch (e) {
-      if (e != "Communication timeout") {
-        throw new Error(e);
-      }
-    }
-    // Because the factory restore above rebooted the keyboard, wait a little
-    // here before starting to flash.
-    await delay(1000);
-  }
-
   await toStep(callback)("flash");
   for (let i = 0; i < 10; i++) {
     try {
@@ -97,12 +76,4 @@ export const DFUProgrammer = async (board, port, filename, options) => {
   }
   await runCommand([mcu, "flash", filename]);
   await runCommand([mcu, "start"]);
-
-  if (!options.factoryReset) {
-    await toStep(callback)("reconnect");
-    await options.focus.reconnectToKeyboard(device);
-
-    await toStep(callback)("restoreEEPROM");
-    await focusCommands.restoreEEPROM(saveKey);
-  }
 };

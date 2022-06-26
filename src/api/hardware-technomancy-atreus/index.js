@@ -48,8 +48,8 @@ const Atreus = {
 
     return ["saveEEPROM", "flash", "reconnect", "restoreEEPROM"];
   },
-  flash: async (_, filename, options) => {
-    return teensy(filename, options);
+  flash: async (port, filename, options) => {
+    return teensy(null, port, filename, options);
   },
 };
 

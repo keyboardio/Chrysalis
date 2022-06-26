@@ -21,7 +21,7 @@ import TeensyLoader from "teensy-loader";
 import { FocusCommands } from "./FocusCommands";
 import { delay, toStep } from "./utils";
 
-export const teensy = async (filename, options) => {
+export const teensy = async (board, port, filename, options) => {
   const callback = options
     ? options.callback
     : function () {

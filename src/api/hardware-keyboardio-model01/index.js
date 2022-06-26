@@ -132,7 +132,7 @@ const Model100 = {
     ];
   },
   flash: async (port, filename, options) => {
-    return DFUUtil(port, filename, options);
+    return DFUUtil(null, port, filename, options);
   },
 };
 
@@ -178,7 +178,7 @@ const Model100Bootloader = {
     return ["flash"];
   },
   flash: async (port, filename, options) => {
-    return DFUUtilBootloader(port, filename, options);
+    return DFUUtilBootloader(null, port, filename, options);
   },
 };
 

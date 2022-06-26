@@ -22,12 +22,13 @@ import path from "path";
 import { FocusCommands } from "./FocusCommands";
 import { delay, toStep } from "./utils";
 
-export const DFUProgrammer = async (filename, options, mcu = "atmega32u4") => {
+export const DFUProgrammer = async (board, port, filename, options) => {
   const callback = options
     ? options.callback
     : function () {
         return;
       };
+  const mcu = options.mcu || "atmega32u4";
   const timeout = options.timeout || 10000;
   const device = options.device;
   const focusCommands = new FocusCommands(options);

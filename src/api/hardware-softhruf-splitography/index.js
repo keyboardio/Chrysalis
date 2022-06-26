@@ -48,8 +48,8 @@ const Splitography = {
 
     return ["saveEEPROM", "flash", "reconnect", "restoreEEPROM"];
   },
-  flash: async (_, filename, options) => {
-    return await DFUProgrammer(filename, options);
+  flash: async (port, filename, options) => {
+    return await DFUProgrammer(null, port, filename, options);
   },
 };
 

@@ -22,7 +22,7 @@ import path from "path";
 import { FocusCommands } from "./FocusCommands";
 import { delay, toStep } from "./utils";
 
-export const DFUUtilBootloader = async (port, filename, options) => {
+export const DFUUtilBootloader = async (board, port, filename, options) => {
   const callback = options
     ? options.callback
     : function () {
@@ -98,7 +98,7 @@ export const DFUUtilBootloader = async (port, filename, options) => {
   ]);
 };
 
-export const DFUUtil = async (port, filename, options) => {
+export const DFUUtil = async (board, port, filename, options) => {
   const focusCommands = new FocusCommands(options);
   const device = options.device;
   const callback = options

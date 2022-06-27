@@ -47,6 +47,7 @@ import { ButtonConfig } from "../../component/Button";
 import {
   SelectMacroCustomDropdown,
   SelectSuperKeyCustomDropdown,
+  SelectLayersCustomDropdown,
   SelectLayersLock,
   SelectLayersSwitch,
   SelectOneShotModifiers,
@@ -615,12 +616,13 @@ class KeyPicker extends Component {
                   <IconLayers />
                 </div>
                 <div className="keysButtonsList">
-                  {activeTab == "super" ? (
+                  <SelectLayersCustomDropdown action={action} activeTab={activeTab} keyCode={code} onKeySelect={onKeySelect} />
+                  {/* {activeTab == "super" ? (
                     <></>
                   ) : (
                     <SelectLayersSwitch action={action} activeTab={activeTab} keyCode={code} onKeySelect={onKeySelect} />
                   )}
-                  <SelectLayersLock action={action} activeTab={activeTab} keyCode={code} onKeySelect={onKeySelect} />
+                  <SelectLayersLock action={action} activeTab={activeTab} keyCode={code} onKeySelect={onKeySelect} /> */}
                 </div>
               </div>
             </div>

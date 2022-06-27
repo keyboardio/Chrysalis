@@ -45,7 +45,7 @@ import { MdKeyboardReturn, MdSpaceBar, MdKeyboardCapslock, MdInfoOutline, MdEjec
 
 import { ButtonConfig } from "../../component/Button";
 import {
-  SelectMacro,
+  SelectMacroCustomDropdown,
   SelectSuperKeyCustomDropdown,
   SelectLayersLock,
   SelectLayersSwitch,
@@ -605,7 +605,7 @@ class KeyPicker extends Component {
                   <IconRobot />
                 </div>
                 <div className="keysButtonsList">
-                  <SelectMacro macros={macros} keyCode={code} onKeySelect={onKeySelect} />
+                  <SelectMacroCustomDropdown macros={macros} keyCode={code} onKeySelect={onKeySelect} />
                 </div>
               </div>
             </div>

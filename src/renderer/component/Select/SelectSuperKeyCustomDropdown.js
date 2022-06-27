@@ -108,8 +108,6 @@ class SelectSuperKeyCustomDropdown extends Component {
       }
     }
 
-    console.log("Superkey console:", superkeys[superk.indexOf(KC)]);
-
     const skSel = (
       <Dropdown
         value={superkeys[superk.indexOf(KC)] != undefined ? superk[superk.indexOf(KC)] : ""}

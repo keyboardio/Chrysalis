@@ -89,6 +89,78 @@ const fx = withModifiers([
       base: "F12",
     },
   },
+  {
+    code: 104,
+    label: {
+      base: "F13",
+    },
+  },
+  {
+    code: 105,
+    label: {
+      base: "F14",
+    },
+  },
+  {
+    code: 106,
+    label: {
+      base: "F15",
+    },
+  },
+  {
+    code: 107,
+    label: {
+      base: "F16",
+    },
+  },
+  {
+    code: 108,
+    label: {
+      base: "F17",
+    },
+  },
+  {
+    code: 109,
+    label: {
+      base: "F18",
+    },
+  },
+  {
+    code: 110,
+    label: {
+      base: "F19",
+    },
+  },
+  {
+    code: 111,
+    label: {
+      base: "F20",
+    },
+  },
+  {
+    code: 112,
+    label: {
+      base: "F21",
+    },
+  },
+  {
+    code: 113,
+    label: {
+      base: "F22",
+    },
+  },
+  {
+    code: 114,
+    label: {
+      base: "F23",
+    },
+  },
+  {
+    code: 115,
+    label: {
+      base: "F24",
+    },
+  },
 ]);
 
 export { fx };

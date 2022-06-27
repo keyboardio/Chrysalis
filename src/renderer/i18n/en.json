@@ -357,7 +357,7 @@
   "firmwareUpdate": {
     "firmwareChangelog": {
       "title": "Firmware Changelog",
-      "view": "View changes in Chrysalis' version of the firmware"
+      "view": "Changelog"
     },
     "firmwareSources": "Firmware sources",
     "calloutTitle": "Important!",
@@ -392,13 +392,13 @@
       "contents": "This will replace the firmware on the device, and reset all settings to factory defaults. You will lose all customizations made. Once the new firmware is installed, Chrysalis will take you back to the keyboard selection screen."
     },
     "yourFirmware": "Your keyboard's firmware",
-    "chooseFirmware": "Choose a firmware to use:",
-    "chooseCustomFirmwareFile": "Choose a file...",
-    "defaultFirmwareDescription": "Standard firmware shipped with Chrysalis",
-    "custom": "Custom firmware",
-    "current": "Current firmware",
+    "chooseFirmware": "Update firmware:",
+    "defaultFirmwareDescription": "Latest version",
+    "custom": "Something else",
+    "customChooseFile": "Choose a file...",
+    "currentFirmwareVersion": "Current firmware version",
     "firmwareVersion": "{{version}}",
-    "description": "Updating or \"flashing\" your keyboard's firmware is how we teach it new tricks. Chrysalis can install the version of the firmware it ships with, it can keep your firmware untouched, or it can install custom firmware of your choosing too."
+    "description": "Updating or \"flashing\" your keyboard's firmware is how we teach it new tricks. Chrysalis can install the version of the firmware it ships with, or it can install custom firmware of your choosing too."
   },
   "focus-not-detected": {
     "title": "Welcome to Chrysalis",

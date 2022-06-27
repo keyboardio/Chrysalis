@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
@@ -22,29 +24,19 @@ import ListItemText from "@mui/material/ListItemText";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import Typography from "@mui/material/Typography";
-import { GlobalContext } from "@renderer/components/GlobalContext";
-import useEffectOnce from "@renderer/hooks/useEffectOnce";
 import { version } from "@root/package.json";
 import { ipcRenderer } from "electron";
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+
+import FirmwareChangesDialog from "./FirmwareChangesDialog";
 
 const FirmwareSelect = (props) => {
   const { t } = useTranslation();
-  const globalContext = useContext(GlobalContext);
-  const [activeDevice] = globalContext.state.activeDevice;
 
-  const [fwVersion, setFwVersion] = useState(null);
+  const [changelogOpen, setChangelogOpen] = useState(false);
   const [selected, setSelected] = props.selectedFirmware;
   const [firmwareFilename, setFirmwareFilename] = props.firmwareFilename;
-
-  useEffectOnce(() => {
-    const fetchData = async () => {
-      const v = await activeDevice.focus.command("version");
-      if (v) setFwVersion(v);
-    };
-    fetchData();
-  });
 
   const selectFirmware = (event) => {
     setSelected(event.target.value);
@@ -78,56 +70,54 @@ const FirmwareSelect = (props) => {
   }
 
   return (
-    <FormControl fullWidth>
-      <FormLabel>
-        <Typography variant="h6">
-          {t("firmwareUpdate.chooseFirmware")}
-        </Typography>
-      </FormLabel>
-      <RadioGroup sx={{ ml: 2 }} value={selected} onChange={selectFirmware}>
-        <FormControlLabel
-          value="current"
-          control={<Radio />}
-          label={
-            <ListItemText
-              sx={{ ml: 1 }}
-              primary={t("firmwareUpdate.current")}
-              secondary={t("firmwareUpdate.firmwareVersion", {
-                version: fwVersion,
-              })}
-            />
-          }
-        />
-        <FormControlLabel
-          value="default"
-          control={<Radio />}
-          label={
-            <ListItemText
-              sx={{ ml: 1 }}
-              primary={t("firmwareUpdate.defaultFirmwareDescription")}
-              secondary={t("firmwareUpdate.firmwareVersion", {
-                version: version,
-              })}
-            />
-          }
-        />
-        <FormControlLabel
-          value="custom"
-          control={<Radio />}
-          label={
-            <ListItemText
-              sx={{ ml: 1 }}
-              primary={t("firmwareUpdate.custom", {
-                version: version,
-              })}
-              secondary={
-                filename || t("firmwareUpdate.chooseCustomFirmwareFile")
+    <>
+      <FormControl fullWidth>
+        <FormLabel>
+          <Typography variant="h6">
+            {t("firmwareUpdate.chooseFirmware")}
+          </Typography>
+        </FormLabel>
+        <Box sx={{ display: "flex" }}>
+          <RadioGroup sx={{ ml: 2 }} value={selected} onChange={selectFirmware}>
+            <FormControlLabel
+              value="default"
+              control={<Radio />}
+              label={
+                <ListItemText
+                  sx={{ ml: 1 }}
+                  primary={t("firmwareUpdate.defaultFirmwareDescription")}
+                  secondary={t("firmwareUpdate.firmwareVersion", {
+                    version: version,
+                  })}
+                />
               }
             />
-          }
-        />
-      </RadioGroup>
-    </FormControl>
+            <FormControlLabel
+              value="custom"
+              control={<Radio />}
+              label={
+                <ListItemText
+                  sx={{ ml: 1 }}
+                  primary={t("firmwareUpdate.custom", {
+                    version: version,
+                  })}
+                  secondary={filename || t("firmwareUpdate.customChooseFile")}
+                />
+              }
+            />
+          </RadioGroup>
+          <Box>
+            <Button color="info" onClick={() => setChangelogOpen(true)}>
+              {t("firmwareUpdate.firmwareChangelog.view")}
+            </Button>
+          </Box>
+        </Box>
+      </FormControl>
+      <FirmwareChangesDialog
+        open={changelogOpen}
+        onClose={() => setChangelogOpen(false)}
+      />
+    </>
   );
 };
 

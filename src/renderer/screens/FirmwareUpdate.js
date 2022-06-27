@@ -23,6 +23,7 @@ import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import Chip from "@mui/material/Chip";
 import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";
 import Paper from "@mui/material/Paper";
@@ -38,6 +39,7 @@ import path from "path";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import FirmwareVersion from "./FirmwareUpdate/FirmwareVersion";
 import FirmwareSelect from "./FirmwareUpdate/FirmwareSelect";
 import FlashSteps from "./FirmwareUpdate/FlashSteps";
 import UpdateDescription from "./FirmwareUpdate/UpdateDescription";
@@ -49,7 +51,7 @@ const FirmwareUpdate = (props) => {
   const focus = new Focus();
 
   const [firmwareFilename, setFirmwareFilename] = useState("");
-  const [selected, setSelected] = useState("current");
+  const [selected, setSelected] = useState("default");
 
   const [factoryConfirmationOpen, setFactoryConfirmationOpen] = useState(false);
   const [confirmationOpen, setConfirmationOpen] = useState(false);
@@ -160,9 +162,7 @@ const FirmwareUpdate = (props) => {
   );
 
   const buttonsDisabled =
-    progress == "flashing" ||
-    selected == "current" ||
-    (selected == "custom" && !firmwareFilename);
+    progress == "flashing" || (selected == "custom" && !firmwareFilename);
 
   return (
     <>
@@ -174,8 +174,8 @@ const FirmwareUpdate = (props) => {
         <Paper sx={{ p: 2 }}>
           <UpdateDescription />
           <Divider sx={{ my: 2 }} />
+          <FirmwareVersion />
           <FirmwareSelect
-            focusDeviceDescriptor={focusDeviceDescriptor}
             selectedFirmware={[selected, setSelected]}
             firmwareFilename={[firmwareFilename, setFirmwareFilename]}
           />

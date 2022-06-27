@@ -16,27 +16,37 @@
  */
 
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-
-import React, { useState } from "react";
+import { GlobalContext } from "@renderer/components/GlobalContext";
+import useEffectOnce from "@renderer/hooks/useEffectOnce";
+import React, { useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
 
-const UpdateDescription = (props) => {
+const FirmwareVersion = (props) => {
   const { t } = useTranslation();
+  const globalContext = useContext(GlobalContext);
+  const [activeDevice] = globalContext.state.activeDevice;
+
+  const [fwVersion, setFwVersion] = useState(null);
+
+  useEffectOnce(() => {
+    const fetchData = async () => {
+      const v = await activeDevice.focus.command("version");
+      if (v) setFwVersion(v);
+    };
+    fetchData();
+  });
 
   return (
-    <>
-      <Box>
-        <Typography component="p" gutterBottom>
-          {t("firmwareUpdate.description")}
-        </Typography>
-      </Box>
-      <Box sx={{ display: "flex" }}>
-        <Box sx={{ flexGrow: 1 }} />
-      </Box>
-    </>
+    <Box sx={{ mb: 2 }}>
+      <Typography variant="h6">
+        {t("firmwareUpdate.currentFirmwareVersion")}
+      </Typography>
+      <Typography color="secondary" sx={{ ml: 3 }}>
+        {fwVersion}
+      </Typography>
+    </Box>
   );
 };
 
-export default UpdateDescription;
+export default FirmwareVersion;

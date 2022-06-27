@@ -318,6 +318,11 @@ const Dark = {
         textColor: Tokens.colors.gray25,
         dropdownDivider: Tokens.colors.gray500
       },
+      largeDropdown: {
+        background: Tokens.colors.gray800,
+        backgroundInner: Tokens.colors.gray800,
+        title: Tokens.colors.gray300
+      },
       selector: {
         numberColor: Tokens.colors.gray200,
         separatorColor: settingColorOpacity(Tokens.colors.gray500, 0.5),

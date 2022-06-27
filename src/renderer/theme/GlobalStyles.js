@@ -4,6 +4,7 @@ import LibreFranklin from "./fonts/LibreFranklin/LibreFranklin-VariableFont_wght
 import LibreFranklinItalic from "./fonts/LibreFranklin/LibreFranklin-Italic-VariableFont_wght.ttf";
 
 import iconChevronDown from "../../../static/base/icon-arrow--chevron-down.svg";
+import iconChevronDownWhite from "../../../static/base/icon-arrow--chevron-down_white.svg";
 
 const NavWidth = "64";
 
@@ -413,7 +414,8 @@ svg text{
   border: none;
   border-radius: 6px;
   box-shadow: ${({ theme }) => theme.styles.button.config.boxShadow};
-  transition: all 300ms ease-in-out;
+  transition-property: background, box-shadow, color
+  transition: 300ms ease-in-out;
 }
 .button-config.buttonConfigMinimal {
   padding: 9px 16px 9px 12px;
@@ -521,7 +523,7 @@ svg text{
   background: ${({ theme }) => theme.styles.dropdown.backgroundButtonColor};
   box-shadow: none;
 }
-.dropdown-toggle.btn.btn-primary:focus {
+.dropdown-toggle.btn.btn-primary:focus-visible {
   //border: 1px solid ${({ theme }) => theme.styles.dropdown.borderButtonFocus};
   background: ${({ theme }) => theme.styles.dropdown.backgroundButtonColor};
   box-shadow: none;
@@ -538,6 +540,40 @@ svg text{
   border: 1px solid ${({ theme }) => theme.styles.dropdown.borderButtonHover};
   box-shadow: none;
 }
+/*
+// Config Style
+*/
+.dropdown-toggle.btn.btn-primary.button-config-style {
+  font-size: 12px;
+  font-weight: 600;
+  border: ${({ theme }) => theme.styles.button.config.border};
+  color: ${({ theme }) => theme.styles.button.config.color}; 
+  background: ${({ theme }) => theme.styles.button.config.background};
+  border: none;
+  box-shadow: ${({ theme }) => theme.styles.button.config.boxShadow};
+  transition: background 300ms ease-in-out;
+}
+.dropdown-toggle.btn.btn-primary.button-config-style:not([disabled]):hover,
+.dropdown-toggle.btn.btn-primary.button-config-style:not([disabled]):focus {
+  cursor: pointer;
+  color: ${({ theme }) => theme.styles.button.config.colorHover}; 
+  background: ${({ theme }) => theme.styles.button.config.backgroundHover};
+  box-shadow: ${({ theme }) => theme.styles.button.config.boxShadowHover};
+  border: none;
+}
+.dropdown-toggle.btn.btn-primary.button-config-style:not([disabled]):focus-visible {
+  background: ${({ theme }) => theme.styles.button.config.backgroundHover};
+  box-shadow: ${({ theme }) => theme.styles.button.config.boxShadowHover};
+  outline: auto;
+}
+.active .dropdown-toggle.btn.btn-primary.button-config-style:not([disabled]),
+.active .dropdown-toggle.btn.btn-primary.button-config-style:not([disabled]):hover {
+  color: ${({ theme }) => theme.styles.button.config.colorActive}; 
+  background: ${({ theme }) => theme.styles.button.config.backgroundActive};
+  box-shadow: ${({ theme }) => theme.styles.button.config.boxShadowActive};
+  border: none;
+}
+
 .dropdown-toggle::after {
   border: none;
   position: absolute;
@@ -548,6 +584,9 @@ svg text{
   background-image: url(${iconChevronDown});
   background-size: cover;
   transform: translate3d(0, -50%, 0);
+}
+.active .dropdown-toggle.button-config-style::after {
+  background-image: url(${iconChevronDownWhite});
 }
 .dropdownInner,
 .dropdownItemSelected {

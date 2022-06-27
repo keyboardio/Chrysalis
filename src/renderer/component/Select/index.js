@@ -27,6 +27,7 @@ import SelectLayersSwitch from "./SelectLayersSwitch";
 import SelectOneShotLayers from "./SelectOneShotLayers";
 import SelectOneShotModifiers from "./SelectOneShotModifiers";
 import SelectSuperKey from "./SelectSuperKey";
+import SelectSuperKeyCustomDropdown from "./SelectSuperKeyCustomDropdown";
 
 export {
   LayerSelector,
@@ -41,5 +42,6 @@ export {
   SelectLayersSwitch,
   SelectOneShotLayers,
   SelectOneShotModifiers,
-  SelectSuperKey
+  SelectSuperKey,
+  SelectSuperKeyCustomDropdown
 };

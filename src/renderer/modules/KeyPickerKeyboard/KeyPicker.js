@@ -46,7 +46,7 @@ import { MdKeyboardReturn, MdSpaceBar, MdKeyboardCapslock, MdInfoOutline, MdEjec
 import { ButtonConfig } from "../../component/Button";
 import {
   SelectMacro,
-  SelectSuperKey,
+  SelectSuperKeyCustomDropdown,
   SelectLayersLock,
   SelectLayersSwitch,
   SelectOneShotModifiers,
@@ -588,7 +588,7 @@ class KeyPicker extends Component {
                     <IconThunder />
                   </div>
                   <div className="keysButtonsList">
-                    <SelectSuperKey
+                    <SelectSuperKeyCustomDropdown
                       action={action}
                       actions={actions}
                       selKeys={selKeys}

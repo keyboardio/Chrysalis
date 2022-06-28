@@ -44,7 +44,7 @@ const LayoutSelect = (props) => {
   return (
     <Autocomplete
       size="small"
-      sx={{ minWidth: "20em" }}
+      sx={{ minWidth: "15em" }}
       value={db.getSupportedLayouts().find((item) => item.name === layout)}
       groupBy={(option) => option.language || option.group}
       onChange={changeLayout}

@@ -24,6 +24,7 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
+import Container from "@mui/material/Container";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import MuiDialogTitle from "@mui/material/DialogTitle";
@@ -137,14 +138,9 @@ function SystemInfo(props) {
   );
 
   return (
-    <Box sx={{ display: "flex", justifyContent: "center" }}>
+    <Container>
       <PageTitle title={t("systeminfo.title")} />
-      <Card
-        sx={{
-          margin: 4,
-          maxWidth: "50%",
-        }}
-      >
+      <Card sx={{ m: 4 }}>
         <CardHeader
           avatar={<img src={logo} alt={t("components.logo.altText")} />}
           title="Chrysalis"
@@ -177,7 +173,7 @@ function SystemInfo(props) {
         </CardActions>
       </Card>
       {viewDialog}
-    </Box>
+    </Container>
   );
 }
 

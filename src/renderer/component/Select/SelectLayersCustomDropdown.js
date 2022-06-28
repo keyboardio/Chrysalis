@@ -67,26 +67,55 @@ width: 100%;
       }
   }
   .large-dropdown-inner {
-    background: ${({ theme }) => theme.styles.dropdown.largeDropdown.backgroundInner};
-    padding: 8px;
+    
   }
   .dropdownHeader {
     font-size: 12px;
     text-transform: uppercase;
     margin-bottom: 4px;
     color: ${({ theme }) => theme.styles.dropdown.largeDropdown.title};
+    margin-top: 6px;
+    strong {
+        font-weight: 600;
+        color: ${({ theme }) => theme.styles.dropdown.largeDropdown.titleStrong};
+    }
   }
+.dropdown-group {
+    background: ${({ theme }) => theme.styles.dropdown.largeDropdown.backgroundInner};
+    padding: 8px;
+    border-radius: 6px;
+}
+.dropdown-group {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.dropdown-group + .dropdown-group {
+    margin-top: 2px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
 .dropdown-group-buttons {
     display: flex;
     grid-gap: 2px;
     flex-wrap: nowrap;
-  }
-  .dropdown-item.dropdown-config-button {
+    padding: 2px 4px;
+    border-radius: 6px;
+    background-color: ${({ theme }) => theme.styles.cardButtons.background}; 
+}
+
+.dropdown-item.dropdown-config-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
     text-align: center;
     font-size: 14px;
     font-weight: 600;
     letter-spacing: -0.03em;
-    padding: 8px 16px;
+    padding: 8px 0;
     border: ${({ theme }) => theme.styles.button.config.border};
     color: ${({ theme }) => theme.styles.button.config.color}; 
     background: ${({ theme }) => theme.styles.button.config.background};
@@ -95,6 +124,9 @@ width: 100%;
     box-shadow: ${({ theme }) => theme.styles.button.config.boxShadow};
     transition-property: background, box-shadow, color
     transition: 300ms ease-in-out;
+    .dropdownItem {
+        text-align: center;
+    }
     &:hover {
         cursor: pointer;
         color: ${({ theme }) => theme.styles.button.config.colorHover}; 
@@ -148,7 +180,11 @@ class SelectLayersCustomDropdown extends Component {
           value={KC != 0 ? this.layerLock.map(i => i.keynum).includes(KC) : KC}
           onSelect={value => onKeySelect(parseInt(value))}
           className={`custom-dropdown  ${
-            keyCode.modified > 0 && this.layerLock.map(i => i.keynum).includes(keyCode.base + keyCode.modified) ? "active" : ""
+            keyCode.modified > 0 &&
+            (this.layerLock.map(i => i.keynum).includes(keyCode.base + keyCode.modified) ||
+              this.layerSwitch.map(i => i.keynum).includes(keyCode.base + keyCode.modified))
+              ? "active"
+              : ""
           } ${action == 1 || action == 2 || action == 4 ? "disabled" : ""}`}
         >
           <Dropdown.Toggle id="dropdown-custom" className="button-config-style">

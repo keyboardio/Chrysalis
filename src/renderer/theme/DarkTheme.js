@@ -321,7 +321,8 @@ const Dark = {
       largeDropdown: {
         background: Tokens.colors.gray800,
         backgroundInner: Tokens.colors.gray800,
-        title: Tokens.colors.gray300
+        title: Tokens.colors.gray300,
+        titleStrong: Tokens.colors.gray50
       },
       selector: {
         numberColor: Tokens.colors.gray200,

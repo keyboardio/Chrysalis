@@ -21,6 +21,7 @@ import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import ListItemText from "@mui/material/ListItemText";
+import ListItem from "@mui/material/ListItem";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import Typography from "@mui/material/Typography";
@@ -83,34 +84,36 @@ const FirmwareSelect = (props) => {
               value="default"
               control={<Radio />}
               label={
-                <ListItemText
-                  sx={{ ml: 1 }}
-                  primary={t("firmwareUpdate.defaultFirmwareDescription")}
-                  secondary={t("firmwareUpdate.firmwareVersion", {
-                    version: version,
-                  })}
-                />
+                <ListItem>
+                  <ListItemText
+                    sx={{ ml: 1 }}
+                    primary={t("firmwareUpdate.firmwareVersion", {
+                      version: version,
+                    })}
+                  />
+                  <Button color="info" onClick={() => setChangelogOpen(true)}>
+                    {t("firmwareUpdate.firmwareChangelog.view")}
+                  </Button>
+                </ListItem>
               }
             />
             <FormControlLabel
               value="custom"
               control={<Radio />}
               label={
-                <ListItemText
-                  sx={{ ml: 1 }}
-                  primary={t("firmwareUpdate.custom", {
-                    version: version,
-                  })}
-                  secondary={filename || t("firmwareUpdate.customChooseFile")}
-                />
+                <ListItem>
+                  <ListItemText
+                    sx={{ ml: 1 }}
+                    primary={t("firmwareUpdate.custom", {
+                      version: version,
+                    })}
+                    secondary={filename}
+                  />
+                </ListItem>
               }
             />
           </RadioGroup>
-          <Box>
-            <Button color="info" onClick={() => setChangelogOpen(true)}>
-              {t("firmwareUpdate.firmwareChangelog.view")}
-            </Button>
-          </Box>
+          <Box></Box>
         </Box>
       </FormControl>
       <FirmwareChangesDialog

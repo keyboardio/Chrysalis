@@ -98,11 +98,11 @@ width: 100%;
 }
 .dropdown-group-buttons {
     display: flex;
-    grid-gap: 2px;
+    grid-gap: 3px;
     flex-wrap: nowrap;
     padding: 2px 4px;
     border-radius: 6px;
-    background-color: ${({ theme }) => theme.styles.cardButtons.background}; 
+    background-color: ${({ theme }) => theme.styles.cardButtons.groupButtonsBackground}; 
 }
 
 .dropdown-item.dropdown-config-button {
@@ -197,7 +197,7 @@ class SelectLayersCustomDropdown extends Component {
           </Dropdown.Toggle>
           <Dropdown.Menu className="large-dropdown">
             <div className="large-dropdown-inner">
-              <div className="dropdown-group">
+              <div className={`dropdown-group ${activeTab == "super" ? "disabled" : ""}`}>
                 <div className="dropdownHeader">
                   Layer <strong>Switch</strong>
                 </div>
@@ -207,7 +207,7 @@ class SelectLayersCustomDropdown extends Component {
                       <Dropdown.Item
                         eventKey={item.keynum}
                         key={`layerSwitch-${id}`}
-                        disabled={item.keynum == -1}
+                        disabled={activeTab == "super" ? true : item.keynum == -1 ? true : false}
                         className={`${
                           keyCode.modified > 0 && item.keynum == keyCode.base + keyCode.modified ? "active" : ""
                         } dropdown-config-button`}

@@ -29,6 +29,7 @@ import SelectOneShotModifiers from "./SelectOneShotModifiers";
 import SelectSuperKey from "./SelectSuperKey";
 import SelectLayersCustomDropdown from "./SelectLayersCustomDropdown";
 import SelectMacroCustomDropdown from "./SelectMacroCustomDropdown";
+import SelectMouseCustomDropdown from "./SelectMouseCustomDropdown";
 import SelectSuperKeyCustomDropdown from "./SelectSuperKeyCustomDropdown";
 
 export {
@@ -47,5 +48,6 @@ export {
   SelectSuperKey,
   SelectLayersCustomDropdown,
   SelectMacroCustomDropdown,
+  SelectMouseCustomDropdown,
   SelectSuperKeyCustomDropdown
 };

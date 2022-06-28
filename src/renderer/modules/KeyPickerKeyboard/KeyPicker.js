@@ -48,6 +48,7 @@ import {
   SelectMacroCustomDropdown,
   SelectSuperKeyCustomDropdown,
   SelectLayersCustomDropdown,
+  SelectMouseCustomDropdown,
   SelectLayersLock,
   SelectLayersSwitch,
   SelectOneShotModifiers,
@@ -843,125 +844,16 @@ class KeyPicker extends Component {
               </div>
             </div>
           </div>
-          <svg className="svgStyle" viewBox="0 0 1070 48" preserveAspectRatio="xMidYMin slice">
-            <foreignObject width={1070} height={48} x={0} y={0} style={{ overflow: "visible" }}>
-              <div xmlns="http://www.w3.org/1999/xhtml">
-                <div className="keysContainer">
-                  <div className="keysRow keysMouseEvents">
-                    <div className="keyIcon">
-                      <IconMouse />
-                    </div>
-                    <div className="keyTitle">
-                      <div dangerouslySetInnerHTML={{ __html: i18n.editor.superkeys.specialKeys.mouseClick }} />
-                    </div>
-                    <div className="keysButtonsList">
-                      <ButtonConfig
-                        buttonText={i18n.editor.superkeys.specialKeys.left}
-                        selected={keyCode.base + keyCode.modified == 20545 ? true : false}
-                        onClick={() => {
-                          onKeySelect(20545);
-                        }}
-                      />
-                      <ButtonConfig
-                        buttonText={i18n.editor.superkeys.specialKeys.middle}
-                        selected={keyCode.base + keyCode.modified == 20548 ? true : false}
-                        onClick={() => {
-                          onKeySelect(20548);
-                        }}
-                      />
-                      <ButtonConfig
-                        buttonText={i18n.editor.superkeys.specialKeys.right}
-                        selected={keyCode.base + keyCode.modified == 20546 ? true : false}
-                        onClick={() => {
-                          onKeySelect(20546);
-                        }}
-                      />
-                      <ButtonConfig
-                        buttonText={i18n.editor.superkeys.specialKeys.back}
-                        selected={keyCode.base + keyCode.modified == 20552 ? true : false}
-                        onClick={() => {
-                          onKeySelect(20552);
-                        }}
-                      />
-                      <ButtonConfig
-                        buttonText={i18n.editor.superkeys.specialKeys.fwd}
-                        selected={keyCode.base + keyCode.modified == 20560 ? true : false}
-                        onClick={() => {
-                          onKeySelect(20560);
-                        }}
-                      />
-                    </div>
-                    <div className="keyTitle keyTitleClick">
-                      <div dangerouslySetInnerHTML={{ __html: i18n.editor.superkeys.specialKeys.mouseMovement }} />
-                    </div>
-                    <div className="keysButtonsList">
-                      <ButtonConfig
-                        buttonText={i18n.editor.superkeys.specialKeys.left}
-                        selected={keyCode.base + keyCode.modified == 20484 ? true : false}
-                        onClick={() => {
-                          onKeySelect(20484);
-                        }}
-                      />
-                      <ButtonConfig
-                        buttonText={i18n.editor.superkeys.specialKeys.right}
-                        selected={keyCode.base + keyCode.modified == 20488 ? true : false}
-                        onClick={() => {
-                          onKeySelect(20488);
-                        }}
-                      />
-                      <ButtonConfig
-                        buttonText={i18n.editor.superkeys.specialKeys.up}
-                        selected={keyCode.base + keyCode.modified == 20481 ? true : false}
-                        onClick={() => {
-                          onKeySelect(20481);
-                        }}
-                      />
-                      <ButtonConfig
-                        buttonText={i18n.editor.superkeys.specialKeys.down}
-                        selected={keyCode.base + keyCode.modified == 20482 ? true : false}
-                        onClick={() => {
-                          onKeySelect(20482);
-                        }}
-                      />
-                    </div>
-                    <div className="keyTitle keyTitleClick">
-                      <div dangerouslySetInnerHTML={{ __html: i18n.editor.superkeys.specialKeys.mouseWheel }} />
-                    </div>
-                    <div className="keysButtonsList">
-                      <ButtonConfig
-                        buttonText={i18n.editor.superkeys.specialKeys.left}
-                        selected={keyCode.base + keyCode.modified == 20500 ? true : false}
-                        onClick={() => {
-                          onKeySelect(20500);
-                        }}
-                      />
-                      <ButtonConfig
-                        buttonText={i18n.editor.superkeys.specialKeys.right}
-                        selected={keyCode.base + keyCode.modified == 20504 ? true : false}
-                        onClick={() => {
-                          onKeySelect(20504);
-                        }}
-                      />
-                      <ButtonConfig
-                        buttonText={i18n.editor.superkeys.specialKeys.up}
-                        selected={keyCode.base + keyCode.modified == 20497 ? true : false}
-                        onClick={() => {
-                          onKeySelect(20497);
-                        }}
-                      />
-                      <ButtonConfig
-                        buttonText={i18n.editor.superkeys.specialKeys.down}
-                        selected={keyCode.base + keyCode.modified == 20498 ? true : false}
-                        onClick={() => {
-                          onKeySelect(20498);
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
+          <div className="keysContainer">
+            <div className="keysRow keysMouseEvents">
+              <div className="keyIcon">
+                <IconMouse />
               </div>
-            </foreignObject>
-          </svg>
+              <div className="keysButtonsList">
+                <SelectMouseCustomDropdown keyCode={code} onKeySelect={onKeySelect} />
+              </div>
+            </div>
+          </div>
         </div>
       </Style>
     );

@@ -62,7 +62,7 @@ width: 100%;
   }
   
   .dropdown-menu.large-dropdown {
-      min-width: 362px;
+      min-width: 472px;
       &.show {
         height: auto;
       }
@@ -108,12 +108,12 @@ width: 100%;
     border-radius: 6px;
     background-color: ${({ theme }) => theme.styles.cardButtons.groupButtonsBackground}; 
 }
-.mouseClick .dropdown-group-buttons {
-    grid-template-columns: repeat(5, 1fr);
+.oneShotLayer .dropdown-group-buttons {
+    grid-template-columns: repeat(8, 1fr);
 }
-.mouseMovement .dropdown-group-buttons, 
-.mouseWheel .dropdown-group-buttons {
+.oneShotModifiers .dropdown-group-buttons {
     grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
 }
 .dropdown-item.dropdown-config-button {
     display: flex;
@@ -151,28 +151,29 @@ width: 100%;
   }
 `;
 
-class SelectMouseCustomDropdown extends Component {
+class SelectShotModifierCustomDropdown extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.mouseClick = [
-      { name: i18n.editor.superkeys.specialKeys.left, keynum: 20545 },
-      { name: i18n.editor.superkeys.specialKeys.middle, keynum: 20548 },
-      { name: i18n.editor.superkeys.specialKeys.right, keynum: 20546 },
-      { name: i18n.editor.superkeys.specialKeys.back, keynum: 20552 },
-      { name: i18n.editor.superkeys.specialKeys.fwd, keynum: 20560 }
+    this.oneShotLayers = [
+      { name: "1", keynum: 49161 },
+      { name: "2", keynum: 49162 },
+      { name: "3", keynum: 49163 },
+      { name: "4", keynum: 49164 },
+      { name: "5", keynum: 49165 },
+      { name: "6", keynum: 49166 },
+      { name: "7", keynum: 49167 },
+      { name: "8", keynum: 49168 }
     ];
-    this.mouseMovement = [
-      { name: i18n.editor.superkeys.specialKeys.left, keynum: 20484 },
-      { name: i18n.editor.superkeys.specialKeys.right, keynum: 20488 },
-      { name: i18n.editor.superkeys.specialKeys.up, keynum: 20481 },
-      { name: i18n.editor.superkeys.specialKeys.down, keynum: 20482 }
-    ];
-    this.mouseWheel = [
-      { name: i18n.editor.superkeys.specialKeys.left, keynum: 20500 },
-      { name: i18n.editor.superkeys.specialKeys.right, keynum: 20504 },
-      { name: i18n.editor.superkeys.specialKeys.up, keynum: 20497 },
-      { name: i18n.editor.superkeys.specialKeys.down, keynum: 20498 }
+    this.oneShotModifiers = [
+      { name: i18n.editor.standardView.oneShot.leftControl, keynum: 49153 },
+      { name: i18n.editor.standardView.oneShot.leftShift, keynum: 49154 },
+      { name: i18n.editor.standardView.oneShot.leftAlt, keynum: 49155 },
+      { name: i18n.editor.standardView.oneShot.leftOS, keynum: 49156 },
+      { name: i18n.editor.standardView.oneShot.rightControl, keynum: 49157 },
+      { name: i18n.editor.standardView.oneShot.rightShift, keynum: 49158 },
+      { name: i18n.editor.standardView.oneShot.altGr, keynum: 49159 },
+      { name: i18n.editor.standardView.oneShot.rightOS, keynum: 49160 }
     ];
   }
   render() {
@@ -182,12 +183,11 @@ class SelectMouseCustomDropdown extends Component {
     return (
       <Style>
         <Dropdown
-          value={KC != 0 ? this.mouseClick.map(i => i.keynum).includes(KC) : KC}
+          value={KC != 0 ? this.oneShotLayers.map(i => i.keynum).includes(KC) : KC}
           onSelect={value => onKeySelect(parseInt(value))}
           className={`custom-dropdown  ${
-            this.mouseClick.map(i => i.keynum).includes(keyCode.base + keyCode.modified) ||
-            this.mouseMovement.map(i => i.keynum).includes(keyCode.base + keyCode.modified) ||
-            this.mouseWheel.map(i => i.keynum).includes(keyCode.base + keyCode.modified)
+            this.oneShotLayers.map(i => i.keynum).includes(keyCode.base + keyCode.modified) ||
+            this.oneShotModifiers.map(i => i.keynum).includes(keyCode.base + keyCode.modified)
               ? "active"
               : ""
           }`}
@@ -195,20 +195,19 @@ class SelectMouseCustomDropdown extends Component {
           <Dropdown.Toggle id="dropdown-custom" className="button-config-style">
             <div className="dropdownItemSelected">
               <div className="dropdownItem">
-                <div className="dropdownItem">Mouse events</div>
+                <div className="dropdownItem">OneShot</div>
                 <div className="badge-circle"></div>
               </div>
             </div>
           </Dropdown.Toggle>
           <Dropdown.Menu className="large-dropdown">
             <div className="large-dropdown-inner">
-              <div className="dropdown-group mouseClick">
-                <div
-                  className="dropdownHeader"
-                  dangerouslySetInnerHTML={{ __html: i18n.editor.superkeys.specialKeys.mouseClick }}
-                />
+              <div className="dropdown-group oneShotLayer">
+                <div className="dropdownHeader">
+                  OneShot <span>Layer</span>
+                </div>
                 <div className="dropdown-group-buttons">
-                  {this.mouseClick.map((item, id) => {
+                  {this.oneShotLayers.map((item, id) => {
                     return (
                       <Dropdown.Item
                         eventKey={item.keynum}
@@ -222,37 +221,16 @@ class SelectMouseCustomDropdown extends Component {
                   })}
                 </div>
               </div>
-              <div className="dropdown-group mouseMovement">
-                <div
-                  className="dropdownHeader"
-                  dangerouslySetInnerHTML={{ __html: i18n.editor.superkeys.specialKeys.mouseMovement }}
-                />
-                <div className="dropdown-group-buttons">
-                  {this.mouseMovement.map((item, id) => {
-                    return (
-                      <Dropdown.Item
-                        eventKey={item.keynum}
-                        key={`mouseMovement-${id}`}
-                        disabled={item.keynum == -1}
-                        className={`${item.keynum == keyCode.base + keyCode.modified ? "active" : ""} dropdown-config-button`}
-                      >
-                        <div className="dropdownItem">{item.name}</div>
-                      </Dropdown.Item>
-                    );
-                  })}
+              <div className="dropdown-group oneShotModifiers">
+                <div className="dropdownHeader">
+                  OneShot <span>Modifiers</span>
                 </div>
-              </div>
-              <div className="dropdown-group mouseWheel">
-                <div
-                  className="dropdownHeader"
-                  dangerouslySetInnerHTML={{ __html: i18n.editor.superkeys.specialKeys.mouseWheel }}
-                />
                 <div className="dropdown-group-buttons">
-                  {this.mouseWheel.map((item, id) => {
+                  {this.oneShotModifiers.map((item, id) => {
                     return (
                       <Dropdown.Item
                         eventKey={item.keynum}
-                        key={`mouseWheel-${id}`}
+                        key={`mouseClick-${id}`}
                         disabled={item.keynum == -1}
                         className={`${item.keynum == keyCode.base + keyCode.modified ? "active" : ""} dropdown-config-button`}
                       >
@@ -270,4 +248,4 @@ class SelectMouseCustomDropdown extends Component {
   }
 }
 
-export default SelectMouseCustomDropdown;
+export default SelectShotModifierCustomDropdown;

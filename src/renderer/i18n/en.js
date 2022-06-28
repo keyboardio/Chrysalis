@@ -236,6 +236,7 @@ const English = {
       noKey: "No Key",
       noKeyDescription: "There's no function or character assigned to that key.",
       transparent: "Transparent",
+      trans: "Trans.",
       transparentDescription: "There's no function or character assigned to that key.",
       keys: {
         keys: "Keys",

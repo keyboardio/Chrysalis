@@ -20,6 +20,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { toast } from "@renderer/components/Toast";
 import { installUdevRules } from "@renderer/utils/installUdevRules";
+import { ipcRenderer } from "electron";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -37,14 +38,21 @@ export const LinuxPermissionsWarning = (props) => {
     }
   };
 
+  if (platform !== "linux") return null;
+
+  // If /run/udev is unavailable, we can't do a scan. Let the user know that.
+  if (!ipcRenderer.sendSync("udev.isAvailable")) {
+    return (
+      <Alert severity="error">
+        <Typography component="p">{t("keyboardSelect.noUdev")}</Typography>
+      </Alert>
+    );
+  }
+
   // We do explicitly want to check selectedDevicePort for truthiness, do NOT
   // combine it with the .accessible check into selectedDevicePort?.accessible,
   // as that defeats the purpose.
-  if (
-    platform == "linux" &&
-    selectedDevicePort &&
-    !selectedDevicePort.accessible
-  ) {
+  if (selectedDevicePort && !selectedDevicePort.accessible) {
     const fixitButton = (
       <Button onClick={doInstallUdevRules} variant="outlined">
         {t("keyboardSelect.installUdevRules")}
@@ -62,7 +70,7 @@ export const LinuxPermissionsWarning = (props) => {
         </Typography>
       </Alert>
     );
-  } else {
-    return <div />;
   }
+
+  return null;
 };

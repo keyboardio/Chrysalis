@@ -18,6 +18,7 @@
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
+import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { PageTitle } from "@renderer/components/PageTitle";
 import { getStaticPath } from "@renderer/config";
@@ -38,9 +39,9 @@ const ChangeLog = (props) => {
   const data = fs.readFileSync(file).toString();
 
   return (
-    <div>
+    <Container>
       <PageTitle title={t("changelog.title")} />
-      <Card sx={{ mx: "auto", my: 2, maxWidth: "50%" }}>
+      <Card sx={{ my: 2 }}>
         <CardHeader
           avatar={<img src={logo} alt={t("components.logo.altText")} />}
           title="Chrysalis"
@@ -66,7 +67,7 @@ const ChangeLog = (props) => {
           </ReactMarkdown>
         </CardContent>
       </Card>
-    </div>
+    </Container>
   );
 };
 

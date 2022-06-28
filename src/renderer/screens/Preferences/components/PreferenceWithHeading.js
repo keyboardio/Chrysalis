@@ -22,7 +22,7 @@ import React from "react";
 
 const PreferenceWithHeading = (props) => {
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", flexWrap: "wrap" }}>
       <Box>
         <Typography variant="body1">{props.heading}</Typography>
         {props.subheading && (

@@ -172,7 +172,7 @@ function LookAndFeelPreferences(props) {
       <Typography sx={{ my: "auto" }} variant="body1">
         {t("preferences.ui.theme.label")}
       </Typography>
-      <Box sx={{ display: "inline-flex", my: 2 }}>
+      <Box sx={{ display: "inline-flex", my: 2, flexWrap: "wrap" }}>
         <ModeCard
           name="system"
           image={systemSvg}

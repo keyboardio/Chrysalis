@@ -167,7 +167,11 @@ export default class StandardView extends React.Component {
     // }
     if (prevProps.keyIndex !== this.props.keyIndex) {
       if (this.props.keyIndex !== -1) {
-        this.setState({ code: this.props.layerData[this.props.keyIndex].keyCode });
+        if (this.props.actTab == "super") {
+          this.setState({ code: this.props.layerData[this.props.keyIndex] });
+        } else {
+          this.setState({ code: this.props.layerData[this.props.keyIndex].keyCode });
+        }
       } else {
         this.setState({ code: 0 });
       }
@@ -215,7 +219,7 @@ export default class StandardView extends React.Component {
     } = this.props;
     let keyCode;
     if (actTab == "super") {
-      keyCode = code;
+      keyCode = keyIndex !== -1 ? layerData[keyIndex] : 0;
     } else {
       keyCode = keyIndex !== -1 ? layerData[keyIndex].keyCode : 0;
     }

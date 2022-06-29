@@ -838,7 +838,7 @@ class SuperkeysEditor extends React.Component {
           tooltip={i18n.editor.superkeys.tooltip}
           isDisabled={false}
         />
-        {selectedAction > -1 && isStandardViewSuperkeys ? (
+        {isStandardViewSuperkeys ? (
           <StandardView
             showStandardView={this.state.showStandardView}
             closeStandardView={this.closeStandardViewModal}
@@ -846,12 +846,12 @@ class SuperkeysEditor extends React.Component {
             onKeySelect={this.onKeyChange}
             macros={macros}
             superkeys={superkeys}
-            actions={actions}
-            action={selectedAction}
+            actions={selectedAction > -1 ? superkeys[selectedSuper].actions : []}
+            action={selectedAction > -1 ? superkeys[selectedSuper].actions[selectedAction] : 0}
             superName={superName}
-            keyIndex={superkeys[selectedSuper].actions[selectedAction]}
+            keyIndex={selectedAction}
             code={code}
-            // layerData={layerData}
+            layerData={selectedAction > -1 ? superkeys[selectedSuper].actions : []}
             actTab="super"
             selectedlanguage={currentLanguageLayout}
             kbtype={kbtype}

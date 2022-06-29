@@ -724,19 +724,19 @@ class SuperkeysEditor extends React.Component {
 
   onToogle = () => {
     if (this.state.isStandardViewSuperkeys) {
-      this.setState({ isStandardViewSuperkeys: false });
+      this.setState({ isStandardViewSuperkeys: false, selectedAction: -1 });
     } else {
-      this.setState({ isStandardViewSuperkeys: true });
+      this.setState({ isStandardViewSuperkeys: true, selectedAction: -1 });
     }
   };
 
   closeStandardViewModal = code => {
     this.onKeyChange(code);
-    this.setState({ showStandardView: false });
+    this.setState({ showStandardView: false, selectedAction: -1 });
   };
 
   handleSaveStandardView = () => {
-    this.setState({ showStandardView: false });
+    this.setState({ showStandardView: false, selectedAction: -1 });
   };
 
   render() {

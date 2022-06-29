@@ -31,12 +31,10 @@ import Typography from "@mui/material/Typography";
 import ConfirmationDialog from "@renderer/components/ConfirmationDialog";
 import { PageTitle } from "@renderer/components/PageTitle";
 import { toast } from "@renderer/components/Toast";
-import { getStaticPath } from "@renderer/config";
 import checkExternalFlasher from "@renderer/utils/checkExternalFlasher";
-import { ipcRenderer } from "electron";
-import fs from "fs";
-import path from "path";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { GlobalContext } from "@renderer/components/GlobalContext";
+
 import { useTranslation } from "react-i18next";
 
 import FirmwareVersion from "./FirmwareUpdate/FirmwareVersion";
@@ -49,6 +47,8 @@ const settings = new Store();
 
 const FirmwareUpdate = (props) => {
   const focus = new Focus();
+  const globalContext = useContext(GlobalContext);
+  const [activeDevice] = globalContext.state.activeDevice;
 
   const [firmwareFilename, setFirmwareFilename] = useState("");
   const [selected, setSelected] = useState("default");
@@ -62,25 +62,12 @@ const FirmwareUpdate = (props) => {
   const focusDeviceDescriptor =
     props.focusDeviceDescriptor || focus.focusDeviceDescriptor;
 
-  const _defaultFirmwareFilename = () => {
-    const { vendor, product } = focusDeviceDescriptor.info;
-    const firmwareType = focusDeviceDescriptor.info.firmwareType || "hex";
-    const cVendor = vendor.replace("/", ""),
-      cProduct = product.replace("/", "");
-    return path.join(
-      getStaticPath(),
-      cVendor,
-      cProduct,
-      "default." + firmwareType
-    );
-  };
-
   const _flash = async (options) => {
     const focus = new Focus();
     let filename;
 
     if (selected == "default") {
-      filename = _defaultFirmwareFilename();
+      filename = activeDevice.defaultFirmwareFilename();
     } else {
       filename = firmwareFilename;
     }

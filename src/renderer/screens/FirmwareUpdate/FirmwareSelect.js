@@ -20,6 +20,8 @@ import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
+import Grid from "@mui/material/Grid";
+
 import ListItemText from "@mui/material/ListItemText";
 import ListItem from "@mui/material/ListItem";
 import Radio from "@mui/material/Radio";
@@ -31,6 +33,7 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import FirmwareChangesDialog from "./FirmwareChangesDialog";
+import Link from "@mui/material/Link";
 
 const FirmwareSelect = (props) => {
   const { t } = useTranslation();
@@ -83,35 +86,48 @@ const FirmwareSelect = (props) => {
             <FormControlLabel
               value="default"
               control={<Radio />}
-              label={
-                <ListItem>
-                  <ListItemText
-                    sx={{ ml: 1 }}
-                    primary={t("firmwareUpdate.firmwareVersion", {
-                      version: version,
-                    })}
-                  />
-                  <Button color="info" onClick={() => setChangelogOpen(true)}>
-                    {t("firmwareUpdate.firmwareChangelog.view")}
-                  </Button>
-                </ListItem>
-              }
+              label={t("firmwareUpdate.defaultFirmwareDescription")}
             />
+            <Typography sx={{ color: "text.secondary", ml: 1 }}>
+              {t("firmwareUpdate.firmwareVersion", {
+                version: version,
+              })}
+            </Typography>
+            <Typography variant="subtitle2" sx={{ ml: 1, mt: 1 }}>
+              {t("firmwareUpdate.defaultFirmwareExplanation")}
+
+              <Grid container justifyContent="flex-end">
+                <Button
+                  sx={{}}
+                  color="info"
+                  onClick={() => setChangelogOpen(true)}
+                >
+                  {t("firmwareUpdate.firmwareChangelog.view", {
+                    version: version,
+                  })}
+                </Button>
+              </Grid>
+            </Typography>
             <FormControlLabel
               value="custom"
               control={<Radio />}
-              label={
-                <ListItem>
-                  <ListItemText
-                    sx={{ ml: 1 }}
-                    primary={t("firmwareUpdate.custom", {
-                      version: version,
-                    })}
-                    secondary={filename}
-                  />
-                </ListItem>
-              }
+              label={t("firmwareUpdate.custom")}
             />
+            <Typography sx={{ color: "text.secondary", ml: 1 }}>
+              {filename}
+            </Typography>
+            <Typography variant="subtitle2" sx={{ ml: 1, mt: 1 }}>
+              {t("firmwareUpdate.customFirmwareExplanation")}
+            </Typography>
+            <Grid container justifyContent="flex-end">
+              <Button
+                href="https://kaleidoscope.readthedocs.io/"
+                color="info"
+                target="_blank"
+              >
+                {t("firmwareUpdate.customFirmwareLinkText")}
+              </Button>
+            </Grid>
           </RadioGroup>
           <Box></Box>
         </Box>

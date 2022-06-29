@@ -357,9 +357,9 @@
   "firmwareUpdate": {
     "firmwareChangelog": {
       "title": "Firmware Changelog",
-      "view": "What's new?"
+      "view": "What's new in {{version}}?"
     },
-    "firmwareSources": "Firmware sources",
+    "firmwareSources": "Source code",
     "calloutTitle": "Important!",
     "dialog": {
       "selectFirmware": "Select a firmware",
@@ -394,10 +394,14 @@
     "yourFirmware": "Update your keyboard's firmware",
     "chooseFirmware": "Update firmware:",
     "defaultFirmwareDescription": "Latest version",
+    "defaultFirmwareExplanation": "This is the latest version of the firmware for your keyboard.",
+    
     "custom": "Choose a local firmware build",
     "customChooseFile": "Choose a file...",
+    "customFirmwareExplanation": "You can install an alternate firmware build you've downloaded or built locally. As long as it includes support for the 'Focus' keyboard protocol, Chrysalis should work just fine.",
     "currentFirmwareVersion": "Current firmware version",
-    "firmwareVersion": "Latest: {{version}}",
+    "customFirmwareLinkText": "Learn about building firmware",
+    "firmwareVersion": "{{version}}",
     "description": "Updating your keyboard's firmware is how we teach it new tricks. Chrysalis can install the version of the firmware it ships with, or a custom firmware build you provide."
   },
   "focus-not-detected": {

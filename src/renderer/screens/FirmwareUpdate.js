@@ -198,6 +198,7 @@ const FirmwareUpdate = (props) => {
         </Paper>
       </Container>
       <FlashSteps steps={flashSteps} activeStep={activeStep} />
+
       <ConfirmationDialog
         title={t("firmwareUpdate.factoryConfirmDialog.title")}
         open={factoryConfirmationOpen}
@@ -209,6 +210,7 @@ const FirmwareUpdate = (props) => {
         </Typography>
         {instructions}
       </ConfirmationDialog>
+
       <ConfirmationDialog
         title={t("firmwareUpdate.confirmDialog.title")}
         open={confirmationOpen}

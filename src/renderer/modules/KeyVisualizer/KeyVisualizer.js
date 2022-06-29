@@ -142,7 +142,7 @@ class KeyVisualizer extends React.Component {
   }
 
   render() {
-    const { keyCode, newValue, oldValue, isStandardView } = this.props;
+    const { keyCode, oldKeyCode, newValue, oldValue, isStandardView } = this.props;
 
     return (
       <Style className="KeyVisualizer">
@@ -152,7 +152,7 @@ class KeyVisualizer extends React.Component {
               <Title text="Selected value" headingLevel={4} />
               <div className="keySelectedBox">
                 <div className="keySelectedValue">{oldValue}</div>
-                <ListModifiers keyCode={keyCode.base ? keyCode.base + keyCode.modified : keyCode} size="sm" />
+                <ListModifiers keyCode={oldKeyCode.base ? oldKeyCode.base + oldKeyCode.modified : oldKeyCode} size="sm" />
               </div>
             </div>
           ) : (

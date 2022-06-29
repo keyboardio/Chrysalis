@@ -229,7 +229,13 @@ export default class StandardView extends React.Component {
           <Tab.Container id="standardViewCointainer" defaultActiveKey="tabKeys">
             <div className="standardViewInner">
               <div className="colVisualizerTabs">
-                <KeyVisualizer keyCode={keyCode} oldValue={oldKey} newValue={selKey} isStandardView={isStandardView} />
+                <KeyVisualizer
+                  keyCode={keyCode}
+                  oldKeyCode={this.state.code}
+                  oldValue={oldKey}
+                  newValue={selKey}
+                  isStandardView={isStandardView}
+                />
                 <Nav className="flex-column tabsWrapper">
                   <CustomTab eventKey="tabKeys" text="Keys" icon={<IconKeyboard />} />
                   <CustomTab eventKey="tabNoKeys" text={i18n.editor.standardView.noKeyTransparent} icon={<IconNoKey />} />

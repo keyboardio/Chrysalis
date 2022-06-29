@@ -162,6 +162,9 @@ export default class StandardView extends React.Component {
 
   componentDidUpdate(prevProps) {
     console.log("StandardView componentDidUpdate", prevProps.keyIndex, this.props.keyIndex);
+    // if(this.props.actTab == "editor") {
+
+    // }
     if (prevProps.keyIndex !== this.props.keyIndex) {
       if (this.props.keyIndex !== -1) {
         this.setState({ code: this.props.layerData[this.props.keyIndex].keyCode });

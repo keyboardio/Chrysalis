@@ -794,7 +794,7 @@ class SuperkeysEditor extends React.Component {
           />
           <Callout content={i18n.editor.superkeys.callout} className="mt-lg" size="sm" />
           {superkeys.length == 0 || !Array.isArray(superkeys) ? (
-            <div className="loading marginCenter">
+            <div className="loading marginCenter mt-lg">
               <Spinner className="spinner-border" role="status" />
             </div>
           ) : (
@@ -838,7 +838,7 @@ class SuperkeysEditor extends React.Component {
           tooltip={i18n.editor.superkeys.tooltip}
           isDisabled={false}
         />
-        {isStandardViewSuperkeys ? (
+        {selectedAction > -1 && isStandardViewSuperkeys ? (
           <StandardView
             showStandardView={this.state.showStandardView}
             closeStandardView={this.closeStandardViewModal}
@@ -849,7 +849,7 @@ class SuperkeysEditor extends React.Component {
             actions={actions}
             action={selectedAction}
             superName={superName}
-            keyIndex={selectedSuper}
+            keyIndex={superkeys[selectedSuper].actions[selectedAction]}
             code={code}
             // layerData={layerData}
             actTab="super"

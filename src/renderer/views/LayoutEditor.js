@@ -2061,7 +2061,7 @@ class LayoutEditor extends React.Component {
             keyIndex={currentKeyIndex}
             code={code}
             layerData={layerData}
-            actTab={"editor"}
+            actTab="editor"
             selectedlanguage={currentLanguageLayout}
             kbtype={kbtype}
             isStandardView={isStandardView}

@@ -91,15 +91,13 @@ h4 {
 class KeysTab extends Component {
   constructor(props) {
     super(props);
+    this.appliedMod = Array(7936)
+      .fill()
+      .map((_, idx) => 256 + idx);
   }
 
   render() {
     const { keyCode, code, isStandardView } = this.props;
-
-    const isMod = [224, 225, 226, 227, 228, 229, 230, 231, 2530, 3043].includes(keyCode);
-    const isNotNK = !(keyCode > 3 && keyCode < 256);
-    const isNotDF = !(keyCode > 49169 && keyCode < 53266);
-    const disabled = isMod || (isNotNK && isNotDF);
 
     return (
       <Styles className={`${isStandardView ? "standardViewTab" : ""} tabsKey`}>
@@ -129,7 +127,7 @@ class KeysTab extends Component {
             kbtype={"iso"}
           />
           {isStandardView ? (
-            <div className={`enhanceKeys ${disabled ? "isDisabled" : ""}`}>
+            <div className={`enhanceKeys`}>
               <Title
                 text={i18n.editor.standardView.keys.enhanceTitle}
                 headingLevel={3}

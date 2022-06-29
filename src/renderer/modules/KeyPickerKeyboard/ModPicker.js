@@ -128,6 +128,9 @@ class ModPicker extends Component {
   setModifierVisibility() {
     if (
       (this.props.keyCode != undefined &&
+        this.props.keyCode.base + this.props.keyCode.modified >= 224 &&
+        this.props.keyCode.base + this.props.keyCode.modified <= 255) ||
+      (this.props.keyCode != undefined &&
         this.props.keyCode.base + this.props.keyCode.modified >= 53852 &&
         this.props.keyCode.base + this.props.keyCode.modified <= 53852 + 64) ||
       this.props.keyCode.base + this.props.keyCode.modified == 0 ||

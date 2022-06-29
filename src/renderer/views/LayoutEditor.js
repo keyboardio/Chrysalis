@@ -112,7 +112,7 @@ margin: auto;
 }
 .full-height {
   height: 100%;
-  padding-top: 24px;
+  padding-top: 12px;
 }
 .layer-col {
   display: flex;
@@ -136,13 +136,14 @@ margin: auto;
   flex: 0 0 100%;
   margin: 0 auto;
   min-width: 680px;
-  max-width: 1222px;
+  max-width: 1000px;
 }
 .raiseKeyboard {
   overflow: visible;
   margin: 0 auto;
+  margin: -46px auto -32px auto;
   max-width: 100%;
-      max-height: 75vh;
+      // max-height: 65vh;
   * {
     transform-box: fill-box;
   }

@@ -27,7 +27,7 @@ const Style = Styled.div`
 .labelModifier {
   padding: 4px 8px;
   font-weight: 600;
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: -0.03em;
   color:${({ theme }) => theme.styles.keyVisualizer.labelModifierColor};
   margin: 2px;
@@ -41,7 +41,7 @@ const Style = Styled.div`
   .labelModifier {
     padding: 3px 6px;
     font-weight: 600;
-    font-size: 11px;
+    font-size: 10px;
     color:${({ theme }) => theme.styles.keyVisualizer.labelModifierColorSm};
     background: ${({ theme }) => theme.styles.keyVisualizer.labelModifierBackgroundSm};
     border:  ${({ theme }) => theme.styles.keyVisualizer.labelBorderSm};

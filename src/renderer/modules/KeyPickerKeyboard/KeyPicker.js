@@ -200,7 +200,7 @@ width: 100%;
 }
 .dropdown-toggle.btn.btn-primary {
   padding-right: 24px;
-  padding-left: 8px;
+  padding-left: 12px;
 } 
 .dropdown-toggle::after {
   right: 12px;
@@ -219,7 +219,8 @@ width: 100%;
   text-align: center;
   padding: 5px 3px;
   justify-content: center;
-  font-size: 14px;
+  align-items: center;
+  font-size: 12px;
 } 
 .keysMouseEvents .button-config {
   width: 58px;

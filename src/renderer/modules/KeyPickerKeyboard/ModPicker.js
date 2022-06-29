@@ -9,9 +9,9 @@ import { ButtonConfig } from "../../component/Button";
 const Style = Styled.div`
 height: inherit;
 .modPickerInner {
-  padding: 16px 24px;
+  padding: 16px;
   h4 {
-    font-size: 14px;
+    font-size: 13px;
   }
 }
 .modPickerInner.modPickerInnerStd {
@@ -19,14 +19,15 @@ height: inherit;
 }
 .modPickerButtonsList {
   display: flex;
-  margin-left: -4px;  
-  margin-right: -4px;
+  margin-left: -2px;  
+  margin-right: -2px;
   flex-wrap: wrap;
   .button-config {
-    margin: 4px 2px;  
-    width: 60px;
+    margin: 4px 2px 0 2px;  
+    width: 56px;
     text-align: center;
-    padding: 8px 4px;
+    padding: 7px 4px;
+    font-size: 12px;
   }
 }
 

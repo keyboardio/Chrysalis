@@ -23,7 +23,7 @@ import ListModifiers from "../../component/ListModifiers/ListModifiers";
 
 const Style = Styled.div`
 &.KeyVisualizer {    
-    padding: 16px 24px;
+    padding: 16px;
     position: relative;
     h4 {
         font-size: 13px;

@@ -11,16 +11,40 @@ import i18n from "../../i18n";
 
 const Style = Styled.div`
 .dualFunctionPickerInner {
-  padding: 16px 24px;
+  padding: 0 16px 16px 16px;
   h4 {
-    font-size: 14px;
+    font-size: 12px;
   }
 }
+.dropdwonsGroup {
+  display: grid;
+  grid-gap: 4px;
+  grid-template-columns: 1fr 1fr;
+}
 .dropdown-toggle.btn.btn-primary {
-  padding: 8px 16px;
+  padding: 8px;
+}
+.dropdown-toggle::after {
+  right: 8px;
 }
 .dropdownInner, .dropdownItemSelected {
-  font-size: 14px;
+  font-size: inherit;
+  .badge-circle {
+    width: 8px;
+    height: 8px; 
+    border-radius: 50%;
+    background-color: rgba(254,0,124,1);
+    position: absolute;
+    right: -10px;
+    top: -12px;
+    font-size: 11px;
+  }
+}
+.dropdownItemSelected {
+  position: relative;
+}
+.active .dropdownItemSelected .badge-circle {
+  opacity: 1;
 }
 .dualFuntionWrapper {
   display: flex;
@@ -84,82 +108,79 @@ class DualFunctionPicker extends Component {
     const layers = (
       <div className="dualFunctionPickerInner">
         <Title text="Add Dual-function" headingLevel={4} />
-        <Dropdown
-          value={keyCode.modified != 0 ? this.layerKey.map(i => i.keynum).includes(keyCode.modified) : keyCode.modified}
-          onSelect={value => onKeySelect(parseInt(value) + keyCode.base)}
-          className={`custom-dropdown ${
-            keyCode.modified > 0 && this.layerKey.map(i => i.keynum).includes(keyCode.modified) ? "active" : ""
-          }`}
-        >
-          <Dropdown.Toggle id="dropdown-custom" disabled={disabled || activeTab == "super" ? true : false}>
-            <div className="dropdownItemSelected">
-              <div className="dropdownItem">
-                {keyCode.modified > 0 && this.layerKey.map(i => i.keynum).includes(keyCode.modified)
-                  ? this.layerKey[
-                      isNaN(keyCode.modified) || this.layerKey.every(e => e.keynum !== keyCode.modified)
-                        ? 0
-                        : this.layerKey.findIndex(o => o.keynum == keyCode.modified)
-                    ].name
-                  : "Select layer"}
+        <div className="dropdwonsGroup">
+          <Dropdown
+            value={keyCode.modified != 0 ? this.layerKey.map(i => i.keynum).includes(keyCode.modified) : keyCode.modified}
+            onSelect={value => onKeySelect(parseInt(value) + keyCode.base)}
+            className={`custom-dropdown ${
+              keyCode.modified > 0 && this.layerKey.map(i => i.keynum).includes(keyCode.modified) ? "active" : ""
+            }`}
+          >
+            <Dropdown.Toggle
+              id="dropdown-custom"
+              className="button-config-style"
+              disabled={disabled || activeTab == "super" ? true : false}
+            >
+              <div className="dropdownItemSelected">
+                <div className="dropdownItem">Layer</div>
+                <div className="badge-circle"></div>
               </div>
-            </div>
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            {this.layerKey.map((item, id) => {
-              return (
-                <Dropdown.Item
-                  eventKey={item.keynum}
-                  key={`itemDualFunctionLayer-${id}`}
-                  disabled={item.keynum == -1 || isMod}
-                  className={`${keyCode.modified > 0 && item.keynum == keyCode.base + keyCode.modified ? "active" : ""}`}
-                >
-                  <div className="dropdownInner">
-                    <div className="dropdownItem">{item.name}</div>
-                  </div>
-                </Dropdown.Item>
-              );
-            })}
-          </Dropdown.Menu>
-        </Dropdown>
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              {this.layerKey.map((item, id) => {
+                return (
+                  <Dropdown.Item
+                    eventKey={item.keynum}
+                    key={`itemDualFunctionLayer-${id}`}
+                    disabled={item.keynum == -1 || isMod}
+                    className={`${keyCode.modified > 0 && item.keynum == keyCode.modified ? "active" : ""}`}
+                  >
+                    <div className="dropdownInner">
+                      <div className="dropdownItem">{item.name}</div>
+                    </div>
+                  </Dropdown.Item>
+                );
+              })}
+            </Dropdown.Menu>
+          </Dropdown>
 
-        <Dropdown
-          value={keyCode.modified != 0 ? this.modKey.map(i => i.keynum).includes(keyCode.modified) : keyCode.modified}
-          onSelect={value => onKeySelect(parseInt(value) + keyCode.base)}
-          className={`custom-dropdown ${
-            keyCode.modified > 0 && this.modKey.map(i => i.keynum).includes(keyCode.modified) ? "active" : ""
-          }`}
-          disabled={disabled || activeTab == "super"}
-        >
-          <Dropdown.Toggle id="dropdown-custom" disabled={disabled || activeTab == "super" ? true : false}>
-            <div className="dropdownItemSelected">
-              <div className="dropdownItem">
-                {keyCode.modified > 0 && this.modKey.map(i => i.keynum).includes(keyCode.modified)
-                  ? this.modKey[
-                      isNaN(keyCode.modified) || this.modKey.every(e => e.keynum !== keyCode.modified)
-                        ? 0
-                        : this.modKey.findIndex(o => o.keynum == keyCode.modified)
-                    ].name
-                  : "Select modifier"}
+          <Dropdown
+            value={keyCode.modified != 0 ? this.modKey.map(i => i.keynum).includes(keyCode.modified) : keyCode.modified}
+            onSelect={value => onKeySelect(parseInt(value) + keyCode.base)}
+            className={`custom-dropdown ${
+              keyCode.modified > 0 && this.modKey.map(i => i.keynum).includes(keyCode.modified) ? "active" : ""
+            }`}
+            disabled={disabled || activeTab == "super"}
+          >
+            <Dropdown.Toggle
+              id="dropdown-custom"
+              className="button-config-style"
+              disabled={disabled || activeTab == "super" ? true : false}
+            >
+              <div className="dropdownItemSelected">
+                <div className="dropdownItem">Modifier</div>
+                <div className="badge-circle"></div>
               </div>
-            </div>
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            {this.modKey.map((item, id) => {
-              return (
-                <Dropdown.Item
-                  eventKey={item.keynum}
-                  key={`itemDualFunctionMod-${id}`}
-                  disabled={item.keynum == -1 || isMod}
-                  className={`${keyCode.modified > 0 && item.keynum == keyCode.base + keyCode.modified ? "active" : ""}`}
-                >
-                  <div className="dropdownInner">
-                    <div className="dropdownItem">{item.name}</div>
-                  </div>
-                </Dropdown.Item>
-              );
-            })}
-          </Dropdown.Menu>
-        </Dropdown>
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              {this.modKey.map((item, id) => {
+                return (
+                  <Dropdown.Item
+                    eventKey={item.keynum}
+                    key={`itemDualFunctionMod-${id}`}
+                    disabled={item.keynum == -1 || isMod}
+                    className={`${keyCode.modified > 0 && item.keynum == keyCode.modified ? "active" : ""}
+                    }`}
+                  >
+                    <div className="dropdownInner">
+                      <div className="dropdownItem">{item.name}</div>
+                    </div>
+                  </Dropdown.Item>
+                );
+              })}
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
       </div>
     );
 

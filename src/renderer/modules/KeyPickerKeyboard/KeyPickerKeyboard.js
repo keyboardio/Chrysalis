@@ -107,11 +107,10 @@ width: -webkit-fill-available;
 
 .singleViewWrapper {
   margin-top: 16px;
-
-  margin-top: 16px;
   display: grid;
   grid-template-columns: minmax(160px, 250px) minmax(840px, auto);
   grid-gap: 24px;
+  .newKeyValue h4 span { display: none; }
   .keyEnhanceWrapper {
 
   }

@@ -566,6 +566,7 @@ svg text{
   box-shadow: ${({ theme }) => theme.styles.button.config.boxShadowHover};
   outline: auto;
 }
+.show .dropdown-toggle.btn.btn-primary.button-config-style {border: none;}
 .active .dropdown-toggle.btn.btn-primary.button-config-style:not([disabled]),
 .active .dropdown-toggle.btn.btn-primary.button-config-style:not([disabled]):hover {
   color: ${({ theme }) => theme.styles.button.config.colorActive}; 

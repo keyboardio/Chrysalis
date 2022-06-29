@@ -27,7 +27,7 @@ width: 100%;
     flex: 0 0 100%;
     text-align: left;
     text-transform: capitalize;
-    font-size: 14px;
+    font-size: inherit;
     line-height: 1em;
   }
   .dropdownItemSelected {
@@ -57,7 +57,7 @@ width: 100%;
 }
 .dropdown-toggle.btn.btn-primary {
     margin-top: 0;
-    padding: 10px 16px;
+    padding: 12px 16px;
   }
   
   .dropdown-menu.large-dropdown {

@@ -85,9 +85,9 @@ const MacrosMemoryUsage = ({ mem }) => {
 
   React.useEffect(() => {
     //setMemoryUsage(macros.map(m => m.actions).flat().length);
-    setMemoryUsage(((mem / 2000) * 100).toFixed(1));
+    setMemoryUsage(((mem / 2048) * 100).toFixed(1));
     setIsLoading(false);
-    if (mem > 1950 && mem < 1998) {
+    if (mem > 1900 && mem < 2000) {
       toast.warn(
         <ToastMessage
           title={i18n.editor.macros.memoryUsage.alertTitle}

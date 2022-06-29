@@ -107,7 +107,7 @@ class TimelineEditorMacroTable extends Component {
       },
       {
         enum: "MACRO_ACTION_STEP_INTERVAL",
-        name: "Set Interval",
+        name: "Delay",
         icon: <MdTimer fontSize="large" />,
         smallIcon: <MdTimer />
       },
@@ -181,16 +181,10 @@ class TimelineEditorMacroTable extends Component {
     ];
 
     this.onDragEnd = this.onDragEnd.bind(this);
-    this.onAddText = this.onAddText.bind(this);
     this.addModifier = this.addModifier.bind(this);
     this.updateRows = this.updateRows.bind(this);
     this.createConversion = this.createConversion.bind(this);
     this.assignColor = this.assignColor.bind(this);
-    this.onAddSymbol = this.onAddSymbol.bind(this);
-    this.onAddDelay = this.onAddDelay.bind(this);
-    this.onAddText = this.onAddText.bind(this);
-    this.onAddSpecial = this.onAddSpecial.bind(this);
-    this.onTextChange = this.onTextChange.bind(this);
   }
 
   componentDidMount() {
@@ -264,6 +258,15 @@ class TimelineEditorMacroTable extends Component {
       let km, txt;
       switch (action.type) {
         case 1:
+          return {
+            symbol: `${action.keyCode[0]} - ${action.keyCode[1]}`,
+            keyCode: action.keyCode,
+            action: action.type,
+            id: i,
+            color: "#faf0e3",
+            uid: randID,
+            ucolor: "transparent"
+          };
         case 2:
           return {
             symbol: action.keyCode,
@@ -332,19 +335,6 @@ class TimelineEditorMacroTable extends Component {
     return color;
   }
 
-  assignSymbol(macro) {
-    // TODO: redo the function as assignColor to replace keycodes that are not represented (space, enter, tab, etc.. per icons or altcodes to be shown in their stead)
-    let action = [];
-    for (const char of macro.split("")) {
-      let keyCode = this.keymapDB.reverse(char.toUpperCase());
-      if (char === " ") {
-        keyCode = 44;
-      }
-      action.push({ keyCode: keyCode, type: 8 });
-    }
-    return action;
-  }
-
   updateRows(rows) {
     console.log("TiEMTa updaterows", rows);
     let texted = rows.map(k => this.keymapDB.parse(k.keyCode).label).join(" ");
@@ -397,34 +387,6 @@ class TimelineEditorMacroTable extends Component {
     this.updateRows(newRows);
   }
 
-  addModToKey(rows, modID, modBit) {
-    const { name, keyCode, color } = this.modifiers[modID];
-    const randID = new Date().getTime() + Math.floor(Math.random() * 1000);
-    const randColor = "#" + Math.floor(Math.abs(Math.sin(randID) * 16777215) % 16777215).toString(16);
-    let actions = rows;
-    actions.splice(1, 0, {
-      symbol: name,
-      keyCode: keyCode,
-      action: 7,
-      id: 2,
-      color: color,
-      uid: randID,
-      ucolor: randColor
-    });
-    actions.splice(0, 0, {
-      symbol: name,
-      keyCode: keyCode,
-      action: 6,
-      id: 0,
-      color: color,
-      uid: randID,
-      ucolor: randColor
-    });
-    actions[1].keyCode = actions[1].keyCode ^ modBit;
-    actions[1].symbol = this.keymapDB.parse(actions[1].keyCode).label;
-    return actions;
-  }
-
   onDragEnd(result) {
     // dropped outside the list
     if (!result.destination) {
@@ -455,141 +417,6 @@ class TimelineEditorMacroTable extends Component {
     aux[id].action = action;
     this.updateRows(aux);
   };
-
-  onAddText() {
-    const aux = this.state.addText;
-    let newRows = this.state.rows;
-    newRows = newRows.concat(
-      aux.split("").flatMap((symbol, index) => {
-        let item = symbol.toUpperCase();
-        let upper = false;
-        if (symbol.toLowerCase() !== symbol) {
-          upper = true;
-        }
-        switch (item) {
-          case " ":
-            item = "SPACE";
-            break;
-          case "    ":
-            item = "TAB";
-            break;
-          default:
-            break;
-        }
-        const randID = new Date().getTime() + Math.floor(Math.random() * 1000);
-        let keyCode = this.keymapDB.reverse(item);
-        if (upper) {
-          keyCode = keyCode + 2048;
-        }
-        let actions = [
-          {
-            symbol: item,
-            keyCode,
-            action: 8,
-            id: index + newRows.length,
-            color: this.assignColor(keyCode),
-            uid: randID,
-            ucolor: "transparent"
-          }
-        ];
-        switch (true) {
-          case (keyCode & 256) === 256 && (keyCode & 512) === 512:
-            //Control pressed to modify (2)
-            actions = this.addModToKey(actions, 5, 256);
-
-            break;
-          case (keyCode & 256) === 256:
-            //Control pressed to modify (2)
-            actions = this.addModToKey(actions, 2, 256);
-
-            break;
-          case (keyCode & 512) === 512:
-            //Left Alt pressed to modify (4)
-            actions = this.addModToKey(actions, 4, 512);
-
-            break;
-          case (keyCode & 1024) === 1024:
-            //Right alt pressed to modify (5)
-            actions = this.addModToKey(actions, 5, 1024);
-
-            break;
-          case (keyCode & 2048) === 2048:
-            //Shift pressed to modify (0)
-            actions = this.addModToKey(actions, 0, 2048);
-
-            break;
-          case (keyCode & 4096) === 4096:
-            //Gui pressed to modify (6)
-            actions = this.addModToKey(actions, 6, 4096);
-
-            break;
-          default:
-            break;
-        }
-        return actions;
-      })
-    );
-    this.setState({
-      addText: ""
-    });
-    this.updateRows(newRows);
-  }
-
-  onAddSymbol(keyCode, action) {
-    const randID = new Date().getTime() + Math.floor(Math.random() * 1000);
-    let newRows = this.state.rows;
-    let symbol = this.keymapDB.parse(keyCode).label;
-    newRows.push({
-      symbol,
-      keyCode,
-      action,
-      id: newRows.length,
-      color: this.assignColor(keyCode),
-      uid: randID,
-      ucolor: "transparent"
-    });
-    this.updateRows(newRows);
-  }
-
-  onAddDelay(delay, action) {
-    const randID = new Date().getTime() + Math.floor(Math.random() * 1000);
-    let newRows = this.state.rows;
-    newRows.push({
-      symbol: delay,
-      keyCode: delay,
-      action,
-      id: newRows.length,
-      color: "#faf0e3",
-      uid: randID,
-      ucolor: "transparent"
-    });
-    this.updateRows(newRows);
-  }
-
-  onAddSpecial(keyCode, action) {
-    const randID = new Date().getTime() + Math.floor(Math.random() * 1000);
-    let newRows = this.state.rows;
-    let symbol = this.keymapDB.parse(keyCode);
-    if (symbol.extraLabel !== undefined) {
-      symbol = symbol.extraLabel + " " + symbol.label;
-    } else {
-      symbol = symbol.label;
-    }
-    newRows.push({
-      symbol,
-      keyCode,
-      action,
-      id: newRows.length,
-      color: this.assignColor(keyCode),
-      uid: randID,
-      ucolor: "transparent"
-    });
-    this.updateRows(newRows);
-  }
-
-  onTextChange(event) {
-    this.setState({ addText: event.target.value });
-  }
 
   render() {
     // const {} = this.props;

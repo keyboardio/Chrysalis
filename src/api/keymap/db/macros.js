@@ -21,7 +21,7 @@ const macro = index => ({
   }
 });
 
-const macros = Array(64)
+const macros = Array(128)
   .fill()
   .map((_, index) => macro(index));
 

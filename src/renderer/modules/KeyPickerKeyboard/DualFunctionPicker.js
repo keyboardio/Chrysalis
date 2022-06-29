@@ -78,6 +78,7 @@ class DualFunctionPicker extends Component {
     this.state = {};
 
     this.modKey = [
+      { name: "None ", keynum: 0 },
       { name: "Dual Control ", nameStd: "Ctrl", keynum: 49169 },
       { name: "Dual Shift   ", nameStd: "Shift", keynum: 49425 },
       { name: "Dual Alt     ", nameStd: "Alt", keynum: 49681 },
@@ -85,6 +86,7 @@ class DualFunctionPicker extends Component {
       { name: "Dual Alt Gr  ", nameStd: "Alt Gr.", keynum: 50705 }
     ];
     this.layerKey = [
+      { name: "None ", keynum: 0 },
       { name: "Dual Layer 1  ", nameStd: "1", keynum: 51218 },
       { name: "Dual Layer 2  ", nameStd: "2", keynum: 51474 },
       { name: "Dual Layer 3  ", nameStd: "3", keynum: 51730 },
@@ -190,6 +192,7 @@ class DualFunctionPicker extends Component {
           <Title text={i18n.general.layer} headingLevel={5} />
           <div className="groupButtons">
             {this.layerKey.map((item, id) => {
+              if (item.nameStd === undefined) return;
               return (
                 <ButtonConfig
                   key={`itemDualFunctionLayers-${id}`}
@@ -206,6 +209,7 @@ class DualFunctionPicker extends Component {
           <Title text={i18n.general.modifier} headingLevel={5} />
           <div className="groupButtons">
             {this.modKey.map((item, id) => {
+              if (item.nameStd === undefined) return;
               return (
                 <ButtonConfig
                   key={`itemDualFunctionMod-${id}`}

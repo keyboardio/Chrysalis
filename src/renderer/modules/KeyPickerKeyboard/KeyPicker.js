@@ -45,11 +45,8 @@ import { MdKeyboardReturn, MdSpaceBar, MdKeyboardCapslock, MdInfoOutline, MdEjec
 
 import { ButtonConfig } from "../../component/Button";
 import {
-  SelectMacroCustomDropdown,
-  SelectSuperKeyCustomDropdown,
-  SelectLayersCustomDropdown,
-  SelectMouseCustomDropdown,
-  SelectShotModifierCustomDropdown,
+  SelectMacro,
+  SelectSuperKey,
   SelectLayersLock,
   SelectLayersSwitch,
   SelectOneShotModifiers,
@@ -79,6 +76,8 @@ import {
   IconToolsEject,
   IconToolsBrightnessLess,
   IconToolsBrightnessMore,
+  IconSleep,
+  IconShutdown,
   IconRobot,
   IconWrench
 } from "../../component/Icon";
@@ -93,6 +92,7 @@ import SW from "./SW.json";
 import DN from "./DN.json";
 import NW from "./NW.json";
 import IC from "./IC.json";
+import JP from "./JP.json";
 //import SelectSuperKeys from "../../component/Select/SelectSuperKey";
 
 const Style = Styled.div`
@@ -127,17 +127,15 @@ width: 100%;
   position: relative;
   z-index: 4;
 }
-
-
 .KeysWrapper {
   max-width: 1160px;
   margin: auto;
 }
 .keysContainer + .keysContainer {
-  margin-top: 4px;
+  margin-top: 8px;
 }
 .KeysWrapperSpecialKeys {
-  margin-top: 4px;
+  margin-top: 8px;
 }
 .keysRow {
   display: flex;
@@ -146,12 +144,11 @@ width: 100%;
   box-shadow: ${({ theme }) => theme.styles.keyboardPicker.keysRowBoxShadow};
   border-radius: 6px;
   padding: 5px;
-  padding-left: 3px;
   &.keysOrdinaryKeyboard {
     padding: 12px 24px;
   }
   .keyIcon {
-    flex: 0 0 32px;
+    flex: 0 0 42px;
     text-align: center;
     align-self: center;
     color: ${({ theme }) => theme.styles.keyPicker.iconColor};
@@ -192,7 +189,6 @@ width: 100%;
   grid-template-columns: minmax(25%, auto) minmax(25%, auto) minmax(25%, auto);
   grid-gap: 16px;
 }
-
 .dropdownItem {
   overflow: hidden;
   white-space: nowrap;
@@ -200,44 +196,40 @@ width: 100%;
 }
 .dropdown-toggle.btn.btn-primary {
   padding-right: 24px;
-  padding-left: 12px;
+  padding-left: 8px;
 } 
 .dropdown-toggle::after {
   right: 12px;
+}
+.keyRowsDropdowns {
+  display: grid;
+  grid-template-columns: minmax(42px, 42px) minmax(0, 1fr);
 }
 .keysButtonsList {
   display: flex;
   flex-direction: row;
   flex-grow: 1;
-  flex: calc(100% - 32px);
-  grid-gap: 3px;
+  flex: calc(100% - 42px);
 }
 .keysButtonsList .button-config {
+  margin-left: 3px;
   height: 34px;
   display: flex;
   flex-grow: 1;
   text-align: center;
   padding: 5px 3px;
   justify-content: center;
-  align-items: center;
-  font-size: 12px;
+  font-size: 14px;
 } 
 .keysMouseEvents .button-config {
   width: 58px;
 }
-
-.keysContainerGrid {
-  display: grid; 
-  grid-template-columns: 20% minmax(0, 20%) minmax(0, 20%) minmax(0, 20%) 20%; 
-  gap: 2px 4px; 
-}
-.keysContainerGrid2 {
-  display: grid; 
-  grid-template-columns: 20% auto auto 20%; 
-  gap: 2px 4px; 
-}
-
-
+.colSuperKeysMacros { grid-area: colSuperKeysMacros; }
+.colLayers { grid-area: colLayers; }
+.colNoKeyLED { grid-area: colNoKeyLED; }
+.colOneShotModifiers { grid-area: colOneShotModifiers; }
+.colMedia { grid-area: colMedia; }
+.colTools { grid-area: colTools; }
 .editor { 
   .keysLED .button-config {
     svg {
@@ -246,6 +238,37 @@ width: 100%;
     .buttonLabel {
       display: none;
     }
+  }
+  .keysContainerGrid {
+    display: grid; 
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr); 
+    grid-template-rows: 1fr 1fr 1fr; 
+    gap: 8px 16px; 
+    grid-template-areas: 
+      "colSuperKeysMacros colSuperKeysMacros colLayers colLayers"
+      "colNoKeyLED colNoKeyLED colOneShotModifiers colOneShotModifiers"
+      "colMedia colMedia colTools colTools"; 
+    
+    .colSuperKeysMacros { 
+      display: grid; 
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); 
+      grid-template-rows: 1fr; 
+      gap: 0px 16px; 
+      grid-area: colSuperKeysMacros; 
+    }
+    .colLayers { 
+      grid-area: colLayers; 
+    }
+    .colNoKeyLED { 
+      display: grid; 
+      grid-template-columns: 1fr 1fr; 
+      grid-template-rows: 1fr; 
+      gap: 0px 16px; 
+      grid-area: colNoKeyLED; 
+    }
+    .colOneShotModifiers { grid-area: colOneShotModifiers; }
+    .colMedia { grid-area: colMedia; }
+    .colTools { grid-area: colTools; }
   }
   .dropdownLayerShift .dropdown-toggle.btn.btn-primary,
   .dropdownOneShotModifiers .dropdown-toggle.btn.btn-primary{
@@ -260,10 +283,18 @@ width: 100%;
 }
 .super {
   .keysContainerGrid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr); 
+    display: grid; 
+    grid-template-columns:  0.8fr 1fr 1fr 1fr 1.2fr 0.25fr 1.75fr 1fr; 
+    
+    grid-template-rows: 1fr 1fr; 
+    gap: 8px 16px; 
+    grid-template-areas: 
+      "colSuperKeysMacros colSuperKeysMacros colSuperKeysMacros colLayers colLayers colLayers colNoKeyLED colNoKeyLED"
+      "colMedia colMedia colMedia colMedia colTools colTools colTools colTools"; 
   }
-  .keysContainerGrid2 {
-    grid-template-columns: auto auto auto; 
+  .keysRow {
+    height: 100%;
+    align-items: center;
   }
 }
 `;
@@ -345,7 +376,8 @@ class KeyPicker extends Component {
       swedish: SW,
       danish: DN,
       norwegian: NW,
-      icelandic: IC
+      icelandic: IC,
+      japanese: JP
     };
     const lansi = { english: ENa };
     let Lang = ENa;
@@ -543,270 +575,405 @@ class KeyPicker extends Component {
         </div>
         <div className={`KeysWrapper KeysWrapperSpecialKeys ${activeTab}`}>
           <div className="keysContainer keysContainerGrid">
-            {activeTab == "super" ? (
-              <></>
-            ) : (
-              <div className="keysRow keysSuperkeys keyRowsDropdowns">
+            <div className="colSuperKeysMacros">
+              {activeTab == "super" ? (
+                <></>
+              ) : (
+                <div className="keysRow keysSuperkeys keyRowsDropdowns">
+                  <div className="keyIcon">
+                    <IconThunder />
+                  </div>
+                  <div className="keysButtonsList">
+                    <SelectSuperKey
+                      action={action}
+                      actions={actions}
+                      selKeys={selKeys}
+                      onKeySelect={onKeySelect}
+                      superkeys={superkeys}
+                      keyCode={keyCode}
+                    />
+                  </div>
+                </div>
+              )}
+
+              <div className="keysRow keysMacros keyRowsDropdowns">
                 <div className="keyIcon">
-                  <IconThunder />
+                  <IconRobot />
                 </div>
                 <div className="keysButtonsList">
-                  <SelectSuperKeyCustomDropdown
-                    action={action}
-                    actions={actions}
-                    selKeys={selKeys}
-                    onKeySelect={onKeySelect}
-                    superkeys={superkeys}
-                    keyCode={code}
-                  />
+                  <SelectMacro macros={macros} keyCode={code} onKeySelect={onKeySelect} />
                 </div>
               </div>
-            )}
-
-            <div className="keysRow keysMacros keyRowsDropdowns">
-              <div className="keyIcon">
-                <IconRobot />
-              </div>
-              <div className="keysButtonsList">
-                <SelectMacroCustomDropdown macros={macros} keyCode={code} onKeySelect={onKeySelect} />
-              </div>
             </div>
-
-            <div className="keysRow keysLayerLock keyRowsDropdowns">
-              <div className="keyIcon">
-                <IconLayers />
-              </div>
-              <div className="keysButtonsList">
-                <SelectLayersCustomDropdown action={action} activeTab={activeTab} keyCode={code} onKeySelect={onKeySelect} />
-              </div>
-            </div>
-
-            {activeTab == "super" ? (
-              <></>
-            ) : (
-              <div className="keysRow keysOSM keyRowsDropdowns">
+            <div className="colLayers">
+              <div className="keysRow keysLayerLock keyRowsDropdowns">
                 <div className="keyIcon">
-                  <IconOneShot />
+                  <IconLayers />
                 </div>
                 <div className="keysButtonsList">
-                  <SelectShotModifierCustomDropdown
-                    action={action}
-                    activeTab={activeTab}
-                    keyCode={code}
-                    onKeySelect={onKeySelect}
-                  />
+                  {activeTab == "super" ? (
+                    <></>
+                  ) : (
+                    <SelectLayersSwitch action={action} activeTab={activeTab} keyCode={code} onKeySelect={onKeySelect} />
+                  )}
+                  <SelectLayersLock action={action} activeTab={activeTab} keyCode={code} onKeySelect={onKeySelect} />
                 </div>
               </div>
-            )}
-            <div className="keysRow keysMouseEvents">
-              <div className="keyIcon">
-                <IconMouse />
-              </div>
-              <div className="keysButtonsList">
-                <SelectMouseCustomDropdown keyCode={code} onKeySelect={onKeySelect} />
-              </div>
             </div>
-          </div>
-          <div className="keysContainer keysContainerGrid2">
-            {activeTab == "super" ? (
-              <></>
-            ) : (
-              <div className="keysRow keysNoKey keyRowsDropdowns">
+            <div className="colNoKeyLED">
+              {activeTab == "super" ? (
+                <></>
+              ) : (
+                <div className="keysRow keysNoKey keyRowsDropdowns">
+                  <div className="keyIcon">
+                    <IconNoKey />
+                  </div>
+                  <div className="keysButtonsList">
+                    <ButtonConfig
+                      buttonText={i18n.editor.superkeys.specialKeys.noKey}
+                      onClick={() => {
+                        onKeySelect(0);
+                      }}
+                      selected={keyCode.base + keyCode.modified == 0 ? true : false}
+                    />
+                    <ButtonConfig
+                      buttonText={i18n.editor.superkeys.specialKeys.transparent}
+                      onClick={() => {
+                        onKeySelect(65535);
+                      }}
+                      selected={keyCode.base + keyCode.modified == 65535 ? true : false}
+                    />
+                  </div>
+                </div>
+              )}
+              <div className="keysRow keysLED">
                 <div className="keyIcon">
-                  <IconNoKey />
+                  <h4>LED</h4>
                 </div>
                 <div className="keysButtonsList">
                   <ButtonConfig
-                    buttonText={i18n.editor.superkeys.specialKeys.noKey}
+                    buttonText={i18n.editor.superkeys.specialKeys.ledToggleText}
+                    icoPosition="left"
+                    tooltip={i18n.editor.superkeys.specialKeys.ledToggleTootip}
+                    tooltipDelay={300}
                     onClick={() => {
-                      onKeySelect(0);
+                      onKeySelect(17154);
                     }}
-                    selected={keyCode.base + keyCode.modified == 0 ? true : false}
+                    icoSVG={<IconLEDSwitchLeft />}
+                    selected={keyCode.base + keyCode.modified == 17154 ? true : false}
+                    className="buttonConfigLED"
                   />
                   <ButtonConfig
-                    buttonText={i18n.editor.standardView.trans}
+                    tooltip={i18n.editor.superkeys.specialKeys.ledPreviousEffectTootip}
+                    tooltipDelay={300}
+                    icoSVG={<IconLEDPreviousEffect />}
                     onClick={() => {
-                      onKeySelect(65535);
+                      onKeySelect(17153);
                     }}
-                    selected={keyCode.base + keyCode.modified == 65535 ? true : false}
+                    selected={keyCode.base + keyCode.modified == 17153 ? true : false}
+                  />
+                  <ButtonConfig
+                    tooltip={i18n.editor.superkeys.specialKeys.ledNextEffectTootip}
+                    tooltipDelay={300}
+                    icoSVG={<IconLEDNextEffect />}
+                    onClick={() => {
+                      onKeySelect(17152);
+                    }}
+                    selected={keyCode.base + keyCode.modified == 17152 ? true : false}
                   />
                 </div>
               </div>
+            </div>
+            {activeTab == "super" ? (
+              <></>
+            ) : (
+              <div className="colOneShotModifiers">
+                <div className="keysRow keysOSM keyRowsDropdowns">
+                  <div className="keyIcon">
+                    <IconOneShot />
+                  </div>
+                  <div className="keysButtonsList">
+                    <SelectOneShotModifiers action={action} activeTab={activeTab} keyCode={code} onKeySelect={onKeySelect} />
+                    <SelectOneShotLayers action={action} activeTab={activeTab} keyCode={code} onKeySelect={onKeySelect} />
+                  </div>
+                </div>
+              </div>
             )}
-
-            <div className="keysRow keysMedia">
-              <div className="keyIcon">
-                <IconNote />
-              </div>
-              <div className="keysButtonsList">
-                <ButtonConfig
-                  tooltip={i18n.editor.superkeys.specialKeys.playPause}
-                  tooltipDelay={100}
-                  icoSVG={<IconMediaPlayPause />}
-                  onclick={e => this.onKeyPress()}
-                  selected={keyCode.base + keyCode.modified == 22733 ? true : false}
-                  onClick={() => {
-                    onKeySelect(22733);
-                  }}
-                />
-                <ButtonConfig
-                  tooltip={i18n.editor.superkeys.specialKeys.stop}
-                  tooltipDelay={100}
-                  icoSVG={<IconMediaStop />}
-                  selected={keyCode.base + keyCode.modified == 22711 ? true : false}
-                  onClick={() => {
-                    onKeySelect(22711);
-                  }}
-                />
-                <ButtonConfig
-                  tooltip={i18n.editor.superkeys.specialKeys.rewind}
-                  tooltipDelay={100}
-                  icoSVG={<IconMediaRewind />}
-                  selected={keyCode.base + keyCode.modified == 22710 ? true : false}
-                  onClick={() => {
-                    onKeySelect(22710);
-                  }}
-                />
-                <ButtonConfig
-                  tooltip={i18n.editor.superkeys.specialKeys.forward}
-                  tooltipDelay={100}
-                  icoSVG={<IconMediaForward />}
-                  selected={keyCode.base + keyCode.modified == 22709 ? true : false}
-                  onClick={() => {
-                    onKeySelect(22709);
-                  }}
-                />
-                <ButtonConfig
-                  tooltip={i18n.editor.superkeys.specialKeys.shuffle}
-                  tooltipDelay={100}
-                  icoSVG={<IconMediaShuffle />}
-                  selected={keyCode.base + keyCode.modified == 22713 ? true : false}
-                  onClick={() => {
-                    onKeySelect(22713);
-                  }}
-                />
-                <ButtonConfig
-                  tooltip={i18n.editor.superkeys.specialKeys.mute}
-                  tooltipDelay={100}
-                  icoSVG={<IconMediaSoundMute />}
-                  selected={keyCode.base + keyCode.modified == 19682 ? true : false}
-                  onClick={() => {
-                    onKeySelect(19682);
-                  }}
-                />
-                <ButtonConfig
-                  tooltip={i18n.editor.superkeys.specialKeys.soundLess}
-                  tooltipDelay={100}
-                  icoSVG={<IconMediaSoundLess />}
-                  selected={keyCode.base + keyCode.modified == 23786 ? true : false}
-                  onClick={() => {
-                    onKeySelect(23786);
-                  }}
-                />
-                <ButtonConfig
-                  tooltip={i18n.editor.superkeys.specialKeys.soundMore}
-                  tooltipDelay={100}
-                  icoSVG={<IconMediaSoundMore />}
-                  selected={keyCode.base + keyCode.modified == 23785 ? true : false}
-                  onClick={() => {
-                    onKeySelect(23785);
-                  }}
-                />
-              </div>
-            </div>
-
-            <div className="keysRow keysTools">
-              <div className="keyIcon">
-                <IconWrench />
-              </div>
-              <div className="keysButtonsList">
-                <ButtonConfig
-                  tooltip={i18n.editor.superkeys.specialKeys.eject}
-                  tooltipDelay={100}
-                  icoSVG={<IconToolsEject />}
-                  selected={keyCode.base + keyCode.modified == 22712 ? true : false}
-                  onClick={() => {
-                    onKeySelect(22712);
-                  }}
-                />
-                <ButtonConfig
-                  tooltip={i18n.editor.superkeys.specialKeys.calculator}
-                  tooltipDelay={100}
-                  icoSVG={<IconToolsCalculator />}
-                  selected={keyCode.base + keyCode.modified == 18834 ? true : false}
-                  onClick={() => {
-                    onKeySelect(18834);
-                  }}
-                />
-                <ButtonConfig
-                  tooltip={i18n.editor.superkeys.specialKeys.camera}
-                  tooltipDelay={100}
-                  icoSVG={<IconToolsCamera />}
-                  selected={keyCode.base + keyCode.modified == 18552 ? true : false}
-                  onClick={() => {
-                    onKeySelect(18552);
-                  }}
-                />
-
-                <ButtonConfig
-                  tooltip={i18n.editor.superkeys.specialKeys.brightnessLess}
-                  tooltipDelay={100}
-                  icoSVG={<IconToolsBrightnessLess />}
-                  selected={keyCode.base + keyCode.modified == 23664 ? true : false}
-                  onClick={() => {
-                    onKeySelect(23664);
-                  }}
-                />
-                <ButtonConfig
-                  tooltip={i18n.editor.superkeys.specialKeys.brightnessMore}
-                  tooltipDelay={100}
-                  icoSVG={<IconToolsBrightnessMore />}
-                  selected={keyCode.base + keyCode.modified == 23663 ? true : false}
-                  onClick={() => {
-                    onKeySelect(23663);
-                  }}
-                />
+            <div className="colMedia">
+              <div className="keysRow keysMedia">
+                <div className="keyIcon">
+                  <IconNote />
+                </div>
+                <div className="keysButtonsList">
+                  <ButtonConfig
+                    tooltip={i18n.editor.superkeys.specialKeys.playPause}
+                    tooltipDelay={100}
+                    icoSVG={<IconMediaPlayPause />}
+                    onclick={e => this.onKeyPress()}
+                    selected={keyCode.base + keyCode.modified == 22733 ? true : false}
+                    onClick={() => {
+                      onKeySelect(22733);
+                    }}
+                  />
+                  <ButtonConfig
+                    tooltip={i18n.editor.superkeys.specialKeys.stop}
+                    tooltipDelay={100}
+                    icoSVG={<IconMediaStop />}
+                    selected={keyCode.base + keyCode.modified == 22711 ? true : false}
+                    onClick={() => {
+                      onKeySelect(22711);
+                    }}
+                  />
+                  <ButtonConfig
+                    tooltip={i18n.editor.superkeys.specialKeys.rewind}
+                    tooltipDelay={100}
+                    icoSVG={<IconMediaRewind />}
+                    selected={keyCode.base + keyCode.modified == 22710 ? true : false}
+                    onClick={() => {
+                      onKeySelect(22710);
+                    }}
+                  />
+                  <ButtonConfig
+                    tooltip={i18n.editor.superkeys.specialKeys.forward}
+                    tooltipDelay={100}
+                    icoSVG={<IconMediaForward />}
+                    selected={keyCode.base + keyCode.modified == 22709 ? true : false}
+                    onClick={() => {
+                      onKeySelect(22709);
+                    }}
+                  />
+                  <ButtonConfig
+                    tooltip={i18n.editor.superkeys.specialKeys.shuffle}
+                    tooltipDelay={100}
+                    icoSVG={<IconMediaShuffle />}
+                    selected={keyCode.base + keyCode.modified == 22713 ? true : false}
+                    onClick={() => {
+                      onKeySelect(22713);
+                    }}
+                  />
+                  <ButtonConfig
+                    tooltip={i18n.editor.superkeys.specialKeys.mute}
+                    tooltipDelay={100}
+                    icoSVG={<IconMediaSoundMute />}
+                    selected={keyCode.base + keyCode.modified == 19682 ? true : false}
+                    onClick={() => {
+                      onKeySelect(19682);
+                    }}
+                  />
+                  <ButtonConfig
+                    tooltip={i18n.editor.superkeys.specialKeys.soundLess}
+                    tooltipDelay={100}
+                    icoSVG={<IconMediaSoundLess />}
+                    selected={keyCode.base + keyCode.modified == 23786 ? true : false}
+                    onClick={() => {
+                      onKeySelect(23786);
+                    }}
+                  />
+                  <ButtonConfig
+                    tooltip={i18n.editor.superkeys.specialKeys.soundMore}
+                    tooltipDelay={100}
+                    icoSVG={<IconMediaSoundMore />}
+                    selected={keyCode.base + keyCode.modified == 23785 ? true : false}
+                    onClick={() => {
+                      onKeySelect(23785);
+                    }}
+                  />
+                </div>
               </div>
             </div>
+            <div className="colTools">
+              <div className="keysRow keysTools">
+                <div className="keyIcon">
+                  <IconWrench />
+                </div>
+                <div className="keysButtonsList">
+                  <ButtonConfig
+                    tooltip={i18n.editor.superkeys.specialKeys.eject}
+                    tooltipDelay={100}
+                    icoSVG={<IconToolsEject />}
+                    selected={keyCode.base + keyCode.modified == 22712 ? true : false}
+                    onClick={() => {
+                      onKeySelect(22712);
+                    }}
+                  />
+                  <ButtonConfig
+                    tooltip={i18n.editor.superkeys.specialKeys.calculator}
+                    tooltipDelay={100}
+                    icoSVG={<IconToolsCalculator />}
+                    selected={keyCode.base + keyCode.modified == 18834 ? true : false}
+                    onClick={() => {
+                      onKeySelect(18834);
+                    }}
+                  />
+                  <ButtonConfig
+                    tooltip={i18n.editor.superkeys.specialKeys.camera}
+                    tooltipDelay={100}
+                    icoSVG={<IconToolsCamera />}
+                    selected={keyCode.base + keyCode.modified == 18552 ? true : false}
+                    onClick={() => {
+                      onKeySelect(18552);
+                    }}
+                  />
 
-            <div className="keysRow keysLED">
-              <div className="keyIcon">
-                <h4>LED</h4>
-              </div>
-              <div className="keysButtonsList">
-                <ButtonConfig
-                  buttonText={i18n.editor.superkeys.specialKeys.ledToggleText}
-                  icoPosition="left"
-                  tooltip={i18n.editor.superkeys.specialKeys.ledToggleTootip}
-                  tooltipDelay={300}
-                  onClick={() => {
-                    onKeySelect(17154);
-                  }}
-                  icoSVG={<IconLEDSwitchLeft />}
-                  selected={keyCode.base + keyCode.modified == 17154 ? true : false}
-                  className="buttonConfigLED"
-                />
-                <ButtonConfig
-                  tooltip={i18n.editor.superkeys.specialKeys.ledPreviousEffectTootip}
-                  tooltipDelay={300}
-                  icoSVG={<IconLEDPreviousEffect />}
-                  onClick={() => {
-                    onKeySelect(17153);
-                  }}
-                  selected={keyCode.base + keyCode.modified == 17153 ? true : false}
-                />
-                <ButtonConfig
-                  tooltip={i18n.editor.superkeys.specialKeys.ledNextEffectTootip}
-                  tooltipDelay={300}
-                  icoSVG={<IconLEDNextEffect />}
-                  onClick={() => {
-                    onKeySelect(17152);
-                  }}
-                  selected={keyCode.base + keyCode.modified == 17152 ? true : false}
-                />
+                  <ButtonConfig
+                    tooltip={i18n.editor.superkeys.specialKeys.brightnessLess}
+                    tooltipDelay={100}
+                    icoSVG={<IconToolsBrightnessLess />}
+                    selected={keyCode.base + keyCode.modified == 23664 ? true : false}
+                    onClick={() => {
+                      onKeySelect(23664);
+                    }}
+                  />
+                  <ButtonConfig
+                    tooltip={i18n.editor.superkeys.specialKeys.brightnessMore}
+                    tooltipDelay={100}
+                    icoSVG={<IconToolsBrightnessMore />}
+                    selected={keyCode.base + keyCode.modified == 23663 ? true : false}
+                    onClick={() => {
+                      onKeySelect(23663);
+                    }}
+                  />
+                  <ButtonConfig
+                    tooltip={i18n.editor.superkeys.specialKeys.sleep}
+                    tooltipDelay={100}
+                    icoSVG={<IconSleep />}
+                    selected={keyCode.base + keyCode.modified == 20866 ? true : false}
+                    onClick={() => {
+                      onKeySelect(20866);
+                    }}
+                  />
+                  <ButtonConfig
+                    tooltip={i18n.editor.superkeys.specialKeys.shutdown}
+                    tooltipDelay={100}
+                    icoSVG={<IconShutdown />}
+                    selected={keyCode.base + keyCode.modified == 20865 ? true : false}
+                    onClick={() => {
+                      onKeySelect(20865);
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </div>
+          <svg className="svgStyle" viewBox="0 0 1070 48" preserveAspectRatio="xMidYMin slice">
+            <foreignObject width={1070} height={48} x={0} y={0} style={{ overflow: "visible" }}>
+              <div xmlns="http://www.w3.org/1999/xhtml">
+                <div className="keysContainer">
+                  <div className="keysRow keysMouseEvents">
+                    <div className="keyIcon">
+                      <IconMouse />
+                    </div>
+                    <div className="keyTitle">
+                      <div dangerouslySetInnerHTML={{ __html: i18n.editor.superkeys.specialKeys.mouseClick }} />
+                    </div>
+                    <div className="keysButtonsList">
+                      <ButtonConfig
+                        buttonText={i18n.editor.superkeys.specialKeys.left}
+                        selected={keyCode.base + keyCode.modified == 20545 ? true : false}
+                        onClick={() => {
+                          onKeySelect(20545);
+                        }}
+                      />
+                      <ButtonConfig
+                        buttonText={i18n.editor.superkeys.specialKeys.middle}
+                        selected={keyCode.base + keyCode.modified == 20548 ? true : false}
+                        onClick={() => {
+                          onKeySelect(20548);
+                        }}
+                      />
+                      <ButtonConfig
+                        buttonText={i18n.editor.superkeys.specialKeys.right}
+                        selected={keyCode.base + keyCode.modified == 20546 ? true : false}
+                        onClick={() => {
+                          onKeySelect(20546);
+                        }}
+                      />
+                      <ButtonConfig
+                        buttonText={i18n.editor.superkeys.specialKeys.back}
+                        selected={keyCode.base + keyCode.modified == 20552 ? true : false}
+                        onClick={() => {
+                          onKeySelect(20552);
+                        }}
+                      />
+                      <ButtonConfig
+                        buttonText={i18n.editor.superkeys.specialKeys.fwd}
+                        selected={keyCode.base + keyCode.modified == 20560 ? true : false}
+                        onClick={() => {
+                          onKeySelect(20560);
+                        }}
+                      />
+                    </div>
+                    <div className="keyTitle keyTitleClick">
+                      <div dangerouslySetInnerHTML={{ __html: i18n.editor.superkeys.specialKeys.mouseMovement }} />
+                    </div>
+                    <div className="keysButtonsList">
+                      <ButtonConfig
+                        buttonText={i18n.editor.superkeys.specialKeys.left}
+                        selected={keyCode.base + keyCode.modified == 20484 ? true : false}
+                        onClick={() => {
+                          onKeySelect(20484);
+                        }}
+                      />
+                      <ButtonConfig
+                        buttonText={i18n.editor.superkeys.specialKeys.right}
+                        selected={keyCode.base + keyCode.modified == 20488 ? true : false}
+                        onClick={() => {
+                          onKeySelect(20488);
+                        }}
+                      />
+                      <ButtonConfig
+                        buttonText={i18n.editor.superkeys.specialKeys.up}
+                        selected={keyCode.base + keyCode.modified == 20481 ? true : false}
+                        onClick={() => {
+                          onKeySelect(20481);
+                        }}
+                      />
+                      <ButtonConfig
+                        buttonText={i18n.editor.superkeys.specialKeys.down}
+                        selected={keyCode.base + keyCode.modified == 20482 ? true : false}
+                        onClick={() => {
+                          onKeySelect(20482);
+                        }}
+                      />
+                    </div>
+                    <div className="keyTitle keyTitleClick">
+                      <div dangerouslySetInnerHTML={{ __html: i18n.editor.superkeys.specialKeys.mouseWheel }} />
+                    </div>
+                    <div className="keysButtonsList">
+                      <ButtonConfig
+                        buttonText={i18n.editor.superkeys.specialKeys.left}
+                        selected={keyCode.base + keyCode.modified == 20500 ? true : false}
+                        onClick={() => {
+                          onKeySelect(20500);
+                        }}
+                      />
+                      <ButtonConfig
+                        buttonText={i18n.editor.superkeys.specialKeys.right}
+                        selected={keyCode.base + keyCode.modified == 20504 ? true : false}
+                        onClick={() => {
+                          onKeySelect(20504);
+                        }}
+                      />
+                      <ButtonConfig
+                        buttonText={i18n.editor.superkeys.specialKeys.up}
+                        selected={keyCode.base + keyCode.modified == 20497 ? true : false}
+                        onClick={() => {
+                          onKeySelect(20497);
+                        }}
+                      />
+                      <ButtonConfig
+                        buttonText={i18n.editor.superkeys.specialKeys.down}
+                        selected={keyCode.base + keyCode.modified == 20498 ? true : false}
+                        onClick={() => {
+                          onKeySelect(20498);
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </foreignObject>
+          </svg>
         </div>
       </Style>
     );

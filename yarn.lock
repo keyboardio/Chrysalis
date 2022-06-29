@@ -7182,7 +7182,7 @@ node-forge@^0.10.0:
   resolved "https://registry.npmjs.org/node-forge/-/node-forge-0.10.0.tgz"
   integrity sha512-PPmu8eEeG9saEUvI97fm4OYxXVB6bFvyNTyiUOBichBpFG8A1Ljw3bY62+5oOjDEMHRnd0Y7HQ+x7uzxOzC6JA==
 
-node-gyp-build@^4.3.0:
+node-gyp-build@4.x.x, node-gyp-build@^4.3.0:
   version "4.4.0"
   resolved "https://registry.npmjs.org/node-gyp-build/-/node-gyp-build-4.4.0.tgz"
   integrity sha512-amJnQCcgtRVw9SvoebO3BKGESClrfXGCUTX9hSn1OuGQTQBOZmVd0Z0OlecpuRksKvbsUqALE8jls/ErClAPuQ==
@@ -10089,6 +10089,13 @@ typescript@^4.4.3:
   version "4.7.3"
   resolved "https://registry.npmjs.org/typescript/-/typescript-4.7.3.tgz"
   integrity sha512-WOkT3XYvrpXx4vMMqlD+8R8R37fZkjyLGlxavMc4iB8lrl8L0DeTcHbYgw/v0N/z9wAFsgBhcsF0ruoySS22mA==
+
+uiohook-napi@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/uiohook-napi/-/uiohook-napi-1.2.0.tgz#2c40e6c4b2948f808374029b301e9c0885e0cf77"
+  integrity sha512-v38nuM356VZkdtlzLsBjCQTy22BeJ173url2ZjjwdiD+pq976YU4GGUxyxR1Gg8VuZvZDMfuNOnhnXUQ88VZLg==
+  dependencies:
+    node-gyp-build "4.x.x"
 
 unbox-primitive@^1.0.0:
   version "1.0.1"

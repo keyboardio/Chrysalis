@@ -567,7 +567,7 @@ class SuperkeysConfigurator extends React.Component {
           .map((l, c) =>
             l
               .map((k, i) => {
-                if (k.keyCode == key.id + 53916) return { layer: c, pos: i, sk: key.id + 53916 };
+                if (k.keyCode == key.id + 53980) return { layer: c, pos: i, sk: key.id + 53980 };
               })
               .filter(x => x != undefined)
           )
@@ -603,7 +603,7 @@ class SuperkeysConfigurator extends React.Component {
           .map((l, c) =>
             l
               .map((k, i) => {
-                if (k.keyCode == key.id + 53916) return { layer: c, pos: i, sk: key.id + 53916 };
+                if (k.keyCode == key.id + 53980) return { layer: c, pos: i, sk: key.id + 53980 };
               })
               .filter(x => x != undefined)
           )

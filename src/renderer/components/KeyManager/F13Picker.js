@@ -32,10 +32,10 @@ class F13Picker extends Component {
   render() {
     const { keyCode, onKeySelect } = this.props;
     // let enumerator = [];
-    // const skeys = Array(64)
+    // const skeys = Array(128)
     //   .fill()
-    //   .map((_, i) => i + 53916);
-    // const F13 = Array(64)
+    //   .map((_, i) => i + 53980);
+    // const F13 = Array(128)
     //   .fill()
     //   .map((_, i) => i + 53852);
     // const shftto = Array(10)

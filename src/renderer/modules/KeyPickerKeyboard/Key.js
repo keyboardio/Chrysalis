@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from "react";
 import Styled, { withTheme } from "styled-components";
-import { SelectF13PlusKeys } from "../../component/Select";
+import { SelectF13PlusKeys, SelectGenericKeys } from "../../component/Select";
 
 const Style = Styled.g`
 .keycap {
@@ -95,6 +95,18 @@ const ksl = {
   },
   specialBlockDropdown: {
     outb: { x: 65, y: keyCapRegularSize.height, dx: 0, dy: 0 },
+    out: { x: 42, y: 20, dx: 1, dy: 1 },
+    icon: { x: 12, y: -3, w: 30, h: 26 },
+    text: {
+      a: { dx: 6, dy: 19, fs: 20 },
+      b: { dx: 18, dy: 15, fs: 14 },
+      c: { dx: 28, dy: 15, fs: 14 },
+      d: { dx: 38, dy: 15, fs: 14 },
+      letter: { dx: 18, dy: 16, ddx: 22, ddy: 16, fs: 13, fss: 13 }
+    }
+  },
+  genericBlockDropdown: {
+    outb: { x: 200, y: keyCapRegularSize.height, dx: 0, dy: 0 },
     out: { x: 42, y: 20, dx: 1, dy: 1 },
     icon: { x: 12, y: -3, w: 30, h: 26 },
     text: {
@@ -354,7 +366,10 @@ class Key extends React.Component {
           ) : (
             ""
           )}
-          {content.type !== "enter" && content.type != "title" && content.type != "specialBlockDropdown" ? (
+          {content.type !== "enter" &&
+          content.type != "title" &&
+          content.type != "specialBlockDropdown" &&
+          content.type != "genericBlockDropdown" ? (
             <>
               <g filter={`url(#filter0_d_2211_181319)`}>
                 <rect
@@ -423,6 +438,32 @@ class Key extends React.Component {
           ) : (
             ""
           )}
+          {content.type == "genericBlockDropdown" ? (
+            <>
+              <foreignObject
+                width={ksl[content.type].outb.x}
+                height={ksl[content.type].outb.y}
+                x={x + ksl[content.type].outb.dx}
+                y={y + ksl[content.type].outb.dy}
+                style={{ overflow: "visible" }}
+              >
+                <div xmlns="http://www.w3.org/1999/xhtml">
+                  <SelectGenericKeys
+                    x={x + ksl[content.type].outb.dx}
+                    y={y + ksl[content.type].outb.dy}
+                    onSelect={onKeyPress}
+                    selected={selected}
+                    value={id}
+                    listElements={idArray}
+                    content={content}
+                    keyCode={keyCode}
+                  />
+                </div>
+              </foreignObject>
+            </>
+          ) : (
+            ""
+          )}
           {!iconpresent && content.type == "title" ? (
             <>
               <text
@@ -449,7 +490,11 @@ class Key extends React.Component {
           ) : (
             ""
           )}
-          {!iconpresent && centered && content.type != "title" && content.type != "specialBlockDropdown" ? (
+          {!iconpresent &&
+          centered &&
+          content.type != "title" &&
+          content.type != "specialBlockDropdown" &&
+          content.type != "genericBlockDropdown" ? (
             <>
               <text
                 x={x + ksl[content.type].text.letter.dx}

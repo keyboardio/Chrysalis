@@ -65,7 +65,7 @@ class SelectSuperKey extends Component {
     const KC = keyCode.base + keyCode.modified;
     const superk = Array(superkeys.length)
       .fill()
-      .map((_, i) => i + 53916);
+      .map((_, i) => i + 53980);
 
     let adjactions = actions;
     if (adjactions.length < 5) {
@@ -74,39 +74,39 @@ class SelectSuperKey extends Component {
       }
     }
 
-    const skSel = (
-      <Dropdown
-        value={superkeys[superk.indexOf(KC)] != undefined ? superk[superk.indexOf(KC)] : ""}
-        onSelect={value => {
-          onKeySelect(parseInt(value));
-        }}
-        className={`custom-dropdown ${superkeys[superk.indexOf(KC)] != undefined ? "active" : ""}`}
-      >
-        <Dropdown.Toggle id="dropdown-custom">
-          <div className="dropdownItemSelected">
-            <div className="dropdownItem">
-              <span className="dropdownLabel">Superkeys</span>
-              {superkeys[superk.indexOf(KC)] != undefined
-                ? `${superk.indexOf(KC) + 1} ${superkeys[superk.indexOf(KC)].name}`
-                : "Select superkey"}
+    return (
+      <Style>
+        <Dropdown
+          value={superkeys[superk.indexOf(KC)] != undefined ? superk[superk.indexOf(KC)] : ""}
+          onSelect={value => {
+            onKeySelect(parseInt(value));
+          }}
+          className={`custom-dropdown ${superkeys[superk.indexOf(KC)] != undefined ? "active" : ""}`}
+        >
+          <Dropdown.Toggle id="dropdown-custom">
+            <div className="dropdownItemSelected">
+              <div className="dropdownItem">
+                <span className="dropdownLabel">Superkeys</span>
+                {superkeys[superk.indexOf(KC)] != undefined
+                  ? `${superk.indexOf(KC) + 1} ${superkeys[superk.indexOf(KC)].name}`
+                  : "Select superkey"}
+              </div>
             </div>
-          </div>
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          {superk.map((x, id) => {
-            return (
-              <Dropdown.Item eventKey={x} key={`super-${id}`} disabled={x == -1}>
-                <div className="dropdownInner">
-                  <div className="dropdownItem">{`${id + 1}. ${superkeys[id].name}`}</div>
-                </div>
-              </Dropdown.Item>
-            );
-          })}
-        </Dropdown.Menu>
-      </Dropdown>
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            {superk.map((x, id) => {
+              return (
+                <Dropdown.Item eventKey={x} key={`super-${id}`} disabled={x == -1}>
+                  <div className="dropdownInner">
+                    <div className="dropdownItem">{`${id + 1}. ${superkeys[id].name}`}</div>
+                  </div>
+                </Dropdown.Item>
+              );
+            })}
+          </Dropdown.Menu>
+        </Dropdown>
+      </Style>
     );
-
-    return <Style>{skSel}</Style>;
   }
 }
 

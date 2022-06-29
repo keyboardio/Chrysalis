@@ -150,7 +150,7 @@ class DelayTab extends Component {
     if (this.state.fixedSelected) {
       this.props.onAddDelay(this.state.fixedValue, 2);
     } else {
-      this.props.onAddDelayRnd(this.state.randomValue.min, this.state.randomValue.max, 2);
+      this.props.onAddDelayRnd(this.state.randomValue.min, this.state.randomValue.max, 1);
     }
     // clean state
     this.setState({

@@ -151,7 +151,7 @@ class KeyMacro extends Component {
         >
           <div
             className={`keyMacroWrapper keyCode-${item.keyCode} ${isModifier ? "isModifier" : ""} ${
-              item.action == 2 ? "isDelay" : ""
+              item.action == 1 || item.action == 2 ? "isDelay" : ""
             }`}
           >
             <div className="keyMacro">
@@ -168,13 +168,15 @@ class KeyMacro extends Component {
                       <Dropdown.Menu>
                         <div className="keyMacroMiniDashboard">
                           <div className="keyInfo">
-                            {item.action == 2 ? (
+                            {item.action == 1 ? (
+                              <Title headingLevel={4} text={i18n.editor.macros.delayr} />
+                            ) : item.action == 2 ? (
                               <Title headingLevel={4} text={i18n.editor.macros.delay} />
                             ) : (
                               <Title headingLevel={4} text={i18n.general.key} />
                             )}
                             <p className="keyValue">
-                              {item.symbol} {item.action == 2 ? <small>ms</small> : ""}
+                              {item.symbol} {item.action == 1 || item.action == 2 ? <small>ms</small> : ""}
                             </p>
                           </div>
 
@@ -186,7 +188,7 @@ class KeyMacro extends Component {
                                 icoPosition="left"
                                 icoSVG={<IconPressSm />}
                                 selected={actionTypes[item.action].name == "Key Press" ? true : false}
-                                disabled={item.action == 2 ? true : false}
+                                disabled={item.action == 1 || item.action == 2 ? true : false}
                                 onClick={() => updateAction(item.id, 6)}
                               />
                               <ButtonConfig
@@ -194,7 +196,7 @@ class KeyMacro extends Component {
                                 icoPosition="left"
                                 icoSVG={<IconReleaseSm />}
                                 selected={actionTypes[item.action].name == "Key Release" ? true : false}
-                                disabled={item.action == 2 ? true : false}
+                                disabled={item.action == 1 || item.action == 2 ? true : false}
                                 onClick={() => updateAction(item.id, 7)}
                               />
                               <ButtonConfig
@@ -202,7 +204,7 @@ class KeyMacro extends Component {
                                 icoPosition="left"
                                 icoSVG={<IconPressAndReleaseSm />}
                                 selected={actionTypes[item.action].name == "Key Press & Rel." ? true : false}
-                                disabled={item.action == 2 ? true : false}
+                                disabled={item.action == 1 || item.action == 2 ? true : false}
                                 onClick={() => updateAction(item.id, 8)}
                               />
                             </div>

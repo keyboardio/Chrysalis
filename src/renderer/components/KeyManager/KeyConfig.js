@@ -210,7 +210,7 @@ class KeyConfig extends Component {
     let activeTab = "editor";
     if (
       keynum < 256 ||
-      (keynum > 53851 && keynum < 53852 + 64) ||
+      (keynum > 53851 && keynum < 53852 + 128) ||
       (keynum > 49152 && keynum < 49161) ||
       keynum == 65535 ||
       disable
@@ -244,7 +244,7 @@ class KeyConfig extends Component {
     } catch (error) {
       macroName = "*NotFound*";
     }
-    if (keycode >= 53852 && keycode <= 53852 + 64) {
+    if (keycode >= 53852 && keycode <= 53852 + 128) {
       if (this.props.code !== null) return this.keymapDB.parse(keycode).extraLabel + "." + macroName;
     }
     return this.props.code !== null
@@ -285,7 +285,7 @@ class KeyConfig extends Component {
               <Card.Body className="section">
                 <Row className="rowsection">
                   <Col xs={3} className="section">
-                    {code.base + code.modified >= 53916 && code.base + code.modified <= 53916 + 64 ? (
+                    {code.base + code.modified >= 53980 && code.base + code.modified <= 53980 + 127 ? (
                       <Selector
                         action={action}
                         actions={actions}

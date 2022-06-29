@@ -22,7 +22,7 @@ import Title from "../../component/Title";
 import ListModifiers from "../../component/ListModifiers/ListModifiers";
 
 const Style = Styled.div`
-&.KeyVisualizer {    
+&.KeyVisualizer {
     padding: 16px;
     position: relative;
     h4 {
@@ -31,7 +31,7 @@ const Style = Styled.div`
         margin-top: 8px;
     }
     .keySelectedBox {
-        padding: 16px;   
+        padding: 16px;
         background: ${({ theme }) => theme.styles.keyVisualizer.background};
         border: ${({ theme }) => theme.styles.keyVisualizer.border};
         box-sizing: border-box;
@@ -46,7 +46,7 @@ const Style = Styled.div`
       display: flex;
       flex-wrap: wrap;
     }
-    
+
     .labelHyper,
     .labelMeh {
       display: none;

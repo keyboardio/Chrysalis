@@ -3,7 +3,7 @@ import Styled from "styled-components";
 import i18n from "../../i18n";
 
 // Internal components
-import Keymap, { KeymapDB } from "../../../api/keymap";
+import { KeymapDB } from "../../../api/keymap";
 import { Picker } from "./../KeyPickerKeyboard";
 import Keys from "../../components/KeyManager/Keys";
 import Selector from "../../components/KeyManager/Selector";
@@ -94,7 +94,39 @@ width: -webkit-fill-available;
   color: ${({ theme }) => theme.colors.button.text};
   background-color: ${({ theme }) => theme.card.background};
 }
-
+.ball-container {
+  padding: 8px;
+  width: 100%;
+  
+}
+.ball-inner {
+  display: flex;
+  padding: 8px;
+  overflow-y: auto; 
+  border: 1px solid ${({ theme }) => theme.styles.standardView.superkeys.key.border};
+  border-radius: 3px;
+  background-color: ${({ theme }) => theme.styles.standardView.superkeys.key.background};
+}
+.ball-title {
+  font-size: 12px;
+  margin-top: 8px;
+  font-weight: 600;
+}
+.ball{
+  margin: 2px;
+  text-align: center;
+  padding: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  border: none;
+  color: rgba(226,228,234,1);
+  background: linear-gradient(90deg,rgba(255,255,255,0.1) -22.96%,rgba(255,255,255,0) 123.24%),linear-gradient(0deg,rgba(87,97,126,0.25),rgba(87,97,126,0.25)),rgba(11,2,25,0.2);
+  border: none;
+  border-radius: 6px;
+  box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.1);
+  transition: all 300ms ease-in-out;
+}
 .Tabstyle {
   margin-left: 322px;
   margin-top: -31px;
@@ -168,8 +200,13 @@ width: -webkit-fill-available;
   margin-right: ${({ theme }) => theme.styles.keyboardPicker.modPickerAlignAdjust};
   margin-bottom: ${({ theme }) => theme.styles.keyboardPicker.modPickerAlignAdjust};
   flex: 0 0 100%;
+  &.ModPickerScroll {
+    overflow: auto;
+  }
+  &.ModPickerScrollHidden {
+    overflow: hidden;
+  }
 }
-
 
 .superkeyHint {
   padding: 8px;
@@ -183,7 +220,6 @@ width: -webkit-fill-available;
   justify-content: space-between;
   background-color: ${({ theme }) => theme.styles.standardView.superkeys.item.background};
 }
-
 .superkeyItem + .superkeyItem  {
   margin-top: 1px;
 }
@@ -299,7 +335,7 @@ class KeyPickerKeyboard extends Component {
     let activeTab = "editor";
     if (
       keynum < 256 ||
-      (keynum > 53851 && keynum < 53852 + 64) ||
+      (keynum > 53851 && keynum < 53852 + 128) ||
       (keynum > 49152 && keynum < 49161) ||
       keynum == 65535 ||
       disable
@@ -326,15 +362,19 @@ class KeyPickerKeyboard extends Component {
   }
 
   parseKey(keycode) {
-    const macro = this.props.macros[parseInt(this.keymapDB.parse(keycode).label)];
-    let macroName;
-    try {
-      macroName = this.props.macros[parseInt(this.keymapDB.parse(keycode).label)].name.substr(0, 5);
-    } catch (error) {
-      macroName = "*NotFound*";
+    if (keycode >= 53980 && keycode <= 53980 + 128) {
+      let superk = "";
+      console.log(this.props.superkeys[keycode - 53980]);
+      superk = `SUPER\n${
+        this.props.superkeys[keycode - 53980] ? this.props.superkeys[keycode - 53980].name : keycode - 53980 + 1
+      }`;
+      return superk;
     }
-    if (keycode >= 53852 && keycode <= 53852 + 64) {
-      if (this.props.code !== null) return this.keymapDB.parse(keycode).extraLabel + "." + macroName;
+    if (keycode > 53851 && keycode <= 53851 + 128) {
+      let macroN = "";
+      console.log(this.props.macros[keycode - 53852]);
+      macroN = `MACRO\n${this.props.macros[keycode - 53852] ? this.props.macros[keycode - 53852].name : keycode - 53852}`;
+      return macroN;
     }
     return this.props.code !== null
       ? this.keymapDB.parse(keycode).extraLabel != undefined
@@ -386,7 +426,7 @@ class KeyPickerKeyboard extends Component {
     const KC = code.base + code.modified;
     const superk = Array(superkeys.length)
       .fill()
-      .map((_, i) => i + 53916);
+      .map((_, i) => i + 53980);
 
     let adjactions = actions;
     if (adjactions.length < 5) {
@@ -424,8 +464,8 @@ class KeyPickerKeyboard extends Component {
           <div className="keyEnhanceWrapper">
             <div className="keyEnhanceInner">
               <KeyVisualizer newValue={selKey} keyCode={code} />
-              <div className="ModPicker">
-                {superkeys[superk.indexOf(KC)] != undefined ? (
+              <div className={`ModPicker ${this.props.macros[KC - 53852] ? "ModPickerScrollHidden" : ""}`}>
+                {superkeys[superk.indexOf(KC)] ? (
                   <div className="superkeyHint">
                     {superKeysActions.map((item, index) => (
                       <div className="superkeyItem" key={`superHint-${index}`}>
@@ -438,6 +478,19 @@ class KeyPickerKeyboard extends Component {
                         </div>
                       </div>
                     ))}
+                  </div>
+                ) : this.props.macros[KC - 53852] ? (
+                  <div className="ball-container">
+                    <h5 className="ball-title">Preview macro</h5>
+                    <div className="ball-inner">
+                      {this.props.macros[KC - 53852].macro.split(" ").map((data, index) => {
+                        return (
+                          <div className="ball" key={`LtrIdx-${index}`}>
+                            {data}
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 ) : (
                   <>

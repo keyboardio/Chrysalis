@@ -93,8 +93,8 @@ const ModeCard = styled(ModeCardBase)((props) => {
     const color = colorToRGBA(theme.palette.primary[theme.palette.mode]);
     return {
       width: 120,
-      marginLeft: `${theme.spacing(2)}`,
-      marginRight: `${theme.spacing(2)}`,
+      minWidth: 120,
+      margin: `${theme.spacing(1)}`,
       boxShadow: `0px 5px 5px -3px rgb(${color[0]} ${color[1]} ${color[2]} / 40%),
                   0px 8px 10px 1px rgb(${color[0]} ${color[1]} ${color[2]} / 28%),
                   0px 3px 14px 2px rgb(${color[0]} ${color[1]} ${color[2]} / 24%)`,
@@ -102,8 +102,8 @@ const ModeCard = styled(ModeCardBase)((props) => {
   } else {
     return {
       width: 120,
-      marginLeft: `${theme.spacing(2)}`,
-      marginRight: `${theme.spacing(2)}`,
+      minWidth: 120,
+      margin: `${theme.spacing(1)}`,
     };
   }
 });
@@ -172,7 +172,7 @@ function LookAndFeelPreferences(props) {
       <Typography sx={{ my: "auto" }} variant="body1">
         {t("preferences.ui.theme.label")}
       </Typography>
-      <Box sx={{ display: "inline-flex", my: 2 }}>
+      <Box sx={{ display: "inline-flex", my: 2, flexWrap: "wrap" }}>
         <ModeCard
           name="system"
           image={systemSvg}

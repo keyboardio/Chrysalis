@@ -104,6 +104,9 @@ const loadKeyboard = async (group, isDefault, file) => {
   const cldrKeyboard = (await xml2js.parseStringPromise(data)).keyboard;
   const cldrKeymap = cldrKeyboard.keyMap;
 
+  const hasAltRmods = (mods) =>
+    mods.split(/ /).some((v) => v.match(/^altR(\+caps\?)*$/));
+
   const name = cldrKeyboard.names[0].name[0]["$"].value;
 
   const keymap = {};
@@ -134,8 +137,9 @@ const loadKeyboard = async (group, isDefault, file) => {
           },
         };
       }
-    } else if (map["$"].modifiers == "altR") {
+    } else if (hasAltRmods(map["$"].modifiers)) {
       for (const key of map.map) {
+        if (!keymap[key["$"].iso]) continue;
         keymap[key["$"].iso].label.altgr = decode(key["$"].to);
 
         // Add the label to the modified keycode too.

@@ -42,6 +42,7 @@ import { IconFloppyDisk } from "../component/Icon";
 import PageHeader from "../modules/PageHeader";
 import { SuperKeysFeatures, SuperkeyActions } from "../modules/Superkeys";
 import { KeyPickerKeyboard } from "../modules/KeyPickerKeyboard";
+import StandardView from "../modules/StandardView";
 
 // API's
 import i18n from "../i18n";
@@ -137,7 +138,8 @@ class SuperkeysEditor extends React.Component {
       futureSK: [],
       futureSSK: 0,
       currentLanguageLayout: store.get("settings.language") || "english",
-      isStandardViewSuperkeys: store.get("settings.isStandardViewSuperkeys") || true
+      isStandardViewSuperkeys: store.get("settings.isStandardViewSuperkeys") || true,
+      showStandardView: false
     };
     this.changeSelected = this.changeSelected.bind(this);
     this.updateSuper = this.updateSuper.bind(this);
@@ -452,15 +454,24 @@ class SuperkeysEditor extends React.Component {
   }
 
   changeAction(id) {
-    if (id == this.state.selectedAction) {
+    if (this.state.isStandardViewSuperkeys) {
       this.setState({
-        selectedAction: -1
+        selectedAction: id < 0 ? 0 : id,
+        showStandardView: true
       });
-      return;
+    } else {
+      if (id == this.state.selectedAction) {
+        //Some action is already selected
+        this.setState({
+          selectedAction: -1
+        });
+        return;
+      }
+      this.setState({
+        selectedAction: id < 0 ? 0 : id,
+        showStandardView: false
+      });
     }
-    this.setState({
-      selectedAction: id < 0 ? 0 : id
-    });
   }
 
   updateSuper(newSuper, newID) {
@@ -692,8 +703,8 @@ class SuperkeysEditor extends React.Component {
   //Manage Standard/Single view
   async configStandarView() {
     try {
-      //const preferencesStandardViewJSON = JSON.parse(store.get("settings.isStandardViewSuperkeys"));
-      const preferencesStandardView = false;
+      const preferencesStandardView = JSON.parse(store.get("settings.isStandardViewSuperkeys"));
+      //const preferencesStandardView = false;
       //console.log("Preferences StandardView", preferencesStandardViewJSON);
       if (preferencesStandardView !== null) {
         this.setState({ isStandardViewSuperkeys: preferencesStandardView });
@@ -712,9 +723,20 @@ class SuperkeysEditor extends React.Component {
   }
 
   onToogle = () => {
-    this.setState(state => {
-      ({ isStandardViewSuperkeys: !state.isStandardViewSuperkeys });
-    });
+    if (this.state.isStandardViewSuperkeys) {
+      this.setState({ isStandardViewSuperkeys: false });
+    } else {
+      this.setState({ isStandardViewSuperkeys: true });
+    }
+  };
+
+  closeStandardViewModal = code => {
+    this.onKeyChange(code);
+    this.setState({ showStandardView: false });
+  };
+
+  handleSaveStandardView = () => {
+    this.setState({ showStandardView: false });
   };
 
   render() {
@@ -726,7 +748,8 @@ class SuperkeysEditor extends React.Component {
       maxSuperKeys,
       macros,
       selectedAction,
-      isStandardViewSuperkeys
+      isStandardViewSuperkeys,
+      showStandardView
     } = this.state;
 
     let code = 0;
@@ -790,27 +813,54 @@ class SuperkeysEditor extends React.Component {
           )}
           {isStandardViewSuperkeys && <SuperKeysFeatures />}
         </Container>
-        <Container fluid className="keyboardcontainer" hidden={selectedAction < 0}>
-          <KeyPickerKeyboard
-            key={JSON.stringify(superkeys) + selectedAction}
-            onKeySelect={this.onKeyChange}
-            code={code}
-            macros={macros}
-            superkeys={superkeys}
-            actions={actions}
-            action={selectedAction}
-            actTab={"super"}
-            superName={superName}
-            selectedlanguage={currentLanguageLayout}
-            kbtype={kbtype}
-          />
-        </Container>
+        {!isStandardViewSuperkeys ? (
+          <Container fluid className="keyboardcontainer" hidden={selectedAction < 0}>
+            <KeyPickerKeyboard
+              key={JSON.stringify(superkeys) + selectedAction}
+              onKeySelect={this.onKeyChange}
+              code={code}
+              macros={macros}
+              superkeys={superkeys}
+              actions={actions}
+              action={selectedAction}
+              actTab={"super"}
+              superName={superName}
+              selectedlanguage={currentLanguageLayout}
+              kbtype={kbtype}
+            />
+          </Container>
+        ) : (
+          ""
+        )}
         <LayoutViewSelector
           onToogle={this.onToogle}
           isStandardView={isStandardViewSuperkeys}
           tooltip={i18n.editor.superkeys.tooltip}
-          isDisabled={true}
+          isDisabled={false}
         />
+        {isStandardViewSuperkeys ? (
+          <StandardView
+            showStandardView={this.state.showStandardView}
+            closeStandardView={this.closeStandardViewModal}
+            handleSave={this.handleSaveStandardView}
+            onKeySelect={this.onKeyChange}
+            macros={macros}
+            superkeys={superkeys}
+            actions={actions}
+            action={selectedAction}
+            superName={superName}
+            keyIndex={selectedSuper}
+            code={code}
+            // layerData={layerData}
+            actTab="super"
+            selectedlanguage={currentLanguageLayout}
+            kbtype={kbtype}
+            isStandardView={isStandardViewSuperkeys}
+          />
+        ) : (
+          ""
+        )}
+
         <Modal
           show={this.state.showDeleteModal}
           onHide={this.toggleDeleteModal}

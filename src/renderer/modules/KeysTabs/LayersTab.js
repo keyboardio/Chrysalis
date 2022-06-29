@@ -44,7 +44,7 @@ class LayersTab extends Component {
   }
 
   render() {
-    const { keyCode, isStandardView, showLayerSwitch } = this.props;
+    const { keyCode, isStandardView, showLayerSwitch, actTab } = this.props;
     const layerDeltaSwitch = 17450;
     const layerDelta = 17492;
     return (

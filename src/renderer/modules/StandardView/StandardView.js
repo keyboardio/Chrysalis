@@ -207,9 +207,16 @@ export default class StandardView extends React.Component {
       onKeySelect,
       superkeys,
       actions,
+      actTab,
       isStandardView
     } = this.props;
-    const keyCode = keyIndex !== -1 ? layerData[keyIndex].keyCode : 0;
+    let keyCode;
+    if (actTab == "super") {
+      keyCode = code;
+    } else {
+      keyCode = keyIndex !== -1 ? layerData[keyIndex].keyCode : 0;
+    }
+
     const selKey = this.parseKey(keyCode);
     const oldKey = this.parseKey(this.state.code);
     if (!showStandardView) return null;
@@ -225,8 +232,14 @@ export default class StandardView extends React.Component {
                   <CustomTab eventKey="tabNoKeys" text={i18n.editor.standardView.noKeyTransparent} icon={<IconNoKey />} />
                   <CustomTab eventKey="tabLayers" text={i18n.editor.standardView.layers.title} icon={<IconLayers />} />
                   <CustomTab eventKey="tabMacro" text={i18n.editor.standardView.macros.title} icon={<IconRobot />} />
-                  <CustomTab eventKey="tabSuperKeys" text={i18n.editor.standardView.superkeys.title} icon={<IconThunder />} />
-                  <CustomTab eventKey="tabOneShot" text={i18n.editor.standardView.oneShot.title} icon={<IconOneShot />} />
+                  {actTab != "super" ? (
+                    <>
+                      <CustomTab eventKey="tabSuperKeys" text={i18n.editor.standardView.superkeys.title} icon={<IconThunder />} />
+                      <CustomTab eventKey="tabOneShot" text={i18n.editor.standardView.oneShot.title} icon={<IconOneShot />} />
+                    </>
+                  ) : (
+                    ""
+                  )}
                   <CustomTab eventKey="tabMedia" text={i18n.editor.standardView.mediaAndLED.title} icon={<IconNote />} />
                   <CustomTab eventKey="tabMouse" text={i18n.editor.standardView.mouse.title} icon={<IconMouse />} />
                 </Nav>
@@ -244,8 +257,9 @@ export default class StandardView extends React.Component {
                       <LayersTab
                         onLayerPress={onKeySelect}
                         keyCode={keyCode}
-                        showLayerSwitch={true}
+                        showLayerSwitch={actTab == "super" ? false : true}
                         isStandardView={isStandardView}
+                        actTab={actTab}
                       />
                     </Tab.Pane>
                     <Tab.Pane eventKey="tabMacro">
@@ -257,19 +271,27 @@ export default class StandardView extends React.Component {
                         isStandardView={isStandardView}
                       />
                     </Tab.Pane>
-                    <Tab.Pane eventKey="tabSuperKeys">
-                      <SuperkeysTab
-                        actions={actions}
-                        superkeys={superkeys}
-                        onKeySelect={onKeySelect}
-                        macros={macros}
-                        keyCode={keyCode}
-                        isStandardView={isStandardView}
-                      />
-                    </Tab.Pane>
-                    <Tab.Pane eventKey="tabOneShot">
-                      <OneShotTab keyCode={keyCode} onKeySelect={onKeySelect} isStandardView={isStandardView} />
-                    </Tab.Pane>
+                    {actTab != "super" ? (
+                      <Tab.Pane eventKey="tabSuperKeys">
+                        <SuperkeysTab
+                          actions={actions}
+                          superkeys={superkeys}
+                          onKeySelect={onKeySelect}
+                          macros={macros}
+                          keyCode={keyCode}
+                          isStandardView={isStandardView}
+                        />
+                      </Tab.Pane>
+                    ) : (
+                      ""
+                    )}
+                    {actTab != "super" ? (
+                      <Tab.Pane eventKey="tabOneShot">
+                        <OneShotTab keyCode={keyCode} onKeySelect={onKeySelect} isStandardView={isStandardView} />
+                      </Tab.Pane>
+                    ) : (
+                      ""
+                    )}
                     <Tab.Pane eventKey="tabMedia">
                       <MediaAndLightTab onAddSpecial={this.onAddSpecial} keyCode={keyCode} isStandardView={isStandardView} />
                     </Tab.Pane>

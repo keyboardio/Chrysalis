@@ -108,7 +108,7 @@ const LayoutViewSelector = ({ onToogle, isStandardView, tooltip, isDisabled }) =
             buttonText={i18n.editor.editMode.standardView}
             size={"sm"}
             disabled={isDisabled}
-            tooltip={"Standard view will be available in future releases of Bazecor Beta"}
+            // tooltip={"Standard view will be available in future releases of Bazecor Beta"}
           />
           <ButtonConfig
             onClick={onToogle}

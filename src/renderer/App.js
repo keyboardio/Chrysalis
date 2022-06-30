@@ -116,12 +116,18 @@ const App = (props) => {
     setTheme("system");
   };
 
-  useEffect(async () => {
-    const layoutSetting = await settings.get("keyboard.layout", "English (US)");
+  useEffect(() => {
+    async function setupLayout() {
+      const layoutSetting = await settings.get(
+        "keyboard.layout",
+        "English (US)"
+      );
 
-    const db = new KeymapDB();
-    await db.loadLayouts();
-    await db.setLayout(layoutSetting);
+      const db = new KeymapDB();
+      await db.loadLayouts();
+      await db.setLayout(layoutSetting);
+    }
+    setupLayout();
   }, []);
 
   useEffect(() => {

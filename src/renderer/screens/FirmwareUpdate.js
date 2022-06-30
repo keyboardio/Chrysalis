@@ -64,13 +64,6 @@ const FirmwareUpdate = (props) => {
 
   const _flash = async (options) => {
     const focus = new Focus();
-    let filename;
-
-    if (selectedFirmwareType == "default") {
-      filename = activeDevice.defaultFirmwareFilename();
-    } else {
-      filename = firmwareFilename;
-    }
 
     const nextStep = async (desiredState) => {
       const steps = focusDeviceDescriptor.flashSteps(options);
@@ -92,7 +85,10 @@ const FirmwareUpdate = (props) => {
       (await checkExternalFlasher(focusDeviceDescriptor));
     return focusDeviceDescriptor.flash(
       focus._port,
-      filename,
+      selectedFirmwareType === "default"
+        ? activeDevice.defaultFirmwareFilename()
+        : firmwareFilename,
+
       Object.assign({}, options, {
         preferExternalFlasher: preferExternalFlasher,
         device: focusDeviceDescriptor,

@@ -29,6 +29,15 @@ const generateCLDRData = async () => {
     "./src/api/focus/keymap/cldr_data.json",
     JSON.stringify(db, null, 2)
   );
+  fs.writeFileSync(
+    "./src/api/focus/keymap/.cldr_data_generated",
+    ""
+  );
+
 };
 
-generateCLDRData();
+if (fs.existsSync("./src/api/focus/keymap/.cldr_data_generated")) {
+    console.log("* ./src/api/focus/keymap/.cldr_data_generated exists. Skipping regeneration.");
+} else {
+    generateCLDRData();
+}

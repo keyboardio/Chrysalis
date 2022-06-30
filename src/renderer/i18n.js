@@ -35,7 +35,7 @@ i18n // eslint-disable-line import/no-named-as-default-member
   .use(LanguageDetector)
   .init({
     react: {
-      wait: true,
+      useSuspense: true,
     },
     resources: resources,
     lng: "en",

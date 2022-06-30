@@ -9,12 +9,20 @@ having to download the new version manually. This feature is opt-in, and has to
 be enabled in Preferences first. When disabled, it will still display a
 notification, but will not download or install it.
 
-Chrysalis has been translated to Dutch, and we're in the process of setting up
-Weblate to make future translations - and maintenance of them - simpler and more
-accessible.
+Chrysalis has been translated to Dutch, and we've made future translations - and
+the maintenance of them- simpler and more accessible.
 
 There is a new option in Preferences, which lets you select whether printing the
 Layout Card screen will print one layer per page, or as many as fit.
+
+Chrysalis now supports a number of new keys, such as F13-F24, and many more
+international symbols when using international layouts.
+
+## Firmware update
+
+Going forward, Chrysalis will only ship with one variant of the firmware, there
+are no more "default" and "experimental" versions, just a single one, and it
+comes with its [own changelog](static/firmware-changelog.md).
 
 ## Bugfixes
 
@@ -23,10 +31,14 @@ unsaved changes, Chrysalis will first ask for confirmation before shutting down.
 
 On Linux, installing the udev rules works once again.
 
+User interface glitches when using Chrysalis at smaller window sizes have been
+fixed, and we have improved Chrysalis to scale down to smaller sizes better.
+
 ## Miscellaneous
 
 The Windows builds - similar to the macOS builds - are now signed, which should
-make installation simpler in the long run.
+make installation simpler in the long run. We're also providing portable Windows
+executables that lets you run Chrysalis without installing it.
 
 Chrysalis 0.10.2
 ================

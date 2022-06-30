@@ -88,7 +88,7 @@ export const useAutoUpdate = () => {
       );
       ipcRenderer.removeListener("auto-update.error", onUpdateError);
     };
-  }, [t]);
+  }, [setUpdateAvailable, t]);
 
   return updateInfo;
 };

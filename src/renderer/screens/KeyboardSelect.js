@@ -87,17 +87,17 @@ const KeyboardSelect = (props) => {
     scanDevices();
   }, 5000);
 
-  useEffectOnce(async () => {
-    const deviceList = await scanDevices();
-
-    for (const device of deviceList) {
-      if (!device.path) continue;
-
-      if (device.path == (await activeDevice?.devicePath())) {
-        setSelectedPortIndex(deviceList.indexOf(device));
-        break;
+  useEffectOnce(() => {
+    scanDevices().then((deviceList) => {
+      for (const device of deviceList) {
+        if (!device.path) continue;
+        activeDevice?.devicePath().then((path) => {
+          if (path == device.path) {
+            setSelectedPortIndex(deviceList.indexOf(device));
+          }
+        });
       }
-    }
+    });
   });
 
   useEffect(() => {

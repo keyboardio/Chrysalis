@@ -48,12 +48,12 @@ const MacroEditor = (props) => {
     setStepEditorOpen(true);
   };
 
-  const setSteps = (macroSteps) => {
-    onMacroChange(macroId, macroSteps);
-  };
-
   const moveStep = useCallback(
     (dragIndex, hoverIndex) => {
+      const setSteps = (macroSteps) => {
+        onMacroChange(macroId, macroSteps);
+      };
+
       const foo = update(macro, {
         $splice: [
           [dragIndex, 1],
@@ -62,7 +62,7 @@ const MacroEditor = (props) => {
       });
       setSteps(foo);
     },
-    [macro, setSteps]
+    [macro, macroId, onMacroChange]
   );
 
   const onStepSelect = (index) => {

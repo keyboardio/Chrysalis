@@ -47,7 +47,6 @@ import KeyboardSelect from "./screens/KeyboardSelect";
 import LayoutCard from "./screens/LayoutCard";
 import Preferences from "./screens/Preferences";
 import SystemInfo from "./screens/SystemInfo";
-import { migrateDarkModeToTheme } from "./utils/darkMode";
 
 import { useAutoUpdate } from "./hooks/useAutoUpdate";
 
@@ -76,9 +75,6 @@ const App = (props) => {
   const [bgColor, setBgColor] = useState(null);
 
   useAutoUpdate();
-
-  migrateDarkModeToTheme();
-  setTheme(settings.get("ui.theme", "system"));
 
   const handleDeviceDisconnect = async (sender, vid, pid) => {
     if (!focus.focusDeviceDescriptor) return;
@@ -133,6 +129,8 @@ const App = (props) => {
   useEffect(() => {
     ipcRenderer.on("usb.device-disconnected", handleDeviceDisconnect);
     ipcRenderer.on("native-theme.updated", handleNativeThemeUpdate);
+
+    setTheme(settings.get("ui.theme", "system"));
 
     // Specify how to clean up after this effect:
     return function cleanup() {

@@ -99,7 +99,7 @@ const FirmwareUpdate = (props) => {
   };
 
   const upload = async (options) => {
-    await setFlashSteps(focusDeviceDescriptor.flashSteps(options));
+    setFlashSteps(focusDeviceDescriptor.flashSteps(options));
 
     setConfirmationOpen(false);
     setFactoryConfirmationOpen(false);
@@ -110,7 +110,7 @@ const FirmwareUpdate = (props) => {
     logger().info("Starting to flash");
     try {
       await _flash(options);
-      await setActiveStep(flashSteps.length);
+      setActiveStep(flashSteps.length);
     } catch (e) {
       logger().error("Error while uploading firmware", { error: e });
       setProgress("error");

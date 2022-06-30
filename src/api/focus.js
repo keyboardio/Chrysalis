@@ -308,7 +308,7 @@ class Focus {
       data = data.toString("utf-8");
       logger("focus").debug("incoming data", { data: data });
 
-      const [resolve] = this.callbacks.shift();
+      const [resolve] = this.callbacks?.shift();
       this._parser.endTimer();
       if (data == ".") {
         resolve();

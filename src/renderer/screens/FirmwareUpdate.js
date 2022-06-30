@@ -51,7 +51,7 @@ const FirmwareUpdate = (props) => {
   const [activeDevice] = globalContext.state.activeDevice;
 
   const [firmwareFilename, setFirmwareFilename] = useState("");
-  const [selected, setSelected] = useState("default");
+  const [selectedFirmwareType, setSelectedFirmwareType] = useState("default");
 
   const [factoryConfirmationOpen, setFactoryConfirmationOpen] = useState(false);
   const [confirmationOpen, setConfirmationOpen] = useState(false);
@@ -66,7 +66,7 @@ const FirmwareUpdate = (props) => {
     const focus = new Focus();
     let filename;
 
-    if (selected == "default") {
+    if (selectedFirmwareType == "default") {
       filename = activeDevice.defaultFirmwareFilename();
     } else {
       filename = firmwareFilename;
@@ -149,7 +149,8 @@ const FirmwareUpdate = (props) => {
   );
 
   const buttonsDisabled =
-    progress == "flashing" || (selected == "custom" && !firmwareFilename);
+    progress == "flashing" ||
+    (selectedFirmwareType == "custom" && !firmwareFilename);
 
   return (
     <>
@@ -163,7 +164,7 @@ const FirmwareUpdate = (props) => {
           <Divider sx={{ my: 2 }} />
           <FirmwareVersion />
           <FirmwareSelect
-            selectedFirmware={[selected, setSelected]}
+            selectedFirmware={[selectedFirmwareType, setSelectedFirmwareType]}
             firmwareFilename={[firmwareFilename, setFirmwareFilename]}
           />
           <Divider sx={{ my: 2 }} />

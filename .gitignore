@@ -1,3 +1,4 @@
+/src/api/focus/keymap/.cldr_data_generated
 /dist/
 /firmware-bundle/
 /node_modules/
@@ -7,4 +8,3 @@
 /.vscode
 /.idea
 /.env*
-

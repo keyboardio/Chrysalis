@@ -85,6 +85,24 @@ function FocusCommands(options) {
     await dtrToggle(false);
   };
 
+  this.eraseEEPROM = async () => {
+    const focus = options.focus;
+
+    const commands = await focus.command("help");
+    if (commands.includes("eeprom.erase")) {
+      return await focus.command("eeprom.erase");
+    }
+
+    let eeprom = await focus.command("eeprom.contents");
+    eeprom = eeprom
+      .split(" ")
+      .filter((v) => v.length > 0)
+      .map(() => 255)
+      .join(" ");
+    await focus.command("eeprom.contents", eeprom);
+    await this.reboot();
+  };
+
   // Saves the data from the keyboard's EEPROM using eeprom.contents, in one,
   // unstructured blob.
   this.saveEEPROMContents = async () => {
@@ -239,11 +257,28 @@ async function DFUUtil(port, filename, options) {
         return;
       };
 
-  await toStep(callback)("saveEEPROM");
-  const saveKey = await focusCommands.saveEEPROM();
+  let saveKey;
+  if (!options.factoryReset) {
+    await toStep(callback)("saveEEPROM");
+    saveKey = await focusCommands.saveEEPROM();
 
-  await toStep(callback)("bootloaderTrigger");
-  await focusCommands.reboot();
+    await toStep(callback)("bootloaderTrigger");
+    await focusCommands.reboot();
+  } else {
+    await toStep(callback)("factoryRestore");
+    try {
+      await focusCommands.eraseEEPROM();
+    } catch (e) {
+      if (e != "Communication timeout") {
+        throw new Error(e);
+      }
+    }
+
+    // We do not need to trigger the bootloader here, the erase above did a
+    // reset for us already. Do wait a little, for a smoother transition.
+    await toStep(callback)("bootloaderTrigger");
+    await delay(500);
+  }
 
   await toStep(callback)("bootloaderWait");
   const bootloaderFound = await options.focus.waitForBootloader(options.device);
@@ -264,11 +299,13 @@ async function DFUUtil(port, filename, options) {
 
   await DFUUtilBootloader(port, filename, options);
 
-  await toStep(callback)("reconnect");
-  await options.focus.reconnectToKeyboard(device);
+  if (!options.factoryReset) {
+    await toStep(callback)("reconnect");
+    await options.focus.reconnectToKeyboard(device);
 
-  await toStep(callback)("restoreEEPROM");
-  await focusCommands.restoreEEPROM(saveKey);
+    await toStep(callback)("restoreEEPROM");
+    await focusCommands.restoreEEPROM(saveKey);
+  }
 }
 
 async function AvrDude(_, port, filename, options) {
@@ -318,9 +355,6 @@ async function AvrDude(_, port, filename, options) {
     });
   };
 
-  await toStep(callback)("saveEEPROM");
-  const saveKey = await focusCommands.saveEEPROM();
-
   try {
     await port.close();
   } catch (_) {
@@ -342,12 +376,6 @@ async function AvrDude(_, port, filename, options) {
     "-b57600",
     "-Uflash:w:" + filename + ":i",
   ]);
-
-  await toStep(callback)("reconnect");
-  await options.focus.reconnectToKeyboard(device);
-
-  await toStep(callback)("restoreEEPROM");
-  await focusCommands.restoreEEPROM(saveKey);
 }
 
 async function Avr109Bootloader(board, port, filename, options) {
@@ -406,11 +434,28 @@ async function Avr109(board, port, filename, options) {
   const device = options.device;
   const focusCommands = new FocusCommands(options);
 
-  await toStep(callback)("saveEEPROM");
-  const saveKey = await focusCommands.saveEEPROM();
+  let saveKey;
+  if (!options.factoryReset) {
+    await toStep(callback)("saveEEPROM");
+    saveKey = await focusCommands.saveEEPROM();
 
-  await toStep(callback)("bootloaderTrigger");
-  await focusCommands.reboot();
+    await toStep(callback)("bootloaderTrigger");
+    await focusCommands.reboot();
+  } else {
+    await toStep(callback)("factoryRestore");
+    try {
+      await focusCommands.eraseEEPROM();
+    } catch (e) {
+      if (e != "Communication timeout") {
+        throw new Error(e);
+      }
+    }
+
+    // We do not need to trigger the bootloader here, the erase above did a
+    // reset for us already. Do wait a little, for a smoother transition.
+    await toStep(callback)("bootloaderTrigger");
+    await delay(500);
+  }
 
   await toStep(callback)("bootloaderWait");
   const bootloaderFound = await options.focus.waitForBootloader(options.device);
@@ -421,11 +466,13 @@ async function Avr109(board, port, filename, options) {
 
   await Avr109Bootloader(board, bootloaderFound, filename, options);
 
-  await toStep(callback)("reconnect");
-  await options.focus.reconnectToKeyboard(options.device);
+  if (!options.factoryReset) {
+    await toStep(callback)("reconnect");
+    await options.focus.reconnectToKeyboard(options.device);
 
-  await toStep(callback)("restoreEEPROM");
-  await focusCommands.restoreEEPROM(saveKey);
+    await toStep(callback)("restoreEEPROM");
+    await focusCommands.restoreEEPROM(saveKey);
+  }
 }
 
 async function teensy(filename, options) {
@@ -437,17 +484,34 @@ async function teensy(filename, options) {
   const device = options.device;
   const focusCommands = new FocusCommands(options);
 
-  await toStep(callback)("saveEEPROM");
-  const saveKey = await focusCommands.saveEEPROM();
+  let saveKey;
+  if (!options.factoryReset) {
+    await toStep(callback)("saveEEPROM");
+    saveKey = await focusCommands.saveEEPROM();
+  } else {
+    await toStep(callback)("factoryRestore");
+    try {
+      await focusCommands.eraseEEPROM();
+    } catch (e) {
+      if (e != "Communication timeout") {
+        throw new Error(e);
+      }
+    }
+    // Because the factory restore above rebooted the keyboard, wait a little
+    // here before starting to flash.
+    await delay(1000);
+  }
 
   await toStep(callback)("flash");
   await TeensyLoader.upload(0x16c0, 0x0478, filename);
 
-  await toStep(callback)("reconnect");
-  await options.focus.reconnectToKeyboard(device);
+  if (!options.factoryReset) {
+    await toStep(callback)("reconnect");
+    await options.focus.reconnectToKeyboard(device);
 
-  await toStep(callback)("restoreEEPROM");
-  await focusCommands.restoreEEPROM(saveKey);
+    await toStep(callback)("restoreEEPROM");
+    await focusCommands.restoreEEPROM(saveKey);
+  }
 }
 
 async function DFUProgrammer(filename, options, mcu = "atmega32u4") {
@@ -494,8 +558,23 @@ async function DFUProgrammer(filename, options, mcu = "atmega32u4") {
     });
   };
 
-  await toStep(callback)("saveEEPROM");
-  const saveKey = await focusCommands.saveEEPROM();
+  let saveKey;
+  if (!options.factoryReset) {
+    await toStep(callback)("saveEEPROM");
+    saveKey = await focusCommands.saveEEPROM();
+  } else {
+    await toStep(callback)("factoryRestore");
+    try {
+      await focusCommands.eraseEEPROM();
+    } catch (e) {
+      if (e != "Communication timeout") {
+        throw new Error(e);
+      }
+    }
+    // Because the factory restore above rebooted the keyboard, wait a little
+    // here before starting to flash.
+    await delay(1000);
+  }
 
   await toStep(callback)("flash");
   for (let i = 0; i < 10; i++) {
@@ -510,11 +589,13 @@ async function DFUProgrammer(filename, options, mcu = "atmega32u4") {
   await runCommand([mcu, "flash", filename]);
   await runCommand([mcu, "start"]);
 
-  await toStep(callback)("reconnect");
-  await options.focus.reconnectToKeyboard(device);
+  if (!options.factoryReset) {
+    await toStep(callback)("reconnect");
+    await options.focus.reconnectToKeyboard(device);
 
-  await toStep(callback)("restoreEEPROM");
-  await focusCommands.restoreEEPROM(saveKey);
+    await toStep(callback)("restoreEEPROM");
+    await focusCommands.restoreEEPROM(saveKey);
+  }
 }
 
 export {

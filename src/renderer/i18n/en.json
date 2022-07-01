@@ -358,23 +358,21 @@
   "firmwareUpdate": {
     "firmwareChangelog": {
       "title": "Firmware Changelog",
-      "view": "Changelog"
+      "view": "What's new in {{version}}?"
     },
+    "firmwareSources": "Source code",
     "calloutTitle": "Important!",
     "dialog": {
       "selectFirmware": "Select a firmware",
       "firmwareFiles": "Firmware files",
       "allFiles": "All files"
     },
-    "options": {
-      "onFlash": "Restore to factory defaults when flashing",
-      "title": "Firmware update options"
-    },
     "flashing": {
       "error": "Error flashing the firmware",
       "releasePROG": "Bootloader detected. If you're holding a key down, please release it.",
       "success": "Firmware flashed successfully!",
       "button": "Update",
+      "factoryResetButton": "Factory reset",
       "steps": {
         "factoryRestore": "Restoring factory defaults",
         "bootloaderTrigger": "Triggering bootloader",
@@ -387,15 +385,25 @@
       }
     },
     "confirmDialog": {
-      "title": "Replace the firmware and reset to factory defaults?",
-      "contents": "This will replace the firmware on the device, and reset all settings to factory defaults. You will lose all customizations made."
+      "title": "Are you sure you want to update the firmware?",
+      "description": "Installing new firmware will replace the existing one on the device. Once the new firmware is installed, Chrysalis will take you back to the keyboard selection screen."
     },
-    "defaultFirmware": "Chrysalis {{version}}",
-    "defaultFirmwareDescription": "Standard firmware shipped with Chrysalis",
-    "selected": "Selected firmware",
-    "custom": "Custom firmware",
-    "description": "Updating or \"flashing\" your keyboard's firmware is how we teach it new tricks. Chrysalis will install a new version of your keyboard's firmware which includes support for customizing the key layout, as well as other features. If you've previously customized your keyboard's firmware, this will overwrite your custom firmware. You can always find the source code of the firmware Chrysalis is installing here:",
-    "postUpload": "Once the upload is done, Chrysalis will take you back to the keyboard selection screen."
+    "factoryConfirmDialog": {
+      "title": "Replace the firmware and reset to factory defaults?",
+      "contents": "This will replace the firmware on the device, and reset all settings to factory defaults. You will lose all customizations made. Once the new firmware is installed, Chrysalis will take you back to the keyboard selection screen."
+    },
+    "yourFirmware": "Update your keyboard's firmware",
+    "chooseFirmware": "Update firmware:",
+    "defaultFirmwareDescription": "Latest version",
+    "defaultFirmwareExplanation": "This is the latest version of the firmware for your keyboard.",
+    
+    "custom": "Choose a local firmware build",
+    "customChooseFile": "Choose a file...",
+    "customFirmwareExplanation": "You can install an alternate firmware build you've downloaded or built locally. As long as it includes support for the 'Focus' keyboard protocol, Chrysalis should work just fine.",
+    "currentFirmwareVersion": "Current firmware version",
+    "customFirmwareLinkText": "Learn about building firmware",
+    "firmwareVersion": "{{version}}",
+    "description": "Updating your keyboard's firmware is how we teach it new tricks. Chrysalis can install the version of the firmware it ships with, or a custom firmware build you provide."
   },
   "focus-not-detected": {
     "title": "Welcome to Chrysalis",

@@ -121,14 +121,20 @@ const Model100 = {
     keymap: Keymap,
   },
 
-  flashSteps: [
-    "saveEEPROM",
-    "bootloaderTrigger",
-    "bootloaderWait",
-    "flash",
-    "reconnect",
-    "restoreEEPROM",
-  ],
+  flashSteps: (options) => {
+    if (options?.factoryReset) {
+      return ["factoryRestore", "bootloaderTrigger", "bootloaderWait", "flash"];
+    }
+
+    return [
+      "saveEEPROM",
+      "bootloaderTrigger",
+      "bootloaderWait",
+      "flash",
+      "reconnect",
+      "restoreEEPROM",
+    ];
+  },
   flash: async (port, filename, options) => {
     return DFUUtil(port, filename, options);
   },
@@ -172,7 +178,9 @@ const Model100Bootloader = {
     keymap: Keymap,
   },
 
-  flashSteps: ["flash"],
+  flashSteps: () => {
+    return ["flash"];
+  },
   flash: async (port, filename, options) => {
     return DFUUtilBootloader(port, filename, options);
   },

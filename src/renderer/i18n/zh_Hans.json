@@ -1,1 +1,443 @@
-{}
+{
+    "editor": {
+        "sidebar": {
+            "overview": {
+                "key": "键#{{index}}",
+                "hideEmptyLayers": "隐藏空白层...",
+                "showEmptyLayers": "显示空白层...",
+                "color": "颜色",
+                "sharing": "备份和恢复",
+                "help": "当前选择的键的映射概述。要改变所显示的层，请点击其行。"
+            },
+            "secondary": {
+                "help": "通过从调色板中选择一个颜色并点击一个键来分配颜色。要改变一个调色板项目的颜色，请使用颜色选择器。",
+                "title": "次要行动",
+                "whenHeld": "按住时",
+                "type": {
+                    "none": "没有二次行动",
+                    "layer": "层级转换",
+                    "modifier": "修饰语"
+                },
+                "targetLayer": "层",
+                "modifier": "修饰语"
+            },
+            "custom": {
+                "title": "自定义密钥代码",
+                "help": "允许您将自定义密钥代码分配给密钥或 Chrysalis 当前未知的代码。",
+                "label": "自定义密钥代码"
+            },
+            "blanks": {
+                "title": "空白",
+                "help": "阻止和透明密钥。"
+            },
+            "colors": {
+                "help": "通过从调色板中选择一个颜色并点击一个键来分配颜色。要改变一个调色板项目的颜色，请使用颜色选择器。",
+                "title": "颜色"
+            },
+            "consumer": {
+                "volume": "Volume",
+                "media": "媒体控制",
+                "brightness": "亮度"
+            },
+            "keypicker": {
+                "mods": "修改器",
+                "modsHelp": "选择在按下此键时自动按下的修饰键。",
+                "oneshot": {
+                    "label": "Sticky",
+                    "tooltip": "点击激活下一个按键按住像普通修改器一样双击切换修改器。"
+                }
+            },
+            "layer": {
+                "title": "层和键盘映射",
+                "help": "用于更改层的键。"
+            },
+            "leader": {
+                "title": "Leader",
+                "help": "指定领导键为了配置这一功能你可以使用Arduino IDE为你的键盘定制Kaleidoscope'Sketch'文件。"
+            },
+            "oneshot": {
+                "title": "One-shot",
+                "help": "单击下面的按钮以选择专用键以取消一次性键。"
+            },
+            "ledcontrol": {
+                "title": "LED控制",
+                "help": "控制键盘的 LED 主题和效果。"
+            },
+            "macros": {
+                "title": "宏",
+                "help": "为按键指定宏要创建或修改宏你可以使用Arduino IDE为你的键盘定制Kaleidoscope 'Sketch'文件。"
+            },
+            "dynmacros": {
+                "title": "动态宏",
+                "usage_overview": {
+                    "usage": "{{ used }}/{{ size }}",
+                    "label": "使用的宏空间：",
+                    "bytes": "字节"
+                },
+                "help": "为按键分配和编辑动态宏。"
+            },
+            "mousekeys": {
+                "title": "鼠标控制",
+                "help": "使用键盘上的按键模拟鼠标。",
+                "movement": "运动",
+                "buttons": "按钮",
+                "warp": "经线",
+                "wheel": "车轮"
+            },
+            "spacecadet": {
+                "help": "SpaceCadet 将左右切换键转换为左右切换键，无需轻敲任何其他键即可点击使用Arduino IDE您可以添加其他SpaceCadet映射。",
+                "title": "SpaceCadet"
+            },
+            "steno": {
+                "title": "Steno",
+                "help": "您的键盘支持速记输入的GeminiPR协议。使用这些按键而不是Plover的QWERTY输入法，可以获得更完美的速记体验。"
+            },
+            "tapdance": {
+                "title": "TapDance",
+                "help": "踢踏舞键是通用的多用途键可根据您点击它们的次数触发不同的动作。"
+            }
+        },
+        "legacy": {
+            "migrate": "迁移",
+            "warning": "我们在键盘图上发现了不再支持的旧键要迁移到新代码请点击迁移按钮。"
+        },
+        "sharing": {
+            "title": "备份和恢复",
+            "loadFromLibrary": "从库中加载",
+            "loadFromBackup": "从备份中加载",
+            "loadFromFile": "从文件中加载...",
+            "exportToFile": "导出到文件...",
+            "import": "导入",
+            "selectLoadFile": "选择文件来加载一个布局",
+            "selectExportFile": "选择要将布局导出到的文件",
+            "dialog": {
+                "layoutFiles": "布局文件",
+                "allFiles": "所有文件"
+            },
+            "errors": {
+                "unableToLoad": "无法从所选文件加载布局。",
+                "parseFail": "无法解析布局数据。",
+                "invalidLayoutData": "文件不包含有效的布局数据。"
+            },
+            "importConfirm": {
+                "title": "导入所选布局？",
+                "contents": "这将覆盖你当前的布局未保存的修改将丢失你确定你要继续吗？"
+            }
+        },
+        "layerswitch": {
+            "type": "类型",
+            "shiftTo": "移动到层",
+            "lockTo": "锁定到层",
+            "moveTo": "移动到层",
+            "oneshot": "下一步行动的层级转换",
+            "target": "层",
+            "dualuse": "保持时层偏移"
+        },
+        "onlyCustom": {
+            "fixItButton": "仅切换到自定义层",
+            "openFR": "打开一个功能请求",
+            "warning": "Chrysalis不再支持包含硬编码和EEPROM层混合的配置。如果这是你需要的功能我们很乐意听到更多关于你的使用情况然而在大多数情况下，我们会建议只切换到自定义层，Chrysalis可以为你做到这一点。在进行切换时，将不使用硬编码层，默认的层设置--如果有的话--将是零层。"
+        },
+        "macros": {
+            "title": "宏 #{{ index }}",
+            "edit": "编辑宏",
+            "out_of_space": "动态宏使用了太多的空间，请腾出{{ overflow }}字节。",
+            "steps": {
+                "time_ms": "{{ value }}ms",
+                "in_ms": "ms",
+                "unknown": "<未知>",
+                "INTERVAL": "步骤之间的延迟",
+                "WAIT": "等待",
+                "KEYDOWN": "按住键",
+                "KEYUP": "还原键",
+                "TAP": "短按按钮",
+                "EXPLICIT_REPORT": "不要在步骤之间发送报告",
+                "SEND_REPORT": "现在发送报告",
+                "unsupported": "不支持",
+                "IMPLICIT_REPORT": "在步骤之间发送报告"
+            }
+        }
+    },
+    "app": {
+        "menu": {
+            "editor": "布局和色彩映射表编辑器",
+            "focus-not-detected": "欢迎",
+            "systemInfo": "报告问题",
+            "layoutEditor": "布局编辑器",
+            "macroEditor": "宏编辑器",
+            "preferences": "首选项",
+            "selectAKeyboard": "选择键盘",
+            "keyboardSection": "键盘",
+            "chrysalisSection": "Chrysalis",
+            "miscSection": "杂项",
+            "changelog": "更新日志",
+            "selectAnotherKeyboard": "选择另一个键盘",
+            "colormapEditor": "色彩映射表编辑器",
+            "layoutCard": "布局卡",
+            "chat": "Discord 群聊",
+            "firmwareUpdate": "固件更新",
+            "exit": "退出",
+            "restart": "应用更新并重启"
+        },
+        "deviceMenu": {
+            "Homepage": "主页",
+            "Forum": "论坛",
+            "Chat": "聊天"
+        },
+        "cancelPending": {
+            "title": "放弃未保存的更改？",
+            "content": "您有未保存的更改如果您继续它们将丢失。"
+        },
+        "actionRequired": "所需采取的行动"
+    },
+    "errors": {
+        "deviceDisconnected": "键盘断开连接",
+        "saveFile": "保存文件时出错:{{ error }}"
+    },
+    "components": {
+        "layer": "层{{index}}",
+        "layerRaw": "层",
+        "none": "无",
+        "save": {
+            "saveChanges": "保存更改"
+        },
+        "logo": {
+            "altText": "Chrysalis logo"
+        },
+        "loading": "从设备中读取数据..."
+    },
+    "language": "英语",
+    "autoUpdate": {
+        "error": "更新时出错:{{ error }}",
+        "available": "有新的版本可用:{{ version }}",
+        "downloaded": "版本{{ version }}已下载，重新启动Chrysalis以完成安装。"
+    },
+    "dialog": {
+        "ok": "确定",
+        "cancel": "取消",
+        "close": "关闭"
+    },
+    "changelog": {
+        "title": "更新日志"
+    },
+    "preferences": {
+        "devtools": {
+            "main": {
+                "description": "这些首选项主要是帮助开发人员你可能被要求打开它们以收集关于某个问题的更多信息。",
+                "label": "开发者工具"
+            },
+            "console": {
+                "label": "打开开发者控制台",
+                "help": "开发人员控制台可让您窥视Chrysalis内部请小心使用。"
+            },
+            "verboseLogging": {
+                "label": "启用粗略的日志记录",
+                "help": "开启相当数量的额外日志只对调试有用。"
+            }
+        },
+        "ui": {
+            "autoUpdate": {
+                "mode": {
+                    "label": "启用自动升级功能",
+                    "help": "启用后，Chrysalis 将在启动时检查更新，并自动下载新版本。"
+                },
+                "label": "自定义Chrysalis应该如何升级"
+            },
+            "layoutEditor": {
+                "label": "自定义布局编辑器"
+            },
+            "layoutCards": {
+                "label": "自定义布局卡"
+            },
+            "oneLayerPerPage": {
+                "help": "启用后，Chrysalis将安排布局卡，每页打印一个图层，而不是有多少就打印多少。",
+                "label": "每页打印一层"
+            },
+            "hideUnavailableFeatures": {
+                "label": "隐藏您的键盘当前固件不支持的功能",
+                "help": "启用后，Chrysalis将隐藏您的键盘固件不支持的功能的配置选项。"
+            },
+            "lookNFeel": {
+                "label": "定制外观"
+            },
+            "theme": {
+                "label": "整体外观",
+                "system": "系统默认",
+                "dark": "暗",
+                "light": "亮"
+            },
+            "language": {
+                "label": "语言",
+                "help": "选择Chrysalis使用的语言"
+            },
+            "coloredLayoutCards": {
+                "label": "在布局卡上启用颜色",
+                "help": "启用后布局卡不仅会显示按键标签，而且如果有的话还会显示颜色。"
+            },
+            "host": {
+                "label": "键盘布局",
+                "help": "选择你在电脑上使用的按键布局"
+            }
+        },
+        "keyboard": {
+            "layers": {
+                "label": "层首选项"
+            },
+            "defaultLayer": {
+                "label": "默认层",
+                "noDefault": "没有默认",
+                "help": "键盘启动时的默认层。"
+            },
+            "factoryReset": {
+                "button": "将EEPROM重置为出厂默认值",
+                "dialog": {
+                    "title": "将EEPROM重置为出厂默认值？",
+                    "contents": "这将把EEPROM重置为出厂默认值。你将失去所有的自定义设置。"
+                }
+            },
+            "flash": {
+                "preferExternal": {
+                    "label": "使用外部程序进行闪烁"
+                }
+            },
+            "led": {
+                "label": "LED选项",
+                "idle": {
+                    "label": "LED关闭前的空闲时间",
+                    "help": "除非禁用否则LED将在配置好的时间后关闭。",
+                    "disabled": "禁用",
+                    "oneMinute": "1分钟",
+                    "twoMinutes": "2分钟",
+                    "threeMinutes": "3分钟",
+                    "fourMinutes": "4分钟",
+                    "fiveMinutes": "5分钟",
+                    "tenMinutes": "10分钟",
+                    "fifteenMinutes": "15分钟",
+                    "twentyMinutes": "20分钟",
+                    "thirtyMinutes": "30分钟",
+                    "sixtyMinutes": "60分钟"
+                },
+                "brightness": {
+                    "label": "LED亮度",
+                    "help": "调整键盘上LED灯的亮度。"
+                },
+                "default": {
+                    "autoSave": {
+                        "label": "启用自动保存默认的LED模式",
+                        "help": "启用后每当更改LED模式时它都会保存为默认值。"
+                    },
+                    "label": "默认的LED模式",
+                    "help": "选择键盘启动时应采用的LED模式。"
+                }
+            },
+            "plugins": {
+                "label": "插件首选项",
+                "escOneShot": {
+                    "label": "让Escape取消一次性按键",
+                    "help": "启用后，\"Escape\"将取消一键式按键，否则专用的取消键也可以这样做。"
+                }
+            },
+            "advanced": {
+                "description": "这些都是危险的工具在使用任何一个工具之前请确保你知道它们的作用。",
+                "label": "高级工具和首选项"
+            },
+            "title": "我的键盘"
+        },
+        "interface": "用户界面"
+    },
+    "keyboardSelect": {
+        "connect": "连接",
+        "installUdevRules": "修复它",
+        "permissionErrorSuggestion": "Chrysalis可以通过在/etc/udev/rules.d/中安装一个udev规则文件来解决这个问题。",
+        "noDevices": "没有发现键盘。",
+        "permissionError": "你的电脑不会让Chrysalis与你的键盘对话(你对{{path}}没有读/写权限）。",
+        "unknown": "未知",
+        "noUdev": "Chysalis要求udev能够扫描设备但似乎不可用。",
+        "disconnect": "断开连接"
+    },
+    "firmwareUpdate": {
+        "firmwareChangelog": {
+            "title": "固件更新日志",
+            "view": "{{version}}有什么新内容？"
+        },
+        "firmwareSources": "源代码",
+        "calloutTitle": "重要！",
+        "dialog": {
+            "selectFirmware": "选择固件",
+            "firmwareFiles": "固件文件",
+            "allFiles": "所有文件"
+        },
+        "flashing": {
+            "error": "刷写固件时出错",
+            "releasePROG": "检测到启动器如果你按住一个键，请释放它。",
+            "success": "固件刷写成功!",
+            "button": "更新",
+            "factoryResetButton": "恢复出厂设置",
+            "steps": {
+                "factoryRestore": "恢复出厂默认值",
+                "bootloaderTrigger": "触发引导加载程序",
+                "bootloaderWait": "等待引导加载程序",
+                "saveEEPROM": "保存EEPROM内容",
+                "restoreEEPROM": "恢复EEPROM内容",
+                "reconnect": "重新连接",
+                "flash": "闪烁",
+                "reboot": "重新启动"
+            }
+        },
+        "confirmDialog": {
+            "title": "你确定你要更新固件吗？",
+            "description": "安装新的固件将取代设备上现有的固件一旦安装了新的固件Chrysalis会带你回到键盘选择屏幕。"
+        },
+        "yourFirmware": "更新您的键盘固件。",
+        "chooseFirmware": "更新固件:",
+        "defaultFirmwareDescription": "最新版本",
+        "defaultFirmwareExplanation": "这是您键盘的最新固件版本。",
+        "custom": "选择一个本地的固件构建",
+        "customChooseFile": "选择一个文件...",
+        "customFirmwareExplanation": "你可以安装你下载或在本地建立的另一个固件版本只要它包括对'Focus'键盘协议的支持Chrysalis就应该能正常工作。",
+        "currentFirmwareVersion": "当前的固件版本",
+        "customFirmwareLinkText": "了解有关构建固件的信息",
+        "firmwareVersion": "{{version}}",
+        "description": "更新您的键盘固件是我们教给它的新招数。Chrysalis可以安装它出厂时的固件版本或者你提供的自定义固件构建。",
+        "factoryConfirmDialog": {
+            "title": "更换固件并重置为出厂默认值？",
+            "contents": "这将替换设备上的固件，并将所有设置重置为出厂默认值你将失去所有的自定义设置一旦新的固件安装完毕，Chrysalis将带你回到键盘选择屏幕。"
+        }
+    },
+    "focus-not-detected": {
+        "title": "欢迎来到Chrysalis",
+        "contents": "Chrysalis识别了你的键盘但在你继续之前需要更新其固件。",
+        "gotoUpdate": "更新固件",
+        "reconnect": "重新连接",
+        "reconnectDescription": "有可能是我们错误地检测了键盘的功能，或者是键盘在我们连接时启动了。在这种情况下，你可以尝试点击\"{{buttonName}}\"按钮来尝试重新连接，并再次寻找必要的功能。如果你确定之前的尝试是暂时性的失败，而且问题已经解决那么重新连接就很有用。"
+    },
+    "systeminfo": {
+        "bugTracker": "你可以在GitHub上找到一个已知问题的列表（或报告一个错误）。",
+        "privacyNote": "我们尽量不在这个捆绑包中加入私人信息但建议你在分享之前通读一下。",
+        "createBundle": "创建捆绑",
+        "saveBundle": "保存捆绑",
+        "dialog": {
+            "title": "保存Chrysalis调试包"
+        },
+        "title": "报告问题",
+        "intro": "如果你在使用Chrysalis时遇到麻烦，开发团队可能会要求你向他们发送一些调试信息。Chrysalis可以帮助你收集和打包你可能需要分享的一切。这包括错误日志，以及关于这台计算机'的操作系统、连接的设备和Chrysalis本身的一些信息。键盘信息将包括关于键盘当前固件的信息，以及按键布局和LED配置。"
+    },
+    "devices": {
+        "SOFT/HRUF": {
+            "Splitography": {
+                "updateInstructions": "点击 \"更新 \"按钮后重置您的键盘（按下USB端口旁边的小复位按钮）使其进入可编程模式时间为10秒秒内。"
+            }
+        },
+        "Keyboardio": {
+            "Model01": {
+                "updateInstructions": "按住键盘左上角的键（在默认布局中，这个键是PROG键）当你点击更新按钮时，继续按住它。一旦按键开始横着闪红光，你就可以放开这个键"
+            },
+            "Atreus": {
+                "updateInstructions": "按住键盘左下角的键（在默认布局中，这个键是ESC键）在你点击更新按钮时继续按住它。"
+            },
+            "Model100": {
+                "updateInstructions": "按住键盘左上角的键（在默认布局中，这个键是PROG键）当你点击更新按钮时，继续按住它。一旦按键开始在电路板的第一列上闪烁绿色，请释放该键，因为保持时间过长可能会妨碍闪烁成功。"
+            }
+        }
+    }
+}

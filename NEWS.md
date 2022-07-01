@@ -18,6 +18,22 @@ Layout Card screen will print one layer per page, or as many as fit.
 Chrysalis now supports a number of new keys, such as F13-F24, and many more
 international symbols when using international layouts.
 
+## UI/UX improvements
+
+The Firmware Update screen has been redesigned, with the goal of making it
+simpler, to reduce the amount of unnecessary information shown, but still show
+everything essential and useful - even including information that was not
+available in prior Chrysalis releases.
+
+The new screen will show a brief description, the current version of the
+firmware, and then allow you to choose whether to install the latest firmware
+shipped with Chrysalis, or select a custom firmware. The changes in the latest
+firmware can be viewed from the new Firmware Update screen.
+
+Flashing instructions are not immediately shown, they will appear in the dialog
+that asks for confirmation, shown at a time, and in a way that puts bigger
+emphasis on it, without resulting in having too much information on the screen.
+
 ## Firmware update
 
 Going forward, Chrysalis will only ship with one variant of the firmware, there
@@ -33,6 +49,9 @@ On Linux, installing the udev rules works once again.
 
 User interface glitches when using Chrysalis at smaller window sizes have been
 fixed, and we have improved Chrysalis to scale down to smaller sizes better.
+
+The factory reset option while installing new firmware has been restored. This
+feature has been broken for a good few releases, but is fixed now.
 
 ## Miscellaneous
 

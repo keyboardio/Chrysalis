@@ -396,5 +396,8 @@
                 "updateInstructions": "Hou de toets in linker bovenhoek van het toetsenbord ingedrukt (in de standaard toetsenbordindeling is dit de PROG toets). Blijf de toets ingedrukt houden terwijl je op de Update knop klikt. Eens de toetsen van de eerste kolom groen beginnen te knipperen moet je de toets loslaten aangezien het flashen kan falen indien je de toets te lang ingedrukt houdt."
             }
         }
+    },
+    "autoUpdate": {
+        "available": "Nieuwe versie beschikbaar: {{ version }}"
     }
 }

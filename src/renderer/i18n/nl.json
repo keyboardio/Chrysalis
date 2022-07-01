@@ -339,7 +339,6 @@
             "allFiles": "Alle bestanden"
         },
         "options": {
-            "onFlash": "Zet terug naar fabrieksinstellingen tijdens flashen",
             "title": "Firmware update opties"
         },
         "flashing": {
@@ -359,15 +358,12 @@
             }
         },
         "confirmDialog": {
-            "title": "Firmware vervangen en terugzetten naar fabrieksinstellingen?",
-            "contents": "Dit zal de firmware op het toestel vervangen en alle instelling terugzetten naar de fabrieksinstellingen. Je zal alle gemaakte wijzigingen verliezen."
+            "title": "Firmware vervangen en terugzetten naar fabrieksinstellingen?"
         },
         "defaultFirmware": "Chrysalis {{version}} default",
         "defaultFirmwareDescription": "Minimaal, zonder toeters en bellen",
-        "selected": "Geselecteerde firmware",
         "custom": "Custom firmware",
-        "description": "Updaten of \"flashen\" van de firmware van je toetsenbord is hoe we het nieuwe kunstjes leren. Chrysalis zal een nieuwe versie van de firmware van je toestenbord installeren. Dit zorgt voor ondersteuning van een aangepaste toetsenbordindeling, naast andere functies. Indien je hiervoor al de firmware van je toetsenbord hebt aangepast, zal dit de aangepaste firmware overschrijven. Je kan de broncode van de firmware die Chrysalis aan het installeren is hier vinden:",
-        "postUpload": "Wanneer de upload gedaan is, zal Chrysalis je terugbrengen naar het selectiescherm voor je toetsenbord."
+        "description": "Updaten of \"flashen\" van de firmware van je toetsenbord is hoe we het nieuwe kunstjes leren. Chrysalis zal een nieuwe versie van de firmware van je toestenbord installeren. Dit zorgt voor ondersteuning van een aangepaste toetsenbordindeling, naast andere functies. Indien je hiervoor al de firmware van je toetsenbord hebt aangepast, zal dit de aangepaste firmware overschrijven. Je kan de broncode van de firmware die Chrysalis aan het installeren is hier vinden:"
     },
     "focus-not-detected": {
         "title": "Welkom bij Chrysalis",

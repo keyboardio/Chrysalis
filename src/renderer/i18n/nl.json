@@ -38,7 +38,9 @@
             "exit": "Afsluiten",
             "keyboardSection": "Toetsenbord",
             "chrysalisSection": "Chrysalis",
-            "miscSection": "Diversen"
+            "miscSection": "Diversen",
+            "restart": "Update toepassen en herstarten",
+            "changelog": "Changelog"
         },
         "deviceMenu": {
             "Homepage": "Beginpagina",
@@ -103,9 +105,11 @@
                 "whenHeld": "Wanneer ingedrukt gehouden",
                 "type": {
                     "none": "Geen secundaire actie",
-                    "layer": "Laag veranderen"
+                    "layer": "Laag veranderen",
+                    "modifier": "Modifier"
                 },
-                "targetLayer": "Laag"
+                "targetLayer": "Laag",
+                "modifier": "Modifier"
             },
             "colors": {
                 "title": "Kleuren",
@@ -255,6 +259,17 @@
             "host": {
                 "label": "Toetsenbordindeling",
                 "help": "Selecteer de toetsenbordindeling die je gebruikt op je computer"
+            },
+            "autoUpdate": {
+                "mode": {
+                    "label": "Zet automatische upgrades aan",
+                    "help": "Wanneer ingeschakeld zal Chrysalis tijdens het opstarten zoeken naar updates en automatisch nieuwe versies downloaden."
+                },
+                "label": "Pas aan hoe Chrysalis moet bijgewerkt worden"
+            },
+            "oneLayerPerPage": {
+                "label": "Print één laag per pagina",
+                "help": "Wanneer ingeschakeld zal Chrysalis de layout kaarten herschikken om één laag per pagina af te drukken in plaats van het maximum aantal dat past."
             }
         },
         "keyboard": {
@@ -274,7 +289,7 @@
             "factoryReset": {
                 "button": "Reset EEPROM naar fabrieksinstellingen",
                 "dialog": {
-                    "title": "Reset EEPROM naar fabrieksinstellingen",
+                    "title": "Reset EEPROM naar fabrieksinstellingen?",
                     "contents": "Dit zal de EEPROM resetten naar de fabrieksinstellingen. Je zal al je wijzigingen verliezen."
                 }
             },
@@ -329,7 +344,8 @@
         "disconnect": "Verbinding verbreken",
         "installUdevRules": "Installeer udev regels",
         "permissionError": "Je computer laat Chrysalis niet spreken met je toetsenbord. (Je hebt geen lees/schrijf rechten naar {{path}}.)",
-        "permissionErrorSuggestion": "Chrysalis kan dit oplossen door een bestand met udev regels te installeren in /etc/udev/rules.d/"
+        "permissionErrorSuggestion": "Chrysalis kan dit oplossen door een bestand met udev regels te installeren in /etc/udev/rules.d/ .",
+        "noUdev": "Chrysalis vereist udev om te zoeken naar apparaten, maar het lijkt dat dit niet beschikbaar is."
     },
     "firmwareUpdate": {
         "calloutTitle": "Belangrijk!",
@@ -352,14 +368,33 @@
                 "reconnect": "Opnieuw verbinden",
                 "flash": "Flashen",
                 "reboot": "Opnieuw opstarten"
-            }
+            },
+            "factoryResetButton": "Terugzetten naar fabrieksinstellingen"
         },
         "confirmDialog": {
-            "title": "Firmware vervangen en terugzetten naar fabrieksinstellingen?"
+            "title": "Ben je zeker dat je de firmware wil updaten?",
+            "description": "Nieuwe firmware installeren zal de huidige firmware vervangen op het toestel. Eens de firmware geïnstalleerd is, zal Chrysalis je terugbrengen naar het toetsenbord-selectie scherm."
         },
-        "defaultFirmwareDescription": "Minimaal, zonder toeters en bellen",
-        "custom": "Custom firmware",
-        "description": "Updaten of \"flashen\" van de firmware van je toetsenbord is hoe we het nieuwe kunstjes leren. Chrysalis zal een nieuwe versie van de firmware van je toestenbord installeren. Dit zorgt voor ondersteuning van een aangepaste toetsenbordindeling, naast andere functies. Indien je hiervoor al de firmware van je toetsenbord hebt aangepast, zal dit de aangepaste firmware overschrijven. Je kan de broncode van de firmware die Chrysalis aan het installeren is hier vinden:"
+        "defaultFirmwareDescription": "Recentste versie",
+        "custom": "Kies een lokale firmware implementatie",
+        "description": "Updaten van de firmware van je toetsenbord is hoe we het nieuwe kunstjes leren. Chrysalis kan een versie van de firmware installeren die met je toestenbord meegeleverd werd of een aangepaste firmware die je zelf aanlevert.",
+        "firmwareChangelog": {
+            "view": "Wat is er nieuw in {{version}}?",
+            "title": "Firmware Changelog"
+        },
+        "factoryConfirmDialog": {
+            "title": "Firmware vervangen en terugzetten naar fabrieksinstellingen?",
+            "contents": "Dit zal de huidige firmware vervangen op het toestel en alle instellingen terugzetten naar fabrieksinstellingen. Je zal alle aanpassingen verliezen. Eens de nieuwe firmware geïnstalleerd is, zal Chrysalis je terugbrengen naar het toetsenbord-selectie scherm."
+        },
+        "defaultFirmwareExplanation": "Dit is de recentste versie van de firmware voor je toetsenbord.",
+        "customChooseFile": "Kies een bestand...",
+        "currentFirmwareVersion": "Huidige firmware versie",
+        "customFirmwareLinkText": "Meer informatie over firmware compileren",
+        "firmwareVersion": "{{version}}",
+        "firmwareSources": "Broncode",
+        "yourFirmware": "Update de firmware van je toetsenbord",
+        "chooseFirmware": "Firmware updaten:",
+        "customFirmwareExplanation": "Je kan een alternative firmware implementatie installeren die je hebt gedownload of lokaal gecompileerd. Zo lang als het ondersteuning biedt voor het 'Focus' toetsenbord protocol zou Chrysalis goed moeten werken."
     },
     "focus-not-detected": {
         "title": "Welkom bij Chrysalis",
@@ -382,7 +417,7 @@
     "devices": {
         "SOFT/HRUF": {
             "Splitography": {
-                "updateInstructions": "Na het klikken op de Update knop moet je je toetsenbord herstarten binnen de 10 seconden om het in programmeerbare modus te zetten. Dit kan door de kleine reset knop naast de USB poort kort in te drukken."
+                "updateInstructions": "Na het klikken op de Update knop moet je je toetsenbord herstarten\nbinnen de 10 seconden om het in programmeerbare modus te zetten.\nDit kan door de kleine reset knop naast de USB poort kort in te drukken."
             }
         },
         "Keyboardio": {
@@ -398,6 +433,11 @@
         }
     },
     "autoUpdate": {
-        "available": "Nieuwe versie beschikbaar: {{ version }}"
+        "available": "Nieuwe versie beschikbaar: {{ version }}",
+        "downloaded": "Versie {{ version }} gedownload, herstart Chrysalis om de installatie te voltooien",
+        "error": "Fout tijdens update: {{ error }}"
+    },
+    "changelog": {
+        "title": "Changelog"
     }
 }

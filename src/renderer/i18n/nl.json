@@ -338,9 +338,6 @@
             "firmwareFiles": "Firmware bestanden",
             "allFiles": "Alle bestanden"
         },
-        "options": {
-            "title": "Firmware update opties"
-        },
         "flashing": {
             "error": "Fout bij het flashen van de firmware",
             "releasePROG": "Bootloader gedetecteerd. Als je een toets ingedrukt houdt, laat hem dan los.",
@@ -360,7 +357,6 @@
         "confirmDialog": {
             "title": "Firmware vervangen en terugzetten naar fabrieksinstellingen?"
         },
-        "defaultFirmware": "Chrysalis {{version}} default",
         "defaultFirmwareDescription": "Minimaal, zonder toeters en bellen",
         "custom": "Custom firmware",
         "description": "Updaten of \"flashen\" van de firmware van je toetsenbord is hoe we het nieuwe kunstjes leren. Chrysalis zal een nieuwe versie van de firmware van je toestenbord installeren. Dit zorgt voor ondersteuning van een aangepaste toetsenbordindeling, naast andere functies. Indien je hiervoor al de firmware van je toetsenbord hebt aangepast, zal dit de aangepaste firmware overschrijven. Je kan de broncode van de firmware die Chrysalis aan het installeren is hier vinden:"

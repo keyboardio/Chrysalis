@@ -22,11 +22,14 @@ import ReactDOM from "react-dom";
 import "../styles/keymap.css";
 import App from "./App";
 import { GlobalContextProvider } from "./components/GlobalContext";
+import { migrateDarkModeToTheme } from "./utils/darkMode";
+
 import { Error } from "./Error";
 import "./i18n"; // to initialize the i18n system
 const { ipcRenderer } = require("electron");
 
 setupLogging();
+migrateDarkModeToTheme();
 
 // Enable Hot Module Reload in dev
 if (module.hot) module.hot.accept();

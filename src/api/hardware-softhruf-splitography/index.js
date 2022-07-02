@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { DFUProgrammer } from "@api/flash";
+import { flash, flashers } from "@api/flash";
 import Keymap from "./components/Keymap";
 
 const Splitography = {
@@ -48,8 +48,8 @@ const Splitography = {
 
     return ["saveEEPROM", "flash", "reconnect", "restoreEEPROM"];
   },
-  flash: async (_, filename, options) => {
-    return await DFUProgrammer(filename, options);
+  flash: async (port, filename, options) => {
+    return await flash(flashers.dfuProgrammer, null, port, filename, options);
   },
 };
 

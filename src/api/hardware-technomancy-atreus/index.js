@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { teensy } from "@api/flash";
+import { flash, flashers } from "@api/flash";
 import Keymap from "./components/Keymap";
 
 const Atreus = {
@@ -48,8 +48,8 @@ const Atreus = {
 
     return ["saveEEPROM", "flash", "reconnect", "restoreEEPROM"];
   },
-  flash: async (_, filename, options) => {
-    return teensy(filename, options);
+  flash: async (port, filename, options) => {
+    return flash(flashers.teensy, null, port, filename, options);
   },
 };
 

@@ -33,7 +33,7 @@ const KeyButtonList = (props) => {
 
   const buttons = keys.map((k, index) => {
     const key = "key-" + props.category + "-" + index.toString();
-    const label = db.format(k, "full");
+    const label = db.format(k, { keycapSize: "full" });
     return (
       <Button
         variant="contained"

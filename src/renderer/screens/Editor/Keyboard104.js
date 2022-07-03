@@ -132,7 +132,7 @@ const KeySelector = (props) => {
       return onKeySelect(event.currentTarget.getAttribute("data-key-code"));
     };
 
-    const label = db.format(key, getKeycapSize(row, col));
+    const label = db.format(key, { keycapSize: getKeycapSize(row, col) });
     let fontSize =
       label.main.length == 1
         ? Math.round(keycapunit / 2.5)

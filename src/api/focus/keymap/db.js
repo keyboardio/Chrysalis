@@ -292,7 +292,10 @@ class KeymapDB {
     return this._layout;
   }
 
-  format(key, keycapSize = "1u", autoCase = true) {
+  format(key, options) {
+    const keycapSize = options?.keycapSize || "1u";
+    const autoCase = options?.autoCase || true;
+
     let label = key.label.base;
     const shifted = key.label.shifted;
     if (typeof label != "string") {

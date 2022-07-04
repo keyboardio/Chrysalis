@@ -534,7 +534,7 @@ svg text{
 .show>.btn-primary.dropdown-toggle:focus {
   box-shadow: none;
 }
-.dropdown-toggle.btn.btn-primary:focus {
+.dropdown-toggle.btn.btn-primary:focus-visible {
   //border: 1px solid ${({ theme }) => theme.styles.dropdown.borderButtonFocus};
   background: ${({ theme }) => theme.styles.dropdown.backgroundButtonColor};
   box-shadow: none;
@@ -559,8 +559,7 @@ svg text{
   box-shadow: ${({ theme }) => theme.styles.button.config.boxShadow};
   transition: background 300ms ease-in-out;
 }
-.dropdown-toggle.btn.btn-primary.button-config-style:not([disabled]):hover,
-.dropdown-toggle.btn.btn-primary.button-config-style:not([disabled]):focus {
+.dropdown-toggle.btn.btn-primary.button-config-style:not([disabled]):hover {
   cursor: pointer;
   color: ${({ theme }) => theme.styles.button.config.colorHover}; 
   background: ${({ theme }) => theme.styles.button.config.backgroundHover};

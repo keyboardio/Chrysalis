@@ -404,7 +404,7 @@ svg text{
 }
 .btn-primary.button-config,
 .button-config {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: -0.03em;
   padding: 8px 16px;
@@ -802,7 +802,7 @@ svg text{
     padding: 0;
     .buttonsGrid {
       display: grid;
-      grid-template-columns: repeat(4, 125px);
+      grid-template-columns: repeat(4, 116px);
       grid-template-rows: repeat(2, 1fr);
       grid-gap: 4px;
       padding: 4px;
@@ -811,6 +811,7 @@ svg text{
       .button-config {
         width: 100%;
         margin: 0;
+        padding: 8px 2px;
       }
     }
   }

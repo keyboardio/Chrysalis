@@ -52,6 +52,9 @@ h4 {
 .groupButtons {
   padding: 0; 
 }
+.cardButtons .groupButtons .button-config {
+  padding: 8px 2px;
+}
 .cardButtonsModifier .groupButtons{
   background-color: transparent;
   .modPickerInner {

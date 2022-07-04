@@ -27,7 +27,7 @@ h4 {
     margin-top: 8px;
 }
 .button-config {
-    max-width: 125px;
+    max-width: 116px;
     text-align: center;
 }
 `;

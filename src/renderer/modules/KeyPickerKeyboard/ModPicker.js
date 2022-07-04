@@ -27,7 +27,7 @@ height: inherit;
     width: 56px;
     text-align: center;
     padding: 7px 4px;
-    font-size: 12px;
+    // font-size: 12px;
   }
 }
 

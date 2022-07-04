@@ -143,8 +143,8 @@ width: -webkit-fill-available;
   grid-template-columns: minmax(160px, 250px) minmax(840px, auto);
   grid-gap: 24px;
   .newKeyValue h4 span { display: none; }
-  .keyEnhanceWrapper {
-
+  .modPickerButtonsList .button-config{
+    font-size: 12px;
   }
   .keyBoardPickerWrapper {
     // flex: 0 0 calc(100% - 270px);

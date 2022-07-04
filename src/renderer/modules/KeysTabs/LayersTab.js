@@ -20,6 +20,10 @@ h4 {
 .cardButtons {
   margin-top: 8px;
 }
+.cardButtons .groupButtons .button-config {
+  padding: 8px 2px;
+  width: 40px;
+}
 .tabContentWrapper {
   width: 100%;
 }

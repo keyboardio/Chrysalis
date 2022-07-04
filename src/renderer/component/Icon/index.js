@@ -47,18 +47,28 @@ import IconKeyboard2Stroke from "./IconKeyboard2Stroke";
 import IconKeysLight from "./IconKeysLight";
 import IconKeysUnderglow from "./IconKeysUnderglow";
 import IconLEDNextEffect from "./IconLEDNextEffect";
+import IconLEDNextEffectSm from "./IconLEDNextEffectSm";
 import IconLEDPreviousEffect from "./IconLEDPreviousEffect";
+import IconLEDPreviousEffectSm from "./IconLEDPreviousEffectSm";
 import IconLEDSwitchLeft from "./IconLEDSwitchLeft";
 import IconLetterColor from "./IconLetterColor";
 import IconMemory2Stroke from "./IconMemory2Stroke";
 import IconMediaForward from "./IconMediaForward";
+import IconMediaForwardSm from "./IconMediaForwardSm";
 import IconMediaPlayPause from "./IconMediaPlayPause";
+import IconMediaPlayPauseSm from "./IconMediaPlayPauseSm";
 import IconMediaRewind from "./IconMediaRewind";
+import IconMediaRewindSm from "./IconMediaRewindSm";
 import IconMediaShuffle from "./IconMediaShuffle";
+import IconMediaShuffleSm from "./IconMediaShuffleSm";
 import IconMediaSoundLess from "./IconMediaSoundLess";
+import IconMediaSoundLessSm from "./IconMediaSoundLessSm";
 import IconMediaSoundMore from "./IconMediaSoundMore";
+import IconMediaSoundMoreSm from "./IconMediaSoundMoresm";
 import IconMediaSoundMute from "./IconMediaSoundMute";
+import IconMediaSoundMuteSm from "./IconMediaSoundMuteSm";
 import IconMediaStop from "./IconMediaStop";
+import IconMediaStopSm from "./IconMediaStopSm";
 import IconNeuronManager from "./IconNeuronManager";
 import IconNoKey from "./IconNoKey";
 import IconNoSignal from "./IconNoSignal";
@@ -104,14 +114,20 @@ import IconSleepSm from "./IconSleepSm";
 import IconThunder from "./IconThunder";
 import IconThunderSm from "./IconThunderSm";
 import IconToolsCalculator from "./IconToolsCalculator";
+import IconToolsCalculatorSm from "./IconToolsCalculatorSm";
 import IconToolsCamera from "./IconToolsCamera";
+import IconToolsCameraSm from "./IconToolsCameraSm";
 import IconToolsEject from "./IconToolsEject";
+import IconToolsEjectSm from "./IconToolsEjectSm";
 import IconToolsBrightnessLess from "./IconToolsBrightnessLess";
+import IconToolsBrightnessLessSm from "./IconToolsBrightnessLessSm";
 import IconToolsBrightnessMore from "./IconToolsBrightnessMore";
+import IconToolsBrightnessMoreSm from "./IconToolsBrightnessMoreSm";
 import IconThreeDots from "./IconThreeDots";
 import IconSettings from "./IconSettings";
 import IconUndoRestart from "./IconUndoRestart";
 import IconWrench from "./IconWrench";
+import IconWrenchSm from "./IconWrenchSm";
 
 export {
   IconAddNew,
@@ -148,16 +164,26 @@ export {
   IconKeysUnderglow,
   IconLEDSwitchLeft,
   IconLEDNextEffect,
+  IconLEDNextEffectSm,
   IconLEDPreviousEffect,
+  IconLEDPreviousEffectSm,
   IconLetterColor,
   IconMediaForward,
+  IconMediaForwardSm,
   IconMediaPlayPause,
+  IconMediaPlayPauseSm,
   IconMediaRewind,
+  IconMediaRewindSm,
   IconMediaShuffle,
+  IconMediaShuffleSm,
   IconMediaSoundLess,
+  IconMediaSoundLessSm,
   IconMediaSoundMore,
+  IconMediaSoundMoreSm,
   IconMediaSoundMute,
+  IconMediaSoundMuteSm,
   IconMediaStop,
+  IconMediaStopSm,
   IconMemory2Stroke,
   IconNeuronManager,
   IconNoKey,
@@ -204,12 +230,18 @@ export {
   IconThunder,
   IconThunderSm,
   IconToolsCalculator,
+  IconToolsCalculatorSm,
   IconToolsCamera,
+  IconToolsCameraSm,
   IconToolsEject,
+  IconToolsEjectSm,
   IconToolsBrightnessLess,
+  IconToolsBrightnessLessSm,
   IconToolsBrightnessMore,
+  IconToolsBrightnessMoreSm,
   IconThreeDots,
   IconSettings,
   IconUndoRestart,
-  IconWrench
+  IconWrench,
+  IconWrenchSm
 };

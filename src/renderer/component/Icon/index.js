@@ -63,7 +63,9 @@ import IconNeuronManager from "./IconNeuronManager";
 import IconNoKey from "./IconNoKey";
 import IconNoSignal from "./IconNoSignal";
 import IconNote from "./IconNote";
+import IconNoteSm from "./IconNoteSm";
 import IconOneShot from "./IconOneShot";
+import IconOneShotSm from "./IconOneShotSm";
 import IconPauseXl from "./IconPauseXl";
 import IconPlus from "./IconPlus";
 import IconPlusXs from "./IconPlusXs";
@@ -80,8 +82,10 @@ import IconFlashlight from "./IconFLashlight";
 import IconFloppyDisk from "./IconFloppyDisk";
 import IconTypo from "./IconTypo";
 import IconMouse from "./IconMouse";
+import IconMouseSm from "./IconMouseSm";
 import IconMoon from "./IconMoon";
 import IconMoreVertical from "./IconMoreVertical";
+import IconNullSm from "./IconNullSm";
 import IconSun from "./IconSun";
 import IconScreen from "./IconScreen";
 import IconStopWatch from "./IconStopWatch";
@@ -89,11 +93,16 @@ import IconStopWatchSm from "./IconStopWatchSm";
 import IconStopWatchXs from "./IconStopWatchXs";
 import IconStopWatchCrossed from "./IconStopWatchCrossed";
 import IconLayers from "./IconLayers";
+import IconLayersSm from "./IconLayersSm";
 import IconRecord from "./IconRecord";
 import IconRobot from "./IconRobot";
+import IconRobotSm from "./IconRobotSm";
 import IconShutdown from "./IconShutdown";
+import IconShutdownSm from "./IconShutdownSm";
 import IconSleep from "./IconSleep";
+import IconSleepSm from "./IconSleepSm";
 import IconThunder from "./IconThunder";
+import IconThunderSm from "./IconThunderSm";
 import IconToolsCalculator from "./IconToolsCalculator";
 import IconToolsCamera from "./IconToolsCamera";
 import IconToolsEject from "./IconToolsEject";
@@ -154,7 +163,9 @@ export {
   IconNoKey,
   IconNoSignal,
   IconNote,
+  IconNoteSm,
   IconOneShot,
+  IconOneShotSm,
   IconPauseXl,
   IconPlus,
   IconPlusXs,
@@ -171,8 +182,10 @@ export {
   IconFloppyDisk,
   IconTypo,
   IconMouse,
+  IconMouseSm,
   IconMoon,
   IconMoreVertical,
+  IconNullSm,
   IconSun,
   IconScreen,
   IconStopWatch,
@@ -180,11 +193,16 @@ export {
   IconStopWatchXs,
   IconStopWatchCrossed,
   IconLayers,
+  IconLayersSm,
   IconRecord,
   IconRobot,
+  IconRobotSm,
   IconShutdown,
+  IconShutdownSm,
   IconSleep,
+  IconSleepSm,
   IconThunder,
+  IconThunderSm,
   IconToolsCalculator,
   IconToolsCamera,
   IconToolsEject,

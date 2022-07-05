@@ -280,14 +280,6 @@ margin: auto;
   stroke-opacity: 0;
   stroke-linecap: round;
 }
-@keyframes pulse-black {
-  from {
-    stroke-opacity: 0;
-  }
-  to {
-    stroke-opacity: 0.8;
-  }
-}
 // @keyframes pulse-black {
 //   from {
 //     stroke-opacity: 0;

@@ -511,8 +511,8 @@ class KeyPickerReduced extends Component {
           iconx={key.iconx}
           icony={key.icony}
           iconsize={key.iconsize}
-          // disabled={key.mod == disableMods || key.move == disableMove || disableAll}
-          disabled={false}
+          disabled={key.mod == disableMods || key.move == disableMove || disableAll}
+          // disabled={false}
           idArray={key.idArray}
           keyCode={code}
         />

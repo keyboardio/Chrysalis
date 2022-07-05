@@ -100,7 +100,7 @@ class KeysTab extends Component {
   }
 
   render() {
-    const { keyCode, code, isStandardView } = this.props;
+    const { action, actions, keyCode, code, isStandardView, actTab } = this.props;
 
     return (
       <Styles className={`${isStandardView ? "standardViewTab" : ""} tabsKey`}>
@@ -118,13 +118,17 @@ class KeysTab extends Component {
             <Title text={i18n.editor.standardView.keys.keys} headingLevel={4} />
           )}
           <KeyPickerReduced
+            actions={actions}
+            action={action}
             onKeySelect={this.props.onKeyPress}
             code={isStandardView ? code : { base: 4, modified: 0 }}
             showSelected={isStandardView}
             keyCode={keyCode}
-            disableMove={false}
-            disableMods={false}
-            actTab={"super"}
+            // disableMove={false}
+            // disableMods={false}
+            disableMods={[0, 3].includes(action) && actTab == "super"}
+            disableMove={![0, 3].includes(action) && actTab == "super"}
+            actTab={actTab}
             superName={"superName"}
             selectedlanguage={"english"}
             kbtype={"iso"}
@@ -148,7 +152,7 @@ class KeysTab extends Component {
                 <DualFunctionPicker
                   keyCode={code}
                   onKeySelect={this.props.onKeyPress}
-                  activeTab="editor"
+                  activeTab={actTab}
                   isStandardView={isStandardView}
                 />
               </div>

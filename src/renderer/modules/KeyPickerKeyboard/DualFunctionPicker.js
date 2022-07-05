@@ -199,7 +199,7 @@ class DualFunctionPicker extends Component {
                   buttonText={item.nameStd}
                   onClick={e => onKeySelect(parseInt(item.keynum) + keyCode.base)}
                   selected={keyCode.modified > 0 && item.keynum == keyCode.modified ? true : false}
-                  disabled={disabled}
+                  disabled={disabled || activeTab == "super"}
                 />
               );
             })}
@@ -216,7 +216,7 @@ class DualFunctionPicker extends Component {
                   buttonText={item.nameStd}
                   onClick={e => onKeySelect(parseInt(item.keynum) + keyCode.base)}
                   selected={keyCode.modified > 0 && item.keynum == keyCode.modified ? true : false}
-                  disabled={disabled}
+                  disabled={disabled || activeTab == "super"}
                 />
               );
             })}

@@ -263,7 +263,15 @@ export default class StandardView extends React.Component {
                 <div className="contentBody">
                   <Tab.Content>
                     <Tab.Pane eventKey="tabKeys">
-                      <KeysTab keyCode={keyCode} code={code} onKeyPress={onKeySelect} isStandardView={isStandardView} />
+                      <KeysTab
+                        keyCode={keyCode}
+                        code={code}
+                        onKeyPress={onKeySelect}
+                        isStandardView={isStandardView}
+                        action={action}
+                        actions={actions}
+                        actTab={actTab}
+                      />
                     </Tab.Pane>
                     <Tab.Pane eventKey="tabNoKeys">
                       <NoKeyTransparentTab keyCode={keyCode} onKeySelect={onKeySelect} />

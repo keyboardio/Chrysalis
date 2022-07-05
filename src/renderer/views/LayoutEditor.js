@@ -51,11 +51,11 @@ const Store = window.require("electron-store");
 const store = new Store();
 
 const Styles = Styled.div`
-max-width: 1900px;
-// min-width: 1120px;
-margin: auto;
+&.layoutEditor {
+  min=height: 100vh;
+}
 .keyboard-editor {
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-flow: column;
   .title-row {
@@ -95,53 +95,38 @@ margin: auto;
     margin-left: 4px;
   }
 }
-.center-self {
-  place-self: flex-start;
-}
-.save-row {
-  position: fixed;
-  top: 128px;
-  right: 10px;
-  margin-left: auto;
-  width: fit-content;
-}
 .full-height {
   height: 100%;
-  padding-top: 12px;
 }
 .layer-col {
   display: flex;
   flex-direction: column;
 }
-.big {
-  font-size: 3em;
-  margin-top: 0;
-  padding-top: 0;
-}
-.button-large {
-  font-size: 2rem;
-  text-align: left;
-}
-
-
-
 
 .LayerHolder {
   display: flex;
   flex: 0 0 100%;
   margin: 0 auto;
   min-width: 680px;
-  max-width: 1000px;
+  max-width: 1280px;
 }
 .raiseKeyboard {
   overflow: visible;
   margin: 0 auto;
-  margin: -46px auto -32px auto;
   max-width: 100%;
-      // max-height: 65vh;
-  * {
-    transform-box: fill-box;
-  }
+  height: auto;
+  // max-height: 65vh;
+  // * {
+  //   transform-box: fill-box;
+  // }
+}
+.standarView .raiseKeyboard {
+  margin: 0 auto;
+  max-height: calc(100vh - 240px);
+}
+.singleView.keyboard .raiseKeyboard {
+  margin: 0 auto;
+  max-height: 45vh;
 }
 .NeuronLine {
   stroke: ${({ theme }) => theme.styles.neuronStatus.lineStrokeColor};
@@ -1803,10 +1788,10 @@ class LayoutEditor extends React.Component {
     }
 
     return (
-      <Styles>
+      <Styles className="layoutEditor">
         <Container
           fluid
-          className={`keyboard-editor layoutEditor ${this.state.modeselect} ${
+          className={`keyboard-editor ${this.state.modeselect} ${isStandardView ? "standarView" : "singleView"} ${
             typeof this.state.selectedPaletteColor == "number" ? "colorSelected" : ""
           }`}
         >

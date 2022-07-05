@@ -374,6 +374,7 @@ const Dark = {
       border: "2px solid #7879F1",
       borderOldValue: Tokens.colors.gray500,
       color: Tokens.colors.gray500,
+      colorSuperkeyAction: Tokens.colors.gray50,
       boxShadow:
         "24px 0px 32px -12px rgba(93, 95, 239, 0.25), 0px 4px 12px rgba(0, 0, 0, 0.25), 24px 24px 52px -10px rgba(93, 95, 239, 0.25)",
       labelModifierBackground: "rgba(107, 119, 148, 0.5)",

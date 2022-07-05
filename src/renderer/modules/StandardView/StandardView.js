@@ -214,6 +214,7 @@ export default class StandardView extends React.Component {
       onKeySelect,
       superkeys,
       actions,
+      action,
       actTab,
       isStandardView
     } = this.props;
@@ -239,6 +240,7 @@ export default class StandardView extends React.Component {
                   oldValue={oldKey}
                   newValue={selKey}
                   isStandardView={isStandardView}
+                  superkeyAction={`${actTab == "super" ? keyIndex : 5}`}
                 />
                 <Nav className="flex-column tabsWrapper">
                   <CustomTab eventKey="tabKeys" text="Keys" icon={<IconKeyboard />} />

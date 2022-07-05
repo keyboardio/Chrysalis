@@ -17,6 +17,7 @@
 
 import React from "react";
 import Styled from "styled-components";
+import i18n from "../../i18n";
 import Title from "../../component/Title";
 
 import ListModifiers from "../../component/ListModifiers/ListModifiers";
@@ -76,6 +77,11 @@ const Style = Styled.div`
       margin-bottom: 24px;
       h4 {
           color: ${({ theme }) => theme.styles.keyVisualizer.color};
+          strong {
+            text-transform: uppercase;
+            color: ${({ theme }) => theme.styles.keyVisualizer.colorSuperkeyAction};
+            font-weight: 600;
+          } 
       }
       .keySelectedBox {
           padding: 8px 16px;   
@@ -142,14 +148,34 @@ class KeyVisualizer extends React.Component {
   }
 
   render() {
-    const { keyCode, oldKeyCode, newValue, oldValue, isStandardView } = this.props;
+    const { keyCode, oldKeyCode, newValue, oldValue, isStandardView, superkeyAction } = this.props;
+    const rows = [
+      {
+        title: `<strong>${i18n.editor.superkeys.actions.tapLabel}:</strong> Selected value`
+      },
+      {
+        title: `<strong>${i18n.editor.superkeys.actions.holdLabel}:</strong> Selected value`
+      },
+      {
+        title: `<strong>${i18n.editor.superkeys.actions.tapAndHoldLabel}:</strong> Selected value`
+      },
+      {
+        title: `<strong>${i18n.editor.superkeys.actions.doubleTapLabel}:</strong> Selected value`
+      },
+      {
+        title: `<strong>${i18n.editor.superkeys.actions.doubleTapAndHoldLabel}:</strong> Selected value`
+      },
+      {
+        title: `Selected value`
+      }
+    ];
 
     return (
       <Style className="KeyVisualizer">
         <div className={`KeyVisualizerInner ${newValue != oldValue && isStandardView ? "showConnection" : ""}`}>
           {oldValue ? (
             <div className="oldKeyValue">
-              <Title text="Selected value" headingLevel={4} />
+              <Title text={`${rows ? rows[superkeyAction].title : "Selected value"}`} headingLevel={4} />
               <div className="keySelectedBox">
                 <div className="keySelectedValue">{oldValue}</div>
                 <ListModifiers keyCode={oldKeyCode.base ? oldKeyCode.base + oldKeyCode.modified : oldKeyCode} size="sm" />

@@ -360,7 +360,8 @@ const Light = {
       background: "linear-gradient(90deg, rgba(196, 201, 213, 0.2) 26.28%, rgba(63, 66, 90, 0.2) 124.24%)",
       border: "2px solid #A29BFE",
       borderOldValue: Tokens.colors.gray500,
-      color: Tokens.colors.gray500,
+      color: Tokens.colors.gray300,
+      colorSuperkeyAction: Tokens.colors.gray500,
       boxShadow:
         "24px 0px 32px -12px rgba(93, 95, 239, 0.25), 0px 4px 12px rgba(0, 0, 0, 0.25), 24px 24px 52px -10px rgba(93, 95, 239, 0.25)",
       labelModifierBackground: "rgba(107, 119, 148, 0.5)",

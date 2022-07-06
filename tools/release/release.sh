@@ -143,10 +143,10 @@ verify_version
 prompt_for_screenshot
 prompt_for_package_version usb
 prompt_for_package_version serialport
-update_shipped_firmware
-verify_firmware_version
 update_version
 update_release_date
+update_shipped_firmware
+verify_firmware_version
 commit_preparations
 push_changes
 create_and_push_tag

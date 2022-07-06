@@ -28,6 +28,8 @@ import Keymap, { OnlyCustom } from "./focus/keymap";
 
 global.chrysalis_focus_instance = null;
 
+const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+
 class FocusParser extends stream.Transform {
   constructor({ interval, ...transformOptions }) {
     super(transformOptions);
@@ -109,8 +111,6 @@ class Focus {
   }
 
   async waitForSerialDevice(focusDeviceDescriptor, usbInfo) {
-    const delay = (ms) => new Promise((res) => setTimeout(res, ms));
-
     for (let attempt = 0; attempt < 10; attempt++) {
       const portList = await SerialPort.list();
       logger("focus").debug("serial port list obtained", {
@@ -454,6 +454,10 @@ class Focus {
       request = request + " " + args.join(" ");
     }
     request += "\n";
+
+    // TODO(anyone): This is a temporary measure until #985 gets fixed.
+    await delay(250);
+
     return new Promise((resolve, reject) => {
       this._parser.startTimer();
       this.callbacks.push([resolve, reject]);
